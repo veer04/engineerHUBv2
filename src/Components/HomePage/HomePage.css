@@ -1,0 +1,57 @@
+
+.home{
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+.left{
+    margin-top: 10%;
+    justify-content: left;
+    text-align: left;
+    align-items: left;
+}
+.left h2{
+    font-family:poppins;
+    justify-content: center;
+    text-align: center;
+}
+.left h1{
+    font-family: poppins;
+    color: #FFBA5F;
+    text-align: left;
+    font-weight: bold;
+}
+.signup{
+    background-color: white;
+    position: absolute;
+    margin-top: 1.2%;
+    justify-content: left;
+    justify-items: left;
+  border: none;
+  box-shadow: 3px 3px #bcc0c7;
+    color: #05555E;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+.line{
+    background-color: #05555E;
+    height: 9rem;
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+    color: white;
+
+}
+.line h2{
+    padding:2%;
+}
+.arrow{
+    background-color: #05555E;
+    color: white;
+    font-weight: bold;
+    border: none;
+}
+.right{
+    margin: 6%;
+    width: auto;
+}
