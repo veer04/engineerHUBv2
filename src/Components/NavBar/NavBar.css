@@ -1,0 +1,25 @@
+.hov:hover{
+    /* text-decoration: underline;
+    text-decoration-color:#e97705; */
+    background-color: #FFBA5F;
+    color: black;
+}
+.hov{
+    color: #05555E;
+}
+.navbar{
+    
+    border-radius: 0.5rem;
+   
+}
+.logo{
+    margin-right: 18rem;
+}
+.gap{
+    margin-right: 2rem;
+}
+.navbar{
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16);
+}
+
+
