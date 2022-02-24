@@ -10,7 +10,7 @@ export default function NavBar() {
       <div className='left'>
           <h2>The Place Where We Connect</h2>
           <h1>Engineers</h1>
-          <button className='signup'>SIGN UP</button>
+          <button className='signup'>SIGN IN</button>
       </div>
       <div className='right'>
       <ReactPlayer className='video' url='https://www.youtube.com/watch?v=Xi8Fabcb_MA' />

@@ -3,6 +3,7 @@
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
+    margin-bottom: 0;
 }
 .left{
     margin-top: 10%;
@@ -11,15 +12,17 @@
     align-items: left;
 }
 .left h2{
-    font-family:poppins;
+    font-family: 'Poppins', sans-serif;
     justify-content: center;
     text-align: center;
+    color: black;
 }
 .left h1{
-    font-family: poppins;
+    font-family: 'Poppins', sans-serif;
     color: #FFBA5F;
     text-align: left;
     font-weight: bold;
+    font-size: 3.5rem;
 }
 .signup{
     background-color: white;
@@ -40,18 +43,28 @@
     justify-content: center;
     text-align: center;
     color: white;
+    margin-top: top;
 
 }
+
+
 .line h2{
     padding:2%;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
 }
 .arrow{
     background-color: #05555E;
     color: white;
     font-weight: bold;
     border: none;
+
 }
 .right{
     margin: 6%;
-    width: auto;
+    border-radius: 3%;
+    overflow: hidden;
+    width: fit-content;
+    margin-bottom: 0;
+    padding-bottom: 0;
 }
