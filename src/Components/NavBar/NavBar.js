@@ -4,8 +4,8 @@ import img from '../NavBar/logo.png'
 
 export default function NavBar() {
   return (
-    <nav className="navbar navbar-expand-lg  navbar-light bg-light">
-    <div className=" container-fluid">
+    <nav className="navd navbar-expand-lg  navbar-light">
+      <div className="container-fluid">
       <div className="logo">
       <img src={img} alt="" />
       </div>
@@ -15,34 +15,35 @@ export default function NavBar() {
       <div className="collapse navbar-collapse" id="navbarSupportedContent">
         <ul className="navbar-nav me-auto mb-2 mb-lg-0">
           <li className="hov gap nav-item">
-            <a className="hov  nav-link active" aria-current="page" href="#">About</a>
+            <a className="hov" aria-current="page" href="#">About</a>
           </li>
           <li className="hov gap nav-item">
-            <a className=" nav-link active" aria-current="page" href="#">Services</a>
+            <a className="hov" aria-current="page" href="#">Services</a>
           </li>
           <li className="hov gap nav-item">
-            <a className="nav-link active" aria-current="page" href="#">Campus Ambassader</a>
+            <a className="hov" aria-current="page" href="#">Campus Ambassader</a>
           </li>
           <li className="hov gap nav-item">
-            <a className="nav-link active" aria-current="page" href="#">Material</a>
-          </li>
-          <li className="gap nav-item">
-            <a className=" hov nav-link active" aria-current="page" href="#">Internship</a>
+            <a className="hov" aria-current="page" href="#">Material</a>
           </li>
           <li className="hov gap nav-item">
-            <a className="nav-link active" aria-current="page" href="#">Hiring</a>
+            <a className="hov" aria-current="page" href="#">Internships</a>
+          </li>
+          
+          <li className="hov gap nav-item">
+            <a className="hov" aria-current="page" href="#">Hiring</a>
           </li>
           <li className="hov gap nav-item">
-            <a className=" nav-link active" aria-current="page" href="#">Mentors</a>
+            <a className="hov" aria-current="page" href="#">Mentors</a>
           </li>
           <li className="hov gap nav-item">
-            <a className=" hov nav-link active" aria-current="page" href="#">Industrial Personalities</a>
+            <a className=" hov" aria-current="page" href="#">Industrial Personalities</a>
           </li>
          
           
         </ul>
       </div>
-    </div>
+      </div>
   </nav>
   )
 }
