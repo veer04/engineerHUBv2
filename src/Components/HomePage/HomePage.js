@@ -17,7 +17,7 @@ export default function NavBar() {
       </div>
       </div>
       <div className='line'>
-      <h2>"A VERSATILE COMMUNITY FOR VERSATILE PEOPLE"</h2>
+      <h2>" A VERSATILE COMMUNITY FOR VERSATILE PEOPLE "</h2>
       <button className='arrow'>v</button>
       </div>
     </div>

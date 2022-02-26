@@ -16,6 +16,7 @@
     justify-content: center;
     text-align: center;
     color: black;
+    font-weight: 300;
 }
 .left h1{
     font-family: 'Poppins', sans-serif;
@@ -38,7 +39,7 @@
 }
 .line{
     background-color: #05555E;
-    height: 9rem;
+    height: 13rem;
     width: 100%;
     justify-content: center;
     text-align: center;
@@ -49,9 +50,11 @@
 
 
 .line h2{
-    padding:2%;
+    padding:1.5%;
+    padding-top: 6%;
     font-family: 'Montserrat', sans-serif;
     font-weight: 600;
+    font-size: 1.5rem;
 }
 .arrow{
     background-color: #05555E;
