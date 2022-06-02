@@ -5,7 +5,7 @@ import "./Internship.css";
 
 const Internship = () => {
   return (
-    <div className="container">
+    <div className="contained-xl">
       <div className="heading">Internship & Jobs</div>
 
       <form className="searchBar">

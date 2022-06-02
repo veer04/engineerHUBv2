@@ -3,10 +3,10 @@
   font-family: "Poppins", sans-serif;
 }
 
-.container {
+.contained-xl {
   background-color: #168584;
-  margin: auto;
-  border-radius: 50px;
+  margin: 20px;
+  border-radius: 20px;
   padding-bottom: 80px;
 }
 
