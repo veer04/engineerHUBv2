@@ -1,0 +1,63 @@
+.container-fluid {
+  display: flex;
+  flex-direction: column;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+.container-fluid .magzine-container {
+  background-color: #05555e;
+  width: 100%;
+  margin: 5px;
+  border-radius: 8px;
+  padding: 19px;
+}
+.magzine-container .magzine-header h2 {
+  color: #ffba5f;
+  font-size: 64px;
+}
+.magzine-container .magzine-header p {
+  color: white;
+  font-size: 20px;
+}
+.magzine-header {
+  padding: 10px;
+}
+.magzine-card-container .card {
+  display: flex;
+  flex-direction: row;
+  border-radius: 32px;
+  margin: 20px 0px;
+}
+.magzine-card-container .card .card-title {
+  font-size: 32px;
+  font-weight: 700;
+}
+.magzine-card-container .card .card-body {
+  font-size: 22px;
+  font-weight: 500;
+}
+.magzine-card-container .card .card-img {
+  padding: 20px;
+  border-radius: 8px;
+}
+.share-icon {
+  position: "relative";
+  float: right;
+  margin-right: 30px;
+  font-weight: 200;
+  color: black;
+}
+
+.magzine-card-container .card .card-body .btn-container .btn {
+  padding: 10px 20px;
+  margin: 20px;
+  color: white;
+}
+@media only screen and (max-width: 768px) {
+  .magzine-card-container .card {
+    display: flex;
+    flex-direction: column;
+  }
+  .magzine-container .magzine-header h2 {
+    font-size: 48px;
+  }
+}
