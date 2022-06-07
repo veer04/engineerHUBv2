@@ -1,0 +1,52 @@
+.Footer{
+    background-color: rgba(5, 85, 94, 1);
+    /* box-shadow: 4px rgba(0, 0, 0, 0.25); */
+    width: 100vw;
+    height: 55vh;
+    margin-top: 10%;
+    /* padding-top: 2%; */
+}
+.footerRow{
+    padding: 3%;
+}
+.textfooter{
+    color: white;
+    font-size: 1.9rem;
+    line-height: 3.5rem;
+    position :relative;
+    font-weight: 500;
+
+}
+
+.footertextaboutus{
+font-weight: 400;
+color: 
+rgba(255, 255, 255, 1);
+
+}
+.footerinnertext{
+    font-size: 0.93rem;
+    color: rgba(255, 255, 255, 1);
+}
+.footerBB{
+    border: none;
+    background-color: #1C85E8;
+    color:rgba(255, 255, 255, 1) ;
+    width:85px;
+    border-radius: 6px;
+    height: 30px;
+    font-size: 0.9rem;
+    margin: 3%;
+}
+.copyright{
+    color:rgba(255, 255, 255, 1) ; 
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+}
+.footericon{
+    color: #fff;
+    margin: 1.3%;
+    margin-bottom: 10%;
+    margin-top: 10%;
+}

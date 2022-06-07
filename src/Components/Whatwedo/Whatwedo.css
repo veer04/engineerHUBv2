@@ -1,0 +1,86 @@
+.carouselcomp{
+    background-color:rgba(22, 133, 132, 1);
+    
+}
+.textcontent{
+    background-color: rgba(22, 133, 132, 1);
+}
+.textcontainer{
+    background-color: rgba(22, 133, 132, 1);
+    border-radius: 15px;
+    border: solid 2px white;
+    /* border-bottom:solid 2px white ; */
+    /* border-left:solid 2px white ;
+    border-right: solid 2px white; */
+}
+.content{
+    background-color: rgba(22, 133, 132, 1);
+    padding: 10px;
+    border-radius: 25px;
+}
+.text1{
+  
+    color: rgba(225, 215, 28, 1);
+    padding: 3%;
+}
+.text2{
+    color: rgba(255, 255, 255, 1);
+    padding: 2%;
+}
+.Whatsapp{
+    background-color: rgba(8, 210, 4, 1);
+
+    color: rgba(255, 255, 255, 1);
+    width: 17vw;
+    height: 9vh;
+    border-radius: 59px;
+    border: none;
+    margin-left: 5%;
+}
+.Telegram{
+background-color: rgba(0, 136, 204, 1);
+
+color:rgba(255, 255, 255, 1);
+width: 17vw;
+height: 9vh;
+border-radius: 59px;
+border: none;
+margin-left: 5%;
+}
+.Linkedin{
+background-color:  rgba(0, 119, 181, 1);
+color:rgba(255, 255, 255, 1);
+width: 17vw;
+height: 9vh;
+border-radius: 59px;
+border: none;
+margin-left: 5%;
+}
+.Discord{
+    background-color:rgba(88, 101, 242, 1);
+    color:rgba(255, 255, 255, 1);
+    width: 17vw;
+    height: 9vh;
+    
+    border-radius: 59px;
+    border: none;
+    margin-left: 7%;
+
+}
+.phone-image{
+    background-image: url(Vector\ \(1\).svg);
+    background-size: cover;
+}
+
+.textt{
+    padding-left: 7%;
+    justify-items: center;
+    justify-content: center;
+}
+.carousel-content{
+ padding-bottom: 15%; 
+}
+.contactButtons{
+    padding-top: 7%;
+    padding-bottom: 5%;
+}

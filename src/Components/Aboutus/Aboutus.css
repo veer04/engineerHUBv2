@@ -1,0 +1,91 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+.container{
+    font-family: 'Poppins', sans-serif;
+}
+.allcontent{
+    /* background-color:rgba(246, 249, 254, 1); */
+    background-image: url('aboutus.svg');
+    /* background-image: url('wave21.svg'); */
+}
+.aboutustxt{
+    font-family: Poppins;
+    font-size: 1.5rem;
+    font-weight: 600;
+    line-height: 2.4rem;
+    letter-spacing: 0em;
+    text-align: left;
+    color: rgba(5, 85, 94, 1);
+
+    
+
+  
+}
+.aboutus{
+
+padding-top: 8%;
+
+font-family: 'Poppins';
+font-style: normal;
+font-weight: 500;
+font-size: 61px;
+line-height: 94px;
+}
+.aboutusbullets1
+{
+    margin-top: 10%;
+    color: rgba(5, 85, 94, 1);
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 1.3rem;
+    line-height: 2.3rem;
+    letter-spacing: 0em;
+    text-align: left;
+    
+    padding-left: 5%;
+}
+.aboutusbullets2{
+ 
+    padding-left: 5%;
+    color: rgba(5, 85, 94, 1);
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 1.3rem;
+    line-height: 2.3rem;
+}
+.aboutusbullets3{
+    
+    color: rgba(5, 85, 94, 1);
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 1.3rem;
+    line-height: 2.3rem;
+    padding-left: 5%;
+}
+
+
+ul {
+    list-style-image: url('Ellipse-7.svg');
+  }
+  
+  ul li::before {
+    font-weight: bold; 
+    display: inline-block; 
+    width:1em; 
+    margin-left: -1em; 
+  }
+  .container{
+      width: 100vw;
+  }
+  .group{
+      /* background-image:url('Group.svg') ; */
+      background-size: cover;
+  }
+  .Groupimg{
+      position: relative;
+      left: 20%;
+  }
