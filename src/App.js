@@ -1,15 +1,20 @@
- import './App.css';
-import NavBar from './Components/NavBar/NavBar';
-import HomePage from './Components/HomePage/HomePage';
+import './App.css';
+
+import Full from "./Components/freecourses-pages/Full"
+
 
 
 function App() {
   return (
     <div className="App">
-     <NavBar/>
-     <HomePage/>
+     <Full />
+    
     </div>
   );
 }
 
 export default App;
+
+ 
+ 
+ 
