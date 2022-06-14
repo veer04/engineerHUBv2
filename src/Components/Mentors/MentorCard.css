@@ -1,0 +1,97 @@
+* {
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+.Ment-container {
+  background-color: #fff;
+  height: max-content;
+  width: 320px;
+  margin: 0 auto;
+  border-radius: 10px;
+  border: 2px solid black;
+}
+.Ment-image {
+  margin: 15px 90px 0px 90px;
+}
+.Ment-image img {
+  width: 100%;
+  max-width: 130px;
+  height: 130px;
+  border-radius: 50%;
+}
+
+.Ment-prof {
+  font-family: "Montserrat", sans-serif !important;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 30px;
+  text-align: center;
+}
+
+.Ment-name {
+  font-size: 26px;
+  font-weight: 500;
+  line-height: 26px;
+  text-align: center;
+}
+
+.Ment-contact {
+  margin: 4px 0;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 32px;
+  text-align: center;
+  letter-spacing: -0.4px;
+}
+
+span {
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 32px;
+  text-align: center;
+}
+
+.Ment-social {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  column-gap: 15px;
+}
+
+.Ment-about {
+  background: linear-gradient(90deg, #002a36 0%, #014051 100%);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 21px;
+  text-align: center;
+  height: 93px;
+  width: 280px;
+  padding: 14px;
+  margin: 16px 12px 17px 20px;
+  border-radius: 13px;
+}
+
+.Ment-button {
+  background: linear-gradient(90deg, #00a9d9 0%, #1e82de 100%);
+  color: white;
+  font-family: "Montserrat", sans-serif !important;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 42px;
+  width: 100%;
+  max-width: 280px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 13px;
+  margin: 16px 22px 17px 20px;
+  cursor: pointer;
+  transition: all 250ms ease-in-out;
+}
+
+.Ment-button:hover {
+  transform: scale(1.04);
+}
