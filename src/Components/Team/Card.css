@@ -1,0 +1,52 @@
+.pp{
+    width: 195px;
+    height: 185px;
+}
+
+.btn{
+    width: 100%;
+    background: linear-gradient(90deg, #00A9D9 0%, #1E82DE 100%);
+    border-radius: 13px;
+    height: 70px;
+}
+
+.txtc{
+    background: linear-gradient(90deg, #002A36 0%, #014051 100%);
+    width: 370px;
+height: 93px;
+left: 154px;
+top: 777px;
+border-radius: 13px;
+font-family: 'Poppins';
+font-style: normal;
+/* font-weight: 400; */
+font-size: 14px;
+line-height: 131.5%;
+padding: 15px;
+/* or 21px */
+
+text-align: center;
+color: white;
+}
+
+.ico{
+    width: 103px;
+height: 93px;
+left: 228px;
+top: 674px;
+}
+
+.ico1{
+    width: 99px;
+    height: 57px;
+    left: 941px;
+    top: 692px;
+}
+
+.ico2{
+    width: 64px;
+height: 59.5px;
+left: 1035.5px;
+top: 680px;
+padding: 5px;
+}
