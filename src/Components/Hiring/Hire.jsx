@@ -1,7 +1,7 @@
 import React from "react";
 import "./Hire.css";
 import hiring from "./hiring.jpeg";
-import ShareIcon from '@mui/icons-material/Share';
+import ShareIcon from '@mui/icons-material/Share'; 
 
 export default function Hire() {
   return (
