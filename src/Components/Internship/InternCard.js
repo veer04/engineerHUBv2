@@ -1,8 +1,7 @@
 import React from "react";
 // import { Link } from "react-router-dom";
-import { GrView } from "react-icons/gr";
-import { BsShare } from "react-icons/bs"
-
+import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
+import ShareIcon from "@mui/icons-material/Share";
 
 import "./InternCard.css";
 
@@ -12,7 +11,7 @@ const InternCard = ({ company, position, link }) => {
       <div className="Intern-Company">
         <div className="Company-Name">American Express is Hiring</div>
         <div className="Intern-View">
-        <GrView />  1000 
+          <VisibilityOutlinedIcon /> 1000
         </div>
       </div>
       <div className="Intern-Position">
@@ -26,7 +25,7 @@ const InternCard = ({ company, position, link }) => {
           </span>
         </div>
         <div>
-          <BsShare  />
+          <ShareIcon />
         </div>
       </div>
     </div>
