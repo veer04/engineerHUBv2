@@ -1,7 +1,7 @@
 import React from "react";
 import "./Hire.css";
-import {AiOutlineShareAlt} from "react-icons/ai"
 import hiring from "./hiring.jpeg";
+import ShareIcon from '@mui/icons-material/Share';
 
 export default function Hire() {
   return (
@@ -17,7 +17,7 @@ export default function Hire() {
           <h2 className="card-title txt">
             Hiring Mentors for Domains.
             <a href="#">
-              <AiOutlineShareAlt className="share-icon"/>
+              <ShareIcon className="share-icon"/>
             </a>
           </h2>
           <p className="card-text txt2">
