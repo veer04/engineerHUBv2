@@ -11,13 +11,15 @@
 }
 .aboutustxt{
     font-family: Poppins;
-    font-size: 1.5rem;
+    font-size: 1.1rem;
     font-weight: 600;
-    line-height: 2.4rem;
+    line-height: 2.0rem;
     letter-spacing: 0em;
     text-align: left;
     color: rgba(5, 85, 94, 1);
-
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-top: 5%;
     
 
   
@@ -31,40 +33,50 @@ font-style: normal;
 font-weight: 500;
 font-size: 61px;
 line-height: 94px;
+margin-left: 5%;
+margin-right: 5%;
 }
 .aboutusbullets1
 {
-    margin-top: 10%;
+    margin-top: 7%;
     color: rgba(5, 85, 94, 1);
     font-family: 'Poppins';
     font-style: normal;
     font-weight: 600;
-    font-size: 1.3rem;
-    line-height: 2.3rem;
+    font-size: 1.1rem;
+    line-height: 2.0rem;
     letter-spacing: 0em;
     text-align: left;
     
-    padding-left: 5%;
+    margin-right: 5%;
+    
 }
 .aboutusbullets2{
- 
-    padding-left: 5%;
+    margin-top: 7%;
     color: rgba(5, 85, 94, 1);
     font-family: 'Poppins';
     font-style: normal;
     font-weight: 600;
-    font-size: 1.3rem;
-    line-height: 2.3rem;
+    font-size: 1.1rem;
+    line-height: 2.0rem;
+    letter-spacing: 0em;
+    text-align: left;
+    
+    margin-right: 5%;
 }
 .aboutusbullets3{
     
+    margin-top: 7%;
     color: rgba(5, 85, 94, 1);
     font-family: 'Poppins';
     font-style: normal;
     font-weight: 600;
-    font-size: 1.3rem;
-    line-height: 2.3rem;
-    padding-left: 5%;
+    font-size: 1.1rem;
+    line-height: 2.0rem;
+    letter-spacing: 0em;
+    text-align: left;
+    
+    margin-right: 5%;
 }
 
 
@@ -88,4 +100,5 @@ ul {
   .Groupimg{
       position: relative;
       left: 20%;
+      size: 0.7rem;
   }

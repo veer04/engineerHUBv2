@@ -13,8 +13,8 @@ function Whatwedo() {
     
 
 <div className="textcontent">
-  <h1 className='text1'>What We Do ?</h1>
-  <h4 className='text2'> The valuable servies we provide to the students and the community</h4>
+  <h1 className='textwhat'>What We Do ?</h1>
+  <h4 className='textbelow'> The valuable servies we provide to the students and the community</h4>
 </div>
 
 <div className="carouselcomp">

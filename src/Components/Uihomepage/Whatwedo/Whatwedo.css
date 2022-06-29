@@ -22,10 +22,12 @@
   
     color: rgba(225, 215, 28, 1);
     padding: 3%;
+   margin-left: 5%;
 }
 .text2{
     color: rgba(255, 255, 255, 1);
     padding: 2%;
+    margin-left: 10%;
 }
 .Whatsapp{
     background-color: rgba(8, 210, 4, 1);
@@ -83,4 +85,15 @@ margin-left: 5%;
 .contactButtons{
     padding-top: 7%;
     padding-bottom: 5%;
+}
+.textwhat{
+    color: rgba(225, 215, 28, 1);
+    padding: 3%;
+   
+}
+.textbelow
+{
+    color: rgba(255, 255, 255, 1);
+    padding: 2%;
+    margin-left: 9%;
 }
