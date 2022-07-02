@@ -1,31 +1,116 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 
-.home{
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-    margin-bottom: 0;
-}
-.left{
-    margin-top: 10%;
-    justify-content: left;
-    text-align: left;
-    align-items: left;
-}
-.left h2{
+.container{
     font-family: 'Poppins', sans-serif;
+}
+.headerbrandname{
+    font-size: 4rem;
+    font-weight:700 ;
+    color: #05555E;
+    position: relative;
+    left: 10%;
     justify-content: center;
-    text-align: center;
-    color: black;
-    font-weight: 300;
+    align-items: center;
 }
-.left h1{
+.headerbelow{
+    font-weight: 400;
+    position: relative;
+    left: 25%;
+    font-size: 1.3rem;
+    margin-top: -2%;
+}
+.videocard{
+    margin-top: 3%;
+
+}
+
+.headearpart{
+    margin-top: 7%;
+    margin-left: 3%;
+    margin-right: 3%;
+}
+.headercard{
+    margin-top: 5%;
+    background-color: rgba(255, 255, 255, 1);
+    ;
+    box-shadow: 2px 2px 3px 3px rgb(165, 162, 162);
+    margin-left: 10%;
+    width: 20%;
+border-radius: 20px;
+    height: 18%;
+
+}
+.headercardtext{
+    font-size: 4rem;
+    color: rgba(255, 214, 0, 1);
+    ;
+}
+.iconsposition{
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    left: 13%;
+}
+.innerfont{
+    color: rgba(0, 0, 0, 0.975);
+    /* position: relative; */
+    
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    left: 25%;
+}
+
+.Studentsfrom{
+background-color:  rgba(1, 64, 81, 1);
+padding: 2%;
+margin-top: 5%;
+border-radius: 10px;
+width: 95vw;
+margin-left: 2.5%;
+
+;
+}
+.studenttxt{
+    color:rgba(255, 242, 0, 1);
+    font-size: 2rem;
+display: flex;
+
+ align-items: center;
+ justify-content: center;
+}
+.studentfrom{
+    color: white;
     font-family: 'Poppins', sans-serif;
-    color: #FFBA5F;
-    text-align: left;
-    font-weight: bold;
-    font-size: 3.5rem;
+    padding: 2%;
+    font-size:1.7rem ;
+    margin-left: 3%;
+    
 }
-.signup{
+.studentfrom2{
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    padding: 2%;
+    font-size:1.7rem ;
+    margin-left: 3%;
+    
+
+}
+.Studentsfrom2{
+    background-color:  rgba(1, 64, 81, 1);
+    padding: 2%;
+    margin-top: 1%;
+    border-radius: 10px;
+    width: 95vw;
+    margin-left: 2.5%;
+    
+    ;
+    }
+
+
+
+
+/* .signup{
     background-color: white;
     position: absolute;
     margin-top: 1.2%;
@@ -36,8 +121,8 @@
     color: #05555E;
     font-weight: 600;
     font-size: 0.9rem;
-}
-.line{
+} */
+/* .line{
     background-color: #05555E;
     height: 13rem;
     width: 100%;
@@ -46,31 +131,17 @@
     color: white;
     margin-top: top;
 
-}
+} */
 
 
-.line h2{
+/* .line h2{
     padding:1.5%;
     padding-top: 6%;
     font-family: 'Montserrat', sans-serif;
     font-weight: 600;
     font-size: 1.5rem;
-}
-.arrow{
-    background-color: #05555E;
-    color: white;
-    font-weight: bold;
-    border: none;
+} */
 
-}
-.right{
-    margin: 6%;
-    border-radius: 3%;
-    overflow: hidden;
-    width: fit-content;
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
 .Members{
     margin-top:10%;
     

@@ -5,6 +5,7 @@ import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import TelegramIcon from '@mui/icons-material/Telegram';
 import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
+import Phoneimg from '../Whatwedo/Phoneimg.svg';
 function Whatwedo() {
   return (
     <>
@@ -32,7 +33,7 @@ Campus Connectivity
     know about each other and can discuss their things .</h5>
        </div>
        <div className="col-lg-3 phone-image">
-
+       <img src={Phoneimg} alt="" />
        </div>
      </div>
    </div>
@@ -55,7 +56,7 @@ Free Mentorship by IITians & NITians
                     and where to start their learnings..</h5>
        </div>
        <div className="col-lg-3 phone-image">
-
+       <img src={Phoneimg} alt="" />
        </div>
      </div>
    </div>
@@ -78,7 +79,7 @@ Job updates
                           need to search here n there . .</h5>
        </div>
        <div className="col-lg-3 phone-image">
-
+       <img src={Phoneimg} alt="" />
        </div>
      </div>
    </div>
@@ -100,7 +101,7 @@ Live Courses
  mentor and get recording of the session for life time..</h5>
        </div>
        <div className="col-lg-3 phone-image">
-
+       <img src={Phoneimg} alt="" />
        </div>
      </div>
    </div>
@@ -122,7 +123,7 @@ regular basis , which  are suitable and beneficial  for students .
 </h5>
        </div>
        <div className="col-lg-3 phone-image">
-
+<img src={Phoneimg} alt="" />
        </div>
      </div>
    </div>
@@ -137,10 +138,10 @@ regular basis , which  are suitable and beneficial  for students .
 
 <div className="contactButtons">
 
-<button className='Whatsapp'><WhatsAppIcon style={{fontSize: 60}}/> Join Whatsapp</button>
-<button className='Discord'><SportsEsportsIcon style={{fontSize: 60}}/> Join Discord</button>
-<button className='Telegram'><TelegramIcon style={{fontSize: 60}}/>Join Telegram</button>
-<button className='Linkedin'><LinkedInIcon style={{fontSize: 60}}/>Join Linkedin</button>
+<button className='Whatsapp'><WhatsAppIcon style={{fontSize:33 }}/> Join Whatsapp</button>
+<button className='Discord'><SportsEsportsIcon style={{fontSize: 42}}/> Join Discord</button>
+<button className='Telegram'><TelegramIcon style={{fontSize: 36}}/>Join Telegram</button>
+<button className='Linkedin'><LinkedInIcon style={{fontSize: 43}}/>Join Linkedin</button>
 </div>
 
 </div>

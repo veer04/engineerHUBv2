@@ -1,7 +1,7 @@
  import './App.css';
 import NavBar from './Components/NavBar/NavBar';
 import HomePage from './Components/Uihomepage/HomePage/HomePage';
-import MagzineAndHandbook from './Components/magzineandHandbook/magzineAndHandbook';
+// import MagzineAndHandbook from './Components/magzineandHandbook/magzineAndHandbook';
 
 
 function App() {

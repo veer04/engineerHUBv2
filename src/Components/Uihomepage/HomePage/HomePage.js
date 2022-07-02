@@ -16,28 +16,119 @@ import Members from '../Members/Members';
 import '../Footer/Footer';
 import Footer from '../Footer/Footer';
 
+import ApartmentIcon from '@mui/icons-material/Apartment';
+import SchoolOutlinedIcon from '@mui/icons-material/SchoolOutlined';
+import CorporateFareOutlinedIcon from '@mui/icons-material/CorporateFareOutlined';
 
 
+
+// import Infosys from '../HomePage/infosys.svg';
+// import Logitech from '../HomePage/logitech.svg';
+// // import Oracle from '../HomePage/oracle.svg';
+// import Swiggy from '../HomePage/swiggy.svg';
+// import TCS from '../HomePage/tcs.png';
+// import Vedantu from '../HomePage/vedantu.svg';
 export default function NavBar() {
   return (
     <>
-    <div>
-    <div className='home'>
-      <div className='left'>
-          <h2>The Place Where We Connect</h2>
-          <h1>Engineers</h1>
-          <button className='signup'>SIGN IN</button>
-      </div>
-      <div className='right'>
-      <ReactPlayer className='video' url='https://www.youtube.com/watch?v=Xi8Fabcb_MA' />
-      </div>
-      </div>
-      <div className='line'>
-      <h2>" A VERSATILE COMMUNITY FOR VERSATILE PEOPLE "</h2>
-      <button className='arrow'>v</button>
+
+<div className="row headearpart">
+  <div className="col-lg-7">
+
+    <h1 className='headerbrandname'>engineerHUB</h1>
+    <h5 className='headerbelow'>Students . Campus . Industries</h5>
+    <div className="row">
+      <div className="col-4 headercard">
+      <ApartmentIcon className='iconsposition'  style={{fontSize:100}}/>
+<h1 className='headercardtext'>750+</h1>
+
+<h6 className='innerfont'>
+  campus
+</h6>
 
       </div>
+      <div className="col-4 headercard">
+      <SchoolOutlinedIcon className='iconsposition' style={{fontSize:100}}/>
+<h1 className='headercardtext'>50K+</h1>
+
+      <h6 className='innerfont'>
+  Students
+</h6>
+      </div>
+      <div className="col-4 headercard">
+      <CorporateFareOutlinedIcon className='iconsposition'  style={{fontSize:100}}/>
+        <h1 className='headercardtext'>18</h1>
+      
+      <h6 className='innerfont'>
+  Industries
+</h6>
+      </div>
     </div>
+  </div>
+  <div className="col-lg-5 videocard">
+  <ReactPlayer className='video' url='https://www.youtube.com/watch?v=YY6rzlCFg1o' />
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+<div className="row Studentsfrom">
+<div className="studenttxt">
+Our students comes from
+</div>
+<div className="row">
+  <div className="col-lg-2 studentfrom">
+IIT Kanpur
+  </div>
+  <div className="col-lg-2 studentfrom">
+    IIT Roorkee
+  </div>
+  <div className="col-lg-2 studentfrom">
+    NIT Banglore
+  </div>
+  <div className="col-lg-2 studentfrom">
+    IIIT Vadodra
+  </div>
+  <div className="col-lg-2 studentfrom">
+    IIT Bombay
+  </div>
+</div>
+</div>
+
+
+<div className="row Studentsfrom2">
+<div className="studenttxt">
+Companies we Collaborate
+</div>
+<div className="row">
+  <div className="col-lg-2 studentfrom2">
+TCS
+  </div>
+  <div className="col-lg-2 studentfrom2">
+    SWIGGY
+  </div>
+  <div className="col-lg-2 studentfrom2">
+    Vedantu
+  </div>
+  <div className="col-lg-2 studentfrom2">
+    Logitech
+  </div>
+  <div className="col-lg-2 studentfrom2">
+Infosys
+  </div>
+</div>
+</div>
+
+
     <div className="about">
       <Aboutus/>
 
@@ -62,6 +153,7 @@ export default function NavBar() {
   <div className="Footer">
     <Footer/>
   </div>
+  
     </>
   )
 }
