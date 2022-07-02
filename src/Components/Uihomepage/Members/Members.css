@@ -12,8 +12,8 @@
     margin-bottom: 5%;
 }
 .cardMember{
-    background-color: 
-    rgba(22, 133, 132, 1);
+    background-color:  rgba(1, 60, 76, 1);
+  
    color:  rgba(255, 255, 255, 1);
    font-size: 1.1rem;
    font-weight: 200;
@@ -41,8 +41,7 @@
 }
 
 .cardMember1{
-    background-color: 
-    rgba(22, 133, 132, 1);
+    background-color:  rgba(1, 60, 76, 1);
    color:  rgba(255, 255, 255, 1);
    font-size: 1.1rem;
    font-weight: 200;
@@ -55,6 +54,8 @@
     justify-content: center;
     align-items: center;
     padding-left:5% ;
+
+    box-shadow: 4px 4px 8px 8px rgb(130, 127, 127);
 
    
 
@@ -78,4 +79,7 @@
      position: relative;
      left: 60%;
      font-size: 0.9rem;
+ }
+ .cardz{
+    margin-top: 0;
  }

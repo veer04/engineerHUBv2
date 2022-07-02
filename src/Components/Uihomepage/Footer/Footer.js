@@ -30,7 +30,7 @@ India. Provide basic guidelines to new comers into engineering field for how and
     Magzines
   </p>
 </div>
-<div className="row footerinnertext">
+<div className="row footerinnertext ">
   <p>
     Courses
   </p>
@@ -43,7 +43,7 @@ India. Provide basic guidelines to new comers into engineering field for how and
              </div>
              <div className="col-lg-2">
               
-             <h3 className='textfooter'>Address</h3>
+             <h3 className='textfooter quickfooter'>Address</h3>
              <div className="row footerinnertext">
                  <p>
                    Delhi(NCR)
@@ -51,7 +51,7 @@ India. Provide basic guidelines to new comers into engineering field for how and
                </div>
                </div>
                <div className="col-lg-2">
-               <h3 className='textfooter'>Legal</h3>
+               <h3 className='textfooter legalfooter'>Legal</h3>
 <div className="row footerinnertext">
   <p>
     xxxxxxxxxx
@@ -94,7 +94,7 @@ India. Provide basic guidelines to new comers into engineering field for how and
                </div>
            </div>
            <div className="row copyright"> myengineerhub@gmail.com</div>
-           <div className="row  copyright">All copyright@ reserved</div>
+           <div className="row  copyright1">All copyright@ reserved</div>
        </div>
    </div>
     </>
