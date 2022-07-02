@@ -19,7 +19,6 @@
    font-weight: 200;
    width: 70vw;
    height: 35vh;
-   margin-top: 10%;
     border-radius: 20px;
     margin-left: 7%;
     margin-right: 32%;
@@ -47,7 +46,6 @@
    font-weight: 200;
    width: 70vw;
    height: 35vh;
-   margin-top: 10%;
     border-radius: 20px;
     margin-left: 22%;
     margin-right:7%;
@@ -55,7 +53,7 @@
     align-items: center;
     padding-left:5% ;
 
-    box-shadow: 4px 4px 8px 8px rgb(130, 127, 127);
+    
 
    
 
@@ -81,5 +79,6 @@
      font-size: 0.9rem;
  }
  .cardz{
-    margin-top: 0;
+    margin-top: 3%;
+    box-shadow: 3px 3px 4px 4px rgb(188, 181, 181);
  }
