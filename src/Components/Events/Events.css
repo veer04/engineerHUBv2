@@ -1,0 +1,40 @@
+.Free{
+    border:none;
+    margin-right: 7%;
+    background-color:  rgba(0, 148, 255, 1);
+    color: rgba(255,255,255,1);
+    border-radius: 14px;
+    width:71px;
+    height:32px;
+}
+.Prize{
+    border: none;
+    margin-left: 35%;
+    background-color: #FFC700;
+    color: rgba(255,255,255,1);
+    border-radius: 14px;
+    width:71px;
+    height:32px;
+    margin-bottom: 7%;
+
+}
+.card-text{
+    font-size: 0.87rem;
+}
+.card-title{
+    padding:2%;
+    font-weight: 600;
+}
+.cardEvent{
+    margin-left:12%;
+    padding-top: 5%;
+}
+.Register{
+    width:100px ;
+    height: 47px;
+    position: relative;
+    left: 39%;
+}
+.contentEvent{
+    padding-bottom: 6%;
+}
