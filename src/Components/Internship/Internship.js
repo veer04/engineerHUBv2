@@ -1,5 +1,5 @@
 import React from "react";
-import { BiSearch } from "react-icons/bi";
+import SearchIcon from '@mui/icons-material/Search';
 import InternCard from "./InternCard";
 import "./Internship.css";
 
@@ -10,7 +10,7 @@ const Internship = () => {
 
       <form className="searchBar">
         <div className="search-btn">
-          <BiSearch size={"2em"} />
+          <SearchIcon/>
         </div>
         <input
           type="text"
