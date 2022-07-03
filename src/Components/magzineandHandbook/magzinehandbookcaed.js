@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import "../magzineandHandbook/magzineandhandbook.css";
 import cybersecurityimg from "../magzineandHandbook/cybersecurityimg.png";
 export default function MagzineAndHandbookcard() {
@@ -13,7 +12,7 @@ export default function MagzineAndHandbookcard() {
         <div className="card-body">
           <h5 className="card-title">
             Cyber Security
-            <a href="#">
+            <a href="www.engineerhub.in">
               <i className="fa fa-share-alt share-icon"></i>
             </a>
           </h5>
@@ -31,10 +30,10 @@ export default function MagzineAndHandbookcard() {
             nunc congue
           </p>
           <div className="btn-container">
-            <a href="#" className="btn btn-primary">
+            <a href="www.engineerhub.in" className="btn btn-primary">
               Tap to open
             </a>
-            <a href="#" className="btn btn-warning">
+            <a href="www.engineerhub.in" className="btn btn-warning">
               <i class="fa fa-eye"></i> 1,000
             </a>
           </div>

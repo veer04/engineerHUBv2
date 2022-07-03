@@ -13,7 +13,7 @@ function Card(props) {
                 <div className="inner-card">
                     <img
                         src={image}
-                        className="card-img-left card-img img-fluid" />
+                        className="card-img-left card-img img-fluid" alt="..."/>
                     <div className="cardForImg">
                         <div className="section1">
                             <h6 className="card-title-small">
