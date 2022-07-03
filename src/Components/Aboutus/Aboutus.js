@@ -13,7 +13,7 @@ function Aboutus() {
     </div>
 </div>
 <div className="row">
-    <div className="col-lg-6 aboutustxt">
+    <div className="col-lg-4 aboutustxt">
     engineerHUB (formerly engineerSUMMIT) is INDIA's largest community of engineers where students(alumni) from IITs, NITs, IIITs and state colleges join together to develop  and nurture students skills coming from all over India. Provide basic guidelines to new comers into engineering field for how and where to start their learning.
     </div>
 </div>

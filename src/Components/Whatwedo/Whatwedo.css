@@ -1,12 +1,15 @@
 .carouselcomp{
-    background-color:rgba(22, 133, 132, 1);
+    background: rgba(1, 60, 76, 1);
+
     
 }
 .textcontent{
-    background-color: rgba(22, 133, 132, 1);
+    background: rgba(1, 60, 76, 1);
+
 }
 .textcontainer{
-    background-color: rgba(22, 133, 132, 1);
+    background: rgba(1, 60, 76, 1);
+
     border-radius: 15px;
     border: solid 2px white;
     /* border-bottom:solid 2px white ; */
@@ -14,7 +17,8 @@
     border-right: solid 2px white; */
 }
 .content{
-    background-color: rgba(22, 133, 132, 1);
+    background: rgba(1, 60, 76, 1);
+
     padding: 10px;
     border-radius: 25px;
 }
@@ -22,10 +26,12 @@
   
     color: rgba(225, 215, 28, 1);
     padding: 3%;
+   margin-left: 5%;
 }
 .text2{
     color: rgba(255, 255, 255, 1);
     padding: 2%;
+    margin-left: 10%;
 }
 .Whatsapp{
     background-color: rgba(8, 210, 4, 1);
@@ -68,14 +74,18 @@ margin-left: 5%;
 
 }
 .phone-image{
-    background-image: url(Vector\ \(1\).svg);
+    /* background-image: url(Vector\ \(1\).svg); */
     background-size: cover;
+    
 }
 
 .textt{
     padding-left: 7%;
     justify-items: center;
     justify-content: center;
+    line-height: 2rem;
+    font-weight: 300;
+    font-size: 1.5rem;
 }
 .carousel-content{
  padding-bottom: 15%; 
@@ -83,4 +93,87 @@ margin-left: 5%;
 .contactButtons{
     padding-top: 7%;
     padding-bottom: 5%;
+}
+.textwhat{
+    color: rgba(225, 215, 28, 1);
+    padding: 3%;
+   
+}
+.textbelow
+{
+    color: rgba(255, 255, 255, 1);
+    padding: 2%;
+    margin-left: 9%;
+}
+
+
+@media only screen and (max-width: 720px) {
+.textt{
+    justify-content: center;
+    align-items: center;
+    margin-left: 8%;
+    font-weight: 300;
+    font-size: 1.5rem;
+    line-height: 2.2rem;
+    width: 70vw;
+}
+.Whatsapp{
+    
+    width: 30w;
+    font-size: 1rem;
+    border: none;
+    margin: 5%;
+    border-radius: 10px;
+    justify-content: center;
+    align-items: center;
+    width: 30vw;
+   text-justify: center;
+   margin-top: 5%;
+}
+.Linkedin{
+ 
+    width: 30vw;
+    font-size: 1rem;
+    border: none;
+    margin: 5%;
+    border-radius: 10px;
+    justify-content: center;
+    align-items: center;
+    width: 30vw;
+   text-justify: center;
+   margin-top: 5%;
+}
+.Telegram{
+ 
+    width: 30vw;
+    font-size: 1rem;
+    border: none;
+    margin: 5%;
+    border-radius: 10px;
+    justify-content: center;
+    align-items: center;
+    width: 30vw;
+   text-justify: center;
+   margin-top: 5%;
+}
+.Discord{
+    font-size: 1rem;
+    justify-content: center;
+    align-items: center;
+    width: 30vw;
+   text-justify: center;
+    border: none;
+    border-radius: 10px;
+    margin-top: 5%;
+
+    /* text-indent: 20%;
+    white-space: nowrap;
+    overflow: hidden; */
+}
+.phone-image{
+    justify-content: center;
+    align-items: center;
+    
+}
+
 }
