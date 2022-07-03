@@ -1,13 +1,14 @@
 import './App.css';
-
-import Full from "./Components/freecourses-pages/Full"
+import NavBar from './Components/NavBar/NavBar';
+import HomePage from './Components/HomePage/HomePage';
 
 
 
 function App() {
   return (
     <div className="App">
-     <Full />
+     <NavBar/>
+     <HomePage/>
     
     </div>
   );
