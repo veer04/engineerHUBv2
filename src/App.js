@@ -1,6 +1,6 @@
  import './App.css';
 import NavBar from './Components/NavBar/NavBar';
-import HomePage from './Components/Uihomepage/HomePage/HomePage';
+import HomePage from './Components/HomePage/HomePage';
 // import MagzineAndHandbook from './Components/magzineandHandbook/magzineAndHandbook';
 
 

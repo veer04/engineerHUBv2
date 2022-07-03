@@ -1,9 +1,8 @@
 import React from 'react'
 import '../Events/Events.css'
-import '../Courses/Courses.css'
-import ShareIcon from '@mui/icons-material/Share';
+// import ShareIcon from '@mui/icons-material/Share';
 import backImage from '../Magzine/backimg.png'
-import { borderRadius } from '@mui/system';
+// import { borderRadius } from '@mui/system';
 
 
 function Events() {
@@ -13,7 +12,7 @@ function Events() {
       
     <div className="container">
 <h1 className='text1'>
-  Free Courses
+  Events
 </h1>
 <h5 className='text2 text111 '>
             Lorem ipsum dolor sit, amet consectetur adipisicing elit.
@@ -27,18 +26,18 @@ function Events() {
          <img src={backImage} className="card-img-top" alt="..."/>
   <div className="card-img-top"></div>
   <div className="card-body">
-    <h5 className="card-title">FrontEnd Development
+    <h5 className="card-title">Coding Contest 
     
 
     </h5>
-    
-    <button className='Prize fprize' >Free</button>
+    <button className='Free'>Free</button>
+    <button className='Prize'>Prize</button>
     <p className="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
      Pharetra consequat consequat at fermentum sollicitudin pellentesque tortor..</p>
   
   </div>
 </div>
-<button className='buttonz Register' >Join</button>
+<button className='buttonz Register' >Register</button>
 
 
           </div>
@@ -48,16 +47,16 @@ function Events() {
          <img src={backImage} className="card-img-top" alt="..."/>
   <div className="card-img-top"></div>
   <div className="card-body">
-    <h5 className="card-title">FrontEnd Development </h5>
-
-    <button className='Prize fprize' >Free</button>
+    <h5 className="card-title">Coding Contest </h5>
+<button className='Free'>Free</button>
+    <button className='Prize'>Prize</button>
     
     <p className="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
      Pharetra consequat consequat at fermentum sollicitudin pellentesque tortor..</p>
   
   </div>
 </div>
-<button className='buttonz Register'>Join</button>
+<button className='buttonz Register'>Register</button>
 
 
 
@@ -68,17 +67,16 @@ function Events() {
          <img src={backImage} className="card-img-top" alt="..."/>
   <div className="card-img-top"></div>
   <div className="card-body">
-    <h5 className="card-title ">FrontEnd
-     Development   <button className='Prize fprize' >Free</button></h5>
-
-  
+    <h5 className="card-title">Coding Contest</h5>
+<button className='Free'>Free</button>
+    <button className='Prize'>Prize</button>
     
     <p className="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
      Pharetra consequat consequat at fermentum sollicitudin pellentesque tortor..</p>
   
   </div>
 </div>
-<button className='buttonz Register'>Join</button>
+<button className='buttonz Register'>Register</button>
 
 
           </div>

@@ -2,7 +2,7 @@ import React from 'react'
 import '../Magzine/Magzine.css'
 import ShareIcon from '@mui/icons-material/Share';
 import backImage from '../Magzine/backimg.png'
-import { borderRadius } from '@mui/system';
+// import { borderRadius } from '@mui/system';
 
 function Magzine() {
   return (

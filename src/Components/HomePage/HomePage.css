@@ -3,6 +3,17 @@
 .container{
     font-family: 'Poppins', sans-serif;
 }
+/* .player-wrapper {
+    position: relative;
+    padding-top:  50%;
+  }
+  
+  .react-player {
+    position: absolute;
+    top: 0;
+    left: 0;
+  } */
+  
 .headerbrandname{
     font-size: 4rem;
     font-weight:700 ;
@@ -20,10 +31,13 @@
     margin-top: -2%;
 }
 .videocard{
-    margin-top: 3%;
+    margin-top: 7%;
+    border-radius: 50px;
 
 }
-
+.video{
+    width: 10vw;
+}
 .headearpart{
     margin-top: 7%;
     margin-left: 3%;

@@ -35,13 +35,12 @@ const NavBar = () => {
     
       <NavDropdown title="Domains" id="basic-nav-dropdown">
 
-          <NavDropdown title="DSA(C/C++/JAVA" className='dropdownNav mw-80'>
-            <div className="drop">
-          <Nav.Item href="">HandBook</Nav.Item>
-          <Nav.Item href="">Resources</Nav.Item>
-          <Nav.Item href="">Contact Mentor</Nav.Item>
-          <Nav.Item href="">Ask your query</Nav.Item>
-          </div>
+      <NavDropdown   title="DSA (C/C++)" className='dropdownNav '>
+          
+          <NavDropdown.Item href="">HandBook</NavDropdown.Item>
+          <NavDropdown.Item href="">Resources</NavDropdown.Item>
+          <NavDropdown.Item href="">Contact Mentor</NavDropdown.Item>
+          <NavDropdown.Item href="">Ask your query</NavDropdown.Item>
           </NavDropdown>
           
           <NavDropdown   title="Web developement" className='dropdownNav '>

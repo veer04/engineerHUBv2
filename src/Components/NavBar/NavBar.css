@@ -21,19 +21,21 @@
   }
 .navdropdownitems a {
   position: absolute;
-  left: 50%;
+  left: 10%;
 }
-.mw-100{
+/* .mw-100{
   width: 300px;
-}
+} */
 NavDropdown{
   background-color: #168584;
   border-radius: 50px;
 }
 div.dropdown-menu.show{
   background-color: #168584;
+}
+div.dropdown-menu.show{
   position: relative;
-  left: 300px;
+  left: 175px;
 }
 a.dropdown-item{
   color: #fff;
