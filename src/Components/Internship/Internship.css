@@ -1,0 +1,93 @@
+* {
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+.contained-xl {
+  background-color: #168584;
+  margin: 20px;
+  border-radius: 20px;
+  padding-bottom: 80px;
+}
+
+.heading {
+  font-size: 5rem;
+  padding: 60px 34px;
+  color: #e1d71c;
+}
+
+.Intern-View {
+  font-weight: 300;
+}
+
+.searchBar {
+  width: 100%;
+  max-width: 700px;
+  display: flex;
+  margin: 0 auto;
+  align-items: center;
+  border-radius: 20px;
+  border: 1px solid rgb(236, 235, 235);
+  padding: 0px 15px;
+  background: rgb(236, 235, 235);
+  margin-bottom: 100px;
+}
+
+.searchBar input {
+  background: transparent;
+  flex: 1;
+  border: 0;
+  outline: none;
+  padding: 18px 20px;
+  font-size: 20px;
+}
+
+.search-btn {
+  cursor: pointer;
+}
+
+@media (max-width: 1024px) and (min-width: 768px) {
+  .heading {
+    font-size: 4rem;
+  }
+
+  .searchBar {
+    width: 100%;
+    max-width: 500px;
+    font-size: 15px;
+  }
+  .searchBar input {
+    padding: 15px;
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 767px) and (min-width: 425px) {
+  .heading {
+    font-size: 36px;
+  }
+  .searchBar {
+    width: 100%;
+    max-width: 260px;
+    font-size: 15px;
+  }
+  .searchBar input {
+    padding: 12px;
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 425px) {
+  .heading {
+    font-size: 26px;
+  }
+  .searchBar {
+    width: 100%;
+    max-width: 260px;
+    font-size: 10px;
+  }
+  .searchBar input {
+    padding: 10px;
+    font-size: 10px;
+  }
+}
