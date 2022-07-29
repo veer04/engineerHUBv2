@@ -1,3 +1,4 @@
+import React from "react";
 import "../magzineandHandbook/magzineandhandbook.css";
 import cybersecurityimg from "../magzineandHandbook/cybersecurityimg.png";
 export default function MagzineAndHandbookcard() {

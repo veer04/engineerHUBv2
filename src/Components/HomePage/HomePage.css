@@ -1,128 +1,131 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
-
-.container{
-    font-family: 'Poppins', sans-serif;
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap");
+/* * {
+  border: 1px solid red;
+} */
+.container {
+  font-family: "Poppins", sans-serif;
 }
-/* .player-wrapper {
+
+.react-player {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 25px;
+  overflow: hidden;
+  background-color: transparent;
+}
+.tagContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: baseline;
+}
+.headerContainer {
+  display: flex;
+  justify-content: space-evenly;
+}
+.headerbrandname {
     position: relative;
-    padding-top:  50%;
-  }
+    left: 26px;
+  font-size: 4rem;
+  font-weight: 700;
+  color: #05555e;
+  margin-block-end: 0;
+  margin-block-start: 0;
+}
+.headerbelow {
+  position: relative;
+  letter-spacing: -0.4px;
+  bottom: 16px;
+  left: 147px;
+  font-weight: 400;
+  font-size: 1.3rem;
+  margin-block-end: 0;
+  margin-block-start: 0;
+}
+.videocard {
+  border-radius: 25px;
+  position: relative;
+}
+.video {
+  width: 10vw;
+}
+.headearpart {
+  margin-top: 7%;
+  margin-left: 3%;
+  margin-right: 3%;
+}
+.headercard {
+  display: flex;
+  flex-direction: column;
+  background-color: rgba(255, 255, 255, 1);
+  box-shadow: 2px 2px 3px 3px rgb(165, 162, 162);
+  width: 25%;
+  padding: 0.5rem;
+  border-radius: 20px;
+  height: 18%;
+  align-items: center;
+}
+.headercardtext {
+  font-family: "Bebas Neue", cursive;
+  color: rgba(255, 214, 0, 1);
+  font-weight: 700;
+  font-size: 4rem;
+  line-height: 92px;
+  margin-block-end: 0;
+  margin-block-start: 0;
+}
+.iconsposition {
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  left: 13%;
+}
+.innerfont {
+  color: rgba(0, 0, 0, 0.975);
   
-  .react-player {
-    position: absolute;
-    top: 0;
-    left: 0;
-  } */
-  
-.headerbrandname{
-    font-size: 4rem;
-    font-weight:700 ;
-    color: #05555E;
-    position: relative;
-    left: 10%;
-    justify-content: center;
-    align-items: center;
-}
-.headerbelow{
-    font-weight: 400;
-    position: relative;
-    left: 25%;
-    font-size: 1.3rem;
-    margin-top: -2%;
-}
-.videocard{
-    margin-top: 7%;
-    border-radius: 50px;
-
-}
-.video{
-    width: 10vw;
-}
-.headearpart{
-    margin-top: 7%;
-    margin-left: 3%;
-    margin-right: 3%;
-}
-.headercard{
-    margin-top: 5%;
-    background-color: rgba(255, 255, 255, 1);
-    ;
-    box-shadow: 2px 2px 3px 3px rgb(165, 162, 162);
-    margin-left: 10%;
-    width: 20%;
-border-radius: 20px;
-    height: 18%;
-
-}
-.headercardtext{
-    font-size: 4rem;
-    color: rgba(255, 214, 0, 1);
-    ;
-}
-.iconsposition{
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    left: 13%;
-}
-.innerfont{
-    color: rgba(0, 0, 0, 0.975);
-    /* position: relative; */
-    
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    left: 25%;
 }
 
-.Studentsfrom{
-background-color:  rgba(1, 64, 81, 1);
-padding: 2%;
-margin-top: 5%;
-border-radius: 10px;
-width: 95vw;
-margin-left: 2.5%;
-
-;
+.cllgCarol{
+    display: flex;
+    justify-content: space-evenly;
 }
-.studenttxt{
-    color:rgba(255, 242, 0, 1);
-    font-size: 2rem;
-display: flex;
-
- align-items: center;
- justify-content: center;
+.Studentsfrom {
+  background-color: rgba(1, 64, 81, 1);
+  padding: 2%;
+  margin-top: 5%;
+  border-radius: 10px;
+  width: 95vw;
+  margin-left: 2.5%;
 }
-.studentfrom{
-    color: white;
-    font-family: 'Poppins', sans-serif;
-    padding: 2%;
-    font-size:1.7rem ;
-    margin-left: 3%;
-    
+.studenttxt {
+  color: rgba(255, 242, 0, 1);
+  font-size: 2rem;
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
 }
-.studentfrom2{
-    color: white;
-    font-family: 'Poppins', sans-serif;
-    padding: 2%;
-    font-size:1.7rem ;
-    margin-left: 3%;
-    
-
+.studentfrom {
+  color: white;
+  font-family: "Poppins", sans-serif;
+  font-size: 1.6rem;
 }
-.Studentsfrom2{
-    background-color:  rgba(1, 64, 81, 1);
-    padding: 2%;
-    margin-top: 1%;
-    border-radius: 10px;
-    width: 95vw;
-    margin-left: 2.5%;
-    
-    ;
-    }
-
-
-
+.studentfrom2 {
+  color: white;
+  font-family: "Poppins", sans-serif;
+  padding: 2%;
+  font-size: 1.7rem;
+  margin-left: 3%;
+}
+.Studentsfrom2 {
+  background-color: rgba(1, 64, 81, 1);
+  padding: 2%;
+  margin-top: 1%;
+  border-radius: 10px;
+  width: 95vw;
+  margin-left: 2.5%;
+}
 
 /* .signup{
     background-color: white;
@@ -147,7 +150,6 @@ display: flex;
 
 } */
 
-
 /* .line h2{
     padding:1.5%;
     padding-top: 6%;
@@ -156,8 +158,6 @@ display: flex;
     font-size: 1.5rem;
 } */
 
-.Members{
-    margin-top:10%;
-    
+.Members {
+  margin-top: 10%;
 }
-

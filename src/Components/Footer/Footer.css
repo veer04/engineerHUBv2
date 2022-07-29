@@ -2,21 +2,20 @@
     background-color: rgba(0, 42, 54, 1);
 
     /* box-shadow: 4px rgba(0, 0, 0, 0.25); */
-    width: 100vw;
-    height: 70vh;
+    height: 65vh;
     margin-top: 10%;
     /* padding-top: 2%; */
 }
 .footerRow{
-    padding: 3%;
+    padding: 3% 1% 0 1%;
 }
 .textfooter{
-    color: white;
-    font-size: 2.2rem;
+    color: rgb(193, 193, 193);
+    font-size: 2rem;
     line-height: 3.5rem;
     position :relative;
     font-weight: 500;
-
+    letter-spacing: -1.8px;
 }
 
 .footertextaboutus{
@@ -37,6 +36,7 @@ margin-right: 13%;
  text-align: center;
  align-items: center;
  justify-content: center;
+ overflow-wrap: break-word;
 }
 .footerBB{
     border: none;

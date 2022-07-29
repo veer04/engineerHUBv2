@@ -1,24 +1,20 @@
-.NAvbarBackground{
-    background-color: rgba(0, 42, 54, 1);
-
-
+.NAvbarBackground {
+  background-color: rgba(0, 42, 54, 1);
 }
-.Navbar-color{
+.Navbar-color {
   color: aliceblue;
 }
-.navelements
-{font-family: 'poppins';
-   color: aliceblue;
-   
+.navelements {
+  font-family: "poppins";
+  color: aliceblue;
 }
 .dropdown-toggle::after {
-    display: none;
-    background-color: aqua;
-  }
-  .dropdownNav{
-    background-color:  #168584;
-
-  }
+  display: none;
+  background-color: aqua;
+}
+.dropdownNav {
+  background-color: #168584;
+}
 .navdropdownitems a {
   position: absolute;
   left: 10%;
@@ -26,17 +22,16 @@
 /* .mw-100{
   width: 300px;
 } */
-NavDropdown{
+NavDropdown {
   background-color: #168584;
   border-radius: 50px;
 }
-div.dropdown-menu.show{
+div.dropdown-menu.show {
   background-color: #168584;
 }
-div.dropdown-menu.show{
+div.dropdown-menu.show {
   position: relative;
-  left: 175px;
 }
-a.dropdown-item{
+a.dropdown-item {
   color: #fff;
 }

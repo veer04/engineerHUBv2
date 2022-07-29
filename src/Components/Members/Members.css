@@ -1,84 +1,74 @@
-.txtMembers{
-    color: rgba(5, 85, 94, 1);
-    font-weight: 600;
+.txtMembers {
+  color: rgba(5, 85, 94, 1);
+  font-weight: 600;
   margin-left: 7%;
 }
 
-.memberstext{
-    font-size: 1.5rem;
-    margin: 3%;
-    margin-left: 7%;
-    line-height: 2.5rem;
-    margin-bottom: 5%;
+.memberstext {
+  font-size: 1.5rem;
+  margin: 3%;
+  margin-left: 7%;
+  line-height: 2.5rem;
+  margin-bottom: 5%;
 }
-.cardMember{
-    background-color:  rgba(1, 60, 76, 1);
-  
-   color:  rgba(255, 255, 255, 1);
-   font-size: 1.1rem;
-   font-weight: 200;
-   width: 70vw;
-   height: 35vh;
-    border-radius: 20px;
-    margin-left: 7%;
-    margin-right: 32%;
-    justify-content: center;
-    align-items: center;
-    padding-left:5% ;
-   padding-right: 5%;
+.cardMember {
+  background-color: rgba(1, 60, 76, 1);
+
+  color: rgba(255, 255, 255, 1);
+  font-size: 1.1rem;
+  font-weight: 200;
+  width: 70vw;
+  height: 35vh;
+  border-radius: 20px;
+  margin-left: 7%;
+  margin-right: 32%;
+  justify-content: center;
+  align-items: center;
+  padding-left: 5%;
+  padding-right: 5%;
 }
-.img
-{
-    background-color: white;
+.img {
+  background-color: white;
 }
-.textofMember
-{
-    padding-top:5%;
-   
-    
-   
+.textofMember {
+  padding-top: 5%;
 }
 
-.cardMember1{
-    background-color:  rgba(1, 60, 76, 1);
-   color:  rgba(255, 255, 255, 1);
-   font-size: 1.1rem;
-   font-weight: 200;
-   width: 70vw;
-   height: 35vh;
-    border-radius: 20px;
-    margin-left: 22%;
-    margin-right:7%;
-    justify-content: center;
-    align-items: center;
-    padding-left:5% ;
-
-    
-
-   
-
+.cardMember1 {
+  background-color: rgba(1, 60, 76, 1);
+  color: rgba(255, 255, 255, 1);
+  font-size: 1.1rem;
+  font-weight: 200;
+  width: 70vw;
+  height: 35vh;
+  border-radius: 20px;
+  margin-left: 22%;
+  margin-right: 7%;
+  justify-content: center;
+  align-items: center;
+  padding-left: 5%;
 }
-.girlimage{
-    width:200px ;
-    height: 200px;
-    position: relative;
-    top: 35px;
-
+.girlimage {
+  width: 180px;
+  height: 180px;
+  position: relative;
+  top: 35px;
 }
-.memberinnertext
-{
-    color: #fff;
-    position: relative;
-    left: 27%;
-    font-size: 0.9rem;
+.memberinnertext {
+  display: inline-block;
+  color: #fff;
+  position: relative;
+  left: 27%;
+  font-size: 0.9rem;
 }
- .memberinnertext1{
-     color: #fff;
-     position: relative;
-     left: 60%;
-     font-size: 0.9rem;
- }
- .cardz{
-    margin-top: 3%;
-    box-shadow: 3px 3px 4px 4px rgb(188, 181, 181);
- }
+.memberinnertext1 {
+  display: inline-block;
+  color: #fff;
+  position: relative;
+  left: 60%;
+  font-size: 0.9rem;
+}
+.cardz {
+  margin-top: 3%;
+  box-shadow: 3px 3px 4px 4px rgb(188, 181, 181);
+}

@@ -1,115 +1,108 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
 
-@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+.aboutContainer {
+  display: flex;
+  align-items: center;
+}
+.container {
+  font-family: "Poppins", sans-serif;
+}
+.allcontent {
+  /* background-color:rgba(246, 249, 254, 1); */
+  background-image: url("aboutus.svg");
+  /* background-image: url('wave21.svg'); */
+}
+.aboutustxt {
+  font-family: Poppins;
+  font-size: 1.1rem;
+  font-weight: 600;
+  line-height: 2rem;
+  letter-spacing: 0em;
+  text-align: left;
+  color: rgba(5, 85, 94, 1);
+  margin-left: 7%;
+  margin-right: 5%;
+  margin-top: 1%;
+}
+.aboutus {
+  padding-top: 8%;
 
-.container{
-    font-family: 'Poppins', sans-serif;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 4rem;
+  margin-left: 5%;
+  margin-right: 5%;
 }
-.allcontent{
-    /* background-color:rgba(246, 249, 254, 1); */
-    background-image: url('aboutus.svg');
-    /* background-image: url('wave21.svg'); */
-}
-.aboutustxt{
-    font-family: Poppins;
-    font-size: 1.1rem;
-    font-weight: 600;
-    line-height: 2rem;
-    letter-spacing: 0em;
-    text-align: left;
-    color: rgba(5, 85, 94, 1);
-    margin-left: 7%;
-    margin-right: 5%;
-    margin-top: 5%;
-    
+.aboutusbullets1 {
+  margin-top: 5%;
+  color: rgba(5, 85, 94, 1);
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 1.1rem;
+  line-height: 2rem;
+  letter-spacing: 0em;
+  text-align: left;
 
-  
+  margin-right: 10%;
 }
-.aboutus{
+.aboutusbullets2 {
+  margin-top: 5%;
+  color: rgba(5, 85, 94, 1);
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 1.1rem;
+  line-height: 2rem;
+  letter-spacing: 0em;
+  text-align: left;
 
-padding-top: 8%;
+  margin-right: 10%;
+}
+.aboutusbullets3 {
+  margin-top: 5%;
+  color: rgba(5, 85, 94, 1);
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 1.1rem;
+  line-height: 2rem;
+  letter-spacing: 0em;
+  text-align: left;
 
-font-family: 'Poppins';
-font-style: normal;
-font-weight: 500;
-font-size: 4rem;
-margin-left: 7%;
-margin-right: 5%;
+  margin-right: 10%;
 }
-.aboutusbullets1
-{
-    margin-top: 5%;
-    color: rgba(5, 85, 94, 1);
-    font-family: 'Poppins';
-    font-style: normal;
-    font-weight: 600;
-    font-size: 1.1rem;
-    line-height: 2rem;
-    letter-spacing: 0em;
-    text-align: left;
-    
-margin-right: 10%;
-    
-}
-.aboutusbullets2{
-    margin-top: 5%;
-    color: rgba(5, 85, 94, 1);
-    font-family: 'Poppins';
-    font-style: normal;
-    font-weight: 600;
-    font-size: 1.1rem;
-    line-height: 2rem;
-    letter-spacing: 0em;
-    text-align: left;
-    
-    margin-right: 10%;
-}
-.aboutusbullets3{
-    
-    margin-top: 5%;
-    color: rgba(5, 85, 94, 1);
-    font-family: 'Poppins';
-    font-style: normal;
-    font-weight: 600;
-    font-size: 1.1rem;
-    line-height: 2rem;
-    letter-spacing: 0em;
-    text-align: left;
-    
-    margin-right: 10%;
-}
-
 
 ul {
-    list-style-image: url('Ellipse-7.svg');
-  }
-  
-  ul li::before {
-    font-weight: bold; 
-    display: inline-block; 
-    width:1em; 
-    margin-left: -1em; 
-  }
-  .container{
-      width: 100vw;
-  }
-  .group{
-      /* background-image:url('Group.svg') ; */
-      background-size: cover;
-  }
-  .Groupimg{
-      position: relative;
-      left: 20%;
-      size: 1rem;
+  list-style-image: url("Ellipse-7.svg");
+}
 
-  }
-  @media only screen and (max-width: 720px) {
-  .Groupimg{
+ul li::before {
+  font-weight: bold;
+  display: inline-block;
+  width: 1em;
+  margin-left: -1em;
+}
+.container {
+  width: 100vw;
+}
+.group {
+  /* background-image:url('Group.svg') ; */
+  background-size: cover;
+}
+.Groupimg {
+  position: relative;
+  left: 20%;
+  size: 1rem;
+}
+@media only screen and (max-width: 720px) {
+  .Groupimg {
     width: 60vw;
     justify-content: center;
     align-items: center;
-
   }
-  .aboutustxt{
+  .aboutustxt {
     justify-content: center;
     align-items: center;
     margin-top: 7%;
@@ -118,13 +111,13 @@ ul {
     justify-content: center;
     align-items: center;
   }
-  .allcontent{
+  .allcontent {
     /* background-color:rgba(246, 249, 254, 1); */
-   
-background-color: aliceblue;
-}
-.aboutus{
+
+    background-color: aliceblue;
+  }
+  .aboutus {
     justify-content: center;
     align-items: center;
-}
   }
+}
