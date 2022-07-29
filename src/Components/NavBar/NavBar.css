@@ -10,7 +10,7 @@
 }
 .dropdown-toggle::after {
   display: none;
-  background-color: aqua;
+ 
 }
 .dropdownNav {
   background-color: #168584;

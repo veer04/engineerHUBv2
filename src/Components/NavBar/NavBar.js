@@ -37,9 +37,12 @@ const NavBar = () => {
             </button>
             <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
               <div className="row navelements">
-                <Nav className="me-auto  navelements">
+                <Nav className="me-auto navelements">
                   <NavDropdown title="Domains" id="basic-nav-dropdown">
-                    <NavDropdown title="DSA (C/C++)" className="dropdownNav ">
+                    <NavDropdown
+                      title="DSA (C/C++)"
+                      className="dropdownNav dropend "
+                    >
                       <NavDropdown.Item href="">HandBook</NavDropdown.Item>
                       <NavDropdown.Item href="">Resources</NavDropdown.Item>
                       <NavDropdown.Item href="">
@@ -52,7 +55,7 @@ const NavBar = () => {
 
                     <NavDropdown
                       title="Web developement"
-                      className="dropdownNav "
+                      className="dropdownNav dropend "
                     >
                       <NavDropdown.Item href="">HandBook</NavDropdown.Item>
                       <NavDropdown.Item href="">Resources</NavDropdown.Item>
@@ -65,7 +68,7 @@ const NavBar = () => {
                     </NavDropdown>
                     <NavDropdown
                       title="App Development"
-                      className="dropdownNav"
+                      className="dropdownNav dropend "
                     >
                       <NavDropdown.Item href="">HandBook</NavDropdown.Item>
                       <NavDropdown.Item href="">Resources</NavDropdown.Item>
@@ -76,7 +79,7 @@ const NavBar = () => {
                         Ask your query
                       </NavDropdown.Item>
                     </NavDropdown>
-                    <NavDropdown title="ML&AI (PYTHON)" className="dropdownNav">
+                    <NavDropdown title="ML&AI (PYTHON)" className="dropdownNav dropend ">
                       <NavDropdown.Item href="">HandBook</NavDropdown.Item>
                       <NavDropdown.Item href="">Resources</NavDropdown.Item>
                       <NavDropdown.Item href="">
@@ -86,9 +89,9 @@ const NavBar = () => {
                         Ask your query
                       </NavDropdown.Item>
                     </NavDropdown>
-                    <NavDropdown title="Cyber Security" className="dropdownNav">
-                      <div className="dropdownNavv">
-                        <NavDropdown.Item href="" className="dropdownNav">
+                    <NavDropdown title="Cyber Security" className="dropdownNav dropend " >
+                      <div className="dropdownNav dropend ">
+                        <NavDropdown.Item href="" className="dropdownNav dropend" >
                           HandBook
                         </NavDropdown.Item>
                         <NavDropdown.Item href="">Resources</NavDropdown.Item>
@@ -100,7 +103,7 @@ const NavBar = () => {
                         </NavDropdown.Item>
                       </div>
                     </NavDropdown>
-                    <NavDropdown title="Dev Ops" className="dropdownNav">
+                    <NavDropdown title="Dev Ops" className="dropdownNav dropend" >
                       <NavDropdown.Item href="">HandBook</NavDropdown.Item>
                       <NavDropdown.Item href="">Resources</NavDropdown.Item>
                       <NavDropdown.Item href="">
@@ -110,7 +113,7 @@ const NavBar = () => {
                         Ask your query
                       </NavDropdown.Item>
                     </NavDropdown>
-                    <NavDropdown title="UI/UX Design" className="dropdownNav">
+                    <NavDropdown title="UI/UX Design" className="dropdownNav dropend" >
                       <NavDropdown.Item href="">HandBook</NavDropdown.Item>
                       <NavDropdown.Item href="">Resources</NavDropdown.Item>
                       <NavDropdown.Item href="">
@@ -120,7 +123,7 @@ const NavBar = () => {
                         Ask your query
                       </NavDropdown.Item>
                     </NavDropdown>
-                    <NavDropdown title="BlockChain" className="dropdownNav">
+                    <NavDropdown title="BlockChain" className="dropdownNav dropend" >
                       <NavDropdown.Item href="">HandBook</NavDropdown.Item>
                       <NavDropdown.Item href="">Resources</NavDropdown.Item>
                       <NavDropdown.Item href="">
@@ -130,7 +133,7 @@ const NavBar = () => {
                         Ask your query
                       </NavDropdown.Item>
                     </NavDropdown>
-                    <NavDropdown title="Open Source" className="dropdownNav">
+                    <NavDropdown title="Open Source" className="dropdownNav dropend" >
                       <NavDropdown.Item href="">Resources</NavDropdown.Item>
                       <NavDropdown.Item href="">
                         Contact Mentor
@@ -142,7 +145,7 @@ const NavBar = () => {
                     </NavDropdown>
                     <NavDropdown
                       title="SEO/Graphic Design"
-                      className="dropdownNav"
+                      className="dropdownNav dropend" 
                     >
                       <NavDropdown.Item href="">HandBook</NavDropdown.Item>
                       <NavDropdown.Item href="">Resources</NavDropdown.Item>
