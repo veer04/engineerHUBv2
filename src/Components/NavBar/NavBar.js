@@ -166,7 +166,7 @@ const NavBar = () => {
                   <Nav.Link href="" className="navelements">
                     Campus
                   </Nav.Link>
-                  <Nav.Link href="" className="navelements">
+                  <Nav.Link href="/hiring" className="navelements">
                     Hiring
                   </Nav.Link>
                   <Nav.Link href="" className="navelements">

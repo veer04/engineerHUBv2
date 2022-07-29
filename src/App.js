@@ -4,6 +4,7 @@ import NavBar from "./Components/NavBar/NavBar";
 import HomePage from "./Components/HomePage/HomePage";
  import MagzineAndHandbook from './Components/magzineandHandbook/magzineAndHandbook';
 import Internship from "./Components/Internship/Internship";
+import Hiring from "./Components/Hiring/Hiring";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route path="" exact element={<HomePage />} />
         <Route path="/internship" exact element={<Internship />} />
         <Route path="/magazine" exact element={<MagzineAndHandbook />} />
+        <Route path="/hiring" exact element={<Hiring />} />
       </Routes>
     </Router>
   );

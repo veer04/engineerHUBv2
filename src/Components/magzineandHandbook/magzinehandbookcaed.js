@@ -8,7 +8,7 @@ export default function MagzineAndHandbookcard() {
         <img
           src={cybersecurityimg}
           className="card-img-left card-img img-fluid"
-          alt="magzine-card-image"
+          alt="magzine-card"
         />
         <div className="card-body">
           <h5 className="card-title">
@@ -35,7 +35,7 @@ export default function MagzineAndHandbookcard() {
               Tap to open
             </a>
             <a href="www.engineerhub.in" className="btn btn-warning">
-              <i class="fa fa-eye"></i> 1,000
+              <i className="fa fa-eye"></i> 1,000
             </a>
           </div>
         </div>

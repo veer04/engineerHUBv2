@@ -18,9 +18,7 @@ import Footer from "../Footer/Footer";
 import campusIcon from "./icons/campus.png";
 import GradIcon from "./icons/graudate.png";
 import BuildingIcon from "./icons/building.png";
-import ApartmentIcon from "@mui/icons-material/Apartment";
-import SchoolOutlinedIcon from "@mui/icons-material/SchoolOutlined";
-import CorporateFareOutlinedIcon from "@mui/icons-material/CorporateFareOutlined";
+
 
 // import Infosys from '../HomePage/infosys.svg';
 // import Logitech from '../HomePage/logitech.svg';
