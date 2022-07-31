@@ -20,6 +20,10 @@ import GradIcon from "./icons/graudate.png";
 import BuildingIcon from "./icons/building.png";
 
 
+ import tcs from "../HomePage/tcs.png";
+ import vedantu from "../HomePage/vedantu.png";
+import swiggy from "../HomePage/swiggy.png";
+import infosys from "../HomePage/infosys.jpg";
 // import Infosys from '../HomePage/infosys.svg';
 // import Logitech from '../HomePage/logitech.svg';
 // // import Oracle from '../HomePage/oracle.svg';

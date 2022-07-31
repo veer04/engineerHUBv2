@@ -15,6 +15,10 @@
   overflow: hidden;
   background-color: transparent;
 }
+.tcsimage{
+  height: 10vh;
+  width: 15vw;
+}
 .tagContainer {
   display: flex;
   flex-direction: column;
