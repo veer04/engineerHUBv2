@@ -30,10 +30,15 @@
     font-size: 1.3rem;
     margin-top: -2%;
 }
-.videocard{
+ReactPlayer{
     margin-top: 7%;
     border-radius: 50px;
+    
 
+}
+.tcsimage{
+    height: 10vh;
+    width: 15vw;
 }
 .video{
     width: 10vw;

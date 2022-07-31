@@ -19,9 +19,10 @@ import Footer from '../Footer/Footer';
 import ApartmentIcon from '@mui/icons-material/Apartment';
 import SchoolOutlinedIcon from '@mui/icons-material/SchoolOutlined';
 import CorporateFareOutlinedIcon from '@mui/icons-material/CorporateFareOutlined';
-
-
-
+ import tcs from "../HomePage/tcs.png";
+ import vedantu from "../HomePage/vedantu.png";
+import swiggy from "../HomePage/swiggy.png";
+import infosys from "../HomePage/infosys.jpg";
 // import Infosys from '../HomePage/infosys.svg';
 // import Logitech from '../HomePage/logitech.svg';
 // // import Oracle from '../HomePage/oracle.svg';
@@ -71,7 +72,7 @@ export default function NavBar() {
       className="react-player"
       playing
       width="90%"
-      height="37.6%"
+      height="100%"
       controls={false}
     />
   </div>
@@ -118,19 +119,19 @@ Companies we Collaborate
 </div>
 <div className="row">
   <div className="col-lg-2 studentfrom2">
-TCS
+<img src={tcs} alt="tcs" className='tcsimage'/>
   </div>
   <div className="col-lg-2 studentfrom2">
-    SWIGGY
+  <img src={swiggy} alt="tcs" className='tcsimage'/>
   </div>
   <div className="col-lg-2 studentfrom2">
-    Vedantu
+  <img src={vedantu} alt="tcs" className='tcsimage'/>
   </div>
   <div className="col-lg-2 studentfrom2">
     Logitech
   </div>
   <div className="col-lg-2 studentfrom2">
-Infosys
+  <img src={infosys} alt="tcs" className='tcsimage'/>
   </div>
 </div>
 </div>

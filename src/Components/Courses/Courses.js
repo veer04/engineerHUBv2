@@ -3,7 +3,7 @@ import '../Events/Events.css'
 import '../Courses/Courses.css'
 // import ShareIcon from '@mui/icons-material/Share';
 import backImage from '../Magzine/backimg.png'
-// import { borderRadius } from '@mui/system';
+// import { borderRadius } from '@mui/system';.
 
 
 function Events() {
