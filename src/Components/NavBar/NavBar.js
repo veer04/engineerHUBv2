@@ -79,7 +79,10 @@ const NavBar = () => {
                         Ask your query
                       </NavDropdown.Item>
                     </NavDropdown>
-                    <NavDropdown title="ML&AI (PYTHON)" className="dropdownNav dropend ">
+                    <NavDropdown
+                      title="ML&AI (PYTHON)"
+                      className="dropdownNav dropend "
+                    >
                       <NavDropdown.Item href="">HandBook</NavDropdown.Item>
                       <NavDropdown.Item href="">Resources</NavDropdown.Item>
                       <NavDropdown.Item href="">
@@ -89,9 +92,15 @@ const NavBar = () => {
                         Ask your query
                       </NavDropdown.Item>
                     </NavDropdown>
-                    <NavDropdown title="Cyber Security" className="dropdownNav dropend " >
+                    <NavDropdown
+                      title="Cyber Security"
+                      className="dropdownNav dropend "
+                    >
                       <div className="dropdownNav dropend ">
-                        <NavDropdown.Item href="" className="dropdownNav dropend" >
+                        <NavDropdown.Item
+                          href=""
+                          className="dropdownNav dropend"
+                        >
                           HandBook
                         </NavDropdown.Item>
                         <NavDropdown.Item href="">Resources</NavDropdown.Item>
@@ -103,7 +112,10 @@ const NavBar = () => {
                         </NavDropdown.Item>
                       </div>
                     </NavDropdown>
-                    <NavDropdown title="Dev Ops" className="dropdownNav dropend" >
+                    <NavDropdown
+                      title="Dev Ops"
+                      className="dropdownNav dropend"
+                    >
                       <NavDropdown.Item href="">HandBook</NavDropdown.Item>
                       <NavDropdown.Item href="">Resources</NavDropdown.Item>
                       <NavDropdown.Item href="">
@@ -113,7 +125,10 @@ const NavBar = () => {
                         Ask your query
                       </NavDropdown.Item>
                     </NavDropdown>
-                    <NavDropdown title="UI/UX Design" className="dropdownNav dropend" >
+                    <NavDropdown
+                      title="UI/UX Design"
+                      className="dropdownNav dropend"
+                    >
                       <NavDropdown.Item href="">HandBook</NavDropdown.Item>
                       <NavDropdown.Item href="">Resources</NavDropdown.Item>
                       <NavDropdown.Item href="">
@@ -123,7 +138,10 @@ const NavBar = () => {
                         Ask your query
                       </NavDropdown.Item>
                     </NavDropdown>
-                    <NavDropdown title="BlockChain" className="dropdownNav dropend" >
+                    <NavDropdown
+                      title="BlockChain"
+                      className="dropdownNav dropend"
+                    >
                       <NavDropdown.Item href="">HandBook</NavDropdown.Item>
                       <NavDropdown.Item href="">Resources</NavDropdown.Item>
                       <NavDropdown.Item href="">
@@ -133,7 +151,10 @@ const NavBar = () => {
                         Ask your query
                       </NavDropdown.Item>
                     </NavDropdown>
-                    <NavDropdown title="Open Source" className="dropdownNav dropend" >
+                    <NavDropdown
+                      title="Open Source"
+                      className="dropdownNav dropend"
+                    >
                       <NavDropdown.Item href="">Resources</NavDropdown.Item>
                       <NavDropdown.Item href="">
                         Contact Mentor
@@ -145,7 +166,7 @@ const NavBar = () => {
                     </NavDropdown>
                     <NavDropdown
                       title="SEO/Graphic Design"
-                      className="dropdownNav dropend" 
+                      className="dropdownNav dropend"
                     >
                       <NavDropdown.Item href="">HandBook</NavDropdown.Item>
                       <NavDropdown.Item href="">Resources</NavDropdown.Item>

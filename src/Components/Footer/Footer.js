@@ -9,12 +9,12 @@ import TelegramIcon from "@mui/icons-material/Telegram";
 function Footer() {
   return (
     <>
-      <div className="container mw-100">
+      <div className="foot-container">
         <div className="Footer">
-          <div className="row footerRow">
-            <div className="col-lg-4">
+          <div className="footerRow">
+            <div className="f_nav">
               <h3 className="textfooter">About Us</h3>
-              <div className="row">
+              
                 <p className="footertextaboutus">
                   engineerHUB (formerly engineerSUMMIT) is INDIA's largest
                   community of engineers where students(alumni) from IITs, NITs,
@@ -23,9 +23,9 @@ function Footer() {
                   guidelines to new comers into engineering field for how and
                   where to start their learning.{" "}
                 </p>
-              </div>
+        
             </div>
-            <div className="col-lg-2">
+            <div className="f_nav">
               <h3 className="textfooter">Quick Links</h3>
               <div className="row footerinnertext">
                 <p>Magzines</p>
@@ -37,25 +37,13 @@ function Footer() {
                 <p>Events</p>
               </div>
             </div>
-            <div className="col-lg-2">
+            <div className="f_nav">
               <h3 className="textfooter quickfooter">Address</h3>
               <div className="row footerinnertext">
                 <p>Delhi(NCR)</p>
               </div>
             </div>
-            <div className="col-lg-2">
-              <h3 className="textfooter legalfooter">Legal</h3>
-              <div className="row footerinnertext">
-                <p>xxxxxxxxxx</p>
-              </div>
-              <div className="row footerinnertext">
-                <p>xxxxxxxxxx</p>
-              </div>
-              <div className="row footerinnertext">
-                <p>xxxxxxxxxx</p>
-              </div>
-            </div>
-            <div className="col-lg-2">
+            <div className="f_nav">
               <h3 className="textfooter">Contact Us</h3>
 
               <div className="row">

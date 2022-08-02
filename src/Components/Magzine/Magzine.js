@@ -9,7 +9,7 @@ function Magzine() {
       <div className="content">
         <div className="container">
           <h1 className="text1">Magazines & Hand-Book</h1>
-          <h5 className="text2 text111 ">
+          <h5 className="text2 text111 magazine-box ">
             Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quos,
             natus. Nihil molestias culpa quibusdam quaerat ea neque velit fugit
             officia amet eligendi! Quis quos animi officia explicabo accusamus
