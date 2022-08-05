@@ -7,12 +7,9 @@ import LefImg from "./left-img.jpg";
 const login = () => {
   return (
     <div className="cont">
-      <div className="left-cont">
-        <img src={LefImg} alt="study" />
-      </div>
-      <div className="right-cont">
-        <div className="tagContainer">engineerHUB</div>
-        <h5 className="headerbelow">Students . Campus . Industries</h5>
+    
+        <div className="mytagContainer">engineerHUB</div>
+        <h5 className="myheaderbelow">Students . Campus . Industries</h5>
 
         <div className="my-form">
           <div className="form-cont">
@@ -45,7 +42,7 @@ const login = () => {
         </div>
 
         <div className="my-border"></div>
-      </div>
+ 
     </div>
   );
 };

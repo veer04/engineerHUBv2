@@ -10,7 +10,7 @@ import Login from "./Components/Login/login.js";
 function App() {
   return (
     <Router>
-      {/* <NavBar /> */}
+      <NavBar />
       <Routes>
         <Route path="" exact element={<HomePage />} />
         <Route path="/login" exact element={<Login />} />
