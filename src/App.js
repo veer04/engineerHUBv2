@@ -5,12 +5,12 @@ import HomePage from "./Components/HomePage/HomePage";
 import MagzineAndHandbook from "./Components/magzineandHandbook/magzineAndHandbook";
 import Internship from "./Components/Internship/Internship";
 import Hiring from "./Components/Hiring/Hiring";
-import Admin from "./Components/Admin/Admin.js";
+import Admin from "./Components/Admin/admin";
 
 function App() {
   return (
     <Router>
-      {/* <NavBar /> */}
+      <NavBar />
       <Routes>
         <Route path="" exact element={<HomePage />} />
         <Route path="/admin" exact element={<Admin />} />

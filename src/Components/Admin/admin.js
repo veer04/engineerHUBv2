@@ -1,5 +1,5 @@
 import React from "react";
-import "./Admin.css";
+import "./admin.css";
 import google from "./svg/google.svg";
 import github from "./svg/github.svg";
 import linkedin from "./svg/linkedin.svg";

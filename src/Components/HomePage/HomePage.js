@@ -37,7 +37,7 @@ export default function NavBar() {
         <div className="col-lg-7 ">
           <div className="tagContainer">
             <h1 className="headerbrandname">engineerHUB</h1>
-            <h5 className="headerbelow">Students . Campus . Industries</h5>
+            <h5 className="myheaderbelow">Students . Campus . Industries</h5>
           </div>
           <div className="row headerContainer">
             <div className="col-4 headercard">
