@@ -1,3 +1,150 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
 * {
+  box-sizing: border-box;
   font-family: "Poppins", sans-serif;
+}
+.headerbelow {
+  position: relative;
+  display: inline-block;
+  letter-spacing: -0.4px;
+  bottom: 44px;
+  left: 150px;
+  font-weight: 400;
+  font-size: 0.8rem;
+  margin-block-end: 0;
+  margin-block-start: 0;
+}
+.cont {
+  height: 100vh;
+  display: flex;
+}
+.left-cont {
+  width: 70%;
+}
+.left-cont img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.right-cont {
+  width: 30%;
+}
+.tagContainer {
+  display: flex;
+  align-items: center;
+  font-size: 3rem;
+  font-weight: 700;
+  color: #05555e;
+  padding: 20px;
+}
+
+label {
+  color: #05555e;
+  font-weight: 700;
+  padding-left: 5px;
+  font-family: "Montserrat", sans-serif;
+}
+.form-cont {
+  display: flex;
+  flex-direction: column;
+}
+
+.f-p {
+  color: #05555e;
+  width: 233px;
+  padding-left: 5px;
+  font-weight: 700;
+  font-family: "Montserrat", sans-serif;
+}
+
+.form-opt {
+  display: flex;
+}
+
+.my-btn {
+  padding: 5px;
+  border-radius: 5px;
+  margin: 5px;
+  width: 220px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  font-family: "Montserrat", sans-serif;
+}
+input {
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1);
+  margin: 5px;
+  background: rgb(249, 254, 253);
+  border: 1px solid rgba(156, 156, 156, 0.781);
+  font-size: 1rem;
+  width: 100%;
+  max-width: 250px;
+  transition: all 300ms ease-in-out;
+}
+.si {
+
+  font-weight: 800;
+  border: none;
+  cursor: pointer;
+  background-color: #05555e;
+  color: white;
+  transition: all 300ms ease-in-out;
+}
+
+.divisor {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  padding: 10px 0px;
+}
+
+input:focus {
+  box-shadow: 2px 2px 4px rgba(156, 156, 156, 0.781);
+  outline: none;
+}
+
+.my-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.sign-opt {
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  margin: 5px;
+  border-radius: 20px;
+  /* color: white; */
+  background: rgb(248, 255, 254);
+  border: 1px solid rgba(156, 156, 156, 0.781);
+  cursor: pointer;
+  width: 100%;
+  max-width: 220px;
+  transition: all 300ms ease-in-out;
+}
+
+.sign-opt:hover {
+  box-shadow: 2px 2px 4px rgba(156, 156, 156, 0.781);
+}
+.sign-opt img {
+  padding: 0 2px;
+  width: 25px;
+}
+.sign-field {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.my-border {
+  border-bottom: 2px solid #cacaca2b;
+  width: 250px;
+  margin: auto;
+  padding: 10px;
 }
