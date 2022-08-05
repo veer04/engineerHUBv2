@@ -1,10 +1,10 @@
 import React from "react";
-import "./Admin.css";
+import "./login.css";
 import google from "./svg/google.svg";
 import github from "./svg/github.svg";
 import linkedin from "./svg/linkedin.svg";
 import LefImg from "./left-img.jpg";
-const Admin = () => {
+const login = () => {
   return (
     <div className="cont">
       <div className="left-cont">
@@ -50,4 +50,4 @@ const Admin = () => {
   );
 };
 
-export default Admin;
+export default login;
