@@ -4,16 +4,9 @@
   font-family: "Poppins", sans-serif;
  
 }
-.myheaderbelow {
-  position: relative;
-  display: inline-block;
-  letter-spacing: -0.4px;
-  bottom: 40px;
-  left: 75px;
-  font-weight: 400;
-  font-size: 1.2rem;
-  margin-block-end: 0;
-  margin-block-start: 0;
+.my-form-head{
+  font-weight: bold;
+  font-size: 40px;
 }
 .cont {
   display: flex;
@@ -21,14 +14,11 @@
   align-items: center;
   margin-top: 10px;
 }
-
-.mytagContainer {
+.cont-head{
   display: flex;
+  flex-direction: column;
   align-items: center;
-  font-size: 3rem;
-  font-weight: 700;
-  color: #05555e;
-  padding: 20px;
+  justify-content: center;
 }
 
 label {
@@ -40,23 +30,24 @@ label {
 .form-cont {
   display: flex;
   flex-direction: column;
+  
 }
 
 .f-p {
-  color: #05555e;
-  width: 233px;
-  padding-left: 5px;
-  font-weight: 700;
+  color: #168584;
+  text-decoration: underline;
+  font-weight: 600;
   font-family: "Montserrat", sans-serif;
 }
 
 .form-opt {
   display: flex;
+  flex-direction: column;
 }
 
 .my-btn {
   padding: 5px;
-  border-radius: 5px;
+  border-radius: 16px;
   margin: 5px;
   width: 220px;
   display: flex;
@@ -64,6 +55,10 @@ label {
   justify-content: center;
   border: none;
   font-family: "Montserrat", sans-serif;
+  font-size: 16px;
+  letter-spacing: -0.41px;
+  height: 60px;
+  width: 366px;
 }
 input {
   padding: 10px;
@@ -79,20 +74,20 @@ input {
 }
 .si {
 
-  font-weight: 800;
+  font-weight: 600;
   border: none;
   cursor: pointer;
   background-color: #05555e;
   color: white;
-  transition: all 300ms ease-in-out;
+  
 }
 
 .divisor {
   display: flex;
   align-items: center;
-  justify-content: center;
+ 
   font-weight: bold;
-  padding: 10px 0px;
+ 
 }
 
 input:focus {
@@ -111,13 +106,14 @@ input:focus {
   display: flex;
   justify-content: center;
   margin: 5px;
-  border-radius: 20px;
+  align-items: center;
+  border-radius: 16px;
   /* color: white; */
-  background: rgb(248, 255, 254);
-  border: 1px solid rgba(156, 156, 156, 0.781);
+  border: 1px solid #EEEEEE;
   cursor: pointer;
-  width: 100%;
-  max-width: 220px;
+
+  width: 336px;
+  height: 56px;
   transition: all 300ms ease-in-out;
 }
 
@@ -141,3 +137,10 @@ input:focus {
   margin: auto;
   padding: 10px;
 }
+
+
+.my-item-cont{
+  display: flex;
+  justify-content: space-around;
+}
+
