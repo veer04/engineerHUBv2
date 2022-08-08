@@ -11,7 +11,7 @@ export default function Hire() {
         <img
           src={hiring}
           className="card-img-left card-img img-fluid image"
-          alt="hire-card-image"
+          alt="hire-card"
         />
         <div className="card-body position-absolute cbody">
           <h2 className="card-title txt">

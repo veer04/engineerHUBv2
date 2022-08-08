@@ -1,0 +1,11 @@
+.fprize{
+    background-color:  rgba(0, 148, 255, 1);
+    position: relative;
+    left: 40%;
+}
+/* .cardTitlecourses{
+    font-size: 1.5rem;
+} */
+.courses-box{
+    margin-left: 4%;
+}

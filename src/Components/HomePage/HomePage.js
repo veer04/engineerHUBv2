@@ -1,25 +1,121 @@
-import React from 'react'
-import ReactPlayer from 'react-player'
-import'../HomePage/HomePage.css'
+import React from "react";
+import ReactPlayer from "react-player";
+import "../HomePage/HomePage.css";
+import "../Aboutus/Aboutus";
+import Aboutus from "../Aboutus/Aboutus";
+import "../Whatwedo/Whatwedo";
+import Whatwedo from "../Whatwedo/Whatwedo";
+import "../Magzine/Magzine";
+import Magzine from "../Magzine/Magzine";
+import "../Events/Events";
+import Events from "../Events/Events";
+import "../Courses/Courses";
+import Courses from "../Courses/Courses";
+import "../Members/Members";
+import Members from "../Members/Members";
+import "../Footer/Footer";
+import Footer from "../Footer/Footer";
+import campusIcon from "./icons/campus.png";
+import GradIcon from "./icons/graudate.png";
+import BuildingIcon from "./icons/building.png";
 
 
+ import tcs from "../HomePage/tcs.png";
+ import vedantu from "../HomePage/vedantu.png";
+import swiggy from "../HomePage/swiggy.png";
+import infosys from "../HomePage/infosys.jpg";
+// import Infosys from '../HomePage/infosys.svg';
+// import Logitech from '../HomePage/logitech.svg';
+// // import Oracle from '../HomePage/oracle.svg';
+// import Swiggy from '../HomePage/swiggy.svg';
+// import TCS from '../HomePage/tcs.png';
+// import Vedantu from '../HomePage/vedantu.svg';
 export default function NavBar() {
   return (
-    <div>
-    <div className='home'>
-      <div className='left'>
-          <h2>The Place Where We Connect</h2>
-          <h1>Engineers</h1>
-          <button className='signup'>SIGN IN</button>
+    <>
+      <div className="row headearpart">
+        <div className="col-lg-7 ">
+          <div className="tagContainer">
+            <h1 className="headerbrandname">engineerHUB</h1>
+            <h5 className="headerbelow">Students . Campus . Industries</h5>
+          </div>
+          <div className="row headerContainer">
+            <div className="col-4 headercard">
+              <img src={campusIcon} alt="Campus" />
+              <h1 className="headercardtext">750+</h1>
+
+              <h6 className="innerfont">campus</h6>
+            </div>
+            <div className="col-4 headercard">
+              <img src={GradIcon} alt="Graduate" />
+              <h1 className="headercardtext">50K+</h1>
+
+              <h6 className="innerfont">Students</h6>
+            </div>
+            <div className="col-4 headercard">
+              <img src={BuildingIcon} alt="Building" />
+              <h1 className="headercardtext">18+</h1>
+
+              <h6 className="innerfont">Industries</h6>
+            </div>
+          </div>
+        </div>
+        <div className="player-wrapper col-lg-5 videocard">
+          <ReactPlayer
+            url="https://www.youtube.com/watch?v=YY6rzlCFg1o&t=149s"
+            className="react-player"
+            // playing
+            width="100%"
+            height="100%"
+            controls={false}
+          />
+        </div>
       </div>
-      <div className='right'>
-      <ReactPlayer className='video' url='https://www.youtube.com/watch?v=Xi8Fabcb_MA' />
+
+      <div className="row Studentsfrom">
+        <div className="studenttxt">Our students comes from</div>
+        <div className="row cllgCarol">
+          <div className="col-lg-2 studentfrom">IIT Kanpur</div>
+          <div className="col-lg-2 studentfrom">IIT Roorkee</div>
+          <div className="col-lg-2 studentfrom">NIT Banglore</div>
+          <div className="col-lg-2 studentfrom">IIIT Vadodra</div>
+          <div className="col-lg-2 studentfrom">IIT Bombay</div>
+        </div>
       </div>
+
+      <div className="row Studentsfrom2">
+        <div className="studenttxt">Companies we Collaborate</div>
+        <div className="row">
+          <div className="col-lg-2 studentfrom2">TCS</div>
+          <div className="col-lg-2 studentfrom2">SWIGGY</div>
+          <div className="col-lg-2 studentfrom2">Vedantu</div>
+          <div className="col-lg-2 studentfrom2">Logitech</div>
+          <div className="col-lg-2 studentfrom2">Infosys</div>
+        </div>
       </div>
-      <div className='line'>
-      <h2>" A VERSATILE COMMUNITY FOR VERSATILE PEOPLE "</h2>
-      <button className='arrow'>v</button>
+
+      <div className="about">
+        <Aboutus />
       </div>
-    </div>
-  )
+      <div className="WhatWeDo">
+        <Whatwedo />
+      </div>
+
+      <div className="magzine">
+        <Magzine />
+      </div>
+      <div className="Events">
+        <Events />
+      </div>
+      <div className="Courses">
+        <Courses />
+      </div>
+      <div className="Members">
+        <Members />
+      </div>
+      <div className="Footer">
+        <Footer />
+      </div>
+    </>
+  );
 }

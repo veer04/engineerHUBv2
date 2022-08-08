@@ -1,55 +1,39 @@
-.hov:hover{
-    /* text-decoration: underline;
-    text-decoration-color:#e97705; */
-    background-color: #FFBA5F;
-    color: #05555E;
+.NAvbarBackground {
+  background-color: rgba(0, 42, 54, 1);
 }
-.hov{
-    color: #05555E;
-    text-decoration: none;
+.Navbar-color {
+  color: aliceblue;
 }
-
-ul{
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.navelements {
+  font-family: "poppins";
+  color: aliceblue;
 }
-
-li a{
-    font-family: 'Poppins', sans-serif;
-    font-weight: 500;
+.dropdown-toggle::after {
+  display: none;
+ 
 }
-
-li{
-     
-    padding-top: 1rem;
-      padding-bottom: 1rem;
-      padding-right: 0.5rem;
-      padding-left: 0.5rem;
-      margin-right: 10px;
+.dropdownNav {
+  background-color: #168584;
 }
-.navbar{
-   
-    
-   width: 100%;
+.navdropdownitems a {
+  position: absolute;
+  left: 10%;
 }
-nav{
-    position: relative;
-    display: flex;
-    align-items: center;
+/* .mw-100{
+  width: 300px;
+} */
+NavDropdown {
+  background-color: #168584;
+  border-radius: 50px;
 }
-.logo{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-right: 18rem;
+div.dropdown-menu.show {
+  background-color: #168584;
 }
-
-.logo img{
-    padding-left: 2rem;
+div.dropdown-menu.show {
+  position: relative;
 }
-.gap{
-    margin-right:1.5rem;
+a.dropdown-item {
+  color: #fff;
 }
 .navd{
     box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16);
