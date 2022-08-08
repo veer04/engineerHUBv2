@@ -166,7 +166,7 @@ const NavBar = () => {
                   <Nav.Link href="/magazine" className="navelements">
                     Magazine
                   </Nav.Link>
-                  <Nav.Link href="" className="navelements">
+                  <Nav.Link href="/campus" className="navelements">
                     Campus
                   </Nav.Link>
                   <Nav.Link href="/hiring" className="navelements">
