@@ -9,10 +9,15 @@
   font-size: 40px;
 }
 .cont {
-  display: flex;
+  /* display: flex;
   flex-direction: column;
-  align-items: center;
-  margin-top: 10px;
+  align-items: center; */
+  padding: 24px;
+  margin: 2px auto 0px auto;
+  height:fit-content;
+  width: fit-content;
+  /* border: 1px solid rgb(189, 189, 189);
+  box-shadow:2px 2px 2px rgba(219, 219, 219, 0.2) */
 }
 .cont-head{
   display: flex;
@@ -85,7 +90,7 @@ input {
 .divisor {
   display: flex;
   align-items: center;
- 
+  justify-content: center;
   font-weight: bold;
  
 }
@@ -142,5 +147,6 @@ input:focus {
 .my-item-cont{
   display: flex;
   justify-content: space-around;
+  margin: 10px 0px;
 }
 
