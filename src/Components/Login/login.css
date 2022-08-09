@@ -63,7 +63,7 @@ label {
   height: 60px;
   width: 366px;
 }
-input {
+/* input {
   padding: 10px;
   border-radius: 5px;
   box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1);
@@ -74,7 +74,7 @@ input {
   width: 100%;
   max-width: 250px;
   transition: all 300ms ease-in-out;
-}
+} */
 .si {
 
   font-weight: 600;
@@ -93,10 +93,10 @@ input {
  
 }
 
-input:focus {
+/* input:focus {
   box-shadow: 2px 2px 4px rgba(156, 156, 156, 0.781);
   outline: none;
-}
+} */
 
 .my-form {
   display: flex;
