@@ -5,6 +5,7 @@ import HomePage from "./Components/HomePage/HomePage";
  import MagzineAndHandbook from './Components/magzineandHandbook/magzineAndHandbook';
 import Internship from "./Components/Internship/Internship";
 import Hiring from "./Components/Hiring/Hiring";
+import Campus from "./Components/Campus/Campus";
 
 function App() {
   return (
