@@ -5,7 +5,8 @@ import HomePage from "./Components/HomePage/HomePage";
 import MagzineAndHandbook from "./Components/magzineandHandbook/magzineAndHandbook";
 import Internship from "./Components/Internship/Internship";
 import Hiring from "./Components/Hiring/Hiring";
-
+import Campus from "./Components/Campus/Campus";
+import Login from "./Components/Login/login.js";
 
 function App() {
   return (
@@ -13,10 +14,13 @@ function App() {
       <NavBar />
       <Routes>
         <Route path="" exact element={<HomePage />} />
-       
+
+        <Route path="/login" exact element={<Login />} />
+
         <Route path="/internship" exact element={<Internship />} />
         <Route path="/magazine" exact element={<MagzineAndHandbook />} />
         <Route path="/hiring" exact element={<Hiring />} />
+        <Route path="/campus" exact element={<Campus />} />
       </Routes>
     </Router>
   );
