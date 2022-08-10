@@ -5,20 +5,19 @@
   
   .container-hiring {
     background-color: #002a36;
-    margin: 10px;
-    border-radius: 50px;
+    margin: 20px;
+    border-radius: 20px;
     padding-bottom: 80px;
   }
   
-  .heading {
+  .hire {
     font-size: 5rem;
-    padding-top:60px ;
-    padding-left: 48px;
-    color: #e1d71c;
+  /* padding: 60px 34px; */
+  color: #e1d71c;
   }
   
- .text{ 
-  font-family: Poppins;
+ .texthire{ 
+  font-family: "Poppins";
 font-size: 30px;
 font-weight: 300;
 line-height: 40px;
@@ -26,5 +25,7 @@ letter-spacing: 0em;
 text-align: left;
 color: white;
 padding:30px 48px;
+/* margin-top: 0px; */
+padding-bottom: 0px;
  }
 
