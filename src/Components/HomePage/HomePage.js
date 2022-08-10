@@ -62,7 +62,7 @@ export default function NavBar() {
         </div>
         <div className="player-wrapper col-lg-5 videocard">
           <ReactPlayer
-            url="https://www.youtube.com/watch?v=YY6rzlCFg1o&t=149s"
+            url="https://www.youtube.com/watch?v=uFlGx_Vcjs8"
             className="react-player"
             // playing
             width="100%"

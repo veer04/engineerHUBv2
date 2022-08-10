@@ -9,9 +9,13 @@ const Campus = () => {
 
       <div className="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Non gravida sit nunc duis dui, dui hendrerit suscipit.</div>
 
-      <div style={{marginTop:"0px"}}>
+      <div className="d-flex flex-wrap justify-content-center " style={{marginTop:"0px" , gap: "40px"}}>
         <Card />   
-        <Card /> 
+        <Card />   
+        <Card />   
+        <Card />   
+        <Card />   
+        <Card />   
       </div>
     </div>
   );
