@@ -85,13 +85,13 @@ label {
   
 }
 
-.divisor {
+/* .divisor {
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: bold;
  
-}
+} */
 
 /* input:focus {
   box-shadow: 2px 2px 4px rgba(156, 156, 156, 0.781);

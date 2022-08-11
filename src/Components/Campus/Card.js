@@ -36,8 +36,8 @@ function Card() {
             consectetur adipiscing elit. Arcu, eget suspendisse nunc duis non
             eget est.
           </p>
-          <h6 style={{ fontWeight: 700 }}>Organizer: IIT Delhi</h6>
-          <div className="btn-container d-flex justify-content-between">
+          <h6 style={{ fontWeight: 700, marginBottom: "1rem" }}>Organizer: IIT Delhi</h6>
+          <div className="d-flex align-items-baseline justify-content-between">
             <a href="#" className="btn" style={{ backgroundColor: "#0094FF" }}>
               <span style={{ color: "white" }}>Apply Now !</span>
             </a>

@@ -178,7 +178,7 @@ const NavBar = () => {
                       </NavDropdown.Item>
                     </NavDropdown>
                   </NavDropdown>
-                  <Nav.Link href="" className="navelements">
+                  <Nav.Link href="/courses" className="navelements">
                     Courses
                   </Nav.Link>
                   <Nav.Link href="/internship" className="navelements">

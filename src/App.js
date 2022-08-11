@@ -7,7 +7,7 @@ import Internship from "./Components/Internship/Internship";
 import Hiring from "./Components/Hiring/Hiring";
 import Campus from "./Components/Campus/Campus";
 import Login from "./Components/Login/login.js";
-
+import Courses from "./Components/freecourses-pages/Freecourses.jsx";
 function App() {
   return (
     <Router>
@@ -16,7 +16,7 @@ function App() {
         <Route path="" exact element={<HomePage />} />
 
         <Route path="/login" exact element={<Login />} />
-
+        <Route path="/courses" exact element={<Courses />} />
         <Route path="/internship" exact element={<Internship />} />
         <Route path="/magazine" exact element={<MagzineAndHandbook />} />
         <Route path="/hiring" exact element={<Hiring />} />
