@@ -9,7 +9,7 @@ const Campus = () => {
 
       <div className="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Non gravida sit nunc duis dui, dui hendrerit suscipit.</div>
 
-      <div className="d-flex flex-wrap justify-content-center " style={{marginTop:"0px" , gap: "6px"}}>
+      <div className="d-flex flex-wrap justify-content-center " style={{marginTop:"0px" , gap: "70px"}}>
         <Card />   
         <Card />   
         <Card />   
