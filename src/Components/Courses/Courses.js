@@ -6,8 +6,8 @@ import backImage from "../Magzine/backimg.png";
 function Events() {
   return (
     <>
-      <div className="content contentEvent">
-        <div className="container">
+      <div className="content contentEvent ">
+        <div className="container ">
           <h1 className="text1">Free Courses</h1>
           <h5 className="text2 text111 courses-box">
             Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quos,

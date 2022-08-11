@@ -193,10 +193,10 @@ const NavBar = () => {
                   <Nav.Link href="/hiring" className="navelements">
                     Hiring
                   </Nav.Link>
-                  <Nav.Link href="" className="navelements">
+                  <Nav.Link href="/industry" className="navelements">
                     Industry Personalities
                   </Nav.Link>
-                  <Nav.Link href="" className="navelements">
+                  <Nav.Link href="/team" className="navelements">
                     Team
                   </Nav.Link>
                   <Nav.Link href="">
