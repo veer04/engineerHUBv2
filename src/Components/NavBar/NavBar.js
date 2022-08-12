@@ -45,7 +45,7 @@ const NavBar = () => {
                     >
                       <NavDropdown.Item href="">HandBook</NavDropdown.Item>
                       <NavDropdown.Item href="">Resources</NavDropdown.Item>
-                      <NavDropdown.Item href="">
+                      <NavDropdown.Item href="/mentor">
                         Contact Mentor
                       </NavDropdown.Item>
                       <NavDropdown.Item href="">
@@ -59,7 +59,7 @@ const NavBar = () => {
                     >
                       <NavDropdown.Item href="">HandBook</NavDropdown.Item>
                       <NavDropdown.Item href="">Resources</NavDropdown.Item>
-                      <NavDropdown.Item href="">
+                      <NavDropdown.Item href="/mentor">
                         Contact Mentor
                       </NavDropdown.Item>
                       <NavDropdown.Item href="">
@@ -72,7 +72,7 @@ const NavBar = () => {
                     >
                       <NavDropdown.Item href="">HandBook</NavDropdown.Item>
                       <NavDropdown.Item href="">Resources</NavDropdown.Item>
-                      <NavDropdown.Item href="">
+                      <NavDropdown.Item href="/mentor">
                         Contact Mentor
                       </NavDropdown.Item>
                       <NavDropdown.Item href="">
@@ -85,7 +85,7 @@ const NavBar = () => {
                     >
                       <NavDropdown.Item href="">HandBook</NavDropdown.Item>
                       <NavDropdown.Item href="">Resources</NavDropdown.Item>
-                      <NavDropdown.Item href="">
+                      <NavDropdown.Item href="/mentor">
                         Contact Mentor
                       </NavDropdown.Item>
                       <NavDropdown.Item href="">
@@ -104,7 +104,7 @@ const NavBar = () => {
                           HandBook
                         </NavDropdown.Item>
                         <NavDropdown.Item href="">Resources</NavDropdown.Item>
-                        <NavDropdown.Item href="">
+                        <NavDropdown.Item href="/mentor">
                           Contact Mentor
                         </NavDropdown.Item>
                         <NavDropdown.Item href="">
@@ -118,7 +118,7 @@ const NavBar = () => {
                     >
                       <NavDropdown.Item href="">HandBook</NavDropdown.Item>
                       <NavDropdown.Item href="">Resources</NavDropdown.Item>
-                      <NavDropdown.Item href="">
+                      <NavDropdown.Item href="/mentor">
                         Contact Mentor
                       </NavDropdown.Item>
                       <NavDropdown.Item href="">
@@ -131,7 +131,7 @@ const NavBar = () => {
                     >
                       <NavDropdown.Item href="">HandBook</NavDropdown.Item>
                       <NavDropdown.Item href="">Resources</NavDropdown.Item>
-                      <NavDropdown.Item href="">
+                      <NavDropdown.Item href="/mentor">
                         Contact Mentor
                       </NavDropdown.Item>
                       <NavDropdown.Item href="">
@@ -144,7 +144,7 @@ const NavBar = () => {
                     >
                       <NavDropdown.Item href="">HandBook</NavDropdown.Item>
                       <NavDropdown.Item href="">Resources</NavDropdown.Item>
-                      <NavDropdown.Item href="">
+                      <NavDropdown.Item href="/mentor">
                         Contact Mentor
                       </NavDropdown.Item>
                       <NavDropdown.Item href="">
@@ -156,8 +156,8 @@ const NavBar = () => {
                       className="dropdownNav dropend"
                     >
                       <NavDropdown.Item href="">Resources</NavDropdown.Item>
-                      <NavDropdown.Item href="">
-                        Contact Mentor
+                      <NavDropdown.Item href="/mentor">
+               Contact Mentor
                       </NavDropdown.Item>
                       ``
                       <NavDropdown.Item href="">
@@ -170,7 +170,7 @@ const NavBar = () => {
                     >
                       <NavDropdown.Item href="">HandBook</NavDropdown.Item>
                       <NavDropdown.Item href="">Resources</NavDropdown.Item>
-                      <NavDropdown.Item href="">
+                      <NavDropdown.Item href="/mentor">
                         Contact Mentor
                       </NavDropdown.Item>
                       <NavDropdown.Item href="">
@@ -199,7 +199,7 @@ const NavBar = () => {
                   <Nav.Link href="/team" className="navelements">
                     Team
                   </Nav.Link>
-                  <Nav.Link href="">
+                  <Nav.Link href="/login">
                     <img src={User} alt="" height={40} width={40} />
                   </Nav.Link>
                 </Nav>
