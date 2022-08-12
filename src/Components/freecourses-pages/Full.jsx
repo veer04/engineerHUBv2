@@ -2,7 +2,7 @@ import React from "react";
 import "./freecourses.css";
 import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
 import backImage from "./backimg.png";
-import cybersecurityimg from "../magzineandHandbook/cybersecurityimg.png";
+
 
 function Card() {
   return (
@@ -18,14 +18,15 @@ function Card() {
 
         <div className="d-flex justify-content-between align-items-center">
           <h5
-            className="card-title"
+            className="card-title magc"
             style={{
               padding: 0,
               font: "poppins",
-              fontWeight: 500,
+              fontWeight: 600,
               fontSize: "20px",
               lineHeight: "32px",
               paddingTop: "0",
+              color:"#1b5b62"
             }}
           >
             Frontend Development

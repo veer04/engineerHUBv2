@@ -26,10 +26,11 @@ function Card({ paid = false , card_head="Hackathons for Developers"}) {
             style={{
               padding: 0,
               font: "poppins",
-              fontWeight: 500,
+              fontWeight: 600,
               fontSize: "20px",
               lineHeight: "32px",
               paddingTop: "0",
+              color: "#1b5b62"
             }}
           >
             {card_head}
