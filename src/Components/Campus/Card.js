@@ -22,7 +22,7 @@ function Card({ paid = false , card_head="Hackathons for Developers"}) {
         )}
         <div className="d-flex justify-content-between align-items-center">
           <h5
-            className="card-title"
+            className="card-title h-effect"
             style={{
               padding: 0,
               font: "poppins",
@@ -62,7 +62,7 @@ function Card({ paid = false , card_head="Hackathons for Developers"}) {
           </p>
         </div>
       </div>
-    </div>
+      </div>
   );
 }
 

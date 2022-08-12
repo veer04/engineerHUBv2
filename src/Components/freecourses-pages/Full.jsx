@@ -1,11 +1,10 @@
 import React from "react";
-// import "../Card.css";
 import "./freecourses.css";
 import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
 import backImage from "./backimg.png";
 import cybersecurityimg from "../magzineandHandbook/cybersecurityimg.png";
 
-function Card({img={cybersecurityimg}}) {
+function Card() {
   return (
     <div
       className="card custom-card"
