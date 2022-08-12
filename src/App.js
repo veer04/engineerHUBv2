@@ -11,6 +11,7 @@ import Mentors from "./Components/Mentors/Mentor";
 import Teams from "./Components/Teams/Team";
 import IndustryPersona from "./Components/IndustryPersona/IndustryPersona";
 import Freecourses from "./Components/freecourses-pages/Freecourses";
+import Resources from "./Components/Resources/Resources";
 
 function App() {
   return (
@@ -31,6 +32,8 @@ function App() {
         <Route path="/industry" exact element={<IndustryPersona />} />
 
         <Route path="/courses" exact element={<Freecourses />} />
+        <Route path="/resources" exact element={<Resources />} />
+        
       </Routes>
     </Router>
   );

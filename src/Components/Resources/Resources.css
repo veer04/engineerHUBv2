@@ -1,0 +1,41 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.topic_container {
+  margin-left: 20vw;
+}
+.topicBox {
+  box-sizing: border-box;
+  margin: 20px 0px;
+  width: 60vw;
+  height: 10vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 27px auto;
+  gap: 10px;
+  background: #ffffff;
+  border: 3.12635px solid #000000;
+  border-radius: 22.6661px;
+}
+.topicBox a {
+  list-style: none;
+  text-decoration: none;
+  color: #000000;
+}
+.topicBox .subheading {
+  width: 393px;
+  height: 41px;
+  text-align: center;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 25px;
+  display: flex;
+  justify-content: center;
+  color: #000000;
+}

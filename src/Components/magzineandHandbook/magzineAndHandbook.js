@@ -1,6 +1,5 @@
 import React from "react";
 import "../magzineandHandbook/magzineandhandbook.css";
-import MagzineAndHandbookcard from "./MCard";
 import MCard from "./MCard";
 export default function MagzineAndHandbook() {
   return (
