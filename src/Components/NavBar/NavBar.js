@@ -16,9 +16,9 @@ const NavBar = () => {
         height: '100%',
        
     },
-  containment:{
+    containment:{
       display: 'flex',
-   
+      height: '100%',
       flexWrap: 'wrap'
     }
 

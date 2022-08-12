@@ -4,7 +4,7 @@ import MagzineAndHandbookcard from "./magzinehandbookcaed";
 export default function MagzineAndHandbook() {
   return (
     <>
-      <div className="container-fluid">
+      <div className="container-fluid imp">
         <div className="magzine-container">
           <div className="magzine-header">
             <h2>Magzines &amp; HandBook</h2>

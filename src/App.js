@@ -7,6 +7,10 @@ import Internship from "./Components/Internship/Internship";
 import Hiring from "./Components/Hiring/Hiring";
 import Campus from "./Components/Campus/Campus";
 import Login from "./Components/Login/login.js";
+import Mentors from "./Components/Mentors/Mentor";
+import Teams from "./Components/Teams/Team";
+import IndustryPersona from "./Components/IndustryPersona/IndustryPersona";
+import Freecourses from "./Components/freecourses-pages/Freecourses";
 
 function App() {
   return (
@@ -16,11 +20,17 @@ function App() {
         <Route path="" exact element={<HomePage />} />
 
         <Route path="/login" exact element={<Login />} />
-
+      
         <Route path="/internship" exact element={<Internship />} />
         <Route path="/magazine" exact element={<MagzineAndHandbook />} />
         <Route path="/hiring" exact element={<Hiring />} />
         <Route path="/campus" exact element={<Campus />} />
+
+        <Route path="/mentor" exact element={<Mentors />} />
+        <Route path="/Team" exact element={<Teams />} />
+        <Route path="/industry" exact element={<IndustryPersona />} />
+
+        <Route path="/courses" exact element={<Freecourses />} />
       </Routes>
     </Router>
   );

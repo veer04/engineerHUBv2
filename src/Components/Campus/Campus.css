@@ -4,23 +4,27 @@
 }
 
 .containerc {
-  background-color: #002A36;
+  background-color: #002a36;
   margin: auto;
   border-radius: 30px;
   /* padding-bottom: 80px; */
-  padding: 0px 0px 80px;
+   padding: 35px 0px 35px 0px;
   margin: 20px 20px 20px 20px;
 }
 
 .heading {
-  font-size: 3.5rem;
-  padding-left: 48px;
+  padding: 0px 0px 0px 40px;
   color: #e1d71c;
+  font-size: 63px;
+  font-weight: 500;
+  line-height: 95px;
+  letter-spacing: 0em;
+  text-align: left;
 }
 
 .text {
   font-family: Poppins;
-  font-size: 30px;
+  font-size: 20px;
   font-weight: 300;
   line-height: 40px;
   letter-spacing: 0em;

@@ -1,7 +1,6 @@
 .container-fluid {
   display: flex;
   flex-direction: column;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 .container-fluid .magzine-container {
   background-color: #002a36;
