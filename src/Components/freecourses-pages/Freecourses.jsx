@@ -4,7 +4,7 @@ import Full from "../freecourses-pages/Full";
 
 const Freecourses = () => {
   return (
-    <div className="container-hir">
+    <div className="container-hiring">
       <div className="heading">Explore Courses</div>
 
       <div className="texthire">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Non gravida sit nunc duis dui, dui hendrerit suscipit.</div>
