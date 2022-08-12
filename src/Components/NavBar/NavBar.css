@@ -40,7 +40,7 @@ a.dropdown-item {
 }
 @media screen and (max-width:1463px){
     .logo{
-        margin-right: 5rem;
+        margin-right: 1rem;
     }
 }
 @media screen and (max-width:1128px){
@@ -65,7 +65,7 @@ a.dropdown-item {
     nav{
         position: relative;
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     align-items: center;
     justify-content: space-between;
     }
@@ -85,4 +85,7 @@ a.dropdown-item {
 .container-fluid{
     display: flex;
     flex-direction: row;
+}
+Navbar{
+
 }

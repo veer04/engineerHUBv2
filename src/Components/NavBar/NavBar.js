@@ -8,12 +8,27 @@ import User from "./user.svg";
 import NavDropdown from "react-bootstrap/NavDropdown";
 
 const NavBar = () => {
+
+
+  const styles = {
+    container: {
+        display: 'flex',
+        height: '100%',
+       
+    },
+  containment:{
+      display: 'flex',
+   
+      flexWrap: 'wrap'
+    }
+
+  };
   return (
     <>
       <div className="row">
-        <Navbar className="NAvbarBackground navbar-dark">
+        <Navbar className="NAvbarBackground navbar-dark" style={styles.container}>
           <Container className="mw-100">
-            <div className="col-lg-5 ms-5">
+            <div className="col-lg-3 ms-3">
               <Navbar.Brand href="/">
                 <img
                   alt=""
@@ -37,7 +52,7 @@ const NavBar = () => {
             </button>
             <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
               <div className="row navelements">
-                <Nav className="me-auto navelements">
+                <Nav className="me-auto navelements" style={styles.containment}>
                   <NavDropdown title="Domains" id="basic-nav-dropdown">
                     <NavDropdown
                       title="DSA (C/C++)"
@@ -194,7 +209,7 @@ const NavBar = () => {
                     Hiring
                   </Nav.Link>
                   <Nav.Link href="" className="navelements">
-                    Industry Personalities
+                    Industry
                   </Nav.Link>
                   <Nav.Link href="" className="navelements">
                     Team

@@ -27,11 +27,20 @@
     color: rgba(225, 215, 28, 1);
     padding: 3%;
    margin-left: 5%;
+
+}
+.textfor{
+    color: rgba(225, 215, 28, 1);
+    padding: 3%;
+   margin-left: 5%;
+   position: relative;
+left: 12%;
 }
 .text2{
     color: rgba(255, 255, 255, 1);
     padding: 2%;
-    margin-left: 10%;
+    margin-left: 13%;
+    height: 10vh;
 }
 .Whatsapp{
     background-color: rgba(8, 210, 4, 1);
@@ -76,6 +85,7 @@ margin-left: 5%;
 .phone-image{
     /* background-image: url(Vector\ \(1\).svg); */
     background-size: cover;
+    margin-right: 7%;
     
 }
 
@@ -97,6 +107,8 @@ margin-left: 5%;
 .textwhat{
     color: rgba(225, 215, 28, 1);
     padding: 3%;
+    position: relative;
+    left: 10%;
    
 }
 .textbelow
@@ -107,7 +119,7 @@ margin-left: 5%;
 }
 
 
-@media only screen and (max-width: 720px) {
+@media only screen and (max-width: 991px) {
 .textt{
     justify-content: center;
     align-items: center;
@@ -171,6 +183,7 @@ margin-left: 5%;
     overflow: hidden; */
 }
 .phone-image{
+    display: flex;
     justify-content: center;
     align-items: center;
     
