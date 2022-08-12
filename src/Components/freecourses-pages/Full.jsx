@@ -28,7 +28,7 @@ function Card() {
               paddingTop: "0",
             }}
           >
-            FrontEnd Development
+            Frontend Development
           </h5>
           <div>
             <ShareOutlinedIcon

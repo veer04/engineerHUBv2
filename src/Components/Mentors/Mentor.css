@@ -23,6 +23,8 @@
   letter-spacing: 0em;
   text-align: left;
   color: white;
+  padding-bottom: 35px;
+
 }
 .card-section {
   display: flex;
