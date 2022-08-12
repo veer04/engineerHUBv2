@@ -2,7 +2,7 @@ import React from "react";
 import "./Card.css";
 import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
 
-function Card({ paid = false , card_head="Hackathons fpr Developers"}) {
+function Card({ paid = false , card_head="Hackathons for Developers"}) {
   return (
     <div
       className="card custom-card"
@@ -51,11 +51,11 @@ function Card({ paid = false , card_head="Hackathons fpr Developers"}) {
           Organizer: IIT Delhi
         </h6>
         <div className="d-flex align-items-baseline justify-content-between">
-          <a href="#" className="btn" style={{ backgroundColor: "#0094FF" }}>
-            <span style={{ color: "white" }}>Apply Now !</span>
+          <a href="#" className="btn" style={{ backgroundColor: "#0094FF"}}>
+            <span style={{ color: "white",fontSize:"0.9rem" }}>Apply Now !</span>
           </a>
           <p
-            className="d-inline fst-normal"
+            className="d-flex fst-normal align-items-baseline"
             // style={{ marginLeft: "4.4rem" }}
           >
             Last date: dd/mm/yy
