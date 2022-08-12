@@ -23,7 +23,9 @@ const login = () => {
         </div>
       </div>
       <div className="divisor">
-        <hr/>OR<hr/>
+        <hr style={{color:"#6c757d"}}/>
+        <span className="d-flex justify-content-center">OR</span>
+        <hr/>
       </div>
       <div className="my-form">
         {/* <div className="form-cont">
