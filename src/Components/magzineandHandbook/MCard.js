@@ -1,35 +1,35 @@
 import React from "react";
-// import "../Card.css";
-import "./freecourses.css";
 import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
-import backImage from "./backimg.png";
-import cybersecurityimg from "../magzineandHandbook/cybersecurityimg.png";
+import cybersecurityimg from "./cybersecurityimg.png";
+import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 
-function Card({img={cybersecurityimg}}) {
+function Card() {
   return (
     <div
       className="card custom-card"
       style={{
         padding: "10px",
         margin: "10px",
+        height:"620px"
       }}
     >
       <div className="card-body">
-        <img src={backImage} style={{ margin: "0px 0px 10px 0px" }} className="card-img-top" alt="..." />
-
+        <img src={cybersecurityimg} style={{ margin: "0px 0px 10px 0px",height:"50%", background:"cover"}} className="card-img-top" alt="..." />
         <div className="d-flex justify-content-between align-items-center">
           <h5
             className="card-title"
             style={{
+              margin:"0",
               padding: 0,
               font: "poppins",
-              fontWeight: 500,
+              fontWeight: 600,
               fontSize: "20px",
               lineHeight: "32px",
               paddingTop: "0",
+              color:"#1b5b62"
             }}
           >
-            FrontEnd Development
+            CyberSecurity
           </h5>
           <div>
             <ShareOutlinedIcon
@@ -44,16 +44,12 @@ function Card({img={cybersecurityimg}}) {
           consectetur adipiscing elit. Arcu, eget suspendisse nunc duis non eget
           est.
         </p>
-        {/* <h6 style={{ fontWeight: 700 }}>Organizer: IIT Delhi</h6> */}
         <div className="btn-container d-flex justify-content-between align-items-baseline">
           <a href="#" className="btn" style={{ backgroundColor: "#0094FF" }}>
-            <span style={{ color: "white" }}>Register</span>
+            <span style={{ color: "white", fontSize:"15px"}}>Tap to Open</span>
           </a>
-          <p
-            className="d-flex fst-normal align-items-center justify-content-center"
-            // style={{ marginLeft: "4.4rem" }}
-          >
-            Last date: dd/mm/yy
+          <p className="btn" style={{ backgroundColor: "#FFC700" }}>
+            <span style={{ color: "white", fontSize:"15px" }}><VisibilityOutlinedIcon/>  1,000 </span>
           </p>
         </div>
       </div>
