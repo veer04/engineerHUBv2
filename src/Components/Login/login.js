@@ -22,7 +22,7 @@ const login = () => {
           Continue with Facebook
         </div>
       </div>
-      <div className="divisor">
+      <div className="divisor d-flex justify-content-center">
         <hr style={{color:"#6c757d"}}/>
         <span className="d-flex justify-content-center">OR</span>
         <hr/>
