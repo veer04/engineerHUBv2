@@ -12,7 +12,8 @@ import Teams from "./Components/Teams/Team";
 import IndustryPersona from "./Components/IndustryPersona/IndustryPersona";
 import Freecourses from "./Components/freecourses-pages/Freecourses";
 import Resources from "./Components/Resources/Resources";
-
+import Register from "./Components/Login/Register";
+import Success from "./Components/Login/success";
 function App() {
   return (
     <Router>
@@ -33,7 +34,8 @@ function App() {
 
         <Route path="/courses" exact element={<Freecourses />} />
         <Route path="/resources" exact element={<Resources />} />
-        
+       <Route path="/suc" exact element={<Success/>}/>
+        <Route path="/register" exact element={<Register />} />
       </Routes>
     </Router>
   );
