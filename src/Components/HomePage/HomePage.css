@@ -17,7 +17,6 @@
 }
 .tcsimage{
   height: 10vh;
-  width: 15vw;
 }
 .tagContainer {
   display: flex;
@@ -118,9 +117,9 @@
 .studentfrom2 {
   color: white;
   font-family: "Poppins", sans-serif;
-  padding: 2%;
-  font-size: 1.7rem;
-  margin-left: 3%;
+  padding: 1%;
+
+ 
 }
 .Studentsfrom2 {
   background-color: rgba(1, 64, 81, 1);
@@ -164,4 +163,9 @@
 
 .Members {
   margin-top: 10%;
+}
+
+
+.comp{
+  width: fit-content;
 }

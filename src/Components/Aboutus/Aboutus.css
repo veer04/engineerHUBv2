@@ -8,9 +8,9 @@
   font-family: "Poppins", sans-serif;
 }
 .allcontent {
-  /* background-color:rgba(246, 249, 254, 1); */
+
   background-image: url("aboutus.svg");
-  /* background-image: url('wave21.svg'); */
+
 }
 .aboutustxt {
   font-family: Poppins;
@@ -26,13 +26,13 @@
 }
 .aboutus {
   padding-top: 8%;
-
   font-family: "Poppins";
   font-style: normal;
-  font-weight: 500;
+  font-weight: 800;
   font-size: 4rem;
   margin-left: 5%;
-  margin-right: 5%;
+  display: inline-block;
+  color: rgba(5, 85, 94, 1);
 }
 .aboutusbullets1 {
   margin-top: 5%;

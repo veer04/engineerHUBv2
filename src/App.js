@@ -22,7 +22,7 @@ function App() {
         <Route path="" exact element={<HomePage />} />
 
         <Route path="/login" exact element={<Login />} />
-      
+
         <Route path="/internship" exact element={<Internship />} />
         <Route path="/magazine" exact element={<MagzineAndHandbook />} />
         <Route path="/hiring" exact element={<Hiring />} />
@@ -34,7 +34,7 @@ function App() {
 
         <Route path="/courses" exact element={<Freecourses />} />
         <Route path="/resources" exact element={<Resources />} />
-       <Route path="/suc" exact element={<Success/>}/>
+        <Route path="/suc" exact element={<Success />} />
         <Route path="/register" exact element={<Register />} />
       </Routes>
     </Router>
