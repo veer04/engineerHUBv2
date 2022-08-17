@@ -2,50 +2,35 @@ import React from "react";
 import "./NavBar.css";
 import Navbar from "react-bootstrap/Navbar";
 import Container from "react-bootstrap/Container";
-import {Link} from "react-router-dom"
 import Nav from "react-bootstrap/Nav";
 import Logo from "./logo.svg";
 import User from "./user.svg";
 import NavDropdown from "react-bootstrap/NavDropdown";
-
+import ham from "./ham.svg";
 const NavBar = () => {
-  const styles = {
-    container: {
-      display: "flex",
-      height: "100%",
-    
-    },
-    containment: {
-      display: "flex",
-      height: "100%",
-      flexWrap: "wrap",
-    },
-  };
   return (
     <>
-      <div className="">
-        <Navbar
-          className="NAvbarBackground navbar-dark"
-          style={styles.container}
-        >
-          <div className=" NAvbarBackground nav-cont">
-            <Link to="/" className="company-logo">
-              <img alt="" src={Logo} />
-            </Link >
-            {/* <button
-              className="navbar-toggler"
-              type="button"
-              data-toggle="collapse"
-              data-target="#navbarTogglerDemo02"
-              aria-controls="navbarTogglerDemo02"
-              aria-expanded="false"
-              aria-label="Toggle nsvigation"
+      <div className="row">
+        <Navbar className="NAvbarBackground navbar-dark">
+          <Container className="mw-100">
+            <div className="">
+              <Navbar.Brand href="/">
+                <img
+                  alt=""
+                  src={Logo}
+                  width="90"
+                  height="50"
+                  className="d-inline-block align-top"
+                />{" "}
+              </Navbar.Brand>
+            </div>
+
+            <div
+              className="collapse navbar-collapse justify-content-end "
+              id="navbarTogglerDemo02"
             >
-              <span className="navbar-toggler-icon"></span>
-            </button> */}
-            <div className="collapse navbar-collapse " id="navbarTogglerDemo02">
-              <div className="row navelements">
-                <Nav className="me-auto navelements" style={styles.containment}>
+              <div className="row navelements nav-div">
+                <Nav className="me-auto navelements">
                   <NavDropdown
                     title="Domains"
                     className="navelements"
@@ -53,7 +38,7 @@ const NavBar = () => {
                   >
                     <NavDropdown
                       title="DSA (C/C++)"
-                      className="dropdownNav dropend "
+                      className="dropdownNav dropend"
                     >
                       <NavDropdown.Item href="">HandBook</NavDropdown.Item>
                       <NavDropdown.Item href="/resources">
@@ -183,9 +168,8 @@ const NavBar = () => {
                       title="Open Source"
                       className="dropdownNav dropend"
                     >
-                      <NavDropdown.Item href="/resources">
-                        Resources
-                      </NavDropdown.Item>
+                      /resources
+                      <NavDropdown.Item href="">Resources</NavDropdown.Item>
                       <NavDropdown.Item href="/mentor">
                         Contact Mentor
                       </NavDropdown.Item>
@@ -231,13 +215,17 @@ const NavBar = () => {
                   <Nav.Link href="/Team" className="navelements">
                     Team
                   </Nav.Link>
-                  <Nav.Link href="/login">
+                  <Nav.Link href="">
                     <img src={User} alt="" height={40} width={40} />
                   </Nav.Link>
                 </Nav>
               </div>
             </div>
-          </div>
+
+            <div className="ham-icon">
+                <img src={ham} alt="Ham_icon"/>
+            </div>
+          </Container>
         </Navbar>
       </div>
     </>

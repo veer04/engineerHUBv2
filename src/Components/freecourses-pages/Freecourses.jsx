@@ -9,7 +9,7 @@ const Freecourses = () => {
 
       <div className="texthire">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Non gravida sit nunc duis dui, dui hendrerit suscipit.</div>
 
-      <div className="d-flex row justify-content-center " style={{marginTop:"0px" , gap: "40px", paddingBottom:"80px"}}>
+      <div className="d-flex row justify-content-center" style={{marginTop:"0px" , gap: "40px", paddingBottom:"80px"}}>
         <Full/>
         <Full/>
         <Full/>

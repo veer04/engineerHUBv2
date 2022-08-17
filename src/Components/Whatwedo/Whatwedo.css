@@ -29,7 +29,7 @@
   padding: 3%;
   margin-left: 5%;
   position: relative;
-  left: 12%;
+  left: 6%;
 }
 .text2 {
   color: rgba(255, 255, 255, 1);
@@ -102,12 +102,12 @@
   color: rgba(225, 215, 28, 1);
   padding: 3%;
   position: relative;
-  left: 10%;
+  left: 6%;
   display: inline-block;
 }
 .textbelow {
   color: rgba(255, 255, 255, 1);
-  padding: 2%;
+  padding: 2% 0px;
   margin-left: 9%;
 }
 

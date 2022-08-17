@@ -94,3 +94,17 @@ a.dropdown-item {
   height: 50px;
   padding-right: 100px;
 }
+
+.ham-icon img{
+  display: none;
+  height: 32px;
+}
+
+@media (max-width: 1023px){
+  .ham-icon img{
+    display: flex;
+  }
+  .nav-div{
+    display: none;
+  }
+}
