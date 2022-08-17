@@ -26,7 +26,7 @@ function Footer() {
         
             </div>
             <div className="f_nav">
-              <h3 className="textfooter">Quick Links</h3>
+              <h3 className="textfooter">Links</h3>
               <div className="row footerinnertext">
                 <p>Magzines</p>
               </div>
@@ -71,7 +71,7 @@ function Footer() {
                   <TelegramIcon />
                 </div>
               </div>
-              <div className="row">
+              <div className="row foot-btn">
                 <div className="col-lg-6">
                   <button className="footerBB">Log In</button>
                 </div>
@@ -82,7 +82,7 @@ function Footer() {
             </div>
           </div>
           <div className="row copyright"> myengineerhub@gmail.com</div>
-          <div className="row  copyright1">All copyright@ reserved</div>
+          <div className="row  copyright1">All copyright reserved @ engineerHUB</div>
         </div>
       </div>
     </>

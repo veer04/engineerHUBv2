@@ -122,9 +122,7 @@ export default function NavBar() {
       <div className="Members">
         <Members />
       </div>
-      <div className="Footer">
-        <Footer />
-      </div>
+     
     </>
   );
 }
