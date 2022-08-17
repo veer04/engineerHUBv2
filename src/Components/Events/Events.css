@@ -1,5 +1,5 @@
-.event--btns{
-    justify-content: space-between;
+.event--btns {
+  justify-content: space-between;
 }
 .Free {
   border: none;
@@ -33,7 +33,7 @@
   width: 100px;
   height: 47px;
   position: relative;
-  left: 44%;
+  left: 39%;
 }
 .contentEvent {
   padding-bottom: 6%;
@@ -42,3 +42,16 @@
 .event-box {
   margin-left: 4%;
 }
+
+@media screen and (max-width: 1024px) {
+  .Register {
+    left: 44%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+    .Register {
+      left: 26%;
+    }
+  }
+  

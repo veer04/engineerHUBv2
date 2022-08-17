@@ -169,3 +169,12 @@
 .comp{
   width: fit-content;
 }
+
+
+
+@media screen and (max-width: 1024px) {
+  .comp:nth-child(6) {
+    display: none;
+  }
+
+}

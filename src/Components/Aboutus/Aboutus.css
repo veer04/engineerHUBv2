@@ -96,7 +96,7 @@ ul li::before {
   left: 20%;
   size: 1rem;
 }
-@media only screen and (max-width: 720px) {
+@media only screen and (max-width: 768px) {
   .Groupimg {
     width: 60vw;
     justify-content: center;
@@ -119,5 +119,12 @@ ul li::before {
   .aboutus {
     justify-content: center;
     align-items: center;
+  }
+}
+
+@media screen and (max-width: 1024px){
+  .aboutus{
+    font-size:3rem;
+    margin-left: 0px;
   }
 }
