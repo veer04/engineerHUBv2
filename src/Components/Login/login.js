@@ -1,5 +1,6 @@
 import React from "react";
 import "./login.css";
+import { Link } from "react-router-dom";
 import google from "./svg/google.svg";
 import fb from "./svg/fb.svg";
 
@@ -22,26 +23,19 @@ const login = () => {
           Continue with Facebook
         </div>
       </div>
-      <div className="divisor">
-        <hr style={{color:"#6c757d"}}/>
+      <div className="divisor d-flex justify-content-center">
+        <hr style={{ color: "#6c757d" }} />
         <span className="d-flex justify-content-center">OR</span>
-        <hr/>
+        <hr />
       </div>
       <div className="my-form">
-        {/* <div className="form-cont">
-          <label>Username</label>
-          <input type="text" />
-        </div>
-        <div className="form-cont">
-          <label>Password</label>
-          <input type="password" />
-        </div> */}
-        {/* <div className="f-p">Forgot Password ?</div> */}
         <div className="form-opt">
           <div className="my-btn si">Sign in with Password</div>
           <div className="my-item-cont">
             <div>Didn't have an account?</div>
-            <div className="f-p ">Sign up</div>
+            <Link to="/register" className="f-p ">
+              Sign up
+            </Link>
           </div>
         </div>
       </div>

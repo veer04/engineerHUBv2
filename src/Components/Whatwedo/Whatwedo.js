@@ -67,7 +67,9 @@ function Whatwedo() {
                 <div className="firstcarousel">
                   <div className="row">
                     <div className="col-lg-8 carousel-content">
-                      <h1 className="text1 textfor">Internship & Job updates</h1>
+                      <h1 className="text1 textfor">
+                        Internship & Job updates
+                      </h1>
 
                       <h5 className="col-lg-8 text2 textt">
                         We provide internship & job updates on regular basis ,

@@ -45,11 +45,11 @@ function Card() {
           est.
         </p>
         <div className="btn-container d-flex justify-content-between align-items-baseline">
-          <a href="#" className="btn" style={{ backgroundColor: "#0094FF" }}>
-            <span style={{ color: "white", fontSize:"15px"}}>Tap to Open</span>
+          <a href="#" className="btn" style={{ backgroundColor: "#0094FF",borderRadius: "20px"}}>
+            <span style={{ color: "white", fontSize:"15px" ,borderRadius: "20px"}}>Tap to Open</span>
           </a>
-          <p className="btn" style={{ backgroundColor: "#FFC700" }}>
-            <span style={{ color: "white", fontSize:"15px" }}><VisibilityOutlinedIcon/>  1,000 </span>
+          <p className="btn" style={{ backgroundColor: "#FFC700" ,borderRadius: "20px"}}>
+            <span style={{ color: "white", fontSize:"15px" , }}><VisibilityOutlinedIcon/>  1,000 </span>
           </p>
         </div>
       </div>

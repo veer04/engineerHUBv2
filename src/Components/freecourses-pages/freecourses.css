@@ -1,8 +1,45 @@
 * {
-    box-sizing: border-box;
-    font-family: "Poppins", sans-serif;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+.default-card-body {
+  padding: 5px;
+}
+.default-card {
+  width: 18rem;
+  border-radius: 16px;
+  display: flex;
+  transition: all 250ms ease-in-out;
+}
+.default-card:hover {
+  transform: scale(1.06);
+  cursor: pointer;
+  /* position: static; */
+
+  box-shadow: 0 8px 21px 0 rgb(0 0 0 / 15%);
+}
+
+.default-btn {
+  padding: 12px;
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.default-btn div {
+  font-size: 14px;
+}
+
+.courses-cont {
+  margin-top: 0px;
+  gap: "40px";
+  padding-bottom: "80px";
+}
+
+@media screen and (min-width: 768px) {
+  .courses-cont{
+    gap: 5px;
   }
-  
-  .magc:hover{
-    color: #1b5b62;
-  }
+}

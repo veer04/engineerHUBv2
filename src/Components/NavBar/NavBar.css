@@ -7,10 +7,10 @@
 .navelements {
   font-family: "poppins";
   color: aliceblue;
+  align-self: center;
 }
 .dropdown-toggle::after {
   display: none;
- 
 }
 .dropdownNav {
   background-color: #168584;
@@ -35,54 +35,76 @@ div.dropdown-menu.show {
 a.dropdown-item {
   color: #fff;
 }
-.navd{
-    box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16);
+.navd {
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16);
 }
-@media screen and (max-width:1463px){
-    .logo{
-        margin-right: 1rem;
-    }
+@media screen and (max-width: 1463px) {
+  .logo {
+    margin-right: 1rem;
+  }
 }
-@media screen and (max-width:1128px){
-    .gap{
-        margin-right:0.5rem;
-    }
+@media screen and (max-width: 1128px) {
+  .gap {
+    margin-right: 0.5rem;
+  }
 }
-@media screen and (max-width:939px){
-    .logo{
+@media screen and (max-width: 939px) {
+  .logo {
     align-items: center;
     align-content: center;
-    }
-      
+  }
 }
-@media screen and (max-width:991px){
-    .logo{
-        display: block;
-         margin-left: auto;
-         margin-right: auto;
-    }
+@media screen and (max-width: 991px) {
+  .logo {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
 
-    nav{
-        position: relative;
+  nav {
+    position: relative;
     display: flex;
     flex-wrap: nowrap;
     align-items: center;
     justify-content: space-between;
-    }
-    .container-fluid{
-        /* display: flex;
+  }
+  .container-fluid {
+    /* display: flex;
         flex-direction: column; */
-        display: flex;
+    display: flex;
     flex-wrap: inherit;
     align-items: center;
     justify-content: space-between;
-
-    }
-    /* li{
+  }
+  /* li{
         flex-direction: column;
     } */
 }
-.container-fluid{
+.container-fluid {
+  display: flex;
+  flex-direction: row;
+}
+
+.nav-cont {
+  padding: 2px 40px;
+  align-items: center;
+}
+
+.company-logo img {
+  height: 50px;
+  padding-right: 100px;
+}
+
+.ham-icon img{
+  display: none;
+  height: 32px;
+}
+
+@media (max-width: 1023px){
+  .ham-icon img{
     display: flex;
-    flex-direction: row;
+  }
+  .nav-div{
+    display: none;
+  }
 }

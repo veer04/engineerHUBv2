@@ -19,17 +19,12 @@ import campusIcon from "./icons/campus.png";
 import GradIcon from "./icons/graudate.png";
 import BuildingIcon from "./icons/building.png";
 
-
- import tcs from "../HomePage/tcs.png";
- import vedantu from "../HomePage/vedantu.png";
-import swiggy from "../HomePage/swiggy.png";
-import infosys from "../HomePage/infosys.jpg";
-// import Infosys from '../HomePage/infosys.svg';
-// import Logitech from '../HomePage/logitech.svg';
-// // import Oracle from '../HomePage/oracle.svg';
-// import Swiggy from '../HomePage/swiggy.svg';
-// import TCS from '../HomePage/tcs.png';
-// import Vedantu from '../HomePage/vedantu.svg';
+import vedantu from "./svg/vedantu.svg"
+import logitech from "./svg/logitech.svg";
+import tcs from "./svg/tcs.svg";
+import oracle from "./svg/oracle.svg";
+import swiggy from "./svg/swiggy.svg";
+import infosys from "./svg/infosys.svg";
 export default function NavBar() {
   return (
     <>
@@ -77,7 +72,7 @@ export default function NavBar() {
         <div className="row cllgCarol">
           <div className="col-lg-2 studentfrom">IIT Kanpur</div>
           <div className="col-lg-2 studentfrom">IIT Roorkee</div>
-          <div className="col-lg-2 studentfrom">NIT Banglore</div>
+          <div className="col-lg-2 studentfrom">NIT Kurukshetra</div>
           <div className="col-lg-2 studentfrom">IIIT Vadodra</div>
           <div className="col-lg-2 studentfrom">IIT Bombay</div>
         </div>
@@ -85,12 +80,26 @@ export default function NavBar() {
 
       <div className="row Studentsfrom2">
         <div className="studenttxt">Companies we Collaborate</div>
-        <div className="row">
-          <div className="col-lg-2 studentfrom2">TCS</div>
-          <div className="col-lg-2 studentfrom2">SWIGGY</div>
-          <div className="col-lg-2 studentfrom2">Vedantu</div>
-          <div className="col-lg-2 studentfrom2">Logitech</div>
-          <div className="col-lg-2 studentfrom2">Infosys</div>
+        <div className="row d-flex justify-content-around">
+          <div className="comp studentfrom2">
+            <img src={tcs} alt="tcs" className="tcsimage" />
+          </div>
+          <div className="comp studentfrom2">
+            <img src={swiggy} alt="swiggy" className="tcsimage" />
+          </div>
+          <div className="comp studentfrom2">
+            <img src={oracle} alt="oracle" className="tcsimage" />
+          </div>
+          <div className="comp studentfrom2">
+          <img src={logitech} alt="logitech" className="tcsimage" />
+
+          </div>
+          <div className="comp studentfrom2">
+            <img src={infosys} alt="infosys" className="tcsimage" />
+          </div>
+          <div className="comp studentfrom2">
+            <img src={vedantu} alt="vedantu" className="tcsimage" />
+          </div>
         </div>
       </div>
 

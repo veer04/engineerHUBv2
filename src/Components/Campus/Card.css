@@ -2,11 +2,14 @@
   width: 400px;
   border-radius: 16px;
   display: flex;
-  transition: box-shadow 250ms ease-in-out;
+  transition: all 250ms ease-in-out;
+
 }
 
 .custom-card:hover {
   transform: scale(1.06);
   cursor: pointer;
+  /* position: static; */
+
   box-shadow: 0 8px 21px 0 rgb(0 0 0 / 15%);
 }

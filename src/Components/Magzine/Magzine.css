@@ -31,8 +31,15 @@
     /* margin-top:10%; */
     padding-top: 7%;
     padding-bottom: 8%;
+    margin-left: 36px;
 }
 
 .magazine-box{
     margin-left: 4%;
+}
+
+@media screen and (max-width: 1024px){
+    .containmentz{
+     margin-left: 0px;   
+    }
 }

@@ -72,3 +72,18 @@
   margin-top: 3%;
   box-shadow: 3px 3px 4px 4px rgb(188, 181, 181);
 }
+
+@media screen and (max-width: 1024px) {
+  .girlimage  {
+   height:125px;
+   width: 125px;
+  }
+  .textofMember {
+    padding-top: 5%;
+    font-size: 0.9rem;
+}
+.memberstext {
+  font-size: 1.2rem;
+
+}
+}

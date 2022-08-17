@@ -18,14 +18,16 @@ function Events() {
             <div className="col-lg-4">
               <div
                 className="card cardEvent"
-                style={{ width: "20rem", borderRadius: 25 }}
+                style={{  borderRadius: 20 }}
               >
                 <img src={backImage} className="card-img-top" alt="..." />
                 <div className="card-img-top"></div>
                 <div className="card-body">
                   <h5 className="card-title">Coding Contest</h5>
-                  <button className="Free">Free</button>
+                <div className="d-flex event--btns">
+                   <button className="Free">Free</button>
                   <button className="Prize">Prize</button>
+                </div>
                   <p className="card-text">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                     Pharetra consequat consequat at fermentum sollicitudin
@@ -38,15 +40,16 @@ function Events() {
             <div className="col-lg-4">
               <div
                 className="card cardEvent"
-                style={{ width: "20rem", borderRadius: 25 }}
+                style={{  borderRadius: 20 }}
               >
                 <img src={backImage} className="card-img-top" alt="..." />
                 <div className="card-img-top"></div>
                 <div className="card-body">
-                  <h5 className="card-title">Coding Contest </h5>
-                  <button className="Free">Free</button>
+                  <h5 className="card-title">Coding Contest</h5>
+                <div className="d-flex event--btns">
+                   <button className="Free">Free</button>
                   <button className="Prize">Prize</button>
-
+                </div>
                   <p className="card-text">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                     Pharetra consequat consequat at fermentum sollicitudin
@@ -59,15 +62,16 @@ function Events() {
             <div className="col-lg-4">
               <div
                 className="card cardEvent"
-                style={{ width: "20rem", borderRadius: 25 }}
+                style={{  borderRadius: 20 }}
               >
                 <img src={backImage} className="card-img-top" alt="..." />
                 <div className="card-img-top"></div>
                 <div className="card-body">
                   <h5 className="card-title">Coding Contest</h5>
-                  <button className="Free">Free</button>
+                <div className="d-flex event--btns">
+                   <button className="Free">Free</button>
                   <button className="Prize">Prize</button>
-
+                </div>
                   <p className="card-text">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                     Pharetra consequat consequat at fermentum sollicitudin
