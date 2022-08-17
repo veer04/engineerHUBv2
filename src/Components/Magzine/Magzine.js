@@ -22,6 +22,7 @@ function Magzine() {
             <Full/>
             <Full/>
             <Full/>
+            <Full/>
           </div>
         </div>
       </div>
