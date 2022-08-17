@@ -29,7 +29,7 @@
   font-family: "Poppins";
   font-style: normal;
   font-weight: 800;
-  font-size: 4rem;
+  font-size: 3rem;
   margin-left: 5%;
   display: inline-block;
   color: rgba(5, 85, 94, 1);
@@ -122,9 +122,18 @@ ul li::before {
   }
 }
 
-@media screen and (max-width: 1024px){
+@media screen and (max-width: 1023px){
   .aboutus{
     font-size:3rem;
     margin-left: 0px;
   }
+  .cardEvent{
+    width: 17rem;
+  }
+}
+
+@media screen and (max-width: 768px){
+  .container h1 {
+    /* margin-left: 1%; */
+}
 }

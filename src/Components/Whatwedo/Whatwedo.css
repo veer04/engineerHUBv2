@@ -183,3 +183,36 @@
     height: fit-content;
     transform: translateY(200px);
 }
+
+@media screen and (max-width: 1024px) {
+    .textwhat{
+     left: 0;
+     padding: 5% 6%;
+    }
+    .textbelow{
+      margin-left: 5%;
+    }
+    .phone-image img {
+      position: relative;
+      top: 10px;
+      width: 264px;
+    }
+    .carousel-control-next {
+      right: -34px;
+  }
+  .carousel-control-prev  {
+    left: -34px;
+} 
+}
+
+
+@media screen and (max-width: 768px){
+  .phone-image img {
+    display: none;
+  }
+
+  .textfor{
+    left: 0px;
+    padding: 3% 6%;
+  }
+}

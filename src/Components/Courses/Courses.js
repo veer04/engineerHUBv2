@@ -15,11 +15,11 @@ function Events() {
             officia amet eligendi! Quis quos animi officia explicabo accusamus
             obcaecati totam.
           </h5>
-          <div className="row">
+          <div className="row make-center">
            <div className="col-lg-4">
               <div
                 className="card cardEvent"
-                style={{ width: "19rem", borderRadius: 25 }}
+                style={{  borderRadius: 20 }}
               >
                 <img src={backImage} className="card-img-top" alt="..." />
                 <div className="card-img-top"></div>
@@ -41,7 +41,7 @@ function Events() {
             <div className="col-lg-4">
               <div
                 className="card cardEvent"
-                style={{ width: "19rem", borderRadius: 25 }}
+                style={{  borderRadius: 20 }}
               >
                 <img src={backImage} className="card-img-top" alt="..." />
                 <div className="card-img-top"></div>
@@ -63,7 +63,7 @@ function Events() {
             <div className="col-lg-4">
               <div
                 className="card cardEvent"
-                style={{ width: "19rem", borderRadius: 25 }}
+                style={{  borderRadius: 20 }}
               >
                 <img src={backImage} className="card-img-top" alt="..." />
                 <div className="card-img-top"></div>

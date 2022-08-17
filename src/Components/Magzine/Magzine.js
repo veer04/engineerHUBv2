@@ -1,9 +1,39 @@
 import React from "react";
+import { useState, useEffect } from "react";
 import "../Magzine/Magzine.css";
 import ShareIcon from "@mui/icons-material/Share";
 import backImage from "../Magzine/backimg.png";
 import Full from "../freecourses-pages/Full";
 function Magzine() {
+  // const [dis,setDis] = useState(window.innerWidth);
+  // const getWindowDimensions = () => {
+  //   const { innerWidth: width, innerHeight: height } = window;
+  //   return {
+  //     width,
+  //     height
+  //   };
+  // }
+  // const useWindowDimentions = () => {
+  //   const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
+  
+  //   useEffect(() => {
+  //     function handleResize() {
+  //       setWindowDimensions(getWindowDimensions());
+  //       setDis(getWindowDimensions().width);
+  //       console.log(dis);
+  //     }
+  
+  //     window.addEventListener('resize', handleResize);
+  //     return () => window.removeEventListener('resize', handleResize);
+  //   }, []);
+  
+  //   return windowDimensions;
+  // }
+ 
+  // useState(() => {
+  //   useWindowDimentions();
+  // },[])
+
   return (
     <>
       <div className="content">
@@ -16,13 +46,14 @@ function Magzine() {
             obcaecati totam.
           </h5>
 
-          <div className="row containmentz justify-content-between" style={{ marginLeft: "36px"}}>
-        
+          <div
+            className="row containmentz justify-content-around"
        
-            <Full/>
-            <Full/>
-            <Full/>
-            <Full/>
+          >
+            <Full />
+            <Full />
+            <Full />
+          
           </div>
         </div>
       </div>

@@ -178,3 +178,10 @@
   }
 
 }
+
+@media screen and (max-width: 768px){
+  .comp:nth-child(5) {
+    display: none;
+  }
+
+}

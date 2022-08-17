@@ -28,6 +28,7 @@
 .cardEvent {
   margin-left: 12%;
   padding-top: 5%;
+  width: 19rem ; 
 }
 .Register {
   width: 100px;
@@ -45,13 +46,22 @@
 
 @media screen and (max-width: 1024px) {
   .Register {
-    left: 44%;
+    left: 34%;
   }
+  .cardEvent{
+    width: 17rem;
+  }
+  .container h5{
+    margin-left: 2%;
+}   
+    .container h1{
+        margin-left: 2%;
+    }
 }
 
 @media screen and (max-width: 768px) {
     .Register {
-      left: 26%;
+      left: 24%;
     }
   }
   

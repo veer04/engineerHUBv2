@@ -3,7 +3,7 @@
   font-family: "Poppins", sans-serif;
 }
 
-.default-card-body{
+.default-card-body {
   padding: 5px;
 }
 .default-card {
@@ -20,7 +20,7 @@
   box-shadow: 0 8px 21px 0 rgb(0 0 0 / 15%);
 }
 
-.default-btn{
+.default-btn {
   padding: 12px;
   border-radius: 20px;
   display: flex;
@@ -28,6 +28,18 @@
   align-items: center;
 }
 
-.default-btn div{
+.default-btn div {
   font-size: 14px;
+}
+
+.courses-cont {
+  margin-top: 0px;
+  gap: "40px";
+  padding-bottom: "80px";
+}
+
+@media screen and (min-width: 768px) {
+  .courses-cont{
+    gap: 5px;
+  }
 }
