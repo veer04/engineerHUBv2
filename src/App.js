@@ -14,6 +14,7 @@ import Freecourses from "./Components/freecourses-pages/Freecourses";
 import Resources from "./Components/Resources/Resources";
 import Register from "./Components/Login/Register";
 import Success from "./Components/Login/success";
+import Footer from "./Components/Footer/Footer";
 function App() {
   return (
     <Router>
@@ -37,6 +38,9 @@ function App() {
         <Route path="/suc" exact element={<Success />} />
         <Route path="/register" exact element={<Register />} />
       </Routes>
+      <div className="Footer">
+        <Footer />
+      </div>
     </Router>
   );
 }

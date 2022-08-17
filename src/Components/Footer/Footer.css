@@ -95,3 +95,32 @@
 .foot-container {
     padding: 0px 40px ;
 }
+
+
+@media screen and (max-width: 768px) {
+  .textfooter{
+    font-size: 1.6rem;
+  }
+  .footertextaboutus{
+    font-size: 0.8rem;
+  }
+  .footerinnertext{
+    font-size: 0.8rem;
+  }
+  .footericon{
+    width: 0px;
+  }
+  .foot-btn{
+    flex-wrap: nowrap;
+  }
+
+  .foot-btn div:nth-child(1){
+    width: auto;
+  }
+  .foot-btn div:nth-child(2){
+    width: auto;
+  }
+  .Intern-Position span{
+    font-size:14px;
+  }
+}
