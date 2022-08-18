@@ -81,7 +81,7 @@ const Signup = () => {
         </div>
 
         <div className="form-opt">
-          <div className="my-btn reg-si">Join the Comuunity</div>
+          <div className="my-btn reg-si">Join the Community</div>
           {/* <div className="d-flex justify-content-center">
           <div className="f-p">Forgot Password ?</div>
           <div className="f-p ">Reset Now </div>

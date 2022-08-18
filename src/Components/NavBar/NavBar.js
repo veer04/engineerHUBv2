@@ -215,7 +215,7 @@ const NavBar = () => {
                   <Nav.Link href="/Team" className="navelements">
                     Team
                   </Nav.Link>
-                  <Nav.Link href="">
+                  <Nav.Link href="login">
                     <img src={User} alt="" height={40} width={40} />
                   </Nav.Link>
                 </Nav>

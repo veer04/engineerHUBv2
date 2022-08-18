@@ -14,7 +14,7 @@ const MentorCard = ({so_icons = "true"}) => {
         <div className="Ment-prof">Mentor Profession</div>
         <div className="Ment-name">Name Surname</div>
         <div className="Ment-contact">
-          Contact No: <span>99999 99999</span>
+         <span>@company</span>
         </div>
       </div>
       {so_icons && <div className="Ment-social">

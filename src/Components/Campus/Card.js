@@ -2,10 +2,14 @@ import React from "react";
 import "./Card.css";
 import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
 
-function Card({ paid = false , card_head="Hackathons for Developers"}) {
+function Card({
+  paid = false,
+  card_head = "Hackathons for Developers",
+  cName = "card custom-card ",
+}) {
   return (
     <div
-      className="card custom-card"
+      className={cName}
       style={{
         padding: "10px",
         margin: "10px",
@@ -51,8 +55,10 @@ function Card({ paid = false , card_head="Hackathons for Developers"}) {
           Organizer: IIT Delhi
         </h6>
         <div className="d-flex align-items-baseline justify-content-between">
-          <a href="#" className="btn" style={{ backgroundColor: "#0094FF"}}>
-            <span style={{ color: "white",fontSize:"0.9rem" }}>Apply Now !</span>
+          <a href="#" className="btn" style={{ backgroundColor: "#002a36"}}>
+            <span style={{ color: "white", fontSize: "0.9rem" }}>
+              Apply Now !
+            </span>
           </a>
           <p
             className="d-flex fst-normal align-items-baseline"
@@ -62,7 +68,7 @@ function Card({ paid = false , card_head="Hackathons for Developers"}) {
           </p>
         </div>
       </div>
-      </div>
+    </div>
   );
 }
 
