@@ -72,7 +72,7 @@ export default function NavBar() {
         <div className="row cllgCarol">
           <div className="col-lg-2 studentfrom">IIT Kanpur</div>
           <div className="col-lg-2 studentfrom">IIT Roorkee</div>
-          <div className="col-lg-2 studentfrom">NIT Kurukshetra</div>
+          <div className="col-lg-2 studentfrom">NIT Delhi</div>
           <div className="col-lg-2 studentfrom">IIIT Vadodra</div>
           <div className="col-lg-2 studentfrom">IIT Bombay</div>
         </div>
