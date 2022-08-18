@@ -4,8 +4,8 @@ import "./Mentor.css";
 const Mentor = ({ courses = "Mentors for DSA", about , so_icons }) => {
   return (
     <div className="mentor-container">
-      <div className="mentor-heading">{courses}</div>
-      <div className="about">
+      <div className="heading">{courses}</div>
+      <div className="texthire">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Non gravida sit
         nunc duis dui, dui hendrerit suscipit.
       </div>

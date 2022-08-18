@@ -7,7 +7,7 @@ const Internship = () => {
   return (
     <div className="contained-xl">
       <div className="heading">Internship & Jobs</div>
-      <div className="intern-about">
+      <div className="texthire">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Non gravida sit
         nunc duis dui, dui hendrerit suscipit.
       </div>
