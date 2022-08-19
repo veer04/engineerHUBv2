@@ -31,7 +31,7 @@ export default function SignUp() {
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            marginBottom:5
+            marginBottom: 5,
           }}
         >
           <div className="cont-head">
@@ -47,66 +47,66 @@ export default function SignUp() {
       </div>
           <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
             <Grid container spacing={2}>
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12} sm={6} >
                 <TextField
                   autoComplete="given-name"
                   name="firstName"
                   required
                   fullWidth
                   id="firstName"
-                  label="First Name"
+                  label="Name"
+                  className="inputRounded"
                   autoFocus
                 />
               </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  required
-                  fullWidth
-                  id="lastName"
-                  label="Last Name"
-                  name="lastName"
-                  autoComplete="family-name"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  id="email"
-                  label="Email Address"
-                  name="email"
-                  autoComplete="email"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
+              <Grid item xs={12} sm={6} sx={{paddingTop:"21.5px"}}>
+              <TextField
                   required
                   fullWidth
                   name="number"
                   label="Phone Number"
                   type="number"
                   id="number"
+                  className="inputRounded"
                   autoComplete="new-number"
                 />
               </Grid>
-              <Grid item xs={12}>
+              <Grid item xs={12} sx={{paddingTop:"21.5px"}}>
+                <TextField
+                  required
+                  fullWidth
+                  id="email"
+                  label="Email Address"
+                  name="email"
+                  className="inputRounded"
+                  autoComplete="email"
+                />
+              </Grid>
+              <Grid item xs={12} sx={{paddingTop:"21.5px"}}>
+                <TextField
+                  required
+                  fullWidth
+                  name="institution"
+                  label="Institution"
+                  type="institution"
+                  className="inputRounded"
+                  id="institution"
+                  autoComplete="new-institution"
+                />
+              </Grid>
+              <Grid item xs={12} sx={{paddingTop:"21.5px"}}>
                 <TextField
                   required
                   fullWidth
                   name="password"
                   label="Password"
                   type="password"
+                  className="inputRounded"
                   id="password"
                   autoComplete="new-password"
                 />
               </Grid>
               
-              {/* <Grid item xs={12}>
-                <FormControlLabel
-                  control={<Checkbox value="allowExtraEmails" color="primary" />}
-                  label="I want to receive inspiration, marketing promotions and updates via email."
-                />
-              </Grid> */}
             </Grid>
             <Button
               type="submit"
@@ -121,7 +121,6 @@ export default function SignUp() {
                 cursor: "pointer",
                 padding: "5px",
   borderRadius: "16px",
-  // margin: "20px",
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
@@ -130,7 +129,6 @@ export default function SignUp() {
   fontSize: "17px",
   letterSpacing: "0.7px",
   height: "60px",
-  // width: "366px",
             }}
             >
               Sign Up
