@@ -183,5 +183,52 @@
   .comp:nth-child(5) {
     display: none;
   }
+  .headerContainer{
+    display: flex;
+    flex-direction: column;
+    
+    align-items: center;
+  }
 
+
+.headercard{
+  width:35vw;
+  margin-bottom: 5%;
+margin-top: 3%;
+}
+
+
+}
+@media screen and (max-width:992px){
+  .cllgCarol{
+    position: relative;
+    text-align: center;
+    line-height: 3.5rem;
+  }
+  .Studentsfrom{
+    margin-top: 15%;
+  }
+}
+@media screen and (max-width:520px)
+{
+  
+   .headercard{
+width: 45vw;
+   }
+  
+  
+
+}
+@media screen and (max-width:496px) {
+  .headerbrandname{
+
+    font-size: 3.3rem;
+    font-weight: 700;
+  }
+  .headerbelow{
+
+    font-size: 1rem;
+    
+  }
+  
 }

@@ -1,11 +1,14 @@
 .custom-card {
+
   width: 400px;
   border-radius: 16px;
   display: flex;
   transition: all 250ms ease-in-out;
-
 }
 
+.campus-card-cllg{
+  background-image: linear-gradient(45deg,rgb(215 246 255 / 83%),rgb(255 255 255)),url(./iitd.jpeg);
+}
 .custom-card:hover {
   transform: scale(1.04);
   cursor: pointer;

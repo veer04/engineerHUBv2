@@ -8,9 +8,7 @@
   font-family: "Poppins", sans-serif;
 }
 .allcontent {
-
   background-image: url("aboutus.svg");
-
 }
 .aboutustxt {
   font-family: Poppins;
@@ -111,29 +109,25 @@ ul li::before {
     justify-content: center;
     align-items: center;
   }
-  .allcontent {
-    /* background-color:rgba(246, 249, 254, 1); */
 
-    background-color: aliceblue;
-  }
   .aboutus {
     justify-content: center;
     align-items: center;
   }
 }
 
-@media screen and (max-width: 1023px){
-  .aboutus{
-    font-size:3rem;
+@media screen and (max-width: 1023px) {
+  .aboutus {
+    font-size: 3rem;
     margin-left: 0px;
   }
-  .cardEvent{
+  .cardEvent {
     width: 17rem;
   }
 }
 
-@media screen and (max-width: 768px){
+@media screen and (max-width: 768px) {
   .container h1 {
     /* margin-left: 1%; */
-}
+  }
 }
