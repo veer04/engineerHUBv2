@@ -7,11 +7,10 @@
 .my-form-head{
   font-weight: bold;
   font-size: 40px;
+  color: #05555e;
+
 }
 .cont {
-  /* display: flex;
-  flex-direction: column;
-  align-items: center; */
   padding: 24px;
   margin: 2px auto 0px auto;
   height:fit-content;
@@ -85,14 +84,6 @@ label {
   
 }
 
-/* .divisor {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
- 
-} */
-
 .reg-input:focus {
   box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1);
   outline: none;
@@ -111,10 +102,8 @@ label {
   margin: 5px;
   align-items: center;
   border-radius: 16px;
-  /* color: white; */
   border: 1px solid #EEEEEE;
   cursor: pointer;
-
   width: 336px;
   height: 56px;
   transition: all 300ms ease-in-out;

@@ -13,10 +13,14 @@
    gap: 24px;
 }
 
-.reg-si{
+/* .reg-si{
     background: #168584 ;
     color: white;
     font-weight: 600;
     border: none;
     cursor: pointer;
+} */
+
+button:hover{
+    box-shadow: 2px green;
 }
