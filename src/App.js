@@ -16,6 +16,7 @@ import Register from "./Components/Login/Register";
 import Success from "./Components/Login/success";
 import Signup from "./Components/Login/Signup";
 import Footer from "./Components/Footer/Footer";
+import User from "./Components/UserPage/user";
 function App() {
   return (
     <Router>
@@ -39,6 +40,7 @@ function App() {
         <Route path="/suc" exact element={<Success />} />
         <Route path="/register" exact element={<Register />} />
         <Route path="/signup" exact element={<Signup />} />
+        <Route path="/user" exact element={<User />} />
       </Routes>
       <div className="Footer">
         <Footer />
