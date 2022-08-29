@@ -17,10 +17,8 @@ function User() {
            <a href='' style={{textDecoration:"none",padding:"30px"}}><li className="fs-5 offli"><LogoutIcon className='fs-1 p-2'/>Logout</li></a>
        </ul>  
    </div>
-   
+   <ProfileCard/>
    </div>
-  
-  
     </div>
   )
 }
