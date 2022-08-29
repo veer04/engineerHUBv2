@@ -40,14 +40,15 @@ export default function SignIn() {
             <div
               className="my-form-head"
               style={{
-                padding: "0px 0px 0px 0px",
-                lineHeight:"43px"
+                padding: "0px 0px 0px 30px",
+                lineHeight:"45px"
               }}
             >
               Login to your Account
             </div>
           </div>
           <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
+            <Grid item xs={12}>
             <TextField
               margin="normal"
               required
@@ -56,8 +57,10 @@ export default function SignIn() {
               label="Email Address"
               name="email"
               autoComplete="email"
+              className="inputRounded"
               autoFocus
             />
+            </Grid>
             <TextField
               margin="normal"
               required
@@ -66,6 +69,7 @@ export default function SignIn() {
               label="Password"
               type="password"
               id="password"
+              className="inputRounded"
               autoComplete="current-password"
             />
             <FormControlLabel
