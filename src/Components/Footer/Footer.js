@@ -81,8 +81,8 @@ function Footer() {
               </div>
             </div>
           </div>
-          <div className="row copyright"> myengineerhub@gmail.com</div>
-          <div className="row  copyright1">All copyright reserved @ engineerHUB</div>
+        
+          <div className="row copyright">Powered by <span>engineerHUB</span></div>
         </div>
       </div>
     </>

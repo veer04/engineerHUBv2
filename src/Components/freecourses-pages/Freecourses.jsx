@@ -7,15 +7,22 @@ const Freecourses = () => {
     <div className="container-hiring">
       <div className="heading">Explore Courses</div>
 
-      <div className="texthire">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Non gravida sit nunc duis dui, dui hendrerit suscipit.</div>
+      <div className="texthire">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Non gravida sit
+        nunc duis dui, dui hendrerit suscipit.
+      </div>
 
-      <div className="d-flex row justify-content-center courses-cont">
-        <Full/>
-        <Full/>
-        <Full/>
-        <Full/>
-        <Full/>
-        <Full/>
+      <div 
+      style={{ marginBottom: "40px"}}
+      className="d-flex row justify-content-evenly courses-cont">
+        <Full />
+        <Full />
+        <Full />
+      </div>
+      <div className="d-flex row justify-content-evenly courses-cont">
+        <Full />
+        <Full />
+        <Full />
       </div>
     </div>
   );

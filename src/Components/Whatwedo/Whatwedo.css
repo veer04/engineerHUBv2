@@ -9,9 +9,6 @@
 
   border-radius: 15px;
   border: solid 2px white;
-  /* border-bottom:solid 2px white ; */
-  /* border-left:solid 2px white ;
-    border-right: solid 2px white; */
 }
 .content {
   background: rgba(1, 60, 76, 1);
@@ -22,14 +19,13 @@
 .text1 {
   color: rgba(225, 215, 28, 1);
   padding: 3% 0px;
-  margin-left: 5%;
 }
 .textfor {
   color: rgba(225, 215, 28, 1);
   padding: 3%;
-  margin-left: 5%;
+
   position: relative;
-  left: 6%;
+  margin: 0 0 0 10%;
 }
 .text2 {
   color: rgba(255, 255, 255, 1);
@@ -41,45 +37,41 @@
   background-color: rgba(8, 210, 4, 1);
 
   color: rgba(255, 255, 255, 1);
-  width: 17vw;
-  height: 9vh;
+
+  padding: 12px 24px;
   border-radius: 59px;
   border: none;
-  margin-left: 5%;
 }
 .Telegram {
   background-color: rgba(0, 136, 204, 1);
 
   color: rgba(255, 255, 255, 1);
-  width: 17vw;
-  height: 9vh;
+
+  padding: 12px 24px;
   border-radius: 59px;
   border: none;
-  margin-left: 5%;
 }
 .Linkedin {
   background-color: rgba(0, 119, 181, 1);
   color: rgba(255, 255, 255, 1);
-  width: 17vw;
-  height: 9vh;
+
+  padding: 12px 24px;
   border-radius: 59px;
   border: none;
-  margin-left: 5%;
 }
 .Discord {
   background-color: rgba(88, 101, 242, 1);
   color: rgba(255, 255, 255, 1);
-  width: 17vw;
-  height: 9vh;
 
+  padding: 12px 24px;
   border-radius: 59px;
   border: none;
-  margin-left: 7%;
 }
-.phone-image {
+.phone-image img {
   /* background-image: url(Vector\ \(1\).svg); */
   background-size: cover;
-  margin-right: 7%;
+  border-radius: 20px;
+  width: 240px;
 }
 
 .textt {
@@ -92,11 +84,9 @@
 }
 .carousel-content {
   padding-bottom: 15%;
-  
 }
 .contactButtons {
-  padding-top: 7%;
-  padding-bottom: 5%;
+  padding: 4% 0px;
 }
 .textwhat {
   color: rgba(225, 215, 28, 1);
@@ -122,50 +112,36 @@
     width: 70vw;
   }
   .Whatsapp {
-    width: 30w;
     font-size: 1rem;
     border: none;
-    margin: 5%;
-    border-radius: 10px;
+    margin: 1rem;
+    border-radius: 59px;
     justify-content: center;
     align-items: center;
-    width: 30vw;
-    text-justify: center;
-    margin-top: 5%;
   }
   .Linkedin {
-    width: 30vw;
     font-size: 1rem;
     border: none;
-    margin: 5%;
-    border-radius: 10px;
+    margin: 1rem;
+    border-radius: 59px;
     justify-content: center;
     align-items: center;
-    width: 30vw;
-    text-justify: center;
-    margin-top: 5%;
   }
   .Telegram {
-    width: 30vw;
     font-size: 1rem;
     border: none;
-    margin: 5%;
-    border-radius: 10px;
+    margin: 1rem;
+    border-radius: 59px;
     justify-content: center;
     align-items: center;
-    width: 30vw;
-    text-justify: center;
-    margin-top: 5%;
   }
   .Discord {
     font-size: 1rem;
     justify-content: center;
     align-items: center;
-    width: 30vw;
-    text-justify: center;
+    margin: 1rem;
     border: none;
-    border-radius: 10px;
-    margin-top: 5%;
+    border-radius: 59px;
 
     /* text-indent: 20%;
     white-space: nowrap;
@@ -178,40 +154,36 @@
   }
 }
 
-
-.carousel-control-next,.carousel-control-prev  {
-    height: fit-content;
-    transform: translateY(200px);
+.carousel-control-next,
+.carousel-control-prev {
+  height: fit-content;
+  transform: translateY(200px);
 }
 
 @media screen and (max-width: 1024px) {
-    .textwhat{
-     left: 0;
-     padding: 5% 6%;
-    }
-    .textbelow{
-      margin-left: 5%;
-    }
-    .phone-image img {
-      position: relative;
-      top: 10px;
-      width: 264px;
-    }
-    .carousel-control-next {
-      right: -34px;
+  .textwhat {
+    left: 0;
+    padding: 5% 6%;
   }
-  .carousel-control-prev  {
+  .phone-image img {
+    position: relative;
+    top: 10px;
+    width: 200px;
+  }
+  .carousel-control-next {
+    right: -34px;
+  }
+  .carousel-control-prev {
     left: -34px;
-} 
+  }
 }
 
-
-@media screen and (max-width: 768px){
+@media screen and (max-width: 768px) {
   .phone-image img {
     display: none;
   }
 
-  .textfor{
+  .textfor {
     left: 0px;
     padding: 3% 6%;
   }

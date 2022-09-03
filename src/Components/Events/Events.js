@@ -1,11 +1,22 @@
-import React from "react";
-import "../Events/Events.css";
+import React,{useState,useEffect} from "react";
+import axios from "axios";
 import backImage from "../Magzine/backimg.png";
-
+import EventCard from "./EventCard";
 function Events() {
+
+  const [eventData,setEventData] = useState([]);
+  useEffect(() => {
+    const getEventDetails = async () => {
+      const response = await axios.get( `https://ehubbackend.herokuapp.com/api/v1/event`)
+
+      setEventData(response.data);
+    }
+    getEventDetails();
+  }, [])
+  
   return (
     <>
-      <div className="content contentEvent">
+      <div className="content">
         <div className="container">
           <h1 className="text1">Events</h1>
           <h5 className="text2 text111 event-box ">
@@ -14,73 +25,10 @@ function Events() {
             officia amet eligendi! Quis quos animi officia explicabo accusamus
             obcaecati totam.
           </h5>
-          <div className="row">
-            <div className="col-lg-4">
-              <div
-                className="card cardEvent"
-                style={{  borderRadius: 20 }}
-              >
-                <img src={backImage} className="card-img-top" alt="..." />
-                <div className="card-img-top"></div>
-                <div className="card-body">
-                  <h5 className="card-title">Coding Contest</h5>
-                <div className="d-flex event--btns">
-                   <button className="Free">Free</button>
-                  <button className="Prize">Prize</button>
-                </div>
-                  <p className="card-text">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Pharetra consequat consequat at fermentum sollicitudin
-                    pellentesque tortor..
-                  </p>
-                </div>
-              </div>
-              <button className="buttonz Register">Register</button>
-            </div>
-            <div className="col-lg-4">
-              <div
-                className="card cardEvent"
-                style={{  borderRadius: 20 }}
-              >
-                <img src={backImage} className="card-img-top" alt="..." />
-                <div className="card-img-top"></div>
-                <div className="card-body">
-                  <h5 className="card-title">Coding Contest</h5>
-                <div className="d-flex event--btns">
-                   <button className="Free">Free</button>
-                  <button className="Prize">Prize</button>
-                </div>
-                  <p className="card-text">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Pharetra consequat consequat at fermentum sollicitudin
-                    pellentesque tortor..
-                  </p>
-                </div>
-              </div>
-              <button className="buttonz Register">Register</button>
-            </div>
-            <div className="col-lg-4">
-              <div
-                className="card cardEvent"
-                style={{  borderRadius: 20 }}
-              >
-                <img src={backImage} className="card-img-top" alt="..." />
-                <div className="card-img-top"></div>
-                <div className="card-body">
-                  <h5 className="card-title">Coding Contest</h5>
-                <div className="d-flex event--btns">
-                   <button className="Free">Free</button>
-                  <button className="Prize">Prize</button>
-                </div>
-                  <p className="card-text">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Pharetra consequat consequat at fermentum sollicitudin
-                    pellentesque tortor..
-                  </p>
-                </div>
-              </div>
-              <button className="buttonz Register">Register</button>
-            </div>
+          <div className="d-flex justify-content-around flex-wrap" style={{ padding: " 4% 0" }}>
+            <EventCard />
+            <EventCard />
+            <EventCard />
           </div>
         </div>
       </div>

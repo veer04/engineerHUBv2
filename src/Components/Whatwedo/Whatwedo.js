@@ -126,7 +126,7 @@ function Whatwedo() {
             </Carousel>
           </div>
 
-          <div className="contactButtons">
+          <div className="contactButtons d-flex justify-content-evenly flex-wrap">
             <button className="Whatsapp">
               <WhatsAppIcon style={{ fontSize: 33 }} /> Join Whatsapp
             </button>

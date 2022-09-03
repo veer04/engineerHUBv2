@@ -119,7 +119,7 @@ export default function NavBar() {
       <div className="Courses">
         <Courses />
       </div>
-      <div className="Members">
+      <div className="Members" style={{ padding: "0px 0px 4% 0px"}}>
         <Members />
       </div>
      

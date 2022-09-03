@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./NavBar.css";
+import axios from "axios";
 import Navbar from "react-bootstrap/Navbar";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
@@ -7,7 +8,9 @@ import Logo from "./logo.svg";
 import User from "./user.svg";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import ham from "./ham.svg";
+import { useState } from "react";
 const NavBar = () => {
+  
   return (
     <>
       <div className="row">
@@ -223,7 +226,7 @@ const NavBar = () => {
             </div>
 
             <div className="ham-icon">
-                <img src={ham} alt="Ham_icon"/>
+              <img src={ham} alt="Ham_icon" />
             </div>
           </Container>
         </Navbar>
