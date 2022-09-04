@@ -46,7 +46,7 @@ function Magzine() {
             obcaecati totam.
           </h5>
 
-          <div className="d-flex justify-content-around" style={{ padding: " 4% 0" }}>
+          <div className="d-flex justify-content-around flex-wrap" style={{ padding: " 4% 0" }}>
             <Full />
             <Full />
             <Full />

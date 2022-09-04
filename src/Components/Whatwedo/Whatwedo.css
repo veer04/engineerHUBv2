@@ -80,7 +80,7 @@
   justify-content: center;
   line-height: 2rem;
   font-weight: 300;
-  font-size: 1.5rem;
+  font-size: 1.25rem;
 }
 .carousel-content {
   padding-bottom: 15%;
@@ -107,7 +107,7 @@
     align-items: center;
     margin-left: 8%;
     font-weight: 300;
-    font-size: 1.5rem;
+    font-size: 1.25rem;
     line-height: 2.2rem;
     width: 70vw;
   }
