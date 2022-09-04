@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import "./NavBar.css";
 import axios from "axios";
 import Navbar from "react-bootstrap/Navbar";
@@ -8,9 +8,20 @@ import Logo from "./logo.svg";
 import User from "./user.svg";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import ham from "./ham.svg";
-import { useState } from "react";
+
 const NavBar = () => {
-  
+  const [domainData, setDomainData] = useState([]);
+
+  useEffect(() => {
+    const getDomainDetails = async () => {
+      const response = await axios.get(
+        `https://ehubbackend.herokuapp.com/api/v1/domain`
+      );
+
+      setDomainData(response.data);
+    };
+    getDomainDetails();
+  }, []);
   return (
     <>
       <div className="row">
@@ -50,7 +61,10 @@ const NavBar = () => {
                       <NavDropdown.Item href="/mentor">
                         Contact Mentor
                       </NavDropdown.Item>
-                      <NavDropdown.Item href="">
+                      <NavDropdown.Item
+                        target="_blank"
+                        href="https://discord.gg/ZMZAEZ5NfA"
+                      >
                         Ask your query
                       </NavDropdown.Item>
                     </NavDropdown>
@@ -66,7 +80,10 @@ const NavBar = () => {
                       <NavDropdown.Item href="/mentor">
                         Contact Mentor
                       </NavDropdown.Item>
-                      <NavDropdown.Item href="">
+                      <NavDropdown.Item
+                        target="_blank"
+                        href="https://discord.gg/ZMZAEZ5NfA"
+                      >
                         Ask your query
                       </NavDropdown.Item>
                     </NavDropdown>
@@ -81,7 +98,10 @@ const NavBar = () => {
                       <NavDropdown.Item href="/mentor">
                         Contact Mentor
                       </NavDropdown.Item>
-                      <NavDropdown.Item href="">
+                      <NavDropdown.Item
+                        target="_blank"
+                        href="https://discord.gg/ZMZAEZ5NfA"
+                      >
                         Ask your query
                       </NavDropdown.Item>
                     </NavDropdown>
@@ -96,7 +116,10 @@ const NavBar = () => {
                       <NavDropdown.Item href="/mentor">
                         Contact Mentor
                       </NavDropdown.Item>
-                      <NavDropdown.Item href="">
+                      <NavDropdown.Item
+                        target="_blank"
+                        href="https://discord.gg/ZMZAEZ5NfA"
+                      >
                         Ask your query
                       </NavDropdown.Item>
                     </NavDropdown>
@@ -117,7 +140,10 @@ const NavBar = () => {
                         <NavDropdown.Item href="/mentor">
                           Contact Mentor
                         </NavDropdown.Item>
-                        <NavDropdown.Item href="">
+                        <NavDropdown.Item
+                          target="_blank"
+                          href="https://discord.gg/ZMZAEZ5NfA"
+                        >
                           Ask your query
                         </NavDropdown.Item>
                       </div>
@@ -133,7 +159,10 @@ const NavBar = () => {
                       <NavDropdown.Item href="/mentor">
                         Contact Mentor
                       </NavDropdown.Item>
-                      <NavDropdown.Item href="">
+                      <NavDropdown.Item
+                        target="_blank"
+                        href="https://discord.gg/ZMZAEZ5NfA"
+                      >
                         Ask your query
                       </NavDropdown.Item>
                     </NavDropdown>
@@ -148,7 +177,10 @@ const NavBar = () => {
                       <NavDropdown.Item href="/mentor">
                         Contact Mentor
                       </NavDropdown.Item>
-                      <NavDropdown.Item href="">
+                      <NavDropdown.Item
+                        target="_blank"
+                        href="https://discord.gg/ZMZAEZ5NfA"
+                      >
                         Ask your query
                       </NavDropdown.Item>
                     </NavDropdown>
@@ -163,7 +195,10 @@ const NavBar = () => {
                       <NavDropdown.Item href="/mentor">
                         Contact Mentor
                       </NavDropdown.Item>
-                      <NavDropdown.Item href="">
+                      <NavDropdown.Item
+                        target="_blank"
+                        href="https://discord.gg/ZMZAEZ5NfA"
+                      >
                         Ask your query
                       </NavDropdown.Item>
                     </NavDropdown>
@@ -177,7 +212,10 @@ const NavBar = () => {
                         Contact Mentor
                       </NavDropdown.Item>
                       ``
-                      <NavDropdown.Item href="">
+                      <NavDropdown.Item
+                        target="_blank"
+                        href="https://discord.gg/ZMZAEZ5NfA"
+                      >
                         Ask your query
                       </NavDropdown.Item>
                     </NavDropdown>
@@ -192,7 +230,10 @@ const NavBar = () => {
                       <NavDropdown.Item href="/mentor">
                         Contact Mentor
                       </NavDropdown.Item>
-                      <NavDropdown.Item href="">
+                      <NavDropdown.Item
+                        target="_blank"
+                        href="https://discord.gg/ZMZAEZ5NfA"
+                      >
                         Ask your query
                       </NavDropdown.Item>
                     </NavDropdown>
