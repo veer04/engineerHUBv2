@@ -13,6 +13,9 @@ import IndustryPersona from "./Components/IndustryPersona/IndustryPersona";
 import Freecourses from "./Components/freecourses-pages/Freecourses";
 import Resources from "./Components/Resources/Resources";
 import Test from "./APIs/TestAPI";
+import Login from "./Components/Login/login"
+import Register from "./Components/Login/Register"
+import SignUp from "./Components/Login/Signup"
 import Footer from "./Components/Footer/Footer";
 function App() {
   return (
@@ -35,6 +38,9 @@ function App() {
         <Route path="/courses" exact element={<Freecourses />} />
         <Route path="/resources" exact element={<Resources />} />
         <Route path="/test" exact element={<Test/>}/>
+        <Route path="/login" exact element={<Login/>}/>
+        <Route path="/register" exact element={<Register/>}/>
+        <Route path="/signup" exact element={<SignUp/>}/>
       </Routes>
       <div className="Footer">
         <Footer />
