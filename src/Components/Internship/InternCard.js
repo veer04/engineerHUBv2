@@ -9,20 +9,17 @@ const InternCard = ({ company, position, link }) => {
   return (
     <div className="Intern-Container">
       <div className="Intern-Company">
-        <div className="Company-Name">American Express is Hiring</div>
+        <div className="Company-Name">{company} is Hiring</div>
         <div className="Intern-View">
           <VisibilityOutlinedIcon /> 1000
         </div>
       </div>
       <div className="Intern-Position">
-        Position: <span className="intern_post">Data Scientists Analyst</span>
+        Position: <span className="intern_post">{position}</span>
       </div>
       <div className="Intern-Apply-Link">
         <div>
-          Apply :{" "}
-          <span className="intern-link">
-            https://internshala.com/internships/matching-preferences
-          </span>
+          Apply : <span className="intern-link">{link}</span>
         </div>
         <div>
           <ShareIcon />

@@ -24,11 +24,27 @@ const TestAPI = () => {
     }
   };
 
+  const postResourceDetails = async () => {
+    const res = await axios.post(
+      `https://ehubbackend.herokuapp.com/api/v1/resource`,
+      {
+        resourceName: "Top Websites for DSA",
+        resourceLink: "https://google.com/",
+      }
+    );
+  };
+
+  
+
   return (
     <div>
-      <button onClick={() => {
-        postHiringDetails()
-      }}>Post Hiring Details</button>
+      <button
+        onClick={() => {
+          postHiringDetails();
+        }}
+      >
+        Post Hiring Details
+      </button>
     </div>
   );
 };
