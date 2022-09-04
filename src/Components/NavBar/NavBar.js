@@ -54,7 +54,12 @@ const NavBar = () => {
                       title="DSA (C/C++)"
                       className="dropdownNav dropend"
                     >
-                      <NavDropdown.Item href="">HandBook</NavDropdown.Item>
+                      <NavDropdown.Item
+                        href="http://www.africau.edu/images/default/sample.pdf"
+                        target="_blank"
+                      >
+                        HandBook
+                      </NavDropdown.Item>
                       <NavDropdown.Item href="/resources">
                         Resources
                       </NavDropdown.Item>
@@ -73,7 +78,12 @@ const NavBar = () => {
                       title="Web developement"
                       className="dropdownNav dropend "
                     >
-                      <NavDropdown.Item href="">HandBook</NavDropdown.Item>
+                      <NavDropdown.Item
+                        href="http://www.africau.edu/images/default/sample.pdf"
+                        target="_blank"
+                      >
+                        HandBook
+                      </NavDropdown.Item>
                       <NavDropdown.Item href="/resources">
                         Resources
                       </NavDropdown.Item>
@@ -91,7 +101,12 @@ const NavBar = () => {
                       title="App Development"
                       className="dropdownNav dropend "
                     >
-                      <NavDropdown.Item href="">HandBook</NavDropdown.Item>
+                      <NavDropdown.Item
+                        href="http://www.africau.edu/images/default/sample.pdf"
+                        target="_blank"
+                      >
+                        HandBook
+                      </NavDropdown.Item>
                       <NavDropdown.Item href="/resources">
                         Resources
                       </NavDropdown.Item>
@@ -109,7 +124,12 @@ const NavBar = () => {
                       title="ML&AI (PYTHON)"
                       className="dropdownNav dropend "
                     >
-                      <NavDropdown.Item href="">HandBook</NavDropdown.Item>
+                      <NavDropdown.Item
+                        href="http://www.africau.edu/images/default/sample.pdf"
+                        target="_blank"
+                      >
+                        HandBook
+                      </NavDropdown.Item>
                       <NavDropdown.Item href="/resources">
                         Resources
                       </NavDropdown.Item>
@@ -129,10 +149,10 @@ const NavBar = () => {
                     >
                       <div className="dropdownNav dropend ">
                         <NavDropdown.Item
-                          href=""
+                          href="http://www.africau.edu/images/default/sample.pdf"
                           className="dropdownNav dropend"
                         >
-                          HandBook
+                          HandBook{" "}
                         </NavDropdown.Item>
                         <NavDropdown.Item href="/resources">
                           Resources
@@ -152,7 +172,12 @@ const NavBar = () => {
                       title="Dev Ops"
                       className="dropdownNav dropend"
                     >
-                      <NavDropdown.Item href="">HandBook</NavDropdown.Item>
+                      <NavDropdown.Item
+                        href="http://www.africau.edu/images/default/sample.pdf"
+                        target="_blank"
+                      >
+                        HandBook
+                      </NavDropdown.Item>
                       <NavDropdown.Item href="/resources">
                         Resources
                       </NavDropdown.Item>
@@ -170,7 +195,12 @@ const NavBar = () => {
                       title="UI/UX Design"
                       className="dropdownNav dropend"
                     >
-                      <NavDropdown.Item href="">HandBook</NavDropdown.Item>
+                      <NavDropdown.Item
+                        href="http://www.africau.edu/images/default/sample.pdf"
+                        target="_blank"
+                      >
+                        HandBook
+                      </NavDropdown.Item>
                       <NavDropdown.Item href="/resources">
                         Resources
                       </NavDropdown.Item>
@@ -188,7 +218,12 @@ const NavBar = () => {
                       title="BlockChain"
                       className="dropdownNav dropend"
                     >
-                      <NavDropdown.Item href="">HandBook</NavDropdown.Item>
+                      <NavDropdown.Item
+                        href="http://www.africau.edu/images/default/sample.pdf"
+                        target="_blank"
+                      >
+                        HandBook
+                      </NavDropdown.Item>
                       <NavDropdown.Item href="/resources">
                         Resources
                       </NavDropdown.Item>
@@ -223,7 +258,12 @@ const NavBar = () => {
                       title="SEO/Graphic Design"
                       className="dropdownNav dropend"
                     >
-                      <NavDropdown.Item href="">HandBook</NavDropdown.Item>
+                      <NavDropdown.Item
+                        href="http://www.africau.edu/images/default/sample.pdf"
+                        target="_blank"
+                      >
+                        HandBook
+                      </NavDropdown.Item>
                       <NavDropdown.Item href="/resources">
                         Resources
                       </NavDropdown.Item>
