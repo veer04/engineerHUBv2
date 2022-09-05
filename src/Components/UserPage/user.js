@@ -42,6 +42,9 @@ function User() {
           </ul>
         </div>
       </div>
+      <div style={{ color: "#168584" }}>
+        Congratulations! You have been successfully registered.
+      </div>
     </div>
   );
 }
