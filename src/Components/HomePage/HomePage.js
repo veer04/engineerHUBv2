@@ -9,12 +9,11 @@ import "../Magzine/Magzine";
 import Magzine from "../Magzine/Magzine";
 import "../Events/Events";
 import Events from "../Events/Events";
-import "../Courses/Courses";
-import Courses from "../Courses/Courses";
+import "../HomeCourses/Courses";
+import Courses from "../HomeCourses/Courses";
 import "../Members/Members";
 import Members from "../Members/Members";
-import "../Footer/Footer";
-import Footer from "../Footer/Footer";
+
 import campusIcon from "./icons/campus.png";
 import GradIcon from "./icons/graudate.png";
 import BuildingIcon from "./icons/building.png";

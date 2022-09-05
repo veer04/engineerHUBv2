@@ -1,8 +1,8 @@
 import React from "react";
+import { Link } from "react-router-dom";                                    
 import "./freecourses.css";
 import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
 import backImage from "./backimg.png";
-
 
 function Card() {
   return (
@@ -14,7 +14,12 @@ function Card() {
       }}
     >
       <div className="card-body default-card-body">
-        <img src={backImage} style={{ margin: "0px 0px 10px 0px" }} className="card-img-top" alt="..." />
+        <img
+          src={backImage}
+          style={{ margin: "0px 0px 10px 0px" }}
+          className="card-img-top"
+          alt="..."
+        />
 
         <div className="d-flex justify-content-between align-items-center">
           <h5
@@ -26,7 +31,7 @@ function Card() {
               fontSize: "18px",
               lineHeight: "32px",
               paddingTop: "0",
-              color:"#1b5b62"
+              color: "#1b5b62",
             }}
           >
             Frontend Development
@@ -38,18 +43,22 @@ function Card() {
             />
           </div>
         </div>
-        <p className="card-text" style={{ fontSize: "12px"}}>
+        <p className="card-text" style={{ fontSize: "12px" }}>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Arcu, eget
           suspendisse nunc duis non eget est.Lorem ipsum dolor sit amet.
         </p>
         {/* <h6 style={{ fontWeight: 700 }}>Organizer: IIT Delhi</h6> */}
         <div className="btn-container d-flex justify-content-between align-items-baseline">
-          <div className="default-btn" style={{ backgroundColor: "#0094FF" }}>
+          <Link
+            to="/userpage"
+            className="default-btn"
+            style={{ backgroundColor: "#0094FF" }}
+          >
             <div style={{ color: "white" }}>Register</div>
-          </div>
+          </Link>
           <p
             className="d-flex fst-normal align-items-center justify-content-center"
-             style={{ fontSize: "14px" }}
+            style={{ fontSize: "14px" }}
           >
             Last date: dd/mm/yy
           </p>

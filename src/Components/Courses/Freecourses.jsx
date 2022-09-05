@@ -1,6 +1,6 @@
 import React from "react";
 import "./freecourses.css";
-import Full from "../freecourses-pages/Full";
+import Full from "./Full";
 
 const Freecourses = () => {
   return (
@@ -13,13 +13,15 @@ const Freecourses = () => {
       </div>
 
       <div 
-      style={{ marginBottom: "40px"}}
+      style={{ margin: "0px 35px 40px"}}
       className="d-flex row justify-content-evenly courses-cont">
         <Full />
         <Full />
         <Full />
       </div>
-      <div className="d-flex row justify-content-evenly courses-cont">
+      <div 
+       style={{ margin: "0px 35px 40px"}}
+      className="d-flex row justify-content-evenly courses-cont">
         <Full />
         <Full />
         <Full />

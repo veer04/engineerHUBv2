@@ -1,6 +1,6 @@
 import React from "react";
 import "../Events/Events.css";
-import "../Courses/Courses.css";
+import "./Courses.css";
 
 import CoursesCard from "./CoursesCard";
 
