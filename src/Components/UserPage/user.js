@@ -8,7 +8,7 @@ import "./user.css";
 
 function User() {
   return (
-    <div className="d-flex row">
+    <div className="d-flex flex-row">
       <div
         style={{
           backgroundColor: "rgb(5 66 83)",
@@ -42,7 +42,8 @@ function User() {
           </ul>
         </div>
       </div>
-      <div style={{ color: "#168584" }}>
+
+      <div style={{ color: "#168584" , margin: "auto"  }}>
         Congratulations! You have been successfully registered.
       </div>
     </div>
