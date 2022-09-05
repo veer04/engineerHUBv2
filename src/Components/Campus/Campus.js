@@ -16,7 +16,7 @@ const Campus = () => {
       setCampusData(response.data);
       console.log(response);
     };
-
+    console.log(campusData);
     getCampusDetails();
     
   }, []);

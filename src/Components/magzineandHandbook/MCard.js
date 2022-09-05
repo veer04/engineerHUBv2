@@ -43,7 +43,7 @@ function Card({bookTitle,pdfUrl}) {
           suspendisse nunc duis nunc duis. nunc duis. nunc duis. nunc duis..
         </p>
         <div className="btn-container d-flex justify-content-between align-items-baseline">
-          <a href={pdfUrl} target="_blank" className="btn custom-card-btn-2" style={{ backgroundColor: "#0094FF",borderRadius: "20px"}}>
+          <a href={pdfUrl} rel="noopener noreferrer" target="_blank" className="btn custom-card-btn-2" style={{ backgroundColor: "#0094FF",borderRadius: "20px"}}>
             <span style={{ color: "white", fontSize:"12px" ,borderRadius: "20px"}}>Tap to Open</span>
           </a>
           <p className="btn custom-card-btn-2" style={{ backgroundColor: "#FFC700" ,borderRadius: "20px"}}>

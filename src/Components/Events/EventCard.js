@@ -14,7 +14,7 @@ const EventCard = ({
       <div className="event-card-body">
         <div>
           {" "}
-          <img src={backImage} className="event-image" />
+          <img src={backImage} alt="particular-events" className="event-image" />
         </div>
 
         <div className="d-flex event--btns">

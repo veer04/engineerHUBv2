@@ -8,8 +8,6 @@ import {
 } from "../../config/StaticLinks";
 const Mentor = ({
   courses = "Mentors for DSA",
-  about,
-  so_icons,
   teamMembers = [
     {
       Profession: "Frontend Developer",

@@ -1,6 +1,6 @@
 import React,{useState,useEffect} from "react";
 import axios from "axios";
-import backImage from "../Magzine/backimg.png";
+// import backImage from "../Magzine/backimg.png";
 import EventCard from "./EventCard";
 function Events() {
 
@@ -11,6 +11,7 @@ function Events() {
 
       setEventData(response.data);
     }
+    console.log(eventData);
     getEventDetails();
   }, [])
   

@@ -32,6 +32,7 @@ const TestAPI = () => {
         resourceLink: "https://google.com/",
       }
     );
+    console.log(res);
   };
 
   const postEventDetails = async () => {
@@ -52,6 +53,7 @@ const TestAPI = () => {
           "https://wwow.kapwinfrg.com/resources/how-to-get-an-image-url-from-picture/",
       }
     );
+    console.log(res);
   };
 
   return (
@@ -59,6 +61,8 @@ const TestAPI = () => {
       <button
         onClick={() => {
           postHiringDetails();
+          postEventDetails();
+          postResourceDetails();
         }}
       >
         Post Hiring Details

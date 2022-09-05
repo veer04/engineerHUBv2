@@ -14,6 +14,7 @@ function ResourceApi({ heading, text }) {
 
       setResourceData(res.data);
     };
+    console.log(resourceData);
     getResourceDetials();
   }, []);
 
