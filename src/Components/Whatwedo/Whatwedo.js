@@ -13,10 +13,6 @@ function Whatwedo() {
         <div className="container textcontainer mw-100 ">
           <div className="textcontent">
             <h1 className="textwhat">What We Do ?</h1>
-            <h4 className="textbelow">
-              {" "}
-              The valuable servies we provide to the students and the community
-            </h4>
           </div>
 
           <div className="carouselcomp">
@@ -126,7 +122,7 @@ function Whatwedo() {
             </Carousel>
           </div>
 
-          <div className="contactButtons">
+          <div className="contactButtons d-flex justify-content-evenly flex-wrap">
             <button className="Whatsapp">
               <WhatsAppIcon style={{ fontSize: 33 }} /> Join Whatsapp
             </button>

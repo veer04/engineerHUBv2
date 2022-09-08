@@ -30,9 +30,7 @@ const login = () => {
       </div>
       <div className="my-form">
         <div className="form-opt">
-        <Link to="/register" className="f-p" style={{textDecoration:'none'}}>
-          <div className="my-btn si">Sign in with Password</div>
-          </Link>
+          <Link to="/register" className="my-btn si">Sign in with Password</Link>
           <div className="my-item-cont">
             <div>Didn't have an account?</div>
             <Link to="/signup" className="f-p ">

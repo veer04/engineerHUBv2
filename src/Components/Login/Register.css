@@ -13,31 +13,10 @@
    gap: 24px;
 }
 
-/* .reg-si{
+.reg-si{
     background: #168584 ;
     color: white;
     font-weight: 600;
     border: none;
     cursor: pointer;
-} */
-
-button:hover{
-    box-shadow: 2px green;
 }
-
-.inputRounded .MuiOutlinedInput-root{
-    border-radius: 20px;
-    padding-top: 7.5px;
- }
-
- .css-md26zr-MuiInputBase-root-MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline{
-    border-color: #168584 !important;
- }
- .css-1sumxir-MuiFormLabel-root-MuiInputLabel-root.Mui-focused {
-    color: #168584 !important;
- }
-
- .css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input{
-    height: "100px"
- }
- 

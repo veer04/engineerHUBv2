@@ -6,6 +6,7 @@ function Card({
   paid = false,
   card_head = "Hackathons for Developers",
   cName = "card custom-card ",
+  cDate = "12-05-2022"
 }) {
   return (
     <div
@@ -65,7 +66,7 @@ function Card({
             className="d-flex fst-normal align-items-baseline"
             // style={{ marginLeft: "4.4rem" }}
           >
-            Last date: dd/mm/yy
+            Last date: {cDate}
           </p>
         </div>
       </div>

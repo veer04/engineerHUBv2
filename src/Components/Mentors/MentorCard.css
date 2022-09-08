@@ -89,9 +89,11 @@ span {
   margin: 16px 12px 17px 12px;
   cursor: pointer;
   transition: all 250ms ease-in-out;
+  text-decoration: none;
 }
 
 .Ment-button:hover {
   transform: scale(1.04);
+  color:#fff;
 }
 

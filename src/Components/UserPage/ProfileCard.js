@@ -3,7 +3,7 @@ import './ProfileCard.css';
 
 function ProfileCard() {
   return (
-    <section>
+    <div>
         <div class="col-md-4">
     		    <div class="card profile-card-3">
     		        <div class="background-block">
@@ -19,7 +19,7 @@ function ProfileCard() {
                 </div>
                 <p class="mt-3 w-100 float-left text-center"><strong>Modren Profile Card</strong></p>
     		</div>
-    </section>
+    </div>
   )
 }
 

@@ -3,7 +3,7 @@ import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
 import cybersecurityimg from "./cybersecurityimg.png";
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 
-function Card() {
+function Card({bookTitle,pdfUrl}) {
   return (
     <div
       className="card custom-card"
@@ -29,7 +29,7 @@ function Card() {
               color:"#1b5b62"
             }}
           >
-            CyberSecurity
+            {bookTitle}
           </h5>
           <div>
             <ShareOutlinedIcon
@@ -45,7 +45,7 @@ function Card() {
           est.
         </p>
         <div className="btn-container d-flex justify-content-between align-items-baseline">
-          <a href="#" className="btn" style={{ backgroundColor: "#0094FF",borderRadius: "20px"}}>
+          <a href={pdfUrl} target="_blank" className="btn" style={{ backgroundColor: "#0094FF",borderRadius: "20px"}}>
             <span style={{ color: "white", fontSize:"15px" ,borderRadius: "20px"}}>Tap to Open</span>
           </a>
           <p className="btn" style={{ backgroundColor: "#FFC700" ,borderRadius: "20px"}}>

@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./NavBar.css";
+import axios from "axios";
 import Navbar from "react-bootstrap/Navbar";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
@@ -7,7 +8,20 @@ import Logo from "./logo.svg";
 import User from "./user.svg";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import ham from "./ham.svg";
+
 const NavBar = () => {
+  const [domainData, setDomainData] = useState([]);
+
+  useEffect(() => {
+    const getDomainDetails = async () => {
+      const response = await axios.get(
+        `https://ehubbackend.herokuapp.com/api/v1/domain`
+      );
+
+      setDomainData(response.data);
+    };
+    getDomainDetails();
+  }, []);
   return (
     <>
       <div className="row">
@@ -40,14 +54,22 @@ const NavBar = () => {
                       title="DSA (C/C++)"
                       className="dropdownNav dropend"
                     >
-                      <NavDropdown.Item href="">HandBook</NavDropdown.Item>
+                      <NavDropdown.Item
+                        href="http://www.africau.edu/images/default/sample.pdf"
+                        target="_blank"
+                      >
+                        HandBook
+                      </NavDropdown.Item>
                       <NavDropdown.Item href="/resources">
                         Resources
                       </NavDropdown.Item>
                       <NavDropdown.Item href="/mentor">
                         Contact Mentor
                       </NavDropdown.Item>
-                      <NavDropdown.Item href="">
+                      <NavDropdown.Item
+                        target="_blank"
+                        href="https://discord.gg/ZMZAEZ5NfA"
+                      >
                         Ask your query
                       </NavDropdown.Item>
                     </NavDropdown>
@@ -56,14 +78,22 @@ const NavBar = () => {
                       title="Web developement"
                       className="dropdownNav dropend "
                     >
-                      <NavDropdown.Item href="">HandBook</NavDropdown.Item>
+                      <NavDropdown.Item
+                        href="http://www.africau.edu/images/default/sample.pdf"
+                        target="_blank"
+                      >
+                        HandBook
+                      </NavDropdown.Item>
                       <NavDropdown.Item href="/resources">
                         Resources
                       </NavDropdown.Item>
                       <NavDropdown.Item href="/mentor">
                         Contact Mentor
                       </NavDropdown.Item>
-                      <NavDropdown.Item href="">
+                      <NavDropdown.Item
+                        target="_blank"
+                        href="https://discord.gg/ZMZAEZ5NfA"
+                      >
                         Ask your query
                       </NavDropdown.Item>
                     </NavDropdown>
@@ -71,14 +101,22 @@ const NavBar = () => {
                       title="App Development"
                       className="dropdownNav dropend "
                     >
-                      <NavDropdown.Item href="">HandBook</NavDropdown.Item>
+                      <NavDropdown.Item
+                        href="http://www.africau.edu/images/default/sample.pdf"
+                        target="_blank"
+                      >
+                        HandBook
+                      </NavDropdown.Item>
                       <NavDropdown.Item href="/resources">
                         Resources
                       </NavDropdown.Item>
                       <NavDropdown.Item href="/mentor">
                         Contact Mentor
                       </NavDropdown.Item>
-                      <NavDropdown.Item href="">
+                      <NavDropdown.Item
+                        target="_blank"
+                        href="https://discord.gg/ZMZAEZ5NfA"
+                      >
                         Ask your query
                       </NavDropdown.Item>
                     </NavDropdown>
@@ -86,14 +124,22 @@ const NavBar = () => {
                       title="ML&AI (PYTHON)"
                       className="dropdownNav dropend "
                     >
-                      <NavDropdown.Item href="">HandBook</NavDropdown.Item>
+                      <NavDropdown.Item
+                        href="http://www.africau.edu/images/default/sample.pdf"
+                        target="_blank"
+                      >
+                        HandBook
+                      </NavDropdown.Item>
                       <NavDropdown.Item href="/resources">
                         Resources
                       </NavDropdown.Item>
                       <NavDropdown.Item href="/mentor">
                         Contact Mentor
                       </NavDropdown.Item>
-                      <NavDropdown.Item href="">
+                      <NavDropdown.Item
+                        target="_blank"
+                        href="https://discord.gg/ZMZAEZ5NfA"
+                      >
                         Ask your query
                       </NavDropdown.Item>
                     </NavDropdown>
@@ -103,10 +149,10 @@ const NavBar = () => {
                     >
                       <div className="dropdownNav dropend ">
                         <NavDropdown.Item
-                          href=""
+                          href="http://www.africau.edu/images/default/sample.pdf"
                           className="dropdownNav dropend"
                         >
-                          HandBook
+                          HandBook{" "}
                         </NavDropdown.Item>
                         <NavDropdown.Item href="/resources">
                           Resources
@@ -114,7 +160,10 @@ const NavBar = () => {
                         <NavDropdown.Item href="/mentor">
                           Contact Mentor
                         </NavDropdown.Item>
-                        <NavDropdown.Item href="">
+                        <NavDropdown.Item
+                          target="_blank"
+                          href="https://discord.gg/ZMZAEZ5NfA"
+                        >
                           Ask your query
                         </NavDropdown.Item>
                       </div>
@@ -123,14 +172,22 @@ const NavBar = () => {
                       title="Dev Ops"
                       className="dropdownNav dropend"
                     >
-                      <NavDropdown.Item href="">HandBook</NavDropdown.Item>
+                      <NavDropdown.Item
+                        href="http://www.africau.edu/images/default/sample.pdf"
+                        target="_blank"
+                      >
+                        HandBook
+                      </NavDropdown.Item>
                       <NavDropdown.Item href="/resources">
                         Resources
                       </NavDropdown.Item>
                       <NavDropdown.Item href="/mentor">
                         Contact Mentor
                       </NavDropdown.Item>
-                      <NavDropdown.Item href="">
+                      <NavDropdown.Item
+                        target="_blank"
+                        href="https://discord.gg/ZMZAEZ5NfA"
+                      >
                         Ask your query
                       </NavDropdown.Item>
                     </NavDropdown>
@@ -138,14 +195,22 @@ const NavBar = () => {
                       title="UI/UX Design"
                       className="dropdownNav dropend"
                     >
-                      <NavDropdown.Item href="">HandBook</NavDropdown.Item>
+                      <NavDropdown.Item
+                        href="http://www.africau.edu/images/default/sample.pdf"
+                        target="_blank"
+                      >
+                        HandBook
+                      </NavDropdown.Item>
                       <NavDropdown.Item href="/resources">
                         Resources
                       </NavDropdown.Item>
                       <NavDropdown.Item href="/mentor">
                         Contact Mentor
                       </NavDropdown.Item>
-                      <NavDropdown.Item href="">
+                      <NavDropdown.Item
+                        target="_blank"
+                        href="https://discord.gg/ZMZAEZ5NfA"
+                      >
                         Ask your query
                       </NavDropdown.Item>
                     </NavDropdown>
@@ -153,14 +218,22 @@ const NavBar = () => {
                       title="BlockChain"
                       className="dropdownNav dropend"
                     >
-                      <NavDropdown.Item href="">HandBook</NavDropdown.Item>
+                      <NavDropdown.Item
+                        href="http://www.africau.edu/images/default/sample.pdf"
+                        target="_blank"
+                      >
+                        HandBook
+                      </NavDropdown.Item>
                       <NavDropdown.Item href="/resources">
                         Resources
                       </NavDropdown.Item>
                       <NavDropdown.Item href="/mentor">
                         Contact Mentor
                       </NavDropdown.Item>
-                      <NavDropdown.Item href="">
+                      <NavDropdown.Item
+                        target="_blank"
+                        href="https://discord.gg/ZMZAEZ5NfA"
+                      >
                         Ask your query
                       </NavDropdown.Item>
                     </NavDropdown>
@@ -174,7 +247,10 @@ const NavBar = () => {
                         Contact Mentor
                       </NavDropdown.Item>
                       ``
-                      <NavDropdown.Item href="">
+                      <NavDropdown.Item
+                        target="_blank"
+                        href="https://discord.gg/ZMZAEZ5NfA"
+                      >
                         Ask your query
                       </NavDropdown.Item>
                     </NavDropdown>
@@ -182,14 +258,22 @@ const NavBar = () => {
                       title="SEO/Graphic Design"
                       className="dropdownNav dropend"
                     >
-                      <NavDropdown.Item href="">HandBook</NavDropdown.Item>
+                      <NavDropdown.Item
+                        href="http://www.africau.edu/images/default/sample.pdf"
+                        target="_blank"
+                      >
+                        HandBook
+                      </NavDropdown.Item>
                       <NavDropdown.Item href="/resources">
                         Resources
                       </NavDropdown.Item>
                       <NavDropdown.Item href="/mentor">
                         Contact Mentor
                       </NavDropdown.Item>
-                      <NavDropdown.Item href="">
+                      <NavDropdown.Item
+                        target="_blank"
+                        href="https://discord.gg/ZMZAEZ5NfA"
+                      >
                         Ask your query
                       </NavDropdown.Item>
                     </NavDropdown>
@@ -223,7 +307,7 @@ const NavBar = () => {
             </div>
 
             <div className="ham-icon">
-                <img src={ham} alt="Ham_icon"/>
+              <img src={ham} alt="Ham_icon" />
             </div>
           </Container>
         </Navbar>

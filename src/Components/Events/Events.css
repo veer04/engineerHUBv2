@@ -16,7 +16,6 @@
   border-radius: 14px;
   width: 52px;
   height: 32px;
-  margin-bottom: 7%;
 }
 .card-text {
   font-size: 0.87rem;
@@ -36,32 +35,9 @@
   position: relative;
   left: 39%;
 }
-.contentEvent {
-  padding-bottom: 6%;
-}
+
 
 .event-box {
-  margin-left: 4%;
+  margin-left: 0%;
 }
 
-@media screen and (max-width: 1024px) {
-  .Register {
-    left: 34%;
-  }
-  .cardEvent{
-    width: 17rem;
-  }
-  .container h5{
-    margin-left: 2%;
-}   
-    .container h1{
-        margin-left: 2%;
-    }
-}
-
-@media screen and (max-width: 768px) {
-    .Register {
-      left: 24%;
-    }
-  }
-  

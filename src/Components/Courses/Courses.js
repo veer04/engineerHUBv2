@@ -1,7 +1,8 @@
 import React from "react";
 import "../Events/Events.css";
 import "../Courses/Courses.css";
-import backImage from "../Magzine/backimg.png";
+
+import CoursesCard from "./CoursesCard";
 
 function Events() {
   return (
@@ -15,73 +16,10 @@ function Events() {
             officia amet eligendi! Quis quos animi officia explicabo accusamus
             obcaecati totam.
           </h5>
-          <div className="row make-center">
-           <div className="col-lg-4">
-              <div
-                className="card cardEvent"
-                style={{  borderRadius: 20 }}
-              >
-                <img src={backImage} className="card-img-top" alt="..." />
-                <div className="card-img-top"></div>
-                <div className="card-body">
-                  <h5 className="card-title d-flex courses--btns">
-                    FrontEnd <br/>Development{" "}
-                    <button className="Prize fprize">Free</button>
-                  </h5>
-
-                  <p className="card-text">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Pharetra consequat consequat at fermentum sollicitudin
-                    pellentesque tortor..
-                  </p>
-                </div>
-              </div>
-              <button className="buttonz Register">Join</button>
-            </div>
-            <div className="col-lg-4">
-              <div
-                className="card cardEvent"
-                style={{  borderRadius: 20 }}
-              >
-                <img src={backImage} className="card-img-top" alt="..." />
-                <div className="card-img-top"></div>
-                <div className="card-body">
-                  <h5 className="card-title d-flex courses--btns">
-                    FrontEnd <br/>Development{" "}
-                    <button className="Prize fprize">Free</button>
-                  </h5>
-
-                  <p className="card-text">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Pharetra consequat consequat at fermentum sollicitudin
-                    pellentesque tortor..
-                  </p>
-                </div>
-              </div>
-              <button className="buttonz Register">Join</button>
-            </div>
-            <div className="col-lg-4">
-              <div
-                className="card cardEvent"
-                style={{  borderRadius: 20 }}
-              >
-                <img src={backImage} className="card-img-top" alt="..." />
-                <div className="card-img-top"></div>
-                <div className="card-body">
-                  <h5 className="card-title d-flex courses--btns">
-                    FrontEnd <br/>Development{" "}
-                    <button className="Prize fprize">Free</button>
-                  </h5>
-
-                  <p className="card-text">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Pharetra consequat consequat at fermentum sollicitudin
-                    pellentesque tortor..
-                  </p>
-                </div>
-              </div>
-              <button className="buttonz Register">Join</button>
-            </div>
+          <div className="d-flex justify-content-around flex-wrap" style={{ padding: " 4% 0" }}>
+          <CoursesCard/>
+          <CoursesCard/>
+          <CoursesCard/>
           </div>
         </div>
       </div>

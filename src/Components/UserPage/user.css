@@ -1,17 +1,17 @@
-.offli{
-    color: white;
-    /* margin-bottom: 20px; */
-    text-decoration: none;
-    margin-left: 65px;
-    /* margin-top: 20px; */
-
+.offli {
+  color: white;
+  /* margin-bottom: 20px; */
+  text-decoration: none;
+  margin-left: 65px;
+  /* margin-top: 20px; */
+  transition: all 150ms ease-in-put;
 }
 
-.offli:hover{
-    pointer-events:"cursor";
-    color: yellow;
-    border: 2px solid rgba(192, 192, 192, 0.192);
-    box-sizing: border-box;
-    
-    /* opacity: 0.1; */
+.offli:hover {
+  pointer-events: "cursor";
+  color: yellow;
+  border: 2px solid rgba(192, 192, 192, 0.192);
+  box-sizing: border-box;
+
+  /* opacity: 0.1; */
 }
