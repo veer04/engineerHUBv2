@@ -24,10 +24,10 @@ function Whatwedo() {
                       <h1 className="text1 textfor">Campus Connectivity</h1>
 
                       <h5 className="col-lg-8 text2 textt">
-                        At engineeHUB , we connect all the IITs NITs & State
-                        Colleges , so that students get a competitive
-                        environment , get to know about each other and can
-                        discuss their things .
+                        At engineeHUB , we connect all the IITs, NITs & State
+                        Colleges to facilitate students with a competitive
+                        environment to allow them productive discussions 
+                        about their respective fields of knowledge.
                       </h5>
                     </div>
                     <div className="col-lg-3 phone-image">
@@ -46,9 +46,9 @@ function Whatwedo() {
                       </h1>
 
                       <h5 className="col-lg-8 text2 textt">
-                        Provide basic guidelines & mentorship to newcomers into
-                        engineering field for how and where to start their
-                        learnings..
+                        Mentors excel in counselling beginners in their respective fields of interest
+                        by providing them with basic guidelines to help them enhance their skills & expand
+                        their knowledge about the placement criteria.
                       </h5>
                     </div>
                     <div className="col-lg-3 phone-image">
@@ -64,12 +64,14 @@ function Whatwedo() {
                   <div className="row">
                     <div className="col-lg-8 carousel-content">
                       <h1 className="text1 textfor">
-                        Internship & Job updates
+                        Internship & Job Updates
                       </h1>
 
                       <h5 className="col-lg-8 text2 textt">
-                        We provide internship & job updates on regular basis ,
-                        so that students don't need to search here n there . .
+                      We regularly notify students about appropriate internships 
+                      & job updates based on their keen interests which helps them 
+                      sort their priorities, manage time & 
+                      get updates from verified resources.
                       </h5>
                     </div>
                     <div className="col-lg-3 phone-image">
@@ -87,9 +89,11 @@ function Whatwedo() {
                       <h1 className="text1 textfor">Live Courses</h1>
 
                       <h5 className="col-lg-8 text2 textt">
-                        We provide live courses on various topic, where you can
-                        attend live classes , discuss your doubt with mentor and
-                        get recording of the session for life time..
+                      We provide live sessions of various courses of major 
+                      importance in the field of engineering. 
+                      In addition to doubt clearing facilities with our mentors, 
+                      students can avail themselves lifetime access to these 
+                      sessions to help them in future.
                       </h5>
                     </div>
                     <div className="col-lg-3 phone-image">
@@ -107,8 +111,11 @@ function Whatwedo() {
                       <h1 className="text1 textfor">Magzines & Handbooks</h1>
 
                       <h5 className="col-lg-8 text2 textt">
-                        We publish various Magzines & Handbooks on regular basis
-                        , which are suitable and beneficial for students .
+                      We issue various magazines & handbooks 
+                      regularly that contribute to expanding students' 
+                      knowledge & learning. These magazines & 
+                      handbooks are provided by trustworthy resources for the 
+                      benefit of students.
                       </h5>
                     </div>
                     <div className="col-lg-3 phone-image">

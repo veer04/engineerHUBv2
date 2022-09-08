@@ -40,13 +40,13 @@ function Magzine() {
         <div className="container">
           <h1 className="text1">Magazines & Hand-Book</h1>
           <h5 className="text2 text111 magazine-box ">
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quos,
-            natus. Nihil molestias culpa quibusdam quaerat ea neque velit fugit
-            officia amet eligendi! Quis quos animi officia explicabo accusamus
-            obcaecati totam.
+          Engineerhub issues various magazines & handbooks 
+          regularly that contribute to expanding knowledge for the benefit of students.
+
           </h5>
 
           <div className="d-flex justify-content-around flex-wrap" style={{ padding: " 4% 0" }}>
+            <Full />
             <Full />
             <Full />
             <Full />

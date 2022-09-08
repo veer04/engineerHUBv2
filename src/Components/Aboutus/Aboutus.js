@@ -12,11 +12,14 @@ function Aboutus() {
         </div>
         <div className="row">
           <div className="col-lg-4 aboutustxt">
-            engineerHUB (formerly engineerSUMMIT) is INDIA's largest community
-            of engineers where students(alumni) from IITs, NITs, IIITs and state
-            colleges join together to develop and nurture students skills coming
-            from all over India. Provide basic guidelines to new comers into
-            engineering field for how and where to start their learning.
+            engineerHUB (formerly engineerSUMMIT) is INDIA's leading community
+            of engineers where students or alumni from IITs, NITs, IIITs and state
+            colleges unite together to develop and nurture the skills of students all over India.<br/> 
+            Our goal is to counsel beginners in the field by 
+            providing them with basic guidelines about how and where to start their learning.
+
+            
+            
           </div>
         </div>
 
@@ -31,7 +34,7 @@ function Aboutus() {
                 <ul>
                   <li>
                     {" "}
-                    Providing them valuable content and personal assistance.
+                    Providing students valuable content and personal assistance.
                   </li>
                 </ul>
               </div>
@@ -42,9 +45,10 @@ function Aboutus() {
                   {" "}
                   <li>
                     {" "}
-                    Conducting regular webinars by our industry
-                    personalities/mentors who map out the basic blueprint from
-                    their learning to placement experience.
+                    Conducting regular webinars by our leading industriallists 
+                    & mentors who map out the basic blueprint expanding 
+                    from their learning to placement experience.
+
                   </li>{" "}
                 </ul>{" "}
               </div>
@@ -55,9 +59,9 @@ function Aboutus() {
                   {" "}
                   <li>
                     {" "}
-                    Special attention is given to the students to enhance their
-                    programming skills , help them in project management and
-                    provide them internship oppourtunities.
+                    Special attention is given to the students that help
+                     them enhance their programming skills, manage
+                      projects and provide them with internship opportunities.
                   </li>{" "}
                 </ul>{" "}
               </div>
