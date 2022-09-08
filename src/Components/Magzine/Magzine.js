@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useEffect } from "react";
+// import { useState, useEffect } from "react";
 import "../Magzine/Magzine.css";
 import ShareIcon from "@mui/icons-material/Share";
 import backImage from "../Magzine/backimg.png";
@@ -47,9 +47,7 @@ function Magzine() {
 
           <div className="d-flex justify-content-around flex-wrap" style={{ padding: " 4% 0" }}>
             <Full />
-            <Full />
-            <Full />
-            <Full />
+           
           
           </div>
         </div>
