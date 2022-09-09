@@ -55,13 +55,13 @@ function Card() {
           <Link
             to="/userpage"
             className="default-btn"
-            style={{ backgroundColor: "#0094FF" }}
+            style={{ backgroundColor: "#0d718c" }}
           >
             <div style={{ color: "white" }}>Register</div>
           </Link>
           <p
             className="d-flex fst-normal align-items-center justify-content-center"
-            style={{ fontSize: "14px" }}
+            style={{ fontSize: "14px", color:"#1b5b62", fontWeight:"bold" }}
           >
             Last date: dd/mm/yy
           </p>
