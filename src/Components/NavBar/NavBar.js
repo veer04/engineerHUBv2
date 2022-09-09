@@ -17,9 +17,10 @@ const NavBar = () => {
       const response = await axios.get(
         `https://ehubbackend.herokuapp.com/api/v1/domain`
       );
-
+       
       setDomainData(response.data);
     };
+    console.log(domainData);
     getDomainDetails();
   }, []);
   return (

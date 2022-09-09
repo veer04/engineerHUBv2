@@ -7,7 +7,7 @@ const CoursesCard = () => {
       <div className="courses-card-body">
         <div>
           {" "}
-          <img src={backImage} className="courses-image" alt="courses" />
+          <img src={backImage} alt="particular-courses" className="courses-image" />
         </div>
 
         <div className="d-flex courses--btns">

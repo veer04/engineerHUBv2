@@ -1,9 +1,30 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./Register.css";
+import axios from "axios";
 import gg from "./svg/google.svg";
 import fve from "./svg/fve.svg";
 const Register = () => {
+  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
+
+  const Submit = async (e) => {
+    e.preventDefault();
+
+    const data = {
+      email: email,
+      password: password,
+    };
+    const result = await axios.post(
+      "https://ehubbackend.herokuapp.com/api/v1/signin",
+      data
+    );
+    console.log(result);
+    // var token ="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Il9pZCI6IjYyZmQ0MTBmMGY2OTAyMmZiM2U0YTg0ZCIsInVzZXJOYW1lIjoiUGFya2hpIiwiaW5zdGl0dXRpb25OYW1lIjoiQUtHRUMgR2hhemlhYmFkIiwiYnJhbmNoIjoiQ1NJVCIsImVtYWlsIjoicGFya2hpZ2FyZzMwMkBnbWFpbC5jb20iLCJtb2JpbGUiOiI3NjY4MDQzNjkxIiwicGFzc3dvcmQiOiIkMmIkMTAkUi41VkpZTDdMRm92azFrS2xNSFdUdWYvNjZabXpNdU9lMUVrTUlnOUk4cXZmeGtTVE5TZVciLCJjb25maXJtUGFzc3dvcmQiOiIkMmIkMTAkUi41VkpZTDdMRm92azFrS2xNSFdUdWYvNjZabXpNdU9lMUVrTUlnOUk4cXZmeGtTVE5TZVciLCJpc1ZlcmlmaWVkIjpmYWxzZSwib3RwdXNlciI6MjkyMDY2LCJfX3YiOjB9LCJpYXQiOjE2NjA4MDE1NzcsImV4cCI6MTY2MTQwNjM3N30.EBEaL_8HNqp-u5kkmNOa-Tq7Bv7sXx8IxXz9sMi6PIA"
+
+    // const result2 =await axios.post("https://ehubbackend.herokuapp.com/api/v1/refresh",token);
+  };
+
   return (
     <div className="cont">
       <div className="cont-head">
@@ -24,6 +45,9 @@ const Register = () => {
             className="reg-input"
             placeholder="Email"
             type="text"
+            name="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             required
           />
         </div>
@@ -32,12 +56,16 @@ const Register = () => {
             className="reg-input"
             type="password"
             placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
             required
           />
         </div>
 
         <div className="form-opt">
-          <div className="my-btn reg-si">Sign in</div>
+          <div className="my-btn reg-si" onClick={Submit}>
+            Sign in
+          </div>
           <div className="d-flex justify-content-center">
             <div className="f-p">Forgot Password ?</div>
             <div className="f-p ">Reset Now </div>

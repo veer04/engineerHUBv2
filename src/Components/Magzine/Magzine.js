@@ -1,9 +1,8 @@
 import React from "react";
 // import { useState, useEffect } from "react";
 import "../Magzine/Magzine.css";
-import ShareIcon from "@mui/icons-material/Share";
-import backImage from "../Magzine/backimg.png";
-import Full from "../freecourses-pages/Full";
+// 
+import Full from "../Courses/Full";
 function Magzine() {
   // const [dis,setDis] = useState(window.innerWidth);
   // const getWindowDimensions = () => {

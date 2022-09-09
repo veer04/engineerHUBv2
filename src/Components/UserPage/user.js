@@ -8,7 +8,7 @@ import "./user.css";
 
 function User() {
   return (
-    <div className="d-flex row">
+    <div className="d-flex flex-row">
       <div
         style={{
           backgroundColor: "rgb(5 66 83)",
@@ -27,13 +27,13 @@ function User() {
                 Courses
               </li>
             </a>
-            <a href="" style={{ textDecoration: "none", padding: "30px" }}>
+            <a href="/#" style={{ textDecoration: "none", padding: "30px" }}>
               <li className="fs-5 offli">
                 <EventIcon className="fs-1 p-2" />
                 Events
               </li>
             </a>
-            <a href="" style={{ textDecoration: "none", padding: "30px" }}>
+            <a href="/#" style={{ textDecoration: "none", padding: "30px" }}>
               <li className="fs-5 offli">
                 <LogoutIcon className="fs-1 p-2" />
                 Logout
@@ -41,6 +41,10 @@ function User() {
             </a>
           </ul>
         </div>
+      </div>
+
+      <div style={{ color: "#168584" , margin: "auto"  }}>
+        Congratulations! You have been successfully registered.
       </div>
     </div>
   );

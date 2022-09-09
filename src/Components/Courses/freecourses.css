@@ -10,10 +10,10 @@
   width: 18rem;
   border-radius: 16px;
   display: flex;
-  transition: all 250ms ease-in-out;
+  transition: all 500ms ease-in-out;
 }
 .default-card:hover {
-  transform: scale(1.06);
+  transform: scale(1.04);
   cursor: pointer;
   /* position: static; */
 
