@@ -14,6 +14,7 @@ import Courses from "../Courses/Courses";
 import "../Members/Members";
 import Members from "../Members/Members";
 import "../Footer/Footer";
+// import Footer from "../Footer/Footer";
 import Footer from "../Footer/Footer";
 import campusIcon from "./icons/campus.png";
 import GradIcon from "./icons/graudate.png";
@@ -122,6 +123,7 @@ export default function NavBar() {
       <div className="Members" style={{ padding: "0px 0px 4% 0px"}}>
         <Members />
       </div>
+      <Footer/>
      
     </>
   );
