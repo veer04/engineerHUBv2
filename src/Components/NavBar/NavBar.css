@@ -1,8 +1,11 @@
 .NAvbarBackground {
-  background-color: rgba(0, 42, 54, 1);
+  background-color: transparent;
 }
 .Navbar-color {
-  color: aliceblue;
+  color: rgba(0, 42, 54, 1);
+}
+.navbar-dark .navbar-nav .nav-link {
+  color: rgba(0, 42, 54, 1);
 }
 .navelements {
   font-family: "poppins";
@@ -95,16 +98,16 @@ a.dropdown-item {
   padding-right: 100px;
 }
 
-.ham-icon img{
+.ham-icon img {
   display: none;
   height: 32px;
 }
 
-@media (max-width: 1023px){
-  .ham-icon img{
+@media (max-width: 1023px) {
+  .ham-icon img {
     display: flex;
   }
-  .nav-div{
+  .nav-div {
     display: none;
   }
 }

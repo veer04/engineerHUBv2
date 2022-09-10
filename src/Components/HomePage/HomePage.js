@@ -1,5 +1,7 @@
 import React from "react";
+import Swiper from "react-slider-swiper";
 import ReactPlayer from "react-player";
+
 import "../HomePage/HomePage.css";
 import "../Aboutus/Aboutus";
 import Aboutus from "../Aboutus/Aboutus";
@@ -18,13 +20,22 @@ import campusIcon from "./icons/campus.png";
 import GradIcon from "./icons/graudate.png";
 import BuildingIcon from "./icons/building.png";
 
-import vedantu from "./svg/vedantu.svg"
+import vedantu from "./svg/vedantu.svg";
 import logitech from "./svg/logitech.svg";
 import tcs from "./svg/tcs.svg";
 import oracle from "./svg/oracle.svg";
 import swiggy from "./svg/swiggy.svg";
 import infosys from "./svg/infosys.svg";
 export default function NavBar() {
+  const params = {
+    pagination: ".swiper-pagination",
+    paginationClickable: true,
+    slidesPerView: 4,
+    runCallbacksOnInit: true,
+    onInit: (swiper) => {
+      this.swiper = swiper;
+    },
+  };
   return (
     <>
       <div className="row headearpart">
@@ -68,37 +79,40 @@ export default function NavBar() {
 
       <div className="row Studentsfrom">
         <div className="studenttxt">Our students comes from</div>
-        <div className="row cllgCarol">
+
+        <Swiper className="row cllgCarol">
           <div className="col-lg-2 studentfrom">IIT Kanpur</div>
           <div className="col-lg-2 studentfrom">IIT Roorkee</div>
           <div className="col-lg-2 studentfrom">NIT Delhi</div>
           <div className="col-lg-2 studentfrom">IIIT Vadodra</div>
           <div className="col-lg-2 studentfrom">IIT Bombay</div>
-        </div>
+        </Swiper>
       </div>
 
       <div className="row Studentsfrom2">
         <div className="studenttxt">Companies we Collaborate</div>
-        <div className="row d-flex justify-content-around">
-          <div className="comp studentfrom2">
-            <img src={tcs} alt="tcs" className="tcsimage" />
-          </div>
-          <div className="comp studentfrom2">
-            <img src={swiggy} alt="swiggy" className="tcsimage" />
-          </div>
-          <div className="comp studentfrom2">
-            <img src={oracle} alt="oracle" className="tcsimage" />
-          </div>
-          <div className="comp studentfrom2">
-          <img src={logitech} alt="logitech" className="tcsimage" />
 
-          </div>
-          <div className="comp studentfrom2">
-            <img src={infosys} alt="infosys" className="tcsimage" />
-          </div>
-          <div className="comp studentfrom2">
-            <img src={vedantu} alt="vedantu" className="tcsimage" />
-          </div>
+        <div className="row">
+          <Swiper {...params}>
+            <div className="comp studentfrom2">
+              <img src={tcs} alt="tcs" className="tcsimage" />
+            </div>
+            <div className="comp studentfrom2">
+              <img src={swiggy} alt="swiggy" className="tcsimage" />
+            </div>
+            <div className="comp studentfrom2">
+              <img src={oracle} alt="oracle" className="tcsimage" />
+            </div>
+            <div className="comp studentfrom2">
+              <img src={logitech} alt="logitech" className="tcsimage" />
+            </div>
+            <div className="comp studentfrom2">
+              <img src={infosys} alt="infosys" className="tcsimage" />
+            </div>
+            <div className="comp studentfrom2">
+              <img src={vedantu} alt="vedantu" className="tcsimage" />
+            </div>
+          </Swiper>
         </div>
       </div>
 
@@ -118,10 +132,9 @@ export default function NavBar() {
       <div className="Courses">
         <Courses />
       </div>
-      <div className="Members" style={{ padding: "0px 0px 4% 0px"}}>
+      <div className="Members" style={{ padding: "0px 0px 4% 0px" }}>
         <Members />
       </div>
-     
     </>
   );
 }
