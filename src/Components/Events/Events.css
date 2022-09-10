@@ -1,21 +1,17 @@
 .event--btns {
   justify-content: space-between;
 }
-.Free {
-  border: none;
-  background-color: rgba(0, 148, 255, 1);
-  color: rgba(255, 255, 255, 1);
-  border-radius: 14px;
-  width: 52px;
-  height: 32px;
-}
+
 .Prize {
   border: none;
-  background-color: #ffc700;
-  color: rgba(255, 255, 255, 1);
+  /* background-color: #ffc700; */
+  background-color: rgba(225, 215, 28, 1);
+  /* color: rgba(255, 255, 255, 1); */
+  color: rgb(26 91 98);
   border-radius: 14px;
   width: 52px;
   height: 32px;
+  font-size: 13px;
 }
 .card-text {
   font-size: 0.87rem;

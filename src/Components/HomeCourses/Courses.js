@@ -15,7 +15,9 @@ function Events() {
           </h5>
           <div className="d-flex justify-content-around flex-wrap" style={{ padding: " 4% 0" }}>
           <CoursesCard/>
-          
+          <CoursesCard/>
+          <CoursesCard/>
+          <CoursesCard/>
           </div>
         </div>
       </div>

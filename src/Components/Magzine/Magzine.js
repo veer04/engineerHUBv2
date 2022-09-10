@@ -46,8 +46,9 @@ function Magzine() {
 
           <div className="d-flex justify-content-around flex-wrap" style={{ padding: " 4% 0" }}>
             <Full />
-           
-          
+            <Full />
+            <Full />
+            <Full />
           </div>
         </div>
       </div>
