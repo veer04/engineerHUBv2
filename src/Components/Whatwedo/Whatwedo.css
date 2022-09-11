@@ -7,14 +7,13 @@
 .textcontainer {
   background: rgba(1, 60, 76, 1);
 
-  border-radius: 15px;
   border: solid 2px white;
 }
 .content {
   background: rgba(1, 60, 76, 1);
 
-  padding: 10px;
-  border-radius: 25px;
+  /* padding: 10px; */
+  /* border-radius: 25px; */
 }
 .text1 {
   color: rgba(225, 215, 28, 1);
@@ -71,7 +70,7 @@
   /* background-image: url(Vector\ \(1\).svg); */
   background-size: cover;
   border-radius: 20px;
-  width: 240px;
+  width: 190px;
 }
 
 .textt {

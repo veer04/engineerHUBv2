@@ -53,14 +53,14 @@ export default function NavBar() {
             <div className="col-4 headercard">
               <img src={GradIcon} alt="Graduate" />
               {/* <h1 className="headercardtext">50K+</h1> */}
-              <h1 className="headercardtext"><CountUp start={0} end={50} className="headercardtext" duration={0.7} smooth={true} smartEasingAmount={true} delay={0}></CountUp>K+</h1>
+              <h1 className="headercardtext"><CountUp start={0} end={50} className="headercardtext" duration={0.9} smooth={true} smartEasingAmount={true} delay={0}></CountUp>K+</h1>
 
               <h6 className="innerfont">Students</h6>
             </div>
             <div className="col-4 headercard">
               <img src={BuildingIcon} alt="Building" />
               {/* <h1 className="headercardtext">18+</h1> */}
-              <h1 className="headercardtext"><CountUp start={0} end={18} className="headercardtext" duration={0.7} smooth={true} smartEasingAmount={true} delay={0}></CountUp>+</h1>
+              <h1 className="headercardtext"><CountUp start={0} end={18} className="headercardtext" duration={1} smooth={true} smartEasingAmount={true} delay={0}></CountUp>+</h1>
 
               <h6 className="innerfont">Industries</h6>
             </div>
