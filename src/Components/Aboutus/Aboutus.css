@@ -126,8 +126,22 @@ ul li::before {
   }
 }
 
-@media screen and (max-width: 768px) {
-  .container h1 {
-    /* margin-left: 1%; */
+@media screen and (max-width: 426px) {
+  .aboutus {
+    font-size: 2rem;
+    margin-left: 0px;
+  }
+  .aboutustxt {
+    font-family: Poppins;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.2rem;
+  }
+  .tips ul li {
+    font-size: 12px;
+    line-height: 1.2rem;
+  }
+  ul {
+    list-style-image: none;
   }
 }

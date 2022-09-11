@@ -26,8 +26,8 @@ function Whatwedo() {
                       <h5 className="col-lg-8 text2 textt">
                         At engineeHUB , we connect all the IITs, NITs & State
                         Colleges to facilitate students with a competitive
-                        environment to allow them productive discussions 
-                        about their respective fields of knowledge.
+                        environment to allow them productive discussions about
+                        their respective fields of knowledge.
                       </h5>
                     </div>
                     <div className="col-lg-3 phone-image">
@@ -46,9 +46,10 @@ function Whatwedo() {
                       </h1>
 
                       <h5 className="col-lg-8 text2 textt">
-                        Mentors excel in counselling beginners in their respective fields of interest
-                        by providing them with basic guidelines to help them enhance their skills & expand
-                        their knowledge about the placement criteria.
+                        Mentors excel in counselling beginners in their
+                        respective fields of interest by providing them with
+                        basic guidelines to help them enhance their skills &
+                        expand their knowledge about the placement criteria.
                       </h5>
                     </div>
                     <div className="col-lg-3 phone-image">
@@ -68,10 +69,10 @@ function Whatwedo() {
                       </h1>
 
                       <h5 className="col-lg-8 text2 textt">
-                      We regularly notify students about appropriate internships 
-                      & job updates based on their keen interests which helps them 
-                      sort their priorities, manage time & 
-                      get updates from verified resources.
+                        We regularly notify students about appropriate
+                        internships & job updates based on their keen interests
+                        which helps them sort their priorities, manage time &
+                        get updates from verified resources.
                       </h5>
                     </div>
                     <div className="col-lg-3 phone-image">
@@ -89,11 +90,11 @@ function Whatwedo() {
                       <h1 className="text1 textfor">Live Courses</h1>
 
                       <h5 className="col-lg-8 text2 textt">
-                      We provide live sessions of various courses of major 
-                      importance in the field of engineering. 
-                      In addition to doubt clearing facilities with our mentors, 
-                      students can avail themselves lifetime access to these 
-                      sessions to help them in future.
+                        We provide live sessions of various courses of major
+                        importance in the field of engineering. In addition to
+                        doubt clearing facilities with our mentors, students can
+                        avail themselves lifetime access to these sessions to
+                        help them in future.
                       </h5>
                     </div>
                     <div className="col-lg-3 phone-image">
@@ -111,11 +112,10 @@ function Whatwedo() {
                       <h1 className="text1 textfor">Magzines & Handbooks</h1>
 
                       <h5 className="col-lg-8 text2 textt">
-                      We issue various magazines & handbooks 
-                      regularly that contribute to expanding students' 
-                      knowledge & learning. These magazines & 
-                      handbooks are provided by trustworthy resources for the 
-                      benefit of students.
+                        We issue various magazines & handbooks regularly that
+                        contribute to expanding students' knowledge & learning.
+                        These magazines & handbooks are provided by trustworthy
+                        resources for the benefit of students.
                       </h5>
                     </div>
                     <div className="col-lg-3 phone-image">
@@ -131,17 +131,35 @@ function Whatwedo() {
 
           <div className="contactButtons d-flex justify-content-evenly flex-wrap">
             <button className="Whatsapp">
-              <WhatsAppIcon style={{ fontSize: 33 }} /> Join Whatsapp
+              <WhatsAppIcon
+                sx={{
+                  fontSize: { sm: 22, md: 32, lg: 33, xl: 33 },
+                }}
+              />{" "}
+              Join Whatsapp
             </button>
             <button className="Discord">
-              <SportsEsportsIcon style={{ fontSize: 42 }} /> Join Discord
+              <SportsEsportsIcon
+                sx={{
+                  fontSize: { sm: 22, md: 32, lg: 33, xl: 33 },
+                }}
+              />{" "}
+              Join Discord
             </button>
             <button className="Telegram">
-              <TelegramIcon style={{ fontSize: 36 }} />
+              <TelegramIcon
+                sx={{
+                  fontSize: { sm: 22, md: 32, lg: 33, xl: 33 },
+                }}
+              />
               Join Telegram
             </button>
             <button className="Linkedin">
-              <LinkedInIcon style={{ fontSize: 43 }} />
+              <LinkedInIcon
+                sx={{
+                  fontSize: { sm: 22, md: 32, lg: 33, xl: 33 },
+                }}
+              />
               Join Linkedin
             </button>
           </div>

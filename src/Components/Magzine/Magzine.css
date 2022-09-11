@@ -44,3 +44,10 @@
     margin-left: 0px;
   }
 }
+
+
+@media screen and (max-width: 426px) {
+  .text111{
+    font-size: 12px;
+  }
+}

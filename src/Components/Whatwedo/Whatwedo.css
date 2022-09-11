@@ -6,7 +6,7 @@
 }
 .textcontainer {
   background: rgba(1, 60, 76, 1);
-
+  margin: 15% 0;
   border: solid 2px white;
 }
 .content {
@@ -185,5 +185,68 @@
   .textfor {
     left: 0px;
     padding: 3% 6%;
+  }
+}
+
+@media screen and (max-width: 426px) {
+  .carousel-control-next-icon,
+  .carousel-control-prev-icon {
+    width: 1rem;
+    height: 1rem;
+  }
+  .textt {
+    justify-content: center;
+    align-items: center;
+    margin-left: 8%;
+    font-weight: 300;
+    font-size: 12px;
+    line-height: 1.5rem;
+    width: 70vw;
+  }
+  .carousel-control-next {
+    right: -20px;
+  }
+  .carousel-control-prev {
+    left: -20px;
+  }
+  .Whatsapp {
+    font-size: 0rem;
+    border: none;
+    margin: 0rem;
+    border-radius: 50%;
+    justify-content: center;
+    align-items: center;
+    padding: 12px;
+  }
+  .Linkedin {
+    font-size: 0rem;
+    border: none;
+    margin: 0rem;
+    border-radius: 50%;
+    justify-content: center;
+    align-items: center;
+    padding: 12px;
+  }
+  .Telegram {
+    font-size: 0rem;
+    border: none;
+    margin: 0rem;
+    border-radius: 50%;
+    justify-content: center;
+    align-items: center;
+    padding: 12px;
+  }
+  .Discord {
+    font-size: 0rem;
+    justify-content: center;
+    align-items: center;
+    margin: 0rem;
+    border: none;
+    border-radius: 50%;
+    padding: 12px;
+
+    /* text-indent: 20%;
+    white-space: nowrap;
+    overflow: hidden; */
   }
 }

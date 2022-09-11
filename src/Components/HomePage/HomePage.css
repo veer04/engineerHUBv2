@@ -13,7 +13,7 @@
   overflow: hidden;
   background-color: transparent;
 }
-.tcsimage{
+.tcsimage {
   height: 8vh;
 }
 .tagContainer {
@@ -87,9 +87,9 @@
   font-size: 1.3rem;
 }
 
-.cllgCarol{
-    display: flex;
-    justify-content: space-evenly;
+.cllgCarol {
+  display: flex;
+  justify-content: space-evenly;
 }
 .Studentsfrom {
   background-color: rgba(1, 64, 81, 1);
@@ -116,8 +116,6 @@
   color: white;
   font-family: "Poppins", sans-serif;
   padding: 1%;
-
- 
 }
 .Studentsfrom2 {
   background-color: rgba(1, 64, 81, 1);
@@ -163,70 +161,66 @@
   margin-top: 10%;
 }
 
-
-.comp{
+.comp {
   width: fit-content;
 }
-
-
 
 @media screen and (max-width: 1024px) {
   .comp:nth-child(6) {
     display: none;
   }
-
 }
 
-@media screen and (max-width: 768px){
+@media screen and (max-width: 768px) {
   .comp:nth-child(5) {
     display: none;
   }
-  .headerContainer{
+  .headerContainer {
     display: flex;
     flex-direction: column;
-    
+
     align-items: center;
   }
 
-
-.headercard{
-  width:35vw;
-  margin-bottom: 5%;
-margin-top: 3%;
+  .headercard {
+    width: 35vw;
+    margin-bottom: 5%;
+    margin-top: 3%;
+  }
 }
-
-
-}
-@media screen and (max-width:992px){
-  .cllgCarol{
+@media screen and (max-width: 992px) {
+  .cllgCarol {
     position: relative;
     text-align: center;
     line-height: 3.5rem;
   }
-  .Studentsfrom{
+  .Studentsfrom {
     margin-top: 15%;
   }
 }
-@media screen and (max-width:520px)
-{
-  
-   .headercard{
-width: 45vw;
-   }
-  
-  
-
+@media screen and (max-width: 520px) {
+  .headercard {
+    width: 45vw;
+  }
 }
-@media screen and (max-width:496px) {
-  .headerbrandname{
-
+@media screen and (max-width: 496px) {
+  .headerbrandname {
     font-size: 3.3rem;
     font-weight: 700;
   }
-  .headerbelow{
-
+  .headerbelow {
     font-size: 1rem;
-    
   }
-  
+}
+
+@media screen and (max-width: 426px) {
+  .headerbrandname {
+    font-size: 2.3rem;
+    font-weight: 700;
+  }
+  .headerbelow {
+    font-size: 0.8rem;
+    bottom: 10px;
+    left: 98px;
+  }
 }

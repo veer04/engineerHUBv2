@@ -14,16 +14,12 @@ function Footer() {
           <div className="footerRow">
             <div className="f_nav">
               <h3 className="textfooter">About Us</h3>
-              
                 <p className="footertextaboutus">
                   engineerHUB (formerly engineerSUMMIT) is INDIA's largest
                   community of engineers where students(alumni) from IITs, NITs,
                   IIITs and state colleges join together to develop and nurture
-                  students skills coming from all over India. Provide basic
-                  guidelines to new comers into engineering field for how and
-                  where to start their learning.{" "}
+                  students skills coming from all over India. .{" "}
                 </p>
-        
             </div>
             <div className="f_nav">
               <h3 className="textfooter">Links</h3>
@@ -37,19 +33,19 @@ function Footer() {
                 <p>Events</p>
               </div>
             </div>
-            <div className="f_nav">
+            {/* <div className="f_nav">
               <h3 className="textfooter quickfooter">Address</h3>
               <div className="row footerinnertext">
                 <p>Delhi(NCR)</p>
               </div>
-            </div>
+            </div> */}
             <div className="f_nav">
               <h3 className="textfooter">Contact Us</h3>
 
               <div className="row">
                 <p className="footerinnertext">myengineerhub@gmail.com</p>
               </div>
-              <div className="row">
+              <div className="row" style={{ justifyContent: "center"}}>
                 <div className="col-lg-2 footericon">
                   {" "}
                   <InstagramIcon />
@@ -71,7 +67,7 @@ function Footer() {
                   <TelegramIcon />
                 </div>
               </div>
-              <div className="row foot-btn">
+              <div className="row foot-btn" style={{ justifyContent: "center"}}>
                 <div className="col-lg-6">
                   <button className="footerBB">Log In</button>
                 </div>

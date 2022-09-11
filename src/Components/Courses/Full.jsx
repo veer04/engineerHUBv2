@@ -60,7 +60,7 @@ function Card() {
             <div style={{ color: "white" }}>Register</div>
           </Link>
           <p
-            className="d-flex fst-normal align-items-center justify-content-center"
+            className="d-flex card-date fst-normal align-items-center justify-content-center"
             style={{ fontSize: "14px", color:"#1b5b62", fontWeight:"bold" }}
           >
             Last date: dd/mm/yy

@@ -49,3 +49,12 @@
     gap: 5px;
   }
 }
+
+@media screen and (max-width: 426px) {
+  .card-date{
+    font-size: 12px !important;
+  }
+  .default-btn div {
+    font-size: 12px !important;
+}
+}
