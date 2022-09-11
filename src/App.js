@@ -17,6 +17,7 @@ import Login from "./Components/Login/login";
 import Register from "./Components/Login/Register";
 import SignUp from "./Components/Login/Signup";
 import Footer from "./Components/Footer/Footer";
+// import User from "./Components/UserPage/user";
 function App() {
   return (
     <Router>

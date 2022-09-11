@@ -13,7 +13,7 @@ function Members() {
           nibh malesuada porttitor tristique donec leo. adipiscing elit. At
           ornar porttitor tristique donec leo.
         </p>
-        <div className="cardz cardMember">
+        {/* <div className="cardz cardMember">
           <div className="row">
             <div className="col-lg-3 ">
               <img src={girlImg} alt="" className="girlimage" />
@@ -71,7 +71,7 @@ function Members() {
             </div>
           </div>
           <div className="row memberinnertext1">May 8, 2020</div>
-        </div>
+        </div> */}
       </div>
     </>
   );

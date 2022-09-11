@@ -11,13 +11,14 @@
   border-radius: 16px;
   display: flex;
   transition: all 500ms ease-in-out;
+   box-shadow: 21px 8px 21px 8px rgb(0 0 0 / 15%);
 }
 .default-card:hover {
   transform: scale(1.04);
   cursor: pointer;
   /* position: static; */
 
-  box-shadow: 0 8px 21px 0 rgb(0 0 0 / 15%);
+  /* box-shadow: 0 8px 21px 0 rgb(0 0 0 / 15%); */
 }
 
 .default-btn {
@@ -26,6 +27,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  text-decoration: none;
 }
 
 .default-btn div {
@@ -38,8 +40,21 @@
   padding-bottom: "80px";
 }
 
+.card-text{
+  color: #255a69;
+}
+
 @media screen and (min-width: 768px) {
   .courses-cont{
     gap: 5px;
   }
+}
+
+@media screen and (max-width: 426px) {
+  .card-date{
+    font-size: 12px !important;
+  }
+  .default-btn div {
+    font-size: 12px !important;
+}
 }

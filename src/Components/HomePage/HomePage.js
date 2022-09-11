@@ -15,7 +15,6 @@ import "../HomeCourses/Courses";
 import Courses from "../HomeCourses/Courses";
 import "../Members/Members";
 import Members from "../Members/Members";
-
 import campusIcon from "./icons/campus.png";
 import GradIcon from "./icons/graudate.png";
 import BuildingIcon from "./icons/building.png";
@@ -26,6 +25,16 @@ import tcs from "./svg/tcs.svg";
 import oracle from "./svg/oracle.svg";
 import swiggy from "./svg/swiggy.svg";
 import infosys from "./svg/infosys.svg";
+import CountUp from "react-countup";
+// import { Suspense } from "react";
+// import { lazy } from "react";
+
+// const About = React.lazy(()=>import('../Aboutus/Aboutus'));
+// const About = lazy(() => import('../Aboutus/Aboutus'));
+
+
+
+
 export default function NavBar() {
   const params = {
     pagination: ".swiper-pagination",
@@ -47,19 +56,22 @@ export default function NavBar() {
           <div className="row headerContainer">
             <div className="col-4 headercard">
               <img src={campusIcon} alt="Campus" />
-              <h1 className="headercardtext">750+</h1>
-
+              {/* <h1 className="headercardtext">750+</h1> */}
+              <h1 className="headercardtext"><CountUp start={500} end={750} className="headercardtext" duration={0.7} afterEffects={true} smooth={true} smartEasingAmount={true} delay={0}></CountUp>+</h1> 
+              
               <h6 className="innerfont">campus</h6>
             </div>
             <div className="col-4 headercard">
               <img src={GradIcon} alt="Graduate" />
-              <h1 className="headercardtext">50K+</h1>
+              {/* <h1 className="headercardtext">50K+</h1> */}
+              <h1 className="headercardtext"><CountUp start={0} end={50} className="headercardtext" duration={0.9} smooth={true} smartEasingAmount={true} delay={0}></CountUp>K+</h1>
 
               <h6 className="innerfont">Students</h6>
             </div>
             <div className="col-4 headercard">
               <img src={BuildingIcon} alt="Building" />
-              <h1 className="headercardtext">18+</h1>
+              {/* <h1 className="headercardtext">18+</h1> */}
+              <h1 className="headercardtext"><CountUp start={0} end={18} className="headercardtext" duration={1} smooth={true} smartEasingAmount={true} delay={0}></CountUp>+</h1>
 
               <h6 className="innerfont">Industries</h6>
             </div>
@@ -118,6 +130,9 @@ export default function NavBar() {
 
       <div className="about">
         <Aboutus />
+        {/* <React.Suspense fallback={<>...</>}>
+        <About />
+        </React.Suspense> */}
       </div>
       <div className="WhatWeDo">
         <Whatwedo />

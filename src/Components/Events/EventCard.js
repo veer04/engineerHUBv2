@@ -19,16 +19,18 @@ const EventCard = ({
 
         <div className="d-flex event--btns">
           {" "}
-          <div className=" event-name">Hackathons DEV</div>
+          <div className=" event-name">Coding Contests</div>
           <button className="Prize">Prize</button>
         </div>
         <div className="event-details">
           {" "}
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pharetra
-          consequat consequat at fermentum sollicitudin pellentesque tortor..
+          Various Coding Contests are organised to help students evaluate their coding skills and test their abilities.
         </div>
-        <div className="event-register">Join</div>
+        <div>
+        <div style={{ backgroundColor: "#0d718c" }} className="event-register">Join</div>
+        </div>
       </div>
+      
     </>
   );
 };

@@ -11,16 +11,18 @@ const CoursesCard = () => {
         </div>
 
         <div className="d-flex courses--btns">
-          <div className=" courses-name">Frontend <br/>Development</div>
-          <button className="Free">Free</button>
+          <div className="courses-name">Frontend <br/>Development</div>
+          <button className="Prize">Free</button>
         </div>
         <div className="courses-details">
           {" "}
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pharetra
-          consequat consequat at fermentum sollicitudin pellentesque tortor..
+          We help you build your skills by offering free Frontend development material 
+          to gain fundamental knowledge of Html5, CSS, JS and more
         </div>
         <div className="courses-register">Register</div>
       </div>
+
+        
     </>
   );
 };

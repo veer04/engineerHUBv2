@@ -74,16 +74,24 @@
 }
 
 @media screen and (max-width: 1024px) {
-  .girlimage  {
-   height:125px;
-   width: 125px;
+  .girlimage {
+    height: 125px;
+    width: 125px;
   }
   .textofMember {
     padding-top: 5%;
     font-size: 0.9rem;
+  }
+  .memberstext {
+    font-size: 1.2rem;
+  }
 }
-.memberstext {
-  font-size: 1.2rem;
 
-}
+
+@media screen and (max-width: 375px) {
+  .memberstext {
+    font-size: 12px;
+    line-height: 1.5rem;
+  }
+
 }
