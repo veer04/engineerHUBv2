@@ -22,7 +22,7 @@ code {
 
 @media (min-width: 320px) and (max-width: 426px) {
   .swiper-slide {
-    margin-left: 10px;
+    margin-left: 0px;
   }
  
 }
