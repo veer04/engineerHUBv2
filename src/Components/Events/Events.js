@@ -30,7 +30,7 @@ function Events() {
     <>
       <div className="content">
         <div className="container">
-          <h1 className="text1">Events</h1>
+          <h1 className="text1 txt">Events</h1>
           <h5 className="text111 event-box ">
             We organize numerous events to impart knowledge to students and
             provide them with an appropriate platform to showcase their skills.

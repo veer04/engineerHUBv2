@@ -67,6 +67,11 @@
   height: 18%;
   align-items: center;
 }
+
+.headercard:hover{
+  cursor: pointer;
+}
+
 .headercardtext {
   font-family: "Bebas Neue", cursive;
   color: rgba(255, 214, 0, 1);

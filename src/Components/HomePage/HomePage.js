@@ -48,7 +48,7 @@ export default function NavBar() {
               {/* <h1 className="headercardtext">750+</h1> */}
               <h1 className="headercardtext"><CountUp start={500} end={750} className="headercardtext" duration={0.7} afterEffects={true} smooth={true} smartEasingAmount={true} delay={0}></CountUp>+</h1> 
               
-              <h6 className="innerfont">campus</h6>
+              <h6 className="innerfont">Campus</h6>
             </div>
             <div className="col-4 headercard">
               <img src={GradIcon} alt="Graduate" />
