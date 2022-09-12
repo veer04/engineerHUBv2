@@ -4,6 +4,12 @@ import "../Magzine/Magzine.css";
 import { Autoplay } from "swiper";
 
 import { Swiper, SwiperSlide } from "swiper/react";
+// Import Swiper styles
+
+import "swiper/css/pagination";
+
+import "swiper/css";
+import "swiper/css/autoplay";
 import Full from "../Courses/Full";
 function Magzine() {
   return (
@@ -19,6 +25,7 @@ function Magzine() {
           <Swiper
             modules={[Autoplay]}
             loop={true}
+            autoplay={{ delay: 2000 }}
             spaceBetween={26}
             breakpoints={{
               320: {

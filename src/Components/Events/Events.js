@@ -1,39 +1,46 @@
-import React,{useState,useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 // import backImage from "../Magzine/backimg.png";
 import { Autoplay } from "swiper";
 
 import { Swiper, SwiperSlide } from "swiper/react";
+// Import Swiper styles
+
+import "swiper/css/pagination";
+
+import "swiper/css";
+import "swiper/css/autoplay";
 import EventCard from "./EventCard";
 function Events() {
-
-  const [eventData,setEventData] = useState([]);
+  const [eventData, setEventData] = useState([]);
   useEffect(() => {
     const getEventDetails = async () => {
-      const response = await axios.get( `https://ehubbackend.herokuapp.com/api/v1/event`)
+      const response = await axios.get(
+        `https://ehubbackend.herokuapp.com/api/v1/event`
+      );
 
       setEventData(response.data);
-    }
+    };
     console.log(eventData);
     getEventDetails();
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-  
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <>
       <div className="content">
         <div className="container">
           <h1 className="text1">Events</h1>
           <h5 className="text111 event-box ">
-          We organize numerous events to impart knowledge to students and provide 
-          them with an appropriate platform to showcase their skills.
+            We organize numerous events to impart knowledge to students and
+            provide them with an appropriate platform to showcase their skills.
           </h5>
           <Swiper
             modules={[Autoplay]}
             loop={true}
+            autoplay={{ delay: 2000 }}
             spaceBetween={26}
             breakpoints={{
-            
               320: {
                 width: 311,
                 slidesPerView: 1,

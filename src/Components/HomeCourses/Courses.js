@@ -7,6 +7,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css/pagination";
 
 import "swiper/css";
+import "swiper/css/autoplay";
 import "../Events/Events.css";
 import "./Courses.css";
 
@@ -26,9 +27,9 @@ function Events() {
           <Swiper
             modules={[Autoplay]}
             loop={true}
+            autoplay={{ delay: 2000 }}
             spaceBetween={26}
             breakpoints={{
-            
               320: {
                 width: 311,
                 slidesPerView: 1,
