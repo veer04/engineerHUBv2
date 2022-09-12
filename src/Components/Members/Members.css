@@ -5,7 +5,7 @@
 }
 
 .memberstext {
-  font-size: 1.25rem;
+  font-size: 1.5rem;
   margin: 3%;
   margin-left: 7%;
   line-height: 2.5rem;
@@ -44,6 +44,7 @@
   border-radius: 20px;
   margin-left: 22%;
   margin-right: 7%;
+  display: flex;
   justify-content: center;
   align-items: center;
   padding-left: 5%;
@@ -65,7 +66,7 @@
   display: inline-block;
   color: #fff;
   position: relative;
-  left: 60%;
+  left: 20%;
   font-size: 0.9rem;
 }
 .cardz {
@@ -73,25 +74,95 @@
   box-shadow: 3px 3px 4px 4px rgb(188, 181, 181);
 }
 
-@media screen and (max-width: 1024px) {
-  .girlimage {
-    height: 125px;
-    width: 125px;
+@media screen and (max-width: 1241px) {
+  .girlimage  {
+   height:125px;
+   width: 125px;
   }
   .textofMember {
     padding-top: 5%;
     font-size: 0.9rem;
+}
+.memberstext {
+  font-size: 1.2rem;
+
+}
+}
+@media screen and (max-width:991px){
+  .girlimage{
+    position: relative;
+    top: 5%;
+    left: 35%;
+
   }
-  .memberstext {
-    font-size: 1.2rem;
+  .cardMember{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    flex-wrap: wrap;
+
+height: 40vh;
+  }
+  .cardMember1{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    flex-wrap: wrap;
+    height: 40vh;
+
   }
 }
-
-
-@media screen and (max-width: 375px) {
-  .memberstext {
-    font-size: 12px;
-    line-height: 1.5rem;
+@media screen and (max-width:768px){
+  
+  .cardMember{
+    display: flex;
+    flex-wrap: wrap;
+    height: 45vh;
   }
+  .cardMember1{
+    display: flex;
+    flex-wrap: wrap;
+    height: 45vh;
+  }
+}
+@media screen and(max-width: 578px)
+{.cardMember{
+  display: flex;
+  flex-wrap: wrap;
+  height: 50vh;
+  width: 75vw;
+  font-size: 0.9rem;
+}
+.cardMember1{
+  display: flex;
+  flex-wrap: wrap;
+  
+  height: 50vh;
+  width: 75vw;
+  font-size: 0.9rem;
+}
+.girlimage{
+  width: 100px;
+  height: 100px;
+}
+}
+@media screen and (max-width:468px){
 
+  .cardMember{
+    display: flex;
+    flex-wrap: wrap;
+    height: 55vh;
+    width: 75vw;
+    font-size: 0.9rem;
+  }
+  .cardMember1{
+    display: flex;
+    flex-wrap: wrap;
+    
+    height: 55vh;
+    width: 75vw;
+    font-size: 0.9rem;
+  }
 }

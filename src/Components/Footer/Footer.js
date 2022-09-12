@@ -14,12 +14,12 @@ function Footer() {
           <div className="footerRow">
             <div className="f_nav">
               <h3 className="textfooter">About Us</h3>
-                <p className="footertextaboutus">
-                  engineerHUB (formerly engineerSUMMIT) is INDIA's largest
-                  community of engineers where students(alumni) from IITs, NITs,
-                  IIITs and state colleges join together to develop and nurture
-                  students skills coming from all over India. .{" "}
-                </p>
+              <p className="footertextaboutus">
+                engineerHUB (formerly engineerSUMMIT) is INDIA's largest
+                community of engineers where students(alumni) from IITs, NITs,
+                IIITs and state colleges join together to develop and nurture
+                students skills coming from all over India. .{" "}
+              </p>
             </div>
             <div className="f_nav">
               <h3 className="textfooter">Links</h3>
@@ -45,7 +45,7 @@ function Footer() {
               <div className="row">
                 <p className="footerinnertext">myengineerhub@gmail.com</p>
               </div>
-              <div className="row" style={{ justifyContent: "center"}}>
+              <div className="row" style={{ justifyContent: "space-around" }}>
                 <div className="col-lg-2 footericon">
                   {" "}
                   <InstagramIcon />
@@ -67,7 +67,10 @@ function Footer() {
                   <TelegramIcon />
                 </div>
               </div>
-              <div className="row foot-btn" style={{ justifyContent: "center"}}>
+              <div
+                className="row foot-btn"
+                style={{ justifyContent: "space-around" }}
+              >
                 <div className="col-lg-6">
                   <button className="footerBB">Log In</button>
                 </div>
@@ -77,8 +80,10 @@ function Footer() {
               </div>
             </div>
           </div>
-        
-          <div className="row copyright">Powered by <span>engineerHUB</span></div>
+
+          <div className="row copyright">
+            Powered by <span>engineerHUB</span>
+          </div>
         </div>
       </div>
     </>

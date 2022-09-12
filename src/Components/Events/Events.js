@@ -38,7 +38,7 @@ function Events() {
           <Swiper
             modules={[Autoplay]}
             loop={true}
-            autoplay={{ delay: 2000 }}
+            autoplay={{ delay: 3000 }}
             spaceBetween={26}
             breakpoints={{
               320: {

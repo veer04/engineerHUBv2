@@ -130,7 +130,7 @@ function Whatwedo() {
           </div>
 
           <div className="contactButtons d-flex flex-column" >
-            <div style={{ color: "white", fontSize: "24px", padding: "1rem 0 3rem 0 " }} className="align-self-center ">
+            <div className="align-self-center comuni">
             Join our Community & let’s grow together...
             </div>
             <div className="d-flex justify-content-evenly flex">
