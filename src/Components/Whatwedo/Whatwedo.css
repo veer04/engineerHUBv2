@@ -6,8 +6,9 @@
 }
 .textcontainer {
   background: rgba(1, 60, 76, 1);
-  margin: 15% 0;
-  border: solid 2px white;
+  margin: 4% 0;
+  padding: 0px !important;
+  /* border: solid 2px white; */
 }
 .content {
   background: rgba(1, 60, 76, 1);
@@ -85,7 +86,8 @@
   padding-bottom: 15%;
 }
 .contactButtons {
-  padding: 4% 0px;
+  padding:0 0 4% 0;
+  background: #002A36;
 }
 .textwhat {
   color: rgba(225, 215, 28, 1);
@@ -249,4 +251,9 @@
     white-space: nowrap;
     overflow: hidden; */
   }
+}
+
+
+.carousel-indicators {
+  display: none;
 }

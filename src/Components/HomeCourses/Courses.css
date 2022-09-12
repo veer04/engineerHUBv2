@@ -17,9 +17,12 @@
   justify-content: space-between;
 }
 
-@media screen and (max-width: 1024px) {
-   .cardEvent{
+@media screen and (max-width: 426px) {
+  .cardEvent {
     margin-left: 4%;
-   }
-  
+  }
+
+  .container {
+    padding: 0px 20px;
+  }
 }

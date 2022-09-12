@@ -15,3 +15,14 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+.swiper-slide {
+  padding-bottom: 30px;
+}
+
+@media (min-width: 320px) and (max-width: 426px) {
+  .swiper-slide {
+    margin-left: 10px;
+  }
+ 
+}

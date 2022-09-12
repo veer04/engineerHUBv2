@@ -1,6 +1,9 @@
 import React,{useState,useEffect} from "react";
 import axios from "axios";
 // import backImage from "../Magzine/backimg.png";
+import { Autoplay } from "swiper";
+
+import { Swiper, SwiperSlide } from "swiper/react";
 import EventCard from "./EventCard";
 function Events() {
 
@@ -13,6 +16,7 @@ function Events() {
     }
     console.log(eventData);
     getEventDetails();
+      // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   
   return (
@@ -24,12 +28,48 @@ function Events() {
           We organize numerous events to impart knowledge to students and provide 
           them with an appropriate platform to showcase their skills.
           </h5>
-          <div className="d-flex justify-content-around flex-wrap" style={{ padding: " 4% 0" }}>
-            <EventCard />
-            <EventCard />
-            <EventCard />
-            <EventCard />
-          </div>
+          <Swiper
+            modules={[Autoplay]}
+            loop={true}
+            spaceBetween={26}
+            breakpoints={{
+            
+              320: {
+                width: 311,
+                slidesPerView: 1,
+              },
+              768: {
+                width: 700,
+                slidesPerView: 2,
+              },
+              1024: {
+                width: 900,
+                slidesPerView: 3,
+              },
+              1440: {
+                width: 1274,
+                slidesPerView: 4,
+              },
+            }}
+            onSwiper={(swiper) => console.log(swiper)}
+            onSlideChange={() => console.log("slide change")}
+          >
+            <SwiperSlide>
+              <EventCard />
+            </SwiperSlide>
+            <SwiperSlide>
+              <EventCard />
+            </SwiperSlide>
+            <SwiperSlide>
+              <EventCard />
+            </SwiperSlide>
+            <SwiperSlide>
+              <EventCard />
+            </SwiperSlide>
+            <SwiperSlide>
+              <EventCard />
+            </SwiperSlide>
+          </Swiper>
         </div>
       </div>
     </>

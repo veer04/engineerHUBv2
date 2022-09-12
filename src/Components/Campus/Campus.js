@@ -18,7 +18,7 @@ const Campus = () => {
     };
     console.log(campusData);
     getCampusDetails();
-    
+      // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

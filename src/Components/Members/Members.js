@@ -1,6 +1,6 @@
 import React from "react";
 import "../Members/Members.css";
-import girlImg from "../Members/girlimg.png";
+// import girlImg from "../Members/girlimg.png";
 
 function Members() {
   return (

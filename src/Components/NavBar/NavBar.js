@@ -22,6 +22,7 @@ const NavBar = () => {
     };
     console.log(domainData);
     getDomainDetails();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <>
