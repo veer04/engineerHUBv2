@@ -18,7 +18,7 @@ function Events() {
     <>
       <div className="content contentEvent ">
         <div className="container">
-          <h1 className="text1">Free Courses</h1>
+          <h1 className="text1 txt">Free Courses</h1>
           <h5 className="text2 text111 courses-box">
             Engineerhub aims to provide several free courses to students to
             provide necessary material with utmost ease.

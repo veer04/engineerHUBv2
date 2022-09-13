@@ -16,7 +16,7 @@ function Magzine() {
     <>
       <div className="content">
         <div className="container">
-          <h1 className="text1">Magazines & Hand-Book</h1>
+          <h1 className="text1 txt">Magazines & Hand-Book</h1>
           <h5 className="text2 text111 magazine-box ">
             Engineerhub issues various magazines & handbooks regularly that
             contribute to expanding knowledge for the benefit of students.

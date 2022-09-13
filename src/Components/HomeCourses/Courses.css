@@ -17,6 +17,10 @@
   justify-content: space-between;
 }
 
+.txt{
+  color: rgba(5, 85, 94, 1);
+}
+
 @media screen and (max-width: 426px) {
   .cardEvent {
     margin-left: 4%;

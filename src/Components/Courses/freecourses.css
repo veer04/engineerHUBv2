@@ -57,4 +57,9 @@
   .default-btn div {
     font-size: 12px !important;
 }
+
+.default-card{
+  width: 16rem;
+  /* height: 23rem; */
+}
 }
