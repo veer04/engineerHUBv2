@@ -15,7 +15,7 @@ import Events from "../Events/Events";
 import "../HomeCourses/Courses";
 import Courses from "../HomeCourses/Courses";
 import "../Members/Members";
-// import Members from "../Members/Members";
+// clea
 import campusIcon from "./icons/campus.png";
 import GradIcon from "./icons/graudate.png";
 import BuildingIcon from "./icons/building.png";
