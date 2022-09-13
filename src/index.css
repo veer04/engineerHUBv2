@@ -33,3 +33,12 @@ code {
     font-size:22px;
   }
 }
+.accordion-button:focus {
+  border-color: #054253;
+}
+
+.accordion-button:not(.collapsed) {
+  color: #054253;
+  background-color: #e7f1ff;
+  box-shadow: inset 0 -1px 0 rgb(0 0 0 / 13%);
+}

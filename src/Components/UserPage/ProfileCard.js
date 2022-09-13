@@ -10,7 +10,7 @@ function ProfileCard() {
     		            <img src="https://images.pexels.com/photos/459225/pexels-photo-459225.jpeg?auto=compress&cs=tinysrgb&h=650&w=940" alt="profile-sample1" class="background"/>
     		        </div>
     		        <div class="profile-thumb-block">
-    		            <img src="https://randomuser.me/api/portraits/men/41.jpg" alt="profile-image" class="profile"/>
+    		            <img src="https://randomuser.me/api/portraits/men/41.jpg" alt="profile" class="profile"/>
     		        </div>
     		        <div class="card-content">
                     <h2>Justin Mccoy<small>Designer</small></h2>

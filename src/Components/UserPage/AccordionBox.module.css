@@ -1,0 +1,11 @@
+.accordion_box {
+  width: 1000px;
+  margin: 2rem;
+  
+}
+
+.accordion_box_name{
+  font-weight: bold;
+  font-size: 2rem;
+  color: #054253;
+}

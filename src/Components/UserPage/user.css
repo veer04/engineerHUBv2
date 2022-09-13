@@ -15,3 +15,8 @@
 
   /* opacity: 0.1; */
 }
+
+.custom-courses-list {
+  overflow-y: scroll;
+  height: 700px;
+}
