@@ -1,6 +1,7 @@
 html {
   overflow-x: hidden;
 }
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
@@ -11,6 +12,10 @@ body {
   overflow-x: hidden;
 }
 
+:root{
+  --lef-col-width: 33%;
+  --color: rgba(1, 60, 76, 1);
+}
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
@@ -24,13 +29,11 @@ code {
   .swiper-slide {
     margin-left: 0px;
   }
- 
 }
 
-
-@media screen and (max-width: 426px){
-  .text1{
-    font-size:22px;
+@media screen and (max-width: 426px) {
+  .text1 {
+    font-size: 22px;
   }
 }
 .accordion-button:focus {

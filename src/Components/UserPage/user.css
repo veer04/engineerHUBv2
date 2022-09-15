@@ -20,3 +20,34 @@
   overflow-y: scroll;
   height: 700px;
 }
+
+.react_player {
+  width: 100%;
+  padding: 2rem;
+}
+
+.video-name {
+  padding: 0 2rem;
+  font-size: 1.5rem;
+  color: var(--color);
+  font-weight: bold;
+  line-height: 1px;
+}
+.video-desc {
+  padding: 0 2rem;
+  line-height: 3.5rem;
+}
+
+@media screen and (max-width: 768px) {
+  .cont-right {
+    width: 300px;
+  }
+
+  .video-name {
+    line-height: 25px;
+  }
+  .video-desc {
+    padding: 1rem 2rem;
+    line-height: 1.5rem;
+  }
+}
