@@ -14,7 +14,8 @@
   background-color: transparent;
 }
 .tcsimage {
-  height: 8vh;
+  height: 10vh;
+  margin: auto;
 }
 .tagContainer {
   display: flex;
@@ -68,7 +69,7 @@
   align-items: center;
 }
 
-.headercard:hover{
+.headercard:hover {
   cursor: pointer;
 }
 
@@ -243,7 +244,6 @@ body {
 }
 .header {
   margin-top: 5%;
-  padding-top: 5%;
   text-align: center;
   line-height: 0.8;
   margin-bottom: 50px;
@@ -362,4 +362,27 @@ body {
     bottom: 10px;
     left: 98px;
   }
+}
+
+@media (min-width: 427px) {
+  .mobile--view {
+    display: none;
+  }
+}
+@media screen and (max-width: 426px) {
+  .desk-tab--view {
+    display: none;
+  }
+}
+
+
+@media screen and (max-width: 426px) {
+  .studenttxt{
+    font-size: 1.3rem;
+  }
+  .swiper-slide{
+    display: flex;
+    justify-content: center;
+    transition: all .4s ease;             
+ }
 }

@@ -6,6 +6,7 @@ import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import SportsEsportsIcon from "@mui/icons-material/SportsEsports";
 import TelegramIcon from "@mui/icons-material/Telegram";
+import { Link } from "react-router-dom";
 function Footer() {
   return (
     <>
@@ -48,23 +49,54 @@ function Footer() {
               <div className="row" style={{ justifyContent: "space-around" }}>
                 <div className="col-lg-2 footericon">
                   {" "}
-                  <InstagramIcon />
+                  <a
+                    href="https://www.instagram.com/engineerhub.in/"
+                    rel="noreferrer"
+                    target="_blank"
+                  >
+                    <InstagramIcon />
+                  </a>
                 </div>
                 <div className="col-lg-2 footericon">
                   {" "}
-                  <LinkedInIcon />{" "}
+                  <a
+                    href="https://www.linkedin.com/company/engineersummit/mycompany/"
+                    rel="noreferrer"
+                    target="_blank"
+                  >
+                    <LinkedInIcon />
+                  </a>{" "}
                 </div>
                 <div className="col-lg-2 footericon">
                   {" "}
-                  <TwitterIcon />{" "}
+                  <a
+                    href="https://twitter.com/engineerhub_in"
+                    rel="noreferrer"
+                    target="_blank"
+                  >
+                    <TwitterIcon />
+                  </a>{" "}
                 </div>
                 <div className="col-lg-2 footericon">
                   {" "}
-                  <SportsEsportsIcon />
+                  <a
+                    href="https://discord.com/invite/ZMZAEZ5NfA"
+                    rel="noreferrer"
+                    target="_blank"
+                  >
+                    {" "}
+                    <SportsEsportsIcon />
+                  </a>
                 </div>
                 <div className="col-lg-2 footericon">
                   {" "}
-                  <TelegramIcon />
+                  <a
+                    href="https://t.me/engineerhub_in"
+                    rel="noreferrer"
+                    target="_blank"
+                  >
+                    <TelegramIcon />
+                  </a>
                 </div>
               </div>
               <div
@@ -72,10 +104,16 @@ function Footer() {
                 style={{ justifyContent: "space-around" }}
               >
                 <div className="col-lg-6">
-                  <button className="footerBB">Log In</button>
+                  <Link to="/login">
+                    {" "}
+                    <button className="footerBB">Log In</button>
+                  </Link>
                 </div>
                 <div className="col-lg-6">
-                  <button className="footerBB">Register</button>
+                  <Link to="/register">
+                    {" "}
+                    <button className="footerBB">Register</button>
+                  </Link>
                 </div>
               </div>
             </div>

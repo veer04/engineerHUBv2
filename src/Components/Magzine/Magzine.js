@@ -28,10 +28,6 @@ function Magzine() {
             autoplay={{ delay: 2000 }}
             spaceBetween={26}
             breakpoints={{
-              320: {
-                width: 311,
-                slidesPerView: 1,
-              },
               768: {
                 width: 700,
                 slidesPerView: 2,

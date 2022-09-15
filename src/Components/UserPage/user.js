@@ -10,7 +10,7 @@ import VideoCourses from "./VideoCourses";
 
 function User() {
   return (
-    <div className="d-flex">
+    <div className="d-flex justify-content-evenly">
       <div className="custom-courses-list">
         <AccordionBox />
         <AccordionBox />
