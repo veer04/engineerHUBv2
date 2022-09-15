@@ -29,6 +29,7 @@ const IndustryPersona = () => {
   return (
     <div>
       <Mentor
+        coursesDes={"engineerhub is equipped with skilled industrialists: "}
         courses={"Industry Personalities"}
         teamMembers={industryMembers}
       />

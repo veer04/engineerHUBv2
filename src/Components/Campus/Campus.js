@@ -26,8 +26,7 @@ const Campus = () => {
       <div className="heading">Campus Activities</div>
 
       <div className="text">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Non gravida sit
-        nunc duis dui, dui hendrerit suscipit.
+      engineerhub organises various events on campus to provide them with a beneficial environment that promotes the growth of mental abilities and skills. 
       </div>
 
       <div

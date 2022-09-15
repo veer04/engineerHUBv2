@@ -4,7 +4,7 @@ import ResourceApi from "./ResourceApi";
 function Resource() {
   return (
     <div >
-          <ResourceApi heading="Resources for DSA" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Non gravida sit nunc duis dui, dui hendrerit suscipit." />
+          <ResourceApi heading="Resources for DSA" text="engineerhub provides various resources on DSA to help students build up their knowledge and prepare themselves for placements. " />
     </div>
   )
 }

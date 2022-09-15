@@ -23,8 +23,7 @@ const Internship = () => {
     <div className="contained-xl">
       <div className="heading">Internship & Jobs</div>
       <div className="texthire">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Non gravida sit
-        nunc duis dui, dui hendrerit suscipit.
+      engineerhub offers tons of internships & job opportunities for our students & notify them regularly on various social platforms. 
       </div>
       <form className="searchBar">
         <div className="search-btn">
