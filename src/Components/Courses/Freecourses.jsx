@@ -8,8 +8,7 @@ const Freecourses = () => {
       <div className="heading">Explore Courses</div>
 
       <div className="texthire">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Non gravida sit
-        nunc duis dui, dui hendrerit suscipit.
+      engineerhub aims to provide several free courses to students to provide necessary material with utmost ease. 
       </div>
 
       <div 

@@ -37,7 +37,7 @@ function Card() {
               color: "#1b5b62",
             }}
           >
-            App Development
+            Frontend Development
           </h5>
           <div>
             <ShareOutlinedIcon
@@ -47,8 +47,7 @@ function Card() {
           </div>
         </div>
         <p className="card-text" style={{ fontSize: "12px" }}>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Arcu, eget
-          suspendisse nunc duis non eget est.Lorem ipsum dolor sit amet.
+        We help you build your skills by offering free Frontend development material to gain fundamental knowledge of Html5, CSS, JS and more. 
         </p>
         {/* <h6 style={{ fontWeight: 700 }}>Organizer: IIT Delhi</h6> */}
         <div className="btn-container d-flex justify-content-between align-items-baseline">
