@@ -12,7 +12,10 @@
   margin-bottom: 5%;
 }
 .cardMember {
-  background-color: rgba(1, 60, 76, 1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(rgba(18,131,129,1),rgba(0,42,54,1));
 
   color: rgba(255, 255, 255, 1);
   font-size: 1.1rem;
@@ -22,8 +25,8 @@
   border-radius: 20px;
   margin-left: 7%;
   margin-right: 32%;
-  justify-content: center;
-  align-items: center;
+
+  
   padding-left: 5%;
   padding-right: 5%;
 }
@@ -35,7 +38,7 @@
 }
 
 .cardMember1 {
-  background-color: rgba(1, 60, 76, 1);
+  background: linear-gradient(rgba(18,131,129,1),rgba(0,42,54,1));
   color: rgba(255, 255, 255, 1);
   font-size: 1.1rem;
   font-weight: 200;
@@ -52,8 +55,15 @@
 .girlimage {
   width: 180px;
   height: 180px;
+  
+  
+}
+.girlimage1 {
+  width: 180px;
+  height: 180px;
   position: relative;
-  top: 35px;
+  top: 10px;
+  
 }
 .memberinnertext {
   display: inline-block;
@@ -79,6 +89,10 @@
    height:125px;
    width: 125px;
   }
+  .girlimage1  {
+    height:125px;
+    width: 125px;
+   }
   .textofMember {
     padding-top: 5%;
     font-size: 0.9rem;
@@ -91,7 +105,7 @@
 @media screen and (max-width:991px){
   .girlimage{
     position: relative;
-    top: 5%;
+    
     left: 35%;
 
   }
@@ -147,6 +161,12 @@ height: 40vh;
   width: 100px;
   height: 100px;
 }
+.girlimage1{
+  width: 100px;
+  height: 100px;
+}
+
+
 }
 @media screen and (max-width:468px){
 
@@ -155,6 +175,9 @@ height: 40vh;
     flex-wrap: wrap;
     height: 55vh;
     width: 75vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     font-size: 0.9rem;
   }
   .cardMember1{
@@ -164,5 +187,19 @@ height: 40vh;
     height: 55vh;
     width: 75vw;
     font-size: 0.9rem;
+    position: relative;
+    right: 15%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+@media screen and (max-width:418px){
+  .cardMember1{
+    position: relative;
+    right: 15%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }

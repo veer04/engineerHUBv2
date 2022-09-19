@@ -1,7 +1,7 @@
 .event-card-body{
     width: 18rem;
     border-radius: 20px;
-    background-color: #fff;
+    background: linear-gradient(rgba(18,131,129,1),rgba(0,42,54,1));
     padding: 10px 15px;
     margin: 10px;
     transition: all 500ms ease-in-out;
@@ -42,13 +42,13 @@
 .event-details{
    margin-top:10px;
    font-size: 12px;
-   color: #255a69;
+   color: #fff;
 }
 .event-name{
     padding: 2%;
     font-weight: 600;
     font-size: 1.25rem;
-    color: #1b5b62;
+    color:  rgb(255, 199, 0);
 }
 .event-register{
     /* background-color: rgba(0, 148, 255, 1); */

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import {useNavigate} from "react-router-dom"
 import "./NavBar.css";
 import axios from "axios";
 import Navbar from "react-bootstrap/Navbar";
@@ -8,8 +9,18 @@ import Logo from "./logo.svg";
 import User from "./user.svg";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import ham from "./ham.svg";
+import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
+import WindowOutlinedIcon from '@mui/icons-material/WindowOutlined';
+import WorkOutlineOutlinedIcon from '@mui/icons-material/WorkOutlineOutlined';
+import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
+import CalendarTodayOutlinedIcon from '@mui/icons-material/CalendarTodayOutlined';
+
 
 const NavBar = () => {
+
+
+
+  
   const [domainData, setDomainData] = useState([]);
 
   useEffect(() => {
@@ -24,6 +35,22 @@ const NavBar = () => {
     getDomainDetails();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  const navigate =useNavigate();
+  const home = ()=>{
+    navigate("/")
+  }
+  const domain = ()=>{
+    navigate("/domain")
+  }
+  const courses = ()=>{
+    navigate("/courses")
+  }
+  const events = ()=>{
+    navigate("/events")
+  }
+  const interships = ()=>{
+    navigate("/internship")
+  }
   return (
     <>
       <div className="row">
@@ -45,8 +72,10 @@ const NavBar = () => {
               className="collapse navbar-collapse justify-content-end "
               id="navbarTogglerDemo02"
             >
-              <div className="row navelements nav-div">
-                <Nav className="me-auto navelements">
+              <div
+              className="navelements"
+              >
+                <Nav className="me-auto navelements ">
                   <NavDropdown
                     title="Domains"
                     className="navelements"
@@ -309,11 +338,78 @@ const NavBar = () => {
             </div>
 
             <div className="ham-icon">
-              <img src={ham} alt="Ham_icon" />
+              <img src={ham} alt="Ham_icon"  />
             </div>
           </Container>
+
+   
         </Navbar>
-      </div>
+
+        <div className="row subNavbar">
+       
+          <div className="col-2">
+          <div className="homesbn">
+          <HomeOutlinedIcon 
+          sx={{ fontSize: 40}}
+        onClick={home}
+          color="success"></HomeOutlinedIcon>
+        <div className="row">
+          {/* home */}
+        </div>
+        </div>
+          </div>
+      <div className="col-2">
+    <div className="domainssbn">
+        <WindowOutlinedIcon
+        sx={{ fontSize: 40 }}
+        onClick={domain}
+        color="success"
+     ></WindowOutlinedIcon>
+      <div className="row">
+          {/* Domains */}
+        </div>
+    </div> 
+    </div>
+    <div className="col-2">
+    <div className="coursessbn">
+          
+<PlayCircleOutlineIcon
+sx={{ fontSize: 40 }}
+color="success"
+onClick={courses}
+></PlayCircleOutlineIcon>
+<div className="row">
+          {/* Courses */}
+        </div>
+    </div>
+    </div>
+    <div className="col-2">
+    <div className="eventssbn">
+<CalendarTodayOutlinedIcon
+sx={{ fontSize: 36 }}
+onClick={events}
+color="success"
+></CalendarTodayOutlinedIcon>
+<div className="row">
+          {/* Events */}
+        </div>
+    </div>
+    </div>
+    <div className="col-2">
+    <div className="internshipssbn">
+
+<WorkOutlineOutlinedIcon
+sx={{ fontSize: 40 }}
+onClick={interships}
+color="success"
+></WorkOutlineOutlinedIcon>
+<div className="row">
+          {/* Internships */}
+        </div>
+    </div>
+    </div>
+  </div>
+</div>
     </>
   );
 };

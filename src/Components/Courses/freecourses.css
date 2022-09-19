@@ -12,6 +12,7 @@
   display: flex;
   transition: all 500ms ease-in-out;
    box-shadow: 21px 8px 21px 8px rgb(0 0 0 / 15%);
+   background: linear-gradient(rgba(18,131,129,1),rgba(0,42,54,1));
 }
 .default-card:hover {
   transform: scale(1.04);
@@ -41,7 +42,8 @@
 }
 
 .card-text{
-  color: #255a69;
+  color: #fff;
+  padding-top: 15%;
 }
 
 @media screen and (min-width: 768px) {
@@ -56,6 +58,7 @@
   }
   .default-btn div {
     font-size: 12px !important;
+
 }
 
 .default-card{

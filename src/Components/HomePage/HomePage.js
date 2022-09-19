@@ -9,7 +9,8 @@ import "../Aboutus/Aboutus";
 import Aboutus from "../Aboutus/Aboutus";
 import "../Whatwedo/Whatwedo";
 import Whatwedo from "../Whatwedo/Whatwedo";
-
+import "../Members/Members";
+import Members from "../Members/Members";
 import "../Magzine/Magzine";
 import Magzine from "../Magzine/Magzine";
 import "../Events/Events";
@@ -323,7 +324,7 @@ export default function NavBar() {
         <Courses />
       </div>
       <div className="Members" style={{ padding: "0px 0px 4% 0px" }}>
-        {/* <Members /> */}
+        <Members />
       </div>
     </>
   );
