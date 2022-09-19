@@ -23,7 +23,7 @@ import campusIcon from "./icons/campus.png";
 import GradIcon from "./icons/graudate.png";
 import BuildingIcon from "./icons/building.png";
 
-import IITK from "./svg/iitk-logo.png";
+import IITK from "./svg/IITK.png";
 
 import tcs from "./svg/tcs.svg";
 import oracle from "./svg/oracle.svg";
