@@ -62,3 +62,11 @@
    
      background-color: #0d718c;
   }
+
+  @media screen and (max-width:768px) {
+    .courses-card-body{
+        margin-left: 71px ;
+       
+    }
+     
+  }
