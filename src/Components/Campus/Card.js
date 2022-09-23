@@ -54,7 +54,7 @@ function Card({
           Organizer: IIT Delhi
         </h6>
         <div className="d-flex align-items-baseline justify-content-between">
-          <a href="/#" className="btn" style={{ backgroundColor: "#002a36"}}>
+          <a href="/#" className="btnc" style={{ backgroundColor: "#002a36"}}>
             <span style={{ color: "white", fontSize: "0.9rem" }}>
               Apply Now !
             </span>
