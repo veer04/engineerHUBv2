@@ -13,3 +13,8 @@ custom-card-text-2{
 .custom-card-body-2{
     padding: 2px !important;
 }
+@media screen and (max-width: 426px) {
+    .custom-card-2{
+        width: 250px !important;
+    }
+}

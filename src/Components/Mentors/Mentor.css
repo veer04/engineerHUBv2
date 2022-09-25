@@ -4,9 +4,9 @@
 }
 .mentor-container {
   padding: 35px 0px 35px 0px;
-  margin: 20px;
-  background-color:#002a36;
-  border-radius: 33px;
+  /* margin: 20px; */
+  background-color:#014051;
+  /* border-radius: 33px; */
 }
 .card-section {
   display: flex;

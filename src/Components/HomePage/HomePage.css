@@ -384,16 +384,6 @@ body {
   }
 }
 
-@media (min-width: 427px) {
-  .mobile--view {
-    display: none;
-  }
-}
-@media screen and (max-width: 426px) {
-  .desk-tab--view {
-    display: none;
-  }
-}
 
 
 @media screen and (max-width: 426px) {

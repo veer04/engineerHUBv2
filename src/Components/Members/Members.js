@@ -4,7 +4,7 @@ import girlImg from "./girlimg.png";
 function Members() {
   return (
     <>
-      <div className="container  mw-100 Memberscontainer">
+      <div className="container mw-100 Memberscontainer">
         <h1 className="txtMembers">What our Members think about us</h1>
 
         <p className="memberstext">
@@ -24,7 +24,7 @@ function Members() {
           <div className="row memberinnertext">May 8, 2020</div>
         </div>
 
-        <div className="cardz cardMember1">
+        <div className="cardz cardMember1 desk-tab--view">
           <div className="row">
             <div className="col-lg-9 textofMember order-md-2 order-lg-1 order-sm-2 ">
               The community provides updated content & authorized resources to
@@ -52,7 +52,7 @@ function Members() {
           <div className="row memberinnertext">May 8, 2020</div>
         </div>
 
-        <div className="cardz cardMember1">
+        <div className="cardz cardMember1 desk-tab--view">
           <div className="row">
             <div className="col-lg-9 textofMember order-md-2 order-lg-1 order-sm-2 order-xs-last">
               engineerhub is an ideal platform to receive all the major

@@ -44,3 +44,19 @@
     width: 350px;
   }
 } */
+
+@media screen and (max-width:426px) {
+    .campus--date{
+      font-size: 12px;
+    }
+
+}
+
+@media screen and (max-width: 320px) {
+  .card-body {
+    padding: 0rem !important;
+  }
+  .custom-card{
+    width: 270px;
+  }
+}

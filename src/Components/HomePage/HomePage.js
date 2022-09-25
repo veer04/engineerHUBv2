@@ -252,6 +252,25 @@ export default function NavBar() {
         </div>
       </div>
 
+      <div className="about">
+        <Aboutus />
+        {/* <React.Suspense fallback={<>...</>}>
+        <About />
+        </React.Suspense> */}
+      </div>
+      <div className="WhatWeDo">
+        <Whatwedo />
+      </div>
+
+      <div className="magzine">
+        <Magzine />
+      </div>
+      <div className="Events">
+        <Events />
+      </div>
+      <div className="Courses">
+        <Courses />
+      </div>
       <div className="row Studentsfrom2 mobile--view">
         <div className="studenttxt">Companies we Collaborate</div>
 
@@ -303,26 +322,7 @@ export default function NavBar() {
           </Swiper>
         </div>
       </div>
-
-      <div className="about">
-        <Aboutus />
-        {/* <React.Suspense fallback={<>...</>}>
-        <About />
-        </React.Suspense> */}
-      </div>
-      <div className="WhatWeDo">
-        <Whatwedo />
-      </div>
-
-      <div className="magzine">
-        <Magzine />
-      </div>
-      <div className="Events">
-        <Events />
-      </div>
-      <div className="Courses">
-        <Courses />
-      </div>
+        
       <div className="Members" style={{ padding: "0px 0px 4% 0px" }}>
         <Members />
       </div>

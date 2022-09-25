@@ -167,3 +167,11 @@ label {
     align-items: center;
   }
 }
+
+
+@media screen and (max-width: 376px){
+  
+  .cont{
+    padding: 10px 0px ;
+  }
+}
