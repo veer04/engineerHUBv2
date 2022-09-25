@@ -72,11 +72,11 @@
   margin-right: 10%;
 }
 
-ul {
+.abtus-ul {
   list-style-image: url("Ellipse-7.svg");
 }
 
-ul li::before {
+.abtus-ul li::before {
   font-weight: bold;
   display: inline-block;
   width: 1em;
@@ -141,7 +141,7 @@ ul li::before {
     font-size: 12px;
     line-height: 1.2rem;
   }
-  ul {
+  .abtus-ul {
     list-style-image: none;
   }
 }

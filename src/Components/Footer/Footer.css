@@ -140,3 +140,25 @@
     letter-spacing: -1.8px;
   }
 }
+
+@media (min-width: 769px) and (max-width: 991px) {
+  .f_nav:nth-child(3) {
+    flex-wrap: nowrap;
+
+    flex-shrink: 1 !important;
+  }
+  .foot-btn{
+    flex-wrap: nowrap;
+  }
+  .foot-btn div{
+    
+    flex-shrink: 1 !important;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .f_nav {
+    text-align-last: left;
+    flex-basis: 19%;
+  }
+}

@@ -48,16 +48,13 @@ function Card({
           </div>
         </div>
         <p className="card-text">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Arcu, eget
-          suspendisse nunc duis non eget est.Lorem ipsum dolor sit amet,
-          consectetur adipiscing elit. Arcu, eget suspendisse nunc duis non eget
-          est.
+        we are hiring mentors to help guide students on their respective interests and lay a framework to help them ease the process. Interested Candidates can apply. 
         </p>
         <h6 style={{ fontWeight: 700, marginBottom: "1rem" }}>
           Organizer: IIT Delhi
         </h6>
         <div className="d-flex align-items-baseline justify-content-between">
-          <a href="/#" className="btn" style={{ backgroundColor: "#002a36"}}>
+          <a href="/#" className="btnc" style={{ backgroundColor: "#002a36"}}>
             <span style={{ color: "white", fontSize: "0.9rem" }}>
               Apply Now !
             </span>

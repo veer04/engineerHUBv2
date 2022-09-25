@@ -7,7 +7,7 @@
   background-color: #fff;
   height: max-content;
   width: 18rem;
- 
+
   border-radius: 10px;
   border: 2px solid black;
 }
@@ -66,7 +66,6 @@ span {
   font-weight: 400;
   line-height: 17px;
   text-align: center;
- 
 
   padding: 8px;
   margin: 16px 12px 17px 12px;
@@ -94,6 +93,17 @@ span {
 
 .Ment-button:hover {
   transform: scale(1.04);
-  color:#fff;
+  color: #fff;
 }
 
+@media screen and (max-width: 426px) {
+  .Ment-image img {
+    width: 100%;
+    max-width: 126px;
+    height: 75px;
+
+  }
+  .Ment-container{
+    width: 16rem;
+  }
+}

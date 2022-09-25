@@ -1,6 +1,8 @@
 html {
   overflow-x: hidden;
+ 
 }
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
@@ -9,9 +11,48 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
+  background: linear-gradient(186deg, #e6eff8, #f6f9fe);
 }
 
+:root {
+  --lef-col-width: 33%;
+  --color: rgba(1, 60, 76, 1);
+}
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+.swiper-slide {
+  padding-bottom: 30px;
+}
+
+@media (min-width: 320px) and (max-width: 426px) {
+  .swiper-slide {
+    margin-left: 0px;
+  }
+}
+
+@media screen and (max-width: 426px) {
+  .text1 {
+    font-size: 22px;
+  }
+}
+.accordion-button:focus {
+  border-color: #054253;
+}
+
+.accordion-button:not(.collapsed) {
+  color: #054253;
+  background-color: #e7f1ff;
+  box-shadow: inset 0 -1px 0 rgb(0 0 0 / 13%);
+}
+.swiper-slide {
+  display: flex;
+  justify-content: center;
+  transition: all 0.4s ease;
+}
+a {
+  color: #ffffff;
+  text-decoration: none;
 }

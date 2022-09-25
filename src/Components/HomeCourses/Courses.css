@@ -17,9 +17,16 @@
   justify-content: space-between;
 }
 
-@media screen and (max-width: 1024px) {
-   .cardEvent{
+.txt{
+  color: rgba(5, 85, 94, 1);
+}
+
+@media screen and (max-width: 426px) {
+  .cardEvent {
     margin-left: 4%;
-   }
-  
+  }
+
+  .container {
+    padding: 0px 20px;
+  }
 }

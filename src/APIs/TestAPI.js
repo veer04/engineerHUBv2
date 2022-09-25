@@ -2,6 +2,7 @@ import React from "react";
 import axios from "axios";
 
 const TestAPI = () => {
+ 
   const postHiringDetails = async () => {
     try {
       const res = await axios.post(
@@ -56,6 +57,22 @@ const TestAPI = () => {
     console.log(res);
   };
 
+  const postTestimonialDetails = async () => {
+    const time = Date.now().toLocaleString;
+    const response = await axios.post(
+      `https://ehubbackend.herokuapp.com/api/v1/testimonial`,
+      {
+        name: "Rahul",
+        profileImage:
+          "https://www.kapwing.com/resources/how-to-get-an-image-url-from-picture/",
+        description: "Website is very cool and pretty",
+        eventDate: time,
+      }
+    );
+    console.log(response);
+  };
+
+
   return (
     <div>
       <button
@@ -63,6 +80,7 @@ const TestAPI = () => {
           postHiringDetails();
           postEventDetails();
           postResourceDetails();
+          postTestimonialDetails();
         }}
       >
         Post Hiring Details

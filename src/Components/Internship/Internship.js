@@ -21,10 +21,9 @@ const Internship = () => {
 
   return (
     <div className="contained-xl">
-      <div className="heading">Internship & Jobs</div>
-      <div className="texthire">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Non gravida sit
-        nunc duis dui, dui hendrerit suscipit.
+      <div className="heading heading--internship">Internship & Jobs</div>
+      <div className="texthire texthire--internship">
+      engineerhub offers tons of internships & job opportunities for our students & notify them regularly on various social platforms. 
       </div>
       <form className="searchBar">
         <div className="search-btn">
@@ -37,9 +36,10 @@ const Internship = () => {
       </form>
 
       <div className="InternList">
-        {internshipData.map((items) => {
+        {internshipData.map((items,i) => {
           return (
             <InternCard
+              key={i}
               company={items.internCompany}
               position={items.internPosition}
               link={items.internLink}

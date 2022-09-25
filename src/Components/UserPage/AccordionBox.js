@@ -1,0 +1,66 @@
+import React from "react";
+import {Link} from "react-router-dom";
+import Accordion from "react-bootstrap/Accordion";
+import styles from "./AccordionBox.module.css";
+
+const AccordionBox = () => {
+  return (
+    <div className={styles.accordion_box}>
+      <div className={styles.accordion_box_name}>Learning Javascript</div>
+
+      <Accordion
+        defaultActiveKey="0"
+        flush
+        style={{ boxShadow: "21px 21px 21px rgb(201 231 239)" }}
+      >
+        <Accordion.Item eventKey="0">
+          <Accordion.Header>Introduction to Javascript</Accordion.Header>
+          <Accordion.Body style={{ display: "flex" , gap: "20px"}}>
+            Learn about what Intermediate JavaScript has in store! 
+            <Link to="/">
+              Watch now
+            </Link>
+          </Accordion.Body>
+        </Accordion.Item>
+        <Accordion.Item eventKey="1">
+          <Accordion.Header>Classes</Accordion.Header>
+          <Accordion.Body>
+            Learn how to create classes and use inheritance to minimize
+            redundancy in your code.
+          </Accordion.Body>
+        </Accordion.Item>
+        <Accordion.Item eventKey="2">
+          <Accordion.Header>Modules</Accordion.Header>
+          <Accordion.Body>
+            Learn how to create classes and use inheritance to minimize
+            redundancy in your code. Learn how to use JavaScript modules, a way
+            to define reusable logic in your programs.
+          </Accordion.Body>
+        </Accordion.Item>
+        <Accordion.Item eventKey="3">
+          <Accordion.Header>Promises</Accordion.Header>
+          <Accordion.Body>
+            Learn how to write asynchronous JavaScript with the Promises Syntax.
+          </Accordion.Body>
+        </Accordion.Item>
+        <Accordion.Item eventKey="4">
+          <Accordion.Header>Async-Await</Accordion.Header>
+          <Accordion.Body>
+            Learn about asynchronous programming and leverage promises in
+            JavaScript.
+          </Accordion.Body>
+        </Accordion.Item>
+        <Accordion.Item eventKey="5">
+          <Accordion.Header>Requests</Accordion.Header>
+          <Accordion.Body>
+            In this course, you will learn the benefits of asynchronous
+            JavaScript properties. You will create calls to various APIs using
+            four different techniques.
+          </Accordion.Body>
+        </Accordion.Item>
+      </Accordion>
+    </div>
+  );
+};
+
+export default AccordionBox;

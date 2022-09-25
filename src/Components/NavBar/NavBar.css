@@ -1,15 +1,13 @@
 .NAvbarBackground {
-  background-color: transparent;
+  background-color: rgba(0, 42, 54, 1);
 }
 .Navbar-color {
-  color: rgba(0, 42, 54, 1);
-}
-.navbar-dark .navbar-nav .nav-link {
-  color: rgba(0, 42, 54, 1);
+  color: aliceblue;
 }
 .navelements {
   font-family: "poppins";
   color: aliceblue;
+
   align-self: center;
 }
 .dropdown-toggle::after {
@@ -40,6 +38,10 @@ a.dropdown-item {
 }
 .navd {
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16);
+}
+
+.subNavbar {
+  display: none;
 }
 @media screen and (max-width: 1463px) {
   .logo {
@@ -107,7 +109,66 @@ a.dropdown-item {
   .ham-icon img {
     display: flex;
   }
-  .nav-div {
+  .navelements {
     display: none;
   }
+  .mobileNav {
+    display: flex;
+    flex-direction: column;
+  }
+}
+@media (max-width: 426px) {
+  .subNavbar {
+    display: flex;
+    gap: 7px;
+    position: relative;
+    top:-1px;
+    justify-content: center;
+    padding-top: 5%;
+    padding-bottom: 4%;
+    background-color: rgba(0, 42, 54, 1);
+  }
+ 
+}
+.homesbn {
+  color: green;
+  font-size: 0.9rem;
+}
+.domainssbn {
+  color: green;
+  font-size: 0.9rem;
+}
+.coursessbn {
+  color: green;
+  font-size: 0.9rem;
+}
+
+.eventssbn {
+  color: green;
+  font-size: 0.9rem;
+}
+.internshipssbn {
+  color: green;
+  font-size: 0.9rem;
+}
+
+.bg-light {
+    background: linear-gradient(rgba(18,131,129,1),rgba(0,42,54,1)) !important;
+}
+.navbar-light .navbar-nav .nav-link {
+  color: white !important;
+  align-self: center;
+}
+.navbar-toggler {
+  background-color: #fff3f3;
+}
+.navbar-collapse{
+  flex-grow: 0;
+
+}
+
+@media screen and (max-width: 426px){
+ .navbar{
+  justify-content: space-evenly;
+ }
 }

@@ -7,6 +7,7 @@ import {
   COMPANYMEMBER_LID3,
 } from "../../config/StaticLinks";
 const Mentor = ({
+  coursesDes= "engineerhub is equipped with skilled industrialists: ",
   courses = "Mentors for DSA",
   teamMembers = [
     {
@@ -33,8 +34,7 @@ const Mentor = ({
     <div className="mentor-container">
       <div className="heading">{courses}</div>
       <div className="texthire">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Non gravida sit
-        nunc duis dui, dui hendrerit suscipit.
+       {coursesDes}
       </div>
       <div className="card-section">
         {teamMembers.map((member) => {

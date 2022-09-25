@@ -16,3 +16,31 @@
 
   box-shadow: 0 8px 21px 0 rgb(0 0 0 / 15%);
 }
+
+.card-text--hirin{
+  color: #ffff;
+  padding-top: 0;
+}
+
+@media screen and (max-width:768px){
+  .custom-card {
+
+    width: 300px;
+  }
+
+  .card-text{
+    font-size: 13px;
+  }
+
+  .btnc{
+    /* size: 10px; */
+    font-size: 20px;
+  }
+}
+
+/* @media screen and (max-width:409px){
+  .custom-card {
+
+    width: 350px;
+  }
+} */

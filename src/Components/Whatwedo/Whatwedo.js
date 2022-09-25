@@ -129,7 +129,11 @@ function Whatwedo() {
             </Carousel>
           </div>
 
-          <div className="contactButtons d-flex justify-content-evenly flex-wrap">
+          <div className="contactButtons d-flex flex-column" >
+            <div className="align-self-center comuni">
+            Join our Community & let’s grow together...
+            </div>
+            <div className="d-flex justify-content-evenly flex">
             <button className="Whatsapp">
               <WhatsAppIcon
                 sx={{
@@ -162,6 +166,7 @@ function Whatwedo() {
               />
               Join Linkedin
             </button>
+            </div>
           </div>
         </div>
       </div>

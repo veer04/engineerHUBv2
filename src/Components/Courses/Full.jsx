@@ -34,10 +34,10 @@ function Card() {
               fontSize: "18px",
               lineHeight: "32px",
               paddingTop: "0",
-              color: "#1b5b62",
+              color: "rgba(255, 199, 0, 1)",
             }}
           >
-            App Development
+            Frontend Development
           </h5>
           <div>
             <ShareOutlinedIcon
@@ -47,21 +47,20 @@ function Card() {
           </div>
         </div>
         <p className="card-text" style={{ fontSize: "12px" }}>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Arcu, eget
-          suspendisse nunc duis non eget est.Lorem ipsum dolor sit amet.
+        We help you build your skills by offering free Frontend development material to gain fundamental knowledge of Html5, CSS, JS and more. 
         </p>
         {/* <h6 style={{ fontWeight: 700 }}>Organizer: IIT Delhi</h6> */}
         <div className="btn-container d-flex justify-content-between align-items-baseline">
           <Link
             to="/userpage"
             className="default-btn"
-            style={{ backgroundColor: "#0d718c" }}
+            style={{ backgroundColor: "rgba(255, 199, 0, 1)" }}
           >
-            <div style={{ color: "white" }}>Register</div>
+            <div style={{ color: "#000000" , fontWeight: 400 }}>Register</div>
           </Link>
           <p
             className="d-flex card-date fst-normal align-items-center justify-content-center"
-            style={{ fontSize: "14px", color:"#1b5b62", fontWeight:"bold" }}
+            style={{ fontSize: "14px", color:"#fff", fontWeight:"bold" }}
           >
             Last date: dd/mm/yy
           </p>

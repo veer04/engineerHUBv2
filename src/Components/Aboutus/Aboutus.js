@@ -30,7 +30,7 @@ function Aboutus() {
           <div className="col-lg-5">
             <div className="row aboutusbullets1">
               <div className="tips">
-                <ul>
+                <ul className="abtus-ul">
                   <li>
                     {" "}
                     Providing students valuable content and personal assistance.
@@ -40,7 +40,7 @@ function Aboutus() {
             </div>
             <div className="row aboutusbullets2">
               <div className="tips">
-                <ul>
+                <ul className="abtus-ul">
                   {" "}
                   <li>
                     {" "}
@@ -53,7 +53,7 @@ function Aboutus() {
             </div>
             <div className="row aboutusbullets3">
               <div className="tips">
-                <ul>
+                <ul className="abtus-ul">
                   {" "}
                   <li>
                     {" "}

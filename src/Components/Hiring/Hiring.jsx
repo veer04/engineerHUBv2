@@ -23,8 +23,7 @@ const Hiring = () => {
       <div className="heading">We are Hiring !!</div>
 
       <div className="texthire">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Non gravida sit
-        nunc duis dui, dui hendrerit suscipit.
+      engineerhub is hiring students to encourage their efforts & help them excel in the following domains. 
       </div>
 
       <div

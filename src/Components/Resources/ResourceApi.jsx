@@ -16,7 +16,7 @@ function ResourceApi({ heading, text }) {
     };
     console.log(resourceData);
     getResourceDetials();
-  }, []);
+  }, );
 
   return (
     <div className="container-hiring">
