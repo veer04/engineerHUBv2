@@ -10,15 +10,18 @@ import VideoCourses from "./VideoCourses";
 
 function User() {
   return (
-    <div className="d-flex justify-content-evenly">
-      <div className="custom-courses-list">
+    <div className="  row">
+  
+      <div className="cont-right col-lg-8 order-sm-1 order-lg-2 "> 
+        <VideoCourses className="nottobedisplayed"/>
+      </div>
+      <div className="custom-courses-list col-lg-4  order-sm-2 order-lg-1">
+      
         <AccordionBox />
         <AccordionBox />
         <AccordionBox />
       </div>
-      <div className="cont-right"> 
-        <VideoCourses/>
-      </div>
+      
     </div>
   );
 }
