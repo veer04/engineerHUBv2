@@ -1,8 +1,4 @@
 import React from "react";
-// // import {Link} from "react-router-dom";
-// // import Accordion from "react-bootstrap/Accordion";
-// // import styles from "../UserPage/AccordionBox.module.css";
-// // import code from "./code.jpeg";
 
 const Dropdown = () => {
   return (
@@ -34,7 +30,7 @@ const Dropdown = () => {
         <hr/>
       </div>
       <div class="accordion-body" style={{paddingTop:"0"}}>
-      <a href="/https://discord.gg/ZMZAEZ5NfA" target="_blank" className="a-item-domain">
+      <a href="https://discord.gg/ZMZAEZ5NfA" target="_blank" className="a-item-domain">
         Ask your query
         </a>
       </div>
@@ -66,7 +62,7 @@ const Dropdown = () => {
         <hr/>
       </div>
       <div class="accordion-body">
-      <a href="/https://discord.gg/ZMZAEZ5NfA" target="_blank" className="a-item-domain">
+      <a href="https://discord.gg/ZMZAEZ5NfA" target="_blank" className="a-item-domain">
         Ask your query
         </a>
       </div>
@@ -98,7 +94,7 @@ const Dropdown = () => {
         <hr/>
       </div>
       <div class="accordion-body">
-      <a href="/https://discord.gg/ZMZAEZ5NfA" target="_blank" className="a-item-domain">
+      <a href="https://discord.gg/ZMZAEZ5NfA" target="_blank" className="a-item-domain">
         Ask your query
         </a>
       </div>
@@ -130,7 +126,7 @@ const Dropdown = () => {
         <hr/>
       </div>
       <div class="accordion-body">
-      <a href="/https://discord.gg/ZMZAEZ5NfA" target="_blank" className="a-item-domain">
+      <a href="https://discord.gg/ZMZAEZ5NfA" target="_blank" className="a-item-domain">
         Ask your query
         </a>
       </div>
@@ -162,7 +158,7 @@ const Dropdown = () => {
         <hr/>
       </div>
       <div class="accordion-body">
-      <a href="/https://discord.gg/ZMZAEZ5NfA" target="_blank" className="a-item-domain">
+      <a href="https://discord.gg/ZMZAEZ5NfA" target="_blank" className="a-item-domain">
         Ask your query
         </a>
       </div>
@@ -194,7 +190,7 @@ const Dropdown = () => {
         <hr/>
       </div>
       <div class="accordion-body">
-      <a href="/https://discord.gg/ZMZAEZ5NfA" target="_blank" className="a-item-domain">
+      <a href="https://discord.gg/ZMZAEZ5NfA" target="_blank" className="a-item-domain">
         Ask your query
         </a>
       </div>
@@ -226,7 +222,7 @@ const Dropdown = () => {
         <hr/>
       </div>
       <div class="accordion-body">
-      <a href="/https://discord.gg/ZMZAEZ5NfA" target="_blank" className="a-item-domain">
+      <a href="https://discord.gg/ZMZAEZ5NfA" target="_blank" className="a-item-domain">
         Ask your query
         </a>
       </div>

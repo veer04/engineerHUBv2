@@ -15,6 +15,10 @@ import WorkOutlineOutlinedIcon from "./subNavbarIcon/WorkOutlineOutlinedIcon.svg
 import HomeOutlinedIcon from "./subNavbarIcon/HomeOutlinedIcon.svg";
 import CalendarTodayOutlinedIcon from "./subNavbarIcon/CalendarTodayOutlinedIcon.png";
 
+
+
+
+
 const NavBar = () => {
 
 
@@ -81,6 +85,7 @@ const NavBar = () => {
                     target="_blank"
                   >
                     HandBook
+                    
                   </NavDropdown.Item>
                   <NavDropdown.Item href="/resources">
                     Resources
