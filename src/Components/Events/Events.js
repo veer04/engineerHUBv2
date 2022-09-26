@@ -11,6 +11,30 @@ import "swiper/css/pagination";
 import "swiper/css";
 import "swiper/css/autoplay";
 import EventCard from "./EventCard";
+
+export const eventStaticData = [
+  {
+    eventTitle1: "Coding",
+    eventTitle2: "Contests",
+    eventDescription:
+      "Various Coding Contests are organised to help students evaluate their coding skills and test their abilities.We help you achieve the most remarkable results. We offer various materials covering fundamentals ",
+    lastDate: "22/08/2023",
+  },
+  {
+    eventTitle1: "Workshops",
+    eventTitle2: " ",
+    eventDescription:
+      "We organise various workshops to guide students by giving them a basic framework of technical subjects by skilled mentors . We offer various materials covering fundamentals & advanced topics",
+    lastDate: "22/11/2022",
+  },
+  {
+    eventTitle1: "Weekend with ",
+    eventTitle2: "Us",
+    eventDescription:
+      "A weekly event named `Weekend with us` Is organised to give a live interactive session by mentors/ professionals to give an overview of the placements & train the students accordingly.",
+    lastDate: "22/02/2023",
+  },
+];
 function Events() {
   const [eventData, setEventData] = useState([]);
   useEffect(() => {
@@ -41,7 +65,6 @@ function Events() {
             autoplay={{ delay: 3000 }}
             spaceBetween={26}
             breakpoints={{
-          
               768: {
                 width: 700,
                 slidesPerView: 2,
@@ -58,21 +81,17 @@ function Events() {
             onSwiper={(swiper) => console.log(swiper)}
             onSlideChange={() => console.log("slide change")}
           >
-            <SwiperSlide>
-              <EventCard />
-            </SwiperSlide>
-            <SwiperSlide>
-              <EventCard />
-            </SwiperSlide>
-            <SwiperSlide>
-              <EventCard />
-            </SwiperSlide>
-            <SwiperSlide>
-              <EventCard />
-            </SwiperSlide>
-            <SwiperSlide>
-              <EventCard />
-            </SwiperSlide>
+            {eventStaticData.map((c, i) => (
+              <SwiperSlide>
+                <EventCard
+                  key={i * 30}
+                  eventTitle1={c.eventTitle1}
+                  eventTitle2={c.eventTitle2}
+                  eventDescription={c.eventDescription}
+                  lastDate={c.lastDate}
+                />
+              </SwiperSlide>
+            ))}
           </Swiper>
         </div>
       </div>
