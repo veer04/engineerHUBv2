@@ -64,7 +64,7 @@ export default function NavBar() {
                   start={500}
                   end={750}
                   className="headercardtext"
-                  duration={0.7}
+                  duration={1.5}
                   afterEffects={true}
                   smooth={true}
                   smartEasingAmount={true}
@@ -111,7 +111,7 @@ export default function NavBar() {
                   start={0}
                   end={18}
                   className="headercardtext"
-                  duration={1}
+                  duration={1.5}
                   smooth={true}
                   smartEasingAmount={true}
                   delay={0}
