@@ -19,7 +19,7 @@ const Dropdown = () => {
           <a target="_blank" href="http://www.africau.edu/images/default/sample.pdf" className="a-item-domain">
         Handbook
         </a>
-        <hr/>
+        <hr className="drp-hr"/>
       </div>
       <div class="accordion-body domain-body">
       <a href="/resources" className="a-item-domain">
@@ -51,16 +51,19 @@ const Dropdown = () => {
           <a target="_blank" href="http://www.africau.edu/images/default/sample.pdf" className="a-item-domain">
         Handbook
         </a>
+        <hr/>
       </div>
       <div class="accordion-body">
       <a href="/resources" className="a-item-domain">
         Resources
         </a>
+        <hr/>
       </div>
       <div class="accordion-body">
       <a href="/mentor" className="a-item-domain">
         Contact Mentor
         </a>
+        <hr/>
       </div>
       <div class="accordion-body">
       <a href="/https://discord.gg/ZMZAEZ5NfA" target="_blank" className="a-item-domain">
@@ -80,16 +83,19 @@ const Dropdown = () => {
           <a target="_blank" href="http://www.africau.edu/images/default/sample.pdf" className="a-item-domain">
         Handbook
         </a>
+        <hr/>
       </div>
       <div class="accordion-body">
       <a href="/resources" className="a-item-domain">
         Resources
         </a>
+        <hr/>
       </div>
       <div class="accordion-body">
       <a href="/mentor" className="a-item-domain">
         Contact Mentor
         </a>
+        <hr/>
       </div>
       <div class="accordion-body">
       <a href="/https://discord.gg/ZMZAEZ5NfA" target="_blank" className="a-item-domain">
@@ -109,16 +115,19 @@ const Dropdown = () => {
           <a target="_blank" href="http://www.africau.edu/images/default/sample.pdf" className="a-item-domain">
         Handbook
         </a>
+        <hr/>
       </div>
       <div class="accordion-body">
       <a href="/resources" className="a-item-domain">
         Resources
         </a>
+        <hr/>
       </div>
       <div class="accordion-body">
       <a href="/mentor" className="a-item-domain">
         Contact Mentor
         </a>
+        <hr/>
       </div>
       <div class="accordion-body">
       <a href="/https://discord.gg/ZMZAEZ5NfA" target="_blank" className="a-item-domain">
@@ -138,16 +147,19 @@ const Dropdown = () => {
           <a target="_blank" href="http://www.africau.edu/images/default/sample.pdf" className="a-item-domain">
         Handbook
         </a>
+        <hr/>
       </div>
       <div class="accordion-body">
       <a href="/resources" className="a-item-domain">
         Resources
         </a>
+        <hr/>
       </div>
       <div class="accordion-body">
       <a href="/mentor" className="a-item-domain">
         Contact Mentor
         </a>
+        <hr/>
       </div>
       <div class="accordion-body">
       <a href="/https://discord.gg/ZMZAEZ5NfA" target="_blank" className="a-item-domain">
@@ -167,16 +179,19 @@ const Dropdown = () => {
           <a target="_blank" href="http://www.africau.edu/images/default/sample.pdf" className="a-item-domain align-content-center">
         Handbook
         </a>
+        <hr/>
       </div>
       <div class="accordion-body">
       <a href="/resources" className="a-item-domain">
         Resources
         </a>
+        <hr/>
       </div>
       <div class="accordion-body">
       <a href="/mentor" className="a-item-domain">
         Contact Mentor
         </a>
+        <hr/>
       </div>
       <div class="accordion-body">
       <a href="/https://discord.gg/ZMZAEZ5NfA" target="_blank" className="a-item-domain">
@@ -196,16 +211,19 @@ const Dropdown = () => {
           <a target="_blank" href="http://www.africau.edu/images/default/sample.pdf" className="a-item-domain">
         Handbook
         </a>
+        <hr/>
       </div>
       <div class="accordion-body">
       <a href="/resources" className="a-item-domain">
         Resources
         </a>
+        <hr/>
       </div>
       <div class="accordion-body">
       <a href="/mentor" className="a-item-domain">
         Contact Mentor
         </a>
+        <hr/>
       </div>
       <div class="accordion-body">
       <a href="/https://discord.gg/ZMZAEZ5NfA" target="_blank" className="a-item-domain">
