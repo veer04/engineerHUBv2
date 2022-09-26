@@ -4,12 +4,12 @@
 }
 
 .containerc {
-  background-color: #002a36;
+  background-color: #014051;
   margin: auto;
-  border-radius: 30px;
+  /* border-radius: 30px; */
   /* padding-bottom: 80px; */
-   padding: 35px 0px 35px 0px;
-  margin: 20px 20px 20px 20px;
+  padding: 35px 0px 35px 0px;
+  /* margin: 20px 20px 20px 20px; */
 }
 
 .heading {
@@ -34,15 +34,36 @@
   padding-top: 0px;
 }
 
-@media screen and (max-width:1024px){
-  .heading{
+@media screen and (max-width: 1024px) {
+  .heading {
     font-size: 45px;
   }
 }
 
-@media screen and (max-width:768px){
-  .heading{
-    line-height: 51px;
+@media screen and (max-width: 426px) {
+  .heading {
+    font-size: 25px;
+    line-height: normal;
+    margin: 0 0 10px 0;
+  }
+  .text {
+    font-size: 12px !important;
+    line-height: 20px !important;
+  }
+  .texthire {
+    font-size: 12px !important;
+    line-height: 20px !important;
   }
 }
 
+@media screen and (max-width: 320px) {
+  .heading {
+    padding: 0 0 0 20px;
+  }
+  .text {
+    padding: 20px;
+  }
+  .texthire {
+    padding: 20px;
+  }
+}

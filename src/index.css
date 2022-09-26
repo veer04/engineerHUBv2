@@ -56,3 +56,18 @@ a {
   color: #ffffff;
   text-decoration: none;
 }
+
+@media (min-width: 427px) {
+  .mobile--view {
+    display: none;
+  }
+}
+@media screen and (max-width: 426px) {
+  .desk-tab--view {
+    display: none;
+  }
+}
+
+.dark-bg{
+  color:rgba(1, 60, 76, 1) !important;
+}

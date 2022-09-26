@@ -39,7 +39,7 @@ function Events() {
                 slidesPerView: 2,
               },
               1024: {
-                width: 900,
+                width: 940,
                 slidesPerView: 3,
               },
               1440: {

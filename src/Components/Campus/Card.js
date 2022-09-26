@@ -47,20 +47,20 @@ function Card({
             />
           </div>
         </div>
-        <p className="card-text">
+        <p className="card-text dark-bg">
         we are hiring mentors to help guide students on their respective interests and lay a framework to help them ease the process. Interested Candidates can apply. 
         </p>
         <h6 style={{ fontWeight: 700, marginBottom: "1rem" }}>
           Organizer: IIT Delhi
         </h6>
         <div className="d-flex align-items-baseline justify-content-between">
-          <a href="/#" className="btnc" style={{ backgroundColor: "#002a36"}}>
-            <span style={{ color: "white", fontSize: "0.9rem" }}>
+          <a href="/#" className="btnc" style={{ backgroundColor: "#002a36" , borderRadius: "10px"}}>
+            <span style={{ color: "white", fontSize: "0.9rem", padding: "8px 4px" , }}>
               Apply Now !
             </span>
           </a>
           <p
-            className="d-flex fst-normal align-items-baseline"
+            className="d-flex fst-normal align-items-baseline campus--date"
             // style={{ marginLeft: "4.4rem" }}
           >
             Last date: {cDate}

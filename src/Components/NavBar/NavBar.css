@@ -7,7 +7,6 @@
 .navelements {
   font-family: "poppins";
   color: aliceblue;
-  
   align-self: center;
 }
 .dropdown-toggle::after {
@@ -40,7 +39,7 @@ a.dropdown-item {
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16);
 }
 
-.subNavbar{
+.subNavbar {
   display: none;
 }
 @media screen and (max-width: 1463px) {
@@ -105,52 +104,75 @@ a.dropdown-item {
   padding-right: 100px;
 }
 
-.ham-icon img{
+.ham-icon img {
   display: none;
   height: 32px;
 }
 
-@media (max-width: 1023px){
-  .ham-icon img{
+@media (max-width: 1023px) {
+  .ham-icon img {
     display: flex;
   }
-.navelements{
-  display: none;
-}
-.mobileNav{
-  display: flex;
-  flex-direction:column ;
-}
-
-}
-@media (max-width:768px){
-  .subNavbar{
+  .navelements {
+    display: none;
+  }
+  .mobileNav {
     display: flex;
-    justify-content: space-evenly;
-   padding-left: 25px;
+    flex-direction: column;
+  }
+}
+@media (max-width: 426px) {
+  .subNavbar {
+    display: flex;
+    gap: 7px;
+    position: relative;
+    top:-1px;
+    justify-content: center;
     padding-top: 5%;
     padding-bottom: 4%;
     background-color: rgba(0, 42, 54, 1);
   }
+ 
 }
-.homesbn{
+.homesbn {
   color: green;
   font-size: 0.9rem;
 }
-.domainssbn{
+.domainssbn {
   color: green;
   font-size: 0.9rem;
 }
-.coursessbn{
+.coursessbn {
   color: green;
   font-size: 0.9rem;
 }
 
-.eventssbn{
+.eventssbn {
   color: green;
   font-size: 0.9rem;
 }
-.internshipssbn{
+.internshipssbn {
   color: green;
   font-size: 0.9rem;
+}
+
+.bg-light {
+    background: #002a36 !important;
+}
+.navbar-light .navbar-nav .nav-link {
+  color: white !important;
+  align-self: center;
+}
+.navbar-toggler {
+  background-color: #fff3f3;
+}
+.navbar-collapse{
+  flex-grow: 0;
+
+}
+
+@media screen and (max-width: 426px){
+ .navbar{
+  justify-content: space-evenly;
+ }
 }

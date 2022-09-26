@@ -47,7 +47,7 @@ function Card({ bookTitle, pdfUrl }) {
             />
           </div>
         </div>
-        <p className="card-text custom-card-text-2">
+        <p className="card-text custom-card-text-2 dark-bg">
           Our developers aim at providing students with the best knowledge to
           help them create high-performing & user-friendly apps through a
           strategic IT framework.

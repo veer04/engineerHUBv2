@@ -17,8 +17,8 @@
   box-shadow: 0 8px 21px 0 rgb(0 0 0 / 15%);
 }
 
-.card-text{
-  color: black;
+.card-text--hirin{
+  color: #ffff;
   padding-top: 0;
 }
 
@@ -44,3 +44,19 @@
     width: 350px;
   }
 } */
+
+@media screen and (max-width:426px) {
+    .campus--date{
+      font-size: 12px;
+    }
+
+}
+
+@media screen and (max-width: 320px) {
+  .card-body {
+    padding: 0rem !important;
+  }
+  .custom-card{
+    width: 270px;
+  }
+}

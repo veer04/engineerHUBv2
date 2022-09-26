@@ -46,20 +46,25 @@ export default function NavBar() {
     <>
       <div className="row headearpart">
         <div className="col-lg-7 ">
-          <div className="tagContainer">
+          <div className="tagContainer desk-tab--view">
             <h1 className="headerbrandname">engineerHUB</h1>
             <h5 className="headerbelow">Students . Campus . Industries</h5>
           </div>
           <div className="row headerContainer">
             <div className="col-4 headercard">
-              <img src={campusIcon} alt="Campus" />
+              <img
+                classname="c-img"
+                src={campusIcon}
+                alt="Campus"
+                style={{ width: "100px" }}
+              />
               {/* <h1 className="headercardtext">750+</h1> */}
               <h1 className="headercardtext">
                 <CountUp
                   start={500}
                   end={750}
                   className="headercardtext"
-                  duration={0.7}
+                  duration={1.5}
                   afterEffects={true}
                   smooth={true}
                   smartEasingAmount={true}
@@ -71,14 +76,19 @@ export default function NavBar() {
               <h6 className="innerfont">campus</h6>
             </div>
             <div className="col-4 headercard">
-              <img src={GradIcon} alt="Graduate" />
+              <img
+                classname="c-img"
+                src={GradIcon}
+                alt="Graduate"
+                style={{ width: "90px" }}
+              />
               {/* <h1 className="headercardtext">50K+</h1> */}
               <h1 className="headercardtext">
                 <CountUp
                   start={0}
                   end={50}
                   className="headercardtext"
-                  duration={0.9}
+                  duration={1.9}
                   smooth={true}
                   smartEasingAmount={true}
                   delay={0}
@@ -89,14 +99,19 @@ export default function NavBar() {
               <h6 className="innerfont">Students</h6>
             </div>
             <div className="col-4 headercard">
-              <img src={BuildingIcon} alt="Building" />
+              <img
+                classname="c-img"
+                src={BuildingIcon}
+                alt="Building"
+                style={{ width: "90px" }}
+              />
               {/* <h1 className="headercardtext">18+</h1> */}
               <h1 className="headercardtext">
                 <CountUp
                   start={0}
                   end={18}
                   className="headercardtext"
-                  duration={1}
+                  duration={1.5}
                   smooth={true}
                   smartEasingAmount={true}
                   delay={0}
@@ -118,137 +133,144 @@ export default function NavBar() {
             controls={false}
           />
         </div>
-      </div>
 
-      <div className="desk-tab--view">
-        <div class="header">
+        <div className="desk-tab--view" style={{ paddingBottom: "0px" }}>
+          <div class="header">
+            <div className="studenttxt">Our students comes from</div>
+          </div>
+          <div class="row1-container">
+            <div class="box box-down cyan">
+              <div className="comp studentfrom2">
+                <img src={IITK} alt="swiggy" className="tcsimage imgpos" />
+              </div>
+              <h2 className="clgname">
+                NIT <br />
+                PATNA
+              </h2>
+            </div>
+
+            <div class="box red">
+              <div className="comp studentfrom2">
+                <img src={IITK} alt="swiggy" className="tcsimage imgpos" />
+              </div>
+              <h2 className="clgname">
+                IIT <br />
+                KANPUR
+              </h2>
+            </div>
+
+            <div class="box box-down blue">
+              <div className="comp studentfrom2">
+                <img src={IITK} alt="swiggy" className="tcsimage imgpos" />
+              </div>
+              <h2 className="clgname">
+                NIT <br />
+                ALLAHABAD
+              </h2>
+            </div>
+          </div>
+          <div class="row2-container">
+            <div class="box orange">
+              <div className="comp studentfrom2">
+                <img src={IITK} alt="swiggy" className="tcsimage imgpos" />
+              </div>
+              <h2 className="clgname">
+                NIT <br />
+                KURUKSHETRA
+              </h2>
+            </div>
+          </div>
+
+          <div class="header boxheadeer">
+            <div className="studenttxt">Companies we Collaborate</div>
+          </div>
+          <div class="row1-container">
+            <div class="box box-down cyan">
+              <div className="comp studentfrom2">
+                <img src={tcs} alt="tcs" className="tcsimage" />
+              </div>
+            </div>
+
+            <div class="box red">
+              <div className="comp studentfrom2">
+                <img src={infosys} alt="infosys" className="tcsimage" />
+              </div>
+            </div>
+
+            <div class="box box-down blue">
+              <div className="comp studentfrom2">
+                <img src={swiggy} alt="swiggy" className="tcsimage" />
+              </div>
+            </div>
+          </div>
+          <div class="row2-container">
+            <div class="box orange">
+              <div className="comp studentfrom2">
+                <img src={swiggy} alt="swiggy" className="tcsimage" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="row Studentsfrom mobile--view">
           <div className="studenttxt">Our students comes from</div>
-        </div>
-        <div class="row1-container">
-          <div class="box box-down cyan">
-            <div className="comp studentfrom2">
-              <img src={IITK} alt="swiggy" className="tcsimage imgpos" />
-            </div>
-            <h2 className="clgname">NIT PATNA</h2>
-            <p className="textfor">
-              Lorem ipsum dolor sit, Lorem ipsum dolor sit
-            </p>
-          </div>
+          <Swiper
+            modules={[Autoplay]}
+            loop={true}
+            // autoplay={{ delay: 4000 }}
 
-          <div class="box red">
-            <div className="comp studentfrom2">
-              <img src={IITK} alt="swiggy" className="tcsimage imgpos" />
-            </div>
-            <h2 className="clgname">IIT KANPUR</h2>
-            <p className="textfor">
-              Lorem ipsum dolor sit, Lorem ipsum dolor sit
-            </p>
-          </div>
-
-          <div class="box box-down blue">
-            <div className="comp studentfrom2">
-              <img src={IITK} alt="swiggy" className="tcsimage imgpos" />
-            </div>
-            <h2 className="clgname">NIT ALLAHABAD</h2>
-            <p className="textfor">
-              Lorem ipsum dolor sit, Lorem ipsum dolor sit
-            </p>
-          </div>
-        </div>
-        <div class="row2-container">
-          <div class="box orange">
-            <div className="comp studentfrom2">
-              <img src={IITK} alt="swiggy" className="tcsimage imgpos" />
-            </div>
-            <h2 className="clgname">NIT KURUKSHETRA</h2>
-            <p className="textfor">
-              Lorem ipsum dolor sit, Lorem ipsum dolor sit
-            </p>
-          </div>
-        </div>
-
-        <div class="header boxheadeer">
-          <div className="studenttxt">Companies we Collaborate</div>
-        </div>
-        <div class="row1-container">
-          <div class="box box-down cyan">
-            <div className="comp studentfrom2">
-              <img src={tcs} alt="tcs" className="tcsimage" />
-            </div>
-            <p className="textfor">
-              Lorem ipsum dolor sit, Lorem ipsum dolor sit
-            </p>
-          </div>
-
-          <div class="box red">
-            <div className="comp studentfrom2">
-              <img src={infosys} alt="infosys" className="tcsimage" />
-            </div>
-            <p className="textfor">
-              Lorem ipsum dolor sit, Lorem ipsum dolor sit
-            </p>
-          </div>
-
-          <div class="box box-down blue">
-            <div className="comp studentfrom2">
-              <img src={swiggy} alt="swiggy" className="tcsimage" />
-            </div>
-            <p className="textfor">
-              Lorem ipsum dolor sit, Lorem ipsum dolor sit
-            </p>
-          </div>
-        </div>
-        <div class="row2-container">
-          <div class="box orange">
-            <div className="comp studentfrom2">
-              <img src={swiggy} alt="swiggy" className="tcsimage" />
-            </div>
-            <p className="textfor">
-              Lorem ipsum dolor sit, Lorem ipsum dolor sit
-            </p>
-          </div>
+            breakpoints={{
+              425: {
+                width: 350,
+                slidesPerView: 1,
+              },
+            }}
+            onSwiper={(swiper) => console.log(swiper)}
+            onSlideChange={() => console.log("slide change")}
+          >
+            <SwiperSlide>
+              {" "}
+              <div className="col-lg-2 studentfrom">IIT Kanpur</div>{" "}
+            </SwiperSlide>
+            <SwiperSlide>
+              {" "}
+              <div className="col-lg-2 studentfrom">IIT Roorkee</div>{" "}
+            </SwiperSlide>
+            <SwiperSlide>
+              {" "}
+              <div className="col-lg-2 studentfrom">NIT Delhi</div>{" "}
+            </SwiperSlide>
+            <SwiperSlide>
+              {" "}
+              <div className="col-lg-2 studentfrom">IIIT Vadodra</div>{" "}
+            </SwiperSlide>
+            <SwiperSlide>
+              {" "}
+              <div className="col-lg-2 studentfrom">IIT Bombay</div>{" "}
+            </SwiperSlide>
+          </Swiper>
         </div>
       </div>
 
-      <div className="row Studentsfrom mobile--view">
-        <div className="studenttxt">Our students comes from</div>
-        <Swiper
-          modules={[Autoplay]}
-          loop={true}
-          // autoplay={{ delay: 4000 }}
-
-          breakpoints={{
-            425: {
-              width: 350,
-              slidesPerView: 1,
-            },
-          }}
-          onSwiper={(swiper) => console.log(swiper)}
-          onSlideChange={() => console.log("slide change")}
-        >
-          <SwiperSlide>
-            {" "}
-            <div className="col-lg-2 studentfrom">IIT Kanpur</div>{" "}
-          </SwiperSlide>
-          <SwiperSlide>
-            {" "}
-            <div className="col-lg-2 studentfrom">IIT Roorkee</div>{" "}
-          </SwiperSlide>
-          <SwiperSlide>
-            {" "}
-            <div className="col-lg-2 studentfrom">NIT Delhi</div>{" "}
-          </SwiperSlide>
-          <SwiperSlide>
-            {" "}
-            <div className="col-lg-2 studentfrom">IIIT Vadodra</div>{" "}
-          </SwiperSlide>
-          <SwiperSlide>
-            {" "}
-            <div className="col-lg-2 studentfrom">IIT Bombay</div>{" "}
-          </SwiperSlide>
-        </Swiper>
+      <div className="about">
+        <Aboutus />
+        {/* <React.Suspense fallback={<>...</>}>
+        <About />
+        </React.Suspense> */}
+      </div>
+      <div className="WhatWeDo">
+        <Whatwedo />
       </div>
 
+      <div className="magzine">
+        <Magzine />
+      </div>
+      <div className="Events">
+        <Events />
+      </div>
+      <div className="Courses">
+        <Courses />
+      </div>
       <div className="row Studentsfrom2 mobile--view">
         <div className="studenttxt">Companies we Collaborate</div>
 
@@ -257,10 +279,7 @@ export default function NavBar() {
             modules={[Autoplay]}
             loop={true}
             autoplay={{ delay: 4000 }}
-         
-            breakpoints={{
-           
-            }}
+            breakpoints={{}}
             onSwiper={(swiper) => console.log(swiper)}
             onSlideChange={() => console.log("slide change")}
           >
@@ -303,26 +322,7 @@ export default function NavBar() {
           </Swiper>
         </div>
       </div>
-
-      <div className="about">
-        <Aboutus />
-        {/* <React.Suspense fallback={<>...</>}>
-        <About />
-        </React.Suspense> */}
-      </div>
-      <div className="WhatWeDo">
-        <Whatwedo />
-      </div>
-
-      <div className="magzine">
-        <Magzine />
-      </div>
-      <div className="Events">
-        <Events />
-      </div>
-      <div className="Courses">
-        <Courses />
-      </div>
+        
       <div className="Members" style={{ padding: "0px 0px 4% 0px" }}>
         <Members />
       </div>

@@ -56,7 +56,7 @@ function Card() {
             className="default-btn"
             style={{ backgroundColor: "rgba(255, 199, 0, 1)" }}
           >
-            <div style={{ color: "white" }}>Register</div>
+            <div style={{ color: "#000000" , fontWeight: 400 }}>Register</div>
           </Link>
           <p
             className="d-flex card-date fst-normal align-items-center justify-content-center"
