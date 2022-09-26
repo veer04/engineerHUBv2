@@ -4,12 +4,20 @@
 }
 
 .contained-xl {
-  background-color: #002a36;
-  margin: 20px;
-  border-radius: 20px;
-  padding-bottom: 80px;
+  background-color: #014051;
+  /* margin: 20px; */
+  /* border-radius: 20px; */
+  padding: 35px 0px 80px 0px;
 }
-
+.intern-about{
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 60px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: white;
+  padding: 0px 0px 0px 40px;
+}
 .heading {
   font-size: 5rem;
   padding: 60px 34px;
@@ -29,8 +37,8 @@
   border-radius: 20px;
   border: 1px solid rgb(236, 235, 235);
   padding: 0px 15px;
-  background: rgb(236, 235, 235);
-  margin-bottom: 100px;
+  background: rgb(255, 255, 255);
+  margin-bottom: 10px;
 }
 
 .searchBar input {
@@ -77,9 +85,13 @@
   }
 }
 
-@media (max-width: 425px) {
-  .heading {
-    font-size: 26px;
+@media (max-width: 426px) {
+  .heading--internship {
+    font-size: 26px !important;
+  }
+  .texthire--internship {
+    font-size: 12px !important;
+    line-height: 20px !important;
   }
   .searchBar {
     width: 100%;

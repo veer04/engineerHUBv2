@@ -1,0 +1,27 @@
+* {
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+.mentor-container {
+  padding: 35px 0px 35px 0px;
+  /* margin: 20px; */
+  background-color:#014051;
+  /* border-radius: 33px; */
+}
+.card-section {
+  display: flex;
+  justify-content: space-evenly;
+  gap: 20px;
+
+}
+
+@media screen and (max-width: 768px) {
+  .card-section{
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+}
+
+  
+

@@ -1,147 +1,70 @@
 import React from "react";
+import "./Card.css";
 import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
 
-function Card() {
+function Card({
+  paid = false,
+  card_head = "Hackathons for Developers",
+  cName = "card custom-card ",
+  cDate = "12-05-2022"
+}) {
   return (
-    <div>
-      <div class="row row-cols-1 row-cols-md-3 g-4 p-4">
-        <div class="col">
-          <div class="card">
-            <div class="card-body">
-              <h5
-                class="card-title"
-                style={{
-                  font: "poppins",
-                  fontWeight: 500,
-                  fontSize: "20px",
-                  lineHeight: "32px",
-                  paddingTop: "0",
-                }}
-              >
-                Hackathons for Developers
-                <a href="#">
-                  <ShareOutlinedIcon
-                    className="share-icon"
-                    style={{ fontSize: "25px" }}
-                  />
-                </a>
-              </h5>
-              <p class="card-text">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Arcu,
-                eget suspendisse nunc duis non eget est.Lorem ipsum dolor sit
-                amet, consectetur adipiscing elit. Arcu, eget suspendisse nunc
-                duis non eget est.
-              </p>
-              <h6 style={{ fontWeight: 700 }}>Organizer: IIT Delhi</h6>
-              <div className="btn-container">
-                <a
-                  href="#"
-                  className="btn"
-                  style={{ backgroundColor: "#0094FF" }}
-                >
-                  <span style={{ color: "white" }}>Apply Now !</span>
-                </a>
-                <p
-                  className="d-inline fst-normal"
-                  style={{ marginLeft: "4.4rem" }}
-                >
-                  Last date: dd/mm/yy
-                </p>
-              </div>
-            </div>
+    <div
+      className={cName}
+      style={{
+        padding: "10px",
+        margin: "10px",
+      }}
+    >
+      <div className="card-body">
+        {paid && (
+          <h6
+            className="d-flex justify-content-end"
+            style={{ color: "rgba(0,0.5,0.5,0.2)" }}
+          >
+            Paid
+          </h6>
+        )}
+        <div className="d-flex justify-content-between align-items-center">
+          <h5
+            className="card-title h-effect"
+            style={{
+              padding: 0,
+              font: "poppins",
+              fontWeight: 600,
+              fontSize: "20px",
+              lineHeight: "32px",
+              paddingTop: "0",
+              color: "#1b5b62"
+            }}
+          >
+            {card_head}
+          </h5>
+          <div>
+            <ShareOutlinedIcon
+              className="share-icon"
+              style={{ fontSize: "22px", marginRight: "0px" }}
+            />
           </div>
         </div>
-        <div class="col">
-          <div class="card">
-            <div class="card-body">
-              <h5
-                class="card-title"
-                style={{
-                  font: "poppins",
-                  fontWeight: 500,
-                  fontSize: "20px",
-                  lineHeight: "32px",
-                  paddingTop: "0",
-                }}
-              >
-                Hackathons for Developers
-                <a href="#">
-                  <ShareOutlinedIcon
-                    className="share-icon"
-                    style={{ fontSize: "25px"}}
-                  />
-                </a>
-              </h5>
-              <p class="card-text">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Arcu,
-                eget suspendisse nunc duis non eget est.Lorem ipsum dolor sit
-                amet, consectetur adipiscing elit. Arcu, eget suspendisse nunc
-                duis non eget est.
-              </p>
-              <h6 style={{ fontWeight: 700 }}>Organizer: IIT Delhi</h6>
-              <div className="btn-container">
-                <a
-                  href="#"
-                  className="btn"
-                  style={{ backgroundColor: "#0094FF" }}
-                >
-                  <span style={{ color: "white" }}>Apply Now !</span>
-                </a>
-                <p
-                  className="d-inline fst-normal"
-                  style={{ marginLeft: "4.4rem" }}
-                >
-                  Last date: dd/mm/yy
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card">
-            <div class="card-body">
-              <h5
-                class="card-title"
-                style={{
-                  font: "poppins",
-                  fontWeight: 500,
-                  fontSize: "20px",
-                  lineHeight: "32px",
-                  paddingTop: "0",
-                }}
-              >
-                Hackathons for Developers
-                <a href="#">
-                  <ShareOutlinedIcon
-                    className="share-icon"
-                    style={{ fontSize: "25px" }}
-                  />
-                </a>
-              </h5>
-              <p class="card-text">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Arcu,
-                eget suspendisse nunc duis non eget est.Lorem ipsum dolor sit
-                amet, consectetur adipiscing elit. Arcu, eget suspendisse nunc
-                duis non eget est.
-              </p>
-              <h6 style={{ fontWeight: 700 }}>Organizer: IIT Delhi</h6>
-              <div className="btn-container">
-                <a
-                  href="#"
-                  className="btn"
-                  style={{ backgroundColor: "#0094FF" }}
-                >
-                  <span style={{ color: "white" }}>Apply Now !</span>
-                </a>
-                <p
-                  className="d-inline fst-normal"
-                  style={{ marginLeft: "4.4rem" }}
-                >
-                  Last date: dd/mm/yy
-                </p>
-              </div>
-            </div>
-          </div>
+        <p className="card-text dark-bg">
+        we are hiring mentors to help guide students on their respective interests and lay a framework to help them ease the process. Interested Candidates can apply. 
+        </p>
+        <h6 style={{ fontWeight: 700, marginBottom: "1rem" }}>
+          Organizer: IIT Delhi
+        </h6>
+        <div className="d-flex align-items-baseline justify-content-between">
+          <a href="/#" className="btnc" style={{ backgroundColor: "#002a36" , borderRadius: "10px"}}>
+            <span style={{ color: "white", fontSize: "0.9rem", padding: "8px 4px" , }}>
+              Apply Now !
+            </span>
+          </a>
+          <p
+            className="d-flex fst-normal align-items-baseline campus--date"
+            // style={{ marginLeft: "4.4rem" }}
+          >
+            Last date: {cDate}
+          </p>
         </div>
       </div>
     </div>

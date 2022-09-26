@@ -7,10 +7,11 @@
 .navelements {
   font-family: "poppins";
   color: aliceblue;
+
+  align-self: center;
 }
 .dropdown-toggle::after {
   display: none;
- 
 }
 .dropdownNav {
   background-color: #168584;
@@ -35,54 +36,139 @@ div.dropdown-menu.show {
 a.dropdown-item {
   color: #fff;
 }
-.navd{
-    box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16);
+.navd {
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16);
 }
-@media screen and (max-width:1463px){
-    .logo{
-        margin-right: 5rem;
-    }
+
+.subNavbar {
+  display: none;
 }
-@media screen and (max-width:1128px){
-    .gap{
-        margin-right:0.5rem;
-    }
+@media screen and (max-width: 1463px) {
+  .logo {
+    margin-right: 1rem;
+  }
 }
-@media screen and (max-width:939px){
-    .logo{
+@media screen and (max-width: 1128px) {
+  .gap {
+    margin-right: 0.5rem;
+  }
+}
+@media screen and (max-width: 939px) {
+  .logo {
     align-items: center;
     align-content: center;
-    }
-      
+  }
 }
-@media screen and (max-width:991px){
-    .logo{
-        display: block;
-         margin-left: auto;
-         margin-right: auto;
-    }
+@media screen and (max-width: 991px) {
+  .logo {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
 
-    nav{
-        position: relative;
+  nav {
+    position: relative;
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     align-items: center;
     justify-content: space-between;
-    }
-    .container-fluid{
-        /* display: flex;
+  }
+  .container-fluid {
+    /* display: flex;
         flex-direction: column; */
-        display: flex;
+    display: flex;
     flex-wrap: inherit;
     align-items: center;
     justify-content: space-between;
-
-    }
-    /* li{
+  }
+  /* li{
         flex-direction: column;
     } */
 }
-.container-fluid{
+.container-fluid {
+  display: flex;
+  flex-direction: row;
+}
+
+.nav-cont {
+  padding: 2px 40px;
+  align-items: center;
+}
+
+.company-logo img {
+  height: 50px;
+  padding-right: 100px;
+}
+
+.ham-icon img {
+  display: none;
+  height: 32px;
+}
+
+@media (max-width: 1023px) {
+  .ham-icon img {
     display: flex;
-    flex-direction: row;
+  }
+  .navelements {
+    display: none;
+  }
+  .mobileNav {
+    display: flex;
+    flex-direction: column;
+  }
+}
+@media (max-width: 426px) {
+  .subNavbar {
+    display: flex;
+    gap: 7px;
+    position: relative;
+    top:-1px;
+    justify-content: center;
+    padding-top: 5%;
+    padding-bottom: 4%;
+    background-color: rgba(0, 42, 54, 1);
+  }
+ 
+}
+.homesbn {
+  color: green;
+  font-size: 0.9rem;
+}
+.domainssbn {
+  color: green;
+  font-size: 0.9rem;
+}
+.coursessbn {
+  color: green;
+  font-size: 0.9rem;
+}
+
+.eventssbn {
+  color: green;
+  font-size: 0.9rem;
+}
+.internshipssbn {
+  color: green;
+  font-size: 0.9rem;
+}
+
+.bg-light {
+    background: #002a36 !important;
+}
+.navbar-light .navbar-nav .nav-link {
+  color: white !important;
+  align-self: center;
+}
+.navbar-toggler {
+  background-color: #fff3f3;
+}
+.navbar-collapse{
+  flex-grow: 0;
+
+}
+
+@media screen and (max-width: 426px){
+ .navbar{
+  justify-content: space-evenly;
+ }
 }

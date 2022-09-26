@@ -1,40 +1,44 @@
-.Free{
-    border:none;
-    margin-right: 7%;
-    background-color:  rgba(0, 148, 255, 1);
-    color: rgba(255,255,255,1);
-    border-radius: 14px;
-    width:71px;
-    height:32px;
+.event--btns {
+  justify-content: space-between;
 }
-.Prize{
-    border: none;
-    margin-left: 35%;
-    background-color: #FFC700;
-    color: rgba(255,255,255,1);
-    border-radius: 14px;
-    width:71px;
-    height:32px;
-    margin-bottom: 7%;
 
+.Prize {
+  border: none;
+  /* background-color: #ffc700; */
+  background-color: rgba(225, 215, 28, 1);
+  /* color: rgba(255, 255, 255, 1); */
+  color: rgb(26 91 98);
+  border-radius: 14px;
+  width: 52px;
+  height: 32px;
+  font-size: 13px;
 }
-.card-text{
-    font-size: 0.87rem;
+
+.txt{
+  color: rgba(5, 85, 94, 1);
 }
-.card-title{
-    padding:2%;
-    font-weight: 600;
+
+.card-text {
+  font-size: 0.87rem;
 }
-.cardEvent{
-    margin-left:12%;
-    padding-top: 5%;
+.card-title {
+  padding: 2%;
+  font-weight: 600;
 }
-.Register{
-    width:100px ;
-    height: 47px;
-    position: relative;
-    left: 39%;
+.cardEvent {
+  margin-left: 12%;
+  padding-top: 5%;
+  width: 19rem ; 
 }
-.contentEvent{
-    padding-bottom: 6%;
+.Register {
+  width: 100px;
+  height: 47px;
+  position: relative;
+  left: 39%;
 }
+
+
+.event-box {
+  margin-left: 0%;
+}
+

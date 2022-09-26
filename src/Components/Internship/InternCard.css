@@ -3,11 +3,15 @@
   font-family: "Poppins", sans-serif;
 }
 
+.conta{
+  display: flex;
+}
+
 .Intern-Container {
-  border-radius: 32px;
+  border-radius: 10px;
   display: flex;
   flex-direction: column;
-  padding: 32px 48px;
+  padding: 16px 26px; 
   border: 1px solid #eee;
   background: white;
   margin: 20px;
@@ -15,17 +19,55 @@
 
 .Intern-Company {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  justify-content: flex-start;
+  align-items: baseline;
+}
+
+.posted{
+  position: absolute;
+  padding-left: 11rem;
+  font-weight: 400;
+  line-height: 34px;
+  font-size: 15px;
+}
+
+.newbtn{
+  font-size: 10px;
+  width: 49px;
+height: 18px;
+/* padding: 4px; */
+margin-left: 40px;
+/* display: flex;
+text-align: center !important; */
+padding-top: 1px;
+}
+
+.apply{
+  /* position: absolute; */
+width: 219px;
+/* height: 59px; */
+/* margin:150px 0px 0px 65rem ; */
+display: flex;
+flex-direction: column;
+margin-top: 12px;
+
+
+background: #002a36;
+border-radius: 10px;
+}
+
+.items{
+  margin-left: 25rem;
 }
 
 .Company-Name {
   font-weight: 500;
-  font-size: 24px;
+  font-size: 20px;
 }
 .Intern-Position {
-  font-size: 18px;
-  line-height: 30px;
+  font-size: 16px;
+  line-height: 25px;
+  padding-left: 52px;
 }
 .Intern-Apply-Link {
   display: flex;
@@ -45,45 +87,39 @@
   line-height: 30px;
 }
 
-/*Responsive*/
-@media (max-width: 768px) and (min-width: 425px) {
-  .Intern-Container {
-    border-radius: 20px;
-    padding: 15px 24px;  
-  }
-  
-  .Company-Name {
-    font-weight: 500;
-    font-size: 15px;
-  }
-  .Intern-Position {
-    font-size: 12px;
-    line-height: 15px;
-  }
-  .Intern-Apply-Link {
-    font-size: 12px;
-    align-items: center;
-  }
-
-  .intern-link {
-    font-size: 12px;
-    line-height: 15px;
-  }
+.applycont{
+  display: flex;
+  justify-content: flex-end;
 }
 
-@media (max-width: 424px) {
+.company-image{
+  /* position: absolute; */
+width: 50px;  
+/* height: 30px; */
+/* left: 209px;
+top: 922px; */
+}
+
+/*Responsive*/
+
+@media (max-width:723px){
   .Intern-Container {
-    border-radius: 20px;
+    /* border-radius: 20px; */
     padding: 15px 24px;  
+  }
+
+  .Intern-Company{
+    flex-wrap: wrap;
   }
   
   .Company-Name {
     font-weight: 500;
-    font-size: 12px;
+    font-size: 10px;
   }
   .Intern-Position {
-    font-size: 10px;
+    font-size: 11px;
     line-height: 15px;
+    margin-top: -11px;
   }
   .Intern-Apply-Link {
     font-size: 10px;
@@ -96,5 +132,88 @@
   }
   .Intern-View{
     font-size: 10px;
+  }
+
+
+  .newbtn{
+    display: none;
+  }
+
+  .applycont{
+    justify-content: center;
+  }
+}
+
+@media (max-width:456px){
+  .Intern-Container{
+    padding: 6px 10px;
+  }
+}
+
+@media (max-width: 1024px)
+{
+  .items{
+    margin-left: 13rem;
+  }
+
+
+  .Company-Name{
+    font-size: 16px;
+  }
+} 
+
+@media (max-width:769px)
+{
+  .items{
+    margin-left: 1rem;
+  }
+
+  .newbtn,.apply{
+    font-size: 10px;
+  }
+
+  .Company-Name{
+    font-size: 14px;
+  }
+
+  .text-in{
+    font-size: 13px;
+  }
+
+  .posted{
+    font-size: 11px;
+  }
+}
+
+@media (max-width:375px) {
+  .newbtn{
+    margin-left: 0px;
+  }
+
+  .text-in{
+    font-size: 11px;
+    font-weight: 400;
+  }
+
+  
+
+}
+
+@media (max-width:320px){
+  .Intern-Position{
+    padding-left: 27px;
+  }
+
+  hr,.posted{
+    display: none;
+  }
+
+  .Company-Name{
+    font-size: 13px;
+  }
+
+  .items{
+    margin-left: -1rem;
+    /* flex-wrap: wrap; */
   }
 }

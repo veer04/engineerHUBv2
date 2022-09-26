@@ -1,0 +1,32 @@
+.fprize {
+  background-color: rgba(0, 148, 255, 1);
+  padding: 12px;
+  font-size: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+/* .cardTitlecourses{
+    font-size: 1.5rem;
+} */
+.courses-box {
+  margin-left: 0%;
+}
+
+.courses--btns {
+  justify-content: space-between;
+}
+
+.txt{
+  color: rgba(5, 85, 94, 1);
+}
+
+@media screen and (max-width: 426px) {
+  .cardEvent {
+    margin-left: 4%;
+  }
+
+  .container {
+    padding: 0px 20px;
+  }
+}

@@ -1,0 +1,52 @@
+.offli {
+  color: white;
+  /* margin-bottom: 20px; */
+  text-decoration: none;
+  margin-left: 65px;
+  /* margin-top: 20px; */
+  transition: all 150ms ease-in-put;
+}
+
+.offli:hover {
+  pointer-events: "cursor";
+  color: yellow;
+  border: 2px solid rgba(192, 192, 192, 0.192);
+  box-sizing: border-box;
+
+  /* opacity: 0.1; */
+}
+
+.custom-courses-list {
+  overflow-y: scroll;
+  height: 700px;
+}
+
+.react_player {
+  padding: 2rem;
+}
+
+.video-name {
+  padding: 0 2rem;
+  font-size: 1.5rem;
+  color: var(--color);
+  font-weight: bold;
+  line-height: 1px;
+}
+.video-desc {
+  padding: 0 2rem;
+  line-height: 3.5rem;
+}
+
+@media screen and (max-width: 768px) {
+  .cont-right {
+    width: 300px;
+  }
+
+  .video-name {
+    line-height: 25px;
+  }
+  .video-desc {
+    padding: 1rem 2rem;
+    line-height: 1.5rem;
+  }
+}

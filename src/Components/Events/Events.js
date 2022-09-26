@@ -1,89 +1,83 @@
-import React from 'react'
-import '../Events/Events.css'
-import backImage from '../Magzine/backimg.png'
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+// import backImage from "../Magzine/backimg.png";
+import { Autoplay } from "swiper";
 
+import { Swiper, SwiperSlide } from "swiper/react";
+// Import Swiper styles
 
+import "swiper/css/pagination";
+
+import "swiper/css";
+import "swiper/css/autoplay";
+import EventCard from "./EventCard";
 function Events() {
+  const [eventData, setEventData] = useState([]);
+  useEffect(() => {
+    const getEventDetails = async () => {
+      const response = await axios.get(
+        `https://ehubbackend.herokuapp.com/api/v1/event`
+      );
+
+      setEventData(response.data);
+    };
+    console.log(eventData);
+    getEventDetails();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <>
-  <div className="content contentEvent">
-      
-    <div className="container">
-<h1 className='text1'>
-  Events
-</h1>
-<h5 className='text2 text111 '>
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-             Quos, natus. Nihil molestias culpa quibusdam quaerat ea
-              neque velit fugit officia amet eligendi! Quis quos animi
-               officia explicabo accusamus obcaecati totam.
-        </h5>
-        <div className="row">
-          <div className="col-lg-4">
-          <div className="card cardEvent" style={{ width: '20rem', borderRadius: 25}}>
-         <img src={backImage} className="card-img-top" alt="..."/>
-  <div className="card-img-top"></div>
-  <div className="card-body">
-    <h5 className="card-title">Coding Contest 
-    
-
-    </h5>
-    <button className='Free'>Free</button>
-    <button className='Prize'>Prize</button>
-    <p className="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-     Pharetra consequat consequat at fermentum sollicitudin pellentesque tortor..</p>
-  
-  </div>
-</div>
-<button className='buttonz Register' >Register</button>
-
-
-          </div>
-          <div className="col-lg-4">
-
-          <div className="card cardEvent" style={{ width: '20rem', borderRadius: 25}}>
-         <img src={backImage} className="card-img-top" alt="..."/>
-  <div className="card-img-top"></div>
-  <div className="card-body">
-    <h5 className="card-title">Coding Contest </h5>
-<button className='Free'>Free</button>
-    <button className='Prize'>Prize</button>
-    
-    <p className="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-     Pharetra consequat consequat at fermentum sollicitudin pellentesque tortor..</p>
-  
-  </div>
-</div>
-<button className='buttonz Register'>Register</button>
-
-
-
-          </div>
-          <div className="col-lg-4">
-
-          <div className="card cardEvent" style={{ width: '20rem', borderRadius: 25}}>
-         <img src={backImage} className="card-img-top" alt="..."/>
-  <div className="card-img-top"></div>
-  <div className="card-body">
-    <h5 className="card-title">Coding Contest</h5>
-<button className='Free'>Free</button>
-    <button className='Prize'>Prize</button>
-    
-    <p className="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-     Pharetra consequat consequat at fermentum sollicitudin pellentesque tortor..</p>
-  
-  </div>
-</div>
-<button className='buttonz Register'>Register</button>
-
-
-          </div>
-
+      <div className="content">
+        <div className="container">
+          <h1 className="text1 txt">Events</h1>
+          <h5 className="text111 event-box ">
+            We organize numerous events to impart knowledge to students and
+            provide them with an appropriate platform to showcase their skills.
+          </h5>
+          <Swiper
+            modules={[Autoplay]}
+            loop={true}
+            autoplay={{ delay: 3000 }}
+            spaceBetween={26}
+            breakpoints={{
+          
+              768: {
+                width: 700,
+                slidesPerView: 2,
+              },
+              1024: {
+                width: 930,
+                slidesPerView: 3,
+              },
+              1440: {
+                width: 1274,
+                slidesPerView: 4,
+              },
+            }}
+            onSwiper={(swiper) => console.log(swiper)}
+            onSlideChange={() => console.log("slide change")}
+          >
+            <SwiperSlide>
+              <EventCard />
+            </SwiperSlide>
+            <SwiperSlide>
+              <EventCard />
+            </SwiperSlide>
+            <SwiperSlide>
+              <EventCard />
+            </SwiperSlide>
+            <SwiperSlide>
+              <EventCard />
+            </SwiperSlide>
+            <SwiperSlide>
+              <EventCard />
+            </SwiperSlide>
+          </Swiper>
         </div>
-    </div>
- </div>
+      </div>
     </>
-  )
+  );
 }
 
-export default Events
+export default Events;

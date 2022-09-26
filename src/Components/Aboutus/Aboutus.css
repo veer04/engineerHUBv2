@@ -8,9 +8,7 @@
   font-family: "Poppins", sans-serif;
 }
 .allcontent {
-  /* background-color:rgba(246, 249, 254, 1); */
   background-image: url("aboutus.svg");
-  /* background-image: url('wave21.svg'); */
 }
 .aboutustxt {
   font-family: Poppins;
@@ -26,13 +24,13 @@
 }
 .aboutus {
   padding-top: 8%;
-
   font-family: "Poppins";
   font-style: normal;
-  font-weight: 500;
-  font-size: 4rem;
+  font-weight: 800;
+  font-size: 3rem;
   margin-left: 5%;
-  margin-right: 5%;
+  display: inline-block;
+  color: rgba(5, 85, 94, 1);
 }
 .aboutusbullets1 {
   margin-top: 5%;
@@ -74,11 +72,11 @@
   margin-right: 10%;
 }
 
-ul {
+.abtus-ul {
   list-style-image: url("Ellipse-7.svg");
 }
 
-ul li::before {
+.abtus-ul li::before {
   font-weight: bold;
   display: inline-block;
   width: 1em;
@@ -96,7 +94,7 @@ ul li::before {
   left: 20%;
   size: 1rem;
 }
-@media only screen and (max-width: 720px) {
+@media only screen and (max-width: 768px) {
   .Groupimg {
     width: 60vw;
     justify-content: center;
@@ -111,13 +109,39 @@ ul li::before {
     justify-content: center;
     align-items: center;
   }
-  .allcontent {
-    /* background-color:rgba(246, 249, 254, 1); */
 
-    background-color: aliceblue;
-  }
   .aboutus {
     justify-content: center;
     align-items: center;
+  }
+}
+
+@media screen and (max-width: 1023px) {
+  .aboutus {
+    font-size: 3rem;
+    margin-left: 0px;
+  }
+  .cardEvent {
+    width: 17rem;
+  }
+}
+
+@media screen and (max-width: 426px) {
+  .aboutus {
+    font-size: 2rem;
+    margin-left: 0px;
+  }
+  .aboutustxt {
+    font-family: Poppins;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.2rem;
+  }
+  .tips ul li {
+    font-size: 12px;
+    line-height: 1.2rem;
+  }
+  .abtus-ul {
+    list-style-image: none;
   }
 }
