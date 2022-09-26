@@ -17,6 +17,7 @@ import Login from "./Components/Login/login";
 import Register from "./Components/Login/Register";
 import SignUp from "./Components/Login/Signup";
 import Footer from "./Components/Footer/Footer";
+import Domain from "./Components/Domain/Domain";
 // import User from "./Components/UserPage/user";
 function App() {
   return (
@@ -27,7 +28,7 @@ function App() {
         
         <Route path="/resources" exact element={<Resources />} />
         <Route path="/mentor" exact element={<Mentors />} />
-    
+        <Route path="/domain" exact element={<Domain />} />
         <Route path="/courses" exact element={<Freecourses />} />
         <Route path="/internship" exact element={<Internship />} />
         <Route path="/magazine" exact element={<MagzineAndHandbook />} />

@@ -24,7 +24,9 @@
   overflow-y: scroll;
   height: 700px;
 }
-
+.watchnowbtn{
+  color: green;
+}
 .react_player {
   padding: 4%;
 }

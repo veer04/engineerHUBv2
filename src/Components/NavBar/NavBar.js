@@ -35,7 +35,7 @@ const NavBar = () => {
     navigate("/");
   };
   const domain = () => {
-    navigate("/hiring");
+    navigate("/domain");
   };
   const courses = () => {
     navigate("/courses");

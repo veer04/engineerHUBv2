@@ -17,7 +17,8 @@ const AccordionBox = () => {
           <Accordion.Header>Introduction to Javascript</Accordion.Header>
           <Accordion.Body style={{ display: "flex" , gap: "20px"}}>
             Learn about what Intermediate JavaScript has in store! 
-            <Link to="/">
+            <Link to="/"
+            className="watchnowbtn">
               Watch now
             </Link>
           </Accordion.Body>
