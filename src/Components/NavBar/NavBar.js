@@ -14,6 +14,7 @@ import WindowOutlinedIcon from '@mui/icons-material/WindowOutlined';
 import WorkOutlineOutlinedIcon from '@mui/icons-material/WorkOutlineOutlined';
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import CalendarTodayOutlinedIcon from '@mui/icons-material/CalendarTodayOutlined';
+import Domain from "../Domain/Domain";
 
 
 const NavBar = () => {
@@ -39,7 +40,7 @@ const NavBar = () => {
   const home = ()=>{
     navigate("/")
   }
-  const domain = ()=>{
+  const Domain = ()=>{
     navigate("/domain")
   }
   const courses = ()=>{
@@ -362,7 +363,7 @@ const NavBar = () => {
     <div className="domainssbn">
         <WindowOutlinedIcon
         sx={{ fontSize: 40 }}
-        onClick={domain}
+        onClick={Domain}
         color="success"
      ></WindowOutlinedIcon>
       <div className="row">
