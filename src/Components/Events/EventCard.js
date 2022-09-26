@@ -3,34 +3,42 @@ import "./EventCard.css";
 import backImage from "../Magzine/backimg.png";
 
 const EventCard = ({
-  eventName,
-  dateTime,
+  eventTitle1,
+  eventTitle2,
+  lastDate,
   mentorName,
   company,
-  description,
+  eventDescription
 }) => {
   return (
     <>
       <div className="event-card-body">
         <div>
           {" "}
-          <img src={backImage} alt="particular-events" className="event-image" />
+          <img
+            src={backImage}
+            alt="particular-events"
+            className="event-image"
+          />
         </div>
 
         <div className="d-flex event--btns">
-          {" "}
-          <div className=" event-name">Coding Contests</div>
+          <div className=" event-name">
+            {" "}
+            {eventTitle1} {eventTitle2}
+          </div>
           <button className="Prize">Prize</button>
         </div>
-        <div className="event-details">
-          {" "}
-          Various Coding Contests are organised to help students evaluate their coding skills and test their abilities.
-        </div>
+        <div className="event-details">{eventDescription}</div>
         <div>
-        <div style={{ backgroundColor: "#0d718c" }} className="event-register">Join</div>
+          <div
+            style={{ backgroundColor: "#0d718c" }}
+            className="event-register"
+          >
+            Join
+          </div>
         </div>
       </div>
-      
     </>
   );
 };

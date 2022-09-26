@@ -1,6 +1,7 @@
 import React from "react";
 import "./freecourses.css";
 import Full from "./Full";
+import { coursesData } from "../HomeCourses/Courses";
 
 const Freecourses = () => {
   return (
@@ -8,22 +9,38 @@ const Freecourses = () => {
       <div className="heading">Explore Courses</div>
 
       <div className="texthire">
-      engineerhub aims to provide several free courses to students to provide necessary material with utmost ease. 
+        engineerhub aims to provide several free courses to students to provide
+        necessary material with utmost ease.
       </div>
 
-      <div 
-      style={{ margin: "0px 35px 40px"}}
-      className="d-flex row justify-content-evenly courses-cont">
-        <Full />
-        <Full />
-        <Full />
+      <div
+        style={{ margin: "0px 35px 40px" }}
+        className="d-flex row justify-content-evenly courses-cont"
+      >
+        {coursesData.map((c,i) => {
+          return (
+            <Full
+              key={i}
+              courseTitle1={c.courseTitle1}
+              courseTitle2={c.courseTitle2}
+              courseDescription={c.courseDescription}
+              lastDate={c.lastDate}
+            />
+          );
+        })}
       </div>
-      <div 
-       style={{ margin: "0px 35px 40px"}}
-      className="d-flex row justify-content-evenly courses-cont">
-        <Full />
-        <Full />
-        <Full />
+      <div
+        style={{ margin: "0px 35px 40px" }}
+        className="d-flex row justify-content-evenly courses-cont"
+      >
+        {/* {coursesData.map((c) => {
+          <Full
+            courseTitle1={c.courseTitle1}
+            courseTitle2={c.courseTitle2}
+            courseDescription={c.courseDescription}
+            lastDate={c.lastDate}
+          />;
+        })} */}
       </div>
     </div>
   );

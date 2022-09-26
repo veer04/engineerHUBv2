@@ -7,7 +7,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 // Import Swiper styles
 
 import "swiper/css/pagination";
-
+import { coursesData } from "../HomeCourses/Courses";
 import "swiper/css";
 import "swiper/css/autoplay";
 import Full from "../Courses/Full";
@@ -24,8 +24,8 @@ function Magzine() {
 
           <Swiper
             modules={[Autoplay]}
-            loop={true}
-            autoplay={{ delay: 2000 }}
+            // loop={true}
+            // autoplay={{ delay: 2000 }}
             spaceBetween={26}
             breakpoints={{
               768: {
@@ -44,21 +44,17 @@ function Magzine() {
             onSwiper={(swiper) => console.log(swiper)}
             onSlideChange={() => console.log("slide change")}
           >
-            <SwiperSlide>
-              <Full />
-            </SwiperSlide>
-            <SwiperSlide>
-              <Full />
-            </SwiperSlide>
-            <SwiperSlide>
-              <Full />
-            </SwiperSlide>
-            <SwiperSlide>
-              <Full />
-            </SwiperSlide>
-            <SwiperSlide>
-              <Full />
-            </SwiperSlide>
+            {coursesData.map((c,i) => (
+              <SwiperSlide>
+                <Full
+                key={i*10}
+                  courseTitle1={c.courseTitle1}
+                  courseTitle2={c.courseTitle2}
+                  courseDescription={c.courseDescription}
+                  lastDate={c.lastDate}
+                />
+              </SwiperSlide>
+            ))}
           </Swiper>
         </div>
       </div>
