@@ -17,8 +17,8 @@ function Members() {
               <img src={girlImg} alt="" className="girlimage1" />
             </div>
             <div className="col-lg-9 textofMember">
-              The extreme efforts & hard work of each member of the community is
-              appreciable. They have outgrown themselves in such a short period.
+              "The extreme efforts & hard work of each member of the community is
+              appreciable. They have outgrown themselves in such a short period."
             </div>
           </div>
           <div className="row memberinnertext">May 8, 2020</div>
@@ -27,8 +27,8 @@ function Members() {
         <div className="cardz cardMember1 desk-tab--view">
           <div className="row">
             <div className="col-lg-9 textofMember order-md-2 order-lg-1 order-sm-2 ">
-              The community provides updated content & authorized resources to
-              benefit students with various courses to brush up their skills.
+              "The community provides updated content & authorized resources to
+              benefit students with various courses to brush up their skills."
             </div>
 
             <div className="col-lg-3 girl order-md-1 order-lg-1 order-sm-1 ">
@@ -44,9 +44,9 @@ function Members() {
               <img src={girlImg} alt="" className="girlimage1" />
             </div>
             <div className="col-lg-9 textofMember">
-              The "Weekend with Us" Program organised by the company provides a
+              "The "Weekend with Us" Program organised by the company provides a
               framework for the students to help them prepare for the
-              placements.
+              placements."
             </div>
           </div>
           <div className="row memberinnertext">May 8, 2020</div>
@@ -55,9 +55,9 @@ function Members() {
         <div className="cardz cardMember1 desk-tab--view">
           <div className="row">
             <div className="col-lg-9 textofMember order-md-2 order-lg-1 order-sm-2 order-xs-last">
-              engineerhub is an ideal platform to receive all the major
+              " engineerhub is an ideal platform to receive all the major
               resources, courses & guidance a student demands during his
-              preparation. Its strategic framework & structure is phenomenal.
+              preparation. Its strategic framework & structure is phenomenal."
             </div>
             <div className="col-lg-3 girl order-md-1 order-lg-2 order-sm-1 order-xs-first">
               <img src={girlImg} alt="" className="girlimage" />
