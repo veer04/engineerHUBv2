@@ -1,5 +1,8 @@
 import "../Members/Members.css";
-import girlImg from "./girlimg.png";
+import Img4 from "../shared/ProfilePic/pic2.png";
+import Img3 from "../shared/ProfilePic/pic3.png";
+import Img2 from "../shared/ProfilePic/pic4.png";
+import Img1 from "../shared/ProfilePic/pic5.png";
 
 function Members() {
   return (
@@ -14,7 +17,7 @@ function Members() {
         <div className="cardz cardMember">
           <div className="row">
             <div className="col-lg-3">
-              <img src={girlImg} alt="" className="girlimage1" />
+              <img src={Img1} alt="" className="girlimage1" />
             </div>
             <div className="col-lg-9 textofMember">
               "The extreme efforts & hard work of each member of the community is
@@ -32,7 +35,7 @@ function Members() {
             </div>
 
             <div className="col-lg-3 girl order-md-1 order-lg-1 order-sm-1 ">
-              <img src={girlImg} alt="" className="girlimage " />
+              <img src={Img2} alt="" className="girlimage " />
             </div>
           </div>
           <div className="row memberinnertext1">May 18, 2020</div>
@@ -41,7 +44,7 @@ function Members() {
         <div className="cardz cardMember">
           <div className="row">
             <div className="col-lg-3 girl">
-              <img src={girlImg} alt="" className="girlimage1" />
+              <img src={Img3} alt="" className="girlimage1" />
             </div>
             <div className="col-lg-9 textofMember">
               "The "Weekend with Us" Program organised by the company provides a
@@ -60,7 +63,7 @@ function Members() {
               preparation. Its strategic framework & structure is phenomenal."
             </div>
             <div className="col-lg-3 girl order-md-1 order-lg-2 order-sm-1 order-xs-first">
-              <img src={girlImg} alt="" className="girlimage" />
+              <img src={Img4} alt="" className="girlimage"  />
             </div>
           </div>
           <div className="row memberinnertext1">June 12, 2020</div>
