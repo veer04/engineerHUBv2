@@ -23,16 +23,16 @@ function ResourceApi({ heading, text }) {
       <div className="heading">{heading}</div>
       <div className="texthire">{text}</div>
       <div className="topic_container">
-        <Topic link="https://geeksforgeeks.com" subheading="Best websites for DSA" />
-        <Topic link="https://geeksforgeeks.com" subheading="Top 10 DSA Questions" />
+        <Topic link="https://www.geeksforgeeks.org/data-structures/" subheading="Best websites for DSA" />
+        <Topic link="https://www.geeksforgeeks.org/commonly-asked-data-structure-interview-questions-set-1/" subheading="Top 10 DSA Questions" />
         <Topic
-          link="https://geeksforgeeks.com"
+          link="https://www.youtube.com/c/engineerHUB1"
           subheading="Youtube channel for DSA"
           style={{ overflow: "hidden" }}
         />
-        <Topic link="https://geeksforgeeks.com" subheading="Tutorial for Python" />
-        <Topic link="https://geeksforgeeks.com" subheading="Tutorial for Python" />
-        <Topic link="https://geeksforgeeks.com" subheading="Tutorial for C ++" />
+        <Topic link="https://www.geeksforgeeks.org/python-programming-language/learn-python-tutorial/" subheading="Tutorial for Python" />
+        <Topic link="https://www.geeksforgeeks.org/competitive-programming-a-complete-guide/?ref=shm" subheading="Tutorial for CP" />
+        <Topic link="https://www.geeksforgeeks.org/c-plus-plus/?ref=shm" subheading="Tutorial for C++" />
       </div>
     </div>
   );

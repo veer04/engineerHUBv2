@@ -62,7 +62,7 @@ export default function NavBar() {
               <h1 className="headercardtext">
                 <CountUp
                   start={500}
-                  end={750}
+                  end={800}
                   className="headercardtext"
                   duration={1.5}
                   afterEffects={true}

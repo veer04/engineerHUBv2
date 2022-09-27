@@ -14,6 +14,7 @@ import WindowOutlinedIcon from "./subNavbarIcon/WindowOutlinedIcon.svg";
 import WorkOutlineOutlinedIcon from "./subNavbarIcon/WorkOutlineOutlinedIcon.svg";
 import HomeOutlinedIcon from "./subNavbarIcon/HomeOutlinedIcon.svg";
 import CalendarTodayOutlinedIcon from "./subNavbarIcon/CalendarTodayOutlinedIcon.png";
+import cp from "../pdf/cp.pdf";
 
 
 
@@ -81,7 +82,7 @@ const NavBar = () => {
                   className="dropdownNav dropend"
                 >
                   <NavDropdown.Item
-                    href="http://www.africau.edu/images/default/sample.pdf"
+                    href={cp}
                     target="_blank"
                   >
                     HandBook
@@ -106,7 +107,7 @@ const NavBar = () => {
                   className="dropdownNav dropend "
                 >
                   <NavDropdown.Item
-                    href="http://www.africau.edu/images/default/sample.pdf"
+                    href={cp}
                     target="_blank"
                   >
                     HandBook
@@ -129,7 +130,7 @@ const NavBar = () => {
                   className="dropdownNav dropend "
                 >
                   <NavDropdown.Item
-                    href="http://www.africau.edu/images/default/sample.pdf"
+            href={cp}
                     target="_blank"
                   >
                     HandBook
@@ -152,7 +153,7 @@ const NavBar = () => {
                   className="dropdownNav dropend "
                 >
                   <NavDropdown.Item
-                    href="http://www.africau.edu/images/default/sample.pdf"
+            href={cp}
                     target="_blank"
                   >
                     HandBook
@@ -176,7 +177,7 @@ const NavBar = () => {
                 >
                   <div className="dropdownNav dropend ">
                     <NavDropdown.Item
-                      href="http://www.africau.edu/images/default/sample.pdf"
+              href={cp}
                       className="dropdownNav dropend"
                     >
                       HandBook{" "}
@@ -197,7 +198,7 @@ const NavBar = () => {
                 </NavDropdown>
                 <NavDropdown title="Dev Ops" className="dropdownNav dropend">
                   <NavDropdown.Item
-                    href="http://www.africau.edu/images/default/sample.pdf"
+            href={cp}
                     target="_blank"
                   >
                     HandBook
@@ -220,7 +221,7 @@ const NavBar = () => {
                   className="dropdownNav dropend"
                 >
                   <NavDropdown.Item
-                    href="http://www.africau.edu/images/default/sample.pdf"
+            href={cp}
                     target="_blank"
                   >
                     HandBook
@@ -240,7 +241,7 @@ const NavBar = () => {
                 </NavDropdown>
                 <NavDropdown title="BlockChain" className="dropdownNav dropend">
                   <NavDropdown.Item
-                    href="http://www.africau.edu/images/default/sample.pdf"
+            href={cp}
                     target="_blank"
                   >
                     HandBook
@@ -280,7 +281,7 @@ const NavBar = () => {
                   className="dropdownNav dropend"
                 >
                   <NavDropdown.Item
-                    href="http://www.africau.edu/images/default/sample.pdf"
+            href={cp}
                     target="_blank"
                   >
                     HandBook

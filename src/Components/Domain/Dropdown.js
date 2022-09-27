@@ -3,6 +3,7 @@ import React from "react";
 // // import Accordion from "react-bootstrap/Accordion";
 // // import styles from "../UserPage/AccordionBox.module.css";
 // // import code from "./code.jpeg";
+import cp from "../pdf/cp.pdf";
 
 const Dropdown = () => {
   return (
@@ -16,7 +17,7 @@ const Dropdown = () => {
     </h2>
     <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" >
       <div class="accordion-body domain-drp-item">
-          <a target="_blank" href="http://www.africau.edu/images/default/sample.pdf" className="a-item-domain"   rel="noreferrer">
+          <a target="_blank" href={cp} className="a-item-domain"   rel="noreferrer">
         Handbook
         </a>
         <hr className="drp-hr"/>
@@ -34,7 +35,7 @@ const Dropdown = () => {
         <hr/>
       </div>
       <div class="accordion-body" style={{paddingTop:"0"}}>
-      <a href="/https://discord.gg/ZMZAEZ5NfA" target="_blank" className="a-item-domain"   rel="noreferrer">
+      <a href="https://discord.gg/ZMZAEZ5NfA" target="_blank" className="a-item-domain"   rel="noreferrer">
         Ask your query
         </a>
       </div>
@@ -48,7 +49,7 @@ const Dropdown = () => {
     </h2>
     <div id="collapseTwo" class="accordion-collapse collapse " aria-labelledby="headingTwo" >
     <div class="accordion-body domain-drp-item">
-          <a target="_blank" href="http://www.africau.edu/images/default/sample.pdf" className="a-item-domain"   rel="noreferrer">
+          <a target="_blank" href={cp} className="a-item-domain"   rel="noreferrer">
         Handbook
         </a>
         <hr/>
@@ -66,7 +67,7 @@ const Dropdown = () => {
         <hr/>
       </div>
       <div class="accordion-body">
-      <a href="/https://discord.gg/ZMZAEZ5NfA" target="_blank" className="a-item-domain"   rel="noreferrer">
+      <a href="https://discord.gg/ZMZAEZ5NfA" target="_blank" className="a-item-domain"   rel="noreferrer">
         Ask your query
         </a>
       </div>
@@ -80,7 +81,7 @@ const Dropdown = () => {
     </h2>
     <div id="collapseThree" class="accordion-collapse collapse " aria-labelledby="headingThree" >
       <div class="accordion-body domain-drp-item">
-          <a target="_blank" href="http://www.africau.edu/images/default/sample.pdf" className="a-item-domain"   rel="noreferrer">
+          <a target="_blank" href={cp} className="a-item-domain"   rel="noreferrer">
         Handbook
         </a>
         <hr/>
@@ -98,7 +99,7 @@ const Dropdown = () => {
         <hr/>
       </div>
       <div class="accordion-body">
-      <a href="/https://discord.gg/ZMZAEZ5NfA" target="_blank" className="a-item-domain"
+      <a href="https://discord.gg/ZMZAEZ5NfA" target="_blank" className="a-item-domain"
       rel="noreferrer">
         Ask your query
         </a>
@@ -113,7 +114,7 @@ const Dropdown = () => {
     </h2>
     <div id="collapseFour" class="accordion-collapse collapse " aria-labelledby="headingFour" >
       <div class="accordion-body domain-drp-item">
-          <a target="_blank" href="http://www.africau.edu/images/default/sample.pdf" className="a-item-domain"   rel="noreferrer">
+          <a target="_blank" href={cp} className="a-item-domain"   rel="noreferrer">
         Handbook
         </a>
         <hr/>
@@ -131,7 +132,7 @@ const Dropdown = () => {
         <hr/>
       </div>
       <div class="accordion-body">
-      <a href="/https://discord.gg/ZMZAEZ5NfA" target="_blank" className="a-item-domain"   rel="noreferrer">
+      <a href="https://discord.gg/ZMZAEZ5NfA" target="_blank" className="a-item-domain"   rel="noreferrer">
         Ask your query
         </a>
       </div>
@@ -145,7 +146,7 @@ const Dropdown = () => {
     </h2>
     <div id="collapseFive" class="accordion-collapse collapse " aria-labelledby="headingFive" >
       <div class="accordion-body domain-drp-item">
-          <a target="_blank" href="http://www.africau.edu/images/default/sample.pdf" className="a-item-domain"   rel="noreferrer">
+          <a target="_blank" href={cp} className="a-item-domain"   rel="noreferrer">
         Handbook
         </a>
         <hr/>
@@ -163,7 +164,7 @@ const Dropdown = () => {
         <hr/>
       </div>
       <div class="accordion-body">
-      <a href="/https://discord.gg/ZMZAEZ5NfA" target="_blank" className="a-item-domain"   rel="noreferrer">
+      <a href="https://discord.gg/ZMZAEZ5NfA" target="_blank" className="a-item-domain"   rel="noreferrer">
         Ask your query
         </a>
       </div>
@@ -177,7 +178,7 @@ const Dropdown = () => {
     </h2>
     <div id="collapseSix" class="accordion-collapse collapse " aria-labelledby="headingSix" >
       <div class="accordion-body domain-drp-item">
-          <a target="_blank" href="http://www.africau.edu/images/default/sample.pdf" className="a-item-domain align-content-center"   rel="noreferrer">
+          <a target="_blank" href={cp} className="a-item-domain align-content-center"   rel="noreferrer">
         Handbook
         </a>
         <hr/>
@@ -195,7 +196,7 @@ const Dropdown = () => {
         <hr/>
       </div>
       <div class="accordion-body">
-      <a href="/https://discord.gg/ZMZAEZ5NfA" target="_blank" className="a-item-domain"   rel="noreferrer">
+      <a href="https://discord.gg/ZMZAEZ5NfA" target="_blank" className="a-item-domain"   rel="noreferrer">
         Ask your query
         </a>
       </div>
@@ -209,7 +210,7 @@ const Dropdown = () => {
     </h2>
     <div id="collapseSeven" class="accordion-collapse collapse " aria-labelledby="headingSeven" >
       <div class="accordion-body domain-drp-item">
-          <a target="_blank" href="http://www.africau.edu/images/default/sample.pdf" className="a-item-domain"   rel="noreferrer">
+          <a target="_blank" href={cp} className="a-item-domain"   rel="noreferrer">
         Handbook
         </a>
         <hr/>
@@ -227,7 +228,7 @@ const Dropdown = () => {
         <hr/>
       </div>
       <div class="accordion-body">
-      <a href="/https://discord.gg/ZMZAEZ5NfA" target="_blank" className="a-item-domain">
+      <a href="https://discord.gg/ZMZAEZ5NfA" target="_blank" className="a-item-domain">
         Ask your query
         </a>
       </div>
