@@ -9,19 +9,22 @@ const industryMembers = [
   {
     Profession: "Co-Founder",
     Name: "Karan V.S.",
-    Company: "@EngineerHUB",
+    Company: "@engineerHUB",
+    Desc:"Co-Founder of engineerHUB",
     LinkedIn: HEADMEMBER_LID1,
   },
   {
     Profession: "Senior Coordinator",
     Name: "Swapnil RJ",
-    Company: "@EngineerHUB",
+    Company: "@engineerHUB",
+    Desc:"Senior Coordinator of engineerHUB",
     LinkedIn: HEADMEMBER_LID3,
   },
   {
-    Profession: "Co-Founder",
+    Profession: "Founder",
     Name: "Rishabh SH",
     Company: "@EngineerHUB",
+    Desc:"Founder of engineerHUB",
     LinkedIn: HEADMEMBER_LID2,
   },
 ];

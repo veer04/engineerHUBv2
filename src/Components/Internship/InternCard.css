@@ -160,9 +160,9 @@ top: 922px; */
 
 @media (max-width: 1024px)
 {
-  .items{
+  /* .items{
     margin-left: 13rem;
-  }
+  } */
 
 
   .Company-Name{
@@ -208,9 +208,9 @@ top: 922px; */
 }
 
 @media (max-width:320px){
-  .Intern-Position{
+  /* .Intern-Position{
     padding-left: 27px;
-  }
+  } */
 
   hr,.posted{
     display: none;
@@ -218,10 +218,11 @@ top: 922px; */
 
   .Company-Name{
     font-size: 13px;
+    padding-top: 2px;
   }
 
-  .items{
+  /* .items{
     margin-left: -1rem;
     /* flex-wrap: wrap; */
-  }
+  /* } */ 
 }
