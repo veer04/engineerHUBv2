@@ -6,11 +6,7 @@
   /* margin-top: 20px; */
   transition: all 150ms ease-in-put;
 }
-/* .react_player{ */
-  /* height: 100%;
- width: 100%;
- min-height: 500px; */
-/* } */
+
 .offli:hover {
   pointer-events: "cursor";
   color: yellow;
@@ -27,10 +23,16 @@
 .watchnowbtn{
   color: green;
 }
-.react_player {
-  padding: 4%;
-}
 
+.react-player {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.video-wrapper {
+  position: relative;
+  padding-top: 56.25%; 
+}
 .video-name {
   padding: 0 2rem;
   font-size: 1.5rem;
@@ -53,17 +55,12 @@
     padding: 1rem 2rem;
     line-height: 1.5rem;
   }
-  .cont-right{
-    padding-left: 18%;
-  }
+  
 }
 
 @media screen and (max-width: 468px) {
   
-.react_player{
-  width:80vw ;
-  height:60vh ;
-}
+
 .nottobedisplayed{
   display: none;
 }
