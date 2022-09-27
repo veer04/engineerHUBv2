@@ -10,18 +10,21 @@ const teamMembers = [
     Profession: "Frontend Developer",
     Name: "Rahul KM",
     Company: "@EngineerHUB",
+    Desc:"HTML, CSS, JavaScript and ReactJS",
     LinkedIn: COMPANYMEMBER_LID1,
   },
   {
     Profession: "Frontend Developer",
     Name: "Manish KR",
     Company: "@EngineerHUB",
+    Desc:"HTML, CSS, JavaScript and ReactJS",
     LinkedIn: COMPANYMEMBER_LID3,
   },
   {
     Profession: "Frontend Developer",
     Name: " Aditi JS",
     Company: "@EngineerHUB",
+    Desc:"HTML, CSS, JavaScript and ReactJS",
     LinkedIn: COMPANYMEMBER_LID2,
   },
 ];
