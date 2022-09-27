@@ -22,18 +22,17 @@ import "../Members/Members";
 import campusIcon from "./icons/campus.png";
 import GradIcon from "./icons/graudate.png";
 import BuildingIcon from "./icons/building.png";
-
-
+import Zomato from "./Zomato.png"
 import IITK from "./svg/IITK.png";
 
 import tcs from "./svg/tcs.svg";
 import oracle from "./svg/oracle.svg";
 import logitech from "./svg/logitech.svg";
 import vedantu from "./svg/vedantu.svg";
-import swiggy from "./svg/swiggy.svg";
+
 import infosys from "./svg/infosys.svg";
 import CountUp from "react-countup";
-
+import Byjus from "./Byjus.png";
 import "swiper/css";
 import "swiper/css/autoplay";
 // import { Suspense } from "react";
@@ -180,6 +179,8 @@ export default function NavBar() {
                 KURUKSHETRA
               </h2>
             </div>
+            
+            
           </div>
 
           <div class="header boxheadeer">
@@ -200,14 +201,14 @@ export default function NavBar() {
 
             <div class="box box-down blue">
               <div className="comp studentfrom2">
-                <img src={swiggy} alt="swiggy" className="tcsimage" />
+                <img src={Byjus} alt="swiggy" className="tcsimage" />
               </div>
             </div>
           </div>
           <div class="row2-container">
             <div class="box orange">
               <div className="comp studentfrom2">
-                <img src={swiggy} alt="swiggy" className="tcsimage" />
+                <img src={ Zomato} alt="swiggy" className="tcsimage" />
               </div>
             </div>
           </div>
@@ -293,7 +294,7 @@ export default function NavBar() {
             <SwiperSlide>
               {" "}
               <div className="comp studentfrom2">
-                <img src={swiggy} alt="swiggy" className="tcsimage" />
+                <img src={ Zomato} alt="swiggy" className="tcsimage" />
               </div>{" "}
             </SwiperSlide>
             <SwiperSlide>
