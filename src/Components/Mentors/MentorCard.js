@@ -1,12 +1,12 @@
 import React from "react";
 import "./MentorCard.css";
 // import {Link} from "react-router-dom";
-import mentorImage from "./MediaIcons/Ment-img.png";
+
 // import mentorImage from "../NavBar/user.webp"
 // import mentorLinkedin from "./MediaIcons/icon-linkedin.png";
 // import mentorGmail from "./MediaIcons/icon-gmail.png";
 // import mentorWp from "./MediaIcons/icon-wp.png";
-const MentorCard = ({ Profession, Name, Company,Desc, LinkedIn }) => {
+const MentorCard = ({ Profession, Name, Company,Desc, LinkedIn, mentorImage }) => {
   return (
     <div className="Ment-container">
       <div className="Ment-image">
