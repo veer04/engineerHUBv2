@@ -18,12 +18,15 @@ const InternCard = ({ company, position, link }) => {
       <span className="posted">Posted 2 hrs ago</span>
       <div className="Intern-Company">
         {/* <svg href="google.svg"></svg> */}
-        <div className="company-image">
+        {/* <div className="company-image">
         <img src={google} alt="google logo"/>
-        </div>
+        </div> */}
         <div className="Company-Name">{position}  | {company}</div>
           <button className="btn btn-primary newbtn">New</button>
-          <li className="conta" >
+          
+      </div>
+      <div>
+      <li className="conta" >
             <ul className="items text-in">Full-Time</ul>
             <ul className="text-in">Delhi, India</ul>
             <ul className="text-in">Paid</ul>

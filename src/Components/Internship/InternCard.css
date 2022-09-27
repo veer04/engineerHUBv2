@@ -5,6 +5,8 @@
 
 .conta{
   display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
 }
 
 .Intern-Container {
@@ -57,7 +59,12 @@ border-radius: 10px;
 }
 
 .items{
-  margin-left: 25rem;
+  margin-left: -2rem;
+  display: flex;
+  /* flex-direction: row;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  margin-right: 0%; */
 }
 
 .Company-Name {
@@ -67,7 +74,7 @@ border-radius: 10px;
 .Intern-Position {
   font-size: 16px;
   line-height: 25px;
-  padding-left: 52px;
+  /* padding-left: 52px; */
 }
 .Intern-Apply-Link {
   display: flex;
@@ -120,6 +127,7 @@ top: 922px; */
     font-size: 11px;
     line-height: 15px;
     margin-top: -11px;
+    padding-left: 0px;
   }
   .Intern-Apply-Link {
     font-size: 10px;
@@ -165,7 +173,7 @@ top: 922px; */
 @media (max-width:769px)
 {
   .items{
-    margin-left: 1rem;
+    margin-left: -2rem;
   }
 
   .newbtn,.apply{
