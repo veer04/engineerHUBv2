@@ -1,6 +1,5 @@
 import React from "react";
-// import { Link } from "react-router-dom";
-import google from "./google.svg";
+
 
 import "./InternCard.css";
 
@@ -41,6 +40,7 @@ const InternCard = ({ company, position, link }) => {
 
       </div>
       {/* <div className="Intern-Apply-Link"> */}
+      <a href={link} target="_blank" rel="noreferrer">
       <div className="applycont">
 
         <div className="btn btn-dark apply">
@@ -48,6 +48,7 @@ const InternCard = ({ company, position, link }) => {
         </div>
 
       </div>
+      </a>
     </div>
   );
 };
