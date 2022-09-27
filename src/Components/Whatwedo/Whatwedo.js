@@ -6,6 +6,7 @@ import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import TelegramIcon from "@mui/icons-material/Telegram";
 import SportsEsportsIcon from "@mui/icons-material/SportsEsports";
 import Phoneimg from "../Whatwedo/Phoneimg.svg";
+import { Link } from "react-router-dom";
 function Whatwedo() {
   return (
     <>
@@ -134,6 +135,7 @@ function Whatwedo() {
             Join our Community & let’s grow together...
             </div>
             <div className="d-flex justify-content-evenly flex">
+            <a href="https://discord.com/invite/ZMZAEZ5NfA" target="_blank" rel="noreferrer">
             <button className="Whatsapp">
               <WhatsAppIcon
                 sx={{
@@ -142,6 +144,8 @@ function Whatwedo() {
               />{" "}
               Join Whatsapp
             </button>
+            </a>
+            <a href="https://discord.com/invite/ZMZAEZ5NfA" target="_blank" rel="noreferrer">
             <button className="Discord">
               <SportsEsportsIcon
                 sx={{
@@ -150,6 +154,8 @@ function Whatwedo() {
               />{" "}
               Join Discord
             </button>
+            </a>
+            <a href="https://t.me/engineerhub_in" target="_blank" rel="noreferrer">
             <button className="Telegram">
               <TelegramIcon
                 sx={{
@@ -158,14 +164,18 @@ function Whatwedo() {
               />
               Join Telegram
             </button>
-            <button className="Linkedin">
+            </a>
+            <a href="https://www.linkedin.com/company/engineersummit/mycompany" target="_blank" rel="noreferrer">
+            <button className="Linkedin" component={Link}>
               <LinkedInIcon
                 sx={{
                   fontSize: { sm: 22, md: 32, lg: 33, xl: 33 },
                 }}
+                
               />
               Join Linkedin
             </button>
+            </a>
             </div>
           </div>
         </div>
