@@ -39,3 +39,11 @@
   justify-content: center;
   color: #000000;
 }
+
+
+@media (max-width:768px){
+  .topicBox .subheading{
+    font-size:17px;
+    align-items: center;
+  }
+}
