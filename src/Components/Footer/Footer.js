@@ -24,15 +24,21 @@ function Footer() {
             </div>
             <div className="f_nav">
               <h3 className="textfooter">Links</h3>
+              <a href="./magazine">
               <div className="row footerinnertext">
                 <p>Magzines</p>
               </div>
+              </a>
+              <a href="./courses">
               <div className="row footerinnertext ">
                 <p>Courses</p>
               </div>
+              </a>
+              <a href="./campus">
               <div className="row footerinnertext">
                 <p>Events</p>
               </div>
+              </a>
             </div>
             {/* <div className="f_nav">
               <h3 className="textfooter quickfooter">Address</h3>
