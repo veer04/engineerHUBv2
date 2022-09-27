@@ -30,9 +30,12 @@ const InternCard = ({ company, position, link }) => {
           </li>
       </div>
       <div className="Intern-Position">
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-      Venenatis dui ipsum, mi dignissim. Eleifend nulla viverra tempor pulvinar consequat, 
-      nec vulputate purus quisque.
+      
+        Titan is a itan Company Limited is an Indian products company that mainly
+        manufactures fashion accessories such as jewellery, watches and eyewear.
+
+
+
       </div>
       {/* <div className="Intern-Apply-Link"> */}
       <div className="applycont">

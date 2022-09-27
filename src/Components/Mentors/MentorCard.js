@@ -6,7 +6,7 @@ import mentorImage from "./MediaIcons/Ment-img.png";
 // import mentorLinkedin from "./MediaIcons/icon-linkedin.png";
 // import mentorGmail from "./MediaIcons/icon-gmail.png";
 // import mentorWp from "./MediaIcons/icon-wp.png";
-const MentorCard = ({ Profession, Name, Company, LinkedIn }) => {
+const MentorCard = ({ Profession, Name, Company,Desc, LinkedIn }) => {
   return (
     <div className="Ment-container">
       <div className="Ment-image">
@@ -21,8 +21,7 @@ const MentorCard = ({ Profession, Name, Company, LinkedIn }) => {
       </div>
 
       <div className="Ment-about">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Molestie eget
-        mattis gravida aliquam eget facilisis nibh.
+        {Desc}
       </div>
       <a target="_blank" href={LinkedIn} rel="noopener noreferrer" className="Ment-button">Connect</a>
     </div>

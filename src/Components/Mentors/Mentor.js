@@ -6,6 +6,7 @@ import {
   COMPANYMEMBER_LID2,
   COMPANYMEMBER_LID3,
 } from "../../config/StaticLinks";
+
 const Mentor = ({
   coursesDes= "engineerhub is equipped with skilled industrialists: ",
   courses = "Mentors for DSA",
@@ -14,18 +15,21 @@ const Mentor = ({
       Profession: "Frontend Developer",
       Name: "Rahul KM",
       Company: "@EngineerHUB",
+      Desc:"HTML, CSS, JavaScript, ReactJS",
       LinkedIn: COMPANYMEMBER_LID1,
     },
     {
       Profession: "Frontend Developer",
       Name: "Manish KR",
       Company: "@EngineerHUB",
+      Desc:"HTML, CSS, JavaScript, ReactJS",
       LinkedIn: COMPANYMEMBER_LID3,
     },
     {
       Profession: "Frontend Developer",
       Name: " Aditi JS",
       Company: "@EngineerHUB",
+      Desc:"HTML, CSS, JavaScript, ReactJS",
       LinkedIn: COMPANYMEMBER_LID2,
     },
   ],
@@ -43,6 +47,7 @@ const Mentor = ({
               Profession={member.Profession}
               Name={member.Name}
               Company={member.Company}
+              Desc={member.Desc}
               LinkedIn={member.LinkedIn}
             />
           );
