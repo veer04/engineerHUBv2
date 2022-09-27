@@ -2,6 +2,7 @@ import React from "react";
 import {Link} from "react-router-dom";
 import Accordion from "react-bootstrap/Accordion";
 import styles from "./AccordionBox.module.css";
+{/* <Link to="https://youtube.com/playlist?list=PLK5Xw4XYHVkvV41XZ8wNsHb_37IAAvB3p" */}
 
 const AccordionBox = () => {
   return (
@@ -17,10 +18,12 @@ const AccordionBox = () => {
           <Accordion.Header>Introduction to Javascript</Accordion.Header>
           <Accordion.Body style={{ display: "flex" , gap: "20px"}}>
             Learn about what Intermediate JavaScript has in store! 
-            <Link to="/"
-            className="watchnowbtn">
+            <a href="https://youtube.com/playlist?list=PLK5Xw4XYHVkvV41XZ8wNsHb_37IAAvB3p"
+            
+            className="watchnowbtn" target={"_blank"}>
               Watch now
-            </Link>
+              </a>
+            {/* </Link> */}
           </Accordion.Body>
         </Accordion.Item>
         <Accordion.Item eventKey="1">

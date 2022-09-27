@@ -6,7 +6,7 @@ const VideoCourses = () => {
     <div>
       <div className="video-wrapper">
     <ReactPlayer
-      url="https://www.youtube.com/watch?v=B-ytMSuwbf8"
+      url="https://youtube.com/playlist?list=PLK5Xw4XYHVkvV41XZ8wNsHb_37IAAvB3p"
       className="react-player"
       controls={true}
       style={{padding:"5%"}}
