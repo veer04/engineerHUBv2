@@ -317,31 +317,31 @@ const NavBar = () => {
       </Navbar>
       <div className="row subNavbar">
           <div className="col-2">
-            <div className="homesbn">
+            <div className="homesbn subn">
             <img src={HomeOutlinedIcon} alt="" style={{ width:"23px" }} onClick={() => home()}/>
               <div className="row">{/* home */}</div>
             </div>
           </div>
           <div className="col-2">
-            <div className="domainssbn">
+            <div className="domainssbn subn">
             <img src={WindowOutlinedIcon} alt="" style={{ width:"23px" }} onClick={() => domain()}/>
               <div className="row">{/* Domains */}</div>
             </div>
           </div>
           <div className="col-2">
-            <div className="coursessbn">
+            <div className="coursessbn subn">
             <img src={PlayCircleOutlineIcon} alt="" style={{ width:"23px" }} onClick={() => courses()}/>
               <div className="row">{/* Courses */}</div>
             </div>
           </div>
           <div className="col-2">
-            <div className="eventssbn">
+            <div className="eventssbn subn">
             <img src={CalendarTodayOutlinedIcon} style={{width: "25px"}} alt="" onClick={() => events()}/>
               <div className="row">{/* Events */}</div>
             </div>
           </div>
           <div className="col-2">
-            <div className="internshipssbn">
+            <div className="internshipssbn subn">
               <img src={WorkOutlineOutlinedIcon} alt="" style={{ width:"23px" }} onClick={() => internships()}/>
               <div className="row">{/* Internships */}</div>
             </div>

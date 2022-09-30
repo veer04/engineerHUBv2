@@ -33,8 +33,9 @@
   margin-left: 13%;
   /* height: 10vh; */
 }
-.Whatsapp {
-  background-color: rgba(8, 210, 4, 1);
+.Insta {
+  /* background-color: rgba(8, 210, 4, 1); */
+  background-color: #4c68d7;
 
   color: rgba(255, 255, 255, 1);
 
@@ -112,7 +113,7 @@
     line-height: 2.2rem;
     width: 70vw;
   }
-  .Whatsapp {
+  .Insta {
     font-size: 1rem;
     border: none;
     margin: 1rem;
@@ -211,7 +212,7 @@
   .carousel-control-prev {
     left: -20px;
   }
-  .Whatsapp {
+  .Insta {
     font-size: 0rem;
     border: none;
     margin: 0rem;

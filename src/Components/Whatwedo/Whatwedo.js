@@ -1,7 +1,7 @@
 import React from "react";
 import "../Whatwedo/Whatwedo.css";
 import Carousel from "react-bootstrap/Carousel";
-import WhatsAppIcon from "@mui/icons-material/WhatsApp";
+import InstagramIcon from "@mui/icons-material/Instagram";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import TelegramIcon from "@mui/icons-material/Telegram";
 import SportsEsportsIcon from "@mui/icons-material/SportsEsports";
@@ -135,14 +135,14 @@ function Whatwedo() {
             Join our Community & let’s grow together...
             </div>
             <div className="d-flex justify-content-evenly flex">
-            <a href="https://discord.com/invite/ZMZAEZ5NfA" target="_blank" rel="noreferrer">
-            <button className="Whatsapp">
-              <WhatsAppIcon
+            <a href="https://www.instagram.com/engineerhub.in" target="_blank" rel="noreferrer">
+            <button className="Insta">
+              <InstagramIcon
                 sx={{
                   fontSize: { sm: 22, md: 32, lg: 33, xl: 33 },
                 }}
               />{" "}
-              Join Whatsapp
+              Join Instagram
             </button>
             </a>
             <a href="https://discord.com/invite/ZMZAEZ5NfA" target="_blank" rel="noreferrer">
