@@ -55,7 +55,7 @@ function Card({
         </h6>
         <div className="d-flex align-items-baseline justify-content-between">
           <a href="/#" className="btnc" style={{ backgroundColor: "#002a36" , borderRadius: "10px"}}>
-            <span style={{ color: "white", fontSize: "0.9rem", padding: "8px 4px" , }}>
+            <span style={{ color: "white", fontSize: "0.9rem", padding: "12px 24px" , }}>
               Apply Now !
             </span>
           </a>

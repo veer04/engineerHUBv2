@@ -1,13 +1,17 @@
 .custom-card {
-
   width: 400px;
   border-radius: 16px;
   display: flex;
   transition: all 250ms ease-in-out;
 }
 
-.campus-card-cllg{
-  background-image: linear-gradient(45deg,rgb(215 246 255 / 83%),rgb(255 255 255)),url(./iitd.jpeg);
+.campus-card-cllg {
+  background-image: linear-gradient(
+      45deg,
+      rgb(215 246 255 / 83%),
+      rgb(255 255 255)
+    ),
+    url(./iitd.jpeg);
 }
 .custom-card:hover {
   transform: scale(1.04);
@@ -17,22 +21,21 @@
   box-shadow: 0 8px 21px 0 rgb(0 0 0 / 15%);
 }
 
-.card-text--hirin{
+.card-text--hirin {
   color: #ffff;
   padding-top: 0;
 }
 
-@media screen and (max-width:768px){
+@media screen and (max-width: 768px) {
   .custom-card {
-
     width: 300px;
   }
 
-  .card-text{
+  .card-text {
     font-size: 13px;
   }
 
-  .btnc{
+  .btnc {
     /* size: 10px; */
     font-size: 20px;
   }
@@ -45,18 +48,17 @@
   }
 } */
 
-@media screen and (max-width:426px) {
-    .campus--date{
-      font-size: 12px;
-    }
-
+@media screen and (max-width: 426px) {
+  .campus--date {
+    font-size: 12px;
+  }
 }
 
 @media screen and (max-width: 320px) {
   .card-body {
     padding: 0rem !important;
   }
-  .custom-card{
+  .custom-card {
     width: 270px;
   }
 }
