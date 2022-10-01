@@ -87,7 +87,7 @@
   padding-bottom: 15%;
 }
 .contactButtons {
-  padding: 0 0 4% 0;
+  padding: 0 0 2rem 0;
   background: #002a36;
 }
 .textwhat {
@@ -267,5 +267,13 @@
 .comuni {
   color: white;
   font-size: 24px;
-  padding: 1rem 0 3rem 0;
+  padding: 1rem 0 2rem 0;
+}
+
+@media screen and (max-width: 426px) {
+  .carousel-control-next, .carousel-control-prev {
+    height: -moz-fit-content;
+    height: fit-content;
+    transform: translateY(100px);
+  }
 }

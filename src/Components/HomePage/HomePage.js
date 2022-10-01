@@ -287,37 +287,37 @@ export default function NavBar() {
           >
             <SwiperSlide>
               {" "}
-              <div className="comp studentfrom2">
+              <div className="comp studentfrom2 ">
                 <img src={tcs} alt="tcs" className="tcsimage" />
               </div>{" "}
             </SwiperSlide>
             <SwiperSlide>
               {" "}
-              <div className="comp studentfrom2">
+              <div className="comp studentfrom2 ">
                 <img src={ Zomato} alt="swiggy" className="tcsimage" />
               </div>{" "}
             </SwiperSlide>
             <SwiperSlide>
               {" "}
-              <div className="comp studentfrom2">
+              <div className="comp studentfrom2 ">
                 <img src={oracle} alt="oracle" className="tcsimage" />
               </div>{" "}
             </SwiperSlide>
             <SwiperSlide>
               {" "}
-              <div className="comp studentfrom2">
+              <div className="comp studentfrom2 ">
                 <img src={logitech} alt="logitech" className="tcsimage" />
               </div>{" "}
             </SwiperSlide>
             <SwiperSlide>
               {" "}
-              <div className="comp studentfrom2">
+              <div className="comp studentfrom2 ">
                 <img src={infosys} alt="infosys" className="tcsimage" />
               </div>{" "}
             </SwiperSlide>
             <SwiperSlide>
               {" "}
-              <div className="comp studentfrom2">
+              <div className="comp studentfrom2 ">
                 <img src={vedantu} alt="vedantu" className="tcsimage" />
               </div>{" "}
             </SwiperSlide>

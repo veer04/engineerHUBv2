@@ -24,8 +24,8 @@ function Magzine() {
 
           <Swiper
             modules={[Autoplay]}
-            // loop={true}
-            // autoplay={{ delay: 2000 }}
+            loop={true}
+            autoplay={{ delay: 2000 }}
             spaceBetween={26}
             breakpoints={{
               768: {

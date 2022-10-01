@@ -56,6 +56,8 @@
   font-size: 0.9rem;
   font-weight: 300;
   display: flex;
+  padding: 10px 0px;
+  border-top: 2px solid grey;
 }
 .copyright span {
   font-size: 1.2rem;
@@ -79,6 +81,18 @@
   text-align-last: left;
   flex-basis: 32%;
   text-align: left;
+}
+
+.f_nav:nth-child(1) {
+  padding: 0px 20px;
+  border-right: 1px solid grey;
+}
+.f_nav:nth-child(2) {
+  padding: 0px 20px;
+  border-right: 2px solid grey;
+}
+.f_nav:nth-child(3) {
+  padding: 0px 20px;
 }
 
 .f_nav {
@@ -147,11 +161,10 @@
 
     flex-shrink: 1 !important;
   }
-  .foot-btn{
+  .foot-btn {
     flex-wrap: nowrap;
   }
-  .foot-btn div{
-    
+  .foot-btn div {
     flex-shrink: 1 !important;
   }
 }

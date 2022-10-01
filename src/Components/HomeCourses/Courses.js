@@ -57,7 +57,7 @@ function Events() {
           <Swiper
             modules={[Autoplay]}
             loop={true}
-            // autoplay={{ delay: 4000 }}
+            autoplay={{ delay: 4000 }}
 
             breakpoints={{
               425: {
@@ -73,7 +73,7 @@ function Events() {
                 slidesPerView: 3,
               },
               1440: {
-                width: 1274,
+                width: 1290,
                 slidesPerView: 4,
               },
             }}

@@ -1,6 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap");
-*{
+* {
   font-family: "Poppins", sans-serif;
 }
 .container {
@@ -39,9 +39,9 @@
 }
 .headerbelow {
   position: relative;
-  letter-spacing: -0.4px;
+  letter-spacing: -0.5px;
   bottom: 16px;
-  left: 144px;
+  left: 148px;
   font-weight: 400;
   font-size: 1.3rem;
   margin-block-end: 0;
@@ -62,7 +62,7 @@
 .headercard {
   display: flex;
   flex-direction: column;
-  background: linear-gradient(rgba(18,131,129,1),rgba(0,42,54,1));
+  background: linear-gradient(rgba(18, 131, 129, 1), rgba(0, 42, 54, 1));
   box-shadow: 2px 2px 3px 3px rgb(165, 162, 162);
   width: 25%;
   padding: 0.5rem;
@@ -166,14 +166,13 @@
     font-size: 1.5rem;
 } */
 
-.head{
+.head {
   background-color: #256067;
 }
 
 .Members {
   margin-top: 10%;
 }
-
 
 /* .row1-container{
   background-color: #05555e;
@@ -272,8 +271,14 @@ body {
   box-shadow: 0px 30px 40px -20px hsl(229, 6%, 66%);
   padding: 30px;
   margin: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
+.box:nth-child(1) {display: flex;flex-direction: column;}
+.box:nth-child(2) {display: flex;flex-direction: column;}
+.box:nth-child(3) {display: flex;flex-direction: column;}
 /* img {
   float: right;
 } */
@@ -359,7 +364,7 @@ body {
     bottom: 10px;
     left: 98px;
   }
-  .headearpart{
+  .headearpart {
     margin-right: -12px;
     margin-left: 0px;
   }
@@ -375,37 +380,49 @@ body {
     bottom: 10px;
     left: 98px;
   }
-  .studenttxt{
+  .studenttxt {
     color: rgba(255, 242, 0, 1);
   }
 }
 
-
-
 @media screen and (max-width: 426px) {
-  .studenttxt{
+  .studenttxt {
     font-size: 1.3rem;
   }
-  .swiper-slide{
+  .swiper-slide {
     display: flex;
     justify-content: center;
-    transition: all .4s ease;             
- }
- .headercard{
-  flex-direction: row-reverse;
-  justify-content: space-between;
-  width: 90vw;
+    transition: all 0.4s ease;
+  }
+  .headercard {
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    width: 90vw;
 
-  margin-left: 16px;
-  margin-right: auto;
- }
- .headercard img{
-  width: 70px !important;
- }
- .innerfont{
-  font-size: 1rem;
- }
- .headercardtext{
-  font-size: 3.4rem;
- }
+    margin-left: 16px;
+    margin-right: auto;
+  }
+  .headercard img {
+    width: 70px !important;
+  }
+  .innerfont {
+    font-size: 1rem;
+  }
+  .headercardtext {
+    font-size: 3.4rem;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .imgpos {
+    margin-bottom: 0px;
+  }
+  .box {
+    padding: 5px;
+  }
+}
+
+
+.comp-slide{
+  padding: 0px;
 }
