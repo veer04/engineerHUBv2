@@ -27,16 +27,17 @@ const EventCard = ({
             {" "}
             {eventTitle1} {eventTitle2}
           </div>
-          <button className="Prize">Prize</button>
+          <a href="https://discord.gg/ZMZAEZ5NfA" > <button className="Prize">
+            Join</button></a>
         </div>
         <div className="event-details">{eventDescription}</div>
         <div>
-          <div
+          {/* <div
             style={{ backgroundColor: "#0d718c" }}
             className="event-register"
           >
             Join
-          </div>
+          </div> */}
         </div>
       </div>
     </>

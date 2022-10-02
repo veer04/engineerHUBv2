@@ -219,7 +219,7 @@ export default function NavBar() {
           <Swiper
             modules={[Autoplay]}
             loop={true}
-            // autoplay={{ delay: 4000 }}
+            autoplay={{ delay: 2000 }}
 
             breakpoints={{
               425: {
@@ -280,7 +280,7 @@ export default function NavBar() {
           <Swiper
             modules={[Autoplay]}
             loop={true}
-            autoplay={{ delay: 4000 }}
+            autoplay={{ delay: 2000}}
             breakpoints={{}}
             onSwiper={(swiper) => console.log(swiper)}
             onSlideChange={() => console.log("slide change")}

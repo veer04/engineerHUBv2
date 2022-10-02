@@ -50,11 +50,11 @@ function Card({ courseTitle1, courseTitle2, courseDescription, lastDate }) {
           {/* <h6 style={{ fontWeight: 700 }}>Organizer: IIT Delhi</h6> */}
           <div className="btn-container d-flex justify-content-between align-items-baseline">
             <Link
-              to="/userpage"
+              to="/magazine"
               className="default-btn"
               style={{ backgroundColor: "rgba(255, 199, 0, 1)" }}
             >
-              <div style={{ color: "#000000", fontWeight: 400 }}>Register</div>
+              <div style={{ color: "#000000", fontWeight: 400 }}>Tap to Open</div>
             </Link>
             <p
               className="d-flex card-date fst-normal align-items-center justify-content-center"
