@@ -25,7 +25,7 @@ function App() {
       <NavBar />
       <Routes>
         <Route path="" exact element={<HomePage />} />
-        
+
         <Route path="/resources" exact element={<Resources />} />
         <Route path="/mentor" exact element={<Mentors />} />
         <Route path="/domain" exact element={<Domain />} />
@@ -36,7 +36,7 @@ function App() {
         <Route path="/campus" exact element={<Campus />} />
         <Route path="/Team" exact element={<Teams />} />
         <Route path="/industry" exact element={<IndustryPersona />} />
-        <Route path="/userpage" exact element={<UserPage />} />
+        <Route path="/userpage/:id" exact element={<UserPage />} />
 
         <Route path="/login" exact element={<Login />} />
         <Route path="/register" exact element={<Register />} />

@@ -1,4 +1,5 @@
 import React from "react";
+
 import "./freecourses.css";
 import Full from "./Full";
 import { coursesData } from "../HomeCourses/Courses";
@@ -17,10 +18,12 @@ const Freecourses = () => {
         style={{ margin: "0px 35px 40px" }}
         className="d-flex row justify-content-evenly courses-cont"
       >
-        {coursesData.map((c,i) => {
+        {coursesData.map((c, i) => {
           return (
             <Full
               key={i}
+              id={i * 2}
+              state={c}
               courseTitle1={c.courseTitle1}
               courseTitle2={c.courseTitle2}
               courseDescription={c.courseDescription}

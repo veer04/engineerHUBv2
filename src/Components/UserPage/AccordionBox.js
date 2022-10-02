@@ -14,7 +14,7 @@ const AccordionBox = ({courseName = "Learning Javascript"}) => {
         style={{ boxShadow: "21px 21px 21px rgb(201 231 239)" }}
       >
         <Accordion.Item eventKey="0">
-          <Accordion.Header>Introduction to Javascript</Accordion.Header>
+          <Accordion.Header>Introduction to {courseName}</Accordion.Header>
           <Accordion.Body style={{ display: "flex", gap: "20px" }}>
             Learn about what Intermediate JavaScript has in store!
             <a

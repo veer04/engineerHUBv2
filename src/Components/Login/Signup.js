@@ -18,7 +18,7 @@ const Signup = () => {
   // const [flag, setFlag] = useState(0);
 
   var checkStatus = false;
-var captcha =false;
+  var captcha = false;
   const [formUserName, setFormUserName] = useState("");
   const [formEmail, setFormEmail] = useState("");
   const [formMobile, setFormMobile] = useState("");
@@ -75,8 +75,7 @@ var captcha =false;
   };
   function captchaValid(value) {
     console.log("Captcha value:", value);
-    captcha=true;
-  
+    captcha = true;
   }
   const submit = async (e) => {
     e.preventDefault();
@@ -107,11 +106,10 @@ var captcha =false;
         .then((res) => {
           console.log(res.data);
           if (res.status === 200) {
-            if(captcha===true)
-          Navigate("/");
-          else{
-            window.alert("captcha required!!!");
-          }
+            if (captcha === true) Navigate("/");
+            else {
+              window.alert("captcha required!!!");
+            }
           }
         })
         .catch((err) => {
@@ -208,7 +206,6 @@ var captcha =false;
     }
     return errors;
   };
-  
 
   return (
     <div className="cont">
@@ -336,16 +333,16 @@ var captcha =false;
               </span>
             </div>
             <div className="form-cont captchaf col-lg-6">
-            <ReCAPTCHA
-    sitekey="6Ldv4UsiAAAAALeiqiOLARiczFwe-twQHsgrz9Us"
-    onChange={captchaValid}
-  />
+              <ReCAPTCHA
+                sitekey="6Ldv4UsiAAAAALeiqiOLARiczFwe-twQHsgrz9Us"
+                onChange={captchaValid}
+              />
             </div>
           </div>
 
           <div className="form-opt">
             <button className="my-btn reg-si" type="button" onClick={submit}>
-              Join the Comuunity
+              Join the Community
             </button>
             {/* <div className="d-flex justify-content-center">
           <div className="f-p">Forgot Password ?</div>
@@ -358,10 +355,10 @@ var captcha =false;
             <hr />
           </div>
           <div className="sign-field reg-field">
-          <div className="sign-opt ">
-          <img src={gg} alt="google" />
-          Continue with Google
-        </div>
+            <div className="sign-opt ">
+              <img src={gg} alt="google" />
+              Continue with Google
+            </div>
           </div>
 
           <div className="my-item-cont">

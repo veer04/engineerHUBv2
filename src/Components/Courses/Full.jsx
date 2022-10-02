@@ -3,8 +3,20 @@ import { Link } from "react-router-dom";
 import "./freecourses.css";
 import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
 import backImage from "./backimg.png";
+import { useEffect } from "react";
 
-function Card({ courseTitle1, courseTitle2, courseDescription, lastDate }) {
+function Card({
+  courseTitle1,
+  courseTitle2,
+  courseDescription,
+  lastDate,
+  id,
+  state,
+}) {
+  useEffect(() => {
+    console.log(state);
+  });
+
   return (
     <>
       <div
@@ -50,7 +62,8 @@ function Card({ courseTitle1, courseTitle2, courseDescription, lastDate }) {
           {/* <h6 style={{ fontWeight: 700 }}>Organizer: IIT Delhi</h6> */}
           <div className="btn-container d-flex justify-content-between align-items-baseline">
             <Link
-              to="/userpage"
+              to={`/userpage/${id}`}
+              state={state}
               className="default-btn"
               style={{ backgroundColor: "rgba(255, 199, 0, 1)" }}
             >

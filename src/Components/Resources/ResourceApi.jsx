@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./Resources.css";
@@ -16,7 +17,8 @@ function ResourceApi({ heading, text }) {
     };
     console.log(resourceData);
     getResourceDetials();
-  }, );
+  },[]);
+  
 
   return (
     <div className="container-hiring">
