@@ -62,7 +62,7 @@ function Events() {
           <Swiper
             modules={[Autoplay]}
             loop={true}
-            autoplay={{ delay: 3000 }}
+            autoplay={{ delay: 1000 }}
             spaceBetween={26}
             breakpoints={{
               768: {
@@ -78,8 +78,8 @@ function Events() {
                 slidesPerView: 4,
               },
             }}
-            onSwiper={(swiper) => console.log(swiper)}
-            onSlideChange={() => console.log("slide change")}
+            onSwiper={(swiper) => {}}
+            onSlideChange={() => {}}
           >
             {eventStaticData.map((c, i) => (
               <SwiperSlide>

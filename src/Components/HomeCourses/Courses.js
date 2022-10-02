@@ -80,13 +80,16 @@ function Events() {
                 slidesPerView: 4,
               },
             }}
-            onSwiper={(swiper) => console.log(swiper)}
-            onSlideChange={() => console.log("slide change")}
+            onSwiper={() => {}}
+            onSlideChange={() => {}}
           >
             {coursesData.map((c, i) => (
               <SwiperSlide>
                 <CoursesCard
                   key={i * 20}
+                  id={i * 2}
+                  courseName={c.courseName}
+                  state={c}
                   courseTitle1={c.courseTitle1}
                   courseTitle2={c.courseTitle2}
                   courseDescription={c.courseDescription}

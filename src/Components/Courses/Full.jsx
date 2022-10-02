@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import "./freecourses.css";
 import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
 import backImage from "./backimg.png";
-import { useEffect } from "react";
 
 function Card({
   courseTitle1,
@@ -13,10 +12,6 @@ function Card({
   id,
   state,
 }) {
-  useEffect(() => {
-    console.log(state);
-  });
-
   return (
     <>
       <div
