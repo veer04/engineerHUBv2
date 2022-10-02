@@ -355,12 +355,10 @@ const Signup = () => {
             <hr />
           </div>
           <div className="sign-field reg-field">
-            <div className="sign-opt reg">
-              <img src={gg} alt="google" />
-            </div>
-            <div className="sign-opt reg">
-              <img src={fve} alt="Facebook" />
-            </div>
+          <div className="sign-opt ">
+          <img src={gg} alt="google" />
+          Continue with Google
+        </div>
           </div>
 
           <div className="my-item-cont">

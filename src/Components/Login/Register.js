@@ -77,11 +77,9 @@ const Register = () => {
           <hr />
         </div>
         <div className="sign-field reg-field">
-          <div className="sign-opt reg">
+          <div className="sign-opt ">
             <img src={gg} alt="google" />
-          </div>
-          <div className="sign-opt reg">
-            <img src={fve} alt="Facebook" />
+            Continue with Google
           </div>
         </div>
 

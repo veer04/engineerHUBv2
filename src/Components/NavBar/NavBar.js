@@ -16,15 +16,7 @@ import HomeOutlinedIcon from "./subNavbarIcon/HomeOutlinedIcon.svg";
 import CalendarTodayOutlinedIcon from "./subNavbarIcon/CalendarTodayOutlinedIcon.png";
 import cp from "../pdf/cp.pdf";
 
-
-
-
-
 const NavBar = () => {
-
-
-
-  
   const [domainData, setDomainData] = useState([]);
 
   useEffect(() => {
@@ -81,12 +73,8 @@ const NavBar = () => {
                   title="DSA (C/C++)"
                   className="dropdownNav dropend"
                 >
-                  <NavDropdown.Item
-                    href={cp}
-                    target="_blank"
-                  >
+                  <NavDropdown.Item href={cp} target="_blank">
                     HandBook
-                    
                   </NavDropdown.Item>
                   <NavDropdown.Item href="/resources">
                     Resources
@@ -106,10 +94,7 @@ const NavBar = () => {
                   title="Web developement"
                   className="dropdownNav dropend "
                 >
-                  <NavDropdown.Item
-                    href={cp}
-                    target="_blank"
-                  >
+                  <NavDropdown.Item href={cp} target="_blank">
                     HandBook
                   </NavDropdown.Item>
                   <NavDropdown.Item href="/resources">
@@ -129,10 +114,7 @@ const NavBar = () => {
                   title="App Development"
                   className="dropdownNav dropend "
                 >
-                  <NavDropdown.Item
-            href={cp}
-                    target="_blank"
-                  >
+                  <NavDropdown.Item href={cp} target="_blank">
                     HandBook
                   </NavDropdown.Item>
                   <NavDropdown.Item href="/resources">
@@ -152,10 +134,7 @@ const NavBar = () => {
                   title="ML&AI (PYTHON)"
                   className="dropdownNav dropend "
                 >
-                  <NavDropdown.Item
-            href={cp}
-                    target="_blank"
-                  >
+                  <NavDropdown.Item href={cp} target="_blank">
                     HandBook
                   </NavDropdown.Item>
                   <NavDropdown.Item href="/resources">
@@ -176,10 +155,7 @@ const NavBar = () => {
                   className="dropdownNav dropend "
                 >
                   <div className="dropdownNav dropend ">
-                    <NavDropdown.Item
-              href={cp}
-                      className="dropdownNav dropend"
-                    >
+                    <NavDropdown.Item href={cp} className="dropdownNav dropend">
                       HandBook{" "}
                     </NavDropdown.Item>
                     <NavDropdown.Item href="/resources">
@@ -197,10 +173,7 @@ const NavBar = () => {
                   </div>
                 </NavDropdown>
                 <NavDropdown title="Dev Ops" className="dropdownNav dropend">
-                  <NavDropdown.Item
-            href={cp}
-                    target="_blank"
-                  >
+                  <NavDropdown.Item href={cp} target="_blank">
                     HandBook
                   </NavDropdown.Item>
                   <NavDropdown.Item href="/resources">
@@ -220,10 +193,7 @@ const NavBar = () => {
                   title="UI/UX Design"
                   className="dropdownNav dropend"
                 >
-                  <NavDropdown.Item
-            href={cp}
-                    target="_blank"
-                  >
+                  <NavDropdown.Item href={cp} target="_blank">
                     HandBook
                   </NavDropdown.Item>
                   <NavDropdown.Item href="/resources">
@@ -240,10 +210,7 @@ const NavBar = () => {
                   </NavDropdown.Item>
                 </NavDropdown>
                 <NavDropdown title="BlockChain" className="dropdownNav dropend">
-                  <NavDropdown.Item
-            href={cp}
-                    target="_blank"
-                  >
+                  <NavDropdown.Item href={cp} target="_blank">
                     HandBook
                   </NavDropdown.Item>
                   <NavDropdown.Item href="/resources">
@@ -280,10 +247,7 @@ const NavBar = () => {
                   title="SEO/Graphic Design"
                   className="dropdownNav dropend"
                 >
-                  <NavDropdown.Item
-            href={cp}
-                    target="_blank"
-                  >
+                  <NavDropdown.Item href={cp} target="_blank">
                     HandBook
                   </NavDropdown.Item>
                   <NavDropdown.Item href="/resources">
@@ -308,45 +272,70 @@ const NavBar = () => {
               <Nav.Link href="/industry">Industry</Nav.Link>
               <Nav.Link href="/team">Team</Nav.Link>
               <Nav.Link href="login" className="desk-tab--view">
-                <img src={User} alt="" height={40} width={40} />
+                <img src={User} alt="" height={40} width={40} />{" "}
+                <span style={{ fontSize: "14px" }}>Arthur Morgan</span>
               </Nav.Link>
             </Nav>
           </Navbar.Collapse>
         </Container>
-       
       </Navbar>
       <div className="row subNavbar">
-          <div className="col-2">
-            <div className="homesbn subn">
-            <img src={HomeOutlinedIcon} alt="" style={{ width:"23px" }} onClick={() => home()}/>
-              <div className="row">{/* home */}</div>
-            </div>
-          </div>
-          <div className="col-2">
-            <div className="domainssbn subn">
-            <img src={WindowOutlinedIcon} alt="" style={{ width:"23px" }} onClick={() => domain()}/>
-              <div className="row">{/* Domains */}</div>
-            </div>
-          </div>
-          <div className="col-2">
-            <div className="coursessbn subn">
-            <img src={PlayCircleOutlineIcon} alt="" style={{ width:"23px" }} onClick={() => courses()}/>
-              <div className="row">{/* Courses */}</div>
-            </div>
-          </div>
-          <div className="col-2">
-            <div className="eventssbn subn">
-            <img src={CalendarTodayOutlinedIcon} style={{width: "25px"}} alt="" onClick={() => events()}/>
-              <div className="row">{/* Events */}</div>
-            </div>
-          </div>
-          <div className="col-2">
-            <div className="internshipssbn subn">
-              <img src={WorkOutlineOutlinedIcon} alt="" style={{ width:"23px" }} onClick={() => internships()}/>
-              <div className="row">{/* Internships */}</div>
-            </div>
+        <div className="col-2">
+          <div className="homesbn subn">
+            <img
+              src={HomeOutlinedIcon}
+              alt=""
+              style={{ width: "23px" }}
+              onClick={() => home()}
+            />
+            <div className="row">{/* home */}</div>
           </div>
         </div>
+        <div className="col-2">
+          <div className="domainssbn subn">
+            <img
+              src={WindowOutlinedIcon}
+              alt=""
+              style={{ width: "23px" }}
+              onClick={() => domain()}
+            />
+            <div className="row">{/* Domains */}</div>
+          </div>
+        </div>
+        <div className="col-2">
+          <div className="coursessbn subn">
+            <img
+              src={PlayCircleOutlineIcon}
+              alt=""
+              style={{ width: "23px" }}
+              onClick={() => courses()}
+            />
+            <div className="row">{/* Courses */}</div>
+          </div>
+        </div>
+        <div className="col-2">
+          <div className="eventssbn subn">
+            <img
+              src={CalendarTodayOutlinedIcon}
+              style={{ width: "25px" }}
+              alt=""
+              onClick={() => events()}
+            />
+            <div className="row">{/* Events */}</div>
+          </div>
+        </div>
+        <div className="col-2">
+          <div className="internshipssbn subn">
+            <img
+              src={WorkOutlineOutlinedIcon}
+              alt=""
+              style={{ width: "23px" }}
+              onClick={() => internships()}
+            />
+            <div className="row">{/* Internships */}</div>
+          </div>
+        </div>
+      </div>
     </>
   );
 };
