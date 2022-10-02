@@ -124,7 +124,7 @@ left: 20%;
     
     flex-wrap: wrap;
 
-height: 40vh;
+height: 45vh;
   }
   .cardMember1{
     display: flex;
@@ -132,9 +132,24 @@ height: 40vh;
     align-items: center;
     
     flex-wrap: wrap;
-    height: 40vh;
+    height: 45vh;
 
   }
+}
+@media screen and (max-width:826px){
+.cardMember{
+  height: 48vh;
+}
+.cardMember1{
+  height: 48vh;
+}
+.namePosition{
+position: relative;
+left: 5%;
+}
+.namePosition1{
+  left: 43%;
+}
 }
 @media screen and (max-width:768px){
   
@@ -189,7 +204,7 @@ height: 40vh;
 
     flex-wrap: wrap;
 
-    height: 40vh;
+    height: 45vh;
   }
   .cardMember1 {
     display: flex;
@@ -197,7 +212,7 @@ height: 40vh;
     align-items: center;
 
     flex-wrap: wrap;
-    height: 40vh;
+    height: 45vh;
   }
 }
 @media screen and (max-width: 768px) {

@@ -1,10 +1,12 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+
 import "./Register.css";
 import axios from "axios";
 import gg from "./svg/google.svg";
-import fve from "./svg/fve.svg";
+// import fve from "./svg/fve.svg";
 const Register = () => {
+  const navigate = useNavigate();
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
 
@@ -19,7 +21,24 @@ const Register = () => {
       "https://ehubbackend.herokuapp.com/api/v1/signin",
       data
     );
-    console.log(result);
+   
+    if(result.status===200)
+    {
+      navigate("/userpage");
+    }
+  
+   
+    // console.log(result);
+
+
+    // if(result.status===200)
+    // {
+    //   navigate("/userpage");
+    // }
+    // else if(result.status===400)
+    // {
+    //   window.alert("Invalid credentials!!!");
+    // }
     // var token ="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Il9pZCI6IjYyZmQ0MTBmMGY2OTAyMmZiM2U0YTg0ZCIsInVzZXJOYW1lIjoiUGFya2hpIiwiaW5zdGl0dXRpb25OYW1lIjoiQUtHRUMgR2hhemlhYmFkIiwiYnJhbmNoIjoiQ1NJVCIsImVtYWlsIjoicGFya2hpZ2FyZzMwMkBnbWFpbC5jb20iLCJtb2JpbGUiOiI3NjY4MDQzNjkxIiwicGFzc3dvcmQiOiIkMmIkMTAkUi41VkpZTDdMRm92azFrS2xNSFdUdWYvNjZabXpNdU9lMUVrTUlnOUk4cXZmeGtTVE5TZVciLCJjb25maXJtUGFzc3dvcmQiOiIkMmIkMTAkUi41VkpZTDdMRm92azFrS2xNSFdUdWYvNjZabXpNdU9lMUVrTUlnOUk4cXZmeGtTVE5TZVciLCJpc1ZlcmlmaWVkIjpmYWxzZSwib3RwdXNlciI6MjkyMDY2LCJfX3YiOjB9LCJpYXQiOjE2NjA4MDE1NzcsImV4cCI6MTY2MTQwNjM3N30.EBEaL_8HNqp-u5kkmNOa-Tq7Bv7sXx8IxXz9sMi6PIA"
 
     // const result2 =await axios.post("https://ehubbackend.herokuapp.com/api/v1/refresh",token);

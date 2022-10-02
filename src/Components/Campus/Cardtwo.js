@@ -2,11 +2,12 @@ import React from "react";
 import "./Card.css";
 import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
 
-function Card({
+
+function Cardtwo({
   paid = false,
-  card_head = "Learn Quantum Computing & Machine Learning. ",
+  card_head = "One day symposium on Solar Desalination &  Cold storage system. ",
   cName = "card custom-card ",
-  cDate = "12-10-2022"
+  cDate = "14-12-2022"
 }) {
   return (
     <div
@@ -48,13 +49,13 @@ function Card({
           </div>
         </div>
         <p className="card-text dark-bg">
-        Students can now understand the principals of quantum computing from the 3rd top Institute of India & become versed with various Quantum Computing Algorithm.cover the recently observed emergent phenomena in the area of quantum materials. 
+        The one-day hybrid symposium will provide a platform for the researchers, executives and leaders to assimilate the knowledge and get the opportunity to discuss and share insights through research findings.
         </p>
         <h6 style={{ fontWeight: 700, marginBottom: "1rem" }}>
-          Organizer: IIT Delhi
+          Organizer: IIT Madras
         </h6>
         <div className="d-flex align-items-baseline justify-content-between">
-          <a href="https://home.iitd.ac.in/show.php?id=236&in_sections=News" className="btnc" style={{ backgroundColor: "#002a36" , borderRadius: "10px"}}>
+          <a href="https://www.iitm.ac.in/happenings/events/compact-solar-desalination-and-cold-storage-systems" className="btnc" style={{ backgroundColor: "#002a36" , borderRadius: "10px"}}>
             <span style={{ color: "white", fontSize: "0.9rem", padding: "12px 24px" , }}>
               View More !
             </span>
@@ -71,4 +72,4 @@ function Card({
   );
 }
 
-export default Card;
+export default Cardtwo;

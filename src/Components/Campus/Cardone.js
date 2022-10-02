@@ -2,11 +2,12 @@ import React from "react";
 import "./Card.css";
 import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
 
-function Card({
+
+function Cardone({
   paid = false,
-  card_head = "Learn Quantum Computing & Machine Learning. ",
+  card_head = "Conference on emergent phenomenon in Quantum materials. ",
   cName = "card custom-card ",
-  cDate = "12-10-2022"
+  cDate = "14-12-2022"
 }) {
   return (
     <div
@@ -48,13 +49,13 @@ function Card({
           </div>
         </div>
         <p className="card-text dark-bg">
-        Students can now understand the principals of quantum computing from the 3rd top Institute of India & become versed with various Quantum Computing Algorithm.cover the recently observed emergent phenomena in the area of quantum materials. 
+        On the occasion of their175 years of completion, IIT Roorkee is organising a conference to cover the recently observed emergent phenomena in the area of quantum materials. These materials pose the most exciting and challenging research problems in condensed matter physics. 
         </p>
         <h6 style={{ fontWeight: 700, marginBottom: "1rem" }}>
-          Organizer: IIT Delhi
+          Organizer: IIT Roorkee
         </h6>
         <div className="d-flex align-items-baseline justify-content-between">
-          <a href="https://home.iitd.ac.in/show.php?id=236&in_sections=News" className="btnc" style={{ backgroundColor: "#002a36" , borderRadius: "10px"}}>
+          <a href="https://www.iitr.ac.in/epqm/" className="btnc" style={{ backgroundColor: "#002a36" , borderRadius: "10px"}}>
             <span style={{ color: "white", fontSize: "0.9rem", padding: "12px 24px" , }}>
               View More !
             </span>
@@ -71,4 +72,4 @@ function Card({
   );
 }
 
-export default Card;
+export default Cardone;

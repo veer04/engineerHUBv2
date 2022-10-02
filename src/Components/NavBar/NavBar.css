@@ -139,7 +139,9 @@ a.dropdown-item {
     padding-bottom: 4%;
     background-color: rgba(0, 42, 54, 1);
   }
- 
+ .helloadmin{
+  display: flex;
+ }
 }
 .homesbn {
   color: green;

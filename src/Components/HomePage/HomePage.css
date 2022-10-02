@@ -189,6 +189,19 @@ body{
   }
 }
 
+@media screen and (max-width: 840px) and (min-width:768px){
+.imgpos{
+  position: relative;
+  top: 30%;
+  left: -150%;
+
+}
+.clgname{
+position: relative;
+top: -50%;
+left: 20%;
+}
+}
 @media screen and (max-width: 768px) {
   .comp:nth-child(5) {
     display: none;
@@ -199,6 +212,7 @@ body{
 
     align-items: center;
   }
+  
 
   .headercard {
     width: 35vw;

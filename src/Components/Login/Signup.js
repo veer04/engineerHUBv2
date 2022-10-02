@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
-
+import { Link, Navigate } from "react-router-dom";
+import ReCAPTCHA from "react-google-recaptcha";
 import gg from "./svg/google.svg";
-import fve from "./svg/fve.svg";
+// import fve from "./svg/fve.svg";
 import "./Register.css";
 import "./Signup.css";
 const Signup = () => {
@@ -18,7 +18,7 @@ const Signup = () => {
   // const [flag, setFlag] = useState(0);
 
   var checkStatus = false;
-
+var captcha =false;
   const [formUserName, setFormUserName] = useState("");
   const [formEmail, setFormEmail] = useState("");
   const [formMobile, setFormMobile] = useState("");
@@ -73,7 +73,11 @@ const Signup = () => {
     setFocused(true);
     setFormConfirmPassword(validateConPassword(confirmPassword));
   };
-
+  function captchaValid(value) {
+    console.log("Captcha value:", value);
+    captcha=true;
+  
+  }
   const submit = async (e) => {
     e.preventDefault();
     setUserName(validateUserName(userName));
@@ -103,12 +107,11 @@ const Signup = () => {
         .then((res) => {
           console.log(res.data);
           if (res.status === 200) {
-            // if (flag === 1) {
-            //   // Navigate("/confirm");
-            // }
-            //  else {
-            //   window.alert("captcha Required!!!");
-            // }
+            if(captcha===true)
+          Navigate("/");
+          else{
+            window.alert("captcha required!!!");
+          }
           }
         })
         .catch((err) => {
@@ -205,6 +208,7 @@ const Signup = () => {
     }
     return errors;
   };
+  
 
   return (
     <div className="cont">
@@ -315,7 +319,7 @@ const Signup = () => {
             </div>
           </div>
           <div className="row">
-            <div className="form-cont col-lg-6">
+            <div className="form-cont cpf col-lg-6">
               <input
                 required="required"
                 autoComplete="off"
@@ -331,12 +335,11 @@ const Signup = () => {
                 {formConfirmPassword.confirmPassword}
               </span>
             </div>
-            <div className="form-cont col-lg-6">
-              <input
-                type="text"
-                className="reg-input"
-                placeholder="recaptcha testing field"
-              />
+            <div className="form-cont captchaf col-lg-6">
+            <ReCAPTCHA
+    sitekey="6Ldv4UsiAAAAALeiqiOLARiczFwe-twQHsgrz9Us"
+    onChange={captchaValid}
+  />
             </div>
           </div>
 
