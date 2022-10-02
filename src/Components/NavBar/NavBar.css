@@ -45,7 +45,8 @@ a.dropdown-item {
 
 .subn:hover{
   cursor: pointer;
-  transform: scale(0.9);
+  transform: translateY(-4px);
+
 }
 
 @media screen and (max-width: 1463px) {
