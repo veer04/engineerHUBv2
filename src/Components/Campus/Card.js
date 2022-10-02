@@ -59,12 +59,12 @@ function Card({
               Apply Now !
             </span>
           </a>
-          <p
+          {/* <p
             className="d-flex fst-normal align-items-baseline campus--date"
             // style={{ marginLeft: "4.4rem" }}
           >
             Last date: {cDate}
-          </p>
+          </p> */}
         </div>
       </div>
     </div>

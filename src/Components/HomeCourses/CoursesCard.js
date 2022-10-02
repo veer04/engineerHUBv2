@@ -28,7 +28,11 @@ const CoursesCard = ({
           <button className="Prize">Free</button>
         </div>
         <div className="courses-details">{courseDescription}</div>
-        <div className="courses-register">Register</div>
+        <div className="courses-register">
+          <a className="btn--link" href="/userpage" rel="noreferrer">
+            Register
+          </a>{" "}
+        </div>
       </div>
     </>
   );

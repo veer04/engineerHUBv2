@@ -3,10 +3,10 @@ import React from "react";
 import Accordion from "react-bootstrap/Accordion";
 import styles from "./AccordionBox.module.css";
 
-const AccordionBox = () => {
+const AccordionBox = ({courseName = "Learning Javascript"}) => {
   return (
     <div className={styles.accordion_box}>
-      <div className={styles.accordion_box_name}>Learning Javascript</div>
+      <div className={styles.accordion_box_name}>{courseName}</div>
 
       <Accordion
         defaultActiveKey="0"

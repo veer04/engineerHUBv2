@@ -20,7 +20,8 @@ export default function MagzineAndHandbook() {
       <div className="container-hiring">
         <div className="heading">Magzines &amp; HandBook</div>
         <p className="texthire">
-        Engineerhub issues various magazines & handbooks regularly that contribute to expanding knowledge for the benefit of students.
+          Engineerhub issues various magazines & handbooks regularly that
+          contribute to expanding knowledge for the benefit of students.
         </p>
 
         <div
