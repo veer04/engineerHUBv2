@@ -19,7 +19,8 @@ import SignUp from "./Components/Login/Signup";
 import Footer from "./Components/Footer/Footer";
 import Domain from "./Components/Domain/Domain";
 // import User from "./Components/UserPage/user";
-import Viewer from "./Components/pdf/Viewer";
+import Pviewer from "./Components/pdf/Viewer";
+
 function App() {
   return (
     <Router>
@@ -39,12 +40,13 @@ function App() {
         <Route path="/industry" exact element={<IndustryPersona />} />
         <Route path="/userpage/:id" exact element={<UserPage />} />
 
-        <Route path="/login" exact element={<Login />} />
+        {/* <Route path="/login" exact element={<Login />} /> */}
+        <Route path="/login" exact element={<Login />}/>
         <Route path="/register" exact element={<Register />} />
         <Route path="/signup" exact element={<SignUp />} />
         <Route path="/domain" exact element={<Domain />} />
         <Route path="/test" exact element={<Test />} />
-        <Route path="/pdf" exact element={<Viewer />} />
+        <Route path="/pdf" exact element={<Pviewer />} />
       </Routes>
       <div className="Footer">
         <Footer />
