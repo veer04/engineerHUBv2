@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./CoursesCard.css";
 import backImage from "../Magzine/backimg.png";
-
+// import Appdev from "./app.jpg";
 const CoursesCard = ({
   courseTitle1,
   courseTitle2,
@@ -10,6 +10,7 @@ const CoursesCard = ({
 
   id,
   state,
+  img,
 }) => {
   return (
     <>

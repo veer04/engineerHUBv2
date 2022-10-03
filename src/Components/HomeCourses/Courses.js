@@ -12,7 +12,7 @@ import "../Events/Events.css";
 import "./Courses.css";
 
 import CoursesCard from "./CoursesCard";
-
+import Appdev from "./app.jpg";
 export const coursesData = [
   {
     courseName: "App Development",
@@ -21,6 +21,7 @@ export const coursesData = [
     courseDescription:
       "Our developers aim at providing students with the best knowledge to help them create high-performing & user-friendly apps through frameworks.",
     lastDate: "22/08/2023",
+        img: {Appdev},
   },
   {
     courseName: "UI/UX Development",

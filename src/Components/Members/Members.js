@@ -25,7 +25,7 @@ function Members() {
               is appreciable. They have outgrown themselves in such a short
               period."
             </div>
-            <div style={{color:"white", textAlign:"right"}}>Manish Kumar</div>
+            {/* <div style={{color:"white", textAlign:"right"}}>Manish Kumar</div> */}
           </div>
         </div>
 
@@ -53,7 +53,7 @@ function Members() {
               framework for the students to help them prepare for the
               placements."
             </div>
-            <div style={{color:"white", textAlign:"right"}}>Swapnil Raj</div>
+            {/* <div style={{color:"white", textAlign:"right"}}>Swapnil Raj</div> */}
           </div>
         </div>
 

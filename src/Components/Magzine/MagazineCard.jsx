@@ -62,7 +62,7 @@ function MagazineCard({
             <a
               href={cp}
               target="_blank"
-              rel="noopener noreferrer"
+              rel="noreferrer"
               className="default-btn"
               style={{ backgroundColor: "rgba(255, 199, 0, 1)" }}
             >
