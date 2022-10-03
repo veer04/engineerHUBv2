@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,Link } from "react-router-dom";
 import "./NavBar.css";
 import axios from "axios";
 import Navbar from "react-bootstrap/Navbar";
@@ -96,9 +96,11 @@ const NavBar = () => {
                   title="Web developement"
                   className="dropdownNav dropend "
                 >
-                  <NavDropdown.Item href={cp} target="_blank">
+                  <Link to="/pdf">
+                  <NavDropdown.Item  href={cp} target="_blank">
                     HandBook
                   </NavDropdown.Item>
+                  </Link>
                   <NavDropdown.Item href="/resources">
                     Resources
                   </NavDropdown.Item>
@@ -116,9 +118,11 @@ const NavBar = () => {
                   title="App Development"
                   className="dropdownNav dropend "
                 >
+                  <Link to="/pdf">
                   <NavDropdown.Item href={cp} target="_blank">
                     HandBook
                   </NavDropdown.Item>
+                  </Link>
                   <NavDropdown.Item href="/resources">
                     Resources
                   </NavDropdown.Item>
@@ -136,9 +140,11 @@ const NavBar = () => {
                   title="ML&AI (PYTHON)"
                   className="dropdownNav dropend "
                 >
+                  <Link to="/pdf">
                   <NavDropdown.Item href={cp} target="_blank">
                     HandBook
                   </NavDropdown.Item>
+                  </Link>
                   <NavDropdown.Item href="/resources">
                     Resources
                   </NavDropdown.Item>
@@ -157,9 +163,11 @@ const NavBar = () => {
                   className="dropdownNav dropend "
                 >
                   <div className="dropdownNav dropend ">
+                    <Link to="/pdf">
                     <NavDropdown.Item href={cp} className="dropdownNav dropend">
                       HandBook{" "}
                     </NavDropdown.Item>
+                    </Link>
                     <NavDropdown.Item href="/resources">
                       Resources
                     </NavDropdown.Item>
@@ -175,9 +183,11 @@ const NavBar = () => {
                   </div>
                 </NavDropdown>
                 <NavDropdown title="Dev Ops" className="dropdownNav dropend">
+                <Link to="/pdf">
                   <NavDropdown.Item href={cp} target="_blank">
                     HandBook
                   </NavDropdown.Item>
+                  </Link>
                   <NavDropdown.Item href="/resources">
                     Resources
                   </NavDropdown.Item>
@@ -195,9 +205,11 @@ const NavBar = () => {
                   title="UI/UX Design"
                   className="dropdownNav dropend"
                 >
+                  <Link to="/pdf">
                   <NavDropdown.Item href={cp} target="_blank">
                     HandBook
                   </NavDropdown.Item>
+                  </Link>
                   <NavDropdown.Item href="/resources">
                     Resources
                   </NavDropdown.Item>
@@ -212,9 +224,11 @@ const NavBar = () => {
                   </NavDropdown.Item>
                 </NavDropdown>
                 <NavDropdown title="BlockChain" className="dropdownNav dropend">
+                <Link to="/pdf">
                   <NavDropdown.Item href={cp} target="_blank">
                     HandBook
                   </NavDropdown.Item>
+                  </Link>
                   <NavDropdown.Item href="/resources">
                     Resources
                   </NavDropdown.Item>
@@ -232,12 +246,16 @@ const NavBar = () => {
                   title="Open Source"
                   className="dropdownNav dropend"
                 >
-                  /resources
-                  <NavDropdown.Item href="">Resources</NavDropdown.Item>
+                  <Link to="/pdf">
+                  <NavDropdown.Item href={cp} target="_blank">
+                    HandBook
+                  </NavDropdown.Item>
+                  </Link>
+                  <NavDropdown.Item href="/resources">Resources</NavDropdown.Item>
                   <NavDropdown.Item href="/mentor">
                     Contact Mentor
                   </NavDropdown.Item>
-                  ``
+                  
                   <NavDropdown.Item
                     target="_blank"
                     href="https://discord.gg/ZMZAEZ5NfA"
@@ -249,9 +267,11 @@ const NavBar = () => {
                   title="SEO/Graphic Design"
                   className="dropdownNav dropend"
                 >
+                  <Link to="/pdf">
                   <NavDropdown.Item href={cp} target="_blank">
                     HandBook
                   </NavDropdown.Item>
+                  </Link>
                   <NavDropdown.Item href="/resources">
                     Resources
                   </NavDropdown.Item>
