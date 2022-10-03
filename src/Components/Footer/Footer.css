@@ -6,7 +6,7 @@
   flex-wrap: wrap;
   gap: 10px;
   justify-content: space-between;
-  padding: 50px 0px 0px 0px;
+  padding-top: 20px;
 }
 .textfooter {
   color: rgba(255, 255, 255, 1);
@@ -136,10 +136,12 @@
   .f_nav:nth-child(1) {
     text-align-last: center;
     flex-basis: 100%;
+    border: none;
   }
   .f_nav:nth-child(2) {
     text-align-last: center;
     flex-basis: 100%;
+    border: none;
   }
   .f_nav:nth-child(3) {
     text-align-last: center;
@@ -153,12 +155,14 @@
     font-weight: 500;
     letter-spacing: -1.8px;
   }
+  .copyright {
+    border: none;
+  }
 }
 
 @media (min-width: 769px) and (max-width: 991px) {
   .f_nav:nth-child(3) {
     flex-wrap: nowrap;
-
     flex-shrink: 1 !important;
   }
   .foot-btn {
@@ -166,6 +170,9 @@
   }
   .foot-btn div {
     flex-shrink: 1 !important;
+  }
+  .f_nav:nth-child(1) {
+    border-right: none;
   }
 }
 
