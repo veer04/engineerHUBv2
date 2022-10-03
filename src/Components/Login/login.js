@@ -1,5 +1,5 @@
 import React from "react";
-import "./Login.css";
+import "./login.css";
 import { Link } from "react-router-dom";
 import google from "./svg/google.svg";
 // import fb from "./svg/fb.svg";
