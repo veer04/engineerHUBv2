@@ -18,17 +18,15 @@ function Members() {
           <div className="row">
             <div className="col-lg-3">
               <img src={Img1} alt="" className="girlimage1" />
-              <div className="row namePosition">
-                Manish KR
-              </div>
+              <div className="row namePosition">Manish KR</div>
             </div>
             <div className="col-lg-9 textofMember">
-              "The extreme efforts & hard work of each member of the community is
-              appreciable. They have outgrown themselves in such a short period."
+              "The extreme efforts & hard work of each member of the community
+              is appreciable. They have outgrown themselves in such a short
+              period."
             </div>
             <div style={{color:"white", textAlign:"right"}}>Manish Kumar</div>
           </div>
-          <div className="row memberinnertext">May 8, 2020</div>
         </div>
 
         <div className="cardz cardMember1 desk-tab--view">
@@ -39,22 +37,16 @@ function Members() {
             </div>
             <div className="col-lg-3 girl order-md-1 order-lg-1 order-sm-1 ">
               <img src={Img2} alt="" className="girlimage " />
-              <div className="row namePosition1">
-                Rahul KM
-              </div>
+              <div className="row namePosition1">Rahul KM</div>
             </div>
           </div>
-          
-          <div className="row memberinnertext1">May 18, 2020</div>
         </div>
 
         <div className="cardz cardMember">
           <div className="row">
             <div className="col-lg-3 girl">
               <img src={Img3} alt="" className="girlimage1" />
-              <div className="row namePosition">
-                Swapnil Raj
-              </div>
+              <div className="row namePosition">Swapnil Raj</div>
             </div>
             <div className="col-lg-9 textofMember">
               "The "Weekend with Us" Program organised by the company provides a
@@ -63,7 +55,6 @@ function Members() {
             </div>
             <div style={{color:"white", textAlign:"right"}}>Swapnil Raj</div>
           </div>
-          <div className="row memberinnertext">May 8, 2020</div>
         </div>
 
         <div className="cardz cardMember1 desk-tab--view">
@@ -74,13 +65,10 @@ function Members() {
               preparation. Its strategic framework & structure is phenomenal."
             </div>
             <div className="col-lg-3 girl order-md-1 order-lg-2 order-sm-1 order-xs-first">
-              <img src={Img4} alt="" className="girlimage"  />
-              <div className="row namePosition1">
-                Aditi JS
-              </div>
+              <img src={Img4} alt="" className="girlimage" />
+              <div className="row namePosition1">Aditi JS</div>
             </div>
           </div>
-          <div className="row memberinnertext1">June 12, 2020</div>
         </div>
       </div>
     </>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate,Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "./NavBar.css";
 import axios from "axios";
 import Navbar from "react-bootstrap/Navbar";
@@ -74,7 +74,7 @@ const NavBar = () => {
                   className="dropdownNav dropend"
                 >
                   <Link to="/pdf">
-                  <NavDropdown.Item>
+                  <NavDropdown.Item href={cp} target="_blank">
                     HandBook
                   </NavDropdown.Item>
                   </Link>

@@ -1,10 +1,8 @@
-
 .txtMembers {
   color: rgba(5, 85, 94, 1);
   font-weight: 500;
   margin-left: 4%;
 }
-
 
 .memberstext {
   font-size: 1.5rem;
@@ -71,12 +69,11 @@
   left: 27%;
   font-size: 0.9rem;
 }
-.namePosition
-{
-position: relative;
-left: 20%;
+.namePosition {
+  position: relative;
+  left: 20%;
 }
-.namePosition1{
+.namePosition1 {
   position: relative;
   left: 20%;
 }
@@ -102,94 +99,88 @@ left: 20%;
     width: 125px;
   }
   .textofMember {
-    padding-top: 5%;
+    padding-top: 0;
     font-size: 0.9rem;
+  }
+  .memberstext {
+    font-size: 1.2rem;
+  }
 }
-.memberstext {
-  font-size: 1.2rem;
-
-}
-}
-@media screen and (max-width:991px){
-  .girlimage{
+@media screen and (max-width: 991px) {
+  .girlimage {
     position: relative;
-    
+
     left: 35%;
-
   }
-  .cardMember{
+  .cardMember {
     display: flex;
     justify-content: center;
     align-items: center;
-    
+
     flex-wrap: wrap;
 
-height: 45vh;
+    height: 45vh;
   }
-  .cardMember1{
+  .cardMember1 {
     display: flex;
     justify-content: center;
     align-items: center;
-    
+
     flex-wrap: wrap;
     height: 45vh;
-
   }
 }
-@media screen and (max-width:826px){
-.cardMember{
-  height: 48vh;
+@media screen and (max-width: 826px) {
+  .cardMember {
+    height: 48vh;
+  }
+  .cardMember1 {
+    height: 48vh;
+  }
+  .namePosition {
+    position: relative;
+    left: 5%;
+  }
+  .namePosition1 {
+    left: 43%;
+  }
 }
-.cardMember1{
-  height: 48vh;
-}
-.namePosition{
-position: relative;
-left: 5%;
-}
-.namePosition1{
-  left: 43%;
-}
-}
-@media screen and (max-width:768px){
-  
-  .cardMember{
+@media screen and (max-width: 768px) {
+  .cardMember {
     display: flex;
     flex-wrap: wrap;
     height: 45vh;
   }
-  .cardMember1{
+  .cardMember1 {
     display: flex;
     flex-wrap: wrap;
     height: 45vh;
   }
 }
-@media screen and(max-width: 578px)
+@media screen and(max-width: 578px) {
+  .cardMember {
+    display: flex;
+    flex-wrap: wrap;
+    height: 50vh;
+    width: 75vw;
+    font-size: 0.9rem;
+  }
+  .cardMember1 {
+    display: flex;
+    flex-wrap: wrap;
 
-{
-  .cardMember{
-  display: flex;
-  flex-wrap: wrap;
-  height: 50vh;
-  width: 75vw;
-  font-size: 0.9rem;
-}
-.cardMember1{
-  display: flex;
-  flex-wrap: wrap;
-  
-  height: 50vh;
-  width: 75vw;
-  font-size: 0.9rem;
-}
-.girlimage{
-  width: 100px;
-  height: 100px;
-}
-.girlimage1{
-  width: 100px;
-  height: 100px;
-}
+    height: 50vh;
+    width: 75vw;
+    font-size: 0.9rem;
+  }
+  .girlimage {
+    width: 100px;
+    height: 100px;
+  }
+  .girlimage1 {
+    width: 100px;
+    height: 100px;
+  }
 }
 @media screen and (max-width: 991px) {
   .girlimage {
@@ -263,14 +254,14 @@ left: 5%;
     justify-content: center;
     font-size: 0.9rem;
   }
-  .namePosition{
-position: relative;
-left: 14%;
+  .namePosition {
+    position: relative;
+    left: 14%;
   }
-  .namePosition1{
+  .namePosition1 {
     position: relative;
     left: 50%;
-      }
+  }
 
   .cardMember1 {
     display: flex;
