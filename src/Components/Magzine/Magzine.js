@@ -1,8 +1,6 @@
 import React from "react";
-
 import "../Magzine/Magzine.css";
 import { Autoplay } from "swiper";
-
 import { Swiper, SwiperSlide } from "swiper/react";
 // Import Swiper styles
 
@@ -10,7 +8,7 @@ import "swiper/css/pagination";
 import { coursesData } from "../HomeCourses/Courses";
 import "swiper/css";
 import "swiper/css/autoplay";
-import Full from "../Courses/Full";
+import MagazineCard from "./MagazineCard";
 function Magzine() {
   return (
     <>
@@ -46,10 +44,10 @@ function Magzine() {
           >
             {coursesData.map((c, i) => (
               <SwiperSlide>
-                <Full
+                <MagazineCard
                   key={i * 10}
-                  id={i * 2}
-                  state={c}
+                  // id={i * 2}
+                  // state={c}
                   courseTitle1={c.courseTitle1}
                   courseTitle2={c.courseTitle2}
                   courseDescription={c.courseDescription}
