@@ -3,8 +3,12 @@ import "./MCard.css";
 import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
 import cybersecurityimg from "./cybersecurityimg.png";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
+import { Link } from "react-router-dom";
+
+
 
 function Card({ bookTitle, pdfUrl }) {
+  // const navigate = useNavigate();
   return (
     <div
       className="card custom-card-2"
@@ -53,19 +57,27 @@ function Card({ bookTitle, pdfUrl }) {
           strategic IT framework.
         </p>
         <div className="btn-container d-flex justify-content-between align-items-baseline">
-          <a
-            href={pdfUrl}
-            rel="noopener noreferrer"
-            target="_blank"
+        {/* <Viewer> */}
+        <Link to="/pdf">
+          <div
+            // href={cp}
+            // rel="noopener noreferrer"
+            // target="_blank"
             className="btn custom-card-btn-2"
             style={{ backgroundColor: "#0094FF", borderRadius: "20px" }}
+            
           >
+          
             <span
               style={{ color: "white", fontSize: "12px", borderRadius: "20px" }}
+              // onClick={Viewer}
+              
             >
               Tap to Open
             </span>
-          </a>
+          </div>
+          </Link>
+          {/* </Viewer> */}
           <p
             className="btn custom-card-btn-2"
             style={{ backgroundColor: "#FFC700", borderRadius: "20px" }}

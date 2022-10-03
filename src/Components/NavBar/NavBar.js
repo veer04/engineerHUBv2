@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,Link } from "react-router-dom";
 import "./NavBar.css";
 import axios from "axios";
 import Navbar from "react-bootstrap/Navbar";
@@ -73,9 +73,11 @@ const NavBar = () => {
                   title="DSA (C/C++)"
                   className="dropdownNav dropend"
                 >
-                  <NavDropdown.Item href={cp} target="_blank">
+                  <Link to="/pdf">
+                  <NavDropdown.Item>
                     HandBook
                   </NavDropdown.Item>
+                  </Link>
                   <NavDropdown.Item href="/resources">
                     Resources
                   </NavDropdown.Item>

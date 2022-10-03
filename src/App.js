@@ -19,6 +19,7 @@ import SignUp from "./Components/Login/Signup";
 import Footer from "./Components/Footer/Footer";
 import Domain from "./Components/Domain/Domain";
 // import User from "./Components/UserPage/user";
+import Viewer from "./Components/pdf/Viewer";
 function App() {
   return (
     <Router>
@@ -43,7 +44,7 @@ function App() {
         <Route path="/signup" exact element={<SignUp />} />
         <Route path="/domain" exact element={<Domain />} />
         <Route path="/test" exact element={<Test />} />
-        {/* <Route path="/pdf" exact element={<Pdf />} /> */}
+        <Route path="/pdf" exact element={<Viewer />} />
       </Routes>
       <div className="Footer">
         <Footer />
