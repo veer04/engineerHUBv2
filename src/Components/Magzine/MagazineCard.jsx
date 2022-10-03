@@ -4,6 +4,7 @@ import "./MagazineCourse.css";
 import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
 import backImage from "./backimg.png";
 import cp from "../pdf/cp.pdf";
+import {Link} from "react-router-dom";
 
 function MagazineCard({
   courseTitle1,
@@ -57,6 +58,7 @@ function MagazineCard({
           </p>
           {/* <h6 style={{ fontWeight: 700 }}>Organizer: IIT Delhi</h6> */}
           <div className="btn-container d-flex justify-content-between align-items-baseline">
+            <Link to="/pdf">
             <a
               href={cp}
               target="_blank"
@@ -66,6 +68,7 @@ function MagazineCard({
             >
               <div style={{ color: "#000000", fontWeight: 400 }}>Register</div>
             </a>
+            </Link>
             <p
               className="d-flex card-date fst-normal align-items-center justify-content-center"
               style={{ fontSize: "12px", color: "#fff", fontWeight: "bold" }}
