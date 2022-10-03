@@ -3,6 +3,7 @@
   border-radius: 16px;
   display: flex;
   transition: all 250ms ease-in-out;
+  background-size: cover;
 }
 
 .campus-card-cllg {
@@ -27,7 +28,7 @@
       rgba(146, 146, 146, 0.252),
       rgb(255 255 255)
     ),
-    url(./iitm.jpg);
+    url(./iitm.jpeg);
 }
 .custom-card:hover {
   transform: scale(1.04);

@@ -1,8 +1,9 @@
 import React from "react";
-import { Link } from "react-router-dom";
+
 import "./MagazineCourse.css";
 import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
 import backImage from "./backimg.png";
+import cp from "../pdf/cp.pdf";
 
 function MagazineCard({
   courseTitle1,
@@ -56,14 +57,15 @@ function MagazineCard({
           </p>
           {/* <h6 style={{ fontWeight: 700 }}>Organizer: IIT Delhi</h6> */}
           <div className="btn-container d-flex justify-content-between align-items-baseline">
-            <Link
-              to={`/userpage/${id}`}
-              
+            <a
+              href={cp}
+              target="_blank"
+              rel="noopener noreferrer"
               className="default-btn"
               style={{ backgroundColor: "rgba(255, 199, 0, 1)" }}
             >
               <div style={{ color: "#000000", fontWeight: 400 }}>Register</div>
-            </Link>
+            </a>
             <p
               className="d-flex card-date fst-normal align-items-center justify-content-center"
               style={{ fontSize: "12px", color: "#fff", fontWeight: "bold" }}
