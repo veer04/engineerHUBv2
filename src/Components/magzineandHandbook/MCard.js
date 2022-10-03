@@ -4,6 +4,7 @@ import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
 import cybersecurityimg from "./cybersecurityimg.png";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import { Link } from "react-router-dom";
+// import cp from "../pdf/cp.pdf";
 
 
 
