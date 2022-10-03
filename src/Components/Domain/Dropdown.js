@@ -1,6 +1,6 @@
 import React from "react";
 import cp from "../pdf/cp.pdf";
-import { Link } from "react-router-dom";
+// import } from "react-router-dom";
 
 const Dropdown = () => {
   return (
@@ -25,7 +25,7 @@ const Dropdown = () => {
             aria-labelledby="headingOne"
           >
             <div class="accordion-body domain-drp-item">
-              <Link to="/pdf">
+            
               <a
                 target="_blank"
                 href={cp}
@@ -34,7 +34,7 @@ const Dropdown = () => {
               >
                 Handbook
               </a>
-              </Link>
+              
               <hr className="drp-hr" />
             </div>
             <div class="accordion-body domain-body">
@@ -80,7 +80,7 @@ const Dropdown = () => {
             aria-labelledby="headingTwo"
           >
             <div class="accordion-body domain-drp-item">
-            <Link to="/pdf">
+          
               <a
                 target="_blank"
                 href={cp}
@@ -89,7 +89,7 @@ const Dropdown = () => {
               >
                 Handbook
               </a>
-              </Link>
+              
               <hr />
             </div>
             <div class="accordion-body">
@@ -135,7 +135,7 @@ const Dropdown = () => {
             aria-labelledby="headingThree"
           >
             <div class="accordion-body domain-drp-item">
-            <Link to="/pdf">
+          
               <a
                 target="_blank"
                 href={cp}
@@ -144,7 +144,7 @@ const Dropdown = () => {
               >
                 Handbook
               </a>
-              </Link>
+              
               <hr />
             </div>
             <div class="accordion-body">
@@ -190,7 +190,7 @@ const Dropdown = () => {
             aria-labelledby="headingFour"
           >
             <div class="accordion-body domain-drp-item">
-            <Link to="/pdf">
+          
               <a
                 target="_blank"
                 href={cp}
@@ -199,7 +199,7 @@ const Dropdown = () => {
               >
                 Handbook
               </a>
-              </Link>
+              
               <hr />
             </div>
             <div class="accordion-body">
@@ -245,7 +245,7 @@ const Dropdown = () => {
             aria-labelledby="headingFive"
           >
             <div class="accordion-body domain-drp-item">
-            <Link to="/pdf">
+          
               <a
                 target="_blank"
                 href={cp}
@@ -254,7 +254,7 @@ const Dropdown = () => {
               >
                 Handbook
               </a>
-              </Link>
+              
               <hr />
             </div>
             <div class="accordion-body">
@@ -300,7 +300,7 @@ const Dropdown = () => {
             aria-labelledby="headingSix"
           >
             <div class="accordion-body domain-drp-item">
-            <Link to="/pdf">
+          
               <a
                 target="_blank"
                 href={cp}
@@ -309,7 +309,7 @@ const Dropdown = () => {
               >
                 Handbook
               </a>
-              </Link>
+              
               <hr />
             </div>
             <div class="accordion-body">
@@ -355,7 +355,7 @@ const Dropdown = () => {
             aria-labelledby="headingSeven"
           >
             <div class="accordion-body domain-drp-item">
-            <Link to="/pdf">
+            
               <a
                 target="_blank"
                 href={cp}
@@ -364,7 +364,7 @@ const Dropdown = () => {
               >
                 Handbook
               </a>
-              </Link>
+            
               <hr />
             </div>
             <div class="accordion-body">
