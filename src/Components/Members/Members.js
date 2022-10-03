@@ -23,6 +23,7 @@ function Members() {
               "The extreme efforts & hard work of each member of the community is
               appreciable. They have outgrown themselves in such a short period."
             </div>
+            <div style={{color:"white", textAlign:"right"}}>Manish Kumar</div>
           </div>
           <div className="row memberinnertext">May 8, 2020</div>
         </div>
@@ -33,11 +34,11 @@ function Members() {
               "The community provides updated content & authorized resources to
               benefit students with various courses to brush up their skills."
             </div>
-
             <div className="col-lg-3 girl order-md-1 order-lg-1 order-sm-1 ">
               <img src={Img2} alt="" className="girlimage " />
             </div>
           </div>
+          
           <div className="row memberinnertext1">May 18, 2020</div>
         </div>
 
@@ -51,6 +52,7 @@ function Members() {
               framework for the students to help them prepare for the
               placements."
             </div>
+            <div style={{color:"white", textAlign:"right"}}>Swapnil Raj</div>
           </div>
           <div className="row memberinnertext">May 8, 2020</div>
         </div>
