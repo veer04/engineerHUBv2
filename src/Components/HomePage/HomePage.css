@@ -2,6 +2,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap");
 * {
   font-family: "Poppins", sans-serif;
+ 
+}
+body{
+   background-color: #e6eff8;
 }
 .container {
   font-family: "Poppins", sans-serif;
@@ -172,6 +176,7 @@
 
 .Members {
   margin-top: 10%;
+  
 }
 
 /* .row1-container{
@@ -184,6 +189,19 @@
   }
 }
 
+@media screen and (max-width: 840px) and (min-width:768px){
+.imgpos{
+  position: relative;
+  top: 30%;
+  left: -150%;
+
+}
+.clgname{
+position: relative;
+top: -50%;
+left: 20%;
+}
+}
 @media screen and (max-width: 768px) {
   .comp:nth-child(5) {
     display: none;
@@ -194,6 +212,7 @@
 
     align-items: center;
   }
+  
 
   .headercard {
     width: 35vw;

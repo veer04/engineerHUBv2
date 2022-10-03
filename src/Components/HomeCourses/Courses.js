@@ -15,6 +15,7 @@ import CoursesCard from "./CoursesCard";
 
 export const coursesData = [
   {
+    courseName: "App Development",
     courseTitle1: "App",
     courseTitle2: "Development",
     courseDescription:
@@ -22,6 +23,7 @@ export const coursesData = [
     lastDate: "22/08/2023",
   },
   {
+    courseName: "UI/UX Development",
     courseTitle1: "UI/UX",
     courseTitle2: " design ",
     courseDescription:
@@ -29,6 +31,7 @@ export const coursesData = [
     lastDate: "22/11/2022",
   },
   {
+    courseName: "Web Development",
     courseTitle1: "Web",
     courseTitle2: "Development",
     courseDescription:
@@ -36,6 +39,7 @@ export const coursesData = [
     lastDate: "22/02/2023",
   },
   {
+    courseName: "Cyber Security",
     courseTitle1: "Cyber",
     courseTitle2: "Security",
     courseDescription:
@@ -58,7 +62,6 @@ function Events() {
             modules={[Autoplay]}
             loop={true}
             autoplay={{ delay: 4000 }}
-
             breakpoints={{
               425: {
                 width: 350,
@@ -77,13 +80,16 @@ function Events() {
                 slidesPerView: 4,
               },
             }}
-            onSwiper={(swiper) => console.log(swiper)}
-            onSlideChange={() => console.log("slide change")}
+            onSwiper={() => {}}
+            onSlideChange={() => {}}
           >
-            {coursesData.map((c,i) => (
+            {coursesData.map((c, i) => (
               <SwiperSlide>
                 <CoursesCard
-                key={i*20}
+                  key={i * 20}
+                  id={i * 2}
+                  courseName={c.courseName}
+                  state={c}
                   courseTitle1={c.courseTitle1}
                   courseTitle2={c.courseTitle2}
                   courseDescription={c.courseDescription}

@@ -70,4 +70,9 @@ a {
 
 .dark-bg{
   color:rgba(1, 60, 76, 1) !important;
+  font-weight: bolder;
+}
+
+.btn--link:hover{
+  color: white;
 }

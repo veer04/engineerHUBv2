@@ -84,7 +84,7 @@
   font-size: 1.25rem;
 }
 .carousel-content {
-  padding-bottom: 15%;
+  padding-bottom: 5%;
 }
 .contactButtons {
   padding: 0 0 2rem 0;
@@ -180,11 +180,15 @@
   }
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 900px) {
   .phone-image img {
     display: none;
   }
-
+  .carousel-control-next,
+  .carousel-control-prev {
+    height: fit-content;
+    transform: translateY(100px);
+  }
   .textfor {
     left: 0px;
     padding: 3% 6%;
@@ -254,6 +258,49 @@
   }
 }
 
+@media screen and (max-width: 768px) {
+  .Insta {
+    font-size: 0rem;
+    border: none;
+    margin: 0rem;
+    border-radius: 50%;
+    justify-content: center;
+    align-items: center;
+    padding: 12px;
+  }
+  .Linkedin {
+    font-size: 0rem;
+    border: none;
+    margin: 0rem;
+    border-radius: 50%;
+    justify-content: center;
+    align-items: center;
+    padding: 12px;
+  }
+  .Telegram {
+    font-size: 0rem;
+    border: none;
+    margin: 0rem;
+    border-radius: 50%;
+    justify-content: center;
+    align-items: center;
+    padding: 12px;
+  }
+  .Discord {
+    font-size: 0rem;
+    justify-content: center;
+    align-items: center;
+    margin: 0rem;
+    border: none;
+    border-radius: 50%;
+    padding: 12px;
+
+    /* text-indent: 20%;
+    white-space: nowrap;
+    overflow: hidden; */
+  }
+}
+
 .carousel-indicators {
   display: none;
 }
@@ -271,7 +318,8 @@
 }
 
 @media screen and (max-width: 426px) {
-  .carousel-control-next, .carousel-control-prev {
+  .carousel-control-next,
+  .carousel-control-prev {
     height: -moz-fit-content;
     height: fit-content;
     transform: translateY(100px);

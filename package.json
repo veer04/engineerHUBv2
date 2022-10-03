@@ -20,6 +20,7 @@
     "react-bootstrap": "^2.4.0",
     "react-countup": "^6.3.1",
     "react-dom": "^17.0.0",
+    "react-google-recaptcha": "^2.1.0",
     "react-icons": "^4.4.0",
     "react-odometerjs": "^2.1.2",
     "react-player": "^2.9.0",

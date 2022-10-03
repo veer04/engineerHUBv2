@@ -2,7 +2,12 @@
     text-decoration: none;
     padding-left: 10px;
 }
-
+.captchaf{
+    margin-left: 5%;
+}
+.cpf{
+    margin-left: -5%;
+}
 .reg{
     padding: 20px !important;
     width: fit-content !important;
@@ -19,4 +24,18 @@
     font-weight: 600;
     border: none;
     cursor: pointer;
+}
+@media screen and (max-width: 456px)
+{.reg-input{
+    width: 60vw;
+}
+.reg-si{
+    width: 70vw;
+}
+.reg-field{
+    width: 70vw;
+}
+.cpf{
+    margin-left: 0%;
+}
 }

@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "./CoursesCard.css";
 import backImage from "../Magzine/backimg.png";
 
@@ -6,7 +7,9 @@ const CoursesCard = ({
   courseTitle1,
   courseTitle2,
   courseDescription,
-  lastDate,
+
+  id,
+  state,
 }) => {
   return (
     <>
@@ -28,7 +31,11 @@ const CoursesCard = ({
           <button className="Prize">Free</button>
         </div>
         <div className="courses-details">{courseDescription}</div>
-        <div className="courses-register">Register</div>
+        <div className="courses-register">
+          <Link className="btn--link" to={`/userpage/${id}`} state={state}>
+            Register
+          </Link>{" "}
+        </div>
       </div>
     </>
   );

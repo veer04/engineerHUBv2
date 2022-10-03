@@ -3,10 +3,10 @@ import React from "react";
 import Accordion from "react-bootstrap/Accordion";
 import styles from "./AccordionBox.module.css";
 
-const AccordionBox = () => {
+const AccordionBox = ({courseName = "Learning Javascript"}) => {
   return (
     <div className={styles.accordion_box}>
-      <div className={styles.accordion_box_name}>Learning Javascript</div>
+      <div className={styles.accordion_box_name}>{courseName}</div>
 
       <Accordion
         defaultActiveKey="0"
@@ -14,7 +14,7 @@ const AccordionBox = () => {
         style={{ boxShadow: "21px 21px 21px rgb(201 231 239)" }}
       >
         <Accordion.Item eventKey="0">
-          <Accordion.Header>Introduction to Javascript</Accordion.Header>
+          <Accordion.Header>Introduction to {courseName}</Accordion.Header>
           <Accordion.Body style={{ display: "flex", gap: "20px" }}>
             Learn about what Intermediate JavaScript has in store!
             <a

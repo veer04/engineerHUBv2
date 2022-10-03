@@ -4,9 +4,9 @@ import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
 
 function Card({
   paid = false,
-  card_head = "Hackathons for Developers",
+  card_head = "Learn Quantum Computing & Machine Learning. ",
   cName = "card custom-card ",
-  cDate = "12-05-2022"
+  cDate = "12-10-2022"
 }) {
   return (
     <div
@@ -48,23 +48,23 @@ function Card({
           </div>
         </div>
         <p className="card-text dark-bg">
-        we are hiring mentors to help guide students on their respective interests and lay a framework to help them ease the process. Interested Candidates can apply. 
+        Students can now understand the principals of quantum computing from the 3rd top Institute of India & become versed with various Quantum Computing Algorithm.cover the recently observed emergent phenomena in the area of quantum materials. 
         </p>
         <h6 style={{ fontWeight: 700, marginBottom: "1rem" }}>
           Organizer: IIT Delhi
         </h6>
         <div className="d-flex align-items-baseline justify-content-between">
-          <a href="/#" className="btnc" style={{ backgroundColor: "#002a36" , borderRadius: "10px"}}>
+          <a href="https://home.iitd.ac.in/show.php?id=236&in_sections=News" className="btnc" style={{ backgroundColor: "#002a36" , borderRadius: "10px"}}>
             <span style={{ color: "white", fontSize: "0.9rem", padding: "12px 24px" , }}>
-              Apply Now !
+              View More !
             </span>
           </a>
-          <p
+          {/* <p
             className="d-flex fst-normal align-items-baseline campus--date"
             // style={{ marginLeft: "4.4rem" }}
           >
             Last date: {cDate}
-          </p>
+          </p> */}
         </div>
       </div>
     </div>

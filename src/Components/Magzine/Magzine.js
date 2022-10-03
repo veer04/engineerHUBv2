@@ -41,13 +41,15 @@ function Magzine() {
                 slidesPerView: 4,
               },
             }}
-            onSwiper={(swiper) => console.log(swiper)}
-            onSlideChange={() => console.log("slide change")}
+            onSwiper={(swiper) => {}}
+            onSlideChange={() => {}}
           >
-            {coursesData.map((c,i) => (
+            {coursesData.map((c, i) => (
               <SwiperSlide>
                 <Full
-                key={i*10}
+                  key={i * 10}
+                  id={i * 2}
+                  state={c}
                   courseTitle1={c.courseTitle1}
                   courseTitle2={c.courseTitle2}
                   courseDescription={c.courseDescription}

@@ -2,7 +2,7 @@ import React from "react";
 import "./login.css";
 import { Link } from "react-router-dom";
 import google from "./svg/google.svg";
-import fb from "./svg/fb.svg";
+// import fb from "./svg/fb.svg";
 
 import Ehub from "./svg/Ehub.svg";
 const login = () => {
@@ -18,10 +18,10 @@ const login = () => {
           <img src={google} alt="google" />
           Continue with Google
         </div>
-        <div className="sign-opt ">
+        {/* <div className="sign-opt ">
           <img src={fb} alt="Facebook" />
           Continue with Facebook
-        </div>
+        </div> */}
       </div>
       <div className="divisor d-flex justify-content-center">
         <hr style={{ color: "#6c757d" }} />
