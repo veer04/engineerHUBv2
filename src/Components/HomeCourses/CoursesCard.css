@@ -72,22 +72,16 @@
   }
 }
 
-@media screen and (max-width: 426px) {
-  .courses-card-body {
-    margin-left: 50px;
-  }
-}
-
-@media screen and (max-width: 376px){
+@media screen and (max-width: 376px) {
   .courses-card-body {
     margin-left: 0px !important;
   }
 }
-@media screen and (max-width: 320px){
-  .courses-card-body{
+@media screen and (max-width: 320px) {
+  .courses-card-body {
     width: 16rem;
   }
-  .courses-card-body div img{
+  .courses-card-body div img {
     width: 15rem;
   }
 }

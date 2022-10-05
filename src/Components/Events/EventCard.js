@@ -1,14 +1,15 @@
 import React from "react";
 import "./EventCard.css";
-import backImage from "../Magzine/backimg.png";
+
 
 const EventCard = ({
   eventTitle1,
   eventTitle2,
   lastDate,
   mentorName,
+  cardImage,
   company,
-  eventDescription
+  eventDescription,
 }) => {
   return (
     <>
@@ -16,9 +17,11 @@ const EventCard = ({
         <div>
           {" "}
           <img
-            src={backImage}
+            src={require(`${cardImage}`)}
             alt="particular-events"
             className="event-image"
+            width={258}
+            height={147}
           />
         </div>
 
@@ -27,8 +30,10 @@ const EventCard = ({
             {" "}
             {eventTitle1} {eventTitle2}
           </div>
-          <a href="https://discord.gg/ZMZAEZ5NfA" > <button className="Prize">
-            Join</button></a>
+          <a href="https://discord.gg/ZMZAEZ5NfA">
+            {" "}
+            <button className="Prize">Join</button>
+          </a>
         </div>
         <div className="event-details">{eventDescription}</div>
         <div>

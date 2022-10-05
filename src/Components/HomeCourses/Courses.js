@@ -12,7 +12,7 @@ import "../Events/Events.css";
 import "./Courses.css";
 
 import CoursesCard from "./CoursesCard";
-import Appdev from "./app.jpg";
+
 export const coursesData = [
   {
     courseName: "App Development",
@@ -21,7 +21,7 @@ export const coursesData = [
     courseDescription:
       "Our developers aim at providing students with the best knowledge to help them create high-performing & user-friendly apps through frameworks.",
     lastDate: "22/08/2023",
-        img: {Appdev},
+    cardImage: `.${__dirname}Images/app.jpg`,
   },
   {
     courseName: "UI/UX Development",
@@ -30,6 +30,7 @@ export const coursesData = [
     courseDescription:
       "We provide effective learning sessions from skilled mentors to help students gain relevant knowledge and effective road maps on UI/UX design.",
     lastDate: "22/11/2022",
+    cardImage: `.${__dirname}Images/ui.jpg`,
   },
   {
     courseName: "Web Development",
@@ -38,6 +39,7 @@ export const coursesData = [
     courseDescription:
       "We help students master Web development by covering advanced topics & technical strategies from mentors having great expertise. ",
     lastDate: "22/02/2023",
+    cardImage: `.${__dirname}Images/web.png`,
   },
   {
     courseName: "Cyber Security",
@@ -46,6 +48,7 @@ export const coursesData = [
     courseDescription:
       "We provide students with the best courses to improve their cyber security knowledge and assess the current threat landscape & how to protect against it.",
     lastDate: "21/08/2023",
+    cardImage: `.${__dirname}Images/cyber.png`,
   },
 ];
 function Events() {
@@ -64,10 +67,6 @@ function Events() {
             loop={true}
             autoplay={{ delay: 4000 }}
             breakpoints={{
-              425: {
-                width: 350,
-                slidesPerView: 1,
-              },
               768: {
                 width: 700,
                 slidesPerView: 2,
@@ -91,6 +90,7 @@ function Events() {
                   id={i * 2}
                   courseName={c.courseName}
                   state={c}
+                  cardImage={c.cardImage}
                   courseTitle1={c.courseTitle1}
                   courseTitle2={c.courseTitle2}
                   courseDescription={c.courseDescription}

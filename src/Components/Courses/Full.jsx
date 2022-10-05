@@ -2,12 +2,12 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./freecourses.css";
 import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
-import backImage from "./backimg.png";
 
 function Card({
   courseTitle1,
   courseTitle2,
   courseDescription,
+  cardImage,
   lastDate,
   id,
   state,
@@ -23,7 +23,9 @@ function Card({
       >
         <div className="card-body default-card-body">
           <img
-            src={backImage}
+            width={258}
+            height={147}
+            src={require(`${cardImage}`)}
             style={{ margin: "0px 0px 10px 0px" }}
             className="card-img-top"
             alt="..."

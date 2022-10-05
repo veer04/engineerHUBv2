@@ -76,3 +76,10 @@ a {
 .btn--link:hover{
   color: white;
 }
+.custom--nowrap{
+  flex-wrap: nowrap;
+}
+
+.custom-pt--15{
+  padding-top: 15px;
+}

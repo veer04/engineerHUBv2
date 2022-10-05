@@ -2,15 +2,16 @@ import React from "react";
 
 import "./MagazineCourse.css";
 import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
-import backImage from "./backimg.png";
+
 import cp from "../pdf/cp.pdf";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function MagazineCard({
   courseTitle1,
   courseTitle2,
   courseDescription,
   lastDate,
+  cardImage,
   id,
   state,
 }) {
@@ -25,7 +26,9 @@ function MagazineCard({
       >
         <div className="card-body default-card-body">
           <img
-            src={backImage}
+            width={258}
+            height={147}
+            src={require(`${cardImage}`)}
             style={{ margin: "0px 0px 10px 0px" }}
             className="card-img-top"
             alt="..."
@@ -59,15 +62,17 @@ function MagazineCard({
           {/* <h6 style={{ fontWeight: 700 }}>Organizer: IIT Delhi</h6> */}
           <div className="btn-container d-flex justify-content-between align-items-baseline">
             <Link to="/pdf">
-            <a
-              href={cp}
-              target="_blank"
-              rel="noreferrer"
-              className="default-btn"
-              style={{ backgroundColor: "rgba(255, 199, 0, 1)" }}
-            >
-              <div style={{ color: "#000000", fontWeight: 400 }}>Register</div>
-            </a>
+              <a
+                href={cp}
+                target="_blank"
+                rel="noreferrer"
+                className="default-btn"
+                style={{ backgroundColor: "rgba(255, 199, 0, 1)" }}
+              >
+                <div style={{ color: "#000000", fontWeight: 400 }}>
+                  Register
+                </div>
+              </a>
             </Link>
             <p
               className="d-flex card-date fst-normal align-items-center justify-content-center"

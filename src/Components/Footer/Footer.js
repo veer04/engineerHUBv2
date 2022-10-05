@@ -52,7 +52,7 @@ function Footer() {
               <div className="row">
                 <p className="footerinnertext">myengineerhub@gmail.com</p>
               </div>
-              <div className="row" style={{ justifyContent: "space-around" }}>
+              <div className="row custom--nowrap" style={{ justifyContent: "space-around" }}>
                 <div className="col-lg-2 footericon">
                   {" "}
                   <a

@@ -6,8 +6,6 @@ import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import { Link } from "react-router-dom";
 // import cp from "../pdf/cp.pdf";
 
-
-
 function Card({ bookTitle, pdfUrl }) {
   // const navigate = useNavigate();
   return (
@@ -58,25 +56,26 @@ function Card({ bookTitle, pdfUrl }) {
           strategic IT framework.
         </p>
         <div className="btn-container d-flex justify-content-between align-items-baseline">
-        {/* <Viewer> */}
-        <Link to="/pdf">
-          <div
-            // href={cp}
-            // rel="noopener noreferrer"
-            // target="_blank"
-            className="btn custom-card-btn-2"
-            style={{ backgroundColor: "#0094FF", borderRadius: "20px" }}
-            
-          >
-          
-            <span
-              style={{ color: "white", fontSize: "12px", borderRadius: "20px" }}
-              // onClick={Viewer}
-              
+          {/* <Viewer> */}
+          <Link to="/pdf">
+            <div
+              // href={cp}
+              // rel="noopener noreferrer"
+              // target="_blank"
+              className="btn custom-card-btn-2"
+              style={{ backgroundColor: "#0094FF", borderRadius: "20px" }}
             >
-              Tap to Open
-            </span>
-          </div>
+              <span
+                style={{
+                  color: "white",
+                  fontSize: "12px",
+                  borderRadius: "20px",
+                }}
+                // onClick={Viewer}
+              >
+                Tap to Open
+              </span>
+            </div>
           </Link>
           {/* </Viewer> */}
           <p

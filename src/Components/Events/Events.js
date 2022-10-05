@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-// import backImage from "../Magzine/backimg.png";
+
 import { Autoplay } from "swiper";
 
 import { Swiper, SwiperSlide } from "swiper/react";
-// Import Swiper styles
 
 import "swiper/css/pagination";
 
@@ -19,6 +18,7 @@ export const eventStaticData = [
     eventDescription:
       "Various Coding Contests are organised to help students evaluate their coding skills and test their abilities.We help you achieve the most remarkable results. We offer various materials covering fundamentals ",
     lastDate: "22/08/2023",
+    cardImage: `.${__dirname}Images/coding.jpg`,
   },
   {
     eventTitle1: "Workshops",
@@ -26,6 +26,7 @@ export const eventStaticData = [
     eventDescription:
       "We organise various workshops to guide students by giving them a basic framework of technical subjects by skilled mentors . We offer various materials covering fundamentals & advanced topics",
     lastDate: "22/11/2022",
+    cardImage: `.${__dirname}Images/backimg.png`,
   },
   {
     eventTitle1: "Weekend with ",
@@ -33,6 +34,7 @@ export const eventStaticData = [
     eventDescription:
       "A weekly event named `Weekend with us` Is organised to give a live interactive session by mentors/ professionals to give an overview of the placements & train the students accordingly.",
     lastDate: "22/02/2023",
+    cardImage: `.${__dirname}Images/weekend.jpg`,
   },
 ];
 function Events() {
@@ -87,6 +89,7 @@ function Events() {
                   key={i * 30}
                   eventTitle1={c.eventTitle1}
                   eventTitle2={c.eventTitle2}
+                  cardImage={c.cardImage}
                   eventDescription={c.eventDescription}
                   lastDate={c.lastDate}
                 />

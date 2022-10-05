@@ -1,24 +1,30 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "./CoursesCard.css";
-import backImage from "../Magzine/backimg.png";
-// import Appdev from "./app.jpg";
+
+import { useEffect } from "react";
+
 const CoursesCard = ({
   courseTitle1,
   courseTitle2,
   courseDescription,
-
+  cardImage,
   id,
   state,
   img,
 }) => {
+  useEffect(() => {
+    console.log(cardImage);
+  });
   return (
     <>
       <div className="courses-card-body">
         <div>
           {" "}
           <img
-            src={backImage}
+            width={258}
+            height={147}
+            src={require(`${cardImage}`)}
             alt="particular-courses"
             className="courses-image"
           />
