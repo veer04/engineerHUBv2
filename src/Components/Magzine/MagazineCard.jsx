@@ -70,7 +70,7 @@ function MagazineCard({
                 style={{ backgroundColor: "rgba(255, 199, 0, 1)" }}
               >
                 <div style={{ color: "#000000", fontWeight: 400 }}>
-                  Register
+                  Open
                 </div>
               </a>
             </Link>
