@@ -86,7 +86,7 @@ function Events() {
             {eventStaticData.map((c, i) => (
               <SwiperSlide>
                 <EventCard
-                  key={i * 30}
+                  key={`${i}b`}
                   eventTitle1={c.eventTitle1}
                   eventTitle2={c.eventTitle2}
                   cardImage={c.cardImage}

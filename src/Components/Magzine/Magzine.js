@@ -45,7 +45,7 @@ function Magzine() {
             {coursesData.map((c, i) => (
               <SwiperSlide>
                 <MagazineCard
-                  key={i * 10}
+                  key={`${i}a`}
                   // id={i * 2}
                   // state={c}
                   cardImage={c.cardImage}

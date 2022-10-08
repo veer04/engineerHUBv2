@@ -9,7 +9,7 @@
   justify-content: space-around;
   flex-direction: column;
   height: 250px;
-  margin: 80px 0px;
+  margin-top: 80px;
 }
 .dividerHead {
   font-weight: 800;
