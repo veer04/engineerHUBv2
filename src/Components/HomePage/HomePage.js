@@ -35,6 +35,7 @@ import CountUp from "react-countup";
 import Byjus from "./Byjus.png";
 import "swiper/css";
 import "swiper/css/autoplay";
+import BottomDivider from "../shared/BottomDivider/BottomDivider";
 // import { Suspense } from "react";
 // import { lazy } from "react";
 
@@ -324,7 +325,7 @@ export default function NavBar() {
           </Swiper>
         </div>
       </div>
-        
+      <BottomDivider/>
       <div className="Members" style={{ padding: "0px 0px 4% 0px" }}>
         <Members />
       </div>

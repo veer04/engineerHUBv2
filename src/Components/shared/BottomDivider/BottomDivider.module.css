@@ -1,0 +1,39 @@
+.highlight {
+  color: var(--custom-yellow) !important;
+  font-size: 2.5rem !important;
+}
+.dividerContainer {
+  background-color: var(--dark-green);
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-direction: column;
+  height: 250px;
+  margin: 80px 0px;
+}
+.dividerHead {
+  font-weight: 800;
+  font-size: 2.5rem;
+  color: white;
+  /* padding: 8px 0px 16px 0px; */
+}
+.dividerDesc {
+  font-size: 1.25rem;
+  color: rgba(255, 255, 255, 0.5);
+  /* padding: 25px 0px; */
+}
+.dividerButton {
+  border-radius: 44px;
+  background-color: white;
+  padding: 12px 24px;
+  margin-bottom: 8px;
+}
+.dividerButton img {
+  width: 30px;
+}
+
+@media screen and (max-width: 768px) {
+  .dividerHead {
+    font-size: calc(1.375rem + 1.5vw);
+  }
+}
