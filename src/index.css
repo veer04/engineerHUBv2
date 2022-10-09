@@ -17,6 +17,7 @@ body {
 :root {
   --lef-col-width: 33%;
   --dark-green: rgba(1, 60, 76, 1);
+  --custom-yellow: #E1D71C; 
 }
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
@@ -64,7 +65,7 @@ a {
 }
 @media screen and (max-width: 426px) {
   .desk-tab--view {
-    display: none;
+    display: none !important;
   }
 }
 

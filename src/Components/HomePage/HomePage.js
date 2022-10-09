@@ -1,9 +1,9 @@
 import React from "react";
 
 import ReactPlayer from "react-player";
-import { Autoplay } from "swiper";
+// import { Autoplay } from "swiper";
 
-import { Swiper, SwiperSlide } from "swiper/react";
+// import { Swiper, SwiperSlide } from "swiper/react";
 import "../HomePage/HomePage.css";
 import "../Aboutus/Aboutus";
 import Aboutus from "../Aboutus/Aboutus";
@@ -18,23 +18,24 @@ import Events from "../Events/Events";
 import "../HomeCourses/Courses";
 import Courses from "../HomeCourses/Courses";
 import "../Members/Members";
-
+import InfiniteSlider from "../shared/InfiniteSlider";
 import campusIcon from "./icons/campus.png";
 import GradIcon from "./icons/graudate.png";
 import BuildingIcon from "./icons/building.png";
-import Zomato from "./Zomato.png"
+// import Zomato from "./Zomato.png";
 import IITK from "./svg/IITK.png";
 
-import tcs from "./svg/tcs.svg";
-import oracle from "./svg/oracle.svg";
-import logitech from "./svg/logitech.svg";
-import vedantu from "./svg/vedantu.svg";
+// import tcs from "./svg/tcs.svg";
+// import oracle from "./svg/oracle.svg";
+// import logitech from "./svg/logitech.svg";
+// import vedantu from "./svg/vedantu.svg";
 
-import infosys from "./svg/infosys.svg";
+// import infosys from "./svg/infosys.svg";
 import CountUp from "react-countup";
-import Byjus from "./Byjus.png";
+// import Byjus from "./Byjus.png";
 import "swiper/css";
 import "swiper/css/autoplay";
+import BottomDivider from "../shared/BottomDivider/BottomDivider";
 // import { Suspense } from "react";
 // import { lazy } from "react";
 
@@ -53,7 +54,7 @@ export default function NavBar() {
           <div className="row headerContainer">
             <div className="col-4 headercard">
               <img
-                classname="c-img"
+                className="c-img"
                 src={campusIcon}
                 alt="Campus"
                 style={{ width: "100px" }}
@@ -77,7 +78,7 @@ export default function NavBar() {
             </div>
             <div className="col-4 headercard">
               <img
-                classname="c-img"
+                className="c-img"
                 src={GradIcon}
                 alt="Graduate"
                 style={{ width: "90px" }}
@@ -100,7 +101,7 @@ export default function NavBar() {
             </div>
             <div className="col-4 headercard">
               <img
-                classname="c-img"
+                className="c-img"
                 src={BuildingIcon}
                 alt="Building"
                 style={{ width: "90px" }}
@@ -135,11 +136,11 @@ export default function NavBar() {
         </div>
 
         <div className="desk-tab--view" style={{ paddingBottom: "0px" }}>
-          <div class="header">
+          <div className="header">
             <div className="studenttxt">Our students comes from</div>
           </div>
-          <div class="row1-container">
-            <div class="box box-down cyan">
+          <div className="row1-container">
+            <div className="box box-down cyan">
               <div className="comp studentfrom2">
                 <img src={IITK} alt="swiggy" className="tcsimage imgpos" />
               </div>
@@ -149,7 +150,7 @@ export default function NavBar() {
               </h2>
             </div>
 
-            <div class="box red">
+            <div className="box red">
               <div className="comp studentfrom2">
                 <img src={IITK} alt="swiggy" className="tcsimage imgpos" />
               </div>
@@ -159,7 +160,7 @@ export default function NavBar() {
               </h2>
             </div>
 
-            <div class="box box-down blue">
+            <div className="box box-down blue">
               <div className="comp studentfrom2">
                 <img src={IITK} alt="swiggy" className="tcsimage imgpos" />
               </div>
@@ -169,8 +170,8 @@ export default function NavBar() {
               </h2>
             </div>
           </div>
-          <div class="row2-container">
-            <div class="box orange">
+          <div className="row2-container">
+            <div className="box orange">
               <div className="comp studentfrom2">
                 <img src={IITK} alt="swiggy" className="tcsimage imgpos" />
               </div>
@@ -179,81 +180,13 @@ export default function NavBar() {
                 KURUKSHETRA
               </h2>
             </div>
-            
-            
           </div>
-
-          <div class="header boxheadeer">
-            <div className="studenttxt">Companies we Collaborate</div>
-          </div>
-          <div class="row1-container">
-            <div class="box box-down cyan">
-              <div className="comp studentfrom2">
-                <img src={tcs} alt="tcs" className="tcsimage" />
-              </div>
-            </div>
-
-            <div class="box red">
-              <div className="comp studentfrom2">
-                <img src={infosys} alt="infosys" className="tcsimage" />
-              </div>
-            </div>
-
-            <div class="box box-down blue">
-              <div className="comp studentfrom2">
-                <img src={Byjus} alt="swiggy" className="tcsimage" />
-              </div>
-            </div>
-          </div>
-          <div class="row2-container">
-            <div class="box orange">
-              <div className="comp studentfrom2">
-                <img src={ Zomato} alt="swiggy" className="tcsimage" />
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="row Studentsfrom mobile--view">
-          <div className="studenttxt">Our students comes from</div>
-          <Swiper
-            modules={[Autoplay]}
-            loop={true}
-            autoplay={{ delay: 2000 }}
-
-            breakpoints={{
-              425: {
-                width: 350,
-                slidesPerView: 1,
-              },
-            }}
-            onSwiper={(swiper) => console.log(swiper)}
-            onSlideChange={() => console.log("slide change")}
-          >
-            <SwiperSlide>
-              {" "}
-              <div className="col-lg-2 studentfrom">IIT Kanpur</div>{" "}
-            </SwiperSlide>
-            <SwiperSlide>
-              {" "}
-              <div className="col-lg-2 studentfrom">IIT Roorkee</div>{" "}
-            </SwiperSlide>
-            <SwiperSlide>
-              {" "}
-              <div className="col-lg-2 studentfrom">NIT Delhi</div>{" "}
-            </SwiperSlide>
-            <SwiperSlide>
-              {" "}
-              <div className="col-lg-2 studentfrom">IIIT Vadodra</div>{" "}
-            </SwiperSlide>
-            <SwiperSlide>
-              {" "}
-              <div className="col-lg-2 studentfrom">IIT Bombay</div>{" "}
-            </SwiperSlide>
-          </Swiper>
         </div>
       </div>
-
+      <div className="header ">
+        <div className="studenttxt">Companies we Collaborate</div>
+      </div>
+      <InfiniteSlider />
       <div className="about">
         <Aboutus />
         {/* <React.Suspense fallback={<>...</>}>
@@ -273,58 +206,9 @@ export default function NavBar() {
       <div className="Courses">
         <Courses />
       </div>
-      <div className="row Studentsfrom2 mobile--view">
-        <div className="studenttxt">Companies we Collaborate</div>
 
-        <div className="row">
-          <Swiper
-            modules={[Autoplay]}
-            loop={true}
-            autoplay={{ delay: 2000}}
-            breakpoints={{}}
-            onSwiper={(swiper) => console.log(swiper)}
-            onSlideChange={() => console.log("slide change")}
-          >
-            <SwiperSlide>
-              {" "}
-              <div className="comp studentfrom2 ">
-                <img src={tcs} alt="tcs" className="tcsimage" />
-              </div>{" "}
-            </SwiperSlide>
-            <SwiperSlide>
-              {" "}
-              <div className="comp studentfrom2 ">
-                <img src={ Zomato} alt="swiggy" className="tcsimage" />
-              </div>{" "}
-            </SwiperSlide>
-            <SwiperSlide>
-              {" "}
-              <div className="comp studentfrom2 ">
-                <img src={oracle} alt="oracle" className="tcsimage" />
-              </div>{" "}
-            </SwiperSlide>
-            <SwiperSlide>
-              {" "}
-              <div className="comp studentfrom2 ">
-                <img src={logitech} alt="logitech" className="tcsimage" />
-              </div>{" "}
-            </SwiperSlide>
-            <SwiperSlide>
-              {" "}
-              <div className="comp studentfrom2 ">
-                <img src={infosys} alt="infosys" className="tcsimage" />
-              </div>{" "}
-            </SwiperSlide>
-            <SwiperSlide>
-              {" "}
-              <div className="comp studentfrom2 ">
-                <img src={vedantu} alt="vedantu" className="tcsimage" />
-              </div>{" "}
-            </SwiperSlide>
-          </Swiper>
-        </div>
-      </div>
-        
+      <BottomDivider />
+
       <div className="Members" style={{ padding: "0px 0px 4% 0px" }}>
         <Members />
       </div>

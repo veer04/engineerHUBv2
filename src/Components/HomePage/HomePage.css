@@ -113,7 +113,7 @@ body {
 .studenttxt {
   font-size: 2.8rem;
   display: flex;
-  font-weight: 500;
+  font-weight: 800;
   padding: 15px 0px;
   align-items: center;
   justify-content: center;
@@ -174,7 +174,7 @@ body {
 }
 
 .Members {
-  margin-top: 10%;
+  margin-top: 5%;
 }
 
 /* .row1-container{
@@ -268,7 +268,6 @@ body {
   text-align: center;
   line-height: 0.8;
   margin-bottom: 50px;
-  margin-top: 100px;
 }
 
 .header p {
@@ -364,9 +363,6 @@ body {
   }
 }
 
-.boxheadeer {
-  margin-bottom: 5%;
-}
 .imgpos {
   margin-bottom: 15%;
   display: flex;
@@ -404,14 +400,14 @@ body {
     bottom: 10px;
     left: 98px;
   }
-  .studenttxt {
+  /* .studenttxt {
     color: rgba(255, 242, 0, 1);
-  }
+  } */
 }
 
 @media screen and (max-width: 426px) {
   .studenttxt {
-    font-size: 1.3rem;
+    font-size: 1.8rem;
   }
   .swiper-slide {
     display: flex;

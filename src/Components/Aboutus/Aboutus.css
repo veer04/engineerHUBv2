@@ -9,6 +9,8 @@
 }
 .allcontent {
   background-image: url("aboutus.svg");
+  background-repeat: no-repeat;
+  background-size: contain;
 }
 .aboutustxt {
   font-family: Poppins;
