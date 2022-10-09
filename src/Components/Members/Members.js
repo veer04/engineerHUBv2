@@ -58,12 +58,13 @@ function Members() {
               <img className="card-img-top" src={Img3} alt="" />
               <div className="card-body">
                 <h5>
-                  Ronne Galle <br />
-                  <span> Project Manager </span>
+                  Swapnil <br />
+                  <span> Senior Coordinator </span>
                 </h5>
                 <p className="card-text">
-                  “ Nam libero tempore, cum soluta nobis est eligendi optio
-                  cumque nihil impedit quo minus id quod maxime placeat ”{" "}
+                  “ The "Weekend with Us" Program organised by the company
+                  provides a framework for the students to help them prepare for
+                  the placements. ”{" "}
                 </p>
               </div>
             </div>
@@ -75,12 +76,15 @@ function Members() {
               <img className="card-img-top" src={Img4} alt="" />
               <div className="card-body">
                 <h5>
-                  Ronne Galle <br />
-                  <span> Project Manager </span>
+                  Aditi JS
+                  <br />
+                  <span> Developer </span>
                 </h5>
                 <p className="card-text">
-                  “ Nam libero tempore, cum soluta nobis est eligendi optio
-                  cumque nihil impedit quo minus id quod maxime placeat ”{" "}
+                  “ engineerhub is an ideal platform to receive all the major
+                  resources, courses & guidance a student demands during his
+                  preparation. Its strategic framework & structure is
+                  phenomenal.”{" "}
                 </p>
               </div>
             </div>
@@ -92,12 +96,13 @@ function Members() {
               <img className="card-img-top" src={Img1} alt="" />
               <div className="card-body">
                 <h5>
-                  Ronne Galle <br />
-                  <span> Project Manager </span>
+                  Manish KR <br />
+                  <span> Developer </span>
                 </h5>
                 <p className="card-text">
-                  “ Nam libero tempore, cum soluta nobis est eligendi optio
-                  cumque nihil impedit quo minus id quod maxime placeat ”{" "}
+                  “ The extreme efforts & hard work of each member of the
+                  community is appreciable. They have outgrown themselves in
+                  such a short period. ”{" "}
                 </p>
               </div>
             </div>
