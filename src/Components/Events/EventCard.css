@@ -6,7 +6,7 @@
     margin: 10px;
     height: 367.188px;
     transition: all 500ms ease-in-out;
-   box-shadow: 21px 8px 21px 8px rgb(0 0 0 / 15%);   
+    box-shadow: 21px 8px 21px 8px #e6eff8; 
 }
 
 .event-card-body:hover {

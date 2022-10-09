@@ -14,7 +14,7 @@ const CoursesCard = ({
   img,
 }) => {
   useEffect(() => {
-    console.log(cardImage);
+    // console.log(cardImage);
   });
   return (
     <>
