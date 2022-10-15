@@ -1,8 +1,6 @@
-import React from "react";
-
 import ReactPlayer from "react-player";
 // import { Autoplay } from "swiper";
-
+import { TypeAnimation } from 'react-type-animation';
 // import { Swiper, SwiperSlide } from "swiper/react";
 import "../HomePage/HomePage.css";
 import "../Aboutus/Aboutus";
@@ -19,11 +17,12 @@ import "../HomeCourses/Courses";
 import Courses from "../HomeCourses/Courses";
 import "../Members/Members";
 import InfiniteSlider from "../shared/InfiniteSlider";
-import campusIcon from "./icons/campus.png";
-import GradIcon from "./icons/graudate.png";
+import InfiniteSlider2 from "../shared/InfiniteSlider2";
+// import campusIcon from "./icons/campus.png";
+// import GradIcon from "./icons/graudate.png";
 import BuildingIcon from "./icons/building.png";
 // import Zomato from "./Zomato.png";
-import IITK from "./svg/IITK.png";
+// import IITK from "./svg/IITK.png";
 
 // import tcs from "./svg/tcs.svg";
 // import oracle from "./svg/oracle.svg";
@@ -32,6 +31,8 @@ import IITK from "./svg/IITK.png";
 
 // import infosys from "./svg/infosys.svg";
 import CountUp from "react-countup";
+import Ehubgif from "../HomePage/gif/ehubgif.gif";
+import Ehubgif2 from "../HomePage/gif/ehubgif2.gif";
 // import Byjus from "./Byjus.png";
 import "swiper/css";
 import "swiper/css/autoplay";
@@ -49,15 +50,34 @@ export default function NavBar() {
         <div className="col-lg-7 ">
           <div className="tagContainer desk-tab--view">
             <h1 className="headerbrandname">engineerHUB</h1>
-            <h5 className="headerbelow">Students . Campus . Industries</h5>
+   <TypeAnimation
+      sequence={[
+        'Students', // Types 'One'
+        1000, // Waits 1s
+        'Campus', // Deletes 'One' and types 'Two'
+        2000, // Waits 2s
+        'Industries', 
+       2000,
+        () => {
+        
+        }
+      ]}
+      wrapper="div"
+      cursor={true}
+      repeat={Infinity}
+      style={{ fontSize: '1.4em' }}
+      className="Animated_textUP"
+      
+    />
+            {/* <h5 className="headerbelow">Students . Campus . Industries</h5> */}
           </div>
           <div className="row headerContainer">
             <div className="col-4 headercard">
               <img
                 className="c-img"
-                src={campusIcon}
+                src={Ehubgif}
                 alt="Campus"
-                style={{ width: "100px" }}
+                // style={{ width: "100px" }}
               />
               {/* <h1 className="headercardtext">750+</h1> */}
               <h1 className="headercardtext">
@@ -79,9 +99,9 @@ export default function NavBar() {
             <div className="col-4 headercard">
               <img
                 className="c-img"
-                src={GradIcon}
+                src={Ehubgif2}
                 alt="Graduate"
-                style={{ width: "90px" }}
+                // style={{ width: "90px" }}
               />
               {/* <h1 className="headercardtext">50K+</h1> */}
               <h1 className="headercardtext">
@@ -124,7 +144,7 @@ export default function NavBar() {
             </div>
           </div>
         </div>
-        <div className="player-wrapper col-lg-5 videocard">
+        {/* <div className="player-wrapper col-lg-5 videocard">
           <ReactPlayer
             url="https://www.youtube.com/watch?v=uFlGx_Vcjs8"
             className="react-player"
@@ -133,54 +153,33 @@ export default function NavBar() {
             height="100%"
             controls={false}
           />
-        </div>
+        </div> */}
 
-        <div className="desk-tab--view" style={{ paddingBottom: "0px" }}>
+        <div className=" mw-100" style={{ paddingBottom: "0px",
+      margin:"0px" }}>
           <div className="header">
             <div className="studenttxt">Our students comes from</div>
-          </div>
-          <div className="row1-container">
-            <div className="box box-down cyan">
-              <div className="comp studentfrom2">
-                <img src={IITK} alt="swiggy" className="tcsimage imgpos" />
-              </div>
-              <h2 className="clgname">
-                NIT <br />
-                PATNA
-              </h2>
-            </div>
 
-            <div className="box red">
-              <div className="comp studentfrom2">
-                <img src={IITK} alt="swiggy" className="tcsimage imgpos" />
-              </div>
-              <h2 className="clgname">
-                IIT <br />
-                KANPUR
-              </h2>
-            </div>
-
-            <div className="box box-down blue">
-              <div className="comp studentfrom2">
-                <img src={IITK} alt="swiggy" className="tcsimage imgpos" />
-              </div>
-              <h2 className="clgname">
-                NIT <br />
-                ALLAHABAD
-              </h2>
-            </div>
+            <TypeAnimation
+      sequence={[
+        'IITs', // Types 'One'
+        6000, // Waits 1s
+        'NIT', // Deletes 'One' and types 'Two'
+        7000, // Waits 2s
+        'STATE COLLEGES', 
+        7000,
+        () => {
+        
+        }
+      ]}
+      wrapper="div"
+      cursor={true}
+      repeat={Infinity}
+      style={{ fontSize: '2.4em' }}
+      className="Animated_text"
+    />
           </div>
-          <div className="row2-container">
-            <div className="box orange">
-              <div className="comp studentfrom2">
-                <img src={IITK} alt="swiggy" className="tcsimage imgpos" />
-              </div>
-              <h2 className="clgname">
-                NIT <br />
-                KURUKSHETRA
-              </h2>
-            </div>
-          </div>
+       <InfiniteSlider2></InfiniteSlider2>
         </div>
       </div>
       <div className="header ">

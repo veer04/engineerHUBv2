@@ -1,0 +1,170 @@
+import React from "react";
+import styles from "./InfiniteSlider.module.scss";
+
+import "../HomePage/HomePage.css";
+
+
+import IITK from "../HomePage/svg/IITK.png";
+// 
+const InfiniteSlider = () => {
+  return (
+    <div className={styles.sliderStudent}>
+      <div className={styles.slide_trackStudent}>
+        <div className={styles.slideStudent}>
+
+          {/* 1 */}
+
+        <div className="row1-container">
+<div className="box box-down cyan">
+  <div className="comp studentfrom2">
+    <img src={IITK} alt="swiggy" className="tcsimage imgpos" />
+  </div>
+  <h2 className="clgname">
+    IIT <br />
+    PATNA
+  </h2>
+</div>
+
+<div className="box red">
+  <div className="comp studentfrom2">
+    <img src={IITK} alt="swiggy" className="tcsimage imgpos" />
+  </div>
+  <h2 className="clgname">
+    IIT <br />
+    KANPUR
+  </h2>
+</div>
+
+<div className="box box-down blue">
+  <div className="comp studentfrom2">
+    <img src={IITK} alt="swiggy" className="tcsimage imgpos" />
+  </div>
+  <h2 className="clgname">
+    IIT <br />
+    ROORKEE
+  </h2>
+</div>
+</div>
+<div className="row2-container">
+<div className="box orange">
+  <div className="comp studentfrom2">
+    <img src={IITK} alt="swiggy" className="tcsimage imgpos" />
+  </div>
+  <h2 className="clgname">
+    IIT <br />
+    BOMBAY
+  </h2>
+</div>
+</div>
+        </div>
+        <div className={styles.slide}>
+
+          {/* 2 */}
+
+        <div className="row1-container">
+<div className="box box-down cyan">
+  <div className="comp studentfrom2">
+    <img src={IITK} alt="swiggy" className="tcsimage imgpos" />
+  </div>
+  <h2 className="clgname">
+    NIT <br />
+    PATNA
+  </h2>
+</div>
+
+<div className="box red">
+  <div className="comp studentfrom2">
+    <img src={IITK} alt="swiggy" className="tcsimage imgpos" />
+  </div>
+  <h2 className="clgname">
+    NIT <br />
+    RAIPUR
+  </h2>
+</div>
+
+<div className="box box-down blue">
+  <div className="comp studentfrom2">
+    <img src={IITK} alt="swiggy" className="tcsimage imgpos" />
+  </div>
+  <h2 className="clgname">
+    NIT <br />
+    ALLAHABAD
+  </h2>
+</div>
+</div>
+<div className="row2-container">
+<div className="box orange">
+  <div className="comp studentfrom2">
+    <img src={IITK} alt="swiggy" className="tcsimage imgpos" />
+  </div>
+  <h2 className="clgname">
+    NIT <br />
+    KURUKSHETRA
+  </h2>
+</div>
+</div>
+        </div>
+        <div className={styles.slideStudent}>
+
+      {/* 3 */}
+
+        <div className="row1-container">
+<div className="box box-down cyan">
+  <div className="comp studentfrom2">
+    <img src={IITK} alt="swiggy" className="tcsimage imgpos" />
+  </div>
+  <h2 className="clgname">
+    AKGEC <br />
+    GHAZIABAD
+  </h2>
+</div>
+
+<div className="box red">
+  <div className="comp studentfrom2">
+    <img src={IITK} alt="swiggy" className="tcsimage imgpos" />
+  </div>
+  <h2 className="clgname">
+    AKTU <br />
+    
+  </h2>
+</div>
+
+<div className="box box-down blue">
+  <div className="comp studentfrom2">
+    <img src={IITK} alt="swiggy" className="tcsimage imgpos" />
+  </div>
+  <h2 className="clgname">
+    VIT <br />
+    VELLORE
+  </h2>
+</div>
+</div>
+<div className="row2-container">
+<div className="box orange">
+  <div className="comp studentfrom2">
+    <img src={IITK} alt="swiggy" className="tcsimage imgpos" />
+  </div>
+  <h2 className="clgname">
+    MIT <br />
+    BANGALORE
+  </h2>
+</div>
+</div>
+        </div>
+
+      
+
+          {/* 4 */}
+
+
+
+       
+      </div>
+    </div>
+  );
+};
+
+export default InfiniteSlider;
+
+
+

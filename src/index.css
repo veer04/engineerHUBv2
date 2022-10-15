@@ -15,9 +15,11 @@ body {
 }
 
 :root {
+  width: 100%;
   --lef-col-width: 33%;
   --dark-green: rgba(1, 60, 76, 1);
   --custom-yellow: #E1D71C; 
+ 
 }
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
