@@ -51,7 +51,7 @@ const NavBar = () => {
   return (
     <>
       <Navbar bg="light" expand="lg">
-        <Container>
+        <Container className="nav-cont">
           <Navbar.Brand href="/">
             {" "}
             <img

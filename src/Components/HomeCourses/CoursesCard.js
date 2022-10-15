@@ -22,7 +22,7 @@ const CoursesCard = ({
         <div>
           {" "}
           <img
-            width={258}
+            width="100%"
             height={147}
             src={require(`${cardImage}`)}
             alt="particular-courses"

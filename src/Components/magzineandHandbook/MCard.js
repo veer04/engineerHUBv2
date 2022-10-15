@@ -1,7 +1,8 @@
 import React from "react";
 import "./MCard.css";
 import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
-import cybersecurityimg from "./cybersecurityimg.png";
+// import cybersecurityimg from "./cybersecurityimg.png";
+import python from "./Images/python.jpg"
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import { Link } from "react-router-dom";
 // import cp from "../pdf/cp.pdf";
@@ -19,7 +20,7 @@ function Card({ bookTitle, pdfUrl }) {
     >
       <div className="card-body custom-card-body-2">
         <img
-          src={cybersecurityimg}
+          src={python}
           style={{
             margin: "0px 0px 10px 0px",
             width: "100%",
