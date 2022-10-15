@@ -13,14 +13,17 @@ const EventCard = ({
 }) => {
   return (
     <>
-      <div className="event-card-body">
+      <div className="event-card-body" style={{
+          padding: "0px",
+          margin: "10px",
+        }}>
         <div>
           {" "}
           <img
             src={require(`${cardImage}`)}
             alt="particular-events"
             className="event-image"
-            width={258}
+            width="100%"
             height={147}
           />
         </div>

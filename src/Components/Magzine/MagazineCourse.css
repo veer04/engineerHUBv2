@@ -3,16 +3,17 @@
   font-family: "Poppins", sans-serif;
 }
 
-.default-card-body {
+/* .default-card-body {
   padding: 5px;
-}
+} */
 .default-card {
-  width: 18rem;
+  width: 17rem;
   border-radius: 16px;
   display: flex;
   transition: all 500ms ease-in-out;
   box-shadow: 21px 8px 21px 8px #e6eff8;
   background: linear-gradient(rgba(18, 131, 129, 1), rgba(0, 42, 54, 1));
+  padding: 0px;
 }
 .default-card:hover {
   transform: scale(1.04);
@@ -21,6 +22,7 @@
 
   /* box-shadow: 0 8px 21px 0 rgb(0 0 0 / 15%); */
 }
+
 
 .default-btn {
   padding: 12px;

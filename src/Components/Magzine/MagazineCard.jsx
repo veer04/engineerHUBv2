@@ -20,21 +20,21 @@ function MagazineCard({
       <div
         className="card default-card"
         style={{
-          padding: "10px",
+          padding: "0px",
           margin: "10px",
         }}
       >
         <div className="card-body default-card-body">
           <img
-            width={258}
+            width="100%"
             height={147}
             src={require(`${cardImage}`)}
-            style={{ margin: "0px 0px 10px 0px" }}
+            style={{ margin: "0px 0px 10px 0px" ,borderRadius: "10px 10px 0 0",}}
             className="card-img-top"
             alt="..."
           />
 
-          <div className="d-flex justify-content-between align-items-center">
+          <div className="d-flex justify-content-between align-items-center" style={{padding: "0px 7px 2px 8px"}}>
             <h5
               className="card-title magc"
               style={{
@@ -56,11 +56,11 @@ function MagazineCard({
               />
             </div>
           </div>
-          <p className="card-text" style={{ fontSize: "12px" }}>
+          <p className="card-text" style={{ fontSize: "12px" ,padding:"0 7px 0 7px"}}>
             {courseDescription}
           </p>
           {/* <h6 style={{ fontWeight: 700 }}>Organizer: IIT Delhi</h6> */}
-          <div className="btn-container d-flex justify-content-between align-items-baseline">
+          <div className="btn-container d-flex justify-content-between align-items-baseline" style={{padding:"0px 3px 8px 6px"}}>
            
               <a
                 href={cp}
@@ -70,7 +70,7 @@ function MagazineCard({
                 style={{ backgroundColor: "rgba(255, 199, 0, 1)" }}
               >
                 <div style={{ color: "#000000", fontWeight: 400 }}>
-                  Register
+                  Open
                 </div>
               </a>
        

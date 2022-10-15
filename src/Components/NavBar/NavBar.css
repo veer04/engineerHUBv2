@@ -15,6 +15,7 @@
 .dropdownNav {
   background-color: #168584;
 }
+
 .navdropdownitems a {
   position: absolute;
   left: 10%;
@@ -22,7 +23,8 @@
 /* .mw-100{
   width: 300px;
 } */
-NavDropdown {
+
+.NavDropdown {
   background-color: #168584;
   border-radius: 50px;
 }

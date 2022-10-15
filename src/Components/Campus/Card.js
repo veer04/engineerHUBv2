@@ -51,12 +51,12 @@ function Card({
         Students can now understand the principals of quantum computing from the 3rd top Institute of India & become versed with various Quantum Computing Algorithm.cover the recently observed emergent phenomena in the area of quantum materials. 
         </p>
         <h6 style={{ fontWeight: 700, marginBottom: "1rem" }}>
-          Organizer: IIT Delhi
+          For: IIT Delhi
         </h6>
         <div className="d-flex align-items-baseline justify-content-between">
           <a href="https://home.iitd.ac.in/show.php?id=236&in_sections=News" className="btnc" style={{ backgroundColor: "#002a36" , borderRadius: "10px"}}>
             <span style={{ color: "white", fontSize: "0.9rem", padding: "12px 24px" , }}>
-              View More !
+              Apply
             </span>
           </a>
           {/* <p

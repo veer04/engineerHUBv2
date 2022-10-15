@@ -5,7 +5,8 @@ import axios from "axios";
 import Navbar from "react-bootstrap/Navbar";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
-import Logo from "./logo.svg";
+// import Logo from "./logo.svg";
+import logo1 from "./logo1.png";
 import User from "./user.svg";
 import NavDropdown from "react-bootstrap/NavDropdown";
 
@@ -50,13 +51,13 @@ const NavBar = () => {
   return (
     <>
       <Navbar bg="light" expand="lg">
-        <Container>
+        <Container className="nav-cont">
           <Navbar.Brand href="/">
             {" "}
             <img
-              alt=""
-              src={Logo}
-              width="68"
+              alt="logo"
+              src={logo1}
+              width="80"
               height="50"
               className="d-inline-block align-top"
             />{" "}

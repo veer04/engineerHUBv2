@@ -49,7 +49,7 @@ function Cardone({
           </div>
         </div>
         <p className="card-text dark-bg">
-        On the occasion of their175 years of completion, IIT Roorkee is organising a conference to cover the recently observed emergent phenomena in the area of quantum materials. These materials pose the most exciting and challenging research problems in condensed matter physics. 
+        On the occasion of their 175 years of completion, IIT Roorkee is organising a conference to cover the recently observed emergent phenomena in the area of quantum materials. These materials pose the most exciting and challenging research problems in condensed matter physics. 
         </p>
         <h6 style={{ fontWeight: 700, marginBottom: "1rem" }}>
           Organizer: IIT Roorkee
