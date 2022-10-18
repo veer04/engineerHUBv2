@@ -2,7 +2,7 @@ import React from "react";
 
 import ReactPlayer from "react-player";
 // import { Autoplay } from "swiper";
-
+import { TypeAnimation } from 'react-type-animation';
 // import { Swiper, SwiperSlide } from "swiper/react";
 import "../HomePage/HomePage.css";
 import "../Aboutus/Aboutus";
@@ -24,7 +24,7 @@ import GradIcon from "./icons/graudate.png";
 import BuildingIcon from "./icons/building.png";
 // import Zomato from "./Zomato.png";
 import IITK from "./svg/IITK.png";
-
+import AnimationScreen from "./svg/Animation.gif";
 // import tcs from "./svg/tcs.svg";
 // import oracle from "./svg/oracle.svg";
 // import logitech from "./svg/logitech.svg";
@@ -34,6 +34,7 @@ import IITK from "./svg/IITK.png";
 import CountUp from "react-countup";
 // import Byjus from "./Byjus.png";
 import "swiper/css";
+
 import "swiper/css/autoplay";
 import BottomDivider from "../shared/BottomDivider/BottomDivider";
 // import { Suspense } from "react";
@@ -41,7 +42,9 @@ import BottomDivider from "../shared/BottomDivider/BottomDivider";
 
 // const About = React.lazy(()=>import('../Aboutus/Aboutus'));
 // const About = lazy(() => import('../Aboutus/Aboutus'));
-
+import AOS from "aos";
+import 'aos/dist/aos.css';
+AOS.init();
 export default function NavBar() {
   return (
     <>
@@ -125,49 +128,81 @@ export default function NavBar() {
           </div>
         </div>
         <div className="player-wrapper col-lg-5 videocard">
-          <ReactPlayer
+
+{/* <img src={AnimationScreen} alt="" height={500} width={700} style={{backgroundColor:"Blue"}} /> */}
+
+
+          {/* <ReactPlayer
             url="https://www.youtube.com/watch?v=uFlGx_Vcjs8"
             className="react-player"
             // playing
             width="100%"
             height="100%"
             controls={false}
-          />
+          /> */}
         </div>
+      </div>
 
-        <div className="desk-tab--view" style={{ paddingBottom: "0px" }}>
-          <div className="header">
+<div className="row">
+<div className="header">
             <div className="studenttxt">Our students comes from</div>
           </div>
+          <div className="col-1"></div>
+  <div className="col-5"  data-aos="fade-right"
+   
+   data-aos-delay="300"
+   data-aos-offset="300"   >
+  <div className="desk-tab--view" style={{ paddingBottom: "0px" }}>
+         <div className="animatedtxt">
+  <TypeAnimation
+      sequence={[
+        'IITK', // Types 'One'
+        2500, // Waits 1s
+        'IITB', // Deletes 'One' and types 'Two'
+        2500, // Waits 2s
+        'IITR', 
+        2500,
+        () => {
+        
+        }
+      ]}
+      wrapper="div"
+      cursor={true}
+      repeat={Infinity}
+      style={{ fontSize: '2.4em' }}
+      className="Animated_text"
+    />
+    </div>
+         
           <div className="row1-container">
             <div className="box box-down cyan">
               <div className="comp studentfrom2">
                 <img src={IITK} alt="swiggy" className="tcsimage imgpos" />
               </div>
-              <h2 className="clgname">
+              {/* <h2 className="clgname">
                 NIT <br />
                 PATNA
-              </h2>
+              </h2> */}
             </div>
 
             <div className="box red">
               <div className="comp studentfrom2">
                 <img src={IITK} alt="swiggy" className="tcsimage imgpos" />
               </div>
-              <h2 className="clgname">
+              {/* <h2 className="clgname">
                 IIT <br />
                 KANPUR
-              </h2>
+              </h2> */}
             </div>
 
             <div className="box box-down blue">
               <div className="comp studentfrom2">
                 <img src={IITK} alt="swiggy" className="tcsimage imgpos" />
               </div>
-              <h2 className="clgname">
+              {/* <h2 className="clgname">
                 NIT <br />
                 ALLAHABAD
-              </h2>
+              </h2> */}
             </div>
           </div>
           <div className="row2-container">
@@ -175,41 +210,203 @@ export default function NavBar() {
               <div className="comp studentfrom2">
                 <img src={IITK} alt="swiggy" className="tcsimage imgpos" />
               </div>
-              <h2 className="clgname">
+              {/* <h2 className="clgname">
                 NIT <br />
                 KURUKSHETRA
-              </h2>
+              </h2> */}
             </div>
           </div>
         </div>
-      </div>
+  </div>
+  {/* <div className="col-2"></div> */}
+  <div className="col-5"  data-aos="fade-left"
+   data-aos-delay="300"
+   data-aos-offset="300"  >
+  <div className="desk-tab--view" style={{ paddingBottom: "0px" }}>
+         <div className="animatedtxt">
+  <TypeAnimation
+      sequence={[
+        'NITK', // Types 'One'
+        2500, // Waits 1s
+        'NITB', // Deletes 'One' and types 'Two'
+        2500, // Waits 2s
+        'NITR', 
+        2500,
+        () => {
+        
+        }
+      ]}
+      wrapper="div"
+      cursor={true}
+      repeat={Infinity}
+      style={{ fontSize: '2.4em' }}
+      className="Animated_text"
+    />
+</div>
+          <div className="row1-container">
+            <div className="box box-down cyan">
+              <div className="comp studentfrom2">
+                <img src={IITK} alt="swiggy" className="tcsimage imgpos" />
+              </div>
+              {/* <h2 className="clgname">
+                NIT <br />
+                PATNA
+              </h2> */}
+            </div>
+
+            <div className="box red">
+              <div className="comp studentfrom2">
+                <img src={IITK} alt="swiggy" className="tcsimage imgpos" />
+              </div>
+              {/* <h2 className="clgname">
+                IIT <br />
+                KANPUR
+              </h2> */}
+            </div>
+
+            <div className="box box-down blue">
+              <div className="comp studentfrom2">
+                <img src={IITK} alt="swiggy" className="tcsimage imgpos" />
+              </div>
+              {/* <h2 className="clgname">
+                NIT <br />
+                ALLAHABAD
+              </h2> */}
+            </div>
+          </div>
+          <div className="row2-container">
+            <div className="box orange">
+              <div className="comp studentfrom2">
+                <img src={IITK} alt="swiggy" className="tcsimage imgpos" />
+              </div>
+              {/* <h2 className="clgname">
+                NIT <br />
+                KURUKSHETRA
+              </h2> */}
+            </div>
+          </div>
+        </div>
+  </div>
+  <div className="col-1"></div>
+  <div className="row">
+    <div className="col-4"></div>
+  <div className="col-5" data-aos="fade-right"
+   
+   data-aos-delay="300"
+   data-aos-offset="300"  >
+  <div className="desk-tab--view" style={{ paddingBottom: "0px" }}>
+         <div className="animatedtxt">
+  <TypeAnimation
+      sequence={[
+        'AKTU', // Types 'One'
+        2500, // Waits 1s
+        'AKGEC', // Deletes 'One' and types 'Two'
+        2500, // Waits 2s
+        'MIT', 
+        2500,
+        () => {
+        
+        }
+      ]}
+      wrapper="div"
+      cursor={true}
+      repeat={Infinity}
+      style={{ fontSize: '2.4em' }}
+      className="Animated_text"
+    />
+    </div>
+          <div className="row1-container">
+            <div className="box box-down cyan">
+              <div className="comp studentfrom2">
+                <img src={IITK} alt="swiggy" className="tcsimage imgpos" />
+              </div>
+              {/* <h2 className="clgname">
+                NIT <br />
+                PATNA
+              </h2> */}
+            </div>
+
+            <div className="box red">
+              <div className="comp studentfrom2">
+                <img src={IITK} alt="swiggy" className="tcsimage imgpos" />
+              </div>
+              {/* <h2 className="clgname">
+                IIT <br />
+                KANPUR
+              </h2> */}
+            </div>
+
+            <div className="box box-down blue">
+              <div className="comp studentfrom2">
+                <img src={IITK} alt="swiggy" className="tcsimage imgpos" />
+              </div>
+              {/* <h2 className="clgname">
+                NIT <br />
+                ALLAHABAD
+              </h2> */}
+            </div>
+          </div>
+          <div className="row2-container">
+            <div className="box orange">
+              <div className="comp studentfrom2">
+                <img src={IITK} alt="swiggy" className="tcsimage imgpos" />
+              </div>
+              {/* <h2 className="clgname">
+                NIT <br />
+                KURUKSHETRA
+              </h2> */}
+            </div>
+          </div>
+        </div>
+  </div>
+</div>
+<div className="col-3"></div>
+</div>
+
+
+
+      <div data-aos="fade-up">
       <div className="header ">
         <div className="studenttxt">Companies we Collaborate</div>
       </div>
       <InfiniteSlider />
-      <div className="about">
-        <Aboutus />
+      </div>
+      <div className="about" >
+        <Aboutus data-aos="fade-right"
+   
+     data-aos-delay="300"
+     data-aos-offset="300" />
         {/* <React.Suspense fallback={<>...</>}>
         <About />
         </React.Suspense> */}
       </div>
-      <div className="WhatWeDo">
+      <div className="WhatWeDo" data-aos="fade-left"
+     data-aos-anchor-placement="top-bottom"
+     data-aos-offset="300">
         <Whatwedo />
       </div>
 
-      <div className="magzine">
+      <div className="magzine"data-aos="fade-up"
+     data-aos-anchor-placement="center-bottom">
         <Magzine />
       </div>
-      <div className="Events">
+      <div className="Events" data-aos="fade-up"
+     data-aos-anchor-placement="top-center">
         <Events />
       </div>
-      <div className="Courses">
+      <div className="Courses"  data-aos="fade-up"
+     data-aos-anchor-placement="center-center">
         <Courses />
       </div>
 
-      <BottomDivider />
+      <BottomDivider  data-aos="fade-left"
+      data-aos-offset="300"
+      data-aos-easing="ease-in-sine"/>
 
-      <div className="Members" style={{ padding: "0px 0px 4% 0px" }}>
+      <div className="Members" style={{ padding: "0px 0px 4% 0px" }}
+      data-aos="fade-right"
+      data-aos-offset="300"
+      data-aos-easing="ease-in-sine">
         <Members />
       </div>
     </>
