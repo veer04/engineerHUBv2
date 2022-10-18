@@ -37,12 +37,15 @@ import Ehubgif2 from "../HomePage/gif/ehubgif2.gif";
 import "swiper/css";
 import "swiper/css/autoplay";
 import BottomDivider from "../shared/BottomDivider/BottomDivider";
+import AnimationScreen from "./svg/Animation.gif";
 // import { Suspense } from "react";
 // import { lazy } from "react";
 
 // const About = React.lazy(()=>import('../Aboutus/Aboutus'));
 // const About = lazy(() => import('../Aboutus/Aboutus'));
-
+import AOS from "aos";
+import 'aos/dist/aos.css';
+AOS.init();
 export default function NavBar() {
   return (
     <>
@@ -144,16 +147,18 @@ export default function NavBar() {
             </div>
           </div>
         </div>
-        {/* <div className="player-wrapper col-lg-5 videocard">
-          <ReactPlayer
+        
+        <div className="player-wrapper col-lg-5 videocard">
+        <img src={AnimationScreen} alt="" height={500} width={700}/>
+          {/* <ReactPlayer
             url="https://www.youtube.com/watch?v=uFlGx_Vcjs8"
             className="react-player"
             // playing
             width="100%"
             height="100%"
             controls={false}
-          />
-        </div> */}
+          /> */}
+        </div>
 
         <div className=" mw-100" style={{ paddingBottom: "0px",
       margin:"0px" }}>
@@ -163,11 +168,11 @@ export default function NavBar() {
             <TypeAnimation
       sequence={[
         'IITs', // Types 'One'
-        6000, // Waits 1s
+        5500, // Waits 1s
         'NIT', // Deletes 'One' and types 'Two'
-        7000, // Waits 2s
+        6300, // Waits 2s
         'STATE COLLEGES', 
-        7000,
+        4900,
         () => {
         
         }
@@ -182,33 +187,48 @@ export default function NavBar() {
        <InfiniteSlider2></InfiniteSlider2>
         </div>
       </div>
+      <div data-aos="fade-up">
       <div className="header ">
         <div className="studenttxt">Companies we Collaborate</div>
       </div>
       <InfiniteSlider />
-      <div className="about">
-        <Aboutus />
+      </div>
+      <div className="about" >
+        <Aboutus data-aos="fade-zoom-in"
+     data-aos-easing="ease-in-back"
+     data-aos-delay="300"
+     data-aos-offset="0" />
         {/* <React.Suspense fallback={<>...</>}>
         <About />
         </React.Suspense> */}
       </div>
-      <div className="WhatWeDo">
+      <div className="WhatWeDo" data-aos="fade-left"
+     data-aos-anchor-placement="top-bottom"
+     data-aos-offset="300">
         <Whatwedo />
       </div>
 
-      <div className="magzine">
+      <div className="magzine"data-aos="fade-up"
+     data-aos-anchor-placement="center-bottom">
         <Magzine />
       </div>
-      <div className="Events">
+      <div className="Events" data-aos="fade-up"
+     data-aos-anchor-placement="top-center">
         <Events />
       </div>
-      <div className="Courses">
+      <div className="Courses"  data-aos="fade-up"
+     data-aos-anchor-placement="center-center">
         <Courses />
       </div>
 
-      <BottomDivider />
+      <BottomDivider  data-aos="fade-left"
+      data-aos-offset="300"
+      data-aos-easing="ease-in-sine"/>
 
-      <div className="Members" style={{ padding: "0px 0px 4% 0px" }}>
+      <div className="Members" style={{ padding: "0px 0px 4% 0px" }}
+      data-aos="fade-right"
+      data-aos-offset="300"
+      data-aos-easing="ease-in-sine">
         <Members />
       </div>
     </>
