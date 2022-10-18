@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import "./Register.css";
 import axios from "axios";
 import gg from "./svg/google.svg";
-// import fve from "./svg/fve.svg";
+
 const Register = () => {
   const navigate = useNavigate();
   const [password, setPassword] = useState("");
@@ -24,7 +24,7 @@ const Register = () => {
    
     if(result.status===200)
     {
-      navigate("/userpage");
+      navigate("/courses");
     }
   
    
@@ -73,7 +73,7 @@ const Register = () => {
         <div className="form-cont">
           <input
             className="reg-input"
-            type="password"
+            type="text"
             placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}

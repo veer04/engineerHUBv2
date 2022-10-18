@@ -3,7 +3,6 @@ import axios from "axios";
 import { Link, Navigate } from "react-router-dom";
 import ReCAPTCHA from "react-google-recaptcha";
 import gg from "./svg/google.svg";
-// import fve from "./svg/fve.svg";
 import "./Register.css";
 import "./Signup.css";
 const Signup = () => {
@@ -15,8 +14,6 @@ const Signup = () => {
   const [branch, setBranch] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  // const [flag, setFlag] = useState(0);
-
   var checkStatus = false;
   var captcha = false;
   const [formUserName, setFormUserName] = useState("");
@@ -106,10 +103,8 @@ const Signup = () => {
         .then((res) => {
           console.log(res.data);
           if (res.status === 200) {
-            if (captcha === true) Navigate("/");
-            else {
-              window.alert("captcha required!!!");
-            }
+          Navigate("/");
+          
           }
         })
         .catch((err) => {
@@ -219,7 +214,7 @@ const Signup = () => {
           Create your Account
         </div>
       </div>
-      <form action="">
+      <form action="" target="blank" >
         <div className="my-form registerForm">
           <div className="row">
             <div className="form-cont col-lg-6">
@@ -320,7 +315,7 @@ const Signup = () => {
               <input
                 required="required"
                 autoComplete="off"
-                type="password"
+                type="text"
                 name="confirm password"
                 placeholder="confirm password"
                 className="reg-input"
@@ -344,10 +339,7 @@ const Signup = () => {
             <button className="my-btn reg-si" type="button" onClick={submit}>
               Join the Community
             </button>
-            {/* <div className="d-flex justify-content-center">
-          <div className="f-p">Forgot Password ?</div>
-          <div className="f-p ">Reset Now </div>
-        </div> */}
+           
           </div>
           <div className="divisor d-flex justify-content-center">
             <hr style={{ color: "#6c757d" }} />

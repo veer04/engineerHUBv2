@@ -14,7 +14,7 @@
   );
 }
 
-$animationSpeed: 40s;
+$animationSpeed: 20s;
 
 // Animation
 @keyframes scroll {
@@ -22,7 +22,7 @@ $animationSpeed: 40s;
     transform: translateX(0);
   }
   100% {
-    transform: translateX(calc(-250px * 7));
+    transform: translateX(calc(-400px * 7));
   }
 }
 
@@ -66,6 +66,50 @@ $animationSpeed: 40s;
     height: 100px;
     width: 250px;
   }
+ 
 }
 
 
+.sliderStudent{
+
+ 
+
+  height: 100vh;
+
+  overflow: hidden;
+  position: relative;
+
+
+  // &::before,
+  // &::after {
+  //   @include white-gradient;
+  //   content: "";
+  //   height: 100vh;
+  //   position: absolute;
+  //   width: 100vw;
+  //   z-index: 2;
+  // }
+
+  // &::after {
+  //   right: 30%;
+  // left: 30%;
+  //   transform: rotateZ(90deg);
+  // }
+
+  // &::before {
+  //   left: 0;
+  //   top: 0;
+  // }
+
+  .slide_trackStudent {
+    animation: scroll $animationSpeed linear infinite;
+    display: flex;
+    width: calc(250px * 14);
+    
+  }
+
+  .slideStudent {
+    height: 100vh;
+    width: 100vw;
+  }
+}

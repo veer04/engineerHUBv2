@@ -1,6 +1,4 @@
-import React from "react";
-
-import ReactPlayer from "react-player";
+// import ReactPlayer from "react-player";
 // import { Autoplay } from "swiper";
 import { TypeAnimation } from 'react-type-animation';
 // import { Swiper, SwiperSlide } from "swiper/react";
@@ -19,12 +17,13 @@ import "../HomeCourses/Courses";
 import Courses from "../HomeCourses/Courses";
 import "../Members/Members";
 import InfiniteSlider from "../shared/InfiniteSlider";
-import campusIcon from "./icons/campus.png";
-import GradIcon from "./icons/graudate.png";
+// import InfiniteSlider2 from "../shared/InfiniteSlider2";
+// import campusIcon from "./icons/campus.png";
+// import GradIcon from "./icons/graudate.png";
 import BuildingIcon from "./icons/building.png";
 // import Zomato from "./Zomato.png";
 import IITK from "./svg/IITK.png";
-import AnimationScreen from "./svg/Animation.gif";
+// import AnimationScreen from "./svg/Animation.gif";
 // import tcs from "./svg/tcs.svg";
 // import oracle from "./svg/oracle.svg";
 // import logitech from "./svg/logitech.svg";
@@ -32,11 +31,14 @@ import AnimationScreen from "./svg/Animation.gif";
 
 // import infosys from "./svg/infosys.svg";
 import CountUp from "react-countup";
+import Ehubgif from "../HomePage/gif/ehubgif.gif";
+import Ehubgif2 from "../HomePage/gif/ehubgif2.gif";
 // import Byjus from "./Byjus.png";
 import "swiper/css";
-
+import AnimationScreen from "./svg/Animation.gif";
 import "swiper/css/autoplay";
 import BottomDivider from "../shared/BottomDivider/BottomDivider";
+
 // import { Suspense } from "react";
 // import { lazy } from "react";
 
@@ -52,15 +54,34 @@ export default function NavBar() {
         <div className="col-lg-7 ">
           <div className="tagContainer desk-tab--view">
             <h1 className="headerbrandname">engineerHUB</h1>
-            <h5 className="headerbelow">Students . Campus . Industries</h5>
+   <TypeAnimation
+      sequence={[
+        'Students', // Types 'One'
+        1000, // Waits 1s
+        'Campus', // Deletes 'One' and types 'Two'
+        2000, // Waits 2s
+        'Industries', 
+       2000,
+        () => {
+        
+        }
+      ]}
+      wrapper="div"
+      cursor={true}
+      repeat={Infinity}
+      style={{ fontSize: '1.4em' }}
+      className="Animated_textUP"
+      
+    />
+            {/* <h5 className="headerbelow">Students . Campus . Industries</h5> */}
           </div>
           <div className="row headerContainer">
             <div className="col-4 headercard">
               <img
                 className="c-img"
-                src={campusIcon}
+                src={Ehubgif}
                 alt="Campus"
-                style={{ width: "100px" }}
+                // style={{ width: "100px" }}
               />
               {/* <h1 className="headercardtext">750+</h1> */}
               <h1 className="headercardtext">
@@ -82,9 +103,9 @@ export default function NavBar() {
             <div className="col-4 headercard">
               <img
                 className="c-img"
-                src={GradIcon}
+                src={Ehubgif2}
                 alt="Graduate"
-                style={{ width: "90px" }}
+                // style={{ width: "90px" }}
               />
               {/* <h1 className="headercardtext">50K+</h1> */}
               <h1 className="headercardtext">
@@ -127,9 +148,10 @@ export default function NavBar() {
             </div>
           </div>
         </div>
+        
         <div className="player-wrapper col-lg-5 videocard">
 
-{/* <img src={AnimationScreen} alt="" height={500} width={700} style={{backgroundColor:"Blue"}} /> */}
+<img src={AnimationScreen} alt="" height={600} width={500} style={{backgroundColor:"Blue"}} />
 
 
           {/* <ReactPlayer
@@ -357,6 +379,7 @@ export default function NavBar() {
               </h2> */}
             </div>
           </div>
+       {/* <InfiniteSlider2></InfiniteSlider2> */}
         </div>
   </div>
 </div>
@@ -365,11 +388,11 @@ export default function NavBar() {
 
 
 
-      <div data-aos="fade-up">
+      <div >
       <div className="header ">
         <div className="studenttxt">Companies we Collaborate</div>
       </div>
-      <InfiniteSlider />
+      <InfiniteSlider data-aos="fade-up"/>
       </div>
       <div className="about" >
         <Aboutus data-aos="fade-right"
@@ -382,17 +405,17 @@ export default function NavBar() {
       </div>
       <div className="WhatWeDo" data-aos="fade-left"
      data-aos-anchor-placement="top-bottom"
-     data-aos-offset="600">
+     data-aos-offset="300">
         <Whatwedo />
       </div>
 
       <div className="magzine"data-aos="fade-up"
-      data-aos-offset="600"
+      data-aos-offset="300"
      data-aos-anchor-placement="center-bottom">
         <Magzine />
       </div>
       <div className="Events" data-aos="fade-up"
-      data-aos-offset="600"
+      data-aos-offset="300"
      data-aos-anchor-placement="top-center">
         <Events />
       </div>

@@ -22,10 +22,30 @@ body {
   height: 10vh;
   margin: auto;
 }
+
+.tagLine{
+
+  color: #05555e;
+ margin-top: 5%;
+ margin-left: 4%;
+
+}
+.Animated_textUP{
+  color: #05555e;
+  
+  font-weight: 600;
+  position: relative;
+  top: -15%;
+  left: 43%;
+
+}
+
 .tagContainer {
   display: flex;
   flex-direction: column;
   align-items: baseline;
+  padding-bottom: 10%;
+  margin-bottom: 10%;
 }
 .headerContainer {
   display: flex;
@@ -92,6 +112,13 @@ body {
   cursor: pointer;
 }
 
+.Animated_text{
+  color: #05555e;
+  margin-top: 3%;
+  font-weight: 600;
+}
+
+
 .headercardtext {
   font-family: "Bebas Neue", cursive;
   color: rgba(255, 214, 0, 1);
@@ -142,6 +169,7 @@ body {
   color: white;
   font-family: "Poppins", sans-serif;
   padding: 1%;
+  width: 20vw;
 }
 .Studentsfrom2 {
   background-color: rgba(1, 64, 81, 1);
@@ -252,6 +280,10 @@ body {
   }
   .headerbelow {
     font-size: 1rem;
+    position: relative;
+    top:10%;
+    margin-bottom: 20%;
+
   }
 }
 
