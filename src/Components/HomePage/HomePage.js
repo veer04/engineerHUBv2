@@ -382,15 +382,17 @@ export default function NavBar() {
       </div>
       <div className="WhatWeDo" data-aos="fade-left"
      data-aos-anchor-placement="top-bottom"
-     data-aos-offset="300">
+     data-aos-offset="600">
         <Whatwedo />
       </div>
 
       <div className="magzine"data-aos="fade-up"
+      data-aos-offset="600"
      data-aos-anchor-placement="center-bottom">
         <Magzine />
       </div>
       <div className="Events" data-aos="fade-up"
+      data-aos-offset="600"
      data-aos-anchor-placement="top-center">
         <Events />
       </div>
