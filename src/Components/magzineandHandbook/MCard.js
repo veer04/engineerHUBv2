@@ -6,29 +6,33 @@ import python from "./Images/python.jpg"
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import { Link } from "react-router-dom";
 // import cp from "../pdf/cp.pdf";
+import cpp from "./Images/cpp.jpg";
+import appdev from "./Images/appdev.jpeg"
 
-function Card({ bookTitle, pdfUrl }) {
+function Card({ bookTitle, pdfUrl, cardImag }) {
   // const navigate = useNavigate();
   return (
     <div
-      className="card custom-card-2"
+      className="card custom-card-2 container-mag"
       style={{
-        padding: "10px",
+        padding: "0px",
         margin: "10px",
         height: "fit-content",
       }}
     >
-      <div className="card-body custom-card-body-2">
+      <div className="card-body custom-card-body-2 ">
         <img
-          src={python}
+          src={appdev}
           style={{
-            margin: "0px 0px 10px 0px",
+            borderRadius:"16px",
+            
             width: "100%",
             background: "cover",
           }}
           className="card-img-top"
           alt="..."
         />
+        <div className="overlay">
         <div className="d-flex justify-content-between align-items-center">
           <h5
             className="card-title"
@@ -39,19 +43,19 @@ function Card({ bookTitle, pdfUrl }) {
               fontWeight: 600,
               fontSize: "16px",
               textTransform: "capitalize",
-              color: "#1b5b62",
+              color: "#ffc107",
             }}
           >
             {bookTitle}
           </h5>
-          <div>
+          {/* <div>
             <ShareOutlinedIcon
               className="share-icon"
               style={{ fontSize: "22px", marginRight: "0px" }}
             />
-          </div>
+          </div> */}
         </div>
-        <p className="card-text custom-card-text-2 dark-bg">
+        <p className="card-text custom-card-text-2 dark-bg" style={{textColor:"white"}}>
           Our developers aim at providing students with the best knowledge to
           help them create high-performing & user-friendly apps through a
           strategic IT framework.
@@ -79,16 +83,17 @@ function Card({ bookTitle, pdfUrl }) {
             </div>
           </Link>
           {/* </Viewer> */}
-          <p
+          {/* <p
             className="btn custom-card-btn-2"
             style={{ backgroundColor: "#FFC700", borderRadius: "20px" }}
-          >
-            <span style={{ color: "white", fontSize: "12px" }}>
+          > */}
+            {/* <span style={{ color: "white", fontSize: "12px" }}>
               <VisibilityOutlinedIcon /> 1,000{" "}
-            </span>
-          </p>
+            </span> */}
+          {/* </p> */}
         </div>
       </div>
+    </div>
     </div>
   );
 }
