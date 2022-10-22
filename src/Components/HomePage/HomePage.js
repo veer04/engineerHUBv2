@@ -183,26 +183,7 @@ export default function NavBar() {
    data-aos-delay="300"
    data-aos-offset="300"  >
   <div className="desk-tab--view" style={{ paddingBottom: "0px" }}>
-         <div className="animatedtxt">
-  <TypeAnimation
-      sequence={[
-        'IIT', // Types 'One'
-        2500, // Waits 1s
-        'NIT', // Deletes 'One' and types 'Two'
-        2500, // Waits 2s
-        'STATE COLLEGES', 
-        2500,
-        () => {
-        
-        }
-      ]}
-      wrapper="div"
-      cursor={true}
-      repeat={Infinity}
-      style={{ fontSize: '2.4em' }}
-      className="Animated_text"
-    />
-  </div>
+ 
   </div>
       </div>
        <InfiniteSlider2 className="infislider"></InfiniteSlider2>
