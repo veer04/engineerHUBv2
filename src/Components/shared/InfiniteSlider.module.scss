@@ -15,7 +15,7 @@
 }
 
 $animationSpeed: 20s;
-
+$animationSpeedz: 20s;
 // Animation
 @keyframes scroll {
   0% {
@@ -59,7 +59,7 @@ $animationSpeed: 20s;
   .slide_track {
     animation: scroll $animationSpeed linear infinite;
     display: flex;
-    width: calc(250px * 14);
+    width: calc(250px * 10);
   }
 
   .slide {
@@ -102,9 +102,9 @@ $animationSpeed: 20s;
   // }
 
   .slide_trackStudent {
-    animation: scroll $animationSpeed linear infinite;
+    animation: scroll $animationSpeedz linear infinite;
     display: flex;
-    width: calc(250px * 14);
+    width: calc(250px * 5);
     
   }
 
@@ -112,4 +112,79 @@ $animationSpeed: 20s;
     height: 100vh;
     width: 100vw;
   }
+}
+
+@media screen and (max-width:850px)
+{
+  .slideStudent{
+height: 50vh;
+width: 50vw;
+  }
+  .sliderStudent{
+    width: 100vw;
+    }
+}
+@media  screen and (min-width:496px) {
+  .slider3{
+    display: none;
+    width: 0vw;
+    
+  }
+
+}
+@media  screen and (max-width:950px) {
+  .sliderStudent{
+    display: none;
+    width: 0vw;
+  }
+
+  .slider3{
+    display: none;
+    width: 0vw;
+    
+  }
+
+}
+
+.slider3 {
+  background: #fdfdfd;
+  // box-shadow: 0 10px 20px -5px rgba(0, 0, 0, .125);
+  height: 120px;
+
+  overflow: hidden;
+  position: relative;
+  margin-top: 15%;
+margin-bottom: 25%;
+  &::before,
+  &::after {
+    @include white-gradient;
+    content: "";
+    height: 150px;
+    position: absolute;
+    width: 200px;
+    z-index: 2;
+  }
+
+  &::after {
+    right: 0;
+    top: 0;
+    transform: rotateZ(180deg);
+  }
+
+  &::before {
+    left: 0;
+    top: 0;
+  }
+
+  .slide_track {
+    animation: scroll $animationSpeed linear infinite;
+    display: flex;
+    width: calc(250px * 14);
+  }
+
+  .slide {
+    height: 150px;
+    width: 250px;
+  }
+ 
 }

@@ -143,6 +143,7 @@ a.dropdown-item {
   }
  .helloadmin{
   display: flex;
+align-items: center;
  }
 }
 .homesbn {
@@ -162,6 +163,10 @@ a.dropdown-item {
   color: green;
   font-size: 0.9rem;
 }
+.helloadmin{
+  position: relative;
+  right: -50px;
+}
 .internshipssbn {
   color: green;
   font-size: 0.9rem;
@@ -173,6 +178,8 @@ a.dropdown-item {
 .navbar-light .navbar-nav .nav-link {
   color: white !important;
   align-self: center;
+  position: relative;
+  
 }
 .navbar-toggler {
   background-color: #fff3f3;

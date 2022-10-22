@@ -11,16 +11,18 @@
   box-sizing: border-box;
   margin: 20px 0px;
   width: 60vw;
-  height: 10vh;
+  border-radius:10px ;
+  height: 20vh;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
   padding: 27px auto;
-  gap: 10px;
-  background: #ffffff;
-  border: 3.12635px solid #000000;
-  border-radius: 22.6661px;
+  margin-bottom: 5%;
+background:rgba(255, 255, 255, 0.459);
+;
+
+
 }
 .topicBox a {
   list-style: none;
@@ -33,11 +35,12 @@
   text-align: center;
   font-family: "Poppins";
   font-style: normal;
-  font-weight: 400;
+ 
   font-size: 25px;
   display: flex;
   justify-content: center;
-  color: #000000;
+  color: white;
+  font-weight:600 ;
 }
 
 
