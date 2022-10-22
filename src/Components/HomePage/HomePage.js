@@ -18,8 +18,8 @@ import InfiniteSlider2 from "../shared/InfiniteSlider2";
 import InfiniteSlider3 from "../shared/InfiniteSlider3";
 import Industries from "./gif/Industries.gif";
 // import Zomato from "./Zomato.png";
-// import IITK from "./svg/IITK.png";
-
+import IITK from "./svg/IITK.png";
+// import AnimationScreen from "./svg/Animation.gif";
 // import tcs from "./svg/tcs.svg";
 // import oracle from "./svg/oracle.svg";
 // import logitech from "./svg/logitech.svg";
@@ -31,9 +31,10 @@ import Ehubgif from "../HomePage/gif/ehubgif.gif";
 import Ehubgif2 from "../HomePage/gif/ehubgif2.gif";
 // import Byjus from "./Byjus.png";
 import "swiper/css";
+import AnimationScreen from "./svg/Animation.gif";
 import "swiper/css/autoplay";
 import BottomDivider from "../shared/BottomDivider/BottomDivider";
-import AnimationScreen from "./svg/Animation.gif";
+
 // import { Suspense } from "react";
 // import { lazy } from "react";
 
@@ -153,20 +154,44 @@ export default function NavBar() {
         <div className="player-wrapper col-lg-5 videocard parttwo">
         <img src={AnimationScreen} alt=""className='animationcard' />
         </div>
+      </div>
 
-        <div className=" mw-100" style={{ paddingBottom: "0px",
-      margin:"0px" }}>
-          <div className="header headz">
+<div className="row">
+<div className="header headz">
             <div className="studenttxt">Our students comes from</div>
-
-            <TypeAnimation
+          </div>
+  <div className="col-5" >
+  <div className="desk-tab--view" style={{ paddingBottom: "0px" }}>
+ 
+         
+     
+        </div>
+  </div>
+ 
+  <div className="col-5"  data-aos="fade-left"
+   data-aos-delay="300"
+   data-aos-offset="300"  >
+  <div className="desk-tab--view" style={{ paddingBottom: "0px" }}>
+  
+        </div>
+  </div>
+ 
+  <div className="row">
+    <div className="col-4"></div>
+  <div className="col-5" data-aos="fade-right"
+   
+   data-aos-delay="300"
+   data-aos-offset="300"  >
+  <div className="desk-tab--view" style={{ paddingBottom: "0px" }}>
+         <div className="animatedtxt">
+  <TypeAnimation
       sequence={[
-        'IITs', // Types 'One'
-        5500, // Waits 1s
+        'IIT', // Types 'One'
+        2500, // Waits 1s
         'NIT', // Deletes 'One' and types 'Two'
-        6300, // Waits 2s
+        2500, // Waits 2s
         'STATE COLLEGES', 
-        4900,
+        2500,
         () => {
         
         }
@@ -178,20 +203,20 @@ export default function NavBar() {
       className="Animated_text"
     />
   </div>
-       <InfiniteSlider2 className="infislider"></InfiniteSlider2>
-        </div>
-      
+  </div>
       </div>
-      <InfiniteSlider3 className="infislider2"></InfiniteSlider3>
+       <InfiniteSlider2 className="infislider"></InfiniteSlider2>
+       
+      {/* <InfiniteSlider3 className="infislider2"></InfiniteSlider3> */}
       <div data-aos="fade-up">
       <div className="header ">
         <div className="studenttxt">Companies we Collaborate</div>
       </div>
-      <InfiniteSlider />
+      <InfiniteSlider data-aos="fade-up"/>
       </div>
       <div className="about" >
-        <Aboutus data-aos="fade-zoom-in"
-     data-aos-easing="ease-in-back"
+        <Aboutus data-aos="fade-right"
+   
      data-aos-delay="300"
      data-aos-offset="0" />
 
@@ -203,10 +228,12 @@ export default function NavBar() {
       </div>
 
       <div className="magzine"data-aos="fade-up"
+      data-aos-offset="300"
      data-aos-anchor-placement="center-bottom">
         <Magzine />
       </div>
       <div className="Events" data-aos="fade-up"
+      data-aos-offset="300"
      data-aos-anchor-placement="top-center">
         <Events />
       </div>
@@ -225,6 +252,8 @@ export default function NavBar() {
       data-aos-easing="ease-in-sine">
         <Members />
       </div>
-    </>
-  );
+      </div>
+      </div>
+</>
+);
 }
