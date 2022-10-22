@@ -2,8 +2,13 @@ import React from "react";
 import styles from "./InfiniteSlider.module.scss";
 
 import "../HomePage/HomePage.css";
-
-
+import iitr from "./svg/iitr.jpg";
+import nitk from "./svg/nitk.jpeg";
+import aktu from "./svg/aktu.jpeg";
+import vit from "./svg/vit.png";
+import akg from "./svg/akg.png";
+import mit from "./svg/mit.jpg";
+import nita from "./svg/nita.png";
 import IITK from "../HomePage/svg/IITK.png";
 // 
 const InfiniteSlider = () => {
@@ -27,7 +32,7 @@ const InfiniteSlider = () => {
 
 <div className="box red">
   <div className="comp studentfrom2">
-    <img src={IITK} alt="swiggy" className="tcsimage imgpos" />
+    <img src={iitr} alt="swiggy" className="tcsimage imgpos" />
   </div>
   <h2 className="clgname">
     IIT <br />
@@ -48,7 +53,7 @@ const InfiniteSlider = () => {
 <div className="row2-container">
 <div className="box orange">
   <div className="comp studentfrom2">
-    <img src={IITK} alt="swiggy" className="tcsimage imgpos" />
+    <img src={iitr} alt="swiggy" className="tcsimage imgpos" />
   </div>
   <h2 className="clgname">
     IIT <br />
@@ -64,7 +69,7 @@ const InfiniteSlider = () => {
         <div className="row1-container">
 <div className="box box-down cyan">
   <div className="comp studentfrom2">
-    <img src={IITK} alt="swiggy" className="tcsimage imgpos" />
+    <img src={nita} alt="swiggy" className="tcsimage imgpos" />
   </div>
   <h2 className="clgname">
     NIT <br />
@@ -74,7 +79,7 @@ const InfiniteSlider = () => {
 
 <div className="box red">
   <div className="comp studentfrom2">
-    <img src={IITK} alt="swiggy" className="tcsimage imgpos" />
+    <img src={nitk} alt="swiggy" className="tcsimage imgpos" />
   </div>
   <h2 className="clgname">
     NIT <br />
@@ -84,7 +89,7 @@ const InfiniteSlider = () => {
 
 <div className="box box-down blue">
   <div className="comp studentfrom2">
-    <img src={IITK} alt="swiggy" className="tcsimage imgpos" />
+    <img src={nita} alt="swiggy" className="tcsimage imgpos" />
   </div>
   <h2 className="clgname">
     NIT <br />
@@ -95,7 +100,7 @@ const InfiniteSlider = () => {
 <div className="row2-container">
 <div className="box orange">
   <div className="comp studentfrom2">
-    <img src={IITK} alt="swiggy" className="tcsimage imgpos" />
+    <img src={nitk} alt="swiggy" className="tcsimage imgpos" />
   </div>
   <h2 className="clgname">
     NIT <br />
@@ -111,7 +116,7 @@ const InfiniteSlider = () => {
         <div className="row1-container">
 <div className="box box-down cyan">
   <div className="comp studentfrom2">
-    <img src={IITK} alt="swiggy" className="tcsimage imgpos" />
+    <img src={akg} alt="swiggy" className="tcsimage imgpos" />
   </div>
   <h2 className="clgname">
     AKGEC <br />
@@ -121,7 +126,7 @@ const InfiniteSlider = () => {
 
 <div className="box red">
   <div className="comp studentfrom2">
-    <img src={IITK} alt="swiggy" className="tcsimage imgpos" />
+    <img src={aktu} alt="swiggy" className="tcsimage imgpos" />
   </div>
   <h2 className="clgname">
     AKTU <br />
@@ -131,7 +136,7 @@ const InfiniteSlider = () => {
 
 <div className="box box-down blue">
   <div className="comp studentfrom2">
-    <img src={IITK} alt="swiggy" className="tcsimage imgpos" />
+    <img src={vit} alt="swiggy" className="tcsimage imgpos" />
   </div>
   <h2 className="clgname">
     VIT <br />
@@ -142,7 +147,7 @@ const InfiniteSlider = () => {
 <div className="row2-container">
 <div className="box orange">
   <div className="comp studentfrom2">
-    <img src={IITK} alt="swiggy" className="tcsimage imgpos" />
+    <img src={mit} alt="swiggy" className="tcsimage imgpos" />
   </div>
   <h2 className="clgname">
     MIT <br />

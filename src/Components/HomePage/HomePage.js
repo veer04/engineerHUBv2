@@ -1,7 +1,4 @@
-// import ReactPlayer from "react-player";
-// import { Autoplay } from "swiper";
 import { TypeAnimation } from 'react-type-animation';
-// import { Swiper, SwiperSlide } from "swiper/react";
 import "../HomePage/HomePage.css";
 import "../Aboutus/Aboutus";
 import Aboutus from "../Aboutus/Aboutus";
@@ -17,10 +14,9 @@ import "../HomeCourses/Courses";
 import Courses from "../HomeCourses/Courses";
 import "../Members/Members";
 import InfiniteSlider from "../shared/InfiniteSlider";
-// import InfiniteSlider2 from "../shared/InfiniteSlider2";
-// import campusIcon from "./icons/campus.png";
-// import GradIcon from "./icons/graudate.png";
-import BuildingIcon from "./icons/building.png";
+import InfiniteSlider2 from "../shared/InfiniteSlider2";
+import InfiniteSlider3 from "../shared/InfiniteSlider3";
+import Industries from "./gif/Industries.gif";
 // import Zomato from "./Zomato.png";
 import IITK from "./svg/IITK.png";
 // import AnimationScreen from "./svg/Animation.gif";
@@ -51,15 +47,15 @@ export default function NavBar() {
   return (
     <>
       <div className="row headearpart">
-        <div className="col-lg-7 ">
+        <div className="col-lg-7 partone ">
           <div className="tagContainer desk-tab--view">
             <h1 className="headerbrandname">engineerHUB</h1>
    <TypeAnimation
       sequence={[
-        'Students', // Types 'One'
-        1000, // Waits 1s
-        'Campus', // Deletes 'One' and types 'Two'
-        2000, // Waits 2s
+        'Students',
+        1000, 
+        'Campus',
+        2000, 
         'Industries', 
        2000,
         () => {
@@ -73,17 +69,40 @@ export default function NavBar() {
       className="Animated_textUP"
       
     />
-            {/* <h5 className="headerbelow">Students . Campus . Industries</h5> */}
-          </div>
+         </div>
           <div className="row headerContainer">
+          
+            <div className="col-4 headercard">
+              <img
+                className="c-img"
+                src={Ehubgif2}
+                alt="Graduate"
+             
+              />
+             
+              <h1 className="headercardtext">
+                <CountUp
+                  start={0}
+                  end={50}
+                  className="headercardtext"
+                  duration={1.9}
+                  smooth={true}
+                  smartEasingAmount={true}
+                  delay={0}
+                ></CountUp>
+                K+
+              </h1>
+
+              <h6 className="innerfont">Students</h6>
+            </div>
             <div className="col-4 headercard">
               <img
                 className="c-img"
                 src={Ehubgif}
                 alt="Campus"
-                // style={{ width: "100px" }}
+                
               />
-              {/* <h1 className="headercardtext">750+</h1> */}
+              
               <h1 className="headercardtext">
                 <CountUp
                   start={500}
@@ -103,34 +122,10 @@ export default function NavBar() {
             <div className="col-4 headercard">
               <img
                 className="c-img"
-                src={Ehubgif2}
-                alt="Graduate"
-                // style={{ width: "90px" }}
-              />
-              {/* <h1 className="headercardtext">50K+</h1> */}
-              <h1 className="headercardtext">
-                <CountUp
-                  start={0}
-                  end={50}
-                  className="headercardtext"
-                  duration={1.9}
-                  smooth={true}
-                  smartEasingAmount={true}
-                  delay={0}
-                ></CountUp>
-                K+
-              </h1>
-
-              <h6 className="innerfont">Students</h6>
-            </div>
-            <div className="col-4 headercard">
-              <img
-                className="c-img"
-                src={BuildingIcon}
+                src={Industries}
                 alt="Building"
-                style={{ width: "90px" }}
+                style={{ width: "120px" }}
               />
-              {/* <h1 className="headercardtext">18+</h1> */}
               <h1 className="headercardtext">
                 <CountUp
                   start={0}
@@ -146,170 +141,41 @@ export default function NavBar() {
 
               <h6 className="innerfont">Industries</h6>
             </div>
+
           </div>
+          
+          {/* <div className="row">
+            <div className="col-4"></div>
+       
+            
+          </div> */}
         </div>
         
-        <div className="player-wrapper col-lg-5 videocard">
-
-<img src={AnimationScreen} alt="" height={600} width={500} style={{backgroundColor:"Blue"}} />
-
-
-          {/* <ReactPlayer
-            url="https://www.youtube.com/watch?v=uFlGx_Vcjs8"
-            className="react-player"
-            // playing
-            width="100%"
-            height="100%"
-            controls={false}
-          /> */}
+        <div className="player-wrapper col-lg-5 videocard parttwo">
+        <img src={AnimationScreen} alt=""className='animationcard' />
         </div>
       </div>
 
 <div className="row">
-<div className="header">
+<div className="header headz">
             <div className="studenttxt">Our students comes from</div>
           </div>
-          <div className="col-1"></div>
-  <div className="col-5"  data-aos="fade-right"
-   
-   data-aos-delay="300"
-   data-aos-offset="300"   >
+  <div className="col-5" >
   <div className="desk-tab--view" style={{ paddingBottom: "0px" }}>
-         <div className="animatedtxt">
-  <TypeAnimation
-      sequence={[
-        'IITK', // Types 'One'
-        2500, // Waits 1s
-        'IITB', // Deletes 'One' and types 'Two'
-        2500, // Waits 2s
-        'IITR', 
-        2500,
-        () => {
-        
-        }
-      ]}
-      wrapper="div"
-      cursor={true}
-      repeat={Infinity}
-      style={{ fontSize: '2.4em' }}
-      className="Animated_text"
-    />
-    </div>
+ 
          
-          <div className="row1-container">
-            <div className="box box-down cyan">
-              <div className="comp studentfrom2">
-                <img src={IITK} alt="swiggy" className="tcsimage imgpos" />
-              </div>
-              {/* <h2 className="clgname">
-                NIT <br />
-                PATNA
-              </h2> */}
-            </div>
-
-            <div className="box red">
-              <div className="comp studentfrom2">
-                <img src={IITK} alt="swiggy" className="tcsimage imgpos" />
-              </div>
-              {/* <h2 className="clgname">
-                IIT <br />
-                KANPUR
-              </h2> */}
-            </div>
-
-            <div className="box box-down blue">
-              <div className="comp studentfrom2">
-                <img src={IITK} alt="swiggy" className="tcsimage imgpos" />
-              </div>
-              {/* <h2 className="clgname">
-                NIT <br />
-                ALLAHABAD
-              </h2> */}
-            </div>
-          </div>
-          <div className="row2-container">
-            <div className="box orange">
-              <div className="comp studentfrom2">
-                <img src={IITK} alt="swiggy" className="tcsimage imgpos" />
-              </div>
-              {/* <h2 className="clgname">
-                NIT <br />
-                KURUKSHETRA
-              </h2> */}
-            </div>
-          </div>
+     
         </div>
   </div>
-  {/* <div className="col-2"></div> */}
+ 
   <div className="col-5"  data-aos="fade-left"
    data-aos-delay="300"
    data-aos-offset="300"  >
   <div className="desk-tab--view" style={{ paddingBottom: "0px" }}>
-         <div className="animatedtxt">
-  <TypeAnimation
-      sequence={[
-        'NITK', // Types 'One'
-        2500, // Waits 1s
-        'NITB', // Deletes 'One' and types 'Two'
-        2500, // Waits 2s
-        'NITR', 
-        2500,
-        () => {
-        
-        }
-      ]}
-      wrapper="div"
-      cursor={true}
-      repeat={Infinity}
-      style={{ fontSize: '2.4em' }}
-      className="Animated_text"
-    />
-</div>
-          <div className="row1-container">
-            <div className="box box-down cyan">
-              <div className="comp studentfrom2">
-                <img src={IITK} alt="swiggy" className="tcsimage imgpos" />
-              </div>
-              {/* <h2 className="clgname">
-                NIT <br />
-                PATNA
-              </h2> */}
-            </div>
-
-            <div className="box red">
-              <div className="comp studentfrom2">
-                <img src={IITK} alt="swiggy" className="tcsimage imgpos" />
-              </div>
-              {/* <h2 className="clgname">
-                IIT <br />
-                KANPUR
-              </h2> */}
-            </div>
-
-            <div className="box box-down blue">
-              <div className="comp studentfrom2">
-                <img src={IITK} alt="swiggy" className="tcsimage imgpos" />
-              </div>
-              {/* <h2 className="clgname">
-                NIT <br />
-                ALLAHABAD
-              </h2> */}
-            </div>
-          </div>
-          <div className="row2-container">
-            <div className="box orange">
-              <div className="comp studentfrom2">
-                <img src={IITK} alt="swiggy" className="tcsimage imgpos" />
-              </div>
-              {/* <h2 className="clgname">
-                NIT <br />
-                KURUKSHETRA
-              </h2> */}
-            </div>
-          </div>
+  
         </div>
   </div>
-  <div className="col-1"></div>
+ 
   <div className="row">
     <div className="col-4"></div>
   <div className="col-5" data-aos="fade-right"
@@ -317,78 +183,13 @@ export default function NavBar() {
    data-aos-delay="300"
    data-aos-offset="300"  >
   <div className="desk-tab--view" style={{ paddingBottom: "0px" }}>
-         <div className="animatedtxt">
-  <TypeAnimation
-      sequence={[
-        'AKTU', // Types 'One'
-        2500, // Waits 1s
-        'AKGEC', // Deletes 'One' and types 'Two'
-        2500, // Waits 2s
-        'MIT', 
-        2500,
-        () => {
-        
-        }
-      ]}
-      wrapper="div"
-      cursor={true}
-      repeat={Infinity}
-      style={{ fontSize: '2.4em' }}
-      className="Animated_text"
-    />
-    </div>
-          <div className="row1-container">
-            <div className="box box-down cyan">
-              <div className="comp studentfrom2">
-                <img src={IITK} alt="swiggy" className="tcsimage imgpos" />
-              </div>
-              {/* <h2 className="clgname">
-                NIT <br />
-                PATNA
-              </h2> */}
-            </div>
-
-            <div className="box red">
-              <div className="comp studentfrom2">
-                <img src={IITK} alt="swiggy" className="tcsimage imgpos" />
-              </div>
-              {/* <h2 className="clgname">
-                IIT <br />
-                KANPUR
-              </h2> */}
-            </div>
-
-            <div className="box box-down blue">
-              <div className="comp studentfrom2">
-                <img src={IITK} alt="swiggy" className="tcsimage imgpos" />
-              </div>
-              {/* <h2 className="clgname">
-                NIT <br />
-                ALLAHABAD
-              </h2> */}
-            </div>
-          </div>
-          <div className="row2-container">
-            <div className="box orange">
-              <div className="comp studentfrom2">
-                <img src={IITK} alt="swiggy" className="tcsimage imgpos" />
-              </div>
-              {/* <h2 className="clgname">
-                NIT <br />
-                KURUKSHETRA
-              </h2> */}
-            </div>
-          </div>
-       {/* <InfiniteSlider2></InfiniteSlider2> */}
-        </div>
+ 
   </div>
-</div>
-<div className="col-3"></div>
-</div>
-
-
-
-      <div >
+      </div>
+       <InfiniteSlider2 className="infislider"></InfiniteSlider2>
+       
+      {/* <InfiniteSlider3 className="infislider2"></InfiniteSlider3> */}
+      <div data-aos="fade-up">
       <div className="header ">
         <div className="studenttxt">Companies we Collaborate</div>
       </div>
@@ -398,10 +199,8 @@ export default function NavBar() {
         <Aboutus data-aos="fade-right"
    
      data-aos-delay="300"
-     data-aos-offset="300" />
-        {/* <React.Suspense fallback={<>...</>}>
-        <About />
-        </React.Suspense> */}
+     data-aos-offset="0" />
+
       </div>
       <div className="WhatWeDo" data-aos="fade-left"
      data-aos-anchor-placement="top-bottom"
@@ -434,6 +233,8 @@ export default function NavBar() {
       data-aos-easing="ease-in-sine">
         <Members />
       </div>
-    </>
-  );
+      </div>
+      </div>
+</>
+);
 }

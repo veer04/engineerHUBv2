@@ -59,6 +59,8 @@ const NavBar = () => {
               src={logo1}
               width="80"
               height="50"
+              position="relative"
+              left="-50px"
               className="d-inline-block align-top"
             />{" "}
           </Navbar.Brand>
@@ -294,7 +296,7 @@ const NavBar = () => {
               <Nav.Link href="/hiring">Hiring</Nav.Link>
               <Nav.Link href="/industry">Industry</Nav.Link>
               <Nav.Link href="/team">Team</Nav.Link>
-              <Nav.Link href="login" className="desk-tab--view helloadmin">
+              <Nav.Link href="login" className=" helloadmin">
                 <img src={User} alt="" height={40} width={40} />{" "}
                 <span style={{ fontSize: "14px" }}>Arthur Morgan</span>
               </Nav.Link>

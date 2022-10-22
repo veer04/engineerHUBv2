@@ -3,7 +3,9 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./Resources.css";
 import Topic from "./Topic";
-
+import AOS from "aos";
+import 'aos/dist/aos.css';
+AOS.init();
 function ResourceApi({ heading, text }) {
   const [resourceData, setResourceData] = useState([]);
 
@@ -25,16 +27,18 @@ function ResourceApi({ heading, text }) {
       <div className="heading">{heading}</div>
       <div className="texthire">{text}</div>
       <div className="topic_container">
-        <Topic link="https://www.geeksforgeeks.org/data-structures/" subheading="Best websites for DSA" />
-        <Topic link="https://www.geeksforgeeks.org/commonly-asked-data-structure-interview-questions-set-1/" subheading="Top 10 DSA Questions" />
+        <Topic link="https://www.geeksforgeeks.org/data-structures/" subheading="Best websites for DSA"  data-aos="fade-up"></Topic>
+        <Topic link="https://www.geeksforgeeks.org/commonly-asked-data-structure-interview-questions-set-1/" subheading="Top 10 DSA Questions"  data-aos="fade-up"/>
         <Topic
           link="https://www.youtube.com/c/engineerHUB1"
           subheading="Youtube channel for DSA"
           style={{ overflow: "hidden" }}
+          data-aos="fade-up"
         />
-        <Topic link="https://www.geeksforgeeks.org/python-programming-language/learn-python-tutorial/" subheading="Tutorial for Python" />
-        <Topic link="https://www.geeksforgeeks.org/competitive-programming-a-complete-guide/?ref=shm" subheading="Tutorial for CP" />
-        <Topic link="https://www.geeksforgeeks.org/c-plus-plus/?ref=shm" subheading="Tutorial for C++" />
+        <Topic link="https://www.geeksforgeeks.org/python-programming-language/learn-python-tutorial/" subheading="Tutorial for Python"data-aos="fade-up"
+     data-aos-anchor-placement="center-bottom"/>
+        <Topic link="https://www.geeksforgeeks.org/competitive-programming-a-complete-guide/?ref=shm" subheading="Tutorial for CP" data-aos="fade-up" />
+        <Topic link="https://www.geeksforgeeks.org/c-plus-plus/?ref=shm" subheading="Tutorial for C++" data-aos="fade-up" />
       </div>
     </div>
   );
