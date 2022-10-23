@@ -8,7 +8,7 @@ import {
 } from "../../config/StaticLinks";
 import Img2 from "../shared/ProfilePic/pic2.png";
 
-import Img4 from "../shared/ProfilePic/pic4.png";
+import Img4 from "../shared/ProfilePic/pic4.jpg";
 import Img5 from "../shared/ProfilePic/pic5.png";
 
 const Mentor = ({

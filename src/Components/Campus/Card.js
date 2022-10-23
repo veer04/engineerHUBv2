@@ -54,7 +54,7 @@ function Card({
           For: IIT Delhi
         </h6>
         <div className="d-flex align-items-baseline justify-content-between">
-          <a href="https://home.iitd.ac.in/show.php?id=236&in_sections=News" className="btnc" style={{ backgroundColor: "#002a36" , borderRadius: "10px"}}>
+          <a href="https://forms.gle/drjNi7mLSYWLorp37" className="btnc" style={{ backgroundColor: "#002a36" , borderRadius: "10px"}}>
             <span style={{ color: "white", fontSize: "0.9rem", padding: "12px 24px" , }}>
               Apply
             </span>
