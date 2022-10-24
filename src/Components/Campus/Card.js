@@ -47,7 +47,7 @@ function Card({
             />
           </div>
         </div>
-        <p className="card-text dark-bg">
+        <p className="card-text" style={{color:"#002A36", fontWeight:"500"}}>
         Students can now understand the principals of quantum computing from the 3rd top Institute of India & become versed with various Quantum Computing Algorithm.cover the recently observed emergent phenomena in the area of quantum materials. 
         </p>
         <h6 style={{ fontWeight: 700, marginBottom: "1rem" }}>
