@@ -507,7 +507,7 @@ body {
 
 @media screen and (max-width: 426px) {
   .studenttxt {
-    font-size: 1.8rem;
+    font-size: 1.6rem;
   }
   .swiper-slide {
     display: flex;
@@ -534,6 +534,10 @@ body {
   .headercardtext {
     font-size: 2.4rem;
   }
+  .uppersectionRow{
+    padding-right: calc(var(--bs-gutter-x) * .0);
+  }
+
 /* 
   .header{
     display: none;
