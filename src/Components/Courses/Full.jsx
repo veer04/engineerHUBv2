@@ -17,7 +17,7 @@ function Card({
       <div
         className="card default-card"
         style={{
-          padding: "10px",
+          
           margin: "10px",
         }}
       >
@@ -26,7 +26,7 @@ function Card({
             width={258}
             height={147}
             src={require(`${cardImage}`)}
-            style={{ margin: "0px 0px 10px 0px" }}
+            style={{ margin: "0px 0px 10px 0px"}}
             className="card-img-top"
             alt="..."
           />
@@ -40,7 +40,7 @@ function Card({
                 fontWeight: 800,
                 fontSize: "18px",
                 lineHeight: "32px",
-                paddingTop: "0",
+                padding:"8px" ,
                 color: "rgba(255, 199, 0, 1)",
               }}
             >
@@ -49,11 +49,11 @@ function Card({
             <div>
               <ShareOutlinedIcon
                 className="share-icon"
-                style={{ fontSize: "18px", marginRight: "0px" }}
+                style={{ fontSize: "18px", marginRight: "0px",padding:"8px" , }}
               />
             </div>
           </div>
-          <p className="card-text" style={{ fontSize: "12px" }}>
+          <p className="card-text" style={{ fontSize: "12px",padding:"8px" , }}>
             {courseDescription}
           </p>
           {/* <h6 style={{ fontWeight: 700 }}>Organizer: IIT Delhi</h6> */}
@@ -68,7 +68,7 @@ function Card({
             </Link>
             <p
               className="d-flex card-date fst-normal align-items-center justify-content-center"
-              style={{ fontSize: "12px", color: "#fff", fontWeight: "bold" }}
+              style={{ fontSize: "12px", color: "#fff", fontWeight: "bold",padding:"8px" , }}
             >
               Last date: {lastDate}
             </p>

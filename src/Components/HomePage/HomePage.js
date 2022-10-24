@@ -158,7 +158,7 @@ export default function NavBar() {
         </div>
       </div>
 
-<div className="row">
+<div className="row uppersectionRow">
 <div className="header headz">
             <div className="studenttxt">Our students comes from</div>
           </div>
@@ -188,6 +188,7 @@ export default function NavBar() {
  
   </div>
       </div>
+      </div>
        <InfiniteSlider2 className="infislider"></InfiniteSlider2>
        
       {/* <InfiniteSlider3 className="infislider2"></InfiniteSlider3> */}
@@ -204,30 +205,24 @@ export default function NavBar() {
      data-aos-offset="0" />
 
       </div>
+      
       <div className="WhatWeDo" data-aos="fade-left"
      data-aos-anchor-placement="top-bottom"
      data-aos-offset="300">
         <Whatwedo />
       </div>
 
-      <div className="magzine"data-aos="fade-up"
-      data-aos-offset="300"
-     data-aos-anchor-placement="center-bottom">
+      <div className="magzine">
         <Magzine />
       </div>
-      <div className="Events" data-aos="fade-up"
-      data-aos-offset="300"
-     data-aos-anchor-placement="top-center">
+      <div className="Events">
         <Events />
       </div>
-      <div className="Courses"  data-aos="fade-up"
-     data-aos-anchor-placement="center-center">
+      <div className="Courses">
         <Courses />
       </div>
 
-      <BottomDivider  data-aos="fade-left"
-      data-aos-offset="300"
-      data-aos-easing="ease-in-sine"/>
+      <BottomDivider/>
 
       <div className="Members" style={{ padding: "0px 0px 4% 0px" }}
       data-aos="fade-right"
@@ -236,7 +231,7 @@ export default function NavBar() {
         <Members />
       </div>
       </div>
-      </div>
+      
 </>
 );
 }

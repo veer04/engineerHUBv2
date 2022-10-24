@@ -26,7 +26,7 @@ export const eventStaticData = [
     eventDescription:
       "We organise various workshops to guide students by giving them a basic framework of technical subjects by skilled mentors . We offer various materials covering fundamentals & advanced topics",
     lastDate: "22/11/2022",
-    cardImage: `.${__dirname}Images/backimg.png`,
+    cardImage: `.${__dirname}Images/courses.png`,
   },
   {
     eventTitle1: "Weekend with ",
@@ -34,7 +34,7 @@ export const eventStaticData = [
     eventDescription:
       "A weekly event named `Weekend with us` Is organised to give a live interactive session by mentors/ professionals to give an overview of the placements & train the students accordingly.",
     lastDate: "22/02/2023",
-    cardImage: `.${__dirname}Images/weekend.jpg`,
+    cardImage: `.${__dirname}Images/weekend.png`,
   },
 ];
 function Events() {

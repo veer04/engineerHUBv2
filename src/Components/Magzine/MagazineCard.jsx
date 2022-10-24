@@ -70,7 +70,7 @@ function MagazineCard({
                 className="default-btn"
                 style={{ backgroundColor: "rgba(255, 199, 0, 1)" }}
               >
-                <div style={{ color: "#000000", fontWeight: 400 }}>
+                <div style={{ color: "#000000", fontWeight: 400 , alignContent:"center "}}>
                   Open
                 </div>
               </a>

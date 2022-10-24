@@ -46,8 +46,7 @@ function Magzine() {
               <SwiperSlide>
                 <MagazineCard
                   key={`${i}a`}
-                  // id={i * 2}
-                  // state={c}
+          
                   cardImage={c.cardImage}
                   courseTitle1={c.courseTitle1}
                   courseTitle2={c.courseTitle2}
