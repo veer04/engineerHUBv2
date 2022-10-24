@@ -1,6 +1,6 @@
 import React from "react";
-import cp from "../pdf/cp.pdf";
-// import } from "react-router-dom";
+// import cp from "../pdf/cp.pdf";
+import { Link } from "react-router-dom";
 
 const Dropdown = () => {
   return (
@@ -23,18 +23,19 @@ const Dropdown = () => {
             id="collapseOne"
             class="accordion-collapse collapse show"
             aria-labelledby="headingOne"
+            data-bs-parent="#accordionExample"
           >
             <div class="accordion-body domain-drp-item">
-            
-              <a
+            <Link to="/pdf" className="a-item-domain">
+              {/* <a
                 target="_blank"
-                href={cp}
+                
                 className="a-item-domain"
                 rel="noreferrer"
-              >
+              > */}
                 Handbook
-              </a>
-              
+              {/* </a> */}
+              </Link>
               <hr className="drp-hr" />
             </div>
             <div class="accordion-body domain-body">
@@ -49,7 +50,7 @@ const Dropdown = () => {
               </a>
               <hr />
             </div>
-            <div class="accordion-body" style={{ paddingTop: "0" }}>
+            <div class="accordion-body" >
               <a
                 href="https://discord.gg/ZMZAEZ5NfA"
                 target="_blank"
@@ -68,7 +69,7 @@ const Dropdown = () => {
               type="button"
               data-bs-toggle="collapse"
               data-bs-target="#collapseTwo"
-              aria-expanded="true"
+              aria-expanded="false"
               aria-controls="collapseTwo"
             >
               Web Development
@@ -80,16 +81,16 @@ const Dropdown = () => {
             aria-labelledby="headingTwo"
           >
             <div class="accordion-body domain-drp-item">
-          
-              <a
+            <Link to="/pdf" className="a-item-domain">
+              {/* <a
                 target="_blank"
                 href={cp}
                 className="a-item-domain"
                 rel="noreferrer"
-              >
+              > */}
                 Handbook
-              </a>
-              
+              {/* </a> */}
+            </Link>  
               <hr />
             </div>
             <div class="accordion-body">
@@ -123,7 +124,7 @@ const Dropdown = () => {
               type="button"
               data-bs-toggle="collapse"
               data-bs-target="#collapseThree"
-              aria-expanded="true"
+              aria-expanded="false"
               aria-controls="collapseThree"
             >
               App Development
@@ -135,16 +136,16 @@ const Dropdown = () => {
             aria-labelledby="headingThree"
           >
             <div class="accordion-body domain-drp-item">
-          
-              <a
+            <Link to="/pdf" className="a-item-domain">
+              {/* <a
                 target="_blank"
                 href={cp}
                 className="a-item-domain"
                 rel="noreferrer"
-              >
+              > */}
                 Handbook
-              </a>
-              
+              {/* </a> */}
+            </Link>  
               <hr />
             </div>
             <div class="accordion-body">
@@ -178,7 +179,7 @@ const Dropdown = () => {
               type="button"
               data-bs-toggle="collapse"
               data-bs-target="#collapseFour"
-              aria-expanded="true"
+              aria-expanded="false"
               aria-controls="collapseFour"
             >
               Machine Learning & AI
@@ -190,16 +191,16 @@ const Dropdown = () => {
             aria-labelledby="headingFour"
           >
             <div class="accordion-body domain-drp-item">
-          
-              <a
+            <Link to="/pdf" className="a-item-domain">
+              {/* <a
                 target="_blank"
                 href={cp}
                 className="a-item-domain"
                 rel="noreferrer"
-              >
+              > */}
                 Handbook
-              </a>
-              
+              {/* </a> */}
+            </Link>  
               <hr />
             </div>
             <div class="accordion-body">
@@ -233,7 +234,7 @@ const Dropdown = () => {
               type="button"
               data-bs-toggle="collapse"
               data-bs-target="#collapseFive"
-              aria-expanded="true"
+              aria-expanded="false"
               aria-controls="collapseFive"
             >
               Cyber Security
@@ -245,16 +246,16 @@ const Dropdown = () => {
             aria-labelledby="headingFive"
           >
             <div class="accordion-body domain-drp-item">
-          
-              <a
+            <Link to="/pdf" className="a-item-domain">
+              {/* <a
                 target="_blank"
                 href={cp}
                 className="a-item-domain"
                 rel="noreferrer"
-              >
+              > */}
                 Handbook
-              </a>
-              
+              {/* </a> */}
+            </Link>  
               <hr />
             </div>
             <div class="accordion-body">
@@ -288,7 +289,7 @@ const Dropdown = () => {
               type="button"
               data-bs-toggle="collapse"
               data-bs-target="#collapseSix"
-              aria-expanded="true"
+              aria-expanded="false"
               aria-controls="collapseSix"
             >
               UI/UX Design
@@ -300,16 +301,16 @@ const Dropdown = () => {
             aria-labelledby="headingSix"
           >
             <div class="accordion-body domain-drp-item">
-          
-              <a
+            <Link to="/pdf" className="a-item-domain">
+              {/* <a
                 target="_blank"
                 href={cp}
                 className="a-item-domain align-content-center"
                 rel="noreferrer"
-              >
+              > */}
                 Handbook
-              </a>
-              
+              {/* </a> */}
+            </Link>  
               <hr />
             </div>
             <div class="accordion-body">
@@ -343,7 +344,7 @@ const Dropdown = () => {
               type="button"
               data-bs-toggle="collapse"
               data-bs-target="#collapseSeven"
-              aria-expanded="true"
+              aria-expanded="false"
               aria-controls="collapseSeven"
             >
               Block Chain
@@ -355,16 +356,16 @@ const Dropdown = () => {
             aria-labelledby="headingSeven"
           >
             <div class="accordion-body domain-drp-item">
-            
-              <a
+            <Link to="/pdf" className="a-item-domain">
+              {/* <a
                 target="_blank"
                 href={cp}
                 className="a-item-domain"
                 rel="noreferrer"
-              >
+              > */}
                 Handbook
-              </a>
-            
+              {/* </a> */}
+            </Link>
               <hr />
             </div>
             <div class="accordion-body">

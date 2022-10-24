@@ -1,4 +1,19 @@
-.viewer{
+/* .viewer{
     height: 50rem;
     width: 100%;
-}
+} */
+
+.Viewer {
+    text-align: center;
+    background-color: #525659;
+  }
+
+  @media screen and (max-width:426px) {
+    .react-pdf__Page__canvas{
+      width: 100% !important;
+      height: 100% !important;
+    }
+    
+  }
+  
+ 

@@ -15,6 +15,7 @@ function Domain() {
             gap: "9px",
             paddingBottom: "80px",
             paddingTop: "25px",
+            marginRight:"0px"
           }}
         >
           <Dropdown />
