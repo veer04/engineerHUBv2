@@ -6,10 +6,10 @@ import {
   COMPANYMEMBER_LID2,
   COMPANYMEMBER_LID3,
 } from "../../config/StaticLinks";
-import Img2 from "../shared/ProfilePic/pic2.png";
 
-import Img4 from "../shared/ProfilePic/pic4.png";
+import Img4 from "../shared/ProfilePic/pic4.jpg";
 import Img5 from "../shared/ProfilePic/pic5.png";
+import Img7 from "../shared/ProfilePic/img7.jpg";
 
 const Mentor = ({
   coursesDes = "engineerhub is equipped with skilled industrialists: ",
@@ -37,7 +37,7 @@ const Mentor = ({
       Company: "@EngineerHUB",
       Desc: "HTML, CSS, JavaScript, ReactJS",
       LinkedIn: COMPANYMEMBER_LID2,
-      mentorImage: `${Img2}`,
+      mentorImage: `${Img7}`,
     },
   ],
 }) => {
@@ -75,7 +75,7 @@ const Mentor = ({
           LinkedIn={COMPANYMEMBER_LID3}
         />
         <MentorCard
-          mentorImage={Img2}
+          mentorImage={Img7}
           Profession={"Frontend Developer"}
           Name={"Aditi JS"}
           Company={"@engineerHUB"}

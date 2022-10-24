@@ -78,6 +78,10 @@
   list-style-image: url("Ellipse-7.svg");
 }
 
+.row>*{
+  padding-right: 0 ;
+}
+
 .abtus-ul li::before {
   font-weight: bold;
   display: inline-block;
