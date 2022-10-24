@@ -6,7 +6,7 @@ import "./MCard.css";
 // import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import { Link } from "react-router-dom";
 // import cp from "../pdf/cp.pdf";
-import cpp from "./Images/cpp.jpg";
+// import cpp from "./Images/cpp.jpg";
 import appdev from "./Images/appdev.jpeg"
 
 function Card({ bookTitle, pdfUrl, cardImag }) {
@@ -22,7 +22,7 @@ function Card({ bookTitle, pdfUrl, cardImag }) {
     >
       <div className="card-body custom-card-body-2 ">
         <img
-          src={cpp}
+          src={appdev}
           style={{
             borderRadius:"16px",
             
