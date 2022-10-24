@@ -1,9 +1,9 @@
 import React from "react";
 import "./MCard.css";
-import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
+
 // import cybersecurityimg from "./cybersecurityimg.png";
-import python from "./Images/python.jpg"
-import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
+
+// import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import { Link } from "react-router-dom";
 // import cp from "../pdf/cp.pdf";
 import cpp from "./Images/cpp.jpg";
@@ -22,7 +22,7 @@ function Card({ bookTitle, pdfUrl, cardImag }) {
     >
       <div className="card-body custom-card-body-2 ">
         <img
-          src={appdev}
+          src={cpp}
           style={{
             borderRadius:"16px",
             

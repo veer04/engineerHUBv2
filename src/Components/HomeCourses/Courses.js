@@ -15,11 +15,11 @@ import CoursesCard from "./CoursesCard";
 
 export const coursesData = [
   {
-    courseName: "App Development",
-    courseTitle1: "App",
-    courseTitle2: "Development",
+    courseName: "DSA",
+    courseTitle1: "DATA",
+    courseTitle2: "STRUCTURES",
     courseDescription:
-      "Our developers aim at providing students with the best knowledge to help them create high-performing & user-friendly apps through frameworks.",
+      "Our Educators aim at providing students with the best knowledge to help them solve and crack FAANG/MAANG by mastering data structures and algorithms",
     lastDate: "22/08/2023",
     cardImage: `.${__dirname}Images/app.jpg`,
   },

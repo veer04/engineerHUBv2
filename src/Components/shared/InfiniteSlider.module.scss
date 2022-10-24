@@ -14,7 +14,7 @@
   );
 }
 
-$animationSpeed: 15s;
+$animationSpeed: 20s;
 $animationSpeedz: 20s;
 // Animation
 @keyframes scroll {
@@ -22,7 +22,15 @@ $animationSpeedz: 20s;
     transform: translateX(0);
   }
   100% {
-    transform: translateX(calc(-150px * 7));  //width from here
+    transform: translateX(calc(-250px * 7));  //width from here
+  }
+}
+@keyframes scrollStudent {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(calc(-420px * 12));  //width from here
   }
 }
 
@@ -64,7 +72,8 @@ $animationSpeedz: 20s;
 
   .slide {
     height: 100px;
-    width: 250px;
+    width: 300px;
+    margin-left: 10%;
   }
  
 }
@@ -78,6 +87,7 @@ $animationSpeedz: 20s;
 
   overflow: hidden;
   position: relative;
+
 
 
   // &::before,
@@ -102,7 +112,7 @@ $animationSpeedz: 20s;
   // }
 
   .slide_trackStudent {
-    animation: scroll $animationSpeedz linear infinite;
+    animation: scrollStudent $animationSpeedz linear infinite;
     display: flex;
     width: calc(250px * 5);
     
@@ -111,6 +121,8 @@ $animationSpeedz: 20s;
   .slideStudent {
     height: 100vh;
     width: 100vw;
+    margin-left: 40%;
+    margin-right: 40%;
   }
 }
 
