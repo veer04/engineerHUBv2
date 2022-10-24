@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 import "./MagazineCourse.css";
 import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
@@ -61,7 +62,7 @@ function MagazineCard({
           </p>
           {/* <h6 style={{ fontWeight: 700 }}>Organizer: IIT Delhi</h6> */}
           <div className="btn-container d-flex justify-content-between align-items-baseline" style={{padding:"0px 3px 8px 6px"}}>
-           
+           <Link to={"/pdf"}>
               <a
                 href={cp}
                 target="_blank"
@@ -69,10 +70,11 @@ function MagazineCard({
                 className="default-btn"
                 style={{ backgroundColor: "rgba(255, 199, 0, 1)" }}
               >
-                <div style={{ color: "#000000", fontWeight: 400 }}>
+                <div style={{ color: "#000000", fontWeight: 400 , alignContent:"center "}}>
                   Open
                 </div>
               </a>
+              </Link>
        
             <p
               className="d-flex card-date fst-normal align-items-center justify-content-center"

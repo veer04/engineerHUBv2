@@ -17,6 +17,8 @@ import InfiniteSlider from "../shared/InfiniteSlider";
 import InfiniteSlider2 from "../shared/InfiniteSlider2";
 import InfiniteSlider3 from "../shared/InfiniteSlider3";
 import Industries from "./gif/Industries.gif";
+
+import ehub from "./gif/industry.gif"
 // import Zomato from "./Zomato.png";
 import IITK from "./svg/IITK.png";
 // import AnimationScreen from "./svg/Animation.gif";
@@ -27,8 +29,8 @@ import IITK from "./svg/IITK.png";
 
 // import infosys from "./svg/infosys.svg";
 import CountUp from "react-countup";
-import Ehubgif from "../HomePage/gif/ehubgif.gif";
-import Ehubgif2 from "../HomePage/gif/ehubgif2.gif";
+import Ehubgif2 from "../HomePage/gif/student.gif";
+import Ehubgif from "../HomePage/gif/campus.gif";
 // import Byjus from "./Byjus.png";
 import "swiper/css";
 import AnimationScreen from "./svg/Animation.gif";
@@ -77,7 +79,7 @@ export default function NavBar() {
                 className="c-img"
                 src={Ehubgif2}
                 alt="Graduate"
-             
+                style={{ width: "120px" }}
               />
              
               <h1 className="headercardtext">
@@ -100,7 +102,7 @@ export default function NavBar() {
                 className="c-img"
                 src={Ehubgif}
                 alt="Campus"
-                
+                style={{ width: "120px" }}
               />
               
               <h1 className="headercardtext">
@@ -122,7 +124,7 @@ export default function NavBar() {
             <div className="col-4 headercard">
               <img
                 className="c-img"
-                src={Industries}
+                src={ehub}
                 alt="Building"
                 style={{ width: "120px" }}
               />
