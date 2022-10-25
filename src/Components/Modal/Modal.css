@@ -1,0 +1,122 @@
+.modalBackground {
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(200, 200, 200);
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .modalContainer {
+    width: 500px;
+    height: 700px;
+    border-radius: 12px;
+    background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    display: flex;
+    flex-direction: column;
+    padding: 25px;
+  }
+  
+  .modalContainer .title {
+    display: inline-block;
+    text-align: center;
+    margin-top: 10px;
+  }
+  
+  .titleCloseBtn {
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  .titleCloseBtn button {
+    background-color: transparent;
+    border: none;
+    font-size: 25px;
+    cursor: pointer;
+  }
+  
+  .modalContainer .body {
+    flex: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.7rem;
+    text-align: center;
+  }
+  
+  .modalContainer .footer {
+    flex: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .modalContainer .footer button {
+    width: 150px;
+    height: 45px;
+    margin: 10px;
+    border: none;
+    background-color: cornflowerblue;
+    color: white;
+    border-radius: 8px;
+    font-size: 20px;
+    cursor: pointer;
+  }
+  
+  #cancelBtn {
+    background-color: crimson;
+  }
+  .closingCancel{
+    padding: 1%;
+    width: 40px;
+  }
+  @media screen and (max-width:600px)
+  {
+    .containerModal{
+      height: 50vh;
+      width: 60vw;
+    }
+    .signfieldModal{
+      position: relative;
+      left: -20%;
+      height: 7vh;
+      width: 60vw;
+    }
+  .myLowerform
+  {
+    height: 40vh;
+    width: 60vw;
+  }
+  .modalheadt{
+    font-size:1.2rem ;
+  }
+  }
+  @media screen and (max-width:450px)
+  {
+    .containerModal{
+      height: 40vh;
+      width: 50vw;
+    }
+  .myLowerform
+  {
+    height: 40vh;
+    width: 50vw;
+  }
+  .siModal{
+    font-size: 0.8rem;
+    position: relative;
+    left: -10%;
+    width: 60vw;
+    height: 7vh;
+  }
+  .imageEhubmain{
+    height: 150px;
+    width: 150px;
+  }
+ .modalContainer{
+  height: 1000px;
+  width: 500px;
+ }
+  }

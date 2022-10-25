@@ -150,6 +150,9 @@ color: rgba(0, 42, 54, 1);
   color: #05555e;
   font-size: 1.3rem;
 }
+.box{
+  width:25vw;
+}
 
 .cllgCarol {
   display: flex;

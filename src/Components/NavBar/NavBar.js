@@ -57,7 +57,7 @@ const NavBar = () => {
             <img
               alt="logo"
               src={logo1}
-              width="80"
+              width="100"
               height="50"
               position="relative"
               left="-50px"

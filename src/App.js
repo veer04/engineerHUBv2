@@ -20,6 +20,7 @@ import Footer from "./Components/Footer/Footer";
 import Domain from "./Components/Domain/Domain";
 // import User from "./Components/UserPage/user";
 import Pviewer from "./Components/pdf/Viewer";
+import Modal from "./Components/Modal/Modal";
 
 function App() {
   return (
@@ -42,6 +43,7 @@ function App() {
 
         {/* <Route path="/login" exact element={<Login />} /> */}
         <Route path="/login" exact element={<Login />}/>
+        <Route path="/modal" exact element={<Modal />}/>
         <Route path="/register" exact element={<Register />} />
         <Route path="/signup" exact element={<SignUp />} />
         <Route path="/domain" exact element={<Domain />} />

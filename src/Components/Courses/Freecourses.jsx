@@ -1,12 +1,13 @@
-import React from "react";
 
 import "./freecourses.css";
 import Full from "./Full";
 import { coursesData } from "../HomeCourses/Courses";
 
-const Freecourses = () => {
+const Freecourses = ({closeModal}) => {
+  console.log({closeModal});
   return (
     <div className="container-hiring">
+
       <div className="heading">Explore Courses</div>
 
       <div className="texthire">
@@ -46,6 +47,7 @@ const Freecourses = () => {
           />;
         })} */}
       </div>
+     
     </div>
   );
 };

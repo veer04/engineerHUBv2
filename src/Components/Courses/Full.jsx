@@ -1,7 +1,9 @@
-import React from "react";
+// import { useState } from "react";
+
 import { Link } from "react-router-dom";
 import "./freecourses.css";
 import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
+// import Modal from "../Modal/Modal.js";
 
 function Card({
   courseTitle1,
@@ -12,6 +14,8 @@ function Card({
   id,
   state,
 }) {
+  
+ 
   return (
     <>
       <div
@@ -35,12 +39,11 @@ function Card({
             <h5
               className="card-title magc"
               style={{
-                padding: 0,
+                padding: "8px",
                 font: "poppins",
                 fontWeight: 800,
                 fontSize: "18px",
                 lineHeight: "32px",
-                padding:"8px" ,
                 color: "rgba(255, 199, 0, 1)",
               }}
             >
@@ -58,14 +61,18 @@ function Card({
           </p>
           {/* <h6 style={{ fontWeight: 700 }}>Organizer: IIT Delhi</h6> */}
           <div className="btn-container d-flex justify-content-between align-items-baseline">
-            <Link
-              to={`/userpage/${id}`}
-              state={state}
+          
+          
+            <div
+            
               className="default-btn"
               style={{ backgroundColor: "rgba(255, 199, 0, 1)" }}
             >
-              <div style={{ color: "#000000", fontWeight: 400 }}>Register</div>
-            </Link>
+              <Link style={{ color: "#000000", fontWeight: 400 }}
+              to={`/userpage/${id}`}
+              state={state}
+              >Register</Link>
+            </div>
             <p
               className="d-flex card-date fst-normal align-items-center justify-content-center"
               style={{ fontSize: "12px", color: "#fff", fontWeight: "bold",padding:"8px" , }}
@@ -75,6 +82,7 @@ function Card({
           </div>
         </div>
       </div>
+      
     </>
   );
 }

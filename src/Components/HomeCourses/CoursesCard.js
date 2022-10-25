@@ -1,8 +1,8 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "./CoursesCard.css";
 
-import { useEffect } from "react";
+import { useEffect} from "react";
 
 const CoursesCard = ({
   courseTitle1,
@@ -13,9 +13,11 @@ const CoursesCard = ({
   state,
   img,
 }) => {
+  const navigate = useNavigate();
   useEffect(() => {
     // console.log(cardImage);
   });
+
   return (
     <>
       <div className="courses-card-body">
@@ -39,11 +41,13 @@ const CoursesCard = ({
         </div>
         <div className="courses-details">{courseDescription}</div>
         <div className="courses-register">
-          <Link className="btn--link" to={`/userpage/${id}`} state={state}>
+        {/* to={`/userpage/${id}`} state={state} */}
+          <div className="btn--link"onClick={()=>navigate("/modal")}>
             Register
-          </Link>{" "}
+          </div>{" "}
         </div>
       </div>
+  
     </>
   );
 };
