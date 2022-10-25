@@ -19,6 +19,8 @@ import React, {useState} from 'react'
 import { Document,Page } from 'react-pdf/dist/esm/entry.webpack';
 import './Viewer.css';
 import cp from "../pdf/cp.pdf";
+import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
+import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 function Viewer() {
 
   const [numPages, setNumPages] = useState(null);
@@ -43,20 +45,22 @@ function Viewer() {
 
   return (
     <div className="Viewer">
-      {/* <header className="App-header">
+      <header className="App-header">
         <Document file={cp} onLoadSuccess={onDocumentLoadSuccess}>
-          <Page height="600" pageNumber={pageNumber} />
+          <Page height="800" pageNumber={pageNumber} />
         </Document>
-        <p> Page {pageNumber} of {numPages}</p>
+        <div className='d-flex mt-2'>
         { pageNumber > 1 && 
-        <button onClick={changePageBack}>Previous Page</button>
+        <button onClick={changePageBack} className="arrow-btn"><KeyboardArrowLeftIcon /></button>
         }
+        <p> Page {pageNumber} of {numPages}</p>
         {
           pageNumber < numPages &&
-          <button onClick={changePageNext}>Next Page</button>
+          <button onClick={changePageNext} className="arrow-btn"><KeyboardArrowRightIcon /></button>
         }
-      </header> */}
-      <center>
+        </div>
+      </header>
+      {/* <center>
         <div  className="pdff">
           <Document file={cp} onLoadSuccess={onDocumentLoadSuccess}>
             {Array.from(
@@ -70,7 +74,7 @@ function Viewer() {
             )}
           </Document>
         </div>
-      </center>
+      </center> */}
     </div>
   );
 }
