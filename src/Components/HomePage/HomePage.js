@@ -119,7 +119,7 @@ export default function NavBar() {
                 +
               </h1>
 
-              <h6 className="innerfont">campus</h6>
+              <h6 className="innerfont">Campus</h6>
             </div>
             <div className="col-4 headercard">
               <img
