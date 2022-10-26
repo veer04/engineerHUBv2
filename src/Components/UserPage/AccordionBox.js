@@ -3,7 +3,7 @@ import React from "react";
 import Accordion from "react-bootstrap/Accordion";
 import styles from "./AccordionBox.module.css";
 
-const AccordionBox = ({courseName = "Learning Javascript"}) => {
+const AccordionBox = ({ courseName = "Learning Javascript" }) => {
   return (
     <div className={styles.accordion_box}>
       <div className={styles.accordion_box_name}>{courseName}</div>
@@ -15,53 +15,62 @@ const AccordionBox = ({courseName = "Learning Javascript"}) => {
       >
         <Accordion.Item eventKey="0">
           <Accordion.Header>Introduction to {courseName}</Accordion.Header>
-          <Accordion.Body style={{ display: "flex", gap: "20px" }}>
+          <Accordion.Body
+            style={{ display: "flex", gap: "20px", cursor: "pointer" }}
+          >
             Learn about what Intermediate JavaScript has in store!
-            <a
-              href="https://youtube.com/playlist?list=PLK5Xw4XYHVkvV41XZ8wNsHb_37IAAvB3p"
-              rel="noreferrer"
-              className="watchnowbtn"
-              target={"_blank"}
-            >
-              Watch now
-            </a>
+            <div style={{ color: "blue" }}>Watch now</div>
             {/* </Link> */}
           </Accordion.Body>
         </Accordion.Item>
         <Accordion.Item eventKey="1">
           <Accordion.Header>Classes</Accordion.Header>
-          <Accordion.Body>
+          <Accordion.Body
+            style={{ display: "flex", gap: "20px", cursor: "pointer" }}
+          >
             Learn how to create classes and use inheritance to minimize
-            redundancy in your code.
+            redundancy in your code.{" "}
+            <div style={{ color: "blue" }}>Watch now</div>
           </Accordion.Body>
         </Accordion.Item>
         <Accordion.Item eventKey="2">
           <Accordion.Header>Modules</Accordion.Header>
-          <Accordion.Body>
+          <Accordion.Body
+            style={{ display: "flex", gap: "20px", cursor: "pointer" }}
+          >
             Learn how to create classes and use inheritance to minimize
             redundancy in your code. Learn how to use JavaScript modules, a way
-            to define reusable logic in your programs.
+            to define reusable logic in your programs.{" "}
+            <div style={{ color: "blue" }}>Watch now</div>
           </Accordion.Body>
         </Accordion.Item>
         <Accordion.Item eventKey="3">
           <Accordion.Header>Promises</Accordion.Header>
-          <Accordion.Body>
-            Learn how to write asynchronous JavaScript with the Promises Syntax.
+          <Accordion.Body
+            style={{ display: "flex", gap: "20px", cursor: "pointer" }}
+          >
+            Learn how to write asynchronous JavaScript with the Promises Syntax.{" "}
+            <div style={{ color: "blue" }}>Watch now</div>
           </Accordion.Body>
         </Accordion.Item>
         <Accordion.Item eventKey="4">
           <Accordion.Header>Async-Await</Accordion.Header>
-          <Accordion.Body>
+          <Accordion.Body
+            style={{ display: "flex", gap: "20px", cursor: "pointer" }}
+          >
             Learn about asynchronous programming and leverage promises in
-            JavaScript.
+            JavaScript. <div style={{ color: "blue" }}>Watch now</div>
           </Accordion.Body>
         </Accordion.Item>
         <Accordion.Item eventKey="5">
           <Accordion.Header>Requests</Accordion.Header>
-          <Accordion.Body>
+          <Accordion.Body
+            style={{ display: "flex", gap: "20px", cursor: "pointer" }}
+          >
             In this course, you will learn the benefits of asynchronous
             JavaScript properties. You will create calls to various APIs using
-            four different techniques.
+            four different techniques.{" "}
+            <div style={{ color: "blue" }}>Watch now</div>
           </Accordion.Body>
         </Accordion.Item>
       </Accordion>
