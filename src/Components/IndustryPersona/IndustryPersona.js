@@ -36,8 +36,8 @@ const IndustryPersona = () => {
   return (
 
 <div className="mentor-container">
-<div className="heading">{"engineerhub is equipped with skilled industrialists: "}</div>
-<div className="texthire">{"Industry Personalities"}</div>
+<div className="heading">Industry Personalities</div>
+<div className="texthire">{"engineerhub is equipped with skilled industrialists: "}</div>
 <div className="card-section">
   {industryMembers.map((member) => {
     return (
