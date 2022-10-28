@@ -7,10 +7,8 @@ import "./MCard.css";
 import { Link } from "react-router-dom";
 // import cp from "../pdf/cp.pdf";
 // import cpp from "./Images/cpp.jpg";
-import appdev from "./Images/appdev.jpeg"
 
-function Card({ bookTitle, pdfUrl, cardImag }) {
-  // const navigate = useNavigate();
+function Card({ bookTitle, pdfUrl, cardImage }) {
   return (
     <div
       className="card custom-card-2 container-mag"
@@ -22,10 +20,10 @@ function Card({ bookTitle, pdfUrl, cardImag }) {
     >
       <div className="card-body custom-card-body-2 ">
         <img
-          src={appdev}
+          src={require(`${cardImage}`)}
           style={{
-            borderRadius:"16px",
-            
+            borderRadius: "16px",
+
             width: "100%",
             background: "cover",
           }}
@@ -33,67 +31,51 @@ function Card({ bookTitle, pdfUrl, cardImag }) {
           alt="..."
         />
         <div className="overlay">
-        <div className="d-flex justify-content-between align-items-center">
-          <h5
-            className="card-title"
-            style={{
-              margin: "0",
-              padding: "0 0px 10px 0px",
-              font: "poppins",
-              fontWeight: 600,
-              fontSize: "16px",
-              textTransform: "capitalize",
-              color: "#ffc107",
-            }}
-          >
-            {bookTitle}
-          </h5>
-          {/* <div>
-            <ShareOutlinedIcon
-              className="share-icon"
-              style={{ fontSize: "22px", marginRight: "0px" }}
-            />
-          </div> */}
-        </div>
-        <p className="card-text custom-card-text-2 dark-bg" style={{textColor:"white"}}>
-          Our developers aim at providing students with the best knowledge to
-          help them create high-performing & user-friendly apps through a
-          strategic IT framework.
-        </p>
-        <div className="btn-container d-flex justify-content-between align-items-baseline">
-          {/* <Viewer> */}
-          <Link to="/pdf">
-            <div
-              // href={cp}
-              // rel="noopener noreferrer"
-              // target="_blank"
-              className="btn custom-card-btn-2"
-              style={{ backgroundColor: "#0094FF", borderRadius: "20px" }}
+          <div className="d-flex justify-content-between align-items-center">
+            <h5
+              className="card-title"
+              style={{
+                margin: "0",
+                padding: "0 0px 10px 0px",
+                font: "poppins",
+                fontWeight: 600,
+                fontSize: "16px",
+                textTransform: "capitalize",
+                color: "#ffc107",
+              }}
             >
-              <span
-                style={{
-                  color: "white",
-                  fontSize: "12px",
-                  borderRadius: "20px",
-                }}
-                // onClick={Viewer}
+              {bookTitle}
+            </h5>
+          </div>
+          <p
+            className="card-text custom-card-text-2 dark-bg"
+            style={{ textColor: "white" }}
+          >
+            Our developers aim at providing students with the best knowledge to
+            help them create high-performing & user-friendly apps through a
+            strategic IT framework.
+          </p>
+          <div className="btn-container d-flex justify-content-between align-items-baseline">
+            <Link to="/pdf">
+              <div
+                className="btn custom-card-btn-2"
+                style={{ backgroundColor: "#0094FF", borderRadius: "20px" }}
               >
-                Tap to Open
-              </span>
-            </div>
-          </Link>
-          {/* </Viewer> */}
-          {/* <p
-            className="btn custom-card-btn-2"
-            style={{ backgroundColor: "#FFC700", borderRadius: "20px" }}
-          > */}
-            {/* <span style={{ color: "white", fontSize: "12px" }}>
-              <VisibilityOutlinedIcon /> 1,000{" "}
-            </span> */}
-          {/* </p> */}
+                <span
+                  style={{
+                    color: "white",
+                    fontSize: "12px",
+                    borderRadius: "20px",
+                  }}
+                  // onClick={Viewer}
+                >
+                  Tap to Open
+                </span>
+              </div>
+            </Link>
+          </div>
         </div>
       </div>
-    </div>
     </div>
   );
 }

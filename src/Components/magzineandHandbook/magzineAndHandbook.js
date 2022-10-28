@@ -10,7 +10,13 @@ export default function MagzineAndHandbook() {
       const response = await axios.get(
         `https://ehubbackend.herokuapp.com/api/v1/handbook`
       );
-      console.log(response.data);
+
+     response.data[0]['cardImage'] =  `.${__dirname}Images/python.jpg` ;
+     response.data[1]['cardImage'] =  `.${__dirname}Images/cpp.jpg` ;
+     response.data[2]['cardImage'] =  `.${__dirname}Images/appdev.jpeg` ;
+     response.data[3]['cardImage'] =  `.${__dirname}Images/cyber.jpg` ;
+
+
       setHandBookData(response.data);
     };
     getHandBookDetails();
@@ -29,7 +35,7 @@ export default function MagzineAndHandbook() {
           style={{ marginTop: "0px", gap: "40px", paddingBottom: "80px" }}
         >
           {handbookData.map((hdb) => {
-            return <MCard bookTitle={hdb.bookTitle} pdfUrl={hdb.pdfUrl} />;
+            return <MCard bookTitle={hdb.bookTitle} pdfUrl={hdb.pdfUrl} cardImage={hdb.cardImage} />;
           })}
         </div>
       </div>
