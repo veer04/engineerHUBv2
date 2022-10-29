@@ -20,7 +20,7 @@ function Card({ bookTitle, pdfUrl, cardImage }) {
     >
       <div className="card-body custom-card-body-2 ">
         <img
-          src={require(`${cardImage}`)}
+          src={cardImage}
           style={{
             borderRadius: "16px",
 
