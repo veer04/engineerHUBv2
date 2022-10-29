@@ -1,13 +1,25 @@
-
+import React from "react";
+import axios from "axios";
 import "./freecourses.css";
 import Full from "./Full";
 import { coursesData } from "../HomeCourses/Courses";
+import { useEffect, useState } from "react";
 
-const Freecourses = ({closeModal}) => {
-  console.log({closeModal});
+const Freecourses = ({ closeModal }) => {
+  const [courseData, setCourseData] = useState([]);
+  useEffect(() => {
+    const getCourseDetails = async () => {
+      const response = await axios.get(
+        `https://ehubbackend.herokuapp.com/api/v1/course`
+      );
+      console.log(courseData);
+      setCourseData(response.data);
+    };
+    getCourseDetails();
+  }, []);
+
   return (
     <div className="container-hiring">
-
       <div className="heading">Explore Courses</div>
 
       <div className="texthire">
@@ -47,7 +59,6 @@ const Freecourses = ({closeModal}) => {
           />;
         })} */}
       </div>
-     
     </div>
   );
 };
