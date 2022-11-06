@@ -48,7 +48,7 @@ function Cardtwo({
             />
           </div>
         </div>
-        <p className="card-text dark-bg">
+        <p className="card-text" style={{color:"rgb(0, 42, 54)", fontWeight:"500"}}>
         The one-day hybrid symposium will provide a platform for the researchers, executives and leaders to assimilate the knowledge and get the opportunity to discuss and share insights through research findings.
         </p>
         <h6 style={{ fontWeight: 700, marginBottom: "1rem" }}>

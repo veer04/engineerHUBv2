@@ -1,24 +1,23 @@
 import React, { useState,useEffect } from "react";
 import "./Hiring.css";
 import axios from "axios";
-import Card from "../Campus/Card";
+import CardH from "../Hiring/CardH";
 
-
-const Hiring = () => {
-
-  const [card,setCard] = useState("");
+export default function Hiring(){
+  const [carData,setCard] = useState([]);
   useEffect(() => {
     const getHiringDetails = async () => {
-      const response = await axios.get(`https://ehubbackend.herokuapp.com/api/v1/hiring`)
-     
-      setCard(...response.data);
+      const response = await axios.get(`https://ehubbackend.herokuapp.com/api/v1/hiring`);
+      console.log(response.data);
+      setCard(response.data);
       
-    }
+    };
     getHiringDetails();
    
-  },[])
+  },[]);
   
   return (
+    <>
     <div className="container-hiring">
       <div className="heading">We are Hiring !!</div>
 
@@ -30,16 +29,16 @@ const Hiring = () => {
         className="d-flex row justify-content-center "
         style={{ marginTop: "0px", gap: "40px", paddingBottom: "80px" }}
       >
-        <Card paid={true} card_head={`Hiring for ${card.position}`} cDate={card.date} />
-        <Card paid={true} card_head={`Hiring for ${card.position}`} cDate={card.date} />
-        <Card paid={true} card_head={`Hiring for ${card.position}`} cDate={card.date} />
-        <Card paid={true} card_head={`Hiring for ${card.position}`} cDate={card.date} />
-        <Card paid={true} card_head={`Hiring for ${card.position}`} cDate={card.date} />
-        <Card paid={true} card_head={`Hiring for ${card.position}`} cDate={card.date} />
+        {carData.map((hcd) => {
+            return <CardH  card_head={`Hiring for ${hcd.position}`} cDate={hcd.date} desc={hcd.description} loc={hcd.location} tech={hcd.techStack} exp={hcd.experience} elg={hcd.eligibility} lastDate={hcd.lastDate}/>;
+          })}
+        
+        
       
       </div>
     </div>
+    </>
   );
 };
 
-export default Hiring;
+

@@ -1,13 +1,18 @@
 import React from "react";
-import "./Card.css";
+import "./CardH.css";
 import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
+import moment from 'moment';
 
 
-function Cardone({
-  paid = false,
-  card_head = "Conference on emergent phenomenon in Quantum materials. ",
+function CardH({
+  card_head,
   cName = "card custom-card ",
-  cDate = "14-12-2022"
+  lastDate,
+  desc,
+  loc,
+  tech,
+  exp,
+  elg
 }) {
   return (
     <div
@@ -18,14 +23,14 @@ function Cardone({
       }}
     >
       <div className="card-body">
-        {paid && (
+        {/* {paid && (
           <h6
             className="d-flex justify-content-end"
             style={{ color: "rgba(0,0.5,0.5,0.2)" }}
           >
             Paid
           </h6>
-        )}
+        )} */}
         <div className="d-flex justify-content-between align-items-center">
           <h5
             className="card-title h-effect"
@@ -48,16 +53,31 @@ function Cardone({
             />
           </div>
         </div>
-        <p className="card-text" style={{color:"rgb(0, 42, 54)", fontWeight:"500"}}>
-        On the occasion of their 175 years of completion, IIT Roorkee is organising a conference to cover the recently observed emergent phenomena in the area of quantum materials. These materials pose the most exciting and challenging research problems in condensed matter physics. 
+        <div className="d-flex">
+        <h6 style={{ fontWeight: 700 , fontSize:"0.8rem" ,paddingRight:"9px", padding:"2px 9px 2px 2px"}}>
+          TechStack: {tech}
+        </h6>
+        <h6 style={{ fontWeight: 700, fontSize:"0.8rem", paddingRight:"9px", padding:"2px 9px 2px 2px"}}>
+          Experience: {exp}
+        </h6>
+        <h6 style={{ fontWeight: 700, fontSize:"0.8rem",  paddingRight:"9px", padding:"2px 9px 2px 2px"}}>
+          Eligibility: {elg}
+        </h6>
+        </div> 
+        <p className="card-text" style={{color:"#002A36", fontWeight:"500"}}>
+        {desc}
         </p>
+        
         <h6 style={{ fontWeight: 700, marginBottom: "1rem" }}>
-          Organizer: IIT Roorkee
+          Location: {loc}
+        </h6>
+        <h6 style={{ fontWeight: 700, marginBottom: "1rem" }}>
+          Last Date: {moment(new Date(lastDate)).format("DD-MM-YYYY")}
         </h6>
         <div className="d-flex align-items-baseline justify-content-between">
-          <a href="https://www.iitr.ac.in/epqm/" className="btnc" style={{ backgroundColor: "#002a36" , borderRadius: "10px"}}>
+          <a href="https://forms.gle/drjNi7mLSYWLorp37" className="btnc" style={{ backgroundColor: "#002a36" , borderRadius: "10px"}}>
             <span style={{ color: "white", fontSize: "0.9rem", padding: "12px 24px" , }}>
-              View More !
+              Apply
             </span>
           </a>
           {/* <p
@@ -72,4 +92,4 @@ function Cardone({
   );
 }
 
-export default Cardone;
+export default CardH;

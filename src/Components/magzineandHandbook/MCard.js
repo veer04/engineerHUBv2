@@ -5,11 +5,8 @@ import "./MCard.css";
 
 // import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import { Link } from "react-router-dom";
-// import cp from "../pdf/cp.pdf";
-// import cpp from "./Images/cpp.jpg";
-import appdev from "./Images/appdev.jpeg"
 
-function Card({ bookTitle, pdfUrl, cardImag }) {
+function Card({ bookTitle, description,img }) {
   // const navigate = useNavigate();
   return (
     <div
@@ -22,7 +19,7 @@ function Card({ bookTitle, pdfUrl, cardImag }) {
     >
       <div className="card-body custom-card-body-2 ">
         <img
-          src={appdev}
+          src={img}
           style={{
             borderRadius:"16px",
             
@@ -56,9 +53,10 @@ function Card({ bookTitle, pdfUrl, cardImag }) {
           </div> */}
         </div>
         <p className="card-text custom-card-text-2 dark-bg" style={{textColor:"white"}}>
-          Our developers aim at providing students with the best knowledge to
+          {/* Our developers aim at providing students with the best knowledge to
           help them create high-performing & user-friendly apps through a
-          strategic IT framework.
+          strategic IT framework. */}
+          {description}
         </p>
         <div className="btn-container d-flex justify-content-between align-items-baseline">
           {/* <Viewer> */}
