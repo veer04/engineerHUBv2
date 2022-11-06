@@ -42,7 +42,12 @@ const Internship = () => {
               key={i}
               company={items.internCompany}
               position={items.internPosition}
-              link={items.internLink}
+              link={items.applyUrl}
+              type={items.type}
+              timing={items.timing}
+              location={items.location}
+              description={items.description}
+              time={items.createdAt}
             />
           );
         })}

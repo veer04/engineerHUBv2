@@ -1,9 +1,10 @@
 import React from "react";
+import moment from 'moment';
 
 
 import "./InternCard.css";
 
-const InternCard = ({ company, position, link }) => {
+const InternCard = ({ company, position, link ,type,timing,location,description,time}) => {
   return (
     <div className="Intern-Container">
       <hr
@@ -14,7 +15,7 @@ const InternCard = ({ company, position, link }) => {
             width:"160.04px",
         }}
     />
-      <span className="posted">Posted 2 hrs ago</span>
+      <span className="posted">Posted {moment(time).fromNow()}</span>
       <div className="Intern-Company">
         {/* <svg href="google.svg"></svg> */}
         {/* <div className="company-image">
@@ -26,15 +27,14 @@ const InternCard = ({ company, position, link }) => {
       </div>
       <div>
       <li className="conta" >
-            <ul className="items text-in">Full-Time</ul>
-            <ul className="text-in">Delhi, India</ul>
-            <ul className="text-in">Paid</ul>
+            <ul className="items text-in">{timing}</ul>
+            <ul className="text-in">{location}</ul>
+            <ul className="text-in">{type}</ul>
           </li>
       </div>
       <div className="Intern-Position">
       
-        Titan is a itan Company Limited is an Indian products company that mainly
-        manufactures fashion accessories such as jewellery, watches and eyewear.
+        {description}
 
 
 
