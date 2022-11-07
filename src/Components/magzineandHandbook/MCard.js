@@ -5,11 +5,9 @@ import "./MCard.css";
 
 // import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import { Link } from "react-router-dom";
-// import cp from "../pdf/cp.pdf";
-// import cpp from "./Images/cpp.jpg";
 
-function Card({ bookTitle, pdfUrl, cardImage }) {
- 
+function Card({ bookTitle, description, img }) {
+  // const navigate = useNavigate();
   return (
     <div
       className="card custom-card-2 container-mag"
@@ -21,10 +19,9 @@ function Card({ bookTitle, pdfUrl, cardImage }) {
     >
       <div className="card-body custom-card-body-2 ">
         <img
-          src={cardImage}
+          src={img}
           style={{
             borderRadius: "16px",
-
             width: "100%",
             background: "cover",
           }}

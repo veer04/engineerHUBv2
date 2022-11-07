@@ -36,13 +36,7 @@ export default function MagzineAndHandbook() {
           style={{ marginTop: "0px", gap: "40px", paddingBottom: "80px" }}
         >
           {handbookData.map((hdb) => {
-            return (
-              <MCard
-                bookTitle={hdb.bookTitle}
-                pdfUrl={hdb.pdfUrl}
-                cardImage={hdb.bookimgUrl}
-              />
-            );
+            return <MCard bookTitle={hdb.bookTitle} pdfUrl={hdb.pdfUrl} description={hdb.description} img={hdb.bookimgUrl}/>;
           })}
         </div>
       </div>

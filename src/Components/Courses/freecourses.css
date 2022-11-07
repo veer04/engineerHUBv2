@@ -23,12 +23,13 @@
 }
 
 .default-btn {
-  padding: 12px;
+  padding: 8px;
   border-radius: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
   text-decoration: none;
+  margin-left: 7px;
   
 }
 
