@@ -37,6 +37,7 @@ export const eventStaticData = [
     cardImage: `.${__dirname}Images/weekend.png`,
   },
 ];
+
 function Events() {
   const [eventData, setEventData] = useState([]);
 
@@ -46,7 +47,6 @@ function Events() {
       const response = await axios.get(
         `https://ehubbackend.herokuapp.com/api/v1/event`
       );
-
       setEventData(response.data);
     };
 

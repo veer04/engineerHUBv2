@@ -6,18 +6,18 @@ import "./Domain.css";
 import Dropdown from "./Dropdown.js";
 
 function Domain() {
+ 
   const [domainArr, setDomainArr] = useState([]);
   const dg = [
-    "zero",
-    "one",
-    "two",
-    "three",
-    "four",
-    "five",
-    "six",
-    "seven",
-    "eight",
-    "nine",
+    "One",
+    "Two",
+    "Three",
+    "Four",
+    "Five",
+    "Six",
+    "Seven",
+    "Eight",
+    "Nine",
   ];
   useEffect(() => {
     let subscribed = true;
@@ -26,7 +26,11 @@ function Domain() {
         `https://ehubbackend.herokuapp.com/api/v1/domain`
       );
 
-      setDomainArr(res.data);
+      for (let i = 0; i < res.data.length; i++) {
+        domainArr.push({ domain: res.data[i], seqNum: dg[i] });
+      }
+
+      setDomainArr([...domainArr]);
     };
 
     if (subscribed) {
@@ -51,7 +55,7 @@ function Domain() {
             marginRight: "0px",
           }}
         >
-          <Dropdown domains={domainArr} />
+          <Dropdown domainArr={domainArr} />
         </div>
       </div>
     </>
