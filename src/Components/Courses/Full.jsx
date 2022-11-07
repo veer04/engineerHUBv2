@@ -12,7 +12,7 @@ function Card({
   cardImage,
   lastDate,
   id,
-  state,
+  state
 }) {
   
  

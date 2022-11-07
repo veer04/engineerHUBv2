@@ -2,21 +2,40 @@ import React from "react";
 import "./Card.css";
 import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
 
+
 function Card({
-  card_head = "Learn Quantum Computing & Machine Learning. ",
-  cName = "card custom-card ",
-  cDate = "12-10-2022"
+  card_head ,
+  
+  clgphoto,
+  desc,
+  clgname,
+  evtdate,
+  link
 }) {
   return (
+    <div className="cont-camp">
+    <div style={{ 
+      backgroundImage: `linear-gradient(
+        15deg,
+        rgba(146, 146, 146, 0.252),
+        rgb(255 255 255)
+      ),url(${clgphoto})`,
+      borderRadius:"20px",
+      overflow:"hidden"
+    }}>
     <div
-      className={cName}
+      className="card custom-card"
       style={{
         padding: "10px",
         margin: "10px",
+        background:"#ffffff3b",
+        
+        
+        
       }}
     >
       <div className="card-body">
-        <div className="d-flex justify-content-between align-items-center">
+        <div className="d-flex justify-content-between align-items-center overflow-hidden">
           <h5
             className="card-title h-effect"
             style={{
@@ -39,15 +58,18 @@ function Card({
           </div>
         </div>
         <p className="card-text" style={{color:"#002A36", fontWeight:"500"}}>
-        Students can now understand the principals of quantum computing from the 3rd top Institute of India & become versed with various Quantum Computing Algorithm.cover the recently observed emergent phenomena in the area of quantum materials. 
+        {desc}
         </p>
         <h6 style={{ fontWeight: 700, marginBottom: "1rem" }}>
-          Organizer: IIT Delhi
+          Organizer: {clgname}
+        </h6>
+        <h6 style={{ fontWeight: 700, marginBottom: "1rem" }}>
+          Event Date: {evtdate="12-10-2022"}
         </h6>
         <div className="d-flex align-items-baseline justify-content-between">
-          <a href="https://forms.gle/drjNi7mLSYWLorp37" className="btnc" style={{ backgroundColor: "#002a36" , borderRadius: "10px"}}>
+          <a href={link} className="btnc" style={{ backgroundColor: "#002a36" , borderRadius: "10px"}} target="_blank">
             <span style={{ color: "white", fontSize: "0.9rem", padding: "12px 24px" , }}>
-              Apply
+              View More !
             </span>
           </a>
           {/* <p
@@ -59,6 +81,8 @@ function Card({
         </div>
       </div>
     </div>
+     </div>
+     </div>
   );
 }
 

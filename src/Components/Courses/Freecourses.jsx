@@ -51,6 +51,7 @@ const Freecourses = ({ closeModal }) => {
               courseTitle2={c.courseTitle2}
               courseDescription={c.courseDescription}
               lastDate={c.lastDate}
+              features={c.features}
             />
           );
         })}

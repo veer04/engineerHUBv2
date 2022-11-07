@@ -40,15 +40,13 @@ const Campus = () => {
       </div>
 
       <div
-        className="d-flex row justify-content-center "
-        style={{ marginTop: "0px", gap: "40px", paddingBottom: "80px" }}
+        className=" mainCard"
+        
       >
-        <Card cName={"card custom-card campus-card-cllg"} />
-        <Cardone cName={"card custom-card campus-card-cllgone"} />
-        <Cardtwo cName={"card custom-card campus-card-cllgtwo"} />
-        <Card cName={"card custom-card campus-card-cllg"} />
-        <Cardone cName={"card custom-card campus-card-cllgone"} />
-        <Cardtwo cName={"card custom-card campus-card-cllgtwo"} />
+        {campusData.map((cd) => {
+            return <Card card_head={cd.eventName} clgphoto={cd.collegePhoto} desc={cd.description} clgname={cd.collegeName} evtdate={cd.eventDate} link={cd.websiteUrl}/>;
+          })}
+        
       </div>
     </div>
   );

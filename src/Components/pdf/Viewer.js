@@ -1,20 +1,3 @@
-// import React from 'react';
-// import './Viewer.css';
-// import cp from "../pdf/cp.pdf";
-
-// function Viewer() {
-//   return (
-//     // <div>Viewer</div>
-    
-//     <object data={cp} type="application/pdf" className='viewer'>
-//       <a href={cp} style={{color:"#002a36"}}>Download Now</a>
-//   </object>
-//   // </ReactPDF>
-//   )
-// }
-
-// export default Viewer;
-
 import React, {useState} from 'react'
 import { Document,Page } from 'react-pdf/dist/esm/entry.webpack';
 import './Viewer.css';
@@ -45,7 +28,7 @@ function Viewer() {
 
   return (
     <div className="Viewer">
-      <header className="App-header">
+      {/* <header className="App-header">
         <Document file={cp} onLoadSuccess={onDocumentLoadSuccess}>
           <Page height="800" pageNumber={pageNumber} />
         </Document>
@@ -59,9 +42,9 @@ function Viewer() {
           <button onClick={changePageNext} className="arrow-btn"><KeyboardArrowRightIcon /></button>
         }
         </div>
-      </header>
-      {/* <center>
-        <div  className="pdff">
+      </header> */}
+      <center>
+        <div  className="pdff" style={{backgroundColor: "#282c34"}}>
           <Document file={cp} onLoadSuccess={onDocumentLoadSuccess}>
             {Array.from(
               new Array(numPages),
@@ -74,7 +57,7 @@ function Viewer() {
             )}
           </Document>
         </div>
-      </center> */}
+      </center>
     </div>
   );
 }
