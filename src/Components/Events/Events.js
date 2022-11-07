@@ -37,19 +37,25 @@ export const eventStaticData = [
     cardImage: `.${__dirname}Images/weekend.png`,
   },
 ];
+
 function Events() {
   const [eventData, setEventData] = useState([]);
+
   useEffect(() => {
+    let subscribed = true;
     const getEventDetails = async () => {
       const response = await axios.get(
         `https://ehubbackend.herokuapp.com/api/v1/event`
       );
-
       setEventData(response.data);
     };
-    console.log(eventData);
-    getEventDetails();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
+    if (subscribed) {
+      getEventDetails();
+    }
+    return () => {
+      subscribed = false;
+    };
   }, []);
 
   return (
@@ -83,15 +89,14 @@ function Events() {
             onSwiper={(swiper) => {}}
             onSlideChange={() => {}}
           >
-            {eventStaticData.map((c, i) => (
+            {eventData.map((c, i) => (
               <SwiperSlide>
                 <EventCard
                   key={`${i}b`}
-                  eventTitle1={c.eventTitle1}
-                  eventTitle2={c.eventTitle2}
-                  cardImage={c.cardImage}
-                  eventDescription={c.eventDescription}
-                  lastDate={c.lastDate}
+                  tagline={c.tagline}
+                  posterUrl={c.posterUrl}
+                  description={c.description}
+                  eventDate={c.eventDate}
                 />
               </SwiperSlide>
             ))}

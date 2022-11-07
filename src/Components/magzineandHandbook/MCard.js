@@ -22,7 +22,6 @@ function Card({ bookTitle, description,img }) {
           src={img}
           style={{
             borderRadius: "16px",
-
             width: "100%",
             background: "cover",
           }}

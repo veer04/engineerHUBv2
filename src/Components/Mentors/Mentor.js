@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import MentorCard from "./MentorCard";
 import "./Mentor.css";
 import {
@@ -41,6 +42,25 @@ const Mentor = ({
     },
   ],
 }) => {
+  const [mentorArr, setMentorArr] = useState();
+  useEffect(() => {
+    let subscribed = true;
+    const getMentors = async () => {
+      const res = await axios.get(
+        `https://ehubbackend.herokuapp.com/api/v1/mentor`
+      );
+      console.log(res);
+    };
+
+    if (subscribed) {
+      getMentors();
+    }
+
+    return () => {
+      subscribed = false;
+    };
+  }, []);
+
   return (
     <div className="mentor-container">
       <div className="heading">{courses}</div>

@@ -20,15 +20,15 @@ const industryMembers = [
     Name: "Muskan Kalra",
     Company: " @Walmart",
 
-    LinkedIn: HEADMEMBER_LID3,
+    LinkedIn: HEADMEMBER_LID2,
     cardImage: `.${__dirname}Images/muskan.jpg`,
   },
   {
     Profession: "Software Engineer",
     Name: "Monika Rathore",
-    Company: " @Microsoft",
+    Company: " @Google",
 
-    LinkedIn: HEADMEMBER_LID2,
+    LinkedIn: HEADMEMBER_LID3,
     cardImage: `.${__dirname}Images/monika.jpg`,
   },
 ];

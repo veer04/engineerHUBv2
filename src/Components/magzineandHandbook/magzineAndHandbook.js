@@ -6,13 +6,21 @@ export default function MagzineAndHandbook() {
   const [handbookData, setHandBookData] = useState([]);
 
   useEffect(() => {
+    let subscribed = true;
     const getHandBookDetails = async () => {
       const response = await axios.get(
         `https://ehubbackend.herokuapp.com/api/v1/handbook`
       );
       setHandBookData(response.data);
     };
-    getHandBookDetails();
+
+    if (subscribed) {
+      getHandBookDetails();
+    }
+
+    return () => {
+      subscribed = false;
+    };
   }, []);
   return (
     <>

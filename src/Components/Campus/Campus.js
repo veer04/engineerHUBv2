@@ -9,17 +9,24 @@ const Campus = () => {
   const [campusData, setCampusData] = useState([]);
 
   useEffect(() => {
+    let subscribed = true;
     const getCampusDetails = async () => {
       const response = await axios.get(
         `https://ehubbackend.herokuapp.com/api/v1/campus`
       );
 
       setCampusData(response.data);
-      console.log(response);
+      
     };
+
     console.log(campusData);
-    getCampusDetails();
-      // eslint-disable-next-line react-hooks/exhaustive-deps
+    if (subscribed) {
+      getCampusDetails();
+    }
+
+    return () => {
+      subscribed = false;
+    };
   }, []);
 
   return (
@@ -27,7 +34,9 @@ const Campus = () => {
       <div className="heading">Campus Activities</div>
 
       <div className="text">
-      Engineerhub offers a ton of regular updates on various colleges all over India & their various activities to help students learn about various opportunities to enhance their growth.  
+        Engineerhub offers a ton of regular updates on various colleges all over
+        India & their various activities to help students learn about various
+        opportunities to enhance their growth.
       </div>
 
       <div
