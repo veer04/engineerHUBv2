@@ -10,7 +10,6 @@ export default function MagzineAndHandbook() {
       const response = await axios.get(
         `https://ehubbackend.herokuapp.com/api/v1/handbook`
       );
-      console.log(response.data);
       setHandBookData(response.data);
     };
     getHandBookDetails();

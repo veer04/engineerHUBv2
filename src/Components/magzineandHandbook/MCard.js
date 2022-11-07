@@ -21,8 +21,8 @@ function Card({ bookTitle, description,img }) {
         <img
           src={img}
           style={{
-            borderRadius:"16px",
-            
+            borderRadius: "16px",
+
             width: "100%",
             background: "cover",
           }}
@@ -58,40 +58,30 @@ function Card({ bookTitle, description,img }) {
           strategic IT framework. */}
           {description}
         </p>
-        <div className="btn-container d-flex justify-content-between align-items-baseline">
-          {/* <Viewer> */}
-          <Link to="/pdf">
-            <div
-              // href={cp}
-              // rel="noopener noreferrer"
-              // target="_blank"
-              className="btn custom-card-btn-2"
-              style={{ backgroundColor: "#0094FF", borderRadius: "20px" }}
-            >
-              <span
-                style={{
-                  color: "white",
-                  fontSize: "12px",
-                  borderRadius: "20px",
-                }}
-                // onClick={Viewer}
+        
+         
+          
+          <div className="btn-container d-flex justify-content-between align-items-baseline">
+            <Link to="/pdf">
+              <div
+                className="btn custom-card-btn-2"
+                style={{ backgroundColor: "#0094FF", borderRadius: "20px" }}
               >
-                Tap to Open
-              </span>
-            </div>
-          </Link>
-          {/* </Viewer> */}
-          {/* <p
-            className="btn custom-card-btn-2"
-            style={{ backgroundColor: "#FFC700", borderRadius: "20px" }}
-          > */}
-            {/* <span style={{ color: "white", fontSize: "12px" }}>
-              <VisibilityOutlinedIcon /> 1,000{" "}
-            </span> */}
-          {/* </p> */}
+                <span
+                  style={{
+                    color: "white",
+                    fontSize: "12px",
+                    borderRadius: "20px",
+                  }}
+                  // onClick={Viewer}
+                >
+                  Tap to Open
+                </span>
+              </div>
+            </Link>
+          </div>
         </div>
       </div>
-    </div>
     </div>
   );
 }
