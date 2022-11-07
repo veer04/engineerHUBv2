@@ -6,7 +6,7 @@ import moment from 'moment';
 
 function CardH({
   card_head,
-  cName = "card custom-card ",
+  cName = "card custom-cardH ",
   lastDate,
   desc,
   loc,

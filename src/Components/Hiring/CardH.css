@@ -1,4 +1,4 @@
-.custom-card {
+.custom-cardH {
     width: 400px;
     border-radius: 16px;
     display: flex;
@@ -7,7 +7,7 @@
   }
   
   
-  .custom-card:hover {
+  .custom-cardH:hover {
     transform: scale(1.04);
     cursor: pointer;
     /* position: static; */
@@ -21,7 +21,7 @@
   }
   
   @media screen and (max-width: 768px) {
-    .custom-card {
+    .custom-cardH {
       width: 300px;
     }
   
@@ -47,7 +47,7 @@
     .card-body {
       padding: 0rem !important;
     }
-    .custom-card {
+    .custom-cardH {
       width: 270px;
     }
   }
