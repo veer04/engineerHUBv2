@@ -37,7 +37,7 @@ function App() {
         <Route path="/magazine" exact element={<MagzineAndHandbook />} />
         <Route path="/hiring" exact element={<Hiring />} />
         <Route path="/campus" exact element={<Campus />} />
-        <Route path="/Team" exact element={<Teams />} />
+        <Route path="/teams" exact element={<Teams />} />
         <Route path="/industry" exact element={<IndustryPersona />} />
         <Route path="/userpage/:id" exact element={<UserPage />} />
 

@@ -5,11 +5,11 @@ import { Link } from "react-router-dom";
 const Dropdown = () => {
   return (
     <>
-      <div class="accordion domainrow" id="accordionExample">
-        <div class="accordion-item mb-3">
-          <h2 class="accordion-header" id="headingOne">
+      <div className="accordion domainrow" id="accordionExample">
+        <div className="accordion-item mb-3">
+          <h2 className="accordion-header" id="headingOne">
             <button
-              class="accordion-button"
+              className="accordion-button"
               type="button"
               data-bs-toggle="collapse"
               data-bs-target="#collapseOne"
@@ -21,11 +21,11 @@ const Dropdown = () => {
           </h2>
           <div
             id="collapseOne"
-            class="accordion-collapse collapse show"
+            className="accordion-collapse collapse show"
             aria-labelledby="headingOne"
             data-bs-parent="#accordionExample"
           >
-            <div class="accordion-body domain-drp-item">
+            <div className="accordion-body domain-drp-item">
             <Link to="/pdf" className="a-item-domain">
               {/* <a
                 target="_blank"
@@ -38,19 +38,19 @@ const Dropdown = () => {
               </Link>
               <hr className="drp-hr" />
             </div>
-            <div class="accordion-body domain-body">
+            <div className="accordion-body domain-body">
               <a href="/resources" className="a-item-domain" rel="noreferrer">
                 Resources
               </a>
               <hr />
             </div>
-            <div class="accordion-body">
+            <div className="accordion-body">
               <a href="/mentor" className="a-item-domain" rel="noreferrer">
                 Contact Mentor
               </a>
               <hr />
             </div>
-            <div class="accordion-body" >
+            <div className="accordion-body" >
               <a
                 href="https://discord.gg/ZMZAEZ5NfA"
                 target="_blank"
@@ -62,10 +62,10 @@ const Dropdown = () => {
             </div>
           </div>
         </div>
-        <div class="accordion-item mb-3">
-          <h2 class="accordion-header" id="headingTwo">
+        <div className="accordion-item mb-3">
+          <h2 className="accordion-header" id="headingTwo">
             <button
-              class="accordion-button collapsed"
+              className="accordion-button collapsed"
               type="button"
               data-bs-toggle="collapse"
               data-bs-target="#collapseTwo"
@@ -77,10 +77,10 @@ const Dropdown = () => {
           </h2>
           <div
             id="collapseTwo"
-            class="accordion-collapse collapse "
+            className="accordion-collapse collapse "
             aria-labelledby="headingTwo"
           >
-            <div class="accordion-body domain-drp-item">
+            <div className="accordion-body domain-drp-item">
             <Link to="/pdf" className="a-item-domain">
               {/* <a
                 target="_blank"
@@ -93,19 +93,19 @@ const Dropdown = () => {
             </Link>  
               <hr />
             </div>
-            <div class="accordion-body">
+            <div className="accordion-body">
               <a href="/resources" className="a-item-domain" rel="noreferrer">
                 Resources
               </a>
               <hr />
             </div>
-            <div class="accordion-body">
+            <div className="accordion-body">
               <a href="/mentor" className="a-item-domain" rel="noreferrer">
                 Contact Mentor
               </a>
               <hr />
             </div>
-            <div class="accordion-body">
+            <div className="accordion-body">
               <a
                 href="https://discord.gg/ZMZAEZ5NfA"
                 target="_blank"
@@ -117,10 +117,10 @@ const Dropdown = () => {
             </div>
           </div>
         </div>
-        <div class="accordion-item mb-3">
-          <h2 class="accordion-header" id="headingThree">
+        <div className="accordion-item mb-3">
+          <h2 className="accordion-header" id="headingThree">
             <button
-              class="accordion-button collapsed"
+              className="accordion-button collapsed"
               type="button"
               data-bs-toggle="collapse"
               data-bs-target="#collapseThree"
@@ -132,10 +132,10 @@ const Dropdown = () => {
           </h2>
           <div
             id="collapseThree"
-            class="accordion-collapse collapse "
+            className="accordion-collapse collapse "
             aria-labelledby="headingThree"
           >
-            <div class="accordion-body domain-drp-item">
+            <div className="accordion-body domain-drp-item">
             <Link to="/pdf" className="a-item-domain">
               {/* <a
                 target="_blank"
@@ -148,19 +148,19 @@ const Dropdown = () => {
             </Link>  
               <hr />
             </div>
-            <div class="accordion-body">
+            <div className="accordion-body">
               <a href="/resources" className="a-item-domain" rel="noreferrer">
                 Resources
               </a>
               <hr />
             </div>
-            <div class="accordion-body">
+            <div className="accordion-body">
               <a href="/mentor" className="a-item-domain" rel="noreferrer">
                 Contact Mentor
               </a>
               <hr />
             </div>
-            <div class="accordion-body">
+            <div className="accordion-body">
               <a
                 href="https://discord.gg/ZMZAEZ5NfA"
                 target="_blank"
@@ -172,10 +172,10 @@ const Dropdown = () => {
             </div>
           </div>
         </div>
-        <div class="accordion-item mb-3">
-          <h2 class="accordion-header" id="headingFour">
+        <div className="accordion-item mb-3">
+          <h2 className="accordion-header" id="headingFour">
             <button
-              class="accordion-button collapsed"
+              className="accordion-button collapsed"
               type="button"
               data-bs-toggle="collapse"
               data-bs-target="#collapseFour"
@@ -187,10 +187,10 @@ const Dropdown = () => {
           </h2>
           <div
             id="collapseFour"
-            class="accordion-collapse collapse "
+            className="accordion-collapse collapse "
             aria-labelledby="headingFour"
           >
-            <div class="accordion-body domain-drp-item">
+            <div className="accordion-body domain-drp-item">
             <Link to="/pdf" className="a-item-domain">
               {/* <a
                 target="_blank"
@@ -203,19 +203,19 @@ const Dropdown = () => {
             </Link>  
               <hr />
             </div>
-            <div class="accordion-body">
+            <div className="accordion-body">
               <a href="/resources" className="a-item-domain" rel="noreferrer">
                 Resources
               </a>
               <hr />
             </div>
-            <div class="accordion-body">
+            <div className="accordion-body">
               <a href="/mentor" className="a-item-domain" rel="noreferrer">
                 Contact Mentor
               </a>
               <hr />
             </div>
-            <div class="accordion-body">
+            <div className="accordion-body">
               <a
                 href="https://discord.gg/ZMZAEZ5NfA"
                 target="_blank"
@@ -227,10 +227,10 @@ const Dropdown = () => {
             </div>
           </div>
         </div>
-        <div class="accordion-item mb-3">
-          <h2 class="accordion-header" id="headingFive">
+        <div className="accordion-item mb-3">
+          <h2 className="accordion-header" id="headingFive">
             <button
-              class="accordion-button collapsed"
+              className="accordion-button collapsed"
               type="button"
               data-bs-toggle="collapse"
               data-bs-target="#collapseFive"
@@ -242,10 +242,10 @@ const Dropdown = () => {
           </h2>
           <div
             id="collapseFive"
-            class="accordion-collapse collapse "
+            className="accordion-collapse collapse "
             aria-labelledby="headingFive"
           >
-            <div class="accordion-body domain-drp-item">
+            <div className="accordion-body domain-drp-item">
             <Link to="/pdf" className="a-item-domain">
               {/* <a
                 target="_blank"
@@ -258,19 +258,19 @@ const Dropdown = () => {
             </Link>  
               <hr />
             </div>
-            <div class="accordion-body">
+            <div className="accordion-body">
               <a href="/resources" className="a-item-domain" rel="noreferrer">
                 Resources
               </a>
               <hr />
             </div>
-            <div class="accordion-body">
+            <div className="accordion-body">
               <a href="/mentor" className="a-item-domain" rel="noreferrer">
                 Contact Mentor
               </a>
               <hr />
             </div>
-            <div class="accordion-body">
+            <div className="accordion-body">
               <a
                 href="https://discord.gg/ZMZAEZ5NfA"
                 target="_blank"
@@ -282,10 +282,10 @@ const Dropdown = () => {
             </div>
           </div>
         </div>
-        <div class="accordion-item mb-3">
-          <h2 class="accordion-header" id="headingSix">
+        <div className="accordion-item mb-3">
+          <h2 className="accordion-header" id="headingSix">
             <button
-              class="accordion-button collapsed"
+              className="accordion-button collapsed"
               type="button"
               data-bs-toggle="collapse"
               data-bs-target="#collapseSix"
@@ -297,10 +297,10 @@ const Dropdown = () => {
           </h2>
           <div
             id="collapseSix"
-            class="accordion-collapse collapse "
+            className="accordion-collapse collapse "
             aria-labelledby="headingSix"
           >
-            <div class="accordion-body domain-drp-item">
+            <div className="accordion-body domain-drp-item">
             <Link to="/pdf" className="a-item-domain">
               {/* <a
                 target="_blank"
@@ -313,19 +313,19 @@ const Dropdown = () => {
             </Link>  
               <hr />
             </div>
-            <div class="accordion-body">
+            <div className="accordion-body">
               <a href="/resources" className="a-item-domain" rel="noreferrer">
                 Resources
               </a>
               <hr />
             </div>
-            <div class="accordion-body">
+            <div className="accordion-body">
               <a href="/mentor" className="a-item-domain" rel="noreferrer">
                 Contact Mentor
               </a>
               <hr />
             </div>
-            <div class="accordion-body">
+            <div className="accordion-body">
               <a
                 href="https://discord.gg/ZMZAEZ5NfA"
                 target="_blank"
@@ -337,10 +337,10 @@ const Dropdown = () => {
             </div>
           </div>
         </div>
-        <div class="accordion-item ">
-          <h2 class="accordion-header" id="headingSeven">
+        <div className="accordion-item ">
+          <h2 className="accordion-header" id="headingSeven">
             <button
-              class="accordion-button collapsed"
+              className="accordion-button collapsed"
               type="button"
               data-bs-toggle="collapse"
               data-bs-target="#collapseSeven"
@@ -352,10 +352,10 @@ const Dropdown = () => {
           </h2>
           <div
             id="collapseSeven"
-            class="accordion-collapse collapse "
+            className="accordion-collapse collapse "
             aria-labelledby="headingSeven"
           >
-            <div class="accordion-body domain-drp-item">
+            <div className="accordion-body domain-drp-item">
             <Link to="/pdf" className="a-item-domain">
               {/* <a
                 target="_blank"
@@ -368,19 +368,19 @@ const Dropdown = () => {
             </Link>
               <hr />
             </div>
-            <div class="accordion-body">
+            <div className="accordion-body">
               <a href="/resources" className="a-item-domain" rel="noreferrer">
                 Resources
               </a>
               <hr />
             </div>
-            <div class="accordion-body">
+            <div className="accordion-body">
               <a href="/mentor" className="a-item-domain">
                 Contact Mentor
               </a>
               <hr />
             </div>
-            <div class="accordion-body">
+            <div className="accordion-body">
               <a
                 href="https://discord.gg/ZMZAEZ5NfA"
                 target="_blank"

@@ -1,26 +1,29 @@
 import React from "react";
 import "./EventCard.css";
 
-
 const EventCard = ({
-  eventTitle1,
-  eventTitle2,
-  lastDate,
+  tagline,
+  eventDate,
   mentorName,
-  cardImage,
+  posterUrl,
   company,
-  eventDescription,
+  position,
+  description,
 }) => {
+
   return (
     <>
-      <div className="event-card-body" style={{
+      <div
+        className="event-card-body"
+        style={{
           padding: "0px",
           margin: "10px",
-        }}>
+        }}
+      >
         <div>
           {" "}
           <img
-            src={require(`${cardImage}`)}
+            src={posterUrl}
             alt="particular-events"
             className="event-image"
             width="100%"
@@ -29,16 +32,13 @@ const EventCard = ({
         </div>
 
         <div className="d-flex event--btns">
-          <div className=" event-name">
-            {" "}
-            {eventTitle1} {eventTitle2}
-          </div>
+          <div className=" event-name"> {tagline}</div>
           <a href="https://discord.gg/ZMZAEZ5NfA">
             {" "}
             <button className="Prize">Join</button>
           </a>
         </div>
-        <div className="event-details">{eventDescription}</div>
+        <div className="event-details">{description}</div>
         <div>
           {/* <div
             style={{ backgroundColor: "#0d718c" }}

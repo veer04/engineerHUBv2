@@ -7,6 +7,8 @@ import Card from "../Campus/Card";
 const Hiring = () => {
 
   const [card,setCard] = useState("");
+
+  
   useEffect(() => {
     const getHiringDetails = async () => {
       const response = await axios.get(`https://ehubbackend.herokuapp.com/api/v1/hiring`)

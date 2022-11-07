@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 // import cpp from "./Images/cpp.jpg";
 
 function Card({ bookTitle, pdfUrl, cardImage }) {
+ 
   return (
     <div
       className="card custom-card-2 container-mag"

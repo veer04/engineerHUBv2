@@ -7,15 +7,24 @@ import { useEffect, useState } from "react";
 
 const Freecourses = ({ closeModal }) => {
   const [courseData, setCourseData] = useState([]);
+
   useEffect(() => {
+    let subscribed = true;
     const getCourseDetails = async () => {
       const response = await axios.get(
         `https://ehubbackend.herokuapp.com/api/v1/course`
       );
-      console.log(courseData);
+      
       setCourseData(response.data);
+      console.log(response);
     };
-    getCourseDetails();
+    if (subscribed) {
+      getCourseDetails();
+     
+    }
+    return () => {
+      subscribed = false;
+    };
   }, []);
 
   return (
