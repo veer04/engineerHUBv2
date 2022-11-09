@@ -14,7 +14,7 @@ function Card({
 }) {
   return (
     <div className="cont-camp">
-    <div style={{ 
+    <div className="cards" style={{ 
       backgroundImage: `linear-gradient(
         15deg,
         rgba(146, 146, 146, 0.252),
@@ -43,7 +43,7 @@ function Card({
               font: "poppins",
               fontWeight: 600,
               fontSize: "20px",
-              lineHeight: "32px",
+              lineHeight: "25px",
               paddingTop: "0",
               color: "#1b5b62"
             }}
