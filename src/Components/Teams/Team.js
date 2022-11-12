@@ -1,36 +1,37 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import Mentor from "../Mentors/Mentor";
-import {
-  COMPANYMEMBER_LID1,
-  COMPANYMEMBER_LID2,
-  COMPANYMEMBER_LID3,
-} from "../../config/StaticLinks";
-const teamMembers = [
-  {
-    Profession: "Frontend Developer",
-    Name: "Rahul KM",
-    Company: "@EngineerHUB",
-    Desc: "HTML, CSS, JavaScript and ReactJS",
-    LinkedIn: COMPANYMEMBER_LID1,
-  },
-  {
-    Profession: "Frontend Developer",
-    Name: "Manish KR",
-    Company: "@EngineerHUB",
-    Desc: "HTML, CSS, JavaScript and ReactJS",
-    LinkedIn: COMPANYMEMBER_LID3,
-  },
-  {
-    Profession: "Frontend Developer",
-    Name: " Aditi JS",
-    Company: "@EngineerHUB",
-    Desc: "HTML, CSS, JavaScript and ReactJS",
-    LinkedIn: COMPANYMEMBER_LID2,
-  },
-];
+import TeamCard from "./TeamCard";
+// import Mentor from "../Mentors/Mentor";
+// import {
+//   COMPANYMEMBER_LID1,
+//   COMPANYMEMBER_LID2,
+//   COMPANYMEMBER_LID3,
+// } from "../../config/StaticLinks";
+// const teamMembers = [
+//   {
+//     Profession: "Frontend Developer",
+//     Name: "Rahul KM",
+//     Company: "@EngineerHUB",
+    
+//     LinkedIn: COMPANYMEMBER_LID1,
+//   },
+//   {
+//     Profession: "Frontend Developer",
+//     Name: "Manish KR",
+//     Company: "@EngineerHUB",
+//     Desc: "HTML, CSS, JavaScript and ReactJS",
+//     LinkedIn: COMPANYMEMBER_LID3,
+//   },
+//   {
+//     Profession: "Frontend Developer",
+//     Name: " Aditi JS",
+//     Company: "@EngineerHUB",
+//     Desc: "HTML, CSS, JavaScript and ReactJS",
+//     LinkedIn: COMPANYMEMBER_LID2,
+//   },
+// ];
 
-const Team = () => {
+export default function Team () {
   const [teamsObj, setTeamsObj] = useState([]);
 
   useEffect(() => {
@@ -53,14 +54,34 @@ const Team = () => {
   }, []);
 
   return (
-    <>
-      <Mentor courses={"Frontend Team EngineerHUB"} teamMembers={teamMembers} />
-      <Mentor courses={"Backend Team EngineerHUB"} teamMembers={teamMembers} />
-      <Mentor courses={"AppDev Team EngineerHUB"} teamMembers={teamMembers} />
-      <Mentor courses={"DevOps Team EngineerHUB"} teamMembers={teamMembers} />
-      <Mentor courses={"UI/UX Team EngineerHUB"} teamMembers={teamMembers} />
-    </>
+    
+      <div className="mentor-container">
+      <div className="heading">Our Team</div>
+      <div className="texthire"></div>
+      <div className="card-section">
+        {/* {teamMembers.map((member) => {
+          return (
+            <MentorCard
+              mentorImage={member.mentorImage}
+              Profession={member.Profession}
+              Name={member.Name}
+              Company={member.Company}
+              Desc={member.Desc}
+              LinkedIn={member.LinkedIn}
+            />
+          );
+        })} */}
+        <div
+          className="d-flex row justify-content-center "
+          style={{ marginTop: "0px", gap: "40px", paddingBottom: "80px" }}
+    >
+        {teamsObj.map((team) => {
+            return <TeamCard mentorImage={team.mentorImage} name={team.mentorName} domain={team.mentorDomain} LinkedIn={team.linkedinUrl}/>;
+          })}
+          </div>
+          </div>
+          </div>
   );
 };
 
-export default Team;
+{/* export default Team; */}

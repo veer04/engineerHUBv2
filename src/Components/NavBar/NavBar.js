@@ -298,7 +298,7 @@ const NavBar = () => {
               <Nav.Link href="/teams">Team</Nav.Link>
               <Nav.Link href="login" className=" helloadmin">
                 <img src={User} alt="" height={40} width={40} />{" "}
-                <span style={{ fontSize: "14px" }}>Arthur Morgan</span>
+                <span style={{ fontSize: "14px" }}>Swapnil Raj</span>
               </Nav.Link>
             </Nav>
           </Navbar.Collapse>

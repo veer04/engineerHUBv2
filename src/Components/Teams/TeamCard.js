@@ -1,5 +1,5 @@
 import React from "react";
-import "./MentorCard.css";
+import "../Mentors/MentorCard.css";
 // import {Link} from "react-router-dom";
 import Img2 from "../shared/ProfilePic/pic4.jpg";
 
@@ -7,7 +7,7 @@ import mentorImage from "../NavBar/user.webp"
 // import mentorLinkedin from "./MediaIcons/icon-linkedin.png";
 // import mentorGmail from "./MediaIcons/icon-gmail.png";
 // import mentorWp from "./MediaIcons/icon-wp.png";
-const MentorCard = ({ Profession, name, domain,Desc, LinkedIn, mentorImage }) => {
+const TeamCard = ({ Profession, Name, Company,Desc, LinkedIn, mentorImage }) => {
   return (
     <div className="Ment-container">
       <div className="Ment-image">
@@ -17,7 +17,7 @@ const MentorCard = ({ Profession, name, domain,Desc, LinkedIn, mentorImage }) =>
         {/* <div className="Ment-prof">{Profession}</div> */}
         <div className="Ment-name">{name}</div>
         <div className="Ment-contact">
-          <span>{domain}</span>
+          <span>{domain}{Company}</span>
         </div>
       </div>
 
@@ -52,4 +52,4 @@ const MentorCard = ({ Profession, name, domain,Desc, LinkedIn, mentorImage }) =>
   );
 };
 
-export default MentorCard;
+export default TeamCard;

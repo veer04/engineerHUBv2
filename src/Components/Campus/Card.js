@@ -21,7 +21,8 @@ function Card({
         rgb(255 255 255)
       ),url(${clgphoto})`,
       borderRadius:"20px",
-      overflow:"hidden"
+      overflow:"hidden",
+      objectFit:"cover"
     }}>
     <div
       className="card custom-card"

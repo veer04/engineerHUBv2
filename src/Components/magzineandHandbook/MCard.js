@@ -6,7 +6,7 @@ import "./MCard.css";
 // import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import { Link } from "react-router-dom";
 
-function Card({ bookTitle, description,img }) {
+function Card({ bookTitle, description,img,pdfUrl }) {
   // const navigate = useNavigate();
   return (
     <div
@@ -61,7 +61,7 @@ function Card({ bookTitle, description,img }) {
          
           
           <div className="btn-container d-flex justify-content-between align-items-baseline">
-            <Link to="/pdf">
+            <a href={pdfUrl} target="_blank" rel="noreferrer">
               <div
                 className="btn custom-card-btn-2"
                 style={{ backgroundColor: "#0094FF", borderRadius: "20px" }}
@@ -77,7 +77,7 @@ function Card({ bookTitle, description,img }) {
                   Tap to Open
                 </span>
               </div>
-            </Link>
+            </a>
           </div>
         </div>
       </div>

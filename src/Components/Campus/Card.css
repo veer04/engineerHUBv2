@@ -102,12 +102,13 @@
   }
 }
 
-@media screen and (max-width: 375px) {
+@media screen and (max-width: 395px) {
   .card-body {
     padding: 0rem !important;
   }
   .cards{
     width: 270px;
+    height: auto;
   }
 }
 

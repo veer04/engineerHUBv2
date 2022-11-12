@@ -4,7 +4,7 @@ import './Viewer.css';
 import cp from "../pdf/cp.pdf";
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
-function Viewer() {
+function Viewer({pdfUrl}) {
 
   const [numPages, setNumPages] = useState(null);
   const [pageNumber, setPageNumber] = useState(1);
