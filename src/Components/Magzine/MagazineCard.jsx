@@ -6,6 +6,8 @@ import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
 
 import cp from "../pdf/cp.pdf";
 // import { Link } from "react-router-dom";
+import { RWebShare } from "react-web-share";
+
 
 function MagazineCard({
   courseTitle1,
@@ -50,11 +52,20 @@ function MagazineCard({
             >
               {courseTitle1} {courseTitle2}
             </h5>
+            
             <div>
+            <RWebShare
+        data={{
+          url: "https://simplebooklet.com/ux",
+          title: "Share this"
+        }}
+        onClick={() => console.info("Shared successfully!")}
+      >
               <ShareOutlinedIcon
                 className="share-icon"
                 style={{ fontSize: "18px", marginRight: "0px" }}
               />
+              </RWebShare>
             </div>
           </div>
           <p className="card-text" style={{ fontSize: "12px" ,padding:"0 7px 0 7px"}}>

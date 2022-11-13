@@ -1,5 +1,7 @@
 import React from "react";
 import moment from 'moment';
+import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
+import { RWebShare } from "react-web-share";
 
 
 import "./InternCard.css";
@@ -7,6 +9,7 @@ import "./InternCard.css";
 const InternCard = ({ company, position, link ,type,timing,location,description,time}) => {
   return (
     <div className="Intern-Container">
+      <div className="d-flex justify-content-between">
       <hr
         style={{
             color: "#D9D9D9",
@@ -15,7 +18,22 @@ const InternCard = ({ company, position, link ,type,timing,location,description,
             width:"160.04px",
         }}
     />
+    
       <span className="posted">Posted {moment(time).fromNow()}</span>
+      {/* <div className="d-flex align-content-end"> */}
+          <RWebShare
+        data={{
+          url: `${link}`,
+          title: "Share this"
+        }}
+        onClick={() => console.info("Shared successfully!")}
+      >
+            <ShareOutlinedIcon
+              className="share-icon"
+              style={{ fontSize: "22px", marginRight: "0px" }}
+            />
+            </RWebShare>
+          </div>
       <div className="Intern-Company">
         {/* <svg href="google.svg"></svg> */}
         {/* <div className="company-image">

@@ -42,7 +42,7 @@ const Campus = () => {
         
       >
         {campusData.map((cd) => {
-            return <Card card_head={cd.eventName} clgphoto={cd.collegePhoto} desc={cd.description} clgname={cd.collegeName} evtdate={cd.eventDate} link={cd.websiteUrl}/>;
+            return <Card card_head={cd.eventName} clgphoto={cd.collegePhoto} desc={cd.description} clgname={cd.collegeName} evtdate={cd.eventDate} link={cd.websiteUrl} id={cd._id}/>;
           })}
         
       </div>

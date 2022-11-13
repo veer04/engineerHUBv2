@@ -1,6 +1,8 @@
 import React from "react";
 import "./Card.css";
 import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
+import { RWebShare } from "react-web-share";
+
 
 
 function Card({
@@ -52,10 +54,18 @@ function Card({
             {card_head}
           </h5>
           <div>
+          <RWebShare
+        data={{
+          url: `${link}`,
+          title: "Share this"
+        }}
+        onClick={() => console.info("Shared successfully!")}
+      >
             <ShareOutlinedIcon
               className="share-icon"
               style={{ fontSize: "22px", marginRight: "0px" }}
             />
+            </RWebShare>
           </div>
         </div>
         <p className="card-text" style={{color:"#002A36", fontWeight:"500"}}>
