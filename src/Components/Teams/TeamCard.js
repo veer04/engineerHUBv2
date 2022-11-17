@@ -15,9 +15,9 @@ const TeamCard = ({ Profession, Name, Company,Desc, LinkedIn, mentorImage }) => 
       </div>
       <div>
         {/* <div className="Ment-prof">{Profession}</div> */}
-        <div className="Ment-name">{name}</div>
+        <div className="Ment-name">{Name}</div>
         <div className="Ment-contact">
-          <span>{domain}{Company}</span>
+          <span>{Company}</span>
         </div>
       </div>
 
