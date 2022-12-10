@@ -9,8 +9,9 @@ const Internship = () => {
 
   useEffect(() => {
     const getInternshipDetails = async () => {
+      const url=  `${process.env.REACT_APP_INTERN_API}`
       const res = await axios.get(
-        `https://ehubbackend.herokuapp.com/api/v1/internship`
+       url
       );
 
       setInternshipData(res.data);

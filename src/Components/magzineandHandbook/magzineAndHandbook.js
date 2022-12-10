@@ -7,9 +7,10 @@ export default function MagzineAndHandbook() {
 
   useEffect(() => {
     let subscribed = true;
+    const urlHandbook=`${process.env.REACT_APP_HANDBOOK_API}`;
     const getHandBookDetails = async () => {
       const response = await axios.get(
-        `https://ehubbackend.herokuapp.com/api/v1/handbook`
+        urlHandbook
       );
       setHandBookData(response.data);
     };

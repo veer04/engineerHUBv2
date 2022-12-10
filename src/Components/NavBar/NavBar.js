@@ -5,21 +5,17 @@ import axios from "axios";
 import Navbar from "react-bootstrap/Navbar";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
-// import Logo from "./logo.svg";
 import logo1 from "./logo1.png";
 import User from "./user.svg";
 import NavDropdown from "react-bootstrap/NavDropdown";
-
 import PlayCircleOutlineIcon from "./subNavbarIcon/PlayCircleOutlineIcon.svg";
 import WindowOutlinedIcon from "./subNavbarIcon/WindowOutlinedIcon.svg";
 import WorkOutlineOutlinedIcon from "./subNavbarIcon/WorkOutlineOutlinedIcon.svg";
 import HomeOutlinedIcon from "./subNavbarIcon/HomeOutlinedIcon.svg";
 import CalendarTodayOutlinedIcon from "./subNavbarIcon/CalendarTodayOutlinedIcon.png";
 import cp from "../pdf/cp.pdf";
-
 const NavBar = () => {
   const [domainData, setDomainData] = useState([]);
-
   useEffect(() => {
     const getDomainDetails = async () => {
       const response = await axios.get(
