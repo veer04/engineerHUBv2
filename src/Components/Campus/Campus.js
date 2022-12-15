@@ -1,5 +1,7 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { API_URL } from "../../services/APIUtils";
 import Card from "./Card";
 import "./Campus.css";
 
@@ -9,12 +11,9 @@ const Campus = () => {
   useEffect(() => {
     let subscribed = true;
     const getCampusDetails = async () => {
-      const response = await axios.get(
-        `https://ehubbackend.herokuapp.com/api/v1/campus`
-      );
+      const response = await axios.get(`${API_URL}api/v1/campus`);
 
       setCampusData(response.data);
-      
     };
 
     console.log(campusData);
@@ -37,14 +36,20 @@ const Campus = () => {
         opportunities to enhance their growth.
       </div>
 
-      <div
-        className=" mainCard"
-        
-      >
+      <div className=" mainCard">
         {campusData.map((cd) => {
-            return <Card card_head={cd.eventName} clgphoto={cd.collegePhoto} desc={cd.description} clgname={cd.collegeName} evtdate={cd.eventDate} link={cd.websiteUrl} id={cd._id}/>;
-          })}
-        
+          return (
+            <Card
+              card_head={cd.eventName}
+              clgphoto={cd.collegePhoto}
+              desc={cd.description}
+              clgname={cd.collegeName}
+              evtdate={cd.eventDate}
+              link={cd.websiteUrl}
+              id={cd._id}
+            />
+          );
+        })}
       </div>
     </div>
   );

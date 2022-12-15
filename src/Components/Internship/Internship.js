@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { API_URL } from "../../services/APIUtils";
 import SearchIcon from "@mui/icons-material/Search";
 import InternCard from "./InternCard";
 import "./Internship.css";
@@ -9,9 +10,7 @@ const Internship = () => {
 
   useEffect(() => {
     const getInternshipDetails = async () => {
-      const res = await axios.get(
-        `https://ehubbackend.herokuapp.com/api/v1/internship`
-      );
+      const res = await axios.get(`${API_URL}api/v1/internship`);
 
       setInternshipData(res.data);
     };
@@ -23,7 +22,8 @@ const Internship = () => {
     <div className="contained-xl">
       <div className="heading heading--internship">Internship & Jobs</div>
       <div className="texthire texthire--internship">
-      engineerhub offers tons of internships & job opportunities for our students & notify them regularly on various social platforms. 
+        engineerhub offers tons of internships & job opportunities for our
+        students & notify them regularly on various social platforms.
       </div>
       <form className="searchBar">
         <div className="search-btn">
@@ -36,7 +36,7 @@ const Internship = () => {
       </form>
 
       <div className="InternList">
-        {internshipData.map((items,i) => {
+        {internshipData.map((items, i) => {
           return (
             <InternCard
               key={i}

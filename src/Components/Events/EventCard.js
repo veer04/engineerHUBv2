@@ -10,7 +10,6 @@ const EventCard = ({
   position,
   description,
 }) => {
-
   return (
     <>
       <div
@@ -38,15 +37,8 @@ const EventCard = ({
             <button className="Prize">Join</button>
           </a>
         </div>
-        <div className="event-details">{description}</div>
-        <div>
-          {/* <div
-            style={{ backgroundColor: "#0d718c" }}
-            className="event-register"
-          >
-            Join
-          </div> */}
-        </div>
+        <div className="event-details cutoff-text">{description}</div>
+        <div></div>
       </div>
     </>
   );

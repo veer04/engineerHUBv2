@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { API_URL } from "../../services/APIUtils";
 import TeamCard from "./TeamCard";
 // import Mentor from "../Mentors/Mentor";
 // import {
@@ -12,7 +13,7 @@ import TeamCard from "./TeamCard";
 //     Profession: "Frontend Developer",
 //     Name: "Rahul KM",
 //     Company: "@EngineerHUB",
-    
+
 //     LinkedIn: COMPANYMEMBER_LID1,
 //   },
 //   {
@@ -31,18 +32,15 @@ import TeamCard from "./TeamCard";
 //   },
 // ];
 
-export default function Team () {
+export default function Team() {
   const [teamsObj, setTeamsObj] = useState([]);
 
   useEffect(() => {
     let subscribed = true;
     const getTeams = async () => {
-      const res = await axios.get(
-        `https://ehubbackend.herokuapp.com/api/v1/team`
-      );
+      const res = await axios.get(`${API_URL}api/v1/team`);
 
       setTeamsObj(res.data);
-  
     };
 
     if (subscribed) {
@@ -54,8 +52,7 @@ export default function Team () {
   }, []);
 
   return (
-    
-      <div className="mentor-container">
+    <div className="mentor-container">
       <div className="heading">Our Team</div>
       <div className="texthire"></div>
       <div className="card-section">
@@ -74,14 +71,19 @@ export default function Team () {
         <div
           className="d-flex row justify-content-center "
           style={{ marginTop: "0px", gap: "40px", paddingBottom: "80px" }}
-    >
-        {teamsObj.map((team) => {
-            return <TeamCard mentorImage={team.mentorImage} name={team.mentorName} domain={team.mentorDomain} LinkedIn={team.linkedinUrl}/>;
+        >
+          {teamsObj.map((team) => {
+            return (
+              <TeamCard
+                mentorImage={team.mentorImage}
+                name={team.mentorName}
+                domain={team.mentorDomain}
+                LinkedIn={team.linkedinUrl}
+              />
+            );
           })}
-          </div>
-          </div>
-          </div>
+        </div>
+      </div>
+    </div>
   );
-};
-
-{/* export default Team; */}
+}

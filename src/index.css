@@ -1,6 +1,6 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
 html {
   overflow-x: hidden;
- 
 }
 
 body {
@@ -18,8 +18,7 @@ body {
   width: 100%;
   --lef-col-width: 33%;
   --dark-green: rgba(1, 60, 76, 1);
-  --custom-yellow: #E1D71C; 
- 
+  --custom-yellow: #e1d71c;
 }
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
@@ -71,18 +70,31 @@ a {
   }
 }
 
-.dark-bg{
-  color:rgba(1, 60, 76, 1) !important;
+.dark-bg {
+  color: rgba(1, 60, 76, 1) !important;
   font-weight: bolder;
 }
 
-.btn--link:hover{
+.btn--link:hover {
   color: white;
 }
-.custom--nowrap{
+.custom--nowrap {
   flex-wrap: nowrap;
 }
 
-.custom-pt--15{
+.custom-pt--15 {
   padding-top: 15px;
+}
+
+.cutoff-text {
+  --max-lines: 7;
+  display: -webkit-box;
+  overflow: hidden;
+  color: #a9a9a9;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: var(--max-lines);
+}
+
+.box{
+  background-color: #ffffff;
 }

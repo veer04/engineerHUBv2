@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./Hiring.css";
 import axios from "axios";
+import { API_URL } from "../../services/APIUtils";
 import CardH from "../Hiring/CardH";
 
 export default function Hiring() {
@@ -8,9 +9,7 @@ export default function Hiring() {
   useEffect(() => {
     let subscribed = true;
     const getHiringDetails = async () => {
-      const response = await axios.get(
-        `https://ehubbackend.herokuapp.com/api/v1/hiring`
-      );
+      const response = await axios.get(`${API_URL}api/v1/hiring`);
       console.log(response.data);
       setCard(response.data);
     };

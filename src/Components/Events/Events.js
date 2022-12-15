@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { API_URL } from "../../services/APIUtils";
 
 import { Autoplay } from "swiper";
-
 import { Swiper, SwiperSlide } from "swiper/react";
-
 import "swiper/css/pagination";
-
 import "swiper/css";
 import "swiper/css/autoplay";
+
 import EventCard from "./EventCard";
 
 export const eventStaticData = [
@@ -44,9 +43,7 @@ function Events() {
   useEffect(() => {
     let subscribed = true;
     const getEventDetails = async () => {
-      const response = await axios.get(
-        `https://ehubbackend.herokuapp.com/api/v1/event`
-      );
+      const response = await axios.get(`${API_URL}api/v1/event`);
       setEventData(response.data);
     };
 
@@ -90,7 +87,7 @@ function Events() {
             onSlideChange={() => {}}
           >
             {eventData.map((c, i) => (
-              <SwiperSlide>
+              <SwiperSlide key={`${i}b`}>
                 <EventCard
                   key={`${i}b`}
                   tagline={c.tagline}

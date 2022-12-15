@@ -1,31 +1,12 @@
-import React from "react";
-import axios from "axios";
+import React from 'react'
+import { useContext } from "react";
 import "./freecourses.css";
 import Full from "./Full";
-import { coursesData } from "../HomeCourses/Courses";
-import { useEffect, useState } from "react";
+import { CourseContext } from "../../context/CourseContext";
+// import { coursesData } from "../HomeCourses/Courses";
 
 const Freecourses = ({ closeModal }) => {
-  const [courseData, setCourseData] = useState([]);
-
-  useEffect(() => {
-    let subscribed = true;
-    const getCourseDetails = async () => {
-      const response = await axios.get(
-        `https://ehubbackend.herokuapp.com/api/v1/course`
-      );
-      
-      setCourseData(response.data);
-      console.log(response);
-    };
-    if (subscribed) {
-      getCourseDetails();
-     
-    }
-    return () => {
-      subscribed = false;
-    };
-  }, []);
+  const { courseData } = useContext(CourseContext);
 
   return (
     <div className="container-hiring">
@@ -40,17 +21,16 @@ const Freecourses = ({ closeModal }) => {
         style={{ margin: "0px 35px 40px" }}
         className="d-flex row justify-content-evenly courses-cont"
       >
-        {coursesData.map((c, i) => {
+        {courseData.map((c, i) => {
           return (
             <Full
               key={i}
               id={i * 2}
               state={c}
-              cardImage={c.cardImage}
-              courseTitle1={c.courseTitle1}
-              courseTitle2={c.courseTitle2}
-              courseDescription={c.courseDescription}
-              lastDate={c.lastDate}
+              cardImage={c.posterUrl}
+              courseTitle1={c.title}
+              courseDescription={c.about}
+              lastDate={c.updatedAt.slice(0,10)}
               features={c.features}
             />
           );

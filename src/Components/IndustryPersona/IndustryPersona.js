@@ -46,7 +46,6 @@ const IndustryPersona = () => {
         Profession={member.Profession}
         Name={member.Name}
         Company={member.Company}
-       
         LinkedIn={member.LinkedIn}
       />
     );

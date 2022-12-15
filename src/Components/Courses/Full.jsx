@@ -1,5 +1,5 @@
 // import { useState } from "react";
-
+import React from "react"
 import { Link } from "react-router-dom";
 import "./freecourses.css";
 import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
@@ -29,7 +29,7 @@ function Card({
           <img
             width={258}
             height={147}
-            src={require(`${cardImage}`)}
+            src={cardImage}
             style={{ margin: "0px 0px 10px 0px"}}
             className="card-img-top"
             alt="..."

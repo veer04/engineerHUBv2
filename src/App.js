@@ -12,7 +12,7 @@ import Teams from "./Components/Teams/Team";
 import IndustryPersona from "./Components/IndustryPersona/IndustryPersona";
 import Freecourses from "./Components/Courses/Freecourses";
 import Resources from "./Components/Resources/Resources";
-import Test from "./APIs/TestAPI";
+
 import Login from "./Components/Login/login";
 import Register from "./Components/Login/Register";
 import SignUp from "./Components/Login/Signup";
@@ -42,12 +42,12 @@ function App() {
         <Route path="/userpage/:id" exact element={<UserPage />} />
 
         {/* <Route path="/login" exact element={<Login />} /> */}
-        <Route path="/login" exact element={<Login />}/>
-        <Route path="/modal" exact element={<Modal />}/>
+        <Route path="/login" exact element={<Login />} />
+        <Route path="/modal" exact element={<Modal />} />
         <Route path="/register" exact element={<Register />} />
         <Route path="/signup" exact element={<SignUp />} />
         <Route path="/domain" exact element={<Domain />} />
-        <Route path="/test" exact element={<Test />} />
+
         <Route path="/pdf" exact element={<Pviewer />} />
       </Routes>
       <div className="Footer">

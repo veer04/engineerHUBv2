@@ -14,7 +14,7 @@ const User = () => {
   const { state } = useLocation();
 
   useEffect(() => {
-    console.log(state);
+    console.log(...state);
   });
 
   return (

@@ -1,3 +1,4 @@
+import React from 'react';
 import "../Members/Members.scss";
 import { Autoplay, Pagination } from "swiper";
 

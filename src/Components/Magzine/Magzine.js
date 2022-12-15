@@ -43,10 +43,9 @@ function Magzine() {
             onSlideChange={() => {}}
           >
             {coursesData.map((c, i) => (
-              <SwiperSlide>
+              <SwiperSlide key={`${i}a`}>
                 <MagazineCard
                   key={`${i}a`}
-          
                   cardImage={c.cardImage}
                   courseTitle1={c.courseTitle1}
                   courseTitle2={c.courseTitle2}

@@ -15,33 +15,20 @@ import Courses from "../HomeCourses/Courses";
 import "../Members/Members";
 import InfiniteSlider from "../shared/InfiniteSlider";
 import InfiniteSlider2 from "../shared/InfiniteSlider2";
-import InfiniteSlider3 from "../shared/InfiniteSlider3";
-import Industries from "./gif/Industries.gif";
+// import InfiniteSlider3 from "../shared/InfiniteSlider3";
+// import Industries from "./gif/Industries.gif";
 
 import ehub from "./gif/industry.gif";
-// import Zomato from "./Zomato.png";
-import IITK from "./svg/IITK.png";
-// import AnimationScreen from "./svg/Animation.gif";
-// import tcs from "./svg/tcs.svg";
-// import oracle from "./svg/oracle.svg";
-// import logitech from "./svg/logitech.svg";
-// import vedantu from "./svg/vedantu.svg";
 
-// import infosys from "./svg/infosys.svg";
 import CountUp from "react-countup";
 import Ehubgif2 from "../HomePage/gif/student.gif";
 import Ehubgif from "../HomePage/gif/campus.gif";
-// import Byjus from "./Byjus.png";
+
 import "swiper/css";
 import AnimationScreen from "./svg/Animation.gif";
 import "swiper/css/autoplay";
 import BottomDivider from "../shared/BottomDivider/BottomDivider";
 
-// import { Suspense } from "react";
-// import { lazy } from "react";
-
-// const About = React.lazy(()=>import('../Aboutus/Aboutus'));
-// const About = lazy(() => import('../Aboutus/Aboutus'));
 import AOS from "aos";
 import "aos/dist/aos.css";
 AOS.init();
