@@ -19,3 +19,5 @@ export const getCourses = async (setCourseData) => {
       }
     });
 };
+
+export const getMagazine = (setMagazineData) => {}
