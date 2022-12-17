@@ -10,7 +10,7 @@ export default function Mentor() {
     let subscribed = true;
     const getMentors = async () => {
       const res = await axios.get(
-        `https://ehubbackend.herokuapp.com/api/v1/mentor`
+        `${API_URL}api/v1/mentor`
       );
       console.log(res.data[0]);
       setMentorArr(res.data);

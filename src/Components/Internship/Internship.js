@@ -10,12 +10,9 @@ const Internship = () => {
 
   useEffect(() => {
     const getInternshipDetails = async () => {
-      const url=  `${process.env.REACT_APP_INTERN_API}`
-      const res = await axios.get(
-       url
-      );
+      const response = await axios.get(`${API_URL}api/v1/internship`);
 
-      setInternshipData(res.data);
+      setInternshipData(response.data);
     };
 
     getInternshipDetails();

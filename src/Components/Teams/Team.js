@@ -39,7 +39,6 @@ export default function Team() {
     let subscribed = true;
     const getTeams = async () => {
       const res = await axios.get(`${API_URL}api/v1/team`);
-
       setTeamsObj(res.data);
     };
 
@@ -56,18 +55,7 @@ export default function Team() {
       <div className="heading">Our Team</div>
       <div className="texthire"></div>
       <div className="card-section">
-        {/* {teamMembers.map((member) => {
-          return (
-            <MentorCard
-              mentorImage={member.mentorImage}
-              Profession={member.Profession}
-              Name={member.Name}
-              Company={member.Company}
-              Desc={member.Desc}
-              LinkedIn={member.LinkedIn}
-            />
-          );
-        })} */}
+        
         <div
           className="d-flex row justify-content-center "
           style={{ marginTop: "0px", gap: "40px", paddingBottom: "80px" }}
@@ -75,10 +63,10 @@ export default function Team() {
           {teamsObj.map((team) => {
             return (
               <TeamCard
-                mentorImage={team.mentorImage}
-                name={team.mentorName}
-                domain={team.mentorDomain}
-                LinkedIn={team.linkedinUrl}
+                image={team.image}
+                name={team.name}
+                domain={team.position}
+                linkedIn={team.linkedinUrl}
               />
             );
           })}
