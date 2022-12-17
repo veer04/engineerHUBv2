@@ -9,8 +9,10 @@ export default function Mentor() {
   useEffect(() => {
     let subscribed = true;
     const getMentors = async () => {
-      const res = await axios.get(`${API_URL}api/v1/mentor`);
-      // console.log(res);
+      const res = await axios.get(
+        `https://ehubbackend.herokuapp.com/api/v1/mentor`
+      );
+      console.log(res.data[0]);
       setMentorArr(res.data);
     };
 
@@ -28,18 +30,7 @@ export default function Mentor() {
       <div className="heading">Our Mentors</div>
       <div className="texthire"></div>
       <div className="card-section">
-        {/* {teamMembers.map((member) => {
-          return (
-            <MentorCard
-              mentorImage={member.mentorImage}
-              Profession={member.Profession}
-              Name={member.Name}
-              Company={member.Company}
-              Desc={member.Desc}
-              LinkedIn={member.LinkedIn}
-            />
-          );
-        })} */}
+    
         <div
           className="d-flex row justify-content-center "
           style={{ marginTop: "0px", gap: "40px", paddingBottom: "80px" }}
@@ -54,31 +45,7 @@ export default function Mentor() {
               />
             );
           })}
-          {/* <MentorCard
-          mentorImage={Img4}
-          Profession={"Frontend Developer"}
-          Name={"Rahul KM"}
-          Company={"@engineerHUB"}
-          Desc={"HTML, CSS, JavaScript, ReactJS"}
-          LinkedIn={COMPANYMEMBER_LID1}
-        />
-        <MentorCard
-          mentorImage={Img5}
-          Profession={"Frontend Developer"}
-          Name={"Manish KR"}
-          Company={"@engineerHUB"}
-          Desc={"HTML, CSS, JavaScript, ReactJS"}
-          LinkedIn={COMPANYMEMBER_LID3}
-        />
-        <MentorCard
-          mentorImage={Img7}
-          Profession={"Frontend Developer"}
-          Name={"Aditi JS"}
-          Company={"@engineerHUB"}
-          Desc={"HTML, CSS, JavaScript, ReactJS"}
-          LinkedIn={COMPANYMEMBER_LID2}
-        /> */}
-        </div>
+      </div>
       </div>
     </div>
   );

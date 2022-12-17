@@ -8,8 +8,11 @@ export default function MagzineAndHandbook() {
 
   useEffect(() => {
     let subscribed = true;
+    const urlHandbook=`${process.env.REACT_APP_HANDBOOK_API}`;
     const getHandBookDetails = async () => {
-      const response = await axios.get(`${API_URL}api/v1/handbook`);
+      const response = await axios.get(
+        urlHandbook
+      );
       setHandBookData(response.data);
     };
 

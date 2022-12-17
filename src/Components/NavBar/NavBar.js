@@ -5,7 +5,6 @@ import axios from "axios";
 import Navbar from "react-bootstrap/Navbar";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
-// import Logo from "./logo.svg";
 import logo1 from "./logo1.png";
 
 import NavDropdown from "react-bootstrap/NavDropdown";
@@ -21,7 +20,6 @@ import { Avatar } from "@mui/material";
 
 const NavBar = () => {
   const [domainData, setDomainData] = useState([]);
-
   useEffect(() => {
     const getDomainDetails = async () => {
       const response = await axios.get(`${API_URL}api/v1/domain`);
