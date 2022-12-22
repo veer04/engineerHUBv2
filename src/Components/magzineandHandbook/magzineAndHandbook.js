@@ -1,27 +1,21 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
-import { API_URL } from "../../services/APIUtils";
+
+import { cancelToken, getHandBook } from "../../services/APIConfig";
+
 import "../magzineandHandbook/magzineandhandbook.css";
 import MCard from "./MCard";
+
 export default function MagzineAndHandbook() {
   const [handbookData, setHandBookData] = useState([]);
 
   useEffect(() => {
-    let subscribed = true;
-
-    const getHandBookDetails = async () => {
-      const response = await axios.get(`${API_URL}api/v1/handbook`);
-      setHandBookData(response.data);
-    };
-
-    if (subscribed) {
-      getHandBookDetails();
-    }
+    getHandBook(setHandBookData);
 
     return () => {
-      subscribed = false;
+      cancelToken.cancel();
     };
   }, []);
+
   return (
     <>
       <div className="container-hiring">

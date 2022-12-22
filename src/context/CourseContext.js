@@ -7,6 +7,7 @@ export const CourseContext = createContext();
 
 export const CourseContextProvider = ({ children }) => {
   const [courseData, setCourseData] = useState([]);
+  
   useEffect(() => {
     getCourses(setCourseData);
 
