@@ -11,17 +11,13 @@
   border-radius: 16px;
   display: flex;
   transition: all 500ms ease-in-out;
-   box-shadow: 21px 8px 21px 8px rgb(0 0 0 / 15%);
-   background: linear-gradient(rgba(18,131,129,1),rgba(0,42,54,1));
+  box-shadow: 21px 8px 21px 8px rgb(0 0 0 / 15%);
+  background: linear-gradient(rgba(18, 131, 129, 1), rgba(0, 42, 54, 1));
 }
 .default-card:hover {
   transform: scale(1.04);
   cursor: pointer;
-  /* position: static; */
-
-  /* box-shadow: 0 8px 21px 0 rgb(0 0 0 / 15%); */
 }
-
 .default-btn {
   padding: 8px;
   border-radius: 20px;
@@ -30,7 +26,6 @@
   align-items: center;
   text-decoration: none;
   margin-left: 7px;
-  
 }
 
 .default-btn div {
@@ -43,27 +38,26 @@
   padding-bottom: "80px";
 }
 
-.card-text{
+.card-text {
   color: #fff;
 }
 
 @media screen and (min-width: 768px) {
-  .courses-cont{
+  .courses-cont {
     gap: 5px;
   }
 }
 
 @media screen and (max-width: 426px) {
-  .card-date{
+  .card-date {
     font-size: 12px !important;
   }
   .default-btn div {
     font-size: 12px !important;
+  }
 
-}
-
-.default-card{
-  width: 16rem;
-  /* height: 23rem; */
-}
+  .default-card {
+    width: 16rem;
+    /* height: 23rem; */
+  }
 }

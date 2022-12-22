@@ -6,13 +6,13 @@ import MagzineAndHandbook from "./Components/magzineandHandbook/magzineAndHandbo
 import Internship from "./Components/Internship/Internship";
 import Hiring from "./Components/Hiring/Hiring";
 import Campus from "./Components/Campus/Campus";
-import UserPage from "./Components/UserPage/user";
-import Mentors from "./Components/Mentors/Mentor";
+
+import Mentors from "./Components/Mentors/Mentors";
 import Teams from "./Components/Teams/Team";
 import IndustryPersona from "./Components/IndustryPersona/IndustryPersona";
-import Freecourses from "./Components/Courses/Freecourses";
 import Resources from "./Components/Resources/Resources";
-
+import CoursesWrapper from "./Components/Courses/CourseWrapper";
+import CourseSubWrapper from "./Components/Courses/CourseSubWrapper";
 import Login from "./Components/Login/login";
 import Register from "./Components/Login/Register";
 import SignUp from "./Components/Login/Signup";
@@ -30,16 +30,18 @@ function App() {
         <Route path="" exact element={<HomePage />} />
 
         <Route path="/resources" exact element={<Resources />} />
-        <Route path="/mentor" exact element={<Mentors />} />
+        <Route path="/mentors/:domain" exact element={<Mentors />} />
+        <Route path="/mentors/:domain/:domain" exact element={<Mentors />} />
+
         <Route path="/domain" exact element={<Domain />} />
-        <Route path="/courses" exact element={<Freecourses />} />
+        <Route path="/courses" exact element={<CoursesWrapper />} />
         <Route path="/internship" exact element={<Internship />} />
         <Route path="/magazine" exact element={<MagzineAndHandbook />} />
         <Route path="/hiring" exact element={<Hiring />} />
         <Route path="/campus" exact element={<Campus />} />
         <Route path="/teams" exact element={<Teams />} />
         <Route path="/industry" exact element={<IndustryPersona />} />
-        <Route path="/userpage/:id" exact element={<UserPage />} />
+        <Route path="/coursepage/:id" exact element={<CourseSubWrapper />} />
 
         {/* <Route path="/login" exact element={<Login />} /> */}
         <Route path="/login" exact element={<Login />} />

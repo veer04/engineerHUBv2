@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import "./NavBar.css";
-import axios from "axios";
+
 import Navbar from "react-bootstrap/Navbar";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
-import logo1 from "./logo1.png";
+import logo1 from "./Images/logo1.png";
 
 import NavDropdown from "react-bootstrap/NavDropdown";
-import { API_URL } from "../../services/APIUtils";
+
 import PlayCircleOutlineIcon from "./subNavbarIcon/PlayCircleOutlineIcon.svg";
 import WindowOutlinedIcon from "./subNavbarIcon/WindowOutlinedIcon.svg";
 import WorkOutlineOutlinedIcon from "./subNavbarIcon/WorkOutlineOutlinedIcon.svg";
@@ -17,19 +17,18 @@ import CalendarTodayOutlinedIcon from "./subNavbarIcon/CalendarTodayOutlinedIcon
 import cp from "../pdf/cp.pdf";
 
 import { Avatar } from "@mui/material";
+import { cancelToken, getDomains } from "../../services/APIConfig";
 
 const NavBar = () => {
   const [domainData, setDomainData] = useState([]);
   useEffect(() => {
-    const getDomainDetails = async () => {
-      const response = await axios.get(`${API_URL}api/v1/domain`);
+    getDomains(setDomainData);
 
-      setDomainData(response.data);
+    return () => {
+      cancelToken.cancel();
     };
-    console.log(domainData);
-    getDomainDetails();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
   const navigate = useNavigate();
   const home = () => {
     navigate("/");
@@ -70,228 +69,31 @@ const NavBar = () => {
                 className="navelements"
                 id="basic-nav-dropdown"
               >
-                <NavDropdown
-                  title="DSA (C/C++)"
-                  className="dropdownNav dropend"
-                >
-                  <Link to="/pdf">
-                    <NavDropdown.Item href={cp} target="_blank">
-                      HandBook
-                    </NavDropdown.Item>
-                  </Link>
-                  <NavDropdown.Item href="/resources">
-                    Resources
-                  </NavDropdown.Item>
-                  <NavDropdown.Item href="/mentor">
-                    Contact Mentor
-                  </NavDropdown.Item>
-                  <NavDropdown.Item
-                    target="_blank"
-                    href="https://discord.gg/ZMZAEZ5NfA"
-                  >
-                    Ask your query
-                  </NavDropdown.Item>
-                </NavDropdown>
-
-                <NavDropdown
-                  title="Web developement"
-                  className="dropdownNav dropend "
-                >
-                  <Link to="/pdf">
-                    <NavDropdown.Item href={cp} target="_blank">
-                      HandBook
-                    </NavDropdown.Item>
-                  </Link>
-                  <NavDropdown.Item href="/resources">
-                    Resources
-                  </NavDropdown.Item>
-                  <NavDropdown.Item href="/mentor">
-                    Contact Mentor
-                  </NavDropdown.Item>
-                  <NavDropdown.Item
-                    target="_blank"
-                    href="https://discord.gg/ZMZAEZ5NfA"
-                  >
-                    Ask your query
-                  </NavDropdown.Item>
-                </NavDropdown>
-                <NavDropdown
-                  title="App Development"
-                  className="dropdownNav dropend "
-                >
-                  <Link to="/pdf">
-                    <NavDropdown.Item href={cp} target="_blank">
-                      HandBook
-                    </NavDropdown.Item>
-                  </Link>
-                  <NavDropdown.Item href="/resources">
-                    Resources
-                  </NavDropdown.Item>
-                  <NavDropdown.Item href="/mentor">
-                    Contact Mentor
-                  </NavDropdown.Item>
-                  <NavDropdown.Item
-                    target="_blank"
-                    href="https://discord.gg/ZMZAEZ5NfA"
-                  >
-                    Ask your query
-                  </NavDropdown.Item>
-                </NavDropdown>
-                <NavDropdown
-                  title="ML&AI (PYTHON)"
-                  className="dropdownNav dropend "
-                >
-                  <Link to="/pdf">
-                    <NavDropdown.Item href={cp} target="_blank">
-                      HandBook
-                    </NavDropdown.Item>
-                  </Link>
-                  <NavDropdown.Item href="/resources">
-                    Resources
-                  </NavDropdown.Item>
-                  <NavDropdown.Item href="/mentor">
-                    Contact Mentor
-                  </NavDropdown.Item>
-                  <NavDropdown.Item
-                    target="_blank"
-                    href="https://discord.gg/ZMZAEZ5NfA"
-                  >
-                    Ask your query
-                  </NavDropdown.Item>
-                </NavDropdown>
-                <NavDropdown
-                  title="Cyber Security"
-                  className="dropdownNav dropend "
-                >
-                  <div className="dropdownNav dropend ">
-                    <Link to="/pdf">
-                      <NavDropdown.Item
-                        href={cp}
-                        className="dropdownNav dropend"
-                      >
-                        HandBook{" "}
+                {domainData.map((domain) => {
+                  return (
+                    <NavDropdown title={domain} className="dropdownNav dropend">
+                      <Link to="/pdf">
+                        <NavDropdown.Item href={cp} target="_blank">
+                          HandBook
+                        </NavDropdown.Item>
+                      </Link>
+                      <NavDropdown.Item href="/resources">
+                        Resources
                       </NavDropdown.Item>
-                    </Link>
-                    <NavDropdown.Item href="/resources">
-                      Resources
-                    </NavDropdown.Item>
-                    <NavDropdown.Item href="/mentor">
-                      Contact Mentor
-                    </NavDropdown.Item>
-                    <NavDropdown.Item
-                      target="_blank"
-                      href="https://discord.gg/ZMZAEZ5NfA"
-                    >
-                      Ask your query
-                    </NavDropdown.Item>
-                  </div>
-                </NavDropdown>
-                <NavDropdown title="Dev Ops" className="dropdownNav dropend">
-                  <Link to="/pdf">
-                    <NavDropdown.Item href={cp} target="_blank">
-                      HandBook
-                    </NavDropdown.Item>
-                  </Link>
-                  <NavDropdown.Item href="/resources">
-                    Resources
-                  </NavDropdown.Item>
-                  <NavDropdown.Item href="/mentor">
-                    Contact Mentor
-                  </NavDropdown.Item>
-                  <NavDropdown.Item
-                    target="_blank"
-                    href="https://discord.gg/ZMZAEZ5NfA"
-                  >
-                    Ask your query
-                  </NavDropdown.Item>
-                </NavDropdown>
-                <NavDropdown
-                  title="UI/UX Design"
-                  className="dropdownNav dropend"
-                >
-                  <Link to="/pdf">
-                    <NavDropdown.Item href={cp} target="_blank">
-                      HandBook
-                    </NavDropdown.Item>
-                  </Link>
-                  <NavDropdown.Item href="/resources">
-                    Resources
-                  </NavDropdown.Item>
-                  <NavDropdown.Item href="/mentor">
-                    Contact Mentor
-                  </NavDropdown.Item>
-                  <NavDropdown.Item
-                    target="_blank"
-                    href="https://discord.gg/ZMZAEZ5NfA"
-                  >
-                    Ask your query
-                  </NavDropdown.Item>
-                </NavDropdown>
-                <NavDropdown title="BlockChain" className="dropdownNav dropend">
-                  <Link to="/pdf">
-                    <NavDropdown.Item href={cp} target="_blank">
-                      HandBook
-                    </NavDropdown.Item>
-                  </Link>
-                  <NavDropdown.Item href="/resources">
-                    Resources
-                  </NavDropdown.Item>
-                  <NavDropdown.Item href="/mentor">
-                    Contact Mentor
-                  </NavDropdown.Item>
-                  <NavDropdown.Item
-                    target="_blank"
-                    href="https://discord.gg/ZMZAEZ5NfA"
-                  >
-                    Ask your query
-                  </NavDropdown.Item>
-                </NavDropdown>
-                <NavDropdown
-                  title="Open Source"
-                  className="dropdownNav dropend"
-                >
-                  <Link to="/pdf">
-                    <NavDropdown.Item href={cp} target="_blank">
-                      HandBook
-                    </NavDropdown.Item>
-                  </Link>
-                  <NavDropdown.Item href="/resources">
-                    Resources
-                  </NavDropdown.Item>
-                  <NavDropdown.Item href="/mentor">
-                    Contact Mentor
-                  </NavDropdown.Item>
-
-                  <NavDropdown.Item
-                    target="_blank"
-                    href="https://discord.gg/ZMZAEZ5NfA"
-                  >
-                    Ask your query
-                  </NavDropdown.Item>
-                </NavDropdown>
-                <NavDropdown
-                  title="SEO/Graphic Design"
-                  className="dropdownNav dropend"
-                >
-                  <Link to="/pdf">
-                    <NavDropdown.Item href={cp} target="_blank">
-                      HandBook
-                    </NavDropdown.Item>
-                  </Link>
-                  <NavDropdown.Item href="/resources">
-                    Resources
-                  </NavDropdown.Item>
-                  <NavDropdown.Item href="/mentor">
-                    Contact Mentor
-                  </NavDropdown.Item>
-                  <NavDropdown.Item
-                    target="_blank"
-                    href="https://discord.gg/ZMZAEZ5NfA"
-                  >
-                    Ask your query
-                  </NavDropdown.Item>
-                </NavDropdown>
+                      <NavDropdown.Item href={`/mentors/${domain}`}>
+                        Contact Mentor
+                      </NavDropdown.Item>
+                      <NavDropdown.Item
+                        target="_blank"
+                        href="https://discord.gg/ZMZAEZ5NfA"
+                      >
+                        Ask your query
+                      </NavDropdown.Item>
+                    </NavDropdown>
+                  );
+                })}
               </NavDropdown>
+
               <Nav.Link href="/courses">Courses</Nav.Link>
               <Nav.Link href="/internship">Internship</Nav.Link>
               <Nav.Link href="/magazine">Magazine</Nav.Link>
@@ -307,6 +109,7 @@ const NavBar = () => {
           </Navbar.Collapse>
         </Container>
       </Navbar>
+
       <div className="row subNavbar">
         <div className="col-2">
           <div className="homesbn subn">

@@ -1,9 +1,7 @@
 .offli {
   color: white;
-  /* margin-bottom: 20px; */
   text-decoration: none;
   margin-left: 65px;
-  /* margin-top: 20px; */
   transition: all 150ms ease-in-put;
 }
 
@@ -12,16 +10,19 @@
   color: yellow;
   border: 2px solid rgba(192, 192, 192, 0.192);
   box-sizing: border-box;
-
-  /* opacity: 0.1; */
 }
 
-.custom-courses-list {
-  overflow-y: scroll;
-  height: 700px;
+.watchnowbtn {
+  color: #002a36;
+  font-weight: 600;
+  transition: all 500ms ease-in-out;
+  padding: 0rem 0.5rem;
+  border-radius: 10px;
+  height: fit-content;
 }
-.watchnowbtn{
-  color: green;
+
+.watchnowbtn:hover {
+  background-color: #bfcacd;
 }
 
 .react-player {
@@ -31,7 +32,7 @@
 }
 .video-wrapper {
   position: relative;
-  padding-top: 56.25%; 
+  padding-top: 56.25%;
 }
 .video-name {
   padding: 0 2rem;
@@ -46,8 +47,6 @@
 }
 
 @media screen and (max-width: 768px) {
- 
-
   .video-name {
     line-height: 25px;
   }
@@ -55,27 +54,22 @@
     padding: 1rem 2rem;
     line-height: 1.5rem;
   }
-  
 }
 
 @media screen and (max-width: 468px) {
-  
-
-.nottobedisplayed{
-  display: none;
-}
-.video-name {
-  padding: 0 1.1rem;
-  font-size: 1.5rem;
-  color: var(--color);
-  font-weight: bold;
-  line-height: 30px;
-}
-
-}
-@media (max-width:460px) and (min-width:1980px) {
-  .react_playermain{
+  .nottobedisplayed {
     display: none;
   }
-  
+  .video-name {
+    padding: 0 1.1rem;
+    font-size: 1.5rem;
+    color: var(--color);
+    font-weight: bold;
+    line-height: 30px;
+  }
+}
+@media (max-width: 460px) and (min-width: 1980px) {
+  .react_playermain {
+    display: none;
+  }
 }

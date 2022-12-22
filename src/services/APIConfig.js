@@ -35,3 +35,36 @@ export const getHandBook = (setMagazineData) => {
     });
 }
 
+export const getDomains = (setDomainData) => {
+  const cancelToken = axios.CancelToken.source();
+  axios
+    .get(`${API_URL}api/v1/domain`, {
+      cancelToken: cancelToken.token,
+    })
+    .then((res) => setDomainData([...res.data]))
+    .catch((err) => {
+      if (axios.isCancel(err)) {
+        console.log("req cancel");
+      } else {
+        console.log("req performed");
+      }
+    });
+}
+
+export const getMentors = (setMentorData) => {
+  const cancelToken = axios.CancelToken.source();
+  axios
+    .get(`${API_URL}api/v1/mentor`, {
+      cancelToken: cancelToken.token,
+    })
+    .then((res) => setMentorData([...res.data]))
+    .catch((err) => {
+      if (axios.isCancel(err)) {
+        console.log("req cancel");
+      } else {
+        console.log("req performed");
+      }
+    });
+}
+
+  

@@ -2,13 +2,14 @@ import React from "react";
 import "../Magzine/Magzine.css";
 import { Autoplay } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
-// Import Swiper styles
-
-import "swiper/css/pagination";
 import { coursesData } from "../HomeCourses/Courses";
+// Import Swiper styles
+import "swiper/css/pagination";
 import "swiper/css";
 import "swiper/css/autoplay";
+
 import MagazineCard from "./MagazineCard";
+
 function Magzine() {
   return (
     <>
