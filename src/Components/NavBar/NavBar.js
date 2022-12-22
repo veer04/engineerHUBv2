@@ -69,15 +69,17 @@ const NavBar = () => {
                 className="navelements"
                 id="basic-nav-dropdown"
               >
-                {domainData.map((domain) => {
+                {domainData.map((domain, i) => {
                   return (
-                    <NavDropdown title={domain} className="dropdownNav dropend">
-                      <Link to="/pdf">
-                        <NavDropdown.Item href={cp} target="_blank">
-                          HandBook
-                        </NavDropdown.Item>
-                      </Link>
-                      <NavDropdown.Item href="/resources">
+                    <NavDropdown
+                      title={domain}
+                      className="dropdownNav dropend"
+                      key={`${i}domain`}
+                    >
+                      <NavDropdown.Item href={cp} target="_blank">
+                        <Link to="/pdf">HandBook</Link>
+                      </NavDropdown.Item>
+                      <NavDropdown.Item href={`/resources/${domain}`}>
                         Resources
                       </NavDropdown.Item>
                       <NavDropdown.Item href={`/mentors/${domain}`}>

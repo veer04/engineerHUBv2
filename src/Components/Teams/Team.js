@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
-import { API_URL } from "../../services/APIUtils";
+
 import TeamCard from "./TeamCard";
+import { cancelToken, getTeam } from "../../services/APIConfig";
 // import Mentor from "../Mentors/Mentor";
 // import {
 //   COMPANYMEMBER_LID1,
@@ -33,34 +33,27 @@ import TeamCard from "./TeamCard";
 // ];
 
 export default function Team() {
-  const [teamsObj, setTeamsObj] = useState([]);
+  const [teamData, setTeamData] = useState([]);
 
   useEffect(() => {
-    let subscribed = true;
-    const getTeams = async () => {
-      const res = await axios.get(`${API_URL}api/v1/team`);
-      setTeamsObj(res.data);
-    };
-
-    if (subscribed) {
-      getTeams();
-    }
+    getTeam(setTeamData);
     return () => {
-      subscribed = false;
+      cancelToken.cancel();
     };
   }, []);
 
   return (
     <div className="mentor-container">
       <div className="heading">Our Team</div>
-      <div className="texthire"></div>
+      <div className="texthire">
+        engineerhub is equipped with skilled and cheerful team members:
+      </div>
       <div className="card-section">
-        
         <div
           className="d-flex row justify-content-center "
           style={{ marginTop: "0px", gap: "40px", paddingBottom: "80px" }}
         >
-          {teamsObj.map((team) => {
+          {teamData.map((team) => {
             return (
               <TeamCard
                 image={team.image}

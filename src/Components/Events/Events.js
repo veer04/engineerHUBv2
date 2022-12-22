@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
-import { API_URL } from "../../services/APIUtils";
 
 import { Autoplay } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -9,6 +7,7 @@ import "swiper/css";
 import "swiper/css/autoplay";
 
 import EventCard from "./EventCard";
+import { cancelToken, getEvents } from "../../services/APIConfig";
 
 export const eventStaticData = [
   {
@@ -41,17 +40,10 @@ function Events() {
   const [eventData, setEventData] = useState([]);
 
   useEffect(() => {
-    let subscribed = true;
-    const getEventDetails = async () => {
-      const response = await axios.get(`${API_URL}api/v1/event`);
-      setEventData(response.data);
-    };
+    getEvents(setEventData);
 
-    if (subscribed) {
-      getEventDetails();
-    }
     return () => {
-      subscribed = false;
+      cancelToken.cancel();
     };
   }, []);
 

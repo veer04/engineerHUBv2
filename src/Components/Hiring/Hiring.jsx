@@ -1,24 +1,16 @@
 import React, { useState, useEffect } from "react";
 import "./Hiring.css";
-import axios from "axios";
-import { API_URL } from "../../services/APIUtils";
+
 import CardH from "../Hiring/CardH";
+import { cancelToken, getHiring } from "../../services/APIConfig";
 
 export default function Hiring() {
-  const [carData, setCard] = useState([]);
+  const [hiringData, setHiringData] = useState([]);
   useEffect(() => {
-    let subscribed = true;
-    const getHiringDetails = async () => {
-      const response = await axios.get(`${API_URL}api/v1/hiring`);
-      console.log(response.data);
-      setCard(response.data);
-    };
-    if (subscribed) {
-      getHiringDetails();
-    }
+    getHiring(setHiringData);
 
     return () => {
-      subscribed = false;
+      cancelToken.cancel();
     };
   }, []);
 
@@ -36,7 +28,7 @@ export default function Hiring() {
           className="d-flex row justify-content-center "
           style={{ marginTop: "0px", gap: "40px", paddingBottom: "80px" }}
         >
-          {carData.map((hcd) => {
+          {hiringData.map((hcd) => {
             return (
               <CardH
                 card_head={`Hiring for ${hcd.position}`}

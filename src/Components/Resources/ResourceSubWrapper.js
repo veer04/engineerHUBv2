@@ -1,23 +1,31 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import "./Resources.css";
-import Topic from "./Topic";
+import React, { useState, useEffect, useMemo } from "react";
+import { cancelToken, getResources } from "../../services/APIConfig";
 import AOS from "aos";
-import { API_URL } from "../../services/APIUtils";
+import Topic from "./Topic";
+
+import "./ResourceWrapper.css";
 import "aos/dist/aos.css";
+
 AOS.init();
-function ResourceApi({ heading, text }) {
+
+function ResourceSubWrapper({ heading, text, domain }) {
   const [resourceData, setResourceData] = useState([]);
 
-  useEffect(() => {
-    const getResourceDetials = async () => {
-      const res = await axios.get(`${API_URL}api/v1/resource`);
+  const filteredResources = useMemo(
+    () =>
+      resourceData.filter(
+        (rd) => rd.domain.toLowerCase() === domain.toLowerCase()
+      ),
+    [resourceData, domain]
+  );
 
-      setResourceData(res.data);
+  useEffect(() => {
+    getResources(setResourceData);
+
+    return () => {
+      cancelToken.cancel();
     };
-    console.log(resourceData);
-    getResourceDetials();
   }, []);
 
   return (
@@ -37,9 +45,10 @@ function ResourceApi({ heading, text }) {
      data-aos-anchor-placement="center-bottom"/>
         <Topic link="https://www.geeksforgeeks.org/competitive-programming-a-complete-guide/?ref=shm" subheading="Tutorial for CP" data-aos="fade-up" />
         <Topic link="https://www.geeksforgeeks.org/c-plus-plus/?ref=shm" subheading="Tutorial for C++" data-aos="fade-up" /> */}
-        {resourceData.map((rd) => {
+        {filteredResources.map((rd) => {
           return (
             <Topic
+              key={rd._id}
               link={rd.resourceLink}
               subheading={rd.resourceName}
               domain={rd.domain}
@@ -52,4 +61,4 @@ function ResourceApi({ heading, text }) {
   );
 }
 
-export default ResourceApi;
+export default ResourceSubWrapper;

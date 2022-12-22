@@ -10,7 +10,7 @@ import Campus from "./Components/Campus/Campus";
 import Mentors from "./Components/Mentors/Mentors";
 import Teams from "./Components/Teams/Team";
 import IndustryPersona from "./Components/IndustryPersona/IndustryPersona";
-import Resources from "./Components/Resources/Resources";
+import Resources from "./Components/Resources/ResourceWrapper";
 import CoursesWrapper from "./Components/Courses/CourseWrapper";
 import CourseSubWrapper from "./Components/Courses/CourseSubWrapper";
 import Login from "./Components/Login/login";
@@ -29,7 +29,8 @@ function App() {
       <Routes>
         <Route path="" exact element={<HomePage />} />
 
-        <Route path="/resources" exact element={<Resources />} />
+        <Route path="/resources/:domain" exact element={<Resources />} />
+        <Route path="/resources/:domain/:domain" exact element={<Resources />} />
         <Route path="/mentors/:domain" exact element={<Mentors />} />
         <Route path="/mentors/:domain/:domain" exact element={<Mentors />} />
 

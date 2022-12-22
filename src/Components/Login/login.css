@@ -1,8 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
-* {
-  box-sizing: border-box;
-  font-family: "Poppins", sans-serif;
-}
+
 .my-form-head {
   font-weight: bold;
   font-size: 40px;

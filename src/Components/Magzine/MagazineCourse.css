@@ -1,8 +1,3 @@
-* {
-  box-sizing: border-box;
-  font-family: "Poppins", sans-serif;
-}
-
 /* .default-card-body {
   padding: 5px;
 } */
@@ -22,7 +17,6 @@
 
   /* box-shadow: 0 8px 21px 0 rgb(0 0 0 / 15%); */
 }
-
 
 .default-btn {
   padding: 12px;
