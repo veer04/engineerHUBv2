@@ -157,7 +157,7 @@ export const signInFormSubmit = async (values, setSnackbarValues, setOpen) => {
       .then((response) => {
         if (response.status === 200) {
           setSnackbarValues({
-            severity: "sucess",
+            severity: "success",
             message: "SuccessFully Logged in",
           });
           setOpen(true);
