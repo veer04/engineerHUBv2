@@ -18,6 +18,7 @@ const CustomSnackbar = ({ message, open, setOpen, severity }) => {
         onClose={handleClose}
       >
         <Alert
+        onClose={handleClose}
           severity={severity}
           sx={{ width: "100%", color: "#013c4c" }}
         >

@@ -16,10 +16,10 @@ const Register = () => {
     showPassword: false,
   });
 
+  const [open, setOpen] = useState(false);
+
   const [snackbarValues, setSnackbarValues] = useState({
-    open: false,
     severity: "success",
-    status: "",
     message: "",
   });
 
@@ -40,7 +40,7 @@ const Register = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    signInFormSubmit(values, setSnackbarValues);
+    signInFormSubmit(values, setSnackbarValues, setOpen);
   };
 
   return (
@@ -115,8 +115,8 @@ const Register = () => {
             Sign Up
           </Link>
           <CustomSnackbar
-            setOpen={handleSnackbarValuesChange}
-            open={snackbarValues.open}
+            setOpen={setOpen}
+            open={open}
             message={snackbarValues.message}
             severity={snackbarValues.severity}
           />
