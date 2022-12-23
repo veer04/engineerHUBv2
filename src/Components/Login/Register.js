@@ -27,10 +27,6 @@ const Register = () => {
     setValues({ ...values, [prop]: event.target.value });
   };
 
-  const handleSnackbarValuesChange = () => {
-    setSnackbarValues({ ...values, open: false });
-  };
-
   const handleClickShowPassword = () => {
     setValues({
       ...values,
