@@ -9,10 +9,6 @@ import Ehub from "./svg/Ehub.svg";
 
 const login = () => {
 
-
-  
-
-  
   return (
     <div className="cont">
       <div className="cont-head">

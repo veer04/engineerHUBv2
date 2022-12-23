@@ -1,47 +1,46 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { IconButton } from "@mui/material";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
+
+import CustomSnackbar from "./CustomSnackbar";
+import { signInFormSubmit } from "../../services/APIConfig";
 
 import "./Register.css";
-import axios from "axios";
 import gg from "./svg/google.svg";
 
 const Register = () => {
-  const navigate = useNavigate();
-  const [password, setPassword] = useState("");
-  const [email, setEmail] = useState("");
+  const [values, setValues] = useState({
+    email: "",
+    password: "",
+    showPassword: false,
+  });
 
-  const Submit = async (e) => {
+  const [snackbarValues, setSnackbarValues] = useState({
+    open: false,
+    severity: "success",
+    status: "",
+    message: "",
+  });
+
+  const handleChange = (prop) => (event) => {
+    setValues({ ...values, [prop]: event.target.value });
+  };
+
+  const handleSnackbarValuesChange = () => {
+    setSnackbarValues({ ...values, open: false });
+  };
+
+  const handleClickShowPassword = () => {
+    setValues({
+      ...values,
+      showPassword: !values.showPassword,
+    });
+  };
+
+  const handleSubmit = (e) => {
     e.preventDefault();
-
-    const data = {
-      email: email,
-      password: password,
-    };
-    const result = await axios.post(
-      "https://ehubbackend.herokuapp.com/api/v1/signin",
-      data
-    );
-   
-    if(result.status===200)
-    {
-      navigate("/courses");
-    }
-  
-   
-    // console.log(result);
-
-
-    // if(result.status===200)
-    // {
-    //   navigate("/userpage");
-    // }
-    // else if(result.status===400)
-    // {
-    //   window.alert("Invalid credentials!!!");
-    // }
-    // var token ="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Il9pZCI6IjYyZmQ0MTBmMGY2OTAyMmZiM2U0YTg0ZCIsInVzZXJOYW1lIjoiUGFya2hpIiwiaW5zdGl0dXRpb25OYW1lIjoiQUtHRUMgR2hhemlhYmFkIiwiYnJhbmNoIjoiQ1NJVCIsImVtYWlsIjoicGFya2hpZ2FyZzMwMkBnbWFpbC5jb20iLCJtb2JpbGUiOiI3NjY4MDQzNjkxIiwicGFzc3dvcmQiOiIkMmIkMTAkUi41VkpZTDdMRm92azFrS2xNSFdUdWYvNjZabXpNdU9lMUVrTUlnOUk4cXZmeGtTVE5TZVciLCJjb25maXJtUGFzc3dvcmQiOiIkMmIkMTAkUi41VkpZTDdMRm92azFrS2xNSFdUdWYvNjZabXpNdU9lMUVrTUlnOUk4cXZmeGtTVE5TZVciLCJpc1ZlcmlmaWVkIjpmYWxzZSwib3RwdXNlciI6MjkyMDY2LCJfX3YiOjB9LCJpYXQiOjE2NjA4MDE1NzcsImV4cCI6MTY2MTQwNjM3N30.EBEaL_8HNqp-u5kkmNOa-Tq7Bv7sXx8IxXz9sMi6PIA"
-
-    // const result2 =await axios.post("https://ehubbackend.herokuapp.com/api/v1/refresh",token);
+    signInFormSubmit(values, setSnackbarValues);
   };
 
   return (
@@ -58,33 +57,41 @@ const Register = () => {
         </div>
       </div>
 
-      <div className="my-form">
+      <form className="my-form" onSubmit={handleSubmit}>
         <div className="form-cont ">
           <input
             className="reg-input"
             placeholder="Email"
             type="text"
             name="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            value={values.email}
+            onChange={handleChange("email")}
             required
           />
         </div>
-        <div className="form-cont">
+        <div className="form-cont passwordContainer">
           <input
             className="reg-input"
-            type="text"
+            style={{
+              paddingRight: "50px",
+            }}
+            type={values.showPassword ? "text" : "password"}
             placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            value={values.password}
+            onChange={handleChange("password")}
             required
           />
+          <div>
+            <IconButton onClick={handleClickShowPassword}>
+              {!values.showPassword ? <VisibilityOff /> : <Visibility />}
+            </IconButton>
+          </div>
         </div>
 
         <div className="form-opt">
-          <div className="my-btn reg-si" onClick={Submit}>
+          <button className="my-btn reg-si" type="submit">
             Sign in
-          </div>
+          </button>
           <div className="d-flex justify-content-center">
             <div className="f-p">Forgot Password ?</div>
             <div className="f-p ">Reset Now </div>
@@ -107,8 +114,14 @@ const Register = () => {
           <Link to="/signup" className="f-p ">
             Sign Up
           </Link>
+          <CustomSnackbar
+            setOpen={handleSnackbarValuesChange}
+            open={snackbarValues.open}
+            message={snackbarValues.message}
+            severity={snackbarValues.severity}
+          />
         </div>
-      </div>
+      </form>
     </div>
   );
 };

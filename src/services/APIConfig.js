@@ -146,3 +146,30 @@ export const getTeam = (setTeamData) => {
       }
     });
 };
+
+export const signInFormSubmit = async (values, setSnackbarValues) => {
+  if (values?.email && values?.password) {
+    await axios
+      .post(`${API_URL}api/v1/signin`, {
+        email: values.email,
+        password: values.password,
+      })
+      .then((response) => {
+        if (response.status === 200) {
+          setSnackbarValues({
+            open: true,
+            severity: "sucess",
+            status: response.status,
+            message: "SuccessFully Logged in",
+          });
+        }
+      })
+      .catch((err) => {
+        setSnackbarValues({
+          open: true,
+          severity: "error",
+          message: "User doesn't exist Check again!",
+        });
+      });
+  }
+};
