@@ -34,13 +34,13 @@ const InfiniteSlider = () => {
           <img src={zomato} height="100" width="150" alt="" />
         </div>
         <div className={styles.slide}>
-          <img src={BYJU} height="100" width="150" alt="" />
+          <img src={BYJU} height="100" width="360" alt="" />
         </div>
         <div className={styles.slide}>
           <img src={Eduncle} height="100" width="150" alt="" />
         </div>
         <div className={styles.slide}>
-          <img src={IOTR} height="100" width="150" alt="" />
+          <img src={IOTR} height="100" width="160" alt="" />
         </div>
       </div>
       

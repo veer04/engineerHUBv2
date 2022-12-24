@@ -1,54 +1,51 @@
 .custom-cardH {
-    width: 400px;
-    border-radius: 16px;
-    display: flex;
-    transition: all 250ms ease-in-out;
-    background-size: cover;
+  width: 400px;
+  border-radius: 16px;
+  display: flex;
+  transition: all 250ms ease-in-out;
+  background-size: cover;
+}
+
+.custom-cardH:hover {
+  transform: scale(1.04);
+  cursor: pointer;
+  /* position: static; */
+
+  box-shadow: 0 8px 21px 0 rgb(0 0 0 / 15%);
+}
+
+.card-text--hirin {
+  color: #ffff;
+  padding-top: 0;
+}
+
+@media screen and (max-width: 768px) {
+  .custom-cardH {
+    width: 300px;
   }
-  
-  
-  .custom-cardH:hover {
-    transform: scale(1.04);
-    cursor: pointer;
-    /* position: static; */
-  
-    box-shadow: 0 8px 21px 0 rgb(0 0 0 / 15%);
+
+  .card-text {
+    font-size: 13px;
   }
-  
-  .card-text--hirin {
-    color: #ffff;
-    padding-top: 0;
+
+  .btnc {
+    /* size: 10px; */
+    font-size: 20px;
   }
-  
-  @media screen and (max-width: 768px) {
-    .custom-cardH {
-      width: 300px;
-    }
-  
-    .card-text {
-      font-size: 13px;
-    }
-  
-    .btnc {
-      /* size: 10px; */
-      font-size: 20px;
-    }
-  }
-  
-  /* @media screen and (max-width:409px){
+}
+
+/* @media screen and (max-width:409px){
     .custom-card {
   
       width: 350px;
     }
   } */
-  
-  
-  @media screen and (max-width: 320px) {
-    .card-body {
-      padding: 0rem !important;
-    }
-    .custom-cardH {
-      width: 270px;
-    }
+
+@media screen and (max-width: 320px) {
+  .card-body {
+    padding: 0rem !important;
   }
-  
+  .custom-cardH {
+    width: 270px;
+  }
+}

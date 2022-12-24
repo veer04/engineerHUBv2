@@ -1,7 +1,6 @@
-// import { useState } from "react";
-
+import React from "react";
 import { Link } from "react-router-dom";
-import "./freecourses.css";
+import "./CourseWrapper.css";
 import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
 // import Modal from "../Modal/Modal.js";
 
@@ -12,16 +11,13 @@ function Card({
   cardImage,
   lastDate,
   id,
-  state
+  state,
 }) {
-  
- 
   return (
     <>
       <div
         className="card default-card"
         style={{
-          
           margin: "10px",
         }}
       >
@@ -29,8 +25,8 @@ function Card({
           <img
             width={258}
             height={147}
-            src={require(`${cardImage}`)}
-            style={{ margin: "0px 0px 10px 0px"}}
+            src={cardImage}
+            style={{ margin: "0px 0px 10px 0px" }}
             className="card-img-top"
             alt="..."
           />
@@ -52,37 +48,41 @@ function Card({
             <div>
               <ShareOutlinedIcon
                 className="share-icon"
-                style={{ fontSize: "18px", marginRight: "0px",padding:"8px" , }}
+                style={{ fontSize: "18px", marginRight: "0px", padding: "8px" }}
               />
             </div>
           </div>
-          <p className="card-text" style={{ fontSize: "12px",padding:"8px" , }}>
+          <p className="card-text" style={{ fontSize: "12px", padding: "8px" }}>
             {courseDescription}
           </p>
           {/* <h6 style={{ fontWeight: 700 }}>Organizer: IIT Delhi</h6> */}
           <div className="btn-container d-flex justify-content-between align-items-baseline">
-          
-          
             <div
-            
               className="default-btn"
-              style={{ backgroundColor: "rgba(255, 199, 0, 1)"}}
+              style={{ backgroundColor: "rgba(255, 199, 0, 1)" }}
             >
-              <Link style={{ color: "#000000", fontWeight: 400 }}
-              to={`/userpage/${id}`}
-              state={state}
-              >Register</Link>
+              <Link
+                style={{ color: "#000000", fontWeight: 400 }}
+                to={`/coursepage/${id}`}
+                state={state}
+              >
+                Register
+              </Link>
             </div>
             <p
               className="d-flex card-date fst-normal align-items-center justify-content-center"
-              style={{ fontSize: "12px", color: "#fff", fontWeight: "bold",padding:"8px" , }}
+              style={{
+                fontSize: "12px",
+                color: "#fff",
+                fontWeight: "bold",
+                padding: "8px",
+              }}
             >
               Last date: {lastDate}
             </p>
           </div>
         </div>
       </div>
-      
     </>
   );
 }

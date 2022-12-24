@@ -39,3 +39,14 @@
     margin-left: 0%;
 }
 }
+
+.passwordContainer{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    position: relative;
+}
+.passwordContainer div{
+    position: absolute;
+    right: 20px;
+}

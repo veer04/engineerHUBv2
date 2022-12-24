@@ -1,26 +1,32 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import "./Resources.css";
-import Topic from "./Topic";
+import React, { useState, useEffect, useMemo } from "react";
+import { cancelToken, getResources } from "../../services/APIConfig";
 import AOS from "aos";
-import 'aos/dist/aos.css';
+import Topic from "./Topic";
+
+import "./ResourceWrapper.css";
+import "aos/dist/aos.css";
+
 AOS.init();
-function ResourceApi({ heading, text }) {
+
+function ResourceSubWrapper({ heading, text, domain }) {
   const [resourceData, setResourceData] = useState([]);
 
-  useEffect(() => {
-    const getResourceDetials = async () => {
-      const res = await axios.get(
-        `https://ehubbackend.herokuapp.com/api/v1/resource`
-      );
+  const filteredResources = useMemo(
+    () =>
+      resourceData.filter(
+        (rd) => rd.domain.toLowerCase() === domain.toLowerCase()
+      ),
+    [resourceData, domain]
+  );
 
-      setResourceData(res.data);
+  useEffect(() => {
+    getResources(setResourceData);
+
+    return () => {
+      cancelToken.cancel();
     };
-    console.log(resourceData);
-    getResourceDetials();
-  },[]);
-  
+  }, []);
 
   return (
     <div className="container-hiring">
@@ -39,12 +45,20 @@ function ResourceApi({ heading, text }) {
      data-aos-anchor-placement="center-bottom"/>
         <Topic link="https://www.geeksforgeeks.org/competitive-programming-a-complete-guide/?ref=shm" subheading="Tutorial for CP" data-aos="fade-up" />
         <Topic link="https://www.geeksforgeeks.org/c-plus-plus/?ref=shm" subheading="Tutorial for C++" data-aos="fade-up" /> */}
-                  {resourceData.map((rd) => {
-            return <Topic link={rd.resourceLink} subheading={rd.resourceName} domain={rd.domain} data-aos="fade-up" />;
-          })}
+        {filteredResources.map((rd) => {
+          return (
+            <Topic
+              key={rd._id}
+              link={rd.resourceLink}
+              subheading={rd.resourceName}
+              domain={rd.domain}
+              data-aos="fade-up"
+            />
+          );
+        })}
       </div>
     </div>
   );
 }
 
-export default ResourceApi;
+export default ResourceSubWrapper;
