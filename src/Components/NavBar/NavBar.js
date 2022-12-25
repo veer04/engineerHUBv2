@@ -9,11 +9,6 @@ import logo1 from "./Images/logo1.png";
 
 import NavDropdown from "react-bootstrap/NavDropdown";
 
-import PlayCircleOutlineIcon from "./subNavbarIcon/PlayCircleOutlineIcon.svg";
-import WindowOutlinedIcon from "./subNavbarIcon/WindowOutlinedIcon.svg";
-import WorkOutlineOutlinedIcon from "./subNavbarIcon/WorkOutlineOutlinedIcon.svg";
-import HomeOutlinedIcon from "./subNavbarIcon/HomeOutlinedIcon.svg";
-import CalendarTodayOutlinedIcon from "./subNavbarIcon/CalendarTodayOutlinedIcon.png";
 import cp from "../pdf/cp.pdf";
 
 import { Avatar } from "@mui/material";
