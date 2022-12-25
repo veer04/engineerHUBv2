@@ -147,7 +147,7 @@ export const getTeam = (setTeamData) => {
     });
 };
 
-export const signInFormSubmit = async (values, setSnackbarValues) => {
+export const signInFormSubmit = async (values, setSnackbarValues, setOpen) => {
   if (values?.email && values?.password) {
     await axios
       .post(`${API_URL}api/v1/signin`, {
@@ -157,16 +157,15 @@ export const signInFormSubmit = async (values, setSnackbarValues) => {
       .then((response) => {
         if (response.status === 200) {
           setSnackbarValues({
-            open: true,
-            severity: "sucess",
-            status: response.status,
+            severity: "success",
             message: "SuccessFully Logged in",
           });
+          setOpen(true);
         }
       })
       .catch((err) => {
+        setOpen(true);
         setSnackbarValues({
-          open: true,
           severity: "error",
           message: "User doesn't exist Check again!",
         });

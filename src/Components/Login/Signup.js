@@ -110,7 +110,6 @@ const Signup = () => {
         })
         .catch((err) => {
           console.log(err);
-
           window.alert("Invalid Credentials or user already exists!!!");
         });
     } else if (
