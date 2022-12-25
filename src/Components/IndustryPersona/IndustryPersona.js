@@ -13,7 +13,7 @@ const industryMembers = [
     Company: " @Ola",
     
     LinkedIn: HEADMEMBER_LID1,
-    cardImage: `.${__dirname}Images/arun.jpg`,
+    cardImage: "https://ehubtestbucket.s3.ap-south-1.amazonaws.com/image/IndustryPersonalities/arun.jpg",
   },
   {
     Profession: "SDE 2",
@@ -21,7 +21,7 @@ const industryMembers = [
     Company: " @Walmart",
 
     LinkedIn: HEADMEMBER_LID2,
-    cardImage: `.${__dirname}Images/muskan.jpg`,
+    cardImage: "https://ehubtestbucket.s3.ap-south-1.amazonaws.com/image/IndustryPersonalities/muskan.jpg",
   },
   {
     Profession: "Software Engineer",
@@ -29,7 +29,7 @@ const industryMembers = [
     Company: " @Google",
 
     LinkedIn: HEADMEMBER_LID3,
-    cardImage: `.${__dirname}Images/monika.jpg`,
+    cardImage: "https://ehubtestbucket.s3.ap-south-1.amazonaws.com/image/IndustryPersonalities/monika.jpg",
   },
 ];
 const IndustryPersona = () => {
