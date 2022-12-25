@@ -9,7 +9,7 @@ const success = () => {
         <div className={styles.successMsg}>
         Congratulations, you have completed your registration!
         </div>
-        <Link to="/"className={styles.successBtn}>
+        <Link to="/courses" className={styles.successBtn}>
             Done
         </Link>
     </div>

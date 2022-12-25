@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Link, Navigate } from "react-router-dom";
-import ReCAPTCHA from "react-google-recaptcha";
+import { Link, useNavigate } from "react-router-dom";
+// import ReCAPTCHA from "react-google-recaptcha";
 import gg from "./svg/google.svg";
 import "./Register.css";
 import "./Signup.css";
 import { API_URL } from "../../services/APIUtils"
 const Signup = () => {
+  const navigate=useNavigate();
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
 
@@ -16,7 +17,7 @@ const Signup = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   var checkStatus = false;
-  var captcha = false;
+  // var captcha = false;
   const [formUserName, setFormUserName] = useState("");
   const [formEmail, setFormEmail] = useState("");
   const [formMobile, setFormMobile] = useState("");
@@ -71,10 +72,10 @@ const Signup = () => {
     setFocused(true);
     setFormConfirmPassword(validateConPassword(confirmPassword));
   };
-  function captchaValid(value) {
-    console.log("Captcha value:", value);
-    captcha = true;
-  }
+  // function captchaValid(value) {
+  //   console.log("Captcha value:", value);
+  //   captcha = true;
+  // }
   const submit = async (e) => {
     e.preventDefault();
     setUserName(validateUserName(userName));
@@ -104,7 +105,7 @@ const Signup = () => {
         .then((res) => {
           console.log(res.data);
           if (res.status === 200) {
-          Navigate("/");
+          navigate("/courses");
           
           }
         })
@@ -328,10 +329,10 @@ const Signup = () => {
               </span>
             </div>
             <div className="form-cont captchaf col-lg-6">
-              <ReCAPTCHA
+              {/* <ReCAPTCHA
                 sitekey="6Ldv4UsiAAAAALeiqiOLARiczFwe-twQHsgrz9Us"
                 onChange={captchaValid}
-              />
+              /> */}
             </div>
           </div>
 
