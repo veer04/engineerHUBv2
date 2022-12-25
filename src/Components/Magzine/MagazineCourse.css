@@ -41,6 +41,10 @@
   color: #fff;
 }
 
+.textcut{
+  --max-lines:4 !important
+}
+
 @media screen and (min-width: 768px) {
   .courses-cont {
     gap: 5px;

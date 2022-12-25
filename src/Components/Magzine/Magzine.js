@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+
+import { cancelToken, getHandBook } from "../../services/APIConfig";
 import "../Magzine/Magzine.css";
 import { Autoplay } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -8,9 +10,21 @@ import "swiper/css/pagination";
 import "swiper/css";
 import "swiper/css/autoplay";
 
-import MagazineCard from "./MagazineCard";
+// import MagazineCard from "./MagazineCard";
+import MagCard from "./MagCard";
+
 
 function Magzine() {
+  const [handbookData, setHandBookData] = useState([]);
+
+  useEffect(() => {
+    getHandBook(setHandBookData);
+    console.log(handbookData);
+
+    return () => {
+      cancelToken.cancel();
+    };
+  }, []);
   return (
     <>
       <div className="content">
@@ -43,15 +57,14 @@ function Magzine() {
             onSwiper={(swiper) => {}}
             onSlideChange={() => {}}
           >
-            {coursesData.map((c, i) => (
+            {handbookData.map((c, i) => (
               <SwiperSlide key={`${i}a`}>
-                <MagazineCard
+                <MagCard
                   key={`${i}a`}
-                  cardImage={c.cardImage}
-                  courseTitle1={c.courseTitle1}
-                  courseTitle2={c.courseTitle2}
-                  courseDescription={c.courseDescription}
-                  lastDate={c.lastDate}
+                  bookTitle={c.bookTitle}
+                pdfUrl={c.pdfUrl}
+                description={c.description}
+                img={c.bookimgUrl}
                 />
               </SwiperSlide>
             ))}

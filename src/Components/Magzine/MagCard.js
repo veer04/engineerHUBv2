@@ -9,13 +9,7 @@ import cp from "../pdf/cp.pdf";
 import { RWebShare } from "react-web-share";
 
 function MagazineCard({
-  courseTitle1,
-  courseTitle2,
-  courseDescription,
-  lastDate,
-  cardImage,
-  id,
-  state,
+    bookTitle, description,img,pdfUrl
 }) {
   return (
     <>
@@ -24,13 +18,14 @@ function MagazineCard({
         style={{
           padding: "0px",
           margin: "10px",
+          maxHeight:"450px"
         }}
       >
         <div className="card-body default-card-body">
           <img
             width="100%"
-            height={147}
-            src={require(`${cardImage}`)}
+            height={157}
+            src={img}
             style={{
               margin: "0px 0px 10px 0px",
               borderRadius: "10px 10px 0 0",
@@ -48,20 +43,20 @@ function MagazineCard({
               style={{
                 padding: 0,
                 font: "poppins",
-                fontWeight: 800,
+                fontWeight: 600,
                 fontSize: "18px",
-                lineHeight: "32px",
+                lineHeight: "20px",
                 paddingTop: "0",
                 color: "rgba(255, 199, 0, 1)",
               }}
             >
-              {courseTitle1} {courseTitle2}
+              {bookTitle}
             </h5>
 
             <div>
               <RWebShare
                 data={{
-                  url: "https://simplebooklet.com/ux",
+                  url: `${pdfUrl}`,
                   title: "Share this",
                 }}
                 onClick={() => console.info("Shared successfully!")}
@@ -73,19 +68,21 @@ function MagazineCard({
               </RWebShare>
             </div>
           </div>
+          <div className="cutoff-text textcut">
           <p
             className="card-text"
-            style={{ fontSize: "12px", padding: "0 7px 0 7px" }}
+            style={{ fontSize: "12px", padding: "0 7px 0 7px", maxHeight:"200px" }}
           >
-            {courseDescription}
+            {description}
           </p>
+          </div>
           {/* <h6 style={{ fontWeight: 700 }}>Organizer: IIT Delhi</h6> */}
           <div
             className="btn-container d-flex justify-content-between align-items-baseline"
-            style={{ padding: "0px 3px 8px 6px" }}
+            style={{ padding: "0px 3px 8px 6px" , marginTop:"10px"}}
           >
-            <Link to={"/pdf"}>
-           
+            {/* <Link to={"/pdf"}> */}
+            <a href={pdfUrl} target="_blank" rel="noreferrer">
                 <div
                   className="default-btn"
                   style={{
@@ -97,15 +94,15 @@ function MagazineCard({
                 >
                   Open
                 </div>
-            
-            </Link>
+            </a>
+            {/* </Link> */}
 
-            <p
+            {/* <p
               className="d-flex card-date fst-normal align-items-center justify-content-center"
               style={{ fontSize: "12px", color: "#fff", fontWeight: "bold" }}
             >
               Last date: {lastDate}
-            </p>
+            </p> */}
           </div>
         </div>
       </div>

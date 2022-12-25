@@ -7,7 +7,7 @@ import Whatwedo from "../Whatwedo/Whatwedo";
 import "../Members/Members";
 import Members from "../Members/Members";
 import "../Magzine/Magzine";
-import Magzine from "../Magzine/Magzine";
+import Magazine from "../Magzine/Magzine";
 import "../Events/Events";
 import Events from "../Events/Events";
 import "../HomeCourses/Courses";
@@ -204,7 +204,7 @@ export default function NavBar() {
         </div>
 
         <div className="magzine">
-          <Magzine />
+          <Magazine />
         </div>
         <div className="Events">
           <Events />
