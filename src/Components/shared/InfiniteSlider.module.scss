@@ -25,14 +25,14 @@ $animationSpeedz: 20s;
     transform: translateX(calc(-250px * 7));  //width from here
   }
 }
-@keyframes scrollStudent {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(calc(-420px * 12));  //width from here
-  }
-}
+// @keyframes scrollStudent {
+//   0% {
+//     transform: translateX(0);
+//   }
+//   100% {
+//     transform: translateX(calc(-420px * 12));  //width from here
+//   }
+// }
 
 // Styling
 .slider {
@@ -69,13 +69,12 @@ $animationSpeedz: 20s;
     display: flex;
     width: calc(250px *2);
   }
-
   .slide {
     height: 100px;
     width: fit-content;
     margin: 0 10%;
   }
- 
+
 }
 
 
@@ -88,7 +87,7 @@ $animationSpeedz: 20s;
   overflow: hidden;
   position: relative;
 
-
+ 
 
   // &::before,
   // &::after {
@@ -111,20 +110,22 @@ $animationSpeedz: 20s;
   //   top: 0;
   // }
 
+ 
+ 
   .slide_trackStudent {
-    animation: scrollStudent $animationSpeedz linear infinite;
+   
     display: flex;
-    width: calc(250px * 5);
+    
     
   }
 
   .slideStudent {
     height: 100vh;
     width: 100vw;
-    margin-left: 40%;
-    margin-right: 40%;
   }
+
 }
+
 
 @media screen and (max-width:850px)
 {

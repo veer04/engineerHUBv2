@@ -1,14 +1,16 @@
 import React from "react";
+
+import styles from "./InfiniteSlider.module.scss";
 import "../HomePage/HomePage.css";
+
 import Carousel from "react-bootstrap/Carousel";
-// 
 const InfiniteSlider = () => {
   return (
-    <div className="">
-      <div className="">
+    <div className={styles.sliderStudent}>
+      <div className={styles.slide_trackStudent}>
       <Carousel>  
       <Carousel.Item>
-        <div className="">
+      <div className={styles.slideStudent}>
 
           {/* 1 */}
      
@@ -58,7 +60,7 @@ const InfiniteSlider = () => {
         <Carousel.Caption></Carousel.Caption>
         </Carousel.Item>
         <Carousel.Item>
-        <div className="">
+        <div className={styles.slideStudent}>
           {/* 2 */}
 
         <div className="row1-container">
@@ -107,7 +109,7 @@ const InfiniteSlider = () => {
         <Carousel.Caption></Carousel.Caption>
         </Carousel.Item>
         <Carousel.Item>       
-        <div className="">
+        <div className={styles.slideStudent}>
 
       {/* 3 */}
 
