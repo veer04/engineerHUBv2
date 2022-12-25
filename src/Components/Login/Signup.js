@@ -5,6 +5,7 @@ import ReCAPTCHA from "react-google-recaptcha";
 import gg from "./svg/google.svg";
 import "./Register.css";
 import "./Signup.css";
+import { API_URL } from "../../services/APIUtils"
 const Signup = () => {
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
@@ -99,7 +100,7 @@ const Signup = () => {
         console.log(newEntry);
       }
       axios
-        .post("https://ehubbackend.herokuapp.com/api/v1/signup", newEntry)
+        .post(`${API_URL}api/v1/signup`, newEntry)
         .then((res) => {
           console.log(res.data);
           if (res.status === 200) {

@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./InfiniteSlider.module.scss";
+// import styles from "./InfiniteSlider.module.scss";
 
 import "../HomePage/HomePage.css";
 import iitr from "./svg/iitr.jpg";
@@ -10,16 +10,19 @@ import akg from "./svg/akg.png";
 import mit from "./svg/mit.jpg";
 import nita from "./svg/nita.png";
 import IITK from "../HomePage/svg/IITK.png";
+import Carousel from "react-bootstrap/Carousel";
 // 
 const InfiniteSlider = () => {
   return (
-    <div className={styles.sliderStudent}>
-      <div className={styles.slide_trackStudent}>
-        <div className={styles.slideStudent}>
+    <div className="">
+      <div className="">
+      <Carousel>  
+      <Carousel.Item>
+        <div className="">
 
           {/* 1 */}
-
-        <div className="row1-container">
+     
+<div className="row1-container">
 <div className="box box-down cyan">
   <div className="comp studentfrom2">
     <img src={IITK} alt="swiggy" className="tcsimage imgpos" />
@@ -62,8 +65,10 @@ const InfiniteSlider = () => {
 </div>
 </div>
         </div>
-        <div className={styles.slide}>
-
+        <Carousel.Caption></Carousel.Caption>
+        </Carousel.Item>
+        <Carousel.Item>
+        <div className="">
           {/* 2 */}
 
         <div className="row1-container">
@@ -109,7 +114,10 @@ const InfiniteSlider = () => {
 </div>
 </div>
         </div>
-        <div className={styles.slideStudent}>
+        <Carousel.Caption></Carousel.Caption>
+        </Carousel.Item>
+        <Carousel.Item>       
+        <div className="">
 
       {/* 3 */}
 
@@ -155,15 +163,10 @@ const InfiniteSlider = () => {
   </h2>
 </div>
 </div>
-        </div>
-
-      
-
-          {/* 4 */}
-
-
-
-       
+</div>
+<Carousel.Caption></Carousel.Caption>
+</Carousel.Item>       
+</Carousel>   
       </div>
     </div>
   );
