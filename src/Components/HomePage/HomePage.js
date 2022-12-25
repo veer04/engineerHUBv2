@@ -15,17 +15,8 @@ import Courses from "../HomeCourses/Courses";
 import "../Members/Members";
 import InfiniteSlider from "../shared/InfiniteSlider";
 import InfiniteSlider2 from "../shared/InfiniteSlider2";
-// import InfiniteSlider3 from "../shared/InfiniteSlider3";
-// import Industries from "./gif/Industries.gif";
-
-import ehub from "./gif/industry.gif";
-
 import CountUp from "react-countup";
-import Ehubgif2 from "../HomePage/gif/student.gif";
-import Ehubgif from "../HomePage/gif/campus.gif";
-
 import "swiper/css";
-import AnimationScreen from "./svg/Animation.gif";
 import "swiper/css/autoplay";
 import BottomDivider from "../shared/BottomDivider/BottomDivider";
 
@@ -60,7 +51,7 @@ export default function NavBar() {
             <div className="col-4 headercard">
               <img
                 className="c-img"
-                src={Ehubgif2}
+                src="https://ehubtestbucket.s3.ap-south-1.amazonaws.com/gif/student.gif"
                 alt="Graduate"
                 style={{ width: "120px" }}
               />
@@ -83,7 +74,7 @@ export default function NavBar() {
             <div className="col-4 headercard">
               <img
                 className="c-img"
-                src={Ehubgif}
+                src="https://ehubtestbucket.s3.ap-south-1.amazonaws.com/gif/campus.gif"
                 alt="Campus"
                 style={{ width: "120px" }}
               />
@@ -107,7 +98,7 @@ export default function NavBar() {
             <div className="col-4 headercard">
               <img
                 className="c-img"
-                src={ehub}
+                src="https://ehubtestbucket.s3.ap-south-1.amazonaws.com/gif/industry.gif"
                 alt="Building"
                 style={{ width: "120px" }}
               />
@@ -136,7 +127,7 @@ export default function NavBar() {
         </div>
 
         <div className="player-wrapper col-lg-5 videocard parttwo">
-          <img src={AnimationScreen} alt="" className="animationcard" />
+          <img src="https://ehubtestbucket.s3.ap-south-1.amazonaws.com/Animation/Animation.gif" alt="" className="animationcard" />
         </div>
       </div>
 

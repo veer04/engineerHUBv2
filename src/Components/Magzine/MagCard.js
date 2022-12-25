@@ -1,10 +1,8 @@
 import React from "react";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 
 import "./MagazineCourse.css";
 import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
-
-import cp from "../pdf/cp.pdf";
 // import { Link } from "react-router-dom";
 import { RWebShare } from "react-web-share";
 

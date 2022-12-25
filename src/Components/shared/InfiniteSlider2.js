@@ -1,15 +1,5 @@
 import React from "react";
-// import styles from "./InfiniteSlider.module.scss";
-
 import "../HomePage/HomePage.css";
-import iitr from "./svg/iitr.jpg";
-import nitk from "./svg/nitk.jpeg";
-import aktu from "./svg/aktu.jpeg";
-import vit from "./svg/vit.png";
-import akg from "./svg/akg.png";
-import mit from "./svg/mit.jpg";
-import nita from "./svg/nita.png";
-import IITK from "../HomePage/svg/IITK.png";
 import Carousel from "react-bootstrap/Carousel";
 // 
 const InfiniteSlider = () => {
@@ -25,7 +15,7 @@ const InfiniteSlider = () => {
 <div className="row1-container">
 <div className="box box-down cyan">
   <div className="comp studentfrom2">
-    <img src={IITK} alt="swiggy" className="tcsimage imgpos" />
+    <img src="https://ehubtestbucket.s3.ap-south-1.amazonaws.com/collegeLogo/iitk.svg" alt="swiggy" className="tcsimage imgpos" />
   </div>
   <h2 className="clgname">
     IIT <br />
@@ -35,7 +25,7 @@ const InfiniteSlider = () => {
 
 <div className="box red">
   <div className="comp studentfrom2">
-    <img src={iitr} alt="swiggy" className="tcsimage imgpos" />
+    <img src="https://ehubtestbucket.s3.ap-south-1.amazonaws.com/collegeLogo/iitr.jpg" alt="swiggy" className="tcsimage imgpos" />
   </div>
   <h2 className="clgname">
     IIT <br />
@@ -45,7 +35,7 @@ const InfiniteSlider = () => {
 
 <div className="box box-down blue">
   <div className="comp studentfrom2">
-    <img src={IITK} alt="swiggy" className="tcsimage imgpos" />
+    <img src="https://ehubtestbucket.s3.ap-south-1.amazonaws.com/collegeLogo/iitk.svg"alt="swiggy" className="tcsimage imgpos" />
   </div>
   <h2 className="clgname">
     IIT <br />
@@ -56,7 +46,7 @@ const InfiniteSlider = () => {
 <div className="row2-container">
 <div className="box orange">
   <div className="comp studentfrom2">
-    <img src={iitr} alt="swiggy" className="tcsimage imgpos" />
+    <img src="https://ehubtestbucket.s3.ap-south-1.amazonaws.com/collegeLogo/iitr.jpg" alt="swiggy" className="tcsimage imgpos" />
   </div>
   <h2 className="clgname">
     IIT <br />
@@ -74,7 +64,7 @@ const InfiniteSlider = () => {
         <div className="row1-container">
 <div className="box box-down cyan">
   <div className="comp studentfrom2">
-    <img src={nita} alt="swiggy" className="tcsimage imgpos" />
+    <img src="https://ehubtestbucket.s3.ap-south-1.amazonaws.com/collegeLogo/nita.png" alt="swiggy" className="tcsimage imgpos" />
   </div>
   <h2 className="clgname">
     NIT <br />
@@ -84,7 +74,7 @@ const InfiniteSlider = () => {
 
 <div className="box red">
   <div className="comp studentfrom2">
-    <img src={nitk} alt="swiggy" className="tcsimage imgpos" />
+    <img src="https://ehubtestbucket.s3.ap-south-1.amazonaws.com/collegeLogo/nitk.jpeg" alt="swiggy" className="tcsimage imgpos" />
   </div>
   <h2 className="clgname">
     NIT <br />
@@ -94,7 +84,7 @@ const InfiniteSlider = () => {
 
 <div className="box box-down blue">
   <div className="comp studentfrom2">
-    <img src={nita} alt="swiggy" className="tcsimage imgpos" />
+    <img src="https://ehubtestbucket.s3.ap-south-1.amazonaws.com/collegeLogo/nita.png" alt="swiggy" className="tcsimage imgpos" />
   </div>
   <h2 className="clgname">
     NIT <br />
@@ -105,7 +95,7 @@ const InfiniteSlider = () => {
 <div className="row2-container">
 <div className="box orange">
   <div className="comp studentfrom2">
-    <img src={nitk} alt="swiggy" className="tcsimage imgpos" />
+    <img src="https://ehubtestbucket.s3.ap-south-1.amazonaws.com/collegeLogo/nitk.jpeg" alt="swiggy" className="tcsimage imgpos" />
   </div>
   <h2 className="clgname">
     NIT <br />
@@ -124,7 +114,7 @@ const InfiniteSlider = () => {
         <div className="row1-container">
 <div className="box box-down cyan">
   <div className="comp studentfrom2">
-    <img src={akg} alt="swiggy" className="tcsimage imgpos" />
+    <img src="https://ehubtestbucket.s3.ap-south-1.amazonaws.com/collegeLogo/akg.png"alt="swiggy" className="tcsimage imgpos" />
   </div>
   <h2 className="clgname">
     AKGEC <br />
@@ -134,7 +124,7 @@ const InfiniteSlider = () => {
 
 <div className="box red">
   <div className="comp studentfrom2">
-    <img src={aktu} alt="swiggy" className="tcsimage imgpos" />
+    <img src="https://ehubtestbucket.s3.ap-south-1.amazonaws.com/collegeLogo/aktu.jpeg" alt="swiggy" className="tcsimage imgpos" />
   </div>
   <h2 className="clgname">
     AKTU <br />
@@ -144,7 +134,7 @@ const InfiniteSlider = () => {
 
 <div className="box box-down blue">
   <div className="comp studentfrom2">
-    <img src={vit} alt="swiggy" className="tcsimage imgpos" />
+    <img src="https://ehubtestbucket.s3.ap-south-1.amazonaws.com/collegeLogo/vit.png" alt="swiggy" className="tcsimage imgpos" />
   </div>
   <h2 className="clgname">
     VIT <br />
@@ -155,7 +145,7 @@ const InfiniteSlider = () => {
 <div className="row2-container">
 <div className="box orange">
   <div className="comp studentfrom2">
-    <img src={mit} alt="swiggy" className="tcsimage imgpos" />
+    <img src="https://ehubtestbucket.s3.ap-south-1.amazonaws.com/collegeLogo/mit.jpg" alt="swiggy" className="tcsimage imgpos" />
   </div>
   <h2 className="clgname">
     MIT <br />

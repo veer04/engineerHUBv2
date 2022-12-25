@@ -4,11 +4,6 @@ import { Autoplay, Pagination } from "swiper";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 
-import Img4 from "../shared/ProfilePic/img7.jpg";
-import Img3 from "../shared/ProfilePic/pic3.png";
-import Img2 from "../shared/ProfilePic/pic4.jpg";
-import Img1 from "../shared/ProfilePic/pic5.png";
-
 import "swiper/css";
 import "swiper/css/autoplay";
 function Members() {
@@ -38,7 +33,7 @@ function Members() {
         <SwiperSlide>
           <div>
             <div className="card text-center">
-              <img className="card-img-top" src={Img2} alt="" />
+              <img className="card-img-top" src="https://ehubtestbucket.s3.ap-south-1.amazonaws.com/image/MembersPic/pic4.png" alt="" />
               <div className="card-body">
                 <h5>
                   Rahul K. M <br />
@@ -56,7 +51,7 @@ function Members() {
         <SwiperSlide>
           <div>
             <div className="card text-center">
-              <img className="card-img-top" src={Img3} alt="" />
+              <img className="card-img-top" src="https://ehubtestbucket.s3.ap-south-1.amazonaws.com/image/MembersPic/pic3.png" alt="" />
               <div className="card-body">
                 <h5>
                   Swapnil <br />
@@ -74,7 +69,7 @@ function Members() {
         <SwiperSlide>
           <div>
             <div className="card text-center">
-              <img className="card-img-top" src={Img4} alt="" />
+              <img className="card-img-top" src="https://ehubtestbucket.s3.ap-south-1.amazonaws.com/image/MembersPic/img7.jpg" alt="" />
               <div className="card-body">
                 <h5>
                   Aditi JS
@@ -94,7 +89,7 @@ function Members() {
         <SwiperSlide>
           <div>
             <div className="card text-center">
-              <img className="card-img-top" src={Img1} alt="" />
+              <img className="card-img-top" src="https://ehubtestbucket.s3.ap-south-1.amazonaws.com/image/MembersPic/pic5.png" alt="" />
               <div className="card-body">
                 <h5>
                   Manish KR <br />

@@ -21,7 +21,7 @@ export const coursesData = [
     courseDescription:
       "Our Educators aim at providing students with the best knowledge to help them solve and crack FAANG/MAANG by mastering data structures and algorithms",
     lastDate: "22/08/2023",
-    cardImage: `.${__dirname}Images/app.jpg`,
+    cardImage: "https://ehubtestbucket.s3.ap-south-1.amazonaws.com/image/coursePoster/app.jpg",
   },
   {
     courseName: "UI/UX Development",
@@ -30,7 +30,7 @@ export const coursesData = [
     courseDescription:
       "We provide effective learning sessions from skilled mentors to help students gain relevant knowledge and effective road maps on UI/UX design.",
     lastDate: "22/11/2022",
-    cardImage: `.${__dirname}Images/ui.jpg`,
+    cardImage: "https://ehubtestbucket.s3.ap-south-1.amazonaws.com/image/coursePoster/ui.jpg",
   },
   {
     courseName: "Web Development",
@@ -39,7 +39,7 @@ export const coursesData = [
     courseDescription:
       "We help students master Web development by covering advanced topics & technical strategies from mentors having great expertise. ",
     lastDate: "22/02/2023",
-    cardImage: `.${__dirname}Images/web.png`,
+    cardImage: "https://ehubtestbucket.s3.ap-south-1.amazonaws.com/image/coursePoster/web.png",
   },
   {
     courseName: "Cyber Security",
@@ -48,7 +48,7 @@ export const coursesData = [
     courseDescription:
       "We provide students with the best courses to improve their cyber security knowledge and assess the current threat landscape & how to protect against it.",
     lastDate: "21/08/2023",
-    cardImage: `.${__dirname}Images/cyber.png`,
+    cardImage: "https://ehubtestbucket.s3.ap-south-1.amazonaws.com/image/coursePoster/cyber.png",
   },
 ];
 function Events() {

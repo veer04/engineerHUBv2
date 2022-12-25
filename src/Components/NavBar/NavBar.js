@@ -116,7 +116,7 @@ const NavBar = () => {
         <div className="col-2">
           <div className="homesbn subn">
             <img
-              src={HomeOutlinedIcon}
+              src="https://ehubtestbucket.s3.ap-south-1.amazonaws.com/image/SubNavbarIcons/HomeOutlinedIcon.svg"
               alt=""
               style={{ width: "23px" }}
               onClick={() => home()}
@@ -127,7 +127,7 @@ const NavBar = () => {
         <div className="col-2">
           <div className="domainssbn subn">
             <img
-              src={WindowOutlinedIcon}
+              src="https://ehubtestbucket.s3.ap-south-1.amazonaws.com/image/SubNavbarIcons/WindowOutlinedIcon.svg"
               alt=""
               style={{ width: "23px" }}
               onClick={() => domain()}
@@ -138,7 +138,7 @@ const NavBar = () => {
         <div className="col-2">
           <div className="coursessbn subn">
             <img
-              src={PlayCircleOutlineIcon}
+              src="https://ehubtestbucket.s3.ap-south-1.amazonaws.com/image/SubNavbarIcons/PlayCircleOutlineIcon.svg"
               alt=""
               style={{ width: "23px" }}
               onClick={() => courses()}
@@ -149,7 +149,7 @@ const NavBar = () => {
         <div className="col-2">
           <div className="eventssbn subn">
             <img
-              src={CalendarTodayOutlinedIcon}
+              src="https://ehubtestbucket.s3.ap-south-1.amazonaws.com/image/SubNavbarIcons/CalendarTodayOutlinedIcon.png"
               style={{ width: "25px" }}
               alt=""
               onClick={() => events()}
@@ -160,7 +160,7 @@ const NavBar = () => {
         <div className="col-2">
           <div className="internshipssbn subn">
             <img
-              src={WorkOutlineOutlinedIcon}
+              src="https://ehubtestbucket.s3.ap-south-1.amazonaws.com/image/SubNavbarIcons/WorkOutlineOutlinedIcon.svg"
               alt=""
               style={{ width: "23px" }}
               onClick={() => internships()}
