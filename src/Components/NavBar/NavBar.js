@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import "./NavBar.css";
-
+import { Menu, MenuItem } from "@mui/material";
 import Navbar from "react-bootstrap/Navbar";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
@@ -16,6 +16,15 @@ import { cancelToken, getDomains } from "../../services/APIConfig";
 
 const NavBar = () => {
   const [domainData, setDomainData] = useState([]);
+
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
   useEffect(() => {
     getDomains(setDomainData);
 
@@ -98,9 +107,22 @@ const NavBar = () => {
               <Nav.Link href="/hiring">Hiring</Nav.Link>
               <Nav.Link href="/industry">Industry</Nav.Link>
               <Nav.Link href="/teams">Team</Nav.Link>
-              <Nav.Link href="/login">
+              <Nav.Link onClick={handleClick}>
                 {" "}
                 <Avatar />
+                <Menu
+                  id="basic-menu"
+                  anchorEl={anchorEl}
+                  open={open}
+                  onClose={handleClose}
+                  MenuListProps={{
+                    "aria-labelledby": "basic-button",
+                  }}
+                >
+                  <MenuItem onClick={handleClose}>Profile</MenuItem>
+                  <MenuItem onClick={handleClose}>My account</MenuItem>
+                  <MenuItem onClick={handleClose}>Logout</MenuItem>
+                </Menu>
               </Nav.Link>
             </Nav>
           </Navbar.Collapse>
