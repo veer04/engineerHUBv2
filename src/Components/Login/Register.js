@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { IconButton } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 
@@ -10,6 +10,7 @@ import "./Register.css";
 import gg from "./svg/google.svg";
 
 const Register = () => {
+  const navigate=useNavigate();
   const [values, setValues] = useState({
     email: "",
     password: "",
@@ -38,6 +39,12 @@ const Register = () => {
     e.preventDefault();
     signInFormSubmit(values, setSnackbarValues, setOpen);
   };
+  const navigation=()=>{
+    if (open===true)
+    {
+      navigate("/courses");
+    }
+  }
 
   return (
     <div className="cont">
@@ -85,7 +92,7 @@ const Register = () => {
         </div>
 
         <div className="form-opt">
-          <button className="my-btn reg-si" type="submit">
+          <button className="my-btn reg-si" type="submit" onClick={navigation}>
             Sign in
           </button>
           <div className="d-flex justify-content-center">

@@ -1,9 +1,6 @@
 import axios from "axios";
 import { API_URL } from "./APIUtils";
-import { useNavigate } from "react-router-dom";
-
 export const cancelToken = axios.CancelToken.source();
-
 
 export const getCourses = async (setCourseData) => {
 
@@ -165,7 +162,7 @@ export const signInFormSubmit = async (values, setSnackbarValues, setOpen) => {
             severity: "success",
             message: "SuccessFully Logged in",
           });
-          useNavigate("/courses");
+
           setOpen(true);
         }
       })
