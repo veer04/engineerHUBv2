@@ -3,7 +3,6 @@ import { API_URL } from "./APIUtils";
 export const cancelToken = axios.CancelToken.source();
 
 export const getCourses = async (setCourseData) => {
-
   const cancelToken = axios.CancelToken.source();
   axios
     .get(`${API_URL}api/v1/course`, {
@@ -148,8 +147,6 @@ export const getTeam = (setTeamData) => {
 };
 
 export const signInFormSubmit = async (values, setSnackbarValues, setOpen) => {
-  
-
   if (values?.email && values?.password) {
     await axios
       .post(`${API_URL}api/v1/signin`, {
