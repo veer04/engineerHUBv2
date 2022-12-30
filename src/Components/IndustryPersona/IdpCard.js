@@ -8,11 +8,12 @@ const MentorCard = ({
   Desc,
   LinkedIn,
   mentorImage,
+  image,
 }) => {
   return (
     <div className="Ment-container">
       <div className="Ment-image">
-        <img src={`${mentorImage}`} alt="Mentor" />
+        <img src={image} alt="Mentor" />
       </div>
       <div>
         {/* <div className="Ment-prof">{Profession}</div> */}

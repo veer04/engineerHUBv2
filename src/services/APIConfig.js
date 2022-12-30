@@ -146,6 +146,22 @@ export const getTeam = (setTeamData) => {
       }
     });
 };
+export const getIndustry= (setData) => {
+  const cancelToken = axios.CancelToken.source();
+  axios
+    .get(`${API_URL}api/v1/industry`, {
+      cancelToken: cancelToken.token,
+    })
+    .then((res) => setData([...res.data]))
+    .catch((err) => {
+      if (axios.isCancel(err)) {
+        console.log("req cancel");
+      } else {
+        console.log("req performed");
+      }
+    });
+};
+
 
 export const signInFormSubmit = async (values, setSnackbarValues, setOpen) => {
   

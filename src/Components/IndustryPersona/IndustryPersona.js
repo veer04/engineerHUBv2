@@ -1,58 +1,40 @@
-import React from "react";
-import IdpCard from "./IdpCard"
-import {
-  HEADMEMBER_LID1,
-  HEADMEMBER_LID2,
-  HEADMEMBER_LID3,
-} from "../../config/StaticLinks";
+import React, { useState, useEffect } from "react";
+import TeamCard from "../Teams/TeamCard";
+import { cancelToken, getIndustry } from "../../services/APIConfig";
 
-const industryMembers = [
-  {
-    Profession: "SDE",
-    Name: "Arun Kumar",
-    Company: " @Ola",
-    
-    LinkedIn: HEADMEMBER_LID1,
-    cardImage: "https://ehubtestbucket.s3.ap-south-1.amazonaws.com/image/IndustryPersonalities/arun.jpg",
-  },
-  {
-    Profession: "SDE 2",
-    Name: "Muskan Kalra",
-    Company: " @Walmart",
+export default function IndustryPersona() {
+  const [data, setData] = useState([]);
 
-    LinkedIn: HEADMEMBER_LID2,
-    cardImage: "https://ehubtestbucket.s3.ap-south-1.amazonaws.com/image/IndustryPersonalities/muskan.jpg",
-  },
-  {
-    Profession: "Software Engineer",
-    Name: "Monika Rathore",
-    Company: " @Google",
+  useEffect(() => {
+    getIndustry(setData);
+    return () => {
+      cancelToken.cancel();
+    };
+  }, []);
 
-    LinkedIn: HEADMEMBER_LID3,
-    cardImage: "https://ehubtestbucket.s3.ap-south-1.amazonaws.com/image/IndustryPersonalities/monika.jpg",
-  },
-];
-const IndustryPersona = () => {
   return (
-
-<div className="mentor-container">
-<div className="heading">Industry Personalities</div>
-<div className="texthire">{"engineerhub is equipped with skilled industrialists: "}</div>
-<div className="card-section">
-  {industryMembers.map((member) => {
-    return (
-      <IdpCard
-        mentorImage={member.cardImage}
-        Profession={member.Profession}
-        Name={member.Name}
-        Company={member.Company}
-        LinkedIn={member.LinkedIn}
-      />
-    );
-  })}
-</div>
-</div>
+    <div className="mentor-container">
+      <div className="heading">Industry Personalities</div>
+      <div className="texthire">
+ 
+      </div>
+      <div className="card-section">
+        <div
+          className="d-flex row justify-content-center "
+          style={{ marginTop: "0px", gap: "40px", paddingBottom: "80px", maxWidth: "1050px" }}
+        >
+          {data.map((industry) => {
+            return (
+              <TeamCard
+                image={industry.image}
+                name={industry.name}
+                domain={industry.position}
+                linkedIn={industry.linkedinUrl}
+              />
+            );
+          })}
+        </div>
+      </div>
+    </div>
   );
-};
-
-export default IndustryPersona;
+}
