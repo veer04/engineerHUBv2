@@ -73,7 +73,7 @@ const NavBar = () => {
                       key={`${i}domain`}
                     >
                       <NavDropdown.Item href={cp} target="_blank">
-                        <Link to="/pdf">HandBook</Link>
+                        HandBook
                       </NavDropdown.Item>
                       <NavDropdown.Item href={`/resources/${domain}`}>
                         Resources

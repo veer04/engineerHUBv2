@@ -1,6 +1,9 @@
 import React, {useState} from 'react'
 import { Document,Page } from 'react-pdf/dist/esm/entry.webpack';
 import './Viewer.css';
+// import {c} from "../pdf/cp.pdf";
+import cp from "./cp.pdf";
+
 function Viewer({pdfUrl}) {
 
   const [numPages, setNumPages] = useState(null);
@@ -17,11 +20,20 @@ function Viewer({pdfUrl}) {
 
   return (
     <div className="Viewer">
-      {/* <header className="App-header">
-        <Document file={cp} onLoadSuccess={onDocumentLoadSuccess}>
-          <Page height="800" pageNumber={pageNumber} />
-        </Document>
-        <div className='d-flex mt-2'>
+      <header className="App-header">
+        {/* <Document file={cp} onLoadSuccess={onDocumentLoadSuccess}> */}
+          {/* <Page height="800" pageNumber={pageNumber} /> */}
+          {/* {Array.from(
+              new Array(numPages),
+              (el,index) => (
+                <Page 
+                  key={`page_${index+1}`}
+                  pageNumber={index+1}
+                />
+              )
+            )} */}
+        {/* </Document> */}
+        {/* <div className='d-flex mt-2'>
         { pageNumber > 1 && 
         <button onClick={changePageBack} className="arrow-btn"><KeyboardArrowLeftIcon /></button>
         }
@@ -30,11 +42,11 @@ function Viewer({pdfUrl}) {
           pageNumber < numPages &&
           <button onClick={changePageNext} className="arrow-btn"><KeyboardArrowRightIcon /></button>
         }
-        </div>
-      </header> */}
+        </div> */}
+      </header>
       <center>
         <div  className="pdff" style={{backgroundColor: "#282c34"}}>
-          <Document file="https://ehubtestbucket.s3.ap-south-1.amazonaws.com/pdf/cp.pdf" onLoadSuccess={onDocumentLoadSuccess}>
+          <Document file={cp} onLoadSuccess={onDocumentLoadSuccess}>
             {Array.from(
               new Array(numPages),
               (el,index) => (

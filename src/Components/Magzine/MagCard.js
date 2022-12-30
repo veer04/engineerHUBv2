@@ -16,7 +16,7 @@ function MagazineCard({
         style={{
           padding: "0px",
           margin: "10px",
-          maxHeight:"450px"
+          minHeight:"350px"
         }}
       >
         <div className="card-body default-card-body">
