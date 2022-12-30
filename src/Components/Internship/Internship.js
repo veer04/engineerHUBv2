@@ -14,10 +14,7 @@ const Internship = () => {
     return internshipData.filter((i) => {
       return (
         i.internPosition.toLowerCase().includes(query.toLowerCase()) ||
-        i.internCompany.toLowerCase().includes(query.toLowerCase()) ||
-        i.location.toLowerCase().includes(query.toLowerCase()) ||
-        i.type.toLowerCase().includes(query.toLowerCase()) ||
-        i.timing.toLowerCase().includes(query.toLowerCase())
+        i.internCompany.toLowerCase().includes(query.toLowerCase())
       );
     });
   }, [query, internshipData]);

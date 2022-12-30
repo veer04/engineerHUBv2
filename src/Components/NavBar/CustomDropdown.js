@@ -1,7 +1,5 @@
 import * as React from "react";
 
-
-
 import {
   Box,
   Avatar,
@@ -11,15 +9,16 @@ import {
   Divider,
   IconButton,
   Tooltip,
+  Typography,
 } from "@mui/material";
-/**MUi Icons */
-import { Logout, Lock } from "@mui/icons-material";
-/**Avatar Icons */
 
-/**SWagger Api */
+import { Logout, Lock } from "@mui/icons-material";
+import { useNavigate } from "react-router-dom";
 
 const CustomDropdown = () => {
   const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const history = useNavigate();
 
   const open = Boolean(anchorEl);
 
@@ -94,18 +93,21 @@ const CustomDropdown = () => {
           }}
         >
           <Avatar />
-          Swapnil Raj
+          <div>
+            Demo Dev
+            <Typography sx={{ fontWeight: 200 }}>demoDev@gmail.com</Typography>
+          </div>
         </MenuItem>
         <Divider />
         <MenuItem
           onClick={() => {
-          handleClick()
+            history("/register");
           }}
         >
           <ListItemIcon>
             <Lock fontSize="small" />
           </ListItemIcon>
-          Change Password
+          Login
         </MenuItem>
         <MenuItem onClick={() => handleClose()}>
           <ListItemIcon>

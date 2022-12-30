@@ -8,6 +8,7 @@ export default function Team() {
 
   useEffect(() => {
     getTeam(setTeamData);
+
     return () => {
       cancelToken.cancel();
     };
@@ -22,11 +23,17 @@ export default function Team() {
       <div className="card-section">
         <div
           className="d-flex row justify-content-center "
-          style={{ marginTop: "0px", gap: "40px", paddingBottom: "80px", maxWidth: "1050px" }}
+          style={{
+            marginTop: "0px",
+            gap: "40px",
+            paddingBottom: "80px",
+            maxWidth: "1050px",
+          }}
         >
-          {teamData.map((team) => {
+          {teamData.map((team, i) => {
             return (
               <TeamCard
+                key={`${team.name}${i}`}
                 image={team.image}
                 name={team.name}
                 domain={team.position}

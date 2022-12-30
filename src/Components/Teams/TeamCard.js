@@ -6,7 +6,7 @@ import "../Mentors/MentorCard.css";
 // import mentorGmail from "./MediaIcons/icon-gmail.png";
 // import mentorWp from "./MediaIcons/icon-wp.png";
 const TeamCard = ({ domain, name, Company, Desc, linkedIn, image }) => {
-  console.log(name);
+ 
   return (
     <div className="Ment-container">
       <div className="Ment-image">

@@ -15,17 +15,21 @@ export default function IndustryPersona() {
   return (
     <div className="mentor-container">
       <div className="heading">Industry Personalities</div>
-      <div className="texthire">
- 
-      </div>
+      <div className="texthire"></div>
       <div className="card-section">
         <div
           className="d-flex row justify-content-center "
-          style={{ marginTop: "0px", gap: "40px", paddingBottom: "80px", maxWidth: "1050px" }}
+          style={{
+            marginTop: "0px",
+            gap: "40px",
+            paddingBottom: "80px",
+            maxWidth: "1050px",
+          }}
         >
-          {data.map((industry) => {
+          {data.map((industry, i) => {
             return (
               <TeamCard
+                key={`${industry.name}${i}`}
                 image={industry.image}
                 name={industry.name}
                 domain={industry.position}
