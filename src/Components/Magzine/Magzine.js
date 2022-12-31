@@ -4,7 +4,7 @@ import { cancelToken, getHandBook } from "../../services/APIConfig";
 import "../Magzine/Magzine.css";
 import { Autoplay } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { coursesData } from "../HomeCourses/Courses";
+
 // Import Swiper styles
 import "swiper/css/pagination";
 import "swiper/css";
@@ -13,13 +13,11 @@ import "swiper/css/autoplay";
 // import MagazineCard from "./MagazineCard";
 import MagCard from "./MagCard";
 
-
 function Magzine() {
   const [handbookData, setHandBookData] = useState([]);
 
   useEffect(() => {
     getHandBook(setHandBookData);
-    console.log(handbookData);
 
     return () => {
       cancelToken.cancel();
@@ -57,14 +55,14 @@ function Magzine() {
             onSwiper={(swiper) => {}}
             onSlideChange={() => {}}
           >
-            {handbookData.map((c, i) => (
+            {handbookData.reverse().map((c, i) => (
               <SwiperSlide key={`${i}a`}>
                 <MagCard
                   key={`${i}a`}
                   bookTitle={c.bookTitle}
-                pdfUrl={c.pdfUrl}
-                description={c.description}
-                img={c.bookimgUrl}
+                  pdfUrl={c.pdfUrl}
+                  description={c.description}
+                  img={c.bookimgUrl}
                 />
               </SwiperSlide>
             ))}
