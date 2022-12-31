@@ -98,6 +98,25 @@ export const getInternship = (setInternshipData) => {
     });
 };
 
+
+export const gAuth = (setData) => {
+  const cancelToken = axios.CancelToken.source();
+  axios
+    .get(`${API_URL}api/v1/event`, {
+      cancelToken: cancelToken.token,
+    })
+    .then((res) => setData([...res.data]))
+    .catch((err) => {
+      if (axios.isCancel(err)) {
+        console.log("req cancel");
+      } else {
+        console.log("req performed");
+      }
+    });
+};
+
+
+
 export const getEvents = (setEventData) => {
   const cancelToken = axios.CancelToken.source();
   axios
