@@ -30,7 +30,7 @@ export default function Team() {
             maxWidth: "1050px",
           }}
         >
-          {teamData.map((team, i) => {
+          {teamData.reverse().map((team, i) => {
             return (
               <TeamCard
                 key={`${team.name}${i}`}

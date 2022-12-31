@@ -29,7 +29,7 @@ export default function MagzineAndHandbook() {
           className="d-flex row justify-content-center "
           style={{ marginTop: "0px", gap: "40px", paddingBottom: "80px" }}
         >
-          {handbookData.map((hdb) => {
+          {handbookData.reverse().map((hdb) => {
             return (
               <MCard
                 bookTitle={hdb.bookTitle}
