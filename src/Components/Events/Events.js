@@ -82,7 +82,7 @@ function Events() {
               <SwiperSlide key={`${i}b`}>
                 <EventCard
                   key={`${i}b`}
-                  tagline={c.tagline}
+                  eventName={c.eventName}
                   posterUrl={c.posterUrl}
                   description={c.description}
                   eventDate={c.eventDate}

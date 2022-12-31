@@ -12,7 +12,7 @@ import NavDropdown from "react-bootstrap/NavDropdown";
 import cp from "../pdf/cp.pdf";
 
 import { cancelToken, getDomains } from "../../services/APIConfig";
-import CustomDropdown from "./CustomDropdown";
+// import CustomDropdown from "./CustomDropdown";
 
 const NavBar = () => {
   const [domainData, setDomainData] = useState([]);
@@ -99,9 +99,9 @@ const NavBar = () => {
               <Nav.Link href="/hiring">Hiring</Nav.Link>
               <Nav.Link href="/industry">Industry</Nav.Link>
               <Nav.Link href="/teams">Team</Nav.Link>
-              <Nav.Link>
+              <Nav.Link href="/login">
                 {" "}
-                <CustomDropdown />
+                {/* <CustomDropdown /> */}
               </Nav.Link>
             </Nav>
           </Navbar.Collapse>
