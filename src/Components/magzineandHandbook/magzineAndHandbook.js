@@ -32,6 +32,7 @@ export default function MagzineAndHandbook() {
           {handbookData.reverse().map((hdb) => {
             return (
               <MCard
+                key={hdb._id}
                 bookTitle={hdb.bookTitle}
                 pdfUrl={hdb.pdfUrl}
                 description={hdb.description}
