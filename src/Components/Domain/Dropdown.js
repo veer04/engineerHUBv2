@@ -8,23 +8,23 @@ const Dropdown = ({ domainArr }) => {
       <div className="accordion domainrow" id="accordionExample">
         {domainArr.map((domains, i) => {
           return (
-            <div className="accordion-item mb-3" id={`${domains.seqNum}*${i}`}>
+            <div className="accordion-item mb-3" id={`${domains}*${i}`}>
               <h2 className="accordion-header" id="headingOne">
                 <button
                   className="accordion-button collapsed "
                   type="button"
                   data-bs-toggle="collapse"
-                  data-bs-target={`#collapse${domains.seqNum}`}
+                  data-bs-target={`#collapse${domains}`}
                   aria-expanded="true"
-                  aria-controls={`collapse${domains.seqNum}`}
+                  aria-controls={`collapse${domains}`}
                 >
-                  {domains.domain}
+                  {domains}
                 </button>
               </h2>
               <div
-                id={`collapse${domains.seqNum}`}
+                id={`collapse${domains}`}
                 className="accordion-collapse collapse "
-                aria-labelledby={`heading${domains.seqNum}`}
+                aria-labelledby={`heading${domains}`}
                 data-bs-parent="#accordionExample"
               >
                 <div className="accordion-body domain-drp-item">

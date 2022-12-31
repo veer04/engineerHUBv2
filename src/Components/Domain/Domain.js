@@ -1,40 +1,17 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
-import { API_URL } from "../../services/APIUtils";
 import axios from "axios";
+import {getDomains,cancelToken} from "../../services/APIConfig"
 import "./Domain.css";
 import Dropdown from "./Dropdown.js";
 
-function Domain() {
-  const [domainArr, setDomainArr] = useState([]);
-  const dg = [
-    "One",
-    "Two",
-    "Three",
-    "Four",
-    "Five",
-    "Six",
-    "Seven",
-    "Eight",
-    "Nine",
-  ];
+export default function Domain() {
+ 
+  const [data, setData] = useState([]);
+
   useEffect(() => {
-    let subscribed = true;
-    const getDomains = async () => {
-      const res = await axios.get(`${API_URL}api/v1/domain`);
-
-      for (let i = 0; i < res.data.length; i++) {
-        domainArr.push({ domain: res.data[i], seqNum: dg[i] });
-      }
-
-      setDomainArr([...domainArr]);
-    };
-
-    if (subscribed) {
-      getDomains();
-    }
+    getDomains(setData);
     return () => {
-      subscribed = false;
+      cancelToken.cancel();
     };
   }, []);
   return (
@@ -52,11 +29,9 @@ function Domain() {
             marginRight: "0px",
           }}
         >
-          <Dropdown domainArr={domainArr} />
+          <Dropdown domainArr={data} />
         </div>
       </div>
     </>
   );
 }
-
-export default Domain;
