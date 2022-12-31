@@ -19,7 +19,7 @@ import CountUp from "react-countup";
 import "swiper/css";
 import "swiper/css/autoplay";
 import BottomDivider from "../shared/BottomDivider/BottomDivider";
-
+// import Bucket_URL from "../../services/APIUtils";
 import AOS from "aos";
 import "aos/dist/aos.css";
 AOS.init();
