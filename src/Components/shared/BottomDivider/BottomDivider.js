@@ -5,7 +5,7 @@ const BottomDivider = () => {
   return (
     <div className={`${styles.dividerContainer} desk-tab--view `}>
       <div className={styles.dividerHead}>
-        We are now on <span className={styles.highlight}>PlayStore</span>
+        We will be on <span className={styles.highlight}>PlayStore</span> soon.
       </div>
       <div className={styles.dividerDesc}>
         Try our new App anytime and anywhere you like
