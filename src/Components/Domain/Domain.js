@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
-import {getDomains,cancelToken} from "../../services/APIConfig"
-import "./Domain.css";
+import { getDomains, cancelToken } from "../../services/APIConfig";
+
 import Dropdown from "./Dropdown.js";
+import "./Domain.css";
 
 export default function Domain() {
- 
-  const [data, setData] = useState([]);
+  const [domainPhoneData, setDomainPhoneData] = useState([]);
 
   useEffect(() => {
-    getDomains(setData);
+    getDomains(setDomainPhoneData);
     return () => {
       cancelToken.cancel();
     };
@@ -22,14 +21,10 @@ export default function Domain() {
         <div
           className="d-flex row justify-content-center"
           style={{
-            marginTop: "0px",
-            gap: "9px",
-            paddingBottom: "80px",
             paddingTop: "25px",
-            marginRight: "0px",
           }}
         >
-          <Dropdown domainArr={data} />
+          <Dropdown domainArr={domainPhoneData} />
         </div>
       </div>
     </>

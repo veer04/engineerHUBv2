@@ -12,6 +12,7 @@ import NavDropdown from "react-bootstrap/NavDropdown";
 import cp from "../pdf/cp.pdf";
 
 import { cancelToken, getDomains } from "../../services/APIConfig";
+import { Avatar } from "@mui/material";
 // import CustomDropdown from "./CustomDropdown";
 
 const NavBar = () => {
@@ -100,8 +101,7 @@ const NavBar = () => {
               <Nav.Link href="/industry">Industry</Nav.Link>
               <Nav.Link href="/teams">Team</Nav.Link>
               <Nav.Link href="/login">
-                {" "}
-                {/* <CustomDropdown /> */}
+                <Avatar />
               </Nav.Link>
             </Nav>
           </Navbar.Collapse>
