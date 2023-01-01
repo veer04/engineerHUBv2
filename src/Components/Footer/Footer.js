@@ -50,7 +50,7 @@ function Footer() {
               <h3 className="textfooter">Contact Us</h3>
 
               <div className="row">
-                <p className="footerinnertext">myengineerhub@gmail.com</p>
+                <p className="footerinnertext">info@engineerhub.in</p>
               </div>
               <div className="row custom--nowrap" style={{ justifyContent: "space-around" }}>
                 <div className="col-lg-2 footericon">

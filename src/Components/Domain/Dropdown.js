@@ -18,11 +18,8 @@ const Dropdown = ({ domainArr }) => {
               style={{ margin: "10px" }}
             >
               <Accordion.Header>{s}</Accordion.Header>
-              <Accordion.Body
+              <Accordion.Body href={`https://ehubtestbucket.s3.ap-south-1.amazonaws.com/image/handbooks/pdf/${s}.pdf`} target="_blank"
                 style={{ display: "flex", gap: "20px", cursor: "pointer" }}
-                onClick={() => {
-                  history(`/handbook/${s}`);
-                }}
               >
                 HandBook
               </Accordion.Body>
