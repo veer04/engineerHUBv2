@@ -20,7 +20,6 @@ const NavBar = () => {
 
   useEffect(() => {
     getDomains(setDomainData);
-
     return () => {
       cancelToken.cancel();
     };
@@ -73,8 +72,8 @@ const NavBar = () => {
                       className="dropdownNav dropend"
                       key={`${i}domain`}
                     >
-                      <NavDropdown.Item href={cp} target="_blank">
-                        <Link to="/pdf">HandBook</Link>
+                      <NavDropdown.Item href={`https://ehubtestbucket.s3.ap-south-1.amazonaws.com/image/handbooks/pdf/${domain}.pdf`} target="_blank">
+                        <Link to={`/pdf/${domain}`}>HandBook</Link>
                       </NavDropdown.Item>
                       <NavDropdown.Item href={`/resources/${domain}`}>
                         Resources

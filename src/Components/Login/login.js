@@ -16,7 +16,7 @@ const login = () => {
 
   const gauth=()=>{
     axios
-    .post(`${API_URL}api/v1/auth/google`)
+    .get(`${API_URL}api/v1/auth/google`)
     .then((res) => {
       console.log(res.data);
     })

@@ -102,7 +102,7 @@ export const getInternship = (setInternshipData) => {
 export const gAuth = (setData) => {
   const cancelToken = axios.CancelToken.source();
   axios
-    .get(`${API_URL}api/v1/event`, {
+    .get(`${API_URL}api/v1/auth/google`, {
       cancelToken: cancelToken.token,
     })
     .then((res) => setData([...res.data]))
@@ -181,7 +181,7 @@ export const getIndustry= (setData) => {
 };
 
 
-export const signInFormSubmit = async (values, setSnackbarValues, setOpen) => {
+export const signInFormSubmit = async (values, setSnackbarValues, setOpen, setValidation) => {
   if (values?.email && values?.password) {
     await axios
       .post(`${API_URL}api/v1/signin`, {
@@ -190,10 +190,12 @@ export const signInFormSubmit = async (values, setSnackbarValues, setOpen) => {
       })
       .then((response) => {
         if (response.status === 200) {
+          setValidation(true);
           setSnackbarValues({
             severity: "success",
             message: "SuccessFully Logged in",
           });
+          axios.defaults.headers.common['Authorization'] = `Bearer ${response['token']}`;
 
           setOpen(true);
         }

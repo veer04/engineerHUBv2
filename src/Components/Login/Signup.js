@@ -97,17 +97,10 @@ const Signup = () => {
         password: password,
         confirmPassword: confirmPassword,
       };
-      if (checkStatus === true) {
-        console.log(newEntry);
-      }
       axios
         .post(`${API_URL}api/v1/signup`, newEntry)
         .then((res) => {
-          console.log(res.data);
-          if (res.status === 200) {
-          navigate("/courses");
-          
-          }
+        navigate("/courses");
         })
         .catch((err) => {
           console.log(err);
