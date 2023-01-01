@@ -195,6 +195,9 @@ const Signup = () => {
     }
     return errors;
   };
+  const gauth=()=>{
+    window.alert("will be updated soon!!!")
+  }
 
   return (
     <div className="cont">
@@ -341,7 +344,7 @@ const Signup = () => {
             <hr />
           </div>
           <div className="sign-field reg-field">
-            <div className="sign-opt ">
+            <div className="sign-opt " onClick={gauth}>
               <img src={gg} alt="google" />
               Continue with Google
             </div>

@@ -1,2 +1,2 @@
-export const API_URL = "https://backend.ehubbusiness.com/";
-export const Bucket_URL="https://ehubtestbucket.s3.ap-south-1.amazonaws.com/";
+export const API_URL = process.env.REACT_APP_API_URL;
+export const Bucket_URL= process.env.REACT_APP_BUCKET_URL;

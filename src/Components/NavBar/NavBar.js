@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 import "./NavBar.css";
-// import { deepOrange } from '@mui/material/colors';
 import Navbar from "react-bootstrap/Navbar";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import logo1 from "./Images/logo1.png";
 import { signInFormSubmit } from "../../services/APIConfig";
 import NavDropdown from "react-bootstrap/NavDropdown";
-// import { makeStyles } from '@material-ui/core/styles';
-// import cp from "../pdf/cp.pdf";
+import { Bucket_URL } from "../../services/APIUtils";
 
 import { cancelToken, getDomains } from "../../services/APIConfig";
 import { Avatar } from "@mui/material";
@@ -95,7 +93,7 @@ newAvatar();
                       className="dropdownNav dropend"
                       key={`${i}domain`}
                     >
-                      <NavDropdown.Item href={`https://ehubtestbucket.s3.ap-south-1.amazonaws.com/image/handbooks/pdf/${domain}.pdf`} target="_blank">
+                      <NavDropdown.Item href={`${Bucket_URL}image/handbooks/pdf/${domain}.pdf`} target="_blank">
                         HandBook
                       </NavDropdown.Item>
                       <NavDropdown.Item href={`/mentors/${domain}`}>
@@ -138,7 +136,7 @@ newAvatar();
         <div className="col-2">
           <div className="homesbn subn">
             <img
-              src="https://ehubtestbucket.s3.ap-south-1.amazonaws.com/image/SubNavbarIcons/HomeOutlinedIcon.svg"
+              src={`${Bucket_URL}image/SubNavbarIcons/HomeOutlinedIcon.svg`}
               alt=""
               style={{ width: "23px" }}
               onClick={() => home()}
@@ -149,7 +147,7 @@ newAvatar();
         <div className="col-2">
           <div className="domainssbn subn">
             <img
-              src="https://ehubtestbucket.s3.ap-south-1.amazonaws.com/image/SubNavbarIcons/WindowOutlinedIcon.svg"
+              src={`${Bucket_URL}image/SubNavbarIcons/WindowOutlinedIcon.svg`}
               alt=""
               style={{ width: "23px" }}
               onClick={() => domain()}
@@ -160,7 +158,7 @@ newAvatar();
         <div className="col-2">
           <div className="coursessbn subn">
             <img
-              src="https://ehubtestbucket.s3.ap-south-1.amazonaws.com/image/SubNavbarIcons/PlayCircleOutlineIcon.svg"
+              src={`${Bucket_URL}image/SubNavbarIcons/PlayCircleOutlineIcon.svg`}
               alt=""
               style={{ width: "23px" }}
               onClick={() => courses()}
@@ -171,7 +169,7 @@ newAvatar();
         <div className="col-2">
           <div className="eventssbn subn">
             <img
-              src="https://ehubtestbucket.s3.ap-south-1.amazonaws.com/image/SubNavbarIcons/CalendarTodayOutlinedIcon.png"
+              src={`${Bucket_URL}image/SubNavbarIcons/CalendarTodayOutlinedIcon.png`}
               style={{ width: "25px" }}
               alt=""
               onClick={() => events()}
@@ -182,7 +180,7 @@ newAvatar();
         <div className="col-2">
           <div className="internshipssbn subn">
             <img
-              src="https://ehubtestbucket.s3.ap-south-1.amazonaws.com/image/SubNavbarIcons/WorkOutlineOutlinedIcon.svg"
+              src={`${Bucket_URL}image/SubNavbarIcons/WorkOutlineOutlinedIcon.svg`}
               alt=""
               style={{ width: "23px" }}
               onClick={() => internships()}

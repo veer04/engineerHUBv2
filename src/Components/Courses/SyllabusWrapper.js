@@ -7,9 +7,9 @@ import "./CourseSubWrapper.css";
 import { useState } from "react";
 const SyllabusWrapper = ({ courseName = "Learning Javascript", syllabus }) => {
   const [courseVideoStatus, setCourseVideoStatus] = useState({
-    currentCourse: "What is User Experience?",
+    currentCourse: "Web Development Tutorials For Beginners: Episode 1",
     currentDescription:
-      "In this video you will get an intro about what is User Experience or UX.",
+      "In this video you will get an intro about what is HTML.HTML is the standard markup language for Web pages. HTML is a language made up of elements. The absolute basics of HTML defines elements, attributes, and other important terms, and show where they fit in the language.",
     currentVideoUrl:
       "https://youtube.com/playlist?list=PLK5Xw4XYHVkvV41XZ8wNsHb_37IAAvB3p",
   });
