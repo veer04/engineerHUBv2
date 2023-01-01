@@ -8,21 +8,21 @@ import Nav from "react-bootstrap/Nav";
 import logo1 from "./Images/logo1.png";
 import { signInFormSubmit } from "../../services/APIConfig";
 import NavDropdown from "react-bootstrap/NavDropdown";
-import { makeStyles } from '@material-ui/core/styles';
+// import { makeStyles } from '@material-ui/core/styles';
 // import cp from "../pdf/cp.pdf";
 
 import { cancelToken, getDomains } from "../../services/APIConfig";
 import { Avatar } from "@mui/material";
 
 // import CustomDropdown from "./CustomDropdown";
-const useStyles = makeStyles((theme) => ({
-  root: {
-    backgroundColor: (props) => props.validate ? 'grey' : 'red'
-  },
-}));
-const NavBar = (props) => {
-  const classes = useStyles(props);
-  var validate=false;
+// const useStyles = makeStyles((theme) => ({
+//   root: {
+//     backgroundColor: (props) => props.validate ? 'grey' : 'red'
+//   },
+// }));
+const NavBar = () => {
+  // const classes = useStyles(props);
+  // var validate=false;
   const [domainData, setDomainData] = useState([]);
   const [validation, setValidation]=useState(false);
   const [values, setValues] = useState("");
@@ -42,7 +42,7 @@ signInFormSubmit(values,setValidation);
 }
 if(validation===true)
 { 
-  validate=true;
+  // validate=true;
 newAvatar();
 }
 
@@ -96,14 +96,15 @@ newAvatar();
                       key={`${i}domain`}
                     >
                       <NavDropdown.Item href={`https://ehubtestbucket.s3.ap-south-1.amazonaws.com/image/handbooks/pdf/${domain}.pdf`} target="_blank">
-                        <Link to={`/pdf/${domain}`}>HandBook</Link>
-                      </NavDropdown.Item>
-                      <NavDropdown.Item href={`/resources/${domain}`}>
-                        Resources
+                        HandBook
                       </NavDropdown.Item>
                       <NavDropdown.Item href={`/mentors/${domain}`}>
                         Contact Mentor
                       </NavDropdown.Item>
+                      <NavDropdown.Item href={`/resources/${domain}`}>
+                        Resources
+                      </NavDropdown.Item>
+                     
                       <NavDropdown.Item
                         target="_blank"
                         href="https://discord.gg/ZMZAEZ5NfA"
@@ -123,7 +124,9 @@ newAvatar();
               <Nav.Link href="/industry">Industry</Nav.Link>
               <Nav.Link href="/teams">Team</Nav.Link>
               <Nav.Link href="/login">
-              <Avatar className={classes.root} onClick={avatarChange}></Avatar>
+              <Avatar 
+              // className={classes.root}
+               onClick={avatarChange}></Avatar>
 
               </Nav.Link>
             </Nav>
