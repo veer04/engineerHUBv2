@@ -21,7 +21,7 @@ const Dropdown = ({ domainArr }) => {
               <Accordion.Body
                 style={{ display: "flex", gap: "20px", cursor: "pointer" }}
                 onClick={() => {
-                  history(`/resources/${s}`);
+                  history(`/handbook/${s}`);
                 }}
               >
                 HandBook

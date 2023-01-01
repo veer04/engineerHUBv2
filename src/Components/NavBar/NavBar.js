@@ -1,29 +1,52 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import "./NavBar.css";
-
+// import { deepOrange } from '@mui/material/colors';
 import Navbar from "react-bootstrap/Navbar";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import logo1 from "./Images/logo1.png";
-
+import { signInFormSubmit } from "../../services/APIConfig";
 import NavDropdown from "react-bootstrap/NavDropdown";
-
-import cp from "../pdf/cp.pdf";
+import { makeStyles } from '@material-ui/core/styles';
+// import cp from "../pdf/cp.pdf";
 
 import { cancelToken, getDomains } from "../../services/APIConfig";
 import { Avatar } from "@mui/material";
+
 // import CustomDropdown from "./CustomDropdown";
-
-const NavBar = () => {
+const useStyles = makeStyles((theme) => ({
+  root: {
+    backgroundColor: (props) => props.validate ? 'grey' : 'red'
+  },
+}));
+const NavBar = (props) => {
+  const classes = useStyles(props);
+  var validate=false;
   const [domainData, setDomainData] = useState([]);
-
+  const [validation, setValidation]=useState(false);
+  const [values, setValues] = useState("");
+  // const [resData, setResData]=useState([]);
   useEffect(() => {
     getDomains(setDomainData);
     return () => {
       cancelToken.cancel();
     };
   }, []);
+const newAvatar =()=>
+{
+
+}  
+const avatarChange=()=>{
+signInFormSubmit(values,setValidation);
+}
+if(validation===true)
+{ 
+  validate=true;
+newAvatar();
+}
+
+
 
   const navigate = useNavigate();
   const home = () => {
@@ -100,7 +123,8 @@ const NavBar = () => {
               <Nav.Link href="/industry">Industry</Nav.Link>
               <Nav.Link href="/teams">Team</Nav.Link>
               <Nav.Link href="/login">
-                <Avatar />
+              <Avatar className={classes.root} onClick={avatarChange}></Avatar>
+
               </Nav.Link>
             </Nav>
           </Navbar.Collapse>

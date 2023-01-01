@@ -26,7 +26,7 @@ function Footer() {
               <h3 className="textfooter">Links</h3>
               <a href="./magazine">
               <div className="row footerinnertext">
-                <p>Magzines</p>
+                <p>Magazines</p>
               </div>
               </a>
               <a href="./courses">

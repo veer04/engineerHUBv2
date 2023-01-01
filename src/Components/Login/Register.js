@@ -44,6 +44,7 @@ const Register = () => {
     if (validation===true)
     {
       navigate("/courses");
+      
     }
   }
 
