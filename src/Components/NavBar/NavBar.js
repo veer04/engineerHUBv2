@@ -1,29 +1,50 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 import "./NavBar.css";
-
 import Navbar from "react-bootstrap/Navbar";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import logo1 from "./Images/logo1.png";
-
+import { signInFormSubmit } from "../../services/APIConfig";
 import NavDropdown from "react-bootstrap/NavDropdown";
-
-import cp from "../pdf/cp.pdf";
+import { Bucket_URL } from "../../services/APIUtils";
 
 import { cancelToken, getDomains } from "../../services/APIConfig";
 import { Avatar } from "@mui/material";
+
 // import CustomDropdown from "./CustomDropdown";
-
+// const useStyles = makeStyles((theme) => ({
+//   root: {
+//     backgroundColor: (props) => props.validate ? 'grey' : 'red'
+//   },
+// }));
 const NavBar = () => {
+  // const classes = useStyles(props);
+  // var validate=false;
   const [domainData, setDomainData] = useState([]);
-
+  const [validation, setValidation]=useState(false);
+  const [values, setValues] = useState("");
+  // const [resData, setResData]=useState([]);
   useEffect(() => {
     getDomains(setDomainData);
     return () => {
       cancelToken.cancel();
     };
   }, []);
+const newAvatar =()=>
+{
+
+}  
+const avatarChange=()=>{
+signInFormSubmit(values,setValidation);
+}
+if(validation===true)
+{ 
+  // validate=true;
+newAvatar();
+}
+
+
 
   const navigate = useNavigate();
   const home = () => {
@@ -72,15 +93,16 @@ const NavBar = () => {
                       className="dropdownNav dropend"
                       key={`${i}domain`}
                     >
-                      <NavDropdown.Item href={`https://ehubtestbucket.s3.ap-south-1.amazonaws.com/image/handbooks/pdf/${domain}.pdf`} target="_blank">
-                        <Link to={`/pdf/${domain}`}>HandBook</Link>
-                      </NavDropdown.Item>
-                      <NavDropdown.Item href={`/resources/${domain}`}>
-                        Resources
+                      <NavDropdown.Item href={`${Bucket_URL}image/handbooks/pdf/${domain}.pdf`} target="_blank">
+                        HandBook
                       </NavDropdown.Item>
                       <NavDropdown.Item href={`/mentors/${domain}`}>
                         Contact Mentor
                       </NavDropdown.Item>
+                      <NavDropdown.Item href={`/resources/${domain}`}>
+                        Resources
+                      </NavDropdown.Item>
+                     
                       <NavDropdown.Item
                         target="_blank"
                         href="https://discord.gg/ZMZAEZ5NfA"
@@ -100,7 +122,10 @@ const NavBar = () => {
               <Nav.Link href="/industry">Industry</Nav.Link>
               <Nav.Link href="/teams">Team</Nav.Link>
               <Nav.Link href="/login">
-                <Avatar />
+              <Avatar 
+              // className={classes.root}
+               onClick={avatarChange}></Avatar>
+
               </Nav.Link>
             </Nav>
           </Navbar.Collapse>
@@ -111,7 +136,7 @@ const NavBar = () => {
         <div className="col-2">
           <div className="homesbn subn">
             <img
-              src="https://ehubtestbucket.s3.ap-south-1.amazonaws.com/image/SubNavbarIcons/HomeOutlinedIcon.svg"
+              src={`${Bucket_URL}image/SubNavbarIcons/HomeOutlinedIcon.svg`}
               alt=""
               style={{ width: "23px" }}
               onClick={() => home()}
@@ -122,7 +147,7 @@ const NavBar = () => {
         <div className="col-2">
           <div className="domainssbn subn">
             <img
-              src="https://ehubtestbucket.s3.ap-south-1.amazonaws.com/image/SubNavbarIcons/WindowOutlinedIcon.svg"
+              src={`${Bucket_URL}image/SubNavbarIcons/WindowOutlinedIcon.svg`}
               alt=""
               style={{ width: "23px" }}
               onClick={() => domain()}
@@ -133,7 +158,7 @@ const NavBar = () => {
         <div className="col-2">
           <div className="coursessbn subn">
             <img
-              src="https://ehubtestbucket.s3.ap-south-1.amazonaws.com/image/SubNavbarIcons/PlayCircleOutlineIcon.svg"
+              src={`${Bucket_URL}image/SubNavbarIcons/PlayCircleOutlineIcon.svg`}
               alt=""
               style={{ width: "23px" }}
               onClick={() => courses()}
@@ -144,7 +169,7 @@ const NavBar = () => {
         <div className="col-2">
           <div className="eventssbn subn">
             <img
-              src="https://ehubtestbucket.s3.ap-south-1.amazonaws.com/image/SubNavbarIcons/CalendarTodayOutlinedIcon.png"
+              src={`${Bucket_URL}image/SubNavbarIcons/CalendarTodayOutlinedIcon.png`}
               style={{ width: "25px" }}
               alt=""
               onClick={() => events()}
@@ -155,7 +180,7 @@ const NavBar = () => {
         <div className="col-2">
           <div className="internshipssbn subn">
             <img
-              src="https://ehubtestbucket.s3.ap-south-1.amazonaws.com/image/SubNavbarIcons/WorkOutlineOutlinedIcon.svg"
+              src={`${Bucket_URL}image/SubNavbarIcons/WorkOutlineOutlinedIcon.svg`}
               alt=""
               style={{ width: "23px" }}
               onClick={() => internships()}

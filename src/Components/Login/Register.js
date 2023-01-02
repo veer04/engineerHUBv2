@@ -44,7 +44,11 @@ const Register = () => {
     if (validation===true)
     {
       navigate("/courses");
+      
     }
+  }
+  const gauth=()=>{
+    window.alert("will be updated soon!!!")
   }
 
   return (
@@ -97,8 +101,8 @@ const Register = () => {
             Sign in
           </button>
           <div className="d-flex justify-content-center">
-            <div className="f-p">Forgot Password ?</div>
-            <div className="f-p ">Reset Now </div>
+            <div className="f-p" onClick={gauth}>Forgot Password ?</div>
+            <div className="f-p "onClick={gauth}>Reset Now </div>
           </div>
         </div>
         <div className="divisor d-flex justify-content-center">
@@ -107,7 +111,7 @@ const Register = () => {
           <hr />
         </div>
         <div className="sign-field reg-field">
-          <div className="sign-opt ">
+          <div className="sign-opt "onClick={gauth}>
             <img src={gg} alt="google" />
             Continue with Google
           </div>
