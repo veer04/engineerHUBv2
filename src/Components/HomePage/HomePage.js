@@ -22,6 +22,7 @@ import BottomDivider from "../shared/BottomDivider/BottomDivider";
 // import Bucket_URL from "../../services/APIUtils";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import { Bucket_URL } from "../../services/APIUtils";
 AOS.init();
 export default function NavBar() {
   return (
@@ -51,7 +52,7 @@ export default function NavBar() {
             <div className="col-4 headercard">
               <img
                 className="c-img"
-                src="https://ehubtestbucket.s3.ap-south-1.amazonaws.com/gif/student.gif"
+                src={`${Bucket_URL}gif/student.gif`}
                 alt="Graduate"
                 style={{ width: "120px" }}
               />
@@ -74,7 +75,7 @@ export default function NavBar() {
             <div className="col-4 headercard">
               <img
                 className="c-img"
-                src="https://ehubtestbucket.s3.ap-south-1.amazonaws.com/gif/campus.gif"
+                src={`${Bucket_URL}gif/campus.gif`}
                 alt="Campus"
                 style={{ width: "120px" }}
               />
@@ -98,7 +99,7 @@ export default function NavBar() {
             <div className="col-4 headercard">
               <img
                 className="c-img"
-                src="https://ehubtestbucket.s3.ap-south-1.amazonaws.com/gif/industry.gif"
+                src={`${Bucket_URL}gif/industry.gif`}
                 alt="Building"
                 style={{ width: "120px" }}
               />
@@ -127,7 +128,7 @@ export default function NavBar() {
         </div>
 
         <div className="player-wrapper col-lg-5 videocard parttwo">
-          <img src="https://ehubtestbucket.s3.ap-south-1.amazonaws.com/Animation/Animation.gif" alt="" className="animationcard" />
+          <img src={`${Bucket_URL}Animation/Animation.gif`} alt="" className="animationcard" />
         </div>
       </div>
 

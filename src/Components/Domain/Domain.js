@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { getDomains, cancelToken } from "../../services/APIConfig";
-
 import Dropdown from "./Dropdown.js";
 import "./Domain.css";
 

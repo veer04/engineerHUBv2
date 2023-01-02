@@ -15,6 +15,7 @@ const login = () => {
 
 
   const gauth=()=>{
+    window.alert("Will be updated soon!!!")
     axios
     .get(`${API_URL}api/v1/auth/google`)
     .then((res) => {

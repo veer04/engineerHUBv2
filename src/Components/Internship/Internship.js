@@ -13,8 +13,8 @@ const Internship = () => {
   const filteredInternshipData = useMemo(() => {
     return internshipData.filter((i) => {
       return (
-        i.internPosition.toLowerCase().includes(query.toLowerCase()) ||
-        i.internCompany.toLowerCase().includes(query.toLowerCase())
+        i.internCompany.toLowerCase().includes(query.toLowerCase()) ||
+        i.internPosition.toLowerCase().includes(query.toLowerCase())
       );
     });
   }, [query, internshipData]);
