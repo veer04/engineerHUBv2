@@ -42,14 +42,13 @@ const Dropdown = ({ domainArr }) => {
               >
                 Mentor
               </Accordion.Body>
+              <a href="https://discord.gg/ZMZAEZ5NfA" target="_blank" style={{color:"#212529"}}>
               <Accordion.Body
                 style={{ display: "flex", gap: "20px", cursor: "pointer" }}
-                onClick={() => {
-                  history("https://discord.gg/ZMZAEZ5NfA")
-                }}
               >
                 Ask your Query
               </Accordion.Body>
+              </a>
             </Accordion.Item>
           );
         })}
