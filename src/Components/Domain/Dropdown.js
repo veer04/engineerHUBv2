@@ -19,11 +19,11 @@ const Dropdown = ({ domainArr }) => {
               style={{ margin: "10px" }}
             >
               <Accordion.Header>{s}</Accordion.Header>
-              <Accordion.Body href={`${Bucket_URL}image/handbooks/pdf/${s}.pdf`} target="_blank"
+              {/* <Accordion.Body href={`${Bucket_URL}image/handbooks/pdf/${s}.pdf`} target="_blank"
                 style={{ display: "flex", gap: "20px", cursor: "pointer" }}
               >
                 HandBook
-              </Accordion.Body>
+              </Accordion.Body> */}
               <Accordion.Body
                 style={{ display: "flex", gap: "20px", cursor: "pointer" }}
                 onClick={() => {

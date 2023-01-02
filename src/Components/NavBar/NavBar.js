@@ -121,12 +121,12 @@ newAvatar();
               <Nav.Link href="/hiring">Hiring</Nav.Link>
               <Nav.Link href="/industry">Industry</Nav.Link>
               <Nav.Link href="/teams">Team</Nav.Link>
-              <Nav.Link href="/login">
+              {/* <Nav.Link href="/login">
               <Avatar 
               // className={classes.root}
                onClick={avatarChange}></Avatar>
 
-              </Nav.Link>
+              </Nav.Link> */}
             </Nav>
           </Navbar.Collapse>
         </Container>

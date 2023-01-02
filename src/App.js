@@ -13,9 +13,9 @@ import IndustryPersona from "./Components/IndustryPersona/IndustryPersona";
 import Resources from "./Components/Resources/ResourceWrapper";
 import CoursesWrapper from "./Components/Courses/CourseWrapper";
 import CourseSubWrapper from "./Components/Courses/CourseSubWrapper";
-import Login from "./Components/Login/login";
-import Register from "./Components/Login/Register";
-import SignUp from "./Components/Login/Signup";
+// import Login from "./Components/Login/login";
+// import Register from "./Components/Login/Register";
+// import SignUp from "./Components/Login/Signup";
 import Footer from "./Components/Footer/Footer";
 import Domain from "./Components/Domain/Domain";
 // import User from "./Components/UserPage/user";
@@ -45,10 +45,10 @@ function App() {
         <Route path="/coursepage/:id" exact element={<CourseSubWrapper />} />
 
         {/* <Route path="/login" exact element={<Login />} /> */}
-        <Route path="/login" exact element={<Login />} />
+        {/* <Route path="/login" exact element={<Login />} /> */}
         <Route path="/modal" exact element={<Modal />} />
-        <Route path="/register" exact element={<Register />} />
-        <Route path="/signup" exact element={<SignUp />} />
+        {/* <Route path="/register" exact element={<Register />} />
+        <Route path="/signup" exact element={<SignUp />} /> */}
         <Route path="/domain" exact element={<Domain />} />
 
         <Route path="/pdf" exact element={<Pviewer />} />
