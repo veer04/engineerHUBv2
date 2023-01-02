@@ -18,7 +18,7 @@ const InfiniteSlider = () => {
 <div className="row1-container">
 <div className="box box-down cyan">
   <div className="comp studentfrom2">
-    <img src={`${Bucket_URL}collegeLogo/iitk.svg`} alt="swiggy" className="tcsimage imgpos" />
+    <img src={`${Bucket_URL}collegeLogo/iitp.jpeg`} alt="swiggy" className="tcsimage imgpos" />
   </div>
   <h2 className="clgname">
     IIT <br />
@@ -28,7 +28,7 @@ const InfiniteSlider = () => {
 
 <div className="box red">
   <div className="comp studentfrom2">
-    <img src={`${Bucket_URL}collegeLogo/iitr.jpg`} alt="swiggy" className="tcsimage imgpos" />
+    <img src={`${Bucket_URL}collegeLogo/iitk.svg`} alt="swiggy" className="tcsimage imgpos" />
   </div>
   <h2 className="clgname">
     IIT <br />
@@ -38,7 +38,7 @@ const InfiniteSlider = () => {
 
 <div className="box box-down blue">
   <div className="comp studentfrom2">
-    <img src={`${Bucket_URL}collegeLogo/iitk.svg`} alt="swiggy" className="tcsimage imgpos" />
+    <img src={`${Bucket_URL}collegeLogo/iitr.jpg`} alt="swiggy" className="tcsimage imgpos" />
   </div>
   <h2 className="clgname">
     IIT <br />
@@ -49,7 +49,7 @@ const InfiniteSlider = () => {
 <div className="row2-container">
 <div className="box orange">
   <div className="comp studentfrom2">
-    <img src={`${Bucket_URL}collegeLogo/iitr.jpg`} alt="swiggy" className="tcsimage imgpos" />
+    <img src={`${Bucket_URL}collegeLogo/iitb.jpg`} alt="swiggy" className="tcsimage imgpos" />
   </div>
   <h2 className="clgname">
     IIT <br />
@@ -67,7 +67,7 @@ const InfiniteSlider = () => {
         <div className="row1-container">
 <div className="box box-down cyan">
   <div className="comp studentfrom2">
-    <img src={`${Bucket_URL}collegeLogo/nita.png`} alt="swiggy" className="tcsimage imgpos" />
+    <img src={`${Bucket_URL}collegeLogo/nitp.png`} alt="swiggy" className="tcsimage imgpos" />
   </div>
   <h2 className="clgname">
     NIT <br />
@@ -77,7 +77,7 @@ const InfiniteSlider = () => {
 
 <div className="box red">
   <div className="comp studentfrom2">
-    <img src={`${Bucket_URL}collegeLogo/nitk.jpeg`} alt="swiggy" className="tcsimage imgpos" />
+    <img src={`${Bucket_URL}collegeLogo/nitr.jpeg`} alt="swiggy" className="tcsimage imgpos" />
   </div>
   <h2 className="clgname">
     NIT <br />

@@ -66,7 +66,7 @@ function Card({
                 to={`/coursepage/${id}`}
                 state={state}
               >
-                Register
+                Learn Now
               </Link>
             </div>
             <p

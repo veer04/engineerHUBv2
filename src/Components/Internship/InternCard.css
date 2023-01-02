@@ -21,7 +21,8 @@
 }
 
 .posted {
-  position: absolute;
+  position: relative;
+  left: 25%;
   padding-left: 11rem;
   font-weight: 400;
   line-height: 34px;
@@ -218,4 +219,51 @@ top: 922px; */
     margin-left: -1rem;
     /* flex-wrap: wrap; */
   /* } */
+}
+@media (max-width: 1150px){
+  .posted{
+    position: relative;
+    left: 20%;
+  }
+}
+@media (max-width: 980px)
+{
+  .posted{
+    position: relative;
+    left: 15%;
+  }
+}
+@media (max-width: 800px)
+{
+  .posted{
+    position: relative;
+    left: 10%;
+  }
+}
+@media (max-width: 690px)
+{
+  .posted{
+    position: relative;
+    left: 5%;
+  }
+}
+@media (max-width: 690px)
+{
+  .posted{
+    position: relative;
+    left: 0%;
+  }
+}
+@media (max-width: 550px)
+{
+  .posted{
+    position: relative;
+    left: -10%;
+  }
+}
+@media (max-width: 450px)
+{
+  .posted{
+    display: none;
+  }
 }

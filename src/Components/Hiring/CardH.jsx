@@ -14,6 +14,8 @@ function CardH({
   exp,
   elg
 }) {
+  const url={link1:"https://docs.google.com/forms/d/e/1FAIpQLSc_wMzc-inR7E0CVDbse-fKYP4DioUXj5tRBIIR-ZXOMzLotA/viewform",
+  link2:" https://docs.google.com/forms/d/e/1FAIpQLSfQeSMW8JIUTw4SuFZOQB7EgYlMEoEL-x8iW1oMF6iNT6mTQw/viewform"}
   return (
     <div
       className={cName}
@@ -75,7 +77,7 @@ function CardH({
           Last Date: {moment(new Date(lastDate)).format("DD-MM-YYYY")}
         </h6>
         <div className="d-flex align-items-baseline justify-content-between">
-          <a href="https://forms.gle/drjNi7mLSYWLorp37" className="btnc" style={{ backgroundColor: "#002a36" , borderRadius: "10px"}}>
+          <a href={url.link1} className="btnc" style={{ backgroundColor: "#002a36" , borderRadius: "10px"}}>
             <span style={{ color: "white", fontSize: "0.9rem", padding: "12px 24px" , }}>
               Apply
             </span>

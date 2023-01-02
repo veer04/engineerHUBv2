@@ -42,7 +42,7 @@ const CoursesCard = ({
         <div className="courses-details">{courseDescription}</div>
         <div className="courses-register">
         {/* to={`/userpage/${id}`} state={state} */}
-          <div className="btn--link"onClick={()=>navigate("/modal")}>
+          <div className="btn--link"onClick={()=>navigate("/courses")}>
             Register
           </div>{" "}
         </div>
