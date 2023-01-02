@@ -16,7 +16,7 @@ function Footer() {
             <div className="f_nav">
               <h3 className="textfooter">About Us</h3>
               <p className="footertextaboutus">
-                engineerHUB (formerly engineerSUMMIT) is INDIA's largest
+                engineerHUB is INDIA's largest
                 community of engineers where students(alumni) from IITs, NITs,
                 IIITs and state colleges join together to develop and nurture
                 students skills coming from all over India. .{" "}

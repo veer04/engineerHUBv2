@@ -12,14 +12,14 @@ import NavDropdown from "react-bootstrap/NavDropdown";
 import cp from "../pdf/cp.pdf";
 
 import { cancelToken, getDomains } from "../../services/APIConfig";
-import CustomDropdown from "./CustomDropdown";
+import { Avatar } from "@mui/material";
+// import CustomDropdown from "./CustomDropdown";
 
 const NavBar = () => {
   const [domainData, setDomainData] = useState([]);
 
   useEffect(() => {
     getDomains(setDomainData);
-
     return () => {
       cancelToken.cancel();
     };
@@ -72,8 +72,8 @@ const NavBar = () => {
                       className="dropdownNav dropend"
                       key={`${i}domain`}
                     >
-                      <NavDropdown.Item href={cp} target="_blank">
-                        HandBook
+                      <NavDropdown.Item href={`https://ehubtestbucket.s3.ap-south-1.amazonaws.com/image/handbooks/pdf/${domain}.pdf`} target="_blank">
+                        <Link to={`/pdf/${domain}`}>HandBook</Link>
                       </NavDropdown.Item>
                       <NavDropdown.Item href={`/resources/${domain}`}>
                         Resources
@@ -99,9 +99,8 @@ const NavBar = () => {
               <Nav.Link href="/hiring">Hiring</Nav.Link>
               <Nav.Link href="/industry">Industry</Nav.Link>
               <Nav.Link href="/teams">Team</Nav.Link>
-              <Nav.Link>
-                {" "}
-                <CustomDropdown />
+              <Nav.Link href="/login">
+                <Avatar />
               </Nav.Link>
             </Nav>
           </Navbar.Collapse>

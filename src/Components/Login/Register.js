@@ -18,6 +18,7 @@ const Register = () => {
   });
 
   const [open, setOpen] = useState(false);
+  const [validation, setValidation]= useState(false);
 
   const [snackbarValues, setSnackbarValues] = useState({
     severity: "success",
@@ -37,10 +38,10 @@ const Register = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    signInFormSubmit(values, setSnackbarValues, setOpen);
+    signInFormSubmit(values, setSnackbarValues, setOpen, setValidation);
   };
   const navigation=()=>{
-    if (open===true)
+    if (validation===true)
     {
       navigate("/courses");
     }

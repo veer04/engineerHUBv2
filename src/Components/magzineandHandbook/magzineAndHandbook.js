@@ -6,12 +6,14 @@ import "../magzineandHandbook/magzineandhandbook.css";
 import MCard from "./MCard";
 
 export default function MagzineAndHandbook() {
-  const [handbookData, setHandBookData] = useState([]);
+const [handbookData, setHandBookData] = useState([]);
 
+ const handData=handbookData.reverse();
   useEffect(() => {
     getHandBook(setHandBookData);
-
+    console.log(handData);
     return () => {
+
       cancelToken.cancel();
     };
   }, []);
@@ -32,6 +34,7 @@ export default function MagzineAndHandbook() {
           {handbookData.map((hdb) => {
             return (
               <MCard
+                key={hdb._id}
                 bookTitle={hdb.bookTitle}
                 pdfUrl={hdb.pdfUrl}
                 description={hdb.description}

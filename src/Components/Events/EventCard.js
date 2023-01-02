@@ -2,7 +2,7 @@ import React from "react";
 import "./EventCard.css";
 
 const EventCard = ({
-  tagline,
+  eventName,
   eventDate,
   mentorName,
   posterUrl,
@@ -31,7 +31,7 @@ const EventCard = ({
         </div>
 
         <div className="d-flex event--btns">
-          <div className=" event-name"> {tagline}</div>
+          <div className=" event-name"> {eventName}</div>
           <a href="https://discord.gg/ZMZAEZ5NfA">
             {" "}
             <button className="Prize">Join</button>

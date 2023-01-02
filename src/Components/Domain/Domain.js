@@ -1,40 +1,16 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
-import { API_URL } from "../../services/APIUtils";
-import axios from "axios";
-import "./Domain.css";
+import { getDomains, cancelToken } from "../../services/APIConfig";
+
 import Dropdown from "./Dropdown.js";
+import "./Domain.css";
 
-function Domain() {
-  const [domainArr, setDomainArr] = useState([]);
-  const dg = [
-    "One",
-    "Two",
-    "Three",
-    "Four",
-    "Five",
-    "Six",
-    "Seven",
-    "Eight",
-    "Nine",
-  ];
+export default function Domain() {
+  const [domainPhoneData, setDomainPhoneData] = useState([]);
+
   useEffect(() => {
-    let subscribed = true;
-    const getDomains = async () => {
-      const res = await axios.get(`${API_URL}api/v1/domain`);
-
-      for (let i = 0; i < res.data.length; i++) {
-        domainArr.push({ domain: res.data[i], seqNum: dg[i] });
-      }
-
-      setDomainArr([...domainArr]);
-    };
-
-    if (subscribed) {
-      getDomains();
-    }
+    getDomains(setDomainPhoneData);
     return () => {
-      subscribed = false;
+      cancelToken.cancel();
     };
   }, []);
   return (
@@ -45,18 +21,12 @@ function Domain() {
         <div
           className="d-flex row justify-content-center"
           style={{
-            marginTop: "0px",
-            gap: "9px",
-            paddingBottom: "80px",
             paddingTop: "25px",
-            marginRight: "0px",
           }}
         >
-          <Dropdown domainArr={domainArr} />
+          <Dropdown domainArr={domainPhoneData} />
         </div>
       </div>
     </>
   );
 }
-
-export default Domain;

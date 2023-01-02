@@ -25,8 +25,8 @@ export const coursesData = [
   },
   {
     courseName: "UI/UX Development",
-    courseTitle1: "UI/UX",
-    courseTitle2: " design ",
+    courseTitle1: "C/C++",
+    courseTitle2: " course ",
     courseDescription:
       "We provide effective learning sessions from skilled mentors to help students gain relevant knowledge and effective road maps on UI/UX design.",
     lastDate: "22/11/2022",
@@ -43,8 +43,8 @@ export const coursesData = [
   },
   {
     courseName: "Cyber Security",
-    courseTitle1: "Cyber",
-    courseTitle2: "Security",
+    courseTitle1: "DSA",
+    courseTitle2: "Udaan",
     courseDescription:
       "We provide students with the best courses to improve their cyber security knowledge and assess the current threat landscape & how to protect against it.",
     lastDate: "21/08/2023",
