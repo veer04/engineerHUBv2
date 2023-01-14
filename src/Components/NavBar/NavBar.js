@@ -5,46 +5,47 @@ import Navbar from "react-bootstrap/Navbar";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import logo1 from "./Images/logo1.png";
-import { signInFormSubmit } from "../../services/APIConfig";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import { Bucket_URL } from "../../services/APIUtils";
-
-import { cancelToken, getDomains } from "../../services/APIConfig";
+import Cookies from 'js-cookie';
+import { cancelToken, getDomains} from "../../services/APIConfig";
 import { Avatar } from "@mui/material";
-
-// import CustomDropdown from "./CustomDropdown";
-// const useStyles = makeStyles((theme) => ({
-//   root: {
-//     backgroundColor: (props) => props.validate ? 'grey' : 'red'
-//   },
-// }));
+import {useSignOut} from 'react-auth-kit';
+import {useIsAuthenticated} from 'react-auth-kit';
 const NavBar = () => {
-  // const classes = useStyles(props);
-  // var validate=false;
   const [domainData, setDomainData] = useState([]);
-  const [validation, setValidation]=useState(false);
-  const [values, setValues] = useState("");
-  // const [resData, setResData]=useState([]);
+  const [userName, setUserName] = useState('');
+  const isAuthenticated=useIsAuthenticated();
+  const singOut = useSignOut();
   useEffect(() => {
     getDomains(setDomainData);
-    return () => {
+    const cookieUserName = Cookies.get('_auth_state');
+  
+    if (cookieUserName) {
+      setUserName(cookieUserName.slice(6,-12));
+    }
+
+      return () => {
       cancelToken.cancel();
     };
   }, []);
-const newAvatar =()=>
-{
+  const redirectTo=()=>{
+    if(!isAuthenticated)
+    {
+      window.alert("login to access");
+    }
+  }
 
-}  
 const avatarChange=()=>{
-signInFormSubmit(values,setValidation);
+ 
+  if (isAuthenticated)
+  {
+    Cookies.remove('_auth_state');
+    setUserName('');
+    singOut();
+  }
+  
 }
-if(validation===true)
-{ 
-  // validate=true;
-newAvatar();
-}
-
-
 
   const navigate = useNavigate();
   const home = () => {
@@ -62,6 +63,8 @@ newAvatar();
   const internships = () => {
     navigate("/internship");
   };
+
+
   return (
     <>
       <Navbar bg="light" expand="lg">
@@ -114,7 +117,7 @@ newAvatar();
                 })}
               </NavDropdown>
 
-              <Nav.Link href="/courses">Courses</Nav.Link>
+              <Nav.Link href="/courses" onClick={redirectTo()}>Courses</Nav.Link>
               <Nav.Link href="/internship">Internship</Nav.Link>
               <Nav.Link href="/magazine">Magazine</Nav.Link>
               <Nav.Link href="/campus">Campus</Nav.Link>
@@ -122,11 +125,21 @@ newAvatar();
               <Nav.Link href="/industry">Industry</Nav.Link>
               <Nav.Link href="/teams">Team</Nav.Link>
               {/* <Nav.Link href="/login">
-              <Avatar 
-              // className={classes.root}
-               onClick={avatarChange}></Avatar>
+            <Avatar></Avatar>
+            </Nav.Link> */}
+                <Nav.Link href="/login">
+                {userName ? (
+        <>
+          <span>Welcome, {userName}!</span>
+          <button className="btnlgout" onClick={avatarChange}>Logout</button>
+        </>
+      ) : (
+        <Avatar></Avatar>
+      )}
+                </Nav.Link>
 
-              </Nav.Link> */}
+             
+              
             </Nav>
           </Navbar.Collapse>
         </Container>

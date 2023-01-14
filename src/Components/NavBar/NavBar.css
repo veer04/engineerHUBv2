@@ -194,3 +194,7 @@ align-items: center;
   justify-content: space-evenly;
  }
 }
+.btnlgout{
+  border: none;
+margin-left: 5%;
+}

@@ -1,16 +1,23 @@
-import React, { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { IconButton } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { API_URL } from "../../services/APIUtils";
+import { useSignIn } from "react-auth-kit";
+
 
 import CustomSnackbar from "./CustomSnackbar";
-import { signInFormSubmit } from "../../services/APIConfig";
+
+
 
 import "./Register.css";
+import axios, { AxiosError } from "axios";
 import gg from "./svg/google.svg";
 
 const Register = () => {
+  const signIn=useSignIn();
   const navigate=useNavigate();
+  // const[cookieValue,setCookieValue]=useContext(cookieDa);
   const [values, setValues] = useState({
     email: "",
     password: "",
@@ -19,7 +26,7 @@ const Register = () => {
 
   const [open, setOpen] = useState(false);
   const [validation, setValidation]= useState(false);
-
+  const [error, setError] = useState("");
   const [snackbarValues, setSnackbarValues] = useState({
     severity: "success",
     message: "",
@@ -36,16 +43,49 @@ const Register = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  async function handleSubmit(e) {
     e.preventDefault();
-    signInFormSubmit(values, setSnackbarValues, setOpen, setValidation);
+    try {
+      const response = await axios.post(
+        `${API_URL}api/v1/signin`,
+        values
+      );
+
+      signIn({
+        token: response.data.accessToken,
+        expiresIn: 3600,
+        tokenType: "Bearer",
+        authState: { m:values.email },
+      });
+      setValidation(true);
+      // setOpen(true);
+      // setSnackbarValues({
+      //   severity: "success",
+      //   message: "SuccessFully Logged in",
+      // });
+      // setCookieValue(Cookies.get('_auth_state').slice(6,Cookies.get('_auth_state').length-12));
+    } catch (err) {
+      // setSnackbarValues({
+      //   severity: "error",
+      //   message: "User doesn't exist or already signed in!",
+      // });
+      if (err && err instanceof AxiosError)
+        setError(err.response?.data.message);
+      else if (err && err instanceof Error) setError(err.message);
+      // setOpen(true);
+    }
+
+
   };
   const navigation=()=>{
+   
     if (validation===true)
-    {
+    { 
       navigate("/courses");
+      window.location.reload(true);
       
     }
+    
   }
   const gauth=()=>{
     window.alert("will be updated soon!!!")

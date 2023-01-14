@@ -1,10 +1,9 @@
-import React from "react";
 import { createContext, useEffect, useState } from "react";
 
 import { cancelToken, getCourses } from "../services/APIConfig";
 
 export const CourseContext = createContext();
-
+export const cookieDa =createContext(null);
 export const CourseContextProvider = ({ children }) => {
   const [courseData, setCourseData] = useState([]);
   

@@ -202,7 +202,7 @@ export const signInFormSubmit = async (values, setSnackbarValues, setOpen, setVa
         }
       })
       .catch((err) => {
-        setOpen(true);
+      setOpen(true)
         setSnackbarValues({
           severity: "error",
           message: "User doesn't exist Check again!",
