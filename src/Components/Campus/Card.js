@@ -59,7 +59,7 @@ function Card({
           url: `${link}`,
           title: "Share this"
         }}
-        onClick={() => console.info("Shared successfully!")}
+        // onClick={() => console.info("Shared successfully!")}
       >
             <ShareOutlinedIcon
               className="share-icon"

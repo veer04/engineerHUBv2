@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
+
 // import ReCAPTCHA from "react-google-recaptcha";
 import gg from "./svg/google.svg";
 import "./Register.css";
@@ -10,14 +11,13 @@ const Signup = () => {
   const navigate=useNavigate();
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
-
+var checkStatus=false;
   const [mobile, setMobile] = useState("");
   const [institutionName, setInstitutionName] = useState("");
   const [branch, setBranch] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  var checkStatus = false;
-  // var captcha = false;
+ 
   const [formUserName, setFormUserName] = useState("");
   const [formEmail, setFormEmail] = useState("");
   const [formMobile, setFormMobile] = useState("");
@@ -30,10 +30,7 @@ const Signup = () => {
   const [focused, setFocused] = useState(false);
 
   useEffect(() => {
-    // console.log(formErrors);
-    // if (Object.keys(formErrors).length === 0 && isSubmit) {
-    //   // console.log(formdata);
-    // }
+
     if (Object.keys(formUserName).length === 0 && isSubmit) {
     }
   }, [formUserName, isSubmit]);
@@ -72,10 +69,14 @@ const Signup = () => {
     setFocused(true);
     setFormConfirmPassword(validateConPassword(confirmPassword));
   };
+  
   // function captchaValid(value) {
   //   console.log("Captcha value:", value);
   //   captcha = true;
   // }
+
+
+
   const submit = async (e) => {
     e.preventDefault();
     setUserName(validateUserName(userName));
@@ -304,6 +305,7 @@ const Signup = () => {
                 onBlur={handlePassword}
                 focused={focused.toString()}
               />
+          
               <span className="error_msg">{formPassword.password}</span>
             </div>
           </div>
@@ -312,7 +314,7 @@ const Signup = () => {
               <input
                 required="required"
                 autoComplete="off"
-                type="text"
+                type="password"
                 name="confirm password"
                 placeholder="confirm password"
                 className="reg-input"
@@ -320,6 +322,7 @@ const Signup = () => {
                 onBlur={handleConPassword}
                 focused={focused.toString()}
               />
+              
               <span className="error_msg">
                 {formConfirmPassword.confirmPassword}
               </span>

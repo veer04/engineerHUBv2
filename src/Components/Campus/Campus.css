@@ -1,6 +1,7 @@
 
 .containerc {
-  background-color: #014051;
+  background-color: 
+  rgba(0, 169, 217, 0.06);
   margin: auto;
   /* border-radius: 30px; */
   /* padding-bottom: 80px; */
@@ -10,7 +11,7 @@
 
 .heading {
   padding: 0px 0px 0px 40px;
-  color: #e1d71c;
+  color: #002B36;
   font-size: 60px;
   font-weight: 500;
   line-height: 95px;
@@ -25,7 +26,7 @@
   line-height: 40px;
   letter-spacing: 0em;
   text-align: left;
-  color: white;
+  color: #002B36;
   padding: 48px;
   padding-top: 0px;
   position: relative;

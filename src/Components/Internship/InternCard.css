@@ -12,6 +12,7 @@
   border: 1px solid #eee;
   background: white;
   margin: 20px;
+  
 }
 
 .Intern-Company {
@@ -42,7 +43,7 @@ text-align: center !important; */
 
 .apply {
   /* position: absolute; */
-  width: 219px;
+  width: 200px;
   /* height: 59px; */
   /* margin:150px 0px 0px 65rem ; */
   display: flex;

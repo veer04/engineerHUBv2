@@ -16,7 +16,6 @@ const Campus = () => {
       setCampusData(response.data);
     };
 
-    console.log(campusData);
     if (subscribed) {
       getCampusDetails();
     }

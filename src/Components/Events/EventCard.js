@@ -17,6 +17,7 @@ const EventCard = ({
         style={{
           padding: "0px",
           margin: "10px",
+          height:"400px",
         }}
       >
         <div>
@@ -38,7 +39,7 @@ const EventCard = ({
           </a>
         </div>
         <div className="event-details cutoff-text">{description}</div>
-        <div></div>
+       
       </div>
     </>
   );

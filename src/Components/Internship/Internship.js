@@ -28,7 +28,7 @@ const Internship = () => {
 
   return (
     <div className="contained-xl">
-      <div className="heading heading--internship">Internship & Jobs</div>
+      <div className="headingHead heading--internship">Internship & Jobs</div>
       <div className="texthire texthire--internship">
         engineerhub offers tons of internships & job opportunities for our
         students & notify them regularly on various social platforms.
@@ -58,7 +58,7 @@ const Internship = () => {
               timing={items.timing}
               location={items.location}
               description={items.description}
-              time={items.createdAt}
+              // time={items.createdAt}
             />
           );
         })}

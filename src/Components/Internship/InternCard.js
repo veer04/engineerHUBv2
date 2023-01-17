@@ -8,6 +8,7 @@ import "./InternCard.css";
 
 const InternCard = ({ company, position, link ,type,timing,location,description,time}) => {
   return (
+    <div className="intrn">
     <div className="Intern-Container">
       <div className="d-flex justify-content-between">
       <hr
@@ -19,7 +20,7 @@ const InternCard = ({ company, position, link ,type,timing,location,description,
         }}
     />
     
-      <span className="posted">Posted {moment(time).fromNow()}</span>
+      {/* <span className="posted">Posted {moment(time).fromNow()}</span> */}
       {/* <div className="d-flex align-content-end"> */}
           <RWebShare
         data={{
@@ -58,15 +59,16 @@ const InternCard = ({ company, position, link ,type,timing,location,description,
 
       </div>
       {/* <div className="Intern-Apply-Link"> */}
-      <a href={link} target="_blank" rel="noreferrer">
+   
       <div className="applycont">
-
+      <a href={link} target="_blank" rel="noreferrer">
         <div className="btn btn-dark apply">
           Apply
         </div>
-
+        </a>
       </div>
-      </a>
+     
+    </div>
     </div>
   );
 };

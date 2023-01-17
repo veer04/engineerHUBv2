@@ -8,7 +8,9 @@
 
 .cards{
   height: fit-content;
-  width: 400px;
+  display: flex;
+  flex-wrap: wrap;
+  width: 350px;
 }
 
 /* .campus-card-cllg {
