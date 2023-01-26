@@ -1,4 +1,3 @@
-import React from "react";
 import "./MentorCard.css";
 
 const MentorCard = ({

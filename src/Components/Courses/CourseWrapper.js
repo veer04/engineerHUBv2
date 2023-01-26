@@ -1,4 +1,3 @@
-import React from "react";
 import { useContext } from "react";
 import "./CourseWrapper.css";
 import Full from "./Full";
@@ -27,7 +26,7 @@ const CourseWrapper = ({ closeModal }) => {
               state={c}
               cardImage={c.posterUrl}
               courseTitle1={c.title}
-              courseDescription={c.about}
+              courseDescription={c.about.slice(0,327)}
               lastDate={c.updatedAt.slice(0, 10)}
               features={c.features}
             />

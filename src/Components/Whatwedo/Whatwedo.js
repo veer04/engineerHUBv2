@@ -1,4 +1,3 @@
-import React from "react";
 import "../Whatwedo/Whatwedo.css";
 import Carousel from "react-bootstrap/Carousel";
 import InstagramIcon from "@mui/icons-material/Instagram";

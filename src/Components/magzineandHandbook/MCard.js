@@ -1,11 +1,4 @@
-import React from "react";
 import "./MCard.css";
-
-// import cybersecurityimg from "./cybersecurityimg.png";
-
-// import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
-import { Link } from "react-router-dom";
-
 function Card({ bookTitle, description,img,pdfUrl }) {
   // const navigate = useNavigate();
   return (

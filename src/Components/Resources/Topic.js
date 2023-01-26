@@ -1,4 +1,3 @@
-import React from "react";
 import "./ResourceWrapper.css";
 function Topic(props) {
   const { link, subheading } = props;

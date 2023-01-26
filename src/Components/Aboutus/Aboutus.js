@@ -1,4 +1,3 @@
-import React from "react";
 import "../Aboutus/Aboutus.css";
 import ImageGroup from "../Aboutus/Group.svg";
 function Aboutus() {

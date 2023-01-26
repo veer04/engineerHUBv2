@@ -1,6 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import React from "react";
-
 import { useParams } from "react-router-dom";
 import ResourceSubWrapper from "./ResourceSubWrapper";
 

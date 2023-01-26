@@ -1,4 +1,3 @@
-import React from "react";
 import styles from "./InfiniteSlider.module.scss";
 import { Bucket_URL } from "../../services/APIUtils";
 const InfiniteSlider = () => {

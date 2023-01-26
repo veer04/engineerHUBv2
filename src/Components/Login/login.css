@@ -169,7 +169,10 @@ label {
 
 @media screen and (max-width: 456px)
 {
-
+.cont{
+  margin: auto;
+  width: 85vw;
+}
 }
 
 

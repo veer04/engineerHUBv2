@@ -1,11 +1,6 @@
-import React from "react";
-import moment from 'moment';
 import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
 import { RWebShare } from "react-web-share";
-
-
 import "./InternCard.css";
-
 const InternCard = ({ company, position, link ,type,timing,location,description,time}) => {
   return (
     <div className="intrn">

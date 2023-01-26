@@ -5,6 +5,7 @@ import MagzineAndHandbook from "./Components/magzineandHandbook/magzineAndHandbo
 import Internship from "./Components/Internship/Internship";
 import Hiring from "./Components/Hiring/Hiring";
 import Campus from "./Components/Campus/Campus";
+import Udaan from "./Components/Udaan/Udaan";
 import { RequireAuth } from 'react-auth-kit'
 import Mentors from "./Components/Mentors/Mentors";
 import Teams from "./Components/Teams/Team";
@@ -38,6 +39,7 @@ function App() {
         <Route path="/login" exact element={<Login />} />
         <Route path="/courses"  element={<RequireAuth loginPath={'/login'}> <CoursesWrapper/> </RequireAuth> } />
         <Route path="/internship" exact element={<Internship />} />
+        <Route path="/udaan" exact element={<Udaan/>} />
         <Route path="/magazine" exact element={<MagzineAndHandbook />} />
         <Route path="/hiring" exact element={<Hiring />} />
         <Route path="/campus" exact element={<Campus />} />

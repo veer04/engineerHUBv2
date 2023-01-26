@@ -1,5 +1,3 @@
-import React from "react";
-
 import styles from "./InfiniteSlider.module.scss";
 import "../HomePage/HomePage.css";
 import Carousel from "react-bootstrap/Carousel";

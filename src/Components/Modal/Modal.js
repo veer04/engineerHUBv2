@@ -1,4 +1,3 @@
-import React from 'react'
 import "../Login/login.css";
 import { Link,useNavigate } from "react-router-dom";
 import google from "../Login/svg/google.svg";

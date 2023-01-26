@@ -55,7 +55,7 @@ const avatarChange=()=>{
     navigate("/domain");
   };
   const courses = () => {
-    navigate("/courses");
+    navigate("/udaan");
   };
   const events = () => {
     navigate("/campus");
@@ -117,7 +117,7 @@ const avatarChange=()=>{
                 })}
               </NavDropdown>
 
-              <Nav.Link href="/courses" onClick={redirectTo()}>Courses</Nav.Link>
+              <Nav.Link href="/udaan" onClick={redirectTo()}>Courses</Nav.Link>
               <Nav.Link href="/internship">Internship</Nav.Link>
               <Nav.Link href="/magazine">Magazine</Nav.Link>
               <Nav.Link href="/campus">Campus</Nav.Link>
@@ -130,7 +130,7 @@ const avatarChange=()=>{
                 <Nav.Link href="/login">
                 {userName ? (
         <>
-          <span>Welcome, {userName}!</span>
+          <span  className="userlginamtxt">Welcome, {userName}!</span>
           <button className="btnlgout" onClick={avatarChange}>Logout</button>
         </>
       ) : (

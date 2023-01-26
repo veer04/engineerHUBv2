@@ -1,4 +1,3 @@
-import React from "react";
 import { useNavigate } from "react-router-dom";
 import "./CoursesCard.css";
 
@@ -40,9 +39,8 @@ const CoursesCard = ({
           <button className="Prize">Free</button>
         </div>
         <div className="courses-details">{courseDescription}</div>
-        <div className="courses-register">
-        {/* to={`/userpage/${id}`} state={state} */}
-          <div className="btn--link"onClick={()=>navigate("/courses")}>
+        <div className="courses-register"onClick={()=>navigate("/courses")}>
+          <div className="btn--link">
             Register
           </div>{" "}
         </div>

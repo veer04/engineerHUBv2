@@ -18,10 +18,22 @@
   color: #ffff;
   padding-top: 0;
 }
+.hiringmainC{  
+  background-color: #fff;
+  border: 1px solid grey;
+  border-radius: 10px;
+  width: 20vw;
+  gap: 50px;
+}
+
+
 
 @media screen and (max-width: 768px) {
   .custom-cardH {
     width: 300px;
+  }
+  .hiringmainC{
+    width: 40vw;
   }
 
   .card-text {
@@ -33,13 +45,14 @@
     font-size: 20px;
   }
 }
+@media screen and (max-width: 668px)
+{
+  .hiringmainC{
+    width: 80vw;
+  }
+}
 
-/* @media screen and (max-width:409px){
-    .custom-card {
-  
-      width: 350px;
-    }
-  } */
+
 
 @media screen and (max-width: 320px) {
   .card-body {
