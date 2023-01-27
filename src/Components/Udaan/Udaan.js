@@ -52,10 +52,10 @@ const Udaan = () => {
                 <li className="overviewList listtxt">Practise FAANG questions</li>
                 <li className="overviewList listtxt">Mock Coding Assessment</li>
               </ul>
-                
-            <button className="registerUdaan" href="https://forms.gle/WWE4ctS44yhsjBrJ7">
+                <a href="https://forms.gle/WWE4ctS44yhsjBrJ7"><button className="registerUdaan" href="https://forms.gle/WWE4ctS44yhsjBrJ7">
               Register
-            </button>
+            </button></a>
+            
                
                
        
