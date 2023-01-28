@@ -3,15 +3,14 @@ import Accordion from "react-bootstrap/Accordion";
 import UDAAN from './udaan.jpg';
 import mentor from './mentor.jpg';
 import Courses from "../HomeCourses/Courses";
-import { Autoplay } from "swiper";
-import { Swiper, SwiperSlide } from "swiper/react";
-// Import Swiper styles
+
 
 import "swiper/css/pagination";
 
 import "swiper/css";
 import "swiper/css/autoplay";
 const Udaan = () => {
+ 
   return (
 <>
 <div className="containerccc">
@@ -52,9 +51,9 @@ const Udaan = () => {
                 <li className="overviewList listtxt">Practise FAANG questions</li>
                 <li className="overviewList listtxt">Mock Coding Assessment</li>
               </ul>
-                <a href="https://forms.gle/WWE4ctS44yhsjBrJ7"><button className="registerUdaan" href="https://forms.gle/WWE4ctS44yhsjBrJ7">
+                <button className="registerUdaan" >
               Register
-            </button></a>
+            </button>
             
                
                

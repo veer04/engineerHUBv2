@@ -1,9 +1,4 @@
 import "../Mentors/MentorCard.css";
-// import {Link} from "react-router-dom";
-
-// import mentorLinkedin from "./MediaIcons/icon-linkedin.png";
-// import mentorGmail from "./MediaIcons/icon-gmail.png";
-// import mentorWp from "./MediaIcons/icon-wp.png";
 const TeamCard = ({ domain, name, Company, Desc, linkedIn, image }) => {
  
   return (
@@ -12,16 +7,11 @@ const TeamCard = ({ domain, name, Company, Desc, linkedIn, image }) => {
         <img src={image} alt="Mentor" />
       </div>
       <div>
-        {/* <div className="Ment-prof">{Profession}</div> */}
         <div className="Ment-name">{name}</div>
         <div className="Ment-contact">
           <span>{domain}</span>
         </div>
       </div>
-
-      {/* <div className="d-flex"> */}
-      {/* <span className="Ment-about">{Desc}</span> */}
-      {/* {Desc} */}
       <a
         target="_blank"
         href={linkedIn}
