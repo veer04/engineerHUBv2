@@ -36,6 +36,7 @@
 .mainCard{
   display: flex ;
   justify-content: center;
+  flex-wrap: wrap;
   margin-top: 0px;
   gap: 40px;
   padding: 0px 20px 80px 20px;
