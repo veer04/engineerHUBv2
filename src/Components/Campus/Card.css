@@ -2,6 +2,7 @@
   width: 400px;
   border-radius: 16px;
   display: flex;
+  flex-wrap: wrap;
   transition: all 250ms ease-in-out;
   background-size: cover;
 }
