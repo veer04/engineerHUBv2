@@ -1,11 +1,9 @@
 import "../Whatwedo/Whatwedo.css";
 import Carousel from "react-bootstrap/Carousel";
-import InstagramIcon from "@mui/icons-material/Instagram";
-import LinkedInIcon from "@mui/icons-material/LinkedIn";
-import TelegramIcon from "@mui/icons-material/Telegram";
-import SportsEsportsIcon from "@mui/icons-material/SportsEsports";
+import WhatsAppIcon from '@mui/icons-material/WhatsApp';
+
 import Phoneimg from "../Whatwedo/Phoneimg.svg";
-import { Link } from "react-router-dom";
+import discord from"../Whatwedo/discord.svg";
 function Whatwedo() {
   return (
     <>
@@ -131,10 +129,10 @@ function Whatwedo() {
 
           <div className="contactButtons d-flex flex-column" >
             <div className="align-self-center comuni">
-            Join our Community & let’s grow together...
+            Join our Community & let’s grow together !
             </div>
             <div className="d-flex justify-content-evenly flex">
-            <a href="https://www.instagram.com/engineerhub.in" target="_blank" rel="noreferrer">
+            {/* <a href="https://www.instagram.com/engineerhub.in" target="_blank" rel="noreferrer">
             <button className="Insta">
               <InstagramIcon
                 sx={{
@@ -143,10 +141,11 @@ function Whatwedo() {
               />{" "}
               Join Instagram
             </button>
-            </a>
+            </a> */}
             <a href="https://discord.com/invite/ZMZAEZ5NfA" target="_blank" rel="noreferrer">
             <button className="Discord">
-              <SportsEsportsIcon
+              <img src={discord} height={33} width={33} alt="" />
+              <discord
                 sx={{
                   fontSize: { sm: 22, md: 32, lg: 33, xl: 33 },
                 }}
@@ -156,15 +155,15 @@ function Whatwedo() {
             </a>
             <a href="https://t.me/engineerhub_in" target="_blank" rel="noreferrer">
             <button className="Telegram">
-              <TelegramIcon
+              <WhatsAppIcon
                 sx={{
                   fontSize: { sm: 22, md: 32, lg: 33, xl: 33 },
                 }}
               />
-              Join Telegram
+              Join WhatsApp
             </button>
             </a>
-            <a href="https://www.linkedin.com/company/engineersummit/mycompany" target="_blank" rel="noreferrer">
+            {/* <a href="https://www.linkedin.com/company/engineersummit/mycompany" target="_blank" rel="noreferrer">
             <button className="Linkedin" component={Link}>
               <LinkedInIcon
                 sx={{
@@ -174,7 +173,7 @@ function Whatwedo() {
               />
               Join Linkedin
             </button>
-            </a>
+            </a> */}
             </div>
           </div>
         </div>

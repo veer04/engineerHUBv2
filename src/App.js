@@ -18,6 +18,7 @@ import Register from "./Components/Login/Register";
 import SignUp from "./Components/Login/Signup";
 import Footer from "./Components/Footer/Footer";
 import Domain from "./Components/Domain/Domain";
+import Mentorship from "./Components/Mentorshippaid/Mentorship";
 // import User from "./Components/UserPage/user";
 import Pviewer from "./Components/pdf/Viewer";
 // import Modal from "./Components/Modal/Modal";
@@ -40,6 +41,7 @@ function App() {
         <Route path="/courses"  element={<RequireAuth loginPath={'/login'}> <CoursesWrapper/> </RequireAuth> } />
         <Route path="/internship" exact element={<Internship />} />
         <Route path="/udaan" exact element={<Udaan/>} />
+        <Route path="/mentorship" exact element={<Mentorship/>}/>
         <Route path="/magazine" exact element={<MagzineAndHandbook />} />
         <Route path="/hiring" exact element={<Hiring />} />
         <Route path="/campus" exact element={<Campus />} />
@@ -48,7 +50,6 @@ function App() {
         <Route path="/coursepage/:id" exact element={<CourseSubWrapper />} />
 
         {/* <Route path="/login" exact element={<Login />} /> */}
-        
         {/* <Route path="/modal" exact element={<Modal />} /> */}
         <Route path="/register" exact element={<Register />} />
         <Route path="/signup" exact element={<SignUp />} />

@@ -75,7 +75,7 @@ function Card({
           Organizer: {clgname}
         </h6>
         <h6 style={{ fontWeight: 700, marginBottom: "1rem" }}>
-          Event Date: {evtdate="12-10-2022"}
+          Event Date: {evtdate.slice(0,10)}
         </h6>
         <div className="d-flex align-items-baseline justify-content-between">
           <a href={link} className="btnc" style={{ backgroundColor: "#002a36" , borderRadius: "10px"}} target="_blank">

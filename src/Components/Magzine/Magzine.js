@@ -34,8 +34,11 @@ function Magzine() {
           </h5>
 
           <Swiper
-            modules={[Autoplay]}
+            
             loop={true}
+          Autoplay={false}
+        
+            touchMoveStopPropagation={false}
             autoplay={{ delay: 2000 }}
             spaceBetween={26}
             breakpoints={{
@@ -53,6 +56,7 @@ function Magzine() {
               },
             }}
             onSwiper={(swiper) => {}}
+            onTouchMoveCapture={()=>{}}
             onSlideChange={() => {}}
           >
             {handbookData.reverse().map((c, i) => (
