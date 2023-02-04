@@ -11,7 +11,7 @@ do
 
     # Name of the Docker container
     container_name="$1"
-
+ 
     # Check if the container is running
     if docker ps | grep "$container_name" > /dev/null ; then
         echo "Container $container_name is running."
