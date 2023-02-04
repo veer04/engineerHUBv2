@@ -38,7 +38,6 @@ export const eventStaticData = [
 
 function Events() {
   const [eventData, setEventData] = useState([]);
-
   useEffect(() => {
     getEvents(setEventData);
 
@@ -57,9 +56,12 @@ function Events() {
             provide them with an appropriate platform to showcase their skills.
           </h5>
           <Swiper
+       
             modules={[Autoplay]}
             loop={true}
-            autoplay={{ delay: 1000 }}
+            autoplay={{disableOnInteraction: false,
+            delay: 2000
+              }}
             spaceBetween={26}
             breakpoints={{
               768: {
@@ -86,6 +88,7 @@ function Events() {
                   posterUrl={c.posterUrl}
                   description={c.description}
                   eventDate={c.eventDate}
+                 
                 />
               </SwiperSlide>
             ))}

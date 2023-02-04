@@ -58,21 +58,21 @@ const Register = () => {
         authState: { m:values.email },
       });
       setValidation(true);
-      // setOpen(true);
-      // setSnackbarValues({
-      //   severity: "success",
-      //   message: "SuccessFully Logged in",
-      // });
+      setOpen(true);
+      setSnackbarValues({
+        severity: "success",
+        message: "SuccessFully Logged in",
+      });
       // setCookieValue(Cookies.get('_auth_state').slice(6,Cookies.get('_auth_state').length-12));
     } catch (err) {
-      // setSnackbarValues({
-      //   severity: "error",
-      //   message: "User doesn't exist or already signed in!",
-      // });
+      setSnackbarValues({
+        severity: "error",
+        message: "User doesn't exist or already signed in!",
+      });
       if (err && err instanceof AxiosError)
         setError(err.response?.data.message);
       else if (err && err instanceof Error) setError(err.message);
-      // setOpen(true);
+      setOpen(true);
     }
 
 

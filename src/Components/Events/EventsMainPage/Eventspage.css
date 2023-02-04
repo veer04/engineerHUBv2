@@ -1,0 +1,61 @@
+
+.EventsMenuBar{
+    color: #fff;
+    width: 60%;
+   padding-top: 5px;
+   padding-bottom: 5px;
+    position: relative;
+    left: 20%;
+    background: rgba(28, 133, 232, 1);
+    border-radius: 50px;
+    margin-bottom: 5%;
+
+}
+.eventMenu{
+    padding-left: 5%;
+    padding-right: 5%;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    border-radius: 50px;
+}
+
+.eventMenu:hover{
+background-color: rgba(0, 42, 54, 1);
+
+
+}
+.EventsCardArena{
+    display: flex;
+    justify-content: space-evenly;
+}
+.pastCard{
+    height: 500px;
+    width: 300px;
+    background-color: #fff;
+    border-radius: 12px;
+}
+.imageUdaan{
+    height: 280px;
+    width: 280px;
+    border-radius: 10px;
+    margin-bottom: 15%;
+}
+.applyBtnEvents{
+    display: flex;
+    justify-content: center;
+}
+.EventRegisterBtn{
+
+    background: rgba(21, 92, 243, 1);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 5px;
+    width: 60%;
+}
+.BulletsList{
+    list-style-type: circle;
+}
+.EventsCardArena{
+    margin-bottom: 5%;
+}

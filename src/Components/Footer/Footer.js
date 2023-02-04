@@ -6,6 +6,8 @@ import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import SportsEsportsIcon from "@mui/icons-material/SportsEsports";
 import TelegramIcon from "@mui/icons-material/Telegram";
+import discord from"../Whatwedo/discord.svg";
+
 import { Link } from "react-router-dom";
 function Footer() {
   return (
@@ -91,7 +93,7 @@ function Footer() {
                     target="_blank"
                   >
                     {" "}
-                    <SportsEsportsIcon />
+                    <img src={discord} height={25} width={25} alt="" />
                   </a>
                 </div>
                 <div className="col-lg-2 footericon">

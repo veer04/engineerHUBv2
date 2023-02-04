@@ -153,7 +153,7 @@ function Whatwedo() {
               Join Discord
             </button>
             </a>
-            <a href="https://t.me/engineerhub_in" target="_blank" rel="noreferrer">
+            <a href="https://chat.whatsapp.com/HFoB03RXiWxJ0uNI6oH5gG" target="_blank" rel="noreferrer">
             <button className="Telegram">
               <WhatsAppIcon
                 sx={{
