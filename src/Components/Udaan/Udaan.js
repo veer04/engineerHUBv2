@@ -51,9 +51,11 @@ const Udaan = () => {
                 <li className="overviewList listtxt">Practise FAANG questions</li>
                 <li className="overviewList listtxt">Mock Coding Assessment</li>
               </ul>
+              <a href="https://forms.gle/dqjfM7vGZzaBCgbNA">
                 <button className="registerUdaan" >
               Register
             </button>
+            </a>
             
                
                

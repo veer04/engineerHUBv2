@@ -29,11 +29,28 @@ const NavBar = () => {
       cancelToken.cancel();
     };
   }, []);
-  const redirectTo=()=>{
-    if(!isAuthenticated)
-    {
-      window.alert("login to access");
-    }
+  
+  const routeCourse=()=>{
+    navigate("/udaan");
+  }
+ 
+  const routeIntership=()=>{
+    navigate("/internship")
+  }
+  const routeMagazine=()=>{
+    navigate("/magazine");
+  }
+  const routeCampus=()=>{
+    navigate("/campus");
+  }
+  const routeHiring=()=>{
+    navigate("/hiring");
+  }
+  const routeIndustry=()=>{
+    navigate("/industry");
+  }
+  const routeTeam=()=>{
+    navigate("/teams")
   }
 
 const avatarChange=()=>{
@@ -117,13 +134,13 @@ const avatarChange=()=>{
                 })}
               </NavDropdown>
 
-              <Nav.Link href="/udaan" onClick={redirectTo()}>Courses</Nav.Link>
-              <Nav.Link href="/internship">Internship</Nav.Link>
-              <Nav.Link href="/magazine">Magazine</Nav.Link>
-              <Nav.Link href="/campus">Campus</Nav.Link>
-              <Nav.Link href="/hiring">Hiring</Nav.Link>
-              <Nav.Link href="/industry">Industry</Nav.Link>
-              <Nav.Link href="/teams">Team</Nav.Link>
+              <Nav.Link  onClick={()=>routeCourse() }>Courses</Nav.Link>
+              <Nav.Link onClick={()=>routeIntership()}>Internship</Nav.Link>
+              <Nav.Link onClick={()=>routeMagazine()} >Magazine</Nav.Link>
+              <Nav.Link onClick={()=>routeCampus()} >Campus</Nav.Link>
+              <Nav.Link onClick={()=>routeHiring()} >Hiring</Nav.Link>
+              <Nav.Link  onClick={()=>routeIndustry()} >Industry</Nav.Link>
+              <Nav.Link  onClick={()=>routeTeam()} >Team</Nav.Link>
               {/* <Nav.Link href="/login">
             <Avatar></Avatar>
             </Nav.Link> */}

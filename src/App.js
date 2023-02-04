@@ -18,10 +18,12 @@ import Register from "./Components/Login/Register";
 import SignUp from "./Components/Login/Signup";
 import Footer from "./Components/Footer/Footer";
 import Domain from "./Components/Domain/Domain";
-import Mentorship from "./Components/Mentorshippaid/Mentorship";
+// import Mentorship from "./Components/Mentorshippaid/Mentorship";
+import Tnp from "./Components/Tnp/Tnp";
 // import User from "./Components/UserPage/user";
 import Pviewer from "./Components/pdf/Viewer";
 // import Modal from "./Components/Modal/Modal";
+// import Eventspage from "./Components/Events/EventsMainPage/Eventspage";
 
 function App() {
 
@@ -31,7 +33,7 @@ function App() {
       <NavBar />
       <Routes>
         <Route path="" exact element={<HomePage />} />
-
+        {/* <Route path="/whatsapp" to="https://docs.google.com/forms/d/e/1FAIpQLSehVDlbQaCkIQCyY5Uy6e7uD7Su7xBIu-cNpY-fHgWM7y84QQ/viewform"></Route> */}
         <Route path="/resources/:domain" exact element={<Resources />} />
         <Route path="/resources/:domain/:domain" exact element={<Resources />} />
         <Route path="/mentors/:domain" exact element={<Mentors />} />
@@ -41,11 +43,13 @@ function App() {
         <Route path="/courses"  element={<RequireAuth loginPath={'/login'}> <CoursesWrapper/> </RequireAuth> } />
         <Route path="/internship" exact element={<Internship />} />
         <Route path="/udaan" exact element={<Udaan/>} />
-        <Route path="/mentorship" exact element={<Mentorship/>}/>
+        {/* <Route path="/mentorship" exact element={<Mentorship/>}/> */}
         <Route path="/magazine" exact element={<MagzineAndHandbook />} />
         <Route path="/hiring" exact element={<Hiring />} />
         <Route path="/campus" exact element={<Campus />} />
         <Route path="/teams" exact element={<Teams />} />
+        <Route path="/tnp" exact element={<Tnp />} />
+        {/* <Route path="/events" exact element={<Eventspage/>} /> */}
         <Route path="/industry" exact element={<IndustryPersona />} />
         <Route path="/coursepage/:id" exact element={<CourseSubWrapper />} />
 

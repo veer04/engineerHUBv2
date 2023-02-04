@@ -1,3 +1,138 @@
 .mentorshipOne{
     background-color: rgba(0, 169, 217, 0.06);
 }
+.headtextmentor{
+    padding-top: 3%;
+    margin-bottom: 3%;
+}
+.mentorBanner{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2%;
+    margin-bottom: 5%;
+}
+.BannerImage{
+    height: 400px;
+    width: 650px;
+    border-radius: 15px;
+}
+.mentorPlan{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  
+}
+.headingMentorCard{
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 1%;
+}
+.mentorPlantext{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 5%;
+}
+.plan1{
+    text-align: center;
+    height: 500px;
+    width: 300px;
+    border-top: 16px solid rgba(145, 65, 245, 1);
+    border-radius: 10px;
+    box-shadow: 2px 0px 2px 0px rgba(145, 65, 245, 1);
+    border-left: 1px solid rgba(145, 65, 245, 1);
+    border-bottom: 1px solid rgba(145, 65, 245, 1);
+    border-right: 1px solid rgba(145, 65, 245, 1);
+    background-color: #fff;
+}
+.plan2
+{    text-align: center;
+    height: 500px;
+    width: 300px;
+    border-top: 16px solid rgba(0, 42, 54, 1);
+    border-radius: 10px;
+    box-shadow: 2px 0px 2px 0px rgba(0, 42, 54, 1);
+    border-left: 1px solid rgba(0, 42, 54, 1);
+    border-bottom: 1px solid rgba(0, 42, 54, 1);
+    border-right: 1px solid rgba(0, 42, 54, 1);
+    background-color: #fff;
+
+}
+.plan3
+{
+    text-align: center;
+    height: 500px;
+    width: 300px;
+    border-top: 16px solid  rgba(83, 106, 255, 1);
+    border-radius: 10px;
+    box-shadow: 2px 0px 2px 0px  rgba(83, 106, 255, 1);
+
+    border-left: 1px solid rgba(83, 106, 255, 1);
+    border-bottom: 1px solid rgba(83, 106, 255, 1);
+    border-right: 1px solid rgba(83, 106, 255, 1);
+    background-color: #fff;
+}
+.headingOfCard{
+    margin-top: 8%;
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: rgba(0,0,0,1);
+}
+.priceSilver{
+
+    font-size: 2rem;
+    font-weight: 400;
+    color: rgba(145,65,245,1);
+}
+sub{
+    position: relative;
+    left: 15%;
+}
+sup{
+    position: relative;
+    top: -30%;
+    left: -15%;
+}
+.horizontal-rule{
+   
+    width: 60%;
+    border-top: 2px solid grey;
+}
+.priceCardlist:before{
+content: '✓';
+}
+.mentorPlancard{
+    display: flex;
+    justify-content: space-evenly;
+}
+.applyButtonForthePlan{
+ text-align: center;
+ margin-top: 5%;
+ font-weight: 600;
+ font-size: 1.8rem;
+}
+.descForm{
+    margin-top: 2%;
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: 400;
+    margin-bottom: 3%;
+}
+.priceCardlist{
+    position: relative;
+    left: -30%;
+
+   
+}
+.descp{
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+.horizontal-rule{
+    position: relative;
+    left: 15%;
+}
+.listElementCard{
+    margin-top: 5%;
+}
