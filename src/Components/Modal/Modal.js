@@ -10,7 +10,9 @@ const Modal = ({closeModal}) => {
 <div className="modalBackground">
 <div className="modalContainer">
 <div className="cont containerModal">
-    <button className='closingCancel' onClick={()=> Navigate("/courses")} >X</button>
+    <div class="modal-form" onClick={()=> Navigate("/courses")}>
+	<span class="close-btn"></span>
+</div>
       <div className="cont-head">
         <img src={Ehub} alt="Ehub" className='imageEhubmain'/>
         <div className="my-form-head modalheadt">Let's you in</div>

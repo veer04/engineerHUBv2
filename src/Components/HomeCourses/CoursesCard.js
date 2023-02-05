@@ -39,8 +39,8 @@ const CoursesCard = ({
           <button className="Prize">Free</button>
         </div>
         <div className="courses-details">{courseDescription}</div>
-        <div className="courses-register"onClick={()=>navigate("/courses")}>
-          <div className="btn--link">
+        <div className="courses-register"onClick={()=>navigate("/modal")}>
+          <div className="btn--link" >
             Register
           </div>{" "}
         </div>

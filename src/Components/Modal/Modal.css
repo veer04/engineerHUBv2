@@ -120,3 +120,23 @@
   width: 500px;
  }
   }
+
+  .modal-form{
+    position: relative;
+  }
+  .close-btn{
+    position: absolute;
+    transition: transform .25s, opacity .25s;
+    opacity: .7;
+    cursor: pointer;
+    font-size: 3em;
+    font-family: serif;
+    line-height: 1;
+  }
+  .close-btn:before{
+    content: "\d7";
+  }
+  .close-btn:hover{
+    opacity: 1;
+    transform: rotate(90deg);
+  }
