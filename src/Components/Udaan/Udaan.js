@@ -51,7 +51,7 @@ const Udaan = () => {
                 <li className="overviewList listtxt">Practise FAANG questions</li>
                 <li className="overviewList listtxt">Mock Coding Assessment</li>
               </ul>
-              <a href="https://forms.gle/dqjfM7vGZzaBCgbNA">
+              <a href="https://forms.gle/WWE4ctS44yhsjBrJ7">
                 <button className="registerUdaan" >
               Register
             </button>
@@ -122,7 +122,7 @@ Bonus : Solve bit manipulation interview problems
         </Accordion.Body>
       </Accordion.Item>
       <Accordion.Item  className="accordiandata"  eventKey="2">
-        <Accordion.Header>- Intro to Strings</Accordion.Header>
+        <Accordion.Header>Intro to Strings</Accordion.Header>
         <Accordion.Body>
         Complete understanding of String. Practice Session
 Bonus : Solving string matching algorithms as well
@@ -219,7 +219,7 @@ Interview questions on BST
 Bonus : Introduction to Advanced Tree (B-Tree, B+ Tree, N-ary tree and problems)
         </Accordion.Body>
       </Accordion.Item>    <Accordion.Item  className="accordiandata"  eventKey="11">
-        <Accordion.Header>- Hashing and map</Accordion.Header>
+        <Accordion.Header>Hashing and map</Accordion.Header>
         <Accordion.Body>
         Introduction to Hashtable, functions and hashing techniques
 Hashing : Problem and Solution
@@ -288,12 +288,12 @@ Bonus : Medium to advanced interview questions on BFS and DFS
         </Accordion.Body>
       </Accordion.Item>
       <Accordion.Item className="accordiandata"  eventKey="19">
-        <Accordion.Header> - Mock Coding Assessment</Accordion.Header>
+        <Accordion.Header>Mock Coding Assessment</Accordion.Header>
         <Accordion.Body>
         </Accordion.Body>
       </Accordion.Item>
       <Accordion.Item className="accordiandata"  eventKey="20">
-        <Accordion.Header> - Solution and Discussion of assessment</Accordion.Header>
+        <Accordion.Header>Solution and Discussion of assessment</Accordion.Header>
         <Accordion.Body>
         </Accordion.Body>
       </Accordion.Item>
