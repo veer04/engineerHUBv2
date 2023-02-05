@@ -1,6 +1,6 @@
 import "../Login/login.css";
 import { Link,useNavigate } from "react-router-dom";
-import google from "../Login/svg/google.svg";
+// import google from "../Login/svg/google.svg";
 // import fb from "./svg/fb.svg";
 import "./Modal.css";
 import Ehub from "../Login/svg/Ehub.svg";
@@ -18,16 +18,16 @@ const Modal = ({closeModal}) => {
         <div className="my-form-head modalheadt">Let's you in</div>
       </div>
 
-      <div className="sign-field signfieldModal">
+      {/* <div className="sign-field signfieldModal">
         <div className="sign-opt ">
           <img src={google} alt="google" />
-          Continue with Google
-        </div>
+          Continue with Google */}
+        {/* </div> */}
         {/* <div className="sign-opt ">
           <img src={fb} alt="Facebook" />
           Continue with Facebook
         </div> */}
-      </div>
+      {/* </div> */}
       <div className="divisor d-flex justify-content-center">
         <hr style={{ color: "#6c757d" }} />
         <span className="d-flex justify-content-center">OR</span>
