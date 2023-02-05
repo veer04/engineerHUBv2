@@ -40,7 +40,7 @@ function App() {
         <Route path="/mentors/:domain/:domain" exact element={<Mentors />} />
         <Route path="/domain" exact element={<Domain />} />
         <Route path="/login" exact element={<Login />} />
-        {/* <Route path="/courses"  element={<RequireAuth loginPath={'/login'}> <CoursesWrapper/> </RequireAuth> } /> */}
+        {/* <Route path="/courses"  element={<RequireAuth loginPath={'/modal'}> <CoursesWrapper/> </RequireAuth> } /> */}
         <Route path="/courses" element={<CoursesWrapper/>} ></Route>
         <Route path="/internship" exact element={<Internship />} />
         <Route path="/udaan" exact element={<Udaan/>} />

@@ -6,12 +6,11 @@ import { Link, useNavigate } from "react-router-dom";
 import gg from "./svg/google.svg";
 import "./Register.css";
 import "./Signup.css";
-import { API_URL } from "../../services/APIUtils"
+import { API_URL } from "../../services/APIUtils";
 const Signup = () => {
   const navigate=useNavigate();
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
-var checkStatus=false;
   const [mobile, setMobile] = useState("");
   const [institutionName, setInstitutionName] = useState("");
   const [branch, setBranch] = useState("");
@@ -28,6 +27,7 @@ var checkStatus=false;
 
   const [isSubmit, setIsSubmit] = useState(false);
   const [focused, setFocused] = useState(false);
+
 
   useEffect(() => {
 
@@ -64,6 +64,9 @@ var checkStatus=false;
     setFocused(true);
     setFormPassword(validatePassword(password));
   };
+
+
+
 
   const handleConPassword = (e) => {
     setFocused(true);
@@ -130,21 +133,21 @@ var checkStatus=false;
     } else if (!regex.test(value)) {
       errors.userName = "Name should only include alphabets";
     } else {
-      checkStatus = true;
+   
     }
     return errors;
   };
 
   const validateEmail = (value) => {
     const errors = {};
-    let regex = new RegExp("[a-z0-9]+@gmail.com");
+    let regex = new RegExp("^[a-z0-9](\.?[a-z0-9_-]){0,}@[a-z0-9-]+\.([a-z]{1,6}\.)?[a-z]{2,6}$");
 
     if (!value) {
       errors.email = "email is required!";
     } else if (!regex.test(value)) {
       errors.email = "This is not a valid email format!";
     } else {
-      checkStatus = true;
+      
     }
     return errors;
   };
@@ -158,7 +161,7 @@ var checkStatus=false;
     } else if (!regexi.test(value)) {
       errors.mobile = "Contact  number should only be numeric and of 10 digits";
     } else {
-      checkStatus = true;
+      
     }
     return errors;
   };
@@ -181,19 +184,37 @@ var checkStatus=false;
 
   const validatePassword = (value) => {
     const errors = {};
+    
+  
+    let regex2 = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,16}$");
     if (!value) {
-      errors.password = "First letter of password should be capital!!";
+      errors.password = "Password Required !!!";
+    }
+   
+    else if(!regex2.test(value))
+    {
+      errors.password="1 uppercase 1 lowercase 1 numeric and 1 special character required !!!";
     }
     return errors;
   };
 
   const validateConPassword = (value) => {
     const errors = {};
+    let regex2 = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,16}$");
     if (!value) {
-      errors.confirmPassword = "First letter of password should be capital!!";
-    } else if (value !== password) {
+      errors.confirmPassword = "Password Required !!!";
+    }
+     else if (value !== password) {
       errors.confirmPassword = "password not matched!!";
     }
+  
+    else if(!regex2.test(value))
+    {
+      errors.password="1 uppercase 1 lowecase 1 numeric and special character require !!!";
+    }
+
+
+
     return errors;
   };
   const gauth=()=>{

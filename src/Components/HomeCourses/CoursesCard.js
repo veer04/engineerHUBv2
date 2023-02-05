@@ -1,7 +1,9 @@
 import { useNavigate } from "react-router-dom";
 import "./CoursesCard.css";
-
+import {useIsAuthenticated} from 'react-auth-kit';
 import { useEffect} from "react";
+import { useState } from "react";
+import Cookies from 'js-cookie';
 
 const CoursesCard = ({
   courseTitle1,
@@ -13,9 +15,31 @@ const CoursesCard = ({
   img,
 }) => {
   const navigate = useNavigate();
+  // const isAuthenticated = useIsAuthenticated()
+  const [user,setUser]=useState(false);
   useEffect(() => {
-    // console.log(cardImage);
+    const cookieUserName = Cookies.get('_auth_state');
+    if(cookieUserName){
+      setUser(true);
+    }
   });
+  const navigationHandle =()=>{
+if(user===true)
+    {
+    
+      
+        navigate("/courses");
+  
+     
+    }
+   
+    else
+    {
+      navigate("/modal");
+    }
+    
+  }
+
 
   return (
     <>
@@ -39,7 +63,7 @@ const CoursesCard = ({
           <button className="Prize">Free</button>
         </div>
         <div className="courses-details">{courseDescription}</div>
-        <div className="courses-register"onClick={()=>navigate("/modal")}>
+        <div className="courses-register"onClick={navigationHandle}>
           <div className="btn--link" >
             Register
           </div>{" "}
