@@ -12,6 +12,16 @@
     padding: 20px !important;
     width: fit-content !important;
 }
+.passwordContainer{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    position: relative;
+}
+.passwordContainer div{
+    position: absolute;
+    right: 20px;
+}
 
 .reg-field{
    flex-direction: row !important;
@@ -24,6 +34,11 @@
     font-weight: 600;
     border: none;
     cursor: pointer;
+}
+.registerPagePass{
+    position: relative;
+    top: 95%;
+    left: -10%;
 }
 @media screen and (max-width: 456px)
 {.reg-input{
@@ -38,15 +53,14 @@
 .cpf{
     margin-left: 0%;
 }
+.registerPagePass{
+    position: relative;
+    top: 95%;
+    left: 10%;
+    margin-bottom: 10%;
+}
+.registerSSS{
+    margin-top: 18%;
+}
 }
 
-.passwordContainer{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    position: relative;
-}
-.passwordContainer div{
-    position: absolute;
-    right: 20px;
-}
