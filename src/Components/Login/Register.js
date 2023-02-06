@@ -53,22 +53,7 @@ const Register = () => {
 
 
 
-  const validatePassword = (value) => {
-    let errors = {};
 
-    if (password.length < 8) {
-      errors.password = 'Password must be at least 8 characters long.';
-    } else if (!/[A-Z]/.test(password)) {
-      errors.password = 'Password must contain at least one uppercase character.';
-    } else if (!/[a-z]/.test(password)) {
-      errors.password = 'Password must contain at least one lowercase character.';
-    } else if (!/\d/.test(password)) {
-      errors.password = 'Password must contain at least one numeric character.';
-    } else if (!/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
-      errors.password = 'Password must contain at least one special character.';
-    }
-     return errors;
-  };
 
 
 
@@ -120,6 +105,25 @@ const Register = () => {
   //   window.alert("will be updated soon!!!")
   // }
 
+
+  const validatePassword = (value) => {
+    let errors = {};
+
+    if (password.length < 8) {
+      errors.password = 'Password must be at least 8 characters long.';
+    } else if (!/[A-Z]/.test(password)) {
+      errors.password = 'Password must contain at least one uppercase character.';
+    } else if (!/[a-z]/.test(password)) {
+      errors.password = 'Password must contain at least one lowercase character.';
+    } else if (!/\d/.test(password)) {
+      errors.password = 'Password must contain at least one numeric character.';
+    } else if (!/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
+      errors.password = 'Password must contain at least one special character.';
+    }
+     return errors;
+  };
+
+
   return (
     <div className="cont">
       <div className="cont-head">
@@ -148,19 +152,19 @@ const Register = () => {
         </div>
         <div className="form-cont passwordContainer">
               <input
-                required="required"
                 autoComplete="off"
-                type="password"
                 name="password"
-                placeholder="password"
-                className="reg-input"
-                onChange={(e) => setPassword(e.target.value)}
+                type={values.showPassword ? "text" : "password"}
+               placeholder="Password"
+               value={values.password}
+               className="reg-input"
+                onChange={handleChange("password")}
                 onBlur={handlePassword}
                 focused={focused.toString()}
+                pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
+                required
               />
-          <div className="registerPagePass">   <span className="error_msg">{formPassword.password}</span></div>
-           
-            
+          {/* <div className="registerPagePass">   <span className="error_msg">{formPassword.password}</span></div> */}
           <div>
             <IconButton onClick={handleClickShowPassword}>
               {!values.showPassword ? <VisibilityOff /> : <Visibility />}

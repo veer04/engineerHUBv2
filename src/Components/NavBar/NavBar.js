@@ -147,7 +147,7 @@ const avatarChange=()=>{
                 <Nav.Link href="/login">
                 {userName ? (
         <>
-          <span  className="userlginamtxt">Welcome, {userName}!</span>
+          <span  className="userlginamtxt" onClick={()=>navigate('/courses')}>Welcome, {userName}!</span>
           <button className="btnlgout" onClick={avatarChange}>Logout</button>
         </>
       ) : (
