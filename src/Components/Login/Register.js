@@ -161,7 +161,7 @@ const Register = () => {
                 onChange={handleChange("password")}
                 onBlur={handlePassword}
                 focused={focused.toString()}
-                pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
+               
                 required
               />
           {/* <div className="registerPagePass">   <span className="error_msg">{formPassword.password}</span></div> */}
