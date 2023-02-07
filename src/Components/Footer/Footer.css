@@ -35,6 +35,9 @@
   justify-content: center;
   overflow-wrap: break-word;
 }
+.footerinnertext:hover{
+  cursor: pointer;
+}
 .footerBB {
   border: none;
   display: flex;
