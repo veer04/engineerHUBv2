@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import "./CoursesCard.css";
-import {useIsAuthenticated} from 'react-auth-kit';
+// import {useIsAuthenticated} from 'react-auth-kit';
 import { useEffect} from "react";
 import { useState } from "react";
 import Cookies from 'js-cookie';
@@ -17,7 +17,7 @@ const CoursesCard = ({
   const navigate = useNavigate();
   // const isAuthenticated = useIsAuthenticated()
   const [user,setUser]=useState(false);
-  useEffect(() => {
+   useEffect(() => {
     const cookieUserName = Cookies.get('_auth_state');
     if(cookieUserName){
       setUser(true);
