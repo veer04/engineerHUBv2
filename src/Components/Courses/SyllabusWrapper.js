@@ -8,12 +8,12 @@ import { useState } from "react";
 // import Default from "./defualt.png";
 const SyllabusWrapper = ({ courseName = "Learning Javascript", syllabus }) => {
   const [courseVideoStatus, setCourseVideoStatus] = useState({
-    currentCourse: "",
-    // "Web Development Tutorials For Beginners: Episode 1",
-    currentDescription:"",
-      // "In this video you will get an intro about what is HTML.HTML is the standard markup language for Web pages. HTML is a language made up of elements. The absolute basics of HTML defines elements, attributes, and other important terms, and show where they fit in the language.",
-    currentVideoUrl:"",
-      // "https://youtube.com/playlist?list=PLK5Xw4XYHVkvV41XZ8wNsHb_37IAAvB3p",
+    currentCourse:  "Udaan Free courses Master DSA and Development for free",
+   
+    currentDescription:  "Master the concepts of DSA and Development from experts of Google and Microsoft",
+    
+    currentVideoUrl:"https://youtube.com/playlist?list=PLK5Xw4XYHVkvV41XZ8wNsHb_37IAAvB3p",
+      
   });
 
   return (
