@@ -8,9 +8,9 @@ import { useState } from "react";
 // import Default from "./defualt.png";
 const SyllabusWrapper = ({ courseName = "Learning Javascript", syllabus }) => {
   const [courseVideoStatus, setCourseVideoStatus] = useState({
-    currentCourse:  "Udaan Free courses Master DSA and Development for free",
+    currentCourse:  "Udaan Free courses Master DSA and Development for Free",
    
-    currentDescription:  "Master the concepts of DSA and Development from experts of Google and Microsoft",
+    currentDescription:  "Master the concepts of DSA and Development from Industry experts working as SDE and SWE at  Google and Microsoft",
     
     currentVideoUrl:"https://youtube.com/playlist?list=PLK5Xw4XYHVkvV41XZ8wNsHb_37IAAvB3p",
       
