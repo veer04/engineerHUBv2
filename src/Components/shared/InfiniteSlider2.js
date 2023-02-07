@@ -7,7 +7,7 @@ const InfiniteSlider = () => {
   return (
     <div className={styles.sliderStudent}>
       <div className={styles.slide_trackStudent}>
-      <Carousel>  
+      <Carousel variant="dark">  
       <Carousel.Item>
       <div className={styles.slideStudent}>
 
