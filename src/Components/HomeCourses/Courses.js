@@ -1,16 +1,12 @@
 import { Autoplay } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 // Import Swiper styles
-
 import "swiper/css/pagination";
-
 import "swiper/css";
 import "swiper/css/autoplay";
 import "../Events/Events.css";
 import "./Courses.css";
-
 import CoursesCard from "./CoursesCard";
-
 export const coursesData = [
   {
     courseName: "DSA",

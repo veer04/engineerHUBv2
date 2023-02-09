@@ -6,7 +6,7 @@
 width: 102vw;
 padding: auto;
 
-height: 60vh;
+height: 80vh;
 background: linear-gradient(90.05deg, #128381 -2.71%, #002A36 46.69%, #002A36 94.47%);
 
 }
@@ -214,7 +214,7 @@ margin-left: 2%;
     width: 300px;
    }
     .upperContainer{
-        height: 75vh;
+        height: 95vh;
         width: 103vw;
     }
     .card_Left{
@@ -250,8 +250,9 @@ margin-left: 2%;
         margin-left: -65%;
     }
     .TopicsHeader{
-        margin-left: 0%;
+        margin-left: 5%;
         margin-top: 45%;
+    
     }
     .overviewList{
         margin-left: -5%;
@@ -276,9 +277,16 @@ margin-left: 2%;
 .accordiandata{
     margin-left: 0%;
 }
+ul{
+    margin-left: -10%;
+    margin-right: 10%;
+}
 }
 
 @media screen and (max-width: 420px){
+    ul{
+        margin-left: 5%;
+    }
 .card_Left{
     margin-left: 3%;
 }
@@ -286,7 +294,7 @@ margin-left: 2%;
     padding: 5%;
 }
 .upperContainer{
-    height: 75vh;
+    height: 110vh;
     width: 103vw;
 }
 .overviewList{
@@ -300,7 +308,9 @@ margin-left: 2%;
 
 }
 @media screen and (max-width: 375px)
-{
+{ ul{
+    margin-left: 5%;
+}
     .card_Left{
         
         width: 325px;
@@ -314,6 +324,7 @@ margin-left: 2%;
     .upperContainer{
         
         width: 105vw;
+        height: 110vh;
     }
     .udaantxt{
         padding: 5%;
@@ -333,3 +344,24 @@ margin-left: 2%;
         padding: 2%;
     }
 }
+
+.glowing-text {
+    text-align: center;
+    padding-top: 10px;
+    font-size: 24px;
+    font-weight: bold;
+    color: rgba(225, 215, 28, 1);
+    text-shadow: 0 0 10px, 0 0 10px,0 12px 12px 0, 5px 6px 6px 5px;
+    animation: glow 1s ease-in-out infinite alternate;
+    margin-bottom: 0rem;
+  }
+  
+  /* @keyframes glow {
+    from {
+      text-shadow: 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #fff, 0 0 50px #fff, 0 0 60px #fff;
+    }
+    to {
+      text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #fff, 0 0 50px #fff;
+    }
+  } */
+  

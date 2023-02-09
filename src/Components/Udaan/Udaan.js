@@ -15,6 +15,13 @@ const Udaan = () => {
 <>
 <div className="containerccc">
     <div className="upperContainer row">
+      <div className="row">
+      <div className="textGlownUP">
+      <p class="glowing-text">50% off for first 10 registration</p>
+  <p class="glowing-text">Registration will start on 11 Feb at 11 am</p>
+</div>
+
+      </div>
         
             <div className="col-lg-6">
             <div className="leftPart">
@@ -28,7 +35,7 @@ const Udaan = () => {
             <img src={mentor} className="mentorImageDSA"alt="" />
             </div>
             <div className="col-lg-6 ">
-            <p className="mentorinfodisplay">By Rigved Kumar </p>
+            <p className="mentorinfodisplay">By Righved Kumar </p>
             <p className="mentorinfodisplay">SDE Microsoft</p>
             </div>
            </div>
@@ -88,10 +95,10 @@ const Udaan = () => {
     <div className="mentordetailCard">
       <img src={mentor} className="imageOfTheMentor" alt="" />
             <div className="mentordetail">
-            <h4 className="udaantext">Rigved Kumar</h4>
+            <h4 className="udaantext">Righved Kumar</h4>
             
             <ul>
-              <li className="listRig">Rigved is currently a software development engineer at Microsoft
+              <li className="listRig">Righved is currently a software development engineer at Microsoft
                 </li><li className="listRig"> He has an industry experience of about 4 years.
                 </li>
                 
