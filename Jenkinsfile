@@ -14,7 +14,8 @@ pipeline {
 
         stage('Build') { 
             steps { 
-                script{
+                script{      
+                 npm run build 
                  app = docker.build("ehub-website-frontend")
                 }
             }
