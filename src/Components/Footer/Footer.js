@@ -1,15 +1,16 @@
 import React from "react";
 import "../Footer/Footer.css";
 import InstagramIcon from "@mui/icons-material/Instagram";
-
+import { useNavigate} from "react-router-dom";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import TwitterIcon from "@mui/icons-material/Twitter";
-import SportsEsportsIcon from "@mui/icons-material/SportsEsports";
+// import SportsEsportsIcon from "@mui/icons-material/SportsEsports";
 import TelegramIcon from "@mui/icons-material/Telegram";
 import discord from"../Whatwedo/discord.svg";
 
 import { Link } from "react-router-dom";
 function Footer() {
+  const navigate=useNavigate();
   return (
     <>
       <div className="foot-container">
@@ -26,21 +27,18 @@ function Footer() {
             </div>
             <div className="f_nav">
               <h3 className="textfooter">Links</h3>
-              <a href="./magazine">
+            
               <div className="row footerinnertext">
-                <p>Magazines</p>
+                <p onClick={()=>navigate("/magazine")}>Magazines</p>
               </div>
-              </a>
-              <a href="./courses">
-              <div className="row footerinnertext ">
-                <p>Courses</p>
+            
+              
+              <div className="row footerinnertext " >
+                <p onClick={()=>navigate("/courses")}>Courses</p>
               </div>
-              </a>
-              <a href="./campus">
-              <div className="row footerinnertext">
-                <p>Events</p>
+              <div className="row footerinnertext" >
+                <p onClick={()=>navigate("campus")}>Events</p>
               </div>
-              </a>
             </div>
             {/* <div className="f_nav">
               <h3 className="textfooter quickfooter">Address</h3>

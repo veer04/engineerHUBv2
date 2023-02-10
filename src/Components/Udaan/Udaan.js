@@ -15,6 +15,13 @@ const Udaan = () => {
 <>
 <div className="containerccc">
     <div className="upperContainer row">
+      <div className="row">
+      <div className="textGlownUP">
+      <p class="glowing-text">50% off for first 10 registration</p>
+  <p class="glowing-text">Registration will start on 11 Feb at 11 am</p>
+</div>
+
+      </div>
         
             <div className="col-lg-6">
             <div className="leftPart">
@@ -28,7 +35,7 @@ const Udaan = () => {
             <img src={mentor} className="mentorImageDSA"alt="" />
             </div>
             <div className="col-lg-6 ">
-            <p className="mentorinfodisplay">By Rigved Kumar </p>
+            <p className="mentorinfodisplay">By Righved Kumar </p>
             <p className="mentorinfodisplay">SDE Microsoft</p>
             </div>
            </div>
@@ -51,7 +58,7 @@ const Udaan = () => {
                 <li className="overviewList listtxt">Practise FAANG questions</li>
                 <li className="overviewList listtxt">Mock Coding Assessment</li>
               </ul>
-              <a href="https://forms.gle/dqjfM7vGZzaBCgbNA">
+              <a href="https://forms.gle/WWE4ctS44yhsjBrJ7">
                 <button className="registerUdaan" >
               Register
             </button>
@@ -88,10 +95,10 @@ const Udaan = () => {
     <div className="mentordetailCard">
       <img src={mentor} className="imageOfTheMentor" alt="" />
             <div className="mentordetail">
-            <h4 className="udaantext">Rigved Kumar</h4>
+            <h4 className="udaantext">Righved Kumar</h4>
             
             <ul>
-              <li className="listRig">Rigved is currently a software development engineer at Microsoft
+              <li className="listRig">Righved is currently a software development engineer at Microsoft
                 </li><li className="listRig"> He has an industry experience of about 4 years.
                 </li>
                 
@@ -122,7 +129,7 @@ Bonus : Solve bit manipulation interview problems
         </Accordion.Body>
       </Accordion.Item>
       <Accordion.Item  className="accordiandata"  eventKey="2">
-        <Accordion.Header>- Intro to Strings</Accordion.Header>
+        <Accordion.Header>Intro to Strings</Accordion.Header>
         <Accordion.Body>
         Complete understanding of String. Practice Session
 Bonus : Solving string matching algorithms as well
@@ -219,7 +226,7 @@ Interview questions on BST
 Bonus : Introduction to Advanced Tree (B-Tree, B+ Tree, N-ary tree and problems)
         </Accordion.Body>
       </Accordion.Item>    <Accordion.Item  className="accordiandata"  eventKey="11">
-        <Accordion.Header>- Hashing and map</Accordion.Header>
+        <Accordion.Header>Hashing and map</Accordion.Header>
         <Accordion.Body>
         Introduction to Hashtable, functions and hashing techniques
 Hashing : Problem and Solution
@@ -288,12 +295,12 @@ Bonus : Medium to advanced interview questions on BFS and DFS
         </Accordion.Body>
       </Accordion.Item>
       <Accordion.Item className="accordiandata"  eventKey="19">
-        <Accordion.Header> - Mock Coding Assessment</Accordion.Header>
+        <Accordion.Header>Mock Coding Assessment</Accordion.Header>
         <Accordion.Body>
         </Accordion.Body>
       </Accordion.Item>
       <Accordion.Item className="accordiandata"  eventKey="20">
-        <Accordion.Header> - Solution and Discussion of assessment</Accordion.Header>
+        <Accordion.Header>Solution and Discussion of assessment</Accordion.Header>
         <Accordion.Body>
         </Accordion.Body>
       </Accordion.Item>

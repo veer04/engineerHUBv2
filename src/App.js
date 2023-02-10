@@ -6,7 +6,7 @@ import Internship from "./Components/Internship/Internship";
 import Hiring from "./Components/Hiring/Hiring";
 import Campus from "./Components/Campus/Campus";
 import Udaan from "./Components/Udaan/Udaan";
-import { RequireAuth } from 'react-auth-kit'
+// import { RequireAuth } from 'react-auth-kit';
 import Mentors from "./Components/Mentors/Mentors";
 import Teams from "./Components/Teams/Team";
 import IndustryPersona from "./Components/IndustryPersona/IndustryPersona";
@@ -22,7 +22,7 @@ import Domain from "./Components/Domain/Domain";
 import Tnp from "./Components/Tnp/Tnp";
 // import User from "./Components/UserPage/user";
 import Pviewer from "./Components/pdf/Viewer";
-// import Modal from "./Components/Modal/Modal";
+import Modal from "./Components/Modal/Modal";
 // import Eventspage from "./Components/Events/EventsMainPage/Eventspage";
 
 function App() {
@@ -40,7 +40,8 @@ function App() {
         <Route path="/mentors/:domain/:domain" exact element={<Mentors />} />
         <Route path="/domain" exact element={<Domain />} />
         <Route path="/login" exact element={<Login />} />
-        <Route path="/courses"  element={<RequireAuth loginPath={'/login'}> <CoursesWrapper/> </RequireAuth> } />
+        {/* <Route path="/courses"  element={<RequireAuth loginPath={'/modal'}> <CoursesWrapper/> </RequireAuth> } /> */}
+        <Route path="/courses" element={<CoursesWrapper/>} ></Route>
         <Route path="/internship" exact element={<Internship />} />
         <Route path="/udaan" exact element={<Udaan/>} />
         {/* <Route path="/mentorship" exact element={<Mentorship/>}/> */}
@@ -54,7 +55,7 @@ function App() {
         <Route path="/coursepage/:id" exact element={<CourseSubWrapper />} />
 
         {/* <Route path="/login" exact element={<Login />} /> */}
-        {/* <Route path="/modal" exact element={<Modal />} /> */}
+        <Route path="/modal" exact element={<Modal />} />
         <Route path="/register" exact element={<Register />} />
         <Route path="/signup" exact element={<SignUp />} />
         <Route path="/domain" exact element={<Domain />} />

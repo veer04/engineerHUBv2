@@ -2,16 +2,14 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 
-// import ReCAPTCHA from "react-google-recaptcha";
-import gg from "./svg/google.svg";
+// import ReCAPTCHA from "react-google-recaptcha"
 import "./Register.css";
 import "./Signup.css";
-import { API_URL } from "../../services/APIUtils"
+import { API_URL } from "../../services/APIUtils";
 const Signup = () => {
   const navigate=useNavigate();
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
-var checkStatus=false;
   const [mobile, setMobile] = useState("");
   const [institutionName, setInstitutionName] = useState("");
   const [branch, setBranch] = useState("");
@@ -28,6 +26,7 @@ var checkStatus=false;
 
   const [isSubmit, setIsSubmit] = useState(false);
   const [focused, setFocused] = useState(false);
+
 
   useEffect(() => {
 
@@ -65,6 +64,9 @@ var checkStatus=false;
     setFormPassword(validatePassword(password));
   };
 
+
+
+
   const handleConPassword = (e) => {
     setFocused(true);
     setFormConfirmPassword(validateConPassword(confirmPassword));
@@ -101,7 +103,7 @@ var checkStatus=false;
       axios
         .post(`${API_URL}api/v1/signup`, newEntry)
         .then((res) => {
-        navigate("/courses");
+        navigate("/login");
         })
         .catch((err) => {
           console.log(err);
@@ -123,34 +125,34 @@ var checkStatus=false;
   };
 
   const validateUserName = (value) => {
-    const errors = {};
+    let errors = {};
     let regex = new RegExp("^[A-Za-z ]{3,29}$");
     if (!value) {
       errors.userName = "Name is required!";
     } else if (!regex.test(value)) {
       errors.userName = "Name should only include alphabets";
     } else {
-      checkStatus = true;
+   
     }
     return errors;
   };
 
   const validateEmail = (value) => {
-    const errors = {};
-    let regex = new RegExp("[a-z0-9]+@gmail.com");
+    let errors = {};
+    let regex = new RegExp("^[a-z0-9](\.?[a-z0-9_-]){0,}@[a-z0-9-]+\.([a-z]{1,6}\.)?[a-z]{2,6}$");
 
     if (!value) {
       errors.email = "email is required!";
     } else if (!regex.test(value)) {
       errors.email = "This is not a valid email format!";
     } else {
-      checkStatus = true;
+      
     }
     return errors;
   };
 
   const validateMobile = (value) => {
-    const errors = {};
+    let errors = {};
 
     let regexi = new RegExp("^[0-9]{10}$");
     if (!value) {
@@ -158,13 +160,13 @@ var checkStatus=false;
     } else if (!regexi.test(value)) {
       errors.mobile = "Contact  number should only be numeric and of 10 digits";
     } else {
-      checkStatus = true;
+      
     }
     return errors;
   };
 
   const validateInstName = (value) => {
-    const errors = {};
+    let errors = {};
     if (!value) {
       errors.institutionName = "institution name is required!!";
     }
@@ -172,7 +174,7 @@ var checkStatus=false;
   };
 
   const validateBranch = (value) => {
-    const errors = {};
+    let errors = {};
     if (!value) {
       errors.branch = "Branch is required!!";
     }
@@ -180,25 +182,43 @@ var checkStatus=false;
   };
 
   const validatePassword = (value) => {
-    const errors = {};
-    if (!value) {
-      errors.password = "First letter of password should be capital!!";
+    let errors = {};
+
+    if (password.length < 8) {
+      errors.password = 'Password must be at least 8 characters long.';
+    } else if (!/[A-Z]/.test(password)) {
+      errors.password = 'Password must contain at least one uppercase character.';
+    } else if (!/[a-z]/.test(password)) {
+      errors.password = 'Password must contain at least one lowercase character.';
+    } else if (!/\d/.test(password)) {
+      errors.password = 'Password must contain at least one numeric character.';
+    } else if (!/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
+      errors.password = 'Password must contain at least one special character.';
     }
-    return errors;
+     return errors;
   };
 
   const validateConPassword = (value) => {
-    const errors = {};
-    if (!value) {
-      errors.confirmPassword = "First letter of password should be capital!!";
-    } else if (value !== password) {
+    let errors = {};
+    if (value !== password) {
       errors.confirmPassword = "password not matched!!";
     }
-    return errors;
+    if (password.length < 8) {
+      errors.confirmPassword = 'Password must be at least 8 characters long.';
+    } else if (!/[A-Z]/.test(password)) {
+      errors.confirmPassword = 'Password must contain at least one uppercase character.';
+    } else if (!/[a-z]/.test(password)) {
+      errors.confirmPassword = 'Password must contain at least one lowercase character.';
+    } else if (!/\d/.test(password)) {
+      errors.confirmPassword = 'Password must contain at least one numeric character.';
+    } else if (!/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
+      errors.confirmPassword = 'Password must contain at least one special character.';
+    }
+     return errors;
   };
-  const gauth=()=>{
-    window.alert("will be updated soon!!!")
-  }
+  // const gauth=()=>{
+  //   window.alert("will be updated soon!!!")
+  // }
 
   return (
     <div className="cont">
@@ -346,12 +366,12 @@ var checkStatus=false;
             <span className="d-flex justify-content-center p-2">or</span>
             <hr />
           </div>
-          <div className="sign-field reg-field">
+          {/* <div className="sign-field reg-field">
             <div className="sign-opt " onClick={gauth}>
               <img src={gg} alt="google" />
               Continue with Google
             </div>
-          </div>
+          </div> */}
 
           <div className="my-item-cont">
             <div>Already have an account?</div>

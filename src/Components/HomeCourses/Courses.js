@@ -1,16 +1,12 @@
 import { Autoplay } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 // Import Swiper styles
-
 import "swiper/css/pagination";
-
 import "swiper/css";
 import "swiper/css/autoplay";
 import "../Events/Events.css";
 import "./Courses.css";
-
 import CoursesCard from "./CoursesCard";
-
 export const coursesData = [
   {
     courseName: "DSA",
@@ -63,7 +59,7 @@ function Events() {
           <Swiper
             modules={[Autoplay]}
             loop={true}
-            autoplay={{ delay: 4000 }}
+            autoplay={{ delay: 2000 }}
             breakpoints={{
               768: {
                 width: 700,

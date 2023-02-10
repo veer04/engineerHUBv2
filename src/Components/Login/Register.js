@@ -12,11 +12,14 @@ import CustomSnackbar from "./CustomSnackbar";
 
 import "./Register.css";
 import axios, { AxiosError } from "axios";
-import gg from "./svg/google.svg";
+
 
 const Register = () => {
   const signIn=useSignIn();
   const navigate=useNavigate();
+  const [password, setPassword] = useState("");
+  const [formPassword, setFormPassword] = useState("");
+  const [focused, setFocused] = useState(false);
   // const[cookieValue,setCookieValue]=useContext(cookieDa);
   const [values, setValues] = useState({
     email: "",
@@ -42,6 +45,17 @@ const Register = () => {
       showPassword: !values.showPassword,
     });
   };
+  const handlePassword = (e) => {
+    setFocused(true);
+    setFormPassword(validatePassword(password));
+  };
+
+
+
+
+
+
+
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -87,9 +101,28 @@ const Register = () => {
     }
     
   }
-  const gauth=()=>{
-    window.alert("will be updated soon!!!")
-  }
+  // const gauth=()=>{
+  //   window.alert("will be updated soon!!!")
+  // }
+
+
+  const validatePassword = (value) => {
+    let errors = {};
+
+    if (password.length < 8) {
+      errors.password = 'Password must be at least 8 characters long.';
+    } else if (!/[A-Z]/.test(password)) {
+      errors.password = 'Password must contain at least one uppercase character.';
+    } else if (!/[a-z]/.test(password)) {
+      errors.password = 'Password must contain at least one lowercase character.';
+    } else if (!/\d/.test(password)) {
+      errors.password = 'Password must contain at least one numeric character.';
+    } else if (!/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
+      errors.password = 'Password must contain at least one special character.';
+    }
+     return errors;
+  };
+
 
   return (
     <div className="cont">
@@ -118,17 +151,20 @@ const Register = () => {
           />
         </div>
         <div className="form-cont passwordContainer">
-          <input
-            className="reg-input"
-            style={{
-              paddingRight: "50px",
-            }}
-            type={values.showPassword ? "text" : "password"}
-            placeholder="Password"
-            value={values.password}
-            onChange={handleChange("password")}
-            required
-          />
+              <input
+                autoComplete="off"
+                name="password"
+                type={values.showPassword ? "text" : "password"}
+               placeholder="Password"
+               value={values.password}
+               className="reg-input"
+                onChange={handleChange("password")}
+                onBlur={handlePassword}
+                focused={focused.toString()}
+               
+                required
+              />
+          {/* <div className="registerPagePass">   <span className="error_msg">{formPassword.password}</span></div> */}
           <div>
             <IconButton onClick={handleClickShowPassword}>
               {!values.showPassword ? <VisibilityOff /> : <Visibility />}
@@ -137,25 +173,25 @@ const Register = () => {
         </div>
 
         <div className="form-opt">
-          <button className="my-btn reg-si" type="submit" onClick={navigation}>
+          <button className="my-btn reg-si registerSSS" type="submit" onClick={navigation}>
             Sign in
           </button>
-          <div className="d-flex justify-content-center">
+          {/* <div className="d-flex justify-content-center">
             <div className="f-p" onClick={gauth}>Forgot Password ?</div>
             <div className="f-p "onClick={gauth}>Reset Now </div>
-          </div>
+          </div> */}
         </div>
         <div className="divisor d-flex justify-content-center">
           <hr style={{ color: "#6c757d" }} />
           <span className="d-flex justify-content-center p-2">or</span>
           <hr />
         </div>
-        <div className="sign-field reg-field">
+        {/* <div className="sign-field reg-field">
           <div className="sign-opt "onClick={gauth}>
             <img src={gg} alt="google" />
             Continue with Google
           </div>
-        </div>
+        </div> */}
 
         <div className="my-item-cont">
           <div>Didn't have an account?</div>
