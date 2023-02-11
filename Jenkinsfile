@@ -1,36 +1,105 @@
 pipeline {
-    agent any
+    agent 
     options {
         skipStagesAfterUnstable()
     }
+
+    parameters {
+        choice(name: 'ENV', choices: ['dev', 'prod'], description: 'Environment to deploy to')
+        string(name: 'SECRET_ID', defaultValue: 'prod/frontend/URL', description: 'Secret Manager')
+    }
+    
     stages {
-         stage('Clone repository') { 
+        stage('Clone repository') { 
             steps { 
                 script{
-                checkout scm
+                    checkout scm
+                }
+            }
+        }
+
+        // stage('Retrieve secrets') {
+        //     steps {
+        //         script {
+        //             // def secrets = sh(returnStdout: true, script: 'aws secretsmanager list-secrets')
+        //             // def secretIds = secrets.trim().split("\n").slice(4..-1).collect { it.split(" ")[0] }
+                    
+        //             secretIds.each { secretId ->
+        //                 def secret = sh(returnStdout: true, script: "aws secretsmanager get-secret-value --secret-id ${params.SECRET_ID}")
+        //                 def secretKey = secret.trim().split("\n")[1].split(":")[1].trim()
+        //                 def secretValue = secret.trim().split("\n")[2].split(":")[1].trim()
+
+        //                 env."${secretKey}" = "${secretValue}"
+        //             }
+        //         }
+        //     }
+        // }
+
+        // stage('Build') { 
+        //     steps { 
+        //         script{
+        //             sh 'npm install'
+        //             sh 'npm run build'
+
+        //             def buildArgs = ""
+        //             env.getProperties().each { key, value ->
+        //                 buildArgs = "${buildArgs} --build-arg ${key}=${value}"
+        //             }
+
+        //             app = docker.build("ehub-website-frontend", "${buildArgs}")
+        //         }
+        //     }
+        // }
+
+        stage('Retrieve secrets') {
+            steps {
+                script {
+                    withCredentials([aws(credentialsId: 'AWS Creds Ehub', region: 'ap-south-1'), stringAsSecret: true]) {
+                        def secrets = sh(returnStdout: true, script: "aws secretsmanager get-secret-value --secret-id ${params.SECRET_ID} --profile AWS_SECRETS_MANAGER_CREDS")
+                        def secretsJson = readJSON text: secrets
+                        secretsJson.data.entrySet().each { entry ->
+                            env["${entry.key}"] = "${entry.value}"
+                    }
                 }
             }
         }
 
         stage('Build') { 
             steps { 
-                script{      
-                 npm run build 
-                 app = docker.build("ehub-website-frontend")
+                script{
+                    sh 'npm install'
+                    sh 'npm run build'
+
+                    def buildArgs = ''
+                    env.entrySet().each { entry ->
+                        buildArgs += "--build-arg ${entry.key}=${entry.value} "
+                    }
+
+                    app = docker.build("ehub-website-frontend", buildArgs)
                 }
             }
         }
+
         stage('Test'){
             steps {
-                 echo 'Empty' 
+                script {
+                    sh 'echo "Testing Stage"'
+                    // sh './clair-scanner --ip <clair-server-ip> --clair-timeout <timeout-in-seconds> --clair-threshold <severity-threshold> <image-name>:<image-tag>'
+                }
             }
         }
+
         stage('Deploy') {
+            when {
+                expression { params.ENV != 'dev' }
+            }
             steps {
                 script{
+                    withCredentials([aws(credentialsId: 'AWS ECR', region: 'ap-south-1')]) {
                         docker.withRegistry('https://775241144628.dkr.ecr.ap-south-1.amazonaws.com', 'ecr:ap-south-1:aws-credentials') {
-                        app.push("${env.BUILD_NUMBER}")
-                        app.push("latest")
+                            app.tag("775241144628.dkr.ecr.ap-south-1.amazonaws.com/ehub_frontend:${env.BUILD_NUMBER}")
+                            app.push("latest")
+                        }
                     }
                 }
             }
