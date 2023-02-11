@@ -54,7 +54,7 @@ pipeline {
         stage('Retrieve secrets') {
             steps {
                 script {
-                    withCredentials([aws(credentialsId: 'AWS Creds Ehub', region: 'ap-south-1')]) {
+                    withCredentials([aws(credentialsId: 'AWS Creds Ehub')]) { //, region: 'ap-south-1'
                         def secrets = sh(returnStdout: true, script: "aws secretsmanager get-secret-value --secret-id ${params.SECRET_ID} --profile AWS_SECRETS_MANAGER_CREDS")
                         def secretsJson = readJSON text: secrets
                         secretsJson.data.entrySet().each { entry ->
