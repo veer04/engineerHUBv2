@@ -1,7 +1,7 @@
 pipeline {
     agent {
         docker {
-            image 'node:14'
+            image 'amazonlinux:2'
             args '-v /var/run/docker.sock:/var/run/docker.sock'
         }
     }
@@ -25,10 +25,13 @@ pipeline {
             }
         }
 
-        stage('Prepare Environment') {
+        stage("Dependency installation") {
             steps {
-                sh 'apt-get update && apt-get install -y awscli'
-                sh 'npm install -g npm@latest'
+                sh 'sudo yum update -y'
+                sh 'sudo yum install aws-cli -y'
+                sh 'sudo yum install groovy -y'
+                sh 'curl -sL https://rpm.nodesource.com/setup_14.x | sudo bash -'
+                sh 'sudo yum install nodejs -y'
             }
         }
 
