@@ -13,8 +13,6 @@ RUN npm install -g serve
 # Copy the build files to the container
 COPY build ./build
 
-# COPY .env ./
-
 # Expose port 3000
 EXPOSE 3000
 
