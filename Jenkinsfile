@@ -6,6 +6,7 @@ pipeline {
 
     parameters {
         choice(name: 'ENV', choices: ['dev', 'prod'], description: 'Environment to deploy to')
+        choice(name: 'REGION', choices: ['ap-south-1', 'us-west-2'], description: 'Region to deploy to')
         string(name: 'SECRET_ID', defaultValue: 'prod/frontend/URL', description: 'Secret Manager')
     }
     
@@ -54,8 +55,8 @@ pipeline {
         stage('Retrieve secrets') {
             steps {
                 script {
-                    withCredentials([aws(credentialsId: 'AWS Creds Ehub', region: 'ap-south-1')]) { 
-                        def secrets = sh(returnStdout: true, script: "aws secretsmanager get-secret-value --secret-id ${params.SECRET_ID}")
+                    withCredentials([aws(credentialsId: 'AWS Creds Ehub', region: ${params.REGION})]) { 
+                        def secrets = sh(returnStdout: true, script: "aws secretsmanager get-secret-value --secret-id ${params.SECRET_ID} --region ${params.REGION}")
                         def secretsJson = readJSON text: secrets
                         secretsJson.data.entrySet().each { entry ->
                             env["${entry.key}"] = "${entry.value}"
@@ -96,8 +97,8 @@ pipeline {
             }
             steps {
                 script{
-                    withCredentials([aws(credentialsId: 'AWS ECR', region: 'ap-south-1')]) {
-                        docker.withRegistry('https://775241144628.dkr.ecr.ap-south-1.amazonaws.com', 'ecr:ap-south-1:aws-credentials') {
+                    withCredentials([aws(credentialsId: 'AWS ECR', region: ${params.REGION})]) {
+                        docker.withRegistry('https://775241144628.dkr.ecr.ap-south-1.amazonaws.com', 'ecr:ap-south-1:AWS ECR') {
                             app.tag("775241144628.dkr.ecr.ap-south-1.amazonaws.com/ehub_frontend:${env.BUILD_NUMBER}")
                             app.push("latest")
                         }
