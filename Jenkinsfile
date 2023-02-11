@@ -60,12 +60,9 @@ pipeline {
                         def secretsJson = readJSON(text: secrets)
                         def secretsMap = [:]
                         secretsMap = readJSON(text: secretsJson['SecretString'])
-                        // def json = writeJSON(secretsMap)
-                        // println(json)
-                        println "${secretsMap}"
-                        // secretsMap.data.entrySet().each { entry ->
-                        //     env["${entry.key}"] = "${entry.value}"
-                        // }
+                        secretsMap.each { key, value ->
+                            env."${key}" = "${value}"
+                        }
                     }
                 }
             }
@@ -74,15 +71,16 @@ pipeline {
         stage('Build') { 
             steps { 
                 script{
-                    sh 'npm install'
-                    sh 'npm run build'
+                    sh 'printenv'
+                    // sh 'npm install'
+                    // sh 'npm run build'
 
-                    def buildArgs = ''
-                    env.entrySet().each { entry ->
-                        buildArgs += "--build-arg ${entry.key}=${entry.value} "
-                    }
+                    // def buildArgs = ''
+                    // env.entrySet().each { entry ->
+                    //     buildArgs += "--build-arg ${entry.key}=${entry.value} "
+                    // }
 
-                    app = docker.build("ehub-website-frontend", buildArgs)
+                    // app = docker.build("ehub-website-frontend", buildArgs)
                 }
             }
         }
