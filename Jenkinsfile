@@ -55,7 +55,7 @@ pipeline {
         stage('Retrieve secrets') {
             steps {
                 script {
-                    withCredentials([aws(credentialsId: 'AWS Creds Ehub', region: ${params.REGION})]) { 
+                    withCredentials([aws(credentialsId: 'AWS Creds Ehub')]) { //, region: ${params.REGION}
                         def secrets = sh(returnStdout: true, script: "aws secretsmanager get-secret-value --secret-id ${params.SECRET_ID} --region ${params.REGION}")
                         def secretsJson = readJSON text: secrets
                         secretsJson.data.entrySet().each { entry ->
@@ -97,7 +97,7 @@ pipeline {
             }
             steps {
                 script{
-                    withCredentials([aws(credentialsId: 'AWS ECR', region: ${params.REGION})]) {
+                    withCredentials([aws(credentialsId: 'AWS ECR')]) { //, region: ${params.REGION}
                         docker.withRegistry('https://775241144628.dkr.ecr.ap-south-1.amazonaws.com', 'ecr:ap-south-1:AWS ECR') {
                             app.tag("775241144628.dkr.ecr.ap-south-1.amazonaws.com/ehub_frontend:${env.BUILD_NUMBER}")
                             app.push("latest")
