@@ -1,5 +1,11 @@
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'node:14'
+            args '-v /var/run/docker.sock:/var/run/docker.sock'
+        }
+    }
+
     options {
         skipStagesAfterUnstable()
     }
@@ -19,43 +25,10 @@ pipeline {
             }
         }
 
-        // stage('Retrieve secrets') {
-        //     steps {
-        //         script {
-        //             // def secrets = sh(returnStdout: true, script: 'aws secretsmanager list-secrets')
-        //             // def secretIds = secrets.trim().split("\n").slice(4..-1).collect { it.split(" ")[0] }
-                    
-        //             secretIds.each { secretId ->
-        //                 def secret = sh(returnStdout: true, script: "aws secretsmanager get-secret-value --secret-id ${params.SECRET_ID}")
-        //                 def secretKey = secret.trim().split("\n")[1].split(":")[1].trim()
-        //                 def secretValue = secret.trim().split("\n")[2].split(":")[1].trim()
-
-        //                 env."${secretKey}" = "${secretValue}"
-        //             }
-        //         }
-        //     }
-        // }
-
-        // stage('Build') { 
-        //     steps { 
-        //         script{
-        //             sh 'npm install'
-        //             sh 'npm run build'
-
-        //             def buildArgs = ""
-        //             env.getProperties().each { key, value ->
-        //                 buildArgs = "${buildArgs} --build-arg ${key}=${value}"
-        //             }
-
-        //             app = docker.build("ehub-website-frontend", "${buildArgs}")
-        //         }
-        //     }
-        // }
-
         stage('Retrieve secrets') {
             steps {
                 script {
-                    withCredentials([aws(credentialsId: 'AWS Creds Ehub')]) { //, region: ${params.REGION}
+                    withCredentials([aws(credentialsId: 'AWS Creds Ehub')]) { 
                         def secrets = sh(returnStdout: true, script: "aws secretsmanager get-secret-value --secret-id ${params.SECRET_ID} --region ${params.REGION}")
                         def secretsJson = readJSON(text: secrets)
                         def secretsMap = [:]
@@ -72,15 +45,15 @@ pipeline {
             steps { 
                 script{
                     sh 'printenv'
-                    // sh 'npm install'
-                    // sh 'npm run build'
+                    sh 'npm install'
+                    sh 'npm run build'
 
-                    // def buildArgs = ''
-                    // env.entrySet().each { entry ->
-                    //     buildArgs += "--build-arg ${entry.key}=${entry.value} "
-                    // }
+                    def buildArgs = ''
+                    env.entrySet().each { entry ->
+                        buildArgs += "--build-arg ${entry.key}=${entry.value} "
+                    }
 
-                    // app = docker.build("ehub-website-frontend", buildArgs)
+                    app = docker.build("ehub-website-frontend", buildArgs)
                 }
             }
         }
@@ -94,13 +67,13 @@ pipeline {
             }
         }
 
-        stage('Deploy') {
+        stage('Push Image to AWS ECR') {
             when {
                 expression { params.ENV != 'dev' }
             }
             steps {
                 script{
-                    withCredentials([aws(credentialsId: 'AWS ECR')]) { //, region: ${params.REGION}
+                    withCredentials([aws(credentialsId: 'AWS ECR')]) { 
                         docker.withRegistry('https://775241144628.dkr.ecr.ap-south-1.amazonaws.com', 'ecr:ap-south-1:AWS ECR') {
                             app.tag("775241144628.dkr.ecr.ap-south-1.amazonaws.com/ehub_frontend:${env.BUILD_NUMBER}")
                             app.push("latest")
