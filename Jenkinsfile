@@ -57,11 +57,12 @@ pipeline {
                 script {
                     withCredentials([aws(credentialsId: 'AWS Creds Ehub')]) { //, region: ${params.REGION}
                         def secrets = sh(returnStdout: true, script: "aws secretsmanager get-secret-value --secret-id ${params.SECRET_ID} --region ${params.REGION}")
-                       // Set each environment variable to its corresponding value from the secrets
+                        // Set each environment variable to its corresponding value from the secrets
                         def secretString = secretsJson.SecretString
                         def secretMap = readJSON text: secretString
                         secretMap.each { key, value ->
                             env[key] = value
+                        }
                     }
                 }
             }
