@@ -28,6 +28,7 @@ pipeline {
         stage("Dependency installation") {
             steps {
                 sh 'yum update -y'
+                sh 'yum install docker -y'
                 sh 'yum install aws-cli -y'
                 sh 'yum install groovy -y'
                 sh 'curl -sL https://rpm.nodesource.com/setup_14.x | sudo bash -'
