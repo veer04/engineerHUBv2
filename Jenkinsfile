@@ -60,7 +60,7 @@ pipeline {
                         def secretsJson = readJSON(text: secrets)
                         def secretsMap = [:]
                         secretsMap = readJSON(text: secretsJson['SecretString'])
-                        def json = JsonOutput.toJson(secretsMap)
+                        def json = writeJSON(secretsMap)
                         println(json)
                         // println "SecretMap: ${secretsMap}"
                         // secretsMap.data.entrySet().each { entry ->
