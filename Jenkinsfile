@@ -25,6 +25,13 @@ pipeline {
             }
         }
 
+        stage('Prepare Environment') {
+            steps {
+                sh 'apt-get update && apt-get install -y awscli'
+                sh 'npm install -g npm@latest'
+            }
+        }
+
         stage('Retrieve secrets') {
             steps {
                 script {
@@ -44,7 +51,7 @@ pipeline {
         stage('Build') { 
             steps { 
                 script{
-                    sh 'printenv'
+                    // sh 'printenv'
                     sh 'npm install'
                     sh 'npm run build'
 
