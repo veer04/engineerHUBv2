@@ -60,7 +60,7 @@ pipeline {
                         def secretsJson = readJSON(text: secrets)
                         def secretsMap = [:]
                         secretsMap = readJSON(text: secretsJson['SecretString'])
-                        def json = new groovy.json.JsonBuilder(secretMap).toString()
+                        def json = new groovy.json.JsonBuilder(secretsMap).toString()
                         println(json)
                         // println "SecretMap: ${secretsMap}"
                         // secretsMap.data.entrySet().each { entry ->
