@@ -59,6 +59,7 @@ pipeline {
                         def secretsJson = readJSON text: secrets
                         secretsJson.data.entrySet().each { entry ->
                             env["${entry.key}"] = "${entry.value}"
+                        }
                     }
                 }
             }
