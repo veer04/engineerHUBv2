@@ -1,7 +1,7 @@
 pipeline {
     agent {
         docker {
-            image 'amazonlinux:2'
+            image 'alpine:3.12'
             args '-v /var/run/docker.sock:/var/run/docker.sock'
         }
     }
@@ -27,12 +27,7 @@ pipeline {
 
         stage("Dependency installation") {
             steps {
-                sh 'yum update -y'
-                sh 'yum install docker -y'
-                sh 'yum install aws-cli -y'
-                sh 'yum install groovy -y'
-                sh 'curl -sL https://rpm.nodesource.com/setup_14.x | sudo bash -'
-                sh 'yum install nodejs -y'
+                sh 'apk add --no-cache nodejs npm awscli'
             }
         }
 
