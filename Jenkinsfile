@@ -25,11 +25,11 @@ pipeline {
             }
         }
 
-        stage("Dependency installation") {
-            steps {
-                sh 'apk add --no-cache nodejs npm awscli'
-            }
-        }
+        // stage("Dependency installation") {
+        //     steps {
+        //         sh 'apk add --no-cache nodejs npm awscli'
+        //     }
+        // }
 
         stage('Retrieve secrets') {
             steps {
