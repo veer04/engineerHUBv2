@@ -51,7 +51,7 @@ pipeline {
             steps { 
                 script{
                     // sh 'printenv'
-                    sh 'npm install'
+                    sh 'npm ci'
                     sh 'npm run build'
 
                     def buildArgs = ''
