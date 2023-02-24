@@ -17,6 +17,21 @@ export const getCourses = async (setCourseData) => {
       }
     });
 };
+export const getWhatsapp = async (setWhatsapp) => {
+  const cancelToken = axios.CancelToken.source();
+  axios
+    .get(`https://backend.ehubbusiness.com/api/v1/getDiscord`, {
+      cancelToken: cancelToken.token,
+    })
+    .then((res) => setWhatsapp([...res.data]))
+    .catch((err) => {
+      if (axios.isCancel(err)) {
+        console.log("req cancel");
+      } else {
+        console.log("req performed");
+      }
+    });
+};
 
 export const getHandBook = (setMagazineData) => {
   const cancelToken = axios.CancelToken.source();

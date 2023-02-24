@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route} from "react-router-dom";
 import NavBar from "./Components/NavBar/NavBar";
 import HomePage from "./Components/HomePage/HomePage";
 import MagzineAndHandbook from "./Components/magzineandHandbook/magzineAndHandbook";
@@ -23,17 +23,31 @@ import Tnp from "./Components/Tnp/Tnp";
 // import User from "./Components/UserPage/user";
 import Pviewer from "./Components/pdf/Viewer";
 import Modal from "./Components/Modal/Modal";
-// import Eventspage from "./Components/Events/EventsMainPage/Eventspage";
+import Discord from "./Components/RouteforSocial/Discord";
+import Instagram from "./Components/RouteforSocial/Instagram";
+import LinkedIn from "./Components/RouteforSocial/Linkedin";
+import Whatsapp from "./Components/RouteforSocial/Whatsapp";
+import Twitter from "./Components/RouteforSocial/Twitter";
 
+// import Eventspage from "./Components/Events/EventsMainPage/Eventspage";
 function App() {
+  // const showNavbarAndFooter = () => {
+  //   const { pathname } = window.location;
+  //   const validRoutes = ['/', '/courses','login','domain','hiring','magazine','campus','teams'];
+  //   return validRoutes.includes(pathname);};
 
   return (
-    <Router>
-      
+    <>
+     <Router>
+      <div>
       <NavBar />
       <Routes>
         <Route path="" exact element={<HomePage />} />
-        {/* <Route path="/whatsapp" to="https://docs.google.com/forms/d/e/1FAIpQLSehVDlbQaCkIQCyY5Uy6e7uD7Su7xBIu-cNpY-fHgWM7y84QQ/viewform"></Route> */}
+        <Route path="/whatsapp" element={<Whatsapp/>} />
+        <Route path="/discord" element={<Discord/>} />
+        <Route path="/instagram" element={<Instagram/>}/>
+        <Route path="/linkedin" element={<LinkedIn/>}/>
+        <Route path="/twitter"  element={<Twitter/>}/>
         <Route path="/resources/:domain" exact element={<Resources />} />
         <Route path="/resources/:domain/:domain" exact element={<Resources />} />
         <Route path="/mentors/:domain" exact element={<Mentors />} />
@@ -49,6 +63,11 @@ function App() {
         <Route path="/hiring" exact element={<Hiring />} />
         <Route path="/campus" exact element={<Campus />} />
         <Route path="/teams" exact element={<Teams />} />
+        {/* <Route exact path="/discord" element={<Whatsapp/>} /> */}
+        {/* <Route exact path="/discord">
+    <Redirect to={{ pathname: 'https://discord.com/invite/ZMZAEZ5NfA' }} />
+  </Route> */}
+
         <Route path="/tnp" exact element={<Tnp />} />
         {/* <Route path="/events" exact element={<Eventspage/>} /> */}
         <Route path="/industry" exact element={<IndustryPersona />} />
@@ -62,12 +81,13 @@ function App() {
 
         <Route path="/pdf" exact element={<Pviewer />} />
       </Routes>
-    
       <div className="Footer">
         <Footer />
+        </div>
       </div>
-
     </Router>
+    </>
+   
   );
 }
 

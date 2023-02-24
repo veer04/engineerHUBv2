@@ -47,7 +47,7 @@ const Internship = () => {
         />
        
       </form>
-      <FilterBar></FilterBar>
+      {/* <FilterBar></FilterBar> */}
       <div className="InternList">
         {filteredInternshipData.map((items, i) => {
           return (

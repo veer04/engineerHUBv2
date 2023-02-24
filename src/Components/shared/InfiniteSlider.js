@@ -5,9 +5,6 @@ const InfiniteSlider = () => {
     <div className={styles.slider}>
       <div className={styles.slide_track}>
         <div className={styles.slide}>
-          <img src={`${Bucket_URL}CompaniesLogo/deciml.png`} height="100" width="250" alt="" />
-        </div>
-        <div className={styles.slide}>
           <img src={`${Bucket_URL}CompaniesLogo/oracle.svg`} height="100" width="250" alt="" />
         </div>
         <div className={styles.slide}>
