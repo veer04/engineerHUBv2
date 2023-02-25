@@ -31,16 +31,24 @@ import Twitter from "./Components/RouteforSocial/Twitter";
 
 // import Eventspage from "./Components/Events/EventsMainPage/Eventspage";
 function App() {
-  // const showNavbarAndFooter = () => {
-  //   const { pathname } = window.location;
-  //   const validRoutes = ['/', '/courses','login','domain','hiring','magazine','campus','teams'];
-  //   return validRoutes.includes(pathname);};
+  const showNavbarAndFooter = () => {
+    const { pathname } = window.location;
+    const validRoutes = ['/', '/courses','/login','/domain',
+    '/hiring','/magazine','/campus','/teams','/resources/:domain',
+    '/resources/:domain/:domain','/mentors',
+    '/mentors/:domain/:domain','/internship','udaan',
+    '/coursepage/:id','/modal','domain','/register','/signup','/mentors/DevOps',
+    '/mentors/UI%20UX%20Design','/mentors/Machine%20Learning%20&%20AI','/mentors/Data%20Structures%20&%20Algorithms'
+  ,'/mentors/Web%20Development','/mentors/App%20Development','/mentors/Cyber%20Security',
+    '/resources/DevOps','/resources/UI%20UX%20Design','/resources/Machine%20Learning%20&%20AI','/resources/Data%20Structures%20&%20Algorithms',
+    '/resources/App%20Development','/resources/Cyber%20Security',];
+    return validRoutes.includes(pathname);};
 
   return (
     <>
      <Router>
       <div>
-      <NavBar />
+      {showNavbarAndFooter() && <NavBar />}
       <Routes>
         <Route path="" exact element={<HomePage />} />
         <Route path="/whatsapp" element={<Whatsapp/>} />
@@ -82,7 +90,7 @@ function App() {
         <Route path="/pdf" exact element={<Pviewer />} />
       </Routes>
       <div className="Footer">
-        <Footer />
+      {showNavbarAndFooter() && <Footer />}
         </div>
       </div>
     </Router>
