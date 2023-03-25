@@ -76,7 +76,7 @@ function Events() {
                 width: 1274,
                 slidesPerView: 4,
               },
-            }}
+            }}j
             onSwiper={(swiper) => {}}
             onSlideChange={() => {}}
           >

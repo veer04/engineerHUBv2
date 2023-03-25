@@ -24,7 +24,7 @@ do
         else
             # If the container is not running or stopped, it must be exited
             echo "Container $container_name is exited."
-            `docker run -p 3000:3000 -d ehub-website --name frontend`
+            `docker run -p 80:3000 -d ehub-frontend --name frontend`
         fi
     fi
 done
