@@ -19,4 +19,4 @@ RUN apk update \
 COPY build ./build
 
 # Command to run the application
-CMD ["serve", "-s", "build"]
+CMD ["serve", "-s", "build"] 
