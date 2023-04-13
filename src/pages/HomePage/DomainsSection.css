@@ -1,0 +1,179 @@
+.domains-section-container {
+  margin: 1rem 0 0 0;
+  height: 40rem;
+  --domains-background-color: rgb(185, 255, 254);
+  padding: 5rem var(--section-padding);
+  background-image: linear-gradient(
+    to top,
+    var(--domains-background-color),
+    rgb(96, 243, 242, 0.25),
+    var(--main-background-color)
+  );
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.domains-section-title {
+  font-size: max(3rem, calc(20cqw * (188 / 642)));
+  font-weight: 600;
+  color: var(--text-color-green);
+  position: absolute;
+}
+.domains-section-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10rem;
+  width: 100%;
+  height: 100%;
+}
+.domains-section-content div {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.domain-chip-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+.domain-chip-container a {
+  border-radius: 5rem;
+  position: absolute;
+}
+.domain-chip-container a {
+  width: max-content;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+}
+
+.domain-chip-title-1 {
+  font-size: 1.8rem;
+  padding: 0.5rem 1rem;
+}
+
+.domain-chip-title-2 {
+  font-size: 2rem;
+  padding: 0.5rem 1rem;
+  right: 20%;
+}
+.domain-chip-title-3 {
+  left: 30%;
+  top: 1rem;
+}
+.domain-chip-title-4 {
+}
+.domain-chip-title-5 {
+  font-size: 2rem;
+  padding: 0.5rem 1rem;
+  right: 20%;
+}
+
+.domain-chip-title-6 {
+  font-size: 2.1rem;
+  padding: 0.5rem 1rem;
+}
+
+.domain-chip-title-7 {
+  font-size: 0.9rem;
+}
+.domain-chip-title-8 {
+  font-size: 2rem;
+}
+
+@media screen and (max-width: 1260px) {
+  .domains-section-content {
+    gap: 5rem;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .domains-section-container {
+    height: 35rem;
+  }
+  .domains-section-content {
+    gap: 5rem;
+  }
+
+  .domain-chip-title-1,
+  .domain-chip-title-2,
+  .domain-chip-title-5,
+  .domain-chip-title-6,
+  .domain-chip-title-8 {
+    font-size: 1.5rem;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .domains-section-container {
+    height: 35rem;
+  }
+  .domains-section-content {
+    gap: 7rem;
+  }
+  .domains-section-content > div {
+    gap: 3.5rem;
+  }
+  .domain-chip-title-1,
+  .domain-chip-title-2,
+  .domain-chip-title-5,
+  .domain-chip-title-6,
+  .domain-chip-title-8 {
+    font-size: 1.3rem;
+  }
+
+  .domain-chip-title-1,
+  .domain-chip-title-2,
+  .domain-chip-title-3,
+  .domain-chip-title-4,
+  .domain-chip-title-5,
+  .domain-chip-title-6,
+  .domain-chip-title-7,
+  .domain-chip-title-8 {
+    /* font-size: 1.2rem; */
+    padding: 0.3rem 0.8rem !important;
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .domain-chip-title-1,
+  .domain-chip-title-2,
+  .domain-chip-title-3,
+  .domain-chip-title-4,
+  .domain-chip-title-5,
+  .domain-chip-title-6,
+  .domain-chip-title-7,
+  .domain-chip-title-8 {
+    /* font-size: 1.2rem; */
+    padding: 0.2rem 0.6rem !important;
+  }
+
+  .domain-chip-title-3 {
+    left: 10%;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .domain-chip-title-1,
+  .domain-chip-title-2,
+  .domain-chip-title-3,
+  .domain-chip-title-4,
+  .domain-chip-title-5,
+  .domain-chip-title-6,
+  .domain-chip-title-7,
+  .domain-chip-title-8 {
+    font-size: 0.8rem;
+    padding: 0.2rem 0.6rem !important;
+  }
+  .domain-chip-title-3 {
+    left: 10%;
+    top: 0;
+  }
+}

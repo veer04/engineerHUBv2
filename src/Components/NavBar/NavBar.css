@@ -1,212 +1,88 @@
-.NAvbarBackground {
-  background-color: rgba(0, 42, 54, 1);
-}
-.Navbar-color {
-  color: aliceblue;
-}
-.navelements {
-  font-family: "poppins";
-  color: aliceblue;
-  align-self: center;
-}
-.dropdown-toggle::after {
-  display: none;
-}
-.dropdownNav {
-  background-color: #168584;
+.navbar {
+  --navbar-background-color: rgb(96, 243, 242, 0.75);
+  height: 6.7rem;
+  padding: 0 var(--section-padding);
+  background-image: linear-gradient(
+    var(--navbar-background-color),
+    rgb(96, 243, 242, 0.25),
+    var(--main-background-color)
+  );
+  position: fixed;
+  width: 100vw;
+  left: 0;
+  top: 0;
+  z-index: 5;
 }
 
-.navdropdownitems a {
-  position: absolute;
-  left: 10%;
-}
-/* .mw-100{
-  width: 300px;
-} */
-
-.NavDropdown {
-  background-color: #168584;
-  border-radius: 50px;
-}
-div.dropdown-menu.show {
-  background-color: #168584;
-}
-div.dropdown-menu.show {
-  position: relative;
-}
-a.dropdown-item {
-  color: #fff;
-}
-.navd {
-  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16);
-}
-
-.subNavbar {
-  display: none;
-}
-
-.subn:hover{
-  cursor: pointer;
-  transform: translateY(-4px);
-
-}
-
-@media screen and (max-width: 1463px) {
-  .logo {
-    margin-right: 1rem;
-  }
-  
-}
-@media screen and (max-width: 1128px) {
-  .gap {
-    margin-right: 0.5rem;
-  }
-
-}
-@media screen and (max-width: 939px) {
-  .logo {
-    align-items: center;
-    align-content: center;
-  }
-}
-@media screen and (max-width: 991px) {
-  .logo {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
- 
- 
-
-  nav {
-    position: relative;
-    display: flex;
-    flex-wrap: nowrap;
-    align-items: center;
-    justify-content: space-between;
-  }
-  .container-fluid {
-    /* display: flex;
-        flex-direction: column; */
-    display: flex;
-    flex-wrap: inherit;
-    align-items: center;
-    justify-content: space-between;
-  }
-  /* li{
-        flex-direction: column;
-    } */
-}
 .container-fluid {
+  padding: 0;
+}
+
+.logo {
+  height: 100%;
+  width: clamp(4rem, 100vw, 6.5rem);
+}
+.navbar-collapse {
   display: flex;
   flex-direction: row;
-}
-
-.nav-cont {
-  padding: 2px 40px;
   align-items: center;
+  justify-content: center;
 }
 
-.company-logo img {
-  height: 50px;
-  padding-right: 100px;
-}
-
-.ham-icon img {
+.navbar-toggler {
   display: none;
-  height: 32px;
 }
 
-@media (max-width: 1023px) {
-  .ham-icon img {
-    display: flex;
-  }
-  .navelements {
+.nav-middle-items {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin: 0 0.25rem;
+  width: 7.5rem;
+}
+
+.nav-login-btn {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  max-width: 144px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-height: 1.9rem;
+}
+
+.nav-logged-in-btn {
+}
+
+.nav-user-thumbnail {
+  position: relative;
+  left: -0.25rem;
+  padding: 0;
+  height: 1.6rem;
+  width: 1.6rem;
+  min-width: 1.6rem;
+  min-height: 1.6rem;
+  border-radius: 50%;
+}
+
+.nav-username {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-height: 1.9rem;
+}
+
+@media screen and (max-width: 900px) {
+  .nav-username {
     display: none;
   }
-  .mobileNav {
-    display: flex;
-    flex-direction: column;
+  .nav-user-thumbnail {
+    left: 0;
+    height: 1.9rem;
+    width: 1.9rem;
   }
-}
-@media (max-width: 426px) {
-  .subNavbar {
-    display: flex;
-    gap: 7px;
-    position: relative;
-    top:-1px;
-    justify-content: center;
-    padding-top: 5%;
-    padding-bottom: 4%;
-    background-color: rgba(0, 42, 54, 1);
+  .nav-logged-in-btn {
+    background-color: transparent !important;
   }
- .helloadmin{
-  display: flex;
-align-items: center;
- }
-}
-.homesbn {
-  color: green;
-  font-size: 0.9rem;
-}
-.domainssbn {
-  color: green;
-  font-size: 0.9rem;
-}
-.coursessbn {
-  color: green;
-  font-size: 0.9rem;
-}
-
-.eventssbn {
-  color: green;
-  font-size: 0.9rem;
-}
-.helloadmin{
-  position: relative;
-  right: -50px;
-}
-.internshipssbn {
-  color: green;
-  font-size: 0.9rem;
-}
-
-.bg-light {
-    background: #002a36 !important;
-}
-.navbar-light .navbar-nav .nav-link {
-  color: white !important;
-  align-self: center;
-  position: relative;
-  
-}
-.navbar-toggler {
-  background-color: #fff3f3;
-}
-.navbar-collapse{
-  flex-grow: 0;
-
-}
-.btnlgout{
-border: none;
-margin-left: 25%;
-background-color: #002a36;
-color: #fff;
-}
-
-@media screen and (max-width: 426px){
- .navbar{
-  justify-content: space-evenly;
- }
- .btnlgout{
-  border: none;
-margin-left: 40%;
-background-color: #002a36;
-color: #fff;
-}
-.userlginamtxt{
-  margin-left: 10%;
-}
-
 }

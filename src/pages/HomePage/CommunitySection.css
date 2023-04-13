@@ -1,0 +1,80 @@
+.community-section-container {
+  --tile-bg-color-1: #b7e0e0; /* rgb(183, 224, 224) */
+  --tile-bg-color-2: #bbfffe; /* rgb(187, 255, 254) */
+  --tile-bg-color-3: #b4dede; /* rgb(180, 222, 222) */
+  --tile-bg-color-4: #60afae; /* rgb(96, 175, 174) */
+  --tile-bg-color-5: rgb(22, 133, 132, 0.66); /* rgb(22, 133, 132) */
+  --tile-bg-color-6: rgb(14, 94, 94, 0.25); /* rgb(14, 94, 94) */
+}
+.community-section-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-x: hidden;
+}
+.community-bg-scroller {
+  overflow-x: hidden;
+}
+.community-section-bg {
+  scroll-behavior: smooth;
+  display: grid;
+  grid-template-rows: repeat(6, 96px);
+  grid-template-columns: repeat(300, 96px);
+  top: 0;
+  z-index: -1;
+  width: 100vw;
+}
+.community-section-content {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  text-align: center;
+}
+.community-section-content span {
+  color: var(--text-color-green);
+}
+.discord-btn {
+  margin-top: 0.5rem;
+  border-radius: 2rem;
+  background-color: #5865f2;
+  color: white;
+  display: flex;
+}
+.discord-btn:hover {
+  background-color: #6976ff;
+}
+.discord-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-right: 0.5rem;
+}
+
+@media screen and (max-width: 768px) {
+  .community-section-content {
+    font-size: 2.2rem !important;
+  }
+}
+
+@media screen and (max-width: 505px) {
+  .community-section-content {
+    font-size: 1.5rem !important;
+  }
+  .discord-btn {
+    font-size: 0.85rem !important;
+  }
+  .discord-icon {
+    width: 1.2rem !important;
+    height: 1.2rem !important;
+  }
+}
+
+@media screen and (max-width: 350px) {
+  .community-section-content {
+    font-size: 1.3rem !important;
+  }
+}

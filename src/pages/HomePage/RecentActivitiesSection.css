@@ -1,0 +1,127 @@
+.recent-activities-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 5rem var(--section-padding) 18rem;
+  --recent-activities-background-color: rgb(185, 255, 254);
+  background-image: linear-gradient(
+    to bottom,
+    var(--recent-activities-background-color),
+    rgb(96, 243, 242, 0.25),
+    var(--main-background-color)
+  );
+}
+.recent-activities-section-title {
+  text-align: center;
+  margin-bottom: 6rem;
+}
+.recent-activities-section-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  position: relative;
+}
+.recent-activities-section-item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 32%;
+  height: 7.5rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  gap: 0.2rem;
+  padding: 0.5rem 1.5rem;
+  border-radius: 2rem 0 2rem 2rem;
+  position: absolute;
+  cursor: pointer;
+  overflow: hidden;
+}
+.recent-activities-section-item p,
+.recent-activities-section-item h3 {
+  margin: 0;
+}
+.recent-activities-section-item h3 {
+  font-size: 1.3rem;
+  font-weight: 500;
+}
+.recent-activities-section-item:nth-child(1) {
+  left: 0;
+  z-index: 4;
+}
+.recent-activities-section-item:nth-child(2) {
+  left: 23.5%;
+  top: 3.75rem;
+  z-index: 3;
+}
+.recent-activities-section-item:nth-child(3) {
+  left: 44.5%;
+  top: 7.5rem;
+  z-index: 2;
+}
+.recent-activities-section-item:nth-child(4) {
+  right: 0;
+  top: 11.25rem;
+  z-index: 1;
+}
+.recent-activities-section-item:hover {
+  z-index: 4;
+  transform: scale(1.1);
+  transition: all 0.3s ease-in-out;
+}
+
+@media screen and (max-width: 768px) {
+  .recent-activities-section-title {
+    margin-bottom: 3rem;
+  }
+  .recent-activities-section-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    position: relative;
+    gap: 0.5rem;
+  }
+  .recent-activities-section-item {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    height: 7.5rem;
+    font-size: 0.7rem;
+    font-weight: 600;
+    gap: 0.2rem;
+    padding: 0.5rem 1.5rem;
+    border-radius: 2rem !;
+    cursor: pointer;
+    overflow: hidden;
+    position: initial !important;
+  }
+  .recent-activities-section-item {
+    width: 100%;
+    height: 6rem;
+    font-size: 0.6rem;
+    padding: 0.5rem 1rem;
+    border-radius: 2rem !important;
+  }
+  .recent-activities-section-item:nth-child(1) {
+    left: 0;
+    top: 0;
+    z-index: 1;
+  }
+  .recent-activities-section-item:nth-child(2) {
+    left: 0;
+    /* top: 5rem; */
+    z-index: 1;
+  }
+  .recent-activities-section-item:nth-child(3) {
+    left: 0;
+    /* top: 10rem; */
+    z-index: 1;
+  }
+  .recent-activities-section-item:nth-child(4) {
+    left: 0;
+    /* top: 15rem; */
+    z-index: 1;
+  }
+}
