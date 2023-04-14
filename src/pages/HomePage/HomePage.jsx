@@ -10,8 +10,14 @@ import RecentActivitiesSection from "./RecentActivitiesSection";
 import ReviewsSection from "./ReviewsSection";
 import SiliconValley from "./SiliconValley";
 import JobsSection from "./JobsSection";
+import { useEffect } from "react";
 
 export default function HomePage() {
+  //scroll to top on render
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <div className="homepage">
       <MainLandingSection />

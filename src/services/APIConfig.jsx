@@ -1,6 +1,6 @@
 import axios from "axios";
 import { API_URL } from "./APIUtils";
-import decryptData from "./DeCrypt";
+import decryptData from "../features/DeCrypt";
 export const cancelToken = axios.CancelToken.source();
 export const controller = new AbortController();
 

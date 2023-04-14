@@ -34,7 +34,11 @@ export default function Sidebar() {
   ];
 
   return (
-    <div className={`sidebar ${isCollapsed && "sidebar--collapsed"}`}>
+    <div
+      className={`sidebar ${
+        isCollapsed ? "sidebar--collapsed" : "sidebar--expanded"
+      }`}
+    >
       <div
         className={`sidebar__main ${isCollapsed && "sidebar__main--collapsed"}`}
       >

@@ -1,15 +1,26 @@
 .sidebar {
+  position: -webkit-sticky;
+  position: -moz-sticky;
+  position: -ms-sticky;
+  position: -o-sticky;
+  position: sticky;
+  top: 13.3rem;
   display: flex;
   flex-direction: row;
   width: 16rem;
-  height: calc(100vh - 10.7rem);
+  height: calc(100vh - 15.3rem);
   min-height: 20rem;
   border-radius: 0 0.5rem 0.5rem 0;
   overflow: hidden;
   transition: all 0.3s ease-in-out;
 }
+.sidebar--expanded {
+  transition: all 0.3s ease-in-out;
+  min-width: 16rem;
+}
 .sidebar--collapsed {
-  width: 6.7rem;
+  transition: all 0.3s ease-in-out;
+  width: 7.6rem;
 }
 .sidebar__main {
   display: flex;
