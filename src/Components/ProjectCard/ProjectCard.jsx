@@ -11,20 +11,29 @@ export default function ProjectCard({
   companyLogo,
   companyName,
   people,
+  setProjectOpened,
+  setIsProjectOpen,
 }) {
   return (
-    <div className="project__list__item">
-      {poster && (
+    <div
+      onClick={() => {
+        setProjectOpened(id), setIsProjectOpen(true);
+      }}
+      className="project__list__item"
+    >
+      {
         <div
           style={{
             width: "100%",
-            height: "10rem",
+            height: "12rem",
             //   backgroundImage: `url(${poster})`,
-            backgroundColor: "grey",
+            backgroundImage: `url(${poster})`,
+            backgroundSize: "contain",
+            backgroundColor: "var(--primary-color-green)",
           }}
           className="poster"
         ></div>
-      )}
+      }
       <div className="title">{title}</div>
       <div className="description">{description}</div>
       <div className="tags">

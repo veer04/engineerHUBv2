@@ -1,4 +1,5 @@
 .project__list__item {
+  cursor: pointer;
   background-color: #fdfdfd;
   display: flex;
   flex-direction: column;

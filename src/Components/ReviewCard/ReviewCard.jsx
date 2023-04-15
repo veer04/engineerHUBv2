@@ -16,16 +16,25 @@ export default function ReviewCard({ id, img, text, name, activeCard }) {
 
   const cardIsActive = "review-card-is-active";
   const backdropActive = "review-card-backdrop-is-active";
+  const [bgColor, setBgColor] = useState();
+  useEffect(() => {
+    setBgColor(() => {
+      return colors[
+        ((id % colors.length) + parseInt(id / colors.length)) % colors.length
+      ];
+    });
+  }, [id]);
 
   return (
     <div
       key={id}
       style={{
-        backgroundColor:
-          colors[
-            ((id % colors.length) + parseInt(id / colors.length)) %
-              colors.length
-          ],
+        backgroundColor: bgColor,
+        // colors[
+        //   ((id % colors.length) + parseInt(id / colors.length)) %
+        //     colors.length
+        // ],
+        color: bgColor === "#128381" ? "white" : "black",
       }}
       className={`review-card ${isActive ? cardIsActive : ""}`}
     >

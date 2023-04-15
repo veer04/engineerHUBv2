@@ -63,20 +63,200 @@
   background-color: var(--text-color-dark-green);
   color: white;
 }
-.project__list__container {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  /* align-items: center; */
-  flex-wrap: wrap;
-  gap: 1rem;
-  /* padding: 1rem; */
-}
-.project__column {
+/* .project__column {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
   width: fit-content;
-  height: 25rem;
+  gap: 1rem;
+  height: 100%;
+} */
+.project__list__container {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: center;
+  flex-wrap: nowrap;
+  gap: 1rem;
+  padding: 0 1rem;
+}
+
+.project__list {
+  display: flex;
+  flex-direction: row;
+  min-width: 20rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.project__list--collapsed {
+  width: 20rem;
+}
+.project__window {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+  height: 100%;
+  padding: 1rem;
+  border-radius: 1rem;
+  background-color: white;
+  border: 2px solid var(--text-color-dark-green);
+  box-shadow: 0.2rem 0.2rem 0.4rem 0.2rem rgba(0, 0, 0, 0.2);
+}
+.project__window__title {
+  width: 100%;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--text-color-dark-green);
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+}
+.project__window__title .detail {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  align-items: center;
+}
+.project__window__title .link {
+  color: white;
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0.4rem;
+  /* aspect-ratio: 1/1; */
+  background-color: #5672ef;
+  font-weight: 400;
+  font-size: 1.6rem;
+  cursor: pointer;
+}
+.project__window__description .heading {
+  width: 100%;
+  font-size: 0.8rem;
+  font-weight: 500;
+  padding: 0.5rem 0;
+}
+.project__window__description .description {
+  font-size: 1rem;
+}
+.project__window__tags {
+  margin-top: 1rem;
+}
+.project__window__tags .heading {
+  width: 100%;
+  font-size: 0.8rem;
+  font-weight: 500;
+  padding: 0.5rem 0;
+}
+.project__window__tags .tags {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.project__window__tags .tags .tag {
+  font-size: 0.8rem;
+  font-weight: 400;
+  padding: 0.2rem 0.5rem;
+  border-radius: 0.4rem;
+  background-color: var(--text-color-dark-green);
+  color: white;
+}
+.project__window__prerequisites {
+  margin-top: 1rem;
+}
+.project__window__prerequisites .heading {
+  width: 100%;
+  font-size: 0.8rem;
+  font-weight: 500;
+  padding: 0.5rem 0;
+}
+.project__window__prerequisites .prerequisite {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 0.1rem;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+.project__window__software {
+  margin-top: 1rem;
+}
+.project__window__software .heading {
+  width: 100%;
+  font-size: 0.8rem;
+  font-weight: 500;
+  padding: 0.5rem 0;
+}
+.project__window__software .software {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 0.1rem;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+.project__window__info {
+  margin-top: 1rem;
+}
+.project__window__info .heading {
+  width: 100%;
+  font-size: 0.8rem;
+  font-weight: 500;
+  padding: 0.5rem 0;
+}
+.project__window__info .info {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 1rem;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+.project__window__info .info__item {
+  background-color: var(--primary-color-dark-green);
+  color: white;
+  padding: 0.5rem 1rem;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  gap: 0.1rem;
+  border-radius: 0.2rem;
+  text-align: center;
+  justify-content: center;
+  align-items: flex-start;
+}
+.project__window__info .info__item .label {
+  font-size: 0.9rem;
+  font-weight: 400;
+}
+.project__window__info .info__item .value {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+.project__window__apply {
+  margin-top: 1rem;
+}
+.project__window__apply .apply {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--primary-color-dark-green);
+  color: white;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  font-weight: 400;
+  border-radius: 0.2rem;
 }

@@ -7,10 +7,13 @@ export const controller = new AbortController();
 export const getDomains = (setDomainData) => {
   const controller = new AbortController();
   axios
-    .get(`${API_URL}api/v1/domain`, {
+    .get(`${API_URL}api/v1/domainData`, {
       signal: controller.signal,
     })
     .then((res) => {
+      console.log("working");
+      console.log(res);
+      console.log(decryptData(res.data.data));
       const data = decryptData(res.data.data);
       setDomainData(data);
     })
