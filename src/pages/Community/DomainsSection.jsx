@@ -2,31 +2,10 @@ import React, { useEffect, useState } from "react";
 import "./DomainsSection.css";
 import CategoryBar from "../../components/CategoryBar/CategoryBar";
 import { BsArrowUpRight } from "react-icons/bs";
-import WebDevelopment from "./img/web_development.png";
-import AppDevelopment from "./img/app_development.png";
-import UiUxDesign from "./img/uiux_design.png";
-import MachineLearning from "./img/machine_learning.png";
-import ArtificialIntelligence from "./img/artificial_intelligence.png";
-import CyberDevOps from "./img/cyber_devops.png";
 import Domains from "../../components/Domains/Domains";
 import { getDomains, controller } from "../../services/APIConfig";
 
 export default function DomainsSection() {
-  // fetch Domain Section data from backend upon load having the following properties
-  // data = {
-  //    Domains list,
-  //    Whats New list
-  //  }
-
-  // for All category, Domains list will be displayed
-
-  // for Trending category, the list of Domains will have a isTrending property according to which the list will be filtered and displayed
-
-  // for Whats New category, Whats New list will be displayed
-
-  // for now, we will use the following data
-  // const data = {
-
   const whatsNew = {
     recents: [
       {
