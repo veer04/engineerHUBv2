@@ -30,13 +30,29 @@ export const getProjects = (setDomainData, id) => {
       signal: controller.signal,
     })
     .then((res) => {
-      console.log(res);
-      // console.log(decryptData(res.data.data));
       const data = res.data.data;
       setDomainData(data);
     })
     .catch((err) => {
-      console.log(err);
+      if (axios.isCancel(err)) {
+        console.log("req cancel");
+      } else {
+        console.log("req performed");
+      }
+    });
+};
+
+export const getProjectById = (setProject, id) => {
+  const controller = new AbortController();
+  axios
+    .get(`${API_URL}api/v1/project/${id}`, {
+      signal: controller.signal,
+    })
+    .then((res) => {
+      const data = decryptData(res.data.data);
+      setProject(data);
+    })
+    .catch((err) => {
       if (axios.isCancel(err)) {
         console.log("req cancel");
       } else {

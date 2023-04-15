@@ -183,7 +183,7 @@
   flex-wrap: wrap;
   gap: 0.1rem;
   text-align: center;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
 }
 .project__window__software {
@@ -201,7 +201,7 @@
   flex-wrap: wrap;
   gap: 0.1rem;
   text-align: center;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
 }
 .project__window__info {

@@ -18,6 +18,7 @@ export default function ProjectCard({
     <div
       onClick={() => {
         setProjectOpened(_id), setIsProjectOpen(true);
+        console.log(_id);
       }}
       className="project__list__item"
     >
@@ -26,7 +27,6 @@ export default function ProjectCard({
           style={{
             width: "100%",
             height: "12rem",
-            //   backgroundImage: `url(${poster})`,
             backgroundImage: `url(${projectImage})`,
             backgroundSize: "contain",
             backgroundColor: "var(--primary-color-green)",
@@ -54,6 +54,8 @@ export default function ProjectCard({
               backgroundImage: `url(${organizationLogo})`,
               backgroundColor: "grey",
               borderRadius: "50%",
+              backgroundSize: "cover",
+              backgroundPosition: "center",
             }}
             className="logo"
           ></div>

@@ -11,7 +11,6 @@ import { controller, getProjects } from "../../../services/APIConfig";
 
 export default function ProjectPage() {
   const { id } = useParams();
-  console.log(id);
 
   const [isProjectOpen, setIsProjectOpen] = useState(false);
   const [projectOpened, setProjectOpened] = useState(undefined);
