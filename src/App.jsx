@@ -6,6 +6,7 @@ import HomePage from "./pages/HomePage/HomePage";
 import Footer from "./components/Footer/Footer";
 import CommunityPage from "./pages/Community/CommunityPage";
 import ProjectPage from "./pages/Community/Project/ProjectsPage";
+import BlogsPage from "./pages/Community/Blogs/BlogsPage";
 
 function App() {
   return (
@@ -18,6 +19,9 @@ function App() {
           <Route path="domains" element={<CommunityPage />} />
           <Route path="project">
             <Route path=":id" element={<ProjectPage />} />
+          </Route>
+          <Route path="blogs">
+            <Route path=":id" element={<BlogsPage />} />
           </Route>
         </Route>
         <Route path="/campus" element={<>Campus page</>} />
