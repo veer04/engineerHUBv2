@@ -7,9 +7,11 @@ import image from "./img/image.png";
 import ProjectCard from "../../../components/ProjectCard/ProjectCard";
 import { RxCross1 } from "react-icons/rx";
 import ProjectWindow from "../../../components/ProjectWindow/ProjectWindow";
+import { controller, getProjects } from "../../../services/APIConfig";
 
 export default function ProjectPage() {
   const { id } = useParams();
+  console.log(id);
 
   const [isProjectOpen, setIsProjectOpen] = useState(false);
   const [projectOpened, setProjectOpened] = useState(undefined);
@@ -29,67 +31,43 @@ export default function ProjectPage() {
       id: 3,
       name: "CSS",
     },
-  ];
-
-  const projects = [
-    {
-      id: 1,
-      poster: undefined,
-      title: "Project 1",
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-      tags: ["HTML", "CSS", "JavaScript"],
-      companyLogo: image,
-      companyName: "Company 1",
-      people: 5,
-    },
-    {
-      id: 2,
-      poster: undefined,
-      title: "Project 2",
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-      tags: ["CSS", "JavaScript"],
-      companyLogo: image,
-      companyName: "Company 2",
-      people: 5,
-    },
-    {
-      id: 3,
-      poster: image,
-      title: "Project 3",
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-      tags: ["HTML", "CSS", "JavaScript"],
-      companyLogo: image,
-      companyName: "Company 3",
-      people: 5,
-    },
     {
       id: 4,
-      poster: undefined,
-      title: "Project 4",
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-      tags: ["HTML", "CSS"],
-      companyLogo: image,
-      companyName: "Company 4",
-      people: 5,
+      name: "Reactive native",
+    },
+    {
+      id: 5,
+      name: "Firebase",
     },
   ];
-  const [column1, setColumn1] = useState([]);
-  const [column2, setColumn2] = useState([]);
-  const [column3, setColumn3] = useState([]);
+
+  const [projects, setProjects] = useState([]);
+
+  useEffect(() => {
+    getProjects(setProjects, id);
+
+    return () => {
+      controller.abort();
+    };
+  }, [id]);
 
   const [filteredProjects, setFilteredProjects] = useState([]);
 
   useEffect(() => {
-    setFilteredProjects(
-      projects.filter((project) => {
-        if (currentFilters.length === 0) {
-          return true;
-        } else {
-          return project.tags.some((tag) => currentFilters.includes(tag));
-        }
-      })
-    );
-  }, [currentFilters]);
+    if (projects.length > 0) {
+      setFilteredProjects(
+        projects.filter((project) => {
+          if (currentFilters.length === 0) {
+            return true;
+          } else {
+            return project.techStack.some((tag) =>
+              currentFilters.includes(tag)
+            );
+          }
+        })
+      );
+    }
+  }, [currentFilters, projects]);
 
   return (
     <div className="project-page">
@@ -145,7 +123,7 @@ export default function ProjectPage() {
                 <ProjectCard
                   setProjectOpened={setProjectOpened}
                   setIsProjectOpen={setIsProjectOpen}
-                  key={project.id}
+                  key={project._id}
                   {...project}
                 />
               ))}

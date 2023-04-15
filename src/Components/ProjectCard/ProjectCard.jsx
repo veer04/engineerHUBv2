@@ -3,13 +3,13 @@ import "./ProjectCard.css";
 import { IoPeopleOutline } from "react-icons/io5";
 
 export default function ProjectCard({
-  poster,
-  id,
-  title,
+  projectImage,
+  _id,
+  projectName,
   description,
-  tags,
-  companyLogo,
-  companyName,
+  techStack,
+  organizationLogo,
+  organization,
   people,
   setProjectOpened,
   setIsProjectOpen,
@@ -17,7 +17,7 @@ export default function ProjectCard({
   return (
     <div
       onClick={() => {
-        setProjectOpened(id), setIsProjectOpen(true);
+        setProjectOpened(_id), setIsProjectOpen(true);
       }}
       className="project__list__item"
     >
@@ -27,17 +27,19 @@ export default function ProjectCard({
             width: "100%",
             height: "12rem",
             //   backgroundImage: `url(${poster})`,
-            backgroundImage: `url(${poster})`,
+            backgroundImage: `url(${projectImage})`,
             backgroundSize: "contain",
             backgroundColor: "var(--primary-color-green)",
+            backgroundPosition: "center",
+            backgroundRepeat: "no-repeat",
           }}
           className="poster"
         ></div>
       }
-      <div className="title">{title}</div>
+      <div className="title">{projectName}</div>
       <div className="description">{description}</div>
       <div className="tags">
-        {tags.map((tag) => (
+        {techStack.map((tag) => (
           <div key={tag} className="tag">
             {tag}
           </div>
@@ -49,19 +51,19 @@ export default function ProjectCard({
             style={{
               width: "2rem",
               height: "2rem",
-              //   backgroundImage: `url(${companyLogo})`,
+              backgroundImage: `url(${organizationLogo})`,
               backgroundColor: "grey",
               borderRadius: "50%",
             }}
             className="logo"
           ></div>
-          <div className="name">{companyName}</div>
+          <div className="name">{organization}</div>
         </div>
         <div className="people">
           <div className="people__icon">
             <IoPeopleOutline />
           </div>
-          <div className="people__number">{people}</div>
+          <div className="people__number">100</div>
         </div>
       </div>
     </div>
