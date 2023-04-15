@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useMemo } from "react";
-import "./ProjectPage.css";
+import "./ProjectsPage.css";
 import { useParams } from "react-router-dom";
 import Sidebar from "../../../components/Sidebar/Sidebar";
 import filter from "./img/filter-icon.png";
