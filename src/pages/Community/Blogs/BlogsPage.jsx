@@ -90,7 +90,7 @@ export default function BlogsPage({ path }) {
               </span>
             </div>
           </div>
-          <div className="project__chips__container">
+          {/* <div className="project__chips__container">
             {filters.map((item) => (
               <div
                 key={item.id}
@@ -113,7 +113,7 @@ export default function BlogsPage({ path }) {
                 {item.name}
               </div>
             ))}
-          </div>
+          </div> */}
           <div className="project__list__container">
             <div
               className={`project__list ${

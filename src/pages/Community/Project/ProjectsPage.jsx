@@ -2,12 +2,16 @@ import React, { useEffect, useState, useMemo } from "react";
 import "./ProjectsPage.css";
 import { useParams } from "react-router-dom";
 import Sidebar from "../../../components/Sidebar/Sidebar";
-import filter from "./img/filter-icon.png";
+import filterImg from "./img/filter-icon.png";
 import image from "./img/image.png";
 import ProjectCard from "../../../components/ProjectCard/ProjectCard";
 import { RxCross1 } from "react-icons/rx";
 import ProjectWindow from "../../../components/ProjectWindow/ProjectWindow";
-import { controller, getProjects } from "../../../services/APIConfig";
+import {
+  controller,
+  getProjectTags,
+  getProjects,
+} from "../../../services/APIConfig";
 
 export default function ProjectPage({ path }) {
   const { id } = useParams();
@@ -17,33 +21,13 @@ export default function ProjectPage({ path }) {
 
   const [currentFilters, setCurrentFilters] = useState([]);
 
-  const filters = [
-    {
-      id: 1,
-      name: "HTML",
-    },
-    {
-      id: 2,
-      name: "JavaScript",
-    },
-    {
-      id: 3,
-      name: "CSS",
-    },
-    {
-      id: 4,
-      name: "Reactive native",
-    },
-    {
-      id: 5,
-      name: "Firebase",
-    },
-  ];
+  const [tags, setTags] = useState([]);
 
   const [projects, setProjects] = useState([]);
 
   useEffect(() => {
     getProjects(setProjects, id);
+    getProjectTags(setTags);
 
     return () => {
       controller.abort();
@@ -84,31 +68,31 @@ export default function ProjectPage({ path }) {
                 aria-describedby="basic-addon2"
               />
               <span className="input-group-text" id="basic-addon2">
-                <img src={filter} alt="filter" />
+                <img src={filterImg} alt="filter" />
               </span>
             </div>
           </div>
           <div className="project__chips__container">
-            {filters.map((item) => (
+            {tags.map((item) => (
               <div
-                key={item.id}
+                key={item._id}
                 onClick={() => {
-                  if (currentFilters.includes(item.name)) {
+                  if (currentFilters.includes(item._id)) {
                     const newFilters = currentFilters.filter(
-                      (filter) => filter !== item.name
+                      (filter) => filter !== item._id
                     );
                     setCurrentFilters(newFilters);
                   } else {
                     setCurrentFilters((prevValue) => {
-                      return [...prevValue, item.name];
+                      return [...prevValue, item._id];
                     });
                   }
                 }}
                 className={`project__chip ${
-                  currentFilters.includes(item.name) && "project__chip--active"
+                  currentFilters.includes(item._id) && "project__chip--active"
                 }`}
               >
-                {item.name}
+                {item._id}
               </div>
             ))}
           </div>

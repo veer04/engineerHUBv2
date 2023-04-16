@@ -42,6 +42,27 @@ export const getProjects = (setDomainData, id) => {
     });
 };
 
+export const getProjectTags = (setTags) => {
+  const controller = new AbortController();
+  axios
+    .get(`${API_URL}api/v1/alltags`, {
+      signal: controller.signal,
+    })
+    .then((res) => {
+      // console.log(res);
+      const data = res.data.data;
+      console.log(data);
+      setTags(data);
+    })
+    .catch((err) => {
+      if (axios.isCancel(err)) {
+        console.log("req cancel");
+      } else {
+        console.log("req performed");
+      }
+    });
+};
+
 export const getProjectById = (setProject, id) => {
   const controller = new AbortController();
   axios

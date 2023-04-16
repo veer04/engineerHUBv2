@@ -9,6 +9,7 @@ import ProjectPage from "./pages/Community/Project/ProjectsPage";
 import BlogsPage from "./pages/Community/Blogs/BlogsPage";
 import EventsPage from "./pages/Community/Events/EventsPage";
 import SidebarProvider from "./contexts/SidebarContext";
+import ChatPage from "./pages/Community/Chat/ChatPage";
 
 function App() {
   return (
@@ -28,6 +29,9 @@ function App() {
             </Route>
             <Route path="events">
               <Route path=":id" element={<EventsPage path="events" />} />
+            </Route>
+            <Route path="chat">
+              <Route path=":id" element={<ChatPage path="chat" />} />
             </Route>
           </Route>
           <Route path="/campus" element={<>Campus page</>} />
