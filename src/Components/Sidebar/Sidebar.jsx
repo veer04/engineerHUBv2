@@ -6,30 +6,34 @@ import { CiViewList } from "react-icons/ci";
 import { MdOutlineCalendarMonth } from "react-icons/md";
 import { TbFileText } from "react-icons/tb";
 
-export default function Sidebar() {
+export default function Sidebar({ path }) {
   const [isCollapsed, setIsCollapsed] = useState(true);
-  const [selectedItem, setSelectedItem] = useState(1);
+  const [selectedItem, setSelectedItem] = useState(path);
 
   const items = [
     {
       id: 1,
       svg: <RiChat3Line />,
       title: "CHAT",
+      link: "chat",
     },
     {
       id: 2,
       svg: <CiViewList />,
       title: "PROJECTS",
+      link: "projects",
     },
     {
       id: 3,
       svg: <MdOutlineCalendarMonth />,
       title: "EVENTS",
+      link: "events",
     },
     {
       id: 4,
       svg: <TbFileText />,
       title: "BLOGS",
+      link: "blogs",
     },
   ];
 
@@ -46,11 +50,13 @@ export default function Sidebar() {
         <div className="sidebar__items">
           {items.map((item) => (
             <SidebarItem
+              path={path}
+              link={item.link}
               setSelectedItem={setSelectedItem}
               key={item.id}
               isCollapsed={isCollapsed}
               selectedItem={selectedItem}
-              id={item.id}
+              domainId={item.id}
               svg={item.svg}
               title={item.title}
             />

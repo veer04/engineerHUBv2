@@ -11,7 +11,7 @@ import { controller, getBlogs } from "../../../services/APIConfig";
 import BlogCard from "../../../components/BlogCard/BlogCard";
 import BlogWindow from "../../../components/BlogWindow/BlogWindow";
 
-export default function BlogsPage() {
+export default function BlogsPage({ path }) {
   const { id } = useParams();
 
   const [isProjectOpen, setIsProjectOpen] = useState(false);
@@ -74,7 +74,7 @@ export default function BlogsPage() {
     <div className="project-page">
       <div className="community__subpage__heading">Blogs</div>
       <div className="community__subpage__content">
-        <Sidebar />
+        <Sidebar path={path} />
         <div className="project__content">
           <div className="project__searchbar__container">
             <div className="project__searchbar input-group">

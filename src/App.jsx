@@ -17,15 +17,15 @@ function App() {
         <Route index element={<HomePage />} />
         <Route path="/home" element={<HomePage />} />
         <Route path="/community">
-          <Route path="domains" element={<CommunityPage />} />
+          <Route path="domains" element={<CommunityPage path="domains" />} />
           <Route path="projects">
-            <Route path=":id" element={<ProjectPage />} />
+            <Route path=":id" element={<ProjectPage path="projects" />} />
           </Route>
           <Route path="blogs">
-            <Route path=":id" element={<BlogsPage />} />
+            <Route path=":id" element={<BlogsPage path="blogs" />} />
           </Route>
           <Route path="events">
-            <Route path=":id" element={<EventsPage />} />
+            <Route path=":id" element={<EventsPage path="events" />} />
           </Route>
         </Route>
         <Route path="/campus" element={<>Campus page</>} />

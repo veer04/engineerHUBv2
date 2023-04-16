@@ -11,7 +11,7 @@ import { controller, getEvents } from "../../../services/APIConfig";
 import EventCard from "../../../components/EventCard/EventCard";
 import EventWindow from "../../../components/EventWindow/EventWindow";
 
-export default function EventsPage() {
+export default function EventsPage({ path }) {
   const { id } = useParams();
 
   const [isProjectOpen, setIsProjectOpen] = useState(false);
@@ -76,7 +76,7 @@ export default function EventsPage() {
     <div className="project-page">
       <div className="community__subpage__heading">Events</div>
       <div className="community__subpage__content">
-        <Sidebar />
+        <Sidebar path={path} />
         <div className="project__content">
           <div className="project__searchbar__container">
             <div className="project__searchbar input-group">

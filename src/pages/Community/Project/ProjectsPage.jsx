@@ -9,7 +9,7 @@ import { RxCross1 } from "react-icons/rx";
 import ProjectWindow from "../../../components/ProjectWindow/ProjectWindow";
 import { controller, getProjects } from "../../../services/APIConfig";
 
-export default function ProjectPage() {
+export default function ProjectPage({ path }) {
   const { id } = useParams();
 
   const [isProjectOpen, setIsProjectOpen] = useState(false);
@@ -72,7 +72,7 @@ export default function ProjectPage() {
     <div className="project-page">
       <div className="community__subpage__heading">Projects</div>
       <div className="community__subpage__content">
-        <Sidebar />
+        <Sidebar path={path} />
         <div className="project__content">
           <div className="project__searchbar__container">
             <div className="project__searchbar input-group">
