@@ -61,6 +61,46 @@ export const getProjectById = (setProject, id) => {
     });
 };
 
+export const getBlogs = (setBlogs, id) => {
+  const controller = new AbortController();
+  axios
+    .get(`${API_URL}api/v1/domainWiseBlog/${id}`, {
+      signal: controller.signal,
+    })
+    .then((res) => {
+      const data = res.data.data;
+      setBlogs(data);
+    })
+    .catch((err) => {
+      if (axios.isCancel(err)) {
+        console.log("req cancel");
+      } else {
+        console.log("req performed");
+      }
+    });
+};
+
+export const getBlogById = (setBlog, id) => {
+  const controller = new AbortController();
+  axios
+    .get(`${API_URL}api/v1/blog/${id}`, {
+      signal: controller.signal,
+    })
+    .then((res) => {
+      const data = decryptData(res.data.data);
+      console.log(data);
+      setBlog(data);
+    })
+    .catch((err) => {
+      console.log(err);
+      if (axios.isCancel(err)) {
+        console.log("req cancel");
+      } else {
+        console.log("req performed");
+      }
+    });
+};
+
 // export const getCourses = async (setCourseData) => {
 //   const cancelToken = axios.CancelToken.source();
 //   axios

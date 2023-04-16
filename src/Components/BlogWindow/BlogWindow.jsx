@@ -1,13 +1,22 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./BlogWindow.css";
 import { RxCross1 } from "react-icons/rx";
+import { getBlogById } from "../../services/APIConfig";
 
-export default function BlogWindow({ setIsProjectOpen }) {
+export default function BlogWindow({ projectOpened, setIsProjectOpen }) {
+  const [blog, setBlog] = useState({});
+
+  useEffect(() => {
+    getBlogById(setBlog, projectOpened);
+  }, [projectOpened]);
+
+  console.log(blog.createdAt);
+  const date = blog.createdAt ? new Date(blog.createdAt) : new Date();
   return (
     <div className="project__window">
       <div className="project__window__title blog__window__title">
         <div className="detail">
-          <div className="title">Weather App Project</div>
+          <div className="title">{blog.title}</div>
         </div>
         <div onClick={() => setIsProjectOpen(false)} className="link">
           <RxCross1 />
@@ -15,7 +24,7 @@ export default function BlogWindow({ setIsProjectOpen }) {
       </div>
       <div
         style={{
-          //   backgroundImage: `url(${image})`,
+          backgroundImage: `url(${blog.postIcon})`,
           backgroundSize: "contain",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
@@ -29,35 +38,20 @@ export default function BlogWindow({ setIsProjectOpen }) {
       ></div>
       <div className="project__window__description">
         {/* <div className="heading">Description</div> */}
-        <div className="description">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias
-          quibusdam iusto nam, est veniam ab id, repellendus nulla rerum
-          perspiciatis impedit minus porro reprehenderit illum autem deleniti
-          fugit ducimus nihil amet? Dolore corrupti atque eius ullam distinctio
-          aspernatur magnam adipisci inventore aut, consequuntur deleniti quae
-          voluptatibus laborum blanditiis cum et dolores laudantium modi,
-          excepturi dolorem quas voluptatum. Neque qui quibusdam dolorum
-          explicabo perspiciatis nostrum quasi autem enim, ea illo at natus sunt
-          eligendi, commodi eos dolor, consectetur beatae incidunt unde nihil?
-          Quaerat, blanditiis et? Consequuntur consectetur commodi quam
-          molestias praesentium rerum, animi perspiciatis ea nostrum. Nulla
-          eligendi cumque ipsum similique doloribus alias delectus dolorem et
-          est reiciendis dolorum tenetur sapiente dolores deserunt, perferendis
-          minus unde, necessitatibus quam eaque! Incidunt reprehenderit vel quia
-          praesentium soluta fugit nobis, consequuntur sint quos aspernatur,
-          iste assumenda quidem suscipit repudiandae exercitationem, eum cum ut
-          impedit tempora. Sint laudantium perferendis, minus laborum iure
-          delectus qui numquam magnam incidunt! Voluptatibus ea dolore hic
-          excepturi! Porro aut mollitia ad delectus, veniam fugit nesciunt
-          ducimus dolores earum! Minima quos atque id, corrupti cumque velit
-          eveniet magni aliquid placeat ea quis, eos ipsam harum hic, neque
-          quidem sit non natus praesentium? Aliquid fugiat beatae ex voluptate
-          amet mollitia ut veniam!
-        </div>
+        <div className="description">{blog.postArea}</div>
       </div>
       <div className="blog__window__details">
-        <div className="author">by engineerHUB</div>
-        <div className="date">November 23, 2023</div>
+        <div className="author">
+          by {blog.authorsName && blog.authorsName[0]}
+        </div>
+        <div className="date">
+          {blog.createdAt &&
+            new Intl.DateTimeFormat("en-US", {
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+            }).format(date)}
+        </div>
       </div>
     </div>
   );

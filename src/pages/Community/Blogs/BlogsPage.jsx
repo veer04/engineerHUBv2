@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useMemo } from "react";
-import "./BlogsPage.css";
+// import "./ProjectsPage.css";
 import { useParams } from "react-router-dom";
 import Sidebar from "../../../components/Sidebar/Sidebar";
 import filter from "./img/filter-icon.png";
@@ -7,8 +7,9 @@ import image from "./img/image.png";
 import ProjectCard from "../../../components/ProjectCard/ProjectCard";
 import { RxCross1 } from "react-icons/rx";
 import ProjectWindow from "../../../components/ProjectWindow/ProjectWindow";
-import BlogWindow from "../../../components/BlogWindow/BlogWindow";
+import { controller, getBlogs } from "../../../services/APIConfig";
 import BlogCard from "../../../components/BlogCard/BlogCard";
+import BlogWindow from "../../../components/BlogWindow/BlogWindow";
 
 export default function BlogsPage() {
   const { id } = useParams();
@@ -17,6 +18,8 @@ export default function BlogsPage() {
   const [projectOpened, setProjectOpened] = useState(undefined);
 
   const [currentFilters, setCurrentFilters] = useState([]);
+
+  const [projects, setProjects] = useState([]);
 
   const filters = [
     {
@@ -31,71 +34,41 @@ export default function BlogsPage() {
       id: 3,
       name: "CSS",
     },
-  ];
-
-  const projects = [
-    {
-      id: 1,
-      poster: undefined,
-      title: "Project 1",
-      description:
-        "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Accusamus perferendis asperiores natus ducimus ratione, iste ullam quod est sapiente voluptas fugiat deleniti voluptatem quaerat aliquam, corporis at nemo animi qui fuga. Ut, error a odit vitae sint magni minima quas aliquam, corporis at nemo animi qui fuga. Ut, error a odit vitae sint magni minima quas",
-      tags: ["HTML", "CSS", "JavaScript"],
-      companyLogo: image,
-      companyName: "Company 1",
-      people: 5,
-    },
-    {
-      id: 2,
-      poster: undefined,
-      title: "Project 2",
-      description:
-        "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Accusamus perferendis asperiores natus ducimus ratione, iste ullam quod est sapiente voluptas fugiat deleniti voluptatem quaerat aliquam, corporis at nemo animi qui fuga. Ut, error a odit vitae sint magni minima quas aliquam, corporis at nemo animi qui fuga. Ut, error a odit vitae sint magni minima quas",
-      tags: ["CSS", "JavaScript"],
-      companyLogo: image,
-      companyName: "Company 2",
-      people: 5,
-    },
-    {
-      id: 3,
-      poster: image,
-      title: "Project 3",
-      description:
-        "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Accusamus perferendis asperiores natus ducimus ratione, iste ullam quod est sapiente voluptas fugiat deleniti voluptatem quaerat aliquam, corporis at nemo animi qui fuga. Ut, error a odit vitae sint magni minima quas aliquam, corporis at nemo animi qui fuga. Ut, error a odit vitae sint magni minima quas",
-      tags: ["HTML", "CSS", "JavaScript"],
-      companyLogo: image,
-      companyName: "Company 3",
-      people: 5,
-    },
     {
       id: 4,
-      poster: undefined,
-      title: "Project 4",
-      description:
-        "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Accusamus perferendis asperiores natus ducimus ratione, iste ullam quod est sapiente voluptas fugiat deleniti voluptatem quaerat aliquam, corporis at nemo animi qui fuga. Ut, error a odit vitae sint magni minima quas aliquam, corporis at nemo animi qui fuga. Ut, error a odit vitae sint magni minima quas",
-      tags: ["HTML", "CSS"],
-      companyLogo: image,
-      companyName: "Company 4",
-      people: 5,
+      name: "Reactive native",
+    },
+    {
+      id: 5,
+      name: "Firebase",
     },
   ];
-  const [column1, setColumn1] = useState([]);
-  const [column2, setColumn2] = useState([]);
-  const [column3, setColumn3] = useState([]);
+
+  useEffect(() => {
+    getBlogs(setProjects, id);
+
+    return () => {
+      controller.abort();
+    };
+  }, [id]);
 
   const [filteredProjects, setFilteredProjects] = useState([]);
 
   useEffect(() => {
-    setFilteredProjects(
-      projects.filter((project) => {
-        if (currentFilters.length === 0) {
-          return true;
-        } else {
-          return project.tags.some((tag) => currentFilters.includes(tag));
-        }
-      })
-    );
-  }, [currentFilters]);
+    if (projects.length > 0) {
+      setFilteredProjects(
+        projects.filter((project) => {
+          if (currentFilters.length === 0) {
+            return true;
+          } else {
+            return project.techStack.some((tag) =>
+              currentFilters.includes(tag)
+            );
+          }
+        })
+      );
+    }
+  }, [currentFilters, projects]);
 
   return (
     <div className="project-page">
@@ -103,6 +76,20 @@ export default function BlogsPage() {
       <div className="community__subpage__content">
         <Sidebar />
         <div className="project__content">
+          <div className="project__searchbar__container">
+            <div className="project__searchbar input-group">
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Search"
+                aria-label="Search"
+                aria-describedby="basic-addon2"
+              />
+              <span className="input-group-text" id="basic-addon2">
+                <img src={filter} alt="filter" />
+              </span>
+            </div>
+          </div>
           <div className="project__chips__container">
             {filters.map((item) => (
               <div
@@ -137,7 +124,7 @@ export default function BlogsPage() {
                 <BlogCard
                   setProjectOpened={setProjectOpened}
                   setIsProjectOpen={setIsProjectOpen}
-                  key={project.id}
+                  key={project._id}
                   {...project}
                 />
               ))}
