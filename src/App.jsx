@@ -8,30 +8,33 @@ import CommunityPage from "./pages/Community/CommunityPage";
 import ProjectPage from "./pages/Community/Project/ProjectsPage";
 import BlogsPage from "./pages/Community/Blogs/BlogsPage";
 import EventsPage from "./pages/Community/Events/EventsPage";
+import SidebarProvider from "./contexts/SidebarContext";
 
 function App() {
   return (
     <>
       <Navbar />
-      <Routes>
-        <Route index element={<HomePage />} />
-        <Route path="/home" element={<HomePage />} />
-        <Route path="/community">
-          <Route path="domains" element={<CommunityPage path="domains" />} />
-          <Route path="projects">
-            <Route path=":id" element={<ProjectPage path="projects" />} />
+      <SidebarProvider>
+        <Routes>
+          <Route index element={<HomePage />} />
+          <Route path="/home" element={<HomePage />} />
+          <Route path="/community">
+            <Route path="domains" element={<CommunityPage path="domains" />} />
+            <Route path="projects">
+              <Route path=":id" element={<ProjectPage path="projects" />} />
+            </Route>
+            <Route path="blogs">
+              <Route path=":id" element={<BlogsPage path="blogs" />} />
+            </Route>
+            <Route path="events">
+              <Route path=":id" element={<EventsPage path="events" />} />
+            </Route>
           </Route>
-          <Route path="blogs">
-            <Route path=":id" element={<BlogsPage path="blogs" />} />
-          </Route>
-          <Route path="events">
-            <Route path=":id" element={<EventsPage path="events" />} />
-          </Route>
-        </Route>
-        <Route path="/campus" element={<>Campus page</>} />
-        <Route path="/company" element={<>Company page</>} />
-        <Route path="/login" element={<>Login page</>} />
-      </Routes>
+          <Route path="/campus" element={<>Campus page</>} />
+          <Route path="/company" element={<>Company page</>} />
+          <Route path="/login" element={<>Login page</>} />
+        </Routes>
+      </SidebarProvider>
       <Footer />
     </>
   );

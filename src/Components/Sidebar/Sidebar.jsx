@@ -5,10 +5,11 @@ import { RiChat3Line } from "react-icons/ri";
 import { CiViewList } from "react-icons/ci";
 import { MdOutlineCalendarMonth } from "react-icons/md";
 import { TbFileText } from "react-icons/tb";
+import useSidebar from "../../hooks/use-sidebar";
 
 export default function Sidebar({ path }) {
-  const [isCollapsed, setIsCollapsed] = useState(true);
-  const [selectedItem, setSelectedItem] = useState(path);
+  const { isCollapsed, setIsCollapsed, selectedItem, setSelectedItem } =
+    useSidebar();
 
   const items = [
     {
