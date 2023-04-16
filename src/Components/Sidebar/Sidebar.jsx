@@ -38,6 +38,8 @@ export default function Sidebar({ path }) {
     },
   ];
 
+  const sidebarPath = selectedItem !== path ? path : selectedItem;
+
   return (
     <div
       className={`sidebar ${
@@ -56,7 +58,7 @@ export default function Sidebar({ path }) {
               setSelectedItem={setSelectedItem}
               key={item.id}
               isCollapsed={isCollapsed}
-              selectedItem={selectedItem}
+              selectedItem={sidebarPath}
               domainId={item.id}
               svg={item.svg}
               title={item.title}

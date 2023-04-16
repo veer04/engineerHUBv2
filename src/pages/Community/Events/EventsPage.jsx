@@ -10,6 +10,7 @@ import ProjectWindow from "../../../components/ProjectWindow/ProjectWindow";
 import { controller, getEvents } from "../../../services/APIConfig";
 import EventCard from "../../../components/EventCard/EventCard";
 import EventWindow from "../../../components/EventWindow/EventWindow";
+import useSidebar from "../../../hooks/use-sidebar";
 
 export default function EventsPage({ path }) {
   const { id } = useParams();

@@ -12,6 +12,7 @@ import {
   getProjectTags,
   getProjects,
 } from "../../../services/APIConfig";
+import useSidebar from "../../../hooks/use-sidebar";
 
 export default function ProjectPage({ path }) {
   const { id } = useParams();

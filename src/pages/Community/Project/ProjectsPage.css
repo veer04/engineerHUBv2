@@ -106,6 +106,8 @@
   background-color: white;
   border: 2px solid var(--text-color-dark-green);
   box-shadow: 0.2rem 0.2rem 0.4rem 0.2rem rgba(0, 0, 0, 0.2);
+  position: sticky;
+  bottom: 0;
 }
 .project__window__title {
   width: 100%;

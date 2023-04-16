@@ -10,6 +10,7 @@ import ProjectWindow from "../../../components/ProjectWindow/ProjectWindow";
 import { controller, getBlogs } from "../../../services/APIConfig";
 import BlogCard from "../../../components/BlogCard/BlogCard";
 import BlogWindow from "../../../components/BlogWindow/BlogWindow";
+import useSidebar from "../../../hooks/use-sidebar";
 
 export default function BlogsPage({ path }) {
   const { id } = useParams();
