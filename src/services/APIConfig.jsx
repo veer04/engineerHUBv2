@@ -88,8 +88,48 @@ export const getBlogById = (setBlog, id) => {
     })
     .then((res) => {
       const data = decryptData(res.data.data);
-      console.log(data);
       setBlog(data);
+    })
+    .catch((err) => {
+      console.log(err);
+      if (axios.isCancel(err)) {
+        console.log("req cancel");
+      } else {
+        console.log("req performed");
+      }
+    });
+};
+
+export const getEvents = (setEvents, id) => {
+  const controller = new AbortController();
+  axios
+    .get(`${API_URL}api/v1/eventDomainWise/${id}`, {
+      signal: controller.signal,
+    })
+    .then((res) => {
+      const data = decryptData(res.data.data);
+      setEvents(data);
+    })
+    .catch((err) => {
+      if (axios.isCancel(err)) {
+        console.log("req cancel");
+      } else {
+        console.log("req performed");
+      }
+    });
+};
+
+export const getEventById = (setEvent, id) => {
+  const controller = new AbortController();
+  axios
+    .get(`${API_URL}api/v1/event`, {
+      signal: controller.signal,
+    })
+    .then((res) => {
+      // console.log(res);
+      const data = decryptData(res.data.data);
+      // console.log(data);
+      setEvent(data);
     })
     .catch((err) => {
       console.log(err);

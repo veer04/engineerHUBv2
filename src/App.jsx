@@ -7,6 +7,7 @@ import Footer from "./components/Footer/Footer";
 import CommunityPage from "./pages/Community/CommunityPage";
 import ProjectPage from "./pages/Community/Project/ProjectsPage";
 import BlogsPage from "./pages/Community/Blogs/BlogsPage";
+import EventsPage from "./pages/Community/Events/EventsPage";
 
 function App() {
   return (
@@ -22,6 +23,9 @@ function App() {
           </Route>
           <Route path="blogs">
             <Route path=":id" element={<BlogsPage />} />
+          </Route>
+          <Route path="events">
+            <Route path=":id" element={<EventsPage />} />
           </Route>
         </Route>
         <Route path="/campus" element={<>Campus page</>} />

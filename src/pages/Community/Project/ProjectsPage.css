@@ -26,6 +26,7 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  margin-bottom: 0.8rem;
 }
 .project__searchbar {
   width: 20rem;
