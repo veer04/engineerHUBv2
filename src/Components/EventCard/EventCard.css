@@ -7,3 +7,16 @@
   width: fit-content;
   padding: 0.2rem 0.5rem;
 }
+.event__list__item .title {
+  max-height: 2.85rem;
+  white-space: normal;
+  line-height: 1.2rem;
+}
+.event__list__item .description {
+  margin-top: 0.5rem;
+  height: fit-content;
+  max-height: 5.5rem;
+}
+.event__list__item {
+  height: 31.5rem;
+}

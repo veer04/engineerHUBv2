@@ -23,10 +23,11 @@ export default function EventCard({
       {
         <div
           style={{
-            width: "100%",
-            height: "12rem",
+            // width: "100%",
+            height: "19rem",
+            aspectRatio: "1/1",
             backgroundImage: `url(${eventPoster})`,
-            backgroundSize: "contain",
+            backgroundSize: "cover",
             backgroundColor: "var(--primary-color-green)",
             backgroundPosition: "center",
             backgroundRepeat: "no-repeat",

@@ -14,6 +14,20 @@ export default function ProjectCard({
   setProjectOpened,
   setIsProjectOpen,
 }) {
+  const bgColors = [
+    "var(--secondary-color-biege)", //rgb(232,186,152)
+    "var(--secondary-color-green)", //rgb(178,232,135)
+    "var(--secondary-color-yellow)", //rgb(247,215,127)
+    "var(--secondary-color-blue)", //rgb(143,200,232)
+  ];
+
+  const textColors = [
+    "rgb(255,90,180)",
+    "rgb(36,255,0)",
+    "rgb(255,187,0)",
+    "rgb(13,140,255)",
+  ];
+
   return (
     <div
       onClick={() => {
@@ -39,8 +53,15 @@ export default function ProjectCard({
       <div className="title">{projectName}</div>
       <div className="description">{description}</div>
       <div className="tags">
-        {techStack.map((tag) => (
-          <div key={tag} className="tag">
+        {techStack.map((tag, index) => (
+          <div
+            key={tag}
+            style={{
+              backgroundColor: bgColors[index % bgColors.length],
+              color: textColors[index % textColors.length],
+            }}
+            className="tag"
+          >
             {tag}
           </div>
         ))}

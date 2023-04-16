@@ -8,33 +8,47 @@
   padding: 0.5rem;
   border-radius: 0.4rem;
 }
+.project__list__item .poster {
+  border-radius: 0.5rem;
+}
 .project__list__item .title {
   font-size: 1.1rem;
   font-weight: 600;
   padding: 0.3rem 0;
+  white-space: nowrap;
+  line-height: 1rem;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 .project__list__item .description {
   font-size: 0.9rem;
   font-weight: 400;
   padding: 0.2rem 0;
-  line-height: 1rem;
+  line-height: 1.05rem;
+  /* white-space: pre-wrap; */
+  height: 6.6rem;
+  /* word-wrap: normal; */
+  /* width: 50px; */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 0.5rem;
 }
 .project__list__item .tags {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
+  overflow-x: hidden;
   gap: 0.5rem;
   padding: 0.2rem 0;
+  margin-bottom: 0.5rem;
 }
 .project__list__item .tags .tag {
   font-size: 0.8rem;
   font-weight: 400;
   padding: 0.2rem 0.5rem;
   border-radius: 0.4rem;
-  background-color: var(--text-color-dark-green);
-  color: white;
 }
 .project__list__item .details {
   display: flex;

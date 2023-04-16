@@ -31,6 +31,7 @@ export default function BlogCard({
             backgroundSize: "contain",
             backgroundPosition: "center",
             backgroundColor: "var(--primary-color-green)",
+            backgroundRepeat: "no-repeat",
           }}
           className="poster"
         ></div>
