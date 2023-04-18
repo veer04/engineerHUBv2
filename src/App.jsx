@@ -44,7 +44,11 @@ function App() {
               <Route path="" element={<Jobs />} />
               <Route path=":jobId" element={<Jobs />} />
             </Route>
-            <Route path="events" element={<Events />} />
+            <Route path="events">
+              <Route path="" element={<Events />} />
+              <Route path="hackathons/:hackId" element={<Events />} />
+              <Route path="competitions/:competeId" element={<Events />} />
+            </Route>
           </Route>
           <Route path="/login" element={<>Login page</>} />
         </Routes>

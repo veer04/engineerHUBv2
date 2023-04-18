@@ -1,30 +1,43 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap");
 
-.Company-Hackathons {
+.Hackathons {
+  width: 100%;
+  height: 2000px;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-evenly ;
+}
+.hackathonTiles {
+  height: 100%;
+  min-width: 370px;
+  display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  justify-content: center;
+  justify-content: space-evenly;
+  gap: 20px;
 }
 
-.Company-Hackathons .Card {
-  /* height: 370px; */
-  width: 353px;
+.hackathonTiles .Card {
+  height: 370px;
+  position: relative;
+  width: 350px;
   border-radius: 10px;
   background: #ffffff;
   border: 2px solid rgba(237, 237, 237, 0.81);
   border-radius: 10px;
   padding: 3px 5px;
+  cursor: pointer;
 }
-.Company-Hackathons .Card .cardImg {
+.hackathonTiles .Card .cardImg {
   position: relative;
 }
-.Company-Hackathons .Card .cardImg img {
+.hackathonTiles .Card .cardImg img {
   width: 100%;
   height: 193px;
   object-fit: cover;
 }
-.Company-Hackathons .Card .cardImg span {
+.hackathonTiles .Card .cardImg span {
   position: absolute;
   bottom: 13px;
   left: 13px;
@@ -33,16 +46,16 @@
   background: #fff;
   border-radius: 10px;
   border: 2px solid rgba(0, 43, 54, 0.15);
-  padding: 15px;
+  padding: 5px;
 }
-.Company-Hackathons .Card .cardImg span img {
+.hackathonTiles .Card .cardImg span img {
   width: 100%;
   height: 100%;
 }
-.Company-Hackathons .Card .cardBody {
+.hackathonTiles .Card .cardBody {
   padding: 8px 8px 13px 15px;
 }
-.Company-Hackathons .Card .cardBody h4 {
+.hackathonTiles .Card .cardBody h4 {
   font-family: "Inter";
   font-style: normal;
   font-weight: 600;
@@ -50,7 +63,7 @@
   line-height: 25px;
   color: #002b36;
 }
-.Company-Hackathons .Card .cardBody h6 {
+.hackathonTiles .Card .cardBody h6 {
   font-family: "Inter";
   font-style: normal;
   font-weight: 500;
@@ -58,18 +71,28 @@
   line-height: 25px;
   color: rgba(0, 0, 0, 0.73);
 }
-.Company-Hackathons .Card .cardBody .Tags {
+.hackathonTiles .Card .cardBody .Tags {
   display: flex;
   align-items: center;
   justify-content: flex-start;
   flex-direction: row;
   margin: 14px 0px;
 }
-.Company-Hackathons .Card .cardBody .Stats {
+.hackathonTiles .Card .cardBody .Stats {
   font-weight: 500;
   font-size: 14px;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  width: 100%;
   color: #002b36;
+}
+@media screen and (max-width: 450px) {
+  .hackathonTiles {
+    display: none;
+  }
+  .hackathonDetail {
+    min-width: 348px;
+    padding: 10px;
+  }
 }

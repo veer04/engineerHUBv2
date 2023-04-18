@@ -5,32 +5,45 @@ import { MdTune } from "react-icons/md";
 import Hackathons from "./EventsChoices/Hackathons";
 import Competitions from "./EventsChoices/Competitions";
 import "./events.css";
+import { useParams } from "react-router";
 
 const Events = () => {
+  const { hackId } = useParams();
+  const { competeId } = useParams();
   const [search, setSearch] = useState("");
-  const [choices, setChoices] = useState("Competitions");
-  const handleChoicesChange = (e) => {
-    e.preventDefault();
-    document.querySelector(".select").classList.remove("select");
-    setChoices(e.target.value);
-    e.target.classList.add("select");
-    changeChoice();
-  };
+  const [choice, setChoice] = useState("Competitions");
+
   const changeChoice = () => {
-    switch (choices) {
+    switch (choice) {
       case "Competitions":
-        return <Competitions />;
+        return (
+          <Competitions current={competeId === undefined ? "" : competeId} />
+        );
       case "Hackathons":
-        return <Hackathons />;
+        return <Hackathons current={hackId === undefined ? "" : hackId} />;
       default:
-        return <Competitions />;
+        return <Competitions current={competeId} />;
     }
   };
 
-  console.log(choices);
+  const handleChoicesChange = (e) => {
+    e.preventDefault();
+    document.querySelector(".select").classList.remove("select");
+    setChoice(e.target.value);
+    e.target.classList.add("select");
+    changeChoice();
+  };
 
   useEffect(() => {
-    changeChoice(choices);
+    if (window.location.pathname.split("/").includes("hackathons")) {
+      document.querySelector(".select").classList.remove("select");
+      setChoice("Hackathons");
+      document.querySelector(".hackathon").classList.add("select");
+    } else if (window.location.pathname.split("/").includes("competitions")) {
+      document.querySelector(".select").classList.remove("select");
+      setChoice("Competitions");
+      document.querySelector(".competition").classList.add("select");
+    }
   }, []);
 
   return (
@@ -60,14 +73,14 @@ const Events = () => {
       </div>
       <div className="Choices">
         <button
-          className="btn select"
+          className="btn select competition"
           value="Competitions"
           onClick={(e) => handleChoicesChange(e)}
         >
           Competitions
         </button>
         <button
-          className="btn"
+          className="btn hackathon"
           value="Hackathons"
           onClick={(e) => handleChoicesChange(e)}
         >
