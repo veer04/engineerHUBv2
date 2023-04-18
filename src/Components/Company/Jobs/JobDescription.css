@@ -1,0 +1,194 @@
+.JobDetailHeader {
+  width: 100%;
+  margin-top: 20px;
+}
+.JobDetailHeader span {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+.JobDetailHeader span .imgBox {
+  height: 104px;
+  width: 134px;
+  background: #f8f8f8;
+  border-radius: 50%;
+  padding: 15px;
+}
+.JobDetailHeader span .imgBox img {
+  width: 100%;
+}
+.JobDetailHeader span .heads {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  margin-left: 16px;
+}
+.JobDetailHeader span .heads h1 {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 28px;
+  color: #000000;
+}
+.JobDetailHeader span .heads h3 {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 22px;
+  color: #000000;
+}
+.JobDetailHeader span .btn {
+  width: 176px;
+  height: 52px;
+  padding: 15px 46px;
+  background: #128381;
+  border-radius: 10px;
+  text-align: center;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 22px;
+  color: #ffffff;
+}
+.JobDetailHeader .Tags {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: row;
+  margin: 14px 0px;
+}
+
+.JobDetailHeader,
+.JobDesc,
+.JobReq,
+.JobInfo {
+  padding: 8px 27px;
+  margin: 7px 0px;
+  background: #fff;
+  border-radius: 10px;
+}
+.JobDesc h5,
+.JobReq h5,
+.JobInfo h5 {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 22px;
+  color: #002b36;
+}
+.JobDesc p,
+.JobReq ul li {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 19px;
+  text-align: justify;
+  color: #242323;
+}
+.JobReq ul {
+  list-style-type: disc;
+  padding-left: 15px;
+}
+.JobInfo .JobInfoItems {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: 40px;
+  margin-top: 20px;
+  padding-bottom: 45px;
+}
+.JobInfo .JobInfoItems .JobInfoItem {
+  width: 286px;
+  height: 163px;
+  box-shadow: 4px 4px 25px rgba(0, 0, 0, 0.12);
+  border-radius: 10px;
+  box-sizing: border-box;
+  background: #ffffff;
+  padding: 11px 13px;
+  position: relative;
+}
+.JobInfo .JobInfoItems .JobInfoItem h6 {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 19px;
+  text-align: justify;
+  color: #000000;
+}
+.JobInfo .JobInfoItems .JobInfoItem p {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 15px;
+  text-align: justify;
+  color: #454545;
+}
+.JobInfo .JobInfoItems .JobInfoItem span {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 24px;
+  text-align: justify;
+  color: #014051;
+  position: absolute;
+  bottom: 16px;
+}
+.JobInfo .JobInfoItems .JobInfoItem img {
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+}
+.JobInfo .JobInfoItems .JobInfoItem:nth-child(3) img {
+  right: -30px;
+}
+
+@media screen and (max-width: 768px) {
+  .JobDetailHeader span .imgBox {
+    width: 65px;
+    height: 57px;
+  }
+  .JobDetailHeader span .heads h1 {
+    font-size: 14px;
+    line-height: 19px;
+  }
+  .JobDetailHeader span .heads h1 {
+    font-size: 12px;
+    line-height: 17px;
+  }
+  .JobDesc h5,
+  .JobReq h5,
+  .JobInfo h5 {
+    font-size: 14px;
+    line-height: 19px;
+  }
+  .JobDesc p,
+  .JobReq ul li {
+    font-size: 12px;
+    line-height: 16px;
+    text-align: justify;
+    color: #242323;
+  }
+  .JobReq ul {
+    padding-left: 30px;
+  }
+  .JobInfo div .JobInfoItem h6 {
+    font-size: 10px;
+    line-height: 12px;
+  }
+  .JobInfo div .JobInfoItem span {
+    font-size: 20px;
+    line-height: 24px;
+  }
+}
