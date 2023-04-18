@@ -1,0 +1,12 @@
+.chat-page {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: var(--vertical-padding) var(--section-padding);
+}
+.chat-section {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  gap: 2rem;
+}

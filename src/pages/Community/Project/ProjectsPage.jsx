@@ -100,7 +100,7 @@ export default function ProjectPage({ path }) {
           <div className="project__list__container">
             <div
               className={`project__list ${
-                isProjectOpen && "project__list--collapsed"
+                isProjectOpen ? "project__list--collapsed" : ""
               }`}
             >
               {filteredProjects.map((project) => (
