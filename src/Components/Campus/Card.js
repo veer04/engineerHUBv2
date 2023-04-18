@@ -78,7 +78,7 @@ function Card({
           Event Date: {evtdate.slice(0,10)}
         </h6>
         <div className="d-flex align-items-baseline justify-content-between">
-          <a href={link} className="btnc" style={{ backgroundColor: "#002a36" , borderRadius: "10px"}} target="_blank">
+          <a href={link} className="btnc" style={{ backgroundColor: "#002a36" , borderRadius: "10px"}} target="_blank" rel="noreferrer">
             <span style={{ color: "white", fontSize: "0.9rem", padding: "12px 24px" , }}>
               View More !
             </span>

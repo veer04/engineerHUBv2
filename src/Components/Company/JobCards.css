@@ -1,0 +1,86 @@
+.JobCard {
+  height: 357px;
+  width: 321px;
+  position: relative;
+  overflow: hidden;
+  background: #ffffff;
+  border: 2px solid #f3f3f3;
+  box-shadow: 5px 4px 29px rgba(22, 133, 132, 0.29);
+  border-radius: 10px;
+}
+.JobCard .cardContent {
+  padding: 16px;
+  height: 100%;
+}
+.JobCard .cardContent h6 {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 19px;
+  color: #000000;
+}
+.JobCard .cardContent h3 {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 32px;
+  line-height: 44px;
+  color: #000000;
+  padding: 22px 0px;
+}
+.JobCard .cardContent .Tags {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: row;
+  margin: 14px 0px;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 10px;
+  line-height: 12px;
+  color: #000000;
+}
+.JobCard .cardFooter {
+  position: absolute;
+  bottom: 0%;
+  padding: 19px;
+  height: 78px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+}
+.JobCard .cardFooter span {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background: #f9f9f9;
+  padding: 12px;
+}
+.JobCard .cardFooter span img {
+  width: 100%;
+}
+.JobCard .cardFooter h5 {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 19px;
+  color: #000000;
+  padding: 0px 5px;
+}
+.JobCard .cardFooter a .btn {
+  width: 81px;
+  height: 33px;
+  background: #014051;
+  border-radius: 21.5px;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 17px;
+  color: #ffffff;
+}

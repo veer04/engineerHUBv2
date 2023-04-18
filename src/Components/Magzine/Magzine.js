@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 import { cancelToken, getHandBook } from "../../services/APIConfig";
 import "../Magzine/Magzine.css";
-import { Autoplay } from "swiper";
+// import { Autoplay } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 // Import Swiper styles

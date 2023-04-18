@@ -3,7 +3,7 @@ import { cancelToken, getInternship } from "../../services/APIConfig";
 
 import SearchIcon from "@mui/icons-material/Search";
 import InternCard from "./InternCard";
-import FilterBar from "./filterIntern";
+// import FilterBar from "./filterIntern";
 import "./Internship.css";
 
 const Internship = () => {

@@ -1,7 +1,7 @@
 import React from "react";
-import { useNavigate,Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Accordion } from "react-bootstrap";
-import {Bucket_URL} from "../../services/APIUtils";
+// import {Bucket_URL} from "../../services/APIUtils";
 const Dropdown = ({ domainArr }) => {
   const history = useNavigate();
   return (
@@ -40,12 +40,17 @@ const Dropdown = ({ domainArr }) => {
               >
                 Mentor
               </Accordion.Body>
-              <a href="https://discord.gg/ZMZAEZ5NfA" target="_blank" style={{color:"#212529"}}>
-              <Accordion.Body
-                style={{ display: "flex", gap: "20px", cursor: "pointer" }}
+              <a
+                href="https://discord.gg/ZMZAEZ5NfA"
+                target="_blank"
+                style={{ color: "#212529" }}
+                rel="noreferrer"
               >
-                Ask your Query
-              </Accordion.Body>
+                <Accordion.Body
+                  style={{ display: "flex", gap: "20px", cursor: "pointer" }}
+                >
+                  Ask your Query
+                </Accordion.Body>
               </a>
             </Accordion.Item>
           );
