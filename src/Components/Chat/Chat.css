@@ -3,6 +3,7 @@
   flex-direction: column;
   width: 100%;
   min-height: 50vh;
+  max-height: 30rem;
   flex-wrap: nowrap;
 }
 
@@ -30,7 +31,7 @@
 .chat-display {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 1rem;
   padding: 1rem 3.5rem;
   overflow-y: scroll;
   height: 100%;

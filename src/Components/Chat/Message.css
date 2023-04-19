@@ -5,6 +5,9 @@
   justify-content: flex-start;
   color: white;
 }
+.chat-message--flipped {
+  flex-direction: row-reverse;
+}
 
 .chat-message .avatar-container {
   display: flex;
@@ -25,12 +28,22 @@
   align-items: flex-start;
   width: 100%;
 }
+
+.message-container--flipped {
+  align-items: flex-end;
+}
+
 .message-container .message-header {
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 0.2rem;
 }
+
+.message-container .message-header--flipped {
+  flex-direction: row-reverse;
+}
+
 .message-container .message-header .name {
   font-size: 1rem;
   font-weight: 500;
@@ -65,6 +78,10 @@
   align-items: center;
   gap: 0.5rem;
 }
+.message-container .message-body--flipped {
+  flex-direction: row-reverse;
+}
+
 .message-container .message-body .message {
   background-color: #3d3f41;
   padding: 0.45rem;
@@ -76,10 +93,8 @@
   align-items: center;
   min-width: 0.8rem;
   min-height: 1.5rem;
-  /* background-color: red; */
   border-radius: 0.2rem;
   cursor: pointer;
-  /* background-color: #7b7676; */
 }
 .message-container .message-body .options:hover {
   background-color: rgb(62, 64, 65);
