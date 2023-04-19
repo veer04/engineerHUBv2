@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Chat.css";
 import mentor from "./svg/mentor.svg";
 import submit from "./svg/submit.svg";
@@ -69,6 +69,22 @@ export default function Chat({ className }) {
     }
     document.getElementByClasses("chat-display").scrollTo(0, 999999999);
   }
+
+  useEffect(() => {
+    addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        handleSubmit();
+      }
+    });
+
+    return () => {
+      removeEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+          handleSubmit();
+        }
+      });
+    };
+  }, []);
 
   return (
     <div className={`chat-container ${className ? className : ""}`}>
