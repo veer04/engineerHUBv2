@@ -14,7 +14,9 @@ export default function Chat({ className }) {
       time: "12:00 PM",
       tags: ["Mentor"],
       message: "Lorem ipsum dolor sit amet",
-      avatar: "https://source.unsplash.com/random/",
+      avatar: `https://source.unsplash.com/random?query=${
+        Math.random() * 1000
+      }`,
     },
     {
       _id: 2,
@@ -24,7 +26,9 @@ export default function Chat({ className }) {
       time: "12:15 PM",
       message:
         "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Corporis ullam debitis porro velit dicta, nesciunt aperiam sequi consectetur eum, dignissimos obcaecati eos voluptatibus blanditiis impedit expedita suscipit similique ea doloremque.",
-      avatar: "https://source.unsplash.com/random/",
+      avatar: `https://source.unsplash.com/random?query=${
+        Math.random() * 2000
+      }`,
     },
     {
       _id: 3,
@@ -34,7 +38,9 @@ export default function Chat({ className }) {
       time: "12:30 PM",
       tags: ["Mentor", "Head"],
       message: "Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
-      avatar: "https://source.unsplash.com/random/",
+      avatar: `https://source.unsplash.com/random?query=${
+        Math.random() * 3000
+      }`,
     },
     {
       _id: 4,
