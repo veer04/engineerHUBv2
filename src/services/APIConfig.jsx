@@ -49,7 +49,6 @@ export const getProjectTags = (setTags) => {
       signal: controller.signal,
     })
     .then((res) => {
-      // console.log(res);
       const data = res.data.data;
       console.log(data);
       setTags(data);

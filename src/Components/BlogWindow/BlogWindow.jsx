@@ -3,12 +3,12 @@ import "./BlogWindow.css";
 import { RxCross1 } from "react-icons/rx";
 import { getBlogById } from "../../services/APIConfig";
 
-export default function BlogWindow({ projectOpened, setIsProjectOpen }) {
+export default function BlogWindow({ blogOpened, setIsBlogOpen }) {
   const [blog, setBlog] = useState({});
 
   useEffect(() => {
-    getBlogById(setBlog, projectOpened);
-  }, [projectOpened]);
+    getBlogById(setBlog, blogOpened);
+  }, [blogOpened]);
 
   console.log(blog.createdAt);
   const date = blog.createdAt ? new Date(blog.createdAt) : new Date();
@@ -18,7 +18,7 @@ export default function BlogWindow({ projectOpened, setIsProjectOpen }) {
         <div className="detail">
           <div className="title">{blog.title}</div>
         </div>
-        <div onClick={() => setIsProjectOpen(false)} className="link">
+        <div onClick={() => setIsBlogOpen(false)} className="link">
           <RxCross1 />
         </div>
       </div>
@@ -37,7 +37,6 @@ export default function BlogWindow({ projectOpened, setIsProjectOpen }) {
         className="project_window__poster"
       ></div>
       <div className="project__window__description">
-        {/* <div className="heading">Description</div> */}
         <div className="description">{blog.postArea}</div>
       </div>
       <div className="blog__window__details">

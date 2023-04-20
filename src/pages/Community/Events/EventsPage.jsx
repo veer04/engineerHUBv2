@@ -1,22 +1,15 @@
-import React, { useEffect, useState, useMemo } from "react";
-// import "./ProjectsPage.css";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Sidebar from "../../../components/Sidebar/Sidebar";
 import filter from "./img/filter-icon.png";
-import image from "./img/image.png";
-import ProjectCard from "../../../components/ProjectCard/ProjectCard";
-import { RxCross1 } from "react-icons/rx";
-import ProjectWindow from "../../../components/ProjectWindow/ProjectWindow";
 import { controller, getEvents } from "../../../services/APIConfig";
 import EventCard from "../../../components/EventCard/EventCard";
-import EventWindow from "../../../components/EventWindow/EventWindow";
-import useSidebar from "../../../hooks/use-sidebar";
 
 export default function EventsPage({ path }) {
   const { id } = useParams();
 
-  const [isProjectOpen, setIsProjectOpen] = useState(false);
-  const [projectOpened, setProjectOpened] = useState(undefined);
+  const [isEventOpen, setIsEventOpen] = useState(false);
+  const [eventOpened, setEventOpened] = useState(undefined);
 
   //   const [currentFilters, setCurrentFilters] = useState([]);
 
@@ -43,15 +36,24 @@ export default function EventsPage({ path }) {
   //     },
   //   ];
 
-  const [events, setEvents] = useState([]);
+  const [events, setEvents] = useState(
+    sessionStorage.getItem(`${id} events`)
+      ? JSON.parse(sessionStorage.getItem(`${id} events`))
+      : []
+  );
 
   useEffect(() => {
     getEvents(setEvents, id);
+    window.scrollTo(0, 0);
 
     return () => {
       controller.abort();
     };
   }, [id]);
+
+  useEffect(() => {
+    sessionStorage.setItem(`${id} events`, JSON.stringify(events));
+  }, [events]);
 
   console.log(events);
 
@@ -96,13 +98,13 @@ export default function EventsPage({ path }) {
           <div className="project__list__container">
             <div
               className={`project__list ${
-                isProjectOpen && "project__list--collapsed"
+                isEventOpen && "project__list--collapsed"
               }`}
             >
               {events.map((event) => (
                 <EventCard
-                  setProjectOpened={setProjectOpened}
-                  setIsProjectOpen={setIsProjectOpen}
+                  setEventOpened={setEventOpened}
+                  setIsEventOpen={setIsEventOpen}
                   key={event._id}
                   {...event}
                 />

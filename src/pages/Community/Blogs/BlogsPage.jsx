@@ -1,26 +1,24 @@
-import React, { useEffect, useState, useMemo } from "react";
-// import "./ProjectsPage.css";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Sidebar from "../../../components/Sidebar/Sidebar";
 import filter from "./img/filter-icon.png";
-import image from "./img/image.png";
-import ProjectCard from "../../../components/ProjectCard/ProjectCard";
-import { RxCross1 } from "react-icons/rx";
-import ProjectWindow from "../../../components/ProjectWindow/ProjectWindow";
 import { controller, getBlogs } from "../../../services/APIConfig";
 import BlogCard from "../../../components/BlogCard/BlogCard";
 import BlogWindow from "../../../components/BlogWindow/BlogWindow";
-import useSidebar from "../../../hooks/use-sidebar";
 
 export default function BlogsPage({ path }) {
   const { id } = useParams();
 
-  const [isProjectOpen, setIsProjectOpen] = useState(false);
-  const [projectOpened, setProjectOpened] = useState(undefined);
+  const [isBlogOpen, setIsBlogOpen] = useState(false);
+  const [blogOpened, setBlogOpened] = useState(undefined);
 
   const [currentFilters, setCurrentFilters] = useState([]);
 
-  const [projects, setProjects] = useState([]);
+  const [blogs, setBlogs] = useState(
+    sessionStorage.getItem(`${id} blogs`)
+      ? JSON.parse(sessionStorage.getItem(`${id} blogs`))
+      : {}
+  );
 
   const filters = [
     {
@@ -46,30 +44,33 @@ export default function BlogsPage({ path }) {
   ];
 
   useEffect(() => {
-    getBlogs(setProjects, id);
+    getBlogs(setBlogs, id);
+    window.scrollTo(0, 0);
 
     return () => {
       controller.abort();
     };
   }, [id]);
 
-  const [filteredProjects, setFilteredProjects] = useState([]);
+  useEffect(() => {
+    sessionStorage.setItem(`${id} blogs`, JSON.stringify(blogs));
+  }, [blogs]);
+
+  const [filteredBlogs, setFilteredBlogs] = useState([]);
 
   useEffect(() => {
-    if (projects.length > 0) {
-      setFilteredProjects(
-        projects.filter((project) => {
+    if (blogs.length > 0) {
+      setFilteredBlogs(
+        blogs.filter((blog) => {
           if (currentFilters.length === 0) {
             return true;
           } else {
-            return project.techStack.some((tag) =>
-              currentFilters.includes(tag)
-            );
+            return blog.techStack.some((tag) => currentFilters.includes(tag));
           }
         })
       );
     }
-  }, [currentFilters, projects]);
+  }, [currentFilters, blogs]);
 
   return (
     <div className="project-page">
@@ -118,22 +119,22 @@ export default function BlogsPage({ path }) {
           <div className="project__list__container">
             <div
               className={`project__list ${
-                isProjectOpen && "project__list--collapsed"
+                isBlogOpen && "project__list--collapsed"
               }`}
             >
-              {filteredProjects.map((project) => (
+              {filteredBlogs.map((blog) => (
                 <BlogCard
-                  setProjectOpened={setProjectOpened}
-                  setIsProjectOpen={setIsProjectOpen}
-                  key={project._id}
-                  {...project}
+                  setBlogOpened={setBlogOpened}
+                  setIsBlogOpen={setIsBlogOpen}
+                  key={blog._id}
+                  {...blog}
                 />
               ))}
             </div>
-            {isProjectOpen && (
+            {isBlogOpen && (
               <BlogWindow
-                projectOpened={projectOpened}
-                setIsProjectOpen={setIsProjectOpen}
+                blogOpened={blogOpened}
+                setIsBlogOpen={setIsBlogOpen}
               />
             )}
           </div>
