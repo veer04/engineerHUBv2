@@ -1,0 +1,22 @@
+.companyHome {
+  width: 100%;
+  padding: 20px 150px;
+}
+.FeaturedJobs {
+  width: 100%;
+}
+.FeaturedJobs h5 {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 29px;
+  color: #000000;
+}
+.FeaturedJobs .FeaturedJobsTiles {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-top: 20px;
+}
