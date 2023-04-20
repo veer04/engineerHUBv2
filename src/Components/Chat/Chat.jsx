@@ -3,6 +3,22 @@ import "./Chat.css";
 import mentor from "./svg/mentor.svg";
 import submit from "./svg/submit.svg";
 import Message from "./Message";
+import { Card, CardContent, Typography } from '@mui/material';
+
+const GuidelineAlert = ({ guideline }) => {
+  return (
+    <Card variant="outlined">
+      <CardContent>
+        <Typography variant="h6" gutterBottom>
+          Community Guidelines Alert
+        </Typography>
+        <Typography variant="body1">
+          {guideline}
+        </Typography>
+      </CardContent>
+    </Card>
+  );
+};
 
 export default function Chat({ className }) {
   const [messages, setMessages] = useState([
@@ -90,7 +106,7 @@ export default function Chat({ className }) {
     <div className={`chat-container ${className ? className : ""}`}>
       <div className="chat-header">
         <div className="heading">Community Chat</div>
-        <div className="mentor-btn">
+        <div className="mentor-btn" onClick={(ChatApp)} >
           <img src={mentor} alt="Connect to mentor" />
         </div>
       </div>
@@ -111,3 +127,29 @@ export default function Chat({ className }) {
     </div>
   );
 }
+
+
+
+
+const ChatApp = () => {
+  const [showGuidelineAlert, setShowGuidelineAlert] = useState(true);
+  const [communityGuidelines, setCommunityGuidelines] = useState('');
+
+  const handleCloseGuidelineAlert = () => {
+    setShowGuidelineAlert(false);
+  };
+
+  useEffect(() => {
+    // code to fetch community guidelines from server
+    setCommunityGuidelines('Be respectful to others and follow the terms of service.');
+  }, []);
+
+  return (
+    <div>
+      {showGuidelineAlert && (
+        <GuidelineAlert guideline={communityGuidelines} handleClose={handleCloseGuidelineAlert} />
+      )}
+      // code to display chat messages and input field
+    </div>
+  );
+};
