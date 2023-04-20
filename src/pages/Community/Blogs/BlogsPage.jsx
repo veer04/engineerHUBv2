@@ -20,7 +20,11 @@ export default function BlogsPage({ path }) {
 
   const [currentFilters, setCurrentFilters] = useState([]);
 
-  const [projects, setProjects] = useState([]);
+  const [projects, setProjects] = useState(
+    sessionStorage.getItem(`${id} blogs`)
+      ? JSON.parse(sessionStorage.getItem(`${id} blogs`))
+      : {}
+  );
 
   const filters = [
     {
@@ -47,11 +51,16 @@ export default function BlogsPage({ path }) {
 
   useEffect(() => {
     getBlogs(setProjects, id);
+    window.scrollTo(0, 0);
 
     return () => {
       controller.abort();
     };
   }, [id]);
+
+  useEffect(() => {
+    sessionStorage.setItem(`${id} blogs`, JSON.stringify(projects));
+  }, [projects]);
 
   const [filteredProjects, setFilteredProjects] = useState([]);
 

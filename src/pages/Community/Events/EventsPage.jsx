@@ -43,15 +43,24 @@ export default function EventsPage({ path }) {
   //     },
   //   ];
 
-  const [events, setEvents] = useState([]);
+  const [events, setEvents] = useState(
+    sessionStorage.getItem(`${id} events`)
+      ? JSON.parse(sessionStorage.getItem(`${id} events`))
+      : []
+  );
 
   useEffect(() => {
     getEvents(setEvents, id);
+    window.scrollTo(0, 0);
 
     return () => {
       controller.abort();
     };
   }, [id]);
+
+  useEffect(() => {
+    sessionStorage.setItem(`${id} events`, JSON.stringify(events));
+  }, [events]);
 
   console.log(events);
 

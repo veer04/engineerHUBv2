@@ -73,10 +73,17 @@ export default function DomainsSection() {
     ],
   };
 
-  const [domainData, setDomainData] = useState([]);
-
+  const [domainData, setDomainData] = useState(
+    sessionStorage.getItem("domainData")
+      ? JSON.parse(sessionStorage.getItem("domainData"))
+      : []
+  );
+  //scroll att top at a instant
   useEffect(() => {
+    window.scrollTo(0, 0);
+
     getDomains(setDomainData);
+    sessionStorage.setItem("domainData", JSON.stringify(domainData));
 
     return () => {
       controller.abort();

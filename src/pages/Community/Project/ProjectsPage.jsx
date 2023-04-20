@@ -22,11 +22,20 @@ export default function ProjectPage({ path }) {
 
   const [currentFilters, setCurrentFilters] = useState([]);
 
-  const [tags, setTags] = useState([]);
+  const [tags, setTags] = useState(
+    sessionStorage.getItem("project tags")
+      ? JSON.parse(sessionStorage.getItem("project tags"))
+      : []
+  );
 
-  const [projects, setProjects] = useState([]);
+  const [projects, setProjects] = useState(
+    sessionStorage.getItem(`${id} projects`)
+      ? JSON.parse(sessionStorage.getItem(`${id} projects`))
+      : []
+  );
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     getProjects(setProjects, id);
     getProjectTags(setTags);
 
@@ -34,6 +43,14 @@ export default function ProjectPage({ path }) {
       controller.abort();
     };
   }, [id]);
+
+  useEffect(() => {
+    sessionStorage.setItem(`project tags`, JSON.stringify(tags));
+  }, [tags]);
+
+  useEffect(() => {
+    sessionStorage.setItem(`${id} projects`, JSON.stringify(projects));
+  }, [projects]);
 
   const [filteredProjects, setFilteredProjects] = useState([]);
 
