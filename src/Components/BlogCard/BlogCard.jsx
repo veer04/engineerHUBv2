@@ -9,8 +9,8 @@ export default function BlogCard({
   title,
   postArea,
   domainName,
-  setProjectOpened,
-  setIsProjectOpen,
+  setBlogOpened,
+  setIsBlogOpen,
   createdAt,
 }) {
   console.log();
@@ -18,7 +18,7 @@ export default function BlogCard({
   return (
     <div
       onClick={() => {
-        setProjectOpened(_id), setIsProjectOpen(true);
+        setBlogOpened(_id), setIsBlogOpen(true);
       }}
       className="project__list__item blog__list__item"
     >

@@ -7,7 +7,7 @@ export default function EventCard({
   _id,
   description,
   eventPoster,
-  setProjectOpened,
+  setEventOpened,
   setIsProjectOpen,
   eventName,
   eventType,
@@ -15,7 +15,7 @@ export default function EventCard({
   return (
     <div
       onClick={() => {
-        setProjectOpened(_id);
+        setEventOpened(_id);
         console.log(_id);
       }}
       className="project__list__item event__list__item"
