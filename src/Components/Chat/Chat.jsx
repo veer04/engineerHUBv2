@@ -30,7 +30,9 @@ export default function Chat({ className }) {
       time: "12:00 PM",
       tags: ["Mentor"],
       message: "Lorem ipsum dolor sit amet",
-      avatar: "https://source.unsplash.com/random/",
+      avatar: `https://source.unsplash.com/random?query=${
+        Math.random() * 1000
+      }`,
     },
     {
       _id: 2,
@@ -40,7 +42,9 @@ export default function Chat({ className }) {
       time: "12:15 PM",
       message:
         "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Corporis ullam debitis porro velit dicta, nesciunt aperiam sequi consectetur eum, dignissimos obcaecati eos voluptatibus blanditiis impedit expedita suscipit similique ea doloremque.",
-      avatar: "https://source.unsplash.com/random/",
+      avatar: `https://source.unsplash.com/random?query=${
+        Math.random() * 2000
+      }`,
     },
     {
       _id: 3,
@@ -50,7 +54,9 @@ export default function Chat({ className }) {
       time: "12:30 PM",
       tags: ["Mentor", "Head"],
       message: "Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
-      avatar: "https://source.unsplash.com/random/",
+      avatar: `https://source.unsplash.com/random?query=${
+        Math.random() * 3000
+      }`,
     },
     {
       _id: 4,
@@ -67,9 +73,14 @@ export default function Chat({ className }) {
     return <Message key={message._id} {...message} />;
   });
 
+  const [input, setInput] = useState("");
+
+  useEffect(() => {
+    document.getElementsByClassName("chat-display")[0].scrollTo(0, 999999999);
+  }, [messages]);
+
   function handleSubmit() {
-    const input = document.getElementById("chat-input");
-    if (input.value) {
+    if (input) {
       setMessages([
         ...messages,
         {
@@ -77,30 +88,22 @@ export default function Chat({ className }) {
           userId: 2001,
           userName: "Swapnil Raj",
           time: "12:45 PM",
-          message: input.value,
+          message: input,
           avatar: "https://source.unsplash.com/random/",
         },
       ]);
-      input.value = "";
+      setInput("");
     }
-    document.getElementByClasses("chat-display").scrollTo(0, 999999999);
+    setTimeout(() => {
+      document.getElementsByClassName("chat-display")[0].scrollTo(0, 999999999);
+    }, 100);
   }
 
-  useEffect(() => {
-    addEventListener("keydown", (e) => {
-      if (e.key === "Enter") {
-        handleSubmit();
-      }
-    });
-
-    return () => {
-      removeEventListener("keydown", (e) => {
-        if (e.key === "Enter") {
-          handleSubmit();
-        }
-      });
-    };
-  }, []);
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      handleSubmit();
+    }
+  };
 
   return (
     <div className={`chat-container ${className ? className : ""}`}>
@@ -117,6 +120,9 @@ export default function Chat({ className }) {
           className="input"
           placeholder="New Message"
           type="text"
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          onKeyDown={handleKeyDown}
         />
         <div className="submit-button__container">
           <div onClick={handleSubmit} className="submit-button">
