@@ -23,6 +23,7 @@ function App() {
           <Route index element={<HomePage />} />
           <Route path="/home" element={<HomePage />} />
           <Route path="/community">
+            <Route index element={<CommunityPage />} />
             <Route path="domains" element={<CommunityPage path="domains" />} />
             <Route path="projects">
               <Route path=":id" element={<ProjectPage path="projects" />} />
@@ -37,8 +38,11 @@ function App() {
               <Route path=":id" element={<ChatPage path="chat" />} />
             </Route>
           </Route>
-          <Route path="/mentorChat" element={<MentorChat/>}/>
-          <Route path="/campus" element={<CampusPage />} />
+          <Route path="/mentorChat" element={<MentorChat />} />
+          <Route path="/campus">
+            <Route index element={<CampusPage />} />
+            <Route path=":id" element={<CampusPage />} />
+          </Route>
           <Route path="/company" element={<>Company page</>} />
           <Route path="/login" element={<>Login page</>} />
           <Route path="/mentorship" element={<Mentorship />} />
