@@ -12,7 +12,7 @@ export default function SearchBar({
   const [value, setValue] = useState("");
 
   return (
-    <div className={`search-bar ${className}`}>
+    <div className={`search-bar ${className ? className : ""}`}>
       {hasFiltration && (
         <div className="filter__container">
           <div>

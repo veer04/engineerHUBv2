@@ -18,5 +18,49 @@
   color: var(--text-color-dark-green);
 }
 .campus-page__search-bar {
-  width: 25rem;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.campus-page__search-bar > div {
+  width: max(50%, 23rem);
+}
+.campus-events-section {
+  margin: 2rem 0;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  gap: 1.5rem;
+}
+.campus-featured-events-section > h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--text-color-dark-green);
+  margin-bottom: 1rem;
+}
+.campus-featured-events-section > .events {
+  margin: 2rem 0;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  gap: 1.5rem;
+}
+.campus-events-tabs {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-wrap: nowrap;
+  margin: 2rem 0;
+  gap: 2rem;
+}
+
+@media screen and (max-width: 450px) {
+  .campus-events-section {
+    gap: 0;
+    margin: 0;
+  }
 }

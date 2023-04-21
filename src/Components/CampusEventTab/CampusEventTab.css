@@ -1,0 +1,13 @@
+.campus-events-tab {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: nowrap;
+  font-size: 1.2rem;
+  text-align: center;
+  width: 25%;
+  height: 3.5rem;
+  border-radius: 0.5rem;
+  box-shadow: 0.1rem 0.1rem 0.5rem rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+}
