@@ -1,0 +1,22 @@
+.campus-page {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: var(--vertical-padding) var(--section-padding);
+  scroll-behavior: auto;
+}
+.campus-page .heading-3 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--text-color-dark-green);
+  margin-bottom: 1rem;
+}
+.campus-page .subheading-1 {
+  font-size: 1.2rem;
+  font-weight: 400;
+  margin-bottom: 3.5rem;
+  color: var(--text-color-dark-green);
+}
+.campus-page__search-bar {
+  width: 25rem;
+}

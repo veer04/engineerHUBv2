@@ -10,6 +10,7 @@ import BlogsPage from "./pages/Community/Blogs/BlogsPage";
 import EventsPage from "./pages/Community/Events/EventsPage";
 import SidebarProvider from "./contexts/SidebarContext";
 import ChatPage from "./pages/Community/Chat/ChatPage";
+import CampusPage from "./pages/Campus/CampusPage";
 
 function App() {
   return (
@@ -34,7 +35,7 @@ function App() {
               <Route path=":id" element={<ChatPage path="chat" />} />
             </Route>
           </Route>
-          <Route path="/campus" element={<>Campus page</>} />
+          <Route path="/campus" element={<CampusPage />} />
           <Route path="/company" element={<>Company page</>} />
           <Route path="/login" element={<>Login page</>} />
         </Routes>
