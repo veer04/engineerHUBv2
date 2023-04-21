@@ -11,6 +11,8 @@ import EventsPage from "./pages/Community/Events/EventsPage";
 import SidebarProvider from "./contexts/SidebarContext";
 import ChatPage from "./pages/Community/Chat/ChatPage";
 import CampusPage from "./pages/Campus/CampusPage";
+import Mentorship from "./Components/1-1Mentorship/Mentorship";
+import MentorChat from "./Components/1-1Mentorship/Mentorchat";
 
 function App() {
   return (
@@ -35,9 +37,11 @@ function App() {
               <Route path=":id" element={<ChatPage path="chat" />} />
             </Route>
           </Route>
+          <Route path="/mentorChat" element={<MentorChat/>}/>
           <Route path="/campus" element={<CampusPage />} />
           <Route path="/company" element={<>Company page</>} />
           <Route path="/login" element={<>Login page</>} />
+          <Route path="/mentorship" element={<Mentorship />} />
         </Routes>
       </SidebarProvider>
       <Footer />
