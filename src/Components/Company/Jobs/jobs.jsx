@@ -259,7 +259,6 @@ const Jobs = () => {
       },
     },
   ];
-
   useEffect(() => {}, []);
   return (
     <div className="CompanyJob">

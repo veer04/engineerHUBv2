@@ -2,10 +2,60 @@
   width: 100%;
   padding: 20px 150px;
 }
+.Category .CategoryTiles {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.Category .CategoryTiles .seeMore {
+  display: flex;
+  flex-direction: column;
+}
+.Category .CategoryTiles .CategoryCard {
+  margin: 45px 0;
+  box-sizing: border-box;
+  width: 200px;
+  height: 200px;
+  background: #ffffff;
+  border: 1px solid #014051;
+  box-shadow: 3px 4px 15px rgba(1, 64, 81, 0.32);
+  border-radius: 10px;
+  position: relative;
+  padding: 20px 15px;
+}
+.Category .CategoryTiles .CategoryCard.select {
+  box-sizing: border-box;
+  width: 200px;
+  height: 200px;
+  background: #128381;
+  border: 1px solid #ffffff;
+  box-shadow: 0px 10px 40px rgba(0, 43, 54, 0.45);
+  border-radius: 10px;
+  position: relative;
+  padding: 20px 15px;
+}
+.Category .CategoryTiles .CategoryCard h4 {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 29px;
+  color: #002b36;
+}
+.Category .CategoryTiles .CategoryCard.select h4 {
+  color: #fff;
+}
+.Category .CategoryTiles .CategoryCard img {
+  position: absolute;
+  right: 15px;
+  bottom: 15px;
+}
 .FeaturedJobs {
   width: 100%;
 }
-.FeaturedJobs h5 {
+.FeaturedJobs h5,
+.Category h5 {
   font-family: "Inter";
   font-style: normal;
   font-weight: 600;
@@ -19,4 +69,58 @@
   flex-wrap: wrap;
   justify-content: space-between;
   margin-top: 20px;
+}
+
+.StudentReviews {
+  width: 100%;
+  margin-top: 50px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.StudentReviews .heading {
+  width: 260px;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 36px;
+  line-height: 44px;
+  color: #014051;
+}
+.StudentReviews .reviewCard {
+  width: 333px;
+  padding: 19px;
+  border-radius: 11.9437px;
+  align-self: flex-start;
+}
+.StudentReviews .reviewCard {
+  background: #f7d77f;
+  box-shadow: 0px 17px 31.6094px rgba(247, 215, 127, 0.52);
+}
+.StudentReviews .reviewCard:last-child {
+  background: #128381;
+  box-shadow: 0px 8.42917px 31.6094px rgba(18, 131, 129, 0.58);
+}
+.StudentReviews .reviewCard p {
+  padding-left: 45px;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 22px;
+  display: flex;
+  align-items: center;
+  color: #002b36;
+}
+.StudentReviews .reviewCard h6 {
+  padding-left: 45px;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 25px;
+  display: flex;
+  align-items: center;
+  color: #002b36;
 }

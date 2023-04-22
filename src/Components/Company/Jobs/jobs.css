@@ -100,11 +100,5 @@
   padding: 0 20px 20px 20px;
 }
 @media screen and (max-width: 450px) {
-  .CompanyJob .Jobs .JobTiles {
-    display: none;
-  }
-  .CompanyJob .Jobs .JobDetail {
-    min-width: 348px;
-    padding: 10px;
-  }
+  
 }
