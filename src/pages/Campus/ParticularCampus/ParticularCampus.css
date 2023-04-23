@@ -16,3 +16,179 @@
 .particular-campus-page > .image-carousel__container > .image-carousel {
   width: 30rem;
 }
+.particular-campus-page > .details-tab {
+  width: 100%;
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  background-color: white;
+  padding: 0.5rem 1.5rem;
+  border-radius: 0.2rem;
+}
+.particular-campus-page > .details-tab > .details {
+  display: flex;
+  flex-direction: row;
+}
+.particular-campus-page > .details-tab > .details > div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.particular-campus-page > .details-tab > .details > div:nth-child(1) {
+  align-items: center;
+}
+
+.particular-campus-page > .details-tab > .details > div > img {
+  width: 5rem;
+  height: 5rem;
+  margin-right: 1rem;
+}
+.particular-campus-page > .details-tab > .details > div > .title {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+.particular-campus-page > .details-tab > .details > div > .location {
+  font-size: 0.875rem;
+  color: #898989;
+  font-weight: 400;
+}
+.particular-campus-page > .details-tab > .details > div > .rating {
+  font-size: 0.875rem;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.5rem;
+  font-weight: 400;
+}
+.particular-campus-page
+  > .details-tab
+  > .details
+  > div
+  > .rating
+  > .rating__stars {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.1rem;
+  font-size: 1rem;
+}
+.particular-campus-page
+  > .details-tab
+  > .details
+  > div
+  > .rating
+  > .rating__number {
+  color: #898989;
+}
+.particular-campus-page > .details-tab .view-more {
+  border: 1px solid black;
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+.particular-campus-page > .about {
+  width: 100%;
+  margin-top: 1.5rem;
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: column;
+  align-items: flex-start;
+  background-color: white;
+  padding: 1.2rem 1.5rem;
+  border-radius: 0.2rem;
+  gap: 1rem;
+}
+.particular-campus-page > .about > .heading {
+  font-size: 1rem;
+  font-weight: 600;
+}
+.particular-campus-page > .about > .description {
+  font-size: 0.875rem;
+}
+
+@media screen and (max-width: 768px) {
+  .particular-campus-page > .details-tab {
+    flex-direction: row;
+    align-items: center;
+  }
+  .particular-campus-page > .details-tab > .details > div > img {
+    width: 3rem;
+    height: 3rem;
+  }
+  .particular-campus-page > .details-tab > .details > div > .title {
+    font-size: 1.2rem;
+  }
+  .particular-campus-page > .details-tab > .details > div > .location {
+    font-size: 0.75rem;
+  }
+  .particular-campus-page > .details-tab > .details > div > .rating {
+    font-size: 0.75rem;
+  }
+  .particular-campus-page
+    > .details-tab
+    > .details
+    > div
+    > .rating
+    > .rating__stars {
+    font-size: 0.75rem;
+  }
+  .particular-campus-page
+    > .details-tab
+    > .details
+    > div
+    > .rating
+    > .rating__number {
+    font-size: 0.75rem;
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .particular-campus-page > .details-tab {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .particular-campus-page > .details-tab > .details {
+    margin-top: 1rem;
+  }
+  .particular-campus-page > .details-tab > .details > div {
+    margin-right: 1rem;
+  }
+  .particular-campus-page > .details-tab > .details > div > img {
+    width: 3rem;
+    height: 3rem;
+  }
+  .particular-campus-page > .details-tab > .details > div > .title {
+    font-size: 1.2rem;
+  }
+  .particular-campus-page > .details-tab > .details > div > .location {
+    font-size: 0.75rem;
+  }
+  .particular-campus-page > .details-tab > .details > div > .rating {
+    font-size: 0.75rem;
+  }
+  .particular-campus-page
+    > .details-tab
+    > .details
+    > div
+    > .rating
+    > .rating__stars {
+    font-size: 0.75rem;
+  }
+  .particular-campus-page
+    > .details-tab
+    > .details
+    > div
+    > .rating
+    > .rating__number {
+    font-size: 0.75rem;
+  }
+  .particular-campus-page > .details-tab > .view-more {
+    margin-top: 1rem;
+  }
+}
