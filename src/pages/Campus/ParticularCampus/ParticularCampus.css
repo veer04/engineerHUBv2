@@ -1,0 +1,18 @@
+.particular-campus-page {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: var(--vertical-padding) var(--section-padding);
+  scroll-behavior: auto;
+}
+.particular-campus-page > .image-carousel__container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem 0;
+}
+.particular-campus-page > .image-carousel__container > .image-carousel {
+  width: 30rem;
+}

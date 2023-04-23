@@ -67,7 +67,7 @@
 }
 
 @media screen and (max-width: 450px) {
-  .campus-event__card {
+  .campus-event-card--responsive {
     transform: scale(0.8);
   }
 }

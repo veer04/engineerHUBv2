@@ -17,13 +17,13 @@
   margin-bottom: 3.5rem;
   color: var(--text-color-dark-green);
 }
-.campus-page__search-bar {
+.search-bar__container {
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.campus-page__search-bar > div {
+.search-bar__container > div {
   width: max(50%, 23rem);
 }
 .campus-events-section {

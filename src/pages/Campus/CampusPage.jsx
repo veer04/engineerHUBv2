@@ -17,6 +17,7 @@ export default function CampusPage() {
       studentActivity: "230+",
       ongoingEvents: "100",
       color: colors[0],
+      link: "/campus/inter-college",
     },
     {
       _id: 2,
@@ -24,6 +25,7 @@ export default function CampusPage() {
       studentActivity: "20+",
       ongoingEvents: "12",
       color: colors[1],
+      link: "/campus/intra-college",
     },
     {
       _id: 3,
@@ -31,6 +33,7 @@ export default function CampusPage() {
       studentActivity: "2.1k",
       ongoingEvents: "108",
       color: colors[2],
+      link: "/campus/workshop",
     },
   ];
 
@@ -80,10 +83,10 @@ export default function CampusPage() {
         mauris mauris quam elit. Convallis nunc accumsan sit cum. Vitae diam eu
         enim dignissim donec ultrices dis amet ipsum.
       </h2>
-      <div className="campus-page__search-bar">
+      <div className="search-bar__container">
         <div>
           <SearchBar
-            hasFiltration={true}
+            hasFiltration={false}
             placeholder="You are looking for which Campus?"
             type="text"
           />
@@ -92,6 +95,7 @@ export default function CampusPage() {
       <div className="campus-events-section">
         {CampusEvents.map((event) => (
           <CampusEventCard
+            link={event.link}
             key={event._id}
             title={event.title}
             studentActivity={event.studentActivity}

@@ -30,7 +30,7 @@ export default function BlogCard({
             backgroundImage: `url(${postIcon})`,
             backgroundSize: "contain",
             backgroundPosition: "center",
-            backgroundColor: "var(--primary-color-green)",
+            backgroundColor: "rgb(238,255,255)",
             backgroundRepeat: "no-repeat",
           }}
           className="poster"

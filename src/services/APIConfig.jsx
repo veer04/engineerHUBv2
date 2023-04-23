@@ -42,10 +42,10 @@ export const getProjects = (setDomainData, id) => {
     });
 };
 
-export const getProjectTags = (setTags) => {
+export const getProjectTags = (setTags, id) => {
   const controller = new AbortController();
   axios
-    .get(`${API_URL}api/v1/alltags`, {
+    .get(`${API_URL}api/v1/alltags/${id}`, {
       signal: controller.signal,
     })
     .then((res) => {

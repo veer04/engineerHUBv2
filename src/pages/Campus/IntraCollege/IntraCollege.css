@@ -1,0 +1,45 @@
+.intra-college-page {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: var(--vertical-padding) var(--section-padding);
+  scroll-behavior: auto;
+}
+.intra-college-page .heading-3 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--text-color-dark-green);
+  margin-bottom: 1rem;
+}
+.intra-college-page .subheading-1 {
+  font-size: 1.2rem;
+  font-weight: 400;
+  margin-bottom: 3.5rem;
+  color: var(--text-color-dark-green);
+}
+.intra-college-page > .featured-events > h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--text-color-dark-green);
+  margin-bottom: 1rem;
+}
+.intra-college-page > .featured-events > .events {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap; /* wrap */
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 3rem;
+  gap: 1rem;
+}
+.campus-content-section {
+  padding: 2rem 0;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+
+  justify-content: space-evenly;
+  width: 100%;
+  gap: 1rem;
+  scroll-behavior: auto;
+}

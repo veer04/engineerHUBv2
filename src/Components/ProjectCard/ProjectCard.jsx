@@ -43,7 +43,7 @@ export default function ProjectCard({
             height: "12rem",
             backgroundImage: `url(${projectImage})`,
             backgroundSize: "contain",
-            backgroundColor: "var(--primary-color-green)",
+            backgroundColor: "rgb(238,255,255)",
             backgroundPosition: "center",
             backgroundRepeat: "no-repeat",
           }}

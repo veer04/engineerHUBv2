@@ -37,7 +37,7 @@ export default function ProjectPage({ path }) {
   useEffect(() => {
     window.scrollTo(0, 0);
     getProjects(setProjects, id);
-    getProjectTags(setTags);
+    getProjectTags(setTags, id);
 
     return () => {
       controller.abort();

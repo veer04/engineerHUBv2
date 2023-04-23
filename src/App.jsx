@@ -13,6 +13,10 @@ import ChatPage from "./pages/Community/Chat/ChatPage";
 import CampusPage from "./pages/Campus/CampusPage";
 import Mentorship from "./Components/1-1Mentorship/Mentorship";
 import MentorChat from "./Components/1-1Mentorship/Mentorchat";
+import IntraCollege from "./pages/Campus/IntraCollege/IntraCollege";
+import InterCollege from "./pages/Campus/InterCollege/InterCollege";
+import Workshops from "./pages/Campus/Workshops/Workshops";
+import ParticularCampus from "./pages/Campus/ParticularCampus/ParticularCampus";
 
 function App() {
   return (
@@ -41,7 +45,10 @@ function App() {
           <Route path="/mentorChat" element={<MentorChat />} />
           <Route path="/campus">
             <Route index element={<CampusPage />} />
-            <Route path=":id" element={<CampusPage />} />
+            <Route path="inter-college" element={<InterCollege />} />
+            <Route path="intra-college" element={<IntraCollege />} />
+            <Route path="workshop" element={<Workshops />} />
+            <Route path=":id" element={<ParticularCampus />} />
           </Route>
           <Route path="/company" element={<>Company page</>} />
           <Route path="/login" element={<>Login page</>} />
