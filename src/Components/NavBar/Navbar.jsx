@@ -75,6 +75,11 @@ export default function Navbar() {
                 Company
               </ButtonRounded>
             </Link>
+            <Link className="nav-link" to="/hosting">
+              <ButtonRounded className="nav-middle-items">
+                Hosting
+              </ButtonRounded>
+            </Link>
           </div>
         </div>
         <Link className="nav-link" to="/login">
