@@ -1,0 +1,60 @@
+.headingHosting{
+    font-size: 2.4rem;
+    color: rgba(1, 64, 81, 1);
+    font-weight: 600;
+    margin-top: 2%;
+    margin-bottom: 2%;
+    margin-left: 3%;
+}
+.hostingDetails{
+    font-size: 1.2rem;
+    font-weight: 400;
+    margin-left: 3%;
+    margin-top: 1%;
+    margin-bottom: 2%;
+}
+.hostingContainerCards{
+    background-color: #e4f9ff;
+}
+.containingCards{
+    display: flex;
+    justify-content: space-evenly;
+    padding: 5%;
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+.cardHosting{
+    /* display: flex; */
+    flex-wrap: nowrap;
+    height: 200px;
+    width: 200px;
+    background-color: white;
+    border-radius: 8px;
+}
+.topHeading{
+    color: rgba(1, 64, 81, 1);
+    font-weight: 600;
+    font-size: 1.2rem;
+    margin-top: 15px;
+    cursor: pointer;
+}
+.secondLine{
+
+    color: rgba(1, 64, 81, 1);
+    
+    font-weight: 400;
+    font-size: 1rem;
+    margin-left: 5px;
+    cursor: pointer;
+
+}
+.lastICon{
+    position: relative;
+    top: 15%;
+    left: 35%;
+}
+.cardHosting:hover{
+    background-color:  rgba(18, 131, 129, 1);
+    color: #fff;
+
+}

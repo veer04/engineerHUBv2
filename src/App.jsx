@@ -17,7 +17,7 @@ import IntraCollege from "./pages/Campus/IntraCollege/IntraCollege";
 import InterCollege from "./pages/Campus/InterCollege/InterCollege";
 import Workshops from "./pages/Campus/Workshops/Workshops";
 import ParticularCampus from "./pages/Campus/ParticularCampus/ParticularCampus";
-
+import Hosting from "../src/pages/Hosting/Hosting";
 function App() {
   return (
     <>
@@ -53,6 +53,7 @@ function App() {
           <Route path="/company" element={<>Company page</>} />
           <Route path="/login" element={<>Login page</>} />
           <Route path="/mentorship" element={<Mentorship />} />
+          <Route path="/hosting" element={<Hosting/>} />
         </Routes>
       </SidebarProvider>
       <Footer />
