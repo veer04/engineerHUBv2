@@ -67,7 +67,8 @@ Meet the Alumnis from your Campus
   <div className="row mainContainer">
     <div className="col-lg-3"  >
       <img src={Girl} alt=""className="setImageHeighWidth2" />
-      <div className="cardBottomer">
+      <div className="cardBottomer row">
+        <div className="col-lg-9">
         <p className="smallUpperText">
         Batch (2015)
         </p>
@@ -78,11 +79,16 @@ Meet the Alumnis from your Campus
         <p className="companyTagAlumni">
           SDE at Microsoft
         </p>
+        </div>
+        <div className="col-lg-3 circularWhiteCard">
+          <img src={Uber} className="uberLogo" alt="" />
+        </div>
       </div>
     </div>
     <div className="col-lg-3">
       <img src={Girl} alt="" className="setImageHeighWidth2" />
-      <div className="cardBottomer2">
+      <div className="cardBottomer2 row">
+        <div className="col-lg-9">
         <p className="smallUpperText">
         Batch (2015)
         </p>
@@ -93,11 +99,16 @@ Meet the Alumnis from your Campus
         <p className="companyTagAlumni">
           SDE at Microsoft
         </p>
+        </div>
+        <div className="col-lg-3 circularWhiteCard">
+          <img src={Uber} className="uberLogo" alt="" />
+        </div>
       </div>
     </div>
     <div className="col-lg-3">
       <img src={Girl} alt="" className="setImageHeighWidth2" />
-      <div className="cardBottomer3">
+      <div className="cardBottomer3 row">
+        <div className="col-lg-9">
         <p className="smallUpperText">
         Batch (2015)
         </p>
@@ -108,13 +119,18 @@ Meet the Alumnis from your Campus
         <p className="companyTagAlumni">
           SDE at Microsoft
         </p>
+        </div>
+        <div className="col-lg-3 circularWhiteCard">
+          <img src={Uber} className="uberLogo" alt="" />
+        </div>
       </div>
     </div>
   </div>
   <div className="row mainContainer">
     <div className="col-lg-3"  >
       <img src={Girl} alt=""className="setImageHeighWidth2" />
-      <div className="cardBottomer4">
+      <div className="cardBottomer4 row">
+        <div className="col-lg-9">
         <p className="smallUpperText">
         Batch (2015)
         </p>
@@ -125,11 +141,16 @@ Meet the Alumnis from your Campus
         <p className="companyTagAlumni">
           SDE at Microsoft
         </p>
+        </div>
+        <div className="col-lg-3 circularWhiteCard">
+          <img src={Uber} className="uberLogo" alt="" />
+        </div>
       </div>
     </div>
     <div className="col-lg-3">
       <img src={Girl} alt="" className="setImageHeighWidth2" />
-      <div className="cardBottomer">
+      <div className="cardBottomer row">
+        <div className="col-lg-9">
         <p className="smallUpperText">
         Batch (2015)
         </p>
@@ -140,11 +161,16 @@ Meet the Alumnis from your Campus
         <p className="companyTagAlumni">
           SDE at Microsoft
         </p>
+        </div>
+        <div className="col-lg-3 circularWhiteCard">
+          <img src={Uber} className="uberLogo" alt="" />
+        </div>
       </div>
     </div>
     <div className="col-lg-3">
       <img src={Girl} alt="" className="setImageHeighWidth2" />
-      <div className="cardBottomer2">
+      <div className="cardBottomer2 row">
+        <div className="col-lg-9">
         <p className="smallUpperText">
         Batch (2015)
         </p>
@@ -155,13 +181,18 @@ Meet the Alumnis from your Campus
         <p className="companyTagAlumni">
           SDE at Microsoft
         </p>
+        </div>
+        <div className="col-lg-3 circularWhiteCard">
+          <img src={Uber} className="uberLogo" alt="" />
+        </div>
       </div>
     </div>
   </div>
   <div className="row mainContainer">
     <div className="col-lg-3"  >
       <img src={Girl} alt=""className="setImageHeighWidth2" />
-      <div className="cardBottomer3">
+      <div className="cardBottomer3 row">
+        <div className="col-lg-9">
         <p className="smallUpperText">
         Batch (2015)
         </p>
@@ -172,11 +203,16 @@ Meet the Alumnis from your Campus
         <p className="companyTagAlumni">
           SDE at Microsoft
         </p>
+        </div>
+        <div className="col-lg-3 circularWhiteCard">
+          <img src={Uber} className="uberLogo" alt="" />
+        </div>
       </div>
     </div>
     <div className="col-lg-3">
       <img src={Girl} alt="" className="setImageHeighWidth2" />
-      <div className="cardBottomer4">
+      <div className="cardBottomer4 row">
+        <div className="col-lg-9">
         <p className="smallUpperText">
         Batch (2015)
         </p>
@@ -187,11 +223,16 @@ Meet the Alumnis from your Campus
         <p className="companyTagAlumni">
           SDE at Microsoft
         </p>
+        </div>
+        <div className="col-lg-3 circularWhiteCard">
+          <img src={Uber} className="uberLogo" alt="" />
+        </div>
       </div>
     </div>
     <div className="col-lg-3">
       <img src={Girl} alt="" className="setImageHeighWidth2" />
-      <div className="cardBottomer">
+      <div className="cardBottomer row">
+        <div className="col-lg-9">
         <p className="smallUpperText">
         Batch (2015)
         </p>
@@ -202,6 +243,10 @@ Meet the Alumnis from your Campus
         <p className="companyTagAlumni">
           SDE at Microsoft
         </p>
+        </div>
+        <div className="col-lg-3 circularWhiteCard">
+          <img src={Uber} className="uberLogo" alt="" />
+        </div>
       </div>
     </div>
   </div>
