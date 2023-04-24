@@ -19,6 +19,8 @@ import Workshops from "./pages/Campus/Workshops/Workshops";
 import ParticularCampus from "./pages/Campus/ParticularCampus/ParticularCampus";
 import Hosting from "../src/pages/Hosting/Hosting";
 import CampusDetails from "./pages/Campus/ParticularCampus/CampusDetails";
+import ClubsPage from "./pages/Campus/ParticularCampus/ClubsPage";
+import AlumniPage from "./pages/Campus/ParticularCampus/AlumniPage";
 function App() {
   return (
     <>
@@ -52,6 +54,9 @@ function App() {
             <Route path=":collegeID">
               <Route index element={<ParticularCampus />} />
               <Route path="details" element={<CampusDetails />} />
+              <Route path="technical-clubs" element={<ClubsPage />} />
+
+              <Route path="alumni" element={<AlumniPage />} />
             </Route>
           </Route>
           <Route path="/company" element={<>Company page</>} />

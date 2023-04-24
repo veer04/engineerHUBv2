@@ -63,12 +63,10 @@ export default function CampusDetails({ path }) {
         className="category-bar"
         categories={[
           { id: 1, title: "Overview" },
-          { id: 2, title: "Courses & Fees" },
-          { id: 3, title: "Cut-offs" },
-          { id: 4, title: "Admissions" },
-          { id: 5, title: "Placements" },
-          { id: 6, title: "Reviews" },
-          { id: 7, title: "QnA" },
+          { id: 2, title: "Admissions" },
+          { id: 3, title: "Placements" },
+          { id: 4, title: "Reviews" },
+          { id: 5, title: "QnA" },
         ]}
         current={current}
         setCurrent={setCurrent}
