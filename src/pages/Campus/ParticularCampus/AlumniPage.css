@@ -5,3 +5,126 @@
     padding: var(--vertical-padding) var(--section-padding);
     scroll-behavior: auto;
 }
+.whiteBG{
+    background-color: #fff;
+}
+.LoremFont{
+    color: rgba(0, 43, 54, 1);
+}
+.mainContainer{
+    display: flex;
+    justify-content: space-evenly;
+
+}
+.setImageHeighWidth{
+    height: 430px;
+    width: 300px;
+    border-radius: 10px;
+}
+.smallTextImage{
+    color: #fff;
+    position: relative;
+    top: -80px;
+    left: 15px;
+    font-weight: 300;
+    font-size: 0.9rem;
+    opacity:0.7;
+    margin-bottom: -1%;
+}
+.NameTextImage{
+    color: #fff;
+    position: relative;
+    left: 15px;
+    font-size: 1.4rem;
+    top: -80px;
+    margin-bottom: -1%;
+}
+.headingAlumni{
+    color:  rgba(1, 64, 81, 1);
+    font-size: 1.6rem;
+    font-weight: 600;
+    margin-top: 2%;
+    margin-left: 2%;
+}
+.LoremFont{
+    margin-top: 1%;
+    margin-left: 2%;
+    margin-right: 2%;
+    margin-bottom: 3%;
+}
+.inputSearchField{
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+.inputSearchBox{
+    border: none;
+    border-radius: 40px;
+    height: 40px;
+    padding:20px;
+
+}
+.setImageHeighWidth2{
+    margin-top: 5%;
+    height: 357px;
+    width: 259px;
+    border-radius: 10px;
+    margin-bottom: 2%;
+
+}
+.inputSearchField{
+margin-bottom: 3%;
+}
+
+.companyTagAlumni
+{
+    font-size: 0.9rem;
+
+
+}
+.nameOfPerson{
+font-size: 1.4rem;
+font-weight: 600;
+margin-bottom: -2%;
+}
+.smallUpperText{
+
+    font-size: 0.8rem;
+    margin-bottom: -2%;
+
+}
+.cardBottomer{
+    position: relative;
+    top: -100px;
+    background:  rgba(247, 215, 127, 1);
+    padding: 8px;
+    width: 259px;
+    border-radius: 0 0 10px 10px;
+}
+.cardBottomer2{
+    position: relative;
+    top: -100px;
+    background:  rgba(143, 200, 232, 1);
+
+    padding: 8px;
+    width: 259px;
+    border-radius: 0 0 10px 10px;
+}
+.cardBottomer3{
+    position: relative;
+    top: -100px;
+    background: rgba(178, 232, 135, 1);
+    padding: 8px;
+    width: 259px;
+    border-radius: 0 0 10px 10px;
+}
+.cardBottomer4{
+    position: relative;
+    top: -100px;
+    background: rgba(232, 186, 152, 1);
+    padding: 8px;
+    width: 259px;
+    border-radius: 0 0 10px 10px;
+}
