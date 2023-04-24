@@ -7,9 +7,10 @@
   width: 100%;
   border-radius: 0.6rem;
   box-shadow: 0.1px 0.1px 2rem rgb(182, 255, 255);
-  cursor: pointer;
+  /* overflow: scroll; */
 }
 .category {
+  cursor: pointer;
   display: flex;
   flex-direction: row;
   justify-content: center;

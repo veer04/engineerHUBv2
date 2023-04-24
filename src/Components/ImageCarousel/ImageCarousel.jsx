@@ -2,7 +2,7 @@ import React from "react";
 import "./ImageCarousel.css";
 
 export default function ImageCarousel() {
-// { images }
+  // { images }
   const image = "https://source.unsplash.com/random";
   const images = [
     {
@@ -53,7 +53,7 @@ export default function ImageCarousel() {
         </div>
         {images.map((image) => {
           return (
-            <div className="carousel-item">
+            <div key={image._id} className="carousel-item">
               <img src={image.image} className="d-block w-100" alt="Campus" />
             </div>
           );

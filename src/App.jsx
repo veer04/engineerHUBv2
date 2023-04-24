@@ -18,6 +18,7 @@ import InterCollege from "./pages/Campus/InterCollege/InterCollege";
 import Workshops from "./pages/Campus/Workshops/Workshops";
 import ParticularCampus from "./pages/Campus/ParticularCampus/ParticularCampus";
 import Hosting from "../src/pages/Hosting/Hosting";
+import CampusDetails from "./pages/Campus/ParticularCampus/CampusDetails";
 function App() {
   return (
     <>
@@ -48,12 +49,15 @@ function App() {
             <Route path="inter-college" element={<InterCollege />} />
             <Route path="intra-college" element={<IntraCollege />} />
             <Route path="workshop" element={<Workshops />} />
-            <Route path=":id" element={<ParticularCampus />} />
+            <Route path=":collegeID">
+              <Route index element={<ParticularCampus />} />
+              <Route path="details" element={<CampusDetails />} />
+            </Route>
           </Route>
           <Route path="/company" element={<>Company page</>} />
           <Route path="/login" element={<>Login page</>} />
           <Route path="/mentorship" element={<Mentorship />} />
-          <Route path="/hosting" element={<Hosting/>} />
+          <Route path="/hosting" element={<Hosting />} />
         </Routes>
       </SidebarProvider>
       <Footer />

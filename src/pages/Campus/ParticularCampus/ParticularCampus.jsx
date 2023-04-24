@@ -6,10 +6,10 @@ import { CgChevronDown } from "react-icons/cg";
 import { RxChevronDown } from "react-icons/rx";
 import { BsStar, BsStarFill, BsStarHalf } from "react-icons/bs";
 import CampusEventCard from "../../../components/CampusEventCard/CampusEventCard";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 export default function ParticularCampus() {
-  const { id } = useParams();
+  const { collegeID } = useParams();
   const colors = ["#F7D77F", "#8FC8E8", "#B2E887", "#E8BA98"];
 
   const collegeMoreDetails = [
@@ -19,7 +19,7 @@ export default function ParticularCampus() {
       studentActivity: "230+",
       ongoingEvents: "100",
       color: colors[0],
-      link: `/campus/${id}/technical-clubs`,
+      link: `/campus/${collegeID}/technical-clubs`,
     },
     {
       _id: 2,
@@ -27,7 +27,7 @@ export default function ParticularCampus() {
       studentActivity: "20+",
       ongoingEvents: "12",
       color: colors[1],
-      link: `/campus/${id}/cultural-clubs`,
+      link: `/campus/${collegeID}/cultural-clubs`,
     },
     {
       _id: 3,
@@ -35,7 +35,7 @@ export default function ParticularCampus() {
       studentActivity: "2.1k",
       ongoingEvents: "108",
       color: colors[2],
-      link: `/campus/${id}/almas`,
+      link: `/campus/${collegeID}/almas`,
     },
   ];
   return (
@@ -68,9 +68,11 @@ export default function ParticularCampus() {
             </div>
           </div>
         </div>
-        <div className="view-more">
-          View More <RxChevronDown />
-        </div>
+        <Link to={`/campus/${collegeID}/details`}>
+          <div className="view-more">
+            View More <RxChevronDown />
+          </div>
+        </Link>
       </div>
       <div className="about">
         <div className="heading">About College</div>
