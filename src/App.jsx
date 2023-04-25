@@ -21,6 +21,7 @@ import Hosting from "../src/pages/Hosting/Hosting";
 import CampusDetails from "./pages/Campus/ParticularCampus/CampusDetails";
 import ClubsPage from "./pages/Campus/ParticularCampus/ClubsPage";
 import AlumniPage from "./pages/Campus/ParticularCampus/AlumniPage";
+import ParticularClub from "./pages/Campus/ParticularCampus/ParticularClub";
 function App() {
   return (
     <>
@@ -56,7 +57,7 @@ function App() {
               <Route path="details" element={<CampusDetails />} />
               <Route path="technical-clubs">
                 <Route index element={<ClubsPage />} />
-                <Route path=":clubId" element={<ClubsPage />} />
+                <Route path=":clubId" element={<ParticularClub />} />
               </Route>
               <Route path="cultural-clubs">
                 <Route index element={<ClubsPage />} />
