@@ -58,6 +58,7 @@
   flex-direction: row;
   flex-wrap: nowrap;
   overflow-x: auto;
+  gap: 1rem;
 }
 
 @media screen and (max-width: 944px) {

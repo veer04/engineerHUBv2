@@ -51,10 +51,17 @@ function App() {
             <Route path="inter-college" element={<InterCollege />} />
             <Route path="intra-college" element={<IntraCollege />} />
             <Route path="workshop" element={<Workshops />} />
-            <Route path=":collegeID">
+            <Route path=":collegeId">
               <Route index element={<ParticularCampus />} />
               <Route path="details" element={<CampusDetails />} />
-              <Route path="technical-clubs" element={<ClubsPage />} />
+              <Route path="technical-clubs">
+                <Route index element={<ClubsPage />} />
+                <Route path=":clubId" element={<ClubsPage />} />
+              </Route>
+              <Route path="cultural-clubs">
+                <Route index element={<ClubsPage />} />
+                <Route path=":clubId" element={<ClubsPage />} />
+              </Route>
 
               <Route path="alumni" element={<AlumniPage />} />
             </Route>

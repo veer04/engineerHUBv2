@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import CategoryBar from "../../../components/CategoryBar/CategoryBar";
 
 export default function CampusDetails({ path }) {
-  const { collegeID } = useParams();
+  const { collegeId } = useParams();
 
   const [current, setCurrent] = useState(1);
 

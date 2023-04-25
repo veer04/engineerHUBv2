@@ -118,6 +118,38 @@ export default function TechnicalClubs() {
       followers: "2.3k",
       events: "100",
     },
+    {
+      _id: 5,
+      name: "GeeksForGeeks",
+      logo: "https://source.unsplash.com/random",
+      image: "https://source.unsplash.com/random",
+      followers: "2.3k",
+      events: "100",
+    },
+    {
+      _id: 6,
+      name: "GeeksForGeeks",
+      logo: "https://source.unsplash.com/random",
+      image: "https://source.unsplash.com/random",
+      followers: "2.3k",
+      events: "100",
+    },
+    {
+      _id: 7,
+      name: "GeeksForGeeks",
+      logo: "https://source.unsplash.com/random",
+      image: "https://source.unsplash.com/random",
+      followers: "2.3k",
+      events: "100",
+    },
+    {
+      _id: 8,
+      name: "GeeksForGeeks",
+      logo: "https://source.unsplash.com/random",
+      image: "https://source.unsplash.com/random",
+      followers: "2.3k",
+      events: "100",
+    },
   ];
 
   const [width, setWidth] = useState(window.innerWidth);
@@ -177,7 +209,7 @@ export default function TechnicalClubs() {
       <div className="search-bar__container">
         <SearchBar placeholder="Search for a club" type="text" />
       </div>
-      {/* {mobileRenderedTrendingClubs} */}
+      {width <= 1320 && mobileRenderedTrendingClubs}
       <div className="content">
         <div className="column column1">{renderedSocietiesClubs}</div>
         <div className="column column2">{renderedTrendingActivities}</div>

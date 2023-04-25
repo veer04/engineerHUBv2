@@ -37,6 +37,8 @@
   font-weight: 600;
   height: 2.2rem;
   margin: 0;
+  max-height: 2.2rem;
+  overflow: hidden;
 }
 .club-card__container > .main__container > .main__text > p {
   font-size: 0.75rem;
