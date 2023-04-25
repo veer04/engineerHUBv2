@@ -4,6 +4,7 @@
   justify-content: flex-end;
   padding: 0.15rem;
   border-radius: 0.25rem;
+  /* min-width: ; */
 }
 .trending-club-card > .details {
   display: flex;
