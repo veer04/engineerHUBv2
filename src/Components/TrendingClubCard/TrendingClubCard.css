@@ -1,0 +1,35 @@
+.trending-club-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 0.15rem;
+  border-radius: 0.25rem;
+}
+.trending-club-card > .details {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: #f7d77f;
+  border-radius: 0 0 0.15rem 0.15rem;
+  padding: 0.25rem 0.5rem;
+}
+.trending-club-card > .details > img {
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 50%;
+}
+.trending-club-card > div {
+  display: flex;
+  flex-direction: column;
+}
+.trending-club-card > .details > div > div:nth-child(1) {
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+.trending-club-card > .details > div > div:nth-child(2) {
+  font-size: 0.625rem;
+  font-weight: 500;
+  display: flex;
+  gap: 0.8rem;
+}
