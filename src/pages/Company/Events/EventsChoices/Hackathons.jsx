@@ -545,4 +545,4 @@ const Hackathons = () => {
   );
 };
 
-export default Hackathons;
+export { Hackathons, Card };
