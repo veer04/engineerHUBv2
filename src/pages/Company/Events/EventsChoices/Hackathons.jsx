@@ -12,7 +12,6 @@ import prodigyBanner from "../../../../assets/images/prodigyBanner.png";
 import googleBanner from "../../../../assets/images/googleBanner.png";
 import accentureBanner from "../../../../assets/images/accentureBanner.png";
 import "./Hackathons.css";
-import HackathonDesc from "./HackathonDesc";
 
 const Card = ({ details }) => {
   return (
@@ -59,7 +58,7 @@ const Card = ({ details }) => {
   );
 };
 
-const Hackathons = ({ current }) => {
+const Hackathons = () => {
   const hackathonsList = [
     {
       name: "Google Problem Solution Challenge - UNESCO",
@@ -530,15 +529,10 @@ const Hackathons = ({ current }) => {
       },
     },
   ];
+
   return (
     <div className="Hackathons">
-      <div
-        className="hackathonTiles"
-        style={{
-          width: current === "" ? "100%" : "30%",
-          overflowY: current === "" ? "none" : "scroll",
-        }}
-      >
+      <div className="hackathonTiles">
         {hackathonsList.map((item, index) => {
           return (
             <a href={`/company/events/hackathons/${item.hackId}`} key={index}>
@@ -546,25 +540,6 @@ const Hackathons = ({ current }) => {
             </a>
           );
         })}
-      </div>
-      <div
-        className="hackathonDetail"
-        style={{
-          width: current === "" ? "0%" : "60%",
-          display: current === "" ? "none" : "block",
-        }}
-      >
-        {current === "" ? (
-          <div></div>
-        ) : (
-          <HackathonDesc
-            details={
-              hackathonsList.filter(
-                (item) => item.hackId === parseInt(current)
-              )[0]
-            }
-          />
-        )}
       </div>
     </div>
   );

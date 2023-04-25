@@ -16,6 +16,7 @@
 .HackDetailHeader span {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   width: 100%;
@@ -23,7 +24,7 @@
 .HackDetailHeader span .imgBox {
   height: 104px;
   width: 134px;
-  background: #f8f8f8;
+  /* background: #f8f8f8; */
   border-radius: 50%;
   padding: 15px;
 }
@@ -34,6 +35,7 @@
   display: flex;
   align-items: flex-start;
   flex-direction: column;
+  width: 40%;
   margin-left: 16px;
 }
 .HackDetailHeader span .heads h1 {
@@ -53,7 +55,7 @@
   color: #000000;
 }
 .HackDetailHeader > span .btn {
-  width: 276px;
+  width: 200px;
   height: 52px;
   padding: 15px 46px;
   background: #014051;
@@ -70,6 +72,7 @@
   display: flex;
   align-items: center;
   justify-content: flex-start;
+  flex-wrap: wrap;
   flex-direction: row;
   margin: 14px 0px;
 }
@@ -221,45 +224,97 @@
   color: #014051;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 600px) {
+  .HackDetailHeader .imageBanner {
+    width: 100%;
+    height: 129px;
+  }
   .HackDetailHeader span .imgBox {
-    width: 65px;
-    height: 57px;
+    height: 72px;
+    width: 72px;
+    background: #fff;
+    border-radius: 10px;
+    padding: 5px;
+  }
+  .HackDetailHeader span .heads {
+    float: left;
+    width: 70%;
   }
   .HackDetailHeader span .heads h1 {
+    font-size: 16px;
+    line-height: 22px;
+  }
+  .HackDetailHeader span .heads h3 {
     font-size: 14px;
     line-height: 19px;
   }
-  .HackDetailHeader span .heads h1 {
-    font-size: 12px;
-    line-height: 17px;
-  }
-  .HackDesc h5,
-  .HackReq h5,
-  .HackInfo h5 {
-    font-size: 14px;
-    line-height: 19px;
-  }
-  .HackDesc p,
-  .HackReq ul li {
+  .HackDetailHeader > span .btn {
+    width: 100%;
+    height: 35px;
+    margin-top: 15px;
+    padding: 10px 46px;
+    background: #014051;
+    border-radius: 10px;
     font-size: 12px;
     line-height: 16px;
-    text-align: justify;
-    color: #242323;
+  }
+  .HackDescription .HackDetailHeader,
+  .HackDescription .HackDesc,
+  .HackDescription .HackDetail,
+  .HackDescription .HackReq,
+  .HackDescription .HackDates,
+  .HackDescription .HackPrize,
+  .HackDescription .HackContact {
+    padding: 16px 13px;
+    margin: 7px 0px;
+    border-radius: 5px;
+  }
+  .HackDescription .HackDesc h5,
+  .HackDescription .HackDetail h5,
+  .HackDescription .HackReq h5,
+  .HackDescription .HackDates h5,
+  .HackDescription .HackContact h5,
+  .HackDescription .HackPrize h5 {
+    line-height: 19px;
+  }
+  .HackDescription .HackDesc p,
+  .HackDescription .HackDetail p,
+  .HackDescription .HackReq ul li {
+    font-size: 12px;
+    line-height: 14.5px;
   }
   .HackReq ul {
-    padding-left: 30px;
+    padding-left: 10px;
   }
-  .HackPrize div .HackInfoItem h6 {
-    font-size: 10px;
-    line-height: 12px;
+  .HackPrize .HackInfoItems .HackInfoItem h6 {
+    font-size: 16px;
+    line-height: 19.3px;
   }
-  .HackPrize div .HackInfoItem span {
-    font-size: 20px;
-    line-height: 24px;
+  .HackPrize .HackInfoItems .HackInfoItem p {
+    line-height: 14.5px;
+  }
+  .HackPrize .HackInfoItems .HackInfoItem span {
+    font-size: 32px;
+    line-height: 38px;
+  }
+  .HackPrize .HackInfoItems .HackInfoItem img {
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+  }
+  .HackPrize .HackInfoItems {
+    justify-content: center;
   }
   .HackDateTiles,
   .HackContactTiles {
-    grid-template-columns: auto;
+    gap: 10px;
+  }
+  .HackDateItem > span > h4,
+  .HackContactItem > span > h4 {
+    font-size: 12px;
+  }
+  .HackDateItem > span > h6,
+  .HackContactItem > span > h6 {
+    font-size: 10px;
   }
 }

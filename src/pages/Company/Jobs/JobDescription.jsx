@@ -7,9 +7,8 @@ import time from "../../../assets/images/time.svg";
 import cash from "../../../assets/images/cash.svg";
 
 const JobDescription = ({ details }) => {
-  console.log(details);
   return (
-    <>
+    <div className="JobDescription">
       <div className="JobDetailHeader">
         <span>
           <span className="imgBox">
@@ -91,7 +90,7 @@ const JobDescription = ({ details }) => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

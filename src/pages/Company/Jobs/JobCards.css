@@ -33,6 +33,7 @@
   display: flex;
   align-items: center;
   justify-content: flex-start;
+  flex-wrap: wrap;
   flex-direction: row;
   margin: 14px 0px;
   font-family: "Inter";
@@ -83,4 +84,41 @@
   font-size: 12px;
   line-height: 17px;
   color: #ffffff;
+}
+
+@media screen and (max-width: 600px) {
+  .JobCard {
+    height: 309px;
+    width: 305px;
+  }
+  .JobCard .cardContent h6 {
+    font-size: 12px;
+    line-height: 16px;
+  }
+  .JobCard .cardContent h3 {
+    font-size: 24px;
+    line-height: 33px;
+    padding: 21px 18px;
+  }
+  .JobCard .cardFooter {
+    padding: 12px;
+    height: 71px;
+  }
+  .JobCard .cardFooter span {
+    width: 51px;
+    height: 51px;
+  }
+  .JobCard .cardFooter span img {
+    width: 100%;
+  }
+  .JobCard .cardFooter h5 {
+    font-size: 12px;
+    line-height: 16px;
+  }
+  .JobCard .cardFooter a .btn {
+    width: 72px;
+    height: 29.5px;
+    font-size: 10px;
+    line-height: 14px;
+  }
 }

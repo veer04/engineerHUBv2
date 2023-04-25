@@ -1,16 +1,11 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap");
 
-.CompanyJob {
-  padding: 30px 150px;
+.CompanyJobDetails {
+  padding: 30px 50px;
   background: #eeffff;
 }
-@media screen and (max-width: 768px) {
-  .CompanyJob {
-    padding: 0px 20px;
-  }
-}
 
-.CompanyJob h2 {
+.CompanyJobDetails h2 {
   font-family: "Inter";
   font-style: normal;
   font-weight: 700;
@@ -18,7 +13,7 @@
   line-height: 44px;
   color: #014051;
 }
-.CompanyJob p {
+.CompanyJobDetails p {
   font-family: "Inter";
   font-style: normal;
   font-weight: 400;
@@ -26,7 +21,7 @@
   line-height: 24px;
   color: #002b36;
 }
-.CompanyJob .search {
+.CompanyJobDetails .search {
   cursor: pointer;
   display: flex;
   flex-direction: row;
@@ -36,7 +31,7 @@
   border-radius: 10px;
   margin-top: 56px;
 }
-.CompanyJob .search span {
+.CompanyJobDetails .search span {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -52,15 +47,15 @@
   align-self: stretch;
   flex-grow: 0;
 }
-.CompanyJob .search input {
+.CompanyJobDetails .search input {
   width: 90%;
   border: none;
   background: transparent;
 }
-.CompanyJob .search input:focus {
+.CompanyJobDetails .search input:focus {
   outline: none;
 }
-.CompanyJob .search .filters {
+.CompanyJobDetails .search .filters {
   cursor: pointer;
   margin-left: 7px;
   height: 35px;
@@ -72,25 +67,31 @@
   align-items: center;
   font-size: 20px;
 }
-.CompanyJob .Jobs {
+.CompanyJobDetails .Jobs {
   display: flex;
   width: 100%;
   flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  flex-wrap: wrap;
   margin-top: 55px;
   padding-bottom: 100px;
-  height: 1200px;
 }
-.CompanyJob .Jobs .JobTiles {
+.CompanyJobDetails .Jobs .JobTiles {
   min-width: 330px;
-  height: 100%;
+  height: 1200px;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-evenly;
   align-items: center;
   gap: 40px;
+  width: "30%";
+  overflow-y: scroll;
 }
-.CompanyJob .Jobs .JobDetail {
+.CompanyJobDetails .Jobs .JobDetail {
+  width: "60%";
+  display: "block";
   min-width: 770px;
   display: flex;
   flex-direction: column;
@@ -99,6 +100,41 @@
   border-radius: 10px;
   padding: 0 20px 20px 20px;
 }
-@media screen and (max-width: 450px) {
-  
+
+@media screen and (max-width: 1024px) {
+  .CompanyJobDetails .Jobs .JobTiles {
+    display: none;
+  }
+}
+@media screen and (max-width: 768px) {
+  .CompanyJobDetails {
+    padding: 0px 20px;
+  }
+  .CompanyJobDetails h2 {
+    font-size: 24px;
+    line-height: 29px;
+  }
+  .CompanyJobDetails p {
+    font-size: 14px;
+    line-height: 17px;
+  }
+  .CompanyJobDetails .search span {
+    width: 321px;
+    background: #ffffff;
+    box-shadow: 3px 3px 7px rgba(0, 0, 0, 0.12);
+    border-radius: 78px;
+    height: 44px;
+    color: #919293;
+    font-size: 16px;
+  }
+  .CompanyJobDetails .search .filters {
+    display: none;
+  }
+  .CompanyJobDetails .Jobs .JobTiles {
+    display: none;
+  }
+  .CompanyJobDetails .Jobs .JobDetail {
+    width: 348px;
+    min-width: 250px;
+  }
 }

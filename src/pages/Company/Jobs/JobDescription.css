@@ -67,6 +67,7 @@
 .JobDesc,
 .JobReq,
 .JobInfo {
+  width: 100%;
   padding: 8px 27px;
   margin: 7px 0px;
   background: #fff;
@@ -82,7 +83,7 @@
   line-height: 22px;
   color: #002b36;
 }
-.JobDesc p,
+.JobDescription .JobDesc p,
 .JobReq ul li {
   font-family: "Inter";
   font-style: normal;
@@ -167,13 +168,20 @@
     font-size: 12px;
     line-height: 17px;
   }
+  .JobDetailHeader span .btn {
+    width: 76px;
+    height: 35px;
+    padding: 10px 26px;
+    font-size: 10px;
+    line-height: 12px;
+  }
   .JobDesc h5,
   .JobReq h5,
   .JobInfo h5 {
     font-size: 14px;
     line-height: 19px;
   }
-  .JobDesc p,
+  .JobDescription .JobDesc p,
   .JobReq ul li {
     font-size: 12px;
     line-height: 16px;

@@ -11,8 +11,6 @@ import "./jobs.css";
 import JobDescription from "./JobDescription";
 
 const Jobs = () => {
-  const { jobId } = useParams();
-  console.log(jobId);
   const [search, setSearch] = useState("");
   const CardEntries = [
     {
@@ -286,33 +284,10 @@ const Jobs = () => {
         </div>
       </div>
       <div className="Jobs">
-        <div
-          className="JobTiles"
-          style={{
-            width: jobId === undefined ? "100%" : "30%",
-            overflowY: jobId === undefined ? "none" : "scroll",
-          }}
-        >
+        <div className="JobTiles">
           {CardEntries.map((item, index) => {
             return <JobCards details={item} key={index} />;
           })}
-        </div>
-        <div
-          className="JobDetail"
-          style={{
-            width: jobId === undefined ? "0%" : "60%",
-            display: jobId === undefined ? "none" : "block",
-          }}
-        >
-          {jobId === undefined ? (
-            <div></div>
-          ) : (
-            <JobDescription
-              details={
-                CardEntries.filter((item) => item.jobId === parseInt(jobId))[0]
-              }
-            />
-          )}
         </div>
       </div>
     </div>

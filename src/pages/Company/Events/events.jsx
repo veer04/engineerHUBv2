@@ -5,24 +5,19 @@ import { MdTune } from "react-icons/md";
 import Hackathons from "./EventsChoices/Hackathons";
 import Competitions from "./EventsChoices/Competitions";
 import "./events.css";
-import { useParams } from "react-router";
 
 const Events = () => {
-  const { hackId } = useParams();
-  const { competeId } = useParams();
   const [search, setSearch] = useState("");
   const [choice, setChoice] = useState("Competitions");
 
   const changeChoice = () => {
     switch (choice) {
       case "Competitions":
-        return (
-          <Competitions current={competeId === undefined ? "" : competeId} />
-        );
+        return <Competitions />;
       case "Hackathons":
-        return <Hackathons current={hackId === undefined ? "" : hackId} />;
+        return <Hackathons />;
       default:
-        return <Competitions current={competeId} />;
+        return <Competitions />;
     }
   };
 

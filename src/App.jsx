@@ -10,9 +10,11 @@ import SidebarProvider from "./contexts/SidebarContext";
 import ChatPage from "./pages/Community/Chat/ChatPage";
 import Navbar from "./Components/NavBar/NavBar";
 import Footer from "./Components/Footer/Footer";
-import Events from "./Components/Company/Events/events";
-import Jobs from "./Components/Company/Jobs/jobs";
-import Company from "./Components/Company/Company";
+import Events from "./pages/Company/Events/events";
+import Jobs from "./pages/Company/Jobs/jobs";
+import Company from "./pages/Company/Company";
+import JobDetails from "./pages/Company/Jobs/JobDetails";
+import HackathonDetails from "./pages/Company/Events/EventsChoices/HackathonDetails";
 
 function App() {
   return (
@@ -42,12 +44,15 @@ function App() {
             <Route path="" element={<Company />} />
             <Route path="jobs">
               <Route path="" element={<Jobs />} />
-              <Route path=":jobId" element={<Jobs />} />
+              <Route path=":jobId" element={<JobDetails />} />
             </Route>
             <Route path="events">
               <Route path="" element={<Events />} />
-              <Route path="hackathons/:hackId" element={<Events />} />
-              <Route path="competitions/:competeId" element={<Events />} />
+              <Route path="hackathons/:hackId" element={<HackathonDetails />} />
+              {/* <Route
+                path="competitions/:competeId"
+                element={<CompetitionDetails />}
+              /> */}
             </Route>
           </Route>
           <Route path="/login" element={<>Login page</>} />
