@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { BsSearch } from "react-icons/bs";
 import { MdTune } from "react-icons/md";
-import { Hackathons } from "./EventsChoices/Hackathons";
+import Hackathons from "./EventsChoices/Hackathons";
 import Competitions from "./EventsChoices/Competitions";
 import "./events.css";
 

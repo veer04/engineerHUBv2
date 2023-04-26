@@ -86,11 +86,11 @@
   justify-content: space-evenly;
   align-items: center;
   gap: 40px;
-  width: "30%";
+  width: 30%;
   overflow-y: scroll;
 }
 .CompanyJobDetails .Jobs .JobDetail {
-  width: "60%";
+  width: 60%;
   display: "block";
   min-width: 770px;
   display: flex;

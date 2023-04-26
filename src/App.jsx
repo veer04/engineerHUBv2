@@ -15,6 +15,8 @@ import Jobs from "./pages/Company/Jobs/jobs";
 import Company from "./pages/Company/Company";
 import JobDetails from "./pages/Company/Jobs/JobDetails";
 import HackathonDetails from "./pages/Company/Events/EventsChoices/HackathonDetails";
+import Projects from "./pages/Company/Projects/Projects";
+import ProjectDetail from "./pages/Company/Projects/ProjectDetail";
 
 function App() {
   return (
@@ -45,6 +47,10 @@ function App() {
             <Route path="jobs">
               <Route path="" element={<Jobs />} />
               <Route path=":jobId" element={<JobDetails />} />
+            </Route>
+            <Route path="projects">
+              <Route path="" element={<Projects />} />
+              <Route path=":projectId" element={<ProjectDetail />} />
             </Route>
             <Route path="events">
               <Route path="" element={<Events />} />

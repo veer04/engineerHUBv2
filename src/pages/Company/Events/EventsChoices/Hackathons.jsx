@@ -1,8 +1,4 @@
 import React from "react";
-import { AiOutlineClockCircle } from "react-icons/ai";
-import { BsStar } from "react-icons/bs";
-import { CgEye } from "react-icons/cg";
-import { Chip } from "@mui/material";
 import googleLogo from "../../../../assets/images/google.svg";
 import prodigyLogo from "../../../../assets/images/prodigy.svg";
 import accentureLogo from "../../../../assets/images/accenture.svg";
@@ -12,51 +8,7 @@ import prodigyBanner from "../../../../assets/images/prodigyBanner.png";
 import googleBanner from "../../../../assets/images/googleBanner.png";
 import accentureBanner from "../../../../assets/images/accentureBanner.png";
 import "./Hackathons.css";
-
-const Card = ({ details }) => {
-  return (
-    <div className="Card">
-      <div className="cardImg">
-        <img src={details.imgBanner} alt="" />
-        <span className="GoogleIcon">
-          <img src={details.logo} alt="Logo" />
-        </span>
-      </div>
-      <div className="cardBody">
-        <h4>{details.name}</h4>
-        <h6>{details.locations}</h6>
-        <span className="Tags">
-          {details.tags.map((tag, index) => (
-            <Chip
-              key={index}
-              variant="outlined"
-              size="small"
-              label={tag}
-              style={{
-                fontWeight: "500",
-                fontSize: "10px",
-                marginRight: "15px",
-              }}
-            />
-          ))}
-        </span>
-        <div className="Stats">
-          <span>
-            <BsStar /> {details.stats.stars}
-          </span>
-          <span>|</span>
-          <span>
-            <CgEye /> {details.stats.views} Views
-          </span>
-          <span>|</span>
-          <span>
-            <AiOutlineClockCircle /> {details.stats.days} Days Left
-          </span>
-        </div>
-      </div>
-    </div>
-  );
-};
+import HackathonCard from "./HackathonCards";
 
 const Hackathons = () => {
   const hackathonsList = [
@@ -529,14 +481,13 @@ const Hackathons = () => {
       },
     },
   ];
-
   return (
     <div className="Hackathons">
       <div className="hackathonTiles">
         {hackathonsList.map((item, index) => {
           return (
             <a href={`/company/events/hackathons/${item.hackId}`} key={index}>
-              <Card details={item} />
+              <HackathonCard details={item} />
             </a>
           );
         })}
@@ -545,4 +496,4 @@ const Hackathons = () => {
   );
 };
 
-export { Hackathons, Card };
+export default Hackathons;

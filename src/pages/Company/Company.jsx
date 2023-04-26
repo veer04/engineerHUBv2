@@ -13,7 +13,6 @@ import databaseLogo from "../../assets/images/databaseLogo.svg";
 import appdevLogo from "../../assets/images/appdevLogo.svg";
 import webdevLogo from "../../assets/images/webdevLogo.svg";
 import designLogo from "../../assets/images/appdevLogo.svg";
-import { Card } from "./Events/EventsChoices/Hackathons";
 import prodigyLogo from "../../assets/images/prodigy.svg";
 import accentureLogo from "../../assets/images/accenture.svg";
 import prodigyBanner from "../../assets/images/prodigyBanner.png";
@@ -25,6 +24,8 @@ import ProjectChar from "../../assets/images/ProjectChar.svg";
 import InternChar from "../../assets/images/InternChar.svg";
 import cartoonChar from "../../assets/images/cartoonChar.svg";
 import curveArrow from "../../assets/images/curveArrow.svg";
+import spiral from "../../assets/images/spiral.svg";
+import HackathonCard from "./Events/EventsChoices/HackathonCards";
 
 const CompanyCards = ({ data }) => {
   return (
@@ -352,16 +353,19 @@ const Company = () => {
   return (
     <div className="companyHome">
       <div className="pagesContainer">
-        <h1>One Step Closer to your Dream Job</h1>
-        <div className="pages">
+        <div className="spiral">
+          <h1>One Step Closer to your Dream Job</h1>
+          <img src={spiral} alt="spiral" className="spiralImg" />
           <img src={cartoonChar} alt="Character" className="cartoon" />
           <img src={curveArrow} alt="Arrow" className="curveArrow" />
-          <img src={metaLogo} alt="meta" className="meta" />
           <img src={uberLogo} alt="uber" className="uber" />
           <img src={netflixLogo} alt="netflix" className="netflix" />
+          <img src={metaLogo} alt="meta" className="meta" />
           <img src={amazonLogo} alt="amazon" className="amazon" />
           <img src={googleLogo} alt="google" className="google" />
           <img src={microsoftLogo} alt="microsoft" className="microsoft" />
+        </div>
+        <div className="pages">
           {CompanyCardEntries.map((item, index) => {
             return <CompanyCards data={item} key={index} />;
           })}
@@ -403,7 +407,7 @@ const Company = () => {
         </a>
         <div className="OpportunitiesTiles">
           {HackathonCardEntries.map((item, index) => {
-            return <Card details={item} key={index} />;
+            return <HackathonCard details={item} key={index} />;
           })}
         </div>
       </div>

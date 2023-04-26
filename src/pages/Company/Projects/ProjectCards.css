@@ -1,0 +1,104 @@
+.ProjectCardTile {
+  margin: 5px;
+  padding: 5px;
+  box-sizing: border-box;
+  width: 302.91px;
+  background: #ffffff;
+  border: 0.8px solid #cccccc;
+  box-shadow: 3.5px 3.5px 13.4px rgba(0, 0, 0, 0.25);
+  border-radius: 9px;
+}
+.ProjectCardTile .imageBanner {
+  width: 100%;
+  border-radius: 4.4px;
+}
+.ProjectCardTile .ProjectCardContent {
+  padding: 15px 5px;
+  padding-bottom: 0px;
+}
+.ProjectCardTile .ProjectCardContent h1 {
+  margin-top: 5px;
+  width: 100%;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 19px;
+  color: #131313;
+}
+.ProjectCardTile .ProjectCardContent p {
+  width: 100%;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 11px;
+  line-height: 13px;
+  color: #616060;
+  height: 25px;
+  overflow: hidden;
+}
+.ProjectCardTile .ProjectCardContent .tags {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  flex-direction: row;
+}
+.ProjectCardTile .ProjectCardContent .tags .tag {
+  background: rgba(247, 215, 127, 0.36);
+  border-radius: 3.5px;
+  padding: 5px;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 8.9px;
+  line-height: 11px;
+  color: #ffbb00;
+}
+.ProjectCardTile .ProjectCardContent .tags .tag:last-child {
+  background: rgba(178, 232, 135, 0.27);
+  color: #24ff00;
+}
+.ProjectCardTile .ProjectCardContent .organization {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 5px;
+}
+.ProjectCardTile .ProjectCardContent .organization .logo {
+  width: 26.81px;
+  height: 26.81px;
+  background: rgba(199, 204, 206, 0.54);
+  border-radius: 50%;
+}
+.ProjectCardTile .ProjectCardContent .organization .logo .logoImg {
+  width: 100%;
+  height: 100%;
+}
+.ProjectCardTile .ProjectCardContent .organization > h5 {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14.2966px;
+  line-height: 17px;
+  color: #000000;
+}
+.ProjectCardTile .ProjectCardContent .organization > span {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.ProjectCardTile .ProjectCardContent .organization > span > h6 {
+  margin-top: 10px;
+  width: 23px;
+  height: 15px;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12.5096px;
+  line-height: 15px;
+  color: #9f9696;
+}
