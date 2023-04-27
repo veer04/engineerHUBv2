@@ -21,6 +21,7 @@ import Hosting from "../src/pages/Hosting/Hosting";
 import CampusDetails from "./pages/Campus/ParticularCampus/CampusDetails";
 import ClubsPage from "./pages/Campus/ParticularCampus/ClubsPage";
 import AlumniPage from "./pages/Campus/ParticularCampus/AlumniPage";
+import Login from "./pages/User/Login/Login";
 function App() {
   return (
     <>
@@ -46,6 +47,7 @@ function App() {
             </Route>
           </Route>
           <Route path="/mentorChat" element={<MentorChat />} />
+          <Route path="/login" element={<Login />} />
           <Route path="/campus">
             <Route index element={<CampusPage />} />
             <Route path="inter-college" element={<InterCollege />} />
@@ -56,11 +58,16 @@ function App() {
               <Route path="details" element={<CampusDetails />} />
               <Route path="technical-clubs" element={<ClubsPage />} />
 
-              <Route path="alumni" element={<AlumniPage />} />
+              <Route path="alumni" >
+               <Route  index element={<AlumniPage />} />
+              {/* <Route path="detail" 
+              ></Route> */}
+              </Route>
+              
             </Route>
           </Route>
           <Route path="/company" element={<>Company page</>} />
-          <Route path="/login" element={<>Login page</>} />
+          {/* <Route path="/login" element={<>Login page</>} /> */}
           <Route path="/mentorship" element={<Mentorship />} />
           <Route path="/hosting" element={<Hosting />} />
         </Routes>
