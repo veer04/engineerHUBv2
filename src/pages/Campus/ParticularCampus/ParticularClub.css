@@ -1,0 +1,187 @@
+.particular-club-page {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: var(--vertical-padding) var(--section-padding);
+  scroll-behavior: auto;
+}
+.particular-club-page .heading-3 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--text-color-dark-green);
+  margin-bottom: 1rem;
+}
+.particular-club-page .subheading-1 {
+  font-size: 1.2rem;
+  font-weight: 400;
+  margin-bottom: 3.5rem;
+  color: var(--text-color-dark-green);
+}
+.particular-club-page > .image-carousel__container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem 0;
+}
+.particular-club-page > .image-carousel__container > .image-carousel {
+  width: 30rem;
+}
+.particular-club-page > .details-tab {
+  width: 100%;
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  background-color: white;
+  padding: 0.5rem 1.5rem;
+  border-radius: 0.2rem;
+}
+.particular-club-page > .details-tab > .details {
+  display: flex;
+  flex-direction: row;
+}
+.particular-club-page > .details-tab > .details > div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.particular-club-page > .details-tab > .details > div:nth-child(1) {
+  align-items: center;
+}
+
+.particular-club-page > .details-tab > .details > div > img {
+  width: 5rem;
+  height: 5rem;
+  margin-right: 1rem;
+}
+.particular-club-page > .details-tab > .details > div > .title {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+.particular-club-page > .details-tab > .details > div > .location {
+  font-size: 0.875rem;
+  color: #898989;
+  font-weight: 400;
+}
+.particular-club-page > .details-tab > .details > div > .rating {
+  font-size: 0.875rem;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.5rem;
+  font-weight: 400;
+}
+.particular-club-page
+  > .details-tab
+  > .details
+  > div
+  > .rating
+  > .rating__stars {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.1rem;
+  font-size: 1rem;
+}
+.particular-club-page
+  > .details-tab
+  > .details
+  > div
+  > .rating
+  > .rating__number {
+  color: #898989;
+}
+.particular-club-page > .details-tab .view-more {
+  border: 1px solid black;
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 768px) {
+  .particular-club-page > .details-tab {
+    flex-direction: row;
+    align-items: center;
+  }
+  .particular-club-page > .details-tab > .details > div > img {
+    width: 3rem;
+    height: 3rem;
+  }
+  .particular-club-page > .details-tab > .details > div > .title {
+    font-size: 1.2rem;
+  }
+  .particular-club-page > .details-tab > .details > div > .location {
+    font-size: 0.75rem;
+  }
+  .particular-club-page > .details-tab > .details > div > .rating {
+    font-size: 0.75rem;
+  }
+  .particular-club-page
+    > .details-tab
+    > .details
+    > div
+    > .rating
+    > .rating__stars {
+    font-size: 0.75rem;
+  }
+  .particular-club-page
+    > .details-tab
+    > .details
+    > div
+    > .rating
+    > .rating__number {
+    font-size: 0.75rem;
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .particular-club-page > .details-tab {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .particular-club-page > .details-tab > .details {
+    margin-top: 1rem;
+  }
+  .particular-club-page > .details-tab > .details > div {
+    margin-right: 1rem;
+  }
+  .particular-club-page > .details-tab > .details > div > img {
+    width: 3rem;
+    height: 3rem;
+  }
+  .particular-club-page > .details-tab > .details > div > .title {
+    font-size: 1.2rem;
+  }
+  .particular-club-page > .details-tab > .details > div > .location {
+    font-size: 0.75rem;
+  }
+  .particular-club-page > .details-tab > .details > div > .rating {
+    font-size: 0.75rem;
+  }
+  .particular-club-page
+    > .details-tab
+    > .details
+    > div
+    > .rating
+    > .rating__stars {
+    font-size: 0.75rem;
+  }
+  .particular-club-page
+    > .details-tab
+    > .details
+    > div
+    > .rating
+    > .rating__number {
+    font-size: 0.75rem;
+  }
+  .particular-club-page > .details-tab > .view-more {
+    margin-top: 1rem;
+  }
+}
