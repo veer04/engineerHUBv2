@@ -23,6 +23,7 @@ import ClubsPage from "./pages/Campus/ParticularCampus/ClubsPage";
 import AlumniPage from "./pages/Campus/ParticularCampus/AlumniPage";
 import ParticularClub from "./pages/Campus/ParticularCampus/ParticularClub";
 import Login from "./pages/User/Login/Login";
+import Profile from "./pages/User/Profile/Profile";
 function App() {
   return (
     <>
@@ -31,6 +32,7 @@ function App() {
         <Routes>
           <Route index element={<HomePage />} />
           <Route path="/home" element={<HomePage />} />
+          <Route path="/profile" element={<Profile />} />
           <Route path="/community">
             <Route index element={<CommunityPage />} />
             <Route path="domains" element={<CommunityPage path="domains" />} />

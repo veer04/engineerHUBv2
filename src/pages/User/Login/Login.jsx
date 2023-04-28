@@ -8,18 +8,34 @@ const Login = () => {
 
     const [formData, setFormData] = useState({
         name: '',
-        userName: '',
+        // userName: '',
         email: '',
         mobile: '',
-        college: '',
+        // college: '',
         branch: '',
         institutionName:'',
         city:'',
         country: '',
         password:'',
-        conPassword:'',
+        confirmPassword:'',
         values:[],
       });
+
+      const [errors, setErrors] = useState({
+        name: '',
+        // userName: '',
+        email: '',
+        mobile: '',
+        // college: '',
+        branch: '',
+        institutionName:'',
+        city:'',
+        country: '',
+        password:'',
+        confirmPassword:'',
+      });
+
+
       const handleInputChange = (event) => {
         const inputValues = event.target.value.split(',');
         setValues(inputValues);
@@ -31,12 +47,89 @@ const Login = () => {
           [name]: value,
         }));
       };
+
+
+      const validateInput = () => {
+        let valid = true;
+        const newErrors = {
+          name: '',
+          // userName: '',
+          email: '',
+          mobile: '',
+          institutionName:'',
+          contact: '',
+          country: '',
+        };
     
-      const handleSubmit = (e) => {
-        e.preventDefault();
-        // Send form data to the API using fetch or axios
-        console.log(formData);
+        if (!formData.name) {
+          newErrors.name = 'Name is required';
+          valid = false;
+        }
+    
+        if (!formData.userName) {
+          newErrors.userName = 'Username is required';
+          valid = false;
+        }
+    
+        if (!formData.email) {
+          newErrors.email = 'Email is required';
+          valid = false;
+        } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+          newErrors.email = 'Invalid email format';
+          valid = false;
+        }
+    
+        if (!formData.mobile) {
+          newErrors.mobile = 'Mobile number is required';
+          valid = false;
+        } else if (!/^\d{10}$/.test(formData.mobile)) {
+          newErrors.mobile = 'Invalid mobile number';
+          valid = false;
+        }
+    
+        if (!formData.institutionName) {
+          newErrors.institutionName = 'College name is required';
+          valid = false;
+        }
+    
+        if (!formData.contact) {
+          newErrors.contact = 'Contact number is required';
+          valid = false;
+        } else if (!/^\d{10}$/.test(formData.contact)) {
+          newErrors.contact = 'Invalid contact number';
+          valid = false;
+        }
+    
+        if (!formData.country) {
+          newErrors.country = 'Country is required';
+          valid = false;
+        }
+    
+        setErrors(newErrors);
+        return valid;
       };
+    
+
+      const handleSubmit = async (e) => {
+        e.preventDefault();
+        if (validateInput()) {
+          try {
+            const response = await fetch('http://e-hub-backend-production-9545.up.railway.app/user/signup', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(formData),
+            });
+    
+            const data = await response.json();
+            console.log(data);
+          } catch (error) {
+            console.error(error);
+          }
+        }
+      };
+    
     
   return (
     <>
@@ -110,8 +203,10 @@ const Login = () => {
         onChange={handleChange}
         fullWidth
         margin="normal"
+        error={!!errors.name}
+        helperText={errors.name}
       />
-      <TextField
+      {/* <TextField
         name="userName"
         label="Username"
         variant="outlined"
@@ -119,7 +214,9 @@ const Login = () => {
         onChange={handleChange}
         fullWidth
         margin="normal"
-      />
+        error={!!errors.userName}
+        helperText={errors.userName}
+      /> */}
       <TextField
         name="email"
         label="Email"
@@ -128,6 +225,8 @@ const Login = () => {
         onChange={handleChange}
         fullWidth
         margin="normal"
+        error={!!errors.email}
+        helperText={errors.email}
       />
       <TextField
         name="mobile"
@@ -137,8 +236,10 @@ const Login = () => {
         onChange={handleChange}
         fullWidth
         margin="normal"
+        error={!!errors.mobile}
+        helperText={errors.mobile}
       />
-      <TextField
+      {/* <TextField
         name="college"
         label="College Name"
         variant="outlined"
@@ -146,15 +247,19 @@ const Login = () => {
         onChange={handleChange}
         fullWidth
         margin="normal"
-      />
+        error={!!errors.college}
+        helperText={errors.college}
+      /> */}
       <TextField
         name="branch"
-        label="branch No."
+        label="branch Name"
         variant="outlined"
         value={formData.branch}
         onChange={handleChange}
         fullWidth
         margin="normal"
+        error={!!errors.branch}
+        helperText={errors.branch}
       />
       <TextField
         name="city"
@@ -164,6 +269,8 @@ const Login = () => {
         onChange={handleChange}
         fullWidth
         margin="normal"
+        error={!!errors.city}
+        helperText={errors.city}
       />
       <TextField
         name="country"
@@ -173,6 +280,8 @@ const Login = () => {
         onChange={handleChange}
         fullWidth
         margin="normal"
+        error={!!errors.country}
+        helperText={errors.country}
       />
        <TextField
         name="institutionName"
@@ -182,6 +291,8 @@ const Login = () => {
         onChange={handleChange}
         fullWidth
         margin="normal"
+        error={!!errors.institutionName}
+        helperText={errors.institutionName}
       />
        <TextField
         name="password"
@@ -191,15 +302,19 @@ const Login = () => {
         onChange={handleChange}
         fullWidth
         margin="normal"
+        error={!!errors.password}
+        helperText={errors.password}
       />
        <TextField
-        name="conPassword"
-        label="conPassword"
+        name="confirmPassword"
+        label="confirmPassword"
         variant="outlined"
-        value={formData.conPassword}
+        value={formData.confirmPassword}
         onChange={handleChange}
         fullWidth
         margin="normal"
+        error={!!errors.confirmPassword}
+        helperText={errors.confirmPassword}
       />
        <input type="text" onChange={handleInputChange} />
       <ul>
@@ -208,8 +323,10 @@ const Login = () => {
         ))}
       </ul>
 
-      <Button type="submit" variant="contained" color="primary">
+      <Button type="submit" variant="contained" color="primary"
+       onClick={handleSubmit}>
         Submit
+       
       </Button>
     </Box>
                     </div>
