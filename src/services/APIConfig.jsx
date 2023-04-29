@@ -11,7 +11,7 @@ export const getDomains = (setDomainData) => {
       signal: controller.signal,
     })
     .then((res) => {
-      const data = decryptData(res.data.data);
+      const data = res.data.data;
       setDomainData(data);
     })
     .catch((err) => {
@@ -50,7 +50,6 @@ export const getProjectTags = (setTags, id) => {
     })
     .then((res) => {
       const data = res.data.data;
-      console.log(data);
       setTags(data);
     })
     .catch((err) => {
@@ -69,7 +68,7 @@ export const getProjectById = (setProject, id) => {
       signal: controller.signal,
     })
     .then((res) => {
-      const data = decryptData(res.data.data);
+      const data = res.data.data;
       setProject(data);
     })
     .catch((err) => {
@@ -107,11 +106,10 @@ export const getBlogById = (setBlog, id) => {
       signal: controller.signal,
     })
     .then((res) => {
-      const data = decryptData(res.data.data);
+      const data = res.data.data;
       setBlog(data);
     })
     .catch((err) => {
-      console.log(err);
       if (axios.isCancel(err)) {
         console.log("req cancel");
       } else {
@@ -127,7 +125,7 @@ export const getEvents = (setEvents, id) => {
       signal: controller.signal,
     })
     .then((res) => {
-      const data = decryptData(res.data.data);
+      const data = res.data.data;
       setEvents(data);
     })
     .catch((err) => {
@@ -139,20 +137,36 @@ export const getEvents = (setEvents, id) => {
     });
 };
 
-export const getEventById = (setEvent, id) => {
+export const getEventById = (setEvent) => {
   const controller = new AbortController();
   axios
     .get(`${API_URL}api/v1/event`, {
       signal: controller.signal,
     })
     .then((res) => {
-      // console.log(res);
-      const data = decryptData(res.data.data);
-      // console.log(data);
+      const data = res.data.data;
       setEvent(data);
     })
     .catch((err) => {
-      console.log(err);
+      if (axios.isCancel(err)) {
+        console.log("req cancel");
+      } else {
+        console.log("req performed");
+      }
+    });
+};
+
+export const getEventByMode = (setEvents) => {
+  const controller = new AbortController();
+  axios
+    .get(`${API_URL}api/v1/getEventWithEventModeType/InterCollege`, {
+      signal: controller.signal,
+    })
+    .then((res) => {
+      const data = res.data.data;
+      setEvents(data);
+    })
+    .catch((err) => {
       if (axios.isCancel(err)) {
         console.log("req cancel");
       } else {

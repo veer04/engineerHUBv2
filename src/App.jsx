@@ -26,6 +26,7 @@ import Login from "./pages/User/Login/Login";
 import Profile from "./pages/User/Profile/Profile";
 import Signup from "./pages/User/Signup/Signup";
 function App() {
+
   return (
     <>
       <Navbar />
@@ -63,12 +64,11 @@ function App() {
               <Route path="details" element={<CampusDetails />} />
               <Route path="technical-clubs" element={<ClubsPage />} />
 
-              <Route path="alumni" >
-               <Route  index element={<AlumniPage />} />
-              {/* <Route path="detail" 
+              <Route path="alumni">
+                <Route index element={<AlumniPage />} />
+                {/* <Route path="detail" 
               ></Route> */}
               </Route>
-              
             </Route>
           </Route>
           <Route path="/company" element={<>Company page</>} />
