@@ -1,0 +1,112 @@
+.LformHeaderText{
+    color:  rgba(1, 64, 81, 1);
+    font-size: 2rem;
+    font-weight: 700;
+    margin-top: 5%;
+    margin-bottom: 3%;
+
+}
+.formSideMenuBar{
+    
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    
+    
+}
+.sidemenuBarHeaderLogin{
+    margin-top: 5%;
+}
+.sideMenuLogin{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+}
+.sidemenuBarHeaderLogin{
+    color:  rgba(0, 43, 54, 1);
+}
+.sideMenuList{
+    
+    margin-left: 2%;
+    color:  rgba(0, 43, 54, 1);
+    background: rgba(18, 131, 129, 0.2);
+    width: 220px;
+    padding: 10px 20px ;
+    border-radius: 50px;
+    text-align: center;
+    margin-bottom: 20px;
+
+}
+
+
+.profilHeadTxt{
+    color: rgba(1, 64, 81, 1);
+    font-size: 1.8rem;
+    font-weight: 700;
+    /* margin-left: 5%; */
+    margin-top: 5%;
+}
+.profileText{
+    color: rgba(0, 43, 54, 1);
+   margin-bottom: 5%;
+}
+.whiteCard{
+    background: #fff;
+    border-radius: 5px;
+    padding: 20px;
+    padding-right: 40px;
+    padding-left: 40px;
+    padding-bottom: 40px;
+}
+.profileImageSection{
+    border-radius: 50%;
+    width: 80px;
+    height: 100px;
+    margin-bottom: 2%;
+}
+.profileUserName{
+    color:  rgba(1, 64, 81, 1);
+    font-size: 1.6rem;
+    font-weight: 600;
+}
+.clgNameProfile{
+    color:  rgba(1, 64, 81, 0.75);
+    font-size: 0.9rem;
+}
+.collegeName{
+    color: rgba(1, 64, 81, 1);
+    font-size: 1.2rem;
+}
+.EmailHeader{
+    color:  rgba(1, 64, 81, 0.75);
+    font-size: 0.9rem;
+}
+.emailIdProfile{
+    color:  rgba(1, 64, 81, 1);
+    font-size: 1.2rem;
+}
+.socialProfileIcons{
+
+}
+.cardProfile1{
+    background-color: #fff;
+    color:  rgba(1, 64, 81, 1);
+    margin-left: 2%;
+    padding: 30px;
+    border-radius:10px;
+}
+.cardProfile2{
+    background-color: #fff;
+    color:  rgba(1, 64, 81, 1);
+    margin-top: 2%;
+    margin-left: 2%;
+    padding: 30px;
+    border-radius: 10px;
+}
+.headingProfileSection{
+    color:  rgba(1, 64, 81, 1);
+    font-size: 1.4rem;
+}

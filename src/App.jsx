@@ -24,6 +24,7 @@ import AlumniPage from "./pages/Campus/ParticularCampus/AlumniPage";
 import ParticularClub from "./pages/Campus/ParticularCampus/ParticularClub";
 import Login from "./pages/User/Login/Login";
 import Profile from "./pages/User/Profile/Profile";
+import Signup from "./pages/User/Signup/Signup";
 function App() {
   return (
     <>
@@ -33,6 +34,7 @@ function App() {
           <Route index element={<HomePage />} />
           <Route path="/home" element={<HomePage />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/signup" element={<Signup />} />
           <Route path="/community">
             <Route index element={<CommunityPage />} />
             <Route path="domains" element={<CommunityPage path="domains" />} />

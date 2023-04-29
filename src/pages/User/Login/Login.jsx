@@ -1,341 +1,212 @@
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { IconButton } from "@mui/material";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
+// import { API_URL } from "../../services/APIUtils";
+import { useSignIn } from "react-auth-kit";
+
+
+import CustomSnackbar from "./CustomSnackbar";
+
+
 import "./Login.css";
-import { useState, useEffect } from 'react';
-import { TextField, Button, Box } from '@mui/material';
-// import GroupAddIcon from '@material-ui/icons/GroupAdd';
+import axios, { AxiosError } from "axios";
 
-const Login = () => {
-    const [values, setValues] = useState([]);
 
-    const [formData, setFormData] = useState({
-        name: '',
-        // userName: '',
-        email: '',
-        mobile: '',
-        // college: '',
-        branch: '',
-        institutionName:'',
-        city:'',
-        country: '',
-        password:'',
-        confirmPassword:'',
-        values:[],
+const Register = () => {
+  const signIn=useSignIn();
+  const navigate=useNavigate();
+  const [password, setPassword] = useState("");
+  const [formPassword, setFormPassword] = useState("");
+  const [focused, setFocused] = useState(false);
+  // const[cookieValue,setCookieValue]=useContext(cookieDa);
+  const [values, setValues] = useState({
+    email: "",
+    password: "",
+    showPassword: false,
+  });
+
+  const [open, setOpen] = useState(false);
+  const [validation, setValidation]= useState(false);
+  const [error, setError] = useState("");
+  const [snackbarValues, setSnackbarValues] = useState({
+    severity: "success",
+    message: "",
+  });
+
+  const handleChange = (prop) => (event) => {
+    setValues({ ...values, [prop]: event.target.value });
+  };
+
+  const handleClickShowPassword = () => {
+    setValues({
+      ...values,
+      showPassword: !values.showPassword,
+    });
+  };
+  const handlePassword = (e) => {
+    setFocused(true);
+    setFormPassword(validatePassword(password));
+  };
+
+
+
+
+
+
+
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    try {
+      const response = await axios.post(
+        `api/v1/signin`,
+        values
+      );
+
+      signIn({
+        token: response.data.accessToken,
+        expiresIn: 3600,
+        tokenType: "Bearer",
+        authState: { m:values.email },
       });
-
-      const [errors, setErrors] = useState({
-        name: '',
-        // userName: '',
-        email: '',
-        mobile: '',
-        // college: '',
-        branch: '',
-        institutionName:'',
-        city:'',
-        country: '',
-        password:'',
-        confirmPassword:'',
+      setValidation(true);
+      setOpen(true);
+      setSnackbarValues({
+        severity: "success",
+        message: "SuccessFully Logged in",
       });
+      // setCookieValue(Cookies.get('_auth_state').slice(6,Cookies.get('_auth_state').length-12));
+    } catch (err) {
+      setSnackbarValues({
+        severity: "error",
+        message: "User doesn't exist or already signed in!",
+      });
+      if (err && err instanceof AxiosError)
+        setError(err.response?.data.message);
+      else if (err && err instanceof Error) setError(err.message);
+      setOpen(true);
+    }
 
 
-      const handleInputChange = (event) => {
-        const inputValues = event.target.value.split(',');
-        setValues(inputValues);
-      };
-      const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData((prevFormData) => ({
-          ...prevFormData,
-          [name]: value,
-        }));
-      };
+  };
+  const navigation=()=>{
+   
+    if (validation===true)
+    { 
+      navigate("/courses");
+      window.location.reload(true);
+      
+    }
+    
+  }
+  // const gauth=()=>{
+  //   window.alert("will be updated soon!!!")
+  // }
 
 
-      const validateInput = () => {
-        let valid = true;
-        const newErrors = {
-          name: '',
-          // userName: '',
-          email: '',
-          mobile: '',
-          institutionName:'',
-          contact: '',
-          country: '',
-        };
-    
-        if (!formData.name) {
-          newErrors.name = 'Name is required';
-          valid = false;
-        }
-    
-        if (!formData.userName) {
-          newErrors.userName = 'Username is required';
-          valid = false;
-        }
-    
-        if (!formData.email) {
-          newErrors.email = 'Email is required';
-          valid = false;
-        } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-          newErrors.email = 'Invalid email format';
-          valid = false;
-        }
-    
-        if (!formData.mobile) {
-          newErrors.mobile = 'Mobile number is required';
-          valid = false;
-        } else if (!/^\d{10}$/.test(formData.mobile)) {
-          newErrors.mobile = 'Invalid mobile number';
-          valid = false;
-        }
-    
-        if (!formData.institutionName) {
-          newErrors.institutionName = 'College name is required';
-          valid = false;
-        }
-    
-        if (!formData.contact) {
-          newErrors.contact = 'Contact number is required';
-          valid = false;
-        } else if (!/^\d{10}$/.test(formData.contact)) {
-          newErrors.contact = 'Invalid contact number';
-          valid = false;
-        }
-    
-        if (!formData.country) {
-          newErrors.country = 'Country is required';
-          valid = false;
-        }
-    
-        setErrors(newErrors);
-        return valid;
-      };
-    
+  const validatePassword = (value) => {
+    let errors = {};
 
-      const handleSubmit = async (e) => {
-        e.preventDefault();
-        if (validateInput()) {
-          try {
-            const response = await fetch('http://e-hub-backend-production-9545.up.railway.app/user/signup', {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify(formData),
-            });
-    
-            const data = await response.json();
-            console.log(data);
-          } catch (error) {
-            console.error(error);
-          }
-        }
-      };
-    
-    
+    if (password.length < 8) {
+      errors.password = 'Password must be at least 8 characters long.';
+    } else if (!/[A-Z]/.test(password)) {
+      errors.password = 'Password must contain at least one uppercase character.';
+    } else if (!/[a-z]/.test(password)) {
+      errors.password = 'Password must contain at least one lowercase character.';
+    } else if (!/\d/.test(password)) {
+      errors.password = 'Password must contain at least one numeric character.';
+    } else if (!/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
+      errors.password = 'Password must contain at least one special character.';
+    }
+     return errors;
+  };
+
+
   return (
-    <>
-    <div className="Login">
-        <div className="container">
-            <div className="row">
-                <div className="col-lg-3 sideMenuLogin">
-    <p className="sidemenuBarHeaderLogin">
-        For Users
+    <div className="cont">
+      <div className="cont-head">
+        <div
+          className="my-form-head"
+          style={{
+            padding: "0px 0px 30px 0px",
+          }}
+        >
+          Login to your <br />
+          Account
+        </div>
+      </div>
 
-    </p>
-    <div className="formSideMenuBar">
-        <div className="sideMenuList">
-        Registraions
+      <form className="my-form" onSubmit={handleSubmit}>
+        <div className="form-cont ">
+          <input
+            className="reg-input"
+            placeholder="Email"
+            type="text"
+            name="email"
+            value={values.email}
+            onChange={handleChange("email")}
+            required
+          />
         </div>
-        <div className="sideMenuList">
-        Watchlist
+        <div className="form-cont passwordContainer">
+              <input
+                autoComplete="off"
+                name="password"
+                type={values.showPassword ? "text" : "password"}
+               placeholder="Password"
+               value={values.password}
+               className="reg-input"
+                onChange={handleChange("password")}
+                onBlur={handlePassword}
+                focused={focused.toString()}
+               
+                required
+              />
+          {/* <div className="registerPagePass">   <span className="error_msg">{formPassword.password}</span></div> */}
+          <div>
+            <IconButton onClick={handleClickShowPassword}>
+              {!values.showPassword ? <VisibilityOff /> : <Visibility />}
+            </IconButton>
+          </div>
         </div>
-        <div className="sideMenuList">
-        Recently viewed
+
+        <div className="form-opt">
+          <button className="my-btn reg-si registerSSS" type="submit" onClick={navigation}>
+            Sign in
+          </button>
+          {/* <div className="d-flex justify-content-center">
+            <div className="f-p" onClick={gauth}>Forgot Password ?</div>
+            <div className="f-p "onClick={gauth}>Reset Now </div>
+          </div> */}
         </div>
-        <div className="sideMenuList">
-        Mentor Sessions
+        <div className="divisor d-flex justify-content-center">
+          <hr style={{ color: "#6c757d" }} />
+          <span className="d-flex justify-content-center p-2">or</span>
+          <hr />
         </div>
-        <div className="sideMenuList">
-        Courses
+        {/* <div className="sign-field reg-field">
+          <div className="sign-opt "onClick={gauth}>
+            <img src={gg} alt="google" />
+            Continue with Google
+          </div>
+        </div> */}
+
+        <div className="my-item-cont">
+          <div>Didn't have an account?</div>
+          <Link to="/signup" className="f-p ">
+            Sign Up
+          </Link>
+          <CustomSnackbar
+            setOpen={setOpen}
+            open={open}
+            message={snackbarValues.message}
+            severity={snackbarValues.severity}
+          />
         </div>
-        <div className="sideMenuList">
-        Liked domains
-        </div>
-        <div className="sideMenuList">
-        Prizes/Rewards
-        </div>
-        <div className="sideMenuList">
-       Notifications
-        </div>
+      </form>
     </div>
-    <p className="sidemenuBarHeaderLogin">
-        For Organizations
+  );
+};
 
-    </p>
-    <div className="formSideMenuBar">
-    <div className="sideMenuList">
-       Manage Lists
-        </div>
-         <div className="sideMenuList">
-       My Events
-        </div> 
-       
-    </div>
-    <p className="sidemenuBarHeaderLogin">
-        For Mentors
-
-    </p>
-    <div className="formSideMenuBar">
-    <div className="sideMenuList">
-      Mentor Profile
-        </div>
-    
-    </div>
-                </div>
-                <div className="col-lg-9">
-                    <div className="form-container">
-                        <p className="LformHeaderText">Basic Details</p>
-                        <Box component="form" onSubmit={handleSubmit}>
-      <TextField
-        name="name"
-        label="Name"
-        variant="outlined"
-        value={formData.name}
-        onChange={handleChange}
-        fullWidth
-        margin="normal"
-        error={!!errors.name}
-        helperText={errors.name}
-      />
-      {/* <TextField
-        name="userName"
-        label="Username"
-        variant="outlined"
-        value={formData.userName}
-        onChange={handleChange}
-        fullWidth
-        margin="normal"
-        error={!!errors.userName}
-        helperText={errors.userName}
-      /> */}
-      <TextField
-        name="email"
-        label="Email"
-        variant="outlined"
-        value={formData.email}
-        onChange={handleChange}
-        fullWidth
-        margin="normal"
-        error={!!errors.email}
-        helperText={errors.email}
-      />
-      <TextField
-        name="mobile"
-        label="Mobile No."
-        variant="outlined"
-        value={formData.mobile}
-        onChange={handleChange}
-        fullWidth
-        margin="normal"
-        error={!!errors.mobile}
-        helperText={errors.mobile}
-      />
-      {/* <TextField
-        name="college"
-        label="College Name"
-        variant="outlined"
-        value={formData.college}
-        onChange={handleChange}
-        fullWidth
-        margin="normal"
-        error={!!errors.college}
-        helperText={errors.college}
-      /> */}
-      <TextField
-        name="branch"
-        label="branch Name"
-        variant="outlined"
-        value={formData.branch}
-        onChange={handleChange}
-        fullWidth
-        margin="normal"
-        error={!!errors.branch}
-        helperText={errors.branch}
-      />
-      <TextField
-        name="city"
-        label="city"
-        variant="outlined"
-        value={formData.city}
-        onChange={handleChange}
-        fullWidth
-        margin="normal"
-        error={!!errors.city}
-        helperText={errors.city}
-      />
-      <TextField
-        name="country"
-        label="Country"
-        variant="outlined"
-        value={formData.country}
-        onChange={handleChange}
-        fullWidth
-        margin="normal"
-        error={!!errors.country}
-        helperText={errors.country}
-      />
-       <TextField
-        name="institutionName"
-        label="institutionName"
-        variant="outlined"
-        value={formData.institutionName}
-        onChange={handleChange}
-        fullWidth
-        margin="normal"
-        error={!!errors.institutionName}
-        helperText={errors.institutionName}
-      />
-       <TextField
-        name="password"
-        label="password"
-        variant="outlined"
-        value={formData.password}
-        onChange={handleChange}
-        fullWidth
-        margin="normal"
-        error={!!errors.password}
-        helperText={errors.password}
-      />
-       <TextField
-        name="confirmPassword"
-        label="confirmPassword"
-        variant="outlined"
-        value={formData.confirmPassword}
-        onChange={handleChange}
-        fullWidth
-        margin="normal"
-        error={!!errors.confirmPassword}
-        helperText={errors.confirmPassword}
-      />
-       <input type="text" onChange={handleInputChange} />
-      <ul>
-        {values.map((value, index) => (
-          <li key={index}>{value.trim()}</li>
-        ))}
-      </ul>
-
-      <Button type="submit" variant="contained" color="primary"
-       onClick={handleSubmit}>
-        Submit
-       
-      </Button>
-    </Box>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    </>
-  )
-}
-
-export default Login
+export default Register;
