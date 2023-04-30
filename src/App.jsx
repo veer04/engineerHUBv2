@@ -25,6 +25,7 @@ import ParticularClub from "./pages/Campus/ParticularCampus/ParticularClub";
 import Login from "./pages/User/Login/Login";
 import Profile from "./pages/User/Profile/Profile";
 import Signup from "./pages/User/Signup/Signup";
+import OTP from "./pages/User/OtpVerification/Otpverification";
 function App() {
   return (
     <>
@@ -35,6 +36,8 @@ function App() {
           <Route path="/home" element={<HomePage />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/otpverification" element={<OTP/>} />
           <Route path="/community">
             <Route index element={<CommunityPage />} />
             <Route path="domains" element={<CommunityPage path="domains" />} />
@@ -52,7 +55,6 @@ function App() {
             </Route>
           </Route>
           <Route path="/mentorChat" element={<MentorChat />} />
-          <Route path="/login" element={<Login />} />
           <Route path="/campus">
             <Route index element={<CampusPage />} />
             <Route path="inter-college" element={<InterCollege />} />
@@ -71,8 +73,7 @@ function App() {
               
             </Route>
           </Route>
-          <Route path="/company" element={<>Company page</>} />
-          {/* <Route path="/login" element={<>Login page</>} /> */}
+          {/* <Route path="/company" element={<Company></Company>} /> */}
           <Route path="/mentorship" element={<Mentorship />} />
           <Route path="/hosting" element={<Hosting />} />
         </Routes>

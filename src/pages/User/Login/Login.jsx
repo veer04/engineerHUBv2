@@ -2,7 +2,6 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { IconButton } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-// import { API_URL } from "../../services/APIUtils";
 import { useSignIn } from "react-auth-kit";
 
 
@@ -48,13 +47,6 @@ const Register = () => {
     setFocused(true);
     setFormPassword(validatePassword(password));
   };
-
-
-
-
-
-
-
 
   async function handleSubmit(e) {
     e.preventDefault();
