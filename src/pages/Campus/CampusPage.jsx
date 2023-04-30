@@ -6,6 +6,7 @@ import EventCard from "../../components/EventCard/EventCard";
 import { useEffect, useState } from "react";
 import { controller, getEvents } from "../../services/APIConfig";
 import CampusEventTab from "../../components/CampusEventTab/CampusEventTab";
+import { getEventById } from "../../services/APIConfig";
 
 export default function CampusPage() {
   const colors = ["#F7D77F", "#8FC8E8", "#B2E887", "#E8BA98"];
@@ -59,7 +60,7 @@ export default function CampusPage() {
   const [events, setEvents] = useState([]);
 
   useEffect(() => {
-    getEvents(setEvents, "App Development");
+    getEventById(setEvents);
     window.scrollTo(0, 0);
 
     return () => {

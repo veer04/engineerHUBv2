@@ -1,7 +1,7 @@
 import React from "react";
 import "./InterCollege.css";
 import { useEffect, useState } from "react";
-import { controller, getEvents } from "../../../services/APIConfig";
+import { controller, getEventByMode } from "../../../services/APIConfig";
 import FeaturedEventsCard2 from "../../../components/FeaturedEventsCard2/FeaturedEventsCard2";
 import CategoryBar from "../../../components/CategoryBar/CategoryBar";
 import CampusEventTab from "../../../components/CampusEventTab/CampusEventTab";
@@ -11,7 +11,7 @@ export default function InterCollege() {
   const [events, setEvents] = useState([]);
 
   useEffect(() => {
-    getEvents(setEvents, "App Development");
+    getEventByMode(setEvents, "InterCollege");
     window.scrollTo(0, 0);
 
     return () => {
@@ -37,6 +37,7 @@ export default function InterCollege() {
       title: "Free",
     },
   ];
+
   const colors = ["#F7D77F", "#8FC8E8", "#B2E887", "#E8BA98"];
 
   const [current, setCurrent] = useState(1);
@@ -46,19 +47,7 @@ export default function InterCollege() {
   const renderedOngoing = "";
 
   const renderedAll = events.map((event) => (
-    <InterCollegeCard
-      key={event._id}
-      poster={event.eventPoster}
-      title={event.eventName}
-      description={event.description}
-      tags={[
-        { _id: 1, name: "Competition" },
-        { _id: 2, name: "Hackathon" },
-        { _id: 3, name: "Coding" },
-      ]}
-      time={5}
-      _id={event._id}
-    />
+    <InterCollegeCard key={event._id} {...event} />
   ));
 
   return (
@@ -73,29 +62,7 @@ export default function InterCollege() {
         <h2>Featured Events</h2>
         <div className="events">
           {events.slice(0, 2).map((event) => (
-            <FeaturedEventsCard2
-              poster={event.eventPoster}
-              title={event.eventName}
-              description={event.description}
-              hashtags={[
-                {
-                  _id: 1,
-                  name: "Competition",
-                },
-                {
-                  _id: 2,
-                  name: "Hackathon",
-                },
-                {
-                  _id: 3,
-                  name: "Coding",
-                },
-              ]}
-              stars={4}
-              key={event._id}
-              views={1056}
-              time={5}
-            />
+            <FeaturedEventsCard2 key={event._id} {...event} />
           ))}
         </div>
       </div>
