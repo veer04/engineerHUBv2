@@ -1,6 +1,8 @@
 import React from "react";
 import "./FeaturedEvents.css";
 import { FiArrowLeft, FiArrowRight } from "react-icons/fi";
+import image from "./events.png";
+import image2 from "./events_2.png";
 
 export default function FeaturedEvents() {
   //fetch events from database
@@ -69,11 +71,43 @@ export default function FeaturedEvents() {
     );
   });
 
-  const marquee = <marquee scrollamount="20">Featured Events</marquee>;
+  const marquee1 = (
+    <div
+      className="events-section-marquee"
+      style={{
+        margin: ".5rem 0",
+        backgroundImage: `url(${image})`,
+        height: "4.7rem",
+        width: "100%",
+        backgroundSize: "contain",
+        backgroundRepeat: "repeat",
+        animation: "scroll 5s linear infinite",
+      }}
+    >
+      {/* <img src={image} alt="" /> */}
+    </div>
+  );
+
+  const marquee2 = (
+    <div
+      className="events-section-marquee"
+      style={{
+        margin: ".5rem 0",
+        backgroundImage: `url(${image2})`,
+        height: "4.7rem",
+        width: "100%",
+        backgroundSize: "contain",
+        backgroundRepeat: "repeat",
+        animation: "scroll 5s linear infinite",
+      }}
+    >
+      {/* <img src={image} alt="" /> */}
+    </div>
+  );
 
   return (
     <div className="events-section-container">
-      {marquee}
+      {marquee1}
       <div className="events-section-content-container">
         <div className="events-section-cards-container">
           <div className="events-section-cards">{events}</div>
@@ -87,7 +121,7 @@ export default function FeaturedEvents() {
           </div>
         </div>
       </div>
-      {marquee}
+      {marquee2}
     </div>
   );
 }

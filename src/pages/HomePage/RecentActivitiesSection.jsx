@@ -9,7 +9,7 @@ export default function RecentActivitiesSection() {
       date: "Few days ago",
       title: "Coding Contest | IIT BHU",
       description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur adipisci dolore sint voluptas explicabo nobis asperiores omnis perspiciatis alias hic.",
+        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur adipisci dolore sint voluptas explicabo nobis asperiores omnis perspiciatis alias hic.Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur adipisci dolore sint voluptas explicabo nobis asperiores omnis perspiciatis alias hic.",
       link: "https://www.google.com",
     },
     {

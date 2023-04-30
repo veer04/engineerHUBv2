@@ -133,6 +133,13 @@
   gap: 0.5rem;
   border-radius: 1rem;
   color: white;
+  box-shadow: 2px 2px 5px 1px rgb(0, 0, 0, 0.2);
+}
+.look-for-jobs:hover {
+  cursor: pointer;
+  /* background-color: #00bfa6; */
+  transition: all 0.3s ease-in-out;
+  transform: scale(1.2);
 }
 
 @media screen and (max-width: 1000px) {

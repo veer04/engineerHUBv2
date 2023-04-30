@@ -90,9 +90,22 @@
   justify-content: center;
   flex-wrap: wrap;
   gap: 1rem;
+  row-gap: .5rem;
 }
 .project__list--collapsed {
   width: 20rem;
+  height: 150vh;
+  overflow: auto;
+}
+.project__list--collapsed::-webkit-scrollbar {
+  width: 0.5rem;
+}
+.project__list--collapsed::-webkit-scrollbar-track {
+  background-color: rgb(227, 253, 253);
+  
+}
+.project__list--collapsed::-webkit-scrollbar-thumb{
+  border-radius: 1rem;
 }
 .project__window {
   display: flex;

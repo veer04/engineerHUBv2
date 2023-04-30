@@ -3,10 +3,11 @@
   background-color: #fdfdfd;
   display: flex;
   flex-direction: column;
-  width: 20rem;
+  width: 18rem;
   box-shadow: 0 0 0.5rem 0.2rem rgba(0, 0, 0, 0.2);
   padding: 0.5rem;
   border-radius: 0.4rem;
+  transform: scale(0.95);
 }
 .project__list__item .poster {
   border-radius: 0.5rem;

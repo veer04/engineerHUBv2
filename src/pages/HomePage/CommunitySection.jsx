@@ -43,18 +43,27 @@ export default function CommunitySection() {
 
   return (
     <div className="community-section-container">
+      <img
+        className="community-image"
+        src="https://frontendehubbucket.s3.ap-south-1.amazonaws.com/frontend/homepage/communitysection/community.png"
+        alt=""
+      />
       <div className="community-bg-scroller">
         <div className="community-section-bg">{tiles}</div>
       </div>
       <div className="community-section-content heading-3">
-        <div>Tap into the</div>
         <div>
-          largest <span>engineers community</span>
+          <div>Tap into the</div>
+          <div>
+            largest <span>engineers community</span>
+          </div>
         </div>
-        <button className="discord-btn btn btn-primary">
-          <FaDiscord className="discord-icon" />
-          Join Discord
-        </button>
+        <a href="https://discord.com/invite/ZMZAEZ5NfA">
+          <button className="discord-btn btn btn-primary">
+            <FaDiscord className="discord-icon" />
+            Join Discord
+          </button>
+        </a>
       </div>
     </div>
   );

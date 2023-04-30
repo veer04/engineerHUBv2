@@ -82,6 +82,15 @@
   color: white;
 }
 
+@keyframes scroll {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: -100% 0;
+  }
+}
+
 @media screen and (max-width: 1100px) {
   .events-section-cards {
     width: 41rem;
