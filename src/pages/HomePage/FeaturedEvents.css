@@ -59,11 +59,23 @@
   padding: 0.3rem 1rem;
 }
 .events-section-card-heading {
+  font-size: 1.4rem;
   font-weight: 600;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  margin: 0 0 0.1rem 0;
 }
 .events-section-card-subheading {
   font-weight: 500;
   font-size: 1rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 .events-section-scroller {
   display: flex;

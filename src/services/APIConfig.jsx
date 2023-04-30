@@ -118,6 +118,26 @@ export const getBlogById = (setBlog, id) => {
     });
 };
 
+export const getAllEvents = (setEvents) => {
+  const controller = new AbortController();
+  axios
+    .get(`${API_URL}api/v1/event`, {
+      signal: controller.signal,
+    })
+    .then((res) => {
+      const data = res.data.data;
+      console.log(data);
+      setEvents(data);
+    })
+    .catch((err) => {
+      if (axios.isCancel(err)) {
+        console.log("req cancel");
+      } else {
+        console.log("req performed");
+      }
+    });
+};
+
 export const getEvents = (setEvents, id) => {
   const controller = new AbortController();
   axios

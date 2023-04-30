@@ -1,11 +1,23 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./FeaturedEvents.css";
 import { FiArrowLeft, FiArrowRight } from "react-icons/fi";
 import image from "./events.png";
 import image2 from "./events_2.png";
+import { getAllEvents, controller } from "../../services/APIConfig";
 
 export default function FeaturedEvents() {
   //fetch events from database
+
+  const [events, setEvents] = useState([]);
+
+  useEffect(() => {
+    getAllEvents(setEvents);
+
+    return () => {
+      controller.abort();
+    };
+  }, []);
+
   const eventsList = [
     {
       id: 1,
@@ -49,20 +61,20 @@ export default function FeaturedEvents() {
     cards.scrollLeft += 320;
   };
 
-  const events = eventsList.map((event) => {
+  const renderedEvents = events.map((event, index) => {
     return (
       <div
-        key={event.id}
+        key={event._id}
         style={{
-          backgroundImage: `url(${event.image})`,
+          backgroundImage: `url(${event.eventPoster})`,
         }}
         className="events-section-card-bg"
       >
         <div
-          style={{ backgroundColor: colorCycle[event.id % colorCycle.length] }}
+          style={{ backgroundColor: colorCycle[index % colorCycle.length] }}
           className="events-section-card-content"
         >
-          <h3 className="events-section-card-heading">{event.title}</h3>
+          <h3 className="events-section-card-heading">{event.eventName}</h3>
           <h4 className="events-section-card-subheading">
             {event.description}
           </h4>
@@ -110,7 +122,7 @@ export default function FeaturedEvents() {
       {marquee1}
       <div className="events-section-content-container">
         <div className="events-section-cards-container">
-          <div className="events-section-cards">{events}</div>
+          <div className="events-section-cards">{renderedEvents}</div>
           <div className="events-section-scroller">
             <div onClick={scrollLeft} className="events-section-card-scroller">
               <FiArrowLeft />
