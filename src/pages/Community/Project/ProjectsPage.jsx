@@ -13,6 +13,7 @@ import {
   getProjects,
 } from "../../../services/APIConfig";
 import useSidebar from "../../../hooks/use-sidebar";
+import SearchBar from "../../../components/SearchBar/SearchBar";
 
 export default function ProjectPage({ path }) {
   const { id } = useParams();
@@ -70,6 +71,20 @@ export default function ProjectPage({ path }) {
     }
   }, [currentFilters, projects]);
 
+  const [searchedProjects, setSearchedProjects] = useState([]);
+
+  const handleResult = (result) => {
+    setSearchedProjects(result);
+  };
+
+  useEffect(() => {
+    if (searchedProjects.length > 0) {
+      setFilteredProjects(searchedProjects);
+    } else {
+      setFilteredProjects(filteredProjects);
+    }
+  }, [searchedProjects]);
+
   return (
     <div className="project-page">
       <div className="community__subpage__heading">Projects</div>
@@ -77,7 +92,14 @@ export default function ProjectPage({ path }) {
         <Sidebar path={path} />
         <div className="project__content">
           <div className="project__searchbar__container">
-            <div className="project__searchbar input-group">
+            <SearchBar
+              data={filteredProjects}
+              result={handleResult}
+              placeholder="Search"
+              type="text"
+            />
+
+            {/* <div className="project__searchbar input-group">
               <input
                 type="text"
                 className="form-control"
@@ -88,7 +110,7 @@ export default function ProjectPage({ path }) {
               <span className="input-group-text" id="basic-addon2">
                 <img src={filterImg} alt="filter" />
               </span>
-            </div>
+            </div> */}
           </div>
           <div className="project__chips__container">
             {tags.map((item) => (

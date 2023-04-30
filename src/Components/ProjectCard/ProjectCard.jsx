@@ -32,7 +32,6 @@ export default function ProjectCard({
     <div
       onClick={() => {
         setProjectOpened(_id), setIsProjectOpen(true);
-        console.log(_id);
       }}
       className="project__list__item"
     >

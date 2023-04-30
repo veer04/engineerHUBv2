@@ -16,8 +16,6 @@ export default function ProjectWindow({ projectOpened, setIsProjectOpen }) {
     };
   }, [projectOpened]);
 
-  console.log(project);
-
   return (
     <div className="project__window">
       <div className="project__window__title">

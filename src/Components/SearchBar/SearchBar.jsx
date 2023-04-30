@@ -1,15 +1,36 @@
-import React, { useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import "./SearchBar.css";
 import { BiFilter } from "react-icons/bi";
 import { HiOutlineSearch } from "react-icons/hi";
 
 export default function SearchBar({
+  data,
   className,
   hasFiltration,
   placeholder,
   type,
+  result,
 }) {
-  const [value, setValue] = useState("");
+  const [query, setQuery] = useState("");
+
+  const filteredData = useMemo(() => {
+    return data.filter((value) => {
+      return value.projectName.toLowerCase().includes(query.toLowerCase());
+    });
+  }, [data, query]);
+
+  useEffect(() => {
+    result(filteredData);
+  }, [filteredData]);
+
+  //function to filter the data according to the input
+  // const handleFilter = (e) => {
+  //   const searchWord = e.target.value.toLowerCase();
+  //   const newFilter = data.filter((value) => {
+  //     return value.projectName.toLowerCase().includes(searchWord);
+  //   });
+  //   result(searchWord.length === 0 ? data : newFilter);
+  // };
 
   return (
     <div className={`search-bar ${className ? className : ""}`}>
@@ -23,8 +44,11 @@ export default function SearchBar({
       <input
         placeholder={placeholder}
         type={type}
-        value={value}
-        onChange={(e) => setValue(e.target.value)}
+        value={query}
+        onChange={(e) => {
+          setQuery(e.target.value);
+          // handleFilter(e);
+        }}
         className="input"
         style={{
           borderLeft: !hasFiltration

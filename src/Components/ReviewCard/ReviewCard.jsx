@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import "./ReviewCard.css";
 
-export default function ReviewCard({ id, img, text, name, activeCard }) {
+export default function ReviewCard({ img, text, name, activeCard, index }) {
   const [isActive, setIsActive] = useState(false);
 
   useEffect(() => {
-    if (id === activeCard) {
+    if (index === activeCard) {
       setIsActive(true);
     } else {
       setIsActive(false);
@@ -20,13 +20,13 @@ export default function ReviewCard({ id, img, text, name, activeCard }) {
   const [bgColor, setBgColor] = useState();
   useEffect(() => {
     setBgColor(() => {
-      return colors[id % COUNT];
+      return colors[index % COUNT];
     });
-  }, [id]);
+  }, []);
 
   return (
     <div
-      key={id}
+      key={index}
       style={{
         backgroundColor: bgColor,
         // colors[
