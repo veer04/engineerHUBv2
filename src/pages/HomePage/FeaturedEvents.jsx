@@ -61,7 +61,7 @@ export default function FeaturedEvents() {
     cards.scrollLeft += 320;
   };
 
-  const renderedEvents = events.map((event, index) => {
+  const renderedEvents = events.slice(0, 3).map((event, index) => {
     return (
       <div
         key={event._id}
