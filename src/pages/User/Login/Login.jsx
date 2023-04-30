@@ -116,11 +116,70 @@ const Register = () => {
 
 
   return (
-    <div className="cont">
+    <div className="Login">
+<div className="container">
+    <div className="row">
+        <div className="col-lg-3 sideMenuLogin">
+<p className="sidemenuBarHeaderLogin">
+For Users
+
+</p>
+<div className="formSideMenuBar">
+<div className="sideMenuList">
+Registraions
+</div>
+<div className="sideMenuList">
+Watchlist
+</div>
+<div className="sideMenuList">
+Recently viewed
+</div>
+<div className="sideMenuList">
+Mentor Sessions
+</div>
+<div className="sideMenuList">
+Courses
+</div>
+<div className="sideMenuList">
+Liked domains
+</div>
+<div className="sideMenuList">
+Prizes/Rewards
+</div>
+<div className="sideMenuList">
+Notifications
+</div>
+</div>
+<p className="sidemenuBarHeaderLogin">
+For Organizations
+
+</p>
+<div className="formSideMenuBar">
+<div className="sideMenuList">
+Manage Lists
+</div>
+ <div className="sideMenuList">
+My Events
+</div> 
+
+</div>
+<p className="sidemenuBarHeaderLogin">
+For Mentors
+
+</p>
+<div className="formSideMenuBar">
+<div className="sideMenuList">
+Mentor Profile
+</div>
+
+</div>
+        </div>
+        <div className="cont col-lg-9">
       <div className="cont-head">
         <div
           className="my-form-head"
           style={{
+            color: "#0a3f51",
             padding: "0px 0px 30px 0px",
           }}
         >
@@ -155,9 +214,8 @@ const Register = () => {
                
                 required
               />
-          {/* <div className="registerPagePass">   <span className="error_msg">{formPassword.password}</span></div> */}
           <div>
-            <IconButton onClick={handleClickShowPassword}>
+            <IconButton onClick={handleClickShowPassword} className="positionRelBottom">
               {!values.showPassword ? <VisibilityOff /> : <Visibility />}
             </IconButton>
           </div>
@@ -167,23 +225,13 @@ const Register = () => {
           <button className="my-btn reg-si registerSSS" type="submit" onClick={navigation}>
             Sign in
           </button>
-          {/* <div className="d-flex justify-content-center">
-            <div className="f-p" onClick={gauth}>Forgot Password ?</div>
-            <div className="f-p "onClick={gauth}>Reset Now </div>
-          </div> */}
+
         </div>
         <div className="divisor d-flex justify-content-center">
           <hr style={{ color: "#6c757d" }} />
           <span className="d-flex justify-content-center p-2">or</span>
           <hr />
         </div>
-        {/* <div className="sign-field reg-field">
-          <div className="sign-opt "onClick={gauth}>
-            <img src={gg} alt="google" />
-            Continue with Google
-          </div>
-        </div> */}
-
         <div className="my-item-cont">
           <div>Didn't have an account?</div>
           <Link to="/signup" className="f-p ">
@@ -198,6 +246,9 @@ const Register = () => {
         </div>
       </form>
     </div>
+    </div>
+</div>
+</div>
   );
 };
 
