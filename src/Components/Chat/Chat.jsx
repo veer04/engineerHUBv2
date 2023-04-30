@@ -3,8 +3,8 @@ import "./Chat.css";
 import mentor from "./svg/mentor.svg";
 import submit from "./svg/submit.svg";
 import Message from "./Message";
-import { useNavigate } from "react-router-dom";
-import { Card, CardContent, Typography } from '@mui/material';
+import { Card, CardContent, Typography } from "@mui/material";
+import { Link } from "react-router-dom";
 
 // const GuidelineAlert = ({ guideline }) => {
 //   return (
@@ -22,7 +22,7 @@ import { Card, CardContent, Typography } from '@mui/material';
 // };
 
 export default function Chat({ className }) {
-  const navigate =useNavigate();
+  // const navigate = useNavigate();
   const [messages, setMessages] = useState([
     {
       _id: 1,
@@ -111,9 +111,11 @@ export default function Chat({ className }) {
     <div className={`chat-container ${className ? className : ""}`}>
       <div className="chat-header">
         <div className="heading">Community Chat</div>
-        <div className="mentor-btn" onClick={navigate("/mentorship")} >
-          <img src={mentor} alt="Connect to mentor" />
-        </div>
+        <Link to="/mentorship">
+          <div className="mentor-btn" style={{ cursor: "pointer" }}>
+            <img src={mentor} alt="Connect to mentor" />
+          </div>
+        </Link>
       </div>
       <div className="chat-display">{renderedMessages}</div>
       <div className="chat-input">
@@ -135,9 +137,6 @@ export default function Chat({ className }) {
     </div>
   );
 }
-
-
-
 
 // const ChatApp = () => {
 //   const [showGuidelineAlert, setShowGuidelineAlert] = useState(true);

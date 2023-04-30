@@ -29,17 +29,17 @@ export default function CommunitySection() {
     );
   }
 
-  const scroller = document.getElementsByClassName("community-bg-scroller");
-  useEffect(() => {
-    const interval = setInterval(() => {
-      let prevScroll = scroller[0].scrollLeft;
-      scroller[0].scrollLeft += 1;
-      if (prevScroll === scroller[0].scrollLeft) {
-        scroller[0].scrollLeft = 0;
-      }
-    }, 10);
-    return () => clearInterval(interval);
-  }, []);
+  // const scroller = document.getElementsByClassName("community-bg-scroller");
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     let prevScroll = scroller[0].scrollLeft;
+  //     scroller[0].scrollLeft += 1;
+  //     if (prevScroll === scroller[0].scrollLeft) {
+  //       scroller[0].scrollLeft = 0;
+  //     }
+  //   }, 10);
+  //   return () => clearInterval(interval);
+  // }, []);
 
   return (
     <div className="community-section-container">
@@ -48,9 +48,9 @@ export default function CommunitySection() {
         src="https://frontendehubbucket.s3.ap-south-1.amazonaws.com/frontend/homepage/communitysection/community.png"
         alt=""
       />
-      <div className="community-bg-scroller">
+      {/* <div className="community-bg-scroller">
         <div className="community-section-bg">{tiles}</div>
-      </div>
+      </div> */}
       <div className="community-section-content heading-3">
         <div>
           <div>Tap into the</div>

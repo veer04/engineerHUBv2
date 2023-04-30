@@ -13,6 +13,8 @@ export default function DomainsSection() {
     };
   }, []);
 
+  const ROUTE = "/community/projects/";
+
   return (
     <div className="domains-section-container">
       <div className="domains-section-title">Domains</div>
@@ -20,7 +22,7 @@ export default function DomainsSection() {
         <div>
           <div className="domain-chip-container align-items-start">
             <DomainChips
-              to="/community/domain/app-development"
+              to={`${ROUTE}App Development`}
               green
               className="domain-chip-title-1"
             >
@@ -29,7 +31,7 @@ export default function DomainsSection() {
           </div>
           <div className="domain-chip-container align-items-end">
             <DomainChips
-              to="/community/domain/ui-ux-designing"
+              to={`${ROUTE}${encodeURIComponent("UI/UX Design")}`}
               red
               className="domain-chip-title-2"
             >
@@ -38,7 +40,7 @@ export default function DomainsSection() {
           </div>
           <div className="domain-chip-container align-items-start">
             <DomainChips
-              to="/community/domain/ml-ai"
+              to={`${ROUTE}Machine Learning & AI`}
               orange
               className="domain-chip-title-3"
             >
@@ -47,7 +49,7 @@ export default function DomainsSection() {
           </div>
           <div className="domain-chip-container align-items-end">
             <DomainChips
-              to="/community/domain/cybersecurity"
+              to={`${ROUTE}Cyber Security`}
               green
               className="domain-chip-title-4"
             >
@@ -58,7 +60,7 @@ export default function DomainsSection() {
         <div>
           <div className="domain-chip-container align-items-end">
             <DomainChips
-              to="/community/domain/devops"
+              to={`${ROUTE}DevOps`}
               green
               className="domain-chip-title-5"
             >
@@ -67,7 +69,7 @@ export default function DomainsSection() {
           </div>
           <div className="domain-chip-container align-items-start">
             <DomainChips
-              to="/community/domain/web-development"
+              to={`${ROUTE}Web Development`}
               orange
               className="domain-chip-title-6"
             >
@@ -76,7 +78,7 @@ export default function DomainsSection() {
           </div>
           <div className="domain-chip-container">
             <DomainChips
-              to="/community/domain/dsa"
+              to={`${ROUTE}Data Structures & Algorithms`}
               red
               className="domain-chip-title-7"
             >
@@ -85,7 +87,7 @@ export default function DomainsSection() {
           </div>
           <div className="domain-chip-container align-items-end">
             <DomainChips
-              to="/community/domain/blockchain"
+              to={`${ROUTE}Block Chain`}
               orange
               className="domain-chip-title-8"
             >
