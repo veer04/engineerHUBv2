@@ -12,16 +12,15 @@ export default function ReviewCard({ id, img, text, name, activeCard }) {
     }
   }, [activeCard]);
 
-  const colors = ["#128381", "#F7D77F", "#B9FFFE"];
+  const colors = ["#128381", "#B9FFFE"];
+  const COUNT = 2;
 
   const cardIsActive = "review-card-is-active";
   const backdropActive = "review-card-backdrop-is-active";
   const [bgColor, setBgColor] = useState();
   useEffect(() => {
     setBgColor(() => {
-      return colors[
-        ((id % colors.length) + parseInt(id / colors.length)) % colors.length
-      ];
+      return colors[id % COUNT];
     });
   }, [id]);
 

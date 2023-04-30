@@ -6,11 +6,21 @@
   flex-direction: column;
   gap: 0.5rem;
 }
+.review-card:hover {
+  box-shadow: 4px 4px 20px 5px rgba(0, 0, 0, 0.25);
+  transform: scale(1.25);
+  transition: transform 0.2s ease-in-out;
+  z-index: 2;
+  background-color: #f7d77f !important;
+  color: black !important;
+}
 .review-card-is-active {
   box-shadow: 4px 4px 20px 5px rgba(0, 0, 0, 0.25);
   transform: scale(1.25) !important;
   transition: transform 0.2s ease-in-out !important;
   z-index: 2 !important;
+  background-color: #f7d77f !important;
+  color: black !important;
 }
 .review-card-backdrop-is-active {
   backdrop-filter: none !important;
