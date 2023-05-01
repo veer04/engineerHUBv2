@@ -88,9 +88,9 @@
     color:  rgba(1, 64, 81, 1);
     font-size: 1.2rem;
 }
-.socialProfileIcons{
+/* .socialProfileIcons{
 
-}
+} */
 .cardProfile1{
     background-color: #fff;
     color:  rgba(1, 64, 81, 1);
@@ -109,4 +109,7 @@
 .headingProfileSection{
     color:  rgba(1, 64, 81, 1);
     font-size: 1.4rem;
+}
+.inputFieldSignup{
+    width: 200px;
 }
