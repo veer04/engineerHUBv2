@@ -52,7 +52,7 @@ const Register = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        `api/v1/signin`,
+        `https://e-hub-backend-production-9545.up.railway.app/api/v1/login`,
         values
       );
 

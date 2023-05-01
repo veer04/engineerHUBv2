@@ -1,10 +1,12 @@
 import "./Signup.css";
-import { useState, useEffect } from 'react';
+import { useState, useEffect} from 'react';
+import { useNavigate } from "react-router-dom";
 import { TextField, Button, Box } from '@mui/material';
 import axios from "axios";
 // import GroupAddIcon from '@material-ui/icons/GroupAdd';
 
 const Signup = () => {
+  const navigate =useNavigate();
     const [skills, setSkill] = useState([]);
 
     const [formData, setFormData] = useState({
@@ -37,10 +39,10 @@ const Signup = () => {
       });
 
 
-      const handleInputChange = (event) => {
-        const inputValues = event.target.value.split(',');
-        setSkills(inputValues);
-      };
+      // const handleInputChange = (event) => {
+      //   const inputValues = event.target.value.split(',');
+      //   setSkills(inputValues);
+      // };
       const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData((prevFormData) => ({
@@ -113,12 +115,20 @@ const Signup = () => {
 
       const handleSubmit = async (e) => {
         e.preventDefault();
-        axios.post('https://e-hub-backend-production-9545.up.railway.app/api/v1/user/signup',formData).then((response) => {
-          console.log(response);
-        }, (error) => {
-          console.log(error);
-        });
+        if(validateInput()){
+          axios.post('https://e-hub-backend-production-9545.up.railway.app/api/v1/user/signup',formData).then((response) => {
+            console.log(response);
+          }, (error) => {
+            console.log(error);
+          });
 
+          if(response.status===200|| response.status===201||response.status===204)
+          {
+            Navigate("/otpverification");
+          }
+  
+        }
+      
       //  {
       //     try {
       //       const response = await fetch('http://e-hub-backend-production-9545.up.railway.app/user/signup', {
@@ -199,7 +209,8 @@ const Signup = () => {
     
     </div>
                 </div>
-                <div className="col-lg-9">
+                <div className="col-lg-2"></div>
+                <div className="col-lg-5">
                     <div className="form-container">
                         <p className="LformHeaderText">Basic Details</p>
     <form action="/" method="POST"  onSubmit={handleSubmit}>
@@ -208,6 +219,7 @@ const Signup = () => {
         name="name"
         label="Name"
         variant="outlined"
+        className="inputFieldSignup"
         value={formData.name}
         onChange={handleChange}
         fullWidth
@@ -230,6 +242,7 @@ const Signup = () => {
         name="email"
         label="Email"
         variant="outlined"
+        className="inputFieldSignup"
         value={formData.email}
         onChange={handleChange}
         fullWidth
@@ -241,6 +254,7 @@ const Signup = () => {
         name="mobile"
         label="Mobile No."
         variant="outlined"
+        className="inputFieldSignup"
         value={formData.mobile}
         onChange={handleChange}
         fullWidth
@@ -263,6 +277,7 @@ const Signup = () => {
         name="branch"
         label="branch Name"
         variant="outlined"
+        className="inputFieldSignup"
         value={formData.branch}
         onChange={handleChange}
         fullWidth
@@ -274,6 +289,7 @@ const Signup = () => {
         name="city"
         label="city"
         variant="outlined"
+        className="inputFieldSignup"
         value={formData.city}
         onChange={handleChange}
         fullWidth
@@ -285,6 +301,7 @@ const Signup = () => {
         name="country"
         label="Country"
         variant="outlined"
+        className="inputFieldSignup"
         value={formData.country}
         onChange={handleChange}
         fullWidth
@@ -296,6 +313,7 @@ const Signup = () => {
         name="institutionName"
         label="institutionName"
         variant="outlined"
+        className="inputFieldSignup"
         value={formData.institutionName}
         onChange={handleChange}
         fullWidth
@@ -307,6 +325,7 @@ const Signup = () => {
         name="password"
         label="password"
         variant="outlined"
+        className="inputFieldSignup"
         value={formData.password}
         onChange={handleChange}
         fullWidth
@@ -318,6 +337,7 @@ const Signup = () => {
         name="confirmPassword"
         label="confirmPassword"
         variant="outlined"
+        className="inputFieldSignup"
         value={formData.confirmPassword}
         onChange={handleChange}
         fullWidth
@@ -325,12 +345,12 @@ const Signup = () => {
         error={!!errors.confirmPassword}
         helperText={errors.confirmPassword}
       />
-       <input type="text" onChange={handleInputChange} />
+       {/* <input type="text" onChange={handleInputChange} />
       <ul>
         {skills.map((skills, index) => (
           <li key={index}>{skills.trim()}</li>
         ))}
-      </ul>
+      </ul> */}
 
       <Button type="submit" variant="contained" color="primary"
        >
