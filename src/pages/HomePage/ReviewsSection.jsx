@@ -5,21 +5,12 @@ import { getReviews } from "../../services/APIConfig";
 
 export default function ReviewsSection() {
   const [activeCard, setActiveCard] = useState(0);
-
-  //not more than 15 reviews recommended
-
-  //fetch reviews from database
-
   const [reviews, setReviews] = useState([]);
-
   useEffect(() => {
     getReviews(setReviews);
   }, []);
-
   let randomnessFactor = reviews.length;
-
   const [width, setWidth] = useState(window.innerWidth);
-
   useEffect(() => {
     window.addEventListener("resize", () => setWidth(window.innerWidth));
     const interval = setInterval(() => {
@@ -51,7 +42,7 @@ export default function ReviewsSection() {
     return reviews.map((review) => {
       return (
         <ReviewCard
-          key={review._id}
+          key={review.userId._id}
           index={counter++}
           name={review.userId.name}
           text={review.text}

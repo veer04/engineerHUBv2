@@ -86,11 +86,11 @@ export default function CampusPage() {
       </h2>
       <div className="search-bar__container">
         <div>
-          <SearchBar
+          {/* <SearchBar
             hasFiltration={false}
             placeholder="You are looking for which Campus?"
             type="text"
-          />
+          /> */}
         </div>
       </div>
       <div className="campus-events-section">

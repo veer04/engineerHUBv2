@@ -5,6 +5,7 @@ import filter from "./img/filter-icon.png";
 import { controller, getBlogs } from "../../../services/APIConfig";
 import BlogCard from "../../../components/BlogCard/BlogCard";
 import BlogWindow from "../../../components/BlogWindow/BlogWindow";
+import MobileSidebar from "../../../Components/MobileSidebar/MobileSidebar";
 
 export default function BlogsPage({ path }) {
   const { id } = useParams();
@@ -73,33 +74,37 @@ export default function BlogsPage({ path }) {
   }, [currentFilters, blogs]);
 
   return (
-    <div className="project-page">
-      <div className="community__subpage__heading">Blogs</div>
-      <div className="community__subpage__content">
-        <Sidebar path={path} />
-        <div className="project__content">
-          <div className="project__searchbar__container">
-            <div className="project__searchbar input-group">
-              <input
-                type="text"
-                className="form-control"
-                placeholder="Search"
-                aria-label="Search"
-                aria-describedby="basic-addon2"
-              />
-              <span className="input-group-text" id="basic-addon2">
-                <img src={filter} alt="filter" />
-              </span>
+    <>
+      <MobileSidebar path={path} />
+      <div className="project-page">
+        <div className="community__subpage__heading">
+          <span>Blogs</span>
+        </div>
+        <div className="community__subpage__content">
+          <Sidebar path={path} />
+          <div className="project__content">
+            <div className="project__searchbar__container">
+              <div className="project__searchbar input-group">
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder="Search"
+                  aria-label="Search"
+                  aria-describedby="basic-addon2"
+                />
+                <span className="input-group-text" id="basic-addon2">
+                  <img src={filter} alt="filter" />
+                </span>
+              </div>
             </div>
-          </div>
-          {/* <div className="project__chips__container">
+            {/* <div className="project__chips__container">
             {filters.map((item) => (
               <div
-                key={item.id}
-                onClick={() => {
-                  if (currentFilters.includes(item.name)) {
-                    const newFilters = currentFilters.filter(
-                      (filter) => filter !== item.name
+              key={item.id}
+              onClick={() => {
+                if (currentFilters.includes(item.name)) {
+                  const newFilters = currentFilters.filter(
+                    (filter) => filter !== item.name
                     );
                     setCurrentFilters(newFilters);
                   } else {
@@ -112,34 +117,35 @@ export default function BlogsPage({ path }) {
                   currentFilters.includes(item.name) && "project__chip--active"
                 }`}
               >
-                {item.name}
+              {item.name}
               </div>
             ))}
           </div> */}
-          <div className="project__list__container">
-            <div
-              className={`project__list ${
-                isBlogOpen && "project__list--collapsed"
-              }`}
-            >
-              {filteredBlogs.map((blog) => (
-                <BlogCard
-                  setBlogOpened={setBlogOpened}
+            <div className="project__list__container">
+              <div
+                className={`project__list ${
+                  isBlogOpen && "project__list--collapsed"
+                }`}
+              >
+                {filteredBlogs.map((blog) => (
+                  <BlogCard
+                    setBlogOpened={setBlogOpened}
+                    setIsBlogOpen={setIsBlogOpen}
+                    key={blog._id}
+                    {...blog}
+                  />
+                ))}
+              </div>
+              {isBlogOpen && (
+                <BlogWindow
+                  blogOpened={blogOpened}
                   setIsBlogOpen={setIsBlogOpen}
-                  key={blog._id}
-                  {...blog}
                 />
-              ))}
+              )}
             </div>
-            {isBlogOpen && (
-              <BlogWindow
-                blogOpened={blogOpened}
-                setIsBlogOpen={setIsBlogOpen}
-              />
-            )}
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }

@@ -4,37 +4,13 @@ import Sidebar from "../../../components/Sidebar/Sidebar";
 import filter from "./img/filter-icon.png";
 import { controller, getEvents } from "../../../services/APIConfig";
 import EventCard from "../../../components/EventCard/EventCard";
+import MobileSidebar from "../../../Components/MobileSidebar/MobileSidebar";
 
 export default function EventsPage({ path }) {
   const { id } = useParams();
 
   const [isEventOpen, setIsEventOpen] = useState(false);
   const [eventOpened, setEventOpened] = useState(undefined);
-
-  //   const [currentFilters, setCurrentFilters] = useState([]);
-
-  //   const filters = [
-  //     {
-  //       id: 1,
-  //       name: "HTML",
-  //     },
-  //     {
-  //       id: 2,
-  //       name: "JavaScript",
-  //     },
-  //     {
-  //       id: 3,
-  //       name: "CSS",
-  //     },
-  //     {
-  //       id: 4,
-  //       name: "Reactive native",
-  //     },
-  //     {
-  //       id: 5,
-  //       name: "Firebase",
-  //     },
-  //   ];
 
   const [events, setEvents] = useState(
     sessionStorage.getItem(`${id} events`)
@@ -76,43 +52,48 @@ export default function EventsPage({ path }) {
   //   }, [currentFilters, projects]);
 
   return (
-    <div className="project-page">
-      <div className="community__subpage__heading">Events</div>
-      <div className="community__subpage__content">
-        <Sidebar path={path} />
-        <div className="project__content">
-          <div className="project__searchbar__container">
-            <div className="project__searchbar input-group">
-              <input
-                type="text"
-                className="form-control"
-                placeholder="Search"
-                aria-label="Search"
-                aria-describedby="basic-addon2"
-              />
-              <span className="input-group-text" id="basic-addon2">
-                <img src={filter} alt="filter" />
-              </span>
-            </div>
-          </div>
-          <div className="project__list__container">
-            <div
-              className={`project__list ${
-                isEventOpen && "project__list--collapsed"
-              }`}
-            >
-              {events.map((event) => (
-                <EventCard
-                  setEventOpened={setEventOpened}
-                  setIsEventOpen={setIsEventOpen}
-                  key={event._id}
-                  {...event}
+    <>
+      <MobileSidebar path={path} />
+      <div className="project-page">
+        <div className="community__subpage__heading">
+          <span>Events</span>
+        </div>
+        <div className="community__subpage__content">
+          <Sidebar path={path} />
+          <div className="project__content">
+            <div className="project__searchbar__container">
+              <div className="project__searchbar input-group">
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder="Search"
+                  aria-label="Search"
+                  aria-describedby="basic-addon2"
                 />
-              ))}
+                <span className="input-group-text" id="basic-addon2">
+                  <img src={filter} alt="filter" />
+                </span>
+              </div>
+            </div>
+            <div className="project__list__container">
+              <div
+                className={`project__list ${
+                  isEventOpen && "project__list--collapsed"
+                }`}
+              >
+                {events.map((event) => (
+                  <EventCard
+                    setEventOpened={setEventOpened}
+                    setIsEventOpen={setIsEventOpen}
+                    key={event._id}
+                    {...event}
+                  />
+                ))}
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }

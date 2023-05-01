@@ -23,14 +23,14 @@ export default function SearchBar({
     result(filteredData);
   }, [filteredData]);
 
-  //function to filter the data according to the input
-  // const handleFilter = (e) => {
-  //   const searchWord = e.target.value.toLowerCase();
-  //   const newFilter = data.filter((value) => {
-  //     return value.projectName.toLowerCase().includes(searchWord);
-  //   });
-  //   result(searchWord.length === 0 ? data : newFilter);
-  // };
+  // function to filter the data according to the input
+  const handleFilter = (e) => {
+    const searchWord = e.target.value.toLowerCase();
+    const newFilter = data.filter((value) => {
+      return value.projectName.toLowerCase().includes(searchWord);
+    });
+    result(searchWord.length === 0 ? data : newFilter);
+  };
 
   return (
     <div className={`search-bar ${className ? className : ""}`}>

@@ -1,0 +1,33 @@
+.mobile-sidebar {
+  background-color: #494b4c;
+  font-size: 0.65rem;
+  height: 3.9375rem;
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  position: fixed;
+  width: 100%;
+  z-index: 10;
+  text-decoration: none;
+}
+.mobile-sidebar div {
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.mobile-sidebar div .svg {
+  font-size: 2rem;
+}
+.is-active {
+  color: #f5a623 !important;
+}
+
+@media screen and (min-width: 768px) {
+  .mobile-sidebar {
+    display: none;
+  }
+}

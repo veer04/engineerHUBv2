@@ -8,7 +8,6 @@ import CommunityPage from "./pages/Community/CommunityPage";
 import ProjectPage from "./pages/Community/Project/ProjectsPage";
 import BlogsPage from "./pages/Community/Blogs/BlogsPage";
 import EventsPage from "./pages/Community/Events/EventsPage";
-import SidebarProvider from "./contexts/SidebarContext";
 import ChatPage from "./pages/Community/Chat/ChatPage";
 import CampusPage from "./pages/Campus/CampusPage";
 import Mentorship from "./Components/1-1Mentorship/Mentorship";
@@ -26,58 +25,57 @@ import Login from "./pages/User/Login/Login";
 import Profile from "./pages/User/Profile/Profile";
 import Signup from "./pages/User/Signup/Signup";
 import OTP from "./pages/User/OtpVerification/Otpverification";
+import MobileNavbar from "./Components/MobileNavbar/MobileNavbar";
 function App() {
-
   return (
     <>
       <Navbar />
-      <SidebarProvider>
-        <Routes>
-          <Route index element={<HomePage />} />
-          <Route path="/home" element={<HomePage />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/otpverification" element={<OTP/>} />
-          <Route path="/community">
-            <Route index element={<CommunityPage />} />
-            <Route path="domains" element={<CommunityPage path="domains" />} />
-            <Route path="projects">
-              <Route path=":id" element={<ProjectPage path="projects" />} />
-            </Route>
-            <Route path="blogs">
-              <Route path=":id" element={<BlogsPage path="blogs" />} />
-            </Route>
-            <Route path="events">
-              <Route path=":id" element={<EventsPage path="events" />} />
-            </Route>
-            <Route path="chat">
-              <Route path=":id" element={<ChatPage path="chat" />} />
-            </Route>
+      <MobileNavbar />
+      <Routes>
+        <Route index element={<HomePage path="homepage" />} />
+        <Route path="/home" element={<HomePage />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/otpverification" element={<OTP />} />
+        <Route path="/community">
+          <Route index element={<CommunityPage />} />
+          <Route path="domains" element={<CommunityPage path="domains" />} />
+          <Route path="projects">
+            <Route path=":id" element={<ProjectPage path="projects" />} />
           </Route>
-          <Route path="/mentorChat" element={<MentorChat />} />
-          <Route path="/campus">
-            <Route index element={<CampusPage />} />
-            <Route path="inter-college" element={<InterCollege />} />
-            <Route path="intra-college" element={<IntraCollege />} />
-            <Route path="workshop" element={<Workshops />} />
-            <Route path=":collegeId">
-              <Route index element={<ParticularCampus />} />
-              <Route path="details" element={<CampusDetails />} />
-              <Route path="technical-clubs" element={<ClubsPage />} />
+          <Route path="blogs">
+            <Route path=":id" element={<BlogsPage path="blogs" />} />
+          </Route>
+          <Route path="events">
+            <Route path=":id" element={<EventsPage path="events" />} />
+          </Route>
+          <Route path="chat">
+            <Route path=":id" element={<ChatPage path="chat" />} />
+          </Route>
+        </Route>
+        <Route path="/mentorChat" element={<MentorChat />} />
+        <Route path="/campus">
+          <Route index element={<CampusPage />} />
+          <Route path="inter-college" element={<InterCollege />} />
+          <Route path="intra-college" element={<IntraCollege />} />
+          <Route path="workshop" element={<Workshops />} />
+          <Route path=":collegeId">
+            <Route index element={<ParticularCampus />} />
+            <Route path="details" element={<CampusDetails />} />
+            <Route path="technical-clubs" element={<ClubsPage />} />
 
-              <Route path="alumni">
-                <Route index element={<AlumniPage />} />
-                {/* <Route path="detail" 
+            <Route path="alumni">
+              <Route index element={<AlumniPage />} />
+              {/* <Route path="detail" 
               ></Route> */}
-              </Route>
             </Route>
           </Route>
-          {/* <Route path="/company" element={<Company></Company>} /> */}
-          <Route path="/mentorship" element={<Mentorship />} />
-          <Route path="/hosting" element={<Hosting />} />
-        </Routes>
-      </SidebarProvider>
+        </Route>
+        {/* <Route path="/company" element={<Company></Company>} /> */}
+        <Route path="/mentorship" element={<Mentorship />} />
+        <Route path="/hosting" element={<Hosting />} />
+      </Routes>
       <Footer />
     </>
   );

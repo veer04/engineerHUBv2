@@ -126,7 +126,6 @@ export const getAllEvents = (setEvents) => {
     })
     .then((res) => {
       const data = res.data.data;
-      console.log(data);
       setEvents(data);
     })
     .catch((err) => {
@@ -203,6 +202,7 @@ export const getReviews = (setReviews) => {
     })
     .then((res) => {
       const data = res.data.data;
+      console.log(data);
       setReviews(data);
     })
     .catch((err) => {

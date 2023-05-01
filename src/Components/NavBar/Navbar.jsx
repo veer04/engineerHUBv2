@@ -76,9 +76,7 @@ export default function Navbar() {
               </ButtonRounded>
             </Link>
             <Link className="nav-link" to="/hosting">
-              <ButtonRounded className="nav-middle-items">
-                Hosting
-              </ButtonRounded>
+              <ButtonRounded className="nav-middle-items">Host</ButtonRounded>
             </Link>
           </div>
         </div>

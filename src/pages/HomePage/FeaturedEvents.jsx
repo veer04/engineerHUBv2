@@ -90,9 +90,11 @@ export default function FeaturedEvents() {
         margin: ".5rem 0",
         backgroundImage: `url(${image})`,
         height: "4.7rem",
+        minHeight: "4.7rem",
+        maxHeight: "4.7rem",
         width: "100%",
         backgroundSize: "contain",
-        backgroundRepeat: "repeat",
+        backgroundRepeat: "repeat-x",
         animation: "scroll 5s linear infinite",
       }}
     >
@@ -107,9 +109,12 @@ export default function FeaturedEvents() {
         margin: ".5rem 0",
         backgroundImage: `url(${image2})`,
         height: "4.7rem",
+        minHeight: "4.7rem",
+        maxHeight: "4.7rem",
+
         width: "100%",
         backgroundSize: "contain",
-        backgroundRepeat: "repeat",
+        backgroundRepeat: "repeat-x",
         animation: "scroll 5s linear infinite",
       }}
     >

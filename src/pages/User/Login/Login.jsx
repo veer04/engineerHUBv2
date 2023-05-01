@@ -10,9 +10,12 @@ import CustomSnackbar from "./CustomSnackbar";
 
 import "./Login.css";
 import axios, { AxiosError } from "axios";
+import useMobileNavbar from "../../../hooks/use-mobileNavbar";
 
 
 const Register = () => {
+  const {setSelectedPage} = useMobileNavbar();
+  setSelectedPage("login");
   const signIn=useSignIn();
   const navigate=useNavigate();
   const [password, setPassword] = useState("");

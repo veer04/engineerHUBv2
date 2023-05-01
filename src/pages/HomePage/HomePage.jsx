@@ -11,10 +11,12 @@ import ReviewsSection from "./ReviewsSection";
 import SiliconValley from "./SiliconValley";
 import JobsSection from "./JobsSection";
 import { useEffect } from "react";
+import useMobileNavbar from "../../hooks/use-mobileNavbar";
 
 export default function HomePage() {
-  //scroll to top on render
+  const { setSelectedPage } = useMobileNavbar();
   useEffect(() => {
+    setSelectedPage("home");
     window.scrollTo(0, 0);
   }, []);
 
@@ -29,7 +31,7 @@ export default function HomePage() {
       <JobsSection />
       <RecentActivitiesSection />
       <SiliconValley />
-      <ReviewsSection />
+      {/* <ReviewsSection /> */}
     </div>
   );
 }
