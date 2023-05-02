@@ -45,10 +45,16 @@
     border: solid 1px #0a3f51;
     border-radius: 5px;
     background-color: #eeffff;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 .buttonOnHostingPage{
     border: none;
   background: rgba(18, 131, 129, 1);
    color: #fff;
    padding: 5px;
+   padding-left: 20px;
+   padding-right: 20px;
+   border-radius: 5px;
+   margin-bottom: 1%;
 }

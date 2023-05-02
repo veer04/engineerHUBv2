@@ -137,11 +137,13 @@ const EventRegistrationForm = () => {
           />
           <br />
 
-          <button type="button" onClick={handlePrev}>
+          <button type="button" onClick={handlePrev}
+          className='buttonOnHostingPage'>
             Previous
           </button>
 
-          <button type="submit">Submit</button>
+          <button type="submit"
+          className='buttonOnHostingPage'>Submit</button>
           </div>
         </div>
       )}
