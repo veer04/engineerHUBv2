@@ -9,7 +9,7 @@ export default function ReviewsSection() {
   useEffect(() => {
     getReviews(setReviews);
   }, []);
-  let randomnessFactor = reviews.length;
+  let randomnessFactor = 15;
   const [width, setWidth] = useState(window.innerWidth);
   useEffect(() => {
     window.addEventListener("resize", () => setWidth(window.innerWidth));

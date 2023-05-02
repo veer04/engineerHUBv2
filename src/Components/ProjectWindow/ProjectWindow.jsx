@@ -3,9 +3,15 @@ import "./ProjectWindow.css";
 import { RxCross1 } from "react-icons/rx";
 import { getProjectById, controller } from "../../services/APIConfig";
 import decryptData from "../../features/DeCrypt";
+import useSidebar from "../../hooks/use-sidebar";
 
 export default function ProjectWindow({ projectOpened, setIsProjectOpen }) {
   const [project, setProject] = useState({});
+  const { isCollapsed } = useSidebar();
+
+  useEffect(() => {
+    if (isCollapsed === false) setIsProjectOpen(false);
+  }, [isCollapsed]);
 
   useEffect(() => {
     getProjectById(setProject, projectOpened);
@@ -27,8 +33,11 @@ export default function ProjectWindow({ projectOpened, setIsProjectOpen }) {
               backgroundSize: "cover",
               backgroundPosition: "center",
               backgroundRepeat: "no-repeat",
+              minWidth: "50px",
+              minHeight: "50px",
               width: "50px",
               height: "50px",
+              aspectRatio: "1/1",
               borderRadius: "50%",
               backgroundColor: "lightblue",
             }}

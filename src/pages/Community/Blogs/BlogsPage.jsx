@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import Sidebar from "../../../components/Sidebar/Sidebar";
+import Sidebar from "../../../Components/Sidebar/Sidebar";
 import filter from "./img/filter-icon.png";
 import { controller, getBlogs } from "../../../services/APIConfig";
 import BlogCard from "../../../components/BlogCard/BlogCard";
@@ -73,6 +73,20 @@ export default function BlogsPage({ path }) {
     }
   }, [currentFilters, blogs]);
 
+  const [width, setWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    window.addEventListener("resize", () => {
+      setWidth(window.innerWidth);
+    });
+
+    return () => {
+      window.removeEventListener("resize", () => {
+        setWidth(window.innerWidth);
+      });
+    };
+  }, []);
+
   return (
     <>
       <MobileSidebar path={path} />
@@ -121,11 +135,13 @@ export default function BlogsPage({ path }) {
               </div>
             ))}
           </div> */}
-            <div className="project__list__container">
+            <div
+              className={`project__list__container project__list_container--window-open `}
+            >
               <div
                 className={`project__list ${
-                  isBlogOpen && "project__list--collapsed"
-                }`}
+                  isBlogOpen ? "project__list--collapsed" : ""
+                } ${width <= 1000 && isBlogOpen ? "--no-display" : ""}`}
               >
                 {filteredBlogs.map((blog) => (
                   <BlogCard

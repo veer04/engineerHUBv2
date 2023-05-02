@@ -202,7 +202,6 @@ export const getReviews = (setReviews) => {
     })
     .then((res) => {
       const data = res.data.data;
-      console.log(data);
       setReviews(data);
     })
     .catch((err) => {

@@ -1,6 +1,7 @@
 import React from "react";
 import "./ProjectCard.css";
 import { IoPeopleOutline } from "react-icons/io5";
+import useSidebar from "../../hooks/use-sidebar";
 
 export default function ProjectCard({
   projectImage,
@@ -15,23 +16,27 @@ export default function ProjectCard({
   setIsProjectOpen,
 }) {
   const bgColors = [
-    "var(--secondary-color-biege)", //rgb(232,186,152)
-    "var(--secondary-color-green)", //rgb(178,232,135)
-    "var(--secondary-color-yellow)", //rgb(247,215,127)
-    "var(--secondary-color-blue)", //rgb(143,200,232)
+    "rgb(247, 215, 127, 0.36)",
+    "rgb(178, 232, 135, 0.3)",
+    "rgb(232, 186, 152, 0.35)",
+    "rgb(130, 55, 253, 0.15)",
   ];
 
   const textColors = [
-    "rgb(255,90,180)",
-    "rgb(36,255,0)",
     "rgb(255,187,0)",
-    "rgb(13,140,255)",
+    "rgb(36,255,0)",
+    "rgb(243,46,79)",
+    "rgb(97,22,219)",
   ];
+
+  const { setIsCollapsed } = useSidebar();
 
   return (
     <div
       onClick={() => {
-        setProjectOpened(_id), setIsProjectOpen(true);
+        setProjectOpened(_id);
+        setIsProjectOpen(true);
+        setIsCollapsed(true);
       }}
       className="project__list__item"
     >
@@ -81,12 +86,12 @@ export default function ProjectCard({
           ></div>
           <div className="name">{organization}</div>
         </div>
-        <div className="people">
+        {/* <div className="people">
           <div className="people__icon">
             <IoPeopleOutline />
           </div>
           <div className="people__number">100</div>
-        </div>
+        </div> */}
       </div>
     </div>
   );

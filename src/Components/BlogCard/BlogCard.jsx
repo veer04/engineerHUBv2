@@ -1,6 +1,7 @@
 import React from "react";
 import "./BlogCard.css";
 import { IoPeopleOutline } from "react-icons/io5";
+import useSidebar from "../../hooks/use-sidebar";
 
 export default function BlogCard({
   postIcon,
@@ -14,11 +15,14 @@ export default function BlogCard({
   createdAt,
 }) {
   console.log();
+  const { setIsCollapsed } = useSidebar();
 
   return (
     <div
       onClick={() => {
-        setBlogOpened(_id), setIsBlogOpen(true);
+        setBlogOpened(_id);
+        setIsBlogOpen(true);
+        setIsCollapsed(true);
       }}
       className="project__list__item blog__list__item"
     >

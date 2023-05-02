@@ -23,7 +23,7 @@
   font-size: 2rem;
 }
 .is-active {
-  color: #f5a623 !important;
+  color: #ffd80a !important;
 }
 
 @media screen and (min-width: 768px) {

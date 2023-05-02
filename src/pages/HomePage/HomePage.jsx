@@ -31,7 +31,7 @@ export default function HomePage() {
       <JobsSection />
       <RecentActivitiesSection />
       <SiliconValley />
-      {/* <ReviewsSection /> */}
+      <ReviewsSection />
     </div>
   );
 }

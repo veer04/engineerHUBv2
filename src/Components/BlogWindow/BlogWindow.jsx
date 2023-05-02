@@ -2,15 +2,19 @@ import React, { useEffect, useState } from "react";
 import "./BlogWindow.css";
 import { RxCross1 } from "react-icons/rx";
 import { getBlogById } from "../../services/APIConfig";
+import useSidebar from "../../hooks/use-sidebar";
 
 export default function BlogWindow({ blogOpened, setIsBlogOpen }) {
   const [blog, setBlog] = useState({});
+  const { isCollapsed } = useSidebar();
 
+  useEffect(() => {
+    if (isCollapsed === false) setIsBlogOpen(false);
+  }, [isCollapsed]);
   useEffect(() => {
     getBlogById(setBlog, blogOpened);
   }, [blogOpened]);
 
-  console.log(blog.createdAt);
   const date = blog.createdAt ? new Date(blog.createdAt) : new Date();
   return (
     <div className="project__window">

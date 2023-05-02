@@ -1,12 +1,12 @@
 import React, { useEffect, useState, useMemo } from "react";
 import "./ProjectsPage.css";
 import { useParams } from "react-router-dom";
-import Sidebar from "../../../components/Sidebar/Sidebar";
+import Sidebar from "../../../Components/Sidebar/Sidebar";
 import filterImg from "./img/filter-icon.png";
 import image from "./img/image.png";
 import ProjectCard from "../../../components/ProjectCard/ProjectCard";
 import { RxCross1 } from "react-icons/rx";
-import ProjectWindow from "../../../components/ProjectWindow/ProjectWindow";
+import ProjectWindow from "../../../Components/ProjectWindow/ProjectWindow";
 import {
   controller,
   getProjectTags,
@@ -82,26 +82,20 @@ export default function ProjectPage({ path }) {
     if (searchedProjects.length > 0) {
       setFilteredProjects(searchedProjects);
     } else {
-      setFilteredProjects(filteredProjects);
+      setFilteredProjects([]);
     }
   }, [searchedProjects]);
-
-  // const [internshipData, setInternshipData] = useState([]);
-
-  // const filteredInternshipData = useMemo(() => {
-  //   return internshipData.filter((i) => {
-  //     return (
-  //       i.internCompany.toLowerCase().includes(query.toLowerCase()) ||
-  //       i.internPosition.toLowerCase().includes(query.toLowerCase())
-  //     );
-  //   });
-  // }, [query, internshipData]);
 
   const [query, setQuery] = useState("");
 
   const filteredData = useMemo(() => {
     return projects.filter((value) => {
-      return value.projectName.toLowerCase().includes(query.toLowerCase());
+      return (
+        value.projectName.toLowerCase().includes(query.toLowerCase()) ||
+        value.techStack.some((tag) =>
+          tag.toLowerCase().includes(query.toLowerCase())
+        )
+      );
     });
   }, [projects, query]);
 
@@ -121,6 +115,20 @@ export default function ProjectPage({ path }) {
     setProjectOpened(project);
     setIsProjectOpen(true);
   };
+
+  const [width, setWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    window.addEventListener("resize", () => {
+      setWidth(window.innerWidth);
+    });
+
+    return () => {
+      window.removeEventListener("resize", () => {
+        setWidth(window.innerWidth);
+      });
+    };
+  }, []);
 
   return (
     <>
@@ -157,7 +165,7 @@ export default function ProjectPage({ path }) {
                     <path
                       d="M7.53223 14.0332C8.92969 14.0332 10.2393 13.6113 11.3291 12.8906L15.1787 16.749C15.4336 16.9951 15.7588 17.1182 16.1104 17.1182C16.8398 17.1182 17.376 16.5469 17.376 15.8262C17.376 15.4922 17.2617 15.167 17.0156 14.9209L13.1924 11.0801C13.9834 9.95508 14.4492 8.59277 14.4492 7.11621C14.4492 3.31055 11.3379 0.199219 7.53223 0.199219C3.73535 0.199219 0.615234 3.31055 0.615234 7.11621C0.615234 10.9219 3.72656 14.0332 7.53223 14.0332ZM7.53223 12.1875C4.74609 12.1875 2.46094 9.90234 2.46094 7.11621C2.46094 4.33008 4.74609 2.04492 7.53223 2.04492C10.3184 2.04492 12.6035 4.33008 12.6035 7.11621C12.6035 9.90234 10.3184 12.1875 7.53223 12.1875Z"
                       fill="#3C3C43"
-                      fill-opacity="0.6"
+                      fillOpacity="0.6"
                     />
                   </svg>
                 </span>
@@ -176,35 +184,40 @@ export default function ProjectPage({ path }) {
                 </span>
               </div> */}
             </div>
-            <div className="project__chips__container">
-              {tags.map((item) => (
-                <div
-                  key={item._id}
-                  onClick={() => {
-                    if (currentFilters.includes(item._id)) {
-                      const newFilters = currentFilters.filter(
-                        (filter) => filter !== item._id
-                      );
-                      setCurrentFilters(newFilters);
-                    } else {
-                      setCurrentFilters((prevValue) => {
-                        return [...prevValue, item._id];
-                      });
-                    }
-                  }}
-                  className={`project__chip ${
-                    currentFilters.includes(item._id) && "project__chip--active"
-                  }`}
-                >
-                  {item._id}
-                </div>
-              ))}
-            </div>
-            <div className="project__list__container">
+            {width > 768 && (
+              <div className="project__chips__container">
+                {tags.map((item) => (
+                  <div
+                    key={item._id}
+                    onClick={() => {
+                      if (currentFilters.includes(item._id)) {
+                        const newFilters = currentFilters.filter(
+                          (filter) => filter !== item._id
+                        );
+                        setCurrentFilters(newFilters);
+                      } else {
+                        setCurrentFilters((prevValue) => {
+                          return [...prevValue, item._id];
+                        });
+                      }
+                    }}
+                    className={`project__chip ${
+                      currentFilters.includes(item._id) &&
+                      "project__chip--active"
+                    }`}
+                  >
+                    {item._id}
+                  </div>
+                ))}
+              </div>
+            )}
+            <div
+              className={`project__list__container project__list_container--window-open `}
+            >
               <div
                 className={`project__list ${
                   isProjectOpen ? "project__list--collapsed" : ""
-                }`}
+                } ${width <= 1000 && isProjectOpen ? "--no-display" : ""}`}
               >
                 {filteredProjects.map((project) => (
                   <ProjectCard
@@ -215,6 +228,7 @@ export default function ProjectPage({ path }) {
                   />
                 ))}
               </div>
+
               {isProjectOpen && (
                 <ProjectWindow
                   projectOpened={projectOpened}
