@@ -40,9 +40,9 @@ export default function ParticularCampus() {
   ];
   return (
     <div className="particular-campus-page">
-      <div className="search-bar__container">
+      {/* <div className="search-bar__container">
         <SearchBar placeholder="You are looking for which campus" type="text" />
-      </div>
+      </div> */}
       <div className="image-carousel__container">
         <div className="image-carousel">
           <ImageCarousel />
