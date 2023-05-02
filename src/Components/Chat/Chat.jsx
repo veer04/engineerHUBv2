@@ -24,30 +24,30 @@ import { Link } from "react-router-dom";
 export default function Chat({ className }) {
   // const navigate = useNavigate();
   const [messages, setMessages] = useState([
-    {
-      _id: 1,
-      userId: 1001,
-      userName: "Manish Rai",
-      isVerified: true,
-      time: "12:00 PM",
-      tags: ["Mentor"],
-      message: "Lorem ipsum dolor sit amet",
-      avatar: `https://source.unsplash.com/random?query=${
-        Math.random() * 1000
-      }`,
-    },
-    {
-      _id: 2,
-      userId: 1002,
-      userName: "Yash Vardhan",
-      isVerified: false,
-      time: "12:15 PM",
-      message:
-        "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Corporis ullam debitis porro velit dicta, nesciunt aperiam sequi consectetur eum, dignissimos obcaecati eos voluptatibus blanditiis impedit expedita suscipit similique ea doloremque.",
-      avatar: `https://source.unsplash.com/random?query=${
-        Math.random() * 2000
-      }`,
-    },
+    // {
+    //   _id: 1,
+    //   userId: 1001,
+    //   userName: "Manish Rai",
+    //   isVerified: true,
+    //   time: "12:00 PM",
+    //   tags: ["Mentor"],
+    //   message: "Lorem ipsum dolor sit amet",
+    //   avatar: `https://source.unsplash.com/random?query=${
+    //     Math.random() * 1000
+    //   }`,
+    // },
+    // {
+    //   _id: 2,
+    //   userId: 1002,
+    //   userName: "Yash Vardhan",
+    //   isVerified: false,
+    //   time: "12:15 PM",
+    //   message:
+    //     "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Corporis ullam debitis porro velit dicta, nesciunt aperiam sequi consectetur eum, dignissimos obcaecati eos voluptatibus blanditiis impedit expedita suscipit similique ea doloremque.",
+    //   avatar: `https://source.unsplash.com/random?query=${
+    //     Math.random() * 2000
+    //   }`,
+    // },
     {
       _id: 3,
       userId: 1003,
@@ -82,6 +82,8 @@ export default function Chat({ className }) {
   }, [messages]);
 
   function handleSubmit() {
+    setComingSoon(true);
+    return;
     if (input) {
       setMessages([
         ...messages,
@@ -107,6 +109,10 @@ export default function Chat({ className }) {
     }
   };
 
+  const [isGuidelineAccepted, setIsGuidelineAccepted] = useState(false);
+
+  const [comingSoon, setComingSoon] = useState(false);
+
   return (
     <div className={`chat-container ${className ? className : ""}`}>
       <div className="chat-header">
@@ -117,7 +123,59 @@ export default function Chat({ className }) {
           </div>
         </Link>
       </div>
-      <div className="chat-display">{renderedMessages}</div>
+      <div className="chat-display">
+        {renderedMessages}
+        {!isGuidelineAccepted && (
+          <div className="chat-guidelines">
+            <div className="content">
+              <div className="heading">Community Chat Guidelines</div>
+              <div className="text">
+                <ol>
+                  <li>
+                    Follow code of conduct: Users should abide by the website's
+                    code of conduct and report any violations they encounter.
+                    This helps to maintain a safe and respectful community chat
+                    environment for everyone.
+                  </li>
+                  <li>
+                    Don't engage in illegal activities: Users should not engage
+                    in any illegal activities, including hacking, pirating, or
+                    sharing illegal content. Any illegal activity will not be
+                    tolerated and may lead to legal consequences.
+                  </li>
+                  <li>
+                    Don't promote products or services: Users should not use
+                    community chat to promote products or services. This can be
+                    seen as spamming and can lead to user complaints or
+                    moderator intervention.
+                  </li>
+                  <li>
+                    Follow website policies: Users should familiarize themselves
+                    with the website's policies and guidelines and abide by
+                    them. Failure to follow website policies may result in
+                    warnings or bans from the community chat.
+                  </li>
+                </ol>
+              </div>
+              <div
+                onClick={() => setIsGuidelineAccepted(true)}
+                className="button"
+              >
+                I Accept
+              </div>
+            </div>
+          </div>
+        )}
+        {comingSoon && (
+          <div className="chat-guidelines">
+            <div className="content">
+              <div className="chat-coming-soon">
+                Chat will be available soon
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
       <div className="chat-input">
         <input
           id="chat-input"
