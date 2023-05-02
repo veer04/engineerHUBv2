@@ -206,9 +206,9 @@ export default function TechnicalClubs() {
 
   return (
     <div className="clubs-page">
-      <div className="search-bar__container">
+      {/* <div className="search-bar__container">
         <SearchBar placeholder="Search for a club" type="text" />
-      </div>
+      </div> */}
       {width <= 1320 && mobileRenderedTrendingClubs}
       <div className="content">
         <div className="column column1">{renderedSocietiesClubs}</div>
