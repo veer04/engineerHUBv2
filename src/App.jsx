@@ -26,7 +26,11 @@ import Profile from "./pages/User/Profile/Profile";
 import Signup from "./pages/User/Signup/Signup";
 import OTP from "./pages/User/OtpVerification/Otpverification";
 import MobileNavbar from "./Components/MobileNavbar/MobileNavbar";
+<<<<<<< HEAD
 import HostEvent from "./pages/Hosting/EventRegistration";
+=======
+// import EventModal from "./Components/EventModal/EventModal";
+>>>>>>> e9c4386c5c481f8d4f2b8208b0d4c64cc7a2d602
 function App() {
   return (
     <>
@@ -68,12 +72,9 @@ function App() {
 
             <Route path="alumni">
               <Route index element={<AlumniPage />} />
-              {/* <Route path="detail" 
-              ></Route> */}
             </Route>
           </Route>
         </Route>
-        {/* <Route path="/company" element={<Company></Company>} /> */}
         <Route path="/mentorship" element={<Mentorship />} />
         <Route path="/hostevent" element={<HostEvent></HostEvent>} ></Route>
         <Route path="hosting" >

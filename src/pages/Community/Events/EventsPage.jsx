@@ -5,6 +5,9 @@ import filter from "./img/filter-icon.png";
 import { controller, getEvents } from "../../../services/APIConfig";
 import EventCard from "../../../components/EventCard/EventCard";
 import MobileSidebar from "../../../Components/MobileSidebar/MobileSidebar";
+// import EventModal from "../../../Components/EventModal/EventModal";
+import "./EventsPage.css";
+import { MdCancel } from "react-icons/md";
 
 export default function EventsPage({ path }) {
   const { id } = useParams();
@@ -31,8 +34,6 @@ export default function EventsPage({ path }) {
     sessionStorage.setItem(`${id} events`, JSON.stringify(events));
   }, [events]);
 
-  console.log(events);
-
   //   const [filteredProjects, setFilteredProjects] = useState([]);
 
   //   useEffect(() => {
@@ -54,6 +55,7 @@ export default function EventsPage({ path }) {
   return (
     <>
       <MobileSidebar path={path} />
+      {/* {showModal && modal} */}
       <div className="project-page">
         <div className="community__subpage__heading">
           <span>Events</span>
