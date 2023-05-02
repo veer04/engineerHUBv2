@@ -26,6 +26,7 @@ import Profile from "./pages/User/Profile/Profile";
 import Signup from "./pages/User/Signup/Signup";
 import OTP from "./pages/User/OtpVerification/Otpverification";
 import MobileNavbar from "./Components/MobileNavbar/MobileNavbar";
+import HostEvent from "./pages/Hosting/EventRegistration";
 function App() {
   return (
     <>
@@ -74,7 +75,11 @@ function App() {
         </Route>
         {/* <Route path="/company" element={<Company></Company>} /> */}
         <Route path="/mentorship" element={<Mentorship />} />
-        <Route path="/hosting" element={<Hosting />} />
+        <Route path="/hostevent" element={<HostEvent></HostEvent>} ></Route>
+        <Route path="hosting" >
+              <Route index element={<Hosting></Hosting>}/>
+              
+        </Route>
       </Routes>
       <Footer />
     </>

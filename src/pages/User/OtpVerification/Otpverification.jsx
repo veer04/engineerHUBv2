@@ -3,29 +3,27 @@ import "./Otpverification.css";
 import { useState, useEffect } from 'react';
 import { TextField, Button, Box } from '@mui/material';
 import axios from "axios";
-// import GroupAddIcon from '@material-ui/icons/GroupAdd';
+
 
 const OTP = () => {
-    const url="http.google.com"
-    const [otp, setOTP] = useState('');
-
-    const handleChange = (event) => {
-      setOTP(event.target.value);
-    }
-    const handleSubmit =()=>
-    {
-        e.preventdefault(url,otp);
-        axios.post(url,otp).then((response)=>{
-            console.log(response);
-        },(error)=>{
-            console.log(error);
-        });
-    }
-    // axios.post('https://e-hub-backend-production-9545.up.railway.app/api/v1/user/signup',formData).then((response) => {
-    //     console.log(response);
-    //   }, (error) => {
-    //     console.log(error);
-    //   });
+    const [email, setEmail] = useState("");
+    const [role, setRole] = useState("User");
+    const [otp, setOtp] = useState("");
+  
+    const handleSubmit = (event) => {
+      event.preventDefault();
+  
+      const data = {
+        email: email,
+        role: role,
+        OTP: otp
+      };
+  
+      axios.patch("https://e-hub-backend-production-9545.up.railway.app/api/v1/signup/verify", data)
+        .then(response => console.log(response.data))
+        .catch(error => console.error(error));
+    };
+ 
   return (
     <>
     <div className="Login">
@@ -93,23 +91,34 @@ const OTP = () => {
                    </p>
                    <div className="container otpBox">
                     <div className="otpVbox">
-                    <div>
-                        <form action="" onSubmit={handleSubmit}>
-                        <label htmlFor="otp">Enter OTP:</label>
-                        <input
+                    <form onSubmit={handleSubmit}>
+                            <label>
+                                Email:
+                                <input type="email" value={email} onChange={(event) => setEmail(event.target.value)} />
+                            </label>
+                            <label>
+                                Role:
+                                <select value={role} onChange={(event) => setRole(event.target.value)}>
+                                <option value="User">User</option>
+                                <option value="Mentor">Mentor</option>
+                                <option value="Organization">Organization</option>
+                                </select>
+                            </label>
+                            <label>
+                                OTP:
+                                <input
                             type="text"
                             id="otp"
                             value={otp}
-                            onChange={handleChange}
+                            onChange={(event) => setOtp(event.target.value)}
                             maxLength={6}
                             pattern="[0-9]*" 
                             required 
                         />
-                        <button type ="submit" className="btnSubmit">
-                        Verify
-                        </button>
-                        </form>
-                        </div>
+                            </label>
+                            <button type="submit">Submit</button>
+                    </form>
+
                     </div>
                    </div>
 
