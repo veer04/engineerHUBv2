@@ -26,6 +26,7 @@ import Profile from "./pages/User/Profile/Profile";
 import Signup from "./pages/User/Signup/Signup";
 import OTP from "./pages/User/OtpVerification/Otpverification";
 import MobileNavbar from "./Components/MobileNavbar/MobileNavbar";
+// import EventModal from "./Components/EventModal/EventModal";
 function App() {
   return (
     <>
@@ -67,12 +68,9 @@ function App() {
 
             <Route path="alumni">
               <Route index element={<AlumniPage />} />
-              {/* <Route path="detail" 
-              ></Route> */}
             </Route>
           </Route>
         </Route>
-        {/* <Route path="/company" element={<Company></Company>} /> */}
         <Route path="/mentorship" element={<Mentorship />} />
         <Route path="/hosting" element={<Hosting />} />
       </Routes>
