@@ -9,12 +9,20 @@ const EventRegistrationForm = () => {
   const [eventDate, setEventDate] = useState('');
   const [eventLocation, setEventLocation] = useState('');
 
-  const handleNext = () => {
+  const [activeButton, setActiveButton] = useState('btn2');
+
+//   const handleButtonClick = (buttonName) => {
+    
+//   };
+
+  const handleNext = (buttonName) => {
     setStep(step + 1);
+    setActiveButton('btn1');
   };
 
   const handlePrev = () => {
     setStep(step - 1);
+    setActiveButton('btn2');
   };
 
   const handleSubmit = (e) => {
@@ -47,9 +55,9 @@ const EventRegistrationForm = () => {
 
             </div>
         <div className="navDifferentPagesButton">
-            <div className="btn1">Basic Details </div>
-            <div className="btn2">Applicant Details</div>
-            <div className="btn3">Publish</div>
+            <div className={activeButton === 'btn2' ? 'btn1' : 'btn3'}>Basic Details </div>
+            <div className={activeButton === 'btn2' ? 'btn1' : 'btn3'}>Applicant Details</div>
+            <div className={activeButton === 'btn2' ? 'btn1' : 'btn3'}>Publish</div>
         </div>
         <form onSubmit={handleSubmit}>
 
@@ -93,7 +101,7 @@ const EventRegistrationForm = () => {
           />
           <br />
 
-          <button type="button" onClick={handleNext}
+          <button type="button" onClick={handleNext()}
           className='buttonOnHostingPage'>
             Next
           </button>
@@ -103,6 +111,9 @@ const EventRegistrationForm = () => {
 
       {step === 2 && (
         <div>
+               <div className="step1Header">
+                Step 2 - Application Details
+            </div>
              <div className="formcontainer">
           <label htmlFor="eventName">Event Name:</label>
           <input
@@ -137,7 +148,7 @@ const EventRegistrationForm = () => {
           />
           <br />
 
-          <button type="button" onClick={handlePrev}
+          <button type="button" onClick={handlePrev()}
           className='buttonOnHostingPage'>
             Previous
           </button>
