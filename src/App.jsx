@@ -73,10 +73,9 @@ function App() {
           </Route>
         </Route>
         <Route path="/mentorship" element={<Mentorship />} />
-        <Route path="/hostevent" element={<HostEvent></HostEvent>} ></Route>
-        <Route path="hosting" >
-              <Route index element={<Hosting></Hosting>}/>
-              
+        <Route path="/hostevent" element={<HostEvent></HostEvent>}></Route>
+        <Route path="hosting">
+          <Route index element={<Hosting></Hosting>} />
         </Route>
       </Routes>
       <Footer />
