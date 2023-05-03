@@ -12,8 +12,12 @@ export default function BlogWindow({ blogOpened, setIsBlogOpen }) {
     if (isCollapsed === false) setIsBlogOpen(false);
   }, [isCollapsed]);
   useEffect(() => {
+    console.log(blogOpened);
     getBlogById(setBlog, blogOpened);
   }, [blogOpened]);
+  useEffect(() => {
+    console.log(blog);
+  }, [blog]);
 
   const date = blog.createdAt ? new Date(blog.createdAt) : new Date();
   return (

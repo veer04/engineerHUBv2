@@ -1,20 +1,23 @@
 import React, { useState } from "react";
 import "./EventModal.css";
-import ReactDOM from "react-dom/client";
+import ReactDOM from "react-dom";
 import Modal from "./Modal";
+import { createPortal } from "react-dom";
 
 export default function EventModal({ onClose, actionBar }) {
-  let node = null;
-  node = document.createElement("div");
-  node.id = "event-modal-container";
-  document.body.appendChild(node);
-  ReactDOM.render(
+  // let node = null;
+  // node = document.createElement("div");
+  // node.id = "event-modal-container";
+  // document.body.appendChild(node);
+  console.log("test");
+  ReactDOM.createPortal(
     <>
-      Hello
-      <Modal actionBar={actionBar} onClose={onClose} />
+      <span>Hello</span>
+      {/* <Modal actionBar={actionBar} onClose={onClose} /> */}
     </>,
-    node
+    "node"
   );
+  // ReactDOM.render();
   // return ReactDOM.createPortal(
   //   <React.StrictMode>
   //     <Modal actionBar={actionBar} onClose={onClose} />

@@ -9,40 +9,16 @@ import MobileSidebar from "../../../Components/MobileSidebar/MobileSidebar";
 
 export default function BlogsPage({ path }) {
   const { id } = useParams();
-
   const [isBlogOpen, setIsBlogOpen] = useState(false);
   const [blogOpened, setBlogOpened] = useState(undefined);
-
   const [currentFilters, setCurrentFilters] = useState([]);
+  const [filteredBlogs, setFilteredBlogs] = useState([]);
 
   const [blogs, setBlogs] = useState(
     sessionStorage.getItem(`${id} blogs`)
       ? JSON.parse(sessionStorage.getItem(`${id} blogs`))
       : {}
   );
-
-  const filters = [
-    {
-      id: 1,
-      name: "HTML",
-    },
-    {
-      id: 2,
-      name: "JavaScript",
-    },
-    {
-      id: 3,
-      name: "CSS",
-    },
-    {
-      id: 4,
-      name: "Reactive native",
-    },
-    {
-      id: 5,
-      name: "Firebase",
-    },
-  ];
 
   useEffect(() => {
     getBlogs(setBlogs, id);
@@ -56,8 +32,6 @@ export default function BlogsPage({ path }) {
   useEffect(() => {
     sessionStorage.setItem(`${id} blogs`, JSON.stringify(blogs));
   }, [blogs]);
-
-  const [filteredBlogs, setFilteredBlogs] = useState([]);
 
   useEffect(() => {
     if (blogs.length > 0) {

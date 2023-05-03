@@ -194,6 +194,25 @@ export const getEventByMode = (setEvents) => {
     });
 };
 
+export const getEventByType = (setEvents, type) => {
+  const controller = new AbortController();
+  axios
+    .get(`${API_URL}api/v1/eventTypeWiseEvents/${type}`, {
+      signal: controller.signal,
+    })
+    .then((res) => {
+      const data = res.data.data;
+      setEvents(data);
+    })
+    .catch((err) => {
+      if (axios.isCancel(err)) {
+        console.log("req cancel");
+      } else {
+        console.log("req performed");
+      }
+    });
+};
+
 export const getReviews = (setReviews) => {
   const controller = new AbortController();
   axios
@@ -203,6 +222,27 @@ export const getReviews = (setReviews) => {
     .then((res) => {
       const data = res.data.data;
       setReviews(data);
+    })
+    .catch((err) => {
+      if (axios.isCancel(err)) {
+        console.log("req cancel");
+      } else {
+        console.log("req performed");
+      }
+    });
+};
+
+export const getCampusById = (setCampus, collegeId) => {
+  const controller = new AbortController();
+  axios
+    .get(`${API_URL}api/v1/campus/${collegeId}`, {
+      signal: controller.signal,
+    })
+    .then((res) => {
+      // console.log(res);
+      const data = res.data.data;
+      console.log(data);
+      setCampus(data);
     })
     .catch((err) => {
       if (axios.isCancel(err)) {

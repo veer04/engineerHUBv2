@@ -20,6 +20,7 @@ export default function BlogCard({
   return (
     <div
       onClick={() => {
+        console.log(_id);
         setBlogOpened(_id);
         setIsBlogOpen(true);
         setIsCollapsed(true);
@@ -41,7 +42,10 @@ export default function BlogCard({
         ></div>
       }
       <div className="sub-title">
-        <div className="author">by {authorsName[0]}</div>
+        <div className="author">
+          by
+          {/* {authorsName[0]} */}
+        </div>
         <div className="date">
           {createdAt &&
             new Intl.DateTimeFormat("en-US", {
