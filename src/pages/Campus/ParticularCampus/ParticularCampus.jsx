@@ -13,7 +13,11 @@ export default function ParticularCampus() {
   const { collegeId } = useParams();
   console.log(collegeId);
   const colors = ["#F7D77F", "#8FC8E8", "#B2E887", "#E8BA98"];
-  const [campus, setCampus] = useState({});
+  const [campus, setCampus] = useState(
+    sessionStorage.getItem(`${collegeId} campus`)
+      ? JSON.parse(sessionStorage.getItem(`${collegeId} campus`))
+      : {}
+  );
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -23,6 +27,10 @@ export default function ParticularCampus() {
       controller.abort();
     };
   }, [collegeId]);
+
+  useEffect(() => {
+    sessionStorage.setItem(`${collegeId} campus`, JSON.stringify(campus));
+  }, [campus]);
 
   const collegeMoreDetails = [
     {

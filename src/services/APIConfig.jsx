@@ -239,10 +239,47 @@ export const getCampusById = (setCampus, collegeId) => {
       signal: controller.signal,
     })
     .then((res) => {
-      // console.log(res);
+      const data = res.data.data;
+      setCampus(data);
+    })
+    .catch((err) => {
+      if (axios.isCancel(err)) {
+        console.log("req cancel");
+      } else {
+        console.log("req performed");
+      }
+    });
+};
+
+export const getClubsByType = (setClubs, clubType, collegeId) => {
+  const controller = new AbortController();
+  axios
+    .get(`${API_URL}api/v1/clubs/${clubType}/${collegeId}`, {
+      signal: controller.signal,
+    })
+    .then((res) => {
+      const data = res.data.data;
+      setClubs(data);
+    })
+    .catch((err) => {
+      if (axios.isCancel(err)) {
+        console.log("req cancel");
+      } else {
+        console.log("req performed");
+      }
+    });
+};
+
+export const getTrendingClubs = (setTrendingClubs) => {
+  const controller = new AbortController();
+  axios
+    .get(`${API_URL}api/v1/getAllTrendingClubs`, {
+      signal: controller.signal,
+    })
+    .then((res) => {
       const data = res.data.data;
       console.log(data);
-      setCampus(data);
+      setTrendingClubs(data);
     })
     .catch((err) => {
       if (axios.isCancel(err)) {

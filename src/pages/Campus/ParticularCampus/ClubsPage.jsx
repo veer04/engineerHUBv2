@@ -4,48 +4,14 @@ import SearchBar from "../../../components/SearchBar/SearchBar";
 import ClubCard from "../../../components/ClubCard/ClubCard";
 import ClubActivity from "../../../components/ClubActivity/ClubActivity";
 import TrendingClubCard from "../../../components/TrendingClubCard/TrendingClubCard";
+import {
+  controller,
+  getClubsByType,
+  getTrendingClubs,
+} from "../../../services/APIConfig";
+import { useParams } from "react-router-dom";
 
-export default function TechnicalClubs() {
-  const clubs = [
-    {
-      _id: 1,
-      name: "Society of Computer Science Society of Computer Science",
-      image: "https://source.unsplash.com/random",
-      college:
-        "University of Lagos University of Lagos University of Lagos University of Lagos",
-      websiteLink: "https://www.google.com",
-      description:
-        "A society for computer science students. Lorem ipsum, dolor sit amet consectetur adipisicing. A society for computer science students. Lorem ipsum, dolor sit amet consectetur adipisicing.",
-    },
-    {
-      _id: 2,
-      name: "Society of Computer Science",
-      image: "https://source.unsplash.com/random",
-      college: "University of Lagos",
-      websiteLink: "https://www.google.com",
-      description:
-        "A society for computer science students. Lorem ipsum, dolor sit amet consectetur adipisicing.",
-    },
-    {
-      _id: 3,
-      name: "Society of Computer Science",
-      image: "https://source.unsplash.com/random",
-      college: "University of Lagos",
-      websiteLink: "https://www.google.com",
-      description:
-        "A society for computer science students. Lorem ipsum, dolor sit amet consectetur adipisicing.",
-    },
-    {
-      _id: 4,
-      name: "Society of Computer Science",
-      image: "https://source.unsplash.com/random",
-      college: "University of Lagos",
-      websiteLink: "https://www.google.com",
-      description:
-        "A society for computer science students. Lorem ipsum, dolor sit amet consectetur adipisicing.",
-    },
-  ];
-
+export default function ClubsPage({ type }) {
   const activities = [
     {
       _id: 1,
@@ -85,79 +51,36 @@ export default function TechnicalClubs() {
     },
   ];
 
-  const trendingClubs = [
-    {
-      _id: 1,
-      name: "GeeksForGeeks",
-      logo: "https://source.unsplash.com/random",
-      image: "https://source.unsplash.com/random",
-      followers: "2.3k",
-      events: "100",
-    },
-    {
-      _id: 2,
-      name: "GeeksForGeeks",
-      logo: "https://source.unsplash.com/random",
-      image: "https://source.unsplash.com/random",
-      followers: "2.3k",
-      events: "100",
-    },
-    {
-      _id: 3,
-      name: "GeeksForGeeks",
-      logo: "https://source.unsplash.com/random",
-      image: "https://source.unsplash.com/random",
-      followers: "2.3k",
-      events: "100",
-    },
-    {
-      _id: 4,
-      name: "GeeksForGeeks",
-      logo: "https://source.unsplash.com/random",
-      image: "https://source.unsplash.com/random",
-      followers: "2.3k",
-      events: "100",
-    },
-    {
-      _id: 5,
-      name: "GeeksForGeeks",
-      logo: "https://source.unsplash.com/random",
-      image: "https://source.unsplash.com/random",
-      followers: "2.3k",
-      events: "100",
-    },
-    {
-      _id: 6,
-      name: "GeeksForGeeks",
-      logo: "https://source.unsplash.com/random",
-      image: "https://source.unsplash.com/random",
-      followers: "2.3k",
-      events: "100",
-    },
-    {
-      _id: 7,
-      name: "GeeksForGeeks",
-      logo: "https://source.unsplash.com/random",
-      image: "https://source.unsplash.com/random",
-      followers: "2.3k",
-      events: "100",
-    },
-    {
-      _id: 8,
-      name: "GeeksForGeeks",
-      logo: "https://source.unsplash.com/random",
-      image: "https://source.unsplash.com/random",
-      followers: "2.3k",
-      events: "100",
-    },
-  ];
+  const [trendingClubs, setTrendingClubs] = useState([]);
 
   const [width, setWidth] = useState(window.innerWidth);
+
+  const { collegeId } = useParams();
 
   useEffect(() => {
     const handleResize = () => setWidth(window.innerWidth);
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const [clubs, setClubs] = useState([]);
+
+  useEffect(() => {
+    getClubsByType(setClubs, type, collegeId);
+    window.scrollTo(0, 0);
+
+    return () => {
+      controller.abort();
+    };
+  }, [type, collegeId]);
+
+  useEffect(() => {
+    getTrendingClubs(setTrendingClubs);
+    window.scroll(0, 0);
+
+    return () => {
+      controller.abort();
+    };
   }, []);
 
   const renderedSocietiesClubs = (
