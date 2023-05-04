@@ -1,0 +1,111 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap");
+
+.HackathonDetails {
+  padding: 50px 50px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+.HackathonDetails .hackathonTiles {
+  height: 2200px;
+  width: 30%;
+  overflow-y: scroll;
+  min-width: 370px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-evenly;
+  gap: 20px;
+}
+
+.HackathonDetails .hackathonTiles .Card {
+  height: 370px;
+  position: relative;
+  width: 350px;
+  border-radius: 10px;
+  background: #ffffff;
+  border: 2px solid rgba(237, 237, 237, 0.81);
+  border-radius: 10px;
+  padding: 3px 5px;
+  cursor: pointer;
+}
+.HackathonDetails .hackathonTiles .Card .cardImg {
+  position: relative;
+}
+.HackathonDetails .hackathonTiles .Card .cardImg img {
+  width: 100%;
+  height: 193px;
+  object-fit: cover;
+}
+.HackathonDetails .hackathonTiles .Card .cardImg span {
+  position: absolute;
+  bottom: 13px;
+  left: 13px;
+  width: 70px;
+  height: 70px;
+  background: #fff;
+  border-radius: 10px;
+  border: 2px solid rgba(0, 43, 54, 0.15);
+  padding: 5px;
+}
+.HackathonDetails .hackathonTiles .Card .cardImg span img {
+  width: 100%;
+  height: 100%;
+}
+.HackathonDetails .hackathonTiles .Card .cardBody {
+  padding: 8px 8px 13px 15px;
+}
+.HackathonDetails .hackathonTiles .Card .cardBody h4 {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 25px;
+  color: #002b36;
+}
+.HackathonDetails .hackathonTiles .Card .cardBody h6 {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 25px;
+  color: rgba(0, 0, 0, 0.73);
+}
+.HackathonDetails .hackathonTiles .Card .cardBody .Tags {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: row;
+  margin: 14px 0px;
+}
+.HackathonDetails .hackathonTiles .Card .cardBody .Stats {
+  font-weight: 500;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  color: #002b36;
+}
+.HackathonDetails .hackathonDetail {
+  width: 60%;
+}
+@media screen and (max-width: 1024px) {
+  .HackathonDetails .hackathonTiles {
+    display: none;
+  }
+}
+@media screen and (max-width: 768px) {
+  .HackathonDetails {
+    padding: 50px 20px;
+  }
+  .HackathonDetails .hackathonTiles {
+    display: none;
+  }
+  .HackathonDetails .hackathonDetail {
+    width: 100%;
+  }
+}

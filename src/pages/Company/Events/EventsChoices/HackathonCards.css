@@ -1,0 +1,106 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap");
+
+.HackathonCard {
+  height: 370px;
+  position: relative;
+  width: 350px;
+  border-radius: 10px;
+  background: #ffffff;
+  border: 2px solid rgba(237, 237, 237, 0.81);
+  border-radius: 10px;
+  padding: 3px 5px;
+  cursor: pointer;
+}
+.HackathonCard .cardImg {
+  position: relative;
+}
+.HackathonCard .cardImg img {
+  width: 100%;
+  height: 193px;
+  object-fit: cover;
+}
+.HackathonCard .cardImg span {
+  position: absolute;
+  bottom: 13px;
+  left: 13px;
+  width: 70px;
+  height: 70px;
+  background: #fff;
+  border-radius: 10px;
+  border: 2px solid rgba(0, 43, 54, 0.15);
+  padding: 5px;
+}
+.HackathonCard .cardImg span img {
+  width: 100%;
+  height: 100%;
+}
+.HackathonCard .cardBody {
+  padding: 8px 8px 13px 15px;
+}
+.HackathonCard .cardBody h4 {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 25px;
+  color: #002b36;
+}
+.HackathonCard .cardBody h6 {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 25px;
+  color: rgba(0, 0, 0, 0.73);
+}
+.HackathonCard .cardBody .Tags {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: row;
+  margin: 14px 0px;
+}
+.HackathonCard .cardBody .Stats {
+  font-weight: 500;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  color: #002b36;
+}
+
+@media screen and (max-width: 600px) {
+  .HackathonCard {
+    width: 288px;
+    height: auto;
+    border-radius: 10px;
+  }
+  .HackathonCard .cardImg img {
+    height: 156px;
+  }
+  .HackathonCard .cardImg span {
+    bottom: 9px;
+    left: 9px;
+    width: 50px;
+    height: 50px;
+  }
+  .HackathonCard .cardBody {
+    padding: 6px 6px 10px 15px;
+  }
+  .HackathonCard .cardBody h4 {
+    font-size: 12px;
+    line-height: 16px;
+  }
+  .HackathonCard .cardBody h6 {
+    font-size: 10px;
+    line-height: 14px;
+  }
+  .HackathonCard .cardBody .Tags {
+    flex-wrap: wrap;
+    gap: 5px;
+  }
+  .HackathonCard .cardBody .Stats {
+    font-size: 10px;
+  }
+}

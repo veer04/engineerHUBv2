@@ -1,13 +1,15 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
+import { config } from "dotenv";
+
+config();
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [
-    react({
-      // Add this line
-      include: "**/*.jsx",
-    }),
-  ],
-  server: { hmr: true },
+  plugins: [react()],
+  base: "",
+  define: {
+    global: {},
+    "process.env": process.env,
+  },
 });

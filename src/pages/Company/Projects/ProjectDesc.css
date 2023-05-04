@@ -1,0 +1,207 @@
+.ProjectDesc {
+  width: 100%;
+  background: #ffffff;
+  border: 2px solid #128381;
+  box-shadow: 3px 4px 11px rgba(0, 0, 0, 0.25);
+  padding: 20px 60px;
+}
+.ProjectDesc .ProjectDescHeader {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 20px;
+  margin: 10px 0px;
+}
+.ProjectDesc .ProjectDescHeader .logoIcon {
+  width: 53px;
+  height: 53px;
+  background: rgba(199, 204, 206, 0.54);
+  border-radius: 50%;
+}
+.ProjectDesc .ProjectDescHeader .logoIcon img {
+  width: 100%;
+  height: 100%;
+}
+.ProjectDesc .ProjectDescHeader > h1 {
+  width: 241px;
+  height: 29px;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 29px;
+  color: #000000;
+}
+.ProjectDesc .ProjectDescImage img {
+  width: 441px;
+  height: 244px;
+  border-radius: 5px;
+  margin: 10px 0px;
+}
+.ProjectDesc .ProjectDescription > h5,
+.ProjectDesc .ProjectTags > h5,
+.ProjectDesc .ProjectPrerequisite .prerequisite > h5,
+.ProjectDesc .ProjectPrerequisite .software > h5,
+.ProjectDesc .AdditionalInfo > h5 {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 15px;
+  color: #000000;
+}
+.ProjectDesc .ProjectPrerequisite .prerequisite ul li,
+.ProjectDesc .ProjectPrerequisite .software ul li {
+  list-style: circle;
+}
+.ProjectDesc .ProjectDescription p,
+.ProjectDesc .ProjectPrerequisite .prerequisite ul li,
+.ProjectDesc .ProjectPrerequisite .software ul li {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  color: #000000;
+}
+.ProjectDesc .ProjectTags .tag {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: 20px;
+  margin: 10px 0px;
+}
+.ProjectDesc .ProjectTags .tag > span {
+  width: 88.73px;
+  height: 32px;
+  background: rgba(247, 215, 127, 0.36);
+  border-radius: 5.8182px;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14.5455px;
+  line-height: 18px;
+  color: #ffbb00;
+  text-align: center;
+  padding: 5px;
+}
+.ProjectDesc .ProjectTags .tag > span:last-child {
+  background: rgba(178, 232, 135, 0.27);
+  color: #24ff00;
+}
+
+.ProjectDesc .ProjectPrerequisite {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+}
+.ProjectDesc .AdditionalInfo {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin: 10px 0px;
+}
+.ProjectDesc .AdditionalInfo .AdditionalInfoChip {
+  box-sizing: border-box;
+  height: 64px;
+  background: #014051;
+  border: 1px solid #ffffff;
+  border-radius: 5px;
+  padding: 10px;
+}
+.ProjectDesc .AdditionalInfo .AdditionalInfoChip h5 {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 15px;
+  color: #efefef;
+}
+.ProjectDesc .AdditionalInfo .AdditionalInfoChip p {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 29px;
+  color: #e4e4e4;
+}
+.ProjectDesc .ApplyNowBtn {
+  background: #002b36;
+  border-radius: 5px;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  color: #ffffff;
+  width: 152px;
+  height: 50px;
+  padding: 18px;
+  text-align: center;
+}
+
+@media screen and (max-width: 768px) {
+  .ProjectDesc {
+    padding: 20px;
+  }
+  .ProjectDesc .ProjectDescHeader .logoIcon {
+    width: 40px;
+    height: 40px;
+  }
+  .ProjectDesc .ProjectDescHeader > h1 {
+    font-size: 18px;
+    line-height: 22px;
+  }
+  .ProjectDesc .ProjectDescImage img {
+    width: 200px;
+    height: 120px;
+    border-radius: 5px;
+    margin: 10px 0px;
+  }
+  .ProjectDesc .ProjectDescription > h5,
+  .ProjectDesc .ProjectTags > h5,
+  .ProjectDesc .ProjectPrerequisite .prerequisite > h5,
+  .ProjectDesc .ProjectPrerequisite .software > h5,
+  .ProjectDesc .AdditionalInfo > h5 {
+    font-size: 10px;
+    line-height: 12px;
+  }
+  .ProjectDesc .ProjectDescription p,
+  .ProjectDesc .ProjectPrerequisite .prerequisite ul li,
+  .ProjectDesc .ProjectPrerequisite .software ul li {
+    font-size: 12px;
+    line-height: 15px;
+  }
+  .ProjectDesc .ProjectTags .tag > span {
+    width: 70px;
+    height: 26px;
+    font-size: 12px;
+    line-height: 14px;
+    padding: 5px;
+  }
+  .ProjectDesc .ProjectPrerequisite {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+  .ProjectDesc .AdditionalInfo .AdditionalInfoChip {
+    height: 50px;
+  }
+  .ProjectDesc .AdditionalInfo .AdditionalInfoChip h5 {
+    font-size: 10px;
+    line-height: 13px;
+  }
+  .ProjectDesc .AdditionalInfo .AdditionalInfoChip p {
+    font-size: 16px;
+    line-height: 12px;
+  }
+  .ProjectDesc .ApplyNowBtn {
+    font-size: 12px;
+    line-height: 12px;
+    width: 100px;
+    height: 45px;
+    padding: 17px;
+  }
+}

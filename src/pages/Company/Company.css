@@ -1,0 +1,449 @@
+.companyHome {
+  width: 100%;
+  padding: 20px 150px;
+}
+.companyHome .pagesContainer {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-direction: column;
+  margin-bottom: 30px;
+}
+.companyHome .pagesContainer .spiral > h1 {
+  position: absolute;
+  top: 100px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 430px;
+  height: auto;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 48px;
+  line-height: 58px;
+  text-align: center;
+  color: #014051;
+}
+.companyHome .pagesContainer .pages {
+  padding: 26px 36px;
+  background: #ffffff;
+  box-shadow: 4px 4px 49px rgba(0, 0, 0, 0.09);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  align-items: center;
+  position: relative;
+}
+.companyHome .pagesContainer .spiral {
+  position: relative;
+  top: 100px;
+  width: 650px;
+}
+.companyHome .pagesContainer .spiralImg {
+  width: 100%;
+}
+.companyHome .pagesContainer .spiral .cartoon {
+  position: absolute;
+  bottom: 55px;
+  z-index: 1000;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 350px;
+}
+.companyHome .pagesContainer .spiral .meta {
+  position: absolute;
+  top: 10%;
+  right: -10%;
+  width: 150px;
+}
+.companyHome .pagesContainer .spiral .microsoft {
+  position: absolute;
+  top: 60%;
+  right: -10%;
+  width: 50px;
+}
+.companyHome .pagesContainer .spiral .google {
+  position: absolute;
+  top: 30%;
+  left: -10%;
+  width: 100px;
+}
+.companyHome .pagesContainer .spiral .amazon {
+  position: absolute;
+  top: 50%;
+  left: 65%;
+  width: 120px;
+}
+.companyHome .pagesContainer .spiral .netflix {
+  position: absolute;
+  top: 5%;
+  left: 10%;
+}
+.companyHome .pagesContainer .spiral .uber {
+  position: absolute;
+  top: 60%;
+  left: 0%;
+  width: 100px;
+}
+.companyHome .pagesContainer .spiral .curveArrow {
+  position: absolute;
+  top: 35%;
+  right: 10%;
+  width: 150px;
+  z-index: 1000;
+}
+.companyCards {
+  margin: 0px 10px;
+  position: relative;
+  width: 220px;
+  min-height: 300px;
+  border-radius: 7.5px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 8px 11px;
+}
+.companyCards img {
+  position: absolute;
+  right: 0%;
+  top: 0%;
+}
+.companyCards h1 {
+  width: 130px;
+  font-family: "Inter";
+  text-transform: uppercase;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 29px;
+  letter-spacing: 0.04em;
+  color: #014051;
+}
+.companyCards p {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 13px;
+  text-align: justify;
+  color: #014051;
+}
+.companyCards .stats {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.companyCards .stats span {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 10px;
+}
+.companyCards .stats span h2 {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 24px;
+  color: #014051;
+}
+.companyCards .stats span h6 {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 8px;
+  line-height: 10px;
+  color: #014051;
+}
+.companyCards a {
+  width: 100%;
+  height: 42.89px;
+}
+.companyCards .Btn {
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  background: #014051;
+  border: 0.7px solid rgba(255, 255, 255, 0.45);
+  border-radius: 7.5px;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  letter-spacing: 0.04em;
+  color: #ffffff;
+}
+
+.Category .CategoryTiles {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.Category .CategoryTiles .seeMore {
+  display: flex;
+  flex-direction: column;
+}
+.Category .CategoryTiles .CategoryCard {
+  margin: 45px 0;
+  box-sizing: border-box;
+  width: 200px;
+  height: 200px;
+  background: #ffffff;
+  border: 1px solid #014051;
+  box-shadow: 3px 4px 15px rgba(1, 64, 81, 0.32);
+  border-radius: 10px;
+  position: relative;
+  padding: 20px 15px;
+}
+.Category .CategoryTiles .CategoryCard.select {
+  box-sizing: border-box;
+  width: 200px;
+  height: 200px;
+  background: #128381;
+  border: 1px solid #ffffff;
+  box-shadow: 0px 10px 40px rgba(0, 43, 54, 0.45);
+  border-radius: 10px;
+  position: relative;
+  padding: 20px 15px;
+}
+.Category .CategoryTiles .CategoryCard h4 {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 29px;
+  color: #002b36;
+}
+.Category .CategoryTiles .CategoryCard.select h4 {
+  color: #fff;
+}
+.Category .CategoryTiles .CategoryCard img {
+  position: absolute;
+  right: 15px;
+  bottom: 15px;
+}
+.FeaturedJobs,
+.Opportunities {
+  width: 100%;
+}
+.FeaturedJobs h5,
+.Opportunities h5,
+.Category h5 {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 29px;
+  color: #000000;
+}
+.FeaturedJobs .FeaturedJobsTiles,
+.Opportunities .OpportunitiesTiles {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+.Opportunities {
+  margin-top: 50px;
+}
+
+.StudentReviews {
+  width: 100%;
+  margin-top: 50px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+.StudentReviews .heading {
+  width: 260px;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 36px;
+  line-height: 44px;
+  color: #014051;
+}
+.StudentReviews .reviewCard {
+  width: 333px;
+  padding: 19px;
+  border-radius: 11.9437px;
+  align-self: flex-start;
+}
+.StudentReviews .reviewCard {
+  background: #f7d77f;
+  box-shadow: 0px 17px 31.6094px rgba(247, 215, 127, 0.52);
+}
+.StudentReviews .reviewCard:last-child {
+  background: #128381;
+  box-shadow: 0px 8.42917px 31.6094px rgba(18, 131, 129, 0.58);
+}
+.StudentReviews .reviewCard p {
+  padding-left: 45px;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 22px;
+  display: flex;
+  align-items: center;
+  color: #002b36;
+}
+.StudentReviews .reviewCard h6 {
+  padding-left: 45px;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 25px;
+  display: flex;
+  align-items: center;
+  color: #002b36;
+}
+
+@media screen and (max-width: 700px) {
+  .companyHome {
+    padding: 20px;
+  }
+  .companyHome .pagesContainer .spiral > h1 {
+    top: 0px;
+    width: 257px;
+    font-size: 28px;
+    line-height: 34px;
+  }
+  .companyHome .pagesContainer .pages {
+    padding: 15px;
+    gap: 10px;
+  }
+  .companyHome .pagesContainer .spiral {
+    position: relative;
+    top: 25px;
+    width: 250px;
+  }
+  .companyHome .pagesContainer .spiralImg {
+    width: 100%;
+  }
+  .companyHome .pagesContainer .spiral .cartoon {
+    bottom: -5px;
+    z-index: 1000;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 220px;
+  }
+  .companyHome .pagesContainer .spiral .meta {
+    top: -10%;
+    right: -10%;
+    width: 50px;
+  }
+  .companyHome .pagesContainer .spiral .microsoft {
+    top: 50%;
+    right: -10%;
+    width: 25px;
+  }
+  .companyHome .pagesContainer .spiral .google {
+    top: 35%;
+    left: 5%;
+    width: 40px;
+  }
+  .companyHome .pagesContainer .spiral .amazon {
+    top: 35%;
+    right: 15%;
+    width: 70px;
+  }
+  .companyHome .pagesContainer .spiral .netflix {
+    top: -15%;
+    left: 20%;
+    width: 30px;
+  }
+  .companyHome .pagesContainer .spiral .uber {
+    top: 60%;
+    left: -10%;
+    width: 50px;
+  }
+  .companyHome .pagesContainer .spiral .curveArrow {
+    display: none;
+  }
+  .companyCards {
+    width: 250px;
+  }
+  .companyCards p {
+    font-size: 14px;
+    line-height: 16px;
+  }
+  .Category .CategoryTiles .seeMore {
+    display: none;
+  }
+  .Category .CategoryTiles .CategoryCard {
+    width: 130px;
+    height: 130px;
+    padding: 14px 12px;
+  }
+  .Category .CategoryTiles .CategoryCard.select {
+    width: 130px;
+    height: 130px;
+    padding: 14px 12px;
+  }
+  .Category .CategoryTiles .CategoryCard h4 {
+    font-size: 14px;
+    line-height: 17px;
+  }
+  .Category .CategoryTiles .CategoryCard img {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+  }
+  .FeaturedJobs h5,
+  .Opportunities h5,
+  .Category h5 {
+    font-size: 16px;
+    line-height: 19.36px;
+  }
+  .FeaturedJobsTiles {
+    gap: 10px;
+  }
+  .StudentReviews .heading {
+    font-size: 24px;
+    line-height: 29px;
+  }
+  .StudentReviews .reviewCard {
+    width: 242px;
+    padding: 15px;
+  }
+  .StudentReviews .reviewCard:first-child {
+    display: block !important;
+    background: #f7d77f;
+    box-shadow: 0px 17px 31.6094px rgba(247, 215, 127, 0.52);
+  }
+  .StudentReviews .reviewCard:last-child {
+    display: none;
+  }
+  .StudentReviews .reviewCard p {
+    padding-left: 33px;
+    font-size: 12px;
+    line-height: 15px;
+  }
+  .StudentReviews .reviewCard h6 {
+    padding-left: 33px;
+    font-size: 12px;
+    line-height: 15px;
+  }
+}

@@ -1,0 +1,15 @@
+.HTML {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  gap: 20px;
+}
+@media screen and (max-width: 768px) {
+  .HTML {
+    grid-template-columns: auto auto;
+  }
+}
+@media screen and (max-width: 400px) {
+  .HTML {
+    grid-template-columns: auto;
+  }
+}
