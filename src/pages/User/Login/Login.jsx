@@ -7,6 +7,8 @@ import { useSignIn } from "react-auth-kit";
 
 import CustomSnackbar from "./CustomSnackbar";
 
+import Cookies from "js-cookie";
+
 
 import "./Login.css";
 import axios, { AxiosError } from "axios";
@@ -14,6 +16,8 @@ import useMobileNavbar from "../../../hooks/use-mobileNavbar";
 
 
 const Register = () => {
+// const accessToken = Cookies.get('access_token');
+// const refreshToken = Cookies.get('refresh_token');
   const {setSelectedPage} = useMobileNavbar();
   setSelectedPage("login");
   const signIn=useSignIn();
@@ -25,7 +29,9 @@ const Register = () => {
   const [values, setValues] = useState({
     email: "",
     password: "",
-    showPassword: false,
+    role: "User",
+    // accessToken: accessToken,
+    // refreshToken: refreshToken,
   });
 
   const [open, setOpen] = useState(false);
@@ -43,7 +49,7 @@ const Register = () => {
   const handleClickShowPassword = () => {
     setValues({
       ...values,
-      showPassword: !values.showPassword,
+      
     });
   };
   const handlePassword = (e) => {
@@ -51,37 +57,81 @@ const Register = () => {
     setFormPassword(validatePassword(password));
   };
 
+
+  // const getAccessToken = () => {
+  //   const access_token = getCookie('access_token');
+  //   return access_token ? `Bearer ${access_token}` : null;
+  //   console.log(access_token);
+  // }
+  
+  // const getRefreshToken = () => {
+  //   const refresh_token = getCookie('refresh_token');
+  //   return refresh_token ? `Bearer ${refresh_token}` : null;
+  //   console.log(refresh_token);
+  // }
+
+
+
+
   async function handleSubmit(e) {
     e.preventDefault();
-    try {
-      const response = await axios.post(
-        `https://e-hub-backend-production-9545.up.railway.app/api/v1/login`,
-        values
-      );
 
-      signIn({
-        token: response.data.accessToken,
-        expiresIn: 3600,
-        tokenType: "Bearer",
-        authState: { m:values.email },
-      });
-      setValidation(true);
-      setOpen(true);
-      setSnackbarValues({
-        severity: "success",
-        message: "SuccessFully Logged in",
-      });
-      // setCookieValue(Cookies.get('_auth_state').slice(6,Cookies.get('_auth_state').length-12));
-    } catch (err) {
-      setSnackbarValues({
-        severity: "error",
-        message: "User doesn't exist or already signed in!",
-      });
-      if (err && err instanceof AxiosError)
-        setError(err.response?.data.message);
-      else if (err && err instanceof Error) setError(err.message);
-      setOpen(true);
-    }
+
+// const headers = {
+//   'Authorization': `Bearer ${accessToken}`,
+//   'x-refresh-token': refreshToken
+// };
+  
+
+const response = await axios.post(`https://e-hub-backend-production-9545.up.railway.app/api/v1/login`
+,values,
+// {headers},
+
+).then
+( response=>{
+  Cookies.set('access_token', response.data.accessToken);
+  Cookies.set('refresh_token', response.data.refreshToken);
+  Cookies.set('userName', response.data.userName);
+}
+
+).catch(
+  error=>{
+    console.error(error);
+  }
+);
+console.log(response);
+
+
+
+    // try {
+    //   const response = await axios.post(
+    //     `https://e-hub-backend-production-9545.up.railway.app/api/v1/login`,
+    //     values,
+    //   );
+
+    //   signIn({
+    //     token: response.data.accessToken,
+    //     expiresIn: 3600,
+    //     tokenType: "Bearer",
+    //     authState: { m:values.email },
+    //   });
+    //   setValidation(true);
+    //   setOpen(true);
+    //   setSnackbarValues({
+    //     severity: "success",
+    //     message: "SuccessFully Logged in",
+    //   });
+    //   setCookieValue(Cookies.get('_auth_state').slice(6,Cookies.get('_auth_state').length-12));
+    // } catch (err) {
+    //   setSnackbarValues({
+    //     severity: "error",
+    //     message: "User doesn't exist or already signed in!",
+    //   });
+    //   if (err && err instanceof AxiosError)
+    //     setError(err.response?.data.message);
+    //   else if (err && err instanceof Error) setError(err.message);
+    //   setOpen(true);
+    // }
 
 
   };
@@ -89,15 +139,12 @@ const Register = () => {
    
     if (validation===true)
     { 
-      navigate("/courses");
+      navigate("/");
       window.location.reload(true);
       
     }
     
   }
-  // const gauth=()=>{
-  //   window.alert("will be updated soon!!!")
-  // }
 
 
   const validatePassword = (value) => {

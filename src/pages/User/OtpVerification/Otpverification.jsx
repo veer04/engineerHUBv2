@@ -3,7 +3,7 @@ import "./Otpverification.css";
 import { useState, useEffect } from 'react';
 import { TextField, Button, Box } from '@mui/material';
 import axios from "axios";
-
+import Cookies from 'js-cookie';
 
 const OTP = () => {
     const [email, setEmail] = useState("");
@@ -13,16 +13,24 @@ const OTP = () => {
     const handleSubmit = (event) => {
       event.preventDefault();
   
-      const data = {
+      const Result = {
         email: email,
-        role: role,
+        role: role, 
         OTP: otp
       };
   
-      axios.patch("https://e-hub-backend-production-9545.up.railway.app/api/v1/signup/verify", data)
-        .then(response => console.log(response.data))
+      axios.patch("https://e-hub-backend-production-9545.up.railway.app/api/v1/signup/verify", Result)
+        .then(response =>{
+            // Store the access token and refresh token in cookies
+            Cookies.set('access_token', response.data.accessToken);
+            Cookies.set('refresh_token', response.data.refreshToken);
+        
+            // Proceed to login page or do other stuff
+          })
         .catch(error => console.error(error));
+            
     };
+
  
   return (
     <>

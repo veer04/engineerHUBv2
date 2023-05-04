@@ -1,19 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import "./EventRegistration.css";
+import axios from 'axios';
 const EventRegistrationForm = () => {
   const [step, setStep] = useState(1);
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [email, setEmail] = useState('');
-  const [eventName, setEventName] = useState('');
+  const [domainName, setdomainName] = useState('');
+  const [campusName, setcampusName] = useState('');
+  const [eventType, seteventType] = useState('');
+  const [mode, setMode] = useState(0);
+  const [description, setDescription] = useState('');
   const [eventDate, setEventDate] = useState('');
-  const [eventLocation, setEventLocation] = useState('');
+  const [applyLink, setApplyLink] = useState('');
+  const [eventName, setEventName]=useState('');
+  const [eventModeType, setEventModeType]=useState('');
+  const [eventPoster, setEventPoster]=useState('');
+  const [campusLogo, setcampusLogo]=useState('');
+  const [file, setFile] = useState(null);
+
+  
 
   const [activeButton, setActiveButton] = useState('btn2');
-
-//   const handleButtonClick = (buttonName) => {
-    
-//   };
 
   const handleNext = (buttonName) => {
     setStep(step + 1);
@@ -27,15 +32,40 @@ const EventRegistrationForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log({
-      firstName,
-      lastName,
-      email,
-      eventName,
-      eventDate,
-      eventLocation,
-    });
+    const data= {
+    domainName :domainName,
+    campusName :campusName, //array
+    eventType  :eventType,
+    description :description,
+    eventDate  : eventDate,
+    applyLink  : applyLink,
+    mode : mode,
+
+//new added below
+
+    eventName : eventName,
+    eventModeType  : eventModeType,
+    eventPoster : eventPoster, 
+    campusLogo : campusLogo, 
+    };
+
+
+    event.preventDefault();
+    axios
+      .post('https://e-hub-backend-production.up.railway.app/api/v1/event', data)
+      .then((res) => console.log(res))
+      .catch((err) => console.error(err));
   };
+  const handleFileInputChange = (e) => {
+    setFile(e.target.files[0]);
+    setcampusLogo(e.target.value());
+
+  }
+  const handleFileInputChangePoster=()=>{
+
+    setFile(e.target.files[0]);
+    setEventPoster(e.target.value());
+  }
 
   return (
     <div className="eventR">
@@ -68,40 +98,40 @@ const EventRegistrationForm = () => {
                 Step 1 - Basic Details
             </div>
             <div className="formcontainer">
-          <label htmlFor="firstName">First Name:</label>
+          <label htmlFor="domainName">Domain Name:</label>
           <input
             type="text"
-            id="firstName"
+            id="domainName"
             className="inputHosting"
-            value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
+            value={domainName}
+            onChange={(e) => setdomainName(e.target.value)}
             required
           />
           <br />
 
-          <label htmlFor="lastName">Last Name:</label>
+          <label htmlFor="campusName">Campus Name:</label>
           <input
             type="text"
-            id="lastName"
+            id="campusName"
             className="inputHosting"
-            value={lastName}
-            onChange={(e) => setLastName(e.target.value)}
+            value={campusName}
+            onChange={(e) => setcampusName(e.target.value)}
             required
           />
           <br />
 
-          <label htmlFor="email">Email:</label>
+          <label htmlFor="eventType">event Type:</label>
           <input
-            type="email"
-            id="email"
+            type="eventType"
+            id="eventType"
             className="inputHosting"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            value={eventType}
+            onChange={(e) => seteventType(e.target.value)}
             required
           />
           <br />
 
-          <button type="button" onClick={handleNext()}
+          <button type="button" onClick={handleNext}
           className='buttonOnHostingPage'>
             Next
           </button>
@@ -115,13 +145,13 @@ const EventRegistrationForm = () => {
                 Step 2 - Application Details
             </div>
              <div className="formcontainer">
-          <label htmlFor="eventName">Event Name:</label>
+          <label htmlFor="description">Description:</label>
           <input
             type="text"
-            id="eventName"
+            id="description"
             className="inputHosting"
-            value={eventName}
-            onChange={(e) => setEventName(e.target.value)}
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
             required
           />
           <br />
@@ -137,25 +167,101 @@ const EventRegistrationForm = () => {
           />
           <br />
 
-          <label htmlFor="eventLocation">Event Location:</label>
+          <label htmlFor="applyLink">Apply Link:</label>
           <input
             type="text"
-            id="eventLocation"
+            id="applyLink"
             className="inputHosting"
-            value={eventLocation}
-            onChange={(e) => setEventLocation(e.target.value)}
+            value={applyLink}
+            onChange={(e) => setApplyLink(e.target.value)}
             required
           />
           <br />
 
-          <button type="button" onClick={handlePrev()}
-          className='buttonOnHostingPage'>
+          <button type="button" 
+          
+          className='buttonOnHostingPage'
+          onClick={handlePrev}
+          >
             Previous
           </button>
 
-          <button type="submit"
-          className='buttonOnHostingPage'>Submit</button>
+          <button type="button"
+          className='buttonOnHostingPage'
+          onClick={handleNext}
+          >Next</button>
           </div>
+        </div>
+      )}
+
+
+{step === 3 && (
+        
+        <div>
+            <div className="step1Header">
+                Step 3 - Publish 
+            </div>
+            <div className="formcontainer">
+          <label htmlFor="eventName">Event Name:</label>
+          <input
+            type="text"
+            id="eventName"
+            className="inputHosting"
+            value={eventName}
+            onChange={(e) => setEventName(e.target.value)}
+            required
+          />
+          <br />
+
+          <label htmlFor="eventModeType">Event Mode Type:</label>
+          <input
+            type="text"
+            id="eventModeType"
+            className="inputHosting"
+            value={eventModeType}
+            onChange={(e) => setEventModeType(e.target.value)}
+            required
+          />
+          <br />
+
+          <label htmlFor="eventPoster">Event Poster:</label>
+          <div>
+      <input type="file"
+      
+      id="eventPoster"
+      value={eventPoster}
+      className="inputHosting"
+      onChange={handleFileInputChangePoster} />
+
+      {file && <p>Selected file: {file.name}</p>}
+    </div>
+
+<label htmlFor="Campus Logo">Campus Logo:</label>
+<div>
+      <input type="file"
+      
+      id="campusLogo"
+      value={campusLogo}
+      className="inputHosting"
+      onChange={handleFileInputChange} />
+
+      {file && <p>Selected file: {file.name}</p>}
+    </div>
+          <br />
+
+
+
+<button type="button" onClick={handlePrev}
+className='buttonOnHostingPage'>
+  Previous
+</button>
+
+            <br />
+          <button type="submit"
+          className='buttonOnHostingPage'>
+            submit
+          </button>
+        </div>
         </div>
       )}
     </form>
