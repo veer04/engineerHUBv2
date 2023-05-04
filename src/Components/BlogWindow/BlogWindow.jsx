@@ -48,9 +48,9 @@ export default function BlogWindow({ blogOpened, setIsBlogOpen }) {
         <div className="description">{blog.postArea}</div>
       </div>
       <div className="blog__window__details">
-        <div className="author">
-          by {blog.authorsName && blog.authorsName[0]}
-        </div>
+        {blog.creator && (
+          <div className="author">{`by ${blog.creator[0].name}`}</div>
+        )}
         <div className="date">
           {blog.createdAt &&
             new Intl.DateTimeFormat("en-US", {

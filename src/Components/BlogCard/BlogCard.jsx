@@ -5,7 +5,7 @@ import useSidebar from "../../hooks/use-sidebar";
 
 export default function BlogCard({
   postIcon,
-  authorsName,
+  creatorId,
   _id,
   title,
   postArea,
@@ -42,10 +42,7 @@ export default function BlogCard({
         ></div>
       }
       <div className="sub-title">
-        <div className="author">
-          by
-          {/* {authorsName[0]} */}
-        </div>
+        <div className="author">{`by ${creatorId.name}`}</div>
         <div className="date">
           {createdAt &&
             new Intl.DateTimeFormat("en-US", {

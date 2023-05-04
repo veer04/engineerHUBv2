@@ -23,6 +23,7 @@ export default function BlogsPage({ path }) {
   useEffect(() => {
     getBlogs(setBlogs, id);
     window.scrollTo(0, 0);
+    console.log(blogs);
 
     return () => {
       controller.abort();
