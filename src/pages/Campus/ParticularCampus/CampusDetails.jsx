@@ -1,10 +1,28 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./CampusDetails.css";
 import { useParams } from "react-router-dom";
 import CategoryBar from "../../../components/CategoryBar/CategoryBar";
+import { controller, getCampusById } from "../../../services/APIConfig";
 
 export default function CampusDetails({ path }) {
   const { collegeId } = useParams();
+  const [campus, setCampus] = useState(
+    sessionStorage.getItem(`${collegeId} campus`)
+      ? JSON.parse(sessionStorage.getItem(`${collegeId} campus`))
+      : {}
+  );
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    if (campus === {}) {
+      getCampusById(setCampus, collegeId);
+      console.log("data fetched");
+    }
+    console.log(campus);
+    return () => {
+      controller.abort();
+    };
+  }, [collegeId]);
 
   const [current, setCurrent] = useState(1);
 
@@ -74,26 +92,7 @@ export default function CampusDetails({ path }) {
       {/* </div> */}
       <div className="about">
         <div className="heading">About College</div>
-        <div className="description">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo
-          consectetur sunt possimus tempore aperiam quis repudiandae aliquid
-          obcaecati deserunt eligendi, in sed recusandae exercitationem?
-          Officiis consequatur magnam laboriosam repellat quis deserunt pariatur
-          necessitatibus culpa, neque ea odio non veniam corrupti illum
-          molestias. Optio, maiores. Eum qui ab quidem perferendis cum facere
-          omnis architecto ipsa corporis rerum? Culpa natus, maiores tempore
-          laboriosam debitis aliquid quas non mollitia dolores assumenda
-          aliquam, nam laudantium porro vitae sequi, facilis ut eos. Odit
-          nostrum minima nemo! Aliquid, sunt sequi quas et quae iste est quidem
-          sapiente accusantium placeat numquam dignissimos recusandae corrupti
-          laboriosam ipsa mollitia consectetur quos ipsum quasi nulla quia
-          tempora minima. Eligendi nesciunt odio suscipit? Eveniet voluptatum
-          quis ab doloremque incidunt quas laboriosam. Reiciendis excepturi
-          tenetur itaque dicta temporibus tempora voluptatibus autem id maiores
-          harum facere saepe expedita atque eaque explicabo totam fugiat
-          adipisci consequatur quisquam, perferendis ducimus architecto at quas?
-          Fugiat, quasi.
-        </div>
+        <div className="description">{campus.aboutUs}</div>
       </div>
       <div className="course-details">
         <div className="heading">Courses & Fees</div>
@@ -123,23 +122,23 @@ export default function CampusDetails({ path }) {
                       <path
                         d="M14 9.66797V12.5569C14 12.9399 13.8478 13.3073 13.5769 13.5782C13.306 13.8491 12.9386 14.0013 12.5556 14.0013H2.44444C2.06135 14.0013 1.69395 13.8491 1.42307 13.5782C1.15218 13.3073 1 12.9399 1 12.5569V9.66797"
                         stroke="white"
-                        stroke-width="1.5"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
                       />
                       <path
                         d="M3.88867 6.05469L7.49978 9.6658L11.1109 6.05469"
                         stroke="white"
-                        stroke-width="1.5"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
                       />
                       <path
                         d="M7.5 9.66667V1"
                         stroke="white"
-                        stroke-width="1.5"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
                       />
                     </svg>
                     Brochure

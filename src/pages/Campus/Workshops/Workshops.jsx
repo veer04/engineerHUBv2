@@ -1,7 +1,7 @@
 import React from "react";
 import "./Workshops.css";
 import { useEffect, useState } from "react";
-import { controller, getEvents } from "../../../services/APIConfig";
+import { controller, getEventByType } from "../../../services/APIConfig";
 import FeaturedEventsCard2 from "../../../components/FeaturedEventsCard2/FeaturedEventsCard2";
 import CategoryBar from "../../../components/CategoryBar/CategoryBar";
 import EventCard from "../../../components/EventCard/EventCard";
@@ -11,7 +11,7 @@ export default function Workshops() {
   const [events, setEvents] = useState([]);
 
   useEffect(() => {
-    getEvents(setEvents, "App Development");
+    getEventByType(setEvents, "Workshops");
     window.scrollTo(0, 0);
 
     return () => {
@@ -68,7 +68,7 @@ export default function Workshops() {
         <div className="events">
           {events.slice(0, 2).map((event) => (
             <FeaturedEventsCard2
-              poster={event.eventPoster}
+              eventPoster={event.eventPoster}
               title={event.eventName}
               description={event.description}
               hashtags={[

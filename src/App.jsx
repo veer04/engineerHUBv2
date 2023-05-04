@@ -65,7 +65,14 @@ function App() {
           <Route path=":collegeId">
             <Route index element={<ParticularCampus />} />
             <Route path="details" element={<CampusDetails />} />
-            <Route path="technical-clubs" element={<ClubsPage />} />
+            <Route
+              path="technical-clubs"
+              element={<ClubsPage type="Technical" />}
+            />
+            <Route
+              path="cultural-clubs"
+              element={<ClubsPage type="Cultural" />}
+            />
 
             <Route path="alumni">
               <Route index element={<AlumniPage />} />

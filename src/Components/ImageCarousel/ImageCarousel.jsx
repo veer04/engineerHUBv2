@@ -1,24 +1,7 @@
 import React from "react";
 import "./ImageCarousel.css";
 
-export default function ImageCarousel() {
-  // { images }
-  const image = "https://source.unsplash.com/random";
-  const images = [
-    {
-      _id: 1,
-      image: image,
-    },
-    {
-      _id: 2,
-      image: image,
-    },
-    {
-      _id: 3,
-      image: image,
-    },
-  ];
-
+export default function ImageCarousel({ collegePhoto }) {
   return (
     <div
       id="carouselExampleIndicators"
@@ -34,30 +17,35 @@ export default function ImageCarousel() {
           aria-current="true"
           aria-label="Slide 1"
         ></button>
-        <button
-          type="button"
-          data-bs-target="#carouselExampleIndicators"
-          data-bs-slide-to="1"
-          aria-label="Slide 2"
-        ></button>
-        <button
-          type="button"
-          data-bs-target="#carouselExampleIndicators"
-          data-bs-slide-to="2"
-          aria-label="Slide 3"
-        ></button>
+        {collegePhoto &&
+          collegePhoto.map((image, index) => {
+            if (index === 0) return null;
+            return (
+              <button
+                key={index}
+                type="button"
+                data-bs-target="#carouselExampleIndicators"
+                data-bs-slide-to={`${index}`}
+                aria-label={`Slide ${index + 1}`}
+              ></button>
+            );
+          })}
       </div>
       <div className="carousel-inner">
         <div className="carousel-item active">
-          <img src={images[0].image} className="d-block w-100" alt="Campus" />
+          {collegePhoto && (
+            <img src={collegePhoto[0]} className="d-block w-100" alt="Campus" />
+          )}
         </div>
-        {images.map((image) => {
-          return (
-            <div key={image._id} className="carousel-item">
-              <img src={image.image} className="d-block w-100" alt="Campus" />
-            </div>
-          );
-        })}
+        {collegePhoto &&
+          collegePhoto.map((image, index) => {
+            if (index === 0) return null;
+            return (
+              <div key={index} className="carousel-item">
+                <img src={image} className="d-block w-100" alt="Campus" />
+              </div>
+            );
+          })}
       </div>
       <button
         className="carousel-control-prev"

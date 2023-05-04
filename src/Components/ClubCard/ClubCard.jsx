@@ -3,19 +3,19 @@ import "./ClubCard.css";
 
 export default function ClubCard({
   name,
-  image,
-  college,
-  websiteLink,
+  clubLogo,
+  collegeName,
+  websiteUrl,
   description,
 }) {
   return (
-    <a href={websiteLink}>
+    <a href={websiteUrl}>
       <div className="club-card__container">
         <div className="main__container">
-          <img src={image} alt="Club" />
+          <img src={clubLogo} alt="Club" />
           <div className="main__text">
             <h3>{name}</h3>
-            <p>{college}</p>
+            <p>{collegeName}</p>
           </div>
         </div>
         <div className="description">{description}</div>

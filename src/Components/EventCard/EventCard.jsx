@@ -45,7 +45,6 @@ export default function EventCard({
         <div
           style={{
             // width: "100%",
-            height: "19rem",
             aspectRatio: "1/1",
             backgroundImage: `url(${eventPoster})`,
             backgroundSize: "cover",

@@ -1,36 +1,42 @@
 import React from "react";
 import "./TrendingClubCard.css";
+import { Link } from "react-router-dom";
 
 export default function TrendingClubCard({
   _id,
   name,
-  logo,
+  clubLogo,
   image,
   followers,
   events,
+  websiteUrl,
 }) {
   return (
-    <div
-      style={{
-        backgroundImage: `url(${image})`,
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        width: "15.5rem",
-        height: "8.6875rem",
-      }}
-      className="trending-club-card"
-    >
-      <div className="details">
-        <img src={logo} alt="logo" />
-        <div>
-          <div>{name}</div>
+    <a href={websiteUrl}>
+      <div
+        style={{
+          // backgroundImage: `url(${image})`,
+          backgroundImage: `url("https://source.unsplash.com/random")`,
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          width: "15.5rem",
+          height: "8.6875rem",
+          cursor: "pointer",
+        }}
+        className="trending-club-card"
+      >
+        <div className="details">
+          <img src={clubLogo} alt="logo" />
           <div>
-            <span>Followers: {followers}</span>
-            <span>Events: {events}+</span>
+            <div>{name}</div>
+            <div>
+              <span>Followers: {followers}</span>
+              <span>Events: {events}+</span>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </a>
   );
 }
