@@ -14,7 +14,7 @@ export default function CampusDetails({ path }) {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    if (campus === {}) {
+    if (campus === null) {
       getCampusById(setCampus, collegeId);
       console.log("data fetched");
     }

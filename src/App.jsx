@@ -92,7 +92,6 @@ function App() {
         <Route path="hosting">
           <Route index element={<Hosting></Hosting>} />
         </Route>
-        <Route path="/campus" element={<>Campus page</>} />
         <Route path="/company">
           <Route path="" element={<Company />} />
           <Route path="jobs">
@@ -112,7 +111,6 @@ function App() {
               /> */}
           </Route>
         </Route>
-        <Route path="/login" element={<>Login page</>} />
       </Routes>
       <Footer />
     </>
