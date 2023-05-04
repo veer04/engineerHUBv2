@@ -1,28 +1,62 @@
 import React, { useEffect, useState } from "react";
 import "./Navbar.css";
-import { Link } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 import ButtonRounded from "../Buttons/ButtonRounded";
 import { Bucket_URL } from "../../services/APIUtils";
+import Cookies from "js-cookie";
 
 export default function Navbar() {
   const bucket = `${Bucket_URL}frontend/navbar/`;
+  const navigate = useNavigate();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [username, setUsername] = useState('');
 
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  useEffect(() => {
+    // Check if user is logged in by checking for the 'userName' cookie
+    const storedUsername = getCookie('userName');
+    if (storedUsername) {
+      setIsLoggedIn(true);
+      setUsername(storedUsername);
+    }
+  }, []);
+
+  function handleLogout() {
+    // Remove all cookies and log out the user
+    const cookiesToRemove = ['userName', 'refresh_token', 'access_token'];
+    cookiesToRemove.forEach(cookieName => {
+      document.cookie = `${cookieName}=; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/; domain=${window.location.hostname};`;
+    });
+    setIsLoggedIn(false);
+    setUsername('');
+  }
+  
+  const handleLogin=()=>
+  {
+      navigate('/login');
+  }
+
+  function getCookie(name) {
+    // Get the value of a cookie by name
+    const cookieValue = document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)');
+    return cookieValue ? cookieValue.pop() : '';
+  }
+
+
 
   //fetch user data from backend
   const thumbnail = "https://source.unsplash.com/random";
-  const userName = "John Doe";
+  // const userName =   ;
 
-  const usernameLoginInButton = (
-    <ButtonRounded className="nav-logged-in-btn nav-login-btn">
-      <img className="nav-user-thumbnail" src={thumbnail} alt="user" />
-      <span className="nav-username">Hi, {userName}</span>
-    </ButtonRounded>
-  );
+  // const usernameLoginInButton = (
+  //   <ButtonRounded className="nav-logged-in-btn nav-login-btn">
+  //     <img className="nav-user-thumbnail" src={thumbnail} alt="user" />
+  //     <span className="nav-username">Hi, {username}</span>
+  //   </ButtonRounded>
+  // );
 
-  const loginInButton = (
-    <ButtonRounded className="nav-login-btn">Login/Signup</ButtonRounded>
-  );
+  // const loginInButton = (
+  //   <ButtonRounded className="nav-login-btn">Login/Signup</ButtonRounded>
+  // );
 
   const [width, setWidth] = useState(window.innerWidth);
   const handleResize = () => setWidth(window.innerWidth);
@@ -80,9 +114,29 @@ export default function Navbar() {
             </Link>
           </div>
         </div>
-        <Link className="nav-link" to="/login">
-          {isLoggedIn ? usernameLoginInButton : loginInButton}
-        </Link>
+
+
+        <div>
+      {isLoggedIn ? (
+        <div>
+          {/* Hi, {username} | <button onClick={handleLogout}>Log out</button> */}
+
+          <ButtonRounded className="nav-logged-in-btn nav-login-btn">
+      <img className="nav-user-thumbnail" src={thumbnail} alt="user" />
+      <span className="nav-username"  >Hi, {username}| <ButtonRounded onClick={handleLogout}>Log out</ButtonRounded> </span>
+          </ButtonRounded>
+        </div>
+      ) : (
+        <div>
+          <Link to="/login"> <ButtonRounded className="nav-login-btn" onClick={handleLogin} >Login/Signup</ButtonRounded> </Link> 
+        </div>
+      )}
+    </div>
+
+
+        {/* <Link className="nav-link" to="/login">
+          {isLoggedIn ? username : loginInButton}
+        </Link> */}
       </div>
     </nav>
   );

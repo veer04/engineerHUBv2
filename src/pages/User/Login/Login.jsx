@@ -91,7 +91,12 @@ const response = await axios.post(`https://e-hub-backend-production-9545.up.rail
 ( response=>{
   Cookies.set('access_token', response.data.accessToken);
   Cookies.set('refresh_token', response.data.refreshToken);
-  Cookies.set('userName', response.data.userName);
+  Cookies.set('userName', response.data.UserName);
+  if(response.status===200||response.status===201||response.status===202||response.status===203||response.status===204)
+  {
+    // window.location.reload();
+    navigate('/profile');
+  }
 }
 
 ).catch(
