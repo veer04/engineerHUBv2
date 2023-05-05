@@ -6,6 +6,7 @@ import "./index.css";
 import { AuthProvider } from "react-auth-kit";
 import MobileNavbarProvider from "./contexts/MobileNavbarContext";
 import SidebarProvider from "./contexts/SidebarContext";
+import NavbarProvider from "./contexts/NavbarContext";
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <BrowserRouter>
@@ -16,9 +17,11 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         cookieSecure={false}
       >
         <MobileNavbarProvider>
-          <SidebarProvider>
-            <App />
-          </SidebarProvider>
+          <NavbarProvider>
+            <SidebarProvider>
+              <App />
+            </SidebarProvider>
+          </NavbarProvider>
         </MobileNavbarProvider>
       </AuthProvider>
     </BrowserRouter>

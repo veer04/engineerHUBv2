@@ -81,7 +81,6 @@ function App() {
               path="cultural-clubs"
               element={<ClubsPage type="Cultural" />}
             />
-
             <Route path="alumni">
               <Route index element={<AlumniPage />} />
             </Route>
