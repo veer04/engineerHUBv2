@@ -88,6 +88,7 @@ export const getBlogs = (setBlogs, id) => {
     })
     .then((res) => {
       const data = res.data.data;
+      console.log("blogs", data);
       setBlogs(data);
     })
     .catch((err) => {

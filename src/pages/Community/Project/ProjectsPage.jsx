@@ -170,19 +170,6 @@ export default function ProjectPage({ path }) {
                   </svg>
                 </span>
               </div>
-
-              {/* <div className="project__searchbar input-group">
-              <input
-                type="text"
-                className="form-control"
-                placeholder="Search"
-                aria-label="Search"
-                aria-describedby="basic-addon2"
-                />
-                <span className="input-group-text" id="basic-addon2">
-                <img src={filterImg} alt="filter" />
-                </span>
-              </div> */}
             </div>
             {width > 768 && (
               <div className="project__chips__container">
