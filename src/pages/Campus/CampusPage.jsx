@@ -60,7 +60,6 @@ export default function CampusPage() {
   ];
 
   const [events, setEvents] = useState([]);
-  const [output, setOutput] = useState("");
 
   useEffect(() => {
     getEventById(setEvents);
@@ -92,6 +91,7 @@ export default function CampusPage() {
 
   const navigate = useNavigate();
 
+  const [output, setOutput] = useState("");
   useEffect(() => {
     if (output) {
       console.log(output);
@@ -99,8 +99,6 @@ export default function CampusPage() {
     }
     // console.log(output);
   }, [output]);
-
-  function result(something) {}
 
   return (
     <div className="campus-page">

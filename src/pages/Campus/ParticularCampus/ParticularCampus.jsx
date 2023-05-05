@@ -8,6 +8,8 @@ import { BsStar, BsStarFill, BsStarHalf } from "react-icons/bs";
 import CampusEventCard from "../../../components/CampusEventCard/CampusEventCard";
 import { Link, useParams } from "react-router-dom";
 import { controller, getCampusById } from "../../../services/APIConfig";
+import CampusSearchBox from "../../../Components/CampusSearchBox/CampusSearchBox";
+import { useNavigate } from "react-router";
 
 export default function ParticularCampus() {
   const { collegeId } = useParams();
@@ -68,11 +70,48 @@ export default function ParticularCampus() {
   for (let i = 0; i < 5 - campus.rating; i++) {
     starsEmpty.push(<BsStar key={i} />);
   }
+
+  const campuses = [
+    {
+      _id: "6446afc2fe295d10247aef02",
+      collegeName: "IIT Madras",
+    },
+    {
+      _id: "6452b74af3758cd787880822",
+      collegeName: "IIT Delhi",
+    },
+  ];
+
+  const navigate = useNavigate();
+
+  const [output, setOutput] = useState("");
+  useEffect(() => {
+    if (output) {
+      console.log(output);
+      navigate(`/campus/${output}`);
+    }
+    // console.log(output);
+  }, [output]);
   return (
     <div className="particular-campus-page">
-      {/* <div className="search-bar__container">
-        <SearchBar placeholder="You are looking for which campus" type="text" />
-      </div> */}
+      <div className="search-bar__container">
+        <div>
+          {/* <CampusSearchBox /> */}
+          <CampusSearchBox
+            data={campuses}
+            placeholder="You are looking for which Campus?"
+            searchParams={["collegeName"]}
+            listLength={5}
+            setOutput={setOutput}
+          />
+          {/* <CampusSearchBox /> */}
+          {/* <SearchBar
+            hasFiltration={false}
+            placeholder="You are looking for which Campus?"
+            type="text"
+          /> */}
+        </div>
+      </div>
       <div className="image-carousel__container">
         <div className="image-carousel">
           <ImageCarousel collegePhoto={campus.collegePhoto} />
