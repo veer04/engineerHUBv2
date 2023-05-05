@@ -8,7 +8,7 @@ import netflixLogo from "../../assets/images/netflix.svg";
 import amazonLogo from "../../assets/images/amazon.svg";
 import uberLogo from "../../assets/images/uber.svg";
 import avatar from "../../assets/images/studentAvatar.svg";
-import arrow from "../../assets/images/arrow.svg";
+// import arrow from "../../assets/images/arrow.svg";
 import databaseLogo from "../../assets/images/databaseLogo.svg";
 import appdevLogo from "../../assets/images/appdevLogo.svg";
 import webdevLogo from "../../assets/images/webdevLogo.svg";

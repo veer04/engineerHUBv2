@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./Navbar.css";
-import { Link,useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ButtonRounded from "../Buttons/ButtonRounded";
 import { Bucket_URL } from "../../services/APIUtils";
 import Cookies from "js-cookie";
@@ -9,11 +9,11 @@ export default function Navbar() {
   const bucket = `${Bucket_URL}frontend/navbar/`;
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [username, setUsername] = useState('');
+  const [username, setUsername] = useState("");
 
   useEffect(() => {
     // Check if user is logged in by checking for the 'userName' cookie
-    const storedUsername = getCookie('userName');
+    const storedUsername = getCookie("userName");
     if (storedUsername) {
       setIsLoggedIn(true);
       setUsername(storedUsername);
@@ -22,26 +22,25 @@ export default function Navbar() {
 
   function handleLogout() {
     // Remove all cookies and log out the user
-    const cookiesToRemove = ['userName', 'refresh_token', 'access_token'];
-    cookiesToRemove.forEach(cookieName => {
+    const cookiesToRemove = ["userName", "refresh_token", "access_token"];
+    cookiesToRemove.forEach((cookieName) => {
       document.cookie = `${cookieName}=; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/; domain=${window.location.hostname};`;
     });
     setIsLoggedIn(false);
-    setUsername('');
+    setUsername("");
   }
-  
-  const handleLogin=()=>
-  {
-      navigate('/login');
-  }
+
+  const handleLogin = () => {
+    navigate("/login");
+  };
 
   function getCookie(name) {
     // Get the value of a cookie by name
-    const cookieValue = document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)');
-    return cookieValue ? cookieValue.pop() : '';
+    const cookieValue = document.cookie.match(
+      "(^|;)\\s*" + name + "\\s*=\\s*([^;]+)"
+    );
+    return cookieValue ? cookieValue.pop() : "";
   }
-
-
 
   //fetch user data from backend
   const thumbnail = "https://source.unsplash.com/random";
@@ -110,31 +109,41 @@ export default function Navbar() {
               </ButtonRounded>
             </Link>
             <Link className="nav-link" to="/hosting">
-              <ButtonRounded className="nav-middle-items">Host</ButtonRounded>
+              <ButtonRounded className="nav-middle-items host-btn">
+                Host
+              </ButtonRounded>
             </Link>
           </div>
         </div>
 
-
         <div>
-      {isLoggedIn ? (
-        <div>
-          {/* Hi, {username} | <button onClick={handleLogout}>Log out</button> */}
+          {isLoggedIn ? (
+            <div>
+              {/* Hi, {username} | <button onClick={handleLogout}>Log out</button> */}
 
-          <ButtonRounded className="nav-logged-in-btn nav-login-btn">
-      <img className="nav-user-thumbnail" src={thumbnail} alt="user" />
-      <span className="nav-username"  >Hi, {username}| 
-      {/* <ButtonRounded onClick={handleLogout}>Log out</ButtonRounded> */}
-       </span>
-          </ButtonRounded>
+              <ButtonRounded className="nav-logged-in-btn nav-login-btn">
+                <img
+                  className="nav-user-thumbnail"
+                  src={thumbnail}
+                  alt="user"
+                />
+                <span className="nav-username">
+                  Hi, {username}|
+                  {/* <ButtonRounded onClick={handleLogout}>Log out</ButtonRounded> */}
+                </span>
+              </ButtonRounded>
+            </div>
+          ) : (
+            <div>
+              <Link to="/login">
+                {" "}
+                <ButtonRounded className="nav-login-btn" onClick={handleLogin}>
+                  Login/Signup
+                </ButtonRounded>{" "}
+              </Link>
+            </div>
+          )}
         </div>
-      ) : (
-        <div>
-          <Link to="/login"> <ButtonRounded className="nav-login-btn" onClick={handleLogin} >Login/Signup</ButtonRounded> </Link> 
-        </div>
-      )}
-    </div>
-
 
         {/* <Link className="nav-link" to="/login">
           {isLoggedIn ? username : loginInButton}
