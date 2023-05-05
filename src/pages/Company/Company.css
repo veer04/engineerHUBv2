@@ -331,6 +331,10 @@
   align-items: center;
   color: #002b36;
 }
+.StudentReviews .reviewCard2 p,
+.StudentReviews .reviewCard2 h6 {
+  color: white;
+}
 
 @media screen and (max-width: 785px) {
   .companyHome {

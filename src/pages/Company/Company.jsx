@@ -385,10 +385,10 @@ const Company = () => {
               </div>
             );
           })}
-          <div className="seeMore">
+          {/* <div className="seeMore">
             <img src={arrow} alt="arrow" />
             <span>See More</span>
-          </div>
+          </div> */}
         </div>
       </div>
       <div className="FeaturedJobs">
@@ -429,7 +429,7 @@ const Company = () => {
           </p>
           <h6>Girish Shedge</h6>
         </div>
-        <div className="reviewCard">
+        <div className="reviewCard reviewCard2">
           <img src={avatar} alt="Avatar" />
           <p>
             Lorem ipsum dolor sit amet consectetur. Enim enim fringilla volutpat
