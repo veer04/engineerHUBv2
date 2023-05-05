@@ -8,7 +8,7 @@ import "./events.css";
 
 const Events = () => {
   const [search, setSearch] = useState("");
-  const [choice, setChoice] = useState("Competitions");
+  const [choice, setChoice] = useState("Hackathons");
 
   const changeChoice = () => {
     switch (choice) {
@@ -68,19 +68,19 @@ const Events = () => {
       </div>
       <div className="Choices">
         <button
-          className="btn select competition"
-          value="Competitions"
-          onClick={(e) => handleChoicesChange(e)}
-        >
-          Competitions
-        </button>
-        <button
-          className="btn hackathon"
+          className="btn select hackathon"
           value="Hackathons"
           onClick={(e) => handleChoicesChange(e)}
         >
           Hackathons
         </button>
+        {/* <button
+          className="btn competition"
+          value="Competitions"
+          onClick={(e) => handleChoicesChange(e)}
+        >
+          Competitions
+        </button> */}
       </div>
       <div className="ChoicesSelection">{changeChoice()}</div>
     </div>
