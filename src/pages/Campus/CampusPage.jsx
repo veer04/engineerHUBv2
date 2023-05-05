@@ -3,7 +3,11 @@ import "./CampusPage.css";
 import CampusEventCard from "../../components/CampusEventCard/CampusEventCard";
 import EventCard from "../../components/EventCard/EventCard";
 import { useEffect, useState } from "react";
-import { controller, getEvents } from "../../services/APIConfig";
+import {
+  controller,
+  getAllCampuses,
+  getEvents,
+} from "../../services/APIConfig";
 import CampusEventTab from "../../components/CampusEventTab/CampusEventTab";
 import { getEventById } from "../../services/APIConfig";
 import CampusSearchBox from "../../Components/CampusSearchBox/CampusSearchBox";
@@ -60,15 +64,21 @@ export default function CampusPage() {
   ];
 
   const [events, setEvents] = useState([]);
+  const [allCampuses, setAllCampuses] = useState([]);
 
   useEffect(() => {
     getEventById(setEvents);
+    getAllCampuses(setAllCampuses);
     window.scrollTo(0, 0);
 
     return () => {
       controller.abort();
     };
   }, []);
+
+  useEffect(() => {
+    console.log(allCampuses);
+  }, [allCampuses]);
 
   const [width, setWidth] = useState(window.innerWidth);
 
@@ -77,17 +87,6 @@ export default function CampusPage() {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
-
-  const campuses = [
-    {
-      _id: "6446afc2fe295d10247aef02",
-      collegeName: "IIT Madras",
-    },
-    {
-      _id: "6452b74af3758cd787880822",
-      collegeName: "IIT Delhi",
-    },
-  ];
 
   const navigate = useNavigate();
 
@@ -110,20 +109,13 @@ export default function CampusPage() {
       </h2>
       <div className="search-bar__container">
         <div>
-          {/* <CampusSearchBox /> */}
           <CampusSearchBox
-            data={campuses}
+            data={allCampuses}
             placeholder="You are looking for which Campus?"
             searchParams={["collegeName"]}
             listLength={5}
             setOutput={setOutput}
           />
-          {/* <CampusSearchBox /> */}
-          {/* <SearchBar
-            hasFiltration={false}
-            placeholder="You are looking for which Campus?"
-            type="text"
-          /> */}
         </div>
       </div>
       <div className="campus-events-section">

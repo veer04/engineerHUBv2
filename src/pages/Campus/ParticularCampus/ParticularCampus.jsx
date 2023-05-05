@@ -7,7 +7,11 @@ import { RxChevronDown } from "react-icons/rx";
 import { BsStar, BsStarFill, BsStarHalf } from "react-icons/bs";
 import CampusEventCard from "../../../components/CampusEventCard/CampusEventCard";
 import { Link, useParams } from "react-router-dom";
-import { controller, getCampusById } from "../../../services/APIConfig";
+import {
+  controller,
+  getAllCampuses,
+  getCampusById,
+} from "../../../services/APIConfig";
 import CampusSearchBox from "../../../Components/CampusSearchBox/CampusSearchBox";
 import { useNavigate } from "react-router";
 
@@ -21,9 +25,12 @@ export default function ParticularCampus() {
       : {}
   );
 
+  const [allCampuses, setAllCampuses] = useState([]);
+
   useEffect(() => {
     window.scrollTo(0, 0);
     getCampusById(setCampus, collegeId);
+    getAllCampuses(setAllCampuses);
 
     return () => {
       controller.abort();
@@ -71,17 +78,6 @@ export default function ParticularCampus() {
     starsEmpty.push(<BsStar key={i} />);
   }
 
-  const campuses = [
-    {
-      _id: "6446afc2fe295d10247aef02",
-      collegeName: "IIT Madras",
-    },
-    {
-      _id: "6452b74af3758cd787880822",
-      collegeName: "IIT Delhi",
-    },
-  ];
-
   const navigate = useNavigate();
 
   const [output, setOutput] = useState("");
@@ -98,7 +94,7 @@ export default function ParticularCampus() {
         <div>
           {/* <CampusSearchBox /> */}
           <CampusSearchBox
-            data={campuses}
+            data={allCampuses}
             placeholder="You are looking for which Campus?"
             searchParams={["collegeName"]}
             listLength={5}
