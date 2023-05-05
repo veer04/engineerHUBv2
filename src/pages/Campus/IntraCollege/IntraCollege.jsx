@@ -60,7 +60,7 @@ export default function IntraCollege() {
       <div className="featured-events">
         <h2>Featured Events</h2>
         <div className="events">
-          {events.slice(0, 2).map((event) => (
+          {events.slice(0, 2).map((event, index) => (
             <FeaturedEventsCard2
               key={event._id}
               {...event}

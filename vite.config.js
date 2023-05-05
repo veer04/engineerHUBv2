@@ -7,9 +7,9 @@ config();
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
-  base: "",
-  define: {
-    global: {},
-    "process.env": process.env,
-  },
+  // base: "",
+  // define: {
+  //   global: {},
+  //   "process.env": process.env,
+  // },
 });

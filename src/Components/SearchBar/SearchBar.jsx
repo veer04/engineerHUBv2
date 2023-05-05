@@ -14,9 +14,9 @@ export default function SearchBar({
   const [query, setQuery] = useState("");
 
   const filteredData = useMemo(() => {
-    return data.filter((value) => {
-      return value.projectName.toLowerCase().includes(query.toLowerCase());
-    });
+    // return data.filter((value) => {
+    //   return value.projectName.toLowerCase().includes(query.toLowerCase());
+    // });
   }, [data, query]);
 
   useEffect(() => {

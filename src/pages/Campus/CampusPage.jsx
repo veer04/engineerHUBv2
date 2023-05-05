@@ -1,12 +1,14 @@
 import React from "react";
 import "./CampusPage.css";
-import SearchBar from "../../components/SearchBar/SearchBar";
 import CampusEventCard from "../../components/CampusEventCard/CampusEventCard";
 import EventCard from "../../components/EventCard/EventCard";
 import { useEffect, useState } from "react";
 import { controller, getEvents } from "../../services/APIConfig";
 import CampusEventTab from "../../components/CampusEventTab/CampusEventTab";
 import { getEventById } from "../../services/APIConfig";
+import CampusSearchBox from "../../Components/CampusSearchBox/CampusSearchBox";
+import { useNavigate } from "react-router";
+// import { CampusSearchBox } from "../../Components/CampusSearchBox/CampusSearchBox";
 
 export default function CampusPage() {
   const colors = ["#F7D77F", "#8FC8E8", "#B2E887", "#E8BA98"];
@@ -58,6 +60,7 @@ export default function CampusPage() {
   ];
 
   const [events, setEvents] = useState([]);
+  const [output, setOutput] = useState("");
 
   useEffect(() => {
     getEventById(setEvents);
@@ -76,6 +79,29 @@ export default function CampusPage() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  const campuses = [
+    {
+      _id: "6446afc2fe295d10247aef02",
+      collegeName: "IIT Madras",
+    },
+    {
+      _id: "6452b74af3758cd787880822",
+      collegeName: "IIT Delhi",
+    },
+  ];
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (output) {
+      console.log(output);
+      navigate(`/campus/${output}`);
+    }
+    // console.log(output);
+  }, [output]);
+
+  function result(something) {}
+
   return (
     <div className="campus-page">
       <h1 className="heading-3">Campus</h1>
@@ -86,6 +112,15 @@ export default function CampusPage() {
       </h2>
       <div className="search-bar__container">
         <div>
+          {/* <CampusSearchBox /> */}
+          <CampusSearchBox
+            data={campuses}
+            placeholder="You are looking for which Campus?"
+            searchParams={["collegeName"]}
+            listLength={5}
+            setOutput={setOutput}
+          />
+          {/* <CampusSearchBox /> */}
           {/* <SearchBar
             hasFiltration={false}
             placeholder="You are looking for which Campus?"
