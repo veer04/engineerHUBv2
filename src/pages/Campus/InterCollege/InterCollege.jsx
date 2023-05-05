@@ -38,7 +38,7 @@ export default function InterCollege() {
     },
   ];
 
-  const colors = ["#F7D77F", "#8FC8E8", "#B2E887", "#E8BA98"];
+  const colors = ["#B2E887", "#F7D77F", "#E8BA98", "#8FC8E8"];
 
   const [current, setCurrent] = useState(1);
 
@@ -61,8 +61,12 @@ export default function InterCollege() {
       <div className="featured-events">
         <h2>Featured Events</h2>
         <div className="events">
-          {events.slice(0, 2).map((event) => (
-            <FeaturedEventsCard2 key={event._id} {...event} />
+          {events.slice(0, 2).map((event, index) => (
+            <FeaturedEventsCard2
+              key={event._id}
+              {...event}
+              color={colors[index % 2]}
+            />
           ))}
         </div>
       </div>

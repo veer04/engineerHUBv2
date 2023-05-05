@@ -9,6 +9,7 @@ export default function FeaturedEventsCard2({
   stars,
   views,
   eventDate,
+  color,
 }) {
   const [width, setWidth] = useState(window.innerWidth);
 
@@ -24,7 +25,12 @@ export default function FeaturedEventsCard2({
   }, []);
 
   return (
-    <div className="featured-events-card2">
+    <div
+      style={{
+        backgroundColor: color,
+      }}
+      className="featured-events-card2"
+    >
       <div>
         <div
           style={{

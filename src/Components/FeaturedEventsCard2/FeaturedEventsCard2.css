@@ -1,7 +1,7 @@
 .featured-events-card2 {
   display: flex;
   flex-direction: row;
-  background-color: var(--secondary-color-green);
+  /* background-color: var(--secondary-color-green); */
   align-items: center;
   border-radius: 0.5rem;
   padding: 0.4rem;

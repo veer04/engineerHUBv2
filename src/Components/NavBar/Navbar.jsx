@@ -123,7 +123,9 @@ export default function Navbar() {
 
           <ButtonRounded className="nav-logged-in-btn nav-login-btn">
       <img className="nav-user-thumbnail" src={thumbnail} alt="user" />
-      <span className="nav-username"  >Hi, {username}| <ButtonRounded onClick={handleLogout}>Log out</ButtonRounded> </span>
+      <span className="nav-username"  >Hi, {username}| 
+      {/* <ButtonRounded onClick={handleLogout}>Log out</ButtonRounded> */}
+       </span>
           </ButtonRounded>
         </div>
       ) : (

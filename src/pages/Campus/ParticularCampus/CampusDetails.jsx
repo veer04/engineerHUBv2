@@ -77,7 +77,7 @@ export default function CampusDetails({ path }) {
   return (
     <div className="campus-details-page">
       {/* <div className="category-bar-container"> */}
-      <CategoryBar
+      {/* <CategoryBar
         className="category-bar"
         categories={[
           { id: 1, title: "Overview" },
@@ -88,7 +88,7 @@ export default function CampusDetails({ path }) {
         ]}
         current={current}
         setCurrent={setCurrent}
-      />
+      /> */}
       {/* </div> */}
       <div className="about">
         <div className="heading">About College</div>

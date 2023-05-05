@@ -37,7 +37,7 @@ export default function Workshops() {
       title: "Free",
     },
   ];
-  const colors = ["#F7D77F", "#8FC8E8", "#B2E887", "#E8BA98"];
+  const colors = ["#B2E887", "#F7D77F", "#E8BA98", "#8FC8E8"];
 
   const [current, setCurrent] = useState(1);
 
@@ -71,6 +71,7 @@ export default function Workshops() {
               eventPoster={event.eventPoster}
               title={event.eventName}
               description={event.description}
+              color={colors[index % 2]}
               hashtags={[
                 {
                   _id: 1,
