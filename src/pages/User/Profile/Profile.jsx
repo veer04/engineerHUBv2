@@ -1,7 +1,25 @@
 import "./Profile.css";
+import React, { useEffect, useState } from "react";
 import "../Login/Login.css";
 import ProfileImg from "./profile.jpeg";
 const Profile = () => {
+    const [username, setUsername] = useState("");
+
+    function getCookie(name) {
+        // Get the value of a cookie by name
+        const cookieValue = document.cookie.match(
+          "(^|;)\\s*" + name + "\\s*=\\s*([^;]+)"
+        );
+        return cookieValue ? cookieValue.pop() : "";
+      }
+      useEffect(() => {
+        // Check if user is logged in by checking for the 'userName' cookie
+        const storedUsername = getCookie("userName");
+        if (storedUsername) {
+          setUsername(storedUsername);
+        }
+      }, []);
+    
   return (
     <>
     <div className="profileSection">
@@ -97,7 +115,7 @@ const Profile = () => {
                             </div>
                         </div>
                         <div className="row profileUserName">
-                            John Doe
+                            {username}
                         </div>
                         <div className="row clgNameProfile">
                             College Name

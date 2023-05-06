@@ -28,12 +28,10 @@ export default function Navbar() {
     });
     setIsLoggedIn(false);
     setUsername("");
+    navigate('/')
   }
 
-  const handleLogin = () => {
-    navigate("/login");
-  };
-
+ 
   function getCookie(name) {
     // Get the value of a cookie by name
     const cookieValue = document.cookie.match(
@@ -59,6 +57,12 @@ export default function Navbar() {
 
   const [width, setWidth] = useState(window.innerWidth);
   const handleResize = () => setWidth(window.innerWidth);
+
+  const handleLogin = () => {
+    navigate("/login");
+    window.location.reload(true);
+  };
+
 
   useEffect(() => {
     window.addEventListener("resize", handleResize);
@@ -118,10 +122,10 @@ export default function Navbar() {
 
         <div>
           {isLoggedIn ? (
-            <div>
-              {/* Hi, {username} | <button onClick={handleLogout}>Log out</button> */}
+            <div className="logBtn">
+              Hi, {username} |   <span onClick={handleLogout}>Logout</span>
 
-              <ButtonRounded className="nav-logged-in-btn nav-login-btn">
+              {/* <button className="nav-logged-in-btn nav-login-btn">
                 <img
                   className="nav-user-thumbnail"
                   src={thumbnail}
@@ -129,17 +133,17 @@ export default function Navbar() {
                 />
                 <span className="nav-username">
                   Hi, {username}|
-                  {/* <ButtonRounded onClick={handleLogout}>Log out</ButtonRounded> */}
+                  <button onClick={handleLogout}>Log out</button>
                 </span>
-              </ButtonRounded>
+              </button> */}
             </div>
           ) : (
             <div>
               <Link to="/login">
                 {" "}
-                <ButtonRounded className="nav-login-btn" onClick={handleLogin}>
+                <button className="nav-login-btn logBtn" onClick={handleLogin}>
                   Login/Signup
-                </ButtonRounded>{" "}
+                </button>{" "}
               </Link>
             </div>
           )}
