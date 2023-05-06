@@ -14,36 +14,20 @@
   border-radius: 0.75rem;
   padding: 0.8rem;
   position: relative;
+  background-position: 0;
+  box-shadow: 0.2rem 0.2rem 0.5rem 0.2rem rgba(0, 0, 0, 0.2);
 }
 
 .domains-section__item:hover {
   cursor: pointer;
-  transition: all 0.2s ease-in-out;
+  transform: scale(1.1);
+  transition: all 0.2s ease-in;
 }
 
 .domains-section__item__title {
   font-size: 1.4rem;
   font-weight: 600;
-  color: white;
-}
-
-.domains-section__item::before {
-  content: "";
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background-image: inherit;
-  background-size: contain;
-  background-position: center center;
-  background-repeat: no-repeat;
-  top: 15px;
-  left: 0;
-  filter: blur(25px);
-  z-index: -1;
-}
-.domains-section__item::before:hover {
-  display: none;
-  opacity: 0;
+  color: black;
 }
 
 @media screen and (max-width: 1250px) {
