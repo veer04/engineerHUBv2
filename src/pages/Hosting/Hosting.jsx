@@ -1,10 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./Hosting.css";
 import { Bucket_URL } from "../../services/APIUtils";
 import { BsArrowRight } from "react-icons/bs";
+import { Link } from "react-router-dom";
 
 export default function Hosting() {
   const bucket = `${Bucket_URL}frontend/hosting/`;
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  });
 
   return (
     <div className="hosting-page">
@@ -19,50 +24,58 @@ export default function Hosting() {
           For <span>Engaging</span> your target audience
         </div>
         <div className="cards">
-          <div
-            style={{
-              backgroundImage: `url(${bucket}cultural_event.png)`,
-            }}
-            className="card"
-          >
-            <div className="heading">Cultural Event</div>
-            <div className="subheading">
-              Create Event <BsArrowRight />
+          <Link to="/hostevent">
+            <div
+              style={{
+                backgroundImage: `url(${bucket}cultural_event.png)`,
+              }}
+              className="card"
+            >
+              <div className="heading">Cultural Event</div>
+              <div className="subheading">
+                Create Event <BsArrowRight />
+              </div>
             </div>
-          </div>
-          <div
-            style={{
-              backgroundImage: `url(${bucket}technical_event.png)`,
-            }}
-            className="card"
-          >
-            <div className="heading">Technical Event</div>
-            <div className="subheading">
-              Create Event <BsArrowRight />
+          </Link>
+          <Link to="/hostevent">
+            <div
+              style={{
+                backgroundImage: `url(${bucket}technical_event.png)`,
+              }}
+              className="card"
+            >
+              <div className="heading">Technical Event</div>
+              <div className="subheading">
+                Create Event <BsArrowRight />
+              </div>
             </div>
-          </div>
-          <div
-            style={{
-              backgroundImage: `url(${bucket}hackathon.png)`,
-            }}
-            className="card"
-          >
-            <div className="heading">Hackathon</div>
-            <div className="subheading">
-              Create Event <BsArrowRight />
+          </Link>
+          <Link to="/hostevent">
+            <div
+              style={{
+                backgroundImage: `url(${bucket}hackathon.png)`,
+              }}
+              className="card"
+            >
+              <div className="heading">Hackathon</div>
+              <div className="subheading">
+                Create Event <BsArrowRight />
+              </div>
             </div>
-          </div>
-          <div
-            style={{
-              backgroundImage: `url(${bucket}webinar.png)`,
-            }}
-            className="card"
-          >
-            <div className="heading">Webinar</div>
-            <div className="subheading">
-              Create Event <BsArrowRight />
+          </Link>
+          <Link to="/hostevent">
+            <div
+              style={{
+                backgroundImage: `url(${bucket}webinar.png)`,
+              }}
+              className="card"
+            >
+              <div className="heading">Webinar</div>
+              <div className="subheading">
+                Create Event <BsArrowRight />
+              </div>
             </div>
-          </div>
+          </Link>
         </div>
       </div>
       <div className="box-container">
@@ -70,39 +83,45 @@ export default function Hosting() {
           Create <span>Jobs</span> for the right talent
         </div>
         <div className="cards">
-          <div
-            style={{
-              backgroundImage: `url(${bucket}jobs.png)`,
-            }}
-            className="card"
-          >
-            <div className="heading">Jobs</div>
-            <div className="subheading">
-              Create Jobs <BsArrowRight />
+          <Link to="/hostevent">
+            <div
+              style={{
+                backgroundImage: `url(${bucket}jobs.png)`,
+              }}
+              className="card"
+            >
+              <div className="heading">Jobs</div>
+              <div className="subheading">
+                Create Jobs <BsArrowRight />
+              </div>
             </div>
-          </div>
-          <div
-            style={{
-              backgroundImage: `url(${bucket}internships.png)`,
-            }}
-            className="card"
-          >
-            <div className="heading">Internships</div>
-            <div className="subheading">
-              Create Jobs <BsArrowRight />
+          </Link>
+          <Link to="/hostevent">
+            <div
+              style={{
+                backgroundImage: `url(${bucket}internships.png)`,
+              }}
+              className="card"
+            >
+              <div className="heading">Internships</div>
+              <div className="subheading">
+                Create Jobs <BsArrowRight />
+              </div>
             </div>
-          </div>
-          <div
-            style={{
-              backgroundImage: `url(${bucket}challenges.png)`,
-            }}
-            className="card"
-          >
-            <div className="heading">Challenges</div>
-            <div className="subheading">
-              Create Jobs <BsArrowRight />
+          </Link>
+          <Link to="/hostevent">
+            <div
+              style={{
+                backgroundImage: `url(${bucket}challenges.png)`,
+              }}
+              className="card"
+            >
+              <div className="heading">Challenges</div>
+              <div className="subheading">
+                Create Jobs <BsArrowRight />
+              </div>
             </div>
-          </div>
+          </Link>
         </div>
       </div>
     </div>
