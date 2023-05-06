@@ -1,72 +1,165 @@
-.headerSectionEvent{
-    margin-top: 3%;
-    color: #0a3f51;
-    font-size: 2rem;
-    font-weight: 600;
+.eventR {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: var(--vertical-padding) var(--section-padding);
+  scroll-behavior: auto;
 }
-.navDifferentPagesButton{
-    display: flex;
-    justify-content: space-evenly;
-    /* align-items: space-evenly; */
+.eventR h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #000;
+  margin-bottom: 1rem;
+  color: var(--text-color-dark-green);
 }
-.btn1,.btn2,.btn3{
-    margin-bottom:3%;
-    margin-top: 2%;
-    text-align: center;
-    padding: 10px;
-    padding-left: 3%;
-    padding-right: 3%;
-    border: #0a3f51 solid 1px;
-    border-radius: 50px;
+.eventR h2 {
+  font-size: 1.2rem;
+  font-weight: 400;
+  color: #000;
+  margin-bottom: 2rem;
+  color: var(--text-color-dark-green);
 }
-.btn1{
-    background-color: #0a3f51;
-    color: #fff;
-}
-.formcontainer
-{margin-top: 5%;
-    margin-bottom: 5%;
-    display: flex;
-    flex-direction: column;
-    /* justify-content: center; */
-    align-items: center;
+.headerSectionEvent {
+  margin-top: 3%;
+  color: #0a3f51;
+  font-size: 2rem;
+  font-weight: 600;
 }
 
-.step1Header{
-    color: #0a3f51;
-    font-size: 1.6rem;
-    font-weight: 600;
+.navigation-buttons__container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin: 2em 0;
 }
-.inputHosting
-{
-    width: 40vw;
+.navigation-buttons__container > .navigation-buttons {
+  display: flex;
+  flex-direction: row;
+  width: 40rem;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+}
+.navigation-buttons__container > .navigation-buttons > .form-button {
+  background-color: var(--main-background-color);
+  color: #a1a1a1;
+  padding: 0.5rem 1.5rem;
+  border-radius: 10rem;
+  z-index: 3;
+  border: 1px solid #a1a1a1;
+  text-align: center;
+}
+.navigation-buttons__container > .navigation-buttons > .dotted-line {
+  position: absolute;
+  width: 50%;
+  border: 2px dashed #a1a1a1;
+}
+.navigation-buttons__container > .navigation-buttons > .dotted-line-1 {
+  left: 0;
+}
+.navigation-buttons__container > .navigation-buttons > .dotted-line-2 {
+  left: 50%;
+}
+
+.navDifferentPagesButton {
+  display: flex;
+  justify-content: space-evenly;
+  /* align-items: space-evenly; */
+}
+.btn1,
+.btn2,
+.btn3 {
+  margin-bottom: 3%;
+  margin-top: 2%;
+  text-align: center;
+  padding: 10px;
+  padding-left: 3%;
+  padding-right: 3%;
+  border: #0a3f51 solid 1px;
+  border-radius: 50px;
+}
+.btn1 {
+  background-color: #0a3f51;
+  color: #fff;
+}
+.formcontainer {
+  margin-top: 5%;
+  margin-bottom: 5%;
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  align-items: flex-start;
+}
+.eventR > div > form > div {
+  padding: 0 5rem;
+}
+.eventR label {
+  margin-bottom: 0.5rem;
+  padding: 0;
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+.step1Header {
+  color: #0a3f51;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+.inputHosting {
+  width: 40vw;
+  min-width: 25rem;
   padding-top: 5px;
-  padding-bottom:5px;
-    border: solid 1px #0a3f51;
-    border-radius: 5px;
-    background-color: #eeffff;
-    padding-left: 10px;
-    padding-right: 10px;
+  padding-bottom: 5px;
+  border: solid 1px #bdbdbd;
+  border-radius: 5px;
+  background-color: #eeffff;
+  padding-left: 10px;
+  padding-right: 10px;
 }
-.buttonOnHostingPage{
-    border: none;
+.buttonOnHostingPage {
+  border: none;
   background: rgba(18, 131, 129, 1);
-   color: #fff;
-   padding: 5px;
-   padding-left: 20px;
-   padding-right: 20px;
-   border-radius: 5px;
-   margin-bottom: 1%;
+  color: #fff;
+  padding: 5px;
+  padding-left: 20px;
+  padding-right: 20px;
+  border-radius: 5px;
+  margin-bottom: 1%;
 }
 .home {
-    background-color: gray;
-    color: white;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    margin-right: 10px;
+  background-color: gray;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  margin-right: 10px;
+}
+
+.active {
+  background-color: blue;
+}
+
+@media screen and (max-width: 768px) {
+  .eventR > div > form > div {
+    padding: 0 2rem;
   }
-  
- .active {
-    background-color: blue;
+}
+
+@media screen and (max-width: 530px) {
+  .navigation-buttons__container > .navigation-buttons > .form-button {
+    padding: 0.3rem 0.75rem;
+    font-size: 0.7rem;
+    z-index: 3;
   }
+  .inputHosting {
+    width: 100%;
+    min-width: 0;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .eventR > div > form > div {
+    padding: 0;
+  }
+}
