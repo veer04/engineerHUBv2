@@ -8,6 +8,7 @@ import { useSignIn } from "react-auth-kit";
 import CustomSnackbar from "./CustomSnackbar";
 
 import Cookies from "js-cookie";
+import jwt_decode from "jwt-decode";
 
 
 import "./Login.css";
@@ -90,8 +91,13 @@ const response = await axios.post(`https://e-hub-backend-production-9545.up.rail
 ).then
 ( response=>{
   Cookies.set('access_token', response.data.accessToken);
+  const token =response.data.accessToken;
+  const decoded = jwt_decode(token);
+  console.log(decoded); 
   Cookies.set('refresh_token', response.data.refreshToken);
-  Cookies.set('userName', response.data.UserName);
+  Cookies.set('userName', response.data.userName);
+  Cookies.set('institutionName',response.data.institutionName);
+  Cookies.set('email', response.data.email);
   if(response.status===200||response.status===201||response.status===202||response.status===203||response.status===204)
   {
     setValidation(true);

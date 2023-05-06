@@ -4,6 +4,8 @@ import "../Login/Login.css";
 import ProfileImg from "./profile.jpeg";
 const Profile = () => {
     const [username, setUsername] = useState("");
+    const [institutionName,setInstitutionName] =useState("");
+    const [email,setEmail] =useState("");
 
     function getCookie(name) {
         // Get the value of a cookie by name
@@ -18,6 +20,15 @@ const Profile = () => {
         if (storedUsername) {
           setUsername(storedUsername);
         }
+        const storedEmail = getCookie("email");
+        if (storedEmail) {
+          setEmail(storedEmail);
+        }
+        const storedCollege = getCookie("institutionName");
+        if (storedCollege) {
+          setInstitutionName(storedCollege);
+        }
+
       }, []);
     
   return (
@@ -121,13 +132,13 @@ const Profile = () => {
                             College Name
                         </div>
                         <div className="row collegeName">
-                        Indian Institute of Information Technology Bombay (IITB)
+                        {institutionName}
                         </div>
                         <div className="row EmailHeader">
                             Email ID
                         </div>
                         <div className="row emailIdProfile">
-                        johndoe@gmail.com
+                        {email}
                         </div>
                         <div className="row EmailHeader">
                            Social Links
