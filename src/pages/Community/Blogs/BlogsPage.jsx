@@ -17,7 +17,7 @@ export default function BlogsPage({ path }) {
   const [blogs, setBlogs] = useState(
     sessionStorage.getItem(`${id} blogs`)
       ? JSON.parse(sessionStorage.getItem(`${id} blogs`))
-      : {}
+      : []
   );
 
   useEffect(() => {
