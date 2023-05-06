@@ -17,7 +17,6 @@ const Register = () => {
   // const accessToken = Cookies.get('access_token');
   // const refreshToken = Cookies.get('refresh_token');
   const { setSelectedPage } = useMobileNavbar();
-
   useEffect(() => {
     setSelectedPage("login");
     window.scrollTo(0, 0);
@@ -59,17 +58,6 @@ const Register = () => {
     setFormPassword(validatePassword(password));
   };
 
-  // const getAccessToken = () => {
-  //   const access_token = getCookie('access_token');
-  //   return access_token ? `Bearer ${access_token}` : null;
-  //   console.log(access_token);
-  // }
-
-  // const getRefreshToken = () => {
-  //   const refresh_token = getCookie('refresh_token');
-  //   return refresh_token ? `Bearer ${refresh_token}` : null;
-  //   console.log(refresh_token);
-  // }
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -81,72 +69,102 @@ const Register = () => {
 // };
   
 
-const response = await axios.post(`https://e-hub-backend-production-9545.up.railway.app/api/v1/login`
-,values,
-// {headers},
-
-).then
-( response=>{
-  Cookies.set('access_token', response.data.accessToken);
-  const token =response.data.accessToken;
-  const decoded = jwt_decode(token);
-  console.log(decoded); 
-  Cookies.set('refresh_token', response.data.refreshToken);
-  Cookies.set('userName', response.data.userName);
-  Cookies.set('institutionName',response.data.institutionName);
-  Cookies.set('email', response.data.email);
-  if(response.status===200||response.status===201||response.status===202||response.status===203||response.status===204)
-  {
-    setValidation(true);
-  }
-}
-
-).catch(
-  error=>{
-    console.error(error);
-  }
-);
-console.log(response);
-
-    // try {
-    //   const response = await axios.post(
-    //     `https://e-hub-backend-production-9545.up.railway.app/api/v1/login`,
-    //     values,
-    //   );
-
-    //   signIn({
-    //     token: response.data.accessToken,
-    //     expiresIn: 3600,
-    //     tokenType: "Bearer",
-    //     authState: { m:values.email },
-    //   });
-    //   setValidation(true);
-    //   setOpen(true);
-    //   setSnackbarValues({
-    //     severity: "success",
-    //     message: "SuccessFully Logged in",
-    //   });
-    //   setCookieValue(Cookies.get('_auth_state').slice(6,Cookies.get('_auth_state').length-12));
-    // } catch (err) {
-    //   setSnackbarValues({
-    //     severity: "error",
-    //     message: "User doesn't exist or already signed in!",
-    //   });
-    //   if (err && err instanceof AxiosError)
-    //     setError(err.response?.data.message);
-    //   else if (err && err instanceof Error) setError(err.message);
-    //   setOpen(true);
-    // }
+// const response = await axios.post(`https://e-hub-backend-production-9545.up.railway.app/api/v1/login`
+// ,values,
 
 
-  };
-  const navigation=()=>{
-   if(validation===true)
-    { 
-      navigate("/profile");
-      window.location.reload(true);
+// ).then
+// ( response=>{
+//   Cookies.set('access_token', response.data.accessToken);
+//   const token =response.data.accessToken;
+//   const decoded = jwt_decode(token);
+//   console.log(decoded); 
+//   Cookies.set('refresh_token', response.data.refreshToken);
+//   Cookies.set('userName', response.data.userName);
+//   Cookies.set('institutionName',response.data.institutionName);
+//   Cookies.set('email', response.data.email);
+//   if(response.status===200||response.status===201||response.status===202||response.status===203||response.status===204)
+//   {
+//     setValidation(true);
+
+      
+//   }
+// }
+
+// ).catch(
+//   error=>{
+//     console.error(error);
+//   }
+// );
+
+
+
+
+// console.log(response);
+
+    try {
+      const response = await axios.post(
+        `https://e-hub-backend-production-9545.up.railway.app/api/v1/login`,
+        values,
+      ).then
+      ( response=>{
+        Cookies.set('access_token', response.data.accessToken);
+        const token =response.data.accessToken;
+        const decoded = jwt_decode(token);
+        console.log(decoded); 
+        Cookies.set('refresh_token', response.data.refreshToken);
+        Cookies.set('userName', response.data.userName);
+        Cookies.set('institutionName',response.data.institutionName);
+        Cookies.set('email', response.data.email);
+        const msg = response.data.message;
+        if(response.status===200||response.status===201||response.status===202||response.status===203||response.status===204)
+        {
+          navigate("/profile");
+          window.location.reload(true);
+      
+            
+        }
+      }
+      
+      ).catch(
+        error=>{
+          console.error(error);
+        }
+      )
+      ;
+
+      // signIn({
+      //   token: response.data.accessToken,
+      //   expiresIn: 3600,
+      //   tokenType: "Bearer",
+      //   authState: { m:values.email },
+      // });
+      setValidation(true);
+      setOpen(true);
+      setSnackbarValues({
+        severity: "success",
+        message: "Logged in Successfully!",
+      });
+      setCookieValue(Cookies.get('_auth_state').slice(6,Cookies.get('_auth_state').length-12));
+    } catch (err) {
+      setSnackbarValues({
+        severity: "error",
+        message: "Wrong credentials!",
+      });
+      if (err && err instanceof AxiosError)
+        setError(err.response?.data.message);
+      else if (err && err instanceof Error) setError(err.message);
+      setOpen(true);
     }
+
+
   };
+  // const navigation=()=>{
+  //  if(validation===true)
+  //   { 
+      
+  //   }
+  // };
 
   const validatePassword = (value) => {
     let errors = {};
