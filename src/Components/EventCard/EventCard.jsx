@@ -4,6 +4,7 @@ import "./EventCard.css";
 import { IoPeopleOutline } from "react-icons/io5";
 import { MdCancel } from "react-icons/md";
 import EventModal from "../EventModal/EventModal";
+import defaultPoster from "../../assets/defaultPoster";
 
 export default function EventCard({
   _id,
@@ -46,7 +47,9 @@ export default function EventCard({
           style={{
             // width: "100%",
             aspectRatio: "1/1",
-            backgroundImage: `url(${eventPoster})`,
+            backgroundImage: `url(${
+              eventPoster ? eventPoster : defaultPoster
+            })`,
             backgroundSize: "cover",
             backgroundColor: "var(--primary-color-green)",
             backgroundPosition: "center",

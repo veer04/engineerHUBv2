@@ -10,14 +10,15 @@ import {
   getTrendingClubs,
 } from "../../../services/APIConfig";
 import { useParams } from "react-router-dom";
+import defaultPoster from "../../../assets/defaultPoster";
 
 export default function ClubsPage({ type }) {
   const activities = [
     {
       _id: 1,
       postedBy: "GeeksForGeeks",
-      logo: "https://source.unsplash.com/random",
-      poster: "https://source.unsplash.com/random",
+      logo: defaultPoster,
+      poster: defaultPoster,
       description:
         "Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus assumenda beatae quae aliquid, ducimus sunt saepe accusamus, quod ea facere nesciunt molestias tempore quibusdam vel molestiae rem explicabo quam. Doloremque temporibus quod architecto esse minus nihil ut exercitationem pariatur magni!",
       shareLink: "https://www.google.com",
@@ -25,8 +26,8 @@ export default function ClubsPage({ type }) {
     {
       _id: 2,
       postedBy: "GeeksForGeeks",
-      logo: "https://source.unsplash.com/random",
-      poster: "https://source.unsplash.com/random",
+      logo: defaultPoster,
+      poster: defaultPoster,
       description:
         "Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus assumenda beatae quae aliquid, ducimus sunt saepe accusamus, quod ea facere nesciunt molestias tempore quibusdam vel molestiae rem explicabo quam. Doloremque temporibus quod architecto esse minus nihil ut exercitationem pariatur magni!",
       shareLink: "https://www.google.com",
@@ -34,8 +35,8 @@ export default function ClubsPage({ type }) {
     {
       _id: 3,
       postedBy: "GeeksForGeeks",
-      logo: "https://source.unsplash.com/random",
-      poster: "https://source.unsplash.com/random",
+      logo: defaultPoster,
+      poster: defaultPoster,
       description:
         "Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus assumenda beatae quae aliquid, ducimus sunt saepe accusamus, quod ea facere nesciunt molestias tempore quibusdam vel molestiae rem explicabo quam. Doloremque temporibus quod architecto esse minus nihil ut exercitationem pariatur magni!",
       shareLink: "https://www.google.com",
@@ -43,8 +44,8 @@ export default function ClubsPage({ type }) {
     {
       _id: 4,
       postedBy: "GeeksForGeeks",
-      logo: "https://source.unsplash.com/random",
-      poster: "https://source.unsplash.com/random",
+      logo: defaultPoster,
+      poster: defaultPoster,
       description:
         "Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus assumenda beatae quae aliquid, ducimus sunt saepe accusamus, quod ea facere nesciunt molestias tempore quibusdam vel molestiae rem explicabo quam. Doloremque temporibus quod architecto esse minus nihil ut exercitationem pariatur magni!",
       shareLink: "https://www.google.com",
