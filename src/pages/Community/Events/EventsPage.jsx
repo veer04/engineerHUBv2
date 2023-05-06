@@ -4,8 +4,8 @@ import Sidebar from "../../../components/Sidebar/Sidebar";
 import filter from "./img/filter-icon.png";
 import { controller, getEvents } from "../../../services/APIConfig";
 import EventCard from "../../../components/EventCard/EventCard";
-import MobileSidebar from "../../../Components/MobileSidebar/MobileSidebar";
-// import EventModal from "../../../Components/EventModal/EventModal";
+import MobileSidebar from "../../../components/MobileSidebar/MobileSidebar";
+// import EventModal from "../../../components/EventModal/EventModal";
 import "./EventsPage.css";
 import { MdCancel } from "react-icons/md";
 
@@ -63,7 +63,7 @@ export default function EventsPage({ path }) {
         <div className="community__subpage__content">
           <Sidebar path={path} />
           <div className="project__content">
-            <div className="project__searchbar__container">
+            {/* <div className="project__searchbar__container">
               <div className="project__searchbar input-group">
                 <input
                   type="text"
@@ -76,7 +76,7 @@ export default function EventsPage({ path }) {
                   <img src={filter} alt="filter" />
                 </span>
               </div>
-            </div>
+            </div> */}
             <div className="project__list__container">
               <div
                 className={`project__list ${

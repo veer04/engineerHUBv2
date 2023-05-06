@@ -12,7 +12,7 @@ import {
   getAllCampuses,
   getCampusById,
 } from "../../../services/APIConfig";
-import CampusSearchBox from "../../../Components/CampusSearchBox/CampusSearchBox";
+import CampusSearchBox from "../../../components/CampusSearchBox/CampusSearchBox";
 import { useNavigate } from "react-router";
 
 export default function ParticularCampus() {

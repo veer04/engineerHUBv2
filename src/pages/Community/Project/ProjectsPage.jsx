@@ -1,12 +1,12 @@
 import React, { useEffect, useState, useMemo } from "react";
 import "./ProjectsPage.css";
 import { useParams } from "react-router-dom";
-import Sidebar from "../../../Components/Sidebar/Sidebar";
+import Sidebar from "../../../components/Sidebar/Sidebar";
 import filterImg from "./img/filter-icon.png";
 import image from "./img/image.png";
 import ProjectCard from "../../../components/ProjectCard/ProjectCard";
 import { RxCross1 } from "react-icons/rx";
-import ProjectWindow from "../../../Components/ProjectWindow/ProjectWindow";
+import ProjectWindow from "../../../components/ProjectWindow/ProjectWindow";
 import {
   controller,
   getProjectTags,
@@ -14,7 +14,7 @@ import {
 } from "../../../services/APIConfig";
 import useSidebar from "../../../hooks/use-sidebar";
 import SearchBar from "../../../components/SearchBar/SearchBar";
-import MobileSidebar from "../../../Components/MobileSidebar/MobileSidebar";
+import MobileSidebar from "../../../components/MobileSidebar/MobileSidebar";
 
 export default function ProjectPage({ path }) {
   const { id } = useParams();

@@ -1,7 +1,7 @@
 import { createContext } from "react";
 import ReactDOM from "react-dom/client";
 import React, { useState } from "react";
-import Modal from "../Components/EventModal/Modal";
+import Modal from "../components/EventModal/Modal";
 
 export const EventModalContext = createContext();
 

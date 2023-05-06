@@ -10,9 +10,9 @@ import {
 } from "../../services/APIConfig";
 import CampusEventTab from "../../components/CampusEventTab/CampusEventTab";
 import { getEventById } from "../../services/APIConfig";
-import CampusSearchBox from "../../Components/CampusSearchBox/CampusSearchBox";
+import CampusSearchBox from "../../components/CampusSearchBox/CampusSearchBox";
 import { useNavigate } from "react-router";
-// import { CampusSearchBox } from "../../Components/CampusSearchBox/CampusSearchBox";
+// import { CampusSearchBox } from "../../components/CampusSearchBox/CampusSearchBox";
 
 export default function CampusPage() {
   const colors = ["#F7D77F", "#8FC8E8", "#B2E887", "#E8BA98"];
