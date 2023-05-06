@@ -32,7 +32,7 @@
   justify-content: center;
   align-items: center;
   width: 100%;
-  margin: 1rem 0;
+  margin: 2em 0;
 }
 .navigation-buttons__container > .navigation-buttons {
   display: flex;
@@ -92,17 +92,26 @@
   /* justify-content: center; */
   align-items: flex-start;
 }
-
+.eventR > div > form > div {
+  padding: 0 5rem;
+}
+.eventR label {
+  margin-bottom: 0.5rem;
+  padding: 0;
+  font-size: 1.125rem;
+  font-weight: 600;
+}
 .step1Header {
   color: #0a3f51;
-  font-size: 1.6rem;
-  font-weight: 600;
+  font-size: 1.5rem;
+  font-weight: 700;
 }
 .inputHosting {
   width: 40vw;
+  min-width: 25rem;
   padding-top: 5px;
   padding-bottom: 5px;
-  border: solid 1px #0a3f51;
+  border: solid 1px #bdbdbd;
   border-radius: 5px;
   background-color: #eeffff;
   padding-left: 10px;
@@ -131,10 +140,26 @@
   background-color: blue;
 }
 
+@media screen and (max-width: 768px) {
+  .eventR > div > form > div {
+    padding: 0 2rem;
+  }
+}
+
 @media screen and (max-width: 530px) {
   .navigation-buttons__container > .navigation-buttons > .form-button {
     padding: 0.3rem 0.75rem;
     font-size: 0.7rem;
     z-index: 3;
+  }
+  .inputHosting {
+    width: 100%;
+    min-width: 0;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .eventR > div > form > div {
+    padding: 0;
   }
 }

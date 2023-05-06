@@ -3,9 +3,9 @@ import "./EventRegistration.css";
 import axios from "axios";
 const EventRegistrationForm = () => {
   const [step, setStep] = useState(1);
-  const [domainName, setdomainName] = useState("");
-  const [campusName, setcampusName] = useState("");
-  const [eventType, seteventType] = useState("");
+  const [domainName, setDomainName] = useState("");
+  const [campusName, setCampusName] = useState("");
+  const [eventType, setEventType] = useState("");
   const [mode, setMode] = useState(0);
   const [description, setDescription] = useState("");
   const [eventDate, setEventDate] = useState("");
@@ -13,19 +13,15 @@ const EventRegistrationForm = () => {
   const [eventName, setEventName] = useState("");
   const [eventModeType, setEventModeType] = useState("");
   const [eventPoster, setEventPoster] = useState("");
-  const [campusLogo, setcampusLogo] = useState("");
+  const [campusLogo, setCampusLogo] = useState("");
   const [file, setFile] = useState(null);
 
-  const [activeButton, setActiveButton] = useState("btn2");
-
-  const handleNext = (buttonName) => {
+  const handleNext = () => {
     setStep(step + 1);
-    setActiveButton("btn1");
   };
 
   const handlePrev = () => {
     setStep(step - 1);
-    setActiveButton("btn2");
   };
 
   const handleSubmit = (e) => {
@@ -58,7 +54,7 @@ const EventRegistrationForm = () => {
   };
   const handleFileInputChange = (e) => {
     setFile(e.target.files[0]);
-    setcampusLogo(e.target.value());
+    setCampusLogo(e.target.value());
   };
   const handleFileInputChangePoster = () => {
     setFile(e.target.files[0]);
@@ -138,35 +134,35 @@ const EventRegistrationForm = () => {
             <div>
               <div className="step1Header">Step 1 - Basic Details</div>
               <div className="formcontainer">
-                <label htmlFor="domainName">Domain Name:</label>
+                <label htmlFor="domainName">Domain Name</label>
                 <input
                   type="text"
                   id="domainName"
                   className="inputHosting"
                   value={domainName}
-                  onChange={(e) => setdomainName(e.target.value)}
+                  onChange={(e) => setDomainName(e.target.value)}
                   required
                 />
                 <br />
 
-                <label htmlFor="campusName">Campus Name:</label>
+                <label htmlFor="campusName">Campus Name</label>
                 <input
                   type="text"
                   id="campusName"
                   className="inputHosting"
                   value={campusName}
-                  onChange={(e) => setcampusName(e.target.value)}
+                  onChange={(e) => setCampusName(e.target.value)}
                   required
                 />
                 <br />
 
-                <label htmlFor="eventType">event Type:</label>
+                <label htmlFor="eventType">Event Type</label>
                 <input
                   type="eventType"
                   id="eventType"
                   className="inputHosting"
                   value={eventType}
-                  onChange={(e) => seteventType(e.target.value)}
+                  onChange={(e) => setEventType(e.target.value)}
                   required
                 />
                 <br />
@@ -186,7 +182,7 @@ const EventRegistrationForm = () => {
             <div>
               <div className="step1Header">Step 2 - Application Details</div>
               <div className="formcontainer">
-                <label htmlFor="description">Description:</label>
+                <label htmlFor="description">Description</label>
                 <input
                   type="text"
                   id="description"
@@ -197,7 +193,7 @@ const EventRegistrationForm = () => {
                 />
                 <br />
 
-                <label htmlFor="eventDate">Event Date:</label>
+                <label htmlFor="eventDate">Event Date</label>
                 <input
                   type="date"
                   id="eventDate"
@@ -208,7 +204,7 @@ const EventRegistrationForm = () => {
                 />
                 <br />
 
-                <label htmlFor="applyLink">Apply Link:</label>
+                <label htmlFor="applyLink">Apply Link</label>
                 <input
                   type="text"
                   id="applyLink"
@@ -242,7 +238,7 @@ const EventRegistrationForm = () => {
             <div>
               <div className="step1Header">Step 3 - Publish</div>
               <div className="formcontainer">
-                <label htmlFor="eventName">Event Name:</label>
+                <label htmlFor="eventName">Event Name</label>
                 <input
                   type="text"
                   id="eventName"
@@ -253,7 +249,7 @@ const EventRegistrationForm = () => {
                 />
                 <br />
 
-                <label htmlFor="eventModeType">Event Mode Type:</label>
+                <label htmlFor="eventModeType">Event Mode Type</label>
                 <input
                   type="text"
                   id="eventModeType"
@@ -264,7 +260,7 @@ const EventRegistrationForm = () => {
                 />
                 <br />
 
-                <label htmlFor="eventPoster">Event Poster:</label>
+                <label htmlFor="eventPoster">Event Poster</label>
                 <div>
                   <input
                     type="file"
@@ -277,7 +273,7 @@ const EventRegistrationForm = () => {
                   {file && <p>Selected file: {file.name}</p>}
                 </div>
 
-                <label htmlFor="Campus Logo">Campus Logo:</label>
+                <label htmlFor="Campus Logo">Campus Logo</label>
                 <div>
                   <input
                     type="file"
@@ -287,7 +283,7 @@ const EventRegistrationForm = () => {
                     onChange={handleFileInputChange}
                   />
 
-                  {file && <p>Selected file: {file.name}</p>}
+                  {file && <p>Selected file {file.name}</p>}
                 </div>
                 <br />
 
