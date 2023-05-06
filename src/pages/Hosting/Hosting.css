@@ -39,7 +39,7 @@
   flex-wrap: wrap;
   /* border-radius: rem; */
 }
-.hosting-page > .box-container > .cards > .card {
+.hosting-page > .box-container > .cards .card {
   width: 12.5rem;
   /* height: 12.5rem; */
   aspect-ratio: 1/1;
@@ -51,16 +51,16 @@
   box-shadow: 0 0 0.5rem 0.1rem rgba(0, 0, 0, 0.1);
   color: var(--text-color-dark-green);
 }
-.hosting-page > .box-container > .cards > .card:hover {
+.hosting-page > .box-container > .cards .card:hover {
   background-color: var(--primary-color-dark-green);
   color: white !important;
 }
 
-.hosting-page > .box-container > .cards > .card > .heading {
+.hosting-page > .box-container > .cards .card > .heading {
   font-size: 1.25rem;
   font-weight: 600;
 }
-.hosting-page > .box-container > .cards > .card > .subheading {
+.hosting-page > .box-container > .cards .card > .subheading {
   font-size: 0.9rem;
   font-weight: 400;
 }
