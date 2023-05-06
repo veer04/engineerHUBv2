@@ -19,7 +19,7 @@
 }
 .host-btn:hover {
   background-color: var(--primary-color-yellow) !important;
-  color: var(--text-color-green) !important;
+  color: var(--text-color-dark-green) !important;
   font-weight: 500;
 }
 .host-btn:active {
@@ -98,7 +98,7 @@
     background-color: transparent !important;
   }
 }
-.logBtn{
+.logBtn {
   border: 1px solid #0a3f51;
   background-color: #dbfafa;
   border-radius: 20px;
@@ -107,6 +107,6 @@
   padding-left: 6px;
   padding-right: 6px;
 }
-.logBtn:hover{
-  background-color: #fbbc09 ;
+.logBtn:hover {
+  background-color: #fbbc09;
 }

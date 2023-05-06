@@ -26,7 +26,7 @@ export const getDomains = (setDomainData) => {
 export const getProjects = (setDomainData, id) => {
   const controller = new AbortController();
   axios
-    .get(`${API_URL}api/v1/domainWiseProject/${id}`, {
+    .get(`${API_URL}api/v1/domainWiseProject/${encodeURIComponent(id)}`, {
       signal: controller.signal,
     })
     .then((res) => {
@@ -45,7 +45,7 @@ export const getProjects = (setDomainData, id) => {
 export const getProjectTags = (setTags, id) => {
   const controller = new AbortController();
   axios
-    .get(`${API_URL}api/v1/alltags/${id}`, {
+    .get(`${API_URL}api/v1/alltags/${encodeURIComponent(id)}`, {
       signal: controller.signal,
     })
     .then((res) => {
@@ -83,7 +83,7 @@ export const getProjectById = (setProject, id) => {
 export const getBlogs = (setBlogs, id) => {
   const controller = new AbortController();
   axios
-    .get(`${API_URL}api/v1/domainWiseBlog/${id}`, {
+    .get(`${API_URL}api/v1/domainWiseBlog/${encodeURIComponent(id)}`, {
       signal: controller.signal,
     })
     .then((res) => {
@@ -127,6 +127,7 @@ export const getAllEvents = (setEvents) => {
     })
     .then((res) => {
       const data = res.data.data;
+      console.log("all events", data);
       setEvents(data);
     })
     .catch((err) => {
@@ -141,14 +142,16 @@ export const getAllEvents = (setEvents) => {
 export const getEvents = (setEvents, id) => {
   const controller = new AbortController();
   axios
-    .get(`${API_URL}api/v1/eventDomainWise/${id}`, {
+    .get(`${API_URL}api/v1/eventDomainWise/${encodeURIComponent(id)}`, {
       signal: controller.signal,
     })
     .then((res) => {
+      console.log("events", res);
       const data = res.data.data;
       setEvents(data);
     })
     .catch((err) => {
+      console.log("err", err);
       if (axios.isCancel(err)) {
         console.log("req cancel");
       } else {

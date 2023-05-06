@@ -27,13 +27,12 @@ export default function SidebarItem({
 
   function handleClick() {
     setSelectedItem(link);
-    console.log(link);
   }
 
   const { id } = useParams();
 
   return (
-    <Link to={`/community/${link}/${id}`}>
+    <Link to={`/community/${link}/${encodeURIComponent(id)}`}>
       <div onClick={() => handleClick()} className={sidebarItemClass}>
         <div className={sidebarItemSvgClass}>{svg}</div>
         {!isCollapsed && title}

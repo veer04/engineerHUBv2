@@ -9,7 +9,10 @@ export default function Domains({ domains }) {
     <div className="domains-section">
       <div className="domains-section__list">
         {domains.map((item, index) => (
-          <Link key={item._id} to={`/community/projects/${item.domain}`}>
+          <Link
+            key={item._id}
+            to={`/community/projects/${encodeURIComponent(item.domain)}`}
+          >
             <div style={{ position: "relative", borderRadius: ".6rem" }}>
               <div
                 style={{
