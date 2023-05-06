@@ -14,7 +14,9 @@ const EventRegistrationForm = () => {
   const [eventModeType, setEventModeType] = useState("");
   const [eventPoster, setEventPoster] = useState("");
   const [campusLogo, setCampusLogo] = useState("");
-  const [file, setFile] = useState(null);
+  const [eventPosterUpload, setEventPosterUpload] = useState(null);
+  const [campusLogoUpload, setCampusLogoUpload] = useState(null);
+  const [file, setFile] = useState();
 
   const handleNext = () => {
     setStep(step + 1);
@@ -39,11 +41,12 @@ const EventRegistrationForm = () => {
 
       eventName: eventName,
       eventModeType: eventModeType,
-      eventPoster: eventPoster,
-      campusLogo: campusLogo,
+      eventPoster: eventPosterUpload,
+      campusLogo: campusLogoUpload,
     };
+    console.log(data, "inside post ");
 
-    event.preventDefault();
+    e.preventDefault();
     axios
       .post(
         "https://e-hub-backend-production.up.railway.app/api/v1/event",
@@ -53,12 +56,17 @@ const EventRegistrationForm = () => {
       .catch((err) => console.error(err));
   };
   const handleFileInputChange = (e) => {
-    setFile(e.target.files[0]);
-    setCampusLogo(e.target.value());
+    console.log(e.target.files[0]);
+    // setCampusLogo(e.target.files[0]);
+    // setFile(e.target.files[0]);
+    setCampusLogoUpload(e.target.files[0]);
   };
-  const handleFileInputChangePoster = () => {
-    setFile(e.target.files[0]);
-    setEventPoster(e.target.value());
+  const handleFileInputChangePoster = (e) => {
+    console.log(e.target.files[0]);
+    setEventPosterUpload(e.target.files[0]);
+    // setEventPoster(e.target.files[0]);
+
+    // setFile(e.target.files[0]);
   };
 
   return (
