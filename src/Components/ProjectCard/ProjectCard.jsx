@@ -2,6 +2,7 @@ import React from "react";
 import "./ProjectCard.css";
 import { IoPeopleOutline } from "react-icons/io5";
 import useSidebar from "../../hooks/use-sidebar";
+import defaultPoster from "../../assets/defaultPoster";
 
 export default function ProjectCard({
   projectImage,
@@ -45,7 +46,9 @@ export default function ProjectCard({
           style={{
             width: "100%",
             height: "12rem",
-            backgroundImage: `url(${projectImage})`,
+            backgroundImage: `url(${
+              projectImage ? projectImage : defaultPoster
+            })`,
             backgroundSize: "contain",
             backgroundColor: "rgb(238,255,255)",
             backgroundPosition: "center",

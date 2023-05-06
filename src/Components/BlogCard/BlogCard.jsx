@@ -2,6 +2,7 @@ import React from "react";
 import "./BlogCard.css";
 import { IoPeopleOutline } from "react-icons/io5";
 import useSidebar from "../../hooks/use-sidebar";
+import defaultPoster from "../../assets/defaultPoster";
 
 export default function BlogCard({
   postIcon,
@@ -32,7 +33,7 @@ export default function BlogCard({
           style={{
             width: "100%",
             height: "12rem",
-            backgroundImage: `url(${postIcon})`,
+            backgroundImage: `url(${postIcon ? postIcon : defaultPoster})`,
             backgroundSize: "contain",
             backgroundPosition: "center",
             backgroundColor: "rgb(238,255,255)",

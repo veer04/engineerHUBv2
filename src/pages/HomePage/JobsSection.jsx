@@ -2,41 +2,42 @@ import React from "react";
 import "./JobsSection.css";
 import arrow from "./svg/jobs-btn.svg";
 import { Bucket_URL } from "../../services/APIUtils";
+import defaultPoster from "../../assets/defaultPoster"
 
 export default function JobsSection() {
   const bucket = `${Bucket_URL}frontend/homepage/jobssection/`;
   const jobs = [
     {
       id: 1,
-      companyLogo: "https://source.unsplash.com/random",
+      companyLogo: defaultPoster,
       companyName: "Google, India",
       jobTitle: "Looking for Creative Designer???",
       skills: ["Figma", "UI/UX", "Creative"],
     },
     {
       id: 2,
-      companyLogo: "https://source.unsplash.com/random",
+      companyLogo: defaultPoster,
       companyName: "Google, India",
       jobTitle: "Looking for Creative Designer???",
       skills: ["Figma", "UI/UX", "Creative"],
     },
     {
       id: 3,
-      companyLogo: "https://source.unsplash.com/random",
+      companyLogo: defaultPoster,
       companyName: "Google, India",
       jobTitle: "Looking for Creative Designer???",
       skills: ["Figma", "UI/UX", "Creative"],
     },
     {
       id: 4,
-      companyLogo: "https://source.unsplash.com/random",
+      companyLogo: defaultPoster,
       companyName: "Google, India",
       jobTitle: "Looking for Creative Designer???",
       skills: ["Figma", "UI/UX", "Creative"],
     },
     {
       id: 5,
-      companyLogo: "https://source.unsplash.com/random",
+      companyLogo: defaultPoster,
       companyName: "Google, India",
       jobTitle: "Looking for Creative Designer???",
       skills: ["Figma", "UI/UX", "Creative"],

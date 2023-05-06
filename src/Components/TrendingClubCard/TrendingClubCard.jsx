@@ -1,6 +1,7 @@
 import React from "react";
 import "./TrendingClubCard.css";
 import { Link } from "react-router-dom";
+import defaultPoster from "../../assets/defaultPoster";
 
 export default function TrendingClubCard({
   _id,
@@ -16,7 +17,7 @@ export default function TrendingClubCard({
       <div
         style={{
           // backgroundImage: `url(${image})`,
-          backgroundImage: `url("https://source.unsplash.com/random")`,
+          backgroundImage: `url(${defaultPoster})`,
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
           backgroundPosition: "center",
