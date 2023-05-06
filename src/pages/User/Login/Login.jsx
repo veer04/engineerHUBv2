@@ -7,6 +7,7 @@ import { useSignIn } from "react-auth-kit";
 import CustomSnackbar from "./CustomSnackbar";
 
 import Cookies from "js-cookie";
+import jwt_decode from "jwt-decode";
 
 import "./Login.css";
 import axios, { AxiosError } from "axios";
@@ -73,36 +74,39 @@ const Register = () => {
   async function handleSubmit(e) {
     e.preventDefault();
 
-    // const headers = {
-    //   'Authorization': `Bearer ${accessToken}`,
-    //   'x-refresh-token': refreshToken
-    // };
 
-    const response = await axios
-      .post(
-        `https://e-hub-backend-production-9545.up.railway.app/api/v1/login`,
-        values
-        // {headers},
-      )
-      .then((response) => {
-        Cookies.set("access_token", response.data.accessToken);
-        Cookies.set("refresh_token", response.data.refreshToken);
-        Cookies.set("userName", response.data.UserName);
-        if (
-          response.status === 200 ||
-          response.status === 201 ||
-          response.status === 202 ||
-          response.status === 203 ||
-          response.status === 204
-        ) {
-          // window.location.reload();
-          navigate("/profile");
-        }
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-    console.log(response);
+// const headers = {
+//   'Authorization': `Bearer ${accessToken}`,
+//   'x-refresh-token': refreshToken
+// };
+  
+
+const response = await axios.post(`https://e-hub-backend-production-9545.up.railway.app/api/v1/login`
+,values,
+// {headers},
+
+).then
+( response=>{
+  Cookies.set('access_token', response.data.accessToken);
+  const token =response.data.accessToken;
+  const decoded = jwt_decode(token);
+  console.log(decoded); 
+  Cookies.set('refresh_token', response.data.refreshToken);
+  Cookies.set('userName', response.data.userName);
+  Cookies.set('institutionName',response.data.institutionName);
+  Cookies.set('email', response.data.email);
+  if(response.status===200||response.status===201||response.status===202||response.status===203||response.status===204)
+  {
+    setValidation(true);
+  }
+}
+
+).catch(
+  error=>{
+    console.error(error);
+  }
+);
+console.log(response);
 
     // try {
     //   const response = await axios.post(
@@ -133,10 +137,13 @@ const Register = () => {
     //   else if (err && err instanceof Error) setError(err.message);
     //   setOpen(true);
     // }
-  }
-  const navigation = () => {
-    if (validation === true) {
-      navigate("/");
+
+
+  };
+  const navigation=()=>{
+   if(validation===true)
+    { 
+      navigate("/profile");
       window.location.reload(true);
     }
   };

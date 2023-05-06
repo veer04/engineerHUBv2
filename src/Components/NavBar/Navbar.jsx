@@ -22,18 +22,16 @@ export default function Navbar() {
 
   function handleLogout() {
     // Remove all cookies and log out the user
-    const cookiesToRemove = ["userName", "refresh_token", "access_token"];
+    const cookiesToRemove = ["userName", "refresh_token", "access_token","email","institutionName",];
     cookiesToRemove.forEach((cookieName) => {
       document.cookie = `${cookieName}=; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/; domain=${window.location.hostname};`;
     });
     setIsLoggedIn(false);
     setUsername("");
+    navigate('/')
   }
 
-  const handleLogin = () => {
-    navigate("/login");
-  };
-
+ 
   function getCookie(name) {
     // Get the value of a cookie by name
     const cookieValue = document.cookie.match(
@@ -59,6 +57,12 @@ export default function Navbar() {
 
   const [width, setWidth] = useState(window.innerWidth);
   const handleResize = () => setWidth(window.innerWidth);
+
+  const handleLogin = () => {
+    navigate("/login");
+    window.location.reload(true);
+  };
+
 
   useEffect(() => {
     window.addEventListener("resize", handleResize);
@@ -118,10 +122,10 @@ export default function Navbar() {
 
         <div>
           {isLoggedIn ? (
-            <div>
-              {/* Hi, {username} | <button onClick={handleLogout}>Log out</button> */}
+            <div className="logBtn">
+              Hi, {username} |   <span onClick={handleLogout}>Logout</span>
 
-              <ButtonRounded className="nav-logged-in-btn nav-login-btn">
+              {/* <button className="nav-logged-in-btn nav-login-btn">
                 <img
                   className="nav-user-thumbnail"
                   src={thumbnail}
@@ -129,17 +133,17 @@ export default function Navbar() {
                 />
                 <span className="nav-username">
                   Hi, {username}|
-                  {/* <ButtonRounded onClick={handleLogout}>Log out</ButtonRounded> */}
+                  <button onClick={handleLogout}>Log out</button>
                 </span>
-              </ButtonRounded>
+              </button> */}
             </div>
           ) : (
             <div>
               <Link to="/login">
                 {" "}
-                <ButtonRounded className="nav-login-btn" onClick={handleLogin}>
+                <button className="nav-login-btn logBtn" onClick={handleLogin}>
                   Login/Signup
-                </ButtonRounded>{" "}
+                </button>{" "}
               </Link>
             </div>
           )}

@@ -1,7 +1,36 @@
 import "./Profile.css";
+import React, { useEffect, useState } from "react";
 import "../Login/Login.css";
 import ProfileImg from "./profile.jpeg";
 const Profile = () => {
+    const [username, setUsername] = useState("");
+    const [institutionName,setInstitutionName] =useState("");
+    const [email,setEmail] =useState("");
+
+    function getCookie(name) {
+        // Get the value of a cookie by name
+        const cookieValue = document.cookie.match(
+          "(^|;)\\s*" + name + "\\s*=\\s*([^;]+)"
+        );
+        return cookieValue ? cookieValue.pop() : "";
+      }
+      useEffect(() => {
+        // Check if user is logged in by checking for the 'userName' cookie
+        const storedUsername = getCookie("userName");
+        if (storedUsername) {
+          setUsername(storedUsername);
+        }
+        const storedEmail = getCookie("email");
+        if (storedEmail) {
+          setEmail(storedEmail);
+        }
+        const storedCollege = getCookie("institutionName");
+        if (storedCollege) {
+          setInstitutionName(storedCollege);
+        }
+
+      }, []);
+    
   return (
     <>
     <div className="profileSection">
@@ -97,19 +126,19 @@ const Profile = () => {
                             </div>
                         </div>
                         <div className="row profileUserName">
-                            John Doe
+                            {username}
                         </div>
                         <div className="row clgNameProfile">
                             College Name
                         </div>
                         <div className="row collegeName">
-                        Indian Institute of Information Technology Bombay (IITB)
+                        {institutionName}
                         </div>
                         <div className="row EmailHeader">
                             Email ID
                         </div>
                         <div className="row emailIdProfile">
-                        johndoe@gmail.com
+                        {email}
                         </div>
                         <div className="row EmailHeader">
                            Social Links
