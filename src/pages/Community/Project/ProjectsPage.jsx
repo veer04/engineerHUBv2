@@ -25,8 +25,8 @@ export default function ProjectPage({ path }) {
   const [currentFilters, setCurrentFilters] = useState([]);
 
   const [tags, setTags] = useState(
-    sessionStorage.getItem("project tags")
-      ? JSON.parse(sessionStorage.getItem("project tags"))
+    sessionStorage.getItem(`${id} tags`)
+      ? JSON.parse(sessionStorage.getItem(`${id} tags`))
       : []
   );
 
@@ -47,7 +47,7 @@ export default function ProjectPage({ path }) {
   }, [id]);
 
   useEffect(() => {
-    sessionStorage.setItem(`project tags`, JSON.stringify(tags));
+    sessionStorage.setItem(`${id} tags`, JSON.stringify(tags));
   }, [tags]);
 
   useEffect(() => {

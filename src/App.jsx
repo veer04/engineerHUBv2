@@ -35,6 +35,7 @@ import JobDetails from "./pages/Company/Jobs/JobDetails";
 import HackathonDetails from "./pages/Company/Events/EventsChoices/HackathonDetails";
 import Projects from "./pages/Company/Projects/Projects";
 import ProjectDetail from "./pages/Company/Projects/ProjectDetail";
+import ComingSoon from "./pages/Maintenance/ComingSoon";
 
 function App() {
   return (
@@ -81,10 +82,11 @@ function App() {
               path="cultural-clubs"
               element={<ClubsPage type="Cultural" />}
             />
-            <Route path="alumni" element={<AlumniPage />} />
+            {/* <Route path="alumni" element={<AlumniPage />} /> */}
+            <Route path="almas" element={<ComingSoon />} />
           </Route>
         </Route>
-        <Route path="/mentorship" element={<Mentorship />} />
+        <Route path="/mentorship" element={<ComingSoon />} />
         <Route path="/hostevent" element={<HostEvent />} />
         <Route path="hosting">
           <Route index element={<Hosting />} />

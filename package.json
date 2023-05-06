@@ -26,6 +26,7 @@
     "react-auth-kit": "^2.12.2",
     "react-cookie": "^4.1.1",
     "react-dom": "^18.2.0",
+    "react-hook-form": "^7.43.9",
     "react-icons": "^4.8.0",
     "react-router-dom": "^6.10.0",
     "redux": "^4.2.1"
