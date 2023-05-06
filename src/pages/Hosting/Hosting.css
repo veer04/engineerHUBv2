@@ -1,60 +1,72 @@
-.headingHosting{
-    font-size: 2.4rem;
-    color: rgba(1, 64, 81, 1);
-    font-weight: 600;
-    margin-top: 2%;
-    margin-bottom: 2%;
-    margin-left: 3%;
+.hosting-page {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: var(--vertical-padding) var(--section-padding);
+  scroll-behavior: auto;
 }
-.hostingDetails{
-    font-size: 1.2rem;
-    font-weight: 400;
-    margin-left: 3%;
-    margin-top: 1%;
-    margin-bottom: 2%;
+.hosting-page h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #000;
+  margin-bottom: 1rem;
+  color: var(--text-color-dark-green);
 }
-.hostingContainerCards{
-    background-color: #e4f9ff;
+.hosting-page h2 {
+  font-size: 1.2rem;
+  font-weight: 400;
+  color: #000;
+  margin-bottom: 3.5rem;
+  color: var(--text-color-dark-green);
 }
-.containingCards{
-    display: flex;
+.hosting-page > .box-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: flex-start;
+  gap: 1rem;
+  background-color: #e4f9ff;
+  margin: 0.5rem 0;
+  border-radius: 0.5rem;
+  padding: 1rem;
+}
+.hosting-page > .box-container > .cards {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: flex-start;
+  gap: 2.5rem;
+  flex-wrap: wrap;
+  /* border-radius: rem; */
+}
+.hosting-page > .box-container > .cards > .card {
+  width: 12.5rem;
+  /* height: 12.5rem; */
+  aspect-ratio: 1/1;
+  background-repeat: no-repeat;
+  background-position: right bottom;
+  padding: 1rem;
+  border-radius: 0.8rem;
+  cursor: pointer;
+  box-shadow: 0 0 0.5rem 0.1rem rgba(0, 0, 0, 0.1);
+  color: var(--text-color-dark-green);
+}
+.hosting-page > .box-container > .cards > .card:hover {
+  background-color: var(--primary-color-dark-green);
+  color: white !important;
+}
+
+.hosting-page > .box-container > .cards > .card > .heading {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+.hosting-page > .box-container > .cards > .card > .subheading {
+  font-size: 0.9rem;
+  font-weight: 400;
+}
+
+@media screen and (max-width: 774px) {
+  .hosting-page > .box-container > .cards {
     justify-content: space-evenly;
-    padding: 5%;
-    margin-top: 5%;
-    margin-bottom: 5%;
-}
-.cardHosting{
-    /* display: flex; */
-    flex-wrap: nowrap;
-    height: 200px;
-    width: 200px;
-    background-color: white;
-    border-radius: 8px;
-}
-.topHeading{
-    color: rgba(1, 64, 81, 1);
-    font-weight: 600;
-    font-size: 1.2rem;
-    margin-top: 15px;
-    cursor: pointer;
-}
-.secondLine{
-
-    color: rgba(1, 64, 81, 1);
-    
-    font-weight: 400;
-    font-size: 1rem;
-    margin-left: 5px;
-    cursor: pointer;
-
-}
-.lastICon{
-    position: relative;
-    top: 15%;
-    left: 35%;
-}
-.cardHosting:hover{
-    background-color:  rgba(18, 131, 129, 1);
-    color: #fff;
-
+  }
 }

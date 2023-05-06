@@ -1,122 +1,110 @@
+import React from "react";
 import "./Hosting.css";
-import Celeb from  "./Images/celebrate.png";
-import Computer from "./Images/computer.png";
-import Mark from "./Images/mark.png";
-import Tutor from "./Images/tutor.png";
-import Punch from "./Images/punch.png";
-import Jobs from "./Images/jobs.png";
-import Syntax from "./Images/syntax.png";
-import { useNavigate } from "react-router-dom";
-const Hosting = () => {
-    const navigate =useNavigate();
+import { Bucket_URL } from "../../services/APIUtils";
+import { BsArrowRight } from "react-icons/bs";
+
+export default function Hosting() {
+  const bucket = `${Bucket_URL}frontend/hosting/`;
+
   return (
-    <>
-    <div className="heading">
-    <p className="headingHosting"> Host an Oppurtunity</p>
-    </div>
-    <div className="headingSubtext">
-    <p className="hostingDetails"> Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium, odio quis quidem, esse ex porro sint expedita, quia rem perferendis minima voluptatum cumque iure fugit saepe nostrum praesentium quaerat magni.</p>
-    </div>
-    
-    <div className="container hostingContainerCards" >
-
-        <div className="cardHeaderText">
-            <p className="TextCard"> <span className="changeColor"></span></p>
+    <div className="hosting-page">
+      <h1 className="heading-3">Host an Opportunity</h1>
+      <h2 className="subheading-1">
+        Lorem ipsum dolor sit amet consectetur. Vitae diam facilisi libero
+        mauris mauris quam elit. Convallis nunc accumsan sit cum. Vitae diam eu
+        enim dignissim donec ultrices dis amet ipsum.
+      </h2>
+      <div className="box-container">
+        <div className="heading">
+          For <span>Engaging</span> your target audience
         </div>
-        <div className="row containingCards">
-            <div className="col-lg-3 cardHosting">
-            <div className="topHeading">
-                Cultural Event
+        <div className="cards">
+          <div
+            style={{
+              backgroundImage: `url(${bucket}cultural_event.png)`,
+            }}
+            className="card"
+          >
+            <div className="heading">Cultural Event</div>
+            <div className="subheading">
+              Create Event <BsArrowRight />
             </div>
-            <div className=" row secondLine">
-                Create event ➡️
+          </div>
+          <div
+            style={{
+              backgroundImage: `url(${bucket}technical_event.png)`,
+            }}
+            className="card"
+          >
+            <div className="heading">Technical Event</div>
+            <div className="subheading">
+              Create Event <BsArrowRight />
             </div>
-            <div className="lastICon">
-                <img src={Celeb} alt="" height={100} width={120} />
+          </div>
+          <div
+            style={{
+              backgroundImage: `url(${bucket}hackathon.png)`,
+            }}
+            className="card"
+          >
+            <div className="heading">Hackathon</div>
+            <div className="subheading">
+              Create Event <BsArrowRight />
             </div>
+          </div>
+          <div
+            style={{
+              backgroundImage: `url(${bucket}webinar.png)`,
+            }}
+            className="card"
+          >
+            <div className="heading">Webinar</div>
+            <div className="subheading">
+              Create Event <BsArrowRight />
             </div>
-             <div className="col-lg-3 cardHosting">
-             <div className="topHeading">
-                Technical Event
-            </div>
-            <div className=" row secondLine" onClick={navigate("/")}>
-                Create event ➡️
-            </div>
-            <div className="lastICon">
-                <img src={Computer} alt="" height={100} width={120} />
-            </div>
-            </div>
-            <div className="col-lg-3 cardHosting">
-            <div className="topHeading">
-                Hackathon
-            </div>
-            <div className=" row secondLine">
-                Create event ➡️
-            </div>
-            <div className="lastICon">
-                <img src={Mark} alt="" height={100} width={120} />
-            </div>
-            </div>
-            <div className="col-lg-3 cardHosting">
-            <div className="topHeading">
-                Webinar
-            </div>
-            <div className=" row secondLine">
-                Create event ➡️
-            </div>
-            <div className="lastICon">
-                <img src={Tutor} alt="" height={100} width={120} />
-            </div>
-            </div>
-
+          </div>
         </div>
+      </div>
+      <div className="box-container">
+        <div className="heading">
+          Create <span>Jobs</span> for the right talent
+        </div>
+        <div className="cards">
+          <div
+            style={{
+              backgroundImage: `url(${bucket}jobs.png)`,
+            }}
+            className="card"
+          >
+            <div className="heading">Jobs</div>
+            <div className="subheading">
+              Create Jobs <BsArrowRight />
+            </div>
+          </div>
+          <div
+            style={{
+              backgroundImage: `url(${bucket}internships.png)`,
+            }}
+            className="card"
+          >
+            <div className="heading">Internships</div>
+            <div className="subheading">
+              Create Jobs <BsArrowRight />
+            </div>
+          </div>
+          <div
+            style={{
+              backgroundImage: `url(${bucket}challenges.png)`,
+            }}
+            className="card"
+          >
+            <div className="heading">Challenges</div>
+            <div className="subheading">
+              Create Jobs <BsArrowRight />
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-
-
-    <div className="container hostingContainerCards" >
-
-<div className="cardHeaderText">
-    <p className="TextCard"> <span className="changeColor"></span></p>
-</div>
-<div className="row containingCards">
-    <div className="col-lg-4 cardHosting">
-    <div className="topHeading">
-        Jobs
-    </div>
-    <div className=" row secondLine">
-        Create jobs ➡️
-    </div>
-    <div className="lastICon">
-        <img src={Jobs} alt="" height={100} width={120} />
-    </div>
-    </div>
-     <div className="col-lg-4 cardHosting">
-     <div className="topHeading">
-        Internships
-    </div>
-    <div className=" row secondLine">
-        Create jobs ➡️
-    </div>
-    <div className="lastICon">
-        <img src={Syntax} alt="" height={100} width={120} />
-    </div>
-    </div>
-    <div className="col-lg-4 cardHosting">
-    <div className="topHeading">
-        Challenges
-    </div>
-    <div className=" row secondLine">
-        Create jobs ➡️
-    </div>
-    <div className="lastICon">
-        <img src={Punch} alt="" height={100} width={120} />
-    </div>
-    </div>
-
-</div>
-</div>
-    </>
-  )
+  );
 }
-
-export default Hosting

@@ -81,15 +81,13 @@ function App() {
               path="cultural-clubs"
               element={<ClubsPage type="Cultural" />}
             />
-            <Route path="alumni">
-              <Route index element={<AlumniPage />} />
-            </Route>
+            <Route path="alumni" element={<AlumniPage />} />
           </Route>
         </Route>
         <Route path="/mentorship" element={<Mentorship />} />
-        <Route path="/hostevent" element={<HostEvent></HostEvent>}></Route>
+        <Route path="/hostevent" element={<HostEvent />} />
         <Route path="hosting">
-          <Route index element={<Hosting></Hosting>} />
+          <Route index element={<Hosting />} />
         </Route>
         <Route path="/company">
           <Route path="" element={<Company />} />
