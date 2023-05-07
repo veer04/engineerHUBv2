@@ -2,12 +2,22 @@
 import "./Mentorship.css";
 import Mentor from "./mentor.png";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 const Mentorship = () => {
+  const [mentor, setMentor] = useState(null);
   const navigate = useNavigate();
+ 
   const getChat=()=>{
-navigate("/mentorChat");
+navigate("/mentorChat")
 
   }
+  useEffect(() => {
+    axios.get('https://e-hub-backend-production.up.railway.app/api/v1/mentor').then((response) => {
+      setMentor(response.data);
+      console.log(object);
+    });
+  }, []);
+
   return (
     <>
     <div className="headingClass">
@@ -39,24 +49,24 @@ navigate("/mentorChat");
     <div className="row">
     <p className="mentorHeading">Our Mentors</p>
     <div className="row mentorCard ">
-      <div className="col-lg-3" onClick={getChat()}>
-        <img src={Mentor}  alt="" />
+      <div className="col-lg-3" onClick={getChat}>
+        <img src={mentor.image} alt="" />
       </div>
-      <div className="col-lg-3" onClick={getChat()}>
+      <div className="col-lg-3" onClick={getChat}>
         <img src={Mentor}   alt="" />
       </div>
-      <div className="col-lg-3"  onClick={getChat()}>
+      <div className="col-lg-3"  onClick={getChat}>
       <img src={Mentor}  alt="" />
       </div>
     </div>
     <div className="row mentorCard ">
-      <div className="col-lg-3" onClick={getChat()}>
+      <div className="col-lg-3" onClick={getChat}>
         <img src={Mentor}   alt="" />
       </div>
-      <div className="col-lg-3" onClick={getChat()} >
+      <div className="col-lg-3" onClick={getChat} >
         <img src={Mentor}  alt="" />
       </div>
-      <div className="col-lg-3" onClick={getChat()} >
+      <div className="col-lg-3" onClick={getChat} >
       <img src={Mentor}  alt="" />
       </div>
     </div>

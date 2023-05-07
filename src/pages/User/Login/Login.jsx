@@ -3,12 +3,14 @@ import { Link, useNavigate } from "react-router-dom";
 import { IconButton } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useSignIn } from "react-auth-kit";
+import { GoogleButton } from 'react-google-button';
+
 
 import CustomSnackbar from "./CustomSnackbar";
-
+// import { googleLogout, useGoogleLogin } from '@react-oauth/google';
 import Cookies from "js-cookie";
 import jwt_decode from "jwt-decode";
-
+import gg from "./svg/google.svg";
 import "./Login.css";
 import axios, { AxiosError } from "axios";
 import useMobileNavbar from "../../../hooks/use-mobileNavbar";
@@ -17,6 +19,7 @@ const Register = () => {
   // const accessToken = Cookies.get('access_token');
   // const refreshToken = Cookies.get('refresh_token');
   const { setSelectedPage } = useMobileNavbar();
+
   useEffect(() => {
     setSelectedPage("login");
     window.scrollTo(0, 0);
@@ -35,6 +38,9 @@ const Register = () => {
     // accessToken: accessToken,
     // refreshToken: refreshToken,
   });
+  const [ user, setUser ] = useState([]);
+  const [ profile, setProfile ] = useState([]);
+
 
   const [open, setOpen] = useState(false);
   const [validation, setValidation] = useState(false);
@@ -111,12 +117,12 @@ const Register = () => {
         Cookies.set('access_token', response.data.accessToken);
         const token =response.data.accessToken;
         const decoded = jwt_decode(token);
-        console.log(decoded); 
+        // console.log(decoded); 
         Cookies.set('refresh_token', response.data.refreshToken);
         Cookies.set('userName', response.data.userName);
         Cookies.set('institutionName',response.data.institutionName);
         Cookies.set('email', response.data.email);
-        const msg = response.data.message;
+        // const msg = response.data.message;
         if(response.status===200||response.status===201||response.status===202||response.status===203||response.status===204)
         {
           navigate("/profile");
@@ -184,6 +190,75 @@ const Register = () => {
     }
     return errors;
   };
+  // const gauth = async () => {
+  //   try {
+  //     const response = await axios.get(`https://e-hub-backend-production-9545.up.railway.app/api/v1/auth/google/user`, {
+     
+  //     });
+  //     console.log(response.data);
+     
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+
+
+  const handleGoogleLoginSuccess = () => {
+    // const { accessToken } = response;
+    // Send the token to the server
+    fetch('https://e-hub-backend-production-9545.up.railway.app/api/v1/auth/google/user', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ accessToken }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        // TODO: Do something with the data
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+
+  const handleGoogleLoginFailure = (response) => {
+    console.error(response);
+  };
+
+ 
+
+
+
+
+//   const gauth = useGoogleLogin({
+//     onSuccess: (codeResponse) => setUser(codeResponse),
+//     onError: (error) => console.log('Login Failed:', error)
+// });
+
+// useEffect(
+//     () => {
+//         if (user) {
+//             axios
+//                 .get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`, {
+//                     headers: {
+//                         Authorization: `Bearer ${user.access_token}`,
+//                         Accept: 'application/json'
+//                     }
+//                 })
+//                 .then((res) => {
+//                     setProfile(res.data);
+//                 })
+//                 .catch((err) => console.log(err));
+//         }
+//     },
+//     [ user ]
+// );
+
+// log out function to log the user out of google and set the profile array to null
+// const logOut = () => {
+//     googleLogout();
+//     setProfile(null);
+// };
 
   return (
     <div className="Login">
@@ -268,12 +343,32 @@ const Register = () => {
                 >
                   Sign in
                 </button>
+
+     <div className="d-flex justify-content-center">
+            {/* <div className="f-p" onClick={gauth}>Forgot Password ?</div>
+            <div className="f-p "onClick={gauth}>Reset Now </div> */}
+          </div>
+
+
               </div>
               <div className="divisor d-flex justify-content-center">
                 <hr style={{ color: "#6c757d" }} />
                 <span className="d-flex justify-content-center p-2">or</span>
                 <hr />
               </div>
+
+<div className="sign-field reg-field">
+          <div className="sign-opt ">
+          <div>
+          <GoogleButton
+      onClick={handleGoogleLoginSuccess}
+    >
+      Sign in with Google
+    </GoogleButton>
+              </div>
+          </div>
+        </div>
+
               <div className="my-item-cont">
                 <div>Didn't have an account?</div>
                 <Link to="/signup" className="f-p ">

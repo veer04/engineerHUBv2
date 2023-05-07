@@ -2,11 +2,19 @@ import "./Signup.css";
 import { useState, useEffect } from 'react';
 import { TextField, Button, Box } from '@mui/material';
 import axios from "axios";
+import "../../Hosting/EventRegistration.css";
+
+// import InputLabel from '@mui/material/InputLabel';
+// import MenuItem from '@mui/material/MenuItem';
+// import FormControl from '@mui/material/FormControl';
+// import Select from '@mui/material/Select';
+import { Select, MenuItem } from '@mui/material';
 // import GroupAddIcon from '@material-ui/icons/GroupAdd';
 
 const Signup = () => {
+  const roles = ["User", "Mentor", "Organization"];
     
-
+  const [role, setRole] = useState("User");
     const [formData, setFormData] = useState({
         name: '',
         // userName: '',
@@ -19,9 +27,10 @@ const Signup = () => {
         country: '',
         password:'',
         confirmPassword:'',
+        role:'',
         
       });
-
+      const [step, setStep] = useState(1);
       const [errors, setErrors] = useState({
         name: '',
         // userName: '',
@@ -36,6 +45,15 @@ const Signup = () => {
         confirmPassword:'',
       });
 
+      const handleNext = () => {
+        setStep(step + 1);
+      };
+    
+      const handlePrev = () => {
+        setStep(step - 1);
+      };
+    
+
 
       const handleInputChange = (event) => {
         const inputValues = event.target.value.split(',');
@@ -48,6 +66,9 @@ const Signup = () => {
           [name]: value,
         }));
       };
+     const handleChangeDrop =(event)=>{
+      setRole(event.target.value);
+     }
 
 
       const validateInput = () => {
@@ -110,14 +131,19 @@ const Signup = () => {
         return valid;
       };
 
-
+      const handleChangeRole = (event) => {
+        setRole(event.target.value);
+      };
       const handleSubmit = async (e) => {
         e.preventDefault();
+        if(validateInput())
+        {
         axios.post('https://e-hub-backend-production-9545.up.railway.app/api/v1/user/signup',formData).then((response) => {
           console.log(response);
         }, (error) => {
           console.log(error);
         });
+      }
 
       //  {
       //     try {
@@ -202,9 +228,73 @@ const Signup = () => {
                 <div className="col-lg-2"></div>
                 <div className="col-lg-5">
                     <div className="form-container">
-                        <p className="LformHeaderText">Basic Details</p>
+                    <div className="navigation-buttons__container">
+          <div className="navigation-buttons">
+            <div
+              style={{
+                borderColor: step > 1 ? "var(--primary-color-dark-green)" : "",
+              }}
+              className="dotted-line dotted-line-1"
+            ></div>
+            <div
+              style={{
+                borderColor: step > 2 ? "var(--primary-color-dark-green)" : "",
+              }}
+              className="dotted-line dotted-line-2"
+            ></div>
+            <div
+              style={{
+                backgroundColor:
+                  step === 1 ? "var(--primary-color-dark-green)" : "#15CF74",
+                color: "white",
+                borderColor: step > 1 ? "#15CF74" : "",
+              }}
+              className="form-button"
+            >
+              Basic Details
+            </div>
+            <div
+              style={{
+                backgroundColor:
+                  step === 2
+                    ? "var(--primary-color-dark-green)"
+                    : step === 3
+                    ? "#15CF74"
+                    : "",
+                color: step === 2 ? "white" : step === 3 ? "white" : "",
+                borderColor:
+                  step === 2
+                    ? "var(--primary-color-dark-green)"
+                    : step === 3
+                    ? "#15CF74"
+                    : "",
+              }}
+              className="form-button"
+            >
+              Applicant Details
+            </div>
+            <div
+              style={{
+                backgroundColor:
+                  step === 3 ? "var(--primary-color-dark-green)" : "",
+                color: step === 3 ? "white" : "",
+                borderColor:
+                  step === 3 ? "var(--primary-color-dark-green)" : "",
+              }}
+              className="form-button"
+            >
+              Publish
+            </div>
+          </div>
+        </div>
+
+
     <form action="/" method="POST"  onSubmit={handleSubmit}>
-    <Box >
+
+    
+
+    {step === 1 && (
+      <Box >
       <TextField
         name="name"
         label="Name"
@@ -249,6 +339,23 @@ const Signup = () => {
         error={!!errors.mobile}
         helperText={errors.mobile}
       />
+
+
+
+
+      <br />
+
+                <button
+                  type="button"
+                  onClick={handleNext}
+                  className="buttonOnHostingPage"
+                >
+                  Next
+                </button>
+                </Box>
+          )}
+
+
       {/* <TextField
         name="college"
         label="College Name"
@@ -260,6 +367,11 @@ const Signup = () => {
         error={!!errors.college}
         helperText={errors.college}
       /> */}
+
+
+     { step===2 &&(
+      <Box>
+ 
       <TextField
         name="branch"
         label="branch Name"
@@ -305,6 +417,33 @@ const Signup = () => {
         error={!!errors.city}
         helperText={errors.city}
       />
+
+
+<br />
+                <button
+                  type="button"
+                  className="buttonOnHostingPage"
+                  onClick={handlePrev}
+                >
+                  Previous
+                </button>
+                
+                <br />
+                <button
+                  type="button"
+                  className="buttonOnHostingPage"
+                  onClick={handleNext}
+                >
+                  Next
+                </button>
+
+      </Box>
+
+     )}
+
+
+     {step==3 && (
+      <Box>
        <TextField
         name="institutionName"
         label="institutionName"
@@ -316,6 +455,21 @@ const Signup = () => {
         error={!!errors.institutionName}
         helperText={errors.institutionName}
       />
+
+<Select value={role}
+  fullWidth
+  className="mt-2"
+onChange={handleChangeRole}>
+      {roles.map((role) => (
+        <MenuItem key={role}
+         value={role}
+       
+         >
+          {role}
+        </MenuItem>
+      ))}
+    </Select>
+
        <TextField
         name="password"
         label="password"
@@ -345,12 +499,22 @@ const Signup = () => {
         ))}
       </ul> */}
 
-      <Button type="submit" variant="contained" color="primary"
-       >
-        Submit
+<br />
+              <button
+                  type="button"
+                  onClick={handlePrev}
+                  className="buttonOnHostingPage"
+                >
+                  Previous
+                </button>
 
-      </Button>
-    </Box>
+                <br />
+
+              <button type="submit" className="buttonOnHostingPage">
+                  submit
+                </button>
+      </Box>)}
+    
  </form>
                     </div>
                 </div>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./EventRegistration.css";
 import axios from "axios";
+
 const EventRegistrationForm = () => {
   const [step, setStep] = useState(1);
   const [domainName, setDomainName] = useState("");
@@ -43,7 +44,7 @@ const EventRegistrationForm = () => {
       campusLogo: campusLogo,
     };
 
-    event.preventDefault();
+    e.preventDefault();
     axios
       .post(
         "https://e-hub-backend-production.up.railway.app/api/v1/event",
@@ -54,11 +55,11 @@ const EventRegistrationForm = () => {
   };
   const handleFileInputChange = (e) => {
     setFile(e.target.files[0]);
-    setCampusLogo(e.target.value());
+    setCampusLogo(e.target.value);
   };
-  const handleFileInputChangePoster = () => {
+  const handleFileInputChangePoster = (e) => {
     setFile(e.target.files[0]);
-    setEventPoster(e.target.value());
+    setEventPoster(e.target.value);
   };
 
   return (

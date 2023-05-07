@@ -108,15 +108,15 @@ const Profile = () => {
                 </div>
                 <div className="col-lg-9">
                     <div className="row">
-                        <div className="col-lg-6 whiteCard">
+                        <div className="col-lg-6 col-xs-6 whiteCard">
                         <div className="row">
-                            <div className="col-lg-4">
+                            <div className="col-lg-4 ">
                                 <img src={ProfileImg} className="profileImageSection" alt="" />
                             </div>
-                            <div className="col-lg-4">
+                            <div className="col-lg-4 ">
 
                             </div>
-                            <div className="col-lg-4">
+                            <div className="col-lg-4 ">
                             <div className="row">
                                 Share Profile
                             </div>
@@ -147,7 +147,7 @@ const Profile = () => {
                         
                         </div>
                         </div>
-                        <div className="col-lg-6 ">
+                        <div className="col-lg-6  col-xs-6">
                             <div className="row cardProfile1">
                                <p className="headingProfileSection"> My skilss</p> 
                                 <div className="row">
