@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import "./EventRegistration.css";
 import axios from "axios";
+import FormData from "form-data";
+
+// var fs = require("fs");
 
 const EventRegistrationForm = () => {
   const [step, setStep] = useState(1);
@@ -26,6 +29,7 @@ const EventRegistrationForm = () => {
   const handlePrev = () => {
     setStep(step - 1);
   };
+  // var form = new FormData();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -46,29 +50,46 @@ const EventRegistrationForm = () => {
       campusLogo: campusLogoUpload,
     };
     console.log(data, "inside post ");
+    const form = new FormData();
+    form.append("domainName", domainName);
+    form.append("campusName", campusName);
+    form.append("eventType", eventType);
+    form.append("description", description);
+    form.append("eventDate", eventDate);
+    form.append("applyLink", applyLink);
+    form.append("mode", mode);
+    form.append("eventName", eventName);
+    form.append("eventModeType", eventModeType);
+    // form.append("eventPoster", eventPosterUpload);
+    form.append("campusLogo", campusLogoUpload);
+    form.append("policy", description);
+    console.log(form.get("domainName"), " domainName ");
+    console.log(form.get("campusName"), " campusName ");
+    console.log(form.get("eventType"), " eventType ");
+    console.log(form.get("description"), " description ");
+    console.log(form.get("eventDate"), " eventDate ");
+    console.log(form.get("applyLink"), " applyLink ");
+    console.log(form.get("mode"), " mode ");
+    console.log(form.get("eventName"), " eventName ");
+    console.log(form.get("eventModeType"), " eventModeType ");
+    // console.log(form.get("eventPoster"), " eventPoster ");
+    console.log(form.get("campusLogo"), " campusLogo ");
 
-    e.preventDefault();
-    e.preventDefault();
     axios
       .post(
-        "https://e-hub-backend-production.up.railway.app/api/v1/event",
-        data
+        "http://e-hub-backend-production-9545.up.railway.app/api/v1/event",
+        form
       )
       .then((res) => console.log(res))
       .catch((err) => console.error(err));
   };
   const handleFileInputChange = (e) => {
     console.log(e.target.files[0]);
-    // setCampusLogo(e.target.files[0]);
-    // setFile(e.target.files[0]);
     setCampusLogoUpload(e.target.files[0]);
   };
   const handleFileInputChangePoster = (e) => {
     console.log(e.target.files[0]);
     setEventPosterUpload(e.target.files[0]);
-    // setEventPoster(e.target.files[0]);
-
-    // setFile(e.target.files[0]);
   };
 
   return (

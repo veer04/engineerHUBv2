@@ -38,6 +38,10 @@ import ProjectDetail from "./pages/Company/Projects/ProjectDetail";
 import ComingSoon from "./pages/Maintenance/ComingSoon";
 
 function App() {
+  // var formData = new FormData();
+  // formData.append("name", "Gaurav");
+  // console.log(formData.entries());
+
   return (
     <>
       <Navbar />
@@ -91,7 +95,7 @@ function App() {
         <Route path="hosting">
           <Route index element={<Hosting />} />
         </Route>
-        <Route path="/company">
+        {/* <Route path="/company">
           <Route path="" element={<Company />} />
           <Route path="jobs">
             <Route path="" element={<Jobs />} />
@@ -107,9 +111,9 @@ function App() {
             {/* <Route
                 path="competitions/:competeId"
                 element={<CompetitionDetails />}
-              /> */}
+              /> *
           </Route>
-        </Route>
+        </Route> */}
       </Routes>
       <Footer />
     </>

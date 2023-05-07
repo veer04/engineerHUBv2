@@ -127,7 +127,6 @@ export const getAllEvents = (setEvents) => {
     })
     .then((res) => {
       const data = res.data.data;
-      console.log("all events", data);
       setEvents(data);
     })
     .catch((err) => {
