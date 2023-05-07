@@ -1,15 +1,46 @@
-import React, { useEffect } from "react";
+import React, { useState , useEffect } from "react";
 import "./Hosting.css";
 import { Bucket_URL } from "../../services/APIUtils";
 import { BsArrowRight } from "react-icons/bs";
-import { Link } from "react-router-dom";
-
+import { Link ,useNavigate} from "react-router-dom";
+import jwt_decode from "jwt-decode";
 export default function Hosting() {
+  const navigate =useNavigate();
   const bucket = `${Bucket_URL}frontend/hosting/`;
 
+const [val, setVal]=useState(0);
+const [token, setToken]=useState("");
+  function getCookie(name) {
+    // Get the value of a cookie by name
+    const cookieValue = document.cookie.match(
+      "(^|;)\\s*" + name + "\\s*=\\s*([^;]+)"
+    );
+    return cookieValue ? cookieValue.pop() : "";
+  }
   useEffect(() => {
     window.scrollTo(0, 0);
+    setToken(getCookie("access_token"));
+    if(token)
+    setVal(1);
   });
+  const navigationFunction =()=>{
+      if (val===1)
+      {
+        const decoded = jwt_decode(token);
+        console.log(decoded);
+        console.log(decoded.role);
+        if(decoded.role==="Organization")
+        {
+          navigate("/hostevent");
+        }
+        else {
+          window.alert("Not Authorized to Host events!!!");
+        }
+      }
+      else{
+        navigate("/login");
+      }
+  }
 
   return (
     <div className="hosting-page">
@@ -24,8 +55,9 @@ export default function Hosting() {
           For <span>Engaging</span> your target audience
         </div>
         <div className="cards">
-          <Link to="/hostevent">
+          {/* <Link to="/hostevent"> */}
             <div
+            onClick={navigationFunction}
               style={{
                 backgroundImage: `url(${bucket}cultural_event.png)`,
               }}
@@ -36,9 +68,10 @@ export default function Hosting() {
                 Create Event <BsArrowRight />
               </div>
             </div>
-          </Link>
-          <Link to="/hostevent">
+          {/* </Link> */}
+          {/* <Link to="/hostevent"> */}
             <div
+            onClick={navigationFunction}
               style={{
                 backgroundImage: `url(${bucket}technical_event.png)`,
               }}
@@ -49,9 +82,10 @@ export default function Hosting() {
                 Create Event <BsArrowRight />
               </div>
             </div>
-          </Link>
-          <Link to="/hostevent">
+          {/* </Link> */}
+          {/* <Link to="/hostevent"> */}
             <div
+            onClick={navigationFunction}
               style={{
                 backgroundImage: `url(${bucket}hackathon.png)`,
               }}
@@ -62,9 +96,10 @@ export default function Hosting() {
                 Create Event <BsArrowRight />
               </div>
             </div>
-          </Link>
-          <Link to="/hostevent">
+          {/* </Link>
+          <Link to="/hostevent"> */}
             <div
+            onClick={navigationFunction}
               style={{
                 backgroundImage: `url(${bucket}webinar.png)`,
               }}
@@ -75,7 +110,7 @@ export default function Hosting() {
                 Create Event <BsArrowRight />
               </div>
             </div>
-          </Link>
+          {/* </Link> */}
         </div>
       </div>
       <div className="box-container">
@@ -83,8 +118,9 @@ export default function Hosting() {
           Create <span>Jobs</span> for the right talent
         </div>
         <div className="cards">
-          <Link to="/hostevent">
+          {/* <Link to="/hostevent"> */}
             <div
+            onClick={navigationFunction}
               style={{
                 backgroundImage: `url(${bucket}jobs.png)`,
               }}
@@ -95,9 +131,10 @@ export default function Hosting() {
                 Create Jobs <BsArrowRight />
               </div>
             </div>
-          </Link>
-          <Link to="/hostevent">
+          {/* </Link>
+          <Link to="/hostevent"> */}
             <div
+            onClick={navigationFunction}
               style={{
                 backgroundImage: `url(${bucket}internships.png)`,
               }}
@@ -108,9 +145,10 @@ export default function Hosting() {
                 Create Jobs <BsArrowRight />
               </div>
             </div>
-          </Link>
-          <Link to="/hostevent">
+          {/* </Link>
+          <Link to="/hostevent"> */}
             <div
+            onClick={navigationFunction}
               style={{
                 backgroundImage: `url(${bucket}challenges.png)`,
               }}
@@ -121,7 +159,7 @@ export default function Hosting() {
                 Create Jobs <BsArrowRight />
               </div>
             </div>
-          </Link>
+          {/* </Link> */}
         </div>
       </div>
     </div>
