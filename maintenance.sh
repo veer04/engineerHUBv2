@@ -1,5 +1,6 @@
 #!/bin/bash
 
+sync; echo 3 > /proc/sys/vm/drop_caches
 while true; do
     # Check if a container name was passed as an argument
     if [ $# -eq 0 ]; then
