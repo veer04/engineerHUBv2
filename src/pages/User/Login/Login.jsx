@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { IconButton } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useSignIn } from "react-auth-kit";
-import { GoogleButton } from 'react-google-button';
+import  GoogleButton  from 'react-google-button';
 
 
 import CustomSnackbar from "./CustomSnackbar";
@@ -358,7 +358,7 @@ const Register = () => {
               </div>
 
 <div className="sign-field reg-field">
-          <div className="sign-opt ">
+          {/* <div className="sign-opt ">
           <div>
           <GoogleButton
       onClick={handleGoogleLoginSuccess}
@@ -366,7 +366,7 @@ const Register = () => {
       Sign in with Google
     </GoogleButton>
               </div>
-          </div>
+          </div> */}
         </div>
 
               <div className="my-item-cont">

@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import "./EventRegistration.css";
 import axios from "axios";
+import FormData from "form-data";
+
+// var fs = require("fs");
 
 const EventRegistrationForm = () => {
   const [step, setStep] = useState(1);
@@ -14,9 +17,7 @@ const EventRegistrationForm = () => {
   const [eventName, setEventName] = useState("");
   const [eventModeType, setEventModeType] = useState("");
   const [eventPoster, setEventPoster] = useState("");
-  const [campusLogo, setCampusLogo] = useState("");
-  const [eventPosterUpload, setEventPosterUpload] = useState(null);
-  const [campusLogoUpload, setCampusLogoUpload] = useState(null);
+  const [campusLogos, setCampusLogos] = useState([]);
   const [file, setFile] = useState();
 
   const handleNext = () => {
@@ -26,49 +27,55 @@ const EventRegistrationForm = () => {
   const handlePrev = () => {
     setStep(step - 1);
   };
+  // var form = new FormData();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const data = {
-      domainName: domainName,
-      campusName: campusName, //array
-      eventType: eventType,
-      description: description,
-      eventDate: eventDate,
-      applyLink: applyLink,
-      mode: mode,
 
-      //new added below
+    // console.log(data, "inside post ");
+    const form = new FormData();
+    form.append("domainName", domainName);
+    form.append("campusName", campusName);
+    form.append("eventType", eventType);
+    form.append("description", description);
+    form.append("eventDate", eventDate);
+    form.append("applyLink", applyLink);
+    form.append("mode", mode);
+    form.append("eventName", eventName);
+    form.append("eventModeType", eventModeType);
+    form.append("eventPoster", eventPoster);
+    for (let i = 0; i < campusLogos.length; i++) {
+      form.append("campusLogo", campusLogos[i]);
+    }
+    // form.append("campusLogo", campusLogos);
+    form.append("policy", description);
+    console.log(form.get("domainName"), " domainName ");
+    console.log(form.get("campusName"), " campusName ");
+    console.log(form.get("eventType"), " eventType ");
+    console.log(form.get("description"), " description ");
+    console.log(form.get("eventDate"), " eventDate ");
+    console.log(form.get("applyLink"), " applyLink ");
+    console.log(form.get("mode"), " mode ");
+    console.log(form.get("eventName"), " eventName ");
+    console.log(form.get("eventModeType"), " eventModeType ");
+    console.log(form.get("eventPoster"), " eventPoster ");
+    console.log(form.get("campusLogo"), " campusLogo ");
 
-      eventName: eventName,
-      eventModeType: eventModeType,
-      eventPoster: eventPosterUpload,
-      campusLogo: campusLogoUpload,
-    };
-    console.log(data, "inside post ");
-
-    e.preventDefault();
-    e.preventDefault();
     axios
       .post(
-        "https://e-hub-backend-production.up.railway.app/api/v1/event",
-        data
+        "http://e-hub-backend-production-9545.up.railway.app/api/v1/event",
+        form
       )
       .then((res) => console.log(res))
       .catch((err) => console.error(err));
   };
   const handleFileInputChange = (e) => {
-    console.log(e.target.files[0]);
-    // setCampusLogo(e.target.files[0]);
-    // setFile(e.target.files[0]);
-    setCampusLogoUpload(e.target.files[0]);
+    console.log(e.target.files);
+    setCampusLogos(e.target.files);
   };
   const handleFileInputChangePoster = (e) => {
     console.log(e.target.files[0]);
-    setEventPosterUpload(e.target.files[0]);
-    // setEventPoster(e.target.files[0]);
-
-    // setFile(e.target.files[0]);
+    setEventPoster(e.target.files[0]);
   };
 
   return (
@@ -275,7 +282,6 @@ const EventRegistrationForm = () => {
                   <input
                     type="file"
                     id="eventPoster"
-                    value={eventPoster}
                     className="inputHosting"
                     onChange={handleFileInputChangePoster}
                   />
@@ -286,9 +292,9 @@ const EventRegistrationForm = () => {
                 <label htmlFor="Campus Logo">Campus Logo</label>
                 <div>
                   <input
+                    multiple
                     type="file"
                     id="campusLogo"
-                    value={campusLogo}
                     className="inputHosting"
                     onChange={handleFileInputChange}
                   />
