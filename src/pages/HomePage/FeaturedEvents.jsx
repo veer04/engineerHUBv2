@@ -4,6 +4,7 @@ import { FiArrowLeft, FiArrowRight } from "react-icons/fi";
 import image from "./events.png";
 import image2 from "./events_2.png";
 import { getAllEvents, controller } from "../../services/APIConfig";
+import defaultPoster from "../../assets/defaultPoster";
 
 export default function FeaturedEvents() {
   //fetch events from database
@@ -17,33 +18,6 @@ export default function FeaturedEvents() {
       controller.abort();
     };
   }, []);
-
-  const eventsList = [
-    {
-      id: 1,
-      title: "Event 1",
-      description: "Event 1 description",
-      image: "https://source.unsplash.com/random",
-    },
-    {
-      id: 2,
-      title: "Event 2",
-      description: "Event 2 description",
-      image: "https://source.unsplash.com/random",
-    },
-    {
-      id: 3,
-      title: "Event 3",
-      description: "Event 3 description",
-      image: "https://source.unsplash.com/random",
-    },
-    {
-      id: 4,
-      title: "Event 4",
-      description: "Event 4 description",
-      image: "https://source.unsplash.com/random",
-    },
-  ];
 
   const colorCycle = [
     "rgb(255,203,165,.9)  /* #ffcba5 */",
@@ -66,7 +40,9 @@ export default function FeaturedEvents() {
       <div
         key={event._id}
         style={{
-          backgroundImage: `url(${event.eventPoster})`,
+          backgroundImage: `url(${
+            event.eventPoster ? event.eventPoster : defaultPoster
+          })`,
         }}
         className="events-section-card-bg"
       >
