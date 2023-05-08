@@ -1,18 +1,18 @@
 import React from "react";
 import ProjectCards from "../ProjectCards";
-import imgBanner from "../../../../assets/images/spotifyImg.png";
-import orgLogo from "../../../../assets/images/eduncle.svg";
 import "./HTML.css";
+import { Bucket_URL } from "../../../../services/APIUtils";
 
 const HTML = () => {
+  const bucket = `${Bucket_URL}frontend/company/projects/`;
   const HTMLEntries = [
     {
       name: "Spotify Clone",
-      img: imgBanner,
+      img: `${bucket}spotifyImg.png`,
       desc: "Lorem ipsum dolor sit amet consectetur. Scelerisque amet turpis senectus arcu rhoncus arcu. Eu auctor consectetur adipiscing pellentesque vitae amet ullamcorper enim condimentum. Faucibus maecenas nulla rhoncus vel. Urna enim consequat leo justo tortor maecenas ipsum arcu elementum. Ullamcorper suspendisse porttitor cras nulla. Gravida sit curabitur pulvinar tempus diam sed aenean ipsum. Lectus commodo cursus ut eleifend faucibus eget enim. Vitae donec egestas purus diam venenatis aliquet. Ultricies in sit ullamcorper habitant pretium facilisis.",
       organization: {
         name: "Eduncle",
-        logo: orgLogo,
+        logo: `${bucket}eduncle.svg`,
         submissions: 100,
       },
       software: ["Software Used", "Software Used"],
@@ -32,11 +32,11 @@ const HTML = () => {
     },
     {
       name: "Spotify Clone",
-      img: imgBanner,
+      img: `${bucket}spotifyImg.png`,
       desc: "Lorem ipsum dolor sit amet consectetur. Scelerisque amet turpis senectus arcu rhoncus arcu. Eu auctor consectetur adipiscing pellentesque vitae amet ullamcorper enim condimentum. Faucibus maecenas nulla rhoncus vel. Urna enim consequat leo justo tortor maecenas ipsum arcu elementum. Ullamcorper suspendisse porttitor cras nulla. Gravida sit curabitur pulvinar tempus diam sed aenean ipsum. Lectus commodo cursus ut eleifend faucibus eget enim. Vitae donec egestas purus diam venenatis aliquet. Ultricies in sit ullamcorper habitant pretium facilisis.",
       organization: {
         name: "Eduncle",
-        logo: orgLogo,
+        logo: `${bucket}eduncle.svg`,
         submissions: 100,
       },
       software: ["Software Used", "Software Used"],
@@ -56,11 +56,11 @@ const HTML = () => {
     },
     {
       name: "Spotify Clone",
-      img: imgBanner,
+      img: `${bucket}spotifyImg.png`,
       desc: "Lorem ipsum dolor sit amet consectetur. Scelerisque amet turpis senectus arcu rhoncus arcu. Eu auctor consectetur adipiscing pellentesque vitae amet ullamcorper enim condimentum. Faucibus maecenas nulla rhoncus vel. Urna enim consequat leo justo tortor maecenas ipsum arcu elementum. Ullamcorper suspendisse porttitor cras nulla. Gravida sit curabitur pulvinar tempus diam sed aenean ipsum. Lectus commodo cursus ut eleifend faucibus eget enim. Vitae donec egestas purus diam venenatis aliquet. Ultricies in sit ullamcorper habitant pretium facilisis.",
       organization: {
         name: "Eduncle",
-        logo: orgLogo,
+        logo: `${bucket}eduncle.svg`,
         submissions: 100,
       },
       software: ["Software Used", "Software Used"],
@@ -80,11 +80,11 @@ const HTML = () => {
     },
     {
       name: "Spotify Clone",
-      img: imgBanner,
+      img: `${bucket}spotifyImg.png`,
       desc: "Lorem ipsum dolor sit amet consectetur. Scelerisque amet turpis senectus arcu rhoncus arcu. Eu auctor consectetur adipiscing pellentesque vitae amet ullamcorper enim condimentum. Faucibus maecenas nulla rhoncus vel. Urna enim consequat leo justo tortor maecenas ipsum arcu elementum. Ullamcorper suspendisse porttitor cras nulla. Gravida sit curabitur pulvinar tempus diam sed aenean ipsum. Lectus commodo cursus ut eleifend faucibus eget enim. Vitae donec egestas purus diam venenatis aliquet. Ultricies in sit ullamcorper habitant pretium facilisis.",
       organization: {
         name: "Eduncle",
-        logo: orgLogo,
+        logo: `${bucket}eduncle.svg`,
         submissions: 100,
       },
       software: ["Software Used", "Software Used"],
@@ -104,11 +104,11 @@ const HTML = () => {
     },
     {
       name: "Spotify Clone",
-      img: imgBanner,
+      img: `${bucket}spotifyImg.png`,
       desc: "Lorem ipsum dolor sit amet consectetur. Scelerisque amet turpis senectus arcu rhoncus arcu. Eu auctor consectetur adipiscing pellentesque vitae amet ullamcorper enim condimentum. Faucibus maecenas nulla rhoncus vel. Urna enim consequat leo justo tortor maecenas ipsum arcu elementum. Ullamcorper suspendisse porttitor cras nulla. Gravida sit curabitur pulvinar tempus diam sed aenean ipsum. Lectus commodo cursus ut eleifend faucibus eget enim. Vitae donec egestas purus diam venenatis aliquet. Ultricies in sit ullamcorper habitant pretium facilisis.",
       organization: {
         name: "Eduncle",
-        logo: orgLogo,
+        logo: `${bucket}eduncle.svg`,
         submissions: 100,
       },
       software: ["Software Used", "Software Used"],
@@ -128,11 +128,11 @@ const HTML = () => {
     },
     {
       name: "Spotify Clone",
-      img: imgBanner,
+      img: `${bucket}spotifyImg.png`,
       desc: "Lorem ipsum dolor sit amet consectetur. Scelerisque amet turpis senectus arcu rhoncus arcu. Eu auctor consectetur adipiscing pellentesque vitae amet ullamcorper enim condimentum. Faucibus maecenas nulla rhoncus vel. Urna enim consequat leo justo tortor maecenas ipsum arcu elementum. Ullamcorper suspendisse porttitor cras nulla. Gravida sit curabitur pulvinar tempus diam sed aenean ipsum. Lectus commodo cursus ut eleifend faucibus eget enim. Vitae donec egestas purus diam venenatis aliquet. Ultricies in sit ullamcorper habitant pretium facilisis.",
       organization: {
         name: "Eduncle",
-        logo: orgLogo,
+        logo: `${bucket}eduncle.svg`,
         submissions: 100,
       },
       software: ["Software Used", "Software Used"],

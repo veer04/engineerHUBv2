@@ -95,7 +95,7 @@ function App() {
         <Route path="hosting">
           <Route index element={<Hosting />} />
         </Route>
-        {/* <Route path="/company">
+        <Route path="/company">
           <Route path="" element={<Company />} />
           <Route path="jobs">
             <Route path="" element={<Jobs />} />
@@ -109,11 +109,11 @@ function App() {
             <Route path="" element={<Events />} />
             <Route path="hackathons/:hackId" element={<HackathonDetails />} />
             {/* <Route
-                path="competitions/:competeId"
-                element={<CompetitionDetails />}
-              /> *
+              path="competitions/:competeId"
+              element={<CompetitionDetails />}
+            /> */}
           </Route>
-        </Route> */}
+        </Route>
       </Routes>
       <Footer />
     </>

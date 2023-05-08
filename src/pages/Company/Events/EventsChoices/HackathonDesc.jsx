@@ -1,13 +1,13 @@
 import React from "react";
 import "./HackathonDesc.css";
 import { Chip } from "@mui/material";
-import prize from "../../../../assets/images/prize.svg";
-import certificate from "../../../../assets/images/certificate.svg";
 import { BsCalendar4 } from "react-icons/bs";
 import { FiMail } from "react-icons/fi";
 import { TbPhoneCall } from "react-icons/tb";
+import { Bucket_URL } from "../../../../services/APIUtils";
 
 const HackathonDesc = ({ details }) => {
+  const bucket = `${Bucket_URL}frontend/company/events/hackathon/`;
   return (
     <div className="HackDescription">
       <div className="HackDetailHeader">
@@ -107,7 +107,7 @@ const HackathonDesc = ({ details }) => {
               senectus arcu rhoncus arcu.
             </p>
             <span>{`₹ ${details.prize.first}`}</span>
-            <img src={prize} alt="guide" />
+            <img src={`${bucket}prize.svg`} alt="guide" />
           </div>
           <div className="HackInfoItem" style={{ background: "#8FC8E8" }}>
             <h6>Second Prize</h6>
@@ -116,7 +116,7 @@ const HackathonDesc = ({ details }) => {
               senectus arcu rhoncus arcu.
             </p>
             <span>{`₹ ${details.prize.second}`}</span>
-            <img src={prize} alt="guide" />
+            <img src={`${bucket}prize.svg`} alt="guide" />
           </div>
           <div className="HackInfoItem" style={{ background: "#B2E887" }}>
             <h6>Certificate of Merit</h6>
@@ -124,7 +124,7 @@ const HackathonDesc = ({ details }) => {
               Lorem ipsum dolor sit amet consectetur. Scelerisque amet turpis
               senectus arcu rhoncus arcu.
             </p>
-            <img src={certificate} alt="guide" />
+            <img src={`${bucket}certificate.svg`} alt="guide" />
           </div>
           <div className="HackInfoItem" style={{ background: "#B2E887" }}>
             <h6>Certificate of Participation</h6>
@@ -132,7 +132,7 @@ const HackathonDesc = ({ details }) => {
               Lorem ipsum dolor sit amet consectetur. Scelerisque amet turpis
               senectus arcu rhoncus arcu.
             </p>
-            <img src={certificate} alt="guide" />
+            <img src={`${bucket}certificate.svg`} alt="guide" />
           </div>
         </div>
       </div>

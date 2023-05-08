@@ -3,14 +3,13 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { BsSearch } from "react-icons/bs";
 import { MdTune } from "react-icons/md";
-import googleLogo from "../../../assets/images/google.svg";
-import microsoftLogo from "../../../assets/images/microsoft.svg";
-import uberLogo from "../../../assets/images/uber.svg";
 import JobCards from "./JobCards";
 import "./jobs.css";
 import JobDescription from "./JobDescription";
+import { Bucket_URL } from "../../../services/APIUtils";
 
 const Jobs = () => {
+  const bucket = `${Bucket_URL}frontend/company/jobs/`;
   const [search, setSearch] = useState("");
   const CardEntries = [
     {
@@ -18,7 +17,7 @@ const Jobs = () => {
       tags: ["Engineer", "Developer"],
       ctc: "5-5.6 LPA",
       location: "Mumbai, India",
-      logo: uberLogo,
+      logo: `${bucket}uber.svg`,
       bg: "#8FC8E8",
       jobId: 1234,
       org: "Uber",
@@ -45,7 +44,7 @@ const Jobs = () => {
       tags: ["Engineer", "Developer"],
       ctc: "10-16 LPA",
       location: "Mumbai, India",
-      logo: googleLogo,
+      logo: `${bucket}google.svg`,
       bg: "#B2E887",
       jobId: 1233,
       org: "Google",
@@ -72,7 +71,7 @@ const Jobs = () => {
       tags: ["Engineer", "Developer"],
       ctc: "7-8.5 LPA",
       location: "Mumbai, India",
-      logo: microsoftLogo,
+      logo: `${bucket}microsoft.svg`,
       bg: "#E8BA98",
       jobId: 1232,
       org: "Microsoft",
@@ -99,7 +98,7 @@ const Jobs = () => {
       tags: ["Engineer", "Developer"],
       ctc: "5-5.6 LPA",
       location: "Mumbai, India",
-      logo: uberLogo,
+      logo: `${bucket}uber.svg`,
       bg: "#8FC8E8",
       jobId: 1234,
       org: "Uber",
@@ -126,7 +125,7 @@ const Jobs = () => {
       tags: ["Engineer", "Developer"],
       ctc: "10-16 LPA",
       location: "Mumbai, India",
-      logo: googleLogo,
+      logo: `${bucket}google.svg`,
       bg: "#F7D77F",
       jobId: 1233,
       org: "Google",
@@ -153,7 +152,7 @@ const Jobs = () => {
       tags: ["Engineer", "Developer"],
       ctc: "7-8.5 LPA",
       location: "Mumbai, India",
-      logo: microsoftLogo,
+      logo: `${bucket}microsoft.svg`,
       bg: "#E8BA98",
       jobId: 1232,
       org: "Microsoft",
@@ -180,7 +179,7 @@ const Jobs = () => {
       tags: ["Engineer", "Developer"],
       ctc: "5-5.6 LPA",
       location: "Mumbai, India",
-      logo: uberLogo,
+      logo: `${bucket}uber.svg`,
       bg: "#8FC8E8",
       jobId: 1234,
       org: "Uber",
@@ -207,7 +206,7 @@ const Jobs = () => {
       tags: ["Engineer", "Developer"],
       ctc: "10-16 LPA",
       location: "Mumbai, India",
-      logo: googleLogo,
+      logo: `${bucket}google.svg`,
       bg: "#B2E887",
       jobId: 1233,
       org: "Google",
@@ -234,7 +233,7 @@ const Jobs = () => {
       tags: ["Engineer", "Developer"],
       ctc: "7-8.5 LPA",
       location: "Mumbai, India",
-      logo: microsoftLogo,
+      logo: `${bucket}microsoft.svg`,
       bg: "#F7D77F",
       jobId: 1232,
       org: "Microsoft",
