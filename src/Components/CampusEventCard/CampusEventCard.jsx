@@ -8,10 +8,19 @@ export default function CampusEventCard({
   ongoingEvents,
   color,
   link,
+  image,
 }) {
   return (
     <Link to={link} className="campus-event-card--responsive">
-      <div style={{ backgroundColor: color }} className="campus-event__card">
+      <div
+        style={{
+          backgroundColor: color,
+          backgroundImage: `url(${image})`,
+          backgroundRepeat: "no-repeat",
+          backgroundPosition: "95% 20px",
+        }}
+        className="campus-event__card"
+      >
         <div className="header">
           <h2>{title}</h2>
         </div>

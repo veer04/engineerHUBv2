@@ -43,6 +43,9 @@
   .reviews-col-3 {
     display: none !important;
   }
+  .reviews-section-title {
+    font-size: 2rem !important;
+  }
 }
 
 @media screen and (max-width: 510px) {

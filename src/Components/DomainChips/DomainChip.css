@@ -5,6 +5,11 @@
   --domain-green: #b2e887; /* rgb(178, 232, 135) */
   --domain-red: #e8ba98; /* rgb(232, 186, 152) */
 }
+.domain-chip:hover {
+  cursor: pointer;
+  transform: scale(1.15);
+  transition: all 0.2s ease-in-out;
+}
 .domain-orange {
   background-color: var(--domain-orange);
 }

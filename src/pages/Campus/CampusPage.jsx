@@ -25,6 +25,8 @@ export default function CampusPage() {
       ongoingEvents: "100",
       color: colors[0],
       link: "/campus/inter-college",
+      image:
+        "https://frontendehubbucket.s3.ap-south-1.amazonaws.com/frontend/campus/inter_college.png",
     },
     {
       _id: 2,
@@ -33,6 +35,8 @@ export default function CampusPage() {
       ongoingEvents: "12",
       color: colors[1],
       link: "/campus/intra-college",
+      image:
+        "https://frontendehubbucket.s3.ap-south-1.amazonaws.com/frontend/campus/intra_college.png",
     },
     {
       _id: 3,
@@ -41,6 +45,8 @@ export default function CampusPage() {
       ongoingEvents: "108",
       color: colors[2],
       link: "/campus/workshop",
+      image:
+        "https://frontendehubbucket.s3.ap-south-1.amazonaws.com/frontend/campus/workshops.png",
     },
   ];
 
@@ -127,6 +133,7 @@ export default function CampusPage() {
             studentActivity={event.studentActivity}
             ongoingEvents={event.ongoingEvents}
             color={event.color}
+            image={event.image}
           />
         ))}
       </div>

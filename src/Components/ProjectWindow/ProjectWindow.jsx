@@ -51,7 +51,7 @@ export default function ProjectWindow({ projectOpened, setIsProjectOpen }) {
       <div
         style={{
           backgroundImage: `url(${project.projectImage})`,
-          backgroundSize: "contain",
+          backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
           width: "100%",

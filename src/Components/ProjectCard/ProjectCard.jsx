@@ -49,7 +49,7 @@ export default function ProjectCard({
             backgroundImage: `url(${
               projectImage ? projectImage : defaultPoster
             })`,
-            backgroundSize: "contain",
+            backgroundSize: "cover",
             backgroundColor: "rgb(238,255,255)",
             backgroundPosition: "center",
             backgroundRepeat: "no-repeat",

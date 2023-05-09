@@ -101,14 +101,14 @@
   .campus-section-container {
     flex-direction: column;
     border-radius: 1rem;
-    margin: 10rem var(--section-padding);
+    margin: 5rem var(--section-padding);
     padding: 0;
     justify-content: center;
   }
   .campus-section-img {
     display: none;
   }
-  .campus-section-title{
+  .campus-section-title {
     text-align: center;
   }
   .campus-section-content {
