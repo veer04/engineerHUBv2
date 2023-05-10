@@ -56,6 +56,9 @@
   .recent-activities-section-item > span {
     -webkit-line-clamp: 2; /* Set the number of lines to show */
   }
+  .recent-activities-section {
+    padding: 0rem var(--section-padding) 0rem;
+  }
 }
 .recent-activities-section-item:nth-child(1) {
   left: 0;
@@ -135,5 +138,14 @@
     left: 0;
     /* top: 15rem; */
     z-index: 1;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .silicon-valley-section {
+    display: none;
+  }
+  .recent-activities-section {
+    padding: 0rem var(--section-padding) 5rem;
   }
 }

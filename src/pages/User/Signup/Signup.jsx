@@ -1,6 +1,6 @@
 import "./Signup.css";
 import { useState, useEffect } from 'react';
-import { TextField, Button, Box } from '@mui/material';
+import { TextField, Button} from '@mui/material';
 import axios from "axios";
 import "../../Hosting/EventRegistration.css";
 
@@ -55,10 +55,10 @@ const Signup = () => {
     
 
 
-      const handleInputChange = (event) => {
-        const inputValues = event.target.value.split(',');
-        setSkills(inputValues);
-      };
+      // const handleInputChange = (event) => {
+      //   const inputValues = event.target.value.split(',');
+      //   setSkills(inputValues);
+      // };
       const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData((prevFormData) => ({
@@ -66,9 +66,9 @@ const Signup = () => {
           [name]: value,
         }));
       };
-     const handleChangeDrop =(event)=>{
-      setRole(event.target.value);
-     }
+    //  const handleChangeDrop =(event)=>{
+    //   setRole(event.target.value);
+    //  }
 
 
       const validateInput = () => {
@@ -88,10 +88,6 @@ const Signup = () => {
           valid = false;
         }
 
-        // if (!formData.userName) {
-        //   newErrors.userName = 'Username is required';
-        //   valid = false;
-        // }
 
         if (!formData.email) {
           newErrors.email = 'Email is required';
@@ -137,31 +133,31 @@ const Signup = () => {
       const handleSubmit = async (e) => {
         e.preventDefault();
         if(validateInput())
-        {
-        axios.post('https://e-hub-backend-production-9545.up.railway.app/api/v1/user/signup',formData).then((response) => {
-          console.log(response);
-        }, (error) => {
-          console.log(error);
-        });
-      }
+      //   {
+      //   axios.post('https://e-hub-backend-production-9545.up.railway.app/api/v1/user/signup',formData).then((response) => {
+      //     console.log(response);
+      //   }, (error) => {
+      //     console.log(error);
+      //   });
+      // }
 
-      //  {
-      //     try {
-      //       const response = await fetch('http://e-hub-backend-production-9545.up.railway.app/user/signup', {
-      //         method: 'POST',
-      //         headers: {
-      //           'Content-Type': 'application/json',
-      //         },
-      //         body: JSON.stringify(formData),
+       {
+          try {
+            const response = await fetch('http://e-hub-backend-production-9545.up.railway.app/api/v1/user/signup', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(formData),
 
-      //       });
+            });
 
-      //       const data = await response.json();
-      //       console.log(data);
-      //     } catch (error) {
-      //       console.error(error);
-      //     }
-      //   }
+            const data = await response.json();
+            console.log(data);
+          } catch (error) {
+            console.error(error);
+          }
+        }
       };
 
 
@@ -294,7 +290,7 @@ const Signup = () => {
     
 
     {step === 1 && (
-      <Box >
+   <div>
       <TextField
         name="name"
         label="Name"
@@ -306,7 +302,7 @@ const Signup = () => {
         error={!!errors.name}
         helperText={errors.name}
       />
-      {/* <TextField
+       {/* <TextField
         name="userName"
         label="Username"
         variant="outlined"
@@ -316,7 +312,7 @@ const Signup = () => {
         margin="normal"
         error={!!errors.userName}
         helperText={errors.userName}
-      /> */}
+      />  */}
       <TextField
         name="email"
         label="Email"
@@ -352,26 +348,14 @@ const Signup = () => {
                 >
                   Next
                 </button>
-                </Box>
-          )}
+               
+       </div>   )}
 
-
-      {/* <TextField
-        name="college"
-        label="College Name"
-        variant="outlined"
-        value={formData.college}
-        onChange={handleChange}
-        fullWidth
-        margin="normal"
-        error={!!errors.college}
-        helperText={errors.college}
-      /> */}
 
 
      { step===2 &&(
-      <Box>
- 
+      
+ <div>
       <TextField
         name="branch"
         label="branch Name"
@@ -437,13 +421,14 @@ const Signup = () => {
                   Next
                 </button>
 
-      </Box>
+      </div>
 
      )}
 
 
      {step==3 && (
-      <Box>
+      <div>
+     
        <TextField
         name="institutionName"
         label="institutionName"
@@ -492,14 +477,8 @@ onChange={handleChangeRole}>
         error={!!errors.confirmPassword}
         helperText={errors.confirmPassword}
       />
-       {/* <input type="text" onChange={handleInputChange} />
-      <ul>
-        {skills.map((skills, index) => (
-          <li key={index}>{skills.trim()}</li>
-        ))}
-      </ul> */}
 
-<br />
+              <br />
               <button
                   type="button"
                   onClick={handlePrev}
@@ -513,7 +492,7 @@ onChange={handleChangeRole}>
               <button type="submit" className="buttonOnHostingPage">
                   submit
                 </button>
-      </Box>)}
+     </div>)}
     
  </form>
                     </div>

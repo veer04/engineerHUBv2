@@ -34,7 +34,7 @@ export default function BlogCard({
             width: "100%",
             height: "12rem",
             backgroundImage: `url(${postIcon ? postIcon : defaultPoster})`,
-            backgroundSize: "contain",
+            backgroundSize: "cover",
             backgroundPosition: "center",
             backgroundColor: "rgb(238,255,255)",
             backgroundRepeat: "no-repeat",

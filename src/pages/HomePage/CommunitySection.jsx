@@ -12,16 +12,13 @@ export default function CommunitySection() {
     "--tile-bg-color-5",
     "--tile-bg-color-6",
   ];
-  const randomColor = Math.floor(Math.random() * 2)
-    ? colors[Math.floor(Math.random() * colors.length)]
-    : null;
   const tiles = [];
   for (let i = 0; i < 1800; i++) {
     tiles.push(
       <CommunityTile
         key={i}
         color={
-          Math.floor(Math.random() * 2)
+          Math.floor(Math.random() * 3)
             ? colors[Math.floor(Math.random() * colors.length)]
             : null
         }

@@ -2,9 +2,11 @@ import React from "react";
 import "./JobsSection.css";
 import arrow from "./svg/jobs-btn.svg";
 import { Bucket_URL } from "../../services/APIUtils";
-import defaultPoster from "../../assets/defaultPoster"
+import defaultPoster from "../../assets/defaultPoster";
+import { useNavigate } from "react-router-dom";
 
 export default function JobsSection() {
+  const navigate = useNavigate();
   const bucket = `${Bucket_URL}frontend/homepage/jobssection/`;
   const jobs = [
     {
@@ -88,7 +90,10 @@ export default function JobsSection() {
         </div>
       </div>
       <div className="jobs-btn">
-        <button className="look-for-jobs">
+        <button
+          onClick={() => navigate("company/jobs")}
+          className="look-for-jobs"
+        >
           Look for Jobs
           <img src={arrow} alt="Arrow" />
         </button>

@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import "./ComingSoon.css";
+import { Bucket_URL } from "../../services/APIUtils";
 
 export default function ComingSoon() {
   const bucket = `${Bucket_URL}frontend/maintenance/`;

@@ -23,6 +23,10 @@ export default function FeaturedEvents() {
     };
   }, []);
 
+  useEffect(() => {
+    console.log(events);
+  }, [events]);
+
   const scrollLeft = () => {
     const cards = document.querySelector(".events-section-cards");
     cards.scrollLeft -= 320;
@@ -31,29 +35,36 @@ export default function FeaturedEvents() {
     const cards = document.querySelector(".events-section-cards");
     cards.scrollLeft += 320;
   };
-  const renderedEvents = events.slice(0, 3).map((event, index) => {
-    return (
-      <div
-        key={event._id}
-        style={{
-          backgroundImage: `url(${
-            event.eventPoster ? event.eventPoster : defaultPoster
-          })`,
-        }}
-        className="events-section-card-bg"
-      >
-        <div
-          style={{ backgroundColor: colorCycle[index % colorCycle.length] }}
-          className="events-section-card-content"
-        >
-          <h3 className="events-section-card-heading">{event.eventName}</h3>
-          <h4 className="events-section-card-subheading">
-            {event.description}
-          </h4>
-        </div>
-      </div>
-    );
-  });
+  const renderedEvents =
+    events.length > 0
+      ? events.slice(0, 6).map((event, index) => {
+          return (
+            <div
+              key={event._id}
+              style={{
+                backgroundImage: `url(${
+                  event.eventPoster ? event.eventPoster : defaultPoster
+                })`,
+              }}
+              className="events-section-card-bg"
+            >
+              <div
+                style={{
+                  backgroundColor: colorCycle[index % colorCycle.length],
+                }}
+                className="events-section-card-content"
+              >
+                <h3 className="events-section-card-heading">
+                  {event.eventName}
+                </h3>
+                <h4 className="events-section-card-subheading">
+                  {event.description}
+                </h4>
+              </div>
+            </div>
+          );
+        })
+      : "";
   const marquee = (image) => {
     return (
       <div
