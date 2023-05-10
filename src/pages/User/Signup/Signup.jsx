@@ -1,6 +1,6 @@
 import "./Signup.css";
 import { useState, useEffect } from 'react';
-import { TextField, Button, Box } from '@mui/material';
+import { TextField, Button } from '@mui/material';
 import axios from "axios";
 import "../../Hosting/EventRegistration.css";
 
@@ -55,10 +55,10 @@ const Signup = () => {
     
 
 
-      const handleInputChange = (event) => {
-        const inputValues = event.target.value.split(',');
-        setSkills(inputValues);
-      };
+      // const handleInputChange = (event) => {
+      //   const inputValues = event.target.value.split(',');
+      //   setSkills(inputValues);
+      // };
       const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData((prevFormData) => ({
@@ -66,9 +66,9 @@ const Signup = () => {
           [name]: value,
         }));
       };
-     const handleChangeDrop =(event)=>{
-      setRole(event.target.value);
-     }
+    //  const handleChangeDrop =(event)=>{
+    //   setRole(event.target.value);
+    //  }
 
 
       const validateInput = () => {
@@ -88,10 +88,6 @@ const Signup = () => {
           valid = false;
         }
 
-        // if (!formData.userName) {
-        //   newErrors.userName = 'Username is required';
-        //   valid = false;
-        // }
 
         if (!formData.email) {
           newErrors.email = 'Email is required';
@@ -137,31 +133,31 @@ const Signup = () => {
       const handleSubmit = async (e) => {
         e.preventDefault();
         if(validateInput())
-        {
-        axios.post('https://e-hub-backend-production-9545.up.railway.app/api/v1/user/signup',formData).then((response) => {
-          console.log(response);
-        }, (error) => {
-          console.log(error);
-        });
-      }
+      //   {
+      //   axios.post('https://e-hub-backend-production-9545.up.railway.app/api/v1/user/signup',formData).then((response) => {
+      //     console.log(response);
+      //   }, (error) => {
+      //     console.log(error);
+      //   });
+      // }
 
-      //  {
-      //     try {
-      //       const response = await fetch('http://e-hub-backend-production-9545.up.railway.app/user/signup', {
-      //         method: 'POST',
-      //         headers: {
-      //           'Content-Type': 'application/json',
-      //         },
-      //         body: JSON.stringify(formData),
+       {
+          try {
+            const response = await fetch('http://e-hub-backend-production-9545.up.railway.app/user/signup', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(formData),
 
-      //       });
+            });
 
-      //       const data = await response.json();
-      //       console.log(data);
-      //     } catch (error) {
-      //       console.error(error);
-      //     }
-      //   }
+            const data = await response.json();
+            console.log(data);
+          } catch (error) {
+            console.error(error);
+          }
+        }
       };
 
 
@@ -294,7 +290,7 @@ const Signup = () => {
     
 
     {step === 1 && (
-      <Box >
+     
       <TextField
         name="name"
         label="Name"
@@ -352,7 +348,7 @@ const Signup = () => {
                 >
                   Next
                 </button>
-                </Box>
+              
           )}
 
 
@@ -370,7 +366,7 @@ const Signup = () => {
 
 
      { step===2 &&(
-      <Box>
+      
  
       <TextField
         name="branch"
@@ -437,13 +433,13 @@ const Signup = () => {
                   Next
                 </button>
 
-      </Box>
+     
 
      )}
 
 
      {step==3 && (
-      <Box>
+      
        <TextField
         name="institutionName"
         label="institutionName"
@@ -513,7 +509,7 @@ onChange={handleChangeRole}>
               <button type="submit" className="buttonOnHostingPage">
                   submit
                 </button>
-      </Box>)}
+     )}
     
  </form>
                     </div>
