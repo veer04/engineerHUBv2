@@ -49,6 +49,8 @@ export default function ParticularCampus() {
       ongoingEvents: "100",
       color: colors[0],
       link: `/campus/${collegeId}/technical-clubs`,
+      image:
+        "https://frontendehubbucket.s3.ap-south-1.amazonaws.com/frontend/campus/particularcampus/technical_club.png",
     },
     {
       _id: 2,
@@ -57,6 +59,8 @@ export default function ParticularCampus() {
       ongoingEvents: "12",
       color: colors[1],
       link: `/campus/${collegeId}/cultural-clubs`,
+      image:
+        "https://frontendehubbucket.s3.ap-south-1.amazonaws.com/frontend/campus/particularcampus/cultural_club.png",
     },
     {
       _id: 3,
@@ -65,6 +69,8 @@ export default function ParticularCampus() {
       ongoingEvents: "108",
       color: colors[2],
       link: `/campus/${collegeId}/almas`,
+      image:
+        "https://frontendehubbucket.s3.ap-south-1.amazonaws.com/frontend/campus/particularcampus/almas.png",
     },
   ];
   const starsFilled = [];
@@ -149,6 +155,7 @@ export default function ParticularCampus() {
             studentActivity={event.studentActivity}
             ongoingEvents={event.ongoingEvents}
             color={event.color}
+            image={event.image}
           />
         ))}
       </div>

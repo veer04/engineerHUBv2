@@ -1,12 +1,10 @@
 import React from "react";
 import "./JobDescription.css";
 import { Chip } from "@mui/material";
-import timer from "../../../assets/images/timer.svg";
-import locate from "../../../assets/images/locate.svg";
-import time from "../../../assets/images/time.svg";
-import cash from "../../../assets/images/cash.svg";
+import { Bucket_URL } from "../../../services/APIUtils";
 
 const JobDescription = ({ details }) => {
+  const bucket = `${Bucket_URL}frontend/company/jobs/`;
   return (
     <div className="JobDescription">
       <div className="JobDetailHeader">
@@ -59,7 +57,7 @@ const JobDescription = ({ details }) => {
               senectus arcu rhoncus arcu.
             </p>
             <span>{details.ctc}</span>
-            <img src={cash} alt="guide" />
+            <img src={`${bucket}cash.svg`} alt="guide" />
           </div>
           <div className="JobInfoItem">
             <h6>Time Availability</h6>
@@ -68,7 +66,7 @@ const JobDescription = ({ details }) => {
               senectus arcu rhoncus arcu.
             </p>
             <span>{details.info.availability}</span>
-            <img src={timer} alt="guide" />
+            <img src={`${bucket}timer.svg`} alt="guide" />
           </div>
           <div className="JobInfoItem">
             <h6>Job Location</h6>
@@ -77,7 +75,7 @@ const JobDescription = ({ details }) => {
               senectus arcu rhoncus arcu.
             </p>
             <span>{details.location}</span>
-            <img src={locate} alt="guide" />
+            <img src={`${bucket}locate.svg`} alt="guide" />
           </div>
           <div className="JobInfoItem">
             <h6>Work type</h6>
@@ -86,7 +84,7 @@ const JobDescription = ({ details }) => {
               senectus arcu rhoncus arcu.
             </p>
             <span>{details.info.type}</span>
-            <img src={time} alt="guide" />
+            <img src={`${bucket}time.svg`} alt="guide" />
           </div>
         </div>
       </div>

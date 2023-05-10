@@ -1,31 +1,8 @@
 import React from "react";
 import "./Company.css";
 import JobCards from "./Jobs/JobCards";
-import googleLogo from "../../assets/images/google.svg";
-import microsoftLogo from "../../assets/images/microsoft.svg";
-import metaLogo from "../../assets/images/meta.svg";
-import netflixLogo from "../../assets/images/netflix.svg";
-import amazonLogo from "../../assets/images/amazon.svg";
-import uberLogo from "../../assets/images/uber.svg";
-import avatar from "../../assets/images/studentAvatar.svg";
-// import arrow from "../../assets/images/arrow.svg";
-import databaseLogo from "../../assets/images/databaseLogo.svg";
-import appdevLogo from "../../assets/images/appdevLogo.svg";
-import webdevLogo from "../../assets/images/webdevLogo.svg";
-import designLogo from "../../assets/images/appdevLogo.svg";
-import prodigyLogo from "../../assets/images/prodigy.svg";
-import accentureLogo from "../../assets/images/accenture.svg";
-import prodigyBanner from "../../assets/images/prodigyBanner.png";
-import googleBanner from "../../assets/images/googleBanner.png";
-import accentureBanner from "../../assets/images/accentureBanner.png";
-import EventChar from "../../assets/images/EventChar.svg";
-import JobChar from "../../assets/images/JobChar.svg";
-import ProjectChar from "../../assets/images/ProjectChar.svg";
-import InternChar from "../../assets/images/InternChar.svg";
-import cartoonChar from "../../assets/images/cartoonChar.svg";
-import curveArrow from "../../assets/images/curveArrow.svg";
-import spiral from "../../assets/images/spiral.svg";
 import HackathonCard from "./Events/EventsChoices/HackathonCards";
+import { Bucket_URL } from "../../services/APIUtils";
 
 const CompanyCards = ({ data }) => {
   return (
@@ -57,11 +34,12 @@ const CompanyCards = ({ data }) => {
 };
 
 const Company = () => {
+  const bucket = `${Bucket_URL}frontend/company/`;
   const CompanyCardEntries = [
     {
       name: "event hiring",
       desc: "lorem ipsum dolor sit amet consectetur adipiscing elit. Convallis nunc, accumsan.",
-      char: EventChar,
+      char: `${bucket}EventChar.svg`,
       stats: {
         position: "30",
         hiring: "10",
@@ -72,7 +50,7 @@ const Company = () => {
     {
       name: "job hiring",
       desc: "lorem ipsum dolor sit amet consectetur adipiscing elit. Convallis nunc, accumsan.",
-      char: JobChar,
+      char: `${bucket}JobChar.svg`,
       background: "#8FC8E8",
       stats: {
         position: "30",
@@ -83,7 +61,7 @@ const Company = () => {
     {
       name: "project hub",
       desc: "lorem ipsum dolor sit amet consectetur adipiscing elit. Convallis nunc, accumsan.",
-      char: ProjectChar,
+      char: `${bucket}ProjectChar.svg`,
       background: "#B2E887",
       stats: {
         position: "30",
@@ -94,7 +72,7 @@ const Company = () => {
     {
       name: "be an intern",
       desc: "lorem ipsum dolor sit amet consectetur adipiscing elit. Convallis nunc, accumsan.",
-      char: InternChar,
+      char: `${bucket}InternChar.svg`,
       background: "#E8BA98",
       stats: {
         position: "30",
@@ -109,7 +87,7 @@ const Company = () => {
       tags: ["Engineer", "Developer"],
       ctc: "5-5.6 LPA",
       location: "Mumbai, India",
-      logo: uberLogo,
+      logo: `${bucket}uber.svg`,
       bg: "#8FC8E8",
       jobId: 1234,
       org: "Uber",
@@ -136,7 +114,7 @@ const Company = () => {
       tags: ["Engineer", "Developer"],
       ctc: "10-16 LPA",
       location: "Mumbai, India",
-      logo: googleLogo,
+      logo: `${bucket}google.svg`,
       bg: "#B2E887",
       jobId: 1233,
       org: "Google",
@@ -163,7 +141,7 @@ const Company = () => {
       tags: ["Engineer", "Developer"],
       ctc: "7-8.5 LPA",
       location: "Mumbai, India",
-      logo: microsoftLogo,
+      logo: `${bucket}microsoft.svg`,
       bg: "#E8BA98",
       jobId: 1232,
       org: "Microsoft",
@@ -189,8 +167,8 @@ const Company = () => {
   const HackathonCardEntries = [
     {
       name: "Google Problem Solution Challenge - UNESCO",
-      logo: googleLogo,
-      imgBanner: googleBanner,
+      logo: `${bucket}google.svg`,
+      imgBanner: `${bucket}googleBanner.png`,
       locations: "Google, USA",
       tags: ["#Competition", "#Challenge", "#Google"],
       stats: {
@@ -241,8 +219,8 @@ const Company = () => {
     },
     {
       name: "CyberHavoc CTF",
-      logo: prodigyLogo,
-      imgBanner: prodigyBanner,
+      logo: `${bucket}prodigy.svg`,
+      imgBanner: `${bucket}prodigyBanner.png`,
       locations: "NIT, Surat",
       tags: ["#Competition", "#Challenge", "#Google", "+2 more"],
       stats: {
@@ -293,8 +271,8 @@ const Company = () => {
     },
     {
       name: "Accenture Hack Diva",
-      logo: accentureLogo,
-      imgBanner: accentureBanner,
+      logo: `${bucket}accenture.svg`,
+      imgBanner: `${bucket}accentureBanner.png`,
       locations: "Accenture, Delhi",
       tags: ["#Competition", "#Challenge", "#Google"],
       stats: {
@@ -345,25 +323,37 @@ const Company = () => {
     },
   ];
   const CategoryEntries = [
-    { name: "Design", logo: designLogo },
-    { name: "App-Dev", logo: appdevLogo },
-    { name: "Web-Dev", logo: webdevLogo },
-    { name: "Database", logo: databaseLogo },
+    { name: "Design", logo: `${bucket}appdevLogo.svg` },
+    { name: "App-Dev", logo: `${bucket}appdevLogo.svg` },
+    { name: "Web-Dev", logo: `${bucket}webdevLogo.svg` },
+    { name: "Database", logo: `${bucket}databaseLogo.svg` },
   ];
   return (
     <div className="companyHome">
       <div className="pagesContainer">
         <div className="spiral">
           <h1>One Step Closer to your Dream Job</h1>
-          <img src={spiral} alt="spiral" className="spiralImg" />
-          <img src={cartoonChar} alt="Character" className="cartoon" />
-          <img src={curveArrow} alt="Arrow" className="curveArrow" />
-          <img src={uberLogo} alt="uber" className="uber" />
-          <img src={netflixLogo} alt="netflix" className="netflix" />
-          <img src={metaLogo} alt="meta" className="meta" />
-          <img src={amazonLogo} alt="amazon" className="amazon" />
-          <img src={googleLogo} alt="google" className="google" />
-          <img src={microsoftLogo} alt="microsoft" className="microsoft" />
+          <img src={`${bucket}spiral.svg`} alt="spiral" className="spiralImg" />
+          <img
+            src={`${bucket}cartoonChar.svg`}
+            alt="Character"
+            className="cartoon"
+          />
+          <img
+            src={`${bucket}curveArrow.svg`}
+            alt="Arrow"
+            className="curveArrow"
+          />
+          <img src={`${bucket}uber.svg`} alt="uber" className="uber" />
+          <img src={`${bucket}netflix.svg`} alt="netflix" className="netflix" />
+          <img src={`${bucket}meta.svg`} alt="meta" className="meta" />
+          <img src={`${bucket}amazon.svg`} alt="amazon" className="amazon" />
+          <img src={`${bucket}google.svg`} alt="google" className="google" />
+          <img
+            src={`${bucket}microsoft.svg`}
+            alt="microsoft"
+            className="microsoft"
+          />
         </div>
         <div className="pages">
           {CompanyCardEntries.map((item, index) => {
@@ -386,7 +376,7 @@ const Company = () => {
             );
           })}
           {/* <div className="seeMore">
-            <img src={arrow} alt="arrow" />
+            <img src={`${bucket}arrow.svg`} alt="arrow" />
             <span>See More</span>
           </div> */}
         </div>
@@ -418,7 +408,7 @@ const Company = () => {
           Students say?
         </div>
         <div className="reviewCard">
-          <img src={avatar} alt="Avatar" />
+          <img src={`${bucket}studentAvatar.svg`} alt="Avatar" />
           <p>
             Lorem ipsum dolor sit amet consectetur. Enim enim fringilla volutpat
             accumsan feugiat lobortis. Id ridiculus risus massa est. Tellus enim
@@ -430,7 +420,7 @@ const Company = () => {
           <h6>Girish Shedge</h6>
         </div>
         <div className="reviewCard reviewCard2">
-          <img src={avatar} alt="Avatar" />
+          <img src={`${bucket}studentAvatar.svg`} alt="Avatar" />
           <p>
             Lorem ipsum dolor sit amet consectetur. Enim enim fringilla volutpat
             accumsan feugiat lobortis. Id ridiculus risus massa est. Tellus enim

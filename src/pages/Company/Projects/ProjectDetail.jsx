@@ -1,22 +1,22 @@
 import React, { useState } from "react";
-import imgBanner from "../../../assets/images/spotifyImg.png";
-import orgLogo from "../../../assets/images/eduncle.svg";
 import { useParams } from "react-router-dom";
 import ProjectDesc from "./ProjectDesc";
 import ProjectCards from "./ProjectCards";
 import "./ProjectDetail.css";
 import { BsSearch } from "react-icons/bs";
 import { MdTune } from "react-icons/md";
+import { Bucket_URL } from "../../../services/APIUtils";
 
 const ProjectDetail = () => {
+  const bucket = `${Bucket_URL}frontend/company/projects/`;
   const HTMLEntries = [
     {
       name: "Spotify Clone",
-      img: imgBanner,
+      img: `${bucket}spotifyImg.png`,
       desc: "Lorem ipsum dolor sit amet consectetur. Scelerisque amet turpis senectus arcu rhoncus arcu. Eu auctor consectetur adipiscing pellentesque vitae amet ullamcorper enim condimentum. Faucibus maecenas nulla rhoncus vel. Urna enim consequat leo justo tortor maecenas ipsum arcu elementum. Ullamcorper suspendisse porttitor cras nulla. Gravida sit curabitur pulvinar tempus diam sed aenean ipsum. Lectus commodo cursus ut eleifend faucibus eget enim. Vitae donec egestas purus diam venenatis aliquet. Ultricies in sit ullamcorper habitant pretium facilisis.",
       organization: {
         name: "Eduncle",
-        logo: orgLogo,
+        logo: `${bucket}eduncle.svg`,
         submissions: 100,
       },
       software: ["Software Used", "Software Used"],
@@ -36,11 +36,11 @@ const ProjectDetail = () => {
     },
     {
       name: "Spotify Clone",
-      img: imgBanner,
+      img: `${bucket}spotifyImg.png`,
       desc: "Lorem ipsum dolor sit amet consectetur. Scelerisque amet turpis senectus arcu rhoncus arcu. Eu auctor consectetur adipiscing pellentesque vitae amet ullamcorper enim condimentum. Faucibus maecenas nulla rhoncus vel. Urna enim consequat leo justo tortor maecenas ipsum arcu elementum. Ullamcorper suspendisse porttitor cras nulla. Gravida sit curabitur pulvinar tempus diam sed aenean ipsum. Lectus commodo cursus ut eleifend faucibus eget enim. Vitae donec egestas purus diam venenatis aliquet. Ultricies in sit ullamcorper habitant pretium facilisis.",
       organization: {
         name: "Eduncle",
-        logo: orgLogo,
+        logo: `${bucket}eduncle.svg`,
         submissions: 100,
       },
       software: ["Software Used", "Software Used"],
@@ -60,11 +60,11 @@ const ProjectDetail = () => {
     },
     {
       name: "Spotify Clone",
-      img: imgBanner,
+      img: `${bucket}spotifyImg.png`,
       desc: "Lorem ipsum dolor sit amet consectetur. Scelerisque amet turpis senectus arcu rhoncus arcu. Eu auctor consectetur adipiscing pellentesque vitae amet ullamcorper enim condimentum. Faucibus maecenas nulla rhoncus vel. Urna enim consequat leo justo tortor maecenas ipsum arcu elementum. Ullamcorper suspendisse porttitor cras nulla. Gravida sit curabitur pulvinar tempus diam sed aenean ipsum. Lectus commodo cursus ut eleifend faucibus eget enim. Vitae donec egestas purus diam venenatis aliquet. Ultricies in sit ullamcorper habitant pretium facilisis.",
       organization: {
         name: "Eduncle",
-        logo: orgLogo,
+        logo: `${bucket}eduncle.svg`,
         submissions: 100,
       },
       software: ["Software Used", "Software Used"],
@@ -84,11 +84,11 @@ const ProjectDetail = () => {
     },
     {
       name: "Spotify Clone",
-      img: imgBanner,
+      img: `${bucket}spotifyImg.png`,
       desc: "Lorem ipsum dolor sit amet consectetur. Scelerisque amet turpis senectus arcu rhoncus arcu. Eu auctor consectetur adipiscing pellentesque vitae amet ullamcorper enim condimentum. Faucibus maecenas nulla rhoncus vel. Urna enim consequat leo justo tortor maecenas ipsum arcu elementum. Ullamcorper suspendisse porttitor cras nulla. Gravida sit curabitur pulvinar tempus diam sed aenean ipsum. Lectus commodo cursus ut eleifend faucibus eget enim. Vitae donec egestas purus diam venenatis aliquet. Ultricies in sit ullamcorper habitant pretium facilisis.",
       organization: {
         name: "Eduncle",
-        logo: orgLogo,
+        logo: `${bucket}eduncle.svg`,
         submissions: 100,
       },
       software: ["Software Used", "Software Used"],
@@ -108,11 +108,11 @@ const ProjectDetail = () => {
     },
     {
       name: "Spotify Clone",
-      img: imgBanner,
+      img: `${bucket}spotifyImg.png`,
       desc: "Lorem ipsum dolor sit amet consectetur. Scelerisque amet turpis senectus arcu rhoncus arcu. Eu auctor consectetur adipiscing pellentesque vitae amet ullamcorper enim condimentum. Faucibus maecenas nulla rhoncus vel. Urna enim consequat leo justo tortor maecenas ipsum arcu elementum. Ullamcorper suspendisse porttitor cras nulla. Gravida sit curabitur pulvinar tempus diam sed aenean ipsum. Lectus commodo cursus ut eleifend faucibus eget enim. Vitae donec egestas purus diam venenatis aliquet. Ultricies in sit ullamcorper habitant pretium facilisis.",
       organization: {
         name: "Eduncle",
-        logo: orgLogo,
+        logo: `${bucket}eduncle.svg`,
         submissions: 100,
       },
       software: ["Software Used", "Software Used"],
@@ -132,11 +132,11 @@ const ProjectDetail = () => {
     },
     {
       name: "Spotify Clone",
-      img: imgBanner,
+      img: `${bucket}spotifyImg.png`,
       desc: "Lorem ipsum dolor sit amet consectetur. Scelerisque amet turpis senectus arcu rhoncus arcu. Eu auctor consectetur adipiscing pellentesque vitae amet ullamcorper enim condimentum. Faucibus maecenas nulla rhoncus vel. Urna enim consequat leo justo tortor maecenas ipsum arcu elementum. Ullamcorper suspendisse porttitor cras nulla. Gravida sit curabitur pulvinar tempus diam sed aenean ipsum. Lectus commodo cursus ut eleifend faucibus eget enim. Vitae donec egestas purus diam venenatis aliquet. Ultricies in sit ullamcorper habitant pretium facilisis.",
       organization: {
         name: "Eduncle",
-        logo: orgLogo,
+        logo: `${bucket}eduncle.svg`,
         submissions: 100,
       },
       software: ["Software Used", "Software Used"],
@@ -157,9 +157,6 @@ const ProjectDetail = () => {
   ];
   const [search, setSearch] = useState("");
   const { projectId } = useParams();
-  console.log(
-    HTMLEntries.filter((item) => item.projectId === parseInt(projectId))
-  );
   return (
     <div className="ProjectDetail">
       <div className="ProjectTiles">

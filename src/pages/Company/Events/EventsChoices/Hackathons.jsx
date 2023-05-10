@@ -1,21 +1,15 @@
 import React from "react";
-import googleLogo from "../../../../assets/images/google.svg";
-import prodigyLogo from "../../../../assets/images/prodigy.svg";
-import accentureLogo from "../../../../assets/images/accenture.svg";
-import iitLogo from "../../../../assets/images/iit.svg";
-import iitBanner from "../../../../assets/images/iitBanner.png";
-import prodigyBanner from "../../../../assets/images/prodigyBanner.png";
-import googleBanner from "../../../../assets/images/googleBanner.png";
-import accentureBanner from "../../../../assets/images/accentureBanner.png";
 import "./Hackathons.css";
 import HackathonCard from "./HackathonCards";
+import { Bucket_URL } from "../../../../services/APIUtils";
 
 const Hackathons = () => {
+  const bucket = `${Bucket_URL}frontend/company/events/hackathon/`;
   const hackathonsList = [
     {
       name: "Google Problem Solution Challenge - UNESCO",
-      logo: googleLogo,
-      imgBanner: googleBanner,
+      logo: `${bucket}google.svg`,
+      imgBanner: `${bucket}googleBanner.png`,
       locations: "Google, USA",
       tags: ["#Competition", "#Challenge", "#Google"],
       stats: {
@@ -66,8 +60,8 @@ const Hackathons = () => {
     },
     {
       name: "CyberHavoc CTF",
-      logo: prodigyLogo,
-      imgBanner: prodigyBanner,
+      logo: `${bucket}prodigy.svg`,
+      imgBanner: `${bucket}prodigyBanner.png`,
       locations: "NIT, Surat",
       tags: ["#Competition", "#Challenge", "#Google", "+2 more"],
       stats: {
@@ -118,8 +112,8 @@ const Hackathons = () => {
     },
     {
       name: "Accenture Hack Diva",
-      logo: accentureLogo,
-      imgBanner: accentureBanner,
+      logo: `${bucket}accenture.svg`,
+      imgBanner: `${bucket}accentureBanner.png`,
       locations: "Accenture, Delhi",
       tags: ["#Competition", "#Challenge", "#Google"],
       stats: {
@@ -170,8 +164,8 @@ const Hackathons = () => {
     },
     {
       name: "BuzzOnEarth Solution ChallengeIndia Level Hackathon",
-      logo: iitLogo,
-      imgBanner: iitBanner,
+      logo: `${bucket}iit.svg`,
+      imgBanner: `${bucket}iitBanner.png`,
       locations: "IIT, Kharagpur",
       tags: ["#Competition", "#Challenge", "#Google", "+2 more"],
       stats: {
@@ -222,8 +216,8 @@ const Hackathons = () => {
     },
     {
       name: "Google Problem Solution Challenge - UNESCO",
-      logo: googleLogo,
-      imgBanner: googleBanner,
+      logo: `${bucket}google.svg`,
+      imgBanner: `${bucket}googleBanner.png`,
       locations: "Google, USA",
       tags: ["#Competition", "#Challenge", "#Google"],
       stats: {
@@ -274,8 +268,8 @@ const Hackathons = () => {
     },
     {
       name: "BuzzOnEarth Solution ChallengeIndia Level Hackathon",
-      logo: iitLogo,
-      imgBanner: iitBanner,
+      logo: `${bucket}iit.svg`,
+      imgBanner: `${bucket}iitBanner.png`,
       locations: "IIT, Kharagpur",
       tags: ["#Competition", "#Challenge", "#Google", "+2 more"],
       stats: {
@@ -326,8 +320,8 @@ const Hackathons = () => {
     },
     {
       name: "Google Problem Solution Challenge - UNESCO",
-      logo: googleLogo,
-      imgBanner: googleBanner,
+      logo: `${bucket}google.svg`,
+      imgBanner: `${bucket}googleBanner.png`,
       locations: "Google, USA",
       tags: ["#Competition", "#Challenge", "#Google"],
       stats: {
@@ -378,8 +372,8 @@ const Hackathons = () => {
     },
     {
       name: "CyberHavoc CTF",
-      logo: prodigyLogo,
-      imgBanner: prodigyBanner,
+      logo: `${bucket}prodigy.svg`,
+      imgBanner: `${bucket}prodigyBanner.png`,
       locations: "NIT, Surat",
       tags: ["#Competition", "#Challenge", "#Google", "+2 more"],
       stats: {
@@ -430,8 +424,8 @@ const Hackathons = () => {
     },
     {
       name: "Accenture Hack Diva",
-      logo: accentureLogo,
-      imgBanner: accentureBanner,
+      logo: `${bucket}accenture.svg`,
+      imgBanner: `${bucket}accentureBanner.png`,
       locations: "Accenture, Delhi",
       tags: ["#Competition", "#Challenge", "#Google"],
       stats: {

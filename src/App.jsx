@@ -38,6 +38,10 @@ import ProjectDetail from "./pages/Company/Projects/ProjectDetail";
 import ComingSoon from "./pages/Maintenance/ComingSoon";
 
 function App() {
+  // var formData = new FormData();
+  // formData.append("name", "Gaurav");
+  // console.log(formData.entries());
+
   return (
     <>
       <Navbar />
@@ -105,9 +109,9 @@ function App() {
             <Route path="" element={<Events />} />
             <Route path="hackathons/:hackId" element={<HackathonDetails />} />
             {/* <Route
-                path="competitions/:competeId"
-                element={<CompetitionDetails />}
-              /> */}
+              path="competitions/:competeId"
+              element={<CompetitionDetails />}
+            /> */}
           </Route>
         </Route>
       </Routes>

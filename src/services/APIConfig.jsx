@@ -127,7 +127,6 @@ export const getAllEvents = (setEvents) => {
     })
     .then((res) => {
       const data = res.data.data;
-      console.log("all events", data);
       setEvents(data);
     })
     .catch((err) => {
@@ -179,10 +178,10 @@ export const getEventById = (setEvent) => {
     });
 };
 
-export const getEventByMode = (setEvents) => {
+export const getEventByMode = (setEvents, mode) => {
   const controller = new AbortController();
   axios
-    .get(`${API_URL}api/v1/getEventWithEventModeType/InterCollege`, {
+    .get(`${API_URL}api/v1/getEventWithEventModeType/${mode}`, {
       signal: controller.signal,
     })
     .then((res) => {

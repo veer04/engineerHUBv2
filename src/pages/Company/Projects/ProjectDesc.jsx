@@ -2,7 +2,6 @@ import React from "react";
 import "./ProjectDesc.css";
 
 const ProjectDesc = ({ data }) => {
-  console.log(data);
   return (
     <div className="ProjectDesc">
       <div className="ProjectDescHeader">

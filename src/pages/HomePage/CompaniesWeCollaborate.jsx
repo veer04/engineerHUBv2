@@ -1,48 +1,16 @@
-import React, { useEffect, useState } from "react";
 import "./CompaniesWeCollaborate.css";
-import logo1 from "./svg/decimal-company.svg";
-import logo2 from "./svg/yaro-company.svg";
-import logo3 from "./svg/sayf-company.svg";
-import logo4 from "./svg/eduncle-company.svg";
-import axios from "axios";
 import { Bucket_URL } from "../../services/APIUtils";
-// import { Storage } from "aws-amplify";
 
 export default function CompaniesWeCollaborate() {
+  const NUMBER_OF_COMPANIES = 4;
   const bucket = `${Bucket_URL}frontend/homepage/companieswecollaborate/`;
-
-  // async function getNumFiles() {
-  //   const files = await Storage.list(
-  //     `${Bucket_URL}frontend/homepage/companieswecollaborate/`
-  //   );
-  //   const numFiles = files.length;
-  //   console.log(`Number of files in folder: ${numFiles}`);
-  // }
-
-  // const [companyLogos, setCompanyLogos] = useState([]);
-
-  // useEffect(() => {
-  //   axios
-
-  const companyLogos = [
-    {
-      id: 1,
-      logo: logo1,
-    },
-    {
-      id: 2,
-      logo: logo2,
-    },
-    {
-      id: 3,
-      logo: logo3,
-    },
-    {
-      id: 4,
-      logo: logo4,
-    },
-  ];
-
+  const companyLogos = [];
+  for (let i = 1; i <= NUMBER_OF_COMPANIES; i++) {
+    companyLogos.push({
+      id: i,
+      logo: `${bucket}company${i}.png`,
+    });
+  }
   const renderedCompanyLogos = companyLogos.map((company) => {
     return (
       <div key={company.id} className="company-logo-container">

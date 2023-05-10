@@ -1,130 +1,92 @@
 import React, { useEffect, useState } from "react";
 import "./FeaturedEvents.css";
 import { FiArrowLeft, FiArrowRight } from "react-icons/fi";
-import image from "./events.png";
-import image2 from "./events_2.png";
 import { getAllEvents, controller } from "../../services/APIConfig";
+import defaultPoster from "../../assets/defaultPoster";
+import { Bucket_URL } from "../../services/APIUtils";
 
 export default function FeaturedEvents() {
-  //fetch events from database
-
   const [events, setEvents] = useState([]);
-
-  useEffect(() => {
-    getAllEvents(setEvents);
-
-    return () => {
-      controller.abort();
-    };
-  }, []);
-
-  const eventsList = [
-    {
-      id: 1,
-      title: "Event 1",
-      description: "Event 1 description",
-      image: "https://source.unsplash.com/random",
-    },
-    {
-      id: 2,
-      title: "Event 2",
-      description: "Event 2 description",
-      image: "https://source.unsplash.com/random",
-    },
-    {
-      id: 3,
-      title: "Event 3",
-      description: "Event 3 description",
-      image: "https://source.unsplash.com/random",
-    },
-    {
-      id: 4,
-      title: "Event 4",
-      description: "Event 4 description",
-      image: "https://source.unsplash.com/random",
-    },
-  ];
-
+  const bucket = `${Bucket_URL}frontend/homepage/featuredevents/`;
+  const headingImage1 = `${bucket}featuredEventsHeadingImage1.png`;
+  const headingImage2 = `${bucket}featuredEventsHeadingImage2.png`;
   const colorCycle = [
     "rgb(255,203,165,.9)  /* #ffcba5 */",
     "rgb(156,219,255,.9) /*#9cdbff*/",
     "rgb(195,255,147,.9)  /* #c3ff93 */",
   ];
 
+  useEffect(() => {
+    getAllEvents(setEvents);
+    return () => {
+      controller.abort();
+    };
+  }, []);
+
+  useEffect(() => {
+    console.log(events);
+  }, [events]);
+
   const scrollLeft = () => {
     const cards = document.querySelector(".events-section-cards");
     cards.scrollLeft -= 320;
   };
-
   const scrollRight = () => {
     const cards = document.querySelector(".events-section-cards");
     cards.scrollLeft += 320;
   };
-
-  const renderedEvents = events.slice(0, 3).map((event, index) => {
+  const renderedEvents =
+    events.length > 0
+      ? events.slice(0, 6).map((event, index) => {
+          return (
+            <div
+              key={event._id}
+              style={{
+                backgroundImage: `url(${
+                  event.eventPoster ? event.eventPoster : defaultPoster
+                })`,
+              }}
+              className="events-section-card-bg"
+            >
+              <div
+                style={{
+                  backgroundColor: colorCycle[index % colorCycle.length],
+                }}
+                className="events-section-card-content"
+              >
+                <h3 className="events-section-card-heading">
+                  {event.eventName}
+                </h3>
+                <h4 className="events-section-card-subheading">
+                  {event.description}
+                </h4>
+              </div>
+            </div>
+          );
+        })
+      : "";
+  const marquee = (image) => {
     return (
       <div
-        key={event._id}
+        className="events-section-marquee"
         style={{
-          backgroundImage: `url(${event.eventPoster})`,
+          backgroundImage: `url(${image})`,
+          height: "4.7rem",
+          minHeight: "4.7rem",
+          maxHeight: "4.7rem",
+          width: "100%",
+          backgroundSize: "contain",
+          backgroundRepeat: "repeat-x",
+          backgroundPositionY: "center",
+          margin: ".5rem 0",
         }}
-        className="events-section-card-bg"
-      >
-        <div
-          style={{ backgroundColor: colorCycle[index % colorCycle.length] }}
-          className="events-section-card-content"
-        >
-          <h3 className="events-section-card-heading">{event.eventName}</h3>
-          <h4 className="events-section-card-subheading">
-            {event.description}
-          </h4>
-        </div>
-      </div>
+      ></div>
     );
-  });
-
-  const marquee1 = (
-    <div
-      className="events-section-marquee"
-      style={{
-        margin: ".5rem 0",
-        backgroundImage: `url(${image})`,
-        height: "4.7rem",
-        minHeight: "4.7rem",
-        maxHeight: "4.7rem",
-        width: "100%",
-        backgroundSize: "contain",
-        backgroundRepeat: "repeat-x",
-        animation: "scroll 5s linear infinite",
-      }}
-    >
-      {/* <img src={image} alt="" /> */}
-    </div>
-  );
-
-  const marquee2 = (
-    <div
-      className="events-section-marquee"
-      style={{
-        margin: ".5rem 0",
-        backgroundImage: `url(${image2})`,
-        height: "4.7rem",
-        minHeight: "4.7rem",
-        maxHeight: "4.7rem",
-
-        width: "100%",
-        backgroundSize: "contain",
-        backgroundRepeat: "repeat-x",
-        animation: "scroll 5s linear infinite",
-      }}
-    >
-      {/* <img src={image} alt="" /> */}
-    </div>
-  );
+  };
 
   return (
     <div className="events-section-container">
-      {marquee1}
+      {marquee(headingImage1)}
       <div className="events-section-content-container">
         <div className="events-section-cards-container">
           <div className="events-section-cards">{renderedEvents}</div>
@@ -138,7 +100,7 @@ export default function FeaturedEvents() {
           </div>
         </div>
       </div>
-      {marquee2}
+      {marquee(headingImage2)}
     </div>
   );
 }
