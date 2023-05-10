@@ -41,8 +41,8 @@ jobs:
     #   ECR_REGISTRY: 288273743510.dkr.ecr.ap-south-1.amazonaws.com
     #   ECR_REPO: ehub_frontend
     #   ECR_REGION: ap-south-1
-    #   REACT_APP_API_URL: https://backend.engineerhub.in/
-    #   REACT_APP_BUCKET_URL: https://ehubtestbucket.s3.ap-south-1.amazonaws.com/
+    #   REACT_APP_API_URL: https://backend.ehubbusiness.com/
+    #   REACT_APP_BUCKET_URL: https://frontendehubbucket.s3.ap-south-1.amazonaws.com/
     steps:
       - name: Checkout Git Repository
         uses: actions/checkout@v2
@@ -75,7 +75,7 @@ jobs:
       - name: Docker Image Build
         if: hashFiles('**/Dockerfile', '**/dockerfile')
         run: |
-            docker build -t ${{ vars.ECR_REGISTRY }}/${{ vars.ECR_REPO }}:${{ github.sha }} --build-args VITE_REACT_APP_URL=${{ vars.VITE_REACT_APP_URL }} VITE_REACT_APP_BUCKET_URL=${{ VITE_REACT_APP_BUCKET_URL }} VITE_REACT_APP_AESKEY=${{ VITE_REACT_APP_AESKEY }}
+            docker build -t ${{ vars.ECR_REGISTRY }}/${{ vars.ECR_REPO }}:${{ github.sha }} --build-args VITE_API_URL=${{ vars.VITE_API_URL }} VITE_BUCKET_URL=${{ VITE_BUCKET_URL }} VITE_AESKEY=${{ VITE_AESKEY }}
 
       # - name: Build Docker image
       #   id: Build_Image
