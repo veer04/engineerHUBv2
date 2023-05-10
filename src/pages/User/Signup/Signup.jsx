@@ -1,6 +1,6 @@
 import "./Signup.css";
 import { useState, useEffect } from 'react';
-import { TextField, Button } from '@mui/material';
+import { TextField, Button} from '@mui/material';
 import axios from "axios";
 import "../../Hosting/EventRegistration.css";
 
@@ -143,7 +143,7 @@ const Signup = () => {
 
        {
           try {
-            const response = await fetch('http://e-hub-backend-production-9545.up.railway.app/user/signup', {
+            const response = await fetch('http://e-hub-backend-production-9545.up.railway.app/api/v1/user/signup', {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
@@ -290,7 +290,7 @@ const Signup = () => {
     
 
     {step === 1 && (
-     
+   <div>
       <TextField
         name="name"
         label="Name"
@@ -302,7 +302,7 @@ const Signup = () => {
         error={!!errors.name}
         helperText={errors.name}
       />
-      {/* <TextField
+       {/* <TextField
         name="userName"
         label="Username"
         variant="outlined"
@@ -312,7 +312,7 @@ const Signup = () => {
         margin="normal"
         error={!!errors.userName}
         helperText={errors.userName}
-      /> */}
+      />  */}
       <TextField
         name="email"
         label="Email"
@@ -348,26 +348,14 @@ const Signup = () => {
                 >
                   Next
                 </button>
-              
-          )}
+               
+       </div>   )}
 
-
-      {/* <TextField
-        name="college"
-        label="College Name"
-        variant="outlined"
-        value={formData.college}
-        onChange={handleChange}
-        fullWidth
-        margin="normal"
-        error={!!errors.college}
-        helperText={errors.college}
-      /> */}
 
 
      { step===2 &&(
       
- 
+ <div>
       <TextField
         name="branch"
         label="branch Name"
@@ -433,13 +421,14 @@ const Signup = () => {
                   Next
                 </button>
 
-     
+      </div>
 
      )}
 
 
      {step==3 && (
-      
+      <div>
+     
        <TextField
         name="institutionName"
         label="institutionName"
@@ -488,14 +477,8 @@ onChange={handleChangeRole}>
         error={!!errors.confirmPassword}
         helperText={errors.confirmPassword}
       />
-       {/* <input type="text" onChange={handleInputChange} />
-      <ul>
-        {skills.map((skills, index) => (
-          <li key={index}>{skills.trim()}</li>
-        ))}
-      </ul> */}
 
-<br />
+              <br />
               <button
                   type="button"
                   onClick={handlePrev}
@@ -509,7 +492,7 @@ onChange={handleChangeRole}>
               <button type="submit" className="buttonOnHostingPage">
                   submit
                 </button>
-     )}
+     </div>)}
     
  </form>
                     </div>
