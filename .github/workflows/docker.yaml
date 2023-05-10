@@ -67,6 +67,7 @@ jobs:
         run: | 
           rm -rf node_modules
           npm install --force
+          ls ./components/1-1Mentorship/Mentorship
           npm audit fix --force
         
       - name: NPM Build
