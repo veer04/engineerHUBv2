@@ -23,10 +23,6 @@ export default function FeaturedEvents() {
     };
   }, []);
 
-  useEffect(() => {
-    console.log(events);
-  }, [events]);
-
   const scrollLeft = () => {
     const cards = document.querySelector(".events-section-cards");
     cards.scrollLeft -= 320;
