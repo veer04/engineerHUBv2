@@ -1,0 +1,114 @@
+# name: Use Private Action
+# on:
+#   pull_request:
+#     branches:
+#       - main
+
+# permissions:
+#   contents: read # Required for git checkout
+#   packages: write 
+
+# jobs:
+#   run:
+#     steps:
+#       uses: Official-EngineerHUB/website@main
+#       secrets:
+#         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+#         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+#       env:
+#         ECR_REGISTRY: 288273743510.dkr.ecr.ap-south-1.amazonaws.com
+#         ECR_REPO: ehub_frontend
+#         ECR_REGION: ap-south-1
+#         REACT_APP_API_URL: https://backend.engineerhub.in/
+#         REACT_APP_BUCKET_URL: https://ehubtestbucket.s3.ap-south-1.amazonaws.com/
+
+name: Build and Push Docker Image
+on:
+  push: 
+    branches: 
+      - main
+      - aheadMain
+      - combine_code
+
+permissions:
+  contents: read # Required for git checkout
+  packages: write 
+
+jobs:
+  Build-Push-Image:
+    runs-on: ubuntu-latest
+    # env:
+    #   ECR_REGISTRY: 288273743510.dkr.ecr.ap-south-1.amazonaws.com
+    #   ECR_REPO: ehub_frontend
+    #   ECR_REGION: ap-south-1
+    #   REACT_APP_API_URL: https://backend.engineerhub.in/
+    #   REACT_APP_BUCKET_URL: https://ehubtestbucket.s3.ap-south-1.amazonaws.com/
+    steps:
+      - name: Checkout Git Repository
+        uses: actions/checkout@v2
+
+      - name: Configure AWS Credentials
+        id: AWS_Login
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ vars.ECR_REGION }}
+  
+      - name: Login to Amazon ECR
+        uses: aws-actions/amazon-ecr-login@v1
+      
+      - name: NodeJs Install 
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+      
+      - name: NPM Modules Install
+        run: | 
+          rm -rf node_modules
+          npm install --force
+          npm audit fix --force
+        
+      - name: NPM Build
+        run: npm run build
+      
+      - name: Docker Image Build
+        if: hashFiles('**/Dockerfile', '**/dockerfile')
+        run: |
+            docker build -t ${{ vars.ECR_REGISTRY }}/${{ vars.ECR_REPO }}:${{ github.sha }} --build-args VITE_REACT_APP_URL=${{ vars.VITE_REACT_APP_URL }} VITE_REACT_APP_BUCKET_URL=${{ VITE_REACT_APP_BUCKET_URL }} VITE_REACT_APP_AESKEY=${{ VITE_REACT_APP_AESKEY }}
+
+      # - name: Build Docker image
+      #   id: Build_Image
+      #   if: hashFiles('**/Dockerfile', '**/dockerfile')
+      #   uses: docker/build-push-action@v2
+      #   with:
+      #     context: .
+      #     push: false
+      #     tags: |
+      #       ${{ vars.ECR_REGISTRY }}/${{ vars.ECR_REPO }}:${{ github.sha }}
+      #     build-args: |
+      #       REACT_APP_API_URL=${{ vars.REACT_APP_API_URL }}
+      #       REACT_APP_BUCKET_URL=${{ vars.REACT_APP_BUCKET_URL }}
+
+      # - name: Tag Docker Image based on Commit Message
+      #   id: tagging
+      #   if: startsWith(github.ref, 'refs/heads/main') && contains(github.event.head_commit.message, 'version:') && hashFiles('**/Dockerfile', '**/dockerfile')
+      #   uses: docker/metadata-action@v3
+      #   with:
+      #     images: ${{ vars.ECR_REGISTRY }}/${{ vars.ECR_REPO }}:${{ github.sha }}
+      #     tags: ${{ vars.ECR_REGISTRY }}/${{ vars.ECR_REPO }}:${{ steps.metadata.outputs.semver }}
+      #     env: |
+      #       DOCKER_REGISTRY=${{ vars.ECR_REGISTRY }}
+      #       DOCKER_REPOSITORY=${{ vars.ECR_REPO }}
+      #     load: true
+      #     cache-from: type=local,src=/tmp/.buildx-cache
+      #     cache-to: type=local,dest=/tmp/.buildx-cache
+      #     builder: alexellis2/builderx:latest
+      #     file: Dockerfile
+      #   env:
+      #     DOCKER_BUILDKIT: 1
+
+      # - name: Push Docker Image to Amazon ECR
+      #   if: startsWith(github.ref, 'refs/heads/main') && contains(github.event.head_commit.message, 'version:') && hashFiles('**/Dockerfile', '**/dockerfile')
+      #   run: |
+      #     docker push $ECR_REGISTRY/$ECR_REPO:${{ steps.metadata.outputs.semver }}
