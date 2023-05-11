@@ -39,7 +39,6 @@ export default function Navbar() {
     navigate("/");
   }
 
-
   function getCookie(name) {
     // Get the value of a cookie by name
     const cookieValue = document.cookie.match(
@@ -82,7 +81,7 @@ export default function Navbar() {
 
     console.log(isClicked);
   };
-  
+
   const adjustmentPadding =
     width >= 1920
       ? `${(width - 1920) / 2 + 166.56}px`

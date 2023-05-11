@@ -26,7 +26,7 @@ import OTP from "./pages/User/OtpVerification/Otpverification";
 import MobileNavbar from "./components/MobileNavbar/MobileNavbar";
 import HostEvent from "./pages/Hosting/EventRegistration";
 // import EventModal from "./components/EventModal/EventModal";
-import Navbar from "./components/NavBar/NavBar";
+import Navbar from "./components/Navbar/Navbar";
 import Footer from "./components/Footer/Footer";
 import Events from "./pages/Company/Events/events";
 import Jobs from "./pages/Company/Jobs/jobs";
