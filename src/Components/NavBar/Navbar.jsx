@@ -69,6 +69,14 @@ export default function Navbar() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  const [isClicked, setIsClicked] = useState(false);
+
+  const handleClick = () => {
+    setIsClicked(true);
+
+    console.log(isClicked);
+  };
+  
   const adjustmentPadding =
     width >= 1920
       ? `${(width - 1920) / 2 + 166.56}px`
@@ -113,8 +121,8 @@ export default function Navbar() {
               </ButtonRounded>
             </Link>
             <Link className="nav-link" to="/hosting">
-              <ButtonRounded className="nav-middle-items host-btn">
-                Host
+              <ButtonRounded className={isClicked ? 'yellow-background black-text nav-middle-items host-btn' : ' '} onClick={handleClick}>
+                Host 
               </ButtonRounded>
             </Link>
           </div>

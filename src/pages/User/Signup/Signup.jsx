@@ -133,31 +133,31 @@ const Signup = () => {
       const handleSubmit = async (e) => {
         e.preventDefault();
         if(validateInput())
-      //   {
-      //   axios.post('https://e-hub-backend-production-9545.up.railway.app/api/v1/user/signup',formData).then((response) => {
-      //     console.log(response);
-      //   }, (error) => {
-      //     console.log(error);
-      //   });
-      // }
+        {
+        axios.post('https://e-hub-backend-production-9545.up.railway.app/api/v1/User/signup',formData).then((response) => {
+          console.log(response);
+        }, (error) => {
+          console.log(error);
+        });
+      }
 
-       {
-          try {
-            const response = await fetch('http://e-hub-backend-production-9545.up.railway.app/api/v1/user/signup', {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify(formData),
+      //  {
+      //     try {
+      //       const response = await fetch('http://e-hub-backend-production-9545.up.railway.app/api/v1/user/signup', {
+      //         method: 'POST',
+      //         headers: {
+      //           'Content-Type': 'application/json',
+      //         },
+      //         body: JSON.stringify(formData),
 
-            });
+      //       });
 
-            const data = await response.json();
-            console.log(data);
-          } catch (error) {
-            console.error(error);
-          }
-        }
+      //       const data = await response.json();
+      //       console.log(data);
+      //     } catch (error) {
+      //       console.error(error);
+      //     }
+      //   }
       };
 
 
