@@ -18,8 +18,7 @@ export default function ComingSoon() {
       />
       <span className="text-1">To be launched soon</span>
       <span className="text-2">
-        Our team of developers are working on this feature. We’ll launch this
-        soon!!
+      “It's been true in my life that when I've needed a mentor, the right person shows up.” –Ken Blanchard
       </span>
     </div>
   );

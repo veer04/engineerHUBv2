@@ -10,7 +10,7 @@ export default function MainLandingSection() {
       <div className="homepage-landing-content">
         <p className="text-green subheading-2">connecting...</p>
         <h1 className="landing-title text-dark-green heading-3">
-          community, campus & industries
+          community, campus & company
         </h1>
         <p className="landing-description text-green subheading-2">
           engineerHUB is INDIA's leading community of engineers where students
