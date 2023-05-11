@@ -70,7 +70,7 @@ export default function InterCollege() {
           ))}
         </div>
       </div>
-      <CategoryBar
+      {/* <CategoryBar
         categories={[
           {
             id: 1,
@@ -87,7 +87,7 @@ export default function InterCollege() {
         ]}
         current={current}
         setCurrent={setCurrent}
-      />
+      /> */}
       <div className="inter-college-events">
         {current === 1 && renderedAll}
         {current === 2 && renderedUpcoming}

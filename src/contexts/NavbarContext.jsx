@@ -4,10 +4,10 @@ import { useState } from "react";
 export const NavbarContext = createContext();
 
 export default function NavbarProvider({ children }) {
-  const [selectedPage, setSelectedPage] = useState("");
+  const [selectedPageNavbar, setSelectedPageNavbar] = useState(null);
 
   return (
-    <NavbarContext.Provider value={{ selectedPage, setSelectedPage }}>
+    <NavbarContext.Provider value={{ selectedPageNavbar, setSelectedPageNavbar }}>
       {children}
     </NavbarContext.Provider>
   );

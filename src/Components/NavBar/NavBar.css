@@ -13,6 +13,12 @@
   top: 0;
   z-index: 50;
 }
+.navbar .--is-active {
+  background-color: var(--primary-color-yellow) !important;
+  color: var(--text-color-dark-green) !important;
+  font-weight: 500;
+  border: 2px solid var(--primary-color-yellow) !important;
+}
 .host-btn {
   background-color: var(--primary-color-dark-green) !important;
   color: white !important;

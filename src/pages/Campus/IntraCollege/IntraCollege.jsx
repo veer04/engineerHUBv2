@@ -69,7 +69,7 @@ export default function IntraCollege() {
           ))}
         </div>
       </div>
-      <CategoryBar
+      {/* <CategoryBar
         categories={[
           {
             id: 1,
@@ -86,7 +86,7 @@ export default function IntraCollege() {
         ]}
         current={current}
         setCurrent={setCurrent}
-      />
+      /> */}
       <div className="campus-content-section">
         {current === 1 && renderedAll}
         {current === 2 && renderedUpcoming}
