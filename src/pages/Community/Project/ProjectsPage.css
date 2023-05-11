@@ -213,12 +213,18 @@
 .project__window__prerequisites .prerequisite {
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
+  flex-wrap: no-wrap;
   gap: 0.1rem;
-  text-align: center;
+  /* text-align: center; */
   justify-content: flex-start;
-  align-items: center;
+  align-items: flex-start;
 }
+.project__window__prerequisites svg,
+.project__window__software svg {
+  min-width: 1rem;
+  margin-top: .5rem;
+}
+
 .project__window__software {
   margin-top: 1rem;
 }
@@ -231,11 +237,11 @@
 .project__window__software .software {
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
+  flex-wrap: no-wrap;
   gap: 0.1rem;
-  text-align: center;
+  /* text-align: center; */
   justify-content: flex-start;
-  align-items: center;
+  align-items: flex-start;
 }
 .project__window__info {
   margin-top: 1rem;
@@ -325,6 +331,7 @@
   }
   .project__list__container {
     padding: 0 !important;
+    align-items: center;
   }
   .project__list {
     min-width: 0;

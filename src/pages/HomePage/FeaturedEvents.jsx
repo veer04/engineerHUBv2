@@ -23,6 +23,16 @@ export default function FeaturedEvents() {
     };
   }, []);
 
+  useEffect(() => {
+    const autoScroller = setInterval(() => {
+      const cards = document.querySelector(".events-section-cards");
+      cards.scrollLeft += 320;
+    }, 5000);
+    return () => {
+      clearInterval(autoScroller);
+    };
+  }, []);
+
   const scrollLeft = () => {
     const cards = document.querySelector(".events-section-cards");
     cards.scrollLeft -= 320;

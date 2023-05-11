@@ -16,7 +16,7 @@ export default function ComingSoon() {
         alt="Coming Soon"
         className="image"
       />
-      <span className="text-1">We are currently working on this </span>
+      <span className="text-1">To be launched soon</span>
       <span className="text-2">
         Our team of developers are working on this feature. We’ll launch this
         soon!!

@@ -9,6 +9,7 @@
   justify-content: flex-end;
   flex-direction: column;
   margin-bottom: 30px;
+  top: -100px;
 }
 .companyCards .Btn:hover,
 .JobCard .btn:hover {
@@ -233,6 +234,10 @@
   position: relative;
   padding: 20px 15px;
 }
+.CategoryCard:hover{
+  background: #128381 !important;
+  color: #fff !important;
+}
 .Category .CategoryTiles .CategoryCard h4 {
   font-family: "Inter";
   font-style: normal;
@@ -337,6 +342,10 @@
 }
 
 @media screen and (max-width: 785px) {
+  .pagesContainer {
+    padding: 0;
+    top: 0px !important;
+  }
   .companyHome {
     padding: 20px;
   }
