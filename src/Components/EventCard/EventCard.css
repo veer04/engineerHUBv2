@@ -20,3 +20,6 @@
 .event__list__item {
   height: 31.5rem;
 }
+.event__list__item:hover{
+box-shadow: 4px 4px 4px 4px grey;
+}
