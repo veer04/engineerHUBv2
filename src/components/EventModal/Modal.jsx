@@ -28,10 +28,6 @@ export default function Modal({ handleClose, setShowModal }) {
     };
   }, [eventId]);
 
-  useEffect(() => {
-    console.log(event);
-  }, [event]);
-
   return ReactDOM.createPortal(
     <div id="event-modal-container">
       {event.eventName && (

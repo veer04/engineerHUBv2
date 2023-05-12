@@ -22,23 +22,11 @@ export default function EventCard({
 }) {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [showModal, setShowModal] = useState(false);
-
-  function handleClick() {
-    setShowModal(true);
-  }
-
-  function handleClose() {
-    setShowModal(false);
-  }
-
-  const modal = <Modal handleClose={handleClose} setShowModal={setShowModal} />;
 
   return (
     <div
       onClick={() => {
         navigate(`/community/events/${id}/${_id}`);
-        handleClick();
         setEventOpened(_id);
       }}
       className="project__list__item event__list__item"

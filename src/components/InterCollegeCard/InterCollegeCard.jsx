@@ -1,6 +1,6 @@
 import React from "react";
 import "./InterCollegeCard.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
 export default function InterCollegeCard({
   eventPoster,
@@ -12,9 +12,16 @@ export default function InterCollegeCard({
   time,
   _id,
 }) {
+  const { id } = useParams();
+  const navigate = useNavigate();
+
   return (
     <div
+      onClick={() => {
+        navigate(`/community/events/${id}/${_id}`);
+      }}
       style={{
+        cursor: "pointer",
         backgroundImage: `url(${eventPoster})`,
       }}
       className="inter-college-card"
@@ -138,9 +145,9 @@ export default function InterCollegeCard({
             {eventDate} Days left
           </div>
         </div>
-        <Link to={`/campus/inter-college/${_id}`}>
+        {/* <Link to={`/campus/inter-college/${_id}`}>
           <div className="register-btn">Register Now</div>
-        </Link>
+        </Link> */}
       </div>
     </div>
   );

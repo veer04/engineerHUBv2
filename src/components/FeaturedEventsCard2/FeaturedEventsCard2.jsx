@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import "./FeaturedEventsCard2.css";
+import { useNavigate, useParams } from "react-router-dom";
 
 export default function FeaturedEventsCard2({
+  _id,
   eventPoster,
   eventName,
   description,
@@ -11,6 +13,8 @@ export default function FeaturedEventsCard2({
   eventDate,
   color,
 }) {
+  const { id } = useParams();
+  const navigate = useNavigate();
   const [width, setWidth] = useState(window.innerWidth);
 
   const handleWindowSizeChange = () => {
@@ -26,6 +30,9 @@ export default function FeaturedEventsCard2({
 
   return (
     <div
+      onClick={() => {
+        navigate(`/community/events/${id}/${_id}`);
+      }}
       style={{
         backgroundColor: color,
       }}
