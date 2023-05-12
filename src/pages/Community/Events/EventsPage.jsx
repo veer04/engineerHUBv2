@@ -21,10 +21,6 @@ export default function EventsPage({ path }) {
   );
 
   useEffect(() => {
-    console.log(id);
-  }, [id]);
-
-  useEffect(() => {
     getEvents(setEvents, id);
     window.scrollTo(0, 0);
 
