@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import "./BlogWindow.css";
 import { RxCross1 } from "react-icons/rx";
+import { GiCancel} from "react-icons/gi"
 import { getBlogById } from "../../services/APIConfig";
 import useSidebar from "../../hooks/use-sidebar";
+import Cancel from "./cancel.svg";
 
 export default function BlogWindow({ blogOpened, setIsBlogOpen }) {
   const [blog, setBlog] = useState({});
@@ -27,7 +29,7 @@ export default function BlogWindow({ blogOpened, setIsBlogOpen }) {
           <div className="title">{blog.title}</div>
         </div>
         <div onClick={() => setIsBlogOpen(false)} className="link">
-          <RxCross1 />
+          <img src={Cancel} alt="" />
         </div>
       </div>
       <div

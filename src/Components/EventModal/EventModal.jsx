@@ -13,7 +13,7 @@ export default function EventModal({ onClose, actionBar }) {
   ReactDOM.createPortal(
     <>
       <span>Hello</span>
-      {/* <Modal actionBar={actionBar} onClose={onClose} /> */}
+      <Modal actionBar={actionBar} onClose={onClose} />
     </>,
     "node"
   );
