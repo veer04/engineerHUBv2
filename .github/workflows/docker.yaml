@@ -26,7 +26,8 @@ name: Build and Push Docker Image
 on:
   push: 
     branches: 
-      - combine_code
+      # - combine_code
+      - main
 
 permissions:
   contents: read # Required for git checkout
