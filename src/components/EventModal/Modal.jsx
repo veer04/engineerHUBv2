@@ -9,8 +9,12 @@ import { controller, getParticularEvent } from "../../services/APIConfig";
 import { useState } from "react";
 
 export default function Modal({ handleClose, setShowModal }) {
-  const [event, setEvent] = useState({});
   const { eventId } = useParams();
+  const [event, setEvent] = useState(
+    sessionStorage.getItem(`event details ${eventId}`)
+      ? JSON.parse(sessionStorage.getItem(`event details ${eventId}`))
+      : {}
+  );
   const navigate = useNavigate();
   useEffect(() => {
     document.body.classList.add("overflow-hidden");
@@ -28,9 +32,13 @@ export default function Modal({ handleClose, setShowModal }) {
     };
   }, [eventId]);
 
+  useEffect(() => {
+    sessionStorage.setItem(`event details ${eventId}`, JSON.stringify(event));
+  }, [event]);
+
   return ReactDOM.createPortal(
     <div id="event-modal-container">
-      {event.eventName && (
+      {event.eventName ? (
         <div className="event-modal">
           <div className="close-btn">
             <div
@@ -97,6 +105,10 @@ export default function Modal({ handleClose, setShowModal }) {
               </div>
             </a>
           </div>
+        </div>
+      ) : (
+        <div class="spinner-border text-light" role="status">
+          <span class="visually-hidden">Loading...</span>
         </div>
       )}
     </div>,
