@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useParams } from "react-router-dom";
 import "./App.css";
 import HomePage from "./pages/HomePage/HomePage";
 import CommunityPage from "./pages/Community/CommunityPage";
@@ -36,16 +36,20 @@ import HackathonDetails from "./pages/Company/Events/EventsChoices/HackathonDeta
 import Projects from "./pages/Company/Projects/Projects";
 import ProjectDetail from "./pages/Company/Projects/ProjectDetail";
 import ComingSoon from "./pages/Maintenance/ComingSoon";
+import ParticularEvent from "./pages/Community/Events/ParticularEvent";
 
 function App() {
   // var formData = new FormData();
   // formData.append("name", "Gaurav");
   // console.log(formData.entries());
 
+  // const { eventId } = useParams();
+  const [isEventModalOpen, setIsEventModalOpen] = useState(false);
+
   return (
     <>
-      <Navbar />
-      <MobileNavbar />
+      {!isEventModalOpen && <Navbar />}
+      {!isEventModalOpen && <MobileNavbar />}
       <Routes>
         <Route index element={<HomePage path="homepage" />} />
         <Route path="/home" element={<HomePage />} />
@@ -63,7 +67,15 @@ function App() {
             <Route path=":id" element={<BlogsPage path="blogs" />} />
           </Route>
           <Route path="events">
-            <Route path=":id" element={<EventsPage path="events" />} />
+            <Route path=":id">
+              <Route index element={<EventsPage path="events" />} />
+              <Route
+                path=":eventId"
+                element={
+                  <ParticularEvent setIsEventModalOpen={setIsEventModalOpen} />
+                }
+              />
+            </Route>
           </Route>
           <Route path="chat">
             <Route path=":id" element={<ChatPage path="chat" />} />
@@ -115,7 +127,7 @@ function App() {
           </Route>
         </Route>
       </Routes>
-      <Footer />
+      {!isEventModalOpen && <Footer />}
     </>
   );
 }

@@ -13,8 +13,8 @@ const Mentorship = () => {
   };
   useEffect(() => {
     axios.get(`${API_URL}api/v1/mentor`).then((response) => {
-      setMentor(response.data);
-      console.log(object);
+      setMentor(response.data.data);
+      // console.log(object);
     });
   }, []);
 

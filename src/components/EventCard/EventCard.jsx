@@ -5,6 +5,11 @@ import { IoPeopleOutline } from "react-icons/io5";
 import { MdCancel } from "react-icons/md";
 import EventModal from "../EventModal/EventModal";
 import defaultPoster from "../../assets/defaultPoster";
+import Modal from "../EventModal/Modal";
+import { createPortal } from "react-dom";
+import { useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+// import ReactDom from "react-dom/client";
 
 export default function EventCard({
   _id,
@@ -15,33 +20,18 @@ export default function EventCard({
   eventName,
   eventType,
 }) {
-  const [showModal, setShowModal] = useState(false);
-
-  const handleClick = () => {
-    // console.log("card clicked");
-    setShowModal(true);
-  };
-  const handleClose = () => {
-    setShowModal(false);
-  };
-  const actionBar = (
-    <div>
-      <MdCancel onClick={handleClose} />
-    </div>
-  );
-  const modal = <EventModal onClose={handleClose} actionBar={actionBar} />;
+  const { id } = useParams();
+  const navigate = useNavigate();
 
   return (
     <div
       onClick={() => {
-        console.log("clicked");
-        handleClick();
+        navigate(`/community/events/${id}/${_id}`);
         setEventOpened(_id);
-        // console.log(_id);
       }}
       className="project__list__item event__list__item"
     >
-      {showModal && modal}
+      {/* {showModal && modal} */}
       {
         <div
           style={{
