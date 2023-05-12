@@ -1,0 +1,89 @@
+.project__list__item {
+  cursor: pointer;
+  background-color: #fdfdfd;
+  display: flex;
+  flex-direction: column;
+  width: 18rem;
+  height: fit-content;
+  box-shadow: 0 0 0.5rem 0.2rem rgba(0, 0, 0, 0.2);
+  padding: 0.5rem;
+  border-radius: 0.4rem;
+  transform: scale(0.95);
+}
+.project__list__item .poster {
+  border-radius: 0.5rem;
+}
+.project__list__item .title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  padding: 0.3rem 0;
+  white-space: nowrap;
+  line-height: 1rem;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.project__list__item .description {
+  font-size: 0.9rem;
+  font-weight: 400;
+  padding: 0.2rem 0;
+  line-height: 1.05rem;
+  /* white-space: pre-wrap; */
+  height: 6.6rem;
+  /* word-wrap: normal; */
+  /* width: 50px; */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 0.5rem;
+}
+.project__list__item .tags {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: nowrap;
+  overflow-x: hidden;
+  gap: 0.5rem;
+  padding: 0.2rem 0;
+  margin-bottom: 0.5rem;
+}
+.project__list__item .tags .tag {
+  font-size: 0.8rem;
+  font-weight: 400;
+  padding: 0.2rem 0.5rem;
+  border-radius: 0.4rem;
+}
+.project__list__item .details {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.2rem 0;
+}
+.project__list__item .company__details {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 0.5rem;
+}
+.project__list__item .people {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 0.3rem;
+}
+.project__list__item .people__icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  background-color: #c7ccce;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.project__list__item .people__number {
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: #9f9696;
+}

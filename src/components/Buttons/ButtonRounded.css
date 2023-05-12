@@ -1,0 +1,19 @@
+.rounded-button {
+  background-color: var(--primary-color-dark-green);
+  background-color: transparent;
+  color: var(--text-color-green);
+  border-radius: 1rem;
+  padding: 0.2rem 0.5rem;
+  cursor: pointer;
+  font-weight: 400;
+  border: 2px solid var(--primary-color-dark-green);
+}
+.rounded-button:hover {
+  background-color: var(--primary-color-yellow);
+  color: var(--neutral-text-color-2);
+  border: 2px solid var(--primary-color-yellow);
+  font-weight: 500;
+}
+.rounded-button:active {
+  background-color: rgb(223, 186, 0);
+}

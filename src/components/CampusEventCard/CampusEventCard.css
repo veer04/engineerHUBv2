@@ -1,0 +1,73 @@
+.campus-event__card {
+  width: 23.125rem;
+  height: 19.125rem;
+  border-radius: 0.7rem;
+  padding: 0.2rem;
+  cursor: pointer;
+  box-shadow: 0.2rem 0.2rem 1rem 0.2rem rgba(0, 0, 0, 0.2);
+}
+.campus-event__card > .header {
+  display: flex;
+  height: 75%;
+  justify-content: flex-start;
+  align-items: flex-end;
+  color: white;
+  padding: 0 1.75rem;
+}
+.campus-event__card > .header > h2 {
+  font-size: 1.75rem;
+  font-weight: 700;
+}
+.campus-event__card > .content {
+  height: 25%;
+  background-color: white;
+  padding: 0 1.75rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 0 0 0.5rem 0.5rem;
+}
+.campus-event__card > .content > div {
+  height: 100%;
+}
+.campus-event__card > .content > .student-activity {
+  display: flex;
+  width: fit-content;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+.campus-event__card > .content > .student-activity > span:nth-child(1) {
+  font-size: 1.5rem;
+  font-weight: 600;
+  height: 50%;
+}
+.campus-event__card > .content > .student-activity > span:nth-child(2) {
+  font-size: 0.625rem;
+  color: #565252;
+  height: 50%;
+}
+.campus-event__card > .content > .ongoing-events {
+  display: flex;
+  width: fit-content;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+}
+.campus-event__card > .content > .ongoing-events > span:nth-child(1) {
+  font-size: 1.5rem;
+  font-weight: 600;
+  height: 50%;
+}
+.campus-event__card > .content > .ongoing-events > span:nth-child(2) {
+  font-size: 0.625rem;
+  color: #565252;
+  height: 50%;
+}
+
+@media screen and (max-width: 450px) {
+  .campus-event-card--responsive {
+    transform: scale(0.8);
+  }
+}
