@@ -1,13 +1,13 @@
 FROM alpine:latest
 
 #Maintainer
-LABEL AUTHOR TECH-TEAM-EHUB
+LABEL AUTHOR AYUSH-GUPTA-Martyr112
 
 # Set the working directory in the container
 WORKDIR /app
 
 # Copy app files
-COPY . .
+COPY . /app/
 
 # Install dependencies and build app
 RUN apk add --no-cache nodejs npm \
