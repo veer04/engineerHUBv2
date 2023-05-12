@@ -30,7 +30,7 @@ export default function Modal({ handleClose, setShowModal }) {
 
   return ReactDOM.createPortal(
     <div id="event-modal-container">
-      {event.eventName && (
+      {event.eventName ? (
         <div className="event-modal">
           <div className="close-btn">
             <div
@@ -97,6 +97,10 @@ export default function Modal({ handleClose, setShowModal }) {
               </div>
             </a>
           </div>
+        </div>
+      ) : (
+        <div class="spinner-border text-light" role="status">
+          <span class="visually-hidden">Loading...</span>
         </div>
       )}
     </div>,

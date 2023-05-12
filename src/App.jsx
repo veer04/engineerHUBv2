@@ -14,7 +14,7 @@ import IntraCollege from "./pages/Campus/IntraCollege/IntraCollege";
 import InterCollege from "./pages/Campus/InterCollege/InterCollege";
 import Workshops from "./pages/Campus/Workshops/Workshops";
 import ParticularCampus from "./pages/Campus/ParticularCampus/ParticularCampus";
-import Hosting from "../src/pages/Hosting/Hosting";
+import Hosting from "./pages/Hosting/Hosting";
 import CampusDetails from "./pages/Campus/ParticularCampus/CampusDetails";
 import ClubsPage from "./pages/Campus/ParticularCampus/ClubsPage";
 import AlumniPage from "./pages/Campus/ParticularCampus/AlumniPage";
