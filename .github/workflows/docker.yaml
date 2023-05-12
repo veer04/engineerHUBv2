@@ -26,9 +26,7 @@ name: Build and Push Docker Image
 on:
   push: 
     branches: 
-      - main
-      - aheadMain
-      - github_action_test
+      - combine_code
 
 permissions:
   contents: read # Required for git checkout
@@ -38,9 +36,9 @@ jobs:
   Build-Push-Image:
     runs-on: ubuntu-latest
     env:
-      ECR_REGISTRY: 288273743510.dkr.ecr.ap-south-1.amazonaws.com
-      ECR_REPO: ehub_frontend
-      ECR_REGION: ap-south-1
+      VITE_API_URL: ${{ secrets.VITE_API_URL }}
+      VITE_BUCKET_URL: ${{ secrets.VITE_BUCKET_URL }}
+      VITE_AESKEY: ${{ secrets.VITE_AESKEY }}
     steps:
       - name: Checkout Git Repository
         uses: actions/checkout@v2
@@ -75,8 +73,7 @@ jobs:
         if: hashFiles('**/Dockerfile', '**/dockerfile')
         run: |
             ls
-            docker build . -t ${{ vars.ECR_REGISTRY }}/${{ vars.ECR_REPO }}:${{ github.sha }} --build-arg VITE_API_URL=${{ vars.VITE_API_URL }}  --build-arg VITE_BUCKET_URL=${{ vars.VITE_BUCKET_URL }} --build-arg VITE_AESKEY=${{ vars.VITE_AESKEY }} 
-
+            docker build . -t ${{ vars.ECR_REGISTRY }}/${{ vars.ECR_REPO }}:${{ github.sha }} 
       # - name: Build Docker image
       #   id: Build_Image
       #   if: hashFiles('**/Dockerfile', '**/dockerfile')
