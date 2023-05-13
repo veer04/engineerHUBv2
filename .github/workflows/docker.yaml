@@ -61,6 +61,7 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       
       # - name: Docker Image Build
+      #   id: Build_Image
       #   if: hashFiles('**/Dockerfile', '**/dockerfile')
       #   run: |
       #       ls
@@ -89,18 +90,11 @@ jobs:
           env: |
             DOCKER_REGISTRY=${{ vars.ECR_REGISTRY }}
             DOCKER_REPOSITORY=${{ vars.ECR_REPO }}
-          load: true
-          cache-from: type=local,src=/tmp/.buildx-cache
-          cache-to: type=local,dest=/tmp/.buildx-cache
-          builder: alexellis2/builderx:latest
-          file: Dockerfile
-        env:
-          DOCKER_BUILDKIT: 1
 
       - name: Run test
         run: |
           echo "Running tests"
-          docker ps
+          docker images
 
       - name: Push Docker Image to Amazon ECR
         # if: startsWith(github.ref, 'refs/heads/main') && contains(github.event.head_commit.message, 'version:') && hashFiles('**/Dockerfile', '**/dockerfile')
