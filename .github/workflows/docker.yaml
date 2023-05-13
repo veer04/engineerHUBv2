@@ -101,5 +101,5 @@ jobs:
       - name: Push Docker Image to Amazon ECR
         # if: startsWith(github.ref, 'refs/heads/main') && contains(github.event.head_commit.message, 'version:') && hashFiles('**/Dockerfile', '**/dockerfile')
         run: |
-          docker push ${{ vars.ECR_REGISTRY }}/${{ vars.ECR_REPO }}:${{ github.sha }}
+          docker push ${{ vars.ECR_REGISTRY }}/${{ vars.ECR_REPO }}:latest
         #${{ steps.metadata.outputs.semver }}
