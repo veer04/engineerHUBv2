@@ -40,7 +40,7 @@ jobs:
           push: true
           tags: | 
             ${{ vars.ECR_REGISTRY }}/${{ vars.ECR_REPO }}:latest
-            ${{ vars.ECR_REGISTRY }}/${{ vars.ECR_REPO }}:${{ github.run_number }}-${{ github.event. }}
+            ${{ vars.ECR_REGISTRY }}/${{ vars.ECR_REPO }}:${{ github.run_number }}
           build-args: |
             VITE_API_URL=${{ vars.VITE_API_URL }}
             VITE_BUCKET_URL=${{ vars.VITE_BUCKET_URL }}
