@@ -29,7 +29,6 @@ export default function CompaniesWeCollaborate() {
   const scroller = document.getElementsByClassName("company-logos-container");
   // let direction = 1;
   useEffect(() => {
-    console.log(scroller);
     const interval = setInterval(() => {
       let prevScroll = scroller[0].scrollLeft;
       scroller[0].scrollLeft += 1;

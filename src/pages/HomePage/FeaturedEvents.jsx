@@ -27,6 +27,8 @@ export default function FeaturedEvents() {
     const autoScroller = setInterval(() => {
       const cards = document.querySelector(".events-section-cards");
       cards.scrollLeft += 320;
+      if (cards.scrollLeft >= cards.scrollWidth - cards.clientWidth)
+        cards.scrollLeft = 0;
     }, 5000);
     return () => {
       clearInterval(autoScroller);
@@ -43,7 +45,7 @@ export default function FeaturedEvents() {
   };
   const renderedEvents =
     events.length > 0
-      ? events.slice(0, 6).map((event, index) => {
+      ? events.slice(0, 15).map((event, index) => {
           return (
             <div
               key={event._id}
