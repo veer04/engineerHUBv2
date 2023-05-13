@@ -6,7 +6,7 @@
 
 # permissions:
 #   contents: read # Required for git checkout
-#   packages: write 
+#   packages: write
 
 # jobs:
 #   run:
@@ -24,21 +24,21 @@
 
 name: Build and Push Docker Image
 on:
-  push: 
-    branches: 
+  push:
+    branches:
       - combine_code
 
 permissions:
   contents: read # Required for git checkout
-  packages: write 
+  packages: write
 
 jobs:
   Build-Push-Image:
     runs-on: ubuntu-latest
     env:
-      VITE_API_URL: ${{ secrets.VITE_API_URL }}
-      VITE_BUCKET_URL: ${{ secrets.VITE_BUCKET_URL }}
-      VITE_AESKEY: ${{ secrets.VITE_AESKEY }}
+      VITE_API_URL: ${{ vars.VITE_API_URL }}
+      VITE_BUCKET_URL: ${{ vars.VITE_BUCKET_URL }}
+      VITE_AESKEY: ${{ vars.VITE_AESKEY }}
 
     steps:
       - name: Checkout Git Repository
@@ -51,7 +51,7 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ vars.ECR_REGION }}
-  
+
       - name: Login to Amazon ECR
         uses: aws-actions/amazon-ecr-login@v1
         with:
@@ -59,13 +59,14 @@ jobs:
           aws-region: ${{ vars.ECR_REGION }}
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      
+
       # - name: Docker Image Build
       #   id: Build_Image
       #   if: hashFiles('**/Dockerfile', '**/dockerfile')
       #   run: |
       #       ls
-      #       docker build . -t ${{ vars.ECR_REGISTRY }}/${{ vars.ECR_REPO }}:${{ github.sha }} --build-arg VITE_API_URL=${{ vars.VITE_API_URL }}  --build-arg VITE_BUCKET_URL=${{ vars.VITE_BUCKET_URL }} --build-arg VITE_AESKEY=${{ vars.VITE_AESKEY }} 
+      #       docker build . -t ${{ vars.ECR_REGISTRY }}/${{ vars.ECR_REPO }}:${{ github.sha }} --build-arg VITE_API_URL=${{ vars.VITE_API_URL }}  --build-arg VITE_BUCKET_URL=${{ vars.VITE_BUCKET_URL }} --build-arg VITE_AESKEY=${{ vars.VITE_AESKEY }}
+
       - name: Build Docker image
         id: Build_Image
         if: hashFiles('**/Dockerfile', '**/dockerfile')
@@ -78,7 +79,7 @@ jobs:
           build-args: |
             VITE_API_URL=${{ vars.VITE_API_URL }}
             VITE_BUCKET_URL=${{ vars.VITE_BUCKET_URL }}
-            VITE_AESKEY=${{ vars.VITE_AESKEY }} 
+            VITE_AESKEY=${{ vars.VITE_AESKEY }}
 
       - name: Tag Docker Image based on Commit Message
         id: tagging
@@ -101,5 +102,3 @@ jobs:
         run: |
           docker push ${{ vars.ECR_REGISTRY }}/${{ vars.ECR_REPO }}:latest
         #${{ steps.metadata.outputs.semver }}
-
-
