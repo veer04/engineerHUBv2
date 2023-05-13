@@ -22,6 +22,7 @@ import ParticularClub from "./pages/Campus/ParticularCampus/ParticularClub";
 import Login from "./pages/User/Login/Login";
 import Profile from "./pages/User/Profile/Profile";
 import Signup from "./pages/User/Signup/Signup";
+import RegistrationForm from "./components/Registration/Registraion";
 import OTP from "./pages/User/OtpVerification/Otpverification";
 import MobileNavbar from "./components/MobileNavbar/MobileNavbar";
 import HostEvent from "./pages/Hosting/EventRegistration";
@@ -53,6 +54,7 @@ function App() {
       <Routes>
         <Route index element={<HomePage path="homepage" />} />
         <Route path="/home" element={<HomePage />} />
+        <Route path="/register" element={<RegistrationForm></RegistrationForm>} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
