@@ -1,3 +1,67 @@
+name: Build and Push Docker Image
+on:
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read # Required for git checkout
+  packages: write
+
+jobs:
+  Build-Push-Image:
+    runs-on: ubuntu-latest
+    env:
+      VITE_API_URL: ${{ vars.VITE_API_URL }}
+      VITE_BUCKET_URL: ${{ vars.VITE_BUCKET_URL }}
+      VITE_AESKEY: ${{ vars.VITE_AESKEY }}
+
+    steps:
+      - name: Checkout Git Repository
+        uses: actions/checkout@v2
+
+      - name: Configure AWS Credentials
+        id: AWS_Login_Configure
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ vars.ECR_REGION }}
+
+      - name: Login to Amazon ECR
+        uses: aws-actions/amazon-ecr-login@v1.6.0
+
+      - name: Build Docker image
+        id: Build_Image
+        if: hashFiles('**/Dockerfile', '**/dockerfile')
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          push: true
+          tags: ${{ vars.ECR_REGISTRY }}/${{ vars.ECR_REPO }}:latest
+          build-args: |
+            VITE_API_URL=${{ vars.VITE_API_URL }}
+            VITE_BUCKET_URL=${{ vars.VITE_BUCKET_URL }}
+            VITE_AESKEY=${{ vars.VITE_AESKEY }}
+
+      # - name: Docker Image Build
+      #   id: Build_Image
+      #   if: hashFiles('**/Dockerfile', '**/dockerfile')
+      #   run: |
+      #       ls
+      #       docker build . -t ${{ vars.ECR_REGISTRY }}/${{ vars.ECR_REPO }}:${{ github.sha }} --build-arg VITE_API_URL=${{ vars.VITE_API_URL }}  --build-arg VITE_BUCKET_URL=${{ vars.VITE_BUCKET_URL }} --build-arg VITE_AESKEY=${{ vars.VITE_AESKEY }}
+
+      # - name: Tag Docker Image based on Commit Message
+      #   id: tagging
+      #   # if: startsWith(github.ref, 'refs/heads/main') && contains(github.event.head_commit.message, 'version:') && hashFiles('**/Dockerfile', '**/dockerfile')
+      #   uses: docker/metadata-action@v3
+      #   with:
+      #     images: ${{ vars.ECR_REGISTRY }}/${{ vars.ECR_REPO }}:${{ github.sha }}
+      #     tags: ${{ vars.ECR_REGISTRY }}/${{ vars.ECR_REPO }}:latest
+      #     env: |
+      #       DOCKER_REGISTRY=${{ vars.ECR_REGISTRY }}
+      #       DOCKER_REPOSITORY=${{ vars.ECR_REPO }}
+
 # name: Use Private Action
 # on:
 #   pull_request:
@@ -6,7 +70,7 @@
 
 # permissions:
 #   contents: read # Required for git checkout
-#   packages: write 
+#   packages: write
 
 # jobs:
 #   run:
@@ -21,96 +85,3 @@
 #         ECR_REGION: ap-south-1
 #         REACT_APP_API_URL: https://backend.engineerhub.in/
 #         REACT_APP_BUCKET_URL: https://ehubtestbucket.s3.ap-south-1.amazonaws.com/
-
-name: Build and Push Docker Image
-on:
-  push: 
-    branches: 
-      # - combine_code
-      - main
-
-permissions:
-  contents: read # Required for git checkout
-  packages: write 
-
-jobs:
-  Build-Push-Image:
-    runs-on: ubuntu-latest
-    env:
-      VITE_API_URL: ${{ secrets.VITE_API_URL }}
-      VITE_BUCKET_URL: ${{ secrets.VITE_BUCKET_URL }}
-      VITE_AESKEY: ${{ secrets.VITE_AESKEY }}
-    steps:
-      - name: Checkout Git Repository
-        uses: actions/checkout@v2
-
-      - name: Configure AWS Credentials
-        id: AWS_Login
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ vars.ECR_REGION }}
-  
-      - name: Login to Amazon ECR
-        uses: aws-actions/amazon-ecr-login@v1
-      
-      # - name: NodeJs Install 
-      #   uses: actions/setup-node@v2
-      #   with:
-      #     node-version: '16'
-      
-      # - name: NPM Modules Install
-      #   run: | 
-      #     rm -rf node_modules
-      #     npm install --force
-      #     ls ./components/1-1Mentorship/Mentorship
-      #     npm audit fix --force
-        
-      # - name: NPM Build
-      #   run: npm run build
-      
-      - name: Docker Image Build
-        if: hashFiles('**/Dockerfile', '**/dockerfile')
-        run: |
-            ls
-            docker build . -t ${{ vars.ECR_REGISTRY }}/${{ vars.ECR_REPO }}:${{ github.sha }} --build-arg VITE_API_URL=${{ vars.VITE_API_URL }}  --build-arg VITE_BUCKET_URL=${{ vars.VITE_BUCKET_URL }} --build-arg VITE_AESKEY=${{ vars.VITE_AESKEY }} 
-      # - name: Build Docker image
-      #   id: Build_Image
-      #   if: hashFiles('**/Dockerfile', '**/dockerfile')
-      #   uses: docker/build-push-action@v2
-      #   with:
-      #     context: .
-      #     push: false
-      #     tags: |
-      #       ${{ vars.ECR_REGISTRY }}/${{ vars.ECR_REPO }}:${{ github.sha }}
-      #     build-args: |
-      #       REACT_APP_API_URL=${{ vars.REACT_APP_API_URL }}
-      #       REACT_APP_BUCKET_URL=${{ vars.REACT_APP_BUCKET_URL }}
-
-
-      # - name: Tag Docker Image based on Commit Message
-      #   id: tagging
-      #   # if: startsWith(github.ref, 'refs/heads/main') && contains(github.event.head_commit.message, 'version:') && hashFiles('**/Dockerfile', '**/dockerfile')
-      #   uses: docker/metadata-action@v3
-      #   with:
-      #     images: ${{ vars.ECR_REGISTRY }}/${{ vars.ECR_REPO }}:${{ github.sha }}
-      #     tags: ${{ vars.ECR_REGISTRY }}/${{ vars.ECR_REPO }}:latest #${{ steps.metadata.outputs.semver }}
-      #     env: |
-      #       DOCKER_REGISTRY=${{ vars.ECR_REGISTRY }}
-      #       DOCKER_REPOSITORY=${{ vars.ECR_REPO }}
-      #     load: true
-          # cache-from: type=local,src=/tmp/.buildx-cache
-          # cache-to: type=local,dest=/tmp/.buildx-cache
-          # builder: alexellis2/builderx:latest
-          # file: Dockerfile
-        # env:
-        #   DOCKER_BUILDKIT: 1
-
-      - name: Push Docker Image to Amazon ECR
-        # if: startsWith(github.ref, 'refs/heads/main') && contains(github.event.head_commit.message, 'version:') && hashFiles('**/Dockerfile', '**/dockerfile')
-        run: |
-          docker push ${{ vars.ECR_REGISTRY }}/${{ vars.ECR_REPO }}:${{ github.sha }}
-        #${{ steps.metadata.outputs.semver }}
-
-
