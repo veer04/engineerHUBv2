@@ -25,9 +25,6 @@ RUN apk add --no-cache nodejs npm \
 # Expose port 3000
 EXPOSE 3000
 
-# Entrypoint
-ENTRYPOINT ["sync;","echo","3",">","/proc/sys/vm/drop_caches"]
-
 # Command to run the application
 CMD ["serve", "-s", "/app/dist"]
 
