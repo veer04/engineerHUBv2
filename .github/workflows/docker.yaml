@@ -66,7 +66,8 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: .
-          push: false
+          push: true
+          tag_with_ref: true
           tags: |
             ${{ vars.ECR_REGISTRY }}/${{ vars.ECR_REPO }}:${{ github.sha }}
             ${{ vars.ECR_REGISTRY }}/${{ vars.ECR_REPO }}:latest
@@ -75,15 +76,10 @@ jobs:
             VITE_BUCKET_URL=${{ vars.VITE_BUCKET_URL }}
             VITE_AESKEY=${{ vars.VITE_AESKEY }}
 
-      - name: Run test
-        run: |
-          echo "Running tests"
-          docker images
-
-      - name: Push Docker Image to Amazon ECR
-        # if: startsWith(github.ref, 'refs/heads/main') && contains(github.event.head_commit.message, 'version:') && hashFiles('**/Dockerfile', '**/dockerfile')
-        run: |
-          docker push ${{ vars.ECR_REGISTRY }}/${{ vars.ECR_REPO }}:latest
+      # - name: Push Docker Image to Amazon ECR
+      #   # if: startsWith(github.ref, 'refs/heads/main') && contains(github.event.head_commit.message, 'version:') && hashFiles('**/Dockerfile', '**/dockerfile')
+      #   run: |
+      #     docker push ${{ vars.ECR_REGISTRY }}/${{ vars.ECR_REPO }}:latest
 
       # - name: Docker Image Build
       #   id: Build_Image
