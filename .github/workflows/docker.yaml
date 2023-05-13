@@ -38,29 +38,14 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ vars.ECR_REGISTRY }}/${{ vars.ECR_REPO }}:latest
+          tags: | 
+            ${{ vars.ECR_REGISTRY }}/${{ vars.ECR_REPO }}:latest
+            ${{ vars.ECR_REGISTRY }}/${{ vars.ECR_REPO }}:${{ github.run_number }}-${{ github.event. }}
           build-args: |
             VITE_API_URL=${{ vars.VITE_API_URL }}
             VITE_BUCKET_URL=${{ vars.VITE_BUCKET_URL }}
             VITE_AESKEY=${{ vars.VITE_AESKEY }}
 
-      # - name: Docker Image Build
-      #   id: Build_Image
-      #   if: hashFiles('**/Dockerfile', '**/dockerfile')
-      #   run: |
-      #       ls
-      #       docker build . -t ${{ vars.ECR_REGISTRY }}/${{ vars.ECR_REPO }}:${{ github.sha }} --build-arg VITE_API_URL=${{ vars.VITE_API_URL }}  --build-arg VITE_BUCKET_URL=${{ vars.VITE_BUCKET_URL }} --build-arg VITE_AESKEY=${{ vars.VITE_AESKEY }}
-
-      # - name: Tag Docker Image based on Commit Message
-      #   id: tagging
-      #   # if: startsWith(github.ref, 'refs/heads/main') && contains(github.event.head_commit.message, 'version:') && hashFiles('**/Dockerfile', '**/dockerfile')
-      #   uses: docker/metadata-action@v3
-      #   with:
-      #     images: ${{ vars.ECR_REGISTRY }}/${{ vars.ECR_REPO }}:${{ github.sha }}
-      #     tags: ${{ vars.ECR_REGISTRY }}/${{ vars.ECR_REPO }}:latest
-      #     env: |
-      #       DOCKER_REGISTRY=${{ vars.ECR_REGISTRY }}
-      #       DOCKER_REPOSITORY=${{ vars.ECR_REPO }}
 
 # name: Use Private Action
 # on:
@@ -75,13 +60,14 @@ jobs:
 # jobs:
 #   run:
 #     steps:
-#       uses: Official-EngineerHUB/website@main
+#       uses: Official-EngineerHUB/github-shared-actions@main
 #       secrets:
 #         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
 #         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 #       env:
-#         ECR_REGISTRY: 288273743510.dkr.ecr.ap-south-1.amazonaws.com
-#         ECR_REPO: ehub_frontend
-#         ECR_REGION: ap-south-1
-#         REACT_APP_API_URL: https://backend.engineerhub.in/
-#         REACT_APP_BUCKET_URL: https://ehubtestbucket.s3.ap-south-1.amazonaws.com/
+#         ECR_REGISTRY: ${{ vars.ECR_REGISTRY }}
+#         ECR_REPO: ${{ vars.ECR_REPO }}
+#         ECR_REGION: ${{ vars.ECR_REGION }}
+#         VITE_API_URL=${{ vars.VITE_API_URL }}
+#         VITE_BUCKET_URL=${{ vars.VITE_BUCKET_URL }}
+#         VITE_AESKEY=${{ vars.VITE_AESKEY }}

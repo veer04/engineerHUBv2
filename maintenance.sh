@@ -1,17 +1,12 @@
 #!/bin/bash
 
 # Set ECR repository information
-ECR_REGISTRY="<your-ecr-registry>"
-ECR_REGION="<your-ecr-region>"
-REPO_NAME="<your-repo-name>"
+ECR_REGISTRY="288273743510.dkr.ecr.ap-south-1.amazonaws.com"
+ECR_REGION="ap-south-1"
+REPO_NAME="ehub_frontend"
 
 # Name of the Docker container
-container_name="v3_frontend"
-
-# # Configure AWS Credentials
-# aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
-# aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
-# aws configure set region $ECR_REGION
+container_name=$1
 
 while true; do
     # Get the image digest for the 'latest' tag
@@ -28,14 +23,17 @@ while true; do
             docker rm $REPO_NAME
         fi
 
-        # Run the container using the latest image
-        docker run -d --name $REPO_NAME $ECR_REGISTRY/$REPO_NAME:latest
+        # Remove old pulled images
+        docker rmi $(docker images -q $ECR_REGISTRY/$REPO_NAME:latest | tail -n +2) > /dev/null 2>&1
+
+        # Clean up unused Docker resources
+        docker system prune -f
     fi
 
     # Check if a container name was passed as an argument
     if [ $# -eq 0 ]; then
         echo "Error: No container name was provided."
-        echo "Usage: $0 $container_name"
+        echo "Usage: $0 container name"
         exit 1
     fi
 
@@ -51,43 +49,10 @@ while true; do
         else
             # If the container is not running or stopped, it must be exited
             echo "Container $container_name is exited."
-            docker run --name $container_name -p 3000:80 -e VITE_AESKEY="jbh\$g#h@78wer%*" -e VITE_BUCKET_URL="https://frontendehubbucket.s3.ap-south-1.amazonaws.com/" -e VITE_API_URL="http://e-hub-backend-production-9545.up.railway.app/" -dit ehub-v3-frontend
+            docker run --name $container_name -p 80:3000 -dit $ECR_REGISTRY/$REPO_NAME:latest
         fi
     fi
 
     # Sleep for 60 seconds before checking again
     sleep 60
 done
-
-
-# #!/bin/bash
-
-# sync; echo 3 > /proc/sys/vm/drop_caches
-# while true; do
-#     # Check if a container name was passed as an argument
-#     if [ $# -eq 0 ]; then
-#         echo "Error: No container name was provided."
-#         echo "Usage: $0 CONTAINER_NAME"
-#         exit 1
-#     fi
-
-#     # Name of the Docker container
-#     container_name="$1"
-
-#     # Check if the container is running
-#     if docker ps | grep "$container_name" >/dev/null; then
-#         echo "Container $container_name is running."
-#     else
-#         # Check if the container is stopped
-#         if docker ps -a | grep "$container_name" | grep "Exited" >/dev/null; then
-#             echo "Container $container_name is stopped."
-#             echo "Re-run container....."
-#             docker start $container_name
-#         else
-#             # If the container is not running or stopped, it must be exited
-#             echo "Container $container_name is exited."
-#             docker run --name $container_name -p 3000:80 -e VITE_AESKEY="jbh\$g#h@78wer%*" -e VITE_BUCKET_URL="https://frontendehubbucket.s3.ap-south-1.amazonaws.com/" -e VITE_API_URL="http://e-hub-backend-production-9545.up.railway.app/" -dit ehub-v3-frontend
-#         fi
-#     fi
-# done
-
