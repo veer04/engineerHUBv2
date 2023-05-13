@@ -60,13 +60,6 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
-      # - name: Docker Image Build
-      #   id: Build_Image
-      #   if: hashFiles('**/Dockerfile', '**/dockerfile')
-      #   run: |
-      #       ls
-      #       docker build . -t ${{ vars.ECR_REGISTRY }}/${{ vars.ECR_REPO }}:${{ github.sha }} --build-arg VITE_API_URL=${{ vars.VITE_API_URL }}  --build-arg VITE_BUCKET_URL=${{ vars.VITE_BUCKET_URL }} --build-arg VITE_AESKEY=${{ vars.VITE_AESKEY }}
-
       - name: Build Docker image
         id: Build_Image
         if: hashFiles('**/Dockerfile', '**/dockerfile')
@@ -82,6 +75,23 @@ jobs:
             VITE_BUCKET_URL=${{ vars.VITE_BUCKET_URL }}
             VITE_AESKEY=${{ vars.VITE_AESKEY }}
 
+      - name: Run test
+        run: |
+          echo "Running tests"
+          docker images
+
+      - name: Push Docker Image to Amazon ECR
+        # if: startsWith(github.ref, 'refs/heads/main') && contains(github.event.head_commit.message, 'version:') && hashFiles('**/Dockerfile', '**/dockerfile')
+        run: |
+          docker push ${{ vars.ECR_REGISTRY }}/${{ vars.ECR_REPO }}:latest
+
+      # - name: Docker Image Build
+      #   id: Build_Image
+      #   if: hashFiles('**/Dockerfile', '**/dockerfile')
+      #   run: |
+      #       ls
+      #       docker build . -t ${{ vars.ECR_REGISTRY }}/${{ vars.ECR_REPO }}:${{ github.sha }} --build-arg VITE_API_URL=${{ vars.VITE_API_URL }}  --build-arg VITE_BUCKET_URL=${{ vars.VITE_BUCKET_URL }} --build-arg VITE_AESKEY=${{ vars.VITE_AESKEY }}
+
       # - name: Tag Docker Image based on Commit Message
       #   id: tagging
       #   # if: startsWith(github.ref, 'refs/heads/main') && contains(github.event.head_commit.message, 'version:') && hashFiles('**/Dockerfile', '**/dockerfile')
@@ -92,14 +102,3 @@ jobs:
       #     env: |
       #       DOCKER_REGISTRY=${{ vars.ECR_REGISTRY }}
       #       DOCKER_REPOSITORY=${{ vars.ECR_REPO }}
-
-      - name: Run test
-        run: |
-          echo "Running tests"
-          docker images
-
-      - name: Push Docker Image to Amazon ECR
-        # if: startsWith(github.ref, 'refs/heads/main') && contains(github.event.head_commit.message, 'version:') && hashFiles('**/Dockerfile', '**/dockerfile')
-        run: |
-          docker push ${{ vars.ECR_REGISTRY }}/${{ vars.ECR_REPO }}:latest
-        #${{ steps.metadata.outputs.semver }}
