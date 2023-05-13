@@ -33,7 +33,7 @@ jobs:
 
       - name: Build Docker image
         id: Build_Image
-        if: startsWith(github.head_ref, 'refs/heads/main') && hashFiles('**/Dockerfile', '**/dockerfile')
+        if: hashFiles('**/Dockerfile', '**/dockerfile')
         uses: docker/build-push-action@v2
         with:
           context: .
