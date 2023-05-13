@@ -18,9 +18,9 @@ while true; do
         docker pull $ECR_REGISTRY/$REPO_NAME:latest
 
         # Stop and remove the running container (if it exists)
-        if [ "$(docker ps -q -f name=$REPO_NAME)" ]; then
-            docker stop $REPO_NAME
-            docker rm $REPO_NAME
+        if [ "$(docker ps -q -f name=$container_name)" ]; then
+            docker stop $container_name
+            docker rm $container_name
         fi
 
         # Remove old pulled images
