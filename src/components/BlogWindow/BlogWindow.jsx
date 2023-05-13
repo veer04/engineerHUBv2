@@ -29,7 +29,7 @@ export default function BlogWindow({ blogOpened, setIsBlogOpen }) {
           <div className="title">{blog.title}</div>
         </div>
         <div onClick={() => setIsBlogOpen(false)} className="link">
-          <img src={Cancel} alt="" />
+          <RxCross1/>
         </div>
       </div>
       <div
