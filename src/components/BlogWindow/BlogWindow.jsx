@@ -20,7 +20,7 @@ export default function BlogWindow({ blogOpened, setIsBlogOpen }) {
   useEffect(() => {
     console.log(blog);
   }, [blog]);
-
+//a
   const date = blog.createdAt ? new Date(blog.createdAt) : new Date();
   return (
     <div className="project__window">
