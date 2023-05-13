@@ -6,16 +6,16 @@ import { createPortal } from "react-dom";
 
 export default function EventModal({ onClose, actionBar }) {
   // let node = null;
-  node = document.createElement("div");
-  node.id = "event-modal-container";
-  document.body.appendChild(node);
+  // node = document.createElement("div");
+  // node.id = "event-modal-container";
+  // document.body.appendChild(node);
   console.log("test");
   ReactDOM.createPortal(
     <>
       <span>Hello</span>
       {/* <Modal actionBar={actionBar} onClose={onClose} /> */}
     </>,
-    node
+    "node"
   );
   // ReactDOM.render();
   // return ReactDOM.createPortal(
