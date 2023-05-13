@@ -39,35 +39,26 @@ jobs:
       VITE_API_URL: ${{ secrets.VITE_API_URL }}
       VITE_BUCKET_URL: ${{ secrets.VITE_BUCKET_URL }}
       VITE_AESKEY: ${{ secrets.VITE_AESKEY }}
+
     steps:
       - name: Checkout Git Repository
         uses: actions/checkout@v2
 
-      - name: Configure AWS Credentials
-        id: AWS_Login
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ vars.ECR_REGION }}
+      # - name: Configure AWS Credentials
+      #   id: AWS_Login
+      #   uses: aws-actions/configure-aws-credentials@v1
+      #   with:
+      #     aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      #     aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      #     aws-region: ${{ vars.ECR_REGION }}
   
       - name: Login to Amazon ECR
         uses: aws-actions/amazon-ecr-login@v1
-      
-      # - name: NodeJs Install 
-      #   uses: actions/setup-node@v2
-      #   with:
-      #     node-version: '16'
-      
-      # - name: NPM Modules Install
-      #   run: | 
-      #     rm -rf node_modules
-      #     npm install --force
-      #     ls ./components/1-1Mentorship/Mentorship
-      #     npm audit fix --force
-        
-      # - name: NPM Build
-      #   run: npm run build
+        with:
+          registry: ${{ vars.ECR_REGISTRY }}
+          aws-region: ${{ vars.ECR_REGION }}
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       
       # - name: Docker Image Build
       #   if: hashFiles('**/Dockerfile', '**/dockerfile')
