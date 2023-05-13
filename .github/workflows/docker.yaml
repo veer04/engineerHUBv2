@@ -84,9 +84,9 @@ jobs:
           tags: |
             ${{ vars.ECR_REGISTRY }}/${{ vars.ECR_REPO }}:${{ github.sha }}
           build-args: |
-            REACT_APP_API_URL=${{ vars.REACT_APP_API_URL }}
-            REACT_APP_BUCKET_URL=${{ vars.REACT_APP_BUCKET_URL }}
-
+            VITE_API_URL=${{ vars.VITE_API_URL }}
+            VITE_BUCKET_URL=${{ vars.VITE_BUCKET_URL }}
+            VITE_AESKEY=${{ vars.VITE_AESKEY }} 
 
       - name: Tag Docker Image based on Commit Message
         id: tagging
