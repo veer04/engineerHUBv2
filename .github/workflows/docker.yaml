@@ -76,21 +76,22 @@ jobs:
           push: false
           tags: |
             ${{ vars.ECR_REGISTRY }}/${{ vars.ECR_REPO }}:${{ github.sha }}
+            ${{ vars.ECR_REGISTRY }}/${{ vars.ECR_REPO }}:latest
           build-args: |
             VITE_API_URL=${{ vars.VITE_API_URL }}
             VITE_BUCKET_URL=${{ vars.VITE_BUCKET_URL }}
             VITE_AESKEY=${{ vars.VITE_AESKEY }}
 
-      - name: Tag Docker Image based on Commit Message
-        id: tagging
-        # if: startsWith(github.ref, 'refs/heads/main') && contains(github.event.head_commit.message, 'version:') && hashFiles('**/Dockerfile', '**/dockerfile')
-        uses: docker/metadata-action@v3
-        with:
-          images: ${{ vars.ECR_REGISTRY }}/${{ vars.ECR_REPO }}:${{ github.sha }}
-          tags: ${{ vars.ECR_REGISTRY }}/${{ vars.ECR_REPO }}:latest
-          env: |
-            DOCKER_REGISTRY=${{ vars.ECR_REGISTRY }}
-            DOCKER_REPOSITORY=${{ vars.ECR_REPO }}
+      # - name: Tag Docker Image based on Commit Message
+      #   id: tagging
+      #   # if: startsWith(github.ref, 'refs/heads/main') && contains(github.event.head_commit.message, 'version:') && hashFiles('**/Dockerfile', '**/dockerfile')
+      #   uses: docker/metadata-action@v3
+      #   with:
+      #     images: ${{ vars.ECR_REGISTRY }}/${{ vars.ECR_REPO }}:${{ github.sha }}
+      #     tags: ${{ vars.ECR_REGISTRY }}/${{ vars.ECR_REPO }}:latest
+      #     env: |
+      #       DOCKER_REGISTRY=${{ vars.ECR_REGISTRY }}
+      #       DOCKER_REPOSITORY=${{ vars.ECR_REPO }}
 
       - name: Run test
         run: |
@@ -100,5 +101,5 @@ jobs:
       - name: Push Docker Image to Amazon ECR
         # if: startsWith(github.ref, 'refs/heads/main') && contains(github.event.head_commit.message, 'version:') && hashFiles('**/Dockerfile', '**/dockerfile')
         run: |
-          docker push ${{ vars.ECR_REGISTRY }}/${{ vars.ECR_REPO }}:latest
+          docker push ${{ vars.ECR_REGISTRY }}/${{ vars.ECR_REPO }}:${{ github.sha }}
         #${{ steps.metadata.outputs.semver }}
