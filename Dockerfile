@@ -9,6 +9,11 @@ WORKDIR /app
 # Copy app files
 COPY . /app/
 
+# Set environment variables
+ARG VITE_API_URL=${VITE_API_URL}
+ARG VITE_BUCKET_URL=${VITE_BUCKET_URL}
+ARG VITE_AESKEY=${VITE_AESKEY}
+
 # Install dependencies and build app
 RUN apk add --no-cache nodejs npm \
     && npm ci --silent \
