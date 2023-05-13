@@ -13,7 +13,7 @@ while true; do
     IMAGE_DIGEST=$(aws ecr describe-images --repository-name $REPO_NAME --query 'sort_by(imageDetails,& imagePushedAt)[-1].imageDigest' --output text)
 
     # Check if local image needs to be updated
-    if [ "$(docker images -q $ECR_REGISTRY/$REPO_NAME:latest 2> /dev/null)" == "" ] || [ "$(docker inspect --format='{{.Id}}' $ECR_REGISTRY/$REPO_NAME:latest)" != "$IMAGE_DIGEST" ]; then
+    if [ "$(docker images -q $ECR_REGISTRY/$REPO_NAME:latest 2> /dev/null)" == "" ] || [ "$(docker inspect --format='{{index .RepoDigests 0}}' $ECR_REGISTRY/$REPO_NAME:latest)" != "$ECR_REGISTRY/$REPO_NAME@$IMAGE_DIGEST" ]; then
         # Pull the latest image from ECR
         docker pull $ECR_REGISTRY/$REPO_NAME:latest
 
