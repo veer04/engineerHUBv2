@@ -82,10 +82,6 @@ export default function CampusPage() {
     };
   }, []);
 
-  useEffect(() => {
-    console.log(allCampuses);
-  }, [allCampuses]);
-
   const [width, setWidth] = useState(window.innerWidth);
 
   useEffect(() => {
@@ -99,10 +95,8 @@ export default function CampusPage() {
   const [output, setOutput] = useState("");
   useEffect(() => {
     if (output) {
-      console.log(output);
       navigate(`/campus/${output}`);
     }
-    // console.log(output);
   }, [output]);
 
   return (

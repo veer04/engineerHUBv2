@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useParams } from "react-router-dom";
 import "./App.css";
 import HomePage from "./pages/HomePage/HomePage";
 import CommunityPage from "./pages/Community/CommunityPage";
@@ -14,7 +14,7 @@ import IntraCollege from "./pages/Campus/IntraCollege/IntraCollege";
 import InterCollege from "./pages/Campus/InterCollege/InterCollege";
 import Workshops from "./pages/Campus/Workshops/Workshops";
 import ParticularCampus from "./pages/Campus/ParticularCampus/ParticularCampus";
-import Hosting from "../src/pages/Hosting/Hosting";
+import Hosting from "./pages/Hosting/Hosting";
 import CampusDetails from "./pages/Campus/ParticularCampus/CampusDetails";
 import ClubsPage from "./pages/Campus/ParticularCampus/ClubsPage";
 import AlumniPage from "./pages/Campus/ParticularCampus/AlumniPage";
@@ -22,6 +22,7 @@ import ParticularClub from "./pages/Campus/ParticularCampus/ParticularClub";
 import Login from "./pages/User/Login/Login";
 import Profile from "./pages/User/Profile/Profile";
 import Signup from "./pages/User/Signup/Signup";
+import RegistrationForm from "./components/Registration/Registraion";
 import OTP from "./pages/User/OtpVerification/Otpverification";
 import MobileNavbar from "./components/MobileNavbar/MobileNavbar";
 import HostEvent from "./pages/Hosting/EventRegistration";
@@ -36,19 +37,24 @@ import HackathonDetails from "./pages/Company/Events/EventsChoices/HackathonDeta
 import Projects from "./pages/Company/Projects/Projects";
 import ProjectDetail from "./pages/Company/Projects/ProjectDetail";
 import ComingSoon from "./pages/Maintenance/ComingSoon";
+import ParticularEvent from "./pages/Community/Events/ParticularEvent";
 
 function App() {
   // var formData = new FormData();
   // formData.append("name", "Gaurav");
   // console.log(formData.entries());
 
+  // const { eventId } = useParams();
+  const [isEventModalOpen, setIsEventModalOpen] = useState(false);
+
   return (
     <>
-      <Navbar />
-      <MobileNavbar />
+      {!isEventModalOpen && <Navbar />}
+      {!isEventModalOpen && <MobileNavbar />}
       <Routes>
         <Route index element={<HomePage path="homepage" />} />
         <Route path="/home" element={<HomePage />} />
+        <Route path="/register" element={<RegistrationForm></RegistrationForm>} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
@@ -63,7 +69,15 @@ function App() {
             <Route path=":id" element={<BlogsPage path="blogs" />} />
           </Route>
           <Route path="events">
-            <Route path=":id" element={<EventsPage path="events" />} />
+            <Route path=":id">
+              <Route index element={<EventsPage path="events" />} />
+              <Route
+                path=":eventId"
+                element={
+                  <ParticularEvent setIsEventModalOpen={setIsEventModalOpen} />
+                }
+              />
+            </Route>
           </Route>
           <Route path="chat">
             <Route path=":id" element={<ChatPage path="chat" />} />
@@ -115,7 +129,7 @@ function App() {
           </Route>
         </Route>
       </Routes>
-      <Footer />
+      {!isEventModalOpen && <Footer />}
     </>
   );
 }

@@ -1,0 +1,127 @@
+.navbar {
+  --navbar-background-color: rgb(96, 243, 242, 0.75);
+  height: 6.7rem;
+  padding: 0 var(--section-padding);
+  background-image: linear-gradient(
+    var(--navbar-background-color),
+    rgb(96, 243, 242, 0.25),
+    var(--main-background-color)
+  );
+  position: fixed;
+  width: 100vw;
+  left: 0;
+  top: 0;
+  z-index: 50;
+}
+.navbar .--is-active {
+  background-color: var(--primary-color-yellow) !important;
+  color: var(--text-color-dark-green) !important;
+  font-weight: 500;
+  border: 2px solid var(--primary-color-yellow) !important;
+}
+.host-btn {
+  background-color: var(--primary-color-dark-green) !important;
+  color: white !important;
+}
+.host-btn:hover {
+  background-color: var(--primary-color-yellow) !important;
+  color: var(--text-color-dark-green) !important;
+  font-weight: 500;
+}
+.host-btn:active {
+  background-color: rgb(223, 186, 0) !important;
+}
+
+.container-fluid {
+  padding: 0;
+}
+
+.logo {
+  height: 100%;
+  width: clamp(4rem, 100vw, 6.5rem);
+}
+.navbar-collapse {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.navbar-toggler {
+  display: none;
+}
+
+.nav-middle-items {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin: 0 0.25rem;
+  width: 7.5rem;
+}
+
+.nav-login-btn {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  max-width: 144px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-height: 1.9rem;
+}
+
+/* .nav-logged-in-btn {
+} */
+
+.nav-user-thumbnail {
+  position: relative;
+  left: -0.25rem;
+  padding: 0;
+  height: 1.6rem;
+  width: 1.6rem;
+  min-width: 1.6rem;
+  min-height: 1.6rem;
+  border-radius: 50%;
+}
+
+.nav-username {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-height: 1.9rem;
+}
+
+@media screen and (max-width: 900px) {
+  .nav-username {
+    display: none;
+  }
+  .nav-user-thumbnail {
+    left: 0;
+    height: 1.9rem;
+    width: 1.9rem;
+  }
+  .nav-logged-in-btn {
+    background-color: transparent !important;
+  }
+}
+.logBtn {
+  border: 1px solid #0a3f51;
+  background-color: #dbfafa;
+  border-radius: 20px;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  padding-left: 6px;
+  padding-right: 6px;
+}
+.logBtn:hover {
+  background-color: #fbbc09;
+}
+
+.yellow-background {
+  background-color:    rgb(223, 186, 0);
+  
+}
+
+.black-text {
+  color: black;
+}

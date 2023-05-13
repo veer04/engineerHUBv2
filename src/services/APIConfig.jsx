@@ -88,7 +88,6 @@ export const getBlogs = (setBlogs, id) => {
     })
     .then((res) => {
       const data = res.data.data;
-      console.log("blogs", data);
       setBlogs(data);
     })
     .catch((err) => {
@@ -145,12 +144,10 @@ export const getEvents = (setEvents, id) => {
       signal: controller.signal,
     })
     .then((res) => {
-      console.log("events", res);
       const data = res.data.data;
       setEvents(data);
     })
     .catch((err) => {
-      console.log("err", err);
       if (axios.isCancel(err)) {
         console.log("req cancel");
       } else {
@@ -163,6 +160,25 @@ export const getEventById = (setEvent) => {
   const controller = new AbortController();
   axios
     .get(`${API_URL}api/v1/event`, {
+      signal: controller.signal,
+    })
+    .then((res) => {
+      const data = res.data.data;
+      setEvent(data);
+    })
+    .catch((err) => {
+      if (axios.isCancel(err)) {
+        console.log("req cancel");
+      } else {
+        console.log("req performed");
+      }
+    });
+};
+
+export const getParticularEvent = (setEvent, eventId) => {
+  const controller = new AbortController();
+  axios
+    .get(`${API_URL}api/v1/event/${eventId}`, {
       signal: controller.signal,
     })
     .then((res) => {
@@ -281,7 +297,6 @@ export const getTrendingClubs = (setTrendingClubs) => {
     })
     .then((res) => {
       const data = res.data.data;
-      console.log(data);
       setTrendingClubs(data);
     })
     .catch((err) => {
@@ -301,7 +316,6 @@ export const getAllCampuses = (setAllCampuses) => {
     })
     .then((res) => {
       const data = res.data.data;
-      console.log(data);
       setAllCampuses(data);
     })
     .catch((err) => {
