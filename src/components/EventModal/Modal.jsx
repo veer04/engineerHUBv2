@@ -9,6 +9,7 @@ import { controller, getParticularEvent } from "../../services/APIConfig";
 import { useState } from "react";
 
 export default function Modal({ handleClose, setShowModal }) {
+  
   const { eventId } = useParams();
   const [event, setEvent] = useState(
     sessionStorage.getItem(`event details ${eventId}`)

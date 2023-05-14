@@ -4,8 +4,10 @@ import { useState } from "react";
 import { useParams } from "react-router-dom";
 import Modal from "../../../components/EventModal/Modal";
 
+
 export default function ParticularEvent({ setIsEventModalOpen }) {
   const [showModal, setShowModal] = useState(true);
+
 
   function handleClose() {
     setShowModal(false);
