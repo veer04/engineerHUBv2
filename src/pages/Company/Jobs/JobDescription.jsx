@@ -2,8 +2,9 @@ import React from "react";
 import "./JobDescription.css";
 import { Chip } from "@mui/material";
 import { Bucket_URL } from "../../../services/APIUtils";
-
+import { useNavigate } from "react-router-dom";
 const JobDescription = ({ details }) => {
+  const navigate =useNavigate();
   const bucket = `${Bucket_URL}frontend/company/jobs/`;
   return (
     <div className="JobDescription">
@@ -17,7 +18,9 @@ const JobDescription = ({ details }) => {
             <h3>{details.org}</h3>
             <h3>{details.location}</h3>
           </span>
-          <div className="btn">Apply</div>
+          <div className="btn"
+          onClick={()=> navigate("/register")}
+          >Apply</div>
         </span>
         <span className="Tags">
           {details.tags.map((tag, index) => (

@@ -5,8 +5,9 @@ import { BsCalendar4 } from "react-icons/bs";
 import { FiMail } from "react-icons/fi";
 import { TbPhoneCall } from "react-icons/tb";
 import { Bucket_URL } from "../../../../services/APIUtils";
-
+import { useNavigate } from "react-router-dom";
 const HackathonDesc = ({ details }) => {
+  const navigate =useNavigate();
   const bucket = `${Bucket_URL}frontend/company/events/hackathon/`;
   return (
     <div className="HackDescription">
@@ -22,7 +23,9 @@ const HackathonDesc = ({ details }) => {
             <h1>{details.name}</h1>
             <h3>{details.locations}</h3>
           </span>
-          <div className="btn">Register Now</div>
+          <div className="btn"  
+          onClick={()=> navigate("/register")}
+          >Register Now</div>
         </span>
         <span className="Tags">
           {details.tags.map((tag, index) => (
