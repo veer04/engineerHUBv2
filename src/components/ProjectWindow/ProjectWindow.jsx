@@ -4,11 +4,11 @@ import { RxCross1 } from "react-icons/rx";
 import { getProjectById, controller } from "../../services/APIConfig";
 import decryptData from "../../features/DeCrypt";
 import useSidebar from "../../hooks/use-sidebar";
-
+import { useNavigate } from "react-router-dom";
 export default function ProjectWindow({ projectOpened, setIsProjectOpen }) {
   const [project, setProject] = useState({});
   const { isCollapsed } = useSidebar();
-
+const navigate =useNavigate();
   useEffect(() => {
     if (isCollapsed === false) setIsProjectOpen(false);
   }, [isCollapsed]);
@@ -171,7 +171,9 @@ export default function ProjectWindow({ projectOpened, setIsProjectOpen }) {
         </div>
       </div>
       <div className="project__window__apply">
-        <div className="apply">Apply Now</div>
+        <div className="apply"
+        onClick={()=>navigate("/register")}
+        >Apply Now</div>
       </div>
     </div>
   );
