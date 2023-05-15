@@ -31,7 +31,7 @@ export default function FeaturedEventsCard2({
   return (
     <div
       onClick={() => {
-        navigate(`/community/events/${domainName}/${_id}`);
+        navigate(`/community/events/${encodeURIComponent(domainName)}/${_id}`);
       }}
       style={{
         backgroundColor: color,
