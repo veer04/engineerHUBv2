@@ -39,7 +39,7 @@ export default function ProjectCard({
         setIsProjectOpen(true);
         setIsCollapsed(true);
       }}
-      className="project__list__item"
+      className="project__list__item card-hover"
     >
       {
         <div
