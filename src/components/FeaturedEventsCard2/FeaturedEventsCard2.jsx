@@ -45,7 +45,6 @@ export default function FeaturedEventsCard2({
             backgroundRepeat: "no-repeat",
             backgroundSize: "cover",
             backgroundPosition: "center",
-            borderRadius: "0.5rem",
             overflow: "hidden",
           }}
           className="poster"
