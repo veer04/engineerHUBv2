@@ -149,13 +149,16 @@ export default function CampusPage() {
       </div>
       {width > 750 && (
         <div className="campus-events-tabs">
-          {eventTypes.map((event, index) => (
-            <CampusEventTab
-              key={event._id}
-              title={event.title}
-              color={colors[index]}
-            />
-          ))}
+          <div>
+            {eventTypes.map((event, index) => (
+              <CampusEventTab
+                key={event._id}
+                title={event.title}
+                color={colors[index]}
+              />
+            ))}
+          </div>
+          <div className="coming-soon">Coming Soon</div>
         </div>
       )}
     </div>

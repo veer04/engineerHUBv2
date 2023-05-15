@@ -43,7 +43,7 @@ export default function FeaturedEventsCard2({
           style={{
             backgroundImage: `url(${eventPoster})`,
             backgroundRepeat: "no-repeat",
-            backgroundSize: "contain",
+            backgroundSize: "cover",
             backgroundPosition: "center",
             borderRadius: "0.5rem",
             overflow: "hidden",
