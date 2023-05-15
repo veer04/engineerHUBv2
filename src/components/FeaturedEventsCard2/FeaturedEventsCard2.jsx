@@ -12,8 +12,8 @@ export default function FeaturedEventsCard2({
   views,
   eventDate,
   color,
+  domainName,
 }) {
-  const { id } = useParams();
   const navigate = useNavigate();
   const [width, setWidth] = useState(window.innerWidth);
 
@@ -31,21 +31,20 @@ export default function FeaturedEventsCard2({
   return (
     <div
       onClick={() => {
-        navigate(`/community/events/${id}/${_id}`);
+        navigate(`/community/events/${encodeURIComponent(domainName)}/${_id}`);
       }}
       style={{
         backgroundColor: color,
       }}
-      className="featured-events-card2"
+      className="featured-events-card2 on-hover-scale"
     >
       <div>
         <div
           style={{
             backgroundImage: `url(${eventPoster})`,
             backgroundRepeat: "no-repeat",
-            backgroundSize: "contain",
+            backgroundSize: "cover",
             backgroundPosition: "center",
-            borderRadius: "0.5rem",
             overflow: "hidden",
           }}
           className="poster"

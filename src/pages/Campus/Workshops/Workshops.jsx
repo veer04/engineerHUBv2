@@ -46,13 +46,7 @@ export default function Workshops() {
   const renderedOngoing = "";
 
   const renderedAll = events.map((event) => (
-    <EventCard
-      eventPoster={event.eventPoster}
-      eventName={event.eventName}
-      description={event.description}
-      key={event._id}
-      eventType={event.eventType}
-    />
+    <EventCard key={event._id} {...event} />
   ));
 
   return (
@@ -68,9 +62,8 @@ export default function Workshops() {
         <div className="events">
           {events.slice(0, 2).map((event, index) => (
             <FeaturedEventsCard2
-              eventPoster={event.eventPoster}
-              title={event.eventName}
-              description={event.description}
+              key={event._id}
+              {...event}
               color={colors[index % 2]}
               hashtags={[
                 {
@@ -87,7 +80,6 @@ export default function Workshops() {
                 },
               ]}
               stars={4}
-              key={event._id}
               views={1056}
               time={5}
             />
@@ -118,13 +110,16 @@ export default function Workshops() {
         {current === 3 && renderedOngoing}
       </div>
       <div className="campus-events-tabs">
-        {eventTypes.map((event, index) => (
-          <CampusEventTab
-            key={event._id}
-            title={event.title}
-            color={colors[index]}
-          />
-        ))}
+        <div>
+          {eventTypes.map((event, index) => (
+            <CampusEventTab
+              key={event._id}
+              title={event.title}
+              color={colors[index]}
+            />
+          ))}
+        </div>
+        <div className="coming-soon">Coming Soon</div>
       </div>
     </div>
   );

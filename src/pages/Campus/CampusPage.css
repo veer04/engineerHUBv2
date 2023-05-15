@@ -51,13 +51,28 @@
   gap: 1.5rem;
 }
 .campus-events-tabs {
+  border: 1px solid rgb(33, 139, 137, 0.61);
+  background-color: rgb(247, 255, 255);
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.5rem;
+  margin: 2rem 0;
+  gap: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  box-shadow: inset 0 0 0.5rem 0.1rem rgb(205, 248, 248);
+}
+.campus-events-tabs > div {
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
   align-items: center;
   flex-wrap: nowrap;
-  margin: 2rem 0;
   gap: 2rem;
+}
+.campus-events-tabs > .coming-soon {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--text-color-green);
 }
 
 @media screen and (max-width: 450px) {
