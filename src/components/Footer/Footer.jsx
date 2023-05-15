@@ -6,7 +6,7 @@ import { Bucket_URL } from "../../services/APIUtils";
 export default function Footer() {
   const bucket = `${Bucket_URL}frontend/footer/`;
 
-  const domainLink = "/domain";
+  const domainLink = "/community/projects/";
   const footer = [
     {
       id: 1,
@@ -30,11 +30,11 @@ export default function Footer() {
         },
         {
           title: "Project",
-          link: "/project",
+          link: "community/projects/App%20Development",
         },
         {
           title: "Hiring",
-          link: "/hiring",
+          link: "/company/jobs",
         },
         {
           title: "Mentorship",
@@ -49,23 +49,25 @@ export default function Footer() {
       links: [
         {
           title: "App",
-          link: `${domainLink}/app}`,
+          link: `${domainLink}${encodeURIComponent("App Development")}`,
         },
         {
           title: "Web",
-          link: `${domainLink}/web}`,
+          link: `${domainLink}${encodeURIComponent("Web Development")}`,
         },
         {
           title: "UI/UX",
-          link: `${domainLink}/uiux}`,
+          link: `${domainLink}${encodeURIComponent("UI/UX Design")}`,
         },
         {
           title: "DSA",
-          link: `${domainLink}/dsa}`,
+          link: `${domainLink}${encodeURIComponent(
+            "Data Structures & Algorithms"
+          )}`,
         },
         {
           title: "AI/ML",
-          link: `${domainLink}/aiml}`,
+          link: `${domainLink}${encodeURIComponent("Machine Learning & AI")}`,
         },
       ],
     },
@@ -76,15 +78,15 @@ export default function Footer() {
       links: [
         {
           title: "Campus Updates",
-          link: "/campus-updates",
+          link: "/campus",
         },
         {
           title: "Blog",
-          link: "/blog",
+          link: "/community/blogs/App%20Development",
         },
         {
           title: "Events",
-          link: "/events",
+          link: "/community/events/App%20Development",
         },
       ],
     },
@@ -95,11 +97,11 @@ export default function Footer() {
       links: [
         {
           title: <img src={`${bucket}instagram.svg`} alt="instagram" />,
-          link: "https://www.instagram.com/engineerhubindia/",
+          link: "https://www.instagram.com/engineerhub.in/",
         },
         {
           title: <img src={`${bucket}youtube.svg`} alt="youtube" />,
-          link: "https://www.youtube.com/channel/UCZ1Z1Y1X5Q8ZQZ7Z8ZQZQZQ",
+          link: "https://www.youtube.com/@engineerHUB1",
         },
         {
           title: <img src={`${bucket}facebook.svg`} alt="facebook" />,
@@ -107,11 +109,11 @@ export default function Footer() {
         },
         {
           title: <img src={`${bucket}linkedin.svg`} alt="linkedin" />,
-          link: "https://www.linkedin.com/company/engineerhubindia",
+          link: "https://www.linkedin.com/company/engineersummit/mycompany/",
         },
         {
           title: <img src={`${bucket}discord.svg`} alt="discord" />,
-          link: "https://discord.gg/2Z8Y4Z8",
+          link: "https://discord.com/invite/ZMZAEZ5NfA",
         },
       ],
     },
@@ -202,13 +204,7 @@ export default function Footer() {
   }
 
   return (
-    <div
-      //   style={{
-      //     paddingLeft: adjustmentPadding,
-      //     paddingRight: adjustmentPadding,
-      //   }}
-      className="footer"
-    >
+    <div className="footer">
       <div className="footer-container">
         <div className="footer-row-1 footer-row">
           {createFooterContent(footer.slice(0, 4))}
