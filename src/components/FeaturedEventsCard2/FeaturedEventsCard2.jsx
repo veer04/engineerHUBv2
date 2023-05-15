@@ -36,7 +36,7 @@ export default function FeaturedEventsCard2({
       style={{
         backgroundColor: color,
       }}
-      className="featured-events-card2 card-hover"
+      className="featured-events-card2 on-hover-scale"
     >
       <div>
         <div
@@ -45,7 +45,6 @@ export default function FeaturedEventsCard2({
             backgroundRepeat: "no-repeat",
             backgroundSize: "cover",
             backgroundPosition: "center",
-            borderRadius: "0.5rem",
             overflow: "hidden",
           }}
           className="poster"

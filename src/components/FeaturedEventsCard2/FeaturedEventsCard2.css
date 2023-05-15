@@ -21,8 +21,9 @@
   max-width: 14rem;
 }
 .featured-events-card2 > div > .poster {
-  min-height: 14rem;
-  min-width: 14rem;
+  width: 14rem;
+  border-radius: 0.5rem;
+  height: 14rem;
 }
 .featured-events-card2 > .content {
   height: 14rem;
@@ -81,4 +82,110 @@
   justify-content: center;
   align-items: center;
   gap: 0.5rem;
+}
+
+@media screen and (max-width: 615px) {
+  .featured-events-card2 {
+    border-radius: 0.375rem;
+    padding: 0.3rem;
+    width: 26.25rem;
+  }
+  .featured-events-card2 > div:nth-child(1) {
+    border-radius: 0.375rem;
+    height: 11.2rem;
+    width: 11.2rem;
+  }
+  .featured-events-card2 > div > .poster {
+    border-radius: 0.375rem;
+  }
+  .featured-events-card2 > .content {
+    height: 10.5rem;
+    width: 60%;
+    gap: 0.15rem;
+    padding: 0.75rem;
+  }
+  .featured-events-card2 > .content > .title {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.225rem;
+  }
+  .featured-events-card2 > .content > .description {
+    font-size: 0.5625rem;
+    font-weight: 500;
+    height: 3.8rem;
+  }
+  .featured-events-card2 > .content > .hashtags {
+    height: 2.4rem;
+    font-size: 0.46875rem;
+    font-weight: 400;
+  }
+  .featured-events-card2 > .content > .hashtags > .hashtag {
+    margin: 0 1.2rem 0.375rem 0;
+    font-size: 0.5625rem;
+    font-weight: 500;
+  }
+  .featured-events-card2 > .content > .stats {
+    width: 100%;
+    gap: 0.75rem;
+    font-size: 0.5625rem;
+    font-weight: 500;
+  }
+  .featured-events-card2 > .content > .stats > .stars,
+  .featured-events-card2 > .content > .stats > .views,
+  .featured-events-card2 > .content > .stats > .time {
+    gap: 0.375rem;
+  }
+}
+
+@media screen and (max-width: 455px) {
+  .featured-events-card2 {
+    border-radius: 0.28125rem;
+    padding: 0.225rem;
+    width: 19.6875rem;
+  }
+  .featured-events-card2 > div:nth-child(1) {
+    border-radius: 0.28125rem;
+    height: 8.4rem;
+    width: 8.4rem;
+  }
+  .featured-events-card2 > div > .poster {
+    border-radius: 0.28125rem;
+  }
+  .featured-events-card2 > .content {
+    height: 7.875rem;
+    width: 60%;
+    gap: 0.1125rem;
+    padding: 0.5625rem;
+  }
+  .featured-events-card2 > .content > .title {
+    font-size: 0.75rem;
+    font-weight: 600;
+    margin-bottom: 0.16875rem;
+  }
+  .featured-events-card2 > .content > .description {
+    font-size: 0.5625rem;
+    font-weight: 500;
+    height: 2.85rem;
+  }
+  .featured-events-card2 > .content > .hashtags {
+    height: 1.8rem;
+    font-size: 0.46875rem;
+    font-weight: 400;
+  }
+  .featured-events-card2 > .content > .hashtags > .hashtag {
+    margin: 0 0.9rem 0.28125rem 0;
+    font-size: 0.5625rem;
+    font-weight: 500;
+  }
+  .featured-events-card2 > .content > .stats {
+    width: 100%;
+    gap: 0.5625em;
+    font-size: 0.5625rem;
+    font-weight: 500;
+  }
+  .featured-events-card2 > .content > .stats > .stars,
+  .featured-events-card2 > .content > .stats > .views,
+  .featured-events-card2 > .content > .stats > .time {
+    gap: 0.28125rem;
+  }
 }
