@@ -15,13 +15,10 @@
   padding: 1.2rem;
   position: relative;
   background-position: 0;
-  /* box-shadow: 0.2rem 0.2rem 0.5rem 0.2rem rgba(0, 0, 0, 0.2); */
 }
 
 .domains-section__item:hover {
   cursor: pointer;
-  transform: scale(1.1);
-  transition: all 0.2s ease-in;
 }
 
 .domains-section__item__title {

@@ -36,7 +36,7 @@ export default function FeaturedEventsCard2({
       style={{
         backgroundColor: color,
       }}
-      className="featured-events-card2"
+      className="featured-events-card2 card-hover"
     >
       <div>
         <div

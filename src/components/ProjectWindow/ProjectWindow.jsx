@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 export default function ProjectWindow({ projectOpened, setIsProjectOpen }) {
   const [project, setProject] = useState({});
   const { isCollapsed } = useSidebar();
-const navigate =useNavigate();
+  const navigate = useNavigate();
   useEffect(() => {
     if (isCollapsed === false) setIsProjectOpen(false);
   }, [isCollapsed]);
@@ -171,9 +171,9 @@ const navigate =useNavigate();
         </div>
       </div>
       <div className="project__window__apply">
-        <div className="apply"
-        onClick={()=>navigate("/register")}
-        >Apply Now</div>
+        <div className="apply" onClick={() => navigate("/register")}>
+          Apply Now
+        </div>
       </div>
     </div>
   );

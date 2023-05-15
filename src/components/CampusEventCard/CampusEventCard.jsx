@@ -19,7 +19,7 @@ export default function CampusEventCard({
           backgroundRepeat: "no-repeat",
           backgroundPosition: "95% 20px",
         }}
-        className="campus-event__card"
+        className="campus-event__card on-hover-scale"
       >
         <div className="header">
           <h2>{title}</h2>

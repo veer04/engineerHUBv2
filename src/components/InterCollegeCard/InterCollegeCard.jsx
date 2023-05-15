@@ -13,7 +13,6 @@ export default function InterCollegeCard({
   _id,
   domainName,
 }) {
-  const { id } = useParams();
   const navigate = useNavigate();
 
   return (

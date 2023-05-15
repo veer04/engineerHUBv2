@@ -24,7 +24,10 @@ export default function Domains({ domains }) {
             key={item._id}
             to={`/community/projects/${encodeURIComponent(item.domain)}`}
           >
-            <div style={{ position: "relative", borderRadius: ".6rem" }}>
+            <div
+              className="on-hover-scale"
+              style={{ position: "relative", borderRadius: ".6rem" }}
+            >
               <div
                 style={{
                   backgroundImage: `url(${item.domainImage})`,
