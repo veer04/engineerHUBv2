@@ -30,7 +30,7 @@ export default function EventCard({
         navigate(`/community/events/${encodeURIComponent(domainName)}/${_id}`);
         setEventOpened(_id);
       }}
-      className="project__list__item event__list__item card-hover"
+      className="project__list__item event__list__item on-hover-scale"
     >
       {/* {showModal && modal} */}
       {

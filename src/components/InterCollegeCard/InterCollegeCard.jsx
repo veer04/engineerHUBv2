@@ -14,6 +14,7 @@ export default function InterCollegeCard({
   domainName,
 }) {
   const navigate = useNavigate();
+  console.log(tags);
 
   return (
     <div
@@ -31,10 +32,10 @@ export default function InterCollegeCard({
         <div className="description">{description}</div>
         {tags && (
           <div className="tags">
-            {tags.length &&
+            {tags.length !== 0 &&
               tags.map((tag) => (
-                <div key={tag._id} className="tag">
-                  #{tag.name}
+                <div key={tag} className="tag">
+                  #{tag}
                 </div>
               ))}
           </div>
@@ -152,3 +153,84 @@ export default function InterCollegeCard({
     </div>
   );
 }
+
+/* @media screen and (max-width: 1200px) {
+  .inter-college-card {
+    border-radius: 0.8rem;
+    width: 42.4rem;
+    height: 22.4rem;
+  }
+
+  .inter-college-card > .card-transition {
+    width: 42.4rem;
+    height: 22.4rem;
+    border-radius: 0.8rem;
+    padding: 0 1.2rem 0 0;
+    gap: 0.8rem;
+  }
+  .inter-college-card > .card-transition > .title {
+    font-size: 1.4rem;
+  }
+  .inter-college-card > .card-transition > .description {
+    font-size: 0.75rem;
+    height: 3.2rem;
+  }
+  .inter-college-card > .card-transition > .tags {
+    gap: 0.8rem;
+  }
+  .inter-college-card > .card-transition > .tags > .tag {
+    font-size: 0.66rem;
+    padding: 0.28rem 0.8rem;
+    border-radius: 1.2rem;
+  }
+  .inter-college-card > .card-transition > .stats {
+    gap: 0.96rem;
+  }
+  .inter-college-card > .card-transition > .stats > .stat {
+    gap: 0.64rem;
+  }
+  .inter-college-card > .card-transition .register-btn {
+    margin-top: 0.8rem;
+    padding: 0.8rem 1.6rem;
+    border-radius: 0.4rem;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .inter-college-card {
+    border-radius: 0.65rem;
+    width: 34.45rem;
+    height: 18.2rem;
+  }
+
+  .inter-college-card > .card-transition {
+    width: 34.45rem;
+    height: 18.2rem;
+    border-radius: 0.65rem;
+    padding: 0 0.975rem 0 0;
+    gap: 0.65rem;
+  }
+  .inter-college-card > .card-transition > .title {
+  }
+  .inter-college-card > .card-transition > .description {
+    height: 3.2rem;
+  }
+  .inter-college-card > .card-transition > .tags {
+    gap: 0.65rem;
+  }
+  .inter-college-card > .card-transition > .tags > .tag {
+    padding: 0.2275rem 0.65rem;
+    border-radius: .975rem;
+  }
+  .inter-college-card > .card-transition > .stats {
+    gap: 0.78rem;
+  }
+  .inter-college-card > .card-transition > .stats > .stat {
+    gap: 0.64rem;
+  }
+  .inter-college-card > .card-transition .register-btn {
+    margin-top: 0.8rem;
+    padding: 0.8rem 1.6rem;
+    border-radius: 0.4rem;
+  }
+} */
