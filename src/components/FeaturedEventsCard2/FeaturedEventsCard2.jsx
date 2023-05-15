@@ -31,7 +31,7 @@ export default function FeaturedEventsCard2({
   return (
     <div
       onClick={() => {
-        navigate(`/community/events/${domainName}/${_id}`);
+        navigate(`/community/events/${encodeURIComponent(domainName)}/${_id}`);
       }}
       style={{
         backgroundColor: color,
@@ -43,7 +43,7 @@ export default function FeaturedEventsCard2({
           style={{
             backgroundImage: `url(${eventPoster})`,
             backgroundRepeat: "no-repeat",
-            backgroundSize: "contain",
+            backgroundSize: "cover",
             backgroundPosition: "center",
             borderRadius: "0.5rem",
             overflow: "hidden",

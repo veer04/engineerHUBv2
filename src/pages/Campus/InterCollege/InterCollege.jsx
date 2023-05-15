@@ -94,13 +94,16 @@ export default function InterCollege() {
         {current === 3 && renderedOngoing}
       </div>
       <div className="campus-events-tabs">
-        {eventTypes.map((event, index) => (
-          <CampusEventTab
-            key={event._id}
-            title={event.title}
-            color={colors[index]}
-          />
-        ))}
+        <div>
+          {eventTypes.map((event, index) => (
+            <CampusEventTab
+              key={event._id}
+              title={event.title}
+              color={colors[index]}
+            />
+          ))}
+        </div>
+        <div className="coming-soon">Coming Soon</div>
       </div>
     </div>
   );

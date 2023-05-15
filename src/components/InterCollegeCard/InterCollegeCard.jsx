@@ -18,7 +18,7 @@ export default function InterCollegeCard({
   return (
     <div
       onClick={() => {
-        navigate(`/community/events/${domainName}/${_id}`);
+        navigate(`/community/events/${encodeURIComponent(domainName)}/${_id}`);
       }}
       style={{
         cursor: "pointer",
