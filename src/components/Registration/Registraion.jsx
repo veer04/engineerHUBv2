@@ -1,7 +1,9 @@
 import "./Registration.css";
 import React, { useState } from 'react';
 import { TextField, Button, Typography} from '@mui/material';
+import { useNavigate } from "react-router-dom";
 export default function RegistrationForm() {
+  const navigate=useNavigate();
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
@@ -31,6 +33,13 @@ export default function RegistrationForm() {
       setError(true);
       return;
     }
+    else
+    {
+     
+      
+        navigate("/success");
+      
+    }
     const data = {
       firstName,
       lastName,
@@ -56,6 +65,8 @@ export default function RegistrationForm() {
     } catch (error) {
       // Handle error
     }
+
+   
   };
 
   return (
