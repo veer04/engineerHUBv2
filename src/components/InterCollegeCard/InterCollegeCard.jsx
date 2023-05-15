@@ -11,6 +11,7 @@ export default function InterCollegeCard({
   eventDate,
   time,
   _id,
+  domainName,
 }) {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -18,7 +19,7 @@ export default function InterCollegeCard({
   return (
     <div
       onClick={() => {
-        navigate(`/community/events/${id}/${_id}`);
+        navigate(`/community/events/${domainName}/${_id}`);
       }}
       style={{
         cursor: "pointer",

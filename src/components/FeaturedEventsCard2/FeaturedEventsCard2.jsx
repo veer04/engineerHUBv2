@@ -12,8 +12,8 @@ export default function FeaturedEventsCard2({
   views,
   eventDate,
   color,
+  domainName,
 }) {
-  const { id } = useParams();
   const navigate = useNavigate();
   const [width, setWidth] = useState(window.innerWidth);
 
@@ -31,7 +31,7 @@ export default function FeaturedEventsCard2({
   return (
     <div
       onClick={() => {
-        navigate(`/community/events/${id}/${_id}`);
+        navigate(`/community/events/${domainName}/${_id}`);
       }}
       style={{
         backgroundColor: color,
