@@ -9,6 +9,7 @@ import InterCollegeCard from "../../../components/InterCollegeCard/InterCollegeC
 
 export default function InterCollege() {
   const [events, setEvents] = useState([]);
+  const [width, setWidth] = useState(window.innerWidth);
 
   useEffect(() => {
     getEventByMode(setEvents, "InterCollege");
@@ -16,6 +17,18 @@ export default function InterCollege() {
 
     return () => {
       controller.abort();
+    };
+  }, []);
+
+  useEffect(() => {
+    window.addEventListener("resize", () => {
+      setWidth(window.innerWidth);
+    });
+
+    return () => {
+      window.removeEventListener("resize", () => {
+        setWidth(window.innerWidth);
+      });
     };
   }, []);
 
@@ -93,18 +106,20 @@ export default function InterCollege() {
         {current === 2 && renderedUpcoming}
         {current === 3 && renderedOngoing}
       </div>
-      <div className="campus-events-tabs">
-        <div>
-          {eventTypes.map((event, index) => (
-            <CampusEventTab
-              key={event._id}
-              title={event.title}
-              color={colors[index]}
-            />
-          ))}
+      {width > 750 && (
+        <div className="campus-events-tabs">
+          <div>
+            {eventTypes.map((event, index) => (
+              <CampusEventTab
+                key={event._id}
+                title={event.title}
+                color={colors[index]}
+              />
+            ))}
+          </div>
+          <div className="coming-soon">Coming Soon</div>
         </div>
-        <div className="coming-soon">Coming Soon</div>
-      </div>
+      )}
     </div>
   );
 }

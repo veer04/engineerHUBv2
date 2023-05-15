@@ -126,6 +126,9 @@
 }
 
 @media screen and (max-width: 768px) {
+  .inter-college-card > .card-transition {
+    opacity: 1 !important;
+  }
   .inter-college-card {
     border-radius: calc(var(--border-radius-1) * 0.65);
     width: calc(var(--width-1) * 0.65);
