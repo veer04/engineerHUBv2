@@ -14,7 +14,6 @@ export default function InterCollegeCard({
   domainName,
 }) {
   const navigate = useNavigate();
-  console.log(tags);
 
   return (
     <div
