@@ -90,20 +90,6 @@
   text-overflow: ellipsis;
   max-height: 1.9rem;
 }
-
-@media screen and (max-width: 900px) {
-  .nav-username {
-    display: none;
-  }
-  .nav-user-thumbnail {
-    left: 0;
-    height: 1.9rem;
-    width: 1.9rem;
-  }
-  .nav-logged-in-btn {
-    background-color: transparent !important;
-  }
-}
 .logBtn {
   border: 1px solid #0a3f51;
   background-color: #dbfafa;
@@ -118,10 +104,30 @@
 }
 
 .yellow-background {
-  background-color:    rgb(223, 186, 0);
-  
+  background-color: rgb(223, 186, 0);
 }
 
 .black-text {
   color: black;
+}
+
+@media screen and (max-width: 1024px) {
+  .nav-username {
+    display: none;
+  }
+  .nav-user-thumbnail {
+    left: 0;
+    height: 1.9rem;
+    width: 1.9rem;
+  }
+  .nav-logged-in-btn {
+    background-color: transparent !important;
+    border: none !important;
+  }
+}
+
+@media screen and (width<= 820px) {
+  #bootstrap-overrides .navbar-collapse {
+    display: none !important;
+  }
 }

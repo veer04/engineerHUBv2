@@ -9,6 +9,7 @@ import CampusEventTab from "../../../components/CampusEventTab/CampusEventTab";
 
 export default function IntraCollege() {
   const [events, setEvents] = useState([]);
+  const [width, setWidth] = useState(window.innerWidth);
 
   useEffect(() => {
     getEventByMode(setEvents, "IntraCollege");
@@ -16,6 +17,18 @@ export default function IntraCollege() {
 
     return () => {
       controller.abort();
+    };
+  }, []);
+
+  useEffect(() => {
+    window.addEventListener("resize", () => {
+      setWidth(window.innerWidth);
+    });
+
+    return () => {
+      window.removeEventListener("resize", () => {
+        setWidth(window.innerWidth);
+      });
     };
   }, []);
 
@@ -92,18 +105,20 @@ export default function IntraCollege() {
         {current === 2 && renderedUpcoming}
         {current === 3 && renderedOngoing}
       </div>
-      <div className="campus-events-tabs">
-        <div>
-          {eventTypes.map((event, index) => (
-            <CampusEventTab
-              key={event._id}
-              title={event.title}
-              color={colors[index]}
-            />
-          ))}
+      {width > 750 && (
+        <div className="campus-events-tabs">
+          <div>
+            {eventTypes.map((event, index) => (
+              <CampusEventTab
+                key={event._id}
+                title={event.title}
+                color={colors[index]}
+              />
+            ))}
+          </div>
+          <div className="coming-soon">Coming Soon</div>
         </div>
-        <div className="coming-soon">Coming Soon</div>
-      </div>
+      )}
     </div>
   );
 }
