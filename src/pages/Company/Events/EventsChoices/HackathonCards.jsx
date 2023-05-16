@@ -21,7 +21,7 @@ const HackathonCard = ({ details }) => {
           {details.tags.map((tag, index) => (
             <Chip
               key={index}
-              variant="outlined"
+            variant="outlined"
               size="small"
               label={tag}
               style={{

@@ -4,7 +4,7 @@ import "./JobCards.css";
 
 const JobCards = ({ details }) => {
   return (
-    <div className="JobCard">
+    <div className="JobCard on-hover-scale">
       <div className="cardContent">
         <h6>
           Average CTC : <b>{details.ctc}</b>
