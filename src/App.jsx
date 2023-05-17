@@ -54,7 +54,10 @@ function App() {
       <Routes>
         <Route index element={<HomePage path="homepage" />} />
         <Route path="/home" element={<HomePage />} />
-        <Route path="/register" element={<RegistrationForm></RegistrationForm>} />
+        <Route
+          path="/register"
+          element={<RegistrationForm></RegistrationForm>}
+        />
         <Route path="/profile" element={<Profile />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
@@ -92,14 +95,14 @@ function App() {
           <Route path=":collegeId">
             <Route index element={<ParticularCampus />} />
             <Route path="details" element={<CampusDetails />} />
-            <Route
-              path="technical-clubs"
-              element={<ClubsPage type="Technical" />}
-            />
-            <Route
-              path="cultural-clubs"
-              element={<ClubsPage type="Cultural" />}
-            />
+            <Route path="technical-clubs">
+              <Route index element={<ClubsPage type="Technical" />} />
+              <Route path=":clubId" element={<ParticularClub />} />
+            </Route>
+            <Route path="cultural-clubs">
+              <Route index element={<ClubsPage type="Cultural" />} />
+              <Route path=":clubId" element={<ParticularClub />} />
+            </Route>
             {/* <Route path="alumni" element={<AlumniPage />} /> */}
             <Route path="almas" element={<ComingSoon />} />
           </Route>
