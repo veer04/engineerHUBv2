@@ -70,7 +70,7 @@ export default function Navbar() {
 
   const loginInButton = (
     <ButtonRounded onClick={() => handleLogin()} className="nav-login-btn">
-      Login/Signup
+      Login
     </ButtonRounded>
   );
 
