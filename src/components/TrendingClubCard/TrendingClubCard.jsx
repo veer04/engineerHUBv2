@@ -35,7 +35,7 @@ export default function TrendingClubCard({
         height: "8.6875rem",
         cursor: "pointer",
       }}
-      className="trending-club-card"
+      className="trending-club-card on-hover-scale"
     >
       <div className="details">
         <img src={clubLogo} alt="logo" />

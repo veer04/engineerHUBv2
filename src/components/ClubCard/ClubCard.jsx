@@ -22,7 +22,7 @@ export default function ClubCard({
     // <a href={websiteUrl}>
     <div
       onClick={() => navigate(`/campus/${collegeId}/${typeOfClub}/${name}`)}
-      className="club-card__container"
+      className="club-card__container on-hover-scale"
     >
       <div className="main__container">
         <img src={clubLogo} alt="Club" />
