@@ -51,24 +51,31 @@ export default function Navbar() {
   const thumbnail = "https://source.unsplash.com/random";
   // const userName =   ;
 
-  // const usernameLoginInButton = (
-  //   <ButtonRounded className="nav-logged-in-btn nav-login-btn">
-  //     <img className="nav-user-thumbnail" src={thumbnail} alt="user" />
-  //     <span className="nav-username">Hi, {username}</span>
-  //   </ButtonRounded>
-  // );
-
-  // const loginInButton = (
-  //   <ButtonRounded className="nav-login-btn">Login/Signup</ButtonRounded>
-  // );
-
-  const [width, setWidth] = useState(window.innerWidth);
-  const handleResize = () => setWidth(window.innerWidth);
+  const usernameLoginInButton = (
+    <ButtonRounded
+      onClick={() => {
+        navigate("/profile");
+      }}
+      className="nav-logged-in-btn nav-login-btn"
+    >
+      <img className="nav-user-thumbnail" src={thumbnail} alt="user" />
+      <span className="nav-username">{username}</span>
+    </ButtonRounded>
+  );
 
   const handleLogin = () => {
     navigate("/login");
     window.location.reload(true);
   };
+
+  const loginInButton = (
+    <ButtonRounded onClick={() => handleLogin()} className="nav-login-btn">
+      Login
+    </ButtonRounded>
+  );
+
+  const [width, setWidth] = useState(window.innerWidth);
+  const handleResize = () => setWidth(window.innerWidth);
 
   useEffect(() => {
     window.addEventListener("resize", handleResize);
@@ -89,6 +96,7 @@ export default function Navbar() {
 
   return (
     <nav
+      id="bootstrap-overrides"
       className="navbar navbar-expand-md bg-body-tertiary"
       style={{
         paddingLeft: adjustmentPadding,
@@ -167,15 +175,16 @@ export default function Navbar() {
           </div>
         </div>
 
-        <div>
-          {isLoggedIn ? (
-            <div >
+        <div className="login-btn-div">
+          {
+            isLoggedIn ? usernameLoginInButton : loginInButton
+            /*<div >
               <span>Hi, {username}</span> <div className="logBtn" 
               style={{
                 textAlign: 'center'
               }}
               onClick={handleLogout}>Logout</div>
-              {/* <button className="nav-logged-in-btn nav-login-btn">
+               <button className="nav-logged-in-btn nav-login-btn">
                 <img
                   className="nav-user-thumbnail"
                   src={thumbnail}
@@ -185,20 +194,17 @@ export default function Navbar() {
                   Hi, {username}|
                   <button onClick={handleLogout}>Log out</button>
                 </span>
-              </button> */}
-            </div>
-          ) : (
-            <div>
-              <Link to="/login">
-                {" "}
-                <button className="nav-login-btn logBtn"
-             
-                onClick={handleLogin}>
-                  Login
-                </button>{" "}
-              </Link>
-            </div>
-          )}
+              </button> 
+            </div>*/
+            // <div>
+            //   <Link to="/login">
+            //     {" "}
+            //     <button className="nav-login-btn logBtn" onClick={handleLogin}>
+            //       Login
+            //     </button>{" "}
+            //   </Link>
+            // </div>
+          }
         </div>
 
         {/* <Link className="nav-link" to="/login">

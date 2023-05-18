@@ -38,10 +38,12 @@
   background-color: white;
   padding: 0.5rem 1.5rem;
   border-radius: 0.2rem;
+  margin-bottom: 1.5rem;
 }
 .particular-club-page > .details-tab > .details {
   display: flex;
   flex-direction: row;
+  gap: 1rem;
 }
 .particular-club-page > .details-tab > .details > div {
   display: flex;
@@ -66,43 +68,43 @@
   color: #898989;
   font-weight: 400;
 }
-.particular-club-page > .details-tab > .details > div > .rating {
+.particular-club-page > .details-tab > .details > div > .link {
   font-size: 0.875rem;
+  font-weight: 400;
+  color: #6497fb;
+}
+.particular-club-page > .details-tab > .details > div > .link:hover {
+  text-decoration: underline;
+}
+.particular-club-page > .details-tab > .stats {
   display: flex;
   flex-direction: row;
-  flex-wrap: nowrap;
+  justify-content: center;
   align-items: center;
-  justify-content: flex-start;
-  gap: 0.5rem;
+  gap: 2rem;
+}
+.particular-club-page > .details-tab > .stats > div {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+}
+.particular-club-page > .details-tab > .stats > div > .number {
+  font-size: 2.5rem;
+  font-weight: 600;
+}
+.particular-club-page > .details-tab > .stats > div > .label {
   font-weight: 400;
 }
-.particular-club-page
-  > .details-tab
-  > .details
-  > div
-  > .rating
-  > .rating__stars {
+.particular-club-page > .content-container {
   display: flex;
-  align-items: center;
   justify-content: center;
-  gap: 0.1rem;
-  font-size: 1rem;
-}
-.particular-club-page
-  > .details-tab
-  > .details
-  > div
-  > .rating
-  > .rating__number {
-  color: #898989;
-}
-.particular-club-page > .details-tab .view-more {
-  border: 1px solid black;
-  display: flex;
   align-items: center;
-  padding: 0.5rem 1rem;
-  border-radius: 0.5rem;
-  cursor: pointer;
+  height: 10rem;
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--text-color-green);
 }
 
 @media screen and (max-width: 768px) {
@@ -110,47 +112,29 @@
     flex-direction: row;
     align-items: center;
   }
-  .particular-club-page > .details-tab > .details > div > img {
-    width: 3rem;
-    height: 3rem;
+  .particular-club-page > .details-tab > .details > .logo {
+    width: 67.8px !important;
+    height: 67.8px !important;
   }
+
   .particular-club-page > .details-tab > .details > div > .title {
     font-size: 1.2rem;
   }
   .particular-club-page > .details-tab > .details > div > .location {
-    font-size: 0.75rem;
-  }
-  .particular-club-page > .details-tab > .details > div > .rating {
-    font-size: 0.75rem;
-  }
-  .particular-club-page
-    > .details-tab
-    > .details
-    > div
-    > .rating
-    > .rating__stars {
-    font-size: 0.75rem;
-  }
-  .particular-club-page
-    > .details-tab
-    > .details
-    > div
-    > .rating
-    > .rating__number {
     font-size: 0.75rem;
   }
 }
 
 @media screen and (max-width: 650px) {
   .particular-club-page > .details-tab {
-    flex-direction: column;
-    align-items: flex-start;
+    /* flex-direction: column; */
+    /* align-items: flex-start; */
   }
   .particular-club-page > .details-tab > .details {
-    margin-top: 1rem;
+    /* margin-top: 1rem; */
   }
   .particular-club-page > .details-tab > .details > div {
-    margin-right: 1rem;
+    /* margin-right: 1rem; */
   }
   .particular-club-page > .details-tab > .details > div > img {
     width: 3rem;
@@ -162,26 +146,7 @@
   .particular-club-page > .details-tab > .details > div > .location {
     font-size: 0.75rem;
   }
-  .particular-club-page > .details-tab > .details > div > .rating {
-    font-size: 0.75rem;
-  }
-  .particular-club-page
-    > .details-tab
-    > .details
-    > div
-    > .rating
-    > .rating__stars {
-    font-size: 0.75rem;
-  }
-  .particular-club-page
-    > .details-tab
-    > .details
-    > div
-    > .rating
-    > .rating__number {
-    font-size: 0.75rem;
-  }
-  .particular-club-page > .details-tab > .view-more {
-    margin-top: 1rem;
+  .particular-club-page > .details-tab > .stats {
+    display: none;
   }
 }

@@ -1,11 +1,38 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./ParticularClub.css";
 import ImageCarousel from "../../../components/ImageCarousel/ImageCarousel";
 import { RxChevronDown } from "react-icons/rx";
 import { BsStar, BsStarFill, BsStarHalf } from "react-icons/bs";
 import { Link, useParams } from "react-router-dom";
+import defaultPoster from "../../../assets/defaultPoster";
+import CategoryBar from "../../../components/CategoryBar/CategoryBar";
 
 export default function ParticularClub() {
+  const [current, setCurrent] = useState(1);
+  // const { clubId } = useParams();
+  const categories = [
+    {
+      id: 1,
+      title: "Posts",
+    },
+    {
+      id: 2,
+      title: "Reels",
+    },
+  ];
+
+  const [clubPhotos, setClubPhotos] = useState([]);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  useEffect(() => {
+    setClubPhotos([defaultPoster, defaultPoster, defaultPoster]);
+  }, []);
+
+  const renderedPosts = <>Posts Coming Soon</>;
+  const renderedReels = <>Reels Coming Soon</>;
   return (
     <div className="particular-club-page">
       <h1 className="heading-3">Technical Club</h1>
@@ -16,32 +43,52 @@ export default function ParticularClub() {
       </h2>
       <div className="image-carousel__container">
         <div className="image-carousel">
-          <ImageCarousel />
+          <ImageCarousel collegePhoto={clubPhotos} />
         </div>
       </div>
       <div className="details-tab">
         <div className="details">
-          <div>
-            <img src="https://source.unsplash.com/random" alt="logo" />
+          <div
+            style={{
+              width: "78px",
+              height: "78px",
+              borderRadius: "50%",
+              overflow: "hidden",
+              backgroundImage: "url(https://source.unsplash.com/random)",
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+            }}
+            className="logo"
+          >
+            {/* <img src="https://source.unsplash.com/random" alt="logo" /> */}
           </div>
           <div>
             <div className="title">NIT Durgapur</div>
             <div className="location">Durgapur, India</div>
-            {/* <div className="rating">
-              <div className="rating__stars">
-                <BsStarFill />
-                <BsStarFill />
-                <BsStarHalf />
-                <BsStar />
-                <BsStar />
-              </div>
-              <div className="rating__number">Rating: 3/5</div>
-            </div> */}
+            <a className="link" href="https://www.google.com/">
+              www.google.com
+            </a>
           </div>
         </div>
-        <div className="view-more">
-          View More <RxChevronDown />
+        <div className="stats">
+          <div>
+            <div className="number">100</div>
+            <div className="label">Followers</div>
+          </div>
+          <div>
+            <div className="number">100</div>
+            <div className="label">Members</div>
+          </div>
         </div>
+      </div>
+      <CategoryBar
+        categories={categories}
+        current={current}
+        setCurrent={setCurrent}
+      />
+      <div className="content-container">
+        {current === 1 && renderedPosts}
+        {current === 2 && renderedReels}
       </div>
     </div>
   );

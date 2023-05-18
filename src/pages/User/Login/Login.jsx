@@ -330,7 +330,7 @@ const Register = () => {
                 />
                 <div>
                   <IconButton
-                    onClick={handleClickShowPassword}
+                    onClick={()=>handleClickShowPassword()}
                     className="positionRelBottom"
                   >
                     {!values.showPassword ? <VisibilityOff /> : <Visibility />}
@@ -342,7 +342,7 @@ const Register = () => {
                 <button
                   className="my-btn reg-si registerSSS"
                   type="submit"
-                  onClick={navigation}
+                  // onClick={navigation}
                 >
                   Sign in
                 </button>

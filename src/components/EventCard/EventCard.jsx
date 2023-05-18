@@ -19,6 +19,7 @@ export default function EventCard({
   setIsProjectOpen,
   eventName,
   eventType,
+  domainName,
 }) {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -26,10 +27,10 @@ export default function EventCard({
   return (
     <div
       onClick={() => {
-        navigate(`/community/events/${id}/${_id}`);
+        navigate(`/community/events/${encodeURIComponent(domainName)}/${_id}`);
         setEventOpened(_id);
       }}
-      className="project__list__item event__list__item"
+      className="project__list__item event__list__item on-hover-scale"
     >
       {/* {showModal && modal} */}
       {

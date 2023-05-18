@@ -135,27 +135,22 @@ export default function CampusPage() {
         <h2>Featured Events</h2>
         <div className="events">
           {events.slice(0, 3).map((event) => (
-            <EventCard
-              key={event._id}
-              description={event.description}
-              eventPoster={event.eventPoster}
-              setEventOpened={event.setEventOpened}
-              setIsProjectOpen={event.setIsProjectOpen}
-              eventName={event.eventName}
-              eventType={event.eventType}
-            />
+            <EventCard key={event._id} {...event} />
           ))}
         </div>
       </div>
       {width > 750 && (
         <div className="campus-events-tabs">
-          {eventTypes.map((event, index) => (
-            <CampusEventTab
-              key={event._id}
-              title={event.title}
-              color={colors[index]}
-            />
-          ))}
+          <div>
+            {eventTypes.map((event, index) => (
+              <CampusEventTab
+                key={event._id}
+                title={event.title}
+                color={colors[index]}
+              />
+            ))}
+          </div>
+          <div className="coming-soon">Coming Soon</div>
         </div>
       )}
     </div>

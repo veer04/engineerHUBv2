@@ -141,7 +141,7 @@
 }
 .project__window__title {
   width: 100%;
-  font-size: 1.2rem;
+  font-size: 1.8rem;
   font-weight: 700;
   color: var(--text-color-dark-green);
   display: flex;
@@ -153,18 +153,17 @@
   display: flex;
   gap: 0.5rem;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
 }
 .project__window__title .link {
-  color: white;
   width: 2rem;
   height: 2rem;
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 0.4rem;
-  /* aspect-ratio: 1/1; */
-  background-color: #5672ef;
+  aspect-ratio: 1/1;
+
   font-weight: 400;
   font-size: 1.6rem;
   cursor: pointer;
@@ -222,7 +221,7 @@
 .project__window__prerequisites svg,
 .project__window__software svg {
   min-width: 1rem;
-  margin-top: .5rem;
+  margin-top: 0.5rem;
 }
 
 .project__window__software {
@@ -319,6 +318,9 @@
   }
   .community__subpage__heading > span {
     display: none;
+  }
+  .project__window__title {
+    font-size: 1.2rem;
   }
 }
 

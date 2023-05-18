@@ -11,14 +11,14 @@ export default function InterCollegeCard({
   eventDate,
   time,
   _id,
+  domainName,
 }) {
-  const { id } = useParams();
   const navigate = useNavigate();
 
   return (
     <div
       onClick={() => {
-        navigate(`/community/events/${id}/${_id}`);
+        navigate(`/community/events/${encodeURIComponent(domainName)}/${_id}`);
       }}
       style={{
         cursor: "pointer",
@@ -31,10 +31,10 @@ export default function InterCollegeCard({
         <div className="description">{description}</div>
         {tags && (
           <div className="tags">
-            {tags.length &&
+            {tags.length !== 0 &&
               tags.map((tag) => (
-                <div key={tag._id} className="tag">
-                  #{tag.name}
+                <div key={tag} className="tag">
+                  #{tag}
                 </div>
               ))}
           </div>

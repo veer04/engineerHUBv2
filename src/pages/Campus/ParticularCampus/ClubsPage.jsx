@@ -32,24 +32,6 @@ export default function ClubsPage({ type }) {
         "Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus assumenda beatae quae aliquid, ducimus sunt saepe accusamus, quod ea facere nesciunt molestias tempore quibusdam vel molestiae rem explicabo quam. Doloremque temporibus quod architecto esse minus nihil ut exercitationem pariatur magni!",
       shareLink: "https://www.google.com",
     },
-    {
-      _id: 3,
-      postedBy: "GeeksForGeeks",
-      logo: defaultPoster,
-      poster: defaultPoster,
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus assumenda beatae quae aliquid, ducimus sunt saepe accusamus, quod ea facere nesciunt molestias tempore quibusdam vel molestiae rem explicabo quam. Doloremque temporibus quod architecto esse minus nihil ut exercitationem pariatur magni!",
-      shareLink: "https://www.google.com",
-    },
-    {
-      _id: 4,
-      postedBy: "GeeksForGeeks",
-      logo: defaultPoster,
-      poster: defaultPoster,
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus assumenda beatae quae aliquid, ducimus sunt saepe accusamus, quod ea facere nesciunt molestias tempore quibusdam vel molestiae rem explicabo quam. Doloremque temporibus quod architecto esse minus nihil ut exercitationem pariatur magni!",
-      shareLink: "https://www.google.com",
-    },
   ];
 
   const [trendingClubs, setTrendingClubs] = useState([]);

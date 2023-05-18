@@ -26,7 +26,7 @@ export default function BlogCard({
         setIsBlogOpen(true);
         setIsCollapsed(true);
       }}
-      className="project__list__item blog__list__item"
+      className="project__list__item blog__list__item card-hover"
     >
       {
         <div

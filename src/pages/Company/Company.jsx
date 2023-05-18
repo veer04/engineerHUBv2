@@ -1,8 +1,8 @@
-import React from "react";
 import "./Company.css";
 import JobCards from "./Jobs/JobCards";
 import HackathonCard from "./Events/EventsChoices/HackathonCards";
 import { Bucket_URL } from "../../services/APIUtils";
+import { useState } from "react";
 
 const CompanyCards = ({ data }) => {
   return (
@@ -34,6 +34,7 @@ const CompanyCards = ({ data }) => {
 };
 
 const Company = () => {
+  const [selectedCategory, setSelectedCategory] = useState(0);
   const bucket = `${Bucket_URL}frontend/company/`;
   const CompanyCardEntries = [
     {
@@ -367,7 +368,11 @@ const Company = () => {
           {CategoryEntries.map((item, index) => {
             return (
               <div
-                className={index === 0 ? "CategoryCard select" : "CategoryCard"}
+                className={
+                  index === selectedCategory
+                    ? "CategoryCard select"
+                    : "CategoryCard"
+                }
                 key={index}
               >
                 <h4>{item.name}</h4>

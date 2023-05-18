@@ -81,6 +81,22 @@ a {
   --text-weight-1: 100; /*Thin*/
 }
 
+.card-hover {
+  transition: all 0.2s ease-in-out;
+}
+
+.card-hover:hover {
+  box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.4);
+}
+
+.on-hover-scale {
+  transition: all 0.2s ease-in-out;
+}
+
+.on-hover-scale:hover {
+  transform: scale(1.05);
+}
+
 .text-green {
   color: var(--text-color-green);
 }
