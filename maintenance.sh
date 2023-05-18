@@ -45,6 +45,7 @@ while true; do
         echo "Container $container_name is running."
     elif docker ps -a | grep "$container_name" | grep "Exited" >/dev/null; then
         echo "Container $container_name is exited or stopped. Restarting it..."
+        docker rm -f $container_name
         docker run --name $container_name -p 80:3000 -dit $ECR_REGISTRY/$REPO_NAME:latest
     else
         echo "Container $container_name does not exist. Starting it..."
