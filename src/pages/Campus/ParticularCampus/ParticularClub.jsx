@@ -8,9 +8,61 @@ import defaultPoster from "../../../assets/defaultPoster";
 import CategoryBar from "../../../components/CategoryBar/CategoryBar";
 import ClubPostCard from "../../../components/ClubPostCard/ClubPostCard";
 import useNavbar from "../../../hooks/use-navbar";
-
+import AlumniGlobalCard from "../../../components/AlumniGlobalCard/AlumniGlobalCard";
+import Girl from "./girl.jpeg";
 export default function ParticularClub() {
   const { setSelectedPageNavbar } = useNavbar();
+
+  const [members, setMembers] = useState([
+    {
+      _id: 1,
+      name: "Name Surname",
+      designation: "SDE at Microsoft",
+      campus: "IIT Delhi",
+      batch: "2015",
+      image: Girl,
+    },
+    {
+      _id: 2,
+      name: "Name Surname",
+      designation: "SDE at Microsoft",
+      campus: "IIT Delhi",
+      batch: "2015",
+      image: Girl,
+    },
+    {
+      _id: 3,
+      name: "Name Surname",
+      designation: "SDE at Microsoft",
+      campus: "IIT Delhi",
+      batch: "2015",
+      image: Girl,
+    },
+    {
+      _id: 4,
+      name: "Name Surname",
+      designation: "SDE at Microsoft",
+      campus: "IIT Delhi",
+      batch: "2015",
+      image: Girl,
+    },
+    {
+      _id: 5,
+      name: "Name Surname",
+      designation: "SDE at Microsoft",
+      campus: "IIT Delhi",
+      batch: "2015",
+      image: Girl,
+    },
+    {
+      _id: 6,
+      name: "Name Surname",
+      designation: "SDE at Microsoft",
+      campus: "IIT Delhi",
+      batch: "2015",
+      image: Girl,
+    },
+  ]);
 
   const [current, setCurrent] = useState(1);
   // const { clubId } = useParams();
@@ -30,7 +82,6 @@ export default function ParticularClub() {
   useEffect(() => {
     window.scrollTo(0, 0);
     setSelectedPageNavbar("campus");
-
   }, []);
 
   useEffect(() => {
@@ -155,6 +206,14 @@ export default function ParticularClub() {
         <div className="content-container">{renderedPosts}</div>
       )}
       {current === 2 && renderedReels}
+      <div className="members-container">
+        <div className="title">Members</div>
+        <div className="members">
+          {members.map((member) => (
+            <AlumniGlobalCard key={member._id} {...member} />
+          ))}
+        </div>
+      </div>
     </div>
   );
 }
