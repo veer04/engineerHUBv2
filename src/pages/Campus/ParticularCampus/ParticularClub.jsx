@@ -6,6 +6,7 @@ import { BsStar, BsStarFill, BsStarHalf } from "react-icons/bs";
 import { Link, useParams } from "react-router-dom";
 import defaultPoster from "../../../assets/defaultPoster";
 import CategoryBar from "../../../components/CategoryBar/CategoryBar";
+import ClubPostCard from "../../../components/ClubPostCard/ClubPostCard";
 
 export default function ParticularClub() {
   const [current, setCurrent] = useState(1);
@@ -24,15 +25,67 @@ export default function ParticularClub() {
   const [clubPhotos, setClubPhotos] = useState([]);
 
   useEffect(() => {
-    window.scrollTo(0, 0);
+    // window.scrollTo(0, 0);
   }, []);
 
   useEffect(() => {
     setClubPhotos([defaultPoster, defaultPoster, defaultPoster]);
   }, []);
 
-  const renderedPosts = <>Posts Coming Soon</>;
-  const renderedReels = <>Reels Coming Soon</>;
+  const clubsData = [
+    {
+      _id: 1,
+      image: defaultPoster,
+    },
+    {
+      _id: 2,
+      image: defaultPoster,
+    },
+    {
+      _id: 3,
+      image: defaultPoster,
+    },
+    {
+      _id: 4,
+      image: defaultPoster,
+    },
+    {
+      _id: 5,
+      image: defaultPoster,
+    },
+    {
+      _id: 6,
+      image: defaultPoster,
+    },
+    {
+      _id: 7,
+      image: defaultPoster,
+    },
+    {
+      _id: 8,
+      image: defaultPoster,
+    },
+  ];
+
+  const renderedPosts = clubsData.map((club) => (
+    <ClubPostCard key={club._id} {...club} />
+  ));
+  const renderedReels = (
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        height: "10rem",
+        width: "100%",
+        fontSize: "1.15rem",
+        fontWeight: "600",
+        color: "var(--text-color-green)",
+      }}
+    >
+      Reels Coming Soon
+    </div>
+  );
   return (
     <div className="particular-club-page">
       <h1 className="heading-3">Technical Club</h1>
@@ -86,10 +139,17 @@ export default function ParticularClub() {
         current={current}
         setCurrent={setCurrent}
       />
-      <div className="content-container">
+      {/* later change to code below*/}
+
+      {/* <div className="content-container">
         {current === 1 && renderedPosts}
         {current === 2 && renderedReels}
-      </div>
+      </div> */}
+
+      {current === 1 && (
+        <div className="content-container">{renderedPosts}</div>
+      )}
+      {current === 2 && renderedReels}
     </div>
   );
 }
