@@ -15,7 +15,7 @@
   align-items: center;
 }
 .domains-section-title {
-  font-size: max(3rem, calc(20cqw * (188 / 642)));
+  font-size: 4rem;
   font-weight: 600;
   color: var(--text-color-green);
   position: absolute;
@@ -112,6 +112,10 @@
 }
 
 @media screen and (max-width: 768px) {
+  .domains-section-title {
+    font-size: 3.5rem;
+  }
+
   .domains-section-container {
     height: 35rem;
   }
@@ -161,6 +165,9 @@
 }
 
 @media screen and (max-width: 450px) {
+  .domains-section-title {
+    font-size: 3rem;
+  }
   .domain-chip-title-1,
   .domain-chip-title-2,
   .domain-chip-title-3,
