@@ -103,7 +103,7 @@ function App() {
               <Route index element={<ClubsPage type="Cultural" />} />
               <Route path=":clubId" element={<ParticularClub />} />
             </Route>
-            {/* <Route path="alumni" element={<AlumniPage />} /> */}
+            <Route path="alumni" element={<AlumniPage />} />
             <Route path="almas" element={<ComingSoon />} />
           </Route>
         </Route>
