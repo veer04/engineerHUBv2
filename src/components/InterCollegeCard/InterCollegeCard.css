@@ -65,6 +65,7 @@
   flex-direction: row;
   gap: var(--gap-7);
   align-items: center;
+  text-transform: capitalize;
 }
 .inter-college-card > .card-transition > .stats > .stat {
   --gap-8: 0.8rem;
