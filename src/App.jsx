@@ -103,8 +103,7 @@ function App() {
               <Route index element={<ClubsPage type="Cultural" />} />
               <Route path=":clubId" element={<ParticularClub />} />
             </Route>
-            <Route path="alumni" element={<AlumniPage />} />
-            <Route path="almas" element={<ComingSoon />} />
+            <Route path="almas" element={<AlumniPage />} />
           </Route>
         </Route>
         <Route path="/mentorship" element={<ComingSoon />} />

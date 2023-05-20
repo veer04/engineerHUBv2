@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./AlumniPage.css";
 import Girl from "./girl.jpeg";
 import Uber from "./uber.png";
@@ -130,6 +130,9 @@ export default function AlumniPage() {
       company: Uber,
     },
   ]);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <div className="alumni-page">
