@@ -9,7 +9,6 @@ import useNavbar from "../../../hooks/use-navbar";
 
 export default function BlogsPage({ path }) {
   const { setSelectedPageNavbar } = useNavbar();
-  setSelectedPageNavbar("community");
 
   const { id } = useParams();
   const [isBlogOpen, setIsBlogOpen] = useState(false);
@@ -26,7 +25,7 @@ export default function BlogsPage({ path }) {
   useEffect(() => {
     getBlogs(setBlogs, id);
     window.scrollTo(0, 0);
-    console.log(blogs);
+    setSelectedPageNavbar("community");
 
     return () => {
       controller.abort();

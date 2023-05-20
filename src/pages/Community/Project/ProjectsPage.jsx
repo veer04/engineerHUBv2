@@ -14,7 +14,6 @@ import useNavbar from "../../../hooks/use-navbar";
 
 export default function ProjectPage({ path }) {
   const { setSelectedPageNavbar } = useNavbar();
-  setSelectedPageNavbar("community");
 
   const { id } = useParams();
 
@@ -39,6 +38,8 @@ export default function ProjectPage({ path }) {
     window.scrollTo(0, 0);
     getProjects(setProjects, id);
     getProjectTags(setTags, id);
+    setSelectedPageNavbar("community");
+
 
     return () => {
       controller.abort();

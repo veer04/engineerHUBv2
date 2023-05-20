@@ -7,8 +7,9 @@ import jwt_decode from "jwt-decode";
 import useNavbar from "../../hooks/use-navbar";
 export default function Hosting() {
   const { setSelectedPageNavbar } = useNavbar();
-  setSelectedPageNavbar("host");
-
+  useEffect(() => {
+    setSelectedPageNavbar("hosting");
+  }, []);
   const navigate =useNavigate();
   const bucket = `${Bucket_URL}frontend/hosting/`;
 

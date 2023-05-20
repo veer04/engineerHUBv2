@@ -17,7 +17,6 @@ import useNavbar from "../../hooks/use-navbar";
 
 export default function CampusPage() {
   const { setSelectedPageNavbar } = useNavbar();
-  setSelectedPageNavbar("campus");
   const colors = ["#F7D77F", "#8FC8E8", "#B2E887", "#E8BA98"];
 
   const CampusEvents = [
@@ -79,6 +78,7 @@ export default function CampusPage() {
     getEventById(setEvents);
     getAllCampuses(setAllCampuses);
     window.scrollTo(0, 0);
+    setSelectedPageNavbar("campus");
 
     return () => {
       controller.abort();

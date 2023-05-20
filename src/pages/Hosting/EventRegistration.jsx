@@ -3,12 +3,20 @@ import "./EventRegistration.css";
 import axios from "axios";
 import FormData from "form-data";
 import useNavbar from "../../hooks/use-navbar";
+import { controller } from "../../services/APIConfig";
 
 // var fs = require("fs");
 
 const EventRegistrationForm = () => {
   const { setSelectedPageNavbar } = useNavbar();
-  setSelectedPageNavbar("host");
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    setSelectedPageNavbar("host");
+    return () => {
+      controller.abort();
+    };
+  }, []);
 
   const [step, setStep] = useState(1);
   const [domainName, setDomainName] = useState("");

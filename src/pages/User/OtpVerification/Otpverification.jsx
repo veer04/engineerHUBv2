@@ -8,7 +8,11 @@ import useNavbar from "../../../hooks/use-navbar"
 
 const OTP = () => {
     const { setSelectedPageNavbar } = useNavbar();
-    setSelectedPageNavbar("login");
+    
+    useEffect(() => {
+        window.scrollTo(0, 0);
+        setSelectedPageNavbar("login");
+    }, []);
   
     const [email, setEmail] = useState("");
     const [role, setRole] = useState("User");

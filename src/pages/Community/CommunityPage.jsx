@@ -5,9 +5,9 @@ import useNavbar from "../../hooks/use-navbar";
 
 export default function CommunityPage() {
   const { setSelectedPageNavbar } = useNavbar();
-  setSelectedPageNavbar("community");
 
   useEffect(() => {
+    setSelectedPageNavbar("community");
     window.scrollTo(0, 0);
   }, []);
 

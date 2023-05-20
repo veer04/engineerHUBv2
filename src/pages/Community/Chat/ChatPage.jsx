@@ -7,10 +7,11 @@ import useNavbar from "../../../hooks/use-navbar";
 
 export default function ChatPage({ path }) {
   const { setSelectedPageNavbar } = useNavbar();
-  setSelectedPageNavbar("community");
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    setSelectedPageNavbar("community");
+
   }, []);
 
   return (

@@ -11,14 +11,11 @@ import ReviewsSection from "./ReviewsSection";
 import SiliconValley from "./SiliconValley";
 import JobsSection from "./JobsSection";
 import { useEffect } from "react";
-import useMobileNavbar from "../../hooks/use-mobileNavbar";
 import useNavbar from "../../hooks/use-navbar";
 
 export default function HomePage() {
-  const { setSelectedPage } = useMobileNavbar();
   const { setSelectedPageNavbar } = useNavbar();
   useEffect(() => {
-    setSelectedPage("home");
     setSelectedPageNavbar("home");
     window.scrollTo(0, 0);
   }, []);

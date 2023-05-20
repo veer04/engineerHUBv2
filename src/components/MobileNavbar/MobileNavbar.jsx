@@ -4,23 +4,22 @@ import { HiOutlineUserGroup } from "react-icons/hi";
 import { BsBank } from "react-icons/bs";
 import { HiOutlineBuildingOffice2 } from "react-icons/hi2";
 import { HiOutlineSpeakerphone } from "react-icons/hi";
-import useMobileNavbar from "../../hooks/use-mobileNavbar";
 import { useNavigate } from "react-router-dom";
+import useNavbar from "../../hooks/use-navbar";
 
 export default function MobileNavbar() {
   const navigate = useNavigate();
-
-  const { selectedPage, setSelectedPage } = useMobileNavbar();
+  const { selectedPageNavbar, setSelectedPageNavbar } = useNavbar();
 
   return (
     <div className="mobile-navbar">
       <div
         onClick={() => {
-          setSelectedPage("community");
+          setSelectedPageNavbar("community");
           navigate("/community");
         }}
         className={`item-container ${
-          selectedPage === "community" ? "is-active" : ""
+          selectedPageNavbar === "community" ? "is-active" : ""
         }`}
       >
         <HiOutlineUserGroup className="svg" />
@@ -28,11 +27,11 @@ export default function MobileNavbar() {
       </div>
       <div
         onClick={() => {
-          setSelectedPage("campus");
+          setSelectedPageNavbar("campus");
           navigate("/campus");
         }}
         className={`item-container ${
-          selectedPage === "campus" ? "is-active" : ""
+          selectedPageNavbar === "campus" ? "is-active" : ""
         }`}
       >
         <BsBank className="svg" />
@@ -40,11 +39,11 @@ export default function MobileNavbar() {
       </div>
       <div
         onClick={() => {
-          setSelectedPage("company");
+          setSelectedPageNavbar("company");
           navigate("/company");
         }}
         className={`item-container ${
-          selectedPage === "company" ? "is-active" : ""
+          selectedPageNavbar === "company" ? "is-active" : ""
         }`}
       >
         <HiOutlineBuildingOffice2 className="svg" />
@@ -52,11 +51,11 @@ export default function MobileNavbar() {
       </div>
       <div
         onClick={() => {
-          setSelectedPage("host");
+          setSelectedPageNavbar("host");
           navigate("/hosting");
         }}
         className={`item-container ${
-          selectedPage === "host" ? "is-active" : ""
+          selectedPageNavbar === "host" ? "is-active" : ""
         }`}
       >
         <HiOutlineSpeakerphone className="svg" />

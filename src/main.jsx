@@ -4,7 +4,6 @@ import { BrowserRouter } from "react-router-dom";
 import App from "./App";
 import "./index.css";
 import { AuthProvider } from "react-auth-kit";
-import MobileNavbarProvider from "./contexts/MobileNavbarContext";
 import SidebarProvider from "./contexts/SidebarContext";
 import NavbarProvider from "./contexts/NavbarContext";
 import { EventModalProvider } from "./contexts/EventModalContext";
@@ -18,13 +17,11 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         cookieSecure={false}
       >
         <EventModalProvider>
-          <MobileNavbarProvider>
-            <NavbarProvider>
-              <SidebarProvider>
-                <App />
-              </SidebarProvider>
-            </NavbarProvider>
-          </MobileNavbarProvider>
+          <NavbarProvider>
+            <SidebarProvider>
+              <App />
+            </SidebarProvider>
+          </NavbarProvider>
         </EventModalProvider>
       </AuthProvider>
     </BrowserRouter>
