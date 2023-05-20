@@ -23,9 +23,9 @@ export default function ProjectPage({ path }) {
   const [currentFilters, setCurrentFilters] = useState([]);
 
   const [tags, setTags] = useState(
-    sessionStorage.getItem(`${id} tags`)
-      ? JSON.parse(sessionStorage.getItem(`${id} tags`))
-      : []
+    // sessionStorage.getItem(`${id} tags`)
+    //   ? JSON.parse(sessionStorage.getItem(`${id} tags`)):
+    []
   );
 
   const [projects, setProjects] = useState(
@@ -40,15 +40,14 @@ export default function ProjectPage({ path }) {
     getProjectTags(setTags, id);
     setSelectedPageNavbar("community");
 
-
     return () => {
       controller.abort();
     };
   }, [id]);
 
-  useEffect(() => {
-    sessionStorage.setItem(`${id} tags`, JSON.stringify(tags));
-  }, [tags]);
+  // useEffect(() => {
+  //   sessionStorage.setItem(`${id} tags`, JSON.stringify(tags));
+  // }, [tags]);
 
   useEffect(() => {
     sessionStorage.setItem(`${id} projects`, JSON.stringify(projects));
