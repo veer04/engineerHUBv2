@@ -3,6 +3,7 @@ import "./InterCollegeCard.css";
 import { Link, useNavigate, useParams } from "react-router-dom";
 
 export default function InterCollegeCard({
+  className,
   eventPoster,
   eventName,
   title,
@@ -35,23 +36,25 @@ export default function InterCollegeCard({
         cursor: "pointer",
         backgroundImage: `url(${eventPoster})`,
       }}
-      className="inter-college-card"
+      className={`inter-college-card inter-college-card${className}`}
     >
-      <div className="card-transition">
-        <div className="title">{eventName}</div>
-        <div className="description">{description}</div>
+      <div className={`card-transition card-transition${className}`}>
+        <div className={`title title${className}`}>{eventName}</div>
+        <div className={`description description${className}`}>
+          {description}
+        </div>
         {tags.length !== 0 && (
-          <div className="tags">
+          <div className={`tags tags${className}`}>
             {tags.map((tag) => (
-              <div key={tag} className="tag">
+              <div key={tag} className={`tag tag${className}`}>
                 #{tag}
               </div>
             ))}
           </div>
         )}
-        <div className="stats">
+        <div className={`stats stats${className}`}>
           {/* code for future use */}
-          {/* <div className="stat">
+          {/* <div className={`stat stat${className}`}>
               <svg
                 width="26"
                 height="25"
@@ -85,7 +88,7 @@ export default function InterCollegeCard({
                 fill="#EDEDED"
               />
             </svg>
-            <div className="stat">
+            <div className={`stat stat${className}`}>
               <svg
                 width="29"
                 height="23"
@@ -127,7 +130,7 @@ export default function InterCollegeCard({
                 fill="#EDEDED"
               />
             </svg>*/}
-          <div className="stat">
+          <div className={`stat stat${className}`}>
             <svg
               width="22"
               height="21"
@@ -156,7 +159,7 @@ export default function InterCollegeCard({
           </div>
         </div>
         {/* <Link to={`/campus/inter-college/${_id}`}>
-          <div className="register-btn">Register Now</div>
+          <div className={`register-btn register-btn${className}`}>Register Now</div>
         </Link> */}
       </div>
     </div>

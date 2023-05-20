@@ -10,6 +10,8 @@ import ClubPostCard from "../../../components/ClubPostCard/ClubPostCard";
 import useNavbar from "../../../hooks/use-navbar";
 import AlumniGlobalCard from "../../../components/AlumniGlobalCard/AlumniGlobalCard";
 import Girl from "./girl.jpeg";
+import InterCollegeCard from "../../../components/InterCollegeCard/InterCollegeCard";
+import { getAllEvents } from "../../../services/APIConfig";
 export default function ParticularClub() {
   const { setSelectedPageNavbar } = useNavbar();
 
@@ -84,7 +86,10 @@ export default function ParticularClub() {
     setSelectedPageNavbar("campus");
   }, []);
 
+  const [events, setEvents] = useState([]);
+
   useEffect(() => {
+    getAllEvents(setEvents);
     setClubPhotos([defaultPoster, defaultPoster, defaultPoster]);
   }, []);
 
@@ -213,6 +218,18 @@ export default function ParticularClub() {
             <AlumniGlobalCard key={member._id} {...member} />
           ))}
         </div>
+      </div>
+      <div className="events-container">
+        {events.length > 0 &&
+          events
+            .slice(0, 2)
+            .map((event) => (
+              <InterCollegeCard
+                className="--smaller"
+                key={event._id}
+                {...event}
+              />
+            ))}
       </div>
     </div>
   );
