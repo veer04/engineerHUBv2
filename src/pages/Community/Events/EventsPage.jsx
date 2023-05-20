@@ -8,8 +8,12 @@ import EventCard from "../../../components/EventCard/EventCard";
 import EventModal from "../../../components/EventModal/EventModal";
 import "./EventsPage.css";
 import { MdCancel } from "react-icons/md";
+import useNavbar from "../../../hooks/use-navbar";
 
 export default function EventsPage({ path }) {
+  const { setSelectedPageNavbar } = useNavbar();
+  setSelectedPageNavbar("community");
+
   const { id } = useParams();
 
   const [isEventOpen, setIsEventOpen] = useState(false);
@@ -99,9 +103,6 @@ export default function EventsPage({ path }) {
     </>
   );
 }
-
-
-
 
 // import React from "react";
 // import "../Project/ProjectsPage.css";

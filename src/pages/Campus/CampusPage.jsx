@@ -12,9 +12,12 @@ import CampusEventTab from "../../components/CampusEventTab/CampusEventTab";
 import { getEventById } from "../../services/APIConfig";
 import CampusSearchBox from "../../components/CampusSearchBox/CampusSearchBox";
 import { useNavigate } from "react-router";
+import useNavbar from "../../hooks/use-navbar";
 // import { CampusSearchBox } from "../../components/CampusSearchBox/CampusSearchBox";
 
 export default function CampusPage() {
+  const { setSelectedPageNavbar } = useNavbar();
+  setSelectedPageNavbar("campus");
   const colors = ["#F7D77F", "#8FC8E8", "#B2E887", "#E8BA98"];
 
   const CampusEvents = [

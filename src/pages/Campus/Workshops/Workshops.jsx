@@ -6,8 +6,12 @@ import FeaturedEventsCard2 from "../../../components/FeaturedEventsCard2/Feature
 import CategoryBar from "../../../components/CategoryBar/CategoryBar";
 import EventCard from "../../../components/EventCard/EventCard";
 import CampusEventTab from "../../../components/CampusEventTab/CampusEventTab";
+import useNavbar from "../../../hooks/use-navbar";
 
 export default function Workshops() {
+  const { setSelectedPageNavbar } = useNavbar();
+  setSelectedPageNavbar("campus");
+
   const [events, setEvents] = useState([]);
   const [width, setWidth] = useState(window.innerWidth);
 

@@ -4,8 +4,12 @@ import { useState, useEffect } from 'react';
 import { TextField, Button, Box } from '@mui/material';
 import axios from "axios";
 import Cookies from 'js-cookie';
+import useNavbar from "../../../hooks/use-navbar"
 
 const OTP = () => {
+    const { setSelectedPageNavbar } = useNavbar();
+    setSelectedPageNavbar("login");
+  
     const [email, setEmail] = useState("");
     const [role, setRole] = useState("User");
     const [otp, setOtp] = useState("");

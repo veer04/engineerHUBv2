@@ -6,8 +6,12 @@ import FeaturedEventsCard2 from "../../../components/FeaturedEventsCard2/Feature
 import CategoryBar from "../../../components/CategoryBar/CategoryBar";
 import CampusEventTab from "../../../components/CampusEventTab/CampusEventTab";
 import InterCollegeCard from "../../../components/InterCollegeCard/InterCollegeCard";
+import useNavbar from "../../../hooks/use-navbar";
 
 export default function InterCollege() {
+  const { setSelectedPageNavbar } = useNavbar();
+  setSelectedPageNavbar("campus");
+
   const [events, setEvents] = useState([]);
   const [width, setWidth] = useState(window.innerWidth);
 

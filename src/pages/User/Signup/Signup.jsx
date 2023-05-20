@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { TextField, Button} from '@mui/material';
 import axios from "axios";
 import "../../Hosting/EventRegistration.css";
-
+import useNavbar from "../../../hooks/use-navbar";
 // import InputLabel from '@mui/material/InputLabel';
 // import MenuItem from '@mui/material/MenuItem';
 // import FormControl from '@mui/material/FormControl';
@@ -12,6 +12,9 @@ import { Select, MenuItem } from '@mui/material';
 // import GroupAddIcon from '@material-ui/icons/GroupAdd';
 
 const Signup = () => {
+  const { setSelectedPageNavbar } = useNavbar();
+  setSelectedPageNavbar("login");
+
   const roles = ["User", "Mentor", "Organization"];
     
   const [role, setRole] = useState("User");

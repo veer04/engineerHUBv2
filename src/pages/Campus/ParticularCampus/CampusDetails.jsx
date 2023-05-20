@@ -3,8 +3,12 @@ import "./CampusDetails.css";
 import { useParams } from "react-router-dom";
 import CategoryBar from "../../../components/CategoryBar/CategoryBar";
 import { controller, getCampusById } from "../../../services/APIConfig";
+import useNavbar from "../../../hooks/use-navbar";
 
 export default function CampusDetails({ path }) {
+  const { setSelectedPageNavbar } = useNavbar();
+  setSelectedPageNavbar("campus");
+
   const { collegeId } = useParams();
   const [campus, setCampus] = useState(
     sessionStorage.getItem(`${collegeId} campus`)

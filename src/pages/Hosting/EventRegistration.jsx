@@ -2,10 +2,14 @@ import React, { useState, useEffect } from "react";
 import "./EventRegistration.css";
 import axios from "axios";
 import FormData from "form-data";
+import useNavbar from "../../hooks/use-navbar";
 
 // var fs = require("fs");
 
 const EventRegistrationForm = () => {
+  const { setSelectedPageNavbar } = useNavbar();
+  setSelectedPageNavbar("host");
+
   const [step, setStep] = useState(1);
   const [domainName, setDomainName] = useState("");
   const [campusName, setCampusName] = useState("");

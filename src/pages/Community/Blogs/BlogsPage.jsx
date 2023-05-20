@@ -5,8 +5,12 @@ import { controller, getBlogs } from "../../../services/APIConfig";
 import BlogCard from "../../../components/BlogCard/BlogCard";
 import BlogWindow from "../../../components/BlogWindow/BlogWindow";
 import MobileSidebar from "../../../components/MobileSidebar/MobileSidebar";
+import useNavbar from "../../../hooks/use-navbar";
 
 export default function BlogsPage({ path }) {
+  const { setSelectedPageNavbar } = useNavbar();
+  setSelectedPageNavbar("community");
+
   const { id } = useParams();
   const [isBlogOpen, setIsBlogOpen] = useState(false);
   const [blogOpened, setBlogOpened] = useState(undefined);

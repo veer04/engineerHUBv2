@@ -10,8 +10,12 @@ import {
   getProjects,
 } from "../../../services/APIConfig";
 import MobileSidebar from "../../../components/MobileSidebar/MobileSidebar";
+import useNavbar from "../../../hooks/use-navbar";
 
 export default function ProjectPage({ path }) {
+  const { setSelectedPageNavbar } = useNavbar();
+  setSelectedPageNavbar("community");
+
   const { id } = useParams();
 
   const [isProjectOpen, setIsProjectOpen] = useState(false);
