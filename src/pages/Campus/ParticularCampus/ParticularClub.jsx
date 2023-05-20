@@ -70,7 +70,22 @@ export default function ParticularClub() {
   const renderedPosts = clubsData.map((club) => (
     <ClubPostCard key={club._id} {...club} />
   ));
-  const renderedReels = <>Reels Coming Soon</>;
+  const renderedReels = (
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        height: "10rem",
+        width: "100%",
+        fontSize: "1.15rem",
+        fontWeight: "600",
+        color: "var(--text-color-green)",
+      }}
+    >
+      Reels Coming Soon
+    </div>
+  );
   return (
     <div className="particular-club-page">
       <h1 className="heading-3">Technical Club</h1>
@@ -124,10 +139,17 @@ export default function ParticularClub() {
         current={current}
         setCurrent={setCurrent}
       />
-      <div className="content-container">
+      {/* later change to code below*/}
+
+      {/* <div className="content-container">
         {current === 1 && renderedPosts}
         {current === 2 && renderedReels}
-      </div>
+      </div> */}
+
+      {current === 1 && (
+        <div className="content-container">{renderedPosts}</div>
+      )}
+      {current === 2 && renderedReels}
     </div>
   );
 }
