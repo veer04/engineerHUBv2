@@ -9,7 +9,6 @@ import useNavbar from "../../../hooks/use-navbar";
 
 export default function AlumniPage() {
   const { setSelectedPageNavbar } = useNavbar();
-  setSelectedPageNavbar("campus");
 
   const [bestAlumni, setBestAlumni] = useState([
     {
@@ -137,6 +136,8 @@ export default function AlumniPage() {
   ]);
   useEffect(() => {
     window.scrollTo(0, 0);
+    setSelectedPageNavbar("campus");
+
   }, []);
 
   return (

@@ -5,12 +5,12 @@ import useNavbar from "../../hooks/use-navbar";
 
 export default function ComingSoon() {
   const { setSelectedPageNavbar } = useNavbar();
-  setSelectedPageNavbar("maintenance");
-
+  
   const bucket = `${Bucket_URL}frontend/maintenance/`;
-
+  
   useEffect(() => {
     window.scrollTo(0, 0);
+    setSelectedPageNavbar("maintenance");
   });
 
   return (

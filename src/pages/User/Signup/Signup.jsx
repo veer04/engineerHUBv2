@@ -13,7 +13,10 @@ import { Select, MenuItem } from '@mui/material';
 
 const Signup = () => {
   const { setSelectedPageNavbar } = useNavbar();
-  setSelectedPageNavbar("login");
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    setSelectedPageNavbar("login");
+  }, []);
 
   const roles = ["User", "Mentor", "Organization"];
     

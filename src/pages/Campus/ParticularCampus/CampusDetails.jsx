@@ -7,7 +7,6 @@ import useNavbar from "../../../hooks/use-navbar";
 
 export default function CampusDetails({ path }) {
   const { setSelectedPageNavbar } = useNavbar();
-  setSelectedPageNavbar("campus");
 
   const { collegeId } = useParams();
   const [campus, setCampus] = useState(
@@ -20,9 +19,9 @@ export default function CampusDetails({ path }) {
     window.scrollTo(0, 0);
     if (campus === null) {
       getCampusById(setCampus, collegeId);
-      console.log("data fetched");
     }
-    console.log(campus);
+    setSelectedPageNavbar("campus");
+
     return () => {
       controller.abort();
     };

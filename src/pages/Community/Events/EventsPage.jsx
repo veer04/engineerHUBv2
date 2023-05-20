@@ -12,7 +12,6 @@ import useNavbar from "../../../hooks/use-navbar";
 
 export default function EventsPage({ path }) {
   const { setSelectedPageNavbar } = useNavbar();
-  setSelectedPageNavbar("community");
 
   const { id } = useParams();
 
@@ -28,6 +27,8 @@ export default function EventsPage({ path }) {
   useEffect(() => {
     getEvents(setEvents, id);
     window.scrollTo(0, 0);
+    setSelectedPageNavbar("community");
+
 
     return () => {
       controller.abort();

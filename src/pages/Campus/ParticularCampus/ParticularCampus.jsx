@@ -18,10 +18,8 @@ import useNavbar from "../../../hooks/use-navbar";
 
 export default function ParticularCampus() {
   const { setSelectedPageNavbar } = useNavbar();
-  setSelectedPageNavbar("campus");
 
   const { collegeId } = useParams();
-  console.log(collegeId);
   const colors = ["#F7D77F", "#8FC8E8", "#B2E887", "#E8BA98"];
   const [campus, setCampus] = useState(
     sessionStorage.getItem(`${collegeId} campus`)
@@ -35,6 +33,8 @@ export default function ParticularCampus() {
     window.scrollTo(0, 0);
     getCampusById(setCampus, collegeId);
     getAllCampuses(setAllCampuses);
+    setSelectedPageNavbar("campus");
+
 
     return () => {
       controller.abort();
@@ -93,7 +93,6 @@ export default function ParticularCampus() {
   const [output, setOutput] = useState("");
   useEffect(() => {
     if (output) {
-      console.log(output);
       navigate(`/campus/${output}`);
     }
     // console.log(output);

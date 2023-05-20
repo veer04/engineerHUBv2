@@ -15,7 +15,6 @@ import useNavbar from "../../../hooks/use-navbar";
 
 export default function ClubsPage({ type }) {
   const { setSelectedPageNavbar } = useNavbar();
-  setSelectedPageNavbar("campus");
 
   const activities = [
     {
@@ -47,6 +46,8 @@ export default function ClubsPage({ type }) {
   useEffect(() => {
     const handleResize = () => setWidth(window.innerWidth);
     window.addEventListener("resize", handleResize);
+    setSelectedPageNavbar("campus");
+
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 

@@ -13,17 +13,14 @@ import jwt_decode from "jwt-decode";
 import gg from "./svg/google.svg";
 import "./Login.css";
 import axios, { AxiosError } from "axios";
-import useMobileNavbar from "../../../hooks/use-mobileNavbar";
 import useNavbar from "../../../hooks/use-navbar";
 
 const Register = () => {
   // const accessToken = Cookies.get('access_token');
   // const refreshToken = Cookies.get('refresh_token');
-  const { setSelectedPage } = useMobileNavbar();
   const { setSelectedPageNavbar } = useNavbar();
 
   useEffect(() => {
-    setSelectedPage("login");
     setSelectedPageNavbar("login");
     window.scrollTo(0, 0);
   }, []);

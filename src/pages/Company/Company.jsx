@@ -2,8 +2,9 @@ import "./Company.css";
 import JobCards from "./Jobs/JobCards";
 import HackathonCard from "./Events/EventsChoices/HackathonCards";
 import { Bucket_URL } from "../../services/APIUtils";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useNavbar from "../../hooks/use-navbar";
+import { controller } from "../../services/APIConfig";
 
 const CompanyCards = ({ data }) => {
   return (
@@ -36,7 +37,14 @@ const CompanyCards = ({ data }) => {
 
 const Company = () => {
   const { setSelectedPageNavbar } = useNavbar();
-  setSelectedPageNavbar("company");
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    setSelectedPageNavbar("company");
+
+    return () => {
+      controller.abort();
+    };
+  }, []);
 
   const [selectedCategory, setSelectedCategory] = useState(0);
   const bucket = `${Bucket_URL}frontend/company/`;

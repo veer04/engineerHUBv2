@@ -5,20 +5,20 @@ import ProfileImg from "./profile.jpeg";
 import useNavbar from "../../../hooks/use-navbar";
 const Profile = () => {
     const { setSelectedPageNavbar } = useNavbar();
-    setSelectedPageNavbar("profile");
-  
+    
     const [username, setUsername] = useState("");
     const [institutionName,setInstitutionName] =useState("");
     const [email,setEmail] =useState("");
-
+    
     function getCookie(name) {
         // Get the value of a cookie by name
         const cookieValue = document.cookie.match(
-          "(^|;)\\s*" + name + "\\s*=\\s*([^;]+)"
-        );
-        return cookieValue ? cookieValue.pop() : "";
-      }
-      useEffect(() => {
+            "(^|;)\\s*" + name + "\\s*=\\s*([^;]+)"
+            );
+            return cookieValue ? cookieValue.pop() : "";
+        }
+        useEffect(() => {
+          setSelectedPageNavbar("profile");
         // Check if user is logged in by checking for the 'userName' cookie
         const storedUsername = getCookie("userName");
         if (storedUsername) {

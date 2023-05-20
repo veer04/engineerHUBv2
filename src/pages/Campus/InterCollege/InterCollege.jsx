@@ -10,7 +10,6 @@ import useNavbar from "../../../hooks/use-navbar";
 
 export default function InterCollege() {
   const { setSelectedPageNavbar } = useNavbar();
-  setSelectedPageNavbar("campus");
 
   const [events, setEvents] = useState([]);
   const [width, setWidth] = useState(window.innerWidth);
@@ -18,6 +17,7 @@ export default function InterCollege() {
   useEffect(() => {
     getEventByMode(setEvents, "InterCollege");
     window.scrollTo(0, 0);
+    setSelectedPageNavbar("campus");
 
     return () => {
       controller.abort();
