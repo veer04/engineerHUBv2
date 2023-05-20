@@ -7,8 +7,12 @@ import { Link, useParams } from "react-router-dom";
 import defaultPoster from "../../../assets/defaultPoster";
 import CategoryBar from "../../../components/CategoryBar/CategoryBar";
 import ClubPostCard from "../../../components/ClubPostCard/ClubPostCard";
+import useNavbar from "../../../hooks/use-navbar";
 
 export default function ParticularClub() {
+  const { setSelectedPageNavbar } = useNavbar();
+  setSelectedPageNavbar("campus");
+
   const [current, setCurrent] = useState(1);
   // const { clubId } = useParams();
   const categories = [

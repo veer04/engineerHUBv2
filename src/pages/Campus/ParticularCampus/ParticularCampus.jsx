@@ -14,8 +14,12 @@ import {
 } from "../../../services/APIConfig";
 import CampusSearchBox from "../../../components/CampusSearchBox/CampusSearchBox";
 import { useNavigate } from "react-router";
+import useNavbar from "../../../hooks/use-navbar";
 
 export default function ParticularCampus() {
+  const { setSelectedPageNavbar } = useNavbar();
+  setSelectedPageNavbar("campus");
+
   const { collegeId } = useParams();
   console.log(collegeId);
   const colors = ["#F7D77F", "#8FC8E8", "#B2E887", "#E8BA98"];

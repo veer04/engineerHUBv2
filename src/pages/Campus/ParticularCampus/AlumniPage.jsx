@@ -5,7 +5,12 @@ import Uber from "./uber.png";
 import AlumniGlobalCard from "../../../components/AlumniGlobalCard/AlumniGlobalCard";
 import AlumniLocalCard from "../../../components/AlumniLocalCard/AlumniLocalCard";
 import colorWheel from "../../../assets/colorWheel";
+import useNavbar from "../../../hooks/use-navbar";
+
 export default function AlumniPage() {
+  const { setSelectedPageNavbar } = useNavbar();
+  setSelectedPageNavbar("campus");
+
   const [bestAlumni, setBestAlumni] = useState([
     {
       _id: 1,

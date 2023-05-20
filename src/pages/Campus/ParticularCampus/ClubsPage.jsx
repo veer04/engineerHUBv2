@@ -11,8 +11,12 @@ import {
 } from "../../../services/APIConfig";
 import { useParams } from "react-router-dom";
 import defaultPoster from "../../../assets/defaultPoster";
+import useNavbar from "../../../hooks/use-navbar";
 
 export default function ClubsPage({ type }) {
+  const { setSelectedPageNavbar } = useNavbar();
+  setSelectedPageNavbar("campus");
+
   const activities = [
     {
       _id: 1,

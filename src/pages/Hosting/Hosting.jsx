@@ -4,7 +4,11 @@ import { Bucket_URL } from "../../services/APIUtils";
 import { BsArrowRight } from "react-icons/bs";
 import { Link ,useNavigate} from "react-router-dom";
 import jwt_decode from "jwt-decode";
+import useNavbar from "../../hooks/use-navbar";
 export default function Hosting() {
+  const { setSelectedPageNavbar } = useNavbar();
+  setSelectedPageNavbar("host");
+
   const navigate =useNavigate();
   const bucket = `${Bucket_URL}frontend/hosting/`;
 

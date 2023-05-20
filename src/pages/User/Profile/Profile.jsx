@@ -2,7 +2,11 @@ import "./Profile.css";
 import React, { useEffect, useState } from "react";
 import "../Login/Login.css";
 import ProfileImg from "./profile.jpeg";
+import useNavbar from "../../../hooks/use-navbar";
 const Profile = () => {
+    const { setSelectedPageNavbar } = useNavbar();
+    setSelectedPageNavbar("profile");
+  
     const [username, setUsername] = useState("");
     const [institutionName,setInstitutionName] =useState("");
     const [email,setEmail] =useState("");

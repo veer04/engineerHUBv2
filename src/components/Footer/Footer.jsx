@@ -103,10 +103,10 @@ export default function Footer() {
           title: <img src={`${bucket}youtube.svg`} alt="youtube" />,
           link: "https://www.youtube.com/@engineerHUB1",
         },
-        {
-          title: <img src={`${bucket}facebook.svg`} alt="facebook" />,
-          link: "https://www.facebook.com/engineerhubindia",
-        },
+        // {
+        //   title: <img src={`${bucket}facebook.svg`} alt="facebook" />,
+        //   link: "https://www.facebook.com/engineerhubindia",
+        // },
         {
           title: <img src={`${bucket}linkedin.svg`} alt="linkedin" />,
           link: "https://www.linkedin.com/company/engineersummit/mycompany/",
@@ -119,13 +119,13 @@ export default function Footer() {
     },
     {
       id: 6,
-      title: "Download Our App",
-      links: [
-        {
-          title: <img src={`${bucket}app_store.svg`} alt="app store" />,
-          link: "https://apps.apple.com/in/app/engineerhub/id1540000000",
-        },
-      ],
+      // title: "Download Our App",
+      // links: [
+      //   {
+      //     title: <img src={`${bucket}app_store.svg`} alt="app store" />,
+      //     link: "https://apps.apple.com/in/app/engineerhub/id1540000000",
+      //   },
+      // ],
     },
     {
       id: 7,
@@ -133,15 +133,15 @@ export default function Footer() {
       content: [],
       links: [
         {
-          title: "+91 25552 22552",
+          title: "+91 91298 83089",
           link: {},
         },
         {
-          title: "+91 25552 22552",
+          title: "+91 83031 56089",
           link: {},
         },
         {
-          title: "www.engineerhub.in",
+          title: "info@engineerhub.in",
           link: {},
         },
       ],
@@ -151,7 +151,7 @@ export default function Footer() {
       id: 8,
       title: "Address",
       content:
-        "41  Mangal Bhavan Opp Kadri House Chimatpada Marol Andheri,Ghaziabad,400059,India",
+        "Gokulpuram Colony, Chitaipur, Chunar Road, Varanasi, Uttar Pradesh, 221106",
     },
 
     {

@@ -3,8 +3,12 @@ import "./ChatPage.css";
 import Sidebar from "../../../components/Sidebar/Sidebar";
 import Chat from "../../../components/Chat/Chat";
 import MobileSidebar from "../../../components/MobileSidebar/MobileSidebar";
+import useNavbar from "../../../hooks/use-navbar";
 
 export default function ChatPage({ path }) {
+  const { setSelectedPageNavbar } = useNavbar();
+  setSelectedPageNavbar("community");
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
