@@ -9,7 +9,6 @@ import { controller, getParticularEvent } from "../../services/APIConfig";
 import { useState } from "react";
 
 export default function Modal({ handleClose, setShowModal }) {
-  
   const { eventId } = useParams();
   const [event, setEvent] = useState(
     sessionStorage.getItem(`event details ${eventId}`)
@@ -36,6 +35,22 @@ export default function Modal({ handleClose, setShowModal }) {
   useEffect(() => {
     sessionStorage.setItem(`event details ${eventId}`, JSON.stringify(event));
   }, [event]);
+
+  // code for date element in card
+  const date = new Date(event.eventDate);
+  const day = date.toLocaleString("en-IN", { weekday: "long" });
+  let getDate = date
+    .toLocaleTimeString("en-IN", {
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+    })
+    .replace(",", " /");
+  getDate = getDate.replace("am", "AM");
+  getDate = getDate.replace("pm", "PM");
+  const time = day + " / " + getDate;
 
   return ReactDOM.createPortal(
     <div id="event-modal-container">
@@ -92,7 +107,7 @@ export default function Modal({ handleClose, setShowModal }) {
           <div className="details-container">
             <div className="details">
               <div>Logistics</div>
-              <div>Sunday / 31st July / 06:00 PM</div>
+              <div>{time}</div>
             </div>
             <a href={event.applyLink}>
               <div

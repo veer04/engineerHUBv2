@@ -39,11 +39,12 @@
   font-size: 1.25rem;
   font-weight: 600;
   margin-bottom: 0.3rem;
+  overflow: hidden;
 }
 .featured-events-card2 > .content > .description {
   font-size: 0.75rem;
   font-weight: 500;
-  height: 4.75rem;
+  /* height: 4.75rem; */
   overflow: hidden;
 }
 .featured-events-card2 > .content > .hashtags {
@@ -82,6 +83,9 @@
   justify-content: center;
   align-items: center;
   gap: 0.5rem;
+  text-transform: capitalize;
+  flex-wrap: nowrap;
+  width: max-content;
 }
 
 @media screen and (max-width: 615px) {
@@ -112,7 +116,7 @@
   .featured-events-card2 > .content > .description {
     font-size: 0.5625rem;
     font-weight: 500;
-    height: 3.8rem;
+    /* height: 3.8rem; */
   }
   .featured-events-card2 > .content > .hashtags {
     height: 2.4rem;
@@ -165,7 +169,7 @@
   .featured-events-card2 > .content > .description {
     font-size: 0.5625rem;
     font-weight: 500;
-    height: 2.85rem;
+    /* height: 2.85rem; */
   }
   .featured-events-card2 > .content > .hashtags {
     height: 1.8rem;
@@ -180,7 +184,7 @@
   .featured-events-card2 > .content > .stats {
     width: 100%;
     gap: 0.5625em;
-    font-size: 0.5625rem;
+    font-size: 0.38rem;
     font-weight: 500;
   }
   .featured-events-card2 > .content > .stats > .stars,

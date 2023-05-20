@@ -9,11 +9,22 @@ export default function InterCollegeCard({
   description,
   tags,
   eventDate,
-  time,
   _id,
   domainName,
 }) {
   const navigate = useNavigate();
+
+  // code for date element in card
+  const date = new Date(eventDate);
+  let days = date.getTime() - new Date().getTime();
+  days = Math.floor(days / (1000 * 3600 * 24));
+  const formatter = new Intl.RelativeTimeFormat(undefined, { numeric: "auto" });
+  const parts = formatter.formatToParts(days, "days");
+  if (parts.length > 1 && parts[1].type === "integer") {
+    parts[0].value = "";
+    parts[2].value = " days left";
+  }
+  const time = parts.map((part) => part.value).join("");
 
   return (
     <div
@@ -29,14 +40,13 @@ export default function InterCollegeCard({
       <div className="card-transition">
         <div className="title">{eventName}</div>
         <div className="description">{description}</div>
-        {tags && (
+        {tags.length !== 0 && (
           <div className="tags">
-            {tags.length !== 0 &&
-              tags.map((tag) => (
-                <div key={tag} className="tag">
-                  #{tag}
-                </div>
-              ))}
+            {tags.map((tag) => (
+              <div key={tag} className="tag">
+                #{tag}
+              </div>
+            ))}
           </div>
         )}
         <div className="stats">
@@ -142,7 +152,7 @@ export default function InterCollegeCard({
                 strokeLinejoin="round"
               />
             </svg>{" "}
-            {eventDate} Days left
+            {time}
           </div>
         </div>
         {/* <Link to={`/campus/inter-college/${_id}`}>
