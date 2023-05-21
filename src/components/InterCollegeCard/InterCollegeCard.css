@@ -252,6 +252,47 @@
     border-radius: calc(var(--border-radius-9) * 0.5);
     padding: 0.8rem 1.6rem;
   }
+
+  .inter-college-card--smaller {
+    border-radius: calc(var(--border-radius-1) * 0.35) !important;
+    width: calc(var(--width-1) * 0.35) !important;
+    height: calc(var(--height-1) * 0.35) !important;
+  }
+
+  .inter-college-card > .card-transition--smaller {
+    opacity: 1 !important;
+    width: calc(var(--width-2) * 0.35) !important;
+    height: calc(var(--height-2) * 0.35) !important;
+    border-radius: calc(var(--border-radius-2) * 0.35) !important;
+    padding: 0 calc(1.5rem * 0.35) 0 0 !important;
+    gap: calc(var(--gap-2) * 0.35) !important;
+  }
+  .inter-college-card > .card-transition > .title--smaller {
+    font-size: calc(var(--font-size-3) * 0.5) !important;
+  }
+  .inter-college-card > .card-transition > .description--smaller {
+    font-size: calc(var(--font-size-4) * 0.645) !important;
+    height: calc(var(--height-4) * 0.45) !important;
+  }
+  .inter-college-card > .card-transition > .tags--smaller {
+    gap: calc(var(--gap-5) * 0.35) !important;
+  }
+  .inter-college-card > .card-transition > .tags > .tag--smaller {
+    font-size: calc(var(--font-size-6) * 0.5) !important;
+    border-radius: calc(var(--border-radius-6) * 0.35) !important;
+    padding: calc(0.35rem * 0.645) calc(1rem * 0.35) !important;
+  }
+  .inter-college-card > .card-transition > .stats--smaller {
+    gap: calc(var(--gap-7) * 0.35) !important;
+  }
+  .inter-college-card > .card-transition > .stats > .stat--smaller {
+    gap: calc(var(--gap-8) * 0.35) !important;
+  }
+  .inter-college-card > .card-transition .register-btn--smaller {
+    margin-top: calc(var(--margin-top-9) * 0.35) !important;
+    padding: calc(1rem * 0.35) calc(2rem * 0.35) !important;
+    border-radius: calc(var(--border-radius-9) * 0.35) !important;
+  }
 }
 
 @media screen and (max-width: 455px) {
