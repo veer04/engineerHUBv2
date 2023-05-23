@@ -109,6 +109,9 @@ a {
   color: var(--text-color-dark-green);
 }
 
+.no-text-crop {
+  -webkit-line-clamp: unset !important;
+}
 .text-crop-1 {
   display: -webkit-box; /* Set display to WebKit box */
   -webkit-line-clamp: 1; /* Set the number of lines to show */

@@ -51,6 +51,22 @@
   font-size: 1rem;
   font-weight: 500;
   color: rgb(0, 0, 0, 0.5);
+  overflow: hidden;
+}
+.clubs-page-activity-card > .see-more {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: rgb(0, 0, 0, 0.5);
+  text-decoration: underline;
+  cursor: pointer;
+  position: relative;
+  top: -1rem;
+}
+.clubs-page-activity-card > .see-more:hover {
+  color: rgb(0, 0, 0, 0.7);
+}
+.clubs-page-activity-card > .see-more:active {
+  color: rgb(0, 0, 0, 0.9);
 }
 
 @media screen and (max-width: 465px) {
