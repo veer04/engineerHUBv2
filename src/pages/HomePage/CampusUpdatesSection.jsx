@@ -1,6 +1,7 @@
 import React from "react";
 import "./CampusUpdatesSection.css";
 import { Bucket_URL } from "../../services/APIUtils";
+import { Link } from "react-router-dom";
 
 export default function CampusUpdatesSection() {
   const bucket = `${Bucket_URL}frontend/homepage/campusupdates/`;
@@ -31,11 +32,11 @@ export default function CampusUpdatesSection() {
   const outerUpdates = [
     {
       title: "We GDSC are organizing Hackathon Event.",
-      link: "https://www.google.com",
+      link: "/campus",
     },
     {
       title: "“Aero Club” is organizing Contest.",
-      link: "https://www.google.com",
+      link: "/campus",
     },
   ];
 
@@ -67,15 +68,15 @@ export default function CampusUpdatesSection() {
         </div>
         <div className="campus-section-outer">
           <div className="campus-outer-update">{outerUpdates[0].title}</div>
-          <a href={outerUpdates[0].link}>
+          <Link to={outerUpdates[0].link}>
             <button className="campus-outer-link">Click here</button>
-          </a>
+          </Link>
         </div>
         <div className="campus-section-outer">
           <div className="campus-outer-update">{outerUpdates[1].title}</div>
-          <a href={outerUpdates[1].link}>
+          <Link to={outerUpdates[1].link}>
             <button className="campus-outer-link">Click here</button>
-          </a>
+          </Link>
         </div>
       </div>
     </div>
