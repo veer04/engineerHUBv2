@@ -161,7 +161,7 @@ const ProjectDetail = () => {
     <div className="ProjectDetail">
       <div className="ProjectTiles">
         <h1>Projects</h1>
-        <div className="search">
+        {/* <div className="search">
           <span>
             <BsSearch />
             <input
@@ -177,7 +177,7 @@ const ProjectDetail = () => {
           <div className="filters">
             <MdTune />
           </div>
-        </div>
+        </div> */}
         {HTMLEntries.map((item, index) => {
           return <ProjectCards data={item} key={index} />;
         })}

@@ -52,6 +52,10 @@
   color: var(--text-color-dark-green);
 }
 .hosting-page > .box-container > .cards .card:hover {
+  background-color: var(--primary-color-green);
+  color: white !important;
+}
+.hosting-page > .box-container > .cards .card:active {
   background-color: var(--primary-color-dark-green);
   color: white !important;
 }
