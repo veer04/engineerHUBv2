@@ -265,7 +265,7 @@ const Jobs = () => {
         mauris mauris quam elit. Convallis nunc accumsan sit cum. Vitae diam eu
         enim dignissim donec ultrices dis amet ipsum.
       </p>
-      <div className="search">
+      {/* <div className="search">
         <span>
           <BsSearch />
           <input
@@ -281,7 +281,7 @@ const Jobs = () => {
         <div className="filters">
           <MdTune />
         </div>
-      </div>
+      </div> */}
       <div className="Jobs">
         <div className="JobTiles">
           {CardEntries.map((item, index) => {

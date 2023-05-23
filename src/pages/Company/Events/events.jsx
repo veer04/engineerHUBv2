@@ -49,7 +49,7 @@ const Events = () => {
         mauris mauris quam elit. Convallis nunc accumsan sit cum. Vitae diam eu
         enim dignissim donec ultrices dis amet ipsum.
       </p>
-      <div className="search">
+      {/* <div className="search">
         <span>
           <BsSearch />
           <input
@@ -65,7 +65,7 @@ const Events = () => {
         <div className="filters">
           <MdTune />
         </div>
-      </div>
+      </div> */}
       <div className="Choices">
         <button
           className="btn select hackathon"
