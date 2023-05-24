@@ -12,6 +12,7 @@ export default function TrendingClubCard({
   events,
   websiteUrl,
   clubType,
+  color,
 }) {
   const { collegeId } = useParams();
   const navigate = useNavigate();
@@ -37,7 +38,12 @@ export default function TrendingClubCard({
       }}
       className="trending-club-card on-hover-scale"
     >
-      <div className="details">
+      <div
+        style={{
+          backgroundColor: color,
+        }}
+        className="details"
+      >
         <img src={clubLogo} alt="logo" />
         <div>
           <div>{name}</div>

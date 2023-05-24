@@ -39,8 +39,8 @@ export default function InterCollegeCard({
       className={`inter-college-card inter-college-card${className}`}
     >
       <div className={`card-transition card-transition${className}`}>
-        <div className={`title title${className}`}>{eventName}</div>
-        <div className={`description description${className}`}>
+        <div className={`title title${className} text-crop-1`}>{eventName}</div>
+        <div className={`description description${className} text-crop-3`}>
           {description}
         </div>
         {tags.length !== 0 && (

@@ -149,12 +149,6 @@ export default function ParticularClub() {
   );
   return (
     <div className="particular-club-page">
-      <h1 className="heading-3">Technical Club</h1>
-      <h2 className="subheading-1">
-        Lorem ipsum dolor sit amet consectetur. Vitae diam facilisi libero
-        mauris mauris quam elit. Convallis nunc accumsan sit cum. Vitae diam eu
-        enim dignissim donec ultrices dis amet ipsum.
-      </h2>
       <div className="image-carousel__container">
         <div className="image-carousel">
           <ImageCarousel collegePhoto={clubPhotos} />

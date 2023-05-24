@@ -37,6 +37,7 @@
   width: 61rem;
   scroll-behavior: smooth;
   padding: 1px;
+  scroll-snap-type: x proximity;
 }
 .events-section-card-bg {
   height: 19rem;
@@ -51,6 +52,7 @@
   overflow: hidden;
   outline: 1px solid white;
   box-sizing: border-box;
+  scroll-snap-align: start;
 }
 .events-section-card-content {
   background-color: rgba(0, 255, 255, 0.8);

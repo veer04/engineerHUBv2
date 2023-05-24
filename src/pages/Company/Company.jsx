@@ -5,6 +5,7 @@ import { Bucket_URL } from "../../services/APIUtils";
 import { useEffect, useState } from "react";
 import useNavbar from "../../hooks/use-navbar";
 import { controller } from "../../services/APIConfig";
+import { useNavigate } from "react-router-dom";
 
 const CompanyCards = ({ data }) => {
   return (
@@ -37,6 +38,7 @@ const CompanyCards = ({ data }) => {
 
 const Company = () => {
   const { setSelectedPageNavbar } = useNavbar();
+  const navigate = useNavigate();
   useEffect(() => {
     window.scrollTo(0, 0);
     setSelectedPageNavbar("company");
@@ -380,10 +382,14 @@ const Company = () => {
           {CategoryEntries.map((item, index) => {
             return (
               <div
+                onClick={() => {
+                  navigate(`/company/jobs`);
+                }}
                 className={
-                  index === selectedCategory
-                    ? "CategoryCard select"
-                    : "CategoryCard"
+                  // index === selectedCategory
+                  //   ? "CategoryCard select"
+                  //   : "CategoryCard"
+                  "CategoryCard"
                 }
                 key={index}
               >

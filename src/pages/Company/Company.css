@@ -222,6 +222,10 @@
   border-radius: 10px;
   position: relative;
   padding: 20px 15px;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 29px;
+  cursor: pointer;
 }
 .Category .CategoryTiles .CategoryCard.select {
   box-sizing: border-box;
@@ -234,16 +238,19 @@
   position: relative;
   padding: 20px 15px;
 }
-.CategoryCard:hover{
+.CategoryCard:hover {
   background: #128381 !important;
   color: #fff !important;
-}
-.Category .CategoryTiles .CategoryCard h4 {
-  font-family: "Inter";
-  font-style: normal;
   font-weight: 600;
   font-size: 24px;
   line-height: 29px;
+}
+.CategoryCard:active {
+  background-color: var(--primary-color-dark-green) !important;
+}
+.Category .CategoryTiles {
+  font-family: "Inter";
+  font-style: normal;
   color: #002b36;
 }
 .Category .CategoryTiles .CategoryCard.select h4 {

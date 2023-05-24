@@ -4,6 +4,7 @@ import { FiArrowLeft, FiArrowRight } from "react-icons/fi";
 import { getAllEvents, controller } from "../../services/APIConfig";
 import defaultPoster from "../../assets/defaultPoster";
 import { Bucket_URL } from "../../services/APIUtils";
+import { useNavigate } from "react-router-dom";
 
 export default function FeaturedEvents() {
   const [events, setEvents] = useState([]);
@@ -43,16 +44,28 @@ export default function FeaturedEvents() {
     const cards = document.querySelector(".events-section-cards");
     cards.scrollLeft += 320;
   };
+
+  const navigate = useNavigate();
+
   const renderedEvents =
     events.length > 0
       ? events.slice(0, 15).map((event, index) => {
           return (
             <div
               key={event._id}
+              onClick={() =>
+                navigate(
+                  `/community/events/${encodeURIComponent(event.domainName)}/${
+                    event._id
+                  }`
+                )
+              }
               style={{
                 backgroundImage: `url(${
                   event.eventPoster ? event.eventPoster : defaultPoster
                 })`,
+                backgroundRepeat: "no-repeat",
+                cursor: "pointer",
               }}
               className="events-section-card-bg"
             >

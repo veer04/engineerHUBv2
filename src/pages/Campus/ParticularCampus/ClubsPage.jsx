@@ -12,6 +12,7 @@ import {
 import { useParams } from "react-router-dom";
 import defaultPoster from "../../../assets/defaultPoster";
 import useNavbar from "../../../hooks/use-navbar";
+import colorWheel from "../../../assets/colorWheel";
 
 export default function ClubsPage({ type }) {
   const { setSelectedPageNavbar } = useNavbar();
@@ -97,8 +98,14 @@ export default function ClubsPage({ type }) {
     <>
       <h2 className="title">Trending Clubs</h2>
       <div className="list">
-        {trendingClubs.map((club) => {
-          return <TrendingClubCard key={club._id} {...club} />;
+        {trendingClubs.map((club, index) => {
+          return (
+            <TrendingClubCard
+              color={colorWheel[index % colorWheel.length]}
+              key={club._id}
+              {...club}
+            />
+          );
         })}
       </div>
     </>
@@ -108,8 +115,14 @@ export default function ClubsPage({ type }) {
     <>
       <h2 className="mobile-title">Trending Clubs</h2>
       <div className="mobile-list">
-        {trendingClubs.map((club) => {
-          return <TrendingClubCard key={club._id} {...club} />;
+        {trendingClubs.map((club, index) => {
+          return (
+            <TrendingClubCard
+              color={colorWheel[index % colorWheel.length]}
+              key={club._id}
+              {...club}
+            />
+          );
         })}
       </div>
     </>
