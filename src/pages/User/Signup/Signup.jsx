@@ -143,7 +143,7 @@ const Signup = () => {
         {
           console.log(formData);
           
-        axios.post('https://e-hub-backend-production-9545.up.railway.app/api/v1/User/signup',formData).then((response) => {
+        axios.post('https://backend.ehubbusiness.com/api/v1/User/signup',formData).then((response) => {
           console.log(response);
         }, (error) => {
           console.log(error);
