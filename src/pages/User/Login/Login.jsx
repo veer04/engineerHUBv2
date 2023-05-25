@@ -14,6 +14,8 @@ import gg from "./svg/google.svg";
 import "./Login.css";
 import axios, { AxiosError } from "axios";
 import useNavbar from "../../../hooks/use-navbar";
+import { set } from "react-hook-form";
+import { API_URL } from "../../../services/APIUtils";
 
 const Register = () => {
   // const accessToken = Cookies.get('access_token');
@@ -38,6 +40,7 @@ const Register = () => {
     // accessToken: accessToken,
     // refreshToken: refreshToken,
   });
+  const [showPassword, setShowPassword] = useState(false);
   const [ user, setUser ] = useState([]);
   const [ profile, setProfile ] = useState([]);
 
@@ -55,9 +58,7 @@ const Register = () => {
   };
 
   const handleClickShowPassword = () => {
-    setValues({
-      ...values,
-    });
+    setShowPassword(!showPassword);
   };
   const handlePassword = (e) => {
     setFocused(true);
@@ -110,7 +111,7 @@ const Register = () => {
 
     try {
       const response = await axios.post(
-        `https://e-hub-backend-production-9545.up.railway.app/api/v1/login`,
+        `${API_URL}api/v1/login`,
         values,
       ).then
       ( response=>{
@@ -205,7 +206,7 @@ const Register = () => {
   const handleGoogleLoginSuccess = () => {
     // const { accessToken } = response;
     // Send the token to the server
-    fetch('https://e-hub-backend-production-9545.up.railway.app/api/v1/auth/google/user', {
+    fetch(`${API_URL}api/v1/auth/google/user`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -264,7 +265,7 @@ const Register = () => {
     <div className="Login">
       <div className="container">
         <div className="row">
-          <div className="col-lg-3 sideMenuLogin">
+          {/* <div className="col-lg-3 sideMenuLogin">
             <p className="sidemenuBarHeaderLogin">For Users</p>
             <div className="formSideMenuBar">
               <div className="sideMenuList">Registraions</div>
@@ -285,7 +286,7 @@ const Register = () => {
             <div className="formSideMenuBar">
               <div className="sideMenuList">Mentor Profile</div>
             </div>
-          </div>
+          </div> */}
           <div className="cont col-lg-9">
             <div className="cont-head">
               <div
@@ -316,7 +317,7 @@ const Register = () => {
                 <input
                   autoComplete="off"
                   name="password"
-                  type={values.showPassword ? "text" : "password"}
+                  type={showPassword ? "text" : "password"}
                   placeholder="Password"
                   value={values.password}
                   className="reg-input"
@@ -330,7 +331,7 @@ const Register = () => {
                     onClick={()=>handleClickShowPassword()}
                     className="positionRelBottom"
                   >
-                    {!values.showPassword ? <VisibilityOff /> : <Visibility />}
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
                   </IconButton>
                 </div>
               </div>

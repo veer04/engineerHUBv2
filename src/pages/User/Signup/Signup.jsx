@@ -9,6 +9,7 @@ import useNavbar from "../../../hooks/use-navbar";
 // import FormControl from '@mui/material/FormControl';
 // import Select from '@mui/material/Select';
 import { Select, MenuItem } from '@mui/material';
+import { API_URL } from "../../../services/APIUtils";
 // import GroupAddIcon from '@material-ui/icons/GroupAdd';
 
 const Signup = () => {
@@ -143,7 +144,7 @@ const Signup = () => {
         {
           console.log(formData);
           
-        axios.post('https://e-hub-backend-production-9545.up.railway.app/api/v1/User/signup',formData).then((response) => {
+        axios.post(`${API_URL}api/v1/user/signup`,formData).then((response) => {
           console.log(response);
         }, (error) => {
           console.log(error);
@@ -158,7 +159,7 @@ const Signup = () => {
     <div className="Login">
         <div className="container">
             <div className="row">
-                <div className="col-lg-3 sideMenuLogin">
+                {/* <div className="col-lg-3 sideMenuLogin">
     <p className="sidemenuBarHeaderLogin">
         For Users
 
@@ -212,7 +213,7 @@ const Signup = () => {
         </div>
 
     </div>
-                </div>
+                </div> */}
                 <div className="col-lg-2"></div>
                 <div className="col-lg-5">
                     <div className="form-container">

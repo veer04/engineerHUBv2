@@ -35,7 +35,6 @@ export default function ParticularCampus() {
     getAllCampuses(setAllCampuses);
     setSelectedPageNavbar("campus");
 
-
     return () => {
       controller.abort();
     };
