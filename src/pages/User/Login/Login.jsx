@@ -14,7 +14,7 @@ import gg from "./svg/google.svg";
 import "./Login.css";
 import axios, { AxiosError } from "axios";
 import useNavbar from "../../../hooks/use-navbar";
-import { set } from "react-hook-form";
+// import { set } from "react-hook-form";
 import { API_URL } from "../../../services/APIUtils";
 
 const Register = () => {
