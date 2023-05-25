@@ -176,14 +176,19 @@ export default function Navbar() {
         </div>
 
         <div className="login-btn-div">
-          {
-            <div >
-              <span>Hi, {username}</span> <div className="logBtn" 
-              style={{
-                textAlign: 'center'
-              }}
-              onClick={handleLogout}>Logout</div>
-               {/* <button className="nav-logged-in-btn nav-login-btn">
+          {isLoggedIn ? (
+            <div>
+              <span>Hi, {username}</span>{" "}
+              <div
+                className="logBtn"
+                style={{
+                  textAlign: "center",
+                }}
+                onClick={handleLogout}
+              >
+                Logout
+              </div>
+              {/* <button className="nav-logged-in-btn nav-login-btn">
                 <img
                   className="nav-user-thumbnail"
                   src={thumbnail}
@@ -195,18 +200,17 @@ export default function Navbar() {
                 </span>
               </button>  */}
             </div>
-            // <div>
-            //   <Link to="/login">
-            //     {" "}
-            //     <button className="nav-login-btn logBtn" onClick={handleLogin}>
-            //       Login
-            //     </button>{" "}
-            //   </Link>
-            // </div>
-          }
+          ) : (
+            <div>
+              <Link to="/login">
+                {" "}
+                <button className="nav-login-btn logBtn" onClick={handleLogin}>
+                  Login
+                </button>{" "}
+              </Link>
+            </div>
+          )}
         </div>
-
-        
       </div>
     </nav>
   );
