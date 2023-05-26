@@ -63,10 +63,10 @@ export default function Navbar() {
     </ButtonRounded>
   );
 
-  const handleLogin = () => {
-    navigate("/login");
-    window.location.reload(true);
-  };
+  // const handleLogin = () => {
+  //   navigate("/login");
+  //   // window.location.reload(true);
+  // };
 
   const loginInButton = (
     <ButtonRounded onClick={() => handleLogin()} className="nav-login-btn">
@@ -203,10 +203,7 @@ export default function Navbar() {
           ) : (
             <div>
               <Link to="/login">
-                {" "}
-                <button className="nav-login-btn logBtn" onClick={handleLogin}>
-                  Login
-                </button>{" "}
+                <button className="nav-login-btn logBtn">Login</button>
               </Link>
             </div>
           )}

@@ -41,6 +41,12 @@
     top: 95%;
     left: -10%;
 }
+.registerSSS:hover{
+    background-color: var(--primary-color-dark-green);
+}
+.registerSSS:active{
+    background-color: #00323f;
+}
 @media screen and (max-width: 456px)
 {.reg-input{
     width: 60vw;
