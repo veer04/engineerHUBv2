@@ -11,63 +11,14 @@ import useNavbar from "../../../hooks/use-navbar";
 import AlumniGlobalCard from "../../../components/AlumniGlobalCard/AlumniGlobalCard";
 import Girl from "./girl.jpeg";
 import InterCollegeCard from "../../../components/InterCollegeCard/InterCollegeCard";
-import { getAllEvents } from "../../../services/APIConfig";
+import { getAllEvents, getClubById } from "../../../services/APIConfig";
+import ClubMemberCard from "../../../components/ClubMemberCard/ClubMemberCard";
 export default function ParticularClub() {
   const { setSelectedPageNavbar } = useNavbar();
-
-  const [members, setMembers] = useState([
-    {
-      _id: 1,
-      name: "Name Surname",
-      designation: "SDE at Microsoft",
-      campus: "IIT Delhi",
-      batch: "2015",
-      image: Girl,
-    },
-    {
-      _id: 2,
-      name: "Name Surname",
-      designation: "SDE at Microsoft",
-      campus: "IIT Delhi",
-      batch: "2015",
-      image: Girl,
-    },
-    {
-      _id: 3,
-      name: "Name Surname",
-      designation: "SDE at Microsoft",
-      campus: "IIT Delhi",
-      batch: "2015",
-      image: Girl,
-    },
-    {
-      _id: 4,
-      name: "Name Surname",
-      designation: "SDE at Microsoft",
-      campus: "IIT Delhi",
-      batch: "2015",
-      image: Girl,
-    },
-    {
-      _id: 5,
-      name: "Name Surname",
-      designation: "SDE at Microsoft",
-      campus: "IIT Delhi",
-      batch: "2015",
-      image: Girl,
-    },
-    {
-      _id: 6,
-      name: "Name Surname",
-      designation: "SDE at Microsoft",
-      campus: "IIT Delhi",
-      batch: "2015",
-      image: Girl,
-    },
-  ]);
-
+  const { clubId } = useParams();
+  const [club, setClub] = useState({});
   const [current, setCurrent] = useState(1);
-  // const { clubId } = useParams();
+  const [events, setEvents] = useState([]);
   const categories = [
     {
       id: 1,
@@ -78,59 +29,20 @@ export default function ParticularClub() {
       title: "Reels",
     },
   ];
-
-  const [clubPhotos, setClubPhotos] = useState([]);
-
   useEffect(() => {
     window.scrollTo(0, 0);
     setSelectedPageNavbar("campus");
-  }, []);
-
-  const [events, setEvents] = useState([]);
-
-  useEffect(() => {
     getAllEvents(setEvents);
-    setClubPhotos([defaultPoster, defaultPoster, defaultPoster]);
+    getClubById(setClub, clubId);
   }, []);
+  useEffect(() => {
+    console.log(club);
+  }, [club]);
 
-  const clubsData = [
-    {
-      _id: 1,
-      image: defaultPoster,
-    },
-    {
-      _id: 2,
-      image: defaultPoster,
-    },
-    {
-      _id: 3,
-      image: defaultPoster,
-    },
-    {
-      _id: 4,
-      image: defaultPoster,
-    },
-    {
-      _id: 5,
-      image: defaultPoster,
-    },
-    {
-      _id: 6,
-      image: defaultPoster,
-    },
-    {
-      _id: 7,
-      image: defaultPoster,
-    },
-    {
-      _id: 8,
-      image: defaultPoster,
-    },
-  ];
+  const renderedPosts = club.posts
+    ? club.posts.map((post) => <ClubPostCard key={post._id} {...post} />)
+    : null;
 
-  const renderedPosts = clubsData.map((club) => (
-    <ClubPostCard key={club._id} {...club} />
-  ));
   const renderedReels = (
     <div
       style={{
@@ -151,40 +63,38 @@ export default function ParticularClub() {
     <div className="particular-club-page">
       <div className="image-carousel__container">
         <div className="image-carousel">
-          <ImageCarousel collegePhoto={clubPhotos} />
+          <ImageCarousel collegePhoto={club.clubPhoto} />
         </div>
       </div>
       <div className="details-tab">
         <div className="details">
           <div
             style={{
-              width: "78px",
-              height: "78px",
               borderRadius: "50%",
               overflow: "hidden",
-              backgroundImage: "url(https://source.unsplash.com/random)",
+              backgroundImage: `url(${club.image})`,
               backgroundSize: "cover",
               backgroundPosition: "center",
             }}
             className="logo"
-          >
-            {/* <img src="https://source.unsplash.com/random" alt="logo" /> */}
-          </div>
+          ></div>
           <div>
-            <div className="title">NIT Durgapur</div>
-            <div className="location">Durgapur, India</div>
-            <a className="link" href="https://www.google.com/">
-              www.google.com
+            <div className="title">{club.name}</div>
+            {/* <div className="location">Durgapur, India</div> */}
+            <a className="link" href={`${club.websiteUrl}`}>
+              {club.websiteUrl}
             </a>
           </div>
         </div>
         <div className="stats">
           <div>
-            <div className="number">100</div>
+            <div className="number">{club.followers ? club.followers : ""}</div>
             <div className="label">Followers</div>
           </div>
           <div>
-            <div className="number">100</div>
+            <div className="number">
+              {club.members ? club.members.length : ""}
+            </div>
             <div className="label">Members</div>
           </div>
         </div>
@@ -205,14 +115,16 @@ export default function ParticularClub() {
         <div className="content-container">{renderedPosts}</div>
       )}
       {current === 2 && renderedReels}
-      <div className="members-container">
-        <div className="title">Members</div>
-        <div className="members">
-          {members.map((member) => (
-            <AlumniGlobalCard key={member._id} {...member} />
-          ))}
+      {club.members && (
+        <div className="members-container">
+          <div className="title">Members</div>
+          <div className="members">
+            {club.members.map((member) => (
+              <ClubMemberCard key={member._id} {...member} />
+            ))}
+          </div>
         </div>
-      </div>
+      )}
       <div className="events-container">
         {events.length > 0 &&
           events

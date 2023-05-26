@@ -13,6 +13,7 @@ COPY . /app/
 ARG VITE_API_URL=${VITE_API_URL}
 ARG VITE_BUCKET_URL=${VITE_BUCKET_URL}
 ARG VITE_AESKEY=${VITE_AESKEY}
+ARG VITE_FRONTEND_URL=${VITE_FRONTEND_URL}
 
 # Install dependencies and build app2
 RUN apk add --no-cache nodejs npm \

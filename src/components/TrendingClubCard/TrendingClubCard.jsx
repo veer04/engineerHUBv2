@@ -7,6 +7,7 @@ export default function TrendingClubCard({
   _id,
   name,
   clubLogo,
+  clubPhoto,
   image,
   followers,
   events,
@@ -25,10 +26,10 @@ export default function TrendingClubCard({
   return (
     // <a href={websiteUrl}>
     <div
-      onClick={() => navigate(`/campus/${collegeId}/${typeOfClub}/${name}`)}
+      onClick={() => navigate(`/campus/${collegeId}/${typeOfClub}/${_id}`)}
       style={{
         // backgroundImage: `url(${image})`,
-        backgroundImage: `url(${defaultPoster})`,
+        backgroundImage: `url(${clubPhoto[0]})`,
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
         backgroundPosition: "center",
@@ -44,7 +45,7 @@ export default function TrendingClubCard({
         }}
         className="details"
       >
-        <img src={clubLogo} alt="logo" />
+        <img src={image} alt="logo" />
         <div>
           <div>{name}</div>
           <div>

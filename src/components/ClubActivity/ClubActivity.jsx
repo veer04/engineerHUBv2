@@ -6,8 +6,8 @@ import { GrShareOption } from "react-icons/gr";
 export default function ClubActivity({
   _id,
   postedBy,
-  logo,
-  poster,
+  clubId,
+  postLogo,
   description,
   shareLink,
 }) {
@@ -15,11 +15,11 @@ export default function ClubActivity({
   return (
     <div className="clubs-page-activity-card">
       <div className="details">
-        <img src={logo} alt="logo" />
-        {postedBy}
+        <img src={clubId.image} alt="logo" />
+        {clubId.name}
       </div>
       <div className="poster">
-        <img src={poster} alt="poster" />
+        <img src={postLogo} alt="poster" />
       </div>
       <div className="options">
         <div className="like">
