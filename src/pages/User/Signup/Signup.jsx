@@ -1,4 +1,5 @@
 import "./Signup.css";
+import { useNavigate, useNavigation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { TextField, Button } from "@mui/material";
 import axios from "axios";
@@ -10,9 +11,12 @@ import useNavbar from "../../../hooks/use-navbar";
 // import Select from '@mui/material/Select';
 import { Select, MenuItem } from "@mui/material";
 import { API_URL } from "../../../services/APIUtils";
+import Cookies from "js-cookie";
+import jwt_decode from "jwt-decode";
 // import GroupAddIcon from '@material-ui/icons/GroupAdd';
 
 const Signup = () => {
+  const navigate = useNavigate();
   const { setSelectedPageNavbar } = useNavbar();
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -140,7 +144,27 @@ const Signup = () => {
 
       axios.post(`${API_URL}api/v1/user/signup`, formData).then(
         (response) => {
+
+
+          Cookies.set("access_token", response.data.accessToken);
+          const token = response.data.accessToken;
+          const decoded = jwt_decode(token);
+          // console.log(decoded);
+          Cookies.set("refresh_token", response.data.refreshToken);
+          Cookies.set("userName", response.data.userName);
+          Cookies.set("institutionName", response.data.institutionName);
+          Cookies.set("email", response.data.email);
+
+
+
+
+
           console.log(response);
+          if(response.status===200 || response.status===201 || response.status===202 || response.status===203 || response.status===204)
+          {
+            navigate("/");
+            window.location.reload(true);
+          }
         },
         (error) => {
           console.log(error);
@@ -290,17 +314,7 @@ const Signup = () => {
                         error={!!errors.name}
                         helperText={errors.name}
                       />
-                      {/* <TextField
-        name="userName"
-        label="Username"
-        variant="outlined"
-        value={formData.userName}
-        onChange={handleChange}
-        fullWidth
-        margin="normal"
-        error={!!errors.userName}
-        helperText={errors.userName}
-      />  */}
+               
                       <TextField
                         name="email"
                         label="Email"
