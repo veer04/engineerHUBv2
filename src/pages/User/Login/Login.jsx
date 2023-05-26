@@ -3,8 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { IconButton } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useSignIn } from "react-auth-kit";
-import  GoogleButton  from 'react-google-button';
-
+import GoogleButton from "react-google-button";
 
 import CustomSnackbar from "./CustomSnackbar";
 // import { googleLogout, useGoogleLogin } from '@react-oauth/google';
@@ -14,6 +13,8 @@ import gg from "./svg/google.svg";
 import "./Login.css";
 import axios, { AxiosError } from "axios";
 import useNavbar from "../../../hooks/use-navbar";
+// import { set } from "react-hook-form";
+import { API_URL } from "../../../services/APIUtils";
 
 const Register = () => {
   // const accessToken = Cookies.get('access_token');
@@ -28,8 +29,8 @@ const Register = () => {
   const signIn = useSignIn();
   const navigate = useNavigate();
   const [password, setPassword] = useState("");
-  const [formPassword, setFormPassword] = useState("");
-  const [focused, setFocused] = useState(false);
+  // const [formPassword, setFormPassword] = useState("");
+  // const [focused, setFocused] = useState(false);
   // const[cookieValue,setCookieValue]=useContext(cookieDa);
   const [values, setValues] = useState({
     email: "",
@@ -38,9 +39,9 @@ const Register = () => {
     // accessToken: accessToken,
     // refreshToken: refreshToken,
   });
-  const [ user, setUser ] = useState([]);
-  const [ profile, setProfile ] = useState([]);
-
+  const [showPassword, setShowPassword] = useState(false);
+  const [user, setUser] = useState([]);
+  const [profile, setProfile] = useState([]);
 
   const [open, setOpen] = useState(false);
   const [validation, setValidation] = useState(false);
@@ -55,90 +56,78 @@ const Register = () => {
   };
 
   const handleClickShowPassword = () => {
-    setValues({
-      ...values,
-    });
-  };
-  const handlePassword = (e) => {
-    setFocused(true);
-    setFormPassword(validatePassword(password));
+    setShowPassword(!showPassword);
   };
 
+  const [loading, setLoading] = useState(false);
 
   async function handleSubmit(e) {
+    setLoading(true);
     e.preventDefault();
 
+    // const headers = {
+    //   'Authorization': `Bearer ${accessToken}`,
+    //   'x-refresh-token': refreshToken
+    // };
 
-// const headers = {
-//   'Authorization': `Bearer ${accessToken}`,
-//   'x-refresh-token': refreshToken
-// };
-  
+    // const response = await axios.post(`${API_URL}api/v1/login`
+    // ,values,
 
-// const response = await axios.post(`https://e-hub-backend-production-9545.up.railway.app/api/v1/login`
-// ,values,
+    // ).then
+    // ( response=>{
+    //   Cookies.set('access_token', response.data.accessToken);
+    //   const token =response.data.accessToken;
+    //   const decoded = jwt_decode(token);
+    //   console.log(decoded);
+    //   Cookies.set('refresh_token', response.data.refreshToken);
+    //   Cookies.set('userName', response.data.userName);
+    //   Cookies.set('institutionName',response.data.institutionName);
+    //   Cookies.set('email', response.data.email);
+    //   if(response.status===200||response.status===201||response.status===202||response.status===203||response.status===204)
+    //   {
+    //     setValidation(true);
 
+    //   }
+    // }
 
-// ).then
-// ( response=>{
-//   Cookies.set('access_token', response.data.accessToken);
-//   const token =response.data.accessToken;
-//   const decoded = jwt_decode(token);
-//   console.log(decoded); 
-//   Cookies.set('refresh_token', response.data.refreshToken);
-//   Cookies.set('userName', response.data.userName);
-//   Cookies.set('institutionName',response.data.institutionName);
-//   Cookies.set('email', response.data.email);
-//   if(response.status===200||response.status===201||response.status===202||response.status===203||response.status===204)
-//   {
-//     setValidation(true);
+    // ).catch(
+    //   error=>{
+    //     console.error(error);
+    //   }
+    // );
 
-      
-//   }
-// }
-
-// ).catch(
-//   error=>{
-//     console.error(error);
-//   }
-// );
-
-
-
-
-// console.log(response);
+    // console.log(response);
 
     try {
-      const response = await axios.post(
-        `https://e-hub-backend-production-9545.up.railway.app/api/v1/login`,
-        values,
-      ).then
-      ( response=>{
-        Cookies.set('access_token', response.data.accessToken);
-        const token =response.data.accessToken;
-        const decoded = jwt_decode(token);
-        // console.log(decoded); 
-        Cookies.set('refresh_token', response.data.refreshToken);
-        Cookies.set('userName', response.data.userName);
-        Cookies.set('institutionName',response.data.institutionName);
-        Cookies.set('email', response.data.email);
-        // const msg = response.data.message;
-        if(response.status===200||response.status===201||response.status===202||response.status===203||response.status===204)
-        {
-          navigate("/profile");
-          window.location.reload(true);
-      
-            
-        }
-      }
-      
-      ).catch(
-        error=>{
+      setValues({ ...values, password: password });
+      console.log(values);
+      const response = await axios
+        .post(`${API_URL}api/v1/login`, values)
+        .then((response) => {
+          Cookies.set("access_token", response.data.accessToken);
+          const token = response.data.accessToken;
+          const decoded = jwt_decode(token);
+          // console.log(decoded);
+          Cookies.set("refresh_token", response.data.refreshToken);
+          Cookies.set("userName", response.data.userName);
+          Cookies.set("institutionName", response.data.institutionName);
+          Cookies.set("email", response.data.email);
+          // const msg = response.data.message;
+          if (
+            response.status === 200 ||
+            response.status === 201 ||
+            response.status === 202 ||
+            response.status === 203 ||
+            response.status === 204
+          ) {
+            setLoading(false);
+            navigate("/profile");
+            window.location.reload(true);
+          }
+        })
+        .catch((error) => {
           console.error(error);
-        }
-      )
-      ;
-
+        });
       // signIn({
       //   token: response.data.accessToken,
       //   expiresIn: 3600,
@@ -151,8 +140,14 @@ const Register = () => {
         severity: "success",
         message: "Logged in Successfully!",
       });
-      setCookieValue(Cookies.get('_auth_state').slice(6,Cookies.get('_auth_state').length-12));
+      setCookieValue(
+        Cookies.get("_auth_state").slice(
+          6,
+          Cookies.get("_auth_state").length - 12
+        )
+      );
     } catch (err) {
+      setLoading(false);
       setSnackbarValues({
         severity: "error",
         message: "Wrong credentials!",
@@ -162,53 +157,66 @@ const Register = () => {
       else if (err && err instanceof Error) setError(err.message);
       setOpen(true);
     }
-
-
-  };
+  }
   // const navigation=()=>{
   //  if(validation===true)
-  //   { 
-      
+  //   {
+
   //   }
   // };
 
-  const validatePassword = (value) => {
-    let errors = {};
-
-    if (password.length < 8) {
-      errors.password = "Password must be at least 8 characters long.";
-    } else if (!/[A-Z]/.test(password)) {
-      errors.password =
-        "Password must contain at least one uppercase character.";
-    } else if (!/[a-z]/.test(password)) {
-      errors.password =
-        "Password must contain at least one lowercase character.";
-    } else if (!/\d/.test(password)) {
-      errors.password = "Password must contain at least one numeric character.";
-    } else if (!/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
-      errors.password = "Password must contain at least one special character.";
+  const validatePassword = () => {
+    let errorMessage = "Password must contain at least";
+    let allErrors = [];
+    if (values.password.length < 8) {
+      allErrors.push(" 8 characters");
+      // errors.password = "Password must be at least 8 characters long.";
     }
-    return errors;
+    if (!/[A-Z]/.test(values.password)) {
+      allErrors.push(" 1 uppercase character");
+      // errors.password =
+      //   "Password must contain at least one uppercase character.";
+    }
+    if (!/[a-z]/.test(values.password)) {
+      allErrors.push(" 1 lowercase character");
+      // errors.password =
+      //   "Password must contain at least one lowercase character.";
+    }
+    if (!/\d/.test(values.password)) {
+      allErrors.push(" 1 numeric character");
+      // errors.password = "Password must contain at least one numeric character.";
+    }
+    if (!/[!@#$%^&*(),.?":{}|<>]/.test(values.password)) {
+      allErrors.push(" 1 special character");
+      // errors.password = "Password must contain at least one special character.";
+    }
+    if (allErrors.length > 0) {
+      errorMessage += allErrors.join(",");
+      errorMessage += ".";
+    } else {
+      errorMessage = "";
+    }
+    return errorMessage;
+    // return errors;
   };
   // const gauth = async () => {
   //   try {
-  //     const response = await axios.get(`https://e-hub-backend-production-9545.up.railway.app/api/v1/auth/google/user`, {
-     
+  //     const response = await axios.get(`${API_URL}api/v1/auth/google/user`, {
+
   //     });
   //     console.log(response.data);
-     
+
   //   } catch (error) {
   //     console.error(error);
   //   }
 
-
   const handleGoogleLoginSuccess = () => {
     // const { accessToken } = response;
     // Send the token to the server
-    fetch('https://e-hub-backend-production-9545.up.railway.app/api/v1/auth/google/user', {
-      method: 'POST',
+    fetch(`${API_URL}api/v1/auth/google/user`, {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({ accessToken }),
     })
@@ -225,46 +233,71 @@ const Register = () => {
     console.error(response);
   };
 
- 
+  //   const gauth = useGoogleLogin({
+  //     onSuccess: (codeResponse) => setUser(codeResponse),
+  //     onError: (error) => console.log('Login Failed:', error)
+  // });
 
+  // useEffect(
+  //     () => {
+  //         if (user) {
+  //             axios
+  //                 .get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`, {
+  //                     headers: {
+  //                         Authorization: `Bearer ${user.access_token}`,
+  //                         Accept: 'application/json'
+  //                     }
+  //                 })
+  //                 .then((res) => {
+  //                     setProfile(res.data);
+  //                 })
+  //                 .catch((err) => console.log(err));
+  //         }
+  //     },
+  //     [ user ]
+  // );
 
+  // log out function to log the user out of google and set the profile array to null
+  // const logOut = () => {
+  //     googleLogout();
+  //     setProfile(null);
+  // };
 
+  // const [isEmailValid, setIsEmailValid] = useState(false);
+  // const [isPasswordValid, setIsPasswordValid] = useState(false);
 
-//   const gauth = useGoogleLogin({
-//     onSuccess: (codeResponse) => setUser(codeResponse),
-//     onError: (error) => console.log('Login Failed:', error)
-// });
+  const handlePassword = () => {
+    // setFocused(true);
+    // setFormPassword(validatePassword(password).length > 0?);
+    // setIsPasswordValid(validatePassword(password).length > 0?);
+    let checkPassword = validatePassword();
+    if (checkPassword.length !== 0 && values.password !== "") {
+      setSnackbarValues({
+        severity: "error",
+        message: checkPassword,
+      });
+      setOpen(true);
+    }
+  };
 
-// useEffect(
-//     () => {
-//         if (user) {
-//             axios
-//                 .get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`, {
-//                     headers: {
-//                         Authorization: `Bearer ${user.access_token}`,
-//                         Accept: 'application/json'
-//                     }
-//                 })
-//                 .then((res) => {
-//                     setProfile(res.data);
-//                 })
-//                 .catch((err) => console.log(err));
-//         }
-//     },
-//     [ user ]
-// );
-
-// log out function to log the user out of google and set the profile array to null
-// const logOut = () => {
-//     googleLogout();
-//     setProfile(null);
-// };
+  const validateEmail = () => {
+    const emailRegex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
+    // setIsEmailValid(emailRegex.test(values.email));
+    // console.log(isEmailValid);
+    if (emailRegex.test(values.email) === false && values.email !== "") {
+      setSnackbarValues({
+        severity: "error",
+        message: "Please enter a valid email address!",
+      });
+      setOpen(true);
+    }
+  };
 
   return (
     <div className="Login">
       <div className="container">
         <div className="row">
-          <div className="col-lg-3 sideMenuLogin">
+          {/* <div className="col-lg-3 sideMenuLogin">
             <p className="sidemenuBarHeaderLogin">For Users</p>
             <div className="formSideMenuBar">
               <div className="sideMenuList">Registraions</div>
@@ -285,7 +318,7 @@ const Register = () => {
             <div className="formSideMenuBar">
               <div className="sideMenuList">Mentor Profile</div>
             </div>
-          </div>
+          </div> */}
           <div className="cont col-lg-9">
             <div className="cont-head">
               <div
@@ -310,27 +343,28 @@ const Register = () => {
                   value={values.email}
                   onChange={handleChange("email")}
                   required
+                  onBlur={validateEmail}
                 />
               </div>
               <div className="form-cont passwordContainer">
                 <input
                   autoComplete="off"
                   name="password"
-                  type={values.showPassword ? "text" : "password"}
+                  type={showPassword ? "text" : "password"}
                   placeholder="Password"
                   value={values.password}
                   className="reg-input"
                   onChange={handleChange("password")}
                   onBlur={handlePassword}
-                  focused={focused.toString()}
+                  // focused={focused.toString()}
                   required
                 />
                 <div>
                   <IconButton
-                    onClick={()=>handleClickShowPassword()}
+                    onClick={() => handleClickShowPassword()}
                     className="positionRelBottom"
                   >
-                    {!values.showPassword ? <VisibilityOff /> : <Visibility />}
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
                   </IconButton>
                 </div>
               </div>
@@ -341,15 +375,13 @@ const Register = () => {
                   type="submit"
                   // onClick={navigation}
                 >
-                  Sign in
+                  {loading ? "Loading..." : "Sign in"}
                 </button>
 
-     <div className="d-flex justify-content-center">
-            {/* <div className="f-p" onClick={gauth}>Forgot Password ?</div>
+                <div className="d-flex justify-content-center">
+                  {/* <div className="f-p" onClick={gauth}>Forgot Password ?</div>
             <div className="f-p "onClick={gauth}>Reset Now </div> */}
-          </div>
-
-
+                </div>
               </div>
               <div className="divisor d-flex justify-content-center">
                 <hr style={{ color: "#6c757d" }} />
@@ -357,8 +389,8 @@ const Register = () => {
                 <hr />
               </div>
 
-<div className="sign-field reg-field">
-          {/* <div className="sign-opt ">
+              <div className="sign-field reg-field">
+                {/* <div className="sign-opt ">
           <div>
           <GoogleButton
       onClick={handleGoogleLoginSuccess}
@@ -367,7 +399,7 @@ const Register = () => {
     </GoogleButton>
               </div>
           </div> */}
-        </div>
+              </div>
 
               <div className="my-item-cont">
                 <div>Didn't have an account?</div>
