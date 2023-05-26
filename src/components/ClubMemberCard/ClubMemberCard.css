@@ -1,0 +1,73 @@
+.club-member-card-dimension {
+  --club-member-card-height: 25rem;
+  --club-member-card-width: 18.75rem;
+  min-height: var(--club-member-card-height);
+  min-width: var(--club-member-card-width);
+  width: var(--club-member-card-width);
+  height: var(--club-member-card-height);
+  max-height: 25rem;
+  max-width: 18.75rem;
+}
+.club-member-card {
+  cursor: pointer;
+}
+.club-member-card p {
+  padding: 0;
+  margin: 0;
+}
+.club-member-card,
+.image {
+  border-radius: 10px;
+}
+.club-member-card > .card-transition {
+  border-radius: 10px;
+  /* background-color: rgba(0, 0, 0, 0.5); */
+  background-image: linear-gradient(
+    to top,
+    rgb(0, 0, 0),
+    rgba(0, 0, 0, 0.175),
+    rgba(0, 0, 0, 0)
+  );
+  transition: all 0.5s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 1rem;
+}
+.club-member-card > .card-transition > .sub-heading {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #a7a2a2;
+}
+.club-member-card > .card-transition > .heading {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: white;
+}
+
+@media screen and (max-width: 768px) {
+  .club-member-card-dimension {
+    min-width: calc(var(--club-member-card-width) * 0.64) !important;
+    min-height: calc(var(--club-member-card-height) * 0.64) !important;
+    max-width: calc(var(--club-member-card-width) * 0.64) !important;
+    max-height: calc(var(--club-member-card-height) * 0.64) !important;
+  }
+  .club-member-card,
+  .image {
+    border-radius: 6px;
+  }
+  .club-member-card > .card-transition {
+    border-radius: 6px;
+    padding: 0.64rem;
+  }
+  .club-member-card > .card-transition > .sub-heading {
+    font-size: 0.56rem;
+    font-weight: 500;
+    color: #a7a2a2;
+  }
+  .club-member-card > .card-transition > .heading {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: white;
+  }
+}

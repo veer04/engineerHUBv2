@@ -45,6 +45,18 @@
   flex-direction: row;
   gap: 1rem;
 }
+.particular-club-page > .details-tab > .details > .logo {
+  width: 4.875rem;
+  height: 4.875rem;
+  min-width: 4.875rem;
+  min-height: 4.875rem;
+  max-width: 4.875rem;
+  max-height: 4.875rem;
+  border-radius: 50%;
+  background-color: #f0f0f0;
+  background-repeat: no-repeat;
+}
+
 .particular-club-page > .details-tab > .details > div {
   display: flex;
   flex-direction: column;
@@ -140,6 +152,10 @@
   .particular-club-page > .details-tab > .details > .logo {
     width: 67.8px !important;
     height: 67.8px !important;
+    min-width: 67.8px !important;
+    min-height: 67.8px !important;
+    max-width: 67.8px !important;
+    max-height: 67.8px !important;
   }
 
   .particular-club-page > .details-tab > .details > div > .title {

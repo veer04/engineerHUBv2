@@ -273,12 +273,50 @@ export const getCampusById = (setCampus, collegeId) => {
 export const getClubsByType = (setClubs, clubType, collegeId) => {
   const controller = new AbortController();
   axios
-    .get(`${API_URL}api/v1/clubs/${clubType}/${collegeId}`, {
+    .get(`${API_URL}api/v1/club/${clubType}/${collegeId}`, {
       signal: controller.signal,
     })
     .then((res) => {
       const data = res.data.data;
       setClubs(data);
+    })
+    .catch((err) => {
+      if (axios.isCancel(err)) {
+        console.log("req cancel");
+      } else {
+        console.log("req performed");
+      }
+    });
+};
+
+export const getClubById = (setClub, clubId) => {
+  const controller = new AbortController();
+  axios
+    .get(`${API_URL}api/v1/club/${clubId}`, {
+      signal: controller.signal,
+    })
+    .then((res) => {
+      const data = res.data.data;
+      setClub(data);
+    })
+    .catch((err) => {
+      if (axios.isCancel(err)) {
+        console.log("req cancel");
+      } else {
+        console.log("req performed");
+      }
+    });
+};
+
+export const getPostById = (setPost, postId) => {
+  const controller = new AbortController();
+  axios
+    .get(`${API_URL}api/v1/club/post/${postId}`, {
+      signal: controller.signal,
+    })
+    .then((res) => {
+      const data = res.data.data;
+      setPost(data);
     })
     .catch((err) => {
       if (axios.isCancel(err)) {
@@ -298,6 +336,25 @@ export const getTrendingClubs = (setTrendingClubs) => {
     .then((res) => {
       const data = res.data.data;
       setTrendingClubs(data);
+    })
+    .catch((err) => {
+      if (axios.isCancel(err)) {
+        console.log("req cancel");
+      } else {
+        console.log("req performed");
+      }
+    });
+};
+
+export const getTrendingActivities = (setTrendingActivities) => {
+  const controller = new AbortController();
+  axios
+    .get(`${API_URL}api/v1/getAllTrendingActivitiesPostsWithCampus`, {
+      signal: controller.signal,
+    })
+    .then((res) => {
+      const data = res.data.data;
+      setTrendingActivities(data);
     })
     .catch((err) => {
       if (axios.isCancel(err)) {
