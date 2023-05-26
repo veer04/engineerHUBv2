@@ -121,7 +121,7 @@ const Register = () => {
             response.status === 204
           ) {
             setLoading(false);
-            navigate("/profile");
+            navigate("/");
             window.location.reload(true);
           }
         })
