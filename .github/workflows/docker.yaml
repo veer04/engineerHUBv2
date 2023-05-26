@@ -11,11 +11,6 @@ permissions:
 jobs:
   Build-Push-Image:
     runs-on: ubuntu-latest
-    env:
-      VITE_API_URL: ${{ vars.VITE_API_URL }}
-      VITE_BUCKET_URL: ${{ vars.VITE_BUCKET_URL }}
-      VITE_AESKEY: ${{ vars.VITE_AESKEY }}
-
     steps:
       - name: Checkout Git Repository
         uses: actions/checkout@v2
