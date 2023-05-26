@@ -7,6 +7,7 @@ import TrendingClubCard from "../../../components/TrendingClubCard/TrendingClubC
 import {
   controller,
   getClubsByType,
+  getTrendingActivities,
   getTrendingClubs,
 } from "../../../services/APIConfig";
 import { useParams } from "react-router-dom";
@@ -16,43 +17,25 @@ import colorWheel from "../../../assets/colorWheel";
 
 export default function ClubsPage({ type }) {
   const { setSelectedPageNavbar } = useNavbar();
-
-  const activities = [
-    {
-      _id: 1,
-      postedBy: "GeeksForGeeks",
-      logo: defaultPoster,
-      poster: defaultPoster,
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus assumenda beatae quae aliquid, ducimus sunt saepe accusamus, quod ea facere nesciunt molestias tempore quibusdam vel molestiae rem explicabo quam. Doloremque temporibus quod architecto esse minus nihil ut exercitationem pariatur magni!",
-      shareLink: "https://www.google.com",
-    },
-    {
-      _id: 2,
-      postedBy: "GeeksForGeeks",
-      logo: defaultPoster,
-      poster: defaultPoster,
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus assumenda beatae quae aliquid, ducimus sunt saepe accusamus, quod ea facere nesciunt molestias tempore quibusdam vel molestiae rem explicabo quam. Doloremque temporibus quod architecto esse minus nihil ut exercitationem pariatur magni!",
-      shareLink: "https://www.google.com",
-    },
-  ];
-
+  const [clubs, setClubs] = useState([]);
   const [trendingClubs, setTrendingClubs] = useState([]);
-
+  const [trendingActivities, setTrendingActivities] = useState([]);
   const [width, setWidth] = useState(window.innerWidth);
-
   const { collegeId } = useParams();
 
   useEffect(() => {
+    getTrendingClubs(setTrendingClubs);
+    window.scroll(0, 0);
+    setSelectedPageNavbar("campus");
     const handleResize = () => setWidth(window.innerWidth);
     window.addEventListener("resize", handleResize);
-    setSelectedPageNavbar("campus");
+    getTrendingActivities(setTrendingActivities);
 
-    return () => window.removeEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      controller.abort();
+    };
   }, []);
-
-  const [clubs, setClubs] = useState([]);
 
   useEffect(() => {
     getClubsByType(setClubs, type, collegeId);
@@ -64,13 +47,8 @@ export default function ClubsPage({ type }) {
   }, [type, collegeId]);
 
   useEffect(() => {
-    getTrendingClubs(setTrendingClubs);
-    window.scroll(0, 0);
-
-    return () => {
-      controller.abort();
-    };
-  }, []);
+    console.log(trendingActivities);
+  }, [trendingActivities]);
 
   const renderedSocietiesClubs = (
     <>
@@ -87,7 +65,7 @@ export default function ClubsPage({ type }) {
     <>
       <h2 className="title">Trending Activities</h2>
       <div className="list">
-        {activities.map((activity) => {
+        {trendingActivities.map((activity) => {
           return <ClubActivity key={activity._id} {...activity} />;
         })}
       </div>

@@ -3,8 +3,9 @@ import "./ClubCard.css";
 import { useNavigate, useParams } from "react-router-dom";
 
 export default function ClubCard({
+  _id,
   name,
-  clubLogo,
+  image,
   collegeName,
   // websiteUrl,
   description,
@@ -21,11 +22,13 @@ export default function ClubCard({
   return (
     // <a href={websiteUrl}>
     <div
-      onClick={() => navigate(`/campus/${collegeId}/${typeOfClub}/${name}`)}
+      onClick={() => {
+        navigate(`/campus/${collegeId}/${typeOfClub}/${_id}`);
+      }}
       className="club-card__container on-hover-scale"
     >
       <div className="main__container">
-        <img src={clubLogo} alt="Club" />
+        <img src={image} alt="Club" />
         <div className="main__text">
           <h3>{name}</h3>
           <p>{collegeName}</p>
