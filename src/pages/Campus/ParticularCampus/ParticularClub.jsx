@@ -35,9 +35,6 @@ export default function ParticularClub() {
     getAllEvents(setEvents);
     getClubById(setClub, clubId);
   }, []);
-  useEffect(() => {
-    console.log(club);
-  }, [club]);
 
   const renderedPosts = club.posts
     ? club.posts.map((post) => <ClubPostCard key={post._id} {...post} />)
