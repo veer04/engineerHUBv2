@@ -91,7 +91,7 @@ export default function PostModal() {
                     const currentStatus = isLiked;
                     setIsLiked(!currentStatus);
                     sessionStorage.setItem(
-                      `${_id} isLiked`,
+                      `${postId} isLiked`,
                       JSON.stringify(!currentStatus)
                     );
                   }}
@@ -102,18 +102,18 @@ export default function PostModal() {
                 >
                   <FaRegHeart />
                 </div>
-                <div className="share">
-                  <RWebShare
-                    data={{
-                      text: `Check out this post`,
-                      url: `${FRONTEND_URL}campus/${collegeId}/technical-clubs/${clubId}/posts/${postId}}`,
-                      title: "Check out this post at engineerHUB",
-                    }}
-                    onClick={() => console.info("shared successfully")}
-                  >
+                <RWebShare
+                  data={{
+                    text: `Check out this post`,
+                    url: `${FRONTEND_URL}campus/${collegeId}/technical-clubs/${clubId}/posts/${postId}}`,
+                    title: "Check out this post at engineerHUB",
+                  }}
+                  onClick={() => console.info("shared successfully")}
+                >
+                  <div className="share">
                     <GrShareOption />
-                  </RWebShare>
-                </div>
+                  </div>
+                </RWebShare>
               </div>
             </div>
           </div>
