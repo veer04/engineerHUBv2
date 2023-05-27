@@ -5,7 +5,6 @@ import { controller, getEvents } from "../../../services/APIConfig";
 
 import MobileSidebar from "../../../components/MobileSidebar/MobileSidebar";
 import EventCard from "../../../components/EventCard/EventCard";
-import EventModal from "../../../components/EventModal/EventModal";
 import "./EventsPage.css";
 import { MdCancel } from "react-icons/md";
 import useNavbar from "../../../hooks/use-navbar";

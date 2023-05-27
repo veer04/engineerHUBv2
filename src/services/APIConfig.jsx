@@ -311,7 +311,7 @@ export const getClubById = (setClub, clubId) => {
 export const getPostById = (setPost, postId) => {
   const controller = new AbortController();
   axios
-    .get(`${API_URL}api/v1/club/post/${postId}`, {
+    .get(`${API_URL}api/v1/club/posts/individualPost/${postId}`, {
       signal: controller.signal,
     })
     .then((res) => {

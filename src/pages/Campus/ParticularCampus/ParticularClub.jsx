@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import "./ParticularClub.css";
 import ImageCarousel from "../../../components/ImageCarousel/ImageCarousel";
 import { RxChevronDown } from "react-icons/rx";
-import { BsStar, BsStarFill, BsStarHalf } from "react-icons/bs";
-import { Link, useParams } from "react-router-dom";
+import { BsArrowUpRight, BsStar, BsStarFill, BsStarHalf } from "react-icons/bs";
+import { Link, Outlet, useParams } from "react-router-dom";
 import defaultPoster from "../../../assets/defaultPoster";
 import CategoryBar from "../../../components/CategoryBar/CategoryBar";
 import ClubPostCard from "../../../components/ClubPostCard/ClubPostCard";
@@ -13,6 +13,8 @@ import Girl from "./girl.jpeg";
 import InterCollegeCard from "../../../components/InterCollegeCard/InterCollegeCard";
 import { getAllEvents, getClubById } from "../../../services/APIConfig";
 import ClubMemberCard from "../../../components/ClubMemberCard/ClubMemberCard";
+import { FiArrowUpRight } from "react-icons/fi";
+import { HiArrowUpRight } from "react-icons/hi2";
 export default function ParticularClub() {
   const { setSelectedPageNavbar } = useNavbar();
   const { clubId } = useParams();
@@ -79,7 +81,8 @@ export default function ParticularClub() {
             <div className="title">{club.name}</div>
             {/* <div className="location">Durgapur, India</div> */}
             <a className="link" href={`${club.websiteUrl}`}>
-              {club.websiteUrl}
+              Club Website
+              <HiArrowUpRight />
             </a>
           </div>
         </div>
@@ -134,6 +137,7 @@ export default function ParticularClub() {
               />
             ))}
       </div>
+      <Outlet />
     </div>
   );
 }
