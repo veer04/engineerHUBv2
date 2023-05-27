@@ -1,5 +1,6 @@
 import React from "react";
 import "./IntraCollege.css";
+import "../CampusPage.css";
 import { useEffect, useState } from "react";
 import { controller, getEventByMode } from "../../../services/APIConfig";
 import FeaturedEventsCard2 from "../../../components/FeaturedEventsCard2/FeaturedEventsCard2";

@@ -1,5 +1,6 @@
 import React from "react";
 import "./InterCollege.css";
+import "../CampusPage.css";
 import { useEffect, useState } from "react";
 import { controller, getEventByMode } from "../../../services/APIConfig";
 import FeaturedEventsCard2 from "../../../components/FeaturedEventsCard2/FeaturedEventsCard2";
@@ -67,7 +68,7 @@ export default function InterCollege() {
     <InterCollegeCard key={event._id} {...event} />
   ));
 
-  return (
+  const intraCollegePage = (
     <div className="intra-college-page">
       <h1 className="heading-3">Inter-College Events</h1>
       <h2 className="subheading-1">
@@ -88,23 +89,23 @@ export default function InterCollege() {
         </div>
       </div>
       {/* <CategoryBar
-        categories={[
-          {
-            id: 1,
-            title: "All",
-          },
-          {
-            id: 2,
-            title: "Upcoming",
-          },
-          {
-            id: 3,
-            title: "On-going",
-          },
-        ]}
-        current={current}
-        setCurrent={setCurrent}
-      /> */}
+    categories={[
+      {
+        id: 1,
+        title: "All",
+      },
+      {
+        id: 2,
+        title: "Upcoming",
+      },
+      {
+        id: 3,
+        title: "On-going",
+      },
+    ]}
+    current={current}
+    setCurrent={setCurrent}
+  /> */}
       <div className="inter-college-events">
         {current === 1 && renderedAll}
         {current === 2 && renderedUpcoming}
@@ -126,4 +127,6 @@ export default function InterCollege() {
       )}
     </div>
   );
+
+  return intraCollegePage;
 }

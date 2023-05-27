@@ -1,5 +1,6 @@
 import React from "react";
 import "./Workshops.css";
+import "../CampusPage.css";
 import { useEffect, useState } from "react";
 import { controller, getEventByType } from "../../../services/APIConfig";
 import FeaturedEventsCard2 from "../../../components/FeaturedEventsCard2/FeaturedEventsCard2";
@@ -18,7 +19,6 @@ export default function Workshops() {
     getEventByType(setEvents, "Workshops");
     window.scrollTo(0, 0);
     setSelectedPageNavbar("campus");
-
 
     return () => {
       controller.abort();
