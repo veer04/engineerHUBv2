@@ -46,10 +46,6 @@ export default function ClubsPage({ type }) {
     };
   }, [type, collegeId]);
 
-  useEffect(() => {
-    console.log(trendingActivities);
-  }, [trendingActivities]);
-
   const renderedSocietiesClubs = (
     <>
       <h2 className="title">Societies/Clubs</h2>
