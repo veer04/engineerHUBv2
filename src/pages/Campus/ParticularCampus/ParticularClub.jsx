@@ -116,7 +116,7 @@ export default function ParticularClub() {
         <div className="content-container">{renderedPosts}</div>
       )}
       {current === 2 && renderedReels}
-      {club.members && (
+      {club.members !== undefined && club.members.length !== 0 && (
         <div className="members-container">
           <div className="title">Members</div>
           <div className="members">
