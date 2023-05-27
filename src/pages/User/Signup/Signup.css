@@ -113,3 +113,31 @@
 .inputFieldSignup{
     width: 200px;
 }
+.btnrightallign{
+    position: relative;
+    left: 60%;
+
+}
+@media  screen and (max-width: 500px) {
+    .btnrightallign{
+        position: relative;
+        left: 50%;
+    
+    }
+    
+}
+@media  screen and (max-width: 420px) {
+    .btnrightallign{
+        position: relative;
+        left: 45%;
+    
+    }
+    
+}
+@media  screen and (max-width: 391px) {
+    .btnrightallign{
+        position: relative;
+        left: 40%;
+    }
+    
+}

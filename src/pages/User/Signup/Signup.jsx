@@ -18,12 +18,28 @@ import jwt_decode from "jwt-decode";
 const Signup = () => {
   const navigate = useNavigate();
   const { setSelectedPageNavbar } = useNavbar();
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
     window.scrollTo(0, 0);
     setSelectedPageNavbar("login");
   }, []);
 
   const roles = ["User", "Mentor", "Organization"];
+  const [countries, setCountries] = useState([]);
+  const [states, setStates] = useState([]);
+  const [cities, setCities] = useState([]);
+
+  useEffect(() => {
+    // Fetch country data
+    axios.get(`${API_URL}api/v1/getCountries`)
+      .then(response => {
+        setCountries(response.data);
+      })
+      .catch(error => {
+        console.error('Error fetching countries:', error);
+      });
+  }, []);
+
 
   const [role, setRole] = useState("User");
   const [formData, setFormData] = useState({
@@ -55,13 +71,7 @@ const Signup = () => {
     confirmPassword: "",
   });
 
-  const handleNext = () => {
-    setStep(step + 1);
-  };
 
-  const handlePrev = () => {
-    setStep(step - 1);
-  };
 
   // const handleInputChange = (event) => {
   //   const inputValues = event.target.value.split(',');
@@ -136,7 +146,15 @@ const Signup = () => {
   const handleChangeRole = (event) => {
     setRole(event.target.value);
   };
+  const handleNext = () => {
+      setStep(step+1);
+  };
+
+  const handlePrev = () => {
+    setStep(step - 1);
+  };
   const handleSubmit = async (e) => {
+    setLoading(true);
     e.preventDefault();
     // console.log(formData);
     if (!validateInput()) {
@@ -162,6 +180,7 @@ const Signup = () => {
           console.log(response);
           if(response.status===200 || response.status===201 || response.status===202 || response.status===203 || response.status===204)
           {
+            setLoading(false);
             navigate("/");
             window.location.reload(true);
           }
@@ -171,7 +190,37 @@ const Signup = () => {
         }
       );
     }
+  }
+  
+  
+  ;  const handleCountryChange = event => {
+    const countryCode = event.target.value;
+    
+    // Fetch state data based on selected country
+    axios.get(`${API_URL}api/v1/getStates?country=${countryCode}`)
+      .then(response => {
+        setStates(response.data);
+      })
+      .catch(error => {
+        console.error('Error fetching states:', error);
+      });
   };
+
+    const handleStateChange = event => {
+    const countryCode = event.target.value; // Get the selected country code
+    const stateCode = event.target.value; // Get the selected state code
+    axios.get(`${API_URL}api/v1/getCities?country=${countryCode}&state=${stateCode}`)
+    .then(response => {
+      setCities(response.data);
+    })
+    .catch(error => {
+      console.error('Error fetching cities:', error);
+    });
+
+  };
+
+
+  
 
   return (
     <>
@@ -350,7 +399,7 @@ const Signup = () => {
                     </div>
                   )}
 
-                  {step === 2 && (
+              {step === 2 && (
                     <div>
                       <TextField
                         name="branch"
@@ -406,17 +455,19 @@ const Signup = () => {
                       >
                         Previous
                       </button>
-
-                      <br />
                       <button
                         type="button"
-                        className="buttonOnHostingPage"
+                        className="buttonOnHostingPage btnrightallign"
                         onClick={handleNext}
                       >
                         Next
                       </button>
+                      <br />
+                      <br />
+                  
                     </div>
                   )}
+
 
                   {step == 3 && (
                     <div>
@@ -476,12 +527,13 @@ const Signup = () => {
                       >
                         Previous
                       </button>
-
+                          
+                      <button type="submit" className="buttonOnHostingPage btnrightallign">
+                      {loading ? "Loading..." : "Submit"}
+                      </button>
+                      <br />
                       <br />
 
-                      <button type="submit" className="buttonOnHostingPage">
-                        submit
-                      </button>
                     </div>
                   )}
                 </form>
