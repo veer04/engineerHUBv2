@@ -8,6 +8,7 @@ import CategoryBar from "../../../components/CategoryBar/CategoryBar";
 import CampusEventTab from "../../../components/CampusEventTab/CampusEventTab";
 import InterCollegeCard from "../../../components/InterCollegeCard/InterCollegeCard";
 import useNavbar from "../../../hooks/use-navbar";
+import LoadingPage from "../../../components/Loader/LoadingPage";
 
 export default function InterCollege() {
   const { setSelectedPageNavbar } = useNavbar();
@@ -128,5 +129,5 @@ export default function InterCollege() {
     </div>
   );
 
-  return intraCollegePage;
+  return events.length !== 0 ? intraCollegePage : <LoadingPage />;
 }
