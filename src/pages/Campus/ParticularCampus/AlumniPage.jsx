@@ -6,6 +6,7 @@ import AlumniGlobalCard from "../../../components/AlumniGlobalCard/AlumniGlobalC
 import AlumniLocalCard from "../../../components/AlumniLocalCard/AlumniLocalCard";
 import colorWheel from "../../../assets/colorWheel";
 import useNavbar from "../../../hooks/use-navbar";
+import LoadingPage from "../../../components/Loader/LoadingPage";
 
 export default function AlumniPage() {
   const { setSelectedPageNavbar } = useNavbar();
@@ -137,10 +138,9 @@ export default function AlumniPage() {
   useEffect(() => {
     window.scrollTo(0, 0);
     setSelectedPageNavbar("campus");
-
   }, []);
 
-  return (
+  const alumniPage = (
     <div className="alumni-page">
       <div className="best-alumni-container">
         <p className="heading">Meet the India’s Best Alumnis</p>
@@ -163,8 +163,8 @@ export default function AlumniPage() {
           eu enim dignissim donec ultrices dis amet ipsum.
         </p>
         {/* <div className="search-bar">
-          <input type="text" placeholder="Search" />
-        </div> */}
+      <input type="text" placeholder="Search" />
+    </div> */}
         <div className="alumni-container">
           {alumni.map((alumni, index) => (
             <AlumniLocalCard
@@ -176,5 +176,11 @@ export default function AlumniPage() {
         </div>
       </div>
     </div>
+  );
+
+  return alumni.length !== 0 || bestAlumni.length !== 0 ? (
+    alumniPage
+  ) : (
+    <LoadingPage />
   );
 }

@@ -15,6 +15,7 @@ import {
 import CampusSearchBox from "../../../components/CampusSearchBox/CampusSearchBox";
 import { useNavigate } from "react-router";
 import useNavbar from "../../../hooks/use-navbar";
+import LoadingPage from "../../../components/Loader/LoadingPage";
 
 export default function ParticularCampus() {
   const { setSelectedPageNavbar } = useNavbar();
@@ -94,9 +95,9 @@ export default function ParticularCampus() {
     if (output) {
       navigate(`/campus/${output}`);
     }
-    // console.log(output);
   }, [output]);
-  return (
+
+  const particularCampusPage = (
     <div className="particular-campus-page">
       <div className="search-bar__container">
         <div>
@@ -110,10 +111,10 @@ export default function ParticularCampus() {
           />
           {/* <CampusSearchBox /> */}
           {/* <SearchBar
-            hasFiltration={false}
-            placeholder="You are looking for which Campus?"
-            type="text"
-          /> */}
+        hasFiltration={false}
+        placeholder="You are looking for which Campus?"
+        type="text"
+      /> */}
         </div>
       </div>
       <div className="image-carousel__container">
@@ -162,5 +163,11 @@ export default function ParticularCampus() {
         ))}
       </div>
     </div>
+  );
+
+  return Object.keys(campus).length !== 0 ? (
+    particularCampusPage
+  ) : (
+    <LoadingPage />
   );
 }
