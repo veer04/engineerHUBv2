@@ -7,7 +7,7 @@ export const controller = new AbortController();
 export const getBestAlumni = (setBestAlumni) => {
   const controller = new AbortController();
   axios
-    .get(`${API_URL}api/v1/allalumnis`, {
+    .get(`${API_URL}api/v1/allAlumni`, {
       signal: controller.signal,
     })
     .then((res) => {
@@ -26,7 +26,7 @@ export const getBestAlumni = (setBestAlumni) => {
 export const getCampusAlumni = (setAlumni, collegeId) => {
   const controller = new AbortController();
   axios
-    .get(`${API_URL}api/v1/getAlmasInCampus/${collegeId}`, {
+    .get(`${API_URL}api/v1/getAlumniInCampus/${collegeId}`, {
       signal: controller.signal,
     })
     .then((res) => {
