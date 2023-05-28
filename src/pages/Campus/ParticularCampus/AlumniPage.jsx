@@ -1,143 +1,32 @@
 import { useEffect, useState } from "react";
 import "./AlumniPage.css";
-import Girl from "./girl.jpeg";
-import Uber from "./uber.png";
 import AlumniGlobalCard from "../../../components/AlumniGlobalCard/AlumniGlobalCard";
 import AlumniLocalCard from "../../../components/AlumniLocalCard/AlumniLocalCard";
 import colorWheel from "../../../assets/colorWheel";
 import useNavbar from "../../../hooks/use-navbar";
 import LoadingPage from "../../../components/Loader/LoadingPage";
+import {
+  controller,
+  getBestAlumni,
+  getCampusAlumni,
+} from "../../../services/APIConfig";
+import { useParams } from "react-router-dom";
 
 export default function AlumniPage() {
   const { setSelectedPageNavbar } = useNavbar();
+  const { collegeId } = useParams();
 
-  const [bestAlumni, setBestAlumni] = useState([
-    {
-      _id: 1,
-      name: "Name Surname",
-      designation: "SDE at Microsoft",
-      campus: "IIT Delhi",
-      batch: "2015",
-      image: Girl,
-    },
-    {
-      _id: 2,
-      name: "Name Surname",
-      designation: "SDE at Microsoft",
-      campus: "IIT Delhi",
-      batch: "2015",
-      image: Girl,
-    },
-    {
-      _id: 3,
-      name: "Name Surname",
-      designation: "SDE at Microsoft",
-      campus: "IIT Delhi",
-      batch: "2015",
-      image: Girl,
-    },
-    {
-      _id: 4,
-      name: "Name Surname",
-      designation: "SDE at Microsoft",
-      campus: "IIT Delhi",
-      batch: "2015",
-      image: Girl,
-    },
-    {
-      _id: 5,
-      name: "Name Surname",
-      designation: "SDE at Microsoft",
-      campus: "IIT Delhi",
-      batch: "2015",
-      image: Girl,
-    },
-    {
-      _id: 6,
-      name: "Name Surname",
-      designation: "SDE at Microsoft",
-      campus: "IIT Delhi",
-      batch: "2015",
-      image: Girl,
-    },
-  ]);
-  const [alumni, setAlumni] = useState([
-    {
-      _id: 1,
-      name: "Name Surname",
-      designation: "SDE at Microsoft",
-      batch: "2015",
-      image: Girl,
-      company: Uber,
-    },
-    {
-      _id: 2,
-      name: "Name Surname",
-      designation: "SDE at Microsoft",
-      batch: "2015",
-      image: Girl,
-      company: Uber,
-    },
-    {
-      _id: 3,
-      name: "Name Surname",
-      designation: "SDE at Microsoft",
-      batch: "2015",
-      image: Girl,
-      company: Uber,
-    },
-    {
-      _id: 4,
-      name: "Name Surname",
-      designation: "SDE at Microsoft",
-      batch: "2015",
-      image: Girl,
-      company: Uber,
-    },
-    {
-      _id: 5,
-      name: "Name Surname",
-      designation: "SDE at Microsoft",
-      batch: "2015",
-      image: Girl,
-      company: Uber,
-    },
-    {
-      _id: 6,
-      name: "Name Surname",
-      designation: "SDE at Microsoft",
-      batch: "2015",
-      image: Girl,
-      company: Uber,
-    },
-    {
-      _id: 7,
-      name: "Name Surname",
-      designation: "SDE at Microsoft",
-      batch: "2015",
-      image: Girl,
-      company: Uber,
-    },
-    {
-      _id: 8,
-      name: "Name Surname",
-      designation: "SDE at Microsoft",
-      batch: "2015",
-      image: Girl,
-      company: Uber,
-    },
-    {
-      _id: 9,
-      name: "Name Surname",
-      designation: "SDE at Microsoft",
-      batch: "2015",
-      image: Girl,
-      company: Uber,
-    },
-  ]);
+  const [bestAlumni, setBestAlumni] = useState([]);
+  const [alumni, setAlumni] = useState([]);
   useEffect(() => {
     window.scrollTo(0, 0);
     setSelectedPageNavbar("campus");
+    getBestAlumni(setBestAlumni);
+    getCampusAlumni(setAlumni, collegeId);
+
+    return () => {
+      controller.abort();
+    };
   }, []);
 
   const alumniPage = (
@@ -168,7 +57,7 @@ export default function AlumniPage() {
         <div className="alumni-container">
           {alumni.map((alumni, index) => (
             <AlumniLocalCard
-              color={colorWheel[index % 4]}
+              color={colorWheel[index % colorWheel.length]}
               key={alumni._id}
               {...alumni}
             />

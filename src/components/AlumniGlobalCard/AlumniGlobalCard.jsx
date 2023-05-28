@@ -1,15 +1,19 @@
 import React from "react";
 import "./AlumniGlobalCard.css";
+import { useNavigate } from "react-router-dom";
 
 export default function AlumniGlobalCard({
+  _id,
   name,
-  designation,
+  currentProfile,
   campus,
   batch,
   image,
 }) {
+  const navigate = useNavigate();
   return (
     <div
+      onClick={() => navigate(`/campus/${campus._id}/almas/${_id}`)}
       style={{
         backgroundImage: `url(${image})`,
         backgroundSize: "cover",
@@ -19,10 +23,10 @@ export default function AlumniGlobalCard({
     >
       <div className="card-transition alumni-global-card-dimension">
         <p className="sub-heading">
-          {campus} ({batch})
+          {campus.collegeName} ({batch})
         </p>
         <p className="heading">{name}</p>
-        <p className="sub-heading">{designation}</p>
+        <p className="sub-heading">{currentProfile}</p>
       </div>
     </div>
   );
