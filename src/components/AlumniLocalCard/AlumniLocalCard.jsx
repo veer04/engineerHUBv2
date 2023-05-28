@@ -20,13 +20,15 @@ export default function AlumniLocalCard({
     >
       <div style={{ backgroundColor: color }} className="details-container">
         <div className="details">
-          <p className="sub-heading-2">Batch ({batch})</p>
+          {batch && <p className="sub-heading-2">Batch ({batch})</p>}
           <p className="heading">{name}</p>
           <p className="sub-heading-1">{designation}</p>
         </div>
-        <div className="company">
-          <img src={company} alt="company" />
-        </div>
+        {company && (
+          <div className="company">
+            <img src={company} alt="company" />
+          </div>
+        )}
       </div>
     </div>
   );
