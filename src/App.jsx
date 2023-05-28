@@ -42,6 +42,7 @@ import { lazy } from "react";
 import { Suspense } from "react";
 import LoadingPage from "./components/Loader/LoadingPage";
 import PostModal from "./components/PostModal/PostModal";
+import ParticularAlumni from "./pages/Campus/ParticularCampus/ParticularAlumni";
 
 const CommunityPage = lazy(() => import("./pages/Community/CommunityPage"));
 const CampusPage = lazy(() => import("./pages/Campus/CampusPage"));
@@ -114,10 +115,13 @@ function App() {
               <Route path="cultural-clubs">
                 <Route index element={<ClubsPage type="Cultural" />} />
                 <Route path=":clubId" element={<ParticularClub />}>
-                  <Route path="posts/:postId" element={<></>} />
+                  <Route path="posts/:postId" element={<PostModal />} />
                 </Route>
               </Route>
-              <Route path="almas" element={<AlumniPage />} />
+              <Route path="almas">
+                <Route index element={<AlumniPage />} />
+                <Route path=":almaId" element={<ParticularAlumni />} />
+              </Route>
             </Route>
           </Route>
           <Route path="/mentorship" element={<ComingSoon />} />
