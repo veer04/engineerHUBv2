@@ -11,7 +11,6 @@ export default function ChatPage({ path }) {
   useEffect(() => {
     window.scrollTo(0, 0);
     setSelectedPageNavbar("community");
-
   }, []);
 
   return (

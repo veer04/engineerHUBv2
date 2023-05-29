@@ -105,10 +105,9 @@ export default function PostModal() {
                 <RWebShare
                   data={{
                     text: `Check out this post`,
-                    url: `${FRONTEND_URL}campus/${collegeId}/technical-clubs/${clubId}/posts/${postId}}`,
+                    url: `${FRONTEND_URL}campus/${collegeId}/technical-clubs/${clubId}/posts/${postId}`,
                     title: "Check out this post at engineerHUB",
                   }}
-                  onClick={() => console.info("shared successfully")}
                 >
                   <div className="share">
                     <GrShareOption />
