@@ -68,7 +68,7 @@ export default function ParticularClub() {
         <div className="image-carousel">
           <ImageCarousel
             collegePhoto={
-              club.clubPhoto.length !== 0 ? club.clubPhoto : defaultPosterArray
+              club.clubPhoto?.length ? club.clubPhoto : defaultPosterArray
             }
           />
         </div>
