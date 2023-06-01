@@ -2,6 +2,7 @@ import "./Registration.css";
 import React, { useState } from "react";
 import { TextField, Button, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import HostEventTimeline from "../Timeline/HostEventTimeline";
 export default function RegistrationForm() {
   const navigate = useNavigate();
   const [firstName, setFirstName] = useState("");
@@ -68,66 +69,7 @@ export default function RegistrationForm() {
 
   return (
     <div className="">
-      <div className="navigation-buttons__container">
-        <div className="navigation-buttons">
-          <div
-            style={{
-              borderColor: step > 1 ? "var(--primary-color-dark-green)" : "",
-            }}
-            className="dotted-line dotted-line-1"
-          ></div>
-          <div
-            style={{
-              borderColor: step > 2 ? "var(--primary-color-dark-green)" : "",
-            }}
-            className="dotted-line dotted-line-2"
-          ></div>
-          <div
-            style={{
-              backgroundColor:
-                step === 1 ? "var(--primary-color-dark-green)" : "#15CF74",
-              color: "white",
-              borderColor: step > 1 ? "#15CF74" : "",
-            }}
-            className="form-button"
-          >
-            Basic Details
-          </div>
-          <div
-            style={{
-              backgroundColor:
-                step === 2
-                  ? "var(--primary-color-dark-green)"
-                  : step === 3
-                  ? "#15CF74"
-                  : "",
-              color: step === 2 ? "white" : step === 3 ? "white" : "",
-              borderColor:
-                step === 2
-                  ? "var(--primary-color-dark-green)"
-                  : step === 3
-                  ? "#15CF74"
-                  : "",
-            }}
-            className="form-button"
-          >
-            Applicant Details
-          </div>
-          {/* <div
-              style={{
-                backgroundColor:
-                  step === 3 ? "var(--primary-color-dark-green)" : "",
-                color: step === 3 ? "white" : "",
-                borderColor:
-                  step === 3 ? "var(--primary-color-dark-green)" : "",
-              }}
-              className="form-button"
-            >
-              Publish
-            </div> */}
-        </div>
-      </div>
-
+      <HostEventTimeline step={step} numberOfCheckpoints={2} width="20rem" />
       <form
         noValidate
         autoComplete="off"
