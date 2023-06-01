@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "./ParticularCampus.css";
-import SearchBar from "../../../components/SearchBar/SearchBar";
 import ImageCarousel from "../../../components/ImageCarousel/ImageCarousel";
-import { CgChevronDown } from "react-icons/cg";
 import { RxChevronDown } from "react-icons/rx";
-import { BsStar, BsStarFill, BsStarHalf } from "react-icons/bs";
+import { BsStar, BsStarFill } from "react-icons/bs";
 import CampusEventCard from "../../../components/CampusEventCard/CampusEventCard";
 import { Link, useParams } from "react-router-dom";
 import {
@@ -16,6 +14,9 @@ import CampusSearchBox from "../../../components/CampusSearchBox/CampusSearchBox
 import { useNavigate } from "react-router";
 import useNavbar from "../../../hooks/use-navbar";
 import LoadingPage from "../../../components/Loader/LoadingPage";
+import defaultPoster, {
+  defaultPosterArray,
+} from "../../../assets/defaultPoster";
 
 export default function ParticularCampus() {
   const { setSelectedPageNavbar } = useNavbar();
@@ -119,13 +120,22 @@ export default function ParticularCampus() {
       </div>
       <div className="image-carousel__container">
         <div className="image-carousel">
-          <ImageCarousel collegePhoto={campus.collegePhoto} />
+          <ImageCarousel
+            collegePhoto={
+              campus.collegePhoto.length !== 0
+                ? campus.collegePhoto
+                : defaultPosterArray
+            }
+          />
         </div>
       </div>
       <div className="details-tab">
         <div className="details">
           <div>
-            <img src={campus.collegeLogo} alt="logo" />
+            <img
+              src={campus.collegeLogo ? campus.collegeLogo : defaultPoster}
+              alt="logo"
+            />
           </div>
           <div>
             <div className="title">{campus.collegeName}</div>

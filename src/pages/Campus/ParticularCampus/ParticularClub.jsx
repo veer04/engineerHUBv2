@@ -4,7 +4,9 @@ import ImageCarousel from "../../../components/ImageCarousel/ImageCarousel";
 import { RxChevronDown } from "react-icons/rx";
 import { BsArrowUpRight, BsStar, BsStarFill, BsStarHalf } from "react-icons/bs";
 import { Link, Outlet, useParams } from "react-router-dom";
-import defaultPoster from "../../../assets/defaultPoster";
+import defaultPoster, {
+  defaultPosterArray,
+} from "../../../assets/defaultPoster";
 import CategoryBar from "../../../components/CategoryBar/CategoryBar";
 import ClubPostCard from "../../../components/ClubPostCard/ClubPostCard";
 import useNavbar from "../../../hooks/use-navbar";
@@ -64,7 +66,11 @@ export default function ParticularClub() {
     <div className="particular-club-page">
       <div className="image-carousel__container">
         <div className="image-carousel">
-          <ImageCarousel collegePhoto={club.clubPhoto} />
+          <ImageCarousel
+            collegePhoto={
+              club.clubPhoto.length !== 0 ? club.clubPhoto : defaultPosterArray
+            }
+          />
         </div>
       </div>
       <div className="details-tab">
@@ -73,7 +79,9 @@ export default function ParticularClub() {
             style={{
               borderRadius: "50%",
               overflow: "hidden",
-              backgroundImage: `url(${club.image})`,
+              backgroundImage: `url(${
+                club.image ? club.image : defaultPoster
+              })`,
               backgroundSize: "cover",
               backgroundPosition: "center",
             }}

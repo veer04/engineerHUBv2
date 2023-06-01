@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./ClubActivity.css";
 import { FaRegHeart } from "react-icons/fa";
 import { GrShareOption } from "react-icons/gr";
@@ -21,7 +21,6 @@ export default function ClubActivity({
       ? JSON.parse(sessionStorage.getItem(`${_id} isLiked`))
       : false
   );
-
   return (
     <div className="clubs-page-activity-card">
       <div className="details">
@@ -51,10 +50,9 @@ export default function ClubActivity({
         <RWebShare
           data={{
             text: `Check out this post`,
-            url: `${FRONTEND_URL}campus/${collegeId}/technical-clubs/${clubId._id}/posts/${_id}}`,
+            url: `${FRONTEND_URL}campus/${collegeId}/technical-clubs/${clubId._id}/posts/${_id}`,
             title: "Check out this post at engineerHUB",
           }}
-          onClick={() => console.info("shared successfully")}
         >
           <div className="share">
             <GrShareOption />

@@ -53,10 +53,9 @@ export default function ClubPostCard({ _id, postLogo, likes }) {
           <RWebShare
             data={{
               text: `Check out this post`,
-              url: `${FRONTEND_URL}campus/${collegeId}/technical-clubs/${clubId}/posts/${_id}}`,
+              url: `${FRONTEND_URL}campus/${collegeId}/technical-clubs/${clubId}/posts/${_id}`,
               title: "Check out this post at engineerHUB",
             }}
-            onClick={() => console.info("shared successfully")}
           >
             <div className="share">
               <GrShareOption />
