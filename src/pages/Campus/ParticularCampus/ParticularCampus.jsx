@@ -102,7 +102,6 @@ export default function ParticularCampus() {
     <div className="particular-campus-page">
       <div className="search-bar__container">
         <div>
-          {/* <CampusSearchBox /> */}
           <CampusSearchBox
             data={allCampuses}
             placeholder="You are looking for which Campus?"
@@ -110,19 +109,13 @@ export default function ParticularCampus() {
             listLength={5}
             setOutput={setOutput}
           />
-          {/* <CampusSearchBox /> */}
-          {/* <SearchBar
-        hasFiltration={false}
-        placeholder="You are looking for which Campus?"
-        type="text"
-      /> */}
         </div>
       </div>
       <div className="image-carousel__container">
         <div className="image-carousel">
           <ImageCarousel
             collegePhoto={
-              campus.collegePhoto.length !== 0
+              campus.collegePhoto?.length
                 ? campus.collegePhoto
                 : defaultPosterArray
             }
