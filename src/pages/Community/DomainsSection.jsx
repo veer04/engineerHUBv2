@@ -4,6 +4,7 @@ import CategoryBar from "../../components/CategoryBar/CategoryBar";
 import { BsArrowUpRight } from "react-icons/bs";
 import Domains from "../../components/Domains/Domains";
 import { getDomains, controller } from "../../services/APIConfig";
+import { IoIosArrowDown } from "react-icons/io";
 
 export default function DomainsSection() {
   const [domainData, setDomainData] = useState(
@@ -25,6 +26,7 @@ export default function DomainsSection() {
   }, [domainData]);
 
   const [current, setCurrent] = useState(1);
+  const [displayButton, setDisplayButton] = useState(true);
 
   const categories = [
     {
@@ -39,15 +41,19 @@ export default function DomainsSection() {
 
   const colors = ["#F7D77F", "#8FC8E8", "#B2E887", "#E8BA98"];
 
-  function handleClick(link) {
-    window.open(link, "_blank");
-  }
+  const [renderedAll, setRenderedAll] = useState(
+    <Domains domains={domainData.slice(0, 6)} />
+  );
 
-  const renderedAll = <Domains domains={domainData} />;
+  function handleClick() {
+    setRenderedAll(<Domains domains={domainData} />);
+    setDisplayButton(false);
+  }
 
   const renderedTrending = (
     <Domains domains={domainData.filter((item) => item.isTrending)} />
   );
+
   return (
     <div className="community-domains-section">
       <h1 className="heading-3">Our Domains</h1>
@@ -66,6 +72,13 @@ export default function DomainsSection() {
         {current === 1 && renderedAll}
         {current === 2 && renderedTrending}
       </div>
+      {displayButton && current === 1 && (
+        <div className="load-more">
+          <button onClick={handleClick}>
+            View More <IoIosArrowDown />
+          </button>
+        </div>
+      )}
     </div>
   );
 }
