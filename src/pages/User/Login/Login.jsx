@@ -107,7 +107,12 @@ const Register = () => {
           Cookies.set("access_token", response.data.accessToken);
           const token = response.data.accessToken;
           const decoded = jwt_decode(token);
-          // console.log(decoded);
+          Cookies.set("role", decoded.role);
+          Cookies.set("image", decoded.image);
+          Cookies.set("isVerified", decoded.isVerified);
+          Cookies.set("verifiedByEhub", decoded.verifiedByEhub);
+          console.log(decoded);
+          Cookies.set("name", response.data.name);
           Cookies.set("refresh_token", response.data.refreshToken);
           Cookies.set("userName", response.data.userName);
           Cookies.set("institutionName", response.data.institutionName);
@@ -122,7 +127,7 @@ const Register = () => {
           ) {
             setLoading(false);
             navigate("/");
-            window.location.reload(true);
+            // window.location.reload(true);
           }
         })
         .catch((error) => {
