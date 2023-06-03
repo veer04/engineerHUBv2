@@ -24,7 +24,6 @@ export default function Navbar() {
 
   function handleLogout() {
     // Remove all cookies and log out the user
-    window.location.reload(true);
     const cookiesToRemove = [
       "userName",
       "refresh_token",
@@ -44,6 +43,7 @@ export default function Navbar() {
     });
     setIsLoggedIn(false);
     navigate("/");
+    window.location.reload(true);
   }
 
   function getCookie(name) {
