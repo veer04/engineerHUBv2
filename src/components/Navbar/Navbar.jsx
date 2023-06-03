@@ -24,18 +24,25 @@ export default function Navbar() {
 
   function handleLogout() {
     // Remove all cookies and log out the user
+    window.location.reload(true);
     const cookiesToRemove = [
       "userName",
       "refresh_token",
       "access_token",
       "email",
       "institutionName",
+      "image",
+      "isVerified",
+      "phoneNumber",
+      "isPhoneNumberVerified",
+      "name",
+      "verifiedByEhub",
+      "role",
     ];
     cookiesToRemove.forEach((cookieName) => {
       document.cookie = `${cookieName}=; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/; domain=${window.location.hostname};`;
     });
     setIsLoggedIn(false);
-    setUsername("");
     navigate("/");
   }
 
