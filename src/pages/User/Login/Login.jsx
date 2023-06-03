@@ -111,6 +111,7 @@ const Register = () => {
           Cookies.set("image", decoded.image);
           Cookies.set("isVerified", decoded.isVerified);
           Cookies.set("verifiedByEhub", decoded.verifiedByEhub);
+          Cookies.set("mobile", decoded.mobile);
           console.log(decoded);
           Cookies.set("name", response.data.name);
           Cookies.set("refresh_token", response.data.refreshToken);

@@ -36,6 +36,10 @@
   margin-top: 0;
   margin-bottom: 0.75rem;
 }
+.profile-page > section > .details-container > div {
+  display: flex;
+  justify-content: center;
+}
 .profile-page > section > .details-container > div > .profile-picture {
   background-position: center;
   background-size: cover;
@@ -116,11 +120,6 @@
 }
 
 @media screen and (max-width: 580px) {
-  .profile-page > section > .details-container > div {
-    display: flex;
-    justify-content: center;
-  }
-
   .profile-page > section > .details-container {
     width: 100%;
   }
