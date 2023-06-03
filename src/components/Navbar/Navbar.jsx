@@ -10,32 +10,39 @@ export default function Navbar() {
   const bucket = `${Bucket_URL}frontend/navbar/`;
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [username, setUsername] = useState("");
+  const [name, setName] = useState("");
   const { selectedPageNavbar, setSelectedPageNavbar } = useNavbar();
 
   useEffect(() => {
     // Check if user is logged in by checking for the 'userName' cookie
-    const storedUsername = getCookie("userName");
-    if (storedUsername) {
+    const storedName = getCookie("name");
+    if (storedName) {
       setIsLoggedIn(true);
-      setUsername(storedUsername);
+      setName(decodeURIComponent(storedName));
     }
   }, []);
 
   function handleLogout() {
     // Remove all cookies and log out the user
+    window.location.reload(true);
     const cookiesToRemove = [
       "userName",
       "refresh_token",
       "access_token",
       "email",
       "institutionName",
+      "image",
+      "isVerified",
+      "phoneNumber",
+      "isPhoneNumberVerified",
+      "name",
+      "verifiedByEhub",
+      "role",
     ];
     cookiesToRemove.forEach((cookieName) => {
       document.cookie = `${cookieName}=; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/; domain=${window.location.hostname};`;
     });
     setIsLoggedIn(false);
-    setUsername("");
     navigate("/");
   }
 
@@ -59,7 +66,7 @@ export default function Navbar() {
       className="nav-logged-in-btn nav-login-btn"
     >
       <img className="nav-user-thumbnail" src={thumbnail} alt="user" />
-      <span className="nav-username">{username}</span>
+      <span className="nav-username">{name}</span>
     </ButtonRounded>
   );
 
@@ -178,7 +185,7 @@ export default function Navbar() {
         <div className="login-btn-div">
           {isLoggedIn ? (
             <div>
-              <span>Hi, {username}</span>{" "}
+              <span>Hi, {name}</span>{" "}
               <div
                 className="logBtn"
                 style={{

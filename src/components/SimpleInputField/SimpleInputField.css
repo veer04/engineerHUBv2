@@ -1,0 +1,19 @@
+.simple-input-field {
+  width: 100%;
+  width: 22.3125rem;
+  height: 45px;
+  border: 1px solid #bdbdbd;
+  border-radius: 0.75rem;
+  padding: 0 10px;
+  outline: none;
+  box-sizing: border-box;
+  margin-top: 12px;
+  margin-bottom: 25px;
+  background-color: var(--main-background-color);
+}
+
+@media screen and (max-width: 580px) {
+  .simple-input-field {
+    width: 100%;
+  }
+}

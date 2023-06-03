@@ -13,6 +13,7 @@ import { Select, MenuItem } from "@mui/material";
 import { API_URL } from "../../../services/APIUtils";
 import Cookies from "js-cookie";
 import jwt_decode from "jwt-decode";
+import HostEventTimeline from "../../../components/Timeline/HostEventTimeline";
 // import GroupAddIcon from '@material-ui/icons/GroupAdd';
 
 const Signup = () => {
@@ -285,70 +286,7 @@ const Signup = () => {
             <div className="col-lg-2"></div>
             <div className="col-lg-5">
               <div className="form-container">
-                <div className="navigation-buttons__container">
-                  <div className="navigation-buttons">
-                    <div
-                      style={{
-                        borderColor:
-                          step > 1 ? "var(--primary-color-dark-green)" : "",
-                      }}
-                      className="dotted-line dotted-line-1"
-                    ></div>
-                    <div
-                      style={{
-                        borderColor:
-                          step > 2 ? "var(--primary-color-dark-green)" : "",
-                      }}
-                      className="dotted-line dotted-line-2"
-                    ></div>
-                    <div
-                      style={{
-                        backgroundColor:
-                          step === 1
-                            ? "var(--primary-color-dark-green)"
-                            : "#15CF74",
-                        color: "white",
-                        borderColor: step > 1 ? "#15CF74" : "",
-                      }}
-                      className="form-button"
-                    >
-                      Basic Details
-                    </div>
-                    <div
-                      style={{
-                        backgroundColor:
-                          step === 2
-                            ? "var(--primary-color-dark-green)"
-                            : step === 3
-                            ? "#15CF74"
-                            : "",
-                        color: step === 2 ? "white" : step === 3 ? "white" : "",
-                        borderColor:
-                          step === 2
-                            ? "var(--primary-color-dark-green)"
-                            : step === 3
-                            ? "#15CF74"
-                            : "",
-                      }}
-                      className="form-button"
-                    >
-                      Applicant Details
-                    </div>
-                    <div
-                      style={{
-                        backgroundColor:
-                          step === 3 ? "var(--primary-color-dark-green)" : "",
-                        color: step === 3 ? "white" : "",
-                        borderColor:
-                          step === 3 ? "var(--primary-color-dark-green)" : "",
-                      }}
-                      className="form-button"
-                    >
-                      Publish
-                    </div>
-                  </div>
-                </div>
-
+              <HostEventTimeline step={step} numberOfCheckpoints={3} width="35rem" />
                 <form action="/" method="POST" onSubmit={handleSubmit}>
                   {step === 1 && (
                     <div>

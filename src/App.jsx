@@ -43,6 +43,8 @@ import { Suspense } from "react";
 import LoadingPage from "./components/Loader/LoadingPage";
 import PostModal from "./components/PostModal/PostModal";
 import ParticularAlumni from "./pages/Campus/ParticularCampus/ParticularAlumni";
+import ProfilePage from "./pages/User/Profile/ProfilePage";
+import VerificationModal from "./components/VerificationModal/VerificationModal";
 
 const CommunityPage = lazy(() => import("./pages/Community/CommunityPage"));
 const CampusPage = lazy(() => import("./pages/Campus/CampusPage"));
@@ -67,7 +69,7 @@ function App() {
           <Route index element={<HomePage path="homepage" />} />
           <Route path="/home" element={<HomePage />} />
           <Route path="/register" element={<RegistrationForm />} />
-          <Route path="/profile" element={<Profile />} />
+          <Route path="/profile" element={<ProfilePage />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
           <Route path="/otpverification" element={<OTP />} />

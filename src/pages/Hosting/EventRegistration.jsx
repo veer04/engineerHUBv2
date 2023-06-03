@@ -4,6 +4,7 @@ import axios from "axios";
 import FormData from "form-data";
 import useNavbar from "../../hooks/use-navbar";
 import { controller } from "../../services/APIConfig";
+import HostEventTimeline from "../../components/Timeline/HostEventTimeline";
 
 // var fs = require("fs");
 
@@ -94,70 +95,7 @@ const EventRegistrationForm = () => {
     <div className="eventR">
       <div>
         <h1 className="heading-3">Registration Form</h1>
-        <h2 className="subheading-1">
-          Lorem ipsum dolor sit amet consectetur. Vitae diam facilisi libero
-          mauris mauris quam elit. Convallis nunc accumsan sit cum. Vitae diam
-          eu enim dignissim donec ultrices dis amet ipsum.
-        </h2>
-        <div className="navigation-buttons__container">
-          <div className="navigation-buttons">
-            <div
-              style={{
-                borderColor: step > 1 ? "var(--primary-color-dark-green)" : "",
-              }}
-              className="dotted-line dotted-line-1"
-            ></div>
-            <div
-              style={{
-                borderColor: step > 2 ? "var(--primary-color-dark-green)" : "",
-              }}
-              className="dotted-line dotted-line-2"
-            ></div>
-            <div
-              style={{
-                backgroundColor:
-                  step === 1 ? "var(--primary-color-dark-green)" : "#15CF74",
-                color: "white",
-                borderColor: step > 1 ? "#15CF74" : "",
-              }}
-              className="form-button"
-            >
-              Basic Details
-            </div>
-            <div
-              style={{
-                backgroundColor:
-                  step === 2
-                    ? "var(--primary-color-dark-green)"
-                    : step === 3
-                    ? "#15CF74"
-                    : "",
-                color: step === 2 ? "white" : step === 3 ? "white" : "",
-                borderColor:
-                  step === 2
-                    ? "var(--primary-color-dark-green)"
-                    : step === 3
-                    ? "#15CF74"
-                    : "",
-              }}
-              className="form-button"
-            >
-              Applicant Details
-            </div>
-            <div
-              style={{
-                backgroundColor:
-                  step === 3 ? "var(--primary-color-dark-green)" : "",
-                color: step === 3 ? "white" : "",
-                borderColor:
-                  step === 3 ? "var(--primary-color-dark-green)" : "",
-              }}
-              className="form-button"
-            >
-              Publish
-            </div>
-          </div>
-        </div>
+        <HostEventTimeline step={step} numberOfCheckpoints={3} width="35rem" />
         <form onSubmit={handleSubmit}>
           {step === 1 && (
             <div>
