@@ -127,7 +127,7 @@ const Register = () => {
           ) {
             setLoading(false);
             navigate("/");
-            // window.location.reload(true);
+            window.location.reload(true);
           }
         })
         .catch((error) => {
