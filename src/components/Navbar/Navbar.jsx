@@ -22,7 +22,7 @@ export default function Navbar() {
     }
   }, []);
 
-  function handleLogout() {
+  function deleteCookie() {
     // Remove all cookies and log out the user
     const cookiesToRemove = [
       "userName",
@@ -38,15 +38,21 @@ export default function Navbar() {
       "verifiedByEhub",
       "role",
     ];
-    cookiesToRemove.forEach((cookieName) => {
-      document.cookie = `${cookieName}=; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/; domain=${window.location.hostname};`;
+
+    //delete all cookies
+    cookiesToRemove.forEach((cookie) => {
+      Cookies.remove(cookie);
     });
-    setTimeout(() => {
-      setIsLoggedIn(false);
-      setName("");
-      navigate("/");
-      window.location.reload(true);
-    }, 1000);
+  }
+
+  async function handleLogout() {
+    await deleteCookie();
+    // setTimeout(() => {
+    setIsLoggedIn(false);
+    setName("");
+    navigate("/");
+    window.location.reload(true);
+    // }, 1000);
   }
 
   function getCookie(name) {
