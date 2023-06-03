@@ -1,18 +1,24 @@
-.otpBox{
-    background-color: #fff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 40vh;
+.otpBox {
+  background-color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40vh;
 }
-.headerOtpVerification{
-    margin-top: 5%;
-    margin-left: 5%;
-    color: rgba(1, 64, 81, 1);
-    font-size: 2rem;
-    font-weight: 700;
+.headerOtpVerification {
+  margin-top: 5%;
+  margin-left: 5%;
+  color: rgba(1, 64, 81, 1);
+  font-size: 2rem;
+  font-weight: 700;
 }
-.btnSubmit{
-    border: none;
-    padding: 10px;
+.btnSubmit {
+  border: none;
+  padding: 10px;
+}
+.otpVbox > form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
 }

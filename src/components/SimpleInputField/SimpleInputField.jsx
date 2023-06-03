@@ -10,6 +10,7 @@ export default function SimpleInputField({
   disabled = false,
   onClick,
   className,
+  ...rest
 }) {
   return (
     <input
@@ -21,6 +22,7 @@ export default function SimpleInputField({
       value={value}
       onChange={(e) => setValue(e.target.value)}
       disabled={disabled}
+      {...rest}
     />
   );
 }

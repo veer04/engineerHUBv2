@@ -157,7 +157,7 @@ const Signup = () => {
   const handleSubmit = async (e) => {
     setLoading(true);
     e.preventDefault();
-    // console.log(formData);
+  // console.log(formData);
     if (!validateInput()) {
       console.log(formData);
 
@@ -168,11 +168,18 @@ const Signup = () => {
           Cookies.set("access_token", response.data.accessToken);
           const token = response.data.accessToken;
           const decoded = jwt_decode(token);
-          // console.log(decoded);
+          console.log(decoded);
           Cookies.set("refresh_token", response.data.refreshToken);
           Cookies.set("userName", response.data.userName);
           Cookies.set("institutionName", response.data.institutionName);
           Cookies.set("email", response.data.email);
+          Cookies.set("role", decoded.role);
+          Cookies.set("image", decoded.image);
+          Cookies.set("isVerified", decoded.isVerified);
+          Cookies.set("verifiedByEhub", decoded.verifiedByEhub);
+          Cookies.set("mobile", decoded.mobile);
+          Cookies.set("name", response.data.name);
+
 
 
 
@@ -182,11 +189,12 @@ const Signup = () => {
           if(response.status===200 || response.status===201 || response.status===202 || response.status===203 || response.status===204)
           {
             setLoading(false);
-            navigate("/");
+            navigate("/otpverification");
             window.location.reload(true);
           }
         },
         (error) => {
+          alert("Invalid Credentials");
           console.log(error);
         }
       );
