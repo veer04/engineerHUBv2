@@ -56,7 +56,7 @@ export default function ProfilePage() {
     if (isEmailVerified) {
       setIsEmailVerified(decodeURIComponent(isEmailVerified));
     }
-    const storedPhoneNumber = getCookie("phoneNumber");
+    const storedPhoneNumber = getCookie("mobile");
     if (storedPhoneNumber) {
       setPhoneNumber(decodeURIComponent(storedPhoneNumber));
     }
