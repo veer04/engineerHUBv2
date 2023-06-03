@@ -87,16 +87,16 @@ export default function ProfilePage() {
             setValue={setName}
             disabled
           />
-          <div className="verifiable-fields">
-            <div>
-              <p>Email ID</p>
-              <SimpleInputField
-                name="Email"
-                value={email}
-                setValue={setEmail}
-                disabled
-              />
-            </div>
+          {/* <div className="verifiable-fields">
+            <div> */}
+          <p>Email ID</p>
+          <SimpleInputField
+            name="Email"
+            value={email}
+            setValue={setEmail}
+            disabled
+          />
+          {/* </div>
             <div>
               <button
                 className={`verification-btn ${
@@ -108,15 +108,15 @@ export default function ProfilePage() {
             </div>
           </div>
           <div className="verifiable-fields">
-            <div>
-              <p>Phone Number</p>
-              <SimpleInputField
-                name="Phone Number"
-                value={phoneNumber}
-                setValue={setPhoneNumber}
-                disabled
-              />
-            </div>
+            <div> */}
+          <p>Phone Number</p>
+          <SimpleInputField
+            name="Phone Number"
+            value={phoneNumber}
+            setValue={setPhoneNumber}
+            disabled
+          />
+          {/* </div>
             <div>
               <button
                 className={`verification-btn ${
@@ -126,7 +126,7 @@ export default function ProfilePage() {
                 {isPhoneNumberVerified ? "Verified" : "Verify"}
               </button>
             </div>
-          </div>
+          </div> */}
           <p>Campus</p>
           <SimpleInputField
             name="Campus"
