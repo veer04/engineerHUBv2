@@ -6,6 +6,7 @@ import useNavbar from "../../../hooks/use-navbar";
 import { Outlet, useNavigate } from "react-router-dom";
 import LoadingPage from "../../../components/Loader/LoadingPage";
 import { set } from "react-hook-form";
+import { handleLogout } from "../../../features/logout";
 
 export default function ProfilePage() {
   const { setSelectedPageNavbar } = useNavbar();
@@ -134,6 +135,15 @@ export default function ProfilePage() {
             setValue={setCampus}
             disabled
           />
+          <div
+            className="logBtn logout-btn"
+            style={{
+              textAlign: "center",
+            }}
+            onClick={handleLogout}
+          >
+            Logout
+          </div>
         </div>
       </section>
     </main>

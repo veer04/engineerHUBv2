@@ -37,6 +37,7 @@ export default function Navbar() {
       "name",
       "verifiedByEhub",
       "role",
+      "mobile",
     ];
 
     //delete all cookies
@@ -194,7 +195,7 @@ export default function Navbar() {
         <div className="login-btn-div">
           {isLoggedIn ? (
             <div>
-              <span>Hi, {name}</span>{" "}
+              {/* <span>Hi, {name}</span>{" "}
               <div
                 className="logBtn"
                 style={{
@@ -203,18 +204,20 @@ export default function Navbar() {
                 onClick={handleLogout}
               >
                 Logout
-              </div>
-              {/* <button className="nav-logged-in-btn nav-login-btn">
-                <img
+              </div> */}
+              <button
+                onClick={() => navigate("/profile")}
+                className="nav-logged-in-btn nav-login-btn logBtn"
+              >
+                {/* <img
                   className="nav-user-thumbnail"
                   src={thumbnail}
                   alt="user"
-                />
+                /> */}
                 <span className="nav-username">
-                  Hi, {username}|
-                  <button onClick={handleLogout}>Log out</button>
+                  Hi, {name.length > 13 ? name.substring(0, 13) + "..." : name}
                 </span>
-              </button>  */}
+              </button>
             </div>
           ) : (
             <div>

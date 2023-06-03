@@ -119,6 +119,11 @@
   color: var(--text-color-dark-green);
 }
 
+.logout-btn {
+  width: 6rem;
+  cursor: pointer;
+}
+
 @media screen and (max-width: 580px) {
   .profile-page > section > .details-container {
     width: 100%;
