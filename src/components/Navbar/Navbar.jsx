@@ -10,15 +10,15 @@ export default function Navbar() {
   const bucket = `${Bucket_URL}frontend/navbar/`;
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [username, setUsername] = useState("");
+  const [name, setName] = useState("");
   const { selectedPageNavbar, setSelectedPageNavbar } = useNavbar();
 
   useEffect(() => {
     // Check if user is logged in by checking for the 'userName' cookie
-    const storedUsername = getCookie("userName");
-    if (storedUsername) {
+    const storedName = getCookie("name");
+    if (storedName) {
       setIsLoggedIn(true);
-      setUsername(storedUsername);
+      setName(decodeURIComponent(storedName));
     }
   }, []);
 
@@ -59,7 +59,7 @@ export default function Navbar() {
       className="nav-logged-in-btn nav-login-btn"
     >
       <img className="nav-user-thumbnail" src={thumbnail} alt="user" />
-      <span className="nav-username">{username}</span>
+      <span className="nav-username">{name}</span>
     </ButtonRounded>
   );
 
@@ -178,7 +178,7 @@ export default function Navbar() {
         <div className="login-btn-div">
           {isLoggedIn ? (
             <div>
-              <span>Hi, {username}</span>{" "}
+              <span>Hi, {name}</span>{" "}
               <div
                 className="logBtn"
                 style={{
