@@ -17,10 +17,10 @@ ARG VITE_AESKEY
 ARG VITE_FRONTEND_URL
 
 # Install dependencies and build app
-RUN apk add --no-cache nodejs npm \
-    && npm install --only=production \
+RUN apk add --no-cache npm \
+    && npm ci --silent \
     && npm run build \
-    && rm -rf /root/.npm 
+    && rm -rf /root/.npm
 
 # Production Stage
 FROM alpine:latest
@@ -31,8 +31,9 @@ WORKDIR /app
 # Copy app files from the build stage
 COPY --from=build /app/dist /app/dist
 
-RUN apk add --no-cache npm nodejs \
-    && npm install -g serve
+RUN apk add --no-cache npm \
+    && npm install -g serve \
+    && rm -rf /root/.npm
 
 # Expose port 3000
 EXPOSE 3000
