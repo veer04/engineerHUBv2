@@ -69,6 +69,8 @@
   overflow: hidden;
   text-overflow: ellipsis;
   max-height: 1.9rem;
+  /* border-radius: 2rem; */
+  
 }
 
 /* .nav-logged-in-btn {
@@ -113,7 +115,7 @@
 
 @media screen and (max-width: 1024px) {
   .nav-username {
-    display: none;
+    /* display: none; */
   }
   .nav-user-thumbnail {
     left: 0;
@@ -121,8 +123,8 @@
     width: 1.9rem;
   }
   .nav-logged-in-btn {
-    background-color: transparent !important;
-    border: none !important;
+    /* background-color: transparent !important; */
+    /* border: none !important; */
   }
 }
 

@@ -14,6 +14,7 @@ import { useParams } from "react-router-dom";
 import defaultPoster from "../../../assets/defaultPoster";
 import useNavbar from "../../../hooks/use-navbar";
 import colorWheel from "../../../assets/colorWheel";
+import LoadingPage from "../../../components/Loader/LoadingPage";
 
 export default function ClubsPage({ type }) {
   const { setSelectedPageNavbar } = useNavbar();
@@ -45,10 +46,6 @@ export default function ClubsPage({ type }) {
       controller.abort();
     };
   }, [type, collegeId]);
-
-  useEffect(() => {
-    console.log(trendingActivities);
-  }, [trendingActivities]);
 
   const renderedSocietiesClubs = (
     <>
@@ -106,11 +103,11 @@ export default function ClubsPage({ type }) {
     </>
   );
 
-  return (
+  const clubsPage = (
     <div className="clubs-page">
       {/* <div className="search-bar__container">
-        <SearchBar placeholder="Search for a club" type="text" />
-      </div> */}
+    <SearchBar placeholder="Search for a club" type="text" />
+  </div> */}
       {width <= 1320 && mobileRenderedTrendingClubs}
       <div className="content">
         <div className="column column1">{renderedSocietiesClubs}</div>
@@ -120,5 +117,13 @@ export default function ClubsPage({ type }) {
         )}
       </div>
     </div>
+  );
+
+  return clubs.length !== 0 ||
+    trendingActivities.length !== 0 ||
+    trendingClubs.length !== 0 ? (
+    clubsPage
+  ) : (
+    <LoadingPage />
   );
 }

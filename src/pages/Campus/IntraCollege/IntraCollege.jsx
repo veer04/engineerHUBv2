@@ -1,5 +1,6 @@
 import React from "react";
 import "./IntraCollege.css";
+import "../CampusPage.css";
 import { useEffect, useState } from "react";
 import { controller, getEventByMode } from "../../../services/APIConfig";
 import FeaturedEventsCard2 from "../../../components/FeaturedEventsCard2/FeaturedEventsCard2";
@@ -7,6 +8,7 @@ import CategoryBar from "../../../components/CategoryBar/CategoryBar";
 import EventCard from "../../../components/EventCard/EventCard";
 import CampusEventTab from "../../../components/CampusEventTab/CampusEventTab";
 import useNavbar from "../../../hooks/use-navbar";
+import LoadingPage from "../../../components/Loader/LoadingPage";
 
 export default function IntraCollege() {
   const { setSelectedPageNavbar } = useNavbar();
@@ -66,7 +68,7 @@ export default function IntraCollege() {
     <EventCard {...event} key={event._id} />
   ));
 
-  return (
+  const intraCollegePage = (
     <div className="intra-college-page">
       <h1 className="heading-3">Intra-College Events</h1>
       <h2 className="subheading-1">
@@ -87,23 +89,23 @@ export default function IntraCollege() {
         </div>
       </div>
       {/* <CategoryBar
-        categories={[
-          {
-            id: 1,
-            title: "All",
-          },
-          {
-            id: 2,
-            title: "Upcoming",
-          },
-          {
-            id: 3,
-            title: "On-going",
-          },
-        ]}
-        current={current}
-        setCurrent={setCurrent}
-      /> */}
+    categories={[
+      {
+        id: 1,
+        title: "All",
+      },
+      {
+        id: 2,
+        title: "Upcoming",
+      },
+      {
+        id: 3,
+        title: "On-going",
+      },
+    ]}
+    current={current}
+    setCurrent={setCurrent}
+  /> */}
       <div className="campus-content-section">
         {current === 1 && renderedAll}
         {current === 2 && renderedUpcoming}
@@ -125,4 +127,6 @@ export default function IntraCollege() {
       )}
     </div>
   );
+
+  return events.length !== 0 ? intraCollegePage : <LoadingPage />;
 }

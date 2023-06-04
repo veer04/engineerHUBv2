@@ -1,0 +1,146 @@
+.profile-page {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: var(--vertical-padding) var(--section-padding);
+  scroll-behavior: auto;
+}
+.profile-page .heading-3 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--text-color-dark-green);
+  margin-bottom: 1rem;
+}
+.profile-page > section {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 2rem;
+}
+.profile-page > section > .details-container {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 2rem;
+}
+
+.profile-page > section > .details-container p {
+  font-size: 0.875rem;
+  color: var(--text-color-dark-green);
+  margin-bottom: 0;
+  margin-top: 0;
+}
+.profile-page > section > .details-container > p:nth-child(1) {
+  font-size: 1.25rem;
+  margin-top: 0;
+  margin-bottom: 0.75rem;
+}
+.profile-page > section > .details-container > div {
+  display: flex;
+  justify-content: center;
+}
+.profile-page > section > .details-container > div > .profile-picture {
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 9.375rem;
+  height: 9.375rem;
+  border-radius: 50%;
+  margin-bottom: 1.5625rem;
+}
+.profile-page > section > .details-container > .verifiable-fields {
+  display: flex;
+  flex-direction: row;
+  gap: 0 1.25rem;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+.profile-page
+  > section
+  > .details-container
+  > .verifiable-fields
+  > div
+  > .verification-btn {
+  width: 7.6875rem;
+  height: 2.25rem;
+  background-color: var(--primary-color-dark-green);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: white;
+  border-radius: 0.625rem;
+  border: none;
+  margin-bottom: 1.5625rem;
+}
+
+.profile-page
+  > section
+  > .details-container
+  > .verifiable-fields
+  > div
+  > .verification-btn:hover {
+  background-color: var(--primary-color-green);
+}
+
+.profile-page
+  > section
+  > .details-container
+  > .verifiable-fields
+  > div
+  > .verification-btn:active {
+  background-color: rgb(16, 109, 108);
+}
+.profile-page
+  > section
+  > .details-container
+  > .verifiable-fields
+  > div
+  > .--is-verified {
+  background-color: #c2e6e6;
+  color: var(--text-color-dark-green);
+}
+.profile-page
+  > section
+  > .details-container
+  > .verifiable-fields
+  > div
+  > .--is-verified:hover {
+  cursor: default;
+  background-color: #c2e6e6;
+  color: var(--text-color-dark-green);
+}
+.profile-page
+  > section
+  > .details-container
+  > .verifiable-fields
+  > div
+  > .--is-verified:active {
+  background-color: #c2e6e6;
+  color: var(--text-color-dark-green);
+}
+
+.logout-btn {
+  width: 6rem;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 580px) {
+  .profile-page > section > .details-container {
+    width: 100%;
+  }
+  .profile-page > section > .details-container > .verifiable-fields {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .profile-page > section > .details-container > .verifiable-fields > div {
+    width: 100%;
+  }
+  .profile-page
+    > section
+    > .details-container
+    > .verifiable-fields
+    > div
+    > .verification-btn {
+    margin-bottom: 0.875rem;
+  }
+}

@@ -46,6 +46,10 @@
   aspect-ratio: 1/1;
   font-size: 1.3rem;
   background-color: rgb(18, 131, 129, 0.15);
+  cursor: pointer;
+}
+.clubs-page-activity-card > .options > div:hover {
+  background-color: rgb(18, 131, 129, 0.25);
 }
 .clubs-page-activity-card > .description {
   font-size: 1rem;

@@ -5,9 +5,10 @@ import { FaRegHeart } from "react-icons/fa";
 import { GrShareOption } from "react-icons/gr";
 import { RWebShare } from "react-web-share";
 import { API_URL, FRONTEND_URL } from "../../services/APIUtils";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 export default function ClubPostCard({ _id, postLogo, likes }) {
+  const navigate = useNavigate();
   const { collegeId, clubId } = useParams();
   const [isLiked, setIsLiked] = useState(
     sessionStorage.getItem(`${_id} isLiked`) !== null
@@ -18,7 +19,12 @@ export default function ClubPostCard({ _id, postLogo, likes }) {
   // let likesCount = isLiked ? likes + 1 : likes;
 
   return (
-    <div className="club-post-card card-hover">
+    <div
+      onClick={() =>
+        navigate(`/campus/${collegeId}/technical-clubs/${clubId}/posts/${_id}`)
+      }
+      className="club-post-card card-hover"
+    >
       <div
         style={{
           backgroundImage: `url(${postLogo || defaultPoster})`,
@@ -44,18 +50,17 @@ export default function ClubPostCard({ _id, postLogo, likes }) {
           >
             <FaRegHeart />
           </div>
-          <div className="share">
-            <RWebShare
-              data={{
-                text: `Check out this post`,
-                url: `${FRONTEND_URL}campus/${collegeId}/technical-clubs/${clubId}/posts/${_id}}`,
-                title: "Check out this post at engineerHUB",
-              }}
-              onClick={() => console.info("shared successfully")}
-            >
+          <RWebShare
+            data={{
+              text: `Check out this post`,
+              url: `${FRONTEND_URL}campus/${collegeId}/technical-clubs/${clubId}/posts/${_id}`,
+              title: "Check out this post at engineerHUB",
+            }}
+          >
+            <div className="share">
               <GrShareOption />
-            </RWebShare>
-          </div>
+            </div>
+          </RWebShare>
         </div>
       </div>
     </div>

@@ -2,9 +2,11 @@ import React, { useState, useEffect } from "react";
 import "./ParticularClub.css";
 import ImageCarousel from "../../../components/ImageCarousel/ImageCarousel";
 import { RxChevronDown } from "react-icons/rx";
-import { BsStar, BsStarFill, BsStarHalf } from "react-icons/bs";
-import { Link, useParams } from "react-router-dom";
-import defaultPoster from "../../../assets/defaultPoster";
+import { BsArrowUpRight, BsStar, BsStarFill, BsStarHalf } from "react-icons/bs";
+import { Link, Outlet, useParams } from "react-router-dom";
+import defaultPoster, {
+  defaultPosterArray,
+} from "../../../assets/defaultPoster";
 import CategoryBar from "../../../components/CategoryBar/CategoryBar";
 import ClubPostCard from "../../../components/ClubPostCard/ClubPostCard";
 import useNavbar from "../../../hooks/use-navbar";
@@ -13,6 +15,9 @@ import Girl from "./girl.jpeg";
 import InterCollegeCard from "../../../components/InterCollegeCard/InterCollegeCard";
 import { getAllEvents, getClubById } from "../../../services/APIConfig";
 import ClubMemberCard from "../../../components/ClubMemberCard/ClubMemberCard";
+import { FiArrowUpRight } from "react-icons/fi";
+import { HiArrowUpRight } from "react-icons/hi2";
+import LoadingPage from "../../../components/Loader/LoadingPage";
 export default function ParticularClub() {
   const { setSelectedPageNavbar } = useNavbar();
   const { clubId } = useParams();
@@ -35,9 +40,6 @@ export default function ParticularClub() {
     getAllEvents(setEvents);
     getClubById(setClub, clubId);
   }, []);
-  useEffect(() => {
-    console.log(club);
-  }, [club]);
 
   const renderedPosts = club.posts
     ? club.posts.map((post) => <ClubPostCard key={post._id} {...post} />)
@@ -59,11 +61,16 @@ export default function ParticularClub() {
       Reels Coming Soon
     </div>
   );
-  return (
+
+  const particularClubPage = (
     <div className="particular-club-page">
       <div className="image-carousel__container">
         <div className="image-carousel">
-          <ImageCarousel collegePhoto={club.clubPhoto} />
+          <ImageCarousel
+            collegePhoto={
+              club.clubPhoto?.length ? club.clubPhoto : defaultPosterArray
+            }
+          />
         </div>
       </div>
       <div className="details-tab">
@@ -72,7 +79,9 @@ export default function ParticularClub() {
             style={{
               borderRadius: "50%",
               overflow: "hidden",
-              backgroundImage: `url(${club.image})`,
+              backgroundImage: `url(${
+                club.image ? club.image : defaultPoster
+              })`,
               backgroundSize: "cover",
               backgroundPosition: "center",
             }}
@@ -80,9 +89,9 @@ export default function ParticularClub() {
           ></div>
           <div>
             <div className="title">{club.name}</div>
-            {/* <div className="location">Durgapur, India</div> */}
             <a className="link" href={`${club.websiteUrl}`}>
-              {club.websiteUrl}
+              Club Website
+              <HiArrowUpRight />
             </a>
           </div>
         </div>
@@ -107,15 +116,15 @@ export default function ParticularClub() {
       {/* later change to code below*/}
 
       {/* <div className="content-container">
-        {current === 1 && renderedPosts}
-        {current === 2 && renderedReels}
-      </div> */}
+    {current === 1 && renderedPosts}
+    {current === 2 && renderedReels}
+  </div> */}
 
       {current === 1 && (
         <div className="content-container">{renderedPosts}</div>
       )}
       {current === 2 && renderedReels}
-      {club.members && (
+      {club.members !== undefined && club.members.length !== 0 && (
         <div className="members-container">
           <div className="title">Members</div>
           <div className="members">
@@ -137,6 +146,9 @@ export default function ParticularClub() {
               />
             ))}
       </div>
+      <Outlet />
     </div>
   );
+
+  return club.name ? particularClubPage : <LoadingPage />;
 }

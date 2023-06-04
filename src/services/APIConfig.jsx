@@ -4,6 +4,63 @@ import decryptData from "../features/DeCrypt";
 export const cancelToken = axios.CancelToken.source();
 export const controller = new AbortController();
 
+export const getBestAlumni = (setBestAlumni) => {
+  const controller = new AbortController();
+  axios
+    .get(`${API_URL}api/v1/allAlumni`, {
+      signal: controller.signal,
+    })
+    .then((res) => {
+      const data = res.data.data;
+      setBestAlumni(data);
+    })
+    .catch((err) => {
+      if (axios.isCancel(err)) {
+        console.log("req cancel");
+      } else {
+        console.log("req performed");
+      }
+    });
+};
+
+export const getCampusAlumni = (setAlumni, collegeId) => {
+  const controller = new AbortController();
+  axios
+    .get(`${API_URL}api/v1/getAlumniInCampus/${collegeId}`, {
+      signal: controller.signal,
+    })
+    .then((res) => {
+      const data = res.data.data;
+      setAlumni(data);
+    })
+    .catch((err) => {
+      if (axios.isCancel(err)) {
+        console.log("req cancel");
+      } else {
+        console.log("req performed");
+      }
+    });
+};
+
+export const getAlumniById = (setAlmaData, almaId) => {
+  const controller = new AbortController();
+  axios
+    .get(`${API_URL}api/v1/getAlumniWithId/${almaId}`, {
+      signal: controller.signal,
+    })
+    .then((res) => {
+      const data = res.data.data;
+      setAlmaData(data);
+    })
+    .catch((err) => {
+      if (axios.isCancel(err)) {
+        console.log("req cancel");
+      } else {
+        console.log("req performed");
+      }
+    });
+};
+
 export const getDomains = (setDomainData) => {
   const controller = new AbortController();
   axios
@@ -311,7 +368,7 @@ export const getClubById = (setClub, clubId) => {
 export const getPostById = (setPost, postId) => {
   const controller = new AbortController();
   axios
-    .get(`${API_URL}api/v1/club/post/${postId}`, {
+    .get(`${API_URL}api/v1/club/posts/individualPost/${postId}`, {
       signal: controller.signal,
     })
     .then((res) => {

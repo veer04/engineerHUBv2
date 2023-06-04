@@ -77,6 +77,32 @@
   font-size: 1.2rem;
   font-weight: 700;
 }
+.community-domains-section > .load-more {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+.community-domains-section > .load-more > button {
+  height: 3rem;
+  width: 9.1875rem;
+  font-size: 0.875rem;
+  font-weight: 400;
+  border: 1px solid #000;
+  border-radius: 0.625rem;
+  background-color: transparent;
+}
+.community-domains-section > .load-more > button:hover {
+  cursor: pointer;
+  background-color: var(--text-color-green);
+  color: #fff;
+  border: 1px solid var(--text-color-green);
+}
+.community-domains-section > .load-more > button:active {
+  background-color: var(--text-color-dark-green);
+  border: 1px solid var(--text-color-dark-green);
+}
 
 @media screen and (max-width: 1400px) {
   .domain-content-section {

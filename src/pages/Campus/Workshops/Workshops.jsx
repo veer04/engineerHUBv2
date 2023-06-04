@@ -7,6 +7,7 @@ import CategoryBar from "../../../components/CategoryBar/CategoryBar";
 import EventCard from "../../../components/EventCard/EventCard";
 import CampusEventTab from "../../../components/CampusEventTab/CampusEventTab";
 import useNavbar from "../../../hooks/use-navbar";
+import LoadingPage from "../../../components/Loader/LoadingPage";
 
 export default function Workshops() {
   const { setSelectedPageNavbar } = useNavbar();
@@ -18,7 +19,6 @@ export default function Workshops() {
     getEventByType(setEvents, "Workshops");
     window.scrollTo(0, 0);
     setSelectedPageNavbar("campus");
-
 
     return () => {
       controller.abort();
@@ -67,7 +67,7 @@ export default function Workshops() {
     <EventCard key={event._id} {...event} />
   ));
 
-  return (
+  const workshopPage = (
     <div className="intra-college-page">
       <h1 className="heading-3">Workshops</h1>
       <h2 className="subheading-1">
@@ -105,23 +105,23 @@ export default function Workshops() {
         </div>
       </div>
       {/* <CategoryBar
-        categories={[
-          {
-            id: 1,
-            title: "All",
-          },
-          {
-            id: 2,
-            title: "Upcoming",
-          },
-          {
-            id: 3,
-            title: "On-going",
-          },
-        ]}
-        current={current}
-        setCurrent={setCurrent}
-      /> */}
+    categories={[
+      {
+        id: 1,
+        title: "All",
+      },
+      {
+        id: 2,
+        title: "Upcoming",
+      },
+      {
+        id: 3,
+        title: "On-going",
+      },
+    ]}
+    current={current}
+    setCurrent={setCurrent}
+  /> */}
       <div className="campus-content-section">
         {current === 1 && renderedAll}
         {current === 2 && renderedUpcoming}
@@ -143,4 +143,6 @@ export default function Workshops() {
       )}
     </div>
   );
+
+  return events.length !== 0 ? workshopPage : <LoadingPage />;
 }

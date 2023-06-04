@@ -26,43 +26,6 @@
   font-weight: 600;
 }
 
-.navigation-buttons__container {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  margin: 2em 0;
-}
-.navigation-buttons__container > .navigation-buttons {
-  display: flex;
-  flex-direction: row;
-  width: 40rem;
-  justify-content: space-between;
-  align-items: center;
-  position: relative;
-}
-.navigation-buttons__container > .navigation-buttons > .form-button {
-  background-color: var(--main-background-color);
-  color: #a1a1a1;
-  padding: 0.5rem 1.5rem;
-  border-radius: 10rem;
-  z-index: 3;
-  border: 1px solid #a1a1a1;
-  text-align: center;
-}
-.navigation-buttons__container > .navigation-buttons > .dotted-line {
-  position: absolute;
-  width: 50%;
-  border: 2px dashed #a1a1a1;
-}
-.navigation-buttons__container > .navigation-buttons > .dotted-line-1 {
-  left: 0;
-}
-.navigation-buttons__container > .navigation-buttons > .dotted-line-2 {
-  left: 50%;
-}
-
 .navDifferentPagesButton {
   display: flex;
   justify-content: space-evenly;
@@ -147,11 +110,6 @@
 }
 
 @media screen and (max-width: 530px) {
-  .navigation-buttons__container > .navigation-buttons > .form-button {
-    padding: 0.3rem 0.75rem;
-    font-size: 0.7rem;
-    z-index: 3;
-  }
   .inputHosting {
     width: 100%;
     min-width: 0;
