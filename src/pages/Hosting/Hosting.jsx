@@ -53,7 +53,7 @@ const [token, setToken]=useState("");
       const decoded = jwt_decode(token);
       console.log(decoded);
       console.log(decoded.role);
-      if(decoded.role==="Clubs")
+      if(decoded.role==="Club")
       {
         navigate("/hostevent");
       }
@@ -71,7 +71,7 @@ const [token, setToken]=useState("");
       const decoded = jwt_decode(token);
       console.log(decoded);
       console.log(decoded.role);
-      if(decoded.role==="Organization"||decoded.role==="Alumni" ||decoded.role==="Clubs")
+      if(decoded.role==="Organization"||decoded.role==="Alumni" ||decoded.role==="Club")
       {
         navigate("/hostevent");
       }

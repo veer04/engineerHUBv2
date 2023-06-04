@@ -47,10 +47,10 @@ const ClubSignup = () => {
     // userName: '',
     email: "",
     description: "",
-    state: "",
+    collegeName: "",
     clubType: "",
-    institutionName: "",
-    city: "",
+    websiteUrl: "",
+ 
     collegeId: "",
     password: "",
     confirmPassword: "",
@@ -62,10 +62,10 @@ const ClubSignup = () => {
     // userName: '',
     email: "",
     description: "",
-    state: "",
+    collegeName: "",
     clubType: "",
-    institutionName: "",
-    city: "",
+    websiteUrl: "",
+    
     collegeId: "",
     password: "",
     confirmPassword: "",
@@ -95,7 +95,7 @@ const ClubSignup = () => {
       // userName: '',
       email: "",
       description: "",
-      institutionName: "",
+      websiteUrl: "",
       contact: "",
       collegeId: "",
     };
@@ -121,8 +121,8 @@ const ClubSignup = () => {
       valid = false;
     }
 
-    if (!formData.institutionName) {
-      newErrors.institutionName = "College name is required";
+    if (!formData.websiteUrl) {
+      newErrors.websiteUrl = "College name is required";
       valid = false;
     }
 
@@ -354,7 +354,7 @@ const ClubSignup = () => {
                     <div>
                       <TextField
                         name="name"
-                        label="Name"
+                        label="userName"
                         variant="outlined"
                         value={formData.name}
                         onChange={handleChange}
@@ -425,17 +425,17 @@ const ClubSignup = () => {
                         helperText={errors.collegeId}
                       />
                       <TextField
-                        name="state"
-                        label="state"
+                        name="collegeName"
+                        label="collegeName"
                         variant="outlined"
-                        value={formData.state}
+                        value={formData.collegeName}
                         onChange={handleChange}
                         fullWidth
                         margin="normal"
-                        error={!!errors.state}
-                        helperText={errors.state}
+                        error={!!errors.collegeName}
+                        helperText={errors.collegeName}
                       />
-                      <TextField
+                      {/* <TextField
                         name="city"
                         label="city"
                         variant="outlined"
@@ -445,7 +445,7 @@ const ClubSignup = () => {
                         margin="normal"
                         error={!!errors.city}
                         helperText={errors.city}
-                      />
+                      /> */}
 
                       <br />
                       <button
@@ -472,15 +472,15 @@ const ClubSignup = () => {
                   {step == 3 && (
                     <div>
                       <TextField
-                        name="institutionName"
-                        label="institutionName"
+                        name="websiteUrl"
+                        label="websiteUrl"
                         variant="outlined"
-                        value={formData.institutionName}
+                        value={formData.websiteUrl}
                         onChange={handleChange}
                         fullWidth
                         margin="normal"
-                        error={!!errors.institutionName}
-                        helperText={errors.institutionName}
+                        error={!!errors.websiteUrl}
+                        helperText={errors.websiteUrl}
                       />
 
                       {/* <Select

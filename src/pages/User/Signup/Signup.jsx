@@ -354,7 +354,7 @@ const Signup = () => {
                     <div>
                       <TextField
                         name="name"
-                        label="Name"
+                        label="userName"
                         variant="outlined"
                         value={formData.name}
                         onChange={handleChange}
