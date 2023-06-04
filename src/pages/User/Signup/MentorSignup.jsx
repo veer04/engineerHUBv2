@@ -15,7 +15,7 @@ import Cookies from "js-cookie";
 import jwt_decode from "jwt-decode";
 // import GroupAddIcon from '@material-ui/icons/GroupAdd';
 
-const Signup = () => {
+const MentorSignup = () => {
   const navigate = useNavigate();
   const { setSelectedPageNavbar } = useNavbar();
   const [loading, setLoading] = useState(false);
@@ -24,37 +24,41 @@ const Signup = () => {
     setSelectedPageNavbar("login");
   }, []);
 
-  const roles = ["User", "Mentor", "Organization"];
-  const [countries, setCountries] = useState([]);
-  const [states, setStates] = useState([]);
-  const [cities, setCities] = useState([]);
+//   const roles = ["User", "Mentor", "Organization"];
+//   const [countries, setCountries] = useState([]);
+//   const [states, setStates] = useState([]);
+//   const [cities, setCities] = useState([]);
 
-  useEffect(() => {
-    // Fetch country data
-    axios.get(`${API_URL}api/v1/getCountries`)
-      .then(response => {
-        setCountries(response.data);
-      })
-      .catch(error => {
-        console.error('Error fetching countries:', error);
-      });
-  }, []);
+//   useEffect(() => {
+//     // Fetch campus data
+//     axios.get(`${API_URL}api/v1/getCountries`)
+//       .then(response => {
+//         setCountries(response.data);
+//       })
+//       .catch(error => {
+//         console.error('Error fetching countries:', error);
+//       });
+//   }, []);
 
 
-  const [role, setRole] = useState("User");
+//   const [role, setRole] = useState("User");
   const [formData, setFormData] = useState({
     name: "",
-    // userName: '',
     email: "",
     mobile: "",
-    state: "",
-    branch: "",
-    institutionName: "",
-    city: "",
-    country: "",
+    companyName: "",
+    currentProfile: "",
+    batch: "",
+    aboutMe: "",
+    campus: "",
     password: "",
     confirmPassword: "",
-    role: "",
+    socialMedia: {
+        linkedIn: '',
+        twitter: '',
+        instagram: '',
+      }
+
   });
   const [step, setStep] = useState(1);
   const [errors, setErrors] = useState({
@@ -62,13 +66,18 @@ const Signup = () => {
     // userName: '',
     email: "",
     mobile: "",
-    state: "",
-    branch: "",
-    institutionName: "",
-    city: "",
-    country: "",
+    companyName: "",
+    currentProfile: "",
+    batch: "",
+    aboutMe: "",
+    campus: "",
     password: "",
     confirmPassword: "",
+    socialMedia: {
+        linkedIn: '',
+        twitter: '',
+        instagram: '',
+      }
   });
 
 
@@ -95,9 +104,10 @@ const Signup = () => {
       // userName: '',
       email: "",
       mobile: "",
-      institutionName: "",
+      batch: "",
       contact: "",
-      country: "",
+      campus: "",
+
     };
 
     if (!formData.name) {
@@ -121,8 +131,8 @@ const Signup = () => {
       valid = false;
     }
 
-    if (!formData.institutionName) {
-      newErrors.institutionName = "College name is required";
+    if (!formData.batch) {
+      newErrors.batch = "College name is required";
       valid = false;
     }
 
@@ -134,8 +144,8 @@ const Signup = () => {
       valid = false;
     }
 
-    if (!formData.country) {
-      newErrors.country = "Country is required";
+    if (!formData.campus) {
+      newErrors.campus = "campus is required";
       valid = false;
     }
 
@@ -143,9 +153,9 @@ const Signup = () => {
     return valid;
   };
 
-  // const handleChangeRole = (event) => {
-  //   setRole(event.target.value);
-  // };
+//   const handleChangeRole = (event) => {
+//     setRole(event.target.value);
+//   };
   const handleNext = () => {
       setStep(step+1);
   };
@@ -160,7 +170,7 @@ const Signup = () => {
     if (!validateInput()) {
       console.log(formData);
 
-      axios.post(`${API_URL}api/v1/user/signup`, formData).then(
+      axios.post(`${API_URL}api/v1/alumni/signup`, formData).then(
         (response) => {
 
 
@@ -170,12 +180,8 @@ const Signup = () => {
           // console.log(decoded);
           Cookies.set("refresh_token", response.data.refreshToken);
           Cookies.set("userName", response.data.userName);
-          Cookies.set("institutionName", response.data.institutionName);
+          Cookies.set("batch", response.data.batch);
           Cookies.set("email", response.data.email);
-
-
-
-
 
           console.log(response);
           if(response.status===200 || response.status===201 || response.status===202 || response.status===203 || response.status===204)
@@ -193,34 +199,43 @@ const Signup = () => {
   }
   
   
-  ;  const handleCountryChange = event => {
-    const countryCode = event.target.value;
+//   ;  const handlecampusChange = event => {
+//     const campusCode = event.target.value;
     
-    // Fetch state data based on selected country
-    axios.get(`${API_URL}api/v1/getStates/{countryCode}`)
-      .then(response => {
-        setStates(response.data);
-      })
-      .catch(error => {
-        console.error('Error fetching states:', error);
-      });
+//     // Fetch state data based on selected campus
+//     axios.get(`${API_URL}api/v1/getStates/{campusCode}`)
+//       .then(response => {
+//         setStates(response.data);
+//       })
+//       .catch(error => {
+//         console.error('Error fetching states:', error);
+//       });
+//   };
+
+//     const handleStateChange = event => {
+//     const campusCode = event.target.value; // Get the selected campus code
+//     const stateCode = event.target.value; // Get the selected state code
+//     axios.get(`${API_URL}api/v1/getCities/${campusCode}/${stateCode}`)
+//     .then(response => {
+//       setCities(response.data);
+//     })
+//     .catch(error => {
+//       console.error('Error fetching cities:', error);
+//     });
+
+//   };
+
+
+const handleChangeArraydata = (event) => {
+    const { name, value } = event.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      socialMedia: {
+        ...prevData.socialMedia,
+        [name]: value
+      }
+    }));
   };
-
-    const handleStateChange = event => {
-    const countryCode = event.target.value; // Get the selected country code
-    const stateCode = event.target.value; // Get the selected state code
-    axios.get(`${API_URL}api/v1/getCities/${countryCode}/${stateCode}`)
-    .then(response => {
-      setCities(response.data);
-    })
-    .catch(error => {
-      console.error('Error fetching cities:', error);
-    });
-
-  };
-
-
-  
 
   return (
     <>
@@ -283,7 +298,7 @@ const Signup = () => {
     </div>
                 </div> */}
             <div className="col-lg-2"></div>
-            <div className="col-lg-5">
+            <div className="col-lg-7">
               <div className="form-container">
                 <div className="navigation-buttons__container">
                   <div className="navigation-buttons">
@@ -334,13 +349,43 @@ const Signup = () => {
                     >
                       Applicant Details
                     </div>
+
+
+
                     <div
                       style={{
                         backgroundColor:
-                          step === 3 ? "var(--primary-color-dark-green)" : "",
-                        color: step === 3 ? "white" : "",
+                          step === 3
+                            ? "var(--primary-color-dark-green)"
+                            : step === 4
+                            ? "#15CF74"
+                            : "",
+                        color: step === 3 ? "white" : step === 4 ? "white" : "",
                         borderColor:
-                          step === 3 ? "var(--primary-color-dark-green)" : "",
+                          step === 3
+                            ? "var(--primary-color-dark-green)"
+                            : step === 4
+                            ? "#15CF74"
+                            : "",
+                      }}
+                      className="form-button"
+                    >
+                      Social Links
+                    </div>
+
+
+
+
+
+
+
+                    <div
+                      style={{
+                        backgroundColor:
+                          step === 4 ? "var(--primary-color-dark-green)" : "",
+                        color: step === 4 ? "white" : "",
+                        borderColor:
+                          step === 4 ? "var(--primary-color-dark-green)" : "",
                       }}
                       className="form-button"
                     >
@@ -402,49 +447,49 @@ const Signup = () => {
               {step === 2 && (
                     <div>
                       <TextField
-                        name="branch"
-                        label="branch Name"
+                        name="currentProfile"
+                        label="currentProfile Name"
                         variant="outlined"
-                        value={formData.branch}
+                        value={formData.currentProfile}
                         onChange={handleChange}
                         fullWidth
                         margin="normal"
-                        error={!!errors.branch}
-                        helperText={errors.branch}
+                        error={!!errors.currentProfile}
+                        helperText={errors.currentProfile}
                       />
 
                       <TextField
-                        name="country"
-                        label="Country"
+                        name="campus"
+                        label="campus"
                         variant="outlined"
-                        value={formData.country}
+                        value={formData.campus}
                         onChange={handleChange}
                         fullWidth
                         margin="normal"
-                        error={!!errors.country}
-                        helperText={errors.country}
+                        error={!!errors.campus}
+                        helperText={errors.campus}
                       />
                       <TextField
-                        name="state"
-                        label="state"
+                        name="companyName"
+                        label="companyName"
                         variant="outlined"
-                        value={formData.state}
+                        value={formData.companyName}
                         onChange={handleChange}
                         fullWidth
                         margin="normal"
-                        error={!!errors.state}
-                        helperText={errors.state}
+                        error={!!errors.companyName}
+                        helperText={errors.companyName}
                       />
                       <TextField
-                        name="city"
-                        label="city"
+                        name="aboutMe"
+                        label="aboutMe"
                         variant="outlined"
-                        value={formData.city}
+                        value={formData.aboutMe}
                         onChange={handleChange}
                         fullWidth
                         margin="normal"
-                        error={!!errors.city}
-                        helperText={errors.city}
+                        error={!!errors.aboutMe}
+                        helperText={errors.aboutMe}
                       />
 
                       <br />
@@ -468,19 +513,86 @@ const Signup = () => {
                     </div>
                   )}
 
+                {
+                    step === 3 && (
 
-                  {step == 3 && (
+                        <div>
+                       <TextField
+                        name="instagram"
+                        label="instagram"
+                        variant="outlined"
+                        value={formData.socialMedia.instagram}
+                        onChange={handleChangeArraydata}
+                        fullWidth
+                        margin="normal"
+                        error={!!errors.socialMedia.instagram}
+                        helperText={errors.socialMedia.instagram}
+                      />
+
+
+                        <TextField
+                        name="linkedIn"
+                        label="linkedIn"
+                        variant="outlined"
+                        value={formData.socialMedia.linkedIn}
+                        onChange={handleChangeArraydata}
+                        fullWidth
+                        margin="normal"
+                        error={!!errors.socialMedia.linkedIn}
+                        helperText={errors.socialMedia.linkedIn}
+                      />
+                         <TextField
+                        name="twitter"
+                        label="twitter"
+                        variant="outlined"
+                        value={formData.socialMedia.twitter}
+                        onChange={handleChangeArraydata}
+                        fullWidth
+                        margin="normal"
+                        error={!!errors.socialMedia.twitter}
+                        helperText={errors.socialMedia.twitter}
+                      />
+                      <br />
+                      <button
+                        type="button"
+                        className="buttonOnHostingPage"
+                        onClick={handlePrev}
+                      >
+                        Previous
+                      </button>
+                      <button
+                        type="button"
+                        className="buttonOnHostingPage btnrightallign"
+                        onClick={handleNext}
+                      >
+                        Next
+                      </button>
+                      <br />
+                      <br />
+
+                        </div>
+
+
+
+                    )
+                }
+
+
+
+
+
+                  {step === 4 && (
                     <div>
                       <TextField
-                        name="institutionName"
-                        label="institutionName"
+                        name="batch"
+                        label="batch"
                         variant="outlined"
-                        value={formData.institutionName}
+                        value={formData.batch}
                         onChange={handleChange}
                         fullWidth
                         margin="normal"
-                        error={!!errors.institutionName}
-                        helperText={errors.institutionName}
+                        error={!!errors.batch}
+                        helperText={errors.batch}
                       />
 
                       {/* <Select
@@ -549,4 +661,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default MentorSignup;

@@ -403,7 +403,7 @@ const Register = () => {
 
               <div className="my-item-cont">
                 <div>Didn't have an account?</div>
-                <Link to="/signup" className="f-p ">
+                <Link to="/selectRole" className="f-p ">
                   Sign Up
                 </Link>
                 <CustomSnackbar

@@ -39,9 +39,12 @@ import ProjectDetail from "./pages/Company/Projects/ProjectDetail";
 import ComingSoon from "./pages/Maintenance/ComingSoon";
 import ParticularEvent from "./pages/Community/Events/ParticularEvent";
 import { lazy } from "react";
+import ClubSignup from "./pages/User/Signup/ClubSignup";
+import MentorSignup from "./pages/User/Signup/MentorSignup";
+import OrganizationSignup from "./pages/User/Signup/OrganizationSignup";
 import { Suspense } from "react";
 import LoadingPage from "./components/Loader/LoadingPage";
-
+import Role from "./pages/User/RoleWiseUserPage/Role";
 const CommunityPage = lazy(() => import("./pages/Community/CommunityPage"));
 const CampusPage = lazy(() => import("./pages/Campus/CampusPage"));
 const Company = lazy(() => import("./pages/Company/Company"));
@@ -65,8 +68,12 @@ function App() {
           <Route index element={<HomePage path="homepage" />} />
           <Route path="/home" element={<HomePage />} />
           <Route path="/register" element={<RegistrationForm />} />
+          <Route path="/selectRole" element={<Role />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/clubSignup" element={<ClubSignup />} />
+          <Route path="/mentorSignup" element={<MentorSignup />} />
+          <Route path="/organizationSignup" element={<OrganizationSignup />} />
           <Route path="/login" element={<Login />} />
           <Route path="/otpverification" element={<OTP />} />
           <Route path="/community">

@@ -2,13 +2,15 @@ import "../Signup/Signup.css";
 import "./Otpverification.css";
 import { useState, useEffect } from 'react';
 import { TextField, Button, Box } from '@mui/material';
+import {useNavigate} from "react-router-dom";
 import axios from "axios";
-import Cookies from 'js-cookie';
+import Cookies from "js-cookie";
+import jwt_decode from "jwt-decode";
 import useNavbar from "../../../hooks/use-navbar"
-
+import { API_URL } from "../../../services/APIUtils";
 const OTP = () => {
     const { setSelectedPageNavbar } = useNavbar();
-    
+    const navigate =useNavigate();
     useEffect(() => {
         window.scrollTo(0, 0);
         setSelectedPageNavbar("login");
@@ -27,12 +29,20 @@ const OTP = () => {
         OTP: otp
       };
   
-      axios.patch("https://e-hub-backend-production-9545.up.railway.app/api/v1/signup/verify", Result)
+      axios.patch(`${API_URL}/api/v1/signup/verify`, Result)
         .then(response =>{
             // Store the access token and refresh token in cookies
-            Cookies.set('access_token', response.data.accessToken);
-            Cookies.set('refresh_token', response.data.refreshToken);
-        
+            Cookies.set("access_token", response.data.accessToken);
+            const token = response.data.accessToken;
+            const decoded = jwt_decode(token);
+            // console.log(decoded);
+            Cookies.set("refresh_token", response.data.refreshToken);
+            Cookies.set("userName", response.data.userName);
+            Cookies.set("batch", response.data.batch);
+            Cookies.set("email", response.data.email);
+            navigate("/")
+            window.location.reload(true);
+
             // Proceed to login page or do other stuff
           })
         .catch(error => console.error(error));
@@ -45,7 +55,7 @@ const OTP = () => {
     <div className="Login">
         <div className="container">
             <div className="row">
-                <div className="col-lg-3 sideMenuLogin">
+                {/* <div className="col-lg-3 sideMenuLogin">
     <p className="sidemenuBarHeaderLogin">
         For Users
 
@@ -99,7 +109,7 @@ const OTP = () => {
         </div>
     
     </div>
-                </div>
+                </div> */}
                 <div className="col-lg-9">
                    <p className="headerOtpVerification">
                     Verify YourSelf

@@ -15,7 +15,7 @@ import Cookies from "js-cookie";
 import jwt_decode from "jwt-decode";
 // import GroupAddIcon from '@material-ui/icons/GroupAdd';
 
-const Signup = () => {
+const ClubSignup = () => {
   const navigate = useNavigate();
   const { setSelectedPageNavbar } = useNavbar();
   const [loading, setLoading] = useState(false);
@@ -46,12 +46,12 @@ const Signup = () => {
     name: "",
     // userName: '',
     email: "",
-    mobile: "",
+    description: "",
     state: "",
-    branch: "",
+    clubType: "",
     institutionName: "",
     city: "",
-    country: "",
+    collegeId: "",
     password: "",
     confirmPassword: "",
     role: "",
@@ -61,12 +61,12 @@ const Signup = () => {
     name: "",
     // userName: '',
     email: "",
-    mobile: "",
+    description: "",
     state: "",
-    branch: "",
+    clubType: "",
     institutionName: "",
     city: "",
-    country: "",
+    collegeId: "",
     password: "",
     confirmPassword: "",
   });
@@ -94,10 +94,10 @@ const Signup = () => {
       name: "",
       // userName: '',
       email: "",
-      mobile: "",
+      description: "",
       institutionName: "",
       contact: "",
-      country: "",
+      collegeId: "",
     };
 
     if (!formData.name) {
@@ -113,11 +113,11 @@ const Signup = () => {
       valid = false;
     }
 
-    if (!formData.mobile) {
-      newErrors.mobile = "Mobile number is required";
+    if (!formData.description) {
+      newErrors.description = "description is required";
       valid = false;
-    } else if (!/^\d{10}$/.test(formData.mobile)) {
-      newErrors.mobile = "Invalid mobile number";
+    } else if (!/^\d{10}$/.test(formData.description)) {
+      newErrors.description = "Invalid description number";
       valid = false;
     }
 
@@ -134,8 +134,8 @@ const Signup = () => {
       valid = false;
     }
 
-    if (!formData.country) {
-      newErrors.country = "Country is required";
+    if (!formData.collegeId) {
+      newErrors.collegeId = "collegeId is required";
       valid = false;
     }
 
@@ -160,7 +160,7 @@ const Signup = () => {
     if (!validateInput()) {
       console.log(formData);
 
-      axios.post(`${API_URL}api/v1/user/signup`, formData).then(
+      axios.post(`${API_URL}api/v1/club/signup`, formData).then(
         (response) => {
 
 
@@ -376,15 +376,15 @@ const Signup = () => {
                         helperText={errors.email}
                       />
                       <TextField
-                        name="mobile"
-                        label="Mobile No."
+                        name="description"
+                        label="description "
                         variant="outlined"
-                        value={formData.mobile}
+                        value={formData.description}
                         onChange={handleChange}
                         fullWidth
                         margin="normal"
-                        error={!!errors.mobile}
-                        helperText={errors.mobile}
+                        error={!!errors.description}
+                        helperText={errors.description}
                       />
 
                       <br />
@@ -402,27 +402,27 @@ const Signup = () => {
               {step === 2 && (
                     <div>
                       <TextField
-                        name="branch"
-                        label="branch Name"
+                        name="clubType"
+                        label="clubType"
                         variant="outlined"
-                        value={formData.branch}
+                        value={formData.clubType}
                         onChange={handleChange}
                         fullWidth
                         margin="normal"
-                        error={!!errors.branch}
-                        helperText={errors.branch}
+                        error={!!errors.clubType}
+                        helperText={errors.clubType}
                       />
 
                       <TextField
-                        name="country"
-                        label="Country"
+                        name="collegeId"
+                        label="collegeId"
                         variant="outlined"
-                        value={formData.country}
+                        value={formData.collegeId}
                         onChange={handleChange}
                         fullWidth
                         margin="normal"
-                        error={!!errors.country}
-                        helperText={errors.country}
+                        error={!!errors.collegeId}
+                        helperText={errors.collegeId}
                       />
                       <TextField
                         name="state"
@@ -549,4 +549,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default ClubSignup;
