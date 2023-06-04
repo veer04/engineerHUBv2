@@ -128,45 +128,7 @@ const OTP = () => {
     
     </div>
                 </div> */}
-                <div className="col-lg-9">
-                   <p className="headerOtpVerification">
-                    Verify YourSelf
-
-                   </p>
-                   <div className="container otpBox">
-                    <div className="otpVbox">
-                    <form onSubmit={handleSubmit}>
-                            <label>
-                                Email:
-                                <input type="email" value={email} onChange={(event) => setEmail(event.target.value)} />
-                            </label>
-                            <label>
-                                Role:
-                                <select value={role} onChange={(event) => setRole(event.target.value)}>
-                                <option value="User">User</option>
-                                <option value="Mentor">Mentor</option>
-                                <option value="Organization">Organization</option>
-                                </select>
-                            </label>
-                            <label>
-                                OTP:
-                                <input
-                            type="text"
-                            id="otp"
-                            value={otp}
-                            onChange={(event) => setOtp(event.target.value)}
-                            maxLength={6}
-                            pattern="[0-9]*" 
-                            required 
-                        />
-                            </label>
-                            <button type="submit">Submit</button>
-                    </form>
-
-                    </div>
-                   </div>
-
-                </div>
+             
             <div className="col-lg-9">
               <p className="headerOtpVerification">Verify YourSelf</p>
               <div className="container otpBox">

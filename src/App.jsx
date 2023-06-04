@@ -44,15 +44,12 @@ import MentorSignup from "./pages/User/Signup/MentorSignup";
 import OrganizationSignup from "./pages/User/Signup/OrganizationSignup";
 import { Suspense } from "react";
 import LoadingPage from "./components/Loader/LoadingPage";
-<<<<<<< HEAD
 import Role from "./pages/User/RoleWiseUserPage/Role";
-=======
 import PostModal from "./components/PostModal/PostModal";
 import ParticularAlumni from "./pages/Campus/ParticularCampus/ParticularAlumni";
 import ProfilePage from "./pages/User/Profile/ProfilePage";
 import VerificationModal from "./components/VerificationModal/VerificationModal";
 
->>>>>>> 4d4d5d42b64416457b7124b9e57398619e8b75f8
 const CommunityPage = lazy(() => import("./pages/Community/CommunityPage"));
 const CampusPage = lazy(() => import("./pages/Campus/CampusPage"));
 const Company = lazy(() => import("./pages/Company/Company"));
@@ -76,12 +73,9 @@ function App() {
           <Route index element={<HomePage path="homepage" />} />
           <Route path="/home" element={<HomePage />} />
           <Route path="/register" element={<RegistrationForm />} />
-<<<<<<< HEAD
           <Route path="/selectRole" element={<Role />} />
           <Route path="/profile" element={<Profile />} />
-=======
           <Route path="/profile" element={<ProfilePage />} />
->>>>>>> 4d4d5d42b64416457b7124b9e57398619e8b75f8
           <Route path="/signup" element={<Signup />} />
           <Route path="/clubSignup" element={<ClubSignup />} />
           <Route path="/mentorSignup" element={<MentorSignup />} />
