@@ -5,7 +5,7 @@ import { BsArrowRight } from "react-icons/bs";
 import "../../Hosting/Hosting.css";
 import Student from "./Images/student.png";
 import Club from "./Images/Club.png";
-import Company from "./Images/Company.png";
+import Company from "./Images/company.png";
 import Mentor from "./Images/Mentor.png";
 import "./Role.css";
 const Role = () => {
