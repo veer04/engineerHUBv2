@@ -67,6 +67,7 @@ const organizationNavigation=()=>{
     <img src={Club} alt="" height={150} width={150}
    onClick={clubNavigation} />
    Clubs <BsArrowRight />
+   {/* added dummy comment */}
     </div>
     <div className="cardOrganization card-hover col-lg-3">
     <img src={Company} alt="" height={150} width={150}
