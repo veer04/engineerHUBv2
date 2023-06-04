@@ -1,7 +1,8 @@
-FROM alpine:latest
+# Build Stage
+FROM alpine:latest AS build
 
-#Maintainer
-LABEL AUTHOR AYUSH-GUPTA-Martyr112
+# Maintainer
+LABEL AUTHOR="AYUSH-GUPTA-Martyr112"
 
 # Set the working directory in the container
 WORKDIR /app
@@ -10,18 +11,29 @@ WORKDIR /app
 COPY . /app/
 
 # Set environment variables
-ARG VITE_API_URL=${VITE_API_URL}
-ARG VITE_BUCKET_URL=${VITE_BUCKET_URL}
-ARG VITE_AESKEY=${VITE_AESKEY}
-ARG VITE_FRONTEND_URL=${VITE_FRONTEND_URL}
+ARG VITE_API_URL
+ARG VITE_BUCKET_URL
+ARG VITE_AESKEY
+ARG VITE_FRONTEND_URL
 
-# Install dependencies and build app2
+# Install dependencies and build app
 RUN apk add --no-cache nodejs npm \
-    && npm ci --silent \
+    && npm ci --omit=dev \
     && npm run build \
-    && npm install -g serve \
     && rm -rf /root/.npm \
-    && find . -type d -name dist -prune -o -not -name 'dist' -exec rm -rf {} \; || true
+    && find . -type d -name 'dist' -prune -o -not -name 'dist' -exec rm -rf {} \; || true
+
+# Production Stage
+FROM alpine:latest
+
+# Set the working directory in the container
+WORKDIR /app
+
+# Copy app files from the build stage
+COPY --from=build /app/dist /app/dist
+
+RUN apk add --no-cache npm nodejs \
+    && npm install -g serve
 
 # Expose port 3000
 EXPOSE 3000
