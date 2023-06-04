@@ -21,7 +21,8 @@ const OTP = () => {
   const [email, setEmail] = useState(
     Cookies.get("email") ? Cookies.get("email") : ""
   );
-  const [role, setRole] = useState("User");
+// const[email, setEmail] =useState("");
+;
   const [otp, setOtp] = useState("");
 
   const handleSubmit = (event) => {
@@ -30,9 +31,10 @@ const OTP = () => {
 
     const Result = {
       email: email,
-      role: role,
+      role: localStorage.getItem('role'),
       OTP: otp,
     };
+    console.log(Result);
 
     axios
       .patch(`${API_URL}api/v1/signup/verify`, Result)
@@ -128,16 +130,16 @@ const OTP = () => {
     
     </div>
                 </div> */}
-             
-            <div className="col-lg-9">
-              <p className="headerOtpVerification">Verify YourSelf</p>
+             <div className="col-lg-3"></div>
+            <div className="col-lg-6">
+              <p className="headerOtpVerification">Verify Email</p>
               <div className="container otpBox">
                 <div className="otpVbox">
                   <form onSubmit={handleSubmit}>
                     <label>Email:</label>
                     <SimpleInputField
                       value={email}
-                      setValue={setEmail}
+                      onChange={(event) => setEmail(event.target.value)}
                       type="email"
                       disabled
                     />
@@ -146,17 +148,18 @@ const OTP = () => {
                         value={email}
                         onChange={(event) => setEmail(event.target.value)}
                       /> */}
-                    {/* <label>
-                      Role:
+                    {/* <label> */}
+                      {/* Role:
                       <select
                         value={role}
                         onChange={(event) => setRole(event.target.value)}
                       >
-                        <option value="User">User</option>
-                        <option value="Mentor">Mentor</option>
+                        <option value="User">Student</option>
+                        <option value="Alumni">Alumni</option>
+                        <option value="Club">Club</option>
                         <option value="Organization">Organization</option>
-                      </select>
-                    </label> */}
+                      </select> */}
+                    {/* </label> */}
                     <label>OTP:</label>
                     <SimpleInputField
                       value={otp}
