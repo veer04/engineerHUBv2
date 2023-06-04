@@ -74,7 +74,6 @@ function App() {
           <Route path="/home" element={<HomePage />} />
           <Route path="/register" element={<RegistrationForm />} />
           <Route path="/selectRole" element={<Role />} />
-          <Route path="/profile" element={<Profile />} />
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/clubSignup" element={<ClubSignup />} />
