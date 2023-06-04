@@ -63,6 +63,12 @@ function App() {
 
   // const { eventId } = useParams();
   const [isEventModalOpen, setIsEventModalOpen] = useState(false);
+  const userName = document.cookie
+  .split(';')
+  .map((cookie) => cookie.trim())
+  .find((cookie) => cookie.startsWith('userName='));
+
+const isAuthenticated = !!userName;
 
   return (
     <>

@@ -14,12 +14,16 @@ import { API_URL } from "../../../services/APIUtils";
 import Cookies from "js-cookie";
 import jwt_decode from "jwt-decode";
 import HostEventTimeline from "../../../components/Timeline/HostEventTimeline";
+import {FormControl, InputLabel } from '@mui/material';
 // import GroupAddIcon from '@material-ui/icons/GroupAdd';
 
 const MentorSignup = () => {
   const navigate = useNavigate();
   const { setSelectedPageNavbar } = useNavbar();
   const [loading, setLoading] = useState(false);
+  const [campuses, setCampuses] = useState([]);
+  const [selectedCampus, setSelectedCampus] = useState('');
+
   useEffect(() => {
     window.scrollTo(0, 0);
     setSelectedPageNavbar("login");
@@ -62,6 +66,21 @@ const MentorSignup = () => {
 
   });
   const [step, setStep] = useState(1);
+  useEffect(() => {
+    fetchCampuses();
+  }, []);
+
+
+  const fetchCampuses = async () => {
+    try {
+      const response = await fetch(`${API_URL}api/v1/campus`);
+      const data = await response.json();
+      setCampuses(data);
+    } catch (error) {
+      console.error('Error fetching campuses:', error);
+    }
+  };
+
   const [errors, setErrors] = useState({
     name: "",
     // userName: '',
@@ -88,10 +107,13 @@ const MentorSignup = () => {
   //   setSkills(inputValues);
   // };
   const handleChange = (e) => {
+    const campusId = event.target.value;
     const { name, value } = e.target;
+    setSelectedCampus(campusId);
     setFormData((prevFormData) => ({
       ...prevFormData,
       [name]: value,
+      campus: campusId,
     }));
   };
   //  const handleChangeDrop =(event)=>{
@@ -182,7 +204,7 @@ const MentorSignup = () => {
           // Cookies.set("refresh_token", response.data.refreshToken);
           // Cookies.set("userName", response.data.userName);
           // Cookies.set("batch", response.data.batch);
-          // Cookies.set("email", response.data.email);
+          Cookies.set("email", response.data.email);
 
           console.log(response);
           if(response.status===200 || response.status===201 || response.status===202 || response.status===203 || response.status===204)
@@ -367,6 +389,31 @@ const handleChangeArraydata = (event) => {
                         helperText={errors.currentProfile}
                       />
 
+
+{/* <div>
+<FormControl fullWidth>
+          <InputLabel id="campus-select-label">Select a Campus</InputLabel>
+          <Select
+            labelId="campus-select-label"
+            id="campus-select"
+            value={selectedCampus}
+            onChange={handleChange}
+            label="Select a Campus"
+          >
+            <MenuItem value="">
+              <em>Select a campus</em>
+            </MenuItem>
+            {campuses.map((campus) => (
+              <MenuItem key={campus.data._id} value={campus.data._id}>
+                {campus.data.collegeName}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+      {selectedCampus && <p>Selected Campus ID: {selectedCampus}</p>}
+    </div> */}
+
+
                       <TextField
                         name="campus"
                         label="campus"
@@ -378,6 +425,7 @@ const handleChangeArraydata = (event) => {
                         error={!!errors.campus}
                         helperText={errors.campus}
                       />
+
                       <TextField
                         name="companyName"
                         label="companyName"

@@ -163,7 +163,7 @@ const OrganizationSignup = () => {
           // console.log(decoded);
           // Cookies.set("refresh_token", response.data.refreshToken);
           // Cookies.set("userName", response.data.userName);
-          // Cookies.set("email", response.data.email);
+          Cookies.set("email", response.data.email);
 
           console.log(response);
           if(response.status===200 || response.status===201 || response.status===202 || response.status===203 || response.status===204)

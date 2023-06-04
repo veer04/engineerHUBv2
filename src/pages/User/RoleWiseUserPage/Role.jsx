@@ -9,20 +9,52 @@ import Company from "./Images/Company.png";
 import Mentor from "./Images/Mentor.png";
 import "./Role.css";
 const Role = () => {
+  const handleCardClick = (role) => {
+    localStorage.setItem('role', role);
+   
+    let value;
+    switch (role) {
+      case 'User':
+        value = 'User';
+        break;
+      case 'Alumni':
+        value = 'Alumni';
+        break;
+      case 'Organization':
+        value = 'Organization';
+        break;
+      case 'Club':
+        value = 'Club';
+        break;
+      default:
+        value = '';
+    }
+    localStorage.setItem('value', value);
+  }
+  
   const navigate =useNavigate();
   const bucket = `${Bucket_URL}frontend/hosting/`;
 const studentNavigation=()=>{
+  handleCardClick('User')
   navigate("/signup");
 }
 const mentorNavigation=()=>{
+  handleCardClick('Alumni')
   navigate("/mentorSignup");
+
 }
 const clubNavigation=()=>{
+  handleCardClick('Club')
   navigate("/clubSignup");
 }
 const organizationNavigation=()=>{
+  handleCardClick('Organization')
   navigate("/organizationSignup");
 }
+
+
+
+
   const navigationFunction =()=>{
     if (val===1)
     {
@@ -54,7 +86,9 @@ const organizationNavigation=()=>{
     <div className="cardStudent card-hover col-lg-3">
     
    <img src={Student} alt="" height={150} width={150}
-   onClick={studentNavigation} />
+   onClick={studentNavigation()} 
+  
+   />
    Student <BsArrowRight />
     
    </div>
@@ -80,6 +114,6 @@ const organizationNavigation=()=>{
    </div>
     </>
   )
-}
 
+  }
 export default Role
