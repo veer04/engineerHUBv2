@@ -86,7 +86,7 @@ const organizationNavigation=()=>{
     <div className="cardStudent card-hover col-lg-3">
     
    <img src={Student} alt="" height={150} width={150}
-   onClick={studentNavigation()} 
+   onClick={studentNavigation} 
   
    />
    Student <BsArrowRight />
