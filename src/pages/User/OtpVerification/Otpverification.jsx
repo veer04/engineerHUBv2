@@ -7,7 +7,7 @@ import Cookies from "js-cookie";
 import useNavbar from "../../../hooks/use-navbar";
 import { API_URL } from "../../../services/APIUtils";
 import SimpleInputField from "../../../components/SimpleInputField/SimpleInputField";
-
+import jwt_decode from "jwt-decode";
 const OTP = () => {
   const { setSelectedPageNavbar } = useNavbar();
 
@@ -37,11 +37,21 @@ const OTP = () => {
     axios
       .patch(`${API_URL}api/v1/signup/verify`, Result)
       .then((response) => {
-        // Store the access token and refresh token in cookies
         Cookies.set("access_token", response.data.accessToken);
+        const token = response.data.accessToken;
+        const decoded = jwt_decode(token);
+        console.log(decoded);
         Cookies.set("refresh_token", response.data.refreshToken);
-
-        // Proceed to login page or do other stuff
+        Cookies.set("userName", response.data.userName);
+        Cookies.set("institutionName", response.data.institutionName);
+        Cookies.set("email", response.data.email);
+        Cookies.set("role", decoded.role);
+        Cookies.set("image", decoded.image);
+        Cookies.set("isVerified", decoded.isVerified);
+        Cookies.set("verifiedByEhub", decoded.verifiedByEhub);
+        Cookies.set("mobile", decoded.mobile);
+        Cookies.set("name", response.data.name);
+       
         console.log(response);
         if (response.data.success) {
           setLoading(false);
@@ -60,6 +70,8 @@ const OTP = () => {
     <>
       <div className="Login">
         <div className="container">
+            <div className="row">
+                {/* <div className="col-lg-3 sideMenuLogin">
           <div className="row">
             {/* <div className="col-lg-3 sideMenuLogin">
     <p className="sidemenuBarHeaderLogin">
@@ -116,6 +128,7 @@ const OTP = () => {
     
     </div>
                 </div> */}
+             
             <div className="col-lg-9">
               <p className="headerOtpVerification">Verify YourSelf</p>
               <div className="container otpBox">

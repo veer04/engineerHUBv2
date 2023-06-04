@@ -39,8 +39,12 @@ import ProjectDetail from "./pages/Company/Projects/ProjectDetail";
 import ComingSoon from "./pages/Maintenance/ComingSoon";
 import ParticularEvent from "./pages/Community/Events/ParticularEvent";
 import { lazy } from "react";
+import ClubSignup from "./pages/User/Signup/ClubSignup";
+import MentorSignup from "./pages/User/Signup/MentorSignup";
+import OrganizationSignup from "./pages/User/Signup/OrganizationSignup";
 import { Suspense } from "react";
 import LoadingPage from "./components/Loader/LoadingPage";
+import Role from "./pages/User/RoleWiseUserPage/Role";
 import PostModal from "./components/PostModal/PostModal";
 import ParticularAlumni from "./pages/Campus/ParticularCampus/ParticularAlumni";
 import ProfilePage from "./pages/User/Profile/ProfilePage";
@@ -69,8 +73,12 @@ function App() {
           <Route index element={<HomePage path="homepage" />} />
           <Route path="/home" element={<HomePage />} />
           <Route path="/register" element={<RegistrationForm />} />
+          <Route path="/selectRole" element={<Role />} />
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/clubSignup" element={<ClubSignup />} />
+          <Route path="/mentorSignup" element={<MentorSignup />} />
+          <Route path="/organizationSignup" element={<OrganizationSignup />} />
           <Route path="/login" element={<Login />} />
           <Route path="/otpverification" element={<OTP />} />
           <Route path="/community">

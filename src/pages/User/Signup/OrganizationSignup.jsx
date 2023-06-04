@@ -16,7 +16,7 @@ import jwt_decode from "jwt-decode";
 import HostEventTimeline from "../../../components/Timeline/HostEventTimeline";
 // import GroupAddIcon from '@material-ui/icons/GroupAdd';
 
-const Signup = () => {
+const OrganizationSignup = () => {
   const navigate = useNavigate();
   const { setSelectedPageNavbar } = useNavbar();
   const [loading, setLoading] = useState(false);
@@ -47,25 +47,21 @@ const Signup = () => {
     name: "",
     // userName: '',
     email: "",
-    mobile: "",
+    organizationName: "",
     state: "",
-    branch: "",
-    institutionName: "",
     city: "",
     country: "",
     password: "",
     confirmPassword: "",
-    role: "",
+    webSiteURL: "",
   });
   const [step, setStep] = useState(1);
   const [errors, setErrors] = useState({
     name: "",
     // userName: '',
     email: "",
-    mobile: "",
+    organizationName: "",
     state: "",
-    branch: "",
-    institutionName: "",
     city: "",
     country: "",
     password: "",
@@ -95,8 +91,7 @@ const Signup = () => {
       name: "",
       // userName: '',
       email: "",
-      mobile: "",
-      institutionName: "",
+      organizationName: "",
       contact: "",
       country: "",
     };
@@ -114,18 +109,15 @@ const Signup = () => {
       valid = false;
     }
 
-    if (!formData.mobile) {
-      newErrors.mobile = "Mobile number is required";
+    if (!formData.organizationName) {
+      newErrors.organizationName = "organization name is required";
       valid = false;
-    } else if (!/^\d{10}$/.test(formData.mobile)) {
-      newErrors.mobile = "Invalid mobile number";
+    } else if (!/^[a-zA-Z][0-9]$/.test(formData.organizationName)) {
+      newErrors.organizationName = "Invalid organization name";
       valid = false;
     }
 
-    if (!formData.institutionName) {
-      newErrors.institutionName = "College name is required";
-      valid = false;
-    }
+ 
 
     if (!formData.contact) {
       newErrors.contact = "Contact number is required";
@@ -157,11 +149,11 @@ const Signup = () => {
   const handleSubmit = async (e) => {
     setLoading(true);
     e.preventDefault();
-  // console.log(formData);
+    // console.log(formData);
     if (!validateInput()) {
       console.log(formData);
 
-      axios.post(`${API_URL}api/v1/user/signup`, formData).then(
+      axios.post(`${API_URL}api/v1/organization/signup`, formData).then(
         (response) => {
 
 
@@ -171,27 +163,7 @@ const Signup = () => {
           // console.log(decoded);
           // Cookies.set("refresh_token", response.data.refreshToken);
           // Cookies.set("userName", response.data.userName);
-          // Cookies.set("institutionName", response.data.institutionName);
           // Cookies.set("email", response.data.email);
-          // Cookies.set("access_token", response.data.accessToken);
-          // const token = response.data.accessToken;
-          // const decoded = jwt_decode(token);
-          // console.log(decoded);
-          // Cookies.set("refresh_token", response.data.refreshToken);
-          // Cookies.set("userName", response.data.userName);
-          // Cookies.set("institutionName", response.data.institutionName);
-          // Cookies.set("email", response.data.email);
-          // Cookies.set("role", decoded.role);
-          // Cookies.set("image", decoded.image);
-          // Cookies.set("isVerified", decoded.isVerified);
-          // Cookies.set("verifiedByEhub", decoded.verifiedByEhub);
-          // Cookies.set("mobile", decoded.mobile);
-          // Cookies.set("name", response.data.name);
-
-
-
-
-
 
           console.log(response);
           if(response.status===200 || response.status===201 || response.status===202 || response.status===203 || response.status===204)
@@ -199,11 +171,9 @@ const Signup = () => {
             setLoading(false);
             navigate("/otpverification");
             // window.location.reload(true);
-            window.location.reload(true);
           }
         },
         (error) => {
-          alert("Invalid Credentials");
           console.log(error);
         }
       );
@@ -304,6 +274,7 @@ const Signup = () => {
             <div className="col-lg-5">
               <div className="form-container">
               <HostEventTimeline step={step} numberOfCheckpoints={3} width="35rem" />
+
                 <form action="/" method="POST" onSubmit={handleSubmit}>
                   {step === 1 && (
                     <div>
@@ -331,15 +302,15 @@ const Signup = () => {
                         helperText={errors.email}
                       />
                       <TextField
-                        name="mobile"
-                        label="Mobile No."
+                        name="organizationName"
+                        label="organizationName "
                         variant="outlined"
-                        value={formData.mobile}
+                        value={formData.organizationName}
                         onChange={handleChange}
                         fullWidth
                         margin="normal"
-                        error={!!errors.mobile}
-                        helperText={errors.mobile}
+                        error={!!errors.organizationName}
+                        helperText={errors.organizationName}
                       />
 
                       <br />
@@ -356,7 +327,7 @@ const Signup = () => {
 
               {step === 2 && (
                     <div>
-                      <TextField
+                      {/* <TextField
                         name="branch"
                         label="branch Name"
                         variant="outlined"
@@ -366,7 +337,7 @@ const Signup = () => {
                         margin="normal"
                         error={!!errors.branch}
                         helperText={errors.branch}
-                      />
+                      /> */}
 
                       <TextField
                         name="country"
@@ -427,15 +398,15 @@ const Signup = () => {
                   {step == 3 && (
                     <div>
                       <TextField
-                        name="institutionName"
-                        label="institutionName"
+                        name="webSiteURL"
+                        label="webSiteURL"
                         variant="outlined"
-                        value={formData.institutionName}
+                        value={formData.webSiteURL}
                         onChange={handleChange}
                         fullWidth
                         margin="normal"
-                        error={!!errors.institutionName}
-                        helperText={errors.institutionName}
+                        error={!!errors.webSiteURL}
+                        helperText={errors.webSiteURL}
                       />
 
                       {/* <Select
@@ -504,4 +475,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default OrganizationSignup;

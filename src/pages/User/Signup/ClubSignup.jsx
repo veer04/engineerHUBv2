@@ -16,7 +16,7 @@ import jwt_decode from "jwt-decode";
 import HostEventTimeline from "../../../components/Timeline/HostEventTimeline";
 // import GroupAddIcon from '@material-ui/icons/GroupAdd';
 
-const Signup = () => {
+const ClubSignup = () => {
   const navigate = useNavigate();
   const { setSelectedPageNavbar } = useNavbar();
   const [loading, setLoading] = useState(false);
@@ -47,12 +47,12 @@ const Signup = () => {
     name: "",
     // userName: '',
     email: "",
-    mobile: "",
-    state: "",
-    branch: "",
-    institutionName: "",
-    city: "",
-    country: "",
+    description: "",
+    collegeName: "",
+    clubType: "",
+    websiteUrl: "",
+ 
+    collegeId: "",
     password: "",
     confirmPassword: "",
     role: "",
@@ -62,12 +62,12 @@ const Signup = () => {
     name: "",
     // userName: '',
     email: "",
-    mobile: "",
-    state: "",
-    branch: "",
-    institutionName: "",
-    city: "",
-    country: "",
+    description: "",
+    collegeName: "",
+    clubType: "",
+    websiteUrl: "",
+    
+    collegeId: "",
     password: "",
     confirmPassword: "",
   });
@@ -95,10 +95,10 @@ const Signup = () => {
       name: "",
       // userName: '',
       email: "",
-      mobile: "",
-      institutionName: "",
+      description: "",
+      websiteUrl: "",
       contact: "",
-      country: "",
+      collegeId: "",
     };
 
     if (!formData.name) {
@@ -114,16 +114,16 @@ const Signup = () => {
       valid = false;
     }
 
-    if (!formData.mobile) {
-      newErrors.mobile = "Mobile number is required";
+    if (!formData.description) {
+      newErrors.description = "description is required";
       valid = false;
-    } else if (!/^\d{10}$/.test(formData.mobile)) {
-      newErrors.mobile = "Invalid mobile number";
+    } else if (!/^\d{10}$/.test(formData.description)) {
+      newErrors.description = "Invalid description number";
       valid = false;
     }
 
-    if (!formData.institutionName) {
-      newErrors.institutionName = "College name is required";
+    if (!formData.websiteUrl) {
+      newErrors.websiteUrl = "College name is required";
       valid = false;
     }
 
@@ -135,8 +135,8 @@ const Signup = () => {
       valid = false;
     }
 
-    if (!formData.country) {
-      newErrors.country = "Country is required";
+    if (!formData.collegeId) {
+      newErrors.collegeId = "collegeId is required";
       valid = false;
     }
 
@@ -157,11 +157,11 @@ const Signup = () => {
   const handleSubmit = async (e) => {
     setLoading(true);
     e.preventDefault();
-  // console.log(formData);
+    // console.log(formData);
     if (!validateInput()) {
       console.log(formData);
 
-      axios.post(`${API_URL}api/v1/user/signup`, formData).then(
+      axios.post(`${API_URL}api/v1/club/signup`, formData).then(
         (response) => {
 
 
@@ -173,21 +173,6 @@ const Signup = () => {
           // Cookies.set("userName", response.data.userName);
           // Cookies.set("institutionName", response.data.institutionName);
           // Cookies.set("email", response.data.email);
-          // Cookies.set("access_token", response.data.accessToken);
-          // const token = response.data.accessToken;
-          // const decoded = jwt_decode(token);
-          // console.log(decoded);
-          // Cookies.set("refresh_token", response.data.refreshToken);
-          // Cookies.set("userName", response.data.userName);
-          // Cookies.set("institutionName", response.data.institutionName);
-          // Cookies.set("email", response.data.email);
-          // Cookies.set("role", decoded.role);
-          // Cookies.set("image", decoded.image);
-          // Cookies.set("isVerified", decoded.isVerified);
-          // Cookies.set("verifiedByEhub", decoded.verifiedByEhub);
-          // Cookies.set("mobile", decoded.mobile);
-          // Cookies.set("name", response.data.name);
-
 
 
 
@@ -197,13 +182,11 @@ const Signup = () => {
           if(response.status===200 || response.status===201 || response.status===202 || response.status===203 || response.status===204)
           {
             setLoading(false);
-            navigate("/otpverification");
+            navigate("/");
             // window.location.reload(true);
-            window.location.reload(true);
           }
         },
         (error) => {
-          alert("Invalid Credentials");
           console.log(error);
         }
       );
@@ -304,6 +287,7 @@ const Signup = () => {
             <div className="col-lg-5">
               <div className="form-container">
               <HostEventTimeline step={step} numberOfCheckpoints={3} width="35rem" />
+
                 <form action="/" method="POST" onSubmit={handleSubmit}>
                   {step === 1 && (
                     <div>
@@ -331,15 +315,15 @@ const Signup = () => {
                         helperText={errors.email}
                       />
                       <TextField
-                        name="mobile"
-                        label="Mobile No."
+                        name="description"
+                        label="description "
                         variant="outlined"
-                        value={formData.mobile}
+                        value={formData.description}
                         onChange={handleChange}
                         fullWidth
                         margin="normal"
-                        error={!!errors.mobile}
-                        helperText={errors.mobile}
+                        error={!!errors.description}
+                        helperText={errors.description}
                       />
 
                       <br />
@@ -357,40 +341,40 @@ const Signup = () => {
               {step === 2 && (
                     <div>
                       <TextField
-                        name="branch"
-                        label="branch Name"
+                        name="clubType"
+                        label="clubType"
                         variant="outlined"
-                        value={formData.branch}
+                        value={formData.clubType}
                         onChange={handleChange}
                         fullWidth
                         margin="normal"
-                        error={!!errors.branch}
-                        helperText={errors.branch}
+                        error={!!errors.clubType}
+                        helperText={errors.clubType}
                       />
 
                       <TextField
-                        name="country"
-                        label="Country"
+                        name="collegeId"
+                        label="collegeId"
                         variant="outlined"
-                        value={formData.country}
+                        value={formData.collegeId}
                         onChange={handleChange}
                         fullWidth
                         margin="normal"
-                        error={!!errors.country}
-                        helperText={errors.country}
+                        error={!!errors.collegeId}
+                        helperText={errors.collegeId}
                       />
                       <TextField
-                        name="state"
-                        label="state"
+                        name="collegeName"
+                        label="collegeName"
                         variant="outlined"
-                        value={formData.state}
+                        value={formData.collegeName}
                         onChange={handleChange}
                         fullWidth
                         margin="normal"
-                        error={!!errors.state}
-                        helperText={errors.state}
+                        error={!!errors.collegeName}
+                        helperText={errors.collegeName}
                       />
-                      <TextField
+                      {/* <TextField
                         name="city"
                         label="city"
                         variant="outlined"
@@ -400,7 +384,7 @@ const Signup = () => {
                         margin="normal"
                         error={!!errors.city}
                         helperText={errors.city}
-                      />
+                      /> */}
 
                       <br />
                       <button
@@ -427,15 +411,15 @@ const Signup = () => {
                   {step == 3 && (
                     <div>
                       <TextField
-                        name="institutionName"
-                        label="institutionName"
+                        name="websiteUrl"
+                        label="websiteUrl"
                         variant="outlined"
-                        value={formData.institutionName}
+                        value={formData.websiteUrl}
                         onChange={handleChange}
                         fullWidth
                         margin="normal"
-                        error={!!errors.institutionName}
-                        helperText={errors.institutionName}
+                        error={!!errors.websiteUrl}
+                        helperText={errors.websiteUrl}
                       />
 
                       {/* <Select
@@ -504,4 +488,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default ClubSignup;

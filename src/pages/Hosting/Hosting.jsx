@@ -28,7 +28,7 @@ const [token, setToken]=useState("");
     if(token)
     setVal(1);
   });
-  const navigationFunction =()=>{
+  const navigationOrganization =()=>{
       if (val===1)
       {
         const decoded = jwt_decode(token);
@@ -47,6 +47,43 @@ const [token, setToken]=useState("");
       }
   }
 
+  const navigationClub =()=>{
+    if (val===1)
+    {
+      const decoded = jwt_decode(token);
+      console.log(decoded);
+      console.log(decoded.role);
+      if(decoded.role==="Club")
+      {
+        navigate("/hostevent");
+      }
+      else {
+        window.alert("Not Authorized to Host events!!!");
+      }
+    }
+    else{
+      navigate("/login");
+    }
+}
+  const navigationFunction =()=>{
+    if (val===1)
+    {
+      const decoded = jwt_decode(token);
+      console.log(decoded);
+      console.log(decoded.role);
+      if(decoded.role==="Organization"||decoded.role==="Alumni" ||decoded.role==="Club")
+      {
+        navigate("/hostevent");
+      }
+      else {
+        window.alert("Not Authorized to Host events!!!");
+      }
+    }
+    else{
+      navigate("/login");
+    }
+}
+
   return (
     <div className="hosting-page">
       <h1 className="heading-3">Host an Opportunity</h1>
@@ -62,7 +99,7 @@ const [token, setToken]=useState("");
         <div className="cards">
           {/* <Link to="/hostevent"> */}
             <div
-            onClick={navigationFunction}
+            onClick={navigationClub}
               style={{
                 backgroundImage: `url(${bucket}cultural_event.png)`,
               }}
@@ -76,7 +113,7 @@ const [token, setToken]=useState("");
           {/* </Link> */}
           {/* <Link to="/hostevent"> */}
             <div
-            onClick={navigationFunction}
+            onClick={navigationClub}
               style={{
                 backgroundImage: `url(${bucket}technical_event.png)`,
               }}
@@ -125,7 +162,7 @@ const [token, setToken]=useState("");
         <div className="cards">
           {/* <Link to="/hostevent"> */}
             <div
-            onClick={navigationFunction}
+            onClick={navigationOrganization}
               style={{
                 backgroundImage: `url(${bucket}jobs.png)`,
               }}
@@ -139,7 +176,7 @@ const [token, setToken]=useState("");
           {/* </Link>
           <Link to="/hostevent"> */}
             <div
-            onClick={navigationFunction}
+            onClick={navigationOrganization}
               style={{
                 backgroundImage: `url(${bucket}internships.png)`,
               }}
@@ -153,7 +190,7 @@ const [token, setToken]=useState("");
           {/* </Link>
           <Link to="/hostevent"> */}
             <div
-            onClick={navigationFunction}
+            onClick={navigationOrganization}
               style={{
                 backgroundImage: `url(${bucket}challenges.png)`,
               }}
