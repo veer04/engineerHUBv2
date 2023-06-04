@@ -18,11 +18,9 @@ ARG VITE_FRONTEND_URL
 
 # Install dependencies and build app
 RUN apk add --no-cache nodejs npm \
-    && npm ci --omit=dev --force\
-    && npm run build \
-    && rm -rf /root/.npm 
-    
-    # && find . -type d -name 'dist' -prune -o -not -name 'dist' -exec rm -rf {} \; || true
+    && npm install --only=production \
+    && npm run build 
+    # && rm -rf /root/.npm 
 
 # Production Stage
 FROM alpine:latest
