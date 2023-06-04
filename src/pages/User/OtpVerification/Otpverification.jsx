@@ -38,6 +38,7 @@ const OTP = () => {
             // console.log(decoded);
             Cookies.set("refresh_token", response.data.refreshToken);
             Cookies.set("userName", response.data.userName);
+            Cookies.set("institutionName", response.data.institutionName);
             Cookies.set("batch", response.data.batch);
             Cookies.set("email", response.data.email);
             navigate("/")
