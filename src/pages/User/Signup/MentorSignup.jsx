@@ -15,6 +15,7 @@ import Cookies from "js-cookie";
 import jwt_decode from "jwt-decode";
 import HostEventTimeline from "../../../components/Timeline/HostEventTimeline";
 import {FormControl, InputLabel } from '@mui/material';
+import CustomSnackbar from "../Login/CustomSnackbar";
 // import GroupAddIcon from '@material-ui/icons/GroupAdd';
 
 const MentorSignup = () => {
@@ -23,7 +24,11 @@ const MentorSignup = () => {
   const [loading, setLoading] = useState(false);
   const [campuses, setCampuses] = useState([]);
   const [selectedCampus, setSelectedCampus] = useState('');
-
+  const [open, setOpen] = useState(false);
+  const [snackbarValues, setSnackbarValues] = useState({
+    severity: "success",
+    message: "",
+  });
   useEffect(() => {
     window.scrollTo(0, 0);
     setSelectedPageNavbar("login");
@@ -107,13 +112,12 @@ const MentorSignup = () => {
   //   setSkills(inputValues);
   // };
   const handleChange = (e) => {
-    const campusId = event.target.value;
+    // const campusId = event.target.value;
     const { name, value } = e.target;
-    setSelectedCampus(campusId);
+    // setSelectedCampus(campusId);
     setFormData((prevFormData) => ({
       ...prevFormData,
       [name]: value,
-      campus: campusId,
     }));
   };
   //  const handleChangeDrop =(event)=>{
@@ -176,9 +180,7 @@ const MentorSignup = () => {
     return valid;
   };
 
-//   const handleChangeRole = (event) => {
-//     setRole(event.target.value);
-//   };
+
   const handleNext = () => {
       setStep(step+1);
   };
@@ -211,10 +213,16 @@ const MentorSignup = () => {
           {
             setLoading(false);
             navigate("/otpverification");
+            setOpen(true);
             // window.location.reload(true);
           }
         },
         (error) => {
+          if (err && err instanceof AxiosError)
+          setError(err.response?.data.message);
+        else if (err && err instanceof Error) setError(err.message);
+        setOpen(true);
+
           console.log(error);
         }
       );
@@ -604,7 +612,7 @@ const handleChangeArraydata = (event) => {
                       </button>
                       <br />
                       <br />
-
+                    
                     </div>
                   )}
                 </form>
