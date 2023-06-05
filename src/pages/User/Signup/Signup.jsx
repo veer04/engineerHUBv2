@@ -1,7 +1,7 @@
 import "./Signup.css";
 import { useNavigate, useNavigation } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { TextField, Button } from "@mui/material";
+import { TextField, Button, StepContent } from "@mui/material";
 import axios from "axios";
 import "../../Hosting/EventRegistration.css";
 import useNavbar from "../../../hooks/use-navbar";
@@ -29,7 +29,7 @@ const Signup = () => {
   const [countries, setCountries] = useState([]);
   const [states, setStates] = useState([]);
   const [cities, setCities] = useState([]);
-
+  const [validation, setValidation] =useState(false);
   useEffect(() => {
     // Fetch country data
     axios.get(`${API_URL}api/v1/getCountries`)
@@ -89,16 +89,16 @@ const Signup = () => {
   //   setRole(event.target.value);
   //  }
 
-  const validateInput = () => {
+  const validateInput1 = () => {
     let valid = true;
     const newErrors = {
       name: "",
       // userName: '',
       email: "",
       mobile: "",
-      institutionName: "",
-      contact: "",
-      country: "",
+      // institutionName: "",
+      // contact: "",
+      // country: "",
     };
 
     if (!formData.name) {
@@ -122,18 +122,55 @@ const Signup = () => {
       valid = false;
     }
 
-    if (!formData.institutionName) {
-      newErrors.institutionName = "College name is required";
+    // if (!formData.institutionName) {
+    //   newErrors.institutionName = "College name is required";
+    //   valid = false;
+    // }
+
+    // if (!formData.contact) {
+    //   newErrors.contact = "Contact number is required";
+    //   valid = false;
+    // } else if (!/^\d{10}$/.test(formData.contact)) {
+    //   newErrors.contact = "Invalid contact number";
+    //   valid = false;
+    // }
+
+    // if (!formData.country) {
+    //   newErrors.country = "Country is required";
+    //   valid = false;
+    // }
+
+    setErrors(newErrors);
+    return valid;
+  };
+
+
+
+  const validateInput2 =()=>{
+
+    let valid = true;
+    const newErrors = {
+      branch: "",
+      country: "",
+      state: "",
+      city: "",
+    };
+
+
+if (!formData.branch) {
+      newErrors.branch = "Branch name is required";
       valid = false;
     }
 
-    if (!formData.contact) {
-      newErrors.contact = "Contact number is required";
-      valid = false;
-    } else if (!/^\d{10}$/.test(formData.contact)) {
-      newErrors.contact = "Invalid contact number";
+    if (!formData.state) {
+      newErrors.state = "State is required";
       valid = false;
     }
+    if (!formData.city) {
+      newErrors.city = "city name is required";
+      valid = false;
+    }
+   
 
     if (!formData.country) {
       newErrors.country = "Country is required";
@@ -142,14 +179,94 @@ const Signup = () => {
 
     setErrors(newErrors);
     return valid;
-  };
 
-  // const handleChangeRole = (event) => {
-  //   setRole(event.target.value);
-  // };
-  const handleNext = () => {
+  }
+  const validateInput3=()=>{
+    let valid =true;
+    const newErrors = {
+      institutionName: "",
+      password: "",
+      confirmPassword: "",
+    };
+
+
+
+    if (!formData.institutionName) {
+      newErrors.state = "Institution Name is required";
+      valid = false;
+    }
+
+    else if (! /^[a-zA-Z0-9\s]+$/.test(formData.institutionName)) {
+      newErrors.institutionName = "Institution name should not contain any special character";
+      valid = false;
+    }
+
+    if (!formData.password) {
+      newErrors.password = "password is required";
+      valid = false;
+    }
+    if (formData.password.length < 8) {
+      newErrors.password ="password must be of 8 digits"
+      valid = false;
+    }
+    if (!/[A-Z]/.test(formData.password)) {
+      
+      newErrors.password =
+        "Password must contain at least one uppercase character.";
+        valid = false;
+    }
+
+
+    if (!/[a-z]/.test(formData.password)) {
+      // allErrors.push(" 1 lowercase character");
+      newErrors.password =
+        "Password must contain at least one lowercase character.";
+        valid = false;
+    }
+    if (!/\d/.test(formData.password)) {
+      // allErrors.push(" 1 numeric character");
+      newErrors.password = "Password must contain at least one numeric character.";
+      valid = false;
+    }
+    if (!/[!@#$%^&*(),.?":{}|<>]/.test(formData.password)) {
+      // allErrors.push(" 1 special character");
+      newErrors.password = "Password must contain at least one special character.";
+      valid = false;
+    }
+
+    if (!formData.confirmPassword) {
+      newErrors.confirmPassword = "Confirm password is required";
+      valid = false;
+    }
+    if(formData.password!== formData.confirmPassword)
+    {
+      newErrors.confirmPassword="match the password";
+      valid = false;
+    }
+
+    setErrors(newErrors);
+    return valid;
+
+  }
+
+
+  const handleNext1 = () => {
+    if(validateInput1())
       setStep(step+1);
+      
   };
+  const handleNext2 = () => {
+    if(validateInput2())
+      setStep(step+1);
+      
+  };
+  const handleNext3 = ()=>
+  {
+    if(validateInput3())
+
+      setValidation(true);
+  }
+
 
   const handlePrev = () => {
     setStep(step - 1);
@@ -158,7 +275,7 @@ const Signup = () => {
     setLoading(true);
     e.preventDefault();
   // console.log(formData);
-    if (!validateInput()) {
+    if (validation===true) {
       console.log(formData);
 
       axios.post(`${API_URL}api/v1/user/signup`, formData).then(
@@ -192,7 +309,6 @@ const Signup = () => {
 
 
 
-
           console.log(response);
           if(response.status===200 || response.status===201 || response.status===202 || response.status===203 || response.status===204)
           {
@@ -208,34 +324,32 @@ const Signup = () => {
         }
       );
     }
-  }
-  
-  
-  ;  const handleCountryChange = event => {
+  };
+    const handleCountryChange = event => {
     const countryCode = event.target.value;
     
     // Fetch state data based on selected country
-    axios.get(`${API_URL}api/v1/getStates/{countryCode}`)
-      .then(response => {
-        setStates(response.data);
-      })
-      .catch(error => {
-        console.error('Error fetching states:', error);
-      });
+    // axios.get(`${API_URL}api/v1/getStates/{countryCode}`)
+    //   .then(response => {
+    //     setStates(response.data);
+    //   })
+    //   .catch(error => {
+    //     console.error('Error fetching states:', error);
+    //   });
   };
 
-    const handleStateChange = event => {
-    const countryCode = event.target.value; // Get the selected country code
-    const stateCode = event.target.value; // Get the selected state code
-    axios.get(`${API_URL}api/v1/getCities/${countryCode}/${stateCode}`)
-    .then(response => {
-      setCities(response.data);
-    })
-    .catch(error => {
-      console.error('Error fetching cities:', error);
-    });
+  //   const handleStateChange = event => {
+  //   const countryCode = event.target.value; // Get the selected country code
+  //   const stateCode = event.target.value; // Get the selected state code
+  //   axios.get(`${API_URL}api/v1/getCities/${countryCode}/${stateCode}`)
+  //   .then(response => {
+  //     setCities(response.data);
+  //   })
+  //   .catch(error => {
+  //     console.error('Error fetching cities:', error);
+  //   });
 
-  };
+  // };
 
 
   
@@ -309,7 +423,7 @@ const Signup = () => {
                     <div>
                       <TextField
                         name="name"
-                        label="userName"
+                        label="User Name"
                         variant="outlined"
                         value={formData.name}
                         onChange={handleChange}
@@ -346,7 +460,7 @@ const Signup = () => {
 
                       <button
                         type="button"
-                        onClick={handleNext}
+                        onClick={handleNext1}
                         className="buttonOnHostingPage"
                       >
                         Next
@@ -413,7 +527,7 @@ const Signup = () => {
                       <button
                         type="button"
                         className="buttonOnHostingPage btnrightallign"
-                        onClick={handleNext}
+                        onClick={handleNext2}
                       >
                         Next
                       </button>
@@ -485,7 +599,10 @@ const Signup = () => {
                         Previous
                       </button>
                           
-                      <button type="submit" className="buttonOnHostingPage btnrightallign">
+                      <button type="submit"
+                        onClick={handleNext3}
+    
+                      className="buttonOnHostingPage btnrightallign">
                       {loading ? "Loading..." : "Submit"}
                       </button>
                       <br />

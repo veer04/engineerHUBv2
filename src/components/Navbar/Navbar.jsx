@@ -215,7 +215,7 @@ export default function Navbar() {
                   alt="user"
                 /> */}
                 <span className="nav-username">
-                  Hi, {name.length > 13 ? name.substring(0, 13) + "..." : name}
+                  Hi, {name.length > 13? name.substring(0, 13) + "..." : name}
                 </span>
               </button>
             </div>

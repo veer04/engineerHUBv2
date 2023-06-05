@@ -35,7 +35,7 @@ const Register = () => {
   const [values, setValues] = useState({
     email: "",
     password: "",
-    role: "User",
+    role: "",
     // accessToken: accessToken,
     // refreshToken: refreshToken,
   });
@@ -142,10 +142,10 @@ const Register = () => {
       // });
       setValidation(true);
       setOpen(true);
-      setSnackbarValues({
-        severity: "success",
-        message: "Logged in Successfully!",
-      });
+      // setSnackbarValues({
+      //   severity: "success",
+      //   message: "Logged in Successfully!",
+      // });
       setCookieValue(
         Cookies.get("_auth_state").slice(
           6,
@@ -154,10 +154,10 @@ const Register = () => {
       );
     } catch (err) {
       setLoading(false);
-      setSnackbarValues({
-        severity: "error",
-        message: "Wrong credentials!",
-      });
+      // setSnackbarValues({
+      //   severity: "error",
+      //   message: "Wrong credentials!",
+      // });
       if (err && err instanceof AxiosError)
         setError(err.response?.data.message);
       else if (err && err instanceof Error) setError(err.message);
@@ -286,6 +286,16 @@ const Register = () => {
     }
   };
 
+  const validateRole =()=>
+  {
+    if(!values.role)
+    setSnackbarValues({
+      severity: "error",
+      message: "Please select a role",
+    });
+    setOpen(true);
+
+  }
   const validateEmail = () => {
     const emailRegex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
     // setIsEmailValid(emailRegex.test(values.email));
@@ -351,6 +361,23 @@ const Register = () => {
                   required
                   onBlur={validateEmail}
                 />
+              </div>
+              <div className="form-cont ">
+                <select
+                  className="reg-input"
+                  placeholder="role"
+                  type="text"
+                  name="role"
+                  value={values.role}
+                  onChange={handleChange("role")}
+                  required
+                  onBlur={validateRole}
+                >
+                  <option value="User">Student</option>
+                  <option value="Alumni">Alumni</option>
+                  <option value="Club">Club</option>
+                  <option value="Organization">Company</option>
+                  </select>
               </div>
               <div className="form-cont passwordContainer">
                 <input
