@@ -124,16 +124,13 @@ const MentorSignup = () => {
   //   setRole(event.target.value);
   //  }
 
-  const validateInput = () => {
+  const validateInput1 = () => {
     let valid = true;
     const newErrors = {
       name: "",
       // userName: '',
       email: "",
       mobile: "",
-      batch: "",
-      contact: "",
-      campus: "",
 
     };
 
@@ -157,33 +154,168 @@ const MentorSignup = () => {
       newErrors.mobile = "Invalid mobile number";
       valid = false;
     }
-
-    if (!formData.batch) {
-      newErrors.batch = "College name is required";
-      valid = false;
-    }
-
-    if (!formData.contact) {
-      newErrors.contact = "Contact number is required";
-      valid = false;
-    } else if (!/^\d{10}$/.test(formData.contact)) {
-      newErrors.contact = "Invalid contact number";
-      valid = false;
-    }
-
-    if (!formData.campus) {
-      newErrors.campus = "campus is required";
-      valid = false;
-    }
+  
 
     setErrors(newErrors);
     return valid;
   };
+ const validateInput2 =()=>{
+let valid =true;
+
+const newErrors ={
+  companyName: "",
+  currentProfile: "",
+  campus: "",
+  aboutMe: "",
+}
+if (!formData.campus) {
+  newErrors.campus = "campus is required";
+  valid = false;
+}
+if (!formData.companyName) {
+  newErrors.companyName = "company name is required";
+  valid = false;
+}
+if (!formData.currentProfile) {
+  newErrors.currentProfile = "current profile is required";
+  valid = false;
+}
+if (!formData.aboutMe) {
+  newErrors.aboutMe = "about Me is required";
+  valid = false;
+}
+
+  setErrors(newErrors);
+  return valid;
+ }
+
+ const validateInput3 =()=>{
+
+  let valid =true;
+  const newErrors={
+    instagram:"",
+    linkedIn:"",
+    twitter:"",
+  }
+if(!formData.socialMedia.instagram)
+{
+  newErrors.socialMedia.instagram="Instagram URL is required"
+  valid =false;
+}
+else if (!/^https:\/\//.test(formData.socialMedia.instagram))
+{
+  newErrors.socialMedia.instagram="URL must begin with https"
+}
+if(!formData.socialMedia.linkedIn)
+{
+  newErrors.socialMedia.linkedIn="LinkedIn URL is required"
+  valid =false;
+}
+else if (!/^https:\/\//.test(formData.socialMedia.linkedIn))
+{
+  newErrors.socialMedia.linkedIn="URL must begin with https"
+}
+
+if(!formData.socialMedia.twitter)
+{
+  newErrors.socialMedia.twitter="twitter URL is required"
+  valid =false;
+}
+else if (!/^https:\/\//.test(formData.socialMedia.twitter))
+{
+  newErrors.socialMedia.twitter="URL must begin with https"
+}
+
+  setErrors(newErrors);
+  return valid;
+ }
 
 
-  const handleNext = () => {
+ const validateInput4 =()=>{
+
+  let valid = true;
+   const newErrors={
+    batch:"",
+    password:"",
+    confirmPassword:"",
+  }
+  if(!formData.batch)
+  {
+    newErrors.batch="Enter your Passout year";
+    valid=false;
+  }
+  else if (!/^(19[5-9]\d|20[0-2]\d|2030)$/.test(formData.batch))
+  {
+    newErrors.batch ="Batch must me like 2002";
+    valid =false;
+  }
+
+
+  if (!formData.password) {
+    newErrors.password = "password is required";
+    valid = false;
+  }
+  if (formData.password.length < 8) {
+    newErrors.password ="password must be of 8 digits"
+    valid = false;
+  }
+  if (!/[A-Z]/.test(formData.password)) {
+    
+    newErrors.password =
+      "Password must contain at least one uppercase character.";
+      valid = false;
+  }
+
+
+  if (!/[a-z]/.test(formData.password)) {
+    // allErrors.push(" 1 lowercase character");
+    newErrors.password =
+      "Password must contain at least one lowercase character.";
+      valid = false;
+  }
+  if (!/\d/.test(formData.password)) {
+    // allErrors.push(" 1 numeric character");
+    newErrors.password = "Password must contain at least one numeric character.";
+    valid = false;
+  }
+  if (!/[!@#$%^&*(),.?":{}|<>]/.test(formData.password)) {
+    // allErrors.push(" 1 special character");
+    newErrors.password = "Password must contain at least one special character.";
+    valid = false;
+  }
+
+  if (!formData.confirmPassword) {
+    newErrors.confirmPassword = "Confirm password is required";
+    valid = false;
+  }
+  if(formData.password!== formData.confirmPassword)
+  {
+    newErrors.confirmPassword="match the password";
+    valid = false;
+  }
+
+
+setErrors(newErrors);
+return valid;
+ }
+
+  const handleNext1 = () => {
+    if(validateInput1())
       setStep(step+1);
   };
+  const handleNext2 = () => {
+    if(validateInput2())
+     setStep(step+1);
+};
+const handleNext3 = () => {
+    if(validateInput3())
+     setStep(step+1);
+};
+
+const handleNext4 =()=>{
+  if(validateInput4())
+  setStep(step+1);
+}
 
   const handlePrev = () => {
     setStep(step - 1);
@@ -331,7 +463,7 @@ const handleChangeArraydata = (event) => {
             <div className="col-lg-2"></div>
             <div className="col-lg-7">
               <div className="form-container">
-              <HostEventTimeline step={step} numberOfCheckpoints={3} width="35rem" />
+              <HostEventTimeline step={step} numberOfCheckpoints={4} width="35rem" />
 
                 <form action="/" method="POST" onSubmit={handleSubmit}>
                   {step === 1 && (
@@ -375,7 +507,7 @@ const handleChangeArraydata = (event) => {
 
                       <button
                         type="button"
-                        onClick={handleNext}
+                        onClick={handleNext1}
                         className="buttonOnHostingPage"
                       >
                         Next
@@ -468,7 +600,7 @@ const handleChangeArraydata = (event) => {
                       <button
                         type="button"
                         className="buttonOnHostingPage btnrightallign"
-                        onClick={handleNext}
+                        onClick={handleNext2}
                       >
                         Next
                       </button>
@@ -528,7 +660,7 @@ const handleChangeArraydata = (event) => {
                       <button
                         type="button"
                         className="buttonOnHostingPage btnrightallign"
-                        onClick={handleNext}
+                        onClick={handleNext3}
                       >
                         Next
                       </button>
@@ -607,7 +739,9 @@ const handleChangeArraydata = (event) => {
                         Previous
                       </button>
                           
-                      <button type="submit" className="buttonOnHostingPage btnrightallign">
+                      <button type="submit" 
+                      onClick={handleNext4}
+                      className="buttonOnHostingPage btnrightallign">
                       {loading ? "Loading..." : "Submit"}
                       </button>
                       <br />
