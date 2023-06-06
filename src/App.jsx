@@ -87,6 +87,7 @@ const isAuthenticated = !!userName;
           <Route path="/organizationSignup" element={<OrganizationSignup />} />
           <Route path="/login" element={<Login />} />
           <Route path="/otpverification" element={<OTP />} />
+          <Route path="/under-maintenance" element={<ComingSoon />} />
           <Route path="/community">
             <Route index element={<CommunityPage />} />
             <Route path="domains" element={<CommunityPage path="domains" />} />
