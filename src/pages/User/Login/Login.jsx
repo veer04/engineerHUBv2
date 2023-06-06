@@ -161,6 +161,10 @@ const Register = () => {
       if (err && err instanceof AxiosError)
         setError(err.response?.data.message);
       else if (err && err instanceof Error) setError(err.message);
+      setSnackbarValues({
+        severity: "error",
+        message: "Invalid Credentials!",
+      });
       setOpen(true);
     }
   }
