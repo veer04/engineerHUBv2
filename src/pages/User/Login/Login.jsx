@@ -99,7 +99,6 @@ const Register = () => {
     // console.log(response);
 
     try {
-      setValues({ ...values, password: password });
       console.log(values);
       const response = await axios
         .post(`${API_URL}api/v1/login`, values)
@@ -134,6 +133,7 @@ const Register = () => {
         .catch((error) => {
           console.error(error);
         });
+      setValues({ ...values, password: "" });
       // signIn({
       //   token: response.data.accessToken,
       //   expiresIn: 3600,
@@ -161,6 +161,10 @@ const Register = () => {
       if (err && err instanceof AxiosError)
         setError(err.response?.data.message);
       else if (err && err instanceof Error) setError(err.message);
+      setSnackbarValues({
+        severity: "error",
+        message: "Invalid Credentials!",
+      });
       setOpen(true);
     }
   }
@@ -388,7 +392,7 @@ const Register = () => {
                   value={values.password}
                   className="reg-input"
                   onChange={handleChange("password")}
-                  onBlur={handlePassword}
+                  // onBlur={handlePassword}
                   // focused={focused.toString()}
                   required
                 />
@@ -439,12 +443,12 @@ const Register = () => {
                 <Link to="/selectRole" className="f-p ">
                   Sign Up
                 </Link>
-                <CustomSnackbar
+                {snackbarValues.severity!=="success" && <CustomSnackbar
                   setOpen={setOpen}
                   open={open}
                   message={snackbarValues.message}
                   severity={snackbarValues.severity}
-                />
+                />}
               </div>
             </form>
           </div>
