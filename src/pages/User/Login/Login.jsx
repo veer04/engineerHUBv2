@@ -35,7 +35,7 @@ const Register = () => {
   const [values, setValues] = useState({
     email: "",
     password: "",
-    role: "",
+    role: "User",
     // accessToken: accessToken,
     // refreshToken: refreshToken,
   });
