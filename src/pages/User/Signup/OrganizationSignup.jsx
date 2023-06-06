@@ -147,10 +147,10 @@ const OrganizationSignup = () => {
     setStep(step - 1);
   };
   const handleSubmit = async (e) => {
-    setLoading(true);
     e.preventDefault();
     // console.log(formData);
     if (!validateInput()) {
+      setLoading(true);
       console.log(formData);
 
       axios.post(`${API_URL}api/v1/organization/signup`, formData).then(
@@ -174,6 +174,7 @@ const OrganizationSignup = () => {
           }
         },
         (error) => {
+          setLoading(false);
           console.log(error);
         }
       );
