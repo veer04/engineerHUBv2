@@ -293,7 +293,7 @@ const ClubSignup = () => {
                     <div>
                       <TextField
                         name="name"
-                        label="userName"
+                        label="Name"
                         variant="outlined"
                         value={formData.name}
                         onChange={handleChange}
@@ -316,7 +316,7 @@ const ClubSignup = () => {
                       />
                       <TextField
                         name="description"
-                        label="description "
+                        label="Description "
                         variant="outlined"
                         value={formData.description}
                         onChange={handleChange}
@@ -342,7 +342,7 @@ const ClubSignup = () => {
                     <div>
                       <TextField
                         name="clubType"
-                        label="clubType"
+                        label="Club Type"
                         variant="outlined"
                         value={formData.clubType}
                         onChange={handleChange}
@@ -354,7 +354,7 @@ const ClubSignup = () => {
 
                       <TextField
                         name="collegeId"
-                        label="collegeId"
+                        label="College Id"
                         variant="outlined"
                         value={formData.collegeId}
                         onChange={handleChange}
@@ -365,7 +365,7 @@ const ClubSignup = () => {
                       />
                       <TextField
                         name="collegeName"
-                        label="collegeName"
+                        label="College Name"
                         variant="outlined"
                         value={formData.collegeName}
                         onChange={handleChange}
@@ -412,7 +412,7 @@ const ClubSignup = () => {
                     <div>
                       <TextField
                         name="websiteUrl"
-                        label="websiteUrl"
+                        label="Website URL"
                         variant="outlined"
                         value={formData.websiteUrl}
                         onChange={handleChange}
@@ -437,7 +437,7 @@ const ClubSignup = () => {
 
                       <TextField
                         name="password"
-                        label="password"
+                        label="Password"
                         type="password"
                         variant="outlined"
                         value={formData.password}
@@ -449,7 +449,7 @@ const ClubSignup = () => {
                       />
                       <TextField
                         name="confirmPassword"
-                        label="confirmPassword"
+                        label="Confirm Password"
                         variant="outlined"
                         type="password"
                         value={formData.confirmPassword}
