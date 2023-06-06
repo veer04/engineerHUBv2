@@ -272,10 +272,10 @@ if (!formData.branch) {
     setStep(step - 1);
   };
   const handleSubmit = async (e) => {
-    setLoading(true);
     e.preventDefault();
-  // console.log(formData);
+    // console.log(formData);
     if (validation===true) {
+      setLoading(true);
       console.log(formData);
 
       axios.post(`${API_URL}api/v1/user/signup`, formData).then(
@@ -319,6 +319,7 @@ if (!formData.branch) {
           }
         },
         (error) => {
+          setLoading(false);
           alert("Invalid Credentials");
           console.log(error);
         }
