@@ -322,7 +322,7 @@ const handleNext4 =()=>{
   const handleSubmit = async (e) => {
     e.preventDefault();
     // console.log(formData);
-    if (!validateInput()) {
+    if (validateInput4()) {
       setLoading(true);
       console.log(formData);
 
@@ -350,12 +350,14 @@ const handleNext4 =()=>{
         },
         (error) => {
           setLoading(false);
-          if (err && err instanceof AxiosError)
-          setError(err.response?.data.message);
-        else if (err && err instanceof Error) setError(err.message);
-        setOpen(true);
-
           console.log(error);
+          alert("Invalid Credentials");
+
+        //   if (err && err instanceof AxiosError)
+        //   setErrors(err.response?.data.message);
+        // else if (err && err instanceof Error) setErrors(err.message);
+        // setOpen(true);
+
         }
       );
     }
@@ -622,8 +624,8 @@ const handleChangeArraydata = (event) => {
                         onChange={handleChangeArraydata}
                         fullWidth
                         margin="normal"
-                        error={!!errors.socialMedia.instagram}
-                        helperText={errors.socialMedia.instagram}
+                        error={!!errors.socialMedia?.instagram}
+                        helperText={errors.socialMedia?.instagram}
                       />
 
 
@@ -635,8 +637,8 @@ const handleChangeArraydata = (event) => {
                         onChange={handleChangeArraydata}
                         fullWidth
                         margin="normal"
-                        error={!!errors.socialMedia.linkedIn}
-                        helperText={errors.socialMedia.linkedIn}
+                        error={!!errors.socialMedia?.linkedIn}
+                        helperText={errors.socialMedia?.linkedIn}
                       />
                          <TextField
                         name="twitter"
@@ -646,8 +648,8 @@ const handleChangeArraydata = (event) => {
                         onChange={handleChangeArraydata}
                         fullWidth
                         margin="normal"
-                        error={!!errors.socialMedia.twitter}
-                        helperText={errors.socialMedia.twitter}
+                        error={!!errors.socialMedia?.twitter}
+                        helperText={errors.socialMedia?.twitter}
                       />
                       <br />
                       <button
@@ -740,7 +742,7 @@ const handleChangeArraydata = (event) => {
                       </button>
                           
                       <button type="submit" 
-                      onClick={handleNext4}
+                      // onClick={handleNext4}
                       className="buttonOnHostingPage btnrightallign">
                       {loading ? "Loading..." : "Submit"}
                       </button>
