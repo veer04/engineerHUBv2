@@ -321,10 +321,10 @@ const handleNext4 =()=>{
     setStep(step - 1);
   };
   const handleSubmit = async (e) => {
-    setLoading(true);
     e.preventDefault();
     // console.log(formData);
     if (!validateInput()) {
+      setLoading(true);
       console.log(formData);
 
       axios.post(`${API_URL}api/v1/alumni/signup`, formData).then(
@@ -350,6 +350,7 @@ const handleNext4 =()=>{
           }
         },
         (error) => {
+          setLoading(false);
           if (err && err instanceof AxiosError)
           setError(err.response?.data.message);
         else if (err && err instanceof Error) setError(err.message);
