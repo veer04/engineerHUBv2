@@ -166,7 +166,7 @@ const newErrors ={
   companyName: "",
   currentProfile: "",
   campus: "",
-  aboutMe: "",
+  
 }
 if (!formData.campus) {
   newErrors.campus = "campus is required";
@@ -180,10 +180,7 @@ if (!formData.currentProfile) {
   newErrors.currentProfile = "current profile is required";
   valid = false;
 }
-if (!formData.aboutMe) {
-  newErrors.aboutMe = "about Me is required";
-  valid = false;
-}
+
 
   setErrors(newErrors);
   return valid;
@@ -193,9 +190,11 @@ if (!formData.aboutMe) {
 
   let valid =true;
   const newErrors={
-    instagram:"",
-    linkedIn:"",
-    twitter:"",
+    socialMedia: {
+      linkedIn: '',
+      twitter: '',
+      instagram: '',
+    }
   }
 if(!formData.socialMedia.instagram)
 {
@@ -304,11 +303,11 @@ return valid;
       setStep(step+1);
   };
   const handleNext2 = () => {
-    if(validateInput2())
+    // if(validateInput2())
      setStep(step+1);
 };
 const handleNext3 = () => {
-    if(validateInput3())
+    // if(validateInput3())
      setStep(step+1);
 };
 
@@ -600,7 +599,7 @@ const handleChangeArraydata = (event) => {
                       <button
                         type="button"
                         className="buttonOnHostingPage btnrightallign"
-                        onClick={handleNext2}
+                        onClick={handleNext1}
                       >
                         Next
                       </button>
