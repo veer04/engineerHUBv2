@@ -99,7 +99,6 @@ const Register = () => {
     // console.log(response);
 
     try {
-      setValues({ ...values, password: password });
       console.log(values);
       const response = await axios
         .post(`${API_URL}api/v1/login`, values)
@@ -134,6 +133,7 @@ const Register = () => {
         .catch((error) => {
           console.error(error);
         });
+      setValues({ ...values, password: "" });
       // signIn({
       //   token: response.data.accessToken,
       //   expiresIn: 3600,
