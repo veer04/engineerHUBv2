@@ -17,9 +17,10 @@ export default function BlogsPage({ path }) {
   const [filteredBlogs, setFilteredBlogs] = useState([]);
 
   const [blogs, setBlogs] = useState(
-    sessionStorage.getItem(`${id} blogs`)
-      ? JSON.parse(sessionStorage.getItem(`${id} blogs`))
-      : []
+    // sessionStorage.getItem(`${id} blogs`)
+    //   ? JSON.parse(sessionStorage.getItem(`${id} blogs`))
+    //   : 
+      []
   );
 
   useEffect(() => {
@@ -32,9 +33,9 @@ export default function BlogsPage({ path }) {
     };
   }, [id]);
 
-  useEffect(() => {
-    sessionStorage.setItem(`${id} blogs`, JSON.stringify(blogs));
-  }, [blogs]);
+  // useEffect(() => {
+  //   sessionStorage.setItem(`${id} blogs`, JSON.stringify(blogs));
+  // }, [blogs]);
 
   useEffect(() => {
     if (blogs.length > 0) {

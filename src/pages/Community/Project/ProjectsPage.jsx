@@ -29,9 +29,10 @@ export default function ProjectPage({ path }) {
   );
 
   const [projects, setProjects] = useState(
-    sessionStorage.getItem(`${id} projects`)
-      ? JSON.parse(sessionStorage.getItem(`${id} projects`))
-      : []
+    // sessionStorage.getItem(`${id} projects`)
+    //   ? JSON.parse(sessionStorage.getItem(`${id} projects`))
+    //   : 
+      []
   );
 
   useEffect(() => {
@@ -49,9 +50,9 @@ export default function ProjectPage({ path }) {
   //   sessionStorage.setItem(`${id} tags`, JSON.stringify(tags));
   // }, [tags]);
 
-  useEffect(() => {
-    sessionStorage.setItem(`${id} projects`, JSON.stringify(projects));
-  }, [projects]);
+  // useEffect(() => {
+  //   sessionStorage.setItem(`${id} projects`, JSON.stringify(projects));
+  // }, [projects]);
 
   const [filteredProjects, setFilteredProjects] = useState([]);
 
