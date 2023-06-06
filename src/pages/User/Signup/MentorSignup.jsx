@@ -320,10 +320,10 @@ const handleNext4 =()=>{
     setStep(step - 1);
   };
   const handleSubmit = async (e) => {
-    setLoading(true);
     e.preventDefault();
     // console.log(formData);
     if (!validateInput()) {
+      setLoading(true);
       console.log(formData);
 
       axios.post(`${API_URL}api/v1/alumni/signup`, formData).then(
@@ -349,6 +349,7 @@ const handleNext4 =()=>{
           }
         },
         (error) => {
+          setLoading(false);
           if (err && err instanceof AxiosError)
           setError(err.response?.data.message);
         else if (err && err instanceof Error) setError(err.message);
@@ -469,7 +470,7 @@ const handleChangeArraydata = (event) => {
                     <div>
                       <TextField
                         name="name"
-                        label="userName"
+                        label="Name"
                         variant="outlined"
                         value={formData.name}
                         onChange={handleChange}
@@ -518,7 +519,7 @@ const handleChangeArraydata = (event) => {
                     <div>
                       <TextField
                         name="currentProfile"
-                        label="currentProfile Name"
+                        label="Current Profile Name"
                         variant="outlined"
                         value={formData.currentProfile}
                         onChange={handleChange}
@@ -555,7 +556,7 @@ const handleChangeArraydata = (event) => {
 
                       <TextField
                         name="campus"
-                        label="campus"
+                        label="Campus"
                         variant="outlined"
                         value={formData.campus}
                         onChange={handleChange}
@@ -567,7 +568,7 @@ const handleChangeArraydata = (event) => {
 
                       <TextField
                         name="companyName"
-                        label="companyName"
+                        label="Company Name"
                         variant="outlined"
                         value={formData.companyName}
                         onChange={handleChange}
@@ -578,7 +579,7 @@ const handleChangeArraydata = (event) => {
                       />
                       <TextField
                         name="aboutMe"
-                        label="aboutMe"
+                        label="About Me"
                         variant="outlined"
                         value={formData.aboutMe}
                         onChange={handleChange}
@@ -615,7 +616,7 @@ const handleChangeArraydata = (event) => {
                         <div>
                        <TextField
                         name="instagram"
-                        label="instagram"
+                        label="Instagram"
                         variant="outlined"
                         value={formData.socialMedia.instagram}
                         onChange={handleChangeArraydata}
@@ -628,7 +629,7 @@ const handleChangeArraydata = (event) => {
 
                         <TextField
                         name="linkedIn"
-                        label="linkedIn"
+                        label="LinkedIn"
                         variant="outlined"
                         value={formData.socialMedia.linkedIn}
                         onChange={handleChangeArraydata}
@@ -639,7 +640,7 @@ const handleChangeArraydata = (event) => {
                       />
                          <TextField
                         name="twitter"
-                        label="twitter"
+                        label="Twitter"
                         variant="outlined"
                         value={formData.socialMedia.twitter}
                         onChange={handleChangeArraydata}
@@ -681,7 +682,7 @@ const handleChangeArraydata = (event) => {
                     <div>
                       <TextField
                         name="batch"
-                        label="batch"
+                        label="Batch"
                         variant="outlined"
                         value={formData.batch}
                         onChange={handleChange}
@@ -706,7 +707,7 @@ const handleChangeArraydata = (event) => {
 
                       <TextField
                         name="password"
-                        label="password"
+                        label="Password"
                         type="password"
                         variant="outlined"
                         value={formData.password}
@@ -718,7 +719,7 @@ const handleChangeArraydata = (event) => {
                       />
                       <TextField
                         name="confirmPassword"
-                        label="confirmPassword"
+                        label="Confirm Password"
                         variant="outlined"
                         type="password"
                         value={formData.confirmPassword}
