@@ -240,7 +240,7 @@ if (!formData.branch) {
     }
     if(formData.password!== formData.confirmPassword)
     {
-      newErrors.confirmPassword="match the password";
+      newErrors.confirmPassword="Password does not match";
       valid = false;
     }
 
@@ -272,10 +272,10 @@ if (!formData.branch) {
     setStep(step - 1);
   };
   const handleSubmit = async (e) => {
-    setLoading(true);
     e.preventDefault();
-  // console.log(formData);
+    // console.log(formData);
     if (validation===true) {
+      setLoading(true);
       console.log(formData);
 
       axios.post(`${API_URL}api/v1/user/signup`, formData).then(
@@ -319,6 +319,7 @@ if (!formData.branch) {
           }
         },
         (error) => {
+          setLoading(false);
           alert("Invalid Credentials");
           console.log(error);
         }
@@ -423,7 +424,7 @@ if (!formData.branch) {
                     <div>
                       <TextField
                         name="name"
-                        label="User Name"
+                        label="Full Name"
                         variant="outlined"
                         value={formData.name}
                         onChange={handleChange}
@@ -472,7 +473,7 @@ if (!formData.branch) {
                     <div>
                       <TextField
                         name="branch"
-                        label="branch Name"
+                        label="Branch Name"
                         variant="outlined"
                         value={formData.branch}
                         onChange={handleChange}
@@ -495,7 +496,7 @@ if (!formData.branch) {
                       />
                       <TextField
                         name="state"
-                        label="state"
+                        label="State"
                         variant="outlined"
                         value={formData.state}
                         onChange={handleChange}
@@ -506,7 +507,7 @@ if (!formData.branch) {
                       />
                       <TextField
                         name="city"
-                        label="city"
+                        label="City"
                         variant="outlined"
                         value={formData.city}
                         onChange={handleChange}
@@ -542,7 +543,7 @@ if (!formData.branch) {
                     <div>
                       <TextField
                         name="institutionName"
-                        label="institutionName"
+                        label="Institution Name"
                         variant="outlined"
                         value={formData.institutionName}
                         onChange={handleChange}
@@ -567,7 +568,7 @@ if (!formData.branch) {
 
                       <TextField
                         name="password"
-                        label="password"
+                        label="Password"
                         type="password"
                         variant="outlined"
                         value={formData.password}
@@ -579,7 +580,7 @@ if (!formData.branch) {
                       />
                       <TextField
                         name="confirmPassword"
-                        label="confirmPassword"
+                        label="Confirm Password"
                         variant="outlined"
                         type="password"
                         value={formData.confirmPassword}
