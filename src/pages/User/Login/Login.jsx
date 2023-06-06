@@ -375,7 +375,7 @@ const Register = () => {
                   value={values.role}
                   onChange={handleChange("role")}
                   required
-                  onBlur={validateRole}
+                  // onBlur={validateRole}
                 >
                   <option value="User">Student</option>
                   <option value="Alumni">Alumni</option>
