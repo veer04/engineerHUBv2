@@ -280,7 +280,7 @@ const OrganizationSignup = () => {
                     <div>
                       <TextField
                         name="name"
-                        label="userName"
+                        label="Name"
                         variant="outlined"
                         value={formData.name}
                         onChange={handleChange}
@@ -303,7 +303,7 @@ const OrganizationSignup = () => {
                       />
                       <TextField
                         name="organizationName"
-                        label="organizationName "
+                        label="Organization Name "
                         variant="outlined"
                         value={formData.organizationName}
                         onChange={handleChange}
@@ -352,7 +352,7 @@ const OrganizationSignup = () => {
                       />
                       <TextField
                         name="state"
-                        label="state"
+                        label="State"
                         variant="outlined"
                         value={formData.state}
                         onChange={handleChange}
@@ -363,7 +363,7 @@ const OrganizationSignup = () => {
                       />
                       <TextField
                         name="city"
-                        label="city"
+                        label="City"
                         variant="outlined"
                         value={formData.city}
                         onChange={handleChange}
@@ -399,7 +399,7 @@ const OrganizationSignup = () => {
                     <div>
                       <TextField
                         name="webSiteURL"
-                        label="webSiteURL"
+                        label="WebSite URL"
                         variant="outlined"
                         value={formData.webSiteURL}
                         onChange={handleChange}
@@ -424,7 +424,7 @@ const OrganizationSignup = () => {
 
                       <TextField
                         name="password"
-                        label="password"
+                        label="Password"
                         type="password"
                         variant="outlined"
                         value={formData.password}
@@ -436,7 +436,7 @@ const OrganizationSignup = () => {
                       />
                       <TextField
                         name="confirmPassword"
-                        label="confirmPassword"
+                        label="Confirm Password"
                         variant="outlined"
                         type="password"
                         value={formData.confirmPassword}
