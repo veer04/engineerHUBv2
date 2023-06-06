@@ -388,7 +388,7 @@ const Register = () => {
                   value={values.password}
                   className="reg-input"
                   onChange={handleChange("password")}
-                  onBlur={handlePassword}
+                  // onBlur={handlePassword}
                   // focused={focused.toString()}
                   required
                 />
