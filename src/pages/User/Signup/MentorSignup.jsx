@@ -166,7 +166,7 @@ const newErrors ={
   companyName: "",
   currentProfile: "",
   campus: "",
-  aboutMe: "",
+  
 }
 if (!formData.campus) {
   newErrors.campus = "campus is required";
@@ -180,10 +180,7 @@ if (!formData.currentProfile) {
   newErrors.currentProfile = "current profile is required";
   valid = false;
 }
-if (!formData.aboutMe) {
-  newErrors.aboutMe = "about Me is required";
-  valid = false;
-}
+
 
   setErrors(newErrors);
   return valid;
@@ -193,9 +190,11 @@ if (!formData.aboutMe) {
 
   let valid =true;
   const newErrors={
-    instagram:"",
-    linkedIn:"",
-    twitter:"",
+    socialMedia: {
+      linkedIn: '',
+      twitter: '',
+      instagram: '',
+    }
   }
 if(!formData.socialMedia.instagram)
 {
@@ -304,11 +303,11 @@ return valid;
       setStep(step+1);
   };
   const handleNext2 = () => {
-    if(validateInput2())
+    // if(validateInput2())
      setStep(step+1);
 };
 const handleNext3 = () => {
-    if(validateInput3())
+    // if(validateInput3())
      setStep(step+1);
 };
 
@@ -323,7 +322,7 @@ const handleNext4 =()=>{
   const handleSubmit = async (e) => {
     e.preventDefault();
     // console.log(formData);
-    if (!validateInput()) {
+    if (validateInput4()) {
       setLoading(true);
       console.log(formData);
 
@@ -351,12 +350,14 @@ const handleNext4 =()=>{
         },
         (error) => {
           setLoading(false);
-          if (err && err instanceof AxiosError)
-          setError(err.response?.data.message);
-        else if (err && err instanceof Error) setError(err.message);
-        setOpen(true);
-
           console.log(error);
+          alert("Invalid Credentials");
+
+        //   if (err && err instanceof AxiosError)
+        //   setErrors(err.response?.data.message);
+        // else if (err && err instanceof Error) setErrors(err.message);
+        // setOpen(true);
+
         }
       );
     }
@@ -601,7 +602,7 @@ const handleChangeArraydata = (event) => {
                       <button
                         type="button"
                         className="buttonOnHostingPage btnrightallign"
-                        onClick={handleNext2}
+                        onClick={handleNext1}
                       >
                         Next
                       </button>
@@ -623,8 +624,8 @@ const handleChangeArraydata = (event) => {
                         onChange={handleChangeArraydata}
                         fullWidth
                         margin="normal"
-                        error={!!errors.socialMedia.instagram}
-                        helperText={errors.socialMedia.instagram}
+                        error={!!errors.socialMedia?.instagram}
+                        helperText={errors.socialMedia?.instagram}
                       />
 
 
@@ -636,8 +637,8 @@ const handleChangeArraydata = (event) => {
                         onChange={handleChangeArraydata}
                         fullWidth
                         margin="normal"
-                        error={!!errors.socialMedia.linkedIn}
-                        helperText={errors.socialMedia.linkedIn}
+                        error={!!errors.socialMedia?.linkedIn}
+                        helperText={errors.socialMedia?.linkedIn}
                       />
                          <TextField
                         name="twitter"
@@ -647,8 +648,8 @@ const handleChangeArraydata = (event) => {
                         onChange={handleChangeArraydata}
                         fullWidth
                         margin="normal"
-                        error={!!errors.socialMedia.twitter}
-                        helperText={errors.socialMedia.twitter}
+                        error={!!errors.socialMedia?.twitter}
+                        helperText={errors.socialMedia?.twitter}
                       />
                       <br />
                       <button
@@ -741,7 +742,7 @@ const handleChangeArraydata = (event) => {
                       </button>
                           
                       <button type="submit" 
-                      onClick={handleNext4}
+                      // onClick={handleNext4}
                       className="buttonOnHostingPage btnrightallign">
                       {loading ? "Loading..." : "Submit"}
                       </button>

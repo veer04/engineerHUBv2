@@ -29,6 +29,7 @@ const OrganizationSignup = () => {
   const [countries, setCountries] = useState([]);
   const [states, setStates] = useState([]);
   const [cities, setCities] = useState([]);
+  const [validation,setValidation]=useState(false);
 
   useEffect(() => {
     // Fetch country data
@@ -85,15 +86,12 @@ const OrganizationSignup = () => {
   //   setRole(event.target.value);
   //  }
 
-  const validateInput = () => {
+  const validateInput1 = () => {
     let valid = true;
     const newErrors = {
       name: "",
-      // userName: '',
       email: "",
       organizationName: "",
-      contact: "",
-      country: "",
     };
 
     if (!formData.name) {
@@ -112,36 +110,128 @@ const OrganizationSignup = () => {
     if (!formData.organizationName) {
       newErrors.organizationName = "organization name is required";
       valid = false;
-    } else if (!/^[a-zA-Z][0-9]$/.test(formData.organizationName)) {
-      newErrors.organizationName = "Invalid organization name";
-      valid = false;
-    }
-
+    } 
  
 
-    if (!formData.contact) {
-      newErrors.contact = "Contact number is required";
-      valid = false;
-    } else if (!/^\d{10}$/.test(formData.contact)) {
-      newErrors.contact = "Invalid contact number";
-      valid = false;
-    }
-
-    if (!formData.country) {
-      newErrors.country = "Country is required";
-      valid = false;
-    }
+   
 
     setErrors(newErrors);
     return valid;
   };
 
+
+
+const validateInput2=()=>{
+  let valid =true;
+  const newErrors ={
+    country:"",
+    state:"",
+    city:"",
+  }
+
+if(!formData.country)
+{
+  newErrors.country="country Name is required";
+  valid =false;
+}
+if (!formData.state)
+{
+  newErrors.state="state name is required";
+  valid =false;
+}
+if(!formData.city)
+{
+  newErrors.city="city name is required";
+  valid =false;
+}
+
+  setErrors(newErrors);
+  return valid;
+}
+
+  const validateInput3=()=>{
+
+    let valid =true;
+   const newErrors ={
+      websiteURL:"",
+      password:"",
+      confirmPassword:"",
+   }
+   if(!formData.webSiteURL)
+   {
+    newErrors.websiteURL ="website URL is Required"
+    valid =false;
+   }
+   
+  
+   if (!formData.password) {
+    newErrors.password = "password is required";
+    valid = false;
+  }
+  if (formData.password.length < 8) {
+    newErrors.password ="password must be of 8 digits"
+    valid = false;
+  }
+  if (!/[A-Z]/.test(formData.password)) {
+    
+    newErrors.password =
+      "Password must contain at least one uppercase character.";
+      valid = false;
+  }
+  
+  
+  if (!/[a-z]/.test(formData.password)) {
+    // allErrors.push(" 1 lowercase character");
+    newErrors.password =
+      "Password must contain at least one lowercase character.";
+      valid = false;
+  }
+  if (!/\d/.test(formData.password)) {
+    // allErrors.push(" 1 numeric character");
+    newErrors.password = "Password must contain at least one numeric character.";
+    valid = false;
+  }
+  if (!/[!@#$%^&*(),.?":{}|<>]/.test(formData.password)) {
+    // allErrors.push(" 1 special character");
+    newErrors.password = "Password must contain at least one special character.";
+    valid = false;
+  }
+  
+  if (!formData.confirmPassword) {
+    newErrors.confirmPassword = "Confirm password is required";
+    valid = false;
+  }
+  if(formData.password!== formData.confirmPassword)
+  {
+    newErrors.confirmPassword="Password does not match";
+    valid = false;
+  }
+  
+      setErrors(newErrors);
+      return valid;
+  
+    
+  }
+  
+
   // const handleChangeRole = (event) => {
   //   setRole(event.target.value);
   // };
-  const handleNext = () => {
+  const handleNext1 = () => {
+    if (validateInput1())
       setStep(step+1);
   };
+  const handleNext2 = () => {
+    if (validateInput2())
+      setStep(step+1);
+  };
+  
+  const handleNext3 = () => {
+    if (validateInput3())
+      setValidation(true);
+  };
+  
+  
 
   const handlePrev = () => {
     setStep(step - 1);
@@ -149,7 +239,7 @@ const OrganizationSignup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     // console.log(formData);
-    if (!validateInput()) {
+    if (validation===true) {
       setLoading(true);
       console.log(formData);
 
@@ -318,7 +408,7 @@ const OrganizationSignup = () => {
 
                       <button
                         type="button"
-                        onClick={handleNext}
+                        onClick={handleNext1}
                         className="buttonOnHostingPage"
                       >
                         Next
@@ -385,7 +475,7 @@ const OrganizationSignup = () => {
                       <button
                         type="button"
                         className="buttonOnHostingPage btnrightallign"
-                        onClick={handleNext}
+                        onClick={handleNext2}
                       >
                         Next
                       </button>
@@ -457,7 +547,9 @@ const OrganizationSignup = () => {
                         Previous
                       </button>
                           
-                      <button type="submit" className="buttonOnHostingPage btnrightallign">
+                      <button type="submit"
+                         onClick={handleNext3}
+                      className="buttonOnHostingPage btnrightallign">
                       {loading ? "Loading..." : "Submit"}
                       </button>
                       <br />
