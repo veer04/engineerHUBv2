@@ -439,12 +439,12 @@ const Register = () => {
                 <Link to="/selectRole" className="f-p ">
                   Sign Up
                 </Link>
-                <CustomSnackbar
+                {snackbarValues.severity!=="success" && <CustomSnackbar
                   setOpen={setOpen}
                   open={open}
                   message={snackbarValues.message}
                   severity={snackbarValues.severity}
-                />
+                />}
               </div>
             </form>
           </div>
