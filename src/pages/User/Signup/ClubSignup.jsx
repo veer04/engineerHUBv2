@@ -29,6 +29,7 @@ const ClubSignup = () => {
   const [countries, setCountries] = useState([]);
   const [states, setStates] = useState([]);
   const [cities, setCities] = useState([]);
+  const [validation , setValidation]= useState(false);
 
   useEffect(() => {
     // Fetch country data
@@ -89,16 +90,16 @@ const ClubSignup = () => {
   //   setRole(event.target.value);
   //  }
 
-  const validateInput = () => {
+  const validateInput1 = () => {
     let valid = true;
     const newErrors = {
       name: "",
       // userName: '',
       email: "",
-      description: "",
-      websiteUrl: "",
-      contact: "",
-      collegeId: "",
+      // description: "",
+      // websiteUrl: "",
+      // contact: "",
+      // collegeId: "",
     };
 
     if (!formData.name) {
@@ -114,42 +115,162 @@ const ClubSignup = () => {
       valid = false;
     }
 
-    if (!formData.description) {
-      newErrors.description = "description is required";
-      valid = false;
-    } else if (!/^\d{10}$/.test(formData.description)) {
-      newErrors.description = "Invalid description number";
-      valid = false;
-    }
+    // if (!formData.description) {
+    //   newErrors.description = "description is required";
+    //   valid = false;
+    // } else if (!/^\d{10}$/.test(formData.description)) {
+    //   newErrors.description = "Invalid description number";
+    //   valid = false;
+    // }
 
-    if (!formData.websiteUrl) {
-      newErrors.websiteUrl = "College name is required";
-      valid = false;
-    }
+    // if (!formData.websiteUrl) {
+    //   newErrors.websiteUrl = "College name is required";
+    //   valid = false;
+    // }
 
-    if (!formData.contact) {
-      newErrors.contact = "Contact number is required";
-      valid = false;
-    } else if (!/^\d{10}$/.test(formData.contact)) {
-      newErrors.contact = "Invalid contact number";
-      valid = false;
-    }
+    // if (!formData.contact) {
+    //   newErrors.contact = "Contact number is required";
+    //   valid = false;
+    // } else if (!/^\d{10}$/.test(formData.contact)) {
+    //   newErrors.contact = "Invalid contact number";
+    //   valid = false;
+    // }
 
-    if (!formData.collegeId) {
-      newErrors.collegeId = "collegeId is required";
-      valid = false;
-    }
+    // if (!formData.collegeId) {
+    //   newErrors.collegeId = "collegeId is required";
+    //   valid = false;
+    // }
 
     setErrors(newErrors);
     return valid;
   };
 
+
+const validateInput2 =()=>
+{
+  let valid = true;
+  const newErrors={
+    clubType:"",
+    collegeId:"",
+    collegeName:"",
+  }
+  if(!formData.clubType)
+  {
+    newErrors.clubType="club Type is Required ";
+    valid =false;
+  }
+  else if(!/^[A-Za-z0-9\s&'-]+$/.test(formData.clubType))
+  {
+    newErrors.clubType="Club Type should not have special characters";
+    valid =false;
+  }
+  if(!formData.collegeId)
+  {
+    newErrors.collegeId="College ID is required";
+    valid =false;
+  }
+ else if(!/^[A-Za-z0-9\s&'-]+$/.test(!formData.collegeId))
+ {
+  newErrors.collegeId="College ID cannot have any special character";
+  valid=false;
+ }
+ if(!formData.collegeName)
+ {
+   newErrors.collegeName="College Name is required";
+   valid =false;
+ }
+else if(!/^[A-Za-z0-9\s&'-]+$/.test(!formData.collegeName))
+{
+ newErrors.collegeName="College Name cannot have any special character";
+ valid=false;
+}
+
+  setErrors(newErrors);
+  return valid;
+
+}
+
+const validateInput3=()=>{
+
+  let valid =true;
+ const newErrors ={
+    websiteUrl:"",
+    password:"",
+    confirmPassword:"",
+ }
+ if(!formData.websiteUrl)
+ {
+  newErrors.websiteUrl ="website URL is Required"
+  valid =false;
+ }
+ 
+
+ if (!formData.password) {
+  newErrors.password = "password is required";
+  valid = false;
+}
+if (formData.password.length < 8) {
+  newErrors.password ="password must be of 8 digits"
+  valid = false;
+}
+if (!/[A-Z]/.test(formData.password)) {
+  
+  newErrors.password =
+    "Password must contain at least one uppercase character.";
+    valid = false;
+}
+
+
+if (!/[a-z]/.test(formData.password)) {
+  // allErrors.push(" 1 lowercase character");
+  newErrors.password =
+    "Password must contain at least one lowercase character.";
+    valid = false;
+}
+if (!/\d/.test(formData.password)) {
+  // allErrors.push(" 1 numeric character");
+  newErrors.password = "Password must contain at least one numeric character.";
+  valid = false;
+}
+if (!/[!@#$%^&*(),.?":{}|<>]/.test(formData.password)) {
+  // allErrors.push(" 1 special character");
+  newErrors.password = "Password must contain at least one special character.";
+  valid = false;
+}
+
+if (!formData.confirmPassword) {
+  newErrors.confirmPassword = "Confirm password is required";
+  valid = false;
+}
+if(formData.password!== formData.confirmPassword)
+{
+  newErrors.confirmPassword="Password does not match";
+  valid = false;
+}
+
+    setErrors(newErrors);
+    return valid;
+
+  
+}
+
   // const handleChangeRole = (event) => {
   //   setRole(event.target.value);
   // };
-  const handleNext = () => {
+  const handleNext1 = () => {
+    if(validateInput1())
       setStep(step+1);
   };
+  const handleNext2 =()=>
+  {
+    if(validateInput2())
+    setStep(step+1);
+  }
+  const handleNext3 =()=>
+  {
+    if(validateInput3())
+    setValidation(true);
+  }
 
   const handlePrev = () => {
     setStep(step - 1);
@@ -157,7 +278,7 @@ const ClubSignup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     // console.log(formData);
-    if (!validateInput()) {
+    if (validation===true) {
       setLoading(true);
       console.log(formData);
 
@@ -331,7 +452,7 @@ const ClubSignup = () => {
 
                       <button
                         type="button"
-                        onClick={handleNext}
+                        onClick={handleNext1}
                         className="buttonOnHostingPage"
                       >
                         Next
@@ -398,7 +519,7 @@ const ClubSignup = () => {
                       <button
                         type="button"
                         className="buttonOnHostingPage btnrightallign"
-                        onClick={handleNext}
+                        onClick={handleNext2}
                       >
                         Next
                       </button>
@@ -470,7 +591,9 @@ const ClubSignup = () => {
                         Previous
                       </button>
                           
-                      <button type="submit" className="buttonOnHostingPage btnrightallign">
+                      <button type="submit"
+                        onClick={handleNext3}
+                       className="buttonOnHostingPage btnrightallign">
                       {loading ? "Loading..." : "Submit"}
                       </button>
                       <br />
