@@ -4,6 +4,101 @@ import decryptData from "../features/DeCrypt";
 export const cancelToken = axios.CancelToken.source();
 export const controller = new AbortController();
 
+export const getAllCountries = (setAllCountries) => {
+  const controller = new AbortController();
+  axios
+    .get(`${API_URL}api/v1/getCountries`, {
+      signal: controller.signal,
+    })
+    .then((res) => {
+      const data = res.data.data;
+      setAllCountries(data);
+    })
+    .catch((err) => {
+      if (axios.isCancel(err)) {
+        console.log("req cancel");
+      } else {
+        console.log("req performed");
+      }
+    });
+};
+
+export const getStatesByCountry = (setStatesByCountry, countryCode) => {
+  const controller = new AbortController();
+  axios
+    .get(`${API_URL}api/v1/getStates/${countryCode}`, {
+      signal: controller.signal,
+    })
+    .then((res) => {
+      const data = res.data.data;
+      setStatesByCountry(data);
+    })
+    .catch((err) => {
+      if (axios.isCancel(err)) {
+        console.log("req cancel");
+      } else {
+        console.log("req performed");
+      }
+    });
+};
+
+export const getCitiesByState = (setCitiesByState, countryCode, stateCode) => {
+  const controller = new AbortController();
+  axios
+    .get(`${API_URL}api/v1/getCities/${countryCode}/${stateCode}`, {
+      signal: controller.signal,
+    })
+    .then((res) => {
+      const data = res.data.data;
+      setCitiesByState(data);
+    })
+    .catch((err) => {
+      if (axios.isCancel(err)) {
+        console.log("req cancel");
+      } else {
+        console.log("req performed");
+      }
+    });
+};
+
+export const getAllBranches = (setAllBranches) => {
+  const controller = new AbortController();
+  axios
+    .get(`${API_URL}api/v1/branch`, {
+      signal: controller.signal,
+    })
+    .then((res) => {
+      const data = res.data.data;
+      setAllBranches(data);
+    })
+    .catch((err) => {
+      if (axios.isCancel(err)) {
+        console.log("req cancel");
+      } else {
+        console.log("req performed");
+      }
+    });
+};
+
+export const getAllCampuses = (setAllCampuses) => {
+  const controller = new AbortController();
+  axios
+    .get(`${API_URL}api/v1/campus`, {
+      signal: controller.signal,
+    })
+    .then((res) => {
+      const data = res.data.data;
+      setAllCampuses(data);
+    })
+    .catch((err) => {
+      if (axios.isCancel(err)) {
+        console.log("req cancel");
+      } else {
+        console.log("req performed");
+      }
+    });
+};
+
 export const getBestAlumni = (setBestAlumni) => {
   const controller = new AbortController();
   axios
@@ -412,25 +507,6 @@ export const getTrendingActivities = (setTrendingActivities) => {
     .then((res) => {
       const data = res.data.data;
       setTrendingActivities(data);
-    })
-    .catch((err) => {
-      if (axios.isCancel(err)) {
-        console.log("req cancel");
-      } else {
-        console.log("req performed");
-      }
-    });
-};
-
-export const getAllCampuses = (setAllCampuses) => {
-  const controller = new AbortController();
-  axios
-    .get(`${API_URL}api/v1/campus`, {
-      signal: controller.signal,
-    })
-    .then((res) => {
-      const data = res.data.data;
-      setAllCampuses(data);
     })
     .catch((err) => {
       if (axios.isCancel(err)) {
