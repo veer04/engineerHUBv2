@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./ParticularAlumni.css";
 import AlumniLocalCard from "../../../components/AlumniLocalCard/AlumniLocalCard";
 import { Bucket_URL } from "../../../services/APIUtils";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   controller,
   getAlumniById,
@@ -12,6 +12,7 @@ import colorWheel from "../../../assets/colorWheel";
 import LoadingPage from "../../../components/Loader/LoadingPage";
 
 export default function ParticularAlumni() {
+  const navigate = useNavigate();
   const { collegeId, almaId } = useParams();
   const [alumni, setAlumni] = useState([]);
   const [almaData, setAlmaData] = useState({});
@@ -114,28 +115,40 @@ export default function ParticularAlumni() {
         <div className="section connect-container">
           <div className="title">Connect with Mentor</div>
           <div className="connect">
-            <div className="connect-card">
+            <div
+              onClick={() => navigate("/under-maintenance")}
+              className="connect-card on-hover-scale"
+            >
               <div className="title">1-on-1 Mentorship</div>
               <div className="info">
                 Lorem ipsum dolor, sit amet consectetur adipisicing elit. Modi,
                 doloremque.
               </div>
             </div>
-            <div className="connect-card">
+            <div
+              onClick={() => navigate("/under-maintenance")}
+              className="connect-card on-hover-scale"
+            >
               <div className="title">Resume Review</div>
               <div className="info">
                 Lorem ipsum dolor, sit amet consectetur adipisicing elit. Modi,
                 doloremque.
               </div>
             </div>
-            <div className="connect-card">
+            <div
+              onClick={() => navigate("/under-maintenance")}
+              className="connect-card on-hover-scale"
+            >
               <div className="title">Webinars</div>
               <div className="info">
                 Lorem ipsum dolor, sit amet consectetur adipisicing elit. Modi,
                 doloremque.
               </div>
             </div>
-            <div className="connect-card">
+            <div
+              onClick={() => navigate("/under-maintenance")}
+              className="connect-card on-hover-scale"
+            >
               <div className="title">Courses</div>
               <div className="info">
                 Lorem ipsum dolor, sit amet consectetur adipisicing elit. Modi,

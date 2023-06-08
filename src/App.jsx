@@ -49,6 +49,7 @@ import PostModal from "./components/PostModal/PostModal";
 import ParticularAlumni from "./pages/Campus/ParticularCampus/ParticularAlumni";
 import ProfilePage from "./pages/User/Profile/ProfilePage";
 import VerificationModal from "./components/VerificationModal/VerificationModal";
+import StudentSignup from "./pages/User/Signup/StudentSignup";
 
 const CommunityPage = lazy(() => import("./pages/Community/CommunityPage"));
 const CampusPage = lazy(() => import("./pages/Campus/CampusPage"));
@@ -64,11 +65,11 @@ function App() {
   // const { eventId } = useParams();
   const [isEventModalOpen, setIsEventModalOpen] = useState(false);
   const userName = document.cookie
-  .split(';')
-  .map((cookie) => cookie.trim())
-  .find((cookie) => cookie.startsWith('userName='));
+    .split(";")
+    .map((cookie) => cookie.trim())
+    .find((cookie) => cookie.startsWith("userName="));
 
-const isAuthenticated = !!userName;
+  const isAuthenticated = !!userName;
 
   return (
     <>
@@ -82,11 +83,13 @@ const isAuthenticated = !!userName;
           <Route path="/selectRole" element={<Role />} />
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/student-signup" element={<StudentSignup />} />
           <Route path="/clubSignup" element={<ClubSignup />} />
           <Route path="/mentorSignup" element={<MentorSignup />} />
           <Route path="/organizationSignup" element={<OrganizationSignup />} />
           <Route path="/login" element={<Login />} />
           <Route path="/otpverification" element={<OTP />} />
+          <Route path="/under-maintenance" element={<ComingSoon />} />
           <Route path="/community">
             <Route index element={<CommunityPage />} />
             <Route path="domains" element={<CommunityPage path="domains" />} />

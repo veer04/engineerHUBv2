@@ -221,6 +221,7 @@
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  cursor: pointer;
 }
 .particular-alumni-page
   > .details-container
@@ -272,6 +273,18 @@
     box-shadow: 0px 0px 12px 2px rgba(0, 0, 0, 0.1);
   }
 }
+
+@media screen and (min-width: 769px) {
+  .particular-alumni-page
+    > .details-container
+    > .info-container
+    > .personal-info
+    > .info
+    > .batch-md {
+    display: none;
+  }
+}
+
 @media screen and (max-width: 768px) {
   .particular-alumni-page
     > .details-container

@@ -18,9 +18,10 @@ export default function EventsPage({ path }) {
   const [eventOpened, setEventOpened] = useState(undefined);
 
   const [events, setEvents] = useState(
-    sessionStorage.getItem(`${id} events`)
-      ? JSON.parse(sessionStorage.getItem(`${id} events`))
-      : []
+    // sessionStorage.getItem(`${id} events`)
+    //   ? JSON.parse(sessionStorage.getItem(`${id} events`))
+    //   : 
+      []
   );
 
   useEffect(() => {
@@ -34,9 +35,9 @@ export default function EventsPage({ path }) {
     };
   }, [id]);
 
-  useEffect(() => {
-    sessionStorage.setItem(`${id} events`, JSON.stringify(events));
-  }, [events]);
+  // useEffect(() => {
+  //   sessionStorage.setItem(`${id} events`, JSON.stringify(events));
+  // }, [events]);
 
   //   const [filteredProjects, setFilteredProjects] = useState([]);
 
