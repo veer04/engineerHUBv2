@@ -315,19 +315,7 @@ if (formData.password !== formData.confirmPassword) {
       axios.post(`${API_URL}api/v1/club/signup`, formData).then(
         (response) => {
 
-
-          // Cookies.set("access_token", response.data.accessToken);
-          // const token = response.data.accessToken;
-          // const decoded = jwt_decode(token);
-          // console.log(decoded);
-          // Cookies.set("refresh_token", response.data.refreshToken);
-          // Cookies.set("userName", response.data.userName);
-          // Cookies.set("institutionName", response.data.institutionName);
           Cookies.set("email", response.data.email);
-
-
-
-
 
           console.log(response);
           if(response.status===200 ||

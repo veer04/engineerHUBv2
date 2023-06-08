@@ -283,12 +283,7 @@ if(!formData.city)
         (response) => {
 
 
-          // Cookies.set("access_token", response.data.accessToken);
-          // const token = response.data.accessToken;
-          // const decoded = jwt_decode(token);
-          // console.log(decoded);
-          // Cookies.set("refresh_token", response.data.refreshToken);
-          // Cookies.set("userName", response.data.userName);
+        
           Cookies.set("email", response.data.email);
 
           console.log(response);
@@ -300,7 +295,7 @@ if(!formData.city)
           {
             setLoading(false);
             navigate("/otpverification");
-            window.location.reload(true);
+            // window.location.reload(true);
           }
         },
         (error) => 
