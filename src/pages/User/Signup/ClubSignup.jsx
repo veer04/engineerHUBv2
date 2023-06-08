@@ -165,32 +165,9 @@ const ClubSignup = () => {
       newErrors.description="must have a minimum of 50 characters";
       valid =false;
     }
-    // if (!formData.description) {
-    //   newErrors.description = "description is required";
-    //   valid = false;
-    // } else if (!/^\d{10}$/.test(formData.description)) {
-    //   newErrors.description = "Invalid description number";
-    //   valid = false;
-    // }
+ 
 
-    // if (!formData.websiteUrl) {
-    //   newErrors.websiteUrl = "College name is required";
-    //   valid = false;
-    // }
-
-    // if (!formData.contact) {
-    //   newErrors.contact = "Contact number is required";
-    //   valid = false;
-    // } else if (!/^\d{10}$/.test(formData.contact)) {
-    //   newErrors.contact = "Invalid contact number";
-    //   valid = false;
-    // }
-
-    // if (!formData.collegeId) {
-    //   newErrors.collegeId = "collegeId is required";
-    //   valid = false;
-    // }
-
+   
     setErrors(newErrors);
     return valid;
   };
@@ -360,7 +337,7 @@ if (formData.password !== formData.confirmPassword) {
              response.status===204)
           {
             setLoading(false);
-            navigate("/");
+            navigate("/otpverification");
             // window.location.reload(true);
           }
         },
