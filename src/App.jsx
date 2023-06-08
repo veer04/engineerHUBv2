@@ -83,7 +83,7 @@ function App() {
           <Route path="/selectRole" element={<Role />} />
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/signup" element={<Signup />} />
-          <Route path="/studentSignup" element={<StudentSignup />} />
+          <Route path="/student-signup" element={<StudentSignup />} />
           <Route path="/clubSignup" element={<ClubSignup />} />
           <Route path="/mentorSignup" element={<MentorSignup />} />
           <Route path="/organizationSignup" element={<OrganizationSignup />} />

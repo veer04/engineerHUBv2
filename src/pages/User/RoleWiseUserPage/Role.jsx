@@ -36,7 +36,7 @@ const Role = () => {
   const bucket = `${Bucket_URL}frontend/hosting/`;
 const studentNavigation=()=>{
   handleCardClick('User')
-  navigate("/signup");
+  navigate("/student-signup");
 }
 const mentorNavigation=()=>{
   handleCardClick('Alumni')

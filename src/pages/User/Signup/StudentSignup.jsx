@@ -55,7 +55,7 @@ const StudentSignup = () => {
     country: "",
     password: "",
     confirmPassword: "",
-    role: "",
+    // role: "",
   });
   const [errors, setErrors] = useState({
     name: "",
@@ -316,8 +316,10 @@ const StudentSignup = () => {
           }
         },
         (error) => {
+          console.log(formData);
           setLoading(false);
           alert(error.response.data.message);
+          setValidation(false);
           console.log(error);
         }
       );
@@ -490,7 +492,7 @@ const StudentSignup = () => {
           error={!!errors.institutionName}
         >
           {campuses.map((campus) => (
-            <MenuItem key={campus._id} value={campus.collegeName}>
+            <MenuItem key={campus._id} value={campus._id}>
               {campus.collegeName}
             </MenuItem>
           ))}
