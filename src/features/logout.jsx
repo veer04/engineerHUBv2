@@ -18,6 +18,7 @@ function deleteCookie() {
     "verifiedByEhub",
     "role",
     "mobile",
+    "id",
   ];
 
   //delete all cookies
