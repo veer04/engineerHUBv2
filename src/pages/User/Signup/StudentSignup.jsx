@@ -278,28 +278,9 @@ const StudentSignup = () => {
 
       axios.post(`${API_URL}api/v1/user/signup`, formData).then(
         (response) => {
-          // Cookies.set("access_token", response.data.accessToken);
-          // const token = response.data.accessToken;
-          // const decoded = jwt_decode(token);
-          // console.log(decoded);
-          // Cookies.set("refresh_token", response.data.refreshToken);
-          // Cookies.set("userName", response.data.userName);
-          // Cookies.set("institutionName", response.data.institutionName);
-          // Cookies.set("email", response.data.email);
-          // Cookies.set("access_token", response.data.accessToken);
-          // const token = response.data.accessToken;
-          // const decoded = jwt_decode(token);
-          // console.log(decoded);
-          // Cookies.set("refresh_token", response.data.refreshToken);
-          // Cookies.set("userName", response.data.userName);
-          // Cookies.set("institutionName", response.data.institutionName);
+        
           Cookies.set("email", response.data.email);
-          // Cookies.set("role", decoded.role);
-          // Cookies.set("image", decoded.image);
-          // Cookies.set("isVerified", decoded.isVerified);
-          // Cookies.set("verifiedByEhub", decoded.verifiedByEhub);
-          // Cookies.set("mobile", decoded.mobile);
-          // Cookies.set("name", response.data.name);
+       
 
           console.log(response);
           if (
@@ -311,8 +292,6 @@ const StudentSignup = () => {
           ) {
             setLoading(false);
             navigate("/otpverification");
-            // window.location.reload(true);
-            // window.location.reload(true);
           }
         },
         (error) => {
@@ -502,18 +481,7 @@ const StudentSignup = () => {
         </FormHelperText>
       </FormControl>
 
-      {/* <TextField
-        name="password"
-        label="Password"
-        type="password"
-        variant="outlined"
-        value={formData.password}
-        onChange={handleChange}
-        fullWidth
-        margin="normal"
-        error={!!errors.password}
-        helperText={errors.password}
-      /> */}
+    
 
       <FormControl margin="normal" fullWidth variant="outlined">
         <InputLabel

@@ -1,7 +1,7 @@
 import "./Signup.css";
 import { useNavigate, useNavigation } from "react-router-dom";
 import { useState, useEffect } from "react";
-import {  Button } from "@mui/material";
+import { Button } from "@mui/material";
 import {
   TextField,
   FormControl,
@@ -41,7 +41,7 @@ const OrganizationSignup = () => {
     window.scrollTo(0, 0);
     setSelectedPageNavbar("login");
   }, []);
-  
+
   const [countryParam, setCountryParam] = useState("");
   const [stateParam, setStateParam] = useState("");
   const [countries, setCountries] = useState([]);
@@ -50,7 +50,6 @@ const OrganizationSignup = () => {
   const [validation, setValidation] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-
 
   const [role, setRole] = useState("User");
   const [formData, setFormData] = useState({
@@ -117,7 +116,6 @@ const OrganizationSignup = () => {
     event.preventDefault();
   };
 
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevFormData) => ({
@@ -125,9 +123,6 @@ const OrganizationSignup = () => {
       [name]: value,
     }));
   };
-  
-
-
 
   const validateInput1 = () => {
     let valid = true;
@@ -153,110 +148,97 @@ const OrganizationSignup = () => {
     if (!formData.organizationName) {
       newErrors.organizationName = "organization name is required";
       valid = false;
-    } 
- 
-
-   
+    }
 
     setErrors(newErrors);
     return valid;
   };
 
+  const validateInput2 = () => {
+    let valid = true;
+    const newErrors = {
+      country: "",
+      state: "",
+      city: "",
+    };
 
-
-const validateInput2=()=>{
-  let valid =true;
-  const newErrors ={
-    country:"",
-    state:"",
-    city:"",
-  }
-
-if(!formData.country)
-{
-  newErrors.country="country Name is required";
-  valid =false;
-}
-if (!formData.state)
-{
-  newErrors.state="state name is required";
-  valid =false;
-}
-if(!formData.city)
-{
-  newErrors.city="city name is required";
-  valid =false;
-}
-
-  setErrors(newErrors);
-  return valid;
-}
-
-  const validateInput3=()=>{
-
-    let valid =true;
-   const newErrors ={
-      websiteURL:"",
-      password:"",
-      confirmPassword:"",
-   }
-   if(!formData.webSiteURL)
-   {
-    newErrors.websiteURL ="website URL is Required"
-    valid =false;
-   }
-   
-  
-   if (!formData.password) {
-    newErrors.password = "Password is required";
-    valid = false;
-  } else {
-    newErrors.password = "Password must contain at least";
-    let allErrors = [];
-    if (formData.password.length < 8) {
-      allErrors.push(" 8 characters");
-      // errors.password = "Password must be at least 8 characters long.";
+    if (!formData.country) {
+      newErrors.country = "country Name is required";
+      valid = false;
     }
-    if (!/[A-Z]/.test(formData.password)) {
-      allErrors.push(" 1 uppercase character");
-      // errors.password =
-      //   "Password must contain at least one uppercase character.";
+    if (!formData.state) {
+      newErrors.state = "state name is required";
+      valid = false;
     }
-    if (!/[a-z]/.test(formData.password)) {
-      allErrors.push(" 1 lowercase character");
-      // errors.password =
-      //   "Password must contain at least one lowercase character.";
+    if (!formData.city) {
+      newErrors.city = "city name is required";
+      valid = false;
     }
-    if (!/\d/.test(formData.password)) {
-      allErrors.push(" 1 numeric character");
-      // errors.password = "Password must contain at least one numeric character.";
+
+    setErrors(newErrors);
+    return valid;
+  };
+
+  const validateInput3 = () => {
+    let valid = true;
+    const newErrors = {
+      websiteURL: "",
+      password: "",
+      confirmPassword: "",
+    };
+    if (!formData.webSiteURL) {
+      newErrors.websiteURL = "website URL is Required";
+      valid = false;
     }
-    if (!/[!@#$%^&*(),.?":{}|<>]/.test(formData.password)) {
-      allErrors.push(" 1 special character");
-      // errors.password = "Password must contain at least one special character.";
-    }
-    if (allErrors.length > 0) {
-      newErrors.password += allErrors.join(",");
-      newErrors.password += ".";
+
+    if (!formData.password) {
+      newErrors.password = "Password is required";
       valid = false;
     } else {
-      newErrors.password = "";
+      newErrors.password = "Password must contain at least";
+      let allErrors = [];
+      if (formData.password.length < 8) {
+        allErrors.push(" 8 characters");
+        // errors.password = "Password must be at least 8 characters long.";
+      }
+      if (!/[A-Z]/.test(formData.password)) {
+        allErrors.push(" 1 uppercase character");
+        // errors.password =
+        //   "Password must contain at least one uppercase character.";
+      }
+      if (!/[a-z]/.test(formData.password)) {
+        allErrors.push(" 1 lowercase character");
+        // errors.password =
+        //   "Password must contain at least one lowercase character.";
+      }
+      if (!/\d/.test(formData.password)) {
+        allErrors.push(" 1 numeric character");
+        // errors.password = "Password must contain at least one numeric character.";
+      }
+      if (!/[!@#$%^&*(),.?":{}|<>]/.test(formData.password)) {
+        allErrors.push(" 1 special character");
+        // errors.password = "Password must contain at least one special character.";
+      }
+      if (allErrors.length > 0) {
+        newErrors.password += allErrors.join(",");
+        newErrors.password += ".";
+        valid = false;
+      } else {
+        newErrors.password = "";
+      }
     }
-  }
-  if (!formData.confirmPassword) {
-    newErrors.confirmPassword = "Confirm password is required";
-    valid = false;
-  }
-  if (formData.password !== formData.confirmPassword) {
-    newErrors.confirmPassword =
-      "Password and Confirm Password does not match";
-    valid = false;
-  }
-      setErrors(newErrors);
-      return valid;
-  
-    
-  }
+    if (!formData.confirmPassword) {
+      newErrors.confirmPassword = "Confirm password is required";
+      valid = false;
+    }
+    if (formData.password !== formData.confirmPassword) {
+      newErrors.confirmPassword =
+        "Password and Confirm Password does not match";
+      valid = false;
+    }
+    setErrors(newErrors);
+    return valid;
+  };
   function handleNext() {
     if (step === 1) {
       if (validateInput1()) setStep(step + 1);
@@ -275,31 +257,28 @@ if(!formData.city)
   const handleSubmit = async (e) => {
     e.preventDefault();
     // console.log(formData);
-    if (validation===true) {
+    if (validation === true) {
       setLoading(true);
       console.log(formData);
 
       axios.post(`${API_URL}api/v1/organization/signup`, formData).then(
         (response) => {
-
-
-        
           Cookies.set("email", response.data.email);
 
           console.log(response);
-          if(response.status===200 || 
-            response.status===201 ||
-             response.status===202 || 
-             response.status===203 ||
-              response.status===204)
-          {
+          if (
+            response.status === 200 ||
+            response.status === 201 ||
+            response.status === 202 ||
+            response.status === 203 ||
+            response.status === 204
+          ) {
             setLoading(false);
             navigate("/otpverification");
             // window.location.reload(true);
           }
         },
-        (error) => 
-        {
+        (error) => {
           setLoading(false);
           setValidation(false);
           alert(error.response.data.message);
@@ -307,139 +286,52 @@ if(!formData.city)
         }
       );
     }
-  }
-  
+  };
+  const step1 = (
+    <div>
+      <TextField
+        name="name"
+        label="User Name"
+        variant="outlined"
+        value={formData.name}
+        onChange={handleChange}
+        fullWidth
+        margin="normal"
+        error={!!errors.name}
+        helperText={errors.name}
+      />
 
-  // return (
-  //   <>
-  //     <div className="Login">
-  //       <div className="container">
-  //         <div className="row">
-            {/* <div className="col-lg-3 sideMenuLogin">
-    <p className="sidemenuBarHeaderLogin">
-        For Users
+      <TextField
+        name="email"
+        label="Email"
+        variant="outlined"
+        value={formData.email}
+        onChange={handleChange}
+        fullWidth
+        margin="normal"
+        error={!!errors.email}
+        helperText={errors.email}
+      />
+      <TextField
+        name="organizationName"
+        label="Organization Name "
+        variant="outlined"
+        value={formData.organizationName}
+        onChange={handleChange}
+        fullWidth
+        margin="normal"
+        error={!!errors.organizationName}
+        helperText={errors.organizationName}
+      />
 
-    </p>
-    <div className="formSideMenuBar">
-        <div className="sideMenuList">
-        Registraions
-        </div>
-        <div className="sideMenuList">
-        Watchlist
-        </div>
-        <div className="sideMenuList">
-        Recently viewed
-        </div>
-        <div className="sideMenuList">
-        Mentor Sessions
-        </div>
-        <div className="sideMenuList">
-        Courses
-        </div>
-        <div className="sideMenuList">
-        Liked domains
-        </div>
-        <div className="sideMenuList">
-        Prizes/Rewards
-        </div>
-        <div className="sideMenuList">
-       Notifications
-        </div>
+   
     </div>
-    <p className="sidemenuBarHeaderLogin">
-        For Organizations
+  );
 
-    </p>
-    <div className="formSideMenuBar">
-    <div className="sideMenuList">
-       Manage Lists
-        </div>
-         <div className="sideMenuList">
-       My Events
-        </div> 
+  const step2 = (
+    <div>
 
-    </div>
-    <p className="sidemenuBarHeaderLogin">
-        For Mentors
-
-    </p>
-    <div className="formSideMenuBar">
-    <div className="sideMenuList">
-      Mentor Profile
-        </div>
-
-    </div>
-                </div> */}
-            {/* <div className="col-lg-2"></div>
-            <div className="col-lg-5">
-              <div className="form-container">
-              <HostEventTimeline step={step} numberOfCheckpoints={3} width="35rem" />
-
-                <form action="/" method="POST" onSubmit={handleSubmit}> */}
-                  const step1 = (
-                    <div>
-                      <TextField
-                        name="name"
-                        label="User Name"
-                        variant="outlined"
-                        value={formData.name}
-                        onChange={handleChange}
-                        fullWidth
-                        margin="normal"
-                        error={!!errors.name}
-                        helperText={errors.name}
-                      />
-               
-                      <TextField
-                        name="email"
-                        label="Email"
-                        variant="outlined"
-                        value={formData.email}
-                        onChange={handleChange}
-                        fullWidth
-                        margin="normal"
-                        error={!!errors.email}
-                        helperText={errors.email}
-                      />
-                      <TextField
-                        name="organizationName"
-                        label="Organization Name "
-                        variant="outlined"
-                        value={formData.organizationName}
-                        onChange={handleChange}
-                        fullWidth
-                        margin="normal"
-                        error={!!errors.organizationName}
-                        helperText={errors.organizationName}
-                      />
-
-                      {/* <br />
-
-                      <button
-                        type="button"
-                        onClick={handleNext1}
-                        className="buttonOnHostingPage"
-                      >
-                        Next
-                      </button> */}
-                    </div>
-                  )
-
-              const step2 = (
-                    <div>
-                      {/* <TextField
-                        name="branch"
-                        label="branch Name"
-                        variant="outlined"
-                        value={formData.branch}
-                        onChange={handleChange}
-                        fullWidth
-                        margin="normal"
-                        error={!!errors.branch}
-                        helperText={errors.branch}
-                      /> */}
-
-<FormControl margin="normal" fullWidth>
+      <FormControl margin="normal" fullWidth>
         <InputLabel id="student-signup-country-label" error={!!errors.country}>
           Country
         </InputLabel>
@@ -522,57 +414,25 @@ if(!formData.city)
         </Select>
         <FormHelperText error={!!errors.city}>{errors.city}</FormHelperText>
       </FormControl>
-{/* 
-                      <br />
-                      <button
-                        type="button"
-                        className="buttonOnHostingPage"
-                        onClick={handlePrev}
-                      >
-                        Previous
-                      </button>
-                      <button
-                        type="button"
-                        className="buttonOnHostingPage btnrightallign"
-                        onClick={handleNext2}
-                      >
-                        Next
-                      </button>
-                      <br />
-                      <br /> */}
-                  
-                    </div>
-                  )
+     
+    </div>
+  );
 
+  const step3 = (
+    <div>
+      <TextField
+        name="webSiteURL"
+        label="WebSite URL"
+        variant="outlined"
+        value={formData.webSiteURL}
+        onChange={handleChange}
+        fullWidth
+        margin="normal"
+        error={!!errors.webSiteURL}
+        helperText={errors.webSiteURL}
+      />
 
-                  const step3 = (
-                    <div>
-                      <TextField
-                        name="webSiteURL"
-                        label="WebSite URL"
-                        variant="outlined"
-                        value={formData.webSiteURL}
-                        onChange={handleChange}
-                        fullWidth
-                        margin="normal"
-                        error={!!errors.webSiteURL}
-                        helperText={errors.webSiteURL}
-                      />
-
-                      {/* <Select
-                        value={role}
-                        fullWidth
-                        className="mt-2"
-                        onChange={handleChangeRole}
-                      >
-                        {roles.map((role) => (
-                          <MenuItem key={role} value={role}>
-                            {role}
-                          </MenuItem>
-                        ))}
-                      </Select> */}
-
-<FormControl margin="normal" fullWidth variant="outlined">
+      <FormControl margin="normal" fullWidth variant="outlined">
         <InputLabel
           htmlFor="student-signup-outlined-adornment-password"
           error={!!errors.password}
@@ -640,34 +500,11 @@ if(!formData.city)
         </FormHelperText>
       </FormControl>
 
-                      {/* <br />
-                      <button
-                        type="button"
-                        onClick={handlePrev}
-                        className="buttonOnHostingPage"
-                      >
-                        Previous
-                      </button>
-                          
-                      <button type="submit"
-                         onClick={handleNext3}
-                      className="buttonOnHostingPage btnrightallign">
-                      {loading ? "Loading..." : "Submit"}
-                      </button>
-                      <br />
-                      <br /> */}
+    </div>
+  );
+  {
 
-                    </div>
-                  )
-                {/* </form>
-              </div>
-            </div>
-            <div className="col-lg-2"></div>
-          </div>
-        </div>
-      </div>
-    </>
-  ); */}
+  }
   return (
     <>
       <main className="signup-page">
