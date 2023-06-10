@@ -5,6 +5,9 @@ import { useState } from "react";
 import defaultPoster from "../../../../assets/defaultPoster";
 import { TextField } from "@mui/material";
 import { patchProfilePicture } from "../../../../services/APIConfig";
+import { set } from "react-hook-form";
+import { useEffect } from "react";
+import CustomSnackbar from "../../Login/CustomSnackbar";
 
 export default function EditStudentData() {
   const { userId } = useParams();
@@ -13,6 +16,13 @@ export default function EditStudentData() {
   const [errors, setErrors] = useState({
     image: "",
   });
+  const [isUpdating, setIsUpdating] = useState(false);
+  const [response, setResponse] = useState(null);
+  const [snackbarValues, setSnackbarValues] = useState({
+    severity: "success",
+    message: "",
+  });
+  const [open, setOpen] = useState(false);
 
   const validateInput = () => {
     let valid = true;
@@ -23,12 +33,29 @@ export default function EditStudentData() {
       newErrors.image = "Image is required";
       valid = false;
     }
-    console.log(newErrors);
     setErrors(newErrors);
     return valid;
   };
 
+  useEffect(() => {
+    console.log(response);
+    if (response) {
+      if (response.status >= 200 && response.status < 300) {
+        setIsUpdating(false);
+        setOpen(true);
+        setSnackbarValues({
+          severity: "success",
+          message: "Profile picture updated successfully!",
+        });
+      } else {
+        setIsUpdating(false);
+        alert(response.data.message);
+      }
+    }
+  }, [response]);
+
   const handleSubmit = async () => {
+    setIsUpdating(true);
     if (validateInput() === true) {
       const file = new FormData();
       file.append("profileImage", newImage);
@@ -40,7 +67,9 @@ export default function EditStudentData() {
       // form.append("country", profile.country);
       // form.append("socialMedia", profile.socialMediaLinks);
 
-      patchProfilePicture(userId, file);
+      patchProfilePicture(userId, file, setResponse);
+    } else {
+      setIsUpdating(false);
     }
   };
 
@@ -126,15 +155,30 @@ export default function EditStudentData() {
         margin="normal"
       />
 
-      <button
-        className="logBtn mt-3 logout-btn"
-        style={{
-          textAlign: "center",
-        }}
-        onClick={handleSubmit}
-      >
-        Submit
-      </button>
+      <div className="mt-3">
+        <button
+          className="logBtn me-3 logout-btn"
+          style={{
+            textAlign: "center",
+          }}
+          onClick={handleSubmit}
+        >
+          Update
+        </button>
+        {isUpdating && (
+          <div className="spinner-border text-primary" role="status">
+            <span className="visually-hidden">Loading...</span>
+          </div>
+        )}
+      </div>
+      {snackbarValues.severity === "success" && (
+        <CustomSnackbar
+          setOpen={setOpen}
+          open={open}
+          message={snackbarValues.message}
+          severity={snackbarValues.severity}
+        />
+      )}
     </>
   );
 }

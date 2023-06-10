@@ -4,6 +4,7 @@ import { useOutletContext, useParams } from "react-router-dom";
 import { TextField } from "@mui/material";
 import { patchStudentData } from "../../../../services/APIConfig";
 import { RxCross2 } from "react-icons/rx";
+import { useEffect } from "react";
 
 export default function TechStackStudentData() {
   const { userId } = useParams();
@@ -13,6 +14,13 @@ export default function TechStackStudentData() {
   const [errors, setErrors] = useState({
     techStack: "",
   });
+  const [isUpdating, setIsUpdating] = useState(false);
+  const [response, setResponse] = useState(null);
+  const [snackbarValues, setSnackbarValues] = useState({
+    severity: "success",
+    message: "",
+  });
+  const [open, setOpen] = useState(false);
 
   const validateInput = () => {
     let valid = true;
@@ -29,7 +37,24 @@ export default function TechStackStudentData() {
     return valid;
   };
 
+  useEffect(() => {
+    if (response) {
+      if (response.status >= 200 && response.status < 300) {
+        setIsUpdating(false);
+        setOpen(true);
+        setSnackbarValues({
+          severity: "success",
+          message: "Tech Stack updated successfully!",
+        });
+      } else {
+        setIsUpdating(false);
+        alert(response.data.message);
+      }
+    }
+  }, [response]);
+
   const handleSubmit = async () => {
+    setIsUpdating(true);
     if (validateInput() === true) {
       const data = {
         techStack: newTechStack,
@@ -41,8 +66,10 @@ export default function TechStackStudentData() {
           linkedIn: profile.socialMedia.linkedIn,
         },
       };
-      patchStudentData(userId, data);
+      patchStudentData(userId, data, setResponse);
       // setLoading(true);
+    } else {
+      setIsUpdating(false);
     }
   };
 
@@ -92,16 +119,22 @@ export default function TechStackStudentData() {
       </button>
 
       {
-        <button
-          className="logBtn mt-5 logout-btn"
-          style={{
-            textAlign: "center",
-          }}
-          onClick={handleSubmit}
-          disabled={newTechStack.length === 0}
-        >
-          Submit
-        </button>
+        <div className="mt-4">
+          <button
+            className="logBtn me-3 logout-btn"
+            style={{
+              textAlign: "center",
+            }}
+            onClick={handleSubmit}
+          >
+            Update
+          </button>
+          {isUpdating && (
+            <div className="spinner-border text-primary" role="status">
+              <span className="visually-hidden">Loading...</span>
+            </div>
+          )}
+        </div>
       }
     </>
   );

@@ -4,6 +4,8 @@ import useNavbar from "../../../../hooks/use-navbar";
 import { Outlet, useNavigate, useParams } from "react-router-dom";
 import LoadingPage from "../../../../components/Loader/LoadingPage";
 import { controller, getUserProfileById } from "../../../../services/APIConfig";
+import { getAccessToken } from "../../../../features/getCookieValues";
+import jwt_decode from "jwt-decode";
 
 export default function ProfilePage() {
   const { userId } = useParams();
@@ -12,6 +14,14 @@ export default function ProfilePage() {
   const [choice, setChoice] = useState("general");
   const { setSelectedPageNavbar } = useNavbar();
   const navigate = useNavigate();
+  let isLoggedIn = false;
+  const token = getAccessToken();
+  if (token === undefined || token === null || token === "") {
+    isLoggedIn = false;
+  } else {
+    const loggedInId = jwt_decode(token)._id;
+    isLoggedIn = loggedInId === userId;
+  }
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -25,6 +35,10 @@ export default function ProfilePage() {
 
   useEffect(() => {
     if (Object.keys(profile).length !== 0) {
+      setProfile({
+        ...profile,
+        isLoggedIn: isLoggedIn,
+      });
       setIsLoading(false);
     } else {
       setIsLoading(true);
@@ -61,42 +75,48 @@ export default function ProfilePage() {
           >
             User Profile
           </button>
-          <button
-            onClick={() => {
-              navigate(`edit`);
-            }}
-            className={`option ${choice === "edit" ? "--is-selected" : ""}`}
-          >
-            Edit Profile
-          </button>
-          <button
-            onClick={() => {
-              navigate(`address`);
-            }}
-            className={`option ${choice === "address" ? "--is-selected" : ""}`}
-          >
-            Change Address
-          </button>
-          <button
-            onClick={() => {
-              navigate(`social-media`);
-            }}
-            className={`option ${
-              choice === "social-media" ? "--is-selected" : ""
-            }`}
-          >
-            Social Media Links
-          </button>
-          <button
-            onClick={() => {
-              navigate(`tech-stack`);
-            }}
-            className={`option ${
-              choice === "tech-stack" ? "--is-selected" : ""
-            }`}
-          >
-            Tech Stack
-          </button>
+          {isLoggedIn && (
+            <>
+              <button
+                onClick={() => {
+                  navigate(`edit`);
+                }}
+                className={`option ${choice === "edit" ? "--is-selected" : ""}`}
+              >
+                Edit Profile
+              </button>
+              <button
+                onClick={() => {
+                  navigate(`address`);
+                }}
+                className={`option ${
+                  choice === "address" ? "--is-selected" : ""
+                }`}
+              >
+                Change Address
+              </button>
+              <button
+                onClick={() => {
+                  navigate(`social-media`);
+                }}
+                className={`option ${
+                  choice === "social-media" ? "--is-selected" : ""
+                }`}
+              >
+                Social Media Links
+              </button>
+              <button
+                onClick={() => {
+                  navigate(`tech-stack`);
+                }}
+                className={`option ${
+                  choice === "tech-stack" ? "--is-selected" : ""
+                }`}
+              >
+                Tech Stack
+              </button>
+            </>
+          )}
         </aside>
         <div className="details-container">
           <Outlet context={[profile]} />
