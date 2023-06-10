@@ -60,11 +60,12 @@
   display: flex;
   flex-direction: column;
   margin-bottom: 2rem;
+  width: 25rem;
 }
 
 .profile-page > section > .details-container p {
   font-size: 0.875rem;
-  color: var(--text-color-dark-green);
+  /* color: var(--text-color-dark-green); */
   margin-bottom: 0;
   margin-top: 0;
 }
@@ -87,7 +88,7 @@
   border-radius: 50%;
   margin-bottom: 1.5625rem;
 }
-.profile-page > section > .details-container > .verifiable-fields {
+.profile-page > section > .details-container > .updatable-fields {
   display: flex;
   flex-direction: row;
   gap: 0 1.25rem;
@@ -97,9 +98,9 @@
 .profile-page
   > section
   > .details-container
-  > .verifiable-fields
+  > .updatable-fields
   > div
-  > .verification-btn {
+  > .updation-btn {
   width: 7.6875rem;
   height: 2.25rem;
   background-color: var(--primary-color-dark-green);
@@ -114,24 +115,24 @@
 .profile-page
   > section
   > .details-container
-  > .verifiable-fields
+  > .updatable-fields
   > div
-  > .verification-btn:hover {
+  > .updation-btn:hover {
   background-color: var(--primary-color-green);
 }
 
 .profile-page
   > section
   > .details-container
-  > .verifiable-fields
+  > .updatable-fields
   > div
-  > .verification-btn:active {
+  > .updation-btn:active {
   background-color: rgb(16, 109, 108);
 }
 .profile-page
   > section
   > .details-container
-  > .verifiable-fields
+  > .updatable-fields
   > div
   > .--is-verified {
   background-color: #c2e6e6;
@@ -140,7 +141,7 @@
 .profile-page
   > section
   > .details-container
-  > .verifiable-fields
+  > .updatable-fields
   > div
   > .--is-verified:hover {
   cursor: default;
@@ -150,7 +151,7 @@
 .profile-page
   > section
   > .details-container
-  > .verifiable-fields
+  > .updatable-fields
   > div
   > .--is-verified:active {
   background-color: #c2e6e6;
@@ -174,19 +175,19 @@
   .profile-page > section > .details-container {
     width: 100%;
   }
-  .profile-page > section > .details-container > .verifiable-fields {
+  .profile-page > section > .details-container > .updatable-fields {
     flex-direction: column;
     align-items: flex-start;
   }
-  .profile-page > section > .details-container > .verifiable-fields > div {
+  .profile-page > section > .details-container > .updatable-fields > div {
     width: 100%;
   }
   .profile-page
     > section
     > .details-container
-    > .verifiable-fields
+    > .updatable-fields
     > div
-    > .verification-btn {
+    > .updation-btn {
     margin-bottom: 0.875rem;
   }
 }
