@@ -3,6 +3,7 @@ import "./StudentProfilePage.css";
 import { useOutletContext, useParams } from "react-router-dom";
 import { TextField } from "@mui/material";
 import { patchStudentData } from "../../../../services/APIConfig";
+import { RxCross2 } from "react-icons/rx";
 
 export default function TechStackStudentData() {
   const { userId } = useParams();
@@ -45,6 +46,10 @@ export default function TechStackStudentData() {
     }
   };
 
+  function handleDelete(tech) {
+    setNewTechStack(newTechStack.filter((item) => item !== tech));
+  }
+
   return (
     <>
       <TextField
@@ -60,11 +65,18 @@ export default function TechStackStudentData() {
         helperText={errors.techStack}
       />
 
-      {newTechStack.map((tech, index) => (
-        <div key={index} className="tech-stack">
-          <p>{tech}</p>
+      {newTechStack.length > 0 && (
+        <div className="new-tech-stack-container">
+          {newTechStack.map((tech, index) => (
+            <div key={index} className="tech-stack">
+              {tech}
+              <div onClick={() => handleDelete(tech)}>
+                <RxCross2 />
+              </div>
+            </div>
+          ))}
         </div>
-      ))}
+      )}
 
       <button
         onClick={() => {
@@ -79,15 +91,18 @@ export default function TechStackStudentData() {
         + Add
       </button>
 
-      <button
-        className="logBtn mt-3 logout-btn"
-        style={{
-          textAlign: "center",
-        }}
-        onClick={handleSubmit}
-      >
-        Submit
-      </button>
+      {
+        <button
+          className="logBtn mt-5 logout-btn"
+          style={{
+            textAlign: "center",
+          }}
+          onClick={handleSubmit}
+          disabled={newTechStack.length === 0}
+        >
+          Submit
+        </button>
+      }
     </>
   );
 }

@@ -15,6 +15,7 @@ export const patchProfilePicture = (userId, file) => {
   axios
     .patch(`${API_URL}api/v1/role/profilePictureUpdate/${userId}`, file, config)
     .then((res) => {
+      console.log(res);
       return res;
     })
     .catch((err) => {
@@ -23,6 +24,7 @@ export const patchProfilePicture = (userId, file) => {
         return err;
       } else {
         console.log("req performed");
+        console.log(err);
         return err;
       }
     });
@@ -45,6 +47,7 @@ export const patchStudentData = (userId, data) => {
       config
     )
     .then((res) => {
+      console.log(res);
       return res;
     })
     .catch((err) => {
@@ -53,6 +56,7 @@ export const patchStudentData = (userId, data) => {
         return err;
       } else {
         console.log("req performed");
+        console.log(err);
         return err;
       }
     });

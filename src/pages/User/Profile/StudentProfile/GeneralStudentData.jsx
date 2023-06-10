@@ -3,6 +3,8 @@ import { useOutletContext } from "react-router-dom";
 import defaultPoster from "../../../../assets/defaultPoster";
 import { handleLogout } from "../../../../features/logout";
 import { TextField } from "@mui/material";
+import { AiOutlineInstagram } from "react-icons/ai";
+import { FiLinkedin } from "react-icons/fi";
 
 export default function GeneralStudentData() {
   const [profile] = useOutletContext();
@@ -110,39 +112,37 @@ export default function GeneralStudentData() {
         fullWidth
         margin="normal"
       />
+      <p className="mt-3">Social Links</p>
+      <div className="social-links-container">
+        {/* if instagram and linkedin is show a message that no social links added */}
 
-      <TextField
-        name="instagram"
-        label="Instagram"
-        variant="outlined"
-        value={
-          profile.socialMedia?.instagram
-            ? profile.socialMedia?.instagram
-            : "N/A"
-        }
-        InputProps={{
-          readOnly: true,
-        }}
-        fullWidth
-        margin="normal"
-      />
+        {profile.socialMedia?.instagram === "" &&
+          profile.socialMedia?.linkedIn === "" && <p>No Social Links Added</p>}
 
-      <TextField
-        name="linkedIn"
-        label="linkedIn"
-        variant="outlined"
-        value={
-          profile.socialMedia?.linkedIn ? profile.socialMedia?.linkedIn : "N/A"
-        }
-        InputProps={{
-          readOnly: true,
-        }}
-        fullWidth
-        margin="normal"
-      />
+        {profile.socialMedia?.instagram && (
+          <a href={profile.socialMedia?.instagram} target="__blank">
+            <div>
+              <AiOutlineInstagram />
+            </div>
+          </a>
+        )}
+        {profile.socialMedia?.linkedIn && (
+          <a href={profile.socialMedia?.linkedIn} target="__blank">
+            <div>
+              <FiLinkedin />
+            </div>
+          </a>
+        )}
+      </div>
 
-      {profile.techStack.length !== 0 &&
-        profile.techStack.map((tech, index) => <p key={index}>{tech}</p>)}
+      <p className="mt-3">Tech Stack</p>
+      <div className="tech-stack-container">
+        {profile.techStack.length !== 0 ? (
+          profile.techStack.map((tech, index) => <div key={index}>{tech}</div>)
+        ) : (
+          <p>No Tech Stack Added</p>
+        )}
+      </div>
 
       <button
         className="logBtn mt-3 logout-btn"

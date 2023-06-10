@@ -29,7 +29,7 @@ export default function ProfilePage() {
     } else {
       setIsLoading(true);
     }
-  });
+  }, [profile]);
 
   useEffect(() => {
     if (window.location.pathname.split("/").includes("general")) {
@@ -52,7 +52,10 @@ export default function ProfilePage() {
         <aside className="options-container">
           <button
             onClick={() => {
-              navigate(`general`);
+              if (choice !== "general") {
+                navigate(`general`);
+                window.location.reload();
+              }
             }}
             className={`option ${choice === "general" ? "--is-selected" : ""}`}
           >
