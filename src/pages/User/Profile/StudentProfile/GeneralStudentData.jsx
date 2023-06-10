@@ -33,28 +33,33 @@ export default function GeneralStudentData() {
         fullWidth
         margin="normal"
       />
-      <TextField
-        name="email"
-        label="Email"
-        variant="outlined"
-        value={profile.email}
-        InputProps={{
-          readOnly: true,
-        }}
-        fullWidth
-        margin="normal"
-      />
-      <TextField
-        name="mobile"
-        label="Phone Number"
-        variant="outlined"
-        value={profile.mobile}
-        InputProps={{
-          readOnly: true,
-        }}
-        fullWidth
-        margin="normal"
-      />
+      {profile.isLoggedIn && (
+        <>
+          {" "}
+          <TextField
+            name="email"
+            label="Email"
+            variant="outlined"
+            value={profile.email}
+            InputProps={{
+              readOnly: true,
+            }}
+            fullWidth
+            margin="normal"
+          />
+          <TextField
+            name="mobile"
+            label="Phone Number"
+            variant="outlined"
+            value={profile.mobile}
+            InputProps={{
+              readOnly: true,
+            }}
+            fullWidth
+            margin="normal"
+          />
+        </>
+      )}{" "}
       <TextField
         name="campus"
         label="Campus"
@@ -66,7 +71,6 @@ export default function GeneralStudentData() {
         fullWidth
         margin="normal"
       />
-
       <TextField
         name="branch"
         label="Branch"
@@ -78,40 +82,43 @@ export default function GeneralStudentData() {
         fullWidth
         margin="normal"
       />
-
-      <TextField
-        name="country"
-        label="Country"
-        variant="outlined"
-        value={profile.country}
-        InputProps={{
-          readOnly: true,
-        }}
-        fullWidth
-        margin="normal"
-      />
-      <TextField
-        name="state"
-        label="State"
-        variant="outlined"
-        value={profile.state}
-        InputProps={{
-          readOnly: true,
-        }}
-        fullWidth
-        margin="normal"
-      />
-      <TextField
-        name="city"
-        label="City"
-        variant="outlined"
-        value={profile.city}
-        InputProps={{
-          readOnly: true,
-        }}
-        fullWidth
-        margin="normal"
-      />
+      {profile.isLoggedIn && (
+        <>
+          <TextField
+            name="country"
+            label="Country"
+            variant="outlined"
+            value={profile.country}
+            InputProps={{
+              readOnly: true,
+            }}
+            fullWidth
+            margin="normal"
+          />
+          <TextField
+            name="state"
+            label="State"
+            variant="outlined"
+            value={profile.state}
+            InputProps={{
+              readOnly: true,
+            }}
+            fullWidth
+            margin="normal"
+          />
+          <TextField
+            name="city"
+            label="City"
+            variant="outlined"
+            value={profile.city}
+            InputProps={{
+              readOnly: true,
+            }}
+            fullWidth
+            margin="normal"
+          />
+        </>
+      )}
       <p className="mt-3">Social Links</p>
       <div className="social-links-container">
         {/* if instagram and linkedin is show a message that no social links added */}
@@ -134,7 +141,6 @@ export default function GeneralStudentData() {
           </a>
         )}
       </div>
-
       <p className="mt-3">Tech Stack</p>
       <div className="tech-stack-container">
         {profile.techStack.length !== 0 ? (
@@ -143,7 +149,6 @@ export default function GeneralStudentData() {
           <p>No Tech Stack Added</p>
         )}
       </div>
-
       <button
         className="logBtn mt-3 logout-btn"
         style={{
