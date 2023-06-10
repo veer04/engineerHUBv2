@@ -224,7 +224,10 @@ export default function Navbar() {
                 Logout
               </div> */}
               <button
-                onClick={() => navigate(`/profile/${role}/${userId}`)}
+                onClick={() => {
+                  navigate(`/profile/${role}/${userId}`);
+                  window.location.reload(true);
+                }}
                 className="nav-logged-in-btn nav-login-btn logBtn"
               >
                 {/* <img

@@ -110,6 +110,17 @@ export default function EditStudentData() {
         margin="normal"
       />
       <TextField
+        name="name"
+        label="Full Name"
+        variant="outlined"
+        value={profile.name}
+        InputProps={{
+          readOnly: true,
+        }}
+        fullWidth
+        margin="normal"
+      />
+      <TextField
         name="email"
         label="Email"
         variant="outlined"

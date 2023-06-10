@@ -33,6 +33,17 @@ export default function GeneralStudentData() {
         fullWidth
         margin="normal"
       />
+      <TextField
+        name="name"
+        label="Username"
+        variant="outlined"
+        value={profile.userName}
+        InputProps={{
+          readOnly: true,
+        }}
+        fullWidth
+        margin="normal"
+      />
       {profile.isLoggedIn && (
         <>
           {" "}
