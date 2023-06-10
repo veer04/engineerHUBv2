@@ -2,10 +2,11 @@ import axios from "axios";
 import { API_URL } from "./APIUtils";
 import decryptData from "../features/DeCrypt";
 import { getAccessToken } from "../features/getCookieValues";
+import { set } from "react-hook-form";
 export const cancelToken = axios.CancelToken.source();
 export const controller = new AbortController();
 
-export const patchProfilePicture = (userId, file) => {
+export const patchProfilePicture = (userId, file, setResponse) => {
   const controller = new AbortController();
   const config = {
     headers: {
@@ -16,21 +17,24 @@ export const patchProfilePicture = (userId, file) => {
     .patch(`${API_URL}api/v1/role/profilePictureUpdate/${userId}`, file, config)
     .then((res) => {
       console.log(res);
+      setResponse(res);
       return res;
     })
     .catch((err) => {
       if (axios.isCancel(err)) {
         console.log("req cancel");
+        setResponse(err);
         return err;
       } else {
         console.log("req performed");
         console.log(err);
+        setResponse(err);
         return err;
       }
     });
 };
 
-export const patchStudentData = (userId, data) => {
+export const patchStudentData = (userId, data, setResponse) => {
   const controller = new AbortController();
   const config = {
     headers: {
@@ -48,14 +52,17 @@ export const patchStudentData = (userId, data) => {
     )
     .then((res) => {
       console.log(res);
+      setResponse(res);
       return res;
     })
     .catch((err) => {
       if (axios.isCancel(err)) {
         console.log("req cancel");
+        setResponse(err);
         return err;
       } else {
         console.log("req performed");
+        setResponse(err);
         console.log(err);
         return err;
       }
