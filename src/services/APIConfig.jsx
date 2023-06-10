@@ -69,6 +69,41 @@ export const patchStudentData = (userId, data, setResponse) => {
     });
 };
 
+export const patchAlumniData = (alumniId, data, setResponse) => {
+  const controller = new AbortController();
+  const config = {
+    headers: {
+      accessToken: getAccessToken(),
+    },
+  };
+  axios
+    .patch(
+      `${API_URL}api/v1/alumni/profileUpdate/${alumniId}`,
+      {
+        ...data,
+        signal: controller.signal,
+      },
+      config
+    )
+    .then((res) => {
+      console.log(res);
+      setResponse(res);
+      return res;
+    })
+    .catch((err) => {
+      if (axios.isCancel(err)) {
+        console.log("req cancel");
+        setResponse(err);
+        return err;
+      } else {
+        console.log("req performed");
+        setResponse(err);
+        console.log(err);
+        return err;
+      }
+    });
+};
+
 export const getClubProfileById = (setClubProfile, clubId) => {
   const controller = new AbortController();
   axios
