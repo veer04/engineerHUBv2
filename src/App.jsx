@@ -56,6 +56,10 @@ import EditStudentData from "./pages/User/Profile/StudentProfile/EditStudentData
 import AddressStudentData from "./pages/User/Profile/StudentProfile/AddressStudentData";
 import SocialMediaStudentData from "./pages/User/Profile/StudentProfile/SocialMediaStudentData";
 import TechStackStudentData from "./pages/User/Profile/StudentProfile/TechStackStudentData";
+import AlumniProfilePage from "./pages/User/Profile/AlumniProdile/AlumniProfilePage";
+import GeneralAlumniData from "./pages/User/Profile/AlumniProdile/GeneralAlumniData";
+import EditAlumniData from "./pages/User/Profile/AlumniProdile/EditAlumniData";
+import SocialMediaAlumniData from "./pages/User/Profile/AlumniProdile/SocialMediaAlumniData";
 
 const CommunityPage = lazy(() => import("./pages/Community/CommunityPage"));
 const CampusPage = lazy(() => import("./pages/Campus/CampusPage"));
@@ -100,23 +104,20 @@ function App() {
               <Route path="tech-stack" element={<TechStackStudentData />} />
             </Route>
             <Route
-              path="alumni/:id"
-              element={<StudentProfilePage path="profile" />}
+              path="alumni/:alumniId"
+              element={<AlumniProfilePage path="profile" />}
             >
-              <Route path="general" element={<>General Student Data</>} />
-              <Route path="edit" element={<>Edit Student Data</>} />
-              <Route path="address" element={<>Address Student Data</>} />
-              <Route
-                path="social-media"
-                element={<>Social Media Student Data</>}
-              />
-              <Route path="tech-stack" element={<>Tech Stack Student Data</>} />
+              <Route index element={<GeneralAlumniData />} />
+              <Route path="general" element={<GeneralAlumniData />} />
+              <Route path="edit" element={<EditAlumniData />} />
+              <Route path="social-media" element={<SocialMediaAlumniData />} />
             </Route>
             <Route
               path="club/:id"
               element={<StudentProfilePage path="profile" />}
             >
-              <Route path="general" element={<>General Student Data</>} />
+              <Route index element={<GeneralStudentData />} />
+              <Route path="general" element={<GeneralStudentData />} />
               <Route path="edit" element={<>Edit Student Data</>} />
               <Route path="address" element={<>Address Student Data</>} />
               <Route
@@ -129,6 +130,7 @@ function App() {
               path="organization/:id"
               element={<StudentProfilePage path="profile" />}
             >
+              <Route index element={<GeneralStudentData />} />
               <Route path="general" element={<>General Student Data</>} />
               <Route path="edit" element={<>Edit Student Data</>} />
               <Route path="address" element={<>Address Student Data</>} />
