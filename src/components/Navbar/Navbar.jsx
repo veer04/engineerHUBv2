@@ -11,14 +11,32 @@ export default function Navbar() {
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [name, setName] = useState("");
+  const [userId, setUserId] = useState("");
+  const [role, setRole] = useState("User");
   const { selectedPageNavbar, setSelectedPageNavbar } = useNavbar();
 
   useEffect(() => {
     // Check if user is logged in by checking for the 'userName' cookie
     const storedName = getCookie("name");
+    const storedUserID = getCookie("_id");
+    const storedRole = getCookie("role");
     if (storedName) {
       setIsLoggedIn(true);
       setName(decodeURIComponent(storedName));
+    }
+    if (storedUserID) {
+      setUserId(decodeURIComponent(storedUserID));
+    }
+    if (storedRole) {
+      if (decodeURIComponent(storedRole) === "User") {
+        setRole("student");
+      } else if (decodeURIComponent(storedRole) === "Alumni") {
+        setRole("alumni");
+      } else if (decodeURIComponent(storedRole) === "Club") {
+        setRole("club");
+      } else {
+        setRole("Organization");
+      }
     }
   }, []);
 
@@ -206,7 +224,7 @@ export default function Navbar() {
                 Logout
               </div> */}
               <button
-                onClick={() => navigate("/profile")}
+                onClick={() => navigate(`/profile/${role}/${userId}`)}
                 className="nav-logged-in-btn nav-login-btn logBtn"
               >
                 {/* <img
@@ -215,7 +233,7 @@ export default function Navbar() {
                   alt="user"
                 /> */}
                 <span className="nav-username">
-                  Hi, {name.length > 13? name.substring(0, 13) + "..." : name}
+                  Hi, {name.length > 13 ? name.substring(0, 13) + "..." : name}
                 </span>
               </button>
             </div>

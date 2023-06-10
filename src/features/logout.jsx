@@ -1,9 +1,6 @@
-import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 
-
-function deleteCookie() {
-  // Remove all cookies and log out the user
+export async function handleLogout() {
   const cookiesToRemove = [
     "userName",
     "refresh_token",
@@ -18,20 +15,10 @@ function deleteCookie() {
     "verifiedByEhub",
     "role",
     "mobile",
-    "id",
+    "_id",
   ];
-
-  //delete all cookies
   cookiesToRemove.forEach((cookie) => {
     Cookies.remove(cookie);
   });
-}
-
-export async function handleLogout() {
-  await deleteCookie();
-  // setTimeout(() => {
-  //   setIsLoggedIn(false);
-  //   setName("");
   window.location.reload(true);
-  // }, 1000);
 }

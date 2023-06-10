@@ -21,8 +21,7 @@ const OTP = () => {
   const [email, setEmail] = useState(
     Cookies.get("email") ? Cookies.get("email") : ""
   );
-// const[email, setEmail] =useState("");
-;
+  // const[email, setEmail] =useState("");
   const [otp, setOtp] = useState("");
 
   const handleSubmit = (event) => {
@@ -31,7 +30,7 @@ const OTP = () => {
 
     const Result = {
       email: email,
-      role: localStorage.getItem('role'),
+      role: localStorage.getItem("role"),
       OTP: otp,
     };
     console.log(Result);
@@ -53,8 +52,8 @@ const OTP = () => {
         Cookies.set("verifiedByEhub", decoded.verifiedByEhub);
         Cookies.set("mobile", decoded.mobile);
         Cookies.set("name", response.data.name);
-        Cookies.set("id",decoded._id);
-       
+        Cookies.set("_id", decoded._id);
+
         console.log(response);
         if (response.data.success) {
           setLoading(false);
@@ -73,8 +72,8 @@ const OTP = () => {
     <>
       <div className="Login">
         <div className="container">
-            <div className="row">
-                {/* <div className="col-lg-3 sideMenuLogin">
+          <div className="row">
+            {/* <div className="col-lg-3 sideMenuLogin">
           <div className="row">
             {/* <div className="col-lg-3 sideMenuLogin">
     <p className="sidemenuBarHeaderLogin">
@@ -131,7 +130,7 @@ const OTP = () => {
     
     </div>
                 </div> */}
-             <div className="col-lg-3"></div>
+            <div className="col-lg-3"></div>
             <div className="col-lg-6">
               <p className="headerOtpVerification">Verify Email</p>
               <div className="container otpBox">
@@ -150,7 +149,7 @@ const OTP = () => {
                         onChange={(event) => setEmail(event.target.value)}
                       /> */}
                     {/* <label> */}
-                      {/* Role:
+                    {/* Role:
                       <select
                         value={role}
                         onChange={(event) => setRole(event.target.value)}

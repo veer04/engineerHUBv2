@@ -47,9 +47,15 @@ import LoadingPage from "./components/Loader/LoadingPage";
 import Role from "./pages/User/RoleWiseUserPage/Role";
 import PostModal from "./components/PostModal/PostModal";
 import ParticularAlumni from "./pages/Campus/ParticularCampus/ParticularAlumni";
-import ProfilePage from "./pages/User/Profile/ProfilePage";
+// import ProfilePage from "./pages/User/Profile/ProfilePage";
 import VerificationModal from "./components/VerificationModal/VerificationModal";
 import StudentSignup from "./pages/User/Signup/StudentSignup";
+import StudentProfilePage from "./pages/User/Profile/StudentProfile/StudentProfilePage";
+import GeneralStudentData from "./pages/User/Profile/StudentProfile/GeneralStudentData";
+import EditStudentData from "./pages/User/Profile/StudentProfile/EditStudentData";
+import AddressStudentData from "./pages/User/Profile/StudentProfile/AddressStudentData";
+import SocialMediaStudentData from "./pages/User/Profile/StudentProfile/SocialMediaStudentData";
+import TechStackStudentData from "./pages/User/Profile/StudentProfile/TechStackStudentData";
 
 const CommunityPage = lazy(() => import("./pages/Community/CommunityPage"));
 const CampusPage = lazy(() => import("./pages/Campus/CampusPage"));
@@ -81,7 +87,58 @@ function App() {
           <Route path="/home" element={<HomePage />} />
           <Route path="/register" element={<RegistrationForm />} />
           <Route path="/selectRole" element={<Role />} />
-          <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/profile">
+            <Route
+              path="student/:userId"
+              element={<StudentProfilePage path="profile" />}
+            >
+              <Route index element={<GeneralStudentData />} />
+              <Route path="general" element={<GeneralStudentData />} />
+              <Route path="edit" element={<EditStudentData />} />
+              <Route path="address" element={<AddressStudentData />} />
+              <Route path="social-media" element={<SocialMediaStudentData />} />
+              <Route path="tech-stack" element={<TechStackStudentData />} />
+            </Route>
+            <Route
+              path="alumni/:id"
+              element={<StudentProfilePage path="profile" />}
+            >
+              <Route path="general" element={<>General Student Data</>} />
+              <Route path="edit" element={<>Edit Student Data</>} />
+              <Route path="address" element={<>Address Student Data</>} />
+              <Route
+                path="social-media"
+                element={<>Social Media Student Data</>}
+              />
+              <Route path="tech-stack" element={<>Tech Stack Student Data</>} />
+            </Route>
+            <Route
+              path="club/:id"
+              element={<StudentProfilePage path="profile" />}
+            >
+              <Route path="general" element={<>General Student Data</>} />
+              <Route path="edit" element={<>Edit Student Data</>} />
+              <Route path="address" element={<>Address Student Data</>} />
+              <Route
+                path="social-media"
+                element={<>Social Media Student Data</>}
+              />
+              <Route path="tech-stack" element={<>Tech Stack Student Data</>} />
+            </Route>
+            <Route
+              path="organization/:id"
+              element={<StudentProfilePage path="profile" />}
+            >
+              <Route path="general" element={<>General Student Data</>} />
+              <Route path="edit" element={<>Edit Student Data</>} />
+              <Route path="address" element={<>Address Student Data</>} />
+              <Route
+                path="social-media"
+                element={<>Social Media Student Data</>}
+              />
+              <Route path="tech-stack" element={<>Tech Stack Student Data</>} />
+            </Route>
+          </Route>
           <Route path="/signup" element={<Signup />} />
           <Route path="/student-signup" element={<StudentSignup />} />
           <Route path="/clubSignup" element={<ClubSignup />} />
