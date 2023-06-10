@@ -165,15 +165,17 @@ export default function GeneralAlumniData() {
           <p>No Tech Stack Added</p>
         )}
       </div> */}
-      <button
-        className="logBtn mt-3 logout-btn"
-        style={{
-          textAlign: "center",
-        }}
-        onClick={handleLogout}
-      >
-        Logout
-      </button>
+      {profile.isLoggedIn && (
+        <button
+          className="logBtn mt-3 logout-btn"
+          style={{
+            textAlign: "center",
+          }}
+          onClick={handleLogout}
+        >
+          Logout
+        </button>
+      )}
     </>
   );
 }
