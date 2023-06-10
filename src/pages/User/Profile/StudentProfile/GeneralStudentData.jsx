@@ -34,7 +34,7 @@ export default function GeneralStudentData() {
         margin="normal"
       />
       <TextField
-        name="name"
+        name="userName"
         label="Username"
         variant="outlined"
         value={profile.userName}

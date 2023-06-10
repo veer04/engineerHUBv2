@@ -60,6 +60,10 @@ import AlumniProfilePage from "./pages/User/Profile/AlumniProdile/AlumniProfileP
 import GeneralAlumniData from "./pages/User/Profile/AlumniProdile/GeneralAlumniData";
 import EditAlumniData from "./pages/User/Profile/AlumniProdile/EditAlumniData";
 import SocialMediaAlumniData from "./pages/User/Profile/AlumniProdile/SocialMediaAlumniData";
+import OrganizationProfilePage from "./pages/User/Profile/OrganizationProfile/OrganizationProfilePage";
+import GeneralOrganizationData from "./pages/User/Profile/OrganizationProfile/GeneralOrganizationData";
+import EditOrganizationData from "./pages/User/Profile/OrganizationProfile/EditOrganizationData";
+import AddressOrganizationData from "./pages/User/Profile/OrganizationProfile/AddressOrganizationData";
 
 const CommunityPage = lazy(() => import("./pages/Community/CommunityPage"));
 const CampusPage = lazy(() => import("./pages/Campus/CampusPage"));
@@ -127,18 +131,13 @@ function App() {
               <Route path="tech-stack" element={<>Tech Stack Student Data</>} />
             </Route>
             <Route
-              path="organization/:id"
-              element={<StudentProfilePage path="profile" />}
+              path="organization/:organizationId"
+              element={<OrganizationProfilePage path="profile" />}
             >
-              <Route index element={<GeneralStudentData />} />
-              <Route path="general" element={<>General Student Data</>} />
-              <Route path="edit" element={<>Edit Student Data</>} />
-              <Route path="address" element={<>Address Student Data</>} />
-              <Route
-                path="social-media"
-                element={<>Social Media Student Data</>}
-              />
-              <Route path="tech-stack" element={<>Tech Stack Student Data</>} />
+              <Route index element={<GeneralOrganizationData />} />
+              <Route path="general" element={<GeneralOrganizationData />} />
+              <Route path="edit" element={<EditOrganizationData />} />
+              <Route path="address" element={<AddressOrganizationData />} />
             </Route>
           </Route>
           <Route path="/signup" element={<Signup />} />
