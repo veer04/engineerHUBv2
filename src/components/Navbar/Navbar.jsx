@@ -35,7 +35,7 @@ export default function Navbar() {
       } else if (decodeURIComponent(storedRole) === "Club") {
         setRole("club");
       } else {
-        setRole("Organization");
+        setRole("organization");
       }
     }
   }, []);
