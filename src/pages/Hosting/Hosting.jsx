@@ -6,6 +6,29 @@ import { Link ,useNavigate} from "react-router-dom";
 import jwt_decode from "jwt-decode";
 import useNavbar from "../../hooks/use-navbar";
 export default function Hosting() {
+  const handleCardClick = (event) => {
+    localStorage.setItem('event', event);
+   
+    let value;
+    switch (event) {
+      case 'Cultural':
+        value = 'Cultural';
+        break;
+      case 'Technical':
+        value = 'Technical';
+        break;
+      case 'Webinar':
+        value = 'Webinar';
+        break;
+      case 'Hackathon':
+        value = 'Hackathon';
+        break;
+      default:
+        value = '';
+    }
+    localStorage.setItem('event', event);
+  }
+  
   const { setSelectedPageNavbar } = useNavbar();
   useEffect(() => {
     setSelectedPageNavbar("hosting");
