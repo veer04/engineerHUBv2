@@ -1,4 +1,5 @@
 import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
 
 export async function handleLogout() {
   const cookiesToRemove = [
@@ -20,5 +21,5 @@ export async function handleLogout() {
   cookiesToRemove.forEach((cookie) => {
     Cookies.remove(cookie);
   });
-  window.location.reload(true);
+  window.location.href = "/";
 }

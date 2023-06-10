@@ -20,9 +20,10 @@ export default function EditStudentData() {
       image: "",
     };
     if (newImage === undefined || newImage === null || newImage === "") {
-      newErrors.instagram = "Image is required";
+      newErrors.image = "Image is required";
       valid = false;
     }
+    console.log(newErrors);
     setErrors(newErrors);
     return valid;
   };
@@ -30,14 +31,14 @@ export default function EditStudentData() {
   const handleSubmit = async () => {
     if (validateInput() === true) {
       const file = new FormData();
-      const form = new FormData();
-      form.append("profileImage", newImage);
       file.append("profileImage", newImage);
-      form.append("techStack", profile.techStack);
-      form.append("state", profile.state);
-      form.append("city", profile.city);
-      form.append("country", profile.country);
-      form.append("socialMedia", profile.socialMediaLinks);
+      // const form = new FormData();
+      // form.append("profileImage", newImage);
+      // form.append("techStack", profile.techStack);
+      // form.append("state", profile.state);
+      // form.append("city", profile.city);
+      // form.append("country", profile.country);
+      // form.append("socialMedia", profile.socialMediaLinks);
 
       patchProfilePicture(userId, file);
     }
@@ -46,14 +47,7 @@ export default function EditStudentData() {
   return (
     <>
       <p>Change Profile Picture</p>
-      <div>
-        <input
-          type="file"
-          name="profile"
-          id="student-profile-image"
-          className="mb-4"
-          onChange={(e) => setNewImage(e.target.files[0])}
-        />
+      <div className="profile-picture-container">
         <div
           style={{
             backgroundImage: `url(${
@@ -66,6 +60,14 @@ export default function EditStudentData() {
           }}
           className="profile-picture"
         ></div>
+        <p className="text-danger mb-1">{errors.image}</p>
+        <input
+          type="file"
+          name="profile"
+          id="student-profile-image"
+          className="mb-4"
+          onChange={(e) => setNewImage(e.target.files[0])}
+        />
       </div>
       <TextField
         name="name"
