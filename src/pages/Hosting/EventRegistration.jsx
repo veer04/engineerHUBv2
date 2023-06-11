@@ -24,9 +24,11 @@ import {
 
 } from "../../services/APIConfig";
 import { getAccessToken } from "../../features/getCookieValues";
+import { useNavigate } from "react-router-dom";
 // var fs = require("fs");
 
 const EventRegistrationForm = () => {
+  const navigate = useNavigate();
   const { setSelectedPageNavbar } = useNavbar();
 
   useEffect(() => {
@@ -183,7 +185,7 @@ const validateInput3=()=>
       // console.log(accessToken);
     const response = await axios.post(`${API_URL}api/v1/event`,form, {
       headers: {
-        accessToken: getAccessToken(),
+        accesstoken: getAccessToken(),
         
       },
 
@@ -200,7 +202,7 @@ const validateInput3=()=>
       response.status === 203 ||
       response.status === 204
     ) {
-      // setLoading(false);
+     
       navigate("/");
     }
   } catch (error) {

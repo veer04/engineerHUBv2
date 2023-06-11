@@ -348,7 +348,20 @@ const ClubSignup = () => {
 
   const step2 = (
     <div>
-     <FormControl
+
+
+<TextField
+        name="clubType"
+        label="club Type"
+        variant="outlined"
+        value={formData.clubType}
+        onChange={handleChange}
+        fullWidth
+        margin="normal"
+        error={!!errors.clubType}
+        helperText={errors.clubType}
+      />
+                    {/* <FormControl
                         fullWidth
                         >
                         <InputLabel
@@ -372,7 +385,7 @@ const ClubSignup = () => {
                         <FormHelperText error={!!errors.clubType}>
                             {errors.clubType}
                           </FormHelperText>
-                      </FormControl>
+                      </FormControl> */}
                       
       <FormControl margin="normal" fullWidth>
         <InputLabel id="student-signup-campus-label" error={!!errors.collegeId}>
