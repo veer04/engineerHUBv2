@@ -1,7 +1,7 @@
 import "./StudentSignup.css";
 import { useNavigate, useNavigation } from "react-router-dom";
 import { useState, useEffect } from "react";
-import {  Button } from "@mui/material";
+import { Button } from "@mui/material";
 import axios from "axios";
 import "../../Hosting/EventRegistration.css";
 import useNavbar from "../../../hooks/use-navbar";
@@ -19,24 +19,21 @@ import { API_URL } from "../../../services/APIUtils";
 import Cookies from "js-cookie";
 import HostEventTimeline from "../../../components/Timeline/HostEventTimeline";
 import CustomSnackbar from "../Login/CustomSnackbar";
-import {
-  controller,
-  getAllCampuses,
-} from "../../../services/APIConfig";
+import { controller, getAllCampuses } from "../../../services/APIConfig";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 const MentorSignup = () => {
   const navigate = useNavigate();
   const { setSelectedPageNavbar } = useNavbar();
   const [loading, setLoading] = useState(false);
   // const [campuses, setCampuses] = useState([]);
-  const [selectedCampus, setSelectedCampus] = useState('');
+  const [selectedCampus, setSelectedCampus] = useState("");
   const [open, setOpen] = useState(false);
   const [snackbarValues, setSnackbarValues] = useState({
     severity: "success",
     message: "",
   });
   const [campuses, setCampuses] = useState([]);
-  const [validation, setValidation]= useState(false);
+  const [validation, setValidation] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   useEffect(() => {
@@ -45,31 +42,23 @@ const MentorSignup = () => {
     getAllCampuses(setCampuses);
   }, []);
 
+  //   const roles = ["User", "Mentor", "Organization"];
+  //   const [countries, setCountries] = useState([]);
+  //   const [states, setStates] = useState([]);
+  //   const [cities, setCities] = useState([]);
 
+  //   useEffect(() => {
+  //     // Fetch campus data
+  //     axios.get(`${API_URL}api/v1/getCountries`)
+  //       .then(response => {
+  //         setCountries(response.data);
+  //       })
+  //       .catch(error => {
+  //         console.error('Error fetching countries:', error);
+  //       });
+  //   }, []);
 
-
-
-
-
-
-//   const roles = ["User", "Mentor", "Organization"];
-//   const [countries, setCountries] = useState([]);
-//   const [states, setStates] = useState([]);
-//   const [cities, setCities] = useState([]);
-
-//   useEffect(() => {
-//     // Fetch campus data
-//     axios.get(`${API_URL}api/v1/getCountries`)
-//       .then(response => {
-//         setCountries(response.data);
-//       })
-//       .catch(error => {
-//         console.error('Error fetching countries:', error);
-//       });
-//   }, []);
-
-
-//   const [role, setRole] = useState("User");
+  //   const [role, setRole] = useState("User");
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -82,17 +71,15 @@ const MentorSignup = () => {
     password: "",
     confirmPassword: "",
     socialMedia: {
-        linkedIn: '',
-        twitter: '',
-        instagram: '',
-      }
-
+      linkedIn: "",
+      twitter: "",
+      instagram: "",
+    },
   });
   const [step, setStep] = useState(1);
   // useEffect(() => {
   //   fetchCampuses();
   // }, []);
-
 
   // const fetchCampuses = async () => {
   //   try {
@@ -117,13 +104,11 @@ const MentorSignup = () => {
     password: "",
     confirmPassword: "",
     socialMedia: {
-        linkedIn: '',
-        twitter: '',
-        instagram: '',
-      }
+      linkedIn: "",
+      twitter: "",
+      instagram: "",
+    },
   });
-
-
 
   // const handleInputChange = (event) => {
   //   const inputValues = event.target.value.split(',');
@@ -194,181 +179,164 @@ const MentorSignup = () => {
     return valid;
   };
 
+  const validateInput2 = () => {
+    let valid = true;
 
- const validateInput2 =()=>{
-let valid =true;
-
-const newErrors ={
-  companyName: "",
-  currentProfile: "",
-  campus: "",
-  
-}
-if (!formData.campus) {
-  newErrors.campus = "campus is required";
-  valid = false;
-}
-if (!formData.companyName) {
-  newErrors.companyName = "company name is required";
-  valid = false;
-}
-if (!formData.currentProfile) {
-  newErrors.currentProfile = "current profile is required";
-  valid = false;
-}
-
-
-  setErrors(newErrors);
-  return valid;
- }
-
-
- const validateInput3 =()=>{
-
-  let valid =true;
-  const newErrors={
-    socialMedia: {
-      linkedIn: '',
-      twitter: '',
-      instagram: '',
+    const newErrors = {
+      companyName: "",
+      currentProfile: "",
+      campus: "",
+    };
+    if (!formData.campus) {
+      newErrors.campus = "campus is required";
+      valid = false;
     }
-  }
-if(!formData.socialMedia.instagram)
-{
-  newErrors.socialMedia.instagram="Instagram URL is required"
-  valid =false;
-}
-else if (!/^https:\/\//.test(formData.socialMedia.instagram))
-{
-  newErrors.socialMedia.instagram="URL must begin with https"
-}
-if(!formData.socialMedia.linkedIn)
-{
-  newErrors.socialMedia.linkedIn="LinkedIn URL is required"
-  valid =false;
-}
-else if (!/^https:\/\/www\.linkedin\.com$/.test(formData.socialMedia.linkedIn))
-{
-  newErrors.socialMedia.linkedIn="URL must begin with https://www.linkedin.com"
-}
-
-if(!formData.socialMedia.twitter)
-{
-  newErrors.socialMedia.twitter="twitter URL is required"
-  valid =false;
-}
-else if (!/^https:\/\//.test(formData.socialMedia.twitter))
-{
-  newErrors.socialMedia.twitter="URL must begin with https"
-}
-
-  setErrors(newErrors);
-  return valid;
- }
-
-
- 
-
- const validateInput4 =()=>{
-
-  let valid = true;
-   const newErrors={
-    batch:"",
-    password:"",
-    confirmPassword:"",
-  }
-  if(!formData.batch)
-  {
-    newErrors.batch="Enter your Passout year";
-    valid=false;
-  }
-  else if (!/^(19[6-9][0-9]|20[0-2][0-9]|2030)-(19[6-9][0-9]|20[0-2][0-9]|2030)\s*$/.test(formData.batch))
-  {
-    newErrors.batch ="Batch must me like 2002-2004";
-    valid =false;
-  }
-
-
-  if (!formData.password) {
-    newErrors.password = "Password is required";
-    valid = false;
-  } else {
-    newErrors.password = "Password must contain at least";
-    let allErrors = [];
-    if (formData.password.length < 8) {
-      allErrors.push(" 8 characters");
-      // errors.password = "Password must be at least 8 characters long.";
+    if (!formData.companyName) {
+      newErrors.companyName = "company name is required";
+      valid = false;
     }
-    if (!/[A-Z]/.test(formData.password)) {
-      allErrors.push(" 1 uppercase character");
-      // errors.password =
-      //   "Password must contain at least one uppercase character.";
+    if (!formData.currentProfile) {
+      newErrors.currentProfile = "current profile is required";
+      valid = false;
     }
-    if (!/[a-z]/.test(formData.password)) {
-      allErrors.push(" 1 lowercase character");
-      // errors.password =
-      //   "Password must contain at least one lowercase character.";
+
+    setErrors(newErrors);
+    return valid;
+  };
+
+  const validateInput3 = () => {
+    let valid = true;
+    const newErrors = {
+      socialMedia: {
+        linkedIn: "",
+        twitter: "",
+        instagram: "",
+      },
+    };
+    if (!formData.socialMedia.instagram) {
+      newErrors.socialMedia.instagram = "Instagram URL is required";
+      valid = false;
+    } else if (!/^https:\/\//.test(formData.socialMedia.instagram)) {
+      newErrors.socialMedia.instagram = "URL must begin with https";
     }
-    if (!/\d/.test(formData.password)) {
-      allErrors.push(" 1 numeric character");
-      // errors.password = "Password must contain at least one numeric character.";
+    if (!formData.socialMedia.linkedIn) {
+      newErrors.socialMedia.linkedIn = "LinkedIn URL is required";
+      valid = false;
+    } else if (
+      !/^https:\/\/www\.linkedin\.com$/.test(formData.socialMedia.linkedIn)
+    ) {
+      newErrors.socialMedia.linkedIn =
+        "URL must begin with https://www.linkedin.com";
     }
-    if (!/[!@#$%^&*(),.?":{}|<>]/.test(formData.password)) {
-      allErrors.push(" 1 special character");
-      // errors.password = "Password must contain at least one special character.";
+
+    if (!formData.socialMedia.twitter) {
+      newErrors.socialMedia.twitter = "twitter URL is required";
+      valid = false;
+    } else if (!/^https:\/\//.test(formData.socialMedia.twitter)) {
+      newErrors.socialMedia.twitter = "URL must begin with https";
     }
-    if (allErrors.length > 0) {
-      newErrors.password += allErrors.join(",");
-      newErrors.password += ".";
+
+    setErrors(newErrors);
+    return valid;
+  };
+
+  const validateInput4 = () => {
+    let valid = true;
+    const newErrors = {
+      batch: "",
+      password: "",
+      confirmPassword: "",
+    };
+    if (!formData.batch) {
+      newErrors.batch = "Enter your Passout year";
+      valid = false;
+    } else if (
+      !/^(19[6-9][0-9]|20[0-2][0-9]|2030)-(19[6-9][0-9]|20[0-2][0-9]|2030)\s*$/.test(
+        formData.batch
+      )
+    ) {
+      newErrors.batch = "Batch must me like 2002-2004";
+      valid = false;
+    }
+
+    if (!formData.password) {
+      newErrors.password = "Password is required";
       valid = false;
     } else {
-      newErrors.password = "";
+      newErrors.password = "Password must contain at least";
+      let allErrors = [];
+      if (formData.password.length < 8) {
+        allErrors.push(" 8 characters");
+        // errors.password = "Password must be at least 8 characters long.";
+      }
+      if (!/[A-Z]/.test(formData.password)) {
+        allErrors.push(" 1 uppercase character");
+        // errors.password =
+        //   "Password must contain at least one uppercase character.";
+      }
+      if (!/[a-z]/.test(formData.password)) {
+        allErrors.push(" 1 lowercase character");
+        // errors.password =
+        //   "Password must contain at least one lowercase character.";
+      }
+      if (!/\d/.test(formData.password)) {
+        allErrors.push(" 1 numeric character");
+        // errors.password = "Password must contain at least one numeric character.";
+      }
+      if (!/[!@#$%^&*(),.?":{}|<>]/.test(formData.password)) {
+        allErrors.push(" 1 special character");
+        // errors.password = "Password must contain at least one special character.";
+      }
+      if (allErrors.length > 0) {
+        newErrors.password += allErrors.join(",");
+        newErrors.password += ".";
+        valid = false;
+      } else {
+        newErrors.password = "";
+      }
+    }
+    if (!formData.confirmPassword) {
+      newErrors.confirmPassword = "Confirm password is required";
+      valid = false;
+    }
+    if (formData.password !== formData.confirmPassword) {
+      newErrors.confirmPassword =
+        "Password and Confirm Password does not match";
+      valid = false;
+    }
+
+    setErrors(newErrors);
+    return valid;
+  };
+  function handleNext() {
+    if (step === 1) {
+      if (validateInput1()) setStep(step + 1);
+    }
+    if (step === 2) {
+      if (validateInput2()) setStep(step + 1);
+    }
+
+    if (step === 3) {
+      if (validateInput3()) setStep(step + 1);
+    }
+
+    if (step === 4) {
+      if (validateInput4()) setValidation(true);
     }
   }
-  if (!formData.confirmPassword) {
-    newErrors.confirmPassword = "Confirm password is required";
-    valid = false;
-  }
-  if (formData.password !== formData.confirmPassword) {
-    newErrors.confirmPassword =
-      "Password and Confirm Password does not match";
-    valid = false;
-  }
 
-setErrors(newErrors);
-return valid;
- }
- function handleNext() {
-  if (step === 1) {
-    if (validateInput1()) setStep(step + 1);
+  function handlePrev() {
+    setStep(step - 1);
   }
-  if (step === 2) {
-    if (validateInput2()) setStep(step + 1);
-  }
-  
-  if (step === 3) {
-    if (validateInput3()) setStep(step + 1);
-  }
-
-  if (step === 4) {
-    if (validateInput4()) setValidation(true);
-  }
-}
-
-function handlePrev() {
-  setStep(step - 1);
-}
   const handleSubmit = async (e) => {
     e.preventDefault();
     // console.log(formData);
-    if (validation===true) {
+    if (validation === true) {
       setLoading(true);
       console.log(formData);
 
       axios.post(`${API_URL}api/v1/alumni/signup`, formData).then(
         (response) => {
-
-
           // Cookies.set("access_token", response.data.accessToken);
           // const token = response.data.accessToken;
           // const decoded = jwt_decode(token);
@@ -379,12 +347,13 @@ function handlePrev() {
           Cookies.set("email", response.data.email);
 
           console.log(response);
-          if(response.status===200 ||
-             response.status===201 ||
-             response.status===202 ||
-             response.status===203 ||
-             response.status===204)
-          {
+          if (
+            response.status === 200 ||
+            response.status === 201 ||
+            response.status === 202 ||
+            response.status === 203 ||
+            response.status === 204
+          ) {
             setLoading(false);
             navigate("/otpverification");
             setOpen(true);
@@ -397,214 +366,85 @@ function handlePrev() {
           alert(error.response.data.message);
           setValidation(false);
 
-        //   if (err && err instanceof AxiosError)
-        //   setErrors(err.response?.data.message);
-        // else if (err && err instanceof Error) setErrors(err.message);
-        // setOpen(true);
-
-        }
+               }
       );
     }
-  }
-  
-  
-//   ;  const handlecampusChange = event => {
-//     const campusCode = event.target.value;
-    
-//     // Fetch state data based on selected campus
-//     axios.get(`${API_URL}api/v1/getStates/{campusCode}`)
-//       .then(response => {
-//         setStates(response.data);
-//       })
-//       .catch(error => {
-//         console.error('Error fetching states:', error);
-//       });
-//   };
-
-//     const handleStateChange = event => {
-//     const campusCode = event.target.value; // Get the selected campus code
-//     const stateCode = event.target.value; // Get the selected state code
-//     axios.get(`${API_URL}api/v1/getCities/${campusCode}/${stateCode}`)
-//     .then(response => {
-//       setCities(response.data);
-//     })
-//     .catch(error => {
-//       console.error('Error fetching cities:', error);
-//     });
-
-//   };
+  };
 
 
-const handleChangeArraydata = (event) => {
+  const handleChangeArraydata = (event) => {
     const { name, value } = event.target;
     setFormData((prevData) => ({
       ...prevData,
       socialMedia: {
         ...prevData.socialMedia,
-        [name]: value
-      }
+        [name]: value,
+      },
     }));
   };
 
+  
+  const step1 = (
+    <div>
+      <TextField
+        name="name"
+        label="Name"
+        variant="outlined"
+        value={formData.name}
+        onChange={handleChange}
+        fullWidth
+        margin="normal"
+        error={!!errors.name}
+        helperText={errors.name}
+      />
 
-      {/* <div className="Login">
-        <div className="container">
-          <div className="row"> */}
-            {/* <div className="col-lg-3 sideMenuLogin">
-    <p className="sidemenuBarHeaderLogin">
-        For Users
+      <TextField
+        name="email"
+        label="Email"
+        variant="outlined"
+        value={formData.email}
+        onChange={handleChange}
+        fullWidth
+        margin="normal"
+        error={!!errors.email}
+        helperText={errors.email}
+      />
+      <TextField
+        name="mobile"
+        label="Mobile No."
+        variant="outlined"
+        value={formData.mobile}
+        onChange={handleChange}
+        fullWidth
+        margin="normal"
+        error={!!errors.mobile}
+        helperText={errors.mobile}
+      />
 
-    </p>
-    <div className="formSideMenuBar">
-        <div className="sideMenuList">
-        Registraions
-        </div>
-        <div className="sideMenuList">
-        Watchlist
-        </div>
-        <div className="sideMenuList">
-        Recently viewed
-        </div>
-        <div className="sideMenuList">
-        Mentor Sessions
-        </div>
-        <div className="sideMenuList">
-        Courses
-        </div>
-        <div className="sideMenuList">
-        Liked domains
-        </div>
-        <div className="sideMenuList">
-        Prizes/Rewards
-        </div>
-        <div className="sideMenuList">
-       Notifications
-        </div>
+    
     </div>
-    <p className="sidemenuBarHeaderLogin">
-        For Organizations
+  );
 
-    </p>
-    <div className="formSideMenuBar">
-    <div className="sideMenuList">
-       Manage Lists
-        </div>
-         <div className="sideMenuList">
-       My Events
-        </div> 
-
-    </div>
-    <p className="sidemenuBarHeaderLogin">
-        For Mentors
-
-    </p>
-    <div className="formSideMenuBar">
-    <div className="sideMenuList">
-      Mentor Profile
-        </div>
-
-    </div>
-                </div> */}
-            {/* <div className="col-lg-2"></div>
-            <div className="col-lg-7">
-              <div className="form-container">
-              <HostEventTimeline step={step} numberOfCheckpoints={4} width="35rem" /> */}
-
-                {/* <form action="/" method="POST" onSubmit={handleSubmit}> */}
-                  const step1= (
-                    <div>
-                      <TextField
-                        name="name"
-                        label="Name"
-                        variant="outlined"
-                        value={formData.name}
-                        onChange={handleChange}
-                        fullWidth
-                        margin="normal"
-                        error={!!errors.name}
-                        helperText={errors.name}
-                      />
-               
-                      <TextField
-                        name="email"
-                        label="Email"
-                        variant="outlined"
-                        value={formData.email}
-                        onChange={handleChange}
-                        fullWidth
-                        margin="normal"
-                        error={!!errors.email}
-                        helperText={errors.email}
-                      />
-                      <TextField
-                        name="mobile"
-                        label="Mobile No."
-                        variant="outlined"
-                        value={formData.mobile}
-                        onChange={handleChange}
-                        fullWidth
-                        margin="normal"
-                        error={!!errors.mobile}
-                        helperText={errors.mobile}
-                      />
-
-                      {/* <br />
-
-                      <button
-                        type="button"
-                        onClick={handleNext1}
-                        className="buttonOnHostingPage"
-                      >
-                        Next
-                      </button> */}
-                    </div>
-                  )
-
-              const step2= (
-                    <div>
-                      <TextField
-                        name="currentProfile"
-                        label="Current Profile Name"
-                        variant="outlined"
-                        value={formData.currentProfile}
-                        onChange={handleChange}
-                        fullWidth
-                        margin="normal"
-                        error={!!errors.currentProfile}
-                        helperText={errors.currentProfile}
-                      />
+  const step2 = (
+    <div>
+      <TextField
+        name="currentProfile"
+        label="Current Profile Name"
+        variant="outlined"
+        value={formData.currentProfile}
+        onChange={handleChange}
+        fullWidth
+        margin="normal"
+        error={!!errors.currentProfile}
+        helperText={errors.currentProfile}
+      />
 
 
-{/* <div>
-<FormControl fullWidth>
-          <InputLabel id="campus-select-label">Select a Campus</InputLabel>
-          <Select
-            labelId="campus-select-label"
-            id="campus-select"
-            value={selectedCampus}
-            onChange={handleChange}
-            label="Select a Campus"
-          >
-            <MenuItem value="">
-              <em>Select a campus</em>
-            </MenuItem>
-            {campuses.map((campus) => (
-              <MenuItem key={campus.data._id} value={campus.data._id}>
-                {campus.data.collegeName}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-      {selectedCampus && <p>Selected Campus ID: {selectedCampus}</p>}
-    </div> */}
 
-
-<FormControl margin="normal" fullWidth>
-        <InputLabel
-          id="student-signup-campus-label"
-          error={!!errors.campus}
-        >
-        campus        </InputLabel>
+      <FormControl margin="normal" fullWidth>
+        <InputLabel id="student-signup-campus-label" error={!!errors.campus}>
+          campus{" "}
+        </InputLabel>
         <Select
           labelId="campus-name"
           id="student-signup-campus-select"
@@ -620,151 +460,92 @@ const handleChangeArraydata = (event) => {
             </MenuItem>
           ))}
         </Select>
-        <FormHelperText error={!!errors.campus}>
-          {errors.campus}
-        </FormHelperText>
+        <FormHelperText error={!!errors.campus}>{errors.campus}</FormHelperText>
       </FormControl>
 
-                      <TextField
-                        name="companyName"
-                        label="Company Name"
-                        variant="outlined"
-                        value={formData.companyName}
-                        onChange={handleChange}
-                        fullWidth
-                        margin="normal"
-                        error={!!errors.companyName}
-                        helperText={errors.companyName}
-                      />
-                      <TextField
-                        name="aboutMe"
-                        label="About Me"
-                        variant="outlined"
-                        value={formData.aboutMe}
-                        onChange={handleChange}
-                        fullWidth
-                        margin="normal"
-                        error={!!errors.aboutMe}
-                        helperText={errors.aboutMe}
-                      />
+      <TextField
+        name="companyName"
+        label="Company Name"
+        variant="outlined"
+        value={formData.companyName}
+        onChange={handleChange}
+        fullWidth
+        margin="normal"
+        error={!!errors.companyName}
+        helperText={errors.companyName}
+      />
+      <TextField
+        name="aboutMe"
+        label="About Me"
+        variant="outlined"
+        value={formData.aboutMe}
+        onChange={handleChange}
+        fullWidth
+        margin="normal"
+        error={!!errors.aboutMe}
+        helperText={errors.aboutMe}
+      />
 
-                      {/* <br />
-                      <button
-                        type="button"
-                        className="buttonOnHostingPage"
-                        onClick={handlePrev}
-                      >
-                        Previous
-                      </button>
-                      <button
-                        type="button"
-                        className="buttonOnHostingPage btnrightallign"
-                        onClick={handleNext1}
-                      >
-                        Next
-                      </button>
-                      <br />
-                      <br /> */}
-                  
-                    </div>
-                  )
+    </div>
+  );
 
-                
-                   const step3= (
+  const step3 = (
+    <div>
+      <TextField
+        name="instagram"
+        label="Instagram"
+        variant="outlined"
+        value={formData.socialMedia.instagram}
+        onChange={handleChangeArraydata}
+        fullWidth
+        margin="normal"
+        error={!!errors.socialMedia?.instagram}
+        helperText={errors.socialMedia?.instagram}
+      />
 
-                        <div>
-                       <TextField
-                        name="instagram"
-                        label="Instagram"
-                        variant="outlined"
-                        value={formData.socialMedia.instagram}
-                        onChange={handleChangeArraydata}
-                        fullWidth
-                        margin="normal"
-                        error={!!errors.socialMedia?.instagram}
-                        helperText={errors.socialMedia?.instagram}
-                      />
+      <TextField
+        name="linkedIn"
+        label="LinkedIn"
+        variant="outlined"
+        value={formData.socialMedia.linkedIn}
+        onChange={handleChangeArraydata}
+        fullWidth
+        margin="normal"
+        error={!!errors.socialMedia?.linkedIn}
+        helperText={errors.socialMedia?.linkedIn}
+      />
+      <TextField
+        name="twitter"
+        label="Twitter"
+        variant="outlined"
+        value={formData.socialMedia.twitter}
+        onChange={handleChangeArraydata}
+        fullWidth
+        margin="normal"
+        error={!!errors.socialMedia?.twitter}
+        helperText={errors.socialMedia?.twitter}
+      />
+     
+    </div>
+  );
 
+  const step4 = (
+    <div>
+      <TextField
+        name="batch"
+        label="Batch"
+        variant="outlined"
+        value={formData.batch}
+        onChange={handleChange}
+        fullWidth
+        margin="normal"
+        error={!!errors.batch}
+        helperText={errors.batch}
+      />
 
-                        <TextField
-                        name="linkedIn"
-                        label="LinkedIn"
-                        variant="outlined"
-                        value={formData.socialMedia.linkedIn}
-                        onChange={handleChangeArraydata}
-                        fullWidth
-                        margin="normal"
-                        error={!!errors.socialMedia?.linkedIn}
-                        helperText={errors.socialMedia?.linkedIn}
-                      />
-                         <TextField
-                        name="twitter"
-                        label="Twitter"
-                        variant="outlined"
-                        value={formData.socialMedia.twitter}
-                        onChange={handleChangeArraydata}
-                        fullWidth
-                        margin="normal"
-                        error={!!errors.socialMedia?.twitter}
-                        helperText={errors.socialMedia?.twitter}
-                      />
-                      {/* <br />
-                      <button
-                        type="button"
-                        className="buttonOnHostingPage"
-                        onClick={handlePrev}
-                      >
-                        Previous
-                      </button>
-                      <button
-                        type="button"
-                        className="buttonOnHostingPage btnrightallign"
-                        onClick={handleNext3}
-                      >
-                        Next
-                      </button>
-                      <br />
-                      <br /> */}
+    
 
-                        </div>
-
-
-
-                    )
-                
-
-
-
-
-
-                  const step4=(
-                    <div>
-                      <TextField
-                        name="batch"
-                        label="Batch"
-                        variant="outlined"
-                        value={formData.batch}
-                        onChange={handleChange}
-                        fullWidth
-                        margin="normal"
-                        error={!!errors.batch}
-                        helperText={errors.batch}
-                      />
-
-                      {/* <Select
-                        value={role}
-                        fullWidth
-                        className="mt-2"
-                        onChange={handleChangeRole}
-                      >
-                        {roles.map((role) => (
-                          <MenuItem key={role} value={role}>
-                            {role}
-                          </MenuItem>
-                        ))}
-                      </Select> */}
-
-<FormControl margin="normal" fullWidth variant="outlined">
+      <FormControl margin="normal" fullWidth variant="outlined">
         <InputLabel
           htmlFor="student-signup-outlined-adornment-password"
           error={!!errors.password}
@@ -832,73 +613,49 @@ const handleChangeArraydata = (event) => {
         </FormHelperText>
       </FormControl>
 
-                      {/* <br />
-                      <button
-                        type="button"
-                        onClick={handlePrev}
-                        className="buttonOnHostingPage"
-                      >
-                        Previous
-                      </button> */}
-                          
-                      {/* <button type="submit" 
-                     
-                      className="buttonOnHostingPage btnrightallign">
-                      {loading ? "Loading..." : "Submit"}
-                      </button>
-                      <br />
-                      <br /> */}
-                    
-                    </div>
-                  )
-                {/* </form> */}
-              {/* </div>
-            </div>
-            <div className="col-lg-2"></div>
-          </div>
-        </div>
-      </div> */}
  
+    </div>
+  );
 
-      return (
 
-        <>
-        <main className="signup-page">
-          <section className="details-container">
-            <div className="details">
-              <HostEventTimeline
-                step={step}
-                numberOfCheckpoints={4}
-                width="100%"
-              />
-              <form action="/" method="POST" onSubmit={handleSubmit}>
-                {step === 1 && step1}
-                {step === 2 && step2}
-                {step === 3 && step3}
-                {step === 4 && step4}
-                <div className="button-container">
-                  <button
-                    type="button"
-                    className="button previous-button"
-                    onClick={handlePrev}
-                    disabled={step === 1}
-                  >
-                    Previous
-                  </button>
-                  <button
-                    type={`${step === 4 ? "submit" : "button"}`}
-                    onClick={handleNext}
-                    className="button next-button"
-                  >
-                    {`${step === 4 ? "Submit" : "Next"}`}
-                  </button>
-                </div>
-              </form>
-            </div>
-          </section>
-        </main>
-      </>
-      )
+  return (
+    <>
+      <main className="signup-page">
+        <section className="details-container">
+          <div className="details">
+            <HostEventTimeline
+              step={step}
+              numberOfCheckpoints={4}
+              width="100%"
+            />
+            <form action="/" method="POST" onSubmit={handleSubmit}>
+              {step === 1 && step1}
+              {step === 2 && step2}
+              {step === 3 && step3}
+              {step === 4 && step4}
+              <div className="button-container">
+                <button
+                  type="button"
+                  className="button previous-button"
+                  onClick={handlePrev}
+                  disabled={step === 1}
+                >
+                  Previous
+                </button>
+                <button
+                  type={`${step === 4 ? "submit" : "button"}`}
+                  onClick={handleNext}
+                  className="button next-button"
+                >
+                  {`${step === 4 ? "Submit" : "Next"}`}
+                </button>
+              </div>
+            </form>
+          </div>
+        </section>
+      </main>
+    </>
+  );
 };
 
 export default MentorSignup;

@@ -9,14 +9,14 @@ export default function InterCollegeCard({
   title,
   description,
   tags,
-  eventDate,
+  eventStartTime,
   _id,
   domainName,
 }) {
   const navigate = useNavigate();
 
   // code for date element in card
-  const date = new Date(eventDate);
+  const date = new Date(eventStartTime);
   let days = date.getTime() - new Date().getTime();
   days = Math.floor(days / (1000 * 3600 * 24));
   const formatter = new Intl.RelativeTimeFormat(undefined, { numeric: "auto" });
