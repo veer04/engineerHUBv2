@@ -29,6 +29,11 @@ export default function AlumniPage() {
     };
   }, []);
 
+  useEffect(() => {
+    console.log(alumni);
+    console.log(bestAlumni);
+  }, [alumni, bestAlumni]);
+
   const alumniPage = (
     <div className="alumni-page">
       <div className="best-alumni-container">

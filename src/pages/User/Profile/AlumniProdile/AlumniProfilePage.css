@@ -60,11 +60,12 @@
   display: flex;
   flex-direction: column;
   margin-bottom: 2rem;
+  width: 25rem;
 }
 
 .profile-page > section > .details-container p {
   font-size: 0.875rem;
-  color: var(--text-color-dark-green);
+  /* color: var(--text-color-dark-green); */
   margin-bottom: 0;
   margin-top: 0;
 }
@@ -87,74 +88,131 @@
   border-radius: 50%;
   margin-bottom: 1.5625rem;
 }
-.profile-page > section > .details-container > .verifiable-fields {
+.profile-page > section > .details-container > .profile-picture-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.profile-page > section > .details-container > .social-links-container {
   display: flex;
   flex-direction: row;
-  gap: 0 1.25rem;
-  align-items: flex-end;
-  justify-content: space-between;
-}
-.profile-page
-  > section
-  > .details-container
-  > .verifiable-fields
-  > div
-  > .verification-btn {
-  width: 7.6875rem;
-  height: 2.25rem;
-  background-color: var(--primary-color-dark-green);
-  font-size: 0.875rem;
-  font-weight: 600;
-  color: white;
-  border-radius: 0.625rem;
-  border: none;
+  justify-content: flex-start;
+  align-items: flex-start;
   margin-bottom: 1.5625rem;
+  background-color: white;
+  padding: 0.9rem 0.75rem;
+  border-radius: 0.625rem;
+  gap: 0.75rem;
 }
-
+.profile-page > section > .details-container > .social-links-container > a {
+  border-radius: 50%;
+}
 .profile-page
   > section
   > .details-container
-  > .verifiable-fields
-  > div
-  > .verification-btn:hover {
+  > .social-links-container
+  > a
+  > div {
+  min-width: 3.5rem;
+  min-height: 3.5rem;
+  border-radius: 50%;
+  outline: 1px solid #bdbdbd;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  cursor: pointer;
+}
+.profile-page
+  > section
+  > .details-container
+  > .social-links-container
+  > a
+  > div:hover {
   background-color: var(--primary-color-green);
+  color: white;
+}
+.profile-page
+  > section
+  > .details-container
+  > .social-links-container
+  > a
+  > div:active {
+  background-color: var(--primary-color-dark-green);
+  color: white;
+}
+.profile-page > section > .details-container > .tech-stack-container {
+  display: flex;
+  gap: 1rem;
+  background-color: white;
+  padding: 0.9rem 0.75rem;
+  border-radius: 0.625rem;
+  flex-wrap: wrap;
+}
+.profile-page > section > .details-container > .tech-stack-container > div {
+  border-radius: 5rem;
+  padding: 0.2rem 0.9rem;
+  border: 1px solid #bdbdbd;
+}
+.profile-page > section > .details-container > .new-tech-stack-container {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+  padding: 0.9rem 0rem;
+  flex-wrap: wrap;
+}
+.profile-page
+  > section
+  > .details-container
+  > .new-tech-stack-container
+  > .tech-stack {
+  background-color: white;
+  border-radius: 5rem;
+  padding: 0.2rem 0.9rem;
+  border: 1px solid #bdbdbd;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.2rem;
+}
+.profile-page
+  > section
+  > .details-container
+  > .new-tech-stack-container
+  > .tech-stack
+  > div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+}
+.profile-page
+  > section
+  > .details-container
+  > .new-tech-stack-container
+  > .tech-stack
+  > div:hover {
+  cursor: pointer;
+  background-color: #bdbdbd;
 }
 
-.profile-page
-  > section
-  > .details-container
-  > .verifiable-fields
-  > div
-  > .verification-btn:active {
-  background-color: rgb(16, 109, 108);
+.profile-page > section > .details-container > .add-tech-stack-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.625rem;
+  border: 1px solid #bdbdbd;
+  cursor: pointer;
 }
-.profile-page
-  > section
-  > .details-container
-  > .verifiable-fields
-  > div
-  > .--is-verified {
-  background-color: #c2e6e6;
-  color: var(--text-color-dark-green);
+.profile-page > section > .details-container > .add-tech-stack-btn:hover {
+  background-color: var(--primary-color-green);
+  color: white;
 }
-.profile-page
-  > section
-  > .details-container
-  > .verifiable-fields
-  > div
-  > .--is-verified:hover {
-  cursor: default;
-  background-color: #c2e6e6;
-  color: var(--text-color-dark-green);
-}
-.profile-page
-  > section
-  > .details-container
-  > .verifiable-fields
-  > div
-  > .--is-verified:active {
-  background-color: #c2e6e6;
-  color: var(--text-color-dark-green);
+.profile-page > section > .details-container > .add-tech-stack-btn:active {
+  background-color: var(--primary-color-dark-green);
+  color: white;
 }
 
 .logout-btn {
@@ -174,19 +232,19 @@
   .profile-page > section > .details-container {
     width: 100%;
   }
-  .profile-page > section > .details-container > .verifiable-fields {
+  .profile-page > section > .details-container > .updatable-fields {
     flex-direction: column;
     align-items: flex-start;
   }
-  .profile-page > section > .details-container > .verifiable-fields > div {
+  .profile-page > section > .details-container > .updatable-fields > div {
     width: 100%;
   }
   .profile-page
     > section
     > .details-container
-    > .verifiable-fields
+    > .updatable-fields
     > div
-    > .verification-btn {
+    > .updation-btn {
     margin-bottom: 0.875rem;
   }
 }

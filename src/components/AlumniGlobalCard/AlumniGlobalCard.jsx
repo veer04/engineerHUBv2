@@ -23,7 +23,7 @@ export default function AlumniGlobalCard({
     >
       <div className="card-transition alumni-global-card-dimension">
         <p className="sub-heading">
-          {campus.collegeName} ({batch})
+          {campus?.collegeName} ({batch})
         </p>
         <p className="heading">{name}</p>
         <p className="sub-heading">{currentProfile}</p>

@@ -56,6 +56,11 @@ a {
   --primary-color-yellow: #ffd600; /*rgb(255,214,0)*/
   --primary-color-dark-green: #014051; /*rgb(1,64,81)*/
 
+  --primary-color-green-code: 18, 131, 129;
+  --primary-color-blue-code: 185, 255, 254;
+  --primary-color-yellow-code: 255, 214, 0;
+  --primary-color-dark-green-code: 1, 64, 81;
+
   --secondary-color-yellow: #f7d77f; /*rgb(247,215,127)*/
   --secondary-color-blue: #8fc8e8; /*rgb(143,200,232)*/
   --secondary-color-green: #b2e887; /*rgb(178,232,135)*/

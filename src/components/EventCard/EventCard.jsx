@@ -18,7 +18,7 @@ export default function EventCard({
     <div
       onClick={() => {
         navigate(`/community/events/${encodeURIComponent(domainName)}/${_id}`);
-        setEventOpened(_id);
+        // setEventOpened(_id);
       }}
       className="project__list__item event__list__item on-hover-scale"
     >

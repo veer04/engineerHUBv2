@@ -111,12 +111,14 @@ const Register = () => {
           Cookies.set("isVerified", decoded.isVerified);
           Cookies.set("verifiedByEhub", decoded.verifiedByEhub);
           Cookies.set("mobile", decoded.mobile);
+          Cookies.set("_id", decoded._id);
           console.log(decoded);
           Cookies.set("name", response.data.name);
           Cookies.set("refresh_token", response.data.refreshToken);
           Cookies.set("userName", response.data.userName);
           Cookies.set("institutionName", response.data.institutionName);
           Cookies.set("email", response.data.email);
+
           // const msg = response.data.message;
           if (
             response.status === 200 ||
@@ -290,16 +292,14 @@ const Register = () => {
     }
   };
 
-  const validateRole =()=>
-  {
-    if(!values.role)
-    setSnackbarValues({
-      severity: "error",
-      message: "Please select a role",
-    });
+  const validateRole = () => {
+    if (!values.role)
+      setSnackbarValues({
+        severity: "error",
+        message: "Please select a role",
+      });
     setOpen(true);
-
-  }
+  };
   const validateEmail = () => {
     const emailRegex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
     // setIsEmailValid(emailRegex.test(values.email));
@@ -381,7 +381,7 @@ const Register = () => {
                   <option value="Alumni">Alumni</option>
                   <option value="Club">Club</option>
                   <option value="Organization">Company</option>
-                  </select>
+                </select>
               </div>
               <div className="form-cont passwordContainer">
                 <input
@@ -443,12 +443,14 @@ const Register = () => {
                 <Link to="/selectRole" className="f-p ">
                   Sign Up
                 </Link>
-                {snackbarValues.severity!=="success" && <CustomSnackbar
-                  setOpen={setOpen}
-                  open={open}
-                  message={snackbarValues.message}
-                  severity={snackbarValues.severity}
-                />}
+                {snackbarValues.severity !== "success" && (
+                  <CustomSnackbar
+                    setOpen={setOpen}
+                    open={open}
+                    message={snackbarValues.message}
+                    severity={snackbarValues.severity}
+                  />
+                )}
               </div>
             </form>
           </div>
