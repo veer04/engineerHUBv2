@@ -23,11 +23,7 @@ import { API_URL } from "../../../services/APIUtils";
 import Cookies from "js-cookie";
 import jwt_decode from "jwt-decode";
 
-import {
-  controller,
-  getAllCampuses,
-
-} from "../../../services/APIConfig";
+import { controller, getAllCampuses } from "../../../services/APIConfig";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import HostEventTimeline from "../../../components/Timeline/HostEventTimeline";
 // import GroupAddIcon from '@material-ui/icons/GroupAdd';
@@ -48,7 +44,7 @@ const ClubSignup = () => {
   const [campuses, setCampuses] = useState([]);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [validation , setValidation]= useState(false);
+  const [validation, setValidation] = useState(false);
 
   // useEffect(() => {
   //   // Fetch country data
@@ -62,15 +58,13 @@ const ClubSignup = () => {
   // }, []);
   useEffect(() => {
     window.scrollTo(0, 0);
-    
+
     getAllCampuses(setCampuses);
 
     return () => {
       controller.abort();
     };
   }, []);
-
-  
 
   // const [role, setRole] = useState("User");
   const [formData, setFormData] = useState({
@@ -81,11 +75,10 @@ const ClubSignup = () => {
     // collegeName: "",
     clubType: "",
     websiteUrl: "",
- 
+
     collegeId: "",
     password: "",
     confirmPassword: "",
-    
   });
   const [step, setStep] = useState(1);
   const [errors, setErrors] = useState({
@@ -96,13 +89,11 @@ const ClubSignup = () => {
     // collegeName: "",
     clubType: "",
     websiteUrl: "",
-    
+
     collegeId: "",
     password: "",
     confirmPassword: "",
   });
-
-
 
   // const handleInputChange = (event) => {
   //   const inputValues = event.target.value.split(',');
@@ -138,8 +129,7 @@ const ClubSignup = () => {
       // websiteUrl: "",
       // contact: "",
       // collegeId: "",
-      description:"",
-
+      description: "",
     };
 
     if (!formData.name) {
@@ -155,134 +145,114 @@ const ClubSignup = () => {
       valid = false;
     }
 
-    if(!formData.description)
-    {
-      newErrors.description="description is required";
-      valid =false;
+    if (!formData.description) {
+      newErrors.description = "description is required";
+      valid = false;
+    } else if (!/^(?=.*[a-zA-Z0-9\s]).{50,}$/.test(formData.description)) {
+      newErrors.description = "must have a minimum of 50 characters";
+      valid = false;
     }
-    else if(!/^(?=.*[a-zA-Z0-9\s]).{50,}$/.test(formData.description))
-    {
-      newErrors.description="must have a minimum of 50 characters";
-      valid =false;
-    }
- 
 
-   
     setErrors(newErrors);
     return valid;
   };
 
-
-const validateInput2 =()=>
-{
-  let valid = true;
-  const newErrors={
-    clubType:"",
-    collegeId:"",
-    
-  }
-  if(!formData.clubType)
-  {
-    newErrors.clubType="club Type is Required ";
-    valid =false;
-  }
-  else if(!/^[A-Za-z0-9\s&'-]+$/.test(formData.clubType))
-  {
-    newErrors.clubType="Club Type should not have special characters";
-    valid =false;
-  }
-  if(!formData.collegeId)
-  {
-    newErrors.collegeId="College ID is required";
-    valid =false;
-  }
- else if(!/^[A-Za-z0-9\s&'-]+$/.test(!formData.collegeId))
- {
-  newErrors.collegeId="College ID cannot have any special character";
-  valid=false;
- }
-//  if(!formData.collegeName)
-//  {
-//    newErrors.collegeName="College Name is required";
-//    valid =false;
-//  }
-// else if(!/^[A-Za-z0-9\s&'-]+$/.test(!formData.collegeName))
-// {
-//  newErrors.collegeName="College Name cannot have any special character";
-//  valid=false;
-// }
-
-  setErrors(newErrors);
-  return valid;
-
-}
-
-const validateInput3=()=>{
-
-  let valid =true;
- const newErrors ={
-    websiteUrl:"",
-    password:"",
-    confirmPassword:"",
- }
- if(!formData.websiteUrl)
- {
-  newErrors.websiteUrl ="website URL is Required"
-  valid =false;
- }
- 
-
- if (!formData.password) {
-  newErrors.password = "Password is required";
-  valid = false;
-} else {
-  newErrors.password = "Password must contain at least";
-  let allErrors = [];
-  if (formData.password.length < 8) {
-    allErrors.push(" 8 characters");
-    // errors.password = "Password must be at least 8 characters long.";
-  }
-  if (!/[A-Z]/.test(formData.password)) {
-    allErrors.push(" 1 uppercase character");
-    // errors.password =
-    //   "Password must contain at least one uppercase character.";
-  }
-  if (!/[a-z]/.test(formData.password)) {
-    allErrors.push(" 1 lowercase character");
-    // errors.password =
-    //   "Password must contain at least one lowercase character.";
-  }
-  if (!/\d/.test(formData.password)) {
-    allErrors.push(" 1 numeric character");
-    // errors.password = "Password must contain at least one numeric character.";
-  }
-  if (!/[!@#$%^&*(),.?":{}|<>]/.test(formData.password)) {
-    allErrors.push(" 1 special character");
-    // errors.password = "Password must contain at least one special character.";
-  }
-  if (allErrors.length > 0) {
-    newErrors.password += allErrors.join(",");
-    newErrors.password += ".";
-    valid = false;
-  } else {
-    newErrors.password = "";
-  }
-}
-if (!formData.confirmPassword) {
-  newErrors.confirmPassword = "Confirm password is required";
-  valid = false;
-}
-if (formData.password !== formData.confirmPassword) {
-  newErrors.confirmPassword =
-    "Password and Confirm Password does not match";
-  valid = false;
-}
+  const validateInput2 = () => {
+    let valid = true;
+    const newErrors = {
+      clubType: "",
+      collegeId: "",
+    };
+    if (!formData.clubType) {
+      newErrors.clubType = "club Type is Required ";
+      valid = false;
+    } else if (!/^[A-Za-z0-9\s&'-]+$/.test(formData.clubType)) {
+      newErrors.clubType = "Club Type should not have special characters";
+      valid = false;
+    }
+    if (!formData.collegeId) {
+      newErrors.collegeId = "College ID is required";
+      valid = false;
+    } else if (!/^[A-Za-z0-9\s&'-]+$/.test(!formData.collegeId)) {
+      newErrors.collegeId = "College ID cannot have any special character";
+      valid = false;
+    }
+    //  if(!formData.collegeName)
+    //  {
+    //    newErrors.collegeName="College Name is required";
+    //    valid =false;
+    //  }
+    // else if(!/^[A-Za-z0-9\s&'-]+$/.test(!formData.collegeName))
+    // {
+    //  newErrors.collegeName="College Name cannot have any special character";
+    //  valid=false;
+    // }
 
     setErrors(newErrors);
     return valid;
+  };
 
-  
-}
+  const validateInput3 = () => {
+    let valid = true;
+    const newErrors = {
+      websiteUrl: "",
+      password: "",
+      confirmPassword: "",
+    };
+    if (!formData.websiteUrl) {
+      newErrors.websiteUrl = "website URL is Required";
+      valid = false;
+    }
+
+    if (!formData.password) {
+      newErrors.password = "Password is required";
+      valid = false;
+    } else {
+      newErrors.password = "Password must contain at least";
+      let allErrors = [];
+      if (formData.password.length < 8) {
+        allErrors.push(" 8 characters");
+        // errors.password = "Password must be at least 8 characters long.";
+      }
+      if (!/[A-Z]/.test(formData.password)) {
+        allErrors.push(" 1 uppercase character");
+        // errors.password =
+        //   "Password must contain at least one uppercase character.";
+      }
+      if (!/[a-z]/.test(formData.password)) {
+        allErrors.push(" 1 lowercase character");
+        // errors.password =
+        //   "Password must contain at least one lowercase character.";
+      }
+      if (!/\d/.test(formData.password)) {
+        allErrors.push(" 1 numeric character");
+        // errors.password = "Password must contain at least one numeric character.";
+      }
+      if (!/[!@#$%^&*(),.?":{}|<>]/.test(formData.password)) {
+        allErrors.push(" 1 special character");
+        // errors.password = "Password must contain at least one special character.";
+      }
+      if (allErrors.length > 0) {
+        newErrors.password += allErrors.join(",");
+        newErrors.password += ".";
+        valid = false;
+      } else {
+        newErrors.password = "";
+      }
+    }
+    if (!formData.confirmPassword) {
+      newErrors.confirmPassword = "Confirm password is required";
+      valid = false;
+    }
+    if (formData.password !== formData.confirmPassword) {
+      newErrors.confirmPassword =
+        "Password and Confirm Password does not match";
+      valid = false;
+    }
+
+    setErrors(newErrors);
+    return valid;
+  };
 
   // const handleChangeRole = (event) => {
   //   setRole(event.target.value);
@@ -303,27 +273,25 @@ if (formData.password !== formData.confirmPassword) {
     setStep(step - 1);
   }
 
-
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     // console.log(formData);
-    if (validation===true) {
+    if (validation === true) {
       setLoading(true);
       console.log(formData);
 
       axios.post(`${API_URL}api/v1/club/signup`, formData).then(
         (response) => {
-
           Cookies.set("email", response.data.email);
 
           console.log(response);
-          if(response.status===200 ||
-             response.status===201 ||
-             response.status===202 ||
-            response.status===203  ||
-             response.status===204)
-          {
+          if (
+            response.status === 200 ||
+            response.status === 201 ||
+            response.status === 202 ||
+            response.status === 203 ||
+            response.status === 204
+          ) {
             setLoading(false);
             navigate("/otpverification");
             // window.location.reload(true);
@@ -338,169 +306,76 @@ if (formData.password !== formData.confirmPassword) {
       );
     }
   };
-  //   const handleCountryChange = event => {
-  //   const countryCode = event.target.value;
-    
-  //   // Fetch state data based on selected country
-  //   axios.get(`${API_URL}api/v1/getStates/{countryCode}`)
-  //     .then(response => {
-  //       setStates(response.data);
-  //     })
-  //     .catch(error => {
-  //       console.error('Error fetching states:', error);
-  //     });
-  // };
 
-  //   const handleStateChange = event => {
-  //   const countryCode = event.target.value; // Get the selected country code
-  //   const stateCode = event.target.value; // Get the selected state code
-  //   axios.get(`${API_URL}api/v1/getCities/${countryCode}/${stateCode}`)
-  //   .then(response => {
-  //     setCities(response.data);
-  //   })
-  //   .catch(error => {
-  //     console.error('Error fetching cities:', error);
-  //   });
+  const step1 = (
+    <div>
+      <TextField
+        name="name"
+        label="Name"
+        variant="outlined"
+        value={formData.name}
+        onChange={handleChange}
+        fullWidth
+        margin="normal"
+        error={!!errors.name}
+        helperText={errors.name}
+      />
 
-  // };
-
-
-  
-
-  // return (
-  //   <>
-  //     <div className="Login">
-  //       <div className="container">
-  //         <div className="row">
-            {/* <div className="col-lg-3 sideMenuLogin">
-    <p className="sidemenuBarHeaderLogin">
-        For Users
-
-    </p>
-    <div className="formSideMenuBar">
-        <div className="sideMenuList">
-        Registraions
-        </div>
-        <div className="sideMenuList">
-        Watchlist
-        </div>
-        <div className="sideMenuList">
-        Recently viewed
-        </div>
-        <div className="sideMenuList">
-        Mentor Sessions
-        </div>
-        <div className="sideMenuList">
-        Courses
-        </div>
-        <div className="sideMenuList">
-        Liked domains
-        </div>
-        <div className="sideMenuList">
-        Prizes/Rewards
-        </div>
-        <div className="sideMenuList">
-       Notifications
-        </div>
+      <TextField
+        name="email"
+        label="Email"
+        variant="outlined"
+        value={formData.email}
+        onChange={handleChange}
+        fullWidth
+        margin="normal"
+        error={!!errors.email}
+        helperText={errors.email}
+      />
+      <TextField
+        name="description"
+        label="Description "
+        variant="outlined"
+        value={formData.description}
+        onChange={handleChange}
+        fullWidth
+        margin="normal"
+        error={!!errors.description}
+        helperText={errors.description}
+      />
     </div>
-    <p className="sidemenuBarHeaderLogin">
-        For Organizations
+  );
 
-    </p>
-    <div className="formSideMenuBar">
-    <div className="sideMenuList">
-       Manage Lists
-        </div>
-         <div className="sideMenuList">
-       My Events
-        </div> 
-
-    </div>
-    <p className="sidemenuBarHeaderLogin">
-        For Mentors
-
-    </p>
-    <div className="formSideMenuBar">
-    <div className="sideMenuList">
-      Mentor Profile
-        </div>
-
-    </div>
-                </div> */}
-            // <div className="col-lg-2"></div>
-            // <div className="col-lg-5">
-            //   <div className="form-container">
-              {/* <HostEventTimeline step={step} numberOfCheckpoints={3} width="35rem" /> */}
-
-                {/* <form action="/" method="POST" onSubmit={handleSubmit}> */}
-               const step1 =  (
-                    <div>
-                      <TextField
-                        name="name"
-                        label="Name"
-                        variant="outlined"
-                        value={formData.name}
-                        onChange={handleChange}
+  const step2 = (
+    <div>
+     <FormControl
                         fullWidth
-                        margin="normal"
-                        error={!!errors.name}
-                        helperText={errors.name}
-                      />
-               
-                      <TextField
-                        name="email"
-                        label="Email"
-                        variant="outlined"
-                        value={formData.email}
-                        onChange={handleChange}
-                        fullWidth
-                        margin="normal"
-                        error={!!errors.email}
-                        helperText={errors.email}
-                      />
-                      <TextField
-                        name="description"
-                        label="Description "
-                        variant="outlined"
-                        value={formData.description}
-                        onChange={handleChange}
-                        fullWidth
-                        margin="normal"
-                        error={!!errors.description}
-                        helperText={errors.description}
-                      />
-
-                      {/* <br />
-
-                      <button
-                        type="button"
-                        onClick={handleNext1}
-                        className="buttonOnHostingPage"
-                      >
-                        Next
-                      </button> */}
-                    </div>
-                  )
-
-             const step2 =  (
-                    <div>
-                      <TextField
-                        name="clubType"
-                        label="Club Type"
-                        variant="outlined"
-                        value={formData.clubType}
-                        onChange={handleChange}
-                        fullWidth
-                        margin="normal"
-                        error={!!errors.clubType}
-                        helperText={errors.clubType}
-                      />
-
-<FormControl margin="normal" fullWidth>
-        <InputLabel
-          id="student-signup-campus-label"
-          error={!!errors.collegeId}
-        >
+                        >
+                        <InputLabel
+                            id="student-signup-campus-label"
+                            error={!!errors.clubType}
+                          >
+                            Club Type
+                          </InputLabel>
+                        <Select
+                          labelId="event-type-label"
+                          id="event-type"
+                          value={formData.clubType}
+                          label="club Type"
+                          
+                          onChange={handleChange}
+                        >
+                          <MenuItem value="Technical">Technical</MenuItem>
+                          <MenuItem value="Cultural">Cultural</MenuItem>
+                    
+                        </Select>
+                        <FormHelperText error={!!errors.clubType}>
+                            {errors.clubType}
+                          </FormHelperText>
+                      </FormControl>
+                      
+      <FormControl margin="normal" fullWidth>
+        <InputLabel id="student-signup-campus-label" error={!!errors.collegeId}>
           Campus Name
         </InputLabel>
         <Select
@@ -522,29 +397,24 @@ if (formData.password !== formData.confirmPassword) {
           {errors.collegeId}
         </FormHelperText>
       </FormControl>
-                      
-                  
-                    </div>
-                  )
+    </div>
+  );
 
+  const step3 = (
+    <div>
+      <TextField
+        name="websiteUrl"
+        label="Website URL"
+        variant="outlined"
+        value={formData.websiteUrl}
+        onChange={handleChange}
+        fullWidth
+        margin="normal"
+        error={!!errors.websiteUrl}
+        helperText={errors.websiteUrl}
+      />
 
-                const  step3 =  (
-                    <div>
-                      <TextField
-                        name="websiteUrl"
-                        label="Website URL"
-                        variant="outlined"
-                        value={formData.websiteUrl}
-                        onChange={handleChange}
-                        fullWidth
-                        margin="normal"
-                        error={!!errors.websiteUrl}
-                        helperText={errors.websiteUrl}
-                      />
-
-              
-
-<FormControl margin="normal" fullWidth variant="outlined">
+      <FormControl margin="normal" fullWidth variant="outlined">
         <InputLabel
           htmlFor="student-signup-outlined-adornment-password"
           error={!!errors.password}
@@ -611,11 +481,9 @@ if (formData.password !== formData.confirmPassword) {
           {errors.confirmPassword}
         </FormHelperText>
       </FormControl>
-                
+    </div>
+  );
 
-                    </div>
-                  )
-     
   return (
     <>
       <main className="signup-page">
