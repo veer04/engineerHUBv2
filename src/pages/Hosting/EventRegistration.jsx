@@ -37,8 +37,10 @@ const EventRegistrationForm = () => {
   }, []);
 
   const [step, setStep] = useState(1);
-  const [domainName, setDomainName] = useState([]);
-  const [campusId, setCampusId] = useState([]);  //1//
+  const [domainName, setDomainName] = useState('');
+  const[domain,setDomain]=useState([]);    //only to fetch data
+  const [campusId, setCampusId] = useState(''); 
+  const [campuses,setCampuses] =useState([]);//only to fetch data
   const [eventType, setEventType] = useState(""); 
   const [mode, setMode] = useState(0);
   const [description, setDescription] = useState("");
@@ -48,7 +50,7 @@ const EventRegistrationForm = () => {
   const [eventName, setEventName] = useState("");
   const [eventModeType, setEventModeType] = useState("");
   const [eventPoster, setEventPoster] = useState("");
-  const [statuss, setStatus] = useState([]);
+  const [status, setStatus] = useState([]);
   const [policy,setPolicy] = useState("");
   
   const [errors, setErrors] = useState({
@@ -61,7 +63,7 @@ const EventRegistrationForm = () => {
    mode:"",
    policy:"",
    status:"",
-   
+
 
 
   });
@@ -83,14 +85,21 @@ const EventRegistrationForm = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    getAllCampuses(setCampusId);
-    getDomains(setDomainName);
+    getAllCampuses(setCampuses);
+    getDomains(setDomain);
 
     return () => {
       controller.abort();
     };
   }, []);
 
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setForm((prevForm) => ({
+      ...prevForm,
+      [name]: value,
+    }));
+  };
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -108,6 +117,7 @@ const EventRegistrationForm = () => {
     form.append("eventModeType", eventModeType);
     form.append("eventPoster", eventPoster);
     form.append("policy",policy);
+    form.append("stauts",status);
     // for (let i = 0; i < campusLogos.length; i++) {
     //   form.append("campusLogo", campusLogos[i]);
     // }
@@ -125,6 +135,7 @@ const EventRegistrationForm = () => {
     console.log(form.get("eventPoster"), " eventPoster ");
     console.log(form.get("status"), " status ");
 
+  
     axios
       .post(
         `${API_URL}api/v1/event`,
@@ -153,6 +164,7 @@ const EventRegistrationForm = () => {
                         variant="outlined"
                         value={eventName}
                         onChange={(e) => setEventName(e.target.value)}
+                        // onChange={handleChange}
                         fullWidth
                         margin="normal"
                         error={!!errors.eventName}
@@ -172,10 +184,11 @@ const EventRegistrationForm = () => {
           value={domainName}
           label="Domain Name"
           name="domainName"
+          // onChange={handleChange}
           onChange={(e)=> setDomainName(e.target.value)}
           error={!!errors.domainName}
         >
-          {domainName.map((domains) => (
+          {domain.map((domains) => (
             <MenuItem key={domains} value={domains.domain}>
               {domains.domain}
             </MenuItem>
@@ -205,7 +218,7 @@ const EventRegistrationForm = () => {
           onChange={(e)=> setCampusId(e.target.value)}
           error={!!errors.campusId}
         >
-          {campusId.map((campus) => (
+          {campuses.map((campus) => (
             <MenuItem key={campus._id} value={campus._id}>
               {campus.collegeName}
             </MenuItem>
@@ -217,10 +230,11 @@ const EventRegistrationForm = () => {
       </FormControl>
 
 
+<br />
+<br />
 
 
-
-      {/* <FormControl
+      <FormControl
       fullWidth
       >
       <InputLabel
@@ -245,7 +259,9 @@ const EventRegistrationForm = () => {
       <FormHelperText error={!!errors.eventType}>
           {errors.eventType}
         </FormHelperText>
-    </FormControl> */}
+    </FormControl>
+    <br />
+    <br />
 
                      <FormControl
                         fullWidth
@@ -381,7 +397,7 @@ const EventRegistrationForm = () => {
                         helperText={errors.policy}
                       />
 
-<FormControl
+                    <FormControl
                         fullWidth
                         >
                         <InputLabel
@@ -393,12 +409,12 @@ const EventRegistrationForm = () => {
                         <Select
                           labelId="event-type-label"
                           id="event-type"
-                          value={mode}
+                          value={status}
                           label="Event Status"
                           
                           onChange={(e) => setStatus(e.target.value)}
                         >
-                          <MenuItem default value={"Upcoming"}>Upcoming</MenuItem>
+                          <MenuItem value={"Upcoming"}>Upcoming</MenuItem>
                           <MenuItem value={"Ongoing"}>Ongoing</MenuItem>
                           <MenuItem value={"Completed"}>Completed</MenuItem>
                 
@@ -408,20 +424,21 @@ const EventRegistrationForm = () => {
                           </FormHelperText>
                       </FormControl>
                 
-{/* 
+
                 <label htmlFor="eventPoster">Event Poster</label>
                 <div>
                   <input
                     type="file"
                     id="eventPoster"
+                 
                     className="inputHosting"
                     onChange={handleFileInputChangePoster}
                   />
 
                   {file && <p>Selected file: {file.name}</p>}
-                </div> */}
+                </div>
 
-                <label htmlFor="Campus Logo">Campus Logo</label>
+                {/* <label htmlFor="Campus Logo">Campus Logo</label>
                 <div>
                   <input
                     multiple
@@ -432,7 +449,7 @@ const EventRegistrationForm = () => {
                   />
 
                   {file && <p>Selected file {file.name}</p>}
-                </div>
+                </div> */}
               
 
               </div>
