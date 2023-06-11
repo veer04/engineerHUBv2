@@ -23,6 +23,7 @@ import {
   getDomains,
 
 } from "../../services/APIConfig";
+import { getAccessToken } from "../../features/getCookieValues";
 // var fs = require("fs");
 
 const EventRegistrationForm = () => {
@@ -174,18 +175,21 @@ const validateInput3=()=>
    {  
     
     try {
-      const accessToken = document.cookie
-      .split(';')
-      .map((cookie) => cookie.trim())
-      .find((cookie) => cookie.startsWith('access_token='))
-      .split('=')[1];
-      console.log(accessToken);
+      // const accessToken = document.cookie
+      // .split(';')
+      // .map((cookie) => cookie.trim())
+      // .find((cookie) => cookie.startsWith('access_token='))
+      // .split('=')[1];
+      // console.log(accessToken);
     const response = await axios.post(`${API_URL}api/v1/event`,form, {
       headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${accessToken}`,
+        accessToken: getAccessToken(),
+        
       },
-    });
+
+      
+    }
+    );
 
     console.log(response);
 
