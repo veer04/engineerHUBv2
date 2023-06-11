@@ -37,7 +37,7 @@ export default function Modal({ handleClose, setShowModal }) {
   }, [event]);
 
   // code for date element in card
-  const date = new Date(event.eventDate);
+  const date = new Date(event.eventStartTime);
   const day = date.toLocaleString("en-IN", { weekday: "long" });
   let getDate = date
     .toLocaleTimeString("en-IN", {

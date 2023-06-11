@@ -10,7 +10,7 @@ export default function FeaturedEventsCard2({
   hashtags,
   stars,
   views,
-  eventDate,
+  eventStartTime,
   color,
   domainName,
 }) {
@@ -29,7 +29,7 @@ export default function FeaturedEventsCard2({
   }, []);
 
   // code for date element in card
-  const date = new Date(eventDate);
+  const date = new Date(eventStartTime);
   let days = date.getTime() - new Date().getTime();
   days = Math.floor(days / (1000 * 3600 * 24));
   const formatter = new Intl.RelativeTimeFormat(undefined, { numeric: "auto" });
@@ -39,7 +39,7 @@ export default function FeaturedEventsCard2({
     parts[2].value = " days left";
   }
   const time = parts.map((part) => part.value).join("");
-
+  
   const dividerSvg = (
     <svg
       width="2"
