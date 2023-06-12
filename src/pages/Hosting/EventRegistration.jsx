@@ -23,9 +23,12 @@ import {
   getDomains,
 
 } from "../../services/APIConfig";
+import { getAccessToken } from "../../features/getCookieValues";
+import { useNavigate } from "react-router-dom";
 // var fs = require("fs");
 
 const EventRegistrationForm = () => {
+  const navigate = useNavigate();
   const { setSelectedPageNavbar } = useNavbar();
 
   useEffect(() => {
@@ -52,6 +55,7 @@ const EventRegistrationForm = () => {
   const [eventPoster, setEventPoster] = useState("");
   const [status, setStatus] = useState([]);
   const [policy,setPolicy] = useState("");
+  const [validation,setValidation]=useState(false);
   
   const [errors, setErrors] = useState({
    domainName:"",
@@ -71,11 +75,45 @@ const EventRegistrationForm = () => {
   //remove this//
   //eventType(dropdown), Tags(insert Tags it is of array type), status(dropdown), policy,  campusId(apiDropDown)//
   const [file, setFile] = useState();
+const validateInput1=()=>
+{
+  let valid =true;
+  const newErrors={
 
-  const handleNext = () => {
-    setStep(step + 1);
-  };
+  }
+  setErrors(newErrors);
+  return valid;
+}
+const validateInput2=()=>
+{
+  let valid = true;
+  const newErrors={
 
+  }
+  setErrors(newErrors);
+  return valid;
+}
+const validateInput3=()=>
+{
+  let valid =true;
+  const newErrors={
+
+  }
+  setErrors(newErrors);
+  return valid;
+}
+
+  function handleNext() {
+    if (step === 1) {
+      if (validateInput1()) setStep(step + 1);
+    }
+    if (step === 2) {
+      if (validateInput2()) setStep(step + 1);
+    }
+    if (step === 3) {
+      if (validateInput3()) setValidation(true);
+    }
+  }
   const handlePrev = () => {
     setStep(step - 1);
   };
@@ -100,7 +138,7 @@ const EventRegistrationForm = () => {
       [name]: value,
     }));
   };
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
 
     // console.log(data, "inside post ");
@@ -135,15 +173,46 @@ const EventRegistrationForm = () => {
     console.log(form.get("eventPoster"), " eventPoster ");
     console.log(form.get("status"), " status ");
 
-  
-    axios
-      .post(
-        `${API_URL}api/v1/event`,
-        form
-      )
-      .then((res) => console.log(res))
-      .catch((err) => console.error(err));
+  if (validation===true)
+   {  
+    
+    try {
+      // const accessToken = document.cookie
+      // .split(';')
+      // .map((cookie) => cookie.trim())
+      // .find((cookie) => cookie.startsWith('access_token='))
+      // .split('=')[1];
+      // console.log(accessToken);
+    const response = await axios.post(`${API_URL}api/v1/event`,form, {
+      headers: {
+        accesstoken: getAccessToken(),
+        
+      },
+
+      
+    }
+    );
+
+    console.log(response);
+
+    if (
+      response.status === 200 ||
+      response.status === 201 ||
+      response.status === 202 ||
+      response.status === 203 ||
+      response.status === 204
+    ) {
+     
+      navigate("/");
+    }
+  } catch (error) {
+    alert(error.response.data.message);
+    setValidation(false);
+    console.log(error);
+  }
+     
   };
+}
   const handleFileInputChange = (e) => {
     console.log(e.target.files);
     setCampusLogos(e.target.files);
