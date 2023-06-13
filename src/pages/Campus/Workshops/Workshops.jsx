@@ -72,7 +72,7 @@ export default function Workshops() {
       <h1 className="heading-3">Workshops</h1>
       <h2 className="subheading-1">
         Enroll and Participate in a free live workshop that imparts a practical
-        techniques and skills that indisutry looks for.
+        techniques and skills that industry looks for.
       </h2>
       <div className="featured-events">
         <h2>Featured Events</h2>
