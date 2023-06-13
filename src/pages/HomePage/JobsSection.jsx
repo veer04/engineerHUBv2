@@ -11,44 +11,53 @@ export default function JobsSection() {
   const jobs = [
     {
       id: 1,
-      companyLogo: defaultPoster,
-      companyName: "Google, India",
-      jobTitle: "Looking for Creative Designer???",
+      companyLogo:
+        "https://frontendehubbucket.s3.ap-south-1.amazonaws.com/frontend/company/jobs/uber.svg",
+      companyName: "Uber",
+      jobTitle: "Looking for Senior UI Developer",
       skills: ["Figma", "UI/UX", "Creative"],
+      link: "company/jobs/1234",
     },
     {
       id: 2,
-      companyLogo: defaultPoster,
-      companyName: "Google, India",
-      jobTitle: "Looking for Creative Designer???",
-      skills: ["Figma", "UI/UX", "Creative"],
+      companyLogo:
+        "https://frontendehubbucket.s3.ap-south-1.amazonaws.com/frontend/company/jobs/google.svg",
+      companyName: "Google",
+      jobTitle: "Looking for Senior Backend Engineer",
+      skills: ["Developer", "Engineer"],
+      link: "company/jobs/1233",
     },
     {
       id: 3,
-      companyLogo: defaultPoster,
-      companyName: "Google, India",
-      jobTitle: "Looking for Creative Designer???",
-      skills: ["Figma", "UI/UX", "Creative"],
+      companyLogo:
+        "https://frontendehubbucket.s3.ap-south-1.amazonaws.com/frontend/company/jobs/microsoft.svg",
+      companyName: "Microsoft",
+      jobTitle: "Looking for Azure Data Engineer",
+      skills: ["Data Analyst", "Data Science"],
+      link: "company/jobs/1232",
     },
     {
       id: 4,
-      companyLogo: defaultPoster,
-      companyName: "Google, India",
-      jobTitle: "Looking for Creative Designer???",
-      skills: ["Figma", "UI/UX", "Creative"],
+      companyLogo:
+        "https://logodownload.org/wp-content/uploads/2020/02/zomato-logo-1.png",
+      companyName: "Zomato",
+      jobTitle: "Looking for Frontend Developer",
+      skills: ["Frontend", "Creative", "React"],
     },
     {
       id: 5,
-      companyLogo: defaultPoster,
-      companyName: "Google, India",
-      jobTitle: "Looking for Creative Designer???",
-      skills: ["Figma", "UI/UX", "Creative"],
+      companyLogo:
+        "https://en.wikichip.org/w/images/thumb/e/ec/oracle_logo.svg/663px-oracle_logo.svg.png",
+      companyName: "Oracle",
+      jobTitle: "Looking for Java Developers",
+      skills: ["Java", "Spring", "Backend"],
     },
   ];
 
   function createJobs(jobs) {
     return jobs.map((job) => (
       <div
+        onClick={() => navigate(job.link)}
         key={job.id}
         className={`jobs-section-card jobs-section-card-${job.id}`}
       >
