@@ -1,5 +1,5 @@
 import React from "react";
-import "./AlumniProfilePage";
+import "../StudentProfile/StudentProfilePage.css";
 import { useOutletContext, useParams } from "react-router-dom";
 import { useState } from "react";
 import { TextField } from "@mui/material";

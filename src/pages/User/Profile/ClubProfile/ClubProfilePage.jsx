@@ -1,11 +1,16 @@
 import React, { useState, useEffect } from "react";
-import "./ClubProfilePage.css";
+import "../StudentProfile/StudentProfilePage.css";
 import useNavbar from "../../../../hooks/use-navbar";
 import { Outlet, useNavigate, useParams } from "react-router-dom";
 import LoadingPage from "../../../../components/Loader/LoadingPage";
 import { controller, getClubProfileById } from "../../../../services/APIConfig";
 import { getAccessToken } from "../../../../features/getCookieValues";
 import jwt_decode from "jwt-decode";
+import { AiOutlineEdit } from "react-icons/ai";
+import { CgProfile } from "react-icons/cg";
+import { MdOutlinePlace } from "react-icons/md";
+import { FiExternalLink } from "react-icons/fi";
+import { RiListOrdered } from "react-icons/ri";
 
 export default function ClubProfilePage() {
   const { clubId } = useParams();
@@ -13,6 +18,7 @@ export default function ClubProfilePage() {
   const [isLoading, setIsLoading] = useState(true);
   const [choice, setChoice] = useState("general");
   const { setSelectedPageNavbar } = useNavbar();
+  const [width, setWidth] = useState(window.innerWidth);
   const navigate = useNavigate();
   let isLoggedIn = false;
   const token = getAccessToken();
@@ -22,6 +28,17 @@ export default function ClubProfilePage() {
     const loggedInId = jwt_decode(token)._id;
     isLoggedIn = loggedInId === clubId;
   }
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWidth(window.innerWidth);
+    };
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [window.innerWidth]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -35,10 +52,6 @@ export default function ClubProfilePage() {
 
   useEffect(() => {
     if (Object.keys(profile).length !== 0) {
-      setProfile({
-        ...profile,
-        isLoggedIn: isLoggedIn,
-      });
       setIsLoading(false);
     } else {
       setIsLoading(true);
@@ -67,7 +80,7 @@ export default function ClubProfilePage() {
             }}
             className={`option ${choice === "general" ? "--is-selected" : ""}`}
           >
-            User Profile
+            {width <= 768 ? <CgProfile /> : "User Profile"}
           </button>
           {isLoggedIn && (
             <>
@@ -77,13 +90,13 @@ export default function ClubProfilePage() {
                 }}
                 className={`option ${choice === "edit" ? "--is-selected" : ""}`}
               >
-                Edit Profile
+                {width <= 768 ? <AiOutlineEdit /> : "Edit Profile"}
               </button>
             </>
           )}
         </aside>
         <div className="details-container">
-          <Outlet context={[profile]} />
+          <Outlet context={[profile, isLoggedIn]} />
         </div>
       </section>
     </main>

@@ -6,12 +6,18 @@ import LoadingPage from "../../../../components/Loader/LoadingPage";
 import { controller, getUserProfileById } from "../../../../services/APIConfig";
 import { getAccessToken } from "../../../../features/getCookieValues";
 import jwt_decode from "jwt-decode";
+import { AiOutlineEdit } from "react-icons/ai";
+import { CgProfile } from "react-icons/cg";
+import { MdOutlinePlace } from "react-icons/md";
+import { FiExternalLink } from "react-icons/fi";
+import { RiListOrdered } from "react-icons/ri";
 
 export default function ProfilePage() {
   const { userId } = useParams();
   const [profile, setProfile] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [choice, setChoice] = useState("general");
+  const [width, setWidth] = useState(window.innerWidth);
   const { setSelectedPageNavbar } = useNavbar();
   const navigate = useNavigate();
   let isLoggedIn = false;
@@ -24,6 +30,17 @@ export default function ProfilePage() {
   }
 
   useEffect(() => {
+    const handleResize = () => {
+      setWidth(window.innerWidth);
+    };
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [window.innerWidth]);
+
+  useEffect(() => {
     window.scrollTo(0, 0);
     setSelectedPageNavbar("profile");
     getUserProfileById(setProfile, userId);
@@ -31,14 +48,9 @@ export default function ProfilePage() {
     return () => {
       controller.abort();
     };
-  }, [window.location.pathname]);
-
+  }, []);
   useEffect(() => {
     if (Object.keys(profile).length !== 0) {
-      setProfile({
-        ...profile,
-        isLoggedIn: isLoggedIn,
-      });
       setIsLoading(false);
     } else {
       setIsLoading(true);
@@ -73,7 +85,7 @@ export default function ProfilePage() {
             }}
             className={`option ${choice === "general" ? "--is-selected" : ""}`}
           >
-            User Profile
+            {width <= 768 ? <CgProfile /> : "User Profile"}
           </button>
           {isLoggedIn && (
             <>
@@ -83,7 +95,7 @@ export default function ProfilePage() {
                 }}
                 className={`option ${choice === "edit" ? "--is-selected" : ""}`}
               >
-                Edit Profile
+                {width <= 768 ? <AiOutlineEdit /> : "Edit Profile"}
               </button>
               <button
                 onClick={() => {
@@ -93,7 +105,7 @@ export default function ProfilePage() {
                   choice === "address" ? "--is-selected" : ""
                 }`}
               >
-                Change Address
+                {width <= 768 ? <MdOutlinePlace /> : "Change Address"}
               </button>
               <button
                 onClick={() => {
@@ -103,7 +115,7 @@ export default function ProfilePage() {
                   choice === "social-media" ? "--is-selected" : ""
                 }`}
               >
-                Social Media Links
+                {width <= 768 ? <FiExternalLink /> : "Social Media Links"}
               </button>
               <button
                 onClick={() => {
@@ -113,13 +125,13 @@ export default function ProfilePage() {
                   choice === "tech-stack" ? "--is-selected" : ""
                 }`}
               >
-                Tech Stack
+                {width <= 768 ? <RiListOrdered /> : "Tech Stack"}
               </button>
             </>
           )}
         </aside>
         <div className="details-container">
-          <Outlet context={[profile]} />
+          <Outlet context={[profile, isLoggedIn]} />
         </div>
       </section>
     </main>
