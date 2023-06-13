@@ -45,9 +45,8 @@ const Events = () => {
     <div className="CompanyEvent">
       <h2>Event Hiring</h2>
       <p>
-        Lorem ipsum dolor sit amet consectetur. Vitae diam facilisi libero
-        mauris mauris quam elit. Convallis nunc accumsan sit cum. Vitae diam eu
-        enim dignissim donec ultrices dis amet ipsum.
+        Participate in the events directly conducted by the companies to
+        highlight your profile.
       </p>
       {/* <div className="search">
         <span>

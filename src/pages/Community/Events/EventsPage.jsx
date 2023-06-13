@@ -20,15 +20,14 @@ export default function EventsPage({ path }) {
   const [events, setEvents] = useState(
     // sessionStorage.getItem(`${id} events`)
     //   ? JSON.parse(sessionStorage.getItem(`${id} events`))
-    //   : 
-      []
+    //   :
+    []
   );
 
   useEffect(() => {
     getEvents(setEvents, id);
     window.scrollTo(0, 0);
     setSelectedPageNavbar("community");
-
 
     return () => {
       controller.abort();

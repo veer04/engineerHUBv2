@@ -9,6 +9,9 @@ export default function ReviewsSection() {
   useEffect(() => {
     getReviews(setReviews);
   }, []);
+  useEffect(() => {
+    console.log(reviews);
+  }, [reviews]);
   let randomnessFactor = 15;
   const [width, setWidth] = useState(window.innerWidth);
   useEffect(() => {
@@ -42,11 +45,11 @@ export default function ReviewsSection() {
     return reviews.map((review) => {
       return (
         <ReviewCard
-          key={review.userId._id}
+          key={review.userId?._id}
           index={counter++}
-          name={review.userId.name}
+          name={review.userId?.name}
           text={review.text}
-          img={review.userId.image}
+          img={review.userId?.image}
           activeCard={activeCard}
         />
       );
