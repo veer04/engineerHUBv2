@@ -1,13 +1,11 @@
-import "./OrganizationProfilePage.css";
+import "../StudentProfile/StudentProfilePage.css";
 import { useOutletContext } from "react-router-dom";
 import defaultPoster from "../../../../assets/defaultPoster";
 import { handleLogout } from "../../../../features/logout";
 import { TextField } from "@mui/material";
-import { AiOutlineInstagram } from "react-icons/ai";
-import { FiLinkedin } from "react-icons/fi";
 
 export default function GeneralOrganizationData() {
-  const [profile] = useOutletContext();
+  const [profile, isLoggedIn] = useOutletContext();
 
   return (
     <>
@@ -88,7 +86,7 @@ export default function GeneralOrganizationData() {
         fullWidth
         margin="normal"
       />
-      {profile.isLoggedIn && (
+      {isLoggedIn && (
         <button
           className="logBtn mt-3 logout-btn"
           style={{

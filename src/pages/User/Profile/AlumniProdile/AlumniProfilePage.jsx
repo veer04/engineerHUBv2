@@ -1,21 +1,26 @@
 import React, { useState, useEffect } from "react";
-import "./AlumniProfilePage.css";
+import "../StudentProfile/StudentProfilePage.css";
 import useNavbar from "../../../../hooks/use-navbar";
 import { Outlet, useNavigate, useParams } from "react-router-dom";
 import LoadingPage from "../../../../components/Loader/LoadingPage";
 import {
   controller,
   getAlumniProfileById,
-  getUserProfileById,
 } from "../../../../services/APIConfig";
 import { getAccessToken } from "../../../../features/getCookieValues";
 import jwt_decode from "jwt-decode";
+import { AiOutlineEdit } from "react-icons/ai";
+import { CgProfile } from "react-icons/cg";
+import { MdOutlinePlace } from "react-icons/md";
+import { FiExternalLink } from "react-icons/fi";
+import { RiListOrdered } from "react-icons/ri";
 
 export default function AlumniProfilePage() {
   const { alumniId } = useParams();
   const [profile, setProfile] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [choice, setChoice] = useState("general");
+  const [width, setWidth] = useState(window.innerWidth);
   const { setSelectedPageNavbar } = useNavbar();
   const navigate = useNavigate();
   let isLoggedIn = false;
@@ -26,6 +31,17 @@ export default function AlumniProfilePage() {
     const loggedInId = jwt_decode(token)._id;
     isLoggedIn = loggedInId === alumniId;
   }
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWidth(window.innerWidth);
+    };
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [window.innerWidth]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -39,10 +55,6 @@ export default function AlumniProfilePage() {
 
   useEffect(() => {
     if (Object.keys(profile).length !== 0) {
-      setProfile({
-        ...profile,
-        isLoggedIn: isLoggedIn,
-      });
       setIsLoading(false);
     } else {
       setIsLoading(true);
@@ -73,7 +85,7 @@ export default function AlumniProfilePage() {
             }}
             className={`option ${choice === "general" ? "--is-selected" : ""}`}
           >
-            User Profile
+            {width <= 768 ? <CgProfile /> : "User Profile"}
           </button>
           {isLoggedIn && (
             <>
@@ -83,7 +95,7 @@ export default function AlumniProfilePage() {
                 }}
                 className={`option ${choice === "edit" ? "--is-selected" : ""}`}
               >
-                Edit Profile
+                {width <= 768 ? <AiOutlineEdit /> : "Edit Profile"}
               </button>
               <button
                 onClick={() => {
@@ -93,13 +105,13 @@ export default function AlumniProfilePage() {
                   choice === "social-media" ? "--is-selected" : ""
                 }`}
               >
-                Social Media Links
+                {width <= 768 ? <FiExternalLink /> : "Social Media Links"}
               </button>
             </>
           )}
         </aside>
         <div className="details-container">
-          <Outlet context={[profile]} />
+          <Outlet context={[profile, isLoggedIn]} />
         </div>
       </section>
     </main>

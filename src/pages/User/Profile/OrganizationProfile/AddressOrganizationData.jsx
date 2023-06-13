@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "./OrganizationProfilePage.css";
+import "../StudentProfile/StudentProfilePage.css";
 import { useOutletContext, useParams } from "react-router-dom";
 import { useEffect } from "react";
 import {

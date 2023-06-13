@@ -1,4 +1,4 @@
-import "./AlumniProfilePage.css";
+import "../StudentProfile/StudentProfilePage.css";
 import { useOutletContext } from "react-router-dom";
 import defaultPoster from "../../../../assets/defaultPoster";
 import { handleLogout } from "../../../../features/logout";
@@ -7,7 +7,7 @@ import { AiOutlineInstagram } from "react-icons/ai";
 import { FiLinkedin, FiTwitter } from "react-icons/fi";
 
 export default function GeneralAlumniData() {
-  const [profile] = useOutletContext();
+  const [profile, isLoggedIn] = useOutletContext();
 
   return (
     <>
@@ -44,7 +44,7 @@ export default function GeneralAlumniData() {
         fullWidth
         margin="normal"
       />
-      {profile.isLoggedIn && (
+      {isLoggedIn && (
         <>
           {" "}
           <TextField
@@ -165,7 +165,7 @@ export default function GeneralAlumniData() {
           <p>No Tech Stack Added</p>
         )}
       </div> */}
-      {profile.isLoggedIn && (
+      {isLoggedIn && (
         <button
           className="logBtn mt-3 logout-btn"
           style={{
