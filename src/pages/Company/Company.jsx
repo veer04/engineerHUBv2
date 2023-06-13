@@ -53,7 +53,7 @@ const Company = () => {
   const CompanyCardEntries = [
     {
       name: "event hiring",
-      desc: "lorem ipsum dolor sit amet consectetur adipiscing elit. Convallis nunc, accumsan.",
+      desc: "Participate in the events directly conducted by the companies to highlight your profile.",
       char: `${bucket}EventChar.svg`,
       stats: {
         position: "30",
@@ -64,7 +64,7 @@ const Company = () => {
     },
     {
       name: "job hiring",
-      desc: "lorem ipsum dolor sit amet consectetur adipiscing elit. Convallis nunc, accumsan.",
+      desc: "Apply for the jobs of your interest and get the offer letter in the next step.",
       char: `${bucket}JobChar.svg`,
       background: "#8FC8E8",
       stats: {
@@ -75,7 +75,7 @@ const Company = () => {
     },
     {
       name: "project hub",
-      desc: "lorem ipsum dolor sit amet consectetur adipiscing elit. Convallis nunc, accumsan.",
+      desc: "Paid projects that gives you hands-on experience for better career.",
       char: `${bucket}ProjectChar.svg`,
       background: "#B2E887",
       stats: {
@@ -86,7 +86,7 @@ const Company = () => {
     },
     {
       name: "be an intern",
-      desc: "lorem ipsum dolor sit amet consectetur adipiscing elit. Convallis nunc, accumsan.",
+      desc: "Grab Paid Internships and Training programs for your Summer and Winter Holidays.",
       char: `${bucket}InternChar.svg`,
       background: "#E8BA98",
       stats: {
