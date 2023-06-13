@@ -13,9 +13,9 @@ export default function MainLandingSection() {
           community, campus & company
         </h1>
         <p className="landing-description text-green subheading-2">
-          engineerHUB is INDIA's leading community of engineers where students
-          or alumni from IITs, NITs, IIITs and state colleges unite together to
-          develop and nurture the skills of students all over India.
+          We are India's fastest growing communtiy of engineers where students,
+          fresh graduates and almas from all around engineering campus network,
+          learn, develop and build career together.
         </p>
         <div className="homepage-numbers-container">
           <div className="number-container">

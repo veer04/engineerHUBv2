@@ -7,7 +7,7 @@ import { AiOutlineInstagram } from "react-icons/ai";
 import { FiLinkedin } from "react-icons/fi";
 
 export default function GeneralStudentData() {
-  const [profile] = useOutletContext();
+  const [profile, isLoggedIn] = useOutletContext();
 
   return (
     <>
@@ -44,7 +44,7 @@ export default function GeneralStudentData() {
         fullWidth
         margin="normal"
       />
-      {profile.isLoggedIn && (
+      {isLoggedIn && (
         <>
           {" "}
           <TextField
@@ -93,7 +93,7 @@ export default function GeneralStudentData() {
         fullWidth
         margin="normal"
       />
-      {profile.isLoggedIn && (
+      {isLoggedIn && (
         <>
           <TextField
             name="country"
@@ -160,7 +160,7 @@ export default function GeneralStudentData() {
           <p>No Tech Stack Added</p>
         )}
       </div>
-      {profile.isLoggedIn && (
+      {isLoggedIn && (
         <button
           className="logBtn mt-3 logout-btn"
           style={{

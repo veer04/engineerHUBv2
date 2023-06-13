@@ -228,6 +228,39 @@
   text-align: center;
 }
 
+@media screen and (max-width: 768px) {
+  .profile-page > section {
+    flex-direction: column;
+    align-items: center;
+  }
+  .profile-page > section > aside {
+    background-color: transparent;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 2rem;
+    max-width: 25rem;
+    width: 100%;
+    gap: 1rem;
+    /* justify-content: space-between; */
+    margin: 0 0 1.5rem;
+  }
+  .profile-page > section > aside > button {
+    border-radius: 50%;
+    aspect-ratio: 1/1;
+    font-size: 1.5rem;
+    text-align: center;
+  }
+  .profile-page > section > .details-container > div {
+    justify-content: center;
+    width: 100%;
+  }
+  .profile-page > section > .details-container > div > .profile-picture {
+    width: 7.5rem;
+    height: 7.5rem;
+  }
+}
+
 @media screen and (max-width: 580px) {
   .profile-page > section > .details-container {
     width: 100%;

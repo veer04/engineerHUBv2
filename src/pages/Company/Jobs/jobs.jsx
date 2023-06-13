@@ -261,9 +261,8 @@ const Jobs = () => {
     <div className="CompanyJob">
       <h2>Job Hiring</h2>
       <p>
-        Lorem ipsum dolor sit amet consectetur. Vitae diam facilisi libero
-        mauris mauris quam elit. Convallis nunc accumsan sit cum. Vitae diam eu
-        enim dignissim donec ultrices dis amet ipsum.
+        Apply for the jobs of your interest and get the offer letter in the next
+        step.
       </p>
       {/* <div className="search">
         <span>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./JobDescription.css";
 import { Chip } from "@mui/material";
 import { Bucket_URL } from "../../../services/APIUtils";
@@ -6,6 +6,9 @@ import { useNavigate } from "react-router-dom";
 const JobDescription = ({ details }) => {
   const navigate =useNavigate();
   const bucket = `${Bucket_URL}frontend/company/jobs/`;
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <div className="JobDescription">
       <div className="JobDetailHeader">

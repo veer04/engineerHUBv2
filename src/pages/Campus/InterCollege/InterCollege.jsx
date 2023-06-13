@@ -73,9 +73,8 @@ export default function InterCollege() {
     <div className="intra-college-page">
       <h1 className="heading-3">Inter-College Events</h1>
       <h2 className="subheading-1">
-        Lorem ipsum dolor sit amet consectetur. Vitae diam facilisi libero
-        mauris mauris quam elit. Convallis nunc accumsan sit cum. Vitae diam eu
-        enim dignissim donec ultrices dis amet ipsum.
+        Explore and Particiapte in the joint events in all-around India Campuses
+        (Add one more badge to push-up your profile)
       </h2>
       <div className="featured-events">
         <h2>Featured Events</h2>
