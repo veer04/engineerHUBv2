@@ -72,9 +72,8 @@ export default function IntraCollege() {
     <div className="intra-college-page">
       <h1 className="heading-3">Intra-College Events</h1>
       <h2 className="subheading-1">
-        Lorem ipsum dolor sit amet consectetur. Vitae diam facilisi libero
-        mauris mauris quam elit. Convallis nunc accumsan sit cum. Vitae diam eu
-        enim dignissim donec ultrices dis amet ipsum.
+        Participate directly to the events conducted by any campus around the
+        India.
       </h2>
       <div className="featured-events">
         <h2>Featured Events</h2>

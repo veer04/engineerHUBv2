@@ -71,9 +71,8 @@ export default function Workshops() {
     <div className="intra-college-page">
       <h1 className="heading-3">Workshops</h1>
       <h2 className="subheading-1">
-        Lorem ipsum dolor sit amet consectetur. Vitae diam facilisi libero
-        mauris mauris quam elit. Convallis nunc accumsan sit cum. Vitae diam eu
-        enim dignissim donec ultrices dis amet ipsum.
+        Enroll and Participate in a free live workshop that imparts a practical
+        techniques and skills that indisutry looks for.
       </h2>
       <div className="featured-events">
         <h2>Featured Events</h2>

@@ -121,8 +121,8 @@ export default function ParticularAlumni() {
             >
               <div className="title">1-on-1 Mentorship</div>
               <div className="info">
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Modi,
-                doloremque.
+                Earn by sharing your valuable learning & expertise with your
+                juniors.
               </div>
             </div>
             <div
@@ -131,8 +131,8 @@ export default function ParticularAlumni() {
             >
               <div className="title">Resume Review</div>
               <div className="info">
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Modi,
-                doloremque.
+                Help out your junior in creating the industry standard resume by
+                reviewing it.
               </div>
             </div>
             <div
@@ -141,8 +141,8 @@ export default function ParticularAlumni() {
             >
               <div className="title">Webinars</div>
               <div className="info">
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Modi,
-                doloremque.
+                Your juniors still need your guidance, so host an live session
+                for them to re-connect.
               </div>
             </div>
             <div
@@ -151,8 +151,8 @@ export default function ParticularAlumni() {
             >
               <div className="title">Courses</div>
               <div className="info">
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Modi,
-                doloremque.
+                Craft a course for your juniors to teach them How & What exactly
+                Industry looks in a fresh candidate.
               </div>
             </div>
           </div>
