@@ -67,6 +67,7 @@ import AddressOrganizationData from "./pages/User/Profile/OrganizationProfile/Ad
 import ClubProfilePage from "./pages/User/Profile/ClubProfile/ClubProfilePage";
 import GeneralClubData from "./pages/User/Profile/ClubProfile/GeneralClubData";
 import EditClubData from "./pages/User/Profile/ClubProfile/EditClubData";
+import JobRegistration from "./pages/Hosting/JobRegistration";
 
 const CommunityPage = lazy(() => import("./pages/Community/CommunityPage"));
 const CampusPage = lazy(() => import("./pages/Campus/CampusPage"));
@@ -199,7 +200,10 @@ function App() {
             </Route>
           </Route>
           <Route path="/mentorship" element={<ComingSoon />} />
+        
           <Route path="/hostevent" element={<HostEvent />} />
+          <Route path="/hostjob" element={<JobRegistration/>}
+          />
           <Route path="hosting">
             <Route index element={<Hosting />} />
           </Route>
