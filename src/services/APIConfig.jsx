@@ -576,25 +576,6 @@ export const getEvents = (setEvents, id) => {
     });
 };
 
-export const getEventById = (setEvent) => {
-  const controller = new AbortController();
-  axios
-    .get(`${API_URL}api/v1/event`, {
-      signal: controller.signal,
-    })
-    .then((res) => {
-      const data = res.data.data;
-      setEvent(data);
-    })
-    .catch((err) => {
-      if (axios.isCancel(err)) {
-        console.log("req cancel");
-      } else {
-        console.log("req performed");
-      }
-    });
-};
-
 export const getParticularEvent = (setEvent, eventId) => {
   const controller = new AbortController();
   axios
