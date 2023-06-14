@@ -44,6 +44,7 @@
 .recent-activities-section-item h3 {
   font-size: 1.3rem;
   font-weight: 500;
+  overflow: hidden;
 }
 .recent-activities-section-item > span {
   overflow: hidden;

@@ -7,33 +7,33 @@ export default function RecentActivitiesSection() {
     {
       id: 1,
       date: "Few days ago",
-      title: "Coding Contest | IIT BHU",
+      title: "Coding Contest | IIT BHUEngineer’s Munch || engineerHUB",
       description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur adipisci dolore sint voluptas explicabo nobis asperiores omnis perspiciatis alias hic.Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur adipisci dolore sint voluptas explicabo nobis asperiores omnis perspiciatis alias hic.",
+        "Are you an aspiring engineer looking to expand your Network and connect with like-minded individuals? If so, I'd like to invite you to join us at the Engineer's मंच event! As it's clear from name , every Engineer will have their own मंच (platform) where they will have their own audience who would love to hear them .",
       link: "https://www.google.com",
     },
     {
       id: 2,
       date: "5 days ago",
-      title: "Design Contest | AKGEC",
+      title: "Programming Challenge || IIT Jodhpur",
       description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur adipisci dolore sint voluptas explicabo nobis asperiores omnis perspiciatis alias hic.",
+        "This will be a coding contest round! This round will be conducted on codeforces . Prometeo is the largest Technical and Entrepreneurial Fest in North-Western India and it received a huge participant registration of approximately 5,000 individuals from all across the nation in its previous online editions.",
       link: "https://www.google.com",
     },
     {
       id: 3,
       date: "15 days ago",
-      title: "Hackathon | NIT Agartala",
+      title: "Shaastra Programming Contest || IIT Chennai",
       description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur adipisci dolore sint voluptas explicabo nobis asperiores omnis perspiciatis alias hic.",
+        "Are you excited to solve challenging, algorithmic puzzles against the clock? We’ve got your back with some of the most unique and innovative problems encompassing various programming techniques. Who will rise to the challenge and emerge as the champion of programming?",
       link: "https://www.google.com",
     },
     {
       id: 4,
       date: "A month ago",
-      title: "Code-a-thon | GFG",
+      title: "Logo Designing Contest || Cred8Gred * engineerHUB",
       description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur adipisci dolore sint voluptas explicabo nobis asperiores omnis perspiciatis alias hic.",
+        "Unlock your Creativity and use your designer’s mindset to craft a Logo. Best 3 logo designers will be awarded with Cash Prizes.",
       link: "https://www.google.com",
     },
   ];
@@ -53,7 +53,7 @@ export default function RecentActivitiesSection() {
       key={activity.id}
     >
       <p>{activity.date}</p>
-      <h3>{activity.title}</h3>
+      <h3 className="text-crop-1">{activity.title}</h3>
       <span>{activity.description}</span>
     </div>
   ));
