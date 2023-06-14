@@ -13,9 +13,9 @@ export default function MainLandingSection() {
           community, campus & company
         </h1>
         <p className="landing-description text-green subheading-2">
-          We are India's fastest growing communtiy of engineers where students,
-          fresh graduates and almas from all around engineering campus network,
-          learn, develop and build career together.
+          We are India's fastest-growing community of engineers aiming to
+          connect campuses in a network to learn, develop and build careers
+          together.
         </p>
         <div className="homepage-numbers-container">
           <div className="number-container">
