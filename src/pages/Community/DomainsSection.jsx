@@ -10,13 +10,12 @@ export default function DomainsSection() {
   const [domainData, setDomainData] = useState(
     // sessionStorage.getItem("domainData")
     //   ? JSON.parse(sessionStorage.getItem("domainData"))
-    //   : 
-      []
+    //   :
+    []
   );
   useEffect(() => {
     window.scrollTo(0, 0);
     getDomains(setDomainData);
-    
 
     return () => {
       controller.abort();
@@ -70,10 +69,10 @@ export default function DomainsSection() {
     <div className="community-domains-section">
       <h1 className="heading-3">Our Domains</h1>
       <h2 className="subheading-1">
-        engineerHUB’s technical domains cover a range of skills and expertise
-        needed to create and deliver innovative software solutions that can help
-        businesses succeed in today's digital landscape and meet their unique
-        needs and requirements.
+        Our technical areas specialize students in what industry is looking for
+        in candidates, rather than spending ample time in building general
+        skills. Now is the time to start developing skills in the field where
+        our interests lie and build a career in that direction.
       </h2>
       <CategoryBar
         categories={categories}

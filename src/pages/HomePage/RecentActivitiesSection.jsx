@@ -7,34 +7,35 @@ export default function RecentActivitiesSection() {
     {
       id: 1,
       date: "Few days ago",
-      title: "Coding Contest | IIT BHUEngineer’s Munch || engineerHUB",
+      title: "Engineer’s Munch || engineerHUB ",
       description:
-        "Are you an aspiring engineer looking to expand your Network and connect with like-minded individuals? If so, I'd like to invite you to join us at the Engineer's मंच event! As it's clear from name , every Engineer will have their own मंच (platform) where they will have their own audience who would love to hear them .",
-      link: "https://www.google.com",
+        "Are you an aspiring engineer looking to expand your Network and connect with like-minded individuals? If so, I'd like to invite you to join us at the Engineer's मंच event! As it's clear from name, every Engineer will have their own मंच (platform) where they will have their own audience who would love to hear them.",
+      link: "https://discord.gg/xNcefnFEVu",
     },
     {
       id: 2,
       date: "5 days ago",
       title: "Programming Challenge || IIT Jodhpur",
       description:
-        "This will be a coding contest round! This round will be conducted on codeforces . Prometeo is the largest Technical and Entrepreneurial Fest in North-Western India and it received a huge participant registration of approximately 5,000 individuals from all across the nation in its previous online editions.",
-      link: "https://www.google.com",
+        "This will be a coding contest round! This round will be conducted on codeforces. Prometeo is the largest Technical and Entrepreneurial Fest in North-Western India and it received a huge participant registration of approximately 5,000 individuals from all across the nation in its previous online editions.",
+      link: "https://codeforces.com/contests/421473",
     },
     {
       id: 3,
       date: "15 days ago",
-      title: "Shaastra Programming Contest || IIT Chennai",
+      title:
+        "Machine Learning || Exploratory data analysis (EDA) using Python @ engineerHUB",
       description:
-        "Are you excited to solve challenging, algorithmic puzzles against the clock? We’ve got your back with some of the most unique and innovative problems encompassing various programming techniques. Who will rise to the challenge and emerge as the champion of programming?",
-      link: "https://www.google.com",
+        "Before you start any Machine learning project, it's EDA which ensures readiness of data. Without a proper EDA, Machine learning work suffer from accuracy issues and many times, algos won't work.",
+      link: "https://youtube.com/live/9XdZqzHzyGY",
     },
     {
       id: 4,
       date: "A month ago",
-      title: "Logo Designing Contest || Cred8Gred * engineerHUB",
+      title: "IIT Kanpur Monthly Coding Contest ",
       description:
-        "Unlock your Creativity and use your designer’s mindset to craft a Logo. Best 3 logo designers will be awarded with Cash Prizes.",
-      link: "https://www.google.com",
+        "Participate in monthly coding contest to sharpen your problem solving skills.",
+      link: "https://www.codechef.com/WPC1401",
     },
   ];
 

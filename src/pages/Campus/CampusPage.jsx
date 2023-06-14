@@ -107,7 +107,7 @@ export default function CampusPage() {
       <h1 className="heading-3">Campus</h1>
       <h2 className="subheading-1">
         What's happening inside is no more hidden now !
-        Explore--Network--Participate--Host
+        <strong> Explore--Network--Participate--Host</strong>
       </h2>
       <div className="search-bar__container">
         <div>
