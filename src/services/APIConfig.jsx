@@ -538,15 +538,15 @@ export const getAllEvents = (setEvents) => {
     });
 };
 
-export const getEvents = (setEvents, id) => {
+export const getFeaturedEvents = (setFeaturedEvents) => {
   const controller = new AbortController();
   axios
-    .get(`${API_URL}api/v1/eventDomainWise/${encodeURIComponent(id)}`, {
+    .get(`${API_URL}api/v1/featuredEvent`, {
       signal: controller.signal,
     })
     .then((res) => {
       const data = res.data.data;
-      setEvents(data);
+      setFeaturedEvents(data);
     })
     .catch((err) => {
       if (axios.isCancel(err)) {
@@ -557,15 +557,15 @@ export const getEvents = (setEvents, id) => {
     });
 };
 
-export const getEventById = (setEvent) => {
+export const getEvents = (setEvents, id) => {
   const controller = new AbortController();
   axios
-    .get(`${API_URL}api/v1/event`, {
+    .get(`${API_URL}api/v1/eventDomainWise/${encodeURIComponent(id)}`, {
       signal: controller.signal,
     })
     .then((res) => {
       const data = res.data.data;
-      setEvent(data);
+      setEvents(data);
     })
     .catch((err) => {
       if (axios.isCancel(err)) {

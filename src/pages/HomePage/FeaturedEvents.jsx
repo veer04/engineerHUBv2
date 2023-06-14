@@ -1,13 +1,17 @@
 import React, { useEffect, useState } from "react";
 import "./FeaturedEvents.css";
 import { FiArrowLeft, FiArrowRight } from "react-icons/fi";
-import { getAllEvents, controller } from "../../services/APIConfig";
+import {
+  getAllEvents,
+  controller,
+  getFeaturedEvents,
+} from "../../services/APIConfig";
 import defaultPoster from "../../assets/defaultPoster";
 import { Bucket_URL } from "../../services/APIUtils";
 import { useNavigate } from "react-router-dom";
 
 export default function FeaturedEvents() {
-  const [events, setEvents] = useState([]);
+  const [featuredEvents, setFeaturedEvents] = useState([]);
   const bucket = `${Bucket_URL}frontend/homepage/featuredevents/`;
   const headingImage1 = `${bucket}featuredEventsHeadingImage1.png`;
   const headingImage2 = `${bucket}featuredEventsHeadingImage2.png`;
@@ -18,7 +22,7 @@ export default function FeaturedEvents() {
   ];
 
   useEffect(() => {
-    getAllEvents(setEvents);
+    getFeaturedEvents(setFeaturedEvents);
     return () => {
       controller.abort();
     };
@@ -48,8 +52,8 @@ export default function FeaturedEvents() {
   const navigate = useNavigate();
 
   const renderedEvents =
-    events.length > 0
-      ? events.slice(0, 15).map((event, index) => {
+    featuredEvents.length > 0
+      ? featuredEvents.slice(0, 15).map((event, index) => {
           return (
             <div
               key={event._id}
