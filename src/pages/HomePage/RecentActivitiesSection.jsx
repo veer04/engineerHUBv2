@@ -34,11 +34,14 @@ export default function RecentActivitiesSection() {
     {
       id: 2,
       date: "5 days ago",
-      title: "Programming Challenge || IIT Jodhpur",
+      title:
+        "Why Entrepreneurship after IIT || IIT Delhi to SayF ||  @engineerHUB1",
       description:
-        "This will be a coding contest round! This round will be conducted on codeforces. Prometeo is the largest Technical and Entrepreneurial Fest in North-Western India and it received a huge participant registration of approximately 5,000 individuals from all across the nation in its previous online editions.",
-      link: "https://codeforces.com/contests/421473",
-      time: computeTime("2023-04-11T18:30:00.000Z"),
+        "We will get to know how Aman Singh (Co Founder of SayF) ended up in SayF from IIT Delhi  @IITDelhiOfficial .",
+      link: "https://youtube.com/live/cTpZE3Vvo5c",
+      time:
+        computeTime("2023-04-11T18:30:00.000Z").charAt(0).toUpperCase() +
+        computeTime("2023-04-11T18:30:00.000Z").slice(1),
     },
     {
       id: 3,
@@ -48,16 +51,21 @@ export default function RecentActivitiesSection() {
       description:
         "Before you start any Machine learning project, it's EDA which ensures readiness of data. Without a proper EDA, Machine learning work suffer from accuracy issues and many times, algos won't work.",
       link: "https://youtube.com/live/9XdZqzHzyGY",
-      time: computeTime("2022-10-15T18:30:00.000Z"),
+      time:
+        computeTime("2023-03-21T18:30:00.000Z").charAt(0).toUpperCase() +
+        computeTime("2023-03-21T18:30:00.000Z").slice(1),
     },
     {
       id: 4,
       date: "A month ago",
-      title: "IIT Kanpur Monthly Coding Contest ",
+      title:
+        "No need for SDE-1 level engineers?? || Insights by a Googler || @engineerHUB1",
       description:
-        "Participate in monthly coding contest to sharpen your problem solving skills.",
-      link: "https://www.codechef.com/WPC1401",
-      time: computeTime("2023-03-05T18:30:00.000Z"),
+        "In this session you'll be getting insights about the chat GPT by Mr. Abhishek Sharma SDE  @Google . When Chat GPT comes then it brings a lot of queries and I assure you guys that after attending the session all your queries will get resolved.",
+      link: "https://youtube.com/live/5hbYb33F1zQ",
+      time:
+        computeTime("2023-03-05T18:30:00.000Z").charAt(0).toUpperCase() +
+        computeTime("2023-03-05T18:30:00.000Z").slice(1),
     },
   ];
 
