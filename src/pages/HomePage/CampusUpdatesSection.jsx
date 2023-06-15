@@ -34,12 +34,14 @@ export default function CampusUpdatesSection() {
   //fetch outerUpdates from backend
   const outerUpdates = [
     {
-      title: "We GDSC are organizing Hackathon Event.",
-      link: "/campus",
+      title:
+        "ROAD-A-THON 2023, Sona College of Technology, Technical Event, Salem, Tamil Nadu, 14th July 2023",
+      link: "https://www.knowafest.com/explore/events/2023/05/3102-road-a-thon-2023-sona-college-technology-technical-event-salem",
     },
     {
-      title: "“Aero Club” is organizing Contest.",
-      link: "/campus",
+      title:
+        "TECH NIMBLE 2023, Nadimpalli Satyanarayana Raju Institute of Technology, Techno Fun Festival, Visakhapatnam, Andhra Pradesh, 10th - 12th August 2023",
+      link: "https://www.knowafest.com/explore/events/2023/04/2701-tech-nimble-2023-nadimpalli-satyanarayana-raju-institute-technology-techno-fun-festival-visakhapatnam",
     },
   ];
 
@@ -70,13 +72,17 @@ export default function CampusUpdatesSection() {
           {updatesContainer2}
         </div>
         <div className="campus-section-outer">
-          <div className="campus-outer-update">{outerUpdates[0].title}</div>
+          <div className="campus-outer-update text-crop-1">
+            {outerUpdates[0].title}
+          </div>
           <Link to={outerUpdates[0].link}>
             <button className="campus-outer-link">Click here</button>
           </Link>
         </div>
         <div className="campus-section-outer">
-          <div className="campus-outer-update">{outerUpdates[1].title}</div>
+          <div className="campus-outer-update text-crop-1">
+            {outerUpdates[1].title}
+          </div>
           <Link to={outerUpdates[1].link}>
             <button className="campus-outer-link">Click here</button>
           </Link>

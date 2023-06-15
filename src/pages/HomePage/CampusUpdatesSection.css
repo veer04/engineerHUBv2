@@ -51,6 +51,7 @@
 .campus-outer-update {
   font-size: 1.5rem;
   text-overflow: ellipsis;
+  overflow: hidden;
 }
 .campus-outer-link {
   width: 7rem;
