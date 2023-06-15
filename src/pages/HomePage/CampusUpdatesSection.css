@@ -34,6 +34,7 @@
   background-color: var(--primary-color-yellow);
   border-radius: 0.5rem;
   padding: 2rem;
+  width: 50%;
 }
 .campus-update-title {
   margin: 0.5rem 0;
@@ -50,6 +51,7 @@
 .campus-outer-update {
   font-size: 1.5rem;
   text-overflow: ellipsis;
+  overflow: hidden;
 }
 .campus-outer-link {
   width: 7rem;

@@ -88,7 +88,7 @@ export default function Modal({ handleClose, setShowModal }) {
               <div>Event Poster</div>
               <img src={event.eventPoster} alt="event poster" />
             </div>
-            <div className="features-container">
+            {/* <div className="features-container">
               <div>Key Features</div>
               <div className="features">
                 <ul>
@@ -102,7 +102,7 @@ export default function Modal({ handleClose, setShowModal }) {
                   </li>
                 </ul>
               </div>
-            </div>
+            </div> */}
           </div>
           <div className="details-container">
             <div className="details">

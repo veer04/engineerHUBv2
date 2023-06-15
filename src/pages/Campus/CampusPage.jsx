@@ -6,10 +6,9 @@ import { useEffect, useState } from "react";
 import {
   controller,
   getAllCampuses,
-  getEvents,
+  getFeaturedEvents,
 } from "../../services/APIConfig";
 import CampusEventTab from "../../components/CampusEventTab/CampusEventTab";
-import { getEventById } from "../../services/APIConfig";
 import CampusSearchBox from "../../components/CampusSearchBox/CampusSearchBox";
 import { useNavigate } from "react-router";
 import useNavbar from "../../hooks/use-navbar";
@@ -75,7 +74,7 @@ export default function CampusPage() {
   const [allCampuses, setAllCampuses] = useState([]);
 
   useEffect(() => {
-    getEventById(setEvents);
+    getFeaturedEvents(setEvents);
     getAllCampuses(setAllCampuses);
     window.scrollTo(0, 0);
     setSelectedPageNavbar("campus");
@@ -107,7 +106,7 @@ export default function CampusPage() {
       <h1 className="heading-3">Campus</h1>
       <h2 className="subheading-1">
         What's happening inside is no more hidden now !
-        Explore--Network--Participate--Host
+        <strong> Explore--Network--Participate--Host</strong>
       </h2>
       <div className="search-bar__container">
         <div>

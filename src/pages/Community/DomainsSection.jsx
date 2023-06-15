@@ -8,9 +8,10 @@ import { IoIosArrowDown } from "react-icons/io";
 
 export default function DomainsSection() {
   const [domainData, setDomainData] = useState(
-    sessionStorage.getItem("domainData")
-      ? JSON.parse(sessionStorage.getItem("domainData"))
-      : []
+    // sessionStorage.getItem("domainData")
+    //   ? JSON.parse(sessionStorage.getItem("domainData"))
+    //   :
+    []
   );
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -21,12 +22,18 @@ export default function DomainsSection() {
     };
   }, []);
 
-  useEffect(() => {
-    sessionStorage.setItem("domainData", JSON.stringify(domainData));
-  }, [domainData]);
+  // useEffect(() => {
+  //   setCurrentData(domainData.slice(0, 6));
+  // }, [domainData]);
+
+  // useEffect(() => {
+  //   sessionStorage.setItem("domainData", JSON.stringify(domainData));
+  // }, [domainData]);
 
   const [current, setCurrent] = useState(1);
-  const [displayButton, setDisplayButton] = useState(true);
+  // const [displayButton, setDisplayButton] = useState(true);
+
+  // const [currentData, setCurrentData] = useState(domainData.slice(0, 6));
 
   const categories = [
     {
@@ -42,13 +49,17 @@ export default function DomainsSection() {
   const colors = ["#F7D77F", "#8FC8E8", "#B2E887", "#E8BA98"];
 
   const [renderedAll, setRenderedAll] = useState(
-    <Domains domains={domainData.slice(0, 6)} />
+    <Domains domains={domainData} />
   );
 
-  function handleClick() {
+  useEffect(() => {
     setRenderedAll(<Domains domains={domainData} />);
-    setDisplayButton(false);
-  }
+  }, [domainData]);
+
+  // function handleClick() {
+  //   setRenderedAll(<Domains domains={domainData} />);
+  //   setDisplayButton(false);
+  // }
 
   const renderedTrending = (
     <Domains domains={domainData.filter((item) => item.isTrending)} />
@@ -58,10 +69,10 @@ export default function DomainsSection() {
     <div className="community-domains-section">
       <h1 className="heading-3">Our Domains</h1>
       <h2 className="subheading-1">
-        engineerHUB’s technical domains cover a range of skills and expertise
-        needed to create and deliver innovative software solutions that can help
-        businesses succeed in today's digital landscape and meet their unique
-        needs and requirements.
+        Our technical areas specialize students in what industry is looking for
+        in candidates, rather than spending ample time in building general
+        skills. Now is the time to start developing skills in the field where
+        our interests lie and build a career in that direction.
       </h2>
       <CategoryBar
         categories={categories}
@@ -72,13 +83,13 @@ export default function DomainsSection() {
         {current === 1 && renderedAll}
         {current === 2 && renderedTrending}
       </div>
-      {displayButton && current === 1 && (
+      {/* {displayButton && current === 1 && (
         <div className="load-more">
           <button onClick={handleClick}>
             View More <IoIosArrowDown />
           </button>
         </div>
-      )}
+      )} */}
     </div>
   );
 }

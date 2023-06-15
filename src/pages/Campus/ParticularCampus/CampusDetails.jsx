@@ -29,54 +29,6 @@ export default function CampusDetails({ path }) {
 
   const [current, setCurrent] = useState(1);
 
-  const courseDetails = [
-    {
-      _id: 1,
-      name: "B.E/B.Tech",
-      longName: "B.Tech in Computer Science and Engineering",
-      duration: "4 years",
-      fees: "₹ 1,00,000",
-      seats: "100",
-      link: "https://react-icons.github.io/react-icons",
-    },
-    {
-      _id: 2,
-      name: "B.E/B.Tech",
-      longName: "B.Tech in Computer Science",
-      duration: "4 years",
-      fees: "₹ 1,00,000",
-      seats: "100",
-      link: "www.google.com",
-    },
-    {
-      _id: 3,
-      name: "B.E/B.Tech",
-      longName: "B.Tech in Computer Science",
-      duration: "4 years",
-      fees: "₹ 1,00,000",
-      seats: "100",
-      link: "www.google.com",
-    },
-    {
-      _id: 4,
-      name: "B.E/B.Tech",
-      longName: "B.Tech in Computer Science",
-      duration: "4 years",
-      fees: "₹ 1,00,000",
-      seats: "100",
-      link: "www.google.com",
-    },
-    {
-      _id: 5,
-      name: "B.E/B.Tech",
-      longName: "B.Tech in Computer Science",
-      duration: "4 years",
-      fees: "₹ 1,00,000",
-      seats: "100",
-      link: "www.google.com",
-    },
-  ];
-
   //function to filter courses name from campus data
   const filterCourses = (campus) => {
     let courses = [];
@@ -89,6 +41,38 @@ export default function CampusDetails({ path }) {
     }
     return courses;
   };
+
+  const downloadSvg = (
+    <svg
+      width="15"
+      height="15"
+      viewBox="0 0 15 15"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M14 9.66797V12.5569C14 12.9399 13.8478 13.3073 13.5769 13.5782C13.306 13.8491 12.9386 14.0013 12.5556 14.0013H2.44444C2.06135 14.0013 1.69395 13.8491 1.42307 13.5782C1.15218 13.3073 1 12.9399 1 12.5569V9.66797"
+        stroke="white"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M3.88867 6.05469L7.49978 9.6658L11.1109 6.05469"
+        stroke="white"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M7.5 9.66667V1"
+        stroke="white"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
 
   return (
     <div className="campus-details-page">
@@ -130,38 +114,7 @@ export default function CampusDetails({ path }) {
                     {course.branch} in {course.courseField}
                   </div>
                   <a href={course.Brochure} target="_blank">
-                    <div className="brochure">
-                      <svg
-                        width="15"
-                        height="15"
-                        viewBox="0 0 15 15"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M14 9.66797V12.5569C14 12.9399 13.8478 13.3073 13.5769 13.5782C13.306 13.8491 12.9386 14.0013 12.5556 14.0013H2.44444C2.06135 14.0013 1.69395 13.8491 1.42307 13.5782C1.15218 13.3073 1 12.9399 1 12.5569V9.66797"
-                          stroke="white"
-                          strokeWidth="1.5"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                        <path
-                          d="M3.88867 6.05469L7.49978 9.6658L11.1109 6.05469"
-                          stroke="white"
-                          strokeWidth="1.5"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                        <path
-                          d="M7.5 9.66667V1"
-                          stroke="white"
-                          strokeWidth="1.5"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                      </svg>
-                      Brochure
-                    </div>
+                    <div className="brochure">{downloadSvg}Brochure</div>
                   </a>
                 </div>
                 <div className="row-2">
