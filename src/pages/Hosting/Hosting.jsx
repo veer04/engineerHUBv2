@@ -108,7 +108,7 @@ export default function Hosting() {
         <div className="heading">
           For <span>Engaging</span> your target audience
         </div>
-        <div className="cards">
+        <div className="cards ">
           {/* <Link to="/hostevent"> */}
           <div
             onClick={navigationClub}

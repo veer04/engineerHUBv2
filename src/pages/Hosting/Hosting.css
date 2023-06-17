@@ -34,8 +34,10 @@
   display: flex;
   flex-direction: row;
   width: 100%;
-  justify-content: flex-start;
+  justify-content: center;
+  align-items: center;
   gap: 2.5rem;
+  margin-bottom: 2%;
   flex-wrap: wrap;
   /* border-radius: rem; */
 }
@@ -73,4 +75,11 @@
   .hosting-page > .box-container > .cards {
     justify-content: space-evenly;
   }
+}
+
+.box-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
 }

@@ -84,17 +84,17 @@ const Company = () => {
       },
       link: "/company/projects",
     },
-    {
-      name: "be an intern",
-      desc: "Grab Paid Internships and Training programs for your Summer and Winter Holidays.",
-      char: `${bucket}InternChar.svg`,
-      background: "#E8BA98",
-      stats: {
-        position: "30",
-        hiring: "10",
-      },
-      link: "/company/events",
-    },
+    // {
+    //   name: "be an intern",
+    //   desc: "Grab Paid Internships and Training programs for your Summer and Winter Holidays.",
+    //   char: `${bucket}InternChar.svg`,
+    //   background: "#E8BA98",
+    //   stats: {
+    //     position: "30",
+    //     hiring: "10",
+    //   },
+    //   link: "/company/events",
+    // },
   ];
   const JobCardEntries = [
     {
