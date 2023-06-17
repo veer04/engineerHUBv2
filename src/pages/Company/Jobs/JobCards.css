@@ -55,11 +55,15 @@
   flex-direction: row;
 }
 .JobCard .cardFooter span {
-  width: 58px;
-  height: 58px;
+  min-width: 58px;
+  max-width: 58px;
+  aspect-ratio: 1/1;
   border-radius: 50%;
   background: #f9f9f9;
   padding: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .JobCard .cardFooter span img {
   width: 100%;

@@ -509,12 +509,13 @@ const validateInput5=()=>
                         helperText={errors.alterNetMobileNo}
                       />
 
-
+            <label htmlFor="applicationStartTime"> Starting Date</label>
              
                 
              <TextField
                         name="Application Start Date"
-                        label="Application Start Date"
+                        // label="Application Start Date"
+                        id="applicationStartTime"
                         variant="outlined"
                         type ="date"
                         value={applicationStartTime}
@@ -524,9 +525,11 @@ const validateInput5=()=>
                         error={!!errors.applicationStartTime}
                         helperText={errors.applicationStartTime}
                       />
+              <label htmlFor="applicationEndTime"> End Date</label>
                         <TextField
                         name="Application End Date"
-                        label="Application End Date"
+                        id="applicationEndTime"
+                        // label="Application End Date"
                         variant="outlined"
                         type ="date"
                         value={applicationEndTime}
