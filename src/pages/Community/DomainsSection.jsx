@@ -56,6 +56,14 @@ export default function DomainsSection() {
     setRenderedAll(<Domains domains={domainData} />);
   }, [domainData]);
 
+  useEffect(() => {
+    //filter out domain with name "Non-Technical"
+    const filteredData = domainData.filter(
+      (item) => item.domain !== "Non-Technical"
+    );
+    setRenderedAll(<Domains domains={filteredData} />);
+  }, [domainData]);
+
   // function handleClick() {
   //   setRenderedAll(<Domains domains={domainData} />);
   //   setDisplayButton(false);
