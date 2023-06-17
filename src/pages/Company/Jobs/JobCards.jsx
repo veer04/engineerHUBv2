@@ -9,10 +9,10 @@ const JobCards = ({ details }) => {
         <h6>
           Average CTC : <b>{details.ctc}</b>
         </h6>
-        <h6>
+        <h6 className="text-crop-1 overflow-hidden">
           Job Location : <b>{details.location}</b>
         </h6>
-        <h3>{details.name}</h3>
+        <h3 className="text-crop-3 overflow-hidden p-0">{details.name}</h3>
         <span className="Tags">
           {details.tags.map((tag, index) => (
             <Chip
@@ -34,7 +34,7 @@ const JobCards = ({ details }) => {
         <span>
           <img src={details.logo} alt="Job Logo" />
         </span>
-        <h5>{details.name}</h5>
+        <h5 className="text-crop-2 overflow-hidden">{details.name}</h5>
         <a
           href={`/company/jobs/${details.jobId}`}
           style={{ textDecoration: "none" }}
