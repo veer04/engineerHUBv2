@@ -7,8 +7,12 @@ import "./HackathonDetails.css";
 import HackathonDesc from "./HackathonDesc";
 import { useParams } from "react-router-dom";
 import { Bucket_URL } from "../../../../services/APIUtils";
+import { useEffect } from "react";
 
 const Card = ({ details }) => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <div className="Card">
       <div className="cardImg">
