@@ -31,8 +31,8 @@ export default function ProjectPage({ path }) {
   const [projects, setProjects] = useState(
     // sessionStorage.getItem(`${id} projects`)
     //   ? JSON.parse(sessionStorage.getItem(`${id} projects`))
-    //   : 
-      []
+    //   :
+    []
   );
 
   useEffect(() => {
@@ -91,8 +91,8 @@ export default function ProjectPage({ path }) {
   const filteredData = useMemo(() => {
     return projects.filter((value) => {
       return (
-        value.projectName.toLowerCase().includes(query.toLowerCase()) ||
-        value.techStack.some((tag) =>
+        value.projectName?.toLowerCase().includes(query.toLowerCase()) ||
+        value.techStack?.some((tag) =>
           tag.toLowerCase().includes(query.toLowerCase())
         )
       );
