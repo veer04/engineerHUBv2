@@ -9,9 +9,10 @@ import { Bucket_URL } from "../../../services/APIUtils";
 
 const ProjectDetail = () => {
   const bucket = `${Bucket_URL}frontend/company/`;
+  const bucket2=`${Bucket_URL}frontend/global/`;
   const HTMLEntries = [
     {
-      name: "Need a Professional Web Developer to redesign my website",
+      name: "Need a Professional Web Developer",
       img: `${bucket2}default_poster.png`,
       desc: "We are seeking a talented web developer with extensive experience in website redesign to join our team. The successful candidate will be responsible for improving the look, feel, and functionality of our website to enhance user experience and increase website traffic.",
       organization: {
@@ -21,10 +22,10 @@ const ProjectDetail = () => {
       },
       software: [],
       prerequisites: [
-        "lorem ipsum dolor sit amet consectetur",
-        "lorem ipsum dolor sit amet consectetur",
-        "lorem ipsum dolor sit amet consectetur",
-        "lorem ipsum dolor sit amet consectetur",
+        // "lorem ipsum dolor sit amet consectetur",
+        // "lorem ipsum dolor sit amet consectetur",
+        // "lorem ipsum dolor sit amet consectetur",
+        // "lorem ipsum dolor sit amet consectetur",
       ],
       tags: ["JavaScript", "PHP", "HTML", "CSSWordPress", "WordPress Design", "Web Hosting","Web DesignSQL", "JQuery"],
       link: "https://www.remotehub.com/jobs/details/need-a-professional-web-developer-to-redesign-64515711edae3a425f4d4678",
@@ -59,7 +60,7 @@ const ProjectDetail = () => {
       projectId: 1234,
     },
     {
-      name: "Personalized Internet Ads Assessor (IN)",
+      name: "Personalized Internet Ads Assessor",
       img: `${bucket2}default_poster.png`,
       desc: "Calling all Urdu speakers in India! Experience the ultimate fusion of flexibility and excitement with TELUS International AI Data Solutions. Join us as a Personalized Internet Ads Assessors and unlock the perfect work-life balance you've been dreaming of.Who is suitable for this work? We are looking for dynamic people who have strong communication skills and use the Internet daily. This is a freelance, independent contractor position. You will have the flexibility and freedom to work from your own home, working your own hours.",
       organization: {
@@ -107,7 +108,7 @@ const ProjectDetail = () => {
       projectId: 1234,
     },
     {
-      name: "HTML CSS Javascript- Game developer",
+      name: "Game developer",
       img: `${bucket2}default_poster.png`,
       desc: "Hey, need to  create game on HTML5 CSS JS with 3 levels and background and speed change at every level User will get 3 coupons basis on the level they pass this game will be shown during the advertisements  for this we need a freelancer who can create a web app", organization: {
         name: "QAgile Services",

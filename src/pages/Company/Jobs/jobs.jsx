@@ -10,16 +10,19 @@ import { Bucket_URL } from "../../../services/APIUtils";
 
 const Jobs = () => {
   const bucket = `${Bucket_URL}frontend/company/jobs/`;
+  const bucket2 = `${Bucket_URL}frontend/company/`;
   const [search, setSearch] = useState("");
   const CardEntries = [
+   
     {
       name: "Software Engineer",
       tags: ["Engineer", "Developer","C#", "DevOps", "OOPs"],
       ctc: "14-16 LPA",
       location: "Gurugram, India",
-      logo: `${bucket}uber.svg`,
+      logo: `${bucket2}Natwest.jpeg`,
       bg: "#8FC8E8",
       jobId: 1234,
+      link:"https://jobs.natwestgroup.com/jobs/12779776-software-engineer?bid=370",
       org: "NatWest Group",
       desc:" Our people work differently depending on their jobs and needs. From hybrid working to flexible hours , we have plenty of options that help our people to thrive.This role is based in India and as such all normal working days must be carried out in India.Join us as a Software Engineer In your new role, you’ll engineer and maintain innovative, customer centric, high performance, secure and robust solutions We’ll look to you to design and engineer software focusing on the customer or user experience as the primary objective It’s a chance to hone your existing technical skills and advance your career as you develop the discipline of software engineering across the business This role is available at associate level",
       req: [
@@ -43,7 +46,8 @@ const Jobs = () => {
       tags: [".NET", "RESTful API", "SQL", "Github", "JIRA", "Confluence", "Slack or similar"],
       ctc: "10-12 LPA",
       location: "Bengaluru, India",
-      logo: `${bucket}google.svg`,
+      logo: `${bucket2}OutSystems.png`,
+      link:"https://www.outsystems.com/careers/job-detail/8a78859e88983a4f0188a0191dd80299/?gnk=job&gni=8a78859e88983a4f0188a0191dd80299",
       bg: "#B2E887",
       jobId: 1233,
       org: "OutSystems",
@@ -74,7 +78,8 @@ const Jobs = () => {
       tags: ["Java", "kotlin",],
       ctc: "9-10.5 LPA",
       location: "Bengaluru, India",
-      logo: `${bucket}microsoft.svg`,
+      logo: `${bucket2}Victoria.jpg`,
+      link:"https://careers.victoriassecret.com/en/job/18528007/associate-software-engineer-n-bangalore-in/",
       bg: "#E8BA98",
       jobId: 1232,
       org: "Victoria’s Secret ",
@@ -107,7 +112,8 @@ const Jobs = () => {
       tags: ["Engineer", "Developer"],
       ctc: "10-12 LPA",
       location: "IN_Bangalore_EOIZ Indust Area Campus",
-      logo: `${bucket}uber.svg`,
+      logo: `${bucket2}Harman.png`,
+      link:"https://harman.wd3.myworkdayjobs.com/en-US/HARMAN/job/IN_Bangalore_EOIZ-Indust-Area-Campus/Data-Scientist_R-27234-2023",
       bg: "#8FC8E8",
       jobId: 1234,
       org: "HARMAN International ",
@@ -132,7 +138,8 @@ const Jobs = () => {
       tags: ["Java", "Python", "C++", "ASP.Net", "MySQL" , "MongoDB"],
       ctc: "8-11 LPA",
       location: "KOCHI, INDIA ",
-      logo: `${bucket}google.svg`,
+      logo: `${bucket2}Nielsen.png`,
+      link:"https://jobs.lever.co/nielsen/8d83cd35-666d-420c-8a08-e8901abd48bd?lever-source=LinkedIn",
       bg: "#F7D77F",
       jobId: 1233,
       org: "Nielsen",
@@ -161,10 +168,12 @@ const Jobs = () => {
       tags: ["C++",  "Perl", "Python", "Shell", "TCL/TK",  "AutoIT" ],
       ctc: "7-8.5 LPA",
       location: "Hyderabad, India",
-      logo: `${bucket}microsoft.svg`,
+      link:"https://careers.amd.com/careers-home/jobs/30489?lang=en-us&iis=Job%20Board&iisn=Linkedin",
+      logo: `${bucket2}Amd.png`,
       bg: "#E8BA98",
       jobId: 1232,
-      org: "Microsoft",
+      org: "AMD technology ",
+
       desc: "WHAT YOU DO AT AMD CHANGES EVERYTHING We care deeply about transforming lives with AMD technology to enrich our industry, our communities, and the world. Our mission is to build great products that accelerate next-generation computing experiences – the building blocks for the data center, artificial intelligence, PCs, gaming and embedded. Underpinning our mission is the AMD culture. We push the limits of innovation to solve the world’s most important challenges. We strive for execution excellence while being direct, humble, collaborative, and inclusive of diverse perspectives. This is who we are at our best. One Company. One Team.AMD together we advance SOFTWARE SYSTEM DESIGNER 1",
       req: [
         "This is an exciting role in which you will have excellent exposure to all the latest AMD (Advanced Micro Devices) technologies. Imagine yourself as part of the team which will deliver our next generation of our products or automation for many of our reference solutions. This is a phenomenal opportunity to work in an outstanding company like AMD.   ",
@@ -189,7 +198,6 @@ const Jobs = () => {
         type: "Full-Time",
       },
     },
-
 
 
 

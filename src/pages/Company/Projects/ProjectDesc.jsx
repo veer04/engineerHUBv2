@@ -29,22 +29,22 @@ const ProjectDesc = ({ data }) => {
         </span>
       </div>
       <div className="ProjectPrerequisite">
-        <div className="prerequisite">
+        {/* <div className="prerequisite">
           <h5>Prequsites</h5>
           <ul>
             {data.prerequisites.map((prereq) => {
               return <li>{prereq}</li>;
             })}
           </ul>
-        </div>
-        <div className="software">
+        </div> */}
+        {/* <div className="software">
           <h5>Software Used</h5>
           <ul>
             {data.software.map((softw) => {
               return <li>{softw}</li>;
             })}
           </ul>
-        </div>
+        </div> */}
       </div>
       <div className="AdditionalInfo">
         <div className="AdditionalInfoChip">
