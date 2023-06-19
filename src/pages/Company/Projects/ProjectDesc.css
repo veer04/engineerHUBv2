@@ -142,7 +142,9 @@
   padding: 18px;
   text-align: center;
 }
-
+.applyBtnFontColor{
+  color: #ffffff;
+}
 @media screen and (max-width: 768px) {
   .ProjectDesc {
     padding: 20px;

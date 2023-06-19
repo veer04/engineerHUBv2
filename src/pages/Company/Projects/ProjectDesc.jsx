@@ -1,9 +1,11 @@
 import React from "react";
 import "./ProjectDesc.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,Link } from "react-router-dom";
 const ProjectDesc = ({ data }) => {
   const navigate =useNavigate();
+  // var Navik=data.Link
   return (
+
     <div className="ProjectDesc">
       <div className="ProjectDescHeader">
         <span className="logoIcon">
@@ -54,9 +56,12 @@ const ProjectDesc = ({ data }) => {
           <p>{data.info.availability}hr/day</p>
         </div>
       </div>
-      <div className="ApplyNowBtn"
-      onClick={()=>navigate("/register")}
-      >Apply Now</div>
+      <div className="ApplyNowBtn">
+      <Link to={data.link}
+      className="applyBtnFontColor"
+      >Apply Now </Link>
+      </div>
+      
     </div>
   );
 };
