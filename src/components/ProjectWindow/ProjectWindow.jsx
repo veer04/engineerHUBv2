@@ -166,7 +166,7 @@ export default function ProjectWindow({ projectOpened, setIsProjectOpen }) {
           </div>
           <div className="info__item">
             <div className="label">Work Availability</div>
-            <div className="value">{project.workAvailability}hr/day</div>
+            <div className="value">{project.workAvailability}</div>
           </div>
         </div>
       </div>
