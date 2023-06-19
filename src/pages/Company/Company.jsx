@@ -99,14 +99,14 @@ const Company = () => {
   const JobCardEntries = [
     {
       name: "Software Engineer",
-      tags: ["Engineer", "Developer","C#", "DevOps", "OOPs"],
+      tags: ["Engineer", "Developer", "C#", "DevOps", "OOPs"],
       ctc: "14-16 LPA",
       location: "Gurugram, India",
       logo: `${bucket}uber.svg`,
       bg: "#8FC8E8",
       jobId: 1234,
       org: "NatWest Group",
-      desc:" Our people work differently depending on their jobs and needs. From hybrid working to flexible hours , we have plenty of options that help our people to thrive.This role is based in India and as such all normal working days must be carried out in India.Join us as a Software Engineer In your new role, you’ll engineer and maintain innovative, customer centric, high performance, secure and robust solutions We’ll look to you to design and engineer software focusing on the customer or user experience as the primary objective It’s a chance to hone your existing technical skills and advance your career as you develop the discipline of software engineering across the business This role is available at associate level",
+      desc: " Our people work differently depending on their jobs and needs. From hybrid working to flexible hours , we have plenty of options that help our people to thrive.This role is based in India and as such all normal working days must be carried out in India.Join us as a Software Engineer In your new role, you’ll engineer and maintain innovative, customer centric, high performance, secure and robust solutions We’ll look to you to design and engineer software focusing on the customer or user experience as the primary objective It’s a chance to hone your existing technical skills and advance your career as you develop the discipline of software engineering across the business This role is available at associate level",
       req: [
         "What you'll do As a Software Engineer, you’ll design, develop and deploy applications capable of meeting and exceeding the anticipated load, performance and availability volumes, including load balancing, performance testing and benchmarking. You'll be working across the life cycle, from requirements analysis and design, through coding to testing, deployment and operations.",
         "coding to testing, deployment and operations. You’ll be working within a feature team and using extensive experience to engineer software, scripts and tools that are often complex, as well as liaising with other engineers, architects and business analysts across the platform.  You’ll also be:  ",
@@ -125,7 +125,15 @@ const Company = () => {
     },
     {
       name: "Associate Software Engineer",
-      tags: [".NET", "RESTful API", "SQL", "Github", "JIRA", "Confluence", "Slack or similar"],
+      tags: [
+        ".NET",
+        "RESTful API",
+        "SQL",
+        "Github",
+        "JIRA",
+        "Confluence",
+        "Slack or similar",
+      ],
       ctc: "10-12 LPA",
       location: "Bengaluru, India",
       logo: `${bucket}google.svg`,
@@ -141,7 +149,7 @@ const Company = () => {
         "Participate in all Agile ceremonies, representing quality to provide estimates, test status and risk assessment.",
         "Bachelor or Master's Degree in Software Engineering, Computer Science, or similar. If you do not have one but you have equivalent real-world experience (and can show it), we still want to hear from you.",
         "0-2 years of building software applications running in a large-scale distributed computing infrastructure in a cloud environment",
-        "Non nec tristique consectetur sed non scelerisque magna ut adipiscingKnowledge of APIs and web services (RESTful). ", 
+        "Non nec tristique consectetur sed non scelerisque magna ut adipiscingKnowledge of APIs and web services (RESTful). ",
         "Knowledge of .NET technologies",
         "Familiarity with SQL.",
         "Good troubleshooting skills.",
@@ -156,7 +164,7 @@ const Company = () => {
     },
     {
       name: "Associate Software Engineer",
-      tags: ["Java", "kotlin",],
+      tags: ["Java", "kotlin"],
       ctc: "9-10.5 LPA",
       location: "Bengaluru, India",
       logo: `${bucket}microsoft.svg`,
@@ -214,7 +222,7 @@ const Company = () => {
     },
     {
       name: "Junior Software Developer (Java & Python)",
-      tags: ["Java", "Python", "C++", "ASP.Net", "MySQL" , "MongoDB"],
+      tags: ["Java", "Python", "C++", "ASP.Net", "MySQL", "MongoDB"],
       ctc: "8-11 LPA",
       location: "KOCHI, INDIA ",
       logo: `${bucket}google.svg`,
@@ -243,7 +251,7 @@ const Company = () => {
     },
     {
       name: "Software System Designer 1",
-      tags: ["C++",  "Perl", "Python", "Shell", "TCL/TK",  "AutoIT" ],
+      tags: ["C++", "Perl", "Python", "Shell", "TCL/TK", "AutoIT"],
       ctc: "7-8.5 LPA",
       location: "Hyderabad, India",
       logo: `${bucket}microsoft.svg`,
@@ -278,6 +286,7 @@ const Company = () => {
   const HackathonCardEntries = [
     {
       name: "Google Problem Solution Challenge - UNESCO",
+      link: "1234",
       logo: `${bucket}google.svg`,
       imgBanner: `${bucket}googleBanner.png`,
       locations: "Google, USA",
@@ -330,6 +339,7 @@ const Company = () => {
     },
     {
       name: "CyberHavoc CTF",
+      link: "1233",
       logo: `${bucket}prodigy.svg`,
       imgBanner: `${bucket}prodigyBanner.png`,
       locations: "NIT, Surat",
@@ -382,6 +392,7 @@ const Company = () => {
     },
     {
       name: "Accenture Hack Diva",
+      link: "1232",
       logo: `${bucket}accenture.svg`,
       imgBanner: `${bucket}accentureBanner.png`,
       locations: "Accenture, Delhi",

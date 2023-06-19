@@ -4,10 +4,17 @@ import { BsStar } from "react-icons/bs";
 import { CgEye } from "react-icons/cg";
 import { Chip } from "@mui/material";
 import "./HackathonCards.css";
+import { useNavigate } from "react-router-dom";
 
 const HackathonCard = ({ details }) => {
+  const navigate = useNavigate();
   return (
-    <div className="HackathonCard">
+    <div
+      onClick={() => {
+        details.link && navigate(`/company/events/hackathons/${details.link}`);
+      }}
+      className="HackathonCard"
+    >
       <div className="cardImg">
         <img src={details.imgBanner} alt="" />
         <span className="GoogleIcon">
@@ -21,7 +28,7 @@ const HackathonCard = ({ details }) => {
           {details.tags.map((tag, index) => (
             <Chip
               key={index}
-            variant="outlined"
+              variant="outlined"
               size="small"
               label={tag}
               style={{
