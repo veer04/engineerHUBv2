@@ -20,7 +20,6 @@ import ClubsPage from "./pages/Campus/ParticularCampus/ClubsPage";
 import AlumniPage from "./pages/Campus/ParticularCampus/AlumniPage";
 import ParticularClub from "./pages/Campus/ParticularCampus/ParticularClub";
 // import Login from "./pages/User/Login/Login";
-import Profile from "./pages/User/Profile/Profile";
 import Signup from "./pages/User/Signup/Signup";
 import RegistrationForm from "./components/Registration/Registration";
 import OTP from "./pages/User/OtpVerification/Otpverification";
@@ -48,7 +47,6 @@ import Role from "./pages/User/RoleWiseUserPage/Role";
 import PostModal from "./components/PostModal/PostModal";
 import ParticularAlumni from "./pages/Campus/ParticularCampus/ParticularAlumni";
 // import ProfilePage from "./pages/User/Profile/ProfilePage";
-import VerificationModal from "./components/VerificationModal/VerificationModal";
 import StudentSignup from "./pages/User/Signup/StudentSignup";
 import StudentProfilePage from "./pages/User/Profile/StudentProfile/StudentProfilePage";
 import GeneralStudentData from "./pages/User/Profile/StudentProfile/GeneralStudentData";
@@ -200,10 +198,9 @@ function App() {
             </Route>
           </Route>
           <Route path="/mentorship" element={<ComingSoon />} />
-        
+
           <Route path="/hostevent" element={<HostEvent />} />
-          <Route path="/hostjob" element={<JobRegistration/>}
-          />
+          <Route path="/hostjob" element={<JobRegistration />} />
           <Route path="hosting">
             <Route index element={<Hosting />} />
           </Route>
