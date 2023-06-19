@@ -1,119 +1,109 @@
-import React from 'react'
 import { Bucket_URL } from "../../../services/APIUtils";
-import { Link ,useNavigate} from "react-router-dom";
-import { BsArrowRight } from "react-icons/bs";
-import "../../Hosting/Hosting.css";
-import Student from "./Images/student.png";
-import Club from "./Images/Club.png";
-import Company from "./Images/Company.png";
-import Mentor from "./Images/Mentor.png";
+import { useNavigate } from "react-router-dom";
 import "./Role.css";
-const Role = () => {
+export default function Role() {
   const handleCardClick = (role) => {
-    localStorage.setItem('role', role);
-   
+    localStorage.setItem("role", role);
     let value;
     switch (role) {
-      case 'User':
-        value = 'User';
+      case "User":
+        value = "User";
         break;
-      case 'Alumni':
-        value = 'Alumni';
+      case "Alumni":
+        value = "Alumni";
         break;
-      case 'Organization':
-        value = 'Organization';
+      case "Organization":
+        value = "Organization";
         break;
-      case 'Club':
-        value = 'Club';
+      case "Club":
+        value = "Club";
         break;
       default:
-        value = '';
+        value = "";
     }
-    localStorage.setItem('value', value);
-  }
-  
-  const navigate =useNavigate();
-  const bucket = `${Bucket_URL}frontend/hosting/`;
-const studentNavigation=()=>{
-  handleCardClick('User')
-  navigate("/student-signup");
-}
-const mentorNavigation=()=>{
-  handleCardClick('Alumni')
-  navigate("/mentorSignup");
+    localStorage.setItem("value", value);
+  };
+  const navigate = useNavigate();
+  const bucket = `${Bucket_URL}frontend/auth/roleselection/`;
+  const studentNavigation = () => {
+    handleCardClick("User");
+    navigate("/student-signup");
+  };
+  const mentorNavigation = () => {
+    handleCardClick("Alumni");
+    navigate("/mentorSignup");
+  };
+  const clubNavigation = () => {
+    handleCardClick("Club");
+    navigate("/clubSignup");
+  };
+  const organizationNavigation = () => {
+    handleCardClick("Organization");
+    navigate("/organizationSignup");
+  };
 
-}
-const clubNavigation=()=>{
-  handleCardClick('Club')
-  navigate("/clubSignup");
-}
-const organizationNavigation=()=>{
-  handleCardClick('Organization')
-  navigate("/organizationSignup");
-}
-
-
-
-
-  const navigationFunction =()=>{
-    if (val===1)
+  const roles = [
     {
-      const decoded = jwt_decode(token);
-      console.log(decoded);
-      console.log(decoded.role);
-      if(decoded.role==="Organization")
-      {
-        navigate("/hostevent");
-      }
-      else {
-        window.alert("Not Authorized to Host events!!!");
-      }
-    }
-    else{
-      navigate("/login");
-    }
-}
+      id: 1,
+      title: "Student",
+      image: `${bucket}student.png`,
+      description:
+        "Lorem ipsum dolor sit amet consectetur. Enim sed id porttitor vivamus. Velit libero leo tincidunt id sed.",
+      onClick: studentNavigation,
+    },
+    {
+      id: 2,
+      title: "Alma",
+      image: `${bucket}alumni.png`,
+      description:
+        "Lorem ipsum dolor sit amet consectetur. Enim sed id porttitor vivamus. Velit libero leo tincidunt id sed.",
+      onClick: mentorNavigation,
+    },
+    {
+      id: 3,
+      title: "Club",
+      image: `${bucket}club.png`,
+      description:
+        "Lorem ipsum dolor sit amet consectetur. Enim sed id porttitor vivamus. Velit libero leo tincidunt id sed.",
+      onClick: clubNavigation,
+    },
+    {
+      id: 4,
+      title: "Company",
+      image: `${bucket}organization.png`,
+      description:
+        "Lorem ipsum dolor sit amet consectetur. Enim sed id porttitor vivamus. Velit libero leo tincidunt id sed.",
+      onClick: organizationNavigation,
+    },
+  ];
   return (
     <>
-    
-   <div className="container">
-    <div className="roles">
-      <div className="roleHeading">
-        Create your Profile As per your Role!
-      </div>
-    </div>
-    <div className="cards cardContainingContainer row container">
-    <div className="cardStudent card-hover col-lg-3">
-    
-   <img src={Student} alt="" height={150} width={150}
-   onClick={studentNavigation} 
-  
-   />
-   Student <BsArrowRight />
-    
-   </div>
-    <div className="cardMentor card-hover col-lg-3">
-    <img src={Mentor} alt="" height={150} width={150}
-   onClick={mentorNavigation} />
-   Alumni <BsArrowRight />
-    </div>
-    <div className="cardClubs card-hover col-lg-3">
-    <img src={Club} alt="" height={150} width={150}
-   onClick={clubNavigation} />
-   Clubs <BsArrowRight />
-   {/* added dummy comment */}
-    </div>
-    <div className="cardOrganization card-hover col-lg-3">
-    <img src={Company} alt="" height={150} width={150}
-   onClick={organizationNavigation} />
-   Organization <BsArrowRight />
-    </div>
-
-    </div>
-
-   </div>
+      <main className="role-selection-page">
+        <h1>Get Started Now</h1>
+        <h2>Select for whom you have to create account for</h2>
+        <section>
+          {roles.map((role) => {
+            return (
+              <div className="role-card" key={role.id}>
+                <div
+                  style={{
+                    backgroundImage: `url(${role.image})`,
+                    backgroundPosition: "center",
+                    backgroundRepeat: "no-repeat",
+                    backgroundColor: "var(--primary-color-green)",
+                  }}
+                  className="role-image"
+                ></div>
+                <div className="body">
+                  <h2 className="title">For {role.title}</h2>
+                  <p className="description text-crop-3">{role.description}</p>
+                  <button onClick={role.onClick}>Create Account</button>
+                </div>
+              </div>
+            );
+          })}
+        </section>
+      </main>
     </>
-  )
-
-  }
-export default Role
+  );
+}
