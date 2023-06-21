@@ -540,24 +540,16 @@ const Company = () => {
         <div className="reviewCard">
           <img src={`${bucket}studentAvatar.svg`} alt="Avatar" />
           <p>
-            Lorem ipsum dolor sit amet consectetur. Enim enim fringilla volutpat
-            accumsan feugiat lobortis. Id ridiculus risus massa est. Tellus enim
-            pellentesque odio posuere purus sit nunc.Lorem ipsum dolor sit amet
-            consectetur. Enim enim fringilla volutpat accumsan feugiat lobortis.
-            Id ridiculus risus massa est. Tellus enim pellentesque odio posuere
-            purus sit nunc
+          EngineerHUB's mentors are truly exceptional! Their expertise and patience made learning complex engineering concepts a breeze. Highly recommended for any student seeking personalized mentorship!
           </p>
           <h6>Girish Shedge</h6>
         </div>
         <div className="reviewCard reviewCard2">
-          <img src={`${bucket}studentAvatar.svg`} alt="Avatar" />
+          <img style={{height: "58px",width:"58px",borderRadius:"50%", objectFit:"cover"}} src={`https://ehubtestbucket.s3.ap-south-1.amazonaws.com/image/teams/Backend/yash.jpeg`} alt="Avatar" />
           <p>
-            Lorem ipsum dolor sit amet consectetur. Enim enim fringilla volutpat
-            accumsan feugiat lobortis. Id ridiculus risus massa est. Tellus enim
-            pellentesque odio posuere purus sit nunc.Lorem ipsum dolor sit amet
-            consectetur.
+          I highly recommend EngineerHUB for students. The live batches are well-structured, and the mentors are experienced and supportive.
           </p>
-          <h6>Girish Shedge</h6>
+          <h6>Yash Vardhan</h6>
         </div>
       </div>
     </div>

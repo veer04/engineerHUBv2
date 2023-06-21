@@ -49,7 +49,7 @@ export default function TrendingClubCard({
         <div>
           <div>{name}</div>
           <div>
-            <span>Followers: {followers}</span>
+            {/* <span>Followers: {followers}</span> */}
             <span>Events: {events}+</span>
           </div>
         </div>

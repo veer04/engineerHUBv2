@@ -157,7 +157,7 @@ export default function ProjectWindow({ projectOpened, setIsProjectOpen }) {
           })}
         </div>
       </div>
-      <div className="project__window__info">
+      {/* <div className="project__window__info">
         <div className="heading">Additional Information</div>
         <div className="info">
           <div className="info__item">
@@ -169,7 +169,7 @@ export default function ProjectWindow({ projectOpened, setIsProjectOpen }) {
             <div className="value">{project.workAvailability}</div>
           </div>
         </div>
-      </div>
+      </div> */}
       <div className="project__window__apply">
         <div className="apply" onClick={() => navigate("/register")}>
           Apply Now
