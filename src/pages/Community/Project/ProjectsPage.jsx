@@ -135,7 +135,7 @@ export default function ProjectPage({ path }) {
       <MobileSidebar path={path} />
       <div className="project-page">
         <div className="community__subpage__heading">
-          <span>Projects</span>
+          <span>Project Ideas</span>
         </div>
         <div className="community__subpage__content">
           <Sidebar path={path} />
