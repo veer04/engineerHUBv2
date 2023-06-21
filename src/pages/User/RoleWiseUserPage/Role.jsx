@@ -48,7 +48,7 @@ export default function Role() {
       title: "Student",
       image: `${bucket}student.png`,
       description:
-        "Lorem ipsum dolor sit amet consectetur. Enim sed id porttitor vivamus. Velit libero leo tincidunt id sed.",
+        "Explore, learn and apply for opportunities by just one-click.",
       onClick: studentNavigation,
     },
     {
@@ -56,7 +56,7 @@ export default function Role() {
       title: "Alma",
       image: `${bucket}alumni.png`,
       description:
-        "Lorem ipsum dolor sit amet consectetur. Enim sed id porttitor vivamus. Velit libero leo tincidunt id sed.",
+        "Your juniors are waiting to connect with you. Lets create one account for them.",
       onClick: mentorNavigation,
     },
     {
@@ -64,15 +64,14 @@ export default function Role() {
       title: "Club",
       image: `${bucket}club.png`,
       description:
-        "Lorem ipsum dolor sit amet consectetur. Enim sed id porttitor vivamus. Velit libero leo tincidunt id sed.",
+        "Get you club activities reach millions. Register to have participants.",
       onClick: clubNavigation,
     },
     {
       id: 4,
       title: "Company",
       image: `${bucket}organization.png`,
-      description:
-        "Lorem ipsum dolor sit amet consectetur. Enim sed id porttitor vivamus. Velit libero leo tincidunt id sed.",
+      description: "Now post for free to have quality candidates.",
       onClick: organizationNavigation,
     },
   ];
@@ -96,7 +95,7 @@ export default function Role() {
                 ></div>
                 <div className="body">
                   <h2 className="title">For {role.title}</h2>
-                  <p className="description text-crop-3">{role.description}</p>
+                  <p className="description">{role.description}</p>
                   <button onClick={role.onClick}>Create Account</button>
                 </div>
               </div>
