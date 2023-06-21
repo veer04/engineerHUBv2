@@ -50,7 +50,7 @@ export default function MainLandingSection() {
               <CountUp
                 start={0}
                 end={850}
-                duration={1.9}
+                duration={2}
                 smooth={true}
                 smartEasingAmount={true}
                 delay={0}
@@ -71,7 +71,7 @@ export default function MainLandingSection() {
               <CountUp
                 start={0}
                 end={50}
-                duration={1.9}
+                duration={2.5}
                 smooth={true}
                 smartEasingAmount={true}
                 delay={0}
