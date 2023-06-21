@@ -30,7 +30,7 @@ export default function SidebarItem({
   }
 
   const { id } = useParams();
-  if(title === "PROJECT IDEAS")
+  if(title === "CHAT")
   return (
     <Link to={`https://discord.com/invite/ZMZAEZ5NfA`}>
       <div onClick={() => handleClick()} className={sidebarItemClass}>
