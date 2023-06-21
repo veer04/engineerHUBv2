@@ -96,10 +96,10 @@ export default function ParticularClub() {
           </div>
         </div>
         <div className="stats">
-          <div>
+          {/* <div>
             <div className="number">{club.followers ? club.followers : ""}</div>
             <div className="label">Followers</div>
-          </div>
+          </div> */}
           <div>
             <div className="number">
               {club.members ? club.members.length : ""}
