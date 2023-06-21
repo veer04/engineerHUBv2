@@ -1,6 +1,7 @@
 import React from "react";
 import "./MainLandingSection.css";
 import { Bucket_URL } from "../../services/APIUtils";
+import CountUp from "react-countup";
 
 export default function MainLandingSection() {
   const bucket = `${Bucket_URL}frontend/homepage/mainlandingsection/`;
@@ -21,11 +22,19 @@ export default function MainLandingSection() {
           <div className="number-container">
             <img
               className="number-image w-100 d-flex justify-content-center"
-              src={`${bucket}students-number.svg`}
+              src={`${bucket}students-number.png`}
               alt="Students number"
             />
             <span className="number-counter w-100 d-flex justify-content-center text-dark-green heading-3">
-              60,000+
+              <CountUp
+                start={0}
+                end={60000}
+                duration={1.9}
+                smooth={true}
+                smartEasingAmount={true}
+                delay={0}
+              ></CountUp>
+              +
             </span>
             <span className="number-title w-100 d-flex justify-content-center text-dark-green subheading-1">
               Students
@@ -34,11 +43,19 @@ export default function MainLandingSection() {
           <div className="number-container">
             <img
               className="number-image w-100"
-              src={`${bucket}campus-number.svg`}
+              src={`${bucket}campus-number.png`}
               alt="Students number"
             />
             <span className="number-counter w-100 d-flex justify-content-center text-dark-green heading-3">
-              850+
+              <CountUp
+                start={0}
+                end={850}
+                duration={1.9}
+                smooth={true}
+                smartEasingAmount={true}
+                delay={0}
+              ></CountUp>
+              +
             </span>
             <span className="number-title w-100 d-flex justify-content-center text-dark-green subheading-1">
               Campus
@@ -47,11 +64,19 @@ export default function MainLandingSection() {
           <div className="number-container">
             <img
               className="number-image w-100 d-flex justify-content-center"
-              src={`${bucket}companies-number.svg`}
+              src={`${bucket}companies-number.png`}
               alt="Students number"
             />
             <span className="number-counter w-100 d-flex justify-content-center text-dark-green heading-3">
-              50+
+              <CountUp
+                start={0}
+                end={50}
+                duration={1.9}
+                smooth={true}
+                smartEasingAmount={true}
+                delay={0}
+              ></CountUp>
+              +
             </span>
             <span className="number-title w-100 d-flex justify-content-center text-dark-green subheading-1">
               Companies
