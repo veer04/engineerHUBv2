@@ -1,7 +1,7 @@
 import React from "react";
 import "./Workshops.css";
 import { useEffect, useState } from "react";
-import { controller, getEventByType } from "../../../services/APIConfig";
+import { controller, getEventByMode } from "../../../services/APIConfig";
 import FeaturedEventsCard2 from "../../../components/FeaturedEventsCard2/FeaturedEventsCard2";
 import CategoryBar from "../../../components/CategoryBar/CategoryBar";
 import EventCard from "../../../components/EventCard/EventCard";
@@ -16,7 +16,7 @@ export default function Workshops() {
   const [width, setWidth] = useState(window.innerWidth);
 
   useEffect(() => {
-    getEventByType(setEvents, "Workshops");
+    getEventByMode(setEvents, "Workshop");
     window.scrollTo(0, 0);
     setSelectedPageNavbar("campus");
 
