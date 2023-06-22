@@ -21,7 +21,7 @@ export default function Sidebar({ path }) {
     {
       id: 2,
       svg: <CiViewList />,
-      title: "PROJECTS",
+      title: "PROJECT IDEAS",
       link: "projects",
     },
     {
