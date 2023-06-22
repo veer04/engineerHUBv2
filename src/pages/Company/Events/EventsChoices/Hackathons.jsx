@@ -8,10 +8,11 @@ const Hackathons = () => {
   const hackathonsList = [
     {
       name: "PhonePe SDET Hiring Challenge",
-      logo: `${bucket}google.svg`,
+      logo: `${bucket}phonePe.png`,
+      link:"https://assessment.hackerearth.com/challenges/new/hiring/phonepe-hiring-challenge/",
       imgBanner: `${bucket}googleBanner.png`,
       locations: "Remote",
-      tags: ["#Data Structures", "#UI Automation/API Automation", "#CICD","#Performance Testing"],
+      tags: ["#Data Structures", "#CICD"],
       stats: {
         stars: 50000,
         views: 1056,
@@ -53,16 +54,17 @@ const Hackathons = () => {
       contact: {
         email: "career@engineerhub.in ",
         users: [
-          { name: "Name Surname", phone: "+91 9219609226" },
-          { name: "Name Surname", phone: "+91 6393974108" },
+          { name: "Raj Kumar", phone: "+91 9219609226" },
+          { name: "Ashish Soharia", phone: "+91 6393974108" },
         ],
       },
     },
     {
       name: "Doceree Software Engineer (Java)",
-      logo: `${bucket}prodigy.svg`,
+      logo: `${bucket}docere.png`,
       imgBanner: `${bucket}prodigyBanner.png`,
       locations: "Remote",
+      link:"https://www.techgig.com/challenge/730pnaxt13fj9a0",
       tags: ["Java", "Data Structure", "Algorithms", "Database"],
       stats: {
         stars: 0,
@@ -105,14 +107,15 @@ const Hackathons = () => {
       contact: {
         email: "career@engineerhub.in ",
         users: [
-          { name: "Name Surname", phone: "+91 9219609226" },
-          { name: "Name Surname", phone: "+91 6393974108" },
+          { name: "Raj Kumar", phone: "+91 9219609226" },
+          { name: "Ashish Soharia", phone: "+91 6393974108" },
         ],
       },
     },
     {
       name: "Hiring contest GP LAUNCHPAD",
-      logo: `${bucket}accenture.svg`,
+      logo: `${bucket}GP.png`,
+      link:"https://assessment.hackerearth.com/challenges/new/hiring/gp-challenge/",
       imgBanner: `${bucket}accentureBanner.png`,
       locations: "Remote",
       tags: ["#Competition", "#Challenge", "#Google"],
@@ -157,15 +160,16 @@ const Hackathons = () => {
       contact: {
         email: "career@engineerhub.in ",
         users: [
-          { name: "Name Surname", phone: "+91 6393974108" },
-          { name: "Name Surname", phone: "+91 9219609226" },
+          { name: "Raj Kumar", phone: "+91 9219609226" },
+          { name: "Ashish Soharia", phone: "+91 6393974108" },
         ],
       },
     },
     {
       name: "Software Development Trac FLIPKART",
-      logo: `${bucket}iit.svg`,
+      logo: `${bucket}flipkart.png`,
       imgBanner: `${bucket}iitBanner.png`,
+      link:"https://unstop.com/hackathons/flipkart-grid-50-software-development-track-flipkart-grid-50-flipkart-686157",
       locations: "Remote",
       tags: ["#Competition", "#Challenge", "#Google", "+2 more"],
       stats: {
@@ -209,15 +213,16 @@ const Hackathons = () => {
       contact: {
         email: "career@engineerhub.in ",
         users: [
-          { name: "Name Surname", phone: "+91 9219609226" },
-          { name: "Name Surname", phone: "+91 6393974108" },
+          { name: "Raj Kumar", phone: "+91 9219609226" },
+          { name: "Ashish Soharia", phone: "+91 6393974108" },
         ],
       },
     },
     {
       name: "Hiring contest - GFG",
-      logo: `${bucket}google.svg`,
+      logo: `${bucket}gfg.png`,
       imgBanner: `${bucket}googleBanner.png`,
+      link:"https://practice.geeksforgeeks.org/contest/megajob-a-thon-hiring-challenge-freshers",
       locations: "Remote",
       tags: ["#Competition", "#Challenge", "#GFG"],
       stats: {
@@ -261,16 +266,17 @@ const Hackathons = () => {
       contact: {
         email: "career@engineerhub.in ",
         users: [
-          { name: "Name Surname", phone: "+91 9219609226" },
-          { name: "Name Surname", phone: "+91 6393974108" },
+          { name: "Raj Kumar", phone: "+91 9219609226" },
+          { name: "Ashish Soharia", phone: "+91 6393974108" },
         ],
       },
     },
     {
       name: "HPE - Operating-Systems-Engineer",
-      logo: `${bucket}iit.svg`,
+      logo: `${bucket}HPE.svg`,
       imgBanner: `${bucket}iitBanner.png`,
       locations: "Remote",
+      link:"https://www.techgig.com/challenge/HPEOperatingSystemsEngineer",
       tags: ["Python", "Docker", "Cloud", "KVM", "SAS"],
       stats: {
         stars: 50000,
@@ -313,8 +319,8 @@ const Hackathons = () => {
       contact: {
         email: "career@engineerhub.in ",
         users: [
-          { name: "Name Surname", phone: "+91 6393974108" },
-          { name: "Name Surname", phone: "+91 9219609226" },
+          { name: "Raj Kumar", phone: "+91 9219609226" },
+          { name: "Ashish Soharia", phone: "+91 6393974108" },
         ],
       },
     },
@@ -365,8 +371,8 @@ const Hackathons = () => {
       contact: {
         email: "anything11@gmail.com",
         users: [
-          { name: "Name Surname", phone: "+91 99999 99999" },
-          { name: "Name Surname", phone: "+91 99999 99999" },
+          { name: "Raj Kumar", phone: "+91 9219609226" },
+          { name: "Ashish Soharia", phone: "+91 6393974108" },
         ],
       },
     },

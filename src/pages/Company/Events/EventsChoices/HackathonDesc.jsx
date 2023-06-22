@@ -5,7 +5,7 @@ import { BsCalendar4 } from "react-icons/bs";
 import { FiMail } from "react-icons/fi";
 import { TbPhoneCall } from "react-icons/tb";
 import { Bucket_URL } from "../../../../services/APIUtils";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,Link } from "react-router-dom";
 const HackathonDesc = ({ details }) => {
   const navigate =useNavigate();
   const bucket = `${Bucket_URL}frontend/company/events/hackathon/`;
@@ -23,9 +23,11 @@ const HackathonDesc = ({ details }) => {
             <h1>{details.name}</h1>
             <h3>{details.locations}</h3>
           </span>
+          <Link to={details.link}>
           <div className="btn"  
-          onClick={()=> navigate("/register")}
+          // onClick={()=> navigate("/register")}
           >Register Now</div>
+          </Link>
         </span>
         <span className="Tags">
           {details.tags.map((tag, index) => (
@@ -47,18 +49,18 @@ const HackathonDesc = ({ details }) => {
         <h5>Brief</h5>
         <p>{details.brief}</p>
       </div>
-      <div className="HackReq">
+      {/* <div className="HackReq">
         <h5>Rules & Regulations</h5>
         <ul>
           {details.rules.map((item, index) => {
             return <li key={index}>{item}</li>;
           })}
         </ul>
-      </div>
-      <div className="HackDetail">
+      </div> */}
+      {/* <div className="HackDetail">
         <h5>Brief</h5>
         <p>{details.details}</p>
-      </div>
+      </div> */}
       <div className="HackDates">
         <h5>Dates & Deadlines</h5>
         <div className="HackDateTiles">
@@ -106,8 +108,8 @@ const HackathonDesc = ({ details }) => {
           <div className="HackInfoItem" style={{ background: "#F7D77F" }}>
             <h6>First Prize</h6>
             <p>
-              Lorem ipsum dolor sit amet consectetur. Scelerisque amet turpis
-              senectus arcu rhoncus arcu.
+              {/* Lorem ipsum dolor sit amet consectetur. Scelerisque amet turpis
+              senectus arcu rhoncus arcu. */}
             </p>
             <span>{`₹ ${details.prize.first}`}</span>
             <img src={`${bucket}prize.svg`} alt="guide" />
@@ -115,8 +117,8 @@ const HackathonDesc = ({ details }) => {
           <div className="HackInfoItem" style={{ background: "#8FC8E8" }}>
             <h6>Second Prize</h6>
             <p>
-              Lorem ipsum dolor sit amet consectetur. Scelerisque amet turpis
-              senectus arcu rhoncus arcu.
+              {/* Lorem ipsum dolor sit amet consectetur. Scelerisque amet turpis
+              senectus arcu rhoncus arcu. */}
             </p>
             <span>{`₹ ${details.prize.second}`}</span>
             <img src={`${bucket}prize.svg`} alt="guide" />
@@ -124,16 +126,16 @@ const HackathonDesc = ({ details }) => {
           <div className="HackInfoItem" style={{ background: "#B2E887" }}>
             <h6>Certificate of Merit</h6>
             <p>
-              Lorem ipsum dolor sit amet consectetur. Scelerisque amet turpis
-              senectus arcu rhoncus arcu.
+              {/* Lorem ipsum dolor sit amet consectetur. Scelerisque amet turpis
+              senectus arcu rhoncus arcu. */}
             </p>
             <img src={`${bucket}certificate.svg`} alt="guide" />
           </div>
           <div className="HackInfoItem" style={{ background: "#B2E887" }}>
             <h6>Certificate of Participation</h6>
             <p>
-              Lorem ipsum dolor sit amet consectetur. Scelerisque amet turpis
-              senectus arcu rhoncus arcu.
+              {/* Lorem ipsum dolor sit amet consectetur. Scelerisque amet turpis
+              senectus arcu rhoncus arcu. */}
             </p>
             <img src={`${bucket}certificate.svg`} alt="guide" />
           </div>
