@@ -11,7 +11,7 @@ export default function MobileSidebar({ path }) {
 
   return (
     <div className="mobile-sidebar">
-      <Link to={`/community/chat/${id}`}>
+      <Link to={`https://discord.com/invite/ZMZAEZ5NfA`}>
         <div className={`${path === "chat" ? "is-active" : ""}`}>
           <RiChat3Line className="svg" />
           Chat
