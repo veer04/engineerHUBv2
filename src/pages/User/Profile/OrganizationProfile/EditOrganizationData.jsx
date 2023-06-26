@@ -40,10 +40,10 @@ export default function EditOrganizationData() {
       newErrors.image = "Image is required";
       valid = false;
     }
-    if (!newWebsiteURL) {
-      newErrors.website = "Website URL is required";
-      valid = false;
-    }
+    // if (!newWebsiteURL) {
+    //   newErrors.website = "Website URL is required";
+    //   valid = false;
+    // }
     setErrors(newErrors);
     return valid;
   };
@@ -65,22 +65,22 @@ export default function EditOrganizationData() {
     }
   }, [profileResponse]);
 
-  useEffect(() => {
-    console.log(response);
-    if (response) {
-      if (response.status >= 200 && response.status < 300) {
-        setIsUpdating(false);
-        setOpen(true);
-        setSnackbarValues({
-          severity: "success",
-          message: "Data updated successfully!",
-        });
-      } else {
-        setIsUpdating(false);
-        alert(response.data.message);
-      }
-    }
-  }, [response]);
+  // useEffect(() => {
+  //   console.log(response);
+  //   if (response) {
+  //     if (response.status >= 200 && response.status < 300) {
+  //       setIsUpdating(false);
+  //       setOpen(true);
+  //       setSnackbarValues({
+  //         severity: "success",
+  //         message: "Data updated successfully!",
+  //       });
+  //     } else {
+  //       setIsUpdating(false);
+  //       alert(response.data.message);
+  //     }
+  //   }
+  // }, [response]);
 
   const handleSubmit = async () => {
     setIsUpdating(true);
@@ -96,7 +96,7 @@ export default function EditOrganizationData() {
       };
 
       patchProfilePicture(organizationId, file, setProfileResponse);
-      patchOrganizationData(organizationId, data, setResponse);
+      // patchOrganizationData(organizationId, data, setResponse);
     } else {
       setIsUpdating(false);
     }
@@ -127,7 +127,7 @@ export default function EditOrganizationData() {
         />
         <p className="text-danger mb-1">{errors.image}</p>
       </div>
-      <TextField
+      {/* <TextField
         name="websiteURL"
         label="Website URL"
         variant="outlined"
@@ -137,7 +137,7 @@ export default function EditOrganizationData() {
         margin="normal"
         error={!!errors.website}
         helperText={errors.website}
-      />
+      /> */}
 
       <div className="mt-3">
         <button
