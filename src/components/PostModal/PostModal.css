@@ -13,8 +13,20 @@
   align-items: center;
   z-index: 100;
 }
-
+.post-cancel-button-container {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  cursor: pointer;
+  z-index: 100;
+}
+.post-cancel-button-container > .post-cancel-button {
+  position: absolute;
+  font-size: 2rem;
+  right: 0;
+}
 .post-container {
+  position: relative;
   --_post-bg-color: #ffffff;
   width: 70.0625rem;
   max-width: 70.0625rem;
@@ -32,12 +44,14 @@
   background-repeat: no-repeat;
   border: 1px solid #e0e0e0;
   border-radius: 0.5rem;
+  margin-top: 1.5rem;
 }
 .post-container > .post-details-container {
   display: flex;
   flex-direction: column;
   padding: 0 2.9375rem;
   position: relative;
+  margin-top: 1.5rem;
 }
 .post-container > .post-details-container > .club-details {
   display: flex;
@@ -160,7 +174,7 @@
 
 @media screen and (max-width: 472px) {
   .post-container {
-    padding: 1.5rem 1.5rem;
+    padding: 2rem 1.5rem 1.5rem;
   }
   .post-container > .post-details-container {
     padding: 0;
