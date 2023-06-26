@@ -42,14 +42,14 @@ export default function EditClubData() {
       newErrors.image = "Image is required";
       valid = false;
     }
-    if (!newWebsiteURL) {
-      newErrors.website = "Website URL is required";
-      valid = false;
-    }
-    if (!newDescription) {
-      newErrors.description = "Description is required";
-      valid = false;
-    }
+    // if (!newWebsiteURL) {
+    //   newErrors.website = "Website URL is required";
+    //   valid = false;
+    // }
+    // if (!newDescription) {
+    //   newErrors.description = "Description is required";
+    //   valid = false;
+    // }
     setErrors(newErrors);
     return valid;
   };
@@ -71,22 +71,22 @@ export default function EditClubData() {
     }
   }, [profileResponse]);
 
-  useEffect(() => {
-    console.log(response);
-    if (response) {
-      if (response.status >= 200 && response.status < 300) {
-        setIsUpdating(false);
-        setOpen(true);
-        setSnackbarValues({
-          severity: "success",
-          message: "Data updated successfully!",
-        });
-      } else {
-        setIsUpdating(false);
-        alert(response.message);
-      }
-    }
-  }, [response]);
+  // useEffect(() => {
+  //   console.log(response);
+  //   if (response) {
+  //     if (response.status >= 200 && response.status < 300) {
+  //       setIsUpdating(false);
+  //       setOpen(true);
+  //       setSnackbarValues({
+  //         severity: "success",
+  //         message: "Data updated successfully!",
+  //       });
+  //     } else {
+  //       setIsUpdating(false);
+  //       alert(response.message);
+  //     }
+  //   }
+  // }, [response]);
 
   const handleSubmit = async () => {
     setIsUpdating(true);
@@ -100,7 +100,7 @@ export default function EditClubData() {
       };
 
       patchProfilePicture(clubId, file, setProfileResponse);
-      patchClubData(clubId, data, setResponse);
+      // patchClubData(clubId, data, setResponse);
     } else {
       setIsUpdating(false);
     }
@@ -131,7 +131,7 @@ export default function EditClubData() {
         />
         <p className="text-danger mb-1">{errors.image}</p>
       </div>
-      <TextField
+      {/* <TextField
         name="websiteURL"
         label="Website URL"
         variant="outlined"
@@ -154,7 +154,7 @@ export default function EditClubData() {
         rows={4}
         error={!!errors.description}
         helperText={errors.description}
-      />
+      /> */}
 
       <div className="mt-3">
         <button
