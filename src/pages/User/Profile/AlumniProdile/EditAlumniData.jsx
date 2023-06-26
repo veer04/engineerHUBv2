@@ -49,29 +49,29 @@ export default function EditAlumniData() {
       newErrors.image = "Image is required";
       valid = false;
     }
-    if (!newCompany) {
-      newErrors.company = "Company is required";
-      valid = false;
-    }
-    if (!newDesignation) {
-      newErrors.designation = "Designation is required";
-      valid = false;
-    }
-    if (!newAboutMe) {
-      newErrors.aboutMe = "About Me is required";
-      valid = false;
-    }
-    if (!newBatch) {
-      newErrors.batch = "Batch is required";
-      valid = false;
-    } else if (
-      !/^(19[6-9][0-9]|20[0-2][0-9]|2030)-(19[6-9][0-9]|20[0-2][0-9]|2030)\s*$/.test(
-        newBatch
-      )
-    ) {
-      newErrors.batch = "Batch must me like 2002-2004";
-      valid = false;
-    }
+    // if (!newCompany) {
+    //   newErrors.company = "Company is required";
+    //   valid = false;
+    // }
+    // if (!newDesignation) {
+    //   newErrors.designation = "Designation is required";
+    //   valid = false;
+    // }
+    // if (!newAboutMe) {
+    //   newErrors.aboutMe = "About Me is required";
+    //   valid = false;
+    // }
+    // if (!newBatch) {
+    //   newErrors.batch = "Batch is required";
+    //   valid = false;
+    // } else if (
+    //   !/^(19[6-9][0-9]|20[0-2][0-9]|2030)-(19[6-9][0-9]|20[0-2][0-9]|2030)\s*$/.test(
+    //     newBatch
+    //   )
+    // ) {
+    //   newErrors.batch = "Batch must me like 2002-2004";
+    //   valid = false;
+    // }
 
     setErrors(newErrors);
     return valid;
@@ -94,23 +94,23 @@ export default function EditAlumniData() {
     }
   }, [profileResponse]);
 
-  useEffect(() => {
-    console.log(response);
-    if (response) {
-      if (response.status >= 200 && response.status < 300) {
-        setIsUpdating(false);
-        setOpen(true);
-        setSnackbarValues({
-          severity: "success",
-          message: "Data updated successfully!",
-        });
-      } else {
-        setIsUpdating(false);
-        console.log(response);
-        alert(response.data.message);
-      }
-    }
-  }, [response]);
+  // useEffect(() => {
+  //   console.log(response);
+  //   if (response) {
+  //     if (response.status >= 200 && response.status < 300) {
+  //       setIsUpdating(false);
+  //       setOpen(true);
+  //       setSnackbarValues({
+  //         severity: "success",
+  //         message: "Data updated successfully!",
+  //       });
+  //     } else {
+  //       setIsUpdating(false);
+  //       console.log(response);
+  //       alert(response.data.message);
+  //     }
+  //   }
+  // }, [response]);
 
   const handleSubmit = async () => {
     setIsUpdating(true);
@@ -118,15 +118,15 @@ export default function EditAlumniData() {
       const file = new FormData();
       file.append("profileImage", newImage);
 
-      const data = {
-        companyName: newCompany,
-        currentProfile: newDesignation,
-        aboutMe: newAboutMe,
-        batch: newBatch,
-        socialMedia: profile.socialMedia,
-      };
+      // const data = {
+      //   companyName: newCompany,
+      //   currentProfile: newDesignation,
+      //   aboutMe: newAboutMe,
+      //   batch: newBatch,
+      //   socialMedia: profile.socialMedia,
+      // };
       patchProfilePicture(alumniId, file, setProfileResponse);
-      patchAlumniData(alumniId, data, setResponse);
+      // patchAlumniData(alumniId, data, setResponse);
     } else {
       setIsUpdating(false);
     }
@@ -157,7 +157,7 @@ export default function EditAlumniData() {
         />
         <p className="text-danger my-1">{errors.image}</p>
       </div>
-      <TextField
+      {/* <TextField
         name="batch"
         label="Batch"
         variant="outlined"
@@ -202,7 +202,7 @@ export default function EditAlumniData() {
         rows={4}
         error={!!errors.aboutMe}
         helperText={errors.aboutMe}
-      />
+      /> */}
 
       <div className="mt-3">
         <button
