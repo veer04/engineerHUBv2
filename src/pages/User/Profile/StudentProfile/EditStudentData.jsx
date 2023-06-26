@@ -98,7 +98,7 @@ export default function EditStudentData() {
           onChange={(e) => setNewImage(e.target.files[0])}
         />
       </div>
-      <TextField
+      {/* <TextField
         name="name"
         label="Full Name"
         variant="outlined"
@@ -164,7 +164,7 @@ export default function EditStudentData() {
         }}
         fullWidth
         margin="normal"
-      />
+      /> */}
 
       <div className="mt-3">
         <button
