@@ -10,6 +10,8 @@ import { FaRegHeart } from "react-icons/fa";
 import { GrShareOption } from "react-icons/gr";
 import { RWebShare } from "react-web-share";
 import { FRONTEND_URL } from "../../services/APIUtils";
+import { MdOutlineCancel } from "react-icons/md";
+import { Fragment } from "react";
 
 export default function PostModal() {
   const { postId, collegeId, clubId } = useParams();
@@ -32,6 +34,14 @@ export default function PostModal() {
     var left = (window.pageXOffset || doc.scrollLeft) - (doc.clientLeft || 0);
     var top = (window.pageYOffset || doc.scrollTop) - (doc.clientTop || 0);
     return { top, left };
+  }
+
+  //function to get current url and return it with the last endpoint removed
+  function getCurrentUrl() {
+    const currentUrl = window.location.href;
+    const lastEndpoint = currentUrl.split("/").pop();
+    const currentUrlWithoutLastEndpoint = currentUrl.replace(lastEndpoint, "");
+    return currentUrlWithoutLastEndpoint;
   }
 
   useEffect(() => {
@@ -63,60 +73,70 @@ export default function PostModal() {
       id="post-modal-container"
     >
       {post.description ? (
-        <div className="post-container">
-          <div
-            style={{
-              backgroundImage: `url(${post.postLogo})`,
-            }}
-            className="post-image"
-          ></div>
-          <div className="post-details-container">
-            <div className="club-details">
-              <div
-                style={{
-                  backgroundImage: `url(${post.clubId.image})`,
-                }}
-                className="club-logo"
-              ></div>
-              <div className="club-name text-crop-1">{post.clubId.name}</div>
+        <>
+          <div className="post-container">
+            <div
+              onClick={() => {
+                navigate(-1);
+              }}
+              className="position-absolute post-cancel-button-container"
+            >
+              <MdOutlineCancel className="post-cancel-button" />
             </div>
-            <div className="description">{post.description}</div>
-            <div className="options-container">
-              <div className="likes">
-                Liked by {isLiked ? post.likes + 1 : post.likes}
-              </div>
-              <div className="options">
+            <div
+              style={{
+                backgroundImage: `url(${post.postLogo})`,
+              }}
+              className="post-image"
+            ></div>
+            <div className="post-details-container">
+              <div className="club-details">
                 <div
-                  onClick={() => {
-                    const currentStatus = isLiked;
-                    setIsLiked(!currentStatus);
-                    sessionStorage.setItem(
-                      `${postId} isLiked`,
-                      JSON.stringify(!currentStatus)
-                    );
-                  }}
                   style={{
-                    backgroundColor: isLiked ? "#fec2cb" : "",
+                    backgroundImage: `url(${post.clubId.image})`,
                   }}
-                  className="like"
-                >
-                  <FaRegHeart />
+                  className="club-logo"
+                ></div>
+                <div className="club-name text-crop-1">{post.clubId.name}</div>
+              </div>
+              <div className="description">{post.description}</div>
+              <div className="options-container">
+                <div className="likes">
+                  Liked by {isLiked ? post.likes + 1 : post.likes}
                 </div>
-                <RWebShare
-                  data={{
-                    text: `Check out this post`,
-                    url: `${FRONTEND_URL}campus/${collegeId}/technical-clubs/${clubId}/posts/${postId}`,
-                    title: "Check out this post at engineerHUB",
-                  }}
-                >
-                  <div className="share">
-                    <GrShareOption />
+                <div className="options">
+                  <div
+                    onClick={() => {
+                      const currentStatus = isLiked;
+                      setIsLiked(!currentStatus);
+                      sessionStorage.setItem(
+                        `${postId} isLiked`,
+                        JSON.stringify(!currentStatus)
+                      );
+                    }}
+                    style={{
+                      backgroundColor: isLiked ? "#fec2cb" : "",
+                    }}
+                    className="like"
+                  >
+                    <FaRegHeart />
                   </div>
-                </RWebShare>
+                  <RWebShare
+                    data={{
+                      text: `Check out this post`,
+                      url: `${FRONTEND_URL}campus/${collegeId}/technical-clubs/${clubId}/posts/${postId}`,
+                      title: "Check out this post at engineerHUB",
+                    }}
+                  >
+                    <div className="share">
+                      <GrShareOption />
+                    </div>
+                  </RWebShare>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        </>
       ) : (
         <div className="spinner-border text-light" role="status">
           <span className="visually-hidden">Loading...</span>
