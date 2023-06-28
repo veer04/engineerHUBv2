@@ -238,7 +238,7 @@ export const getAlumniProfileById = (setAlumniProfile, alumniId) => {
 export const getHiringData = (setHiring, hiringId) => {
   const controller = new AbortController();
   axios
-    .get(`${API_URL}api/v1/hiring/${hiringId}`, {
+    .get(`${API_URL}api/v1/hiring/`, {
       signal: controller.signal,
     })
     .then((res) => {

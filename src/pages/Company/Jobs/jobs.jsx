@@ -7,6 +7,11 @@ import JobCards from "./JobCards";
 import "./jobs.css";
 import JobDescription from "./JobDescription";
 import { Bucket_URL } from "../../../services/APIUtils";
+import colorWheel from "../../../assets/colorWheel";
+import {
+  controller,
+  getHiringData
+} from "../../../services/APIConfig";
 
 const Jobs = () => {
   const bucket = `${Bucket_URL}frontend/company/jobs/`;
@@ -285,8 +290,19 @@ const Jobs = () => {
     //     type: "Part-Time",
     //   },
     // },
+    
   ];
-  useEffect(() => {}, []);
+  const [hiring,setHiring]=useState([]);
+  
+  useEffect(()=>{
+    window.scrollTo(0, 0);
+    getHiringData(setHiring);
+    return () => {
+      controller.abort();
+    };
+  }, [window.location.pathname]
+  )
+  
   return (
     <div className="CompanyJob">
       <h2>Job Hiring</h2>
@@ -294,27 +310,11 @@ const Jobs = () => {
         Apply for the jobs of your interest and get the offer letter in the next
         step.
       </p>
-      {/* <div className="search">
-        <span>
-          <BsSearch />
-          <input
-            type="text"
-            id="search"
-            placeholder="Search"
-            value={search}
-            onChange={(e) => {
-              setSearch(e.target.value);
-            }}
-          />
-        </span>
-        <div className="filters">
-          <MdTune />
-        </div>
-      </div> */}
+   
       <div className="Jobs">
         <div className="JobTiles">
-          {CardEntries.map((item, index) => {
-            return <JobCards details={item} key={index} />;
+          {hiring.map((item, index) => {
+            return <JobCards details={item} color={colorWheel[index%colorWheel.length]} key={index} />;
           })}
         </div>
       </div>
