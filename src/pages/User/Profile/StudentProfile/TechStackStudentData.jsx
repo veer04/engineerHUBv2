@@ -5,11 +5,12 @@ import { TextField } from "@mui/material";
 import { patchStudentData } from "../../../../services/APIConfig";
 import { RxCross2 } from "react-icons/rx";
 import { useEffect } from "react";
+import CustomSnackbar from "../../Login/CustomSnackbar";
 
 export default function TechStackStudentData() {
   const { userId } = useParams();
   const [profile] = useOutletContext();
-  const [newTechStack, setNewTechStack] = useState([]);
+  const [newTechStack, setNewTechStack] = useState([...profile.techStack]);
   const [currentTechStack, setCurrentTechStack] = useState("");
   const [errors, setErrors] = useState({
     techStack: "",
@@ -136,6 +137,14 @@ export default function TechStackStudentData() {
           )}
         </div>
       }
+      {snackbarValues.severity === "success" && (
+        <CustomSnackbar
+          setOpen={setOpen}
+          open={open}
+          message={snackbarValues.message}
+          severity={snackbarValues.severity}
+        />
+      )}
     </>
   );
 }

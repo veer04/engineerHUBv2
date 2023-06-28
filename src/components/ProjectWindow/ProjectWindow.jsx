@@ -170,11 +170,11 @@ export default function ProjectWindow({ projectOpened, setIsProjectOpen }) {
           </div>
         </div>
       </div> */}
-      <div className="project__window__apply">
+      {/* <div className="project__window__apply">
         <div className="apply" onClick={() => navigate("/register")}>
           Apply Now
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }
