@@ -1,13 +1,26 @@
 import React from "react";
+import { useEffect,useState } from "react";
 import { Chip } from "@mui/material";
 import "./JobCards.css";
+import {controller,getHiringData } from "../../../services/APIConfig";
+import { Outlet, useNavigate, useParams } from "react-router-dom";
+const JobCards = ({details}) => {
+  const { hiringId } = useParams();
+  const [hiring,setHiring]=useState({});
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    setSelectedPageNavbar("profile");
+    getHiringData(setHiring, hiringId);
 
-const JobCards = ({ details }) => {
+    return () => {
+      controller.abort();
+    };
+  }, [window.location.pathname]);
   return (
     <div className="JobCard on-hover-scale">
       <div className="cardContent">
         <h6>
-          Average CTC : <b>{details.ctc}</b>
+          Average CTC : <b>{hiring.data.maxSalary}</b>
         </h6>
         <h6 className="text-crop-1 overflow-hidden">
           Job Location : <b>{details.location}</b>
