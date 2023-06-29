@@ -1,9 +1,31 @@
-import React from "react";
+import React, { useEffect,useState } from "react";
 import "./Hackathons.css";
 import HackathonCard from "./HackathonCards";
 import { Bucket_URL } from "../../../../services/APIUtils";
-
+import {
+  controller,
+  getHiringData
+} from "../../../../services/APIConfig";
+import colorWheel from "../../../../assets/colorWheel";
+import { useParams } from "react-router-dom";
 const Hackathons = () => {
+// const hiringId=useParams();
+const[event,setEvent]=useState([]);
+useEffect(()=>
+{
+  window.scrollTo(0, 0);
+  getHiringData(setEvent);
+  return () => {
+    controller.abort();
+  };
+
+},[window.location.pathname])
+
+useEffect(()=>
+{
+  console.log(event);
+},[event])
+
   const bucket = `${Bucket_URL}frontend/company/events/hackathon/`;
   const hackathonsList = [
     {
@@ -380,11 +402,11 @@ const Hackathons = () => {
   return (
     <div className="Hackathons">
       <div className="hackathonTiles">
-        {hackathonsList.map((item, index) => {
+        {event?.filter(res=>res.OpportunityType==="Event").map((item,index) => {
           return (
-            <a href={`/company/events/hackathons/${item.hackId}`} key={index}>
-              <HackathonCard details={item} />
-            </a>
+       
+              <HackathonCard details={item}  color={colorWheel[index%colorWheel.length]} key={index}/>
+             
           );
         })}
       </div>

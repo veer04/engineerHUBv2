@@ -5,6 +5,7 @@ import { MdTune } from "react-icons/md";
 import Hackathons from "./EventsChoices/Hackathons";
 import Competitions from "./EventsChoices/Competitions";
 import "./events.css";
+import HackathonCard from "./EventsChoices/HackathonCards";
 
 const Events = () => {
   const [search, setSearch] = useState("");
@@ -81,7 +82,10 @@ const Events = () => {
           Competitions
         </button> */}
       </div>
-      <div className="ChoicesSelection">{changeChoice()}</div>
+      <div className="ChoicesSelection">
+
+      <Hackathons></Hackathons>
+      </div>
     </div>
   );
 };

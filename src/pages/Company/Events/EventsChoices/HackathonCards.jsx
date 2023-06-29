@@ -4,28 +4,41 @@ import { BsStar } from "react-icons/bs";
 import { CgEye } from "react-icons/cg";
 import { Chip } from "@mui/material";
 import "./HackathonCards.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { useState } from "react";
+import { useEffect } from "react";
+import { controller , getHiringDataById } from "../../../../services/APIConfig";
 
-const HackathonCard = ({ details }) => {
+const HackathonCard = ({ details,color }) => {
+  // const hiringId=useParams();
+  // const[eventData,setEventData]=useState({})
+  // useEffect(()=>
+  // {
+  //   getHiringDataById(setEventData,hiringId);
+  //   return ()=>{
+  //     controller.abort();
+  //   }
+  // })
   const navigate = useNavigate();
   return (
     <div
       onClick={() => {
-        details.link && navigate(`/company/events/hackathons/${details.link}`);
+         navigate(`/company/events/${details._id}`);
       }}
       className="HackathonCard"
     >
       <div className="cardImg">
-        <img src={details.imgBanner} alt="" />
+        <img src={details.OpportunityPoster} alt="" />
         <span className="GoogleIcon">
-          <img src={details.logo} alt="Logo" />
+          <img src={details.OrganisationPoster} alt="Logo" />
         </span>
       </div>
-      <div className="cardBody">
-        <h4>{details.name}</h4>
-        <h6>{details.locations}</h6>
+      <div className="cardBody"
+      >
+        <h4>{details.OpportunityName}</h4>
+        <h6>{details.jobLocation}</h6>
         <span className="Tags">
-          {details.tags.map((tag, index) => (
+          {details.skillsRequired?.map((tag, index) => (
             <Chip
               key={index}
               variant="outlined"
@@ -39,17 +52,18 @@ const HackathonCard = ({ details }) => {
             />
           ))}
         </span>
-        <div className="Stats">
+        <div className="Stats"
+        >
           <span>
-            <BsStar /> {details.stats.stars}
+            <BsStar /> {4}
           </span>
           <span>|</span>
           <span>
-            <CgEye /> {details.stats.views} Views
+            <CgEye /> {1000} Views
           </span>
           <span>|</span>
           <span>
-            <AiOutlineClockCircle /> {details.stats.days} Days Left
+            <AiOutlineClockCircle /> {14} Days Left
           </span>
         </div>
       </div>

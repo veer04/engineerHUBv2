@@ -234,7 +234,6 @@ export const getAlumniProfileById = (setAlumniProfile, alumniId) => {
     });
 };
 
-
 export const getHiringData = (setHiring) => {
   const controller = new AbortController();
   axios

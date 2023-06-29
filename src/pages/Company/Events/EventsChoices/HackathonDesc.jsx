@@ -13,24 +13,23 @@ const HackathonDesc = ({ details }) => {
     <div className="HackDescription">
       <div className="HackDetailHeader">
         <div className="imageBanner">
-          <img src={details.imgBanner} alt="Banner" />
+          <img src={details.OpportunityPoster} alt="Banner" />
         </div>
         <span>
           <span className="imgBox">
-            <img src={details.logo} alt="Logo" />
+            <img src={details.organizationPoster} alt="Logo" />
           </span>
           <span className="heads">
-            <h1>{details.name}</h1>
-            <h3>{details.locations}</h3>
+            <h1>{details.OpportunityName}</h1>
+            <h3>{details.jobLocation}</h3>
           </span>
-          <Link to={details.link}>
+          <Link to={details.WebsiteUrl}>
           <div className="btn"  
-          // onClick={()=> navigate("/register")}
           >Register Now</div>
           </Link>
         </span>
-        <span className="Tags">
-          {details.tags.map((tag, index) => (
+        {/* <span className="Tags">
+          {details?.skillsRequired.map((tag, index) => (
             <Chip
               key={index}
               variant="outlined"
@@ -43,11 +42,11 @@ const HackathonDesc = ({ details }) => {
               }}
             />
           ))}
-        </span>
+        </span> */}
       </div>
       <div className="HackDesc">
         <h5>Brief</h5>
-        <p>{details.brief}</p>
+        <p>{details.description}</p>
       </div>
       {/* <div className="HackReq">
         <h5>Rules & Regulations</h5>
@@ -70,7 +69,7 @@ const HackathonDesc = ({ details }) => {
             </div>
             <span>
               <h4>Registration Date</h4>
-              <h6>{details.dates.registration}</h6>
+              <h6>{details.applicationStartTime}</h6>
             </span>
           </div>
           <div className="HackDateItem">
@@ -79,7 +78,7 @@ const HackathonDesc = ({ details }) => {
             </div>
             <span>
               <h4>Registration Fees Payment</h4>
-              <h6>{details.dates.feeDate}</h6>
+              <h6>{details.applicationEndTime}</h6>
             </span>
           </div>
           <div className="HackDateItem">
@@ -88,7 +87,7 @@ const HackathonDesc = ({ details }) => {
             </div>
             <span>
               <h4>Submission Date</h4>
-              <h6>{details.dates.registration}</h6>
+              <h6>{details.applicationEndTime}</h6>
             </span>
           </div>
           <div className="HackDateItem">
@@ -97,19 +96,18 @@ const HackathonDesc = ({ details }) => {
             </div>
             <span>
               <h4>Results</h4>
-              <h6>{details.dates.registration}</h6>
+              <h6>{details.applicationEndTime}</h6>
             </span>
           </div>
         </div>
       </div>
-      <div className="HackPrize">
+      {/* <div className="HackPrize">
         <h5>Prize Pool</h5>
         <div className="HackInfoItems">
           <div className="HackInfoItem" style={{ background: "#F7D77F" }}>
             <h6>First Prize</h6>
             <p>
-              {/* Lorem ipsum dolor sit amet consectetur. Scelerisque amet turpis
-              senectus arcu rhoncus arcu. */}
+            
             </p>
             <span>{`₹ ${details.prize.first}`}</span>
             <img src={`${bucket}prize.svg`} alt="guide" />
@@ -117,8 +115,7 @@ const HackathonDesc = ({ details }) => {
           <div className="HackInfoItem" style={{ background: "#8FC8E8" }}>
             <h6>Second Prize</h6>
             <p>
-              {/* Lorem ipsum dolor sit amet consectetur. Scelerisque amet turpis
-              senectus arcu rhoncus arcu. */}
+           
             </p>
             <span>{`₹ ${details.prize.second}`}</span>
             <img src={`${bucket}prize.svg`} alt="guide" />
@@ -126,22 +123,20 @@ const HackathonDesc = ({ details }) => {
           <div className="HackInfoItem" style={{ background: "#B2E887" }}>
             <h6>Certificate of Merit</h6>
             <p>
-              {/* Lorem ipsum dolor sit amet consectetur. Scelerisque amet turpis
-              senectus arcu rhoncus arcu. */}
+   
             </p>
             <img src={`${bucket}certificate.svg`} alt="guide" />
           </div>
           <div className="HackInfoItem" style={{ background: "#B2E887" }}>
             <h6>Certificate of Participation</h6>
             <p>
-              {/* Lorem ipsum dolor sit amet consectetur. Scelerisque amet turpis
-              senectus arcu rhoncus arcu. */}
+             
             </p>
             <img src={`${bucket}certificate.svg`} alt="guide" />
           </div>
         </div>
-      </div>
-      <div className="HackContact">
+      </div> */}
+      {/* <div className="HackContact">
         <h5>Contact</h5>
         <div className="HackContactTiles">
           {details.contact.users.map((user, index) => {
@@ -167,7 +162,7 @@ const HackathonDesc = ({ details }) => {
             </span>
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

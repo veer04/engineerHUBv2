@@ -6,8 +6,12 @@ import { useEffect, useState } from "react";
 import useNavbar from "../../hooks/use-navbar";
 import { controller } from "../../services/APIConfig";
 import { useNavigate } from "react-router-dom";
-
+import {
+  
+  getHiringData
+} from "../../services/APIConfig";
 const CompanyCards = ({ data }) => {
+  
   return (
     <div
       className="companyCards"
@@ -35,14 +39,15 @@ const CompanyCards = ({ data }) => {
     </div>
   );
 };
-
+import colorWheel from "../../assets/colorWheel";
 const Company = () => {
   const { setSelectedPageNavbar } = useNavbar();
+  const[hiring,setHiring]=useState([]);
   const navigate = useNavigate();
   useEffect(() => {
     window.scrollTo(0, 0);
     setSelectedPageNavbar("company");
-
+    getHiringData(setHiring);
     return () => {
       controller.abort();
     };
@@ -516,8 +521,8 @@ const Company = () => {
           <h5>Featured Jobs</h5>
         </a>
         <div className="FeaturedJobsTiles">
-          {JobCardEntries.map((item, index) => {
-            return <JobCards details={item} key={index} />;
+          {hiring.filter(res=>res.OpportunityType==="Job").map((item, index) => {
+            return <JobCards details={item} color={colorWheel[index%colorWheel.length]} key={index} />;
           })}
         </div>
       </div>
