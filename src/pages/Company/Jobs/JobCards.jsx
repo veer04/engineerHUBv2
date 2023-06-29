@@ -5,22 +5,7 @@ import "./JobCards.css";
 import {controller,getHiringData } from "../../../services/APIConfig";
 import { Outlet, useNavigate, useParams } from "react-router-dom";
 const JobCards = ({details,color}) => {
-  const { hiringId } = useParams();
-  const [hiring,setHiring]=useState([]);
-  useEffect(() => {
-    window.scrollTo(0, 0);
-    // setSelectedPageNavbar("profile");
-    getHiringData(setHiring, hiringId);
-    
-
-    return () => {
-      controller.abort();
-    };
-  }, [window.location.pathname]);
-  useEffect(()=>
-  {
-console.log(hiring);
-  },[hiring])
+  
   return (
     <div className="JobCard on-hover-scale">
       <div className="cardContent">

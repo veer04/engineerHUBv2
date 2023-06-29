@@ -157,7 +157,7 @@ function App() {
               <Route path=":id">
                 <Route index element={<EventsPage path="events" />} />
                 <Route
-                  path=":eventId"
+                  path=":hiringId"
                   element={
                     <ParticularEvent
                       setIsEventModalOpen={setIsEventModalOpen}
@@ -208,7 +208,7 @@ function App() {
             <Route path="" element={<Company />} />
             <Route path="jobs">
               <Route path="" element={<Jobs />} />
-              <Route path=":jobId" element={<JobDetails />} />
+              <Route path=":hiringId" element={<JobDetails />} />
             </Route>
             <Route path="projects">
               <Route path="" element={<Projects />} />

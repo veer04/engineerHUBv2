@@ -79,7 +79,7 @@
 }
 .CompanyJobDetails .Jobs .JobTiles {
   min-width: 330px;
-  height: 1200px;
+  height: 100vh;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;

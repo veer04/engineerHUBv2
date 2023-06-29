@@ -235,7 +235,7 @@ export const getAlumniProfileById = (setAlumniProfile, alumniId) => {
 };
 
 
-export const getHiringData = (setHiring, hiringId) => {
+export const getHiringData = (setHiring) => {
   const controller = new AbortController();
   axios
     .get(`${API_URL}api/v1/hiring/`, {
@@ -243,6 +243,27 @@ export const getHiringData = (setHiring, hiringId) => {
     })
     .then((res) => {
       const data = res.data.data;
+      // const Hiringdata=res.data.data;
+      setHiring(data);
+    })
+    .catch((err) => {
+      if (axios.isCancel(err)) {
+        console.log("req cancel");
+      } else {
+        console.log("req performed");
+      }
+    });
+};
+
+export const getHiringDataById = (setHiring,hiringId) => {
+  const controller = new AbortController();
+  axios
+    .get(`${API_URL}api/v1/hiring/${hiringId}`, {
+      signal: controller.signal,
+    })
+    .then((res) => {
+      const data = res.data.data;
+      // const Hiringdata=res.data.data;
       setHiring(data);
     })
     .catch((err) => {
@@ -358,7 +379,7 @@ export const getAllCampuses = (setAllCampuses) => {
       signal: controller.signal,
     })
     .then((res) => {
-      const data = res.data.data;
+      const data = res.data.data.filter(res=>res.OpportunityType==="Job");
       setAllCampuses(data);
     })
     .catch((err) => {
