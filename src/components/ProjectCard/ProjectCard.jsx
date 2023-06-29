@@ -60,7 +60,7 @@ export default function ProjectCard({
       <div className="title">{projectName}</div>
       <div className="description">{description}</div>
       <div className="tags">
-        {techStack.map((tag, index) => (
+        {techStack.slice(0, 3).map((tag, index) => (
           <div
             key={tag}
             style={{
@@ -72,6 +72,9 @@ export default function ProjectCard({
             {tag}
           </div>
         ))}
+        <div className="tag">
+          {techStack.length > 3 ? `+${techStack.length - 3} more` : ""}
+        </div>
       </div>
       <div className="details">
         <div className="company__details">
