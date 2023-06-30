@@ -120,8 +120,24 @@ export default function ParticularClub() {
     {current === 2 && renderedReels}
   </div> */}
 
-      {current === 1 && (
+      {current === 1 && club.posts !== undefined && club.posts.length !== 0 && (
         <div className="content-container">{renderedPosts}</div>
+      )}
+      {current === 1 && club.posts?.length === 0 && (
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            height: "10rem",
+            width: "100%",
+            fontSize: "1.15rem",
+            fontWeight: "600",
+            color: "var(--text-color-green)",
+          }}
+        >
+          No Posts Yet
+        </div>
       )}
       {current === 2 && renderedReels}
       {club.members !== undefined && club.members.length !== 0 && (
