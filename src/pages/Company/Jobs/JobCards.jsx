@@ -1,25 +1,28 @@
 import React from "react";
+import { useEffect,useState } from "react";
 import { Chip } from "@mui/material";
 import "./JobCards.css";
-
-const JobCards = ({ details }) => {
+import {controller,getHiringData } from "../../../services/APIConfig";
+import { Outlet, useNavigate, useParams } from "react-router-dom";
+const JobCards = ({details,color}) => {
+  
   return (
     <div className="JobCard on-hover-scale">
       <div className="cardContent">
         <h6>
-          Average CTC : <b>{details.ctc}</b>
+          Average CTC : <b>{details.maxSalary}</b>
         </h6>
         <h6 className="text-crop-1 overflow-hidden">
-          Job Location : <b>{details.location}</b>
+          Job Location : <b>{details.jobLocation}</b>
         </h6>
-        <h3 className="text-crop-3 overflow-hidden p-0">{details.name}</h3>
+        <h3 className="text-crop-3 overflow-hidden p-0">{details.OpportunityPosition}</h3>
         <span className="Tags">
-          {details.tags.map((tag, index) => (
+          {details.skillsRequired?.map((skillsRequired, _id) => (
             <Chip
-              key={index}
+              key={_id}
               variant="outlined"
               size="small"
-              label={`#${tag}`}
+              label={`#${skillsRequired}`}
               style={{
                 fontWeight: "500",
                 fontSize: "10px",
@@ -30,13 +33,16 @@ const JobCards = ({ details }) => {
           ))}
         </span>
       </div>
-      <div className="cardFooter" style={{ background: details.bg }}>
+      <div className="cardFooter"
+      style={{
+        backgroundColor:color
+      }}>
         <span>
-          <img src={details.logo} alt="Job Logo" />
+          <img src={details.OrganisationPoster} alt="Job Logo" />
         </span>
-        <h5 className="text-crop-2 overflow-hidden">{details.name}</h5>
+        <h5 className="text-crop-2 overflow-hidden">{details.OpportunityPosition}</h5>
         <a
-          href={`/company/jobs/${details.jobId}`}
+          href={`/company/jobs/${details._id}`}
           style={{ textDecoration: "none" }}
         >
           <div className="btn">View</div>

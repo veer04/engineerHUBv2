@@ -1,21 +1,28 @@
 import React from "react";
 import { IoPeopleOutline } from "react-icons/io5";
 import "./ProjectCards.css";
-
+import { useNavigate } from "react-router-dom";
 const ProjectCards = ({ data }) => {
+  const navigate= useNavigate();
   return (
-    <a href={`/company/projects/${data.projectId}`}>
+    <div 
+    className="ProjectCard"
+    onClick={() => {
+      navigate(`/company/projects/${data._id}`);
+   }} 
+    
+    >
       <div className="ProjectCardTile">
-        {data.img ? (
-          <img src={data.img} className="imageBanner" alt="Image" />
+        {data.projectImage? (
+          <img src={data.projectImage} className="imageBanner" alt="Image" />
         ) : (
           <></>
         )}
         <div className="ProjectCardContent">
-          <h1>{data.name}</h1>
-          <p>{data.desc}</p>
+          <h1>{data.projectName}</h1>
+          <p>{data.description}</p>
           <div className="tags">
-            {data.tags.map((tag, index) => (
+            {data.techStack?.map((tag, index) => (
               <span key={index} className="tag">
                 {tag}
               </span>
@@ -24,27 +31,24 @@ const ProjectCards = ({ data }) => {
           <br />
           <div className="organization">
             <div className="logo">
-              {data.organization.logo ? (
                 <img
-                  src={data.organization.logo}
+                  src={data.organizationLogo}
                   alt="logo"
                   className="logoImg"
                 />
-              ) : (
-                <></>
-              )}
+            
             </div>
-            <h5>{data.organization.name}</h5>
-            <span>
+            <h5>{data.organization}</h5>
+            {/* <span>
               <span className="icon">
                 <IoPeopleOutline />
               </span>
               <h6>{data.organization.submissions}</h6>
-            </span>
+            </span> */}
           </div>
         </div>
       </div>
-    </a>
+    </div>
   );
 };
 

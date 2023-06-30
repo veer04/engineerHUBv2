@@ -10,7 +10,7 @@
   flex-wrap: wrap;
 }
 .HackathonDetails .hackathonTiles {
-  height: 2200px;
+  height: 100vh;
   width: 30%;
   overflow-y: scroll;
   min-width: 370px;
@@ -19,6 +19,7 @@
   align-items: center;
   justify-content: space-evenly;
   gap: 20px;
+  overflow-x: hidden;
 }
 
 .HackathonDetails .hackathonTiles .Card {

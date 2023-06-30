@@ -9,30 +9,35 @@ const JobDescription = ({ details }) => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    
   }, []);
+  useEffect(()=>
+  {
+    console.log(details,"job Description");
+  },[details])
   return (
     <div className="JobDescription">
       <div className="JobDetailHeader">
         <span>
           <span className="imgBox">
-            <img src={details.logo} alt="Logo" />
+            <img src={details.OrganisationPoster} alt="Logo" />
           </span>
           <span className="heads">
-            <h1>{details.name}</h1>
-            <h3>{details.org}</h3>
-            <h3>{details.location}</h3>
+            <h1>{details.OpportunityPosition}</h1>
+            <h3>{details.Organisation}</h3>
+            <h3>{details.jobLocation}</h3>
           </span>
-          <Link to={details.link}>
+          <Link to={details.websiteUrl}>
             <div className="btn">Apply</div>
           </Link>
         </span>
         <span className="Tags">
-          {details.tags.map((tag, index) => (
+          {details.skillsRequired?.map((skillsRequired, index) => (
             <Chip
               key={index}
               variant="outlined"
               size="small"
-              label={`#${tag}`}
+              label={`#${skillsRequired}`}
               style={{
                 fontWeight: "500",
                 fontSize: "10px",
@@ -44,41 +49,41 @@ const JobDescription = ({ details }) => {
       </div>
       <div className="JobDesc">
         <h5>Job Description</h5>
-        <p>{details.desc}</p>
+        <p>{details.description}</p>
       </div>
-      <div className="JobReq">
+      {/* <div className="JobReq">
         <h5>Job Requirements</h5>
         <ul>
           {details.req.map((item, index) => {
             return <li key={index}>{item}</li>;
           })}
         </ul>
-      </div>
+      </div> */}
       <div className="JobInfo">
         <h5>More Information</h5>
         <div className="JobInfoItems">
           <div className="JobInfoItem">
             <h6>Salary / Stipend</h6>
             <p></p>
-            <span>{details.ctc}</span>
+            <span>{details.maxSalary}</span>
             <img src={`${bucket}cash.svg`} alt="guide" />
           </div>
           <div className="JobInfoItem">
             <h6>Time Availability</h6>
             <p></p>
-            <span>{details.info.availability}</span>
+            <span>{details.jobTiming}</span>
             <img src={`${bucket}timer.svg`} alt="guide" />
           </div>
           <div className="JobInfoItem">
             <h6>Job Location</h6>
             <p></p>
-            <span>{details.location}</span>
+            <span>{details.jobLocation}</span>
             <img src={`${bucket}locate.svg`} alt="guide" />
           </div>
           <div className="JobInfoItem">
             <h6>Work type</h6>
             <p></p>
-            <span>{details.info.type}</span>
+            <span>{details.jobType}</span>
             <img src={`${bucket}time.svg`} alt="guide" />
           </div>
         </div>

@@ -154,10 +154,10 @@ function App() {
               <Route path=":id" element={<BlogsPage path="blogs" />} />
             </Route>
             <Route path="events">
-              <Route path=":id">
+              <Route path="">
                 <Route index element={<EventsPage path="events" />} />
                 <Route
-                  path=":eventId"
+                  path=":hiringId"
                   element={
                     <ParticularEvent
                       setIsEventModalOpen={setIsEventModalOpen}
@@ -208,7 +208,7 @@ function App() {
             <Route path="" element={<Company />} />
             <Route path="jobs">
               <Route path="" element={<Jobs />} />
-              <Route path=":jobId" element={<JobDetails />} />
+              <Route path=":hiringId" element={<JobDetails />} />
             </Route>
             <Route path="projects">
               <Route path="" element={<Projects />} />
@@ -216,7 +216,7 @@ function App() {
             </Route>
             <Route path="events">
               <Route path="" element={<Events />} />
-              <Route path="hackathons/:hackId" element={<HackathonDetails />} />
+              <Route path=":hackId" element={<HackathonDetails />} />
               {/* <Route
               path="competitions/:competeId"
               element={<CompetitionDetails />}

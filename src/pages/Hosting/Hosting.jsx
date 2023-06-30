@@ -56,7 +56,7 @@ export default function Hosting() {
       console.log(decoded);
       console.log(decoded.role);
       if (decoded.role === "Organization") {
-        navigate("/hostevent");
+        navigate("/hostjob");
       } else {
         window.alert("Not Authorized to Host events!!!");
       }

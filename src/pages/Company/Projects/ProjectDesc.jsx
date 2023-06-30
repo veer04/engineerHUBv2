@@ -9,21 +9,21 @@ const ProjectDesc = ({ data }) => {
     <div className="ProjectDesc">
       <div className="ProjectDescHeader">
         <span className="logoIcon">
-          <img src={data.organization.logo} />
+          <img src={data.organizationLogo} />
         </span>
-        <h1>{data.name}</h1>
+        <h1>{data.projectName}</h1>
       </div>
       <div className="ProjectDescImage">
-        <img src={data.img} alt="Project" />
+        <img src={data.projectImage} alt="Project" />
       </div>
       <div className="ProjectDescription">
         <h5>Description</h5>
-        <p>{data.desc}</p>
+        <p>{data.description}</p>
       </div>
       <div className="ProjectTags">
         <h5>Project Tags</h5>
         <span className="tag">
-          {data.tags.map((tag, index) => {
+          {data.techStack?.map((tag, index) => {
             return <span key={index}>{tag}</span>;
           })}
         </span>
@@ -49,15 +49,15 @@ const ProjectDesc = ({ data }) => {
       <div className="AdditionalInfo">
         <div className="AdditionalInfoChip">
           <h5>Salary/Stipend</h5>
-          <p>{data.info.salary}/-</p>
+          <p>{data.stipend}/-</p>
         </div>
         <div className="AdditionalInfoChip">
           <h5>Work Availability</h5>
-          <p>{data.info.availability}hr/day</p>
+          <p>{data.workAvailability}hr/day</p>
         </div>
       </div>
       <div className="ApplyNowBtn">
-      <Link to={data.link}
+      <Link to={data.applyLink}
       className="applyBtnFontColor"
       >Apply Now </Link>
       </div>
