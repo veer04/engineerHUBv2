@@ -8,7 +8,8 @@ import { controller } from "../../services/APIConfig";
 import { useNavigate } from "react-router-dom";
 import {
   
-  getHiringData
+  getHiringData,
+  getProjectData,
 } from "../../services/APIConfig";
 const CompanyCards = ({ data }) => {
   
@@ -43,11 +44,13 @@ import colorWheel from "../../assets/colorWheel";
 const Company = () => {
   const { setSelectedPageNavbar } = useNavbar();
   const[hiring,setHiring]=useState([]);
+  const[project,setProject]=useState([]);
   const navigate = useNavigate();
   useEffect(() => {
     window.scrollTo(0, 0);
     setSelectedPageNavbar("company");
     getHiringData(setHiring);
+    // getProjectData(setProject);
     return () => {
       controller.abort();
     };
@@ -531,7 +534,7 @@ const Company = () => {
           <h5>Trending Opportunities</h5>
         </a>
         <div className="OpportunitiesTiles">
-          {HackathonCardEntries.map((item, index) => {
+          {hiring.filter(res=>res.OpportunityType==="Event").map((item, index) => {
             return <HackathonCard details={item} key={index} />;
           })}
         </div>

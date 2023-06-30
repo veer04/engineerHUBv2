@@ -64,7 +64,7 @@ const Projects = () => {
   return (
     <div className="Projects">
       <h1>Projects</h1>
-      {/* <div className="search">
+      <div className="search">
         <span>
           <BsSearch />
           <input
@@ -80,7 +80,7 @@ const Projects = () => {
         <div className="filters">
           <MdTune />
         </div>
-      </div> */}
+      </div>
       <div className="Choices">
         <button
           className="btn select html"

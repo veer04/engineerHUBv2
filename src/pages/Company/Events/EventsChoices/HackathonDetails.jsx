@@ -14,6 +14,7 @@ import {
   getHiringData,
   getHiringDataById
 } from "../../../../services/APIConfig";
+import HackathonCard from "./HackathonCards";
 const Card = ({ details }) => {
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -75,7 +76,7 @@ const HackathonDetails = () => {
     return()=>{
       controller.abort();
     }
-  })
+  },[hiring])
   const bucket = `${Bucket_URL}frontend/company/events/hackathon/`;
   
 
@@ -458,7 +459,9 @@ const HackathonDetails = () => {
         {hiring?.filter(res=>res.OpportunityType==="Event").map((item, index) => {
           return (
             
-              <Card details={item} color={colorWheel[index%colorWheel.length]} key={index} />
+              <HackathonCard details={item} color={colorWheel[index%colorWheel.length]} key={index}
+              
+              />
            
           );
         })}

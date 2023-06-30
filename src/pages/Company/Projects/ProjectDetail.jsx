@@ -6,10 +6,27 @@ import "./ProjectDetail.css";
 import { BsSearch } from "react-icons/bs";
 import { MdTune } from "react-icons/md";
 import { Bucket_URL } from "../../../services/APIUtils";
-
+import {
+  controller,
+  getProjectData,
+  getProjectDataById
+} from "../../../services/APIConfig";
+import { useEffect } from "react";
 const ProjectDetail = () => {
+  const {projectId} =useParams();
   const bucket = `${Bucket_URL}frontend/company/`;
   const bucket2=`${Bucket_URL}frontend/global/`;
+  const[project, setProject]=useState({});
+  const[projectData,setProjectData]=useState([]);
+  useEffect(()=>
+  {
+    getProjectData(setProjectData);
+    getProjectDataById(setProject,projectId);
+    return()=>{
+      controller.abort();
+    }
+
+  },[projectId])
   const HTMLEntries = [
     {
       name: "Need a Professional Web Developer",
@@ -156,7 +173,7 @@ const ProjectDetail = () => {
     },
   ];
   const [search, setSearch] = useState("");
-  const { projectId } = useParams();
+
   return (
     <div className="ProjectDetail">
       <div className="ProjectTiles">
@@ -178,7 +195,7 @@ const ProjectDetail = () => {
             <MdTune />
           </div>
         </div> */}
-        {HTMLEntries.map((item, index) => {
+        {projectData?.map((item, index) => {
           return <ProjectCards data={item} key={index} />;
         })}
       </div>
@@ -188,9 +205,7 @@ const ProjectDetail = () => {
         ) : (
           <ProjectDesc
             data={
-              HTMLEntries.filter(
-                (item) => item.projectId === parseInt(projectId)
-              )[0]
+              {...project}
             }
           />
         )}
