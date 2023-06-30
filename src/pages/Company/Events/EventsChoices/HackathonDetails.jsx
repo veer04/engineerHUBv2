@@ -18,7 +18,10 @@ import HackathonCard from "./HackathonCards";
 const Card = ({ details }) => {
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, []);
+  }, [window.location.pathname]);
+  const HackathonDummyData={
+    
+  }
   return (
     <div className="Card"
     onClick={() => {
