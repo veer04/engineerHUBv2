@@ -381,7 +381,7 @@ const validateInput3=()=>
                 
              <TextField
                         name="Event Start Date"
-                        label="Event Start Date"
+                        // label="Event Start Date"
                         variant="outlined"
                         type ="date"
                         value={eventStartTime}
@@ -393,7 +393,7 @@ const validateInput3=()=>
                       />
                         <TextField
                         name="Event End Date"
-                        label="Event End Date"
+                        // label="Event End Date"
                         variant="outlined"
                         type ="date"
                         value={eventEndTime}
