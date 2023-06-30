@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./HackathonDesc.css";
 import { Chip } from "@mui/material";
 import { BsCalendar4 } from "react-icons/bs";
@@ -6,8 +6,45 @@ import { FiMail } from "react-icons/fi";
 import { TbPhoneCall } from "react-icons/tb";
 import { Bucket_URL } from "../../../../services/APIUtils";
 import { useNavigate,Link } from "react-router-dom";
+import getCookie, { getAccessToken } from "../../../../features/getCookieValues";
+import { API_URL } from "../../../../services/APIUtils";
+import jwt_decode from "jwt-decode";
 const HackathonDesc = ({ details }) => {
+  const[isLoggedIn,setIsLoggedIn]=useState(false);
   const navigate =useNavigate();
+  const accesstoken=getAccessToken();
+  const decode =jwt_decode(accesstoken);
+  // const valueName=getCookie("name");
+  useEffect(()=>{
+    if(getCookie("name"))
+    {
+      setIsLoggedIn(true);
+    }
+  },[])
+  
+  const postUserDetails=()=>{
+    const data= {
+      eventId: details._id,
+      userId:decode._id
+
+    };
+    axios.post(`${API_URL}/api/v1/eventRegistration`,data).then(
+      (res)=>{
+        if(res.status===200||
+          res.status===201||
+          res.status===2002||
+          res.status===203||
+          res.status===204
+          )
+          {
+            window.alert("successfully Applied");
+          }
+      },
+      (err)=>{
+        console.log(err);
+      }
+    )
+  }
   const bucket = `${Bucket_URL}frontend/company/events/hackathon/`;
   return (
     <div className="HackDescription">
@@ -23,10 +60,27 @@ const HackathonDesc = ({ details }) => {
             <h1>{details.OpportunityName}</h1>
             <h3>{details.jobLocation}</h3>
           </span>
-          <Link to={details.WebsiteUrl}>
+          <div>
+            {
+              isLoggedIn?(
+                <Link
+                onClick={postUserDetails}
+                to={details.websiteUrl}
+                >
           <div className="btn"  
-          >Register Now</div>
+          >Apply </div>
           </Link>
+
+              ):(
+
+                <Link to={"https://ehubbusiness.com/login"}>
+                <div className="btn"  
+                >Apply </div>
+                </Link>
+              )
+            }
+          
+          </div>
         </span>
         {/* <span className="Tags">
           {details?.skillsRequired.map((tag, index) => (
