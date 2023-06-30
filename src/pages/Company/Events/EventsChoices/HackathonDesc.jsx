@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./HackathonDesc.css";
 import { Chip } from "@mui/material";
 import { BsCalendar4 } from "react-icons/bs";
@@ -6,8 +6,17 @@ import { FiMail } from "react-icons/fi";
 import { TbPhoneCall } from "react-icons/tb";
 import { Bucket_URL } from "../../../../services/APIUtils";
 import { useNavigate,Link } from "react-router-dom";
+import getCookie from "../../../../features/getCookieValues";
 const HackathonDesc = ({ details }) => {
+  const[isLoggedIn,setIsLoggedIn]=useState(false);
   const navigate =useNavigate();
+  // const valueName=getCookie("name");
+  useEffect(()=>{
+    if(getCookie("name"))
+    {
+      setIsLoggedIn(true);
+    }
+  },[])
   const bucket = `${Bucket_URL}frontend/company/events/hackathon/`;
   return (
     <div className="HackDescription">
@@ -23,10 +32,24 @@ const HackathonDesc = ({ details }) => {
             <h1>{details.OpportunityName}</h1>
             <h3>{details.jobLocation}</h3>
           </span>
-          <Link to={details.WebsiteUrl}>
+          <div>
+            {
+              isLoggedIn?(
+                <Link to={details.websiteUrl}>
           <div className="btn"  
-          >Register Now</div>
+          >Apply </div>
           </Link>
+
+              ):(
+
+                <Link to={"https://ehubbusiness.com/login"}>
+                <div className="btn"  
+                >Apply </div>
+                </Link>
+              )
+            }
+          
+          </div>
         </span>
         {/* <span className="Tags">
           {details?.skillsRequired.map((tag, index) => (

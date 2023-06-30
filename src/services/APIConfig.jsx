@@ -421,7 +421,7 @@ export const getAllCampuses = (setAllCampuses) => {
       signal: controller.signal,
     })
     .then((res) => {
-      const data = res.data.data.filter(res=>res.OpportunityType==="Job");
+      const data = res.data.data;
       setAllCampuses(data);
     })
     .catch((err) => {

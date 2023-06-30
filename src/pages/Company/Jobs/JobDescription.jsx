@@ -3,13 +3,19 @@ import "./JobDescription.css";
 import { Chip } from "@mui/material";
 import { Bucket_URL } from "../../../services/APIUtils";
 import { useNavigate, Link } from "react-router-dom";
+import { useState } from "react";
+import getCookie from "../../../features/getCookieValues";
 const JobDescription = ({ details }) => {
   const navigate = useNavigate();
+  const[isLoggedIn,setIsLoggedIn]=useState(false);
   const bucket = `${Bucket_URL}frontend/company/jobs/`;
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    
+    if(getCookie("name"))
+    {
+      setIsLoggedIn(true);
+    }
   }, []);
   useEffect(()=>
   {
@@ -27,9 +33,19 @@ const JobDescription = ({ details }) => {
             <h3>{details.Organisation}</h3>
             <h3>{details.jobLocation}</h3>
           </span>
-          <Link to={details.websiteUrl}>
-            <div className="btn">Apply</div>
-          </Link>
+          <div>
+            {
+              isLoggedIn ? (
+                <Link to={details.websiteUrl}>
+                <div className="btn">Apply</div>
+              </Link>
+              ):(
+                <Link to={"https://ehubbusiness.com/login"}>
+                <div className="btn">Apply</div>
+              </Link>
+              )}
+     
+          </div>
         </span>
         <span className="Tags">
           {details.skillsRequired?.map((skillsRequired, index) => (
