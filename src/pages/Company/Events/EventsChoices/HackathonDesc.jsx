@@ -6,10 +6,14 @@ import { FiMail } from "react-icons/fi";
 import { TbPhoneCall } from "react-icons/tb";
 import { Bucket_URL } from "../../../../services/APIUtils";
 import { useNavigate,Link } from "react-router-dom";
-import getCookie from "../../../../features/getCookieValues";
+import getCookie, { getAccessToken } from "../../../../features/getCookieValues";
+import { API_URL } from "../../../../services/APIUtils";
+import jwt_decode from "jwt-decode";
 const HackathonDesc = ({ details }) => {
   const[isLoggedIn,setIsLoggedIn]=useState(false);
   const navigate =useNavigate();
+  const accesstoken=getAccessToken();
+  const decode =jwt_decode(accesstoken);
   // const valueName=getCookie("name");
   useEffect(()=>{
     if(getCookie("name"))
@@ -17,6 +21,30 @@ const HackathonDesc = ({ details }) => {
       setIsLoggedIn(true);
     }
   },[])
+  
+  const postUserDetails=()=>{
+    const data= {
+      eventId: details._id,
+      userId:decode._id
+
+    };
+    axios.post(`${API_URL}/api/v1/eventRegistration`,data).then(
+      (res)=>{
+        if(res.status===200||
+          res.status===201||
+          res.status===2002||
+          res.status===203||
+          res.status===204
+          )
+          {
+            window.alert("successfully Applied");
+          }
+      },
+      (err)=>{
+        console.log(err);
+      }
+    )
+  }
   const bucket = `${Bucket_URL}frontend/company/events/hackathon/`;
   return (
     <div className="HackDescription">
@@ -35,7 +63,10 @@ const HackathonDesc = ({ details }) => {
           <div>
             {
               isLoggedIn?(
-                <Link to={details.websiteUrl}>
+                <Link
+                onClick={postUserDetails}
+                to={details.websiteUrl}
+                >
           <div className="btn"  
           >Apply </div>
           </Link>
