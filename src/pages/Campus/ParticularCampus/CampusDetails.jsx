@@ -113,9 +113,9 @@ export default function CampusDetails({ path }) {
                   <div className="title">
                     {course.branch} in {course.courseField}
                   </div>
-                  <a href={course.Brochure} target="_blank">
+                  {/* <a href={course.Brochure} target="_blank">
                     <div className="brochure">{downloadSvg}Brochure</div>
-                  </a>
+                  </a> */}
                 </div>
                 <div className="row-2">
                   <div>Duration: {course.courseDuration}</div>
