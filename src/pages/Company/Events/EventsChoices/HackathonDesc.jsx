@@ -21,6 +21,9 @@ const HackathonDesc = ({ details }) => {
       setIsLoggedIn(true);
     }
   },[])
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [window.location.pathname]);
   
   const postUserDetails=()=>{
     const data= {
