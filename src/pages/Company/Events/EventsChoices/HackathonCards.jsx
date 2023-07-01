@@ -9,7 +9,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { controller , getHiringDataById } from "../../../../services/APIConfig";
 
-const HackathonCard = ({ details,color }) => {
+const HackathonCard = ({ details,color,data }) => {
   // const hiringId=useParams();
   // const[eventData,setEventData]=useState({})
   // useEffect(()=>
@@ -55,15 +55,15 @@ const HackathonCard = ({ details,color }) => {
         <div className="Stats"
         >
           <span>
-            <BsStar /> {4}
+            <BsStar /> {data.stars}
           </span>
           <span>|</span>
           <span>
-            <CgEye /> {1000} Views
+            <CgEye /> {data.views} Views
           </span>
           <span>|</span>
           <span>
-            <AiOutlineClockCircle /> {14} Days Left
+            <AiOutlineClockCircle /> {data.days} Days Left
           </span>
         </div>
       </div>

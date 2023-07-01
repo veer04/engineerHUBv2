@@ -59,6 +59,7 @@
   justify-content: flex-start;
   flex-direction: row;
   margin: 14px 0px;
+  overflow: hidden;
 }
 .HackathonCard .cardBody .Stats {
   font-weight: 500;

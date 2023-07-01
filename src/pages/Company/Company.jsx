@@ -458,6 +458,39 @@ const Company = () => {
     { name: "Web-Dev", logo: `${bucket}webdevLogo.svg` },
     { name: "Database", logo: `${bucket}databaseLogo.svg` },
   ];
+  const data = [
+    {
+      stars: 3,
+      views: 426,
+      days: 9,
+    },
+    {
+      stars: 3,
+      views: 575,
+      days: 20,
+    },
+    {
+      stars: 4,
+      views: 978,
+      days: 7,
+    },
+    {
+      stars: 5,
+      views: 148,
+      days: 171,
+    },
+    {
+      stars: 3,
+      views: 429,
+      days: 15,
+    },
+    {
+      stars: 5,
+      views: 292,
+      days: 27,
+    },
+  ];
+
   return (
     <div className="companyHome">
       <div className="pagesContainer">
@@ -535,7 +568,7 @@ const Company = () => {
         </a>
         <div className="OpportunitiesTiles">
           {hiring.filter(res=>res.OpportunityType==="Event").map((item, index) => {
-            return <HackathonCard details={item} key={index} />;
+            return <HackathonCard data={data[index % data.length]} details={item} key={index} />;
           })}
         </div>
       </div>
