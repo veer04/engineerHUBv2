@@ -254,7 +254,7 @@ export const getHiringData = (setHiring) => {
     });
 };
 
-export const getHiringDataById = (setHiring,hiringId) => {
+export const getHiringDataById = (setHiring, hiringId) => {
   const controller = new AbortController();
   axios
     .get(`${API_URL}api/v1/hiring/${hiringId}`, {
@@ -274,7 +274,24 @@ export const getHiringDataById = (setHiring,hiringId) => {
     });
 };
 
-
+export const getAllJobs = (setJobs) => {
+  const controller = new AbortController();
+  axios
+    .get(`${API_URL}api/v1/hiring/`, {
+      signal: controller.signal,
+    })
+    .then((res) => {
+      const data = res.data.data.filter((res) => res.OpportunityType === "Job");
+      setJobs(data);
+    })
+    .catch((err) => {
+      if (axios.isCancel(err)) {
+        console.log("req cancel");
+      } else {
+        console.log("req performed");
+      }
+    });
+};
 
 export const getProjectData = (setProject) => {
   const controller = new AbortController();
@@ -296,7 +313,7 @@ export const getProjectData = (setProject) => {
     });
 };
 
-export const getProjectDataById = (setProject,projectId) => {
+export const getProjectDataById = (setProject, projectId) => {
   const controller = new AbortController();
   axios
     .get(`${API_URL}api/v1/project/${projectId}`, {
@@ -315,9 +332,6 @@ export const getProjectDataById = (setProject,projectId) => {
       }
     });
 };
-
-
-
 
 export const getUserProfileById = (setUserProfile, userId) => {
   const controller = new AbortController();
