@@ -80,10 +80,16 @@ function App() {
 
   // const { eventId } = useParams();
   const [isEventModalOpen, setIsEventModalOpen] = useState(false);
+  const [hasSignedUp, setHasSignedUp] = useState(false);
+  const [OtpRoute,setOtpRoute]=useState("False");
+ useEffect(()=>{
+  setOtpRoute(localStorage.getItem("OtpRoute"));
+ })
   const userName = document.cookie
     .split(";")
     .map((cookie) => cookie.trim())
     .find((cookie) => cookie.startsWith("userName="));
+    // const OtpRoute =localStorage.get("OtpRoute");
 
   const isAuthenticated = !!userName;
 
@@ -142,7 +148,18 @@ function App() {
           <Route path="/mentorSignup" element={<MentorSignup />} />
           <Route path="/organizationSignup" element={<OrganizationSignup />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/otpverification" element={<OTP />} />
+          
+          { OtpRoute==="true"?(
+             <Route exact path="/otpverification" element={<OTP/>} />
+          ):(
+            <Route path="/otpverification" element={<Login />} />
+          )
+
+          }
+         
+   
+       
+
           <Route path="/under-maintenance" element={<ComingSoon />} />
           <Route path="/community">
             <Route index element={<CommunityPage />} />
