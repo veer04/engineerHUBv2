@@ -14,17 +14,20 @@ import jwt_decode from "jwt-decode";
 const HackathonDesc = ({ details }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
-  const accesstoken = getAccessToken();
-  const decode = jwt_decode(accesstoken);
+  // const accesstoken = getAccessToken();
+  // const decode = jwt_decode(accesstoken);
   // const valueName=getCookie("name");
   useEffect(() => {
-    if (getCookie("name")) {
+    window.scrollTo(0, 0);
+    if(getCookie("name"))
+    {
       setIsLoggedIn(true);
     }
   }, []);
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [window.location.pathname]);
+
+  // useEffect(() => {
+  //   window.scrollTo(0, 0);
+  // }, [window.location.pathname]);
 
   const postUserDetails = () => {
     const data = {
@@ -87,15 +90,16 @@ const HackathonDesc = ({ details }) => {
             <h3>{details.jobLocation}</h3>
           </span>
           <div>
-            {isLoggedIn ? (
-              <Link onClick={postUserDetails} to={details.websiteUrl}>
-                <div className="btn">Apply </div>
+          {
+              isLoggedIn ? (
+                <Link to={details.websiteUrl}>
+                <div className="btn">Apply</div>
               </Link>
-            ) : (
-              <Link to={"https://ehubbusiness.com/login"}>
-                <div className="btn">Apply </div>
+              ):(
+                <Link to={"https://ehubbusiness.com/login"}>
+                <div className="btn">Apply</div>
               </Link>
-            )}
+              )}
           </div>
         </span>
         {/* <span className="Tags">
