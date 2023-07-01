@@ -79,7 +79,7 @@ const HackathonDetails = () => {
     return()=>{
       controller.abort();
     }
-  },[hiring])
+  },[hackId])
   const bucket = `${Bucket_URL}frontend/company/events/hackathon/`;
   
 
@@ -456,13 +456,47 @@ const HackathonDetails = () => {
   //   },
   // ];
 
+  const data = [
+    {
+      stars: 3,
+      views: 426,
+      days: 9,
+    },
+    {
+      stars: 3,
+      views: 575,
+      days: 20,
+    },
+    {
+      stars: 4,
+      views: 978,
+      days: 7,
+    },
+    {
+      stars: 5,
+      views: 148,
+      days: 171,
+    },
+    {
+      stars: 3,
+      views: 429,
+      days: 15,
+    },
+    {
+      stars: 5,
+      views: 292,
+      days: 27,
+    },
+  ];
+
+
   return (
     <div className="HackathonDetails">
       <div className="hackathonTiles">
         {hiring?.filter(res=>res.OpportunityType==="Event").map((item, index) => {
           return (
             
-              <HackathonCard details={item} color={colorWheel[index%colorWheel.length]} key={index}
+              <HackathonCard details={item} data={data[index % data.length]} color={colorWheel[index%colorWheel.length]} key={index}
               
               />
            

@@ -5,50 +5,73 @@ import { BsCalendar4 } from "react-icons/bs";
 import { FiMail } from "react-icons/fi";
 import { TbPhoneCall } from "react-icons/tb";
 import { Bucket_URL } from "../../../../services/APIUtils";
-import { useNavigate,Link } from "react-router-dom";
-import getCookie, { getAccessToken } from "../../../../features/getCookieValues";
+import { useNavigate, Link } from "react-router-dom";
+import getCookie, {
+  getAccessToken,
+} from "../../../../features/getCookieValues";
 import { API_URL } from "../../../../services/APIUtils";
 import jwt_decode from "jwt-decode";
 const HackathonDesc = ({ details }) => {
-  const[isLoggedIn,setIsLoggedIn]=useState(false);
-  const navigate =useNavigate();
-  const accesstoken=getAccessToken();
-  const decode =jwt_decode(accesstoken);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const navigate = useNavigate();
+  const accesstoken = getAccessToken();
+  const decode = jwt_decode(accesstoken);
   // const valueName=getCookie("name");
-  useEffect(()=>{
-    if(getCookie("name"))
-    {
+  useEffect(() => {
+    if (getCookie("name")) {
       setIsLoggedIn(true);
     }
-  },[])
+  }, []);
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [window.location.pathname]);
-  
-  const postUserDetails=()=>{
-    const data= {
-      eventId: details._id,
-      userId:decode._id
 
+  const postUserDetails = () => {
+    const data = {
+      eventId: details._id,
+      userId: decode._id,
     };
-    axios.post(`${API_URL}/api/v1/eventRegistration`,data).then(
-      (res)=>{
-        if(res.status===200||
-          res.status===201||
-          res.status===2002||
-          res.status===203||
-          res.status===204
-          )
-          {
-            window.alert("successfully Applied");
-          }
+    axios.post(`${API_URL}/api/v1/eventRegistration`, data).then(
+      (res) => {
+        if (
+          res.status === 200 ||
+          res.status === 201 ||
+          res.status === 2002 ||
+          res.status === 203 ||
+          res.status === 204
+        ) {
+          window.alert("successfully Applied");
+        }
       },
-      (err)=>{
+      (err) => {
         console.log(err);
       }
-    )
-  }
+    );
+  };
   const bucket = `${Bucket_URL}frontend/company/events/hackathon/`;
+
+  const startDate = new Date(details.applicationStartTime);
+  let getStartDate = startDate
+    .toLocaleTimeString("en-IN", {
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+    })
+    .replace(",", " /");
+  let copyDate = getStartDate;
+  copyDate = copyDate.substring(0, copyDate.indexOf("/"));
+
+  const endDate = new Date(details.applicationStartTime);
+  let getEndDate = endDate
+    .toLocaleTimeString("en-IN", {
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+    })
+    .replace(",", " /");
+  let copyEndDate = getEndDate;
+  copyEndDate = copyEndDate.substring(0, copyEndDate.indexOf("/"));
+
   return (
     <div className="HackDescription">
       <div className="HackDetailHeader">
@@ -64,25 +87,15 @@ const HackathonDesc = ({ details }) => {
             <h3>{details.jobLocation}</h3>
           </span>
           <div>
-            {
-              isLoggedIn?(
-                <Link
-                onClick={postUserDetails}
-                to={details.websiteUrl}
-                >
-          <div className="btn"  
-          >Apply </div>
-          </Link>
-
-              ):(
-
-                <Link to={"https://ehubbusiness.com/login"}>
-                <div className="btn"  
-                >Apply </div>
-                </Link>
-              )
-            }
-          
+            {isLoggedIn ? (
+              <Link onClick={postUserDetails} to={details.websiteUrl}>
+                <div className="btn">Apply </div>
+              </Link>
+            ) : (
+              <Link to={"https://ehubbusiness.com/login"}>
+                <div className="btn">Apply </div>
+              </Link>
+            )}
           </div>
         </span>
         {/* <span className="Tags">
@@ -126,7 +139,7 @@ const HackathonDesc = ({ details }) => {
             </div>
             <span>
               <h4>Registration Date</h4>
-              <h6>{details.applicationStartTime}</h6>
+              <h6>{copyDate}</h6>
             </span>
           </div>
           <div className="HackDateItem">
@@ -135,7 +148,7 @@ const HackathonDesc = ({ details }) => {
             </div>
             <span>
               <h4>Registration Fees Payment</h4>
-              <h6>{details.applicationEndTime}</h6>
+              <h6>{copyEndDate}</h6>
             </span>
           </div>
           <div className="HackDateItem">
@@ -144,7 +157,7 @@ const HackathonDesc = ({ details }) => {
             </div>
             <span>
               <h4>Submission Date</h4>
-              <h6>{details.applicationEndTime}</h6>
+              <h6>{copyEndDate}</h6>
             </span>
           </div>
           <div className="HackDateItem">
@@ -153,7 +166,7 @@ const HackathonDesc = ({ details }) => {
             </div>
             <span>
               <h4>Results</h4>
-              <h6>{details.applicationEndTime}</h6>
+              <h6>{copyEndDate}</h6>
             </span>
           </div>
         </div>
