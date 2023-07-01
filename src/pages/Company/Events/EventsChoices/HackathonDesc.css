@@ -30,6 +30,8 @@
 }
 .HackDetailHeader span .imgBox img {
   width: 100%;
+  object-fit: contain;
+  height: 100%;
 }
 .HackDetailHeader span .heads {
   display: flex;

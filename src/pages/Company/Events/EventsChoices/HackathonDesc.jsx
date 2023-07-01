@@ -80,7 +80,7 @@ const HackathonDesc = ({ details }) => {
         </div>
         <span>
           <span className="imgBox">
-            <img src={details.organizationPoster} alt="Logo" />
+            <img src={details.OrganisationPoster} alt="Logo" />
           </span>
           <span className="heads">
             <h1>{details.OpportunityName}</h1>
