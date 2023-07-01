@@ -90,16 +90,20 @@ export default function PostModal() {
               className="post-image"
             ></div>
             <div className="post-details-container">
-              <div className="club-details">
-                <div
-                  style={{
-                    backgroundImage: `url(${post.clubId.image})`,
-                  }}
-                  className="club-logo"
-                ></div>
-                <div className="club-name text-crop-1">{post.clubId.name}</div>
+              <div className="upper-container">
+                <div className="club-details">
+                  <div
+                    style={{
+                      backgroundImage: `url(${post.clubId.image})`,
+                    }}
+                    className="club-logo"
+                  ></div>
+                  <div className="club-name text-crop-1">
+                    {post.clubId.name}
+                  </div>
+                </div>
+                <div className="description">{post.description}</div>
               </div>
-              <div className="description">{post.description}</div>
               <div className="options-container">
                 <div className="likes">
                   Liked by {isLiked ? post.likes + 1 : post.likes}
