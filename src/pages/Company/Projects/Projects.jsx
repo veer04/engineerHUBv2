@@ -5,61 +5,61 @@ import HTML from "./ProjectChoices/HTML";
 import "./Projects.css";
 
 const Projects = () => {
-  const [search, setSearch] = useState("");
-  const [choice, setChoice] = useState("HTML");
+  // const [search, setSearch] = useState("");
+  // const [choice, setChoice] = useState("HTML");
 
-  const changeChoice = () => {
-    switch (choice) {
-      case "HTML":
-        return <HTML />;
-      default:
-        return <HTML />;
-    }
-  };
+  // const changeChoice = () => {
+  //   switch (choice) {
+  //     case "HTML":
+  //       return <HTML />;
+  //     default:
+  //       return <HTML />;
+  //   }
+  // };
 
-  const handleChoicesChange = (e) => {
-    e.preventDefault();
-    document.querySelector(".select").classList.remove("select");
-    setChoice(e.target.value);
-    e.target.classList.add("select");
-    changeChoice();
-  };
+  // const handleChoicesChange = (e) => {
+  //   e.preventDefault();
+  //   document.querySelector(".select").classList.remove("select");
+  //   setChoice(e.target.value);
+  //   e.target.classList.add("select");
+  //   changeChoice();
+  // };
 
-  useEffect(() => {
-    if (window.location.pathname.split("/").includes("html")) {
-      document.querySelector(".select").classList.remove("select");
-      setChoice("HTML");
-      document.querySelector(".html").classList.add("select");
-    } else if (window.location.pathname.split("/").includes("java")) {
-      document.querySelector(".select").classList.remove("select");
-      setChoice("Java");
-      document.querySelector(".java").classList.add("select");
-    } else if (window.location.pathname.split("/").includes("javascript")) {
-      document.querySelector(".select").classList.remove("select");
-      setChoice("Javascript");
-      document.querySelector(".javascript").classList.add("select");
-    } else if (window.location.pathname.split("/").includes("nodejs")) {
-      document.querySelector(".select").classList.remove("select");
-      setChoice("NodeJs");
-      document.querySelector(".nodejs").classList.add("select");
-    } else if (window.location.pathname.split("/").includes("php")) {
-      document.querySelector(".select").classList.remove("select");
-      setChoice("PHP");
-      document.querySelector(".php").classList.add("select");
-    } else if (window.location.pathname.split("/").includes("backend")) {
-      document.querySelector(".select").classList.remove("select");
-      setChoice("Backend");
-      document.querySelector(".backend").classList.add("select");
-    } else if (window.location.pathname.split("/").includes("html5")) {
-      document.querySelector(".select").classList.remove("select");
-      setChoice("HTML5");
-      document.querySelector(".html5").classList.add("select");
-    } else {
-      document.querySelector(".select").classList.remove("select");
-      setChoice("HTML");
-      document.querySelector(".html").classList.add("select");
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (window.location.pathname.split("/").includes("html")) {
+  //     document.querySelector(".select").classList.remove("select");
+  //     setChoice("HTML");
+  //     document.querySelector(".html").classList.add("select");
+  //   } else if (window.location.pathname.split("/").includes("java")) {
+  //     document.querySelector(".select").classList.remove("select");
+  //     setChoice("Java");
+  //     document.querySelector(".java").classList.add("select");
+  //   } else if (window.location.pathname.split("/").includes("javascript")) {
+  //     document.querySelector(".select").classList.remove("select");
+  //     setChoice("Javascript");
+  //     document.querySelector(".javascript").classList.add("select");
+  //   } else if (window.location.pathname.split("/").includes("nodejs")) {
+  //     document.querySelector(".select").classList.remove("select");
+  //     setChoice("NodeJs");
+  //     document.querySelector(".nodejs").classList.add("select");
+  //   } else if (window.location.pathname.split("/").includes("php")) {
+  //     document.querySelector(".select").classList.remove("select");
+  //     setChoice("PHP");
+  //     document.querySelector(".php").classList.add("select");
+  //   } else if (window.location.pathname.split("/").includes("backend")) {
+  //     document.querySelector(".select").classList.remove("select");
+  //     setChoice("Backend");
+  //     document.querySelector(".backend").classList.add("select");
+  //   } else if (window.location.pathname.split("/").includes("html5")) {
+  //     document.querySelector(".select").classList.remove("select");
+  //     setChoice("HTML5");
+  //     document.querySelector(".html5").classList.add("select");
+  //   } else {
+  //     document.querySelector(".select").classList.remove("select");
+  //     setChoice("HTML");
+  //     document.querySelector(".html").classList.add("select");
+  //   }
+  // }, []);
 
   return (
     <div className="Projects">
@@ -81,7 +81,7 @@ const Projects = () => {
           <MdTune />
         </div>
       </div> */}
-      <div className="Choices">
+      {/* <div className="Choices">
         <button
           className="btn select html"
           value="HTML"
@@ -131,8 +131,11 @@ const Projects = () => {
         >
           Backend
         </button>
+      </div> */}
+      {/* <div className="ChoicesSelection">{changeChoice()}</div> */}
+      <div className="ChoicesSelection">
+        <HTML />
       </div>
-      <div className="ChoicesSelection">{changeChoice()}</div>
     </div>
   );
 };
