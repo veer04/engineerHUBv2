@@ -49,16 +49,21 @@
 .post-container > .post-details-container {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   padding: 0 2.9375rem;
   position: relative;
   margin-top: 1.5rem;
 }
-.post-container > .post-details-container > .club-details {
+.post-container > .post-details-container > .upper-container > .club-details {
   display: flex;
   flex-wrap: nowrap;
   align-items: center;
 }
-.post-container > .post-details-container > .club-details > .club-logo {
+.post-container
+  > .post-details-container
+  > .upper-container
+  > .club-details
+  > .club-logo {
   width: 3.125rem;
   height: 3.125rem;
   min-width: 3.125rem;
@@ -69,13 +74,17 @@
   margin-right: 0.875rem;
   border-radius: 100%;
 }
-.post-container > .post-details-container > .club-details > .club-name {
+.post-container
+  > .post-details-container
+  > .upper-container
+  > .club-details
+  > .club-name {
   font-size: 1rem;
   font-weight: 600;
   color: black;
   overflow: hidden;
 }
-.post-container > .post-details-container > .description {
+.post-container > .post-details-container > .upper-container > .description {
   font-size: 1rem;
   font-weight: 400;
   color: black;
@@ -87,7 +96,7 @@
 .post-container > .post-details-container > .options-container {
   display: flex;
   flex-direction: column;
-  position: absolute;
+  /* position: absolute; */
   bottom: 0;
   gap: 0.4rem;
 }
@@ -133,7 +142,7 @@
   }
 }
 
-@media screen and (max-width: 768px) {
+@media screen and ((max-width: 768px) or (max-height: 768px)) {
   .post-container {
     grid-template-columns: 1fr;
     width: 100%;
