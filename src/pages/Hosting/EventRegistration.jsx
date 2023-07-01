@@ -10,6 +10,7 @@ import HostEventTimeline from "../../components/Timeline/HostEventTimeline";
 import {
   TextField,
   FormControl,
+  
   InputLabel,
   FormHelperText,
   OutlinedInput,
@@ -378,11 +379,12 @@ const validateInput3=()=>
                         helperText={errors.description}
                       />
              
-                
+              <label htmlFor="sdate">Event Start Date</label>
              <TextField
                         name="Event Start Date"
-                        label="Event Start Date"
+                        // label="Event Start Date"
                         variant="outlined"
+                        id="sdate"
                         type ="date"
                         value={eventStartTime}
                         onChange={(e) => setEventStartTime(e.target.value)}
@@ -391,11 +393,13 @@ const validateInput3=()=>
                         error={!!errors.eventStartTime}
                         helperText={errors.eventStartTime}
                       />
+                      <label htmlFor="edate">Event End Date</label>
                         <TextField
                         name="Event End Date"
-                        label="Event End Date"
+                        // label="Event End Date"
                         variant="outlined"
                         type ="date"
+                        id="edate"
                         value={eventEndTime}
                         onChange={(e) => setEventEndTime(e.target.value)}
                         fullWidth

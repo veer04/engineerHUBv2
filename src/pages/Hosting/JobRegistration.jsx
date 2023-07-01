@@ -338,11 +338,12 @@ const validateInput5=()=>
           id="student-signup-campus-label"
           error={!!errors.OpportunityType}
         >
-          Oppurtunity Type
+          Oppurtunity
         </InputLabel>
       <Select
         labelId="event-type-label"
         id="event-type"
+        name="Opportunity Type"
         value={OpportunityType}
         label="Event Type"
         
@@ -361,7 +362,7 @@ const validateInput5=()=>
 
                     <TextField
                         name="OpportunityName"
-                        label="Opportunity Name"
+                        label="OpportunityName"
                         variant="outlined"
                         value={OpportunityName}
                         onChange={(e) => setOpportunityName(e.target.value)}

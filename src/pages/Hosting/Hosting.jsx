@@ -23,6 +23,12 @@ export default function Hosting() {
       case "Hackathon":
         value = "Hackathon";
         break;
+        case "Job":
+        value = "Job";
+        break;
+        case "Internship":
+          value = "Internship";
+          break;
       default:
         value = "";
     }
@@ -55,7 +61,8 @@ export default function Hosting() {
       const decoded = jwt_decode(token);
       console.log(decoded);
       console.log(decoded.role);
-      if (decoded.role === "Organization") {
+      const storedValue = localStorage.getItem('event');
+      if (decoded.role === "Organization" ) {
         navigate("/hostjob");
       } else {
         window.alert("Not Authorized to Host events!!!");
@@ -70,6 +77,7 @@ export default function Hosting() {
       const decoded = jwt_decode(token);
       console.log(decoded);
       console.log(decoded.role);
+      const storedValue = localStorage.getItem('event');
       if (decoded.role === "Club") {
         navigate("/hostevent");
       } else {
@@ -201,7 +209,7 @@ export default function Hosting() {
           </div>
           {/* </Link>
           <Link to="/hostevent"> */}
-          <div
+          {/* <div
             onClick={navigationOrganization}
             style={{
               backgroundImage: `url(${bucket}challenges.png)`,
@@ -212,7 +220,7 @@ export default function Hosting() {
             <div className="subheading">
               Create Jobs <BsArrowRight />
             </div>
-          </div>
+          </div> */}
           {/* </Link> */}
         </div>
       </div>
