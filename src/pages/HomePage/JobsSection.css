@@ -91,12 +91,15 @@
   flex-direction: row;
   align-items: center;
   gap: 1rem;
+  overflow: hidden;
 }
 .job-skills div {
   background-color: #ffd80a;
   border-radius: 1rem;
   padding: 0.1rem 0.6rem;
   font-size: 0.8rem;
+  /* width: 100%; */
+  white-space: nowrap;
 }
 .jobs-section-card {
   position: relative;

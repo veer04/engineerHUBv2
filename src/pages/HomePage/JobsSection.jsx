@@ -1,75 +1,47 @@
-import React from "react";
+import { useEffect, useState } from "react";
 import "./JobsSection.css";
 import arrow from "./svg/jobs-btn.svg";
 import { Bucket_URL } from "../../services/APIUtils";
 import defaultPoster from "../../assets/defaultPoster";
 import { useNavigate } from "react-router-dom";
+import { controller, getAllJobs } from "../../services/APIConfig";
 
 export default function JobsSection() {
   const navigate = useNavigate();
   const bucket = `${Bucket_URL}frontend/homepage/jobssection/`;
-  const jobs = [
-    {
-      id: 1,
-      companyLogo:
-        "https://frontendehubbucket.s3.ap-south-1.amazonaws.com/frontend/company/jobs/uber.svg",
-      companyName: "Uber",
-      jobTitle: "Looking for Senior UI Developer",
-      skills: ["Figma", "UI/UX", "Creative"],
-      link: "company/jobs/1234",
-    },
-    {
-      id: 2,
-      companyLogo:
-        "https://frontendehubbucket.s3.ap-south-1.amazonaws.com/frontend/company/jobs/google.svg",
-      companyName: "Google",
-      jobTitle: "Looking for Senior Backend Engineer",
-      skills: ["Developer", "Engineer"],
-      link: "company/jobs/1233",
-    },
-    {
-      id: 3,
-      companyLogo:
-        "https://frontendehubbucket.s3.ap-south-1.amazonaws.com/frontend/company/jobs/microsoft.svg",
-      companyName: "Microsoft",
-      jobTitle: "Looking for Azure Data Engineer",
-      skills: ["Data Analyst", "Data Science"],
-      link: "company/jobs/1232",
-    },
-    {
-      id: 4,
-      companyLogo:
-        "https://logodownload.org/wp-content/uploads/2020/02/zomato-logo-1.png",
-      companyName: "Zomato",
-      jobTitle: "Looking for Frontend Developer",
-      skills: ["Frontend", "Creative", "React"],
-    },
-    {
-      id: 5,
-      companyLogo:
-        "https://en.wikichip.org/w/images/thumb/e/ec/oracle_logo.svg/663px-oracle_logo.svg.png",
-      companyName: "Oracle",
-      jobTitle: "Looking for Java Developers",
-      skills: ["Java", "Spring", "Backend"],
-    },
-  ];
+  const [jobs, setJobs] = useState([]);
+  useEffect(() => {
+    getAllJobs(setJobs);
 
+    return () => {
+      controller.abort();
+    };
+  }, []);
   function createJobs(jobs) {
-    return jobs.map((job) => (
+    return jobs?.map((job) => (
       <div
-        onClick={() => navigate(job.link)}
-        key={job.id}
-        className={`jobs-section-card jobs-section-card-${job.id}`}
+        onClick={() => navigate(`/company/jobs/${job._id}`)}
+        key={job._id}
+        className={`jobs-section-card jobs-section-card-${job._id}`}
       >
         <div className="job-company">
-          <img src={job.companyLogo} alt="Company Logo" />
-          <div>{job.companyName}</div>
+          <img src={job.OrganisationPoster} alt="Company Logo" />
+          <span className="text-crop-1 overflow-hidden">
+            {job.Organisation ? job.Organisation : job.Organization}
+          </span>
         </div>
-        <div className="job-title">{job.jobTitle}</div>
+        <div className="job-title text-crop-1 overflow-hidden">
+          {job.OpportunityPosition}
+        </div>
         <div className="job-skills">
-          {job.skills.map((skill, index) => (
+          {job.skillsRequired?.slice(0, 3).map((skill, index) => (
             <div key={`${job.id}${index}`}>{skill}</div>
           ))}
+          {job.skillsRequired?.length > 3 ? (
+            <div className="job-skills-more">
+              +{job.skillsRequired?.length - 3}
+            </div>
+          ) : null}
         </div>
       </div>
     ));
