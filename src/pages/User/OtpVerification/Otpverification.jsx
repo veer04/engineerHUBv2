@@ -56,6 +56,7 @@ const OTP = () => {
 
         console.log(response);
         if (response.data.success) {
+          changeRouteValue();
           setLoading(false);
           window.location.href = "/";
         }
@@ -67,6 +68,9 @@ const OTP = () => {
         console.error(error);
       });
   };
+  const changeRouteValue=()=>{
+    localStorage.setItem("OtpRoute","False");
+  }
 
   return (
     <>
@@ -179,7 +183,9 @@ const OTP = () => {
                         pattern="[0-9]*"
                         required
                       /> */}
-                    <button className="logBtn logout-btn" type="submit">
+                    <button className="logBtn logout-btn"
+                   
+                    type="submit">
                       {loading ? "Loading..." : "Verify"}
                     </button>
                   </form>
