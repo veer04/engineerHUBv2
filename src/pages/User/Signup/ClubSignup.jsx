@@ -353,7 +353,7 @@ const ClubSignup = () => {
     <div>
 
 
-<TextField
+{/* <TextField
         name="clubType"
         label="club Type"
         variant="outlined"
@@ -363,8 +363,8 @@ const ClubSignup = () => {
         margin="normal"
         error={!!errors.clubType}
         helperText={errors.clubType}
-      />
-                    {/* <FormControl
+      /> */}
+                    <FormControl
                         fullWidth
                         >
                         <InputLabel
@@ -378,7 +378,7 @@ const ClubSignup = () => {
                           id="event-type"
                           value={formData.clubType}
                           label="club Type"
-                          
+                          name="clubType"
                           onChange={handleChange}
                         >
                           <MenuItem value="Technical">Technical</MenuItem>
@@ -388,7 +388,7 @@ const ClubSignup = () => {
                         <FormHelperText error={!!errors.clubType}>
                             {errors.clubType}
                           </FormHelperText>
-                      </FormControl> */}
+                      </FormControl>
                       
       <FormControl margin="normal" fullWidth>
         <InputLabel id="student-signup-campus-label" error={!!errors.collegeId}>
