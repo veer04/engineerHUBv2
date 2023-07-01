@@ -25,6 +25,7 @@ export default function Modal({ handleClose, setShowModal }) {
   }, []);
 
   useEffect(() => {
+    console.log(eventId);
     getParticularEvent(setEvent, eventId);
 
     return () => {
@@ -33,6 +34,7 @@ export default function Modal({ handleClose, setShowModal }) {
   }, [eventId]);
 
   useEffect(() => {
+    console.log(event);
     sessionStorage.setItem(`event details ${eventId}`, JSON.stringify(event));
   }, [event]);
 
