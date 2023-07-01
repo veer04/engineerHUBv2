@@ -322,6 +322,9 @@ const MentorSignup = () => {
 
     if (step === 4) {
       if (validateInput4()) setValidation(true);
+      {
+        localStorage.setItem("OtpRoute","true");
+      }
     }
   }
 
