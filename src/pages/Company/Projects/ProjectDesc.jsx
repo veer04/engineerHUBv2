@@ -47,14 +47,14 @@ const ProjectDesc = ({ data }) => {
         </div> */}
       </div>
       <div className="AdditionalInfo">
-        <div className="AdditionalInfoChip">
+        {data?.stipend && <div className="AdditionalInfoChip">
           <h5>Salary/Stipend</h5>
           <p>{data.stipend}/-</p>
-        </div>
-        <div className="AdditionalInfoChip">
+        </div>}
+        {data?.workAvailability && <div className="AdditionalInfoChip">
           <h5>Work Availability</h5>
           <p>{data.workAvailability}hr/day</p>
-        </div>
+        </div>}
       </div>
       <div className="ApplyNowBtn">
       <Link to={data.applyLink}
