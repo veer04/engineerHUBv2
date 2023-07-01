@@ -156,10 +156,7 @@ function App() {
           )
 
           }
-         
-   
-       
-
+    
           <Route path="/under-maintenance" element={<ComingSoon />} />
           <Route path="/community">
             <Route index element={<CommunityPage />} />
