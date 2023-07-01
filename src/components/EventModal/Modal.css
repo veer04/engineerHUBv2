@@ -9,14 +9,15 @@
   height: 100dvh;
   background-color: rgba(0, 0, 0, 0.5);
   display: flex;
-  justify-content: center;
-  align-items: center;
+  /* justify-content: center;
+  align-items: center; */
   z-index: 100;
+  overflow: auto;
 }
 
 .event-modal {
   background-image: linear-gradient(white, #76d7d5);
-  position: absolute;
+  /* position: absolute; */
   max-width: 61.125rem;
   max-height: 44.5625rem;
   padding: 2rem 9.43rem;
@@ -24,6 +25,7 @@
   padding-top: 2rem;
   padding-bottom: 2rem;
   overflow-y: auto;
+  margin: auto;
 }
 .event-modal > .close-btn {
   display: flex;
