@@ -19,7 +19,7 @@ useEffect(()=>
     controller.abort();
   };
 
-},[window.location.pathname,event])
+},[window.location.pathname])
 
 useEffect(()=>
 {
