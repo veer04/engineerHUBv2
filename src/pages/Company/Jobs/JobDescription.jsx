@@ -1,10 +1,12 @@
 import React, { useEffect } from "react";
 import "./JobDescription.css";
 import { Chip } from "@mui/material";
-import { Bucket_URL } from "../../../services/APIUtils";
+import { API_URL, Bucket_URL } from "../../../services/APIUtils";
 import { useNavigate, Link } from "react-router-dom";
 import { useState } from "react";
-import getCookie from "../../../features/getCookieValues";
+import getCookie, { getAccessToken } from "../../../features/getCookieValues";
+import jwt_decode from "jwt-decode";
+import axios from "axios";
 const JobDescription = ({ details }) => {
   const navigate = useNavigate();
   const[isLoggedIn,setIsLoggedIn]=useState(false);
@@ -17,6 +19,26 @@ const JobDescription = ({ details }) => {
       setIsLoggedIn(true);
     }
   }, []);
+  const UserDataPost=()=>{
+const data={
+    hiringId: details._id,
+}
+axios.post(`${API_URL}api/v1/hiringRegistration`,data,
+{
+  headers: {
+    accesstoken: getAccessToken(), 
+  },
+}
+).then((res)=>{
+  if(res.status===201)
+  {
+    console.log(res.data.message);
+  }
+
+}).catch((err)=>{
+  console.log(err.data.message);
+})
+  }
   useEffect(()=>
   {
     console.log(details,"job Description");
@@ -36,9 +58,11 @@ const JobDescription = ({ details }) => {
           <div>
             {
               isLoggedIn ? (
-                <Link to={details.websiteUrl}>
+                <div
+                onClick={UserDataPost}
+                >
                 <div className="btn">Apply</div>
-              </Link>
+              </div>
               ):(
                 <Link to={"https://ehubbusiness.com/login"}>
                 <div className="btn">Apply</div>
