@@ -9,6 +9,7 @@ import jwt_decode from "jwt-decode";
 import axios from "axios";
 const JobDescription = ({ details }) => {
   const navigate = useNavigate();
+  const[flag, setFlag]=useState(true);
   const[isLoggedIn,setIsLoggedIn]=useState(false);
   const bucket = `${Bucket_URL}frontend/company/jobs/`;
 
@@ -30,13 +31,18 @@ axios.post(`${API_URL}api/v1/hiringRegistration`,data,
   },
 }
 ).then((res)=>{
-  if(res.status===201)
-  {
-    console.log(res.data.message);
+  if (
+    response.status === 200 ||
+    response.status === 201 ||
+    response.status === 202 ||
+    response.status === 203 ||
+    response.status === 204
+  ) {
+     setFlag(false);
   }
 
 }).catch((err)=>{
-  console.log(err.data.message);
+  window.alert(err.message);
 })
   }
   useEffect(()=>
@@ -61,7 +67,13 @@ axios.post(`${API_URL}api/v1/hiringRegistration`,data,
                 <div
                 onClick={UserDataPost}
                 >
-                <div className="btn">Apply</div>
+                  {
+                    flag?(
+                      <div className="btn">Applied</div>
+                    ):(
+                      <div className="btn">Apply</div>
+                    )
+                  }
               </div>
               ):(
                 <Link to={"https://ehubbusiness.com/login"}>
