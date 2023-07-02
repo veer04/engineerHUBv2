@@ -66,8 +66,8 @@ const JobRegistrationForm = () => {
   const[WebsiteUrl,setWebsiteUrl]=useState("");
   const[isServiceOff,setIsServiceOff]=useState(false);
   const[OpportunityPosition,setOpportunityPosition]=useState("");
-  const[organization,setOrganization]=useState("");
-  const [organizationPoster, setOrganizationPoster] = useState("");
+  const[Organisation,setOrganisation]=useState("");
+  const [OrganizationPoster, setOrganizationPoster] = useState("");
 
   const[skillsRequired,setSkillsRequired]=useState([]);
   const [applicationStartTime, setApplicationStartTime] = useState("");
@@ -118,8 +118,8 @@ OpportunityType:"",
 OpportunityName:"",
 OpportunityPoster:"",
 OpportunityPosition:"",
-organization:"",
-organizationPoster:"",
+Organisation:"",
+OrganizationPoster:"",
 
 
 
@@ -219,8 +219,8 @@ const validateInput5=()=>
     form.append("OpportunityPoster", OpportunityPoster);
     form.append("OpportunityName", OpportunityName);
     form.append("OpportunityPosition",OpportunityPosition);
-    form.append("organization", organization);
-    form.append("organizationPoster", organizationPoster);
+    form.append("Organisation", Organisation);
+    form.append("OrganizationPoster", OrganizationPoster);
     form.append("domainName", domainName);  
     form.append("description", description);
     form.append("mobileNo",mobileNo);
@@ -267,7 +267,7 @@ const validateInput5=()=>
     console.log(form.get("OpportunityName"), " OpportunityName ");
     // console.log(form.get("eventModeType"), " eventModeType ");
     console.log(form.get("OpportunityPoster"), "OpportunityPoster");
-    console.log(form.get("organizationPoster"), "organizationPoster");
+    console.log(form.get("OrganizationPoster"), "OrganizationPoster");
     // console.log(form.get("status"), " status ");
 
   if (validation===true)
@@ -407,24 +407,24 @@ const validateInput5=()=>
 
 
                     <TextField
-                        name="organization"
-                        label="organization"
+                        name="Organisation"
+                        label="Organisation"
                         variant="outlined"
-                        value={organization}
-                        onChange={(e) => setOrganization(e.target.value)}
+                        value={Organisation}
+                        onChange={(e) => setOrganisation(e.target.value)}
                         // onChange={handleChange}
                         fullWidth
                         margin="normal"
-                        error={!!errors.organization}
-                        helperText={errors.organization}
+                        error={!!errors.Organisation}
+                        helperText={errors.Organisation}
                       />
 
 
-<label htmlFor="organizationPoster">Organization Poster</label>
+<label htmlFor="OrganizationPoster">Organization Poster</label>
                 <div>
                   <input
                     type="file"
-                    id="organizationPoster"
+                    id="OrganizationPoster"
                  
                     className="inputHosting"
                     onChange={handleFileInputOrganizationPoster}
