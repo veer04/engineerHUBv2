@@ -66,6 +66,7 @@ import ClubProfilePage from "./pages/User/Profile/ClubProfile/ClubProfilePage";
 import GeneralClubData from "./pages/User/Profile/ClubProfile/GeneralClubData";
 import EditClubData from "./pages/User/Profile/ClubProfile/EditClubData";
 import JobRegistration from "./pages/Hosting/JobRegistration";
+import Page404 from "./pages/Maintenance/Page404";
 
 const CommunityPage = lazy(() => import("./pages/Community/CommunityPage"));
 const CampusPage = lazy(() => import("./pages/Campus/CampusPage"));
@@ -74,22 +75,17 @@ const Hosting = lazy(() => import("./pages/Hosting/Hosting.jsx"));
 const Login = lazy(() => import("./pages/User/Login/Login"));
 
 function App() {
-  // var formData = new FormData();
-  // formData.append("name", "Gaurav");
-  // console.log(formData.entries());
-
-  // const { eventId } = useParams();
   const [isEventModalOpen, setIsEventModalOpen] = useState(false);
   const [hasSignedUp, setHasSignedUp] = useState(false);
-  const [OtpRoute,setOtpRoute]=useState("False");
- useEffect(()=>{
-  setOtpRoute(localStorage.getItem("OtpRoute"));
- })
+  const [OtpRoute, setOtpRoute] = useState("False");
+  useEffect(() => {
+    setOtpRoute(localStorage.getItem("OtpRoute"));
+  });
   const userName = document.cookie
     .split(";")
     .map((cookie) => cookie.trim())
     .find((cookie) => cookie.startsWith("userName="));
-    // const OtpRoute =localStorage.get("OtpRoute");
+  // const OtpRoute =localStorage.get("OtpRoute");
 
   const isAuthenticated = !!userName;
 
@@ -148,15 +144,13 @@ function App() {
           <Route path="/mentorSignup" element={<MentorSignup />} />
           <Route path="/organizationSignup" element={<OrganizationSignup />} />
           <Route path="/login" element={<Login />} />
-          
-          { OtpRoute==="true"?(
-             <Route exact path="/otpverification" element={<OTP/>} />
-          ):(
-            <Route path="/otpverification" element={<Login />} />
-          )
 
-          }
-    
+          {OtpRoute === "true" ? (
+            <Route exact path="/otpverification" element={<OTP />} />
+          ) : (
+            <Route path="/otpverification" element={<Login />} />
+          )}
+
           <Route path="/under-maintenance" element={<ComingSoon />} />
           <Route path="/community">
             <Route index element={<CommunityPage />} />
@@ -237,6 +231,7 @@ function App() {
             /> */}
             </Route>
           </Route>
+          <Route path="*" element={<Page404 />} />
         </Routes>
       </Suspense>
 
