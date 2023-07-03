@@ -19,10 +19,11 @@ const JobDescription = ({ details }) => {
       setIsLoggedIn(true);
     }
   }, []);
-  const UserDataPost=()=>{
+
+const UserDataPost=()=>{
 const data={
     hiringId: details._id,
-}
+           }
 axios.post(`${API_URL}api/v1/hiringRegistration`,data,
 {
   headers: {
@@ -38,7 +39,7 @@ axios.post(`${API_URL}api/v1/hiringRegistration`,data,
 }).catch((err)=>{
   console.log(err.data.message);
 })
-  }
+}
   useEffect(()=>
   {
     console.log(details,"job Description");
