@@ -82,7 +82,7 @@
   padding: 0 20px 20px 0px;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1000px) {
   .ProjectDetail {
     padding: 20px;
   }
