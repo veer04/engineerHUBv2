@@ -1,23 +1,17 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import "./ParticularClub.css";
-import ImageCarousel from "../../../components/ImageCarousel/ImageCarousel";
-import { RxChevronDown } from "react-icons/rx";
-import { BsArrowUpRight, BsStar, BsStarFill, BsStarHalf } from "react-icons/bs";
-import { Link, Outlet, useParams } from "react-router-dom";
-import defaultPoster, {
-  defaultPosterArray,
-} from "../../../assets/defaultPoster";
+import { Outlet, useParams } from "react-router-dom";
+import defaultPoster from "../../../assets/defaultPoster";
 import CategoryBar from "../../../components/CategoryBar/CategoryBar";
 import ClubPostCard from "../../../components/ClubPostCard/ClubPostCard";
 import useNavbar from "../../../hooks/use-navbar";
-import AlumniGlobalCard from "../../../components/AlumniGlobalCard/AlumniGlobalCard";
-import Girl from "./girl.jpeg";
 import InterCollegeCard from "../../../components/InterCollegeCard/InterCollegeCard";
 import { getAllEvents, getClubById } from "../../../services/APIConfig";
 import ClubMemberCard from "../../../components/ClubMemberCard/ClubMemberCard";
-import { FiArrowUpRight } from "react-icons/fi";
 import { HiArrowUpRight } from "react-icons/hi2";
 import LoadingPage from "../../../components/Loader/LoadingPage";
+import ImageCarousel2 from "../../../components/ImageCarousel2/ImageCarousel2";
+
 export default function ParticularClub() {
   const { setSelectedPageNavbar } = useNavbar();
   const { clubId } = useParams();
@@ -64,15 +58,7 @@ export default function ParticularClub() {
 
   const particularClubPage = (
     <div className="particular-club-page">
-      <div className="image-carousel__container">
-        <div className="image-carousel">
-          <ImageCarousel
-            collegePhoto={
-              club.clubPhoto?.length ? club.clubPhoto : defaultPosterArray
-            }
-          />
-        </div>
-      </div>
+      <ImageCarousel2 photos={club?.clubPhoto} />
       <div className="details-tab">
         <div className="details">
           <div

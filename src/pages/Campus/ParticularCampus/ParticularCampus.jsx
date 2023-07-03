@@ -18,39 +18,17 @@ import defaultPoster from "../../../assets/defaultPoster";
 import { IoIosArrowBack } from "react-icons/io";
 import { IoIosArrowForward } from "react-icons/io";
 import { set } from "react-hook-form";
+import ImageCarousel2 from "../../../components/ImageCarousel2/ImageCarousel2";
 
 export default function ParticularCampus() {
   const { setSelectedPageNavbar } = useNavbar();
-
   const { collegeId } = useParams();
-  const colors = ["#F7D77F", "#8FC8E8", "#B2E887", "#E8BA98"];
-  const [campus, setCampus] = useState(
-    // sessionStorage.getItem(`${collegeId} campus`)
-    //   ? JSON.parse(sessionStorage.getItem(`${collegeId} campus`))
-    //   :
-    {}
-  );
-  const [width, setWidth] = useState(window.innerWidth);
-  useEffect(() => {
-    const handleResize = () => setWidth(window.innerWidth);
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-  let [scrollLimit, setScrollLimit] = useState(400);
-  useEffect(() => {
-    if (width > 820) {
-      setScrollLimit(400);
-    }
-    if (width <= 820) {
-      setScrollLimit(300);
-    }
-    if (width <= 600) {
-      setScrollLimit(150);
-    }
-    console.log("Scroll Limit", scrollLimit);
-  }, [window.innerWidth]);
-
+  const navigate = useNavigate();
   const [allCampuses, setAllCampuses] = useState([]);
+  const [campus, setCampus] = useState({});
+  const [output, setOutput] = useState("");
+
+  const colors = ["#F7D77F", "#8FC8E8", "#B2E887", "#E8BA98"];
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -63,6 +41,12 @@ export default function ParticularCampus() {
       setCampus({});
     };
   }, [collegeId]);
+
+  useEffect(() => {
+    if (output) {
+      navigate(`/campus/${output}`);
+    }
+  }, [output]);
 
   const collegeMoreDetails = [
     {
@@ -107,49 +91,6 @@ export default function ParticularCampus() {
     starsEmpty.push(<BsStar key={i} />);
   }
 
-  const navigate = useNavigate();
-
-  const [output, setOutput] = useState("");
-  useEffect(() => {
-    if (output) {
-      navigate(`/campus/${output}`);
-    }
-  }, [output]);
-
-  const [activeImage, setActiveImage] = useState(campus.collegePhoto?.length);
-  const [carouselPhotos, setCarouselPhotos] = useState([]);
-  const [extra, setExtra] = useState(0);
-  const [emptyArray, setEmptyArray] = useState([]);
-  useEffect(() => {
-    // sessionStorage.setItem(`${collegeId} campus`, JSON.stringify(campus));
-    setExtra(campus.collegePhoto?.length);
-    setActiveImage(campus.collegePhoto?.length);
-    console.log("Campus", campus);
-  }, [campus]);
-
-  useEffect(() => {
-    console.log("Extra", extra);
-    setEmptyArray(Array.from({ length: extra }, () => ""));
-  }, [extra]);
-
-  useEffect(() => {
-    console.log("Empty Array", emptyArray);
-    if (campus.collegePhoto?.length > 0)
-      setCarouselPhotos([...emptyArray, ...campus.collegePhoto, ""]);
-    else setCarouselPhotos([defaultPoster]);
-  }, [emptyArray]);
-
-  useEffect(() => {
-    console.log("Active Image", activeImage);
-  }, [activeImage]);
-
-  useEffect(() => {
-    console.log("Carousel Photos", carouselPhotos);
-    if (document.querySelector(".inner-container") !== null)
-      document.querySelector(".inner-container").scrollLeft = 0;
-  }, [carouselPhotos]);
-  //function to find out which image is displayed in the carousel
-
   const particularCampusPage = (
     <div className="particular-campus-page">
       <div className="search-bar__container">
@@ -163,41 +104,7 @@ export default function ParticularCampus() {
           />
         </div>
       </div>
-      <div className="image-carousel__outer-container">
-        <IoIosArrowBack
-          onClick={() => {
-            if (activeImage > extra) {
-              setActiveImage((prev) => prev - 1);
-              document.querySelector(".inner-container").scrollLeft -=
-                scrollLimit;
-            }
-          }}
-          className="arrow"
-        />
-        <div className="inner-container">
-          {carouselPhotos?.map((photo, index) => {
-            return (
-              <div
-                key={index}
-                style={{
-                  backgroundImage: `url(${photo})`,
-                }}
-                className="image-container"
-              ></div>
-            );
-          })}
-        </div>
-        <IoIosArrowForward
-          onClick={() => {
-            if (activeImage < carouselPhotos.length - 2) {
-              setActiveImage((prev) => prev + 1);
-              document.querySelector(".inner-container").scrollLeft +=
-                scrollLimit;
-            }
-          }}
-          className="arrow"
-        />
-      </div>
+      <ImageCarousel2 photos={campus?.collegePhoto} />
       <div className="details-tab">
         <div className="details">
           <div>
