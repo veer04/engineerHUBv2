@@ -39,7 +39,7 @@ export default function AlumniPage() {
       <div className="best-alumni-container">
         <p className="heading">Meet the India’s Best Alumnis</p>
         <div className="best-alumni">
-          {bestAlumni.map((alumni) => (
+          {bestAlumni.slice(0, 10).map((alumni) => (
             <AlumniGlobalCard key={alumni._id} {...alumni} />
           ))}
         </div>
