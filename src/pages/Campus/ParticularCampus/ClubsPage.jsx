@@ -54,6 +54,9 @@ export default function ClubsPage({ type }) {
         {clubs.map((club) => {
           return <ClubCard key={club._id} {...club} />;
         })}
+        {clubs.length === 0 && (
+          <i className="text-center text-green">No clubs found</i>
+        )}
       </div>
     </>
   );
