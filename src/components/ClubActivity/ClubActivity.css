@@ -90,4 +90,8 @@
     font-weight: 500;
     color: rgb(0, 0, 0, 0.5);
   }
+  .clubs-page-activity-card > .see-more {
+    font-size: 0.7rem;
+    top: -5px;
+  }
 }
