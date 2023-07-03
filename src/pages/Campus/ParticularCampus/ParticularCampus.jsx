@@ -17,6 +17,7 @@ import LoadingPage from "../../../components/Loader/LoadingPage";
 import defaultPoster from "../../../assets/defaultPoster";
 import { IoIosArrowBack } from "react-icons/io";
 import { IoIosArrowForward } from "react-icons/io";
+import { set } from "react-hook-form";
 
 export default function ParticularCampus() {
   const { setSelectedPageNavbar } = useNavbar();
@@ -29,6 +30,25 @@ export default function ParticularCampus() {
     //   :
     {}
   );
+  const [width, setWidth] = useState(window.innerWidth);
+  useEffect(() => {
+    const handleResize = () => setWidth(window.innerWidth);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+  let [scrollLimit, setScrollLimit] = useState(400);
+  useEffect(() => {
+    if (width > 820) {
+      setScrollLimit(400);
+    }
+    if (width <= 820) {
+      setScrollLimit(300);
+    }
+    if (width <= 600) {
+      setScrollLimit(150);
+    }
+    console.log("Scroll Limit", scrollLimit);
+  }, [window.innerWidth]);
 
   const [allCampuses, setAllCampuses] = useState([]);
 
@@ -124,7 +144,7 @@ export default function ParticularCampus() {
   }, [activeImage]);
 
   useEffect(() => {
-    console.log("Carousel Photos",carouselPhotos);
+    console.log("Carousel Photos", carouselPhotos);
     if (document.querySelector(".inner-container") !== null)
       document.querySelector(".inner-container").scrollLeft = 0;
   }, [carouselPhotos]);
@@ -148,7 +168,8 @@ export default function ParticularCampus() {
           onClick={() => {
             if (activeImage > extra) {
               setActiveImage((prev) => prev - 1);
-              document.querySelector(".inner-container").scrollLeft -= 400;
+              document.querySelector(".inner-container").scrollLeft -=
+                scrollLimit;
             }
           }}
           className="arrow"
@@ -170,7 +191,8 @@ export default function ParticularCampus() {
           onClick={() => {
             if (activeImage < carouselPhotos.length - 2) {
               setActiveImage((prev) => prev + 1);
-              document.querySelector(".inner-container").scrollLeft += 400;
+              document.querySelector(".inner-container").scrollLeft +=
+                scrollLimit;
             }
           }}
           className="arrow"
