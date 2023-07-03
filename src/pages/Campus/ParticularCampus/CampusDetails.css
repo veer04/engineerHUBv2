@@ -197,3 +197,21 @@
 .campus-details-page table > tbody {
   margin-top: 1rem !important;
 }
+
+@media screen and (max-width: 450px) {
+  .campus-details-page
+    > .course-details
+    > .course-structure__container
+    > .course-structure {
+    width: 100%;
+  }
+  
+.campus-details-page
+> .course-details
+> .course-structure__container
+> .course-structure
+> .row-1
+> .title {
+height: auto;
+}
+}
