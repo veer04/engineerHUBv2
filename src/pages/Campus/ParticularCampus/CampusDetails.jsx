@@ -17,7 +17,8 @@ export default function CampusDetails({ path }) {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    if (campus === null) {
+    //check if campus if a empty object
+    if (Object.keys(campus).length === 0 && campus.constructor === Object) {
       getCampusById(setCampus, collegeId);
     }
     setSelectedPageNavbar("campus");
@@ -103,11 +104,15 @@ export default function CampusDetails({ path }) {
               {course}
             </div>
           ))}
+          {
+            // if no courses are available then show "No data available"
+            filterCourses(campus).length === 0 && <i>No data available</i>
+          }
         </div>
         <div className="subheading">Explore Fees Structure</div>
         <div className="course-structure__container">
           {campus &&
-            campus.feesCourses.map((course) => (
+            campus.feesCourses?.map((course) => (
               <div key={course._id} className="course-structure">
                 <div className="row-1">
                   <div className="title">
@@ -124,6 +129,10 @@ export default function CampusDetails({ path }) {
                 </div>
               </div>
             ))}
+          {
+            // if no fees courses are available then show "No data available"
+            campus.feesCourses?.length === 0 && <i>No data available</i>
+          }
         </div>
       </div>
 
