@@ -10,6 +10,10 @@
 }
 .ProjectCardTile .imageBanner {
   width: 100%;
+  aspect-ratio: 1/1;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
   border-radius: 4.4px;
 }
 .ProjectCardTile .ProjectCardContent {
@@ -17,6 +21,8 @@
   padding-bottom: 0px;
 }
 .ProjectCardTile .ProjectCardContent h1 {
+  min-height: 38px;
+  margin-bottom: 0.25rem;
   margin-top: 5px;
   width: 100%;
   font-family: "Inter";
@@ -34,14 +40,15 @@
   font-size: 11px;
   line-height: 13px;
   color: #616060;
-  height: 25px;
+  height: 39px;
   overflow: hidden;
 }
 .ProjectCardTile .ProjectCardContent .tags {
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  flex-wrap: wrap;
+  flex-wrap: no-wrap;
+  overflow: hidden;
   gap: 10px;
   flex-direction: row;
 }
@@ -51,8 +58,9 @@
   padding: 5px;
   font-family: "Inter";
   font-style: normal;
+  white-space: nowrap;
   font-weight: 500;
-  font-size: 8.9px;
+  font-size: 10px;
   line-height: 11px;
   color: #ffbb00;
 }

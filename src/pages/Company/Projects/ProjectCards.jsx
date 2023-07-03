@@ -1,42 +1,50 @@
 import React from "react";
-import { IoPeopleOutline } from "react-icons/io5";
 import "./ProjectCards.css";
 import { useNavigate } from "react-router-dom";
+import defaultPoster from "../../../assets/defaultPoster";
+
 const ProjectCards = ({ data }) => {
-  const navigate= useNavigate();
+  const navigate = useNavigate();
   return (
-    <div 
-    className="ProjectCard"
-    onClick={() => {
-      navigate(`/company/projects/${data._id}`);
-   }} 
-    
+    <div
+      className="ProjectCard"
+      onClick={() => {
+        navigate(`/company/projects/${data._id}`);
+      }}
     >
       <div className="ProjectCardTile">
-        {data.projectImage? (
-          <img src={data.projectImage} className="imageBanner" alt="Image" />
+        {data.projectImage ? (
+          <div
+            style={{ backgroundImage: `url(${data.projectImage})` }}
+            className="imageBanner"
+            alt="Image"
+          />
         ) : (
-          <></>
+          <>
+            <div
+              style={{ backgroundImage: `url(${defaultPoster})` }}
+              className="imageBanner"
+              alt="Image"
+            />
+          </>
         )}
         <div className="ProjectCardContent">
-          <h1>{data.projectName}</h1>
-          <p>{data.description}</p>
+          <h1 className="text-crop-2 overflow-hidden">{data.projectName}</h1>
+          <p className="text-crop-3 overflow-hidden">{data.description}</p>
           <div className="tags">
-            {data.techStack?.map((tag, index) => (
+            {data.techStack?.slice(0, 3).map((tag, index) => (
               <span key={index} className="tag">
                 {tag}
               </span>
             ))}
+            {data.techStack?.length > 3 ? (
+              <span className="tag">+{data.techStack?.length - 3}</span>
+            ) : null}
           </div>
           <br />
           <div className="organization">
             <div className="logo">
-                <img
-                  src={data.organizationLogo}
-                  alt="logo"
-                  className="logoImg"
-                />
-            
+              <img src={data.organizationLogo} alt="logo" className="logoImg" />
             </div>
             <h5>{data.organization}</h5>
             {/* <span>
