@@ -98,6 +98,8 @@ export default function CampusPage() {
   useEffect(() => {
     if (output) {
       navigate(`/campus/${output}`);
+      window.location.reload();
+
     }
   }, [output]);
 
