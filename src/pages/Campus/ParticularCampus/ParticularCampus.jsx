@@ -14,9 +14,9 @@ import CampusSearchBox from "../../../components/CampusSearchBox/CampusSearchBox
 import { useNavigate } from "react-router";
 import useNavbar from "../../../hooks/use-navbar";
 import LoadingPage from "../../../components/Loader/LoadingPage";
-import defaultPoster, {
-  defaultPosterArray,
-} from "../../../assets/defaultPoster";
+import defaultPoster from "../../../assets/defaultPoster";
+import { IoIosArrowBack } from "react-icons/io";
+import { IoIosArrowForward } from "react-icons/io";
 
 export default function ParticularCampus() {
   const { setSelectedPageNavbar } = useNavbar();
@@ -41,10 +41,6 @@ export default function ParticularCampus() {
       controller.abort();
     };
   }, [collegeId]);
-
-  useEffect(() => {
-    sessionStorage.setItem(`${collegeId} campus`, JSON.stringify(campus));
-  }, [campus]);
 
   const collegeMoreDetails = [
     {
@@ -98,6 +94,37 @@ export default function ParticularCampus() {
     }
   }, [output]);
 
+  const [activeImage, setActiveImage] = useState(campus.collegePhoto?.length);
+  const [carouselPhotos, setCarouselPhotos] = useState([]);
+  const [extra, setExtra] = useState(0);
+  const [emptyArray, setEmptyArray] = useState([]);
+  useEffect(() => {
+    sessionStorage.setItem(`${collegeId} campus`, JSON.stringify(campus));
+    setExtra(campus.collegePhoto?.length);
+    setActiveImage(campus.collegePhoto?.length);
+  }, [campus]);
+
+  useEffect(() => {
+    setEmptyArray(Array.from({ length: extra }, () => ""));
+  }, [extra]);
+
+  useEffect(() => {
+    if (campus.collegePhoto?.length > 0)
+      setCarouselPhotos([...emptyArray, ...campus.collegePhoto, ""]);
+    else setCarouselPhotos([defaultPoster]);
+  }, [emptyArray]);
+
+  useEffect(() => {
+    console.log(activeImage);
+  }, [activeImage]);
+
+  useEffect(() => {
+    console.log(carouselPhotos);
+    if (document.querySelector(".inner-container") !== null)
+      document.querySelector(".inner-container").scrollLeft = 0;
+  }, [carouselPhotos]);
+  //function to find out which image is displayed in the carousel
+
   const particularCampusPage = (
     <div className="particular-campus-page">
       <div className="search-bar__container">
@@ -111,16 +138,38 @@ export default function ParticularCampus() {
           />
         </div>
       </div>
-      <div className="image-carousel__container">
-        <div className="image-carousel">
-          <ImageCarousel
-            collegePhoto={
-              campus.collegePhoto?.length
-                ? campus.collegePhoto
-                : defaultPosterArray
+      <div className="image-carousel__outer-container">
+        <IoIosArrowBack
+          onClick={() => {
+            if (activeImage > extra) {
+              setActiveImage((prev) => prev - 1);
+              document.querySelector(".inner-container").scrollLeft -= 400;
             }
-          />
+          }}
+          className="arrow"
+        />
+        <div className="inner-container">
+          {carouselPhotos?.map((photo, index) => {
+            return (
+              <div
+                key={index}
+                style={{
+                  backgroundImage: `url(${photo})`,
+                }}
+                className="image-container"
+              ></div>
+            );
+          })}
         </div>
+        <IoIosArrowForward
+          onClick={() => {
+            if (activeImage < carouselPhotos.length - 2) {
+              setActiveImage((prev) => prev + 1);
+              document.querySelector(".inner-container").scrollLeft += 400;
+            }
+          }}
+          className="arrow"
+        />
       </div>
       <div className="details-tab">
         <div className="details">
