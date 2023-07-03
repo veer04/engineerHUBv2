@@ -24,9 +24,10 @@ export default function ParticularCampus() {
   const { collegeId } = useParams();
   const colors = ["#F7D77F", "#8FC8E8", "#B2E887", "#E8BA98"];
   const [campus, setCampus] = useState(
-    sessionStorage.getItem(`${collegeId} campus`)
-      ? JSON.parse(sessionStorage.getItem(`${collegeId} campus`))
-      : {}
+    // sessionStorage.getItem(`${collegeId} campus`)
+    //   ? JSON.parse(sessionStorage.getItem(`${collegeId} campus`))
+    //   :
+    {}
   );
 
   const [allCampuses, setAllCampuses] = useState([]);
@@ -39,6 +40,7 @@ export default function ParticularCampus() {
 
     return () => {
       controller.abort();
+      setCampus({});
     };
   }, [collegeId]);
 
@@ -99,27 +101,30 @@ export default function ParticularCampus() {
   const [extra, setExtra] = useState(0);
   const [emptyArray, setEmptyArray] = useState([]);
   useEffect(() => {
-    sessionStorage.setItem(`${collegeId} campus`, JSON.stringify(campus));
+    // sessionStorage.setItem(`${collegeId} campus`, JSON.stringify(campus));
     setExtra(campus.collegePhoto?.length);
     setActiveImage(campus.collegePhoto?.length);
+    console.log("Campus", campus);
   }, [campus]);
 
   useEffect(() => {
+    console.log("Extra", extra);
     setEmptyArray(Array.from({ length: extra }, () => ""));
   }, [extra]);
 
   useEffect(() => {
+    console.log("Empty Array", emptyArray);
     if (campus.collegePhoto?.length > 0)
       setCarouselPhotos([...emptyArray, ...campus.collegePhoto, ""]);
     else setCarouselPhotos([defaultPoster]);
   }, [emptyArray]);
 
   useEffect(() => {
-    console.log(activeImage);
+    console.log("Active Image", activeImage);
   }, [activeImage]);
 
   useEffect(() => {
-    console.log(carouselPhotos);
+    console.log("Carousel Photos",carouselPhotos);
     if (document.querySelector(".inner-container") !== null)
       document.querySelector(".inner-container").scrollLeft = 0;
   }, [carouselPhotos]);
