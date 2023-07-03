@@ -35,9 +35,38 @@
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  border-radius: .5rem;
+  border-radius: 0.5rem;
 }
 
+@media screen and (max-width: 820px) {
+  .image-carousel__outer-container {
+    padding: 1rem;
+  }
+  .image-carousel__outer-container > .arrow {
+    font-size: 3.25rem;
+    margin: 0 0.5rem;
+  }
+  .image-carousel__outer-container > .inner-container > .image-container {
+    min-width: 20rem;
+    min-height: 15rem;
+  }
+
+  /* .image-carousel__outer-container > .inner-container {
+    width: 100%;
+    max-height: 20rem;
+  } */
+}
+
+@media screen and (max-width: 600px) {
+  .image-carousel__outer-container {
+    padding: 1rem 0;
+  }
+
+  .image-carousel__outer-container > .inner-container > .image-container {
+    min-width: 15rem;
+    min-height: 10rem;
+  }
+}
 
 .particular-campus-page {
   display: flex;
