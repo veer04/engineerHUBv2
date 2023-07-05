@@ -25,7 +25,7 @@ export default function JobsSection() {
         className={`jobs-section-card jobs-section-card-${job._id}`}
       >
         <div className="job-company">
-          <img src={job.OrganisationPoster} alt="Company Logo" />
+          <img src={job.OrganisationPoster || job.OrganizationPoster} alt="Company Logo" />
           <span className="text-crop-1 overflow-hidden">
             {job.Organisation ? job.Organisation : job.Organization}
           </span>
