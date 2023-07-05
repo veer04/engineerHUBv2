@@ -55,7 +55,7 @@ axios.post(`${API_URL}api/v1/hiringRegistration`,data,
       <div className="JobDetailHeader">
         <span>
           <span className="imgBox">
-            <img src={details.OrganisationPoster} alt="Logo" />
+            <img src={details.OrganisationPoster || details.OrganizationPoster} alt="Logo" />
           </span>
           <span className="heads">
             <h1>{details.OpportunityPosition}</h1>
@@ -124,7 +124,7 @@ axios.post(`${API_URL}api/v1/hiringRegistration`,data,
           <div className="JobInfoItem">
             <h6>Time Availability</h6>
             <p></p>
-            <span>{details.jobTiming}</span>
+            <span>{details.JobTiming}</span>
             <img src={`${bucket}timer.svg`} alt="guide" />
           </div>
           <div className="JobInfoItem">

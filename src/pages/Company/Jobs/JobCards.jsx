@@ -38,7 +38,7 @@ const JobCards = ({details,color}) => {
         backgroundColor:color
       }}>
         <span>
-          <img src={details.OrganisationPoster} alt="Job Logo" />
+          <img src={details.OrganisationPoster || details.OrganizationPoster} alt="Job Logo" />
         </span>
         <h5 className="text-crop-2 overflow-hidden">{details.Organisation}</h5>
         <a
