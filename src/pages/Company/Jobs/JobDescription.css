@@ -61,6 +61,7 @@
   justify-content: flex-start;
   flex-direction: row;
   margin: 14px 0px;
+  flex-wrap: wrap;
 }
 
 .JobDetailHeader,
@@ -188,6 +189,9 @@
     text-align: justify;
     color: #242323;
   }
+  .JobDesc p {
+    overflow-wrap: anywhere;
+  }
   .JobReq ul {
     padding-left: 30px;
   }
@@ -198,5 +202,28 @@
   .JobInfo div .JobInfoItem span {
     font-size: 20px;
     line-height: 24px;
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .JobDetailHeader > span {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .JobDetailHeader > span > .apply-btn-container {
+    margin: 0.5rem 0;
+  }
+}
+
+@media screen and (max-width: 440px) {
+  .JobInfo .JobInfoItems .JobInfoItem {
+    width: 100%;
+  }
+  .JobDetailHeader,
+  .JobDesc,
+  .JobReq,
+  .JobInfo {
+    min-width: 0;
   }
 }
