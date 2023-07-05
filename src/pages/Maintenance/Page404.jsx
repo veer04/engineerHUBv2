@@ -19,7 +19,7 @@ export default function Page404() {
       <h1>The page you were looking for doesn’t exist</h1>
       <p>
         You might have typed in the wrong address or the page has been removed.
-        In the, meantime return to home page.
+        In the meantime, return to home page.
       </p>
       <button onClick={handleClick}>Go back to home page</button>
     </main>
