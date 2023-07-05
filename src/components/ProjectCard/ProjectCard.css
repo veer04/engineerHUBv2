@@ -8,7 +8,8 @@
   box-shadow: 0 0 0.5rem 0.2rem rgba(0, 0, 0, 0.2);
   padding: 0.5rem;
   border-radius: 0.4rem;
-  transform: scale(0.95);
+  scale: 0.95;
+  height: 26.6rem;
 }
 .project__list__item .poster {
   border-radius: 0.5rem;
@@ -17,23 +18,18 @@
   font-size: 1.1rem;
   font-weight: 600;
   padding: 0.3rem 0;
-  white-space: nowrap;
-  line-height: 1rem;
-  text-overflow: ellipsis;
   overflow: hidden;
+  height: min-content;
+  line-height: 1.5rem;
 }
 .project__list__item .description {
   font-size: 0.9rem;
   font-weight: 400;
-  padding: 0.2rem 0;
+  /* padding: 0.2rem 0; */
   line-height: 1.05rem;
-  /* white-space: pre-wrap; */
   height: 6.6rem;
-  /* word-wrap: normal; */
-  /* width: 50px; */
   overflow: hidden;
-  text-overflow: ellipsis;
-  margin-bottom: 0.5rem;
+  height: min-content;
 }
 .project__list__item .tags {
   display: flex;
@@ -44,7 +40,7 @@
   overflow-x: hidden;
   gap: 0.5rem;
   padding: 0.2rem 0;
-  margin-bottom: 0.5rem;
+  margin: auto 0 0.5rem;
 }
 .project__list__item .tags .tag {
   font-size: 0.8rem;

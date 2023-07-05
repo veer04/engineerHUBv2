@@ -57,8 +57,8 @@ export default function ProjectCard({
           className="poster"
         ></div>
       }
-      <div className="title">{projectName}</div>
-      <div className="description">{description}</div>
+      <div className="title text-crop-2">{projectName}</div>
+      <div className="description text-crop-4">{description}</div>
       <div className="tags">
         {techStack.slice(0, 3).map((tag, index) => (
           <div

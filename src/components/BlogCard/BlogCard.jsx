@@ -53,7 +53,7 @@ export default function BlogCard({
             }).format(createdAt ? new Date(createdAt) : new Date())}
         </div>
       </div>
-      <div className="title">{title}</div>
+      <div className="title text-crop-2">{title}</div>
       <div className="description">{postArea}</div>
       <div className="topic">{domainName}</div>
     </div>
