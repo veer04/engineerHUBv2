@@ -9,79 +9,76 @@ import jwt_decode from "jwt-decode";
 import axios from "axios";
 const JobDescription = ({ details }) => {
   const navigate = useNavigate();
-  const[flag, setFlag]=useState(true);
-  const[isLoggedIn,setIsLoggedIn]=useState(false);
+  const [flag, setFlag] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const bucket = `${Bucket_URL}frontend/company/jobs/`;
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    if(getCookie("name"))
-    {
+    if (getCookie("name")) {
       setIsLoggedIn(true);
     }
   }, []);
 
-const UserDataPost=()=>{
-const data={
-    hiringId: details._id,
-           }
-axios.post(`${API_URL}api/v1/hiringRegistration`,data,
-{
-  headers: {
-    accesstoken: getAccessToken(), 
-  },
-}
-).then((res)=>{
-  if (
-    response.status === 200 ||
-    response.status === 201 ||
-    response.status === 202 ||
-    response.status === 203 ||
-    response.status === 204
-  ) {
-     setFlag(false);
-  }
-
-}).catch((err)=>{
-  window.alert(err.message);
-})
-}
-  useEffect(()=>
-  {
-    console.log(details,"job Description");
-  },[details])
+  const UserDataPost = () => {
+    const data = {
+      hiringId: details._id,
+    };
+    axios
+      .post(`${API_URL}api/v1/hiringRegistration`, data, {
+        headers: {
+          accesstoken: getAccessToken(),
+        },
+      })
+      .then((res) => {
+        if (
+          response.status === 200 ||
+          response.status === 201 ||
+          response.status === 202 ||
+          response.status === 203 ||
+          response.status === 204
+        ) {
+          setFlag(false);
+        }
+      })
+      .catch((err) => {
+        window.alert(err.message);
+      });
+  };
+  useEffect(() => {
+    console.log(details, "job Description");
+  }, [details]);
   return (
     <div className="JobDescription">
       <div className="JobDetailHeader">
         <span>
-          <span className="imgBox">
-            <img src={details.OrganisationPoster || details.OrganizationPoster} alt="Logo" />
-          </span>
-          <span className="heads">
-            <h1>{details.OpportunityPosition}</h1>
-            <h3>{details.Organisation}</h3>
-            <h3>{details.jobLocation}</h3>
-          </span>
-          <div>
-            {
-              isLoggedIn ? (
-                <div
-                onClick={UserDataPost}
-                >
-                  {
-                    flag?(
-                      <div className="btn">Applied</div>
-                    ):(
-                      <div className="btn">Apply</div>
-                    )
-                  }
+          <div className="w-100 d-flex">
+            <span className="imgBox">
+              <img
+                src={details.OrganisationPoster || details.OrganizationPoster}
+                alt="Logo"
+              />
+            </span>
+            <span className="heads">
+              <h1>{details.OpportunityPosition}</h1>
+              <h3>{details.Organisation}</h3>
+              <h3>{details.jobLocation}</h3>
+            </span>
+          </div>
+          <div className="apply-btn-container">
+            {isLoggedIn ? (
+              <div onClick={UserDataPost}>
+                {flag ? (
+                  <div className="btn">Applied</div>
+                ) : (
+                  <div className="btn">Apply</div>
+                )}
               </div>
-              ):(
-                <Link to={"https://ehubbusiness.com/login"}>
+            ) : (
+              <Link to={"https://ehubbusiness.com/login"}>
                 <div className="btn">Apply</div>
               </Link>
-              )}
-     
+            )}
           </div>
         </span>
         <span className="Tags">
@@ -124,7 +121,7 @@ axios.post(`${API_URL}api/v1/hiringRegistration`,data,
           <div className="JobInfoItem">
             <h6>Time Availability</h6>
             <p></p>
-            <span>{details.JobTiming}</span>
+            <span>{details.JobTiming || details.jobTiming}</span>
             <img src={`${bucket}timer.svg`} alt="guide" />
           </div>
           <div className="JobInfoItem">
