@@ -11,11 +11,16 @@
   max-height: 2.85rem;
   white-space: normal;
   line-height: 1.2rem;
+  overflow: hidden;
 }
 .event__list__item .description {
   margin-top: 0.5rem;
   height: fit-content;
   max-height: 5.5rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 6; 
+  -webkit-box-orient: vertical; 
+  text-overflow: ellipsis;
 }
 .event__list__item {
   height: 31.5rem;

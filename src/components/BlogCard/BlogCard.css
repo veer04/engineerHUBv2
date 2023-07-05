@@ -19,10 +19,16 @@
   line-height: 1.3rem;
   height: 3rem;
   text-overflow: ellipsis;
+  overflow: hidden;
 }
 .blog__list__item .description {
-  min-height: 7.65rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 5; 
+  -webkit-box-orient: vertical; 
+  text-overflow: ellipsis;
+  height: fit-content;
   overflow: hidden;
+  margin-top: .125rem;
 }
 .project__list__item .topic {
   position: absolute;
