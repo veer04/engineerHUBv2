@@ -66,7 +66,7 @@ export default function JobsSection() {
         <div className="jobs-section-row jobs-section-row-2">
           {createJobs(jobs.slice(1, 3))}
         </div>
-        <div className="jobs-section-row jobs-section-row-3">
+        <div className="jobs-section-row jobs-section-row-3 justify-content-around">
           {createJobs(jobs.slice(3, 5))}
         </div>
       </div>
