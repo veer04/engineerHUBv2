@@ -14,6 +14,9 @@
   z-index: 100;
   overflow: auto;
 }
+#event-modal-container > .spinner-border {
+  margin: auto;
+}
 
 .event-modal {
   background-image: linear-gradient(white, #76d7d5);
