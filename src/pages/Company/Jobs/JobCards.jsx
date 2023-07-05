@@ -40,7 +40,7 @@ const JobCards = ({details,color}) => {
         <span>
           <img src={details.OrganisationPoster} alt="Job Logo" />
         </span>
-        <h5 className="text-crop-2 overflow-hidden">{details.OpportunityPosition}</h5>
+        <h5 className="text-crop-2 overflow-hidden">{details.Organisation}</h5>
         <a
           href={`/company/jobs/${details._id}`}
           style={{ textDecoration: "none" }}
