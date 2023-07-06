@@ -33,10 +33,11 @@ COPY --from=build /app/dist /app/dist
 
 RUN apk add --no-cache npm \
     && npm install -g serve \
+    && mkdir /tmp/logs \
     && rm -rf /root/.npm
 
 # Expose port 3000
 EXPOSE 3000
 
 # Command to run the application
-CMD ["serve", "-s", "/app/dist"]
+CMD ["serve", "-s", "/app/dist", ">", "/tmp/logs/server.log"]

@@ -1,5 +1,7 @@
 #!/bin/bash
 
+sync; echo 3 > /proc/sys/vm/drop_caches
+
 set -e
 
 # Set ECR repository information
@@ -61,7 +63,7 @@ pull_and_run_image() {
   docker image prune -f
 
   # Run the new image
-  docker run --name "$container" -p 80:3000 -d "$ECR_REGISTRY/$REPO_NAME:latest"
+  docker run --name "$container" -p 80:3000 -d "$ECR_REGISTRY/$REPO_NAME:latest" -v /home/logs/frontend:/tmp/logs
 }
 
 # Function to check if the container is running
@@ -121,6 +123,6 @@ while true; do
     renew_ecr_token
   fi
 
-  # Sleep for 100 seconds before checking again
-  sleep 100
+  # Sleep for 30 seconds before checking again
+  sleep 30
 done
