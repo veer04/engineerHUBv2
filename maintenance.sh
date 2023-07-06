@@ -1,9 +1,5 @@
 #!/bin/bash
 
-sync; echo 3 > /proc/sys/vm/drop_caches
-
-set -e
-
 # Set ECR repository information
 ECR_REGISTRY="288273743510.dkr.ecr.ap-south-1.amazonaws.com"
 ECR_REGION="ap-south-1"
@@ -63,7 +59,7 @@ pull_and_run_image() {
   docker image prune -f
 
   # Run the new image
-  docker run --name "$container" -p 80:3000 -d "$ECR_REGISTRY/$REPO_NAME:latest" -v /home/logs/frontend:/tmp/logs
+  docker run -d --name "$container" -p 80:3000  -v /home/logs/frontend:/logs "$ECR_REGISTRY/$REPO_NAME:latest"  
 }
 
 # Function to check if the container is running
