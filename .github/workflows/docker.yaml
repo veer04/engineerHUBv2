@@ -43,7 +43,7 @@ jobs:
             VITE_FRONTEND_URL=${{ vars.VITE_FRONTEND_URL }}
       
       - name: Build & Push Docker Image
-        if: hashFiles('**/Dockerfile', '**/dockerfile') && github.ref == 'refs/heads/main' && steps.Build_Image.outcome == 'success'
+        if: hashFiles('**/Dockerfile', '**/dockerfile') && github.ref == 'refs/heads/main'
         uses: docker/build-push-action@v2
         with:
           context: .
