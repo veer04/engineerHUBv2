@@ -1,36 +1,29 @@
-import React, { useState, useEffect } from "react";
-import { Route, Routes, useParams } from "react-router-dom";
+import React, { useState,useEffect } from "react";
+import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import HomePage from "./pages/HomePage/HomePage";
-// import CommunityPage from "./pages/Community/CommunityPage";
 import ProjectPage from "./pages/Community/Project/ProjectsPage";
 import BlogsPage from "./pages/Community/Blogs/BlogsPage";
 import EventsPage from "./pages/Community/Events/EventsPage";
 import ChatPage from "./pages/Community/Chat/ChatPage";
-// import CampusPage from "./pages/Campus/CampusPage";
-import Mentorship from "./components/1-1Mentorship/Mentorship";
 import MentorChat from "./components/1-1Mentorship/Mentorchat";
 import IntraCollege from "./pages/Campus/IntraCollege/IntraCollege";
 import InterCollege from "./pages/Campus/InterCollege/InterCollege";
 import Workshops from "./pages/Campus/Workshops/Workshops";
 import ParticularCampus from "./pages/Campus/ParticularCampus/ParticularCampus";
-// import Hosting from "./pages/Hosting/Hosting";
 import CampusDetails from "./pages/Campus/ParticularCampus/CampusDetails";
 import ClubsPage from "./pages/Campus/ParticularCampus/ClubsPage";
 import AlumniPage from "./pages/Campus/ParticularCampus/AlumniPage";
 import ParticularClub from "./pages/Campus/ParticularCampus/ParticularClub";
-// import Login from "./pages/User/Login/Login";
 import Signup from "./pages/User/Signup/Signup";
 import RegistrationForm from "./components/Registration/Registration";
 import OTP from "./pages/User/OtpVerification/Otpverification";
 import MobileNavbar from "./components/MobileNavbar/MobileNavbar";
 import HostEvent from "./pages/Hosting/EventRegistration";
-// import EventModal from "./components/EventModal/EventModal";
 import Navbar from "./components/Navbar/Navbar";
 import Footer from "./components/Footer/Footer";
 import Events from "./pages/Company/Events/events";
 import Jobs from "./pages/Company/Jobs/jobs";
-// import Company from "./pages/Company/Company";
 import JobDetails from "./pages/Company/Jobs/JobDetails";
 import HackathonDetails from "./pages/Company/Events/EventsChoices/HackathonDetails";
 import Projects from "./pages/Company/Projects/Projects";
@@ -47,6 +40,7 @@ import Role from "./pages/User/RoleWiseUserPage/Role";
 import PostModal from "./components/PostModal/PostModal";
 import ParticularAlumni from "./pages/Campus/ParticularCampus/ParticularAlumni";
 // import ProfilePage from "./pages/User/Profile/ProfilePage";
+import VerificationModal from "./components/VerificationModal/VerificationModal";
 import StudentSignup from "./pages/User/Signup/StudentSignup";
 import StudentProfilePage from "./pages/User/Profile/StudentProfile/StudentProfilePage";
 import GeneralStudentData from "./pages/User/Profile/StudentProfile/GeneralStudentData";
@@ -73,6 +67,7 @@ const CampusPage = lazy(() => import("./pages/Campus/CampusPage"));
 const Company = lazy(() => import("./pages/Company/Company"));
 const Hosting = lazy(() => import("./pages/Hosting/Hosting.jsx"));
 const Login = lazy(() => import("./pages/User/Login/Login"));
+import Chatpage from "./pages/chat/chatPage";
 
 function App() {
   const [isEventModalOpen, setIsEventModalOpen] = useState(false);
@@ -99,6 +94,7 @@ function App() {
           <Route path="/home" element={<HomePage />} />
           <Route path="/register" element={<RegistrationForm />} />
           <Route path="/selectRole" element={<Role />} />
+          <Route path="/ehubchats" element={<Chatpage />} />
           <Route path="/profile">
             <Route
               path="student/:userId"

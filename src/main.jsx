@@ -7,6 +7,8 @@ import { AuthProvider } from "react-auth-kit";
 import SidebarProvider from "./contexts/SidebarContext";
 import NavbarProvider from "./contexts/NavbarContext";
 import { EventModalProvider } from "./contexts/EventModalContext";
+import ChatProvider from "./contexts/chatProvider";
+
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <BrowserRouter>
@@ -16,6 +18,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         cookieDomain={window.location.hostname}
         cookieSecure={false}
       >
+        <ChatProvider>
         <EventModalProvider>
           <NavbarProvider>
             <SidebarProvider>
@@ -23,6 +26,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
             </SidebarProvider>
           </NavbarProvider>
         </EventModalProvider>
+        </ChatProvider>
       </AuthProvider>
     </BrowserRouter>
   </React.StrictMode>
