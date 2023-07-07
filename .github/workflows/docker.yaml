@@ -28,7 +28,21 @@ jobs:
 
       - name: Build Docker image
         id: Build_Image
-        if: hashFiles('**/Dockerfile', '**/dockerfile')
+        if: hashFiles('**/Dockerfile', '**/dockerfile') && github.ref != 'refs/heads/main' 
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          tags: | 
+            ${{ vars.ECR_REGISTRY }}/${{ vars.ECR_REPO }}:latest
+            ${{ vars.ECR_REGISTRY }}/${{ vars.ECR_REPO }}:${{ github.run_number }}
+          build-args: |
+            VITE_API_URL=${{ vars.VITE_API_URL }}
+            VITE_BUCKET_URL=${{ vars.VITE_BUCKET_URL }}
+            VITE_AESKEY=${{ vars.VITE_AESKEY }}
+            VITE_FRONTEND_URL=${{ vars.VITE_FRONTEND_URL }}
+      
+      - name: Build & Push Docker Image
+        if: hashFiles('**/Dockerfile', '**/dockerfile') && github.ref == 'refs/heads/main' && steps.Build_Image.outcome == 'success'
         uses: docker/build-push-action@v2
         with:
           context: .

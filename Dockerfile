@@ -18,7 +18,7 @@ ARG VITE_FRONTEND_URL
 
 # Install dependencies and build app
 RUN apk add --no-cache npm \
-    && npm ci --silent \
+    && npm ci --force --silent \
     && npm run build \
     && rm -rf /root/.npm
 
