@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import HomePage from "./pages/HomePage/HomePage";
@@ -68,38 +68,34 @@ const Company = lazy(() => import("./pages/Company/Company"));
 const Hosting = lazy(() => import("./pages/Hosting/Hosting.jsx"));
 const Login = lazy(() => import("./pages/User/Login/Login"));
 import Chatpage from "./pages/chat/chatPage";
-import getCookie,{ getAccessToken } from "./features/getCookieValues";
+import getCookie, { getAccessToken } from "./features/getCookieValues";
 
 function App() {
   const [isEventModalOpen, setIsEventModalOpen] = useState(false);
   const [hasSignedUp, setHasSignedUp] = useState(false);
   const [OtpRoute, setOtpRoute] = useState("False");
-  const[eventHostRoute,setEventHostRoute]=useState(false);
-  const[sendLogin,setSendLogin]=useState(true);
-  const[jobHostRoute,setJobHostRoute]=useState(false);
+  const [eventHostRoute, setEventHostRoute] = useState(false);
+  const [sendLogin, setSendLogin] = useState(true);
+  const [jobHostRoute, setJobHostRoute] = useState(false);
 
-  useEffect(() =>
-   {
+  useEffect(() => {
     setOtpRoute(localStorage.getItem("OtpRoute"));
-    if(getCookie("access_token"))
-    {
-      const token= getAccessToken();
-      const decoded =jwt_decode(token);
-      if(decoded.role==="Alumni"||decoded.role==="Club"||decoded.role==="Organization")
-      {
+    if (getCookie("access_token")) {
+      const token = getAccessToken();
+      const decoded = jwt_decode(token);
+      if (
+        decoded.role === "Alumni" ||
+        decoded.role === "Club" ||
+        decoded.role === "Organization"
+      ) {
         setEventHostRoute(true);
       }
-      if(decoded.role==="Organization")
-      {
+      if (decoded.role === "Organization") {
         setJobHostRoute(false);
       }
-    }
-
-    else
-    {
+    } else {
       setSendLogin(true);
     }
- 
   });
   const userName = document.cookie
     .split(";")
@@ -117,9 +113,9 @@ function App() {
           <Route path="/home" element={<HomePage />} />
           <Route path="/register" element={<RegistrationForm />} />
           <Route path="/selectRole" element={<Role />} />
-         
-            <Route path="/ehubchats" element={<Chatpage />} />
-          
+
+          <Route path="/ehubchats" element={<Chatpage />} />
+
           <Route path="/profile">
             <Route
               path="student/:userId"
@@ -228,18 +224,17 @@ function App() {
           </Route>
           <Route path="/mentorship" element={<ComingSoon />} />
 
-          {
-            eventHostRoute===true&&sendLogin===true?(<Route path="/hostevent" element={<HostEvent />} />) :
-            ( 
-              <Route path="/hostevent" element={<Login/>} />
-            )
-          }
+          {eventHostRoute === true && sendLogin === true ? (
+            <Route path="/hostevent" element={<HostEvent />} />
+          ) : (
+            <Route path="/hostevent" element={<Login />} />
+          )}
 
-          {
-            jobHostRoute===true&&sendLogin===true?(<Route path="/hostjob" element={<JobRegistration />} />)
-             :
-            ( <Route path="/hostjob" element={<Login/>} />)
-          }
+          {jobHostRoute === true && sendLogin === true ? (
+            <Route path="/hostjob" element={<JobRegistration />} />
+          ) : (
+            <Route path="/hostjob" element={<Login />} />
+          )}
 
           <Route path="hosting">
             <Route index element={<Hosting />} />
