@@ -323,7 +323,7 @@ const MentorSignup = () => {
     if (step === 4) {
       if (validateInput4()) setValidation(true);
       {
-        localStorage.setItem("OtpRoute","true");
+        localStorage.setItem("OtpRoute", "true");
       }
     }
   }
@@ -368,12 +368,10 @@ const MentorSignup = () => {
           console.log(error);
           alert(error.response.data.message);
           setValidation(false);
-
-               }
+        }
       );
     }
   };
-
 
   const handleChangeArraydata = (event) => {
     const { name, value } = event.target;
@@ -386,7 +384,6 @@ const MentorSignup = () => {
     }));
   };
 
-  
   const step1 = (
     <div>
       <TextField
@@ -423,8 +420,6 @@ const MentorSignup = () => {
         error={!!errors.mobile}
         helperText={errors.mobile}
       />
-
-    
     </div>
   );
 
@@ -441,8 +436,6 @@ const MentorSignup = () => {
         error={!!errors.currentProfile}
         helperText={errors.currentProfile}
       />
-
-
 
       <FormControl margin="normal" fullWidth>
         <InputLabel id="student-signup-campus-label" error={!!errors.campus}>
@@ -488,7 +481,6 @@ const MentorSignup = () => {
         error={!!errors.aboutMe}
         helperText={errors.aboutMe}
       />
-
     </div>
   );
 
@@ -528,7 +520,6 @@ const MentorSignup = () => {
         error={!!errors.socialMedia?.twitter}
         helperText={errors.socialMedia?.twitter}
       />
-     
     </div>
   );
 
@@ -545,8 +536,6 @@ const MentorSignup = () => {
         error={!!errors.batch}
         helperText={errors.batch}
       />
-
-    
 
       <FormControl margin="normal" fullWidth variant="outlined">
         <InputLabel
@@ -615,11 +604,8 @@ const MentorSignup = () => {
           {errors.confirmPassword}
         </FormHelperText>
       </FormControl>
-
- 
     </div>
   );
-
 
   return (
     <>

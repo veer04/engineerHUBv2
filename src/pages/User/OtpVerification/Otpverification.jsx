@@ -30,7 +30,7 @@ const OTP = () => {
 
     const Result = {
       email: email,
-      role: localStorage.getItem("role"),
+      role: localStorage.getItem("role"), //get The role from the response of the backend
       OTP: otp,
     };
     console.log(Result);
@@ -68,9 +68,9 @@ const OTP = () => {
         console.error(error);
       });
   };
-  const changeRouteValue=()=>{
-    localStorage.setItem("OtpRoute","False");
-  }
+  const changeRouteValue = () => {
+    localStorage.setItem("OtpRoute", "False");
+  };
 
   return (
     <>
@@ -183,9 +183,7 @@ const OTP = () => {
                         pattern="[0-9]*"
                         required
                       /> */}
-                    <button className="logBtn logout-btn"
-                   
-                    type="submit">
+                    <button className="logBtn logout-btn" type="submit">
                       {loading ? "Loading..." : "Verify"}
                     </button>
                   </form>

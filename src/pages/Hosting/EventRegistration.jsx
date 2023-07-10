@@ -10,7 +10,6 @@ import HostEventTimeline from "../../components/Timeline/HostEventTimeline";
 import {
   TextField,
   FormControl,
-  
   InputLabel,
   FormHelperText,
   OutlinedInput,
@@ -22,7 +21,6 @@ import {
   controller,
   getAllCampuses,
   getDomains,
-
 } from "../../services/APIConfig";
 import { getAccessToken } from "../../features/getCookieValues";
 import { useNavigate } from "react-router-dom";
@@ -41,11 +39,11 @@ const EventRegistrationForm = () => {
   }, []);
 
   const [step, setStep] = useState(1);
-  const [domainName, setDomainName] = useState('');
-  const[domain,setDomain]=useState([]);    //only to fetch data
-  const [campusId, setCampusId] = useState(''); 
-  const [campuses,setCampuses] =useState([]);//only to fetch data
-  const [eventType, setEventType] = useState(""); 
+  const [domainName, setDomainName] = useState("");
+  const [domain, setDomain] = useState([]); //only to fetch data
+  const [campusId, setCampusId] = useState("");
+  const [campuses, setCampuses] = useState([]); //only to fetch data
+  const [eventType, setEventType] = useState("");
   const [mode, setMode] = useState(0);
   const [description, setDescription] = useState("");
   const [eventStartTime, setEventStartTime] = useState("");
@@ -55,54 +53,112 @@ const EventRegistrationForm = () => {
   const [eventModeType, setEventModeType] = useState("");
   const [eventPoster, setEventPoster] = useState("");
   const [status, setStatus] = useState([]);
-  const [policy,setPolicy] = useState("");
-  const [validation,setValidation]=useState(false);
-  
+  const [policy, setPolicy] = useState("");
+  const [validation, setValidation] = useState(false);
+
   const [errors, setErrors] = useState({
-   domainName:"",
-   campusId:"",
-  //  eventType:"",
-   eventStartTime:"",
-   eventEndTime:"",
-   eventModeType:"",
-   mode:"",
-   policy:"",
-   status:"",
-
-
-
+    domainName: "",
+    campusId: "",
+    //  eventType:"",
+    eventStartTime: "",
+    eventEndTime: "",
+    eventModeType: "",
+    mode: "",
+    policy: "",
+    status: "",
   });
-  
+
   //remove this//
   //eventType(dropdown), Tags(insert Tags it is of array type), status(dropdown), policy,  campusId(apiDropDown)//
   const [file, setFile] = useState();
-const validateInput1=()=>
-{
-  let valid =true;
-  const newErrors={
+  const validateInput1 = () => {
+    let valid = true;
+    const newErrors = {
+      eventName: "",
+      domainName: "",
+      campusId: "",
+      EventType: "",
+      eventModeType: "",
+    };
 
-  }
-  setErrors(newErrors);
-  return valid;
-}
-const validateInput2=()=>
-{
-  let valid = true;
-  const newErrors={
+    if (!eventName) {
+      newErrors.eventName = "Event name is required";
+      valid = false;
+    } else if (!/^[a-zA-Z\d\s]+$/.test(eventName)) {
+      newErrors.eventName =
+        "Event name should not contain any special characters such as *:$#!@^";
+      valid = false;
+    } else if (eventName.length < 3) {
+      newErrors.eventName = "Event name should be of atleast 3 characters";
+      valid = false;
+    }
+    if (!domainName) {
+      newErrors.domainName = "domain name is required";
+      valid = false;
+    }
+    // else if (!/^[a-zA-Z\d\s]+$/.test(domainName)) {
+    //   newErrors.domainName =
+    //     "domain name should not contain any special characters such as *:$#!@^";
+    //   valid = false;
+    // }
+    else if (domainName.length < 3) {
+      newErrors.domainName = "domain name should be of atleast 3 characters";
+      valid = false;
+    }
+    if (!campusId) {
+      newErrors.campusId = "Campus name is required";
+      valid = false;
+    } else if (campusId.length < 3) {
+      newErrors.campusId = "Campus name should be of atleast 3 characters";
+      valid = false;
+    }
+    setErrors(newErrors);
+    return valid;
+  };
+  const validateInput2 = () => {
+    let valid = true;
+    const newErrors = {
+      description: "",
+      eventStartTime: "",
+      eventEndTime: "",
+      applyLink: "",
+    };
 
-  }
-  setErrors(newErrors);
-  return valid;
-}
-const validateInput3=()=>
-{
-  let valid =true;
-  const newErrors={
+    if (!description) {
+      newErrors.description = "description is required";
+      valid = false;
+    } else if (description.length < 51) {
+      newErrors.description = "description should have atleast 50 characters";
+      valid = false;
+    }
+    if (!eventStartTime) {
+      newErrors.eventStartTime = "Event start time is required";
+      valid = false;
+    }
+    if (!eventEndTime) {
+      newErrors.eventEndTime = "Event end time is required";
+      valid = false;
+    }
 
-  }
-  setErrors(newErrors);
-  return valid;
-}
+    setErrors(newErrors);
+    return valid;
+  };
+  const validateInput3 = () => {
+    let valid = true;
+    const newErrors = {
+      policy: "",
+    };
+    if (!policy) {
+      newErrors.policy = "Policy is required";
+      valid = false;
+    } else if (policy.length < 51) {
+      newErrors.policy = "Policy should have atleast 50 characters";
+      valid = false;
+    }
+
+    setErrors(newErrors);
+    return valid;
+  };
 
   function handleNext() {
     if (step === 1) {
@@ -119,8 +175,6 @@ const validateInput3=()=>
     setStep(step - 1);
   };
   // var form = new FormData();
-
-
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -139,7 +193,7 @@ const validateInput3=()=>
       [name]: value,
     }));
   };
-  const handleSubmit = async(e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     // console.log(data, "inside post ");
@@ -155,8 +209,8 @@ const validateInput3=()=>
     form.append("eventName", eventName);
     form.append("eventModeType", eventModeType);
     form.append("eventPoster", eventPoster);
-    form.append("policy",policy);
-    form.append("stauts",status);
+    form.append("policy", policy);
+    form.append("stauts", status);
     // for (let i = 0; i < campusLogos.length; i++) {
     //   form.append("campusLogo", campusLogos[i]);
     // }
@@ -174,46 +228,38 @@ const validateInput3=()=>
     console.log(form.get("eventPoster"), " eventPoster ");
     console.log(form.get("status"), " status ");
 
-  if (validation===true)
-   {  
-    
-    try {
-      // const accessToken = document.cookie
-      // .split(';')
-      // .map((cookie) => cookie.trim())
-      // .find((cookie) => cookie.startsWith('access_token='))
-      // .split('=')[1];
-      // console.log(accessToken);
-    const response = await axios.post(`${API_URL}api/v1/event`,form, {
-      headers: {
-        accesstoken: getAccessToken(),
-        
-      },
+    if (validation === true) {
+      try {
+        // const accessToken = document.cookie
+        // .split(';')
+        // .map((cookie) => cookie.trim())
+        // .find((cookie) => cookie.startsWith('access_token='))
+        // .split('=')[1];
+        // console.log(accessToken);
+        const response = await axios.post(`${API_URL}api/v1/event`, form, {
+          headers: {
+            accesstoken: getAccessToken(),
+          },
+        });
 
-      
+        console.log(response);
+
+        if (
+          response.status === 200 ||
+          response.status === 201 ||
+          response.status === 202 ||
+          response.status === 203 ||
+          response.status === 204
+        ) {
+          navigate("/");
+        }
+      } catch (error) {
+        alert(error.response.data.message);
+        setValidation(false);
+        console.log(error);
+      }
     }
-    );
-
-    console.log(response);
-
-    if (
-      response.status === 200 ||
-      response.status === 201 ||
-      response.status === 202 ||
-      response.status === 203 ||
-      response.status === 204
-    ) {
-     
-      navigate("/");
-    }
-  } catch (error) {
-    alert(error.response.data.message);
-    setValidation(false);
-    console.log(error);
-  }
-     
   };
-}
   const handleFileInputChange = (e) => {
     console.log(e.target.files);
     setCampusLogos(e.target.files);
@@ -223,25 +269,22 @@ const validateInput3=()=>
     setEventPoster(e.target.files[0]);
   };
 
-  
-        const step1 = (
-            <div>
-           
+  const step1 = (
+    <div>
+      <TextField
+        name="eventName"
+        label="Event Name"
+        variant="outlined"
+        value={eventName}
+        onChange={(e) => setEventName(e.target.value)}
+        // onChange={handleChange}
+        fullWidth
+        margin="normal"
+        error={!!errors.eventName}
+        helperText={errors.eventName}
+      />
 
-           <TextField
-                        name="eventName"
-                        label="Event Name"
-                        variant="outlined"
-                        value={eventName}
-                        onChange={(e) => setEventName(e.target.value)}
-                        // onChange={handleChange}
-                        fullWidth
-                        margin="normal"
-                        error={!!errors.eventName}
-                        helperText={errors.eventName}
-                      />
-
-                <FormControl margin="normal" fullWidth>
+      <FormControl margin="normal" fullWidth>
         <InputLabel
           id="student-signup-campus-label"
           error={!!errors.domainName}
@@ -255,7 +298,7 @@ const validateInput3=()=>
           label="Domain Name"
           name="domainName"
           // onChange={handleChange}
-          onChange={(e)=> setDomainName(e.target.value)}
+          onChange={(e) => setDomainName(e.target.value)}
           error={!!errors.domainName}
         >
           {domain.map((domains) => (
@@ -269,14 +312,8 @@ const validateInput3=()=>
         </FormHelperText>
       </FormControl>
 
-
-
-       
       <FormControl margin="normal" fullWidth>
-        <InputLabel
-          id="student-signup-campus-label"
-          error={!!errors.campusId}
-        >
+        <InputLabel id="student-signup-campus-label" error={!!errors.campusId}>
           Campus Name
         </InputLabel>
         <Select
@@ -285,7 +322,7 @@ const validateInput3=()=>
           value={campusId}
           label="Campus Name"
           name="campusId"
-          onChange={(e)=> setCampusId(e.target.value)}
+          onChange={(e) => setCampusId(e.target.value)}
           error={!!errors.campusId}
         >
           {campuses.map((campus) => (
@@ -299,219 +336,178 @@ const validateInput3=()=>
         </FormHelperText>
       </FormControl>
 
+      <br />
+      <br />
 
-<br />
-<br />
-
-
-      <FormControl
-      fullWidth
-      >
-      <InputLabel
-          id="student-signup-campus-label"
-          error={!!errors.eventType}
-        >
+      <FormControl fullWidth>
+        <InputLabel id="student-signup-campus-label" error={!!errors.eventType}>
           Event Type
         </InputLabel>
-      <Select
-        labelId="event-type-label"
-        id="event-type"
-        value={eventType}
-        label="Event Type"
-        
-        onChange={(e) => setEventType(e.target.value)}
-      >
-        <MenuItem value="Technical">Technical</MenuItem>
-        <MenuItem value="Cultural">Cultural</MenuItem>
-        <MenuItem value="Webinar">Webinar</MenuItem>
-        <MenuItem value="Hackathon">Hackathon</MenuItem>
-      </Select>
-      <FormHelperText error={!!errors.eventType}>
+        <Select
+          labelId="event-type-label"
+          id="event-type"
+          value={eventType}
+          label="Event Type"
+          onChange={(e) => setEventType(e.target.value)}
+        >
+          <MenuItem value="Technical">Technical</MenuItem>
+          <MenuItem value="Cultural">Cultural</MenuItem>
+          <MenuItem value="Webinar">Webinar</MenuItem>
+          <MenuItem value="Hackathon">Hackathon</MenuItem>
+        </Select>
+        <FormHelperText error={!!errors.eventType}>
           {errors.eventType}
         </FormHelperText>
-    </FormControl>
-    <br />
-    <br />
+      </FormControl>
+      <br />
+      <br />
 
-                     <FormControl
-                        fullWidth
-                        >
-                        <InputLabel
-                            id="student-signup-campus-label"
-                            error={!!errors.eventModeType}
-                          >
-                            Event Mode Type
-                          </InputLabel>
-                        <Select
-                          labelId="event-type-label"
-                          id="event-type"
-                          value={eventModeType}
-                          label="Event Mode Type"
-                          
-                          onChange={(e) => setEventModeType(e.target.value)}
-                        >
-                          <MenuItem value="InterCollege">InterCollege</MenuItem>
-                          <MenuItem value="IntraCollege">IntraCollege</MenuItem>
-                          <MenuItem value="Workshop">Workshop</MenuItem>
-                        </Select>
-                        <FormHelperText error={!!errors.eventModeType}>
-                            {errors.eventModeType}
-                          </FormHelperText>
-                      </FormControl>
-       
-            </div>
-          )
+      <FormControl fullWidth>
+        <InputLabel
+          id="student-signup-campus-label"
+          error={!!errors.eventModeType}
+        >
+          Event Mode Type
+        </InputLabel>
+        <Select
+          labelId="event-type-label"
+          id="event-type"
+          value={eventModeType}
+          label="Event Mode Type"
+          onChange={(e) => setEventModeType(e.target.value)}
+        >
+          <MenuItem value="InterCollege">InterCollege</MenuItem>
+          <MenuItem value="IntraCollege">IntraCollege</MenuItem>
+          <MenuItem value="Workshop">Workshop</MenuItem>
+        </Select>
+        <FormHelperText error={!!errors.eventModeType}>
+          {errors.eventModeType}
+        </FormHelperText>
+      </FormControl>
+    </div>
+  );
 
-          const step2 = (
-            <div>
+  const step2 = (
+    <div>
+      <TextField
+        name="description"
+        label="Description"
+        variant="outlined"
+        value={description}
+        onChange={(e) => setDescription(e.target.value)}
+        fullWidth
+        margin="normal"
+        error={!!errors.description}
+        helperText={errors.description}
+      />
 
+      <label htmlFor="sdate">Event Start Date</label>
+      <TextField
+        name="Event Start Date"
+        // label="Event Start Date"
+        variant="outlined"
+        id="sdate"
+        type="date"
+        value={eventStartTime}
+        onChange={(e) => setEventStartTime(e.target.value)}
+        fullWidth
+        margin="normal"
+        error={!!errors.eventStartTime}
+        helperText={errors.eventStartTime}
+      />
+      <label htmlFor="edate">Event End Date</label>
+      <TextField
+        name="Event End Date"
+        // label="Event End Date"
+        variant="outlined"
+        type="date"
+        id="edate"
+        value={eventEndTime}
+        onChange={(e) => setEventEndTime(e.target.value)}
+        fullWidth
+        margin="normal"
+        error={!!errors.eventEndTime}
+        helperText={errors.eventEndTime}
+      />
 
+      <br />
 
-                <TextField
-                        name="description"
-                        label="Description"
-                        variant="outlined"
-                        value={description}
-                        onChange={(e) => setDescription(e.target.value)}
-                        fullWidth
-                        margin="normal"
-                        error={!!errors.description}
-                        helperText={errors.description}
-                      />
-             
-              <label htmlFor="sdate">Event Start Date</label>
-             <TextField
-                        name="Event Start Date"
-                        // label="Event Start Date"
-                        variant="outlined"
-                        id="sdate"
-                        type ="date"
-                        value={eventStartTime}
-                        onChange={(e) => setEventStartTime(e.target.value)}
-                        fullWidth
-                        margin="normal"
-                        error={!!errors.eventStartTime}
-                        helperText={errors.eventStartTime}
-                      />
-                      <label htmlFor="edate">Event End Date</label>
-                        <TextField
-                        name="Event End Date"
-                        // label="Event End Date"
-                        variant="outlined"
-                        type ="date"
-                        id="edate"
-                        value={eventEndTime}
-                        onChange={(e) => setEventEndTime(e.target.value)}
-                        fullWidth
-                        margin="normal"
-                        error={!!errors.eventEndTime}
-                        helperText={errors.eventEndTime}
-                      />
+      <TextField
+        name="applyLink"
+        label="apply Link"
+        variant="outlined"
+        value={applyLink}
+        onChange={(e) => setApplyLink(e.target.value)}
+        fullWidth
+        margin="normal"
+        error={!!errors.applyLink}
+        helperText={errors.applyLink}
+      />
+    </div>
+  );
 
-           
-                <br />
+  const step3 = (
+    <div>
+      <FormControl fullWidth>
+        <InputLabel id="student-signup-campus-label" error={!!errors.mode}>
+          Event Mode
+        </InputLabel>
+        <Select
+          labelId="event-type-label"
+          id="event-type"
+          value={mode}
+          label="Event Mode"
+          onChange={(e) => setMode(e.target.value)}
+        >
+          <MenuItem value={0}>online</MenuItem>
+          <MenuItem value={1}>offline</MenuItem>
+        </Select>
+        <FormHelperText error={!!errors.mode}>{errors.mode}</FormHelperText>
+      </FormControl>
 
-                <TextField
-                        name="applyLink"
-                        label="apply Link"
-                        variant="outlined"
-                        value={applyLink}
-                        onChange={(e) => setApplyLink(e.target.value)}
-                        fullWidth
-                        margin="normal"
-                        error={!!errors.applyLink}
-                        helperText={errors.applyLink}
-                      />
-                
-            </div>
-          )
+      <TextField
+        name="policy"
+        label="policy"
+        variant="outlined"
+        value={policy}
+        onChange={(e) => setPolicy(e.target.value)}
+        fullWidth
+        margin="normal"
+        error={!!errors.policy}
+        helperText={errors.policy}
+      />
 
-          const step3 = (
-            <div>
-              
-            
-                
-              <FormControl
-                        fullWidth
-                        >
-                        <InputLabel
-                            id="student-signup-campus-label"
-                            error={!!errors.mode}
-                          >
-                            Event Mode 
-                          </InputLabel>
-                        <Select
-                          labelId="event-type-label"
-                          id="event-type"
-                          value={mode}
-                          label="Event Mode"
-                          
-                          onChange={(e) => setMode(e.target.value)}
-                        >
-                          <MenuItem value={0}>online</MenuItem>
-                          <MenuItem value={1}>offline</MenuItem>
-                
-                        </Select>
-                        <FormHelperText error={!!errors.mode}>
-                            {errors.mode}
-                          </FormHelperText>
-                      </FormControl>
-                                
+      <FormControl fullWidth>
+        <InputLabel id="student-signup-campus-label" error={!!errors.status}>
+          Event Status
+        </InputLabel>
+        <Select
+          labelId="event-type-label"
+          id="event-type"
+          value={status}
+          label="Event Status"
+          onChange={(e) => setStatus(e.target.value)}
+        >
+          <MenuItem value={"Upcoming"}>Upcoming</MenuItem>
+          <MenuItem value={"Ongoing"}>Ongoing</MenuItem>
+          <MenuItem value={"Completed"}>Completed</MenuItem>
+        </Select>
+        <FormHelperText error={!!errors.status}>{errors.status}</FormHelperText>
+      </FormControl>
 
-                      <TextField
-                        name="policy"
-                        label="policy"
-                        variant="outlined"
-                        value={policy}
-                        onChange={(e) => setPolicy(e.target.value)}
-                        fullWidth
-                        margin="normal"
-                        error={!!errors.policy}
-                        helperText={errors.policy}
-                      />
+      <label htmlFor="eventPoster">Event Poster</label>
+      <div>
+        <input
+          type="file"
+          id="eventPoster"
+          className="inputHosting"
+          onChange={handleFileInputChangePoster}
+        />
 
-                    <FormControl
-                        fullWidth
-                        >
-                        <InputLabel
-                            id="student-signup-campus-label"
-                            error={!!errors.status}
-                          >
-                            Event Status
-                          </InputLabel>
-                        <Select
-                          labelId="event-type-label"
-                          id="event-type"
-                          value={status}
-                          label="Event Status"
-                          
-                          onChange={(e) => setStatus(e.target.value)}
-                        >
-                          <MenuItem value={"Upcoming"}>Upcoming</MenuItem>
-                          <MenuItem value={"Ongoing"}>Ongoing</MenuItem>
-                          <MenuItem value={"Completed"}>Completed</MenuItem>
-                
-                        </Select>
-                        <FormHelperText error={!!errors.status}>
-                            {errors.status}
-                          </FormHelperText>
-                      </FormControl>
-                
+        {file && <p>Selected file: {file.name}</p>}
+      </div>
 
-                <label htmlFor="eventPoster">Event Poster</label>
-                <div>
-                  <input
-                    type="file"
-                    id="eventPoster"
-                 
-                    className="inputHosting"
-                    onChange={handleFileInputChangePoster}
-                  />
-
-                  {file && <p>Selected file: {file.name}</p>}
-                </div>
-
-                {/* <label htmlFor="Campus Logo">Campus Logo</label>
+      {/* <label htmlFor="Campus Logo">Campus Logo</label>
                 <div>
                   <input
                     multiple
@@ -523,15 +519,10 @@ const validateInput3=()=>
 
                   {file && <p>Selected file {file.name}</p>}
                 </div> */}
-              
-
-              </div>
-        
-        )
-        return (
-
-
-          <>
+    </div>
+  );
+  return (
+    <>
       <main className="signup-page">
         <section className="details-container">
           <div className="details">
@@ -566,8 +557,7 @@ const validateInput3=()=>
         </section>
       </main>
     </>
-        )
-
-}
+  );
+};
 
 export default EventRegistrationForm;

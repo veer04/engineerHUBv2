@@ -263,7 +263,7 @@ const StudentSignup = () => {
     if (step === 3) {
       if (validateInput3()) setValidation(true);
       {
-        localStorage.setItem("OtpRoute","true");
+        localStorage.setItem("OtpRoute", "true");
       }
     }
   }
@@ -281,9 +281,7 @@ const StudentSignup = () => {
 
       axios.post(`${API_URL}api/v1/user/signup`, formData).then(
         (response) => {
-        
           Cookies.set("email", response.data.email);
-       
 
           console.log(response);
           if (
@@ -295,6 +293,7 @@ const StudentSignup = () => {
           ) {
             setLoading(false);
             navigate("/otpverification");
+            window.navigator.reload(true);
           }
         },
         (error) => {
@@ -483,8 +482,6 @@ const StudentSignup = () => {
           {errors.institutionName}
         </FormHelperText>
       </FormControl>
-
-    
 
       <FormControl margin="normal" fullWidth variant="outlined">
         <InputLabel
