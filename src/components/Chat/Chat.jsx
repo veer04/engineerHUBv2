@@ -5,92 +5,78 @@ import submit from "./svg/submit.svg";
 import Message from "./Message";
 import { Card, CardContent, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import { API_URL } from "../../services/APIUtils";
+import getCookie, { getAccessToken } from "../../features/getCookieValues";
+import { io } from "socket.io-client";
+const ENDPOINT = API_URL;
+var socket;
 
-// const GuidelineAlert = ({ guideline }) => {
-//   return (
-//     <Card variant="outlined">
-//       <CardContent>
-//         <Typography variant="h6" gutterBottom>
-//           Community Guidelines Alert
-//         </Typography>
-//         <Typography variant="body1">
-//           {guideline}
-//         </Typography>
-//       </CardContent>
-//     </Card>
-//   );
-// };
-
-export default function Chat({ className }) {
-  // const navigate = useNavigate();
-  const [messages, setMessages] = useState([
-    // {
-    //   _id: 1,
-    //   userId: 1001,
-    //   userName: "Manish Rai",
-    //   isVerified: true,
-    //   time: "12:00 PM",
-    //   tags: ["Mentor"],
-    //   message: "Lorem ipsum dolor sit amet",
-    //   avatar: `https://source.unsplash.com/random?query=${
-    //     Math.random() * 1000
-    //   }`,
-    // },
-    // {
-    //   _id: 2,
-    //   userId: 1002,
-    //   userName: "Yash Vardhan",
-    //   isVerified: false,
-    //   time: "12:15 PM",
-    //   message:
-    //     "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Corporis ullam debitis porro velit dicta, nesciunt aperiam sequi consectetur eum, dignissimos obcaecati eos voluptatibus blanditiis impedit expedita suscipit similique ea doloremque.",
-    //   avatar: `https://source.unsplash.com/random?query=${
-    //     Math.random() * 2000
-    //   }`,
-    // },
-    {
-      _id: 3,
-      userId: 1003,
-      userName: "Ayush Gupta",
-      isVerified: true,
-      time: "12:30 PM",
-      tags: ["Mentor", "Head"],
-      message: "Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
-      avatar: `https://source.unsplash.com/random?query=${
-        Math.random() * 3000
-      }`,
-    },
-    {
-      _id: 4,
-      userId: 2001,
-      userName: "Swapnil Raj",
-      time: "12:45 PM",
-      message:
-        "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Lorem ipsum dolor sit amet",
-      avatar: "https://source.unsplash.com/random/",
-    },
-  ]);
-
-  const renderedMessages = messages.map((message) => {
-    return <Message key={message._id} {...message} />;
-  });
-
+export default function Chat({ className, data, user }) {
+  const [messages, setMessages] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [input, setInput] = useState("");
+  const [socketConnected, setSocketConnected] = useState(false);
+  const [typing, setTyping] = useState(false);
+  const [istyping, setIsTyping] = useState(false);
+  const clientId = getCookie("_id")[2];
+
+  useEffect(() => {
+    socket = io(ENDPOINT);
+    socket.emit("setup", user);
+    socket.on("connected", () => setSocketConnected(true));
+    // socket.on("typing", () => setIsTyping(true));
+    // socket.on("stop typing", () => setIsTyping(false));
+  }, []);
+
+  useEffect(() => {
+    const config = {
+      headers: {
+        accesstoken: getAccessToken(),
+      },
+    };
+    if (Object.keys(data).length === 0) {
+      return;
+    } else {
+      axios
+        .get(
+          `${API_URL}api/v1/chatMessage/${data._id}`, //change api route after discussion with backend
+          config
+        )
+        .then((res) => {
+          setMessages(res.data.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+      socket.emit("join chat", data._id);
+    }
+  }, [data]);
+
+  // const renderedMessages =
+  //   messages.length !== 0
+  //     ? messages?.map((message) => {
+  //         return <Message key={message._id} {...message} />;
+  //       })
+  //     : null;
 
   useEffect(() => {
     document.getElementsByClassName("chat-display")[0].scrollTo(0, 999999999);
   }, [messages]);
 
   function handleSubmit() {
-    setComingSoon(true);
-    return;
+    // setComingSoon(true);
+    // return;
+
+    console.log(getCookie("_id")[2]);
+
     if (input) {
       setMessages([
         ...messages,
         {
-          _id: messages.length + 1,
-          userId: 2001,
-          userName: "Swapnil Raj",
+          // _id: getCookie("_id")[2],
+          _id: getCookie("_id")[2],
+          sender: { name: "Swapnil Raj" },
           time: "12:45 PM",
           message: input,
           avatar: "https://source.unsplash.com/random/",
@@ -104,14 +90,83 @@ export default function Chat({ className }) {
   }
 
   const handleKeyDown = (e) => {
-    if (e.key === "Enter") {
-      handleSubmit();
+    if (
+      e.key === "Enter" ||
+      e.keyCode === 13 ||
+      e.which === 13 ||
+      e.key === "NumpadEnter" ||
+      e.code === "Enter" ||
+      e.code === "NumpadEnter"
+    ) {
+      sendMessage();
     }
   };
 
   const [isGuidelineAccepted, setIsGuidelineAccepted] = useState(false);
 
   const [comingSoon, setComingSoon] = useState(false);
+
+  const sendMessage = async (event) => {
+    if (input) {
+      socket.emit("stop typing", data._id);
+      // event.preventDefault();
+      try {
+        const config = {
+          headers: {
+            accesstoken: getAccessToken(),
+          },
+        };
+        setInput("");
+        const newData = await axios
+          .post(
+            `${API_URL}api/v1/chatMessage`,
+            {
+              content: input,
+              chatId: data._id,
+            },
+            config
+          )
+          .then((res) => {
+            socket.emit("new message", res.data);
+            console.log(res.data.data);
+            setMessages([...messages, res.data.data]);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
+
+  useEffect(() => {
+    socket.on("message received", (inputReceived) => {
+      setMessages((prev) => [...prev, inputReceived]);
+    });
+    return () => socket.off("message received");
+  }, [socket]);
+
+  // const typingHandler = async (e) => {
+  //   setInput(e.target.value);
+
+  //   if (!socketConnected) return;
+
+  //   if (!typing) {
+  //     setTyping(true);
+  //     socket.emit("typing", data._id);
+  //   }
+  //   let lastTypingTime = new Date().getTime();
+  //   var timerLength = 3000;
+  //   setTimeout(() => {
+  //     var timeNow = new Date().getTime();
+  //     var timeDiff = timeNow - lastTypingTime;
+  //     if (timeDiff >= timerLength && typing) {
+  //       socket.emit("stop typing", data._id);
+  //       setTyping(false);
+  //     }
+  //   }, timerLength);
+  // };
 
   return (
     <div className={`chat-container ${className ? className : ""}`}>
@@ -124,7 +179,20 @@ export default function Chat({ className }) {
         </Link>
       </div>
       <div className="chat-display">
-        {renderedMessages}
+        {messages.length !== 0 ? (
+          messages?.map((message) => {
+            return (
+              <Message key={message._id} {...message} clientId={clientId} />
+            );
+          })
+        ) : (
+          <div className="no-message">
+            <div className="heading">No messages yet</div>
+            <div className="text">
+              Be the first one to start the conversation
+            </div>
+          </div>
+        )}
         {!isGuidelineAccepted && (
           <div className="chat-guidelines">
             <div className="content">
@@ -183,11 +251,13 @@ export default function Chat({ className }) {
           placeholder="New Message"
           type="text"
           value={input}
-          onChange={(e) => setInput(e.target.value)}
-          onKeyDown={handleKeyDown}
+          onChange={(e) => {
+            setInput(e.target.value);
+          }}
+          onKeyUp={(e) => handleKeyDown(e)}
         />
         <div className="submit-button__container">
-          <div onClick={handleSubmit} className="submit-button">
+          <div onClick={sendMessage} className="submit-button">
             <img src={submit} alt="Submit" />
           </div>
         </div>
@@ -195,26 +265,3 @@ export default function Chat({ className }) {
     </div>
   );
 }
-
-// const ChatApp = () => {
-//   const [showGuidelineAlert, setShowGuidelineAlert] = useState(true);
-//   const [communityGuidelines, setCommunityGuidelines] = useState('');
-
-//   const handleCloseGuidelineAlert = () => {
-//     setShowGuidelineAlert(false);
-//   };
-
-//   useEffect(() => {
-//     // code to fetch community guidelines from server
-//     setCommunityGuidelines('Be respectful to others and follow the terms of service.');
-//   }, []);
-
-//   return (
-//     <div>
-//       {showGuidelineAlert && (
-//         <GuidelineAlert guideline={communityGuidelines} handleClose={handleCloseGuidelineAlert} />
-//       )}
-//       // code to display chat messages and input field
-//     </div>
-//   );
-// };
