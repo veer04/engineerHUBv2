@@ -43,7 +43,7 @@ export default function BlogCard({
         ></div>
       }
       <div className="sub-title">
-        <div className="author">{`by ${creatorId.name}`}</div>
+        <div className="author">{`by ${creatorId?.name}`}</div>
         <div className="date">
           {createdAt &&
             new Intl.DateTimeFormat("en-US", {

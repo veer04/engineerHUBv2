@@ -30,7 +30,7 @@ const OTP = () => {
 
     const Result = {
       email: email,
-      role: localStorage.getItem("role"),
+      role: localStorage.getItem("role"),    //get The role from the response of the backend
       OTP: otp,
     };
     console.log(Result);

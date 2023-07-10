@@ -159,7 +159,7 @@ const UpdateGroupChatModel = ({ fetchAgain, setFetchAgain, user }) => {
         },
       };
       const { data } = await axios.get(
-        `${API_URL}api/v1/allUsers?search=${search}`,
+        `${API_URL}api/v1/getAllUsersForChats?search=${search}`,
         config
       );
       console.log(data);

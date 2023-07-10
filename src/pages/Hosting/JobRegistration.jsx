@@ -92,11 +92,14 @@ const JobRegistrationForm = () => {
    jobType:"",
    jobLocation:"",
    
-
+    description:"",
    OpportunityType:"",
    OpportunityName:"",
    applicationStartTime:"",
    applicationEndTime:"",
+   jobType:"",
+   JobTiming:"",
+
 
 //    eventModeType:"",
    IsPaid:"",
@@ -113,19 +116,37 @@ const validateInput1=()=>
 {
   let valid =true;
   const newErrors={
-
 OpportunityType:"",
 OpportunityName:"",
 OpportunityPoster:"",
 OpportunityPosition:"",
 Organisation:"",
 OrganizationPoster:"",
+}
+
+if (!OpportunityType) {
+  newErrors.OpportunityType = "Opportunity Type  is required";
+  valid = false;
+} 
+if (!OpportunityName) {
+  newErrors.OpportunityName = "Opportunity Name  is required";
+  valid = false;
+} 
+if (!OpportunityPosition) {
+  newErrors.OpportunityPosition = "Opportunity position  is required";
+  valid = false;
+} 
+if (!Organisation) {
+  newErrors.Organisation = "Organisation  is required";
+  valid = false;
+} 
+// if (!OpportunityPoster) {
+//   newErrors.OpportunityPoster = "Opportunity Poster  is required";
+//   valid = false;
+// } 
 
 
 
-
-
-  }
   setErrors(newErrors);
   return valid;
 }
@@ -134,7 +155,45 @@ const validateInput2=()=>
 {
   let valid = true;
   const newErrors={
-
+    domainName:"",
+    email:"",
+    mobileNo:"",
+    alterNetMobileNo:"",
+  }
+  if(!domainName)
+  {
+    newErrors.domainName="Domain Name is required!";
+  }
+  if(!email)
+  {
+    newErrors.email="email is required!";
+  }
+  else if (!/\S+@\S+\.\S+/.test(email)) 
+  {
+    newErrors.email = "Invalid email format";
+    valid = false;
+  }
+  if (!mobileNo) {
+    newErrors.mobileNo = "Mobile number is required";
+    valid = false;
+  } 
+    else if (!/^[0-9]+$/.test(mobileNo)) {
+    newErrors.mobileNo =
+      "Mobile number should not contain any special characters or letter";
+    valid = false;
+  }
+  else if (!/^\d{10}$/.test(mobileNo)) {
+    newErrors.mobileNo = "Mobile number should be of 10 digits";
+    valid = false;
+  }
+  if (!/^[0-9]+$/.test(alterNetMobileNo)) {
+    newErrors.alterNetMobileNo =
+      " Alternate Mobile number should not contain any special characters or letter";
+    valid = false;
+  }
+  else if (!/^\d{10}$/.test(alterNetMobileNo)) {
+    newErrors.alterNetMobileNo = "Alternate Mobile number should be of 10 digits";
+    valid = false;
   }
   setErrors(newErrors);
   return valid;
@@ -144,8 +203,28 @@ const validateInput3=()=>
 {
   let valid =true;
   const newErrors={
-
+    description:"",
+    experience:"",
+    minSalary:"",
+    maxSalary:"",
   }
+  if (!description) {
+    newErrors.description = "description is required";
+    valid = false;
+  }
+  else if (description.length < 51) {
+    newErrors.description = "description should have atleast 50 characters";
+    valid = false;
+  }
+  if (!experience) {
+    newErrors.experience = "experience is required";
+    valid = false;
+  }
+  else if (experience.length < 51) {
+    newErrors.experience = "experience should have atleast 50 characters";
+    valid = false;
+  }
+
   setErrors(newErrors);
   return valid;
 }
@@ -155,7 +234,31 @@ const validateInput4=()=>
 {
   let valid =true;
   const newErrors={
+    eligibility:"",
+    jobLocation:"",
+    jobType:"",
+    JobTiming:"",
+  }
+  if(!eligibility)
+  {
+    newErrors.eligibility="Eligibility is required which in form sgpa/cgpa"
+  }
+  else if(!/^([6-9]|10)$/.test(eligibility)) 
+  {
+    newErrors.eligibility="sgpa/cgpa must be from 6-10"
+  }
 
+  if(!jobLocation)
+  {
+    newErrors.jobLocation="Job Location is required"
+  }
+  if(!jobType)
+  {
+    newErrors.jobType="Job Type is required "
+  }
+  if(!JobTiming)
+  {
+    newErrors.JobTiming="Job timing is required"
   }
   setErrors(newErrors);
   return valid;
@@ -165,7 +268,16 @@ const validateInput5=()=>
 {
   let valid =true;
   const newErrors={
+    policy:"",
 
+  }
+  if(!policy)
+  {
+    newErrors.policy="Policy is required";
+  }
+  if(!policy.length<51)
+  {
+    newErrors.policy="Policy must be of minimum 50 words";
   }
   setErrors(newErrors);
   return valid;

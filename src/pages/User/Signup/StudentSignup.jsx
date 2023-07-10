@@ -295,6 +295,7 @@ const StudentSignup = () => {
           ) {
             setLoading(false);
             navigate("/otpverification");
+            window.navigator.reload(true);
           }
         },
         (error) => {

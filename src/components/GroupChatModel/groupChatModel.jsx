@@ -58,7 +58,7 @@ const GroupChatModel = ({ children,user }) => {
         },
       };
       const { data } = await axios.get(
-        `${API_URL}api/v1/allUsers?search=${search}`,
+        `${API_URL}api/v1/getAllUsersForChats?search=${search}`,
         config
       );
       console.log(data);
@@ -157,7 +157,7 @@ const GroupChatModel = ({ children,user }) => {
             />
             <Box display={"flex"} flexWrap={"wrap"}>
               {" "}
-              {selectedUsers.map((u) => (
+              {selectedUsers?.map((u) => (
                 <UserBadgeItem
                   key={u._id}
                   user={u}
@@ -165,12 +165,11 @@ const GroupChatModel = ({ children,user }) => {
                 />
               ))}
             </Box>
-            {loading ? (
+            {loading? (
               <div>Loading...</div>
             ) : (
               searchResult
-                ?.slice(0, 4)
-                .map((user) => (
+                ?.map((user) => (
                   <UserListItem
                     key={user._id}
                     user={user}

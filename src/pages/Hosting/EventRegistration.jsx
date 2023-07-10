@@ -80,7 +80,44 @@ const validateInput1=()=>
 {
   let valid =true;
   const newErrors={
+    eventName:"",
+    domainName:"",
+    campusId:"",
+    EventType:"",
+    eventModeType:"",
+  }
 
+  if (!eventName) {
+    newErrors.eventName = "Event name is required";
+    valid = false;
+  } else if (!/^[a-zA-Z\d\s]+$/.test(eventName)) {
+    newErrors.eventName =
+      "Event name should not contain any special characters such as *:$#!@^";
+    valid = false;
+  } else if (eventName.length < 3) {
+    newErrors.eventName = "Event name should be of atleast 3 characters";
+    valid = false;
+  }
+  if (!domainName) {
+    newErrors.domainName = "domain name is required";
+    valid = false;
+  } 
+  // else if (!/^[a-zA-Z\d\s]+$/.test(domainName)) {
+  //   newErrors.domainName =
+  //     "domain name should not contain any special characters such as *:$#!@^";
+  //   valid = false;
+  // } 
+  else if (domainName.length < 3) {
+    newErrors.domainName = "domain name should be of atleast 3 characters";
+    valid = false;
+  }
+  if (!campusId) {
+    newErrors.campusId = "Campus name is required";
+    valid = false;
+  } 
+   else if (campusId.length < 3) {
+    newErrors.campusId = "Campus name should be of atleast 3 characters";
+    valid = false;
   }
   setErrors(newErrors);
   return valid;
@@ -89,8 +126,30 @@ const validateInput2=()=>
 {
   let valid = true;
   const newErrors={
-
+    description:"",
+    eventStartTime:"",
+    eventEndTime:"",
+    applyLink:"",
   }
+
+    if (!description) {
+      newErrors.description = "description is required";
+      valid = false;
+    }
+    else if (description.length < 51) {
+      newErrors.description = "description should have atleast 50 characters";
+      valid = false;
+    }
+    if (!eventStartTime) {
+      newErrors.eventStartTime = "Event start time is required";
+      valid = false;
+    }
+    if (!eventEndTime) {
+      newErrors.eventEndTime = "Event end time is required";
+      valid = false;
+    }
+
+  
   setErrors(newErrors);
   return valid;
 }
@@ -98,8 +157,18 @@ const validateInput3=()=>
 {
   let valid =true;
   const newErrors={
-
+    policy:"",
   }
+    if (!policy) {
+      newErrors.policy = "Policy is required";
+      valid = false;
+    }
+    else if (policy.length < 51) {
+      newErrors.policy = "Policy should have atleast 50 characters";
+      valid = false;
+    }
+
+  
   setErrors(newErrors);
   return valid;
 }
