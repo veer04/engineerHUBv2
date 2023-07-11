@@ -291,6 +291,7 @@ export default function Chat({
             placeholder="New Message"
             type="text"
             value={input}
+            autoComplete="off"
             onChange={(e) => {
               setInput(e.target.value);
             }}
