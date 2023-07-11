@@ -1,20 +1,27 @@
 import React, { useEffect } from "react";
 import "./JobDescription.css";
 import { Chip } from "@mui/material";
+import { useParams } from "react-router-dom";
 import { API_URL, Bucket_URL } from "../../../services/APIUtils";
 import { useNavigate, Link } from "react-router-dom";
 import { useState } from "react";
 import getCookie, { getAccessToken } from "../../../features/getCookieValues";
+import Cookies from "js-cookie";
 import jwt_decode from "jwt-decode";
 import axios from "axios";
+import {
+  controller, getHiringDataById, getHiringData
+} from "../../../services/APIConfig";
 const JobDescription = ({ details }) => {
   const navigate = useNavigate();
+  const { hiringId } = useParams();
   const [flag, setFlag] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const bucket = `${Bucket_URL}frontend/company/jobs/`;
-
+  const [hiring,setHiring]=useState({});
   useEffect(() => {
     window.scrollTo(0, 0);
+    getHiringDataById(setHiring,hiringId);
     if (getCookie("name")) {
       setIsLoggedIn(true);
     }
@@ -22,7 +29,7 @@ const JobDescription = ({ details }) => {
 
   const UserDataPost = () => {
     const data = {
-      hiringId: details._id,
+      hiringId
     };
     axios
       .post(`${API_URL}api/v1/hiringRegistration`, data, {
@@ -32,22 +39,47 @@ const JobDescription = ({ details }) => {
       })
       .then((res) => {
         if (
-          response.status === 200 ||
-          response.status === 201 ||
-          response.status === 202 ||
-          response.status === 203 ||
-          response.status === 204
+          res.status === 200 ||
+          res.status === 201 ||
+          res.status === 202 ||
+          res.status === 203 ||
+          res.status === 204
         ) {
-          setFlag(false);
+          Cookies.set("applied","false");
+          window.location.reload();
         }
       })
-      .catch((err) => {
-        window.alert(err.message);
+      .catch((res) => {
+        window.alert(res.message);
+        window.location.reload();
       });
   };
   useEffect(() => {
-    console.log(details, "job Description");
-  }, [details]);
+   const responseFlag= axios.get(`${API_URL}api/v1/hiringUserFlag/${hiringId}`,
+   {headers: {
+    accesstoken: getAccessToken(),
+  }},
+   ).then((res)=>{
+      if(res.data.applied===false)
+      {
+        Cookies.set("applied","false");
+      }
+      if(res.data.applied===true){
+        Cookies.set("applied","true");
+      }
+     
+      console.log(res);
+
+    }).catch((res)=>{
+      if(res.status===409)
+      {
+        Cookies.set("applied","false");
+      }
+    })
+    console.log(responseFlag);
+    console.log(details._id)
+    // console.log(details, "job Description");
+  }, []);
   return (
     <div className="JobDescription">
       <div className="JobDetailHeader">
@@ -68,10 +100,10 @@ const JobDescription = ({ details }) => {
           <div className="apply-btn-container">
             {isLoggedIn ? (
               <div onClick={UserDataPost}>
-                {flag ? (
-                  <div className="btn">Applied</div>
-                ) : (
+                {Cookies.get("applied")==="false" ? (
                   <div className="btn">Apply</div>
+                ) : (
+                  <div className="btn">Applied</div>
                 )}
               </div>
             ) : (
