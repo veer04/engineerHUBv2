@@ -15,4 +15,7 @@
   .chat-page {
     padding: 5.5rem 0;
   }
+  .chat-section {
+    height: 100vh;
+  }
 }

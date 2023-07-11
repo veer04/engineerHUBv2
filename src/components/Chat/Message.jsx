@@ -4,6 +4,8 @@ import verifiedIcon from "./svg/verified.svg";
 import options from "./svg/options.svg";
 
 export default function Message({
+  messages,
+  index,
   sender,
   isVerified,
   tags,
@@ -42,21 +44,26 @@ export default function Message({
   }
 
   const MY_USER_ID = clientId;
+  const isMyMessage = sender._id === MY_USER_ID;
+
+  const isSameSender = messages[index - 1]?.sender?._id === sender._id;
 
   const chatMessageClasses = `chat-message ${
-    sender._id === MY_USER_ID && "chat-message--flipped"
+    isMyMessage ? "chat-message--flipped" : ""
   }`;
 
   const messageContainerClasses = `message-container ${
-    sender._id === MY_USER_ID && "message-container--flipped"
+    isMyMessage ? "message-container--flipped" : ""
+  } ${
+    isSameSender && !isMyMessage ? "message-container--horizontal-oriental" : ""
   }`;
 
   const messageHeaderClasses = `message-header ${
-    sender._id === MY_USER_ID && "message-header--flipped"
+    isMyMessage ? "message-header--flipped" : ""
   }`;
 
   const messageBodyClasses = `message-body ${
-    sender._id === MY_USER_ID && "message-body--flipped"
+    isMyMessage ? "message-body--flipped" : ""
   }`;
 
   const checkForLink = (text) => {
@@ -65,10 +72,9 @@ export default function Message({
     return parts.map((part, index) => {
       if (part.match(urlRegex)) {
         return (
-          // <pre>
           <span key={index} className="link-margin mx-1">
             <a
-              style={{ color: "rgb(138,180,248)", lineBreak: "anywhere" }}
+              style={{ color: "rgb(138,180,248)" }}
               className="text-break"
               href={part}
               target="_blank"
@@ -77,7 +83,6 @@ export default function Message({
               {part}
             </a>
           </span>
-          // </pre>
         );
       } else {
         return (
@@ -90,15 +95,25 @@ export default function Message({
   };
 
   return (
-    <div className={chatMessageClasses}>
-      <div className="avatar-container">
-        <img className="avatar" src={sender?.image} alt="avatar" />
-      </div>
+    <div
+      style={{
+        marginTop: isSameSender ? "0rem" : ".75rem",
+      }}
+      className={chatMessageClasses}
+    >
+      {!isMyMessage && (
+        <div className="avatar-container">
+          {!isSameSender && (
+            <img className="avatar" src={sender?.image} alt="avatar" />
+          )}
+        </div>
+      )}
       <div className={messageContainerClasses}>
         <div className={messageHeaderClasses}>
-          <div className="name">{sender?.name}</div>
+          {!isMyMessage && !isSameSender && (
+            <div className="name">{sender?.name}</div>
+          )}
           {sender.verifiedByEhub && <img src={verifiedIcon} alt="verified" />}
-          <div className="time">{convertDate(date)}</div>
         </div>
         <div className="tags">
           {
@@ -124,6 +139,7 @@ export default function Message({
           >
             {checkForLink(content)}
           </div>
+          <div className="time">{convertDate(date)}</div>
         </div>
       </div>
     </div>

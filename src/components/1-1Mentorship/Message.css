@@ -1,4 +1,4 @@
-.chat-message {
+/* .chat-message {
   display: flex;
   align-items: center;
   flex-wrap: nowrap;
@@ -98,4 +98,4 @@
 }
 .message-container .message-body .options:hover {
   background-color: rgb(62, 64, 65);
-}
+} */
