@@ -99,7 +99,6 @@ const Register = () => {
     // console.log(response);
 
     try {
-      console.log(values);
       const response = await axios
         .post(`${API_URL}api/v1/login`, values)
         .then((response) => {
@@ -112,14 +111,12 @@ const Register = () => {
           Cookies.set("verifiedByEhub", decoded.verifiedByEhub);
           Cookies.set("mobile", decoded.mobile);
           Cookies.set("_id", decoded._id);
-          console.log(decoded);
           Cookies.set("name", response.data.name);
           Cookies.set("refresh_token", response.data.refreshToken);
           Cookies.set("userName", response.data.userName);
           Cookies.set("institutionName", response.data.institutionName);
           Cookies.set("email", response.data.email);
-
-          // const msg = response.data.message;
+          Cookies.set("chatDomain", JSON.stringify(decoded.chatDomain));
           if (
             response.status === 200 ||
             response.status === 201 ||

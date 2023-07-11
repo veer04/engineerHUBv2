@@ -4,13 +4,48 @@ import Sidebar from "../../../components/Sidebar/Sidebar";
 import Chat from "../../../components/Chat/Chat";
 import MobileSidebar from "../../../components/MobileSidebar/MobileSidebar";
 import useNavbar from "../../../hooks/use-navbar";
+import getCookie, { getAccessToken } from "../../../features/getCookieValues";
+import { useState } from "react";
+import { useParams } from "react-router-dom";
+import axios from "axios";
+import { API_URL } from "../../../services/APIUtils";
 
 export default function ChatPage({ path }) {
+  const { id } = useParams();
   const { setSelectedPageNavbar } = useNavbar();
+  const [chat, setChat] = useState({});
+  const [data, setData] = useState({});
+
+  const user = getAccessToken();
+  if (user === "" || user === null || user === undefined) {
+    window.location.href = "/login";
+  }
+  const [chatAccess, setChatAccess] = useState(
+    JSON.parse(decodeURIComponent(getCookie("chatDomain")[2]))
+  );
 
   useEffect(() => {
     window.scrollTo(0, 0);
     setSelectedPageNavbar("community");
+    const config = {
+      headers: {
+        accesstoken: getAccessToken(),
+      },
+    };
+    axios
+      .get(
+        `${API_URL}api/v1/chat/${encodeURIComponent(id)}`, //change api route after discussion with backend
+        config
+      )
+      .then((res) => {
+        setData(res.data.data);
+      })
+      .catch((err) => {
+        if (
+          err.response.data.message !== "Sorry, you are not in this chat room."
+        )
+          console.log(err);
+      });
   }, []);
 
   return (
@@ -19,7 +54,12 @@ export default function ChatPage({ path }) {
       <div className="chat-page">
         <div className="chat-section">
           <Sidebar path="chat" />
-          <Chat />
+          <Chat
+            data={data}
+            user={user}
+            chatAccess={chatAccess}
+            setChatAccess={setChatAccess}
+          />
         </div>
       </div>
     </>
