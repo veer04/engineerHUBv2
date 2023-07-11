@@ -3,7 +3,11 @@ import "./StudentProfilePage.css";
 import useNavbar from "../../../../hooks/use-navbar";
 import { Outlet, useNavigate, useParams } from "react-router-dom";
 import LoadingPage from "../../../../components/Loader/LoadingPage";
-import { controller, getUserProfileById } from "../../../../services/APIConfig";
+import {
+  controller,
+  getProfileByRoleAndId,
+  getUserProfileById,
+} from "../../../../services/APIConfig";
 import { getAccessToken } from "../../../../features/getCookieValues";
 import jwt_decode from "jwt-decode";
 import { AiOutlineEdit } from "react-icons/ai";
@@ -43,7 +47,7 @@ export default function ProfilePage() {
   useEffect(() => {
     window.scrollTo(0, 0);
     setSelectedPageNavbar("profile");
-    getUserProfileById(setProfile, userId);
+    getProfileByRoleAndId(setProfile, userId, "User");
 
     return () => {
       controller.abort();

@@ -224,9 +224,15 @@ export default function Chat({
       </div>
       <div className="chat-display">
         {messages.length !== 0 ? (
-          messages?.map((message) => {
+          messages?.map((message, index) => {
             return (
-              <Message key={message._id} {...message} clientId={clientId} />
+              <Message
+                key={message._id}
+                index={index}
+                messages={messages}
+                {...message}
+                clientId={clientId}
+              />
             );
           })
         ) : (
