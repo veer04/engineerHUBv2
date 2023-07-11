@@ -4,15 +4,25 @@ import mentor from "./svg/mentor.svg";
 import submit from "./svg/submit.svg";
 import Message from "./Message";
 import { Card, CardContent, Typography } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import { API_URL } from "../../services/APIUtils";
 import getCookie, { getAccessToken } from "../../features/getCookieValues";
 import { io } from "socket.io-client";
+import { Cookie } from "@mui/icons-material";
+import Cookies from "js-cookie";
+import LoadingPage from "../Loader/LoadingPage";
 const ENDPOINT = API_URL;
 var socket;
 
-export default function Chat({ className, data, user }) {
+export default function Chat({
+  className,
+  data,
+  user,
+  chatAccess,
+  setChatAccess,
+}) {
+  const { id } = useParams();
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(false);
   const [input, setInput] = useState("");
@@ -20,14 +30,17 @@ export default function Chat({ className, data, user }) {
   const [typing, setTyping] = useState(false);
   const [istyping, setIsTyping] = useState(false);
   const clientId = getCookie("_id")[2];
-
   useEffect(() => {
     socket = io(ENDPOINT);
     socket.emit("setup", user);
     socket.on("connected", () => setSocketConnected(true));
     // socket.on("typing", () => setIsTyping(true));
     // socket.on("stop typing", () => setIsTyping(false));
-  }, []);
+  }, [chatAccess]);
+
+  useEffect(() => {
+    console.log(messages);
+  }, [messages]);
 
   useEffect(() => {
     const config = {
@@ -47,6 +60,10 @@ export default function Chat({ className, data, user }) {
           setMessages(res.data.data);
         })
         .catch((err) => {
+          // if (
+          //   err.response.data.message !==
+          //   "Sorry, you are not in this chat room."
+          // )
           console.log(err);
         });
       socket.emit("join chat", encodeURIComponent(data._id));
@@ -103,8 +120,6 @@ export default function Chat({ className, data, user }) {
   };
 
   const [isGuidelineAccepted, setIsGuidelineAccepted] = useState(false);
-
-  const [comingSoon, setComingSoon] = useState(false);
 
   const sendMessage = async (event) => {
     if (input) {
@@ -168,10 +183,39 @@ export default function Chat({ className, data, user }) {
   //   }, timerLength);
   // };
 
+  async function handleAccept() {
+    setIsGuidelineAccepted(true);
+
+    const config = {
+      headers: {
+        accesstoken: getAccessToken(),
+      },
+    };
+    setInput("");
+    const newData = await axios
+      .put(
+        `${API_URL}api/v1/chat/addToUserByOwn/${encodeURIComponent(id)}`,
+        {},
+        config
+      )
+      .then((res) => {
+        Cookies.set(
+          "chatDomain",
+          JSON.stringify({ ...chatAccess, [id]: "allowed" })
+        );
+        setChatAccess({ ...chatAccess, [id]: "allowed" });
+        window.location.reload();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+  const [loader, setLoader] = useState(false);
+
   return (
     <div className={`chat-container ${className ? className : ""}`}>
       <div className="chat-header">
-        <div className="heading">Community Chat</div>
+        <div className="heading">{id}</div>
         <Link to="/mentorship">
           <div className="mentor-btn" style={{ cursor: "pointer" }}>
             <img src={mentor} alt="Connect to mentor" />
@@ -186,14 +230,9 @@ export default function Chat({ className, data, user }) {
             );
           })
         ) : (
-          <div className="no-message">
-            <div className="heading">No messages yet</div>
-            <div className="text">
-              Be the first one to start the conversation
-            </div>
-          </div>
+          <LoadingPage />
         )}
-        {!isGuidelineAccepted && (
+        {chatAccess[id] === "waiting" && (
           <div className="chat-guidelines">
             <div className="content">
               <div className="heading">Community Chat Guidelines</div>
@@ -225,43 +264,45 @@ export default function Chat({ className, data, user }) {
                   </li>
                 </ol>
               </div>
-              <div
-                onClick={() => setIsGuidelineAccepted(true)}
-                className="button"
+              <button
+                onClick={() => {
+                  setLoader(true);
+                  handleAccept();
+                }}
+                className="button border-0"
               >
-                I Accept
-              </div>
-            </div>
-          </div>
-        )}
-        {comingSoon && (
-          <div className="chat-guidelines">
-            <div className="content">
-              <div className="chat-coming-soon">
-                Chat will be available soon
-              </div>
+                {loader ? (
+                  <div class="spinner-border text-primary" role="status">
+                    <span class="sr-only"></span>
+                  </div>
+                ) : (
+                  "I Accept"
+                )}
+              </button>
             </div>
           </div>
         )}
       </div>
-      <div className="chat-input">
-        <input
-          id="chat-input"
-          className="input"
-          placeholder="New Message"
-          type="text"
-          value={input}
-          onChange={(e) => {
-            setInput(e.target.value);
-          }}
-          onKeyUp={(e) => handleKeyDown(e)}
-        />
-        <div className="submit-button__container">
-          <div onClick={sendMessage} className="submit-button">
-            <img src={submit} alt="Submit" />
+      {chatAccess[id] !== "waiting" && messages.length !== 0 && (
+        <div className="chat-input">
+          <input
+            id="chat-input"
+            className="input"
+            placeholder="New Message"
+            type="text"
+            value={input}
+            onChange={(e) => {
+              setInput(e.target.value);
+            }}
+            onKeyUp={(e) => handleKeyDown(e)}
+          />
+          <div className="submit-button__container">
+            <div onClick={sendMessage} className="submit-button">
+              <img src={submit} alt="Submit" />
+            </div>
           </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }

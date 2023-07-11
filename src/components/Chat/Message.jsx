@@ -10,7 +10,37 @@ export default function Message({
   content,
   clientId,
   createdAt,
+  position,
 }) {
+  const date = new Date(createdAt);
+  //function to convert date to a readable format in the concept of chats
+  function convertDate(date) {
+    const now = new Date();
+    const timeDiff = now - date;
+
+    const seconds = Math.floor(timeDiff / 1000);
+    const minutes = Math.floor(seconds / 60);
+    const hours = Math.floor(minutes / 60);
+    const days = Math.floor(hours / 24);
+
+    if (seconds < 60) {
+      return "Just now";
+    } else if (minutes < 60) {
+      return `${minutes}m ago`;
+    } else if (hours < 24) {
+      return `${hours}h ago`;
+    } else if (days === 1) {
+      return "Yesterday";
+    } else if (days < 7) {
+      return `${days}d ago`;
+    } else {
+      const year = date.getFullYear();
+      const month = date.toLocaleString("default", { month: "short" });
+      const day = date.getDate();
+      return `${day} ${month} ${year}`;
+    }
+  }
+
   const MY_USER_ID = clientId;
 
   const chatMessageClasses = `chat-message ${
@@ -67,18 +97,25 @@ export default function Message({
       <div className={messageContainerClasses}>
         <div className={messageHeaderClasses}>
           <div className="name">{sender?.name}</div>
-          {isVerified && <img src={verifiedIcon} alt="verified" />}
-          <div className="time">{createdAt}</div>
+          {sender.verifiedByEhub && <img src={verifiedIcon} alt="verified" />}
+          <div className="time">{convertDate(date)}</div>
         </div>
         <div className="tags">
-          {tags &&
-            tags.map((tag) => {
-              return (
-                <div key={tag} className="tag">
-                  {tag}
+          {
+            sender.role &&
+              (sender.role === "Alumni" ||
+                sender.role === "Mentor" ||
+                sender.role === "Admin") && (
+                // sender.role?.map((tag) => {
+                //   return (
+                <div key={sender?.role} className="tag">
+                  {sender?.role === "Admin" ? "Moderator" : sender?.role}
                 </div>
-              );
-            })}
+              )
+            // );
+            // }
+            // )
+          }
         </div>
         <div className={messageBodyClasses}>
           <div

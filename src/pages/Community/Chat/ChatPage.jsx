@@ -4,7 +4,7 @@ import Sidebar from "../../../components/Sidebar/Sidebar";
 import Chat from "../../../components/Chat/Chat";
 import MobileSidebar from "../../../components/MobileSidebar/MobileSidebar";
 import useNavbar from "../../../hooks/use-navbar";
-import { getAccessToken } from "../../../features/getCookieValues";
+import getCookie, { getAccessToken } from "../../../features/getCookieValues";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
@@ -20,6 +20,9 @@ export default function ChatPage({ path }) {
   if (user === "" || user === null || user === undefined) {
     window.location.href = "/login";
   }
+  const [chatAccess, setChatAccess] = useState(
+    JSON.parse(decodeURIComponent(getCookie("chatDomain")[2]))
+  );
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -38,7 +41,10 @@ export default function ChatPage({ path }) {
         setData(res.data.data);
       })
       .catch((err) => {
-        console.log(err);
+        if (
+          err.response.data.message !== "Sorry, you are not in this chat room."
+        )
+          console.log(err);
       });
   }, []);
 
@@ -48,7 +54,12 @@ export default function ChatPage({ path }) {
       <div className="chat-page">
         <div className="chat-section">
           <Sidebar path="chat" />
-          <Chat data={data} user={user} />
+          <Chat
+            data={data}
+            user={user}
+            chatAccess={chatAccess}
+            setChatAccess={setChatAccess}
+          />
         </div>
       </div>
     </>
