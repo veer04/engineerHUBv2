@@ -22,7 +22,7 @@ export default function Domains({ domains }) {
         {domains.map((item, index) => (
           <Link
             key={item._id}
-            to={`/community/projects/${encodeURIComponent(item.domain)}`}
+            to={`/community/chat/${encodeURIComponent(item.domain)}`}
           >
             <div
               className="on-hover-scale"
