@@ -40,7 +40,7 @@ export default function Chat({ className, data, user }) {
     } else {
       axios
         .get(
-          `${API_URL}api/v1/chatMessage/${data._id}`, //change api route after discussion with backend
+          `${API_URL}api/v1/chatMessage/${encodeURIComponent(data._id)}`, //change api route after discussion with backend
           config
         )
         .then((res) => {
@@ -49,7 +49,7 @@ export default function Chat({ className, data, user }) {
         .catch((err) => {
           console.log(err);
         });
-      socket.emit("join chat", data._id);
+      socket.emit("join chat", encodeURIComponent(data._id));
     }
   }, [data]);
 
@@ -108,7 +108,7 @@ export default function Chat({ className, data, user }) {
 
   const sendMessage = async (event) => {
     if (input) {
-      socket.emit("stop typing", data._id);
+      socket.emit("stop typing", encodeURIComponent(data._id));
       // event.preventDefault();
       try {
         const config = {
@@ -122,7 +122,7 @@ export default function Chat({ className, data, user }) {
             `${API_URL}api/v1/chatMessage`,
             {
               content: input,
-              chatId: data._id,
+              chatId: encodeURIComponent(data._id),
             },
             config
           )
@@ -154,7 +154,7 @@ export default function Chat({ className, data, user }) {
 
   //   if (!typing) {
   //     setTyping(true);
-  //     socket.emit("typing", data._id);
+  //     socket.emit("typing", encodeURIComponent(data._id));
   //   }
   //   let lastTypingTime = new Date().getTime();
   //   var timerLength = 3000;
@@ -162,7 +162,7 @@ export default function Chat({ className, data, user }) {
   //     var timeNow = new Date().getTime();
   //     var timeDiff = timeNow - lastTypingTime;
   //     if (timeDiff >= timerLength && typing) {
-  //       socket.emit("stop typing", data._id);
+  //       socket.emit("stop typing", encodeURIComponent(data._id));
   //       setTyping(false);
   //     }
   //   }, timerLength);

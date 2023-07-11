@@ -31,7 +31,7 @@ export default function ChatPage({ path }) {
     };
     axios
       .get(
-        `${API_URL}api/v1/chat/${id}`, //change api route after discussion with backend
+        `${API_URL}api/v1/chat/${encodeURIComponent(id)}`, //change api route after discussion with backend
         config
       )
       .then((res) => {
