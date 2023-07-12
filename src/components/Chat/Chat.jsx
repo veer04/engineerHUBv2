@@ -39,10 +39,6 @@ export default function Chat({
   }, [chatAccess]);
 
   useEffect(() => {
-    console.log(messages);
-  }, [messages]);
-
-  useEffect(() => {
     const config = {
       headers: {
         accesstoken: getAccessToken(),
@@ -140,8 +136,8 @@ export default function Chat({
           )
           .then((res) => {
             socket.emit("new message", res.data);
-            console.log(res.data.data);
-            setMessages(res.data.data);
+            // setMessages([...messages, res.data.data]);
+            setMessages((prev) => [...prev, res.data.data]);
           })
           .catch((err) => {
             console.log(err);
