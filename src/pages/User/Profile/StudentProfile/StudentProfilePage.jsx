@@ -47,7 +47,7 @@ export default function ProfilePage() {
   useEffect(() => {
     window.scrollTo(0, 0);
     setSelectedPageNavbar("profile");
-    getProfileByRoleAndId(setProfile, userId, "User");
+    getUserProfileById(setProfile, userId);
 
     return () => {
       controller.abort();

@@ -2,6 +2,7 @@ import React from "react";
 import "./Message.css";
 import verifiedIcon from "./svg/verified.svg";
 import options from "./svg/options.svg";
+import defaultPoster from "../../assets/defaultPoster";
 
 export default function Message({
   messages,
@@ -44,9 +45,9 @@ export default function Message({
   }
 
   const MY_USER_ID = clientId;
-  const isMyMessage = sender._id === MY_USER_ID;
+  const isMyMessage = sender?._id === MY_USER_ID;
 
-  const isSameSender = messages[index - 1]?.sender?._id === sender._id;
+  const isSameSender = messages[index - 1]?.sender?._id === sender?._id;
 
   const chatMessageClasses = `chat-message ${
     isMyMessage ? "chat-message--flipped" : ""
@@ -104,7 +105,11 @@ export default function Message({
       {!isMyMessage && (
         <div className="avatar-container">
           {!isSameSender && (
-            <img className="avatar" src={sender?.image} alt="avatar" />
+            <img
+              className="avatar"
+              src={sender?.image ? sender?.image : defaultPoster}
+              alt="avatar"
+            />
           )}
         </div>
       )}
@@ -113,14 +118,15 @@ export default function Message({
           {!isMyMessage && !isSameSender && (
             <div className="name">{sender?.name}</div>
           )}
-          {sender.verifiedByEhub && <img src={verifiedIcon} alt="verified" />}
+          {content && !sender?.name && <i className="name">Deleted User</i>}
+          {sender?.verifiedByEhub && <img src={verifiedIcon} alt="verified" />}
         </div>
         <div className="tags">
           {
-            sender.role &&
-              (sender.role === "Alumni" ||
-                sender.role === "Mentor" ||
-                sender.role === "Admin") && (
+            sender?.role &&
+              (sender?.role === "Alumni" ||
+                sender?.role === "Mentor" ||
+                sender?.role === "Admin") && (
                 // sender.role?.map((tag) => {
                 //   return (
                 <div key={sender?.role} className="tag">
