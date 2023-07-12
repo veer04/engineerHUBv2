@@ -5,31 +5,46 @@ import { CiViewList } from "react-icons/ci";
 import { MdOutlineCalendarMonth } from "react-icons/md";
 import { TbFileText } from "react-icons/tb";
 import { Link, useParams } from "react-router-dom";
+import useSidebar from "../../hooks/use-sidebar";
 
 export default function MobileSidebar({ path }) {
   const { id } = useParams();
+  const { isCollapsed, setIsCollapsed, selectedItem, setSelectedItem } =
+    useSidebar();
 
   return (
     <div className="mobile-sidebar">
-      <Link to={`https://discord.com/invite/ZMZAEZ5NfA`}>
+      <Link
+        onClick={() => setSelectedItem("chat")}
+        to={`/community/chat/${encodeURIComponent(id)}`}
+      >
         <div className={`${path === "chat" ? "is-active" : ""}`}>
           <RiChat3Line className="svg" />
           Chat
         </div>
       </Link>
-      <Link to={`/community/projects/${id}`}>
+      <Link
+        onClick={() => setSelectedItem("projects")}
+        to={`/community/projects/${encodeURIComponent(id)}`}
+      >
         <div className={`${path === "projects" ? "is-active" : ""}`}>
           <CiViewList className="svg" />
           Projects
         </div>
       </Link>
-      <Link to={`/community/events/${id}`}>
+      <Link
+        onClick={() => setSelectedItem("events")}
+        to={`/community/events/${encodeURIComponent(id)}`}
+      >
         <div className={`${path === "events" ? "is-active" : ""}`}>
           <MdOutlineCalendarMonth className="svg" />
           Events
         </div>
       </Link>
-      <Link to={`/community/blogs/${id}`}>
+      <Link
+        onClick={() => setSelectedItem("blogs")}
+        to={`/community/blogs/${encodeURIComponent(id)}`}
+      >
         <div className={`${path === "blogs" ? "is-active" : ""}`}>
           <TbFileText className="svg" />
           Blogs

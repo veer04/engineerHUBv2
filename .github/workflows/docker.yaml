@@ -10,7 +10,31 @@ permissions:
   packages: write
 
 jobs:
+  Build-only:
+    if: github.ref != 'ref/heads/main'
+    runs-on: ubuntu-latest
+    steps: 
+      - name: Checkout Git Repository
+        uses: actions/checkout@v2
+      
+      - name: Build Docker image
+        id: Build_Image
+        if: hashFiles('**/Dockerfile', '**/dockerfile') 
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          push: false
+          tags: | 
+            ${{ vars.ECR_REGISTRY }}/${{ vars.ECR_REPO }}:latest
+            ${{ vars.ECR_REGISTRY }}/${{ vars.ECR_REPO }}:${{ github.run_number }}
+          build-args: |
+            VITE_API_URL=${{ vars.VITE_API_URL }}
+            VITE_BUCKET_URL=${{ vars.VITE_BUCKET_URL }}
+            VITE_AESKEY=${{ vars.VITE_AESKEY }}
+            VITE_FRONTEND_URL=${{ vars.VITE_FRONTEND_URL }}
+
   Build-Push-Image:
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Git Repository
@@ -27,23 +51,8 @@ jobs:
       - name: Login to Amazon ECR
         uses: aws-actions/amazon-ecr-login@v1.6.0
 
-      - name: Build Docker image
-        id: Build_Image
-        if: hashFiles('**/Dockerfile', '**/dockerfile') && github.ref != 'refs/heads/main' 
-        uses: docker/build-push-action@v2
-        with:
-          context: .
-          tags: | 
-            ${{ vars.ECR_REGISTRY }}/${{ vars.ECR_REPO }}:latest
-            ${{ vars.ECR_REGISTRY }}/${{ vars.ECR_REPO }}:${{ github.run_number }}
-          build-args: |
-            VITE_API_URL=${{ vars.VITE_API_URL }}
-            VITE_BUCKET_URL=${{ vars.VITE_BUCKET_URL }}
-            VITE_AESKEY=${{ vars.VITE_AESKEY }}
-            VITE_FRONTEND_URL=${{ vars.VITE_FRONTEND_URL }}
-      
       - name: Build & Push Docker Image
-        if: hashFiles('**/Dockerfile', '**/dockerfile') && github.ref == 'refs/heads/main'
+        if: hashFiles('**/Dockerfile', '**/dockerfile') 
         uses: docker/build-push-action@v2
         with:
           context: .

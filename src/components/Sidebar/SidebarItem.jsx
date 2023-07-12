@@ -30,16 +30,16 @@ export default function SidebarItem({
   }
 
   const { id } = useParams();
-  if(title === "CHAT")
-  return (
-    <Link to={`https://discord.com/invite/ZMZAEZ5NfA`}>
-      <div onClick={() => handleClick()} className={sidebarItemClass}>
-        <div className={sidebarItemSvgClass}>{svg}</div>
-        {!isCollapsed && title}
-      </div>
-    </Link>
-  )
-  else
+  // if(title === "CHAT")
+  // return (
+  //   <Link to={`https://discord.com/invite/ZMZAEZ5NfA`}>
+  //     <div onClick={() => handleClick()} className={sidebarItemClass}>
+  //       <div className={sidebarItemSvgClass}>{svg}</div>
+  //       {!isCollapsed && title}
+  //     </div>
+  //   </Link>
+  // )
+  // else
 
   return (
     <Link to={`/community/${link}/${encodeURIComponent(id)}`}>

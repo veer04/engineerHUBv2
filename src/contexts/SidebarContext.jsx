@@ -5,7 +5,7 @@ export const SidebarContext = createContext();
 
 export default function SidebarProvider({ children }) {
   const [isCollapsed, setIsCollapsed] = useState(true);
-  const [selectedItem, setSelectedItem] = useState("projects");
+  const [selectedItem, setSelectedItem] = useState("");
 
   return (
     <SidebarContext.Provider
