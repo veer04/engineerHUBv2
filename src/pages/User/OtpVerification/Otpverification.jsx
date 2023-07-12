@@ -48,11 +48,11 @@ const OTP = () => {
         Cookies.set("email", response.data.email);
         Cookies.set("role", decoded.role);
         Cookies.set("image", decoded.image);
-        Cookies.set("isVerified", decoded.isVerified);
+        Cookies.set("isVerified", "true");
         Cookies.set("verifiedByEhub", decoded.verifiedByEhub);
         Cookies.set("mobile", decoded.mobile);
         Cookies.set("name", response.data.name);
-        Cookies.set("applied","true");
+        Cookies.set("applied", "true");
         Cookies.set("_id", decoded._id);
 
         console.log(response);

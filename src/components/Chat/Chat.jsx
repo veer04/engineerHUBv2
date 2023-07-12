@@ -238,7 +238,10 @@ export default function Chat({
         ) : (
           <LoadingPage />
         )}
-        {chatAccess[id] === "waiting" && (
+        {(chatAccess[id] === "waiting" ||
+          chatAccess[id] === null ||
+          chatAccess[id] === undefined ||
+          chatAccess[id] === "") && (
           <div className="chat-guidelines">
             <div className="content">
               <div className="heading">Community Chat Guidelines</div>
