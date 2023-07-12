@@ -293,7 +293,7 @@ const StudentSignup = () => {
           ) {
             setLoading(false);
             navigate("/otpverification");
-            window.navigator.reload(true);
+            window.location.reload(true);
           }
         },
         (error) => {

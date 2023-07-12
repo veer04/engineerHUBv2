@@ -360,7 +360,7 @@ const MentorSignup = () => {
             setLoading(false);
             navigate("/otpverification");
             setOpen(true);
-            // window.location.reload(true);
+            window.location.reload(true);
           }
         },
         (error) => {

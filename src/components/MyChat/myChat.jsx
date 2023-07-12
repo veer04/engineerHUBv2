@@ -25,10 +25,10 @@ const myChat = ({ fetchAgain, user }) => {
         },
       };
 
-      const { data } = await axios.get(`${API_URL}api/v1/chat`, config);
+      const { data } = await axios.get(`${API_URL}api/v1/chat/App Development`, config);
       console.log(data.data);
       console.log(data);
-      setChats(data.data);
+      setChats(data.data.data);
     } catch (error) {
       console.log(error.message);
     }
