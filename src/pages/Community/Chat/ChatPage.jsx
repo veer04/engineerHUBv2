@@ -21,7 +21,9 @@ export default function ChatPage({ path }) {
     window.location.href = "/login";
   }
   const [chatAccess, setChatAccess] = useState(
-    JSON.parse(decodeURIComponent(getCookie("chatDomain")[2]))
+    !getCookie("chatDomain")
+      ? {}
+      : JSON.parse(decodeURIComponent(getCookie("chatDomain")[2]))
   );
 
   useEffect(() => {
