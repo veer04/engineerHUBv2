@@ -56,7 +56,7 @@ export default function Message({
   const messageContainerClasses = `message-container ${
     isMyMessage ? "message-container--flipped" : ""
   } ${
-    isSameSender && !isMyMessage ? "message-container--horizontal-oriental" : ""
+    isSameSender && !isMyMessage && content && sender?.name ? "message-container--horizontal-oriental" : ""
   }`;
 
   const messageHeaderClasses = `message-header ${
@@ -104,7 +104,7 @@ export default function Message({
     >
       {!isMyMessage && (
         <div className="avatar-container">
-          {!isSameSender && (
+          {(!isSameSender || (content && !sender?.name)) && (
             <img
               className="avatar"
               src={sender?.image ? sender?.image : defaultPoster}
@@ -115,10 +115,25 @@ export default function Message({
       )}
       <div className={messageContainerClasses}>
         <div className={messageHeaderClasses}>
-          {!isMyMessage && !isSameSender && (
+          {content && !sender?.name ? (
+            <i className="name">Deleted User</i>
+          ) : isMyMessage ? (
+            ""
+          ) : isSameSender ? (
+            content && !sender?.name ? (
+              <i className="name">Deleted User</i>
+            ) : (
+              ""
+            )
+          ) : (
             <div className="name">{sender?.name}</div>
           )}
-          {content && !sender?.name && <i className="name">Deleted User</i>}
+          {/* {!isMyMessage && !isSameSender && content && !sender?.name ? (
+            <i className="name">Deleted User</i>
+          ) : (
+            <div className="name">{sender?.name}</div>
+          )} */}
+          {/* {content && !sender?.name && <i className="name">Deleted User</i>} */}
           {sender?.verifiedByEhub && <img src={verifiedIcon} alt="verified" />}
         </div>
         <div className="tags">

@@ -41,7 +41,6 @@
   flex-direction: row-reverse;
   align-items: center;
   justify-content: flex-end;
-  width: fit-content;
 }
 
 .message-container .message-header {
