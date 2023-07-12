@@ -81,30 +81,27 @@ export default function Chat({
     document.getElementsByClassName("chat-display")[0].scrollTo(0, 999999999);
   }, [messages]);
 
-  function handleSubmit() {
-    // setComingSoon(true);
-    // return;
+  // function handleSubmit() {
+  //   console.log(getCookie("_id")[2]);
 
-    console.log(getCookie("_id")[2]);
-
-    if (input) {
-      setMessages([
-        ...messages,
-        {
-          // _id: getCookie("_id")[2],
-          _id: getCookie("_id")[2],
-          sender: { name: "Swapnil Raj" },
-          time: "12:45 PM",
-          message: input,
-          avatar: "https://source.unsplash.com/random/",
-        },
-      ]);
-      setInput("");
-    }
-    setTimeout(() => {
-      document.getElementsByClassName("chat-display")[0].scrollTo(0, 999999999);
-    }, 100);
-  }
+  //   if (input) {
+  //     setMessages([
+  //       ...messages,
+  //       {
+  //         // _id: getCookie("_id")[2],
+  //         _id: getCookie("_id")[2],
+  //         sender: { name: "Swapnil Raj" },
+  //         time: "12:45 PM",
+  //         message: input,
+  //         avatar: "https://source.unsplash.com/random/",
+  //       },
+  //     ]);
+  //     setInput("");
+  //   }
+  //   setTimeout(() => {
+  //     document.getElementsByClassName("chat-display")[0].scrollTo(0, 999999999);
+  //   }, 100);
+  // }
 
   const handleKeyDown = (e) => {
     if (
@@ -144,7 +141,7 @@ export default function Chat({
           .then((res) => {
             socket.emit("new message", res.data);
             console.log(res.data.data);
-            setMessages([...messages, res.data.data]);
+            setMessages(res.data.data);
           })
           .catch((err) => {
             console.log(err);
