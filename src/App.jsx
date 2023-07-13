@@ -91,7 +91,7 @@ function App() {
         setEventHostRoute(true);
       }
       if (decoded.role === "Organization") {
-        setJobHostRoute(false);
+        setJobHostRoute(true);
       }
     } else {
       setSendLogin(true);

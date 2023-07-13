@@ -297,7 +297,7 @@ const ClubSignup = () => {
           ) {
             setLoading(false);
             navigate("/otpverification");
-            // window.location.reload(true);
+            window.location.reload(true);
           }
         },
         (error) => {
