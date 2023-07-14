@@ -394,6 +394,9 @@ const EventRegistrationForm = () => {
         label="Description"
         variant="outlined"
         value={description}
+        multiline
+        minRows={3}
+        maxRows={6}
         onChange={(e) => setDescription(e.target.value)}
         fullWidth
         margin="normal"
@@ -434,7 +437,7 @@ const EventRegistrationForm = () => {
 
       <TextField
         name="applyLink"
-        label="apply Link"
+        label="Apply Link"
         variant="outlined"
         value={applyLink}
         onChange={(e) => setApplyLink(e.target.value)}
@@ -448,7 +451,7 @@ const EventRegistrationForm = () => {
 
   const step3 = (
     <div>
-      <FormControl fullWidth>
+      <FormControl margin="normal" fullWidth>
         <InputLabel id="student-signup-campus-label" error={!!errors.mode}>
           Event Mode
         </InputLabel>
@@ -467,7 +470,7 @@ const EventRegistrationForm = () => {
 
       <TextField
         name="policy"
-        label="policy"
+        label="Policy"
         variant="outlined"
         value={policy}
         onChange={(e) => setPolicy(e.target.value)}
@@ -477,7 +480,7 @@ const EventRegistrationForm = () => {
         helperText={errors.policy}
       />
 
-      <FormControl fullWidth>
+      <FormControl margin="normal" fullWidth>
         <InputLabel id="student-signup-campus-label" error={!!errors.status}>
           Event Status
         </InputLabel>
