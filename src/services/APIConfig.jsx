@@ -872,7 +872,7 @@ export const getTrendingActivities = (setTrendingActivities) => {
       signal: controller.signal,
     })
     .then((res) => {
-      const data = res.data.data;
+      const data = res.data.data.slice(0, 8);
       setTrendingActivities(data);
     })
     .catch((err) => {
