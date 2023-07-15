@@ -6,14 +6,16 @@ import { MdOutlineCalendarMonth } from "react-icons/md";
 import { TbFileText } from "react-icons/tb";
 import { Link, useParams } from "react-router-dom";
 import useSidebar from "../../hooks/use-sidebar";
-import getCookie from "../../features/getCookieValues";
+import getCookie, { getAccessToken } from "../../features/getCookieValues";
 
 export default function MobileSidebar({ path }) {
   const { id } = useParams();
   const { isCollapsed, setIsCollapsed, selectedItem, setSelectedItem } =
     useSidebar();
-  const isClubOrOrganisation =
-    getCookie("role")[2] === "Club" || getCookie("role")[2] === "Organization";
+  const isClubOrOrganisation = !getAccessToken()
+    ? false
+    : getCookie("role")[2] === "Club" ||
+      getCookie("role")[2] === "Organization";
 
   return (
     <div className="mobile-sidebar">
