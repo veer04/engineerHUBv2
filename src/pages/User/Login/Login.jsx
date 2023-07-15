@@ -376,7 +376,7 @@ const Register = () => {
                 >
                   <option value="User">Student</option>
                   <option value="Alumni">Alumni</option>
-                  <option value="Admin">Admin</option>
+                  {/* <option value="Admin">Admin</option> */}
                   <option value="Club">Club</option>
                   <option value="Organization">Company</option>
                 </select>
@@ -403,11 +403,6 @@ const Register = () => {
                   </IconButton>
                 </div>
               </div>
-              <Link to="/forgot-password">
-                <div className="forgot-password-text f-p form-opt">
-                  Forgot Password
-                </div>
-              </Link>
               <div className="form-opt">
                 <button
                   className="my-btn reg-si registerSSS"

@@ -172,6 +172,13 @@ a {
   font-weight: var(--text-weight-4);
 }
 
+main {
+  min-height: 100lvh;
+  min-height: 100vh;
+  min-height: 100svh;
+  min-height: 100dvh;
+}
+
 @media (max-width: 900px) {
   :root {
     --section-padding: min(2rem, 4vw);

@@ -9,6 +9,7 @@
   cursor: pointer;
   color: white;
   font-weight: 400;
+  white-space: nowrap;
 }
 .sidebar__item:hover {
   background-color: var(--primary-color-dark-green);
