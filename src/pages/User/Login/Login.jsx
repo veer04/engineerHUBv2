@@ -403,7 +403,11 @@ const Register = () => {
                   </IconButton>
                 </div>
               </div>
-
+              <Link to="/forgot-password">
+                <div className="forgot-password-text f-p form-opt">
+                  Forgot Password
+                </div>
+              </Link>
               <div className="form-opt">
                 <button
                   className="my-btn reg-si registerSSS"
