@@ -6,15 +6,17 @@ import { CiViewList } from "react-icons/ci";
 import { MdOutlineCalendarMonth } from "react-icons/md";
 import { TbFileText } from "react-icons/tb";
 import useSidebar from "../../hooks/use-sidebar";
-import getCookie from "../../features/getCookieValues";
+import getCookie, { getAccessToken } from "../../features/getCookieValues";
 
 export default function Sidebar({ path }) {
   const { isCollapsed, setIsCollapsed, selectedItem, setSelectedItem } =
     useSidebar();
   let items = [];
   if (
-    getCookie("role")[2] === "Club" ||
-    getCookie("role")[2] === "Organization"
+    !getAccessToken()
+      ? false
+      : getCookie("role")[2] === "Club" ||
+        getCookie("role")[2] === "Organization"
   ) {
     items = [
       {
