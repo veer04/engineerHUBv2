@@ -6,23 +6,28 @@ import { MdOutlineCalendarMonth } from "react-icons/md";
 import { TbFileText } from "react-icons/tb";
 import { Link, useParams } from "react-router-dom";
 import useSidebar from "../../hooks/use-sidebar";
+import getCookie from "../../features/getCookieValues";
 
 export default function MobileSidebar({ path }) {
   const { id } = useParams();
   const { isCollapsed, setIsCollapsed, selectedItem, setSelectedItem } =
     useSidebar();
+  const isClubOrOrganisation =
+    getCookie("role")[2] === "Club" || getCookie("role")[2] === "Organization";
 
   return (
     <div className="mobile-sidebar">
-      <Link
-        onClick={() => setSelectedItem("chat")}
-        to={`/community/chat/${encodeURIComponent(id)}`}
-      >
-        <div className={`${path === "chat" ? "is-active" : ""}`}>
-          <RiChat3Line className="svg" />
-          Chat
-        </div>
-      </Link>
+      {!isClubOrOrganisation && (
+        <Link
+          onClick={() => setSelectedItem("chat")}
+          to={`/community/chat/${encodeURIComponent(id)}`}
+        >
+          <div className={`${path === "chat" ? "is-active" : ""}`}>
+            <RiChat3Line className="svg" />
+            Chat
+          </div>
+        </Link>
+      )}
       <Link
         onClick={() => setSelectedItem("projects")}
         to={`/community/projects/${encodeURIComponent(id)}`}

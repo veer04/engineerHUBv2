@@ -42,6 +42,7 @@ import ParticularAlumni from "./pages/Campus/ParticularCampus/ParticularAlumni";
 // import ProfilePage from "./pages/User/Profile/ProfilePage";
 import VerificationModal from "./components/VerificationModal/VerificationModal";
 import StudentSignup from "./pages/User/Signup/StudentSignup";
+import ForgotPassword from "./pages/User/ForgotPassword/ForgotPassword";
 import StudentProfilePage from "./pages/User/Profile/StudentProfile/StudentProfilePage";
 import GeneralStudentData from "./pages/User/Profile/StudentProfile/GeneralStudentData";
 import EditStudentData from "./pages/User/Profile/StudentProfile/EditStudentData";
@@ -161,11 +162,12 @@ function App() {
           <Route path="/mentorSignup" element={<MentorSignup />} />
           <Route path="/organizationSignup" element={<OrganizationSignup />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
 
           {OtpRoute === "true" ? (
             <Route exact path="/otpverification" element={<OTP />} />
           ) : (
-            <Route path="/otpverification" element={<Login />} />
+            <Route path="/otpverification" element={<Page404 />} />
           )}
 
           <Route path="/under-maintenance" element={<ComingSoon />} />

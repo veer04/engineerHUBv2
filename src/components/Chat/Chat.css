@@ -3,7 +3,7 @@
   flex-direction: column;
   width: 100%;
   min-height: 50vh;
-  max-height: 30rem;
+  max-height: calc(calc(calc(100lvh - 6.7rem) - 63px) - 65px);
   flex-wrap: nowrap;
 }
 

@@ -53,7 +53,7 @@ export default function Chat({
           config
         )
         .then((res) => {
-          setMessages(prev=>[...prev,...res.data.data])
+          setMessages(res.data.data);
         })
         .catch((err) => {
           // if (
