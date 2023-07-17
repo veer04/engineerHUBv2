@@ -69,6 +69,7 @@ const Company = lazy(() => import("./pages/Company/Company"));
 const Hosting = lazy(() => import("./pages/Hosting/Hosting.jsx"));
 const Login = lazy(() => import("./pages/User/Login/Login"));
 import Chatpage from "./pages/chat/chatPage";
+import ChangePassword from "./pages/User/ForgotPassword/ChangePassword";
 import getCookie, { getAccessToken } from "./features/getCookieValues";
 
 function App() {
@@ -163,7 +164,7 @@ function App() {
           <Route path="/organizationSignup" element={<OrganizationSignup />} />
           <Route path="/login" element={<Login />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
-
+          <Route path="/change-password" element={<ChangePassword />} />
           {OtpRoute === "true" ? (
             <Route exact path="/otpverification" element={<OTP />} />
           ) : (
