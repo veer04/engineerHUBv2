@@ -92,11 +92,11 @@ const HackathonDesc = ({ details }) => {
           <div>
           {
               isLoggedIn ? (
-                <Link to={details.websiteUrl}>
+                <Link to={details.WebsiteUrl}>
                 <div className="btn">Apply</div>
               </Link>
               ):(
-                <Link to={"https://ehubbusiness.com/login"}>
+                <Link to="/login">
                 <div className="btn">Apply</div>
               </Link>
               )}
@@ -151,7 +151,7 @@ const HackathonDesc = ({ details }) => {
               <BsCalendar4 />
             </div>
             <span>
-              <h4>Registration Fees Payment</h4>
+              <h4>Fees Payment Date</h4>
               <h6>{copyEndDate}</h6>
             </span>
           </div>
@@ -169,7 +169,7 @@ const HackathonDesc = ({ details }) => {
               <BsCalendar4 />
             </div>
             <span>
-              <h4>Results</h4>
+              <h4>Result Date</h4>
               <h6>{copyEndDate}</h6>
             </span>
           </div>
