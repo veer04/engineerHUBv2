@@ -10,9 +10,7 @@ import Cookies from "js-cookie";
 import jwt_decode from "jwt-decode";
 import axios from "axios";
 import {
-  controller,
-  getHiringDataById,
-  getHiringData,
+  controller, getHiringDataById, getHiringData
 } from "../../../services/APIConfig";
 const JobDescription = ({ details }) => {
   const navigate = useNavigate();
@@ -20,10 +18,10 @@ const JobDescription = ({ details }) => {
   const [flag, setFlag] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const bucket = `${Bucket_URL}frontend/company/jobs/`;
-  const [hiring, setHiring] = useState({});
+  const [hiring,setHiring]=useState({});
   useEffect(() => {
     window.scrollTo(0, 0);
-    getHiringDataById(setHiring, hiringId);
+    getHiringDataById(setHiring,hiringId);
     if (getCookie("name")) {
       setIsLoggedIn(true);
     }
@@ -31,7 +29,7 @@ const JobDescription = ({ details }) => {
 
   const UserDataPost = () => {
     const data = {
-      hiringId,
+      hiringId
     };
     axios
       .post(`${API_URL}api/v1/hiringRegistration`, data, {
@@ -47,7 +45,7 @@ const JobDescription = ({ details }) => {
           res.status === 203 ||
           res.status === 204
         ) {
-          Cookies.set("applied", "false");
+          Cookies.set("applied","false");
           window.location.reload();
         }
       })
@@ -57,29 +55,29 @@ const JobDescription = ({ details }) => {
       });
   };
   useEffect(() => {
-    const responseFlag = axios
-      .get(`${API_URL}api/v1/hiringUserFlag/${hiringId}`, {
-        headers: {
-          accesstoken: getAccessToken(),
-        },
-      })
-      .then((res) => {
-        if (res.data.applied === false) {
-          Cookies.set("applied", "false");
-        }
-        if (res.data.applied === true) {
-          Cookies.set("applied", "true");
-        }
+   const responseFlag= axios.get(`${API_URL}api/v1/hiringUserFlag/${hiringId}`,
+   {headers: {
+    accesstoken: getAccessToken(),
+  }},
+   ).then((res)=>{
+      if(res.data.applied===false)
+      {
+        Cookies.set("applied","false");
+      }
+      if(res.data.applied===true){
+        Cookies.set("applied","true");
+      }
+     
+      console.log(res);
 
-        console.log(res);
-      })
-      .catch((res) => {
-        if (res.status === 409) {
-          Cookies.set("applied", "false");
-        }
-      });
+    }).catch((res)=>{
+      if(res.status===409)
+      {
+        Cookies.set("applied","false");
+      }
+    })
     console.log(responseFlag);
-    console.log(details._id);
+    console.log(details._id)
     // console.log(details, "job Description");
   }, []);
   return (
@@ -102,14 +100,14 @@ const JobDescription = ({ details }) => {
           <div className="apply-btn-container">
             {isLoggedIn ? (
               <div onClick={UserDataPost}>
-                {Cookies.get("applied") === "false" ? (
+                {Cookies.get("applied")==="false" ? (
                   <div className="btn">Apply</div>
                 ) : (
                   <div className="btn">Applied</div>
                 )}
               </div>
             ) : (
-              <Link to="/login">
+              <Link to={"https://ehubbusiness.com/login"}>
                 <div className="btn">Apply</div>
               </Link>
             )}
