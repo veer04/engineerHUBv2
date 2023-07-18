@@ -87,6 +87,13 @@ previous_container_status=""
 trap 'stop_and_remove_container "$container_name"; exit' SIGINT SIGTERM
 
 while true; do
+
+  # Check if ECR token needs to be renewed
+  if ! aws ecr get-login-password --region "$ECR_REGION" >/dev/null; then
+    # If the token is invalid or expired, obtain a new one and re-authenticate with ECR
+    renew_ecr_token
+  fi
+  
   # Get the image digest for the 'latest' tag
   current_image_digest=$(aws ecr describe-images --repository-name "$REPO_NAME" --query 'sort_by(imageDetails,& imagePushedAt)[-1].imageDigest' --output text)
 
@@ -113,12 +120,6 @@ while true; do
     pull_and_run_image "$container_name" "$current_image_digest"
   fi
 
-  # Check if ECR token needs to be renewed
-  if ! aws ecr get-login-password --region "$ECR_REGION" >/dev/null; then
-    # If the token is invalid or expired, obtain a new one and re-authenticate with ECR
-    renew_ecr_token
-  fi
-
-  # Sleep for 30 seconds before checking again
-  sleep 30
+  # Sleep for 60 seconds before checking again
+  sleep 60
 done
