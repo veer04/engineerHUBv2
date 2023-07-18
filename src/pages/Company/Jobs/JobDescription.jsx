@@ -10,18 +10,20 @@ import Cookies from "js-cookie";
 import jwt_decode from "jwt-decode";
 import axios from "axios";
 import {
-  controller, getHiringDataById, getHiringData
+  controller,
+  getHiringDataById,
+  getHiringData,
 } from "../../../services/APIConfig";
+import LoadingPage from "../../../components/Loader/LoadingPage";
 const JobDescription = ({ details }) => {
   const navigate = useNavigate();
   const { hiringId } = useParams();
   const [flag, setFlag] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const bucket = `${Bucket_URL}frontend/company/jobs/`;
-  const [hiring,setHiring]=useState({});
+  const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     window.scrollTo(0, 0);
-    getHiringDataById(setHiring,hiringId);
     if (getCookie("name")) {
       setIsLoggedIn(true);
     }
@@ -29,7 +31,7 @@ const JobDescription = ({ details }) => {
 
   const UserDataPost = () => {
     const data = {
-      hiringId
+      hiringId,
     };
     axios
       .post(`${API_URL}api/v1/hiringRegistration`, data, {
@@ -45,7 +47,7 @@ const JobDescription = ({ details }) => {
           res.status === 203 ||
           res.status === 204
         ) {
-          Cookies.set("applied","false");
+          Cookies.set("applied", "false");
           window.location.reload();
         }
       })
@@ -55,59 +57,72 @@ const JobDescription = ({ details }) => {
       });
   };
   useEffect(() => {
-   const responseFlag= axios.get(`${API_URL}api/v1/hiringUserFlag/${hiringId}`,
-   {headers: {
-    accesstoken: getAccessToken(),
-  }},
-   ).then((res)=>{
-      if(res.data.applied===false)
-      {
-        Cookies.set("applied","false");
-      }
-      if(res.data.applied===true){
-        Cookies.set("applied","true");
-      }
-     
-      console.log(res);
-
-    }).catch((res)=>{
-      if(res.status===409)
-      {
-        Cookies.set("applied","false");
-      }
-    })
-    console.log(responseFlag);
-    console.log(details._id)
-    // console.log(details, "job Description");
+    const responseFlag = axios
+      .get(`${API_URL}api/v1/hiringUserFlag/${hiringId}`, {
+        headers: {
+          accesstoken: getAccessToken(),
+        },
+      })
+      .then((res) => {
+        if (res.data.applied === false) {
+          Cookies.set("applied", "false");
+        }
+        if (res.data.applied === true) {
+          Cookies.set("applied", "true");
+        }
+      })
+      .catch((res) => {
+        if (res.status === 409) {
+          Cookies.set("applied", "false");
+        }
+      });
   }, []);
-  return (
+
+  const formatter = new Intl.NumberFormat("en-IN", {
+    style: "currency",
+    currency: "INR",
+    minimumFractionDigits: 0,
+  });
+  let formattedSalary = formatter.format(details?.maxSalary);
+  formattedSalary.includes("NaN")
+    ? (formattedSalary = "N/A")
+    : (formattedSalary = formattedSalary);
+
+  //using Intl formatter, check if the duration is 1 month or more than 1 month
+  //if it is 1 month, then display "1 month" else display "2 months"
+  let formattedDuration = new Intl.PluralRules("en-IN", {
+    type: "ordinal",
+  }).select(details?.duration);
+
+  formattedDuration === "one"
+    ? (formattedDuration = "1 Month")
+    : (formattedDuration = `${details?.duration} Months`);
+
+  const JobDescription = (
     <div className="JobDescription">
       <div className="JobDetailHeader">
         <span>
           <div className="w-100 d-flex">
             <span className="imgBox">
-              <img
-                src={details.OrganisationPoster || details.OrganizationPoster}
-                alt="Logo"
-              />
+              <img src={details.organisationLogo} alt="Logo" />
             </span>
             <span className="heads">
-              <h1>{details.OpportunityPosition}</h1>
-              <h3>{details.Organisation}</h3>
-              <h3>{details.jobLocation}</h3>
+              <h1>{details.opportunityName}</h1>
+              <h3>{details.organisationName}</h3>
+              <h3>{details.opportunityLocation}</h3>
             </span>
           </div>
           <div className="apply-btn-container">
             {isLoggedIn ? (
               <div onClick={UserDataPost}>
-                {Cookies.get("applied")==="false" ? (
+                {Cookies.get("applied") === "false" ? (
                   <div className="btn">Apply</div>
                 ) : (
                   <div className="btn">Applied</div>
                 )}
               </div>
             ) : (
-              <Link to={"https://ehubbusiness.com/login"}>
+              <Link to="/login">
                 <div className="btn">Apply</div>
               </Link>
             )}
@@ -124,6 +139,7 @@ const JobDescription = ({ details }) => {
                 fontWeight: "500",
                 fontSize: "10px",
                 marginRight: "15px",
+                marginBottom: "5px",
               }}
             />
           ))}
@@ -134,44 +150,46 @@ const JobDescription = ({ details }) => {
         <p>{details.description}</p>
       </div>
       {/* <div className="JobReq">
-        <h5>Job Requirements</h5>
-        <ul>
-          {details.req.map((item, index) => {
-            return <li key={index}>{item}</li>;
-          })}
-        </ul>
-      </div> */}
+      <h5>Job Requirements</h5>
+      <ul>
+        {details.req.map((item, index) => {
+          return <li key={index}>{item}</li>;
+        })}
+      </ul>
+    </div> */}
       <div className="JobInfo">
         <h5>More Information</h5>
         <div className="JobInfoItems">
           <div className="JobInfoItem">
             <h6>Salary / Stipend</h6>
             <p></p>
-            <span>{details.maxSalary}</span>
+            <span>{details.maxSalary !== "N/A" ? formattedSalary : "N/A"}</span>
             <img src={`${bucket}cash.svg`} alt="guide" />
           </div>
           <div className="JobInfoItem">
             <h6>Time Availability</h6>
             <p></p>
-            <span>{details.JobTiming || details.jobTiming}</span>
+            <span>{formattedDuration}</span>
             <img src={`${bucket}timer.svg`} alt="guide" />
           </div>
           <div className="JobInfoItem">
             <h6>Job Location</h6>
             <p></p>
-            <span>{details.jobLocation}</span>
+            <span>{details.opportunityLocation}</span>
             <img src={`${bucket}locate.svg`} alt="guide" />
           </div>
           <div className="JobInfoItem">
             <h6>Work type</h6>
             <p></p>
-            <span>{details.jobType}</span>
+            <span>{details.opportunityType}</span>
             <img src={`${bucket}time.svg`} alt="guide" />
           </div>
         </div>
       </div>
     </div>
   );
+
+  return Object.keys(details).length !== 0 ? JobDescription : <LoadingPage />;
 };
 
 export default JobDescription;

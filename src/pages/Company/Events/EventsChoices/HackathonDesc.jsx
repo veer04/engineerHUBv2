@@ -19,8 +19,7 @@ const HackathonDesc = ({ details }) => {
   // const valueName=getCookie("name");
   useEffect(() => {
     window.scrollTo(0, 0);
-    if(getCookie("name"))
-    {
+    if (getCookie("name")) {
       setIsLoggedIn(true);
     }
   }, []);
@@ -64,7 +63,7 @@ const HackathonDesc = ({ details }) => {
   let copyDate = getStartDate;
   copyDate = copyDate.substring(0, copyDate.indexOf("/"));
 
-  const endDate = new Date(details.applicationStartTime);
+  const endDate = new Date(details.applicationEndTime);
   let getEndDate = endDate
     .toLocaleTimeString("en-IN", {
       day: "2-digit",
@@ -79,27 +78,26 @@ const HackathonDesc = ({ details }) => {
     <div className="HackDescription">
       <div className="HackDetailHeader">
         <div className="imageBanner">
-          <img src={details.OpportunityPoster} alt="Banner" />
+          <img src={details.opportunityPoster} alt="Banner" />
         </div>
         <span>
           <span className="imgBox">
-            <img src={details.OrganisationPoster} alt="Logo" />
+            <img src={details.organisationLogo} alt="Logo" />
           </span>
           <span className="heads">
-            <h1>{details.OpportunityName}</h1>
-            <h3>{details.jobLocation}</h3>
+            <h1>{details.opportunityName}</h1>
+            <h3>{details.opportunityLocation}</h3>
           </span>
           <div>
-          {
-              isLoggedIn ? (
-                <Link to={details.websiteUrl}>
+            {isLoggedIn ? (
+              <Link to={details.websiteUrl}>
                 <div className="btn">Apply</div>
               </Link>
-              ):(
-                <Link to={"https://ehubbusiness.com/login"}>
+            ) : (
+              <Link to="/login">
                 <div className="btn">Apply</div>
               </Link>
-              )}
+            )}
           </div>
         </span>
         {/* <span className="Tags">
@@ -151,11 +149,11 @@ const HackathonDesc = ({ details }) => {
               <BsCalendar4 />
             </div>
             <span>
-              <h4>Registration Fees Payment</h4>
+              <h4>End Date</h4>
               <h6>{copyEndDate}</h6>
             </span>
           </div>
-          <div className="HackDateItem">
+          {/* <div className="HackDateItem">
             <div className="icon">
               <BsCalendar4 />
             </div>
@@ -172,7 +170,7 @@ const HackathonDesc = ({ details }) => {
               <h4>Results</h4>
               <h6>{copyEndDate}</h6>
             </span>
-          </div>
+          </div> */}
         </div>
       </div>
       {/* <div className="HackPrize">

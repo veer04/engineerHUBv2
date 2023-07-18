@@ -72,3 +72,14 @@
   background-color: var(--main-background-color);
   padding: 0 8px;
 }
+
+.filename-container {
+  position: relative;
+  overflow: hidden;
+}
+.filename {
+  position: absolute;
+  top: 18px;
+  left: 130px;
+  max-width: 400px;
+}

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import "./EventRegistration.css";
 import "./JobRegistration.css";
 import axios from "axios";
@@ -17,6 +17,7 @@ import {
 import { controller, getDomains } from "../../services/APIConfig";
 import { getAccessToken } from "../../features/getCookieValues";
 import { useNavigate } from "react-router-dom";
+import CustomSnackbar from "../User/Login/CustomSnackbar";
 
 const JobRegistrationForm = () => {
   const navigate = useNavigate();
@@ -30,10 +31,14 @@ const JobRegistrationForm = () => {
   const [mobileNo, setMobileNo] = useState(""); //change the type to Number
   const [alternateMobileNo, setAlterNetMobileNo] = useState("");
   const [email, setEmail] = useState("");
-  const [minSalary, setMinSalary] = useState(0);
-  const [maxSalary, setMaxSalary] = useState(0);
+  const [minSalary, setMinSalary] = useState();
+  const [minSalaryCopy, setMinSalaryCopy] = useState();
+  const [minSalaryInput, setMinSalaryInput] = useState();
+  const [maxSalary, setMaxSalary] = useState();
+  const [maxSalaryCopy, setMaxSalaryCopy] = useState();
+  const [maxSalaryInput, setMaxSalaryInput] = useState();
   const [experience, setExperience] = useState("");
-  const [eligibility, setEligibility] = useState(6);
+  const [eligibility, setEligibility] = useState();
   const [opportunityLocation, setJobLocation] = useState("");
   const [opportunityMode, setJobType] = useState("Remote"); //enum Hybrid Remote InOffice
   const [opportunityTiming, setJobTiming] = useState(""); // enum Full Time, Part Time, Contractual
@@ -43,12 +48,22 @@ const JobRegistrationForm = () => {
   const [organisationName, setOrganisation] = useState("");
   const [opportunityPoster, setOpportunityPoster] = useState({});
   const [organisationLogo, setOrganizationPoster] = useState({});
+  const [isPosterSelected, setIsPosterSelected] = useState(0); //0,1,2
+  const [isLogoSelected, setIsLogoSelected] = useState(0); //0,1,2
   const [skillsRequired, setSkillsRequired] = useState([]);
   const [applicationStartTime, setApplicationStartTime] = useState("");
   const [applicationEndTime, setApplicationEndTime] = useState("");
   const [opportunityName, setOpportunityName] = useState("");
   const [policy, setPolicy] = useState("");
   const [validation, setValidation] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [snackbarValues, setSnackbarValues] = useState({
+    severity: "error",
+    message: "",
+  });
+  const [open, setOpen] = useState(false);
+
+  const fileInputRef = useRef(null);
 
   const [errors, setErrors] = useState({
     opportunityName: "",
@@ -66,34 +81,20 @@ const JobRegistrationForm = () => {
     description: "",
     applicationStartTime: "",
     applicationEndTime: "",
-    opportunityMode: "",
     opportunityTiming: "",
     isPaid: "",
     policy: "",
     duration: "",
     websiteUrl: "",
-    minSalary: "",
-    maxSalary: "",
     skillsRequired: "",
   });
-
-  useEffect(() => {
-    console.log("1 poster type", typeof opportunityPoster);
-    console.log("2 logo type", typeof organisationLogo);
-  }, [opportunityPoster, organisationLogo]);
-
-  useEffect(() => {
-    console.log("3 opportunityPoster", opportunityPoster);
-    console.log("4 organisationLogo", organisationLogo);
-    console.log(" ");
-  }, [opportunityPoster, organisationLogo]);
 
   const checkUrl = () => {
     const url = window.location.href;
     if (url.includes("job")) {
-      return "job";
+      return "Job";
     } else if (url.includes("internship")) {
-      return "internship";
+      return "Internship";
     } else {
       return "";
     }
@@ -116,20 +117,50 @@ const JobRegistrationForm = () => {
       organisationName: "",
       organisationLogo: "",
     };
+    function isImageFileName(fileName) {
+      // Regex to check if the file name ends with a common image extension
+      const imageRegex = /\.(jpg|jpeg|png)$/i;
+      return imageRegex.test(fileName);
+    }
     if (!opportunityName) {
       newErrors.opportunityName = "Opportunity Name is required!";
+      valid = false;
+    } else if (opportunityName.length < 2) {
+      newErrors.opportunityName =
+        "Opportunity Name should be atleast 2 characters long!";
+      valid = false;
+    } else if (opportunityName.length > 100) {
+      newErrors.opportunityName =
+        "Opportunity Name should be less than 100 characters!";
       valid = false;
     }
     if (!organisationName) {
       newErrors.organisationName = "Organisation Name is required!";
       valid = false;
-    }
-    if (!opportunityPoster) {
-      newErrors.opportunityPoster = "Opportunity Poster is required!";
+    } else if (organisationName.length < 2) {
+      newErrors.organisationName =
+        "Organisation Name should be atleast 2 characters long!";
+      valid = false;
+    } else if (organisationName.length > 100) {
+      newErrors.organisationName =
+        "Organisation Name should be less than 100 characters!";
       valid = false;
     }
-    if (!organisationLogo) {
+    if (!opportunityPoster.name) {
+      newErrors.opportunityPoster = "Opportunity Poster is required!";
+      valid = false;
+    } else if (!isImageFileName(opportunityPoster.name)) {
+      newErrors.opportunityPoster =
+        "Opportunity Poster should be in jpg/jpeg/png format!";
+      valid = false;
+    }
+
+    if (!organisationLogo.name) {
       newErrors.organisationLogo = "Organisation Logo is required!";
+      valid = false;
+    } else if (!isImageFileName(organisationLogo.name)) {
+      newErrors.organisationLogo =
+        "Organisation Logo should be in jpg/jpeg/png format!";
       valid = false;
     }
 
@@ -143,6 +174,7 @@ const JobRegistrationForm = () => {
       domainName: "",
       email: "",
       mobileNo: "",
+      alternateMobileNo: "",
       applicationStartTime: "",
       applicationEndTime: "",
     };
@@ -168,12 +200,37 @@ const JobRegistrationForm = () => {
       newErrors.mobileNo = "Mobile number should be of 10 digits!";
       valid = false;
     }
+    if (alternateMobileNo && !/^[0-9]+$/.test(alternateMobileNo)) {
+      newErrors.alternateMobileNo =
+        "Alternate Mobile number should not contain any special characters or letter!";
+      valid = false;
+    } else if (alternateMobileNo && !/^\d{10}$/.test(alternateMobileNo)) {
+      newErrors.alternateMobileNo =
+        "Alternate Mobile number should be of 10 digits!";
+      valid = false;
+    }
     if (!applicationStartTime) {
       newErrors.applicationStartTime = "Application Start Time is required!";
+      valid = false;
+    } else if (new Date(applicationStartTime) < new Date()) {
+      newErrors.applicationStartTime =
+        "Application Start Time should be greater than current time!";
+      valid = false;
+    } else if (new Date(applicationStartTime) > new Date(applicationEndTime)) {
+      newErrors.applicationStartTime =
+        "Application Start Time should be less than Application End Time!";
       valid = false;
     }
     if (!applicationEndTime) {
       newErrors.applicationEndTime = "Application End Time is required!";
+      valid = false;
+    } else if (new Date(applicationEndTime) < new Date()) {
+      newErrors.applicationEndTime =
+        "Application End Time should be greater than current time!";
+      valid = false;
+    } else if (new Date(applicationEndTime) < new Date(applicationStartTime)) {
+      newErrors.applicationEndTime =
+        "Application End Time should be greater than Application Start Time!";
       valid = false;
     }
 
@@ -192,31 +249,35 @@ const JobRegistrationForm = () => {
     if (!description) {
       newErrors.description = "Description is required!";
       valid = false;
-    } else if (description.length < 51) {
+    } else if (description.length < 50) {
       newErrors.description = "Description should have atleast 50 characters!";
       valid = false;
-    } else if (description.length > 500) {
-      newErrors.description = "Description should be less than 500 characters!";
+    } else if (description.length > 1000) {
+      newErrors.description =
+        "Description should be less than 1000 characters!";
       valid = false;
     }
     if (!experience) {
       newErrors.experience = "Experience is required!";
       valid = false;
-    } else if (experience.length < 51) {
+    } else if (experience.length < 50) {
       newErrors.experience = "Experience should have atleast 50 characters!";
       valid = false;
+    } else if (experience.length > 1000) {
+      newErrors.experience = "Experience should be less than 1000 characters!";
+      valid = false;
     }
-    if (!!isPaid && !minSalary) {
+    if (!!isPaid && !minSalaryCopy) {
       newErrors.minSalary = "Minimum Salary is required!";
       valid = false;
-    } else if (!!isPaid && !/^[0-9]+$/.test(minSalary)) {
+    } else if (!!isPaid && !/^[0-9]+$/.test(minSalaryCopy)) {
       newErrors.minSalary = "Minimum Salary should only be in numbers";
       valid = false;
     }
-    if (!!isPaid && !maxSalary) {
+    if (!!isPaid && !minSalaryCopy) {
       newErrors.maxSalary = "Maximum Salary is required!";
       valid = false;
-    } else if (!!isPaid && !/^[0-9]+$/.test(maxSalary)) {
+    } else if (!!isPaid && !/^[0-9]+$/.test(minSalaryCopy)) {
       newErrors.maxSalary = "Maximum Salary should only be in numbers";
       valid = false;
     }
@@ -235,19 +296,19 @@ const JobRegistrationForm = () => {
       skillsRequired: "",
     };
     if (!eligibility) {
-      newErrors.eligibility = "Eligibility is required in sgpa/cgpa!";
+      newErrors.eligibility = "Eligibility is required in SGPA/CGPA!";
       valid = false;
     } else if (
       !/^(1(\.\d{1,2})?|2(\.\d{1,2})?|3(\.\d{1,2})?|4(\.\d{1,2})?|5(\.\d{1,2})?|6(\.\d{1,2})?|7(\.\d{1,2})?|8(\.\d{1,2})?|9(\.\d{1,2})?|10(\.0{1,2})?)$/.test(
         eligibility
       )
     ) {
-      newErrors.eligibility = "sgpa/cgpa must be in range 1-10!";
+      newErrors.eligibility =
+        "SGPA/CGPA must be in range 1-10 upto 2 decimal places!";
       valid = false;
     }
 
     if (!opportunityLocation && opportunityMode !== "Remote") {
-      console.log("test");
       newErrors.opportunityLocation = "Job Location is required!";
       valid = false;
     }
@@ -278,23 +339,25 @@ const JobRegistrationForm = () => {
     if (!duration) {
       newErrors.duration = "Duration is required!";
       valid = false;
+    } else if (duration < 1) {
+      newErrors.duration = "Duration should be greater than 0!";
+      valid = false;
     }
     if (!websiteUrl) {
       newErrors.websiteUrl = "Website Url is required!";
       valid = false;
     } else if (!/^(ftp|http|https):\/\/[^ "]+$/.test(websiteUrl)) {
-      newErrors.websiteUrl = "Invalid website url!";
+      newErrors.websiteUrl =
+        "Invalid website url! (Ex: https://www.engineerhub.in/)";
       valid = false;
     }
-
-    // if (!policy) {
-    //   newErrors.policy = "Policy is required";
-    //   valid = false;
-    // }
-    // if (policy.length < 51) {
-    //   newErrors.policy = "Policy must be of minimum 50 words";
-    //   valid = false;
-    // }
+    if (policy && policy.length < 50) {
+      newErrors.policy = "Policy must be of minimum 50 words";
+      valid = false;
+    } else if (policy && policy.length > 1000) {
+      newErrors.policy = "Policy must be of maximum 1000 words";
+      valid = false;
+    }
     setErrors(newErrors);
     return valid;
   };
@@ -340,20 +403,16 @@ const JobRegistrationForm = () => {
   };
 
   const handleSubmit = async (e) => {
-    const indianApplicationStartTime = applicationStartTime.toLocaleString(
-      "en-US",
-      {
+    const indianApplicationStartTime = new Date(
+      applicationStartTime.toLocaleString("en-US", {
         timeZone: "Asia/Kolkata",
-      }
+      })
     );
-    console.log(indianApplicationStartTime);
-    const indianApplicationEndTime = applicationEndTime.toLocaleString(
-      "en-US",
-      {
+    const indianApplicationEndTime = new Date(
+      applicationEndTime.toLocaleString("en-US", {
         timeZone: "Asia/Kolkata",
-      }
+      })
     );
-    console.log(indianApplicationEndTime);
 
     e.preventDefault();
     const form = new FormData();
@@ -369,52 +428,69 @@ const JobRegistrationForm = () => {
     form.append("email", email);
     form.append("applicationStartTime", indianApplicationStartTime);
     form.append("applicationEndTime", indianApplicationEndTime);
-    form.append("minSalary", minSalary);
-    form.append("maxSalary", maxSalary);
+    form.append("minSalary", minSalaryCopy);
+    form.append("maxSalary", maxSalaryCopy);
     form.append("isPaid", isPaid);
-    form.append("experience", experience);
     form.append("eligibility", eligibility);
+    form.append("experience", experience);
     form.append("skillsRequired", skillsRequired);
     form.append("opportunityLocation", opportunityLocation);
     form.append("opportunityMode", opportunityMode);
     form.append("opportunityTiming", opportunityTiming);
     form.append("duration", duration);
     form.append("websiteUrl", websiteUrl);
-    form.append("policy", policy);
+    if (!!policy) form.append("policy", policy);
 
-    // console.log(form.get("domainName"), " domainName ");
-    // console.log(form.get("skillsRequired"), " skillsRequired ");
     // console.log(form.get("opportunityType"), " opportunityType ");
-    // console.log(form.get("description"), " description ");
-    // console.log(form.get("applicationStartTime"), " applicationStartTime ");
-    // console.log(form.get("isPaid"), " isPaid ");
+    // console.log(form.get("opportunityPoster"), " opportunityPoster ");
     // console.log(form.get("opportunityName"), " opportunityName ");
-    // console.log(form.get("opportunityPoster"), "opportunityPoster");
-    // console.log(form.get("organisationLogo"), "organisationLogo");
+    // console.log(form.get("organisationName"), " organisationName ");
+    // console.log(form.get("organisationLogo"), " organisationLogo ");
+    // console.log(form.get("domainName"), " domainName ");
+    // console.log(form.get("description"), " description ");
+    // console.log(form.get("mobileNo"), " mobileNo ");
+    // console.log(form.get("alternateMobileNo"), " alternateMobileNo ");
+    // console.log(form.get("email"), " email ");
+    // console.log(form.get("applicationStartTime"), " applicationStartTime ");
+    // console.log(form.get("applicationEndTime"), " applicationEndTime ");
+    // console.log(form.get("minSalary"), " minSalary ");
+    // console.log(form.get("maxSalary"), " maxSalary ");
+    // console.log(form.get("isPaid"), " isPaid ");
+    // console.log(form.get("eligibility"), " eligibility ");
+    // console.log(form.get("experience"), " experience ");
+    // console.log(form.get("skillsRequired"), " skillsRequired ");
+    // console.log(form.get("opportunityLocation"), " opportunityLocation ");
+    // console.log(form.get("opportunityMode"), " opportunityMode ");
+    // console.log(form.get("opportunityTiming"), " opportunityTiming ");
+    // console.log(form.get("duration"), " duration ");
+    // console.log(form.get("websiteUrl"), " websiteUrl ");
 
     if (validation === true) {
-      try {
-        const response = await axios.post(`${API_URL}api/v1/hiring`, form, {
+      setIsLoading(true);
+      const response = await axios
+        .post(`${API_URL}api/v1/hiring`, form, {
           headers: {
             accesstoken: getAccessToken(),
           },
+        })
+        .then((res) => {
+          console.log(res);
+          setSnackbarValues({
+            severity: "success",
+            message: `New ${checkUrl()} created`,
+          });
+          setOpen(true);
+          setIsLoading(false);
+          setTimeout(() => {
+            navigate("/hosting");
+          }, 2000);
+        })
+        .catch((err) => {
+          console.log(err);
+          setIsLoading(false);
+          alert(err.response.data.err || err.response.data.message);
+          setValidation(false);
         });
-        console.log(response);
-
-        if (
-          response.status === 200 ||
-          response.status === 201 ||
-          response.status === 202 ||
-          response.status === 203 ||
-          response.status === 204
-        ) {
-          navigate("/");
-        }
-      } catch (error) {
-        alert(error.response.data.message);
-        setValidation(false);
-        console.log(error);
-      }
     }
   };
   const handleFileInputChange = (e) => {
@@ -425,6 +501,12 @@ const JobRegistrationForm = () => {
   };
   const handleFileInputOrganizationPoster = (e) => {
     setOrganizationPoster(e.target.files[0]);
+    const updateFileInputValue = () => {
+      if (fileInputRef.current) {
+        fileInputRef.current.value = "";
+      }
+    };
+    updateFileInputValue();
   };
 
   const handleSkillsChange = (_, value) => {
@@ -440,6 +522,7 @@ const JobRegistrationForm = () => {
         value={opportunityName}
         placeholder="Ex: Hiring for Software Developers, etc."
         onChange={(e) => setOpportunityName(e.target.value)}
+        onBlur={(e) => setOpportunityName(e.target.value.trim())}
         fullWidth
         margin="normal"
         error={!!errors.opportunityName}
@@ -469,6 +552,7 @@ const JobRegistrationForm = () => {
         value={organisationName}
         placeholder="Type your Organisation name"
         onChange={(e) => setOrganisation(e.target.value)}
+        onBlur={(e) => setOrganisation(e.target.value.trim())}
         fullWidth
         margin="normal"
         error={!!errors.organisationName}
@@ -489,24 +573,25 @@ const JobRegistrationForm = () => {
         >
           Opportunity Poster*
         </label>
-        <div>
+        <div className="filename-container">
           <input
             style={{
               border:
                 errors.opportunityPoster !== ""
                   ? "1px solid #d32f2f"
                   : "1px solid #bdbdbd",
+              color: "transparent",
             }}
             type="file"
             id="opportunityPoster"
             className="inputHosting w-100"
-            // value={opportunityPoster}
             onChange={handleFileInputChangePoster}
           />
+          <div className="filename">{opportunityPoster?.name}</div>
         </div>
         {errors.opportunityPoster && (
           <p
-            class="MuiFormHelperText-root Mui-error MuiFormHelperText-sizeMedium MuiFormHelperText-contained css-1wc848c-MuiFormHelperText-root"
+            className="MuiFormHelperText-root Mui-error MuiFormHelperText-sizeMedium MuiFormHelperText-contained css-1wc848c-MuiFormHelperText-root"
             id=":rf:-helper-text"
           >
             {errors.opportunityPoster}
@@ -517,32 +602,32 @@ const JobRegistrationForm = () => {
       <div className="position-relative  mt-3 mb-2">
         <label
           style={{
-            color:
-              errors.organisationLogo !== "" ? "#d32f2f" : "rgba(0, 0, 0, 0.6)",
+            color: !!errors.organisationLogo ? "#d32f2f" : "rgba(0, 0, 0, 0.6)",
           }}
           className="mui-copy-input-label"
           htmlFor="organisationLogo"
         >
           Organisation Logo*
         </label>
-        <div>
+        <div className="filename-container">
           <input
+            ref={fileInputRef}
             style={{
-              border:
-                errors.organisationLogo !== ""
-                  ? "1px solid #d32f2f"
-                  : "1px solid #bdbdbd",
+              border: !!errors.organisationLogo
+                ? "1px solid #d32f2f"
+                : "1px solid #bdbdbd",
+              color: "transparent",
             }}
             type="file"
             id="organisationLogo"
             className="inputHosting w-100"
-            // value={organisationLogo}
             onChange={handleFileInputOrganizationPoster}
           />
+          <div className="filename">{organisationLogo?.name}</div>
         </div>
         {errors.organisationLogo && (
           <p
-            class="MuiFormHelperText-root Mui-error MuiFormHelperText-sizeMedium MuiFormHelperText-contained css-1wc848c-MuiFormHelperText-root"
+            className="MuiFormHelperText-root Mui-error MuiFormHelperText-sizeMedium MuiFormHelperText-contained css-1wc848c-MuiFormHelperText-root"
             id=":rf:-helper-text"
           >
             {errors.organisationLogo}
@@ -569,12 +654,11 @@ const JobRegistrationForm = () => {
           value={domainName}
           label="Domain Name"
           name="domainName"
-          // onChange={handleChange}
           onChange={(e) => setDomainName(e.target.value)}
           error={!!errors.domainName}
         >
           {domain.map((domains) => (
-            <MenuItem key={domains} value={domains.domain}>
+            <MenuItem key={domains.domain} value={domains.domain}>
               {domains.domain}
             </MenuItem>
           ))}
@@ -589,7 +673,7 @@ const JobRegistrationForm = () => {
         label="Email*"
         variant="outlined"
         value={email}
-        onChange={(e) => setEmail(e.target.value)}
+        onChange={(e) => setEmail(e.target.value.trim())}
         fullWidth
         margin="normal"
         error={!!errors.email}
@@ -600,7 +684,7 @@ const JobRegistrationForm = () => {
         label="Mobile Number*"
         variant="outlined"
         value={mobileNo}
-        onChange={(e) => setMobileNo(e.target.value)}
+        onChange={(e) => setMobileNo(e.target.value.trim())}
         fullWidth
         margin="normal"
         error={!!errors.mobileNo}
@@ -611,7 +695,7 @@ const JobRegistrationForm = () => {
         label="Alternate Mobile Number"
         variant="outlined"
         value={alternateMobileNo}
-        onChange={(e) => setAlterNetMobileNo(e.target.value)}
+        onChange={(e) => setAlterNetMobileNo(e.target.value.trim())}
         fullWidth
         margin="normal"
         error={!!errors.alternateMobileNo}
@@ -621,10 +705,9 @@ const JobRegistrationForm = () => {
       <div className="position-relative">
         <label
           style={{
-            color:
-              errors.applicationStartTime !== ""
-                ? "#d32f2f"
-                : "rgba(0, 0, 0, 0.6)",
+            color: !!errors.applicationStartTime
+              ? "#d32f2f"
+              : "rgba(0, 0, 0, 0.6)",
           }}
           className="mui-copy-input-label-2"
           htmlFor="applicationStartTime"
@@ -649,10 +732,9 @@ const JobRegistrationForm = () => {
       <div className="position-relative">
         <label
           style={{
-            color:
-              errors.applicationEndTime !== ""
-                ? "#d32f2f"
-                : "rgba(0, 0, 0, 0.6)",
+            color: !!errors.applicationEndTime
+              ? "#d32f2f"
+              : "rgba(0, 0, 0, 0.6)",
           }}
           className="mui-copy-input-label-2"
           htmlFor="applicationEndTime"
@@ -683,11 +765,12 @@ const JobRegistrationForm = () => {
         label="Description*"
         variant="outlined"
         value={description}
-        placeholder="Description should be in 50 to 500 characters"
+        placeholder="Description should be in 50 to 1000 characters"
         multiline
         minRows={3}
         maxRows={6}
         onChange={(e) => setDescription(e.target.value)}
+        onBlur={(e) => setDescription(e.target.value.trim())}
         fullWidth
         margin="normal"
         error={!!errors.description}
@@ -718,8 +801,25 @@ const JobRegistrationForm = () => {
             label="Minimum Salary*"
             variant="outlined"
             value={minSalary}
-            placeholder="(in LPA)"
-            onChange={(e) => setMinSalary(e.target.value)}
+            onChange={(e) => {
+              setMinSalaryCopy(e.target.value);
+              setMinSalary(e.target.value);
+              const formatter = new Intl.NumberFormat("en-IN", {
+                style: "currency",
+                currency: "INR",
+                minimumFractionDigits: 0,
+              });
+              const formattedSalary = formatter.format(e.target.value);
+              if (e.target.value === "") setMinSalaryInput("");
+              else setMinSalaryInput(formattedSalary);
+            }}
+            onFocus={() => {
+              setMinSalary(minSalaryCopy);
+            }}
+            onBlur={() => {
+              setMinSalary(minSalaryInput);
+            }}
+            placeholder="Enter salary in numbers"
             fullWidth
             margin="normal"
             error={!!errors.minSalary}
@@ -730,9 +830,27 @@ const JobRegistrationForm = () => {
             name="maxSalary"
             label="Maximum Salary*"
             variant="outlined"
-            placeholder="(in LPA)"
+            placeholder="Enter salary in numbers"
             value={maxSalary}
-            onChange={(e) => setMaxSalary(e.target.value)}
+            onChange={(e) => {
+              setMaxSalaryCopy(e.target.value);
+              setMaxSalary(e.target.value);
+              const formatter = new Intl.NumberFormat("en-IN", {
+                style: "currency",
+                currency: "INR",
+                minimumFractionDigits: 0,
+              });
+              const formattedSalary = formatter.format(e.target.value);
+              if (e.target.value === "") setMaxSalaryInput("");
+              else setMaxSalaryInput(formattedSalary);
+            }}
+            onFocus={() => {
+              setMaxSalary(maxSalaryCopy);
+            }}
+            onBlur={() => {
+              setMaxSalary(maxSalaryInput);
+            }}
+            // onChange={(e) => setMaxSalary(e.target.value)}
             fullWidth
             margin="normal"
             error={!!errors.maxSalary}
@@ -748,7 +866,7 @@ const JobRegistrationForm = () => {
         multiline
         minRows={3}
         maxRows={6}
-        placeholder="Experience should be in 50 to 500 characters"
+        placeholder="Experience should be in 50 to 1000 characters"
         value={experience}
         onChange={(e) => setExperience(e.target.value)}
         fullWidth
@@ -832,6 +950,9 @@ const JobRegistrationForm = () => {
             "Continuous Learning",
           ]}
           freeSolo
+          sx={{
+            color: !!errors.skillsRequired ? "#d32f2f" : "rgba(0, 0, 0, 0.6)",
+          }}
           value={skillsRequired}
           onChange={handleSkillsChange}
           renderInput={(params) => (
@@ -840,6 +961,14 @@ const JobRegistrationForm = () => {
           error={!!errors.skillsRequired}
           helperText={errors.skillsRequired}
         />
+        {errors.skillsRequired && (
+          <p
+            className="MuiFormHelperText-root Mui-error MuiFormHelperText-sizeMedium MuiFormHelperText-contained css-1wc848c-MuiFormHelperText-root"
+            id=":rf:-helper-text"
+          >
+            {errors.skillsRequired}
+          </p>
+        )}
       </div>
 
       <FormControl margin="normal" fullWidth>
@@ -858,7 +987,7 @@ const JobRegistrationForm = () => {
         >
           <MenuItem value={"Hybrid"}>Hybrid</MenuItem>
           <MenuItem value={"Remote"}>Remote</MenuItem>
-          <MenuItem value={"InOffice"}>InOffice</MenuItem>
+          <MenuItem value={"In Office"}>In Office</MenuItem>
         </Select>
         <FormHelperText error={!!errors.opportunityMode}>
           {errors.opportunityMode}
@@ -872,6 +1001,7 @@ const JobRegistrationForm = () => {
           variant="outlined"
           value={opportunityLocation}
           onChange={(e) => setJobLocation(e.target.value)}
+          onBlur={(e) => setJobLocation(e.target.value.trim())}
           fullWidth
           margin="normal"
           error={!!errors.opportunityLocation}
@@ -974,6 +1104,7 @@ const JobRegistrationForm = () => {
         minRows={3}
         maxRows={6}
         onChange={(e) => setPolicy(e.target.value)}
+        onBlur={(e) => setPolicy(e.target.value.trim())}
         fullWidth
         margin="normal"
         error={!!errors.policy}
@@ -997,6 +1128,14 @@ const JobRegistrationForm = () => {
               {step === 3 && step3}
               {step === 4 && step4}
               {step === 5 && step5}
+              {snackbarValues.severity === "success" && (
+                <CustomSnackbar
+                  setOpen={setOpen}
+                  open={open}
+                  message={snackbarValues.message}
+                  severity={snackbarValues.severity}
+                />
+              )}
 
               <div className="button-container">
                 <button
@@ -1008,11 +1147,17 @@ const JobRegistrationForm = () => {
                   Previous
                 </button>
                 <button
-                  // type={`${step === 5 ? "submit" : "button"}`}
+                  type={`${step === 5 ? "submit" : "button"}`}
                   onClick={handleNext}
                   className="button next-button"
                 >
-                  {`${step === 5 ? "Submit" : "Next"}`}
+                  {isLoading ? (
+                    <div className="spinner-border text-primary" role="status">
+                      <span className="visually-hidden">Loading...</span>
+                    </div>
+                  ) : (
+                    `${step === 5 ? "Submit" : "Next"}`
+                  )}
                 </button>
               </div>
             </form>
