@@ -167,7 +167,7 @@ const HackathonDesc = ({ details }) => {
               <BsCalendar4 />
             </div>
             <span>
-              <h4>Results</h4>
+              <h4>Result Date</h4>
               <h6>{copyEndDate}</h6>
             </span>
           </div> */}
