@@ -53,7 +53,7 @@ export default function Chat({
           config
         )
         .then((res) => {
-          setMessages(prev=>[...prev,...res.data.data])
+          setMessages(res.data.data);
         })
         .catch((err) => {
           // if (
@@ -100,6 +100,20 @@ export default function Chat({
   // }
 
   const handleKeyDown = (e) => {
+    //check if the shift enter was pressed then do not send the message
+    if (
+      e.key === "Enter" ||
+      e.keyCode === 13 ||
+      e.which === 13 ||
+      e.key === "NumpadEnter" ||
+      e.code === "Enter" ||
+      e.code === "NumpadEnter"
+    ) {
+      if (e.shiftKey) {
+        return;
+      }
+    }
+
     if (
       e.key === "Enter" ||
       e.keyCode === 13 ||
@@ -115,7 +129,7 @@ export default function Chat({
   const [isGuidelineAccepted, setIsGuidelineAccepted] = useState(false);
 
   const sendMessage = async (event) => {
-    if (input) {
+    if (input.trim()) {
       socket.emit("stop typing", encodeURIComponent(data._id));
       // event.preventDefault();
       try {
@@ -125,6 +139,7 @@ export default function Chat({
           },
         };
         setInput("");
+        console.log(input);
         const newData = await axios
           .post(
             `${API_URL}api/v1/chatMessage`,
@@ -136,6 +151,7 @@ export default function Chat({
           )
           .then((res) => {
             socket.emit("new message", res.data);
+            console.log(res.data);
             // setMessages([...messages, res.data.data]);
             setMessages((prev) => [...prev, res.data.data]);
           })
@@ -287,7 +303,7 @@ export default function Chat({
       </div>
       {chatAccess[id] !== "waiting" && messages.length !== 0 && (
         <div className="chat-input">
-          <input
+          <textarea
             id="chat-input"
             className="input"
             placeholder="New Message"

@@ -219,6 +219,16 @@ label {
   margin: 10px 0px;
 }
 
+.Login .f-p{
+  text-decoration: none;
+}
+.Login .f-p:hover{
+  text-decoration: underline;
+}
+.forgot-password-text{
+  width: 100%;
+}
+
 .error_msg {
   display: flex;
   justify-content: center;

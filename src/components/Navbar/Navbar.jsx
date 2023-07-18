@@ -235,8 +235,8 @@ export default function Navbar() {
                   src={thumbnail}
                   alt="user"
                 /> */}
-                <span className="nav-username">
-                  Hi, {name.length > 13 ? name.substring(0, 13) + "..." : name}
+                <span className="nav-username text-nowrap">
+                  Hi, {name.split(" ")[0]}
                 </span>
               </button>
             </div>

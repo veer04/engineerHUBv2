@@ -3,7 +3,7 @@
   flex-direction: column;
   width: 100%;
   min-height: 50vh;
-  max-height: 30rem;
+  max-height: calc(calc(calc(100lvh - 6.7rem) - 63px) - 65px);
   flex-wrap: nowrap;
 }
 
@@ -65,8 +65,13 @@
   background-color: #494b4c;
   color: white;
   font-size: 1rem;
-  padding: 0.5rem;
+  padding: 0.35rem;
   border-radius: 0.45rem 0 0 0.45rem;
+  resize: none;
+  height: 35.2px;
+  -webkit-appearance: textfield;
+  -moz-appearance: textfield;
+  appearance: textfield;
 }
 
 .chat-input .input:focus {
@@ -169,5 +174,14 @@
   .chat-header .mentor-btn {
     height: 2.5rem;
     border: 3px solid #ffd600;
+  }
+  .chat-input {
+    padding: 0.5rem 1.8rem;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .chat-input {
+    padding: 0.5rem 1.3rem;
   }
 }

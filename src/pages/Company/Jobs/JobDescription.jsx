@@ -107,7 +107,7 @@ const JobDescription = ({ details }) => {
                 )}
               </div>
             ) : (
-              <Link to={"https://ehubbusiness.com/login"}>
+              <Link to="/login">
                 <div className="btn">Apply</div>
               </Link>
             )}

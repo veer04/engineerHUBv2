@@ -9,6 +9,7 @@ import { useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { API_URL } from "../../../services/APIUtils";
+import Page404 from "../../Maintenance/Page404";
 
 export default function ChatPage({ path }) {
   const { id } = useParams();
@@ -20,6 +21,14 @@ export default function ChatPage({ path }) {
   if (user === "" || user === null || user === undefined) {
     window.location.href = "/login";
   }
+
+  if (
+    getCookie("role")[2] === "Club" ||
+    getCookie("role")[2] === "Organization"
+  ) {
+    return <Page404 />;
+  }
+
   const [chatAccess, setChatAccess] = useState(
     !getCookie("chatDomain")
       ? {}

@@ -57,7 +57,7 @@ const JobRegistrationForm = () => {
   const [duration, setDuration] = useState(""); //duration in months
   const [workDays, setWorkDays] = useState(4); //number type minimum value 4 and maximum value 6
   const [WebsiteUrl, setWebsiteUrl] = useState("");
-  const [isServiceOff, setIsServiceOff] = useState(false);
+  // const [isServiceOff, setIsServiceOff] = useState(false);
   const [OpportunityPosition, setOpportunityPosition] = useState("");
   const [Organisation, setOrganisation] = useState("");
   const [OrganizationPoster, setOrganizationPoster] = useState("");
@@ -112,19 +112,19 @@ const JobRegistrationForm = () => {
     };
 
     if (!OpportunityType) {
-      newErrors.OpportunityType = "Opportunity Type  is required";
+      newErrors.OpportunityType = "Opportunity Type is required";
       valid = false;
     }
     if (!OpportunityName) {
-      newErrors.OpportunityName = "Opportunity Name  is required";
+      newErrors.OpportunityName = "Opportunity Name is required";
       valid = false;
     }
     if (!OpportunityPosition) {
-      newErrors.OpportunityPosition = "Opportunity position  is required";
+      newErrors.OpportunityPosition = "Opportunity position is required";
       valid = false;
     }
     if (!Organisation) {
-      newErrors.Organisation = "Organisation  is required";
+      newErrors.Organisation = "Organisation is required";
       valid = false;
     }
     // if (!OpportunityPoster) {
@@ -146,9 +146,11 @@ const JobRegistrationForm = () => {
     };
     if (!domainName) {
       newErrors.domainName = "Domain Name is required!";
+      valid = false;
     }
     if (!email) {
       newErrors.email = "email is required!";
+      valid = false;
     } else if (!/\S+@\S+\.\S+/.test(email)) {
       newErrors.email = "Invalid email format";
       valid = false;
@@ -166,7 +168,7 @@ const JobRegistrationForm = () => {
     }
     if (!/^[0-9]+$/.test(alterNetMobileNo)) {
       newErrors.alterNetMobileNo =
-        " Alternate Mobile number should not contain any special characters or letter";
+        "Alternate Mobile number should not contain any special characters or letter";
       valid = false;
     } else if (!/^\d{10}$/.test(alterNetMobileNo)) {
       newErrors.alterNetMobileNo =
@@ -186,17 +188,20 @@ const JobRegistrationForm = () => {
       maxSalary: "",
     };
     if (!description) {
-      newErrors.description = "description is required";
+      newErrors.description = "Description is required";
       valid = false;
     } else if (description.length < 51) {
-      newErrors.description = "description should have atleast 50 characters";
+      newErrors.description = "Description should have atleast 50 characters";
+      valid = false;
+    } else if (description.length > 500) {
+      newErrors.description = "Description should be less than 500 characters";
       valid = false;
     }
     if (!experience) {
-      newErrors.experience = "experience is required";
+      newErrors.experience = "Experience is required";
       valid = false;
     } else if (experience.length < 51) {
-      newErrors.experience = "experience should have atleast 50 characters";
+      newErrors.experience = "Experience should have atleast 50 characters";
       valid = false;
     }
 
@@ -213,19 +218,28 @@ const JobRegistrationForm = () => {
       JobTiming: "",
     };
     if (!eligibility) {
-      newErrors.eligibility = "Eligibility is required which in form sgpa/cgpa";
-    } else if (!/^([6-9]|10)$/.test(eligibility)) {
-      newErrors.eligibility = "sgpa/cgpa must be from 6-10";
+      newErrors.eligibility = "Eligibility is required in sgpa/cgpa";
+      valid = false;
+    } else if (
+      !/^(6(\.\d{1,2})?|7(\.\d{1,2})?|8(\.\d{1,2})?|9(\.\d{1,2})?|10(\.0{1,2})?)$/.test(
+        eligibility
+      )
+    ) {
+      newErrors.eligibility = "sgpa/cgpa must be in range 6-10";
+      valid = false;
     }
 
     if (!jobLocation) {
       newErrors.jobLocation = "Job Location is required";
+      valid = false;
     }
     if (!jobType) {
-      newErrors.jobType = "Job Type is required ";
+      newErrors.jobType = "Job type is required ";
+      valid = false;
     }
     if (!JobTiming) {
       newErrors.JobTiming = "Job timing is required";
+      valid = false;
     }
     setErrors(newErrors);
     return valid;
@@ -238,9 +252,11 @@ const JobRegistrationForm = () => {
     };
     if (!policy) {
       newErrors.policy = "Policy is required";
+      valid = false;
     }
-    if (!policy.length < 51) {
+    if (policy.length < 51) {
       newErrors.policy = "Policy must be of minimum 50 words";
+      valid = false;
     }
     setErrors(newErrors);
     return valid;
@@ -313,10 +329,11 @@ const JobRegistrationForm = () => {
     form.append("duration", duration);
     form.append("workDays", workDays);
     form.append("WebsiteUrl", WebsiteUrl);
-    form.append("isServiceOff", isServiceOff);
+    // form.append("isServiceOff", isServiceOff);
     form.append("policy", policy);
 
     console.log(form.get("domainName"), " domainName ");
+    console.log(form.get("skillsRequired"), " skillsRequired ");
 
     console.log(form.get("OpportunityType"), " OpportunityType ");
     console.log(form.get("description"), " description ");
@@ -385,14 +402,14 @@ const JobRegistrationForm = () => {
           id="student-signup-campus-label"
           error={!!errors.OpportunityType}
         >
-          Oppurtunity
+          Oppurtunity Type
         </InputLabel>
         <Select
           labelId="event-type-label"
           id="event-type"
           name="Opportunity Type"
           value={OpportunityType}
-          label="Event Type"
+          label="Oppurtunity Type"
           onChange={(e) => setOpportunityType(e.target.value)}
         >
           <MenuItem value="Job">Job</MenuItem>
@@ -407,7 +424,7 @@ const JobRegistrationForm = () => {
 
       <TextField
         name="OpportunityName"
-        label="OpportunityName"
+        label="Opportunity Name"
         variant="outlined"
         value={OpportunityName}
         onChange={(e) => setOpportunityName(e.target.value)}
@@ -456,7 +473,7 @@ const JobRegistrationForm = () => {
         helperText={errors.Organisation}
       />
 
-      <label htmlFor="OrganizationPoster">Organization Poster</label>
+      <label htmlFor="OrganizationPoster">Organisation Poster</label>
       <div>
         <input
           type="file"
@@ -504,7 +521,7 @@ const JobRegistrationForm = () => {
 
       <TextField
         name="email"
-        label="email"
+        label="Email"
         variant="outlined"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
@@ -515,7 +532,7 @@ const JobRegistrationForm = () => {
       />
       <TextField
         name="mobileNo"
-        label="mobile Number"
+        label="Mobile Number"
         variant="outlined"
         value={mobileNo}
         onChange={(e) => setMobileNo(e.target.value)}
@@ -526,7 +543,7 @@ const JobRegistrationForm = () => {
       />
       <TextField
         name="alterNetMobileNo"
-        label="Alternate mobile Number"
+        label="Alternate Mobile Number"
         variant="outlined"
         value={alterNetMobileNo}
         onChange={(e) => setAlterNetMobileNo(e.target.value)}
@@ -577,6 +594,10 @@ const JobRegistrationForm = () => {
         label="Description"
         variant="outlined"
         value={description}
+        placeholder="Description should be in 50 to 500 characters"
+        multiline
+        minRows={3}
+        maxRows={6}
         onChange={(e) => setDescription(e.target.value)}
         fullWidth
         margin="normal"
@@ -589,6 +610,7 @@ const JobRegistrationForm = () => {
         label="Minimum Salary "
         variant="outlined"
         value={minSalary}
+        placeholder="(in LPA)"
         onChange={(e) => setMinSalary(e.target.value)}
         fullWidth
         margin="normal"
@@ -600,6 +622,7 @@ const JobRegistrationForm = () => {
         name="maxSalary"
         label="Maximum Salary"
         variant="outlined"
+        placeholder="(in LPA)"
         value={maxSalary}
         onChange={(e) => setMaxSalary(e.target.value)}
         fullWidth
@@ -608,9 +631,9 @@ const JobRegistrationForm = () => {
         helperText={errors.maxSalary}
       />
 
-      <FormControl fullWidth>
+      <FormControl margin="normal" fullWidth>
         <InputLabel id="student-signup-campus-label" error={!!errors.IsPaid}>
-          Paid/Unpaid
+          Paid / Unpaid
         </InputLabel>
         <Select
           labelId="event-type-label"
@@ -627,8 +650,12 @@ const JobRegistrationForm = () => {
 
       <TextField
         name="experience"
-        label="experience"
+        label="Experience"
         variant="outlined"
+        multiline
+        minRows={3}
+        maxRows={6}
+        placeholder="Experience should be in 50 to 500 characters"
         value={experience}
         onChange={(e) => setExperience(e.target.value)}
         fullWidth
@@ -642,7 +669,7 @@ const JobRegistrationForm = () => {
     <div>
       <TextField
         name="eligibility"
-        label="eligibility"
+        label="Eligibility"
         variant="outlined"
         type="number"
         value={eligibility}
@@ -708,6 +735,7 @@ const JobRegistrationForm = () => {
           onChange={handleSkillsChange}
           renderInput={(params) => (
             <TextField
+              margin="normal"
               {...params}
               label="Required Skills"
               placeholder="Select skills"
@@ -718,7 +746,7 @@ const JobRegistrationForm = () => {
 
       <TextField
         name="jobLocation"
-        label="jobLocation"
+        label="Job Location"
         variant="outlined"
         value={jobLocation}
         onChange={(e) => setJobLocation(e.target.value)}
@@ -728,7 +756,7 @@ const JobRegistrationForm = () => {
         helperText={errors.jobLocation}
       />
 
-      <FormControl fullWidth>
+      <FormControl margin="normal" fullWidth>
         <InputLabel id="student-signup-campus-label" error={!!errors.jobType}>
           Job Type
         </InputLabel>
@@ -736,7 +764,7 @@ const JobRegistrationForm = () => {
           labelId="event-type-label"
           id="event-type"
           value={jobType}
-          label="Event Mode"
+          label="Job Type"
           onChange={(e) => setJobType(e.target.value)}
         >
           <MenuItem value={"Hybrid"}>Hybrid</MenuItem>
@@ -748,7 +776,7 @@ const JobRegistrationForm = () => {
         </FormHelperText>
       </FormControl>
 
-      <FormControl fullWidth>
+      <FormControl margin="normal" fullWidth>
         <InputLabel id="student-signup-campus-label" error={!!errors.JobTiming}>
           Job Timings
         </InputLabel>
@@ -773,8 +801,9 @@ const JobRegistrationForm = () => {
     <div>
       <TextField //make it number type here number of months
         name="duration"
-        label="duration"
+        label="Duration"
         variant="outlined"
+        placeholder="Enter duration in months"
         value={duration}
         onChange={(e) => setDuration(e.target.value)}
         fullWidth
@@ -785,9 +814,10 @@ const JobRegistrationForm = () => {
 
       <TextField //make it number type here number of months
         name="workDays"
-        label="workDays"
+        label="Work Days"
         variant="outlined"
         value={workDays}
+        placeholder="per Week"
         onChange={(e) => setWorkDays(e.target.value)}
         fullWidth
         margin="normal"
@@ -797,7 +827,7 @@ const JobRegistrationForm = () => {
 
       <TextField
         name="WebsiteUrl"
-        label="WebsiteUrl"
+        label="Website Url"
         variant="outlined"
         value={WebsiteUrl}
         onChange={(e) => setWebsiteUrl(e.target.value)}
@@ -807,7 +837,7 @@ const JobRegistrationForm = () => {
         helperText={errors.WebsiteUrl}
       />
 
-      <FormControl fullWidth>
+      {/* <FormControl margin="normal" fullWidth>
         <InputLabel
           id="student-signup-campus-label"
           error={!!errors.isServiceOff}
@@ -827,13 +857,16 @@ const JobRegistrationForm = () => {
         <FormHelperText error={!!errors.isServiceOff}>
           {errors.isServiceOff}
         </FormHelperText>
-      </FormControl>
+      </FormControl> */}
 
       <TextField
         name="policy"
-        label="policy"
+        label="Policy"
         variant="outlined"
         value={policy}
+        multiline
+        minRows={3}
+        maxRows={6}
         onChange={(e) => setPolicy(e.target.value)}
         fullWidth
         margin="normal"

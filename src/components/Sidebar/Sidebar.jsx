@@ -6,37 +6,66 @@ import { CiViewList } from "react-icons/ci";
 import { MdOutlineCalendarMonth } from "react-icons/md";
 import { TbFileText } from "react-icons/tb";
 import useSidebar from "../../hooks/use-sidebar";
+import getCookie, { getAccessToken } from "../../features/getCookieValues";
 
 export default function Sidebar({ path }) {
   const { isCollapsed, setIsCollapsed, selectedItem, setSelectedItem } =
     useSidebar();
-
-  const items = [
-    {
-      id: 1,
-      svg: <RiChat3Line />,
-      title: "CHAT",
-      link: "chat",
-    },
-    {
-      id: 2,
-      svg: <CiViewList />,
-      title: "PROJECT IDEAS",
-      link: "projects",
-    },
-    {
-      id: 3,
-      svg: <MdOutlineCalendarMonth />,
-      title: "EVENTS",
-      link: "events",
-    },
-    {
-      id: 4,
-      svg: <TbFileText />,
-      title: "BLOGS",
-      link: "blogs",
-    },
-  ];
+  let items = [];
+  if (
+    !getAccessToken()
+      ? false
+      : getCookie("role")[2] === "Club" ||
+        getCookie("role")[2] === "Organization"
+  ) {
+    items = [
+      {
+        id: 2,
+        svg: <CiViewList />,
+        title: "PROJECT IDEAS",
+        link: "projects",
+      },
+      {
+        id: 3,
+        svg: <MdOutlineCalendarMonth />,
+        title: "EVENTS",
+        link: "events",
+      },
+      {
+        id: 4,
+        svg: <TbFileText />,
+        title: "BLOGS",
+        link: "blogs",
+      },
+    ];
+  } else {
+    items = [
+      {
+        id: 1,
+        svg: <RiChat3Line />,
+        title: "CHAT",
+        link: "chat",
+      },
+      {
+        id: 2,
+        svg: <CiViewList />,
+        title: "PROJECT IDEAS",
+        link: "projects",
+      },
+      {
+        id: 3,
+        svg: <MdOutlineCalendarMonth />,
+        title: "EVENTS",
+        link: "events",
+      },
+      {
+        id: 4,
+        svg: <TbFileText />,
+        title: "BLOGS",
+        link: "blogs",
+      },
+    ];
+  }
 
   const sidebarPath = selectedItem !== path ? path : selectedItem;
 
