@@ -19,7 +19,8 @@ const HackathonDesc = ({ details }) => {
   // const valueName=getCookie("name");
   useEffect(() => {
     window.scrollTo(0, 0);
-    if (getCookie("name")) {
+    if(getCookie("name"))
+    {
       setIsLoggedIn(true);
     }
   }, []);
@@ -89,15 +90,16 @@ const HackathonDesc = ({ details }) => {
             <h3>{details.jobLocation}</h3>
           </span>
           <div>
-            {isLoggedIn ? (
-              <Link to={details.websiteUrl}>
+          {
+              isLoggedIn ? (
+                <Link to={details.websiteUrl}>
                 <div className="btn">Apply</div>
               </Link>
-            ) : (
-              <Link to="/login">
+              ):(
+                <Link to={"https://ehubbusiness.com/login"}>
                 <div className="btn">Apply</div>
               </Link>
-            )}
+              )}
           </div>
         </span>
         {/* <span className="Tags">
