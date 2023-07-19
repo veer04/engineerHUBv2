@@ -26,7 +26,7 @@ const JobRegistrationForm = () => {
   const [domainName, setDomainName] = useState("");
   const [domain, setDomain] = useState([]); //only to fetch data
   const [opportunityType, setOpportunityType] = useState("");
-  const [isPaid, setIsPaid] = useState(0);
+  const [isPaid, setIsPaid] = useState(1);
   const [description, setDescription] = useState("");
   const [mobileNo, setMobileNo] = useState(""); //change the type to Number
   const [alternateMobileNo, setAlterNetMobileNo] = useState("");
@@ -402,7 +402,7 @@ const JobRegistrationForm = () => {
     form.append("applicationEndTime", indianApplicationEndTime);
     form.append("minSalary", minSalaryCopy);
     form.append("maxSalary", maxSalaryCopy);
-    form.append("isPaid", checkUrl() === "Job" ? 1 : isPaid);
+    form.append("isPaid", isPaid);
     form.append("eligibility", eligibility);
     form.append("experience", experience);
     form.append("skillsRequired", skillsRequired);
@@ -836,11 +836,11 @@ const JobRegistrationForm = () => {
         </FormControl>
       )}
 
-      {!!isPaid && (
+      {(!!isPaid || checkUrl() === "Job") && (
         <>
           <TextField
             name="minSalary"
-            label="Minimum Salary*"
+            label={`Minimum ${checkUrl() === "Job" ? "Salary" : "Stipend"}*`}
             variant="outlined"
             value={minSalary}
             onChange={(e) => {
@@ -861,7 +861,9 @@ const JobRegistrationForm = () => {
             onBlur={() => {
               setMinSalary(minSalaryInput);
             }}
-            placeholder="Enter salary in numbers"
+            placeholder={`Enter ${
+              checkUrl() === "Job" ? "salary" : "stipend"
+            } in numbers`}
             fullWidth
             margin="normal"
             error={!!errors.minSalary}
@@ -870,9 +872,11 @@ const JobRegistrationForm = () => {
 
           <TextField
             name="maxSalary"
-            label="Maximum Salary*"
+            label={`Maximum ${checkUrl() === "Job" ? "Salary" : "Stipend"}*`}
             variant="outlined"
-            placeholder="Enter salary in numbers"
+            placeholder={`Enter ${
+              checkUrl() === "Job" ? "salary" : "stipend"
+            } in numbers`}
             value={maxSalary}
             onChange={(e) => {
               setMaxSalaryCopy(e.target.value);
@@ -1041,6 +1045,7 @@ const JobRegistrationForm = () => {
                   type={`${step === 3 ? "submit" : "button"}`}
                   onClick={handleNext}
                   className="button next-button"
+                  disabled={isLoading}
                 >
                   {isLoading ? (
                     <div className="spinner-border text-primary" role="status">
