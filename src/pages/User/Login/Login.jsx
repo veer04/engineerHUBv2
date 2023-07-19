@@ -208,16 +208,19 @@ const Register = () => {
     return errorMessage;
     // return errors;
   };
-  // const gauth = async () => {
-  //   try {
-  //     const response = await axios.get(`${API_URL}api/v1/auth/google/user`, {
+  const gauth = async () => {
+    try {
+      const response = await axios.get(`${API_URL}api/v1/auth/google/user`, {
 
-  //     });
-  //     console.log(response.data);
+      });
+      console.log(response.data);
 
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  
   const NavigateForgot=()=>{
     navigate("/forgot-password");
   }
@@ -229,7 +232,7 @@ const Register = () => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ accessToken }),
+      body: JSON.stringify({ accessToken }), 
     })
       .then((response) => response.json())
       .then((data) => {
@@ -416,7 +419,7 @@ const Register = () => {
 
                 <div className="d-flex justify-content-center">
                   <div className="f-p" onClick={NavigateForgot}>Forgot Password ?</div>
-            {/* <div className="f-p "onClick={gauth}>Reset Now </div> */}
+            <div className="f-p "onClick={gauth}>Reset Now </div>
                 </div>
               </div>
               <div className="divisor d-flex justify-content-center">
