@@ -233,7 +233,10 @@ function App() {
           )}
 
           {jobHostRoute === true && sendLogin === true ? (
-            <Route path="/hostjob" element={<JobRegistration />} />
+            <>
+              <Route path="/host/job" element={<JobRegistration />} />
+              <Route path="/host/internship" element={<JobRegistration />} />
+            </>
           ) : (
             <Route path="/hostjob" element={<Login />} />
           )}

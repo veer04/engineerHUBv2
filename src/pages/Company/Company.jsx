@@ -6,13 +6,8 @@ import { useEffect, useState } from "react";
 import useNavbar from "../../hooks/use-navbar";
 import { controller } from "../../services/APIConfig";
 import { useNavigate } from "react-router-dom";
-import {
-  
-  getHiringData,
-  getProjectData,
-} from "../../services/APIConfig";
+import { getHiringData, getProjectData } from "../../services/APIConfig";
 const CompanyCards = ({ data }) => {
-  
   return (
     <div
       className="companyCards"
@@ -43,8 +38,8 @@ const CompanyCards = ({ data }) => {
 import colorWheel from "../../assets/colorWheel";
 const Company = () => {
   const { setSelectedPageNavbar } = useNavbar();
-  const[hiring,setHiring]=useState([]);
-  const[project,setProject]=useState([]);
+  const [hiring, setHiring] = useState([]);
+  const [project, setProject] = useState([]);
   const navigate = useNavigate();
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -557,9 +552,17 @@ const Company = () => {
           <h5>Featured Jobs</h5>
         </a>
         <div className="FeaturedJobsTiles">
-          {hiring.filter(res=>res.OpportunityType==="Job").map((item, index) => {
-            return <JobCards details={item} color={colorWheel[index%colorWheel.length]} key={index} />;
-          })}
+          {hiring
+            .filter((res) => res.opportunityType === "Job")
+            .map((item, index) => {
+              return (
+                <JobCards
+                  details={item}
+                  color={colorWheel[index % colorWheel.length]}
+                  key={index}
+                />
+              );
+            })}
         </div>
       </div>
       <div className="Opportunities">
@@ -567,9 +570,17 @@ const Company = () => {
           <h5>Trending Opportunities</h5>
         </a>
         <div className="OpportunitiesTiles">
-          {hiring.filter(res=>res.OpportunityType==="Event").map((item, index) => {
-            return <HackathonCard data={data[index % data.length]} details={item} key={index} />;
-          })}
+          {hiring
+            .filter((res) => res.opportunityType === "Event")
+            .map((item, index) => {
+              return (
+                <HackathonCard
+                  data={data[index % data.length]}
+                  details={item}
+                  key={index}
+                />
+              );
+            })}
         </div>
       </div>
       <div className="StudentReviews">
@@ -581,14 +592,26 @@ const Company = () => {
         <div className="reviewCard">
           <img src={`${bucket}studentAvatar.svg`} alt="Avatar" />
           <p>
-          EngineerHUB's mentors are truly exceptional! Their expertise and patience made learning complex engineering concepts a breeze. Highly recommended for any student seeking personalized mentorship!
+            EngineerHUB's mentors are truly exceptional! Their expertise and
+            patience made learning complex engineering concepts a breeze. Highly
+            recommended for any student seeking personalized mentorship!
           </p>
           <h6>Girish Shedge</h6>
         </div>
         <div className="reviewCard reviewCard2">
-          <img style={{height: "58px",width:"58px",borderRadius:"50%", objectFit:"cover"}} src={`https://ehubtestbucket.s3.ap-south-1.amazonaws.com/image/teams/Backend/yash.jpeg`} alt="Avatar" />
+          <img
+            style={{
+              height: "58px",
+              width: "58px",
+              borderRadius: "50%",
+              objectFit: "cover",
+            }}
+            src={`https://ehubtestbucket.s3.ap-south-1.amazonaws.com/image/teams/Backend/yash.jpeg`}
+            alt="Avatar"
+          />
           <p>
-          I highly recommend EngineerHUB for students. The live batches are well-structured, and the mentors are experienced and supportive.
+            I highly recommend EngineerHUB for students. The live batches are
+            well-structured, and the mentors are experienced and supportive.
           </p>
           <h6>Yash Vardhan</h6>
         </div>
