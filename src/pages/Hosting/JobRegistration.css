@@ -121,3 +121,8 @@
   left: 130px;
   max-width: 400px;
 }
+.next-button:disabled {
+  background-color: var(--primary-color-green) !important;
+  color: #fff !important;
+  opacity: 1 !important;
+}
