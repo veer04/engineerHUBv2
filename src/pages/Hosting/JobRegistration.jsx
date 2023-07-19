@@ -212,7 +212,16 @@ const JobRegistrationForm = () => {
     if (!applicationStartTime) {
       newErrors.applicationStartTime = "Application Start Time is required!";
       valid = false;
-    } else if (new Date(applicationStartTime) < new Date()) {
+    } else if (
+      new Date(applicationStartTime).getFullYear() < new Date().getFullYear() ||
+      (new Date(applicationStartTime).getFullYear() ===
+        new Date().getFullYear() &&
+        new Date(applicationStartTime).getMonth() < new Date().getMonth()) ||
+      (new Date(applicationStartTime).getFullYear() ===
+        new Date().getFullYear() &&
+        new Date(applicationStartTime).getMonth() === new Date().getMonth() &&
+        new Date(applicationStartTime).getDate() < new Date().getDate())
+    ) {
       newErrors.applicationStartTime =
         "Application Start Time should be greater than current time!";
       valid = false;
@@ -224,7 +233,16 @@ const JobRegistrationForm = () => {
     if (!applicationEndTime) {
       newErrors.applicationEndTime = "Application End Time is required!";
       valid = false;
-    } else if (new Date(applicationEndTime) < new Date()) {
+    } else if (
+      new Date(applicationEndTime).getFullYear() < new Date().getFullYear() ||
+      (new Date(applicationEndTime).getFullYear() ===
+        new Date().getFullYear() &&
+        new Date(applicationEndTime).getMonth() < new Date().getMonth()) ||
+      (new Date(applicationEndTime).getFullYear() ===
+        new Date().getFullYear() &&
+        new Date(applicationEndTime).getMonth() === new Date().getMonth() &&
+        new Date(applicationEndTime).getDate() < new Date().getDate())
+    ) {
       newErrors.applicationEndTime =
         "Application End Time should be greater than current time!";
       valid = false;
@@ -590,12 +608,7 @@ const JobRegistrationForm = () => {
           <div className="filename">{opportunityPoster?.name}</div>
         </div>
         {errors.opportunityPoster && (
-          <p
-            className="MuiFormHelperText-root Mui-error MuiFormHelperText-sizeMedium MuiFormHelperText-contained css-1wc848c-MuiFormHelperText-root"
-            id=":rf:-helper-text"
-          >
-            {errors.opportunityPoster}
-          </p>
+          <p className="mui-copy-input-label-3">{errors.opportunityPoster}</p>
         )}
       </div>
 
@@ -626,10 +639,7 @@ const JobRegistrationForm = () => {
           <div className="filename">{organisationLogo?.name}</div>
         </div>
         {errors.organisationLogo && (
-          <p
-            className="MuiFormHelperText-root Mui-error MuiFormHelperText-sizeMedium MuiFormHelperText-contained css-1wc848c-MuiFormHelperText-root"
-            id=":rf:-helper-text"
-          >
+          <p className="mui-copy-input-label-3" id=":rf:-helper-text">
             {errors.organisationLogo}
           </p>
         )}
