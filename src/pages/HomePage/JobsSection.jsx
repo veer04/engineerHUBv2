@@ -25,13 +25,13 @@ export default function JobsSection() {
         className={`jobs-section-card jobs-section-card-${job._id}`}
       >
         <div className="job-company">
-          <img src={job.OrganisationPoster || job.OrganizationPoster} alt="Company Logo" />
+          <img src={job.organisationLogo} alt="Company Logo" />
           <span className="text-crop-1 overflow-hidden">
-            {job.Organisation ? job.Organisation : job.Organization}
+            {job.organisationName}
           </span>
         </div>
         <div className="job-title text-crop-1 overflow-hidden">
-          {job.OpportunityPosition}
+          {job.opportunityName}
         </div>
         <div className="job-skills">
           {job.skillsRequired?.slice(0, 3).map((skill, index) => (
