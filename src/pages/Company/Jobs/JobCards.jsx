@@ -46,9 +46,14 @@ const JobCards = ({ details, color }) => {
           backgroundColor: color,
         }}
       >
-        <span>
-          <img src={details.organisationLogo} alt="Job Logo" />
-        </span>
+        <div
+          style={{
+            backgroundImage: `url(${details.organisationLogo})`,
+            backgroundSize: "contain",
+            backgroundRepeat: "no-repeat",
+            backgroundPosition: "center",
+          }}
+        ></div>
         <h5 className="text-crop-2 overflow-hidden">
           {details.organisationName}
         </h5>
