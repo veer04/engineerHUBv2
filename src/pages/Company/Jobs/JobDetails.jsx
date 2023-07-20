@@ -7,6 +7,7 @@ import JobCards from "./JobCards";
 import "./JobDetails.css";
 import JobDescription from "./JobDescription";
 import { Bucket_URL } from "../../../services/APIUtils";
+import { API_URL } from "../../../services/APIUtils";
 import {
   controller,
   getHiringDataById,
@@ -15,6 +16,11 @@ import {
 import colorWheel from "../../../assets/colorWheel";
 import LoadingPage from "../../../components/Loader/LoadingPage";
 import Page404 from "../../Maintenance/Page404";
+import getCookie, { getAccessToken } from "../../../features/getCookieValues";
+import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward';
+import Cookies from "js-cookie";
+import jwt_decode from "jwt-decode";
+import axios from "axios";
 const JobDetails = () => {
   const bucket = `${Bucket_URL}frontend/company/jobs/`;
   const bucket2 = `${Bucket_URL}frontend/company/`;
@@ -31,6 +37,28 @@ const JobDetails = () => {
       controller.abort();
     };
   }, [window.location.pathname]);
+  useEffect(() => {
+    const responseFlag = axios
+      .get(`${API_URL}api/v1/hiringUserFlag/${hiringId}`, {
+        headers: {
+          accesstoken: getAccessToken(),
+        },
+      })
+      .then((res) => {
+        if (res.data.applied === false) {
+          Cookies.set("applied", "false");
+        }
+        if (res.data.applied === true) {
+          Cookies.set("applied", "true");
+        }
+      })
+      .catch((res) => {
+        if (res.status === 409) {
+          Cookies.set("applied", "false");
+  
+        }
+      });
+  }, [hiringId]);
 
   const JobDetails = (
     <div className="CompanyJobDetails">
