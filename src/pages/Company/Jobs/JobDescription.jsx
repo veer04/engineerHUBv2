@@ -6,6 +6,7 @@ import { API_URL, Bucket_URL } from "../../../services/APIUtils";
 import { useNavigate, Link } from "react-router-dom";
 import { useState } from "react";
 import getCookie, { getAccessToken } from "../../../features/getCookieValues";
+import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward';
 import Cookies from "js-cookie";
 import jwt_decode from "jwt-decode";
 import axios from "axios";
@@ -52,8 +53,12 @@ const JobDescription = ({ details }) => {
         }
       })
       .catch((res) => {
-        window.alert(res.message);
-        window.location.reload();
+        if(res.status===409)
+        {
+          window.alert("already applied!");
+          window.location.reload();
+        }
+   
       });
   };
   useEffect(() => {
@@ -74,9 +79,10 @@ const JobDescription = ({ details }) => {
       .catch((res) => {
         if (res.status === 409) {
           Cookies.set("applied", "false");
+  
         }
       });
-  }, []);
+  }, [hiringId]);
 
   const formatter = new Intl.NumberFormat("en-IN", {
     style: "currency",
@@ -118,13 +124,18 @@ const JobDescription = ({ details }) => {
                 {Cookies.get("applied") === "false" ? (
                   <div className="btn">Apply</div>
                 ) : (
-                  <div className="btn">Applied</div>
+                  <button  className="btn" disabled>Applied</button>
                 )}
               </div>
             ) : (
-              <Link to="/login">
-                <div className="btn">Apply</div>
+              isLoggedIn && details.websiteUrl ?(
+                <Link to={details.websiteUrl}>
+                <div className="btn">Apply <ArrowOutwardIcon/> </div>
               </Link>
+              ):(<Link to="/login">
+              <div className="btn">Apply</div>
+            </Link>)
+
             )}
           </div>
         </span>
