@@ -35,14 +35,17 @@
 .alumni-local-card > .details-container > .details > .sub-heading-1 {
   font-size: 0.875rem;
   font-weight: 500;
+  line-break: anywhere;
 }
 .alumni-local-card > .details-container > .details > .sub-heading-2 {
   font-size: 0.625rem;
   font-weight: 500;
+  line-break: anywhere;
 }
 .alumni-local-card > .details-container > .details > .heading {
   font-size: 1.25rem;
   font-weight: 600;
+  line-break: anywhere;
 }
 .alumni-local-card > .details-container > .company {
   max-width: 3.25rem;
