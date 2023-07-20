@@ -71,14 +71,17 @@ const JobDescription = ({ details }) => {
       .then((res) => {
         if (res.data.applied === false) {
           Cookies.set("applied", "false");
+          // window.location.reload();
         }
         if (res.data.applied === true) {
           Cookies.set("applied", "true");
+          // window.location.reload();
         }
       })
       .catch((res) => {
         if (res.status === 409) {
           Cookies.set("applied", "false");
+          // window.location.reload();
   
         }
       });
