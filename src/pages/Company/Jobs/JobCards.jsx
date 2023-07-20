@@ -1,9 +1,7 @@
 import React from "react";
-import { useEffect, useState } from "react";
 import { Chip } from "@mui/material";
 import "./JobCards.css";
-import { controller, getHiringData } from "../../../services/APIConfig";
-import { Outlet, useNavigate, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 const JobCards = ({ details, color }) => {
   const formatter = new Intl.NumberFormat("en-IN", {
     style: "currency",
@@ -54,12 +52,9 @@ const JobCards = ({ details, color }) => {
         <h5 className="text-crop-2 overflow-hidden">
           {details.organisationName}
         </h5>
-        <a
-          href={`/company/jobs/${details._id}`}
-          style={{ textDecoration: "none" }}
-        >
+        <Link to={`/company/jobs/${details._id}`}>
           <div className="btn">View</div>
-        </a>
+        </Link>
       </div>
     </div>
   );

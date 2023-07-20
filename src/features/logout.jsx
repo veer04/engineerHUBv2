@@ -18,7 +18,6 @@ export async function handleLogout() {
     "mobile",
     "_id",
     "chatDomain",
-    "applied",
   ];
   cookiesToRemove.forEach((cookie) => {
     Cookies.remove(cookie);

@@ -1,89 +1,26 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
-import { BsSearch } from "react-icons/bs";
-import { MdTune } from "react-icons/md";
 import JobCards from "./JobCards";
 import "./JobDetails.css";
 import JobDescription from "./JobDescription";
-import { Bucket_URL } from "../../../services/APIUtils";
-import { API_URL } from "../../../services/APIUtils";
-import {
-  controller,
-  getHiringDataById,
-  getHiringData,
-} from "../../../services/APIConfig";
+import { controller, getHiringData } from "../../../services/APIConfig";
 import colorWheel from "../../../assets/colorWheel";
 import LoadingPage from "../../../components/Loader/LoadingPage";
-import Page404 from "../../Maintenance/Page404";
-import getCookie, { getAccessToken } from "../../../features/getCookieValues";
-import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward';
-import Cookies from "js-cookie";
-import jwt_decode from "jwt-decode";
-import axios from "axios";
 const JobDetails = () => {
-  const bucket = `${Bucket_URL}frontend/company/jobs/`;
-  const bucket2 = `${Bucket_URL}frontend/company/`;
-  const { hiringId } = useParams();
-  const [search, setSearch] = useState("");
-
-  const [hiring, setHiring] = useState({});
-  const [hiringData, setHiringData] = useState([]);
+  const [allJobsData, setAllJobsData] = useState([]);
   useEffect(() => {
     window.scrollTo(0, 0);
-    getHiringDataById(setHiring, hiringId);
-    getHiringData(setHiringData);
+    getHiringData(setAllJobsData);
     return () => {
       controller.abort();
     };
   }, [window.location.pathname]);
-  useEffect(() => {
-    const responseFlag = axios
-      .get(`${API_URL}api/v1/hiringUserFlag/${hiringId}`, {
-        headers: {
-          accesstoken: getAccessToken(),
-        },
-      })
-      .then((res) => {
-        if (res.data.applied === false) {
-          Cookies.set("applied", "false");
-        }
-        if (res.data.applied === true) {
-          Cookies.set("applied", "true");
-        }
-      })
-      .catch((res) => {
-        if (res.status === 409) {
-          Cookies.set("applied", "false");
-  
-        }
-      });
-  }, [hiringId]);
 
   const JobDetails = (
     <div className="CompanyJobDetails">
       <h2>Job Hiring</h2>
-      <p></p>
-      {/* <div className="search">
-    <span>
-      <BsSearch />
-      <input
-        type="text"
-        id="search"
-        placeholder="Search"
-        value={search}
-        onChange={(e) => {
-          setSearch(e.target.value);
-        }}
-      />
-    </span>
-    <div className="filters">
-      <MdTune />
-    </div>
-  </div> */}
       <div className="Jobs">
         <div className="JobTiles">
-          {hiringData
+          {allJobsData
             .filter((res) => res.opportunityType === "Job")
             .map((item, index) => {
               return (
@@ -96,15 +33,13 @@ const JobDetails = () => {
             })}
         </div>
         <div className="JobDetail">
-          <JobDescription details={{ ...hiring }} />
+          <JobDescription />
         </div>
       </div>
     </div>
   );
 
-  if (hiring.success === false) return <Page404 />;
-
-  return Object.keys(hiring).length !== 0 ? JobDetails : <LoadingPage />;
+  return Object.keys(allJobsData).length !== 0 ? JobDetails : <LoadingPage />;
 };
 
 export default JobDetails;

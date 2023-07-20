@@ -52,7 +52,6 @@ const OTP = () => {
         Cookies.set("verifiedByEhub", decoded.verifiedByEhub);
         Cookies.set("mobile", decoded.mobile);
         Cookies.set("name", response.data.name);
-        Cookies.set("applied", "true");
         Cookies.set("_id", decoded._id);
 
         console.log(response);
