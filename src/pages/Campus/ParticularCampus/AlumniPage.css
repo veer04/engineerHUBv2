@@ -67,6 +67,15 @@
   row-gap: 2rem;
   margin-top: 3rem;
 }
+.alumni-page > .campus-alumni-container > .no-alumni {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-top: 4rem;
+  width: 100%;
+}
 
 /* @media screen and (max-width: 1270px) {
   .alumni-page > .campus-alumni-container > .alumni-container {
