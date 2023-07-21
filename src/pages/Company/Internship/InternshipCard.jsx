@@ -57,7 +57,7 @@ const InternshipCard = ({ details, color }) => {
         <h5 className="text-crop-2 overflow-hidden">
           {details.organisationName}
         </h5>
-        <Link to={`/company/jobs/${details._id}`}>
+        <Link to={`/company/internships/${details._id}`}>
           <div className="btn">View</div>
         </Link>
       </div>
