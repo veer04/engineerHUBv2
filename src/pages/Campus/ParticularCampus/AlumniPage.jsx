@@ -37,7 +37,7 @@ export default function AlumniPage() {
   const alumniPage = (
     <div className="alumni-page">
       <div className="best-alumni-container">
-        <p className="heading">Meet the India’s Best Alumnis</p>
+        <p className="heading">Connect with India’s Most Active Alumni</p>
         <div className="best-alumni">
           {bestAlumni.slice(0, 10).map((alumni) => (
             <AlumniGlobalCard key={alumni._id} {...alumni} />
@@ -45,10 +45,12 @@ export default function AlumniPage() {
         </div>
       </div>
       <div className="campus-alumni-container">
-        <p className="heading">Meet the Alumnis from your Campus</p>
-        {/* <div className="search-bar">
-      <input type="text" placeholder="Search" />
-    </div> */}
+        <p className="heading">Connect with the Alumni from your Campus</p>
+        {alumni.length === 0 && (
+          <span className="no-alumni text-green">
+            <i>No Alumni from this campus</i>
+          </span>
+        )}
         <div className="alumni-container">
           {alumni.map((alumni, index) => (
             <AlumniLocalCard
