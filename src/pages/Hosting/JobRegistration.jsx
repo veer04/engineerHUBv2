@@ -31,12 +31,9 @@ const JobRegistrationForm = () => {
   const [mobileNo, setMobileNo] = useState(""); //change the type to Number
   const [alternateMobileNo, setAlterNetMobileNo] = useState("");
   const [email, setEmail] = useState("");
-  const [minSalary, setMinSalary] = useState();
-  const [minSalaryCopy, setMinSalaryCopy] = useState();
-  const [minSalaryInput, setMinSalaryInput] = useState();
-  const [maxSalary, setMaxSalary] = useState();
-  const [maxSalaryCopy, setMaxSalaryCopy] = useState();
-  const [maxSalaryInput, setMaxSalaryInput] = useState();
+  const [amount, setAmount] = useState();
+  const [amountCopy, setAmountCopy] = useState();
+  const [amountInput, setAmountInput] = useState();
   const [experience, setExperience] = useState("");
   const [eligibility, setEligibility] = useState();
   const [opportunityLocation, setJobLocation] = useState("");
@@ -94,8 +91,7 @@ const JobRegistrationForm = () => {
     mobileNo: "",
     alternateMobileNo: "",
     email: "",
-    minSalary: "",
-    maxSalary: "",
+    amount: "",
     opportunityMode: "",
     opportunityLocation: "",
     description: "",
@@ -236,8 +232,7 @@ const JobRegistrationForm = () => {
       skillsRequired: "",
       eligibility: "",
       duration: "",
-      minSalary: "",
-      maxSalary: "",
+      amount: "",
     };
     if (!domainName) {
       newErrors.domainName = "Domain Name is required!";
@@ -280,22 +275,11 @@ const JobRegistrationForm = () => {
         valid = false;
       }
     }
-    if (!!isPaid && !minSalaryCopy) {
-      newErrors.minSalary = "Minimum Salary is required!";
+    if (!!isPaid && !amountCopy) {
+      newErrors.amount = "Amount is required!";
       valid = false;
-    } else if (!!isPaid && !/^[0-9]+$/.test(minSalaryCopy)) {
-      newErrors.minSalary = "Minimum Salary should only be in numbers";
-      valid = false;
-    }
-    if (!!isPaid && !maxSalaryCopy) {
-      newErrors.maxSalary = "Maximum Salary is required!";
-      valid = false;
-    } else if (!!isPaid && !/^[0-9]+$/.test(maxSalaryCopy)) {
-      newErrors.maxSalary = "Maximum Salary should only be in numbers";
-      valid = false;
-    }
-    if (!!isPaid && parseInt(minSalaryCopy) > parseInt(maxSalaryCopy)) {
-      newErrors.minSalary = "Minimum Salary should be less than Maximum Salary";
+    } else if (!!isPaid && !/^[0-9]+$/.test(amountCopy)) {
+      newErrors.amount = "Amount should only be in numbers";
       valid = false;
     }
 
@@ -424,8 +408,7 @@ const JobRegistrationForm = () => {
     form.append("email", email);
     form.append("applicationStartTime", indianApplicationStartTime);
     form.append("applicationEndTime", indianApplicationEndTime);
-    form.append("minSalary", minSalaryCopy);
-    form.append("maxSalary", maxSalaryCopy);
+    form.append("amount", amountCopy);
     form.append("isPaid", isPaid);
     form.append("eligibility", eligibility);
     if (checkUrl() === "Job") {
@@ -453,8 +436,7 @@ const JobRegistrationForm = () => {
     // console.log(form.get("email"), " email ");
     // console.log(form.get("applicationStartTime"), " applicationStartTime ");
     // console.log(form.get("applicationEndTime"), " applicationEndTime ");
-    // console.log(form.get("minSalary"), " minSalary ");
-    // console.log(form.get("maxSalary"), " maxSalary ");
+    // console.log(form.get("amount"), " amountCopy ");
     // console.log(form.get("isPaid"), " isPaid ");
     // console.log(form.get("eligibility"), " eligibility ");
     // console.log(form.get("experience"), " experience ");
@@ -868,71 +850,37 @@ const JobRegistrationForm = () => {
       )}
 
       {(!!isPaid || checkUrl() === "Job") && (
-        <>
-          <TextField
-            name="minSalary"
-            label={`Minimum ${checkUrl() === "Job" ? "Salary" : "Stipend"}*`}
-            variant="outlined"
-            value={minSalary}
-            onChange={(e) => {
-              setMinSalaryCopy(e.target.value);
-              setMinSalary(e.target.value);
-              const formatter = new Intl.NumberFormat("en-IN", {
-                style: "currency",
-                currency: "INR",
-                minimumFractionDigits: 0,
-              });
-              const formattedSalary = formatter.format(e.target.value);
-              if (e.target.value === "") setMinSalaryInput("");
-              else setMinSalaryInput(formattedSalary);
-            }}
-            onFocus={() => {
-              setMinSalary(minSalaryCopy);
-            }}
-            onBlur={() => {
-              setMinSalary(minSalaryInput);
-            }}
-            placeholder={`Enter ${
-              checkUrl() === "Job" ? "salary" : "stipend"
-            } in numbers`}
-            fullWidth
-            margin="normal"
-            error={!!errors.minSalary}
-            helperText={errors.minSalary}
-          />
-
-          <TextField
-            name="maxSalary"
-            label={`Maximum ${checkUrl() === "Job" ? "Salary" : "Stipend"}*`}
-            variant="outlined"
-            placeholder={`Enter ${
-              checkUrl() === "Job" ? "salary" : "stipend"
-            } in numbers`}
-            value={maxSalary}
-            onChange={(e) => {
-              setMaxSalaryCopy(e.target.value);
-              setMaxSalary(e.target.value);
-              const formatter = new Intl.NumberFormat("en-IN", {
-                style: "currency",
-                currency: "INR",
-                minimumFractionDigits: 0,
-              });
-              const formattedSalary = formatter.format(e.target.value);
-              if (e.target.value === "") setMaxSalaryInput("");
-              else setMaxSalaryInput(formattedSalary);
-            }}
-            onFocus={() => {
-              setMaxSalary(maxSalaryCopy);
-            }}
-            onBlur={() => {
-              setMaxSalary(maxSalaryInput);
-            }}
-            fullWidth
-            margin="normal"
-            error={!!errors.maxSalary}
-            helperText={errors.maxSalary}
-          />
-        </>
+        <TextField
+          name="amount"
+          label={`${checkUrl() === "Job" ? "Salary" : "Stipend"}*`}
+          variant="outlined"
+          placeholder={`Enter ${
+            checkUrl() === "Job" ? "salary" : "stipend"
+          } in numbers`}
+          value={amount}
+          onChange={(e) => {
+            setAmountCopy(e.target.value);
+            setAmount(e.target.value);
+            const formatter = new Intl.NumberFormat("en-IN", {
+              style: "currency",
+              currency: "INR",
+              minimumFractionDigits: 0,
+            });
+            const formattedSalary = formatter.format(e.target.value);
+            if (e.target.value === "") setAmountInput("");
+            else setAmountInput(formattedSalary);
+          }}
+          onFocus={() => {
+            setAmount(amountCopy);
+          }}
+          onBlur={() => {
+            setAmount(amountInput);
+          }}
+          fullWidth
+          margin="normal"
+          error={!!errors.amount}
+          helperText={errors.amount}
+        />
       )}
     </div>
   );

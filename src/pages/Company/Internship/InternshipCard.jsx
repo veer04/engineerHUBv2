@@ -8,7 +8,7 @@ const InternshipCard = ({ details, color }) => {
     currency: "INR",
     minimumFractionDigits: 0,
   });
-  const formattedSalary = formatter.format(details.maxSalary);
+  const formattedSalary = formatter.format(details.amount);
 
   return (
     <div className="JobCard on-hover-scale">
@@ -16,7 +16,7 @@ const InternshipCard = ({ details, color }) => {
         <h6>
           Stipend :{" "}
           {details.isPaid ? (
-            <b>{details.maxSalary !== "N/A" ? formattedSalary : "N/A"}</b>
+            <b>{details.amount !== "N/A" ? formattedSalary : "N/A"}</b>
           ) : (
             <b>Unpaid</b>
           )}
