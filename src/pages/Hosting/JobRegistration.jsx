@@ -52,6 +52,32 @@ const JobRegistrationForm = () => {
   const [applicationEndTime, setApplicationEndTime] = useState("");
   const [opportunityName, setOpportunityName] = useState("");
   const [policy, setPolicy] = useState("");
+  const experienceValues = [
+    {
+      value: "0",
+      label: "0 for Freshers",
+    },
+    {
+      value: "1",
+      label: "1 year",
+    },
+    {
+      value: "2",
+      label: "2 years",
+    },
+    {
+      value: "3",
+      label: "3 years",
+    },
+    {
+      value: "4",
+      label: "4 years",
+    },
+    {
+      value: ">4",
+      label: "More than 4 years",
+    },
+  ];
   const [validation, setValidation] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [snackbarValues, setSnackbarValues] = useState({
@@ -237,20 +263,22 @@ const JobRegistrationForm = () => {
       newErrors.eligibility = "Eligibility is required in SGPA/CGPA!";
       valid = false;
     } else if (
-      !/^(1(\.\d{1,2})?|2(\.\d{1,2})?|3(\.\d{1,2})?|4(\.\d{1,2})?|5(\.\d{1,2})?|6(\.\d{1,2})?|7(\.\d{1,2})?|8(\.\d{1,2})?|9(\.\d{1,2})?|10(\.0{1,2})?)$/.test(
+      !/^(5(\.\d{1,2})?|6(\.\d{1,2})?|7(\.\d{1,2})?|8(\.\d{1,2})?|9(\.\d{1,2})?|10(\.0{1,2})?)$/.test(
         eligibility
       )
     ) {
       newErrors.eligibility =
-        "SGPA/CGPA must be in range 1-10 upto 2 decimal places!";
+        "SGPA/CGPA must be in range 5-10 upto 2 decimal places!";
       valid = false;
     }
-    if (!duration) {
-      newErrors.duration = "Duration is required!";
-      valid = false;
-    } else if (duration < 1) {
-      newErrors.duration = "Duration should be greater than 0!";
-      valid = false;
+    if (checkUrl() === "Internship") {
+      if (!duration) {
+        newErrors.duration = "Duration is required!";
+        valid = false;
+      } else if (duration < 1) {
+        newErrors.duration = "Duration should be greater than 0!";
+        valid = false;
+      }
     }
     if (!!isPaid && !minSalaryCopy) {
       newErrors.minSalary = "Minimum Salary is required!";
@@ -266,7 +294,7 @@ const JobRegistrationForm = () => {
       newErrors.maxSalary = "Maximum Salary should only be in numbers";
       valid = false;
     }
-    if (!!isPaid && minSalaryCopy > maxSalaryCopy) {
+    if (!!isPaid && parseInt(minSalaryCopy) > parseInt(maxSalaryCopy)) {
       newErrors.minSalary = "Minimum Salary should be less than Maximum Salary";
       valid = false;
     }
@@ -284,15 +312,11 @@ const JobRegistrationForm = () => {
       applicationEndTime: "",
       policy: "",
     };
-    if (!experience) {
-      newErrors.experience = "Experience is required!";
-      valid = false;
-    } else if (experience.length < 50) {
-      newErrors.experience = "Experience should have atleast 50 characters!";
-      valid = false;
-    } else if (experience.length > 1000) {
-      newErrors.experience = "Experience should be less than 1000 characters!";
-      valid = false;
+    if (checkUrl() === "Job") {
+      if (!experience) {
+        newErrors.experience = "Work Experience is required!";
+        valid = false;
+      }
     }
     if (!description) {
       newErrors.description = "Description is required!";
@@ -404,12 +428,16 @@ const JobRegistrationForm = () => {
     form.append("maxSalary", maxSalaryCopy);
     form.append("isPaid", isPaid);
     form.append("eligibility", eligibility);
-    form.append("experience", experience);
+    if (checkUrl() === "Job") {
+      form.append("experience", experience);
+    }
     form.append("skillsRequired", skillsRequired);
     form.append("opportunityLocation", opportunityLocation);
     form.append("opportunityMode", opportunityMode);
     form.append("opportunityTiming", opportunityTiming);
-    form.append("duration", duration);
+    if (checkUrl() === "Internship") {
+      form.append("duration", duration);
+    }
     form.append("websiteUrl", websiteUrl);
     if (!!policy) form.append("policy", policy);
 
@@ -701,6 +729,7 @@ const JobRegistrationForm = () => {
           value={opportunityTiming}
           label="Event Mode"
           onChange={(e) => setJobTiming(e.target.value)}
+          error={!!errors.opportunityTiming}
         >
           <MenuItem value={"Full Time"}>Full Time</MenuItem>
           <MenuItem value={"Part Time"}>Part Time</MenuItem>
@@ -802,18 +831,20 @@ const JobRegistrationForm = () => {
         helperText={errors.eligibility}
       />
 
-      <TextField
-        name="duration"
-        label="Duration*"
-        variant="outlined"
-        placeholder="Enter duration in months"
-        value={duration}
-        onChange={(e) => setDuration(e.target.value)}
-        fullWidth
-        margin="normal"
-        error={!!errors.duration}
-        helperText={errors.duration}
-      />
+      {checkUrl() === "Internship" && (
+        <TextField
+          name="duration"
+          label="Duration*"
+          variant="outlined"
+          placeholder="Enter duration in months"
+          value={duration}
+          onChange={(e) => setDuration(e.target.value)}
+          fullWidth
+          margin="normal"
+          error={!!errors.duration}
+          helperText={errors.duration}
+        />
+      )}
 
       {checkUrl() === "Internship" && (
         <FormControl margin="normal" fullWidth>
@@ -908,21 +939,38 @@ const JobRegistrationForm = () => {
 
   const step3 = (
     <div>
-      <TextField
-        name="experience"
-        label="Experience*"
-        variant="outlined"
-        multiline
-        minRows={3}
-        maxRows={6}
-        placeholder="Experience should be in 50 to 1000 characters"
-        value={experience}
-        onChange={(e) => setExperience(e.target.value)}
-        fullWidth
-        margin="normal"
-        error={!!errors.experience}
-        helperText={errors.experience}
-      />
+      {checkUrl() === "Job" && (
+        <>
+          <FormControl margin="normal" fullWidth>
+            <InputLabel
+              id="student-signup-campus-label"
+              error={!!errors.experience}
+              placeholder="in Years"
+            >
+              Work Experience*
+            </InputLabel>
+            <Select
+              labelId="Domain-name"
+              id="student-signup-campus-select"
+              value={experience}
+              label="Work Experience*"
+              placeholder="in Years"
+              name="domainName"
+              onChange={(e) => setExperience(e.target.value)}
+              error={!!errors.experience}
+            >
+              {experienceValues.map((value) => (
+                <MenuItem key={value.value} value={value.value}>
+                  {value.label}
+                </MenuItem>
+              ))}
+            </Select>
+            <FormHelperText error={!!errors.experience}>
+              {errors.experience}
+            </FormHelperText>
+          </FormControl>
+        </>
+      )}
       <TextField
         name="description"
         label="Description*"

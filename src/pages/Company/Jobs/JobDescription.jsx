@@ -175,15 +175,23 @@ const JobDescription = () => {
         <h5>More Information</h5>
         <div className="JobInfoItems">
           <div className="JobInfoItem">
-            <h6>Salary / Stipend</h6>
+            <h6>Salary</h6>
             <p></p>
-            <span>{hiring.maxSalary !== "N/A" ? formattedSalary : "N/A"}</span>
+            <span>
+              {hiring.maxSalary !== "N/A" ? `${formattedSalary} CTC` : "N/A"}
+            </span>
             <img src={`${bucket}cash.svg`} alt="guide" />
           </div>
           <div className="JobInfoItem">
-            <h6>Duration</h6>
+            <h6>Minimum Experience</h6>
             <p></p>
-            <span>{formattedDuration}</span>
+            <span>
+              {hiring.experience !== "0"
+                ? hiring.experience === "1"
+                  ? `${hiring.experience} year`
+                  : `${hiring.experience} years`
+                : `Fresher`}
+            </span>
             <img src={`${bucket}timer.svg`} alt="guide" />
           </div>
           <div className="JobInfoItem">
@@ -195,7 +203,7 @@ const JobDescription = () => {
           <div className="JobInfoItem">
             <h6>Work type</h6>
             <p></p>
-            <span>{hiring.opportunityType}</span>
+            <span>{hiring.opportunityTiming}</span>
             <img src={`${bucket}time.svg`} alt="guide" />
           </div>
         </div>

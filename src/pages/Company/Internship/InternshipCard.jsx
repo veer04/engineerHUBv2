@@ -14,8 +14,12 @@ const InternshipCard = ({ details, color }) => {
     <div className="JobCard on-hover-scale">
       <div className="cardContent">
         <h6>
-          Highest CTC :{" "}
-          <b>{details.maxSalary !== "N/A" ? formattedSalary : "N/A"}</b>
+          Stipend :{" "}
+          {details.isPaid ? (
+            <b>{details.maxSalary !== "N/A" ? formattedSalary : "N/A"}</b>
+          ) : (
+            <b>Unpaid</b>
+          )}
         </h6>
         <h6 className="text-crop-1 overflow-hidden">
           Job Location : <b>{details.opportunityLocation}</b>

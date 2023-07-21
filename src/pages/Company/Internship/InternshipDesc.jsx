@@ -175,13 +175,19 @@ const InternshipDesc = () => {
         <h5>More Information</h5>
         <div className="JobInfoItems">
           <div className="JobInfoItem">
-            <h6>Salary / Stipend</h6>
+            <h6>Stipend</h6>
             <p></p>
-            <span>{hiring.maxSalary !== "N/A" ? formattedSalary : "N/A"}</span>
+            {hiring.isPaid ? (
+              <span>
+                {hiring.maxSalary !== "N/A" ? formattedSalary : "N/A"}
+              </span>
+            ) : (
+              <span>Unpaid</span>
+            )}
             <img src={`${bucket}cash.svg`} alt="guide" />
           </div>
           <div className="JobInfoItem">
-            <h6>Time Availability</h6>
+            <h6>Duration</h6>
             <p></p>
             <span>{formattedDuration}</span>
             <img src={`${bucket}timer.svg`} alt="guide" />
@@ -195,7 +201,7 @@ const InternshipDesc = () => {
           <div className="JobInfoItem">
             <h6>Work type</h6>
             <p></p>
-            <span>{hiring.opportunityType}</span>
+            <span>{hiring.opportunityTiming}</span>
             <img src={`${bucket}time.svg`} alt="guide" />
           </div>
         </div>
