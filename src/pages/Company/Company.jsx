@@ -85,6 +85,17 @@ const Company = () => {
       },
       link: "/company/projects",
     },
+    {
+      name: "BE AN INTERN",
+      desc: "Apply for the Internships of your interest and get the offer letter in the next step.",
+      char: `${bucket}InternChar.svg`,
+      background: "#e8ba98",
+      stats: {
+        position: "30",
+        hiring: "10",
+      },
+      link: "/company/internships",
+    }
   ];
   const CategoryEntries = [
     { name: "Design", logo: `${bucket}appdevLogo.svg` },
