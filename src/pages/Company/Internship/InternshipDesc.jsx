@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import "./JobDescription.css";
+import "./InternshipDesc.css";
 import { Chip } from "@mui/material";
 import { useParams } from "react-router-dom";
 import { API_URL, Bucket_URL } from "../../../services/APIUtils";
@@ -11,7 +11,7 @@ import axios from "axios";
 import { controller, getHiringDataById } from "../../../services/APIConfig";
 import LoadingPage from "../../../components/Loader/LoadingPage";
 import Page404 from "../../Maintenance/Page404";
-const JobDescription = () => {
+const InternshipDesc = () => {
   const { hiringId } = useParams();
   const [flag, setFlag] = useState(-1);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -97,8 +97,8 @@ const JobDescription = () => {
 
   if (hiring.success === false) return <Page404 />;
 
-  const JobDescription = (
-    <div className="JobDescription">
+  const InternshipDesc = (
+    <div className="InternshipDesc">
       <div className="JobDetailHeader">
         <span>
           <div className="w-100 d-flex">
@@ -181,7 +181,7 @@ const JobDescription = () => {
             <img src={`${bucket}cash.svg`} alt="guide" />
           </div>
           <div className="JobInfoItem">
-            <h6>Duration</h6>
+            <h6>Time Availability</h6>
             <p></p>
             <span>{formattedDuration}</span>
             <img src={`${bucket}timer.svg`} alt="guide" />
@@ -203,7 +203,7 @@ const JobDescription = () => {
     </div>
   );
 
-  return Object.keys(hiring).length !== 0 ? JobDescription : <LoadingPage />;
+  return Object.keys(hiring).length !== 0 ? InternshipDesc : <LoadingPage />;
 };
 
-export default JobDescription;
+export default InternshipDesc;

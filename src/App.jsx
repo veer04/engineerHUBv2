@@ -25,6 +25,8 @@ import Footer from "./components/Footer/Footer";
 import Events from "./pages/Company/Events/events";
 import Jobs from "./pages/Company/Jobs/jobs";
 import JobDetails from "./pages/Company/Jobs/JobDetails";
+import Internship from "./pages/Company/Internship/Internship";
+import InternshipDetails from "./pages/Company/Internship/InternshipDetails";
 import HackathonDetails from "./pages/Company/Events/EventsChoices/HackathonDetails";
 import Projects from "./pages/Company/Projects/Projects";
 import ProjectDetail from "./pages/Company/Projects/ProjectDetail";
@@ -249,6 +251,10 @@ function App() {
             <Route path="jobs">
               <Route path="" element={<Jobs />} />
               <Route path=":hiringId" element={<JobDetails />} />
+            </Route>
+            <Route path="internships">
+              <Route path="" element={<Internship />} />
+              <Route path=":hiringId" element={<InternshipDetails />} />
             </Route>
             <Route path="projects">
               <Route path="" element={<Projects />} />
