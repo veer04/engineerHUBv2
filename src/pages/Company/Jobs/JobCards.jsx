@@ -8,14 +8,14 @@ const JobCards = ({ details, color }) => {
     currency: "INR",
     minimumFractionDigits: 0,
   });
-  const formattedSalary = formatter.format(details.maxSalary);
+  const formattedSalary = formatter.format(details.amount);
 
   return (
     <div className="JobCard on-hover-scale">
       <div className="cardContent">
         <h6>
           Highest CTC :{" "}
-          <b>{details.maxSalary !== "N/A" ? formattedSalary : "N/A"}</b>
+          <b>{details.amount !== "N/A" ? formattedSalary : "N/A"}</b>
         </h6>
         <h6 className="text-crop-1 overflow-hidden">
           Job Location : <b>{details.opportunityLocation}</b>
