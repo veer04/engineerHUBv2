@@ -80,7 +80,7 @@ const InternshipDesc = () => {
     currency: "INR",
     minimumFractionDigits: 0,
   });
-  let formattedSalary = formatter.format(hiring?.maxSalary);
+  let formattedSalary = formatter.format(hiring?.amount);
   formattedSalary.includes("NaN")
     ? (formattedSalary = "N/A")
     : (formattedSalary = formattedSalary);
@@ -179,7 +179,7 @@ const InternshipDesc = () => {
             <p></p>
             {hiring.isPaid ? (
               <span>
-                {hiring.maxSalary !== "N/A" ? formattedSalary : "N/A"}
+                {hiring.amount !== "N/A" ? formattedSalary : "N/A"}
               </span>
             ) : (
               <span>Unpaid</span>

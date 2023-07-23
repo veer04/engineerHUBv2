@@ -80,7 +80,8 @@ const JobDescription = () => {
     currency: "INR",
     minimumFractionDigits: 0,
   });
-  let formattedSalary = formatter.format(hiring?.maxSalary);
+  console.log(hiring?.amount)
+  let formattedSalary = formatter.format(hiring?.amount);
   formattedSalary.includes("NaN")
     ? (formattedSalary = "N/A")
     : (formattedSalary = formattedSalary);
@@ -178,7 +179,7 @@ const JobDescription = () => {
             <h6>Salary</h6>
             <p></p>
             <span>
-              {hiring.maxSalary !== "N/A" ? `${formattedSalary} CTC` : "N/A"}
+              {hiring.amount !== "N/A" ? `${formattedSalary} CTC` : "N/A"}
             </span>
             <img src={`${bucket}cash.svg`} alt="guide" />
           </div>
