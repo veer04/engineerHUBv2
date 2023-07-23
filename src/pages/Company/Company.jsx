@@ -70,7 +70,7 @@ useEffect(()=>{
   setCntInternshipLive(Object.keys(hiring.filter((res) => res.opportunityType === "Internship"&& res.isServiceOff===false)).length);
   setCntProject(Object.keys(project).length);
 
-  },[]);
+  },[hiring,project]);
 
   const bucket = `${Bucket_URL}frontend/company/`;
   const CompanyCardEntries = [
