@@ -855,7 +855,7 @@ const JobRegistrationForm = () => {
           label={`${checkUrl() === "Job" ? "Salary" : "Stipend"}*`}
           variant="outlined"
           placeholder={`Enter ${
-            checkUrl() === "Job" ? "salary" : "stipend"
+            checkUrl() === "Job" ? "CTC" : "stipend"
           } in numbers`}
           value={amount}
           onChange={(e) => {
