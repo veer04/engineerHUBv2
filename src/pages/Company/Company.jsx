@@ -40,15 +40,37 @@ const CompanyCards = ({ data }) => {
 const Company = () => {
   const { setSelectedPageNavbar } = useNavbar();
   const [hiring, setHiring] = useState([]);
+  const [project, setProject] = useState([]);
+  const [cntEvent,setCntEvent]=useState(-1);
+  const [cntEventLive,setCntEventLive]=useState(-1);
+  const [cntJob,setCntJob]=useState(-1);
+  const [cntJobLive,setCntJobLive]=useState(-1);
+  const [cntInternship,setCntInternship]=useState(-1);
+  const [cntInternshipLive,setCntInternshipLive]=useState(-1);
+  const [cntProject,setCntProject]=useState(-1);
+  const[length,setLength]=useState(-1);
   const navigate = useNavigate();
   useEffect(() => {
     window.scrollTo(0, 0);
     setSelectedPageNavbar("company");
     getHiringData(setHiring);
+    getProjectData(setProject);
     return () => {
       controller.abort();
     };
   }, []);
+
+useEffect(()=>{
+  
+  setCntEvent(Object.keys(hiring.filter((res) => res.opportunityType === "Event")).length);
+  setCntEventLive(Object.keys(hiring.filter((res) => res.opportunityType === "Event" && res.isServiceOff===false)).length);
+  setCntJob(Object.keys(hiring.filter((res) => res.opportunityType === "Job")).length);
+  setCntJobLive(Object.keys(hiring.filter((res) => res.opportunityType === "Job"&& res.isServiceOff===false)).length);
+  setCntInternship(Object.keys(hiring.filter((res) => res.opportunityType === "Internship")).length);
+  setCntInternshipLive(Object.keys(hiring.filter((res) => res.opportunityType === "Internship"&& res.isServiceOff===false)).length);
+  setCntProject(Object.keys(project).length);
+
+  },[]);
 
   const bucket = `${Bucket_URL}frontend/company/`;
   const CompanyCardEntries = [
@@ -57,8 +79,8 @@ const Company = () => {
       desc: "Participate in the events directly conducted by the companies to highlight your profile.",
       char: `${bucket}EventChar.svg`,
       stats: {
-        position: "30",
-        hiring: "10",
+        position: cntEvent,
+        hiring: cntEventLive,
       },
       link: "/company/events",
       background: "#F7d77f",
@@ -69,8 +91,8 @@ const Company = () => {
       char: `${bucket}JobChar.svg`,
       background: "#8FC8E8",
       stats: {
-        position: "30",
-        hiring: "10",
+        position: cntJob,
+        hiring: cntJobLive,
       },
       link: "/company/jobs",
     },
@@ -80,8 +102,8 @@ const Company = () => {
       char: `${bucket}ProjectChar.svg`,
       background: "#B2E887",
       stats: {
-        position: "30",
-        hiring: "10",
+        position: cntProject,
+        hiring: cntProject,
       },
       link: "/company/projects",
     },
@@ -91,8 +113,8 @@ const Company = () => {
       char: `${bucket}InternChar.svg`,
       background: "#e8ba98",
       stats: {
-        position: "30",
-        hiring: "10",
+        position: cntInternship,
+        hiring: cntInternshipLive,
       },
       link: "/company/internships",
     }
