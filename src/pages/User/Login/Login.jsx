@@ -225,22 +225,15 @@ const Register = () => {
     navigate("/forgot-password");
   }
   const handleGoogleLoginSuccess = () => {
-    // const { accessToken } = response;
-    // Send the token to the server
-    fetch(`${API_URL}api/v1/auth/google/user`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ accessToken }), 
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        // TODO: Do something with the data
-      })
-      .catch((error) => {
+      try {
+        const response =  axios.get(`https://engineerhub-yash.onrender.com/api/v1/auth/google/user`, {
+  
+        });
+        console.log(response.data);
+  
+      } catch (error) {
         console.error(error);
-      });
+      }
   };
 
   const handleGoogleLoginFailure = (response) => {
@@ -431,11 +424,13 @@ const Register = () => {
               <div className="sign-field reg-field">
                 <div className="sign-opt ">
           <div>
+        
           <GoogleButton
       onClick={handleGoogleLoginSuccess}
     >
       Sign in with Google
     </GoogleButton>
+
               </div>
           </div>
               </div>
