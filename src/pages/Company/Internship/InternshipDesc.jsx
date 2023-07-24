@@ -148,7 +148,12 @@ const InternshipDesc = () => {
             ) :  */}
             {isLoggedIn ? (
               <div>
-                {flag === -1 && (
+                {!isApplicable && flag === -1 && (
+                  <button className="btn" disabled>
+                    Not Applicable
+                  </button>
+                )}
+                {isApplicable && flag === -1 && (
                   <button className="btn" disabled>
                     Apply
                   </button>
