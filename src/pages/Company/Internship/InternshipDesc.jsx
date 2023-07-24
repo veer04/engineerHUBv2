@@ -17,37 +17,52 @@ const InternshipDesc = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const bucket = `${Bucket_URL}frontend/company/jobs/`;
   const [hiring, setHiring] = useState({});
+  const [isApplicable, setIsApplicable] = useState(false);
 
   useEffect(() => {
     if (getCookie("name")) {
       setIsLoggedIn(true);
+      if (
+        Cookies.get("role") !== "Organization" &&
+        Cookies.get("role") !== "Club" &&
+        Cookies.get("role") !== "Admin"
+      ) {
+        setIsApplicable(true);
+      }
     }
   }, []);
   useEffect(() => {
     window.scrollTo(0, 0);
     getHiringDataById(setHiring, hiringId);
-    axios
-      .get(`${API_URL}api/v1/hiringUserFlag/${hiringId}`, {
-        headers: {
-          accesstoken: getAccessToken(),
-        },
-      })
-      .then((res) => {
-        setFlag(res.data.applied ? 1 : 0);
-      })
-      .catch((res) => {
-        if (res.status === 409) {
-          setFlag(0);
-        }
-      });
-    return () => {
-      setHiring({});
-      setFlag(-1);
-      controller.abort();
-    };
+    if (getCookie("name")) {
+      axios
+        .get(`${API_URL}api/v1/hiringUserFlag/${hiringId}`, {
+          headers: {
+            accesstoken: getAccessToken(),
+          },
+        })
+        .then((res) => {
+          setFlag(res.data.applied ? 1 : 0);
+        })
+        .catch((res) => {
+          if (res.status === 409) {
+            setFlag(0);
+          }
+        });
+      return () => {
+        setHiring({});
+        setFlag(-1);
+        controller.abort();
+      };
+    }
   }, [hiringId]);
 
   const UserDataPost = () => {
+    if (!!hiring?.applyLink) {
+      window.open(hiring?.applyLink, "_blank");
+      return;
+    }
+
     const data = {
       hiringId,
     };
@@ -113,7 +128,13 @@ const InternshipDesc = () => {
             ></div>
             <span className="heads">
               <h1>{hiring.opportunityName}</h1>
-              <h3>{hiring.organisationName}</h3>
+              <a
+                href={hiring.websiteUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <h3>{hiring.organisationName}</h3>
+              </a>
               <h3>{hiring.opportunityLocation}</h3>
             </span>
           </div>
@@ -132,9 +153,14 @@ const InternshipDesc = () => {
                     Apply
                   </button>
                 )}
-                {flag === 0 && (
+                {flag === 0 && isApplicable && (
                   <button onClick={UserDataPost} className="btn">
                     Apply
+                  </button>
+                )}
+                {flag === 0 && !isApplicable && (
+                  <button className="btn" disabled>
+                    Not Applicable
                   </button>
                 )}
                 {flag === 1 && (
@@ -178,9 +204,7 @@ const InternshipDesc = () => {
             <h6>Stipend</h6>
             <p></p>
             {hiring.isPaid ? (
-              <span>
-                {hiring.amount !== "N/A" ? formattedSalary : "N/A"}
-              </span>
+              <span>{hiring.amount !== "N/A" ? formattedSalary : "N/A"}</span>
             ) : (
               <span>Unpaid</span>
             )}
