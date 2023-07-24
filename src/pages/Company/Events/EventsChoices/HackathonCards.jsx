@@ -7,9 +7,9 @@ import "./HackathonCards.css";
 import { useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
 import { useEffect } from "react";
-import { controller , getHiringDataById } from "../../../../services/APIConfig";
+import { controller, getHiringDataById } from "../../../../services/APIConfig";
 
-const HackathonCard = ({ details,color,data }) => {
+const HackathonCard = ({ details, color, data }) => {
   // const hiringId=useParams();
   // const[eventData,setEventData]=useState({})
   // useEffect(()=>
@@ -23,20 +23,19 @@ const HackathonCard = ({ details,color,data }) => {
   return (
     <div
       onClick={() => {
-         navigate(`/company/events/${details._id}`);
+        navigate(`/company/events/${details._id}`);
       }}
       className="HackathonCard"
     >
       <div className="cardImg">
-        <img src={details.OpportunityPoster} alt="" />
+        <img src={details.opportunityPoster} alt="" />
         <span className="GoogleIcon">
-          <img src={details.OrganisationPoster} alt="Logo" />
+          <img src={details.organisationLogo} alt="Logo" />
         </span>
       </div>
-      <div className="cardBody"
-      >
-        <h4>{details.OpportunityName}</h4>
-        <h6>{details.jobLocation}</h6>
+      <div className="cardBody">
+        <h4>{details.opportunityName}</h4>
+        <h6>{details.opportunityLocation}</h6>
         <span className="Tags">
           {details.skillsRequired?.map((tag, index) => (
             <Chip
@@ -52,8 +51,7 @@ const HackathonCard = ({ details,color,data }) => {
             />
           ))}
         </span>
-        <div className="Stats"
-        >
+        <div className="Stats">
           <span>
             <BsStar /> {data.stars}
           </span>

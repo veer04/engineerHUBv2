@@ -3,9 +3,9 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { BsSearch } from "react-icons/bs";
 import { MdTune } from "react-icons/md";
-import JobCards from "./JobCards";
-import "./jobs.css";
-import JobDescription from "./JobDescription";
+import JobCards from "./InternshipCard";
+import "./Internship.css";
+import JobDescription from "./InternshipDesc";
 import { Bucket_URL } from "../../../services/APIUtils";
 import colorWheel from "../../../assets/colorWheel";
 import { controller, getHiringData } from "../../../services/APIConfig";
@@ -27,16 +27,16 @@ const Jobs = () => {
 
   return (
     <div className="CompanyJob">
-      <h2>Job Hiring</h2>
+      <h2>Intern Hiring</h2>
       <p>
-        Apply for the jobs of your interest and get the offer letter in the next
+        Apply for the Intership of your interest and get the offer letter in the next
         step.
       </p>
 
       <div className="Jobs">
         <div className="JobTiles">
           {hiring
-            .filter((res) => res.opportunityType === "Job")
+            .filter((res) => res.opportunityType === "Internship")
             .map((item, index) => {
               return (
                 <JobCards

@@ -285,6 +285,7 @@ export const getHiringDataById = (setHiring, hiringId) => {
       setHiring(data);
     })
     .catch((err) => {
+      setHiring(err.response.data);
       if (axios.isCancel(err)) {
         console.log("req cancel");
       } else {
@@ -300,7 +301,7 @@ export const getAllJobs = (setJobs) => {
       signal: controller.signal,
     })
     .then((res) => {
-      const data = res.data.data.filter((res) => res.OpportunityType === "Job");
+      const data = res.data.data.filter((res) => res.opportunityType === "Job");
       setJobs(data);
     })
     .catch((err) => {

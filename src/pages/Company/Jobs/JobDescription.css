@@ -11,13 +11,9 @@
 }
 .JobDetailHeader span .imgBox {
   height: 104px;
-  width: 134px;
+  aspect-ratio: 1/1;
   background: #f8f8f8;
   border-radius: 50%;
-  padding: 15px;
-}
-.JobDetailHeader span .imgBox img {
-  width: 100%;
 }
 .JobDetailHeader span .heads {
   display: flex;
@@ -44,7 +40,6 @@
 .JobDetailHeader span .btn {
   width: 176px;
   height: 52px;
-  padding: 15px 46px;
   background: #128381;
   border-radius: 10px;
   text-align: center;
@@ -54,6 +49,9 @@
   font-size: 16px;
   line-height: 22px;
   color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .JobDetailHeader .Tags {
   display: flex;
@@ -91,7 +89,6 @@
   font-weight: 500;
   font-size: 14px;
   line-height: 19px;
-  text-align: justify;
   color: #242323;
 }
 .JobReq ul {
@@ -172,7 +169,6 @@
   .JobDetailHeader span .btn {
     width: 76px;
     height: 35px;
-    padding: 10px 26px;
     font-size: 10px;
     line-height: 12px;
   }
@@ -186,7 +182,6 @@
   .JobReq ul li {
     font-size: 12px;
     line-height: 16px;
-    text-align: justify;
     color: #242323;
   }
   .JobDesc p {

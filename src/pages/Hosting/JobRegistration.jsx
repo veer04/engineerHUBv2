@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import "./EventRegistration.css";
+import "./JobRegistration.css";
 import axios from "axios";
 import FormData from "form-data";
 import useNavbar from "../../hooks/use-navbar";
 import { API_URL } from "../../services/APIUtils";
-import Cookies from "js-cookie";
 import { Select, MenuItem } from "@mui/material";
 import HostEventTimeline from "../../components/Timeline/HostEventTimeline";
 import {
@@ -13,124 +13,210 @@ import {
   FormControl,
   InputLabel,
   FormHelperText,
-  OutlinedInput,
-  InputAdornment,
-  IconButton,
 } from "@mui/material";
-
 import { controller, getDomains } from "../../services/APIConfig";
 import { getAccessToken } from "../../features/getCookieValues";
 import { useNavigate } from "react-router-dom";
-// var fs = require("fs");
+import CustomSnackbar from "../User/Login/CustomSnackbar";
 
 const JobRegistrationForm = () => {
   const navigate = useNavigate();
   const { setSelectedPageNavbar } = useNavbar();
+  const [step, setStep] = useState(1);
+  const [domainName, setDomainName] = useState("");
+  const [domain, setDomain] = useState([]); //only to fetch data
+  const [opportunityType, setOpportunityType] = useState("");
+  const [isPaid, setIsPaid] = useState(1);
+  const [description, setDescription] = useState("");
+  const [mobileNo, setMobileNo] = useState(""); //change the type to Number
+  const [alternateMobileNo, setAlterNetMobileNo] = useState("");
+  const [email, setEmail] = useState("");
+  const [amount, setAmount] = useState();
+  const [amountCopy, setAmountCopy] = useState();
+  const [amountInput, setAmountInput] = useState();
+  const [experience, setExperience] = useState("");
+  const [eligibility, setEligibility] = useState();
+  const [opportunityLocation, setJobLocation] = useState("");
+  const [opportunityMode, setJobType] = useState("Remote"); //enum Hybrid Remote InOffice
+  const [opportunityTiming, setJobTiming] = useState(""); // enum Full Time, Part Time, Contractual
+  const [duration, setDuration] = useState(""); //duration in months
+  const [websiteUrl, setWebsiteUrl] = useState("");
+  const [organisationName, setOrganisation] = useState("");
+  const [opportunityPoster, setOpportunityPoster] = useState({});
+  const [organisationLogo, setOrganizationPoster] = useState({});
+  const [skillsRequired, setSkillsRequired] = useState([]);
+  const [applicationStartTime, setApplicationStartTime] = useState("");
+  const [applicationEndTime, setApplicationEndTime] = useState("");
+  const [opportunityName, setOpportunityName] = useState("");
+  const [policy, setPolicy] = useState("");
+  const experienceValues = [
+    {
+      value: "0",
+      label: "0 for Freshers",
+    },
+    {
+      value: "1",
+      label: "1 year",
+    },
+    {
+      value: "2",
+      label: "2 years",
+    },
+    {
+      value: "3",
+      label: "3 years",
+    },
+    {
+      value: "4",
+      label: "4 years",
+    },
+    {
+      value: ">4",
+      label: "More than 4 years",
+    },
+  ];
+  const [validation, setValidation] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [snackbarValues, setSnackbarValues] = useState({
+    severity: "error",
+    message: "",
+  });
+  const [open, setOpen] = useState(false);
+  const [errors, setErrors] = useState({
+    opportunityName: "",
+    organisationName: "",
+    opportunityPoster: "",
+    organisationLogo: "",
+    domainName: "",
+    mobileNo: "",
+    alternateMobileNo: "",
+    email: "",
+    amount: "",
+    opportunityMode: "",
+    opportunityLocation: "",
+    description: "",
+    applicationStartTime: "",
+    applicationEndTime: "",
+    opportunityTiming: "",
+    isPaid: "",
+    policy: "",
+    duration: "",
+    websiteUrl: "",
+    skillsRequired: "",
+  });
+
+  const checkUrl = () => {
+    const url = window.location.href;
+    if (url.includes("job")) {
+      return "Job";
+    } else if (url.includes("internship")) {
+      return "Internship";
+    } else {
+      return "";
+    }
+  };
 
   useEffect(() => {
     window.scrollTo(0, 0);
     setSelectedPageNavbar("host");
+    setOpportunityType(checkUrl());
+    getDomains(setDomain);
     return () => {
       controller.abort();
     };
   }, []);
 
-  const [step, setStep] = useState(1);
-  const [domainName, setDomainName] = useState("");
-  const [domain, setDomain] = useState([]); //only to fetch data
-  //   const [campusId, setCampusId] = useState('');
-  //   const [campuses,setCampuses] =useState([]);//only to fetch data
-  const [OpportunityType, setOpportunityType] = useState("");
-  const [IsPaid, setIsPaid] = useState(0);
-  const [description, setDescription] = useState("");
-
-  const [mobileNo, setMobileNo] = useState(""); //change the type to Number
-  const [alterNetMobileNo, setAlterNetMobileNo] = useState("");
-  const [email, setEmail] = useState("");
-  const [minSalary, setMinSalary] = useState(0);
-  const [maxSalary, setMaxSalary] = useState(0);
-  const [experience, setExperience] = useState("");
-  const [eligibility, setEligibility] = useState(6);
-  const [jobLocation, setJobLocation] = useState("");
-  const [jobType, setJobType] = useState(""); //enum Hybrid Remote InOffice
-  const [JobTiming, setJobTiming] = useState(""); // enum Full Time, Part Time, Contractual
-  const [duration, setDuration] = useState(""); //duration in months
-  const [workDays, setWorkDays] = useState(4); //number type minimum value 4 and maximum value 6
-  const [WebsiteUrl, setWebsiteUrl] = useState("");
-  // const [isServiceOff, setIsServiceOff] = useState(false);
-  const [OpportunityPosition, setOpportunityPosition] = useState("");
-  const [Organisation, setOrganisation] = useState("");
-  const [OrganizationPoster, setOrganizationPoster] = useState("");
-
-  const [skillsRequired, setSkillsRequired] = useState([]);
-  const [applicationStartTime, setApplicationStartTime] = useState("");
-  const [applicationEndTime, setApplicationEndTime] = useState("");
-  //   const [applyLink, setApplyLink] = useState("");
-  const [OpportunityName, setOpportunityName] = useState("");
-  //   const [eventModeType, setEventModeType] = useState("");
-  const [OpportunityPoster, setOpportunityPoster] = useState("");
-
-  //   const [status, setStatus] = useState([]);
-  const [policy, setPolicy] = useState("");
-  const [validation, setValidation] = useState(false);
-
-  const [errors, setErrors] = useState({
-    domainName: "",
-    mobileNo: "",
-    alterNetMobileNo: "",
-    email: "",
-    minSalary: "",
-    maxSalary: "",
-    experience: "",
-    jobType: "",
-    jobLocation: "",
-
-    description: "",
-    OpportunityType: "",
-    OpportunityName: "",
-    applicationStartTime: "",
-    applicationEndTime: "",
-    jobType: "",
-    JobTiming: "",
-
-    //    eventModeType:"",
-    IsPaid: "",
-    policy: "",
-    //    status:"",
-  });
-
-  const [file, setFile] = useState();
   const validateInput1 = () => {
     let valid = true;
     const newErrors = {
-      OpportunityType: "",
-      OpportunityName: "",
-      OpportunityPoster: "",
-      OpportunityPosition: "",
-      Organisation: "",
-      OrganizationPoster: "",
+      opportunityName: "",
+      opportunityPoster: "",
+      organisationName: "",
+      organisationLogo: "",
+      websiteUrl: "",
+      mobileNo: "",
+      alternateMobileNo: "",
+      email: "",
     };
-
-    if (!OpportunityType) {
-      newErrors.OpportunityType = "Opportunity Type is required";
+    function isImageFileName(fileName) {
+      const imageRegex = /\.(jpg|jpeg|png)$/i;
+      return imageRegex.test(fileName);
+    }
+    if (!opportunityName) {
+      newErrors.opportunityName = "Opportunity Name is required!";
+      valid = false;
+    } else if (opportunityName.length < 2) {
+      newErrors.opportunityName =
+        "Opportunity Name should be atleast 2 characters long!";
+      valid = false;
+    } else if (opportunityName.length > 100) {
+      newErrors.opportunityName =
+        "Opportunity Name should be less than 100 characters!";
       valid = false;
     }
-    if (!OpportunityName) {
-      newErrors.OpportunityName = "Opportunity Name is required";
+    if (!organisationName) {
+      newErrors.organisationName = "Organisation Name is required!";
+      valid = false;
+    } else if (organisationName.length < 2) {
+      newErrors.organisationName =
+        "Organisation Name should be atleast 2 characters long!";
+      valid = false;
+    } else if (organisationName.length > 100) {
+      newErrors.organisationName =
+        "Organisation Name should be less than 100 characters!";
       valid = false;
     }
-    if (!OpportunityPosition) {
-      newErrors.OpportunityPosition = "Opportunity position is required";
+    if (!opportunityPoster.name) {
+      newErrors.opportunityPoster = "Opportunity Poster is required!";
+      valid = false;
+    } else if (!isImageFileName(opportunityPoster.name)) {
+      newErrors.opportunityPoster =
+        "Opportunity Poster should be in jpg/jpeg/png format!";
       valid = false;
     }
-    if (!Organisation) {
-      newErrors.Organisation = "Organisation is required";
+    if (!organisationLogo.name) {
+      newErrors.organisationLogo = "Organisation Logo is required!";
+      valid = false;
+    } else if (!isImageFileName(organisationLogo.name)) {
+      newErrors.organisationLogo =
+        "Organisation Logo should be in jpg/jpeg/png format!";
       valid = false;
     }
-    // if (!OpportunityPoster) {
-    //   newErrors.OpportunityPoster = "Opportunity Poster  is required";
-    //   valid = false;
-    // }
+    if (!websiteUrl) {
+      newErrors.websiteUrl = "Website Url is required!";
+      valid = false;
+    } else if (!/^(ftp|http|https):\/\/[^ "]+$/.test(websiteUrl)) {
+      newErrors.websiteUrl =
+        "Invalid website url! (Ex: https://www.engineerhub.in/)";
+      valid = false;
+    }
+    if (!mobileNo) {
+      newErrors.mobileNo = "Mobile number is required!";
+      valid = false;
+    } else if (!/^[0-9]+$/.test(mobileNo)) {
+      newErrors.mobileNo =
+        "Mobile number should not contain any special characters or letter!";
+      valid = false;
+    } else if (!/^\d{10}$/.test(mobileNo)) {
+      newErrors.mobileNo = "Mobile number should be of 10 digits!";
+      valid = false;
+    }
+    if (alternateMobileNo && !/^[0-9]+$/.test(alternateMobileNo)) {
+      newErrors.alternateMobileNo =
+        "Alternate Mobile number should not contain any special characters or letter!";
+      valid = false;
+    } else if (alternateMobileNo && !/^\d{10}$/.test(alternateMobileNo)) {
+      newErrors.alternateMobileNo =
+        "Alternate Mobile number should be of 10 digits!";
+      valid = false;
+    }
+    if (!email) {
+      newErrors.email = "Email is required!";
+      valid = false;
+    } else if (!/\S+@\S+\.\S+/.test(email)) {
+      newErrors.email = "Invalid email format!";
+      valid = false;
+    }
 
     setErrors(newErrors);
     return valid;
@@ -140,41 +226,63 @@ const JobRegistrationForm = () => {
     let valid = true;
     const newErrors = {
       domainName: "",
-      email: "",
-      mobileNo: "",
-      alterNetMobileNo: "",
+      opportunityMode: "",
+      opportunityLocation: "",
+      opportunityTiming: "",
+      skillsRequired: "",
+      eligibility: "",
+      duration: "",
+      amount: "",
     };
     if (!domainName) {
       newErrors.domainName = "Domain Name is required!";
       valid = false;
     }
-    if (!email) {
-      newErrors.email = "email is required!";
-      valid = false;
-    } else if (!/\S+@\S+\.\S+/.test(email)) {
-      newErrors.email = "Invalid email format";
+    if (!opportunityLocation && opportunityMode !== "Remote") {
+      newErrors.opportunityLocation = "Job Location is required!";
       valid = false;
     }
-    if (!mobileNo) {
-      newErrors.mobileNo = "Mobile number is required";
-      valid = false;
-    } else if (!/^[0-9]+$/.test(mobileNo)) {
-      newErrors.mobileNo =
-        "Mobile number should not contain any special characters or letter";
-      valid = false;
-    } else if (!/^\d{10}$/.test(mobileNo)) {
-      newErrors.mobileNo = "Mobile number should be of 10 digits";
+    if (!opportunityMode) {
+      newErrors.opportunityMode = "Job type is required!";
       valid = false;
     }
-    if (!/^[0-9]+$/.test(alterNetMobileNo)) {
-      newErrors.alterNetMobileNo =
-        "Alternate Mobile number should not contain any special characters or letter";
-      valid = false;
-    } else if (!/^\d{10}$/.test(alterNetMobileNo)) {
-      newErrors.alterNetMobileNo =
-        "Alternate Mobile number should be of 10 digits";
+    if (!opportunityTiming) {
+      newErrors.opportunityTiming = "Job timing is required!";
       valid = false;
     }
+    if (skillsRequired.length === 0) {
+      newErrors.skillsRequired = "Atleast one skill is required!";
+      valid = false;
+    }
+    if (!eligibility) {
+      newErrors.eligibility = "Eligibility is required in SGPA/CGPA!";
+      valid = false;
+    } else if (
+      !/^(5(\.\d{1,2})?|6(\.\d{1,2})?|7(\.\d{1,2})?|8(\.\d{1,2})?|9(\.\d{1,2})?|10(\.0{1,2})?)$/.test(
+        eligibility
+      )
+    ) {
+      newErrors.eligibility =
+        "SGPA/CGPA must be in range 5-10 upto 2 decimal places!";
+      valid = false;
+    }
+    if (checkUrl() === "Internship") {
+      if (!duration) {
+        newErrors.duration = "Duration is required!";
+        valid = false;
+      } else if (duration < 1) {
+        newErrors.duration = "Duration should be greater than 0!";
+        valid = false;
+      }
+    }
+    if (!!isPaid && !amountCopy) {
+      newErrors.amount = "Amount is required!";
+      valid = false;
+    } else if (!!isPaid && !/^[0-9]+$/.test(amountCopy)) {
+      newErrors.amount = "Amount should only be in numbers";
+      valid = false;
+    }
+
     setErrors(newErrors);
     return valid;
   };
@@ -182,212 +290,195 @@ const JobRegistrationForm = () => {
   const validateInput3 = () => {
     let valid = true;
     const newErrors = {
-      description: "",
       experience: "",
-      minSalary: "",
-      maxSalary: "",
-    };
-    if (!description) {
-      newErrors.description = "Description is required";
-      valid = false;
-    } else if (description.length < 51) {
-      newErrors.description = "Description should have atleast 50 characters";
-      valid = false;
-    } else if (description.length > 500) {
-      newErrors.description = "Description should be less than 500 characters";
-      valid = false;
-    }
-    if (!experience) {
-      newErrors.experience = "Experience is required";
-      valid = false;
-    } else if (experience.length < 51) {
-      newErrors.experience = "Experience should have atleast 50 characters";
-      valid = false;
-    }
-
-    setErrors(newErrors);
-    return valid;
-  };
-
-  const validateInput4 = () => {
-    let valid = true;
-    const newErrors = {
-      eligibility: "",
-      jobLocation: "",
-      jobType: "",
-      JobTiming: "",
-    };
-    if (!eligibility) {
-      newErrors.eligibility = "Eligibility is required in sgpa/cgpa";
-      valid = false;
-    } else if (
-      !/^(6(\.\d{1,2})?|7(\.\d{1,2})?|8(\.\d{1,2})?|9(\.\d{1,2})?|10(\.0{1,2})?)$/.test(
-        eligibility
-      )
-    ) {
-      newErrors.eligibility = "sgpa/cgpa must be in range 6-10";
-      valid = false;
-    }
-
-    if (!jobLocation) {
-      newErrors.jobLocation = "Job Location is required";
-      valid = false;
-    }
-    if (!jobType) {
-      newErrors.jobType = "Job type is required ";
-      valid = false;
-    }
-    if (!JobTiming) {
-      newErrors.JobTiming = "Job timing is required";
-      valid = false;
-    }
-    setErrors(newErrors);
-    return valid;
-  };
-
-  const validateInput5 = () => {
-    let valid = true;
-    const newErrors = {
+      description: "",
+      applicationStartTime: "",
+      applicationEndTime: "",
       policy: "",
     };
-    if (!policy) {
-      newErrors.policy = "Policy is required";
+    if (checkUrl() === "Job") {
+      if (!experience) {
+        newErrors.experience = "Work Experience is required!";
+        valid = false;
+      }
+    }
+    if (!description) {
+      newErrors.description = "Description is required!";
+      valid = false;
+    } else if (description.length < 50) {
+      newErrors.description = "Description should have atleast 50 characters!";
+      valid = false;
+    } else if (description.length > 1000) {
+      newErrors.description =
+        "Description should be less than 1000 characters!";
       valid = false;
     }
-    if (policy.length < 51) {
+    if (!applicationStartTime) {
+      newErrors.applicationStartTime = "Application Start Time is required!";
+      valid = false;
+    } else if (
+      new Date(applicationStartTime).getFullYear() < new Date().getFullYear() ||
+      (new Date(applicationStartTime).getFullYear() ===
+        new Date().getFullYear() &&
+        new Date(applicationStartTime).getMonth() < new Date().getMonth()) ||
+      (new Date(applicationStartTime).getFullYear() ===
+        new Date().getFullYear() &&
+        new Date(applicationStartTime).getMonth() === new Date().getMonth() &&
+        new Date(applicationStartTime).getDate() < new Date().getDate())
+    ) {
+      newErrors.applicationStartTime =
+        "Application Start Time should be greater than current time!";
+      valid = false;
+    } else if (new Date(applicationStartTime) > new Date(applicationEndTime)) {
+      newErrors.applicationStartTime =
+        "Application Start Time should be less than Application End Time!";
+      valid = false;
+    }
+    if (!applicationEndTime) {
+      newErrors.applicationEndTime = "Application End Time is required!";
+      valid = false;
+    } else if (
+      new Date(applicationEndTime).getFullYear() < new Date().getFullYear() ||
+      (new Date(applicationEndTime).getFullYear() ===
+        new Date().getFullYear() &&
+        new Date(applicationEndTime).getMonth() < new Date().getMonth()) ||
+      (new Date(applicationEndTime).getFullYear() ===
+        new Date().getFullYear() &&
+        new Date(applicationEndTime).getMonth() === new Date().getMonth() &&
+        new Date(applicationEndTime).getDate() < new Date().getDate())
+    ) {
+      newErrors.applicationEndTime =
+        "Application End Time should be greater than current time!";
+      valid = false;
+    } else if (new Date(applicationEndTime) < new Date(applicationStartTime)) {
+      newErrors.applicationEndTime =
+        "Application End Time should be greater than Application Start Time!";
+      valid = false;
+    }
+    if (policy && policy.length < 50) {
       newErrors.policy = "Policy must be of minimum 50 words";
       valid = false;
+    } else if (policy && policy.length > 1000) {
+      newErrors.policy = "Policy must be of maximum 1000 words";
+      valid = false;
     }
+
     setErrors(newErrors);
     return valid;
   };
 
   function handleNext() {
     if (step === 1) {
-      if (validateInput1()) setStep(step + 1);
+      if (validateInput1()) setStep((prev) => prev + 1);
     }
     if (step === 2) {
-      if (validateInput2()) setStep(step + 1);
+      if (validateInput2()) setStep((prev) => prev + 1);
     }
     if (step === 3) {
-      if (validateInput3()) setStep(step + 1);
-    }
-    if (step === 4) {
-      if (validateInput4()) setStep(step + 1);
-    }
-    if (step === 5) {
-      if (validateInput5()) setValidation(true);
+      if (validateInput3()) setValidation(true);
     }
   }
   const handlePrev = () => {
-    setStep(step - 1);
+    setStep((prev) => prev - 1);
   };
-  // var form = new FormData();
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
-
-    getDomains(setDomain);
-
-    return () => {
-      controller.abort();
-    };
-  }, []);
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setForm((prevForm) => ({
-      ...prevForm,
-      [name]: value,
-    }));
-  };
   const handleSubmit = async (e) => {
+    const indianApplicationStartTime = new Date(
+      applicationStartTime.toLocaleString("en-US", {
+        timeZone: "Asia/Kolkata",
+      })
+    );
+    const indianApplicationEndTime = new Date(
+      applicationEndTime.toLocaleString("en-US", {
+        timeZone: "Asia/Kolkata",
+      })
+    );
+
     e.preventDefault();
     const form = new FormData();
-    form.append("OpportunityType", OpportunityType);
-    form.append("OpportunityPoster", OpportunityPoster);
-    form.append("OpportunityName", OpportunityName);
-    form.append("OpportunityPosition", OpportunityPosition);
-    form.append("Organisation", Organisation);
-    form.append("OrganizationPoster", OrganizationPoster);
+    form.append("opportunityType", opportunityType);
+    form.append("opportunityPoster", opportunityPoster);
+    form.append("opportunityName", opportunityName);
+    form.append("organisationName", organisationName);
+    form.append("organisationLogo", organisationLogo);
     form.append("domainName", domainName);
     form.append("description", description);
     form.append("mobileNo", mobileNo);
-    form.append("alterNetMobileNo", alterNetMobileNo);
+    form.append("alternateMobileNo", alternateMobileNo);
     form.append("email", email);
-    form.append("applicationStartTime", applicationStartTime);
-    form.append("applicationEndTime", applicationEndTime);
-    form.append("minSalary", minSalary);
-    form.append("maxSalary", maxSalary);
-    form.append("IsPaid", IsPaid);
-    form.append("experience", experience);
+    form.append("applicationStartTime", indianApplicationStartTime);
+    form.append("applicationEndTime", indianApplicationEndTime);
+    form.append("amount", amountCopy);
+    form.append("isPaid", isPaid);
     form.append("eligibility", eligibility);
+    if (checkUrl() === "Job") {
+      form.append("experience", experience);
+    }
     form.append("skillsRequired", skillsRequired);
-    form.append("jobLocation", jobLocation);
-    form.append("jobType", jobType);
-    form.append("JobTiming", JobTiming);
-    form.append("duration", duration);
-    form.append("workDays", workDays);
-    form.append("WebsiteUrl", WebsiteUrl);
-    // form.append("isServiceOff", isServiceOff);
-    form.append("policy", policy);
+    form.append("opportunityLocation", opportunityLocation);
+    form.append("opportunityMode", opportunityMode);
+    form.append("opportunityTiming", opportunityTiming);
+    if (checkUrl() === "Internship") {
+      form.append("duration", duration);
+    }
+    form.append("websiteUrl", websiteUrl);
+    if (!!policy) form.append("policy", policy);
 
-    console.log(form.get("domainName"), " domainName ");
-    console.log(form.get("skillsRequired"), " skillsRequired ");
-
-    console.log(form.get("OpportunityType"), " OpportunityType ");
-    console.log(form.get("description"), " description ");
-    console.log(form.get("applicationStartTime"), " applicationStartTime ");
-    // console.log(form.get("applyLink"), " applyLink ");
-    console.log(form.get("IsPaid"), " IsPaid ");
-    console.log(form.get("OpportunityName"), " OpportunityName ");
-    // console.log(form.get("eventModeType"), " eventModeType ");
-    console.log(form.get("OpportunityPoster"), "OpportunityPoster");
-    console.log(form.get("OrganizationPoster"), "OrganizationPoster");
-    // console.log(form.get("status"), " status ");
+    // console.log(form.get("opportunityType"), " opportunityType ");
+    // console.log(form.get("opportunityPoster"), " opportunityPoster ");
+    // console.log(form.get("opportunityName"), " opportunityName ");
+    // console.log(form.get("organisationName"), " organisationName ");
+    // console.log(form.get("organisationLogo"), " organisationLogo ");
+    // console.log(form.get("domainName"), " domainName ");
+    // console.log(form.get("description"), " description ");
+    // console.log(form.get("mobileNo"), " mobileNo ");
+    // console.log(form.get("alternateMobileNo"), " alternateMobileNo ");
+    // console.log(form.get("email"), " email ");
+    // console.log(form.get("applicationStartTime"), " applicationStartTime ");
+    // console.log(form.get("applicationEndTime"), " applicationEndTime ");
+    // console.log(form.get("amount"), " amountCopy ");
+    // console.log(form.get("isPaid"), " isPaid ");
+    // console.log(form.get("eligibility"), " eligibility ");
+    // console.log(form.get("experience"), " experience ");
+    // console.log(form.get("skillsRequired"), " skillsRequired ");
+    // console.log(form.get("opportunityLocation"), " opportunityLocation ");
+    // console.log(form.get("opportunityMode"), " opportunityMode ");
+    // console.log(form.get("opportunityTiming"), " opportunityTiming ");
+    // console.log(form.get("duration"), " duration ");
+    // console.log(form.get("websiteUrl"), " websiteUrl ");
 
     if (validation === true) {
-      try {
-        // const accessToken = document.cookie
-        // .split(';')
-        // .map((cookie) => cookie.trim())
-        // .find((cookie) => cookie.startsWith('access_token='))
-        // .split('=')[1];
-        // console.log(accessToken);
-        const response = await axios.post(`${API_URL}api/v1/hiring`, form, {
+      setIsLoading(true);
+      const response = await axios
+        .post(`${API_URL}api/v1/hiring`, form, {
           headers: {
             accesstoken: getAccessToken(),
           },
+        })
+        .then((res) => {
+          console.log(res);
+          setSnackbarValues({
+            severity: "success",
+            message: `New ${checkUrl()} created`,
+          });
+          setOpen(true);
+          setIsLoading(false);
+          setTimeout(() => {
+            navigate("/hosting");
+          }, 2000);
+        })
+        .catch((err) => {
+          console.log(err);
+          setIsLoading(false);
+          alert(err.response.data.err || err.response.data.message);
+          setValidation(false);
         });
-
-        console.log(response);
-
-        if (
-          response.status === 200 ||
-          response.status === 201 ||
-          response.status === 202 ||
-          response.status === 203 ||
-          response.status === 204
-        ) {
-          navigate("/");
-        }
-      } catch (error) {
-        alert(error.response.data.message);
-        setValidation(false);
-        console.log(error);
-      }
     }
   };
-  const handleFileInputChange = (e) => {
-    console.log(e.target.files);
-    setCampusLogos(e.target.files);
-  };
   const handleFileInputChangePoster = (e) => {
-    console.log(e.target.files[0]);
     setOpportunityPoster(e.target.files[0]);
   };
   const handleFileInputOrganizationPoster = (e) => {
-    console.log(e.target.files[0]);
     setOrganizationPoster(e.target.files[0]);
   };
 
@@ -397,95 +488,146 @@ const JobRegistrationForm = () => {
 
   const step1 = (
     <div>
-      <FormControl fullWidth>
-        <InputLabel
-          id="student-signup-campus-label"
-          error={!!errors.OpportunityType}
-        >
-          Oppurtunity Type
-        </InputLabel>
-        <Select
-          labelId="event-type-label"
-          id="event-type"
-          name="Opportunity Type"
-          value={OpportunityType}
-          label="Oppurtunity Type"
-          onChange={(e) => setOpportunityType(e.target.value)}
-        >
-          <MenuItem value="Job">Job</MenuItem>
-          <MenuItem value="Internship">Internship</MenuItem>
-          <MenuItem value="Challenge">Challenge</MenuItem>
-          {/* <MenuItem value="Hackathon">Hackathon</MenuItem> */}
-        </Select>
-        <FormHelperText error={!!errors.OpportunityType}>
-          {errors.OpportunityType}
-        </FormHelperText>
-      </FormControl>
-
       <TextField
-        name="OpportunityName"
-        label="Opportunity Name"
+        name="opportunityName"
+        label="Opportunity Title*"
         variant="outlined"
-        value={OpportunityName}
+        value={opportunityName}
+        placeholder="Ex: Hiring for Software Developers, etc."
         onChange={(e) => setOpportunityName(e.target.value)}
-        // onChange={handleChange}
+        onBlur={(e) => setOpportunityName(e.target.value.trim())}
         fullWidth
         margin="normal"
-        error={!!errors.OpportunityName}
-        helperText={errors.OpportunityName}
-      />
-
-      <label htmlFor="OpportunityPoster">Oppurtunity Poster</label>
-      <div>
-        <input
-          type="file"
-          id="OpportunityPoster"
-          className="inputHosting"
-          onChange={handleFileInputChangePoster}
-        />
-
-        {file && <p>Selected file: {file.name}</p>}
-      </div>
-
-      <TextField
-        name="OpportunityPosition"
-        label="Opportunity Position"
-        variant="outlined"
-        value={OpportunityPosition}
-        onChange={(e) => setOpportunityPosition(e.target.value)}
-        // onChange={handleChange}
-        fullWidth
-        margin="normal"
-        error={!!errors.OpportunityPosition}
-        helperText={errors.OpportunityPosition}
+        error={!!errors.opportunityName}
+        helperText={errors.opportunityName}
+        autoComplete="off"
       />
 
       <TextField
-        name="Organisation"
-        label="Organisation"
+        name="organisationName"
+        label="Company Name*"
         variant="outlined"
-        value={Organisation}
+        value={organisationName}
+        placeholder="Type your Organisation name"
         onChange={(e) => setOrganisation(e.target.value)}
-        // onChange={handleChange}
+        onBlur={(e) => setOrganisation(e.target.value.trim())}
         fullWidth
         margin="normal"
-        error={!!errors.Organisation}
-        helperText={errors.Organisation}
+        error={!!errors.organisationName}
+        helperText={errors.organisationName}
+        autoComplete="off"
       />
 
-      <label htmlFor="OrganizationPoster">Organisation Poster</label>
-      <div>
-        <input
-          type="file"
-          id="OrganizationPoster"
-          className="inputHosting"
-          onChange={handleFileInputOrganizationPoster}
-        />
-
-        {file && <p>Selected file: {file.name}</p>}
+      <div className="position-relative mt-3 mb-2">
+        <label
+          style={{
+            color: !!errors.opportunityPoster
+              ? "#d32f2f"
+              : "rgba(0, 0, 0, 0.6)",
+          }}
+          className="mui-copy-input-label"
+          htmlFor="opportunityPoster"
+        >
+          Company Hiring Poster*
+        </label>
+        <div className="filename-container">
+          <input
+            style={{
+              border: !!errors.opportunityPoster
+                ? "1px solid #d32f2f"
+                : "1px solid #bdbdbd",
+              color: "transparent",
+            }}
+            type="file"
+            id="opportunityPoster"
+            className="inputHosting w-100"
+            onChange={handleFileInputChangePoster}
+          />
+          <div className="filename">{opportunityPoster?.name}</div>
+        </div>
+        {errors.opportunityPoster && (
+          <p className="mui-copy-input-label-3">{errors.opportunityPoster}</p>
+        )}
       </div>
 
-      {/* till Page 1 */}
+      <div className="position-relative  mt-3 mb-2">
+        <label
+          style={{
+            color: !!errors.organisationLogo ? "#d32f2f" : "rgba(0, 0, 0, 0.6)",
+          }}
+          className="mui-copy-input-label"
+          htmlFor="organisationLogo"
+        >
+          Company Logo*
+        </label>
+        <div className="filename-container">
+          <input
+            style={{
+              border: !!errors.organisationLogo
+                ? "1px solid #d32f2f"
+                : "1px solid #bdbdbd",
+              color: "transparent",
+            }}
+            type="file"
+            id="organisationLogo"
+            className="inputHosting w-100"
+            onChange={handleFileInputOrganizationPoster}
+          />
+          <div className="filename">{organisationLogo?.name}</div>
+        </div>
+        {errors.organisationLogo && (
+          <p className="mui-copy-input-label-3" id=":rf:-helper-text">
+            {errors.organisationLogo}
+          </p>
+        )}
+      </div>
+
+      <TextField
+        name="websiteUrl"
+        label="Company Website Url*"
+        variant="outlined"
+        value={websiteUrl}
+        onChange={(e) => setWebsiteUrl(e.target.value)}
+        fullWidth
+        margin="normal"
+        error={!!errors.websiteUrl}
+        helperText={errors.websiteUrl}
+      />
+
+      <TextField
+        name="mobileNo"
+        label="Mobile No.*"
+        variant="outlined"
+        value={mobileNo}
+        onChange={(e) => setMobileNo(e.target.value.trim())}
+        fullWidth
+        margin="normal"
+        error={!!errors.mobileNo}
+        helperText={errors.mobileNo}
+      />
+      <TextField
+        name="alternateMobileNo"
+        label="Alternate Mobile No."
+        variant="outlined"
+        value={alternateMobileNo}
+        onChange={(e) => setAlterNetMobileNo(e.target.value.trim())}
+        fullWidth
+        margin="normal"
+        error={!!errors.alternateMobileNo}
+        helperText={errors.alternateMobileNo}
+      />
+
+      <TextField
+        name="email"
+        label="Email*"
+        variant="outlined"
+        value={email}
+        onChange={(e) => setEmail(e.target.value.trim())}
+        fullWidth
+        margin="normal"
+        error={!!errors.email}
+        helperText={errors.email}
+      />
     </div>
   );
 
@@ -496,7 +638,7 @@ const JobRegistrationForm = () => {
           id="student-signup-campus-label"
           error={!!errors.domainName}
         >
-          Domain Name
+          Domain Name*
         </InputLabel>
         <Select
           labelId="Domain-name"
@@ -504,12 +646,11 @@ const JobRegistrationForm = () => {
           value={domainName}
           label="Domain Name"
           name="domainName"
-          // onChange={handleChange}
           onChange={(e) => setDomainName(e.target.value)}
           error={!!errors.domainName}
         >
           {domain.map((domains) => (
-            <MenuItem key={domains} value={domains.domain}>
+            <MenuItem key={domains.domain} value={domains.domain}>
               {domains.domain}
             </MenuItem>
           ))}
@@ -519,166 +660,67 @@ const JobRegistrationForm = () => {
         </FormHelperText>
       </FormControl>
 
-      <TextField
-        name="email"
-        label="Email"
-        variant="outlined"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        fullWidth
-        margin="normal"
-        error={!!errors.email}
-        helperText={errors.email}
-      />
-      <TextField
-        name="mobileNo"
-        label="Mobile Number"
-        variant="outlined"
-        value={mobileNo}
-        onChange={(e) => setMobileNo(e.target.value)}
-        fullWidth
-        margin="normal"
-        error={!!errors.mobileNo}
-        helperText={errors.mobileNo}
-      />
-      <TextField
-        name="alterNetMobileNo"
-        label="Alternate Mobile Number"
-        variant="outlined"
-        value={alterNetMobileNo}
-        onChange={(e) => setAlterNetMobileNo(e.target.value)}
-        fullWidth
-        margin="normal"
-        error={!!errors.alterNetMobileNo}
-        helperText={errors.alterNetMobileNo}
-      />
-
-      <label htmlFor="applicationStartTime"> Starting Date</label>
-
-      <TextField
-        name="Application Start Date"
-        // label="Application Start Date"
-        id="applicationStartTime"
-        variant="outlined"
-        type="date"
-        value={applicationStartTime}
-        onChange={(e) => setApplicationStartTime(e.target.value)}
-        fullWidth
-        margin="normal"
-        error={!!errors.applicationStartTime}
-        helperText={errors.applicationStartTime}
-      />
-      <label htmlFor="applicationEndTime"> End Date</label>
-      <TextField
-        name="Application End Date"
-        id="applicationEndTime"
-        // label="Application End Date"
-        variant="outlined"
-        type="date"
-        value={applicationEndTime}
-        onChange={(e) => setApplicationEndTime(e.target.value)}
-        fullWidth
-        margin="normal"
-        error={!!errors.applicationEndTime}
-        helperText={errors.applicationEndTime}
-      />
-
-      <br />
-    </div>
-  );
-
-  const step3 = (
-    <div>
-      <TextField
-        name="description"
-        label="Description"
-        variant="outlined"
-        value={description}
-        placeholder="Description should be in 50 to 500 characters"
-        multiline
-        minRows={3}
-        maxRows={6}
-        onChange={(e) => setDescription(e.target.value)}
-        fullWidth
-        margin="normal"
-        error={!!errors.description}
-        helperText={errors.description}
-      />
-
-      <TextField
-        name="minSalary"
-        label="Minimum Salary "
-        variant="outlined"
-        value={minSalary}
-        placeholder="(in LPA)"
-        onChange={(e) => setMinSalary(e.target.value)}
-        fullWidth
-        margin="normal"
-        error={!!errors.minSalary}
-        helperText={errors.minSalary}
-      />
-
-      <TextField
-        name="maxSalary"
-        label="Maximum Salary"
-        variant="outlined"
-        placeholder="(in LPA)"
-        value={maxSalary}
-        onChange={(e) => setMaxSalary(e.target.value)}
-        fullWidth
-        margin="normal"
-        error={!!errors.maxSalary}
-        helperText={errors.maxSalary}
-      />
-
       <FormControl margin="normal" fullWidth>
-        <InputLabel id="student-signup-campus-label" error={!!errors.IsPaid}>
-          Paid / Unpaid
+        <InputLabel
+          id="student-signup-campus-label"
+          error={!!errors.opportunityMode}
+        >
+          Job Type*
         </InputLabel>
         <Select
           labelId="event-type-label"
           id="event-type"
-          value={IsPaid}
-          label="Event Mode"
-          onChange={(e) => setIsPaid(e.target.value)}
+          value={opportunityMode}
+          label="Job Type"
+          onChange={(e) => setJobType(e.target.value)}
         >
-          <MenuItem value={0}>Unpaid</MenuItem>
-          <MenuItem value={1}>paid</MenuItem>
+          <MenuItem value={"Hybrid"}>Hybrid</MenuItem>
+          <MenuItem value={"Remote"}>Remote</MenuItem>
+          <MenuItem value={"In Office"}>In Office</MenuItem>
         </Select>
-        <FormHelperText error={!!errors.IsPaid}>{errors.IsPaid}</FormHelperText>
+        <FormHelperText error={!!errors.opportunityMode}>
+          {errors.opportunityMode}
+        </FormHelperText>
       </FormControl>
 
-      <TextField
-        name="experience"
-        label="Experience"
-        variant="outlined"
-        multiline
-        minRows={3}
-        maxRows={6}
-        placeholder="Experience should be in 50 to 500 characters"
-        value={experience}
-        onChange={(e) => setExperience(e.target.value)}
-        fullWidth
-        margin="normal"
-        error={!!errors.experience}
-        helperText={errors.experience}
-      />
-    </div>
-  );
-  const step4 = (
-    <div>
-      <TextField
-        name="eligibility"
-        label="Eligibility"
-        variant="outlined"
-        type="number"
-        value={eligibility}
-        onChange={(e) => setEligibility(e.target.value)}
-        fullWidth
-        margin="normal"
-        error={!!errors.eligibility}
-        helperText={errors.eligibility}
-      />
+      {opportunityMode !== "Remote" && (
+        <TextField
+          name="opportunityLocation"
+          label="Job Location*"
+          variant="outlined"
+          value={opportunityLocation}
+          onChange={(e) => setJobLocation(e.target.value)}
+          onBlur={(e) => setJobLocation(e.target.value.trim())}
+          fullWidth
+          margin="normal"
+          error={!!errors.opportunityLocation}
+          helperText={errors.opportunityLocation}
+        />
+      )}
+
+      <FormControl margin="normal" fullWidth>
+        <InputLabel
+          id="student-signup-campus-label"
+          error={!!errors.opportunityTiming}
+        >
+          Job Timings*
+        </InputLabel>
+        <Select
+          labelId="event-type-label"
+          id="event-type"
+          value={opportunityTiming}
+          label="Event Mode"
+          onChange={(e) => setJobTiming(e.target.value)}
+          error={!!errors.opportunityTiming}
+        >
+          <MenuItem value={"Full Time"}>Full Time</MenuItem>
+          <MenuItem value={"Part Time"}>Part Time</MenuItem>
+          <MenuItem value={"Contractual"}>Contractual</MenuItem>
+        </Select>
+        <FormHelperText error={!!errors.opportunityTiming}>
+          {errors.opportunityTiming}
+        </FormHelperText>
+      </FormControl>
 
       <div>
         <Autocomplete
@@ -731,133 +773,220 @@ const JobRegistrationForm = () => {
             "Emotional Intelligence",
             "Continuous Learning",
           ]}
+          freeSolo
+          sx={{
+            color: !!errors.skillsRequired ? "#d32f2f" : "rgba(0, 0, 0, 0.6)",
+          }}
           value={skillsRequired}
           onChange={handleSkillsChange}
           renderInput={(params) => (
-            <TextField
-              margin="normal"
-              {...params}
-              label="Required Skills"
-              placeholder="Select skills"
-            />
+            <TextField margin="normal" {...params} label="Required Skills*" />
           )}
         />
+        {errors.skillsRequired && (
+          <p
+            className="MuiFormHelperText-root Mui-error MuiFormHelperText-sizeMedium MuiFormHelperText-contained css-1wc848c-MuiFormHelperText-root"
+            id=":rf:-helper-text"
+          >
+            {errors.skillsRequired}
+          </p>
+        )}
       </div>
 
       <TextField
-        name="jobLocation"
-        label="Job Location"
+        name="eligibility"
+        label="Eligibility*"
         variant="outlined"
-        value={jobLocation}
-        onChange={(e) => setJobLocation(e.target.value)}
+        type="number"
+        InputProps={{
+          inputProps: {
+            max: 10,
+            min: 1,
+          },
+        }}
+        value={eligibility}
+        placeholder="Enter minimum CGPA required"
+        onChange={(e) => setEligibility(e.target.value)}
         fullWidth
         margin="normal"
-        error={!!errors.jobLocation}
-        helperText={errors.jobLocation}
+        error={!!errors.eligibility}
+        helperText={errors.eligibility}
       />
 
-      <FormControl margin="normal" fullWidth>
-        <InputLabel id="student-signup-campus-label" error={!!errors.jobType}>
-          Job Type
-        </InputLabel>
-        <Select
-          labelId="event-type-label"
-          id="event-type"
-          value={jobType}
-          label="Job Type"
-          onChange={(e) => setJobType(e.target.value)}
-        >
-          <MenuItem value={"Hybrid"}>Hybrid</MenuItem>
-          <MenuItem value={"Remote"}>Remote</MenuItem>
-          <MenuItem value={"InOffice"}>InOffice</MenuItem>
-        </Select>
-        <FormHelperText error={!!errors.jobType}>
-          {errors.jobType}
-        </FormHelperText>
-      </FormControl>
+      {checkUrl() === "Internship" && (
+        <TextField
+          name="duration"
+          label="Duration*"
+          variant="outlined"
+          placeholder="Enter duration in months"
+          value={duration}
+          onChange={(e) => setDuration(e.target.value)}
+          fullWidth
+          margin="normal"
+          error={!!errors.duration}
+          helperText={errors.duration}
+        />
+      )}
 
-      <FormControl margin="normal" fullWidth>
-        <InputLabel id="student-signup-campus-label" error={!!errors.JobTiming}>
-          Job Timings
-        </InputLabel>
-        <Select
-          labelId="event-type-label"
-          id="event-type"
-          value={JobTiming}
-          label="Event Mode"
-          onChange={(e) => setJobTiming(e.target.value)}
-        >
-          <MenuItem value={"Full Time"}>Full Time</MenuItem>
-          <MenuItem value={"Part Time"}>Part Time</MenuItem>
-          <MenuItem value={"Contractual"}>Contractual</MenuItem>
-        </Select>
-        <FormHelperText error={!!errors.JobTiming}>
-          {errors.JobTiming}
-        </FormHelperText>
-      </FormControl>
+      {checkUrl() === "Internship" && (
+        <FormControl margin="normal" fullWidth>
+          <InputLabel id="student-signup-campus-label" error={!!errors.isPaid}>
+            Paid / Unpaid*
+          </InputLabel>
+          <Select
+            labelId="event-type-label"
+            id="event-type"
+            value={isPaid}
+            label="Paid / Unpaid*"
+            onChange={(e) => setIsPaid(e.target.value)}
+          >
+            <MenuItem value={0}>Unpaid</MenuItem>
+            <MenuItem value={1}>Paid</MenuItem>
+          </Select>
+          <FormHelperText error={!!errors.isPaid}>
+            {errors.isPaid}
+          </FormHelperText>
+        </FormControl>
+      )}
+
+      {(!!isPaid || checkUrl() === "Job") && (
+        <TextField
+          name="amount"
+          label={`${checkUrl() === "Job" ? "Salary" : "Stipend"}*`}
+          variant="outlined"
+          placeholder={`Enter ${
+            checkUrl() === "Job" ? "CTC" : "stipend"
+          } in numbers`}
+          value={amount}
+          onChange={(e) => {
+            setAmountCopy(e.target.value);
+            setAmount(e.target.value);
+            const formatter = new Intl.NumberFormat("en-IN", {
+              style: "currency",
+              currency: "INR",
+              minimumFractionDigits: 0,
+            });
+            const formattedSalary = formatter.format(e.target.value);
+            if (e.target.value === "") setAmountInput("");
+            else setAmountInput(formattedSalary);
+          }}
+          onFocus={() => {
+            setAmount(amountCopy);
+          }}
+          onBlur={() => {
+            setAmount(amountInput);
+          }}
+          fullWidth
+          margin="normal"
+          error={!!errors.amount}
+          helperText={errors.amount}
+        />
+      )}
     </div>
   );
-  const step5 = (
+
+  const step3 = (
     <div>
-      <TextField //make it number type here number of months
-        name="duration"
-        label="Duration"
-        variant="outlined"
-        placeholder="Enter duration in months"
-        value={duration}
-        onChange={(e) => setDuration(e.target.value)}
-        fullWidth
-        margin="normal"
-        error={!!errors.duration}
-        helperText={errors.durration}
-      />
-
-      <TextField //make it number type here number of months
-        name="workDays"
-        label="Work Days"
-        variant="outlined"
-        value={workDays}
-        placeholder="per Week"
-        onChange={(e) => setWorkDays(e.target.value)}
-        fullWidth
-        margin="normal"
-        error={!!errors.workDays}
-        helperText={errors.workDays}
-      />
-
+      {checkUrl() === "Job" && (
+        <>
+          <FormControl margin="normal" fullWidth>
+            <InputLabel
+              id="student-signup-campus-label"
+              error={!!errors.experience}
+              placeholder="in Years"
+            >
+              Work Experience*
+            </InputLabel>
+            <Select
+              labelId="Domain-name"
+              id="student-signup-campus-select"
+              value={experience}
+              label="Work Experience*"
+              placeholder="in Years"
+              name="domainName"
+              onChange={(e) => setExperience(e.target.value)}
+              error={!!errors.experience}
+            >
+              {experienceValues.map((value) => (
+                <MenuItem key={value.value} value={value.value}>
+                  {value.label}
+                </MenuItem>
+              ))}
+            </Select>
+            <FormHelperText error={!!errors.experience}>
+              {errors.experience}
+            </FormHelperText>
+          </FormControl>
+        </>
+      )}
       <TextField
-        name="WebsiteUrl"
-        label="Website Url"
+        name="description"
+        label="Description*"
         variant="outlined"
-        value={WebsiteUrl}
-        onChange={(e) => setWebsiteUrl(e.target.value)}
+        value={description}
+        placeholder="Description should be in 50 to 1000 characters"
+        multiline
+        minRows={3}
+        maxRows={6}
+        onChange={(e) => setDescription(e.target.value)}
+        onBlur={(e) => setDescription(e.target.value.trim())}
         fullWidth
         margin="normal"
-        error={!!errors.WebsiteUrl}
-        helperText={errors.WebsiteUrl}
+        error={!!errors.description}
+        helperText={errors.description}
       />
 
-      {/* <FormControl margin="normal" fullWidth>
-        <InputLabel
-          id="student-signup-campus-label"
-          error={!!errors.isServiceOff}
+      <div className="position-relative">
+        <label
+          style={{
+            color: !!errors.applicationStartTime
+              ? "#d32f2f"
+              : "rgba(0, 0, 0, 0.6)",
+          }}
+          className="mui-copy-input-label-2"
+          htmlFor="applicationStartTime"
         >
-          Service on/off
-        </InputLabel>
-        <Select
-          labelId="event-type-label"
-          id="event-type"
-          value={isServiceOff}
-          label="service on/off"
-          onChange={(e) => setIsServiceOff(e.target.value)}
+          Application Start Date*
+        </label>
+        <TextField
+          name="Application Start Date"
+          id="applicationStartTime"
+          variant="outlined"
+          type="date"
+          value={applicationStartTime}
+          onChange={(e) => setApplicationStartTime(e.target.value)}
+          fullWidth
+          margin="normal"
+          error={!!errors.applicationStartTime}
+          helperText={errors.applicationStartTime}
+        />
+      </div>
+
+      <div className="position-relative">
+        <label
+          style={{
+            color: !!errors.applicationEndTime
+              ? "#d32f2f"
+              : "rgba(0, 0, 0, 0.6)",
+          }}
+          className="mui-copy-input-label-2"
+          htmlFor="applicationEndTime"
         >
-          <MenuItem value={false}>off</MenuItem>
-          <MenuItem value={true}>on</MenuItem>
-        </Select>
-        <FormHelperText error={!!errors.isServiceOff}>
-          {errors.isServiceOff}
-        </FormHelperText>
-      </FormControl> */}
+          Application End Date*
+        </label>
+        <TextField
+          name="Application End Date"
+          id="applicationEndTime"
+          variant="outlined"
+          type="date"
+          value={applicationEndTime}
+          onChange={(e) => setApplicationEndTime(e.target.value)}
+          fullWidth
+          margin="normal"
+          error={!!errors.applicationEndTime}
+          helperText={errors.applicationEndTime}
+        />
+      </div>
 
       <TextField
         name="policy"
@@ -868,6 +997,7 @@ const JobRegistrationForm = () => {
         minRows={3}
         maxRows={6}
         onChange={(e) => setPolicy(e.target.value)}
+        onBlur={(e) => setPolicy(e.target.value.trim())}
         fullWidth
         margin="normal"
         error={!!errors.policy}
@@ -882,15 +1012,21 @@ const JobRegistrationForm = () => {
           <div className="details">
             <HostEventTimeline
               step={step}
-              numberOfCheckpoints={5}
+              numberOfCheckpoints={3}
               width="100%"
             />
             <form action="/" method="POST" onSubmit={handleSubmit}>
               {step === 1 && step1}
               {step === 2 && step2}
               {step === 3 && step3}
-              {step === 4 && step4}
-              {step === 5 && step5}
+              {snackbarValues.severity === "success" && (
+                <CustomSnackbar
+                  setOpen={setOpen}
+                  open={open}
+                  message={snackbarValues.message}
+                  severity={snackbarValues.severity}
+                />
+              )}
 
               <div className="button-container">
                 <button
@@ -902,11 +1038,18 @@ const JobRegistrationForm = () => {
                   Previous
                 </button>
                 <button
-                  type={`${step === 5 ? "submit" : "button"}`}
+                  type={`${step === 3 ? "submit" : "button"}`}
                   onClick={handleNext}
                   className="button next-button"
+                  disabled={isLoading}
                 >
-                  {`${step === 5 ? "Submit" : "Next"}`}
+                  {isLoading ? (
+                    <div className="spinner-border text-primary" role="status">
+                      <span className="visually-hidden">Loading...</span>
+                    </div>
+                  ) : (
+                    `${step === 3 ? "Submit" : "Next"}`
+                  )}
                 </button>
               </div>
             </form>

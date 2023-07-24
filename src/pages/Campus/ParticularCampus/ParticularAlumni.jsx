@@ -10,6 +10,7 @@ import {
 } from "../../../services/APIConfig";
 import colorWheel from "../../../assets/colorWheel";
 import LoadingPage from "../../../components/Loader/LoadingPage";
+import { set } from "react-hook-form";
 
 export default function ParticularAlumni() {
   const navigate = useNavigate();
@@ -27,6 +28,7 @@ export default function ParticularAlumni() {
     getAlumniById(setAlmaData, almaId);
 
     return () => {
+      setAlmaData({});
       controller.abort();
     };
   }, [almaId, collegeId]);
@@ -46,21 +48,29 @@ export default function ParticularAlumni() {
         <div className="section info-container">
           <div className="batch-lg-container">
             <div className="batch">
-              Batch <span>- {almaData.batch}</span>
+              Batch{" "}
+              <span>
+                -{" "}
+                {!!almaData.batch ? (
+                  almaData.batch
+                ) : (
+                  <i className="t ">Not Available</i>
+                )}
+              </span>
             </div>
             <div className="socials">
-              {Object.keys(almaData).length > 0 && (
-                <a href={almaData.socialMedia.instagram} target="_blank">
+              {almaData.socialMedia?.instagram && (
+                <a href={almaData.socialMedia?.instagram} target="_blank">
                   <img src={instagramPng} alt="instagram" />
                 </a>
               )}
-              {Object.keys(almaData).length > 0 && (
-                <a href={almaData.socialMedia.twitter} target="_blank">
+              {almaData.socialMedia?.twitter && (
+                <a href={almaData.socialMedia?.twitter} target="_blank">
                   <img src={twitterPng} alt="twitter" />
                 </a>
               )}
-              {Object.keys(almaData).length > 0 && (
-                <a href={almaData.socialMedia.linkedIn} target="_blank">
+              {almaData.socialMedia?.linkedIn && (
+                <a href={almaData.socialMedia?.linkedIn} target="_blank">
                   <img src={linkedinPng} alt="linkedin" />
                 </a>
               )}
@@ -90,18 +100,18 @@ export default function ParticularAlumni() {
         <div className="section socials-container">
           <div className="title">Socials</div>
           <div className="socials">
-            {Object.keys(almaData).length > 0 && (
-              <a href={almaData.socialMedia.instagram} target="_blank">
+            {almaData.socialMedia?.instagram && (
+              <a href={almaData.socialMedia?.instagram} target="_blank">
                 <img src={instagramPng} alt="instagram" />
               </a>
             )}
-            {Object.keys(almaData).length > 0 && (
-              <a href={almaData.socialMedia.twitter} target="_blank">
+            {almaData.socialMedia?.twitter && (
+              <a href={almaData.socialMedia?.twitter} target="_blank">
                 <img src={twitterPng} alt="twitter" />
               </a>
             )}
-            {Object.keys(almaData).length > 0 && (
-              <a href={almaData.socialMedia.linkedIn} target="_blank">
+            {almaData.socialMedia?.linkedIn && (
+              <a href={almaData.socialMedia?.linkedIn} target="_blank">
                 <img src={linkedinPng} alt="linkedin" />
               </a>
             )}

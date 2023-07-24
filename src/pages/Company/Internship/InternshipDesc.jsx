@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import "./JobDescription.css";
+import "./InternshipDesc.css";
 import { Chip } from "@mui/material";
 import { useParams } from "react-router-dom";
 import { API_URL, Bucket_URL } from "../../../services/APIUtils";
@@ -11,7 +11,7 @@ import axios from "axios";
 import { controller, getHiringDataById } from "../../../services/APIConfig";
 import LoadingPage from "../../../components/Loader/LoadingPage";
 import Page404 from "../../Maintenance/Page404";
-const JobDescription = () => {
+const InternshipDesc = () => {
   const { hiringId } = useParams();
   const [flag, setFlag] = useState(-1);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -80,7 +80,6 @@ const JobDescription = () => {
     currency: "INR",
     minimumFractionDigits: 0,
   });
-  console.log(hiring?.amount)
   let formattedSalary = formatter.format(hiring?.amount);
   formattedSalary.includes("NaN")
     ? (formattedSalary = "N/A")
@@ -98,8 +97,8 @@ const JobDescription = () => {
 
   if (hiring.success === false) return <Page404 />;
 
-  const JobDescription = (
-    <div className="JobDescription">
+  const InternshipDesc = (
+    <div className="InternshipDesc">
       <div className="JobDetailHeader">
         <span>
           <div className="w-100 d-flex">
@@ -176,23 +175,21 @@ const JobDescription = () => {
         <h5>More Information</h5>
         <div className="JobInfoItems">
           <div className="JobInfoItem">
-            <h6>Salary</h6>
+            <h6>Stipend</h6>
             <p></p>
-            <span>
-              {hiring.amount !== "N/A" ? `${formattedSalary} CTC` : "N/A"}
-            </span>
+            {hiring.isPaid ? (
+              <span>
+                {hiring.amount !== "N/A" ? formattedSalary : "N/A"}
+              </span>
+            ) : (
+              <span>Unpaid</span>
+            )}
             <img src={`${bucket}cash.svg`} alt="guide" />
           </div>
           <div className="JobInfoItem">
-            <h6>Minimum Experience</h6>
+            <h6>Duration</h6>
             <p></p>
-            <span>
-              {hiring.experience !== "0"
-                ? hiring.experience === "1"
-                  ? `${hiring.experience} year`
-                  : `${hiring.experience} years`
-                : `Fresher`}
-            </span>
+            <span>{formattedDuration}</span>
             <img src={`${bucket}timer.svg`} alt="guide" />
           </div>
           <div className="JobInfoItem">
@@ -212,7 +209,7 @@ const JobDescription = () => {
     </div>
   );
 
-  return Object.keys(hiring).length !== 0 ? JobDescription : <LoadingPage />;
+  return Object.keys(hiring).length !== 0 ? InternshipDesc : <LoadingPage />;
 };
 
-export default JobDescription;
+export default InternshipDesc;

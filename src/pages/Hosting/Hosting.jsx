@@ -56,14 +56,14 @@ export default function Hosting() {
     setToken(getCookie("access_token"));
     if (token) setVal(1);
   });
-  const navigationOrganization = () => {
+  const navigationOrganization = (type) => {
     if (val === 1) {
       const decoded = jwt_decode(token);
       console.log(decoded);
       console.log(decoded.role);
       const storedValue = localStorage.getItem('event');
       if (decoded.role === "Organization" ) {
-        navigate("/hostjob");
+        navigate(`/host/${type}`);
       } else {
         window.alert("Not Authorized to Host events!!!");
       }
@@ -182,7 +182,7 @@ export default function Hosting() {
         <div className="cards">
           {/* <Link to="/hostevent"> */}
           <div
-            onClick={navigationOrganization}
+            onClick={()=>navigationOrganization("job")}
             style={{
               backgroundImage: `url(${bucket}jobs.png)`,
             }}
@@ -196,7 +196,7 @@ export default function Hosting() {
           {/* </Link>
           <Link to="/hostevent"> */}
           <div
-            onClick={navigationOrganization}
+            onClick={()=>navigationOrganization("internship")}
             style={{
               backgroundImage: `url(${bucket}internships.png)`,
             }}

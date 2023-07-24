@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-import JobCards from "./JobCards";
-import "./JobDetails.css";
-import JobDescription from "./JobDescription";
+import JobCards from "./InternshipCard";
+import "./InternshipDetails.css";
+import JobDescription from "./InternshipDesc";
 import { controller, getHiringData } from "../../../services/APIConfig";
 import colorWheel from "../../../assets/colorWheel";
 import LoadingPage from "../../../components/Loader/LoadingPage";
-const JobDetails = () => {
+const InternshipDetails = () => {
   const [allJobsData, setAllJobsData] = useState([]);
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -15,13 +15,13 @@ const JobDetails = () => {
     };
   }, [window.location.pathname]);
 
-  const JobDetails = (
+  const InternshipDetails = (
     <div className="CompanyJobDetails">
-      <h2>Job Hiring</h2>
+      <h2>Intern Hiring</h2>
       <div className="Jobs">
         <div className="JobTiles">
           {allJobsData
-            .filter((res) => res.opportunityType === "Job")
+            .filter((res) => res.opportunityType === "Internship")
             .map((item, index) => {
               return (
                 <JobCards
@@ -39,7 +39,7 @@ const JobDetails = () => {
     </div>
   );
 
-  return Object.keys(allJobsData).length !== 0 ? JobDetails : <LoadingPage />;
+  return Object.keys(allJobsData).length !== 0 ? InternshipDetails : <LoadingPage />;
 };
 
-export default JobDetails;
+export default InternshipDetails;
