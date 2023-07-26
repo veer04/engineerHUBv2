@@ -11,7 +11,7 @@ permissions:
 
 jobs:
   Build-only:
-    if: github.ref != 'ref/heads/main'
+    if: github.ref != 'refs/heads/main'
     runs-on: ubuntu-latest
     steps: 
       - name: Checkout Git Repository
