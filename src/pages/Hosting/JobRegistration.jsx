@@ -1,4 +1,6 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
 import "./EventRegistration.css";
 import "./JobRegistration.css";
 import axios from "axios";
@@ -376,6 +378,7 @@ const JobRegistrationForm = () => {
   };
 
   function handleNext() {
+    window.scrollTo(0, 0);
     if (step === 1) {
       if (validateInput1()) setStep((prev) => prev + 1);
     }
@@ -511,7 +514,6 @@ const JobRegistrationForm = () => {
         helperText={errors.opportunityName}
         autoComplete="off"
       />
-
       <TextField
         name="organisationName"
         label="Company Name*"
@@ -526,7 +528,6 @@ const JobRegistrationForm = () => {
         helperText={errors.organisationName}
         autoComplete="off"
       />
-
       <div className="position-relative mt-3 mb-2">
         <label
           style={{
@@ -558,7 +559,6 @@ const JobRegistrationForm = () => {
           <p className="mui-copy-input-label-3">{errors.opportunityPoster}</p>
         )}
       </div>
-
       <div className="position-relative  mt-3 mb-2">
         <label
           style={{
@@ -590,7 +590,6 @@ const JobRegistrationForm = () => {
           </p>
         )}
       </div>
-
       <TextField
         name="websiteUrl"
         label="Company Website*"
@@ -603,7 +602,6 @@ const JobRegistrationForm = () => {
         error={!!errors.websiteUrl}
         helperText={errors.websiteUrl}
       />
-
       <TextField
         name="applyLink"
         label="Apply Link"
@@ -616,7 +614,6 @@ const JobRegistrationForm = () => {
         error={!!errors.applyLink}
         helperText={errors.applyLink}
       />
-
       <TextField
         name="mobileNo"
         label="Mobile No.*"
@@ -629,7 +626,6 @@ const JobRegistrationForm = () => {
         error={!!errors.mobileNo}
         helperText={errors.mobileNo}
       />
-
       <TextField
         name="alternateMobileNo"
         label="Alternate Mobile No."
@@ -642,7 +638,6 @@ const JobRegistrationForm = () => {
         error={!!errors.alternateMobileNo}
         helperText={errors.alternateMobileNo}
       />
-
       <TextField
         name="email"
         label="Email*"
@@ -801,9 +796,6 @@ const JobRegistrationForm = () => {
             "Continuous Learning",
           ]}
           freeSolo
-          sx={{
-            color: !!errors.skillsRequired ? "#d32f2f" : "rgba(0, 0, 0, 0.6)",
-          }}
           value={skillsRequired}
           onChange={handleSkillsChange}
           renderInput={(params) => (
@@ -946,22 +938,39 @@ const JobRegistrationForm = () => {
           </FormControl>
         </>
       )}
-      <TextField
-        name="description"
-        label="Description*"
-        variant="outlined"
-        value={description}
-        placeholder="Description should be in 50 to 1000 characters"
-        multiline
-        minRows={3}
-        maxRows={6}
-        onChange={(e) => setDescription(e.target.value)}
-        onBlur={(e) => setDescription(e.target.value.trim())}
-        fullWidth
-        margin="normal"
-        error={!!errors.description}
-        helperText={errors.description}
-      />
+
+      <FormControl margin="normal" fullWidth>
+        <div className="position-relative">
+          <div
+            className="quill-container"
+            style={{
+              border: !!errors.description
+                ? "1px solid #d32f2f"
+                : "1px solid rgba(0, 0, 0, 0.23)",
+            }}
+          >
+            <label
+              style={{
+                color: !!errors.description ? "#d32f2f" : "rgba(0, 0, 0, 0.6)",
+              }}
+              className="mui-copy-input-label"
+              htmlFor="description"
+            >
+              Description*
+            </label>
+            <ReactQuill
+              theme="snow"
+              value={description}
+              onChange={setDescription}
+            />
+          </div>
+          {errors.description && (
+            <p className="mui-copy-input-label-3" id=":rf:-helper-text">
+              {errors.description}
+            </p>
+          )}
+        </div>
+      </FormControl>
 
       <div className="position-relative">
         <label
