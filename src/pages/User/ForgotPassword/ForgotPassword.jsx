@@ -8,6 +8,7 @@ import Button from '@mui/material/Button';
 import axios from 'axios';
 import { API_URL } from '../../../services/APIUtils';
 export default function ForgotPassword() {
+  const navigate=useNavigate();
   const [email, setEmail] = useState('');
   const [error, setError] = useState('');
     const handleEmailChange = (event) => {
@@ -28,9 +29,10 @@ export default function ForgotPassword() {
             {
               Cookies.set("ForgotId",res.data._id);
               Cookies.set("ForgotRole",res.data.role);
+              navigate("/change-password");
             }
         });
-        console.log(response.data); // Do something with the API response
+        console.log(response); // Do something with the API response
         setEmail('');
       } catch (error) {
         console.error(error);
@@ -44,7 +46,7 @@ export default function ForgotPassword() {
     <main>
             <div className="cont-head">
               <div
-                className="my-form-head"
+                className="my-form-head forgotPassHeader"
                 style={{
                   color: "#0a3f51",
                   padding: "0px 0px 30px 0px",
@@ -53,8 +55,12 @@ export default function ForgotPassword() {
                 Forgot Password
               </div>
             </div>
-
+     <div className="row">
+      <div className="col-sm-4"></div>
+      <div className="col-sm-4">
+      <div className='InputFieldFpass'>
        <TextField
+       fullWidth
         label="Email Address"
         variant="outlined"
         value={email}
@@ -62,9 +68,16 @@ export default function ForgotPassword() {
         error={!!error}
         helperText={error}
       />
+      </div>
+              </div>
+              <div className="col-sm-4"></div>
+
+      </div>
+      <div className='InputFieldFpass'>
       <Button variant="contained" onClick={handleSubmit}>
         Submit
       </Button>
+      </div>
     </main>
   )
 }

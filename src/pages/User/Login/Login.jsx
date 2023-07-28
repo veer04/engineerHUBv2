@@ -224,21 +224,74 @@ const Register = () => {
   const NavigateForgot=()=>{
     navigate("/forgot-password");
   }
-  const handleGoogleLoginSuccess = () => {
-      try {
-        const response =  axios.get(`https://engineerhub-yash.onrender.com/api/v1/auth/google/user`, {
-  
-        });
-        console.log(response.data);
-  
-      } catch (error) {
-        console.error(error);
-      }
-  };
 
-  const handleGoogleLoginFailure = (response) => {
-    console.error(response);
-  };
+
+
+
+
+ // Replace with the actual URL of your backend server
+
+// Function to perform the API call from the frontend
+const googleAuthTry = () => {
+  window.open(
+    `${API_URL}api/v1/auth/google/user`,
+    "_self"
+  );
+};
+async function handleGoogleLoginSuccess() {
+  try {
+    // Make the initial request to the API endpoint
+    const response = await axios.get(`https://accounts.google.com/o/oauth2/v2/auth/oauthchooseaccount?response_type=code&redirect_uri=https%3A%2F%2Fbackend.ehubbusiness.com%2Fapi%2Fv1%2Fauth%2Fgoogle%2Fuser%2Fredirect%2F&scope=profile%20email&client_id=111727756822-c6nh6mvi2acqcm51t59r5ummd3tc8j42.apps.googleusercontent.com&service=lso&o2v=2&flowName=GeneralOAuthFlow`);
+
+    // If the response status is 200, the request was successful
+    if (response.status === 200) {
+      // Process the response data or do whatever you need to do with it
+      console.log('API Response:', response.data);
+    }
+  } catch (error) {
+    // If the request resulted in an error (e.g., 302 redirect)
+    if (error.response) {
+      // Check if the error status is 302 (redirect)
+      if (error.response.status === 302) {
+        // The server is redirecting the frontend, and the new location is provided in the "Location" header
+        const redirectURL = error.response.headers['location'];
+
+        // Now, you can make another request to the redirect URL
+        try {
+          const redirectedResponse = await axios.get(redirectURL);
+
+          // If the response status is 200, the redirected request was successful
+          if (redirectedResponse.status === 200) {
+            // Process the response data or do whatever you need to do with it
+            console.log('Redirected API Response:', redirectedResponse.data);
+          }
+        } catch (redirectError) {
+          // Handle any errors that might occur during the redirected request
+          console.error('Redirected API Request Error:', redirectError);
+        }
+      } else {
+        // Handle other error statuses if needed
+        console.error('API Request Error:', error);
+      }
+    } else {
+      // Handle non-response related errors (e.g., network issues)
+      console.error('API Request Error:', error);
+    }
+  }
+}
+
+// Call the function to make the API request
+
+
+
+
+
+
+
+
+
+
+
 
   //   const gauth = useGoogleLogin({
   //     onSuccess: (codeResponse) => setUser(codeResponse),
@@ -426,7 +479,7 @@ const Register = () => {
           <div>
         
           <GoogleButton
-      onClick={handleGoogleLoginSuccess}
+      onClick={ googleAuthTry}
     >
       Sign in with Google
     </GoogleButton>
