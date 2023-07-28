@@ -152,6 +152,10 @@
 .JobInfo .JobInfoItems .JobInfoItem:nth-child(3) img {
   right: -30px;
 }
+#quill-job-description a {
+  color: rgb(66, 136, 249);
+  text-decoration: underline;
+}
 
 @media screen and (max-width: 768px) {
   .JobDetailHeader span .imgBox {
