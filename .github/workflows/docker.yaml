@@ -11,7 +11,7 @@ permissions:
 
 jobs:
   Build-only:
-    if: github.ref != 'ref/heads/main'
+    if: github.ref != 'refs/heads/main'
     runs-on: ubuntu-latest
     steps: 
       - name: Checkout Git Repository
@@ -65,7 +65,6 @@ jobs:
             VITE_BUCKET_URL=${{ vars.VITE_BUCKET_URL }}
             VITE_AESKEY=${{ vars.VITE_AESKEY }}
             VITE_FRONTEND_URL=${{ vars.VITE_FRONTEND_URL }}
-
 
 # name: Use Private Action
 # on:
