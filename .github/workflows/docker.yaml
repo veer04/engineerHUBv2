@@ -32,6 +32,14 @@ jobs:
             VITE_BUCKET_URL=${{ vars.VITE_BUCKET_URL }}
             VITE_AESKEY=${{ vars.VITE_AESKEY }}
             VITE_FRONTEND_URL=${{ vars.VITE_FRONTEND_URL }}
+            GOOGLE_CLIENT_ID_CLUB=${{ secrets.GOOGLE_CLIENT_ID_CLUB }}
+            GOOGLE_CLIENT_SECRET_CLUB=${{ secrets.GOOGLE_CLIENT_SECRET_CLUB }} 
+            HOME_PAGE=${{ vars.HOME_PAGE }}
+            LOGIN_PAGE=${{ vars.LOGIN_PAGE }}
+            REDIRECT_ALUMNI_URL_GAUTH=${{ vars.REDIRECT_ALUMNI_URL_GAUTH }}
+            REDIRECT_CLUB_URL_GAUTH=${{ vars.REDIRECT_CLUB_URL_GAUTH }}
+            REDIRECT_ORGANIZATION_URL_GAUTH=${{ vars.REDIRECT_ORGANIZATION_URL_GAUTH }}
+            REDIRECT_USER_URL_GAUTH=${{ vars.REDIRECT_USER_URL_GAUTH }}
 
   Build-Push-Image:
     if: github.ref == 'refs/heads/main'
@@ -65,6 +73,14 @@ jobs:
             VITE_BUCKET_URL=${{ vars.VITE_BUCKET_URL }}
             VITE_AESKEY=${{ vars.VITE_AESKEY }}
             VITE_FRONTEND_URL=${{ vars.VITE_FRONTEND_URL }}
+            GOOGLE_CLIENT_ID_CLUB=${{ secrets.GOOGLE_CLIENT_ID_CLUB }}
+            GOOGLE_CLIENT_SECRET_CLUB=${{ secrets.GOOGLE_CLIENT_SECRET_CLUB }} 
+            HOME_PAGE=${{ vars.HOME_PAGE }}
+            LOGIN_PAGE=${{ vars.LOGIN_PAGE }}
+            REDIRECT_ALUMNI_URL_GAUTH=${{ vars.REDIRECT_ALUMNI_URL_GAUTH }}
+            REDIRECT_CLUB_URL_GAUTH=${{ vars.REDIRECT_CLUB_URL_GAUTH }}
+            REDIRECT_ORGANIZATION_URL_GAUTH=${{ vars.REDIRECT_ORGANIZATION_URL_GAUTH }}
+            REDIRECT_USER_URL_GAUTH=${{ vars.REDIRECT_USER_URL_GAUTH }}
 
 
 # name: Use Private Action
