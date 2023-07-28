@@ -41,6 +41,7 @@ const JobRegistrationForm = () => {
   const [opportunityTiming, setJobTiming] = useState(""); // enum Full Time, Part Time, Contractual
   const [duration, setDuration] = useState(""); //duration in months
   const [websiteUrl, setWebsiteUrl] = useState("");
+  const [applyLink, setApplyLink] = useState(""); //optional
   const [organisationName, setOrganisation] = useState("");
   const [opportunityPoster, setOpportunityPoster] = useState({});
   const [organisationLogo, setOrganizationPoster] = useState({});
@@ -102,6 +103,7 @@ const JobRegistrationForm = () => {
     policy: "",
     duration: "",
     websiteUrl: "",
+    applyLink: "",
     skillsRequired: "",
   });
 
@@ -134,6 +136,7 @@ const JobRegistrationForm = () => {
       organisationName: "",
       organisationLogo: "",
       websiteUrl: "",
+      applyLink: "",
       mobileNo: "",
       alternateMobileNo: "",
       email: "",
@@ -188,6 +191,11 @@ const JobRegistrationForm = () => {
     } else if (!/^(ftp|http|https):\/\/[^ "]+$/.test(websiteUrl)) {
       newErrors.websiteUrl =
         "Invalid website url! (Ex: https://www.engineerhub.in/)";
+      valid = false;
+    }
+    if (applyLink && !/^(ftp|http|https):\/\/[^ "]+$/.test(applyLink)) {
+      newErrors.applyLink =
+        "Invalid apply link! (Ex: https://www.engineerhub.in/)";
       valid = false;
     }
     if (!mobileNo) {
@@ -422,6 +430,7 @@ const JobRegistrationForm = () => {
       form.append("duration", duration);
     }
     form.append("websiteUrl", websiteUrl);
+    form.append("applyLink", applyLink);
     if (!!policy) form.append("policy", policy);
 
     // console.log(form.get("opportunityType"), " opportunityType ");
@@ -584,8 +593,9 @@ const JobRegistrationForm = () => {
 
       <TextField
         name="websiteUrl"
-        label="Company Website Url*"
+        label="Company Website*"
         variant="outlined"
+        placeholder="Enter Company Website URL"
         value={websiteUrl}
         onChange={(e) => setWebsiteUrl(e.target.value)}
         fullWidth
@@ -595,9 +605,23 @@ const JobRegistrationForm = () => {
       />
 
       <TextField
+        name="applyLink"
+        label="Apply Link"
+        variant="outlined"
+        placeholder="Enter apply link (Leave blank if not available)"
+        value={applyLink}
+        onChange={(e) => setApplyLink(e.target.value)}
+        fullWidth
+        margin="normal"
+        error={!!errors.applyLink}
+        helperText={errors.applyLink}
+      />
+
+      <TextField
         name="mobileNo"
         label="Mobile No.*"
         variant="outlined"
+        placeholder="Enter Mobile No."
         value={mobileNo}
         onChange={(e) => setMobileNo(e.target.value.trim())}
         fullWidth
@@ -605,10 +629,12 @@ const JobRegistrationForm = () => {
         error={!!errors.mobileNo}
         helperText={errors.mobileNo}
       />
+
       <TextField
         name="alternateMobileNo"
         label="Alternate Mobile No."
         variant="outlined"
+        placeholder="Enter Alternate Mobile No."
         value={alternateMobileNo}
         onChange={(e) => setAlterNetMobileNo(e.target.value.trim())}
         fullWidth
@@ -621,6 +647,7 @@ const JobRegistrationForm = () => {
         name="email"
         label="Email*"
         variant="outlined"
+        placeholder="Enter contact email"
         value={email}
         onChange={(e) => setEmail(e.target.value.trim())}
         fullWidth
@@ -992,6 +1019,7 @@ const JobRegistrationForm = () => {
         name="policy"
         label="Policy"
         variant="outlined"
+        placeholder="Policy should be in 50 to 1000 characters"
         value={policy}
         multiline
         minRows={3}

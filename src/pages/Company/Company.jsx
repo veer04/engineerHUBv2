@@ -24,11 +24,11 @@ const CompanyCards = ({ data }) => {
       <div className="stats">
         <span>
           <h2>{data.stats.position}+</h2>
-          <h6>Job Postings Live</h6>
+          <h6>{data.text1}</h6>
         </span>
         <span>
           <h2>{data.stats.hiring}+</h2>
-          <h6>On-going Hiring</h6>
+          <h6>{data.text2}</h6>
         </span>
       </div>
       <Link to={data.link}>
@@ -41,14 +41,14 @@ const Company = () => {
   const { setSelectedPageNavbar } = useNavbar();
   const [hiring, setHiring] = useState([]);
   const [project, setProject] = useState([]);
-  const [cntEvent,setCntEvent]=useState(-1);
-  const [cntEventLive,setCntEventLive]=useState(-1);
-  const [cntJob,setCntJob]=useState(-1);
-  const [cntJobLive,setCntJobLive]=useState(-1);
-  const [cntInternship,setCntInternship]=useState(-1);
-  const [cntInternshipLive,setCntInternshipLive]=useState(-1);
-  const [cntProject,setCntProject]=useState(-1);
-  const[length,setLength]=useState(-1);
+  const [cntEvent, setCntEvent] = useState(-1);
+  const [cntEventLive, setCntEventLive] = useState(-1);
+  const [cntJob, setCntJob] = useState(-1);
+  const [cntJobLive, setCntJobLive] = useState(-1);
+  const [cntInternship, setCntInternship] = useState(-1);
+  const [cntInternshipLive, setCntInternshipLive] = useState(-1);
+  const [cntProject, setCntProject] = useState(-1);
+  const [length, setLength] = useState(-1);
   const navigate = useNavigate();
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -60,17 +60,42 @@ const Company = () => {
     };
   }, []);
 
-useEffect(()=>{
-  
-  setCntEvent(Object.keys(hiring.filter((res) => res.opportunityType === "Event")).length);
-  setCntEventLive(Object.keys(hiring.filter((res) => res.opportunityType === "Event" && res.isServiceOff===false)).length);
-  setCntJob(Object.keys(hiring.filter((res) => res.opportunityType === "Job")).length);
-  setCntJobLive(Object.keys(hiring.filter((res) => res.opportunityType === "Job"&& res.isServiceOff===false)).length);
-  setCntInternship(Object.keys(hiring.filter((res) => res.opportunityType === "Internship")).length);
-  setCntInternshipLive(Object.keys(hiring.filter((res) => res.opportunityType === "Internship"&& res.isServiceOff===false)).length);
-  setCntProject(Object.keys(project).length);
-
-  },[hiring,project]);
+  useEffect(() => {
+    setCntEvent(
+      Object.keys(hiring.filter((res) => res.opportunityType === "Event"))
+        .length
+    );
+    setCntEventLive(
+      Object.keys(
+        hiring.filter(
+          (res) => res.opportunityType === "Event" && res.isServiceOff === false
+        )
+      ).length
+    );
+    setCntJob(
+      Object.keys(hiring.filter((res) => res.opportunityType === "Job")).length
+    );
+    setCntJobLive(
+      Object.keys(
+        hiring.filter(
+          (res) => res.opportunityType === "Job" && res.isServiceOff === false
+        )
+      ).length
+    );
+    setCntInternship(
+      Object.keys(hiring.filter((res) => res.opportunityType === "Internship"))
+        .length
+    );
+    setCntInternshipLive(
+      Object.keys(
+        hiring.filter(
+          (res) =>
+            res.opportunityType === "Internship" && res.isServiceOff === false
+        )
+      ).length
+    );
+    setCntProject(Object.keys(project).length);
+  }, [hiring, project]);
 
   const bucket = `${Bucket_URL}frontend/company/`;
   const CompanyCardEntries = [
@@ -84,6 +109,8 @@ useEffect(()=>{
       },
       link: "/company/events",
       background: "#F7d77f",
+      text1: "events live",
+      text2: "ongoing hirings",
     },
     {
       name: "job hiring",
@@ -95,6 +122,8 @@ useEffect(()=>{
         hiring: cntJobLive,
       },
       link: "/company/jobs",
+      text1: "jobs live",
+      text2: "ongoing hirings",
     },
     {
       name: "project hub",
@@ -106,6 +135,8 @@ useEffect(()=>{
         hiring: cntProject,
       },
       link: "/company/projects",
+      text1: "projects live",
+      text2: "ongoing projects",
     },
     {
       name: "BE AN INTERN",
@@ -117,7 +148,9 @@ useEffect(()=>{
         hiring: cntInternshipLive,
       },
       link: "/company/internships",
-    }
+      text1: "internships live",
+      text2: "ongoing hirings",
+    },
   ];
   const CategoryEntries = [
     { name: "Design", logo: `${bucket}appdevLogo.svg` },
