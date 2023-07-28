@@ -126,3 +126,19 @@
   color: #fff !important;
   opacity: 1 !important;
 }
+.ql-snow .ql-picker.ql-expanded .ql-picker-options {
+  z-index: 2;
+}
+.ql-toolbar,
+.ql-container {
+  border: none !important;
+}
+.ql-container {
+  border-top: 1px solid #ccc !important;
+}
+.quill-container{
+  border-radius: 5px;
+}
+.ql-editing{
+  z-index: 2;
+}

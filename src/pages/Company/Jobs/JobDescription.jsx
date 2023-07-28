@@ -200,7 +200,7 @@ const JobDescription = () => {
       </div>
       <div className="JobDesc">
         <h5>Job Description</h5>
-        <p>{hiring.description}</p>
+        <p id="quill-job-description"></p>
       </div>
       <div className="JobInfo">
         <h5>More Information</h5>
@@ -241,6 +241,13 @@ const JobDescription = () => {
       </div>
     </div>
   );
+
+  useEffect(() => {
+    if (Object.keys(hiring).length !== 0) {
+      document.getElementById("quill-job-description").innerHTML =
+        hiring.description;
+    }
+  }, [hiring]);
 
   return Object.keys(hiring).length !== 0 ? JobDescription : <LoadingPage />;
 };
