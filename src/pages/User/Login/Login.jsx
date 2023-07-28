@@ -464,8 +464,8 @@ async function handleGoogleLoginSuccess() {
                 </button>
 
                 <div className="d-flex justify-content-center">
-                  <div className="f-p" onClick={NavigateForgot}>Forgot Password ?</div>
-            <div className="f-p "onClick={gauth}>Reset Now </div>
+                  <div className="f-p" onClick={NavigateForgot}>Forgot Password ? Reset Now</div>
+            {/* <div className="f-p "onClick={gauth}>Reset Now </div> */}
                 </div>
               </div>
               <div className="divisor d-flex justify-content-center">
@@ -474,8 +474,8 @@ async function handleGoogleLoginSuccess() {
                 <hr />
               </div>
 
-              <div className="sign-field reg-field">
-                <div className="sign-opt ">
+              {/* <div className="sign-field reg-field">
+                <div className="sign-opt "> */}
           {/* <div>
         
           <GoogleButton
@@ -485,8 +485,8 @@ async function handleGoogleLoginSuccess() {
     </GoogleButton>
 
               </div> */}
-          </div>
-              </div>
+          {/* </div>
+              </div> */}
 
               <div className="my-item-cont">
                 <div>Didn't have an account?</div>
