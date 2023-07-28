@@ -476,7 +476,7 @@ async function handleGoogleLoginSuccess() {
 
               <div className="sign-field reg-field">
                 <div className="sign-opt ">
-          <div>
+          {/* <div>
         
           <GoogleButton
       onClick={ googleAuthTry}
@@ -484,7 +484,7 @@ async function handleGoogleLoginSuccess() {
       Sign in with Google
     </GoogleButton>
 
-              </div>
+              </div> */}
           </div>
               </div>
 
