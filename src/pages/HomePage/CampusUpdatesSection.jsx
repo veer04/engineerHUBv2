@@ -9,22 +9,23 @@ export default function CampusUpdatesSection() {
   //fetch updates from backend
   const updates = [
     {
-      title: "• IIT Madras is going to have a IOT WORKSHOP on 17.6.23",
+      title:
+        "• IIT Kharagpur is going to have a  short term course on Categorical Data Analysis from 16 august 2023 to 18th august 2023.",
     },
     {
       title:
-        "• IIT  kharagpur is going to have a online workshop of MATLAB Programming for Physical & Chemical Sciences from 18th june 2023-3rd july 2023 (3weekends)",
+        "• Primary objective of course is to enable the participants to understand the collection,description,and analysis of categorical data.",
     },
     // {
     //   title: "• Lorem ipsum dolor sit amet, consectetur adipiscing elit",
     // },
     {
       title:
-        "• Hybrid workshop on scale development and impactful publication in social science to be held w.e.f. 19 to 23 July 2023 at NIT Hamirpur",
+        "• NIT Hamirpur is going to have a  5- days online Workship on MATLAB Applications in Civil engineering from 4th august to 8th august 2023.",
     },
     {
       title:
-        "• Understanding of molecular simulation at NIT Rourkela form 19 to 23 June 2023",
+        "• The lectures will be delivered by technical people from MATLAB or MATLAB partner companies and different experts from NITs,IITs, CSIR labs etc.",
     },
     // {
     //   title: "• Lorem ipsum dolor sit amet, consectetur adipiscing elit",
