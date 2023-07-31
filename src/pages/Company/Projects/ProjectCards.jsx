@@ -2,9 +2,15 @@ import React from "react";
 import "./ProjectCards.css";
 import { useNavigate } from "react-router-dom";
 import defaultPoster from "../../../assets/defaultPoster";
+import { useEffect } from "react";
 
 const ProjectCards = ({ data }) => {
   const navigate = useNavigate();
+  useEffect(() => {
+    document.getElementById(
+      `company-project-card-description-${data._id}`
+    ).innerHTML = data.description;
+  }, [data.description]);
   return (
     <div
       className="ProjectCard"
@@ -13,9 +19,9 @@ const ProjectCards = ({ data }) => {
       }}
     >
       <div className="ProjectCardTile">
-        {data.projectImage ? (
+        {data.projectPoster ? (
           <div
-            style={{ backgroundImage: `url(${data.projectImage})` }}
+            style={{ backgroundImage: `url(${data.projectPoster})` }}
             className="imageBanner"
             alt="Image"
           />
@@ -30,7 +36,10 @@ const ProjectCards = ({ data }) => {
         )}
         <div className="ProjectCardContent">
           <h1 className="text-crop-2 overflow-hidden">{data.projectName}</h1>
-          <p className="text-crop-3 overflow-hidden">{data.description}</p>
+          <p
+            id={`company-project-card-description-${data._id}`}
+            className="text-crop-3 overflow-hidden"
+          ></p>
           <div className="tags">
             {data.techStack?.slice(0, 3).map((tag, index) => (
               <span key={index} className="tag">
@@ -43,10 +52,10 @@ const ProjectCards = ({ data }) => {
           </div>
           <br />
           <div className="organization">
-            <div className="logo">
-              <img src={data.organizationLogo} alt="logo" className="logoImg" />
+            <div className="logo overflow-hidden">
+              <img src={data.organisationLogo} alt="logo" className="logoImg" />
             </div>
-            <h5>{data.organization}</h5>
+            <h5>{data.organisationName}</h5>
             {/* <span>
               <span className="icon">
                 <IoPeopleOutline />
