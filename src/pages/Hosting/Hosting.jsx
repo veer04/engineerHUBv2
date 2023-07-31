@@ -210,7 +210,7 @@ export default function Hosting() {
           <div
             onClick={() => navigationOrganization("project")}
             style={{
-              backgroundImage: `url(${bucket}jobs.png)`,
+              backgroundImage: `url(${bucket}project.png)`,
             }}
             className="card"
           >

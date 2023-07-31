@@ -22,30 +22,26 @@ export default function RecentActivitiesSection() {
   const activities = [
     {
       id: 1,
-      date: "Few days ago",
-      title: "Engineer’s Munch || engineerHUB ",
+      title: "Chatbot using python(CHAT GPT API) WORKSHOP 2023",
       description:
-        "Are you an aspiring engineer looking to expand your Network and connect with like-minded individuals? If so, I'd like to invite you to join us at the Engineer's मंच event! As it's clear from name, every Engineer will have their own मंच (platform) where they will have their own audience who would love to hear them.",
-      link: "https://discord.gg/xNcefnFEVu",
+        "About Event 1. INTRODUCTION TO ANACONDA, JUPYTER NOTEBOOK.2. VARIABLES AND DATA TYPES3. PYTHON OPERATORS4. LIST, TUPLE, DICTIONARY5. CONDITIONAL & LOOPS STATEMENTS IN PYTHON6. IMPORTING THE OPEN AI CHATGPT 3.5 TURBO AND CREATING A CUSTOM INTERFACE.7. CREATING CUSTOM RESPONSES FOR SPECIFIC QUESTIONS8. WORKSHOP CONCLUSION**NOTE: LAPTOP IS MANDATORY, SINCE HANDS-ON SESSIONS NEEDS PROGRAMMING",
+      link: "https://rzp.io/l/MB7dsu0uN9",
       time:
-        computeTime("2023-06-14T18:30:00.000Z").charAt(0).toUpperCase() +
-        computeTime("2023-06-14T18:30:00.000Z").slice(1),
+        computeTime("2023-08-05T18:30:00.000Z").charAt(0).toUpperCase() +
+        computeTime("2023-08-05T18:30:00.000Z").slice(1),
     },
     {
       id: 2,
-      date: "5 days ago",
-      title:
-        "Why Entrepreneurship after IIT || IIT Delhi to SayF ||  @engineerHUB1",
+      title: "Embedded System Design Workshop 2023",
       description:
-        "We will get to know how Aman Singh (Co Founder of SayF) ended up in SayF from IIT Delhi  @IITDelhiOfficial .",
-      link: "https://youtube.com/live/cTpZE3Vvo5c",
+        "INTRODUCTION EMBEDDED SYSTEM BASIC ELECTRONICS ARDUINO PROGRAMMING DIGITAL INPUTS / OUTPUTS LED BLINKING SWITCH INTERFACING PROGRAMMING SERIAL COMMUNICATION PROGRAMMING ANALOG INPUTS ANALOG SENSOR INTERFACING PROGRAMMING ANALOG OUTPUTS RGB LED INTERFACING SERVO MOTOR INTERFACING **NOTE: LAPTOP IS MANDATORY, SINCE HANDS-ON SESSIONS NEEDS PROGRAMMING ",
+      link: "https://rzp.io/l/xIyajVG",
       time:
-        computeTime("2023-04-11T18:30:00.000Z").charAt(0).toUpperCase() +
-        computeTime("2023-04-11T18:30:00.000Z").slice(1),
+        computeTime("2023-08-06T18:30:00.000Z").charAt(0).toUpperCase() +
+        computeTime("2023-08-06T18:30:00.000Z").slice(1),
     },
     {
       id: 3,
-      date: "15 days ago",
       title:
         "Machine Learning || Exploratory data analysis (EDA) using Python @ engineerHUB",
       description:
@@ -57,7 +53,6 @@ export default function RecentActivitiesSection() {
     },
     {
       id: 4,
-      date: "A month ago",
       title:
         "No need for SDE-1 level engineers?? || Insights by a Googler || @engineerHUB1",
       description:
