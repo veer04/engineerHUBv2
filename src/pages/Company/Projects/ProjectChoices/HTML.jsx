@@ -15,6 +15,10 @@ const HTML = () => {
     return () => {
       controller.abort();
     };
+  }, []);
+
+  useEffect(() => {
+    console.log(project);
   }, [project]);
 
   return (

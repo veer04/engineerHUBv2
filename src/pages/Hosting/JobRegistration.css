@@ -118,7 +118,7 @@
 .filename {
   position: absolute;
   top: 18px;
-  left: 130px;
+  left: 120px;
   max-width: 400px;
 }
 .next-button:disabled {
@@ -136,9 +136,9 @@
 .ql-container {
   border-top: 1px solid #ccc !important;
 }
-.quill-container{
+.quill-container {
   border-radius: 5px;
 }
-.ql-editing{
+.ql-editing {
   z-index: 2;
 }
