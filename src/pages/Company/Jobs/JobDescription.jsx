@@ -8,19 +8,25 @@ import { useState } from "react";
 import getCookie, { getAccessToken } from "../../../features/getCookieValues";
 import Cookies from "js-cookie";
 import axios from "axios";
-import { controller, getHiringDataById } from "../../../services/APIConfig";
+import {
+  controller,
+  getHiringDataById,
+  getUserProfileById,
+} from "../../../services/APIConfig";
 import LoadingPage from "../../../components/Loader/LoadingPage";
 import Page404 from "../../Maintenance/Page404";
-import { get } from "react-hook-form";
 const JobDescription = () => {
   const { hiringId } = useParams();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const bucket = `${Bucket_URL}frontend/company/jobs/`;
   const [hiring, setHiring] = useState({});
   const [isApplicable, setIsApplicable] = useState(false);
+  const [profile, setProfile] = useState({});
+  const [isResumeUploaded, setIsResumeUploaded] = useState(false);
 
   useEffect(() => {
     if (getCookie("name")) {
+      getUserProfileById(setProfile, getCookie("_id")[2]);
       setIsLoggedIn(true);
       if (
         Cookies.get("role") !== "Organization" &&
@@ -32,6 +38,15 @@ const JobDescription = () => {
       }
     }
   }, []);
+  useEffect(() => {
+    if (isLoggedIn) {
+      if (!!profile?.resume) {
+        setIsResumeUploaded(true);
+      } else {
+        setIsResumeUploaded(false);
+      }
+    }
+  }, [profile]);
   useEffect(() => {
     window.scrollTo(0, 0);
     getHiringDataById(setHiring, hiringId);
@@ -45,6 +60,12 @@ const JobDescription = () => {
   const UserDataPost = () => {
     if (!!hiring?.detailFound?.applyLink) {
       window.open(hiring?.detailFound?.applyLink, "_blank");
+      return;
+    }
+
+    if (isApplicable && hiring?.applied === false && !isResumeUploaded) {
+      window.alert("Please upload your resume first");
+      window.location.href = `/profile/student/${getCookie("_id")[2]}/edit`;
       return;
     }
 
@@ -125,13 +146,6 @@ const JobDescription = () => {
             </span>
           </div>
           <div className="apply-btn-container">
-            {/* {isLoggedIn && hiring.websiteUrl ? (
-              <Link to={hiring.websiteUrl}>
-                <div className="btn">
-                  Apply
-                </div>
-              </Link>
-            ) :  */}
             {isLoggedIn ? (
               <div>
                 {!isApplicable && (
@@ -144,6 +158,13 @@ const JobDescription = () => {
                     Apply
                   </button>
                 )}
+                {/* {isApplicable &&
+                  hiring?.applied === false &&
+                  !isResumeUploaded && (
+                    <button onClick={UserDataPost} className="btn">
+                      Apply
+                    </button>
+                  )} */}
                 {hiring?.applied === true && (
                   <button className="btn" disabled>
                     Applied
