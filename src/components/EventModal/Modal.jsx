@@ -111,17 +111,44 @@ export default function Modal({ handleClose, setShowModal }) {
               <div>Logistics</div>
               <div>{time}</div>
             </div>
+          { (!event?.applyLink || event?.applyLink.trim() === "") ?(
+              <div >
+              {/* <a href={event.applyLink}> */}
+                <div   
+                  // onClick={() => {
+                  //   handleClose();
+                    // navigate(-1);
+                  // }}
+                  style={{
+                    color:"grey"
+                  }}
+                  className="link"
+                >
+                  Event Link
+                </div>
+              {/* </a> */}
+              </div>
+
+          ):(
+            
+            <div >
             <a href={event.applyLink}>
-              <div
+              <div   
                 onClick={() => {
                   handleClose();
                   // navigate(-1);
+                }}
+                style={{
+                  color:"#fff"
                 }}
                 className="link"
               >
                 Event Link
               </div>
             </a>
+            </div>
+          )
+          }
           </div>
         </div>
       ) : (
