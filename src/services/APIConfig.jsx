@@ -34,6 +34,35 @@ export const patchProfilePicture = (userId, file, setResponse) => {
     });
 };
 
+
+export const patchResume = (userId, file, setResponse) => {
+  const controller = new AbortController();
+  const config = {
+    headers: {
+      accessToken: getAccessToken(),
+    },
+  };
+  axios
+    .patch(`${API_URL}api/v1/user/resumeUpdate`, file, config)
+    .then((res) => {
+      console.log(res);
+      setResponse(res.data.data);
+      return res;
+    })
+    .catch((err) => {
+      if (axios.isCancel(err)) {
+        console.log("req cancel");
+        setResponse(err);
+        return err;
+      } else {
+        console.log("req performed");
+        console.log(err);
+        setResponse(err);
+        return err;
+      }
+    });
+};
+
 export const patchStudentData = (userId, data, setResponse) => {
   const controller = new AbortController();
   const config = {
