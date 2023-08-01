@@ -23,12 +23,12 @@ export default function Hosting() {
       case "Hackathon":
         value = "Hackathon";
         break;
-        case "Job":
+      case "Job":
         value = "Job";
         break;
-        case "Internship":
-          value = "Internship";
-          break;
+      case "Internship":
+        value = "Internship";
+        break;
       default:
         value = "";
     }
@@ -61,8 +61,8 @@ export default function Hosting() {
       const decoded = jwt_decode(token);
       console.log(decoded);
       console.log(decoded.role);
-      const storedValue = localStorage.getItem('event');
-      if (decoded.role === "Organization" ) {
+      const storedValue = localStorage.getItem("event");
+      if (decoded.role === "Organization") {
         navigate(`/host/${type}`);
       } else {
         window.alert("Not Authorized to Host events!!!");
@@ -77,7 +77,7 @@ export default function Hosting() {
       const decoded = jwt_decode(token);
       console.log(decoded);
       console.log(decoded.role);
-      const storedValue = localStorage.getItem('event');
+      const storedValue = localStorage.getItem("event");
       if (decoded.role === "Club") {
         navigate("/hostevent");
       } else {
@@ -182,7 +182,7 @@ export default function Hosting() {
         <div className="cards">
           {/* <Link to="/hostevent"> */}
           <div
-            onClick={()=>navigationOrganization("job")}
+            onClick={() => navigationOrganization("job")}
             style={{
               backgroundImage: `url(${bucket}jobs.png)`,
             }}
@@ -196,7 +196,7 @@ export default function Hosting() {
           {/* </Link>
           <Link to="/hostevent"> */}
           <div
-            onClick={()=>navigationOrganization("internship")}
+            onClick={() => navigationOrganization("internship")}
             style={{
               backgroundImage: `url(${bucket}internships.png)`,
             }}
@@ -205,6 +205,18 @@ export default function Hosting() {
             <div className="heading">Internships</div>
             <div className="subheading">
               Create Jobs <BsArrowRight />
+            </div>
+          </div>
+          <div
+            onClick={() => navigationOrganization("project")}
+            style={{
+              backgroundImage: `url(${bucket}project.png)`,
+            }}
+            className="card"
+          >
+            <div className="heading">Projects</div>
+            <div className="subheading">
+              Host Projects <BsArrowRight />
             </div>
           </div>
           {/* </Link>

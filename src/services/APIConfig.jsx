@@ -1,7 +1,7 @@
 import axios from "axios";
 import { API_URL } from "./APIUtils";
 import decryptData from "../features/DeCrypt";
-import { getAccessToken } from "../features/getCookieValues";
+import getCookie, { getAccessToken } from "../features/getCookieValues";
 import { set } from "react-hook-form";
 export const cancelToken = axios.CancelToken.source();
 export const controller = new AbortController();
@@ -303,14 +303,18 @@ export const getHiringData = (setHiring) => {
 };
 
 export const getHiringDataById = (setHiring, hiringId) => {
+  let userId = "";
+
+  if (!!getCookie("role")) {
+    if (getCookie("role")[2] === "User") {
+      userId = getCookie("_id")[2];
+    }
+  }
   const controller = new AbortController();
   axios
-    .get(`${API_URL}api/v1/hiring/${hiringId}`, {
-      signal: controller.signal,
-    })
+    .get(`${API_URL}api/v1/hiring/${hiringId}/${userId}`)
     .then((res) => {
       const data = res.data.data;
-      // const Hiringdata=res.data.data;
       setHiring(data);
     })
     .catch((err) => {
@@ -345,12 +349,11 @@ export const getAllJobs = (setJobs) => {
 export const getProjectData = (setProject) => {
   const controller = new AbortController();
   axios
-    .get(`${API_URL}api/v1/hiringProject/`, {
+    .get(`${API_URL}api/v1/projectHiring/`, {
       signal: controller.signal,
     })
     .then((res) => {
       const data = res.data.data;
-      // const Hiringdata=res.data.data;
       setProject(data);
     })
     .catch((err) => {
@@ -363,9 +366,16 @@ export const getProjectData = (setProject) => {
 };
 
 export const getProjectDataById = (setProject, projectId) => {
+  let userId = "";
+
+  if (!!getCookie("role")) {
+    if (getCookie("role")[2] === "User") {
+      userId = getCookie("_id")[2];
+    }
+  }
   const controller = new AbortController();
   axios
-    .get(`${API_URL}api/v1/project/${projectId}`, {
+    .get(`${API_URL}api/v1/projectHiringById/${projectId}/${userId}`, {
       signal: controller.signal,
     })
     .then((res) => {
@@ -562,6 +572,25 @@ export const getDomains = (setDomainData) => {
     .then((res) => {
       const data = res.data.data;
       setDomainData(data);
+    })
+    .catch((err) => {
+      if (axios.isCancel(err)) {
+        console.log("req cancel");
+      } else {
+        console.log("req performed");
+      }
+    });
+};
+
+export const getProjectCategories = (setProjectCategories) => {
+  const controller = new AbortController();
+  axios
+    .get(`${API_URL}api/v1/projectHiring/all/category`, {
+      signal: controller.signal,
+    })
+    .then((res) => {
+      const data = res.data.data;
+      setProjectCategories(data);
     })
     .catch((err) => {
       if (axios.isCancel(err)) {

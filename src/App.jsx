@@ -73,6 +73,7 @@ const Login = lazy(() => import("./pages/User/Login/Login"));
 import Chatpage from "./pages/chat/chatPage";
 import ChangePassword from "./pages/User/ForgotPassword/ChangePassword";
 import getCookie, { getAccessToken } from "./features/getCookieValues";
+import ProjectHosting from "./pages/Hosting/ProjectHosting";
 
 function App() {
   const [isEventModalOpen, setIsEventModalOpen] = useState(false);
@@ -237,6 +238,7 @@ function App() {
 
           {jobHostRoute === true && sendLogin === true ? (
             <>
+              <Route path="/host/project" element={<ProjectHosting />} />
               <Route path="/host/job" element={<JobRegistration />} />
               <Route path="/host/internship" element={<JobRegistration />} />
             </>

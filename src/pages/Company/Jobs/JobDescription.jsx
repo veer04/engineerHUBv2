@@ -11,9 +11,9 @@ import axios from "axios";
 import { controller, getHiringDataById } from "../../../services/APIConfig";
 import LoadingPage from "../../../components/Loader/LoadingPage";
 import Page404 from "../../Maintenance/Page404";
+import { get } from "react-hook-form";
 const JobDescription = () => {
   const { hiringId } = useParams();
-  const [flag, setFlag] = useState(-1);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const bucket = `${Bucket_URL}frontend/company/jobs/`;
   const [hiring, setHiring] = useState({});
@@ -25,7 +25,8 @@ const JobDescription = () => {
       if (
         Cookies.get("role") !== "Organization" &&
         Cookies.get("role") !== "Club" &&
-        Cookies.get("role") !== "Admin"
+        Cookies.get("role") !== "Admin" &&
+        Cookies.get("role") !== "Alumni"
       ) {
         setIsApplicable(true);
       }
@@ -34,32 +35,16 @@ const JobDescription = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
     getHiringDataById(setHiring, hiringId);
-    if (getCookie("name")) {
-      axios
-        .get(`${API_URL}api/v1/hiringUserFlag/${hiringId}`, {
-          headers: {
-            accesstoken: getAccessToken(),
-          },
-        })
-        .then((res) => {
-          setFlag(res.data.applied ? 1 : 0);
-        })
-        .catch((res) => {
-          if (res.status === 409) {
-            setFlag(0);
-          }
-        });
-      return () => {
-        setHiring({});
-        setFlag(-1);
-        controller.abort();
-      };
-    }
+
+    return () => {
+      setHiring({});
+      controller.abort();
+    };
   }, [hiringId]);
 
   const UserDataPost = () => {
-    if (!!hiring?.applyLink) {
-      window.open(hiring?.applyLink, "_blank");
+    if (!!hiring?.detailFound?.applyLink) {
+      window.open(hiring?.detailFound?.applyLink, "_blank");
       return;
     }
 
@@ -69,7 +54,7 @@ const JobDescription = () => {
     axios
       .post(`${API_URL}api/v1/hiringRegistration`, data, {
         headers: {
-          accesstoken: getAccessToken(),
+          accessToken: getAccessToken(),
         },
       })
       .then((res) => {
@@ -80,12 +65,13 @@ const JobDescription = () => {
           res.status === 203 ||
           res.status === 204
         ) {
-          setFlag(1);
+          console.log("response");
+          getHiringDataById(setHiring, hiringId);
         }
       })
       .catch((res) => {
-        if (res.status === 409) {
-          window.alert("already applied!");
+        if (!res.success) {
+          window.alert(res.message);
         }
       });
   };
@@ -95,7 +81,7 @@ const JobDescription = () => {
     currency: "INR",
     minimumFractionDigits: 0,
   });
-  let formattedSalary = formatter.format(hiring?.amount);
+  let formattedSalary = formatter.format(hiring?.detailFound?.amount);
   formattedSalary.includes("NaN")
     ? (formattedSalary = "N/A")
     : (formattedSalary = formattedSalary);
@@ -104,13 +90,13 @@ const JobDescription = () => {
   //if it is 1 month, then display "1 month" else display "2 months"
   let formattedDuration = new Intl.PluralRules("en-IN", {
     type: "ordinal",
-  }).select(hiring?.duration);
+  }).select(hiring?.detailFound?.duration);
 
   formattedDuration === "one"
     ? (formattedDuration = "1 Month")
-    : (formattedDuration = `${hiring?.duration} Months`);
+    : (formattedDuration = `${hiring?.detailFound?.duration} Months`);
 
-  if (hiring.success === false) return <Page404 />;
+  if (hiring?.detailFound?.success === false) return <Page404 />;
 
   const JobDescription = (
     <div className="JobDescription">
@@ -119,7 +105,7 @@ const JobDescription = () => {
           <div className="w-100 d-flex">
             <div
               style={{
-                backgroundImage: `url(${hiring.organisationLogo})`,
+                backgroundImage: `url(${hiring?.detailFound?.organisationLogo})`,
                 backgroundPosition: "center",
                 backgroundSize: "contain",
                 backgroundRepeat: "no-repeat",
@@ -127,15 +113,15 @@ const JobDescription = () => {
               className="imgBox"
             ></div>
             <span className="heads">
-              <h1>{hiring.opportunityName}</h1>
+              <h1>{hiring?.detailFound?.opportunityName}</h1>
               <a
-                href={hiring.websiteUrl}
+                href={hiring?.detailFound?.websiteUrl}
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <h3>{hiring.organisationName}</h3>
+                <h3>{hiring?.detailFound?.organisationName}</h3>
               </a>
-              <h3>{hiring.opportunityLocation}</h3>
+              <h3>{hiring?.detailFound?.opportunityLocation}</h3>
             </span>
           </div>
           <div className="apply-btn-container">
@@ -148,27 +134,17 @@ const JobDescription = () => {
             ) :  */}
             {isLoggedIn ? (
               <div>
-                {!isApplicable && flag === -1 && (
+                {!isApplicable && (
                   <button className="btn" disabled>
                     Not Applicable
                   </button>
                 )}
-                {isApplicable && flag === -1 && (
-                  <button className="btn" disabled>
-                    Apply
-                  </button>
-                )}
-                {flag === 0 && isApplicable && (
+                {isApplicable && hiring?.applied === false && (
                   <button onClick={UserDataPost} className="btn">
                     Apply
                   </button>
                 )}
-                {flag === 0 && !isApplicable && (
-                  <button className="btn" disabled>
-                    Not Applicable
-                  </button>
-                )}
-                {flag === 1 && (
+                {hiring?.applied === true && (
                   <button className="btn" disabled>
                     Applied
                   </button>
@@ -182,7 +158,7 @@ const JobDescription = () => {
           </div>
         </span>
         <span className="Tags">
-          {hiring.skillsRequired?.map((skillsRequired, index) => (
+          {hiring?.detailFound?.skillsRequired?.map((skillsRequired, index) => (
             <Chip
               key={index}
               variant="outlined"
@@ -209,7 +185,9 @@ const JobDescription = () => {
             <h6>Salary</h6>
             <p></p>
             <span>
-              {hiring.amount !== "N/A" ? `${formattedSalary} CTC` : "N/A"}
+              {hiring?.detailFound?.amount !== "N/A"
+                ? `${formattedSalary} CTC`
+                : "N/A"}
             </span>
             <img src={`${bucket}cash.svg`} alt="guide" />
           </div>
@@ -217,10 +195,10 @@ const JobDescription = () => {
             <h6>Minimum Experience</h6>
             <p></p>
             <span>
-              {hiring.experience !== "0"
-                ? hiring.experience === "1"
-                  ? `${hiring.experience} year`
-                  : `${hiring.experience} years`
+              {hiring?.detailFound?.experience !== "0"
+                ? hiring?.detailFound?.experience === "1"
+                  ? `${hiring?.detailFound?.experience} year`
+                  : `${hiring?.detailFound?.experience} years`
                 : `Fresher`}
             </span>
             <img src={`${bucket}timer.svg`} alt="guide" />
@@ -228,13 +206,13 @@ const JobDescription = () => {
           <div className="JobInfoItem">
             <h6>Job Location</h6>
             <p></p>
-            <span>{hiring.opportunityLocation}</span>
+            <span>{hiring?.detailFound?.opportunityLocation}</span>
             <img src={`${bucket}locate.svg`} alt="guide" />
           </div>
           <div className="JobInfoItem">
             <h6>Work type</h6>
             <p></p>
-            <span>{hiring.opportunityTiming}</span>
+            <span>{hiring?.detailFound?.opportunityTiming}</span>
             <img src={`${bucket}time.svg`} alt="guide" />
           </div>
         </div>
@@ -245,7 +223,7 @@ const JobDescription = () => {
   useEffect(() => {
     if (Object.keys(hiring).length !== 0) {
       document.getElementById("quill-job-description").innerHTML =
-        hiring.description;
+        hiring?.detailFound?.description;
     }
   }, [hiring]);
 
