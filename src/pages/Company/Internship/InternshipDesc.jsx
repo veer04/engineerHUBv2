@@ -8,7 +8,11 @@ import { useState } from "react";
 import getCookie, { getAccessToken } from "../../../features/getCookieValues";
 import Cookies from "js-cookie";
 import axios from "axios";
-import { controller, getHiringDataById } from "../../../services/APIConfig";
+import {
+  controller,
+  getHiringDataById,
+  getUserProfileById,
+} from "../../../services/APIConfig";
 import LoadingPage from "../../../components/Loader/LoadingPage";
 import Page404 from "../../Maintenance/Page404";
 const InternshipDesc = () => {
@@ -18,48 +22,53 @@ const InternshipDesc = () => {
   const bucket = `${Bucket_URL}frontend/company/jobs/`;
   const [hiring, setHiring] = useState({});
   const [isApplicable, setIsApplicable] = useState(false);
+  const [profile, setProfile] = useState({});
+  const [isResumeUploaded, setIsResumeUploaded] = useState(false);
 
   useEffect(() => {
     if (getCookie("name")) {
+      getUserProfileById(setProfile, getCookie("_id")[2]);
       setIsLoggedIn(true);
       if (
         Cookies.get("role") !== "Organization" &&
         Cookies.get("role") !== "Club" &&
-        Cookies.get("role") !== "Admin"
+        Cookies.get("role") !== "Admin" &&
+        Cookies.get("role") !== "Alumni"
       ) {
         setIsApplicable(true);
       }
     }
   }, []);
   useEffect(() => {
+    if (isLoggedIn) {
+      if (!!profile?.resume) {
+        setIsResumeUploaded(true);
+      } else {
+        setIsResumeUploaded(false);
+      }
+    }
+  }, [profile]);
+  useEffect(() => {
     window.scrollTo(0, 0);
     getHiringDataById(setHiring, hiringId);
-    if (getCookie("name")) {
-      axios
-        .get(`${API_URL}api/v1/hiringUserFlag/${hiringId}`, {
-          headers: {
-            accesstoken: getAccessToken(),
-          },
-        })
-        .then((res) => {
-          setFlag(res.data.applied ? 1 : 0);
-        })
-        .catch((res) => {
-          if (res.status === 409) {
-            setFlag(0);
-          }
-        });
-      return () => {
-        setHiring({});
-        setFlag(-1);
-        controller.abort();
-      };
-    }
+
+    return () => {
+      setHiring({});
+      controller.abort();
+    };
   }, [hiringId]);
 
+  if (hiring.success === false) return <Page404 />;
+
   const UserDataPost = () => {
-    if (!!hiring?.applyLink) {
-      window.open(hiring?.applyLink, "_blank");
+    if (!!hiring?.detailFound?.applyLink) {
+      window.open(hiring?.detailFound?.applyLink, "_blank");
+      return;
+    }
+
+    if (isApplicable && hiring?.applied === false && !isResumeUploaded) {
+      window.alert("Please upload your resume first");
+      window.location.href = `/profile/student/${getCookie("_id")[2]}/edit`;
       return;
     }
 
@@ -80,7 +89,7 @@ const InternshipDesc = () => {
           res.status === 203 ||
           res.status === 204
         ) {
-          setFlag(1);
+          getHiringDataById(setHiring, hiringId);
         }
       })
       .catch((res) => {
@@ -95,7 +104,7 @@ const InternshipDesc = () => {
     currency: "INR",
     minimumFractionDigits: 0,
   });
-  let formattedSalary = formatter.format(hiring?.amount);
+  let formattedSalary = formatter.format(hiring?.detailFound?.amount);
   formattedSalary.includes("NaN")
     ? (formattedSalary = "N/A")
     : (formattedSalary = formattedSalary);
@@ -104,13 +113,11 @@ const InternshipDesc = () => {
   //if it is 1 month, then display "1 month" else display "2 months"
   let formattedDuration = new Intl.PluralRules("en-IN", {
     type: "ordinal",
-  }).select(hiring?.duration);
+  }).select(hiring?.detailFound?.duration);
 
   formattedDuration === "one"
     ? (formattedDuration = "1 Month")
-    : (formattedDuration = `${hiring?.duration} Months`);
-
-  if (hiring.success === false) return <Page404 />;
+    : (formattedDuration = `${hiring?.detailFound?.duration} Months`);
 
   const InternshipDesc = (
     <div className="InternshipDesc">
@@ -119,7 +126,7 @@ const InternshipDesc = () => {
           <div className="w-100 d-flex">
             <div
               style={{
-                backgroundImage: `url(${hiring.organisationLogo})`,
+                backgroundImage: `url(${hiring?.detailFound?.organisationLogo})`,
                 backgroundPosition: "center",
                 backgroundSize: "contain",
                 backgroundRepeat: "no-repeat",
@@ -127,48 +134,38 @@ const InternshipDesc = () => {
               className="imgBox"
             ></div>
             <span className="heads">
-              <h1>{hiring.opportunityName}</h1>
+              <h1>{hiring?.detailFound?.opportunityName}</h1>
               <a
-                href={hiring.websiteUrl}
+                href={hiring?.detailFound?.websiteUrl}
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <h3>{hiring.organisationName}</h3>
+                <h3>{hiring?.detailFound?.organisationName}</h3>
               </a>
-              <h3>{hiring.opportunityLocation}</h3>
+              <h3>{hiring?.detailFound?.opportunityLocation}</h3>
             </span>
           </div>
           <div className="apply-btn-container">
-            {/* {isLoggedIn && hiring.websiteUrl ? (
-              <Link to={hiring.websiteUrl}>
-                <div className="btn">
-                  Apply
-                </div>
-              </Link>
-            ) :  */}
             {isLoggedIn ? (
               <div>
-                {!isApplicable && flag === -1 && (
+                {!isApplicable && (
                   <button className="btn" disabled>
                     Not Applicable
                   </button>
                 )}
-                {isApplicable && flag === -1 && (
-                  <button className="btn" disabled>
-                    Apply
-                  </button>
-                )}
-                {flag === 0 && isApplicable && (
+                {isApplicable && hiring?.applied === false && (
                   <button onClick={UserDataPost} className="btn">
                     Apply
                   </button>
                 )}
-                {flag === 0 && !isApplicable && (
-                  <button className="btn" disabled>
-                    Not Applicable
-                  </button>
-                )}
-                {flag === 1 && (
+                {/* {isApplicable &&
+                  hiring?.applied === false &&
+                  !isResumeUploaded && (
+                    <button onClick={UserDataPost} className="btn">
+                      Apply
+                    </button>
+                  )} */}
+                {hiring?.applied === true && (
                   <button className="btn" disabled>
                     Applied
                   </button>
@@ -182,7 +179,7 @@ const InternshipDesc = () => {
           </div>
         </span>
         <span className="Tags">
-          {hiring.skillsRequired?.map((skillsRequired, index) => (
+          {hiring?.detailFound?.skillsRequired?.map((skillsRequired, index) => (
             <Chip
               key={index}
               variant="outlined"
@@ -208,8 +205,12 @@ const InternshipDesc = () => {
           <div className="JobInfoItem">
             <h6>Stipend</h6>
             <p></p>
-            {hiring.isPaid ? (
-              <span>{hiring.amount !== "N/A" ? formattedSalary : "N/A"}</span>
+            {hiring?.detailFound?.isPaid ? (
+              <span>
+                {hiring?.detailFound?.amount !== "N/A"
+                  ? formattedSalary
+                  : "N/A"}
+              </span>
             ) : (
               <span>Unpaid</span>
             )}
@@ -224,13 +225,13 @@ const InternshipDesc = () => {
           <div className="JobInfoItem">
             <h6>Job Location</h6>
             <p></p>
-            <span>{hiring.opportunityLocation}</span>
+            <span>{hiring?.detailFound?.opportunityLocation}</span>
             <img src={`${bucket}locate.svg`} alt="guide" />
           </div>
           <div className="JobInfoItem">
             <h6>Work type</h6>
             <p></p>
-            <span>{hiring.opportunityTiming}</span>
+            <span>{hiring?.detailFound?.opportunityTiming}</span>
             <img src={`${bucket}time.svg`} alt="guide" />
           </div>
         </div>
@@ -241,7 +242,7 @@ const InternshipDesc = () => {
   useEffect(() => {
     if (Object.keys(hiring).length !== 0) {
       document.getElementById("quill-job-description").innerHTML =
-        hiring.description;
+        hiring?.detailFound?.description;
     }
   }, [hiring]);
 

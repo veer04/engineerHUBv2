@@ -9,13 +9,18 @@ import Cookies from "js-cookie";
 import axios from "axios";
 import LoadingPage from "../../../components/Loader/LoadingPage";
 import Page404 from "../../Maintenance/Page404";
+import { getUserProfileById } from "../../../services/APIConfig";
 
 const ProjectDesc = ({ data, isApplied }) => {
   const { projectId } = useParams();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isApplicable, setIsApplicable] = useState(false);
+  const [profile, setProfile] = useState({});
+  const [isResumeUploaded, setIsResumeUploaded] = useState(false);
+
   useEffect(() => {
     if (getCookie("name")) {
+      getUserProfileById(setProfile, getCookie("_id")[2]);
       setIsLoggedIn(true);
       if (
         Cookies.get("role") !== "Organization" &&
@@ -26,10 +31,25 @@ const ProjectDesc = ({ data, isApplied }) => {
       }
     }
   }, []);
+  useEffect(() => {
+    if (isLoggedIn) {
+      if (!!profile?.resume) {
+        setIsResumeUploaded(true);
+      } else {
+        setIsResumeUploaded(false);
+      }
+    }
+  }, [profile]);
 
   const UserDataPost = () => {
     if (!!data?.applyLink) {
       window.open(data?.applyLink, "_blank");
+      return;
+    }
+
+    if (isApplicable && hiring?.applied === false && !isResumeUploaded) {
+      window.alert("Please upload your resume first");
+      window.location.href = `/profile/student/${getCookie("_id")[2]}/edit`;
       return;
     }
 

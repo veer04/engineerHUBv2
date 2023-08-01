@@ -33,6 +33,10 @@ export default function BlogsPage({ path }) {
     };
   }, [id]);
 
+  useEffect(() => {
+    console.log(blogs);
+  }, [blogs]);
+
   // useEffect(() => {
   //   sessionStorage.setItem(`${id} blogs`, JSON.stringify(blogs));
   // }, [blogs]);
