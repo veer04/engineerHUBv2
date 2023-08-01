@@ -14,12 +14,11 @@ export default function BlogWindow({ blogOpened, setIsBlogOpen }) {
     if (isCollapsed === false) setIsBlogOpen(false);
   }, [isCollapsed]);
   useEffect(() => {
-    console.log(blogOpened);
     getBlogById(setBlog, blogOpened);
   }, [blogOpened]);
   useEffect(() => {
-    console.log(blog);
-  }, [blog]);
+    document.getElementById("blog-description-box").innerHTML = blog.postArea;
+  }, []);
 
   const date = blog.createdAt ? new Date(blog.createdAt) : new Date();
   return (
@@ -47,7 +46,9 @@ export default function BlogWindow({ blogOpened, setIsBlogOpen }) {
         className="project_window__poster"
       ></div>
       <div className="project__window__description">
-        <div className="description">{blog.postArea}</div>
+        <div id="blog-description-box" className="description">
+          {blog.postArea}
+        </div>
       </div>
       <div className="blog__window__details">
         {blog.creatorId && (
