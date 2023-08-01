@@ -3,6 +3,7 @@ import "./BlogCard.css";
 import { IoPeopleOutline } from "react-icons/io5";
 import useSidebar from "../../hooks/use-sidebar";
 import defaultPoster from "../../assets/defaultPoster";
+import { useEffect } from "react";
 
 export default function BlogCard({
   postIcon,
@@ -15,13 +16,14 @@ export default function BlogCard({
   setIsBlogOpen,
   createdAt,
 }) {
-  console.log();
   const { setIsCollapsed } = useSidebar();
+  useEffect(() => {
+    document.getElementById(`blog-card-description-${_id}`).innerHTML = postArea;
+  }, [postArea]);
 
   return (
     <div
       onClick={() => {
-        console.log(_id);
         setBlogOpened(_id);
         setIsBlogOpen(true);
         setIsCollapsed(true);
@@ -54,7 +56,7 @@ export default function BlogCard({
         </div>
       </div>
       <div className="title text-crop-2">{title}</div>
-      <div className="description">{postArea}</div>
+      <div id={`blog-card-description-${_id}`} className="description"></div>
       <div className="topic">{domainName}</div>
     </div>
   );

@@ -86,13 +86,12 @@ const JobDescription = () => {
           res.status === 203 ||
           res.status === 204
         ) {
-          console.log("response");
           getHiringDataById(setHiring, hiringId);
         }
       })
       .catch((res) => {
-        if (!res.success) {
-          window.alert(res.message);
+        if (res.status === 409) {
+          window.alert("already applied!");
         }
       });
   };
@@ -117,7 +116,7 @@ const JobDescription = () => {
     ? (formattedDuration = "1 Month")
     : (formattedDuration = `${hiring?.detailFound?.duration} Months`);
 
-  if (hiring?.detailFound?.success === false) return <Page404 />;
+  if (hiring?.success === false) return <Page404 />;
 
   const JobDescription = (
     <div className="JobDescription">
