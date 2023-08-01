@@ -135,7 +135,7 @@ const HackathonDetails = () => {
         {hackId === "" ? (
           <div></div>
         ) : (
-          <HackathonDesc details={{ ...hiringData }} />
+          <HackathonDesc details={{ ...hiringData?.detailFound }} />
         )}
       </div>
     </div>

@@ -113,7 +113,7 @@ export default function Footer() {
         },
         {
           title: <img src={`${bucket}discord.svg`} alt="discord" />,
-          link: "https://discord.com/invite/ZMZAEZ5NfA",
+          link: "https://discord.com/channels/792634139403878400/992453301817847888/992500434717659226",
         },
       ],
     },
