@@ -779,7 +779,7 @@ export const getEventByMode = (setEvents, mode) => {
       signal: controller.signal,
     })
     .then((res) => {
-      const data = res.data.data;
+      const data = res.data.data.reverse();
       setEvents(data);
     })
     .catch((err) => {

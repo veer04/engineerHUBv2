@@ -99,7 +99,7 @@ export default function Hosting() {
       ) {
         navigate("/hostevent");
       } else {
-        window.alert("Not Authorized to Host events!!!");
+        window.alert("Not Authorized to perform this action!!!");
       }
     } else {
       navigate("/login");
