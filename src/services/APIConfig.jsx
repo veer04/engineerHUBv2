@@ -931,7 +931,7 @@ export const getTrendingActivities = (setTrendingActivities) => {
       signal: controller.signal,
     })
     .then((res) => {
-      const data = res.data.data.slice(0, 8);
+      const data = res.data.data;
       setTrendingActivities(data);
     })
     .catch((err) => {
