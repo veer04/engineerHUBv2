@@ -1,0 +1,95 @@
+#job-apply-modal-container {
+    position: absolute;
+    /* top: 0;
+    left: 0; */
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+}
+.job-apply-cancel-button-container {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    cursor: pointer;
+    z-index: 100;
+}
+.job-apply-cancel-button-container > .job-apply-cancel-button {
+    position: absolute;
+    font-size: 2rem;
+    right: 0;
+}
+.job-apply-container {
+    position: relative;
+    --_post-bg-color: #ffffff;
+    /* width: 70.0625rem;
+    max-width: 70.0625rem;
+    height: min(39rem, 100dvh);
+    max-height: 39rem; */
+    background-color: var(--_post-bg-color);
+    padding: 2.8125rem 3.375rem;
+    /* display: grid; */
+    /* grid-template-columns: 1fr 1fr; */
+    border-radius: 0.5rem;
+}
+.job-modal-content {
+    display: flex;
+    max-width: 100%;
+    flex-direction: column;
+    align-items: center;
+}
+.upload-resume-lable {
+    font-weight: 500;
+}
+.upload-old-resume-lable {
+    font-weight: 500;
+}
+.new-resume-upload-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.6rem;
+}
+.old-resume-modal-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.6rem;
+}
+.old-resume-btns {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.6rem;
+}
+#student-resume-image {
+    width: 250px;
+}
+hr {
+    border: 1px solid black;
+    width: 100%;
+}
+@media screen and (max-width: 930px) {
+    .post-container {
+        padding: 2rem 2rem;
+    }
+    .post-container > .post-details-container {
+        padding: 0 1.25rem;
+    }
+}
+
+@media screen and ((max-width: 768px) or (max-height: 768px)) {
+}
+
+@media screen and (max-width: 472px) {
+    .job-modal-content {
+        width: 200px;
+    }
+    .old-resume-btns {
+        flex-direction: column;
+        gap: 0.3rem;
+    }
+}
