@@ -308,18 +308,11 @@
   color: #014051;
 }
 .StudentReviews .reviewCard {
+  cursor: default;
   width: 333px;
   padding: 19px;
   border-radius: 11.9437px;
   align-self: flex-start;
-}
-.StudentReviews .reviewCard {
-  background: #f7d77f;
-  box-shadow: 0px 17px 31.6094px rgba(247, 215, 127, 0.52);
-}
-.StudentReviews .reviewCard:last-child {
-  background: #128381;
-  box-shadow: 0px 8.42917px 31.6094px rgba(18, 131, 129, 0.58);
 }
 .StudentReviews .reviewCard p {
   padding-left: 45px;
@@ -330,7 +323,7 @@
   line-height: 22px;
   display: flex;
   align-items: center;
-  color: #002b36;
+  /* color: #002b36; */
 }
 .StudentReviews .reviewCard h6 {
   padding-left: 45px;
@@ -341,11 +334,30 @@
   line-height: 25px;
   display: flex;
   align-items: center;
-  color: #002b36;
+  /* color: #002b36; */
 }
-.StudentReviews .reviewCard2 p,
-.StudentReviews .reviewCard2 h6 {
+
+.StudentReviews .reviewCard2,
+.StudentReviews .reviewCard2 {
   color: white;
+}
+
+.StudentReviews .reviewCard {
+  background: rgb(185, 255, 254);
+  box-shadow: 0px 17px 31.6094px rgba(185, 255, 254, 0.52);
+}
+.StudentReviews .reviewCard:last-child {
+  background: #128381;
+  box-shadow: 0px 8.42917px 31.6094px rgba(18, 131, 129, 0.58);
+}
+.StudentReviews .reviewCard:hover,
+.StudentReviews .reviewCard2:hover {
+  box-shadow: 4px 4px 20px 5px rgba(0, 0, 0, 0.25);
+  transform: scale(1.25);
+  transition: transform 0.2s ease-in-out;
+  z-index: 2;
+  background-color: #f7d77f !important;
+  color: black !important;
 }
 
 @media screen and (max-width: 785px) {
