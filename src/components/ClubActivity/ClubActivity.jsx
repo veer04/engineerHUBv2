@@ -9,7 +9,7 @@ import { RWebShare } from "react-web-share";
 export default function ClubActivity({
   _id,
   postedBy,
-  clubId,
+  clubData,
   postLogo,
   description,
   shareLink,
@@ -24,8 +24,8 @@ export default function ClubActivity({
   return (
     <div className="clubs-page-activity-card">
       <div className="details">
-        <img src={clubId.image} alt="logo" />
-        {clubId.name}
+        <img src={clubData[0].image} alt="logo" />
+        {clubData[0].name}
       </div>
       <div className="poster">
         <img src={postLogo} alt="poster" />
@@ -50,7 +50,7 @@ export default function ClubActivity({
         <RWebShare
           data={{
             text: `Check out this post`,
-            url: `${FRONTEND_URL}campus/${collegeId}/technical-clubs/${clubId._id}/posts/${_id}`,
+            url: `${FRONTEND_URL}campus/${collegeId}/technical-clubs/${clubData[0]._id}/posts/${_id}`,
             title: "Check out this post at engineerHUB",
           }}
         >
