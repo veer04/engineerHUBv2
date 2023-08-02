@@ -89,7 +89,7 @@ export default function Navbar() {
   const usernameLoginInButton = (
     <ButtonRounded
       onClick={() => {
-        navigate("/profile");
+        // navigate("/profile");
       }}
       className="nav-logged-in-btn nav-login-btn"
     >
