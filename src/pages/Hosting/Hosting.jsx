@@ -65,7 +65,11 @@ export default function Hosting() {
       if (decoded.role === "Organization") {
         navigate(`/host/${type}`);
       } else {
-        window.alert("Not Authorized to Host events!!!");
+        if (type === "job" || type === "internship")
+          window.alert("Not authorized to host job/internship opportunities");
+        else if (type === "project")
+          window.alert("Not authorized to host projects");
+        else window.alert("Not authorized to perform this action");
       }
     } else {
       navigate("/login");
@@ -81,7 +85,7 @@ export default function Hosting() {
       if (decoded.role === "Club") {
         navigate("/hostevent");
       } else {
-        window.alert("Not Authorized to Host events!!!");
+        window.alert("Not authorized to host events!!!");
       }
     } else {
       navigate("/login");
@@ -99,7 +103,7 @@ export default function Hosting() {
       ) {
         navigate("/hostevent");
       } else {
-        window.alert("Not Authorized to perform this action!!!");
+        window.alert("Not authorized to host events!!!");
       }
     } else {
       navigate("/login");
