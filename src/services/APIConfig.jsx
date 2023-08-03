@@ -34,7 +34,6 @@ export const patchProfilePicture = (userId, file, setResponse) => {
     });
 };
 
-
 export const patchResume = (userId, file, setResponse) => {
   const controller = new AbortController();
   const config = {
@@ -722,7 +721,7 @@ export const getFeaturedEvents = (setFeaturedEvents) => {
       signal: controller.signal,
     })
     .then((res) => {
-      const data = res.data.data;
+      const data = res.data.data.reverse();
       setFeaturedEvents(data);
     })
     .catch((err) => {
