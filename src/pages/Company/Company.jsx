@@ -255,6 +255,7 @@ const Company = () => {
         <div className="FeaturedJobsTiles">
           {hiring
             .filter((res) => res.opportunityType === "Job")
+            .slice(0, 6)
             .map((item, index) => {
               return (
                 <JobCards
@@ -273,6 +274,7 @@ const Company = () => {
         <div className="OpportunitiesTiles">
           {hiring
             .filter((res) => res.opportunityType === "Event")
+            .slice(0, 6)
             .map((item, index) => {
               return (
                 <HackathonCard
