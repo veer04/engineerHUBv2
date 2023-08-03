@@ -84,8 +84,14 @@ export default function ForgotPassword() {
               Forgot Password
             </div>
           </div>
-          <form action="/" method="POST">
+          <form>
             <TextField
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  e.preventDefault();
+                  handleSubmit();
+                }
+              }}
               name="name"
               label="Enter your email"
               variant="outlined"

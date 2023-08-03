@@ -122,7 +122,7 @@ const UpdateUserForm = () => {
       } catch (error) {
         setIsLoading(false);
         console.error(error);
-        setError("An error occurred. Please try again later.");
+        setError2(error.response.data.message);
       }
     }
   };
@@ -157,6 +157,12 @@ const UpdateUserForm = () => {
                 type={showConfirmPassword ? "text" : "password"}
                 name="password"
                 value={newPassword}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    e.preventDefault();
+                    handleSubmit();
+                  }
+                }}
                 onChange={handleNewPasswordChange}
                 error={!!error}
                 endAdornment={
@@ -182,6 +188,12 @@ const UpdateUserForm = () => {
               placeholder="Enter the 6-digit OTP"
               value={OTP}
               onChange={handleOTPChange}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  e.preventDefault();
+                  handleSubmit();
+                }
+              }}
               margin="normal"
               error={!!error2}
               helperText={error2}
