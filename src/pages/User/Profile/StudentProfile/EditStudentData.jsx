@@ -4,7 +4,12 @@ import { useOutletContext, useParams } from "react-router-dom";
 import { useState } from "react";
 import defaultPoster from "../../../../assets/defaultPoster";
 import { TextField } from "@mui/material";
-import {  controller, patchProfilePicture,patchResume,getUserProfileById } from "../../../../services/APIConfig";
+import {
+  controller,
+  patchProfilePicture,
+  patchResume,
+  getUserProfileById,
+} from "../../../../services/APIConfig";
 import { set } from "react-hook-form";
 import { useEffect } from "react";
 import CustomSnackbar from "../../Login/CustomSnackbar";
@@ -12,20 +17,22 @@ import CustomSnackbar from "../../Login/CustomSnackbar";
 export default function EditStudentData() {
   const { userId } = useParams();
   const [profile] = useOutletContext();
-  const [userProfile,setUserProfile]=useState({});
+  const [userProfile, setUserProfile] = useState({});
   const [newImage, setNewImage] = useState(null);
-  const [resume,setResume]=useState(null);
+  const [resume, setResume] = useState(null);
   const [errors, setErrors] = useState({
     image: "",
   });
-  const[resumeErrors,setResumeErrors]= useState({
-    resume:"",
-  })
+  const [resumeErrors, setResumeErrors] = useState({
+    resume: "",
+  });
 
   const [isUpdating, setIsUpdating] = useState(false);
   const [isResumeUpdating, setIsResumeUpdating] = useState(false);
+  const [isResumeUpdated, setIsResumeUpdated] = useState(false);
   const [response, setResponse] = useState(null);
-  const[resumeRes,setResumeRes]=useState(null);
+  const [resumeRes, setResumeRes] = useState(null);
+  const [newResumeLink, setNewResumeLink] = useState("");
   const [snackbarValues, setSnackbarValues] = useState({
     severity: "success",
     message: "",
@@ -51,9 +58,6 @@ export default function EditStudentData() {
       controller.abort();
     };
   }, []);
-  useEffect(() => {
-  console.log(userProfile.resume);
-  }, [userProfile]);
   const validateInputResume = () => {
     let valid = true;
     const newErrors = {
@@ -67,10 +71,8 @@ export default function EditStudentData() {
     return valid;
   };
 
-
   useEffect(() => {
-    console.log(response);
-    if (response) {
+    if (!!response) {
       if (response.status >= 200 && response.status < 300) {
         setIsUpdating(false);
         setOpen(true);
@@ -83,9 +85,10 @@ export default function EditStudentData() {
         alert(response.data.message);
       }
     }
-    console.log(resumeRes);
-    if (resumeRes) {
+    if (!!resumeRes) {
       if (resumeRes.status >= 200 && resumeRes.status < 300) {
+        setIsResumeUpdated(true);
+        setNewResumeLink(resumeRes.data.data);
         setIsResumeUpdating(false);
         setOpen(true);
         setSnackbarValues({
@@ -97,25 +100,19 @@ export default function EditStudentData() {
         // alert(resumeRes.data.message);
       }
     }
-  }, [response,resumeRes]);
+  }, [response, resumeRes]);
 
-
-  const handleResume = async()=>{
+  const handleResume = async () => {
     setIsResumeUpdating(true);
-    if(validateInputResume()===true)
-    { 
+    if (validateInputResume() === true) {
       const file = new FormData();
-      file.append("resume",resumeRes);
-      patchResume(userId,file,setResumeRes);
-  
-    }
-    else if(isResumeUpdating===true){
+      file.append("resume", resumeRes);
+      patchResume(userId, file, setResumeRes);
+    } else if (isResumeUpdating === true) {
       window.location.reload();
-    }
-    else {
+    } else {
       setIsResumeUpdating(false);
     }
-   
   };
 
   const handleSubmit = async () => {
@@ -238,24 +235,27 @@ export default function EditStudentData() {
           }}
           onClick={handleSubmit}
         >
-          Update
+          {isUpdating ? (
+            <div className="spinner-border text-primary " role="status">
+              <span className="visually-hidden">Loading...</span>
+            </div>
+          ) : (
+            "Update"
+          )}
         </button>
-        {isUpdating && (
-          <div className="spinner-border text-primary" role="status">
-            <span className="visually-hidden">Loading...</span>
-          </div>
-        )}
       </div>
-      <p style={{
-                marginTop:"10%",
-                fontSize:"1.3rem",
-                marginBottom:"5%",
-                fontWeight:"600",
-                 color:"color: var(--text-color-dark-green);"
-      
-      }}>Add or Update Resume</p>
+      <p
+        style={{
+          marginTop: "10%",
+          fontSize: "1.3rem",
+          marginBottom: "5%",
+          fontWeight: "600",
+          color: "color: var(--text-color-dark-green);",
+        }}
+      >
+        Add/Update Resume
+      </p>
       <div className="profile-picture-container">
-
         <p className="text-danger mb-1">{resumeErrors.resume}</p>
         <input
           type="file"
@@ -264,7 +264,7 @@ export default function EditStudentData() {
           className="mb-4"
           onChange={(e) => setResumeRes(e.target.files[0])}
         />
-        </div>
+      </div>
       <div className="mt-3">
         <button
           className="logBtn me-3 logout-btn"
@@ -273,49 +273,28 @@ export default function EditStudentData() {
           }}
           onClick={handleResume}
         >
-          Update
+          {isResumeUpdating ? (
+            <div className="spinner-border text-primary" role="status">
+              <span className="visually-hidden">Loading...</span>
+            </div>
+          ) : (
+            "Update"
+          )}
         </button>
-        {isResumeUpdating && (
-          <div className="spinner-border text-primary" role="status">
-            <span className="visually-hidden">Loading...</span>
-          </div>
-        )}
-
-      { (resumeRes === undefined || resumeRes === null || resumeRes === "") ? (
-        <a href={userProfile.resume} target="_blank">
-        <button
-          className="logBtn me-3 logout-btn"
-          style={{
-            textAlign: "center",
-          }}
+        <a
+          href={!isResumeUpdated ? userProfile.resume : newResumeLink}
+          target="_blank"
         >
-        View
-        </button>
-        </a>
-        ):( 
-          userProfile.resume? (  <a href={userProfile.resume} target="_blank">
-           <button
-            className="logBtn me-3 logout-btn"
-            style={{
-              textAlign: "center",
-            }}
-          >
-          View
-          </button>
-          </a>):(        
-             <a href={resumeRes} target="_blank">
           <button
             className="logBtn me-3 logout-btn"
             style={{
               textAlign: "center",
             }}
+            disabled={isResumeUpdating}
           >
-          View
+            View
           </button>
-          </a>
-          )
-        )
-        }
+        </a>
       </div>
 
       {snackbarValues.severity === "success" && (
@@ -326,7 +305,6 @@ export default function EditStudentData() {
           severity={snackbarValues.severity}
         />
       )}
-    
     </>
   );
 }

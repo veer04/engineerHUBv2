@@ -45,7 +45,7 @@ export const patchResume = (userId, file, setResponse) => {
     .patch(`${API_URL}api/v1/user/resumeUpdate`, file, config)
     .then((res) => {
       console.log(res);
-      setResponse(res.data.data);
+      setResponse(res);
       return res;
     })
     .catch((err) => {
