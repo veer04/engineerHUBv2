@@ -21,7 +21,6 @@ const JobDescription = () => {
     const [profile, setProfile] = useState({});
     const [isResumeUploaded, setIsResumeUploaded] = useState(false);
     const [isApplyingJob, setIsApplyingJob] = useState(false);
-    console.log(hiring);
     useEffect(() => {
         if (getCookie("name")) {
             getUserProfileById(setProfile, getCookie("_id")[2]);
@@ -54,7 +53,6 @@ const JobDescription = () => {
         setIsApplyingJob(false);
     }
     function handleJobApplied(data) {
-        console.log("handleJobApplied");
         setHiring((prev) => ({ ...prev, applied: true }));
     }
     const UserDataPost = () => {
