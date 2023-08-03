@@ -226,6 +226,10 @@
   width: 6rem;
   cursor: pointer;
   text-align: center;
+  max-height: 37.6px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 @media screen and (max-width: 768px) {
