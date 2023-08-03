@@ -55,7 +55,10 @@ export default function CommunitySection() {
             largest <span>engineers community</span>
           </div>
         </div>
-        <a href="https://discord.com/invite/ZMZAEZ5NfA">
+        <a
+          href="https://discord.com/channels/792634139403878400/992453301817847888/992500434717659226"
+          target="_blank"
+        >
           <button className="discord-btn btn btn-primary">
             <FaDiscord className="discord-icon" />
             Join Discord
