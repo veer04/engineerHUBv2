@@ -12,6 +12,7 @@ import { controller, getHiringDataById, getUserProfileById } from "../../../serv
 import LoadingPage from "../../../components/Loader/LoadingPage";
 import Page404 from "../../Maintenance/Page404";
 import JobApplyModal from "./JobApplyModal";
+import CustomSnackbar from "../../User/Login/CustomSnackbar";
 const JobDescription = () => {
     const { hiringId } = useParams();
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -21,6 +22,11 @@ const JobDescription = () => {
     const [profile, setProfile] = useState({});
     const [isResumeUploaded, setIsResumeUploaded] = useState(false);
     const [isApplyingJob, setIsApplyingJob] = useState(false);
+    const [snackbarValues, setSnackbarValues] = useState({
+        severity: "error",
+        message: "",
+    });
+    const [open, setOpen] = useState(false);
     useEffect(() => {
         if (getCookie("name")) {
             getUserProfileById(setProfile, getCookie("_id")[2]);
@@ -30,6 +36,7 @@ const JobDescription = () => {
             }
         }
     }, []);
+
     useEffect(() => {
         if (isLoggedIn) {
             if (!!profile?.resume) {
@@ -52,8 +59,14 @@ const JobDescription = () => {
     function handleModalState() {
         setIsApplyingJob(false);
     }
+
     function handleJobApplied(data) {
         setHiring((prev) => ({ ...prev, applied: true }));
+        setSnackbarValues({
+            severity: "success",
+            message: `You have successfully applied to this job!`,
+        });
+        setOpen(true);
     }
     const UserDataPost = () => {
         if (!!hiring?.detailFound?.applyLink) {
@@ -108,6 +121,7 @@ const JobDescription = () => {
 
     const JobDescription = (
         <div className="JobDescription">
+            {snackbarValues.severity === "success" && <CustomSnackbar setOpen={setOpen} open={open} message={snackbarValues.message} severity={snackbarValues.severity} duration={5000} />}
             {isApplyingJob && <JobApplyModal change={handleModalState} jobApplied={handleJobApplied} resume={profile.resume} />}
             <div className="JobDetailHeader">
                 <span>
