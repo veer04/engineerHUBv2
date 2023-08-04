@@ -12,10 +12,6 @@ const Hackathons = () => {
     };
   }, [window.location.pathname]);
 
-  useEffect(() => {
-    console.log(event);
-  }, [event]);
-
   return (
     <div className="Hackathons">
       <div className="hackathonTiles">

@@ -276,13 +276,7 @@ const Company = () => {
             .filter((res) => res.opportunityType === "Event")
             .slice(0, 6)
             .map((item, index) => {
-              return (
-                <HackathonCard
-                  data={data[index % data.length]}
-                  details={item}
-                  key={index}
-                />
-              );
+              return <HackathonCard {...item} key={index} />;
             })}
         </div>
       </div>
