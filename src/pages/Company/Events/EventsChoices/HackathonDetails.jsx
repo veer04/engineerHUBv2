@@ -121,14 +121,7 @@ const HackathonDetails = () => {
         {hiring
           ?.filter((res) => res.opportunityType === "Event")
           .map((item, index) => {
-            return (
-              <HackathonCard
-                details={item}
-                data={data[index % data.length]}
-                color={colorWheel[index % colorWheel.length]}
-                key={index}
-              />
-            );
+            return <HackathonCard {...item} key={index} />;
           })}
       </div>
       <div className="hackathonDetail">
