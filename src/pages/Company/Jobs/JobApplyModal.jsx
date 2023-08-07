@@ -61,7 +61,11 @@ export default function JobApplyModal({ change, jobApplied, resume }) {
     };
     useEffect(() => {
         setIsResumeUpdating(false);
-        var resumeUrl = applyWithOldResume ? resume : updateResumeRes;
+        var resumeUrl = applyWithOldResume ? resume : updateResumeRes?.data?.data;
+        if (!applyWithOldResume && updateResumeRes && updateResumeRes?.status !== 200) {
+            setResumeErrors({ resume: "There was an error applying to this job. Try Again!" });
+            return;
+        }
         if (updateResumeRes || (applyWithOldResume && resumeUrl != "")) {
             axios
                 .post(
@@ -85,7 +89,7 @@ export default function JobApplyModal({ change, jobApplied, resume }) {
                     }
                 });
         } else if (updateResumeRes) {
-            setResumeErrors({ resume: "Error Uploading resume. Try Again!" });
+            setResumeErrors({ resume: "There was an error applying to this job. Try Again!" });
         }
     }, [updateResumeRes, applyWithOldResume]);
     const validateInputResume = () => {
