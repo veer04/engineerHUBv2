@@ -74,6 +74,7 @@ import Chatpage from "./pages/chat/chatPage";
 import ChangePassword from "./pages/User/ForgotPassword/ChangePassword";
 import getCookie, { getAccessToken } from "./features/getCookieValues";
 import ProjectHosting from "./pages/Hosting/ProjectHosting";
+import CoverPhotoClubData from "./pages/User/Profile/ClubProfile/CoverPhotoClubData";
 
 function App() {
   const [isEventModalOpen, setIsEventModalOpen] = useState(false);
@@ -149,6 +150,7 @@ function App() {
               <Route index element={<GeneralClubData />} />
               <Route path="general" element={<GeneralClubData />} />
               <Route path="edit" element={<EditClubData />} />
+              <Route path="cover-photo" element={<CoverPhotoClubData />} />
             </Route>
             <Route
               path="organization/:organizationId"

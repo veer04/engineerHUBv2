@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import "./ParticularCampus.css";
-import ImageCarousel from "../../../components/ImageCarousel/ImageCarousel";
 import { RxChevronDown } from "react-icons/rx";
 import { BsStar, BsStarFill } from "react-icons/bs";
 import CampusEventCard from "../../../components/CampusEventCard/CampusEventCard";
