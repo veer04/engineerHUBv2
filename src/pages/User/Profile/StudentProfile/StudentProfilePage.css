@@ -263,6 +263,9 @@
     width: 7.5rem;
     height: 7.5rem;
   }
+  .profile-page > section > .details-container > .cover-photo-container {
+    align-items: center;
+  }
 }
 
 @media screen and (max-width: 580px) {

@@ -11,6 +11,7 @@ import { CgProfile } from "react-icons/cg";
 import { MdOutlinePlace } from "react-icons/md";
 import { FiExternalLink } from "react-icons/fi";
 import { RiListOrdered } from "react-icons/ri";
+import { HiOutlinePhoto } from "react-icons/hi2";
 
 export default function ClubProfilePage() {
   const { clubId } = useParams();
@@ -63,6 +64,8 @@ export default function ClubProfilePage() {
       setChoice("general");
     } else if (window.location.pathname.split("/").includes("edit")) {
       setChoice("edit");
+    } else if (window.location.pathname.split("/").includes("cover-photo")) {
+      setChoice("cover-photo");
     }
   }, [window.location.pathname]);
 
@@ -91,6 +94,20 @@ export default function ClubProfilePage() {
                 className={`option ${choice === "edit" ? "--is-selected" : ""}`}
               >
                 {width <= 768 ? <AiOutlineEdit /> : "Edit Profile"}
+              </button>
+            </>
+          )}
+          {isLoggedIn && (
+            <>
+              <button
+                onClick={() => {
+                  navigate(`cover-photo`);
+                }}
+                className={`option ${
+                  choice === "cover-photo" ? "--is-selected" : ""
+                }`}
+              >
+                {width <= 768 ? <HiOutlinePhoto /> : "Edit Cover Photos"}
               </button>
             </>
           )}

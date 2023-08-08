@@ -1,0 +1,79 @@
+.cover-photo-edit-container {
+  width: 15rem;
+  height: 10rem;
+  border-radius: 0.5rem;
+  margin-bottom: 0.5rem;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  position: relative;
+  /* blur the background image a little */
+  filter: blur(0);
+  overflow: hidden;
+}
+.cover-photo-edit-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 15rem;
+  height: 10rem;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 0.5rem;
+  display: none;
+}
+.cover-photo-edit-container:hover::before {
+  display: block;
+}
+.cover-photo-edit-container:hover {
+  /* filter: blur(2px); */
+  outline: 1px solid var(--primary-color-green);
+  /* backdrop-filter: blur(2px); */
+}
+.cover-photo-edit-container.add-option {
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 4.5rem;
+  font-weight: 200;
+  color: var(--primary-color-green);
+  outline: 1px dashed var(--primary-color-green);
+}
+.cover-photo-edit-container.add-option:hover {
+  filter: brightness(0.7);
+  outline: 1px solid var(--primary-color-green);
+}
+.cover-photo-edit-container--no-hover::before {
+  background-color: transparent;
+  display: none !important;
+}
+.cover-photo-edit-container--failed {
+  cursor: pointer;
+}
+.cover-photo-edit-container > .delete-option {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  height: 2.25rem;
+  width: 2.25rem;
+  cursor: pointer;
+  font-size: 1.5rem;
+  background-color: rgba(255, 255, 255, 0.842);
+  border-radius: 50%;
+}
+.cover-photo-edit-container:hover > .delete-option {
+  display: flex;
+}
+.cover-photo-edit-container > .loading-container {
+  background-color: rgba(0, 0, 0, 0.65);
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+}
