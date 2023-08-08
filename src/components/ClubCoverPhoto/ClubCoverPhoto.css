@@ -9,6 +9,7 @@
   position: relative;
   /* blur the background image a little */
   filter: blur(0);
+  overflow: hidden;
 }
 .cover-photo-edit-container::before {
   content: "";
@@ -37,10 +38,18 @@
   font-size: 4.5rem;
   font-weight: 200;
   color: var(--primary-color-green);
-  border: 1px dashed var(--primary-color-green);
+  outline: 1px dashed var(--primary-color-green);
 }
 .cover-photo-edit-container.add-option:hover {
   filter: brightness(0.7);
+  outline: 1px solid var(--primary-color-green);
+}
+.cover-photo-edit-container--no-hover::before {
+  background-color: transparent;
+  display: none !important;
+}
+.cover-photo-edit-container--failed {
+  cursor: pointer;
 }
 .cover-photo-edit-container > .delete-option {
   display: none;
@@ -58,4 +67,13 @@
 }
 .cover-photo-edit-container:hover > .delete-option {
   display: flex;
+}
+.cover-photo-edit-container > .loading-container {
+  background-color: rgba(0, 0, 0, 0.65);
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
 }

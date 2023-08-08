@@ -19,13 +19,13 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         cookieSecure={false}
       >
         <ChatProvider>
-        <EventModalProvider>
-          <NavbarProvider>
-            <SidebarProvider>
-              <App />
-            </SidebarProvider>
-          </NavbarProvider>
-        </EventModalProvider>
+          <EventModalProvider>
+            <NavbarProvider>
+              <SidebarProvider>
+                <App />
+              </SidebarProvider>
+            </NavbarProvider>
+          </EventModalProvider>
         </ChatProvider>
       </AuthProvider>
     </BrowserRouter>

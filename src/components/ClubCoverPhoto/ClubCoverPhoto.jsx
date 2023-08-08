@@ -1,57 +1,130 @@
 import axios from "axios";
 import "./ClubCoverPhoto.css";
 import { MdDelete } from "react-icons/md";
+import { HiUpload } from "react-icons/hi";
 import { getAccessToken } from "../../features/getCookieValues";
 import { API_URL } from "../../services/APIUtils";
-export default function ClubCoverPhoto({ addOption, imageUrl, index }) {
-  function handleDelete() {
-    console.log("delete");
-    const config = {
-      headers: {
-        accessToken: getAccessToken(),
-      },
-    };
-    axios
-      .delete(`${API_URL}api/v1/club/deleteClubPhotos`, { index }, config)
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
+import { useState } from "react";
+import { useEffect } from "react";
+export default function ClubCoverPhoto({
+  addOption,
+  imageUrl,
+  index,
+  handleUpload,
+  handleDelete,
+}) {
+  const [status, setStatus] = useState("selected");
   if (addOption) {
-    let file = new FormData();
-    file.append("clubPhotos", imageUrl);
-    const controller = new AbortController();
-    const config = {
-      headers: {
-        accessToken: getAccessToken(),
-      },
-    };
-    axios
-      .patch(`${API_URL}api/v1/club/updateClubPhotos`, file, config)
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-        if (axios.isCancel(err)) {
-          console.log("req cancel");
-        } else {
-          console.log("req performed");
-        }
-      });
+    if (status === "selected") {
+      return (
+        <div
+          style={{
+            backgroundImage: `url(${URL.createObjectURL(imageUrl)})`,
+          }}
+          className="cover-photo-edit-container"
+        >
+          <div
+            onClick={() => {
+              setStatus("uploading");
+              handleUpload(imageUrl, setStatus);
+            }}
+            className="delete-option"
+          >
+            <HiUpload />
+          </div>
+        </div>
+      );
+    }
+    if (status === "uploading") {
+      return (
+        <div
+          style={{
+            backgroundImage: `url(${URL.createObjectURL(imageUrl)})`,
+          }}
+          className="cover-photo-edit-container cover-photo-edit-container--no-hover"
+        >
+          <div className="loading-container">
+            <div className="spinner-border text-primary" role="status">
+              <span className="visually-hidden">Loading...</span>
+            </div>
+          </div>
+        </div>
+      );
+    }
 
+    if (status === "success") {
+      return (
+        <div
+          style={{
+            backgroundImage: `url(${URL.createObjectURL(imageUrl)})`,
+          }}
+          className="cover-photo-edit-container"
+        >
+          <div
+            onClick={() => {
+              setStatus("deleting");
+              handleDelete(index, setStatus);
+            }}
+            className="delete-option"
+          >
+            <MdDelete />
+          </div>
+        </div>
+      );
+    }
+
+    if (status === "deleting") {
+      return (
+        <div
+          style={{
+            backgroundImage: `url(${URL.createObjectURL(imageUrl)})`,
+          }}
+          className="cover-photo-edit-container cover-photo-edit-container--no-hover"
+        >
+          <div className="loading-container">
+            <div className="spinner-border text-danger" role="status">
+              <span className="visually-hidden">Loading...</span>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    if (status === "failed") {
+      return (
+        <div
+          style={{
+            backgroundImage: `url(${URL.createObjectURL(imageUrl)})`,
+          }}
+          className="cover-photo-edit-container cover-photo-edit-container--no-hover cover-photo-edit-container--failed"
+        >
+          <div
+            onClick={() => {
+              setStatus("uploading");
+              handleUpload(imageUrl, setStatus);
+            }}
+            className="loading-container"
+          >
+            <div className="text-danger" role="status">
+              <span className="user-select-none">Retry</span>
+            </div>
+          </div>
+        </div>
+      );
+    }
+  }
+  if (status === "deleting") {
     return (
       <div
         style={{
-          backgroundImage: `url(${URL.createObjectURL(imageUrl)})`,
+          backgroundImage: `url(${imageUrl})`,
         }}
-        className="cover-photo-edit-container"
+        className="cover-photo-edit-container cover-photo-edit-container--no-hover"
       >
-        <div onClick={handleDelete} className="delete-option">
-          <MdDelete />
+        <div className="loading-container">
+          <div className="spinner-border text-danger" role="status">
+            <span className="visually-hidden">Loading...</span>
+          </div>
         </div>
       </div>
     );
@@ -63,7 +136,13 @@ export default function ClubCoverPhoto({ addOption, imageUrl, index }) {
       }}
       className="cover-photo-edit-container"
     >
-      <div onClick={handleDelete} className="delete-option">
+      <div
+        onClick={() => {
+          setStatus("deleting");
+          handleDelete(index, setStatus);
+        }}
+        className="delete-option"
+      >
         <MdDelete />
       </div>
     </div>

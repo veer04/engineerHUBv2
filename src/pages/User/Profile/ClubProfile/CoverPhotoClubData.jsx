@@ -2,116 +2,88 @@ import React from "react";
 import "../StudentProfile/StudentProfilePage.css";
 import { useOutletContext, useParams } from "react-router-dom";
 import { useState } from "react";
-import { TextField } from "@mui/material";
-import {
-  patchClubData,
-  patchOrganizationData,
-  patchProfilePicture,
-} from "../../../../services/APIConfig";
-import { useEffect } from "react";
 import CustomSnackbar from "../../Login/CustomSnackbar";
-import ImageCarousel2 from "../../../../components/ImageCarousel2/ImageCarousel2";
 import ClubCoverPhoto from "../../../../components/ClubCoverPhoto/ClubCoverPhoto";
 import { useRef } from "react";
+import { getAccessToken } from "../../../../features/getCookieValues";
+import axios from "axios";
+import { API_URL } from "../../../../services/APIUtils";
 
 export default function CoverPhotoClubData() {
-  const { clubId } = useParams();
   const [profile] = useOutletContext();
-  const [newImage, setNewImage] = useState(null);
-  const [newWebsiteURL, setNewWebsiteURL] = useState("");
-  const [newDescription, setNewDescription] = useState("");
-  const [errors, setErrors] = useState({
-    image: "",
-    website: "",
-    description: "",
-  });
-  const [isUpdating, setIsUpdating] = useState(false);
-  const [profileResponse, setProfileResponse] = useState(null);
-  const [response, setResponse] = useState(null);
   const [snackbarValues, setSnackbarValues] = useState({
     severity: "success",
     message: "",
   });
   const [open, setOpen] = useState(false);
   const fileInput = useRef(null);
+  const [newCoverPhotos, setNewCoverPhotos] = useState([]);
+  const [uploadedCoverPhotos, setUploadedCoverPhotos] = useState([]);
+  const [coverPhotosCopy, setCoverPhotosCopy] = useState(profile?.clubPhoto);
 
-  const validateInput = () => {
-    let valid = true;
-    const newErrors = {
-      image: "",
-      website: "",
-      description: "",
+  // !IMPORTANT: Below two APIs may run twice under StrictMode. Use StrictMode accordingly. Do not delete this comment.
+
+  function handleDelete(index, setStatus) {
+    console.log("delete");
+    axios
+      .delete(`${API_URL}api/v1/club/deleteClubPhotos`, {
+        data: { index: index },
+        headers: { accessToken: getAccessToken() },
+      })
+      .then((res) => {
+        console.log(res);
+        setStatus("success");
+        let oldLength = coverPhotosCopy.length;
+        setCoverPhotosCopy((prev) =>
+          prev?.filter((item, index2) => index2 !== index)
+        );
+        setUploadedCoverPhotos((prev) =>
+          prev?.filter((item, index2) => index2 + oldLength !== index)
+        );
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  function handleUpload(image, setStatus) {
+    console.log("upload");
+    let file = new FormData();
+    file.append("clubPhotos", image);
+    const config = {
+      headers: {
+        accessToken: getAccessToken(),
+      },
     };
-    if (newImage === undefined || newImage === null || newImage === "") {
-      newErrors.image = "Image is required";
-      valid = false;
-    }
-    // if (!newWebsiteURL) {
-    //   newErrors.website = "Website URL is required";
-    //   valid = false;
-    // }
-    // if (!newDescription) {
-    //   newErrors.description = "Description is required";
-    //   valid = false;
-    // }
-    setErrors(newErrors);
-    return valid;
-  };
+    axios
+      .patch(`${API_URL}api/v1/club/updateClubPhotos`, file, config)
+      .then((res) => {
+        console.log(res);
+        setStatus("success");
+        setUploadedCoverPhotos((prev) => [...prev, res.data.data]);
+        setNewCoverPhotos((prev) => prev?.filter((item) => item !== image));
+      })
+      .catch((err) => {
+        console.log(err);
+        if (axios.isCancel(err)) {
+          console.log("req cancel");
+        } else {
+          console.log("req performed");
+        }
+        setStatus("failed");
+      });
+  }
 
-  useEffect(() => {
-    console.log(profileResponse);
-    if (profileResponse) {
-      if (profileResponse.status >= 200 && profileResponse.status < 300) {
-        setIsUpdating(false);
-        setOpen(true);
-        setSnackbarValues({
-          severity: "success",
-          message: "Profile picture updated successfully!",
-        });
+  function handleInput(e) {
+    //check if the file is an image
+    if (e.target.files[0]) {
+      if (e.target.files[0].type.includes("image")) {
+        setNewCoverPhotos((prev) => [...prev, e.target.files[0]]);
       } else {
-        setIsUpdating(false);
-        alert(profileResponse.message);
+        alert("Please upload an image file");
       }
     }
-  }, [profileResponse]);
-
-  // useEffect(() => {
-  //   console.log(response);
-  //   if (response) {
-  //     if (response.status >= 200 && response.status < 300) {
-  //       setIsUpdating(false);
-  //       setOpen(true);
-  //       setSnackbarValues({
-  //         severity: "success",
-  //         message: "Data updated successfully!",
-  //       });
-  //     } else {
-  //       setIsUpdating(false);
-  //       alert(response.message);
-  //     }
-  //   }
-  // }, [response]);
-
-  const handleSubmit = async () => {
-    setIsUpdating(true);
-    if (validateInput() === true) {
-      const file = new FormData();
-      file.append("profileImage", newImage);
-
-      const data = {
-        description: newDescription,
-        websiteUrl: newWebsiteURL,
-      };
-
-      patchProfilePicture(clubId, file, setProfileResponse);
-      // patchClubData(clubId, data, setResponse);
-    } else {
-      setIsUpdating(false);
-    }
-  };
-
-  const [newCoverPhotos, setNewCoverPhotos] = useState([]);
-  const [newCoverPhoto, setNewCoverPhoto] = useState(null);
+  }
 
   return (
     <>
@@ -120,31 +92,61 @@ export default function CoverPhotoClubData() {
         <input
           style={{ display: "none" }}
           type="file"
-          onChange={(e) => {
-            setNewCoverPhotos((prev) => [...prev, e.target.files[0]]);
-          }}
+          onChange={handleInput}
           ref={fileInput}
         />
-        {profile?.clubPhoto.map((photo, index) => {
-          return <ClubCoverPhoto key={index} index={index} imageUrl={photo} />;
-        })}
-        {newCoverPhotos.map((photo, index) => {
-          return (
-            <ClubCoverPhoto
-              addOption
-              index={profile?.clubPhoto.length + index}
-              key={index}
-              imageUrl={photo}
-            />
-          );
-        })}
-        <div
-          onClick={() => {
-            fileInput.current.click();
-          }}
-          className="cover-photo-edit-container add-option"
-        >
-          +
+        <div>
+          {coverPhotosCopy?.map((photo, index) => {
+            return (
+              <ClubCoverPhoto
+                key={index}
+                index={index}
+                handleDelete={handleDelete}
+                handleUpload={handleUpload}
+                imageUrl={photo}
+              />
+            );
+          })}
+        </div>
+        <div>
+          {uploadedCoverPhotos?.map((photo, index) => {
+            return (
+              <ClubCoverPhoto
+                key={index}
+                index={coverPhotosCopy.length + index}
+                handleDelete={handleDelete}
+                handleUpload={handleUpload}
+                imageUrl={photo}
+              />
+            );
+          })}
+        </div>
+        <div>
+          {newCoverPhotos?.map((photo, index) => {
+            return (
+              <div key={index}>
+                <ClubCoverPhoto
+                  addOption
+                  index={
+                    coverPhotosCopy.length + uploadedCoverPhotos?.length + index
+                  }
+                  handleDelete={handleDelete}
+                  handleUpload={handleUpload}
+                  imageUrl={photo}
+                />
+              </div>
+            );
+          })}
+        </div>
+        <div>
+          <div
+            onClick={() => {
+              fileInput.current.click();
+            }}
+            className="cover-photo-edit-container add-option"
+          >
+            +
+          </div>
         </div>
       </div>
       {snackbarValues.severity === "success" && (
