@@ -88,3 +88,14 @@
   > .next-button {
   right: 0;
 }
+.signup-page .complex-field-container {
+  display: flex;
+}
+.signup-page .complex-field-2 {
+  width: 30%;
+  min-width: 6.4rem;
+}
+.signup-page .complex-field-3 {
+  width: 20%;
+  min-width: 5.5rem;
+}
