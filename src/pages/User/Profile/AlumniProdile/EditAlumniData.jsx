@@ -65,7 +65,7 @@ export default function EditAlumniData() {
     //   newErrors.batch = "Batch is required";
     //   valid = false;
     // } else if (
-    //   !/^(19[6-9][0-9]|20[0-2][0-9]|2030)-(19[6-9][0-9]|20[0-2][0-9]|2030)\s*$/.test(
+    //   !/^(19[6-9][0-9]|20[0-4][0-9]|2050)-(19[6-9][0-9]|20[0-4][0-9]|2050)\s*$/.test(
     //     newBatch
     //   )
     // ) {

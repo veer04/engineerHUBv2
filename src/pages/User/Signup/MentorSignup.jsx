@@ -1,7 +1,6 @@
 import "./StudentSignup.css";
-import { useNavigate, useNavigation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { Button } from "@mui/material";
 import axios from "axios";
 import "../../Hosting/EventRegistration.css";
 import useNavbar from "../../../hooks/use-navbar";
@@ -25,40 +24,23 @@ const MentorSignup = () => {
   const navigate = useNavigate();
   const { setSelectedPageNavbar } = useNavbar();
   const [loading, setLoading] = useState(false);
-  // const [campuses, setCampuses] = useState([]);
-  const [selectedCampus, setSelectedCampus] = useState("");
   const [open, setOpen] = useState(false);
   const [snackbarValues, setSnackbarValues] = useState({
     severity: "success",
     message: "",
   });
   const [campuses, setCampuses] = useState([]);
+  const [gender, setGender] = useState("");
   const [validation, setValidation] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [step, setStep] = useState(1);
   useEffect(() => {
     window.scrollTo(0, 0);
     setSelectedPageNavbar("login");
     getAllCampuses(setCampuses);
   }, []);
 
-  //   const roles = ["User", "Mentor", "Organization"];
-  //   const [countries, setCountries] = useState([]);
-  //   const [states, setStates] = useState([]);
-  //   const [cities, setCities] = useState([]);
-
-  //   useEffect(() => {
-  //     // Fetch campus data
-  //     axios.get(`${API_URL}api/v1/getCountries`)
-  //       .then(response => {
-  //         setCountries(response.data);
-  //       })
-  //       .catch(error => {
-  //         console.error('Error fetching countries:', error);
-  //       });
-  //   }, []);
-
-  //   const [role, setRole] = useState("User");
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -72,28 +54,12 @@ const MentorSignup = () => {
     confirmPassword: "",
     socialMedia: {
       linkedIn: "",
-      twitter: "",
       instagram: "",
     },
   });
-  const [step, setStep] = useState(1);
-  // useEffect(() => {
-  //   fetchCampuses();
-  // }, []);
-
-  // const fetchCampuses = async () => {
-  //   try {
-  //     const response = await fetch(`${API_URL}api/v1/campus`);
-  //     const data = await response.json();
-  //     setCampuses(data);
-  //   } catch (error) {
-  //     console.error('Error fetching campuses:', error);
-  //   }
-  // };
 
   const [errors, setErrors] = useState({
     name: "",
-    // userName: '',
     email: "",
     mobile: "",
     companyName: "",
@@ -101,31 +67,40 @@ const MentorSignup = () => {
     batch: "",
     aboutMe: "",
     campus: "",
+    gender: "",
     password: "",
     confirmPassword: "",
     socialMedia: {
       linkedIn: "",
-      twitter: "",
       instagram: "",
     },
   });
+  const genderList = [
+    {
+      value: "Male",
+      label: "Male",
+    },
+    {
+      value: "Female",
+      label: "Female",
+    },
+    {
+      value: "Non-Binary",
+      label: "Non-Binary",
+    },
+    {
+      value: "Prefer not to say",
+      label: "Prefer not to say",
+    },
+  ];
 
-  // const handleInputChange = (event) => {
-  //   const inputValues = event.target.value.split(',');
-  //   setSkills(inputValues);
-  // };
   const handleChange = (e) => {
-    // const campusId = event.target.value;
     const { name, value } = e.target;
-    // setSelectedCampus(campusId);
     setFormData((prevFormData) => ({
       ...prevFormData,
       [name]: value,
     }));
   };
-  //  const handleChangeDrop =(event)=>{
-  //   setRole(event.target.value);
-  //  }
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const handleClickShowConfirmPassword = () =>
@@ -142,7 +117,8 @@ const MentorSignup = () => {
     const newErrors = {
       name: "",
       email: "",
-      mobile: "",
+      gender: "",
+      aboutMe: "",
     };
 
     if (!formData.name) {
@@ -163,43 +139,62 @@ const MentorSignup = () => {
       newErrors.email = "Invalid email format";
       valid = false;
     }
-    if (!formData.mobile) {
-      newErrors.mobile = "Mobile number is required";
-      valid = false;
-    } else if (!/^[0-9]+$/.test(formData.mobile)) {
-      newErrors.mobile =
-        "Mobile number should not contain any special characters or letter";
-      valid = false;
-    } else if (!/^\d{10}$/.test(formData.mobile)) {
-      newErrors.mobile = "Mobile number should be of 10 digits";
+    if (!gender) {
+      newErrors.gender = "Gender is required";
       valid = false;
     }
-
+    if (formData.aboutMe && formData.aboutMe.length < 50) {
+      newErrors.aboutMe = "About me should be of atleast 50 characters";
+      valid = false;
+    } else if (formData.aboutMe && formData.aboutMe.length > 1000) {
+      newErrors.aboutMe = "About me should be of atmost 1000 characters";
+      valid = false;
+    }
     setErrors(newErrors);
     return valid;
   };
 
   const validateInput2 = () => {
     let valid = true;
-
     const newErrors = {
+      campus: "",
+      batch: "",
       companyName: "",
       currentProfile: "",
-      campus: "",
     };
     if (!formData.campus) {
-      newErrors.campus = "campus is required";
+      newErrors.campus = "Campus is required";
       valid = false;
     }
+    if (!formData.batch) {
+      newErrors.batch = "Enter your passing year";
+      valid = false;
+    } else if (
+      !/^(19[6-9][0-9]|20[0-4][0-9]|2050)-(19[6-9][0-9]|20[0-4][0-9]|2050)\s*$/.test(
+        formData.batch
+      )
+    ) {
+      newErrors.batch = "Batch must me like 2002-2004";
+      valid = false;
+    } else if (
+      parseInt(formData.batch.split("-")[0]) >
+      parseInt(formData.batch.split("-")[1])
+    ) {
+      newErrors.batch = "Batch must me like 2002-2004";
+      valid = false;
+    }
+
     if (!formData.companyName) {
-      newErrors.companyName = "company name is required";
+      newErrors.companyName = "Company name is required";
+      valid = false;
+    } else if (formData.companyName.length < 3) {
+      newErrors.companyName = "Company name should be of atleast 3 characters";
       valid = false;
     }
     if (!formData.currentProfile) {
-      newErrors.currentProfile = "current profile is required";
+      newErrors.currentProfile = "Current position is required";
       valid = false;
     }
-
     setErrors(newErrors);
     return valid;
   };
@@ -209,56 +204,25 @@ const MentorSignup = () => {
     const newErrors = {
       socialMedia: {
         linkedIn: "",
-        twitter: "",
         instagram: "",
       },
-    };
-    if (!formData.socialMedia.instagram) {
-      newErrors.socialMedia.instagram = "Instagram URL is required";
-      valid = false;
-    } else if (!/^https:\/\//.test(formData.socialMedia.instagram)) {
-      newErrors.socialMedia.instagram = "URL must begin with https";
-    }
-    if (!formData.socialMedia.linkedIn) {
-      newErrors.socialMedia.linkedIn = "LinkedIn URL is required";
-      valid = false;
-    } else if (
-      !/^https:\/\/www\.linkedin\.com$/.test(formData.socialMedia.linkedIn)
-    ) {
-      newErrors.socialMedia.linkedIn =
-        "URL must begin with https://www.linkedin.com";
-    }
-
-    if (!formData.socialMedia.twitter) {
-      newErrors.socialMedia.twitter = "twitter URL is required";
-      valid = false;
-    } else if (!/^https:\/\//.test(formData.socialMedia.twitter)) {
-      newErrors.socialMedia.twitter = "URL must begin with https";
-    }
-
-    setErrors(newErrors);
-    return valid;
-  };
-
-  const validateInput4 = () => {
-    let valid = true;
-    const newErrors = {
-      batch: "",
       password: "",
       confirmPassword: "",
     };
-    if (!formData.batch) {
-      newErrors.batch = "Enter your Passout year";
-      valid = false;
-    } else if (
-      !/^(19[6-9][0-9]|20[0-2][0-9]|2030)-(19[6-9][0-9]|20[0-2][0-9]|2030)\s*$/.test(
-        formData.batch
-      )
+    if (
+      formData.socialMedia.instagram &&
+      !/^https:\/\//.test(formData.socialMedia.instagram)
     ) {
-      newErrors.batch = "Batch must me like 2002-2004";
+      newErrors.socialMedia.instagram = "URL must begin with https://";
       valid = false;
     }
-
+    if (
+      formData.socialMedia.linkedIn &&
+      !/^https:\/\//.test(formData.socialMedia.linkedIn)
+    ) {
+      newErrors.socialMedia.linkedIn = "URL must begin with https://";
+      valid = false;
+    }
     if (!formData.password) {
       newErrors.password = "Password is required";
       valid = false;
@@ -267,25 +231,18 @@ const MentorSignup = () => {
       let allErrors = [];
       if (formData.password.length < 8) {
         allErrors.push(" 8 characters");
-        // errors.password = "Password must be at least 8 characters long.";
       }
       if (!/[A-Z]/.test(formData.password)) {
         allErrors.push(" 1 uppercase character");
-        // errors.password =
-        //   "Password must contain at least one uppercase character.";
       }
       if (!/[a-z]/.test(formData.password)) {
         allErrors.push(" 1 lowercase character");
-        // errors.password =
-        //   "Password must contain at least one lowercase character.";
       }
       if (!/\d/.test(formData.password)) {
         allErrors.push(" 1 numeric character");
-        // errors.password = "Password must contain at least one numeric character.";
       }
       if (!/[!@#$%^&*(),.?":{}|<>]/.test(formData.password)) {
         allErrors.push(" 1 special character");
-        // errors.password = "Password must contain at least one special character.";
       }
       if (allErrors.length > 0) {
         newErrors.password += allErrors.join(",");
@@ -304,10 +261,10 @@ const MentorSignup = () => {
         "Password and Confirm Password does not match";
       valid = false;
     }
-
     setErrors(newErrors);
     return valid;
   };
+
   function handleNext() {
     if (step === 1) {
       if (validateInput1()) setStep(step + 1);
@@ -315,13 +272,8 @@ const MentorSignup = () => {
     if (step === 2) {
       if (validateInput2()) setStep(step + 1);
     }
-
     if (step === 3) {
-      if (validateInput3()) setStep(step + 1);
-    }
-
-    if (step === 4) {
-      if (validateInput4()) setValidation(true);
+      if (validateInput3()) setValidation(true);
       {
         localStorage.setItem("OtpRoute", "true");
       }
@@ -333,22 +285,24 @@ const MentorSignup = () => {
   }
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // console.log(formData);
+    const data = {
+      name: formData.name,
+      email: formData.email,
+      gender: gender,
+      aboutMe: formData.aboutMe,
+      campus: formData.campus,
+      batch: formData.batch,
+      companyName: formData.companyName,
+      currentProfile: formData.currentProfile,
+      socialMedia: formData.socialMedia,
+      password: formData.password,
+      confirmPassword: formData.confirmPassword,
+    };
     if (validation === true) {
       setLoading(true);
-      console.log(formData);
-
-      axios.post(`${API_URL}api/v1/alumni/signup`, formData).then(
+      axios.post(`${API_URL}api/v1/alumni/signup`, data).then(
         (response) => {
-          // Cookies.set("access_token", response.data.accessToken);
-          // const token = response.data.accessToken;
-          // const decoded = jwt_decode(token);
-          // console.log(decoded);
-          // Cookies.set("refresh_token", response.data.refreshToken);
-          // Cookies.set("userName", response.data.userName);
-          // Cookies.set("batch", response.data.batch);
           Cookies.set("email", response.data.email);
-
           console.log(response);
           if (
             response.status === 200 ||
@@ -390,6 +344,7 @@ const MentorSignup = () => {
         name="name"
         label="Name"
         variant="outlined"
+        required
         value={formData.name}
         onChange={handleChange}
         fullWidth
@@ -402,6 +357,7 @@ const MentorSignup = () => {
         name="email"
         label="Email"
         variant="outlined"
+        required
         value={formData.email}
         onChange={handleChange}
         fullWidth
@@ -409,37 +365,61 @@ const MentorSignup = () => {
         error={!!errors.email}
         helperText={errors.email}
       />
+      <FormControl margin="normal" fullWidth>
+        <InputLabel
+          id="student-signup-gender-label"
+          error={!!errors.gender}
+          required
+        >
+          Gender
+        </InputLabel>
+        <Select
+          labelId="gender"
+          id="student-signup-gender-select"
+          value={gender}
+          label="Gender"
+          name="gender"
+          onChange={(e) => setGender(e.target.value)}
+          error={!!errors.gender}
+        >
+          {genderList.map((gender) => (
+            <MenuItem key={gender.value} value={gender.value}>
+              {gender.label}
+            </MenuItem>
+          ))}
+        </Select>
+        <FormHelperText error={!!errors.gender}>{errors.gender}</FormHelperText>
+      </FormControl>
       <TextField
-        name="mobile"
-        label="Mobile No."
+        name="aboutMe"
+        label="About Me"
         variant="outlined"
-        value={formData.mobile}
+        placeholder="Write a brief about yourself"
+        value={formData.aboutMe}
+        multiline
+        minRows={3}
+        maxRows={6}
         onChange={handleChange}
+        onBlur={(e) =>
+          setFormData({ ...formData, aboutMe: e.target.value.trim() })
+        }
         fullWidth
         margin="normal"
-        error={!!errors.mobile}
-        helperText={errors.mobile}
+        error={!!errors.aboutMe}
+        helperText={errors.aboutMe}
       />
     </div>
   );
 
   const step2 = (
     <div>
-      <TextField
-        name="currentProfile"
-        label="Current Profile Name"
-        variant="outlined"
-        value={formData.currentProfile}
-        onChange={handleChange}
-        fullWidth
-        margin="normal"
-        error={!!errors.currentProfile}
-        helperText={errors.currentProfile}
-      />
-
       <FormControl margin="normal" fullWidth>
-        <InputLabel id="student-signup-campus-label" error={!!errors.campus}>
-          campus{" "}
+        <InputLabel
+          id="student-signup-campus-label"
+          error={!!errors.campus}
+          required
+        >
+          Campus
         </InputLabel>
         <Select
           labelId="campus-name"
@@ -458,12 +438,24 @@ const MentorSignup = () => {
         </Select>
         <FormHelperText error={!!errors.campus}>{errors.campus}</FormHelperText>
       </FormControl>
-
+      <TextField
+        name="batch"
+        label="Batch"
+        variant="outlined"
+        required
+        value={formData.batch}
+        onChange={handleChange}
+        fullWidth
+        margin="normal"
+        error={!!errors.batch}
+        helperText={errors.batch}
+      />
       <TextField
         name="companyName"
         label="Company Name"
         variant="outlined"
         value={formData.companyName}
+        required
         onChange={handleChange}
         fullWidth
         margin="normal"
@@ -471,33 +463,22 @@ const MentorSignup = () => {
         helperText={errors.companyName}
       />
       <TextField
-        name="aboutMe"
-        label="About Me"
+        name="currentProfile"
+        label="Current Position"
         variant="outlined"
-        value={formData.aboutMe}
+        value={formData.currentProfile}
+        required
         onChange={handleChange}
         fullWidth
         margin="normal"
-        error={!!errors.aboutMe}
-        helperText={errors.aboutMe}
+        error={!!errors.currentProfile}
+        helperText={errors.currentProfile}
       />
     </div>
   );
 
   const step3 = (
     <div>
-      <TextField
-        name="instagram"
-        label="Instagram"
-        variant="outlined"
-        value={formData.socialMedia.instagram}
-        onChange={handleChangeArraydata}
-        fullWidth
-        margin="normal"
-        error={!!errors.socialMedia?.instagram}
-        helperText={errors.socialMedia?.instagram}
-      />
-
       <TextField
         name="linkedIn"
         label="LinkedIn"
@@ -510,37 +491,21 @@ const MentorSignup = () => {
         helperText={errors.socialMedia?.linkedIn}
       />
       <TextField
-        name="twitter"
-        label="Twitter"
+        name="instagram"
+        label="Instagram"
         variant="outlined"
-        value={formData.socialMedia.twitter}
+        value={formData.socialMedia.instagram}
         onChange={handleChangeArraydata}
         fullWidth
         margin="normal"
-        error={!!errors.socialMedia?.twitter}
-        helperText={errors.socialMedia?.twitter}
+        error={!!errors.socialMedia?.instagram}
+        helperText={errors.socialMedia?.instagram}
       />
-    </div>
-  );
-
-  const step4 = (
-    <div>
-      <TextField
-        name="batch"
-        label="Batch"
-        variant="outlined"
-        value={formData.batch}
-        onChange={handleChange}
-        fullWidth
-        margin="normal"
-        error={!!errors.batch}
-        helperText={errors.batch}
-      />
-
       <FormControl margin="normal" fullWidth variant="outlined">
         <InputLabel
           htmlFor="student-signup-outlined-adornment-password"
           error={!!errors.password}
+          required
         >
           Password
         </InputLabel>
@@ -576,6 +541,7 @@ const MentorSignup = () => {
         <InputLabel
           htmlFor="student-signup-outlined-adornment-confirm-password"
           error={!!errors.confirmPassword}
+          required
         >
           Confirm Password
         </InputLabel>
@@ -614,14 +580,13 @@ const MentorSignup = () => {
           <div className="details">
             <HostEventTimeline
               step={step}
-              numberOfCheckpoints={4}
+              numberOfCheckpoints={3}
               width="100%"
             />
             <form action="/" method="POST" onSubmit={handleSubmit}>
               {step === 1 && step1}
               {step === 2 && step2}
               {step === 3 && step3}
-              {step === 4 && step4}
               <div className="button-container">
                 <button
                   type="button"
@@ -632,11 +597,11 @@ const MentorSignup = () => {
                   Previous
                 </button>
                 <button
-                  type={`${step === 4 ? "submit" : "button"}`}
+                  type={`${step === 3 ? "submit" : "button"}`}
                   onClick={handleNext}
                   className="button next-button"
                 >
-                  {`${step === 4 ? "Submit" : "Next"}`}
+                  {`${step === 3 ? "Submit" : "Next"}`}
                 </button>
               </div>
             </form>

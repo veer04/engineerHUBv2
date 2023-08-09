@@ -16,9 +16,7 @@ import useNavbar from "../../../hooks/use-navbar";
 import { Select, MenuItem } from "@mui/material";
 import { API_URL } from "../../../services/APIUtils";
 import Cookies from "js-cookie";
-// import jwt_decode from "jwt-decode";
 import HostEventTimeline from "../../../components/Timeline/HostEventTimeline";
-// import { set } from "react-hook-form";
 import {
   controller,
   getAllBranches,
@@ -28,41 +26,39 @@ import {
   getStatesByCountry,
 } from "../../../services/APIConfig";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
+import countryCodes from "../../../assets/countryCodes";
 
 const StudentSignup = () => {
   const navigate = useNavigate();
   const { setSelectedPageNavbar } = useNavbar();
   const [loading, setLoading] = useState(false);
   const [branches, setBranches] = useState([]);
-  const [countryParam, setCountryParam] = useState("");
-  const [stateParam, setStateParam] = useState("");
-  const [countries, setCountries] = useState([]);
-  const [states, setStates] = useState([]);
-  const [cities, setCities] = useState([]);
+  const [year, setYear] = useState("");
+  const [gender, setGender] = useState("");
   const [validation, setValidation] = useState(false);
   const [campuses, setCampuses] = useState([]);
   const [showPassword, setShowPassword] = useState(false);
+  const [mobileCountryCode, setMobileCountryCode] = useState("91");
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     mobile: "",
-    state: "",
-    branch: "",
     institutionName: "",
-    city: "",
-    country: "",
+    branch: "",
     password: "",
     confirmPassword: "",
-    // role: "",
   });
   const [errors, setErrors] = useState({
+    mobileCountryCode: "",
     name: "",
     email: "",
     mobile: "",
     state: "",
     branch: "",
+    year: "",
+    gender: "",
     institutionName: "",
     city: "",
     country: "",
@@ -70,37 +66,58 @@ const StudentSignup = () => {
     confirmPassword: "",
   });
 
+  const yearList = [
+    {
+      value: 1,
+      label: "1st Year",
+    },
+    {
+      value: 2,
+      label: "2nd Year",
+    },
+
+    {
+      value: 3,
+      label: "3rd Year",
+    },
+    {
+      value: 4,
+      label: "4th Year",
+    },
+    {
+      value: 5,
+      label: "5th Year",
+    },
+  ];
+  // "Male", "Female", "Non-Binary", "Prefer not to say"
+  const genderList = [
+    {
+      value: "Male",
+      label: "Male",
+    },
+    {
+      value: "Female",
+      label: "Female",
+    },
+    {
+      value: "Non-Binary",
+      label: "Non-Binary",
+    },
+    {
+      value: "Prefer not to say",
+      label: "Prefer not to say",
+    },
+  ];
   useEffect(() => {
     window.scrollTo(0, 0);
     setSelectedPageNavbar("login");
     getAllBranches(setBranches);
-    getAllCountries(setCountries);
     getAllCampuses(setCampuses);
 
     return () => {
       controller.abort();
     };
   }, []);
-
-  useEffect(() => {
-    if (countryParam) {
-      getStatesByCountry(setStates, countryParam);
-    }
-
-    return () => {
-      controller.abort();
-    };
-  }, [countryParam]);
-
-  useEffect(() => {
-    if (stateParam) {
-      getCitiesByState(setCities, countryParam, stateParam);
-    }
-
-    return () => {
-      controller.abort();
-    };
-  }, [stateParam]);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const handleClickShowConfirmPassword = () =>
@@ -164,29 +181,23 @@ const StudentSignup = () => {
   const validateInput2 = () => {
     let valid = true;
     const newErrors = {
+      institutionName: "",
       branch: "",
-      country: "",
-      state: "",
-      city: "",
+      year: "",
     };
 
+    if (!formData.institutionName) {
+      newErrors.institutionName = "Institution Name is required";
+      valid = false;
+    }
     if (!formData.branch) {
       newErrors.branch = "Branch is required";
       valid = false;
     }
-    if (!formData.country) {
-      newErrors.country = "Country is required";
+    if (!year) {
+      newErrors.year = "Year is required";
       valid = false;
     }
-    if (!formData.state) {
-      newErrors.state = "State is required";
-      valid = false;
-    }
-    if (!formData.city) {
-      newErrors.city = "city is required";
-      valid = false;
-    }
-
     setErrors(newErrors);
     return valid;
   };
@@ -194,13 +205,13 @@ const StudentSignup = () => {
   const validateInput3 = () => {
     let valid = true;
     const newErrors = {
-      institutionName: "",
+      gender: "",
       password: "",
       confirmPassword: "",
     };
 
-    if (!formData.institutionName) {
-      newErrors.state = "Institution Name is required";
+    if (!gender) {
+      newErrors.gender = "Gender is required";
       valid = false;
     }
     if (!formData.password) {
@@ -211,25 +222,18 @@ const StudentSignup = () => {
       let allErrors = [];
       if (formData.password.length < 8) {
         allErrors.push(" 8 characters");
-        // errors.password = "Password must be at least 8 characters long.";
       }
       if (!/[A-Z]/.test(formData.password)) {
         allErrors.push(" 1 uppercase character");
-        // errors.password =
-        //   "Password must contain at least one uppercase character.";
       }
       if (!/[a-z]/.test(formData.password)) {
         allErrors.push(" 1 lowercase character");
-        // errors.password =
-        //   "Password must contain at least one lowercase character.";
       }
       if (!/\d/.test(formData.password)) {
         allErrors.push(" 1 numeric character");
-        // errors.password = "Password must contain at least one numeric character.";
       }
       if (!/[!@#$%^&*(),.?":{}|<>]/.test(formData.password)) {
         allErrors.push(" 1 special character");
-        // errors.password = "Password must contain at least one special character.";
       }
       if (allErrors.length > 0) {
         newErrors.password += allErrors.join(",");
@@ -262,9 +266,7 @@ const StudentSignup = () => {
     }
     if (step === 3) {
       if (validateInput3()) setValidation(true);
-      {
-        localStorage.setItem("OtpRoute", "true");
-      }
+      localStorage.setItem("OtpRoute", "true");
     }
   }
 
@@ -274,12 +276,21 @@ const StudentSignup = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // console.log(formData);
+    const data = {
+      name: formData.name,
+      email: formData.email,
+      mobileCountryCode: mobileCountryCode,
+      mobile: formData.mobile,
+      institutionName: formData.institutionName,
+      branch: formData.branch,
+      year: year,
+      gender: gender,
+      password: formData.password,
+      confirmPassword: formData.confirmPassword,
+    };
     if (validation === true) {
       setLoading(true);
-      console.log(formData);
-
-      axios.post(`${API_URL}api/v1/user/signup`, formData).then(
+      axios.post(`${API_URL}api/v1/user/signup`, data).then(
         (response) => {
           Cookies.set("email", response.data.email);
 
@@ -292,7 +303,7 @@ const StudentSignup = () => {
             response.status === 204
           ) {
             setLoading(false);
-            navigate("/otpverification");
+            navigate("/otpverification", { replace: true });
             window.location.reload(true);
           }
         },
@@ -311,8 +322,10 @@ const StudentSignup = () => {
     <div>
       <TextField
         name="name"
-        label="Full Name"
+        label="Name"
         variant="outlined"
+        placeholder="Enter your Full Name"
+        required
         value={formData.name}
         onChange={handleChange}
         fullWidth
@@ -324,6 +337,8 @@ const StudentSignup = () => {
         name="email"
         label="Email"
         variant="outlined"
+        placeholder="Enter your Email ID"
+        required
         value={formData.email}
         onChange={handleChange}
         fullWidth
@@ -331,24 +346,88 @@ const StudentSignup = () => {
         error={!!errors.email}
         helperText={errors.email}
       />
-      <TextField
-        name="mobile"
-        label="Mobile No."
-        variant="outlined"
-        value={formData.mobile}
-        onChange={handleChange}
-        fullWidth
-        margin="normal"
-        error={!!errors.mobile}
-        helperText={errors.mobile}
-      />
+
+      <div className="complex-field-container">
+        <FormControl className="complex-field-3" margin="normal" fullWidth>
+          <InputLabel
+            id="student-signup-campus-label"
+            error={!!errors.mobileCountryCode}
+          ></InputLabel>
+          <Select
+            labelId="event-type-label"
+            id="event-type"
+            value={mobileCountryCode}
+            label=""
+            onChange={(e) => setMobileCountryCode(e.target.value)}
+          >
+            {countryCodes.map((countryCode) => (
+              <MenuItem
+                key={countryCode}
+                value={countryCode}
+              >{`+${countryCode}`}</MenuItem>
+            ))}
+          </Select>
+          <FormHelperText error={!!errors.mobileCountryCode}>
+            {errors.mobileCountryCode}
+          </FormHelperText>
+        </FormControl>
+        <TextField
+          name="mobile"
+          label="Mobile No"
+          variant="outlined"
+          placeholder="Enter your Contact Number"
+          required
+          value={formData.mobile}
+          onChange={handleChange}
+          onBlur={(e) =>
+            setFormData({ ...formData, mobile: e.target.value.trim() })
+          }
+          fullWidth
+          margin="normal"
+          error={!!errors.mobile}
+          helperText={errors.mobile}
+        />
+      </div>
     </div>
   );
 
   const step2 = (
     <div>
       <FormControl margin="normal" fullWidth>
-        <InputLabel id="student-signup-branch-label" error={!!errors.branch}>
+        <InputLabel
+          id="student-signup-campus-label"
+          error={!!errors.institutionName}
+          required
+        >
+          Institution Name
+        </InputLabel>
+        <Select
+          labelId="campus-name"
+          id="student-signup-campus-select"
+          required
+          value={formData.institutionName}
+          label="Institution Name"
+          name="institutionName"
+          onChange={handleChange}
+          error={!!errors.institutionName}
+        >
+          {campuses.map((campus) => (
+            <MenuItem key={campus._id} value={campus._id}>
+              {campus.collegeName}
+            </MenuItem>
+          ))}
+        </Select>
+        <FormHelperText error={!!errors.institutionName}>
+          {errors.institutionName}
+        </FormHelperText>
+      </FormControl>
+
+      <FormControl margin="normal" fullWidth>
+        <InputLabel
+          id="student-signup-branch-label"
+          error={!!errors.branch}
+          required
+        >
           Branch
         </InputLabel>
         <Select
@@ -368,88 +447,31 @@ const StudentSignup = () => {
         </Select>
         <FormHelperText error={!!errors.branch}>{errors.branch}</FormHelperText>
       </FormControl>
-      <FormControl margin="normal" fullWidth>
-        <InputLabel id="student-signup-country-label" error={!!errors.country}>
-          Country
-        </InputLabel>
-        <Select
-          labelId="country-name"
-          id="student-signup-country-select"
-          value={formData.country}
-          label="Country"
-          name="country"
-          onChange={handleChange}
-          error={!!errors.country}
-        >
-          {countries.map((country) => (
-            <MenuItem
-              onClick={() => setCountryParam(country.countryCode)}
-              key={country.countryCode}
-              value={country.country}
-            >
-              {country.country}
-            </MenuItem>
-          ))}
-        </Select>
-        <FormHelperText error={!!errors.country}>
-          {errors.country}
-        </FormHelperText>
-      </FormControl>
+
       <FormControl margin="normal" fullWidth>
         <InputLabel
-          id="student-signup-state-label"
-          error={!!errors.state}
-          disabled={states.length === 0}
+          id="student-signup-year-label"
+          error={!!errors.branch}
+          required
         >
-          State
+          Year
         </InputLabel>
         <Select
-          labelId="state-name"
-          id="student-signup-state-select"
-          value={formData.state}
-          label="State"
-          name="state"
-          onChange={handleChange}
-          error={!!errors.state}
-          disabled={states.length === 0}
+          labelId="year"
+          id="student-signup-year-select"
+          value={year}
+          label="Year"
+          name="year"
+          onChange={(e) => setYear(e.target.value)}
+          error={!!errors.year}
         >
-          {states.map((state) => (
-            <MenuItem
-              onClick={() => setStateParam(state.stateCode)}
-              key={state.stateCode}
-              value={state.state}
-            >
-              {state.state}
+          {yearList.map((year) => (
+            <MenuItem key={year.value} value={year.value}>
+              {year.label}
             </MenuItem>
           ))}
         </Select>
-        <FormHelperText error={!!errors.state}>{errors.state}</FormHelperText>
-      </FormControl>
-      <FormControl margin="normal" fullWidth>
-        <InputLabel
-          id="student-signup-city-label"
-          error={!!errors.city}
-          disabled={cities.length === 0}
-        >
-          City
-        </InputLabel>
-        <Select
-          labelId="city-name"
-          id="student-signup-city-select"
-          value={formData.city}
-          label="City"
-          name="city"
-          onChange={handleChange}
-          error={!!errors.city}
-          disabled={cities.length === 0}
-        >
-          {cities.map((city) => (
-            <MenuItem key={city.city} value={city.city}>
-              {city.city}
-            </MenuItem>
-          ))}
-        </Select>
-        <FormHelperText error={!!errors.city}>{errors.city}</FormHelperText>
+        <FormHelperText error={!!errors.year}>{errors.year}</FormHelperText>
       </FormControl>
     </div>
   );
@@ -458,35 +480,35 @@ const StudentSignup = () => {
     <div>
       <FormControl margin="normal" fullWidth>
         <InputLabel
-          id="student-signup-campus-label"
-          error={!!errors.institutionName}
+          id="student-signup-gender-label"
+          error={!!errors.branch}
+          required
         >
-          Institution Name
+          Gender
         </InputLabel>
         <Select
-          labelId="campus-name"
-          id="student-signup-campus-select"
-          value={formData.institutionName}
-          label="Institution Name"
-          name="institutionName"
-          onChange={handleChange}
-          error={!!errors.institutionName}
+          labelId="gender"
+          id="student-signup-gender-select"
+          value={gender}
+          label="Gender"
+          name="gender"
+          onChange={(e) => setGender(e.target.value)}
+          error={!!errors.gender}
         >
-          {campuses.map((campus) => (
-            <MenuItem key={campus._id} value={campus._id}>
-              {campus.collegeName}
+          {genderList.map((gender) => (
+            <MenuItem key={gender.value} value={gender.value}>
+              {gender.label}
             </MenuItem>
           ))}
         </Select>
-        <FormHelperText error={!!errors.institutionName}>
-          {errors.institutionName}
-        </FormHelperText>
+        <FormHelperText error={!!errors.gender}>{errors.gender}</FormHelperText>
       </FormControl>
 
       <FormControl margin="normal" fullWidth variant="outlined">
         <InputLabel
           htmlFor="student-signup-outlined-adornment-password"
           error={!!errors.password}
+          required
         >
           Password
         </InputLabel>
@@ -497,8 +519,6 @@ const StudentSignup = () => {
           value={formData.password}
           onChange={handleChange}
           error={!!errors.password}
-          // helperText={errors.password}
-
           endAdornment={
             <InputAdornment position="end">
               <IconButton
@@ -522,6 +542,7 @@ const StudentSignup = () => {
         <InputLabel
           htmlFor="student-signup-outlined-adornment-confirm-password"
           error={!!errors.confirmPassword}
+          required
         >
           Confirm Password
         </InputLabel>

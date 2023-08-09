@@ -1,7 +1,6 @@
 import "./Signup.css";
-import { useNavigate, useNavigation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { Button } from "@mui/material";
 import {
   TextField,
   FormControl,
@@ -14,24 +13,13 @@ import {
 import axios from "axios";
 import "../../Hosting/EventRegistration.css";
 import useNavbar from "../../../hooks/use-navbar";
-// import InputLabel from '@mui/material/InputLabel';
-// import MenuItem from '@mui/material/MenuItem';
-// import FormControl from '@mui/material/FormControl';
-// import Select from '@mui/material/Select';
 import { Select, MenuItem } from "@mui/material";
 import { API_URL } from "../../../services/APIUtils";
 import Cookies from "js-cookie";
-import jwt_decode from "jwt-decode";
 import HostEventTimeline from "../../../components/Timeline/HostEventTimeline";
-// import { set } from "react-hook-form";
-import {
-  controller,
-  getAllCountries,
-  getCitiesByState,
-  getStatesByCountry,
-} from "../../../services/APIConfig";
+import { controller } from "../../../services/APIConfig";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-// import GroupAddIcon from '@material-ui/icons/GroupAdd';
+import countryCodes from "../../../assets/countryCodes";
 
 const OrganizationSignup = () => {
   const navigate = useNavigate();
@@ -42,19 +30,16 @@ const OrganizationSignup = () => {
     setSelectedPageNavbar("login");
   }, []);
 
-  const [countryParam, setCountryParam] = useState("");
-  const [stateParam, setStateParam] = useState("");
-  const [countries, setCountries] = useState([]);
-  const [states, setStates] = useState([]);
-  const [cities, setCities] = useState([]);
+  const [mobileCountryCode, setMobileCountryCode] = useState("91");
+  const [hiringFor, setHiringFor] = useState("Full Time");
+  const [contactName, setContactName] = useState("");
+  const [linkedIn, setLinkedIn] = useState("");
   const [validation, setValidation] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-  const [role, setRole] = useState("User");
   const [formData, setFormData] = useState({
     name: "",
-    // userName: '',
     email: "",
     organizationName: "",
     state: "",
@@ -63,11 +48,16 @@ const OrganizationSignup = () => {
     password: "",
     confirmPassword: "",
     webSiteURL: "",
+    mobile: "",
   });
   const [step, setStep] = useState(1);
   const [errors, setErrors] = useState({
+    hiringFor: "",
+    linkedIn: "",
+    contactName: "",
+    webSiteURL: "",
     name: "",
-    // userName: '',
+    mobile: "",
     email: "",
     organizationName: "",
     state: "",
@@ -76,35 +66,32 @@ const OrganizationSignup = () => {
     password: "",
     confirmPassword: "",
   });
+  const hiringForList = [
+    {
+      value: "Full Time",
+      label: "Full Time",
+    },
+    {
+      value: "Intern",
+      label: "Intern",
+    },
+    {
+      value: "Part Time/Project Basis",
+      label: "Part Time/Project Basis",
+    },
+    {
+      value: "Event Based Hiring/Hackathons",
+      label: "Event Based Hiring/Hackathons",
+    },
+  ];
 
   useEffect(() => {
     window.scrollTo(0, 0);
     setSelectedPageNavbar("login");
-    getAllCountries(setCountries);
     return () => {
       controller.abort();
     };
   }, []);
-
-  useEffect(() => {
-    if (countryParam) {
-      getStatesByCountry(setStates, countryParam);
-    }
-
-    return () => {
-      controller.abort();
-    };
-  }, [countryParam]);
-
-  useEffect(() => {
-    if (stateParam) {
-      getCitiesByState(setCities, countryParam, stateParam);
-    }
-
-    return () => {
-      controller.abort();
-    };
-  }, [stateParam]);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const handleClickShowConfirmPassword = () =>
@@ -127,29 +114,41 @@ const OrganizationSignup = () => {
   const validateInput1 = () => {
     let valid = true;
     const newErrors = {
-      name: "",
+      contactName: "",
       email: "",
-      organizationName: "",
+      linkedIn: "",
+      mobile: "",
     };
 
-    if (!formData.name) {
-      newErrors.name = "Name is required";
+    if (!contactName) {
+      newErrors.contactName = "Name is required";
       valid = false;
     }
-
-    if (!formData.email) {
-      newErrors.email = "Email is required";
+    if (!formData.email && !linkedIn) {
+      newErrors.email = "Either email or linkedIn is required";
+      newErrors.linkedIn = "Either email or linkedIn is required";
       valid = false;
-    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = "Invalid email format";
+    } else {
+      if (formData.email && !/\S+@\S+\.\S+/.test(formData.email)) {
+        newErrors.email = "Invalid email format";
+        valid = false;
+      }
+      if (linkedIn && !/^https:\/\//.test(linkedIn)) {
+        newErrors.linkedIn = "URL must begin with https://";
+        valid = false;
+      }
+    }
+    if (!formData.mobile) {
+      newErrors.mobile = "Mobile number is required";
+      valid = false;
+    } else if (!/^[0-9]+$/.test(formData.mobile)) {
+      newErrors.mobile =
+        "Mobile number should not contain any special characters or letter";
+      valid = false;
+    } else if (!/^\d{10}$/.test(formData.mobile)) {
+      newErrors.mobile = "Mobile number should be of 10 digits";
       valid = false;
     }
-
-    if (!formData.organizationName) {
-      newErrors.organizationName = "organization name is required";
-      valid = false;
-    }
-
     setErrors(newErrors);
     return valid;
   };
@@ -157,21 +156,19 @@ const OrganizationSignup = () => {
   const validateInput2 = () => {
     let valid = true;
     const newErrors = {
-      country: "",
-      state: "",
-      city: "",
+      organizationName: "",
+      webSiteURL: "",
     };
 
-    if (!formData.country) {
-      newErrors.country = "country Name is required";
+    if (!formData.organizationName) {
+      newErrors.organizationName = "Company name is required";
       valid = false;
     }
-    if (!formData.state) {
-      newErrors.state = "state name is required";
+    if (!formData.webSiteURL) {
+      newErrors.webSiteURL = "Website URL is Required";
       valid = false;
-    }
-    if (!formData.city) {
-      newErrors.city = "city name is required";
+    } else if (!/^https:\/\//.test(formData.webSiteURL)) {
+      newErrors.webSiteURL = "URL must begin with https://";
       valid = false;
     }
 
@@ -182,14 +179,9 @@ const OrganizationSignup = () => {
   const validateInput3 = () => {
     let valid = true;
     const newErrors = {
-      websiteURL: "",
       password: "",
       confirmPassword: "",
     };
-    if (!formData.webSiteURL) {
-      newErrors.websiteURL = "website URL is Required";
-      valid = false;
-    }
 
     if (!formData.password) {
       newErrors.password = "Password is required";
@@ -199,25 +191,18 @@ const OrganizationSignup = () => {
       let allErrors = [];
       if (formData.password.length < 8) {
         allErrors.push(" 8 characters");
-        // errors.password = "Password must be at least 8 characters long.";
       }
       if (!/[A-Z]/.test(formData.password)) {
         allErrors.push(" 1 uppercase character");
-        // errors.password =
-        //   "Password must contain at least one uppercase character.";
       }
       if (!/[a-z]/.test(formData.password)) {
         allErrors.push(" 1 lowercase character");
-        // errors.password =
-        //   "Password must contain at least one lowercase character.";
       }
       if (!/\d/.test(formData.password)) {
         allErrors.push(" 1 numeric character");
-        // errors.password = "Password must contain at least one numeric character.";
       }
       if (!/[!@#$%^&*(),.?":{}|<>]/.test(formData.password)) {
         allErrors.push(" 1 special character");
-        // errors.password = "Password must contain at least one special character.";
       }
       if (allErrors.length > 0) {
         newErrors.password += allErrors.join(",");
@@ -249,7 +234,7 @@ const OrganizationSignup = () => {
     if (step === 3) {
       if (validateInput3()) setValidation(true);
       {
-        localStorage.setItem("OtpRoute","true");
+        localStorage.setItem("OtpRoute", "true");
       }
     }
   }
@@ -259,12 +244,25 @@ const OrganizationSignup = () => {
   }
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // console.log(formData);
+
+    const data = {
+      name: contactName,
+      email: formData.email,
+      password: formData.password,
+      confirmPassword: formData.confirmPassword,
+      organizationName: formData.organizationName,
+      webSiteURL: formData.webSiteURL,
+      linkedIn: linkedIn,
+      mobile: formData.mobile,
+      contactName: contactName,
+      hiringFor: hiringFor,
+    };
+
     if (validation === true) {
       setLoading(true);
       console.log(formData);
 
-      axios.post(`${API_URL}api/v1/organization/signup`, formData).then(
+      axios.post(`${API_URL}api/v1/organization/signup`, data).then(
         (response) => {
           Cookies.set("email", response.data.email);
 
@@ -293,20 +291,23 @@ const OrganizationSignup = () => {
   const step1 = (
     <div>
       <TextField
-        name="name"
-        label="User Name"
+        name="contactName"
+        label="Your Name"
         variant="outlined"
-        value={formData.name}
-        onChange={handleChange}
+        placeholder="Enter your name"
+        required
+        value={contactName}
+        onChange={(e) => setContactName(e.target.value)}
+        onBlur={(e) => setContactName(e.target.value.trim())}
         fullWidth
         margin="normal"
-        error={!!errors.name}
-        helperText={errors.name}
+        error={!!errors.contactName}
+        helperText={errors.contactName}
       />
 
       <TextField
         name="email"
-        label="Email"
+        label="Work Email"
         variant="outlined"
         value={formData.email}
         onChange={handleChange}
@@ -316,9 +317,69 @@ const OrganizationSignup = () => {
         helperText={errors.email}
       />
       <TextField
-        name="organizationName"
-        label="Organization Name "
+        name="linkedIn"
+        label="Linkedin Profile Link"
         variant="outlined"
+        value={linkedIn}
+        onChange={(e) => setLinkedIn(e.target.value)}
+        onBlur={(e) => setLinkedIn(e.target.value.trim())}
+        fullWidth
+        margin="normal"
+        error={!!errors.linkedIn}
+        helperText={errors.linkedIn}
+      />
+      <div className="complex-field-container">
+        <FormControl className="complex-field-3" margin="normal" fullWidth>
+          <InputLabel
+            id="student-signup-campus-label"
+            error={!!errors.mobileCountryCode}
+          ></InputLabel>
+          <Select
+            labelId="event-type-label"
+            id="event-type"
+            value={mobileCountryCode}
+            label=""
+            onChange={(e) => setMobileCountryCode(e.target.value)}
+          >
+            {countryCodes.map((countryCode) => (
+              <MenuItem
+                key={countryCode}
+                value={countryCode}
+              >{`+${countryCode}`}</MenuItem>
+            ))}
+          </Select>
+          <FormHelperText error={!!errors.mobileCountryCode}>
+            {errors.mobileCountryCode}
+          </FormHelperText>
+        </FormControl>
+        <TextField
+          name="mobile"
+          label="Contact Number"
+          variant="outlined"
+          placeholder="Enter your Contact Number"
+          required
+          value={formData.mobile}
+          onChange={handleChange}
+          onBlur={(e) =>
+            setFormData({ ...formData, mobile: e.target.value.trim() })
+          }
+          fullWidth
+          margin="normal"
+          error={!!errors.mobile}
+          helperText={errors.mobile}
+        />
+      </div>
+    </div>
+  );
+
+  const step2 = (
+    <div>
+      <TextField
+        name="organizationName"
+        label="Company Name "
+        variant="outlined"
+        placeholder="Enter your Company/Startup/Idea Name"
+        required
         value={formData.organizationName}
         onChange={handleChange}
         fullWidth
@@ -326,107 +387,12 @@ const OrganizationSignup = () => {
         error={!!errors.organizationName}
         helperText={errors.organizationName}
       />
-
-   
-    </div>
-  );
-
-  const step2 = (
-    <div>
-
-      <FormControl margin="normal" fullWidth>
-        <InputLabel id="student-signup-country-label" error={!!errors.country}>
-          Country
-        </InputLabel>
-        <Select
-          labelId="country-name"
-          id="student-signup-country-select"
-          value={formData.country}
-          label="Country"
-          name="country"
-          onChange={handleChange}
-          error={!!errors.country}
-        >
-          {countries.map((country) => (
-            <MenuItem
-              onClick={() => setCountryParam(country.countryCode)}
-              key={country.countryCode}
-              value={country.country}
-            >
-              {country.country}
-            </MenuItem>
-          ))}
-        </Select>
-        <FormHelperText error={!!errors.country}>
-          {errors.country}
-        </FormHelperText>
-      </FormControl>
-      <FormControl margin="normal" fullWidth>
-        <InputLabel
-          id="student-signup-state-label"
-          error={!!errors.state}
-          disabled={states.length === 0}
-        >
-          State
-        </InputLabel>
-        <Select
-          labelId="state-name"
-          id="student-signup-state-select"
-          value={formData.state}
-          label="State"
-          name="state"
-          onChange={handleChange}
-          error={!!errors.state}
-          disabled={states.length === 0}
-        >
-          {states.map((state) => (
-            <MenuItem
-              onClick={() => setStateParam(state.stateCode)}
-              key={state.stateCode}
-              value={state.state}
-            >
-              {state.state}
-            </MenuItem>
-          ))}
-        </Select>
-        <FormHelperText error={!!errors.state}>{errors.state}</FormHelperText>
-      </FormControl>
-      <FormControl margin="normal" fullWidth>
-        <InputLabel
-          id="student-signup-city-label"
-          error={!!errors.city}
-          disabled={cities.length === 0}
-        >
-          City
-        </InputLabel>
-        <Select
-          labelId="city-name"
-          id="student-signup-city-select"
-          value={formData.city}
-          label="City"
-          name="city"
-          onChange={handleChange}
-          error={!!errors.city}
-          disabled={cities.length === 0}
-        >
-          {cities.map((city) => (
-            <MenuItem key={city.city} value={city.city}>
-              {city.city}
-            </MenuItem>
-          ))}
-        </Select>
-        <FormHelperText error={!!errors.city}>{errors.city}</FormHelperText>
-      </FormControl>
-     
-    </div>
-  );
-
-  const step3 = (
-    <div>
       <TextField
         name="webSiteURL"
-        label="WebSite URL"
+        label="Website URL"
         variant="outlined"
+        placeholder="Enter your Website URL"
+        required
         value={formData.webSiteURL}
         onChange={handleChange}
         fullWidth
@@ -434,7 +400,38 @@ const OrganizationSignup = () => {
         error={!!errors.webSiteURL}
         helperText={errors.webSiteURL}
       />
+      <FormControl margin="normal" fullWidth>
+        <InputLabel
+          id="company-signup-hiring-label"
+          error={!!errors.hiringFor}
+          required
+        >
+          Hiring For
+        </InputLabel>
+        <Select
+          labelId="year"
+          id="student-signup-year-select"
+          value={hiringFor}
+          label="Hiring For"
+          name="year"
+          onChange={(e) => setHiringFor(e.target.value)}
+          error={!!errors.hiringFor}
+        >
+          {hiringForList.map((hiringType) => (
+            <MenuItem key={hiringType.value} value={hiringType.value}>
+              {hiringType.label}
+            </MenuItem>
+          ))}
+        </Select>
+        <FormHelperText error={!!errors.hiringType}>
+          {errors.hiringType}
+        </FormHelperText>
+      </FormControl>
+    </div>
+  );
 
+  const step3 = (
+    <div>
       <FormControl margin="normal" fullWidth variant="outlined">
         <InputLabel
           htmlFor="student-signup-outlined-adornment-password"
@@ -449,8 +446,6 @@ const OrganizationSignup = () => {
           value={formData.password}
           onChange={handleChange}
           error={!!errors.password}
-          // helperText={errors.password}
-
           endAdornment={
             <InputAdornment position="end">
               <IconButton
@@ -502,12 +497,8 @@ const OrganizationSignup = () => {
           {errors.confirmPassword}
         </FormHelperText>
       </FormControl>
-
     </div>
   );
-  {
-
-  }
   return (
     <>
       <main className="signup-page">
