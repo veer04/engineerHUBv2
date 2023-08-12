@@ -285,6 +285,7 @@ export const getHiringData = (setHiring) => {
   const controller = new AbortController();
   axios
     .get(`${API_URL}api/v1/hiring/`, {
+      // .post(`${API_URL}api/v1/getHiring/`, {
       signal: controller.signal,
     })
     .then((res) => {
@@ -330,6 +331,7 @@ export const getAllJobs = (setJobs) => {
   const controller = new AbortController();
   axios
     .get(`${API_URL}api/v1/hiring/`, {
+      // .post(`${API_URL}api/v1/getHiring/`, {
       signal: controller.signal,
     })
     .then((res) => {

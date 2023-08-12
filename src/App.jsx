@@ -271,10 +271,6 @@ function App() {
             <Route path="events">
               <Route path="" element={<Events />} />
               <Route path=":hackId" element={<HackathonDetails />} />
-              {/* <Route
-              path="competitions/:competeId"
-              element={<CompetitionDetails />}
-            /> */}
             </Route>
           </Route>
           <Route path="*" element={<Page404 />} />

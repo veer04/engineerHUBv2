@@ -3,6 +3,10 @@
 .CompanyJob {
   padding: 30px 150px;
   background: #eeffff;
+  min-height: 100lvh;
+  min-height: 100vh;
+  min-height: 100svh;
+  min-height: 100dvh;
 }
 
 .CompanyJob h2 {
@@ -84,6 +88,22 @@
   justify-content: space-evenly;
   align-items: center;
   gap: 40px;
+}
+.company_searchbar_container {
+  margin: 0 auto;
+  display: relative;
+}
+.JobTiles {
+  position: relative;
+  padding-top: 0.25rem;
+}
+.company_searchbar_container__aside {
+  position: sticky;
+  z-index: 5;
+  top: 0;
+  width: 100%;
+  max-width: 20.2rem;
+  height: fit-content;
 }
 @media screen and (max-width: 600px) {
   .CompanyJob {

@@ -1,7 +1,6 @@
 import "./StudentSignup.css";
-import { useNavigate, useNavigation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { Button } from "@mui/material";
 import axios from "axios";
 import "../../Hosting/EventRegistration.css";
 import useNavbar from "../../../hooks/use-navbar";
@@ -14,19 +13,14 @@ import {
   InputAdornment,
   IconButton,
 } from "@mui/material";
-// import InputLabel from '@mui/material/InputLabel';
-// import MenuItem from '@mui/material/MenuItem';
-// import FormControl from '@mui/material/FormControl';
-// import Select from '@mui/material/Select';
 import { Select, MenuItem } from "@mui/material";
 import { API_URL } from "../../../services/APIUtils";
 import Cookies from "js-cookie";
-import jwt_decode from "jwt-decode";
 
 import { controller, getAllCampuses } from "../../../services/APIConfig";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import HostEventTimeline from "../../../components/Timeline/HostEventTimeline";
-// import GroupAddIcon from '@material-ui/icons/GroupAdd';
+import countryCodes from "../../../assets/countryCodes";
 
 const ClubSignup = () => {
   const navigate = useNavigate();
@@ -37,25 +31,12 @@ const ClubSignup = () => {
     setSelectedPageNavbar("login");
   }, []);
 
-  const roles = ["User", "Mentor", "Organization"];
-  // const [countries, setCountries] = useState([]);
-  // const [states, setStates] = useState([]);
-  // const [cities, setCities] = useState([]);
+  const [mobileCountryCode, setMobileCountryCode] = useState("91");
   const [campuses, setCampuses] = useState([]);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [validation, setValidation] = useState(false);
 
-  // useEffect(() => {
-  //   // Fetch country data
-  //   axios.get(`${API_URL}api/v1/getCountries`)
-  //     .then(response => {
-  //       setCountries(response.data);
-  //     })
-  //     .catch(error => {
-  //       console.error('Error fetching countries:', error);
-  //     });
-  // }, []);
   useEffect(() => {
     window.scrollTo(0, 0);
 
@@ -66,16 +47,13 @@ const ClubSignup = () => {
     };
   }, []);
 
-  // const [role, setRole] = useState("User");
   const [formData, setFormData] = useState({
     name: "",
-    // userName: '',
     email: "",
     description: "",
-    // collegeName: "",
     clubType: "",
     websiteUrl: "",
-
+    mobile: "",
     collegeId: "",
     password: "",
     confirmPassword: "",
@@ -83,22 +61,16 @@ const ClubSignup = () => {
   const [step, setStep] = useState(1);
   const [errors, setErrors] = useState({
     name: "",
-    // userName: '',
     email: "",
     description: "",
-    // collegeName: "",
+    mobile: "",
     clubType: "",
     websiteUrl: "",
-
     collegeId: "",
     password: "",
     confirmPassword: "",
   });
 
-  // const handleInputChange = (event) => {
-  //   const inputValues = event.target.value.split(',');
-  //   setSkills(inputValues);
-  // };
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevFormData) => ({
@@ -106,9 +78,7 @@ const ClubSignup = () => {
       [name]: value,
     }));
   };
-  //  const handleChangeDrop =(event)=>{
-  //   setRole(event.target.value);
-  //  }
+
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const handleClickShowConfirmPassword = () =>
     setShowConfirmPassword((show) => !show);
@@ -123,20 +93,14 @@ const ClubSignup = () => {
     let valid = true;
     const newErrors = {
       name: "",
-      // userName: '',
       email: "",
-      // description: "",
-      // websiteUrl: "",
-      // contact: "",
-      // collegeId: "",
-      description: "",
+      mobile: "",
     };
 
     if (!formData.name) {
       newErrors.name = "Name is required";
       valid = false;
     }
-
     if (!formData.email) {
       newErrors.email = "Email is required";
       valid = false;
@@ -144,12 +108,11 @@ const ClubSignup = () => {
       newErrors.email = "Invalid email format";
       valid = false;
     }
-
-    if (!formData.description) {
-      newErrors.description = "description is required";
+    if (!formData.mobile) {
+      newErrors.mobile = "Mobile Number is required";
       valid = false;
-    } else if (!/^(?=.*[a-zA-Z0-9\s]).{50,}$/.test(formData.description)) {
-      newErrors.description = "must have a minimum of 50 characters";
+    } else if (!/^[0-9]{10}$/.test(formData.mobile)) {
+      newErrors.mobile = "Mobile Number should be of 10 digits";
       valid = false;
     }
 
@@ -162,31 +125,33 @@ const ClubSignup = () => {
     const newErrors = {
       clubType: "",
       collegeId: "",
+      description: "",
     };
     if (!formData.clubType) {
-      newErrors.clubType = "club Type is Required ";
+      newErrors.clubType = "Club Type is Required ";
       valid = false;
     } else if (!/^[A-Za-z0-9\s&'-]+$/.test(formData.clubType)) {
       newErrors.clubType = "Club Type should not have special characters";
       valid = false;
     }
     if (!formData.collegeId) {
-      newErrors.collegeId = "College ID is required";
+      newErrors.collegeId = "College Name is required";
       valid = false;
     } else if (!/^[A-Za-z0-9\s&'-]+$/.test(!formData.collegeId)) {
-      newErrors.collegeId = "College ID cannot have any special character";
+      newErrors.collegeId = "College Name cannot have any special character";
       valid = false;
     }
-    //  if(!formData.collegeName)
-    //  {
-    //    newErrors.collegeName="College Name is required";
-    //    valid =false;
-    //  }
-    // else if(!/^[A-Za-z0-9\s&'-]+$/.test(!formData.collegeName))
-    // {
-    //  newErrors.collegeName="College Name cannot have any special character";
-    //  valid=false;
-    // }
+    if (!formData.description) {
+      newErrors.description = "Description is required";
+      valid = false;
+    } else if (formData.description.length < 50) {
+      newErrors.description =
+        "Description should have a minimum of 50 characters";
+      valid = false;
+    } else if (formData.description.length > 1000) {
+      newErrors.description = "Description should not exceed 1000 characters";
+      valid = false;
+    }
 
     setErrors(newErrors);
     return valid;
@@ -200,7 +165,11 @@ const ClubSignup = () => {
       confirmPassword: "",
     };
     if (!formData.websiteUrl) {
-      newErrors.websiteUrl = "website URL is Required";
+      newErrors.websiteUrl = "Website URL is Required";
+      valid = false;
+    } else if (!/^(ftp|http|https):\/\/[^ "]+$/.test(formData.websiteUrl)) {
+      newErrors.websiteUrl =
+        "Invalid URL format. Link should be like https://www.engineerhub.in/";
       valid = false;
     }
 
@@ -212,25 +181,18 @@ const ClubSignup = () => {
       let allErrors = [];
       if (formData.password.length < 8) {
         allErrors.push(" 8 characters");
-        // errors.password = "Password must be at least 8 characters long.";
       }
       if (!/[A-Z]/.test(formData.password)) {
         allErrors.push(" 1 uppercase character");
-        // errors.password =
-        //   "Password must contain at least one uppercase character.";
       }
       if (!/[a-z]/.test(formData.password)) {
         allErrors.push(" 1 lowercase character");
-        // errors.password =
-        //   "Password must contain at least one lowercase character.";
       }
       if (!/\d/.test(formData.password)) {
         allErrors.push(" 1 numeric character");
-        // errors.password = "Password must contain at least one numeric character.";
       }
       if (!/[!@#$%^&*(),.?":{}|<>]/.test(formData.password)) {
         allErrors.push(" 1 special character");
-        // errors.password = "Password must contain at least one special character.";
       }
       if (allErrors.length > 0) {
         newErrors.password += allErrors.join(",");
@@ -254,9 +216,6 @@ const ClubSignup = () => {
     return valid;
   };
 
-  // const handleChangeRole = (event) => {
-  //   setRole(event.target.value);
-  // };
   function handleNext() {
     if (step === 1) {
       if (validateInput1()) setStep(step + 1);
@@ -267,7 +226,7 @@ const ClubSignup = () => {
     if (step === 3) {
       if (validateInput3()) setValidation(true);
       {
-        localStorage.setItem("OtpRoute","true");
+        localStorage.setItem("OtpRoute", "true");
       }
     }
   }
@@ -278,12 +237,23 @@ const ClubSignup = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // console.log(formData);
+
+    const data = {
+      name: formData.name,
+      email: formData.email,
+      mobile: formData.mobile,
+      clubType: formData.clubType,
+      collegeId: formData.collegeId,
+      description: formData.description,
+      websiteUrl: formData.websiteUrl,
+      password: formData.password,
+      confirmPassword: formData.confirmPassword,
+    };
+
     if (validation === true) {
       setLoading(true);
-      console.log(formData);
 
-      axios.post(`${API_URL}api/v1/club/signup`, formData).then(
+      axios.post(`${API_URL}api/v1/club/signup`, data).then(
         (response) => {
           Cookies.set("email", response.data.email);
 
@@ -314,8 +284,10 @@ const ClubSignup = () => {
     <div>
       <TextField
         name="name"
-        label="Name"
+        label="Club Name"
         variant="outlined"
+        placeholder="Enter your Club Name"
+        required
         value={formData.name}
         onChange={handleChange}
         fullWidth
@@ -326,8 +298,10 @@ const ClubSignup = () => {
 
       <TextField
         name="email"
-        label="Email"
+        label="Club Email"
         variant="outlined"
+        placeholder="Enter your Club Email"
+        required
         value={formData.email}
         onChange={handleChange}
         fullWidth
@@ -335,69 +309,64 @@ const ClubSignup = () => {
         error={!!errors.email}
         helperText={errors.email}
       />
-      <TextField
-        name="description"
-        label="Description "
-        variant="outlined"
-        value={formData.description}
-        onChange={handleChange}
-        fullWidth
-        margin="normal"
-        error={!!errors.description}
-        helperText={errors.description}
-      />
+      <div className="complex-field-container">
+        <FormControl className="complex-field-3" margin="normal" fullWidth>
+          <InputLabel
+            id="student-signup-campus-label"
+            error={!!errors.mobileCountryCode}
+          ></InputLabel>
+          <Select
+            labelId="event-type-label"
+            id="event-type"
+            value={mobileCountryCode}
+            label=""
+            onChange={(e) => setMobileCountryCode(e.target.value)}
+          >
+            {countryCodes.map((countryCode) => (
+              <MenuItem
+                key={countryCode}
+                value={countryCode}
+              >{`+${countryCode}`}</MenuItem>
+            ))}
+          </Select>
+          <FormHelperText error={!!errors.mobileCountryCode}>
+            {errors.mobileCountryCode}
+          </FormHelperText>
+        </FormControl>
+        <TextField
+          name="mobile"
+          label="Club Representative Contact No."
+          variant="outlined"
+          placeholder="Enter your Contact Number"
+          required
+          value={formData.mobile}
+          onChange={handleChange}
+          onBlur={(e) =>
+            setFormData({ ...formData, mobile: e.target.value.trim() })
+          }
+          fullWidth
+          margin="normal"
+          error={!!errors.mobile}
+          helperText={errors.mobile}
+        />
+      </div>
     </div>
   );
 
   const step2 = (
     <div>
-
-
-{/* <TextField
-        name="clubType"
-        label="club Type"
-        variant="outlined"
-        value={formData.clubType}
-        onChange={handleChange}
-        fullWidth
-        margin="normal"
-        error={!!errors.clubType}
-        helperText={errors.clubType}
-      /> */}
-                    <FormControl
-                        fullWidth
-                        >
-                        <InputLabel
-                            id="student-signup-campus-label"
-                            error={!!errors.clubType}
-                          >
-                            Club Type
-                          </InputLabel>
-                        <Select
-                          labelId="event-type-label"
-                          id="event-type"
-                          value={formData.clubType}
-                          label="club Type"
-                          name="clubType"
-                          onChange={handleChange}
-                        >
-                          <MenuItem value="Technical">Technical</MenuItem>
-                          <MenuItem value="Cultural">Cultural</MenuItem>
-                    
-                        </Select>
-                        <FormHelperText error={!!errors.clubType}>
-                            {errors.clubType}
-                          </FormHelperText>
-                      </FormControl>
-                      
       <FormControl margin="normal" fullWidth>
-        <InputLabel id="student-signup-campus-label" error={!!errors.collegeId}>
+        <InputLabel
+          id="student-signup-campus-label"
+          error={!!errors.collegeId}
+          required
+        >
           Campus Name
         </InputLabel>
         <Select
           labelId="campus-name"
           id="student-signup-campus-select"
-          value={formData.institutionName}
+          value={formData.collegeId}
           label="Campus Name"
           name="collegeId"
           onChange={handleChange}
@@ -413,6 +382,49 @@ const ClubSignup = () => {
           {errors.collegeId}
         </FormHelperText>
       </FormControl>
+      <FormControl margin="normal" fullWidth>
+        <InputLabel
+          id="student-signup-campus-label"
+          error={!!errors.clubType}
+          required
+        >
+          Club Type
+        </InputLabel>
+        <Select
+          labelId="event-type-label"
+          id="event-type"
+          value={formData.clubType}
+          label="club Type"
+          name="clubType"
+          onChange={handleChange}
+          error={!!errors.clubType}
+        >
+          <MenuItem value="Technical">Technical</MenuItem>
+          <MenuItem value="Cultural">Cultural</MenuItem>
+        </Select>
+        <FormHelperText error={!!errors.clubType}>
+          {errors.clubType}
+        </FormHelperText>
+      </FormControl>
+      <TextField
+        name="description"
+        label="About the Club"
+        variant="outlined"
+        placeholder="Write a brief about your Club"
+        required
+        value={formData.description}
+        multiline
+        minRows={3}
+        maxRows={6}
+        onChange={handleChange}
+        onBlur={(e) =>
+          setFormData({ ...formData, description: e.target.value.trim() })
+        }
+        fullWidth
+        margin="normal"
+        error={!!errors.description}
+        helperText={errors.description}
+      />
     </div>
   );
 
@@ -422,6 +434,7 @@ const ClubSignup = () => {
         name="websiteUrl"
         label="Website URL"
         variant="outlined"
+        required
         value={formData.websiteUrl}
         onChange={handleChange}
         fullWidth
@@ -434,6 +447,7 @@ const ClubSignup = () => {
         <InputLabel
           htmlFor="student-signup-outlined-adornment-password"
           error={!!errors.password}
+          required
         >
           Password
         </InputLabel>
@@ -444,8 +458,6 @@ const ClubSignup = () => {
           value={formData.password}
           onChange={handleChange}
           error={!!errors.password}
-          // helperText={errors.password}
-
           endAdornment={
             <InputAdornment position="end">
               <IconButton
@@ -469,6 +481,7 @@ const ClubSignup = () => {
         <InputLabel
           htmlFor="student-signup-outlined-adornment-confirm-password"
           error={!!errors.confirmPassword}
+          required
         >
           Confirm Password
         </InputLabel>

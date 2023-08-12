@@ -48,7 +48,6 @@ const Company = () => {
   const [cntInternship, setCntInternship] = useState(-1);
   const [cntInternshipLive, setCntInternshipLive] = useState(-1);
   const [cntProject, setCntProject] = useState(-1);
-  const [length, setLength] = useState(-1);
   const navigate = useNavigate();
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -158,38 +157,7 @@ const Company = () => {
     { name: "Web-Dev", logo: `${bucket}webdevLogo.svg` },
     { name: "Database", logo: `${bucket}databaseLogo.svg` },
   ];
-  const data = [
-    {
-      stars: 3,
-      views: 426,
-      days: 9,
-    },
-    {
-      stars: 3,
-      views: 575,
-      days: 20,
-    },
-    {
-      stars: 4,
-      views: 978,
-      days: 7,
-    },
-    {
-      stars: 5,
-      views: 148,
-      days: 171,
-    },
-    {
-      stars: 3,
-      views: 429,
-      days: 15,
-    },
-    {
-      stars: 5,
-      views: 292,
-      days: 27,
-    },
-  ];
+  
 
   return (
     <div className="companyHome">
