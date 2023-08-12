@@ -240,7 +240,7 @@ const Register = () => {
 
   // Function to perform the API call from the frontend
   const googleAuthTry = () => {
-    window.open(`${API_URL}api/v1/auth/google/user`, "_self");
+    window.open(`https://engineerhub-yash.onrender.com/api/v1/auth/google/user`, "_self");
   };
   async function handleGoogleLoginSuccess() {
     try {
@@ -471,9 +471,9 @@ const Register = () => {
                 <hr />
               </div>
 
-              {/* <div className="sign-field reg-field">
-                <div className="sign-opt "> */}
-              {/* <div>
+              <div className="sign-field reg-field">
+                <div className="sign-opt ">
+              <div>
         
           <GoogleButton
       onClick={ googleAuthTry}
@@ -481,9 +481,9 @@ const Register = () => {
       Sign in with Google
     </GoogleButton>
 
-              </div> */}
-              {/* </div>
-              </div> */}
+              </div>
+              </div>
+              </div>
 
               <div className="my-item-cont">
                 <div>Didn't have an account?</div>

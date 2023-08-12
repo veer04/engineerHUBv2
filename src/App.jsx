@@ -29,11 +29,13 @@ import Internship from "./pages/Company/Internship/Internship";
 import InternshipDetails from "./pages/Company/Internship/InternshipDetails";
 import HackathonDetails from "./pages/Company/Events/EventsChoices/HackathonDetails";
 import Projects from "./pages/Company/Projects/Projects";
+import LoginDummy from "./pages/User/Login/LoginDummy";
 import ProjectDetail from "./pages/Company/Projects/ProjectDetail";
 import ComingSoon from "./pages/Maintenance/ComingSoon";
 import ParticularEvent from "./pages/Community/Events/ParticularEvent";
 import { lazy } from "react";
 import ClubSignup from "./pages/User/Signup/ClubSignup";
+import EditClubPost from "./pages/User/Profile/ClubProfile/EditClubPost";
 import MentorSignup from "./pages/User/Signup/MentorSignup";
 import OrganizationSignup from "./pages/User/Signup/OrganizationSignup";
 import { Suspense } from "react";
@@ -119,7 +121,7 @@ function App() {
           <Route path="/home" element={<HomePage />} />
           <Route path="/register" element={<RegistrationForm />} />
           <Route path="/selectRole" element={<Role />} />
-
+          <Route path="/loginDummy" element={<LoginDummy></LoginDummy>} > </Route>
           <Route path="/ehubchats" element={<Chatpage />} />
 
           <Route path="/profile">
@@ -151,6 +153,7 @@ function App() {
               <Route path="general" element={<GeneralClubData />} />
               <Route path="edit" element={<EditClubData />} />
               <Route path="cover-photo" element={<CoverPhotoClubData />} />
+              <Route path="edit-post" element={<EditClubPost />} />
             </Route>
             <Route
               path="organization/:organizationId"

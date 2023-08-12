@@ -32,8 +32,7 @@ const InternshipDesc = () => {
       if (
         Cookies.get("role") !== "Organization" &&
         Cookies.get("role") !== "Club" &&
-        Cookies.get("role") !== "Admin" &&
-        Cookies.get("role") !== "Alumni"
+        Cookies.get("role") !== "Admin" 
       ) {
         setIsApplicable(true);
       }
