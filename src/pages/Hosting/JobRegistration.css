@@ -142,3 +142,6 @@
 .ql-editing {
   z-index: 2;
 }
+.special-tag-blue {
+  color: #1976d2 !important;
+}
