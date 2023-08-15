@@ -31,7 +31,7 @@ const JobDescription = () => {
         if (getCookie("name")) {
             getUserProfileById(setProfile, getCookie("_id")[2]);
             setIsLoggedIn(true);
-            if (Cookies.get("role") !== "Organization" && Cookies.get("role") !== "Club" && Cookies.get("role") !== "Admin" && Cookies.get("role") !== "Alumni") {
+            if (Cookies.get("role") !== "Organization" && Cookies.get("role") !== "Club" && Cookies.get("role") !== "Admin") {
                 setIsApplicable(true);
             }
         }

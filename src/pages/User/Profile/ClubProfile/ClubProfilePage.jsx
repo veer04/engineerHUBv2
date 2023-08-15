@@ -67,6 +67,9 @@ export default function ClubProfilePage() {
     } else if (window.location.pathname.split("/").includes("cover-photo")) {
       setChoice("cover-photo");
     }
+    else if (window.location.pathname.split("/").includes("edit-post")) {
+      setChoice("edit-post");
+    }
   }, [window.location.pathname]);
 
   const profilePage = (
@@ -108,6 +111,16 @@ export default function ClubProfilePage() {
                 }`}
               >
                 {width <= 768 ? <HiOutlinePhoto /> : "Edit Cover Photos"}
+              </button>
+              <button
+                onClick={() => {
+                  navigate(`edit-post`);
+                }}
+                className={`option ${
+                  choice === "edit-post" ? "--is-selected" : ""
+                }`}
+              >
+                {width <= 768 ? <HiOutlinePhoto /> : "Edit Posts"}
               </button>
             </>
           )}
