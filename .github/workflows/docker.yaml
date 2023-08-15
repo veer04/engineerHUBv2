@@ -1,127 +1,103 @@
 ---
-name: Build and Push Docker Image
-on:
-  push:
-    branches:
-      - main
-      - upstream
-  pull_request:
-
-permissions:
-  contents: read # Required for git checkout
-  packages: write
-
-jobs:
-  Build_only:
-    if: github.ref != 'refs/heads/main' && github.ref != 'refs/heads/upstream'
-    runs-on: ubuntu-latest
-    steps: 
-      - name: Checkout Git Repository
-        uses: actions/checkout@v2
-      
-      - name: Build Docker image
-        id: Build_Image
-        if: hashFiles('**/Dockerfile', '**/dockerfile') 
-        uses: docker/build-push-action@v2
-        with:
-          context: .
-          push: false
-          tags: | 
-            ${{ vars.ECR_REGISTRY }}/${{ vars.ECR_REPO }}:latest
-            ${{ vars.ECR_REGISTRY }}/${{ vars.ECR_REPO }}:${{ github.run_number }}
-          build-args: |
-            VITE_API_URL=${{ vars.VITE_API_URL }}
-            VITE_BUCKET_URL=${{ vars.VITE_BUCKET_URL }}
-            VITE_AESKEY=${{ vars.VITE_AESKEY }}
-            VITE_FRONTEND_URL=${{ vars.VITE_FRONTEND_URL }}
-
-  Testing_Phase:
-    if: github.ref == 'refs/heads/upstream'
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Git Repository
-        uses: actions/checkout@v2
-
-      - name: Configure AWS Credentials
-        id: AWS_Login_Configure
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ vars.ECR_REGION }}
-
-      - name: Login to Amazon ECR
-        uses: aws-actions/amazon-ecr-login@v1.6.0
-
-      - name: Build & Push Docker Image
-        if: hashFiles('**/Dockerfile', '**/dockerfile') 
-        uses: docker/build-push-action@v2
-        with:
-          context: .
-          push: true
-          tags: | 
-            ${{ vars.ECR_REGISTRY }}/${{ vars.ECR_REPO }}:test
-          build-args: |
-            VITE_API_URL=${{ vars.VITE_TEST_API_URL }}
-            VITE_BUCKET_URL=${{ vars.VITE_BUCKET_URL }}
-            VITE_AESKEY=${{ vars.VITE_AESKEY }}
-            VITE_FRONTEND_URL=${{ vars.VITE_TEST_FRONTEND_URL }}
-
+  name: Build and Push Docker Image
+  on:
+    push:
+      branches:
+        - main
+        - upstream
+    pull_request:
   
-  Prod_Phase:
-    if: github.ref == 'refs/heads/main'
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Git Repository
-        uses: actions/checkout@v2
-
-      - name: Configure AWS Credentials
-        id: AWS_Login_Configure
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ vars.ECR_REGION }}
-
-      - name: Login to Amazon ECR
-        uses: aws-actions/amazon-ecr-login@v1.6.0
-
-      - name: Build & Push Docker Image
-        if: hashFiles('**/Dockerfile', '**/dockerfile') 
-        uses: docker/build-push-action@v2
-        with:
-          context: .
-          push: true
-          tags: | 
-            ${{ vars.ECR_REGISTRY }}/${{ vars.ECR_REPO }}:latest
-            ${{ vars.ECR_REGISTRY }}/${{ vars.ECR_REPO }}:${{ github.run_number }}
-          build-args: |
-            VITE_API_URL=${{ vars.VITE_API_URL }}
-            VITE_BUCKET_URL=${{ vars.VITE_BUCKET_URL }}
-            VITE_AESKEY=${{ vars.VITE_AESKEY }}
-            VITE_FRONTEND_URL=${{ vars.VITE_FRONTEND_URL }}
-
-# name: Use Private Action
-# on:
-#   pull_request:
-#     branches:
-#       - main
-
-# permissions:
-#   contents: read # Required for git checkout
-#   packages: write
-
-# jobs:
-#   run:
-#     steps:
-#       uses: Official-EngineerHUB/github-shared-actions@main
-#       secrets:
-#         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-#         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-#       env:
-#         ECR_REGISTRY: ${{ vars.ECR_REGISTRY }}
-#         ECR_REPO: ${{ vars.ECR_REPO }}
-#         ECR_REGION: ${{ vars.ECR_REGION }}
-#         VITE_API_URL=${{ vars.VITE_API_URL }}
-#         VITE_BUCKET_URL=${{ vars.VITE_BUCKET_URL }}
-#         VITE_AESKEY=${{ vars.VITE_AESKEY }}
+  permissions:
+    contents: read # Required for git checkout
+    packages: write
+  
+  jobs:
+    Testing_Phase:
+      if: startsWith(github.event.head_commit.message, 'test') || startsWith(github.event.head_commit.message, 'Test') || startsWith(github.event.head_commit.message, 'TEST') && github.ref != 'refs/heads/main'
+      runs-on: ubuntu-latest
+      steps:
+        - name: Checkout Git Repository
+          uses: actions/checkout@v2
+  
+        - name: Configure AWS Credentials
+          id: AWS_Login_Configure
+          uses: aws-actions/configure-aws-credentials@v1
+          with:
+            aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+            aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+            aws-region: ${{ vars.ECR_REGION }}
+  
+        - name: Login to Amazon ECR
+          uses: aws-actions/amazon-ecr-login@v1.6.0
+  
+        - name: Build & Push Docker Image
+          if: hashFiles('**/Dockerfile', '**/dockerfile') 
+          uses: docker/build-push-action@v2
+          with:
+            context: .
+            push: true
+            tags: | 
+              ${{ vars.ECR_REGISTRY }}/${{ vars.ECR_REPO }}:test
+            build-args: |
+              VITE_API_URL=${{ vars.VITE_TEST_API_URL }}
+              VITE_BUCKET_URL=${{ vars.VITE_BUCKET_URL }}
+              VITE_AESKEY=${{ vars.VITE_AESKEY }}
+              VITE_FRONTEND_URL=${{ vars.VITE_TEST_FRONTEND_URL }}
+    
+    Prod_Phase:
+      if: github.ref == 'refs/heads/main'
+      runs-on: ubuntu-latest
+      steps:
+        - name: Checkout Git Repository
+          uses: actions/checkout@v2
+  
+        - name: Configure AWS Credentials
+          id: AWS_Login_Configure
+          uses: aws-actions/configure-aws-credentials@v1
+          with:
+            aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+            aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+            aws-region: ${{ vars.ECR_REGION }}
+  
+        - name: Login to Amazon ECR
+          uses: aws-actions/amazon-ecr-login@v1.6.0
+  
+        - name: Build & Push Docker Image
+          if: hashFiles('**/Dockerfile', '**/dockerfile') 
+          uses: docker/build-push-action@v2
+          with:
+            context: .
+            push: true
+            tags: | 
+              ${{ vars.ECR_REGISTRY }}/${{ vars.ECR_REPO }}:latest
+              ${{ vars.ECR_REGISTRY }}/${{ vars.ECR_REPO }}:${{ github.run_number }}
+            build-args: |
+              VITE_API_URL=${{ vars.VITE_API_URL }}
+              VITE_BUCKET_URL=${{ vars.VITE_BUCKET_URL }}
+              VITE_AESKEY=${{ vars.VITE_AESKEY }}
+              VITE_FRONTEND_URL=${{ vars.VITE_FRONTEND_URL }}
+  
+  # name: Use Private Action
+  # on:
+  #   pull_request:
+  #     branches:
+  #       - main
+  
+  # permissions:
+  #   contents: read # Required for git checkout
+  #   packages: write
+  
+  # jobs:
+  #   run:
+  #     steps:
+  #       uses: Official-EngineerHUB/github-shared-actions@main
+  #       secrets:
+  #         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  #         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  #       env:
+  #         ECR_REGISTRY: ${{ vars.ECR_REGISTRY }}
+  #         ECR_REPO: ${{ vars.ECR_REPO }}
+  #         ECR_REGION: ${{ vars.ECR_REGION }}
+  #         VITE_API_URL=${{ vars.VITE_API_URL }}
+  #         VITE_BUCKET_URL=${{ vars.VITE_BUCKET_URL }}
+  #         VITE_AESKEY=${{ vars.VITE_AESKEY }}
