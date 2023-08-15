@@ -2,15 +2,13 @@
   name: Build and Push Docker Image
   on:
     push:
-      # branches:
     pull_request:
   
   permissions:
     contents: read # Required for git checkout
   
   jobs:
-    Testing_Phase: 
-      if: startsWith(github.event.head_commit.message, 'TEST-SERVER') && github.ref != 'refs/heads/main'
+    Build_Push_Deploy_Docker_Image: 
       runs-on: ubuntu-latest
       steps:
         - name: Checkout Git Repository
@@ -27,8 +25,8 @@
         - name: Login to Amazon ECR
           uses: aws-actions/amazon-ecr-login@v1.6.0
   
-        - name: Build & Push Docker Image
-          if: hashFiles('**/Dockerfile', '**/dockerfile') 
+        - name: Deploy to Test Server
+          if: hashFiles('**/Dockerfile', '**/dockerfile') && startsWith(github.event.head_commit.message, 'TEST-SERVER') && github.ref != 'refs/heads/main'
           uses: docker/build-push-action@v2
           with:
             context: .
@@ -40,27 +38,9 @@
               VITE_BUCKET_URL=${{ vars.VITE_BUCKET_URL }}
               VITE_AESKEY=${{ vars.VITE_AESKEY }}
               VITE_FRONTEND_URL=${{ vars.VITE_TEST_FRONTEND_URL }}
-    
-    Prod_Phase:
-      if: github.ref == 'refs/heads/main'
-      runs-on: ubuntu-latest
-      steps:
-        - name: Checkout Git Repository
-          uses: actions/checkout@v2
-  
-        - name: Configure AWS Credentials
-          id: AWS_Login_Configure
-          uses: aws-actions/configure-aws-credentials@v1
-          with:
-            aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-            aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-            aws-region: ${{ vars.ECR_REGION }}
-  
-        - name: Login to Amazon ECR
-          uses: aws-actions/amazon-ecr-login@v1.6.0
-  
-        - name: Build & Push Docker Image
-          if: hashFiles('**/Dockerfile', '**/dockerfile') 
+      
+        - name: Deploy to Production Server
+          if: hashFiles('**/Dockerfile', '**/dockerfile') && startsWith(github.event.head_commit.message, 'PROD-SERVER') && github.ref == 'refs/heads/main'
           uses: docker/build-push-action@v2
           with:
             context: .
