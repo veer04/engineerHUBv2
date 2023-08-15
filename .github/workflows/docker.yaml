@@ -9,7 +9,6 @@
         - cicd/*
     pull_request:
       branches:
-        - main
         - feature/*
         - bug/*
         - cicd/*
