@@ -8,17 +8,13 @@
         - bug/*
         - cicd/*
     pull_request:
-      branches:
-        - feature/*
-        - bug/*
-        - cicd/*
 
   permissions:
     contents: read # Required for git checkout
   
   jobs:
     Build_only:
-      if: github.ref == 'refs/heads/main' 
+      if: github.event_name == 'pull_request'
       runs-on: ubuntu-latest
       steps: 
         - name: Checkout Git Repository
