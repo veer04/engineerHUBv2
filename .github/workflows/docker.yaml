@@ -8,9 +8,7 @@
         - bug/*
         - cicd/*
     pull_request:
-      branches:
-        - main
-
+      
   permissions:
     contents: read # Required for git checkout
   
