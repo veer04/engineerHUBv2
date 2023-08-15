@@ -1,5 +1,6 @@
 import axios from "axios";
 import { API_URL } from "./APIUtils";
+import {API_URLT} from "./APIUtils";
 import decryptData from "../features/DeCrypt";
 import getCookie, { getAccessToken } from "../features/getCookieValues";
 import { set } from "react-hook-form";
@@ -42,7 +43,7 @@ export const patchResume = (userId, file, setResponse) => {
     },
   };
   axios
-    .patch(`${API_URL}api/v1/user/resumeUpdate`, file, config)
+    .patch(`${API_URLT}api/v1/user/resumeUpdate`, file, config)
     .then((res) => {
       console.log(res);
       setResponse(res);

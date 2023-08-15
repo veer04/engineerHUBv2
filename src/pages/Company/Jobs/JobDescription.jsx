@@ -34,7 +34,7 @@ const JobDescription = () => {
             if (Cookies.get("role") !== "Organization" && Cookies.get("role") !== "Club" && Cookies.get("role") !== "Admin") {
                 setIsApplicable(true);
             }
-        }s
+        }
     }, []);
 
     useEffect(() => {
