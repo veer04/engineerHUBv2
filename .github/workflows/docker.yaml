@@ -2,18 +2,16 @@
   name: Build and Push Docker Image
   on:
     push:
-      branches:
-        - main
+      # branches:
     pull_request:
   
   permissions:
     contents: read # Required for git checkout
-    packages: write
   
   jobs:
     Testing_Phase:
-      if: startsWith(github.event.head_commit.message, 'test') || startsWith(github.event.head_commit.message, 'Test') || startsWith(github.event.head_commit.message, 'TEST') && github.ref != 'refs/heads/main'
-      runs-on: ubuntu-latest 
+      if: startsWith(github.event.head_commit.message, 'TEST-SERVER') && github.ref != 'refs/heads/main'
+      runs-on: ubuntu-latest
       steps:
         - name: Checkout Git Repository
           uses: actions/checkout@v2
