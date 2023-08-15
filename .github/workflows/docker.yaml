@@ -42,7 +42,6 @@
               VITE_FRONTEND_URL=${{ vars.VITE_FRONTEND_URL }}
 
     Build_Push_Deploy_Docker_Image: 
-      if: github.ref == 'refs/heads/main' && github.ref == 'refs/heads/feature/*' && github.ref == 'refs/heads/bug/*'
       runs-on: ubuntu-latest
       steps:
         - name: Checkout Git Repository
