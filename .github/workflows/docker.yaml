@@ -8,6 +8,11 @@ on:
       - bug/*
       - cicd/*
   pull_request:
+    branches:
+      - main
+      - feature/*
+      - bug/*
+      - cicd/*
 
 permissions:
   contents: read # Required for git checkout
