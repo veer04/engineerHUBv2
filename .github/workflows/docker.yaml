@@ -69,7 +69,7 @@ jobs:
             VITE_BUCKET_URL=${{ vars.VITE_BUCKET_URL }}
             VITE_AESKEY=${{ vars.VITE_AESKEY }}
             VITE_FRONTEND_URL=${{ vars.VITE_FRONTEND_URL }}
-  
+
   # name: Use Private Action
   # on:
   #   pull_request:
