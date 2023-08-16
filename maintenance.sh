@@ -4,6 +4,7 @@
 ECR_REGISTRY="288273743510.dkr.ecr.ap-south-1.amazonaws.com"
 ECR_REGION="ap-south-1"
 REPO_NAME="ehub_frontend"
+Image_Tag="latest"
 
 # Authenticate with ECR
 aws ecr get-login-password --region "$ECR_REGION" | docker login --username AWS --password-stdin "$ECR_REGISTRY"
@@ -50,7 +51,7 @@ pull_and_run_image() {
   local image_digest=$2
 
   # Pull the latest image from ECR
-  docker pull "$ECR_REGISTRY/$REPO_NAME:latest"
+  docker pull "$ECR_REGISTRY/$REPO_NAME:$Image_Tag"
 
   # Stop and remove the running container (if it exists)
   stop_and_remove_container "$container"
@@ -59,7 +60,7 @@ pull_and_run_image() {
   docker image prune -f
 
   # Run the new image
-  docker run -d --name "$container" -p 80:3000  -v /home/logs/frontend:/logs "$ECR_REGISTRY/$REPO_NAME:latest"  
+  docker run -d --name "$container" -p 80:3000  -v /home/logs/frontend:/logs "$ECR_REGISTRY/$REPO_NAME:$Image_Tag"  
 }
 
 # Function to check if the container is running
@@ -98,7 +99,7 @@ while true; do
   current_image_digest=$(aws ecr describe-images --repository-name "$REPO_NAME" --query 'sort_by(imageDetails,& imagePushedAt)[-1].imageDigest' --output text)
 
   # Check if local image needs to be updated
-  if [ -z "$(docker images -q "$ECR_REGISTRY/$REPO_NAME:latest" 2>/dev/null)" ] || [ "$(docker image inspect --format='{{index .RepoDigests 0}}' "$ECR_REGISTRY/$REPO_NAME:latest")" != "$ECR_REGISTRY/$REPO_NAME@$current_image_digest" ]; then
+  if [ -z "$(docker images -q "$ECR_REGISTRY/$REPO_NAME:$Image_Tag" 2>/dev/null)" ] || [ "$(docker image inspect --format='{{index .RepoDigests 0}}' "$ECR_REGISTRY/$REPO_NAME:$Image_Tag")" != "$ECR_REGISTRY/$REPO_NAME@$current_image_digest" ]; then
     # Pull and run the new image
     pull_and_run_image "$container_name" "$current_image_digest"
 
