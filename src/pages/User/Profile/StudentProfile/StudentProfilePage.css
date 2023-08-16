@@ -231,7 +231,9 @@
   justify-content: center;
   align-items: center;
 }
-
+.manage-posts-container {
+  gap: 1rem;
+}
 @media screen and (max-width: 768px) {
   .profile-page > section {
     flex-direction: column;
@@ -286,5 +288,8 @@
     > div
     > .updation-btn {
     margin-bottom: 0.875rem;
+  }
+  .club-post-card-2-input {
+    min-width: 100% !important;
   }
 }

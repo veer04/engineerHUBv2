@@ -1,0 +1,141 @@
+.club-post-card-2 {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 0.6rem;
+  width: 100%;
+  background-color: white;
+  padding: 0.4rem 0.4rem;
+  border-radius: 0.25rem;
+  box-shadow: 0px 0px 0.5rem 0px rgb(0 0 0 / 15%);
+  cursor: pointer;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+  max-width: none;
+  position: relative;
+}
+.club-post-card-2 > .poster {
+  min-width: 10rem;
+  height: 10rem;
+  aspect-ratio: 1/1;
+  overflow: hidden;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 0.25rem;
+  outline: 1px solid rgb(0 0 0 / 15%);
+}
+.club-post-card-2 > .description {
+  max-height: 10rem;
+  overflow: hidden;
+  line-height: 1.65rem;
+  display: -webkit-box; /* Set display to WebKit box */
+  -webkit-line-clamp: 6;
+  -webkit-box-orient: vertical; /* Set box orientation */
+  text-overflow: ellipsis; /* Add ellipsis for truncated text */
+}
+.club-post-card-2-input {
+  min-height: 10.8rem;
+  background-color: transparent !important;
+  outline: 1px dashed var(--primary-color-green);
+  flex-direction: column;
+  cursor: default;
+  gap: 0.125rem;
+}
+.club-post-card-2-input:hover {
+  /* box-shadow: none !important; */
+  outline: 1px solid var(--primary-color-green);
+}
+.club-post-card-2-input > .post-submit-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 0rem 0rem 0.4rem;
+}
+.club-post-card-2-input > .post-submit-container > button {
+  background-color: var(--primary-color-green);
+  color: white;
+  border: none;
+  border-radius: 0.25rem;
+  padding: 0.4rem 0.8rem;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+.club-post-card-2-input > .post-submit-container > button:disabled {
+  background-color: var(--primary-color-green);
+  color: white;
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.club-post-input-image:hover {
+  outline: 1px solid var(--primary-color-green);
+}
+.club-post-input-image-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.25rem;
+  border: 1px solid #bdbdbd;
+  cursor: pointer;
+  color: var(--primary-color-green);
+}
+.club-post-input-image-delete {
+  background-color: rgba(255, 0, 0, 0.15);
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  font-size: large;
+}
+.club-post-input-image-delete:hover {
+  background-color: rgb(255, 0, 0, 0.75);
+  color: white;
+}
+.club-post-card-2:hover.club-post-card-2 > .delete-container {
+  display: flex;
+}
+.club-post-card-2 > .delete-container {
+  display: none;
+  position: absolute;
+  background-color: rgba(255, 0, 0, 0.35);
+  border-radius: 50%;
+  /* display: flex; */
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  top: 0.5rem;
+  right: 0.5rem;
+  height: 2.25rem;
+  width: 2.25rem;
+  font-size: 1.5rem;
+}
+.club-post-card-2 > .delete-container:hover {
+  background-color: rgb(255, 0, 0, 0.75);
+  color: white;
+}
+.club-post-card-2 > .loading-container {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.65);
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+}
+@media screen and (max-width: 500px) {
+  .club-post-card-2 > .poster {
+    min-width: 8rem;
+    height: 8rem;
+  }
+  .club-post-card-2 > .description {
+    max-height: 8rem;
+    -webkit-line-clamp: 5;
+  }
+}

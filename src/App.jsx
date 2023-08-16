@@ -40,6 +40,7 @@ import { Suspense } from "react";
 import LoadingPage from "./components/Loader/LoadingPage";
 import Role from "./pages/User/RoleWiseUserPage/Role";
 import PostModal from "./components/PostModal/PostModal";
+import PostModal2 from "./components/PostModal2/PostModal2";
 import ParticularAlumni from "./pages/Campus/ParticularCampus/ParticularAlumni";
 // import ProfilePage from "./pages/User/Profile/ProfilePage";
 import VerificationModal from "./components/VerificationModal/VerificationModal";
@@ -75,6 +76,7 @@ import ChangePassword from "./pages/User/ForgotPassword/ChangePassword";
 import getCookie, { getAccessToken } from "./features/getCookieValues";
 import ProjectHosting from "./pages/Hosting/ProjectHosting";
 import CoverPhotoClubData from "./pages/User/Profile/ClubProfile/CoverPhotoClubData";
+import ManagePostsClubData from "./pages/User/Profile/ClubProfile/ManagePostsClubData";
 
 function App() {
   const [isEventModalOpen, setIsEventModalOpen] = useState(false);
@@ -151,6 +153,9 @@ function App() {
               <Route path="general" element={<GeneralClubData />} />
               <Route path="edit" element={<EditClubData />} />
               <Route path="cover-photo" element={<CoverPhotoClubData />} />
+              <Route path="manage-posts" element={<ManagePostsClubData />}>
+                <Route path=":postId" element={<PostModal2 />} />
+              </Route>
             </Route>
             <Route
               path="organization/:organizationId"
