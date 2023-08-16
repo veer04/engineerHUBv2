@@ -307,18 +307,18 @@ const Register = () => {
   //   getMe();
   // }, []);
 
-  const handleLogin = () => {
-    const googleAuthUrl = new URL("https://accounts.google.com/o/oauth2/v2/auth");
-    googleAuthUrl.searchParams.append("client_id", "111727756822-c6nh6mvi2acqcm51t59r5ummd3tc8j42.apps.googleusercontent.com");
-    googleAuthUrl.searchParams.append("redirect_uri", "https://engineerhub-yash.onrender.com/api/v1/auth/google/user/redirect");
-    googleAuthUrl.searchParams.append("response_type", "code");
+  // const handleLogin = () => {
+  //   const googleAuthUrl = new URL("https://accounts.google.com/o/oauth2/v2/auth");
+  //   googleAuthUrl.searchParams.append("client_id", "111727756822-c6nh6mvi2acqcm51t59r5ummd3tc8j42.apps.googleusercontent.com");
+  //   googleAuthUrl.searchParams.append("redirect_uri", "https://engineerhub-yash.onrender.com/api/v1/auth/google/user/redirect");
+  //   googleAuthUrl.searchParams.append("response_type", "code");
     // googleAuthUrl.searchParams.append("state", dynamicRedirectUrl);
-    googleAuthUrl.searchParams.append("scope", "profile email");
-    googleAuthUrl.searchParams.append("access_type", "offline");
-    googleAuthUrl.searchParams.append("prompt", "consent");
+  //   googleAuthUrl.searchParams.append("scope", "profile email");
+  //   googleAuthUrl.searchParams.append("access_type", "offline");
+  //   googleAuthUrl.searchParams.append("prompt", "consent");
 
-    window.location.href = googleAuthUrl.toString();
-  };
+  //   window.location.href = googleAuthUrl.toString();
+  // };
 
 
 
