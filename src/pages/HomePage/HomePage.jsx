@@ -1,8 +1,4 @@
-import React ,{useState}from "react";
-import axios from "axios";
-import getCookie from "../../features/getCookieValues";
-import Cookies from "js-cookie";
-import jwt_decode from "jwt-decode";
+import React from "react";
 import "./HomePage.css";
 import CommunitySection from "./CommunitySection";
 import CompaniesWeCollaborate from "./CompaniesWeCollaborate";
@@ -15,52 +11,15 @@ import ReviewsSection from "./ReviewsSection";
 import SiliconValley from "./SiliconValley";
 import JobsSection from "./JobsSection";
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import useNavbar from "../../hooks/use-navbar";
-import { API_URL, API_URLT2 } from "../../services/APIUtils";
 
 export default function HomePage() {
-  const navigate =useNavigate();
   const { setSelectedPageNavbar } = useNavbar();
   useEffect(() => {
     setSelectedPageNavbar("home");
     window.scrollTo(0, 0);
   }, []);
 
-  const [me, setMe] = useState({});
-
-  useEffect(() => {
-    async function getMe() {
-      try {
-        const response = await axios.get(`${API_URLT2}api/v1/auth/details`, {
-          withCredentials: true,
-        });
-        console.log("1");
-        console.log(response.data);
-        console.log(response.data.success);
-        setMe(response.data);
-        if(response.data.success===true)
-        {
-          Cookies.set("access_token",response.data.accessToken)
-          Cookies.set("userName",response.data.decodedToken.name)
-          Cookies.set("email",response.data.decodedToken.email)
-          Cookies.set("_id",response.data.decodedToken.id)
-          Cookies.set("image",response.data.decodedToken.picture);
-          console.log(response.data)
-        }
-        else
-        {
-          navigate("/login");
-          window.alert("No id exists with the provided mail signup Now!!!")
-        }
-
-      } catch (error) {
-        console.error("Error fetching user data:", error);
-      }
-    }
-
-    getMe();
-  }, []);
   return (
     <div className="homepage">
       <MainLandingSection />
