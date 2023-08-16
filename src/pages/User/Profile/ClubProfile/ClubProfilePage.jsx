@@ -9,7 +9,7 @@ import jwt_decode from "jwt-decode";
 import { AiOutlineEdit } from "react-icons/ai";
 import { CgProfile } from "react-icons/cg";
 import { MdOutlinePlace } from "react-icons/md";
-import { FiExternalLink } from "react-icons/fi";
+import { FiEdit, FiExternalLink } from "react-icons/fi";
 import { RiListOrdered } from "react-icons/ri";
 import { HiOutlinePhoto } from "react-icons/hi2";
 
@@ -42,7 +42,7 @@ export default function ClubProfilePage() {
   }, [window.innerWidth]);
 
   useEffect(() => {
-    window.scrollTo(0, 0);
+    // window.scrollTo(0, 0);
     setSelectedPageNavbar("profile");
     getClubProfileById(setProfile, clubId);
 
@@ -66,6 +66,8 @@ export default function ClubProfilePage() {
       setChoice("edit");
     } else if (window.location.pathname.split("/").includes("cover-photo")) {
       setChoice("cover-photo");
+    } else if (window.location.pathname.split("/").includes("manage-posts")) {
+      setChoice("manage-posts");
     }
     else if (window.location.pathname.split("/").includes("edit-post")) {
       setChoice("edit-post");
@@ -112,7 +114,7 @@ export default function ClubProfilePage() {
               >
                 {width <= 768 ? <HiOutlinePhoto /> : "Edit Cover Photos"}
               </button>
-              <button
+              {/* <button
                 onClick={() => {
                   navigate(`edit-post`);
                 }}
@@ -121,6 +123,20 @@ export default function ClubProfilePage() {
                 }`}
               >
                 {width <= 768 ? <HiOutlinePhoto /> : "Edit Posts"}
+              </button> */}
+            </>
+          )}
+          {isLoggedIn && (
+            <>
+              <button
+                onClick={() => {
+                  navigate(`manage-posts`);
+                }}
+                className={`option ${
+                  choice === "manage-posts" ? "--is-selected" : ""
+                }`}
+              >
+                {width <= 768 ? <FiEdit /> : "Manage Posts"}
               </button>
             </>
           )}
