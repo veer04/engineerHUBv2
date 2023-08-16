@@ -47,7 +47,7 @@ jobs:
           build-args: |
             VITE_API_URL=${{ vars.VITE_TEST_API_URL }}
             VITE_BUCKET_URL=${{ vars.VITE_BUCKET_URL }}
-            VITE_AESKEY=${{ vars.VITE_AESKEY }}
+            VITE_AESKEY=${{ secrets.VITE_AESKEY }}
             VITE_FRONTEND_URL=${{ vars.VITE_TEST_FRONTEND_URL }}
     
       - name: Deploy to Production Server
