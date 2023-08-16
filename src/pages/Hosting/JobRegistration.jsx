@@ -17,7 +17,7 @@ import {
   FormHelperText,
 } from "@mui/material";
 import { controller, getDomains } from "../../services/APIConfig";
-import { getAccessToken } from "../../features/getCookieValues";
+import getCookie, { getAccessToken } from "../../features/getCookieValues";
 import { useNavigate } from "react-router-dom";
 import CustomSnackbar from "../User/Login/CustomSnackbar";
 
@@ -52,6 +52,20 @@ const JobRegistrationForm = () => {
   const [applicationEndTime, setApplicationEndTime] = useState("");
   const [opportunityName, setOpportunityName] = useState("");
   const [policy, setPolicy] = useState("");
+  const [featuredArray, setFeaturedArray] = useState([]);
+  const [userEmail, setUserEmail] = useState("");
+  const [isSpecialUser, setIsSpecialUser] = useState(false);
+  const specialUserEmails = [
+    {
+      onlyForReference: "Email used by Ashish Soharia for Job Hosting",
+      value: "career@engineerhub.in",
+    },
+    {
+      onlyForReference:
+        "Email used only for testing purpose. Delete this email after testing",
+      value: "haboma6770@dotvilla.com",
+    },
+  ];
   const experienceValues = [
     {
       value: "0",
@@ -125,10 +139,22 @@ const JobRegistrationForm = () => {
     setSelectedPageNavbar("host");
     setOpportunityType(checkUrl());
     getDomains(setDomain);
+    setUserEmail(getCookie("email")[2]);
     return () => {
       controller.abort();
     };
   }, []);
+
+  useEffect(() => {
+    // check if the userEmail exist in specialUserEmails
+    if (specialUserEmails.some((e) => e.value === userEmail)) {
+      setIsSpecialUser(true);
+    }
+  }, [userEmail]);
+
+  useEffect(() => {
+    console.log(isSpecialUser);
+  }, [isSpecialUser]);
 
   const validateInput1 = () => {
     let valid = true;
@@ -390,6 +416,7 @@ const JobRegistrationForm = () => {
     }
   }
   const handlePrev = () => {
+    window.scrollTo(0, 0);
     setStep((prev) => prev - 1);
   };
 
@@ -407,6 +434,9 @@ const JobRegistrationForm = () => {
 
     e.preventDefault();
     const form = new FormData();
+    if (featuredArray.length !== 0) {
+      form.append("featuredArray", featuredArray);
+    }
     form.append("opportunityType", opportunityType);
     form.append("opportunityPoster", opportunityPoster);
     form.append("opportunityName", opportunityName);
@@ -496,6 +526,10 @@ const JobRegistrationForm = () => {
 
   const handleSkillsChange = (_, value) => {
     setSkillsRequired(value);
+  };
+
+  const handleSpecialTagsChange = (_, value) => {
+    setFeaturedArray(value);
   };
 
   const step1 = (
@@ -904,8 +938,35 @@ const JobRegistrationForm = () => {
     </div>
   );
 
+  useEffect(() => {
+    console.log(featuredArray);
+  }, [featuredArray]);
+
   const step3 = (
     <div>
+      {isSpecialUser && (
+        <>
+          <div>
+            <Autocomplete
+              multiple
+              options={["EhubFeatured"]}
+              value={featuredArray}
+              onChange={handleSpecialTagsChange}
+              renderInput={(params) => (
+                <TextField margin="normal" {...params} label="Special Tags" />
+              )}
+            />
+            {!!featuredArray.length && (
+              <p
+                className="MuiFormHelperText-root Mui-error MuiFormHelperText-sizeMedium MuiFormHelperText-contained css-1wc848c-MuiFormHelperText-root special-tag-blue"
+                id=":rf:-helper-text"
+              >
+                ALERT: This opportunity will be marked as Featured Job
+              </p>
+            )}
+          </div>
+        </>
+      )}
       {checkUrl() === "Job" && (
         <>
           <FormControl margin="normal" fullWidth>
