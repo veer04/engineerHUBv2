@@ -511,11 +511,11 @@ const Register = () => {
                 <div className="sign-opt ">
               <div>
         
-          <GoogleButton
+          {/* <GoogleButton
       onClick={ handleLogin}
     >
       Sign in with Google
-    </GoogleButton>
+    </GoogleButton> */}
 
               </div>
               </div>

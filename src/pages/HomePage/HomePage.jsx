@@ -32,7 +32,7 @@ export default function HomePage() {
   useEffect(() => {
     async function getMe() {
       try {
-        const response = await axios.get(`${API_URLT2}api/v1/auth/details`, {
+        const response = await axios.get(`${API_URL}api/v1/auth/details`, {
           withCredentials: true,
         });
         console.log("1");
