@@ -6,7 +6,10 @@ import defaultPoster from "../../../../assets/defaultPoster";
 import { TextField } from "@mui/material";
 import {
   patchAlumniData,
+  patchResume,
+  controller,
   patchProfilePicture,
+  getAlumniProfileById,
 } from "../../../../services/APIConfig";
 import { set } from "react-hook-form";
 import { useEffect } from "react";
@@ -16,7 +19,10 @@ export default function EditAlumniData() {
   const { alumniId } = useParams();
   const [profile] = useOutletContext();
   const [newImage, setNewImage] = useState(null);
+  const[AlumniProfile , setAlumniProfile] = useState({});
+  const [newResumeLink, setNewResumeLink] = useState("");
   const [newCompany, setNewCompany] = useState("");
+  const [isResumeUpdating, setIsResumeUpdating] = useState(false);
   const [newDesignation, setNewDesignation] = useState("");
   const [newAboutMe, setNewAboutMe] = useState("");
   const [newBatch, setNewBatch] = useState("");
@@ -27,7 +33,12 @@ export default function EditAlumniData() {
     aboutMe: "",
     batch: "",
   });
+  const [resumeRes, setResumeRes] = useState(null);
   const [isUpdating, setIsUpdating] = useState(false);
+  const [isResumeUpdated, setIsResumeUpdated] = useState(false);
+  const [resumeErrors, setResumeErrors] = useState({
+    resume: "",
+  });
   const [profileResponse, setProfileResponse] = useState(null);
   const [response, setResponse] = useState(null);
   const [snackbarValues, setSnackbarValues] = useState({
@@ -94,6 +105,36 @@ export default function EditAlumniData() {
     }
   }, [profileResponse]);
 
+  const validateInputResume = () => {
+    let valid = true;
+    const newErrors = {
+      resume: "",
+    };
+    if (resumeRes === undefined || resumeRes === null || resumeRes === "") {
+      newErrors.resume = "Resume is required";
+      valid = false;
+    }
+    setResumeErrors(newErrors);
+    return valid;
+  };
+  useEffect(() => {
+    getAlumniProfileById(setAlumniProfile, alumniId);
+    return () => {
+      controller.abort();
+    };
+  }, []);
+  const handleResume = async () => {
+    setIsResumeUpdating(true);
+    if (validateInputResume() === true) {
+      const file = new FormData();
+      file.append("resume", resumeRes);
+      patchResume(alumniId, file, setResumeRes);
+    } else if (isResumeUpdating === true) {
+      window.location.reload();
+    } else {
+      setIsResumeUpdating(false);
+    }
+  };
   // useEffect(() => {
   //   console.log(response);
   //   if (response) {
@@ -111,7 +152,36 @@ export default function EditAlumniData() {
   //     }
   //   }
   // }, [response]);
-
+  useEffect(() => {
+    if (!!response) {
+      if (response.status >= 200 && response.status < 300) {
+        setIsUpdating(false);
+        setOpen(true);
+        setSnackbarValues({
+          severity: "success",
+          message: "Profile picture updated successfully!",
+        });
+      } else {
+        setIsUpdating(false);
+        alert(response.data.message);
+      }
+    }
+    if (!!resumeRes) {
+      if (resumeRes.status >= 200 && resumeRes.status < 300) {
+        setIsResumeUpdated(true);
+        setNewResumeLink(resumeRes.data.data);
+        setIsResumeUpdating(false);
+        setOpen(true);
+        setSnackbarValues({
+          severity: "success",
+          message: "Resume updated successfully!",
+        });
+      } else {
+        setIsResumeUpdating(false);
+        // alert(resumeRes.data.message);
+      }
+    }
+  }, [response, resumeRes]);
   const handleSubmit = async () => {
     setIsUpdating(true);
     if (validateInput() === true) {
@@ -220,6 +290,69 @@ export default function EditAlumniData() {
           </div>
         )}
       </div>
+
+      <p
+        style={{
+          marginTop: "10%",
+          fontSize: "1.3rem",
+          marginBottom: "5%",
+          fontWeight: "600",
+          color: "color: var(--text-color-dark-green);",
+        }}
+      >
+        Add/Update Resume
+      </p>
+      <div className="profile-picture-container">
+        <p className="text-danger mb-1">{resumeErrors.resume}</p>
+        <input
+          type="file"
+          name="profile"
+          id="student-profile-image"
+          className="mb-4"
+          onChange={(e) => setResumeRes(e.target.files[0])}
+        />
+      </div>
+      <div className="mt-3">
+        <button
+          className="logBtn me-3 logout-btn"
+          style={{
+            textAlign: "center",
+          }}
+          onClick={handleResume}
+        >
+          {isResumeUpdating ? (
+            <div className="spinner-border text-primary" role="status">
+              <span className="visually-hidden">Loading...</span>
+            </div>
+          ) : (
+            "Update"
+          )}
+        </button>
+        <a
+          href={!isResumeUpdated ? AlumniProfile.resume : newResumeLink}
+          target="_blank"
+        >
+          <button
+            className="logBtn me-3 logout-btn"
+            style={{
+              textAlign: "center",
+            }}
+            disabled={isResumeUpdating}
+          >
+            View
+          </button>
+        </a>
+      </div>
+
+      {snackbarValues.severity === "success" && (
+        <CustomSnackbar
+          setOpen={setOpen}
+          open={open}
+          message={snackbarValues.message}
+          severity={snackbarValues.severity}
+        />
+      )}
+
       {snackbarValues.severity === "success" && (
         <CustomSnackbar
           setOpen={setOpen}

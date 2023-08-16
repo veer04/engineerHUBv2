@@ -11,7 +11,7 @@ import axios from "axios";
 import { MdOutlineCancel } from "react-icons/md";
 import Cookies from "js-cookie";
 import getCookie, { getAccessToken } from "../../../features/getCookieValues";
-import { controller, patchProfilePicture, patchResume, getUserProfileById } from "../../../services/APIConfig";
+import { controller, patchProfilePicture, patchResume, getUserProfileById ,getAlumniProfileById } from "../../../services/APIConfig";
 
 export default function JobApplyModal({ change, jobApplied, resume }) {
     const { hiringId } = useParams();
