@@ -29,7 +29,8 @@ jobs:
 
       - name: Deploy to Test Server
         if: |
-            hashFiles('**/Dockerfile', '**/dockerfile')
+            hashFiles('**/Dockerfile', '**/dockerfile') &&
+            github.ref != 'refs/heads/main'
         uses: docker/build-push-action@v2
         with:
           context: .
