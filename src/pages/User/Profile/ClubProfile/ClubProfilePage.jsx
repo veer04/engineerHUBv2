@@ -114,7 +114,7 @@ export default function ClubProfilePage() {
               >
                 {width <= 768 ? <HiOutlinePhoto /> : "Edit Cover Photos"}
               </button>
-              <button
+              {/* <button
                 onClick={() => {
                   navigate(`edit-post`);
                 }}
@@ -123,7 +123,7 @@ export default function ClubProfilePage() {
                 }`}
               >
                 {width <= 768 ? <HiOutlinePhoto /> : "Edit Posts"}
-              </button>
+              </button> */}
             </>
           )}
           {isLoggedIn && (
