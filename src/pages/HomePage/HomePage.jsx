@@ -13,7 +13,7 @@ import JobsSection from "./JobsSection";
 import { useEffect ,useState} from "react";
 import useNavbar from "../../hooks/use-navbar";
 import axios from "axios";
-import { API_URL } from "../../services/APIUtils";
+import { API_URL,API_URLT } from "../../services/APIUtils";
 export default function HomePage() {
   const { setSelectedPageNavbar } = useNavbar();
   useEffect(() => {
@@ -26,7 +26,7 @@ export default function HomePage() {
   useEffect(() => {
     async function getMe() {
       try {
-        const response = await axios.get(`${API_URL}api/v1/auth/details`, {
+        const response = await axios.get(`${API_URLT}api/v1/auth/details`, {
           withCredentials: true,
         });
         console.log("1");
