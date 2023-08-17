@@ -240,7 +240,10 @@ const Register = () => {
 
   // Function to perform the API call from the frontend
   const googleAuthTry = () => {
-    window.open(`https://engineerhub-yash.onrender.com/api/v1/auth/google/user`, "_self");
+    window.open(
+      `https://engineerhub-yash.onrender.com/api/v1/auth/google/user`,
+      "_self"
+    );
   };
   async function handleGoogleLoginSuccess() {
     try {
@@ -286,19 +289,19 @@ const Register = () => {
     }
   }
 
-
-
   const [me, setMe] = useState(null);
 
   useEffect(() => {
     async function getMe() {
       try {
-        const response = await axios.get("https://engineerhub-yash.onrender.com/api/v1/auth/details", {
-          withCredentials: true,
-        });
+        const response = await axios.get(
+          "https://engineerhub-yash.onrender.com/api/v1/auth/details",
+          {
+            withCredentials: true,
+          }
+        );
         // console.log(response.data);
         setMe(response.data);
-
       } catch (error) {
         console.error("Error fetching user data:", error);
       }
@@ -308,9 +311,17 @@ const Register = () => {
   }, []);
 
   const handleLogin = () => {
-    const googleAuthUrl = new URL("https://accounts.google.com/o/oauth2/v2/auth");
-    googleAuthUrl.searchParams.append("client_id", "111727756822-c6nh6mvi2acqcm51t59r5ummd3tc8j42.apps.googleusercontent.com");
-    googleAuthUrl.searchParams.append("redirect_uri", "https://engineerhub-yash.onrender.com/api/v1/auth/google/user/redirect");
+    const googleAuthUrl = new URL(
+      "https://accounts.google.com/o/oauth2/v2/auth"
+    );
+    googleAuthUrl.searchParams.append(
+      "client_id",
+      "111727756822-c6nh6mvi2acqcm51t59r5ummd3tc8j42.apps.googleusercontent.com"
+    );
+    googleAuthUrl.searchParams.append(
+      "redirect_uri",
+      "https://engineerhub-yash.onrender.com/api/v1/auth/google/user/redirect"
+    );
     googleAuthUrl.searchParams.append("response_type", "code");
     // googleAuthUrl.searchParams.append("state", dynamicRedirectUrl);
     googleAuthUrl.searchParams.append("scope", "profile email");
@@ -319,8 +330,6 @@ const Register = () => {
 
     window.location.href = googleAuthUrl.toString();
   };
-
-
 
   // Call the function to make the API request
 
@@ -507,22 +516,18 @@ const Register = () => {
                 <hr />
               </div>
 
-              <div className="sign-field reg-field">
+              {/* <div className="sign-field reg-field">
                 <div className="sign-opt ">
-              <div>
-        
-          <GoogleButton
-      onClick={ handleLogin}
-    >
-      Sign in with Google
-    </GoogleButton>
-
-              </div>
-              </div>
-              </div>
+                  <div>
+                    <GoogleButton onClick={handleLogin}>
+                      Sign in with Google
+                    </GoogleButton>
+                  </div>
+                </div>
+              </div> */}
 
               <div className="my-item-cont">
-                <div>Didn't have an account?</div>
+                <div>Don't have an account?</div>
                 <Link to="/selectRole" className="f-p ">
                   Sign Up
                 </Link>
