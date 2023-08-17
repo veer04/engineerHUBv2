@@ -34,7 +34,7 @@ jobs:
           context: .
           push: true
           tags: | 
-            ${{ vars.ECR_REGISTRY }}/${{ vars.TEST_ECR_REPO }}:test
+            ${{ vars.ECR_REGISTRY }}/${{ vars.TEST_ECR_REPO }}:latest
           build-args: |
             VITE_API_URL=${{ vars.VITE_TEST_API_URL }}
             VITE_BUCKET_URL=${{ vars.VITE_BUCKET_URL }}
