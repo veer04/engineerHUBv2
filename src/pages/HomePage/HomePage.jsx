@@ -42,11 +42,11 @@ export default function HomePage() {
           Cookies.set("image",response.data.decodedToken.picture);
           console.log(response.data)
         }
-        else
-        {
-          navigate("/login");
-          window.alert("No id exists with the provided mail signup Now!!!")
-        }
+        // else
+        // {
+        //   navigate("/login");
+        //   window.alert("No id exists with the provided mail signup Now!!!")
+        // }
 
       } catch (error) {
         console.error("Error fetching user data:", error);
