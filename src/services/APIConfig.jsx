@@ -43,7 +43,7 @@ export const patchResume = (userId, file, setResponse) => {
     },
   };
   axios
-    .patch(`${API_URLT}api/v1/user/resumeUpdate`, file, config)
+    .patch(`${API_URL}api/v1/user/resumeUpdate`, file, config)
     .then((res) => {
       console.log(res);
       setResponse(res);
