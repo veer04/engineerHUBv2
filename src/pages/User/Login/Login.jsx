@@ -289,26 +289,24 @@ const Register = () => {
     }
   }
 
-  const [me, setMe] = useState(null);
+  // const [me, setMe] = useState(null);
 
-  useEffect(() => {
-    async function getMe() {
-      try {
-        const response = await axios.get(
-          "https://engineerhub-yash.onrender.com/api/v1/auth/details",
-          {
-            withCredentials: true,
-          }
-        );
-        // console.log(response.data);
-        setMe(response.data);
-      } catch (error) {
-        console.error("Error fetching user data:", error);
-      }
-    }
+  // useEffect(() => {
+  //   async function getMe() {
+  //     try {
+  //       const response = await axios.get("https://engineerhub-yash.onrender.com/api/v1/auth/details", {
+  //         withCredentials: true,
+  //       });
+  //       // console.log(response.data);
+  //       setMe(response.data);
 
-    getMe();
-  }, []);
+  //     } catch (error) {
+  //       console.error("Error fetching user data:", error);
+  //     }
+  //   }
+
+  //   getMe();
+  // }, []);
 
   const handleLogin = () => {
     const googleAuthUrl = new URL(
@@ -516,7 +514,7 @@ const Register = () => {
                 <hr />
               </div>
 
-              {/* <div className="sign-field reg-field">
+              <div className="sign-field reg-field">
                 <div className="sign-opt ">
                   <div>
                     <GoogleButton onClick={handleLogin}>
@@ -524,7 +522,7 @@ const Register = () => {
                     </GoogleButton>
                   </div>
                 </div>
-              </div> */}
+              </div>
 
               <div className="my-item-cont">
                 <div>Don't have an account?</div>
