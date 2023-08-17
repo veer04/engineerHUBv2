@@ -40,6 +40,7 @@ RUN apk add --no-cache npm nginx apache2-utils \
     && mkdir /logs \
     && cp -f default-test.conf /etc/nginx/http.d/default.conf \
     && htpasswd -bc /etc/nginx/.htpasswd $TEST_SERVER_USERNAME $TEST_SERVER_PASSWORD \
+    && chmod +x script.sh \
     && rm -rf /root/.npm default* 
 
 # Expose port 80
@@ -48,5 +49,5 @@ EXPOSE 80
 # Command to run the application
 # CMD ["serve", "-s", "/app/dist", ">", "/tmp/logs/server.log"]
 # CMD serve -s /app/dist >> /logs/server.log 2>&1
-CMD ["sh", "/app/script.sh"]
+CMD ["./script.sh"]
 
