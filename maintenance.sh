@@ -5,6 +5,8 @@ ECR_REGISTRY="288273743510.dkr.ecr.ap-south-1.amazonaws.com"
 ECR_REGION="ap-south-1"
 REPO_NAME="ehub_frontend"
 Image_Tag="latest"
+base_port=80
+container_port=80
 
 # Authenticate with ECR
 aws ecr get-login-password --region "$ECR_REGION" | docker login --username AWS --password-stdin "$ECR_REGISTRY"
@@ -60,7 +62,7 @@ pull_and_run_image() {
   docker image prune -f
 
   # Run the new image
-  docker run -d --name "$container" -p 80:3000  -v /home/logs/frontend:/logs "$ECR_REGISTRY/$REPO_NAME:$Image_Tag"  
+  docker run -d --name "$container" -p $base_port:$container_port -v /home/logs/frontend:/logs "$ECR_REGISTRY/$REPO_NAME:$Image_Tag"  
 }
 
 # Function to check if the container is running
