@@ -36,10 +36,11 @@ RUN apk add --no-cache npm nginx apache2-utils \
     && npm install -g serve \
     && mkdir /logs \
     && cp -f default-prod.conf /etc/nginx/http.d/default.conf \
+    && chmod +x script.sh \
     && rm -rf /root/.npm default* 
 
 # Expose port 80
 EXPOSE 80
 
 # Command to run the application
-CMD serve -s /app/dist >> /logs/server.log 2>&1
+CMD ["./script.sh"]

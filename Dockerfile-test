@@ -47,7 +47,5 @@ RUN apk add --no-cache npm nginx apache2-utils \
 EXPOSE 80
 
 # Command to run the application
-# CMD ["serve", "-s", "/app/dist", ">", "/tmp/logs/server.log"]
-# CMD serve -s /app/dist >> /logs/server.log 2>&1
 CMD ["./script.sh"]
 

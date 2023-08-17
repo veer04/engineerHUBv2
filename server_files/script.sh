@@ -1,4 +1,4 @@
 #!/bin/sh
 
 serve -s /app/dist >> /logs/server.log &
-nginx 
+nginx -g "daemon off;" 
