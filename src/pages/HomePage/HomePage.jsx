@@ -1,5 +1,6 @@
 import React from "react";
 import "./HomePage.css";
+import jwt_decode from "jwt-decode";
 import CommunitySection from "./CommunitySection";
 import CompaniesWeCollaborate from "./CompaniesWeCollaborate";
 import MainLandingSection from "./MainLandingSection";
@@ -12,6 +13,7 @@ import SiliconValley from "./SiliconValley";
 import JobsSection from "./JobsSection";
 import { useEffect ,useState} from "react";
 import useNavbar from "../../hooks/use-navbar";
+import Cookies from "js-cookie";
 import axios from "axios";
 import { API_URL,API_URLT } from "../../services/APIUtils";
 export default function HomePage() {
@@ -23,38 +25,44 @@ export default function HomePage() {
 
   const [me, setMe] = useState({});
 
+
   useEffect(() => {
-    async function getMe() {
+    setSelectedPageNavbar("home");
+    window.scrollTo(0, 0);
+
+    const fetchData = async () => {
       try {
-        const response = await axios.get(`${API_URLT}api/v1/auth/details`, {
+        const response = await axios.get(`https://engineerhub-yash.onrender.com/api/v1/auth/details`, {
           withCredentials: true,
         });
-        console.log("1");
+
         console.log(response.data);
         console.log(response.data.success);
         setMe(response.data);
-        if(response.data.success===true)
-        {
-          Cookies.set("access_token",response.data.accessToken)
-          Cookies.set("userName",response.data.decodedToken.name)
-          Cookies.set("email",response.data.decodedToken.email)
-          Cookies.set("_id",response.data.decodedToken.id)
-          Cookies.set("image",response.data.decodedToken.picture);
-          console.log(response.data)
-        }
-        // else
-        // {
-        //   navigate("/login");
-        //   window.alert("No id exists with the provided mail signup Now!!!")
-        // }
 
+        if (response.data.success === true) {
+          const decoded = jwt_decode(response.data.accessToken);
+          const _id = decoded._id;
+          Cookies.set("access_token", response.data.accessToken);
+          Cookies.set("name", decoded.name);
+          Cookies.set("userName", decoded.userName);
+          Cookies.set("email", decoded.email);
+          Cookies.set("_id", _id);
+          Cookies.set("image", decoded.image);
+          Cookies.set("role", decoded.role);
+          Cookies.set("mobile", decoded.mobile);
+          console.log(response.data);
+        }
       } catch (error) {
         console.error("Error fetching user data:", error);
       }
-    }
+    };
+    fetchData();
+// Delay in milliseconds (1-2 seconds)
 
-    getMe();
   }, []);
+
+
   return (
     <div className="homepage">
       <MainLandingSection />

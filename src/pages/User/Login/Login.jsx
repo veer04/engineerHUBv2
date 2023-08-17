@@ -290,22 +290,22 @@ const Register = () => {
 
   const [me, setMe] = useState(null);
 
-  useEffect(() => {
-    async function getMe() {
-      try {
-        const response = await axios.get("https://engineerhub-yash.onrender.com/api/v1/auth/details", {
-          withCredentials: true,
-        });
-        // console.log(response.data);
-        setMe(response.data);
+  // useEffect(() => {
+  //   async function getMe() {
+  //     try {
+  //       const response = await axios.get("https://engineerhub-yash.onrender.com/api/v1/auth/details", {
+  //         withCredentials: true,
+  //       });
+  //       // console.log(response.data);
+  //       setMe(response.data);
 
-      } catch (error) {
-        console.error("Error fetching user data:", error);
-      }
-    }
+  //     } catch (error) {
+  //       console.error("Error fetching user data:", error);
+  //     }
+  //   }
 
-    getMe();
-  }, []);
+  //   getMe();
+  // }, []);
 
   const handleLogin = () => {
     const googleAuthUrl = new URL("https://accounts.google.com/o/oauth2/v2/auth");
