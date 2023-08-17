@@ -1,0 +1,51 @@
+# Build Stage
+FROM alpine:latest AS build
+
+# Maintainer
+LABEL AUTHOR="AYUSH-GUPTA-Martyr112"
+
+# Set the working directory in the container
+WORKDIR /app
+
+# Copy app files
+COPY . /app/
+
+# Set environment variables
+ARG VITE_API_URL
+ARG VITE_BUCKET_URL
+ARG VITE_AESKEY
+ARG VITE_FRONTEND_URL
+
+# Install dependencies and build app
+RUN apk add --no-cache npm \
+    && npm ci --force --silent \
+    && npm run build \
+    && rm -rf /root/.npm
+
+# Production Stage
+FROM alpine:latest
+
+# Set the working directory in the container
+WORKDIR /app
+
+ARG TEST_SERVER_USERNAME
+ARG TEST_SERVER_PASSWORD
+
+# Copy app files from the build stage
+COPY --from=build /app/dist /app/dist
+COPY server_files/ /app/
+
+RUN apk add --no-cache npm nginx apache2-utils \
+    && npm install -g serve \
+    && mkdir /logs \
+    && cp -f default-test.conf /etc/nginx/http.d/default.conf \
+    && htpasswd -bc /etc/nginx/.htpasswd $TEST_SERVER_USERNAME $TEST_SERVER_PASSWORD \
+    && chmod +x script.sh \
+    && rm -rf /root/.npm default* 
+
+# Expose port 80
+EXPOSE 80
+
+# Command to run the application
+CMD ["./script.sh"]
+
