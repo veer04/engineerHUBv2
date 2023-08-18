@@ -327,6 +327,9 @@ const Register = () => {
     googleAuthUrl.searchParams.append("prompt", "consent");
 
     window.location.href = googleAuthUrl.toString();
+  //  setTimeout(()=>{
+  //     window.location.reload();
+  //  },2000)
   };
 
   // Call the function to make the API request

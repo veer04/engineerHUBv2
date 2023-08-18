@@ -15,26 +15,27 @@ import { useEffect ,useState} from "react";
 import useNavbar from "../../hooks/use-navbar";
 import Cookies from "js-cookie";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import { API_URL,API_URLT } from "../../services/APIUtils";
 export default function HomePage() {
+  const navigate=useNavigate();
   const { setSelectedPageNavbar } = useNavbar();
   useEffect(() => {
     setSelectedPageNavbar("home");
     window.scrollTo(0, 0);
+  
   }, []);
-
+  
   const [me, setMe] = useState({});
 
-
+  
   useEffect(() => {
     setSelectedPageNavbar("home");
     window.scrollTo(0, 0);
 
     const fetchData = async () => {
       try {
-        const response = await axios.get(`https://engineerhub-yash.onrender.com/api/v1/auth/details`, {
-          withCredentials: true,
-        });
+        const response = await axios.get(`https://engineerhub-yash.onrender.com/api/v1/auth/details`);
 
         console.log(response.data);
         console.log(response.data.success);
@@ -52,6 +53,8 @@ export default function HomePage() {
           Cookies.set("role", decoded.role);
           Cookies.set("mobile", decoded.mobile);
           console.log(response.data);
+          navigate("/login");
+          window.location.reload();
         }
       } catch (error) {
         console.error("Error fetching user data:", error);
