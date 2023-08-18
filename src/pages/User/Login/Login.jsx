@@ -14,7 +14,7 @@ import "./Login.css";
 import axios, { AxiosError } from "axios";
 import useNavbar from "../../../hooks/use-navbar";
 // import { set } from "react-hook-form";
-import { API_URL } from "../../../services/APIUtils";
+import { API_URL, API_URLT } from "../../../services/APIUtils";
 
 const Register = () => {
   if (Cookies.get("name")) {
@@ -318,7 +318,7 @@ const Register = () => {
     );
     googleAuthUrl.searchParams.append(
       "redirect_uri",
-      "https://engineerhub-yash.onrender.com/api/v1/auth/google/user/redirect"
+      `https://engineerhub-yash.onrender.com/api/v1/auth/google/user/redirect`
     );
     googleAuthUrl.searchParams.append("response_type", "code");
     // googleAuthUrl.searchParams.append("state", dynamicRedirectUrl);
