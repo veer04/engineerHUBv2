@@ -318,7 +318,7 @@ const Register = () => {
     );
     googleAuthUrl.searchParams.append(
       "redirect_uri",
-      `https://engineerhub-yash.onrender.com/api/v1/auth/google/user/redirect`
+      `${API_URL}api/v1/auth/google/user/redirect`
     );
     googleAuthUrl.searchParams.append("response_type", "code");
     // googleAuthUrl.searchParams.append("state", dynamicRedirectUrl);
