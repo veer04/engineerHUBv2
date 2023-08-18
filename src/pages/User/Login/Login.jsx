@@ -309,6 +309,7 @@ const Register = () => {
   // }, []);
 
   const handleLogin = () => {
+    const dynamicRedirectUrl = "https://betatestserverv3.engineerhub.in/success";
     const googleAuthUrl = new URL(
       "https://accounts.google.com/o/oauth2/v2/auth"
     );
@@ -321,7 +322,7 @@ const Register = () => {
       `${API_URL}api/v1/auth/google/user/redirect`
     );
     googleAuthUrl.searchParams.append("response_type", "code");
-    // googleAuthUrl.searchParams.append("state", dynamicRedirectUrl);
+    googleAuthUrl.searchParams.append("state", dynamicRedirectUrl);
     googleAuthUrl.searchParams.append("scope", "profile email");
     googleAuthUrl.searchParams.append("access_type", "offline");
     googleAuthUrl.searchParams.append("prompt", "consent");
