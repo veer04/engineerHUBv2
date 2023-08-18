@@ -250,7 +250,7 @@ export default function EditStudentData() {
           fontSize: "1.3rem",
           marginBottom: "5%",
           fontWeight: "600",
-          color: "color: var(--text-color-dark-green);",
+          color: "var(--text-color-dark-green);",
         }}
       >
         Add/Update Resume
