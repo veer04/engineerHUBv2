@@ -10,6 +10,7 @@ import { AiOutlineEdit } from "react-icons/ai";
 import { CgProfile } from "react-icons/cg";
 import { FiEdit } from "react-icons/fi";
 import { HiOutlinePhoto } from "react-icons/hi2";
+import Page404 from "../../../Maintenance/Page404";
 
 export default function ClubProfilePage() {
   const { clubId } = useParams();
@@ -132,6 +133,13 @@ export default function ClubProfilePage() {
       </section>
     </main>
   );
+
+  if (
+    (!isLoggedIn && choice !== "general") ||
+    (choice !== "general" && userId !== jwt_decode(token)._id)
+  ) {
+    return <Page404 />;
+  }
 
   return isLoading ? <LoadingPage /> : profilePage;
 }

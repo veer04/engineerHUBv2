@@ -15,6 +15,7 @@ import { CgProfile } from "react-icons/cg";
 import { MdOutlinePlace } from "react-icons/md";
 import { FiExternalLink } from "react-icons/fi";
 import { RiListOrdered } from "react-icons/ri";
+import Page404 from "../../../Maintenance/Page404";
 
 export default function ProfilePage() {
   const { userId } = useParams();
@@ -140,6 +141,13 @@ export default function ProfilePage() {
       </section>
     </main>
   );
+
+  if (
+    (!isLoggedIn && choice !== "general") ||
+    (choice !== "general" && userId !== jwt_decode(token)._id)
+  ) {
+    return <Page404 />;
+  }
 
   return isLoading ? <LoadingPage /> : profilePage;
 }
