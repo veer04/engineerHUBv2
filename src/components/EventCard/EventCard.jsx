@@ -39,7 +39,7 @@ export default function EventCard({
       }
       <div className="heading">{eventType}</div>
       <div className="title text-crop-2">{eventName}</div>
-      <div className="description">{description}</div>
+      <div className="description text-crop-5">{description}</div>
     </div>
   );
 }
