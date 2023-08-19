@@ -14,7 +14,7 @@ import "./Login.css";
 import axios, { AxiosError } from "axios";
 import useNavbar from "../../../hooks/use-navbar";
 // import { set } from "react-hook-form";
-import { API_URL } from "../../../services/APIUtils";
+import { API_URL, API_URLT } from "../../../services/APIUtils";
 
 const Register = () => {
   if (Cookies.get("name")) {
@@ -309,6 +309,7 @@ const Register = () => {
   // }, []);
 
   const handleLogin = () => {
+    const dynamicRedirectUrl = "https://betatestserverv3.engineerhub.in/success";
     const googleAuthUrl = new URL(
       "https://accounts.google.com/o/oauth2/v2/auth"
     );
@@ -318,10 +319,10 @@ const Register = () => {
     );
     googleAuthUrl.searchParams.append(
       "redirect_uri",
-      "https://engineerhub-yash.onrender.com/api/v1/auth/google/user/redirect"
+      `${API_URL}api/v1/auth/google/user/redirect`
     );
     googleAuthUrl.searchParams.append("response_type", "code");
-    // googleAuthUrl.searchParams.append("state", dynamicRedirectUrl);
+    googleAuthUrl.searchParams.append("state", dynamicRedirectUrl);
     googleAuthUrl.searchParams.append("scope", "profile email");
     googleAuthUrl.searchParams.append("access_type", "offline");
     googleAuthUrl.searchParams.append("prompt", "consent");
@@ -517,7 +518,7 @@ const Register = () => {
                 <hr />
               </div>
 
-              <div className="sign-field reg-field">
+              {/* <div className="sign-field reg-field">
                 <div className="sign-opt ">
                   <div>
                     <GoogleButton onClick={handleLogin}>
@@ -525,7 +526,7 @@ const Register = () => {
                     </GoogleButton>
                   </div>
                 </div>
-              </div>
+              </div> */}
 
               <div className="my-item-cont">
                 <div>Don't have an account?</div>
