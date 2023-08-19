@@ -25,7 +25,7 @@ import Footer from "./components/Footer/Footer";
 import Events from "./pages/Company/Events/events";
 import Jobs from "./pages/Company/Jobs/jobs";
 import JobDetails from "./pages/Company/Jobs/JobDetails";
-import Success from "./pages/HomePage/Success";
+// import Success from "./pages/HomePage/Success";
 import Internship from "./pages/Company/Internship/Internship";
 import InternshipDetails from "./pages/Company/Internship/InternshipDetails";
 import HackathonDetails from "./pages/Company/Events/EventsChoices/HackathonDetails";

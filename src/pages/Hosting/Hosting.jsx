@@ -6,6 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 import useNavbar from "../../hooks/use-navbar";
 export default function Hosting() {
+  console.log("test")
   const handleCardClick = (event) => {
     localStorage.setItem("event", event);
 
