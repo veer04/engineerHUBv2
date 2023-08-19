@@ -120,7 +120,7 @@ function App() {
         <Routes>
           <Route index element={<HomePage path="homepage" />} />
           <Route path="/home" element={<HomePage />} />
-          <Route path="/success" element={<Success></Success>}></Route>
+          {/* <Route path="/success" element={<Success></Success>}></Route> */}
           <Route path="/register" element={<RegistrationForm />} />
           <Route path="/selectRole" element={<Role />} />
           <Route path="/loginDummy" element={<LoginDummy></LoginDummy>}>
