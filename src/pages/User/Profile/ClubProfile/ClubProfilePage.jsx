@@ -136,7 +136,7 @@ export default function ClubProfilePage() {
 
   if (
     (!isLoggedIn && choice !== "general") ||
-    (choice !== "general" && userId !== jwt_decode(token)._id)
+    (choice !== "general" && clubId !== jwt_decode(token)._id)
   ) {
     return <Page404 />;
   }

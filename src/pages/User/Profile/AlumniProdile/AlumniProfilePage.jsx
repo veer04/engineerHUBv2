@@ -120,7 +120,7 @@ export default function AlumniProfilePage() {
 
   if (
     (!isLoggedIn && choice !== "general") ||
-    (choice !== "general" && userId !== jwt_decode(token)._id)
+    (choice !== "general" && alumniId !== jwt_decode(token)._id)
   ) {
     return <Page404 />;
   }

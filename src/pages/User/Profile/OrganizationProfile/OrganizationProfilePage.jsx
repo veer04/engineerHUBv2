@@ -120,7 +120,7 @@ export default function OrganizationProfilePage() {
 
   if (
     (!isLoggedIn && choice !== "general") ||
-    (choice !== "general" && userId !== jwt_decode(token)._id)
+    (choice !== "general" && organizationId !== jwt_decode(token)._id)
   ) {
     return <Page404 />;
   }
