@@ -78,6 +78,7 @@ import getCookie, { getAccessToken } from "./features/getCookieValues";
 import ProjectHosting from "./pages/Hosting/ProjectHosting";
 import CoverPhotoClubData from "./pages/User/Profile/ClubProfile/CoverPhotoClubData";
 import ManagePostsClubData from "./pages/User/Profile/ClubProfile/ManagePostsClubData";
+import ProfilePopUp from "./components/ProfileSection/ProfilePopUp/ProfilePopUp";
 
 function App() {
   const [isEventModalOpen, setIsEventModalOpen] = useState(false);
@@ -116,6 +117,7 @@ function App() {
     <>
       {!isEventModalOpen && <Navbar />}
       {!isEventModalOpen && <MobileNavbar />}
+      <ProfilePopUp />
       <Suspense fallback={<LoadingPage />}>
         <Routes>
           <Route index element={<HomePage path="homepage" />} />

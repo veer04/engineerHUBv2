@@ -1,0 +1,178 @@
+.profile-menu {
+  padding: 1.31rem;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.profile-menu > .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  height: 6.25rem;
+  border-bottom: 1px solid rgba(217, 217, 217, 1);
+  padding: 0 0.57rem 0.81rem;
+}
+.profile-menu > .header > h1 {
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 24.2px;
+}
+.profile-menu > .user-details {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 1rem 0.57rem;
+  gap: 1rem;
+}
+.profile-menu > .user-details > .profile-picture {
+  width: 5rem;
+  height: 5rem;
+  position: relative;
+  outline: 0.03rem solid rgba(255, 255, 255, 1);
+}
+.profile-menu > .user-details > .profile-picture > .progress-counter {
+  position: absolute;
+  bottom: -0.25rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2.82194rem;
+  height: 1.41094rem;
+  border-radius: 0.74263rem;
+  border: 1.782px solid rgba(8, 224, 69, 1);
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.74263rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.profile-menu > .user-details > .profile-picture .progress-bar {
+  width: 5rem !important;
+  height: 5rem !important;
+}
+.profile-menu > .user-details > .profile-picture .image {
+  width: 4.6rem;
+  height: 4.6rem;
+  border-radius: 50%;
+  object-fit: cover;
+  z-index: -1;
+}
+.profile-menu > .user-details > .personal-details > .name {
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 21.78px;
+}
+.profile-menu > .user-details > .personal-details > .sub-name {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 16.94px;
+  color: rgba(138, 138, 138, 1);
+}
+.profile-menu > .show-profile-btn {
+  background-color: var(--primary-color-dark-green);
+  color: white;
+}
+.profile-menu > .redirect-btn {
+  width: 100%;
+  min-height: 2.6875rem;
+  border-radius: 0.5rem;
+  box-shadow: 5px 4px 20px 0px rgba(0, 0, 0, 0.05);
+}
+.profile-menu > .divider {
+  margin: 1rem 0;
+  width: 358px;
+  height: 1px;
+  top: 287px;
+  left: 21px;
+  background: rgba(217, 217, 217, 1);
+}
+.profile-menu > .promotion > .items-list,
+.profile-menu > .items-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  margin-bottom: 1rem;
+}
+.profile-menu > .promotion > .items-list > .item,
+.profile-menu > .items-list > .item {
+  display: flex;
+  flex-direction: row;
+  padding: 0.5rem 0.57rem;
+  background-color: transparent;
+  border: none;
+  border-radius: 0.3125rem;
+  height: 3.375rem;
+  align-items: center;
+}
+.profile-menu > .promotion > .items-list > .item:hover,
+.profile-menu > .items-list > .item:hover {
+  background-color: rgba(230, 234, 235, 1);
+  font-weight: 500;
+}
+.profile-menu > .promotion > .items-list > .item:hover .tag {
+  border-width: 2px;
+  margin-right: 0px;
+}
+
+.profile-menu > .promotion > .items-list > .item:active,
+.profile-menu > .items-list > .item:active {
+  background-color: rgb(217, 219, 220);
+  font-weight: 500;
+}
+.profile-menu > .promotion > .items-list > .item > .icon,
+.profile-menu > .items-list > .item > .icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin: 0 1.25rem 0 0;
+}
+.profile-menu > .promotion > .items-list > .item > .icon > svg,
+.profile-menu > .items-list > .item > .icon > svg {
+  width: 100%;
+  height: 100%;
+}
+.profile-menu > .promotion > .items-list > .item > .tag {
+  margin-left: auto;
+  margin-right: 2px; /* 2px margin for the hover effect */
+  padding: 0.31rem 1rem;
+  border-radius: 1.375rem;
+  border: 1px solid #ffcd1e;
+  background-color: rgba(255, 214, 0, 0.15);
+}
+.profile-menu > .promotion {
+  width: 100%;
+  padding: 1.19rem;
+  border-radius: 0.3125rem;
+  border: 1px dashed #e3e2e2;
+  margin-bottom: 1rem;
+}
+.profile-menu > .promotion > .company-ad {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  border-radius: 0.5rem;
+  background: #fff6e0;
+  border: 0.09rem solid rgba(255, 214, 0, 1);
+  height: 2.6875rem;
+  box-shadow: 5px 4px 20px 0px rgba(0, 0, 0, 0.05);
+  font-weight: 500;
+}
+.profile-menu > .promotion > .company-ad > .icon {
+  width: 1.125rem;
+  height: 1.25rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.profile-menu > .promotion > .company-ad > .icon > svg {
+  width: 100%;
+  height: 100%;
+  color: rgba(255, 214, 0, 1);
+}
+.profile-menu > .recent-activities-btn {
+  background-color: transparent;
+}
