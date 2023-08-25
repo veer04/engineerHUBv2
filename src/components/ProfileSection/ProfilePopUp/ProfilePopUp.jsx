@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./ProfilePopUp.css";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
@@ -16,11 +16,22 @@ import { useNavigate } from "react-router-dom";
 
 export default function ProfilePopUp() {
   const navigate = useNavigate();
-  const [progress, setProgress] = useState(50);
+  const [progress, setProgress] = useState(0);
   const role = getUserRole();
-  // const role = "Club";
   const userFullName = getUserFullName();
   const userImage = getUserImage();
+  const [profileProgress, setProfileProgress] = useState(100);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setProgress((prevProgress) =>
+        prevProgress >= profileProgress ? profileProgress : prevProgress + 2
+      );
+    }, 60);
+    return () => {
+      clearInterval(timer);
+    };
+  }, []);
 
   const promotionalSvg = (
     <svg
@@ -251,7 +262,7 @@ export default function ProfilePopUp() {
         aria-label="Close"
         className="show-profile-btn redirect-btn"
       >
-        Complete Profile
+        {`${profileProgress < 100 ? "Complete Profile" : "View Profile"}`}
       </button>
       <div className="divider"></div>
       {/* Main Content */}
