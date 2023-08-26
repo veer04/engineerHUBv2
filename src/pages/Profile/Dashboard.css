@@ -16,7 +16,7 @@
   overflow: hidden;
   color: rgba(51, 51, 51, 1);
   text-overflow: ellipsis;
-  whitespace: nowrap;
+  white-space: wrap;
   font-size: 0.875rem;
   font-style: normal;
   font-weight: 400;
