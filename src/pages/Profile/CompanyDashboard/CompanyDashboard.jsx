@@ -1,30 +1,50 @@
-import React from "react";
+import { useState } from "react";
 import "./CompanyDashboard.css";
+import "../Dashboard.css";
 import { Instagram } from "@mui/icons-material";
 import { BsArrowRight } from "react-icons/bs";
+import { FiEdit } from "react-icons/fi";
+import coverImage from "./cover-image.png";
+import { getUserImage } from "../../../features/User/UserDetails";
 
 export default function CompanyDashboard() {
+  const [viewMore, setViewMore] = useState(false);
+  const logo = getUserImage(); // later fetch from api
   return (
     <div className="profile-dashboard">
-      <h1 className="heading">Profile</h1>
+      <h1 className="title">Profile</h1>
       <h2 className="subheading">
         Lorem ipsum dolor sit amet consectetur. Mattis aliquam sodales faucibus
         platea feugiat odio.
       </h2>
       <section className="details-container">
-        <div className="cover">
-          <button className="edit-option">edit icon</button>
-          <div className="logo"></div>
+        <div
+          style={{
+            backgroundImage: `url(${coverImage})`,
+          }}
+          className="cover"
+        >
+          <button className="edit-option">
+            <FiEdit />
+          </button>
+          <div className="logo">
+            <img src={logo} alt="profile-picture" />
+          </div>
         </div>
         <div className="details">
           <div className="upper-container">
             <div className="left-container">
               <div>
-                <h1>Google</h1>
-                <h2>Changing the world with AI</h2>
+                <h1 className="text-crop-1 overflow-hidden">Google</h1>
+                <h2 className="text-crop-1 overflow-hidden">
+                  Changing the world with AI
+                </h2>
                 <div>
-                  <h3>Software Development</h3>
-                  <h3>{`• India`}</h3>
+                  <h3 className="text-crop-1 overflow-hidden">
+                    Software Development
+                  </h3>
+                  <h3>•</h3>
+                  <h3 className="text-crop-1 overflow-hidden">India</h3>
                 </div>
               </div>
             </div>
@@ -40,20 +60,36 @@ export default function CompanyDashboard() {
                   <Instagram />
                 </div>
               </div>
-              <button className="edit-b">Edit Profile</button>
+              <button className="edit-btn">Edit Profile</button>
             </div>
           </div>
           <div className="lower-container">
             <p className="heading">ABOUT US</p>
-            <span className="content">
+            <span
+              className={`content ${
+                viewMore ? "no-text-crop" : "text-crop-4"
+              } `}
+            >
               Lorem ipsum dolor sit amet consectetur. Faucibus sed nibh
               adipiscing odio hendrerit lectus. Orci pellentesque aliquet vitae
               convallis a ornare nunc blandit suspendisse. Nisi augue risus
               tellus vel lacus commodo etiam mattis vitae. Pellentesque massa
               adipiscing nisl blandit. Faucibus vehicula magna lorem in est
               massa. Etiam eu tristique fringilla mi pharetra non a enim eget.
-              Tincidunt urna vulputate egestas pretium lorem....View more
+              Tincidunt urna vulputate egestas pretium loremLorem ipsum dolor
+              sit amet consectetur. Faucibus sed nibh adipiscing odio hendrerit
+              lectus. Orci pellentesque aliquet vitae convallis a ornare nunc
+              blandit suspendisse. Nisi augue risus tellus vel lacus commodo
+              etiam mattis vitae. Pellentesque massa adipiscing nisl blandit.
+              Faucibus vehicula magna lorem in est massa. Etiam eu tristique
+              fringilla mi pharetra non a enim eget. Tincidunt urna vulputate
+              egestas pretium lorem
             </span>
+            {!viewMore && (
+              <div onClick={() => setViewMore(true)} className="view-more">
+                View More
+              </div>
+            )}
           </div>
         </div>
       </section>
@@ -124,9 +160,11 @@ export default function CompanyDashboard() {
       </section>
       <section className="recruit-container">
         <div
-          style={{
-            // backgroundImage: `url(${bucket}cultural_event.png)`,
-          }}
+          style={
+            {
+              // backgroundImage: `url(${bucket}cultural_event.png)`,
+            }
+          }
           className="recruit-card"
         >
           <div className="heading">Cultural Event</div>
