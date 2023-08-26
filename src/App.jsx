@@ -79,6 +79,7 @@ import ProjectHosting from "./pages/Hosting/ProjectHosting";
 import CoverPhotoClubData from "./pages/User/Profile/ClubProfile/CoverPhotoClubData";
 import ManagePostsClubData from "./pages/User/Profile/ClubProfile/ManagePostsClubData";
 import ProfilePopUp from "./components/ProfileSection/ProfilePopUp/ProfilePopUp";
+import CompanyDashboard from "./pages/Profile/CompanyDashboard/CompanyDashboard";
 
 function App() {
   const [isEventModalOpen, setIsEventModalOpen] = useState(false);
@@ -163,10 +164,14 @@ function App() {
                 <Route path=":postId" element={<PostModal2 />} />
               </Route>
             </Route>
-            <Route
+            {/* <Route
               path="organization/:organizationId"
               element={<OrganizationProfilePage path="profile" />}
-            >
+            > */}
+            <Route
+              path="organization/:organizationId"
+              element={<CompanyDashboard path="profile" />}
+            >  
               <Route index element={<GeneralOrganizationData />} />
               <Route path="general" element={<GeneralOrganizationData />} />
               <Route path="edit" element={<EditOrganizationData />} />
