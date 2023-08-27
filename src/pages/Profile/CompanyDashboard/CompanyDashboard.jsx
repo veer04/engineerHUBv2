@@ -6,12 +6,18 @@ import { BsArrowRight } from "react-icons/bs";
 import { FiEdit } from "react-icons/fi";
 import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 import coverImage from "./cover-image.png";
+import banner from "./banner.png";
 import { getUserImage } from "../../../features/User/UserDetails";
+import { Bucket_URL } from "../../../services/APIUtils";
+import JobCard from "../../../components/JobCard/JobCard";
+import { useNavigate } from "react-router-dom";
 
 export default function CompanyDashboard() {
+  const navigate = useNavigate();
   const [viewMore, setViewMore] = useState(false);
   const [activityChoice, setActivityChoice] = useState("jobs"); // ["jobs", "internships", "hackathons", "projects"
   const logo = getUserImage(); // later fetch from api
+  const bucket = `${Bucket_URL}frontend/hosting/`;
 
   const jobDetails = [
     {
@@ -253,28 +259,7 @@ export default function CompanyDashboard() {
           </button>
           <div className="carousel">
             {jobDetails.map((jobDetail, index) => (
-              <div key={index} className="job-card">
-                <div className="header">
-                  <div
-                    style={{
-                      backgroundImage: `url(${jobDetail.logo})`,
-                    }}
-                    className="logo"
-                  ></div>
-                  {jobDetail.isServiceOn && (
-                    <div className="tag --service-on">Hiring Now</div>
-                  )}
-                </div>
-                <p className="title text-crop-2">{jobDetail.title}</p>
-                <p className="location text-crop-1">{jobDetail.location}</p>
-                <button className="applicants-btn">View Applicants</button>
-                <div className="stats-container">
-                  <span className="time">{jobDetail.time}</span>
-                  <span className="views">
-                    {eyeSvg} {jobDetail.views} views
-                  </span>
-                </div>
-              </div>
+              <JobCard {...jobDetail} />
             ))}
           </div>
           <button className="arrow arrow-right">
@@ -286,46 +271,69 @@ export default function CompanyDashboard() {
         </div>
       </section>
       <section className="recruit-container">
-        <div
-          style={
-            {
-              // backgroundImage: `url(${bucket}cultural_event.png)`,
-            }
-          }
-          className="recruit-card"
-        >
-          <div className="heading">Cultural Event</div>
-          <div className="subheading">
-            Create Event <BsArrowRight />
+        <p className="heading">RECRUIT THE BEST FOR YOU</p>
+        <div className="cards">
+          <div
+            // onClick={() => navigationOrganization("job")}
+            style={{
+              backgroundImage: `url(${bucket}jobs.png)`,
+            }}
+            className="card"
+          >
+            <div className="heading">Jobs</div>
+            <div className="subheading">
+              Create Jobs <BsArrowRight />
+            </div>
+          </div>
+          {/* </Link>
+          <Link to="/hostevent"> */}
+          <div
+            // onClick={() => navigationOrganization("internship")}
+            style={{
+              backgroundImage: `url(${bucket}internships.png)`,
+            }}
+            className="card"
+          >
+            <div className="heading">Internships</div>
+            <div className="subheading">
+              Create Jobs <BsArrowRight />
+            </div>
+          </div>
+          <div
+            // onClick={navigationFunction}
+            style={{
+              backgroundImage: `url(${bucket}hackathon.png)`,
+            }}
+            className="card"
+          >
+            <div className="heading">Hackathon</div>
+            <div className="subheading">
+              Create Event <BsArrowRight />
+            </div>
           </div>
         </div>
       </section>
-      <section className="promotion-container">
+      <section
+        style={{
+          backgroundImage: `url(${banner})`,
+        }}
+        className="promotion-container"
+      >
         <div className="left-container">
           <p>Sponsor your event to make your reach</p>
           <button>Connect with us</button>
         </div>
         <div className="right-container">
-          <div className="job-card">
-            <div className="header">
-              <div className="logo"></div>
-              <div className="tag-container">
-                <div className="tag">Hiring Now</div>
-              </div>
-            </div>
-            <p className="title">Business Development Sales Representative</p>
-            <p className="location">Location : Delhi, India</p>
-            <button className="applicants-btn">View Applicants</button>
-            <div className="stats-container">
-              <span className="time">3 Days ago</span>
-              <span className="views">1000 views</span>
-            </div>
-          </div>
+          <JobCard {...jobDetails[0]} />
           <div className="blur"></div>
-          <div className="boost">Boost your Event !!</div>
+          <div onClick={() => navigate("/under-maintenance")} className="boost">
+            Boost your Event !!
+          </div>
           <div className="boosted-stats-container">
             <span className="time">3 Days ago</span>
-            <span className="views">1000 views</span>
+            <span className="views">
+              {eyeSvg} {jobDetails[0]?.views * 5} views
+            </span>
           </div>
         </div>
       </section>
