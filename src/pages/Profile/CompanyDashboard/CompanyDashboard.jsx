@@ -5,18 +5,26 @@ import { Instagram } from "@mui/icons-material";
 import { BsArrowRight } from "react-icons/bs";
 import { FiEdit } from "react-icons/fi";
 import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
+import { MdAddCircle } from "react-icons/md";
 import coverImage from "./cover-image.png";
 import banner from "./banner.png";
+import default_profile_icon from "./default_profile_icon.png";
 import { getUserImage } from "../../../features/User/UserDetails";
 import { Bucket_URL } from "../../../services/APIUtils";
 import JobCard from "../../../components/JobCard/JobCard";
 import { useNavigate } from "react-router-dom";
+import defaultPoster from "../../../assets/defaultPoster";
 
 export default function CompanyDashboard() {
   const navigate = useNavigate();
   const [viewMore, setViewMore] = useState(false);
-  const [activityChoice, setActivityChoice] = useState("jobs"); // ["jobs", "internships", "hackathons", "projects"
-  const logo = getUserImage(); // later fetch from api
+  const [showAllJobs, setShowAllJobs] = useState(false);
+  const [activityChoice, setActivityChoice] = useState("jobs");
+  const [isBannerPresent, setIsBannerPresent] = useState(true);
+  const [isLogoPresent, setIsLogoPresent] = useState(true);
+  const [isDescriptionPresent, setIsDescriptionPresent] = useState(true);
+  const [isJobsPresent, setIsJobsPresent] = useState(true);
+  const logo = defaultPoster; // later fetch from api
   const bucket = `${Bucket_URL}frontend/hosting/`;
 
   const jobDetails = [
@@ -136,6 +144,15 @@ export default function CompanyDashboard() {
     </svg>
   );
 
+  const scrollLeft = () => {
+    const carousel = document.querySelector(".carousel");
+    carousel.scrollLeft -= 200;
+  };
+  const scrollRight = () => {
+    const carousel = document.querySelector(".carousel");
+    carousel.scrollLeft += 200;
+  };
+
   return (
     <div className="profile-dashboard">
       <h1 className="title">Profile</h1>
@@ -144,17 +161,26 @@ export default function CompanyDashboard() {
         platea feugiat odio.
       </h2>
       <section className="details-container">
-        <div
-          style={{
-            backgroundImage: `url(${coverImage})`,
-          }}
-          className="cover"
-        >
-          <button className="edit-option">
-            <FiEdit />
-          </button>
+        <div className="cover">
+          {isBannerPresent && (
+            <img className="cover-image" src={coverImage} alt="Cover Image" />
+          )}
+          {!isBannerPresent && (
+            <div className="no-cover-overlay empty-container">
+              <MdAddCircle />
+              <p>Click here to add your Banner Image.</p>
+            </div>
+          )}
+          {isBannerPresent && (
+            <button className="edit-option">
+              <FiEdit />
+            </button>
+          )}
           <div className="logo">
-            <img src={logo} alt="profile-picture" />
+            {isLogoPresent && <img src={logo} alt="Profile Picture" />}
+            {!isLogoPresent && (
+              <img src={default_profile_icon} alt="Profile Picture" />
+            )}
           </div>
         </div>
         <div className="details">
@@ -191,27 +217,34 @@ export default function CompanyDashboard() {
           </div>
           <div className="lower-container">
             <p className="heading">ABOUT US</p>
-            <span
-              className={`content ${
-                viewMore ? "no-text-crop" : "text-crop-4"
-              } `}
-            >
-              Lorem ipsum dolor sit amet consectetur. Faucibus sed nibh
-              adipiscing odio hendrerit lectus. Orci pellentesque aliquet vitae
-              convallis a ornare nunc blandit suspendisse. Nisi augue risus
-              tellus vel lacus commodo etiam mattis vitae. Pellentesque massa
-              adipiscing nisl blandit. Faucibus vehicula magna lorem in est
-              massa. Etiam eu tristique fringilla mi pharetra non a enim eget.
-              Tincidunt urna vulputate egestas pretium loremLorem ipsum dolor
-              sit amet consectetur. Faucibus sed nibh adipiscing odio hendrerit
-              lectus. Orci pellentesque aliquet vitae convallis a ornare nunc
-              blandit suspendisse. Nisi augue risus tellus vel lacus commodo
-              etiam mattis vitae. Pellentesque massa adipiscing nisl blandit.
-              Faucibus vehicula magna lorem in est massa. Etiam eu tristique
-              fringilla mi pharetra non a enim eget. Tincidunt urna vulputate
-              egestas pretium lorem
-            </span>
-            {!viewMore && (
+            {isDescriptionPresent && (
+              <span
+                className={`content ${
+                  viewMore ? "no-text-crop" : "text-crop-4"
+                } `}
+              >
+                Lorem ipsum dolor sit amet consectetur. Faucibus sed nibh
+                adipiscing odio hendrerit lectus. Orci pellentesque aliquet
+                vitae convallis a ornare nunc blandit suspendisse. Nisi augue
+                risus tellus vel lacus commodo etiam mattis vitae. Pellentesque
+                massa adipiscing nisl blandit. Faucibus vehicula magna lorem in
+                est massa. Etiam eu tristique fringilla mi pharetra non a enim
+                eget. Tincidunt urna vulputate egestas pretium loremLorem ipsum
+                dolor sit amet consectetur. Faucibus sed nibh adipiscing odio
+                hendrerit lectus. Orci pellentesque aliquet vitae convallis a
+                ornare nunc blandit suspendisse. Nisi augue risus tellus vel
+                lacus commodo etiam mattis vitae. Pellentesque massa adipiscing
+                nisl blandit. Faucibus vehicula magna lorem in est massa. Etiam
+                eu tristique fringilla mi pharetra non a enim eget. Tincidunt
+                urna vulputate egestas pretium lorem
+              </span>
+            )}
+            {!isDescriptionPresent && (
+              <p className="no-description">
+                Click here to add your Description.
+              </p>
+            )}
+            {isDescriptionPresent && !viewMore && (
               <div onClick={() => setViewMore(true)} className="view-more">
                 View More
               </div>
@@ -254,21 +287,40 @@ export default function CompanyDashboard() {
           </button>
         </div>
         <div className="carousel-container">
-          <button className="arrow arrow-left">
-            <AiOutlineLeft />
-          </button>
-          <div className="carousel">
-            {jobDetails.map((jobDetail, index) => (
-              <JobCard {...jobDetail} />
-            ))}
+          {isJobsPresent && !showAllJobs && (
+            <button onClick={scrollLeft} className="arrow arrow-left">
+              <AiOutlineLeft />
+            </button>
+          )}
+          {isJobsPresent && (
+            <div className={`${showAllJobs ? "carousel-grid" : "carousel"}`}>
+              {jobDetails.map((jobDetail, index) => (
+                <JobCard key={index} {...jobDetail} />
+              ))}
+            </div>
+          )}
+          {!isJobsPresent && (
+            <div className="no-jobs empty-container">
+              <MdAddCircle />
+              <p>No Jobs to Show</p>
+            </div>
+          )}
+          {isJobsPresent && !showAllJobs && (
+            <button onClick={scrollRight} className="arrow arrow-right">
+              <AiOutlineRight />
+            </button>
+          )}
+        </div>
+        {isJobsPresent && !showAllJobs && (
+          <div className="btn-container">
+            <button
+              onClick={() => setShowAllJobs(true)}
+              className="all-jobs-btn"
+            >
+              Show all jobs <BsArrowRight />
+            </button>
           </div>
-          <button className="arrow arrow-right">
-            <AiOutlineRight />
-          </button>
-        </div>
-        <div className="btn-container">
-          <button className="all-jobs-btn">Show all jobs {arrowSvg}</button>
-        </div>
+        )}
       </section>
       <section className="recruit-container">
         <p className="heading">RECRUIT THE BEST FOR YOU</p>
