@@ -6,6 +6,7 @@ import { BsArrowRight } from "react-icons/bs";
 import { FiEdit } from "react-icons/fi";
 import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 import { MdAddCircle } from "react-icons/md";
+import { FiEdit2 } from "react-icons/fi";
 import coverImage from "./cover-image.png";
 import banner from "./banner.png";
 import default_profile_icon from "./default_profile_icon.png";
@@ -198,6 +199,7 @@ export default function CompanyDashboard() {
                   <h3>•</h3>
                   <h3 className="text-crop-1 overflow-hidden">India</h3>
                 </div>
+                <button className="md-edit-btn">Edit Profile</button>
               </div>
             </div>
             <div className="right-container">
@@ -216,6 +218,7 @@ export default function CompanyDashboard() {
             </div>
           </div>
           <div className="lower-container">
+            <FiEdit2 />
             <p className="heading">ABOUT US</p>
             {isDescriptionPresent && (
               <span
