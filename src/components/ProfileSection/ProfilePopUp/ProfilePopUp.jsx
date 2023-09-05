@@ -57,7 +57,40 @@ export default function ProfilePopUp() {
       />
     </svg>
   );
+  const studentMenuItems = [
+    {
+      label:"Internship",
+      icon: <HiOutlineSquares2X2 />,
+      link:"",
+    },
+    {
+      label:"Jobs",
+      icon: <RiSuitcase2Line />,
+      link:"",
+    },
+    {
+    label:"Projects",
+    icon: <AiOutlineCalendar />,
+    link:"",
 
+    }, {
+      label:"Blogs",
+      icon: "",
+      link:"",
+  
+      },
+      , {
+        label:"Events",
+        icon: "",
+        link:"",
+    
+        }, {
+          label:"Webinars",
+          icon: "",
+          link:"",
+      
+          }
+  ]
   const companyMenuItems = [
     {
       label: "Create Jobs",
