@@ -9,6 +9,7 @@ import { AiOutlineCalendar } from "react-icons/ai";
 import { HiOutlineLightningBolt } from "react-icons/hi";
 import {
   getUserFullName,
+  getUserId,
   getUserImage,
   getUserRole,
 } from "../../../features/User/UserDetails";
@@ -294,6 +295,9 @@ export default function ProfilePopUp() {
         data-bs-dismiss="offcanvas"
         aria-label="Close"
         className="show-profile-btn redirect-btn"
+        onClick={() => {
+          navigate(`/profile/${role}/${getUserId()}`);
+        }}
       >
         {`${profileProgress < 100 ? "Complete Profile" : "View Profile"}`}
       </button>

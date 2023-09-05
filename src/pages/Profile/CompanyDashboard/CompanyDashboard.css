@@ -1,0 +1,589 @@
+.profile-dashboard {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: var(--vertical-padding) var(--section-padding);
+  scroll-behavior: auto;
+}
+.profile-dashboard > .title {
+  font-size: 1.95313rem;
+  font-weight: 600;
+  margin-bottom: 0.19rem;
+}
+.profile-dashboard > .subheading {
+  font-weight: 500;
+  font-size: 1rem;
+  color: rgba(138, 138, 138, 1);
+  margin: 0;
+}
+.profile-dashboard > section {
+  border-radius: 0.63rem;
+  overflow: hidden;
+  background-color: rgba(255, 255, 255, 1);
+  margin-bottom: 0.25rem;
+  padding: 1.25rem;
+}
+.profile-dashboard > .details-container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 3.9rem;
+  padding: 0;
+}
+.profile-dashboard > .details-container > .cover {
+  width: 100%;
+  aspect-ratio: 70 / 15.625;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+  /* overflow: hidden; */
+  border: 1px solid #d3d3d3;
+  border-radius: 0.63rem 0.63rem 0 0;
+}
+.profile-dashboard > .details-container > .cover > .cover-image {
+  width: inherit;
+  aspect-ratio: inherit;
+  object-fit: cover;
+  object-position: center;
+}
+.profile-dashboard .empty-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.75rem;
+  cursor: pointer;
+  height: 100%;
+  color: #8a8a8a;
+}
+.profile-dashboard .empty-container:hover svg {
+  color: #000;
+}
+.profile-dashboard .empty-container svg {
+  font-size: 2.5rem;
+}
+.profile-dashboard .empty-container p {
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 136.523%; /* 1.02394rem */
+}
+.profile-dashboard > .details-container > .cover > .edit-option {
+  width: 2.875rem;
+  height: 2.875rem;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 1);
+  position: absolute;
+  top: 1.25rem;
+  right: 1.25rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  border: none;
+}
+.profile-dashboard > .details-container > .cover > .edit-option > svg {
+  width: 1.5rem;
+  height: 1.5rem;
+  color: rgba(138, 157, 163, 1);
+}
+.profile-dashboard > .details-container > .cover > .logo {
+  width: 8.75rem;
+  height: 8.75rem;
+  position: absolute;
+  bottom: 0;
+  left: 1.25rem;
+  transform: translateY(2.435rem);
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* padding: 1.8rem; */
+  outline: 2px solid #d3d3d3;
+}
+.profile-dashboard > .details-container > .cover > .logo > img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+.profile-dashboard > .details-container > .details {
+  padding: 1.25rem;
+}
+.profile-dashboard > .details-container > .details > .upper-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  height: 7.3rem;
+  margin-top: 1rem;
+  margin-bottom: 2.19rem;
+}
+.profile-dashboard
+  > .details-container
+  > .details
+  > .upper-container
+  > .left-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  justify-content: flex-end;
+}
+.profile-dashboard
+  > .details-container
+  > .details
+  > .upper-container
+  > .left-container
+  > div
+  > h1 {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 0.19rem;
+}
+.profile-dashboard
+  > .details-container
+  > .details
+  > .upper-container
+  > .left-container
+  > div
+  > h2 {
+  font-size: 1rem;
+  font-weight: 500;
+  margin-bottom: 0.56rem;
+  color: rgba(51, 51, 51, 1);
+}
+.profile-dashboard
+  > .details-container
+  > .details
+  > .upper-container
+  > .left-container
+  > div
+  > div {
+  display: flex;
+  gap: 0.44rem;
+}
+.profile-dashboard
+  > .details-container
+  > .details
+  > .upper-container
+  > .left-container
+  > div
+  > div
+  > h3 {
+  font-size: 1rem;
+  color: rgba(138, 138, 138, 1);
+}
+.profile-dashboard
+  > .details-container
+  > .details
+  > .upper-container
+  > .right-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: space-between;
+  height: 100%;
+  max-width: 16.1875rem;
+  width: 100%;
+}
+
+.profile-dashboard
+  > .details-container
+  > .details
+  > .upper-container
+  > .right-container
+  > .socials {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.profile-dashboard
+  > .details-container
+  > .details
+  > .upper-container
+  > .right-container
+  > .socials
+  > div
+  > svg {
+  width: 2.3rem;
+  height: 2.3rem;
+}
+.profile-dashboard
+  > .details-container
+  > .details
+  > .upper-container
+  > .right-container
+  > .edit-btn,
+.profile-dashboard
+  > .details-container
+  > .details
+  > .upper-container
+  > .left-container
+  > div
+  > .md-edit-btn {
+  max-width: 20.1875rem;
+  width: 100%;
+  height: 2.875rem;
+  border-radius: 0.625rem;
+  background-color: rgba(0, 43, 54, 1);
+  color: rgba(255, 255, 255, 1);
+  font-weight: 600;
+  border: none;
+  box-shadow: 5px 4px 20px 0px rgba(0, 0, 0, 0.05);
+}
+.profile-dashboard > .details-container > .details > .lower-container {
+  position: relative;
+}
+.profile-dashboard
+  > .details-container
+  > .details
+  > .upper-container
+  > .left-container
+  > div
+  > .md-edit-btn {
+  margin-top: 1rem;
+  display: none;
+}
+.profile-dashboard > .details-container > .details > .lower-container > svg {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+.profile-dashboard
+  > .details-container
+  > .details
+  > .lower-container
+  > .no-description {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 0.875rem;
+  line-height: 128.523%; /* 1.12456rem */
+  cursor: pointer;
+  width: fit-content;
+}
+.profile-dashboard
+  > .details-container
+  > .details
+  > .lower-container
+  > .no-description:hover {
+  text-decoration: underline;
+}
+.profile-dashboard > .recent-activities > .tags-container {
+  display: flex;
+  gap: 1.25rem;
+  padding: 1.25rem 0;
+}
+.profile-dashboard > .recent-activities > .tags-container > .tag {
+  display: flex;
+  padding: 0.56rem 1.31rem;
+  justify-content: center;
+  align-items: center;
+  border-radius: 1.375rem;
+  border: 1px solid rgba(230, 230, 230, 1);
+  background-color: transparent;
+  color: #626262;
+  font-size: 0.875rem;
+  line-height: 120.023%; /* 1.05019rem */
+  font-weight: 500;
+}
+.profile-dashboard > .recent-activities > .tags-container > .tag:hover {
+  border: 1px solid rgba(0, 43, 54, 1);
+  color: #000;
+}
+.profile-dashboard > .recent-activities > .tags-container > .--is-active {
+  border: 1px solid rgba(0, 43, 54, 1);
+  color: #000;
+  background-color: rgba(230, 234, 235, 1);
+}
+.profile-dashboard > .recent-activities > .carousel-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  min-height: 18rem;
+}
+.profile-dashboard > .recent-activities > .carousel-container > .arrow {
+  min-width: 3.125rem;
+  min-height: 3.125rem;
+  border-radius: 50%;
+  background-color: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  border: none;
+  outline: 1px solid black;
+  font-size: 1.75rem;
+}
+.profile-dashboard > .recent-activities > .carousel-container > .arrow-left {
+  margin-right: 1.25rem;
+}
+.profile-dashboard > .recent-activities > .carousel-container > .arrow-right {
+  margin-left: 1.25rem;
+}
+.profile-dashboard > .recent-activities > .carousel-container > .carousel {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  flex-wrap: nowrap;
+  gap: 3.69rem;
+  width: 100%;
+  overflow-x: auto;
+  padding: 0.5rem 0;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+.profile-dashboard
+  > .recent-activities
+  > .carousel-container
+  > .carousel
+  > .job-card {
+  scroll-snap-align: start;
+}
+
+.profile-dashboard > .recent-activities > .carousel-container > .carousel-grid {
+  display: grid;
+  /* maximum 4 column grid */
+  justify-content: center;
+  grid-template-columns: repeat(auto-fill, 17.5rem);
+  grid-auto-rows: 1fr;
+  align-items: center;
+  justify-items: center;
+  gap: 3.31rem;
+  width: 100%;
+  overflow-x: initial;
+  padding: 0.5rem 0;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+
+.profile-dashboard
+  > .recent-activities
+  > .carousel-container
+  > .carousel-grid
+  > .job-card {
+  width: min-content;
+  max-width: 16.5625rem;
+}
+.profile-dashboard > .recent-activities > .carousel-container > .no-jobs {
+  width: 100%;
+  height: 100%;
+}
+
+.profile-dashboard > .recent-activities > .btn-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.profile-dashboard > .recent-activities > .btn-container > .all-jobs-btn {
+  border-radius: 3.125rem;
+  border: 1px solid var(--foundation-black-black-200, #8a8a8a);
+  background-color: transparent;
+  color: var(--foundation-black-black-200, #8a8a8a);
+  font-family: Inter;
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 110.023%; /* 0.96269rem */
+  padding: 1rem 1.12rem;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+}
+.profile-dashboard > .recent-activities > .btn-container > .all-jobs-btn:hover {
+  border-color: rgba(0, 43, 54, 1);
+  color: rgba(0, 43, 54, 1);
+}
+
+.profile-dashboard > .recruit-container > .cards {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  gap: 2.5rem;
+  margin-top: 1.44rem;
+  flex-wrap: wrap;
+  /* border-radius: rem; */
+}
+.profile-dashboard > .recruit-container > .cards > .card {
+  width: 12.5rem;
+  /* height: 12.5rem; */
+  aspect-ratio: 1/1;
+  background-repeat: no-repeat;
+  background-position: right bottom;
+  padding: 1rem;
+  border-radius: 0.8rem;
+  cursor: pointer;
+  box-shadow: 0 0 0.5rem 0.1rem rgba(0, 0, 0, 0.1);
+  color: var(--text-color-dark-green);
+}
+.profile-dashboard > .recruit-container > .cards > .card:hover {
+  background-color: var(--primary-color-green);
+  color: white !important;
+}
+.profile-dashboard > .recruit-container > .cards > .card:hover > .heading {
+  color: white !important;
+}
+.profile-dashboard > .recruit-container > .cards > .card:active {
+  background-color: var(--primary-color-dark-green);
+  color: white !important;
+}
+
+.profile-dashboard > .recruit-container > .cards > .card > .heading {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+.profile-dashboard > .recruit-container > .cards > .card > .subheading {
+  font-size: 0.9rem;
+  font-weight: 400;
+}
+.profile-dashboard > .promotion-container {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding: 2.19rem 4rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.profile-dashboard > .promotion-container > .left-container > p {
+  color: #fff;
+  font-size: 2.25rem;
+  font-weight: 600;
+  line-height: 120.023%; /* 2.7005rem */
+  max-width: 27.875rem;
+  margin-bottom: 1.94rem;
+}
+.profile-dashboard > .promotion-container > .left-container > button {
+  width: 16.1875rem;
+  height: 3.4375rem;
+  border: none;
+  border-radius: 0.625rem;
+  background: #2253ff;
+  box-shadow: 5px 4px 20px 0px rgba(0, 0, 0, 0.05);
+  color: #fff;
+  font-weight: 700;
+}
+.profile-dashboard > .promotion-container > .right-container {
+  position: relative;
+  border-radius: 0.625rem;
+  /* overflow: hidden; */
+}
+.profile-dashboard > .promotion-container > .right-container > .blur {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 62%;
+  border-radius: 0.625rem;
+  backdrop-filter: blur(2px);
+}
+
+.profile-dashboard > .promotion-container > .right-container > .boost {
+  width: 18.95788rem;
+  height: 4.01875rem;
+  flex-shrink: 0;
+  border-radius: 0.43681rem;
+  background: linear-gradient(204deg, #ffa96b 0%, #ffd644 44.29%, #ffd771 100%);
+  box-shadow: 8px 4px 13px 0px rgba(0, 0, 0, 0.25);
+  color: #fff;
+  font-family: Inter;
+  font-size: 1.39781rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 110.023%; /* 1.53794rem */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 62%;
+  left: -1.197685rem;
+  cursor: pointer;
+}
+.profile-dashboard
+  > .promotion-container
+  > .right-container
+  > .boosted-stats-container {
+  background-color: rgba(255, 255, 255, 1);
+  bottom: 0;
+  width: 100%;
+  padding: 0 1.37rem 1.13rem 1.37rem;
+  position: absolute;
+  color: rgba(51, 51, 51, 1);
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 110.023%; /* 0.96269rem */
+  display: flex;
+  border-radius: 0 0 0.625rem 0.625rem;
+  justify-content: space-between;
+  height: 2.65rem;
+  align-items: flex-end;
+}
+.profile-dashboard
+  > .promotion-container
+  > .right-container
+  > .boosted-stats-container
+  > .views {
+  display: flex;
+  align-items: center;
+  gap: 0.26rem;
+}
+
+@media screen and (max-width: 768px) {
+  .profile-dashboard > .title,
+  .profile-dashboard > .subheading {
+    display: none;
+  }
+  .profile-dashboard > .details-container {
+    margin-top: 0;
+  }
+  .profile-dashboard > .details-container > .cover > .edit-option {
+    width: 2.1875rem;
+    height: 2.1875rem;
+    top: 1rem;
+    right: 1rem;
+  }
+  .profile-dashboard > .details-container > .cover > .edit-option > svg {
+    width: 1.1249rem;
+    height: 1.1249rem;
+  }
+  .profile-dashboard > .details-container > .cover > .logo {
+    width: 7.35413rem;
+    height: 7.35413rem;
+    left: 1.34rem;
+    transform: translateY(50%);
+  }
+  .profile-dashboard > .details-container > .details {
+    padding: 0.5rem 1.25rem 1.25rem 1.25rem;
+  }
+
+  .profile-dashboard > .details-container > .details > .upper-container {
+    height: auto;
+    flex-direction: column-reverse;
+    margin-top: 0;
+    gap: 2rem;
+  }
+
+  .profile-dashboard
+    > .details-container
+    > .details
+    > .upper-container
+    > .right-container
+    > .edit-btn {
+    display: none;
+  }
+  .profile-dashboard
+    > .details-container
+    > .details
+    > .upper-container
+    > .left-container
+    > div
+    > .md-edit-btn {
+    display: block;
+  }
+}

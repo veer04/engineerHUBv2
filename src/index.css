@@ -28,7 +28,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: var(--main-background-color);
+  background-color: var(--main-background-color) !important;
 }
 a {
   text-decoration: none;
@@ -115,7 +115,10 @@ a {
 }
 
 .no-text-crop {
+  display: -webkit-box; /* Set display to WebKit box */
   -webkit-line-clamp: unset !important;
+  -webkit-box-orient: vertical; /* Set box orientation */
+  text-overflow: ellipsis; /* Add ellipsis for truncated text */
 }
 .text-crop-1 {
   display: -webkit-box; /* Set display to WebKit box */

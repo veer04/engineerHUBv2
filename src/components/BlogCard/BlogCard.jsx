@@ -18,7 +18,8 @@ export default function BlogCard({
 }) {
   const { setIsCollapsed } = useSidebar();
   useEffect(() => {
-    document.getElementById(`blog-card-description-${_id}`).innerHTML = postArea;
+    document.getElementById(`blog-card-description-${_id}`).innerHTML =
+      postArea;
   }, [postArea]);
 
   return (
@@ -45,7 +46,9 @@ export default function BlogCard({
         ></div>
       }
       <div className="sub-title">
-        <div className="author">{`by ${creatorId?.name}`}</div>
+        <div className="author">
+          {!!creatorId?.name ? `by ${creatorId?.name}` : "by engineerHUB"}
+        </div>
         <div className="date">
           {createdAt &&
             new Intl.DateTimeFormat("en-US", {
