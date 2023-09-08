@@ -5,24 +5,6 @@
   padding: var(--vertical-padding) var(--section-padding);
   scroll-behavior: auto;
 }
-.profile-dashboard > .title {
-  font-size: 1.95313rem;
-  font-weight: 600;
-  margin-bottom: 0.19rem;
-}
-.profile-dashboard > .subheading {
-  font-weight: 500;
-  font-size: 1rem;
-  color: rgba(138, 138, 138, 1);
-  margin: 0;
-}
-.profile-dashboard > section {
-  border-radius: 0.63rem;
-  overflow: hidden;
-  background-color: rgba(255, 255, 255, 1);
-  margin-bottom: 0.25rem;
-  padding: 1.25rem;
-}
 .profile-dashboard > .details-container {
   display: flex;
   flex-direction: column;
@@ -535,12 +517,17 @@
 }
 
 @media screen and (max-width: 768px) {
-  .profile-dashboard > .title,
-  .profile-dashboard > .subheading {
-    display: none;
+  .profile-dashboard > .box {
+    padding: 1rem;
+    border-radius: 0.3125rem;
   }
+
   .profile-dashboard > .details-container {
     margin-top: 0;
+    padding: 0 0 1rem 0;
+  }
+  .profile-dashboard > .details-container > .cover {
+    border-radius: 0.3125rem 0.3125rem 0 0;
   }
   .profile-dashboard > .details-container > .cover > .edit-option {
     width: 2.1875rem;
@@ -559,7 +546,7 @@
     transform: translateY(50%);
   }
   .profile-dashboard > .details-container > .details {
-    padding: 0.5rem 1.25rem 1.25rem 1.25rem;
+    padding: 0.5rem 1rem 0 1rem;
   }
 
   .profile-dashboard > .details-container > .details > .upper-container {
@@ -567,6 +554,26 @@
     flex-direction: column-reverse;
     margin-top: 0;
     gap: 2rem;
+  }
+  .profile-dashboard
+    > .details-container
+    > .details
+    > .upper-container
+    > .left-container
+    > div
+    > h1 {
+    font-size: 1.5rem;
+    line-height: normal;
+    -webkit-line-clamp: unset;
+  }
+  .profile-dashboard
+    > .details-container
+    > .details
+    > .upper-container
+    > .left-container
+    > div
+    > h2 {
+    line-height: 126.023%;
   }
 
   .profile-dashboard
@@ -585,5 +592,60 @@
     > div
     > .md-edit-btn {
     display: block;
+  }
+  .profile-dashboard > .recent-activities > .tags-container {
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding: 1rem 0;
+  }
+  .profile-dashboard > .recent-activities > .tags-container > .tag {
+    padding: 0.5rem 1rem;
+    font-size: 0.75rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 120.023%; /* 1.05019rem */
+  }
+
+  .profile-dashboard > .recent-activities > .btn-container > .all-jobs-btn {
+    padding: 0.75rem 1rem;
+  }
+  .profile-dashboard > .recruit-container > .cards {
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    justify-content: center;
+    align-items: center;
+    justify-items: center;
+    gap: 1rem;
+  }
+  .profile-dashboard > .recruit-container > .cards > .card {
+    height: 9.375rem;
+    width: 9.375rem;
+    padding: 0.97rem;
+    background-size: 53.33%;
+  }
+  .profile-dashboard > .recruit-container > .cards > .card > .heading {
+    font-size: 0.85994rem;
+    font-weight: 600;
+    line-height: normal;
+  }
+  .profile-dashboard > .recruit-container > .cards > .card > .subheading {
+    font-size: 0.64494rem;
+    font-weight: 500;
+    line-height: normal;
+  }
+  .profile-dashboard > .promotion-container {
+    box-shadow: 4.36931px 3.49545px 17.47723px 0px rgba(0, 0, 0, 0.05);
+  }
+  .profile-dashboard > .promotion-container > .left-container > p {
+    font-size: 2rem;
+    font-weight: 600;
+    line-height: 100.023%; /* 2.00044rem */
+  }
+  .profile-dashboard > .promotion-container > .right-container {
+    display: none;
+  }
+  .profile-dashboard > .promotion-container > .left-container > button {
+    width: 100%;
+    max-width: 21rem;
   }
 }

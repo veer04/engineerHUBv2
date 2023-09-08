@@ -1,19 +1,19 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import "../Dashboard.css"; // !import this file first
 import "./CompanyDashboard.css";
-import "../Dashboard.css";
-import { Instagram } from "@mui/icons-material";
 import { BsArrowRight } from "react-icons/bs";
 import { FiEdit } from "react-icons/fi";
-import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
+import { AiOutlineLeft, AiOutlineRight, AiFillLinkedin } from "react-icons/ai";
 import { MdAddCircle } from "react-icons/md";
 import { FiEdit2 } from "react-icons/fi";
+import { PiGlobeLight } from "react-icons/pi";
+import { BiLogoInstagramAlt } from "react-icons/bi";
 import coverImage from "./cover-image.png";
 import banner from "./banner.png";
 import default_profile_icon from "./default_profile_icon.png";
-import { getUserImage } from "../../../features/User/UserDetails";
 import { Bucket_URL } from "../../../services/APIUtils";
 import JobCard from "../../../components/JobCard/JobCard";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import defaultPoster from "../../../assets/defaultPoster";
 
 export default function CompanyDashboard() {
@@ -106,16 +106,16 @@ export default function CompanyDashboard() {
       <path
         d="M1 6.97656C1 6.97656 3.98828 1 9.21777 1C14.4473 1 17.4355 6.97656 17.4355 6.97656C17.4355 6.97656 14.4473 12.9531 9.21777 12.9531C3.98828 12.9531 1 6.97656 1 6.97656Z"
         stroke="black"
-        stroke-width="1.2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="1.2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M9 9C10.1046 9 11 8.10457 11 7C11 5.89543 10.1046 5 9 5C7.89543 5 7 5.89543 7 7C7 8.10457 7.89543 9 9 9Z"
         stroke="black"
-        stroke-width="1.2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="1.2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
@@ -154,14 +154,18 @@ export default function CompanyDashboard() {
     carousel.scrollLeft += 200;
   };
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
-    <div className="profile-dashboard">
+    <main className="profile-dashboard">
       <h1 className="title">Profile</h1>
       <h2 className="subheading">
         Lorem ipsum dolor sit amet consectetur. Mattis aliquam sodales faucibus
         platea feugiat odio.
       </h2>
-      <section className="details-container">
+      <section className="box details-container">
         <div className="cover">
           {isBannerPresent && (
             <img className="cover-image" src={coverImage} alt="Cover Image" />
@@ -188,7 +192,9 @@ export default function CompanyDashboard() {
           <div className="upper-container">
             <div className="left-container">
               <div>
-                <h1 className="text-crop-1 overflow-hidden">Google</h1>
+                <h1 className="text-crop-1 overflow-hidden">
+                  Campus EngineerHUB Private Limited
+                </h1>
                 <h2 className="text-crop-1 overflow-hidden">
                   Changing the world with AI
                 </h2>
@@ -199,22 +205,32 @@ export default function CompanyDashboard() {
                   <h3>•</h3>
                   <h3 className="text-crop-1 overflow-hidden">India</h3>
                 </div>
-                <button className="md-edit-btn">Edit Profile</button>
+                <button
+                  onClick={() => navigate("edit-profile")}
+                  className="md-edit-btn"
+                >
+                  Edit Profile
+                </button>
               </div>
             </div>
             <div className="right-container">
               <div className="socials">
                 <div>
-                  <Instagram />
+                  <PiGlobeLight />
                 </div>
                 <div>
-                  <Instagram />
+                  <AiFillLinkedin />
                 </div>
                 <div>
-                  <Instagram />
+                  <BiLogoInstagramAlt />
                 </div>
               </div>
-              <button className="edit-btn">Edit Profile</button>
+              <button
+                onClick={() => navigate("edit-profile")}
+                className="edit-btn"
+              >
+                Edit Profile
+              </button>
             </div>
           </div>
           <div className="lower-container">
@@ -255,7 +271,7 @@ export default function CompanyDashboard() {
           </div>
         </div>
       </section>
-      <section className="recent-activities">
+      <section className="box recent-activities">
         <p className="heading">RECENT ACTIVITIES</p>
         <div className="tags-container">
           <button
@@ -325,7 +341,7 @@ export default function CompanyDashboard() {
           </div>
         )}
       </section>
-      <section className="recruit-container">
+      <section className="box recruit-container">
         <p className="heading">RECRUIT THE BEST FOR YOU</p>
         <div className="cards">
           <div
@@ -372,7 +388,7 @@ export default function CompanyDashboard() {
         style={{
           backgroundImage: `url(${banner})`,
         }}
-        className="promotion-container"
+        className="box promotion-container"
       >
         <div className="left-container">
           <p>Sponsor your event to make your reach</p>
@@ -392,6 +408,6 @@ export default function CompanyDashboard() {
           </div>
         </div>
       </section>
-    </div>
+    </main>
   );
 }
