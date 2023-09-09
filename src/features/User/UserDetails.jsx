@@ -91,3 +91,4 @@ export function getUserImage() {
   console.error("Cannot get Image: Image is not set");
   return "";
 }
+ 

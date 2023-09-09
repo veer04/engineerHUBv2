@@ -62,35 +62,38 @@ export default function ProfilePopUp() {
     {
       label:"Internship",
       icon: <HiOutlineSquares2X2 />,
-      link:"",
+      link:"/internship",
     },
     {
       label:"Jobs",
       icon: <RiSuitcase2Line />,
-      link:"",
+      link:"/jobs",
     },
     {
     label:"Projects",
     icon: <AiOutlineCalendar />,
-    link:"",
+    link:"/projects",
 
-    }, {
-      label:"Blogs",
-      icon: "",
-      link:"",
+    }, 
+    // {
+    //   label:"Blogs",
+    //   icon: "",
+    //   link:"",
   
-      },
-      , {
-        label:"Events",
-        icon: "",
-        link:"",
-    
-        }, {
-          label:"Webinars",
-          icon: "",
-          link:"",
+    //   },
       
-          }
+      // {
+      //   label:"Events",
+      //   icon: "",
+      //   link:"",
+    
+      //   },
+      //  {
+      //     label:"Webinars",
+      //     icon: "",
+      //     link:"",
+      
+      //     }
   ]
   const companyMenuItems = [
     {
@@ -159,7 +162,21 @@ export default function ProfilePopUp() {
     },
   ];
 
-  const renderUserMenuItems = <div>User Menu Items</div>;
+  const renderStudentMenuItems = studentMenuItems.map((item,index)=>{
+    <button
+    key={index}
+    data-bs-dismiss="offcanvas"
+    aria-label="Close"
+    className="item"
+    onClick={() => {
+      navigate(item.link);
+    }}
+    >
+      <div className="icon">{item.icon}</div>
+      <div className="label">{item.label}</div>
+    </button>
+  });
+
   const renderAlumniMenuItems = <div>Alumni Menu Items</div>;
 
   const renderClubMenuItems = clubMenuItems.map((item, index) => (
@@ -281,7 +298,8 @@ export default function ProfilePopUp() {
                 justifyContent: "center",
               }}
             >
-              <img className="image" src={userImage} alt="Profile Picture" />
+              <img className="image" src={userImage}
+               alt="Profile Picture" />
             </Box>
           </Box>
           <div className="progress-counter">{`${progress}%`}</div>
@@ -296,7 +314,11 @@ export default function ProfilePopUp() {
         aria-label="Close"
         className="show-profile-btn redirect-btn"
         onClick={() => {
-          navigate(`/profile/${role}/${getUserId()}`);
+        
+       
+            navigate(`/profile/${role}/${getUserId()}`);
+          
+          
         }}
       >
         {`${profileProgress < 100 ? "Complete Profile" : "View Profile"}`}
@@ -304,7 +326,7 @@ export default function ProfilePopUp() {
       <div className="divider"></div>
       {/* Main Content */}
       <div className="items-list">
-        {role === "User" && renderUserMenuItems}
+        {role === "user" && renderStudentMenuItems}
         {role === "Alumni" && renderAlumniMenuItems}
         {role === "Club" && renderClubMenuItems}
         {role === "Organization" && renderCompanyMenuItems}

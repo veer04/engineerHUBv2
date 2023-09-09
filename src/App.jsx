@@ -39,6 +39,7 @@ import ClubSignup from "./pages/User/Signup/ClubSignup";
 import MentorSignup from "./pages/User/Signup/MentorSignup";
 import OrganizationSignup from "./pages/User/Signup/OrganizationSignup";
 import { Suspense } from "react";
+import StudentProfileDashboard from "./pages/User/Profile/StudentProfile/StudentProfileDashboard";
 import LoadingPage from "./components/Loader/LoadingPage";
 import Role from "./pages/User/RoleWiseUserPage/Role";
 import PostModal from "./components/PostModal/PostModal";
@@ -123,6 +124,7 @@ function App() {
         <Routes>
           <Route index element={<HomePage path="homepage" />} />
           <Route path="/home" element={<HomePage />} />
+          <Route path="student" element={<StudentProfileDashboard></StudentProfileDashboard>}></Route>
           {/* <Route path="/success" element={<Success></Success>}></Route> */}
           <Route path="/register" element={<RegistrationForm />} />
           <Route path="/selectRole" element={<Role />} />
@@ -133,9 +135,10 @@ function App() {
 
           <Route path="/profile">
             <Route
-              path="student/:userId"
+              path="User/:userId"
               element={<StudentProfilePage path="profile" />}
             >
+           
               <Route index element={<GeneralStudentData />} />
               <Route path="general" element={<GeneralStudentData />} />
               <Route path="edit" element={<EditStudentData />} />
