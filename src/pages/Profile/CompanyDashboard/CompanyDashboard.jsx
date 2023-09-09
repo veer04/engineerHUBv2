@@ -8,16 +8,19 @@ import { MdAddCircle } from "react-icons/md";
 import { FiEdit2 } from "react-icons/fi";
 import { PiGlobeLight } from "react-icons/pi";
 import { BiLogoInstagramAlt } from "react-icons/bi";
-import coverImage from "./cover-image.png";
 import banner from "./banner.png";
 import default_profile_icon from "./default_profile_icon.png";
 import { Bucket_URL } from "../../../services/APIUtils";
 import JobCard from "../../../components/JobCard/JobCard";
-import { Link, useNavigate } from "react-router-dom";
+import { Outlet, useNavigate, useParams } from "react-router-dom";
 import defaultPoster from "../../../assets/defaultPoster";
+import { getUserId, isUserLoggedIn } from "../../../features/User/UserDetails";
+import JobCards from "../../Company/Jobs/JobCards";
 
 export default function CompanyDashboard() {
+  const { organizationId } = useParams();
   const navigate = useNavigate();
+  const [isUserAdmin, setIsUserAdmin] = useState(false);
   const [viewMore, setViewMore] = useState(false);
   const [showAllJobs, setShowAllJobs] = useState(false);
   const [activityChoice, setActivityChoice] = useState("jobs");
@@ -27,11 +30,12 @@ export default function CompanyDashboard() {
   const [isJobsPresent, setIsJobsPresent] = useState(true);
   const logo = defaultPoster; // later fetch from api
   const bucket = `${Bucket_URL}frontend/hosting/`;
+  const bucket2 = `${Bucket_URL}frontend/profile/dashboard/`;
 
   const jobDetails = [
     {
       logo: logo,
-      isServiceOn: true,
+      isServiceOn: false,
       title: "Business Development Sales Representative",
       location: "Delhi, India",
       time: "3 Days ago",
@@ -120,31 +124,6 @@ export default function CompanyDashboard() {
     </svg>
   );
 
-  const arrowSvg = (
-    <svg
-      width="26"
-      height="16"
-      viewBox="0 0 26 16"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M1 8L25 8"
-        stroke="#8A8A8A"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      />
-      <path
-        d="M18 1L25 8L18 15"
-        stroke="#8A8A8A"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      />
-    </svg>
-  );
-
   const scrollLeft = () => {
     const carousel = document.querySelector(".carousel");
     carousel.scrollLeft -= 200;
@@ -155,259 +134,305 @@ export default function CompanyDashboard() {
   };
 
   useEffect(() => {
-    window.scrollTo(0, 0);
+    // window.scrollTo(0, 0);
+    if (isUserLoggedIn() && organizationId === getUserId()) {
+      setIsUserAdmin(true);
+    }
   }, []);
 
   return (
-    <main className="profile-dashboard">
-      <h1 className="title">Profile</h1>
-      <h2 className="subheading">
-        Lorem ipsum dolor sit amet consectetur. Mattis aliquam sodales faucibus
-        platea feugiat odio.
-      </h2>
-      <section className="box details-container">
-        <div className="cover">
-          {isBannerPresent && (
-            <img className="cover-image" src={coverImage} alt="Cover Image" />
-          )}
-          {!isBannerPresent && (
-            <div className="no-cover-overlay empty-container">
-              <MdAddCircle />
-              <p>Click here to add your Banner Image.</p>
+    <>
+      <main className="profile-dashboard">
+        <h1 className="title">Profile</h1>
+        <h2 className="subheading">
+          Lorem ipsum dolor sit amet consectetur. Mattis aliquam sodales
+          faucibus platea feugiat odio.
+        </h2>
+        <section className="box details-container">
+          <div className="cover">
+            {isBannerPresent && (
+              <img
+                className="cover-image"
+                loading="lazy"
+                src={`${bucket2}cover-image-1.png`}
+                alt="Cover Image"
+              />
+            )}
+            {!isBannerPresent && (
+              <img
+                className="cover-image"
+                loading="lazy"
+                src={`${bucket2}cover-image-1.png`}
+                alt="Cover Image"
+              />
+              // <div className="no-cover-overlay empty-container">
+              //   <MdAddCircle />
+              //   <p>Click here to add your Banner Image.</p>
+              // </div>
+            )}
+            {isUserAdmin && (
+              <button
+                onClick={() => navigate("edit-cover-image")}
+                className="edit-option"
+              >
+                <FiEdit />
+              </button>
+            )}
+            <div className="logo">
+              {isLogoPresent && <img src={logo} alt="Profile Picture" />}
+              {!isLogoPresent && (
+                <img src={default_profile_icon} alt="Profile Picture" />
+              )}
             </div>
-          )}
-          {isBannerPresent && (
-            <button className="edit-option">
-              <FiEdit />
+          </div>
+          <div className="details">
+            <div
+              style={
+                {
+                  // marginBottom: isUserAdmin ? "0" : "1rem",
+                }
+              }
+              className="upper-container"
+            >
+              <div className="left-container">
+                <div>
+                  <h1 className="text-crop-1 overflow-hidden">
+                    Campus EngineerHUB Private Limited
+                  </h1>
+                  <h2 className="text-crop-1 overflow-hidden">
+                    Changing the world with AI
+                  </h2>
+                  <div>
+                    <h3 className="text-crop-1 overflow-hidden">
+                      Software Development
+                    </h3>
+                    <h3>•</h3>
+                    <h3 className="text-crop-1 overflow-hidden">India</h3>
+                  </div>
+                  {isUserAdmin && (
+                    <button
+                      onClick={() => navigate("edit-profile")}
+                      className="md-edit-btn"
+                    >
+                      Edit Profile
+                    </button>
+                  )}
+                </div>
+              </div>
+              <div className="right-container">
+                <div className="socials">
+                  <div>
+                    <PiGlobeLight />
+                  </div>
+                  <div>
+                    <AiFillLinkedin />
+                  </div>
+                  <div>
+                    <BiLogoInstagramAlt />
+                  </div>
+                </div>
+                {isUserAdmin && (
+                  <button
+                    onClick={() => navigate("edit-profile")}
+                    className="edit-btn"
+                  >
+                    Edit Profile
+                  </button>
+                )}
+              </div>
+            </div>
+            {!isUserAdmin && <button className="follow-btn">+ Follow</button>}
+            <div className="lower-container">
+              {/* {isUserAdmin && (
+                <div className="edit">
+                  <FiEdit2 />
+                </div>
+              )} */}
+              <p className="heading">ABOUT US</p>
+              {isDescriptionPresent && (
+                <span
+                  className={`content ${
+                    viewMore ? "no-text-crop" : "text-crop-4"
+                  } `}
+                >
+                  Lorem ipsum dolor sit amet consectetur. Faucibus sed nibh
+                  adipiscing odio hendrerit lectus. Orci pellentesque aliquet
+                  vitae convallis a ornare nunc blandit suspendisse. Nisi augue
+                  risus tellus vel lacus commodo etiam mattis vitae.
+                  Pellentesque massa adipiscing nisl blandit. Faucibus vehicula
+                  magna lorem in est massa. Etiam eu tristique fringilla mi
+                  pharetra non a enim eget. Tincidunt urna vulputate egestas
+                  pretium loremLorem ipsum dolor sit amet consectetur. Faucibus
+                  sed nibh adipiscing odio hendrerit lectus. Orci pellentesque
+                  aliquet vitae convallis a ornare nunc blandit suspendisse.
+                  Nisi augue risus tellus vel lacus commodo etiam mattis vitae.
+                  Pellentesque massa adipiscing nisl blandit. Faucibus vehicula
+                  magna lorem in est massa. Etiam eu tristique fringilla mi
+                  pharetra non a enim eget. Tincidunt urna vulputate egestas
+                  pretium lorem
+                </span>
+              )}
+              {!isDescriptionPresent && (
+                <p className="no-description">
+                  Click here to add your Description.
+                </p>
+              )}
+              {isDescriptionPresent && !viewMore && (
+                <div onClick={() => setViewMore(true)} className="view-more">
+                  View More
+                </div>
+              )}
+            </div>
+          </div>
+        </section>
+        <section className="box recent-activities">
+          <p className="heading">RECENT ACTIVITIES</p>
+          <div className="tags-container">
+            <button
+              onClick={() => setActivityChoice("jobs")}
+              className={`tag ${
+                activityChoice === "jobs" ? "--is-active" : ""
+              }`}
+            >
+              Jobs
             </button>
-          )}
-          <div className="logo">
-            {isLogoPresent && <img src={logo} alt="Profile Picture" />}
-            {!isLogoPresent && (
-              <img src={default_profile_icon} alt="Profile Picture" />
+            <button
+              onClick={() => setActivityChoice("internships")}
+              className={`tag ${
+                activityChoice === "internships" ? "--is-active" : ""
+              }`}
+            >
+              Internships
+            </button>
+            <button
+              onClick={() => setActivityChoice("hackathons")}
+              className={`tag ${
+                activityChoice === "hackathons" ? "--is-active" : ""
+              }`}
+            >
+              Hackathons
+            </button>
+            <button
+              onClick={() => setActivityChoice("projects")}
+              className={`tag ${
+                activityChoice === "projects" ? "--is-active" : ""
+              }`}
+            >
+              Projects
+            </button>
+          </div>
+          <div className="carousel-container">
+            {isJobsPresent && !showAllJobs && (
+              <button onClick={scrollLeft} className="arrow arrow-left">
+                <AiOutlineLeft />
+              </button>
+            )}
+            {isJobsPresent && (
+              <div className={`${showAllJobs ? "carousel-grid" : "carousel"}`}>
+                {jobDetails.map((jobDetail, index) => (
+                  // <JobCards key={index} {...jobDetail} />
+                  <JobCard key={index} {...jobDetail} />
+                ))}
+              </div>
+            )}
+            {!isJobsPresent && (
+              <div className="no-jobs empty-container">
+                <MdAddCircle />
+                <p>No Jobs to Show</p>
+              </div>
+            )}
+            {isJobsPresent && !showAllJobs && (
+              <button onClick={scrollRight} className="arrow arrow-right">
+                <AiOutlineRight />
+              </button>
             )}
           </div>
-        </div>
-        <div className="details">
-          <div className="upper-container">
-            <div className="left-container">
-              <div>
-                <h1 className="text-crop-1 overflow-hidden">
-                  Campus EngineerHUB Private Limited
-                </h1>
-                <h2 className="text-crop-1 overflow-hidden">
-                  Changing the world with AI
-                </h2>
-                <div>
-                  <h3 className="text-crop-1 overflow-hidden">
-                    Software Development
-                  </h3>
-                  <h3>•</h3>
-                  <h3 className="text-crop-1 overflow-hidden">India</h3>
-                </div>
-                <button
-                  onClick={() => navigate("edit-profile")}
-                  className="md-edit-btn"
-                >
-                  Edit Profile
-                </button>
-              </div>
-            </div>
-            <div className="right-container">
-              <div className="socials">
-                <div>
-                  <PiGlobeLight />
-                </div>
-                <div>
-                  <AiFillLinkedin />
-                </div>
-                <div>
-                  <BiLogoInstagramAlt />
-                </div>
-              </div>
+          {isJobsPresent && !showAllJobs && (
+            <div className="btn-container">
               <button
-                onClick={() => navigate("edit-profile")}
-                className="edit-btn"
+                onClick={() => setShowAllJobs(true)}
+                className="all-jobs-btn"
               >
-                Edit Profile
+                Show all jobs <BsArrowRight />
               </button>
             </div>
-          </div>
-          <div className="lower-container">
-            <FiEdit2 />
-            <p className="heading">ABOUT US</p>
-            {isDescriptionPresent && (
-              <span
-                className={`content ${
-                  viewMore ? "no-text-crop" : "text-crop-4"
-                } `}
-              >
-                Lorem ipsum dolor sit amet consectetur. Faucibus sed nibh
-                adipiscing odio hendrerit lectus. Orci pellentesque aliquet
-                vitae convallis a ornare nunc blandit suspendisse. Nisi augue
-                risus tellus vel lacus commodo etiam mattis vitae. Pellentesque
-                massa adipiscing nisl blandit. Faucibus vehicula magna lorem in
-                est massa. Etiam eu tristique fringilla mi pharetra non a enim
-                eget. Tincidunt urna vulputate egestas pretium loremLorem ipsum
-                dolor sit amet consectetur. Faucibus sed nibh adipiscing odio
-                hendrerit lectus. Orci pellentesque aliquet vitae convallis a
-                ornare nunc blandit suspendisse. Nisi augue risus tellus vel
-                lacus commodo etiam mattis vitae. Pellentesque massa adipiscing
-                nisl blandit. Faucibus vehicula magna lorem in est massa. Etiam
-                eu tristique fringilla mi pharetra non a enim eget. Tincidunt
-                urna vulputate egestas pretium lorem
-              </span>
-            )}
-            {!isDescriptionPresent && (
-              <p className="no-description">
-                Click here to add your Description.
-              </p>
-            )}
-            {isDescriptionPresent && !viewMore && (
-              <div onClick={() => setViewMore(true)} className="view-more">
-                View More
-              </div>
-            )}
-          </div>
-        </div>
-      </section>
-      <section className="box recent-activities">
-        <p className="heading">RECENT ACTIVITIES</p>
-        <div className="tags-container">
-          <button
-            onClick={() => setActivityChoice("jobs")}
-            className={`tag ${activityChoice === "jobs" ? "--is-active" : ""}`}
-          >
-            Jobs
-          </button>
-          <button
-            onClick={() => setActivityChoice("internships")}
-            className={`tag ${
-              activityChoice === "internships" ? "--is-active" : ""
-            }`}
-          >
-            Internships
-          </button>
-          <button
-            onClick={() => setActivityChoice("hackathons")}
-            className={`tag ${
-              activityChoice === "hackathons" ? "--is-active" : ""
-            }`}
-          >
-            Hackathons
-          </button>
-          <button
-            onClick={() => setActivityChoice("projects")}
-            className={`tag ${
-              activityChoice === "projects" ? "--is-active" : ""
-            }`}
-          >
-            Projects
-          </button>
-        </div>
-        <div className="carousel-container">
-          {isJobsPresent && !showAllJobs && (
-            <button onClick={scrollLeft} className="arrow arrow-left">
-              <AiOutlineLeft />
-            </button>
           )}
-          {isJobsPresent && (
-            <div className={`${showAllJobs ? "carousel-grid" : "carousel"}`}>
-              {jobDetails.map((jobDetail, index) => (
-                <JobCard key={index} {...jobDetail} />
-              ))}
-            </div>
-          )}
-          {!isJobsPresent && (
-            <div className="no-jobs empty-container">
-              <MdAddCircle />
-              <p>No Jobs to Show</p>
-            </div>
-          )}
-          {isJobsPresent && !showAllJobs && (
-            <button onClick={scrollRight} className="arrow arrow-right">
-              <AiOutlineRight />
-            </button>
-          )}
-        </div>
-        {isJobsPresent && !showAllJobs && (
-          <div className="btn-container">
-            <button
-              onClick={() => setShowAllJobs(true)}
-              className="all-jobs-btn"
+        </section>
+        <section className="box recruit-container">
+          <p className="heading">RECRUIT THE BEST FOR YOU</p>
+          <div className="cards">
+            <div
+              // onClick={() => navigationOrganization("job")}
+              style={{
+                backgroundImage: `url(${bucket}jobs.png)`,
+              }}
+              className="card"
             >
-              Show all jobs <BsArrowRight />
-            </button>
-          </div>
-        )}
-      </section>
-      <section className="box recruit-container">
-        <p className="heading">RECRUIT THE BEST FOR YOU</p>
-        <div className="cards">
-          <div
-            // onClick={() => navigationOrganization("job")}
-            style={{
-              backgroundImage: `url(${bucket}jobs.png)`,
-            }}
-            className="card"
-          >
-            <div className="heading">Jobs</div>
-            <div className="subheading">
-              Create Jobs <BsArrowRight />
+              <div className="heading">Jobs</div>
+              <div className="subheading">
+                Create Jobs <BsArrowRight />
+              </div>
             </div>
-          </div>
-          {/* </Link>
+            {/* </Link>
           <Link to="/hostevent"> */}
-          <div
-            // onClick={() => navigationOrganization("internship")}
-            style={{
-              backgroundImage: `url(${bucket}internships.png)`,
-            }}
-            className="card"
-          >
-            <div className="heading">Internships</div>
-            <div className="subheading">
-              Create Jobs <BsArrowRight />
+            <div
+              // onClick={() => navigationOrganization("internship")}
+              style={{
+                backgroundImage: `url(${bucket}internships.png)`,
+              }}
+              className="card"
+            >
+              <div className="heading">Internships</div>
+              <div className="subheading">
+                Create Jobs <BsArrowRight />
+              </div>
+            </div>
+            <div
+              // onClick={navigationFunction}
+              style={{
+                backgroundImage: `url(${bucket}hackathon.png)`,
+              }}
+              className="card"
+            >
+              <div className="heading">Hackathon</div>
+              <div className="subheading">
+                Create Event <BsArrowRight />
+              </div>
             </div>
           </div>
-          <div
-            // onClick={navigationFunction}
+        </section>
+        {jobDetails.length !== 0 && (
+          <section
             style={{
-              backgroundImage: `url(${bucket}hackathon.png)`,
+              backgroundImage: `url(${banner})`,
             }}
-            className="card"
+            className="box promotion-container"
           >
-            <div className="heading">Hackathon</div>
-            <div className="subheading">
-              Create Event <BsArrowRight />
+            <div className="left-container">
+              <p>Sponsor your event to make your reach</p>
+              <button>Connect with us</button>
             </div>
-          </div>
-        </div>
-      </section>
-      <section
-        style={{
-          backgroundImage: `url(${banner})`,
-        }}
-        className="box promotion-container"
-      >
-        <div className="left-container">
-          <p>Sponsor your event to make your reach</p>
-          <button>Connect with us</button>
-        </div>
-        <div className="right-container">
-          <JobCard {...jobDetails[0]} />
-          <div className="blur"></div>
-          <div onClick={() => navigate("/under-maintenance")} className="boost">
-            Boost your Event !!
-          </div>
-          <div className="boosted-stats-container">
-            <span className="time">3 Days ago</span>
-            <span className="views">
-              {eyeSvg} {jobDetails[0]?.views * 5} views
-            </span>
-          </div>
-        </div>
-      </section>
-    </main>
+            <div className="right-container">
+              <JobCards {...jobDetails[0]}/>
+              {/* <JobCard {...jobDetails[0]} /> */}
+              <div className="blur"></div>
+              <div
+                onClick={() => navigate("/under-maintenance")}
+                className="boost"
+              >
+                Boost your Event !!
+              </div>
+              <div className="boosted-stats-container">
+                <span className="time">3 Days ago</span>
+                <span className="views">
+                  {eyeSvg} {jobDetails[0]?.views * 5} views
+                </span>
+              </div>
+            </div>
+          </section>
+        )}
+      </main>
+      <Outlet />
+    </>
   );
 }

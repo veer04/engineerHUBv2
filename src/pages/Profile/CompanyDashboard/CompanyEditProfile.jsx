@@ -20,6 +20,9 @@ export default function CompanyEditProfile() {
     <>
       <section className="box">
         <p className="heading">COMPANY PROFILE PICTURE</p>
+        <p className="md-alert-text">
+          *Note Image size must be not more than 100kb
+        </p>
         <div>
           <div className="logo">
             <img
@@ -29,7 +32,7 @@ export default function CompanyEditProfile() {
             />
           </div>
           <div className="buttons">
-            <button>Upload new Picture</button>
+            <button>Upload New</button>
             <button>Delete</button>
             <p className="alert-text">
               *Note Image size must be not more than 100kb
@@ -75,7 +78,7 @@ export default function CompanyEditProfile() {
           <option value="sigma">Sigma</option>
           <option value="alpha">Giga Chad</option>
         </select>
-        {/* <label className="label">
+        <label className="label">
           Sample Datalist<span className="required">*</span>
         </label>
         <input
@@ -90,7 +93,7 @@ export default function CompanyEditProfile() {
           <option value="Chrome"></option>
           <option value="Opera"></option>
           <option value="Safari"></option>
-        </datalist> */}
+        </datalist>
         <label className="label">
           Sample Calendar<span className="required">*</span>
         </label>
@@ -152,8 +155,8 @@ export default function CompanyEditProfile() {
           rows={5}
           placeholder="Describe about your Organization / Company"
         />
+        <button className="update-btn">Update Details</button>
       </section>
-      <button className="update-btn">Update Details</button>
     </>
   );
 

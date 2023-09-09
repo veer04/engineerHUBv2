@@ -42,7 +42,11 @@ export default function JobCard({
           }}
           className="logo"
         ></div>
-        {isServiceOn && <div className="tag --service-on">Hiring Now</div>}
+        <div
+          className={`tag ${isServiceOn ? "--service-on" : "--service-off"}`}
+        >
+          {isServiceOn ? "Hiring Now" : "Closed"}
+        </div>
       </div>
       <p className="title text-crop-2">{title}</p>
       <p className="location text-crop-1">Location: {location}</p>

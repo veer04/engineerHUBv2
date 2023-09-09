@@ -132,3 +132,12 @@ select.input-field {
   margin-bottom: 1.31rem;
   min-height: 2.875rem;
 }
+
+@media screen and (max-width: 768px) {
+  .edit-profile > div {
+    margin-top: 0;
+  }
+  .edit-profile > div > aside {
+    display: none;
+  }
+}

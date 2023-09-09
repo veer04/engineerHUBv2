@@ -188,13 +188,22 @@ main {
   min-height: 100dvh;
 }
 
-@media (max-width: 900px) {
+.modal-padding {
+  padding: 1.5rem;
+}
+
+@media screen and (max-width: 900px) {
   :root {
     --section-padding: min(2rem, 4vw);
   }
 }
 
-@media (max-width: 475px) {
+@media screen and (max-width: 768px) {
+  .modal-padding {
+    padding: 1rem;
+  }
+}
+@media screen and (max-width: 475px) {
   :root {
     --section-padding: min(0.8rem, 4vw);
   }
