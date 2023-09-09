@@ -1,10 +1,22 @@
-.profile-dashboard > section {
+.profile-dashboard .box {
   border-radius: 0.63rem;
   overflow: hidden;
   background-color: rgba(255, 255, 255, 1);
   margin-bottom: 0.25rem;
   padding: 1.25rem;
 }
+.profile-dashboard .title {
+  font-size: 1.95313rem;
+  font-weight: 600;
+  margin-bottom: 0.19rem;
+}
+.profile-dashboard .subheading {
+  font-weight: 500;
+  font-size: 1rem;
+  color: rgba(138, 138, 138, 1);
+  margin: 0;
+}
+
 .profile-dashboard .heading {
   font-size: 1rem;
   font-weight: 600;
@@ -28,4 +40,21 @@
   font-weight: 600;
   line-height: 128.523%;
   cursor: pointer;
+}
+
+@media screen and (max-width: 767px) {
+  .profile-dashboard .heading {
+    color: var(--foundation-black-black-800, #000);
+    font-size: 0.875rem;
+    font-weight: 600;
+    line-height: 120.023%; /* 1.05019rem */
+  }
+  .profile-dashboard > .box {
+    padding: 1rem;
+    border-radius: 0.3125rem;
+  }
+  .profile-dashboard > .title,
+  .profile-dashboard > .subheading {
+    display: none;
+  }
 }

@@ -81,6 +81,7 @@ import CoverPhotoClubData from "./pages/User/Profile/ClubProfile/CoverPhotoClubD
 import ManagePostsClubData from "./pages/User/Profile/ClubProfile/ManagePostsClubData";
 import ProfilePopUp from "./components/ProfileSection/ProfilePopUp/ProfilePopUp";
 import CompanyDashboard from "./pages/Profile/CompanyDashboard/CompanyDashboard";
+import CompanyEditProfile from "./pages/Profile/CompanyDashboard/CompanyEditProfile";
 
 function App() {
   const [isEventModalOpen, setIsEventModalOpen] = useState(false);
@@ -171,14 +172,13 @@ function App() {
               path="organization/:organizationId"
               element={<OrganizationProfilePage path="profile" />}
             > */}
-            <Route
-              path="organization/:organizationId"
-              element={<CompanyDashboard path="profile" />}
-            >  
-              <Route index element={<GeneralOrganizationData />} />
-              <Route path="general" element={<GeneralOrganizationData />} />
-              <Route path="edit" element={<EditOrganizationData />} />
-              <Route path="address" element={<AddressOrganizationData />} />
+            <Route path="organization/:organizationId">
+              <Route index element={<CompanyDashboard path="profile" />} />
+              <Route path="edit-profile" element={<CompanyEditProfile />} />
+              {/* <Route index element={<GeneralOrganizationData />} /> */}
+              {/* <Route path="general" element={<GeneralOrganizationData />} /> */}
+              {/* <Route path="edit" element={<EditOrganizationData />} /> */}
+              {/* <Route path="address" element={<AddressOrganizationData />} /> */}
             </Route>
           </Route>
           <Route path="/signup" element={<Signup />} />
