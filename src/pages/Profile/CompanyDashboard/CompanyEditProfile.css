@@ -1,3 +1,10 @@
+.edit-profile > div > div > .box > .md-alert-text {
+  color: #f55835;
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 140.523%;
+  display: none;
+}
 .edit-profile > div > div > .box > div {
   display: flex;
   flex-direction: row;
@@ -42,11 +49,27 @@
   font-weight: 600;
   line-height: normal;
 }
-.edit-profile > div > div > .update-btn {
+.edit-profile > div > div > .box > .update-btn {
   padding: 0.94rem 1.2rem;
   width: fit-content;
   border-radius: 0.3125rem;
   background: #014051;
   color: white;
-  margin-top: 2.25rem;
+  margin-top: 0.5rem;
+  float: right;
+}
+
+@media screen and (max-width: 768px) {
+  .edit-profile > div > div > .box > div {
+    gap: 2.87rem;
+  }
+  .edit-profile > div > div > .box > div > .logo {
+    min-width: 7.5rem;
+  }
+  .edit-profile > div > div > .box > div > .buttons > .alert-text {
+    display: none;
+  }
+  .edit-profile > div > div > .box > .md-alert-text {
+    display: block;
+  }
 }

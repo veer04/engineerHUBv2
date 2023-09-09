@@ -21,7 +21,7 @@ export default function ProfilePopUp() {
   const role = getUserRole();
   const userFullName = getUserFullName();
   const userImage = getUserImage();
-  const [profileProgress, setProfileProgress] = useState(100);
+  const [profileProgress, setProfileProgress] = useState(75);
 
   useEffect(() => {
     const timer = setInterval(() => {
