@@ -1,5 +1,6 @@
 import getCookie from "../getCookieValues";
-
+import { getUserProfileById } from "../../services/APIConfig";
+import { useState,useEffect } from "react";
 export function isUserLoggedIn() {
   const token = getCookie("access_token");
   if (!!token) {
@@ -7,6 +8,7 @@ export function isUserLoggedIn() {
   }
   return false;
 }
+
 
 export function getAccessToken() {
   if (!isUserLoggedIn()) {

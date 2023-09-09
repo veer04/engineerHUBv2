@@ -15,6 +15,7 @@ import { AiOutlineCalendar } from "react-icons/ai";
 import { HiOutlineLightningBolt } from "react-icons/hi";
 import { LinkedIn } from '@mui/icons-material';
 import { GitHub } from '@mui/icons-material';
+import {AiFillPlusCircle} from "react-icons/ai";
 import {
     getUserFullName,
     getUserId,
@@ -204,12 +205,280 @@ const StudentProfileDashboard = () => {
          <div className="container"
          
          >
-            <div className="row">
-                <div className="col-lg-6"
+            <div className="row"
+            style={{display:"flex",
+            justifyContent:"center",
+            alignItems:"center",
+            
+            }}>
+                <div className="col-lg-5"
                 style={{
                     background:"#fff",
-                }}>About Me</div>
-                <div className="col-lg-6">My Skills</div>
+                    color:"#002b36",
+                    fontWeight:"600",
+                    fontSize:"1.3rem",
+                    padding:"1%",
+                    margin:"10px",
+                }}>
+                  <div>
+                    About Me
+                    <div style={{
+                      display:"flex",
+                      justifyContent:"center",
+                      alignItems:"center",
+                    }}>
+                      <div
+                      style={{
+                        display:"flex",
+                        justifyContent:"center",
+                        alignItems:"center",
+                        background:"rgba(176, 189, 193, 1)",
+                        borderRadius:"5px",
+                        height:"40px",
+                        width:"250px",
+                      }}>
+                      <AiFillPlusCircle/>
+                      </div>
+                    </div>
+                    <div
+                    style={{textAlign:"center"}}>
+                      <small style={{fontSize:"0.8rem",
+                    color:"grey",
+                    
+                    }}>
+                        Write something about yourself. To make your profile stand-out from the rest.
+                      </small>
+                      </div>
+                  </div>
+                
+                </div>
+                
+                <div className="col-lg-5"
+                style={{
+                    background:"#fff",
+                    color:"#002b36",
+                    fontWeight:"600",
+                    fontSize:"1.3rem",
+                    padding:"1%",
+                    gap:"2",
+                    margin:"10px",
+                }}>
+                  <div>
+                    My Skills
+                    <div style={{
+                      display:"flex",
+                      justifyContent:"center",
+                      alignItems:"center",
+                    }}>
+                      <div
+                      style={{
+                        display:"flex",
+                        justifyContent:"center",
+                        alignItems:"center",
+                        background:"rgba(176, 189, 193, 1)",
+                        borderRadius:"5px",
+                        height:"40px",
+                        width:"250px",
+                      }}>
+                      <AiFillPlusCircle/>
+                      </div>
+                    </div>
+                    <div
+                    style={{textAlign:"center"}}>
+                      <small style={{fontSize:"0.8rem",
+                    color:"grey",
+                    
+                    }}>
+                        Add your Skills to stand Out from the rest.
+                      </small>
+                      </div>
+                  </div>
+                
+                </div>
+            </div>
+            {/* second Row */}
+            <div className="row"
+            style={{display:"flex",
+            justifyContent:"center",
+            alignItems:"center",
+            
+            
+            }}>
+                <div className="col-lg-5"
+                style={{
+                    background:"#fff",
+                    color:"#002b36",
+                    fontWeight:"600",
+                    fontSize:"1.3rem",
+                    padding:"1%",
+                    margin:"10px",
+                }}>
+                  <div>
+                    Education
+                    <div style={{
+                      display:"flex",
+                      justifyContent:"center",
+                      alignItems:"center",
+                    }}>
+                      <div
+                      style={{
+                        display:"flex",
+                        justifyContent:"center",
+                        alignItems:"center",
+                        background:"rgba(176, 189, 193, 1)",
+                        borderRadius:"5px",
+                        height:"40px",
+                        width:"250px",
+                      }}>
+                      <AiFillPlusCircle/>
+                      </div>
+                    </div>
+                    <div
+                    style={{textAlign:"center"}}>
+                      <small style={{fontSize:"0.8rem",
+                    color:"grey",
+                    
+                    }}>
+                        Showcase your education.
+                      </small>
+                      </div>
+                  </div>
+                
+                </div>
+                
+                <div className="col-lg-5"
+                style={{
+                    background:"#fff",
+                    color:"#002b36",
+                    fontWeight:"600",
+                    fontSize:"1.3rem",
+                    padding:"1%",
+                    margin:"10px",
+                }}>
+                  <div>
+                   Projects
+                    <div style={{
+                      display:"flex",
+                      justifyContent:"center",
+                      alignItems:"center",
+                    }}>
+                      <div
+                      style={{
+                        display:"flex",
+                        justifyContent:"center",
+                        alignItems:"center",
+                        background:"rgba(176, 189, 193, 1)",
+                        borderRadius:"5px",
+                        height:"40px",
+                        width:"250px",
+                      }}>
+                      <AiFillPlusCircle/>
+                      </div>
+                    </div>
+                    <div
+                    style={{textAlign:"center"}}>
+                      <small style={{fontSize:"0.8rem",
+                    color:"grey",
+                    
+                    }}>
+                        Add some exciting projects to uplift your profile.
+                      </small>
+                      </div>
+                  </div>
+                
+                </div>
+            </div>
+            {/* third row */}
+            <div className="row"
+            style={{display:"flex",
+            justifyContent:"center",
+            alignItems:"center",
+            
+            
+            }}>
+                <div className="col-lg-5"
+                style={{
+                    background:"#fff",
+                    color:"#002b36",
+                    fontWeight:"600",
+                    fontSize:"1.3rem",
+                    padding:"1%",
+                    margin:"10px",
+                }}>
+                  <div>
+                  My Interest
+                    <div style={{
+                      display:"flex",
+                      justifyContent:"center",
+                      alignItems:"center",
+                    }}>
+                      <div
+                      style={{
+                        display:"flex",
+                        justifyContent:"center",
+                        alignItems:"center",
+                        background:"rgba(176, 189, 193, 1)",
+                        borderRadius:"5px",
+                        height:"40px",
+                        width:"250px",
+                      }}>
+                      <AiFillPlusCircle/>
+                      </div>
+                    </div>
+                    <div
+                    style={{textAlign:"center"}}>
+                      <small style={{fontSize:"0.8rem",
+                    color:"grey",
+                    
+                    }}>
+                      Add your personal experience which you enjoy doing in your free time.
+                      </small>
+                      </div>
+                  </div>
+                
+                </div>
+                
+                <div className="col-lg-5"
+                style={{
+                    background:"#fff",
+                    color:"#002b36",
+                    fontWeight:"600",
+                    fontSize:"1.3rem",
+                    padding:"1%",
+                    margin:"10px",
+                }}>
+                  <div>
+                   Experience
+                    <div style={{
+                      display:"flex",
+                      justifyContent:"center",
+                      alignItems:"center",
+                    }}>
+                      <div
+                      style={{
+                        display:"flex",
+                        justifyContent:"center",
+                        alignItems:"center",
+                        background:"rgba(176, 189, 193, 1)",
+                        borderRadius:"5px",
+                        height:"40px",
+                        width:"250px",
+                      }}>
+                      <AiFillPlusCircle/>
+                      </div>
+                    </div>
+                    <div
+                    style={{textAlign:"center"}}>
+                      <small style={{fontSize:"0.8rem",
+                    color:"grey",
+                    
+                    }}>
+                        Share your Work experience.
+                      </small>
+                      </div>
+                  </div>
+                
+                </div>
             </div>
          </div>
         </div>
