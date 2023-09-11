@@ -181,7 +181,7 @@ function App() {
             </Route>
             <Route
               path="organization/:organizationId/edit-profile"
-              element={<CompanyEditProfile />}
+              element={<CompanyEditProfile/>}
             />
             {/* <Route index element={<GeneralOrganizationData />} /> */}
             {/* <Route path="general" element={<GeneralOrganizationData />} /> */}
