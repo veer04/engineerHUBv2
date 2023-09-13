@@ -518,7 +518,7 @@ const Register = () => {
                 <hr />
               </div>
 
-              {/* <div className="sign-field reg-field">
+              <div className="sign-field reg-field">
                 <div className="sign-opt ">
                   <div>
                     <GoogleButton onClick={handleLogin}>
@@ -526,7 +526,7 @@ const Register = () => {
                     </GoogleButton>
                   </div>
                 </div>
-              </div> */}
+              </div>
 
               <div className="my-item-cont">
                 <div>Don't have an account?</div>

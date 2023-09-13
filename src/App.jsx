@@ -67,6 +67,7 @@ import GeneralClubData from "./pages/User/Profile/ClubProfile/GeneralClubData";
 import EditClubData from "./pages/User/Profile/ClubProfile/EditClubData";
 import JobRegistration from "./pages/Hosting/JobRegistration";
 import Page404 from "./pages/Maintenance/Page404";
+import EditStudentProfileDashoboard from "./pages/User/Profile/StudentProfile/EditStudentProfileDashoboard";
 import jwt_decode from "jwt-decode";
 const CommunityPage = lazy(() => import("./pages/Community/CommunityPage"));
 const CampusPage = lazy(() => import("./pages/Campus/CampusPage"));
@@ -126,10 +127,11 @@ function App() {
         <Routes>
           <Route index element={<HomePage path="homepage" />} />
           <Route path="/home" element={<HomePage />} />
-          <Route path="student" element={<StudentProfileDashboard></StudentProfileDashboard>}></Route>
+          <Route path="student" element={<StudentProfileDashboard ></StudentProfileDashboard>}></Route>
           {/* <Route path="/success" element={<Success></Success>}></Route> */}
           <Route path="/register" element={<RegistrationForm />} />
           <Route path="/selectRole" element={<Role />} />
+          <Route path="/studentEdit" element={<EditStudentProfileDashoboard ></EditStudentProfileDashoboard>}></Route>
           <Route path="/loginDummy" element={<LoginDummy></LoginDummy>}>
             {" "}
           </Route>
