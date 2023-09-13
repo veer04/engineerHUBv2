@@ -25,24 +25,24 @@ jobs:
       - name: Login to Amazon ECR
         uses: aws-actions/amazon-ecr-login@v1.6.0
 
-      - name: Deploy to Test Server
-        if: |
-            hashFiles('**/Dockerfile*', '**/dockerfile*') &&
-            github.ref != 'refs/heads/main'
-        uses: docker/build-push-action@v2
-        with:
-          context: .
-          file: ./Dockerfile-test
-          push: true
-          tags: | 
-            ${{ vars.ECR_REGISTRY }}/${{ vars.TEST_ECR_REPO }}:latest
-          build-args: |
-            VITE_API_URL=${{ vars.VITE_TEST_API_URL }}
-            VITE_BUCKET_URL=${{ vars.VITE_BUCKET_URL }}
-            VITE_AESKEY=${{ secrets.VITE_AESKEY }}
-            VITE_FRONTEND_URL=${{ vars.VITE_TEST_FRONTEND_URL }}
-            TEST_SERVER_USERNAME=${{ secrets.TEST_SERVER_USERNAME }}
-            TEST_SERVER_PASSWORD=${{ secrets.TEST_SERVER_PASSWORD }}
+      # - name: Deploy to Test Server
+      #   if: |
+      #       hashFiles('**/Dockerfile*', '**/dockerfile*') &&
+      #       github.ref != 'refs/heads/main'
+      #   uses: docker/build-push-action@v2
+      #   with:
+      #     context: .
+      #     file: ./Dockerfile-test
+      #     push: true
+      #     tags: | 
+      #       ${{ vars.ECR_REGISTRY }}/${{ vars.TEST_ECR_REPO }}:latest
+      #     build-args: |
+      #       VITE_API_URL=${{ vars.VITE_TEST_API_URL }}
+      #       VITE_BUCKET_URL=${{ vars.VITE_BUCKET_URL }}
+      #       VITE_AESKEY=${{ secrets.VITE_AESKEY }}
+      #       VITE_FRONTEND_URL=${{ vars.VITE_TEST_FRONTEND_URL }}
+      #       TEST_SERVER_USERNAME=${{ secrets.TEST_SERVER_USERNAME }}
+      #       TEST_SERVER_PASSWORD=${{ secrets.TEST_SERVER_PASSWORD }}
     
       - name: Deploy to Production Server
         if: | 
