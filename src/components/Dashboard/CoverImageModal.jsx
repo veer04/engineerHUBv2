@@ -9,12 +9,17 @@ import { BsUpload } from "react-icons/bs";
 import { Bucket_URL } from "../../services/APIUtils";
 import { RxCross2 } from "react-icons/rx";
 import { useRef } from "react";
+import {
+  patchCoverImage,
+  patchCoverImageUsingLink,
+} from "../../services/APIConfig";
 
 export default function CoverImageModal() {
   const [newCoverPhoto, setNewCoverPhoto] = useState(null);
   const fileInput = useRef(null);
   const { organizationId } = useParams();
   const bucket = `${Bucket_URL}frontend/profile/dashboard/`;
+  const [response, setResponse] = useState(null);
 
   const navigate = useNavigate();
 
@@ -42,6 +47,26 @@ export default function CoverImageModal() {
       } else {
         alert("Please choose an image file only");
       }
+    }
+  }
+
+  function handleUpload() {
+    if (newCoverPhoto instanceof File) {
+      const file = new FormData();
+      file.append("backgroundPoster", newCoverPhoto);
+      patchCoverImage(file, setResponse);
+    } else {
+      patchCoverImageUsingLink(newCoverPhoto, setResponse);
+      console.log("else");
+      // patchCoverImage(organizationId, { cover_image: newCoverPhoto })
+      //   .then((res) => {
+      //     if (res.status === 200) {
+      //       navigate(-1);
+      //     }
+      //   })
+      //   .catch((err) => {
+      //     console.log(err);
+      //   });
     }
   }
 
@@ -129,7 +154,7 @@ export default function CoverImageModal() {
           </div>
           <button
             disabled={!!!newCoverPhoto}
-            onClick={() => console.log("clicked")}
+            onClick={() => handleUpload()}
             className="submit-button"
           >
             Upload

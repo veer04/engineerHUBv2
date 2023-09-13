@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import "../Dashboard.css"; // !import this file first
-import "./CompanyDashboard.css";
+import "./ClubDashboard.css";
 import { BsArrowRight } from "react-icons/bs";
 import { FiEdit } from "react-icons/fi";
 import { AiOutlineLeft, AiOutlineRight, AiFillLinkedin } from "react-icons/ai";
@@ -9,9 +9,7 @@ import { FiEdit2 } from "react-icons/fi";
 import { PiGlobeLight } from "react-icons/pi";
 import { BiLogoInstagramAlt } from "react-icons/bi";
 import banner from "./banner-1.png";
-import banner2 from "./banner-2.png";
 import default_profile_icon from "./default_profile_icon.png";
-import sponsor_photo from "./sponsor_photo.png";
 import { Bucket_URL } from "../../../services/APIUtils";
 import JobCard from "../../../components/JobCard/JobCard";
 import { Outlet, useNavigate, useParams } from "react-router-dom";
@@ -25,23 +23,32 @@ import {
   getAllEvents2,
   getAllInternships,
   getAllJobs2,
+  getAllPosts,
+  getClubProfileById,
   getEvents,
+  getFeaturedEvents,
   getOrganizationProfileById,
   getProjectData,
 } from "../../../services/APIConfig";
 import HackathonCard from "../../Company/Events/EventsChoices/HackathonCards";
 import ProjectCards from "../../Company/Projects/ProjectCards";
+import ClubPostCard from "../../../components/ClubPostCard/ClubPostCard";
+import ClubMemberCard from "../../../components/ClubMemberCard/ClubMemberCard";
 
-export default function CompanyDashboard() {
-  const { organizationId } = useParams();
+export default function ClubDashboard() {
+  const { clubId } = useParams();
   const navigate = useNavigate();
   const [organization, setOrganization] = useState({});
   const [isUserAdmin, setIsUserAdmin] = useState(false);
   const [viewMore, setViewMore] = useState(false);
-  const [showAll, setShowAll] = useState(false);
+  const [showAll1, setShowAll1] = useState(false);
+  const [showAll2, setShowAll2] = useState(false);
+  const [showAll3, setShowAll3] = useState(false);
   const [activityChoice, setActivityChoice] = useState("jobs");
   const logo = defaultPoster; // later fetch from api
   const [jobs, setJobs] = useState([]);
+  const [members, setMembers] = useState([]);
+  const [featuredEvents, setFeaturedEvents] = useState([]);
   const [internships, setInternships] = useState([]);
   const [hackathons, setHackathons] = useState([]);
   const [projects, setProjects] = useState([]);
@@ -89,19 +96,20 @@ export default function CompanyDashboard() {
 
   useEffect(() => {
     // window.scrollTo(0, 0);
-    getOrganizationProfileById(setOrganization, organizationId);
-    getAllJobs2(setJobs);
-    getAllInternships(setInternships);
-    getAllEvents2(setHackathons);
-    getProjectData(setProjects);
-    if (isUserLoggedIn() && organizationId === getUserId()) {
-      setIsUserAdmin(true);
-    }
-  }, []);
+    getClubProfileById(setOrganization, clubId);
+    getAllPosts(setJobs, clubId);
+    getFeaturedEvents(setFeaturedEvents);
 
-  // useEffect(() => {
-  //   console.log("organization", organization);
-  // }, [organization]);
+    if (isUserLoggedIn() && clubId === getUserId()) {
+      setIsUserAdmin(true);
+    } else {
+      setIsUserAdmin(false);
+    }
+  }, [clubId]);
+
+  useEffect(() => {
+    console.log("organization", organization);
+  }, [organization]);
 
   // useEffect(() => {
   //   console.log("jobs", jobs);
@@ -148,7 +156,7 @@ export default function CompanyDashboard() {
         setIsActivityPresent(false);
       }
     }
-    setShowAll(false);
+    setShowAll1(false);
     if (activityChoice === "jobs" || activityChoice === "internships") {
       setScrollAmount(220);
     }
@@ -162,7 +170,7 @@ export default function CompanyDashboard() {
 
   return (
     <>
-      <main className="profile-dashboard">
+      <main className="profile-dashboard club-dashboard">
         <h1 className="title">Profile</h1>
         <h2 className="subheading">
           Lorem ipsum dolor sit amet consectetur. Mattis aliquam sodales
@@ -204,22 +212,15 @@ export default function CompanyDashboard() {
             </div>
           </div>
           <div className="details">
-            <div
-              style={
-                {
-                  // marginBottom: isUserAdmin ? "0" : "1rem",
-                }
-              }
-              className="upper-container"
-            >
+            <div className="upper-container">
               <div className="left-container">
                 <div>
                   <h1 className="text-crop-1 overflow-hidden">
                     {organization?.name}
                   </h1>
                   <h2 className="text-crop-1 overflow-hidden">
-                    {organization?.subHeading ? (
-                      organization?.subHeading
+                    {organization?.subheading ? (
+                      organization?.subheading
                     ) : (
                       <i className="text-crop-1 overflow-hidden">
                         Subheading not available
@@ -311,185 +312,123 @@ export default function CompanyDashboard() {
             </div>
           </div>
         </section>
-        <section id="recent-activities" className="box recent-activities">
-          <p className="heading">RECENT ACTIVITIES</p>
-          <div className="tags-container">
-            <button
-              onClick={() => setActivityChoice("jobs")}
-              className={`tag ${
-                activityChoice === "jobs" ? "--is-active" : ""
-              }`}
-            >
-              Jobs
-            </button>
-            <button
-              onClick={() => setActivityChoice("internships")}
-              className={`tag ${
-                activityChoice === "internships" ? "--is-active" : ""
-              }`}
-            >
-              Internships
-            </button>
-            <button
-              onClick={() => setActivityChoice("hackathons")}
-              className={`tag ${
-                activityChoice === "hackathons" ? "--is-active" : ""
-              }`}
-            >
-              Hackathons
-            </button>
-            <button
-              onClick={() => setActivityChoice("projects")}
-              className={`tag ${
-                activityChoice === "projects" ? "--is-active" : ""
-              }`}
-            >
-              Projects
-            </button>
-          </div>
+        <section className="box recent-activities">
+          <p className="heading">POSTS</p>
           <div className="carousel-container">
-            {isActivityPresent && !showAll && (
-              <button onClick={scrollLeft} className="arrow arrow-left">
-                <AiOutlineLeft />
-              </button>
-            )}
-            {isActivityPresent && (
-              <div className={`${showAll ? "carousel-grid" : "carousel"}`}>
-                {activityChoice === "jobs" &&
-                  jobs.map((jobDetail, index) => (
-                    <JobCards
-                      key={index}
-                      details={jobDetail}
-                      color={colorWheel[index % colorWheel.length]}
-                      className="scroll-card no-hover-scale"
-                    />
-                  ))}
-                {activityChoice === "internships" &&
-                  internships.map((jobDetail, index) => (
-                    <JobCards
-                      key={index}
-                      details={jobDetail}
-                      color={colorWheel[index % colorWheel.length]}
-                      className="scroll-card no-hover-scale"
-                    />
-                  ))}
-                {activityChoice === "hackathons" &&
-                  hackathons.map((jobDetail, index) => (
-                    <HackathonCard
-                      key={index}
-                      {...jobDetail}
-                      className="scroll-card no-hover-scale"
-                    />
-                  ))}
-                {activityChoice === "projects" &&
-                  projects.map((jobDetail, index) => (
-                    <ProjectCards
-                      key={index}
-                      data={jobDetail}
-                      className="scroll-card no-hover-scale"
-                    />
-                  ))}
+            {jobs.length !== 0 && (
+              <div className="carousel-grid">
+                {showAll1
+                  ? jobs.map((jobDetail, index) => (
+                      <ClubPostCard key={index} {...jobDetail} />
+                    ))
+                  : jobs
+                      .slice(0, 3)
+                      .map((jobDetail, index) => (
+                        <ClubPostCard key={index} {...jobDetail} />
+                      ))}
               </div>
             )}
+
             {!isActivityPresent && (
               <div className="no-jobs empty-container">
                 {/* <MdAddCircle /> */}
-                <p>{`No ${activityChoice} to show`}</p>
+                <p>{`No posts to show`}</p>
               </div>
             )}
-            {isActivityPresent && !showAll && (
-              <button onClick={scrollRight} className="arrow arrow-right">
-                <AiOutlineRight />
-              </button>
-            )}
           </div>
-          {isActivityPresent && !showAll && (
+          {isActivityPresent && !showAll1 && (
             <div className="btn-container">
-              <button onClick={() => setShowAll(true)} className="all-jobs-btn">
+              <button
+                onClick={() => setShowAll1(true)}
+                className="all-jobs-btn"
+              >
                 Show all {activityChoice} <BsArrowRight />
               </button>
             </div>
           )}
         </section>
-        {isUserAdmin && (
-          <section className="box recruit-container">
-            <p className="heading">RECRUIT THE BEST FOR YOU</p>
-            <div className="cards">
-              <div
-                onClick={() => navigate("/host/job")}
-                style={{
-                  backgroundImage: `url(${bucket}jobs.png)`,
-                }}
-                className="card"
-              >
-                <div className="heading">Jobs</div>
-                <div className="subheading">
-                  Create Jobs <BsArrowRight />
-                </div>
+        <section className="box recent-activities">
+          <p className="heading">CLUB MEMBERS</p>
+          <div className="carousel-container">
+            {/* <div className="carousel-grid">
+              {showAll2
+                ? jobs.map((jobDetail, index) => (
+                    <ClubMemberCard
+                      key={index}
+                      {...jobDetail}
+                      className="scroll-card no-hover-scale"
+                    />
+                  ))
+                : jobs
+                    .slice(0, 3)
+                    .map((jobDetail, index) => (
+                      <ClubMemberCard
+                        key={index}
+                        {...jobDetail}
+                        className="scroll-card no-hover-scale"
+                      /> 
+                    ))}
+            </div> */}
+
+            {isActivityPresent && (
+              <div className="no-jobs empty-container">
+                {/* <MdAddCircle /> */}
+                <p>{`No members to show`}</p>
               </div>
-              <div
-                onClick={() => navigate("/host/internship")}
-                style={{
-                  backgroundImage: `url(${bucket}internships.png)`,
-                }}
-                className="card"
+            )}
+          </div>
+          {isActivityPresent && !showAll2 && (
+            <div className="btn-container">
+              <button
+                onClick={() => setShowAll2(true)}
+                className="all-jobs-btn"
               >
-                <div className="heading">Internships</div>
-                <div className="subheading">
-                  Create Jobs <BsArrowRight />
-                </div>
+                Show all {activityChoice} <BsArrowRight />
+              </button>
+            </div>
+          )}
+        </section>
+        <section className="box recent-activities">
+          <p className="heading">FEATURED EVENTS</p>
+          <div className="carousel-container">
+            <div className="carousel-grid">
+              {showAll3
+                ? featuredEvents.map((jobDetail, index) => (
+                    <EventCard
+                      key={index}
+                      {...jobDetail}
+                      className="scroll-card no-hover-scale"
+                    />
+                  ))
+                : featuredEvents
+                    .slice(0, 3)
+                    .map((jobDetail, index) => (
+                      <EventCard
+                        key={index}
+                        {...jobDetail}
+                        className="scroll-card no-hover-scale"
+                      />
+                    ))}
+            </div>
+
+            {!isActivityPresent && (
+              <div className="no-jobs empty-container">
+                {/* <MdAddCircle /> */}
+                <p>{`No events to show`}</p>
               </div>
-              <div
-                onClick={() => navigate("/hostevent")}
-                style={{
-                  backgroundImage: `url(${bucket}hackathon.png)`,
-                }}
-                className="card"
+            )}
+          </div>
+          {isActivityPresent && !showAll3 && (
+            <div className="btn-container">
+              <button
+                onClick={() => setShowAll3(true)}
+                className="all-jobs-btn"
               >
-                <div className="heading">Hackathon</div>
-                <div className="subheading">
-                  Create Event <BsArrowRight />
-                </div>
-              </div>
+                Show all {activityChoice} <BsArrowRight />
+              </button>
             </div>
-          </section>
-        )}
-        {isUserAdmin && (
-          <section
-            style={{
-              backgroundImage: `url(${banner})`,
-            }}
-            className="box promotion-container"
-          >
-            <div className="left-container">
-              <p>Sponsor the event to make your reach</p>
-              <a href="https://wa.me/919354647032?text=I+want+to+Sponsor+my+Events">
-                <button>Connect with us</button>
-              </a>
-            </div>
-            <div className="right-container">
-              <img src={sponsor_photo} alt="Sponsor" />
-            </div>
-          </section>
-        )}
-        {isUserAdmin && (
-          <section
-            style={{
-              backgroundImage: `url(${banner2})`,
-            }}
-            className="box promotion-container flex-row-reverse"
-          >
-            <div className="left-container d-flex flex-column align-items-end">
-              <p className="text-end">Advertise your Company Profile</p>
-              <a href="https://wa.me/919354647032?text=I+want+to+Advertise+my+Company">
-                <button>Connect with us</button>
-              </a>
-            </div>
-            <div className="right-container">
-              <img src={sponsor_photo} alt="Sponsor" />
-            </div>
-          </section>
-        )}
+          )}
+        </section>
       </main>
       <Outlet />
     </>

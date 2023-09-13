@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import defaultPoster from "../../../assets/defaultPoster";
 import { useEffect } from "react";
 
-const ProjectCards = ({ data }) => {
+const ProjectCards = ({ data, className }) => {
   const navigate = useNavigate();
   useEffect(() => {
     document.getElementById(
@@ -13,7 +13,7 @@ const ProjectCards = ({ data }) => {
   }, [data.description]);
   return (
     <div
-      className="ProjectCard"
+      className={`ProjectCard ${className}`}
       onClick={() => {
         navigate(`/company/projects/${data._id}`);
       }}

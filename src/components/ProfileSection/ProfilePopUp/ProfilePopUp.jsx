@@ -12,10 +12,16 @@ import {
   getUserId,
   getUserImage,
   getUserRole,
+  isUserLoggedIn,
 } from "../../../features/User/UserDetails";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { handleLogout } from "../../../features/logout";
+import { CgLogOut } from "react-icons/cg";
 
 export default function ProfilePopUp() {
+  if (!isUserLoggedIn()) {
+    return null;
+  }
   const navigate = useNavigate();
   const [progress, setProgress] = useState(0);
   const role = getUserRole();
@@ -60,41 +66,40 @@ export default function ProfilePopUp() {
   );
   const studentMenuItems = [
     {
-      label:"Internship",
+      label: "Internship",
       icon: <HiOutlineSquares2X2 />,
-      link:"/internship",
+      link: "/internship",
     },
     {
-      label:"Jobs",
+      label: "Jobs",
       icon: <RiSuitcase2Line />,
-      link:"/jobs",
+      link: "/jobs",
     },
     {
-    label:"Projects",
-    icon: <AiOutlineCalendar />,
-    link:"/projects",
-
-    }, 
+      label: "Projects",
+      icon: <AiOutlineCalendar />,
+      link: "/projects",
+    },
     // {
     //   label:"Blogs",
     //   icon: "",
     //   link:"",
-  
+
     //   },
-      
-      // {
-      //   label:"Events",
-      //   icon: "",
-      //   link:"",
-    
-      //   },
-      //  {
-      //     label:"Webinars",
-      //     icon: "",
-      //     link:"",
-      
-      //     }
-  ]
+
+    // {
+    //   label:"Events",
+    //   icon: "",
+    //   link:"",
+
+    //   },
+    //  {
+    //     label:"Webinars",
+    //     icon: "",
+    //     link:"",
+
+    //     }
+  ];
   const companyMenuItems = [
     {
       label: "Create Jobs",
@@ -162,19 +167,19 @@ export default function ProfilePopUp() {
     },
   ];
 
-  const renderStudentMenuItems = studentMenuItems.map((item,index)=>{
+  const renderStudentMenuItems = studentMenuItems.map((item, index) => {
     <button
-    key={index}
-    data-bs-dismiss="offcanvas"
-    aria-label="Close"
-    className="item"
-    onClick={() => {
-      navigate(item.link);
-    }}
+      key={index}
+      data-bs-dismiss="offcanvas"
+      aria-label="Close"
+      className="item"
+      onClick={() => {
+        navigate(item.link);
+      }}
     >
       <div className="icon">{item.icon}</div>
       <div className="label">{item.label}</div>
-    </button>
+    </button>;
   });
 
   const renderAlumniMenuItems = <div>Alumni Menu Items</div>;
@@ -298,8 +303,7 @@ export default function ProfilePopUp() {
                 justifyContent: "center",
               }}
             >
-              <img className="image" src={userImage}
-               alt="Profile Picture" />
+              <img className="image" src={userImage} alt="Profile Picture" />
             </Box>
           </Box>
           <div className="progress-counter">{`${progress}%`}</div>
@@ -314,11 +318,7 @@ export default function ProfilePopUp() {
         aria-label="Close"
         className="show-profile-btn redirect-btn"
         onClick={() => {
-        
-       
-            navigate(`/profile/${role}/${getUserId()}`);
-          
-          
+          navigate(`/profile/${role.toLowerCase()}/${getUserId()}`);
         }}
       >
         {`${profileProgress < 100 ? "Complete Profile" : "View Profile"}`}
@@ -333,10 +333,19 @@ export default function ProfilePopUp() {
       </div>
       {/* Promotional Content */}
       {role === "Organization" && renderCompanyPromotionalContent}
-      {role === "Club" && renderClubPromotionalContent}
+      {role === "Club" && renderClubPromotionalContent}.
+      {/* <Link
+        to={`/profile/${role.toLowerCase()}/${getUserId()}/#recent-activities`}
+      > */}
       <button
+        style={{
+          minHeight: "3.8125rem",
+          borderRadius: "0.3125rem",
+        }}
         onClick={() => {
-          navigate("/under-maintenance");
+          navigate(
+            `/profile/${role.toLowerCase()}/${getUserId()}/#recent-activities`
+          );
         }}
         data-bs-dismiss="offcanvas"
         aria-label="Close"
@@ -344,6 +353,30 @@ export default function ProfilePopUp() {
       >
         Recent Activities
       </button>
+      <button
+        style={{
+          width: "100%",
+          minHeight: "3.8125rem",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "flex-start",
+          padding: "0 1.69rem",
+          borderRadius: "0.3125rem",
+          fontWeight: "500",
+          backgroundColor: "transparent",
+          borderWidth: "1px",
+          gap: "0.125rem",
+          justifyContent: "center",
+          borderColor: "#ff0000",
+          color: "#ff0000",
+          marginTop: "1rem",
+        }}
+        onClick={() => handleLogout()}
+        className="logout-button"
+      >
+        <CgLogOut /> <span>Logout</span>
+      </button>
+      {/* </Link> */}
     </aside>
   );
 }

@@ -20,9 +20,7 @@ export default function ClubPostCard({ _id, postLogo, likes }) {
 
   return (
     <div
-      onClick={() =>
-        navigate(`/campus/${collegeId}/technical-clubs/${clubId}/posts/${_id}`)
-      }
+      onClick={() => navigate(`/profile/club/${clubId}/posts/${_id}`)}
       className="club-post-card card-hover"
     >
       <div
@@ -32,7 +30,7 @@ export default function ClubPostCard({ _id, postLogo, likes }) {
         className="poster"
       ></div>
       <div className="options">
-        <div className="likes">Liked by {isLiked ? likes + 1 : likes}</div>
+        {/* <div className="likes">Liked by {isLiked &&  likes + 1 : likes}</div> */}
         <div>
           <div
             onClick={() => {

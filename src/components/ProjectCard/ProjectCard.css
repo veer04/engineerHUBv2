@@ -3,7 +3,8 @@
   background-color: #fdfdfd;
   display: flex;
   flex-direction: column;
-  width: 18rem;
+  min-width: 18rem;
+  max-width: 18rem;
   height: fit-content;
   box-shadow: 0 0 0.5rem 0.2rem rgba(0, 0, 0, 0.2);
   padding: 0.5rem;
