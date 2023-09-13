@@ -3,9 +3,11 @@ import "../../../../pages/Profile/Dashboard.css";
 import "../../../../pages/Profile/EditProfile.css";
 import "../../../../pages/Profile/CompanyDashboard/CompanyEditProfile.css";
 import { IoIosArrowBack } from "react-icons/io";
+import axios from "axios";
 import { CgLogOut } from "react-icons/cg";
 import {AiOutlinePlus} from "react-icons/ai";
 import { useNavigate, useParams } from "react-router-dom";
+import { API_URLT } from "../../../../services/APIUtils";
 const EditStudentProfileDashoboard = () => {
     const navigate = useNavigate();
     const { organizationId } = useParams();
@@ -16,8 +18,11 @@ const EditStudentProfileDashoboard = () => {
     const [projectExists,setProjectExists]=useState(true);
     const [firstName,setFirstName]=useState("");
     const [lastName,setLastName]=useState("");
+    const [mobile,setMobile]=useState("");
     const [gender,setGender]=useState("");
-
+    const [dateOfBirth,setDateOfBirth]=useState("");
+    const [aboutMe,setAboutMe]=useState("");
+    const [validation,setValidation]=useState(false);
     const handleCheckboxChange = (event) => {
       const { checked } = event.target;
       setCurrentlyWorking(checked);
@@ -25,6 +30,45 @@ const EditStudentProfileDashoboard = () => {
     useEffect(() => {
       // window.scrollTo(0, 0);
     }, []);
+
+
+    async function updateBasic(){
+    const form = new FormData();
+    form.append("firstName", firstName);
+    form.append("lastName",lastName);
+    form.append("dateOfBirth",dateOfBirth);
+    form.append("aboutMe",aboutMe);
+    form.append("mobile",mobile);
+    if(validation ===true)
+    {
+      try
+      {
+        const response = await axios.patch(`${API_URLT}api/v1/user/profileUpdate`, form, {
+          headers: {
+            accesstoken: getAccessToken(),
+          },
+        });
+        console.log(response);
+
+        if (
+          response.status === 200 ||
+          response.status === 201 ||
+          response.status === 202 ||
+          response.status === 203 ||
+          response.status === 204
+        ) {
+          navigate("/");
+        }
+
+      }
+      catch{
+        alert(error.response.data.message);
+        setValidation(false);
+        console.log(error);
+      }
+    }
+
+    }
     const renderOption1 = (
         <>
           <section className="box">
@@ -49,6 +93,7 @@ const EditStudentProfileDashoboard = () => {
               </div>
             </div>
           </section>
+          <form action=""  onSubmit={updateBasic}>
           <section className="box">
             <p className="heading">BASIC INFORMATION</p>
         
@@ -62,6 +107,9 @@ const EditStudentProfileDashoboard = () => {
               type="text"
               className="input-field"
               placeholder="Enter your String"
+              name="first Name"
+              value={firstName}
+              onChange={(e)=>setFirstName(e.target.value)}
             />
                 </div>
                 <div className="col-lg-4">
@@ -73,6 +121,8 @@ const EditStudentProfileDashoboard = () => {
               type="text"
               className="input-field"
               placeholder="Enter your String"
+              value={lastName}
+              onChange={(e)=>setLastName(e.target.value)}
             />
                 </div>
             </div>
@@ -85,6 +135,7 @@ const EditStudentProfileDashoboard = () => {
               type="email"
               className="input-field"
               placeholder="Enter your String"
+              
             />
                 </div>
                 <div className="col-lg-4">
@@ -97,6 +148,8 @@ const EditStudentProfileDashoboard = () => {
               className="input-field"
               placeholder="Enter your String"
               maxLength={10}
+              value={mobile}
+              onChange={(e)=>setMobile(e.target.value)}
             />
                 </div>
             </div>
@@ -105,7 +158,10 @@ const EditStudentProfileDashoboard = () => {
                 <label className="label">
             Gender<span className="required">*</span>
             </label>
-            <select className="input-field">
+            <select className="input-field"
+            value={gender}
+            onChange={(e)=>setGender(e.target.value)}
+            >
               <option value="male">Male</option>
               <option value="female">Female</option>
               <option value="sigma">Sigma</option>
@@ -114,13 +170,16 @@ const EditStudentProfileDashoboard = () => {
                 </div>
                 <div className="col-lg-4">
 
-                <label className="label">
+                <label htmlFor="date" className="label">
               Date of Birth<span className="required">*</span>
             </label>
             <input
               type="date"
+              id="date"
               className="input-field"
               placeholder="Enter your String"
+              value={dateOfBirth}
+              onChange={(e)=>setDateOfBirth(e.target.value)}
             />
                 </div>
             </div>
@@ -135,10 +194,14 @@ const EditStudentProfileDashoboard = () => {
               id="about"
               className="input-field"
               rows={5}
+              value={aboutMe}
+              onChange={(e)=>setAboutMe(e.target.value)}
               placeholder="Describe about your Organization / Company"
             />
-            <button className="update-btn">Update Details</button>
+            <button className="update-btn"
+            onClick={updateBasic}>Update Details</button>
           </section>
+          </form>
         </>
       );
 
