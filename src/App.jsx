@@ -25,7 +25,7 @@ import Footer from "./components/Footer/Footer";
 import Events from "./pages/Company/Events/events";
 import Jobs from "./pages/Company/Jobs/jobs";
 import JobDetails from "./pages/Company/Jobs/JobDetails";
-// import Success from "./pages/HomePage/Success";
+import Success from "./pages/HomePage/Success";
 import Internship from "./pages/Company/Internship/Internship";
 import InternshipDetails from "./pages/Company/Internship/InternshipDetails";
 import HackathonDetails from "./pages/Company/Events/EventsChoices/HackathonDetails";
@@ -84,6 +84,8 @@ import ProfilePopUp from "./components/ProfileSection/ProfilePopUp/ProfilePopUp"
 import CompanyDashboard from "./pages/Profile/CompanyDashboard/CompanyDashboard";
 import CompanyEditProfile from "./pages/Profile/CompanyDashboard/CompanyEditProfile";
 import CoverImageModal from "./components/Dashboard/CoverImageModal";
+import ClubDashboard from "./pages/Profile/ClubDashboard/ClubDashboard";
+import ClubEditProfile from "./pages/Profile/ClubDashboard/ClubEditProfile";
 
 function App() {
   const [isEventModalOpen, setIsEventModalOpen] = useState(false);
@@ -127,8 +129,11 @@ function App() {
         <Routes>
           <Route index element={<HomePage path="homepage" />} />
           <Route path="/home" element={<HomePage />} />
-          <Route path="student" element={<StudentProfileDashboard ></StudentProfileDashboard>}></Route>
-          {/* <Route path="/success" element={<Success></Success>}></Route> */}
+          <Route
+            path="student"
+            element={<StudentProfileDashboard></StudentProfileDashboard>}
+          ></Route>
+          <Route path="/success" element={<Success></Success>}></Route>
           <Route path="/register" element={<RegistrationForm />} />
           <Route path="/selectRole" element={<Role />} />
           <Route path="/studentEdit" element={<EditStudentProfileDashoboard ></EditStudentProfileDashoboard>}></Route>
@@ -142,7 +147,6 @@ function App() {
               path="User/:userId"
               element={<StudentProfilePage path="profile" />}
             >
-           
               <Route index element={<GeneralStudentData />} />
               <Route path="general" element={<GeneralStudentData />} />
               <Route path="edit" element={<EditStudentData />} />
@@ -161,16 +165,22 @@ function App() {
             </Route>
             <Route
               path="club/:clubId"
-              element={<ClubProfilePage path="profile" />}
+              element={<ClubDashboard path="profile" />}
             >
-              <Route index element={<GeneralClubData />} />
+              <Route path="edit-cover-image" element={<CoverImageModal />} />
+              <Route path="posts/:postId" element={<PostModal />} />
+            </Route>
+            <Route
+              path="club/:clubId/edit-profile"
+              element={<ClubEditProfile />}
+            />
+            {/* <Route index element={<GeneralClubData />} />
               <Route path="general" element={<GeneralClubData />} />
               <Route path="edit" element={<EditClubData />} />
               <Route path="cover-photo" element={<CoverPhotoClubData />} />
               <Route path="manage-posts" element={<ManagePostsClubData />}>
                 <Route path=":postId" element={<PostModal2 />} />
-              </Route>
-            </Route>
+              </Route> */}
             {/* <Route
               path="organization/:organizationId"
               element={<OrganizationProfilePage path="profile" />}
@@ -183,7 +193,7 @@ function App() {
             </Route>
             <Route
               path="organization/:organizationId/edit-profile"
-              element={<CompanyEditProfile/>}
+              element={<CompanyEditProfile />}
             />
             {/* <Route index element={<GeneralOrganizationData />} /> */}
             {/* <Route path="general" element={<GeneralOrganizationData />} /> */}

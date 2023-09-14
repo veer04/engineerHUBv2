@@ -2,7 +2,7 @@ import React from "react";
 import { Chip } from "@mui/material";
 import "./JobCards.css";
 import { Link } from "react-router-dom";
-const JobCards = ({ details, color }) => {
+const JobCards = ({ details, color, className }) => {
   const formatter = new Intl.NumberFormat("en-IN", {
     style: "currency",
     currency: "INR",
@@ -11,7 +11,7 @@ const JobCards = ({ details, color }) => {
   const formattedSalary = formatter.format(details?.amount);
 
   return (
-    <div className="JobCard on-hover-scale">
+    <div className={`JobCard on-hover-scale ${className}`}>
       <div className="cardContent">
         <h6>
           Highest CTC :{" "}

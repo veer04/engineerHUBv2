@@ -309,7 +309,7 @@ const Register = () => {
   // }, []);
 
   const handleLogin = () => {
-    const dynamicRedirectUrl = "https://betatestserverv3.engineerhub.in/success";
+    const dynamicRedirectUrl = "http://127.0.0.1:5174/success";
     const googleAuthUrl = new URL(
       "https://accounts.google.com/o/oauth2/v2/auth"
     );
@@ -319,7 +319,7 @@ const Register = () => {
     );
     googleAuthUrl.searchParams.append(
       "redirect_uri",
-      `${API_URL}api/v1/auth/google/user/redirect`
+      `${API_URLT}api/v1/auth/google/user/redirect`
     );
     googleAuthUrl.searchParams.append("response_type", "code");
     googleAuthUrl.searchParams.append("state", dynamicRedirectUrl);

@@ -43,6 +43,28 @@
 .edit-profile > div > div > .box > div > .buttons > button:nth-child(2) {
   background-color: rgba(1, 64, 81, 0.06);
 }
+.edit-profile
+  > div
+  > div
+  > .box
+  > div
+  > .buttons
+  > button:nth-child(2):disabled {
+  cursor: default;
+}
+.edit-profile
+  > div
+  > div
+  > .box
+  > div
+  > .buttons
+  > button:nth-child(3):disabled {
+  background-color: rgba(70, 83, 86, 0.06);
+  color: #b0b0b0;
+  border-color: #b0b0b0;
+  cursor: default;
+}
+
 .edit-profile > div > div > .box > div > .buttons > .alert-text {
   color: #f55835;
   font-size: 0.875rem;

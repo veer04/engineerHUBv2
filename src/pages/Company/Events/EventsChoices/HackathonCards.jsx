@@ -13,6 +13,7 @@ const HackathonCard = ({
   opportunityName,
   opportunityLocation,
   skillsRequired,
+  className,
 }) => {
   // const hiringId=useParams();
   // const[eventData,setEventData]=useState({})
@@ -41,7 +42,7 @@ const HackathonCard = ({
       onClick={() => {
         navigate(`/company/events/${_id}`);
       }}
-      className="HackathonCard"
+      className={`HackathonCard ${className}`}
     >
       <div className="cardImg">
         <img src={opportunityPoster} alt="" />

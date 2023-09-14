@@ -92,6 +92,15 @@
   font-size: 0.875rem;
   font-weight: 500;
   line-height: normal;
+  width: 100%;
+}
+.edit-profile .error-message {
+  color: var(--Red-Primary, #f00);
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: normal;
+  margin-bottom: 1.31rem;
+  display: block;
 }
 .input-field {
   padding: 0.9rem 1.13rem;
@@ -103,7 +112,6 @@
   font-style: normal;
   font-weight: 400;
   line-height: normal;
-  margin-bottom: 1.31rem;
 }
 
 select.input-field {

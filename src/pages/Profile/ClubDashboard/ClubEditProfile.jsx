@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import "../Dashboard.css"; // !import this file first
 import "../EditProfile.css"; // !import this file second
-import "./CompanyEditProfile.css";
+import "./ClubEditProfile.css";
 import { IoIosArrowBack } from "react-icons/io";
 import { CgLogOut } from "react-icons/cg";
 import { useNavigate, useParams } from "react-router-dom";
@@ -10,7 +10,7 @@ import {
   deleteProfilePicture,
   getAllCountries,
   getCitiesByState,
-  getOrganizationProfileById,
+  getClubProfileById,
   getStatesByCountry,
   patchProfilePicture,
 } from "../../../services/APIConfig";
@@ -18,10 +18,10 @@ import countryCodes from "../../../assets/countryCodes";
 import { useRef } from "react";
 import { handleLogout } from "../../../features/logout";
 
-export default function CompanyEditProfile() {
+export default function ClubEditProfile() {
   const [organization, setOrganization] = useState(null);
   const navigate = useNavigate();
-  const { organizationId } = useParams();
+  const { clubId } = useParams();
   const options = ["Basic Information", "Contact Information", "Location"];
   const [chosenOption, setChosenOption] = useState(options[0]);
   const fileInput = useRef(null);
@@ -86,7 +86,7 @@ export default function CompanyEditProfile() {
 
   useEffect(() => {
     // window.scrollTo(0, 0);
-    getOrganizationProfileById(setOrganization, organizationId);
+    getClubProfileById(setOrganization, clubId);
     getAllCountries(setCountries);
     return () => {
       controller.abort();
@@ -100,7 +100,7 @@ export default function CompanyEditProfile() {
         console.log(newImage);
         const file = new FormData();
         file.append("profileImage", newImage);
-        patchProfilePicture(organizationId, file, setResponse);
+        patchProfilePicture(clubId, file, setResponse);
       } else {
         alert("Please choose an image file only");
       }
@@ -109,7 +109,7 @@ export default function CompanyEditProfile() {
 
   useEffect(() => {
     if (!!response) {
-      getOrganizationProfileById(setOrganization, organizationId);
+      getClubProfileById(setOrganization, clubId);
     }
     setIsImageLoading(false);
     return () => {
@@ -119,7 +119,7 @@ export default function CompanyEditProfile() {
 
   useEffect(() => {
     if (!!deleteResponse) {
-      getOrganizationProfileById(setOrganization, organizationId);
+      getClubProfileById(setOrganization, clubId);
     }
   }, [deleteResponse]);
 
@@ -214,55 +214,51 @@ export default function CompanyEditProfile() {
     let isValid = true;
 
     if (!!!newName) {
-      errors.newName = "Please enter your Organization / Company Name";
+      errors.newName = "Please enter your Club Name";
       isValid = false;
     } else if (newName.length < 3) {
-      errors.newName = "Company Name must be at least 3 characters long";
+      errors.newName = "Club Name must be at least 3 characters long";
       isValid = false;
     } else if (newName.length > 100) {
-      errors.newName = "Company Name must be at most 100 characters long";
+      errors.newName = "Club Name must be at most 100 characters long";
       isValid = false;
     }
 
     if (!!!newSubHeading) {
-      errors.newSubHeading =
-        "Please enter your Organization / Company Sub-heading";
+      errors.newSubHeading = "Please enter your Club Sub-heading";
       isValid = false;
     } else if (newSubHeading.length < 3) {
       errors.newSubHeading =
-        "Company Sub-heading must be at least 3 characters long";
+        "Club Sub-heading must be at least 3 characters long";
       isValid = false;
     } else if (newSubHeading.length > 250) {
       errors.newSubHeading =
-        "Company Sub-heading must be at most 250 characters long";
+        "Club Sub-heading must be at most 250 characters long";
       isValid = false;
     }
 
     if (!!!newOrganizationType) {
-      errors.newOrganizationType =
-        "Please enter your Organization / Company Type";
+      errors.newOrganizationType = "Please enter your Club Type";
       isValid = false;
     } else if (newOrganizationType.length < 3) {
       errors.newOrganizationType =
-        "Company Type must be at least 3 characters long";
+        "Club Type must be at least 3 characters long";
       isValid = false;
     } else if (newOrganizationType.length > 100) {
       errors.newOrganizationType =
-        "Company Type must be at most 100 characters long";
+        "Club Type must be at most 100 characters long";
       isValid = false;
     }
 
     if (!!!newAboutUs) {
-      errors.newAboutUs =
-        "Please enter your Organization / Company Description";
+      errors.newAboutUs = "Please enter your Club Description";
       isValid = false;
     } else if (newAboutUs.length < 3) {
-      errors.newAboutUs =
-        "Company Description must be at least 3 characters long";
+      errors.newAboutUs = "Club Description must be at least 3 characters long";
       isValid = false;
     } else if (newAboutUs.length > 1000) {
       errors.newAboutUs =
-        "Company Description must be at most 1000 characters long";
+        "Club Description must be at most 1000 characters long";
       isValid = false;
     }
 
@@ -290,7 +286,7 @@ export default function CompanyEditProfile() {
   const renderOption1 = (
     <>
       <section className="box">
-        <p className="heading">COMPANY PROFILE PICTURE</p>
+        <p className="heading">CLUB PROFILE PICTURE</p>
         <p className="md-alert-text">
           *Note Image size must be not more than 100kb
         </p>
@@ -619,7 +615,7 @@ export default function CompanyEditProfile() {
             ))}
           </div>
           <button
-            onClick={() => navigate(`/profile/organization/${organizationId}`)}
+            onClick={() => navigate(`/profile/organization/${clubId}`)}
             className="back-btn"
           >
             <IoIosArrowBack /> <span>Back to Profile</span>

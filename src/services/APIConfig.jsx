@@ -1,6 +1,6 @@
 import axios from "axios";
 import { API_URL } from "./APIUtils";
-import {API_URLT} from "./APIUtils";
+import { API_URLT } from "./APIUtils";
 import decryptData from "../features/DeCrypt";
 import getCookie, { getAccessToken } from "../features/getCookieValues";
 import { set } from "react-hook-form";
@@ -16,6 +16,102 @@ export const patchProfilePicture = (userId, file, setResponse) => {
   };
   axios
     .patch(`${API_URL}api/v1/role/profilePictureUpdate/${userId}`, file, config)
+    .then((res) => {
+      console.log(res);
+      setResponse(res);
+      return res;
+    })
+    .catch((err) => {
+      if (axios.isCancel(err)) {
+        console.log("req cancel");
+        setResponse(err);
+        return err;
+      } else {
+        console.log("req performed");
+        console.log(err);
+        setResponse(err);
+        return err;
+      }
+    });
+};
+
+export const deleteProfilePicture = (setResponse) => {
+  const controller = new AbortController();
+  const config = {
+    headers: {
+      accessToken: getAccessToken(),
+    },
+  };
+  const data = {
+    image:
+      "https://frontendehubbucket.s3.ap-south-1.amazonaws.com/frontend/profile/dashboard/default_profile_icon.png",
+  };
+  axios
+    .patch(`${API_URL}api/v1/role/profilePictureDeleted`, data, config)
+    .then((res) => {
+      console.log(res);
+      setResponse(res);
+      return res;
+    })
+    .catch((err) => {
+      if (axios.isCancel(err)) {
+        console.log("req cancel");
+        setResponse(err);
+        return err;
+      } else {
+        console.log("req performed");
+        console.log(err);
+        setResponse(err);
+        return err;
+      }
+    });
+};
+
+export const patchCoverImage = (file, setResponse) => {
+  const config = {
+    headers: {
+      accessToken: getAccessToken(),
+    },
+  };
+  axios
+    .patch(
+      `${API_URL}api/v1/clubOrganisation/backgroundPosterUpdate`,
+      file,
+      config
+    )
+    .then((res) => {
+      console.log(res);
+      setResponse(res);
+      return res;
+    })
+    .catch((err) => {
+      if (axios.isCancel(err)) {
+        console.log("req cancel");
+        setResponse(err);
+        return err;
+      } else {
+        console.log("req performed");
+        console.log(err);
+        setResponse(err);
+        return err;
+      }
+    });
+};
+
+export const patchCoverImageUsingLink = (link, setResponse) => {
+  const config = {
+    headers: {
+      accessToken: getAccessToken(),
+    },
+  };
+  axios
+    .patch(
+      `${API_URL}api/v1/clubOrganisation/backgroundPosterUpdateUsingLink`,
+      {
+        imagePoster: link,
+      },
+      config
+    )
     .then((res) => {
       console.log(res);
       setResponse(res);
@@ -203,6 +299,40 @@ export const patchOrganizationData = (organizationId, data, setResponse) => {
     });
 };
 
+export const followOrganization = (organizationId, setResponse) => {
+  const controller = new AbortController();
+  const config = {
+    headers: {
+      accessToken: getAccessToken(),
+    },
+  };
+  axios
+    .patch(
+      `${API_URL}api/v1/follow/Organization/${organizationId}`,
+      {
+        signal: controller.signal,
+      },
+      config
+    )
+    .then((res) => {
+      console.log(res);
+      setResponse(res);
+      return res;
+    })
+    .catch((err) => {
+      if (axios.isCancel(err)) {
+        console.log("req cancel");
+        setResponse(err);
+        return err;
+      } else {
+        console.log("req performed");
+        setResponse(err);
+        console.log(err);
+        return err;
+      }
+    });
+};
+
 export const getClubProfileById = (setClubProfile, clubId) => {
   const controller = new AbortController();
   axios
@@ -320,6 +450,66 @@ export const getHiringDataById = (setHiring, hiringId) => {
     })
     .catch((err) => {
       setHiring(err.response.data);
+      if (axios.isCancel(err)) {
+        console.log("req cancel");
+      } else {
+        console.log("req performed");
+      }
+    });
+};
+
+export const getAllJobs2 = (setJobs) => {
+  const controller = new AbortController();
+  axios
+    .get(`${API_URL}api/v1/getHiringByOpportunityType/Job`, {
+      // .post(`${API_URL}api/v1/getHiringByOpportunityType/Job`, {
+      signal: controller.signal,
+    })
+    .then((res) => {
+      const data = res.data.data;
+      setJobs(data);
+    })
+    .catch((err) => {
+      if (axios.isCancel(err)) {
+        console.log("req cancel");
+      } else {
+        console.log("req performed");
+      }
+    });
+};
+
+export const getAllInternships = (setInterns) => {
+  const controller = new AbortController();
+  axios
+    .get(`${API_URL}api/v1/getHiringByOpportunityType/Internship`, {
+      // .post(`${API_URL}api/v1/getHiringByOpportunityType/Job`, {
+      signal: controller.signal,
+    })
+    .then((res) => {
+      const data = res.data.data;
+      setInterns(data);
+    })
+    .catch((err) => {
+      if (axios.isCancel(err)) {
+        console.log("req cancel");
+      } else {
+        console.log("req performed");
+      }
+    });
+};
+
+export const getAllEvents2 = (setEvents) => {
+  const controller = new AbortController();
+  axios
+    .get(`${API_URL}api/v1/getHiringByOpportunityType/Event`, {
+      // .post(`${API_URL}api/v1/getHiringByOpportunityType/Job`, {
+      signal: controller.signal,
+    })
+    .then((res) => {
+      const data = res.data.data;
+      setEvents(data);
+    })
+    .catch((err) => {
       if (axios.isCancel(err)) {
         console.log("req cancel");
       } else {
