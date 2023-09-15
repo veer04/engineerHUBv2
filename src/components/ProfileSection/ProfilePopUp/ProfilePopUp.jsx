@@ -80,25 +80,25 @@ export default function ProfilePopUp() {
       icon: <AiOutlineCalendar />,
       link: "/projects",
     },
-    // {
-    //   label:"Blogs",
-    //   icon: "",
-    //   link:"",
+    {
+      label:"Blogs",
+      icon: "",
+      link:"",
 
-    //   },
+      },
 
-    // {
-    //   label:"Events",
-    //   icon: "",
-    //   link:"",
+    {
+      label:"Events",
+      icon: "",
+      link:"",
 
-    //   },
-    //  {
-    //     label:"Webinars",
-    //     icon: "",
-    //     link:"",
+      },
+     {
+        label:"Webinars",
+        icon: "",
+        link:"",
 
-    //     }
+        }
   ];
   const companyMenuItems = [
     {

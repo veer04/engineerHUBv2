@@ -36,8 +36,15 @@ const Success = () => {
           if (response.data.success === true ) {
             const decoded = jwt_decode(response.data.accessToken);
             const _id = decoded._id;
+            const firstName=decoded.firstName;
+            const lastName=decoded.lastName;
+            const chatDomain=decoded.chatDomain;
+            const name=firstName.concat(" ",lastName);
             Cookies.set("access_token", response.data.accessToken);
-            Cookies.set("name", decoded.name);
+            Cookies.set("name",name);
+            Cookies.set("firstName",firstName);
+            Cookies.set("lastName",lastName);
+            Cookies.set("chatDomain",chatDomain);
             Cookies.set("userName", decoded.userName);
             Cookies.set("email", decoded.email);
             Cookies.set("_id", _id);

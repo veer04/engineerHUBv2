@@ -133,26 +133,28 @@ function App() {
             path="student"
             element={<StudentProfileDashboard></StudentProfileDashboard>}
           ></Route>
+          
           <Route path="/success" element={<Success></Success>}></Route>
           <Route path="/register" element={<RegistrationForm />} />
           <Route path="/selectRole" element={<Role />} />
-          <Route path="/studentEdit" element={<EditStudentProfileDashoboard ></EditStudentProfileDashoboard>}></Route>
+          {/* <Route path="/studentEdit" element={<EditStudentProfileDashoboard ></EditStudentProfileDashoboard>}></Route> */}
           <Route path="/loginDummy" element={<LoginDummy></LoginDummy>}>
             {" "}
           </Route>
           <Route path="/ehubchats" element={<Chatpage />} />
 
           <Route path="/profile">
+          <Route path="User/:userId/studentEdit" element={<EditStudentProfileDashoboard ></EditStudentProfileDashoboard>}></Route>
             <Route
               path="User/:userId"
-              element={<StudentProfilePage path="profile" />}
+              element={<StudentProfileDashboard path="profile" />}
             >
               <Route index element={<GeneralStudentData />} />
-              <Route path="general" element={<GeneralStudentData />} />
-              <Route path="edit" element={<EditStudentData />} />
-              <Route path="address" element={<AddressStudentData />} />
+              {/* <Route path="general" element={<GeneralStudentData />} /> */}
+              <Route path="studentEdit" element={<EditStudentProfileDashoboard ></EditStudentProfileDashoboard>}></Route>
+              {/* <Route path="address" element={<AddressStudentData />} />
               <Route path="social-media" element={<SocialMediaStudentData />} />
-              <Route path="tech-stack" element={<TechStackStudentData />} />
+              <Route path="tech-stack" element={<TechStackStudentData />} /> */}
             </Route>
             <Route
               path="alumni/:alumniId"

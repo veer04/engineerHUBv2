@@ -4,7 +4,7 @@ import "../../../../../src/components/ProfileSection/ProfilePopUp/ProfilePopUp.c
 import { Bucket_URL } from '../../../../services/APIUtils';
 import { Instagram } from '@mui/icons-material';
 import defaul_profile_icon from "../../../../pages/Profile/CompanyDashboard/default_profile_icon.png";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import defaultPoster from '../../../../assets/defaultPoster';
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
@@ -24,12 +24,27 @@ import {
     getUserRole,
     getUserEmail,
   } from "../../../../features/User/UserDetails";
+import { getUserProfileById,controller } from '../../../../services/APIConfig';
 const StudentProfileDashboard = () => {
     const [progress, setProgress] = useState(0);
     const [profileProgress, setProfileProgress] = useState(100);
     const userFullName = getUserFullName();
     const userName =getUserName();
+    const userId=useParams();
     const userEmail = getUserEmail();
+    const [userDetailsById,setUserDetailsById]=useState(null);
+    useEffect(()=>
+    {
+      getUserProfileById(setUserDetailsById,userId);
+      return () => {
+        controller.abort();
+      };
+    })
+    useEffect(()=>
+    {
+      console.log(userDetailsById);
+    },[userDetailsById])
+
     useEffect(() => {
         const timer = setInterval(() => {
           setProgress((prevProgress) =>

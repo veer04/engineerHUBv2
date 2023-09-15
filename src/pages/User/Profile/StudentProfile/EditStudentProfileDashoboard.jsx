@@ -3,26 +3,75 @@ import "../../../../pages/Profile/Dashboard.css";
 import "../../../../pages/Profile/EditProfile.css";
 import "../../../../pages/Profile/CompanyDashboard/CompanyEditProfile.css";
 import { IoIosArrowBack } from "react-icons/io";
+import { getAccessToken } from "../../../../features/getCookieValues";
 import axios from "axios";
 import { CgLogOut } from "react-icons/cg";
 import {AiOutlinePlus} from "react-icons/ai";
 import { useNavigate, useParams } from "react-router-dom";
 import { API_URLT } from "../../../../services/APIUtils";
+import { deleteProfilePicture,
+   patchProfilePicture,
+   getAllCountries,
+   getCitiesByState, 
+  getUserProfileById,
+  getStatesByCountry,
+  controller,
+  getAllCampuses,
+  getAllEngBranches,
+} from "../../../../services/APIConfig";
+import countryCodes from "../../../../assets/countryCodes";
+import { useRef } from "react";
+import { handleLogout } from "../../../../features/logout";
 const EditStudentProfileDashoboard = () => {
     const navigate = useNavigate();
-    const { organizationId } = useParams();
+    const { userId } = useParams();
+    const fileInput = useRef(null);
+    const [isImageLoading, setIsImageLoading] = useState(false);
+    const [newImage, setNewImage] = useState(null);
+    const [user,setUser]=useState(null);
     const options = ["Basic Information","Education Details","Skills","Work Experience","Projects","Social Links"];
     const [chosenOption, setChosenOption] = useState(options[0]);
     const [currentlyWorking, setCurrentlyWorking] = useState(false);
+    const [campuses, setCampuses] = useState([]);
+    
     const [workExperienceExists,setWorkExperienceExists]=useState(true);
     const [projectExists,setProjectExists]=useState(true);
     const [firstName,setFirstName]=useState("");
     const [lastName,setLastName]=useState("");
     const [mobile,setMobile]=useState("");
     const [gender,setGender]=useState("");
+    
     const [dateOfBirth,setDateOfBirth]=useState("");
     const [aboutMe,setAboutMe]=useState("");
-    const [validation,setValidation]=useState(false);
+    const [branches, setBranches] = useState([]);
+    const [countries, setCountries] = useState([]);
+    const [states, setStates] = useState([]);
+    const [countryParam, setCountryParam] = useState("");
+    const [stateParam, setStateParam] = useState("");
+    const [cities, setCities] = useState([]);
+    const [newCountry, setNewCountry] = useState("");
+    const [newState, setNewState] = useState("");
+    const [newCity, setNewCity] = useState("");
+    const [response, setResponse] = useState(null);
+    const [deleteResponse, setDeleteResponse] = useState(null);
+    const [validation,setValidation]=useState(true);
+    const [errors, setErrors] = useState({
+      firstName:"",
+      lastName:"",
+      gender:"",
+      aboutMe:"",
+      dateOfBirth:"",
+      mobile:"",
+    });
+    const [error2,setError2]=useState({
+      degree:"",
+      startYear:"",
+      endYear:"",
+      marks:"",
+      specialization:"",
+      collegeId:"",
+      country:"",
+    })
     const handleCheckboxChange = (event) => {
       const { checked } = event.target;
       setCurrentlyWorking(checked);
@@ -30,16 +79,153 @@ const EditStudentProfileDashoboard = () => {
     useEffect(() => {
       // window.scrollTo(0, 0);
     }, []);
+    useEffect(() => {
+      // window.scrollTo(0, 0);
+  getUserProfileById(setUser, userId);
+      getAllCountries(setCountries);
+      return () => {
+        controller.abort();
+      };
+    }, []);
+    useEffect(() => {
+      window.scrollTo(0, 0);
+      getAllEngBranches(setBranches);
+      getAllCampuses(setCampuses);
+  
+      return () => {
+        controller.abort();
+      };
+    }, []);
+    useEffect(()=>
+    {
+      console.log(user);
+    },[user])
+    useEffect(() => {
+      if (!!response) {
+        getUserProfileById(setUser, userId);
+      }
+      setIsImageLoading(false);
+      return () => {
+        controller.abort();
+      };
+    }, [response]);
+    useEffect(() => {
+      if (!!deleteResponse) {
+        getUserProfileById(setUser, userId);
+      }
+    }, [deleteResponse]);
+    useEffect(() => {
+      if (!!newImage) {
+        if (newImage.type.includes("image")) {
+          setIsImageLoading(true);
+          console.log(newImage);
+          const file = new FormData();
+          file.append("profileImage", newImage);
+          patchProfilePicture(userId, file, setResponse);
+        } else {
+          alert("Please choose an image file only");
+        }
+      }
+    }, [newImage]);
+    
+    useEffect(() => {
+      if (countryParam) {
+        getStatesByCountry(setStates, countryParam);
+      } else if (newCountry) {
+        getStatesByCountry(
+          setStates,
+          countries?.find((country) => country.country === newCountry)
+            ?.countryCode
+        );
+      }   return () => {
+        controller.abort();
+      };
+    }, [countryParam, newCountry]);
+
+    function validateData1() {
+      let errors = {
+      firstName:"",
+      lastName:"",
+      gender:"",
+      dateOfBirth:"",
+      mobile:"",
+      aboutMe:"",
+      };
+      let isValid = true;
+  
+      if (!!!firstName) {
+        errors.firstName = "Please enter your first Name";
+        isValid = false;
+      } else if (firstName.length < 3) {
+        errors.firstName = "First Name must be at least 3 characters long";
+        isValid = false;
+      } else if (firstName.length > 27) {
+        errors.firstName = "First Name must be at most 27 characters long";
+        isValid = false;
+      }
+      if (!!!lastName) {
+        errors.lastName = "Please enter your first Name";
+        isValid = false;
+      } else if (lastName.length < 3) {
+        errors.lastName = "Last Name must be at least 3 characters long";
+        isValid = false;
+      } else if (lastName.length > 27) {
+        errors.lastName = "Last Name must be at most 27 characters long";
+        isValid = false;
+      }
+  
+      if (!!!gender) {
+        errors.gender = "Please enter your gender";
+        isValid = false;
+      } 
+      if (!!!mobile) {
+        errors.mobile = "Please enter your mobile Number";
+        isValid = false;
+      } 
+      else if(mobile.length<10)
+      {
+        errors.mobile="mobile number must be of 10 digits";
+      }
+      if(!!!dateOfBirth)
+      {
+        errors.dateOfBirth="date of birth is required";
+        isValid=false;
+      }
+  
+      if (!!!aboutMe) {
+        errors.aboutMe =
+          "Please enter your Organization / Company Description";
+        isValid = false;
+      } else if (aboutMe.length < 3) {
+        errors.aboutMe =
+          "Company Description must be at least 3 characters long";
+        isValid = false;
+      } else if (aboutMe.length > 1000) {
+        errors.aboutMe =
+          "Company Description must be at most 1000 characters long";
+        isValid = false;
+      }
+  
+      setErrors((prev) => ({ ...prev, ...errors }));
+      return isValid;
+    }
 
 
-    async function updateBasic(){
+    function handleDelete() {
+      deleteProfilePicture(setDeleteResponse);
+    }
+    async function updateBasic(e){
+      e.preventDefault();
     const form = new FormData();
     form.append("firstName", firstName);
     form.append("lastName",lastName);
     form.append("dateOfBirth",dateOfBirth);
     form.append("aboutMe",aboutMe);
     form.append("mobile",mobile);
-    if(validation ===true)
+    form.append("gender",gender);
+    const formEdu =new FormData();
+    formEdu.append("collegeId",campuses);
+    if(validateData1()===true)
     {
       try
       {
@@ -61,8 +247,8 @@ const EditStudentProfileDashoboard = () => {
         }
 
       }
-      catch{
-        alert(error.response.data.message);
+      catch(error){
+        alert(error.response);
         setValidation(false);
         console.log(error);
       }
@@ -79,14 +265,32 @@ const EditStudentProfileDashoboard = () => {
             <div>
               <div className="logo">
                 <img
-                  src="https://via.placeholder.com/150"
+                  src={user?.image}
                   loading="lazy"
                   alt="logo"
                 />
               </div>
               <div className="buttons">
-                <button>Upload New</button>
-                <button>Delete</button>
+              <input
+              ref={fileInput}
+              type="file"
+              style={{
+                display: "none",
+              }}
+              onChange={(e) => {
+                setNewImage(e.target.files[0]);
+              }}
+            />
+                <button
+                  onClick={() => fileInput.current.click()}
+                  disabled={isImageLoading}
+                >Upload New</button>
+                <button
+                 onClick={() => {
+                   handleDelete();
+                 }}
+                 disabled={isImageLoading}
+                >Delete</button>
                 <p className="alert-text">
                   *Note Image size must be not more than 100kb
                 </p>
@@ -106,11 +310,12 @@ const EditStudentProfileDashoboard = () => {
             <input
               type="text"
               className="input-field"
-              placeholder="Enter your String"
+              placeholder={user?.firstName}
               name="first Name"
               value={firstName}
               onChange={(e)=>setFirstName(e.target.value)}
             />
+             <label className="error-message">{errors.firstName}</label>
                 </div>
                 <div className="col-lg-4">
 
@@ -120,10 +325,11 @@ const EditStudentProfileDashoboard = () => {
             <input
               type="text"
               className="input-field"
-              placeholder="Enter your String"
+              placeholder={user?.lastName}
               value={lastName}
               onChange={(e)=>setLastName(e.target.value)}
             />
+                  <label className="error-message">{errors.lastName}</label>
                 </div>
             </div>
             <div className="row">
@@ -133,6 +339,7 @@ const EditStudentProfileDashoboard = () => {
             </label>
             <input
               type="email"
+              value={user?.email}
               className="input-field"
               placeholder="Enter your String"
               
@@ -146,11 +353,11 @@ const EditStudentProfileDashoboard = () => {
             <input
               type="number"
               className="input-field"
-              placeholder="Enter your String"
+              placeholder=""
               maxLength={10}
               value={mobile}
               onChange={(e)=>setMobile(e.target.value)}
-            />
+            /><label className="error-message">{errors.mobile}</label>
                 </div>
             </div>
             <div className="row">
@@ -167,6 +374,7 @@ const EditStudentProfileDashoboard = () => {
               <option value="sigma">Sigma</option>
               <option value="alpha">Giga Chad</option>
             </select>
+            <label className="error-message">{errors.gender}</label>
                 </div>
                 <div className="col-lg-4">
 
@@ -181,6 +389,7 @@ const EditStudentProfileDashoboard = () => {
               value={dateOfBirth}
               onChange={(e)=>setDateOfBirth(e.target.value)}
             />
+            <label className="error-message">{errors.dateOfBirth}</label>
                 </div>
             </div>
           </section>
@@ -198,6 +407,7 @@ const EditStudentProfileDashoboard = () => {
               onChange={(e)=>setAboutMe(e.target.value)}
               placeholder="Describe about your Organization / Company"
             />
+            <label className="error-message">{errors.aboutMe}</label>
             <button className="update-btn"
             onClick={updateBasic}>Update Details</button>
           </section>
@@ -218,18 +428,18 @@ const EditStudentProfileDashoboard = () => {
             </label>
             <select className="input-field">
                 <option value="default">Select Degree</option>
-              <option value="male">Male</option>
-              <option value="female">Female</option>
-              <option value="sigma">Sigma</option>
-              <option value="alpha">Giga Chad</option>
+              <option value="B.tech">Btech</option>
+              <option value="M.tech">Mtech</option>
+        
             </select>
                 </div>
         
             </div>
+            <br />
             <div className="row">
                 <div className="col-lg-3">
                 <label className="label">
-              Date of Birth<span className="required">*</span>
+              Date of Start<span className="required">*</span>
             </label>
             <input
               type="date"
@@ -240,7 +450,7 @@ const EditStudentProfileDashoboard = () => {
                 <div className="col-lg-3">
 
                 <label className="label">
-              Date of Birth<span className="required">*</span>
+              Date of End<span className="required">*</span>
             </label>
             <input
               type="date"
@@ -259,51 +469,94 @@ const EditStudentProfileDashoboard = () => {
             />
                 </div>
             </div>
+
             <div className="row">
-           
-                <label className="label">
-            Specialization<span className="required">*</span>
+            <div className=" ">
+            <label className="label">
+            Specialization<span className="required"
+            style={{
+              gap:"0",
+            }}>*</span>
             </label>
-            <select className="input-field">
-              <option value="male">Data Science</option>
-              <option value="female">AIML</option>
-              <option value="sigma">CSE</option>
-              <option value="alpha">CS</option>
+            <select className="input-field"
+                style={{
+                  gap:"0",
+                }}
+            // value={gender}
+            // onChange={(e)=>setGender(e.target.value)}
+            >
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+              <option value="sigma">Sigma</option>
+              <option value="alpha">Giga Chad</option>
             </select>
+            </div>
             </div>
             <div className="row">   
            <label className="label">
        Institute/College Name<span className="required">*</span>
        </label>
-       <select className="input-field">
-         <option value="male">Data Science</option>
-         <option value="female">AIML</option>
-         <option value="sigma">CSE</option>
-         <option value="alpha">CS</option>
-       </select>
+       <select
+          labelId="campus-name"
+          id="student-signup-campus-select"
+          required
+          value={campuses}
+          label="Institution Name"
+          name="institutionName"
+          onChange={(e)=>e.target.value}
+      
+        >
+          {campuses.map((campus) => (
+            <option key={campus._id} value={campus._id}>
+              {campus.collegeName}
+            </option>
+          ))}
+        </select>
        </div>
        <div className="row">   
        <div className="col-lg-4">
        <label className="label">
+
        Country<span className="required">*</span>
        </label>
-       <select className="input-field">
-         <option value="male">India</option>
-         <option value="female">Austrilia</option>
-         <option value="sigma">England</option>
-         <option value="alpha">China</option>
-       </select>
+       <select
+          value={newCountry}
+          onChange={(e) => {
+            setNewCountry(e.target.value);
+            setCountryParam(
+              countries.find((country) => country.country === e.target.value)
+                .countryCode
+            );
+          }}
+          className="input-field"
+        >
+          {countries.map((country) => (
+            <option key={country.countryCode} value={country.country}>
+              {country.country}
+            </option>
+          ))}
+        </select>
        </div>
        <div className="col-lg-4">
        <label className="label">
        State<span className="required">*</span>
        </label>
-       <select className="input-field">
-         <option value="male">UP</option>
-         <option value="female">UK</option>
-         <option value="sigma">Delhi</option>
-         <option value="alpha">Karnataka</option>
-       </select>
+       <select
+          value={newState}
+          onChange={(e) => {
+            setNewState(e.target.value);
+            setStateParam(
+              states.find((state) => state.state === e.target.value).stateCode
+            );
+          }}
+          className="input-field"
+        >
+          {states.map((state) => (
+            <option key={state.stateCode} value={state.state}>
+              {state.state}
+            </option>
+          ))}
+        </select>
        </div>
 
        </div>
