@@ -8,6 +8,10 @@ import axios from "axios";
 import { CgLogOut } from "react-icons/cg";
 import {AiOutlinePlus} from "react-icons/ai";
 import { useNavigate, useParams } from "react-router-dom";
+import {
+  TextField,
+  Autocomplete,
+} from "@mui/material";
 import { API_URLT } from "../../../../services/APIUtils";
 import { deleteProfilePicture,
    patchProfilePicture,
@@ -26,6 +30,7 @@ const EditStudentProfileDashoboard = () => {
     const navigate = useNavigate();
     const { userId } = useParams();
     const fileInput = useRef(null);
+    const [skillsRequired,setSkillsRequired]=useState([]);
     const [isImageLoading, setIsImageLoading] = useState(false);
     const [newImage, setNewImage] = useState(null);
     const [user,setUser]=useState(null);
@@ -142,6 +147,10 @@ const EditStudentProfileDashoboard = () => {
       };
     }, [countryParam, newCountry]);
 
+    const handleSkillsChange = (_, value) => {
+      setSkillsRequired(value);
+    };
+  
     function validateData1() {
       let errors = {
       firstName:"",
@@ -564,7 +573,76 @@ const EditStudentProfileDashoboard = () => {
         </>
       )
       const renderSkills=(<>
-      Skills
+         <section className="box">
+            <p className="heading">Skills</p>
+            <div className="">
+        <Autocomplete
+          multiple
+          options={[
+            "HTML",
+            "CSS",
+            "JavaScript",
+            "React",
+            "Node.js",
+            "Python",
+            "Java",
+            "C++",
+            " SQL",
+            "No-SQL",
+            "MongoDB",
+            "MERN",
+            "PHP",
+            "Web Development",
+            "Database Management",
+            "Ruby",
+            "Rust",
+            "Golang",
+            "Firebase",
+            "Heroku",
+            "azure",
+            "aws",
+            "DevOps",
+            "Data Analysis",
+            "Numpy",
+            "Pandas",
+            "Tensorflow",
+            "Keras",
+            "OpenCV",
+            "OpenGL",
+            "excel",
+            "pandas",
+            "tableu",
+            "powerBI",
+            "Cloud Computing",
+            "Google Cloud",
+            "Communication Skills",
+            "Problem-Solving",
+            "Teamwork and Collaboration",
+            "Adaptability",
+            "Leadership",
+            "Time Management",
+            "Creativity",
+            "Analytical Thinking",
+            "Emotional Intelligence",
+            "Continuous Learning",
+          ]}
+          freeSolo
+          value={skillsRequired}
+          onChange={handleSkillsChange}
+          renderInput={(params) => (
+            <TextField margin="normal"  className="input-field"{...params} label="Required Skills*" />
+          )}
+        />
+        {errors.skillsRequired && (
+          <p
+            className="MuiFormHelperText-root Mui-error MuiFormHelperText-sizeMedium MuiFormHelperText-contained css-1wc848c-MuiFormHelperText-root"
+            id=":rf:-helper-text"
+          >
+            
+          </p>
+        )}
+      </div>
+      </section>
       </>)
       const renderWork=(<>
 
