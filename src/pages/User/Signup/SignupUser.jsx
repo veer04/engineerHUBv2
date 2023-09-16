@@ -4,19 +4,19 @@ import { IconButton } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useSignIn } from "react-auth-kit";
 import GoogleButton from "react-google-button";
-import LoginLeft from "./LoginLeft.png";
-import CustomSnackbar from "./CustomSnackbar";
+import LoginLeft from "../Login/LoginLeft.png";
+import CustomSnackbar from "../Login/CustomSnackbar";
 // import { googleLogout, useGoogleLogin } from '@react-oauth/google';
 import Cookies from "js-cookie";
 import jwt_decode from "jwt-decode";
-import gg from "./svg/google.svg";
-import "./Login.css";
+// import gg from "./svg/google.svg";
+import "../Login/Login.css";
 import axios, { AxiosError } from "axios";
 import useNavbar from "../../../hooks/use-navbar";
 // import { set } from "react-hook-form";
 import { API_URL, API_URLT } from "../../../services/APIUtils";
 
-const Register = () => {
+const SignupUser = () => {
   if (Cookies.get("name")) {
     let path = "";
     if (Cookies.get("role") === "User") {
@@ -51,6 +51,7 @@ const Register = () => {
     email: "",
     password: "",
     role: "User",
+    name:"",
     // accessToken: accessToken,
     // refreshToken: refreshToken,
   });
@@ -449,7 +450,7 @@ const Register = () => {
                   padding: "0px 0px 30px 0px",
                 }}
               >
-                Sign In 
+                Sign Up
               
               </div>
             </div>
@@ -513,7 +514,7 @@ const Register = () => {
                   type="submit"
                   // onClick={navigation}
                 >
-                  {loading ? "Loading..." : "Sign in"}
+                  {loading ? "Loading..." : "Sign up"}
                 </button>
 
                 <div className="d-flex justify-content-center">
@@ -533,16 +534,17 @@ const Register = () => {
                 <div className="sign-opt ">
                   <div>
                     <GoogleButton onClick={handleLogin}>
-                      Sign in with Google
+                      Sign Up with Google
                     </GoogleButton>
                   </div>
                 </div>
               </div>
 
               <div className="my-item-cont">
-                <div>Don't have an account?</div>
-                <Link to="/selectRole" className="f-p ">
-                  Sign Up
+                <div>ALready have an account?</div>
+                <Link to="/login
+              " className="f-p ">
+                  Sign In
                 </Link>
                 {snackbarValues.severity !== "success" && (
                   <CustomSnackbar
@@ -561,4 +563,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default SignupUser;

@@ -87,18 +87,18 @@ export default function ProfilePopUp() {
 
       },
 
-    {
-      label:"Events",
-      icon: "",
-      link:"",
+    // {
+    //   label:"Events",
+    //   icon: "",
+    //   link:"",
 
-      },
-     {
-        label:"Webinars",
-        icon: "",
-        link:"",
+    //   },
+    //  {
+    //     label:"Webinars",
+    //     icon: "",
+    //     link:"",
 
-        }
+    //     }
   ];
   const companyMenuItems = [
     {
@@ -326,7 +326,7 @@ export default function ProfilePopUp() {
       <div className="divider"></div>
       {/* Main Content */}
       <div className="items-list">
-        {role === "user" && renderStudentMenuItems}
+        {role === "User" && renderStudentMenuItems}
         {role === "Alumni" && renderAlumniMenuItems}
         {role === "Club" && renderClubMenuItems}
         {role === "Organization" && renderCompanyMenuItems}

@@ -27,11 +27,11 @@ export default function Role() {
   const bucket = `${Bucket_URL}frontend/auth/roleselection/`;
   const studentNavigation = () => {
     handleCardClick("User");
-    navigate("/student-signup");
+    navigate("/User-signup");
   };
   const mentorNavigation = () => {
     handleCardClick("Alumni");
-    navigate("/mentorSignup");
+    navigate("/User-signup");
   };
   const clubNavigation = () => {
     handleCardClick("Club");
