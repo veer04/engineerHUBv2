@@ -25,7 +25,7 @@ import Footer from "./components/Footer/Footer";
 import Events from "./pages/Company/Events/events";
 import Jobs from "./pages/Company/Jobs/jobs";
 import JobDetails from "./pages/Company/Jobs/JobDetails";
-// import Success from "./pages/HomePage/Success";
+import Success from "./pages/HomePage/Success";
 import Internship from "./pages/Company/Internship/Internship";
 import InternshipDetails from "./pages/Company/Internship/InternshipDetails";
 import HackathonDetails from "./pages/Company/Events/EventsChoices/HackathonDetails";
@@ -67,6 +67,7 @@ import GeneralClubData from "./pages/User/Profile/ClubProfile/GeneralClubData";
 import EditClubData from "./pages/User/Profile/ClubProfile/EditClubData";
 import JobRegistration from "./pages/Hosting/JobRegistration";
 import Page404 from "./pages/Maintenance/Page404";
+import EditStudentProfileDashoboard from "./pages/User/Profile/StudentProfile/EditStudentProfileDashoboard";
 import jwt_decode from "jwt-decode";
 const CommunityPage = lazy(() => import("./pages/Community/CommunityPage"));
 const CampusPage = lazy(() => import("./pages/Campus/CampusPage"));
@@ -134,25 +135,28 @@ function App() {
             path="student"
             element={<StudentProfileDashboard></StudentProfileDashboard>}
           ></Route>
-          {/* <Route path="/success" element={<Success></Success>}></Route> */}
+          
+          <Route path="/success" element={<Success></Success>}></Route>
           <Route path="/register" element={<RegistrationForm />} />
           <Route path="/selectRole" element={<Role />} />
+          {/* <Route path="/studentEdit" element={<EditStudentProfileDashoboard ></EditStudentProfileDashoboard>}></Route> */}
           <Route path="/loginDummy" element={<LoginDummy></LoginDummy>}>
             {" "}
           </Route>
           <Route path="/ehubchats" element={<Chatpage />} />
 
           <Route path="/profile">
+          <Route path="User/:userId/studentEdit" element={<EditStudentProfileDashoboard ></EditStudentProfileDashoboard>}></Route>
             <Route
               path="User/:userId"
-              element={<StudentProfilePage path="profile" />}
+              element={<StudentProfileDashboard path="profile" />}
             >
               <Route index element={<GeneralStudentData />} />
-              <Route path="general" element={<GeneralStudentData />} />
-              <Route path="edit" element={<EditStudentData />} />
-              <Route path="address" element={<AddressStudentData />} />
+              {/* <Route path="general" element={<GeneralStudentData />} /> */}
+              <Route path="studentEdit" element={<EditStudentProfileDashoboard ></EditStudentProfileDashoboard>}></Route>
+              {/* <Route path="address" element={<AddressStudentData />} />
               <Route path="social-media" element={<SocialMediaStudentData />} />
-              <Route path="tech-stack" element={<TechStackStudentData />} />
+              <Route path="tech-stack" element={<TechStackStudentData />} /> */}
             </Route>
             <Route
               path="alumni/:alumniId"

@@ -976,7 +976,7 @@ export const getProjectDataById = (setProject, projectId) => {
 export const getUserProfileById = (setUserProfile, userId) => {
   const controller = new AbortController();
   axios
-    .get(`${API_URL}api/v1/getUserWithId/${userId}`, {
+    .get(`${API_URLT}api/v1/getUserWithId/${userId}`, {
       signal: controller.signal,
     })
     .then((res) => {
@@ -1058,6 +1058,24 @@ export const getAllBranches = (setAllBranches) => {
     .then((res) => {
       const data = res.data.data;
       setAllBranches(data);
+    })
+    .catch((err) => {
+      if (axios.isCancel(err)) {
+        console.log("req cancel");
+      } else {
+        console.log("req performed");
+      }
+    });
+};
+export const getAllEngBranches = (setAllEngBranches) => {
+  const controller = new AbortController();
+  axios
+    .get(`${API_URL}api/v1/branch`, {
+      signal: controller.signal,
+    })
+    .then((res) => {
+      const data = res.data.data;
+      setAllEngBranches(data);
     })
     .catch((err) => {
       if (axios.isCancel(err)) {

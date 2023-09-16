@@ -32,7 +32,7 @@ export default function CompanyEditProfile() {
   const [chosenOption, setChosenOption] = useState(options[2]);
   const fileInput = useRef(null);
   const [isImageLoading, setIsImageLoading] = useState(false);
-  const [newImage, setNewImage] = useState(null);
+  const [newImage, setNewImage] = useState(null);z
   const [newName, setNewName] = useState("");
   const [newSubHeading, setNewSubHeading] = useState("");
   const [newOrganizationType, setNewOrganizationType] = useState("");
@@ -359,6 +359,7 @@ export default function CompanyEditProfile() {
     let isValid = true;
     if (index === 1) {
       isValid = validateData1();
+      
     } else if (index === 2) {
       isValid = validateData2();
     } else if (index === 3) {
