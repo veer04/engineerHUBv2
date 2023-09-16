@@ -85,6 +85,8 @@ import CompanyEditProfile from "./pages/Profile/CompanyDashboard/CompanyEditProf
 import CoverImageModal from "./components/Dashboard/CoverImageModal";
 import ClubDashboard from "./pages/Profile/ClubDashboard/ClubDashboard";
 import ClubEditProfile from "./pages/Profile/ClubDashboard/ClubEditProfile";
+import AddPostModal from "./components/Dashboard/AddPostModal";
+import AddMemberModal from "./components/Dashboard/AddMemberModal";
 
 function App() {
   const [isEventModalOpen, setIsEventModalOpen] = useState(false);
@@ -166,6 +168,8 @@ function App() {
               element={<ClubDashboard path="profile" />}
             >
               <Route path="edit-cover-image" element={<CoverImageModal />} />
+              <Route path="add-post" element={<AddPostModal />} />
+              <Route path="add-member" element={<AddMemberModal />} />
               <Route path="posts/:postId" element={<PostModal />} />
             </Route>
             <Route

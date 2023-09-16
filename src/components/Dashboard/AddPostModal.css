@@ -1,0 +1,9 @@
+.post-modal-container {
+  max-width: 28rem;
+}
+.post-modal-container > .post-upload-img-container {
+  aspect-ratio: 1/1;
+}
+.post-modal-container > .post-upload-img-container > .uploaded-img {
+  aspect-ratio: 1/1;
+}

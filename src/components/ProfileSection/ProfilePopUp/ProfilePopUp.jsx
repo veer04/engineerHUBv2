@@ -359,7 +359,6 @@ export default function ProfilePopUp() {
           minHeight: "3.8125rem",
           display: "flex",
           alignItems: "center",
-          justifyContent: "flex-start",
           padding: "0 1.69rem",
           borderRadius: "0.3125rem",
           fontWeight: "500",

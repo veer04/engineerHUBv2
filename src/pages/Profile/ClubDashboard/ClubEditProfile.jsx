@@ -13,15 +13,21 @@ import {
   getClubProfileById,
   getStatesByCountry,
   patchProfilePicture,
+  updateClubDetails,
 } from "../../../services/APIConfig";
 import countryCodes from "../../../assets/countryCodes";
 import { useRef } from "react";
 import { handleLogout } from "../../../features/logout";
+import { getUserId, isUserLoggedIn } from "../../../features/User/UserDetails";
+import Page404 from "../../Maintenance/Page404";
 
 export default function ClubEditProfile() {
+  const { clubId } = useParams();
+  if (!isUserLoggedIn() || getUserId() !== clubId) {
+    return <Page404 />;
+  }
   const [organization, setOrganization] = useState(null);
   const navigate = useNavigate();
-  const { clubId } = useParams();
   const options = ["Basic Information", "Contact Information", "Location"];
   const [chosenOption, setChosenOption] = useState(options[0]);
   const fileInput = useRef(null);
@@ -29,11 +35,8 @@ export default function ClubEditProfile() {
   const [newImage, setNewImage] = useState(null);
   const [newName, setNewName] = useState("");
   const [newSubHeading, setNewSubHeading] = useState("");
-  const [newOrganizationType, setNewOrganizationType] = useState("");
-  const [newWebsite, setNewWebsite] = useState("");
+  const [newClubType, setNewClubType] = useState("");
   const [newAboutUs, setNewAboutUs] = useState("");
-  const [newHiringFor, setNewHiringFor] = useState("");
-  const [newContactName, setNewContactName] = useState("");
   const [newMobileCountryCode, setNewMobileCountryCode] = useState("91");
   const [newMobileNumber, setNewMobileNumber] = useState("");
   const [newWebsiteUrl, setNewWebsiteUrl] = useState("");
@@ -51,19 +54,17 @@ export default function ClubEditProfile() {
   const [errors, setErrors] = useState({
     newName: "",
     newSubHeading: "",
-    newOrganizationType: "",
-    newWebsite: "",
+    newClubType: "",
     newAboutUs: "",
-    newHiringFor: "",
     newCountry: "",
     newState: "",
     newCity: "",
-    newContactName: "",
     newMobileCountryCode: "",
     newMobileNumber: "",
     newWebsiteUrl: "",
     newLinkedin: "",
   });
+  const [updateResponse, setUpdateResponse] = useState(null);
 
   const hiringForList = [
     {
@@ -91,7 +92,7 @@ export default function ClubEditProfile() {
     return () => {
       controller.abort();
     };
-  }, []);
+  }, [clubId]);
 
   useEffect(() => {
     if (!!newImage) {
@@ -125,51 +126,41 @@ export default function ClubEditProfile() {
 
   useEffect(() => {
     if (countryParam) {
+      setStates([]);
+      setStateParam("");
+      setNewState("");
+      setCities([]);
+      setNewCity("");
       getStatesByCountry(setStates, countryParam);
-    } else if (newCountry) {
-      getStatesByCountry(
-        setStates,
-        countries?.find((country) => country.country === newCountry)
-          ?.countryCode
-      );
     }
-
     return () => {
       controller.abort();
     };
-  }, [countryParam, newCountry]);
+  }, [countryParam]);
 
   useEffect(() => {
     if (stateParam) {
+      setCities([]);
+      setNewCity("");
       getCitiesByState(setCities, countryParam, stateParam);
-    } else if (newState) {
-      getCitiesByState(
-        setCities,
-        countries?.find((country) => country.country === newCountry)
-          ?.countryCode,
-        states?.find((state) => state.state === newState)?.stateCode
-      );
     }
-
     return () => {
       controller.abort();
     };
-  }, [stateParam, newState]);
+  }, [stateParam]);
 
   useEffect(() => {
     if (organization) {
       setNewName(organization?.name);
       setNewSubHeading(organization?.subHeading);
-      setNewOrganizationType(organization?.organisationType);
+      setNewClubType(organization?.clubType);
       setNewAboutUs(organization?.aboutUs);
-      setNewHiringFor(organization?.hiringFor);
       setNewCountry(organization?.country);
       setNewState(organization?.state);
       setNewCity(organization?.city);
-      setNewContactName(organization?.contactName);
       setNewMobileCountryCode(organization?.mobileCountryCode);
       setNewMobileNumber(organization?.mobile);
-      setNewWebsite(
+      setNewWebsiteUrl(
         !!organization?.websiteUrl
           ? organization?.websiteUrl
           : organization?.webSiteURL
@@ -188,28 +179,23 @@ export default function ClubEditProfile() {
   }, [newSubHeading]);
 
   useEffect(() => {
-    console.log("newOrganizationType", newOrganizationType);
-  }, [newOrganizationType]);
+    console.log("newClubType", newClubType);
+  }, [newClubType]);
 
   useEffect(() => {
-    console.log("newWebsite", newWebsite);
-  }, [newWebsite]);
+    console.log("newWebsiteUrl", newWebsiteUrl);
+  }, [newWebsiteUrl]);
 
   useEffect(() => {
     console.log("newAboutUs", newAboutUs);
   }, [newAboutUs]);
 
-  useEffect(() => {
-    console.log("newHiringFor", newHiringFor);
-  }, [newHiringFor]);
-
   function validateData1() {
     let errors = {
       newName: "",
       newSubHeading: "",
-      newOrganizationType: "",
+      newClubType: "",
       newAboutUs: "",
-      newHiringFor: "",
     };
     let isValid = true;
 
@@ -237,24 +223,17 @@ export default function ClubEditProfile() {
       isValid = false;
     }
 
-    if (!!!newOrganizationType) {
-      errors.newOrganizationType = "Please enter your Club Type";
-      isValid = false;
-    } else if (newOrganizationType.length < 3) {
-      errors.newOrganizationType =
-        "Club Type must be at least 3 characters long";
-      isValid = false;
-    } else if (newOrganizationType.length > 100) {
-      errors.newOrganizationType =
-        "Club Type must be at most 100 characters long";
+    if (!!!newClubType) {
+      errors.newClubType = "Please choose your Club Type";
       isValid = false;
     }
 
     if (!!!newAboutUs) {
       errors.newAboutUs = "Please enter your Club Description";
       isValid = false;
-    } else if (newAboutUs.length < 3) {
-      errors.newAboutUs = "Club Description must be at least 3 characters long";
+    } else if (newAboutUs.length < 50) {
+      errors.newAboutUs =
+        "Club Description must be at least 50 characters long";
       isValid = false;
     } else if (newAboutUs.length > 1000) {
       errors.newAboutUs =
@@ -262,10 +241,85 @@ export default function ClubEditProfile() {
       isValid = false;
     }
 
-    if (!!!newHiringFor || newHiringFor === "Not Selected") {
-      errors.newHiringFor = "Please select your Hiring For";
+    setErrors((prev) => ({ ...prev, ...errors }));
+    return isValid;
+  }
+
+  function validateData2() {
+    let errors = {
+      newMobileCountryCode: "",
+      newMobileNumber: "",
+      newWebsiteUrl: "",
+      newLinkedin: "",
+    };
+    let isValid = true;
+
+    if (!!!newMobileCountryCode) {
+      errors.newMobileCountryCode = "Please select your country code";
       isValid = false;
     }
+
+    if (!!!newMobileNumber) {
+      errors.newMobileNumber = "Please enter your mobile number";
+      isValid = false;
+    } else if (newMobileNumber.length < 10) {
+      errors.newMobileNumber =
+        "Mobile number must be at least 10 characters long";
+      isValid = false;
+    } else if (newMobileNumber.length > 10) {
+      errors.newMobileNumber =
+        "Mobile number must be at most 10 characters long";
+      isValid = false;
+    }
+
+    if (!!!newWebsiteUrl) {
+      errors.newWebsiteUrl = "Please enter your website url";
+      isValid = false;
+    } else if (!/^(ftp|http|https):\/\/[^ "]+$/.test(newWebsiteUrl)) {
+      errors.newWebsiteUrl =
+        "Invalid website url! (URL Ex: https://www.engineerhub.in/)";
+      isValid = false;
+    }
+
+    if (!!!newLinkedin) {
+      errors.newLinkedin = "Please enter your linkedin url";
+      isValid = false;
+    } else if (
+      !/^(ftp|http|https):\/\/[^ "]+$/.test(newLinkedin) ||
+      !/^(ftp|http|https):\/\/(www.linkedin.com\/)/.test(newLinkedin)
+    ) {
+      errors.newLinkedin =
+        "Invalid linkedin url! (URL Ex: https://www.linkedin.com/company/engineersummit)";
+      isValid = false;
+    }
+
+    setErrors((prev) => ({ ...prev, ...errors }));
+    return isValid;
+  }
+
+  function validateData3() {
+    let errors = {
+      newCountry: "",
+      newState: "",
+      newCity: "",
+    };
+    let isValid = true;
+
+    if (!!!newCountry) {
+      errors.newCountry = "Please select your country";
+      isValid = false;
+    }
+
+    if (!!!newState) {
+      errors.newState = "Please select your state";
+      isValid = false;
+    }
+
+    if (!!!newCity) {
+      errors.newCity = "Please select your city";
+      isValid = false;
+    }
+
     setErrors((prev) => ({ ...prev, ...errors }));
     return isValid;
   }
@@ -276,7 +330,37 @@ export default function ClubEditProfile() {
       isValid = validateData1();
     } else if (index === 2) {
       isValid = validateData2();
+    } else if (index === 3) {
+      isValid = validateData3();
     }
+
+    if (isValid === false) return;
+
+    let data = {};
+
+    if (index === 1) {
+      data = {
+        name: newName,
+        subHeading: newSubHeading,
+        clubType: newClubType,
+        aboutUs: newAboutUs,
+      };
+    } else if (index === 2) {
+      data = {
+        mobileCountryCode: newMobileCountryCode,
+        mobile: newMobileNumber,
+        websiteUrl: newWebsiteUrl,
+        linkedIn: newLinkedin,
+      };
+    } else if (index === 3) {
+      data = {
+        country: newCountry,
+        state: newState,
+        city: newCity,
+      };
+    }
+
+    updateClubDetails(data, setUpdateResponse);
   }
 
   function handleDelete() {
@@ -287,9 +371,9 @@ export default function ClubEditProfile() {
     <>
       <section className="box">
         <p className="heading">CLUB PROFILE PICTURE</p>
-        <p className="md-alert-text">
+        {/* <p className="md-alert-text">
           *Note Image size must be not more than 100kb
-        </p>
+        </p> */}
         <div>
           <div className="logo">
             <img src={organization?.image} loading="lazy" alt="logo" />
@@ -319,108 +403,54 @@ export default function ClubEditProfile() {
             >
               Delete
             </button>
-            <p className="alert-text">
+            {/* <p className="alert-text">
               *Note Image size must be not more than 100kb
-            </p>
+            </p> */}
           </div>
         </div>
       </section>
       <section className="box">
         <p className="heading">BASIC INFORMATION</p>
-        {/* <label className="label">
-          Sample Text Field for Strings<span className="required">*</span>
+        <label className="label">
+          Club Name<span className="required">*</span>
         </label>
         <input
           type="text"
           className="input-field"
-          placeholder="Enter your String"
-        />
-        <label className="label" draggable>
-          Sample Text Area for Long Description
-          <span className="required">*</span>
-        </label>
-        <textarea
-          name="about"
-          id="about"
-          className="input-field"
-          rows={5}
-          placeholder="Enter your long Description here"
-        />
-        <label className="label">
-          Sample Text Field for Number<span className="required">*</span>
-        </label>
-        <input
-          type="number"
-          className="input-field"
-          placeholder="Enter your Number"
-        />
-        <label className="label">
-          Sample Dropdown<span className="required">*</span>
-        </label>
-        <select className="input-field">
-          <option value="male">Male</option>
-          <option value="female">Female</option>
-          <option value="sigma">Sigma</option>
-          <option value="alpha">Giga Chad</option>
-        </select>
-        <label className="label">
-          Sample Datalist<span className="required">*</span>
-        </label>
-        <input
-          className="input-field"
-          list="browsers"
-          name="browser"
-          id="browser"
-        />
-        <datalist id="browsers">
-          <option value="Edge"></option>
-          <option value="Firefox"></option>
-          <option value="Chrome"></option>
-          <option value="Opera"></option>
-          <option value="Safari"></option>
-        </datalist>
-        <label className="label">
-          Sample Calendar<span className="required">*</span>
-        </label>
-        <input
-          type="date"
-          className="input-field"
-          placeholder="Enter your Organization / Company Name"
-        /> */}
-        <label className="label">
-          Organization / Company Name<span className="required">*</span>
-        </label>
-        <input
-          type="text"
-          className="input-field"
-          placeholder="Enter your Organization / Company Name"
+          placeholder="Enter your Club Name"
           value={newName}
           onChange={(e) => setNewName(e.target.value)}
         />
         <label className="error-message">{errors.newName}</label>
         <label className="label">
-          Organization / Company Sub-heading<span className="required">*</span>
+          Club Sub-heading<span className="required">*</span>
         </label>
         <input
           type="text"
           className="input-field"
-          placeholder="Enter your Organization / Company Sub-heading"
+          placeholder="Enter your Club Sub-heading"
           value={newSubHeading}
           onChange={(e) => setNewSubHeading(e.target.value)}
         />
         <label className="error-message">{errors.newSubHeading}</label>
 
         <label className="label">
-          Organization / Company Type<span className="required">*</span>
+          Club Type<span className="required">*</span>
         </label>
-        <input
-          type="text"
+        <select
+          value={newClubType}
+          onChange={(e) => {
+            setNewClubType(e.target.value);
+          }}
           className="input-field"
-          placeholder="Enter your Organization / Company Type"
-          value={newOrganizationType}
-          onChange={(e) => setNewOrganizationType(e.target.value)}
-        />
-        <label className="error-message">{errors.newOrganizationType}</label>
+        >
+          <option value="" disabled>
+            Select your Type
+          </option>
+          <option value="Technical">Technical</option>
+          <option value="Cultural">Cultural</option>
+        </select>
+        <label className="error-message">{errors.newClubType}</label>
 
         <label className="label">
           About<span className="required">*</span>
@@ -430,25 +460,11 @@ export default function ClubEditProfile() {
           id="about"
           className="input-field"
           rows={5}
-          placeholder="Describe about your Organization / Company"
+          placeholder="Describe about your Club"
           value={newAboutUs}
           onChange={(e) => setNewAboutUs(e.target.value)}
         />
         <label className="error-message">{errors.newAboutUs}</label>
-        <label className="label">
-          Hiring for<span className="required">*</span>
-        </label>
-        <select className="input-field">
-          <option key="Not Selected" value="Not Selected">
-            Not Selected
-          </option>
-          {hiringForList.map((item) => (
-            <option key={item.value} value={item.value}>
-              {item.label}
-            </option>
-          ))}
-        </select>
-        <label className="error-message">{errors.newHiringFor}</label>
         <button onClick={() => handleSubmit(1)} className="update-btn">
           Update Details
         </button>
@@ -461,20 +477,9 @@ export default function ClubEditProfile() {
       <section className="box">
         <p className="heading">CONTACT INFORMATION</p>
         <label className="label">
-          Contact Name<span className="required">*</span>
+          Club Representative Mobile Number<span className="required">*</span>
         </label>
-        <input
-          type="text"
-          className="input-field"
-          placeholder="Enter your Contact Name"
-          value={newContactName}
-          onChange={(e) => setNewContactName(e.target.value)}
-        />
-        <label className="error-message">{errors.newContactName}</label>
-        <label className="label">
-          Mobile Number<span className="required">*</span>
-        </label>
-        <div>
+        <div className="mobile-field">
           <select
             value={newMobileCountryCode}
             onChange={(e) => setNewMobileCountryCode(e.target.value)}
@@ -527,11 +532,12 @@ export default function ClubEditProfile() {
   const renderOption3 = (
     <>
       <section className="box">
-        <p className="heading">LOCATION</p>
+        <p className="heading">CHANGE LOCATION</p>
         <label className="label">
           Country<span className="required">*</span>
         </label>
         <select
+          disabled={countries?.length === 0}
           value={newCountry}
           onChange={(e) => {
             setNewCountry(e.target.value);
@@ -542,6 +548,11 @@ export default function ClubEditProfile() {
           }}
           className="input-field"
         >
+          {countries.length !== 0 && (
+            <option value="" selected  disabled>
+              Select your Country
+            </option>
+          )}
           {countries.map((country) => (
             <option key={country.countryCode} value={country.country}>
               {country.country}
@@ -553,6 +564,7 @@ export default function ClubEditProfile() {
           State<span className="required">*</span>
         </label>
         <select
+          disabled={states?.length === 0}
           value={newState}
           onChange={(e) => {
             setNewState(e.target.value);
@@ -562,6 +574,11 @@ export default function ClubEditProfile() {
           }}
           className="input-field"
         >
+          {states.length !== 0 && (
+            <option value="" selected  disabled>
+              Select your State
+            </option>
+          )}
           {states.map((state) => (
             <option key={state.stateCode} value={state.state}>
               {state.state}
@@ -573,10 +590,16 @@ export default function ClubEditProfile() {
           City<span className="required">*</span>
         </label>
         <select
+          disabled={cities?.length === 0}
           value={newCity}
           onChange={(e) => setNewCity(e.target.value)}
           className="input-field"
         >
+          {cities.length !== 0 && (
+            <option value=""  selected disabled>
+              Select your City
+            </option>
+          )}
           {cities.map((city) => (
             <option key={city.cityCode} value={city.city}>
               {city.city}
@@ -615,7 +638,7 @@ export default function ClubEditProfile() {
             ))}
           </div>
           <button
-            onClick={() => navigate(`/profile/organization/${clubId}`)}
+            onClick={() => navigate(`/profile/club/${clubId}`)}
             className="back-btn"
           >
             <IoIosArrowBack /> <span>Back to Profile</span>

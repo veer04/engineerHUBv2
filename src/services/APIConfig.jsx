@@ -1,6 +1,5 @@
 import axios from "axios";
 import { API_URL } from "./APIUtils";
-import { API_URLT } from "./APIUtils";
 import decryptData from "../features/DeCrypt";
 import getCookie, { getAccessToken } from "../features/getCookieValues";
 import { set } from "react-hook-form";
@@ -299,6 +298,74 @@ export const patchOrganizationData = (organizationId, data, setResponse) => {
     });
 };
 
+export const updateOrganizationDetails = (data, setResponse) => {
+  const controller = new AbortController();
+  const config = {
+    headers: {
+      accessToken: getAccessToken(),
+    },
+  };
+  axios
+    .patch(
+      `${API_URL}api/v1/clubOrganization/profileUpdate`,
+      {
+        ...data,
+      },
+      config
+    )
+    .then((res) => {
+      console.log(res);
+      setResponse(res);
+      return res;
+    })
+    .catch((err) => {
+      if (axios.isCancel(err)) {
+        console.log("req cancel");
+        setResponse(err);
+        return err;
+      } else {
+        console.log("req performed");
+        setResponse(err);
+        console.log(err);
+        return err;
+      }
+    });
+};
+
+export const updateClubDetails = (data, setResponse) => {
+  const controller = new AbortController();
+  const config = {
+    headers: {
+      accessToken: getAccessToken(),
+    },
+  };
+  axios
+    .patch(
+      `${API_URL}api/v1/clubOrganization/profileUpdate`,
+      {
+        ...data,
+      },
+      config
+    )
+    .then((res) => {
+      console.log(res);
+      setResponse(res);
+      return res;
+    })
+    .catch((err) => {
+      if (axios.isCancel(err)) {
+        console.log("req cancel");
+        setResponse(err);
+        return err;
+      } else {
+        console.log("req performed");
+        setResponse(err);
+        console.log(err);
+        return err;
+      }
+    });
+};
+
 export const followOrganization = (organizationId, setResponse) => {
   const controller = new AbortController();
   const config = {
@@ -309,6 +376,107 @@ export const followOrganization = (organizationId, setResponse) => {
   axios
     .patch(
       `${API_URL}api/v1/follow/Organization/${organizationId}`,
+      {
+        signal: controller.signal,
+      },
+      config
+    )
+    .then((res) => {
+      console.log(res);
+      setResponse(res);
+      return res;
+    })
+    .catch((err) => {
+      if (axios.isCancel(err)) {
+        console.log("req cancel");
+        setResponse(err);
+        return err;
+      } else {
+        console.log("req performed");
+        setResponse(err);
+        console.log(err);
+        return err;
+      }
+    });
+};
+
+export const unFollowOrganization = (organizationId, setResponse) => {
+  const controller = new AbortController();
+  const config = {
+    headers: {
+      accessToken: getAccessToken(),
+    },
+  };
+  axios
+    .patch(
+      `${API_URL}api/v1/unFollow/Organization/${organizationId}`,
+      {
+        signal: controller.signal,
+      },
+      config
+    )
+    .then((res) => {
+      console.log(res);
+      setResponse(res);
+      return res;
+    })
+    .catch((err) => {
+      if (axios.isCancel(err)) {
+        console.log("req cancel");
+        setResponse(err);
+        return err;
+      } else {
+        console.log("req performed");
+        setResponse(err);
+        console.log(err);
+        return err;
+      }
+    });
+};
+export const followClub = (clubId, setResponse) => {
+  const controller = new AbortController();
+  const config = {
+    headers: {
+      accessToken: getAccessToken(),
+    },
+  };
+  axios
+    .patch(
+      `${API_URL}api/v1/follow/Club/${clubId}`,
+      {
+        signal: controller.signal,
+      },
+      config
+    )
+    .then((res) => {
+      console.log(res);
+      setResponse(res);
+      return res;
+    })
+    .catch((err) => {
+      if (axios.isCancel(err)) {
+        console.log("req cancel");
+        setResponse(err);
+        return err;
+      } else {
+        console.log("req performed");
+        setResponse(err);
+        console.log(err);
+        return err;
+      }
+    });
+};
+
+export const unFollowClub = (clubId, setResponse) => {
+  const controller = new AbortController();
+  const config = {
+    headers: {
+      accessToken: getAccessToken(),
+    },
+  };
+  axios
+    .patch(
+      `${API_URL}api/v1/unFollow/Club/${clubId}`,
       {
         signal: controller.signal,
       },
@@ -352,6 +520,28 @@ export const getClubProfileById = (setClubProfile, clubId) => {
     });
 };
 
+export const getClubProfileByIdPrivateMode = (setClubProfile, clubId) => {
+  const controller = new AbortController();
+  const config = {
+    headers: {
+      accessToken: getAccessToken(),
+    },
+  };
+  axios
+    .get(`${API_URL}api/v1/getClubWithIdWithPrivateMode/${clubId}`, config)
+    .then((res) => {
+      const data = res.data.data;
+      setClubProfile(data);
+    })
+    .catch((err) => {
+      if (axios.isCancel(err)) {
+        console.log("req cancel");
+      } else {
+        console.log("req performed");
+      }
+    });
+};
+
 export const getOrganizationProfileById = (
   setOrganizationProfile,
   organizationId
@@ -361,6 +551,34 @@ export const getOrganizationProfileById = (
     .get(`${API_URL}api/v1/getOrganizationWithId/${organizationId}`, {
       signal: controller.signal,
     })
+    .then((res) => {
+      const data = res.data.data;
+      setOrganizationProfile(data);
+    })
+    .catch((err) => {
+      if (axios.isCancel(err)) {
+        console.log("req cancel");
+      } else {
+        console.log("req performed");
+      }
+    });
+};
+
+export const getOrganizationProfileByIdPrivateMode = (
+  setOrganizationProfile,
+  organizationId
+) => {
+  const controller = new AbortController();
+  const config = {
+    headers: {
+      accessToken: getAccessToken(),
+    },
+  };
+  axios
+    .get(
+      `${API_URL}api/v1/getOrganizationWithIdWithPrivateMode/${organizationId}`,
+      config
+    )
     .then((res) => {
       const data = res.data.data;
       setOrganizationProfile(data);
@@ -421,7 +639,6 @@ export const getHiringData = (setHiring) => {
     })
     .then((res) => {
       const data = res.data.data;
-      // const Hiringdata=res.data.data;
       setHiring(data);
     })
     .catch((err) => {
@@ -468,6 +685,179 @@ export const getAllJobs2 = (setJobs) => {
     .then((res) => {
       const data = res.data.data;
       setJobs(data);
+    })
+    .catch((err) => {
+      if (axios.isCancel(err)) {
+        console.log("req cancel");
+      } else {
+        console.log("req performed");
+      }
+    });
+};
+
+export const getJobsByOrganisationId = (organisationId, setJobs) => {
+  const controller = new AbortController();
+  axios
+    .get(`${API_URL}api/v1/getHiringByOpportunityType/Job/${organisationId}`, {
+      signal: controller.signal,
+    })
+    .then((res) => {
+      const data = res.data.data;
+      setJobs(data);
+    })
+    .catch((err) => {
+      if (axios.isCancel(err)) {
+        console.log("req cancel");
+      } else {
+        console.log("req performed");
+      }
+    });
+};
+
+export const getJobsByOrganisationIdPrivateMode = (setJobs) => {
+  const controller = new AbortController();
+  const config = {
+    headers: {
+      accessToken: getAccessToken(),
+    },
+  };
+  axios
+    .get(`${API_URL}api/v1/getHiringByOpportunityTypePrivateMode/Job`, config)
+    .then((res) => {
+      const data = res.data.data;
+      setJobs(data);
+    })
+    .catch((err) => {
+      if (axios.isCancel(err)) {
+        console.log("req cancel");
+      } else {
+        console.log("req performed");
+      }
+    });
+};
+export const getInternshipsByOrganisationId = (
+  organisationId,
+  setInternships
+) => {
+  const controller = new AbortController();
+  axios
+    .get(
+      `${API_URL}api/v1/getHiringByOpportunityType/Internship/${organisationId}`,
+      {
+        signal: controller.signal,
+      }
+    )
+    .then((res) => {
+      const data = res.data.data;
+      setInternships(data);
+    })
+    .catch((err) => {
+      if (axios.isCancel(err)) {
+        console.log("req cancel");
+      } else {
+        console.log("req performed");
+      }
+    });
+};
+
+export const getInternshipsByOrganisationIdPrivateMode = (setInternships) => {
+  const controller = new AbortController();
+  const config = {
+    headers: {
+      accessToken: getAccessToken(),
+    },
+  };
+  axios
+    .get(
+      `${API_URL}api/v1/getHiringByOpportunityTypePrivateMode/Internship`,
+      config
+    )
+    .then((res) => {
+      const data = res.data.data;
+      setInternships(data);
+    })
+    .catch((err) => {
+      if (axios.isCancel(err)) {
+        console.log("req cancel");
+      } else {
+        console.log("req performed");
+      }
+    });
+};
+export const getEventsByOrganisationId = (organisationId, setEvents) => {
+  const controller = new AbortController();
+  axios
+    .get(
+      `${API_URL}api/v1/getHiringByOpportunityType/Event/${organisationId}`,
+      {
+        signal: controller.signal,
+      }
+    )
+    .then((res) => {
+      const data = res.data.data;
+      setEvents(data);
+    })
+    .catch((err) => {
+      if (axios.isCancel(err)) {
+        console.log("req cancel");
+      } else {
+        console.log("req performed");
+      }
+    });
+};
+
+export const getEventsByOrganisationIdPrivateMode = (setEvents) => {
+  const controller = new AbortController();
+  const config = {
+    headers: {
+      accessToken: getAccessToken(),
+    },
+  };
+  axios
+    .get(`${API_URL}api/v1/getHiringByOpportunityTypePrivateMode/Event`, config)
+    .then((res) => {
+      const data = res.data.data;
+      setEvents(data);
+    })
+    .catch((err) => {
+      if (axios.isCancel(err)) {
+        console.log("req cancel");
+      } else {
+        console.log("req performed");
+      }
+    });
+};
+export const getProjectsByOrganisationId = (organisationId, setProjects) => {
+  const controller = new AbortController();
+  axios
+    .get(`${API_URL}api/v1/projectHiring/${organisationId}`, {
+      signal: controller.signal,
+    })
+    .then((res) => {
+      const data = res.data.data;
+      setProjects(data);
+    })
+    .catch((err) => {
+      if (axios.isCancel(err)) {
+        console.log("req cancel");
+      } else {
+        console.log("req performed");
+      }
+    });
+};
+
+export const getProjectsByOrganisationIdPrivateMode = (setProjects) => {
+  const controller = new AbortController();
+  const config = {
+    headers: {
+      accessToken: getAccessToken(),
+    },
+  };
+  axios
+    .get(`${API_URL}api/v1/projectHiringPrivateMode`, config)
+    .then((res) => {
+      const data = res.data.data;
+      setProjects(data);
     })
     .catch((err) => {
       if (axios.isCancel(err)) {
@@ -572,7 +962,6 @@ export const getProjectDataById = (setProject, projectId) => {
     })
     .then((res) => {
       const data = res.data.data;
-      // const Hiringdata=res.data.data;
       setProject(data);
     })
     .catch((err) => {
@@ -1078,6 +1467,28 @@ export const getClubById = (setClub, clubId) => {
     });
 };
 
+export const uploadNewPost = (formData, setResponse) => {
+  const controller = new AbortController();
+  const config = {
+    headers: {
+      accessToken: getAccessToken(),
+    },
+  };
+  axios
+    .post(`${API_URL}api/v1/club/addPost`, formData, config)
+    .then((res) => {
+      const data = res.data.data;
+      setResponse(data);
+    })
+    .catch((err) => {
+      if (axios.isCancel(err)) {
+        console.log("req cancel");
+      } else {
+        console.log("req performed");
+      }
+    });
+};
+
 export const getAllPosts = (setPosts, clubId) => {
   const controller = new AbortController();
   axios
@@ -1153,198 +1564,3 @@ export const getTrendingActivities = (setTrendingActivities) => {
       }
     });
 };
-
-// export const getCourses = async (setCourseData) => {
-//   const cancelToken = axios.CancelToken.source();
-//   axios
-//     .get(`${API_URL}api/v1/course`, {
-//       cancelToken: cancelToken.token,
-//     })
-//     .then((res) => setCourseData([...res.data]))
-//     .catch((err) => {
-//       if (axios.isCancel(err)) {
-//         console.log("req cancel");
-//       } else {
-//         console.log("req performed");
-//       }
-//     });
-// };
-
-// export const getHandBook = (setMagazineData) => {
-//   const cancelToken = axios.CancelToken.source();
-//   axios
-//     .get(`${API_URL}api/v1/handbook`, {
-//       cancelToken: cancelToken.token,
-//     })
-//     .then((res) => setMagazineData([...res.data]))
-//     .catch((err) => {
-//       if (axios.isCancel(err)) {
-//         console.log("req cancel");
-//       } else {
-//         console.log("req performed");
-//       }
-//     });
-// };
-
-// export const getMentors = (setMentorData) => {
-//   const cancelToken = axios.CancelToken.source();
-//   axios
-//     .get(`${API_URL}api/v1/mentor`, {
-//       cancelToken: cancelToken.token,
-//     })
-//     .then((res) => setMentorData([...res.data]))
-//     .catch((err) => {
-//       if (axios.isCancel(err)) {
-//         console.log("req cancel");
-//       } else {
-//         console.log("req performed");
-//       }
-//     });
-// };
-
-// export const getResources = (setResourceData) => {
-//   const cancelToken = axios.CancelToken.source();
-//   axios
-//     .get(`${API_URL}api/v1/resource`, {
-//       cancelToken: cancelToken.token,
-//     })
-//     .then((res) => setResourceData([...res.data]))
-//     .catch((err) => {
-//       if (axios.isCancel(err)) {
-//         console.log("req cancel");
-//       } else {
-//         console.log("req performed");
-//       }
-//     });
-// };
-
-// export const getInternship = (setInternshipData) => {
-//   const cancelToken = axios.CancelToken.source();
-//   axios
-//     .get(`${API_URL}api/v1/internship`, {
-//       cancelToken: cancelToken.token,
-//     })
-//     .then((res) => setInternshipData([...res.data]))
-//     .catch((err) => {
-//       if (axios.isCancel(err)) {
-//         console.log("req cancel");
-//       } else {
-//         console.log("req performed");
-//       }
-//     });
-// };
-
-// export const gAuth = (setData) => {
-//   const cancelToken = axios.CancelToken.source();
-//   axios
-//     .get(`${API_URL}api/v1/auth/google`, {
-//       cancelToken: cancelToken.token,
-//     })
-//     .then((res) => setData([...res.data]))
-//     .catch((err) => {
-//       if (axios.isCancel(err)) {
-//         console.log("req cancel");
-//       } else {
-//         console.log("req performed");
-//       }
-//     });
-// };
-
-// export const getEvents = (setEventData) => {
-//   const cancelToken = axios.CancelToken.source();
-//   axios
-//     .get(`${API_URL}api/v1/event`, {
-//       cancelToken: cancelToken.token,
-//     })
-//     .then((res) => setEventData([...res.data]))
-//     .catch((err) => {
-//       if (axios.isCancel(err)) {
-//         console.log("req cancel");
-//       } else {
-//         console.log("req performed");
-//       }
-//     });
-// };
-
-// export const getHiring = (setHiringData) => {
-//   const cancelToken = axios.CancelToken.source();
-//   axios
-//     .get(`${API_URL}api/v1/hiring`, {
-//       cancelToken: cancelToken.token,
-//     })
-//     .then((res) => setHiringData([...res.data]))
-//     .catch((err) => {
-//       if (axios.isCancel(err)) {
-//         console.log("req cancel");
-//       } else {
-//         console.log("req performed");
-//       }
-//     });
-// };
-
-// export const getTeam = (setTeamData) => {
-//   const cancelToken = axios.CancelToken.source();
-//   axios
-//     .get(`${API_URL}api/v1/team`, {
-//       cancelToken: cancelToken.token,
-//     })
-//     .then((res) => setTeamData([...res.data]))
-//     .catch((err) => {
-//       if (axios.isCancel(err)) {
-//         console.log("req cancel");
-//       } else {
-//         console.log("req performed");
-//       }
-//     });
-// };
-// export const getIndustry = (setData) => {
-//   const cancelToken = axios.CancelToken.source();
-//   axios
-//     .get(`${API_URL}api/v1/industry`, {
-//       cancelToken: cancelToken.token,
-//     })
-//     .then((res) => setData([...res.data]))
-//     .catch((err) => {
-//       if (axios.isCancel(err)) {
-//         console.log("req cancel");
-//       } else {
-//         console.log("req performed");
-//       }
-//     });
-// };
-
-// export const signInFormSubmit = async (
-//   values,
-//   setSnackbarValues,
-//   setOpen,
-//   setValidation
-// ) => {
-//   if (values?.email && values?.password) {
-//     await axios
-//       .post(`${API_URL}api/v1/signin`, {
-//         email: values.email,
-//         password: values.password,
-//       })
-//       .then((response) => {
-//         if (response.status === 200) {
-//           setValidation(true);
-//           setSnackbarValues({
-//             severity: "success",
-//             message: "SuccessFully Logged in",
-//           });
-//           axios.defaults.headers.common[
-//             "Authorization"
-//           ] = `Bearer ${response["token"]}`;
-
-//           setOpen(true);
-//         }
-//       })
-//       .catch((err) => {
-//         setOpen(true);
-//         setSnackbarValues({
-//           severity: "error",
-//           message: "User doesn't exist Check again!",
-//         });
-//       });
-//   }
-// };

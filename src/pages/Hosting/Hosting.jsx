@@ -6,7 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 import useNavbar from "../../hooks/use-navbar";
 export default function Hosting() {
-  console.log("test")
+  console.log("test");
   const handleCardClick = (event) => {
     localStorage.setItem("event", event);
 
@@ -222,6 +222,18 @@ export default function Hosting() {
             <div className="heading">Projects</div>
             <div className="subheading">
               Host Projects <BsArrowRight />
+            </div>
+          </div>
+          <div
+            onClick={navigationFunction}
+            style={{
+              backgroundImage: `url(${bucket}hackathon.png)`,
+            }}
+            className="card"
+          >
+            <div className="heading">Event Hiring</div>
+            <div className="subheading">
+              Create Event <BsArrowRight />
             </div>
           </div>
           {/* </Link>

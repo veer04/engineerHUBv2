@@ -140,6 +140,10 @@ select.input-field {
   margin-bottom: 1.31rem;
   min-height: 2.875rem;
 }
+.input-field:disabled {
+  background-color: #f2f2f2;
+  cursor: not-allowed;
+}
 
 @media screen and (max-width: 768px) {
   .edit-profile > div {

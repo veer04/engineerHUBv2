@@ -1,0 +1,40 @@
+.modal-container.view-applicants-container {
+  max-width: 22.25rem;
+}
+.view-applicants-container > .title {
+  color: var(--Primary-500, #002b36);
+  text-align: center;
+  font-family: Inter;
+  font-size: 1.4rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 136.023%; /* 2.04031rem */
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.view-applicants-container > .content {
+  display: flex;
+  margin-top: 0.88rem;
+  color: var(--foundation-black-black-200, #8a8a8a);
+  text-align: center;
+  font-family: Inter;
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+.view-applicants-container > a > .submit-button {
+  border-radius: 0.3125rem;
+  background: var(--Primary-500, #002b36);
+  color: #fff;
+  font-family: Inter;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 138.023%; /* 1.38025rem */
+  padding: 0.8rem 1.5rem;
+  margin-top: 2.13rem !important;
+  width: 100%;
+}

@@ -3,8 +3,11 @@ import "./ProjectCards.css";
 import { useNavigate } from "react-router-dom";
 import defaultPoster from "../../../assets/defaultPoster";
 import { useEffect } from "react";
+import { useState } from "react";
+import ViewApplicantsModal from "../../../components/Dashboard/ViewApplicantsModal";
 
-const ProjectCards = ({ data, className }) => {
+const ProjectCards = ({ data, className, adminView }) => {
+  const [toggleModal, setToggleModal] = useState(false);
   const navigate = useNavigate();
   useEffect(() => {
     document.getElementById(
@@ -15,6 +18,7 @@ const ProjectCards = ({ data, className }) => {
     <div
       className={`ProjectCard ${className}`}
       onClick={() => {
+        if (adminView) return;
         navigate(`/company/projects/${data._id}`);
       }}
     >
@@ -51,20 +55,69 @@ const ProjectCards = ({ data, className }) => {
             ) : null}
           </div>
           <br />
-          <div className="organization">
-            <div className="logo overflow-hidden">
-              <img src={data.organisationLogo} alt="logo" className="logoImg" />
+          {!adminView && (
+            <div className="organization">
+              <div className="logo overflow-hidden">
+                <img
+                  src={data.organisationLogo}
+                  alt="logo"
+                  className="logoImg"
+                />
+              </div>
+              <h5>{data.organisationName}</h5>
             </div>
-            <h5>{data.organisationName}</h5>
-            {/* <span>
-              <span className="icon">
-                <IoPeopleOutline />
+          )}
+          {adminView && (
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
+              <span
+                style={{
+                  fontWeight: "600",
+                }}
+              >
+                {data?.views} Views
               </span>
-              <h6>{data.organization.submissions}</h6>
-            </span> */}
-          </div>
+
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setToggleModal(true);
+                  // navigate(`/company/projects/${data._id}/applicants`);
+                }}
+                style={{
+                  //should be in center
+                  // position: "relative",
+                  left: "50%",
+                  // transform: "translateX(-50%)",
+                  backgroundColor: "#014051",
+                  border: "none",
+                  borderRadius: "5px",
+                  padding: "10px",
+                  color: "#fff",
+                  fontWeight: "500",
+                  fontSize: "14px",
+                  cursor: "pointer",
+                  outline: "none",
+                  boxShadow: "0px 0px 3.5px 0px rgba(0,0,0,0.75)",
+                }}
+              >
+                View Applicants
+              </button>
+            </div>
+          )}
         </div>
       </div>
+      {toggleModal && (
+        <ViewApplicantsModal
+          applicantsCount={data?.totalAppliedUsers}
+          setToggleModal={setToggleModal}
+        />
+      )}
     </div>
   );
 };

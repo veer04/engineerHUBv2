@@ -22,6 +22,14 @@
   border-radius: 50%;
   border: 1px solid var(--foundation-black-black-50, #e6e6e6);
 }
+.edit-profile > div > div > .box > .mobile-field {
+  display: flex;
+  gap: 0;
+}
+.edit-profile > div > div > .box > .mobile-field > .input-field:nth-child(1) {
+  width: 7rem;
+}
+
 .edit-profile > div > div > .box > div > .buttons {
   display: flex;
   flex-direction: column;
