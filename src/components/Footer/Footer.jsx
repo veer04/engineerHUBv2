@@ -158,8 +158,7 @@ export default function Footer() {
     {
       id: 8,
       title: "Address",
-      content:
-        "Gokulpuram Colony, Chitaipur, Chunar Road, Varanasi, Uttar Pradesh, 221106",
+      content: "8B, Gyankhand 4, Indirapuram, Ghaziabad 201014",
     },
 
     {

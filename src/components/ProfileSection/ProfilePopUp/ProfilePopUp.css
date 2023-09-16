@@ -147,6 +147,7 @@
   border: 1px dashed #e3e2e2;
   margin-bottom: 1rem;
 }
+.profile-menu > .promotion > a > .company-ad,
 .profile-menu > .promotion > .company-ad {
   display: flex;
   flex-direction: row;
@@ -161,6 +162,7 @@
   box-shadow: 5px 4px 20px 0px rgba(0, 0, 0, 0.05);
   font-weight: 500;
 }
+.profile-menu > .promotion > a > .company-ad > .icon,
 .profile-menu > .promotion > .company-ad > .icon {
   width: 1.125rem;
   height: 1.25rem;
@@ -168,6 +170,7 @@
   justify-content: center;
   align-items: center;
 }
+.profile-menu > .promotion > a > .company-ad > .icon > svg,
 .profile-menu > .promotion > .company-ad > .icon > svg {
   width: 100%;
   height: 100%;

@@ -532,6 +532,7 @@ export default function CompanyDashboard() {
         )}
         {isUserAdmin && (
           <section
+          id="sponsor"
             style={{
               backgroundImage: `url(${banner})`,
             }}
