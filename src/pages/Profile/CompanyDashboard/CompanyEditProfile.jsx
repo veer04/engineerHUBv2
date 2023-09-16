@@ -13,24 +13,29 @@ import {
   getOrganizationProfileById,
   getStatesByCountry,
   patchProfilePicture,
+  updateOrganizationDetails,
 } from "../../../services/APIConfig";
 import countryCodes from "../../../assets/countryCodes";
 import { useRef } from "react";
 import { handleLogout } from "../../../features/logout";
+import { getUserId, isUserLoggedIn } from "../../../features/User/UserDetails";
+import Page404 from "../../Maintenance/Page404";
 
 export default function CompanyEditProfile() {
+  const { organizationId } = useParams();
+  if (!isUserLoggedIn() || getUserId() !== organizationId) {
+    return <Page404 />;
+  }
   const [organization, setOrganization] = useState(null);
   const navigate = useNavigate();
-  const { organizationId } = useParams();
   const options = ["Basic Information", "Contact Information", "Location"];
-  const [chosenOption, setChosenOption] = useState(options[0]);
+  const [chosenOption, setChosenOption] = useState(options[2]);
   const fileInput = useRef(null);
   const [isImageLoading, setIsImageLoading] = useState(false);
   const [newImage, setNewImage] = useState(null);z
   const [newName, setNewName] = useState("");
   const [newSubHeading, setNewSubHeading] = useState("");
   const [newOrganizationType, setNewOrganizationType] = useState("");
-  const [newWebsite, setNewWebsite] = useState("");
   const [newAboutUs, setNewAboutUs] = useState("");
   const [newHiringFor, setNewHiringFor] = useState("");
   const [newContactName, setNewContactName] = useState("");
@@ -48,6 +53,7 @@ export default function CompanyEditProfile() {
   const [newCity, setNewCity] = useState("");
   const [response, setResponse] = useState(null);
   const [deleteResponse, setDeleteResponse] = useState(null);
+  const [updateResponse, setUpdateResponse] = useState(null);
   const [errors, setErrors] = useState({
     newName: "",
     newSubHeading: "",
@@ -91,7 +97,7 @@ export default function CompanyEditProfile() {
     return () => {
       controller.abort();
     };
-  }, []);
+  }, [organizationId]);
 
   useEffect(() => {
     if (!!newImage) {
@@ -124,52 +130,19 @@ export default function CompanyEditProfile() {
   }, [deleteResponse]);
 
   useEffect(() => {
-    if (countryParam) {
-      getStatesByCountry(setStates, countryParam);
-    } else if (newCountry) {
-      getStatesByCountry(
-        setStates,
-        countries?.find((country) => country.country === newCountry)
-          ?.countryCode
-      );
-    }
-
-    return () => {
-      controller.abort();
-    };
-  }, [countryParam, newCountry]);
-
-  useEffect(() => {
-    if (stateParam) {
-      getCitiesByState(setCities, countryParam, stateParam);
-    } else if (newState) {
-      getCitiesByState(
-        setCities,
-        countries?.find((country) => country.country === newCountry)
-          ?.countryCode,
-        states?.find((state) => state.state === newState)?.stateCode
-      );
-    }
-
-    return () => {
-      controller.abort();
-    };
-  }, [stateParam, newState]);
-
-  useEffect(() => {
     if (organization) {
       setNewName(organization?.name);
       setNewSubHeading(organization?.subHeading);
       setNewOrganizationType(organization?.organisationType);
       setNewAboutUs(organization?.aboutUs);
       setNewHiringFor(organization?.hiringFor);
-      setNewCountry(organization?.country);
-      setNewState(organization?.state);
-      setNewCity(organization?.city);
+      // setNewCountry(organization?.country);
+      // setNewState(organization?.state);
+      // setNewCity(organization?.city);
       setNewContactName(organization?.contactName);
       setNewMobileCountryCode(organization?.mobileCountryCode);
       setNewMobileNumber(organization?.mobile);
-      setNewWebsite(
+      setNewWebsiteUrl(
         !!organization?.websiteUrl
           ? organization?.websiteUrl
           : organization?.webSiteURL
@@ -180,28 +153,44 @@ export default function CompanyEditProfile() {
   }, [organization]);
 
   useEffect(() => {
-    console.log("newName", newName);
-  }, [newName]);
+    if (countryParam) {
+      setStates([]);
+      setStateParam("");
+      setNewState("");
+      setCities([]);
+      setNewCity("");
+      getStatesByCountry(setStates, countryParam);
+    }
+    return () => {
+      controller.abort();
+    };
+  }, [countryParam]);
 
   useEffect(() => {
-    console.log("newSubHeading", newSubHeading);
-  }, [newSubHeading]);
+    if (stateParam) {
+      setCities([]);
+      setNewCity("");
+      getCitiesByState(setCities, countryParam, stateParam);
+    }
+    return () => {
+      controller.abort();
+    };
+  }, [stateParam]);
 
   useEffect(() => {
-    console.log("newOrganizationType", newOrganizationType);
-  }, [newOrganizationType]);
+    console.log("country", countries);
+    console.log("country", countries.length);
+  }, [countries]);
 
   useEffect(() => {
-    console.log("newWebsite", newWebsite);
-  }, [newWebsite]);
+    console.log("state", states);
+    console.log("state", states.length);
+  }, [states]);
 
   useEffect(() => {
-    console.log("newAboutUs", newAboutUs);
-  }, [newAboutUs]);
-
-  useEffect(() => {
-    console.log("newHiringFor", newHiringFor);
-  }, [newHiringFor]);
+    console.log("city", cities);
+    console.log("city", cities.length);
+  }, [cities]);
 
   function validateData1() {
     let errors = {
@@ -267,9 +256,101 @@ export default function CompanyEditProfile() {
     }
 
     if (!!!newHiringFor || newHiringFor === "Not Selected") {
-      errors.newHiringFor = "Please select your Hiring For";
+      errors.newHiringFor = "Please select your preference for hiring";
       isValid = false;
     }
+    setErrors((prev) => ({ ...prev, ...errors }));
+    return isValid;
+  }
+
+  function validateData2() {
+    let errors = {
+      newContactName: "",
+      newMobileCountryCode: "",
+      newMobileNumber: "",
+      newWebsiteUrl: "",
+      newLinkedin: "",
+    };
+    let isValid = true;
+
+    if (!!!newContactName) {
+      errors.newContactName = "Please enter your contact name";
+      isValid = false;
+    } else if (newContactName.length < 3) {
+      errors.newContactName = "Contact name must be at least 3 characters long";
+      isValid = false;
+    } else if (newContactName.length > 100) {
+      errors.newContactName =
+        "Contact name must be at most 100 characters long";
+      isValid = false;
+    }
+
+    if (!!!newMobileCountryCode) {
+      errors.newMobileCountryCode = "Please select your country code";
+      isValid = false;
+    }
+
+    if (!!!newMobileNumber) {
+      errors.newMobileNumber = "Please enter your mobile number";
+      isValid = false;
+    } else if (newMobileNumber.length < 10) {
+      errors.newMobileNumber =
+        "Mobile number must be at least 10 characters long";
+      isValid = false;
+    } else if (newMobileNumber.length > 10) {
+      errors.newMobileNumber =
+        "Mobile number must be at most 10 characters long";
+      isValid = false;
+    }
+
+    if (!!!newWebsiteUrl) {
+      errors.newWebsiteUrl = "Please enter your website url";
+      isValid = false;
+    } else if (!/^(ftp|http|https):\/\/[^ "]+$/.test(newWebsiteUrl)) {
+      errors.newWebsiteUrl =
+        "Invalid website url! (URL Ex: https://www.engineerhub.in/)";
+      isValid = false;
+    }
+
+    if (!!!newLinkedin) {
+      errors.newLinkedin = "Please enter your linkedin url";
+      isValid = false;
+    } else if (
+      !/^(ftp|http|https):\/\/[^ "]+$/.test(newLinkedin) ||
+      !/^(ftp|http|https):\/\/(www.linkedin.com\/)/.test(newLinkedin)
+    ) {
+      errors.newLinkedin =
+        "Invalid linkedin url! (URL Ex: https://www.linkedin.com/company/engineersummit)";
+      isValid = false;
+    }
+
+    setErrors((prev) => ({ ...prev, ...errors }));
+    return isValid;
+  }
+
+  function validateData3() {
+    let errors = {
+      newCountry: "",
+      newState: "",
+      newCity: "",
+    };
+    let isValid = true;
+
+    if (!!!newCountry) {
+      errors.newCountry = "Please select your country";
+      isValid = false;
+    }
+
+    if (!!!newState) {
+      errors.newState = "Please select your state";
+      isValid = false;
+    }
+
+    if (!!!newCity) {
+      errors.newCity = "Please select your city";
+      isValid = false;
+    }
+
     setErrors((prev) => ({ ...prev, ...errors }));
     return isValid;
   }
@@ -281,7 +362,39 @@ export default function CompanyEditProfile() {
       
     } else if (index === 2) {
       isValid = validateData2();
+    } else if (index === 3) {
+      isValid = validateData3();
     }
+
+    if (isValid === false) return;
+
+    let data = {};
+
+    if (index === 1) {
+      data = {
+        name: newName,
+        subHeading: newSubHeading,
+        organisationType: newOrganizationType,
+        aboutUs: newAboutUs,
+        hiringFor: newHiringFor,
+      };
+    } else if (index === 2) {
+      data = {
+        contactName: newContactName,
+        mobileCountryCode: newMobileCountryCode,
+        mobile: newMobileNumber,
+        websiteUrl: newWebsiteUrl,
+        linkedIn: newLinkedin,
+      };
+    } else if (index === 3) {
+      data = {
+        country: newCountry,
+        state: newState,
+        city: newCity,
+      };
+    }
+
+    updateOrganizationDetails(data, setUpdateResponse);
   }
 
   function handleDelete() {
@@ -292,9 +405,9 @@ export default function CompanyEditProfile() {
     <>
       <section className="box">
         <p className="heading">COMPANY PROFILE PICTURE</p>
-        <p className="md-alert-text">
+        {/* <p className="md-alert-text">
           *Note Image size must be not more than 100kb
-        </p>
+        </p> */}
         <div>
           <div className="logo">
             <img src={organization?.image} loading="lazy" alt="logo" />
@@ -324,9 +437,9 @@ export default function CompanyEditProfile() {
             >
               Delete
             </button>
-            <p className="alert-text">
+            {/* <p className="alert-text">
               *Note Image size must be not more than 100kb
-            </p>
+            </p> */}
           </div>
         </div>
       </section>
@@ -443,7 +556,11 @@ export default function CompanyEditProfile() {
         <label className="label">
           Hiring for<span className="required">*</span>
         </label>
-        <select className="input-field">
+        <select
+          className="input-field"
+          value={newHiringFor}
+          onChange={(e) => setNewHiringFor(e.target.value)}
+        >
           <option key="Not Selected" value="Not Selected">
             Not Selected
           </option>
@@ -479,7 +596,7 @@ export default function CompanyEditProfile() {
         <label className="label">
           Mobile Number<span className="required">*</span>
         </label>
-        <div>
+        <div className="mobile-field">
           <select
             value={newMobileCountryCode}
             onChange={(e) => setNewMobileCountryCode(e.target.value)}
@@ -532,11 +649,12 @@ export default function CompanyEditProfile() {
   const renderOption3 = (
     <>
       <section className="box">
-        <p className="heading">LOCATION</p>
+        <p className="heading">CHANGE LOCATION</p>
         <label className="label">
           Country<span className="required">*</span>
         </label>
         <select
+          disabled={countries?.length === 0}
           value={newCountry}
           onChange={(e) => {
             setNewCountry(e.target.value);
@@ -547,6 +665,11 @@ export default function CompanyEditProfile() {
           }}
           className="input-field"
         >
+          {countries.length !== 0 && (
+            <option value="" selected disabled>
+              Select your Country
+            </option>
+          )}
           {countries.map((country) => (
             <option key={country.countryCode} value={country.country}>
               {country.country}
@@ -558,6 +681,7 @@ export default function CompanyEditProfile() {
           State<span className="required">*</span>
         </label>
         <select
+          disabled={states?.length === 0}
           value={newState}
           onChange={(e) => {
             setNewState(e.target.value);
@@ -567,6 +691,11 @@ export default function CompanyEditProfile() {
           }}
           className="input-field"
         >
+          {states.length !== 0 && (
+            <option value="" selected disabled>
+              Select your State
+            </option>
+          )}
           {states.map((state) => (
             <option key={state.stateCode} value={state.state}>
               {state.state}
@@ -578,10 +707,16 @@ export default function CompanyEditProfile() {
           City<span className="required">*</span>
         </label>
         <select
+          disabled={cities?.length === 0}
           value={newCity}
           onChange={(e) => setNewCity(e.target.value)}
           className="input-field"
         >
+          {cities.length !== 0 && (
+            <option value="" selected disabled>
+              Select your City
+            </option>
+          )}
           {cities.map((city) => (
             <option key={city.cityCode} value={city.city}>
               {city.city}

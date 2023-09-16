@@ -1,8 +1,10 @@
-import React from "react";
+import { useState } from "react";
 import { Chip } from "@mui/material";
 import "./JobCards.css";
 import { Link } from "react-router-dom";
-const JobCards = ({ details, color, className }) => {
+import ViewApplicantsModal from "../../../components/Dashboard/ViewApplicantsModal";
+const JobCards = ({ details, color, className, adminView }) => {
+  const [toggleModal, setToggleModal] = useState(false);
   const formatter = new Intl.NumberFormat("en-IN", {
     style: "currency",
     currency: "INR",
@@ -46,21 +48,60 @@ const JobCards = ({ details, color, className }) => {
           backgroundColor: color,
         }}
       >
-        <div
-          style={{
-            backgroundImage: `url(${details?.organisationLogo})`,
-            backgroundSize: "contain",
-            backgroundRepeat: "no-repeat",
-            backgroundPosition: "center",
-          }}
-        ></div>
-        <h5 className="text-crop-2 overflow-hidden">
-          {details?.organisationName}
-        </h5>
-        <Link to={`/company/jobs/${details?._id}`}>
-          <div className="btn">View</div>
-        </Link>
+        {!adminView && (
+          <>
+            <div
+              style={{
+                backgroundImage: `url(${details?.organisationLogo})`,
+                backgroundSize: "contain",
+                backgroundRepeat: "no-repeat",
+                backgroundPosition: "center",
+              }}
+            ></div>
+            <h5 className="text-crop-2 overflow-hidden">
+              {details?.organisationName}
+            </h5>
+            <Link to={`/company/jobs/${details?._id}`}>
+              <div className="btn">View</div>
+            </Link>
+          </>
+        )}
+        {adminView && (
+          <>
+            <span
+              style={{
+                fontWeight: "600",
+              }}
+            >
+              {details?.views} Views
+            </span>
+            <button
+              onClick={() => setToggleModal(true)}
+              style={{
+                backgroundColor: "#014051",
+                border: "none",
+                borderRadius: "5px",
+                padding: "10px",
+                color: "#fff",
+                fontWeight: "500",
+                fontSize: "14px",
+                cursor: "pointer",
+                outline: "none",
+                boxShadow: "0px 0px 3.5px 0px rgba(0,0,0,0.75)",
+              }}
+            >
+              View Applicants
+            </button>
+          </>
+        )}
       </div>
+      {toggleModal && (
+        <ViewApplicantsModal
+          jobId={details?._id}
+          applicantsCount={details?.totalAppliedUsers}
+          setToggleModal={setToggleModal}
+        />
+      )}
     </div>
   );
 };

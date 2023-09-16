@@ -22,12 +22,23 @@ import colorWheel from "../../../assets/colorWheel";
 import EventCard from "../../../components/EventCard/EventCard";
 import ProjectCard from "../../../components/ProjectCard/ProjectCard";
 import {
+  followOrganization,
   getAllEvents2,
   getAllInternships,
   getAllJobs2,
   getEvents,
+  getEventsByOrganisationId,
+  getEventsByOrganisationIdPrivateMode,
+  getInternshipsByOrganisationId,
+  getInternshipsByOrganisationIdPrivateMode,
+  getJobsByOrganisationId,
+  getJobsByOrganisationIdPrivateMode,
   getOrganizationProfileById,
+  getOrganizationProfileByIdPrivateMode,
   getProjectData,
+  getProjectsByOrganisationId,
+  getProjectsByOrganisationIdPrivateMode,
+  unFollowOrganization,
 } from "../../../services/APIConfig";
 import HackathonCard from "../../Company/Events/EventsChoices/HackathonCards";
 import ProjectCards from "../../Company/Projects/ProjectCards";
@@ -45,13 +56,11 @@ export default function CompanyDashboard() {
   const [internships, setInternships] = useState([]);
   const [hackathons, setHackathons] = useState([]);
   const [projects, setProjects] = useState([]);
-  const [isBannerPresent, setIsBannerPresent] = useState(true);
-  const [isLogoPresent, setIsLogoPresent] = useState(true);
-  const [isDescriptionPresent, setIsDescriptionPresent] = useState(true);
   const [isActivityPresent, setIsActivityPresent] = useState(true);
   const [scrollAmount, setScrollAmount] = useState(220);
   const bucket = `${Bucket_URL}frontend/hosting/`;
   const bucket2 = `${Bucket_URL}frontend/profile/dashboard/`;
+  const [followResponse, setFollowResponse] = useState({});
 
   const eyeSvg = (
     <svg
@@ -87,37 +96,43 @@ export default function CompanyDashboard() {
     carousel.scrollLeft += scrollAmount;
   };
 
+  function fetchData() {
+    if (isUserLoggedIn()) {
+      getOrganizationProfileByIdPrivateMode(setOrganization, organizationId);
+    } else {
+      getOrganizationProfileById(setOrganization, organizationId);
+    }
+  }
+
   useEffect(() => {
     // window.scrollTo(0, 0);
-    getOrganizationProfileById(setOrganization, organizationId);
-    getAllJobs2(setJobs);
-    getAllInternships(setInternships);
-    getAllEvents2(setHackathons);
-    getProjectData(setProjects);
+    fetchData();
     if (isUserLoggedIn() && organizationId === getUserId()) {
       setIsUserAdmin(true);
+      getJobsByOrganisationIdPrivateMode(setJobs);
+      getInternshipsByOrganisationIdPrivateMode(setInternships);
+      getEventsByOrganisationIdPrivateMode(setHackathons);
+      getProjectsByOrganisationIdPrivateMode(setProjects);
+    } else {
+      setIsUserAdmin(false);
+      getJobsByOrganisationId(organizationId, setJobs);
+      getInternshipsByOrganisationId(organizationId, setInternships);
+      getEventsByOrganisationId(organizationId, setHackathons);
+      getProjectsByOrganisationId(organizationId, setProjects);
     }
-  }, []);
+    setViewMore(false);
+    setShowAll(false);
+    setActivityChoice("jobs");
+    setFollowResponse({});
+  }, [organizationId]);
 
-  // useEffect(() => {
-  //   console.log("organization", organization);
-  // }, [organization]);
+  useEffect(() => {
+    if (!!followResponse) fetchData();
+  }, [followResponse]);
 
-  // useEffect(() => {
-  //   console.log("jobs", jobs);
-  // }, [jobs]);
-
-  // useEffect(() => {
-  //   console.log("internships", internships);
-  // }, [internships]);
-
-  // useEffect(() => {
-  //   console.log("hackathons", hackathons);
-  // }, [hackathons]);
-
-  // useEffect(() => {
-  //   console.log("projects", projects);
-  // }, [projects]);
+  useEffect(() => {
+    console.log("organization", organization);
+  }, [organization]);
 
   useEffect(() => {
     if (activityChoice === "jobs") {
@@ -159,6 +174,14 @@ export default function CompanyDashboard() {
       setScrollAmount(233);
     }
   }, [activityChoice, jobs, internships, hackathons, projects]);
+
+  function handleFollow() {
+    if (organization?.isFollowing) {
+      unFollowOrganization(organizationId, setFollowResponse);
+    } else {
+      followOrganization(organizationId, setFollowResponse);
+    }
+  }
 
   return (
     <>
@@ -230,11 +253,15 @@ export default function CompanyDashboard() {
                     <span className="text-crop-1 overflow-hidden">
                       {organization?.organisationType ? (
                         <>
-                          {organization?.organisationType}
-                          <h3>•</h3>
-                          <h3 className="text-crop-1 overflow-hidden">
-                            {organization?.location}
-                          </h3>
+                          <div className="d-flex flex-row gap-1">
+                            <span className="text-crop-1 overflow-hidden">
+                              {organization?.organisationType}
+                            </span>
+                            <span>•</span>
+                            <span className="text-crop-1 overflow-hidden">
+                              {organization?.country}
+                            </span>
+                          </div>
                         </>
                       ) : (
                         <i className="text-crop-1 overflow-hidden">
@@ -243,6 +270,15 @@ export default function CompanyDashboard() {
                       )}
                     </span>
                   </div>
+                  {!!organization?.followerCount && (
+                    <span className="follower-count">
+                      {`${organization?.followerCount} ${
+                        organization?.followerCount > 1
+                          ? "Followers"
+                          : "Follower"
+                      }`}
+                    </span>
+                  )}
                   {isUserAdmin && (
                     <button
                       onClick={() => navigate("edit-profile")}
@@ -255,8 +291,8 @@ export default function CompanyDashboard() {
               </div>
               <div className="right-container">
                 <div className="socials">
-                  {organization?.webSiteUrl && (
-                    <a href={organization?.webSiteUrl}>
+                  {organization?.websiteUrl && (
+                    <a href={organization?.websiteUrl}>
                       <PiGlobeLight />
                     </a>
                   )}
@@ -281,7 +317,31 @@ export default function CompanyDashboard() {
                 )}
               </div>
             </div>
-            {!isUserAdmin && <button className="follow-btn">+ Follow</button>}
+            {isUserLoggedIn() && !isUserAdmin && (
+              <button
+                style={{
+                  backgroundColor: organization?.isFollowing
+                    ? "transparent"
+                    : "#002B36",
+                  color: organization?.isFollowing ? "#002B36" : "#fff",
+                }}
+                onClick={() => handleFollow()}
+                // while the mouse is hovering on the button, change the text to say "Unfollow"
+                onMouseEnter={(e) => {
+                  if (organization?.isFollowing) {
+                    e.target.innerHTML = "Unfollow";
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  if (organization?.isFollowing) {
+                    e.target.innerHTML = "Following";
+                  }
+                }}
+                className="follow-btn"
+              >
+                {`${organization?.isFollowing ? "Following" : "+ Follow"}`}
+              </button>
+            )}
             <div className="lower-container">
               {/* {isUserAdmin && (
                 <div className="edit">
@@ -289,21 +349,21 @@ export default function CompanyDashboard() {
                 </div>
               )} */}
               <p className="heading">ABOUT US</p>
-              {organization?.description && (
+              {organization?.aboutUs && (
                 <span
                   className={`content ${
                     viewMore ? "no-text-crop" : "text-crop-4"
                   } `}
                 >
-                  {organization?.description}
+                  {organization?.aboutUs}
                 </span>
               )}
-              {!organization?.description && (
+              {!organization?.aboutUs && (
                 <p className="no-description">
                   <i>Description not available</i>
                 </p>
               )}
-              {organization?.description && !viewMore && (
+              {organization?.aboutUs && !viewMore && (
                 <div onClick={() => setViewMore(true)} className="view-more">
                   View More
                 </div>
@@ -362,6 +422,7 @@ export default function CompanyDashboard() {
                       details={jobDetail}
                       color={colorWheel[index % colorWheel.length]}
                       className="scroll-card no-hover-scale"
+                      adminView={isUserAdmin}
                     />
                   ))}
                 {activityChoice === "internships" &&
@@ -371,6 +432,7 @@ export default function CompanyDashboard() {
                       details={jobDetail}
                       color={colorWheel[index % colorWheel.length]}
                       className="scroll-card no-hover-scale"
+                      adminView={isUserAdmin}
                     />
                   ))}
                 {activityChoice === "hackathons" &&
@@ -379,6 +441,7 @@ export default function CompanyDashboard() {
                       key={index}
                       {...jobDetail}
                       className="scroll-card no-hover-scale"
+                      adminView={isUserAdmin}
                     />
                   ))}
                 {activityChoice === "projects" &&
@@ -387,6 +450,7 @@ export default function CompanyDashboard() {
                       key={index}
                       data={jobDetail}
                       className="scroll-card no-hover-scale"
+                      adminView={isUserAdmin}
                     />
                   ))}
               </div>
@@ -446,9 +510,21 @@ export default function CompanyDashboard() {
                 }}
                 className="card"
               >
-                <div className="heading">Hackathon</div>
+                <div className="heading">Event Hiring</div>
                 <div className="subheading">
                   Create Event <BsArrowRight />
+                </div>
+              </div>
+              <div
+                onClick={() => navigate("/host/project")}
+                style={{
+                  backgroundImage: `url(${bucket}project.png)`,
+                }}
+                className="card"
+              >
+                <div className="heading">Projects</div>
+                <div className="subheading">
+                  Host Projects <BsArrowRight />
                 </div>
               </div>
             </div>

@@ -29,6 +29,10 @@
   position: relative;
   max-width: 62rem;
   max-height: 44.125rem;
+  max-height: 100vh;
+  max-height: 100lvh;
+  max-height: 100svh;
+  max-height: 100dvh;
   width: 100%;
   height: fit-content;
   border-radius: 0.3125rem;

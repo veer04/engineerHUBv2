@@ -3,35 +3,24 @@ import "../Dashboard.css"; // !import this file first
 import "./ClubDashboard.css";
 import { BsArrowRight } from "react-icons/bs";
 import { FiEdit } from "react-icons/fi";
-import { AiOutlineLeft, AiOutlineRight, AiFillLinkedin } from "react-icons/ai";
-import { MdAddCircle } from "react-icons/md";
-import { FiEdit2 } from "react-icons/fi";
+import { AiFillLinkedin } from "react-icons/ai";
 import { PiGlobeLight } from "react-icons/pi";
 import { BiLogoInstagramAlt } from "react-icons/bi";
-import banner from "./banner-1.png";
+import { MdAdd } from "react-icons/md";
 import default_profile_icon from "./default_profile_icon.png";
 import { Bucket_URL } from "../../../services/APIUtils";
-import JobCard from "../../../components/JobCard/JobCard";
 import { Outlet, useNavigate, useParams } from "react-router-dom";
 import defaultPoster from "../../../assets/defaultPoster";
 import { getUserId, isUserLoggedIn } from "../../../features/User/UserDetails";
-import JobCards from "../../Company/Jobs/JobCards";
-import colorWheel from "../../../assets/colorWheel";
 import EventCard from "../../../components/EventCard/EventCard";
-import ProjectCard from "../../../components/ProjectCard/ProjectCard";
 import {
-  getAllEvents2,
-  getAllInternships,
-  getAllJobs2,
+  followClub,
   getAllPosts,
-  getClubProfileById,
-  getEvents,
+  getClubProfileByIdPrivateMode,
   getFeaturedEvents,
   getOrganizationProfileById,
-  getProjectData,
+  unFollowClub,
 } from "../../../services/APIConfig";
-import HackathonCard from "../../Company/Events/EventsChoices/HackathonCards";
-import ProjectCards from "../../Company/Projects/ProjectCards";
 import ClubPostCard from "../../../components/ClubPostCard/ClubPostCard";
 import ClubMemberCard from "../../../components/ClubMemberCard/ClubMemberCard";
 
@@ -44,60 +33,23 @@ export default function ClubDashboard() {
   const [showAll1, setShowAll1] = useState(false);
   const [showAll2, setShowAll2] = useState(false);
   const [showAll3, setShowAll3] = useState(false);
-  const [activityChoice, setActivityChoice] = useState("jobs");
-  const logo = defaultPoster; // later fetch from api
-  const [jobs, setJobs] = useState([]);
-  const [members, setMembers] = useState([]);
+  const [posts, setPosts] = useState([]);
   const [featuredEvents, setFeaturedEvents] = useState([]);
-  const [internships, setInternships] = useState([]);
-  const [hackathons, setHackathons] = useState([]);
-  const [projects, setProjects] = useState([]);
-  const [isBannerPresent, setIsBannerPresent] = useState(true);
-  const [isLogoPresent, setIsLogoPresent] = useState(true);
-  const [isDescriptionPresent, setIsDescriptionPresent] = useState(true);
-  const [isActivityPresent, setIsActivityPresent] = useState(true);
-  const [scrollAmount, setScrollAmount] = useState(220);
-  const bucket = `${Bucket_URL}frontend/hosting/`;
+  const [followResponse, setFollowResponse] = useState({});
   const bucket2 = `${Bucket_URL}frontend/profile/dashboard/`;
 
-  const eyeSvg = (
-    <svg
-      width="19"
-      height="14"
-      viewBox="0 0 19 14"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M1 6.97656C1 6.97656 3.98828 1 9.21777 1C14.4473 1 17.4355 6.97656 17.4355 6.97656C17.4355 6.97656 14.4473 12.9531 9.21777 12.9531C3.98828 12.9531 1 6.97656 1 6.97656Z"
-        stroke="black"
-        strokeWidth="1.2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      <path
-        d="M9 9C10.1046 9 11 8.10457 11 7C11 5.89543 10.1046 5 9 5C7.89543 5 7 5.89543 7 7C7 8.10457 7.89543 9 9 9Z"
-        stroke="black"
-        strokeWidth="1.2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-
-  const scrollLeft = () => {
-    const carousel = document.querySelector(".carousel");
-    carousel.scrollLeft -= scrollAmount;
-  };
-  const scrollRight = () => {
-    const carousel = document.querySelector(".carousel");
-    carousel.scrollLeft += scrollAmount;
-  };
+  function fetchData() {
+    if (isUserLoggedIn()) {
+      getClubProfileByIdPrivateMode(setOrganization, clubId);
+    } else {
+      getOrganizationProfileById(setOrganization, clubId);
+    }
+  }
 
   useEffect(() => {
     // window.scrollTo(0, 0);
-    getClubProfileById(setOrganization, clubId);
-    getAllPosts(setJobs, clubId);
+    fetchData();
+    getAllPosts(setPosts, clubId);
     getFeaturedEvents(setFeaturedEvents);
 
     if (isUserLoggedIn() && clubId === getUserId()) {
@@ -111,62 +63,17 @@ export default function ClubDashboard() {
     console.log("organization", organization);
   }, [organization]);
 
-  // useEffect(() => {
-  //   console.log("jobs", jobs);
-  // }, [jobs]);
-
-  // useEffect(() => {
-  //   console.log("internships", internships);
-  // }, [internships]);
-
-  // useEffect(() => {
-  //   console.log("hackathons", hackathons);
-  // }, [hackathons]);
-
-  // useEffect(() => {
-  //   console.log("projects", projects);
-  // }, [projects]);
-
   useEffect(() => {
-    if (activityChoice === "jobs") {
-      if (jobs.length !== 0) {
-        setIsActivityPresent(true);
-      } else {
-        setIsActivityPresent(false);
-      }
+    if (!!followResponse) fetchData();
+  }, [followResponse]);
+
+  function handleFollow() {
+    if (organization?.isFollowing) {
+      unFollowClub(clubId, setFollowResponse);
+    } else {
+      followClub(clubId, setFollowResponse);
     }
-    if (activityChoice === "internships") {
-      if (internships.length !== 0) {
-        setIsActivityPresent(true);
-      } else {
-        setIsActivityPresent(false);
-      }
-    }
-    if (activityChoice === "hackathons") {
-      if (hackathons.length !== 0) {
-        setIsActivityPresent(true);
-      } else {
-        setIsActivityPresent(false);
-      }
-    }
-    if (activityChoice === "projects") {
-      if (projects.length !== 0) {
-        setIsActivityPresent(true);
-      } else {
-        setIsActivityPresent(false);
-      }
-    }
-    setShowAll1(false);
-    if (activityChoice === "jobs" || activityChoice === "internships") {
-      setScrollAmount(220);
-    }
-    if (activityChoice === "projects") {
-      setScrollAmount(201);
-    }
-    if (activityChoice === "hackathons") {
-      setScrollAmount(233);
-    }
-  }, [activityChoice, jobs, internships, hackathons, projects]);
+  }
 
   return (
     <>
@@ -178,15 +85,22 @@ export default function ClubDashboard() {
         </h2>
         <section className="box details-container">
           <div className="cover">
-            {organization?.imagePoster && (
+            {(organization?.imagePoster ||
+              organization?.clubPhoto?.length > 0) && (
               <img
                 className="cover-image"
                 loading="lazy"
-                src={organization?.imagePoster}
+                src={
+                  !!organization?.imagePoster
+                    ? organization?.imagePoster
+                    : organization?.clubPhoto[0]
+                }
                 alt="Cover Image"
               />
             )}
-            {!organization?.imagePoster && (
+            {!(
+              organization?.imagePoster || organization?.clubPhoto?.length > 0
+            ) && (
               <img
                 className="cover-image"
                 loading="lazy"
@@ -219,8 +133,8 @@ export default function ClubDashboard() {
                     {organization?.name}
                   </h1>
                   <h2 className="text-crop-1 overflow-hidden">
-                    {organization?.subheading ? (
-                      organization?.subheading
+                    {organization?.subHeading ? (
+                      organization?.subHeading
                     ) : (
                       <i className="text-crop-1 overflow-hidden">
                         Subheading not available
@@ -229,13 +143,29 @@ export default function ClubDashboard() {
                   </h2>
                   <div>
                     <span className="text-crop-1 overflow-hidden">
-                      {organization?.organisationType ? (
+                      {organization?.clubType ? (
                         <>
-                          {organization?.organisationType}
-                          <h3>•</h3>
-                          <h3 className="text-crop-1 overflow-hidden">
-                            {organization?.location}
-                          </h3>
+                          <div className="d-flex flex-row gap-1">
+                            <span className="text-crop-1 overflow-hidden">
+                              {organization?.clubType}
+                            </span>
+                            {organization?.country && (
+                              <>
+                                <span>•</span>
+                                <span className="text-crop-1 overflow-hidden">
+                                  {`${
+                                    organization?.state
+                                      ? organization?.state + ","
+                                      : ""
+                                  } ${
+                                    organization?.country
+                                      ? organization?.country
+                                      : ""
+                                  }`}
+                                </span>
+                              </>
+                            )}
+                          </div>
                         </>
                       ) : (
                         <i className="text-crop-1 overflow-hidden">
@@ -244,6 +174,15 @@ export default function ClubDashboard() {
                       )}
                     </span>
                   </div>
+                  {!!organization?.followerCount && (
+                    <span className="follower-count">
+                      {`${organization?.followerCount} ${
+                        organization?.followerCount > 1
+                          ? "Followers"
+                          : "Follower"
+                      }`}
+                    </span>
+                  )}
                   {isUserAdmin && (
                     <button
                       onClick={() => navigate("edit-profile")}
@@ -256,8 +195,8 @@ export default function ClubDashboard() {
               </div>
               <div className="right-container">
                 <div className="socials">
-                  {organization?.webSiteUrl && (
-                    <a href={organization?.webSiteUrl}>
+                  {organization?.websiteUrl && (
+                    <a href={organization?.websiteUrl}>
                       <PiGlobeLight />
                     </a>
                   )}
@@ -282,7 +221,31 @@ export default function ClubDashboard() {
                 )}
               </div>
             </div>
-            {!isUserAdmin && <button className="follow-btn">+ Follow</button>}
+            {isUserLoggedIn() && !isUserAdmin && (
+              <button
+                style={{
+                  backgroundColor: organization?.isFollowing
+                    ? "transparent"
+                    : "#002B36",
+                  color: organization?.isFollowing ? "#002B36" : "#fff",
+                }}
+                onClick={() => handleFollow()}
+                // while the mouse is hovering on the button, change the text to say "Unfollow"
+                onMouseEnter={(e) => {
+                  if (organization?.isFollowing) {
+                    e.target.innerHTML = "Unfollow";
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  if (organization?.isFollowing) {
+                    e.target.innerHTML = "Following";
+                  }
+                }}
+                className="follow-btn"
+              >
+                {`${organization?.isFollowing ? "Following" : "+ Follow"}`}
+              </button>
+            )}
             <div className="lower-container">
               {/* {isUserAdmin && (
                 <div className="edit">
@@ -313,15 +276,20 @@ export default function ClubDashboard() {
           </div>
         </section>
         <section className="box recent-activities">
+          {isUserAdmin && (
+            <div onClick={() => navigate("add-post")} className="add-option">
+              <MdAdd />
+            </div>
+          )}
           <p className="heading">POSTS</p>
           <div className="carousel-container">
-            {jobs.length !== 0 && (
+            {posts.length !== 0 && (
               <div className="carousel-grid">
                 {showAll1
-                  ? jobs.map((jobDetail, index) => (
+                  ? posts.map((jobDetail, index) => (
                       <ClubPostCard key={index} {...jobDetail} />
                     ))
-                  : jobs
+                  : posts
                       .slice(0, 3)
                       .map((jobDetail, index) => (
                         <ClubPostCard key={index} {...jobDetail} />
@@ -329,61 +297,68 @@ export default function ClubDashboard() {
               </div>
             )}
 
-            {!isActivityPresent && (
+            {posts.length === 0 && (
               <div className="no-jobs empty-container">
                 {/* <MdAddCircle /> */}
                 <p>{`No posts to show`}</p>
               </div>
             )}
           </div>
-          {isActivityPresent && !showAll1 && (
+          {posts.length !== 0 && !showAll1 && (
             <div className="btn-container">
               <button
                 onClick={() => setShowAll1(true)}
                 className="all-jobs-btn"
               >
-                Show all {activityChoice} <BsArrowRight />
+                Show all posts <BsArrowRight />
               </button>
             </div>
           )}
         </section>
         <section className="box recent-activities">
+          {isUserAdmin && (
+            <div onClick={() => navigate("add-member")} className="add-option">
+              <MdAdd />
+            </div>
+          )}
           <p className="heading">CLUB MEMBERS</p>
           <div className="carousel-container">
-            {/* <div className="carousel-grid">
-              {showAll2
-                ? jobs.map((jobDetail, index) => (
-                    <ClubMemberCard
-                      key={index}
-                      {...jobDetail}
-                      className="scroll-card no-hover-scale"
-                    />
-                  ))
-                : jobs
-                    .slice(0, 3)
-                    .map((jobDetail, index) => (
+            {organization?.members?.length !== 0 && (
+              <div className="carousel-grid">
+                {showAll2
+                  ? organization?.members?.map((jobDetail, index) => (
                       <ClubMemberCard
                         key={index}
                         {...jobDetail}
                         className="scroll-card no-hover-scale"
-                      /> 
-                    ))}
-            </div> */}
+                      />
+                    ))
+                  : organization?.members
+                      ?.slice(0, 3)
+                      .map((jobDetail, index) => (
+                        <ClubMemberCard
+                          key={index}
+                          {...jobDetail}
+                          className="scroll-card no-hover-scale"
+                        />
+                      ))}
+              </div>
+            )}
 
-            {isActivityPresent && (
+            {organization?.members?.length === 0 && (
               <div className="no-jobs empty-container">
                 {/* <MdAddCircle /> */}
                 <p>{`No members to show`}</p>
               </div>
             )}
           </div>
-          {isActivityPresent && !showAll2 && (
+          {organization?.members?.length !== 0 && !showAll2 && (
             <div className="btn-container">
               <button
                 onClick={() => setShowAll2(true)}
                 className="all-jobs-btn"
               >
-                Show all {activityChoice} <BsArrowRight />
+                Show all members <BsArrowRight />
               </button>
             </div>
           )}
@@ -391,40 +366,42 @@ export default function ClubDashboard() {
         <section className="box recent-activities">
           <p className="heading">FEATURED EVENTS</p>
           <div className="carousel-container">
-            <div className="carousel-grid">
-              {showAll3
-                ? featuredEvents.map((jobDetail, index) => (
-                    <EventCard
-                      key={index}
-                      {...jobDetail}
-                      className="scroll-card no-hover-scale"
-                    />
-                  ))
-                : featuredEvents
-                    .slice(0, 3)
-                    .map((jobDetail, index) => (
+            {featuredEvents.length !== 0 && (
+              <div className="carousel-grid">
+                {showAll3
+                  ? featuredEvents.map((jobDetail, index) => (
                       <EventCard
                         key={index}
                         {...jobDetail}
                         className="scroll-card no-hover-scale"
                       />
-                    ))}
-            </div>
+                    ))
+                  : featuredEvents
+                      .slice(0, 3)
+                      .map((jobDetail, index) => (
+                        <EventCard
+                          key={index}
+                          {...jobDetail}
+                          className="scroll-card no-hover-scale"
+                        />
+                      ))}
+              </div>
+            )}
 
-            {!isActivityPresent && (
+            {featuredEvents.length === 0 && (
               <div className="no-jobs empty-container">
                 {/* <MdAddCircle /> */}
                 <p>{`No events to show`}</p>
               </div>
             )}
           </div>
-          {isActivityPresent && !showAll3 && (
+          {featuredEvents.length !== 0 && !showAll3 && (
             <div className="btn-container">
               <button
                 onClick={() => setShowAll3(true)}
                 className="all-jobs-btn"
               >
-                Show all {activityChoice} <BsArrowRight />
+                Show all events <BsArrowRight />
               </button>
             </div>
           )}
