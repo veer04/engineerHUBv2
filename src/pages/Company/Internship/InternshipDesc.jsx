@@ -154,7 +154,7 @@ const InternshipDesc = () => {
                 )}
                 {isApplicable && hiring?.applied === false && (
                   <button onClick={UserDataPost} className="btn">
-                    Apply
+                    Easy Apply
                   </button>
                 )}
                 {/* {isApplicable &&
@@ -172,7 +172,7 @@ const InternshipDesc = () => {
               </div>
             ) : (
               <Link to="/login">
-                <div className="btn">Apply</div>
+                <div className="btn">Easy Apply</div>
               </Link>
             )}
           </div>

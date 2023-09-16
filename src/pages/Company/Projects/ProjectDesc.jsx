@@ -130,7 +130,7 @@ const ProjectDesc = ({ data, isApplied }) => {
           )}
           {isApplicable && isApplied === false && (
             <button onClick={UserDataPost} className="btn ApplyNowBtn">
-              Apply
+              Easy Apply
             </button>
           )}
           {isApplied === true && (
@@ -141,7 +141,7 @@ const ProjectDesc = ({ data, isApplied }) => {
         </div>
       ) : (
         <Link to="/login">
-          <div className="btn ApplyNowBtn">Apply</div>
+          <div className="btn ApplyNowBtn">Easy Apply</div>
         </Link>
       )}
     </div>

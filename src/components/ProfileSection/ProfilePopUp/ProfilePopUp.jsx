@@ -17,6 +17,7 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import { handleLogout } from "../../../features/logout";
 import { CgLogOut } from "react-icons/cg";
+import { HashLink } from "react-router-hash-link";
 
 export default function ProfilePopUp() {
   if (!isUserLoggedIn()) {
@@ -81,24 +82,21 @@ export default function ProfilePopUp() {
       link: "/projects",
     },
     {
-      label:"Blogs",
+      label: "Blogs",
       icon: "",
-      link:"",
-
-      },
+      link: "",
+    },
 
     {
-      label:"Events",
+      label: "Events",
       icon: "",
-      link:"",
-
-      },
-     {
-        label:"Webinars",
-        icon: "",
-        link:"",
-
-        }
+      link: "",
+    },
+    {
+      label: "Webinars",
+      icon: "",
+      link: "",
+    },
   ];
   const companyMenuItems = [
     {
@@ -168,18 +166,20 @@ export default function ProfilePopUp() {
   ];
 
   const renderStudentMenuItems = studentMenuItems.map((item, index) => {
-    <button
-      key={index}
-      data-bs-dismiss="offcanvas"
-      aria-label="Close"
-      className="item"
-      onClick={() => {
-        navigate(item.link);
-      }}
-    >
-      <div className="icon">{item.icon}</div>
-      <div className="label">{item.label}</div>
-    </button>;
+    return (
+      <button
+        key={index}
+        data-bs-dismiss="offcanvas"
+        aria-label="Close"
+        className="item"
+        onClick={() => {
+          navigate(item.link);
+        }}
+      >
+        <div className="icon">{item.icon}</div>
+        <div className="label">{item.label}</div>
+      </button>
+    );
   });
 
   const renderAlumniMenuItems = <div>Alumni Menu Items</div>;
@@ -238,19 +238,24 @@ export default function ProfilePopUp() {
 
   const renderCompanyPromotionalContent = (
     <div className="promotion">
-      <button
-        onClick={() => {
-          navigate("/under-maintenance");
-        }}
-        data-bs-dismiss="offcanvas"
-        aria-label="Close"
-        className="company-ad"
+      <HashLink
+        to={`/profile/organization/${getUserId()}/#sponsor`}
+        className="item"
       >
-        <div className="icon">
-          <HiOutlineLightningBolt />
-        </div>
-        <div className="label">Boost your company profile</div>
-      </button>
+        <button
+          // onClick={() => {
+          //   navigate("/under-maintenance");
+          // }}
+          data-bs-dismiss="offcanvas"
+          aria-label="Close"
+          className="company-ad"
+        >
+          <div className="icon">
+            <HiOutlineLightningBolt />
+          </div>
+          <div className="label">Boost your company profile</div>
+        </button>
+      </HashLink>
     </div>
   );
 
