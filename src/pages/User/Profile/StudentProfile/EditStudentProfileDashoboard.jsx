@@ -33,7 +33,7 @@ const EditStudentProfileDashoboard = () => {
   const [isImageLoading, setIsImageLoading] = useState(false);
   const [newImage, setNewImage] = useState(null);
   const [user, setUser] = useState(null);
-  const [userSkills, setUserSkills] = useState(null);
+  const [userSkills, setUserSkills] = useState([]);
   const options = [
     "Basic Information",
     "Education Details",
@@ -117,7 +117,7 @@ const EditStudentProfileDashoboard = () => {
     };
   }, []);
   useEffect(() => {
-    // setUserSkills(user.skillsDetails)
+    setUserSkills(user?.skillsDetails)
     console.log(user);
   }, [user]);
   useEffect(() => {
