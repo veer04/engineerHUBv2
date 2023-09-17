@@ -7,6 +7,7 @@ import { getAccessToken } from "../../../../features/getCookieValues";
 import getCookie from "../../../../features/getCookieValues";
 import axios from "axios";
 import { CgLogOut } from "react-icons/cg";
+import collegeSVG from "./collegeSVG.png";
 import { AiOutlinePlus } from "react-icons/ai";
 import { useNavigate, useParams } from "react-router-dom";
 import { TextField, Autocomplete } from "@mui/material";
@@ -34,6 +35,7 @@ const EditStudentProfileDashoboard = () => {
   const [newImage, setNewImage] = useState(null);
   const [user, setUser] = useState(null);
   const [userSkills, setUserSkills] = useState([]);
+  const [educationList,setEducationList]=useState([]);
   const options = [
     "Basic Information",
     "Education Details",
@@ -45,7 +47,7 @@ const EditStudentProfileDashoboard = () => {
   const [chosenOption, setChosenOption] = useState(options[0]);
   const [currentlyWorking, setCurrentlyWorking] = useState(false);
   const [campuses, setCampuses] = useState([]);
-
+  const [collegeId,setCollegeId]=useState("");
   const [workExperienceExists, setWorkExperienceExists] = useState(true);
   const [projectExists, setProjectExists] = useState(true);
   const [firstName, setFirstName] = useState("");
@@ -66,9 +68,10 @@ const EditStudentProfileDashoboard = () => {
   const [newCity, setNewCity] = useState("");
   const [response, setResponse] = useState(null);
   const [degree, setDegree] = useState("");
-  const [startYear, newStartYear] = useState(null);
-  const [endYear, setEndYear] = useState(null);
-  const [marks, setMarks] = useState(null);
+  const [startYear, setStartYear] = useState("");
+  const [endYear, setEndYear] = useState("");
+  const [marks, setMarks] = useState("");
+  const [educationExist,setEducationExist]=useState(false);
   const [specialization, setSpecialization] = useState(null);
   const [deleteResponse, setDeleteResponse] = useState(null);
   const [validation, setValidation] = useState(true);
@@ -118,7 +121,14 @@ const EditStudentProfileDashoboard = () => {
   }, []);
   useEffect(() => {
     setUserSkills(user?.skillsDetails)
+    setEducationList(user?.educationDetails);
+   console.log(educationList);
+   if(!!!educationList)
+   {
+    setEducationExist(true);
+   }
     console.log(user);
+    console.log(educationExist);
   }, [user]);
   useEffect(() => {
     if (!!response) {
@@ -166,7 +176,6 @@ const EditStudentProfileDashoboard = () => {
   const handleSkillsChange = (_, value) => {
     setSkillsRequired(value);
   };
-
   function validateDate2() {
     let error2 = {
       degree: "",
@@ -263,15 +272,18 @@ const EditStudentProfileDashoboard = () => {
 
   async function updateEducation(e) {
     e.preventDefault();
-    const formEdu = new FormData();
-    formEdu.append("degree", degree);
-    formEdu.append("collegeId", campuses);
-    formEdu.append("startYear", startYear);
-    formEdu.append("endYear", endYear);
-    formEdu.append("marks", marks);
-    formEdu.append("specialization", specialization);
-    formEdu.append("country", newCountry);
-    formEdu.append("state", states);
+
+    const formEdu={
+      degree:degree,
+      collegeId:campuses,
+      startYear:startYear,
+      endYear:endYear,
+      marks:marks,
+      specialization:specialization,
+      country:newCountry,
+      state:stateParam,
+
+    }
 
     try {
       const response = await axios.post(
@@ -300,7 +312,16 @@ const EditStudentProfileDashoboard = () => {
       console.log(error);
     }
   }
+async function addEducation(e){
+e.preventDefault();
+const data={
+  designation: designation,
+  startYear:startYear,
+  currentlyWorking:true,
+  mark
 
+}
+}
   function handleDelete() {
     deleteProfilePicture(setDeleteResponse);
   }
@@ -363,17 +384,22 @@ const EditStudentProfileDashoboard = () => {
       errorSkills.skillsRequired = "Add atleast 5 skills";
     return valid;
   }
+  const handleChangeCollegeId = (e) => {
+    const { name, value } = e.target;
+    setCollegeId((prevCollegeId) => ({
+      ...prevCollegeId,
+      [name]: value,
+    }));
+  };
   async function addSkills(e) {
     e.preventDefault;
-    const skillsAdd = new FormData();
-    skillsAdd.append("skills", skillsRequired);
-    setErrorSkills((prev) => ({ ...prev, ...errorSkills }));
+   
 
-    if (validateSkills() === true) {
+    
       try {
         const response = await axios.post(
           `${API_URLT}api/v1/add/skills`,
-          skillsAdd,
+          skillsRequired,
           {
             headers: {
               accesstoken: getAccessToken(),
@@ -396,7 +422,175 @@ const EditStudentProfileDashoboard = () => {
 
         console.log(error);
       }
-    }
+    
+  }
+  function addEdu()
+  {
+    return (
+
+      <>
+          <form action="" onSubmit={updateEducation}>
+          <div className="row">
+            <div className="">
+              <label className="label">
+                Degree<span className="required">*</span>
+              </label>
+              <select
+                className="input-field"
+                onChange={(e) => setDegree(e.target.value)}
+              >
+                <option value="default">Select Degree</option>
+                <option value="B.tech">Btech</option>
+                <option value="M.tech">Mtech</option>
+              </select>
+              <label className="error-message">{error2.degree}</label>
+            </div>
+          </div>
+          <br />
+          <div className="row">
+            <div className="col-lg-3">
+              <label className="label">
+                Date of Start<span className="required">*</span>
+              </label>
+              <input
+                type="date"
+                className="input-field"
+                placeholder="Enter your String"
+                onChange={(e)=>setStartYear(e.target.value)}
+              />
+              <label className="error-message">{error2.startYear}</label>
+            </div>
+            <div className="col-lg-3">
+              <label className="label">
+                Date of End<span className="required">*</span>
+              </label>
+              <input
+                type="date"
+                className="input-field"
+                placeholder="Enter your String"
+                onChange={(e)=>setEndYear(e.target.value)}
+              />
+              <label className="error-message">{error2.endYear}</label>
+            </div>
+            <div className="col-lg-3">
+              <label className="label">
+                CGPA<span className="required">*</span>
+              </label>
+              <input
+                type="number"
+                className="input-field"
+                placeholder="Enter your String"
+                onChange={(e)=>setMarks(e.target.value)}
+              />
+              <label className="error-message">{error2.marks}</label>
+            </div>
+          </div>
+
+          <div className="row">
+            <div className=" ">
+              <label className="label">
+                Specialization
+                <span
+                  className="required"
+                  style={{
+                    gap: "0",
+                  }}
+                >
+                  *
+                </span>
+              </label>
+              <select
+                className="input-field"
+                style={{
+                  gap: "0",
+                }}
+                value={specialization}
+                onChange={(e)=>setSpecialization(e.target.value)}
+              >
+                <option value="CSE">CSE</option>
+                <option value="IT">IT</option>
+                <option value="MECH">MECH</option>
+                <option value="CIVIL">CIVIL</option>
+              </select>
+              <label className="error-message">{error2.specialization}</label>
+            </div>
+          </div>
+          <div className="row">
+            <label className="label">
+              Institute/College Name<span className="required">*</span>
+            </label>
+            <select
+              labelId="campus-name"
+              id="student-signup-campus-select"
+              label="Institution Name"
+              name="institutionName"
+              value={collegeId}
+              onChange={handleChangeCollegeId}
+            >
+              {campuses.map((campus) => (
+                <option key={campus._id} value={campus._id}>
+                  {campus.collegeName}
+                </option>
+              ))}
+            </select>
+            <label className="error-message">{error2.campuses}</label>
+          </div>
+          <div className="row">
+            <div className="col-lg-4">
+              <label className="label">
+                Country<span className="required">*</span>
+              </label>
+              <select
+                value={newCountry}
+                onChange={(e) => {
+                  setNewCountry(e.target.value);
+                  setCountryParam(
+                    countries.find(
+                      (country) => country.country === e.target.value
+                    ).countryCode
+                  );
+                }}
+                className="input-field"
+              >
+                {countries.map((country) => (
+                  <option key={country.countryCode} value={country.country}>
+                    {country.country}
+                  </option>
+                ))}
+              </select>
+              {/* <label className="error-message">{error2.country}</label> */}
+            </div>
+            <div className="col-lg-4">
+              <label className="label">
+                State<span className="required">*</span>
+              </label>
+              <select
+                value={newState}
+                onChange={(e) => {
+                  setNewState(e.target.value);
+                  setStateParam(
+                    states.find((state) => state.state === e.target.value)
+                      .stateCode
+                  );
+                }}
+                className="input-field"
+              >
+                {states.map((state) => (
+                  <option key={state.stateCode} value={state.state}>
+                    {state.state}
+                  </option>
+                ))}
+              </select>
+              {/* <label className="error-message">{error2.state}</label> */}
+            </div>
+          </div>
+          <button type="submit" onClick={updateEducation}>
+            Submit
+          </button>
+        </form>
+      </>
+
+    )
   }
   const renderOption1 = (
     <>
@@ -560,164 +754,109 @@ const EditStudentProfileDashoboard = () => {
     <>
       <section className="box">
         <p className="heading">EDUCATION DETAILS</p>
-
-        <form action="" onSubmit={updateEducation}>
-          <div className="row">
-            <div className="">
-              <label className="label">
-                Degree<span className="required">*</span>
-              </label>
-              <select
-                className="input-field"
-                onChange={(e) => setDegree(e.target.value)}
-              >
-                <option value="default">Select Degree</option>
-                <option value="B.tech">Btech</option>
-                <option value="M.tech">Mtech</option>
-              </select>
-              <label className="error-message">{error2.degree}</label>
-            </div>
-          </div>
-          <br />
-          <div className="row">
-            <div className="col-lg-3">
-              <label className="label">
-                Date of Start<span className="required">*</span>
-              </label>
-              <input
-                type="date"
-                className="input-field"
-                placeholder="Enter your String"
-              />
-              <label className="error-message">{error2.startYear}</label>
-            </div>
-            <div className="col-lg-3">
-              <label className="label">
-                Date of End<span className="required">*</span>
-              </label>
-              <input
-                type="date"
-                className="input-field"
-                placeholder="Enter your String"
-              />
-              <label className="error-message">{error2.endYear}</label>
-            </div>
-            <div className="col-lg-3">
-              <label className="label">
-                CGPA<span className="required">*</span>
-              </label>
-              <input
-                type="number"
-                className="input-field"
-                placeholder="Enter your String"
-              />
-              <label className="error-message">{error2.marks}</label>
-            </div>
-          </div>
-
-          <div className="row">
-            <div className=" ">
-              <label className="label">
-                Specialization
-                <span
-                  className="required"
-                  style={{
-                    gap: "0",
-                  }}
-                >
-                  *
-                </span>
-              </label>
-              <select
-                className="input-field"
+        {
+          educationExist?(
+            <>
+          {educationList.map((item,index)=>
+          {
+            return(
+              <div className="row"
+              style={
+                {
+                  margin:"2%",
+                }
+              }>
+              <div
+                className="boxWork"
                 style={{
-                  gap: "0",
+                  border: "1px solid grey",
+                  borderRadius: "5px",
+                  padding: "2%",
                 }}
-                // value={gender}
-                // onChange={(e)=>setGender(e.target.value)}
               >
-                <option value="male">Male</option>
-                <option value="female">Female</option>
-                <option value="sigma">Sigma</option>
-                <option value="alpha">Giga Chad</option>
-              </select>
-              <label className="error-message">{error2.specialization}</label>
+                <div className="row">
+                  <div
+                    className="col-lg-2"
+                    style={{
+                      border: "1px solid grey",
+                      borderRadius: "5px",
+                      width: "80px",
+                      height: "80px",
+                      marginRight: "10px",
+                      marginRight: "10px",
+                      marginTop: "10px",
+                    }}
+
+                  >
+                    <img src={collegeSVG} alt="" />
+                  </div>
+                  <div className="col-lg-10">
+                    <div
+                      className="row jobRole"
+                      style={{
+                        color: "#002b36 ",
+                        fontSize: "1.2rem",
+                        fontWeight: "600",
+                        lineHeight: "2rem",
+                      }}
+                    >
+                      {educationList[index].collegeId}
+                    </div>
+                    <div
+                      className="row companyName"
+                      style={{
+                        color: "#002b36",
+                        fontSize: "1.0rem",
+                        fontWeight: "600",
+                      }}
+                    >
+                      {educationList[index].degree} / {educationList[index].specialization}
+                    </div>
+                    <div className="row duration">
+                      {educationList[index].startYear} - {educationList[index].endYear}
+                    </div>
+                    <div className="row jobLocation">{educationList[index].state} , {educationList[index].country}</div>
+                  </div>
+                </div>
+              </div>
+
             </div>
-          </div>
-          <div className="row">
-            <label className="label">
-              Institute/College Name<span className="required">*</span>
-            </label>
-            <select
-              labelId="campus-name"
-              id="student-signup-campus-select"
-              required
-              value={campuses}
-              label="Institution Name"
-              name="institutionName"
-              onChange={(e) => e.target.value}
-            >
-              {campuses.map((campus) => (
-                <option key={campus._id} value={campus._id}>
-                  {campus.collegeName}
-                </option>
-              ))}
-            </select>
-            <label className="error-message">{error2.campuses}</label>
-          </div>
-          <div className="row">
-            <div className="col-lg-4">
-              <label className="label">
-                Country<span className="required">*</span>
-              </label>
-              <select
-                value={newCountry}
-                onChange={(e) => {
-                  setNewCountry(e.target.value);
-                  setCountryParam(
-                    countries.find(
-                      (country) => country.country === e.target.value
-                    ).countryCode
-                  );
+            );
+          }
+          
+          )
+        }
+            <div
+                className="addButton"
+                onClick={addEdu}
+                style={{
+                  border: "1px solid grey",
+                  width: "300px",
+                  height: "60px",
+                  borderRadius: "10px",
+                  color: "#002b36",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
                 }}
-                className="input-field"
               >
-                {countries.map((country) => (
-                  <option key={country.countryCode} value={country.country}>
-                    {country.country}
-                  </option>
-                ))}
-              </select>
-              {/* <label className="error-message">{error2.country}</label> */}
-            </div>
-            <div className="col-lg-4">
-              <label className="label">
-                State<span className="required">*</span>
-              </label>
-              <select
-                value={newState}
-                onChange={(e) => {
-                  setNewState(e.target.value);
-                  setStateParam(
-                    states.find((state) => state.state === e.target.value)
-                      .stateCode
-                  );
-                }}
-                className="input-field"
-              >
-                {states.map((state) => (
-                  <option key={state.stateCode} value={state.state}>
-                    {state.state}
-                  </option>
-                ))}
-              </select>
-              {/* <label className="error-message">{error2.state}</label> */}
-            </div>
-          </div>
-          <button type="submit" onClick={updateEducation}>
-            Submit
-          </button>
-        </form>
+                <div className="addIcon">
+                  <AiOutlinePlus />
+                </div>
+                Add New
+              </div>
+
+
+            </>
+
+          ):(
+            <>
+
+            </>
+          )
+          
+        }
+     
       </section>
     </>
   );
@@ -957,7 +1096,10 @@ const EditStudentProfileDashoboard = () => {
           </>
         ) : (
           <>
+
+          <form action="" onSubmit={addEducation}>
             <div className="row">
+              
               <div className="">
                 <label className="label">
                   Designation<span className="required">*</span>
@@ -1042,6 +1184,11 @@ const EditStudentProfileDashoboard = () => {
                 </select>
               </div>
             </div>
+            <button type="submit"
+            onClick={addEducation}>
+
+            </button>
+            </form>
           </>
         )}
       </section>
