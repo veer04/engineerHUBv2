@@ -10,6 +10,7 @@ import { Bucket_URL } from "../../services/APIUtils";
 import { RxCross2 } from "react-icons/rx";
 import { useRef } from "react";
 import {
+  addClubMember,
   patchCoverImage,
   patchCoverImageUsingLink,
 } from "../../services/APIConfig";
@@ -23,7 +24,7 @@ export default function AddMemberModal() {
   const { organizationId } = useParams();
   const bucket = `${Bucket_URL}frontend/profile/dashboard/`;
   const [response, setResponse] = useState(null);
-  const [errors, setErrors] = useState({ name: "", role: "" });
+  const [errors, setErrors] = useState({ name: "", role: "", linkedin: "" });
 
   const navigate = useNavigate();
 
@@ -36,6 +37,12 @@ export default function AddMemberModal() {
   }
 
   useEffect(() => {
+    if (response) {
+      navigate(-1);
+    }
+  }, [response]);
+
+  useEffect(() => {
     document.body.classList.add("overflow-hidden");
 
     return () => {
@@ -44,8 +51,9 @@ export default function AddMemberModal() {
   }, []);
 
   function validateData() {
+    console.log("validate");
     let isValid = true;
-    let newErrors = { name: "", role: "" };
+    let newErrors = { name: "", role: "", linkedin: "" };
 
     if (!!!name) {
       newErrors.name = "Please enter the name of the member";
@@ -69,6 +77,19 @@ export default function AddMemberModal() {
       isValid = false;
     }
 
+    if (!!!linkedin) {
+      newErrors.role = "Please enter the linkedin URL of the member";
+      isValid = false;
+    } else if (
+      !/^(ftp|http|https):\/\/[^ "]+$/.test(linkedin) ||
+      !/^(ftp|http|https):\/\/(www.linkedin.com\/)/.test(linkedin)
+    ) {
+      newErrors.linkedin =
+        "Invalid linkedin url! (URL Ex: https://www.linkedin.com/company/engineersummit)";
+      isValid = false;
+    }
+    console.log("newErrors", newErrors);
+    console.log("errors", errors);
     setErrors(newErrors);
     return isValid;
   }
@@ -88,12 +109,15 @@ export default function AddMemberModal() {
     let isValid = false;
     isValid = validateData();
     if (isValid) {
+      console.log("api")
+      const formData = new FormData();
+      formData.append("name", name);
+      formData.append("image", newCoverPhoto);
+      formData.append("linkedIn", linkedin);
+      formData.append("designation", role);
+      addClubMember(formData, setResponse);
     }
   }
-
-  useEffect(() => {
-    console.log(!!newCoverPhoto && name.length !== 0);
-  }, [newCoverPhoto, name]);
 
   return ReactDOM.createPortal(
     <div
@@ -169,7 +193,6 @@ export default function AddMemberModal() {
           />
           <label className="error-message">{errors.role}</label>
 
-          <label className="error-message">{errors.linkedin}</label>
           <h2 className="modal-header mt-3">Linkedin</h2>
           <input
             name="name"
@@ -181,7 +204,7 @@ export default function AddMemberModal() {
           <label className="error-message">{errors.linkedin}</label>
 
           <button
-            disabled={!(!!newCoverPhoto && name.length !== 0)}
+            disabled={!(!!newCoverPhoto && !!name && !!role && !!linkedin)}
             onClick={() => handleUpload()}
             className="submit-button"
           >

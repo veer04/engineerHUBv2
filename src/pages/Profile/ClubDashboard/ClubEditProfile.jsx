@@ -28,7 +28,7 @@ export default function ClubEditProfile() {
   }
   const [organization, setOrganization] = useState(null);
   const navigate = useNavigate();
-  const options = ["Basic Information", "Contact Information", "Location"];
+  const options = ["Basic Information", "Contact Information", "Edit Location"];
   const [chosenOption, setChosenOption] = useState(options[0]);
   const fileInput = useRef(null);
   const [isImageLoading, setIsImageLoading] = useState(false);
@@ -155,9 +155,6 @@ export default function ClubEditProfile() {
       setNewSubHeading(organization?.subHeading);
       setNewClubType(organization?.clubType);
       setNewAboutUs(organization?.aboutUs);
-      setNewCountry(organization?.country);
-      setNewState(organization?.state);
-      setNewCity(organization?.city);
       setNewMobileCountryCode(organization?.mobileCountryCode);
       setNewMobileNumber(organization?.mobile);
       setNewWebsiteUrl(
@@ -549,7 +546,7 @@ export default function ClubEditProfile() {
           className="input-field"
         >
           {countries.length !== 0 && (
-            <option value="" selected  disabled>
+            <option value="" selected disabled>
               Select your Country
             </option>
           )}
@@ -575,7 +572,7 @@ export default function ClubEditProfile() {
           className="input-field"
         >
           {states.length !== 0 && (
-            <option value="" selected  disabled>
+            <option value="" selected disabled>
               Select your State
             </option>
           )}
@@ -596,7 +593,7 @@ export default function ClubEditProfile() {
           className="input-field"
         >
           {cities.length !== 0 && (
-            <option value=""  selected disabled>
+            <option value="" selected disabled>
               Select your City
             </option>
           )}

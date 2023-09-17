@@ -501,6 +501,30 @@ export const unFollowClub = (clubId, setResponse) => {
     });
 };
 
+export const addClubMember = (formData, setResponse) => {
+  const controller = new AbortController();
+  const config = {
+    headers: {
+      accessToken: getAccessToken(),
+    },
+  };
+  axios
+    .post(`${API_URL}api/v1/club/addMember`,formData, config)
+    .then((res) => {
+      console.log(res)
+      const data = res.data.data;
+      setResponse(data);
+    })
+    .catch((err) => {
+      if (axios.isCancel(err)) {
+        console.log("req cancel");
+      } else {
+        console.log("req performed");
+      }
+    });
+};
+
+
 export const getClubProfileById = (setClubProfile, clubId) => {
   const controller = new AbortController();
   axios
