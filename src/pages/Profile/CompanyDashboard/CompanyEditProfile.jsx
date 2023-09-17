@@ -28,11 +28,11 @@ export default function CompanyEditProfile() {
   }
   const [organization, setOrganization] = useState(null);
   const navigate = useNavigate();
-  const options = ["Basic Information", "Contact Information", "Location"];
+  const options = ["Basic Information", "Contact Information", "Edit Location"];
   const [chosenOption, setChosenOption] = useState(options[2]);
   const fileInput = useRef(null);
   const [isImageLoading, setIsImageLoading] = useState(false);
-  const [newImage, setNewImage] = useState(null);z
+  const [newImage, setNewImage] = useState(null);
   const [newName, setNewName] = useState("");
   const [newSubHeading, setNewSubHeading] = useState("");
   const [newOrganizationType, setNewOrganizationType] = useState("");
@@ -136,9 +136,6 @@ export default function CompanyEditProfile() {
       setNewOrganizationType(organization?.organisationType);
       setNewAboutUs(organization?.aboutUs);
       setNewHiringFor(organization?.hiringFor);
-      // setNewCountry(organization?.country);
-      // setNewState(organization?.state);
-      // setNewCity(organization?.city);
       setNewContactName(organization?.contactName);
       setNewMobileCountryCode(organization?.mobileCountryCode);
       setNewMobileNumber(organization?.mobile);
@@ -176,21 +173,6 @@ export default function CompanyEditProfile() {
       controller.abort();
     };
   }, [stateParam]);
-
-  useEffect(() => {
-    console.log("country", countries);
-    console.log("country", countries.length);
-  }, [countries]);
-
-  useEffect(() => {
-    console.log("state", states);
-    console.log("state", states.length);
-  }, [states]);
-
-  useEffect(() => {
-    console.log("city", cities);
-    console.log("city", cities.length);
-  }, [cities]);
 
   function validateData1() {
     let errors = {
@@ -359,7 +341,6 @@ export default function CompanyEditProfile() {
     let isValid = true;
     if (index === 1) {
       isValid = validateData1();
-      
     } else if (index === 2) {
       isValid = validateData2();
     } else if (index === 3) {
