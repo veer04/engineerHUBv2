@@ -37,20 +37,22 @@ const Success = () => {
             const decoded = jwt_decode(response.data.accessToken);
             const _id = decoded._id;
             const firstName=decoded.firstName;
+            console.log(decoded);
             const lastName=decoded.lastName;
-            const chatDomain=decoded.chatDomain;
+            // const chatDomain=JSON.stringfy(decoded.chatDomain);
             const name=firstName.concat(" ",lastName);
             Cookies.set("access_token", response.data.accessToken);
             Cookies.set("name",name);
             Cookies.set("firstName",firstName);
             Cookies.set("lastName",lastName);
-            Cookies.set("chatDomain",chatDomain);
+         
             Cookies.set("userName", decoded.userName);
             Cookies.set("email", decoded.email);
             Cookies.set("_id", _id);
             Cookies.set("image", decoded.image);
             Cookies.set("role", decoded.role);
             Cookies.set("mobile", decoded.mobile);
+            Cookies.set("chatDomain",JSON.stringify(decoded.chatDomain));
             console.log(response.data);
             if(!redirect)
             navigate("/login");
@@ -70,13 +72,17 @@ const Success = () => {
 
 
   return (
-    <div style={{
+    <main style={{
+      display:"flex",
+      justifyContent:"center",
+      alignItems:"center",
         textAlign:"center",
+        fontSize:"2rem",
+        fontWeight:"800",
     }}>
-        
         If logged in successfully u will be redirect
 
-    </div>
+    </main>
   )
 }
 

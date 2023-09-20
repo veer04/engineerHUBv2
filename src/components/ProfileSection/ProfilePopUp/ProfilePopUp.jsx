@@ -3,9 +3,14 @@ import "./ProfilePopUp.css";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
 import { RiSuitcase2Line } from "react-icons/ri";
+import {FaBlogger} from "react-icons/fa";
 import { HiOutlineSquares2X2 } from "react-icons/hi2";
 import { AiOutlineFile } from "react-icons/ai";
 import { AiOutlineCalendar } from "react-icons/ai";
+import {MdEmojiEvents} from "react-icons/md";
+import {MdCastForEducation} from "react-icons/md";
+import BookIcon from '@mui/icons-material/Book';
+import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 import { HiOutlineLightningBolt } from "react-icons/hi";
 import {
   getUserFullName,
@@ -69,39 +74,39 @@ export default function ProfilePopUp() {
     {
       label: "Internship",
       icon: <HiOutlineSquares2X2 />,
-      link: "/internship",
+      link: "/company/internships",
     },
     {
       label: "Jobs",
       icon: <RiSuitcase2Line />,
-      link: "/jobs",
+      link: "/company/jobs",
     },
     {
       label: "Projects",
       icon: <AiOutlineCalendar />,
-      link: "/projects",
+      link: "/company/projects",
     },
     {
       label: "Blogs",
-      icon: "",
-      link: "",
+      icon: <FaBlogger/>,
+      link: "/community/blogs/Data%20Structures%20%26%20Algorithms",
     },
 
     {
       label: "Events",
-      icon: "",
-      link: "",
+      icon: <MdEmojiEvents/>,
+      link: "/campus/intra-college",
     },
     {
-      label: "Webinars",
-      icon: "",
-      link: "",
+      label: "Workshops",
+      icon: <MdCastForEducation/>,
+      link: "/campus/workshop",
     },
   ];
   const companyMenuItems = [
     {
       label: "Create Jobs",
-      icon: <RiSuitcase2Line />,
+      icon: " ",
       link: "/host/job",
     },
     {

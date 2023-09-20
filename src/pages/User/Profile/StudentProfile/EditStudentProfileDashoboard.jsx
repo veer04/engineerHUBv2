@@ -9,8 +9,19 @@ import axios from "axios";
 import { CgLogOut } from "react-icons/cg";
 import collegeSVG from "./collegeSVG.png";
 import { AiOutlinePlus } from "react-icons/ai";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { TextField, Autocomplete } from "@mui/material";
+import IconButton from '@mui/material/IconButton';
+import InputAdornment from '@mui/material/InputAdornment';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import InstagramIcon from '@mui/icons-material/Instagram';
+import TwitterIcon from '@mui/icons-material/Twitter';
+import GitHubIcon from '@mui/icons-material/GitHub';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+// import BehanceIcon from '@mui/icons-material/Behance';
 import { API_URLT, API_URL } from "../../../../services/APIUtils";
 import {
   deleteProfilePicture,
@@ -40,18 +51,20 @@ const EditStudentProfileDashoboard = () => {
   const options = [
     "Basic Information",
     "Education Details",
-    "Skills",
+    
     "Work Experience",
     "Projects",
-    "Social Links",
+    
   ];
   const [chosenOption, setChosenOption] = useState(options[0]);
   const [currentlyWorking, setCurrentlyWorking] = useState(false);
   const [campuses, setCampuses] = useState([]);
   const [collegeId, setCollegeId] = useState("");
   const [newCampus, setNewCampus] = useState("");
+  const [projectTitle,setProjectTitle] = useState("");
+  const [projectLink,setProjectLink]= useState("");
+  const [projectDescription,setProjectDescription]= useState("");
   const [workExperienceExists, setWorkExperienceExists] = useState(false);
-  const [projectExists, setProjectExists] = useState(true);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [mobile, setMobile] = useState("");
@@ -74,13 +87,16 @@ const EditStudentProfileDashoboard = () => {
   const [endYear, setEndYear] = useState("");
   const [marks, setMarks] = useState("");
   const [educationExist, setEducationExist] = useState(false);
+  const [projectExist, setProjectExist] = useState(false);
   const [specialization, setSpecialization] = useState(null);
   const [deleteResponse, setDeleteResponse] = useState(null);
   const [organisation, setOrganisation] = useState("");
   const [workStart, setWorkStart] = useState("");
+  const [projectList,setProjectList] = useState([]);
   const [workEnd, setWorkEnd] = useState("");
   const [designation, setDesignation] = useState("");
   const [validation, setValidation] = useState(true);
+  const [patchEducationDetails,setPatchEducationDetails]=useState(false);
   const [errors, setErrors] = useState({
     firstName: "",
     lastName: "",
@@ -98,6 +114,12 @@ const EditStudentProfileDashoboard = () => {
     campuses: "",
     country: "",
   });
+  const [errorProjects,setErrorProjects]=useState({
+    projectTitle:"",
+    projectDescription:"",
+    projectLink:"",
+
+  })
   const [errorSkills, setErrorSkills] = useState({
     skillsRequired: "",
   });
@@ -132,6 +154,11 @@ const EditStudentProfileDashoboard = () => {
       setUserSkills(user?.skillsDetails);
       setEducationList(user?.educationDetails);
       setExperienceList(user?.experienceDetails);
+      setProjectList(user?.projectDetails);
+      if(Object.keys(projectList).length > 0)
+      {
+        setProjectExist(true);
+      }
       if (Object.keys(educationList).length > 0) {
         setEducationExist(true);
       }
@@ -186,6 +213,34 @@ const EditStudentProfileDashoboard = () => {
 
   const handleSkillsChange = (_, value) => {
     setSkillsRequired(value);
+  };
+  const [socialMediaLinks, setSocialMediaLinks] = useState({
+    LinkedIn: '',
+    Instagram: '',
+    Twitter: '',
+    GitHub: '',
+    Behance: '',
+  });
+
+  const [showLink, setShowLink] = useState(false);
+  const [errorLink, setErrorLink] = useState('');
+
+  const toggleVisibility = () => {
+    setShowLink(!showLink);
+  };
+
+  const handleChange = (platform, value) => {
+    const updatedLinks = { ...socialMediaLinks, [platform]: value };
+    setSocialMediaLinks(updatedLinks);
+  };
+
+  const handleBlur = () => {
+    const enteredLinks = Object.values(socialMediaLinks).filter(link => link !== '');
+    if (enteredLinks.length > 3) {
+      setErrorLink('You can only enter up to 3 social media links.');
+    } else {
+      setErrorLink('');
+    }
   };
   function validateDate2() {
     let error2 = {
@@ -280,6 +335,123 @@ const EditStudentProfileDashoboard = () => {
     setErrors((prev) => ({ ...prev, ...errors }));
     return isValid;
   }
+  function validateProject()
+  {
+    let errors={
+      projectDescription:"",
+      projectTitle:"",
+      projectLink:"",
+    };
+    let isValid=true;
+    if(!!!projectDescription)
+    {
+      errorProjects.projectDescription="Project Description is Required!!!";
+      isValid =false;
+
+    }
+    else if(projectDescription.length<30)
+    {
+      errorProjects.projectDescription="Project Description must be of 30 characters!!!";
+      isValid=false;
+    }
+    if(!!!projectTitle)
+    {
+      errorProjects.projectTitle="Project Title is Required !!!";
+      isValid=false;
+    }
+    if(!!!projectLink)
+    {
+      errorProjects.projectLink="project Link is Required!!!";
+      isValid=false;
+    }
+    else if (!/^(ftp|http|https):\/\/[^ "]+$/.test(projectLink)) {
+      errorProjects.projectLink =
+        "Invalid Project Link! (Ex: https://www.engineerhub.in/)";
+      valid = false;
+    }
+    setErrorProjects((prev) => ({ ...prev, ...errorProjects }));
+    return isValid;
+
+  }
+  
+
+  function deleteWork(itemId) {
+   
+    axios.delete(
+         `${API_URLT}api/v1/delete/experience/${itemId}`,
+         {
+           headers: {
+             accesstoken: getAccessToken(),
+           },
+         }
+       ).then((response)=>
+       {  if (
+         response.status === 200 ||
+         response.status === 201 ||
+         response.status === 202 ||
+         response.status === 203 ||
+         response.status === 204
+       ) {
+       
+         navigate("/login");
+       }
+       }).catch((err)=>{
+         console.log(err);
+       });
+       
+     }
+
+     function deleteProject(itemId) {
+   
+      axios.delete(
+           `${API_URLT}api/v1/delete/projectDetails/${itemId}`,
+           {
+             headers: {
+               accesstoken: getAccessToken(),
+             },
+           }
+         ).then((response)=>
+         {  if (
+           response.status === 200 ||
+           response.status === 201 ||
+           response.status === 202 ||
+           response.status === 203 ||
+           response.status === 204
+         ) {
+         
+           navigate("/login");
+         }
+         }).catch((err)=>{
+           console.log(err);
+         });
+         
+       }
+
+ function deleteEducation(itemId) {
+   
+   axios.delete(
+        `${API_URLT}api/v1/delete/education/${itemId}`,
+        {
+          headers: {
+            accesstoken: getAccessToken(),
+          },
+        }
+      ).then((response)=>
+      {  if (
+        response.status === 200 ||
+        response.status === 201 ||
+        response.status === 202 ||
+        response.status === 203 ||
+        response.status === 204
+      ) {
+      
+        navigate("/");
+      }
+      }).catch((err)=>{
+        console.log(err);
+      });
+      
+    }
 
   async function updateEducation(e) {
     e.preventDefault();
@@ -296,8 +468,8 @@ const EditStudentProfileDashoboard = () => {
     };
 
     try {
-      const response = await axios.patch(
-        `${API_URLT}api/v1/update/education`,
+      const response = await axios.post(
+        `${API_URLT}api/v1/add/education`,
         formEdu,
         {
           headers: {
@@ -315,7 +487,7 @@ const EditStudentProfileDashoboard = () => {
         response.status === 204
       ) {
         setEducationExist(true);
-        navigate("/");
+        navigate("/login");
       }
     } catch (error) {
       alert(error.response);
@@ -328,11 +500,12 @@ const EditStudentProfileDashoboard = () => {
     const data = {
       designation: designation,
       startYear: workStart,
-      currentlyWorking: true,
-      marks: "8.11",
+      currentlyWorking: false,
+      // marks: "8.11",
       organisationName: organisation,
       country: newCountry,
       state: stateParam,
+      endYear:workEnd,
     };
     try {
       const response = await axios.post(
@@ -362,7 +535,48 @@ const EditStudentProfileDashoboard = () => {
       console.log(error);
     }
   }
+  async function addProject(e)
+  {
+    e.preventDefault();
+    const data ={
+      projectLink:projectLink,
+      projectDescription:projectDescription,
+      projectTitle:projectTitle,
+    };
 
+    if(validateProject())
+    {
+      try {
+        const response = await axios.post(
+          `${API_URLT}api/v1/add/projectDetails`,
+          data,
+          {
+            headers: {
+              accesstoken: getAccessToken(),
+            },
+          }
+        );
+        console.log(response);
+  
+        if (
+          response.status === 200 ||
+          response.status === 201 ||
+          response.status === 202 ||
+          response.status === 203 ||
+          response.status === 204
+        ) {
+          setProjectExist(true);
+          navigate("/login");
+        }
+      } catch (error) {
+        alert(error.response);
+  
+        console.log(error);
+      }
+    }
+
+
+  }
   function handleDelete() {
     deleteProfilePicture(setDeleteResponse);
   }
@@ -613,9 +827,23 @@ const EditStudentProfileDashoboard = () => {
             placeholder="Describe about your Organization / Company"
           />
           <label className="error-message">{errors.aboutMe}</label>
-          <button className="update-btn" onClick={updateBasic}>
-            Update Details
-          </button>
+          <div style={{
+                display:"flex",
+                justifyContent:"flex-end",
+                alignItems:"flex-end",
+              }}>
+              <button type="submit" style={{
+                border:"none",
+                backgroundColor:"#002b36",
+                borderRadius:"5px",
+                padding:"5px 20px",
+                
+                color:"#fff",
+                marginTop:"10px",
+              }} onClick={()=>updateBasic()}>
+                Update Details
+              </button>
+              </div>
         </section>
       </form>
     </>
@@ -644,6 +872,20 @@ const EditStudentProfileDashoboard = () => {
                     }}
                   >
                     <div className="row">
+                    <div
+                        style={{
+                          display:"flex",
+                          justifyContent:"flex-end",
+                          alignItems:"flex-start",
+                        }}>
+
+                        
+                   <div onClick={()=>deleteEducation(item._id)} style={{
+                    cursor:"pointer",
+                   }}  >
+                   <DeleteOutlineIcon></DeleteOutlineIcon>
+                  </div>
+                  </div>
                       <div
                         className="col-lg-2"
                         style={{
@@ -666,8 +908,11 @@ const EditStudentProfileDashoboard = () => {
                           src={item.collegeId.collegeLogo}
                           alt=""
                         />
+                        
                       </div>
-                      <div className="col-lg-10">
+           
+                      <div className="col-lg-10"
+                      >
                         <div
                           className="row jobRole"
                           style={{
@@ -679,6 +924,7 @@ const EditStudentProfileDashoboard = () => {
                         >
                           {item.collegeId.collegeName}
                         </div>
+             
                         <div
                           className="row companyName"
                           style={{
@@ -695,9 +941,12 @@ const EditStudentProfileDashoboard = () => {
                         <div className="row jobLocation">
                           {item.state} , {item.country}
                         </div>
+
                       </div>
                     </div>
+                  
                   </div>
+ 
                 </div>
               );
             })}
@@ -723,7 +972,7 @@ const EditStudentProfileDashoboard = () => {
           </>
         ) : (
           <>
-            <form action="" onSubmit={updateEducation}>
+            <form action="" onSubmit={updateEducation()}>
               <div className="row">
                 <div className="">
                   <label className="label">
@@ -815,7 +1064,8 @@ const EditStudentProfileDashoboard = () => {
                 <label className="label">
                   Institute/College Name<span className="required">*</span>
                 </label>
-                <select
+                <select 
+                  className="input-field"
                   labelId="campus-name"
                   id="student-signup-campus-select"
                   label="Institution Name"
@@ -880,170 +1130,200 @@ const EditStudentProfileDashoboard = () => {
                   {/* <label className="error-message">{error2.state}</label> */}
                 </div>
               </div>
-              <button type="submit" onClick={updateEducation}>
+              <div style={{
+                display:"flex",
+                justifyContent:"flex-end",
+                alignItems:"flex-end",
+              }}>
+              <button type="submit" style={{
+                border:"none",
+                backgroundColor:"#002b36",
+                borderRadius:"5px",
+                padding:"5px 20px",
+                
+                color:"#fff",
+                marginTop:"10px",
+              }} onClick={()=>updateEducation()}>
                 Submit
               </button>
+              </div>
             </form>
           </>
         )}
       </section>
     </>
   );
-  const renderSkills = (
-    <>
-      <section className="box">
-        <p className="heading">Skills</p>
-        {userSkills ? (
-          <>
-            <form action="" onSubmit={addSkills}>
-              <Autocomplete
-                multiple
-                options={[
-                  "HTML",
-                  "CSS",
-                  "JavaScript",
-                  "React",
-                  "Node.js",
-                  "Python",
-                  "Java",
-                  "C++",
-                  " SQL",
-                  "No-SQL",
-                  "MongoDB",
-                  "MERN",
-                  "PHP",
-                  "Web Development",
-                  "Database Management",
-                  "Ruby",
-                  "Rust",
-                  "Golang",
-                  "Firebase",
-                  "Heroku",
-                  "azure",
-                  "aws",
-                  "DevOps",
-                  "Data Analysis",
-                  "Numpy",
-                  "Pandas",
-                  "Tensorflow",
-                  "Keras",
-                  "OpenCV",
-                  "OpenGL",
-                  "excel",
-                  "pandas",
-                  "tableu",
-                  "powerBI",
-                  "Cloud Computing",
-                  "Google Cloud",
-                  "Communication Skills",
-                  "Problem-Solving",
-                  "Teamwork and Collaboration",
-                  "Adaptability",
-                  "Leadership",
-                  "Time Management",
-                  "Creativity",
-                  "Analytical Thinking",
-                  "Emotional Intelligence",
-                  "Continuous Learning",
-                ]}
-                freeSolo
-                value={skillsRequired}
-                onChange={handleSkillsChange}
-                renderInput={(params) => (
-                  <TextField
-                    margin="normal"
-                    style={{ width: "100%" }}
-                    className="input-field"
-                    {...params}
-                    label="Required Skills*"
-                  />
-                )}
-              />
-              {errorSkills.skillsRequired && (
-                <p className="" id=":rf:-helper-text"></p>
-              )}
-              <button type="submit">submit</button>
-            </form>
-          </>
-        ) : (
-          <>
-            sagar k pull
-            <form action="" onSubmit={addSkills}>
-              <Autocomplete
-                multiple
-                options={[
-                  "HTML",
-                  "CSS",
-                  "JavaScript",
-                  "React",
-                  "Node.js",
-                  "Python",
-                  "Java",
-                  "C++",
-                  " SQL",
-                  "No-SQL",
-                  "MongoDB",
-                  "MERN",
-                  "PHP",
-                  "Web Development",
-                  "Database Management",
-                  "Ruby",
-                  "Rust",
-                  "Golang",
-                  "Firebase",
-                  "Heroku",
-                  "azure",
-                  "aws",
-                  "DevOps",
-                  "Data Analysis",
-                  "Numpy",
-                  "Pandas",
-                  "Tensorflow",
-                  "Keras",
-                  "OpenCV",
-                  "OpenGL",
-                  "excel",
-                  "pandas",
-                  "tableu",
-                  "powerBI",
-                  "Cloud Computing",
-                  "Google Cloud",
-                  "Communication Skills",
-                  "Problem-Solving",
-                  "Teamwork and Collaboration",
-                  "Adaptability",
-                  "Leadership",
-                  "Time Management",
-                  "Creativity",
-                  "Analytical Thinking",
-                  "Emotional Intelligence",
-                  "Continuous Learning",
-                ]}
-                freeSolo
-                value={skillsRequired}
-                onChange={handleSkillsChange}
-                renderInput={(params) => (
-                  <TextField
-                    margin="normal"
-                    style={{ width: "100%" }}
-                    className="input-field"
-                    {...params}
-                    label="Required Skills*"
-                  />
-                )}
-              />
-              {errorSkills.skillsRequired && (
-                <p className="" id=":rf:-helper-text"></p>
-              )}
-              <button type="submit" onClick={addSkills}>
-                Submit
-              </button>
-            </form>
-          </>
-        )}
-      </section>
-    </>
-  );
+  // const renderSkills = (
+  //   <>
+  //     <section className="box">
+  //       <p className="heading">Skills</p>
+  //       {userSkills ? (
+  //         <>
+  //           <form action="" onSubmit={addSkills}>
+  //             <Autocomplete
+  //               multiple
+  //               options={[
+  //                 "HTML",
+  //                 "CSS",
+  //                 "JavaScript",
+  //                 "React",
+  //                 "Node.js",
+  //                 "Python",
+  //                 "Java",
+  //                 "C++",
+  //                 " SQL",
+  //                 "No-SQL",
+  //                 "MongoDB",
+  //                 "MERN",
+  //                 "PHP",
+  //                 "Web Development",
+  //                 "Database Management",
+  //                 "Ruby",
+  //                 "Rust",
+  //                 "Golang",
+  //                 "Firebase",
+  //                 "Heroku",
+  //                 "azure",
+  //                 "aws",
+  //                 "DevOps",
+  //                 "Data Analysis",
+  //                 "Numpy",
+  //                 "Pandas",
+  //                 "Tensorflow",
+  //                 "Keras",
+  //                 "OpenCV",
+  //                 "OpenGL",
+  //                 "excel",
+  //                 "pandas",
+  //                 "tableu",
+  //                 "powerBI",
+  //                 "Cloud Computing",
+  //                 "Google Cloud",
+  //                 "Communication Skills",
+  //                 "Problem-Solving",
+  //                 "Teamwork and Collaboration",
+  //                 "Adaptability",
+  //                 "Leadership",
+  //                 "Time Management",
+  //                 "Creativity",
+  //                 "Analytical Thinking",
+  //                 "Emotional Intelligence",
+  //                 "Continuous Learning",
+  //               ]}
+  //               freeSolo
+  //               value={skillsRequired}
+  //               onChange={handleSkillsChange}
+  //               renderInput={(params) => (
+  //                 <TextField
+  //                   margin="normal"
+  //                   style={{ width: "100%" }}
+  //                   className="input-field"
+  //                   {...params}
+  //                   label="Required Skills*"
+  //                 />
+  //               )}
+  //             />
+  //             {errorSkills.skillsRequired && (
+  //               <p className="" id=":rf:-helper-text"></p>
+  //             )}
+  //                         <div style={{
+  //               display:"flex",
+  //               justifyContent:"flex-end",
+  //               alignItems:"flex-end",
+  //             }}>
+  //             <button type="submit" style={{
+  //               border:"none",
+  //               backgroundColor:"#002b36",
+  //               borderRadius:"5px",
+  //               padding:"5px 20px",
+                
+  //               color:"#fff",
+  //               marginTop:"10px",
+  //             }} onClick={()=>addSkills()}>
+  //               Submit
+  //             </button>
+  //             </div>
+  //           </form>
+  //         </>
+  //       ) : (
+  //         <>
+  //           sagar k pull
+  //           <form action="" onSubmit={addSkills}>
+  //             <Autocomplete
+  //               multiple
+  //               options={[
+  //                 "HTML",
+  //                 "CSS",
+  //                 "JavaScript",
+  //                 "React",
+  //                 "Node.js",
+  //                 "Python",
+  //                 "Java",
+  //                 "C++",
+  //                 " SQL",
+  //                 "No-SQL",
+  //                 "MongoDB",
+  //                 "MERN",
+  //                 "PHP",
+  //                 "Web Development",
+  //                 "Database Management",
+  //                 "Ruby",
+  //                 "Rust",
+  //                 "Golang",
+  //                 "Firebase",
+  //                 "Heroku",
+  //                 "azure",
+  //                 "aws",
+  //                 "DevOps",
+  //                 "Data Analysis",
+  //                 "Numpy",
+  //                 "Pandas",
+  //                 "Tensorflow",
+  //                 "Keras",
+  //                 "OpenCV",
+  //                 "OpenGL",
+  //                 "excel",
+  //                 "pandas",
+  //                 "tableu",
+  //                 "powerBI",
+  //                 "Cloud Computing",
+  //                 "Google Cloud",
+  //                 "Communication Skills",
+  //                 "Problem-Solving",
+  //                 "Teamwork and Collaboration",
+  //                 "Adaptability",
+  //                 "Leadership",
+  //                 "Time Management",
+  //                 "Creativity",
+  //                 "Analytical Thinking",
+  //                 "Emotional Intelligence",
+  //                 "Continuous Learning",
+  //               ]}
+  //               freeSolo
+  //               value={skillsRequired}
+  //               onChange={handleSkillsChange}
+  //               renderInput={(params) => (
+  //                 <TextField
+  //                   margin="normal"
+  //                   style={{ width: "100%" }}
+  //                   className="input-field"
+  //                   {...params}
+  //                   label="Required Skills*"
+  //                 />
+  //               )}
+  //             />
+  //             {errorSkills.skillsRequired && (
+  //               <p className="" id=":rf:-helper-text"></p>
+  //             )}
+  //             <button type="submit" onClick={()=>addSkills()}>
+  //               Submit
+  //             </button>
+  //           </form>
+  //         </>
+  //       )}
+  //     </section>
+  //   </>
+  // );
 
   const renderWork = (
     <>
@@ -1052,7 +1332,7 @@ const EditStudentProfileDashoboard = () => {
 
         {workExperienceExists ? (
           <>
-            <form action="" onSubmit={addWork}>
+            <form action="" onSubmit={addWork()}>
               <div className="row">
                 <div className="">
                   <label className="label">
@@ -1068,7 +1348,7 @@ const EditStudentProfileDashoboard = () => {
                 </div>
               </div>
               <div className="row">
-                <div className="col-lg-3">
+                <div className="col-lg-5">
                   <label className="label">
                     From Year<span className="required">*</span>
                   </label>
@@ -1080,7 +1360,7 @@ const EditStudentProfileDashoboard = () => {
                     placeholder="Enter your String"
                   />
                 </div>
-                <div className="col-lg-3">
+                <div className="col-lg-5">
                   <label className="label">
                     To Year<span className="required">*</span>
                   </label>
@@ -1090,11 +1370,10 @@ const EditStudentProfileDashoboard = () => {
                     type="text"
                     className="input-field"
                     placeholder="Enter your String"
-                    disabled={currentlyWorking}
                   />
                 </div>
-                <div className="col-lg-3">
-                  <div className="form-check">
+                <div className="">
+                  {/* <div className="form-check">
                     <input
                       className="form-check-input"
                       type="checkbox"
@@ -1105,10 +1384,11 @@ const EditStudentProfileDashoboard = () => {
                     <label className="form-check-label" htmlFor="defaultCheck1">
                       Currently Working
                     </label>
-                  </div>
+                  </div> */}
                 </div>
               </div>
-              <div className="row">
+              <div className="row"
+              >
                 <div className="">
                   <label className="label">
                     Organization Name<span className="required">*</span>
@@ -1171,16 +1451,33 @@ const EditStudentProfileDashoboard = () => {
                   {/* <label className="error-message">{error2.state}</label> */}
                 </div>
               </div>
-              <button type="submit" onClick={addWork}>
+              <div style={{
+                display:"flex",
+                justifyContent:"flex-end",
+                alignItems:"flex-end",
+              }}>
+              <button type="submit" style={{
+                border:"none",
+                backgroundColor:"#002b36",
+                borderRadius:"5px",
+                padding:"5px 20px",
+                
+                color:"#fff",
+                marginTop:"10px",
+              }} onClick={()=>addWork()}>
                 Submit
               </button>
+              </div>
             </form>
           </>
         ) : (
           <>
             {experienceList.map((item, index) => {
               return (
-                <div className="row">
+                <div className="row"
+                style={{
+                  margin:"5%",
+                }}>
                   <div
                     className="boxWork"
                     style={{
@@ -1189,7 +1486,22 @@ const EditStudentProfileDashoboard = () => {
                       padding: "2%",
                     }}
                   >
+             
                     <div className="row">
+                    <div
+                        style={{
+                          display:"flex",
+                          justifyContent:"flex-end",
+                          alignItems:"flex-start",
+                        }}>
+
+                        
+                   <div onClick={()=>deleteWork(item._id)} style={{
+                    cursor:"pointer",
+                   }}  >
+                   <DeleteOutlineIcon></DeleteOutlineIcon>
+                  </div>
+                  </div>
                       <div
                         className="col-lg-2"
                         style={{
@@ -1233,7 +1545,11 @@ const EditStudentProfileDashoboard = () => {
                       </div>
                     </div>
                   </div>
-                  <div
+  
+                </div>
+              );
+            })}
+                 <div
                     className="addButton"
                     onClick={() => setWorkExperienceExists(true)}
                     style={{
@@ -1252,9 +1568,6 @@ const EditStudentProfileDashoboard = () => {
                     </div>
                     Add New
                   </div>
-                </div>
-              );
-            })}
           </>
         )}
       </section>
@@ -1267,12 +1580,76 @@ const EditStudentProfileDashoboard = () => {
         <p className="heading" style={{ fontSize: "1.2rem" }}>
           Projects
         </p>
-        {projectExists ? (
+        {projectExist ? (
           <>
-            <div className="row">
+          {
+            projectList.map((item,index)=>{
+              return (
+                <div className="row">
+                  
+                <div className="box"
+                style={{
+                  padding:"5%",
+                  margin:"2%",
+                  width:"55vw",
+                  border:"1px solid grey",
+                  borderRadius:"10px",
+                }}>
+                                   <div
+                        style={{
+                          display:"flex",
+                          justifyContent:"flex-end",
+                          alignItems:"flex-start",
+                        }}>
+
+                        
+                   <div onClick={()=>deleteProject(item._id)} style={{
+                    cursor:"pointer",
+                   }}  >
+                   <DeleteOutlineIcon></DeleteOutlineIcon>
+                  </div>
+                  </div>
+                  <div>
+                    <p style={{
+                      color:"#002b36",
+                      fontSize:"1.4rem",
+                      fontWeight:"600",
+    
+                    }}>
+                      {item.projectTitle}
+    
+                    </p>
+                  </div>
+                  <div>
+                    <p style={{
+                      padding:"10px",
+                      margin:"5px",
+                      fontSize:"1.1rem",
+                      fontWeight:"400",
+                      lineHeight:"1.9rem",
+                      color:"#002b36",
+                    }}>{item.projectDescription}
+                    </p>
+                  </div>
+                  <div>
+                    <p>
+                      <Link to={item.projectLink}>
+                       {item.projectLink}
+                      </Link>
+                    </p>
+                  </div>
+    
+                </div>
+              </div>
+              )
+            })
+          }
+       
+
+          <div className="row">
               <div
                 className="addButton"
-                onClick={() => setProjectExists(false)}
+                onClick={() => setProjectExist(true)}
                 style={{
                   border: "1px solid grey",
                   width: "300px",
@@ -1292,12 +1669,219 @@ const EditStudentProfileDashoboard = () => {
             </div>
           </>
         ) : (
-          <></>
+          <>
+              <form action="" onSubmit={addProject}>
+           <div className="row"
+              >
+                <div className="col-lg-5">
+                <div className="">
+                  <label className="label">
+                    Project Title<span className="required">*</span>
+                  </label>
+                  <input
+                    value={projectTitle}
+                    type="text"
+                    onChange={(e) => setProjectTitle(e.target.value)}
+                    className="input-field"
+                    placeholder="Enter your String"
+                  />
+                  <label className="error-message">{errorProjects.projectTitle}</label>
+                </div>
+                </div>
+                <div className="col-lg-5">
+                <div className="">
+                  <label className="label">
+                    Project Link<span className="required">*</span>
+                  </label>
+                  <input
+                    value={projectLink}
+                    type="text"
+                    onChange={(e) => setProjectLink(e.target.value)}
+                    className="input-field"
+                    placeholder="Enter your String"
+                  />
+                  <label className="error-message">{errorProjects.projectLink}</label>
+                </div>
+                </div>
+              </div>
+       
+              <div className="row"
+              >
+                <div className="col-lg-10">
+                <div className="">
+                  <label className="label">
+                    Project Description<span className="required">*</span>
+                  </label>
+                  <input
+                    value={projectDescription}
+                    type="text"
+                    onChange={(e) => setProjectDescription(e.target.value)}
+                    className="input-field"
+                    placeholder="Enter your String"
+                  />
+                  <label className="error-message">{errorProjects.projectDescription}</label>
+                  </div>
+                </div>
+              </div>
+              <button
+              style={{
+                marginTop:"2%",
+              }} type="submit"
+              onClick={()=>addProject()}>
+                submit
+
+              </button>
+              </form>
+            </>
         )}
       </section>
+
+
+      
+ 
     </>
   );
-  const renderSocialLinks = <>Social Links</>;
+  const renderSocialLinks = (<>
+  
+  <section className="box">
+        <p className="heading" style={{ fontSize: "1.2rem" }}>
+          Projects
+        </p>
+        
+    <div>
+      <div>
+    <TextField
+        label="LinkedIn"
+        variant="outlined"
+        value={socialMediaLinks.LinkedIn}
+        onChange={e => handleChange('LinkedIn', e.target.value)}
+        onBlur={handleBlur}
+        error={errorLink !== '' && socialMediaLinks.LinkedIn === ''}
+        helperText={errorLink !== '' && socialMediaLinks.LinkedIn === '' ? errorLink : ''}
+        InputProps={{
+          startAdornment: (
+            <InputAdornment position="start">
+              <LinkedInIcon />
+            </InputAdornment>
+          ),
+          endAdornment: (
+            <InputAdornment position="end">
+              <IconButton onClick={toggleVisibility}>
+                {showLink ? <VisibilityOffIcon /> : <VisibilityIcon />}
+              </IconButton>
+            </InputAdornment>
+          ),
+          type: showLink ? 'text' : 'password',
+        }}
+      />
+      </div>
+      <div>
+      <TextField
+        label="Instagram"
+        variant="outlined"
+        value={socialMediaLinks.Instagram}
+        onChange={e => handleChange('Instagram', e.target.value)}
+        onBlur={handleBlur}
+        error={errorLink !== '' && socialMediaLinks.Instagram === ''}
+        helperText={errorLink !== '' && socialMediaLinks.Instagram === '' ? errorLink : ''}
+        InputProps={{
+          startAdornment: (
+            <InputAdornment position="start">
+              <InstagramIcon />
+            </InputAdornment>
+          ),
+          endAdornment: (
+            <InputAdornment position="end">
+              <IconButton onClick={toggleVisibility}>
+                {showLink ? <VisibilityOffIcon /> : <VisibilityIcon />}
+              </IconButton>
+            </InputAdornment>
+          ),
+          type: showLink ? 'text' : 'password',
+        }}
+      />
+      </div>
+      <div>
+      <TextField
+        label="Twitter"
+        variant="outlined"
+        value={socialMediaLinks.Twitter}
+        onChange={e => handleChange('Twitter', e.target.value)}
+        onBlur={handleBlur}
+        error={errorLink !== '' && socialMediaLinks.Twitter === ''}
+        helperText={errorLink !== '' && socialMediaLinks.Twitter === '' ? errorLink : ''}
+        InputProps={{
+          startAdornment: (
+            <InputAdornment position="start">
+              <TwitterIcon />
+            </InputAdornment>
+          ),
+          endAdornment: (
+            <InputAdornment position="end">
+              <IconButton onClick={toggleVisibility}>
+                {showLink ? <VisibilityOffIcon /> : <VisibilityIcon />}
+              </IconButton>
+            </InputAdornment>
+          ),
+          type: showLink ? 'text' : 'password',
+        }}
+      />
+      </div>
+      <div>
+      <TextField
+        label="GitHub"
+        variant="outlined"
+        value={socialMediaLinks.GitHub}
+        onChange={e => handleChange('GitHub', e.target.value)}
+        onBlur={handleBlur}
+        error={errorLink !== '' && socialMediaLinks.GitHub === ''}
+        helperText={errorLink !== '' && socialMediaLinks.GitHub === '' ? errorLink : ''}
+        InputProps={{
+          startAdornment: (
+            <InputAdornment position="start">
+              <GitHubIcon />
+            </InputAdornment>
+          ),
+          endAdornment: (
+            <InputAdornment position="end">
+              <IconButton onClick={toggleVisibility}>
+                {showLink ? <VisibilityOffIcon /> : <VisibilityIcon />}
+              </IconButton>
+            </InputAdornment>
+          ),
+          type: showLink ? 'text' : 'password',
+        }}
+      />
+      </div>
+      {/* <TextField
+        label="Behance"
+        variant="outlined"
+        value={socialMediaLinks.Behance}
+        onChange={e => handleChange('Behance', e.target.value)}
+        onBlur={handleBlur}
+        error={error !== '' && socialMediaLinks.Behance === ''}
+        helperText={error !== '' && socialMediaLinks.Behance === '' ? error : ''}
+        InputProps={{
+          startAdornment: (
+            <InputAdornment position="start">
+              <BehanceIcon />
+            </InputAdornment>
+          ),
+          endAdornment: (
+            <InputAdornment position="end">
+              <IconButton onClick={toggleVisibility}>
+                {showLink ? <VisibilityOffIcon /> : <VisibilityIcon />}
+              </IconButton>
+            </InputAdornment>
+          ),
+          type: showLink ? 'text' : 'password',
+        }}
+      /> */}
+    </div>
+  
+
+</section>
+  </>);
   return (
     <>
       <main className="edit-profile profile-dashboard">
@@ -1335,10 +1919,10 @@ const EditStudentProfileDashoboard = () => {
           </aside>
           {chosenOption === options[0] && <div>{renderOption1}</div>}
           {chosenOption === options[1] && <div> {renderEducation}</div>}
-          {chosenOption === options[2] && <div>{renderSkills}</div>}
-          {chosenOption === options[3] && <div> {renderWork}</div>}
-          {chosenOption === options[4] && <div> {renderProjects}</div>}
-          {chosenOption === options[5] && <div> {renderSocialLinks}</div>}
+          {/* {chosenOption === options[2] && <div>{renderSkills}</div>} */}
+          {chosenOption === options[2] && <div> {renderWork}</div>}
+          {chosenOption === options[3] && <div> {renderProjects}</div>}
+          {chosenOption === options[4] && <div> {renderSocialLinks}</div>}
         </div>
       </main>
     </>
