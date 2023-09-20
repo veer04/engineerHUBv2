@@ -133,7 +133,7 @@ function App() {
           <Route index element={<HomePage path="homepage" />} />
           <Route path="/home" element={<HomePage />} />
           <Route
-            path="student"
+            path="user"
             element={<StudentProfileDashboard></StudentProfileDashboard>}
           ></Route>
           

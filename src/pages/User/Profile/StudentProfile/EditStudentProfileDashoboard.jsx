@@ -34,6 +34,7 @@ const EditStudentProfileDashoboard = () => {
   const [isImageLoading, setIsImageLoading] = useState(false);
   const [newImage, setNewImage] = useState(null);
   const [user, setUser] = useState(null);
+  const [experienceList,setExperienceList]=useState([]);
   const [userSkills, setUserSkills] = useState([]);
   const [educationList,setEducationList]=useState([]);
   const options = [
@@ -48,7 +49,8 @@ const EditStudentProfileDashoboard = () => {
   const [currentlyWorking, setCurrentlyWorking] = useState(false);
   const [campuses, setCampuses] = useState([]);
   const [collegeId,setCollegeId]=useState("");
-  const [workExperienceExists, setWorkExperienceExists] = useState(true);
+  const [newCampus, setNewCampus]=useState("");
+  const [workExperienceExists, setWorkExperienceExists] = useState(false);
   const [projectExists, setProjectExists] = useState(true);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -74,6 +76,10 @@ const EditStudentProfileDashoboard = () => {
   const [educationExist,setEducationExist]=useState(false);
   const [specialization, setSpecialization] = useState(null);
   const [deleteResponse, setDeleteResponse] = useState(null);
+  const [organisation,setOrganisation]= useState("");
+  const [workStart,setWorkStart]=useState("");
+  const [workEnd,setWorkEnd]= useState("");
+  const [designation,setDesignation]= useState("");
   const [validation, setValidation] = useState(true);
   const [errors, setErrors] = useState({
     firstName: "",
@@ -122,7 +128,9 @@ const EditStudentProfileDashoboard = () => {
   useEffect(() => {
     setUserSkills(user?.skillsDetails)
     setEducationList(user?.educationDetails);
+    setExperienceList(user?.experienceDetails);
    console.log(educationList);
+   console.log(experienceList);
    if(!!!educationList)
    {
     setEducationExist(true);
@@ -272,10 +280,10 @@ const EditStudentProfileDashoboard = () => {
 
   async function updateEducation(e) {
     e.preventDefault();
-
+    
     const formEdu={
       degree:degree,
-      collegeId:campuses,
+      collegeId:newCampus,
       startYear:startYear,
       endYear:endYear,
       marks:marks,
@@ -286,8 +294,8 @@ const EditStudentProfileDashoboard = () => {
     }
 
     try {
-      const response = await axios.post(
-        `${API_URLT}api/v1/add/education`,
+      const response = await axios.patch(
+        `${API_URLT}api/v1/update/education`,
         formEdu,
         {
           headers: {
@@ -304,6 +312,7 @@ const EditStudentProfileDashoboard = () => {
         response.status === 203 ||
         response.status === 204
       ) {
+        setEducationExist(true)
         navigate("/");
       }
     } catch (error) {
@@ -312,19 +321,50 @@ const EditStudentProfileDashoboard = () => {
       console.log(error);
     }
   }
-async function addEducation(e){
+async function addWork(e){
 e.preventDefault();
 const data={
   designation: designation,
-  startYear:startYear,
+  startYear:workStart,
   currentlyWorking:true,
-  mark
+  marks:"8.11",
+  organisationName:organisation,
+  country:newCountry,
+  state:stateParam,
+}
+try {
+  const response = await axios.post(
+    `${API_URLT}api/v1/add/experience`,
+    data,
+    {
+      headers: {
+        accesstoken: getAccessToken(),
+      },
+    }
+  );
+  console.log(response);
 
+  if (
+    response.status === 200 ||
+    response.status === 201 ||
+    response.status === 202 ||
+    response.status === 203 ||
+    response.status === 204
+  ) {
+    setWorkExperienceExists(true)
+    navigate("/login");
+  }
+} catch (error) {
+  alert(error.response);
+
+  console.log(error);
 }
 }
+
   function handleDelete() {
     deleteProfilePicture(setDeleteResponse);
   }
+
   async function updateBasic(e) {
     e.preventDefault();
     // const form = new FormData();
@@ -385,11 +425,8 @@ const data={
     return valid;
   }
   const handleChangeCollegeId = (e) => {
-    const { name, value } = e.target;
-    setCollegeId((prevCollegeId) => ({
-      ...prevCollegeId,
-      [name]: value,
-    }));
+    // const { name, value } = e.target;
+    setNewCampus(e.target.value);
   };
   async function addSkills(e) {
     e.preventDefault;
@@ -426,171 +463,7 @@ const data={
   }
   function addEdu()
   {
-    return (
-
-      <>
-          <form action="" onSubmit={updateEducation}>
-          <div className="row">
-            <div className="">
-              <label className="label">
-                Degree<span className="required">*</span>
-              </label>
-              <select
-                className="input-field"
-                onChange={(e) => setDegree(e.target.value)}
-              >
-                <option value="default">Select Degree</option>
-                <option value="B.tech">Btech</option>
-                <option value="M.tech">Mtech</option>
-              </select>
-              <label className="error-message">{error2.degree}</label>
-            </div>
-          </div>
-          <br />
-          <div className="row">
-            <div className="col-lg-3">
-              <label className="label">
-                Date of Start<span className="required">*</span>
-              </label>
-              <input
-                type="date"
-                className="input-field"
-                placeholder="Enter your String"
-                onChange={(e)=>setStartYear(e.target.value)}
-              />
-              <label className="error-message">{error2.startYear}</label>
-            </div>
-            <div className="col-lg-3">
-              <label className="label">
-                Date of End<span className="required">*</span>
-              </label>
-              <input
-                type="date"
-                className="input-field"
-                placeholder="Enter your String"
-                onChange={(e)=>setEndYear(e.target.value)}
-              />
-              <label className="error-message">{error2.endYear}</label>
-            </div>
-            <div className="col-lg-3">
-              <label className="label">
-                CGPA<span className="required">*</span>
-              </label>
-              <input
-                type="number"
-                className="input-field"
-                placeholder="Enter your String"
-                onChange={(e)=>setMarks(e.target.value)}
-              />
-              <label className="error-message">{error2.marks}</label>
-            </div>
-          </div>
-
-          <div className="row">
-            <div className=" ">
-              <label className="label">
-                Specialization
-                <span
-                  className="required"
-                  style={{
-                    gap: "0",
-                  }}
-                >
-                  *
-                </span>
-              </label>
-              <select
-                className="input-field"
-                style={{
-                  gap: "0",
-                }}
-                value={specialization}
-                onChange={(e)=>setSpecialization(e.target.value)}
-              >
-                <option value="CSE">CSE</option>
-                <option value="IT">IT</option>
-                <option value="MECH">MECH</option>
-                <option value="CIVIL">CIVIL</option>
-              </select>
-              <label className="error-message">{error2.specialization}</label>
-            </div>
-          </div>
-          <div className="row">
-            <label className="label">
-              Institute/College Name<span className="required">*</span>
-            </label>
-            <select
-              labelId="campus-name"
-              id="student-signup-campus-select"
-              label="Institution Name"
-              name="institutionName"
-              value={collegeId}
-              onChange={handleChangeCollegeId}
-            >
-              {campuses.map((campus) => (
-                <option key={campus._id} value={campus._id}>
-                  {campus.collegeName}
-                </option>
-              ))}
-            </select>
-            <label className="error-message">{error2.campuses}</label>
-          </div>
-          <div className="row">
-            <div className="col-lg-4">
-              <label className="label">
-                Country<span className="required">*</span>
-              </label>
-              <select
-                value={newCountry}
-                onChange={(e) => {
-                  setNewCountry(e.target.value);
-                  setCountryParam(
-                    countries.find(
-                      (country) => country.country === e.target.value
-                    ).countryCode
-                  );
-                }}
-                className="input-field"
-              >
-                {countries.map((country) => (
-                  <option key={country.countryCode} value={country.country}>
-                    {country.country}
-                  </option>
-                ))}
-              </select>
-              {/* <label className="error-message">{error2.country}</label> */}
-            </div>
-            <div className="col-lg-4">
-              <label className="label">
-                State<span className="required">*</span>
-              </label>
-              <select
-                value={newState}
-                onChange={(e) => {
-                  setNewState(e.target.value);
-                  setStateParam(
-                    states.find((state) => state.state === e.target.value)
-                      .stateCode
-                  );
-                }}
-                className="input-field"
-              >
-                {states.map((state) => (
-                  <option key={state.stateCode} value={state.state}>
-                    {state.state}
-                  </option>
-                ))}
-              </select>
-              {/* <label className="error-message">{error2.state}</label> */}
-            </div>
-          </div>
-          <button type="submit" onClick={updateEducation}>
-            Submit
-          </button>
-        </form>
-      </>
-
-    )
+  setEducationExist(true);
   }
   const renderOption1 = (
     <>
@@ -788,7 +661,12 @@ const data={
                     }}
 
                   >
-                    <img src={collegeSVG} alt="" />
+                    <img height={50} width={50}
+                    style={{
+                      padding:"4px",
+                      marginTop:"10px",
+                    }} 
+                     src={item.collegeId.collegeLogo} alt="" />
                   </div>
                   <div className="col-lg-10">
                     <div
@@ -800,7 +678,7 @@ const data={
                         lineHeight: "2rem",
                       }}
                     >
-                      {educationList[index].collegeId}
+                      {item.collegeId.collegeName}
                     </div>
                     <div
                       className="row companyName"
@@ -810,12 +688,12 @@ const data={
                         fontWeight: "600",
                       }}
                     >
-                      {educationList[index].degree} / {educationList[index].specialization}
+                      {item.degree} / {item.specialization}
                     </div>
                     <div className="row duration">
-                      {educationList[index].startYear} - {educationList[index].endYear}
+                      {item.startYear} - {item.endYear}
                     </div>
-                    <div className="row jobLocation">{educationList[index].state} , {educationList[index].country}</div>
+                    <div className="row jobLocation">{item.state} , {item.country}</div>
                   </div>
                 </div>
               </div>
@@ -828,7 +706,7 @@ const data={
         }
             <div
                 className="addButton"
-                onClick={addEdu}
+                onClick={()=>setEducationExist(false)}
                 style={{
                   border: "1px solid grey",
                   width: "300px",
@@ -844,13 +722,170 @@ const data={
                   <AiOutlinePlus />
                 </div>
                 Add New
-              </div>
-
-
+            </div>
             </>
 
           ):(
             <>
+                   <form action="" onSubmit={updateEducation}>
+          <div className="row">
+            <div className="">
+              <label className="label">
+                Degree<span className="required">*</span>
+              </label>
+              <select
+                className="input-field"
+                onChange={(e) => setDegree(e.target.value)}
+              >
+                <option value="default">Select Degree</option>
+                <option value="B.tech">Btech</option>
+                <option value="M.tech">Mtech</option>
+              </select>
+              <label className="error-message">{error2.degree}</label>
+            </div>
+          </div>
+          <br />
+          <div className="row">
+            <div className="col-lg-3">
+              <label className="label">
+                Date of Start<span className="required">*</span>
+              </label>
+              <input
+                type="text"
+                className="input-field"
+                placeholder="Enter your String"
+                onChange={(e)=>setStartYear(e.target.value)}
+              />
+              <label className="error-message">{error2.startYear}</label>
+            </div>
+            <div className="col-lg-3">
+              <label className="label">
+                Date of End<span className="required">*</span>
+              </label>
+              <input
+                type="text"
+                className="input-field"
+                placeholder="Enter your String"
+                onChange={(e)=>setEndYear(e.target.value)}
+              />
+              <label className="error-message">{error2.endYear}</label>
+            </div>
+            <div className="col-lg-3">
+              <label className="label">
+                CGPA<span className="required">*</span>
+              </label>
+              <input
+                type="number"
+                className="input-field"
+                placeholder="Enter your String"
+                onChange={(e)=>setMarks(e.target.value)}
+              />
+              <label className="error-message">{error2.marks}</label>
+            </div>
+          </div>
+
+          <div className="row">
+            <div className=" ">
+              <label className="label">
+                Specialization
+                <span
+                  className="required"
+                  style={{
+                    gap: "0",
+                  }}
+                >
+                  *
+                </span>
+              </label>
+              <select
+                className="input-field"
+                style={{
+                  gap: "0",
+                }}
+                value={specialization}
+                onChange={(e)=>setSpecialization(e.target.value)}
+              >
+                <option value="CSE">CSE</option>
+                <option value="IT">IT</option>
+                <option value="MECH">MECH</option>
+                <option value="CIVIL">CIVIL</option>
+              </select>
+              <label className="error-message">{error2.specialization}</label>
+            </div>
+          </div>
+          <div className="row">
+            <label className="label">
+              Institute/College Name<span className="required">*</span>
+            </label>
+            <select
+              labelId="campus-name"
+              id="student-signup-campus-select"
+              label="Institution Name"
+              name="institutionName"
+              value={newCampus}
+              onChange={handleChangeCollegeId}
+            >
+              {campuses.map((campus) => (
+                <option key={campus._id} value={campus._id}>
+                  {campus.collegeName}
+                </option>
+              ))}
+            </select>
+            <label className="error-message">{error2.campuses}</label>
+          </div>
+          <div className="row">
+            <div className="col-lg-4">
+              <label className="label">
+                Country<span className="required">*</span>
+              </label>
+              <select
+                value={newCountry}
+                onChange={(e) => {
+                  setNewCountry(e.target.value);
+                  setCountryParam(
+                    countries.find(
+                      (country) => country.country === e.target.value
+                    ).countryCode
+                  );
+                }}
+                className="input-field"
+              >
+                {countries.map((country) => (
+                  <option key={country.countryCode} value={country.country}>
+                    {country.country}
+                  </option>
+                ))}
+              </select>
+              {/* <label className="error-message">{error2.country}</label> */}
+            </div>
+            <div className="col-lg-4">
+              <label className="label">
+                State<span className="required">*</span>
+              </label>
+              <select
+                value={newState}
+                onChange={(e) => {
+                  setNewState(e.target.value);
+                  setStateParam(
+                    states.find((state) => state.state === e.target.value)
+                      .stateCode
+                  );
+                }}
+                className="input-field"
+              >
+                {states.map((state) => (
+                  <option key={state.stateCode} value={state.state}>
+                    {state.state}
+                  </option>
+                ))}
+              </select>
+              {/* <label className="error-message">{error2.state}</label> */}
+            </div>
+          </div>
+          <button type="submit" onClick={updateEducation}>
+            Submit
+          </button>
+        </form>
 
             </>
           )
@@ -1015,14 +1050,150 @@ const data={
       </section>
     </>
   );
+
   const renderWork = (
     <>
       <section className="box">
         <p className="heading">WORK EXPERIENCE</p>
 
         {workExperienceExists ? (
+       <>
+
+       <form action="" onSubmit={addWork}>
+         <div className="row">
+           
+           <div className="">
+             <label className="label">
+               Designation<span className="required">*</span>
+             </label>
+             <input
+             value={designation}
+             onChange={(e)=>setDesignation(e.target.value)}
+               type="text"
+               className="input-field"
+               placeholder="Enter your String"
+             />
+           </div>
+         </div>
+         <div className="row">
+           <div className="col-lg-3">
+             <label className="label">
+               From Year<span className="required">*</span>
+             </label>
+             <input
+             value={workStart}
+             onChange={(e)=>setWorkStart(e.target.value)}
+               type="text"
+               className="input-field"
+               placeholder="Enter your String"
+             />
+           </div>
+           <div className="col-lg-3">
+             <label className="label">
+               To Year<span className="required">*</span>
+             </label>
+             <input
+             value={workEnd}
+             onChange={(e)=>setWorkEnd(e.target.value)}
+               type="text"
+               className="input-field"
+               placeholder="Enter your String"
+               disabled={currentlyWorking}
+             />
+           </div>
+           <div className="col-lg-3">
+             <div className="form-check">
+               <input
+                 className="form-check-input"
+                 type="checkbox"
+                 value=""
+                 id="defaultCheck1"
+                 onChange={handleCheckboxChange}
+               />
+               <label className="form-check-label" htmlFor="defaultCheck1">
+                 Currently Working
+               </label>
+             </div>
+           </div>
+         </div>
+         <div className="row">
+           <div className="">
+             <label className="label">
+               Organization Name<span className="required">*</span>
+             </label>
+             <input
+               value={organisation}
+               type="text"
+               onChange={(e)=>setOrganisation(e.target.value)}
+               className="input-field"
+               placeholder="Enter your String"
+             />
+           </div>
+         </div>
+         <div className="row">
+   
+         <div className="col-lg-4">
+              <label className="label">
+                Country<span className="required">*</span>
+              </label>
+              <select
+                value={newCountry}
+                onChange={(e) => {
+                  setNewCountry(e.target.value);
+                  setCountryParam(
+                    countries.find(
+                      (country) => country.country === e.target.value
+                    ).countryCode
+                  );
+                }}
+                className="input-field"
+              >
+                {countries.map((country) => (
+                  <option key={country.countryCode} value={country.country}>
+                    {country.country}
+                  </option>
+                ))}
+              </select>
+              {/* <label className="error-message">{error2.country}</label> */}
+            </div>
+            <div className="col-lg-4">
+              <label className="label">
+                State<span className="required">*</span>
+              </label>
+              <select
+                value={newState}
+                onChange={(e) => {
+                  setNewState(e.target.value);
+                  setStateParam(
+                    states.find((state) => state.state === e.target.value)
+                      .stateCode
+                  );
+                }}
+                className="input-field"
+              >
+                {states.map((state) => (
+                  <option key={state.stateCode} value={state.state}>
+                    {state.state}
+                  </option>
+                ))}
+              </select>
+              {/* <label className="error-message">{error2.state}</label> */}
+            </div>
+         </div>
+         <button type="submit"
+         onClick={addWork}>
+          Submit
+         </button>
+         </form>
+       </>
+        ) : (
           <>
-            <div className="row">
+
+
+{experienceList.map((item,index)=>
+          {
+            return(
+              <div className="row">
               <div
                 className="boxWork"
                 style={{
@@ -1054,7 +1225,7 @@ const data={
                         lineHeight: "2rem",
                       }}
                     >
-                      Software II
+                      {item.designation}
                     </div>
                     <div
                       className="row companyName"
@@ -1064,18 +1235,18 @@ const data={
                         fontWeight: "600",
                       }}
                     >
-                      Microsoft Internship{" "}
+                      {item.organisationName}
                     </div>
                     <div className="row duration">
-                      APR 2023-Currently *2 yrs and 3months
+                    {item.startYear}-{item.endYear}
                     </div>
-                    <div className="row jobLocation">Mumbai , India</div>
+                    <div className="row jobLocation">{item.state} , India</div>
                   </div>
                 </div>
               </div>
               <div
                 className="addButton"
-                onClick={() => setWorkExperienceExists(false)}
+                onClick={() => setWorkExperienceExists(true)}
                 style={{
                   border: "1px solid grey",
                   width: "300px",
@@ -1093,107 +1264,18 @@ const data={
                 Add New
               </div>
             </div>
-          </>
-        ) : (
-          <>
-
-          <form action="" onSubmit={addEducation}>
-            <div className="row">
-              
-              <div className="">
-                <label className="label">
-                  Designation<span className="required">*</span>
-                </label>
-                <input
-                  type="text"
-                  className="input-field"
-                  placeholder="Enter your String"
-                />
-              </div>
-            </div>
-            <div className="row">
-              <div className="col-lg-3">
-                <label className="label">
-                  From Year<span className="required">*</span>
-                </label>
-                <input
-                  type="date"
-                  className="input-field"
-                  placeholder="Enter your String"
-                />
-              </div>
-              <div className="col-lg-3">
-                <label className="label">
-                  To Year<span className="required">*</span>
-                </label>
-                <input
-                  type="date"
-                  className="input-field"
-                  placeholder="Enter your String"
-                  disabled={currentlyWorking}
-                />
-              </div>
-              <div className="col-lg-3">
-                <div className="form-check">
-                  <input
-                    className="form-check-input"
-                    type="checkbox"
-                    value=""
-                    id="defaultCheck1"
-                    onChange={handleCheckboxChange}
-                  />
-                  <label className="form-check-label" htmlFor="defaultCheck1">
-                    Currently Working
-                  </label>
-                </div>
-              </div>
-            </div>
-            <div className="row">
-              <div className="">
-                <label className="label">
-                  Organization Name<span className="required">*</span>
-                </label>
-                <input
-                  type="text"
-                  className="input-field"
-                  placeholder="Enter your String"
-                />
-              </div>
-            </div>
-            <div className="row">
-              <div className="col-lg-4">
-                <label className="label">
-                  Country<span className="required">*</span>
-                </label>
-                <select className="input-field">
-                  <option value="male">India</option>
-                  <option value="female">Austrilia</option>
-                  <option value="sigma">England</option>
-                  <option value="alpha">China</option>
-                </select>
-              </div>
-              <div className="col-lg-4">
-                <label className="label">
-                  State<span className="required">*</span>
-                </label>
-                <select className="input-field">
-                  <option value="male">UP</option>
-                  <option value="female">UK</option>
-                  <option value="sigma">Delhi</option>
-                  <option value="alpha">Karnataka</option>
-                </select>
-              </div>
-            </div>
-            <button type="submit"
-            onClick={addEducation}>
-
-            </button>
-            </form>
-          </>
+            );
+          }
+          
+          )
+        }
+        
+        </>
         )}
       </section>
     </>
   );
+
   const renderProjects = (
     <>
       <section className="box">

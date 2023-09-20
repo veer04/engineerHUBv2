@@ -20,9 +20,9 @@ const Register = () => {
   if (Cookies.get("name")) {
     let path = "";
     if (Cookies.get("role") === "User") {
-      path = "student";
+      path = "user";
     } else if (Cookies.get("role") === "Alumni") {
-      path = "alumni";
+      path = "user";
     } else if (Cookies.get("role") === "Club") {
       path = "club";
     } else if (Cookies.get("role") === "Organization") {
