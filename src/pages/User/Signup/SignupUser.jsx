@@ -4,7 +4,7 @@ import { IconButton } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useSignIn } from "react-auth-kit";
 import GoogleButton from "react-google-button";
-import LoginLeft from "../Login/LoginLeft.png";
+// import LoginLeft from "../Login/LoginLeft.png";
 import CustomSnackbar from "../Login/CustomSnackbar";
 // import { googleLogout, useGoogleLogin } from '@react-oauth/google';
 import Cookies from "js-cookie";
@@ -17,6 +17,7 @@ import useNavbar from "../../../hooks/use-navbar";
 import { API_URL, API_URLT } from "../../../services/APIUtils";
 
 const SignupUser = () => {
+  const loginLeft = "https://frontendehubbucket.s3.ap-south-1.amazonaws.com/frontend/auth/loginLeft.png"
   if (Cookies.get("name")) {
     let path = "";
     if (Cookies.get("role") === "User") {
@@ -429,7 +430,7 @@ const SignupUser = () => {
               coolest community of engineers
               
               </div>
-              <img src={LoginLeft} alt="" />
+              <img src={loginLeft} alt="" />
             </div>
 
     </div>
