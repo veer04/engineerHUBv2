@@ -11,7 +11,7 @@ import collegeSVG from "./collegeSVG.png";
 import { AiOutlinePlus } from "react-icons/ai";
 import { useNavigate, useParams } from "react-router-dom";
 import { TextField, Autocomplete } from "@mui/material";
-import { API_URLT } from "../../../../services/APIUtils";
+import { API_URLT, API_URL } from "../../../../services/APIUtils";
 import {
   deleteProfilePicture,
   patchProfilePicture,
@@ -33,10 +33,10 @@ const EditStudentProfileDashoboard = () => {
   const [skillsRequired, setSkillsRequired] = useState([]);
   const [isImageLoading, setIsImageLoading] = useState(false);
   const [newImage, setNewImage] = useState(null);
-  const [user, setUser] = useState(null);
-  const [experienceList,setExperienceList]=useState([]);
+  const [user, setUser] = useState({});
+  const [experienceList, setExperienceList] = useState([]);
   const [userSkills, setUserSkills] = useState([]);
-  const [educationList,setEducationList]=useState([]);
+  const [educationList, setEducationList] = useState([]);
   const options = [
     "Basic Information",
     "Education Details",
@@ -48,8 +48,8 @@ const EditStudentProfileDashoboard = () => {
   const [chosenOption, setChosenOption] = useState(options[0]);
   const [currentlyWorking, setCurrentlyWorking] = useState(false);
   const [campuses, setCampuses] = useState([]);
-  const [collegeId,setCollegeId]=useState("");
-  const [newCampus, setNewCampus]=useState("");
+  const [collegeId, setCollegeId] = useState("");
+  const [newCampus, setNewCampus] = useState("");
   const [workExperienceExists, setWorkExperienceExists] = useState(false);
   const [projectExists, setProjectExists] = useState(true);
   const [firstName, setFirstName] = useState("");
@@ -73,13 +73,13 @@ const EditStudentProfileDashoboard = () => {
   const [startYear, setStartYear] = useState("");
   const [endYear, setEndYear] = useState("");
   const [marks, setMarks] = useState("");
-  const [educationExist,setEducationExist]=useState(false);
+  const [educationExist, setEducationExist] = useState(false);
   const [specialization, setSpecialization] = useState(null);
   const [deleteResponse, setDeleteResponse] = useState(null);
-  const [organisation,setOrganisation]= useState("");
-  const [workStart,setWorkStart]=useState("");
-  const [workEnd,setWorkEnd]= useState("");
-  const [designation,setDesignation]= useState("");
+  const [organisation, setOrganisation] = useState("");
+  const [workStart, setWorkStart] = useState("");
+  const [workEnd, setWorkEnd] = useState("");
+  const [designation, setDesignation] = useState("");
   const [validation, setValidation] = useState(true);
   const [errors, setErrors] = useState({
     firstName: "",
@@ -106,16 +106,18 @@ const EditStudentProfileDashoboard = () => {
     setCurrentlyWorking(checked);
   };
   useEffect(() => {
-    // window.scrollTo(0, 0);
-  }, []);
-  useEffect(() => {
-    // window.scrollTo(0, 0);
+    const controller = new AbortController();
     getUserProfileById(setUser, userId);
+    console.log("hiii");
     getAllCountries(setCountries);
     return () => {
       controller.abort();
     };
   }, []);
+  useEffect(() => {
+    // window.scrollTo(0, 0);
+  }, []);
+
   useEffect(() => {
     window.scrollTo(0, 0);
     getAllEngBranches(setBranches);
@@ -126,16 +128,17 @@ const EditStudentProfileDashoboard = () => {
     };
   }, []);
   useEffect(() => {
-    setUserSkills(user?.skillsDetails)
-    setEducationList(user?.educationDetails);
-    setExperienceList(user?.experienceDetails);
-   console.log(educationList);
-   console.log(experienceList);
-   if(!!!educationList)
-   {
-    setEducationExist(true);
-   }
+    if (Object.keys(user).length > 0) {
+      setUserSkills(user?.skillsDetails);
+      setEducationList(user?.educationDetails);
+      setExperienceList(user?.experienceDetails);
+      if (Object.keys(educationList).length > 0) {
+        setEducationExist(true);
+      }
+    }
     console.log(user);
+    console.log(educationList);
+    console.log(experienceList);
     console.log(educationExist);
   }, [user]);
   useEffect(() => {
@@ -280,18 +283,17 @@ const EditStudentProfileDashoboard = () => {
 
   async function updateEducation(e) {
     e.preventDefault();
-    
-    const formEdu={
-      degree:degree,
-      collegeId:newCampus,
-      startYear:startYear,
-      endYear:endYear,
-      marks:marks,
-      specialization:specialization,
-      country:newCountry,
-      state:stateParam,
 
-    }
+    const formEdu = {
+      degree: degree,
+      collegeId: newCampus,
+      startYear: startYear,
+      endYear: endYear,
+      marks: marks,
+      specialization: specialization,
+      country: newCountry,
+      state: stateParam,
+    };
 
     try {
       const response = await axios.patch(
@@ -312,7 +314,7 @@ const EditStudentProfileDashoboard = () => {
         response.status === 203 ||
         response.status === 204
       ) {
-        setEducationExist(true)
+        setEducationExist(true);
         navigate("/");
       }
     } catch (error) {
@@ -321,45 +323,45 @@ const EditStudentProfileDashoboard = () => {
       console.log(error);
     }
   }
-async function addWork(e){
-e.preventDefault();
-const data={
-  designation: designation,
-  startYear:workStart,
-  currentlyWorking:true,
-  marks:"8.11",
-  organisationName:organisation,
-  country:newCountry,
-  state:stateParam,
-}
-try {
-  const response = await axios.post(
-    `${API_URLT}api/v1/add/experience`,
-    data,
-    {
-      headers: {
-        accesstoken: getAccessToken(),
-      },
+  async function addWork(e) {
+    e.preventDefault();
+    const data = {
+      designation: designation,
+      startYear: workStart,
+      currentlyWorking: true,
+      marks: "8.11",
+      organisationName: organisation,
+      country: newCountry,
+      state: stateParam,
+    };
+    try {
+      const response = await axios.post(
+        `${API_URLT}api/v1/add/experience`,
+        data,
+        {
+          headers: {
+            accesstoken: getAccessToken(),
+          },
+        }
+      );
+      console.log(response);
+
+      if (
+        response.status === 200 ||
+        response.status === 201 ||
+        response.status === 202 ||
+        response.status === 203 ||
+        response.status === 204
+      ) {
+        setWorkExperienceExists(true);
+        navigate("/login");
+      }
+    } catch (error) {
+      alert(error.response);
+
+      console.log(error);
     }
-  );
-  console.log(response);
-
-  if (
-    response.status === 200 ||
-    response.status === 201 ||
-    response.status === 202 ||
-    response.status === 203 ||
-    response.status === 204
-  ) {
-    setWorkExperienceExists(true)
-    navigate("/login");
   }
-} catch (error) {
-  alert(error.response);
-
-  console.log(error);
-}
-}
 
   function handleDelete() {
     deleteProfilePicture(setDeleteResponse);
@@ -374,14 +376,14 @@ try {
     // form.append("aboutMe", aboutMe);
     // form.append("mobile", mobile);
     // form.append("gender", gender);
-    const form ={
+    const form = {
       firstName: firstName,
-      lastName:lastName,
+      lastName: lastName,
       dateOfBirth: dateOfBirth,
       aboutMe: aboutMe,
       mobile: mobile,
       gender: gender,
-    }
+    };
 
     if (validateData1() === true) {
       try {
@@ -430,40 +432,36 @@ try {
   };
   async function addSkills(e) {
     e.preventDefault;
-   
 
-    
-      try {
-        const response = await axios.post(
-          `${API_URLT}api/v1/add/skills`,
-          skillsRequired,
-          {
-            headers: {
-              accesstoken: getAccessToken(),
-            },
-          }
-        );
-        console.log(response);
-
-        if (
-          response.status === 200 ||
-          response.status === 201 ||
-          response.status === 202 ||
-          response.status === 203 ||
-          response.status === 204
-        ) {
-          navigate("/");
+    try {
+      const response = await axios.post(
+        `${API_URLT}api/v1/add/skills`,
+        skillsRequired,
+        {
+          headers: {
+            accesstoken: getAccessToken(),
+          },
         }
-      } catch (error) {
-        alert(error.response);
+      );
+      console.log(response);
 
-        console.log(error);
+      if (
+        response.status === 200 ||
+        response.status === 201 ||
+        response.status === 202 ||
+        response.status === 203 ||
+        response.status === 204
+      ) {
+        navigate("/");
       }
-    
+    } catch (error) {
+      alert(error.response);
+
+      console.log(error);
+    }
   }
-  function addEdu()
-  {
-  setEducationExist(true);
+  function addEdu() {
+    setEducationExist(true);
   }
   const renderOption1 = (
     <>
@@ -627,271 +625,267 @@ try {
     <>
       <section className="box">
         <p className="heading">EDUCATION DETAILS</p>
-        {
-          educationExist?(
-            <>
-          {educationList.map((item,index)=>
-          {
-            return(
-              <div className="row"
-              style={
-                {
-                  margin:"2%",
-                }
-              }>
-              <div
-                className="boxWork"
-                style={{
-                  border: "1px solid grey",
-                  borderRadius: "5px",
-                  padding: "2%",
-                }}
-              >
-                <div className="row">
+        {educationExist ? (
+          <>
+            {educationList.map((item, index) => {
+              return (
+                <div
+                  className="row"
+                  style={{
+                    margin: "2%",
+                  }}
+                >
                   <div
-                    className="col-lg-2"
+                    className="boxWork"
                     style={{
                       border: "1px solid grey",
                       borderRadius: "5px",
-                      width: "80px",
-                      height: "80px",
-                      marginRight: "10px",
-                      marginRight: "10px",
-                      marginTop: "10px",
+                      padding: "2%",
                     }}
-
                   >
-                    <img height={50} width={50}
-                    style={{
-                      padding:"4px",
-                      marginTop:"10px",
-                    }} 
-                     src={item.collegeId.collegeLogo} alt="" />
+                    <div className="row">
+                      <div
+                        className="col-lg-2"
+                        style={{
+                          border: "1px solid grey",
+                          borderRadius: "5px",
+                          width: "80px",
+                          height: "80px",
+                          marginRight: "10px",
+                          marginRight: "10px",
+                          marginTop: "10px",
+                        }}
+                      >
+                        <img
+                          height={50}
+                          width={50}
+                          style={{
+                            padding: "4px",
+                            marginTop: "10px",
+                          }}
+                          src={item.collegeId.collegeLogo}
+                          alt=""
+                        />
+                      </div>
+                      <div className="col-lg-10">
+                        <div
+                          className="row jobRole"
+                          style={{
+                            color: "#002b36 ",
+                            fontSize: "1.2rem",
+                            fontWeight: "600",
+                            lineHeight: "2rem",
+                          }}
+                        >
+                          {item.collegeId.collegeName}
+                        </div>
+                        <div
+                          className="row companyName"
+                          style={{
+                            color: "#002b36",
+                            fontSize: "1.0rem",
+                            fontWeight: "600",
+                          }}
+                        >
+                          {item.degree} / {item.specialization}
+                        </div>
+                        <div className="row duration">
+                          {item.startYear} - {item.endYear}
+                        </div>
+                        <div className="row jobLocation">
+                          {item.state} , {item.country}
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                  <div className="col-lg-10">
-                    <div
-                      className="row jobRole"
-                      style={{
-                        color: "#002b36 ",
-                        fontSize: "1.2rem",
-                        fontWeight: "600",
-                        lineHeight: "2rem",
-                      }}
-                    >
-                      {item.collegeId.collegeName}
-                    </div>
-                    <div
-                      className="row companyName"
-                      style={{
-                        color: "#002b36",
-                        fontSize: "1.0rem",
-                        fontWeight: "600",
-                      }}
-                    >
-                      {item.degree} / {item.specialization}
-                    </div>
-                    <div className="row duration">
-                      {item.startYear} - {item.endYear}
-                    </div>
-                    <div className="row jobLocation">{item.state} , {item.country}</div>
-                  </div>
+                </div>
+              );
+            })}
+            <div
+              className="addButton"
+              onClick={() => setEducationExist(false)}
+              style={{
+                border: "1px solid grey",
+                width: "300px",
+                height: "60px",
+                borderRadius: "10px",
+                color: "#002b36",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <div className="addIcon">
+                <AiOutlinePlus />
+              </div>
+              Add New
+            </div>
+          </>
+        ) : (
+          <>
+            <form action="" onSubmit={updateEducation}>
+              <div className="row">
+                <div className="">
+                  <label className="label">
+                    Degree<span className="required">*</span>
+                  </label>
+                  <select
+                    className="input-field"
+                    onChange={(e) => setDegree(e.target.value)}
+                  >
+                    <option value="default">Select Degree</option>
+                    <option value="B.tech">Btech</option>
+                    <option value="M.tech">Mtech</option>
+                  </select>
+                  <label className="error-message">{error2.degree}</label>
+                </div>
+              </div>
+              <br />
+              <div className="row">
+                <div className="col-lg-3">
+                  <label className="label">
+                    Date of Start<span className="required">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    className="input-field"
+                    placeholder="Enter your String"
+                    onChange={(e) => setStartYear(e.target.value)}
+                  />
+                  <label className="error-message">{error2.startYear}</label>
+                </div>
+                <div className="col-lg-3">
+                  <label className="label">
+                    Date of End<span className="required">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    className="input-field"
+                    placeholder="Enter your String"
+                    onChange={(e) => setEndYear(e.target.value)}
+                  />
+                  <label className="error-message">{error2.endYear}</label>
+                </div>
+                <div className="col-lg-3">
+                  <label className="label">
+                    CGPA<span className="required">*</span>
+                  </label>
+                  <input
+                    type="number"
+                    className="input-field"
+                    placeholder="Enter your String"
+                    onChange={(e) => setMarks(e.target.value)}
+                  />
+                  <label className="error-message">{error2.marks}</label>
                 </div>
               </div>
 
-            </div>
-            );
-          }
-          
-          )
-        }
-            <div
-                className="addButton"
-                onClick={()=>setEducationExist(false)}
-                style={{
-                  border: "1px solid grey",
-                  width: "300px",
-                  height: "60px",
-                  borderRadius: "10px",
-                  color: "#002b36",
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <div className="addIcon">
-                  <AiOutlinePlus />
+              <div className="row">
+                <div className=" ">
+                  <label className="label">
+                    Specialization
+                    <span
+                      className="required"
+                      style={{
+                        gap: "0",
+                      }}
+                    >
+                      *
+                    </span>
+                  </label>
+                  <select
+                    className="input-field"
+                    style={{
+                      gap: "0",
+                    }}
+                    value={specialization}
+                    onChange={(e) => setSpecialization(e.target.value)}
+                  >
+                    <option value="CSE">CSE</option>
+                    <option value="IT">IT</option>
+                    <option value="MECH">MECH</option>
+                    <option value="CIVIL">CIVIL</option>
+                  </select>
+                  <label className="error-message">
+                    {error2.specialization}
+                  </label>
                 </div>
-                Add New
-            </div>
-            </>
-
-          ):(
-            <>
-                   <form action="" onSubmit={updateEducation}>
-          <div className="row">
-            <div className="">
-              <label className="label">
-                Degree<span className="required">*</span>
-              </label>
-              <select
-                className="input-field"
-                onChange={(e) => setDegree(e.target.value)}
-              >
-                <option value="default">Select Degree</option>
-                <option value="B.tech">Btech</option>
-                <option value="M.tech">Mtech</option>
-              </select>
-              <label className="error-message">{error2.degree}</label>
-            </div>
-          </div>
-          <br />
-          <div className="row">
-            <div className="col-lg-3">
-              <label className="label">
-                Date of Start<span className="required">*</span>
-              </label>
-              <input
-                type="text"
-                className="input-field"
-                placeholder="Enter your String"
-                onChange={(e)=>setStartYear(e.target.value)}
-              />
-              <label className="error-message">{error2.startYear}</label>
-            </div>
-            <div className="col-lg-3">
-              <label className="label">
-                Date of End<span className="required">*</span>
-              </label>
-              <input
-                type="text"
-                className="input-field"
-                placeholder="Enter your String"
-                onChange={(e)=>setEndYear(e.target.value)}
-              />
-              <label className="error-message">{error2.endYear}</label>
-            </div>
-            <div className="col-lg-3">
-              <label className="label">
-                CGPA<span className="required">*</span>
-              </label>
-              <input
-                type="number"
-                className="input-field"
-                placeholder="Enter your String"
-                onChange={(e)=>setMarks(e.target.value)}
-              />
-              <label className="error-message">{error2.marks}</label>
-            </div>
-          </div>
-
-          <div className="row">
-            <div className=" ">
-              <label className="label">
-                Specialization
-                <span
-                  className="required"
-                  style={{
-                    gap: "0",
-                  }}
+              </div>
+              <div className="row">
+                <label className="label">
+                  Institute/College Name<span className="required">*</span>
+                </label>
+                <select
+                  labelId="campus-name"
+                  id="student-signup-campus-select"
+                  label="Institution Name"
+                  name="institutionName"
+                  value={newCampus}
+                  onChange={handleChangeCollegeId}
                 >
-                  *
-                </span>
-              </label>
-              <select
-                className="input-field"
-                style={{
-                  gap: "0",
-                }}
-                value={specialization}
-                onChange={(e)=>setSpecialization(e.target.value)}
-              >
-                <option value="CSE">CSE</option>
-                <option value="IT">IT</option>
-                <option value="MECH">MECH</option>
-                <option value="CIVIL">CIVIL</option>
-              </select>
-              <label className="error-message">{error2.specialization}</label>
-            </div>
-          </div>
-          <div className="row">
-            <label className="label">
-              Institute/College Name<span className="required">*</span>
-            </label>
-            <select
-              labelId="campus-name"
-              id="student-signup-campus-select"
-              label="Institution Name"
-              name="institutionName"
-              value={newCampus}
-              onChange={handleChangeCollegeId}
-            >
-              {campuses.map((campus) => (
-                <option key={campus._id} value={campus._id}>
-                  {campus.collegeName}
-                </option>
-              ))}
-            </select>
-            <label className="error-message">{error2.campuses}</label>
-          </div>
-          <div className="row">
-            <div className="col-lg-4">
-              <label className="label">
-                Country<span className="required">*</span>
-              </label>
-              <select
-                value={newCountry}
-                onChange={(e) => {
-                  setNewCountry(e.target.value);
-                  setCountryParam(
-                    countries.find(
-                      (country) => country.country === e.target.value
-                    ).countryCode
-                  );
-                }}
-                className="input-field"
-              >
-                {countries.map((country) => (
-                  <option key={country.countryCode} value={country.country}>
-                    {country.country}
-                  </option>
-                ))}
-              </select>
-              {/* <label className="error-message">{error2.country}</label> */}
-            </div>
-            <div className="col-lg-4">
-              <label className="label">
-                State<span className="required">*</span>
-              </label>
-              <select
-                value={newState}
-                onChange={(e) => {
-                  setNewState(e.target.value);
-                  setStateParam(
-                    states.find((state) => state.state === e.target.value)
-                      .stateCode
-                  );
-                }}
-                className="input-field"
-              >
-                {states.map((state) => (
-                  <option key={state.stateCode} value={state.state}>
-                    {state.state}
-                  </option>
-                ))}
-              </select>
-              {/* <label className="error-message">{error2.state}</label> */}
-            </div>
-          </div>
-          <button type="submit" onClick={updateEducation}>
-            Submit
-          </button>
-        </form>
-
-            </>
-          )
-          
-        }
-     
+                  {campuses.map((campus) => (
+                    <option key={campus._id} value={campus._id}>
+                      {campus.collegeName}
+                    </option>
+                  ))}
+                </select>
+                <label className="error-message">{error2.campuses}</label>
+              </div>
+              <div className="row">
+                <div className="col-lg-4">
+                  <label className="label">
+                    Country<span className="required">*</span>
+                  </label>
+                  <select
+                    value={newCountry}
+                    onChange={(e) => {
+                      setNewCountry(e.target.value);
+                      setCountryParam(
+                        countries.find(
+                          (country) => country.country === e.target.value
+                        ).countryCode
+                      );
+                    }}
+                    className="input-field"
+                  >
+                    {countries.map((country) => (
+                      <option key={country.countryCode} value={country.country}>
+                        {country.country}
+                      </option>
+                    ))}
+                  </select>
+                  {/* <label className="error-message">{error2.country}</label> */}
+                </div>
+                <div className="col-lg-4">
+                  <label className="label">
+                    State<span className="required">*</span>
+                  </label>
+                  <select
+                    value={newState}
+                    onChange={(e) => {
+                      setNewState(e.target.value);
+                      setStateParam(
+                        states.find((state) => state.state === e.target.value)
+                          .stateCode
+                      );
+                    }}
+                    className="input-field"
+                  >
+                    {states.map((state) => (
+                      <option key={state.stateCode} value={state.state}>
+                        {state.state}
+                      </option>
+                    ))}
+                  </select>
+                  {/* <label className="error-message">{error2.state}</label> */}
+                </div>
+              </div>
+              <button type="submit" onClick={updateEducation}>
+                Submit
+              </button>
+            </form>
+          </>
+        )}
       </section>
     </>
   );
@@ -1057,220 +1051,211 @@ try {
         <p className="heading">WORK EXPERIENCE</p>
 
         {workExperienceExists ? (
-       <>
-
-       <form action="" onSubmit={addWork}>
-         <div className="row">
-           
-           <div className="">
-             <label className="label">
-               Designation<span className="required">*</span>
-             </label>
-             <input
-             value={designation}
-             onChange={(e)=>setDesignation(e.target.value)}
-               type="text"
-               className="input-field"
-               placeholder="Enter your String"
-             />
-           </div>
-         </div>
-         <div className="row">
-           <div className="col-lg-3">
-             <label className="label">
-               From Year<span className="required">*</span>
-             </label>
-             <input
-             value={workStart}
-             onChange={(e)=>setWorkStart(e.target.value)}
-               type="text"
-               className="input-field"
-               placeholder="Enter your String"
-             />
-           </div>
-           <div className="col-lg-3">
-             <label className="label">
-               To Year<span className="required">*</span>
-             </label>
-             <input
-             value={workEnd}
-             onChange={(e)=>setWorkEnd(e.target.value)}
-               type="text"
-               className="input-field"
-               placeholder="Enter your String"
-               disabled={currentlyWorking}
-             />
-           </div>
-           <div className="col-lg-3">
-             <div className="form-check">
-               <input
-                 className="form-check-input"
-                 type="checkbox"
-                 value=""
-                 id="defaultCheck1"
-                 onChange={handleCheckboxChange}
-               />
-               <label className="form-check-label" htmlFor="defaultCheck1">
-                 Currently Working
-               </label>
-             </div>
-           </div>
-         </div>
-         <div className="row">
-           <div className="">
-             <label className="label">
-               Organization Name<span className="required">*</span>
-             </label>
-             <input
-               value={organisation}
-               type="text"
-               onChange={(e)=>setOrganisation(e.target.value)}
-               className="input-field"
-               placeholder="Enter your String"
-             />
-           </div>
-         </div>
-         <div className="row">
-   
-         <div className="col-lg-4">
-              <label className="label">
-                Country<span className="required">*</span>
-              </label>
-              <select
-                value={newCountry}
-                onChange={(e) => {
-                  setNewCountry(e.target.value);
-                  setCountryParam(
-                    countries.find(
-                      (country) => country.country === e.target.value
-                    ).countryCode
-                  );
-                }}
-                className="input-field"
-              >
-                {countries.map((country) => (
-                  <option key={country.countryCode} value={country.country}>
-                    {country.country}
-                  </option>
-                ))}
-              </select>
-              {/* <label className="error-message">{error2.country}</label> */}
-            </div>
-            <div className="col-lg-4">
-              <label className="label">
-                State<span className="required">*</span>
-              </label>
-              <select
-                value={newState}
-                onChange={(e) => {
-                  setNewState(e.target.value);
-                  setStateParam(
-                    states.find((state) => state.state === e.target.value)
-                      .stateCode
-                  );
-                }}
-                className="input-field"
-              >
-                {states.map((state) => (
-                  <option key={state.stateCode} value={state.state}>
-                    {state.state}
-                  </option>
-                ))}
-              </select>
-              {/* <label className="error-message">{error2.state}</label> */}
-            </div>
-         </div>
-         <button type="submit"
-         onClick={addWork}>
-          Submit
-         </button>
-         </form>
-       </>
-        ) : (
           <>
-
-
-{experienceList.map((item,index)=>
-          {
-            return(
+            <form action="" onSubmit={addWork}>
               <div className="row">
-              <div
-                className="boxWork"
-                style={{
-                  border: "1px solid grey",
-                  borderRadius: "5px",
-                  padding: "2%",
-                }}
-              >
-                <div className="row">
-                  <div
-                    className="col-lg-2"
-                    style={{
-                      border: "1px solid grey",
-                      borderRadius: "5px",
-                      width: "80px",
-                      height: "80px",
-                      marginRight: "10px",
-                      marginRight: "10px",
-                      marginTop: "10px",
-                    }}
-                  ></div>
-                  <div className="col-lg-10">
-                    <div
-                      className="row jobRole"
-                      style={{
-                        color: "#002b36 ",
-                        fontSize: "1.2rem",
-                        fontWeight: "600",
-                        lineHeight: "2rem",
-                      }}
-                    >
-                      {item.designation}
-                    </div>
-                    <div
-                      className="row companyName"
-                      style={{
-                        color: "#002b36",
-                        fontSize: "1.0rem",
-                        fontWeight: "600",
-                      }}
-                    >
-                      {item.organisationName}
-                    </div>
-                    <div className="row duration">
-                    {item.startYear}-{item.endYear}
-                    </div>
-                    <div className="row jobLocation">{item.state} , India</div>
+                <div className="">
+                  <label className="label">
+                    Designation<span className="required">*</span>
+                  </label>
+                  <input
+                    value={designation}
+                    onChange={(e) => setDesignation(e.target.value)}
+                    type="text"
+                    className="input-field"
+                    placeholder="Enter your String"
+                  />
+                </div>
+              </div>
+              <div className="row">
+                <div className="col-lg-3">
+                  <label className="label">
+                    From Year<span className="required">*</span>
+                  </label>
+                  <input
+                    value={workStart}
+                    onChange={(e) => setWorkStart(e.target.value)}
+                    type="text"
+                    className="input-field"
+                    placeholder="Enter your String"
+                  />
+                </div>
+                <div className="col-lg-3">
+                  <label className="label">
+                    To Year<span className="required">*</span>
+                  </label>
+                  <input
+                    value={workEnd}
+                    onChange={(e) => setWorkEnd(e.target.value)}
+                    type="text"
+                    className="input-field"
+                    placeholder="Enter your String"
+                    disabled={currentlyWorking}
+                  />
+                </div>
+                <div className="col-lg-3">
+                  <div className="form-check">
+                    <input
+                      className="form-check-input"
+                      type="checkbox"
+                      value=""
+                      id="defaultCheck1"
+                      onChange={handleCheckboxChange}
+                    />
+                    <label className="form-check-label" htmlFor="defaultCheck1">
+                      Currently Working
+                    </label>
                   </div>
                 </div>
               </div>
-              <div
-                className="addButton"
-                onClick={() => setWorkExperienceExists(true)}
-                style={{
-                  border: "1px solid grey",
-                  width: "300px",
-                  height: "60px",
-                  borderRadius: "10px",
-                  color: "#002b36",
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <div className="addIcon">
-                  <AiOutlinePlus />
+              <div className="row">
+                <div className="">
+                  <label className="label">
+                    Organization Name<span className="required">*</span>
+                  </label>
+                  <input
+                    value={organisation}
+                    type="text"
+                    onChange={(e) => setOrganisation(e.target.value)}
+                    className="input-field"
+                    placeholder="Enter your String"
+                  />
                 </div>
-                Add New
               </div>
-            </div>
-            );
-          }
-          
-          )
-        }
-        
-        </>
+              <div className="row">
+                <div className="col-lg-4">
+                  <label className="label">
+                    Country<span className="required">*</span>
+                  </label>
+                  <select
+                    value={newCountry}
+                    onChange={(e) => {
+                      setNewCountry(e.target.value);
+                      setCountryParam(
+                        countries.find(
+                          (country) => country.country === e.target.value
+                        ).countryCode
+                      );
+                    }}
+                    className="input-field"
+                  >
+                    {countries.map((country) => (
+                      <option key={country.countryCode} value={country.country}>
+                        {country.country}
+                      </option>
+                    ))}
+                  </select>
+                  {/* <label className="error-message">{error2.country}</label> */}
+                </div>
+                <div className="col-lg-4">
+                  <label className="label">
+                    State<span className="required">*</span>
+                  </label>
+                  <select
+                    value={newState}
+                    onChange={(e) => {
+                      setNewState(e.target.value);
+                      setStateParam(
+                        states.find((state) => state.state === e.target.value)
+                          .stateCode
+                      );
+                    }}
+                    className="input-field"
+                  >
+                    {states.map((state) => (
+                      <option key={state.stateCode} value={state.state}>
+                        {state.state}
+                      </option>
+                    ))}
+                  </select>
+                  {/* <label className="error-message">{error2.state}</label> */}
+                </div>
+              </div>
+              <button type="submit" onClick={addWork}>
+                Submit
+              </button>
+            </form>
+          </>
+        ) : (
+          <>
+            {experienceList.map((item, index) => {
+              return (
+                <div className="row">
+                  <div
+                    className="boxWork"
+                    style={{
+                      border: "1px solid grey",
+                      borderRadius: "5px",
+                      padding: "2%",
+                    }}
+                  >
+                    <div className="row">
+                      <div
+                        className="col-lg-2"
+                        style={{
+                          border: "1px solid grey",
+                          borderRadius: "5px",
+                          width: "80px",
+                          height: "80px",
+                          marginRight: "10px",
+                          marginRight: "10px",
+                          marginTop: "10px",
+                        }}
+                      ></div>
+                      <div className="col-lg-10">
+                        <div
+                          className="row jobRole"
+                          style={{
+                            color: "#002b36 ",
+                            fontSize: "1.2rem",
+                            fontWeight: "600",
+                            lineHeight: "2rem",
+                          }}
+                        >
+                          {item.designation}
+                        </div>
+                        <div
+                          className="row companyName"
+                          style={{
+                            color: "#002b36",
+                            fontSize: "1.0rem",
+                            fontWeight: "600",
+                          }}
+                        >
+                          {item.organisationName}
+                        </div>
+                        <div className="row duration">
+                          {item.startYear}-{item.endYear}
+                        </div>
+                        <div className="row jobLocation">
+                          {item.state} , {item.country}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    className="addButton"
+                    onClick={() => setWorkExperienceExists(true)}
+                    style={{
+                      border: "1px solid grey",
+                      width: "300px",
+                      height: "60px",
+                      borderRadius: "10px",
+                      color: "#002b36",
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <div className="addIcon">
+                      <AiOutlinePlus />
+                    </div>
+                    Add New
+                  </div>
+                </div>
+              );
+            })}
+          </>
         )}
       </section>
     </>

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { API_URL,API_URLT } from "./APIUtils";
+import { API_URL, API_URLT } from "./APIUtils";
 import decryptData from "../features/DeCrypt";
 import getCookie, { getAccessToken } from "../features/getCookieValues";
 import { set } from "react-hook-form";
@@ -509,9 +509,9 @@ export const addClubMember = (formData, setResponse) => {
     },
   };
   axios
-    .post(`${API_URL}api/v1/club/addMember`,formData, config)
+    .post(`${API_URL}api/v1/club/addMember`, formData, config)
     .then((res) => {
-      console.log(res)
+      console.log(res);
       const data = res.data.data;
       setResponse(data);
     })
@@ -523,7 +523,6 @@ export const addClubMember = (formData, setResponse) => {
       }
     });
 };
-
 
 export const getClubProfileById = (setClubProfile, clubId) => {
   const controller = new AbortController();
@@ -1005,6 +1004,7 @@ export const getUserProfileById = (setUserProfile, userId) => {
     })
     .then((res) => {
       const data = res.data.data;
+      // console.log(data)
       setUserProfile(data);
     })
     .catch((err) => {
