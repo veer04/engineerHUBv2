@@ -89,6 +89,7 @@ import ClubDashboard from "./pages/Profile/ClubDashboard/ClubDashboard";
 import ClubEditProfile from "./pages/Profile/ClubDashboard/ClubEditProfile";
 import AddPostModal from "./components/Dashboard/AddPostModal";
 import AddMemberModal from "./components/Dashboard/AddMemberModal";
+import UserDashboard from "./pages/Profile/UserDashboard/UserDashboard";
 
 function App() {
   const [isEventModalOpen, setIsEventModalOpen] = useState(false);
@@ -136,7 +137,7 @@ function App() {
             path="user"
             element={<StudentProfileDashboard></StudentProfileDashboard>}
           ></Route>
-          
+
           <Route path="/success" element={<Success></Success>}></Route>
           <Route path="/register" element={<RegistrationForm />} />
           <Route path="/selectRole" element={<Role />} />
@@ -147,18 +148,38 @@ function App() {
           <Route path="/ehubchats" element={<Chatpage />} />
 
           <Route path="/profile">
-          <Route path="User/:userId/studentEdit" element={<EditStudentProfileDashoboard ></EditStudentProfileDashoboard>}></Route>
+            {/* <Route
+              path="User/:userId/studentEdit"
+              element={
+                <EditStudentProfileDashoboard></EditStudentProfileDashoboard>
+              }
+            ></Route>
             <Route
               path="User/:userId"
               element={<StudentProfileDashboard path="profile" />}
             >
               <Route index element={<GeneralStudentData />} />
-              {/* <Route path="general" element={<GeneralStudentData />} /> */}
-              <Route path="studentEdit" element={<EditStudentProfileDashoboard ></EditStudentProfileDashoboard>}></Route>
-              {/* <Route path="address" element={<AddressStudentData />} />
-              <Route path="social-media" element={<SocialMediaStudentData />} />
-              <Route path="tech-stack" element={<TechStackStudentData />} /> */}
+              <Route
+                path="studentEdit"
+                element={
+                  <EditStudentProfileDashoboard></EditStudentProfileDashoboard>
+                }
+              ></Route>
+  
+            </Route> */}
+            <Route
+              path="user/:userId"
+              element={<UserDashboard path="profile" />}
+            >
+              {/* <Route path="edit-cover-image" element={<CoverImageModal />} />
+              <Route path="add-post" element={<AddPostModal />} />
+              <Route path="add-member" element={<AddMemberModal />} />
+              <Route path="posts/:postId" element={<PostModal />} /> */}
             </Route>
+            <Route
+              path="user/:userId/edit-profile"
+              element={<ClubEditProfile />}
+            />
             <Route
               path="alumni/:alumniId"
               element={<AlumniProfilePage path="profile" />}
@@ -209,7 +230,7 @@ function App() {
           </Route>
           <Route path="/signup" element={<Signup />} />
           <Route path="/student-signup" element={<StudentSignup />} />
-          <Route path="/User-signup" element={<SignupUser/>} />
+          <Route path="/User-signup" element={<SignupUser />} />
           <Route path="/clubSignup" element={<ClubSignup />} />
           <Route path="/mentorSignup" element={<MentorSignup />} />
           <Route path="/organizationSignup" element={<OrganizationSignup />} />

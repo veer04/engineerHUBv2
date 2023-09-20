@@ -16,6 +16,7 @@ import EventCard from "../../../components/EventCard/EventCard";
 import {
   followClub,
   getAllPosts,
+  getClubProfileById,
   getClubProfileByIdPrivateMode,
   getFeaturedEvents,
   getOrganizationProfileById,
@@ -42,7 +43,7 @@ export default function ClubDashboard() {
     if (isUserLoggedIn()) {
       getClubProfileByIdPrivateMode(setOrganization, clubId);
     } else {
-      getOrganizationProfileById(setOrganization, clubId);
+      getClubProfileById(setOrganization, clubId);
     }
   }
 
@@ -80,8 +81,8 @@ export default function ClubDashboard() {
       <main className="profile-dashboard club-dashboard">
         <h1 className="title">Profile</h1>
         <h2 className="subheading">
-          Lorem ipsum dolor sit amet consectetur. Mattis aliquam sodales
-          faucibus platea feugiat odio.
+          {/* Lorem ipsum dolor sit amet consectetur. Mattis aliquam sodales
+          faucibus platea feugiat odio. */}
         </h2>
         <section className="box details-container">
           <div className="cover">

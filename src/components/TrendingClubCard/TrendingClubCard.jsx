@@ -26,7 +26,7 @@ export default function TrendingClubCard({
   return (
     // <a href={websiteUrl}>
     <div
-      onClick={() => navigate(`/campus/${collegeId}/${typeOfClub}/${_id}`)}
+      onClick={() => navigate(`/profile/club/${_id}`)}
       style={{
         // backgroundImage: `url(${image})`,
         backgroundImage: `url(${clubPhoto[0]})`,

@@ -29,7 +29,7 @@ export default function CompanyEditProfile() {
   const [organization, setOrganization] = useState(null);
   const navigate = useNavigate();
   const options = ["Basic Information", "Contact Information", "Edit Location"];
-  const [chosenOption, setChosenOption] = useState(options[2]);
+  const [chosenOption, setChosenOption] = useState(options[0]);
   const fileInput = useRef(null);
   const [isImageLoading, setIsImageLoading] = useState(false);
   const [newImage, setNewImage] = useState(null);
@@ -542,7 +542,7 @@ export default function CompanyEditProfile() {
           value={newHiringFor}
           onChange={(e) => setNewHiringFor(e.target.value)}
         >
-          <option key="Not Selected" value="Not Selected">
+          <option key="Not Selected" value="Not Selected" disabled>
             Not Selected
           </option>
           {hiringForList.map((item) => (

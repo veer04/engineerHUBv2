@@ -5,6 +5,14 @@
   margin-bottom: 0.5rem;
   padding: 1.25rem;
 }
+.profile-dashboard .user-box {
+  column-gap: 0.5rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.profile-dashboard .user-box .box {
+  width: 100%;
+}
 .profile-dashboard .title {
   font-size: 1.95313rem;
   font-weight: 600;
@@ -42,7 +50,7 @@
   cursor: pointer;
 }
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 768px) {
   .profile-dashboard .heading {
     color: var(--foundation-black-black-800, #000);
     font-size: 0.875rem;
@@ -56,5 +64,10 @@
   .profile-dashboard > .title,
   .profile-dashboard > .subheading {
     display: none;
+  }
+  .profile-dashboard .user-box {
+    row-gap: 0.5rem;
+    display: grid;
+    grid-template-columns: 1fr;
   }
 }

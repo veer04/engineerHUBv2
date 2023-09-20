@@ -235,7 +235,8 @@ export default function Navbar() {
                   alt="user"
                 /> */}
                 <span className="nav-username text-nowrap">
-                  Hi, {name.split(" ")[0]}
+                  {/* Hi, {name.split(" ")[0]} */}
+                  Profile
                 </span>
               </button>
             </div>

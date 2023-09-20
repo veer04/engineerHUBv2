@@ -68,16 +68,16 @@ export default function ParticularCampus() {
       image:
         "https://frontendehubbucket.s3.ap-south-1.amazonaws.com/frontend/campus/particularcampus/cultural_club.png",
     },
-    {
-      _id: 3,
-      title: `${campus.collegeName} ALMAS`,
-      studentActivity: "2.1k",
-      ongoingEvents: "108",
-      color: colors[2],
-      link: `/campus/${collegeId}/almas`,
-      image:
-        "https://frontendehubbucket.s3.ap-south-1.amazonaws.com/frontend/campus/particularcampus/almas.png",
-    },
+    // {
+    //   _id: 3,
+    //   title: `${campus.collegeName} ALMAS`,
+    //   studentActivity: "2.1k",
+    //   ongoingEvents: "108",
+    //   color: colors[2],
+    //   link: `/campus/${collegeId}/almas`,
+    //   image:
+    //     "https://frontendehubbucket.s3.ap-south-1.amazonaws.com/frontend/campus/particularcampus/almas.png",
+    // },
   ];
   const starsFilled = [];
   const starsEmpty = [];
