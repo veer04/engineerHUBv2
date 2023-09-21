@@ -25,7 +25,7 @@ import Footer from "./components/Footer/Footer";
 import Events from "./pages/Company/Events/events";
 import Jobs from "./pages/Company/Jobs/jobs";
 import JobDetails from "./pages/Company/Jobs/JobDetails";
-// import Success from "./pages/HomePage/Success";
+import Success from "./pages/HomePage/Success";
 import Internship from "./pages/Company/Internship/Internship";
 import InternshipDetails from "./pages/Company/Internship/InternshipDetails";
 import HackathonDetails from "./pages/Company/Events/EventsChoices/HackathonDetails";
@@ -39,6 +39,7 @@ import ClubSignup from "./pages/User/Signup/ClubSignup";
 import MentorSignup from "./pages/User/Signup/MentorSignup";
 import OrganizationSignup from "./pages/User/Signup/OrganizationSignup";
 import { Suspense } from "react";
+import StudentProfileDashboard from "./pages/User/Profile/StudentProfile/StudentProfileDashboard";
 import LoadingPage from "./components/Loader/LoadingPage";
 import Role from "./pages/User/RoleWiseUserPage/Role";
 import PostModal from "./components/PostModal/PostModal";
@@ -66,6 +67,8 @@ import GeneralClubData from "./pages/User/Profile/ClubProfile/GeneralClubData";
 import EditClubData from "./pages/User/Profile/ClubProfile/EditClubData";
 import JobRegistration from "./pages/Hosting/JobRegistration";
 import Page404 from "./pages/Maintenance/Page404";
+import SignupUser from "./pages/User/Signup/SignupUser";
+import EditStudentProfileDashoboard from "./pages/User/Profile/StudentProfile/EditStudentProfileDashoboard";
 import jwt_decode from "jwt-decode";
 const CommunityPage = lazy(() => import("./pages/Community/CommunityPage"));
 const CampusPage = lazy(() => import("./pages/Campus/CampusPage"));
@@ -78,6 +81,15 @@ import getCookie, { getAccessToken } from "./features/getCookieValues";
 import ProjectHosting from "./pages/Hosting/ProjectHosting";
 import CoverPhotoClubData from "./pages/User/Profile/ClubProfile/CoverPhotoClubData";
 import ManagePostsClubData from "./pages/User/Profile/ClubProfile/ManagePostsClubData";
+import ProfilePopUp from "./components/ProfileSection/ProfilePopUp/ProfilePopUp";
+import CompanyDashboard from "./pages/Profile/CompanyDashboard/CompanyDashboard";
+import CompanyEditProfile from "./pages/Profile/CompanyDashboard/CompanyEditProfile";
+import CoverImageModal from "./components/Dashboard/CoverImageModal";
+import ClubDashboard from "./pages/Profile/ClubDashboard/ClubDashboard";
+import ClubEditProfile from "./pages/Profile/ClubDashboard/ClubEditProfile";
+import AddPostModal from "./components/Dashboard/AddPostModal";
+import AddMemberModal from "./components/Dashboard/AddMemberModal";
+import UserDashboard from "./pages/Profile/UserDashboard/UserDashboard";
 
 function App() {
   const [isEventModalOpen, setIsEventModalOpen] = useState(false);
@@ -116,30 +128,58 @@ function App() {
     <>
       {!isEventModalOpen && <Navbar />}
       {!isEventModalOpen && <MobileNavbar />}
+      <ProfilePopUp />
       <Suspense fallback={<LoadingPage />}>
         <Routes>
           <Route index element={<HomePage path="homepage" />} />
           <Route path="/home" element={<HomePage />} />
-          {/* <Route path="/success" element={<Success></Success>}></Route> */}
+          <Route
+            path="user"
+            element={<StudentProfileDashboard></StudentProfileDashboard>}
+          ></Route>
+
+          <Route path="/success" element={<Success></Success>}></Route>
           <Route path="/register" element={<RegistrationForm />} />
           <Route path="/selectRole" element={<Role />} />
+          {/* <Route path="/studentEdit" element={<EditStudentProfileDashoboard ></EditStudentProfileDashoboard>}></Route> */}
           <Route path="/loginDummy" element={<LoginDummy></LoginDummy>}>
             {" "}
           </Route>
           <Route path="/ehubchats" element={<Chatpage />} />
 
           <Route path="/profile">
+            {/* <Route
+              path="User/:userId/studentEdit"
+              element={
+                <EditStudentProfileDashoboard></EditStudentProfileDashoboard>
+              }
+            ></Route>
             <Route
-              path="student/:userId"
-              element={<StudentProfilePage path="profile" />}
+              path="User/:userId"
+              element={<StudentProfileDashboard path="profile" />}
             >
               <Route index element={<GeneralStudentData />} />
-              <Route path="general" element={<GeneralStudentData />} />
-              <Route path="edit" element={<EditStudentData />} />
-              <Route path="address" element={<AddressStudentData />} />
-              <Route path="social-media" element={<SocialMediaStudentData />} />
-              <Route path="tech-stack" element={<TechStackStudentData />} />
+              <Route
+                path="studentEdit"
+                element={
+                  <EditStudentProfileDashoboard></EditStudentProfileDashoboard>
+                }
+              ></Route>
+  
+            </Route> */}
+            <Route
+              path="user/:userId"
+              element={<UserDashboard path="profile" />}
+            >
+              {/* <Route path="edit-cover-image" element={<CoverImageModal />} />
+              <Route path="add-post" element={<AddPostModal />} />
+              <Route path="add-member" element={<AddMemberModal />} />
+              <Route path="posts/:postId" element={<PostModal />} /> */}
             </Route>
+            <Route
+              path="user/:userId/edit-profile"
+              element={<EditStudentProfileDashoboard/>}
+            />
             <Route
               path="alumni/:alumniId"
               element={<AlumniProfilePage path="profile" />}
@@ -151,28 +191,46 @@ function App() {
             </Route>
             <Route
               path="club/:clubId"
-              element={<ClubProfilePage path="profile" />}
+              element={<ClubDashboard path="profile" />}
             >
-              <Route index element={<GeneralClubData />} />
+              <Route path="edit-cover-image" element={<CoverImageModal />} />
+              <Route path="add-post" element={<AddPostModal />} />
+              <Route path="add-member" element={<AddMemberModal />} />
+              <Route path="posts/:postId" element={<PostModal />} />
+            </Route>
+            <Route
+              path="club/:clubId/edit-profile"
+              element={<ClubEditProfile />}
+            />
+            {/* <Route index element={<GeneralClubData />} />
               <Route path="general" element={<GeneralClubData />} />
               <Route path="edit" element={<EditClubData />} />
               <Route path="cover-photo" element={<CoverPhotoClubData />} />
               <Route path="manage-posts" element={<ManagePostsClubData />}>
                 <Route path=":postId" element={<PostModal2 />} />
-              </Route>
-            </Route>
-            <Route
+              </Route> */}
+            {/* <Route
               path="organization/:organizationId"
               element={<OrganizationProfilePage path="profile" />}
+            > */}
+            <Route
+              path="organization/:organizationId"
+              element={<CompanyDashboard path="profile" />}
             >
-              <Route index element={<GeneralOrganizationData />} />
-              <Route path="general" element={<GeneralOrganizationData />} />
-              <Route path="edit" element={<EditOrganizationData />} />
-              <Route path="address" element={<AddressOrganizationData />} />
+              <Route path="edit-cover-image" element={<CoverImageModal />} />
             </Route>
+            <Route
+              path="organization/:organizationId/edit-profile"
+              element={<CompanyEditProfile />}
+            />
+            {/* <Route index element={<GeneralOrganizationData />} /> */}
+            {/* <Route path="general" element={<GeneralOrganizationData />} /> */}
+            {/* <Route path="edit" element={<EditOrganizationData />} /> */}
+            {/* <Route path="address" element={<AddressOrganizationData />} /> */}
           </Route>
           <Route path="/signup" element={<Signup />} />
           <Route path="/student-signup" element={<StudentSignup />} />
+          <Route path="/User-signup" element={<SignupUser />} />
           <Route path="/clubSignup" element={<ClubSignup />} />
           <Route path="/mentorSignup" element={<MentorSignup />} />
           <Route path="/organizationSignup" element={<OrganizationSignup />} />

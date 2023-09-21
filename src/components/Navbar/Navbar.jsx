@@ -224,10 +224,9 @@ export default function Navbar() {
                 Logout
               </div> */}
               <button
-                onClick={() => {
-                  navigate(`/profile/${role}/${userId}`);
-                  window.location.reload(true);
-                }}
+                data-bs-toggle="offcanvas"
+                data-bs-target="#offcanvasRight"
+                aria-controls="offcanvasRight"
                 className="nav-logged-in-btn nav-login-btn logBtn"
               >
                 {/* <img

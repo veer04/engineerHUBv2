@@ -105,9 +105,9 @@ export default function PostModal() {
                 <div className="description">{post.description}</div>
               </div>
               <div className="options-container">
-                <div className="likes">
+                {/* <div className="likes">
                   Liked by {isLiked ? post.likes + 1 : post.likes}
-                </div>
+                </div> */}
                 <div className="options">
                   <div
                     onClick={() => {

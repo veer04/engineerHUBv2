@@ -23,7 +23,7 @@ export default function ClubCard({
     // <a href={websiteUrl}>
     <div
       onClick={() => {
-        navigate(`/campus/${collegeId}/${typeOfClub}/${_id}`);
+        navigate(`/profile/club/${_id}`);
       }}
       className="club-card__container on-hover-scale"
     >

@@ -1,0 +1,289 @@
+.edit-profile > div {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  gap: 1.94rem;
+  margin-top: 3.38rem;
+}
+.edit-profile > div > aside {
+  display: flex;
+  flex-direction: column;
+  gap: 0.63rem;
+  width: 100%;
+  max-width: 18rem;
+}
+.edit-profile > div > aside > .options {
+  width: 100%;
+}
+.edit-profile > div > aside > .options > .option {
+  width: 100%;
+  height: 3.8125rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0 1.69rem;
+  background-color: #fff;
+  border-left: 1px solid #dbdbdb;
+  border-right: 1px solid #dbdbdb;
+  border-top: none;
+  border-bottom: 1px solid #dbdbdb;
+  color: var(--foundation-black-black-100, #b0b0b0);
+  font-size: 1rem;
+  font-weight: 500;
+}
+.edit-profile > div > aside > .options > .option:hover {
+  color: #014051;
+  font-weight: 600;
+}
+.edit-profile > div > aside > .options > .--is-selected {
+  color: #014051;
+  font-weight: 600;
+  border-left: 4px solid #014051;
+  padding-left: 1.45rem;
+}
+.edit-profile > div > aside > .options > :nth-child(1) {
+  border-radius: 0.3125rem 0.3125rem 0 0;
+  border-top: 1px solid #dbdbdb;
+}
+.edit-profile > div > aside > .options > :last-child {
+  border-radius: 0 0 0.3125rem 0.3125rem;
+}
+
+.edit-profile > div > aside > button {
+  width: 100%;
+  height: 3.8125rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0 1.69rem;
+  border-radius: 0.3125rem;
+  font-weight: 500;
+  background-color: transparent;
+  border-width: 1px;
+  gap: 0.125rem;
+}
+.edit-profile > div > aside > .back-btn {
+  border-color: #002b36;
+  color: #002b36;
+}
+.edit-profile > div > aside > .logout-button {
+  justify-content: center;
+  border-color: #ff0000;
+  color: #ff0000;
+}
+.edit-profile > div > div {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.edit-profile > div > div > .box > .heading {
+  margin-bottom: 1.13rem;
+}
+.edit-profile .label {
+  color: var(--foundation-black-black-800, #000);
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  margin-bottom: 0.31rem;
+}
+.edit-profile .required {
+  color: var(--Red-Primary, #f00);
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: normal;
+  width: 100%;
+}
+.edit-profile .error-message {
+  color: var(--Red-Primary, #f00);
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: normal;
+  margin-bottom: 1.31rem;
+  display: block;
+}
+.input-field {
+  padding: 0.9rem 1.13rem;
+  border-radius: 0.3125rem;
+  border: 1px solid var(--foundation-black-black-100, #b0b0b0);
+  width: 100%;
+  color: black;
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+select.input-field {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='8' height='4' fill='black'><polygon points='0,0 8,0 4,4'/></svg>")
+    no-repeat;
+  background-position-x: calc(100% - 1.13rem);
+  background-position-y: 50%;
+  background-size: 0.75rem;
+}
+
+.input-field::placeholder {
+  color: var(--foundation-black-black-100, #b0b0b0);
+}
+.input-field option {
+  border-radius: 0.3125rem;
+  border: 1px solid var(--foundation-black-black-100, #b0b0b0);
+  width: 100%;
+  color: black;
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  margin-bottom: 1.31rem;
+  min-height: 2.875rem;
+}
+.input-field:disabled {
+  background-color: #f2f2f2;
+  cursor: not-allowed;
+}
+.headingJob{
+  color: #002b36;
+  font-size: 1.2rem;
+  font-weight: 600;
+  line-height: 2rem;
+}
+.boxWork{
+  border: 1px solid grey;
+  border-radius: 5px;
+  padding: 10px;
+}
+.boxStyle1{
+  border: 1px solid grey;
+  border-radius: 5px;
+  width: 60px;
+  height: 60px;
+  margin-right:10px;
+  margin-left:10px;
+ 
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-wrap: nowrap;
+  margin-top: 10px;
+}
+.outerBox{
+  padding:5%;
+  margin:2%;
+  width:55vw;
+  border:1px solid grey;
+  border-radius:10px;
+}
+.headingProject{
+  color:#002b36;
+  font-size:1.4rem;
+  font-weight:600;
+}
+.projectDes{
+  padding:10px;
+  margin:5px;
+  font-size:1.1rem;
+  font-weight:400;
+  line-height:1.9rem;
+  color:#002b36;
+}
+@media screen and (max-width: 768px) {
+  .edit-profile > div {
+    margin-top: 0;
+  }
+  .edit-profile > div > aside {
+    display: none;
+  }
+}
+@media screen and (max-width:833px) {
+  .boxStyle1{
+    justify-content: space-around;
+    
+  }
+  .boxStyle2{
+
+  }
+  
+}
+@media screen and (max-width:1260px)
+{
+  .outerBox{
+    padding:5%;
+    margin:2%;
+    width:50vw;
+    border:1px solid grey;
+    border-radius:10px;
+  }
+}
+  @media screen and (max-width:1060px)
+{
+  .outerBox{
+    padding:5%;
+    margin:2%;
+    width:48vw;
+    border:1px solid grey;
+    border-radius:10px;
+  }
+
+
+}
+@media screen and (max-width:970px)
+{
+  .outerBox{
+    padding:2%;
+    margin:1%;
+    width:500px;
+    border:1px solid grey;
+    border-radius:7px;
+  }
+  
+}
+@media screen and (max-width:768px)
+{
+  .outerBox{
+    padding:2%;
+    margin:1%;
+    width:100vw;
+    border:1px solid grey;
+    border-radius:7px;
+  }
+  
+}
+@media screen and (max-width:576px){
+
+  .boxStyle1{
+   
+    margin-right:20px;
+    margin-left:20px;
+    border-radius: 4px;
+    width: 55px;
+    height: 55px;
+
+  }
+  .projectDes{
+    padding:8px;
+    margin:2px;
+    font-size:1rem;
+    font-weight:400;
+    line-height:1.7rem;
+    color:#002b36;
+  }
+  .headingJob{
+    color: #002b36;
+    font-size: 1.2rem;
+    font-weight: 600;
+    line-height: 1.8rem;
+    margin-left: 10px;
+    margin-top: 2px;
+  }
+  .headingJob2{
+    color: #002b36;
+    font-size: 1.0rem;
+    font-weight: 600;
+    line-height: 1.8rem;
+    margin-left: 10px;
+    margin-top: 2px;
+  }
+}

@@ -5,6 +5,7 @@ on:
     branches:
       - main
       - testing
+
 permissions:
   contents: read # Required for git checkout
 
@@ -29,8 +30,8 @@ jobs:
       - name: Deploy to Test Server
         if: |
             hashFiles('**/Dockerfile*', '**/dockerfile*') &&
-            github.ref != 'refs/heads/main' &&
-            github.ref == 'refs/heads/testing'
+            github.ref == 'refs/heads/testing' && 
+            github.event_name == 'push'
         uses: docker/build-push-action@v2
         with:
           context: .
@@ -41,6 +42,7 @@ jobs:
           build-args: |
             VITE_API_URL=${{ vars.VITE_TEST_API_URL }}
             VITE_BUCKET_URL=${{ vars.VITE_BUCKET_URL }}
+            VITE_API_URLT=${{ vars.VITE_TEST_API_URL }}
             VITE_AESKEY=${{ secrets.VITE_AESKEY }}
             VITE_FRONTEND_URL=${{ vars.VITE_TEST_FRONTEND_URL }}
             TEST_SERVER_USERNAME=${{ secrets.TEST_SERVER_USERNAME }}
@@ -49,7 +51,8 @@ jobs:
       - name: Deploy to Production Server
         if: | 
             hashFiles('**/Dockerfile*', '**/dockerfile*') &&
-            github.ref == 'refs/heads/main'
+            github.ref == 'refs/heads/main' &&
+            github.event_name == 'push'
         uses: docker/build-push-action@v2
         with:
           context: .
@@ -60,6 +63,7 @@ jobs:
             ${{ vars.ECR_REGISTRY }}/${{ vars.PROD_ECR_REPO }}:${{ github.run_number }}
           build-args: |
             VITE_API_URL=${{ vars.VITE_API_URL }}
+            VITE_API_URLT=${{ vars.VITE_API_URL }}
             VITE_BUCKET_URL=${{ vars.VITE_BUCKET_URL }}
             VITE_AESKEY=${{ secrets.VITE_AESKEY }}
             VITE_FRONTEND_URL=${{ vars.VITE_FRONTEND_URL }}

@@ -1,3 +1,11 @@
+main.page{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: var(--vertical-padding) var(--section-padding);
+  scroll-behavior: auto;
+}
+
 ::-webkit-scrollbar {
   height: 0.5rem;
   width: 0.5rem;
@@ -41,6 +49,9 @@ a {
   font-family: "Inter", sans-serif;
   font-weight: 500;
   scroll-behavior: auto;
+}
+label {
+  font-family: "Inter", sans-serif;
 }
 :root {
   --section-padding: min(10.41rem, 8vw);
@@ -115,7 +126,10 @@ a {
 }
 
 .no-text-crop {
+  display: -webkit-box; /* Set display to WebKit box */
   -webkit-line-clamp: unset !important;
+  -webkit-box-orient: vertical; /* Set box orientation */
+  text-overflow: ellipsis; /* Add ellipsis for truncated text */
 }
 .text-crop-1 {
   display: -webkit-box; /* Set display to WebKit box */
@@ -185,13 +199,22 @@ main {
   min-height: 100dvh;
 }
 
-@media (max-width: 900px) {
+.modal-padding {
+  padding: 1.5rem;
+}
+
+@media screen and (max-width: 900px) {
   :root {
     --section-padding: min(2rem, 4vw);
   }
 }
 
-@media (max-width: 475px) {
+@media screen and (max-width: 768px) {
+  .modal-padding {
+    padding: 1rem;
+  }
+}
+@media screen and (max-width: 475px) {
   :root {
     --section-padding: min(0.8rem, 4vw);
   }

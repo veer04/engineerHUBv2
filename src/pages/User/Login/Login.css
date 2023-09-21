@@ -1,76 +1,75 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
-.f-p:nth-child(2){
-    text-decoration: none;
-    padding-left: 10px;
+.f-p:nth-child(2) {
+  text-decoration: none;
+  padding-left: 10px;
 }
-.captchaf{
-    margin-left: 5%;
+.captchaf {
+  margin-left: 5%;
 }
-.cpf{
-    margin-left: -5%;
+.cpf {
+  margin-left: -5%;
 }
-.reg{
-    padding: 20px !important;
-    width: fit-content !important;
+.reg {
+  padding: 20px !important;
+  width: fit-content !important;
 }
-.passwordContainer{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    position: relative;
+.passwordContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  position: relative;
 }
-.passwordContainer div{
-    position: absolute;
-    right: 20px;
-}
-
-.reg-field{
-   flex-direction: row !important;
-   gap: 24px;
+.passwordContainer div {
+  position: absolute;
+  right: 20px;
 }
 
-.reg-si{
-    background: #168584 ;
-    color: white;
-    font-weight: 600;
-    border: none;
-    cursor: pointer;
+.reg-field {
+  flex-direction: row !important;
+  gap: 24px;
 }
-.registerPagePass{
-    position: relative;
-    top: 95%;
-    left: -10%;
+
+.reg-si {
+  background: #168584;
+  color: white;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
 }
-.registerSSS:hover{
-    background-color: var(--primary-color-dark-green);
+.registerPagePass {
+  position: relative;
+  top: 95%;
+  left: -10%;
 }
-.registerSSS:active{
-    background-color: #00323f;
+.registerSSS:hover {
+  background-color: var(--primary-color-dark-green);
 }
-@media screen and (max-width: 456px)
-{.reg-input{
+.registerSSS:active {
+  background-color: #00323f;
+}
+@media screen and (max-width: 456px) {
+  .reg-input {
     width: 60vw;
-}
-.reg-si{
+  }
+  .reg-si {
     width: 70vw;
-}
-.reg-field{
+  }
+  .reg-field {
     width: 70vw;
-}
-.cpf{
+  }
+  .cpf {
     margin-left: 0%;
-}
-.registerPagePass{
+  }
+  .registerPagePass {
     position: relative;
     top: 95%;
     left: 10%;
     margin-bottom: 10%;
-}
-.registerSSS{
+  }
+  .registerSSS {
     margin-top: 18%;
+  }
 }
-}
-
 
 .my-form-head {
   font-weight: bold;
@@ -133,7 +132,7 @@ label {
 }
 .reg-input {
   /* background-color: aqua; */
-  padding: 10px ;
+  padding: 10px;
   border-radius: 5px;
   height: 60px;
   margin: 5px;
@@ -153,7 +152,7 @@ label {
 }
 
 .si:hover {
-  color: white
+  color: white;
 }
 
 /* .divisor {
@@ -219,13 +218,13 @@ label {
   margin: 10px 0px;
 }
 
-.Login .f-p{
+.Login .f-p {
   text-decoration: none;
 }
-.Login .f-p:hover{
+.Login .f-p:hover {
   text-decoration: underline;
 }
-.forgot-password-text{
+.forgot-password-text {
   width: 100%;
 }
 
@@ -239,32 +238,42 @@ label {
   opacity: 1;
 }
 @media screen and (max-width: 992px) {
+}
+
+@media screen and (max-width: 992px) {
   .col-lg-6 {
     display: flex;
     text-align: center;
     justify-content: center;
     align-items: center;
   }
-}
-
-
-
-@media screen and (max-width: 456px)
-{
-.cont{
-  margin: auto;
-  width: 85vw;
-}
-}
-
-
-@media screen and (max-width: 376px){
-  
-  .cont{
-    padding: 10px 0px ;
+  .login-left-container {
+    display: none;
+  }
+  .login-right-container {
+    margin: 0 auto !important;
   }
 }
-.positionRelBottom{
-    position: relative;
-    top: 15px;
+
+@media screen and (max-width: 456px) {
+  .cont {
+    margin: auto;
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .form-cont {
+    max-width: 90vw;
+  }
+}
+
+@media screen and (max-width: 376px) {
+  .cont {
+    padding: 10px 0px;
+  }
+}
+.positionRelBottom {
+  position: relative;
+  top: 15px;
 }

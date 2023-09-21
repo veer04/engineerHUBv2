@@ -5,6 +5,9 @@ import { CgEye } from "react-icons/cg";
 import { Chip } from "@mui/material";
 import "./HackathonCards.css";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import ViewApplicantsModal from "../../../../components/Dashboard/ViewApplicantsModal";
+import { set } from "react-hook-form";
 
 const HackathonCard = ({
   _id,
@@ -13,6 +16,10 @@ const HackathonCard = ({
   opportunityName,
   opportunityLocation,
   skillsRequired,
+  className,
+  views,
+  totalAppliedUsers,
+  adminView,
 }) => {
   // const hiringId=useParams();
   // const[eventData,setEventData]=useState({})
@@ -23,6 +30,8 @@ const HackathonCard = ({
   //     controller.abort();
   //   }
   // })
+  const [toggleModal, setToggleModal] = useState(false);
+
   const navigate = useNavigate();
 
   //data should be a object containing stars,views and days
@@ -41,7 +50,7 @@ const HackathonCard = ({
       onClick={() => {
         navigate(`/company/events/${_id}`);
       }}
-      className="HackathonCard"
+      className={`HackathonCard ${!!className ? className : ""}`}
     >
       <div className="cardImg">
         <img src={opportunityPoster} alt="" />
@@ -52,35 +61,91 @@ const HackathonCard = ({
       <div className="cardBody">
         <h4>{opportunityName}</h4>
         <h6>{opportunityLocation}</h6>
-        <span className="Tags">
-          {skillsRequired?.map((tag, index) => (
-            <Chip
-              key={index}
-              variant="outlined"
-              size="small"
-              label={tag}
+        {!adminView && (
+          <>
+            <span className="Tags">
+              {skillsRequired?.map((tag, index) => (
+                <Chip
+                  key={index}
+                  variant="outlined"
+                  size="small"
+                  label={tag}
+                  style={{
+                    fontWeight: "500",
+                    fontSize: "10px",
+                    marginRight: "15px",
+                  }}
+                />
+              ))}
+            </span>
+            <div className="Stats">
+              <>
+                <span>
+                  <BsStar /> {data.stars}
+                </span>
+                <span>|</span>
+                <span>
+                  <CgEye /> {data.views} Views
+                </span>
+                <span>|</span>
+                <span>
+                  <AiOutlineClockCircle /> {data.days} Days Left
+                </span>
+              </>
+            </div>
+          </>
+        )}
+        {adminView && (
+          <div
+            style={{
+              width: "100%",
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            <span
               style={{
-                fontWeight: "500",
-                fontSize: "10px",
-                marginRight: "15px",
+                fontWeight: "600",
               }}
-            />
-          ))}
-        </span>
-        <div className="Stats">
-          <span>
-            <BsStar /> {data.stars}
-          </span>
-          <span>|</span>
-          <span>
-            <CgEye /> {data.views} Views
-          </span>
-          <span>|</span>
-          <span>
-            <AiOutlineClockCircle /> {data.days} Days Left
-          </span>
-        </div>
+            >
+              {views ? views : "0"} Views
+            </span>
+
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                setToggleModal(true);
+                // navigate(`/company/projects/${data._id}/applicants`);
+              }}
+              style={{
+                //should be in center
+                // position: "relative",
+                left: "50%",
+                // transform: "translateX(-50%)",
+                backgroundColor: "#014051",
+                border: "none",
+                borderRadius: "5px",
+                padding: "10px",
+                color: "#fff",
+                fontWeight: "500",
+                fontSize: "14px",
+                cursor: "pointer",
+                outline: "none",
+                boxShadow: "0px 0px 3.5px 0px rgba(0,0,0,0.75)",
+              }}
+            >
+              View Applicants
+            </button>
+          </div>
+        )}
       </div>
+      {toggleModal && (
+        <ViewApplicantsModal
+          applicantsCount={totalAppliedUsers}
+          setToggleModal={setToggleModal}
+        />
+      )}
     </div>
   );
 };

@@ -133,6 +133,10 @@ export default function Footer() {
       content: [],
       links: [
         {
+          title: "+91 93546 47032",
+          link: {},
+        },
+        {
           title: "+91 91298 83089",
           link: {},
         },
@@ -141,8 +145,12 @@ export default function Footer() {
           link: {},
         },
         {
+          title: "career@engineerhub.in",
+          link: "career@engineerhub.in",
+        },
+        {
           title: "info@engineerhub.in",
-          link: {},
+          link: "info@engineerhub.in",
         },
       ],
     },
@@ -150,8 +158,7 @@ export default function Footer() {
     {
       id: 8,
       title: "Address",
-      content:
-        "Gokulpuram Colony, Chitaipur, Chunar Road, Varanasi, Uttar Pradesh, 221106",
+      content: "8B, Gyankhand 4, Indirapuram, Ghaziabad 201014",
     },
 
     {
@@ -191,7 +198,14 @@ export default function Footer() {
               item.links.map((link, index) => {
                 return (
                   <li key={`${item.id}${index}`}>
-                    <Link style={{ color: "white" }} to={link.link}>
+                    <Link
+                      style={{ color: "white" }}
+                      to={`${
+                        Object.keys(link.link).length > 0
+                          ? `mailto:${link.link}`
+                          : ""
+                      }`}
+                    >
                       {link.title}
                     </Link>
                   </li>
