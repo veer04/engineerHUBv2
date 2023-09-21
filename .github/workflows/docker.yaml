@@ -5,6 +5,7 @@ on:
     branches:
       - main
       - testing
+
 permissions:
   contents: read # Required for git checkout
 
@@ -29,8 +30,8 @@ jobs:
       - name: Deploy to Test Server
         if: |
             hashFiles('**/Dockerfile*', '**/dockerfile*') &&
-            github.ref != 'refs/heads/main' &&
-            github.ref == 'refs/heads/testing'
+            github.ref == 'refs/heads/testing' && 
+            github.event_name == 'push'
         uses: docker/build-push-action@v2
         with:
           context: .
@@ -50,7 +51,8 @@ jobs:
       - name: Deploy to Production Server
         if: | 
             hashFiles('**/Dockerfile*', '**/dockerfile*') &&
-            github.ref == 'refs/heads/main'
+            github.ref == 'refs/heads/main' &&
+            github.event_name == 'push'
         uses: docker/build-push-action@v2
         with:
           context: .
