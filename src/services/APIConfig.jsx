@@ -999,7 +999,7 @@ export const getProjectDataById = (setProject, projectId) => {
 export const getUserProfileById = (setUserProfile, userId) => {
   const controller = new AbortController();
   axios
-    .get(`${API_URLT}api/v1/getUserWithId/${userId}`, {
+    .get(`${API_URL}api/v1/getUserWithId/${userId}`, {
       signal: controller.signal,
     })
     .then((res) => {

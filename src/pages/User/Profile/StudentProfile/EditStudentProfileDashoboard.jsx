@@ -20,6 +20,7 @@ import InstagramIcon from '@mui/icons-material/Instagram';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import EditIcon from '@mui/icons-material/Edit';
+import { HiOutlineBuildingOffice2 } from "react-icons/hi2";
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 // import BehanceIcon from '@mui/icons-material/Behance';
 import { API_URLT, API_URL } from "../../../../services/APIUtils";
@@ -37,7 +38,8 @@ import {
 import countryCodes from "../../../../assets/countryCodes";
 import { useRef } from "react";
 import { handleLogout } from "../../../../features/logout";
-const EditStudentProfileDashoboard = () => {
+const 
+EditStudentProfileDashoboard = () => {
   const navigate = useNavigate();
   const { userId } = useParams();
   const fileInput = useRef(null);
@@ -378,7 +380,7 @@ const EditStudentProfileDashoboard = () => {
   function deleteWork(itemId) {
    
     axios.delete(
-         `${API_URLT}api/v1/delete/experience/${itemId}`,
+         `${API_URL}api/v1/delete/experience/${itemId}`,
          {
            headers: {
              accesstoken: getAccessToken(),
@@ -404,7 +406,7 @@ const EditStudentProfileDashoboard = () => {
      function deleteProject(itemId) {
    
       axios.delete(
-           `${API_URLT}api/v1/delete/projectDetails/${itemId}`,
+           `${API_URL}api/v1/delete/projectDetails/${itemId}`,
            {
              headers: {
                accesstoken: getAccessToken(),
@@ -430,7 +432,7 @@ const EditStudentProfileDashoboard = () => {
  function deleteEducation(itemId) {
    
    axios.delete(
-        `${API_URLT}api/v1/delete/education/${itemId}`,
+        `${API_URL}api/v1/delete/education/${itemId}`,
         {
           headers: {
             accesstoken: getAccessToken(),
@@ -469,7 +471,7 @@ const EditStudentProfileDashoboard = () => {
 
     try {
       const response = await axios.post(
-        `${API_URLT}api/v1/add/education`,
+        `${API_URL}api/v1/add/education`,
         formEdu,
         {
           headers: {
@@ -509,7 +511,7 @@ const EditStudentProfileDashoboard = () => {
     };
     try {
       const response = await axios.post(
-        `${API_URLT}api/v1/add/experience`,
+        `${API_URL}api/v1/add/experience`,
         data,
         {
           headers: {
@@ -548,7 +550,7 @@ const EditStudentProfileDashoboard = () => {
     {
       try {
         const response = await axios.post(
-          `${API_URLT}api/v1/add/projectDetails`,
+          `${API_URL}api/v1/add/projectDetails`,
           data,
           {
             headers: {
@@ -602,7 +604,7 @@ const EditStudentProfileDashoboard = () => {
     if (validateData1() === true) {
       try {
         const response = await axios.patch(
-          `${API_URLT}api/v1/user/profileUpdate`,
+          `${API_URL}api/v1/user/profileUpdate`,
           form,
           {
             headers: {
@@ -649,7 +651,7 @@ const EditStudentProfileDashoboard = () => {
 
     try {
       const response = await axios.post(
-        `${API_URLT}api/v1/add/skills`,
+        `${API_URL}api/v1/add/skills`,
         skillsRequired,
         {
           headers: {
@@ -866,9 +868,9 @@ const EditStudentProfileDashoboard = () => {
                   <div
                     className="boxWork"
                     style={{
-                      border: "1px solid grey",
-                      borderRadius: "5px",
-                      padding: "2%",
+                   
+                    
+                     
                     }}
                   >
                     <div className="row">
@@ -887,23 +889,18 @@ const EditStudentProfileDashoboard = () => {
                   </div>
                   </div>
                       <div
-                        className="col-lg-2"
+                        className="col-2 styleBox1"
                         style={{
-                          border: "1px solid grey",
-                          borderRadius: "5px",
-                          width: "80px",
-                          height: "80px",
-                          marginRight: "10px",
-                          marginRight: "10px",
-                          marginTop: "10px",
+
                         }}
                       >
                         <img
                           height={50}
                           width={50}
                           style={{
-                            padding: "4px",
-                            marginTop: "10px",
+
+                            // padding: "4px",
+                            
                           }}
                           src={item.collegeId.collegeLogo}
                           alt=""
@@ -911,34 +908,28 @@ const EditStudentProfileDashoboard = () => {
                         
                       </div>
            
-                      <div className="col-lg-10"
+                      <div className="col-2  styleBox2"
+                      style={{
+                        // marginLeft:"5%",
+                      }}
                       >
                         <div
-                          className="row jobRole"
-                          style={{
-                            color: "#002b36 ",
-                            fontSize: "1.2rem",
-                            fontWeight: "600",
-                            lineHeight: "2rem",
-                          }}
+                          className="row jobRole headingJob"
+                     
                         >
                           {item.collegeId.collegeName}
                         </div>
              
                         <div
-                          className="row companyName"
-                          style={{
-                            color: "#002b36",
-                            fontSize: "1.0rem",
-                            fontWeight: "600",
-                          }}
+                          className="row companyName headingJob2"
+                    
                         >
                           {item.degree} / {item.specialization}
                         </div>
-                        <div className="row duration">
+                        <div className="row duration headingJob2">
                           {item.startYear} - {item.endYear}
                         </div>
-                        <div className="row jobLocation">
+                        <div className="row jobLocation headingJob2">
                           {item.state} , {item.country}
                         </div>
 
@@ -962,17 +953,18 @@ const EditStudentProfileDashoboard = () => {
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
+                margin:"auto",
+              
               }}
             >
-              <div className="addIcon">
-                <AiOutlinePlus />
-              </div>
-              Add New
+              {/* <div className="addIcon"> <AiOutlinePlus />     
+              </div> */}
+               Add New
             </div>
           </>
         ) : (
           <>
-            <form action="" onSubmit={updateEducation()}>
+            <form action="" onSubmit={(e)=>updateEducation(e)}>
               <div className="row">
                 <div className="">
                   <label className="label">
@@ -1481,9 +1473,7 @@ const EditStudentProfileDashoboard = () => {
                   <div
                     className="boxWork"
                     style={{
-                      border: "1px solid grey",
-                      borderRadius: "5px",
-                      padding: "2%",
+                    
                     }}
                   >
              
@@ -1503,43 +1493,40 @@ const EditStudentProfileDashoboard = () => {
                   </div>
                   </div>
                       <div
-                        className="col-lg-2"
-                        style={{
-                          border: "1px solid grey",
-                          borderRadius: "5px",
-                          width: "80px",
-                          height: "80px",
-                          marginRight: "10px",
-                          marginRight: "10px",
-                          marginTop: "10px",
-                        }}
-                      ></div>
-                      <div className="col-lg-10">
+                        className=" col-2  styleBox1"
+
+                      >
+                        <div style={{
+                          fontSize:"3rem",
+                        }}>
+                       {experienceList?.logo ? (
+                          <img  src={experienceList?.logo} alt="" />
+                        ) : (
+                          <HiOutlineBuildingOffice2  />
+                        )}
+                      </div>
+                      </div>
+                      <div className="col-9 styleBox2">
                         <div
-                          className="row jobRole"
+                          className="row jobRole  headingJob"
                           style={{
-                            color: "#002b36 ",
-                            fontSize: "1.2rem",
-                            fontWeight: "600",
-                            lineHeight: "2rem",
+                     
                           }}
                         >
                           {item.designation}
                         </div>
                         <div
-                          className="row companyName"
+                          className="row companyName  headingJob2"
                           style={{
-                            color: "#002b36",
-                            fontSize: "1.0rem",
-                            fontWeight: "600",
+                          
                           }}
                         >
                           {item.organisationName}
                         </div>
-                        <div className="row duration">
+                        <div className="row duration  headingJob2">
                           {item.startYear}-{item.endYear}
                         </div>
-                        <div className="row jobLocation">
+                        <div className="row jobLocation  headingJob2">
                           {item.state} , {item.country}
                         </div>
                       </div>
@@ -1561,11 +1548,12 @@ const EditStudentProfileDashoboard = () => {
                       display: "flex",
                       justifyContent: "center",
                       alignItems: "center",
+                      margin:"auto",
                     }}
                   >
-                    <div className="addIcon">
+                    {/* <div className="addIcon">
                       <AiOutlinePlus />
-                    </div>
+                    </div> */}
                     Add New
                   </div>
           </>
@@ -1587,15 +1575,11 @@ const EditStudentProfileDashoboard = () => {
               return (
                 <div className="row">
                   
-                <div className="box"
+                <div className="box outerBox"
                 style={{
-                  padding:"5%",
-                  margin:"2%",
-                  width:"55vw",
-                  border:"1px solid grey",
-                  borderRadius:"10px",
+                 
                 }}>
-                                   <div
+                  <div
                         style={{
                           display:"flex",
                           justifyContent:"flex-end",
@@ -1611,28 +1595,24 @@ const EditStudentProfileDashoboard = () => {
                   </div>
                   <div>
                     <p style={{
-                      color:"#002b36",
-                      fontSize:"1.4rem",
-                      fontWeight:"600",
+                    
     
-                    }}>
+                    }}  className="headingProject">
                       {item.projectTitle}
     
                     </p>
                   </div>
                   <div>
                     <p style={{
-                      padding:"10px",
-                      margin:"5px",
-                      fontSize:"1.1rem",
-                      fontWeight:"400",
-                      lineHeight:"1.9rem",
-                      color:"#002b36",
-                    }}>{item.projectDescription}
+                 
+                    }}
+                    className="projectDes">{item.projectDescription}
                     </p>
                   </div>
                   <div>
-                    <p>
+                    <p style={{
+                      margin:"auto",
+                    }}>
                       <Link to={item.projectLink}>
                        {item.projectLink}
                       </Link>
@@ -1659,6 +1639,9 @@ const EditStudentProfileDashoboard = () => {
                   display: "flex",
                   justifyContent: "center",
                   alignItems: "center",
+              
+                    margin:"auto",
+                  
                 }}
               >
                 <div className="addIcon">
