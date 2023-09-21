@@ -81,7 +81,7 @@ const EditStudentProfileDashoboard = () => {
   const [newCountry, setNewCountry] = useState("");
   const [newState, setNewState] = useState("");
   const [newCity, setNewCity] = useState("");
-  const [response, setResponse] = useState(null);
+  const [response, setResponse] = useState({});
   const [degree, setDegree] = useState("");
   const [startYear, setStartYear] = useState("");
   const [endYear, setEndYear] = useState("");
@@ -173,7 +173,7 @@ const EditStudentProfileDashoboard = () => {
     console.log(educationExist);
   }, [user]);
   useEffect(() => {
-    if (!!response) {
+    if (Object.keys(response).length !== 0) {
       getUserProfileById(setUser, userId);
     }
     setIsImageLoading(false);
@@ -702,7 +702,7 @@ const EditStudentProfileDashoboard = () => {
         </p>
         <div>
           <div className="logo">
-            <img src={imageProfile} loading="lazy" alt="logo" />
+            <img src={user?.image} loading="lazy" alt="logo" />
           </div>
           <div className="buttons">
             <input
@@ -1708,14 +1708,20 @@ const EditStudentProfileDashoboard = () => {
                 </div>
               </div>
               <button
-                style={{
-                  marginTop: "2%",
-                }}
-                type="submit"
-                // onClick={(e) => addProject(e)}
-              >
-                submit
-              </button>
+                  type="submit"
+                  style={{
+                    border: "none",
+                    backgroundColor: "#002b36",
+                    borderRadius: "5px",
+                    padding: "5px 20px",
+                    float: "right",
+                    color: "#fff",
+                    marginTop: "10px",
+                  }}
+                  // onClick={(e) => addWork(e)}
+                >
+                  Submit
+                </button>
             </form>
           </>
         )}
@@ -1883,8 +1889,8 @@ const EditStudentProfileDashoboard = () => {
       <main className="edit-profile profile-dashboard">
         <h1 className="title">Edit Profile</h1>
         <h2 className="subheading">
-          Lorem ipsum dolor sit amet consectetur. Mattis aliquam sodales
-          faucibus platea feugiat odio.
+          {/* Lorem ipsum dolor sit amet consectetur. Mattis aliquam sodales
+          faucibus platea feugiat odio. */}
         </h2>
         <div>
           <aside>
