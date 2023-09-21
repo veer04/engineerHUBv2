@@ -105,6 +105,13 @@ const EditStudentProfileDashoboard = () => {
     dateOfBirth: "",
     mobile: "",
   });
+  const [errorWork,setErrorWork]=useState({
+    designation:"",
+    startYear:"",
+    endYear:"",
+    organisation:"",
+
+  })
   const [error2, setError2] = useState({
     degree: "",
     startYear: "",
@@ -242,6 +249,40 @@ const EditStudentProfileDashoboard = () => {
       setErrorLink("");
     }
   };
+  function validateWork()
+  {
+    let errorWork={
+      designation:"",
+      startYear:"",
+      endYear:"",
+      organisation:"",
+    };
+    let isValid=true;
+
+    if(!!!designation)
+    {
+      errorWork.designation="Please Input the Designation";
+      isValid=false;
+    }
+    if(!!!startYear)
+    {
+      errorWork.startYear="Please Input the Start Year";
+      isValid=false;
+    }
+    if(!!!endYear)
+    {
+      errorWork.endYear="Please Input the End Year";
+      isValid=false;
+    }
+    if(!!!organisation)
+    {
+      errorWork.organisation="Please Input the Organization";
+      isValid=false;
+    }
+    
+    setErrorWork((prev) => ({ ...prev, ...errorWork }));
+    return isValid;
+  }
   function validateDate2() {
     let error2 = {
       degree: "",
@@ -448,34 +489,37 @@ const EditStudentProfileDashoboard = () => {
       country: newCountry,
       state: stateParam,
     };
-
-    try {
-      const response = await axios.post(
-        `${API_URL}api/v1/add/education`,
-        formEdu,
-        {
-          headers: {
-            accesstoken: getAccessToken(),
-          },
-        }
-      );
-      console.log(response);
-
-      if (
-        response.status === 200 ||
-        response.status === 201 ||
-        response.status === 202 ||
-        response.status === 203 ||
-        response.status === 204
-      ) {
-        setEducationExist(true);
-        navigate("/login");
+if(validateDate2()===true)
+{
+  try {
+    const response = await axios.post(
+      `${API_URL}api/v1/add/education`,
+      formEdu,
+      {
+        headers: {
+          accesstoken: getAccessToken(),
+        },
       }
-    } catch (error) {
-      alert(error.response);
+    );
+    console.log(response);
 
-      console.log(error);
+    if (
+      response.status === 200 ||
+      response.status === 201 ||
+      response.status === 202 ||
+      response.status === 203 ||
+      response.status === 204
+    ) {
+      setEducationExist(true);
+      navigate("/login");
     }
+  } catch (error) {
+    alert(error.response);
+
+    console.log(error);
+  }
+}
+   
   }
   async function addWork(e) {
     e.preventDefault();
@@ -489,6 +533,10 @@ const EditStudentProfileDashoboard = () => {
       state: stateParam,
       endYear: workEnd,
     };
+    if(validateWork()===true)
+    {
+
+   
     try {
       const response = await axios.post(
         `${API_URL}api/v1/add/experience`,
@@ -516,6 +564,7 @@ const EditStudentProfileDashoboard = () => {
 
       console.log(error);
     }
+  }
   }
   async function addProject(e) {
     e.preventDefault();
@@ -1294,7 +1343,7 @@ const EditStudentProfileDashoboard = () => {
 
         {workExperienceExists ? (
           <>
-            <form action="" onSubmit={addWork()}>
+            <form action="" onSubmit={(e)=>addWork(e)}>
               <div className="row">
                 <div className="">
                   <label className="label">
@@ -1307,7 +1356,9 @@ const EditStudentProfileDashoboard = () => {
                     className="input-field"
                     placeholder="Enter your String"
                   />
+                    <label className="error-message">{errorWork.designation}</label>
                 </div>
+              
               </div>
               <div className="row">
                 <div className="col-lg-5">
@@ -1321,6 +1372,7 @@ const EditStudentProfileDashoboard = () => {
                     className="input-field"
                     placeholder="Enter your String"
                   />
+                    <label className="error-message">{errorWork.startYear}</label>
                 </div>
                 <div className="col-lg-5">
                   <label className="label">
@@ -1333,6 +1385,7 @@ const EditStudentProfileDashoboard = () => {
                     className="input-field"
                     placeholder="Enter your String"
                   />
+                    <label className="error-message">{errorWork.endYear}</label>
                 </div>
                 <div className="">
                   {/* <div className="form-check">
@@ -1361,6 +1414,7 @@ const EditStudentProfileDashoboard = () => {
                     className="input-field"
                     placeholder="Enter your String"
                   />
+                    <label className="error-message">{errorWork.organisation}</label>
                 </div>
               </div>
               <div className="row">
@@ -1430,7 +1484,7 @@ const EditStudentProfileDashoboard = () => {
                     color: "#fff",
                     marginTop: "10px",
                   }}
-                  onClick={() => addWork()}
+                  onClick={(e) => addWork(e)}
                 >
                   Submit
                 </button>
