@@ -148,12 +148,12 @@ function App() {
           <Route path="/ehubchats" element={<Chatpage />} />
 
           <Route path="/profile">
-            {/* <Route
+            {/* {/* <Route
               path="User/:userId/studentEdit"
               element={
                 <EditStudentProfileDashoboard></EditStudentProfileDashoboard>
               }
-            ></Route>
+            ></Route> */}
             <Route
               path="User/:userId"
               element={<StudentProfileDashboard path="profile" />}
@@ -166,7 +166,7 @@ function App() {
                 }
               ></Route>
   
-            </Route> */}
+            </Route> 
             <Route
               path="user/:userId"
               element={<UserDashboard path="profile" />}

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./Message.css";
 import verifiedIcon from "./svg/verified.svg";
 import options from "./svg/options.svg";
@@ -15,6 +15,11 @@ export default function Message({
   createdAt,
   position,
 }) {
+  useEffect(()=>
+  {
+    console.log(sender);
+  },[])
+
   const date = new Date(createdAt);
   //function to convert date to a readable format in the concept of chats
   function convertDate(date) {
@@ -117,18 +122,18 @@ export default function Message({
       )}
       <div className={messageContainerClasses}>
         <div className={messageHeaderClasses}>
-          {content && !sender?.name ? (
+          {content && !sender?.firstName ? (
             <i className="name">Deleted User</i>
           ) : isMyMessage ? (
             ""
           ) : isSameSender ? (
-            content && !sender?.name ? (
+            content && !sender?.firstName ? (
               <i className="name">Deleted User</i>
             ) : (
               ""
             )
           ) : (
-            <div className="name">{sender?.name}</div>
+            <div className="name">{sender?.firstName}</div>
           )}
           {/* {!isMyMessage && !isSameSender && content && !sender?.name ? (
             <i className="name">Deleted User</i>
