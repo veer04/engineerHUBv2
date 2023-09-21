@@ -310,7 +310,7 @@ const Register = () => {
   // }, []);
 
   const handleLogin = () => {
-    const dynamicRedirectUrl = "http://127.0.0.1:5174/success";
+    const dynamicRedirectUrl = "https://betatestserverv3.engineerhub.in/success";
     const googleAuthUrl = new URL(
       "https://accounts.google.com/o/oauth2/v2/auth"
     );
