@@ -41,6 +41,7 @@ jobs:
           build-args: |
             VITE_API_URL=${{ vars.VITE_TEST_API_URL }}
             VITE_BUCKET_URL=${{ vars.VITE_BUCKET_URL }}
+            VITE_API_URLT=${{ vars.VITE_TEST_API_URL }}
             VITE_AESKEY=${{ secrets.VITE_AESKEY }}
             VITE_FRONTEND_URL=${{ vars.VITE_TEST_FRONTEND_URL }}
             TEST_SERVER_USERNAME=${{ secrets.TEST_SERVER_USERNAME }}
@@ -60,6 +61,7 @@ jobs:
             ${{ vars.ECR_REGISTRY }}/${{ vars.PROD_ECR_REPO }}:${{ github.run_number }}
           build-args: |
             VITE_API_URL=${{ vars.VITE_API_URL }}
+            VITE_API_URLT=${{ vars.VITE_API_URL }}
             VITE_BUCKET_URL=${{ vars.VITE_BUCKET_URL }}
             VITE_AESKEY=${{ secrets.VITE_AESKEY }}
             VITE_FRONTEND_URL=${{ vars.VITE_FRONTEND_URL }}
