@@ -11,17 +11,17 @@ import collegeSVG from "./collegeSVG.png";
 import { AiOutlinePlus } from "react-icons/ai";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { TextField, Autocomplete } from "@mui/material";
-import IconButton from '@mui/material/IconButton';
-import InputAdornment from '@mui/material/InputAdornment';
-import VisibilityIcon from '@mui/icons-material/Visibility';
-import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-import LinkedInIcon from '@mui/icons-material/LinkedIn';
-import InstagramIcon from '@mui/icons-material/Instagram';
-import TwitterIcon from '@mui/icons-material/Twitter';
-import GitHubIcon from '@mui/icons-material/GitHub';
-import EditIcon from '@mui/icons-material/Edit';
+import IconButton from "@mui/material/IconButton";
+import InputAdornment from "@mui/material/InputAdornment";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+import LinkedInIcon from "@mui/icons-material/LinkedIn";
+import InstagramIcon from "@mui/icons-material/Instagram";
+import TwitterIcon from "@mui/icons-material/Twitter";
+import GitHubIcon from "@mui/icons-material/GitHub";
+import EditIcon from "@mui/icons-material/Edit";
 import { HiOutlineBuildingOffice2 } from "react-icons/hi2";
-import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 // import BehanceIcon from '@mui/icons-material/Behance';
 import { API_URLT, API_URL } from "../../../../services/APIUtils";
 import {
@@ -38,8 +38,7 @@ import {
 import countryCodes from "../../../../assets/countryCodes";
 import { useRef } from "react";
 import { handleLogout } from "../../../../features/logout";
-const 
-EditStudentProfileDashoboard = () => {
+const EditStudentProfileDashoboard = () => {
   const navigate = useNavigate();
   const { userId } = useParams();
   const fileInput = useRef(null);
@@ -53,19 +52,18 @@ EditStudentProfileDashoboard = () => {
   const options = [
     "Basic Information",
     "Education Details",
-    
+
     "Work Experience",
     "Projects",
-    
   ];
   const [chosenOption, setChosenOption] = useState(options[0]);
   const [currentlyWorking, setCurrentlyWorking] = useState(false);
   const [campuses, setCampuses] = useState([]);
   const [collegeId, setCollegeId] = useState("");
   const [newCampus, setNewCampus] = useState("");
-  const [projectTitle,setProjectTitle] = useState("");
-  const [projectLink,setProjectLink]= useState("");
-  const [projectDescription,setProjectDescription]= useState("");
+  const [projectTitle, setProjectTitle] = useState("");
+  const [projectLink, setProjectLink] = useState("");
+  const [projectDescription, setProjectDescription] = useState("");
   const [workExperienceExists, setWorkExperienceExists] = useState(false);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -94,11 +92,11 @@ EditStudentProfileDashoboard = () => {
   const [deleteResponse, setDeleteResponse] = useState(null);
   const [organisation, setOrganisation] = useState("");
   const [workStart, setWorkStart] = useState("");
-  const [projectList,setProjectList] = useState([]);
+  const [projectList, setProjectList] = useState([]);
   const [workEnd, setWorkEnd] = useState("");
   const [designation, setDesignation] = useState("");
   const [validation, setValidation] = useState(true);
-  const [patchEducationDetails,setPatchEducationDetails]=useState(false);
+  const [patchEducationDetails, setPatchEducationDetails] = useState(false);
   const [errors, setErrors] = useState({
     firstName: "",
     lastName: "",
@@ -116,12 +114,11 @@ EditStudentProfileDashoboard = () => {
     campuses: "",
     country: "",
   });
-  const [errorProjects,setErrorProjects]=useState({
-    projectTitle:"",
-    projectDescription:"",
-    projectLink:"",
-
-  })
+  const [errorProjects, setErrorProjects] = useState({
+    projectTitle: "",
+    projectDescription: "",
+    projectLink: "",
+  });
   const [errorSkills, setErrorSkills] = useState({
     skillsRequired: "",
   });
@@ -157,8 +154,7 @@ EditStudentProfileDashoboard = () => {
       setEducationList(user?.educationDetails);
       setExperienceList(user?.experienceDetails);
       setProjectList(user?.projectDetails);
-      if(Object.keys(projectList).length > 0)
-      {
+      if (Object.keys(projectList).length > 0) {
         setProjectExist(true);
       }
       if (Object.keys(educationList).length > 0) {
@@ -217,15 +213,15 @@ EditStudentProfileDashoboard = () => {
     setSkillsRequired(value);
   };
   const [socialMediaLinks, setSocialMediaLinks] = useState({
-    LinkedIn: '',
-    Instagram: '',
-    Twitter: '',
-    GitHub: '',
-    Behance: '',
+    LinkedIn: "",
+    Instagram: "",
+    Twitter: "",
+    GitHub: "",
+    Behance: "",
   });
 
   const [showLink, setShowLink] = useState(false);
-  const [errorLink, setErrorLink] = useState('');
+  const [errorLink, setErrorLink] = useState("");
 
   const toggleVisibility = () => {
     setShowLink(!showLink);
@@ -237,11 +233,13 @@ EditStudentProfileDashoboard = () => {
   };
 
   const handleBlur = () => {
-    const enteredLinks = Object.values(socialMediaLinks).filter(link => link !== '');
+    const enteredLinks = Object.values(socialMediaLinks).filter(
+      (link) => link !== ""
+    );
     if (enteredLinks.length > 3) {
-      setErrorLink('You can only enter up to 3 social media links.');
+      setErrorLink("You can only enter up to 3 social media links.");
     } else {
-      setErrorLink('');
+      setErrorLink("");
     }
   };
   function validateDate2() {
@@ -337,123 +335,105 @@ EditStudentProfileDashoboard = () => {
     setErrors((prev) => ({ ...prev, ...errors }));
     return isValid;
   }
-  function validateProject()
-  {
-    let errors={
-      projectDescription:"",
-      projectTitle:"",
-      projectLink:"",
+  function validateProject() {
+    let errors = {
+      projectDescription: "",
+      projectTitle: "",
+      projectLink: "",
     };
-    let isValid=true;
-    if(!!!projectDescription)
-    {
-      errorProjects.projectDescription="Project Description is Required!!!";
-      isValid =false;
-
+    let isValid = true;
+    if (!!!projectDescription) {
+      errorProjects.projectDescription = "Project Description is Required!!!";
+      isValid = false;
+    } else if (projectDescription.length < 30) {
+      errorProjects.projectDescription =
+        "Project Description must be of 30 characters!!!";
+      isValid = false;
     }
-    else if(projectDescription.length<30)
-    {
-      errorProjects.projectDescription="Project Description must be of 30 characters!!!";
-      isValid=false;
+    if (!!!projectTitle) {
+      errorProjects.projectTitle = "Project Title is Required !!!";
+      isValid = false;
     }
-    if(!!!projectTitle)
-    {
-      errorProjects.projectTitle="Project Title is Required !!!";
-      isValid=false;
-    }
-    if(!!!projectLink)
-    {
-      errorProjects.projectLink="project Link is Required!!!";
-      isValid=false;
-    }
-    else if (!/^(ftp|http|https):\/\/[^ "]+$/.test(projectLink)) {
+    if (!!!projectLink) {
+      errorProjects.projectLink = "project Link is Required!!!";
+      isValid = false;
+    } else if (!/^(ftp|http|https):\/\/[^ "]+$/.test(projectLink)) {
       errorProjects.projectLink =
         "Invalid Project Link! (Ex: https://www.engineerhub.in/)";
       valid = false;
     }
     setErrorProjects((prev) => ({ ...prev, ...errorProjects }));
     return isValid;
-
   }
-  
 
   function deleteWork(itemId) {
-   
-    axios.delete(
-         `${API_URL}api/v1/delete/experience/${itemId}`,
-         {
-           headers: {
-             accesstoken: getAccessToken(),
-           },
-         }
-       ).then((response)=>
-       {  if (
-         response.status === 200 ||
-         response.status === 201 ||
-         response.status === 202 ||
-         response.status === 203 ||
-         response.status === 204
-       ) {
-       
-         navigate("/login");
-       }
-       }).catch((err)=>{
-         console.log(err);
-       });
-       
-     }
-
-     function deleteProject(itemId) {
-   
-      axios.delete(
-           `${API_URL}api/v1/delete/projectDetails/${itemId}`,
-           {
-             headers: {
-               accesstoken: getAccessToken(),
-             },
-           }
-         ).then((response)=>
-         {  if (
-           response.status === 200 ||
-           response.status === 201 ||
-           response.status === 202 ||
-           response.status === 203 ||
-           response.status === 204
-         ) {
-         
-           navigate("/login");
-         }
-         }).catch((err)=>{
-           console.log(err);
-         });
-         
-       }
-
- function deleteEducation(itemId) {
-   
-   axios.delete(
-        `${API_URL}api/v1/delete/education/${itemId}`,
-        {
-          headers: {
-            accesstoken: getAccessToken(),
-          },
+    axios
+      .delete(`${API_URL}api/v1/delete/experience/${itemId}`, {
+        headers: {
+          accesstoken: getAccessToken(),
+        },
+      })
+      .then((response) => {
+        if (
+          response.status === 200 ||
+          response.status === 201 ||
+          response.status === 202 ||
+          response.status === 203 ||
+          response.status === 204
+        ) {
+          navigate("/login");
         }
-      ).then((response)=>
-      {  if (
-        response.status === 200 ||
-        response.status === 201 ||
-        response.status === 202 ||
-        response.status === 203 ||
-        response.status === 204
-      ) {
-      
-        navigate("/");
-      }
-      }).catch((err)=>{
+      })
+      .catch((err) => {
         console.log(err);
       });
-      
-    }
+  }
+
+  function deleteProject(itemId) {
+    axios
+      .delete(`${API_URL}api/v1/delete/projectDetails/${itemId}`, {
+        headers: {
+          accesstoken: getAccessToken(),
+        },
+      })
+      .then((response) => {
+        if (
+          response.status === 200 ||
+          response.status === 201 ||
+          response.status === 202 ||
+          response.status === 203 ||
+          response.status === 204
+        ) {
+          navigate("/login");
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  function deleteEducation(itemId) {
+    axios
+      .delete(`${API_URL}api/v1/delete/education/${itemId}`, {
+        headers: {
+          accesstoken: getAccessToken(),
+        },
+      })
+      .then((response) => {
+        if (
+          response.status === 200 ||
+          response.status === 201 ||
+          response.status === 202 ||
+          response.status === 203 ||
+          response.status === 204
+        ) {
+          navigate("/");
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
 
   async function updateEducation(e) {
     e.preventDefault();
@@ -507,7 +487,7 @@ EditStudentProfileDashoboard = () => {
       organisationName: organisation,
       country: newCountry,
       state: stateParam,
-      endYear:workEnd,
+      endYear: workEnd,
     };
     try {
       const response = await axios.post(
@@ -537,17 +517,15 @@ EditStudentProfileDashoboard = () => {
       console.log(error);
     }
   }
-  async function addProject(e)
-  {
+  async function addProject(e) {
     e.preventDefault();
-    const data ={
-      projectLink:projectLink,
-      projectDescription:projectDescription,
-      projectTitle:projectTitle,
+    const data = {
+      projectLink: projectLink,
+      projectDescription: projectDescription,
+      projectTitle: projectTitle,
     };
 
-    if(validateProject())
-    {
+    if (validateProject()) {
       try {
         const response = await axios.post(
           `${API_URL}api/v1/add/projectDetails`,
@@ -559,7 +537,7 @@ EditStudentProfileDashoboard = () => {
           }
         );
         console.log(response);
-  
+
         if (
           response.status === 200 ||
           response.status === 201 ||
@@ -572,12 +550,10 @@ EditStudentProfileDashoboard = () => {
         }
       } catch (error) {
         alert(error.response);
-  
+
         console.log(error);
       }
     }
-
-
   }
   function handleDelete() {
     deleteProfilePicture(setDeleteResponse);
@@ -829,23 +805,29 @@ EditStudentProfileDashoboard = () => {
             placeholder="Describe about your Organization / Company"
           />
           <label className="error-message">{errors.aboutMe}</label>
-          <div style={{
-                display:"flex",
-                justifyContent:"flex-end",
-                alignItems:"flex-end",
-              }}>
-              <button type="submit" style={{
-                border:"none",
-                backgroundColor:"#002b36",
-                borderRadius:"5px",
-                padding:"5px 20px",
-                
-                color:"#fff",
-                marginTop:"10px",
-              }} onClick={()=>updateBasic()}>
-                Update Details
-              </button>
-              </div>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "flex-end",
+              alignItems: "flex-end",
+            }}
+          >
+            <button
+              type="submit"
+              style={{
+                border: "none",
+                backgroundColor: "#002b36",
+                borderRadius: "5px",
+                padding: "5px 20px",
+
+                color: "#fff",
+                marginTop: "10px",
+              }}
+              onClick={() => updateBasic()}
+            >
+              Update Details
+            </button>
+          </div>
         </section>
       </form>
     </>
@@ -865,65 +847,51 @@ EditStudentProfileDashoboard = () => {
                     margin: "2%",
                   }}
                 >
-                  <div
-                    className="boxWork"
-                    style={{
-                   
-                    
-                     
-                    }}
-                  >
+                  <div className="boxWork" style={{}}>
                     <div className="row">
-                    <div
-                        style={{
-                          display:"flex",
-                          justifyContent:"flex-end",
-                          alignItems:"flex-start",
-                        }}>
-
-                        
-                   <div onClick={()=>deleteEducation(item._id)} style={{
-                    cursor:"pointer",
-                   }}  >
-                   <DeleteOutlineIcon></DeleteOutlineIcon>
-                  </div>
-                  </div>
                       <div
-                        className="col-2 styleBox1"
                         style={{
-
+                          display: "flex",
+                          justifyContent: "flex-end",
+                          alignItems: "flex-start",
                         }}
                       >
+                        <div
+                          onClick={() => deleteEducation(item._id)}
+                          style={{
+                            cursor: "pointer",
+                          }}
+                        >
+                          <DeleteOutlineIcon></DeleteOutlineIcon>
+                        </div>
+                      </div>
+                      <div className="col-2 styleBox1" style={{}}>
                         <img
                           height={50}
                           width={50}
-                          style={{
-
-                            // padding: "4px",
-                            
-                          }}
+                          style={
+                            {
+                              // padding: "4px",
+                            }
+                          }
                           src={item.collegeId.collegeLogo}
                           alt=""
                         />
-                        
                       </div>
-           
-                      <div className="col-2  styleBox2"
-                      style={{
-                        // marginLeft:"5%",
-                      }}
+
+                      <div
+                        className="col-2  styleBox2"
+                        style={
+                          {
+                            // marginLeft:"5%",
+                          }
+                        }
                       >
-                        <div
-                          className="row jobRole headingJob"
-                     
-                        >
+                        <div className="row jobRole headingJob">
                           {item.collegeId.collegeName}
                         </div>
-             
-                        <div
-                          className="row companyName headingJob2"
-                    
-                        >
+
+                        <div className="row companyName headingJob2">
                           {item.degree} / {item.specialization}
                         </div>
                         <div className="row duration headingJob2">
@@ -932,12 +900,9 @@ EditStudentProfileDashoboard = () => {
                         <div className="row jobLocation headingJob2">
                           {item.state} , {item.country}
                         </div>
-
                       </div>
                     </div>
-                  
                   </div>
- 
                 </div>
               );
             })}
@@ -953,18 +918,17 @@ EditStudentProfileDashoboard = () => {
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
-                margin:"auto",
-              
+                margin: "auto",
               }}
             >
               {/* <div className="addIcon"> <AiOutlinePlus />     
               </div> */}
-               Add New
+              Add New
             </div>
           </>
         ) : (
           <>
-            <form action="" onSubmit={(e)=>updateEducation(e)}>
+            <form action="" onSubmit={(e) => updateEducation(e)}>
               <div className="row">
                 <div className="">
                   <label className="label">
@@ -1056,7 +1020,7 @@ EditStudentProfileDashoboard = () => {
                 <label className="label">
                   Institute/College Name<span className="required">*</span>
                 </label>
-                <select 
+                <select
                   className="input-field"
                   labelId="campus-name"
                   id="student-signup-campus-select"
@@ -1122,22 +1086,28 @@ EditStudentProfileDashoboard = () => {
                   {/* <label className="error-message">{error2.state}</label> */}
                 </div>
               </div>
-              <div style={{
-                display:"flex",
-                justifyContent:"flex-end",
-                alignItems:"flex-end",
-              }}>
-              <button type="submit" style={{
-                border:"none",
-                backgroundColor:"#002b36",
-                borderRadius:"5px",
-                padding:"5px 20px",
-                
-                color:"#fff",
-                marginTop:"10px",
-              }} onClick={()=>updateEducation()}>
-                Submit
-              </button>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "flex-end",
+                  alignItems: "flex-end",
+                }}
+              >
+                <button
+                  type="submit"
+                  style={{
+                    border: "none",
+                    backgroundColor: "#002b36",
+                    borderRadius: "5px",
+                    padding: "5px 20px",
+
+                    color: "#fff",
+                    marginTop: "10px",
+                  }}
+                  onClick={() => updateEducation()}
+                >
+                  Submit
+                </button>
               </div>
             </form>
           </>
@@ -1228,7 +1198,7 @@ EditStudentProfileDashoboard = () => {
   //               backgroundColor:"#002b36",
   //               borderRadius:"5px",
   //               padding:"5px 20px",
-                
+
   //               color:"#fff",
   //               marginTop:"10px",
   //             }} onClick={()=>addSkills()}>
@@ -1379,8 +1349,7 @@ EditStudentProfileDashoboard = () => {
                   </div> */}
                 </div>
               </div>
-              <div className="row"
-              >
+              <div className="row">
                 <div className="">
                   <label className="label">
                     Organization Name<span className="required">*</span>
@@ -1443,22 +1412,28 @@ EditStudentProfileDashoboard = () => {
                   {/* <label className="error-message">{error2.state}</label> */}
                 </div>
               </div>
-              <div style={{
-                display:"flex",
-                justifyContent:"flex-end",
-                alignItems:"flex-end",
-              }}>
-              <button type="submit" style={{
-                border:"none",
-                backgroundColor:"#002b36",
-                borderRadius:"5px",
-                padding:"5px 20px",
-                
-                color:"#fff",
-                marginTop:"10px",
-              }} onClick={()=>addWork()}>
-                Submit
-              </button>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "flex-end",
+                  alignItems: "flex-end",
+                }}
+              >
+                <button
+                  type="submit"
+                  style={{
+                    border: "none",
+                    backgroundColor: "#002b36",
+                    borderRadius: "5px",
+                    padding: "5px 20px",
+
+                    color: "#fff",
+                    marginTop: "10px",
+                  }}
+                  onClick={() => addWork()}
+                >
+                  Submit
+                </button>
               </div>
             </form>
           </>
@@ -1466,60 +1441,50 @@ EditStudentProfileDashoboard = () => {
           <>
             {experienceList.map((item, index) => {
               return (
-                <div className="row"
-                style={{
-                  margin:"5%",
-                }}>
-                  <div
-                    className="boxWork"
-                    style={{
-                    
-                    }}
-                  >
-             
+                <div
+                  className="row"
+                  style={{
+                    margin: "5%",
+                  }}
+                >
+                  <div className="boxWork" style={{}}>
                     <div className="row">
-                    <div
-                        style={{
-                          display:"flex",
-                          justifyContent:"flex-end",
-                          alignItems:"flex-start",
-                        }}>
-
-                        
-                   <div onClick={()=>deleteWork(item._id)} style={{
-                    cursor:"pointer",
-                   }}  >
-                   <DeleteOutlineIcon></DeleteOutlineIcon>
-                  </div>
-                  </div>
                       <div
-                        className=" col-2  styleBox1"
-
+                        style={{
+                          display: "flex",
+                          justifyContent: "flex-end",
+                          alignItems: "flex-start",
+                        }}
                       >
-                        <div style={{
-                          fontSize:"3rem",
-                        }}>
-                       {experienceList?.logo ? (
-                          <img  src={experienceList?.logo} alt="" />
-                        ) : (
-                          <HiOutlineBuildingOffice2  />
-                        )}
-                      </div>
-                      </div>
-                      <div className="col-9 styleBox2">
                         <div
-                          className="row jobRole  headingJob"
+                          onClick={() => deleteWork(item._id)}
                           style={{
-                     
+                            cursor: "pointer",
                           }}
                         >
+                          <DeleteOutlineIcon></DeleteOutlineIcon>
+                        </div>
+                      </div>
+                      <div className=" col-2  styleBox1">
+                        <div
+                          style={{
+                            fontSize: "3rem",
+                          }}
+                        >
+                          {experienceList?.logo ? (
+                            <img src={experienceList?.logo} alt="" />
+                          ) : (
+                            <HiOutlineBuildingOffice2 />
+                          )}
+                        </div>
+                      </div>
+                      <div className="col-9 styleBox2">
+                        <div className="row jobRole  headingJob" style={{}}>
                           {item.designation}
                         </div>
                         <div
                           className="row companyName  headingJob2"
-                          style={{
-                          
-                          }}
+                          style={{}}
                         >
                           {item.organisationName}
                         </div>
@@ -1532,30 +1497,29 @@ EditStudentProfileDashoboard = () => {
                       </div>
                     </div>
                   </div>
-  
                 </div>
               );
             })}
-                 <div
-                    className="addButton"
-                    onClick={() => setWorkExperienceExists(true)}
-                    style={{
-                      border: "1px solid grey",
-                      width: "300px",
-                      height: "60px",
-                      borderRadius: "10px",
-                      color: "#002b36",
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      margin:"auto",
-                    }}
-                  >
-                    {/* <div className="addIcon">
+            <div
+              className="addButton"
+              onClick={() => setWorkExperienceExists(true)}
+              style={{
+                border: "1px solid grey",
+                width: "300px",
+                height: "60px",
+                borderRadius: "10px",
+                color: "#002b36",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                margin: "auto",
+              }}
+            >
+              {/* <div className="addIcon">
                       <AiOutlinePlus />
                     </div> */}
-                    Add New
-                  </div>
+              Add New
+            </div>
           </>
         )}
       </section>
@@ -1570,63 +1534,51 @@ EditStudentProfileDashoboard = () => {
         </p>
         {projectExist ? (
           <>
-          {
-            projectList.map((item,index)=>{
+            {projectList.map((item, index) => {
               return (
                 <div className="row">
-                  
-                <div className="box outerBox"
-                style={{
-                 
-                }}>
-                  <div
+                  <div className="box outerBox" style={{}}>
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "flex-end",
+                        alignItems: "flex-start",
+                      }}
+                    >
+                      <div
+                        onClick={() => deleteProject(item._id)}
                         style={{
-                          display:"flex",
-                          justifyContent:"flex-end",
-                          alignItems:"flex-start",
-                        }}>
-
-                        
-                   <div onClick={()=>deleteProject(item._id)} style={{
-                    cursor:"pointer",
-                   }}  >
-                   <DeleteOutlineIcon></DeleteOutlineIcon>
+                          cursor: "pointer",
+                        }}
+                      >
+                        <DeleteOutlineIcon></DeleteOutlineIcon>
+                      </div>
+                    </div>
+                    <div>
+                      <p style={{}} className="headingProject">
+                        {item.projectTitle}
+                      </p>
+                    </div>
+                    <div>
+                      <p style={{}} className="projectDes">
+                        {item.projectDescription}
+                      </p>
+                    </div>
+                    <div>
+                      <p
+                        style={{
+                          margin: "auto",
+                        }}
+                      >
+                        <Link to={item.projectLink}>{item.projectLink}</Link>
+                      </p>
+                    </div>
                   </div>
-                  </div>
-                  <div>
-                    <p style={{
-                    
-    
-                    }}  className="headingProject">
-                      {item.projectTitle}
-    
-                    </p>
-                  </div>
-                  <div>
-                    <p style={{
-                 
-                    }}
-                    className="projectDes">{item.projectDescription}
-                    </p>
-                  </div>
-                  <div>
-                    <p style={{
-                      margin:"auto",
-                    }}>
-                      <Link to={item.projectLink}>
-                       {item.projectLink}
-                      </Link>
-                    </p>
-                  </div>
-    
                 </div>
-              </div>
-              )
-            })
-          }
-       
+              );
+            })}
 
-          <div className="row">
+            <div className="row">
               <div
                 className="addButton"
                 onClick={() => setProjectExist(true)}
@@ -1639,9 +1591,8 @@ EditStudentProfileDashoboard = () => {
                   display: "flex",
                   justifyContent: "center",
                   alignItems: "center",
-              
-                    margin:"auto",
-                  
+
+                  margin: "auto",
                 }}
               >
                 <div className="addIcon">
@@ -1653,190 +1604,207 @@ EditStudentProfileDashoboard = () => {
           </>
         ) : (
           <>
-              <form action="" onSubmit={addProject}>
-           <div className="row"
-              >
+            <form action="" onSubmit={addProject}>
+              <div className="row">
                 <div className="col-lg-5">
-                <div className="">
-                  <label className="label">
-                    Project Title<span className="required">*</span>
-                  </label>
-                  <input
-                    value={projectTitle}
-                    type="text"
-                    onChange={(e) => setProjectTitle(e.target.value)}
-                    className="input-field"
-                    placeholder="Enter your String"
-                  />
-                  <label className="error-message">{errorProjects.projectTitle}</label>
-                </div>
+                  <div className="">
+                    <label className="label">
+                      Project Title<span className="required">*</span>
+                    </label>
+                    <input
+                      value={projectTitle}
+                      type="text"
+                      onChange={(e) => setProjectTitle(e.target.value)}
+                      className="input-field"
+                      placeholder="Enter your String"
+                    />
+                    <label className="error-message">
+                      {errorProjects.projectTitle}
+                    </label>
+                  </div>
                 </div>
                 <div className="col-lg-5">
-                <div className="">
-                  <label className="label">
-                    Project Link<span className="required">*</span>
-                  </label>
-                  <input
-                    value={projectLink}
-                    type="text"
-                    onChange={(e) => setProjectLink(e.target.value)}
-                    className="input-field"
-                    placeholder="Enter your String"
-                  />
-                  <label className="error-message">{errorProjects.projectLink}</label>
-                </div>
+                  <div className="">
+                    <label className="label">
+                      Project Link<span className="required">*</span>
+                    </label>
+                    <input
+                      value={projectLink}
+                      type="text"
+                      onChange={(e) => setProjectLink(e.target.value)}
+                      className="input-field"
+                      placeholder="Enter your String"
+                    />
+                    <label className="error-message">
+                      {errorProjects.projectLink}
+                    </label>
+                  </div>
                 </div>
               </div>
-       
-              <div className="row"
-              >
+
+              <div className="row">
                 <div className="col-lg-10">
-                <div className="">
-                  <label className="label">
-                    Project Description<span className="required">*</span>
-                  </label>
-                  <input
-                    value={projectDescription}
-                    type="text"
-                    onChange={(e) => setProjectDescription(e.target.value)}
-                    className="input-field"
-                    placeholder="Enter your String"
-                  />
-                  <label className="error-message">{errorProjects.projectDescription}</label>
+                  <div className="">
+                    <label className="label">
+                      Project Description<span className="required">*</span>
+                    </label>
+                    <input
+                      value={projectDescription}
+                      type="text"
+                      onChange={(e) => setProjectDescription(e.target.value)}
+                      className="input-field"
+                      placeholder="Enter your String"
+                    />
+                    <label className="error-message">
+                      {errorProjects.projectDescription}
+                    </label>
                   </div>
                 </div>
               </div>
               <button
-              style={{
-                marginTop:"2%",
-              }} type="submit"
-              onClick={()=>addProject()}>
+                style={{
+                  marginTop: "2%",
+                }}
+                type="submit"
+                onClick={() => addProject()}
+              >
                 submit
-
               </button>
-              </form>
-            </>
+            </form>
+          </>
         )}
       </section>
-
-
-      
- 
     </>
   );
-  const renderSocialLinks = (<>
-  
-  <section className="box">
+  const renderSocialLinks = (
+    <>
+      <section className="box">
         <p className="heading" style={{ fontSize: "1.2rem" }}>
           Projects
         </p>
-        
-    <div>
-      <div>
-    <TextField
-        label="LinkedIn"
-        variant="outlined"
-        value={socialMediaLinks.LinkedIn}
-        onChange={e => handleChange('LinkedIn', e.target.value)}
-        onBlur={handleBlur}
-        error={errorLink !== '' && socialMediaLinks.LinkedIn === ''}
-        helperText={errorLink !== '' && socialMediaLinks.LinkedIn === '' ? errorLink : ''}
-        InputProps={{
-          startAdornment: (
-            <InputAdornment position="start">
-              <LinkedInIcon />
-            </InputAdornment>
-          ),
-          endAdornment: (
-            <InputAdornment position="end">
-              <IconButton onClick={toggleVisibility}>
-                {showLink ? <VisibilityOffIcon /> : <VisibilityIcon />}
-              </IconButton>
-            </InputAdornment>
-          ),
-          type: showLink ? 'text' : 'password',
-        }}
-      />
-      </div>
-      <div>
-      <TextField
-        label="Instagram"
-        variant="outlined"
-        value={socialMediaLinks.Instagram}
-        onChange={e => handleChange('Instagram', e.target.value)}
-        onBlur={handleBlur}
-        error={errorLink !== '' && socialMediaLinks.Instagram === ''}
-        helperText={errorLink !== '' && socialMediaLinks.Instagram === '' ? errorLink : ''}
-        InputProps={{
-          startAdornment: (
-            <InputAdornment position="start">
-              <InstagramIcon />
-            </InputAdornment>
-          ),
-          endAdornment: (
-            <InputAdornment position="end">
-              <IconButton onClick={toggleVisibility}>
-                {showLink ? <VisibilityOffIcon /> : <VisibilityIcon />}
-              </IconButton>
-            </InputAdornment>
-          ),
-          type: showLink ? 'text' : 'password',
-        }}
-      />
-      </div>
-      <div>
-      <TextField
-        label="Twitter"
-        variant="outlined"
-        value={socialMediaLinks.Twitter}
-        onChange={e => handleChange('Twitter', e.target.value)}
-        onBlur={handleBlur}
-        error={errorLink !== '' && socialMediaLinks.Twitter === ''}
-        helperText={errorLink !== '' && socialMediaLinks.Twitter === '' ? errorLink : ''}
-        InputProps={{
-          startAdornment: (
-            <InputAdornment position="start">
-              <TwitterIcon />
-            </InputAdornment>
-          ),
-          endAdornment: (
-            <InputAdornment position="end">
-              <IconButton onClick={toggleVisibility}>
-                {showLink ? <VisibilityOffIcon /> : <VisibilityIcon />}
-              </IconButton>
-            </InputAdornment>
-          ),
-          type: showLink ? 'text' : 'password',
-        }}
-      />
-      </div>
-      <div>
-      <TextField
-        label="GitHub"
-        variant="outlined"
-        value={socialMediaLinks.GitHub}
-        onChange={e => handleChange('GitHub', e.target.value)}
-        onBlur={handleBlur}
-        error={errorLink !== '' && socialMediaLinks.GitHub === ''}
-        helperText={errorLink !== '' && socialMediaLinks.GitHub === '' ? errorLink : ''}
-        InputProps={{
-          startAdornment: (
-            <InputAdornment position="start">
-              <GitHubIcon />
-            </InputAdornment>
-          ),
-          endAdornment: (
-            <InputAdornment position="end">
-              <IconButton onClick={toggleVisibility}>
-                {showLink ? <VisibilityOffIcon /> : <VisibilityIcon />}
-              </IconButton>
-            </InputAdornment>
-          ),
-          type: showLink ? 'text' : 'password',
-        }}
-      />
-      </div>
-      {/* <TextField
+
+        <div>
+          <div>
+            <TextField
+              label="LinkedIn"
+              variant="outlined"
+              value={socialMediaLinks.LinkedIn}
+              onChange={(e) => handleChange("LinkedIn", e.target.value)}
+              onBlur={handleBlur}
+              error={errorLink !== "" && socialMediaLinks.LinkedIn === ""}
+              helperText={
+                errorLink !== "" && socialMediaLinks.LinkedIn === ""
+                  ? errorLink
+                  : ""
+              }
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <LinkedInIcon />
+                  </InputAdornment>
+                ),
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton onClick={toggleVisibility}>
+                      {showLink ? <VisibilityOffIcon /> : <VisibilityIcon />}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+                type: showLink ? "text" : "password",
+              }}
+            />
+          </div>
+          <div>
+            <TextField
+              label="Instagram"
+              variant="outlined"
+              value={socialMediaLinks.Instagram}
+              onChange={(e) => handleChange("Instagram", e.target.value)}
+              onBlur={handleBlur}
+              error={errorLink !== "" && socialMediaLinks.Instagram === ""}
+              helperText={
+                errorLink !== "" && socialMediaLinks.Instagram === ""
+                  ? errorLink
+                  : ""
+              }
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <InstagramIcon />
+                  </InputAdornment>
+                ),
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton onClick={toggleVisibility}>
+                      {showLink ? <VisibilityOffIcon /> : <VisibilityIcon />}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+                type: showLink ? "text" : "password",
+              }}
+            />
+          </div>
+          <div>
+            <TextField
+              label="Twitter"
+              variant="outlined"
+              value={socialMediaLinks.Twitter}
+              onChange={(e) => handleChange("Twitter", e.target.value)}
+              onBlur={handleBlur}
+              error={errorLink !== "" && socialMediaLinks.Twitter === ""}
+              helperText={
+                errorLink !== "" && socialMediaLinks.Twitter === ""
+                  ? errorLink
+                  : ""
+              }
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <TwitterIcon />
+                  </InputAdornment>
+                ),
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton onClick={toggleVisibility}>
+                      {showLink ? <VisibilityOffIcon /> : <VisibilityIcon />}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+                type: showLink ? "text" : "password",
+              }}
+            />
+          </div>
+          <div>
+            <TextField
+              label="GitHub"
+              variant="outlined"
+              value={socialMediaLinks.GitHub}
+              onChange={(e) => handleChange("GitHub", e.target.value)}
+              onBlur={handleBlur}
+              error={errorLink !== "" && socialMediaLinks.GitHub === ""}
+              helperText={
+                errorLink !== "" && socialMediaLinks.GitHub === ""
+                  ? errorLink
+                  : ""
+              }
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <GitHubIcon />
+                  </InputAdornment>
+                ),
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton onClick={toggleVisibility}>
+                      {showLink ? <VisibilityOffIcon /> : <VisibilityIcon />}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+                type: showLink ? "text" : "password",
+              }}
+            />
+          </div>
+          {/* <TextField
         label="Behance"
         variant="outlined"
         value={socialMediaLinks.Behance}
@@ -1860,11 +1828,10 @@ EditStudentProfileDashoboard = () => {
           type: showLink ? 'text' : 'password',
         }}
       /> */}
-    </div>
-  
-
-</section>
-  </>);
+        </div>
+      </section>
+    </>
+  );
   return (
     <>
       <main className="edit-profile profile-dashboard">
