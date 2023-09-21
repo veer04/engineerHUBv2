@@ -1902,9 +1902,7 @@ const EditStudentProfileDashoboard = () => {
               ))}
             </div>
             <button
-              onClick={() =>
-                navigate(`/profile/organization/${organizationId}`)
-              }
+              onClick={() => navigate(`/profile/user/${userId}`)}
               className="back-btn"
             >
               <IoIosArrowBack /> <span>Back to Profile</span>

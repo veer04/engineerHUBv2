@@ -1,24 +1,29 @@
 import React, { useState } from "react";
 import "../Dashboard.css"; // !import this file first
+import "../CompanyDashboard/CompanyDashboard.css";
 import "./UserDashboard.css";
 import { PiGlobeLight } from "react-icons/pi";
 import { AiFillLinkedin } from "react-icons/ai";
 import { BiLogoInstagramAlt } from "react-icons/bi";
-import { BsArrowDown, BsChevronDown } from "react-icons/bs";
+import { BsArrowDown, BsArrowRight, BsChevronDown } from "react-icons/bs";
 import { FaBuildingColumns } from "react-icons/fa6";
 import defaultPoster from "../../../assets/defaultPoster";
 import { HiOutlineBuildingOffice2 } from "react-icons/hi2";
 import { VscGithub } from "react-icons/vsc";
 import { useEffect } from "react";
 import { controller, getUserProfileById } from "../../../services/APIConfig";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { Bucket_URL } from "../../../services/APIUtils";
+import { getUserRole } from "../../../features/User/UserDetails";
 
 export default function UserDashboard() {
+  const navigate = useNavigate();
   const { userId } = useParams();
   const [user, setUser] = useState({});
   const [viewMore1, setViewMore1] = useState(false);
   const [viewMore2, setViewMore2] = useState(false);
   const [isUserAdmin, setIsUserAdmin] = useState(false);
+  const bucket = `${Bucket_URL}frontend/hosting/`;
 
   useEffect(() => {
     getUserProfileById(setUser, userId);
@@ -94,7 +99,12 @@ export default function UserDashboard() {
           </div>
           {isUserAdmin && (
             <div className="buttons">
-              <button className="button edit-btn">Edit Profile</button>
+              <button
+                onClick={() => navigate("edit-profile")}
+                className="button edit-btn"
+              >
+                Edit Profile
+              </button>
               {/* <button className="button upload-btn">Upload Resume</button> */}
             </div>
           )}
@@ -272,6 +282,37 @@ export default function UserDashboard() {
           </section>
         </div>
       </div>
+      {isUserAdmin && getUserRole() === "Alumni" && (
+        <section className="box recruit-container">
+          <p className="heading">MY ACTIVITIES</p>
+          <div className="cards">
+            <div
+              onClick={() => navigate("/hostevent")}
+              style={{
+                backgroundImage: `url(${bucket}hackathon.png)`,
+              }}
+              className="card"
+            >
+              <div className="heading">Hackathon</div>
+              <div className="subheading">
+                Create Event <BsArrowRight />
+              </div>
+            </div>
+            <div
+              onClick={() => navigate("/hostevent")}
+              style={{
+                backgroundImage: `url(${bucket}webinar.png)`,
+              }}
+              className="card"
+            >
+              <div className="heading">Webinar</div>
+              <div className="subheading">
+                Create Event <BsArrowRight />
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
     </main>
   );
 }

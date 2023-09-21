@@ -17,7 +17,7 @@ export default function Navbar() {
 
   useEffect(() => {
     // Check if user is logged in by checking for the 'userName' cookie
-    const storedName = getCookie("name");
+    const storedName = getCookie("firstName");
     const storedUserID = getCookie("_id");
     const storedRole = getCookie("role");
     if (storedName) {
@@ -235,8 +235,7 @@ export default function Navbar() {
                   alt="user"
                 /> */}
                 <span className="nav-username text-nowrap">
-                  {/* Hi, {name.split(" ")[0]} */}
-                  Profile
+                  Hi, {name}
                 </span>
               </button>
             </div>

@@ -283,7 +283,7 @@ export default function ProfilePopUp() {
       </div>
       <div className="user-details">
         <div className="profile-picture">
-          <Box
+          {/* <Box
             sx={{
               position: "relative",
               display: "inline-flex",
@@ -312,11 +312,11 @@ export default function ProfilePopUp() {
                 alignItems: "center",
                 justifyContent: "center",
               }}
-            >
+            > */}
               <img className="image" src={userImage} alt="Profile Picture" />
-            </Box>
+            {/* </Box>
           </Box>
-          <div className="progress-counter">{`${progress}%`}</div>
+          <div className="progress-counter">{`${progress}%`}</div> */}
         </div>
         <div className="personal-details">
           <div className="name">{userFullName}</div>
