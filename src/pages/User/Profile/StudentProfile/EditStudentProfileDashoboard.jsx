@@ -401,7 +401,7 @@ const EditStudentProfileDashoboard = () => {
     } else if (!/^(ftp|http|https):\/\/[^ "]+$/.test(projectLink)) {
       errorProjects.projectLink =
         "Invalid Project Link! (Ex: https://www.engineerhub.in/)";
-      valid = false;
+      isValid = false;
     }
     setErrorProjects((prev) => ({ ...prev, ...errorProjects }));
     return isValid;
@@ -1658,7 +1658,7 @@ if(validateDate2()===true)
           </>
         ) : (
           <>
-            <form action="" onSubmit={addProject}>
+            <form action="" onSubmit={(e)=>addProject(e)}>
               <div className="row">
                 <div className="col-lg-5">
                   <div className="">
@@ -1720,7 +1720,7 @@ if(validateDate2()===true)
                   marginTop: "2%",
                 }}
                 type="submit"
-                onClick={() => addProject()}
+                onClick={(e) => addProject(e)}
               >
                 submit
               </button>
