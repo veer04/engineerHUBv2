@@ -14,6 +14,7 @@ import {
   patchCoverImage,
   patchCoverImageUsingLink,
 } from "../../services/APIConfig";
+import useGlobalSnackbar from "../../hooks/useGlobalSnackbar";
 
 export default function AddMemberModal() {
   const [newCoverPhoto, setNewCoverPhoto] = useState(null);
@@ -23,8 +24,11 @@ export default function AddMemberModal() {
   const fileInput = useRef(null);
   const { organizationId } = useParams();
   const bucket = `${Bucket_URL}frontend/profile/dashboard/`;
-  const [response, setResponse] = useState(null);
+  const [response, setResponse] = useState({});
   const [errors, setErrors] = useState({ name: "", role: "", linkedin: "" });
+  const { setSnackbarOpen, setSnackbarMessage, setSnackbarSeverity } =
+    useGlobalSnackbar();
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
@@ -37,7 +41,18 @@ export default function AddMemberModal() {
   }
 
   useEffect(() => {
-    if (response) {
+    if (Object.keys(response).length > 0) {
+      setLoading(false);
+      if (response.status >= 200 && response.status < 300) {
+        setSnackbarSeverity("success");
+        setSnackbarMessage("Member added successfully");
+        setSnackbarOpen(true);
+      } else {
+        setSnackbarSeverity("error");
+        setSnackbarMessage("Error in adding member");
+        setSnackbarOpen(true);
+      }
+      setResponse({});
       navigate(-1);
     }
   }, [response]);
@@ -109,12 +124,12 @@ export default function AddMemberModal() {
     let isValid = false;
     isValid = validateData();
     if (isValid) {
-      console.log("api")
       const formData = new FormData();
       formData.append("name", name);
       formData.append("image", newCoverPhoto);
       formData.append("linkedIn", linkedin);
       formData.append("designation", role);
+      setLoading(true);
       addClubMember(formData, setResponse);
     }
   }
@@ -204,7 +219,9 @@ export default function AddMemberModal() {
           <label className="error-message">{errors.linkedin}</label>
 
           <button
-            disabled={!(!!newCoverPhoto && !!name && !!role && !!linkedin)}
+            disabled={
+              loading || !(!!newCoverPhoto && !!name && !!role && !!linkedin)
+            }
             onClick={() => handleUpload()}
             className="submit-button"
           >
