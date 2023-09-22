@@ -122,10 +122,6 @@ export default function CompanyDashboard() {
   }, [followResponse]);
 
   useEffect(() => {
-    console.log("organization", organization);
-  }, [organization]);
-
-  useEffect(() => {
     if (activityChoice === "jobs") {
       if (jobs.length !== 0) {
         setIsActivityPresent(true);

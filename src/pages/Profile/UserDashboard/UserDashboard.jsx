@@ -51,7 +51,7 @@ export default function UserDashboard() {
       </h2>
       <section
         style={{
-          marginTop: "3.25rem",
+          marginTop: "1rem",
         }}
         className="box user-container"
       >
