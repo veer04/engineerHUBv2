@@ -3,6 +3,7 @@ import { API_URL, API_URLT } from "./APIUtils";
 import decryptData from "../features/DeCrypt";
 import getCookie, { getAccessToken } from "../features/getCookieValues";
 import { set } from "react-hook-form";
+import Cookies from "js-cookie";
 export const cancelToken = axios.CancelToken.source();
 export const controller = new AbortController();
 
