@@ -42,6 +42,9 @@ import {
 } from "../../../services/APIConfig";
 import HackathonCard from "../../Company/Events/EventsChoices/HackathonCards";
 import ProjectCards from "../../Company/Projects/ProjectCards";
+import { useLayoutEffect } from "react";
+import Page404 from "../../Maintenance/Page404";
+import LoadingPage from "../../../components/Loader/LoadingPage";
 
 export default function CompanyDashboard() {
   const { organizationId } = useParams();
@@ -61,31 +64,7 @@ export default function CompanyDashboard() {
   const bucket = `${Bucket_URL}frontend/hosting/`;
   const bucket2 = `${Bucket_URL}frontend/profile/dashboard/`;
   const [followResponse, setFollowResponse] = useState({});
-
-  const eyeSvg = (
-    <svg
-      width="19"
-      height="14"
-      viewBox="0 0 19 14"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M1 6.97656C1 6.97656 3.98828 1 9.21777 1C14.4473 1 17.4355 6.97656 17.4355 6.97656C17.4355 6.97656 14.4473 12.9531 9.21777 12.9531C3.98828 12.9531 1 6.97656 1 6.97656Z"
-        stroke="black"
-        strokeWidth="1.2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      <path
-        d="M9 9C10.1046 9 11 8.10457 11 7C11 5.89543 10.1046 5 9 5C7.89543 5 7 5.89543 7 7C7 8.10457 7.89543 9 9 9Z"
-        stroke="black"
-        strokeWidth="1.2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
+  const [fetchResponse, setFetchResponse] = useState({});
 
   const scrollLeft = () => {
     const carousel = document.querySelector(".carousel");
@@ -98,14 +77,22 @@ export default function CompanyDashboard() {
 
   function fetchData() {
     if (isUserLoggedIn()) {
-      getOrganizationProfileByIdPrivateMode(setOrganization, organizationId);
+      getOrganizationProfileByIdPrivateMode(
+        setOrganization,
+        organizationId,
+        setFetchResponse
+      );
     } else {
-      getOrganizationProfileById(setOrganization, organizationId);
+      getOrganizationProfileById(
+        setOrganization,
+        organizationId,
+        setFetchResponse
+      );
     }
   }
 
   useEffect(() => {
-    // window.scrollTo(0, 0);
+    window.scrollTo(0, 0);
     fetchData();
     if (isUserLoggedIn() && organizationId === getUserId()) {
       setIsUserAdmin(true);
@@ -126,13 +113,13 @@ export default function CompanyDashboard() {
     setFollowResponse({});
   }, [organizationId]);
 
+  useLayoutEffect(() => {
+    fetchData();
+  }, [window.location.pathname]);
+
   useEffect(() => {
     if (!!followResponse) fetchData();
   }, [followResponse]);
-
-  useEffect(() => {
-    console.log("organization", organization);
-  }, [organization]);
 
   useEffect(() => {
     if (activityChoice === "jobs") {
@@ -183,13 +170,13 @@ export default function CompanyDashboard() {
     }
   }
 
-  return (
+  const companyDashboardPage = (
     <>
       <main className="profile-dashboard">
         <h1 className="title">Profile</h1>
         <h2 className="subheading">
-          Lorem ipsum dolor sit amet consectetur. Mattis aliquam sodales
-          faucibus platea feugiat odio.
+          {/* Lorem ipsum dolor sit amet consectetur. Mattis aliquam sodales
+        faucibus platea feugiat odio. */}
         </h2>
         <section className="box details-container">
           <div className="cover">
@@ -227,14 +214,7 @@ export default function CompanyDashboard() {
             </div>
           </div>
           <div className="details">
-            <div
-              style={
-                {
-                  // marginBottom: isUserAdmin ? "0" : "1rem",
-                }
-              }
-              className="upper-container"
-            >
+            <div className="upper-container">
               <div className="left-container">
                 <div>
                   <h1 className="text-crop-1 overflow-hidden">
@@ -326,7 +306,6 @@ export default function CompanyDashboard() {
                   color: organization?.isFollowing ? "#002B36" : "#fff",
                 }}
                 onClick={() => handleFollow()}
-                // while the mouse is hovering on the button, change the text to say "Unfollow"
                 onMouseEnter={(e) => {
                   if (organization?.isFollowing) {
                     e.target.innerHTML = "Unfollow";
@@ -344,10 +323,10 @@ export default function CompanyDashboard() {
             )}
             <div className="lower-container">
               {/* {isUserAdmin && (
-                <div className="edit">
-                  <FiEdit2 />
-                </div>
-              )} */}
+              <div className="edit">
+                <FiEdit2 />
+              </div>
+            )} */}
               <p className="heading">ABOUT US</p>
               {organization?.aboutUs && (
                 <span
@@ -532,7 +511,7 @@ export default function CompanyDashboard() {
         )}
         {isUserAdmin && (
           <section
-          id="sponsor"
+            id="sponsor"
             style={{
               backgroundImage: `url(${banner})`,
             }}
@@ -570,5 +549,15 @@ export default function CompanyDashboard() {
       </main>
       <Outlet />
     </>
+  );
+
+  return !!Object.keys(fetchResponse).length ? (
+    fetchResponse?.status >= 200 && fetchResponse?.status <= 300 ? (
+      companyDashboardPage
+    ) : (
+      <Page404 />
+    )
+  ) : (
+    <LoadingPage />
   );
 }

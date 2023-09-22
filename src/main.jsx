@@ -8,6 +8,7 @@ import SidebarProvider from "./contexts/SidebarContext";
 import NavbarProvider from "./contexts/NavbarContext";
 import { EventModalProvider } from "./contexts/EventModalContext";
 import ChatProvider from "./contexts/chatProvider";
+import GlobalSnackbarProvider from "./contexts/GlobalSnackbarContext";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
@@ -18,15 +19,17 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         cookieDomain={window.location.hostname}
         cookieSecure={false}
       >
-        <ChatProvider>
-          <EventModalProvider>
-            <NavbarProvider>
-              <SidebarProvider>
-                <App />
-              </SidebarProvider>
-            </NavbarProvider>
-          </EventModalProvider>
-        </ChatProvider>
+        <GlobalSnackbarProvider>
+          <ChatProvider>
+            <EventModalProvider>
+              <NavbarProvider>
+                <SidebarProvider>
+                  <App />
+                </SidebarProvider>
+              </NavbarProvider>
+            </EventModalProvider>
+          </ChatProvider>
+        </GlobalSnackbarProvider>
       </AuthProvider>
     </BrowserRouter>
   </React.StrictMode>

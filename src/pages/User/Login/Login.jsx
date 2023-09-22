@@ -16,8 +16,9 @@ import useNavbar from "../../../hooks/use-navbar";
 // import { set } from "react-hook-form";
 import { API_URL, API_URLT } from "../../../services/APIUtils";
 
-const Register = () => { 
-  const loginLeft = "https://frontendehubbucket.s3.ap-south-1.amazonaws.com/frontend/auth/loginLeft.png"
+const Register = () => {
+  const loginLeft =
+    "https://frontendehubbucket.s3.ap-south-1.amazonaws.com/frontend/auth/loginLeft.png";
   if (Cookies.get("name")) {
     let path = "";
     if (Cookies.get("role") === "User") {
@@ -122,12 +123,20 @@ const Register = () => {
           const token = response.data.accessToken;
           const decoded = jwt_decode(token);
           Cookies.set("role", decoded.role);
+          Cookies.set("name", response.data.name);
+          if (decoded.role === "User" || decoded.role === "Alumni") {
+            Cookies.set("firstName", decoded.firstName);
+            Cookies.set("lastName", decoded.lastName);
+            Cookies.set(
+              "name",
+              decoded.firstName.concat(" ", decoded.lastName)
+            );
+          }
           Cookies.set("image", decoded.image);
           Cookies.set("isVerified", decoded.isVerified);
           Cookies.set("verifiedByEhub", decoded.verifiedByEhub);
           Cookies.set("mobile", decoded.mobile);
           Cookies.set("_id", decoded._id);
-          Cookies.set("name", response.data.name);
           Cookies.set("refresh_token", response.data.refreshToken);
           Cookies.set("userName", response.data.userName);
           Cookies.set("institutionName", response.data.institutionName);
@@ -310,7 +319,7 @@ const Register = () => {
   // }, []);
 
   const handleLogin = () => {
-    const dynamicRedirectUrl = "http://127.0.0.1:5174/success";
+    const dynamicRedirectUrl = "https://www.engineerhub.in/success";
     const googleAuthUrl = new URL(
       "https://accounts.google.com/o/oauth2/v2/auth"
     );
@@ -329,9 +338,9 @@ const Register = () => {
     googleAuthUrl.searchParams.append("prompt", "consent");
 
     window.location.href = googleAuthUrl.toString();
-  //  setTimeout(()=>{
-  //     window.location.reload();
-  //  },2000)
+    //  setTimeout(()=>{
+    //     window.location.reload();
+    //  },2000)
   };
 
   // Call the function to make the API request
@@ -405,42 +414,43 @@ const Register = () => {
   };
 
   return (
-    <div className="Login">
+    <main className="Login">
       <div className="container">
         <div className="row">
-    <div className="col-lg-7"
-             style={{
-            
-              borderRadius:"7px",
-              background:"#fff",
-              marginBottom:"2%",
-            }}>
-          <div className="cont-head">
+          <div
+            className="col-lg-6 login-left-container"
+            style={{
+              borderRadius: "7px",
+              background: "#fff",
+              marginBottom: "2%",
+            }}
+          >
+            <div className="cont-head">
               <div
                 className="my-form-head"
                 style={{
                   color: "var(--Primary-500, #002B36)",
-                  fontFamily:"Gotham Black",
+                  fontFamily: "Gotham Black",
                   padding: "30px",
-                  fontWeight:"800",
+                  fontWeight: "800",
                 }}
               >
-             Join the India’s <span style={{textDecoration:"line-through"}}> largest</span> <br/>
-              coolest community of engineers
-              
+                Join the India’s{" "}
+                <span style={{ textDecoration: "line-through" }}> largest</span>{" "}
+                <br />
+                coolest community of engineers
               </div>
               <img src={loginLeft} alt="" />
             </div>
-
-    </div>
-          <div className="cont col-lg-3"
-          style={{
-            
-            borderRadius:"7px",
-            background:"#fff",
-            marginBottom:"2%",
-            marginLeft:"20px",
-          }}
+          </div>
+          <div
+            className="cont col-lg-3 login-right-container"
+            style={{
+              borderRadius: "7px",
+              background: "#fff",
+              marginBottom: "2%",
+              marginLeft: "20px",
+            }}
           >
             <div className="cont-head">
               <div
@@ -450,8 +460,7 @@ const Register = () => {
                   padding: "0px 0px 30px 0px",
                 }}
               >
-                Sign In 
-              
+                Sign In
               </div>
             </div>
 
@@ -558,7 +567,7 @@ const Register = () => {
           </div>
         </div>
       </div>
-    </div>
+    </main>
   );
 };
 

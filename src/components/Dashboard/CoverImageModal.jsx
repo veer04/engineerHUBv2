@@ -13,13 +13,17 @@ import {
   patchCoverImage,
   patchCoverImageUsingLink,
 } from "../../services/APIConfig";
+import useGlobalSnackbar from "../../hooks/useGlobalSnackbar";
 
 export default function CoverImageModal() {
   const [newCoverPhoto, setNewCoverPhoto] = useState(null);
   const fileInput = useRef(null);
   const { organizationId } = useParams();
   const bucket = `${Bucket_URL}frontend/profile/dashboard/`;
-  const [response, setResponse] = useState(null);
+  const [response, setResponse] = useState({});
+  const [loading, setLoading] = useState(false);
+  const { setSnackbarOpen, setSnackbarMessage, setSnackbarSeverity } =
+    useGlobalSnackbar();
 
   const navigate = useNavigate();
 
@@ -39,6 +43,23 @@ export default function CoverImageModal() {
     };
   }, []);
 
+  useEffect(() => {
+    if (Object.keys(response).length > 0) {
+      setLoading(false);
+      if (response.status >= 200 && response.status < 300) {
+        setSnackbarSeverity("success");
+        setSnackbarMessage("Cover Image Updated Successfully");
+        setSnackbarOpen(true);
+      } else {
+        setSnackbarSeverity("error");
+        setSnackbarMessage("Error in updating cover image");
+        setSnackbarOpen(true);
+      }
+      setResponse({});
+      navigate(-1);
+    }
+  }, [response]);
+
   function handleInput(e) {
     //check if the file is an image
     if (e.target.files[0]) {
@@ -54,19 +75,11 @@ export default function CoverImageModal() {
     if (newCoverPhoto instanceof File) {
       const file = new FormData();
       file.append("backgroundPoster", newCoverPhoto);
+      setLoading(true);
       patchCoverImage(file, setResponse);
     } else {
+      setLoading(true);
       patchCoverImageUsingLink(newCoverPhoto, setResponse);
-      console.log("else");
-      // patchCoverImage(organizationId, { cover_image: newCoverPhoto })
-      //   .then((res) => {
-      //     if (res.status === 200) {
-      //       navigate(-1);
-      //     }
-      //   })
-      //   .catch((err) => {
-      //     console.log(err);
-      //   });
     }
   }
 
@@ -153,11 +166,20 @@ export default function CoverImageModal() {
             />
           </div>
           <button
-            disabled={!!!newCoverPhoto}
+            disabled={loading || !!!newCoverPhoto}
             onClick={() => handleUpload()}
             className="submit-button"
           >
-            Upload
+            {loading ? (
+              <div
+                className="spinner-border spinner-border-sm text-light"
+                role="status"
+              >
+                <span className="visually-hidden">Loading...</span>
+              </div>
+            ) : (
+              "Upload"
+            )}
           </button>
         </div>
       ) : (

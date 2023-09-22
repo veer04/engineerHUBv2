@@ -90,6 +90,7 @@ import ClubEditProfile from "./pages/Profile/ClubDashboard/ClubEditProfile";
 import AddPostModal from "./components/Dashboard/AddPostModal";
 import AddMemberModal from "./components/Dashboard/AddMemberModal";
 import UserDashboard from "./pages/Profile/UserDashboard/UserDashboard";
+import GlobalSnackbar from "./components/GlobalSnackbar/GlobalSnackbar";
 
 function App() {
   const [isEventModalOpen, setIsEventModalOpen] = useState(false);
@@ -128,6 +129,7 @@ function App() {
     <>
       {!isEventModalOpen && <Navbar />}
       {!isEventModalOpen && <MobileNavbar />}
+      <GlobalSnackbar />
       <ProfilePopUp />
       <Suspense fallback={<LoadingPage />}>
         <Routes>
@@ -137,48 +139,19 @@ function App() {
             path="user"
             element={<StudentProfileDashboard></StudentProfileDashboard>}
           ></Route>
-
           <Route path="/success" element={<Success></Success>}></Route>
           <Route path="/register" element={<RegistrationForm />} />
           <Route path="/selectRole" element={<Role />} />
-          {/* <Route path="/studentEdit" element={<EditStudentProfileDashoboard ></EditStudentProfileDashoboard>}></Route> */}
-          <Route path="/loginDummy" element={<LoginDummy></LoginDummy>}>
-            {" "}
-          </Route>
+          <Route path="/loginDummy" element={<LoginDummy></LoginDummy>}></Route>
           <Route path="/ehubchats" element={<Chatpage />} />
-
           <Route path="/profile">
-            {/* <Route
-              path="User/:userId/studentEdit"
-              element={
-                <EditStudentProfileDashoboard></EditStudentProfileDashoboard>
-              }
-            ></Route>
-            <Route
-              path="User/:userId"
-              element={<StudentProfileDashboard path="profile" />}
-            >
-              <Route index element={<GeneralStudentData />} />
-              <Route
-                path="studentEdit"
-                element={
-                  <EditStudentProfileDashoboard></EditStudentProfileDashoboard>
-                }
-              ></Route>
-  
-            </Route> */}
             <Route
               path="user/:userId"
               element={<UserDashboard path="profile" />}
-            >
-              {/* <Route path="edit-cover-image" element={<CoverImageModal />} />
-              <Route path="add-post" element={<AddPostModal />} />
-              <Route path="add-member" element={<AddMemberModal />} />
-              <Route path="posts/:postId" element={<PostModal />} /> */}
-            </Route>
+            ></Route>
             <Route
               path="user/:userId/edit-profile"
-              element={<EditStudentProfileDashoboard/>}
+              element={<EditStudentProfileDashoboard />}
             />
             <Route
               path="alumni/:alumniId"
@@ -202,17 +175,6 @@ function App() {
               path="club/:clubId/edit-profile"
               element={<ClubEditProfile />}
             />
-            {/* <Route index element={<GeneralClubData />} />
-              <Route path="general" element={<GeneralClubData />} />
-              <Route path="edit" element={<EditClubData />} />
-              <Route path="cover-photo" element={<CoverPhotoClubData />} />
-              <Route path="manage-posts" element={<ManagePostsClubData />}>
-                <Route path=":postId" element={<PostModal2 />} />
-              </Route> */}
-            {/* <Route
-              path="organization/:organizationId"
-              element={<OrganizationProfilePage path="profile" />}
-            > */}
             <Route
               path="organization/:organizationId"
               element={<CompanyDashboard path="profile" />}
@@ -223,10 +185,6 @@ function App() {
               path="organization/:organizationId/edit-profile"
               element={<CompanyEditProfile />}
             />
-            {/* <Route index element={<GeneralOrganizationData />} /> */}
-            {/* <Route path="general" element={<GeneralOrganizationData />} /> */}
-            {/* <Route path="edit" element={<EditOrganizationData />} /> */}
-            {/* <Route path="address" element={<AddressOrganizationData />} /> */}
           </Route>
           <Route path="/signup" element={<Signup />} />
           <Route path="/student-signup" element={<StudentSignup />} />

@@ -3,14 +3,14 @@ import "./ProfilePopUp.css";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
 import { RiSuitcase2Line } from "react-icons/ri";
-import {FaBlogger} from "react-icons/fa";
+import { FaBlogger } from "react-icons/fa";
 import { HiOutlineSquares2X2 } from "react-icons/hi2";
 import { AiOutlineFile } from "react-icons/ai";
 import { AiOutlineCalendar } from "react-icons/ai";
-import {MdEmojiEvents} from "react-icons/md";
-import {MdCastForEducation} from "react-icons/md";
-import BookIcon from '@mui/icons-material/Book';
-import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
+import { MdEmojiEvents } from "react-icons/md";
+import { MdCastForEducation } from "react-icons/md";
+import BookIcon from "@mui/icons-material/Book";
+import EmojiEventsIcon from "@mui/icons-material/EmojiEvents";
 import { HiOutlineLightningBolt } from "react-icons/hi";
 import {
   getUserFullName,
@@ -57,16 +57,16 @@ export default function ProfilePopUp() {
       <path
         d="M23 6L13.5 15.5L8.5 10.5L1 18"
         stroke="#8A9DA3"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M17 6H23V12"
         stroke="#8A9DA3"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
@@ -88,25 +88,25 @@ export default function ProfilePopUp() {
     },
     {
       label: "Blogs",
-      icon: <FaBlogger/>,
+      icon: <FaBlogger />,
       link: "/community/blogs/Data%20Structures%20%26%20Algorithms",
     },
 
     {
       label: "Events",
-      icon: <MdEmojiEvents/>,
+      icon: <MdEmojiEvents />,
       link: "/campus/intra-college",
     },
     {
       label: "Workshops",
-      icon: <MdCastForEducation/>,
+      icon: <MdCastForEducation />,
       link: "/campus/workshop",
     },
   ];
   const companyMenuItems = [
     {
       label: "Create Jobs",
-      icon: " ",
+      icon: <RiSuitcase2Line />,
       link: "/host/job",
     },
     {
@@ -283,7 +283,7 @@ export default function ProfilePopUp() {
       </div>
       <div className="user-details">
         <div className="profile-picture">
-          {/* <Box
+          {/* <Box                      // !To be used later, do not delete
             sx={{
               position: "relative",
               display: "inline-flex",
@@ -313,8 +313,8 @@ export default function ProfilePopUp() {
                 justifyContent: "center",
               }}
             > */}
-              <img className="image" src={userImage} alt="Profile Picture" />
-            {/* </Box>
+          <img className="image" src={userImage} alt="Profile Picture" />
+          {/* </Box>
           </Box>
           <div className="progress-counter">{`${progress}%`}</div> */}
         </div>
@@ -343,26 +343,25 @@ export default function ProfilePopUp() {
       </div>
       {/* Promotional Content */}
       {role === "Organization" && renderCompanyPromotionalContent}
-      {role === "Club" && renderClubPromotionalContent}.
+      {role === "Club" && renderClubPromotionalContent}
       {/* <Link
         to={`/profile/${role.toLowerCase()}/${getUserId()}/#recent-activities`}
       > */}
-      <button
-        style={{
-          minHeight: "3.8125rem",
-          borderRadius: "0.3125rem",
-        }}
-        onClick={() => {
-          navigate(
-            `/profile/${role.toLowerCase()}/${getUserId()}/#recent-activities`
-          );
-        }}
-        data-bs-dismiss="offcanvas"
-        aria-label="Close"
-        className="recent-activities-btn redirect-btn"
+      <HashLink
+        to={`/profile/${role.toLowerCase()}/${getUserId()}/#recent-activities`}
       >
-        Recent Activities
-      </button>
+        <button
+          style={{
+            minHeight: "3.8125rem",
+            borderRadius: "0.3125rem",
+          }}
+          data-bs-dismiss="offcanvas"
+          aria-label="Close"
+          className="recent-activities-btn redirect-btn"
+        >
+          Recent Activities
+        </button>
+      </HashLink>
       <button
         style={{
           width: "100%",

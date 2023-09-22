@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useLayoutEffect } from "react";
 import "../Dashboard.css"; // !import this file first
 import "./ClubDashboard.css";
 import { BsArrowRight } from "react-icons/bs";
@@ -10,7 +10,6 @@ import { MdAdd } from "react-icons/md";
 import default_profile_icon from "./default_profile_icon.png";
 import { Bucket_URL } from "../../../services/APIUtils";
 import { Outlet, useNavigate, useParams } from "react-router-dom";
-import defaultPoster from "../../../assets/defaultPoster";
 import { getUserId, isUserLoggedIn } from "../../../features/User/UserDetails";
 import EventCard from "../../../components/EventCard/EventCard";
 import {
@@ -19,11 +18,12 @@ import {
   getClubProfileById,
   getClubProfileByIdPrivateMode,
   getFeaturedEvents,
-  getOrganizationProfileById,
   unFollowClub,
 } from "../../../services/APIConfig";
 import ClubPostCard from "../../../components/ClubPostCard/ClubPostCard";
 import ClubMemberCard from "../../../components/ClubMemberCard/ClubMemberCard";
+import LoadingPage from "../../../components/Loader/LoadingPage";
+import Page404 from "../../Maintenance/Page404";
 
 export default function ClubDashboard() {
   const { clubId } = useParams();
@@ -38,17 +38,18 @@ export default function ClubDashboard() {
   const [featuredEvents, setFeaturedEvents] = useState([]);
   const [followResponse, setFollowResponse] = useState({});
   const bucket2 = `${Bucket_URL}frontend/profile/dashboard/`;
+  const [fetchResponse, setFetchResponse] = useState({});
 
   function fetchData() {
     if (isUserLoggedIn()) {
-      getClubProfileByIdPrivateMode(setOrganization, clubId);
+      getClubProfileByIdPrivateMode(setOrganization, clubId, setFetchResponse);
     } else {
-      getClubProfileById(setOrganization, clubId);
+      getClubProfileById(setOrganization, clubId, setFetchResponse);
     }
   }
 
   useEffect(() => {
-    // window.scrollTo(0, 0);
+    window.scrollTo(0, 0);
     fetchData();
     getAllPosts(setPosts, clubId);
     getFeaturedEvents(setFeaturedEvents);
@@ -60,12 +61,14 @@ export default function ClubDashboard() {
     }
   }, [clubId]);
 
-  useEffect(() => {
-    console.log("organization", organization);
-  }, [organization]);
+  useLayoutEffect(() => {
+    fetchData();
+    getAllPosts(setPosts, clubId);
+    getFeaturedEvents(setFeaturedEvents);
+  }, [window.location.pathname]);
 
-  useEffect(() => {
-    if (!!followResponse) fetchData();
+  useLayoutEffect(() => {
+    if (!!Object.keys(followResponse).length) fetchData();
   }, [followResponse]);
 
   function handleFollow() {
@@ -76,7 +79,7 @@ export default function ClubDashboard() {
     }
   }
 
-  return (
+  const clubDashboardPage = (
     <>
       <main className="profile-dashboard club-dashboard">
         <h1 className="title">Profile</h1>
@@ -231,7 +234,6 @@ export default function ClubDashboard() {
                   color: organization?.isFollowing ? "#002B36" : "#fff",
                 }}
                 onClick={() => handleFollow()}
-                // while the mouse is hovering on the button, change the text to say "Unfollow"
                 onMouseEnter={(e) => {
                   if (organization?.isFollowing) {
                     e.target.innerHTML = "Unfollow";
@@ -364,7 +366,7 @@ export default function ClubDashboard() {
             </div>
           )}
         </section>
-        <section className="box recent-activities">
+        <section id="recent-activities" className="box recent-activities">
           <p className="heading">FEATURED EVENTS</p>
           <div className="carousel-container">
             {featuredEvents.length !== 0 && (
@@ -410,5 +412,15 @@ export default function ClubDashboard() {
       </main>
       <Outlet />
     </>
+  );
+
+  return !!Object.keys(fetchResponse).length ? (
+    fetchResponse?.status >= 200 && fetchResponse?.status <= 300 ? (
+      clubDashboardPage
+    ) : (
+      <Page404 />
+    )
+  ) : (
+    <LoadingPage />
   );
 }

@@ -514,7 +514,7 @@ export const addClubMember = (formData, setResponse) => {
     .then((res) => {
       console.log(res);
       const data = res.data.data;
-      setResponse(data);
+      setResponse(res);
     })
     .catch((err) => {
       if (axios.isCancel(err)) {
@@ -525,7 +525,11 @@ export const addClubMember = (formData, setResponse) => {
     });
 };
 
-export const getClubProfileById = (setClubProfile, clubId) => {
+export const getClubProfileById = (
+  setClubProfile,
+  clubId,
+  setFetchResponse
+) => {
   const controller = new AbortController();
   axios
     .get(`${API_URL}api/v1/getClubProfileWithId/${clubId}`, {
@@ -534,8 +538,10 @@ export const getClubProfileById = (setClubProfile, clubId) => {
     .then((res) => {
       const data = res.data.data;
       setClubProfile(data);
+      setFetchResponse(res);
     })
     .catch((err) => {
+      setFetchResponse(err);
       if (axios.isCancel(err)) {
         console.log("req cancel");
       } else {
@@ -544,7 +550,11 @@ export const getClubProfileById = (setClubProfile, clubId) => {
     });
 };
 
-export const getClubProfileByIdPrivateMode = (setClubProfile, clubId) => {
+export const getClubProfileByIdPrivateMode = (
+  setClubProfile,
+  clubId,
+  setFetchResponse
+) => {
   const controller = new AbortController();
   const config = {
     headers: {
@@ -556,8 +566,10 @@ export const getClubProfileByIdPrivateMode = (setClubProfile, clubId) => {
     .then((res) => {
       const data = res.data.data;
       setClubProfile(data);
+      setFetchResponse(res);
     })
     .catch((err) => {
+      setFetchResponse(err);
       if (axios.isCancel(err)) {
         console.log("req cancel");
       } else {
@@ -568,7 +580,8 @@ export const getClubProfileByIdPrivateMode = (setClubProfile, clubId) => {
 
 export const getOrganizationProfileById = (
   setOrganizationProfile,
-  organizationId
+  organizationId,
+  setFetchResponse
 ) => {
   const controller = new AbortController();
   axios
@@ -578,8 +591,10 @@ export const getOrganizationProfileById = (
     .then((res) => {
       const data = res.data.data;
       setOrganizationProfile(data);
+      setFetchResponse(res);
     })
     .catch((err) => {
+      setFetchResponse(err);
       if (axios.isCancel(err)) {
         console.log("req cancel");
       } else {
@@ -590,7 +605,8 @@ export const getOrganizationProfileById = (
 
 export const getOrganizationProfileByIdPrivateMode = (
   setOrganizationProfile,
-  organizationId
+  organizationId,
+  setFetchResponse
 ) => {
   const controller = new AbortController();
   const config = {
@@ -606,8 +622,10 @@ export const getOrganizationProfileByIdPrivateMode = (
     .then((res) => {
       const data = res.data.data;
       setOrganizationProfile(data);
+      setFetchResponse(res);
     })
     .catch((err) => {
+      setFetchResponse(err);
       if (axios.isCancel(err)) {
         console.log("req cancel");
       } else {
@@ -1521,7 +1539,7 @@ export const uploadNewPost = (formData, setResponse) => {
     .post(`${API_URL}api/v1/club/addPost`, formData, config)
     .then((res) => {
       const data = res.data.data;
-      setResponse(data);
+      setResponse(res);
     })
     .catch((err) => {
       if (axios.isCancel(err)) {

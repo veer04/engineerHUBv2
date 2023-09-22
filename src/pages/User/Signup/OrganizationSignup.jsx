@@ -251,7 +251,7 @@ const OrganizationSignup = () => {
       password: formData.password,
       confirmPassword: formData.confirmPassword,
       organizationName: formData.organizationName,
-      webSiteURL: formData.webSiteURL,
+      websiteUrl: formData.webSiteURL,
       linkedIn: linkedIn,
       mobile: formData.mobile,
       contactName: contactName,

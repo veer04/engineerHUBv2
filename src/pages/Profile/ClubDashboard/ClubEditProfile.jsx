@@ -10,7 +10,7 @@ import {
   deleteProfilePicture,
   getAllCountries,
   getCitiesByState,
-  getClubProfileById,
+  getClubProfileByIdPrivateMode,
   getStatesByCountry,
   patchProfilePicture,
   updateClubDetails,
@@ -20,6 +20,9 @@ import { useRef } from "react";
 import { handleLogout } from "../../../features/logout";
 import { getUserId, isUserLoggedIn } from "../../../features/User/UserDetails";
 import Page404 from "../../Maintenance/Page404";
+import useGlobalSnackbar from "../../../hooks/useGlobalSnackbar";
+import { set } from "react-hook-form";
+import LoadingPage from "../../../components/Loader/LoadingPage";
 
 export default function ClubEditProfile() {
   const { clubId } = useParams();
@@ -32,6 +35,7 @@ export default function ClubEditProfile() {
   const [chosenOption, setChosenOption] = useState(options[0]);
   const fileInput = useRef(null);
   const [isImageLoading, setIsImageLoading] = useState(false);
+  const [isImageDeleting, setIsImageDeleting] = useState(false);
   const [newImage, setNewImage] = useState(null);
   const [newName, setNewName] = useState("");
   const [newSubHeading, setNewSubHeading] = useState("");
@@ -49,8 +53,8 @@ export default function ClubEditProfile() {
   const [newCountry, setNewCountry] = useState("");
   const [newState, setNewState] = useState("");
   const [newCity, setNewCity] = useState("");
-  const [response, setResponse] = useState(null);
-  const [deleteResponse, setDeleteResponse] = useState(null);
+  const [response, setResponse] = useState({});
+  const [deleteResponse, setDeleteResponse] = useState({});
   const [errors, setErrors] = useState({
     newName: "",
     newSubHeading: "",
@@ -64,7 +68,11 @@ export default function ClubEditProfile() {
     newWebsiteUrl: "",
     newLinkedin: "",
   });
-  const [updateResponse, setUpdateResponse] = useState(null);
+  const [updateResponse, setUpdateResponse] = useState({});
+  const { setSnackbarOpen, setSnackbarMessage, setSnackbarSeverity } =
+    useGlobalSnackbar();
+  const [loading, setLoading] = useState(false);
+  const [fetchResponse, setFetchResponse] = useState({});
 
   const hiringForList = [
     {
@@ -86,8 +94,8 @@ export default function ClubEditProfile() {
   ];
 
   useEffect(() => {
-    // window.scrollTo(0, 0);
-    getClubProfileById(setOrganization, clubId);
+    window.scrollTo(0, 0);
+    getClubProfileByIdPrivateMode(setOrganization, clubId, setFetchResponse);
     getAllCountries(setCountries);
     return () => {
       controller.abort();
@@ -98,10 +106,10 @@ export default function ClubEditProfile() {
     if (!!newImage) {
       if (newImage.type.includes("image")) {
         setIsImageLoading(true);
-        console.log(newImage);
         const file = new FormData();
         file.append("profileImage", newImage);
         patchProfilePicture(clubId, file, setResponse);
+        setNewImage(null);
       } else {
         alert("Please choose an image file only");
       }
@@ -109,8 +117,18 @@ export default function ClubEditProfile() {
   }, [newImage]);
 
   useEffect(() => {
-    if (!!response) {
-      getClubProfileById(setOrganization, clubId);
+    if (Object.keys(response).length > 0) {
+      if (response.status >= 200 && response.status < 300) {
+        setSnackbarSeverity("success");
+        setSnackbarMessage("Profile picture updated successfully");
+        setSnackbarOpen(true);
+        getClubProfileByIdPrivateMode(setOrganization, clubId);
+      } else {
+        setSnackbarSeverity("error");
+        setSnackbarMessage("Error in updating profile picture");
+        setSnackbarOpen(true);
+      }
+      setResponse({});
     }
     setIsImageLoading(false);
     return () => {
@@ -119,10 +137,37 @@ export default function ClubEditProfile() {
   }, [response]);
 
   useEffect(() => {
-    if (!!deleteResponse) {
-      getClubProfileById(setOrganization, clubId);
+    if (Object.keys(deleteResponse).length > 0) {
+      setIsImageDeleting(false);
+      if (deleteResponse.status >= 200 && deleteResponse.status < 300) {
+        setSnackbarSeverity("success");
+        setSnackbarMessage("Profile picture removed successfully");
+        setSnackbarOpen(true);
+        getClubProfileByIdPrivateMode(setOrganization, clubId);
+      } else {
+        setSnackbarSeverity("error");
+        setSnackbarMessage("Error in removing profile picture");
+        setSnackbarOpen(true);
+      }
+      setDeleteResponse({});
     }
   }, [deleteResponse]);
+
+  useEffect(() => {
+    if (Object.keys(updateResponse).length > 0) {
+      setLoading(false);
+      if (updateResponse.status >= 200 && updateResponse.status < 300) {
+        setSnackbarSeverity("success");
+        setSnackbarMessage("Profile updated successfully");
+        setSnackbarOpen(true);
+      } else {
+        setSnackbarSeverity("error");
+        setSnackbarMessage("Error in updating profile");
+        setSnackbarOpen(true);
+      }
+      setResponse({});
+    }
+  }, [updateResponse]);
 
   useEffect(() => {
     if (countryParam) {
@@ -164,28 +209,7 @@ export default function ClubEditProfile() {
       );
       setNewLinkedin(organization?.linkedIn);
     }
-    console.log("organization", organization);
   }, [organization]);
-
-  useEffect(() => {
-    console.log("newName", newName);
-  }, [newName]);
-
-  useEffect(() => {
-    console.log("newSubHeading", newSubHeading);
-  }, [newSubHeading]);
-
-  useEffect(() => {
-    console.log("newClubType", newClubType);
-  }, [newClubType]);
-
-  useEffect(() => {
-    console.log("newWebsiteUrl", newWebsiteUrl);
-  }, [newWebsiteUrl]);
-
-  useEffect(() => {
-    console.log("newAboutUs", newAboutUs);
-  }, [newAboutUs]);
 
   function validateData1() {
     let errors = {
@@ -356,11 +380,12 @@ export default function ClubEditProfile() {
         city: newCity,
       };
     }
-
+    setLoading(true);
     updateClubDetails(data, setUpdateResponse);
   }
 
   function handleDelete() {
+    +setIsImageDeleting(true);
     deleteProfilePicture(setDeleteResponse);
   }
 
@@ -387,18 +412,33 @@ export default function ClubEditProfile() {
               }}
             />
             <button
-              onClick={() => fileInput.current.click()}
-              disabled={isImageLoading}
+              onClick={() => {
+                fileInput.current.value = null;
+                fileInput.current.click();
+              }}
+              disabled={isImageDeleting || isImageLoading}
             >
-              Upload New
+              {isImageLoading ? (
+                <div className="spinner-border text-dark" role="status">
+                  <span className="visually-hidden">Loading...</span>
+                </div>
+              ) : (
+                "Upload"
+              )}
             </button>
             <button
               onClick={() => {
                 handleDelete();
               }}
-              disabled={isImageLoading}
+              disabled={isImageLoading || isImageDeleting}
             >
-              Delete
+              {isImageDeleting ? (
+                <div className="spinner-border text-dark" role="status">
+                  <span className="visually-hidden">Loading...</span>
+                </div>
+              ) : (
+                "Delete"
+              )}
             </button>
             {/* <p className="alert-text">
               *Note Image size must be not more than 100kb
@@ -462,8 +502,18 @@ export default function ClubEditProfile() {
           onChange={(e) => setNewAboutUs(e.target.value)}
         />
         <label className="error-message">{errors.newAboutUs}</label>
-        <button onClick={() => handleSubmit(1)} className="update-btn">
-          Update Details
+        <button
+          disabled={loading}
+          onClick={() => handleSubmit(1)}
+          className="update-btn"
+        >
+          {loading ? (
+            <div className="spinner-border text-light" role="status">
+              <span className="visually-hidden">Loading...</span>
+            </div>
+          ) : (
+            "Update Details"
+          )}
         </button>
       </section>
     </>
@@ -496,7 +546,9 @@ export default function ClubEditProfile() {
             onChange={(e) => setNewMobileNumber(e.target.value)}
           />
         </div>
-        <label className="error-message">{errors.newMobileCountryCode}</label>
+        {!!errors.newMobileCountryCode && (
+          <label className="error-message">{errors.newMobileCountryCode}</label>
+        )}
         <label className="error-message">{errors.newMobileNumber}</label>
         <label className="label">
           Website URL<span className="required">*</span>
@@ -520,8 +572,18 @@ export default function ClubEditProfile() {
           onChange={(e) => setNewLinkedin(e.target.value)}
         />
         <label className="error-message">{errors.newLinkedin}</label>
-        <button onClick={() => handleSubmit(2)} className="update-btn">
-          Update Details
+        <button
+          disabled={loading}
+          onClick={() => handleSubmit(2)}
+          className="update-btn"
+        >
+          {loading ? (
+            <div className="spinner-border text-light" role="status">
+              <span className="visually-hidden">Loading...</span>
+            </div>
+          ) : (
+            "Update Details"
+          )}
         </button>
       </section>
     </>
@@ -605,20 +667,43 @@ export default function ClubEditProfile() {
         </select>
         <label className="error-message">{errors.newCity}</label>
 
-        <button onClick={() => handleSubmit(3)} className="update-btn">
-          Update Details
+        <button
+          disabled={loading}
+          onClick={() => handleSubmit(3)}
+          className="update-btn"
+        >
+          {loading ? (
+            <div className="spinner-border text-light" role="status">
+              <span className="visually-hidden">Loading...</span>
+            </div>
+          ) : (
+            "Update Details"
+          )}
         </button>
       </section>
     </>
   );
 
-  return (
+  const clubEditProfilePage = (
     <main className="edit-profile profile-dashboard">
       <h1 className="title">Edit Profile</h1>
       <h2 className="subheading">
-        Lorem ipsum dolor sit amet consectetur. Mattis aliquam sodales faucibus
-        platea feugiat odio.
+        {/* Lorem ipsum dolor sit amet consectetur. Mattis aliquam sodales faucibus
+    platea feugiat odio. */}
       </h2>
+      <aside className="md-options">
+        {options.map((option) => (
+          <button
+            className={`option ${
+              chosenOption === option ? "--is-selected" : ""
+            }`}
+            key={option}
+            onClick={() => setChosenOption(option)}
+          >
+            {option}
+          </button>
+        ))}
+      </aside>
       <div>
         <aside>
           <div className="options">
@@ -649,5 +734,15 @@ export default function ClubEditProfile() {
         {chosenOption === options[2] && <div>{renderOption3}</div>}
       </div>
     </main>
+  );
+
+  return !!Object.keys(fetchResponse).length ? (
+    fetchResponse?.status >= 200 && fetchResponse?.status <= 300 ? (
+      clubEditProfilePage
+    ) : (
+      <Page404 />
+    )
+  ) : (
+    <LoadingPage />
   );
 }
