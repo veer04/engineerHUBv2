@@ -540,6 +540,7 @@ export const getClubProfileById = (
       setFetchResponse(res);
     })
     .catch((err) => {
+      setFetchResponse(err);
       if (axios.isCancel(err)) {
         console.log("req cancel");
       } else {
@@ -567,6 +568,7 @@ export const getClubProfileByIdPrivateMode = (
       setFetchResponse(res);
     })
     .catch((err) => {
+      setFetchResponse(err);
       if (axios.isCancel(err)) {
         console.log("req cancel");
       } else {
@@ -577,7 +579,8 @@ export const getClubProfileByIdPrivateMode = (
 
 export const getOrganizationProfileById = (
   setOrganizationProfile,
-  organizationId
+  organizationId,
+  setFetchResponse
 ) => {
   const controller = new AbortController();
   axios
@@ -587,8 +590,10 @@ export const getOrganizationProfileById = (
     .then((res) => {
       const data = res.data.data;
       setOrganizationProfile(data);
+      setFetchResponse(res);
     })
     .catch((err) => {
+      setFetchResponse(err);
       if (axios.isCancel(err)) {
         console.log("req cancel");
       } else {
@@ -599,7 +604,8 @@ export const getOrganizationProfileById = (
 
 export const getOrganizationProfileByIdPrivateMode = (
   setOrganizationProfile,
-  organizationId
+  organizationId,
+  setFetchResponse
 ) => {
   const controller = new AbortController();
   const config = {
@@ -615,8 +621,10 @@ export const getOrganizationProfileByIdPrivateMode = (
     .then((res) => {
       const data = res.data.data;
       setOrganizationProfile(data);
+      setFetchResponse(res);
     })
     .catch((err) => {
+      setFetchResponse(err);
       if (axios.isCancel(err)) {
         console.log("req cancel");
       } else {

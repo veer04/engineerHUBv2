@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useLayoutEffect } from "react";
 import "../Dashboard.css"; // !import this file first
 import "./ClubDashboard.css";
 import { BsArrowRight } from "react-icons/bs";
@@ -10,7 +10,6 @@ import { MdAdd } from "react-icons/md";
 import default_profile_icon from "./default_profile_icon.png";
 import { Bucket_URL } from "../../../services/APIUtils";
 import { Outlet, useNavigate, useParams } from "react-router-dom";
-import defaultPoster from "../../../assets/defaultPoster";
 import { getUserId, isUserLoggedIn } from "../../../features/User/UserDetails";
 import EventCard from "../../../components/EventCard/EventCard";
 import {
@@ -19,7 +18,6 @@ import {
   getClubProfileById,
   getClubProfileByIdPrivateMode,
   getFeaturedEvents,
-  getOrganizationProfileById,
   unFollowClub,
 } from "../../../services/APIConfig";
 import ClubPostCard from "../../../components/ClubPostCard/ClubPostCard";
@@ -41,7 +39,6 @@ export default function ClubDashboard() {
   const [followResponse, setFollowResponse] = useState({});
   const bucket2 = `${Bucket_URL}frontend/profile/dashboard/`;
   const [fetchResponse, setFetchResponse] = useState({});
-  // const []
 
   function fetchData() {
     if (isUserLoggedIn()) {
@@ -52,7 +49,7 @@ export default function ClubDashboard() {
   }
 
   useEffect(() => {
-    // window.scrollTo(0, 0);
+    window.scrollTo(0, 0);
     fetchData();
     getAllPosts(setPosts, clubId);
     getFeaturedEvents(setFeaturedEvents);
@@ -62,14 +59,16 @@ export default function ClubDashboard() {
     } else {
       setIsUserAdmin(false);
     }
-  }, [clubId, window.location.pathname]);
+  }, [clubId]);
 
-  useEffect(() => {
-    console.log(fetchResponse);
-  }, [fetchResponse]);
+  useLayoutEffect(() => {
+    fetchData();
+    getAllPosts(setPosts, clubId);
+    getFeaturedEvents(setFeaturedEvents);
+  }, [window.location.pathname]);
 
-  useEffect(() => {
-    if (!!followResponse) fetchData();
+  useLayoutEffect(() => {
+    if (!!Object.keys(followResponse).length) fetchData();
   }, [followResponse]);
 
   function handleFollow() {
@@ -235,7 +234,6 @@ export default function ClubDashboard() {
                   color: organization?.isFollowing ? "#002B36" : "#fff",
                 }}
                 onClick={() => handleFollow()}
-                // while the mouse is hovering on the button, change the text to say "Unfollow"
                 onMouseEnter={(e) => {
                   if (organization?.isFollowing) {
                     e.target.innerHTML = "Unfollow";
@@ -368,7 +366,7 @@ export default function ClubDashboard() {
             </div>
           )}
         </section>
-        <section className="box recent-activities">
+        <section id="recent-activities" className="box recent-activities">
           <p className="heading">FEATURED EVENTS</p>
           <div className="carousel-container">
             {featuredEvents.length !== 0 && (
@@ -416,17 +414,13 @@ export default function ClubDashboard() {
     </>
   );
 
-  // return Object.keys(fetchResponse).length >= 0 ? (
-  //   fetchResponse?.status >= 200 && fetchResponse?.status <= 300 ? (
-  //     clubDashboardPage
-  //   ) : (
-  //     <Page404 />
-  //   )
-  // ) : (
-  //   <LoadingPage />
-  // );
-
-  return clubDashboardPage;
-
-  // return club.name ? particularClubPage : <LoadingPage />;
+  return !!Object.keys(fetchResponse).length ? (
+    fetchResponse?.status >= 200 && fetchResponse?.status <= 300 ? (
+      clubDashboardPage
+    ) : (
+      <Page404 />
+    )
+  ) : (
+    <LoadingPage />
+  );
 }

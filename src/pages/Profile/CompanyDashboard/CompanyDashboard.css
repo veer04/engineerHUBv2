@@ -8,7 +8,7 @@
 .profile-dashboard > .details-container {
   display: flex;
   flex-direction: column;
-  margin-top: 3.9rem;
+  margin-top: 1rem;
   padding: 0;
 }
 .profile-dashboard > .details-container > .cover {
