@@ -540,6 +540,7 @@ export const getClubProfileById = (
       setFetchResponse(res);
     })
     .catch((err) => {
+      setFetchResponse(err);
       if (axios.isCancel(err)) {
         console.log("req cancel");
       } else {
@@ -567,6 +568,7 @@ export const getClubProfileByIdPrivateMode = (
       setFetchResponse(res);
     })
     .catch((err) => {
+      setFetchResponse(err);
       if (axios.isCancel(err)) {
         console.log("req cancel");
       } else {

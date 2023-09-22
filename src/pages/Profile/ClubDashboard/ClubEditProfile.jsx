@@ -11,6 +11,7 @@ import {
   getAllCountries,
   getCitiesByState,
   getClubProfileById,
+  getClubProfileByIdPrivateMode,
   getStatesByCountry,
   patchProfilePicture,
   updateClubDetails,
@@ -22,6 +23,7 @@ import { getUserId, isUserLoggedIn } from "../../../features/User/UserDetails";
 import Page404 from "../../Maintenance/Page404";
 import useGlobalSnackbar from "../../../hooks/useGlobalSnackbar";
 import { set } from "react-hook-form";
+import LoadingPage from "../../../components/Loader/LoadingPage";
 
 export default function ClubEditProfile() {
   const { clubId } = useParams();
@@ -71,6 +73,7 @@ export default function ClubEditProfile() {
   const { setSnackbarOpen, setSnackbarMessage, setSnackbarSeverity } =
     useGlobalSnackbar();
   const [loading, setLoading] = useState(false);
+  const [fetchResponse, setFetchResponse] = useState({});
 
   const hiringForList = [
     {
@@ -93,7 +96,7 @@ export default function ClubEditProfile() {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    getClubProfileById(setOrganization, clubId);
+    getClubProfileByIdPrivateMode(setOrganization, clubId, setFetchResponse);
     getAllCountries(setCountries);
     return () => {
       controller.abort();
@@ -682,12 +685,12 @@ export default function ClubEditProfile() {
     </>
   );
 
-  return (
+  const clubEditProfilePage = (
     <main className="edit-profile profile-dashboard">
       <h1 className="title">Edit Profile</h1>
       <h2 className="subheading">
         {/* Lorem ipsum dolor sit amet consectetur. Mattis aliquam sodales faucibus
-        platea feugiat odio. */}
+    platea feugiat odio. */}
       </h2>
       <aside className="md-options">
         {options.map((option) => (
@@ -732,5 +735,15 @@ export default function ClubEditProfile() {
         {chosenOption === options[2] && <div>{renderOption3}</div>}
       </div>
     </main>
+  );
+
+  return !!Object.keys(fetchResponse).length ? (
+    fetchResponse?.status >= 200 && fetchResponse?.status <= 300 ? (
+      clubEditProfilePage
+    ) : (
+      <Page404 />
+    )
+  ) : (
+    <LoadingPage />
   );
 }

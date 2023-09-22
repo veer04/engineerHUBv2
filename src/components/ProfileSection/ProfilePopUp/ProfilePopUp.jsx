@@ -57,16 +57,16 @@ export default function ProfilePopUp() {
       <path
         d="M23 6L13.5 15.5L8.5 10.5L1 18"
         stroke="#8A9DA3"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M17 6H23V12"
         stroke="#8A9DA3"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
@@ -283,7 +283,7 @@ export default function ProfilePopUp() {
       </div>
       <div className="user-details">
         <div className="profile-picture">
-          {/* <Box
+          {/* <Box                      // !To be used later, do not delete
             sx={{
               position: "relative",
               display: "inline-flex",

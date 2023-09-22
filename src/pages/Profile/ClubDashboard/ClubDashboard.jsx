@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useLayoutEffect } from "react";
 import "../Dashboard.css"; // !import this file first
 import "./ClubDashboard.css";
 import { BsArrowRight } from "react-icons/bs";
@@ -41,7 +41,6 @@ export default function ClubDashboard() {
   const [followResponse, setFollowResponse] = useState({});
   const bucket2 = `${Bucket_URL}frontend/profile/dashboard/`;
   const [fetchResponse, setFetchResponse] = useState({});
-  // const []
 
   function fetchData() {
     if (isUserLoggedIn()) {
@@ -52,7 +51,7 @@ export default function ClubDashboard() {
   }
 
   useEffect(() => {
-    // window.scrollTo(0, 0);
+    window.scrollTo(0, 0);
     fetchData();
     getAllPosts(setPosts, clubId);
     getFeaturedEvents(setFeaturedEvents);
@@ -62,14 +61,23 @@ export default function ClubDashboard() {
     } else {
       setIsUserAdmin(false);
     }
-  }, [clubId, window.location.pathname]);
+  }, [clubId]);
 
-  useEffect(() => {
-    console.log(fetchResponse);
-  }, [fetchResponse]);
+  useLayoutEffect(() => {
+    console.log("layout");
+    fetchData();
+    getAllPosts(setPosts, clubId);
+    getFeaturedEvents(setFeaturedEvents);
 
-  useEffect(() => {
-    if (!!followResponse) fetchData();
+    if (isUserLoggedIn() && clubId === getUserId()) {
+      setIsUserAdmin(true);
+    } else {
+      setIsUserAdmin(false);
+    }
+  }, [window.location.pathname]);
+
+  useLayoutEffect(() => {
+    if (!!Object.keys(followResponse).length) fetchData();
   }, [followResponse]);
 
   function handleFollow() {
@@ -416,17 +424,17 @@ export default function ClubDashboard() {
     </>
   );
 
-  // return Object.keys(fetchResponse).length >= 0 ? (
-  //   fetchResponse?.status >= 200 && fetchResponse?.status <= 300 ? (
-  //     clubDashboardPage
-  //   ) : (
-  //     <Page404 />
-  //   )
-  // ) : (
-  //   <LoadingPage />
-  // );
+  return !!Object.keys(fetchResponse).length ? (
+    fetchResponse?.status >= 200 && fetchResponse?.status <= 300 ? (
+      clubDashboardPage
+    ) : (
+      <Page404 />
+    )
+  ) : (
+    <LoadingPage />
+  );
 
-  return clubDashboardPage;
+  // return clubDashboardPage;
 
   // return club.name ? particularClubPage : <LoadingPage />;
 }
