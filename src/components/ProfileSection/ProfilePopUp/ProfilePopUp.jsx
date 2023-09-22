@@ -343,7 +343,7 @@ export default function ProfilePopUp() {
       </div>
       {/* Promotional Content */}
       {role === "Organization" && renderCompanyPromotionalContent}
-      {role === "Club" && renderClubPromotionalContent}.
+      {role === "Club" && renderClubPromotionalContent}
       {/* <Link
         to={`/profile/${role.toLowerCase()}/${getUserId()}/#recent-activities`}
       > */}

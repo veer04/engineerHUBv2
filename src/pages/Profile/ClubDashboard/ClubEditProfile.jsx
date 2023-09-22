@@ -686,9 +686,22 @@ export default function ClubEditProfile() {
     <main className="edit-profile profile-dashboard">
       <h1 className="title">Edit Profile</h1>
       <h2 className="subheading">
-        Lorem ipsum dolor sit amet consectetur. Mattis aliquam sodales faucibus
-        platea feugiat odio.
+        {/* Lorem ipsum dolor sit amet consectetur. Mattis aliquam sodales faucibus
+        platea feugiat odio. */}
       </h2>
+      <aside className="md-options">
+        {options.map((option) => (
+          <button
+            className={`option ${
+              chosenOption === option ? "--is-selected" : ""
+            }`}
+            key={option}
+            onClick={() => setChosenOption(option)}
+          >
+            {option}
+          </button>
+        ))}
+      </aside>
       <div>
         <aside>
           <div className="options">

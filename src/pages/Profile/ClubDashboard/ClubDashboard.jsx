@@ -368,7 +368,7 @@ export default function ClubDashboard() {
             </div>
           )}
         </section>
-        <section className="box recent-activities">
+        <section id="recent-activities" className="box recent-activities">
           <p className="heading">FEATURED EVENTS</p>
           <div className="carousel-container">
             {featuredEvents.length !== 0 && (

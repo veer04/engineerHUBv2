@@ -720,6 +720,19 @@ export default function CompanyEditProfile() {
         Lorem ipsum dolor sit amet consectetur. Mattis aliquam sodales faucibus
         platea feugiat odio.
       </h2>
+      <aside className="md-options">
+        {options.map((option) => (
+          <button
+            className={`option ${
+              chosenOption === option ? "--is-selected" : ""
+            }`}
+            key={option}
+            onClick={() => setChosenOption(option)}
+          >
+            {option}
+          </button>
+        ))}
+      </aside>
       <div>
         <aside>
           <div className="options">
