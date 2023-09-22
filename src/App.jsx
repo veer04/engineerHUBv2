@@ -90,6 +90,7 @@ import ClubEditProfile from "./pages/Profile/ClubDashboard/ClubEditProfile";
 import AddPostModal from "./components/Dashboard/AddPostModal";
 import AddMemberModal from "./components/Dashboard/AddMemberModal";
 import UserDashboard from "./pages/Profile/UserDashboard/UserDashboard";
+import GlobalSnackbar from "./components/GlobalSnackbar/GlobalSnackbar";
 
 function App() {
   const [isEventModalOpen, setIsEventModalOpen] = useState(false);
@@ -128,6 +129,7 @@ function App() {
     <>
       {!isEventModalOpen && <Navbar />}
       {!isEventModalOpen && <MobileNavbar />}
+      <GlobalSnackbar />
       <ProfilePopUp />
       <Suspense fallback={<LoadingPage />}>
         <Routes>
@@ -178,7 +180,7 @@ function App() {
             </Route>
             <Route
               path="user/:userId/edit-profile"
-              element={<EditStudentProfileDashoboard/>}
+              element={<EditStudentProfileDashoboard />}
             />
             <Route
               path="alumni/:alumniId"
