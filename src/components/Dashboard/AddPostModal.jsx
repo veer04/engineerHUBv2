@@ -14,6 +14,8 @@ import {
   patchCoverImageUsingLink,
   uploadNewPost,
 } from "../../services/APIConfig";
+import { set } from "react-hook-form";
+import useGlobalSnackbar from "../../hooks/useGlobalSnackbar";
 
 export default function AddPostModal() {
   const [newCoverPhoto, setNewCoverPhoto] = useState(null);
@@ -21,7 +23,11 @@ export default function AddPostModal() {
   const fileInput = useRef(null);
   const { organizationId } = useParams();
   const bucket = `${Bucket_URL}frontend/profile/dashboard/`;
-  const [response, setResponse] = useState(null);
+  const [response, setResponse] = useState({});
+  const [loading, setLoading] = useState(false);
+  const [errors, setErrors] = useState({ caption: "" });
+  const { setSnackbarOpen, setSnackbarMessage, setSnackbarSeverity } =
+    useGlobalSnackbar();
 
   const navigate = useNavigate();
 
@@ -52,23 +58,52 @@ export default function AddPostModal() {
     }
   }
 
+  function validateData() {
+    let isValid = true;
+    let newErrors = { caption: "" };
+
+    if (!!!caption) {
+      newErrors.caption = "Please enter the caption";
+      isValid = false;
+    } else if (caption.length < 30) {
+      newErrors.caption = "Caption should be atleast 30 characters long";
+      isValid = false;
+    } else if (caption.length > 1000) {
+      newErrors.caption = "Caption should be less than 1000 characters long";
+      isValid = false;
+    }
+    setErrors(newErrors);
+    return isValid;
+  }
+
   useEffect(() => {
-    if (response) {
+    if (Object.keys(response).length > 0) {
+      setLoading(false);
+      setResponse({});
+      if (response.status >= 200 && response.status < 300) {
+        setSnackbarSeverity("success");
+        setSnackbarMessage("Post created successfully");
+        setSnackbarOpen(true);
+      } else {
+        setSnackbarSeverity("error");
+        setSnackbarMessage("Error in creating post");
+        setSnackbarOpen(true);
+      }
       navigate(-1);
-      setResponse(null);
     }
   }, [response]);
 
   function handleUpload() {
-    const formData = new FormData();
-    formData.append("description", caption);
-    formData.append("postLogo", newCoverPhoto);
-    uploadNewPost(formData, setResponse);
+    let isValid = true;
+    isValid = validateData();
+    if (isValid) {
+      const formData = new FormData();
+      formData.append("description", caption);
+      formData.append("postLogo", newCoverPhoto);
+      setLoading(true);
+      uploadNewPost(formData, setResponse);
+    }
   }
-
-  useEffect(() => {
-    console.log(!!newCoverPhoto && caption.length !== 0);
-  }, [newCoverPhoto, caption]);
 
   return ReactDOM.createPortal(
     <div
@@ -134,12 +169,19 @@ export default function AddPostModal() {
             rows={5}
             placeholder="Enter your Caption"
           />
+          <label className="error-message">{errors.caption}</label>
           <button
-            disabled={!(!!newCoverPhoto && caption.length !== 0)}
+            disabled={loading || !(!!newCoverPhoto && caption.length !== 0)}
             onClick={() => handleUpload()}
             className="submit-button"
           >
-            Upload
+            {loading ? (
+              <div className="spinner-border text-light" role="status">
+                <span className="visually-hidden">Loading...</span>
+              </div>
+            ) : (
+              "Upload"
+            )}
           </button>
         </div>
       ) : (
