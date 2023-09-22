@@ -10,7 +10,7 @@ import {
   deleteProfilePicture,
   getAllCountries,
   getCitiesByState,
-  getOrganizationProfileById,
+  getOrganizationProfileByIdPrivateMode,
   getStatesByCountry,
   patchProfilePicture,
   updateOrganizationDetails,
@@ -20,18 +20,21 @@ import { useRef } from "react";
 import { handleLogout } from "../../../features/logout";
 import { getUserId, isUserLoggedIn } from "../../../features/User/UserDetails";
 import Page404 from "../../Maintenance/Page404";
+import useGlobalSnackbar from "../../../hooks/useGlobalSnackbar";
+import LoadingPage from "../../../components/Loader/LoadingPage";
 
 export default function CompanyEditProfile() {
   const { organizationId } = useParams();
   if (!isUserLoggedIn() || getUserId() !== organizationId) {
     return <Page404 />;
   }
-  const [organization, setOrganization] = useState(null);
+  const [organization, setOrganization] = useState({});
   const navigate = useNavigate();
   const options = ["Basic Information", "Contact Information", "Edit Location"];
   const [chosenOption, setChosenOption] = useState(options[0]);
   const fileInput = useRef(null);
   const [isImageLoading, setIsImageLoading] = useState(false);
+  const [isImageDeleting, setIsImageDeleting] = useState(false);
   const [newImage, setNewImage] = useState(null);
   const [newName, setNewName] = useState("");
   const [newSubHeading, setNewSubHeading] = useState("");
@@ -51,9 +54,14 @@ export default function CompanyEditProfile() {
   const [newCountry, setNewCountry] = useState("");
   const [newState, setNewState] = useState("");
   const [newCity, setNewCity] = useState("");
-  const [response, setResponse] = useState(null);
-  const [deleteResponse, setDeleteResponse] = useState(null);
-  const [updateResponse, setUpdateResponse] = useState(null);
+  const [response, setResponse] = useState({});
+  const [deleteResponse, setDeleteResponse] = useState({});
+  const [updateResponse, setUpdateResponse] = useState({});
+  const { setSnackbarOpen, setSnackbarMessage, setSnackbarSeverity } =
+    useGlobalSnackbar();
+  const [fetchResponse, setFetchResponse] = useState({});
+  const [loading, setLoading] = useState(false);
+
   const [errors, setErrors] = useState({
     newName: "",
     newSubHeading: "",
@@ -91,8 +99,12 @@ export default function CompanyEditProfile() {
   ];
 
   useEffect(() => {
-    // window.scrollTo(0, 0);
-    getOrganizationProfileById(setOrganization, organizationId);
+    window.scrollTo(0, 0);
+    getOrganizationProfileByIdPrivateMode(
+      setOrganization,
+      organizationId,
+      setFetchResponse
+    );
     getAllCountries(setCountries);
     return () => {
       controller.abort();
@@ -103,10 +115,10 @@ export default function CompanyEditProfile() {
     if (!!newImage) {
       if (newImage.type.includes("image")) {
         setIsImageLoading(true);
-        console.log(newImage);
         const file = new FormData();
         file.append("profileImage", newImage);
         patchProfilePicture(organizationId, file, setResponse);
+        setNewImage(null);
       } else {
         alert("Please choose an image file only");
       }
@@ -114,8 +126,22 @@ export default function CompanyEditProfile() {
   }, [newImage]);
 
   useEffect(() => {
-    if (!!response) {
-      getOrganizationProfileById(setOrganization, organizationId);
+    if (Object.keys(response).length > 0) {
+      if (response.status >= 200 && response.status < 300) {
+        setSnackbarSeverity("success");
+        setSnackbarMessage("Profile picture updated successfully");
+        setSnackbarOpen(true);
+        getOrganizationProfileByIdPrivateMode(
+          setOrganization,
+          organizationId,
+          setFetchResponse
+        );
+      } else {
+        setSnackbarSeverity("error");
+        setSnackbarMessage("Error in updating profile picture");
+        setSnackbarOpen(true);
+      }
+      setResponse({});
     }
     setIsImageLoading(false);
     return () => {
@@ -124,10 +150,41 @@ export default function CompanyEditProfile() {
   }, [response]);
 
   useEffect(() => {
-    if (!!deleteResponse) {
-      getOrganizationProfileById(setOrganization, organizationId);
+    if (Object.keys(deleteResponse).length > 0) {
+      setIsImageDeleting(false);
+      if (deleteResponse.status >= 200 && deleteResponse.status < 300) {
+        setSnackbarSeverity("success");
+        setSnackbarMessage("Profile picture removed successfully");
+        setSnackbarOpen(true);
+        getOrganizationProfileByIdPrivateMode(
+          setOrganization,
+          organizationId,
+          setFetchResponse
+        );
+      } else {
+        setSnackbarSeverity("error");
+        setSnackbarMessage("Error in removing profile picture");
+        setSnackbarOpen(true);
+      }
+      setDeleteResponse({});
     }
   }, [deleteResponse]);
+
+  useEffect(() => {
+    if (Object.keys(updateResponse).length > 0) {
+      setLoading(false);
+      if (updateResponse.status >= 200 && updateResponse.status < 300) {
+        setSnackbarSeverity("success");
+        setSnackbarMessage("Profile updated successfully");
+        setSnackbarOpen(true);
+      } else {
+        setSnackbarSeverity("error");
+        setSnackbarMessage("Error in updating profile");
+        setSnackbarOpen(true);
+      }
+      setResponse({});
+    }
+  }, [updateResponse]);
 
   useEffect(() => {
     if (organization) {
@@ -374,11 +431,12 @@ export default function CompanyEditProfile() {
         city: newCity,
       };
     }
-
+    setLoading(true);
     updateOrganizationDetails(data, setUpdateResponse);
   }
 
   function handleDelete() {
+    setIsImageDeleting(true);
     deleteProfilePicture(setDeleteResponse);
   }
 
@@ -405,18 +463,33 @@ export default function CompanyEditProfile() {
               }}
             />
             <button
-              onClick={() => fileInput.current.click()}
-              disabled={isImageLoading}
+              onClick={() => {
+                fileInput.current.value = null;
+                fileInput.current.click();
+              }}
+              disabled={isImageDeleting || isImageLoading}
             >
-              Upload New
+              {isImageLoading ? (
+                <div className="spinner-border text-dark" role="status">
+                  <span className="visually-hidden">Loading...</span>
+                </div>
+              ) : (
+                "Upload"
+              )}
             </button>
             <button
               onClick={() => {
                 handleDelete();
               }}
-              disabled={isImageLoading}
+              disabled={isImageLoading || isImageDeleting}
             >
-              Delete
+              {isImageDeleting ? (
+                <div className="spinner-border text-dark" role="status">
+                  <span className="visually-hidden">Loading...</span>
+                </div>
+              ) : (
+                "Delete"
+              )}
             </button>
             {/* <p className="alert-text">
               *Note Image size must be not more than 100kb
@@ -552,8 +625,18 @@ export default function CompanyEditProfile() {
           ))}
         </select>
         <label className="error-message">{errors.newHiringFor}</label>
-        <button onClick={() => handleSubmit(1)} className="update-btn">
-          Update Details
+        <button
+          disabled={loading}
+          onClick={() => handleSubmit(1)}
+          className="update-btn"
+        >
+          {loading ? (
+            <div className="spinner-border text-light" role="status">
+              <span className="visually-hidden">Loading...</span>
+            </div>
+          ) : (
+            "Update Details"
+          )}
         </button>
       </section>
     </>
@@ -621,8 +704,18 @@ export default function CompanyEditProfile() {
           onChange={(e) => setNewLinkedin(e.target.value)}
         />
         <label className="error-message">{errors.newLinkedin}</label>
-        <button onClick={() => handleSubmit(2)} className="update-btn">
-          Update Details
+        <button
+          disabled={loading}
+          onClick={() => handleSubmit(2)}
+          className="update-btn"
+        >
+          {loading ? (
+            <div className="spinner-border text-light" role="status">
+              <span className="visually-hidden">Loading...</span>
+            </div>
+          ) : (
+            "Update Details"
+          )}
         </button>
       </section>
     </>
@@ -706,19 +799,29 @@ export default function CompanyEditProfile() {
         </select>
         <label className="error-message">{errors.newCity}</label>
 
-        <button onClick={() => handleSubmit(3)} className="update-btn">
-          Update Details
+        <button
+          disabled={loading}
+          onClick={() => handleSubmit(3)}
+          className="update-btn"
+        >
+          {loading ? (
+            <div className="spinner-border text-light" role="status">
+              <span className="visually-hidden">Loading...</span>
+            </div>
+          ) : (
+            "Update Details"
+          )}
         </button>
       </section>
     </>
   );
 
-  return (
+  const companyEditProfile = (
     <main className="edit-profile profile-dashboard">
       <h1 className="title">Edit Profile</h1>
       <h2 className="subheading">
-        Lorem ipsum dolor sit amet consectetur. Mattis aliquam sodales faucibus
-        platea feugiat odio.
+        {/* Lorem ipsum dolor sit amet consectetur. Mattis aliquam sodales faucibus
+        platea feugiat odio. */}
       </h2>
       <aside className="md-options">
         {options.map((option) => (
@@ -763,5 +866,15 @@ export default function CompanyEditProfile() {
         {chosenOption === options[2] && <div>{renderOption3}</div>}
       </div>
     </main>
+  );
+
+  return !!Object.keys(fetchResponse).length ? (
+    fetchResponse?.status >= 200 && fetchResponse?.status <= 300 ? (
+      companyEditProfile
+    ) : (
+      <Page404 />
+    )
+  ) : (
+    <LoadingPage />
   );
 }

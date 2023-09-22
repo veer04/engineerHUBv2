@@ -3,14 +3,14 @@ import "./ProfilePopUp.css";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
 import { RiSuitcase2Line } from "react-icons/ri";
-import {FaBlogger} from "react-icons/fa";
+import { FaBlogger } from "react-icons/fa";
 import { HiOutlineSquares2X2 } from "react-icons/hi2";
 import { AiOutlineFile } from "react-icons/ai";
 import { AiOutlineCalendar } from "react-icons/ai";
-import {MdEmojiEvents} from "react-icons/md";
-import {MdCastForEducation} from "react-icons/md";
-import BookIcon from '@mui/icons-material/Book';
-import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
+import { MdEmojiEvents } from "react-icons/md";
+import { MdCastForEducation } from "react-icons/md";
+import BookIcon from "@mui/icons-material/Book";
+import EmojiEventsIcon from "@mui/icons-material/EmojiEvents";
 import { HiOutlineLightningBolt } from "react-icons/hi";
 import {
   getUserFullName,
@@ -88,25 +88,25 @@ export default function ProfilePopUp() {
     },
     {
       label: "Blogs",
-      icon: <FaBlogger/>,
+      icon: <FaBlogger />,
       link: "/community/blogs/Data%20Structures%20%26%20Algorithms",
     },
 
     {
       label: "Events",
-      icon: <MdEmojiEvents/>,
+      icon: <MdEmojiEvents />,
       link: "/campus/intra-college",
     },
     {
       label: "Workshops",
-      icon: <MdCastForEducation/>,
+      icon: <MdCastForEducation />,
       link: "/campus/workshop",
     },
   ];
   const companyMenuItems = [
     {
       label: "Create Jobs",
-      icon: " ",
+      icon: <RiSuitcase2Line />,
       link: "/host/job",
     },
     {
@@ -313,8 +313,8 @@ export default function ProfilePopUp() {
                 justifyContent: "center",
               }}
             > */}
-              <img className="image" src={userImage} alt="Profile Picture" />
-            {/* </Box>
+          <img className="image" src={userImage} alt="Profile Picture" />
+          {/* </Box>
           </Box>
           <div className="progress-counter">{`${progress}%`}</div> */}
         </div>
@@ -347,22 +347,21 @@ export default function ProfilePopUp() {
       {/* <Link
         to={`/profile/${role.toLowerCase()}/${getUserId()}/#recent-activities`}
       > */}
-      <button
-        style={{
-          minHeight: "3.8125rem",
-          borderRadius: "0.3125rem",
-        }}
-        onClick={() => {
-          navigate(
-            `/profile/${role.toLowerCase()}/${getUserId()}/#recent-activities`
-          );
-        }}
-        data-bs-dismiss="offcanvas"
-        aria-label="Close"
-        className="recent-activities-btn redirect-btn"
+      <HashLink
+        to={`/profile/${role.toLowerCase()}/${getUserId()}/#recent-activities`}
       >
-        Recent Activities
-      </button>
+        <button
+          style={{
+            minHeight: "3.8125rem",
+            borderRadius: "0.3125rem",
+          }}
+          data-bs-dismiss="offcanvas"
+          aria-label="Close"
+          className="recent-activities-btn redirect-btn"
+        >
+          Recent Activities
+        </button>
+      </HashLink>
       <button
         style={{
           width: "100%",

@@ -74,7 +74,8 @@
   background-color: var(--primary-color-dark-green);
   color: white;
 }
-.profile-menu > .redirect-btn {
+.profile-menu > .redirect-btn,
+.profile-menu > a > .redirect-btn {
   width: 100%;
   min-height: 2.6875rem;
   border-radius: 0.5rem;
@@ -176,6 +177,6 @@
   height: 100%;
   color: rgba(255, 214, 0, 1);
 }
-.profile-menu > .recent-activities-btn {
+.profile-menu > a > .recent-activities-btn {
   background-color: transparent;
 }

@@ -75,6 +75,7 @@ export default function CoverImageModal() {
     if (newCoverPhoto instanceof File) {
       const file = new FormData();
       file.append("backgroundPoster", newCoverPhoto);
+      setLoading(true);
       patchCoverImage(file, setResponse);
     } else {
       setLoading(true);

@@ -10,7 +10,6 @@ import {
   deleteProfilePicture,
   getAllCountries,
   getCitiesByState,
-  getClubProfileById,
   getClubProfileByIdPrivateMode,
   getStatesByCountry,
   patchProfilePicture,
@@ -123,7 +122,7 @@ export default function ClubEditProfile() {
         setSnackbarSeverity("success");
         setSnackbarMessage("Profile picture updated successfully");
         setSnackbarOpen(true);
-        getClubProfileById(setOrganization, clubId);
+        getClubProfileByIdPrivateMode(setOrganization, clubId);
       } else {
         setSnackbarSeverity("error");
         setSnackbarMessage("Error in updating profile picture");
@@ -144,7 +143,7 @@ export default function ClubEditProfile() {
         setSnackbarSeverity("success");
         setSnackbarMessage("Profile picture removed successfully");
         setSnackbarOpen(true);
-        getClubProfileById(setOrganization, clubId);
+        getClubProfileByIdPrivateMode(setOrganization, clubId);
       } else {
         setSnackbarSeverity("error");
         setSnackbarMessage("Error in removing profile picture");

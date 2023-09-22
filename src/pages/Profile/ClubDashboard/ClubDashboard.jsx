@@ -10,7 +10,6 @@ import { MdAdd } from "react-icons/md";
 import default_profile_icon from "./default_profile_icon.png";
 import { Bucket_URL } from "../../../services/APIUtils";
 import { Outlet, useNavigate, useParams } from "react-router-dom";
-import defaultPoster from "../../../assets/defaultPoster";
 import { getUserId, isUserLoggedIn } from "../../../features/User/UserDetails";
 import EventCard from "../../../components/EventCard/EventCard";
 import {
@@ -19,7 +18,6 @@ import {
   getClubProfileById,
   getClubProfileByIdPrivateMode,
   getFeaturedEvents,
-  getOrganizationProfileById,
   unFollowClub,
 } from "../../../services/APIConfig";
 import ClubPostCard from "../../../components/ClubPostCard/ClubPostCard";
@@ -64,16 +62,9 @@ export default function ClubDashboard() {
   }, [clubId]);
 
   useLayoutEffect(() => {
-    console.log("layout");
     fetchData();
     getAllPosts(setPosts, clubId);
     getFeaturedEvents(setFeaturedEvents);
-
-    if (isUserLoggedIn() && clubId === getUserId()) {
-      setIsUserAdmin(true);
-    } else {
-      setIsUserAdmin(false);
-    }
   }, [window.location.pathname]);
 
   useLayoutEffect(() => {
@@ -243,7 +234,6 @@ export default function ClubDashboard() {
                   color: organization?.isFollowing ? "#002B36" : "#fff",
                 }}
                 onClick={() => handleFollow()}
-                // while the mouse is hovering on the button, change the text to say "Unfollow"
                 onMouseEnter={(e) => {
                   if (organization?.isFollowing) {
                     e.target.innerHTML = "Unfollow";
@@ -433,8 +423,4 @@ export default function ClubDashboard() {
   ) : (
     <LoadingPage />
   );
-
-  // return clubDashboardPage;
-
-  // return club.name ? particularClubPage : <LoadingPage />;
 }
