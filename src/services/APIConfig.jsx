@@ -513,7 +513,7 @@ export const addClubMember = (formData, setResponse) => {
     .then((res) => {
       console.log(res);
       const data = res.data.data;
-      setResponse(data);
+      setResponse(res);
     })
     .catch((err) => {
       if (axios.isCancel(err)) {
@@ -1520,7 +1520,7 @@ export const uploadNewPost = (formData, setResponse) => {
     .post(`${API_URL}api/v1/club/addPost`, formData, config)
     .then((res) => {
       const data = res.data.data;
-      setResponse(data);
+      setResponse(res);
     })
     .catch((err) => {
       if (axios.isCancel(err)) {

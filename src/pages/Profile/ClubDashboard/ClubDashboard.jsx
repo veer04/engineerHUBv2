@@ -58,11 +58,7 @@ export default function ClubDashboard() {
     } else {
       setIsUserAdmin(false);
     }
-  }, [clubId]);
-
-  useEffect(() => {
-    console.log("organization", organization);
-  }, [organization]);
+  }, [clubId, window.location.pathname]);
 
   useEffect(() => {
     if (!!followResponse) fetchData();
