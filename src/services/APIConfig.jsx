@@ -524,7 +524,11 @@ export const addClubMember = (formData, setResponse) => {
     });
 };
 
-export const getClubProfileById = (setClubProfile, clubId) => {
+export const getClubProfileById = (
+  setClubProfile,
+  clubId,
+  setFetchResponse
+) => {
   const controller = new AbortController();
   axios
     .get(`${API_URL}api/v1/getClubProfileWithId/${clubId}`, {
@@ -533,6 +537,7 @@ export const getClubProfileById = (setClubProfile, clubId) => {
     .then((res) => {
       const data = res.data.data;
       setClubProfile(data);
+      setFetchResponse(res);
     })
     .catch((err) => {
       if (axios.isCancel(err)) {
@@ -543,7 +548,11 @@ export const getClubProfileById = (setClubProfile, clubId) => {
     });
 };
 
-export const getClubProfileByIdPrivateMode = (setClubProfile, clubId) => {
+export const getClubProfileByIdPrivateMode = (
+  setClubProfile,
+  clubId,
+  setFetchResponse
+) => {
   const controller = new AbortController();
   const config = {
     headers: {
@@ -555,6 +564,7 @@ export const getClubProfileByIdPrivateMode = (setClubProfile, clubId) => {
     .then((res) => {
       const data = res.data.data;
       setClubProfile(data);
+      setFetchResponse(res);
     })
     .catch((err) => {
       if (axios.isCancel(err)) {

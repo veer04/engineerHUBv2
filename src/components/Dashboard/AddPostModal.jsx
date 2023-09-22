@@ -79,7 +79,6 @@ export default function AddPostModal() {
   useEffect(() => {
     if (Object.keys(response).length > 0) {
       setLoading(false);
-      setResponse({});
       if (response.status >= 200 && response.status < 300) {
         setSnackbarSeverity("success");
         setSnackbarMessage("Post created successfully");
@@ -89,6 +88,7 @@ export default function AddPostModal() {
         setSnackbarMessage("Error in creating post");
         setSnackbarOpen(true);
       }
+      setResponse({});
       navigate(-1);
     }
   }, [response]);

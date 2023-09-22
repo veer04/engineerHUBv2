@@ -24,6 +24,8 @@ import {
 } from "../../../services/APIConfig";
 import ClubPostCard from "../../../components/ClubPostCard/ClubPostCard";
 import ClubMemberCard from "../../../components/ClubMemberCard/ClubMemberCard";
+import LoadingPage from "../../../components/Loader/LoadingPage";
+import Page404 from "../../Maintenance/Page404";
 
 export default function ClubDashboard() {
   const { clubId } = useParams();
@@ -38,12 +40,14 @@ export default function ClubDashboard() {
   const [featuredEvents, setFeaturedEvents] = useState([]);
   const [followResponse, setFollowResponse] = useState({});
   const bucket2 = `${Bucket_URL}frontend/profile/dashboard/`;
+  const [fetchResponse, setFetchResponse] = useState({});
+  // const []
 
   function fetchData() {
     if (isUserLoggedIn()) {
-      getClubProfileByIdPrivateMode(setOrganization, clubId);
+      getClubProfileByIdPrivateMode(setOrganization, clubId, setFetchResponse);
     } else {
-      getClubProfileById(setOrganization, clubId);
+      getClubProfileById(setOrganization, clubId, setFetchResponse);
     }
   }
 
@@ -61,6 +65,10 @@ export default function ClubDashboard() {
   }, [clubId, window.location.pathname]);
 
   useEffect(() => {
+    console.log(fetchResponse);
+  }, [fetchResponse]);
+
+  useEffect(() => {
     if (!!followResponse) fetchData();
   }, [followResponse]);
 
@@ -72,7 +80,7 @@ export default function ClubDashboard() {
     }
   }
 
-  return (
+  const clubDashboardPage = (
     <>
       <main className="profile-dashboard club-dashboard">
         <h1 className="title">Profile</h1>
@@ -407,4 +415,18 @@ export default function ClubDashboard() {
       <Outlet />
     </>
   );
+
+  // return Object.keys(fetchResponse).length >= 0 ? (
+  //   fetchResponse?.status >= 200 && fetchResponse?.status <= 300 ? (
+  //     clubDashboardPage
+  //   ) : (
+  //     <Page404 />
+  //   )
+  // ) : (
+  //   <LoadingPage />
+  // );
+
+  return clubDashboardPage;
+
+  // return club.name ? particularClubPage : <LoadingPage />;
 }
