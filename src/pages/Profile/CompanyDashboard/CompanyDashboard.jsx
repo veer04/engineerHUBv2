@@ -188,8 +188,8 @@ export default function CompanyDashboard() {
       <main className="profile-dashboard">
         <h1 className="title">Profile</h1>
         <h2 className="subheading">
-          Lorem ipsum dolor sit amet consectetur. Mattis aliquam sodales
-          faucibus platea feugiat odio.
+          {/* Lorem ipsum dolor sit amet consectetur. Mattis aliquam sodales
+          faucibus platea feugiat odio. */}
         </h2>
         <section className="box details-container">
           <div className="cover">

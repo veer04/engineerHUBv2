@@ -244,7 +244,7 @@ const ClubSignup = () => {
       mobile: formData.mobile,
       clubType: formData.clubType,
       collegeId: formData.collegeId,
-      description: formData.description,
+      aboutUs: formData.description,
       websiteUrl: formData.websiteUrl,
       password: formData.password,
       confirmPassword: formData.confirmPassword,
