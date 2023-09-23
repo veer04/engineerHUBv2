@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import "../Dashboard.css"; // !import this file first
 import "./CompanyDashboard.css";
-import { BsArrowRight } from "react-icons/bs";
+import { BsArrowRight, BsArrowUp } from "react-icons/bs";
 import { FiEdit } from "react-icons/fi";
 import { AiOutlineLeft, AiOutlineRight, AiFillLinkedin } from "react-icons/ai";
 import { MdAddCircle } from "react-icons/md";
@@ -450,6 +450,16 @@ export default function CompanyDashboard() {
             <div className="btn-container">
               <button onClick={() => setShowAll(true)} className="all-jobs-btn">
                 Show all {activityChoice} <BsArrowRight />
+              </button>
+            </div>
+          )}
+          {isActivityPresent && showAll && (
+            <div className="btn-container">
+              <button
+                onClick={() => setShowAll(false)}
+                className="all-jobs-btn"
+              >
+                Show less {activityChoice} <BsArrowUp />
               </button>
             </div>
           )}
