@@ -15,6 +15,8 @@ import { controller, getUserProfileById } from "../../../services/APIConfig";
 import { useNavigate, useParams } from "react-router-dom";
 import { Bucket_URL } from "../../../services/APIUtils";
 import { getUserRole } from "../../../features/User/UserDetails";
+import LoadingPage from "../../../components/Loader/LoadingPage";
+import Page404 from "../../Maintenance/Page404";
 
 export default function UserDashboard() {
   const navigate = useNavigate();
@@ -24,9 +26,14 @@ export default function UserDashboard() {
   const [viewMore2, setViewMore2] = useState(false);
   const [isUserAdmin, setIsUserAdmin] = useState(false);
   const bucket = `${Bucket_URL}frontend/hosting/`;
+  const [fetchResponse, setFetchResponse] = useState({});
+
+  function fetchData() {
+    getUserProfileById(setUser, userId, setFetchResponse);
+  }
 
   useEffect(() => {
-    getUserProfileById(setUser, userId);
+    fetchData();
 
     return () => {
       controller.abort();
@@ -42,7 +49,7 @@ export default function UserDashboard() {
     }
   }, [user]);
 
-  return (
+  const userDashboardPage = (
     <main className="profile-dashboard">
       <h1 className="title">Profile</h1>
       <h2 className="subheading">
@@ -287,7 +294,9 @@ export default function UserDashboard() {
           <p className="heading">MY ACTIVITIES</p>
           <div className="cards">
             <div
-              onClick={() => navigate("/hostevent")}
+              onClick={() => {
+                navigate("/hostevent");
+              }}
               style={{
                 backgroundImage: `url(${bucket}hackathon.png)`,
               }}
@@ -299,7 +308,9 @@ export default function UserDashboard() {
               </div>
             </div>
             <div
-              onClick={() => navigate("/hostevent")}
+              onClick={() => {
+                navigate("/hostevent");
+              }}
               style={{
                 backgroundImage: `url(${bucket}webinar.png)`,
               }}
@@ -310,9 +321,45 @@ export default function UserDashboard() {
                 Create Event <BsArrowRight />
               </div>
             </div>
+            <div
+              onClick={() => navigate("/host/job")}
+              style={{
+                backgroundImage: `url(${bucket}jobs.png)`,
+              }}
+              className="card"
+            >
+              <div className="heading">Jobs</div>
+              <div className="subheading">
+                Create Jobs <BsArrowRight />
+              </div>
+            </div>
+            {/* </Link>
+          <Link to="/hostevent"> */}
+            <div
+              onClick={() => navigate("/host/internship")}
+              style={{
+                backgroundImage: `url(${bucket}internships.png)`,
+              }}
+              className="card"
+            >
+              <div className="heading">Internships</div>
+              <div className="subheading">
+                Create Jobs <BsArrowRight />
+              </div>
+            </div>
           </div>
         </section>
       )}
     </main>
+  );
+
+  return !!Object.keys(fetchResponse).length ? (
+    fetchResponse?.status >= 200 && fetchResponse?.status <= 300 ? (
+      userDashboardPage
+    ) : (
+      <Page404 />
+    )
+  ) : (
+    <LoadingPage />
   );
 }

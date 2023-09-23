@@ -1015,7 +1015,11 @@ export const getProjectDataById = (setProject, projectId) => {
     });
 };
 
-export const getUserProfileById = (setUserProfile, userId) => {
+export const getUserProfileById = (
+  setUserProfile,
+  userId,
+  setFetchResponse
+) => {
   const controller = new AbortController();
   axios
     .get(`${API_URL}api/v1/getUserWithId/${userId}`, {
@@ -1025,8 +1029,10 @@ export const getUserProfileById = (setUserProfile, userId) => {
       const data = res.data.data;
       // console.log(data)
       setUserProfile(data);
+      setFetchResponse(res);
     })
     .catch((err) => {
+      setFetchResponse(err);
       if (axios.isCancel(err)) {
         console.log("req cancel");
       } else {
