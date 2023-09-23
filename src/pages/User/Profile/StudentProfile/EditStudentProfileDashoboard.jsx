@@ -39,6 +39,15 @@ import countryCodes from "../../../../assets/countryCodes";
 import { useRef } from "react";
 import { handleLogout } from "../../../../features/logout";
 const EditStudentProfileDashoboard = () => {
+  useEffect(() => {
+    const controller = new AbortController();
+    getUserProfileById(setUser, userId);
+    console.log("hiii");
+    getAllCountries(setCountries);
+    return () => {
+      controller.abort();
+    };
+  }, []);
   const navigate = useNavigate();
   const { userId } = useParams();
   const fileInput = useRef(null);
@@ -132,15 +141,7 @@ const EditStudentProfileDashoboard = () => {
     const { checked } = event.target;
     setCurrentlyWorking(checked);
   };
-  useEffect(() => {
-    const controller = new AbortController();
-    getUserProfileById(setUser, userId);
-    console.log("hiii");
-    getAllCountries(setCountries);
-    return () => {
-      controller.abort();
-    };
-  }, []);
+
   useEffect(() => {
     // window.scrollTo(0, 0);
   }, []);
@@ -251,8 +252,8 @@ const EditStudentProfileDashoboard = () => {
   function validateWork() {
     let errorWork = {
       designation: "",
-      startYear: "",
-      endYear: "",
+      // startYear: "",
+      // endYear: "",
       organisation: "",
     };
     let isValid = true;
@@ -261,14 +262,14 @@ const EditStudentProfileDashoboard = () => {
       errorWork.designation = "Please Input the Designation";
       isValid = false;
     }
-    if (!!!startYear) {
-      errorWork.startYear = "Please Input the Start Year";
-      isValid = false;
-    }
-    if (!!!endYear) {
-      errorWork.endYear = "Please Input the End Year";
-      isValid = false;
-    }
+    // if (!!!startYear) {
+    //   errorWork.startYear = "Please Input the Start Year";
+    //   isValid = false;
+    // }
+    // if (!!!endYear) {
+    //   errorWork.endYear = "Please Input the End Year";
+    //   isValid = false;
+    // }
     if (!!!organisation) {
       errorWork.organisation = "Please Input the Organization";
       isValid = false;
@@ -330,7 +331,7 @@ const EditStudentProfileDashoboard = () => {
       isValid = false;
     }
     if (!!!lastName) {
-      errors.lastName = "Please enter your first Name";
+      errors.lastName = "Please enter your last Name";
       isValid = false;
     } else if (lastName.length < 3) {
       errors.lastName = "Last Name must be at least 3 characters long";
@@ -356,14 +357,14 @@ const EditStudentProfileDashoboard = () => {
     }
 
     if (!!!aboutMe) {
-      errors.aboutMe = "Please enter your Organization / Company Description";
+      errors.aboutMe = "Please enter your About me";
       isValid = false;
     } else if (aboutMe.length < 3) {
-      errors.aboutMe = "Company Description must be at least 3 characters long";
+      errors.aboutMe = "About me must be at least 3 characters long";
       isValid = false;
     } else if (aboutMe.length > 1000) {
       errors.aboutMe =
-        "Company Description must be at most 1000 characters long";
+        "About me must be at most 1000 characters long";
       isValid = false;
     }
 
@@ -748,7 +749,7 @@ const EditStudentProfileDashoboard = () => {
                 type="text"
                 className="input-field"
                 placeholder={user?.firstName}
-                name="first Name"
+                name="firstName"
                 value={firstName}
                 onChange={(e) => setFirstName(e.target.value)}
               />
@@ -840,7 +841,7 @@ const EditStudentProfileDashoboard = () => {
             rows={5}
             value={aboutMe}
             onChange={(e) => setAboutMe(e.target.value)}
-            placeholder="Describe about your Organization / Company"
+            placeholder="Describe about yourself"
           />
           <label className="error-message">{errors.aboutMe}</label>
           <div
@@ -977,8 +978,8 @@ const EditStudentProfileDashoboard = () => {
                     onChange={(e) => setDegree(e.target.value)}
                   >
                     <option value="default">Select Degree</option>
-                    <option value="B.tech">Btech</option>
-                    <option value="M.tech">Mtech</option>
+                    <option value="B.tech">B.E/Btech</option>
+                    <option value="M.tech">M.E/Mtech</option>
                   </select>
                   <label className="error-message">{error2.degree}</label>
                 </div>
@@ -992,7 +993,7 @@ const EditStudentProfileDashoboard = () => {
                   <input
                     type="text"
                     className="input-field"
-                    placeholder="Enter your String"
+                    placeholder="Start Year"
                     onChange={(e) => setStartYear(e.target.value)}
                   />
                   <label className="error-message">{error2.startYear}</label>
@@ -1004,7 +1005,7 @@ const EditStudentProfileDashoboard = () => {
                   <input
                     type="text"
                     className="input-field"
-                    placeholder="Enter your String"
+                    placeholder="End Year"
                     onChange={(e) => setEndYear(e.target.value)}
                   />
                   <label className="error-message">{error2.endYear}</label>
@@ -1016,7 +1017,7 @@ const EditStudentProfileDashoboard = () => {
                   <input
                     type="number"
                     className="input-field"
-                    placeholder="Enter your String"
+                    placeholder="CGPA"
                     onChange={(e) => setMarks(e.target.value)}
                   />
                   <label className="error-message">{error2.marks}</label>
@@ -1044,10 +1045,39 @@ const EditStudentProfileDashoboard = () => {
                     value={specialization}
                     onChange={(e) => setSpecialization(e.target.value)}
                   >
-                    <option value="CSE">CSE</option>
-                    <option value="IT">IT</option>
-                    <option value="MECH">MECH</option>
-                    <option value="CIVIL">CIVIL</option>
+                    <option value="Computer Science Engineering">Computer Science Engineering</option>
+                    <option value="Electronics & Communication Engineering">Electronics & Communication Engineering</option>
+                    <option value="Electrical Engineering">Electrical Engineering</option>
+                    <option value="Mechanical Engineering">Mechanical Engineering</option>
+                    <option value="Civil Engineering">Civil Engineering</option>
+                    <option value="Information Technology">Information Technology</option>
+                    <option value="Chemical Engineering">Chemical Engineering</option>
+                    <option value="Biotechnology Engineering">Biotechnology Engineering</option>
+                    <option value="Aerospace Engineering">Aerospace Engineering</option>
+                    <option value="Artificial Intelligence and Machine Learning">Artificial Intelligence and Machine Learning</option>
+                    <option value="Data Science">Data Science</option>
+                    <option value="Automobile Engineering">Automobile Engineering</option>
+                    <option value="Robotics Engineering">Robotics Engineering</option>
+                    <option value="Mechatronics Engineering">Mechatronics Engineering</option>
+                    <option value="Biomedical Engineering">Biomedical Engineering</option>
+                    <option value="Production Engineering">Production Engineering</option>
+                    <option value="Environmental Engineering">Environmental Engineering</option>
+                    <option value="Telecommunication Engineering">Telecommunication Engineering</option>
+                    <option value="Power Engineering">Power Engineering</option>
+                    <option value="Mining Engineering">Mining Engineering</option>
+                    <option value="Structural Engineering">Structural Engineering</option>
+                    <option value="Petroleum Engineering">Petroleum Engineering</option>
+                    <option value="Communications Engineering">Communications Engineering</option>
+                    <option value="Textile Engineering">Textile Engineering</option>
+                    <option value="Marine Engineering">Marine Engineering</option>
+                    <option value="Construction Engineering">Construction Engineering</option>
+                    <option value="Food Technology">Food Technology</option>
+                    <option value="Transportation Engineering">Transportation Engineering</option>
+                    <option value="Ceramic Engineering">Ceramic Engineering</option>
+                    <option value="Tool Engineering">Tool Engineering</option>
+                    <option value="Industrial Engineering">Industrial Engineering</option>
+
+
                   </select>
                   <label className="error-message">
                     {error2.specialization}
@@ -1358,9 +1388,13 @@ const EditStudentProfileDashoboard = () => {
                   <input
                     value={workStart}
                     onChange={(e) => setWorkStart(e.target.value)}
-                    type="text"
+                    type="number"
                     className="input-field"
-                    placeholder="Enter your String"
+                    placeholder="Enter the Start Year like 2012"
+                   
+                    pattern="^(19[5-9]\d|20[0-4]\d|2050)$"
+                    required
+                 
                   />
                   <label className="error-message">{errorWork.startYear}</label>
                 </div>
@@ -1371,9 +1405,13 @@ const EditStudentProfileDashoboard = () => {
                   <input
                     value={workEnd}
                     onChange={(e) => setWorkEnd(e.target.value)}
-                    type="text"
+                    type="number"
                     className="input-field"
-                    placeholder="Enter your String"
+                    placeholder="Enter the End Year like 2016"
+                  
+                    pattern="^(19[5-9]\d|20[0-4]\d|2050)$"
+                    required
+                    
                   />
                   <label className="error-message">{errorWork.endYear}</label>
                 </div>
@@ -1662,7 +1700,7 @@ const EditStudentProfileDashoboard = () => {
                       type="text"
                       onChange={(e) => setProjectTitle(e.target.value)}
                       className="input-field"
-                      placeholder="Enter your String"
+                      placeholder="Enter your project title"
                     />
                     <label className="error-message">
                       {errorProjects.projectTitle}
@@ -1679,7 +1717,7 @@ const EditStudentProfileDashoboard = () => {
                       type="text"
                       onChange={(e) => setProjectLink(e.target.value)}
                       className="input-field"
-                      placeholder="Enter your String"
+                      placeholder="Enter your project link"
                     />
                     <label className="error-message">
                       {errorProjects.projectLink}
@@ -1699,7 +1737,7 @@ const EditStudentProfileDashoboard = () => {
                       type="text"
                       onChange={(e) => setProjectDescription(e.target.value)}
                       className="input-field"
-                      placeholder="Enter your String"
+                      placeholder="Enter your project description"
                     />
                     <label className="error-message">
                       {errorProjects.projectDescription}
