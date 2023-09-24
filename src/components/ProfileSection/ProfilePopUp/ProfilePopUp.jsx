@@ -30,7 +30,8 @@ export default function ProfilePopUp() {
   }
   const navigate = useNavigate();
   const [progress, setProgress] = useState(0);
-  const role = getUserRole();
+  let role = getUserRole();
+  if (role === "Alumni") role = "User";
   const userFullName = getUserFullName();
   const userImage = getUserImage();
   const [profileProgress, setProfileProgress] = useState(75);

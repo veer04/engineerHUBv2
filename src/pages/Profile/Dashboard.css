@@ -4,6 +4,7 @@
   background-color: rgba(255, 255, 255, 1);
   margin-bottom: 0.5rem;
   padding: 1.25rem;
+  box-shadow: 5px 4px 20px 0px rgba(0, 0, 0, 0.05);
 }
 .profile-dashboard .user-box {
   column-gap: 0.5rem;

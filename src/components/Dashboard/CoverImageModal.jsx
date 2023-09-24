@@ -80,16 +80,6 @@ export default function CoverImageModal() {
     } else {
       setLoading(true);
       patchCoverImageUsingLink(newCoverPhoto, setResponse);
-      console.log("else");
-      // patchCoverImage(organizationId, { cover_image: newCoverPhoto })
-      //   .then((res) => {
-      //     if (res.status === 200) {
-      //       navigate(-1);
-      //     }
-      //   })
-      //   .catch((err) => {
-      //     console.log(err);
-      //   });
     }
   }
 

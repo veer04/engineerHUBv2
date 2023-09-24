@@ -79,6 +79,7 @@
   font-weight: 600;
   line-height: normal;
 }
+.edit-profile .update-btn,
 .edit-profile > div > div > .box > .update-btn {
   padding: 0.94rem 1.2rem;
   width: fit-content;

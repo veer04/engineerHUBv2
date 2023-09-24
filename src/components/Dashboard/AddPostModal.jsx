@@ -65,11 +65,8 @@ export default function AddPostModal() {
     if (!!!caption) {
       newErrors.caption = "Please enter the caption";
       isValid = false;
-    } else if (caption.length < 30) {
-      newErrors.caption = "Caption should be atleast 30 characters long";
-      isValid = false;
-    } else if (caption.length > 1000) {
-      newErrors.caption = "Caption should be less than 1000 characters long";
+    } else if (caption.length > 2000) {
+      newErrors.caption = "Caption should be less than 2000 characters long";
       isValid = false;
     }
     setErrors(newErrors);

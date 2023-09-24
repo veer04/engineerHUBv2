@@ -30,7 +30,6 @@ import Internship from "./pages/Company/Internship/Internship";
 import InternshipDetails from "./pages/Company/Internship/InternshipDetails";
 import HackathonDetails from "./pages/Company/Events/EventsChoices/HackathonDetails";
 import Projects from "./pages/Company/Projects/Projects";
-import LoginDummy from "./pages/User/Login/LoginDummy";
 import ProjectDetail from "./pages/Company/Projects/ProjectDetail";
 import ComingSoon from "./pages/Maintenance/ComingSoon";
 import ParticularEvent from "./pages/Community/Events/ParticularEvent";
@@ -39,48 +38,28 @@ import ClubSignup from "./pages/User/Signup/ClubSignup";
 import MentorSignup from "./pages/User/Signup/MentorSignup";
 import OrganizationSignup from "./pages/User/Signup/OrganizationSignup";
 import { Suspense } from "react";
-import StudentProfileDashboard from "./pages/User/Profile/StudentProfile/StudentProfileDashboard";
 import LoadingPage from "./components/Loader/LoadingPage";
 import Role from "./pages/User/RoleWiseUserPage/Role";
 import PostModal from "./components/PostModal/PostModal";
-import PostModal2 from "./components/PostModal2/PostModal2";
 import ParticularAlumni from "./pages/Campus/ParticularCampus/ParticularAlumni";
-import VerificationModal from "./components/VerificationModal/VerificationModal";
 import StudentSignup from "./pages/User/Signup/StudentSignup";
 import ForgotPassword from "./pages/User/ForgotPassword/ForgotPassword";
-import StudentProfilePage from "./pages/User/Profile/StudentProfile/StudentProfilePage";
-import GeneralStudentData from "./pages/User/Profile/StudentProfile/GeneralStudentData";
-import EditStudentData from "./pages/User/Profile/StudentProfile/EditStudentData";
-import AddressStudentData from "./pages/User/Profile/StudentProfile/AddressStudentData";
-import SocialMediaStudentData from "./pages/User/Profile/StudentProfile/SocialMediaStudentData";
-import TechStackStudentData from "./pages/User/Profile/StudentProfile/TechStackStudentData";
 import AlumniProfilePage from "./pages/User/Profile/AlumniProdile/AlumniProfilePage";
 import GeneralAlumniData from "./pages/User/Profile/AlumniProdile/GeneralAlumniData";
 import EditAlumniData from "./pages/User/Profile/AlumniProdile/EditAlumniData";
 import SocialMediaAlumniData from "./pages/User/Profile/AlumniProdile/SocialMediaAlumniData";
-import OrganizationProfilePage from "./pages/User/Profile/OrganizationProfile/OrganizationProfilePage";
-import GeneralOrganizationData from "./pages/User/Profile/OrganizationProfile/GeneralOrganizationData";
-import EditOrganizationData from "./pages/User/Profile/OrganizationProfile/EditOrganizationData";
-import AddressOrganizationData from "./pages/User/Profile/OrganizationProfile/AddressOrganizationData";
-import ClubProfilePage from "./pages/User/Profile/ClubProfile/ClubProfilePage";
-import GeneralClubData from "./pages/User/Profile/ClubProfile/GeneralClubData";
-import EditClubData from "./pages/User/Profile/ClubProfile/EditClubData";
 import JobRegistration from "./pages/Hosting/JobRegistration";
 import Page404 from "./pages/Maintenance/Page404";
 import SignupUser from "./pages/User/Signup/SignupUser";
-import EditStudentProfileDashoboard from "./pages/User/Profile/StudentProfile/EditStudentProfileDashoboard";
 import jwt_decode from "jwt-decode";
 const CommunityPage = lazy(() => import("./pages/Community/CommunityPage"));
 const CampusPage = lazy(() => import("./pages/Campus/CampusPage"));
 const Company = lazy(() => import("./pages/Company/Company"));
 const Hosting = lazy(() => import("./pages/Hosting/Hosting.jsx"));
 const Login = lazy(() => import("./pages/User/Login/Login"));
-import Chatpage from "./pages/chat/chatPage";
 import ChangePassword from "./pages/User/ForgotPassword/ChangePassword";
 import getCookie, { getAccessToken } from "./features/getCookieValues";
 import ProjectHosting from "./pages/Hosting/ProjectHosting";
-import CoverPhotoClubData from "./pages/User/Profile/ClubProfile/CoverPhotoClubData";
-import ManagePostsClubData from "./pages/User/Profile/ClubProfile/ManagePostsClubData";
 import ProfilePopUp from "./components/ProfileSection/ProfilePopUp/ProfilePopUp";
 import CompanyDashboard from "./pages/Profile/CompanyDashboard/CompanyDashboard";
 import CompanyEditProfile from "./pages/Profile/CompanyDashboard/CompanyEditProfile";
@@ -91,6 +70,7 @@ import AddPostModal from "./components/Dashboard/AddPostModal";
 import AddMemberModal from "./components/Dashboard/AddMemberModal";
 import UserDashboard from "./pages/Profile/UserDashboard/UserDashboard";
 import GlobalSnackbar from "./components/GlobalSnackbar/GlobalSnackbar";
+import UserEditProfile from "./pages/Profile/UserDashboard/UserEditProfile";
 
 function App() {
   const [isEventModalOpen, setIsEventModalOpen] = useState(false);
@@ -112,7 +92,7 @@ function App() {
       ) {
         setEventHostRoute(true);
       }
-      if (decoded.role === "Organization") {
+      if (decoded.role === "Organization" || decoded.role === "Alumni") {
         setJobHostRoute(true);
       }
     } else {
@@ -135,62 +115,18 @@ function App() {
         <Routes>
           <Route index element={<HomePage path="homepage" />} />
           <Route path="/home" element={<HomePage />} />
-          <Route
-            path="user"
-            element={<StudentProfileDashboard></StudentProfileDashboard>}
-          ></Route>
-
           <Route path="/success" element={<Success></Success>}></Route>
           <Route path="/register" element={<RegistrationForm />} />
           <Route path="/selectRole" element={<Role />} />
-          {/* <Route path="/studentEdit" element={<EditStudentProfileDashoboard ></EditStudentProfileDashoboard>}></Route> */}
-          <Route path="/loginDummy" element={<LoginDummy></LoginDummy>}>
-            {" "}
-          </Route>
-          <Route path="/ehubchats" element={<Chatpage />} />
-
           <Route path="/profile">
-            {/* <Route
-              path="User/:userId/studentEdit"
-              element={
-                <EditStudentProfileDashoboard></EditStudentProfileDashoboard>
-              }
-            ></Route>
-            <Route
-              path="User/:userId"
-              element={<StudentProfileDashboard path="profile" />}
-            >
-              <Route index element={<GeneralStudentData />} />
-              <Route
-                path="studentEdit"
-                element={
-                  <EditStudentProfileDashoboard></EditStudentProfileDashoboard>
-                }
-              ></Route>
-  
-            </Route> */}
             <Route
               path="user/:userId"
               element={<UserDashboard path="profile" />}
-            >
-              {/* <Route path="edit-cover-image" element={<CoverImageModal />} />
-              <Route path="add-post" element={<AddPostModal />} />
-              <Route path="add-member" element={<AddMemberModal />} />
-              <Route path="posts/:postId" element={<PostModal />} /> */}
-            </Route>
+            ></Route>
             <Route
               path="user/:userId/edit-profile"
-              element={<EditStudentProfileDashoboard />}
+              element={<UserEditProfile />}
             />
-            <Route
-              path="alumni/:alumniId"
-              element={<AlumniProfilePage path="profile" />}
-            >
-              <Route index element={<GeneralAlumniData />} />
-              <Route path="general" element={<GeneralAlumniData />} />
-              <Route path="edit" element={<EditAlumniData />} />
-              <Route path="social-media" element={<SocialMediaAlumniData />} />
-            </Route>
             <Route
               path="club/:clubId"
               element={<ClubDashboard path="profile" />}
@@ -204,17 +140,6 @@ function App() {
               path="club/:clubId/edit-profile"
               element={<ClubEditProfile />}
             />
-            {/* <Route index element={<GeneralClubData />} />
-              <Route path="general" element={<GeneralClubData />} />
-              <Route path="edit" element={<EditClubData />} />
-              <Route path="cover-photo" element={<CoverPhotoClubData />} />
-              <Route path="manage-posts" element={<ManagePostsClubData />}>
-                <Route path=":postId" element={<PostModal2 />} />
-              </Route> */}
-            {/* <Route
-              path="organization/:organizationId"
-              element={<OrganizationProfilePage path="profile" />}
-            > */}
             <Route
               path="organization/:organizationId"
               element={<CompanyDashboard path="profile" />}
@@ -225,10 +150,6 @@ function App() {
               path="organization/:organizationId/edit-profile"
               element={<CompanyEditProfile />}
             />
-            {/* <Route index element={<GeneralOrganizationData />} /> */}
-            {/* <Route path="general" element={<GeneralOrganizationData />} /> */}
-            {/* <Route path="edit" element={<EditOrganizationData />} /> */}
-            {/* <Route path="address" element={<AddressOrganizationData />} /> */}
           </Route>
           <Route path="/signup" element={<Signup />} />
           <Route path="/student-signup" element={<StudentSignup />} />

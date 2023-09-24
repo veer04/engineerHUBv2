@@ -1,7 +1,7 @@
 import { useState, useEffect, useLayoutEffect } from "react";
 import "../Dashboard.css"; // !import this file first
 import "./ClubDashboard.css";
-import { BsArrowRight } from "react-icons/bs";
+import { BsArrowRight, BsArrowUp } from "react-icons/bs";
 import { FiEdit } from "react-icons/fi";
 import { AiFillLinkedin } from "react-icons/ai";
 import { PiGlobeLight } from "react-icons/pi";
@@ -317,6 +317,16 @@ export default function ClubDashboard() {
               </button>
             </div>
           )}
+          {posts.length !== 0 && showAll1 && (
+            <div className="btn-container">
+              <button
+                onClick={() => setShowAll1(false)}
+                className="all-jobs-btn"
+              >
+                Show less posts <BsArrowUp />
+              </button>
+            </div>
+          )}
         </section>
         <section className="box recent-activities">
           {isUserAdmin && (
@@ -365,6 +375,16 @@ export default function ClubDashboard() {
               </button>
             </div>
           )}
+          {organization?.members?.length !== 0 && showAll2 && (
+            <div className="btn-container">
+              <button
+                onClick={() => setShowAll2(false)}
+                className="all-jobs-btn"
+              >
+                Show less members <BsArrowUp />
+              </button>
+            </div>
+          )}
         </section>
         <section id="recent-activities" className="box recent-activities">
           <p className="heading">FEATURED EVENTS</p>
@@ -405,6 +425,16 @@ export default function ClubDashboard() {
                 className="all-jobs-btn"
               >
                 Show all events <BsArrowRight />
+              </button>
+            </div>
+          )}
+          {featuredEvents.length !== 0 && showAll3 && (
+            <div className="btn-container">
+              <button
+                onClick={() => setShowAll3(false)}
+                className="all-jobs-btn"
+              >
+                Show less events <BsArrowUp />
               </button>
             </div>
           )}

@@ -40,40 +40,6 @@ export default function Navbar() {
     }
   }, []);
 
-  function deleteCookie() {
-    // Remove all cookies and log out the user
-    const cookiesToRemove = [
-      "userName",
-      "refresh_token",
-      "access_token",
-      "email",
-      "institutionName",
-      "image",
-      "isVerified",
-      "phoneNumber",
-      "isPhoneNumberVerified",
-      "name",
-      "verifiedByEhub",
-      "role",
-      "mobile",
-    ];
-
-    //delete all cookies
-    cookiesToRemove.forEach((cookie) => {
-      Cookies.remove(cookie);
-    });
-  }
-
-  async function handleLogout() {
-    await deleteCookie();
-    // setTimeout(() => {
-    setIsLoggedIn(false);
-    setName("");
-    navigate("/");
-    window.location.reload(true);
-    // }, 1000);
-  }
-
   function getCookie(name) {
     // Get the value of a cookie by name
     const cookieValue = document.cookie.match(
