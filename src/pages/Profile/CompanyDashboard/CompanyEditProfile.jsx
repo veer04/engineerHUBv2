@@ -126,7 +126,7 @@ export default function CompanyEditProfile() {
   }, [newImage]);
 
   useEffect(() => {
-    if (Object.keys(response).length > 0) {
+    if (!!Object.keys(response).length) {
       if (response.status >= 200 && response.status < 300) {
         setSnackbarSeverity("success");
         setSnackbarMessage("Profile picture updated successfully");
@@ -150,7 +150,7 @@ export default function CompanyEditProfile() {
   }, [response]);
 
   useEffect(() => {
-    if (Object.keys(deleteResponse).length > 0) {
+    if (!!Object.keys(deleteResponse).length) {
       setIsImageDeleting(false);
       if (deleteResponse.status >= 200 && deleteResponse.status < 300) {
         setSnackbarSeverity("success");
@@ -171,7 +171,7 @@ export default function CompanyEditProfile() {
   }, [deleteResponse]);
 
   useEffect(() => {
-    if (Object.keys(updateResponse).length > 0) {
+    if (!!Object.keys(updateResponse).length) {
       setLoading(false);
       if (updateResponse.status >= 200 && updateResponse.status < 300) {
         setSnackbarSeverity("success");
@@ -203,7 +203,6 @@ export default function CompanyEditProfile() {
       );
       setNewLinkedin(organization?.linkedIn);
     }
-    console.log("organization", organization);
   }, [organization]);
 
   useEffect(() => {

@@ -17,20 +17,15 @@ export const patchProfilePicture = (userId, file, setResponse) => {
   axios
     .patch(`${API_URL}api/v1/role/profilePictureUpdate/${userId}`, file, config)
     .then((res) => {
-      console.log(res);
       setResponse(res);
-      return res;
     })
     .catch((err) => {
+      console.log(err);
+      setResponse(err);
       if (axios.isCancel(err)) {
         console.log("req cancel");
-        setResponse(err);
-        return err;
       } else {
         console.log("req performed");
-        console.log(err);
-        setResponse(err);
-        return err;
       }
     });
 };
@@ -49,20 +44,15 @@ export const deleteProfilePicture = (setResponse) => {
   axios
     .patch(`${API_URL}api/v1/role/profilePictureDeleted`, data, config)
     .then((res) => {
-      console.log(res);
       setResponse(res);
-      return res;
     })
     .catch((err) => {
+      console.log(err);
+      setResponse(err);
       if (axios.isCancel(err)) {
         console.log("req cancel");
-        setResponse(err);
-        return err;
       } else {
         console.log("req performed");
-        console.log(err);
-        setResponse(err);
-        return err;
       }
     });
 };
@@ -80,20 +70,15 @@ export const patchCoverImage = (file, setResponse) => {
       config
     )
     .then((res) => {
-      console.log(res);
       setResponse(res);
-      return res;
     })
     .catch((err) => {
+      console.log(err);
+      setResponse(err);
       if (axios.isCancel(err)) {
         console.log("req cancel");
-        setResponse(err);
-        return err;
       } else {
         console.log("req performed");
-        console.log(err);
-        setResponse(err);
-        return err;
       }
     });
 };
@@ -178,18 +163,14 @@ export const patchStudentData = (userId, data, setResponse) => {
     .then((res) => {
       console.log(res);
       setResponse(res);
-      return res;
     })
     .catch((err) => {
+      console.log(err);
+      setResponse(err);
       if (axios.isCancel(err)) {
         console.log("req cancel");
-        setResponse(err);
-        return err;
       } else {
         console.log("req performed");
-        setResponse(err);
-        console.log(err);
-        return err;
       }
     });
 };
@@ -295,6 +276,207 @@ export const patchOrganizationData = (organizationId, data, setResponse) => {
         setResponse(err);
         console.log(err);
         return err;
+      }
+    });
+};
+
+export const updateUserDetails = (data, setResponse) => {
+  const controller = new AbortController();
+  const config = {
+    headers: {
+      accessToken: getAccessToken(),
+    },
+  };
+  axios
+    .patch(
+      `${API_URL}api/v1/user/profileUpdate`,
+      {
+        ...data,
+      },
+      config
+    )
+    .then((res) => {
+      console.log(res);
+      setResponse(res);
+    })
+    .catch((err) => {
+      console.log(err);
+      setResponse(err);
+      if (axios.isCancel(err)) {
+        console.log("req cancel");
+      } else {
+        console.log("req performed");
+      }
+    });
+};
+
+export const addUserEducation = (data, setResponse) => {
+  const controller = new AbortController();
+  const config = {
+    headers: {
+      accessToken: getAccessToken(),
+    },
+  };
+  axios
+    .post(
+      `${API_URL}api/v1/add/education`,
+      {
+        ...data,
+      },
+      config
+    )
+    .then((res) => {
+      console.log(res);
+      setResponse(res);
+    })
+    .catch((err) => {
+      console.log(err);
+      setResponse(err);
+      if (axios.isCancel(err)) {
+        console.log("req cancel");
+      } else {
+        console.log("req performed");
+      }
+    });
+};
+
+export const deleteUserEducation = (_id, setResponse) => {
+  const controller = new AbortController();
+  const config = {
+    headers: {
+      accessToken: getAccessToken(),
+    },
+  };
+  axios
+    .delete(
+      `${API_URL}api/v1/delete/education/${_id}`,
+      config
+    )
+    .then((res) => {
+      console.log(res);
+      setResponse(res);
+    })
+    .catch((err) => {
+      console.log(err);
+      setResponse(err);
+      if (axios.isCancel(err)) {
+        console.log("req cancel");
+      } else {
+        console.log("req performed");
+      }
+    });
+};
+
+export const addUserExperience = (data, setResponse) => {
+  const controller = new AbortController();
+  const config = {
+    headers: {
+      accessToken: getAccessToken(),
+    },
+  };
+  axios
+    .post(
+      `${API_URL}api/v1/add/experience`,
+      {
+        ...data,
+      },
+      config
+    )
+    .then((res) => {
+      console.log(res);
+      setResponse(res);
+    })
+    .catch((err) => {
+      console.log(err);
+      setResponse(err);
+      if (axios.isCancel(err)) {
+        console.log("req cancel");
+      } else {
+        console.log("req performed");
+      }
+    });
+};
+
+export const deleteUserExperience = (_id, setResponse) => {
+  const controller = new AbortController();
+  const config = {
+    headers: {
+      accessToken: getAccessToken(),
+    },
+  };
+  axios
+    .delete(
+      `${API_URL}api/v1/delete/experience/${_id}`,
+      config
+    )
+    .then((res) => {
+      console.log(res);
+      setResponse(res);
+    })
+    .catch((err) => {
+      console.log(err);
+      setResponse(err);
+      if (axios.isCancel(err)) {
+        console.log("req cancel");
+      } else {
+        console.log("req performed");
+      }
+    });
+};
+
+export const addUserProject = (data, setResponse) => {
+  const controller = new AbortController();
+  const config = {
+    headers: {
+      accessToken: getAccessToken(),
+    },
+  };
+  axios
+    .post(
+      `${API_URL}api/v1/add/projectDetails`,
+      {
+        ...data,
+      },
+      config
+    )
+    .then((res) => {
+      console.log(res);
+      setResponse(res);
+    })
+    .catch((err) => {
+      console.log(err);
+      setResponse(err);
+      if (axios.isCancel(err)) {
+        console.log("req cancel");
+      } else {
+        console.log("req performed");
+      }
+    });
+};
+
+export const deleteUserProject = (_id, setResponse) => {
+  const controller = new AbortController();
+  const config = {
+    headers: {
+      accessToken: getAccessToken(),
+    },
+  };
+  axios
+    .delete(
+      `${API_URL}api/v1/delete/projectDetails/${_id}`,
+      config
+    )
+    .then((res) => {
+      console.log(res);
+      setResponse(res);
+    })
+    .catch((err) => {
+      console.log(err);
+      setResponse(err);
+      if (axios.isCancel(err)) {
+        console.log("req cancel");
+      } else {
+        console.log("req performed");
       }
     });
 };

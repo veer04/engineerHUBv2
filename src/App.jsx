@@ -51,7 +51,6 @@ import SocialMediaAlumniData from "./pages/User/Profile/AlumniProdile/SocialMedi
 import JobRegistration from "./pages/Hosting/JobRegistration";
 import Page404 from "./pages/Maintenance/Page404";
 import SignupUser from "./pages/User/Signup/SignupUser";
-import EditStudentProfileDashoboard from "./pages/User/Profile/StudentProfile/EditStudentProfileDashoboard";
 import jwt_decode from "jwt-decode";
 const CommunityPage = lazy(() => import("./pages/Community/CommunityPage"));
 const CampusPage = lazy(() => import("./pages/Campus/CampusPage"));
@@ -71,6 +70,7 @@ import AddPostModal from "./components/Dashboard/AddPostModal";
 import AddMemberModal from "./components/Dashboard/AddMemberModal";
 import UserDashboard from "./pages/Profile/UserDashboard/UserDashboard";
 import GlobalSnackbar from "./components/GlobalSnackbar/GlobalSnackbar";
+import UserEditProfile from "./pages/Profile/UserDashboard/UserEditProfile";
 
 function App() {
   const [isEventModalOpen, setIsEventModalOpen] = useState(false);
@@ -125,17 +125,8 @@ function App() {
             ></Route>
             <Route
               path="user/:userId/edit-profile"
-              element={<EditStudentProfileDashoboard />}
+              element={<UserEditProfile />}
             />
-            <Route
-              path="alumni/:alumniId"
-              element={<AlumniProfilePage path="profile" />}
-            >
-              <Route index element={<GeneralAlumniData />} />
-              <Route path="general" element={<GeneralAlumniData />} />
-              <Route path="edit" element={<EditAlumniData />} />
-              <Route path="social-media" element={<SocialMediaAlumniData />} />
-            </Route>
             <Route
               path="club/:clubId"
               element={<ClubDashboard path="profile" />}
