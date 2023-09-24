@@ -38,6 +38,7 @@ import {
 import countryCodes from "../../../../assets/countryCodes";
 import { useRef } from "react";
 import { handleLogout } from "../../../../features/logout";
+import useGlobalSnackbar from "../../../../hooks/useGlobalSnackbar";
 const EditStudentProfileDashoboard = () => {
   useEffect(() => {
     const controller = new AbortController();
@@ -53,6 +54,7 @@ const EditStudentProfileDashoboard = () => {
   const fileInput = useRef(null);
   const [skillsRequired, setSkillsRequired] = useState([]);
   const [isImageLoading, setIsImageLoading] = useState(false);
+  const [isImageDeleting, setIsImageDeleting] = useState(false);
   const [newImage, setNewImage] = useState(null);
   const [user, setUser] = useState({});
   const [experienceList, setExperienceList] = useState([]);
@@ -98,7 +100,7 @@ const EditStudentProfileDashoboard = () => {
   const [educationExist, setEducationExist] = useState(false);
   const [projectExist, setProjectExist] = useState(false);
   const [specialization, setSpecialization] = useState(null);
-  const [deleteResponse, setDeleteResponse] = useState(null);
+  const [deleteResponse, setDeleteResponse] = useState({});
   const [organisation, setOrganisation] = useState("");
   const [workStart, setWorkStart] = useState("");
   const [projectList, setProjectList] = useState([]);
@@ -106,6 +108,8 @@ const EditStudentProfileDashoboard = () => {
   const [designation, setDesignation] = useState("");
   const [validation, setValidation] = useState(true);
   const [patchEducationDetails, setPatchEducationDetails] = useState(false);
+  const { setSnackbarOpen, setSnackbarMessage, setSnackbarSeverity } =
+  useGlobalSnackbar();
   const [errors, setErrors] = useState({
     firstName: "",
     lastName: "",
@@ -173,28 +177,54 @@ const EditStudentProfileDashoboard = () => {
     console.log(experienceList);
     console.log(educationExist);
   }, [user]);
+
   useEffect(() => {
-    if (Object.keys(response).length !== 0) {
-      getUserProfileById(setUser, userId);
+    if (!!Object.keys(response).length) {
+      if (response.status >= 200 && response.status < 300) {
+        setSnackbarSeverity("success");
+        setSnackbarMessage("Profile picture updated successfully");
+        setSnackbarOpen(true);
+        getUserProfileById(setUser, userId);
+      } else {
+        setSnackbarSeverity("error");
+        setSnackbarMessage("Error in updating profile picture");
+        setSnackbarOpen(true);
+      }
+      setResponse({});
     }
     setIsImageLoading(false);
     return () => {
       controller.abort();
     };
   }, [response]);
+
   useEffect(() => {
-    if (!!deleteResponse) {
-      getUserProfileById(setUser, userId);
+    if (!!Object.keys(deleteResponse).length) {
+      setIsImageDeleting(false);
+      if (deleteResponse.status >= 200 && deleteResponse.status < 300) {
+        setSnackbarSeverity("success");
+        setSnackbarMessage("Profile picture removed successfully");
+        setSnackbarOpen(true);
+        getUserProfileById(setUser, userId);
+      } else {
+        setSnackbarSeverity("error");
+        setSnackbarMessage("Error in removing profile picture");
+        setSnackbarOpen(true);
+      }
+      setDeleteResponse({});
     }
   }, [deleteResponse]);
+
   useEffect(() => {
+    console.log(newImage)
+    console.log(!!newImage)
     if (!!newImage) {
       if (newImage.type.includes("image")) {
         setIsImageLoading(true);
-        console.log(newImage);
         const file = new FormData();
         file.append("profileImage", newImage);
         patchProfilePicture(userId, file, setResponse);
+        setNewImage(null);
       } else {
         alert("Please choose an image file only");
       }
@@ -595,6 +625,7 @@ const EditStudentProfileDashoboard = () => {
     }
   }
   function handleDelete() {
+    setIsImageDeleting(true);
     deleteProfilePicture(setDeleteResponse);
   }
 
@@ -717,22 +748,37 @@ const EditStudentProfileDashoboard = () => {
               }}
             />
             <button
-              onClick={() => fileInput.current.click()}
-              disabled={isImageLoading}
+              onClick={() => {
+                fileInput.current.value = null;
+                fileInput.current.click();
+              }}
+              disabled={isImageDeleting || isImageLoading}
             >
-              Upload New
+              {isImageLoading ? (
+                <div className="spinner-border text-dark" role="status">
+                  <span className="visually-hidden">Loading...</span>
+                </div>
+              ) : (
+                "Upload"
+              )}
             </button>
             <button
               onClick={() => {
                 handleDelete();
               }}
-              disabled={isImageLoading}
+              disabled={isImageLoading || isImageDeleting}
             >
-              Delete
+              {isImageDeleting ? (
+                <div className="spinner-border text-dark" role="status">
+                  <span className="visually-hidden">Loading...</span>
+                </div>
+              ) : (
+                "Delete"
+              )}
             </button>
-            <p className="alert-text">
+            {/* <p className="alert-text">
               *Note Image size must be not more than 100kb
-            </p>
+            </p> */}
           </div>
         </div>
       </section>

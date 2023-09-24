@@ -30,7 +30,6 @@ import Internship from "./pages/Company/Internship/Internship";
 import InternshipDetails from "./pages/Company/Internship/InternshipDetails";
 import HackathonDetails from "./pages/Company/Events/EventsChoices/HackathonDetails";
 import Projects from "./pages/Company/Projects/Projects";
-import LoginDummy from "./pages/User/Login/LoginDummy";
 import ProjectDetail from "./pages/Company/Projects/ProjectDetail";
 import ComingSoon from "./pages/Maintenance/ComingSoon";
 import ParticularEvent from "./pages/Community/Events/ParticularEvent";
@@ -39,32 +38,16 @@ import ClubSignup from "./pages/User/Signup/ClubSignup";
 import MentorSignup from "./pages/User/Signup/MentorSignup";
 import OrganizationSignup from "./pages/User/Signup/OrganizationSignup";
 import { Suspense } from "react";
-import StudentProfileDashboard from "./pages/User/Profile/StudentProfile/StudentProfileDashboard";
 import LoadingPage from "./components/Loader/LoadingPage";
 import Role from "./pages/User/RoleWiseUserPage/Role";
 import PostModal from "./components/PostModal/PostModal";
-import PostModal2 from "./components/PostModal2/PostModal2";
 import ParticularAlumni from "./pages/Campus/ParticularCampus/ParticularAlumni";
-import VerificationModal from "./components/VerificationModal/VerificationModal";
 import StudentSignup from "./pages/User/Signup/StudentSignup";
 import ForgotPassword from "./pages/User/ForgotPassword/ForgotPassword";
-import StudentProfilePage from "./pages/User/Profile/StudentProfile/StudentProfilePage";
-import GeneralStudentData from "./pages/User/Profile/StudentProfile/GeneralStudentData";
-import EditStudentData from "./pages/User/Profile/StudentProfile/EditStudentData";
-import AddressStudentData from "./pages/User/Profile/StudentProfile/AddressStudentData";
-import SocialMediaStudentData from "./pages/User/Profile/StudentProfile/SocialMediaStudentData";
-import TechStackStudentData from "./pages/User/Profile/StudentProfile/TechStackStudentData";
 import AlumniProfilePage from "./pages/User/Profile/AlumniProdile/AlumniProfilePage";
 import GeneralAlumniData from "./pages/User/Profile/AlumniProdile/GeneralAlumniData";
 import EditAlumniData from "./pages/User/Profile/AlumniProdile/EditAlumniData";
 import SocialMediaAlumniData from "./pages/User/Profile/AlumniProdile/SocialMediaAlumniData";
-import OrganizationProfilePage from "./pages/User/Profile/OrganizationProfile/OrganizationProfilePage";
-import GeneralOrganizationData from "./pages/User/Profile/OrganizationProfile/GeneralOrganizationData";
-import EditOrganizationData from "./pages/User/Profile/OrganizationProfile/EditOrganizationData";
-import AddressOrganizationData from "./pages/User/Profile/OrganizationProfile/AddressOrganizationData";
-import ClubProfilePage from "./pages/User/Profile/ClubProfile/ClubProfilePage";
-import GeneralClubData from "./pages/User/Profile/ClubProfile/GeneralClubData";
-import EditClubData from "./pages/User/Profile/ClubProfile/EditClubData";
 import JobRegistration from "./pages/Hosting/JobRegistration";
 import Page404 from "./pages/Maintenance/Page404";
 import SignupUser from "./pages/User/Signup/SignupUser";
@@ -75,12 +58,9 @@ const CampusPage = lazy(() => import("./pages/Campus/CampusPage"));
 const Company = lazy(() => import("./pages/Company/Company"));
 const Hosting = lazy(() => import("./pages/Hosting/Hosting.jsx"));
 const Login = lazy(() => import("./pages/User/Login/Login"));
-import Chatpage from "./pages/chat/chatPage";
 import ChangePassword from "./pages/User/ForgotPassword/ChangePassword";
 import getCookie, { getAccessToken } from "./features/getCookieValues";
 import ProjectHosting from "./pages/Hosting/ProjectHosting";
-import CoverPhotoClubData from "./pages/User/Profile/ClubProfile/CoverPhotoClubData";
-import ManagePostsClubData from "./pages/User/Profile/ClubProfile/ManagePostsClubData";
 import ProfilePopUp from "./components/ProfileSection/ProfilePopUp/ProfilePopUp";
 import CompanyDashboard from "./pages/Profile/CompanyDashboard/CompanyDashboard";
 import CompanyEditProfile from "./pages/Profile/CompanyDashboard/CompanyEditProfile";
@@ -112,7 +92,7 @@ function App() {
       ) {
         setEventHostRoute(true);
       }
-      if (decoded.role === "Organization") {
+      if (decoded.role === "Organization" || decoded.role === "Alumni") {
         setJobHostRoute(true);
       }
     } else {
@@ -135,15 +115,9 @@ function App() {
         <Routes>
           <Route index element={<HomePage path="homepage" />} />
           <Route path="/home" element={<HomePage />} />
-          <Route
-            path="user"
-            element={<StudentProfileDashboard></StudentProfileDashboard>}
-          ></Route>
           <Route path="/success" element={<Success></Success>}></Route>
           <Route path="/register" element={<RegistrationForm />} />
           <Route path="/selectRole" element={<Role />} />
-          <Route path="/loginDummy" element={<LoginDummy></LoginDummy>}></Route>
-          <Route path="/ehubchats" element={<Chatpage />} />
           <Route path="/profile">
             <Route
               path="user/:userId"
