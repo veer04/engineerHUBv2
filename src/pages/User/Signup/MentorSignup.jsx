@@ -374,7 +374,7 @@ const MentorSignup = () => {
           Gender
         </InputLabel>
         <Select
-          labelId="gender"
+          labelid="gender"
           id="student-signup-gender-select"
           value={gender}
           label="Gender"
@@ -422,7 +422,7 @@ const MentorSignup = () => {
           Campus
         </InputLabel>
         <Select
-          labelId="campus-name"
+          labelid="campus-name"
           id="student-signup-campus-select"
           value={formData.campus}
           label="Campus"

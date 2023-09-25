@@ -104,7 +104,7 @@ const UserEditProfile = () => {
   const [workEnd, setWorkEnd] = useState("");
   const [designation, setDesignation] = useState("");
   const [validation, setValidation] = useState(true);
-  const [fetchResponse,setFetchResponse] = useState({})
+  const [fetchResponse, setFetchResponse] = useState({});
   const [patchEducationDetails, setPatchEducationDetails] = useState(false);
   const [updateUserResponse, setUpdateUserResponse] = useState({});
   const [updateEducationResponse, setUpdateEducationResponse] = useState({});
@@ -153,10 +153,11 @@ const UserEditProfile = () => {
   const handleCheckboxChange = (event) => {
     const { checked } = event.target;
     setCurrentlyWorking(checked);
+    setWorkEnd("");
   };
 
   function fetchData() {
-    getUserProfileById(setUser, userId,setFetchResponse);
+    getUserProfileById(setUser, userId, setFetchResponse);
   }
 
   useEffect(() => {
@@ -579,7 +580,7 @@ const UserEditProfile = () => {
       errorWork.startYear = "Please enter the Start Year";
       isValid = false;
     }
-    if (!!!workEnd) {
+    if (!currentlyWorking && !!!workEnd) {
       errorWork.endYear = "Please enter the End Year";
       isValid = false;
     }
@@ -672,12 +673,15 @@ const UserEditProfile = () => {
     const data = {
       designation: designation,
       startYear: workStart,
-      endYear: workEnd,
-      currentlyWorking: false,
       organisationName: organisation,
       country: newCountry,
       state: newState,
     };
+    if (currentlyWorking) {
+      data.currentlyWorking = true;
+    } else {
+      data.endYear = workEnd;
+    }
     setLoading(true);
     addUserExperience(data, setUpdateExperienceResponse);
   }
@@ -1106,7 +1110,7 @@ const UserEditProfile = () => {
               </div>
               <div className="col-lg-3">
                 <label className="label">
-                  End Year<pan className="required">*</pan>
+                  End Year<span className="required">*</span>
                 </label>
                 <input
                   type="text"
@@ -1245,7 +1249,7 @@ const UserEditProfile = () => {
               </label>
               <select
                 className="input-field"
-                labelId="campus-name"
+                labelid="campus-name"
                 id="student-signup-campus-select"
                 label="Institution Name"
                 name="institutionName"
@@ -1567,31 +1571,34 @@ const UserEditProfile = () => {
                   End Year<span className="required">*</span>
                 </label>
                 <input
+                  disabled={currentlyWorking}
                   value={workEnd}
                   onChange={(e) => setWorkEnd(e.target.value)}
                   type="number"
                   min={1959}
                   max={2050}
                   className="input-field"
-                  placeholder="Enter the ending year"
+                  placeholder={currentlyWorking ? "" : "Enter the ending year"}
                   pattern="^(19[5-9]\d|20[0-4]\d|2050)$"
                   required
                 />
                 <label className="error-message">{errorWork.endYear}</label>
               </div>
+            </div>
+            <div className="row">
               <div className="">
-                {/* <div className="form-check">
-                    <input
-                      className="form-check-input"
-                      type="checkbox"
-                      value=""
-                      id="defaultCheck1"
-                      onChange={handleCheckboxChange}
-                    />
-                    <label className="form-check-label" htmlFor="defaultCheck1">
-                      Currently Working
-                    </label>
-                  </div> */}
+                <div className="form-check">
+                  <input
+                    className="form-check-input"
+                    type="checkbox"
+                    value=""
+                    id="defaultCheck1"
+                    onChange={handleCheckboxChange}
+                  />
+                  <label className="form-check-label" htmlFor="defaultCheck1">
+                    Currently Working
+                  </label>
+                </div>
               </div>
             </div>
             <div className="row">
@@ -1751,7 +1758,7 @@ const UserEditProfile = () => {
                           {item.organisationName}
                         </div>
                         <div className="row duration  headingJob2">
-                          {item.startYear}-{item.endYear}
+                          {item.startYear} - {item.currentlyWorking?"Present":item.endYear}
                         </div>
                         <div className="row jobLocation  headingJob2">
                           {item.state} , {item.country}

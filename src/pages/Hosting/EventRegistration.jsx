@@ -292,7 +292,7 @@ const EventRegistrationForm = () => {
           Domain Name
         </InputLabel>
         <Select
-          labelId="Domain-name"
+          labelid="Domain-name"
           id="student-signup-campus-select"
           value={domainName}
           label="Domain Name"
@@ -317,7 +317,7 @@ const EventRegistrationForm = () => {
           Campus Name
         </InputLabel>
         <Select
-          labelId="campus-name"
+          labelid="campus-name"
           id="student-signup-campus-select"
           value={campusId}
           label="Campus Name"
@@ -344,7 +344,7 @@ const EventRegistrationForm = () => {
           Event Type
         </InputLabel>
         <Select
-          labelId="event-type-label"
+          labelid="event-type-label"
           id="event-type"
           value={eventType}
           label="Event Type"
@@ -370,7 +370,7 @@ const EventRegistrationForm = () => {
           Event Mode Type
         </InputLabel>
         <Select
-          labelId="event-type-label"
+          labelid="event-type-label"
           id="event-type"
           value={eventModeType}
           label="Event Mode Type"
@@ -456,7 +456,7 @@ const EventRegistrationForm = () => {
           Event Mode
         </InputLabel>
         <Select
-          labelId="event-type-label"
+          labelid="event-type-label"
           id="event-type"
           value={mode}
           label="Event Mode"
@@ -485,7 +485,7 @@ const EventRegistrationForm = () => {
           Event Status
         </InputLabel>
         <Select
-          labelId="event-type-label"
+          labelid="event-type-label"
           id="event-type"
           value={status}
           label="Event Status"

@@ -697,7 +697,7 @@ const JobRegistrationForm = () => {
           Domain Name*
         </InputLabel>
         <Select
-          labelId="Domain-name"
+          labelid="Domain-name"
           id="student-signup-campus-select"
           value={domainName}
           label="Domain Name"
@@ -724,7 +724,7 @@ const JobRegistrationForm = () => {
           Job Type*
         </InputLabel>
         <Select
-          labelId="event-type-label"
+          labelid="event-type-label"
           id="event-type"
           value={opportunityMode}
           label="Job Type"
@@ -762,7 +762,7 @@ const JobRegistrationForm = () => {
           Job Timings*
         </InputLabel>
         <Select
-          labelId="event-type-label"
+          labelid="event-type-label"
           id="event-type"
           value={opportunityTiming}
           label="Event Mode"
@@ -887,7 +887,7 @@ const JobRegistrationForm = () => {
             Paid / Unpaid*
           </InputLabel>
           <Select
-            labelId="event-type-label"
+            labelid="event-type-label"
             id="event-type"
             value={isPaid}
             label="Paid / Unpaid*"
@@ -978,7 +978,7 @@ const JobRegistrationForm = () => {
               Work Experience*
             </InputLabel>
             <Select
-              labelId="Domain-name"
+              labelid="Domain-name"
               id="student-signup-campus-select"
               value={experience}
               label="Work Experience*"

@@ -253,7 +253,7 @@ export default function UserDashboard() {
                         <div className="time">
                           <span>{experience?.startYear}</span>{" "}
                           {experience?.currentlyWorking && (
-                            <span>- Current</span>
+                            <span>- Present</span>
                           )}{" "}
                           {!experience?.currentlyWorking &&
                             experience?.endYear && (
@@ -304,7 +304,7 @@ export default function UserDashboard() {
             >
               <div className="heading">Hackathon</div>
               <div className="subheading">
-                Create Event <BsArrowRight />
+                Create Hackathon <BsArrowRight />
               </div>
             </div>
             <div
@@ -318,7 +318,7 @@ export default function UserDashboard() {
             >
               <div className="heading">Webinar</div>
               <div className="subheading">
-                Create Event <BsArrowRight />
+                Create Webinar <BsArrowRight />
               </div>
             </div>
             <div
@@ -344,7 +344,7 @@ export default function UserDashboard() {
             >
               <div className="heading">Internships</div>
               <div className="subheading">
-                Create Jobs <BsArrowRight />
+                Create Internships <BsArrowRight />
               </div>
             </div>
           </div>
