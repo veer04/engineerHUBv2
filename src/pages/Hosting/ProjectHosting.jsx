@@ -506,7 +506,7 @@ const JobRegistrationForm = () => {
             Project Category*
           </InputLabel>
           <Select
-            labelId="Domain-name"
+            labelid="Domain-name"
             id="student-signup-campus-select"
             value={domainName}
             label="Domain Name"
@@ -617,7 +617,7 @@ const JobRegistrationForm = () => {
             error={!!errors.timePeriod}
           ></InputLabel>
           <Select
-            labelId="event-type-label"
+            labelid="event-type-label"
             id="event-type"
             value={timePeriod}
             label=""
@@ -762,7 +762,7 @@ const JobRegistrationForm = () => {
             error={!!errors.mobileCountryCode}
           ></InputLabel>
           <Select
-            labelId="event-type-label"
+            labelid="event-type-label"
             id="event-type"
             value={mobileCountryCode}
             label=""
@@ -839,7 +839,7 @@ const JobRegistrationForm = () => {
           Job Timings*
         </InputLabel>
         <Select
-          labelId="event-type-label"
+          labelid="event-type-label"
           id="event-type"
           value={opportunityTiming}
           label="Event Mode"
@@ -896,7 +896,7 @@ const JobRegistrationForm = () => {
             Paid / Unpaid*
           </InputLabel>
           <Select
-            labelId="event-type-label"
+            labelid="event-type-label"
             id="event-type"
             value={isPaid}
             label="Paid / Unpaid*"
@@ -960,7 +960,7 @@ const JobRegistrationForm = () => {
   //               Work Experience*
   //             </InputLabel>
   //             <Select
-  //               labelId="Domain-name"
+  //               labelid="Domain-name"
   //               id="student-signup-campus-select"
   //               value={experience}
   //               label="Work Experience*"

@@ -321,7 +321,7 @@ export default function ProfilePopUp() {
         </div>
         <div className="personal-details">
           <div className="name">{userFullName}</div>
-          <div className="sub-name">Software Development</div>
+          {/* <div className="sub-name">Software Development</div> */}
         </div>
       </div>
       <button

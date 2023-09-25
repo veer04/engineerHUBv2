@@ -542,7 +542,7 @@ const SignupUser = () => {
               </div>
 
               <div className="my-item-cont">
-                <div>ALready have an account?</div>
+                <div>Already have an account?</div>
                 <Link to="/login
               " className="f-p ">
                   Sign In

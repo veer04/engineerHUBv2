@@ -335,7 +335,7 @@ const OrganizationSignup = () => {
             error={!!errors.mobileCountryCode}
           ></InputLabel>
           <Select
-            labelId="event-type-label"
+            labelid="event-type-label"
             id="event-type"
             value={mobileCountryCode}
             label=""
@@ -409,7 +409,7 @@ const OrganizationSignup = () => {
           Hiring For
         </InputLabel>
         <Select
-          labelId="year"
+          labelid="year"
           id="student-signup-year-select"
           value={hiringFor}
           label="Hiring For"

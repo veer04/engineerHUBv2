@@ -307,7 +307,7 @@ export default function ClubDashboard() {
               </div>
             )}
           </div>
-          {posts.length !== 0 && !showAll1 && (
+          {posts.length > 3 && !showAll1 && (
             <div className="btn-container">
               <button
                 onClick={() => setShowAll1(true)}
@@ -317,7 +317,7 @@ export default function ClubDashboard() {
               </button>
             </div>
           )}
-          {posts.length !== 0 && showAll1 && (
+          {posts.length > 3 && showAll1 && (
             <div className="btn-container">
               <button
                 onClick={() => setShowAll1(false)}
@@ -365,7 +365,7 @@ export default function ClubDashboard() {
               </div>
             )}
           </div>
-          {organization?.members?.length !== 0 && !showAll2 && (
+          {organization?.members?.length > 3 && !showAll2 && (
             <div className="btn-container">
               <button
                 onClick={() => setShowAll2(true)}
@@ -375,7 +375,7 @@ export default function ClubDashboard() {
               </button>
             </div>
           )}
-          {organization?.members?.length !== 0 && showAll2 && (
+          {organization?.members?.length > 3 && showAll2 && (
             <div className="btn-container">
               <button
                 onClick={() => setShowAll2(false)}
@@ -418,7 +418,7 @@ export default function ClubDashboard() {
               </div>
             )}
           </div>
-          {featuredEvents.length !== 0 && !showAll3 && (
+          {featuredEvents.length > 3 && !showAll3 && (
             <div className="btn-container">
               <button
                 onClick={() => setShowAll3(true)}
@@ -428,7 +428,7 @@ export default function ClubDashboard() {
               </button>
             </div>
           )}
-          {featuredEvents.length !== 0 && showAll3 && (
+          {featuredEvents.length > 3 && showAll3 && (
             <div className="btn-container">
               <button
                 onClick={() => setShowAll3(false)}

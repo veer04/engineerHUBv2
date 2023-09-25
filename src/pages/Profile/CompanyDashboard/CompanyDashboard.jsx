@@ -60,6 +60,7 @@ export default function CompanyDashboard() {
   const [hackathons, setHackathons] = useState([]);
   const [projects, setProjects] = useState([]);
   const [isActivityPresent, setIsActivityPresent] = useState(true);
+  const [activityLength, setActivityLength] = useState(false);
   const [scrollAmount, setScrollAmount] = useState(220);
   const bucket = `${Bucket_URL}frontend/hosting/`;
   const bucket2 = `${Bucket_URL}frontend/profile/dashboard/`;
@@ -125,6 +126,11 @@ export default function CompanyDashboard() {
     if (activityChoice === "jobs") {
       if (jobs.length !== 0) {
         setIsActivityPresent(true);
+        if (jobs.length > 3) {
+          setActivityLength(true);
+        } else {
+          setActivityLength(false);
+        }
       } else {
         setIsActivityPresent(false);
       }
@@ -132,6 +138,11 @@ export default function CompanyDashboard() {
     if (activityChoice === "internships") {
       if (internships.length !== 0) {
         setIsActivityPresent(true);
+        if (internships.length > 3) {
+          setActivityLength(true);
+        } else {
+          setActivityLength(false);
+        }
       } else {
         setIsActivityPresent(false);
       }
@@ -139,6 +150,11 @@ export default function CompanyDashboard() {
     if (activityChoice === "hackathons") {
       if (hackathons.length !== 0) {
         setIsActivityPresent(true);
+        if (hackathons.length > 3) {
+          setActivityLength(true);
+        } else {
+          setActivityLength(false);
+        }
       } else {
         setIsActivityPresent(false);
       }
@@ -146,6 +162,11 @@ export default function CompanyDashboard() {
     if (activityChoice === "projects") {
       if (projects.length !== 0) {
         setIsActivityPresent(true);
+        if (projects.length > 3) {
+          setActivityLength(true);
+        } else {
+          setActivityLength(false);
+        }
       } else {
         setIsActivityPresent(false);
       }
@@ -446,14 +467,14 @@ export default function CompanyDashboard() {
               </button>
             )}
           </div>
-          {isActivityPresent && !showAll && (
+          {isActivityPresent && activityLength && !showAll && (
             <div className="btn-container">
               <button onClick={() => setShowAll(true)} className="all-jobs-btn">
                 Show all {activityChoice} <BsArrowRight />
               </button>
             </div>
           )}
-          {isActivityPresent && showAll && (
+          {isActivityPresent && activityLength && showAll && (
             <div className="btn-container">
               <button
                 onClick={() => setShowAll(false)}
