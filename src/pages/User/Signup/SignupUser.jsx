@@ -14,7 +14,7 @@ import "../Login/Login.css";
 import axios, { AxiosError } from "axios";
 import useNavbar from "../../../hooks/use-navbar";
 // import { set } from "react-hook-form";
-import { API_URL, API_URLT } from "../../../services/APIUtils";
+import { API_URL, API_URLT, FRONTEND_URL } from "../../../services/APIUtils";
 
 const SignupUser = () => {
   const loginLeft = "https://frontendehubbucket.s3.ap-south-1.amazonaws.com/frontend/auth/loginLeft.png"
@@ -311,7 +311,7 @@ const SignupUser = () => {
   // }, []);
 
   const handleLogin = () => {
-    const dynamicRedirectUrl = "http://127.0.0.1:5174/success";
+    const dynamicRedirectUrl = `${FRONTEND_URL}success`;
     const googleAuthUrl = new URL(
       "https://accounts.google.com/o/oauth2/v2/auth"
     );
