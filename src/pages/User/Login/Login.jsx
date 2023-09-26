@@ -533,13 +533,13 @@ const Register = () => {
                   {/* <div className="f-p "onClick={gauth}>Reset Now </div> */}
                 </div>
               </div>
-              <div className="divisor d-flex justify-content-center">
+              {/* <div className="divisor d-flex justify-content-center">
                 <hr style={{ color: "#6c757d" }} />
                 <span className="d-flex justify-content-center p-2">or</span>
                 <hr />
-              </div>
+              </div> */}
 
-              <div className="sign-field reg-field">
+              {/* <div className="sign-field reg-field">
                 <div className="sign-opt ">
                   <div>
                     <GoogleButton onClick={handleLogin}>
@@ -547,7 +547,7 @@ const Register = () => {
                     </GoogleButton>
                   </div>
                 </div>
-              </div>
+              </div> */}
 
               <div className="my-item-cont">
                 <div>Don't have an account?</div>
