@@ -17,7 +17,8 @@ import useNavbar from "../../../hooks/use-navbar";
 import { API_URL, API_URLT, FRONTEND_URL } from "../../../services/APIUtils";
 
 const SignupUser = () => {
-  const loginLeft = "https://frontendehubbucket.s3.ap-south-1.amazonaws.com/frontend/auth/loginLeft.png"
+  const loginLeft =
+    "https://frontendehubbucket.s3.ap-south-1.amazonaws.com/frontend/auth/loginLeft.png";
   if (Cookies.get("name")) {
     let path = "";
     if (Cookies.get("role") === "User") {
@@ -52,7 +53,7 @@ const SignupUser = () => {
     email: "",
     password: "",
     role: "User",
-    name:"",
+    name: "",
     // accessToken: accessToken,
     // refreshToken: refreshToken,
   });
@@ -330,9 +331,9 @@ const SignupUser = () => {
     googleAuthUrl.searchParams.append("prompt", "consent");
 
     window.location.href = googleAuthUrl.toString();
-  //  setTimeout(()=>{
-  //     window.location.reload();
-  //  },2000)
+    //  setTimeout(()=>{
+    //     window.location.reload();
+    //  },2000)
   };
 
   // Call the function to make the API request
@@ -406,42 +407,43 @@ const SignupUser = () => {
   };
 
   return (
-    <div className="Login">
+    <main className="Login">
       <div className="container">
-        <div className="row">
-    <div className="col-lg-7"
-             style={{
-            
-              borderRadius:"7px",
-              background:"#fff",
-              marginBottom:"2%",
-            }}>
-          <div className="cont-head">
+        <div className="row d-flex justify-content-center">
+          <div
+            className="col-lg-7 login-left-container"
+            style={{
+              borderRadius: "7px",
+              background: "#fff",
+              marginBottom: "2%",
+            }}
+          >
+            <div className="cont-head">
               <div
                 className="my-form-head"
                 style={{
                   color: "var(--Primary-500, #002B36)",
-                  fontFamily:"Gotham Black",
+                  fontFamily: "Gotham Black",
                   padding: "30px",
-                  fontWeight:"800",
+                  fontWeight: "800",
                 }}
               >
-             Join the India’s <span style={{textDecoration:"line-through"}}> largest</span> <br/>
-              coolest community of engineers
-              
+                Join the India’s{" "}
+                <span style={{ textDecoration: "line-through" }}> largest</span>{" "}
+                <br />
+                coolest community of engineers
               </div>
               <img src={loginLeft} alt="" />
             </div>
-
-    </div>
-          <div className="cont col-lg-3"
-          style={{
-            
-            borderRadius:"7px",
-            background:"#fff",
-            marginBottom:"2%",
-            marginLeft:"20px",
-          }}
+          </div>
+          <div
+            className="cont col-lg-3 login-right-container"
+            style={{
+              borderRadius: "7px",
+              background: "#fff",
+              marginBottom: "2%",
+              marginLeft: "20px",
+            }}
           >
             <div className="cont-head">
               <div
@@ -452,7 +454,6 @@ const SignupUser = () => {
                 }}
               >
                 Sign Up
-              
               </div>
             </div>
 
@@ -509,7 +510,7 @@ const SignupUser = () => {
                   </IconButton>
                 </div>
               </div>
-              <div className="form-opt">
+              <div className="form-cont">
                 <button
                   className="my-btn reg-si registerSSS"
                   type="submit"
@@ -543,8 +544,11 @@ const SignupUser = () => {
 
               <div className="my-item-cont">
                 <div>Already have an account?</div>
-                <Link to="/login
-              " className="f-p ">
+                <Link
+                  to="/login
+              "
+                  className="f-p "
+                >
                   Sign In
                 </Link>
                 {snackbarValues.severity !== "success" && (
@@ -560,7 +564,7 @@ const SignupUser = () => {
           </div>
         </div>
       </div>
-    </div>
+    </main>
   );
 };
 

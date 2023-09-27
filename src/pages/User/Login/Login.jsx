@@ -416,7 +416,7 @@ const Register = () => {
   return (
     <main className="Login">
       <div className="container">
-        <div className="row">
+        <div className="row d-flex justify-content-center">
           <div
             className="col-lg-6 login-left-container"
             style={{
@@ -516,16 +516,16 @@ const Register = () => {
                     {showPassword ? <VisibilityOff /> : <Visibility />}
                   </IconButton>
                 </div>
-              </div>
-              <div className="form-opt">
                 <button
-                  className="my-btn reg-si registerSSS"
+                  className="my-btn reg-si registerSSS "
                   type="submit"
                   // onClick={navigation}
-                >
+                  >
                   {loading ? "Loading..." : "Sign in"}
                 </button>
 
+                  </div>
+              <div className="form-opt">
                 <div className="d-flex justify-content-center">
                   <div className="f-p" onClick={NavigateForgot}>
                     Forgot Password ? Reset Now
