@@ -75,10 +75,12 @@ export default function UserDashboard() {
           </span>
           <span className="name">{`${user.firstName} ${user.lastName}`}</span>
           <span className="address text-crop-2 overflow-hidden">
-            {user?.educationDetails?.length > 0
-              ? user?.educationDetails[user.educationDetails.length - 1]
-                  ?.collegeId?.collegeName
-              : "No address"}
+            {user?.educationDetails?.length > 0 ? (
+              user?.educationDetails[user.educationDetails.length - 1]
+                ?.collegeId?.collegeName
+            ) : (
+              <i>No campus details</i>
+            )}
           </span>
           {isUserAdmin && (
             <span className="email text-crop-1 overflow-hidden">

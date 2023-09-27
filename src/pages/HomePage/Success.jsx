@@ -55,9 +55,9 @@ const Success = () => {
             Cookies.set("chatDomain",JSON.stringify(decoded.chatDomain));
             console.log(response.data);
             if(!redirect)
-            navigate("/login");
+            navigate(`/profile/user/${_id}`);
+            window.location.reload();
             // redirect= true;
-            // window.location.reload();
           }
         } catch (error) {
           console.error("Error fetching user data:", error);
