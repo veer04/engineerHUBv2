@@ -6,6 +6,8 @@ import { IoIosArrowBack } from "react-icons/io";
 import getCookie from "../../../features/getCookieValues";
 import axios from "axios";
 import { CgLogOut } from "react-icons/cg";
+import jwt_decode from "jwt-decode";
+
 import { AiOutlinePlus } from "react-icons/ai";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { TextField } from "@mui/material";
@@ -15,6 +17,8 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import InstagramIcon from "@mui/icons-material/Instagram";
+import Cookies from "js-cookie";
+
 import TwitterIcon from "@mui/icons-material/Twitter";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import { HiOutlineBuildingOffice2 } from "react-icons/hi2";
@@ -271,6 +275,10 @@ const UserEditProfile = () => {
         setSnackbarMessage("Education added successfully");
         setSnackbarOpen(true);
         setEducationExist(true);
+        const decoded = jwt_decode(updateEducationResponse.data.accessToken);
+        Cookies.set("access_token",updateEducationResponse.data.accessToken)
+        console.log(decoded);
+        Cookies.set("role", decoded.role);
         fetchData();
       } else {
         setSnackbarSeverity("error");
@@ -1758,7 +1766,8 @@ const UserEditProfile = () => {
                           {item.organisationName}
                         </div>
                         <div className="row duration  headingJob2">
-                          {item.startYear} - {item.currentlyWorking?"Present":item.endYear}
+                          {item.startYear} -{" "}
+                          {item.currentlyWorking ? "Present" : item.endYear}
                         </div>
                         <div className="row jobLocation  headingJob2">
                           {item.state} , {item.country}
