@@ -526,7 +526,7 @@ const SignupUser = () => {
                   {/* <div className="f-p "onClick={gauth}>Reset Now </div> */}
                 </div>
               </div>
-              {/* <div className="divisor d-flex justify-content-center">
+              <div className="divisor d-flex justify-content-center">
                 <hr style={{ color: "#6c757d" }} />
                 <span className="d-flex justify-content-center p-2">or</span>
                 <hr />
@@ -540,7 +540,7 @@ const SignupUser = () => {
                     </GoogleButton>
                   </div>
                 </div>
-              </div> */}
+              </div>
 
               <div className="my-item-cont">
                 <div>Already have an account?</div>
