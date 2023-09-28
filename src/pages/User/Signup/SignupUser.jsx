@@ -533,13 +533,13 @@ const SignupUser = () => {
               </div>
 
               <div className="sign-field reg-field">
-                <div className="sign-opt ">
-                  <div>
+                {/* <div className="sign-opt "> */}
+                  {/* <div> */}
                     <GoogleButton onClick={handleLogin}>
                       Sign Up with Google
                     </GoogleButton>
-                  </div>
-                </div>
+                  {/* </div> */}
+                {/* </div> */}
               </div>
 
               <div className="my-item-cont">

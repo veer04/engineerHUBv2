@@ -22,7 +22,6 @@ const Success = () => {
     useEffect(() => {
       setSelectedPageNavbar("home");
       window.scrollTo(0, 0);
-  
       const fetchData = async () => {
         try {
           const response = await axios.get(`${API_URL}api/v1/auth/details`, {
@@ -55,8 +54,9 @@ const Success = () => {
             Cookies.set("chatDomain",JSON.stringify(decoded.chatDomain));
             console.log(response.data);
             if(!redirect)
-            navigate(`/profile/user/${_id}`);
-            window.location.reload();
+            window.location.href=`/profile/user/${_id}`;
+            // navigate(`/profile/user/${_id}`);
+            // window.location.reload();
             // redirect= true;
           }
         } catch (error) {
@@ -72,18 +72,31 @@ const Success = () => {
 
 
   return (
-    <main style={{
-      display:"flex",
-      justifyContent:"center",
-      alignItems:"center",
-        textAlign:"center",
-        fontSize:"2rem",
-        fontWeight:"800",
-    }}>
-        If logged in successfully u will be redirect
-
+    <main
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        textAlign: "center",
+        fontSize: "1.5rem",
+        fontWeight: "600",
+      }}
+    >
+      <div
+        style={{
+          position: "relative",
+          top: "-4rem",
+        }}
+      >
+        <div className="spinner-border text-info" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </div>
+        <div>
+          You’re being redirected to an another page, This may take few seconds
+        </div>
+      </div>
     </main>
-  )
+  );
 }
 
 export default Success
