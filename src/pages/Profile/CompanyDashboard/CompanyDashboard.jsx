@@ -45,6 +45,7 @@ import ProjectCards from "../../Company/Projects/ProjectCards";
 import { useLayoutEffect } from "react";
 import Page404 from "../../Maintenance/Page404";
 import LoadingPage from "../../../components/Loader/LoadingPage";
+import InternshipCard from "../../Company/Internship/InternshipCard";
 
 export default function CompanyDashboard() {
   const { organizationId } = useParams();
@@ -423,16 +424,20 @@ export default function CompanyDashboard() {
                       color={colorWheel[index % colorWheel.length]}
                       className="scroll-card no-hover-scale"
                       adminView={isUserAdmin}
+                      filterByCompany={true}
+                      filterName={organization?.name}
                     />
                   ))}
                 {activityChoice === "internships" &&
                   internships.map((jobDetail, index) => (
-                    <JobCards
+                    <InternshipCard
                       key={index}
                       details={jobDetail}
                       color={colorWheel[index % colorWheel.length]}
                       className="scroll-card no-hover-scale"
                       adminView={isUserAdmin}
+                      filterByCompany={true}
+                      filterName={organization?.name}
                     />
                   ))}
                 {activityChoice === "hackathons" &&
@@ -442,6 +447,8 @@ export default function CompanyDashboard() {
                       {...jobDetail}
                       className="scroll-card no-hover-scale"
                       adminView={isUserAdmin}
+                      filterByCompany={true}
+                      filterName={organization?.name}
                     />
                   ))}
                 {activityChoice === "projects" &&
@@ -451,6 +458,8 @@ export default function CompanyDashboard() {
                       data={jobDetail}
                       className="scroll-card no-hover-scale"
                       adminView={isUserAdmin}
+                      filterByCompany={true}
+                      filterName={organization?.name}
                     />
                   ))}
               </div>

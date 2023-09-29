@@ -11,6 +11,8 @@ import { set } from "react-hook-form";
 
 const HackathonCard = ({
   _id,
+  filterByCompany,
+  filterName,
   opportunityPoster,
   organisationLogo,
   opportunityName,
@@ -48,7 +50,9 @@ const HackathonCard = ({
   return (
     <div
       onClick={() => {
-        navigate(`/company/events/${_id}`);
+        navigate(
+          `/company/events/${_id}${filterByCompany ? `?q=${filterName}` : ""}`
+        );
       }}
       className={`HackathonCard ${!!className ? className : ""}`}
     >

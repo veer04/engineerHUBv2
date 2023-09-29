@@ -2,10 +2,12 @@ import React, { useEffect, useMemo, useState } from "react";
 import "./Projects.css";
 import { controller, getProjectData } from "../../../services/APIConfig";
 import ProjectCards from "./ProjectCards";
+import { useSearchParams } from "react-router-dom";
 
 const Projects = () => {
+  const [searchParams, setSearchParams] = useSearchParams({ q: "" });
+  const q = searchParams.get("q");
   const [project, setProject] = useState([]);
-  const [query, setQuery] = useState("");
   const [filteredProjects, setFilteredProjects] = useState([]);
   const [searchedProjects, setSearchedProjects] = useState([]);
 
@@ -28,19 +30,20 @@ const Projects = () => {
   const filteredData = useMemo(() => {
     return project.filter((value) => {
       return (
-        value.projectName?.toLowerCase().includes(query.toLowerCase()) ||
-        value.category?.toLowerCase().includes(query.toLowerCase()) ||
-        value.stipend?.toLowerCase().includes(query.toLowerCase()) ||
+        value.projectName?.toLowerCase().includes(q.toLowerCase()) ||
+        value.category?.toLowerCase().includes(q.toLowerCase()) ||
+        value.stipend?.toLowerCase().includes(q.toLowerCase()) ||
         value.techStack?.some((tag) =>
-          tag.toLowerCase().includes(query.toLowerCase())
-        )
+          tag.toLowerCase().includes(q.toLowerCase())
+        ) ||
+        value.organisationName?.toLowerCase().includes(q.toLowerCase())
       );
     });
-  }, [project, query]);
+  }, [project, q]);
 
   useEffect(() => {
     setSearchedProjects(filteredData);
-  }, [query, filteredData]);
+  }, [q, filteredData]);
 
   return (
     <div className="Projects">
@@ -53,9 +56,15 @@ const Projects = () => {
             placeholder="Search"
             aria-label="Recipient's username"
             aria-describedby="basic-addon2"
-            value={query}
+            value={q}
             onChange={(e) => {
-              setQuery(e.target.value);
+              setSearchParams(
+                (prev) => {
+                  prev.set("q", e.target.value);
+                  return prev;
+                },
+                { replace: true }
+              );
             }}
           />
 
