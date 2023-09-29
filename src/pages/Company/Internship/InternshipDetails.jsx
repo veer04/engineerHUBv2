@@ -5,9 +5,11 @@ import JobDescription from "./InternshipDesc";
 import { controller, getHiringData } from "../../../services/APIConfig";
 import colorWheel from "../../../assets/colorWheel";
 import LoadingPage from "../../../components/Loader/LoadingPage";
+import { useSearchParams } from "react-router-dom";
 const InternshipDetails = () => {
+  const [searchParams, setSearchParams] = useSearchParams({ q: "" });
+  const q = searchParams.get("q");
   const [allJobsData, setAllJobsData] = useState([]);
-  const [query, setQuery] = useState("");
   const [filteredProjects, setFilteredProjects] = useState([]);
   const [searchedProjects, setSearchedProjects] = useState([]);
 
@@ -30,23 +32,21 @@ const InternshipDetails = () => {
   const filteredData = useMemo(() => {
     return allJobsData.filter((value) => {
       return (
-        value.opportunityName?.toLowerCase().includes(query.toLowerCase()) ||
-        value.amount?.toLowerCase().includes(query.toLowerCase()) ||
-        value.opportunityLocation
-          ?.toLowerCase()
-          .includes(query.toLowerCase()) ||
-        value.domainName?.toLowerCase().includes(query.toLowerCase()) ||
+        value.opportunityName?.toLowerCase().includes(q.toLowerCase()) ||
+        value.amount?.toLowerCase().includes(q.toLowerCase()) ||
+        value.opportunityLocation?.toLowerCase().includes(q.toLowerCase()) ||
+        value.domainName?.toLowerCase().includes(q.toLowerCase()) ||
         value.skillsRequired?.some((tag) =>
-          tag.toLowerCase().includes(query.toLowerCase())
-        )
+          tag.toLowerCase().includes(q.toLowerCase())
+        ) ||
+        value.organisationName?.toLowerCase().includes(q.toLowerCase())
       );
     });
-  }, [allJobsData, query]);
+  }, [allJobsData, q]);
 
   useEffect(() => {
     setSearchedProjects(filteredData);
-  }, [query, filteredData]);
-
+  }, [q, filteredData]);
 
   const InternshipDetails = (
     <div className="CompanyJobDetails">
@@ -61,9 +61,15 @@ const InternshipDetails = () => {
                 placeholder="Search"
                 aria-label="Recipient's username"
                 aria-describedby="basic-addon2"
-                value={query}
+                value={q}
                 onChange={(e) => {
-                  setQuery(e.target.value);
+                  setSearchParams(
+                    (prev) => {
+                      prev.set("q", e.target.value);
+                      return prev;
+                    },
+                    { replace: true }
+                  );
                 }}
               />
 

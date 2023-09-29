@@ -4,8 +4,11 @@ import JobCards from "./JobCards";
 import "./jobs.css";
 import colorWheel from "../../../assets/colorWheel";
 import { controller, getHiringData } from "../../../services/APIConfig";
+import { useSearchParams } from "react-router-dom";
 
 const Jobs = () => {
+  const [searchParams, setSearchParams] = useSearchParams({ q: "" });
+  const q = searchParams.get("q");
   const [hiring, setHiring] = useState([]);
   const [query, setQuery] = useState("");
   const [filteredProjects, setFilteredProjects] = useState([]);
@@ -30,22 +33,21 @@ const Jobs = () => {
   const filteredData = useMemo(() => {
     return hiring.filter((value) => {
       return (
-        value.opportunityName?.toLowerCase().includes(query.toLowerCase()) ||
-        value.amount?.toLowerCase().includes(query.toLowerCase()) ||
-        value.opportunityLocation
-          ?.toLowerCase()
-          .includes(query.toLowerCase()) ||
-        value.domainName?.toLowerCase().includes(query.toLowerCase()) ||
+        value.opportunityName?.toLowerCase().includes(q.toLowerCase()) ||
+        value.amount?.toLowerCase().includes(q.toLowerCase()) ||
+        value.opportunityLocation?.toLowerCase().includes(q.toLowerCase()) ||
+        value.domainName?.toLowerCase().includes(q.toLowerCase()) ||
         value.skillsRequired?.some((tag) =>
-          tag.toLowerCase().includes(query.toLowerCase())
-        )
+          tag.toLowerCase().includes(q.toLowerCase())
+        ) ||
+        value.organisationName?.toLowerCase().includes(q.toLowerCase())
       );
     });
-  }, [hiring, query]);
+  }, [hiring, q]);
 
   useEffect(() => {
     setSearchedProjects(filteredData);
-  }, [query, filteredData]);
+  }, [q, filteredData]);
 
   return (
     <div className="CompanyJob">
@@ -62,9 +64,15 @@ const Jobs = () => {
             placeholder="Search"
             aria-label="Recipient's username"
             aria-describedby="basic-addon2"
-            value={query}
+            value={q}
             onChange={(e) => {
-              setQuery(e.target.value);
+              setSearchParams(
+                (prev) => {
+                  prev.set("q", e.target.value);
+                  return prev;
+                },
+                { replace: true }
+              );
             }}
           />
 

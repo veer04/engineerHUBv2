@@ -3,7 +3,14 @@ import { Chip } from "@mui/material";
 import "./JobCards.css";
 import { Link } from "react-router-dom";
 import ViewApplicantsModal from "../../../components/Dashboard/ViewApplicantsModal";
-const JobCards = ({ details, color, className, adminView }) => {
+const JobCards = ({
+  details,
+  color,
+  className,
+  adminView,
+  filterByCompany,
+  filterName
+}) => {
   const [toggleModal, setToggleModal] = useState(false);
   const formatter = new Intl.NumberFormat("en-IN", {
     style: "currency",
@@ -61,7 +68,11 @@ const JobCards = ({ details, color, className, adminView }) => {
             <h5 className="text-crop-2 overflow-hidden">
               {details?.organisationName}
             </h5>
-            <Link to={`/company/jobs/${details?._id}`}>
+            <Link
+              to={`/company/jobs/${details?._id}${
+                filterByCompany ? `?q=${filterName}` : ""
+              }`}
+            >
               <div className="btn">View</div>
             </Link>
           </>

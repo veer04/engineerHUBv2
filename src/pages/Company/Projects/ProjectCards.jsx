@@ -6,7 +6,13 @@ import { useEffect } from "react";
 import { useState } from "react";
 import ViewApplicantsModal from "../../../components/Dashboard/ViewApplicantsModal";
 
-const ProjectCards = ({ data, className, adminView }) => {
+const ProjectCards = ({
+  data,
+  className,
+  adminView,
+  filterByCompany,
+  filterName,
+}) => {
   const [toggleModal, setToggleModal] = useState(false);
   const navigate = useNavigate();
   useEffect(() => {
@@ -19,7 +25,11 @@ const ProjectCards = ({ data, className, adminView }) => {
       className={`ProjectCard ${className}`}
       onClick={() => {
         if (adminView) return;
-        navigate(`/company/projects/${data._id}`);
+        navigate(
+          `/company/projects/${data._id}${
+            filterByCompany ? `?q=${filterName}` : ""
+          }`
+        );
       }}
     >
       <div className="ProjectCardTile">
