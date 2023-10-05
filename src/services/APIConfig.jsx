@@ -339,6 +339,116 @@ export const addUserEducation = (data, setResponse) => {
       }
     });
 };
+export const addUserAchievement = (data, setResponse) => {
+  const controller = new AbortController();
+  const config = {
+    headers: {
+      accessToken: getAccessToken(),
+    },
+  };
+  axios
+    .post(
+      `${API_URL}api/v1/add/achievement`,
+      {
+        ...data,
+      },
+      config
+    )
+    .then((res) => {
+      console.log(res);
+      setResponse(res);
+    })
+    .catch((err) => {
+      console.log(err);
+      setResponse(err);
+      if (axios.isCancel(err)) {
+        console.log("req cancel");
+      } else {
+        console.log("req performed");
+      }
+    });
+};
+export const addUserCertification = (data, setResponse) => {
+  const controller = new AbortController();
+  const config = {
+    headers: {
+      accessToken: getAccessToken(),
+    },
+  };
+  axios
+    .post(
+      `${API_URL}api/v1/add/licence`,
+      {
+        ...data,
+      },
+      config
+    )
+    .then((res) => {
+      console.log(res);
+      setResponse(res);
+    })
+    .catch((err) => {
+      console.log(err);
+      setResponse(err);
+      if (axios.isCancel(err)) {
+        console.log("req cancel");
+      } else {
+        console.log("req performed");
+      }
+    });
+};
+export const deleteUserCertification = (_id, setResponse) => {
+  const controller = new AbortController();
+  const config = {
+    headers: {
+      accessToken: getAccessToken(),
+    },
+  };
+  axios
+    .delete(
+      `${API_URL}api/v1/delete/licence/${_id}`,
+      config
+    )
+    .then((res) => {
+      console.log(res);
+      setResponse(res);
+    })
+    .catch((err) => {
+      console.log(err);
+      setResponse(err);
+      if (axios.isCancel(err)) {
+        console.log("req cancel");
+      } else {
+        console.log("req performed");
+      }
+    });
+};
+export const deleteUserAchievement = (_id, setResponse) => {
+  const controller = new AbortController();
+  const config = {
+    headers: {
+      accessToken: getAccessToken(),
+    },
+  };
+  axios
+    .delete(
+      `${API_URL}api/v1/delete/achievement/${_id}`,
+      config
+    )
+    .then((res) => {
+      console.log(res);
+      setResponse(res);
+    })
+    .catch((err) => {
+      console.log(err);
+      setResponse(err);
+      if (axios.isCancel(err)) {
+        console.log("req cancel");
+      } else {
+        console.log("req performed");
+      }
+    });
+};
 
 export const deleteUserEducation = (_id, setResponse) => {
   const controller = new AbortController();
