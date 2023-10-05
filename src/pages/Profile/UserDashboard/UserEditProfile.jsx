@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import moment from "moment";
 import "../Dashboard.css";
 import "../EditProfile.css";
 import "../CompanyDashboard/CompanyEditProfile.css";
@@ -9,7 +10,7 @@ import { CgLogOut } from "react-icons/cg";
 import jwt_decode from "jwt-decode";
 
 import { AiOutlinePlus } from "react-icons/ai";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams,useOutletContext } from "react-router-dom";
 import { TextField } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import InputAdornment from "@mui/material/InputAdornment";
@@ -43,6 +44,12 @@ import {
   deleteUserExperience,
   addUserProject,
   deleteUserProject,
+  addUserAchievement,
+  deleteUserAchievement,
+  addUserCertification,
+  deleteUserCertification,
+  patchResume,
+ 
 } from "../../../services/APIConfig";
 import { useRef } from "react";
 import useGlobalSnackbar from "../../../hooks/useGlobalSnackbar";
@@ -54,6 +61,7 @@ const UserEditProfile = () => {
   const navigate = useNavigate();
   const { userId } = useParams();
   const fileInput = useRef(null);
+
   const [skillsRequired, setSkillsRequired] = useState([]);
   const [user, setUser] = useState({});
   const [newFirstName, setNewFirstName] = useState("");
@@ -69,11 +77,14 @@ const UserEditProfile = () => {
   const [experienceList, setExperienceList] = useState([]);
   const [userSkills, setUserSkills] = useState([]);
   const [educationList, setEducationList] = useState([]);
+  const [achievementList, setAchievementList] = useState([]);
   const options = [
     "Basic Information",
     "Education Details",
     "Work Experience",
     "Projects",
+    "Achievements",
+    "Liscence & Certifications",
   ];
   const [chosenOption, setChosenOption] = useState(options[0]);
   const [currentlyWorking, setCurrentlyWorking] = useState(false);
@@ -112,12 +123,39 @@ const UserEditProfile = () => {
   const [patchEducationDetails, setPatchEducationDetails] = useState(false);
   const [updateUserResponse, setUpdateUserResponse] = useState({});
   const [updateEducationResponse, setUpdateEducationResponse] = useState({});
+  const [updateCertificationResponse, setUpdateCertificationResponse] = useState({});
+  const [updateAchievementResponse, setUpdateAchievementResponse] = useState({});
   const [deleteEducationResponse, setDeleteEducationResponse] = useState({});
+  const [deleteAchievementResponse, setDeleteAchievementResponse] = useState({});
+  const [deleteCertificationResponse, setDeleteCertificationResponse] = useState({});
+  const [certificationList,setCertificationList]=useState([])
   const [updateExperienceResponse, setUpdateExperienceResponse] = useState({});
   const [deleteExperienceResponse, setDeleteExperienceResponse] = useState({});
   const [updateProjectResponse, setUpdateProjectResponse] = useState({});
   const [deleteProjectResponse, setDeleteProjectResponse] = useState({});
   const [loading, setLoading] = useState(false);
+  const [achievementName,setAchievementName]=useState("");
+  const [achDescription, setAchDescription]=useState("");
+  const [achDate,setAchDate]=useState("");
+  const [achUrl,setAchUrl]=useState("");
+  const [achErrors, setAchErrors]=useState({
+    achievementName:"",
+    achDescription:"",
+    achDate:"",
+    achUrl:"",
+  })
+  const[certificationName,setCertificationName]=useState("");
+  const[issuedBy,setIssuedBy]=useState("");
+  const [issuedDate,setIssuedDate]=useState("");
+  const [certificateUrl,setCertificateUrl]=useState("");
+  const [certErrors,setCertErrors]=useState({
+    certificationName:"",
+    issuedBy:"",
+    issuedDate:"",
+    certificateUrl:"",
+  });
+  const[certExist,setCertExist]=useState(false);
+  const [achExist,setAchExist]=useState(false);
   const { setSnackbarOpen, setSnackbarMessage, setSnackbarSeverity } =
     useGlobalSnackbar();
   const [errors1, setErrors1] = useState({
@@ -187,11 +225,15 @@ const UserEditProfile = () => {
       setNewAboutMe(user?.aboutMe);
       setUserSkills(user?.skillsDetails);
       setEducationList(user?.educationDetails);
+      setAchievementList(user?.achievementDetails)
+      setCertificationList(user?.licenceDetails);
       setExperienceList(user?.experienceDetails);
       setProjectList(user?.projectDetails);
       setWorkExperienceExists(user?.experienceDetails?.length > 0);
       setProjectExist(user?.projectDetails?.length > 0);
       setEducationExist(user?.educationDetails?.length > 0);
+      setAchExist(user?.achievementDetails?.length > 0);
+      setCertExist(user?.licenceDetails?.length>0);
     }
   }, [user]);
 
@@ -296,6 +338,85 @@ const UserEditProfile = () => {
       setNewState("");
     }
   }, [updateEducationResponse]);
+  
+
+
+  useEffect(() => {
+    if (!!Object.keys(updateAchievementResponse).length) {
+      setLoading(false);
+      if (
+        updateAchievementResponse.status >= 200 &&
+        updateAchievementResponse.status < 300
+      ) {
+        setSnackbarSeverity("success");
+        setSnackbarMessage("Achievement added successfully");
+        setSnackbarOpen(true);
+        setAchExist(true);
+        const decoded = jwt_decode(updateAchievementResponse.data.accessToken);
+        Cookies.set("access_token",updateAchievementResponse.data.accessToken)
+        console.log(decoded);
+        Cookies.set("role", decoded.role);
+        fetchData();
+      } else {
+        setSnackbarSeverity("error");
+        setSnackbarMessage("Error in adding Achievement");
+        setSnackbarOpen(true);
+      }
+      setUpdateAchievementResponse({});
+      setAchievementName("");
+      setAchDescription("");
+      setAchDate("");
+      setAchUrl("");
+    }
+  }, [updateAchievementResponse]);
+
+  useEffect(() => {
+    if (!!Object.keys(updateCertificationResponse).length) {
+      setLoading(false);
+      if (
+        updateCertificationResponse.status >= 200 &&
+        updateCertificationResponse.status < 300
+      ) {
+        setSnackbarSeverity("success");
+        setSnackbarMessage("Certification added successfully");
+        setSnackbarOpen(true);
+        setAchExist(true);
+        const decoded = jwt_decode(updateCertificationResponse.data.accessToken);
+        Cookies.set("access_token",updateCertificationResponse.data.accessToken)
+        console.log(decoded);
+        Cookies.set("role", decoded.role);
+        fetchData();
+      } else {
+        setSnackbarSeverity("error");
+        setSnackbarMessage("Error in adding Certification");
+        setSnackbarOpen(true);
+      }
+      setUpdateCertificationResponse({});
+      setAchievementName("");
+      setAchDescription("");
+      setAchDate("");
+      setAchUrl("");
+    }
+  }, [updateCertificationResponse]);
+  useEffect(() => {
+    if (!!Object.keys(deleteCertificationResponse).length) {
+      setLoading(false);
+      if (
+        deleteCertificationResponse.status >= 200 &&
+        deleteCertificationResponse.status < 300
+      ) {
+        setSnackbarSeverity("success");
+        setSnackbarMessage("Certification deleted successfully");
+        setSnackbarOpen(true);
+        fetchData();
+      } else {
+        setSnackbarSeverity("error");
+        setSnackbarMessage("Error in deleting Certifications");
+        setSnackbarOpen(true);
+      }
+      setDeleteCertificationResponse({});
+    }
+  }, [deleteCertificationResponse]);
 
   useEffect(() => {
     if (!!Object.keys(deleteEducationResponse).length) {
@@ -317,6 +438,25 @@ const UserEditProfile = () => {
     }
   }, [deleteEducationResponse]);
 
+  useEffect(() => {
+    if (!!Object.keys(deleteAchievementResponse).length) {
+      setLoading(false);
+      if (
+        deleteAchievementResponse.status >= 200 &&
+        deleteAchievementResponse.status < 300
+      ) {
+        setSnackbarSeverity("success");
+        setSnackbarMessage("Achievement deleted successfully");
+        setSnackbarOpen(true);
+        fetchData();
+      } else {
+        setSnackbarSeverity("error");
+        setSnackbarMessage("Error in deleting Achievement");
+        setSnackbarOpen(true);
+      }
+      setDeleteAchievementResponse({});
+    }
+  }, [deleteAchievementResponse]);
   useEffect(() => {
     if (!!Object.keys(updateExperienceResponse).length) {
       setLoading(false);
@@ -641,6 +781,121 @@ const UserEditProfile = () => {
     return isValid;
   }
 
+  function validationDataCert()
+  {
+    let errors = {
+    certificationName:"",
+    certificateUrl:"",
+    issuedBy:"",
+    issuedDate:"",
+    };
+    let valid =true;
+    if(!!!certificationName)
+    {
+      errors.certificationName="Certification Name is Required";
+      valid=false;
+    }
+    if(!!!certificateUrl)
+    {
+      errors.certificateUrl="Certification URL is  Required";
+      valid =false;
+    }
+      
+    else if (!/^(ftp|http|https):\/\/[^ "]+$/.test(certificateUrl))
+    {
+      errors.certificateUrl="Certificate URL must be of the form ftp|http|https";
+      valid=false;
+    }
+    if(!!!issuedBy)
+    {
+      errors.issuedBy="Issued By which Organization is  Required";
+      valid =false;
+    }
+    if(!!!issuedDate)
+    {
+      errors.issuedDate="Issued date Required";
+      valid =false;
+    }
+    setCertErrors(errors);
+    return valid;
+  }
+
+  function validationDataAch()
+  {
+    let errors = {
+    achievementName:"",
+    achDescription:"",
+    achDate:"",
+    achUrl:"",
+    };
+    let valid =true;
+    if(!!!achievementName)
+    {
+      errors.achievementName="Achievement Name is Required";
+      valid=false;
+    }
+    if(!!!achDescription)
+    {
+      errors.achDescription="Achievement Description is  Required";
+      valid =false;
+    }
+    if(!!!achDate)
+    {
+      errors.achDate="Achievement Date is  Required";
+      valid =false;
+    }
+    if(!!!achUrl)
+    {
+      errors.achUrl="Achievement URL is  Required";
+      valid =false;
+    }
+    else if (!/^(ftp|http|https):\/\/[^ "]+$/.test(achUrl))
+    {
+      errors.achUrl="Achievement URL must be of the form ftp|http|https";
+      valid=false;
+    }
+    
+    setAchErrors(errors);
+    return valid;
+  }
+function handleUpdateCertification()
+{
+  let isValid=false;
+  isValid=validationDataCert();
+  if(!isValid)
+  {
+    return ;
+  }
+  const data={
+    certificationName: certificationName,
+    issuedBy:issuedBy,
+    issuedDate:issuedDate,
+    certificateUrl:certificateUrl,
+  };
+  setLoading(true);
+  addUserCertification(data, setUpdateCertificationResponse);
+  window.location.reload(true);
+
+}
+  function handleUpdateAchievement()
+  {
+    let isValid = false;
+
+    isValid = validationDataAch();
+    
+    if (!isValid) {
+      return;
+    }
+    const data = {
+      achievementName: achievementName,
+      description: achDescription,
+      achievementDate: achDate,
+      achievementUrl: achUrl,
+    };
+    setLoading(true);
+    addUserAchievement(data, setUpdateAchievementResponse);
+    window.location.reload(true);
+  }
   function handleUpdateEducation() {
     let isValid = false;
 
@@ -664,9 +919,17 @@ const UserEditProfile = () => {
     addUserEducation(data, setUpdateEducationResponse);
   }
 
+  function handleDeleteAchievement(_id) {
+    setLoading(true);
+    deleteUserAchievement(_id, setDeleteAchievementResponse);
+  }
   function handleDeleteEducation(_id) {
     setLoading(true);
     deleteUserEducation(_id, setDeleteEducationResponse);
+  }
+  function handleDeleteCertification(_id) {
+    setLoading(true);
+    deleteUserCertification(_id, setDeleteCertificationResponse);
   }
 
   function handleUpdateExperience() {
@@ -1960,162 +2223,541 @@ const UserEditProfile = () => {
       </section>
     </>
   );
-  const renderSocialLinks = (
+  const renderAchievements=(
     <>
-      <section className="box">
-        <p className="heading" style={{ fontSize: "1.2rem" }}>
-          Projects
-        </p>
+          <section className="box">
+        <p className="heading">ACHIEVEMENT DETAILS</p>
+        {
+          achExist? (
+            <>
 
-        <div>
-          <div>
-            <TextField
-              label="LinkedIn"
-              variant="outlined"
-              value={socialMediaLinks.LinkedIn}
-              onChange={(e) => handleChange("LinkedIn", e.target.value)}
-              onBlur={handleBlur}
-              error={errorLink !== "" && socialMediaLinks.LinkedIn === ""}
-              helperText={
-                errorLink !== "" && socialMediaLinks.LinkedIn === ""
-                  ? errorLink
-                  : ""
-              }
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <LinkedInIcon />
-                  </InputAdornment>
-                ),
-                endAdornment: (
-                  <InputAdornment position="end">
-                    <IconButton onClick={toggleVisibility}>
-                      {showLink ? <VisibilityOffIcon /> : <VisibilityIcon />}
-                    </IconButton>
-                  </InputAdornment>
-                ),
-                type: showLink ? "text" : "password",
+{achievementList.map((item, index) => {
+              return (
+                <div key={index} className="row">
+                  <div className="box outerBox" style={{}}>
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "flex-end",
+                        alignItems: "flex-start",
+                      }}
+                    >
+                      <div
+                        onClick={() => {
+                          if (!loading) {
+                            handleDeleteAchievement(item._id);
+                          }
+                        }}
+                        style={{
+                          cursor: "pointer",
+                        }}
+                      >
+                        <DeleteOutlineIcon></DeleteOutlineIcon>
+                      </div>
+                    </div>
+                    <div>
+                      <p style={{}} className="headingProject">
+                        {item.achievementName}
+                      </p>
+                    </div>
+                    <div>
+                      <p style={{}} className="projectDes">
+                        {moment(item.achievementDate).utc().format('YYYY-MM-DD')}
+                      </p>
+                    </div>
+                    <div>
+                      <p style={{}} className="projectDes">
+                        {item.description}
+                      </p>
+                    </div>
+                    <div>
+                      <p
+                        style={{
+                          margin: "auto",
+                        }}
+                      >
+                        <Link to={item.achievementUrl}>{item.achievementUrl}</Link>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+            <div
+              className="addButton"
+              onClick={() => setAchExist(false)}
+              style={{
+                border: "1px solid grey",
+                width: "300px",
+                height: "60px",
+                borderRadius: "10px",
+                color: "#002b36",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                margin: "auto",
               }}
-            />
-          </div>
-          <div>
-            <TextField
-              label="Instagram"
-              variant="outlined"
-              value={socialMediaLinks.Instagram}
-              onChange={(e) => handleChange("Instagram", e.target.value)}
-              onBlur={handleBlur}
-              error={errorLink !== "" && socialMediaLinks.Instagram === ""}
-              helperText={
-                errorLink !== "" && socialMediaLinks.Instagram === ""
-                  ? errorLink
-                  : ""
-              }
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <InstagramIcon />
-                  </InputAdornment>
-                ),
-                endAdornment: (
-                  <InputAdornment position="end">
-                    <IconButton onClick={toggleVisibility}>
-                      {showLink ? <VisibilityOffIcon /> : <VisibilityIcon />}
-                    </IconButton>
-                  </InputAdornment>
-                ),
-                type: showLink ? "text" : "password",
+            >
+              {/* <div className="addIcon"> <AiOutlinePlus />     
+              </div> */}
+              Add New
+            </div>
+            </>
+          ):(
+            <>
+  
+      <div className="row">
+              <div className="col-lg-10">
+                <div className="">
+                  <label className="label">
+                    Achievement Name<span className="required">*</span>
+                  </label>
+                  <input
+                    value={achievementName}
+                    type="text"
+                    onChange={(e) => setAchievementName(e.target.value)}
+                    className="input-field"
+                    placeholder="Enter your Achievement Name"
+                  />
+                  <label className="error-message">
+                    {achErrors.achievementName}
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-lg-4">
+                <div className="">
+                  <label className="label">
+                    Achievement Date<span className="required">*</span>
+                  </label>
+                  <input
+                    value={achDate}
+                    type="date"
+                    onChange={(e) => setAchDate(e.target.value)}
+                    className="input-field"
+                    placeholder="Enter your Achievement Date"
+                  />
+                  <label className="error-message">
+                    {achErrors.achDate}
+                  </label>
+                </div>
+              </div>
+              <div className="col-lg-4">
+                <div className="">
+                  <label className="label">
+                    Achievement Url<span className="required">*</span>
+                  </label>
+                  <input
+                    value={achUrl}
+                    type="text"
+                    onChange={(e) => setAchUrl(e.target.value)}
+                    className="input-field"
+                    placeholder="Enter your Achievement Url"
+                  />
+                  <label className="error-message">
+                    {achErrors.achUrl}
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-lg-10">
+                <div className="">
+                  <label className="label">
+                    Achievement Description<span className="required">*</span>
+                  </label>
+                  <input
+                    value={achDescription}
+                    type="text"
+                    onChange={(e) => setAchDescription(e.target.value)}
+                    className="input-field"
+                    placeholder="Enter your Achievement Name"
+                  />
+                  <label className="error-message">
+                    {achErrors.achDescription}
+                  </label>
+                </div>
+              </div>
+            </div>
+
+          
+           
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "flex-end",
+                alignItems: "flex-end",
               }}
-            />
-          </div>
-          <div>
-            <TextField
-              label="Twitter"
-              variant="outlined"
-              value={socialMediaLinks.Twitter}
-              onChange={(e) => handleChange("Twitter", e.target.value)}
-              onBlur={handleBlur}
-              error={errorLink !== "" && socialMediaLinks.Twitter === ""}
-              helperText={
-                errorLink !== "" && socialMediaLinks.Twitter === ""
-                  ? errorLink
-                  : ""
-              }
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <TwitterIcon />
-                  </InputAdornment>
-                ),
-                endAdornment: (
-                  <InputAdornment position="end">
-                    <IconButton onClick={toggleVisibility}>
-                      {showLink ? <VisibilityOffIcon /> : <VisibilityIcon />}
-                    </IconButton>
-                  </InputAdornment>
-                ),
-                type: showLink ? "text" : "password",
-              }}
-            />
-          </div>
-          <div>
-            <TextField
-              label="GitHub"
-              variant="outlined"
-              value={socialMediaLinks.GitHub}
-              onChange={(e) => handleChange("GitHub", e.target.value)}
-              onBlur={handleBlur}
-              error={errorLink !== "" && socialMediaLinks.GitHub === ""}
-              helperText={
-                errorLink !== "" && socialMediaLinks.GitHub === ""
-                  ? errorLink
-                  : ""
-              }
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <GitHubIcon />
-                  </InputAdornment>
-                ),
-                endAdornment: (
-                  <InputAdornment position="end">
-                    <IconButton onClick={toggleVisibility}>
-                      {showLink ? <VisibilityOffIcon /> : <VisibilityIcon />}
-                    </IconButton>
-                  </InputAdornment>
-                ),
-                type: showLink ? "text" : "password",
-              }}
-            />
-          </div>
-          {/* <TextField
-        label="Behance"
-        variant="outlined"
-        value={socialMediaLinks.Behance}
-        onChange={e => handleChange('Behance', e.target.value)}
-        onBlur={handleBlur}
-        error={error !== '' && socialMediaLinks.Behance === ''}
-        helperText={error !== '' && socialMediaLinks.Behance === '' ? error : ''}
-        InputProps={{
-          startAdornment: (
-            <InputAdornment position="start">
-              <BehanceIcon />
-            </InputAdornment>
-          ),
-          endAdornment: (
-            <InputAdornment position="end">
-              <IconButton onClick={toggleVisibility}>
-                {showLink ? <VisibilityOffIcon /> : <VisibilityIcon />}
-              </IconButton>
-            </InputAdornment>
-          ),
-          type: showLink ? 'text' : 'password',
-        }}
-      /> */}
-        </div>
-      </section>
+            >
+              <button
+                disabled={loading}
+                onClick={() => handleUpdateAchievement()}
+                className="update-btn"
+              >
+                {loading ? (
+                  <div className="spinner-border text-light" role="status">
+                    <span className="visually-hidden">Loading...</span>
+                  </div>
+                ) : (
+                  "Add Achievement"
+                )}
+              </button>
+            </div>
+          </>
+          )
+        }
+        </section>
     </>
-  );
+  )
+  const renderCertification=(
+    <>
+    <section className="box">
+    <p className="heading"> Certifications</p>
+    {
+      certExist?(<>
+                  {certificationList.map((item, index) => {
+              return (
+                <div key={index} className="row">
+                  <div className="box outerBox" style={{}}>
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "flex-end",
+                        alignItems: "flex-start",
+                      }}
+                    >
+                      <div
+                        onClick={() => {
+                          if (!loading) {
+                            handleDeleteCertification(item._id);
+                          }
+                        }}
+                        style={{
+                          cursor: "pointer",
+                        }}
+                      >
+                        <DeleteOutlineIcon></DeleteOutlineIcon>
+                      </div>
+                    </div>
+                    <div>
+                      <p style={{}} className="headingProject">
+                        {item.certificationName}
+                      </p>
+                    </div>
+                    <div>
+                      <p style={{}} className="projectDes">
+                        {item.issuedBy}
+                      </p>
+                    </div>
+                    <div>
+                      <p style={{}} className="projectDes">
+                        {moment(item.issuedDate).utc().format('YYYY-MM-DD')}
+                      </p>
+                    </div>
+                    <div>
+                      <p
+                        style={{
+                          margin: "auto",
+                        }}
+                      >
+                        <Link to={item.certificateUrl}>{item.certificateUrl}</Link>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+
+            <div className="row">
+              <div
+                className="addButton"
+                onClick={() => setCertExist(false)}
+                style={{
+                  border: "1px solid grey",
+                  width: "300px",
+                  height: "60px",
+                  borderRadius: "10px",
+                  color: "#002b36",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+
+                  margin: "auto",
+                }}
+              >
+                <div className="addIcon">
+                  <AiOutlinePlus />
+                </div>
+                Add New
+              </div>
+            </div>
+
+      </>):(
+                  <>
+  
+                  <div className="row">
+                          <div className="col-lg-10">
+                            <div className="">
+                              <label className="label">
+                                Certification Name<span className="required">*</span>
+                              </label>
+                              <input
+                                value={certificationName}
+                                type="text"
+                                onChange={(e) => setCertificationName(e.target.value)}
+                                className="input-field"
+                                placeholder="Enter your Certification Name"
+                              />
+                              <label className="error-message">
+                                {certErrors.certificationName}
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="row">
+                          <div className="col-lg-4">
+                            <div className="">
+                              <label className="label">
+                                Issued Date<span className="required">*</span>
+                              </label>
+                              <input
+                                value={issuedDate}
+                                type="date"
+                                onChange={(e) => setIssuedDate(e.target.value)}
+                                className="input-field"
+                                placeholder="Enter your Certificate Issue Date"
+                              />
+                              <label className="error-message">
+                                {certErrors.issuedDate}
+                              </label>
+                            </div>
+                          </div>
+                          <div className="col-lg-4">
+                            <div className="">
+                              <label className="label">
+                              Certification Url<span className="required">*</span>
+                              </label>
+                              <input
+                                value={certificateUrl}
+                                type="text"
+                                onChange={(e) => setCertificateUrl(e.target.value)}
+                                className="input-field"
+                                placeholder="Enter your Certificate Url"
+                              />
+                              <label className="error-message">
+                                {certErrors.certificateUrl}
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="row">
+                          <div className="col-lg-10">
+                            <div className="">
+                              <label className="label">
+                               Issued By<span className="required">*</span>
+                              </label>
+                              <input
+                                value={issuedBy}
+                                type="text"
+                                onChange={(e) => setIssuedBy(e.target.value)}
+                                className="input-field"
+                                placeholder="Enter the name certificate Issuing organization"
+                              />
+                              <label className="error-message">
+                                {certErrors.issuedBy}
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+            
+                      
+                       
+                        <div
+                          style={{
+                            display: "flex",
+                            justifyContent: "flex-end",
+                            alignItems: "flex-end",
+                          }}
+                        >
+                          <button
+                            disabled={loading}
+                            onClick={() => handleUpdateCertification()}
+                            className="update-btn"
+                          >
+                            {loading ? (
+                              <div className="spinner-border text-light" role="status">
+                                <span className="visually-hidden">Loading...</span>
+                              </div>
+                            ) : (
+                              "Add Certification"
+                            )}
+                          </button>
+                        </div>
+                      </>
+
+      )
+    }
+    </section>
+    </>
+
+  )
+  // const renderSocialLinks = (
+  //   <>
+  //     <section className="box">
+  //       <p className="heading" style={{ fontSize: "1.2rem" }}>
+  //         Projects
+  //       </p>
+
+  //       <div>
+  //         <div>
+  //           <TextField
+  //             label="LinkedIn"
+  //             variant="outlined"
+  //             value={socialMediaLinks.LinkedIn}
+  //             onChange={(e) => handleChange("LinkedIn", e.target.value)}
+  //             onBlur={handleBlur}
+  //             error={errorLink !== "" && socialMediaLinks.LinkedIn === ""}
+  //             helperText={
+  //               errorLink !== "" && socialMediaLinks.LinkedIn === ""
+  //                 ? errorLink
+  //                 : ""
+  //             }
+  //             InputProps={{
+  //               startAdornment: (
+  //                 <InputAdornment position="start">
+  //                   <LinkedInIcon />
+  //                 </InputAdornment>
+  //               ),
+  //               endAdornment: (
+  //                 <InputAdornment position="end">
+  //                   <IconButton onClick={toggleVisibility}>
+  //                     {showLink ? <VisibilityOffIcon /> : <VisibilityIcon />}
+  //                   </IconButton>
+  //                 </InputAdornment>
+  //               ),
+  //               type: showLink ? "text" : "password",
+  //             }}
+  //           />
+  //         </div>
+  //         <div>
+  //           <TextField
+  //             label="Instagram"
+  //             variant="outlined"
+  //             value={socialMediaLinks.Instagram}
+  //             onChange={(e) => handleChange("Instagram", e.target.value)}
+  //             onBlur={handleBlur}
+  //             error={errorLink !== "" && socialMediaLinks.Instagram === ""}
+  //             helperText={
+  //               errorLink !== "" && socialMediaLinks.Instagram === ""
+  //                 ? errorLink
+  //                 : ""
+  //             }
+  //             InputProps={{
+  //               startAdornment: (
+  //                 <InputAdornment position="start">
+  //                   <InstagramIcon />
+  //                 </InputAdornment>
+  //               ),
+  //               endAdornment: (
+  //                 <InputAdornment position="end">
+  //                   <IconButton onClick={toggleVisibility}>
+  //                     {showLink ? <VisibilityOffIcon /> : <VisibilityIcon />}
+  //                   </IconButton>
+  //                 </InputAdornment>
+  //               ),
+  //               type: showLink ? "text" : "password",
+  //             }}
+  //           />
+  //         </div>
+  //         <div>
+  //           <TextField
+  //             label="Twitter"
+  //             variant="outlined"
+  //             value={socialMediaLinks.Twitter}
+  //             onChange={(e) => handleChange("Twitter", e.target.value)}
+  //             onBlur={handleBlur}
+  //             error={errorLink !== "" && socialMediaLinks.Twitter === ""}
+  //             helperText={
+  //               errorLink !== "" && socialMediaLinks.Twitter === ""
+  //                 ? errorLink
+  //                 : ""
+  //             }
+  //             InputProps={{
+  //               startAdornment: (
+  //                 <InputAdornment position="start">
+  //                   <TwitterIcon />
+  //                 </InputAdornment>
+  //               ),
+  //               endAdornment: (
+  //                 <InputAdornment position="end">
+  //                   <IconButton onClick={toggleVisibility}>
+  //                     {showLink ? <VisibilityOffIcon /> : <VisibilityIcon />}
+  //                   </IconButton>
+  //                 </InputAdornment>
+  //               ),
+  //               type: showLink ? "text" : "password",
+  //             }}
+  //           />
+  //         </div>
+  //         <div>
+  //           <TextField
+  //             label="GitHub"
+  //             variant="outlined"
+  //             value={socialMediaLinks.GitHub}
+  //             onChange={(e) => handleChange("GitHub", e.target.value)}
+  //             onBlur={handleBlur}
+  //             error={errorLink !== "" && socialMediaLinks.GitHub === ""}
+  //             helperText={
+  //               errorLink !== "" && socialMediaLinks.GitHub === ""
+  //                 ? errorLink
+  //                 : ""
+  //             }
+  //             InputProps={{
+  //               startAdornment: (
+  //                 <InputAdornment position="start">
+  //                   <GitHubIcon />
+  //                 </InputAdornment>
+  //               ),
+  //               endAdornment: (
+  //                 <InputAdornment position="end">
+  //                   <IconButton onClick={toggleVisibility}>
+  //                     {showLink ? <VisibilityOffIcon /> : <VisibilityIcon />}
+  //                   </IconButton>
+  //                 </InputAdornment>
+  //               ),
+  //               type: showLink ? "text" : "password",
+  //             }}
+  //           />
+  //         </div>
+  //         {/* <TextField
+  //       label="Behance"
+  //       variant="outlined"
+  //       value={socialMediaLinks.Behance}
+  //       onChange={e => handleChange('Behance', e.target.value)}
+  //       onBlur={handleBlur}
+  //       error={error !== '' && socialMediaLinks.Behance === ''}
+  //       helperText={error !== '' && socialMediaLinks.Behance === '' ? error : ''}
+  //       InputProps={{
+  //         startAdornment: (
+  //           <InputAdornment position="start">
+  //             <BehanceIcon />
+  //           </InputAdornment>
+  //         ),
+  //         endAdornment: (
+  //           <InputAdornment position="end">
+  //             <IconButton onClick={toggleVisibility}>
+  //               {showLink ? <VisibilityOffIcon /> : <VisibilityIcon />}
+  //             </IconButton>
+  //           </InputAdornment>
+  //         ),
+  //         type: showLink ? 'text' : 'password',
+  //       }}
+  //     /> */}
+  //       </div>
+  //     </section>
+  //   </>
+  // );
 
   const userEditProfile = (
     <>
@@ -2168,7 +2810,8 @@ const UserEditProfile = () => {
           {/* {chosenOption === options[2] && <div>{renderSkills}</div>} */}
           {chosenOption === options[2] && <div> {renderWork}</div>}
           {chosenOption === options[3] && <div> {renderProjects}</div>}
-          {chosenOption === options[4] && <div> {renderSocialLinks}</div>}
+          {chosenOption === options[4] && <div> {renderAchievements}</div>}
+          {chosenOption=== options[5] && <div>{renderCertification}</div> }
         </div>
       </main>
     </>
