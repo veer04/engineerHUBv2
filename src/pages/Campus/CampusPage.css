@@ -17,7 +17,7 @@
   margin-bottom: 3.5rem;
   color: var(--text-color-dark-green);
 }
-.search-bar__container {
+/* .search-bar__container {
   width: 100%;
   display: flex;
   justify-content: center;
@@ -27,7 +27,7 @@
   width: max(50%, 23rem);
   display: flex;
   justify-content: center;
-}
+} */
 .campus-events-section {
   margin: 2rem 0;
   display: flex;

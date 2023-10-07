@@ -53,7 +53,7 @@ import Page404 from "./pages/Maintenance/Page404";
 import SignupUser from "./pages/User/Signup/SignupUser";
 import jwt_decode from "jwt-decode";
 const CommunityPage = lazy(() => import("./pages/Community/CommunityPage"));
-const CampusPage = lazy(() => import("./pages/Campus/CampusPage"));
+const NewCampusPage = lazy(() => import("./pages/Campus/NewCampusPage"));
 const Company = lazy(() => import("./pages/Company/Company"));
 const Hosting = lazy(() => import("./pages/Hosting/Hosting.jsx"));
 const Login = lazy(() => import("./pages/User/Login/Login"));
@@ -195,7 +195,7 @@ function App() {
           </Route>
           <Route path="/mentorChat" element={<MentorChat />} />
           <Route path="/campus">
-            <Route index element={<CampusPage />} />
+            <Route index element={<NewCampusPage />} />
             <Route path="inter-college" element={<InterCollege />} />
             <Route path="intra-college" element={<IntraCollege />} />
             <Route path="workshop" element={<Workshops />} />

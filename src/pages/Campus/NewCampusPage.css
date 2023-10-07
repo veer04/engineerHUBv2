@@ -1,0 +1,118 @@
+.campus-page {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: var(--vertical-padding) var(--section-padding);
+  scroll-behavior: auto;
+}
+.campus-page .heading-3 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--text-color-dark-green);
+  margin-bottom: 1rem;
+}
+.campus-page .subheading-1 {
+  font-size: 1.2rem;
+  font-weight: 400;
+  margin-bottom: 2rem;
+  color: var(--text-color-dark-green);
+}
+.campus-page-container {
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  column-gap: 1rem;
+  justify-content: center;
+}
+.campus-page-container .column {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+}
+.campus-page-container .column-1,
+.campus-page-container .column-3 {
+  gap: 0.5rem;
+  width: 20.5625rem;
+}
+
+.campus-page-container .column-2 {
+  gap: 0.88rem;
+  width: 26rem;
+}
+
+.search-bar__container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+.search-bar__container > div {
+  width: max(50%, 23rem);
+  display: flex;
+  justify-content: center;
+}
+
+@media screen and (max-width: 1320px) {
+  .campus-page-container {
+    grid-template-columns: repeat(2, auto);
+  }
+  .campus-page-container .column-3 {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 910px) {
+  .campus-page .heading-3,
+  .campus-page .subheading-1 {
+    display: none;
+  }
+  .campus-page-container {
+    grid-template-columns: repeat(1, auto);
+  }
+  .campus-page-container .column-2 {
+    width: 100%;
+  }
+  .campus-page-container .column-1 {
+    display: none;
+  }
+}
+
+.mobile-campus-subnavbar {
+  display: flex;
+  width: 100%;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  justify-content: center;
+  align-items: center;
+  gap: 3rem;
+  border-radius: 0.625rem;
+  border: 1px solid var(--Primary-500, #002b36);
+  background: var(--Primary-500, #002b36);
+}
+
+.mobile-campus-subnavbar .option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.2rem;
+  color: #b0b0b0;
+  cursor: pointer;
+}
+
+.mobile-campus-subnavbar .option span {
+  font-size: 0.75rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 128.523%; /* 0.80325rem */
+}
+.mobile-campus-subnavbar .option .icon {
+  font-size: 1.25rem;
+}
+
+@media screen and (max-width: 380px) {
+  .mobile-campus-subnavbar {
+    gap: unset;
+    justify-content: space-evenly;
+  }
+}
