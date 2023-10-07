@@ -56,7 +56,8 @@ const CommunityPage = lazy(() => import("./pages/Community/CommunityPage"));
 const NewCampusPage = lazy(() => import("./pages/Campus/NewCampusPage"));
 const Company = lazy(() => import("./pages/Company/Company"));
 const Hosting = lazy(() => import("./pages/Hosting/Hosting.jsx"));
-const Login = lazy(() => import("./pages/User/Login/Login"));
+const Login = lazy(() => import("./pages/Campus/CampusSearchPage"));
+const CampusSearchPage = lazy(() => import("./pages/Campus/CampusSearchPage"));
 import ChangePassword from "./pages/User/ForgotPassword/ChangePassword";
 import getCookie, { getAccessToken } from "./features/getCookieValues";
 import ProjectHosting from "./pages/Hosting/ProjectHosting";
@@ -196,13 +197,14 @@ function App() {
           <Route path="/mentorChat" element={<MentorChat />} />
           <Route path="/campus">
             <Route index element={<NewCampusPage />} />
-            <Route path="inter-college" element={<InterCollege />} />
-            <Route path="intra-college" element={<IntraCollege />} />
-            <Route path="workshop" element={<Workshops />} />
+            <Route path="search/:collegeId" element={<CampusSearchPage />} />
+            {/* <Route path="inter-college" element={<InterCollege />} /> */}
+            {/* <Route path="intra-college" element={<IntraCollege />} /> */}
+            {/* <Route path="workshop" element={<Workshops />} /> */}
             <Route path=":collegeId">
               <Route index element={<ParticularCampus />} />
               <Route path="details" element={<CampusDetails />} />
-              <Route path="technical-clubs">
+              {/* <Route path="technical-clubs">
                 <Route index element={<ClubsPage type="Technical" />} />
                 <Route path=":clubId" element={<ParticularClub />}>
                   <Route path="posts/:postId" element={<PostModal />} />
@@ -213,11 +215,11 @@ function App() {
                 <Route path=":clubId" element={<ParticularClub />}>
                   <Route path="posts/:postId" element={<PostModal />} />
                 </Route>
-              </Route>
-              <Route path="almas">
+              </Route> */}
+              {/* <Route path="almas">
                 <Route index element={<AlumniPage />} />
                 <Route path=":almaId" element={<ParticularAlumni />} />
-              </Route>
+              </Route> */}
             </Route>
           </Route>
           <Route path="/mentorship" element={<ComingSoon />} />

@@ -17,6 +17,18 @@
   margin-bottom: 2rem;
   color: var(--text-color-dark-green);
 }
+.campus-page .search-bar__container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+.campus-page .search-bar__container > div {
+  width: max(50%, 23rem);
+  display: flex;
+  justify-content: center;
+}
 .campus-page-container {
   display: grid;
   grid-template-columns: repeat(3, auto);
@@ -37,19 +49,6 @@
 .campus-page-container .column-2 {
   gap: 0.88rem;
   width: 26rem;
-}
-
-.search-bar__container {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 0.5rem;
-}
-.search-bar__container > div {
-  width: max(50%, 23rem);
-  display: flex;
-  justify-content: center;
 }
 
 @media screen and (max-width: 1320px) {

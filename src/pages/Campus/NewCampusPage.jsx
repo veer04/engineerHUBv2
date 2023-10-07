@@ -1,18 +1,18 @@
-import "./NewCampusPage.css";
 import TrendingListCollegeEvents from "../../components/TrendingList/TrendingListCollegeEvents";
 import TrendingListWorkshops from "../../components/TrendingList/TrendingListWorkshops";
 import TrendingListColleges from "../../components/TrendingList/TrendingListColleges";
 import TrendingListClubs from "../../components/TrendingList/TrendingListClubs";
 import TrendingListAlmas from "../../components/TrendingList/TrendingListAlmas";
 import TrendingPostCard from "../../components/TrendingPostCard/TrendingPostCard";
-import { useEffect, useState } from "react";
 import CampusSearchBox from "../../components/CampusSearchBox/CampusSearchBox";
+import { useEffect, useState } from "react";
 import { FiHome } from "react-icons/fi";
 import { LuCalendar } from "react-icons/lu";
 import { BiPlayCircle } from "react-icons/bi";
 import { FaArrowTrendUp } from "react-icons/fa6";
 import { getAllCampuses } from "../../services/APIConfig";
 import { useNavigate } from "react-router";
+import "./NewCampusPage.css";
 
 export default function NewCampusPage() {
   const navigate = useNavigate();
@@ -37,7 +37,7 @@ export default function NewCampusPage() {
 
   useEffect(() => {
     if (output) {
-      navigate(`/campus/${output}`);
+      navigate(`/campus/search/${output}`);
     }
   }, [output]);
 
