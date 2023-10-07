@@ -134,23 +134,20 @@ export default function Footer() {
       links: [
         {
           title: "+91 93546 47032",
-          link: {},
         },
         {
           title: "+91 91298 83089",
-          link: {},
         },
         {
           title: "+91 83031 56089",
-          link: {},
         },
         {
           title: "career@engineerhub.in",
-          link: "career@engineerhub.in",
+          mail: "career@engineerhub.in",
         },
         {
           title: "info@engineerhub.in",
-          link: "info@engineerhub.in",
+          mail: "info@engineerhub.in",
         },
       ],
     },
@@ -198,16 +195,21 @@ export default function Footer() {
               item.links.map((link, index) => {
                 return (
                   <li key={`${item.id}${index}`}>
-                    <Link
-                      style={{ color: "white" }}
-                      to={`${
-                        Object.keys(link.link).length > 0
-                          ? `mailto:${link.link}`
-                          : ""
-                      }`}
-                    >
-                      {link.title}
-                    </Link>
+                    {link?.link ? (
+                      <Link style={{ color: "white" }} to={link.link}>
+                        {link.title}
+                      </Link>
+                    ) : link.mail ? (
+                      <a
+                        style={{ color: "white" }}
+                        href={`
+                          mailto:${link.mail}`}
+                      >
+                        {link.mail}
+                      </a>
+                    ) : (
+                      link.title
+                    )}
                   </li>
                 );
               })}
