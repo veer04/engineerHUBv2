@@ -107,7 +107,7 @@ const JobDescription = () => {
         minimumFractionDigits: 0,
     });
     let formattedSalary = formatter.format(hiring?.detailFound?.amount);
-    formattedSalary.includes("NaN") ? (formattedSalary = "N/A") : (formattedSalary = formattedSalary);
+    formattedSalary.includes("NaN") ? (formattedSalary = "N/A") : (formattedSalary);
 
     //using Intl formatter, check if the duration is 1 month or more than 1 month
     //if it is 1 month, then display "1 month" else display "2 months"

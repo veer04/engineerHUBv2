@@ -152,10 +152,6 @@ const JobRegistrationForm = () => {
     }
   }, [userEmail]);
 
-  useEffect(() => {
-    console.log(isSpecialUser);
-  }, [isSpecialUser]);
-
   const validateInput1 = () => {
     let valid = true;
     const newErrors = {
@@ -949,7 +945,7 @@ const JobRegistrationForm = () => {
           <div>
             <Autocomplete
               multiple
-              options={["EhubFeatured"]}
+              options={["EhubFeatured", "CampusAmbassador"]}
               value={featuredArray}
               onChange={handleSpecialTagsChange}
               renderInput={(params) => (
@@ -961,7 +957,7 @@ const JobRegistrationForm = () => {
                 className="MuiFormHelperText-root Mui-error MuiFormHelperText-sizeMedium MuiFormHelperText-contained css-1wc848c-MuiFormHelperText-root special-tag-blue"
                 id=":rf:-helper-text"
               >
-                ALERT: This opportunity will be marked as Featured Job
+                ALERT: This opportunity will be Featured differently
               </p>
             )}
           </div>
