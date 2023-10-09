@@ -32,7 +32,7 @@ const InternshipDesc = () => {
       if (
         Cookies.get("role") !== "Organization" &&
         Cookies.get("role") !== "Club" &&
-        Cookies.get("role") !== "Admin" 
+        Cookies.get("role") !== "Admin"
       ) {
         setIsApplicable(true);
       }
@@ -104,9 +104,7 @@ const InternshipDesc = () => {
     minimumFractionDigits: 0,
   });
   let formattedSalary = formatter.format(hiring?.detailFound?.amount);
-  formattedSalary.includes("NaN")
-    ? (formattedSalary = "N/A")
-    : (formattedSalary = formattedSalary);
+  formattedSalary.includes("NaN") ? (formattedSalary = "N/A") : formattedSalary;
 
   //using Intl formatter, check if the duration is 1 month or more than 1 month
   //if it is 1 month, then display "1 month" else display "2 months"
@@ -204,15 +202,22 @@ const InternshipDesc = () => {
           <div className="JobInfoItem">
             <h6>Stipend</h6>
             <p></p>
-            {hiring?.detailFound?.isPaid ? (
-              <span>
-                {hiring?.detailFound?.amount !== "N/A"
-                  ? formattedSalary
-                  : "N/A"}
-              </span>
-            ) : (
-              <span>Unpaid</span>
-            )}
+            {
+              //check if featured array in hiring has CampusAmbassador then display "Bonus"
+              hiring?.detailFound?.featuredArray?.includes(
+                "CampusAmbassador"
+              ) ? (
+                <span>Bonus</span>
+              ) : hiring?.detailFound?.isPaid ? (
+                <span>
+                  {hiring?.detailFound?.amount !== "N/A"
+                    ? formattedSalary
+                    : "N/A"}
+                </span>
+              ) : (
+                <span>Unpaid</span>
+              )
+            }
             <img src={`${bucket}cash.svg`} alt="guide" />
           </div>
           <div className="JobInfoItem">
