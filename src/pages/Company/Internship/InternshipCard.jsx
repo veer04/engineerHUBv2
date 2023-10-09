@@ -24,7 +24,9 @@ const InternshipCard = ({
       <div className="cardContent">
         <h6>
           Stipend :{" "}
-          {details.isPaid ? (
+          {details?.featuredArray?.includes("CampusAmbassador") ? (
+            <b>Bonus</b>
+          ) : details.isPaid ? (
             <b>{details.amount !== "N/A" ? formattedSalary : "N/A"}</b>
           ) : (
             <b>Unpaid</b>
