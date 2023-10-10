@@ -21,6 +21,7 @@ const InternshipDesc = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const bucket = `${Bucket_URL}frontend/company/jobs/`;
   const [hiring, setHiring] = useState({});
+  const [internShipData,setInternshipData]=useState({});
   const [isApplicable, setIsApplicable] = useState(false);
   const [profile, setProfile] = useState({});
   const [isResumeUploaded, setIsResumeUploaded] = useState(false);
@@ -29,6 +30,7 @@ const InternshipDesc = () => {
     if (getCookie("name")) {
       getUserProfileById(setProfile, getCookie("_id")[2]);
       setIsLoggedIn(true);
+      
       if (
         Cookies.get("role") !== "Organization" &&
         Cookies.get("role") !== "Club" &&
@@ -56,11 +58,25 @@ const InternshipDesc = () => {
       controller.abort();
     };
   }, [hiringId]);
+  useEffect (()=>
+  {
+    // if(hiring?.detailFound._id==="6518157c04816b097318bff4")
+    // {
+    //   setIsLoggedIn(true);
+    // }
+    setInternshipData(hiring.detailFound);
 
+  },[hiring]
+  )
+useEffect(()=>
+{
+    console.log(internShipData?._id)
+},
+[internShipData])
   if (hiring.success === false) return <Page404 />;
 
   const UserDataPost = () => {
-    if (!!hiring?.detailFound?.applyLink) {
+    if (!!hiring?.detailFound?.applyLink ) {
       window.open(hiring?.detailFound?.applyLink, "_blank");
       return;
     }
@@ -157,6 +173,7 @@ const InternshipDesc = () => {
                     Easy Apply
                   </button>
                 )}
+    
                 {/* {isApplicable &&
                   hiring?.applied === false &&
                   !isResumeUploaded && (
@@ -171,9 +188,23 @@ const InternshipDesc = () => {
                 )}
               </div>
             ) : (
-              <Link to="/login">
+              <>
+              {
+                internShipData?._id==="6518157c04816b097318bff4" &&(
+                  <Link to="https://docs.google.com/forms/d/e/1FAIpQLSd39WuMG3eBnPoVmMLneBEhYBTU2Q3CCbNx5kQKmIIkINdTlQ/viewform">
+                  <div className="btn">Easy Apply</div>
+                </Link>
+                )
+              }
+                {
+                internShipData?._id!=="6518157c04816b097318bff4" &&(
+                  <Link to="/login">
                 <div className="btn">Easy Apply</div>
               </Link>
+                )
+              }
+           
+              </>
             )}
           </div>
         </span>
