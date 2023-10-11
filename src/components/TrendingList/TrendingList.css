@@ -49,6 +49,7 @@
   flex-direction: row;
   flex-wrap: nowrap;
   gap: 0.75rem;
+  cursor: pointer;
 }
 .trending-cards-container .trending-card .logo {
   width: 3rem;

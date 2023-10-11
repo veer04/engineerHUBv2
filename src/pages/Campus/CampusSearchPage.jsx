@@ -2,16 +2,96 @@ import { useEffect, useState } from "react";
 import CampusSearchBox from "../../components/CampusSearchBox/CampusSearchBox";
 import "./CampusSearchPage.css";
 import { controller, getAllCampuses } from "../../services/APIConfig";
-import { Navigate } from "react-router";
 import TrendingListColleges from "../../components/TrendingList/TrendingListColleges";
 import TrendingListAlmas from "../../components/TrendingList/TrendingListAlmas";
 import TrendingListClubs from "../../components/TrendingList/TrendingListClubs";
 import defaultPoster from "../../assets/defaultPoster";
-import { BsChevronDown } from "react-icons/bs";
+import { BsChevronDown, BsChevronUp } from "react-icons/bs";
+import { useNavigate } from "react-router-dom";
+import Loading from "../../components/Loader/Loading";
 
 export default function CampusSearchPage() {
+  const navigate = useNavigate();
   const [allCampuses, setAllCampuses] = useState([]);
   const [output, setOutput] = useState("");
+  const [campus, setCampus] = useState({
+    image: defaultPoster,
+    _id: "60f9b0b3e6b3a5b4a4f7e1b1",
+    collegeName: "Bharati Vidyapeeth College of Engineering, Navi Mumbai",
+    location: "Navi Mumbai",
+    description:
+      "Lorem ipsum dolor sit amet consectetur. Mattis aliquam sodales faucibus platea feugiat odio.Lorem ipsum dolor sit amet consectetur. Mattis aliquam sodales faucibus platea feugiat odio.Lorem ipsum dolor sit amet consectetur. Mattis aliquam sodales faucibus platea feugiat odio.Lorem ipsum dolor sit amet consectetur. Mattis aliquam sodales faucibus platea feugiat odio.Lorem ipsum dolor sit amet consectetur. Mattis aliquam sodales faucibus platea feugiat odio.Lorem ipsum dolor sit amet consectetur. Mattis aliquam sodales faucibus platea feugiat odio.",
+  });
+  const [clubs, setClubs] = useState([
+    // {
+    //   image: defaultPoster,
+    //   _id: "60f9b0b3e6b3a5b4a4f7e1b1",
+    //   clubName: "Bharati Vidyapeeth College of Engineering, Navi Mumbai",
+    //   location: "Navi Mumbai",
+    //   description:
+    //     "Lorem ipsum dolor sit amet consectetur. Mattis aliquam sodales faucibus platea feugiat odio.Lorem ipsum dolor sit amet consectetur. Mattis aliquam sodales faucibus platea feugiat odio.Lorem ipsum dolor sit amet consectetur. Mattis aliquam sodales faucibus platea feugiat odio.",
+    // },
+    // {
+    //   image: defaultPoster,
+    //   _id: "60f9b0b3e6b3a5b4fsdfa4f7e1b1",
+    //   clubName: "Bharati Vidyapeeth College of Engineering, Navi Mumbai",
+    //   location: "Navi Mumbai",
+    //   description:
+    //     "Lorem ipsum dolor sit amet consectetur. Mattis aliquam sodales faucibus platea feugiat odio.Lorem ipsum dolor sit amet consectetur. Mattis aliquam sodales faucibus platea feugiat odio.Lorem ipsum dolor sit amet consectetur. Mattis aliquam sodales faucibus platea feugiat odio.",
+    // },
+    // {
+    //   image: defaultPoster,
+    //   _id: "60f9b0b3e6b3a5b4a4f7wqede1b1",
+    //   clubName: "Bharati Vidyapeeth College of Engineering, Navi Mumbai",
+    //   location: "Navi Mumbai",
+    //   description:
+    //     "Lorem ipsum dolor sit amet consectetur. Mattis aliquam sodales faucibus platea feugiat odio.Lorem ipsum dolor sit amet consectetur. Mattis aliquam sodales faucibus platea feugiat odio.Lorem ipsum dolor sit amet consectetur. Mattis aliquam sodales faucibus platea feugiat odio.",
+    // },
+    // {
+    //   image: defaultPoster,
+    //   _id: "60f9b0b3e6b3a5b4a4f7wqwe1b1",
+    //   clubName: "Bharati Vidyapeeth College of Engineering, Navi Mumbai",
+    //   location: "Navi Mumbai",
+    //   description:
+    //     "Lorem ipsum dolor sit amet consectetur. Mattis aliquam sodales faucibus platea feugiat odio.Lorem ipsum dolor sit amet consectetur. Mattis aliquam sodales faucibus platea feugiat odio.Lorem ipsum dolor sit amet consectetur. Mattis aliquam sodales faucibus platea feugiat odio.",
+    // },
+  ]);
+  const [almas, setAlmas] = useState([
+    // {
+    //   image: defaultPoster,
+    //   _id: "60f9b0b3e6b3a5b4a4f7e1b1",
+    //   almaName: "Bharati Vidyapeeth College of Engineering, Navi Mumbai",
+    //   location: "Navi Mumbai",
+    //   description:
+    //     "Lorem ipsum dolor sit amet consectetur. Mattis aliquam sodales faucibus platea feugiat odio.Lorem ipsum dolor sit amet consectetur. Mattis aliquam sodales faucibus platea feugiat odio.Lorem ipsum dolor sit amet consectetur. Mattis aliquam sodales faucibus platea feugiat odio.",
+    // },
+    // {
+    //   image: defaultPoster,
+    //   _id: "60f9b0b3e6b3a5b4fsdfa4f7e1b1",
+    //   almaName: "Bharati Vidyapeeth College of Engineering, Navi Mumbai",
+    //   location: "Navi Mumbai",
+    //   description:
+    //     "Lorem ipsum dolor sit amet consectetur. Mattis aliquam sodales faucibus platea feugiat odio.Lorem ipsum dolor sit amet consectetur. Mattis aliquam sodales faucibus platea feugiat odio.Lorem ipsum dolor sit amet consectetur. Mattis aliquam sodales faucibus platea feugiat odio.",
+    // },
+    // {
+    //   image: defaultPoster,
+    //   _id: "60f9b0b3e6b3a5b4a4f7wqede1b1",
+    //   almaName: "Bharati Vidyapeeth College of Engineering, Navi Mumbai",
+    //   location: "Navi Mumbai",
+    //   description:
+    //     "Lorem ipsum dolor sit amet consectetur. Mattis aliquam sodales faucibus platea feugiat odio.Lorem ipsum dolor sit amet consectetur. Mattis aliquam sodales faucibus platea feugiat odio.Lorem ipsum dolor sit amet consectetur. Mattis aliquam sodales faucibus platea feugiat odio.",
+    // },
+    // {
+    //   image: defaultPoster,
+    //   _id: "60f9b0b3e6b3a5b4a4f7wqwe1b1",
+    //   almaName: "Bharati Vidyapeeth College of Engineering, Navi Mumbai",
+    //   location: "Navi Mumbai",
+    //   description:
+    //     "Lorem ipsum dolor sit amet consectetur. Mattis aliquam sodales faucibus platea feugiat odio.Lorem ipsum dolor sit amet consectetur. Mattis aliquam sodales faucibus platea feugiat odio.Lorem ipsum dolor sit amet consectetur. Mattis aliquam sodales faucibus platea feugiat odio.",
+    // },
+  ]);
+  const [viewAllClubs, setViewAllClubs] = useState(false);
+  const [viewAllAlmas, setViewAllAlmas] = useState(false);
 
   useEffect(() => {
     getAllCampuses(setAllCampuses);
@@ -23,7 +103,7 @@ export default function CampusSearchPage() {
 
   useEffect(() => {
     if (output) {
-      Navigate(`/campus/search/${output}`);
+      navigate(`/campus/search/${output}`);
     }
   }, [output]);
 
@@ -50,107 +130,120 @@ export default function CampusSearchPage() {
           <div className="campus result-container">
             <div className="box">
               <div className="logo">
-                <img src={defaultPoster} alt="" />
+                <img src={campus?.image} alt="" />
               </div>
               <div className="content">
-                <span className="name text-crop-1">
-                  Bharati Vidyapeeth College of Engineering, Navi Mumbai
-                </span>
-                <span className="location text-crop-1">Navi Mumbai</span>
+                <span className="name text-crop-1">{campus.collegeName}</span>
+                <span className="location text-crop-1">{campus.location}</span>
                 <span className="description text-crop-4">
-                  Lorem ipsum dolor sit amet consectetur. Mattis aliquam sodales
-                  faucibus platea feugiat odio.Lorem ipsum dolor sit amet
-                  consectetur. Mattis aliquam sodales faucibus platea feugiat
-                  odio.Lorem ipsum dolor sit amet consectetur. Mattis aliquam
-                  sodales faucibus platea feugiat odio.Lorem ipsum dolor sit
-                  amet consectetur. Mattis aliquam sodales faucibus platea
-                  feugiat odio.Lorem ipsum dolor sit amet consectetur. Mattis
-                  aliquam sodales faucibus platea feugiat odio.Lorem ipsum dolor
-                  sit amet consectetur. Mattis aliquam sodales faucibus platea
-                  feugiat odio.Lorem ipsum dolor sit amet consectetur. Mattis
-                  aliquam sodales faucibus platea feugiat odio.Lorem ipsum dolor
-                  sit amet consectetur. Mattis aliquam sodales faucibus platea
-                  feugiat odio.Lorem ipsum dolor sit amet consectetur. Mattis
-                  aliquam sodales faucibus platea feugiat odio.
+                  {campus.description}
                 </span>
               </div>
             </div>
           </div>
           <div className="clubs club-container result-container">
             <span className="title">Clubs</span>
-            <div className="box">
-              <div className="logo">
-                <img src={defaultPoster} alt="" />
+            {false && (
+              <div className="w-full d-flex justify-content-center">
+                <i>No club found</i>
               </div>
-              <div className="content">
-                <span className="name text-crop-1">
-                  Bharati Vidyapeeth College of Engineering, Navi Mumbai
-                </span>
-                <span className="location college text-crop-1">
-                  Navi Mumbai
-                </span>
-                <span className="description text-crop-2">
-                  Lorem ipsum dolor sit amet consectetur. Mattis aliquam sodales
-                  faucibus platea feugiat odio.Lorem ipsum dolor sit amet
-                  consectetur. Mattis aliquam sodales faucibus platea feugiat
-                  odio.Lorem ipsum dolor sit amet consectetur. Mattis aliquam
-                  sodales faucibus platea feugiat odio.Lorem ipsum dolor sit
-                  amet consectetur. Mattis aliquam sodales faucibus platea
-                  feugiat odio.Lorem ipsum dolor sit amet consectetur. Mattis
-                  aliquam sodales faucibus platea feugiat odio.Lorem ipsum dolor
-                  sit amet consectetur. Mattis aliquam sodales faucibus platea
-                  feugiat odio.Lorem ipsum dolor sit amet consectetur. Mattis
-                  aliquam sodales faucibus platea feugiat odio.Lorem ipsum dolor
-                  sit amet consectetur. Mattis aliquam sodales faucibus platea
-                  feugiat odio.Lorem ipsum dolor sit amet consectetur. Mattis
-                  aliquam sodales faucibus platea feugiat odio.
-                </span>
+            )}
+            {clubs.length === 0 && (
+              <div className="w-full d-flex justify-content-center">
+                <Loading />
               </div>
-            </div>
-            <hr />
-            <div className="view-more_container">
-              <button>
-                <BsChevronDown /> View More
-              </button>
-            </div>
+            )}
+            {clubs.slice(0, viewAllClubs ? clubs.length : 3).map((club) => (
+              <>
+                <div key={club._id} className="box">
+                  <div className="logo">
+                    <img src={club?.image} alt="" />
+                  </div>
+                  <div className="content">
+                    <span className="name text-crop-1">{club.clubName}</span>
+                    <span className="location college text-crop-1">
+                      {club.location}
+                    </span>
+                    <span className="description text-crop-2">
+                      {club.description}
+                    </span>
+                  </div>
+                </div>
+                <hr />
+              </>
+            ))}
+            {clubs.length !== 0 && !viewAllClubs && (
+              <div
+                onClick={() => setViewAllClubs(true)}
+                className="view-more_container"
+              >
+                <button>
+                  <BsChevronDown /> View More
+                </button>
+              </div>
+            )}
+            {viewAllClubs && (
+              <div
+                onClick={() => setViewAllClubs(false)}
+                className="view-more_container"
+              >
+                <button>
+                  <BsChevronUp /> View Less
+                </button>
+              </div>
+            )}
           </div>
           <div className="alma alma-container result-container">
             <span className="title">Almas</span>
-            <div className="box">
-              <div className="logo">
-                <img src={defaultPoster} alt="" />
+            {false && (
+              <div className="w-full d-flex justify-content-center">
+                <i>No alma found</i>
               </div>
-              <div className="content">
-                <span className="name text-crop-1">
-                  Bharati Vidyapeeth College of Engineering, Navi Mumbai
-                </span>
-                <span className="location college text-crop-1">
-                  Navi Mumbai
-                </span>
-                <span className="description text-crop-2">
-                  Lorem ipsum dolor sit amet consectetur. Mattis aliquam sodales
-                  faucibus platea feugiat odio.Lorem ipsum dolor sit amet
-                  consectetur. Mattis aliquam sodales faucibus platea feugiat
-                  odio.Lorem ipsum dolor sit amet consectetur. Mattis aliquam
-                  sodales faucibus platea feugiat odio.Lorem ipsum dolor sit
-                  amet consectetur. Mattis aliquam sodales faucibus platea
-                  feugiat odio.Lorem ipsum dolor sit amet consectetur. Mattis
-                  aliquam sodales faucibus platea feugiat odio.Lorem ipsum dolor
-                  sit amet consectetur. Mattis aliquam sodales faucibus platea
-                  feugiat odio.Lorem ipsum dolor sit amet consectetur. Mattis
-                  aliquam sodales faucibus platea feugiat odio.Lorem ipsum dolor
-                  sit amet consectetur. Mattis aliquam sodales faucibus platea
-                  feugiat odio.Lorem ipsum dolor sit amet consectetur. Mattis
-                  aliquam sodales faucibus platea feugiat odio.
-                </span>
+            )}
+            {almas.length === 0 && (
+              <div className="w-full d-flex justify-content-center">
+                <Loading />
               </div>
-            </div>
-            <hr />
-            <div className="view-more_container">
-              <button>
-                <BsChevronDown /> View More
-              </button>
-            </div>
+            )}
+            {almas.slice(0, viewAllAlmas ? almas.length : 3).map((alma) => (
+              <>
+                <div key={alma._id} className="box">
+                  <div className="logo">
+                    <img src={alma.image} alt="" />
+                  </div>
+                  <div className="content">
+                    <span className="name text-crop-1">{alma.almaName}</span>
+                    <span className="location college text-crop-1">
+                      {alma.location}
+                    </span>
+                    <span className="description text-crop-2">
+                      {alma.description}
+                    </span>
+                  </div>
+                </div>
+                <hr />
+              </>
+            ))}
+            {almas.length !== 0 && !viewAllAlmas && (
+              <div
+                onClick={() => setViewAllAlmas(true)}
+                className="view-more_container"
+              >
+                <button>
+                  <BsChevronDown /> View More
+                </button>
+              </div>
+            )}
+            {viewAllAlmas && (
+              <div
+                onClick={() => setViewAllAlmas(false)}
+                className="view-more_container"
+              >
+                <button>
+                  <BsChevronUp /> View Less
+                </button>
+              </div>
+            )}
           </div>
         </div>
         <div className="column column-2">

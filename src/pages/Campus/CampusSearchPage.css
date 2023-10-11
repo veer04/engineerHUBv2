@@ -49,6 +49,7 @@
   border: 1px solid var(--foundation-black-black-50, #e6e6e6);
   background: var(--Color, #fff);
   padding: 1rem;
+  width: 100%;
 }
 .campus-search-page
   .campus-search-page__container
@@ -72,6 +73,7 @@
   display: flex;
   flex-direction: row;
   gap: 0.75rem;
+  cursor: pointer;
 }
 .campus-search-page
   .campus-search-page__container
@@ -213,4 +215,13 @@
   flex-direction: column;
   gap: 1rem;
   width: 20.5625rem;
+}
+
+@media screen and (max-width: 820px) {
+  .campus-search-page .campus-search-page__container {
+    grid-template-columns: 1fr;
+  }
+  .campus-search-page .column-2 {
+    display: none !important;
+  }
 }
