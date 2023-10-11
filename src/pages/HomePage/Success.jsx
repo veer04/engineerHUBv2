@@ -24,7 +24,7 @@ const Success = () => {
       window.scrollTo(0, 0);
       const fetchData = async () => {
         try {
-          const response = await axios.get(`${API_URL}api/v1/auth/details`, {
+          const response = await axios.get(`${API_URLT}api/v1/auth/details`, {
             withCredentials: true,
           });
   
