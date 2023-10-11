@@ -157,7 +157,6 @@ const Company = () => {
     { name: "Web-Dev", logo: `${bucket}webdevLogo.svg` },
     { name: "Database", logo: `${bucket}databaseLogo.svg` },
   ];
-  
 
   return (
     <div className="companyHome">
@@ -248,6 +247,26 @@ const Company = () => {
             })}
         </div>
       </div>
+      <article
+        style={{
+          marginTop: "50px",
+          cursor: "pointer",
+        }}
+        id="promotional-banner"
+      >
+        <a href="https://sayf.in" target="_blank">
+          <img
+            loading="lazy"
+            src={`${Bucket_URL}frontend/company/promotion-banner/promotional-banner.png`}
+            alt="promotional banner"
+            style={{
+              width: "100%",
+              height: "auto",
+              objectFit: "contain",
+            }}
+          />
+        </a>
+      </article>
       <div className="StudentReviews">
         <div className="heading">
           What our
