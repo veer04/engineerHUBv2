@@ -5,6 +5,7 @@ import { BsArrowRight } from "react-icons/bs";
 import { Link, useNavigate } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 import useNavbar from "../../hooks/use-navbar";
+import { getUserRole, isUserLoggedIn } from "../../features/User/UserDetails";
 export default function Hosting() {
   console.log("test");
   const handleCardClick = (event) => {
@@ -38,7 +39,7 @@ export default function Hosting() {
 
   const { setSelectedPageNavbar } = useNavbar();
   useEffect(() => {
-    setSelectedPageNavbar("hosting");
+    setSelectedPageNavbar("host");
   }, []);
   const navigate = useNavigate();
   const bucket = `${Bucket_URL}frontend/hosting/`;
@@ -57,59 +58,100 @@ export default function Hosting() {
     setToken(getCookie("access_token"));
     if (token) setVal(1);
   });
-  const navigationOrganization = (type) => {
-    if (val === 1) {
-      const decoded = jwt_decode(token);
-      console.log(decoded);
-      console.log(decoded.role);
-      const storedValue = localStorage.getItem("event");
-      if (decoded.role === "Organization") {
-        navigate(`/host/${type}`);
-      } else {
-        if (type === "job" || type === "internship")
-          window.alert("Not authorized to host job/internship opportunities");
-        else if (type === "project")
-          window.alert("Not authorized to host projects");
-        else window.alert("Not authorized to perform this action");
-      }
-    } else {
-      navigate("/login");
-    }
-  };
+  // const navigationOrganization = (type) => {
+  //   if (val === 1) {
+  //     const decoded = jwt_decode(token);
+  //     console.log(decoded);
+  //     console.log(decoded.role);
+  //     const storedValue = localStorage.getItem("event");
+  //     if (decoded.role === "Organization") {
+  //       navigate(`/host/${type}`);
+  //     } else {
+  //       if (type === "job" || type === "internship")
+  //         window.alert("Not authorized to host job/internship opportunities");
+  //       else if (type === "project")
+  //         window.alert("Not authorized to host projects");
+  //       else window.alert("Not authorized to perform this action");
+  //     }
+  //   } else {
+  //     navigate("/login");
+  //   }
+  // };
 
-  const navigationClub = () => {
-    if (val === 1) {
-      const decoded = jwt_decode(token);
-      console.log(decoded);
-      console.log(decoded.role);
-      const storedValue = localStorage.getItem("event");
-      if (decoded.role === "Club") {
-        navigate("/hostevent");
-      } else {
-        window.alert("Not authorized to host events!!!");
-      }
-    } else {
+  // const navigationClub = () => {
+  //   if (val === 1) {
+  //     const decoded = jwt_decode(token);
+  //     console.log(decoded);
+  //     console.log(decoded.role);
+  //     const storedValue = localStorage.getItem("event");
+  //     if (decoded.role === "Club") {
+  //       navigate("/host/event");
+  //     } else {
+  //       window.alert("Not authorized to host events!!!");
+  //     }
+  //   } else {
+  //     navigate("/login");
+  //   }
+  // };
+  // const navigationFunction = () => {
+  //   if (val === 1) {
+  //     const decoded = jwt_decode(token);
+  //     console.log(decoded);
+  //     console.log(decoded.role);
+  //     if (
+  //       decoded.role === "Organization" ||
+  //       decoded.role === "Alumni" ||
+  //       decoded.role === "Club"
+  //     ) {
+  //       navigate("/host/event");
+  //     } else {
+  //       window.alert("Not authorized to host events!!!");
+  //     }
+  //   } else {
+  //     navigate("/login");
+  //   }
+  // };
+
+  function handleClick(hosting) {
+    //check if user is logged in
+    if (!isUserLoggedIn()) {
       navigate("/login");
+      return;
     }
-  };
-  const navigationFunction = () => {
-    if (val === 1) {
-      const decoded = jwt_decode(token);
-      console.log(decoded);
-      console.log(decoded.role);
-      if (
-        decoded.role === "Organization" ||
-        decoded.role === "Alumni" ||
-        decoded.role === "Club"
-      ) {
-        navigate("/hostevent");
-      } else {
-        window.alert("Not authorized to host events!!!");
+    //check the type of hosting then its role
+    if (hosting === "event") {
+      if (getUserRole() === "User") {
+        window.alert("You are not authorized to host events");
+        return;
       }
-    } else {
-      navigate("/login");
+      navigate("/host/event");
     }
-  };
+    if (hosting === "job") {
+      if (getUserRole() === "User" || getUserRole() === "Club") {
+        window.alert(
+          "You are not authorized to host job/internship opportunities"
+        );
+        return;
+      }
+      navigate("/host/job");
+    }
+    if (hosting === "internship") {
+      if (getUserRole() === "User" || getUserRole() === "Club") {
+        window.alert(
+          "You are not authorized to host job/internship opportunities"
+        );
+        return;
+      }
+      navigate("/host/internship");
+    }
+    if (hosting === "project") {
+      if (getUserRole() === "User" || getUserRole() === "Club") {
+        window.alert("You are not authorized to host projects");
+        return;
+      }
+      navigate("/host/project");
+    }
+  }
 
   return (
     <div className="hosting-page">
@@ -122,9 +164,9 @@ export default function Hosting() {
           For <span>Engaging</span> your target audience
         </div>
         <div className="cards ">
-          {/* <Link to="/hostevent"> */}
+          {/* <Link to="/host/event"> */}
           <div
-            onClick={navigationClub}
+            onClick={() => handleClick("event")}
             style={{
               backgroundImage: `url(${bucket}cultural_event.png)`,
             }}
@@ -136,9 +178,9 @@ export default function Hosting() {
             </div>
           </div>
           {/* </Link> */}
-          {/* <Link to="/hostevent"> */}
+          {/* <Link to="/host/event"> */}
           <div
-            onClick={navigationClub}
+            onClick={() => handleClick("event")}
             style={{
               backgroundImage: `url(${bucket}technical_event.png)`,
             }}
@@ -150,9 +192,9 @@ export default function Hosting() {
             </div>
           </div>
           {/* </Link> */}
-          {/* <Link to="/hostevent"> */}
+          {/* <Link to="/host/event"> */}
           <div
-            onClick={navigationFunction}
+            onClick={() => handleClick("event")}
             style={{
               backgroundImage: `url(${bucket}hackathon.png)`,
             }}
@@ -164,9 +206,9 @@ export default function Hosting() {
             </div>
           </div>
           {/* </Link>
-          <Link to="/hostevent"> */}
+          <Link to="/host/event"> */}
           <div
-            onClick={navigationFunction}
+            onClick={() => handleClick("event")}
             style={{
               backgroundImage: `url(${bucket}webinar.png)`,
             }}
@@ -185,9 +227,9 @@ export default function Hosting() {
           Create <span>Jobs</span> for the right talent
         </div>
         <div className="cards">
-          {/* <Link to="/hostevent"> */}
+          {/* <Link to="/host/event"> */}
           <div
-            onClick={() => navigationOrganization("job")}
+            onClick={() => handleClick("job")}
             style={{
               backgroundImage: `url(${bucket}jobs.png)`,
             }}
@@ -199,9 +241,9 @@ export default function Hosting() {
             </div>
           </div>
           {/* </Link>
-          <Link to="/hostevent"> */}
+          <Link to="/host/event"> */}
           <div
-            onClick={() => navigationOrganization("internship")}
+            onClick={() => handleClick("internship")}
             style={{
               backgroundImage: `url(${bucket}internships.png)`,
             }}
@@ -213,7 +255,7 @@ export default function Hosting() {
             </div>
           </div>
           <div
-            onClick={() => navigationOrganization("project")}
+            onClick={() => handleClick("project")}
             style={{
               backgroundImage: `url(${bucket}project.png)`,
             }}
@@ -225,7 +267,7 @@ export default function Hosting() {
             </div>
           </div>
           <div
-            onClick={navigationFunction}
+            onClick={() => handleClick("event")}
             style={{
               backgroundImage: `url(${bucket}hackathon.png)`,
             }}
@@ -237,7 +279,7 @@ export default function Hosting() {
             </div>
           </div>
           {/* </Link>
-          <Link to="/hostevent"> */}
+          <Link to="/host/event"> */}
           {/* <div
             onClick={navigationOrganization}
             style={{

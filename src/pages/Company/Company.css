@@ -1,6 +1,11 @@
 .companyHome {
+  /* width: 100%;
+  padding: 20px 150px; */
+  display: flex;
+  flex-direction: column;
   width: 100%;
-  padding: 20px 150px;
+  padding: var(--vertical-padding) var(--section-padding);
+  scroll-behavior: auto;
 }
 .companyHome .pagesContainer {
   position: relative;
@@ -365,9 +370,9 @@
     padding: 0;
     top: 0px !important;
   }
-  .companyHome {
+  /* .companyHome {
     padding: 20px;
-  }
+  } */
   .companyHome .pagesContainer .spiral > h1 {
     top: 0px;
     width: 257px;
