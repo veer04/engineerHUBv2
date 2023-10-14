@@ -1,33 +1,17 @@
 import "./TrendingPostCard.css";
 import { FaRegBookmark, FaRegHeart } from "react-icons/fa";
-import defaultPoster from "../../assets/defaultPoster";
 import { FiShare2 } from "react-icons/fi";
-import { useState } from "react";
 
-export default function TrendingPostCard() {
-  //   const [post, setPost] = useState({});
-
-  const post = {
-    id: 1,
-    name: "GDSC, Navi Mumbai",
-    description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit tenetur, totam ea ullam eum rem! Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit tenetur, totam ea ullam eum rem! Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit tenetur, totam ea ullam eum rem!",
-    logo: defaultPoster,
-    image: defaultPoster,
-    likes: 56,
-    isLiked: false,
-    isSaved: false,
-  };
-
+export default function TrendingPostCard({ post }) {
   return (
     <div className="post-card-container">
       <div className="header">
         <div className="details">
           <div className="logo">
-            <img src={post.logo} alt="logo" />
+            <img loading="lazy" src={post?.clubData[0]?.image} alt="logo" />
           </div>
           <div className="name">
-            <span>{post.name}</span>
+            <span>{post?.clubData[0]?.name}</span>
           </div>
         </div>
         <div className="follow-btn">
@@ -35,7 +19,7 @@ export default function TrendingPostCard() {
         </div>
       </div>
       <div className="post-image-container">
-        <img src={post.image} alt="" />
+        <img src={post?.postLogo} alt="" />
       </div>
       <div className="impressions-container">
         <div className="left">

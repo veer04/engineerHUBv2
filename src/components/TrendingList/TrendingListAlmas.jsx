@@ -1,19 +1,19 @@
 import { BsChevronDown, BsChevronUp } from "react-icons/bs";
 import { FaArrowTrendUp } from "react-icons/fa6";
-import defaultPoster from "../../assets/defaultPoster";
 import "./TrendingList.css";
-import { useEffect, useState } from "react";
-import { controller, getBestAlumni } from "../../services/APIConfig";
+import { Fragment, useEffect, useState } from "react";
+import { controller, getTrendingAlumni } from "../../services/APIConfig";
 
 export default function TrendingListAlmas() {
   const [trendingList, setTrendingList] = useState([]);
   const [viewMore, setViewMore] = useState(false);
 
   useEffect(() => {
-    getBestAlumni(setTrendingList);
+    getTrendingAlumni(setTrendingList);
 
     return () => {
       controller.abort();
+      setTrendingList([]);
     };
   }, []);
 
@@ -38,23 +38,21 @@ export default function TrendingListAlmas() {
       )}
       {trendingList
         .slice(0, viewMore ? trendingList.length : 3)
-        .map((trendingListCollegeEvent) => (
-          <>
+        .map((trending) => (
+          <Fragment key={trending._id}>
             <div className="trending-card">
               <div className="logo">
-                <img src={trendingListCollegeEvent.logo} alt="logo" />
+                <img src={trending.image} alt="logo" />
               </div>
               <div className="content">
-                <span className="name text-crop-2">
-                  {trendingListCollegeEvent.name}
-                </span>
+                <span className="name text-crop-2">{trending.name}</span>
                 <span className="subheading text-crop-2">
-                  {trendingListCollegeEvent.subheading}
+                  {trending.aboutMe}
                 </span>
               </div>
             </div>
             <hr />
-          </>
+          </Fragment>
         ))}
       {trendingList.length > 3 && !viewMore && (
         <div className="view-more">

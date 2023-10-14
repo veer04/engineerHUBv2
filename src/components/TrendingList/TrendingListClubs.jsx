@@ -1,7 +1,7 @@
 import { BsChevronDown, BsChevronUp } from "react-icons/bs";
 import { FaArrowTrendUp } from "react-icons/fa6";
 import "./TrendingList.css";
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { controller, getTrendingClubs } from "../../services/APIConfig";
 
 export default function TrendingListClubs() {
@@ -38,23 +38,21 @@ export default function TrendingListClubs() {
       )}
       {trendingList
         .slice(0, viewMore ? trendingList.length : 3)
-        .map((trendingListCollegeEvent) => (
-          <>
+        .map((trending) => (
+          <Fragment key={trending._id}>
             <div className="trending-card">
               <div className="logo">
-                <img src={trendingListCollegeEvent.image} alt="logo" />
+                <img src={trending.image} alt="logo" />
               </div>
               <div className="content">
-                <span className="name text-crop-2">
-                  {trendingListCollegeEvent.name}
-                </span>
+                <span className="name text-crop-2">{trending.name}</span>
                 <span className="subheading text-crop-2">
-                  {trendingListCollegeEvent.description}
+                  {trending.description}
                 </span>
               </div>
             </div>
             <hr />
-          </>
+          </Fragment>
         ))}
       {trendingList.length > 3 && !viewMore && (
         <div className="view-more">

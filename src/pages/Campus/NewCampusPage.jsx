@@ -10,7 +10,10 @@ import { FiHome } from "react-icons/fi";
 import { LuCalendar } from "react-icons/lu";
 import { BiPlayCircle } from "react-icons/bi";
 import { FaArrowTrendUp } from "react-icons/fa6";
-import { getAllCampuses } from "../../services/APIConfig";
+import {
+  getAllCampuses,
+  getTrendingActivities,
+} from "../../services/APIConfig";
 import { useNavigate } from "react-router";
 import "./NewCampusPage.css";
 
@@ -18,16 +21,22 @@ export default function NewCampusPage() {
   const navigate = useNavigate();
   const [width, setWidth] = useState(window.innerWidth);
   const [choice, setChoice] = useState(1);
+  const [trendingPosts, setTrendingPosts] = useState([]);
   const [allCampuses, setAllCampuses] = useState([]);
   const [output, setOutput] = useState("");
 
   useEffect(() => {
     getAllCampuses(setAllCampuses);
+    getTrendingActivities(setTrendingPosts);
 
     const handleResize = () => setWidth(window.innerWidth);
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  useEffect(() => {
+    console.log(trendingPosts);
+  }, [trendingPosts]);
 
   useEffect(() => {
     if (width > 910) {
@@ -40,6 +49,10 @@ export default function NewCampusPage() {
       navigate(`/campus/search/${output}`);
     }
   }, [output]);
+
+  const renderTrendingPosts = trendingPosts.map((post) => (
+    <TrendingPostCard key={post._id} post={post} />
+  ));
 
   return (
     <main className="campus-page">
@@ -124,7 +137,7 @@ export default function NewCampusPage() {
           )}
         </section>
         <section className="column column-2">
-          {choice === 1 && <TrendingPostCard />}
+          {choice === 1 && renderTrendingPosts}
           {choice === 2 && <TrendingListCollegeEvents />}
           {choice === 3 && <TrendingListWorkshops />}
           {choice === 4 && (

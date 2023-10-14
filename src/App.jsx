@@ -67,7 +67,6 @@ import UserEditProfile from "./pages/Profile/UserDashboard/UserEditProfile";
 
 function App() {
   const [isEventModalOpen, setIsEventModalOpen] = useState(false);
-  const [hasSignedUp, setHasSignedUp] = useState(false);
   const [OtpRoute, setOtpRoute] = useState("False");
   const [eventHostRoute, setEventHostRoute] = useState(false);
   const [sendLogin, setSendLogin] = useState(true);
@@ -92,11 +91,6 @@ function App() {
       setSendLogin(true);
     }
   });
-  const userName = document.cookie
-    .split(";")
-    .map((cookie) => cookie.trim())
-    .find((cookie) => cookie.startsWith("userName="));
-  const isAuthenticated = !!userName;
 
   return (
     <>
@@ -190,28 +184,9 @@ function App() {
           <Route path="/campus">
             <Route index element={<NewCampusPage />} />
             <Route path="search/:collegeId" element={<CampusSearchPage />} />
-            {/* <Route path="inter-college" element={<InterCollege />} /> */}
-            {/* <Route path="intra-college" element={<IntraCollege />} /> */}
-            {/* <Route path="workshop" element={<Workshops />} /> */}
             <Route path=":collegeId">
               <Route index element={<ParticularCampus />} />
               <Route path="details" element={<CampusDetails />} />
-              {/* <Route path="technical-clubs">
-                <Route index element={<ClubsPage type="Technical" />} />
-                <Route path=":clubId" element={<ParticularClub />}>
-                  <Route path="posts/:postId" element={<PostModal />} />
-                </Route>
-              </Route>
-              <Route path="cultural-clubs">
-                <Route index element={<ClubsPage type="Cultural" />} />
-                <Route path=":clubId" element={<ParticularClub />}>
-                  <Route path="posts/:postId" element={<PostModal />} />
-                </Route>
-              </Route> */}
-              {/* <Route path="almas">
-                <Route index element={<AlumniPage />} />
-                <Route path=":almaId" element={<ParticularAlumni />} />
-              </Route> */}
             </Route>
           </Route>
           <Route path="/mentorship" element={<ComingSoon />} />

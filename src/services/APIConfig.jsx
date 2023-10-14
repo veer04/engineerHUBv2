@@ -405,10 +405,7 @@ export const deleteUserCertification = (_id, setResponse) => {
     },
   };
   axios
-    .delete(
-      `${API_URL}api/v1/delete/licence/${_id}`,
-      config
-    )
+    .delete(`${API_URL}api/v1/delete/licence/${_id}`, config)
     .then((res) => {
       console.log(res);
       setResponse(res);
@@ -431,10 +428,7 @@ export const deleteUserAchievement = (_id, setResponse) => {
     },
   };
   axios
-    .delete(
-      `${API_URL}api/v1/delete/achievement/${_id}`,
-      config
-    )
+    .delete(`${API_URL}api/v1/delete/achievement/${_id}`, config)
     .then((res) => {
       console.log(res);
       setResponse(res);
@@ -458,10 +452,7 @@ export const deleteUserEducation = (_id, setResponse) => {
     },
   };
   axios
-    .delete(
-      `${API_URL}api/v1/delete/education/${_id}`,
-      config
-    )
+    .delete(`${API_URL}api/v1/delete/education/${_id}`, config)
     .then((res) => {
       console.log(res);
       setResponse(res);
@@ -515,10 +506,7 @@ export const deleteUserExperience = (_id, setResponse) => {
     },
   };
   axios
-    .delete(
-      `${API_URL}api/v1/delete/experience/${_id}`,
-      config
-    )
+    .delete(`${API_URL}api/v1/delete/experience/${_id}`, config)
     .then((res) => {
       console.log(res);
       setResponse(res);
@@ -572,10 +560,7 @@ export const deleteUserProject = (_id, setResponse) => {
     },
   };
   axios
-    .delete(
-      `${API_URL}api/v1/delete/projectDetails/${_id}`,
-      config
-    )
+    .delete(`${API_URL}api/v1/delete/projectDetails/${_id}`, config)
     .then((res) => {
       console.log(res);
       setResponse(res);
@@ -1446,6 +1431,25 @@ export const getAllCampuses = (setAllCampuses) => {
     });
 };
 
+export const getTrendingCampuses = (setTrendingCampuses) => {
+  const controller = new AbortController();
+  axios
+    .get(`${API_URL}api/v1/trendingCampus`, {
+      signal: controller.signal,
+    })
+    .then((res) => {
+      const data = res.data.data;
+      setTrendingCampuses(data);
+    })
+    .catch((err) => {
+      if (axios.isCancel(err)) {
+        console.log("req cancel");
+      } else {
+        console.log("req performed");
+      }
+    });
+};
+
 export const getBestAlumni = (setBestAlumni) => {
   const controller = new AbortController();
   axios
@@ -1455,6 +1459,25 @@ export const getBestAlumni = (setBestAlumni) => {
     .then((res) => {
       const data = res.data.data;
       setBestAlumni(data);
+    })
+    .catch((err) => {
+      if (axios.isCancel(err)) {
+        console.log("req cancel");
+      } else {
+        console.log("req performed");
+      }
+    });
+};
+
+export const getTrendingAlumni = (setTrendingAlumni) => {
+  const controller = new AbortController();
+  axios
+    .get(`${API_URL}api/v1/trendingAlma`, {
+      signal: controller.signal,
+    })
+    .then((res) => {
+      const data = res.data.data;
+      setTrendingAlumni(data);
     })
     .catch((err) => {
       if (axios.isCancel(err)) {
