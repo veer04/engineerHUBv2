@@ -251,6 +251,8 @@ const Company = () => {
         style={{
           marginTop: "50px",
           cursor: "pointer",
+          borderRadius: "10px",
+          overflow: "hidden",
         }}
         id="promotional-banner"
       >
