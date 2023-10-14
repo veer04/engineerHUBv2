@@ -387,6 +387,11 @@ export default function ClubDashboard() {
           )}
         </section>
         <section id="recent-activities" className="box recent-activities">
+          {isUserAdmin && (
+            <div onClick={() => navigate("/host/event")} className="add-option">
+              <MdAdd />
+            </div>
+          )}
           <p className="heading">FEATURED EVENTS</p>
           <div className="carousel-container">
             {featuredEvents.length !== 0 && (
