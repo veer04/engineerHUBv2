@@ -10,7 +10,12 @@ import { CgLogOut } from "react-icons/cg";
 import jwt_decode from "jwt-decode";
 
 import { AiOutlinePlus } from "react-icons/ai";
-import { Link, useNavigate, useParams,useOutletContext } from "react-router-dom";
+import {
+  Link,
+  useNavigate,
+  useParams,
+  useOutletContext,
+} from "react-router-dom";
 import { TextField } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import InputAdornment from "@mui/material/InputAdornment";
@@ -49,7 +54,6 @@ import {
   addUserCertification,
   deleteUserCertification,
   patchResume,
- 
 } from "../../../services/APIConfig";
 import { useRef } from "react";
 import useGlobalSnackbar from "../../../hooks/useGlobalSnackbar";
@@ -123,39 +127,45 @@ const UserEditProfile = () => {
   const [patchEducationDetails, setPatchEducationDetails] = useState(false);
   const [updateUserResponse, setUpdateUserResponse] = useState({});
   const [updateEducationResponse, setUpdateEducationResponse] = useState({});
-  const [updateCertificationResponse, setUpdateCertificationResponse] = useState({});
-  const [updateAchievementResponse, setUpdateAchievementResponse] = useState({});
+  const [updateCertificationResponse, setUpdateCertificationResponse] =
+    useState({});
+  const [updateAchievementResponse, setUpdateAchievementResponse] = useState(
+    {}
+  );
   const [deleteEducationResponse, setDeleteEducationResponse] = useState({});
-  const [deleteAchievementResponse, setDeleteAchievementResponse] = useState({});
-  const [deleteCertificationResponse, setDeleteCertificationResponse] = useState({});
-  const [certificationList,setCertificationList]=useState([])
+  const [deleteAchievementResponse, setDeleteAchievementResponse] = useState(
+    {}
+  );
+  const [deleteCertificationResponse, setDeleteCertificationResponse] =
+    useState({});
+  const [certificationList, setCertificationList] = useState([]);
   const [updateExperienceResponse, setUpdateExperienceResponse] = useState({});
   const [deleteExperienceResponse, setDeleteExperienceResponse] = useState({});
   const [updateProjectResponse, setUpdateProjectResponse] = useState({});
   const [deleteProjectResponse, setDeleteProjectResponse] = useState({});
   const [loading, setLoading] = useState(false);
-  const [achievementName,setAchievementName]=useState("");
-  const [achDescription, setAchDescription]=useState("");
-  const [achDate,setAchDate]=useState("");
-  const [achUrl,setAchUrl]=useState("");
-  const [achErrors, setAchErrors]=useState({
-    achievementName:"",
-    achDescription:"",
-    achDate:"",
-    achUrl:"",
-  })
-  const[certificationName,setCertificationName]=useState("");
-  const[issuedBy,setIssuedBy]=useState("");
-  const [issuedDate,setIssuedDate]=useState("");
-  const [certificateUrl,setCertificateUrl]=useState("");
-  const [certErrors,setCertErrors]=useState({
-    certificationName:"",
-    issuedBy:"",
-    issuedDate:"",
-    certificateUrl:"",
+  const [achievementName, setAchievementName] = useState("");
+  const [achDescription, setAchDescription] = useState("");
+  const [achDate, setAchDate] = useState("");
+  const [achUrl, setAchUrl] = useState("");
+  const [achErrors, setAchErrors] = useState({
+    achievementName: "",
+    achDescription: "",
+    achDate: "",
+    achUrl: "",
   });
-  const[certExist,setCertExist]=useState(false);
-  const [achExist,setAchExist]=useState(false);
+  const [certificationName, setCertificationName] = useState("");
+  const [issuedBy, setIssuedBy] = useState("");
+  const [issuedDate, setIssuedDate] = useState("");
+  const [certificateUrl, setCertificateUrl] = useState("");
+  const [certErrors, setCertErrors] = useState({
+    certificationName: "",
+    issuedBy: "",
+    issuedDate: "",
+    certificateUrl: "",
+  });
+  const [certExist, setCertExist] = useState(false);
+  const [achExist, setAchExist] = useState(false);
   const { setSnackbarOpen, setSnackbarMessage, setSnackbarSeverity } =
     useGlobalSnackbar();
   const [errors1, setErrors1] = useState({
@@ -225,7 +235,7 @@ const UserEditProfile = () => {
       setNewAboutMe(user?.aboutMe);
       setUserSkills(user?.skillsDetails);
       setEducationList(user?.educationDetails);
-      setAchievementList(user?.achievementDetails)
+      setAchievementList(user?.achievementDetails);
       setCertificationList(user?.licenceDetails);
       setExperienceList(user?.experienceDetails);
       setProjectList(user?.projectDetails);
@@ -233,7 +243,7 @@ const UserEditProfile = () => {
       setProjectExist(user?.projectDetails?.length > 0);
       setEducationExist(user?.educationDetails?.length > 0);
       setAchExist(user?.achievementDetails?.length > 0);
-      setCertExist(user?.licenceDetails?.length>0);
+      setCertExist(user?.licenceDetails?.length > 0);
     }
   }, [user]);
 
@@ -297,6 +307,7 @@ const UserEditProfile = () => {
         setSnackbarSeverity("success");
         setSnackbarMessage("Profile updated successfully");
         setSnackbarOpen(true);
+        fetchData();
       } else {
         setSnackbarSeverity("error");
         setSnackbarMessage("Error in updating profile");
@@ -318,7 +329,7 @@ const UserEditProfile = () => {
         setSnackbarOpen(true);
         setEducationExist(true);
         const decoded = jwt_decode(updateEducationResponse.data.accessToken);
-        Cookies.set("access_token",updateEducationResponse.data.accessToken)
+        Cookies.set("access_token", updateEducationResponse.data.accessToken);
         console.log(decoded);
         Cookies.set("role", decoded.role);
         fetchData();
@@ -338,8 +349,6 @@ const UserEditProfile = () => {
       setNewState("");
     }
   }, [updateEducationResponse]);
-  
-
 
   useEffect(() => {
     if (!!Object.keys(updateAchievementResponse).length) {
@@ -352,10 +361,6 @@ const UserEditProfile = () => {
         setSnackbarMessage("Achievement added successfully");
         setSnackbarOpen(true);
         setAchExist(true);
-        const decoded = jwt_decode(updateAchievementResponse.data.accessToken);
-        Cookies.set("access_token",updateAchievementResponse.data.accessToken)
-        console.log(decoded);
-        Cookies.set("role", decoded.role);
         fetchData();
       } else {
         setSnackbarSeverity("error");
@@ -377,25 +382,21 @@ const UserEditProfile = () => {
         updateCertificationResponse.status >= 200 &&
         updateCertificationResponse.status < 300
       ) {
+        fetchData();
         setSnackbarSeverity("success");
         setSnackbarMessage("Certification added successfully");
         setSnackbarOpen(true);
-        setAchExist(true);
-        const decoded = jwt_decode(updateCertificationResponse.data.accessToken);
-        Cookies.set("access_token",updateCertificationResponse.data.accessToken)
-        console.log(decoded);
-        Cookies.set("role", decoded.role);
-        fetchData();
+        setCertExist(true);
       } else {
         setSnackbarSeverity("error");
         setSnackbarMessage("Error in adding Certification");
         setSnackbarOpen(true);
       }
       setUpdateCertificationResponse({});
-      setAchievementName("");
-      setAchDescription("");
-      setAchDate("");
-      setAchUrl("");
+      setCertificationName("");
+      setIssuedBy("");
+      setIssuedDate("");
+      setCertificateUrl("");
     }
   }, [updateCertificationResponse]);
   useEffect(() => {
@@ -781,108 +782,90 @@ const UserEditProfile = () => {
     return isValid;
   }
 
-  function validationDataCert()
-  {
+  function validationDataCert() {
     let errors = {
-    certificationName:"",
-    certificateUrl:"",
-    issuedBy:"",
-    issuedDate:"",
+      certificationName: "",
+      certificateUrl: "",
+      issuedBy: "",
+      issuedDate: "",
     };
-    let valid =true;
-    if(!!!certificationName)
-    {
-      errors.certificationName="Certification Name is Required";
-      valid=false;
+    let valid = true;
+    if (!!!certificationName) {
+      errors.certificationName = "Certification Name is Required";
+      valid = false;
     }
-    if(!!!certificateUrl)
-    {
-      errors.certificateUrl="Certification URL is  Required";
-      valid =false;
+    if (!!!certificateUrl) {
+      errors.certificateUrl = "Certification URL is  Required";
+      valid = false;
+    } else if (!/^(ftp|http|https):\/\/[^ "]+$/.test(certificateUrl)) {
+      errors.certificateUrl =
+        "Certificate URL must be of the form ftp|http|https";
+      valid = false;
     }
-      
-    else if (!/^(ftp|http|https):\/\/[^ "]+$/.test(certificateUrl))
-    {
-      errors.certificateUrl="Certificate URL must be of the form ftp|http|https";
-      valid=false;
+    if (!!!issuedBy) {
+      errors.issuedBy = "Issued By which Organization is  Required";
+      valid = false;
     }
-    if(!!!issuedBy)
-    {
-      errors.issuedBy="Issued By which Organization is  Required";
-      valid =false;
-    }
-    if(!!!issuedDate)
-    {
-      errors.issuedDate="Issued date Required";
-      valid =false;
+    if (!!!issuedDate) {
+      errors.issuedDate = "Issued date Required";
+      valid = false;
     }
     setCertErrors(errors);
     return valid;
   }
 
-  function validationDataAch()
-  {
+  function validationDataAch() {
     let errors = {
-    achievementName:"",
-    achDescription:"",
-    achDate:"",
-    achUrl:"",
+      achievementName: "",
+      achDescription: "",
+      achDate: "",
+      achUrl: "",
     };
-    let valid =true;
-    if(!!!achievementName)
-    {
-      errors.achievementName="Achievement Name is Required";
-      valid=false;
+    let valid = true;
+    if (!!!achievementName) {
+      errors.achievementName = "Achievement Name is Required";
+      valid = false;
     }
-    if(!!!achDescription)
-    {
-      errors.achDescription="Achievement Description is  Required";
-      valid =false;
+    if (!!!achDescription) {
+      errors.achDescription = "Achievement Description is  Required";
+      valid = false;
     }
-    if(!!!achDate)
-    {
-      errors.achDate="Achievement Date is  Required";
-      valid =false;
+    if (!!!achDate) {
+      errors.achDate = "Achievement Date is  Required";
+      valid = false;
     }
-    if(!!!achUrl)
-    {
-      errors.achUrl="Achievement URL is  Required";
-      valid =false;
+    if (!!!achUrl) {
+      errors.achUrl = "Achievement URL is  Required";
+      valid = false;
+    } else if (!/^(ftp|http|https):\/\/[^ "]+$/.test(achUrl)) {
+      errors.achUrl = "Achievement URL must be of the form ftp|http|https";
+      valid = false;
     }
-    else if (!/^(ftp|http|https):\/\/[^ "]+$/.test(achUrl))
-    {
-      errors.achUrl="Achievement URL must be of the form ftp|http|https";
-      valid=false;
-    }
-    
+
     setAchErrors(errors);
     return valid;
   }
-function handleUpdateCertification()
-{
-  let isValid=false;
-  isValid=validationDataCert();
-  if(!isValid)
-  {
-    return ;
+  function handleUpdateCertification() {
+    let isValid = false;
+    isValid = validationDataCert();
+    if (!isValid) {
+      return;
+    }
+    const data = {
+      certificationName: certificationName,
+      issuedBy: issuedBy,
+      issuedDate: issuedDate,
+      certificateUrl: certificateUrl,
+    };
+    setLoading(true);
+    addUserCertification(data, setUpdateCertificationResponse);
+    // window.location.reload(true);
   }
-  const data={
-    certificationName: certificationName,
-    issuedBy:issuedBy,
-    issuedDate:issuedDate,
-    certificateUrl:certificateUrl,
-  };
-  setLoading(true);
-  addUserCertification(data, setUpdateCertificationResponse);
-  window.location.reload(true);
-
-}
-  function handleUpdateAchievement()
-  {
+  function handleUpdateAchievement() {
     let isValid = false;
 
     isValid = validationDataAch();
-    
+
     if (!isValid) {
       return;
     }
@@ -894,7 +877,7 @@ function handleUpdateCertification()
     };
     setLoading(true);
     addUserAchievement(data, setUpdateAchievementResponse);
-    window.location.reload(true);
+    // window.location.reload(true);
   }
   function handleUpdateEducation() {
     let isValid = false;
@@ -2223,15 +2206,13 @@ function handleUpdateCertification()
       </section>
     </>
   );
-  const renderAchievements=(
+  const renderAchievements = (
     <>
-          <section className="box">
+      <section className="box">
         <p className="heading">ACHIEVEMENT DETAILS</p>
-        {
-          achExist? (
-            <>
-
-{achievementList.map((item, index) => {
+        {achExist ? (
+          <>
+            {achievementList.map((item, index) => {
               return (
                 <div key={index} className="row">
                   <div className="box outerBox" style={{}}>
@@ -2262,7 +2243,9 @@ function handleUpdateCertification()
                     </div>
                     <div>
                       <p style={{}} className="projectDes">
-                        {moment(item.achievementDate).utc().format('YYYY-MM-DD')}
+                        {moment(item.achievementDate)
+                          .utc()
+                          .format("YYYY-MM-DD")}
                       </p>
                     </div>
                     <div>
@@ -2276,7 +2259,9 @@ function handleUpdateCertification()
                           margin: "auto",
                         }}
                       >
-                        <Link to={item.achievementUrl}>{item.achievementUrl}</Link>
+                        <Link to={item.achievementUrl}>
+                          {item.achievementUrl}
+                        </Link>
                       </p>
                     </div>
                   </div>
@@ -2302,11 +2287,10 @@ function handleUpdateCertification()
               </div> */}
               Add New
             </div>
-            </>
-          ):(
-            <>
-  
-      <div className="row">
+          </>
+        ) : (
+          <>
+            <div className="row">
               <div className="col-lg-10">
                 <div className="">
                   <label className="label">
@@ -2338,9 +2322,7 @@ function handleUpdateCertification()
                     className="input-field"
                     placeholder="Enter your Achievement Date"
                   />
-                  <label className="error-message">
-                    {achErrors.achDate}
-                  </label>
+                  <label className="error-message">{achErrors.achDate}</label>
                 </div>
               </div>
               <div className="col-lg-4">
@@ -2355,9 +2337,7 @@ function handleUpdateCertification()
                     className="input-field"
                     placeholder="Enter your Achievement Url"
                   />
-                  <label className="error-message">
-                    {achErrors.achUrl}
-                  </label>
+                  <label className="error-message">{achErrors.achUrl}</label>
                 </div>
               </div>
             </div>
@@ -2381,8 +2361,6 @@ function handleUpdateCertification()
               </div>
             </div>
 
-          
-           
             <div
               style={{
                 display: "flex",
@@ -2405,18 +2383,17 @@ function handleUpdateCertification()
               </button>
             </div>
           </>
-          )
-        }
-        </section>
+        )}
+      </section>
     </>
-  )
-  const renderCertification=(
+  );
+  const renderCertification = (
     <>
-    <section className="box">
-    <p className="heading"> Certifications</p>
-    {
-      certExist?(<>
-                  {certificationList.map((item, index) => {
+      <section className="box">
+        <p className="heading"> Certifications</p>
+        {certExist ? (
+          <>
+            {certificationList.map((item, index) => {
               return (
                 <div key={index} className="row">
                   <div className="box outerBox" style={{}}>
@@ -2452,7 +2429,7 @@ function handleUpdateCertification()
                     </div>
                     <div>
                       <p style={{}} className="projectDes">
-                        {moment(item.issuedDate).utc().format('YYYY-MM-DD')}
+                        {moment(item.issuedDate).utc().format("YYYY-MM-DD")}
                       </p>
                     </div>
                     <div>
@@ -2461,7 +2438,9 @@ function handleUpdateCertification()
                           margin: "auto",
                         }}
                       >
-                        <Link to={item.certificateUrl}>{item.certificateUrl}</Link>
+                        <Link to={item.certificateUrl}>
+                          {item.certificateUrl}
+                        </Link>
                       </p>
                     </div>
                   </div>
@@ -2492,116 +2471,108 @@ function handleUpdateCertification()
                 Add New
               </div>
             </div>
+          </>
+        ) : (
+          <>
+            <div className="row">
+              <div className="col-lg-10">
+                <div className="">
+                  <label className="label">
+                    Certification Name<span className="required">*</span>
+                  </label>
+                  <input
+                    value={certificationName}
+                    type="text"
+                    onChange={(e) => setCertificationName(e.target.value)}
+                    className="input-field"
+                    placeholder="Enter your Certification Name"
+                  />
+                  <label className="error-message">
+                    {certErrors.certificationName}
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-lg-4">
+                <div className="">
+                  <label className="label">
+                    Issued Date<span className="required">*</span>
+                  </label>
+                  <input
+                    value={issuedDate}
+                    type="date"
+                    onChange={(e) => setIssuedDate(e.target.value)}
+                    className="input-field"
+                    placeholder="Enter your Certificate Issue Date"
+                  />
+                  <label className="error-message">
+                    {certErrors.issuedDate}
+                  </label>
+                </div>
+              </div>
+              <div className="col-lg-4">
+                <div className="">
+                  <label className="label">
+                    Certification Url<span className="required">*</span>
+                  </label>
+                  <input
+                    value={certificateUrl}
+                    type="text"
+                    onChange={(e) => setCertificateUrl(e.target.value)}
+                    className="input-field"
+                    placeholder="Enter your Certificate Url"
+                  />
+                  <label className="error-message">
+                    {certErrors.certificateUrl}
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-lg-10">
+                <div className="">
+                  <label className="label">
+                    Issued By<span className="required">*</span>
+                  </label>
+                  <input
+                    value={issuedBy}
+                    type="text"
+                    onChange={(e) => setIssuedBy(e.target.value)}
+                    className="input-field"
+                    placeholder="Enter the name certificate Issuing organization"
+                  />
+                  <label className="error-message">{certErrors.issuedBy}</label>
+                </div>
+              </div>
+            </div>
 
-      </>):(
-                  <>
-  
-                  <div className="row">
-                          <div className="col-lg-10">
-                            <div className="">
-                              <label className="label">
-                                Certification Name<span className="required">*</span>
-                              </label>
-                              <input
-                                value={certificationName}
-                                type="text"
-                                onChange={(e) => setCertificationName(e.target.value)}
-                                className="input-field"
-                                placeholder="Enter your Certification Name"
-                              />
-                              <label className="error-message">
-                                {certErrors.certificationName}
-                              </label>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="row">
-                          <div className="col-lg-4">
-                            <div className="">
-                              <label className="label">
-                                Issued Date<span className="required">*</span>
-                              </label>
-                              <input
-                                value={issuedDate}
-                                type="date"
-                                onChange={(e) => setIssuedDate(e.target.value)}
-                                className="input-field"
-                                placeholder="Enter your Certificate Issue Date"
-                              />
-                              <label className="error-message">
-                                {certErrors.issuedDate}
-                              </label>
-                            </div>
-                          </div>
-                          <div className="col-lg-4">
-                            <div className="">
-                              <label className="label">
-                              Certification Url<span className="required">*</span>
-                              </label>
-                              <input
-                                value={certificateUrl}
-                                type="text"
-                                onChange={(e) => setCertificateUrl(e.target.value)}
-                                className="input-field"
-                                placeholder="Enter your Certificate Url"
-                              />
-                              <label className="error-message">
-                                {certErrors.certificateUrl}
-                              </label>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="row">
-                          <div className="col-lg-10">
-                            <div className="">
-                              <label className="label">
-                               Issued By<span className="required">*</span>
-                              </label>
-                              <input
-                                value={issuedBy}
-                                type="text"
-                                onChange={(e) => setIssuedBy(e.target.value)}
-                                className="input-field"
-                                placeholder="Enter the name certificate Issuing organization"
-                              />
-                              <label className="error-message">
-                                {certErrors.issuedBy}
-                              </label>
-                            </div>
-                          </div>
-                        </div>
-            
-                      
-                       
-                        <div
-                          style={{
-                            display: "flex",
-                            justifyContent: "flex-end",
-                            alignItems: "flex-end",
-                          }}
-                        >
-                          <button
-                            disabled={loading}
-                            onClick={() => handleUpdateCertification()}
-                            className="update-btn"
-                          >
-                            {loading ? (
-                              <div className="spinner-border text-light" role="status">
-                                <span className="visually-hidden">Loading...</span>
-                              </div>
-                            ) : (
-                              "Add Certification"
-                            )}
-                          </button>
-                        </div>
-                      </>
-
-      )
-    }
-    </section>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "flex-end",
+                alignItems: "flex-end",
+              }}
+            >
+              <button
+                disabled={loading}
+                onClick={() => handleUpdateCertification()}
+                className="update-btn"
+              >
+                {loading ? (
+                  <div className="spinner-border text-light" role="status">
+                    <span className="visually-hidden">Loading...</span>
+                  </div>
+                ) : (
+                  "Add Certification"
+                )}
+              </button>
+            </div>
+          </>
+        )}
+      </section>
     </>
-
-  )
+  );
   // const renderSocialLinks = (
   //   <>
   //     <section className="box">
@@ -2811,7 +2782,7 @@ function handleUpdateCertification()
           {chosenOption === options[2] && <div> {renderWork}</div>}
           {chosenOption === options[3] && <div> {renderProjects}</div>}
           {chosenOption === options[4] && <div> {renderAchievements}</div>}
-          {chosenOption=== options[5] && <div>{renderCertification}</div> }
+          {chosenOption === options[5] && <div>{renderCertification}</div>}
         </div>
       </main>
     </>
