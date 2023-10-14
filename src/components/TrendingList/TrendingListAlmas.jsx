@@ -3,57 +3,19 @@ import { FaArrowTrendUp } from "react-icons/fa6";
 import defaultPoster from "../../assets/defaultPoster";
 import "./TrendingList.css";
 import { useEffect, useState } from "react";
-import { controller } from "../../services/APIConfig";
+import { controller, getBestAlumni } from "../../services/APIConfig";
 
 export default function TrendingListAlmas() {
-  //   const [trendingList, setTrendingList] = useState([]);
+  const [trendingList, setTrendingList] = useState([]);
   const [viewMore, setViewMore] = useState(false);
 
   useEffect(() => {
-    // call fetch api here
+    getBestAlumni(setTrendingList);
 
     return () => {
       controller.abort();
     };
   }, []);
-
-  const trendingList = [
-    {
-      id: 1,
-      name: "Bharati Vidyapeeth College of Engineering, Deemed to be University Navi Mumbai",
-      subheading:
-        "UI Designer at engineerHUB | Madan Mohan Malvi UI Designer at engineerHUB | Madan Mohan Malvi UI Designer at engineerHUB | Madan Mohan Malvi",
-      logo: defaultPoster,
-    },
-    {
-      id: 2,
-      name: "Bharati Vidyapeeth College of Engineering, Deemed to be University Navi Mumbai",
-      subheading:
-        "UI Designer at engineerHUB | Madan Mohan Malvi UI Designer at engineerHUB | Madan Mohan Malvi UI Designer at engineerHUB | Madan Mohan Malvi",
-      logo: defaultPoster,
-    },
-    {
-      id: 3,
-      name: "Bharati Vidyapeeth College of Engineering, Deemed to be University Navi Mumbai",
-      subheading:
-        "UI Designer at engineerHUB | Madan Mohan Malvi UI Designer at engineerHUB | Madan Mohan Malvi UI Designer at engineerHUB | Madan Mohan Malvi",
-      logo: defaultPoster,
-    },
-    {
-      id: 4,
-      name: "Bharati Vidyapeeth College of Engineering, Deemed to be University Navi Mumbai",
-      subheading:
-        "UI Designer at engineerHUB | Madan Mohan Malvi UI Designer at engineerHUB | Madan Mohan Malvi UI Designer at engineerHUB | Madan Mohan Malvi",
-      logo: defaultPoster,
-    },
-    {
-      id: 5,
-      name: "Bharati Vidyapeeth College of Engineering, Deemed to be University Navi Mumbai",
-      subheading:
-        "UI Designer at engineerHUB | Madan Mohan Malvi UI Designer at engineerHUB | Madan Mohan Malvi UI Designer at engineerHUB | Madan Mohan Malvi",
-      logo: defaultPoster,
-    },
-  ];
 
   return (
     <div className="trending-cards-container">

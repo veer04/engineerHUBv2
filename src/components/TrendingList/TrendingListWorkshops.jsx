@@ -1,59 +1,21 @@
 import { BsChevronDown, BsChevronUp } from "react-icons/bs";
 import { BiPlayCircle } from "react-icons/bi";
-import defaultPoster from "../../assets/defaultPoster";
 import "./TrendingList.css";
 import { useEffect, useState } from "react";
-import { controller } from "../../services/APIConfig";
+import { controller, getEventByMode } from "../../services/APIConfig";
 
 export default function TrendingListWorkshops() {
-  //   const [trendingList, setTrendingList] = useState([]);
+  const [trendingList, setTrendingList] = useState([]);
   const [viewMore, setViewMore] = useState(false);
 
   useEffect(() => {
-    // call fetch api here
+    getEventByMode(setTrendingList, "Workshop");
 
     return () => {
       controller.abort();
+      setTrendingList([]);
     };
   }, []);
-
-  const trendingList = [
-    {
-      id: 1,
-      name: "Bharati Vidyapeeth College of Engineering, Deemed to be University Navi Mumbai",
-      subheading:
-        "UI Designer at engineerHUB | Madan Mohan Malvi UI Designer at engineerHUB | Madan Mohan Malvi UI Designer at engineerHUB | Madan Mohan Malvi",
-      logo: defaultPoster,
-    },
-    {
-      id: 2,
-      name: "Bharati Vidyapeeth College of Engineering, Deemed to be University Navi Mumbai",
-      subheading:
-        "UI Designer at engineerHUB | Madan Mohan Malvi UI Designer at engineerHUB | Madan Mohan Malvi UI Designer at engineerHUB | Madan Mohan Malvi",
-      logo: defaultPoster,
-    },
-    {
-      id: 3,
-      name: "Bharati Vidyapeeth College of Engineering, Deemed to be University Navi Mumbai",
-      subheading:
-        "UI Designer at engineerHUB | Madan Mohan Malvi UI Designer at engineerHUB | Madan Mohan Malvi UI Designer at engineerHUB | Madan Mohan Malvi",
-      logo: defaultPoster,
-    },
-    {
-      id: 4,
-      name: "Bharati Vidyapeeth College of Engineering, Deemed to be University Navi Mumbai",
-      subheading:
-        "UI Designer at engineerHUB | Madan Mohan Malvi UI Designer at engineerHUB | Madan Mohan Malvi UI Designer at engineerHUB | Madan Mohan Malvi",
-      logo: defaultPoster,
-    },
-    {
-      id: 5,
-      name: "Bharati Vidyapeeth College of Engineering, Deemed to be University Navi Mumbai",
-      subheading:
-        "UI Designer at engineerHUB | Madan Mohan Malvi UI Designer at engineerHUB | Madan Mohan Malvi UI Designer at engineerHUB | Madan Mohan Malvi",
-      logo: defaultPoster,
-    },
-  ];
 
   return (
     <div className="trending-cards-container">
@@ -80,14 +42,14 @@ export default function TrendingListWorkshops() {
           <>
             <div className="trending-card">
               <div className="logo">
-                <img src={trendingListCollegeEvent.logo} alt="logo" />
+                <img src={trendingListCollegeEvent.eventPoster} alt="logo" />
               </div>
               <div className="content">
                 <span className="name text-crop-2">
-                  {trendingListCollegeEvent.name}
+                  {trendingListCollegeEvent.eventName}
                 </span>
                 <span className="subheading text-crop-2">
-                  {trendingListCollegeEvent.subheading}
+                  {trendingListCollegeEvent.description}
                 </span>
               </div>
             </div>
