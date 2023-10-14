@@ -523,7 +523,7 @@ export default function CompanyDashboard() {
                 </div>
               </div>
               <div
-                onClick={() => navigate("/hostevent")}
+                onClick={() => navigate("/host/event")}
                 style={{
                   backgroundImage: `url(${bucket}hackathon.png)`,
                 }}

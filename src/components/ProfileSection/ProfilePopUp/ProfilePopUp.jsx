@@ -118,7 +118,7 @@ export default function ProfilePopUp() {
     {
       label: "Create Hackathons",
       icon: <AiOutlineFile />,
-      link: "/hostevent",
+      link: "/host/event",
     },
     {
       label: "Create Projects",

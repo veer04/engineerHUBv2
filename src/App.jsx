@@ -223,9 +223,9 @@ function App() {
           <Route path="/mentorship" element={<ComingSoon />} />
 
           {eventHostRoute === true && sendLogin === true ? (
-            <Route path="/hostevent" element={<HostEvent />} />
+            <Route path="/host/event" element={<HostEvent />} />
           ) : (
-            <Route path="/hostevent" element={<Login />} />
+            <Route path="/host/event" element={<Login />} />
           )}
 
           {jobHostRoute === true && sendLogin === true ? (
