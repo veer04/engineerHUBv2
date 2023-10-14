@@ -643,7 +643,7 @@ export default function UserDashboard() {
           <div className="cards">
             <div
               onClick={() => {
-                navigate("/hostevent");
+                navigate("/host/event");
               }}
               style={{
                 backgroundImage: `url(${bucket}hackathon.png)`,
@@ -657,7 +657,7 @@ export default function UserDashboard() {
             </div>
             <div
               onClick={() => {
-                navigate("/hostevent");
+                navigate("/host/event");
               }}
               style={{
                 backgroundImage: `url(${bucket}webinar.png)`,
@@ -682,7 +682,7 @@ export default function UserDashboard() {
               </div>
             </div>
             {/* </Link>
-          <Link to="/hostevent"> */}
+          <Link to="/host/event"> */}
             <div
               onClick={() => navigate("/host/internship")}
               style={{

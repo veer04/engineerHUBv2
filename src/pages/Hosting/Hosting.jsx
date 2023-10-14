@@ -38,7 +38,7 @@ export default function Hosting() {
 
   const { setSelectedPageNavbar } = useNavbar();
   useEffect(() => {
-    setSelectedPageNavbar("hosting");
+    setSelectedPageNavbar("host");
   }, []);
   const navigate = useNavigate();
   const bucket = `${Bucket_URL}frontend/hosting/`;
@@ -84,7 +84,7 @@ export default function Hosting() {
       console.log(decoded.role);
       const storedValue = localStorage.getItem("event");
       if (decoded.role === "Club") {
-        navigate("/hostevent");
+        navigate("/host/event");
       } else {
         window.alert("Not authorized to host events!!!");
       }
@@ -102,7 +102,7 @@ export default function Hosting() {
         decoded.role === "Alumni" ||
         decoded.role === "Club"
       ) {
-        navigate("/hostevent");
+        navigate("/host/event");
       } else {
         window.alert("Not authorized to host events!!!");
       }
@@ -110,6 +110,8 @@ export default function Hosting() {
       navigate("/login");
     }
   };
+
+
 
   return (
     <div className="hosting-page">
@@ -122,7 +124,7 @@ export default function Hosting() {
           For <span>Engaging</span> your target audience
         </div>
         <div className="cards ">
-          {/* <Link to="/hostevent"> */}
+          {/* <Link to="/host/event"> */}
           <div
             onClick={navigationClub}
             style={{
@@ -136,7 +138,7 @@ export default function Hosting() {
             </div>
           </div>
           {/* </Link> */}
-          {/* <Link to="/hostevent"> */}
+          {/* <Link to="/host/event"> */}
           <div
             onClick={navigationClub}
             style={{
@@ -150,7 +152,7 @@ export default function Hosting() {
             </div>
           </div>
           {/* </Link> */}
-          {/* <Link to="/hostevent"> */}
+          {/* <Link to="/host/event"> */}
           <div
             onClick={navigationFunction}
             style={{
@@ -164,7 +166,7 @@ export default function Hosting() {
             </div>
           </div>
           {/* </Link>
-          <Link to="/hostevent"> */}
+          <Link to="/host/event"> */}
           <div
             onClick={navigationFunction}
             style={{
@@ -185,7 +187,7 @@ export default function Hosting() {
           Create <span>Jobs</span> for the right talent
         </div>
         <div className="cards">
-          {/* <Link to="/hostevent"> */}
+          {/* <Link to="/host/event"> */}
           <div
             onClick={() => navigationOrganization("job")}
             style={{
@@ -199,7 +201,7 @@ export default function Hosting() {
             </div>
           </div>
           {/* </Link>
-          <Link to="/hostevent"> */}
+          <Link to="/host/event"> */}
           <div
             onClick={() => navigationOrganization("internship")}
             style={{
@@ -237,7 +239,7 @@ export default function Hosting() {
             </div>
           </div>
           {/* </Link>
-          <Link to="/hostevent"> */}
+          <Link to="/host/event"> */}
           {/* <div
             onClick={navigationOrganization}
             style={{
