@@ -1,6 +1,6 @@
 .chat-message {
   display: flex;
-  align-items: center;
+  /* align-items: center; */
   flex-wrap: nowrap;
   justify-content: flex-start;
   color: white;
