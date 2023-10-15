@@ -1799,10 +1799,10 @@ export const getCampusById = (setCampus, collegeId) => {
       signal: controller.signal,
     })
     .then((res) => {
-      const data = res.data.data;
-      setCampus(data);
+      setCampus(res);
     })
     .catch((err) => {
+      setCampus(err.response);
       if (axios.isCancel(err)) {
         console.log("req cancel");
       } else {

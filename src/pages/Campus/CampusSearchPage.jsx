@@ -1,100 +1,37 @@
 import { useEffect, useState } from "react";
 import CampusSearchBox from "../../components/CampusSearchBox/CampusSearchBox";
 import "./CampusSearchPage.css";
-import { controller, getAllCampuses } from "../../services/APIConfig";
+import {
+  controller,
+  getAllCampuses,
+  getCampusAlumni,
+  getCampusById,
+} from "../../services/APIConfig";
 import TrendingListColleges from "../../components/TrendingList/TrendingListColleges";
-import TrendingListAlmas from "../../components/TrendingList/TrendingListAlmas";
+import TrendingListAlumni from "../../components/TrendingList/TrendingListAlumni";
 import TrendingListClubs from "../../components/TrendingList/TrendingListClubs";
-import defaultPoster from "../../assets/defaultPoster";
 import { BsChevronDown, BsChevronUp } from "react-icons/bs";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Loading from "../../components/Loader/Loading";
+import Page404 from "../Maintenance/Page404";
+import LoadingPage from "../../components/Loader/LoadingPage";
 
 export default function CampusSearchPage() {
+  const { collegeId } = useParams();
   const navigate = useNavigate();
   const [allCampuses, setAllCampuses] = useState([]);
   const [output, setOutput] = useState("");
-  const [campus, setCampus] = useState({
-    image: defaultPoster,
-    _id: "60f9b0b3e6b3a5b4a4f7e1b1",
-    collegeName: "Bharati Vidyapeeth College of Engineering, Navi Mumbai",
-    location: "Navi Mumbai",
-    description:
-      "Lorem ipsum dolor sit amet consectetur. Mattis aliquam sodales faucibus platea feugiat odio.Lorem ipsum dolor sit amet consectetur. Mattis aliquam sodales faucibus platea feugiat odio.Lorem ipsum dolor sit amet consectetur. Mattis aliquam sodales faucibus platea feugiat odio.Lorem ipsum dolor sit amet consectetur. Mattis aliquam sodales faucibus platea feugiat odio.Lorem ipsum dolor sit amet consectetur. Mattis aliquam sodales faucibus platea feugiat odio.Lorem ipsum dolor sit amet consectetur. Mattis aliquam sodales faucibus platea feugiat odio.",
-  });
-  const [clubs, setClubs] = useState([
-    // {
-    //   image: defaultPoster,
-    //   _id: "60f9b0b3e6b3a5b4a4f7e1b1",
-    //   clubName: "Bharati Vidyapeeth College of Engineering, Navi Mumbai",
-    //   location: "Navi Mumbai",
-    //   description:
-    //     "Lorem ipsum dolor sit amet consectetur. Mattis aliquam sodales faucibus platea feugiat odio.Lorem ipsum dolor sit amet consectetur. Mattis aliquam sodales faucibus platea feugiat odio.Lorem ipsum dolor sit amet consectetur. Mattis aliquam sodales faucibus platea feugiat odio.",
-    // },
-    // {
-    //   image: defaultPoster,
-    //   _id: "60f9b0b3e6b3a5b4fsdfa4f7e1b1",
-    //   clubName: "Bharati Vidyapeeth College of Engineering, Navi Mumbai",
-    //   location: "Navi Mumbai",
-    //   description:
-    //     "Lorem ipsum dolor sit amet consectetur. Mattis aliquam sodales faucibus platea feugiat odio.Lorem ipsum dolor sit amet consectetur. Mattis aliquam sodales faucibus platea feugiat odio.Lorem ipsum dolor sit amet consectetur. Mattis aliquam sodales faucibus platea feugiat odio.",
-    // },
-    // {
-    //   image: defaultPoster,
-    //   _id: "60f9b0b3e6b3a5b4a4f7wqede1b1",
-    //   clubName: "Bharati Vidyapeeth College of Engineering, Navi Mumbai",
-    //   location: "Navi Mumbai",
-    //   description:
-    //     "Lorem ipsum dolor sit amet consectetur. Mattis aliquam sodales faucibus platea feugiat odio.Lorem ipsum dolor sit amet consectetur. Mattis aliquam sodales faucibus platea feugiat odio.Lorem ipsum dolor sit amet consectetur. Mattis aliquam sodales faucibus platea feugiat odio.",
-    // },
-    // {
-    //   image: defaultPoster,
-    //   _id: "60f9b0b3e6b3a5b4a4f7wqwe1b1",
-    //   clubName: "Bharati Vidyapeeth College of Engineering, Navi Mumbai",
-    //   location: "Navi Mumbai",
-    //   description:
-    //     "Lorem ipsum dolor sit amet consectetur. Mattis aliquam sodales faucibus platea feugiat odio.Lorem ipsum dolor sit amet consectetur. Mattis aliquam sodales faucibus platea feugiat odio.Lorem ipsum dolor sit amet consectetur. Mattis aliquam sodales faucibus platea feugiat odio.",
-    // },
-  ]);
-  const [almas, setAlmas] = useState([
-    // {
-    //   image: defaultPoster,
-    //   _id: "60f9b0b3e6b3a5b4a4f7e1b1",
-    //   almaName: "Bharati Vidyapeeth College of Engineering, Navi Mumbai",
-    //   location: "Navi Mumbai",
-    //   description:
-    //     "Lorem ipsum dolor sit amet consectetur. Mattis aliquam sodales faucibus platea feugiat odio.Lorem ipsum dolor sit amet consectetur. Mattis aliquam sodales faucibus platea feugiat odio.Lorem ipsum dolor sit amet consectetur. Mattis aliquam sodales faucibus platea feugiat odio.",
-    // },
-    // {
-    //   image: defaultPoster,
-    //   _id: "60f9b0b3e6b3a5b4fsdfa4f7e1b1",
-    //   almaName: "Bharati Vidyapeeth College of Engineering, Navi Mumbai",
-    //   location: "Navi Mumbai",
-    //   description:
-    //     "Lorem ipsum dolor sit amet consectetur. Mattis aliquam sodales faucibus platea feugiat odio.Lorem ipsum dolor sit amet consectetur. Mattis aliquam sodales faucibus platea feugiat odio.Lorem ipsum dolor sit amet consectetur. Mattis aliquam sodales faucibus platea feugiat odio.",
-    // },
-    // {
-    //   image: defaultPoster,
-    //   _id: "60f9b0b3e6b3a5b4a4f7wqede1b1",
-    //   almaName: "Bharati Vidyapeeth College of Engineering, Navi Mumbai",
-    //   location: "Navi Mumbai",
-    //   description:
-    //     "Lorem ipsum dolor sit amet consectetur. Mattis aliquam sodales faucibus platea feugiat odio.Lorem ipsum dolor sit amet consectetur. Mattis aliquam sodales faucibus platea feugiat odio.Lorem ipsum dolor sit amet consectetur. Mattis aliquam sodales faucibus platea feugiat odio.",
-    // },
-    // {
-    //   image: defaultPoster,
-    //   _id: "60f9b0b3e6b3a5b4a4f7wqwe1b1",
-    //   almaName: "Bharati Vidyapeeth College of Engineering, Navi Mumbai",
-    //   location: "Navi Mumbai",
-    //   description:
-    //     "Lorem ipsum dolor sit amet consectetur. Mattis aliquam sodales faucibus platea feugiat odio.Lorem ipsum dolor sit amet consectetur. Mattis aliquam sodales faucibus platea feugiat odio.Lorem ipsum dolor sit amet consectetur. Mattis aliquam sodales faucibus platea feugiat odio.",
-    // },
-  ]);
+  const [campusData, setCampusData] = useState({});
+  const [campus, setCampus] = useState({});
+  const [clubs, setClubs] = useState([]);
+  const [alumni, setAlumni] = useState([]);
   const [viewAllClubs, setViewAllClubs] = useState(false);
   const [viewAllAlmas, setViewAllAlmas] = useState(false);
 
   useEffect(() => {
     getAllCampuses(setAllCampuses);
+    getCampusById(setCampusData, collegeId);
+    getCampusAlumni(setAlumni, collegeId);
 
     return () => {
       controller.abort();
@@ -102,12 +39,26 @@ export default function CampusSearchPage() {
   }, []);
 
   useEffect(() => {
+    if (Object.keys(campusData).length !== 0) {
+      setCampus(campusData?.data?.data);
+    }
+  }, [campusData]);
+
+  useEffect(() => {
+    console.log("clubs: ", clubs);
+  }, [clubs]);
+
+  useEffect(() => {
+    console.log("alumni: ", alumni);
+  }, [alumni]);
+
+  useEffect(() => {
     if (output) {
       navigate(`/campus/search/${output}`);
     }
   }, [output]);
 
-  return (
+  const renderCampusSearchPage = (
     <main className="campus-search-page">
       <h1 className="heading-3">Campus</h1>
       <h2 className="subheading-1">
@@ -128,15 +79,18 @@ export default function CampusSearchPage() {
       <div className="campus-search-page__container">
         <div className="column column-1">
           <div className="campus result-container">
-            <div className="box">
+            <div
+              onClick={() => navigate(`/campus/${campus._id}`)}
+              className="box"
+            >
               <div className="logo">
-                <img src={campus?.image} alt="" />
+                <img src={campus?.collegeLogo} alt="" />
               </div>
               <div className="content">
                 <span className="name text-crop-1">{campus.collegeName}</span>
-                <span className="location text-crop-1">{campus.location}</span>
+                <span className="location text-crop-1">{`${campus?.city}, ${campus?.state}`}</span>
                 <span className="description text-crop-4">
-                  {campus.description}
+                  {campus.aboutUs}
                 </span>
               </div>
             </div>
@@ -194,18 +148,18 @@ export default function CampusSearchPage() {
             )}
           </div>
           <div className="alma alma-container result-container">
-            <span className="title">Almas</span>
+            <span className="title">Alumni</span>
             {false && (
               <div className="w-full d-flex justify-content-center">
                 <i>No alma found</i>
               </div>
             )}
-            {almas.length === 0 && (
+            {alumni.length === 0 && (
               <div className="w-full d-flex justify-content-center">
                 <Loading />
               </div>
             )}
-            {almas.slice(0, viewAllAlmas ? almas.length : 3).map((alma) => (
+            {alumni.slice(0, viewAllAlmas ? alumni.length : 3).map((alma) => (
               <>
                 <div key={alma._id} className="box">
                   <div className="logo">
@@ -224,7 +178,7 @@ export default function CampusSearchPage() {
                 <hr />
               </>
             ))}
-            {almas.length !== 0 && !viewAllAlmas && (
+            {alumni.length !== 0 && !viewAllAlmas && (
               <div
                 onClick={() => setViewAllAlmas(true)}
                 className="view-more_container"
@@ -248,10 +202,20 @@ export default function CampusSearchPage() {
         </div>
         <div className="column column-2">
           <TrendingListColleges />
-          <TrendingListAlmas />
+          <TrendingListAlumni />
           <TrendingListClubs />
         </div>
       </div>
     </main>
+  );
+
+  return !!Object.keys(campusData).length ? (
+    campusData?.status >= 200 && campusData?.status <= 300 ? (
+      renderCampusSearchPage
+    ) : (
+      <Page404 />
+    )
+  ) : (
+    <LoadingPage />
   );
 }

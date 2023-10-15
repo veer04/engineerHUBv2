@@ -2,7 +2,7 @@ import TrendingListCollegeEvents from "../../components/TrendingList/TrendingLis
 import TrendingListWorkshops from "../../components/TrendingList/TrendingListWorkshops";
 import TrendingListColleges from "../../components/TrendingList/TrendingListColleges";
 import TrendingListClubs from "../../components/TrendingList/TrendingListClubs";
-import TrendingListAlmas from "../../components/TrendingList/TrendingListAlmas";
+import TrendingListAlumni from "../../components/TrendingList/TrendingListAlumni";
 import TrendingPostCard from "../../components/TrendingPostCard/TrendingPostCard";
 import CampusSearchBox from "../../components/CampusSearchBox/CampusSearchBox";
 import { useEffect, useState } from "react";
@@ -132,7 +132,7 @@ export default function NewCampusPage() {
             <>
               <TrendingListColleges />
               <TrendingListClubs />
-              <TrendingListAlmas />
+              <TrendingListAlumni />
             </>
           )}
         </section>
@@ -144,14 +144,14 @@ export default function NewCampusPage() {
             <>
               <TrendingListColleges />
               <TrendingListClubs />
-              <TrendingListAlmas />
+              <TrendingListAlumni />
             </>
           )}
         </section>
         <section className="column column-3">
           <TrendingListColleges />
           <TrendingListClubs />
-          <TrendingListAlmas />
+          <TrendingListAlumni />
         </section>
       </div>
     </main>

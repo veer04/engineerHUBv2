@@ -4,7 +4,7 @@ import "./TrendingList.css";
 import { Fragment, useEffect, useState } from "react";
 import { controller, getTrendingAlumni } from "../../services/APIConfig";
 
-export default function TrendingListAlmas() {
+export default function TrendingListAlumni() {
   const [trendingList, setTrendingList] = useState([]);
   const [viewMore, setViewMore] = useState(false);
 
