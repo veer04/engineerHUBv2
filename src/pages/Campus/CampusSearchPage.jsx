@@ -29,14 +29,16 @@ export default function CampusSearchPage() {
   const [viewAllAlmas, setViewAllAlmas] = useState(false);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     getAllCampuses(setAllCampuses);
     getCampusById(setCampusData, collegeId);
     getCampusAlumni(setAlumni, collegeId);
 
     return () => {
       controller.abort();
+      setCampusData({});
     };
-  }, []);
+  }, [collegeId]);
 
   useEffect(() => {
     if (Object.keys(campusData).length !== 0) {

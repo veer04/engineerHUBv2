@@ -9,6 +9,7 @@
   border-radius: 0.3125rem;
   border: 1px solid var(--foundation-black-black-50, #e6e6e6);
   background: var(--Color, #fff);
+  height: fit-content;
 }
 .trending-cards-container .loading-container {
   min-height: 12rem;

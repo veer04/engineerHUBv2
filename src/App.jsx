@@ -11,7 +11,6 @@ import IntraCollege from "./pages/Campus/IntraCollege/IntraCollege";
 import InterCollege from "./pages/Campus/InterCollege/InterCollege";
 import Workshops from "./pages/Campus/Workshops/Workshops";
 import ParticularCampus from "./pages/Campus/ParticularCampus/ParticularCampus";
-import CampusDetails from "./pages/Campus/ParticularCampus/CampusDetails";
 import Signup from "./pages/User/Signup/Signup";
 import RegistrationForm from "./components/Registration/Registration";
 import OTP from "./pages/User/OtpVerification/Otpverification";
@@ -50,6 +49,7 @@ const Company = lazy(() => import("./pages/Company/Company"));
 const Hosting = lazy(() => import("./pages/Hosting/Hosting.jsx"));
 const Login = lazy(() => import("./pages/User/Login/Login"));
 const CampusSearchPage = lazy(() => import("./pages/Campus/CampusSearchPage"));
+const CampusDetails = lazy(() => import("./pages/Campus/CampusDetails"));
 import ChangePassword from "./pages/User/ForgotPassword/ChangePassword";
 import getCookie, { getAccessToken } from "./features/getCookieValues";
 import ProjectHosting from "./pages/Hosting/ProjectHosting";
@@ -185,8 +185,8 @@ function App() {
             <Route index element={<NewCampusPage />} />
             <Route path="search/:collegeId" element={<CampusSearchPage />} />
             <Route path=":collegeId">
-              <Route index element={<ParticularCampus />} />
-              <Route path="details" element={<CampusDetails />} />
+              <Route index element={<CampusDetails />} />
+              {/* <Route path="details" element={<CampusDetails />} /> */}
             </Route>
           </Route>
           <Route path="/mentorship" element={<ComingSoon />} />

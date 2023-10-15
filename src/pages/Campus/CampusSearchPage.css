@@ -217,7 +217,7 @@
   width: 20.5625rem;
 }
 
-@media screen and (max-width: 820px) {
+@media screen and (max-width: 910px) {
   .campus-search-page .campus-search-page__container {
     grid-template-columns: 1fr;
   }
