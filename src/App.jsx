@@ -64,6 +64,7 @@ import AddMemberModal from "./components/Dashboard/AddMemberModal";
 import UserDashboard from "./pages/Profile/UserDashboard/UserDashboard";
 import GlobalSnackbar from "./components/GlobalSnackbar/GlobalSnackbar";
 import UserEditProfile from "./pages/Profile/UserDashboard/UserEditProfile";
+import TrendingColleges from "./pages/Campus/TrendingColleges";
 
 function App() {
   const [isEventModalOpen, setIsEventModalOpen] = useState(false);
@@ -181,6 +182,15 @@ function App() {
             </Route>
           </Route>
           <Route path="/mentorChat" element={<MentorChat />} />
+          <Route path="/trending">
+            <Route
+              path="campuses/:collegeId"
+              element={<TrendingColleges />}
+            ></Route>
+            <Route path="clubs/:clubId" element={<h1>club</h1>} />
+            <Route path="alumni/:almaId" element={<h1>alma</h1>} />
+            <Route path="events/:eventId" element={<h1>event</h1>} />
+          </Route>
           <Route path="/campus">
             <Route index element={<NewCampusPage />} />
             <Route path="search/:collegeId" element={<CampusSearchPage />} />

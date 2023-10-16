@@ -3,8 +3,10 @@ import { FaArrowTrendUp } from "react-icons/fa6";
 import "./TrendingList.css";
 import { Fragment, useEffect, useState } from "react";
 import { controller, getTrendingCampuses } from "../../services/APIConfig";
+import { useNavigate } from "react-router-dom";
 
 export default function TrendingListColleges() {
+  const navigate = useNavigate();
   const [trendingList, setTrendingList] = useState([]);
   const [viewMore, setViewMore] = useState(false);
 
@@ -40,7 +42,10 @@ export default function TrendingListColleges() {
         .slice(0, viewMore ? trendingList.length : 3)
         .map((trending) => (
           <Fragment key={trending._id}>
-            <div className="trending-card">
+            <div
+              onClick={() => navigate(`/trending/campuses/${trending._id}`)}
+              className="trending-card"
+            >
               <div className="logo">
                 <img src={trending.collegeLogo} alt="logo" />
               </div>

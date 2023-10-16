@@ -1,0 +1,19 @@
+.trending-colleges {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: var(--vertical-padding) var(--section-padding);
+  scroll-behavior: auto;
+}
+.trending-colleges .search-bar__container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+.trending-colleges .search-bar__container > div {
+  width: max(50%, 23rem);
+  display: flex;
+  justify-content: center;
+}

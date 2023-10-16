@@ -3,8 +3,10 @@ import { LuCalendar } from "react-icons/lu";
 import "./TrendingList.css";
 import { Fragment, useEffect, useState } from "react";
 import { controller, getFeaturedEvents } from "../../services/APIConfig";
+import { useNavigate } from "react-router-dom";
 
 export default function TrendingListCollegeEvents() {
+  const navigate = useNavigate();
   const [trendingList, setTrendingList] = useState([]);
   const [viewMore, setViewMore] = useState(false);
 
@@ -40,7 +42,10 @@ export default function TrendingListCollegeEvents() {
         .slice(0, viewMore ? trendingList.length : 3)
         .map((trending) => (
           <Fragment key={trending._id}>
-            <div className="trending-card">
+            <div
+              onClick={() => navigate(`/trending/events/${trending._id}`)}
+              className="trending-card"
+            >
               <div className="logo">
                 <img src={trending.eventPoster} alt="logo" />
               </div>
