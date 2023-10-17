@@ -56,7 +56,7 @@ export default function Modal({ handleClose, setShowModal }) {
 
   return ReactDOM.createPortal(
     <div id="event-modal-container">
-      {event.eventName ? (
+      {event?.eventName ? (
         <div className="event-modal">
           <div className="close-btn">
             <div
@@ -69,26 +69,26 @@ export default function Modal({ handleClose, setShowModal }) {
             </div>
           </div>
           <div className="event-type">
-            <div>{event.eventType}</div>
+            <div>{event?.eventType}</div>
           </div>
           <div className="event-title">
-            <div>{event.eventName}</div>
+            <div>{event?.eventName}</div>
           </div>
-          {event.eventTags && (
+          {event?.eventTags && (
             <div className="tags">
-              {event.eventTags.map((tag) => (
+              {event?.eventTags.map((tag) => (
                 <div key={tag}>{tag}</div>
               ))}
             </div>
           )}
           <div className="event-description">
-            <div>{event.description}</div>
+            <div>{event?.description}</div>
           </div>
           <div className="divider"></div>
           <div className="event-data">
             <div className="poster-container">
               <div>Event Poster</div>
-              <img src={event.eventPoster} alt="event poster" />
+              <img src={event?.eventPoster} alt="event poster" />
             </div>
             {/* <div className="features-container">
               <div>Key Features</div>
@@ -132,7 +132,7 @@ export default function Modal({ handleClose, setShowModal }) {
           ):(
             
             <div >
-            <a href={event.applyLink}>
+            <a href={event?.applyLink}>
               <div   
                 onClick={() => {
                   handleClose();
