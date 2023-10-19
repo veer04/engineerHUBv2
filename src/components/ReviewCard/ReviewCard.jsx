@@ -1,7 +1,15 @@
 import React, { useEffect, useState } from "react";
 import "./ReviewCard.css";
 
-export default function ReviewCard({ img, text, name, activeCard, index }) {
+export default function ReviewCard({
+  img,
+  text,
+  name,
+  activeCard,
+  index,
+  firstName,
+  lastName,
+}) {
   const [isActive, setIsActive] = useState(false);
 
   useEffect(() => {
@@ -39,7 +47,9 @@ export default function ReviewCard({ img, text, name, activeCard, index }) {
     >
       <img className="review-card-img" src={img} alt="Profile" />
       <span className="review-card-text">"{text}"</span>
-      <span className="review-card-name">{name}</span>
+      <span className="review-card-name">
+        {!!name ? name : `${firstName} ${lastName}`}
+      </span>
       <div
         className={`review-card-backdrop ${isActive ? backdropActive : ""}`}
       ></div>
