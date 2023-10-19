@@ -9,9 +9,6 @@ export default function ReviewsSection() {
   useEffect(() => {
     getReviews(setReviews);
   }, []);
-  useEffect(() => {
-  console.log(reviews)
-  }, [reviews]);
   let randomnessFactor = 15;
   const [width, setWidth] = useState(window.innerWidth);
   useEffect(() => {
@@ -51,6 +48,8 @@ export default function ReviewsSection() {
           text={review.text}
           img={review.userId?.image}
           activeCard={activeCard}
+          firstName={review.userId?.firstName}
+          lastName={review.userId?.lastName}
         />
       );
     });
