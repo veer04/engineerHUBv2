@@ -31,7 +31,7 @@
   font-size: 0.7rem;
   font-weight: 600;
   gap: 0.2rem;
-  padding: 0.5rem 1.5rem;
+  padding: .75rem 1.5rem;
   border-radius: 2rem 0 2rem 2rem;
   position: absolute;
   cursor: pointer;
@@ -49,13 +49,13 @@
 .recent-activities-section-item > span {
   overflow: hidden;
   display: -webkit-box; /* Set display to WebKit box */
-  -webkit-line-clamp: 3; /* Set the number of lines to show */
+  -webkit-line-clamp: 4; /* Set the number of lines to show */
   -webkit-box-orient: vertical; /* Set box orientation */
   text-overflow: ellipsis; /* Add ellipsis for truncated text */
 }
 @media screen and (max-width: 768px) {
   .recent-activities-section-item > span {
-    -webkit-line-clamp: 2; /* Set the number of lines to show */
+    -webkit-line-clamp: 3; /* Set the number of lines to show */
   }
   .recent-activities-section {
     padding: 0rem var(--section-padding) 0rem;
