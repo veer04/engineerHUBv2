@@ -117,6 +117,7 @@ const InternshipCard = ({
           jobId={details?._id}
           applicantsCount={details?.totalAppliedUsers}
           setToggleModal={setToggleModal}
+          applicationType="internship"
         />
       )}
     </div>

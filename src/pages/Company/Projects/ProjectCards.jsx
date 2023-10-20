@@ -126,6 +126,7 @@ const ProjectCards = ({
         <ViewApplicantsModal
           applicantsCount={data?.totalAppliedUsers}
           setToggleModal={setToggleModal}
+          applicationType="project"
         />
       )}
     </div>
