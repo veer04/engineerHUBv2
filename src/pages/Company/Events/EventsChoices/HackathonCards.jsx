@@ -148,6 +148,7 @@ const HackathonCard = ({
         <ViewApplicantsModal
           applicantsCount={totalAppliedUsers}
           setToggleModal={setToggleModal}
+          applicationType="event"
         />
       )}
     </div>

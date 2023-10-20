@@ -9,7 +9,7 @@ const JobCards = ({
   className,
   adminView,
   filterByCompany,
-  filterName
+  filterName,
 }) => {
   const [toggleModal, setToggleModal] = useState(false);
   const formatter = new Intl.NumberFormat("en-IN", {
@@ -111,6 +111,7 @@ const JobCards = ({
           jobId={details?._id}
           applicantsCount={details?.totalAppliedUsers}
           setToggleModal={setToggleModal}
+          applicationType="job"
         />
       )}
     </div>
