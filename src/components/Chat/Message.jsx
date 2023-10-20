@@ -142,7 +142,7 @@ export default function Message({
             <img src={verifiedIcon} alt="verified" />
           )}
         </div>
-        {!isSameSender && (
+        {!isSameSender && !isMyMessage && (
           <div className="tags">
             {
               sender?.role &&
