@@ -74,7 +74,8 @@ export default function Chat({
   //     : null;
 
   useEffect(() => {
-    document.getElementsByClassName("chat-display")[0].scrollTo(0, 999999999);
+    if (!(chatAccess[id] === "waiting" || !!!chatAccess[id]))
+      document.getElementsByClassName("chat-display")[0].scrollTo(0, 999999999);
   }, [messages]);
 
   // function handleSubmit() {
@@ -231,7 +232,15 @@ export default function Chat({
           </div>
         </Link>
       </div>
-      <div className="chat-display">
+      <div
+        style={{
+          overflow:
+            chatAccess[id] === "waiting" || !!!chatAccess[id]
+              ? "hidden"
+              : "auto",
+        }}
+        className="chat-display"
+      >
         {messages.length !== 0 ? (
           messages?.map((message, index) => {
             return (
@@ -245,12 +254,33 @@ export default function Chat({
             );
           })
         ) : (
-          <LoadingPage />
+          <div className="w-100 h-100 d-flex justify-content-center align-items-center flex-column">
+            <div className="spinner-border text-primary" role="status">
+              <span className="visually-hidden">Loading...</span>
+            </div>
+            <div className="mt-2">
+              {!socketConnected && (
+                <span
+                  style={{
+                    color: "#fff",
+                  }}
+                >
+                  Connecting...
+                </span>
+              )}
+              {socketConnected && (
+                <span
+                  style={{
+                    color: "#fff",
+                  }}
+                >
+                  Loading Messages...
+                </span>
+              )}
+            </div>
+          </div>
         )}
-        {(chatAccess[id] === "waiting" ||
-          chatAccess[id] === null ||
-          chatAccess[id] === undefined ||
-          chatAccess[id] === "") && (
+        {(chatAccess[id] === "waiting" || !!!chatAccess[id]) && (
           <div className="chat-guidelines">
             <div className="content">
               <div className="heading">Community Chat Guidelines</div>

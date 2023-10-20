@@ -102,7 +102,7 @@
 .chat-guidelines {
   position: absolute;
   color: white;
-  width: calc(100% - 112px);
+  /* width: calc(100% - 112px); */
   height: 100%;
   margin: auto;
   display: flex;
