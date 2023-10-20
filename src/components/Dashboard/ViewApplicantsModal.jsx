@@ -10,6 +10,7 @@ export default function ViewApplicantsModal({
   jobId,
   applicantsCount,
   setToggleModal,
+  applicationType,
 }) {
   const navigate = useNavigate();
 
@@ -50,19 +51,20 @@ export default function ViewApplicantsModal({
           <h2 className="modal-header">View Applicants</h2>
           {!!applicantsCount && (
             <span className="title">
-              You have {applicantsCount} applications on this job!!
+              You have {applicantsCount} applicants on this {applicationType}!!
             </span>
           )}
           {!!!applicantsCount && (
             <span className="title">
-              You may have some applications on this job!!
+              You may have some applicants on this {applicationType}!!
             </span>
           )}
           <span className="content">
-            Connect with us to know more about received job applications.
+            Connect with us to know more about received {applicationType}{" "}
+            applicants.
           </span>
           <a
-            href={`https://wa.me/919354647032?text=I%20want%20the%20details%20of%20the%20applicants%20of%20job%20id%20${jobId}`}
+            href={`https://wa.me/919354647032?text=I%20want%20the%20details%20of%20the%20applicants%20of%20${applicationType}%20id%20${jobId}`}
           >
             <button className="submit-button">Connect with us!</button>
           </a>
