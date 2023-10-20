@@ -4,8 +4,6 @@ import "./CampusSearchPage.css";
 import {
   controller,
   getAllCampuses,
-  getCampusAlumni,
-  getCampusById,
   getCampusPageSearchResult,
 } from "../../services/APIConfig";
 import TrendingListColleges from "../../components/TrendingList/TrendingListColleges";
@@ -13,7 +11,6 @@ import TrendingListAlumni from "../../components/TrendingList/TrendingListAlumni
 import TrendingListClubs from "../../components/TrendingList/TrendingListClubs";
 import { BsChevronDown, BsChevronUp } from "react-icons/bs";
 import { useNavigate, useParams } from "react-router-dom";
-import Loading from "../../components/Loader/Loading";
 import Page404 from "../Maintenance/Page404";
 import LoadingPage from "../../components/Loader/LoadingPage";
 
@@ -22,7 +19,7 @@ export default function CampusSearchPage() {
   const navigate = useNavigate();
   const [allCampuses, setAllCampuses] = useState([]);
   const [output, setOutput] = useState("");
-  const [campus, setCampus] = useState([]);
+  const [campuses, setCampus] = useState([]);
   const [clubs, setClubs] = useState([]);
   const [alumni, setAlumni] = useState([]);
   const [viewAllCampus, setViewAllCampus] = useState(false);
@@ -33,7 +30,7 @@ export default function CampusSearchPage() {
   useEffect(() => {
     window.scrollTo(0, 0);
     getCampusPageSearchResult(setResult, collegeId);
-    // getAllCampuses(setAllCampuses);
+    getAllCampuses(setAllCampuses);
     // getCampusById(setCampusData, collegeId);
     // getCampusAlumni(setAlumni, collegeId);
 
@@ -50,6 +47,9 @@ export default function CampusSearchPage() {
       setClubs(result?.data?.data?.clubData);
       setAlumni(result?.data?.data?.alumniData);
     }
+    setViewAllCampus(false);
+    setViewAllClubs(false);
+    setViewAllAlmas(false);
   }, [result]);
 
   // useEffect(() => {
@@ -85,7 +85,7 @@ export default function CampusSearchPage() {
       <div className="campus-search-page__container">
         <div className="column column-1">
           <div className="campus result-container">
-            {campus.length === 0 && (
+            {campuses.length === 0 && (
               <div className="w-full d-flex justify-content-center">
                 <i>No campus found</i>
               </div>
@@ -95,9 +95,9 @@ export default function CampusSearchPage() {
                 <Loading />
               </div>
             )} */}
-            {campus
-              .slice(0, viewAllCampus ? campus.length : 3)
-              .map((campus) => (
+            {campuses
+              .slice(0, viewAllCampus ? campuses.length : 3)
+              .map((campus, index) => (
                 <>
                   <div
                     key={campus._id}
@@ -117,10 +117,16 @@ export default function CampusSearchPage() {
                       </span>
                     </div>
                   </div>
-                  <hr />
+                  {campuses.length > 3 ? (
+                    <hr />
+                  ) : index !== campuses.length - 1 ? (
+                    <hr />
+                  ) : (
+                    ""
+                  )}
                 </>
               ))}
-            {campus.length !== 0 && !viewAllCampus && (
+            {campuses.length > 3 && !viewAllCampus && (
               <div
                 onClick={() => setViewAllCampus(true)}
                 className="view-more_container"
@@ -153,28 +159,40 @@ export default function CampusSearchPage() {
                 <Loading />
               </div>
             )} */}
-            {clubs.slice(0, viewAllClubs ? clubs.length : 3).map((club) => (
-              <>
-                <div key={club._id} className="box">
-                  <div className="logo">
-                    <img src={club?.image} alt="" />
+            {clubs
+              .slice(0, viewAllClubs ? clubs.length : 3)
+              .map((club, index) => (
+                <>
+                  <div
+                    onClick={() => navigate(`/profile/club/${club._id}`)}
+                    key={club._id}
+                    className="box"
+                  >
+                    <div className="logo">
+                      <img src={club?.image} alt="" />
+                    </div>
+                    <div className="content">
+                      <span className="name text-crop-1">{club.name}</span>
+                      <span className="location college text-crop-1">
+                        {`${!!club.city ? club.city : ""}${
+                          !!club.state ? `, ${club.state}` : ""
+                        }`}
+                      </span>
+                      <span className="description text-crop-2">
+                        {club.aboutUs || club.description}
+                      </span>
+                    </div>
                   </div>
-                  <div className="content">
-                    <span className="name text-crop-1">{club.name}</span>
-                    <span className="location college text-crop-1">
-                      {`${!!club.city ? club.city : ""}${
-                        !!club.state ? `, ${club.state}` : ""
-                      }`}
-                    </span>
-                    <span className="description text-crop-2">
-                      {club.aboutUs || club.description}
-                    </span>
-                  </div>
-                </div>
-                <hr />
-              </>
-            ))}
-            {clubs.length !== 0 && !viewAllClubs && (
+                  {clubs.length > 3 ? (
+                    <hr />
+                  ) : index !== clubs.length - 1 ? (
+                    <hr />
+                  ) : (
+                    ""
+                  )}
+                </>
+              ))}
+            {clubs.length > 3 && !viewAllClubs && (
               <div
                 onClick={() => setViewAllClubs(true)}
                 className="view-more_container"
@@ -207,28 +225,40 @@ export default function CampusSearchPage() {
                 <Loading />
               </div>
             )} */}
-            {alumni.slice(0, viewAllAlmas ? alumni.length : 3).map((alma) => (
-              <>
-                <div key={alma._id} className="box">
-                  <div className="logo">
-                    <img src={alma.image} alt="" />
+            {alumni
+              .slice(0, viewAllAlmas ? alumni.length : 3)
+              .map((alma, index) => (
+                <>
+                  <div
+                    onClick={() => navigate(`/profile/user/${alma._id}`)}
+                    key={alma._id}
+                    className="box"
+                  >
+                    <div className="logo">
+                      <img src={alma.image} alt="" />
+                    </div>
+                    <div className="content">
+                      <span className="name text-crop-1">{`${alma.firstName} ${alma.lastName}`}</span>
+                      <span className="location college text-crop-1">
+                        {`${!!alma.city ? alma.city : ""}${
+                          !!alma.state ? `, ${alma.state}` : ""
+                        }`}
+                      </span>
+                      <span className="description text-crop-2">
+                        {alma.description}
+                      </span>
+                    </div>
                   </div>
-                  <div className="content">
-                    <span className="name text-crop-1">{`${alma.firstName} ${alma.lastName}`}</span>
-                    <span className="location college text-crop-1">
-                      {`${!!alma.city ? alma.city : ""}${
-                        !!alma.state ? `, ${alma.state}` : ""
-                      }`}
-                    </span>
-                    <span className="description text-crop-2">
-                      {alma.description}
-                    </span>
-                  </div>
-                </div>
-                <hr />
-              </>
-            ))}
-            {alumni.length !== 0 && !viewAllAlmas && (
+                  {alumni.length > 3 ? (
+                    <hr />
+                  ) : index !== alumni.length - 1 ? (
+                    <hr />
+                  ) : (
+                    ""
+                  )}
+                </>
+              ))}
+            {alumni.length > 3 && !viewAllAlmas && (
               <div
                 onClick={() => setViewAllAlmas(true)}
                 className="view-more_container"

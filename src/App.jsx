@@ -196,7 +196,6 @@ function App() {
             <Route path="search/:collegeId" element={<CampusSearchPage />} />
             <Route path=":collegeId">
               <Route index element={<CampusDetails />} />
-              {/* <Route path="details" element={<CampusDetails />} /> */}
             </Route>
           </Route>
           <Route path="/mentorship" element={<ComingSoon />} />
