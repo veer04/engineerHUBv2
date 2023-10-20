@@ -6,6 +6,7 @@ import {
   getAllCampuses,
   getCampusAlumni,
   getCampusById,
+  getCampusPageSearchResult,
 } from "../../services/APIConfig";
 import TrendingListColleges from "../../components/TrendingList/TrendingListColleges";
 import TrendingListAlumni from "../../components/TrendingList/TrendingListAlumni";
@@ -21,38 +22,41 @@ export default function CampusSearchPage() {
   const navigate = useNavigate();
   const [allCampuses, setAllCampuses] = useState([]);
   const [output, setOutput] = useState("");
-  const [campusData, setCampusData] = useState({});
-  const [campus, setCampus] = useState({});
+  const [campus, setCampus] = useState([]);
   const [clubs, setClubs] = useState([]);
   const [alumni, setAlumni] = useState([]);
+  const [viewAllCampus, setViewAllCampus] = useState(false);
   const [viewAllClubs, setViewAllClubs] = useState(false);
   const [viewAllAlmas, setViewAllAlmas] = useState(false);
+  const [result, setResult] = useState({});
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    getAllCampuses(setAllCampuses);
-    getCampusById(setCampusData, collegeId);
-    getCampusAlumni(setAlumni, collegeId);
+    getCampusPageSearchResult(setResult, collegeId);
+    // getAllCampuses(setAllCampuses);
+    // getCampusById(setCampusData, collegeId);
+    // getCampusAlumni(setAlumni, collegeId);
 
     return () => {
       controller.abort();
-      setCampusData({});
+      setResult({});
     };
   }, [collegeId]);
 
   useEffect(() => {
-    if (Object.keys(campusData).length !== 0) {
-      setCampus(campusData?.data?.data);
+    console.log(result);
+    if (Object.keys(result).length !== 0) {
+      setCampus(result?.data?.data?.campusData);
+      setClubs(result?.data?.data?.clubData);
+      setAlumni(result?.data?.data?.alumniData);
     }
-  }, [campusData]);
+  }, [result]);
 
-  useEffect(() => {
-    console.log("clubs: ", clubs);
-  }, [clubs]);
-
-  useEffect(() => {
-    console.log("alumni: ", alumni);
-  }, [alumni]);
+  // useEffect(() => {
+  //   if (Object.keys(campusData).length !== 0) {
+  //     setCampus(campusData?.data?.data);
+  //   }
+  // }, [campusData]);
 
   useEffect(() => {
     if (output) {
@@ -81,34 +85,74 @@ export default function CampusSearchPage() {
       <div className="campus-search-page__container">
         <div className="column column-1">
           <div className="campus result-container">
-            <div
-              onClick={() => navigate(`/campus/${campus._id}`)}
-              className="box"
-            >
-              <div className="logo">
-                <img src={campus?.collegeLogo} alt="" />
+            {campus.length === 0 && (
+              <div className="w-full d-flex justify-content-center">
+                <i>No campus found</i>
               </div>
-              <div className="content">
-                <span className="name text-crop-1">{campus.collegeName}</span>
-                <span className="location text-crop-1">{`${campus?.city}, ${campus?.state}`}</span>
-                <span className="description text-crop-4">
-                  {campus.aboutUs}
-                </span>
+            )}
+            {/* {clubs.length === 0 && (
+              <div className="w-full d-flex justify-content-center">
+                <Loading />
               </div>
-            </div>
+            )} */}
+            {campus
+              .slice(0, viewAllCampus ? campus.length : 3)
+              .map((campus) => (
+                <>
+                  <div
+                    key={campus._id}
+                    onClick={() => navigate(`/campus/${campus._id}`)}
+                    className="box"
+                  >
+                    <div className="logo">
+                      <img src={campus?.collegeLogo} alt="" />
+                    </div>
+                    <div className="content">
+                      <span className="name text-crop-1">
+                        {campus.collegeName}
+                      </span>
+                      <span className="location text-crop-1">{`${campus?.city}, ${campus?.state}`}</span>
+                      <span className="description text-crop-3">
+                        {campus.aboutUs}
+                      </span>
+                    </div>
+                  </div>
+                  <hr />
+                </>
+              ))}
+            {campus.length !== 0 && !viewAllCampus && (
+              <div
+                onClick={() => setViewAllCampus(true)}
+                className="view-more_container"
+              >
+                <button>
+                  <BsChevronDown /> View More
+                </button>
+              </div>
+            )}
+            {viewAllCampus && (
+              <div
+                onClick={() => setViewAllCampus(false)}
+                className="view-more_container"
+              >
+                <button>
+                  <BsChevronUp /> View Less
+                </button>
+              </div>
+            )}
           </div>
           <div className="clubs club-container result-container">
             <span className="title">Clubs</span>
-            {false && (
+            {clubs.length === 0 && (
               <div className="w-full d-flex justify-content-center">
                 <i>No club found</i>
               </div>
             )}
-            {clubs.length === 0 && (
+            {/* {clubs.length === 0 && (
               <div className="w-full d-flex justify-content-center">
                 <Loading />
               </div>
-            )}
+            )} */}
             {clubs.slice(0, viewAllClubs ? clubs.length : 3).map((club) => (
               <>
                 <div key={club._id} className="box">
@@ -116,12 +160,14 @@ export default function CampusSearchPage() {
                     <img src={club?.image} alt="" />
                   </div>
                   <div className="content">
-                    <span className="name text-crop-1">{club.clubName}</span>
+                    <span className="name text-crop-1">{club.name}</span>
                     <span className="location college text-crop-1">
-                      {club.location}
+                      {`${!!club.city ? club.city : ""}${
+                        !!club.state ? `, ${club.state}` : ""
+                      }`}
                     </span>
                     <span className="description text-crop-2">
-                      {club.description}
+                      {club.aboutUs || club.description}
                     </span>
                   </div>
                 </div>
@@ -151,16 +197,16 @@ export default function CampusSearchPage() {
           </div>
           <div className="alma alma-container result-container">
             <span className="title">Alumni</span>
-            {false && (
+            {alumni.length === 0 && (
               <div className="w-full d-flex justify-content-center">
                 <i>No alma found</i>
               </div>
             )}
-            {alumni.length === 0 && (
+            {/* {alumni.length === 0 && (
               <div className="w-full d-flex justify-content-center">
                 <Loading />
               </div>
-            )}
+            )} */}
             {alumni.slice(0, viewAllAlmas ? alumni.length : 3).map((alma) => (
               <>
                 <div key={alma._id} className="box">
@@ -168,9 +214,11 @@ export default function CampusSearchPage() {
                     <img src={alma.image} alt="" />
                   </div>
                   <div className="content">
-                    <span className="name text-crop-1">{alma.almaName}</span>
+                    <span className="name text-crop-1">{`${alma.firstName} ${alma.lastName}`}</span>
                     <span className="location college text-crop-1">
-                      {alma.location}
+                      {`${!!alma.city ? alma.city : ""}${
+                        !!alma.state ? `, ${alma.state}` : ""
+                      }`}
                     </span>
                     <span className="description text-crop-2">
                       {alma.description}
@@ -211,8 +259,8 @@ export default function CampusSearchPage() {
     </main>
   );
 
-  return !!Object.keys(campusData).length ? (
-    campusData?.status >= 200 && campusData?.status <= 300 ? (
+  return !!Object.keys(result).length ? (
+    result?.status >= 200 && result?.status <= 300 ? (
       renderCampusSearchPage
     ) : (
       <Page404 />

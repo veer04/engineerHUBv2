@@ -1412,6 +1412,25 @@ export const getAllEngBranches = (setAllEngBranches) => {
     });
 };
 
+export const getCampusPageSearchResult = (setResult, params) => {
+  const controller = new AbortController();
+  axios
+    .get(`${API_URL}api/v1/searchData/${params}`, {
+      signal: controller.signal,
+    })
+    .then((res) => {
+      setResult(res);
+    })
+    .catch((err) => {
+      setResult(err.response);
+      if (axios.isCancel(err)) {
+        console.log("req cancel");
+      } else {
+        console.log("req performed");
+      }
+    });
+};
+
 export const getAllCampuses = (setAllCampuses) => {
   const controller = new AbortController();
   axios

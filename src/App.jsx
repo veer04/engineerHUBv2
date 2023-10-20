@@ -95,7 +95,7 @@ function App() {
 
   return (
     <>
-      {/* {!isEventModalOpen && <Navbar />} */}
+      {!isEventModalOpen && <Navbar />}
       {!isEventModalOpen && <MobileNavbar />}
       <GlobalSnackbar />
       <ProfilePopUp />

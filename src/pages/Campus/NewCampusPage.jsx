@@ -34,9 +34,9 @@ export default function NewCampusPage() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  useEffect(() => {
-    console.log(trendingPosts);
-  }, [trendingPosts]);
+  // useEffect(() => {
+  //   console.log(trendingPosts);
+  // }, [trendingPosts]);
 
   useEffect(() => {
     if (width > 910) {
