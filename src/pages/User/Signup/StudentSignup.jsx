@@ -303,7 +303,7 @@ const StudentSignup = () => {
             response.status === 204
           ) {
             setLoading(false);
-            navigate("/otpverification", { replace: true });
+            navigate("/otp-verification", { replace: true });
             window.location.reload(true);
           }
         },

@@ -149,9 +149,9 @@ function App() {
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/change-password" element={<ChangePassword />} />
           {OtpRoute === "true" ? (
-            <Route exact path="/otpverification" element={<OTP />} />
+            <Route exact path="/otp-verification" element={<OTP />} />
           ) : (
-            <Route path="/otpverification" element={<Page404 />} />
+            <Route path="/otp-verification" element={<Page404 />} />
           )}
 
           <Route path="/under-maintenance" element={<ComingSoon />} />
@@ -214,7 +214,7 @@ function App() {
               <Route path="/host/internship" element={<JobRegistration />} />
             </>
           ) : (
-            <Route path="/hostjob" element={<Login />} />
+            <Route path="/host/job" element={<Login />} />
           )}
 
           <Route path="hosting">
