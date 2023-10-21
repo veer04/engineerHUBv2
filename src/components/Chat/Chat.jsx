@@ -226,11 +226,11 @@ export default function Chat({
     <div className={`chat-container ${className ? className : ""}`}>
       <div className="chat-header">
         <div className="heading">{id}</div>
-        <Link to="/mentorship">
+        {/* <Link to="/mentorship">
           <div className="mentor-btn" style={{ cursor: "pointer" }}>
             <img src={mentor} alt="Connect to mentor" />
           </div>
-        </Link>
+        </Link> */}
       </div>
       <div
         style={{

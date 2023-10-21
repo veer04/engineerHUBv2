@@ -62,7 +62,7 @@ export default function ChatPage({ path }) {
   return (
     <>
       <MobileSidebar path={path} />
-      <div className="chat-page">
+      <main className="chat-page">
         <div className="chat-section">
           <Sidebar path="chat" />
           <Chat
@@ -72,7 +72,7 @@ export default function ChatPage({ path }) {
             setChatAccess={setChatAccess}
           />
         </div>
-      </div>
+      </main>
     </>
   );
 }
