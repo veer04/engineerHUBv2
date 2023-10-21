@@ -73,8 +73,7 @@ import GlobalSnackbar from "./components/GlobalSnackbar/GlobalSnackbar";
 import UserEditProfile from "./pages/Profile/UserDashboard/UserEditProfile";
 
 function App() {
-  const [url, setUrl] = useState(window.location.pathname);
-  let isChatOpen = url.includes("community/chat");
+  const [isChatOpen, setIsChatOpen] = useState(false);
   const [isEventModalOpen, setIsEventModalOpen] = useState(false);
   const [hasSignedUp, setHasSignedUp] = useState(false);
   const [OtpRoute, setOtpRoute] = useState("False");
@@ -106,11 +105,6 @@ function App() {
     .map((cookie) => cookie.trim())
     .find((cookie) => cookie.startsWith("userName="));
   const isAuthenticated = !!userName;
-
-  useEffect(() => {
-    setUrl(window.location.pathname);
-    isChatOpen = url.includes("community/chat");
-  }, [window.location.pathname]);
 
   return (
     <>
@@ -197,7 +191,10 @@ function App() {
               </Route>
             </Route>
             <Route path="chat">
-              <Route path=":id" element={<ChatPage path="chat" />} />
+              <Route
+                path=":id"
+                element={<ChatPage path="chat" setIsChatOpen={setIsChatOpen} />}
+              />
             </Route>
           </Route>
           <Route path="/mentorChat" element={<MentorChat />} />
