@@ -73,6 +73,8 @@ import GlobalSnackbar from "./components/GlobalSnackbar/GlobalSnackbar";
 import UserEditProfile from "./pages/Profile/UserDashboard/UserEditProfile";
 
 function App() {
+  const [url, setUrl] = useState(window.location.pathname);
+  let isChatOpen = url.includes("community/chat");
   const [isEventModalOpen, setIsEventModalOpen] = useState(false);
   const [hasSignedUp, setHasSignedUp] = useState(false);
   const [OtpRoute, setOtpRoute] = useState("False");
@@ -104,6 +106,11 @@ function App() {
     .map((cookie) => cookie.trim())
     .find((cookie) => cookie.startsWith("userName="));
   const isAuthenticated = !!userName;
+
+  useEffect(() => {
+    setUrl(window.location.pathname);
+    isChatOpen = url.includes("community/chat");
+  }, [window.location.pathname]);
 
   return (
     <>
@@ -264,7 +271,7 @@ function App() {
         </Routes>
       </Suspense>
 
-      {!isEventModalOpen && <Footer />}
+      {!isEventModalOpen && !isChatOpen && <Footer />}
     </>
   );
 }

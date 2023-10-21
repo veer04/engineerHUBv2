@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./MobileSidebar.css";
 import { RiChat3Line } from "react-icons/ri";
 import { CiViewList } from "react-icons/ci";
@@ -17,8 +17,20 @@ export default function MobileSidebar({ path }) {
     : getCookie("role")[2] === "Club" ||
       getCookie("role")[2] === "Organization";
 
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.pageYOffset > 0) {
+        document.querySelector(".mobile-sidebar").classList.add("translate");
+      } else {
+        document.querySelector(".mobile-sidebar").classList.remove("translate");
+      }
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
-    <div className="mobile-sidebar">
+    <div id="mobile-sidebar" className="mobile-sidebar">
       {!isClubOrOrganisation && (
         <Link
           onClick={() => setSelectedItem("chat")}
