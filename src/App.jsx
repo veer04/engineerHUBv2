@@ -67,6 +67,8 @@ import UserEditProfile from "./pages/Profile/UserDashboard/UserEditProfile";
 import TrendingColleges from "./pages/Campus/TrendingColleges";
 
 function App() {
+  const [url, setUrl] = useState(window.location.pathname);
+  let isChatOpen = url.includes("community/chat");
   const [isEventModalOpen, setIsEventModalOpen] = useState(false);
   const [OtpRoute, setOtpRoute] = useState("False");
   const [eventHostRoute, setEventHostRoute] = useState(false);
@@ -92,6 +94,11 @@ function App() {
       setSendLogin(true);
     }
   });
+
+  useEffect(() => {
+    setUrl(window.location.pathname);
+    isChatOpen = url.includes("community/chat");
+  }, [window.location.pathname]);
 
   return (
     <>
@@ -242,7 +249,7 @@ function App() {
         </Routes>
       </Suspense>
 
-      {!isEventModalOpen && <Footer />}
+      {!isEventModalOpen && !isChatOpen && <Footer />}
     </>
   );
 }
