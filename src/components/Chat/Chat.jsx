@@ -39,10 +39,6 @@ export default function Chat({
   }, []);
 
   useEffect(() => {
-    console.log(width);
-  },[width])
-
-  useEffect(() => {
     const handleScroll = () => {
       if (width <= 768) {
         if (
@@ -50,7 +46,6 @@ export default function Chat({
             .getElementById("mobile-sidebar")
             .className.includes("translate")
         ) {
-          console.log("scroll");
           document.getElementById("chat-container").style.maxHeight =
             "calc(100dvh - 6.7rem - 63px)";
         } else {
