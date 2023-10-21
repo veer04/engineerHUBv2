@@ -67,8 +67,7 @@ import UserEditProfile from "./pages/Profile/UserDashboard/UserEditProfile";
 import TrendingColleges from "./pages/Campus/TrendingColleges";
 
 function App() {
-  const [url, setUrl] = useState(window.location.pathname);
-  let isChatOpen = url.includes("community/chat");
+  const [isChatOpen, setIsChatOpen] = useState(false);
   const [isEventModalOpen, setIsEventModalOpen] = useState(false);
   const [OtpRoute, setOtpRoute] = useState("False");
   const [eventHostRoute, setEventHostRoute] = useState(false);
@@ -94,11 +93,6 @@ function App() {
       setSendLogin(true);
     }
   });
-
-  useEffect(() => {
-    setUrl(window.location.pathname);
-    isChatOpen = url.includes("community/chat");
-  }, [window.location.pathname]);
 
   return (
     <>
@@ -185,7 +179,10 @@ function App() {
               </Route>
             </Route>
             <Route path="chat">
-              <Route path=":id" element={<ChatPage path="chat" />} />
+              <Route
+                path=":id"
+                element={<ChatPage path="chat" setIsChatOpen={setIsChatOpen} />}
+              />
             </Route>
           </Route>
           <Route path="/mentorChat" element={<MentorChat />} />
