@@ -23,6 +23,7 @@ export default function Chat({
   setChatAccess,
 }) {
   const { id } = useParams();
+  const [width, setWidth] = useState(window.innerWidth);
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(false);
   const [input, setInput] = useState("");
@@ -30,6 +31,39 @@ export default function Chat({
   const [typing, setTyping] = useState(false);
   const [istyping, setIsTyping] = useState(false);
   const clientId = getCookie("_id")[2];
+
+  useEffect(() => {
+    const handleResize = () => setWidth(window.innerWidth);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  useEffect(() => {
+    console.log(width);
+  },[width])
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (width <= 768) {
+        if (
+          document
+            .getElementById("mobile-sidebar")
+            .className.includes("translate")
+        ) {
+          console.log("scroll");
+          document.getElementById("chat-container").style.maxHeight =
+            "calc(100dvh - 6.7rem - 63px)";
+        } else {
+          document
+            .getElementById("chat-container")
+            .style.removeProperty("max-height");
+        }
+      }
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   useEffect(() => {
     socket = io(ENDPOINT);
     socket.emit("setup", user);
@@ -223,7 +257,10 @@ export default function Chat({
   const [loader, setLoader] = useState(false);
 
   return (
-    <div className={`chat-container ${className ? className : ""}`}>
+    <div
+      id="chat-container"
+      className={`chat-container ${className ? className : ""}`}
+    >
       <div className="chat-header">
         <div className="heading">{id}</div>
         {/* <Link to="/mentorship">

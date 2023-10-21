@@ -3,8 +3,8 @@
   flex-direction: column;
   width: 100%;
   min-height: 50vh;
-  /* max-height: calc(calc(calc(100lvh - 6.7rem) - 63px) - 65px); */
   max-height: calc(100dvh - 6.7rem - 63px);
+  max-height: calc(calc(calc(100dvh - 6.7rem) - 63px) - 65px);
   flex-wrap: nowrap;
 }
 
@@ -159,14 +159,16 @@
 @media screen and (max-width: 768px) {
   .chat-container {
     position: -webkit-sticky;
-    position: fixed;
-    top: calc(6.7rem + 63px);
+    position: sticky;
+    top: 107.2px;
+    bottom: 65px;
+    /* top: calc(6.7rem + 63px); */
     height: 100vh;
     min-height: 0;
-    max-height: calc(calc(calc(100lvh - 6.7rem) - 63px) - 65px);
+    /* max-height: calc(calc(calc(100lvh - 6.7rem) - 63px) - 65px);
     max-height: calc(calc(calc(100vh - 6.7rem) - 63px) - 65px);
     max-height: calc(calc(calc(100svh - 6.7rem) - 63px) - 65px);
-    max-height: calc(calc(calc(100dvh - 6.7rem) - 63px) - 65px);
+    max-height: calc(calc(calc(100dvh - 6.7rem) - 63px) - 65px); */
     margin-top: 0.7px;
   }
   .chat-header {
