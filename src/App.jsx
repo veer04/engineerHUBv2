@@ -65,6 +65,7 @@ import UserDashboard from "./pages/Profile/UserDashboard/UserDashboard";
 import GlobalSnackbar from "./components/GlobalSnackbar/GlobalSnackbar";
 import UserEditProfile from "./pages/Profile/UserDashboard/UserEditProfile";
 import TrendingColleges from "./pages/Campus/TrendingColleges";
+import TrendingClubCard from "./components/TrendingClubCard/TrendingClubCard";
 
 function App() {
   const [isEventModalOpen, setIsEventModalOpen] = useState(false);
@@ -101,6 +102,7 @@ function App() {
       <ProfilePopUp />
       <Suspense fallback={<LoadingPage />}>
         <Routes>
+          <Route path="/helloMoto" element={<TrendingClubCard/>}></Route>
           <Route index element={<HomePage path="homepage" />} />
           <Route path="/home" element={<HomePage />} />
           <Route path="/success" element={<Success></Success>}></Route>
@@ -187,7 +189,7 @@ function App() {
               path="campuses/:collegeId"
               element={<TrendingColleges />}
             ></Route>
-            <Route path="clubs/:clubId" element={<h1>club</h1>} />
+            <Route path="clubs/:clubId" element={<TrendingClubCard/>} />
             <Route path="alumni/:almaId" element={<h1>alma</h1>} />
             <Route path="events/:eventId" element={<h1>event</h1>} />
           </Route>

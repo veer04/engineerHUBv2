@@ -148,10 +148,10 @@ const filterString = (objArray, searchParamsArr, queryStr) => {
     searchParamsArr.some(
       (param) =>
         item[param]
-          .toString()
-          .toLowerCase()
-          .trim()
-          .indexOf(queryStr?.toLowerCase()) > -1
+          // .toString()
+          // .toLowerCase()
+          // .trim()
+          // .indexOf(queryStr?.toLowerCase()) > -1
     )
   );
 };

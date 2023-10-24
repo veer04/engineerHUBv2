@@ -1450,6 +1450,26 @@ export const getAllCampuses = (setAllCampuses) => {
     });
 };
 
+export const getAllClub = (setAllClubs) => {
+  const controller = new AbortController();
+  axios
+    .get(`${API_URL}api/v1/clubs`, {
+      signal: controller.signal,
+    })
+    .then((res) => {
+      const data = res.data.data;
+      setAllClubs(data);
+    })
+    .catch((err) => {
+      if (axios.isCancel(err)) {
+        console.log("req cancel");
+      } else {
+        console.log("req performed");
+      }
+    });
+};
+
+
 export const getTrendingCampuses = (setTrendingCampuses) => {
   const controller = new AbortController();
   axios

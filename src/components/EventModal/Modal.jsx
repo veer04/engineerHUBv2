@@ -133,7 +133,7 @@ export default function Modal({ handleClose, setShowModal }) {
             
             <div >
             <a href={event?.applyLink}>
-              <div   
+                            <div   
                 onClick={() => {
                   handleClose();
                   // navigate(-1);
