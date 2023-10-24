@@ -48,6 +48,8 @@ export default function ReviewsSection() {
           text={review.text}
           img={review.userId?.image}
           activeCard={activeCard}
+          firstName={review.userId?.firstName}
+          lastName={review.userId?.lastName}
         />
       );
     });

@@ -1,5 +1,5 @@
 import { useState, useMemo } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 import ProjectDesc from "./ProjectDesc";
 import ProjectCards from "./ProjectCards";
 import "./ProjectDetail.css";
@@ -10,10 +10,12 @@ import {
 } from "../../../services/APIConfig";
 import { useEffect } from "react";
 const ProjectDetail = () => {
+  const [searchParams, setSearchParams] = useSearchParams({ q: "" });
+  const q = searchParams.get("q");
+
   const { projectId } = useParams();
   const [project, setProject] = useState({});
   const [projectData, setProjectData] = useState([]);
-  const [query, setQuery] = useState("");
   const [filteredProjects, setFilteredProjects] = useState([]);
   const [searchedProjects, setSearchedProjects] = useState([]);
 
@@ -37,19 +39,20 @@ const ProjectDetail = () => {
   const filteredData = useMemo(() => {
     return projectData.filter((value) => {
       return (
-        value.projectName?.toLowerCase().includes(query.toLowerCase()) ||
-        value.category?.toLowerCase().includes(query.toLowerCase()) ||
-        value.stipend?.toLowerCase().includes(query.toLowerCase()) ||
+        value.projectName?.toLowerCase().includes(q.toLowerCase()) ||
+        value.category?.toLowerCase().includes(q.toLowerCase()) ||
+        value.stipend?.toLowerCase().includes(q.toLowerCase()) ||
         value.techStack?.some((tag) =>
-          tag.toLowerCase().includes(query.toLowerCase())
-        )
+          tag.toLowerCase().includes(q.toLowerCase())
+        ) ||
+        value.organisationName?.toLowerCase().includes(q.toLowerCase())
       );
     });
-  }, [projectData, query]);
+  }, [projectData, q]);
 
   useEffect(() => {
     setSearchedProjects(filteredData);
-  }, [query, filteredData]);
+  }, [q, filteredData]);
 
   return (
     <div className="ProjectDetail">
@@ -63,9 +66,15 @@ const ProjectDetail = () => {
               placeholder="Search"
               aria-label="Recipient's username"
               aria-describedby="basic-addon2"
-              value={query}
+              value={q}
               onChange={(e) => {
-                setQuery(e.target.value);
+                setSearchParams(
+                  (prev) => {
+                    prev.set("q", e.target.value);
+                    return prev;
+                  },
+                  { replace: true }
+                );
               }}
             />
 

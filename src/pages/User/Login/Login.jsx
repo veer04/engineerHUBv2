@@ -4,7 +4,7 @@ import { IconButton } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useSignIn } from "react-auth-kit";
 import GoogleButton from "react-google-button";
-
+// import LoginLeft from "./LoginLeft.png";
 import CustomSnackbar from "./CustomSnackbar";
 // import { googleLogout, useGoogleLogin } from '@react-oauth/google';
 import Cookies from "js-cookie";
@@ -14,15 +14,17 @@ import "./Login.css";
 import axios, { AxiosError } from "axios";
 import useNavbar from "../../../hooks/use-navbar";
 // import { set } from "react-hook-form";
-import { API_URL } from "../../../services/APIUtils";
+import { API_URL, API_URLT, FRONTEND_URL } from "../../../services/APIUtils";
 
 const Register = () => {
+  const loginLeft =
+    "https://frontendehubbucket.s3.ap-south-1.amazonaws.com/frontend/auth/loginLeft.png";
   if (Cookies.get("name")) {
     let path = "";
     if (Cookies.get("role") === "User") {
-      path = "student";
+      path = "user";
     } else if (Cookies.get("role") === "Alumni") {
-      path = "alumni";
+      path = "user";
     } else if (Cookies.get("role") === "Club") {
       path = "club";
     } else if (Cookies.get("role") === "Organization") {
@@ -121,12 +123,20 @@ const Register = () => {
           const token = response.data.accessToken;
           const decoded = jwt_decode(token);
           Cookies.set("role", decoded.role);
+          Cookies.set("name", response.data.name);
+          if (decoded.role === "User" || decoded.role === "Alumni") {
+            Cookies.set("firstName", decoded.firstName);
+            Cookies.set("lastName", decoded.lastName);
+            Cookies.set(
+              "name",
+              decoded.firstName.concat(" ", decoded.lastName)
+            );
+          }
           Cookies.set("image", decoded.image);
           Cookies.set("isVerified", decoded.isVerified);
           Cookies.set("verifiedByEhub", decoded.verifiedByEhub);
           Cookies.set("mobile", decoded.mobile);
           Cookies.set("_id", decoded._id);
-          Cookies.set("name", response.data.name);
           Cookies.set("refresh_token", response.data.refreshToken);
           Cookies.set("userName", response.data.userName);
           Cookies.set("institutionName", response.data.institutionName);
@@ -240,7 +250,10 @@ const Register = () => {
 
   // Function to perform the API call from the frontend
   const googleAuthTry = () => {
-    window.open(`https://engineerhub-yash.onrender.com/api/v1/auth/google/user`, "_self");
+    window.open(
+      `https://engineerhub-yash.onrender.com/api/v1/auth/google/user`,
+      "_self"
+    );
   };
   async function handleGoogleLoginSuccess() {
     try {
@@ -286,9 +299,7 @@ const Register = () => {
     }
   }
 
-
-
-  const [me, setMe] = useState(null);
+  // const [me, setMe] = useState(null);
 
   // useEffect(() => {
   //   async function getMe() {
@@ -307,20 +318,30 @@ const Register = () => {
   //   getMe();
   // }, []);
 
-  // const handleLogin = () => {
-  //   const googleAuthUrl = new URL("https://accounts.google.com/o/oauth2/v2/auth");
-  //   googleAuthUrl.searchParams.append("client_id", "111727756822-c6nh6mvi2acqcm51t59r5ummd3tc8j42.apps.googleusercontent.com");
-  //   googleAuthUrl.searchParams.append("redirect_uri", "https://engineerhub-yash.onrender.com/api/v1/auth/google/user/redirect");
-  //   googleAuthUrl.searchParams.append("response_type", "code");
-    // googleAuthUrl.searchParams.append("state", dynamicRedirectUrl);
-  //   googleAuthUrl.searchParams.append("scope", "profile email");
-  //   googleAuthUrl.searchParams.append("access_type", "offline");
-  //   googleAuthUrl.searchParams.append("prompt", "consent");
+  const handleLogin = () => {
+    const dynamicRedirectUrl = `${FRONTEND_URL}success`;
+    const googleAuthUrl = new URL(
+      "https://accounts.google.com/o/oauth2/v2/auth"
+    );
+    googleAuthUrl.searchParams.append(
+      "client_id",
+      "111727756822-c6nh6mvi2acqcm51t59r5ummd3tc8j42.apps.googleusercontent.com"
+    );
+    googleAuthUrl.searchParams.append(
+      "redirect_uri",
+      `${API_URLT}api/v1/auth/google/user/redirect`
+    );
+    googleAuthUrl.searchParams.append("response_type", "code");
+    googleAuthUrl.searchParams.append("state", dynamicRedirectUrl);
+    googleAuthUrl.searchParams.append("scope", "profile email");
+    googleAuthUrl.searchParams.append("access_type", "offline");
+    googleAuthUrl.searchParams.append("prompt", "consent");
 
-  //   window.location.href = googleAuthUrl.toString();
-  // };
-
-
+    window.location.href = googleAuthUrl.toString();
+    //  setTimeout(()=>{
+    //     window.location.reload();
+    //  },2000)
+  };
 
   // Call the function to make the API request
 
@@ -393,32 +414,44 @@ const Register = () => {
   };
 
   return (
-    <div className="Login">
+    <main className="Login">
       <div className="container">
-        <div className="row">
-          {/* <div className="col-lg-3 sideMenuLogin">
-            <p className="sidemenuBarHeaderLogin">For Users</p>
-            <div className="formSideMenuBar">
-              <div className="sideMenuList">Registraions</div>
-              <div className="sideMenuList">Watchlist</div>
-              <div className="sideMenuList">Recently viewed</div>
-              <div className="sideMenuList">Mentor Sessions</div>
-              <div className="sideMenuList">Courses</div>
-              <div className="sideMenuList">Liked domains</div>
-              <div className="sideMenuList">Prizes/Rewards</div>
-              <div className="sideMenuList">Notifications</div>
+        <div className="row d-flex justify-content-center">
+          <div
+            className="col-lg-6 login-left-container"
+            style={{
+              borderRadius: "7px",
+              background: "#fff",
+              marginBottom: "2%",
+            }}
+          >
+            <div className="cont-head">
+              <div
+                className="my-form-head"
+                style={{
+                  color: "var(--Primary-500, #002B36)",
+                  fontFamily: "Gotham Black",
+                  padding: "30px",
+                  fontWeight: "800",
+                }}
+              >
+                Join the India’s{" "}
+                <span style={{ textDecoration: "line-through" }}> largest</span>{" "}
+                <br />
+                coolest community of engineers
+              </div>
+              <img src={loginLeft} alt="" />
             </div>
-            <p className="sidemenuBarHeaderLogin">For Organizations</p>
-            <div className="formSideMenuBar">
-              <div className="sideMenuList">Manage Lists</div>
-              <div className="sideMenuList">My Events</div>
-            </div>
-            <p className="sidemenuBarHeaderLogin">For Mentors</p>
-            <div className="formSideMenuBar">
-              <div className="sideMenuList">Mentor Profile</div>
-            </div>
-          </div> */}
-          <div className="cont col-lg-9">
+          </div>
+          <div
+            className="cont col-lg-3 login-right-container"
+            style={{
+              borderRadius: "7px",
+              background: "#fff",
+              marginBottom: "2%",
+              marginLeft: "20px",
+            }}
+          >
             <div className="cont-head">
               <div
                 className="my-form-head"
@@ -427,8 +460,7 @@ const Register = () => {
                   padding: "0px 0px 30px 0px",
                 }}
               >
-                Login to your <br />
-                Account
+                Sign In
               </div>
             </div>
 
@@ -484,16 +516,16 @@ const Register = () => {
                     {showPassword ? <VisibilityOff /> : <Visibility />}
                   </IconButton>
                 </div>
-              </div>
-              <div className="form-opt">
                 <button
-                  className="my-btn reg-si registerSSS"
+                  className="my-btn reg-si registerSSS "
                   type="submit"
                   // onClick={navigation}
-                >
+                  >
                   {loading ? "Loading..." : "Sign in"}
                 </button>
 
+                  </div>
+              <div className="form-opt">
                 <div className="d-flex justify-content-center">
                   <div className="f-p" onClick={NavigateForgot}>
                     Forgot Password ? Reset Now
@@ -507,22 +539,18 @@ const Register = () => {
                 <hr />
               </div>
 
-              {/* <div className="sign-field reg-field">
-                <div className="sign-opt ">
-              <div> */}
-        
-          {/* <GoogleButton
-      onClick={ handleLogin}
-    >
-      Sign in with Google
-    </GoogleButton> */}
-
-              {/* </div>
+              <div className="sign-field reg-field">
+                {/* <div className="sign-opt "> */}
+                  {/* <div> */}
+                    <GoogleButton  onClick={handleLogin}>
+                      Sign in with Google
+                    </GoogleButton>
+                  {/* </div> */}
+                {/* </div> */}
               </div>
-              </div> */}
 
               <div className="my-item-cont">
-                <div>Didn't have an account?</div>
+                <div>Don't have an account?</div>
                 <Link to="/selectRole" className="f-p ">
                   Sign Up
                 </Link>
@@ -539,7 +567,7 @@ const Register = () => {
           </div>
         </div>
       </div>
-    </div>
+    </main>
   );
 };
 

@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import "./HackathonDetails.css";
 import HackathonDesc from "./HackathonDesc";
-import { useParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import {
   controller,
@@ -11,9 +11,10 @@ import {
 import HackathonCard from "./HackathonCards";
 
 const HackathonDetails = () => {
+  const [searchParams, setSearchParams] = useSearchParams({ q: "" });
+  const q = searchParams.get("q");
   const [hiring, setHiring] = useState([]);
   const [hiringData, setHiringData] = useState({});
-  const [query, setQuery] = useState("");
   const [filteredProjects, setFilteredProjects] = useState([]);
   const [searchedProjects, setSearchedProjects] = useState([]);
 
@@ -37,22 +38,20 @@ const HackathonDetails = () => {
   const filteredData = useMemo(() => {
     return hiring.filter((value) => {
       return (
-        value.opportunityName?.toLowerCase().includes(query.toLowerCase()) ||
-        value.amount?.toLowerCase().includes(query.toLowerCase()) ||
-        value.opportunityLocation
-          ?.toLowerCase()
-          .includes(query.toLowerCase()) ||
-        value.domainName?.toLowerCase().includes(query.toLowerCase()) ||
+        value.opportunityName?.toLowerCase().includes(q.toLowerCase()) ||
+        value.amount?.toLowerCase().includes(q.toLowerCase()) ||
+        value.opportunityLocation?.toLowerCase().includes(q.toLowerCase()) ||
+        value.domainName?.toLowerCase().includes(q.toLowerCase()) ||
         value.skillsRequired?.some((tag) =>
-          tag.toLowerCase().includes(query.toLowerCase())
+          tag.toLowerCase().includes(q.toLowerCase())
         )
       );
     });
-  }, [hiring, query]);
+  }, [hiring, q]);
 
   useEffect(() => {
     setSearchedProjects(filteredData);
-  }, [query, filteredData]);
+  }, [q, filteredData]);
 
   return (
     <div className="HackathonDetails">
@@ -65,9 +64,15 @@ const HackathonDetails = () => {
               placeholder="Search"
               aria-label="Recipient's username"
               aria-describedby="basic-addon2"
-              value={query}
+              value={q}
               onChange={(e) => {
-                setQuery(e.target.value);
+                setSearchParams(
+                  (prev) => {
+                    prev.set("q", e.target.value);
+                    return prev;
+                  },
+                  { replace: true }
+                );
               }}
             />
 

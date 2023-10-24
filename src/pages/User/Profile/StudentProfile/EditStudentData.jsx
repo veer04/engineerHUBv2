@@ -1,6 +1,6 @@
 import React from "react";
 import "./StudentProfilePage";
-import { useOutletContext, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useState } from "react";
 import defaultPoster from "../../../../assets/defaultPoster";
 import { TextField } from "@mui/material";
@@ -16,7 +16,6 @@ import CustomSnackbar from "../../Login/CustomSnackbar";
 
 export default function EditStudentData() {
   const { userId } = useParams();
-  const [profile] = useOutletContext();
   const [userProfile, setUserProfile] = useState({});
   const [newImage, setNewImage] = useState(null);
   const [resume, setResume] = useState(null);
@@ -250,7 +249,7 @@ export default function EditStudentData() {
           fontSize: "1.3rem",
           marginBottom: "5%",
           fontWeight: "600",
-          color: "color: var(--text-color-dark-green);",
+          color: "var(--text-color-dark-green);",
         }}
       >
         Add/Update Resume

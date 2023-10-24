@@ -8,10 +8,9 @@ import { getAccessToken } from "../../../../features/getCookieValues";
 import jwt_decode from "jwt-decode";
 import { AiOutlineEdit } from "react-icons/ai";
 import { CgProfile } from "react-icons/cg";
-import { MdOutlinePlace } from "react-icons/md";
-import { FiEdit, FiExternalLink } from "react-icons/fi";
-import { RiListOrdered } from "react-icons/ri";
+import { FiEdit } from "react-icons/fi";
 import { HiOutlinePhoto } from "react-icons/hi2";
+import Page404 from "../../../Maintenance/Page404";
 
 export default function ClubProfilePage() {
   const { clubId } = useParams();
@@ -69,9 +68,6 @@ export default function ClubProfilePage() {
     } else if (window.location.pathname.split("/").includes("manage-posts")) {
       setChoice("manage-posts");
     }
-    else if (window.location.pathname.split("/").includes("edit-post")) {
-      setChoice("edit-post");
-    }
   }, [window.location.pathname]);
 
   const profilePage = (
@@ -114,16 +110,6 @@ export default function ClubProfilePage() {
               >
                 {width <= 768 ? <HiOutlinePhoto /> : "Edit Cover Photos"}
               </button>
-              {/* <button
-                onClick={() => {
-                  navigate(`edit-post`);
-                }}
-                className={`option ${
-                  choice === "edit-post" ? "--is-selected" : ""
-                }`}
-              >
-                {width <= 768 ? <HiOutlinePhoto /> : "Edit Posts"}
-              </button> */}
             </>
           )}
           {isLoggedIn && (
@@ -147,6 +133,13 @@ export default function ClubProfilePage() {
       </section>
     </main>
   );
+
+  if (
+    (!isLoggedIn && choice !== "general") ||
+    (choice !== "general" && clubId !== jwt_decode(token)._id)
+  ) {
+    return <Page404 />;
+  }
 
   return isLoading ? <LoadingPage /> : profilePage;
 }

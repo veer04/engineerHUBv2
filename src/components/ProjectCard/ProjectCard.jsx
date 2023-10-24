@@ -15,6 +15,7 @@ export default function ProjectCard({
   people,
   setProjectOpened,
   setIsProjectOpen,
+  className,
 }) {
   const bgColors = [
     "rgb(247, 215, 127, 0.36)",
@@ -39,7 +40,7 @@ export default function ProjectCard({
         setIsProjectOpen(true);
         setIsCollapsed(true);
       }}
-      className="project__list__item card-hover"
+      className={`project__list__item card-hover ${className}`}
     >
       {
         <div
@@ -60,7 +61,7 @@ export default function ProjectCard({
       <div className="title text-crop-2">{projectName}</div>
       <div className="description text-crop-4">{description}</div>
       <div className="tags">
-        {techStack.slice(0, 3).map((tag, index) => (
+        {techStack?.slice(0, 3).map((tag, index) => (
           <div
             key={tag}
             style={{
@@ -73,7 +74,7 @@ export default function ProjectCard({
           </div>
         ))}
         <div className="tag">
-          {techStack.length > 3 ? `+${techStack.length - 3} more` : ""}
+          {techStack?.length > 3 ? `+${techStack?.length - 3} more` : ""}
         </div>
       </div>
       <div className="details">

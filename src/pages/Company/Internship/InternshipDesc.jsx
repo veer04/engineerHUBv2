@@ -21,6 +21,7 @@ const InternshipDesc = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const bucket = `${Bucket_URL}frontend/company/jobs/`;
   const [hiring, setHiring] = useState({});
+  const [internShipData,setInternshipData]=useState({});
   const [isApplicable, setIsApplicable] = useState(false);
   const [profile, setProfile] = useState({});
   const [isResumeUploaded, setIsResumeUploaded] = useState(false);
@@ -29,10 +30,11 @@ const InternshipDesc = () => {
     if (getCookie("name")) {
       getUserProfileById(setProfile, getCookie("_id")[2]);
       setIsLoggedIn(true);
+      
       if (
         Cookies.get("role") !== "Organization" &&
         Cookies.get("role") !== "Club" &&
-        Cookies.get("role") !== "Admin" 
+        Cookies.get("role") !== "Admin"
       ) {
         setIsApplicable(true);
       }
@@ -56,11 +58,25 @@ const InternshipDesc = () => {
       controller.abort();
     };
   }, [hiringId]);
+  useEffect (()=>
+  {
+    // if(hiring?.detailFound._id==="6518157c04816b097318bff4")
+    // {
+    //   setIsLoggedIn(true);
+    // }
+    setInternshipData(hiring.detailFound);
 
+  },[hiring]
+  )
+useEffect(()=>
+{
+    console.log(internShipData?._id)
+},
+[internShipData])
   if (hiring.success === false) return <Page404 />;
 
   const UserDataPost = () => {
-    if (!!hiring?.detailFound?.applyLink) {
+    if (!!hiring?.detailFound?.applyLink ) {
       window.open(hiring?.detailFound?.applyLink, "_blank");
       return;
     }
@@ -104,9 +120,7 @@ const InternshipDesc = () => {
     minimumFractionDigits: 0,
   });
   let formattedSalary = formatter.format(hiring?.detailFound?.amount);
-  formattedSalary.includes("NaN")
-    ? (formattedSalary = "N/A")
-    : (formattedSalary = formattedSalary);
+  formattedSalary.includes("NaN") ? (formattedSalary = "N/A") : formattedSalary;
 
   //using Intl formatter, check if the duration is 1 month or more than 1 month
   //if it is 1 month, then display "1 month" else display "2 months"
@@ -154,9 +168,10 @@ const InternshipDesc = () => {
                 )}
                 {isApplicable && hiring?.applied === false && (
                   <button onClick={UserDataPost} className="btn">
-                    Apply
+                    Easy Apply
                   </button>
                 )}
+    
                 {/* {isApplicable &&
                   hiring?.applied === false &&
                   !isResumeUploaded && (
@@ -171,9 +186,23 @@ const InternshipDesc = () => {
                 )}
               </div>
             ) : (
-              <Link to="/login">
-                <div className="btn">Apply</div>
+              <>
+              {
+                internShipData?._id==="6518157c04816b097318bff4" &&(
+                  <Link to="https://docs.google.com/forms/d/e/1FAIpQLSd39WuMG3eBnPoVmMLneBEhYBTU2Q3CCbNx5kQKmIIkINdTlQ/viewform">
+                  <div className="btn">Easy Apply</div>
+                </Link>
+                )
+              }
+                {
+                internShipData?._id!=="6518157c04816b097318bff4" &&(
+                  <Link to="/login">
+                <div className="btn">Easy Apply</div>
               </Link>
+                )
+              }
+           
+              </>
             )}
           </div>
         </span>
@@ -204,15 +233,22 @@ const InternshipDesc = () => {
           <div className="JobInfoItem">
             <h6>Stipend</h6>
             <p></p>
-            {hiring?.detailFound?.isPaid ? (
-              <span>
-                {hiring?.detailFound?.amount !== "N/A"
-                  ? formattedSalary
-                  : "N/A"}
-              </span>
-            ) : (
-              <span>Unpaid</span>
-            )}
+            {
+              //check if featured array in hiring has CampusAmbassador then display "Bonus"
+              hiring?.detailFound?.featuredArray?.includes(
+                "CampusAmbassador"
+              ) ? (
+                <span>Bonus</span>
+              ) : hiring?.detailFound?.isPaid ? (
+                <span>
+                  {hiring?.detailFound?.amount !== "N/A"
+                    ? formattedSalary
+                    : "N/A"}
+                </span>
+              ) : (
+                <span>Unpaid</span>
+              )
+            }
             <img src={`${bucket}cash.svg`} alt="guide" />
           </div>
           <div className="JobInfoItem">

@@ -251,7 +251,7 @@ const OrganizationSignup = () => {
       password: formData.password,
       confirmPassword: formData.confirmPassword,
       organizationName: formData.organizationName,
-      webSiteURL: formData.webSiteURL,
+      websiteUrl: formData.webSiteURL,
       linkedIn: linkedIn,
       mobile: formData.mobile,
       contactName: contactName,
@@ -335,7 +335,7 @@ const OrganizationSignup = () => {
             error={!!errors.mobileCountryCode}
           ></InputLabel>
           <Select
-            labelId="event-type-label"
+            labelid="event-type-label"
             id="event-type"
             value={mobileCountryCode}
             label=""
@@ -409,7 +409,7 @@ const OrganizationSignup = () => {
           Hiring For
         </InputLabel>
         <Select
-          labelId="year"
+          labelid="year"
           id="student-signup-year-select"
           value={hiringFor}
           label="Hiring For"

@@ -68,25 +68,25 @@ export default function ParticularCampus() {
       image:
         "https://frontendehubbucket.s3.ap-south-1.amazonaws.com/frontend/campus/particularcampus/cultural_club.png",
     },
-    {
-      _id: 3,
-      title: `${campus.collegeName} ALMAS`,
-      studentActivity: "2.1k",
-      ongoingEvents: "108",
-      color: colors[2],
-      link: `/campus/${collegeId}/almas`,
-      image:
-        "https://frontendehubbucket.s3.ap-south-1.amazonaws.com/frontend/campus/particularcampus/almas.png",
-    },
+    // {
+    //   _id: 3,
+    //   title: `${campus.collegeName} ALMAS`,
+    //   studentActivity: "2.1k",
+    //   ongoingEvents: "108",
+    //   color: colors[2],
+    //   link: `/campus/${collegeId}/almas`,
+    //   image:
+    //     "https://frontendehubbucket.s3.ap-south-1.amazonaws.com/frontend/campus/particularcampus/almas.png",
+    // },
   ];
   const starsFilled = [];
   const starsEmpty = [];
 
-  for (let i = 0; i < campus.rating; i++) {
+  for (let i = 0; i < Math.round(campus.rating); i++) {
     starsFilled.push(<BsStarFill key={i} />);
   }
 
-  for (let i = 0; i < 5 - campus.rating; i++) {
+  for (let i = 0; i < 5 - Math.round(campus.rating); i++) {
     starsEmpty.push(<BsStar key={i} />);
   }
 
@@ -120,7 +120,7 @@ export default function ParticularCampus() {
                 {starsFilled}
                 {starsEmpty}
               </div>
-              <div className="rating__number">Rating: {campus.rating}/5</div>
+              <div className="rating__number">Rating: {Math.round(campus.rating)}/5</div>
             </div>
           </div>
         </div>

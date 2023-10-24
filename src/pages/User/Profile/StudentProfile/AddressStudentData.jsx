@@ -141,7 +141,7 @@ export default function AddressStudentData() {
           Country
         </InputLabel>
         <Select
-          labelId="country-name"
+          labelid="country-name"
           id="student-signup-country-select"
           value={newCountry}
           label="Country"
@@ -172,7 +172,7 @@ export default function AddressStudentData() {
           State
         </InputLabel>
         <Select
-          labelId="state-name"
+          labelid="state-name"
           id="student-signup-state-select"
           value={newState}
           label="State"
@@ -202,7 +202,7 @@ export default function AddressStudentData() {
           City
         </InputLabel>
         <Select
-          labelId="city-name"
+          labelid="city-name"
           id="student-signup-city-select"
           value={newCity}
           label="City"

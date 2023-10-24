@@ -91,11 +91,11 @@ const HackathonDesc = ({ details }) => {
           <div>
             {isLoggedIn ? (
               <Link to={details.websiteUrl}>
-                <div className="btn">Apply</div>
+                <div className="btn">Easy Apply</div>
               </Link>
             ) : (
               <Link to="/login">
-                <div className="btn">Apply</div>
+                <div className="btn">Easy Apply</div>
               </Link>
             )}
           </div>

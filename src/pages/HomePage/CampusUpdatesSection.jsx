@@ -10,22 +10,22 @@ export default function CampusUpdatesSection() {
   const updates = [
     {
       title:
-        "• IIT Kharagpur is going to have a  short term course on Categorical Data Analysis from 16 august 2023 to 18th august 2023.",
+        "• The Department of Industrial and Systems Engineering at IIT Kharagpur is organizing an online Short-Term Course on Categorical Data Analysis from November 6th to November 8th, 2023.",
     },
     {
       title:
-        "• Primary objective of course is to enable the participants to understand the collection,description,and analysis of categorical data.",
+        "",
     },
     // {
     //   title: "• Lorem ipsum dolor sit amet, consectetur adipiscing elit",
     // },
     {
       title:
-        "• NIT Hamirpur is going to have a  5- days online Workship on MATLAB Applications in Civil engineering from 4th august to 8th august 2023.",
+        "• IIT Kanpur is going to organize an International Workshop on Sustainable Materials Development for Energy & Environmental Applications from October 30, 2023 to November 2, 2023.",
     },
     {
       title:
-        "• The lectures will be delivered by technical people from MATLAB or MATLAB partner companies and different experts from NITs,IITs, CSIR labs etc.",
+        "",
     },
     // {
     //   title: "• Lorem ipsum dolor sit amet, consectetur adipiscing elit",

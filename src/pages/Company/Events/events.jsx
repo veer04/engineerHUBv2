@@ -3,10 +3,12 @@ import React, { useState, useEffect, useMemo } from "react";
 import "./events.css";
 import { controller, getHiringData } from "../../../services/APIConfig";
 import HackathonCard from "./EventsChoices/HackathonCards";
+import { useSearchParams } from "react-router-dom";
 
 const Events = () => {
+  const [searchParams, setSearchParams] = useSearchParams({ q: "" });
+  const q = searchParams.get("q");
   const [event, setEvent] = useState([]);
-  const [query, setQuery] = useState("");
   const [filteredProjects, setFilteredProjects] = useState([]);
   const [searchedProjects, setSearchedProjects] = useState([]);
 
@@ -19,9 +21,6 @@ const Events = () => {
   }, [window.location.pathname]);
 
   useEffect(() => {
-    console.log(event.filter((res) => res.opportunityType === "Event"));
-  }, [event]);
-  useEffect(() => {
     if (searchedProjects.length > 0) {
       setFilteredProjects(searchedProjects);
     } else {
@@ -32,21 +31,20 @@ const Events = () => {
   const filteredData = useMemo(() => {
     return event.filter((value) => {
       return (
-        value.opportunityName?.toLowerCase().includes(query.toLowerCase()) ||
-        value.opportunityLocation
-          ?.toLowerCase()
-          .includes(query.toLowerCase()) ||
-        value.domainName?.toLowerCase().includes(query.toLowerCase()) ||
+        value.opportunityName?.toLowerCase().includes(q.toLowerCase()) ||
+        value.opportunityLocation?.toLowerCase().includes(q.toLowerCase()) ||
+        value.domainName?.toLowerCase().includes(q.toLowerCase()) ||
         value.skillsRequired?.some((tag) =>
-          tag.toLowerCase().includes(query.toLowerCase())
-        )
+          tag.toLowerCase().includes(q.toLowerCase())
+        ) ||
+        value.organisationName?.toLowerCase().includes(q.toLowerCase())
       );
     });
-  }, [event, query]);
+  }, [event, q]);
 
   useEffect(() => {
     setSearchedProjects(filteredData);
-  }, [query, filteredData]);
+  }, [q, filteredData]);
 
   return (
     <div className="CompanyEvent">
@@ -63,11 +61,17 @@ const Events = () => {
             placeholder="Search"
             aria-label="Recipient's username"
             aria-describedby="basic-addon2"
-            value={query}
+            value={q}
             onChange={(e) => {
-              setQuery(e.target.value);
+              setSearchParams(
+                (prev) => {
+                  prev.set("q", e.target.value);
+                  return prev;
+                },
+                { replace: true }
+              );
             }}
-          />
+        />
 
           <span className="input-group-text" id="basic-addon2">
             <svg

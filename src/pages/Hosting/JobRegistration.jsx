@@ -152,10 +152,6 @@ const JobRegistrationForm = () => {
     }
   }, [userEmail]);
 
-  useEffect(() => {
-    console.log(isSpecialUser);
-  }, [isSpecialUser]);
-
   const validateInput1 = () => {
     let valid = true;
     const newErrors = {
@@ -697,7 +693,7 @@ const JobRegistrationForm = () => {
           Domain Name*
         </InputLabel>
         <Select
-          labelId="Domain-name"
+          labelid="Domain-name"
           id="student-signup-campus-select"
           value={domainName}
           label="Domain Name"
@@ -724,7 +720,7 @@ const JobRegistrationForm = () => {
           Job Type*
         </InputLabel>
         <Select
-          labelId="event-type-label"
+          labelid="event-type-label"
           id="event-type"
           value={opportunityMode}
           label="Job Type"
@@ -762,7 +758,7 @@ const JobRegistrationForm = () => {
           Job Timings*
         </InputLabel>
         <Select
-          labelId="event-type-label"
+          labelid="event-type-label"
           id="event-type"
           value={opportunityTiming}
           label="Event Mode"
@@ -887,7 +883,7 @@ const JobRegistrationForm = () => {
             Paid / Unpaid*
           </InputLabel>
           <Select
-            labelId="event-type-label"
+            labelid="event-type-label"
             id="event-type"
             value={isPaid}
             label="Paid / Unpaid*"
@@ -949,7 +945,7 @@ const JobRegistrationForm = () => {
           <div>
             <Autocomplete
               multiple
-              options={["EhubFeatured"]}
+              options={["EhubFeatured", "CampusAmbassador"]}
               value={featuredArray}
               onChange={handleSpecialTagsChange}
               renderInput={(params) => (
@@ -961,7 +957,7 @@ const JobRegistrationForm = () => {
                 className="MuiFormHelperText-root Mui-error MuiFormHelperText-sizeMedium MuiFormHelperText-contained css-1wc848c-MuiFormHelperText-root special-tag-blue"
                 id=":rf:-helper-text"
               >
-                ALERT: This opportunity will be marked as Featured Job
+                ALERT: This opportunity will be Featured differently
               </p>
             )}
           </div>
@@ -978,7 +974,7 @@ const JobRegistrationForm = () => {
               Work Experience*
             </InputLabel>
             <Select
-              labelId="Domain-name"
+              labelid="Domain-name"
               id="student-signup-campus-select"
               value={experience}
               label="Work Experience*"

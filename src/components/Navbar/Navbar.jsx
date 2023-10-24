@@ -40,40 +40,6 @@ export default function Navbar() {
     }
   }, []);
 
-  function deleteCookie() {
-    // Remove all cookies and log out the user
-    const cookiesToRemove = [
-      "userName",
-      "refresh_token",
-      "access_token",
-      "email",
-      "institutionName",
-      "image",
-      "isVerified",
-      "phoneNumber",
-      "isPhoneNumberVerified",
-      "name",
-      "verifiedByEhub",
-      "role",
-      "mobile",
-    ];
-
-    //delete all cookies
-    cookiesToRemove.forEach((cookie) => {
-      Cookies.remove(cookie);
-    });
-  }
-
-  async function handleLogout() {
-    await deleteCookie();
-    // setTimeout(() => {
-    setIsLoggedIn(false);
-    setName("");
-    navigate("/");
-    window.location.reload(true);
-    // }, 1000);
-  }
-
   function getCookie(name) {
     // Get the value of a cookie by name
     const cookieValue = document.cookie.match(
@@ -224,10 +190,9 @@ export default function Navbar() {
                 Logout
               </div> */}
               <button
-                onClick={() => {
-                  navigate(`/profile/${role}/${userId}`);
-                  window.location.reload(true);
-                }}
+                data-bs-toggle="offcanvas"
+                data-bs-target="#offcanvasRight"
+                aria-controls="offcanvasRight"
                 className="nav-logged-in-btn nav-login-btn logBtn"
               >
                 {/* <img

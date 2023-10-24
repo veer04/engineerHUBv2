@@ -4,7 +4,6 @@ import axios from "axios";
 import FormData from "form-data";
 import useNavbar from "../../hooks/use-navbar";
 import { API_URL } from "../../services/APIUtils";
-import Cookies from "js-cookie";
 import { Select, MenuItem } from "@mui/material";
 import HostEventTimeline from "../../components/Timeline/HostEventTimeline";
 import {
@@ -12,9 +11,6 @@ import {
   FormControl,
   InputLabel,
   FormHelperText,
-  OutlinedInput,
-  InputAdornment,
-  IconButton,
 } from "@mui/material";
 
 import {
@@ -24,7 +20,6 @@ import {
 } from "../../services/APIConfig";
 import { getAccessToken } from "../../features/getCookieValues";
 import { useNavigate } from "react-router-dom";
-// var fs = require("fs");
 
 const EventRegistrationForm = () => {
   const navigate = useNavigate();
@@ -59,25 +54,23 @@ const EventRegistrationForm = () => {
   const [errors, setErrors] = useState({
     domainName: "",
     campusId: "",
-    //  eventType:"",
     eventStartTime: "",
     eventEndTime: "",
+    eventType: "",
     eventModeType: "",
     mode: "",
     policy: "",
     status: "",
   });
 
-  //remove this//
-  //eventType(dropdown), Tags(insert Tags it is of array type), status(dropdown), policy,  campusId(apiDropDown)//
   const [file, setFile] = useState();
+
   const validateInput1 = () => {
     let valid = true;
     const newErrors = {
       eventName: "",
       domainName: "",
-      campusId: "",
-      EventType: "",
+      eventType: "",
       eventModeType: "",
     };
 
@@ -93,28 +86,24 @@ const EventRegistrationForm = () => {
       valid = false;
     }
     if (!domainName) {
-      newErrors.domainName = "domain name is required";
+      newErrors.domainName = "Domain name is required";
+      valid = false;
+    } else if (domainName.length < 3) {
+      newErrors.domainName = "Domain name should be of atleast 3 characters";
       valid = false;
     }
-    // else if (!/^[a-zA-Z\d\s]+$/.test(domainName)) {
-    //   newErrors.domainName =
-    //     "domain name should not contain any special characters such as *:$#!@^";
-    //   valid = false;
-    // }
-    else if (domainName.length < 3) {
-      newErrors.domainName = "domain name should be of atleast 3 characters";
+    if (!eventType) {
+      newErrors.eventType = "Event type is required";
       valid = false;
     }
-    if (!campusId) {
-      newErrors.campusId = "Campus name is required";
-      valid = false;
-    } else if (campusId.length < 3) {
-      newErrors.campusId = "Campus name should be of atleast 3 characters";
+    if (!eventModeType) {
+      newErrors.eventModeType = "Event mode is required";
       valid = false;
     }
     setErrors(newErrors);
     return valid;
   };
+
   const validateInput2 = () => {
     let valid = true;
     const newErrors = {
@@ -125,10 +114,10 @@ const EventRegistrationForm = () => {
     };
 
     if (!description) {
-      newErrors.description = "description is required";
+      newErrors.description = "Description is required";
       valid = false;
     } else if (description.length < 51) {
-      newErrors.description = "description should have atleast 50 characters";
+      newErrors.description = "Description should have atleast 50 characters";
       valid = false;
     }
     if (!eventStartTime) {
@@ -139,10 +128,15 @@ const EventRegistrationForm = () => {
       newErrors.eventEndTime = "Event end time is required";
       valid = false;
     }
+    if (!applyLink) {
+      newErrors.applyLink = "Apply link is required";
+      valid = false;
+    }
 
     setErrors(newErrors);
     return valid;
   };
+
   const validateInput3 = () => {
     let valid = true;
     const newErrors = {
@@ -171,10 +165,10 @@ const EventRegistrationForm = () => {
       if (validateInput3()) setValidation(true);
     }
   }
+
   const handlePrev = () => {
     setStep(step - 1);
   };
-  // var form = new FormData();
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -186,20 +180,14 @@ const EventRegistrationForm = () => {
     };
   }, []);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setForm((prevForm) => ({
-      ...prevForm,
-      [name]: value,
-    }));
-  };
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // console.log(data, "inside post ");
     const form = new FormData();
     form.append("domainName", domainName);
-    form.append("campusId", campusId);
+    if (!!campusId) {
+      form.append("campusId", campusId);
+    }
     form.append("eventType", eventType);
     form.append("description", description);
     form.append("eventStartTime", eventStartTime);
@@ -210,32 +198,10 @@ const EventRegistrationForm = () => {
     form.append("eventModeType", eventModeType);
     form.append("eventPoster", eventPoster);
     form.append("policy", policy);
-    form.append("stauts", status);
-    // for (let i = 0; i < campusLogos.length; i++) {
-    //   form.append("campusLogo", campusLogos[i]);
-    // }
-    // form.append("campusLogo", campusLogos);
-    // form.append("policy", description);
-    console.log(form.get("domainName"), " domainName ");
-    console.log(form.get("campusId"), " campusId ");
-    console.log(form.get("eventType"), " eventType ");
-    console.log(form.get("description"), " description ");
-    console.log(form.get("eventStartTime"), " eventStartTime ");
-    console.log(form.get("applyLink"), " applyLink ");
-    console.log(form.get("mode"), " mode ");
-    console.log(form.get("eventName"), " eventName ");
-    console.log(form.get("eventModeType"), " eventModeType ");
-    console.log(form.get("eventPoster"), " eventPoster ");
-    console.log(form.get("status"), " status ");
+    form.append("status", status);
 
     if (validation === true) {
       try {
-        // const accessToken = document.cookie
-        // .split(';')
-        // .map((cookie) => cookie.trim())
-        // .find((cookie) => cookie.startsWith('access_token='))
-        // .split('=')[1];
-        // console.log(accessToken);
         const response = await axios.post(`${API_URL}api/v1/event`, form, {
           headers: {
             accesstoken: getAccessToken(),
@@ -260,10 +226,6 @@ const EventRegistrationForm = () => {
       }
     }
   };
-  const handleFileInputChange = (e) => {
-    console.log(e.target.files);
-    setCampusLogos(e.target.files);
-  };
   const handleFileInputChangePoster = (e) => {
     console.log(e.target.files[0]);
     setEventPoster(e.target.files[0]);
@@ -277,7 +239,6 @@ const EventRegistrationForm = () => {
         variant="outlined"
         value={eventName}
         onChange={(e) => setEventName(e.target.value)}
-        // onChange={handleChange}
         fullWidth
         margin="normal"
         error={!!errors.eventName}
@@ -292,12 +253,11 @@ const EventRegistrationForm = () => {
           Domain Name
         </InputLabel>
         <Select
-          labelId="Domain-name"
+          labelid="Domain-name"
           id="student-signup-campus-select"
           value={domainName}
           label="Domain Name"
           name="domainName"
-          // onChange={handleChange}
           onChange={(e) => setDomainName(e.target.value)}
           error={!!errors.domainName}
         >
@@ -317,7 +277,7 @@ const EventRegistrationForm = () => {
           Campus Name
         </InputLabel>
         <Select
-          labelId="campus-name"
+          labelid="campus-name"
           id="student-signup-campus-select"
           value={campusId}
           label="Campus Name"
@@ -344,7 +304,7 @@ const EventRegistrationForm = () => {
           Event Type
         </InputLabel>
         <Select
-          labelId="event-type-label"
+          labelid="event-type-label"
           id="event-type"
           value={eventType}
           label="Event Type"
@@ -370,7 +330,7 @@ const EventRegistrationForm = () => {
           Event Mode Type
         </InputLabel>
         <Select
-          labelId="event-type-label"
+          labelid="event-type-label"
           id="event-type"
           value={eventModeType}
           label="Event Mode Type"
@@ -407,7 +367,6 @@ const EventRegistrationForm = () => {
       <label htmlFor="sdate">Event Start Date</label>
       <TextField
         name="Event Start Date"
-        // label="Event Start Date"
         variant="outlined"
         id="sdate"
         type="date"
@@ -421,7 +380,6 @@ const EventRegistrationForm = () => {
       <label htmlFor="edate">Event End Date</label>
       <TextField
         name="Event End Date"
-        // label="Event End Date"
         variant="outlined"
         type="date"
         id="edate"
@@ -456,7 +414,7 @@ const EventRegistrationForm = () => {
           Event Mode
         </InputLabel>
         <Select
-          labelId="event-type-label"
+          labelid="event-type-label"
           id="event-type"
           value={mode}
           label="Event Mode"
@@ -485,7 +443,7 @@ const EventRegistrationForm = () => {
           Event Status
         </InputLabel>
         <Select
-          labelId="event-type-label"
+          labelid="event-type-label"
           id="event-type"
           value={status}
           label="Event Status"
@@ -506,24 +464,11 @@ const EventRegistrationForm = () => {
           className="inputHosting"
           onChange={handleFileInputChangePoster}
         />
-
         {file && <p>Selected file: {file.name}</p>}
       </div>
-
-      {/* <label htmlFor="Campus Logo">Campus Logo</label>
-                <div>
-                  <input
-                    multiple
-                    type="file"
-                    id="status"
-                    className="inputHosting"
-                    onChange={handleFileInputChange}
-                  />
-
-                  {file && <p>Selected file {file.name}</p>}
-                </div> */}
     </div>
   );
+
   return (
     <>
       <main className="signup-page">

@@ -1,6 +1,6 @@
 .chat-message {
   display: flex;
-  align-items: center;
+  /* align-items: center; */
   flex-wrap: nowrap;
   justify-content: flex-start;
   color: white;
@@ -138,6 +138,16 @@
 
 @media screen and (max-width: 450px) {
   .chat-message {
-    padding: 0 0.75rem;
+    padding: 0 0.25rem;
+  }
+  .chat-message .avatar-container {
+    min-width: 2.75rem;
+  }
+  .chat-message .avatar {
+    width: 2rem;
+    height: 2rem;
+  }
+  .message-container .message-body {
+    max-width: 100%;
   }
 }

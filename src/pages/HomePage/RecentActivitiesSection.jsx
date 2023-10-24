@@ -78,7 +78,7 @@ export default function RecentActivitiesSection() {
       className="recent-activities-section-item"
       key={activity.id}
     >
-      <p>{activity.time}</p>
+      {/* <p>{activity.time}</p> */}
       <h3 className="text-crop-1">{activity.title}</h3>
       <span>{activity.description}</span>
     </div>
@@ -87,7 +87,8 @@ export default function RecentActivitiesSection() {
   return (
     <div className="recent-activities-section">
       <h1 className="recent-activities-section-title heading-3">
-        Recent Activities
+        {/* Recent Activities */}
+        Activities
       </h1>
       <div className="recent-activities-section-container">{activityItems}</div>
     </div>

@@ -23,6 +23,7 @@ export default function Chat({
   setChatAccess,
 }) {
   const { id } = useParams();
+  const [width, setWidth] = useState(window.innerWidth);
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(false);
   const [input, setInput] = useState("");
@@ -30,6 +31,34 @@ export default function Chat({
   const [typing, setTyping] = useState(false);
   const [istyping, setIsTyping] = useState(false);
   const clientId = getCookie("_id")[2];
+
+  useEffect(() => {
+    const handleResize = () => setWidth(window.innerWidth);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (width <= 768) {
+        if (
+          document
+            .getElementById("mobile-sidebar")
+            .className.includes("translate")
+        ) {
+          document.getElementById("chat-container").style.maxHeight =
+            "calc(100dvh - 6.7rem - 63px)";
+        } else {
+          document
+            .getElementById("chat-container")
+            .style.removeProperty("max-height");
+        }
+      }
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   useEffect(() => {
     socket = io(ENDPOINT);
     socket.emit("setup", user);
@@ -74,7 +103,8 @@ export default function Chat({
   //     : null;
 
   useEffect(() => {
-    document.getElementsByClassName("chat-display")[0].scrollTo(0, 999999999);
+    if (!(chatAccess[id] === "waiting" || !!!chatAccess[id]))
+      document.getElementsByClassName("chat-display")[0].scrollTo(0, 999999999);
   }, [messages]);
 
   // function handleSubmit() {
@@ -222,16 +252,27 @@ export default function Chat({
   const [loader, setLoader] = useState(false);
 
   return (
-    <div className={`chat-container ${className ? className : ""}`}>
+    <div
+      id="chat-container"
+      className={`chat-container ${className ? className : ""}`}
+    >
       <div className="chat-header">
         <div className="heading">{id}</div>
-        <Link to="/mentorship">
+        {/* <Link to="/mentorship">
           <div className="mentor-btn" style={{ cursor: "pointer" }}>
             <img src={mentor} alt="Connect to mentor" />
           </div>
-        </Link>
+        </Link> */}
       </div>
-      <div className="chat-display">
+      <div
+        style={{
+          overflow:
+            chatAccess[id] === "waiting" || !!!chatAccess[id]
+              ? "hidden"
+              : "auto",
+        }}
+        className="chat-display"
+      >
         {messages.length !== 0 ? (
           messages?.map((message, index) => {
             return (
@@ -245,12 +286,33 @@ export default function Chat({
             );
           })
         ) : (
-          <LoadingPage />
+          <div className="w-100 h-100 d-flex justify-content-center align-items-center flex-column">
+            <div className="spinner-border text-primary" role="status">
+              <span className="visually-hidden">Loading...</span>
+            </div>
+            <div className="mt-2">
+              {!socketConnected && (
+                <span
+                  style={{
+                    color: "#fff",
+                  }}
+                >
+                  Connecting...
+                </span>
+              )}
+              {socketConnected && (
+                <span
+                  style={{
+                    color: "#fff",
+                  }}
+                >
+                  Loading Messages...
+                </span>
+              )}
+            </div>
+          </div>
         )}
-        {(chatAccess[id] === "waiting" ||
-          chatAccess[id] === null ||
-          chatAccess[id] === undefined ||
-          chatAccess[id] === "") && (
+        {(chatAccess[id] === "waiting" || !!!chatAccess[id]) && (
           <div className="chat-guidelines">
             <div className="content">
               <div className="heading">Community Chat Guidelines</div>

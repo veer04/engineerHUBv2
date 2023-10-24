@@ -11,6 +11,7 @@ export default function EventCard({
   eventName,
   eventType,
   domainName,
+  className,
 }) {
   const navigate = useNavigate();
 
@@ -20,7 +21,7 @@ export default function EventCard({
         navigate(`/community/events/${encodeURIComponent(domainName)}/${_id}`);
         // setEventOpened(_id);
       }}
-      className="project__list__item event__list__item on-hover-scale"
+      className={`project__list__item event__list__item on-hover-scale ${className}`}
     >
       {
         <div
@@ -37,9 +38,36 @@ export default function EventCard({
           className="poster"
         ></div>
       }
-      <div className="heading">{eventType}</div>
-      <div className="title text-crop-2">{eventName}</div>
-      <div className="description">{description}</div>
+      <div
+        style={{
+          //     font-size: 0.6rem;
+          // font-weight: 400;
+          // color: #fff;
+          // margin: 0.5rem 0 0.2rem;
+          // background-color: var(--primary-color-dark-green);
+          // width: fit-content;
+          // padding: 0.2rem 0.5rem;
+          fontSize: "0.6rem",
+          fontWeight: "400",
+          color: "#fff",
+          margin: "0.5rem 0 0.2rem",
+          backgroundColor: "var(--primary-color-dark-green)",
+          width: "fit-content",
+          padding: "0.2rem 0.5rem",
+        }}
+        className="heading"
+      >
+        {eventType}
+      </div>
+      <div
+        style={{
+          fontSize: "1.1rem",
+        }}
+        className="title text-crop-2"
+      >
+        {eventName}
+      </div>
+      <div className="description text-crop-5">{description}</div>
     </div>
   );
 }

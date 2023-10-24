@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./Message.css";
 import verifiedIcon from "./svg/verified.svg";
 import options from "./svg/options.svg";
@@ -56,7 +56,7 @@ export default function Message({
   const messageContainerClasses = `message-container ${
     isMyMessage ? "message-container--flipped" : ""
   } ${
-    isSameSender && !isMyMessage && content && sender?.name
+    isSameSender && !isMyMessage && content && sender?.firstName
       ? "message-container--horizontal-oriental"
       : ""
   }`;
@@ -106,7 +106,7 @@ export default function Message({
     >
       {!isMyMessage && (
         <div className="avatar-container">
-          {(!isSameSender || (content && !sender?.name)) && (
+          {(!isSameSender || (content && !sender?.firstName)) && (
             <img
               className="avatar"
               src={sender?.image ? sender?.image : defaultPoster}
@@ -117,46 +117,50 @@ export default function Message({
       )}
       <div className={messageContainerClasses}>
         <div className={messageHeaderClasses}>
-          {content && !sender?.name ? (
+          {content && !sender?.firstName ? (
             <i className="name">Deleted User</i>
           ) : isMyMessage ? (
             ""
           ) : isSameSender ? (
-            content && !sender?.name ? (
+            content && !sender?.firstName ? (
               <i className="name">Deleted User</i>
             ) : (
               ""
             )
           ) : (
-            <div className="name">{sender?.name}</div>
+            <div className="name">{`${sender?.firstName} ${
+              sender?.lastName ? sender?.lastName : ""
+            }`}</div>
           )}
-          {/* {!isMyMessage && !isSameSender && content && !sender?.name ? (
+          {/* {!isMyMessage && !isSameSender && content && !sender?.firstName ? (
             <i className="name">Deleted User</i>
           ) : (
-            <div className="name">{sender?.name}</div>
+            <div className="name">{sender?.firstName}</div>
           )} */}
-          {/* {content && !sender?.name && <i className="name">Deleted User</i>} */}
+          {/* {content && !sender?.firstName && <i className="name">Deleted User</i>} */}
           {sender?.verifiedByEhub && !isMyMessage && !isSameSender && (
             <img src={verifiedIcon} alt="verified" />
           )}
         </div>
-        <div className="tags">
-          {
-            sender?.role &&
-              (sender?.role === "Alumni" ||
-                sender?.role === "Mentor" ||
-                sender?.role === "Admin") && (
-                // sender.role?.map((tag) => {
-                //   return (
-                <div key={sender?.role} className="tag">
-                  {sender?.role === "Admin" ? "Moderator" : sender?.role}
-                </div>
-              )
-            // );
-            // }
-            // )
-          }
-        </div>
+        {!isSameSender && !isMyMessage && (
+          <div className="tags">
+            {
+              sender?.role &&
+                (sender?.role === "Alumni" ||
+                  sender?.role === "Mentor" ||
+                  sender?.role === "Admin") && (
+                  // sender.role?.map((tag) => {
+                  //   return (
+                  <div key={sender?.role} className="tag">
+                    {sender?.role === "Admin" ? "Moderator" : sender?.role}
+                  </div>
+                )
+              // );
+              // }
+              // )
+            }
+          </div>
+        )}
         <div className={messageBodyClasses}>
           <div
             style={{ lineBreak: "anywhere" }}

@@ -354,7 +354,7 @@ const StudentSignup = () => {
             error={!!errors.mobileCountryCode}
           ></InputLabel>
           <Select
-            labelId="event-type-label"
+            labelid="event-type-label"
             id="event-type"
             value={mobileCountryCode}
             label=""
@@ -402,7 +402,7 @@ const StudentSignup = () => {
           Institution Name
         </InputLabel>
         <Select
-          labelId="campus-name"
+          labelid="campus-name"
           id="student-signup-campus-select"
           required
           value={formData.institutionName}
@@ -431,7 +431,7 @@ const StudentSignup = () => {
           Branch
         </InputLabel>
         <Select
-          labelId="branch-name"
+          labelid="branch-name"
           id="student-signup-branch-select"
           value={formData.branch}
           label="Branch"
@@ -457,7 +457,7 @@ const StudentSignup = () => {
           Year
         </InputLabel>
         <Select
-          labelId="year"
+          labelid="year"
           id="student-signup-year-select"
           value={year}
           label="Year"
@@ -487,7 +487,7 @@ const StudentSignup = () => {
           Gender
         </InputLabel>
         <Select
-          labelId="gender"
+          labelid="gender"
           id="student-signup-gender-select"
           value={gender}
           label="Gender"

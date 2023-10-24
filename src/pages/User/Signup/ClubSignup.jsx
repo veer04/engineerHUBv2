@@ -244,7 +244,7 @@ const ClubSignup = () => {
       mobile: formData.mobile,
       clubType: formData.clubType,
       collegeId: formData.collegeId,
-      description: formData.description,
+      aboutUs: formData.description,
       websiteUrl: formData.websiteUrl,
       password: formData.password,
       confirmPassword: formData.confirmPassword,
@@ -316,7 +316,7 @@ const ClubSignup = () => {
             error={!!errors.mobileCountryCode}
           ></InputLabel>
           <Select
-            labelId="event-type-label"
+            labelid="event-type-label"
             id="event-type"
             value={mobileCountryCode}
             label=""
@@ -364,7 +364,7 @@ const ClubSignup = () => {
           Campus Name
         </InputLabel>
         <Select
-          labelId="campus-name"
+          labelid="campus-name"
           id="student-signup-campus-select"
           value={formData.collegeId}
           label="Campus Name"
@@ -391,7 +391,7 @@ const ClubSignup = () => {
           Club Type
         </InputLabel>
         <Select
-          labelId="event-type-label"
+          labelid="event-type-label"
           id="event-type"
           value={formData.clubType}
           label="club Type"
