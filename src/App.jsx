@@ -68,6 +68,7 @@ import TrendingColleges from "./pages/Campus/TrendingColleges";
 import TrendingClubCard from "./components/TrendingClubCard/TrendingClubCard";
 
 function App() {
+  const [isChatOpen, setIsChatOpen] = useState(false);
   const [isEventModalOpen, setIsEventModalOpen] = useState(false);
   const [OtpRoute, setOtpRoute] = useState("False");
   const [eventHostRoute, setEventHostRoute] = useState(false);
@@ -180,7 +181,10 @@ function App() {
               </Route>
             </Route>
             <Route path="chat">
-              <Route path=":id" element={<ChatPage path="chat" />} />
+              <Route
+                path=":id"
+                element={<ChatPage path="chat" setIsChatOpen={setIsChatOpen} />}
+              />
             </Route>
           </Route>
           <Route path="/mentorChat" element={<MentorChat />} />
@@ -244,7 +248,7 @@ function App() {
         </Routes>
       </Suspense>
 
-      {!isEventModalOpen && <Footer />}
+      {!isEventModalOpen && !isChatOpen && <Footer />}
     </>
   );
 }

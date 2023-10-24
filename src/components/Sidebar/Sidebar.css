@@ -4,7 +4,7 @@
   position: -ms-sticky;
   position: -o-sticky;
   position: sticky;
-  top: 13.3rem;
+  /* top: 13.3rem; */
   display: flex;
   flex-direction: row;
   width: 16rem;

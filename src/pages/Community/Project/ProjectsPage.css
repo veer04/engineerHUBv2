@@ -313,9 +313,9 @@
 }
 
 @media screen and (width< 768px) {
-  .project-page {
+  /* .project-page {
     padding-top: 3.5rem;
-  }
+  } */
   .community__subpage__heading > span {
     display: none;
   }

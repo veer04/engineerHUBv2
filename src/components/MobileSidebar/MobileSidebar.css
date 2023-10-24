@@ -7,10 +7,16 @@
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
-  position: fixed;
+  position: static;
   width: 100%;
   z-index: 10;
   text-decoration: none;
+  overflow: hidden;
+  transition: all 0.3s ease-in-out;
+}
+.mobile-sidebar.translate {
+  position: fixed;
+  height: 0;
 }
 .mobile-sidebar div {
   color: white;

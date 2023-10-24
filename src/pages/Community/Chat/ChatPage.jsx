@@ -11,11 +11,19 @@ import axios from "axios";
 import { API_URL } from "../../../services/APIUtils";
 import Page404 from "../../Maintenance/Page404";
 
-export default function ChatPage({ path }) {
+export default function ChatPage({ path, setIsChatOpen }) {
   const { id } = useParams();
   const { setSelectedPageNavbar } = useNavbar();
   const [chat, setChat] = useState({});
   const [data, setData] = useState({});
+
+  useEffect(() => {
+    setIsChatOpen(true);
+
+    return () => {
+      setIsChatOpen(false);
+    };
+  }, [chat]);
 
   const user = getAccessToken();
   if (user === "" || user === null || user === undefined) {
@@ -62,7 +70,7 @@ export default function ChatPage({ path }) {
   return (
     <>
       <MobileSidebar path={path} />
-      <div className="chat-page">
+      <main className="chat-page">
         <div className="chat-section">
           <Sidebar path="chat" />
           <Chat
@@ -72,7 +80,7 @@ export default function ChatPage({ path }) {
             setChatAccess={setChatAccess}
           />
         </div>
-      </div>
+      </main>
     </>
   );
 }
