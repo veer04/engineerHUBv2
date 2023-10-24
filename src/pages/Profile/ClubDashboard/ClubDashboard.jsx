@@ -38,7 +38,6 @@ export default function ClubDashboard() {
   const [featuredEvents, setFeaturedEvents] = useState([]);
   const [followResponse, setFollowResponse] = useState({});
   const bucket2 = `${Bucket_URL}frontend/profile/dashboard/`;
- 
 
   function fetchData() {
     if (isUserLoggedIn()) {

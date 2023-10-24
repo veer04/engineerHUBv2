@@ -146,12 +146,11 @@ export default function CampusSearchBox({
 const filterString = (objArray, searchParamsArr, queryStr) => {
   return objArray.filter((item) =>
     searchParamsArr.some(
-      (param) =>
-        item[param]
-          // .toString()
-          // .toLowerCase()
-          // .trim()
-          // .indexOf(queryStr?.toLowerCase()) > -1
+      (param) => item[param]
+      // .toString()
+      // .toLowerCase()
+      // .trim()
+      // .indexOf(queryStr?.toLowerCase()) > -1
     )
   );
 };
