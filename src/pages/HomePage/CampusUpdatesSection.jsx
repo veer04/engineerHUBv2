@@ -13,8 +13,7 @@ export default function CampusUpdatesSection() {
         "• The Department of Industrial and Systems Engineering at IIT Kharagpur is organizing an online Short-Term Course on Categorical Data Analysis from November 6th to November 8th, 2023.",
     },
     {
-      title:
-        "",
+      title: "",
     },
     // {
     //   title: "• Lorem ipsum dolor sit amet, consectetur adipiscing elit",
@@ -24,8 +23,7 @@ export default function CampusUpdatesSection() {
         "• IIT Kanpur is going to organize an International Workshop on Sustainable Materials Development for Energy & Environmental Applications from October 30, 2023 to November 2, 2023.",
     },
     {
-      title:
-        "",
+      title: "",
     },
     // {
     //   title: "• Lorem ipsum dolor sit amet, consectetur adipiscing elit",
@@ -36,13 +34,13 @@ export default function CampusUpdatesSection() {
   const outerUpdates = [
     {
       title:
-        "ROAD-A-THON 2023, Sona College of Technology, Technical Event, Salem, Tamil Nadu, 14th July 2023",
-      link: "https://www.knowafest.com/explore/events/2023/05/3102-road-a-thon-2023-sona-college-technology-technical-event-salem",
+        "Practical Workshop on IC Engines and Electric Vehicles 2023, Top Engineers, Chennai, Tamil Nadu, 28th October 2023",
+      link: "https://pages.razorpay.com/pl_MZIVG2LQ5YtCRX/view",
     },
     {
       title:
-        "TECH NIMBLE 2023, Nadimpalli Satyanarayana Raju Institute of Technology, Techno Fun Festival, Visakhapatnam, Andhra Pradesh, 10th - 12th August 2023",
-      link: "https://www.knowafest.com/explore/events/2023/04/2701-tech-nimble-2023-nadimpalli-satyanarayana-raju-institute-technology-techno-fun-festival-visakhapatnam",
+        "WEB (Website) Development Workshop 2023, Top Engineers, Chennai, Tamil Nadu, 29th October 2023",
+      link: "https://pages.razorpay.com/pl_MZCBwdadyks9i7/view",
     },
   ];
 
