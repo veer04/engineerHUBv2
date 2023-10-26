@@ -51,10 +51,6 @@ export default function TrendingColleges() {
   }, [campus, trendingList, width]);
 
   useEffect(() => {
-    console.log(trendingList);
-  }, [trendingList]);
-
-  useEffect(() => {
     if (output) {
       navigate(`/campus/search/${output}`);
     }

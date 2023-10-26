@@ -1469,7 +1469,6 @@ export const getAllClub = (setAllClubs) => {
     });
 };
 
-
 export const getTrendingCampuses = (setTrendingCampuses) => {
   const controller = new AbortController();
   axios
@@ -1766,6 +1765,25 @@ export const getParticularEvent = (setEvent, eventId) => {
       setEvent(data);
     })
     .catch((err) => {
+      if (axios.isCancel(err)) {
+        console.log("req cancel");
+      } else {
+        console.log("req performed");
+      }
+    });
+};
+
+export const getParticularEventDetails = (setEvent, eventId) => {
+  const controller = new AbortController();
+  axios
+    .get(`${API_URL}api/v1/event/${eventId}`, {
+      signal: controller.signal,
+    })
+    .then((res) => {
+      setEvent(res);
+    })
+    .catch((err) => {
+      setEvent(err.response);
       if (axios.isCancel(err)) {
         console.log("req cancel");
       } else {

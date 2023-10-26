@@ -50,6 +50,7 @@ const Hosting = lazy(() => import("./pages/Hosting/Hosting.jsx"));
 const Login = lazy(() => import("./pages/User/Login/Login"));
 const CampusSearchPage = lazy(() => import("./pages/Campus/CampusSearchPage"));
 const CampusDetails = lazy(() => import("./pages/Campus/CampusDetails"));
+const TrendingEvents = lazy(() => import("./pages/Campus/TrendingEvents"));
 import ChangePassword from "./pages/User/ForgotPassword/ChangePassword";
 import getCookie, { getAccessToken } from "./features/getCookieValues";
 import ProjectHosting from "./pages/Hosting/ProjectHosting";
@@ -103,7 +104,7 @@ function App() {
       <ProfilePopUp />
       <Suspense fallback={<LoadingPage />}>
         <Routes>
-          <Route path="/helloMoto" element={<TrendingClubCard/>}></Route>
+          <Route path="/helloMoto" element={<TrendingClubCard />}></Route>
           <Route index element={<HomePage path="homepage" />} />
           <Route path="/home" element={<HomePage />} />
           <Route path="/success" element={<Success></Success>}></Route>
@@ -193,9 +194,9 @@ function App() {
               path="campuses/:collegeId"
               element={<TrendingColleges />}
             ></Route>
-            <Route path="clubs/:clubId" element={<TrendingClubCard/>} />
+            <Route path="clubs/:clubId" element={<TrendingClubCard />} />
             <Route path="alumni/:almaId" element={<h1>alma</h1>} />
-            <Route path="events/:eventId" element={<h1>event</h1>} />
+            <Route path="events/:eventId" element={<TrendingEvents />} />
           </Route>
           <Route path="/campus">
             <Route index element={<NewCampusPage />} />
