@@ -151,8 +151,8 @@
   gap: 1.5rem;
 }
 .trending-events .content-container .column-2 .header .poster {
-  width: 9.375rem;
-  aspect-ratio: 1/1;
+  min-width: 9.375rem;
+  height: 9.375rem;
 }
 .trending-events .content-container .column-2 .header .poster img {
   width: 100%;
@@ -315,11 +315,20 @@
     grid-template-columns: auto;
   }
   .trending-events .content-container .column-2 .header .poster {
-    width: 4.6875rem;
+    min-width: 4.6875rem;
     height: 4.6875rem;
     aspect-ratio: 1/1;
   }
   .trending-events .content-container .column-2 .header {
     gap: 0.75rem;
+  }
+  .trending-events .content-container .column-2 .header .details .heading {
+    font-size: 1rem;
+  }
+  .trending-events .content-container .column-2 .header .details .name {
+    font-size: 0.875rem;
+  }
+  .trending-events .content-container .column-2 .header .details .type {
+    font-size: 0.75rem;
   }
 }

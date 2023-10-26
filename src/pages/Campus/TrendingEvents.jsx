@@ -51,11 +51,8 @@ export default function TrendingEvents() {
   }, [eventId]);
 
   useEffect(() => {
-    console.log(campus);
     if (Object.keys(campus).length !== 0) {
       setTimeout(() => {
-        console.log(document.getElementById("column-1").style.height);
-        console.log(document.getElementById("column-2").offsetHeight);
         document.getElementById("column-1").style.height = `${
           document.getElementById("column-2").offsetHeight
         }px`;
@@ -135,12 +132,16 @@ export default function TrendingEvents() {
                 </span>
                 <div className="details">
                   <div className="logo">
-                    <img src={item?.eventLogo} alt="logo" />
+                    <img src={item?.creatorId?.image} alt="logo" />
                   </div>
                   <div className="name">
                     <span className="title">Organized By</span>
                     <span className="label text-crop-2">
-                      {item?.organizedBy || "OGHNDSUINIKNFJKD"}
+                      {`${
+                        !!item?.creatorId?.name
+                          ? item?.creatorId?.name
+                          : `${item?.creatorId?.firstName} ${item?.creatorId?.lastName}`
+                      }`}
                     </span>
                   </div>
                 </div>
@@ -157,7 +158,13 @@ export default function TrendingEvents() {
               <span className="heading">{campus?.eventName}</span>
               <span className="name">
                 Organized by{" "}
-                <strong>{campus?.organization || "Organisation"} </strong>
+                <strong>
+                  {`${
+                    !!campus?.creatorId?.name
+                      ? campus?.creatorId?.name
+                      : `${campus?.creatorId?.firstName} ${campus?.creatorId?.lastName}`
+                  }` || "engineerHUB"}{" "}
+                </strong>
               </span>
               <div className="type">#{campus?.eventType}</div>
             </div>
@@ -198,7 +205,7 @@ export default function TrendingEvents() {
                 </div>
                 <div className="headings">
                   <span>Phone Number:</span>
-                  <span>{campus?.mobile || "Not Available"}</span>
+                  <span>{campus?.creatorId?.mobile || "Not Available"}</span>
                 </div>
               </div>
             </div>
@@ -218,18 +225,18 @@ export default function TrendingEvents() {
                 </div>
                 <div className="headings">
                   <span>Email:</span>
-                  <span>{campus?.email || "Not Available"}</span>
+                  <span>{campus?.creatorId?.email || "Not Available"}</span>
                 </div>
               </div>
             </div>
           </section>
           <section className="description">
             <span className="heading">Event Details</span>
-            <span className="details">{campus?.description}</span>
+            <span className="details">{campus?.description || "No description provided"}</span>
           </section>
           <section className="description">
             <span className="heading">Policy</span>
-            <span className="details">{campus?.policy}</span>
+            <span className="details">{campus?.policy || "No policy provided"}</span>
           </section>
         </div>
       </div>

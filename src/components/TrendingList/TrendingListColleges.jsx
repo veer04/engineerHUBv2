@@ -52,7 +52,7 @@ export default function TrendingListColleges() {
               <div className="content">
                 <span className="name text-crop-2">{trending.collegeName}</span>
                 <span className="subheading text-crop-2">
-                  {trending.aboutUs}
+                  {`${trending.city}, ${trending.state}`}
                 </span>
               </div>
             </div>
