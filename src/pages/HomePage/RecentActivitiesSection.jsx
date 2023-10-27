@@ -19,48 +19,56 @@ export default function RecentActivitiesSection() {
     return time;
   }
 
+  const currDate1 = new Date().getFullYear();
+  const currDate2 = new Date().getMonth() + 1;
+  const currDate3 = new Date().getDate();
+
   const activities = [
     {
       id: 1,
-      title: "Chatbot using python(CHAT GPT API) WORKSHOP 2023",
+      title: "engineer मंच",
       description:
-        "About Event 1. INTRODUCTION TO ANACONDA, JUPYTER NOTEBOOK.2. VARIABLES AND DATA TYPES3. PYTHON OPERATORS4. LIST, TUPLE, DICTIONARY5. CONDITIONAL & LOOPS STATEMENTS IN PYTHON6. IMPORTING THE OPEN AI CHATGPT 3.5 TURBO AND CREATING A CUSTOM INTERFACE.7. CREATING CUSTOM RESPONSES FOR SPECIFIC QUESTIONS8. WORKSHOP CONCLUSION**NOTE: LAPTOP IS MANDATORY, SINCE HANDS-ON SESSIONS NEEDS PROGRAMMING",
-      link: "https://rzp.io/l/MB7dsu0uN9",
+        "Are you an aspiring engineer looking to expand your Network and connect with like-minded individuals? If so, I'd like to invite you to join us at the Engineer's मंच event! As it's clear from name , every Engineer will have their own मंच (platform) where they will have their own audience who would love to hear them.",
+      link: "https://meet.google.com/ket-xnbz-pxa",
       time:
-        computeTime("2023-08-05T18:30:00.000Z").charAt(0).toUpperCase() +
-        computeTime("2023-08-05T18:30:00.000Z").slice(1),
+        computeTime(`${currDate1}-${currDate2}-${currDate3}T21:30:00.000Z`)
+          .charAt(0)
+          .toUpperCase() +
+        computeTime(
+          `${currDate1}-${currDate2}-${currDate3}T21:30:00.000Z`
+        ).slice(1),
     },
     {
       id: 2,
-      title: "Embedded System Design Workshop 2023",
+      title: "Crack Top Product Based Company with Android Development",
       description:
-        "INTRODUCTION EMBEDDED SYSTEM BASIC ELECTRONICS ARDUINO PROGRAMMING DIGITAL INPUTS / OUTPUTS LED BLINKING SWITCH INTERFACING PROGRAMMING SERIAL COMMUNICATION PROGRAMMING ANALOG INPUTS ANALOG SENSOR INTERFACING PROGRAMMING ANALOG OUTPUTS RGB LED INTERFACING SERVO MOTOR INTERFACING **NOTE: LAPTOP IS MANDATORY, SINCE HANDS-ON SESSIONS NEEDS PROGRAMMING ",
-      link: "https://rzp.io/l/xIyajVG",
+        "Join us for an upcoming session on 'Cracking Top Product Based Companies with Android Development'! on 29Oct , 5pm with Kapil Yadav , Android Developer @Glance. Don't miss this golden opportunity to unlock the secrets of success and pave your way to a rewarding career in the world of Android development!",
+      link: "https://www.engineerhub.in/community/events/App%20Development/653b570a2a4dedf014ce3353",
       time:
-        computeTime("2023-08-06T18:30:00.000Z").charAt(0).toUpperCase() +
-        computeTime("2023-08-06T18:30:00.000Z").slice(1),
+        computeTime("2023-10-29T17:00:00.000Z").charAt(0).toUpperCase() +
+        computeTime("2023-10-29T17:00:00.000Z").slice(1),
     },
     {
       id: 3,
       title:
-        "Machine Learning || Exploratory data analysis (EDA) using Python @ engineerHUB",
+        "Open QnA Session with a GOOGLER",
       description:
-        "Before you start any Machine learning project, it's EDA which ensures readiness of data. Without a proper EDA, Machine learning work suffer from accuracy issues and many times, algos won't work.",
-      link: "https://youtube.com/live/9XdZqzHzyGY",
+        "We're thrilled to offer our participants an exclusive opportunity to connect directly with our guest lecturer, Miss Dhruvi Shah, through a live Google Meet session. You can bring your questions and doubts for her to address during this interactive session.",
+      link: "https://www.youtube.com/live/TQLzHE3NwIU?si=FSZKj26QitpCNwvv",
       time:
-        computeTime("2023-03-21T18:30:00.000Z").charAt(0).toUpperCase() +
-        computeTime("2023-03-21T18:30:00.000Z").slice(1),
+        computeTime("2023-10-22T17:00:00.000Z").charAt(0).toUpperCase() +
+        computeTime("2023-10-22T17:00:00.000Z").slice(1),
     },
     {
       id: 4,
       title:
-        "No need for SDE-1 level engineers?? || Insights by a Googler || @engineerHUB1",
+        "Prep2Crack",
       description:
-        "In this session you'll be getting insights about the chat GPT by Mr. Abhishek Sharma SDE  @Google . When Chat GPT comes then it brings a lot of queries and I assure you guys that after attending the session all your queries will get resolved.",
-      link: "https://youtube.com/live/5hbYb33F1zQ",
+        "Are you a student, a coding enthusiast, or someone looking to level up their programming skills? If you are, then mark the calendar for \"Prep2Crack\". Here's why attending this event is crucial for your coding journey: ▪️Elevate Your Coding Skills ▪️ Real-world Problem Solving: ▪️ Competition and Collaboration ▪️ Recognition and Prizes Join us for \"Prep2Crack\" on the HackerRank platform and unlock your potential as a coder.",
+      link: "https://www.engineerhub.in/community/events/Data%20Structures%20%26%20Algorithms/652d89588db725f8bac07a1e",
       time:
-        computeTime("2023-03-05T18:30:00.000Z").charAt(0).toUpperCase() +
-        computeTime("2023-03-05T18:30:00.000Z").slice(1),
+        computeTime("2023-10-18T17:00:00.000Z").charAt(0).toUpperCase() +
+        computeTime("2023-10-18T17:00:00.000Z").slice(1),
     },
   ];
 
