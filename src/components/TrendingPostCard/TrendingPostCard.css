@@ -110,6 +110,16 @@
   align-items: center;
   padding: 0.75rem;
 }
+.post-card-container .impressions-container .left svg,
+.post-card-container .impressions-container .right svg {
+  cursor: pointer;
+}
+
+.post-card-container .impressions-container .left .icon-container,
+.post-card-container .impressions-container .right .icon-container {
+  width: min-content;
+  height: min-content;
+}
 .post-card-container .likes {
   overflow: hidden;
   color: var(--foundation-black-black-800, #000);

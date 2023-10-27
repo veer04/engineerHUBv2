@@ -1,8 +1,51 @@
 import "./TrendingPostCard.css";
 import { FaRegBookmark, FaRegHeart } from "react-icons/fa";
 import { FiShare2 } from "react-icons/fi";
+import { isUserLoggedIn } from "../../features/User/UserDetails";
+import useGlobalSnackbar from "../../hooks/useGlobalSnackbar";
 
 export default function TrendingPostCard({ post }) {
+  const isLoggedIn = isUserLoggedIn();
+  const { setSnackbarOpen, setSnackbarMessage, setSnackbarSeverity } =
+    useGlobalSnackbar();
+    
+
+  function handleFollow(clubName) {
+    if (!isLoggedIn) {
+      setSnackbarSeverity("error");
+      setSnackbarMessage("You need to login to follow a club");
+      setSnackbarOpen(true);
+    } else {
+      setSnackbarSeverity("success");
+      setSnackbarMessage(`You are now following ${clubName}`);
+      setSnackbarOpen(true);
+
+    }
+  }
+
+  function handleLike() {
+    if (!isLoggedIn) {
+      setSnackbarSeverity("error");
+      setSnackbarMessage("You need to login to like a post");
+      setSnackbarOpen(true);
+    } else {
+    }
+  }
+
+  function handleSave() {
+    if (!isLoggedIn) {
+      setSnackbarSeverity("error");
+      setSnackbarMessage("You need to login to save a post");
+      setSnackbarOpen(true);
+    } else {
+      setSnackbarSeverity("success");
+      setSnackbarMessage(`Post saved`);
+      setSnackbarOpen(true);
+    }
+  }
+
+  function handleShare() {}
+
   return (
     <div className="post-card-container">
       <div className="header">
@@ -15,7 +58,9 @@ export default function TrendingPostCard({ post }) {
           </div>
         </div>
         <div className="follow-btn">
-          <button>Follow</button>
+          <button onClick={() => handleFollow(post?.clubData[0]?.name)}>
+            Follow
+          </button>
         </div>
       </div>
       <div className="post-image-container">
@@ -24,16 +69,16 @@ export default function TrendingPostCard({ post }) {
       <div className="impressions-container">
         <div className="left">
           <div className="heart">
-            <FaRegHeart />
+            <FaRegHeart onClick={() => handleLike()} />
             {/* <FaHeart /> */}
           </div>
           <div className="share">
-            <FiShare2 />
+            <FiShare2 onClick={() => handleShare()}/>
           </div>
         </div>
         <div className="right">
           <div className="save">
-            <FaRegBookmark />
+            <FaRegBookmark onClick={() => handleSave()} />
             {/* <FaBookmark /> */}
           </div>
         </div>

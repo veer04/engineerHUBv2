@@ -52,7 +52,9 @@ export default function TrendingListAlumni() {
               <div className="content">
                 <span className="name text-crop-2">{trending.name}</span>
                 <span className="subheading text-crop-2">
-                  {trending.aboutMe}
+                  {!!trending?.experienceDetails?.length
+                    ? `${trending?.experienceDetails[0]?.designation} | ${trending?.experienceDetails[0]?.organisationName}`
+                    : `${!!trending?.aboutMe ? trending?.aboutMe : ""}`}
                 </span>
               </div>
             </div>
