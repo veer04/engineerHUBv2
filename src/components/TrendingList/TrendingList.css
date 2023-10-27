@@ -1,6 +1,6 @@
 .trending-cards-container {
   display: flex;
-  width: 100%rem;
+  width: 100%;
   padding: 1rem;
   flex-direction: column;
   justify-content: center;
@@ -51,6 +51,7 @@
   flex-wrap: nowrap;
   gap: 0.75rem;
   cursor: pointer;
+  width: 100%;
 }
 .trending-cards-container .trending-card .logo {
   width: 3rem;

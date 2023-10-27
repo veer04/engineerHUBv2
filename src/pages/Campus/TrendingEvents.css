@@ -4,6 +4,7 @@
   width: 100%;
   padding: var(--vertical-padding) var(--section-padding);
   scroll-behavior: auto;
+  cursor: default;
 }
 .trending-events .search-bar__container {
   width: 100%;
@@ -152,7 +153,9 @@
 }
 .trending-events .content-container .column-2 .header .poster {
   min-width: 9.375rem;
-  height: 9.375rem;
+  max-width: 9.375rem;
+  min-height: 9.375rem;
+  max-height: 9.375rem;
 }
 .trending-events .content-container .column-2 .header .poster img {
   width: 100%;
@@ -316,8 +319,9 @@
   }
   .trending-events .content-container .column-2 .header .poster {
     min-width: 4.6875rem;
-    height: 4.6875rem;
-    aspect-ratio: 1/1;
+    max-width: 4.6875rem;
+    min-height: 4.6875rem;
+    max-height: 4.6875rem;
   }
   .trending-events .content-container .column-2 .header {
     gap: 0.75rem;

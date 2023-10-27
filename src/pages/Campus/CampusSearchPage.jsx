@@ -245,7 +245,9 @@ export default function CampusSearchPage() {
                         }`}
                       </span>
                       <span className="description text-crop-2">
-                        {alma.description}
+                        {!!alma?.experienceDetails?.length
+                          ? `${alma?.experienceDetails[0]?.designation} | ${alma?.experienceDetails[0]?.organisationName}`
+                          : `${!!alma?.aboutMe ? alma?.aboutMe : ""}`}
                       </span>
                     </div>
                   </div>

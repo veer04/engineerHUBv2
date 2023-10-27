@@ -35,6 +35,7 @@ export default function TrendingColleges() {
     const handleResize = () => setWidth(window.innerWidth);
     window.addEventListener("resize", handleResize);
     return () => {
+      setCampusData({});
       setCampus({});
       window.removeEventListener("resize", handleResize);
     };
@@ -42,13 +43,17 @@ export default function TrendingColleges() {
 
   useEffect(() => {
     if (Object.keys(campus).length !== 0) {
-      console.log(document.getElementById("column-1").style.height);
-      console.log(document.getElementById("column-2").offsetHeight);
-      document.getElementById("column-1").style.height = `${
-        document.getElementById("column-2").offsetHeight
-      }px`;
+      setTimeout(() => {
+        document.getElementById("column-1").style.height = `${
+          document.getElementById("column-2").offsetHeight
+        }px`;
+      }, 250);
     }
   }, [campus, trendingList, width]);
+
+  useEffect(() => {
+    console.log(trendingList);
+  }, [trendingList]);
 
   useEffect(() => {
     if (output) {
@@ -116,7 +121,7 @@ export default function TrendingColleges() {
                       )}
                       {!!item?.totalAlumni && (
                         <div className="alma-count">
-                          {item?.totalAlumni}+ Alumni
+                          {item?.totalAlumni}+ Students
                         </div>
                       )}
                       {!!item?.totalEvents && (
@@ -160,7 +165,7 @@ export default function TrendingColleges() {
               <div className="mobile-view">
                 <button className="view-more">View More</button>
               </div>
-              <span className="description text-crop-2">{campus?.aboutUs}</span>
+              <span title={campus?.aboutUs} className="description text-crop-2">{campus?.aboutUs}</span>
             </div>
           </section>
           <section className="more-details">

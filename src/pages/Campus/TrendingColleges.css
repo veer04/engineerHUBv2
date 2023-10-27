@@ -4,6 +4,7 @@
   width: 100%;
   padding: var(--vertical-padding) var(--section-padding);
   scroll-behavior: auto;
+  cursor: default;
 }
 .trending-colleges .search-bar__container {
   width: 100%;
@@ -185,6 +186,9 @@
   .tags
   .student-count {
   outline: 1px solid #000;
+}
+.trending-colleges .content-container .column-2 {
+  height: min-content;
 }
 .trending-colleges .content-container .intro {
   padding: 1rem;
