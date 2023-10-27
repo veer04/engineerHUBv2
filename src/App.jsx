@@ -66,7 +66,9 @@ import GlobalSnackbar from "./components/GlobalSnackbar/GlobalSnackbar";
 import UserEditProfile from "./pages/Profile/UserDashboard/UserEditProfile";
 import TrendingColleges from "./pages/Campus/TrendingColleges";
 import TrendingClubCard from "./components/TrendingClubCard/TrendingClubCard";
-
+// import TrendingListAlumni from "./components/TrendingList/TrendingListAlumni";
+// import AlumniList from "./components/TrendingList/AlumniList";
+import TrendingAlumni from "../src/components/TrendingAlumni/TrendingAlumni"
 function App() {
   const [isChatOpen, setIsChatOpen] = useState(false);
   const [isEventModalOpen, setIsEventModalOpen] = useState(false);
@@ -194,7 +196,7 @@ function App() {
               element={<TrendingColleges />}
             ></Route>
             <Route path="clubs/:clubId" element={<TrendingClubCard/>} />
-            <Route path="alumni/:almaId" element={<h1>alma</h1>} />
+            <Route path="alumni/:almaId" element={< TrendingAlumni/>} />
             <Route path="events/:eventId" element={<h1>event</h1>} />
           </Route>
           <Route path="/campus">

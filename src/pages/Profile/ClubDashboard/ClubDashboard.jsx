@@ -34,6 +34,7 @@ export default function ClubDashboard() {
   const [showAll1, setShowAll1] = useState(false);
   const [showAll2, setShowAll2] = useState(false);
   const [showAll3, setShowAll3] = useState(false);
+  const [fetchResponse, setFetchResponse] = useState({});
   const [posts, setPosts] = useState([]);
   const [featuredEvents, setFeaturedEvents] = useState([]);
   const [followResponse, setFollowResponse] = useState({});

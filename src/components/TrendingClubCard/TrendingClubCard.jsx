@@ -125,6 +125,15 @@ export default function TrendingClubCard() {
 
   useEffect(() => {
     if (Object.keys(clubData).length !== 0) {
+      console.log(document.getElementById("column-1").style.height);
+      console.log(document.getElementById("column-2").offsetHeight);
+      document.getElementById("column-1").style.height = `${
+        document.getElementById("column-2").offsetHeight
+      }px`;
+    }
+  }, [clubData, trendingList, width]);
+  useEffect(() => {
+    if (Object.keys(clubData).length !== 0) {
       setClub(clubData?.data?.data);
     }
   }, [clubData]);
@@ -137,9 +146,9 @@ export default function TrendingClubCard() {
         <div className="search-bar__container">
           <div>
             <CampusSearchBox
-              data={allClubs}
-              placeholder="You are looking for which Campus?"
-              searchParams={["collegeName"]}
+              data={trendingList}
+              placeholder="You are looking for which Club?"
+              searchParams={["clubName"]}
               listLength={4}
               setOutput={setOutput}
             />
@@ -202,7 +211,7 @@ export default function TrendingClubCard() {
           <div id="column-2" className="column column-2">
             <section className="intro">
               <main className="profile-dashboard club-dashboard">
-                <h1 className="title">Profile</h1>
+                {/* <h1 className="title">Profile</h1> */}
                 <h2 className="subheading">
                   {/* Lorem ipsum dolor sit amet consectetur. Mattis aliquam sodales
           faucibus platea feugiat odio. */}
@@ -599,6 +608,8 @@ export default function TrendingClubCard() {
     <LoadingPage />
   );
 }
+
+
 
 {
   /* <div
