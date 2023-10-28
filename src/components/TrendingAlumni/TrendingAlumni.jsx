@@ -245,12 +245,12 @@ const TrendingAlumni = () => {
           )}
           {isUserAdmin && (
             <div className="buttons">
-              <button
+              {/* <button
                 onClick={() => navigate("edit-profile")}
                 className="button edit-btn"
               >
                 Edit Profile
-              </button>
+              </button> */}
               {/* <button className="button upload-btn">Upload Resume</button> */}
             </div>
           )}
@@ -651,67 +651,7 @@ const TrendingAlumni = () => {
           </section>
         </div>
       </div>
-      {isUserAdmin && alumniData?.role === "Alumni" && (
-        <section className="box recruit-container">
-          <p className="heading">MY ACTIVITIES</p>
-          <div className="cards">
-            <div
-              onClick={() => {
-                navigate("/host/event");
-              }}
-              style={{
-                backgroundImage: `url(${bucket}hackathon.png)`,
-              }}
-              className="card"
-            >
-              <div className="heading">Hackathon</div>
-              <div className="subheading">
-                Create Hackathon <BsArrowRight />
-              </div>
-            </div>
-            <div
-              onClick={() => {
-                navigate("/host/event");
-              }}
-              style={{
-                backgroundImage: `url(${bucket}webinar.png)`,
-              }}
-              className="card"
-            >
-              <div className="heading">Webinar</div>
-              <div className="subheading">
-                Create Webinar <BsArrowRight />
-              </div>
-            </div>
-            <div
-              onClick={() => navigate("/host/job")}
-              style={{
-                backgroundImage: `url(${bucket}jobs.png)`,
-              }}
-              className="card"
-            >
-              <div className="heading">Jobs</div>
-              <div className="subheading">
-                Create Jobs <BsArrowRight />
-              </div>
-            </div>
-            {/* </Link>
-          <Link to="/host/event"> */}
-            <div
-              onClick={() => navigate("/host/internship")}
-              style={{
-                backgroundImage: `url(${bucket}internships.png)`,
-              }}
-              className="card"
-            >
-              <div className="heading">Internships</div>
-              <div className="subheading">
-                Create Internships <BsArrowRight />
-              </div>
-            </div>
-          </div>
-        </section>
-      )}
+    
     </div>
         {/* <section className="more-details">
             <AlumniList />
