@@ -6,6 +6,7 @@ import {
   getAllCampuses,
   getCampusById,
   getTrendingCampuses,
+  
 } from "../../services/APIConfig";
 import { FaArrowTrendUp } from "react-icons/fa6";
 import defaultPoster from "../../assets/defaultPoster";
