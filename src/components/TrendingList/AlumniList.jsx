@@ -29,17 +29,17 @@ export default function AlumniList({ data }) {
       >
         <span>Alumni</span>
       </div>
-      {trendingList.length === 0 && (
+      {trendingList?.length === 0 && (
         <div className="loading-container">
           <span>No Alumni found</span>
         </div>
       )}
       {trendingList
-        .slice(0, viewMore ? trendingList.length : 3)
+        ?.slice(0, viewMore ? trendingList?.length : 3)
         .map((trending) => (
           <Fragment key={trending._id}>
             <div
-              onClick={() => navigate(`/trending/alumni/${trending._id}`)}
+              onClick={() => navigate(`/profile/user/${trending._id}`)}
               className="trending-card"
             >
               <div className="logo">
@@ -59,7 +59,7 @@ export default function AlumniList({ data }) {
             <hr />
           </Fragment>
         ))}
-      {trendingList.length > 3 && !viewMore && (
+      {trendingList?.length > 3 && !viewMore && (
         <div className="view-more">
           <button onClick={() => setViewMore(true)}>
             <BsChevronDown />
