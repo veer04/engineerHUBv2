@@ -4,6 +4,7 @@ import decryptData from "../features/DeCrypt";
 import getCookie, { getAccessToken } from "../features/getCookieValues";
 import { set } from "react-hook-form";
 import Cookies from "js-cookie";
+import { getUserId } from "../features/User/UserDetails";
 export const cancelToken = axios.CancelToken.source();
 export const controller = new AbortController();
 
@@ -405,10 +406,7 @@ export const deleteUserCertification = (_id, setResponse) => {
     },
   };
   axios
-    .delete(
-      `${API_URL}api/v1/delete/licence/${_id}`,
-      config
-    )
+    .delete(`${API_URL}api/v1/delete/licence/${_id}`, config)
     .then((res) => {
       console.log(res);
       setResponse(res);
@@ -431,10 +429,7 @@ export const deleteUserAchievement = (_id, setResponse) => {
     },
   };
   axios
-    .delete(
-      `${API_URL}api/v1/delete/achievement/${_id}`,
-      config
-    )
+    .delete(`${API_URL}api/v1/delete/achievement/${_id}`, config)
     .then((res) => {
       console.log(res);
       setResponse(res);
@@ -458,10 +453,7 @@ export const deleteUserEducation = (_id, setResponse) => {
     },
   };
   axios
-    .delete(
-      `${API_URL}api/v1/delete/education/${_id}`,
-      config
-    )
+    .delete(`${API_URL}api/v1/delete/education/${_id}`, config)
     .then((res) => {
       console.log(res);
       setResponse(res);
@@ -515,10 +507,7 @@ export const deleteUserExperience = (_id, setResponse) => {
     },
   };
   axios
-    .delete(
-      `${API_URL}api/v1/delete/experience/${_id}`,
-      config
-    )
+    .delete(`${API_URL}api/v1/delete/experience/${_id}`, config)
     .then((res) => {
       console.log(res);
       setResponse(res);
@@ -572,10 +561,7 @@ export const deleteUserProject = (_id, setResponse) => {
     },
   };
   axios
-    .delete(
-      `${API_URL}api/v1/delete/projectDetails/${_id}`,
-      config
-    )
+    .delete(`${API_URL}api/v1/delete/projectDetails/${_id}`, config)
     .then((res) => {
       console.log(res);
       setResponse(res);
@@ -985,13 +971,7 @@ export const getHiringData = (setHiring) => {
 };
 
 export const getHiringDataById = (setHiring, hiringId) => {
-  let userId = "";
-
-  if (!!getCookie("role")) {
-    if (getCookie("role")[2] === "User") {
-      userId = getCookie("_id")[2];
-    }
-  }
+  let userId = getUserId()
   const controller = new AbortController();
   axios
     .get(`${API_URL}api/v1/hiring/${hiringId}/${userId}`)
@@ -1427,6 +1407,25 @@ export const getAllEngBranches = (setAllEngBranches) => {
     });
 };
 
+export const getCampusPageSearchResult = (setResult, params) => {
+  const controller = new AbortController();
+  axios
+    .get(`${API_URL}api/v1/searchData/${params}`, {
+      signal: controller.signal,
+    })
+    .then((res) => {
+      setResult(res);
+    })
+    .catch((err) => {
+      setResult(err.response);
+      if (axios.isCancel(err)) {
+        console.log("req cancel");
+      } else {
+        console.log("req performed");
+      }
+    });
+};
+
 export const getAllCampuses = (setAllCampuses) => {
   const controller = new AbortController();
   axios
@@ -1446,6 +1445,63 @@ export const getAllCampuses = (setAllCampuses) => {
     });
 };
 
+export const getAllClub = (setAllClubs) => {
+  const controller = new AbortController();
+  axios
+    .get(`${API_URL}api/v1/clubs`, {
+      signal: controller.signal,
+    })
+    .then((res) => {
+      const data = res.data.data;
+      setAllClubs(data);
+    })
+    .catch((err) => {
+      if (axios.isCancel(err)) {
+        console.log("req cancel");
+      } else {
+        console.log("req performed");
+      }
+    });
+};
+
+export const getTrendingCampuses = (setTrendingCampuses) => {
+  const controller = new AbortController();
+  axios
+    .get(`${API_URL}api/v1/trendingCampus`, {
+      signal: controller.signal,
+    })
+    .then((res) => {
+      const data = res.data.data;
+      setTrendingCampuses(data);
+    })
+    .catch((err) => {
+      if (axios.isCancel(err)) {
+        console.log("req cancel");
+      } else {
+        console.log("req performed");
+      }
+    });
+};
+
+export const getCampusAlumniAndClub = (setResult,campusId) => {
+  const controller = new AbortController();
+  axios
+    .get(`${API_URL}api/v1/campusWithAlumniClubs/${campusId}`, {
+      signal: controller.signal,
+    })
+    .then((res) => {
+      setResult(res);
+    })
+    .catch((err) => {
+      setResult(err.response);
+      if (axios.isCancel(err)) {
+        console.log("req cancel");
+      } else {
+        console.log("req performed");
+      }
+    });
+};
+
 export const getBestAlumni = (setBestAlumni) => {
   const controller = new AbortController();
   axios
@@ -1455,6 +1511,25 @@ export const getBestAlumni = (setBestAlumni) => {
     .then((res) => {
       const data = res.data.data;
       setBestAlumni(data);
+    })
+    .catch((err) => {
+      if (axios.isCancel(err)) {
+        console.log("req cancel");
+      } else {
+        console.log("req performed");
+      }
+    });
+};
+
+export const getTrendingAlumni = (setTrendingAlumni) => {
+  const controller = new AbortController();
+  axios
+    .get(`${API_URL}api/v1/trendingAlma`, {
+      signal: controller.signal,
+    })
+    .then((res) => {
+      const data = res.data.data;
+      setTrendingAlumni(data);
     })
     .catch((err) => {
       if (axios.isCancel(err)) {
@@ -1712,6 +1787,25 @@ export const getParticularEvent = (setEvent, eventId) => {
     });
 };
 
+export const getParticularEventDetails = (setEvent, eventId) => {
+  const controller = new AbortController();
+  axios
+    .get(`${API_URL}api/v1/event/${eventId}`, {
+      signal: controller.signal,
+    })
+    .then((res) => {
+      setEvent(res);
+    })
+    .catch((err) => {
+      setEvent(err.response);
+      if (axios.isCancel(err)) {
+        console.log("req cancel");
+      } else {
+        console.log("req performed");
+      }
+    });
+};
+
 export const getEventByMode = (setEvents, mode) => {
   const controller = new AbortController();
   axios
@@ -1776,10 +1870,10 @@ export const getCampusById = (setCampus, collegeId) => {
       signal: controller.signal,
     })
     .then((res) => {
-      const data = res.data.data;
-      setCampus(data);
+      setCampus(res);
     })
     .catch((err) => {
+      setCampus(err.response);
       if (axios.isCancel(err)) {
         console.log("req cancel");
       } else {
