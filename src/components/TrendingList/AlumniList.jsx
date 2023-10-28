@@ -5,19 +5,19 @@ import { Fragment, useEffect, useState } from "react";
 import { controller, getTrendingAlumni } from "../../services/APIConfig";
 import { useNavigate } from "react-router-dom";
 
-export default function AlumniList() {
+export default function AlumniList({ data }) {
   const navigate = useNavigate();
-  const [trendingList, setTrendingList] = useState([]);
+  const [trendingList, setTrendingList] = useState(data);
   const [viewMore, setViewMore] = useState(false);
 
-  useEffect(() => {
-    getTrendingAlumni(setTrendingList);
+  // useEffect(() => {
+  //   getTrendingAlumni(setTrendingList);
 
-    return () => {
-      controller.abort();
-      setTrendingList([]);
-    };
-  }, []);
+  //   return () => {
+  //     controller.abort();
+  //     setTrendingList([]);
+  //   };
+  // }, []);
 
   return (
     <div className="trending-cards-container">
@@ -31,9 +31,7 @@ export default function AlumniList() {
       </div>
       {trendingList.length === 0 && (
         <div className="loading-container">
-          <div className="spinner-border text-primary" role="status">
-            <span className="visually-hidden">Loading...</span>
-          </div>
+          <span>No Alumni found</span>
         </div>
       )}
       {trendingList
@@ -48,7 +46,11 @@ export default function AlumniList() {
                 <img src={trending.image} alt="logo" />
               </div>
               <div className="content">
-                <span className="name text-crop-2">{trending.name}</span>
+                <span className="name text-crop-2">
+                  {trending?.name
+                    ? trending?.name
+                    : `${trending.firstName} ${trending.lastName}`}
+                </span>
                 <span className="subheading text-crop-2">
                   {trending.aboutMe}
                 </span>

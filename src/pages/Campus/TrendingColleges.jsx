@@ -4,6 +4,7 @@ import CampusSearchBox from "../../components/CampusSearchBox/CampusSearchBox";
 import { useNavigate, useParams } from "react-router-dom";
 import {
   getAllCampuses,
+  getCampusAlumniAndClub,
   getCampusById,
   getTrendingCampuses,
 } from "../../services/APIConfig";
@@ -25,12 +26,15 @@ export default function TrendingColleges() {
   const [campus, setCampus] = useState({});
   const [allCampuses, setAllCampuses] = useState([]);
   const [output, setOutput] = useState("");
+  const [result, setResult] = useState({});
 
   useEffect(() => {
     window.scrollTo(0, 0);
     getTrendingCampuses(setTrendingList);
     getCampusById(setCampusData, collegeId);
     getAllCampuses(setAllCampuses);
+    getCampusAlumniAndClub(setResult, collegeId);
+
 
     const handleResize = () => setWidth(window.innerWidth);
     window.addEventListener("resize", handleResize);
@@ -169,8 +173,8 @@ export default function TrendingColleges() {
             </div>
           </section>
           <section className="more-details">
-            <AlumniList />
-            <ClubsList />
+          <AlumniList data={result?.data?.data?.alumni} />
+        <ClubsList data={result?.data?.data?.clubs} />
           </section>
         </div>
       </div>

@@ -1,7 +1,11 @@
 import { useEffect, useState } from "react";
 import "./CampusDetails.css";
 import CampusSearchBox from "../../components/CampusSearchBox/CampusSearchBox";
-import { getAllCampuses, getCampusById } from "../../services/APIConfig";
+import {
+  getAllCampuses,
+  getCampusAlumniAndClub,
+  getCampusById,
+} from "../../services/APIConfig";
 import { useNavigate, useParams } from "react-router-dom";
 import ImageCarousel2 from "../../components/ImageCarousel2/ImageCarousel2";
 import { BsStar, BsStarFill, BsStarHalf } from "react-icons/bs";
@@ -19,11 +23,13 @@ export default function CampusDetails() {
   const [campus, setCampus] = useState({});
   const [allCampuses, setAllCampuses] = useState([]);
   const [output, setOutput] = useState("");
+  const [result, setResult] = useState({});
 
   useEffect(() => {
     window.scrollTo(0, 0);
     getCampusById(setCampusData, collegeId);
     getAllCampuses(setAllCampuses);
+    getCampusAlumniAndClub(setResult, collegeId);
 
     // const handleResize = () => setWidth(window.innerWidth);
     // window.addEventListener("resize", handleResize);
@@ -32,6 +38,10 @@ export default function CampusDetails() {
       //   window.removeEventListener("resize", handleResize);
     };
   }, [collegeId]);
+
+  useEffect(() => {
+    console.log(result);
+  }, [result]);
 
   useEffect(() => {
     if (output) {
@@ -88,8 +98,8 @@ export default function CampusDetails() {
         </div>
       </section>
       <section className="more-details">
-        <AlumniList />
-        <ClubsList />
+        <AlumniList data={result?.data?.data?.alumni} />
+        <ClubsList data={result?.data?.data?.clubs} />
         <TrendingListColleges />
       </section>
     </main>

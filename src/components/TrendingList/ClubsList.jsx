@@ -5,19 +5,19 @@ import { Fragment, useEffect, useState } from "react";
 import { controller, getTrendingClubs } from "../../services/APIConfig";
 import { useNavigate } from "react-router-dom";
 
-export default function ClubsList() {
+export default function ClubsList({ data }) {
   const navigate = useNavigate();
-  const [trendingList, setTrendingList] = useState([]);
+  const [trendingList, setTrendingList] = useState(data);
   const [viewMore, setViewMore] = useState(false);
 
-  useEffect(() => {
-    getTrendingClubs(setTrendingList);
+  // useEffect(() => {
+  //   getTrendingClubs(setTrendingList);
 
-    return () => {
-      controller.abort();
-      setTrendingList([]);
-    };
-  }, []);
+  //   return () => {
+  //     controller.abort();
+  //     setTrendingList([]);
+  //   };
+  // }, []);
 
   return (
     <div className="trending-cards-container">
@@ -31,9 +31,7 @@ export default function ClubsList() {
       </div>
       {trendingList.length === 0 && (
         <div className="loading-container">
-          <div className="spinner-border text-primary" role="status">
-            <span className="visually-hidden">Loading...</span>
-          </div>
+           <span>No Club found</span>
         </div>
       )}
       {trendingList
@@ -50,7 +48,7 @@ export default function ClubsList() {
               <div className="content">
                 <span className="name text-crop-2">{trending.name}</span>
                 <span className="subheading text-crop-2">
-                  {trending.description}
+                  {trending.aboutUs || trending.description}
                 </span>
               </div>
             </div>
