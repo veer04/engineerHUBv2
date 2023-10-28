@@ -39,7 +39,7 @@ export default function AlumniList({ data }) {
         .map((trending) => (
           <Fragment key={trending._id}>
             <div
-              onClick={() => navigate(`/profile/user/${trending._id}`)}
+              onClick={() => navigate(`/trending/alumni/${trending._id}`)}
               className="trending-card"
             >
               <div className="logo">
