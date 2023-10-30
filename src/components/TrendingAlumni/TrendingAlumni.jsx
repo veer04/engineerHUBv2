@@ -102,12 +102,14 @@ const TrendingAlumni = () => {
  
   const renderTrendingAlumni = (
     <>
-      <main className="trending-Colleges">
-      <div className="search-bar__container" style={{display:"flex",}} >
+      <main className="trending-Colleges "
+       style={{overflowX:"hidden"}}>
+      <div className="search-bar__container" style={{display:"flex", justifyContent:"center", paddingBottom:"2%",}} >
         <div style={{justifyContent:"center",
     alignItems:"center"}}>
           <CampusSearchBox
             data={trendingList}
+            style={{margin:"auto",}}
             placeholder="You are looking for which Alumni?"
             searchParams={["alumniName"]}
             listLength={4}
@@ -117,10 +119,10 @@ const TrendingAlumni = () => {
       </div>
       
       <div className="content-container row">
-        <aside id="column-1" className="column column-1 col-lg-3">
+        <aside id="column-1" className="column column-1 col-lg-3" style={{marginLeft:"2%"}}>
           <div className="list-heading">
             <div>
-              <FaArrowTrendUp /> Trending Alumni
+              {/* <FaArrowTrendUp /> Trending Alumni */}
             </div>
           </div>
           <div className="cards">
@@ -132,11 +134,9 @@ const TrendingAlumni = () => {
         <div id="column-2" className="column column-2 col-lg-8">
       <section className="intro">
       {/* <h1 className="title">Profile</h1> */}
-      <div className="profile-dashboard">
+      <div className="profile-dashboard " >
       <section
-        // style={{
-        //   marginTop: "1rem",
-        // }}
+        
         className="box user-container"
       >
         <div className="profile-image">
