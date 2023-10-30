@@ -9,6 +9,7 @@ export default function CampusDetails({ path }) {
   const { setSelectedPageNavbar } = useNavbar();
 
   const { collegeId } = useParams();
+  const [campusData, setCampusData] = useState({});
   const [campus, setCampus] = useState(
     sessionStorage.getItem(`${collegeId} campus`)
       ? JSON.parse(sessionStorage.getItem(`${collegeId} campus`))
@@ -19,7 +20,7 @@ export default function CampusDetails({ path }) {
     window.scrollTo(0, 0);
     //check if campus if a empty object
     if (Object.keys(campus).length === 0 && campus.constructor === Object) {
-      getCampusById(setCampus, collegeId);
+      getCampusById(setCampusData, collegeId);
     }
     setSelectedPageNavbar("campus");
 
@@ -27,6 +28,16 @@ export default function CampusDetails({ path }) {
       controller.abort();
     };
   }, [collegeId]);
+
+  useEffect(() => {
+    if (Object.keys(campusData).length !== 0) {
+      setCampus(campusData?.data?.data);
+      sessionStorage.setItem(
+        `${collegeId} campus`,
+        JSON.stringify(campusData?.data?.data)
+      );
+    }
+  }, [campusData]);
 
   const [current, setCurrent] = useState(1);
 
