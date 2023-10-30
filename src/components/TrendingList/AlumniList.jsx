@@ -36,7 +36,7 @@ export default function AlumniList({ data }) {
       )}
       {trendingList
         ?.slice(0, viewMore ? trendingList?.length : 3)
-        .map((trending) => (
+        .map((trending, index) => (
           <Fragment key={trending._id}>
             <div
               onClick={() => navigate(`/profile/user/${trending._id}`)}
@@ -56,7 +56,13 @@ export default function AlumniList({ data }) {
                 </span>
               </div>
             </div>
-            <hr />
+            {trendingList.length > 3 ? (
+              <hr />
+            ) : index !== trendingList.length - 1 ? (
+              <hr />
+            ) : (
+              ""
+            )}
           </Fragment>
         ))}
       {trendingList?.length > 3 && !viewMore && (

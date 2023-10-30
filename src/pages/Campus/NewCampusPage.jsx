@@ -13,9 +13,11 @@ import { FaArrowTrendUp } from "react-icons/fa6";
 import {
   getAllCampuses,
   getTrendingActivities,
+  getTrendingActivitiesInPrivateMode,
 } from "../../services/APIConfig";
 import { useNavigate } from "react-router";
 import "./NewCampusPage.css";
+import { isUserLoggedIn } from "../../features/User/UserDetails";
 
 export default function NewCampusPage() {
   const navigate = useNavigate();
@@ -24,19 +26,21 @@ export default function NewCampusPage() {
   const [trendingPosts, setTrendingPosts] = useState([]);
   const [allCampuses, setAllCampuses] = useState([]);
   const [output, setOutput] = useState("");
+  const isLoggedIn = isUserLoggedIn();
 
   useEffect(() => {
     getAllCampuses(setAllCampuses);
-    getTrendingActivities(setTrendingPosts);
+    if (!isLoggedIn) getTrendingActivities(setTrendingPosts);
+    else getTrendingActivitiesInPrivateMode(setTrendingPosts);
 
     const handleResize = () => setWidth(window.innerWidth);
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // useEffect(() => {
-  //   console.log(trendingPosts);
-  // }, [trendingPosts]);
+  useEffect(() => {
+    console.log(trendingPosts);
+  }, [trendingPosts]);
 
   useEffect(() => {
     if (width > 910) {
@@ -72,7 +76,7 @@ export default function NewCampusPage() {
           />
         </div>
       </div>
-      {width <= 910 && (
+      {width < 910 && (
         <div className="mobile-campus-subnavbar">
           <div
             style={{
@@ -120,7 +124,7 @@ export default function NewCampusPage() {
             <span className="icon">
               <FaArrowTrendUp />
             </span>
-            <span className="title">Almas</span>
+            <span className="title">Trending</span>
           </div>
         </div>
       )}

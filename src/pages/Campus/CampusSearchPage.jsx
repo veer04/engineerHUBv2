@@ -85,9 +85,10 @@ export default function CampusSearchPage() {
       <div className="campus-search-page__container">
         <div className="column column-1">
           <div className="campus result-container">
+            <span className="title">Campuses</span>
             {campuses.length === 0 && (
               <div className="w-full d-flex justify-content-center">
-                <i>No campus found</i>
+                <i style={{ color: "grey" }}>No campus found</i>
               </div>
             )}
             {/* {clubs.length === 0 && (
@@ -151,7 +152,7 @@ export default function CampusSearchPage() {
             <span className="title">Clubs</span>
             {clubs.length === 0 && (
               <div className="w-full d-flex justify-content-center">
-                <i>No club found</i>
+                <i style={{ color: "grey" }}>No club found</i>
               </div>
             )}
             {/* {clubs.length === 0 && (
@@ -217,7 +218,7 @@ export default function CampusSearchPage() {
             <span className="title">Alumni</span>
             {alumni.length === 0 && (
               <div className="w-full d-flex justify-content-center">
-                <i>No alma found</i>
+                <i style={{ color: "grey" }}>No alma found</i>
               </div>
             )}
             {/* {alumni.length === 0 && (

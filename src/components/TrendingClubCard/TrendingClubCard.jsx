@@ -20,6 +20,7 @@ import {
   getClubProfileById,
   getFeaturedEvents,
   getAllPosts,
+  getClubProfileByIdPrivateMode,
 } from "../../services/APIConfig";
 import { FaArrowTrendUp } from "react-icons/fa6";
 import clubDashboard from "../../pages/Profile/ClubDashboard/ClubDashboard";
@@ -119,7 +120,7 @@ export default function TrendingClubCard() {
 
   useEffect(() => {
     if (output) {
-      navigate(`/club/search/${output}`);
+      navigate(`/campus/search/${output}`);
     }
   }, [output]);
 
