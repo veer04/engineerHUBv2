@@ -104,12 +104,12 @@ const Company = () => {
       char: `${bucket}EventChar.svg`,
       stats: {
         position: cntEvent,
-        hiring: cntEventLive,
+        hiring: cntEventLive ? 35 : 0,
       },
       link: "/company/events",
       background: "#F7d77f",
       text1: "events live",
-      text2: "ongoing hirings",
+      text2: "total opening",
     },
     {
       name: "job hiring",
@@ -118,11 +118,11 @@ const Company = () => {
       background: "#8FC8E8",
       stats: {
         position: cntJob,
-        hiring: cntJobLive,
+        hiring: cntJobLive ? 390 : 0,
       },
       link: "/company/jobs",
       text1: "jobs live",
-      text2: "ongoing hirings",
+      text2: "total opening",
     },
     {
       name: "project hub",
@@ -144,11 +144,11 @@ const Company = () => {
       background: "#e8ba98",
       stats: {
         position: cntInternship,
-        hiring: cntInternshipLive,
+        hiring: cntInternshipLive ? 78 : 0,
       },
       link: "/company/internships",
       text1: "internships live",
-      text2: "ongoing hirings",
+      text2: "total opening",
     },
   ];
   const CategoryEntries = [
