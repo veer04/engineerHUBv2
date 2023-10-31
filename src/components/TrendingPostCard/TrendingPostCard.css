@@ -61,6 +61,7 @@
   font-style: normal;
   font-weight: 500;
   line-height: 128.523%; /* 1.12456rem */
+  overflow: hidden;
 }
 .post-card-container .header .follow-btn {
   display: flex;

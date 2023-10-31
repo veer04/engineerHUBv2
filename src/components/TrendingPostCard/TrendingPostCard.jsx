@@ -150,6 +150,7 @@ export default function TrendingPostCard({ post, updatePost }) {
             <span
               style={{ cursor: "pointer" }}
               onClick={() => navigate(`/profile/club/${post.clubId}`)}
+              className="text-crop-1"
             >
               {post?.club[0]?.name}
             </span>
