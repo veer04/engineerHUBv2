@@ -28,6 +28,7 @@ import {
   getAlumniById,
   getTrendingAlumni,
   getUserProfileById,
+  getTrendingAlumni2,
 } from "../../services/APIConfig";
 import { FaArrowTrendUp } from "react-icons/fa6";
 import AlumniList from "../TrendingList/AlumniList";
@@ -43,6 +44,7 @@ const TrendingAlumni = () => {
   const bucket = `${Bucket_URL}frontend/hosting/`;
   const [width, setWidth] = useState(window.innerWidth);
   const [trendingList, setTrendingList] = useState([]);
+
   const [alumniData, setAlumniData] = useState({});
   const [alumni, setAlumni] = useState({});
   const [allAlumni, setAllAlumni] = useState([]);
@@ -56,7 +58,7 @@ const TrendingAlumni = () => {
   const [fetchResponse, setFetchResponse] = useState({});
   const bucket2 = `${Bucket_URL}frontend/profile/dashboard/`;
   function fetchData() {
-    getUserProfileById(setAlumniData,"64dde88b2add3dea56657128", setFetchResponse);
+    getUserProfileById(setAlumniData,userId, setFetchResponse);
   }
   useEffect(() => {
     window.scrollTo(0, 0);
