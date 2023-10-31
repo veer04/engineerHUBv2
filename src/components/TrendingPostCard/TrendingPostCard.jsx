@@ -156,7 +156,7 @@ export default function TrendingPostCard({ post, updatePost }) {
             </span>
           </div>
         </div>
-        <div className="follow-btn">
+        {/* <div className="follow-btn">
           {!(isLoggedIn && post?.isFollow) && (
             <button
               onClick={() => handleFollow(post?.club[0]?.name, post?.clubId)}
@@ -164,7 +164,7 @@ export default function TrendingPostCard({ post, updatePost }) {
               Follow
             </button>
           )}
-        </div>
+        </div> */}
       </div>
       <div className="post-image-container">
         <img src={post?.postLogo} alt="" />
@@ -175,7 +175,7 @@ export default function TrendingPostCard({ post, updatePost }) {
             {!(isLoggedIn && post?.isLike) ? (
               <FaRegHeart onClick={() => handleLike()} />
             ) : (
-              <FaHeart onClick={() => handleLike()} />
+              <FaHeart style={{ color: "red" }} onClick={() => handleLike()} />
             )}
           </div>
           <div className="share">
@@ -187,7 +187,10 @@ export default function TrendingPostCard({ post, updatePost }) {
             {!(isLoggedIn && post?.isSaved) ? (
               <FaRegBookmark onClick={() => handleSave()} />
             ) : (
-              <FaBookmark onClick={() => handleSave()} />
+              <FaBookmark
+                style={{ color: "grey" }}
+                onClick={() => handleSave()}
+              />
             )}
           </div>
         </div>
