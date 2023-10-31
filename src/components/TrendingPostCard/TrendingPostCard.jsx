@@ -13,6 +13,8 @@ import {
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { set } from "react-hook-form";
+import { RWebShare } from "react-web-share";
+import { FRONTEND_URL } from "../../services/APIUtils";
 
 export default function TrendingPostCard({ post, updatePost }) {
   const navigate = useNavigate();
@@ -179,7 +181,15 @@ export default function TrendingPostCard({ post, updatePost }) {
             )}
           </div>
           <div className="share">
-            <FiShare2 onClick={() => handleShare()} />
+            <RWebShare
+              data={{
+                text: `Check out this post`,
+                url: `${FRONTEND_URL}profile/club/${post?.clubId}/posts/${post?._id}`,
+                title: "Check out this post at engineerHUB",
+              }}
+            >
+              <FiShare2 />
+            </RWebShare>
           </div>
         </div>
         <div className="right">
