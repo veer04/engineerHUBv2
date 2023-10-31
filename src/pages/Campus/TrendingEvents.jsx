@@ -4,6 +4,7 @@ import CampusSearchBox from "../../components/CampusSearchBox/CampusSearchBox";
 import { useNavigate, useParams } from "react-router-dom";
 import {
   getAllCampuses,
+  getEventByMode,
   getFeaturedEvents,
   getParticularEventDetails,
 } from "../../services/APIConfig";
@@ -30,7 +31,7 @@ export default function TrendingEvents() {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    getFeaturedEvents(setTrendingList);
+    getEventByMode(setTrendingList, "Workshop");
     getParticularEventDetails(setEventData, eventId);
     getAllCampuses(setAllCampuses);
 
@@ -99,7 +100,7 @@ export default function TrendingEvents() {
         <aside id="column-1" className="column column-1">
           <div className="list-heading">
             <div>
-              <FaArrowTrendUp /> Trending Events
+              <FaArrowTrendUp /> Trending Workshops
             </div>
           </div>
           <div className="cards">

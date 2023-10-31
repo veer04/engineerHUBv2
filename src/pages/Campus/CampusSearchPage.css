@@ -219,6 +219,10 @@
 }
 
 @media screen and (max-width: 910px) {
+  .campus-search-page .heading-3,
+  .campus-search-page .subheading-1 {
+    display: none;
+  }
   .campus-search-page .campus-search-page__container {
     grid-template-columns: 1fr;
   }

@@ -12,10 +12,14 @@ import { BiPlayCircle } from "react-icons/bi";
 import { FaArrowTrendUp } from "react-icons/fa6";
 import {
   getAllCampuses,
+  getPostByIdPrivateMode,
   getTrendingActivities,
+  getTrendingActivitiesInPrivateMode,
 } from "../../services/APIConfig";
 import { useNavigate } from "react-router";
 import "./NewCampusPage.css";
+import { isUserLoggedIn } from "../../features/User/UserDetails";
+import { set } from "react-hook-form";
 
 export default function NewCampusPage() {
   const navigate = useNavigate();
@@ -24,19 +28,22 @@ export default function NewCampusPage() {
   const [trendingPosts, setTrendingPosts] = useState([]);
   const [allCampuses, setAllCampuses] = useState([]);
   const [output, setOutput] = useState("");
+  const isLoggedIn = isUserLoggedIn();
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     getAllCampuses(setAllCampuses);
-    getTrendingActivities(setTrendingPosts);
+    if (!isLoggedIn) getTrendingActivities(setTrendingPosts);
+    else getTrendingActivitiesInPrivateMode(setTrendingPosts);
 
     const handleResize = () => setWidth(window.innerWidth);
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // useEffect(() => {
-  //   console.log(trendingPosts);
-  // }, [trendingPosts]);
+  useEffect(() => {
+    console.log(trendingPosts);
+  }, [trendingPosts]);
 
   useEffect(() => {
     if (width > 910) {
@@ -50,8 +57,28 @@ export default function NewCampusPage() {
     }
   }, [output]);
 
+  const [updatedPost, setUpdatedPost] = useState({});
+
+  useEffect(() => {
+    console.log(updatedPost);
+    if (Object.keys(updatedPost).length !== 0) {
+      const index = trendingPosts.findIndex(
+        (post) => post._id === updatedPost.data.data._id
+      );
+      if (index !== -1) {
+        const newTrendingPosts = [...trendingPosts];
+        newTrendingPosts[index] = updatedPost.data.data;
+        setTrendingPosts(newTrendingPosts);
+      }
+    }
+  }, [updatedPost]);
+
+  function updatePost(postId) {
+    getPostByIdPrivateMode(setUpdatedPost, postId);
+  }
+
   const renderTrendingPosts = trendingPosts.map((post) => (
-    <TrendingPostCard key={post._id} post={post} />
+    <TrendingPostCard key={post._id} post={post} updatePost={updatePost} />
   ));
 
   return (
@@ -72,7 +99,7 @@ export default function NewCampusPage() {
           />
         </div>
       </div>
-      {width <= 910 && (
+      {width < 910 && (
         <div className="mobile-campus-subnavbar">
           <div
             style={{
@@ -120,7 +147,7 @@ export default function NewCampusPage() {
             <span className="icon">
               <FaArrowTrendUp />
             </span>
-            <span className="title">Almas</span>
+            <span className="title">Trending</span>
           </div>
         </div>
       )}

@@ -40,7 +40,6 @@ export default function ClubDashboard() {
   const [followResponse, setFollowResponse] = useState({});
   const bucket2 = `${Bucket_URL}frontend/profile/dashboard/`;
 
-
   function fetchData() {
     if (isUserLoggedIn()) {
       getClubProfileByIdPrivateMode(setOrganization, clubId, setFetchResponse);
@@ -141,7 +140,10 @@ export default function ClubDashboard() {
                     {organization?.subHeading ? (
                       organization?.subHeading
                     ) : (
-                      <i className="text-crop-1 overflow-hidden">
+                      <i
+                        style={{ color: "grey" }}
+                        className="text-crop-1 overflow-hidden"
+                      >
                         Subheading not available
                       </i>
                     )}
@@ -173,7 +175,10 @@ export default function ClubDashboard() {
                           </div>
                         </>
                       ) : (
-                        <i className="text-crop-1 overflow-hidden">
+                        <i
+                          style={{ color: "grey" }}
+                          className="text-crop-1 overflow-hidden"
+                        >
                           Organization type not available
                         </i>
                       )}
@@ -268,7 +273,7 @@ export default function ClubDashboard() {
               )}
               {!organization?.description && (
                 <p className="no-description">
-                  <i>Description not available</i>
+                  <i style={{ color: "grey" }}>Description not available</i>
                 </p>
               )}
               {organization?.description && !viewMore && (
@@ -304,7 +309,7 @@ export default function ClubDashboard() {
             {posts.length === 0 && (
               <div className="no-jobs empty-container">
                 {/* <MdAddCircle /> */}
-                <p>{`No posts to show`}</p>
+                <p style={{ color: "grey" }}>{`No posts to show`}</p>
               </div>
             )}
           </div>
@@ -362,7 +367,7 @@ export default function ClubDashboard() {
             {organization?.members?.length === 0 && (
               <div className="no-jobs empty-container">
                 {/* <MdAddCircle /> */}
-                <p>{`No members to show`}</p>
+                <p style={{ color: "grey" }}>{`No members to show`}</p>
               </div>
             )}
           </div>
@@ -420,7 +425,7 @@ export default function ClubDashboard() {
             {featuredEvents.length === 0 && (
               <div className="no-jobs empty-container">
                 {/* <MdAddCircle /> */}
-                <p>{`No events to show`}</p>
+                <p style={{ color: "grey" }}>{`No events to show`}</p>
               </div>
             )}
           </div>

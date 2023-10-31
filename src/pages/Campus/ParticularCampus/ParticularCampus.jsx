@@ -24,6 +24,7 @@ export default function ParticularCampus() {
   const { collegeId } = useParams();
   const navigate = useNavigate();
   const [allCampuses, setAllCampuses] = useState([]);
+  const [campusData, setCampusData] = useState({});
   const [campus, setCampus] = useState({});
   const [output, setOutput] = useState("");
 
@@ -31,7 +32,7 @@ export default function ParticularCampus() {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    getCampusById(setCampus, collegeId);
+    getCampusById(setCampusData, collegeId);
     getAllCampuses(setAllCampuses);
     setSelectedPageNavbar("campus");
 
@@ -40,6 +41,12 @@ export default function ParticularCampus() {
       setCampus({});
     };
   }, [collegeId]);
+
+  useEffect(() => {
+    if (Object.keys(campusData).length !== 0) {
+      setCampus(campusData?.data?.data);
+    }
+  }, [campusData]);
 
   useEffect(() => {
     if (output) {
@@ -120,7 +127,9 @@ export default function ParticularCampus() {
                 {starsFilled}
                 {starsEmpty}
               </div>
-              <div className="rating__number">Rating: {Math.round(campus.rating)}/5</div>
+              <div className="rating__number">
+                Rating: {Math.round(campus.rating)}/5
+              </div>
             </div>
           </div>
         </div>
