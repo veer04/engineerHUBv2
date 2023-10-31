@@ -3,10 +3,19 @@ import { FaBookmark, FaHeart, FaRegBookmark, FaRegHeart } from "react-icons/fa";
 import { FiShare2 } from "react-icons/fi";
 import { isUserLoggedIn } from "../../features/User/UserDetails";
 import useGlobalSnackbar from "../../hooks/useGlobalSnackbar";
-import { followClub, likePost, unLikePost } from "../../services/APIConfig";
+import {
+  followClub,
+  likePost,
+  savePost,
+  unLikePost,
+  unSavePost,
+} from "../../services/APIConfig";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { set } from "react-hook-form";
 
-export default function TrendingPostCard({ post }) {
+export default function TrendingPostCard({ post, updatePost }) {
+  const navigate = useNavigate();
   const isLoggedIn = isUserLoggedIn();
   const { setSnackbarOpen, setSnackbarMessage, setSnackbarSeverity } =
     useGlobalSnackbar();
@@ -17,9 +26,10 @@ export default function TrendingPostCard({ post }) {
   const [unsaveResponse, setUnsaveResponse] = useState({});
 
   useEffect(() => {
-    console.log(followResponse);
+    // console.log(followResponse);
     if (Object.keys(followResponse).length !== 0) {
       if (followResponse?.data?.success) {
+        updatePost(post._id);
         setSnackbarSeverity("success");
         setSnackbarMessage(`You are now following ${post?.club[0]?.name}`);
         setSnackbarOpen(true);
@@ -39,24 +49,61 @@ export default function TrendingPostCard({ post }) {
   }, [followResponse]);
 
   useEffect(() => {
-    console.log(likeResponse);
     if (Object.keys(likeResponse).length !== 0) {
       if (likeResponse?.data?.success) {
-        setSnackbarSeverity("success");
-        setSnackbarMessage(`Post liked`);
-        setSnackbarOpen(true);
+        updatePost(post._id);
       } else {
-        if (likeResponse?.data?.message === "Already Liked.") {
-          setSnackbarSeverity("warning");
-          setSnackbarMessage(`Post already liked`);
-        } else {
-          setSnackbarSeverity("error");
-          setSnackbarMessage(`Something went wrong.`);
-        }
+        setSnackbarSeverity("error");
+        setSnackbarMessage(`Something went wrong.`);
         setSnackbarOpen(true);
       }
     }
   }, [likeResponse]);
+
+  useEffect(() => {
+    if (Object.keys(unlikeResponse).length !== 0) {
+      console.log(unlikeResponse);
+      if (unlikeResponse?.data?.success) {
+        updatePost(post._id);
+      } else {
+        setSnackbarSeverity("error");
+        setSnackbarMessage(`Something went wrong.`);
+        setSnackbarOpen(true);
+      }
+    }
+  }, [unlikeResponse]);
+
+  useEffect(() => {
+    if (Object.keys(saveResponse).length !== 0) {
+      console.log("s", saveResponse);
+      if (saveResponse?.data?.success) {
+        updatePost(post._id);
+        setSnackbarSeverity("success");
+        setSnackbarMessage(`Post saved`);
+        setSnackbarOpen(true);
+      } else {
+        setSnackbarSeverity("error");
+        setSnackbarMessage(`Something went wrong.`);
+        setSnackbarOpen(true);
+      }
+    }
+  }, [saveResponse]);
+
+  useEffect(() => {
+    if (Object.keys(unsaveResponse).length !== 0) {
+      console.log("us", unsaveResponse);
+      if (unsaveResponse?.data?.success) {
+        updatePost(post._id);
+        setSnackbarSeverity("success");
+        setSnackbarMessage(`Post unsaved`);
+        setSnackbarOpen(true);
+      } else {
+        setSnackbarSeverity("error");
+        setSnackbarMessage(`Something went wrong.`);
+        setSnackbarOpen(true);
+      }
+    }
+  }, [unsaveResponse]);
 
   function handleFollow(clubName, clubId) {
     if (!isLoggedIn) {
@@ -85,9 +132,8 @@ export default function TrendingPostCard({ post }) {
       setSnackbarMessage("You need to login to save a post");
       setSnackbarOpen(true);
     } else {
-      setSnackbarSeverity("success");
-      setSnackbarMessage(`Post saved`);
-      setSnackbarOpen(true);
+      if (post?.isSaved) unSavePost(post._id, setUnsaveResponse);
+      else savePost(post._id, setSaveResponse);
     }
   }
 
@@ -101,7 +147,12 @@ export default function TrendingPostCard({ post }) {
             <img loading="lazy" src={post?.club[0]?.image} alt="logo" />
           </div>
           <div className="name">
-            <span>{post?.club[0]?.name}</span>
+            <span
+              style={{ cursor: "pointer" }}
+              onClick={() => navigate(`/profile/club/${post.clubId}`)}
+            >
+              {post?.club[0]?.name}
+            </span>
           </div>
         </div>
         <div className="follow-btn">
@@ -123,7 +174,7 @@ export default function TrendingPostCard({ post }) {
             {!(isLoggedIn && post?.isLike) ? (
               <FaRegHeart onClick={() => handleLike()} />
             ) : (
-              <FaHeart />
+              <FaHeart onClick={() => handleLike()} />
             )}
           </div>
           <div className="share">
@@ -135,7 +186,7 @@ export default function TrendingPostCard({ post }) {
             {!(isLoggedIn && post?.isSaved) ? (
               <FaRegBookmark onClick={() => handleSave()} />
             ) : (
-              <FaBookmark />
+              <FaBookmark onClick={() => handleSave()} />
             )}
           </div>
         </div>

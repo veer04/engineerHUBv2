@@ -1979,6 +1979,28 @@ export const getPostById = (setPost, postId) => {
     });
 };
 
+export const getPostByIdPrivateMode = (setPost, postId) => {
+  const controller = new AbortController();
+  const config = {
+    headers: {
+      accessToken: getAccessToken(),
+    },
+  };
+  axios
+    .get(`${API_URL}api/v1/getIndividualPostInPrivateMode/${postId}`,config)
+    .then((res) => {
+      setPost(res);
+    })
+    .catch((err) => {
+      setPost(err.response)
+      if (axios.isCancel(err)) {
+        console.log("req cancel");
+      } else {
+        console.log("req performed");
+      }
+    });
+};
+
 export const likePost = (postId, setResponse) => {
   const controller = new AbortController();
   const config = {
