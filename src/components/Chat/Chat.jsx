@@ -273,7 +273,7 @@ export default function Chat({
         }}
         className="chat-display"
       >
-        {socketConnected && messages.length !== 0 ? (
+        {messages.length !== 0 ? (
           messages?.map((message, index) => {
             return (
               <Message
