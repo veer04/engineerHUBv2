@@ -92,7 +92,7 @@ export default function NewCampusPage() {
         <div>
           <CampusSearchBox
             data={allCampuses}
-            placeholder="You are looking for which Campus?"
+            placeholder="Search any Campus, Clubs or Almas"
             searchParams={["collegeName"]}
             listLength={4}
             setOutput={setOutput}
