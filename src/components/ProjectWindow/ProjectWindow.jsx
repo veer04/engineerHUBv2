@@ -103,60 +103,64 @@ export default function ProjectWindow({ projectOpened, setIsProjectOpen }) {
             ))}
         </div>
       </div>
-      <div className="project__window__software">
-        <div className="softwares">
-          <div className="heading">Software Used</div>
-          {project.softwareUsed?.map((software) => {
-            return (
-              <div key={software} className="software">
-                <svg
-                  width="16"
-                  height="11"
-                  viewBox="0 0 16 11"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M15 1L5.375 10L1 5.90909"
-                    stroke="black"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-                <div>{software}</div>
-              </div>
-            );
-          })}
+      {!!project?.softwareUsed?.length && (
+        <div className="project__window__software">
+          <div className="softwares">
+            <div className="heading">Software Used</div>
+            {project.softwareUsed?.map((software) => {
+              return (
+                <div key={software} className="software">
+                  <svg
+                    width="16"
+                    height="11"
+                    viewBox="0 0 16 11"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M15 1L5.375 10L1 5.90909"
+                      stroke="black"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                  <div>{software}</div>
+                </div>
+              );
+            })}
+          </div>
         </div>
-      </div>
-      <div className="project__window__software">
-        <div className="softwares">
-          <div className="heading">Hardware Used</div>
-          {project.hardwareUsed?.map((hardware) => {
-            return (
-              <div key={hardware} className="software">
-                <svg
-                  width="16"
-                  height="11"
-                  viewBox="0 0 16 11"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M15 1L5.375 10L1 5.90909"
-                    stroke="black"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-                <div>{hardware}</div>
-              </div>
-            );
-          })}
+      )}
+      {!!project?.hardwareUsed?.length && (
+        <div className="project__window__software">
+          <div className="softwares">
+            <div className="heading">Hardware Used</div>
+            {project.hardwareUsed?.map((hardware) => {
+              return (
+                <div key={hardware} className="software">
+                  <svg
+                    width="16"
+                    height="11"
+                    viewBox="0 0 16 11"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M15 1L5.375 10L1 5.90909"
+                      stroke="black"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                  <div>{hardware}</div>
+                </div>
+              );
+            })}
+          </div>
         </div>
-      </div>
+      )}
       {/* <div className="project__window__info">
         <div className="heading">Additional Information</div>
         <div className="info">
@@ -170,11 +174,16 @@ export default function ProjectWindow({ projectOpened, setIsProjectOpen }) {
           </div>
         </div>
       </div> */}
-      {/* <div className="project__window__apply">
-        <div className="apply" onClick={() => navigate("/register")}>
-          Apply Now
+      {project?.projectLink && (
+        <div className="project__window__apply">
+          <div
+            className="apply"
+            onClick={() => (window.location.href = project?.projectLink)}
+          >
+            View More
+          </div>
         </div>
-      </div> */}
+      )}
     </div>
   );
 }
