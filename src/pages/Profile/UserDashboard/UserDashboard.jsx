@@ -25,6 +25,7 @@ import { Bucket_URL } from "../../../services/APIUtils";
 import { getUserRole } from "../../../features/User/UserDetails";
 import LoadingPage from "../../../components/Loader/LoadingPage";
 import Page404 from "../../Maintenance/Page404";
+import colorWheel from "../../../assets/colorWheel";
 
 export default function UserDashboard() {
   const navigate = useNavigate();
@@ -117,16 +118,79 @@ export default function UserDashboard() {
     }
   };
 
+  const whatsappLinks = [
+    { label: "DSA", link: "https://chat.whatsapp.com/GmcQ6ubbRIe0JLruQ0vnbI" },
+    {
+      label: "Web Dev",
+      link: "https://chat.whatsapp.com/LhQw599u98NG4Dk4o2VU8w",
+    },
+    {
+      label: "Python & ML",
+      link: "https://chat.whatsapp.com/ByOOBlUdiSoEIh993OvESC",
+    },
+    {
+      label: "App Dev",
+      link: "https://chat.whatsapp.com/HbIxq5KjWhZ8rwvHuPUh3X",
+    },
+    {
+      label: "UI/UX",
+      link: "https://chat.whatsapp.com/FjAaqsdEvDE34OaPIWOsfd",
+    },
+    {
+      label: "DevOps",
+      link: "https://chat.whatsapp.com/DW312U3MP5EDXzXC0w31gH",
+    },
+    {
+      label: "CyberSecurity",
+      link: "https://chat.whatsapp.com/KREHrrtcpxT28CWnVR3z6z",
+    },
+  ];
+  
   const userDashboardPage = (
     <main className="profile-dashboard">
       <h1 className="title">Profile</h1>
-      <h2 className="subheading">
-        {/* Lorem ipsum dolor sit amet consectetur. Mattis aliquam sodales faucibus
-        platea feugiat odio. */}
-      </h2>
       <section
         style={{
           marginTop: "1rem",
+        }}
+        className="box whatsapp-links-container"
+      >
+        <p style={{ marginBottom: "1.5rem" }} className="heading">
+          Quick Links to join our whatsapp domains
+        </p>
+        <div
+          style={{ gap: ".9rem", marginBottom: "1rem" }}
+          className="links-container w-100 d-flex justify-content-center align-items-center flex-wrap"
+        >
+          {whatsappLinks.map((item, index) => (
+            <div
+              key={index}
+              onClick={() => (window.location.href = item.link)}
+              style={{
+                padding: ".5rem",
+                borderRadius: ".45rem",
+                width: "140px",
+                height: "48px",
+                border: "1px solid black",
+                fontSize: "1rem",
+                aspectRatio: "1/1",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                position: "relative",
+                cursor: "pointer",
+                backgroundColor: colorWheel[index % colorWheel.length],
+                color: "black",
+              }}
+            >
+              {item.label}
+            </div>
+          ))}
+        </div>
+      </section>
+      <section
+        style={{
+          // marginTop: "1rem",
         }}
         className="box user-container"
       >
@@ -323,8 +387,8 @@ export default function UserDashboard() {
               <div className="interest">Swimming</div>
             </div>
           </section> */}
-          <section className="box">
-            <p className="heading">Liscence and Certifications</p>
+                    <section className="box">
+            <p className="heading">License and Certifications</p>
             {user?.licenceDetails?.length !== 0 ? (
               user?.licenceDetails
                 ?.slice(0, viewMore2 ? user?.licenceDetails?.length : 2)
@@ -382,7 +446,7 @@ export default function UserDashboard() {
                   );
                 })
             ) : (
-              <i style={{ color: "grey" }}>No past Liscence or Certification</i>
+              <i style={{ color: "grey" }}>No past License or Certification</i>
             )}
             {user?.licenceDetails?.length > 2 && !viewMore2 && (
               <div className="view-more-container">
@@ -587,7 +651,7 @@ export default function UserDashboard() {
             </>
           )}
           <section className="box">
-            <p className="heading">Achivements</p>
+            <p className="heading">Achievements</p>
             {user?.achievementDetails?.length !== 0 ? (
               user?.achievementDetails
                 ?.slice(0, viewMore2 ? user?.achievementDetails?.length : 2)

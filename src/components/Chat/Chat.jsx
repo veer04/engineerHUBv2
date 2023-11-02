@@ -6,13 +6,13 @@ import Message from "./Message";
 import { Card, CardContent, Typography } from "@mui/material";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
-import { API_URL } from "../../services/APIUtils";
+import { API_URL, API_URLT } from "../../services/APIUtils";
 import getCookie, { getAccessToken } from "../../features/getCookieValues";
 import { io } from "socket.io-client";
 import { Cookie } from "@mui/icons-material";
 import Cookies from "js-cookie";
 import LoadingPage from "../Loader/LoadingPage";
-const ENDPOINT = API_URL;
+const ENDPOINT = API_URLT;
 var socket;
 
 export default function Chat({
