@@ -10,15 +10,23 @@ import { BsArrowDown, BsArrowRight, BsChevronDown } from "react-icons/bs";
 import { FaBuildingColumns } from "react-icons/fa6";
 import defaultPoster from "../../../assets/defaultPoster";
 import { HiOutlineBuildingOffice2 } from "react-icons/hi2";
-import{BiCertification} from "react-icons/bi";
-import {GrAchievement} from "react-icons/gr";
+import { BiCertification } from "react-icons/bi";
+import { GrAchievement } from "react-icons/gr";
 import { VscGithub } from "react-icons/vsc";
+import { RxCross1 } from "react-icons/rx";
 import { useEffect } from "react";
 import CustomSnackbar from "../../User/Login/CustomSnackbar";
-import { controller, getUserProfileById, patchResume } from "../../../services/APIConfig";
-import { useNavigate, useParams,Link } from "react-router-dom";
+import {
+  controller,
+  getUserProfileById,
+  patchResume,
+} from "../../../services/APIConfig";
+import { useNavigate, useParams, Link } from "react-router-dom";
 import { Bucket_URL } from "../../../services/APIUtils";
-import { getUserRole } from "../../../features/User/UserDetails";
+import {
+  getUserRole,
+  isUserLoggedIn,
+} from "../../../features/User/UserDetails";
 import LoadingPage from "../../../components/Loader/LoadingPage";
 import Page404 from "../../Maintenance/Page404";
 import colorWheel from "../../../assets/colorWheel";
@@ -42,7 +50,8 @@ export default function UserDashboard() {
   const [resumeErrors, setResumeErrors] = useState({
     resume: "",
   });
-  
+
+  const [links, setLinks] = useState(true);
   const [isUpdating, setIsUpdating] = useState(false);
   const [isResumeUpdating, setIsResumeUpdating] = useState(false);
   const [isResumeUpdated, setIsResumeUpdated] = useState(false);
@@ -54,6 +63,7 @@ export default function UserDashboard() {
   }
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     fetchData();
 
     return () => {
@@ -116,76 +126,95 @@ export default function UserDashboard() {
   const whatsappLinks = [
     { label: "DSA", link: "https://chat.whatsapp.com/GmcQ6ubbRIe0JLruQ0vnbI" },
     {
-      label: "Web Dev",
-      link: "https://chat.whatsapp.com/LhQw599u98NG4Dk4o2VU8w",
-    },
-    {
       label: "Python & ML",
       link: "https://chat.whatsapp.com/ByOOBlUdiSoEIh993OvESC",
-    },
-    {
-      label: "App Dev",
-      link: "https://chat.whatsapp.com/HbIxq5KjWhZ8rwvHuPUh3X",
     },
     {
       label: "UI/UX",
       link: "https://chat.whatsapp.com/FjAaqsdEvDE34OaPIWOsfd",
     },
     {
-      label: "DevOps",
-      link: "https://chat.whatsapp.com/DW312U3MP5EDXzXC0w31gH",
-    },
-    {
       label: "CyberSecurity",
       link: "https://chat.whatsapp.com/KREHrrtcpxT28CWnVR3z6z",
     },
+    {
+      label: "App Dev",
+      link: "https://chat.whatsapp.com/HbIxq5KjWhZ8rwvHuPUh3X",
+    },
+    {
+      label: "Web Dev",
+      link: "https://chat.whatsapp.com/LhQw599u98NG4Dk4o2VU8w",
+    },
+    {
+      label: "DevOps",
+      link: "https://chat.whatsapp.com/DW312U3MP5EDXzXC0w31gH",
+    },
   ];
-  
+
   const userDashboardPage = (
     <main className="profile-dashboard">
       <h1 className="title">Profile</h1>
-      <section
-        style={{
-          marginTop: "1rem",
-        }}
-        className="box whatsapp-links-container"
-      >
-        <p style={{ marginBottom: "1.5rem" }} className="heading">
-          Quick Links to join our whatsapp domains
-        </p>
-        <div
-          style={{ gap: ".9rem", marginBottom: "1rem" }}
-          className="links-container w-100 d-flex justify-content-center align-items-center flex-wrap"
+      {links && user?.role !== "Alumni" && isUserLoggedIn() && (
+        <section
+          style={{
+            marginTop: "1rem",
+            position: "relative",
+          }}
+          className="box whatsapp-links-container"
         >
-          {whatsappLinks.map((item, index) => (
-            <div
-              key={index}
-              onClick={() => (window.location.href = item.link)}
-              style={{
-                padding: ".5rem",
-                borderRadius: ".45rem",
-                width: "140px",
-                height: "48px",
-                border: "1px solid black",
-                fontSize: "1rem",
-                aspectRatio: "1/1",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                position: "relative",
-                cursor: "pointer",
-                backgroundColor: colorWheel[index % colorWheel.length],
-                color: "black",
-              }}
-            >
-              {item.label}
-            </div>
-          ))}
-        </div>
-      </section>
+          <button
+            onClick={() => setLinks(false)}
+            style={{
+              position: "absolute",
+              top: "15px",
+              right: "15px",
+              borderRadius: "50%",
+              backgroundColor: "white",
+              aspectRatio: "1/1",
+              fontSize: ".875rem",
+              padding: "5px",
+              display: "flex",
+            }}
+          >
+            <RxCross1 />
+          </button>
+          <p style={{ marginBottom: "1.5rem" }} className="heading">
+            Quick Links to join our whatsapp domains
+          </p>
+          <div
+            style={{ gap: ".9rem", marginBottom: "1rem" }}
+            className="links-container w-100 d-flex justify-content-center align-items-center flex-wrap"
+          >
+            {whatsappLinks.map((item, index) => (
+              <div
+                key={index}
+                onClick={() => (window.location.href = item.link)}
+                style={{
+                  padding: ".5rem",
+                  borderRadius: ".45rem",
+                  width: "140px",
+                  height: "48px",
+                  border: "1px solid black",
+                  fontSize: "1rem",
+                  aspectRatio: "1/1",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  position: "relative",
+                  cursor: "pointer",
+                  backgroundColor: colorWheel[index % colorWheel.length],
+                  color: "black",
+                }}
+              >
+                {item.label}
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
       <section
         style={{
-          // marginTop: "1rem",
+          marginTop: !links ? "1rem" : "0rem",
         }}
         className="box user-container"
       >
@@ -206,7 +235,7 @@ export default function UserDashboard() {
               user?.educationDetails[user.educationDetails.length - 1]
                 ?.collegeId?.collegeName
             ) : (
-              <i>No campus details</i>
+              <i style={{ color: "grey" }}>No campus details</i>
             )}
           </span>
           {isUserAdmin && (
@@ -235,39 +264,38 @@ export default function UserDashboard() {
           </div>
           {isUserAdmin && (
             <>
-                  {/* <p
+              {/* <p
     className="buttons"
       >
       Update Resume
       </p> */}
-      <div className="profile-picture-container">
-        <p className="text-danger mb-1">{resumeErrors.resume}</p>
-        <input
-          type="file"
-          name="profile"
-          id="student-profile-image"
-          className="mb-4"
-          style={{border:"none"}}
-          onChange={(e) => setResumeRes(e.target.files[0])}
-        />
-      </div>
-      <div className="buttons" style={{
-        marginBottom:"10px"
-      }}>
-        <button
-          className="button edit-btn"
-          
-          onClick={handleResume}
-        >
-          {isResumeUpdating ? (
-            <div className="spinner-border text-primary"    role="status">
-              <span className="visually-hidden">Loading...</span>
-            </div>
-          ) : (
-            "Update Resume"
-          )}
-        </button>
-        {/* <a
+              <div className="profile-picture-container">
+                <p className="text-danger mb-1">{resumeErrors.resume}</p>
+                <input
+                  type="file"
+                  name="profile"
+                  id="student-profile-image"
+                  className="mb-4"
+                  style={{ border: "none" }}
+                  onChange={(e) => setResumeRes(e.target.files[0])}
+                />
+              </div>
+              <div
+                className="buttons"
+                style={{
+                  marginBottom: "10px",
+                }}
+              >
+                <button className="button edit-btn" onClick={handleResume}>
+                  {isResumeUpdating ? (
+                    <div className="spinner-border text-primary" role="status">
+                      <span className="visually-hidden">Loading...</span>
+                    </div>
+                  ) : (
+                    "Update Resume"
+                  )}
+                </button>
+                {/* <a
           href={!isResumeUpdated ? user.resume : newResumeLink}
           target="_blank"
         >
@@ -281,16 +309,16 @@ export default function UserDashboard() {
             View Resume
           </button>
         </a> */}
-      </div>
+              </div>
 
-      {snackbarValues.severity === "success" && (
-        <CustomSnackbar
-          setOpen={setOpen}
-          open={open}
-          message={snackbarValues.message}
-          severity={snackbarValues.severity}
-        />
-      )}
+              {snackbarValues.severity === "success" && (
+                <CustomSnackbar
+                  setOpen={setOpen}
+                  open={open}
+                  message={snackbarValues.message}
+                  severity={snackbarValues.severity}
+                />
+              )}
             </>
           )}
           {isUserAdmin && (
@@ -319,7 +347,7 @@ export default function UserDashboard() {
             )}
             {!user?.aboutMe && (
               <p className="no-description">
-                <i>Description not available</i>
+                <i style={{ color: "grey" }}>Description not available</i>
               </p>
             )}
             {/* {user?.aboutUs && true && (
@@ -360,7 +388,7 @@ export default function UserDashboard() {
                 );
               })
             ) : (
-              <i>No education details</i>
+              <i style={{ color: "grey" }}>No education details</i>
             )}
           </section>
           {/* <section className="box">
@@ -383,7 +411,7 @@ export default function UserDashboard() {
               <div className="interest">Swimming</div>
             </div>
           </section> */}
-                    <section className="box">
+          <section className="box">
             <p className="heading">License and Certifications</p>
             {user?.licenceDetails?.length !== 0 ? (
               user?.licenceDetails
@@ -407,18 +435,26 @@ export default function UserDashboard() {
                           )}
                         </div> */}
                         <div className="time">
-                          <span>{moment(experience.issuedDate).utc().format("YYYY-MM-DD")}</span>
-                       
+                          <span>
+                            {moment(experience.issuedDate)
+                              .utc()
+                              .format("YYYY-MM-DD")}
+                          </span>
+
                           {/*<span>• 2yrs and 3mos</span>*/}
                         </div>
                         <div className="description">
                           <span>{experience?.issuedBy}</span>
-                       
+
                           {/*<span>• 2yrs and 3mos</span>*/}
                         </div>
                         <div className="description">
-                          <span><Link to={experience?.certificateUrl}>{experience?.certificateUrl}</Link></span>
-                       
+                          <span>
+                            <Link to={experience?.certificateUrl}>
+                              {experience?.certificateUrl}
+                            </Link>
+                          </span>
+
                           {/*<span>• 2yrs and 3mos</span>*/}
                         </div>
                         {/* <span className="location">
@@ -434,7 +470,7 @@ export default function UserDashboard() {
                   );
                 })
             ) : (
-              <i>No past License or Certification</i>
+              <i style={{ color: "grey" }}>No past License or Certification</i>
             )}
             {user?.licenceDetails?.length > 2 && !viewMore2 && (
               <div className="view-more-container">
@@ -449,197 +485,195 @@ export default function UserDashboard() {
           </section>
         </div>
         <div className="right-column column">
-          {
-            isUserAdmin && user?.role==="Alumni" ?(
-              <>
-                 <section className="box">
-            <p className="heading">EXPERIENCE</p>
-            {user?.experienceDetails?.length !== 0 ? (
-              user?.experienceDetails
-                ?.slice(0, viewMore2 ? user?.experienceDetails?.length : 2)
-                .map((experience) => {
-                  return (
-                    <div key={experience._id} className="experience">
-                      <div className="logo">
-                        {experience?.logo ? (
-                          <img src={experience?.logo} alt="" />
-                        ) : (
-                          <HiOutlineBuildingOffice2 />
-                        )}
-                      </div>
-                      <div className="details">
-                        <p className="title">{experience.designation}</p>
-                        <div className="company-name">
-                          <span>{experience.organisationName}</span>
-                          {experience?.jobType && (
-                            <span>• {experience?.jobType}</span>
-                          )}
+          {isUserAdmin && user?.role === "Alumni" ? (
+            <>
+              <section className="box">
+                <p className="heading">EXPERIENCE</p>
+                {user?.experienceDetails?.length !== 0 ? (
+                  user?.experienceDetails
+                    ?.slice(0, viewMore2 ? user?.experienceDetails?.length : 2)
+                    .map((experience) => {
+                      return (
+                        <div key={experience._id} className="experience">
+                          <div className="logo">
+                            {experience?.logo ? (
+                              <img src={experience?.logo} alt="" />
+                            ) : (
+                              <HiOutlineBuildingOffice2 />
+                            )}
+                          </div>
+                          <div className="details">
+                            <p className="title">{experience.designation}</p>
+                            <div className="company-name">
+                              <span>{experience.organisationName}</span>
+                              {experience?.jobType && (
+                                <span>• {experience?.jobType}</span>
+                              )}
+                            </div>
+                            <div className="time">
+                              <span>{experience?.startYear}</span>{" "}
+                              {experience?.currentlyWorking && (
+                                <span>- Present</span>
+                              )}{" "}
+                              {!experience?.currentlyWorking &&
+                                experience?.endYear && (
+                                  <span>- {experience?.endYear}</span>
+                                )}{" "}
+                              {/*<span>• 2yrs and 3mos</span>*/}
+                            </div>
+                            <span className="location">
+                              {experience?.state}
+                              {`${
+                                experience?.country
+                                  ? `, ${experience?.country}`
+                                  : ""
+                              }`}
+                            </span>
+                          </div>
                         </div>
-                        <div className="time">
-                          <span>{experience?.startYear}</span>{" "}
-                          {experience?.currentlyWorking && (
-                            <span>- Present</span>
-                          )}{" "}
-                          {!experience?.currentlyWorking &&
-                            experience?.endYear && (
-                              <span>- {experience?.endYear}</span>
-                            )}{" "}
-                          {/*<span>• 2yrs and 3mos</span>*/}
+                      );
+                    })
+                ) : (
+                  <i style={{ color: "grey" }}>No past experiences</i>
+                )}
+                {user?.experienceDetails?.length > 2 && !viewMore2 && (
+                  <div className="view-more-container">
+                    <button
+                      onClick={() => setViewMore2(true)}
+                      className="view-more"
+                    >
+                      View More <BsChevronDown />
+                    </button>
+                  </div>
+                )}
+              </section>
+              <section className="box">
+                <p className="heading">PROJECTS</p>
+                {user?.projectDetails?.length !== 0 ? (
+                  user?.projectDetails
+                    ?.slice(0, viewMore1 ? user?.projectDetails?.length : 2)
+                    .map((project) => {
+                      return (
+                        <div key={project._id} className="project">
+                          <p className="title text-crop-2 overflow-hidden">
+                            {project.projectTitle}
+                          </p>
+                          <span className="description text-crop-2 overflow-hidden">
+                            {project.projectDescription}
+                          </span>
                         </div>
-                        <span className="location">
-                          {experience?.state}
-                          {`${
-                            experience?.country
-                              ? `, ${experience?.country}`
-                              : ""
-                          }`}
-                        </span>
-                      </div>
-                    </div>
-                  );
-                })
-            ) : (
-              <i>No past experiences</i>
-            )}
-            {user?.experienceDetails?.length > 2 && !viewMore2 && (
-              <div className="view-more-container">
-                <button
-                  onClick={() => setViewMore2(true)}
-                  className="view-more"
-                >
-                  View More <BsChevronDown />
-                </button>
-              </div>
-            )}
-          </section>
-                        <section className="box">
-            <p className="heading">PROJECTS</p>
-            {user?.projectDetails?.length !== 0 ? (
-              user?.projectDetails
-                ?.slice(0, viewMore1 ? user?.projectDetails?.length : 2)
-                .map((project) => {
-                  return (
-                    <div key={project._id} className="project">
-                      <p className="title text-crop-2 overflow-hidden">
-                        {project.projectTitle}
-                      </p>
-                      <span className="description text-crop-2 overflow-hidden">
-                        {project.projectDescription}
-                      </span>
-                    </div>
-                  );
-                })
-            ) : (
-              <i>No project details</i>
-            )}
-            {user?.projectDetails?.length > 2 && !viewMore1 && (
-              <div className="view-more-container">
-                <button
-                  onClick={() => setViewMore1(true)}
-                  className="view-more"
-                >
-                  View More <BsChevronDown />
-                </button>
-              </div>
-            )}
-          </section>
-       
-              </>
-            ):
-            (<>
-                      <section className="box">
-            <p className="heading">PROJECTS</p>
-            {user?.projectDetails?.length !== 0 ? (
-              user?.projectDetails
-                ?.slice(0, viewMore1 ? user?.projectDetails?.length : 2)
-                .map((project) => {
-                  return (
-                    <div key={project._id} className="project">
-                      <p className="title text-crop-2 overflow-hidden">
-                        {project.projectTitle}
-                      </p>
-                      <span className="description text-crop-2 overflow-hidden">
-                        {project.projectDescription}
-                      </span>
-                    </div>
-                  );
-                })
-            ) : (
-              <i>No project details</i>
-            )}
-            {user?.projectDetails?.length > 2 && !viewMore1 && (
-              <div className="view-more-container">
-                <button
-                  onClick={() => setViewMore1(true)}
-                  className="view-more"
-                >
-                  View More <BsChevronDown />
-                </button>
-              </div>
-            )}
-          </section>
-          <section className="box">
-            <p className="heading">EXPERIENCE</p>
-            {user?.experienceDetails?.length !== 0 ? (
-              user?.experienceDetails
-                ?.slice(0, viewMore2 ? user?.experienceDetails?.length : 2)
-                .map((experience) => {
-                  return (
-                    <div key={experience._id} className="experience">
-                      <div className="logo">
-                        {experience?.logo ? (
-                          <img src={experience?.logo} alt="" />
-                        ) : (
-                          <HiOutlineBuildingOffice2 />
-                        )}
-                      </div>
-                      <div className="details">
-                        <p className="title">{experience.designation}</p>
-                        <div className="company-name">
-                          <span>{experience.organisationName}</span>
-                          {experience?.jobType && (
-                            <span>• {experience?.jobType}</span>
-                          )}
+                      );
+                    })
+                ) : (
+                  <i style={{ color: "grey" }}>No project details</i>
+                )}
+                {user?.projectDetails?.length > 2 && !viewMore1 && (
+                  <div className="view-more-container">
+                    <button
+                      onClick={() => setViewMore1(true)}
+                      className="view-more"
+                    >
+                      View More <BsChevronDown />
+                    </button>
+                  </div>
+                )}
+              </section>
+            </>
+          ) : (
+            <>
+              <section className="box">
+                <p className="heading">PROJECTS</p>
+                {user?.projectDetails?.length !== 0 ? (
+                  user?.projectDetails
+                    ?.slice(0, viewMore1 ? user?.projectDetails?.length : 2)
+                    .map((project) => {
+                      return (
+                        <div key={project._id} className="project">
+                          <p className="title text-crop-2 overflow-hidden">
+                            {project.projectTitle}
+                          </p>
+                          <span className="description text-crop-2 overflow-hidden">
+                            {project.projectDescription}
+                          </span>
                         </div>
-                        <div className="time">
-                          <span>{experience?.startYear}</span>{" "}
-                          {experience?.currentlyWorking && (
-                            <span>- Present</span>
-                          )}{" "}
-                          {!experience?.currentlyWorking &&
-                            experience?.endYear && (
-                              <span>- {experience?.endYear}</span>
-                            )}{" "}
-                          {/*<span>• 2yrs and 3mos</span>*/}
+                      );
+                    })
+                ) : (
+                  <i style={{ color: "grey" }}>No project details</i>
+                )}
+                {user?.projectDetails?.length > 2 && !viewMore1 && (
+                  <div className="view-more-container">
+                    <button
+                      onClick={() => setViewMore1(true)}
+                      className="view-more"
+                    >
+                      View More <BsChevronDown />
+                    </button>
+                  </div>
+                )}
+              </section>
+              <section className="box">
+                <p className="heading">EXPERIENCE</p>
+                {user?.experienceDetails?.length !== 0 ? (
+                  user?.experienceDetails
+                    ?.slice(0, viewMore2 ? user?.experienceDetails?.length : 2)
+                    .map((experience) => {
+                      return (
+                        <div key={experience._id} className="experience">
+                          <div className="logo">
+                            {experience?.logo ? (
+                              <img src={experience?.logo} alt="" />
+                            ) : (
+                              <HiOutlineBuildingOffice2 />
+                            )}
+                          </div>
+                          <div className="details">
+                            <p className="title">{experience.designation}</p>
+                            <div className="company-name">
+                              <span>{experience.organisationName}</span>
+                              {experience?.jobType && (
+                                <span>• {experience?.jobType}</span>
+                              )}
+                            </div>
+                            <div className="time">
+                              <span>{experience?.startYear}</span>{" "}
+                              {experience?.currentlyWorking && (
+                                <span>- Present</span>
+                              )}{" "}
+                              {!experience?.currentlyWorking &&
+                                experience?.endYear && (
+                                  <span>- {experience?.endYear}</span>
+                                )}{" "}
+                              {/*<span>• 2yrs and 3mos</span>*/}
+                            </div>
+                            <span className="location">
+                              {experience?.state}
+                              {`${
+                                experience?.country
+                                  ? `, ${experience?.country}`
+                                  : ""
+                              }`}
+                            </span>
+                          </div>
                         </div>
-                        <span className="location">
-                          {experience?.state}
-                          {`${
-                            experience?.country
-                              ? `, ${experience?.country}`
-                              : ""
-                          }`}
-                        </span>
-                      </div>
-                    </div>
-                  );
-                })
-            ) : (
-              <i>No past experiences</i>
-            )}
-            {user?.experienceDetails?.length > 2 && !viewMore2 && (
-              <div className="view-more-container">
-                <button
-                  onClick={() => setViewMore2(true)}
-                  className="view-more"
-                >
-                  View More <BsChevronDown />
-                </button>
-              </div>
-            )}
-          </section>
-              </>)
-          }
+                      );
+                    })
+                ) : (
+                  <i style={{ color: "grey" }}>No past experiences</i>
+                )}
+                {user?.experienceDetails?.length > 2 && !viewMore2 && (
+                  <div className="view-more-container">
+                    <button
+                      onClick={() => setViewMore2(true)}
+                      className="view-more"
+                    >
+                      View More <BsChevronDown />
+                    </button>
+                  </div>
+                )}
+              </section>
+            </>
+          )}
           <section className="box">
             <p className="heading">Achievements</p>
             {user?.achievementDetails?.length !== 0 ? (
@@ -664,13 +698,17 @@ export default function UserDashboard() {
                           )}
                         </div> */}
                         <div className="time">
-                          <span>{moment(experience.achievementDate).utc().format('YYYY-MM-DD')}</span>
-                       
+                          <span>
+                            {moment(experience.achievementDate)
+                              .utc()
+                              .format("YYYY-MM-DD")}
+                          </span>
+
                           {/*<span>• 2yrs and 3mos</span>*/}
                         </div>
                         <div className="description">
                           <span>{experience?.description}</span>
-                       
+
                           {/*<span>• 2yrs and 3mos</span>*/}
                         </div>
                         {/* <span className="location">
@@ -686,7 +724,7 @@ export default function UserDashboard() {
                   );
                 })
             ) : (
-              <i>No past Achievements</i>
+              <i style={{ color: "grey" }}>No past Achievements</i>
             )}
             {user?.experienceDetails?.length > 2 && !viewMore2 && (
               <div className="view-more-container">
