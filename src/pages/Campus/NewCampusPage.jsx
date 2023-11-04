@@ -12,6 +12,8 @@ import { BiPlayCircle } from "react-icons/bi";
 import { FaArrowTrendUp } from "react-icons/fa6";
 import {
   getAllCampuses,
+  getEventByMode,
+  getFeaturedEvents,
   getPostByIdPrivateMode,
   getTrendingActivities,
   getTrendingActivitiesInPrivateMode,
@@ -20,6 +22,7 @@ import { useNavigate } from "react-router";
 import "./NewCampusPage.css";
 import { isUserLoggedIn } from "../../features/User/UserDetails";
 import { set } from "react-hook-form";
+import NewEventCard from "../../components/NewEventCard/NewEventCard";
 
 export default function NewCampusPage() {
   const navigate = useNavigate();
@@ -29,12 +32,16 @@ export default function NewCampusPage() {
   const [allCampuses, setAllCampuses] = useState([]);
   const [output, setOutput] = useState("");
   const isLoggedIn = isUserLoggedIn();
+  const [trendingEvents, setTrendingEvents] = useState([]);
+  const [trendingWorkshops, setTrendingWorkshops] = useState([]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
     getAllCampuses(setAllCampuses);
     if (!isLoggedIn) getTrendingActivities(setTrendingPosts);
     else getTrendingActivitiesInPrivateMode(setTrendingPosts);
+    getFeaturedEvents(setTrendingEvents);
+    getEventByMode(setTrendingWorkshops, "Workshop");
 
     const handleResize = () => setWidth(window.innerWidth);
     window.addEventListener("resize", handleResize);
@@ -42,8 +49,11 @@ export default function NewCampusPage() {
   }, []);
 
   useEffect(() => {
-    console.log(trendingPosts);
-  }, [trendingPosts]);
+    console.log("trendingEvents",trendingEvents);
+  }, [trendingEvents]);
+  useEffect(() => {
+    console.log("trendingWorkshops",trendingWorkshops);
+  }, [trendingWorkshops]);
 
   useEffect(() => {
     if (width > 910) {
@@ -79,6 +89,14 @@ export default function NewCampusPage() {
 
   const renderTrendingPosts = trendingPosts.map((post) => (
     <TrendingPostCard key={post._id} post={post} updatePost={updatePost} />
+  ));
+
+  const renderTrendingEventsMobile = trendingEvents.map((event) => (
+    <NewEventCard key={event._id} data={event} />
+  ));
+
+  const renderTrendingWorkshopsMobile = trendingWorkshops.map((event) => (
+    <NewEventCard key={event._id} data={event} />
   ));
 
   return (
@@ -165,8 +183,10 @@ export default function NewCampusPage() {
         </section>
         <section className="column column-2">
           {choice === 1 && renderTrendingPosts}
-          {choice === 2 && <TrendingListCollegeEvents />}
-          {choice === 3 && <TrendingListWorkshops />}
+          {choice === 2 && width < 910 && renderTrendingEventsMobile}
+          {choice === 2 && width >= 910 && <TrendingListCollegeEvents />}
+          {choice === 3 && width < 910 && renderTrendingWorkshopsMobile}
+          {choice === 3 && width >= 910 && <TrendingListWorkshops />}
           {choice === 4 && (
             <>
               <TrendingListColleges />

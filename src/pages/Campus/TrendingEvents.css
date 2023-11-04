@@ -32,7 +32,7 @@
 .trending-events .content-container .column-1 .list-heading {
   padding: 0.5rem;
   border-radius: 3.125rem;
-  background: #F7D77F;
+  background: #f7d77f;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -45,94 +45,6 @@
   overflow: auto;
   height: 100%;
   width: 100%;
-}
-.trending-events .content-container .column-1 .cards .card {
-  padding: 1rem;
-  width: 100%;
-}
-.trending-events .content-container .column-1 .cards .card .poster {
-  overflow: hidden;
-  width: 100%;
-  max-height: 18.75rem;
-  border-radius: 0.3125rem;
-  background: #e8e8e8;
-  margin-bottom: 0.75rem;
-}
-.trending-events .content-container .column-1 .cards .card .poster img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-.trending-events .content-container .column-1 .cards .card .heading {
-  color: #000;
-  font-size: 1rem;
-  font-style: normal;
-  font-weight: 600;
-  line-height: normal;
-  overflow: hidden;
-  margin-bottom: 0.5rem;
-}
-.trending-events .content-container .column-1 .cards .card .description {
-  overflow: hidden;
-  color: var(--foundation-black-black-400, #333);
-  font-size: 0.875rem;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
-  margin-bottom: 0.5rem;
-}
-.trending-events .content-container .column-1 .cards .card .details {
-  display: flex;
-  flex-direction: row;
-  gap: 0.5rem;
-}
-.trending-events .content-container .column-1 .cards .card .details .logo {
-  min-width: 3rem;
-  max-width: 3rem;
-  min-height: 3rem;
-  max-height: 3rem;
-  aspect-ratio: 1/1;
-}
-.trending-events .content-container .column-1 .cards .card .details .logo img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 50%;
-  aspect-ratio: 1/1;
-}
-.trending-events .content-container .column-1 .cards .card .details .name {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-}
-.trending-events
-  .content-container
-  .column-1
-  .cards
-  .card
-  .details
-  .name
-  .title {
-  color: var(--foundation-black-black-800, #000);
-  font-size: 0.75rem;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
-}
-.trending-events
-  .content-container
-  .column-1
-  .cards
-  .card
-  .details
-  .name
-  .label {
-  color: var(--foundation-black-black-800, #000);
-  font-size: 0.875rem;
-  font-style: normal;
-  font-weight: 500;
-  line-height: normal;
-  overflow: hidden;
 }
 
 .trending-events .content-container .column-2 {
