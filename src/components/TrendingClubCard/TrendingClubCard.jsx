@@ -1,11 +1,11 @@
 import React from "react";
+import "../../../src/pages/Campus/TrendingColleges.css";
 import "./TrendingClubCard.css";
 import "../../pages/Profile/ClubDashboard/ClubDashboard.css";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import defaultPoster from "../../assets/defaultPoster";
 import { useEffect, useState, useLayoutEffect } from "react";
 import { Bucket_URL } from "../../services/APIUtils";
-import "../../../src/pages/Campus/TrendingColleges.css";
 import { BsArrowRight, BsArrowUp } from "react-icons/bs";
 import { FiEdit } from "react-icons/fi";
 import { AiFillLinkedin } from "react-icons/ai";
@@ -126,11 +126,11 @@ export default function TrendingClubCard() {
 
   useEffect(() => {
     if (Object.keys(clubData).length !== 0) {
-      console.log(document.getElementById("column-1").style.height);
-      console.log(document.getElementById("column-2").offsetHeight);
-      document.getElementById("column-1").style.height = `${
-        document.getElementById("column-2").offsetHeight
-      }px`;
+      setTimeout(() => {
+        document.getElementById("column-1").style.height = `${
+          document.getElementById("column-2").offsetHeight
+        }px`;
+      }, 250);
     }
   }, [clubData, trendingList, width]);
   useEffect(() => {

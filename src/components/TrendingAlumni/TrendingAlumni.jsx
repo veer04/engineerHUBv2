@@ -58,7 +58,7 @@ const TrendingAlumni = () => {
   const [fetchResponse, setFetchResponse] = useState({});
   const bucket2 = `${Bucket_URL}frontend/profile/dashboard/`;
   function fetchData() {
-    getUserProfileById(setAlumniData,userId, setFetchResponse);
+    getUserProfileById(setAlumniData,almaId, setFetchResponse);
   }
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -85,6 +85,8 @@ const TrendingAlumni = () => {
   useEffect(() => {
     console.log(trendingList);
     console.log(alumniData);
+    console.log(almaId);
+    console.log(userId);
   }, [trendingList,alumniData]);
 
   useEffect(() => {
@@ -150,9 +152,9 @@ const TrendingAlumni = () => {
         </div>
         <div className="details">
           <span className="username text-crop-1 overflow-hidden">
-            {`${alumniData?.userName ? `@${alumniData.userName}` : "No username"}`}
+            {`${alumniData?.userName ? `@${alumniData?.userName}` : "No username"}`}
           </span>
-          <span className="name">{`${alumniData.firstName} ${alumniData.lastName}`}</span>
+          <span className="name">{`${alumniData?.fisrtName} ${alumniData?.lastName}`}</span>
           <span className="address text-crop-2 overflow-hidden">
             {alumniData?.educationDetails?.length > 0 ? (
               alumniData?.educationDetails[alumniData?.educationDetails.length - 1]
