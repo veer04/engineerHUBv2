@@ -78,7 +78,7 @@ export default function TrendingColleges() {
         <div>
           <CampusSearchBox
             data={allCampuses}
-            placeholder="Search any Campus, Clubs or Almas"
+            placeholder="Search any Campus, Clubs or Alumni"
             searchParams={["collegeName"]}
             listLength={4}
             setOutput={setOutput}

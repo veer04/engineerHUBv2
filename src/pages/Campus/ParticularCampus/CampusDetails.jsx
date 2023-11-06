@@ -5,7 +5,7 @@ import CategoryBar from "../../../components/CategoryBar/CategoryBar";
 import { controller, getCampusById } from "../../../services/APIConfig";
 import useNavbar from "../../../hooks/use-navbar";
 
-export default function CampusDetails({ path }) {
+export default function CampusDetailsOld({ path }) {
   const { setSelectedPageNavbar } = useNavbar();
 
   const { collegeId } = useParams();
@@ -134,8 +134,8 @@ export default function CampusDetails({ path }) {
                   </a> */}
                 </div>
                 <div className="row-2">
-                  <div>Duration: {course.courseDuration}</div>
-                  <div>Fees: {course.totalFees}</div>
+                  <div>Duration: {course.courseDuration} years</div>
+                  <div>Fees: {course.totalFees} lakhs</div>
                   <div>Seats: {course.availableSeat}</div>
                 </div>
               </div>

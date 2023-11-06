@@ -69,7 +69,8 @@ import TrendingColleges from "./pages/Campus/TrendingColleges";
 import TrendingClubCard from "./components/TrendingClubCard/TrendingClubCard";
 // import TrendingListAlumni from "./components/TrendingList/TrendingListAlumni";
 // import AlumniList from "./components/TrendingList/AlumniList";
-import TrendingAlumni from "../src/components/TrendingAlumni/TrendingAlumni"
+import TrendingAlumni from "../src/components/TrendingAlumni/TrendingAlumni";
+import CampusDetailsOld from "./pages/Campus/ParticularCampus/CampusDetails.jsx";
 function App() {
   const [isChatOpen, setIsChatOpen] = useState(false);
   const [isEventModalOpen, setIsEventModalOpen] = useState(false);
@@ -197,7 +198,7 @@ function App() {
               element={<TrendingColleges />}
             ></Route>
             <Route path="clubs/:clubId" element={<TrendingClubCard />} />
-            <Route path="alumni/:almaId" element={< TrendingAlumni/>} />
+            <Route path="alumni/:almaId" element={<TrendingAlumni />} />
             <Route path="events/:eventId" element={<TrendingEvents />} />
           </Route>
           <Route path="/campus">
@@ -205,6 +206,7 @@ function App() {
             <Route path="search/:collegeId" element={<CampusSearchPage />} />
             <Route path=":collegeId">
               <Route index element={<CampusDetails />} />
+              <Route path="details" element={<CampusDetailsOld />}></Route>
             </Route>
           </Route>
           <Route path="/mentorship" element={<ComingSoon />} />

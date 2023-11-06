@@ -1,6 +1,8 @@
+import { useNavigate } from "react-router-dom";
 import "./NewEventCard.css";
 
 export default function NewEventCard({ data }) {
+  const navigate = useNavigate();
   const time = new Date(data?.eventStartTime);
   const eventDate = time.toLocaleString("default", {
     day: "numeric",

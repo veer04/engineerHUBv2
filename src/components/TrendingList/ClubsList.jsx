@@ -48,7 +48,7 @@ export default function ClubsList({ data }) {
               <div className="content">
                 <span className="name text-crop-2">{trending.name}</span>
                 <span className="subheading text-crop-2">
-                  {trending.aboutUs || trending.description}
+                  {trending.description || trending.aboutUs}
                 </span>
               </div>
             </div>

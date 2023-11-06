@@ -61,7 +61,7 @@ export default function CampusDetails() {
         <div>
           <CampusSearchBox
             data={allCampuses}
-            placeholder="Search any Campus, Clubs or Almas"
+            placeholder="Search any Campus, Clubs or Alumni"
             searchParams={["collegeName"]}
             listLength={4}
             setOutput={setOutput}
@@ -79,7 +79,7 @@ export default function CampusDetails() {
               <span className="name text-crop-1">{campus?.collegeName}</span>
               <span className="location text-crop-1">{`${campus?.city}, ${campus?.state}`}</span>
               <div className="rating">
-                Rating: {campus?.rating}
+                Rating: {campus?.rating}/5
                 {/* <BsStarFill />
                 <BsStarFill />
                 <BsStarHalf />
@@ -88,11 +88,27 @@ export default function CampusDetails() {
               </div>
             </div>
             <div className="right">
-              <button className="view-more">View More</button>
+              <button
+                onClick={() => {
+                  console.log("object");
+                  navigate(`/campus/${collegeId}/details`);
+                }}
+                className="view-more"
+              >
+                View More
+              </button>
             </div>
           </div>
           <div className="mobile-view">
-            <button className="view-more">View More</button>
+            <button
+              onClick={() => {
+                console.log("object");
+                navigate(`/campus/${collegeId}/details`);
+              }}
+              className="view-more"
+            >
+              View More
+            </button>
           </div>
           <span className="description text-crop-2">{campus?.aboutUs}</span>
         </div>
