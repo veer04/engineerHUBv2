@@ -3,6 +3,8 @@ import "../Dashboard.css"; // !import this file first
 import "../CompanyDashboard/CompanyDashboard.css";
 import "./UserDashboard.css";
 import moment from "moment";
+import Cookies from "js-cookie";
+import jwt_decode from "jwt-decode";
 import { PiGlobeLight } from "react-icons/pi";
 import { AiFillLinkedin } from "react-icons/ai";
 import { BiLogoInstagramAlt } from "react-icons/bi";
@@ -30,6 +32,8 @@ import {
 import LoadingPage from "../../../components/Loader/LoadingPage";
 import Page404 from "../../Maintenance/Page404";
 import colorWheel from "../../../assets/colorWheel";
+import { getAccessToken } from "../../../features/getCookieValues";
+import { Cookie } from "@mui/icons-material";
 
 export default function UserDashboard() {
   const navigate = useNavigate();
@@ -50,6 +54,7 @@ export default function UserDashboard() {
   const [resumeErrors, setResumeErrors] = useState({
     resume: "",
   });
+  const [showEditOptions,setShowEditOptions]=useState(false);
   
   const [isUpdating, setIsUpdating] = useState(false);
   const [isResumeUpdating, setIsResumeUpdating] = useState(false);
@@ -58,6 +63,17 @@ export default function UserDashboard() {
   const [newResumeLink, setNewResumeLink] = useState("");
   const [response, setResponse] = useState(null);
   const [links, setLinks] = useState(true);
+  function handleEditOptions()
+  { 
+    // let token=getAccessToken();
+    // let decode =jwt_decode(token);
+    // let id=decode._id;
+    
+    if(Cookies.get('_id')!==undefined)
+    {
+      setShowEditOptions(true);
+    }
+  }
   function fetchData() {
     getUserProfileById(setUser, userId, setFetchResponse);
   }
@@ -73,12 +89,17 @@ export default function UserDashboard() {
 
   useEffect(() => {
     console.log(user);
-    if (user?._id === userId) {
+    console.log(showEditOptions);
+        if (user?._id === userId) {
       setIsUserAdmin(true);
     } else {
       setIsUserAdmin(false);
     }
   }, [user]);
+
+  useEffect(()=>{
+    handleEditOptions();
+  })
   const validateInputResume = () => {
     let valid = true;
     const newErrors = {
@@ -96,6 +117,7 @@ export default function UserDashboard() {
     if (!!resumeRes) {
       if (resumeRes.status >= 200 && resumeRes.status < 300) {
         setIsResumeUpdated(true);
+        
         setNewResumeLink(resumeRes.data.data);
         setIsResumeUpdating(false);
         setOpen(true);
@@ -262,7 +284,8 @@ export default function UserDashboard() {
               </a>
             )}
           </div>
-          {isUserAdmin && (
+
+          {showEditOptions && (
             <>
               {/* <p
     className="buttons"
@@ -321,7 +344,7 @@ export default function UserDashboard() {
               )}
             </>
           )}
-          {isUserAdmin && (
+          {showEditOptions && (
             <div className="buttons">
               <button
                 onClick={() => navigate("edit-profile")}
