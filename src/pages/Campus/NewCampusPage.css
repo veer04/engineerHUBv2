@@ -80,6 +80,21 @@
   display: flex;
   width: 100%;
   padding: 0.5rem;
+  top: 165px;
+  margin-bottom: 1rem;
+  justify-content: center;
+  align-items: center;
+  gap: 3rem;
+  border-radius: 0.625rem;
+  border: 1px solid var(--Primary-500, #002b36);
+  background: var(--Primary-500, #002b36);
+}
+.mobile-campus-subnavbar.sticky {
+  position: fixed;
+  top: 107.2px;
+  display: flex;
+  width: 100%;
+  padding: 0.5rem;
   margin-bottom: 1rem;
   justify-content: center;
   align-items: center;
@@ -114,4 +129,23 @@
     gap: unset;
     justify-content: space-evenly;
   }
+}
+
+
+
+
+
+
+.sub-navbar {
+  /* Mobile styles go here */
+
+  /* Initially, position it at 165px from the top */
+  top: 165px;
+}
+
+.sub-navbar.sticky {
+  /* Make it sticky when scrolling */
+  position: fixed;
+  top: 0;
+  /* You can also add other styles like background color, z-index, etc. */
 }

@@ -28,6 +28,7 @@ export default function NewCampusPage() {
   const navigate = useNavigate();
   const [width, setWidth] = useState(window.innerWidth);
   const [choice, setChoice] = useState(1);
+  const [isSticky, setIsSticky] = useState(false);
   const [trendingPosts, setTrendingPosts] = useState([]);
   const [allCampuses, setAllCampuses] = useState([]);
   const [output, setOutput] = useState("");
@@ -46,6 +47,27 @@ export default function NewCampusPage() {
     const handleResize = () => setWidth(window.innerWidth);
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const subNavbar = document.querySelector('.sub-navbar');
+      const scrollDistance = window.scrollY;
+      const triggerPoint = 165; // The point where you want the sub navbar to stick
+
+      if (scrollDistance > triggerPoint) {
+        setIsSticky(true);
+      } else {
+        setIsSticky(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
   }, []);
 
   useEffect(() => {
@@ -118,7 +140,9 @@ export default function NewCampusPage() {
         </div>
       </div>
       {width < 910 && (
-        <div className="mobile-campus-subnavbar">
+        <div  className="mobile-campus-subnavbar"
+     >
+          <div className={isSticky?'mobile-campus-subnavbar sticky':'mobile-campus-subnavbar'}>
           <div
             style={{
               color: choice === 1 ? "#FFD600" : "#b0b0b0",
@@ -168,6 +192,8 @@ export default function NewCampusPage() {
             <span className="title">Trending</span>
           </div>
         </div>
+        </div>
+
       )}
       <div className="campus-page-container">
         <section className="column column-1 ">
