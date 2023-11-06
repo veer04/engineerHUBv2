@@ -312,9 +312,9 @@ const TrendingAlumni = () => {
                     </div>
                   </div>
                 );
-              })
+              }) 
             ) : (
-              <i>No education details</i>
+              <small style={{opacity:"0.4"}}>No education details</small>
             )}
           </section>
           {/* <section className="box">
@@ -388,7 +388,7 @@ const TrendingAlumni = () => {
                   );
                 })
             ) : (
-              <i>No past Liscence or Certification</i>
+              <small style={{opacity:"0.4"}}>No past Liscence or Certification</small>
             )}
             {alumniData?.licenceDetails?.length > 2 && !viewMore2 && (
               <div className="view-more-container">
@@ -453,7 +453,7 @@ const TrendingAlumni = () => {
                   );
                 })
             ) : (
-              <i>No past experiences</i>
+              <small style={{opacity:"0.4"}}>No past experiences</small>
             )}
             {alumniData?.experienceDetails?.length > 2 && !viewMore2 && (
               <div className="view-more-container">
@@ -484,7 +484,7 @@ const TrendingAlumni = () => {
                   );
                 })
             ) : (
-              <i>No project details</i>
+              <small style={{opacity:"0.4"}}>No project details</small>
             )}
             {alumniData?.projectDetails?.length > 2 && !viewMore1 && (
               <div className="view-more-container">
@@ -519,7 +519,7 @@ const TrendingAlumni = () => {
                   );
                 })
             ) : (
-              <i>No project details</i>
+              <small style={{opacity:"0.4"}}>No project details</small>
             )}
             {alumniData?.projectDetails?.length > 2 && !viewMore1 && (
               <div className="view-more-container">
@@ -579,7 +579,7 @@ const TrendingAlumni = () => {
                   );
                 })
             ) : (
-              <i>No past experiences</i>
+              <small style={{opacity:"0.4"}}>No past experiences</small>
             )}
             {alumniData?.experienceDetails?.length > 2 && !viewMore2 && (
               <div className="view-more-container">
@@ -640,7 +640,7 @@ const TrendingAlumni = () => {
                   );
                 })
             ) : (
-              <i>No past Achievements</i>
+              <small style={{opacity:"0.4"}}>No past Achievements</small>
             )}
             {alumniData?.experienceDetails?.length > 2 && !viewMore2 && (
               <div className="view-more-container">

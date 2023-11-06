@@ -762,7 +762,7 @@ export default function UserDashboard() {
           </section>
         </div>
       </div>
-      {isUserAdmin && user?.role === "Alumni" && (
+      {showEditOptions && user?.role === "Alumni" && (
         <section className="box recruit-container">
           <p className="heading">MY ACTIVITIES</p>
           <div className="cards">
