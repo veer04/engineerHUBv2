@@ -46,18 +46,21 @@ const SignupUser = () => {
   const signIn = useSignIn();
   const navigate = useNavigate();
   const [password, setPassword] = useState("");
+  const [confirmPassword,setConfirmPassword]=useState("");
   // const [formPassword, setFormPassword] = useState("");
   // const [focused, setFocused] = useState(false);
   // const[cookieValue,setCookieValue]=useContext(cookieDa);
   const [values, setValues] = useState({
-    email: "",
+    confirmPassword:"",
     password: "",
     role: "User",
-    name: "",
+    firstName: "",
+    lastName:"",
     // accessToken: accessToken,
     // refreshToken: refreshToken,
   });
   const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword,setShowConfirmPassword]=useState(false);
   const [user, setUser] = useState([]);
   const [profile, setProfile] = useState([]);
 
@@ -71,10 +74,15 @@ const SignupUser = () => {
 
   const handleChange = (prop) => (event) => {
     setValues({ ...values, [prop]: event.target.value });
+    // handlePassword();
+    // handleConfirmPassword();
   };
 
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
+  };
+  const handleClickShowConfirmPassword = () => {
+    setShowConfirmPassword(!showConfirmPassword);
   };
 
   const [loading, setLoading] = useState(false);
@@ -118,7 +126,7 @@ const SignupUser = () => {
 
     try {
       const response = await axios
-        .post(`${API_URL}api/v1/login`, values)
+        .post(`${API_URL}api/v1/user/signup`, values)
         .then((response) => {
           Cookies.set("access_token", response.data.accessToken);
           const token = response.data.accessToken;
@@ -226,6 +234,48 @@ const SignupUser = () => {
     return errorMessage;
     // return errors;
   };
+
+  const validateConfirmPassword = () => {
+    let errorMessage = "";
+    // let allErrors = [];
+    if(values.confirmPassword!== values.password)
+    {
+      errorMessage = "confirm password not matched"
+    }
+    // if (values.confirmPassword.length < 8) {
+    //   allErrors.push(" 8 characters");
+    //   // errors.password = "Password must be at least 8 characters long.";
+    // }
+    // if (!/[A-Z]/.test(values.confirmPassword)) {
+    //   allErrors.push(" 1 uppercase character");
+    //   // errors.password =
+    //   //   "Password must contain at least one uppercase character.";
+    // }
+    // if (!/[a-z]/.test(values.confirmPassword)) {
+    //   allErrors.push(" 1 lowercase character");
+    //   // errors.password =
+    //   //   "Password must contain at least one lowercase character.";
+    // }
+    // if (!/\d/.test(values.confirmPassword)) {
+    //   allErrors.push(" 1 numeric character");
+    //   // errors.password = "Password must contain at least one numeric character.";
+    // }
+    // if (!/[!@#$%^&*(),.?":{}|<>]/.test(values.confirmPassword)) {
+    //   allErrors.push(" 1 special character");
+    //   // errors.password = "Password must contain at least one special character.";
+    // }
+    // if (allErrors.length > 0) {
+    //   errorMessage += allErrors.join(",");
+    //   errorMessage += ".";
+    // }
+     else {
+      errorMessage = "";
+    }
+    return errorMessage;
+    // return errors;
+  };
+
+
   const gauth = async () => {
     try {
       const response = await axios.get(`${API_URL}api/v1/auth/google/user`, {});
@@ -384,6 +434,17 @@ const SignupUser = () => {
       setOpen(true);
     }
   };
+  const handleConfirmPassword =()=>{
+    let checkPassword = validateConfirmPassword();
+    if (checkPassword.length !== 0 && values.password !== "")
+    {
+      setSnackbarValues({
+        severity: "error",
+        message: checkPassword,
+      });
+      setOpen(true);
+    }
+  }
 
   const validateRole = () => {
     if (!values.role)
@@ -392,6 +453,28 @@ const SignupUser = () => {
         message: "Please select a role",
       });
     setOpen(true);
+  };
+  const validateFirstName=()=>{
+    const firstNameRegex=/^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,27}$/;
+    if(firstNameRegex.test(values.firstName)===false && values.firstName!=="")
+    {
+      setSnackbarValues({
+        severity: "error",
+        message: "Please enter a valid first Name!",
+      })
+      setOpen(true);
+    }
+  };
+  const validateLastName=()=>{
+    const LastNameRegex=/^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,27}$/;
+    if(LastNameRegex.test(values.lastName)===false && values.lastName!=="")
+    {
+      setSnackbarValues({
+        severity: "error",
+        message: "Please enter a valid Last Name!",
+      })
+      setOpen(true);
+    }
   };
   const validateEmail = () => {
     const emailRegex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
@@ -471,22 +554,31 @@ const SignupUser = () => {
                 />
               </div>
               <div className="form-cont ">
-                <select
+                <input
                   className="reg-input"
-                  placeholder="role"
+                  placeholder="First Name"
                   type="text"
-                  name="role"
-                  value={values.role}
-                  onChange={handleChange("role")}
+                  name="firstName"
+                  value={values.firstName}
+                  onChange={handleChange("firstName")}
+                  onBlur={validateFirstName}
                   required
-                  // onBlur={validateRole}
-                >
-                  <option value="User">Student</option>
-                  <option value="Alumni">Alumni</option>
-                  {/* <option value="Admin">Admin</option> */}
-                  <option value="Club">Club</option>
-                  <option value="Organization">Company</option>
-                </select>
+                />
+              </div>
+              <div className="form-cont ">
+                <input
+                  className="reg-input"
+                  placeholder="Last Name"
+                  type="text"
+                  name="lastName"
+                  value={values.lastName}
+                  onChange={handleChange("lastName")}
+                  required
+                  onBlur={validateLastName}
+                />
+              </div>
+              <div className="form-cont ">
+          
               </div>
               <div className="form-cont passwordContainer">
                 <input
@@ -497,7 +589,7 @@ const SignupUser = () => {
                   value={values.password}
                   className="reg-input"
                   onChange={handleChange("password")}
-                  // onBlur={handlePassword}
+                  onBlur={handlePassword}
                   // focused={focused.toString()}
                   required
                 />
@@ -507,6 +599,28 @@ const SignupUser = () => {
                     className="positionRelBottom"
                   >
                     {showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </div>
+              </div>
+              <div className="form-cont passwordContainer">
+                <input
+                  autoComplete="off"
+                  name="confirmPassword"
+                  type={showConfirmPassword ? "text" : "password"}
+                  placeholder="Confirm Password"
+                  value={values.confirmPassword}
+                  className="reg-input"
+                  onChange={handleChange("confirmPassword")}
+                  onBlur={handleConfirmPassword}
+                  // focused={focused.toString()}
+                  required
+                />
+                <div>
+                  <IconButton
+                    onClick={() => handleClickShowConfirmPassword()}
+                    className="positionRelBottom"
+                  >
+                    {showConfirmPassword ? <VisibilityOff /> : <Visibility />}
                   </IconButton>
                 </div>
               </div>
