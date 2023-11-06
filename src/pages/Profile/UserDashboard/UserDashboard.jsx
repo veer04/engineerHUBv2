@@ -247,7 +247,7 @@ export default function UserDashboard() {
             <img src={defaultPoster} alt="default image" />
           )}
         </div>
-        <div className="details">
+        <div className="details upperDetails">
           <span className="username text-crop-1 overflow-hidden">
             {`${user?.userName ? `@${user.userName}` : "No username"}`}
           </span>
