@@ -56,13 +56,14 @@ export default function TrendingListCollegeEvents() {
                 </span>
               </div>
             </div>
-            {trendingList.length > 3 ? (
+            <hr />
+            {/* {trendingList.length > 3 ? (
               <hr />
             ) : index !== trendingList.length - 1 ? (
               <hr />
             ) : (
               ""
-            )}
+            )} */}
           </Fragment>
         ))}
       {trendingList.length > 3 && !viewMore && (

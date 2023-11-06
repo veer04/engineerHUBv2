@@ -13,6 +13,7 @@ import { HiOutlineBuildingOffice2 } from "react-icons/hi2";
 import { BiCertification } from "react-icons/bi";
 import { GrAchievement } from "react-icons/gr";
 import { VscGithub } from "react-icons/vsc";
+import { RxCross1 } from "react-icons/rx";
 import { useEffect } from "react";
 import CustomSnackbar from "../../User/Login/CustomSnackbar";
 import {
@@ -22,9 +23,13 @@ import {
 } from "../../../services/APIConfig";
 import { useNavigate, useParams, Link } from "react-router-dom";
 import { Bucket_URL } from "../../../services/APIUtils";
-import { getUserRole } from "../../../features/User/UserDetails";
+import {
+  getUserRole,
+  isUserLoggedIn,
+} from "../../../features/User/UserDetails";
 import LoadingPage from "../../../components/Loader/LoadingPage";
 import Page404 from "../../Maintenance/Page404";
+import colorWheel from "../../../assets/colorWheel";
 
 export default function UserDashboard() {
   const navigate = useNavigate();
@@ -45,13 +50,14 @@ export default function UserDashboard() {
   const [resumeErrors, setResumeErrors] = useState({
     resume: "",
   });
-
+  
   const [isUpdating, setIsUpdating] = useState(false);
   const [isResumeUpdating, setIsResumeUpdating] = useState(false);
   const [isResumeUpdated, setIsResumeUpdated] = useState(false);
   const [resumeRes, setResumeRes] = useState(null);
   const [newResumeLink, setNewResumeLink] = useState("");
   const [response, setResponse] = useState(null);
+  const [links, setLinks] = useState(true);
   function fetchData() {
     getUserProfileById(setUser, userId, setFetchResponse);
   }
@@ -117,16 +123,98 @@ export default function UserDashboard() {
     }
   };
 
+  const whatsappLinks = [
+    { label: "DSA", link: "https://chat.whatsapp.com/GmcQ6ubbRIe0JLruQ0vnbI" },
+    {
+      label: "Python & ML",
+      link: "https://chat.whatsapp.com/ByOOBlUdiSoEIh993OvESC",
+    },
+    {
+      label: "UI/UX",
+      link: "https://chat.whatsapp.com/FjAaqsdEvDE34OaPIWOsfd",
+    },
+    {
+      label: "CyberSecurity",
+      link: "https://chat.whatsapp.com/KREHrrtcpxT28CWnVR3z6z",
+    },
+    {
+      label: "App Dev",
+      link: "https://chat.whatsapp.com/HbIxq5KjWhZ8rwvHuPUh3X",
+    },
+    {
+      label: "Web Dev",
+      link: "https://chat.whatsapp.com/LhQw599u98NG4Dk4o2VU8w",
+    },
+    {
+      label: "DevOps",
+      link: "https://chat.whatsapp.com/DW312U3MP5EDXzXC0w31gH",
+    },
+  ];
+
   const userDashboardPage = (
     <main className="profile-dashboard">
       <h1 className="title">Profile</h1>
-      <h2 className="subheading">
-        {/* Lorem ipsum dolor sit amet consectetur. Mattis aliquam sodales faucibus
-        platea feugiat odio. */}
-      </h2>
+      {links && user?.role !== "Alumni" && isUserLoggedIn() && (
+        <section
+          style={{
+            marginTop: "1rem",
+            position: "relative",
+          }}
+          className="box whatsapp-links-container"
+        >
+          <button
+            onClick={() => setLinks(false)}
+            style={{
+              position: "absolute",
+              top: "15px",
+              right: "15px",
+              borderRadius: "50%",
+              backgroundColor: "white",
+              aspectRatio: "1/1",
+              fontSize: ".875rem",
+              padding: "5px",
+              display: "flex",
+            }}
+          >
+            <RxCross1 />
+          </button>
+          <p style={{ marginBottom: "1.5rem" }} className="heading">
+            Quick Links to join our whatsapp domains
+          </p>
+          <div
+            style={{ gap: ".9rem", marginBottom: "1rem" }}
+            className="links-container w-100 d-flex justify-content-center align-items-center flex-wrap"
+          >
+            {whatsappLinks.map((item, index) => (
+              <div
+                key={index}
+                onClick={() => (window.location.href = item.link)}
+                style={{
+                  padding: ".5rem",
+                  borderRadius: ".45rem",
+                  width: "140px",
+                  height: "48px",
+                  border: "1px solid black",
+                  fontSize: "1rem",
+                  aspectRatio: "1/1",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  position: "relative",
+                  cursor: "pointer",
+                  backgroundColor: colorWheel[index % colorWheel.length],
+                  color: "black",
+                }}
+              >
+                {item.label}
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
       <section
         style={{
-          marginTop: "1rem",
+          marginTop: !links ? "1rem" : "0rem",
         }}
         className="box user-container"
       >
@@ -324,7 +412,7 @@ export default function UserDashboard() {
             </div>
           </section> */}
           <section className="box">
-            <p className="heading">Liscence and Certifications</p>
+            <p className="heading">License and Certifications</p>
             {user?.licenceDetails?.length !== 0 ? (
               user?.licenceDetails
                 ?.slice(0, viewMore2 ? user?.licenceDetails?.length : 2)
@@ -382,7 +470,7 @@ export default function UserDashboard() {
                   );
                 })
             ) : (
-              <i style={{ color: "grey" }}>No past Liscence or Certification</i>
+              <i style={{ color: "grey" }}>No past License or Certification</i>
             )}
             {user?.licenceDetails?.length > 2 && !viewMore2 && (
               <div className="view-more-container">
@@ -587,7 +675,7 @@ export default function UserDashboard() {
             </>
           )}
           <section className="box">
-            <p className="heading">Achivements</p>
+            <p className="heading">Achievements</p>
             {user?.achievementDetails?.length !== 0 ? (
               user?.achievementDetails
                 ?.slice(0, viewMore2 ? user?.achievementDetails?.length : 2)

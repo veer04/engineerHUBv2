@@ -18,6 +18,7 @@ import {
   AiOutlineMail,
   AiOutlinePhone,
 } from "react-icons/ai";
+import NewEventCard from "../../components/NewEventCard/NewEventCard";
 
 export default function TrendingEvents() {
   const { eventId } = useParams();
@@ -43,6 +44,10 @@ export default function TrendingEvents() {
       window.removeEventListener("resize", handleResize);
     };
   }, [eventId]);
+
+  useEffect(() => {
+    console.log(trendingList);
+  }, [trendingList]);
 
   useEffect(() => {
     if (Object.keys(event).length !== 0) {
@@ -89,7 +94,7 @@ export default function TrendingEvents() {
         <div>
           <CampusSearchBox
             data={allCampuses}
-            placeholder="You are looking for which Campus?"
+            placeholder="Search any Campus, Clubs or Almas"
             searchParams={["collegeName"]}
             listLength={4}
             setOutput={setOutput}
@@ -105,41 +110,7 @@ export default function TrendingEvents() {
           </div>
           <div className="cards">
             {trendingList?.map((item) => (
-              <div
-                onClick={() => navigate(`/trending/events/${item._id}`)}
-                key={item._id}
-                className="card"
-                style={{
-                  cursor: "pointer",
-                }}
-              >
-                <div className="poster">
-                  {item?.eventPoster ? (
-                    <img src={item?.eventPoster} alt="poster" />
-                  ) : (
-                    <img src={defaultPoster} alt="poster" />
-                  )}
-                </div>
-                <span className="text-crop-2 heading">{item?.eventName}</span>
-                <span className="text-crop-2 description">
-                  {item?.description}
-                </span>
-                <div className="details">
-                  <div className="logo">
-                    <img src={item?.creatorId?.image} alt="logo" />
-                  </div>
-                  <div className="name">
-                    <span className="title">Organized By</span>
-                    <span className="label text-crop-2">
-                      {`${
-                        !!item?.creatorId?.name
-                          ? item?.creatorId?.name
-                          : `${item?.creatorId?.firstName} ${item?.creatorId?.lastName}`
-                      }`}
-                    </span>
-                  </div>
-                </div>
-              </div>
+              <NewEventCard data={item} key={item?._id} />
             ))}
           </div>
         </aside>

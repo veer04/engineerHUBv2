@@ -32,7 +32,7 @@ export default function CampusPage() {
     {
       _id: 2,
       title: "INTRA - COLLEGE EVENTS",
-      studentActivity: "20+",
+      studentActivity: "126+",
       ongoingEvents: "12",
       color: colors[1],
       link: "/campus/intra-college",

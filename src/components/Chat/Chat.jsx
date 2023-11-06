@@ -6,13 +6,13 @@ import Message from "./Message";
 import { Card, CardContent, Typography } from "@mui/material";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
-import { API_URL } from "../../services/APIUtils";
+import { API_URL, API_URLT } from "../../services/APIUtils";
 import getCookie, { getAccessToken } from "../../features/getCookieValues";
 import { io } from "socket.io-client";
 import { Cookie } from "@mui/icons-material";
 import Cookies from "js-cookie";
 import LoadingPage from "../Loader/LoadingPage";
-const ENDPOINT = API_URL;
+const ENDPOINT = API_URLT;
 var socket;
 
 export default function Chat({
@@ -78,7 +78,7 @@ export default function Chat({
     } else {
       axios
         .get(
-          `${API_URL}api/v1/chatMessage/${encodeURIComponent(data._id)}`, //change api route after discussion with backend
+          `${ENDPOINT}api/v1/chatMessage/${encodeURIComponent(data._id)}`, //change api route after discussion with backend
           config
         )
         .then((res) => {
@@ -172,7 +172,7 @@ export default function Chat({
         console.log(input);
         const newData = await axios
           .post(
-            `${API_URL}api/v1/chatMessage`,
+            `${ENDPOINT}api/v1/chatMessage`,
             {
               content: input,
               chatId: encodeURIComponent(data._id),
@@ -233,7 +233,7 @@ export default function Chat({
     setInput("");
     const newData = await axios
       .put(
-        `${API_URL}api/v1/chat/addToUserByOwn/${encodeURIComponent(id)}`,
+        `${ENDPOINT}api/v1/chat/addToUserByOwn/${encodeURIComponent(id)}`,
         {},
         config
       )

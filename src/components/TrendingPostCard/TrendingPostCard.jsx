@@ -13,6 +13,8 @@ import {
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { set } from "react-hook-form";
+import { RWebShare } from "react-web-share";
+import { FRONTEND_URL } from "../../services/APIUtils";
 
 export default function TrendingPostCard({ post, updatePost }) {
   const navigate = useNavigate();
@@ -156,7 +158,7 @@ export default function TrendingPostCard({ post, updatePost }) {
             </span>
           </div>
         </div>
-        <div className="follow-btn">
+        {/* <div className="follow-btn">
           {!(isLoggedIn && post?.isFollow) && (
             <button
               onClick={() => handleFollow(post?.club[0]?.name, post?.clubId)}
@@ -164,7 +166,7 @@ export default function TrendingPostCard({ post, updatePost }) {
               Follow
             </button>
           )}
-        </div>
+        </div> */}
       </div>
       <div className="post-image-container">
         <img src={post?.postLogo} alt="" />
@@ -175,11 +177,19 @@ export default function TrendingPostCard({ post, updatePost }) {
             {!(isLoggedIn && post?.isLike) ? (
               <FaRegHeart onClick={() => handleLike()} />
             ) : (
-              <FaHeart onClick={() => handleLike()} />
+              <FaHeart style={{ color: "red" }} onClick={() => handleLike()} />
             )}
           </div>
           <div className="share">
-            <FiShare2 onClick={() => handleShare()} />
+            <RWebShare
+              data={{
+                text: `Check out this post`,
+                url: `${FRONTEND_URL}profile/club/${post?.clubId}/posts/${post?._id}`,
+                title: "Check out this post at engineerHUB",
+              }}
+            >
+              <FiShare2 />
+            </RWebShare>
           </div>
         </div>
         <div className="right">
@@ -187,7 +197,10 @@ export default function TrendingPostCard({ post, updatePost }) {
             {!(isLoggedIn && post?.isSaved) ? (
               <FaRegBookmark onClick={() => handleSave()} />
             ) : (
-              <FaBookmark onClick={() => handleSave()} />
+              <FaBookmark
+                style={{ color: "grey" }}
+                onClick={() => handleSave()}
+              />
             )}
           </div>
         </div>
