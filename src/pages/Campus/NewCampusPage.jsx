@@ -70,12 +70,12 @@ export default function NewCampusPage() {
     };
   }, []);
 
-  useEffect(() => {
-    console.log("trendingEvents",trendingEvents);
-  }, [trendingEvents]);
-  useEffect(() => {
-    console.log("trendingWorkshops",trendingWorkshops);
-  }, [trendingWorkshops]);
+  // useEffect(() => {
+  //   console.log("trendingEvents",trendingEvents);
+  // }, [trendingEvents]);
+  // useEffect(() => {
+  //   console.log("trendingWorkshops",trendingWorkshops);
+  // }, [trendingWorkshops]);
 
   useEffect(() => {
     if (width > 910) {
@@ -92,7 +92,7 @@ export default function NewCampusPage() {
   const [updatedPost, setUpdatedPost] = useState({});
 
   useEffect(() => {
-    console.log(updatedPost);
+    // console.log(updatedPost);
     if (Object.keys(updatedPost).length !== 0) {
       const index = trendingPosts.findIndex(
         (post) => post._id === updatedPost.data.data._id

@@ -26,6 +26,7 @@ export default function TrendingPostCard({ post, updatePost }) {
   const [unlikeResponse, setUnlikeResponse] = useState({});
   const [saveResponse, setSaveResponse] = useState({});
   const [unsaveResponse, setUnsaveResponse] = useState({});
+  const [isShownMore, setIsShownMore] = useState(false);
 
   useEffect(() => {
     // console.log(followResponse);
@@ -208,7 +209,21 @@ export default function TrendingPostCard({ post, updatePost }) {
       <div className="likes">
         <span>{post.totalLikes} likes</span>
       </div>
-      <span className={`caption ${`text-crop-1`}`}>{post.description}</span>
+      <span
+        style={{ cursor: "default" }}
+        className={`caption ${isShownMore ? "no-text-crop" : "text-crop-1"} `}
+      >
+        {post.description}
+      </span>
+      {!isShownMore && (
+        <div
+          style={{ fontSize: ".75rem", cursor: "pointer" }}
+          onClick={() => setIsShownMore(true)}
+          className="see-more"
+        >
+          See More
+        </div>
+      )}
     </div>
   );
 }

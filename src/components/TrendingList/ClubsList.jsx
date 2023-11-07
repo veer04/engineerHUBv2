@@ -52,13 +52,7 @@ export default function ClubsList({ data }) {
                 </span>
               </div>
             </div>
-            {trendingList.length > 3 ? (
-              <hr />
-            ) : index !== trendingList.length - 1 ? (
-              <hr />
-            ) : (
-              ""
-            )}
+            <hr />
           </Fragment>
         ))}
       {trendingList.length > 3 && !viewMore && (

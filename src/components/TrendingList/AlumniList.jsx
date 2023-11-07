@@ -52,17 +52,13 @@ export default function AlumniList({ data }) {
                     : `${trending.firstName} ${trending.lastName}`}
                 </span>
                 <span className="subheading text-crop-2">
-                  {trending.aboutMe}
+                  {!!trending?.experienceDetails?.length
+                    ? `${trending?.experienceDetails[0]?.designation} | ${trending?.experienceDetails[0]?.organisationName}`
+                    : `${!!trending?.aboutMe ? trending?.aboutMe : ""}`}
                 </span>
               </div>
             </div>
-            {trendingList.length > 3 ? (
-              <hr />
-            ) : index !== trendingList.length - 1 ? (
-              <hr />
-            ) : (
-              ""
-            )}
+            <hr />
           </Fragment>
         ))}
       {trendingList?.length > 3 && !viewMore && (
