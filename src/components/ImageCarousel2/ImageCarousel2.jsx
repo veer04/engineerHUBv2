@@ -61,7 +61,7 @@ export default function ImageCarousel2({ photos }) {
         style={{
           visibility: activeImage > extraPaddingImages ? "visible" : "hidden",
         }}
-        className="arrow"
+        className="arrow arrow-left"
       />
       <div className="inner-container">
         {carouselPhotos?.map((photo, index) => {
@@ -88,7 +88,7 @@ export default function ImageCarousel2({ photos }) {
           visibility:
             activeImage < carouselPhotos.length - 2 ? "visible" : "hidden",
         }}
-        className="arrow"
+        className="arrow arrow-right"
       />
     </div>
   );
