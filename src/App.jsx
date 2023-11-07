@@ -193,10 +193,10 @@ function App() {
           </Route>
           <Route path="/mentorChat" element={<MentorChat />} />
           <Route path="/trending">
-            <Route
-              path="campuses/:collegeId"
-              element={<TrendingColleges />}
-            ></Route>
+            <Route path="campuses/:collegeId">
+              <Route index element={<TrendingColleges />} />
+              <Route path="details" element={<CampusDetailsOld />} />
+            </Route>
             <Route path="clubs/:clubId" element={<TrendingClubCard />} />
             <Route path="alumni/:almaId" element={<TrendingAlumni />} />
             <Route path="events/:eventId" element={<TrendingEvents />} />

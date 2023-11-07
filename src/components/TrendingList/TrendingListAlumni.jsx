@@ -2,7 +2,7 @@ import { BsChevronDown, BsChevronUp } from "react-icons/bs";
 import { FaArrowTrendUp } from "react-icons/fa6";
 import "./TrendingList.css";
 import { Fragment, useEffect, useState } from "react";
-import { controller, getTrendingAlumni } from "../../services/APIConfig";
+import { controller, getTrendingAlumni2 } from "../../services/APIConfig";
 import { useNavigate } from "react-router-dom";
 
 export default function TrendingListAlumni() {
@@ -11,7 +11,7 @@ export default function TrendingListAlumni() {
   const [viewMore, setViewMore] = useState(false);
 
   useEffect(() => {
-    getTrendingAlumni(setTrendingList);
+    getTrendingAlumni2(setTrendingList);
 
     return () => {
       controller.abort();
@@ -47,14 +47,17 @@ export default function TrendingListAlumni() {
               className="trending-card"
             >
               <div className="logo">
-                <img src={trending.image} alt="logo" />
+                <img
+                  src={trending.image}
+                  alt="logo"
+                />
               </div>
               <div className="content">
-                <span className="name text-crop-2">{trending.name}</span>
+                <span className="name text-crop-2">{`${trending.firstName} ${trending.lastName}`}</span>
                 <span className="subheading text-crop-2">
                   {!!trending?.experienceDetails?.length
                     ? `${trending?.experienceDetails[0]?.designation} | ${trending?.experienceDetails[0]?.organisationName}`
-                    : `${!!trending?.aboutMe ? trending?.aboutMe : ""}`}
+                    : ""}
                 </span>
               </div>
             </div>

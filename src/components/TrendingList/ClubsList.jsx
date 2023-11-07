@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function ClubsList({ data }) {
   const navigate = useNavigate();
-  const [trendingList, setTrendingList] = useState(data);
+  const [trendingList, setTrendingList] = useState(data || []);
   const [viewMore, setViewMore] = useState(false);
 
   // useEffect(() => {
@@ -48,7 +48,7 @@ export default function ClubsList({ data }) {
               <div className="content">
                 <span className="name text-crop-2">{trending.name}</span>
                 <span className="subheading text-crop-2">
-                  {trending.description || trending.aboutUs}
+                  {trending.aboutUs || trending.description}
                 </span>
               </div>
             </div>

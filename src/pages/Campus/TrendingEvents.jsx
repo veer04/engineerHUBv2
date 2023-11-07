@@ -32,7 +32,8 @@ export default function TrendingEvents() {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    getEventByMode(setTrendingList, "Workshop");
+    // getEventByMode(setTrendingList, "Workshop");
+    getFeaturedEvents(setTrendingList);
     getParticularEventDetails(setEventData, eventId);
     getAllCampuses(setAllCampuses);
 
@@ -105,7 +106,7 @@ export default function TrendingEvents() {
         <aside id="column-1" className="column column-1">
           <div className="list-heading">
             <div>
-              <FaArrowTrendUp /> Trending Workshops
+              <FaArrowTrendUp /> Trending Events
             </div>
           </div>
           <div className="cards">

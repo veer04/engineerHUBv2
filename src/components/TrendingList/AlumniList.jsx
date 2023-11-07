@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function AlumniList({ data }) {
   const navigate = useNavigate();
-  const [trendingList, setTrendingList] = useState(data);
+  const [trendingList, setTrendingList] = useState(data || []);
   const [viewMore, setViewMore] = useState(false);
 
   // useEffect(() => {
@@ -52,9 +52,9 @@ export default function AlumniList({ data }) {
                     : `${trending.firstName} ${trending.lastName}`}
                 </span>
                 <span className="subheading text-crop-2">
-                  {!!trending?.experienceDetails?.length
-                    ? `${trending?.experienceDetails[0]?.designation} | ${trending?.experienceDetails[0]?.organisationName}`
-                    : `${!!trending?.aboutMe ? trending?.aboutMe : ""}`}
+                  {!!Object.keys(trending?.experience).length
+                    ? `${trending?.experience?.designation} | ${trending?.experience?.organisationName}`
+                    : ""}
                 </span>
               </div>
             </div>

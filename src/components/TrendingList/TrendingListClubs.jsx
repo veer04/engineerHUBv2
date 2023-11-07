@@ -52,7 +52,7 @@ export default function TrendingListClubs() {
               <div className="content">
                 <span className="name text-crop-2">{trending.name}</span>
                 <span className="subheading text-crop-2">
-                  {trending.description}
+                  {trending.aboutUs || trending.description}
                 </span>
               </div>
             </div>

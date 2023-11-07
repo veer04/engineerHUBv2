@@ -24,6 +24,7 @@ export default function CampusDetails() {
   const [allCampuses, setAllCampuses] = useState([]);
   const [output, setOutput] = useState("");
   const [result, setResult] = useState({});
+  const [seeMore, setSeeMore] = useState(false);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -55,6 +56,8 @@ export default function CampusDetails() {
     }
   }, [campusData]);
 
+  const stars = !!campus?.rating ? campus.rating : 0;
+
   const renderCampusDetails = (
     <main className="campus-details">
       <div className="search-bar__container">
@@ -79,18 +82,23 @@ export default function CampusDetails() {
               <span className="name text-crop-1">{campus?.collegeName}</span>
               <span className="location text-crop-1">{`${campus?.city}, ${campus?.state}`}</span>
               <div className="rating">
-                Rating: {campus?.rating}/5
-                {/* <BsStarFill />
-                <BsStarFill />
-                <BsStarHalf />
-                <BsStar />
-                <BsStar /> */}
+                {/* for campus.rating, if the rating is 3.5, then show 3 stars and 1 half star and 1 empty star */}
+                Rating:{" "}
+                {[...Array(Math.floor(stars))].map((star, index) => (
+                  <BsStarFill style={{ color: "#f9ca00" }} key={index} />
+                ))}
+                {
+                  // check if the rating is a whole number or not
+                  stars % 1 !== 0 && <BsStarHalf style={{ color: "#f9ca00" }} />
+                }
+                {[...Array(5 - Math.ceil(stars))].map((star, index) => (
+                  <BsStar style={{ color: "#f9ca00" }} key={index} />
+                ))}
               </div>
             </div>
             <div className="right">
               <button
                 onClick={() => {
-                  console.log("object");
                   navigate(`/campus/${collegeId}/details`);
                 }}
                 className="view-more"
@@ -102,7 +110,6 @@ export default function CampusDetails() {
           <div className="mobile-view">
             <button
               onClick={() => {
-                console.log("object");
                 navigate(`/campus/${collegeId}/details`);
               }}
               className="view-more"
@@ -110,7 +117,30 @@ export default function CampusDetails() {
               View More
             </button>
           </div>
-          <span className="description text-crop-2">{campus?.aboutUs}</span>
+          <div>
+            <span
+              className={`description ${
+                seeMore ? "no-text-crop" : `text-crop-2`
+              }`}
+            >
+              {campus?.aboutUs}
+            </span>
+            {!seeMore && (
+              <span
+                style={{
+                  fontSize: ".75rem",
+                  cursor: "pointer",
+                  marginTop: "0",
+                  position: "relative",
+                  top: "-.4rem",
+                }}
+                onClick={() => setSeeMore(true)}
+                className="description see-more"
+              >
+                See More
+              </span>
+            )}
+          </div>
         </div>
       </section>
       <section className="more-details">

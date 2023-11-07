@@ -140,8 +140,7 @@ export default function NewCampusPage() {
         </div>
       </div>
       {width < 910 && (
-        <div  className="mobile-campus-subnavbar"
-     >
+        <div style={{zIndex:"2"}} className="mobile-campus-subnavbar">
           <div className={isSticky?'mobile-campus-subnavbar sticky':'mobile-campus-subnavbar'}>
           <div
             style={{

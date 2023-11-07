@@ -1541,7 +1541,7 @@ export const getTrendingAlumni = (setTrendingAlumni) => {
 export const getTrendingAlumni2 = (setTrendingAlumni) => {
   const controller = new AbortController();
   axios
-    .get(`${API_URL}api/v1/trendingAlmuni`, {
+    .get(`${API_URL}api/v1/trendingAlumni`, {
       signal: controller.signal,
     })
     .then((res) => {

@@ -15,13 +15,16 @@
   display: none;
 }
 .trending-cards-container .loading-container {
-  min-height: 12rem;
+  min-height: 4rem;
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
 }
-
+.trending-cards-container .loading-container span {
+  font-size: 0.875rem;
+  color: var(--foundation-black-black-400, #9b9b9b);
+}
 .trending-cards-container .title {
   display: flex;
   padding: 0.5rem;

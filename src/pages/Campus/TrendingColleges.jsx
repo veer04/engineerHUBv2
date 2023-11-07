@@ -7,7 +7,6 @@ import {
   getCampusAlumniAndClub,
   getCampusById,
   getTrendingCampuses,
-  
 } from "../../services/APIConfig";
 import { FaArrowTrendUp } from "react-icons/fa6";
 import defaultPoster from "../../assets/defaultPoster";
@@ -17,6 +16,7 @@ import TrendingListColleges from "../../components/TrendingList/TrendingListColl
 import ImageCarousel2 from "../../components/ImageCarousel2/ImageCarousel2";
 import Page404 from "../Maintenance/Page404";
 import LoadingPage from "../../components/Loader/LoadingPage";
+import { BsStar, BsStarFill, BsStarHalf } from "react-icons/bs";
 
 export default function TrendingColleges() {
   const { collegeId } = useParams();
@@ -28,6 +28,7 @@ export default function TrendingColleges() {
   const [allCampuses, setAllCampuses] = useState([]);
   const [output, setOutput] = useState("");
   const [result, setResult] = useState({});
+  const [seeMore, setSeeMore] = useState(false);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -35,7 +36,6 @@ export default function TrendingColleges() {
     getCampusById(setCampusData, collegeId);
     getAllCampuses(setAllCampuses);
     getCampusAlumniAndClub(setResult, collegeId);
-
 
     const handleResize = () => setWidth(window.innerWidth);
     window.addEventListener("resize", handleResize);
@@ -71,6 +71,8 @@ export default function TrendingColleges() {
       setCampus(campusData?.data?.data);
     }
   }, [campusData]);
+
+  const stars = !!campus?.rating ? campus.rating : 0;
 
   const renderTrendingCollege = (
     <main className="trending-colleges">
@@ -155,27 +157,72 @@ export default function TrendingColleges() {
                   </span>
                   <span className="location text-crop-1">{`${campus?.city}, ${campus?.state}`}</span>
                   <div className="rating">
-                    Rating: {campus?.rating}
-                    {/* <BsStarFill />
-                <BsStarFill />
-                <BsStarHalf />
-                <BsStar />
-                <BsStar /> */}
+                    {/* for campus.rating, if the rating is 3.5, then show 3 stars and 1 half star and 1 empty star */}
+                    Rating:{" "}
+                    {[...Array(Math.floor(stars))].map((star, index) => (
+                      <BsStarFill style={{ color: "#f9ca00" }} key={index} />
+                    ))}
+                    {
+                      // check if the rating is a whole number or not
+                      stars % 1 !== 0 && (
+                        <BsStarHalf style={{ color: "#f9ca00" }} />
+                      )
+                    }
+                    {[...Array(5 - Math.ceil(stars))].map((star, index) => (
+                      <BsStar style={{ color: "#f9ca00" }} key={index} />
+                    ))}
                   </div>
                 </div>
                 <div className="right">
-                  <button className="view-more">View More</button>
+                  <button
+                    onClick={() => {
+                      navigate(`/trending/campuses/${collegeId}/details`);
+                    }}
+                    className="view-more"
+                  >
+                    View More
+                  </button>
                 </div>
               </div>
               <div className="mobile-view">
-                <button className="view-more">View More</button>
+                <button
+                  onClick={() => {
+                    navigate(`/trending/campuses/${collegeId}/details`);
+                  }}
+                  className="view-more"
+                >
+                  View More
+                </button>
               </div>
-              <span title={campus?.aboutUs} className="description text-crop-2">{campus?.aboutUs}</span>
+              <div>
+                <span
+                  className={`description ${
+                    seeMore ? "no-text-crop" : `text-crop-2`
+                  }`}
+                >
+                  {campus?.aboutUs}
+                </span>
+                {!seeMore && (
+                  <span
+                    style={{
+                      fontSize: ".75rem",
+                      cursor: "pointer",
+                      marginTop: "0",
+                      position: "relative",
+                      top: "-.4rem",
+                    }}
+                    onClick={() => setSeeMore(true)}
+                    className="description see-more"
+                  >
+                    See More
+                  </span>
+                )}
+              </div>
             </div>
           </section>
           <section className="more-details">
-          <AlumniList data={result?.data?.data?.alumni} />
-        <ClubsList data={result?.data?.data?.clubs} />
+            <AlumniList data={result?.data?.data?.alumni} />
+            <ClubsList data={result?.data?.data?.clubs} />
           </section>
         </div>
       </div>

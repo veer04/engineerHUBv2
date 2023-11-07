@@ -86,8 +86,11 @@
 .post-card-container .post-image-container {
   width: 100%;
   margin-bottom: 0.5rem;
+  max-height: 24.4rem;
+  overflow: hidden;
 }
 .post-card-container .post-image-container img {
+  object-fit: cover;
   width: 100%;
   border-radius: 0.3125rem;
 }

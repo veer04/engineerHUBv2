@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import "./NewEventCard.css";
+import defaultPoster from "../../assets/defaultPoster";
 
 export default function NewEventCard({ data }) {
   const navigate = useNavigate();
@@ -28,8 +29,6 @@ export default function NewEventCard({ data }) {
     hour12: true,
   });
 
-  console.log("creatorId",data.creatorId)
-
   return (
     <div
       onClick={() => navigate(`/trending/events/${data._id}`)}
@@ -50,24 +49,38 @@ export default function NewEventCard({ data }) {
         }}
         className="poster"
       >
-        <span className="text-crop-1" >{data?.eventType}</span>
-        <span className="text-crop-1" >{`${eventDateWithSuffix} @${eventTime}`}</span>
+        <span style={{ backgroundColor: "#F7D77F" }} className="text-crop-1">
+          {data?.eventType}
+        </span>
+        <span
+          style={{ backgroundColor: "#F7D77F" }}
+          className="text-crop-1"
+        >{`${eventDateWithSuffix} @${eventTime}`}</span>
       </div>
       <span className="text-crop-2 heading">{data?.eventName}</span>
       <span className="text-crop-2 description">{data?.description}</span>
       <div className="details">
         <div className="logo">
-          <img src={data?.creatorId?.image} alt="logo" />
+          <img
+            src={`${
+              data?.campusId
+                ? data?.campusId?.length
+                  ? data?.campusId[0]?.collegeLogo
+                  : defaultPoster
+                : defaultPoster
+            }`}
+            alt="logo"
+          />
         </div>
         <div className="name">
           <span className="title">Organized By</span>
-          <span className="label text-crop-2">
-            {`${
-              !!data?.creatorId?.name
-                ? data?.creatorId?.name
-                : `${data?.creatorId?.firstName} ${data?.creatorId?.lastName}`
-            }`}
-          </span>
+          <span className="label text-crop-2">{`${
+            data?.campusId
+              ? data?.campusId?.length
+                ? data?.campusId[0]?.collegeName
+                : "engineerHUB"
+              : "engineerHUB"
+          }`}</span>
         </div>
       </div>
     </div>
