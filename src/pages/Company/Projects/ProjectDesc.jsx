@@ -10,6 +10,7 @@ import axios from "axios";
 import LoadingPage from "../../../components/Loader/LoadingPage";
 import Page404 from "../../Maintenance/Page404";
 import { getUserProfileById } from "../../../services/APIConfig";
+import { redirectToAuth } from "../../../features/redirectToAuth";
 
 const ProjectDesc = ({ data, isApplied }) => {
   const { projectId } = useParams();
@@ -140,9 +141,16 @@ const ProjectDesc = ({ data, isApplied }) => {
           )}
         </div>
       ) : (
-        <Link to="/login">
-          <div className="btn ApplyNowBtn">Easy Apply</div>
-        </Link>
+        // <Link to="/login">
+        <div
+          onClick={() => {
+            redirectToAuth("/login");
+          }}
+          className="btn ApplyNowBtn"
+        >
+          Easy Apply
+        </div>
+        // </Link>
       )}
     </div>
   );

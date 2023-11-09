@@ -6,6 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 import useNavbar from "../../hooks/use-navbar";
 import { getUserRole, isUserLoggedIn } from "../../features/User/UserDetails";
+import { redirectToAuth } from "../../features/redirectToAuth";
 export default function Hosting() {
   console.log("test");
   const handleCardClick = (event) => {
@@ -115,7 +116,7 @@ export default function Hosting() {
   function handleClick(hosting) {
     //check if user is logged in
     if (!isUserLoggedIn()) {
-      navigate("/login");
+      redirectToAuth("/login");
       return;
     }
     //check the type of hosting then its role
