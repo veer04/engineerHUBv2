@@ -4,6 +4,7 @@ import "./TrendingList.css";
 import { Fragment, useEffect, useState } from "react";
 import { controller, getEventByMode } from "../../services/APIConfig";
 import { useNavigate } from "react-router-dom";
+import defaultPoster from "../../assets/defaultPoster";
 
 export default function TrendingListWorkshops() {
   const navigate = useNavigate();
@@ -47,7 +48,13 @@ export default function TrendingListWorkshops() {
               className="trending-card"
             >
               <div className="logo">
-                <img src={trending.eventPoster} alt="logo" />
+                <img
+                  onError={(e) => {
+                    e.target.src = defaultPoster;
+                  }}
+                  src={trending.eventPoster}
+                  alt="logo"
+                />
               </div>
               <div className="content">
                 <span className="name text-crop-2">{trending.eventName}</span>

@@ -4,11 +4,13 @@ import "./TrendingList.css";
 import { Fragment, useEffect, useState } from "react";
 import { controller, getTrendingAlumni2 } from "../../services/APIConfig";
 import { useNavigate } from "react-router-dom";
+import defaultPoster from "../../assets/defaultPoster";
 
-export default function TrendingListAlumni() {
+export default function TrendingListAlumni({ expanded }) {
   const navigate = useNavigate();
   const [trendingList, setTrendingList] = useState([]);
-  const [viewMore, setViewMore] = useState(false);
+  const isExpanded = !!expanded;
+  const [viewMore, setViewMore] = useState(isExpanded);
 
   useEffect(() => {
     getTrendingAlumni2(setTrendingList);
@@ -48,6 +50,9 @@ export default function TrendingListAlumni() {
             >
               <div className="logo">
                 <img
+                  onError={(e) => {
+                    e.target.src = defaultPoster;
+                  }}
                   src={trending.image}
                   alt="logo"
                 />

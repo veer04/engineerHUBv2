@@ -131,7 +131,7 @@ const TrendingAlumni = () => {
           </div>
           <div className="cards">
             <div className="card">
-            <TrendingListAlumni/>
+            <TrendingListAlumni expanded/>
           </div>
           </div>
         </aside>

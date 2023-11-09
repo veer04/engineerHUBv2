@@ -4,6 +4,7 @@ import "./TrendingList.css";
 import { Fragment, useEffect, useState } from "react";
 import { controller, getTrendingCampuses } from "../../services/APIConfig";
 import { useNavigate } from "react-router-dom";
+import defaultPoster from "../../assets/defaultPoster";
 
 export default function TrendingListColleges() {
   const navigate = useNavigate();
@@ -47,7 +48,13 @@ export default function TrendingListColleges() {
               className="trending-card"
             >
               <div className="logo">
-                <img src={trending.collegeLogo} alt="logo" />
+                <img
+                  onError={(e) => {
+                    e.target.src = defaultPoster;
+                  }}
+                  src={trending.collegeLogo}
+                  alt="logo"
+                />
               </div>
               <div className="content">
                 <span className="name text-crop-2">{trending.collegeName}</span>
