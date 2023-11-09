@@ -174,7 +174,7 @@ export default function UserDashboard() {
   ];
 
   const userDashboardPage = (
-    <main className="profile-dashboard">
+    <main className="profile-dashboard profile-dashboard--adjustment">
       <h1 className="title">Profile</h1>
       {links && user?.role !== "Alumni" && isUserLoggedIn() && (
         <section

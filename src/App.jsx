@@ -71,6 +71,7 @@ import TrendingClubCard from "./components/TrendingClubCard/TrendingClubCard";
 // import AlumniList from "./components/TrendingList/AlumniList";
 import TrendingAlumni from "../src/components/TrendingAlumni/TrendingAlumni";
 import CampusDetailsOld from "./pages/Campus/ParticularCampus/CampusDetails.jsx";
+import TrendingWorkshops from "./pages/Campus/TrendingWorkshops.jsx";
 function App() {
   const [isChatOpen, setIsChatOpen] = useState(false);
   const [isEventModalOpen, setIsEventModalOpen] = useState(false);
@@ -200,6 +201,7 @@ function App() {
             <Route path="clubs/:clubId" element={<TrendingClubCard />} />
             <Route path="alumni/:almaId" element={<TrendingAlumni />} />
             <Route path="events/:eventId" element={<TrendingEvents />} />
+            <Route path="workshops/:eventId" element={<TrendingWorkshops />} />
           </Route>
           <Route path="/campus">
             <Route index element={<NewCampusPage />} />

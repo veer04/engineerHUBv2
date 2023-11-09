@@ -43,7 +43,7 @@ export default function TrendingListWorkshops() {
         .map((trending, index) => (
           <Fragment key={trending._id}>
             <div
-              onClick={() => navigate(`/trending/events/${trending._id}`)}
+              onClick={() => navigate(`/trending/workshops/${trending._id}`)}
               className="trending-card"
             >
               <div className="logo">

@@ -215,7 +215,7 @@ export default function TrendingPostCard({ post, updatePost }) {
       >
         {post.description}
       </span>
-      {!isShownMore && (
+      {!!post.description && !isShownMore && (
         <div
           style={{ fontSize: ".75rem", cursor: "pointer" }}
           onClick={() => setIsShownMore(true)}

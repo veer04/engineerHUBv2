@@ -20,7 +20,7 @@ import {
 } from "react-icons/ai";
 import NewEventCard from "../../components/NewEventCard/NewEventCard";
 
-export default function TrendingEvents() {
+export default function TrendingWorkshops() {
   const { eventId } = useParams();
   const navigate = useNavigate();
   const [width, setWidth] = useState(window.innerWidth);
@@ -32,8 +32,8 @@ export default function TrendingEvents() {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    // getEventByMode(setTrendingList, "Workshop");
-    getFeaturedEvents(setTrendingList);
+    getEventByMode(setTrendingList, "Workshop");
+    // getFeaturedEvents(setTrendingList);
     getParticularEventDetails(setEventData, eventId);
     getAllCampuses(setAllCampuses);
 
@@ -104,9 +104,9 @@ export default function TrendingEvents() {
       </div>
       <div className="content-container">
         <aside id="column-1" className="column column-1">
-          <div className="list-heading">
+          <div style={{ backgroundColor: "#F7D77F" }} className="list-heading">
             <div>
-              <FaArrowTrendUp /> Trending Events
+              <FaArrowTrendUp /> Trending Workshops
             </div>
           </div>
           <div className="cards">

@@ -81,7 +81,7 @@ export default function ClubDashboard() {
 
   const clubDashboardPage = (
     <>
-      <main className="profile-dashboard club-dashboard">
+      <main className="profile-dashboard club-dashboard club-dashboard--adjustment">
         <h1 className="title">Profile</h1>
         <h2 className="subheading">
           {/* Lorem ipsum dolor sit amet consectetur. Mattis aliquam sodales

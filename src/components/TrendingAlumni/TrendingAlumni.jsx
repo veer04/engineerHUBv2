@@ -49,7 +49,7 @@ const TrendingAlumni = () => {
   const [alumni, setAlumni] = useState({});
   const [allAlumni, setAllAlumni] = useState([]);
   const [isUserAdmin, setIsUserAdmin] = useState(true);
-  const [viewMore, setViewMore] = useState(false);
+  const [viewMore1, setViewMore1] = useState(false);
   const [showAll1, setShowAll1] = useState(false);
   const [viewMore2, setViewMore2] = useState(false);
   const [showAll2, setShowAll2] = useState(false);
@@ -106,7 +106,7 @@ const TrendingAlumni = () => {
  
   const renderTrendingAlumni = (
     <>
-      <main className="trending-Colleges "
+      <main className="trending-Colleges trending-alumni "
        style={{overflowX:"hidden"}}>
       <div className="search-bar__container" style={{display:"flex", justifyContent:"center", paddingBottom:"2%",}} >
         <div style={{justifyContent:"center",
@@ -154,7 +154,7 @@ const TrendingAlumni = () => {
           <span className="username text-crop-1 overflow-hidden">
             {`${alumniData?.userName ? `@${alumniData?.userName}` : "No username"}`}
           </span>
-          <span className="name">{`${alumniData?.fisrtName} ${alumniData?.lastName}`}</span>
+          <span className="name">{`${alumniData?.firstName} ${alumniData?.lastName}`}</span>
           <span className="address text-crop-2 overflow-hidden">
             {alumniData?.educationDetails?.length > 0 ? (
               alumniData?.educationDetails[alumniData?.educationDetails.length - 1]

@@ -432,7 +432,7 @@ export default function TrendingClubCard() {
                               <ClubPostCard key={index} {...jobDetail} />
                             ))
                           : posts
-                              .slice(0, 3)
+                              .slice(0, 2)
                               .map((jobDetail, index) => (
                                 <ClubPostCard key={index} {...jobDetail} />
                               ))}
@@ -446,7 +446,7 @@ export default function TrendingClubCard() {
                       </div>
                     )}
                   </div>
-                  {posts.length > 3 && !showAll1 && (
+                  {posts.length > 2 && !showAll1 && (
                     <div className="btn-container">
                       <button
                         onClick={() => setShowAll1(true)}
@@ -489,7 +489,7 @@ export default function TrendingClubCard() {
                               />
                             ))
                           : organization?.members
-                              ?.slice(0, 3)
+                              ?.slice(0, 2)
                               .map((jobDetail, index) => (
                                 <ClubMemberCard
                                   key={index}
@@ -507,7 +507,7 @@ export default function TrendingClubCard() {
                       </div>
                     )}
                   </div>
-                  {organization?.members?.length > 3 && !showAll2 && (
+                  {organization?.members?.length > 2 && !showAll2 && (
                     <div className="btn-container">
                       <button
                         onClick={() => setShowAll2(true)}
@@ -553,7 +553,7 @@ export default function TrendingClubCard() {
                               />
                             ))
                           : featuredEvents
-                              .slice(0, 3)
+                              .slice(0, 2)
                               .map((jobDetail, index) => (
                                 <EventCard
                                   key={index}
@@ -571,7 +571,7 @@ export default function TrendingClubCard() {
                       </div>
                     )}
                   </div>
-                  {featuredEvents.length > 3 && !showAll3 && (
+                  {featuredEvents.length > 2 && !showAll3 && (
                     <div className="btn-container">
                       <button
                         onClick={() => setShowAll3(true)}
