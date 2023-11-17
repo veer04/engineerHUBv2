@@ -49,11 +49,11 @@ export default function NewEventCard({ data }) {
         }}
         className="poster"
       >
-        <span style={{ backgroundColor: "#F7D77F" }} className="text-crop-1">
+        <span style={{ backgroundColor: "#F7D77F",fontSize:".75rem",wordBreak:"break-all" }} className="text-crop-1">
           {data?.eventType}
         </span>
         <span
-          style={{ backgroundColor: "#F7D77F" }}
+          style={{ backgroundColor: "#F7D77F",fontSize:".75rem",wordBreak:"break-all" }}
           className="text-crop-1"
         >{`${eventDateWithSuffix} @${eventTime}`}</span>
       </div>
