@@ -1,3 +1,10 @@
+.domains-section{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
 .domains-section__list {
   display: flex;
   flex-direction: row;
