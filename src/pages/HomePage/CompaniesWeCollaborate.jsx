@@ -3,13 +3,13 @@ import { Bucket_URL } from "../../services/APIUtils";
 import { useEffect } from "react";
 
 export default function CompaniesWeCollaborate() {
-  const NUMBER_OF_COMPANIES = 4;
+  const NUMBER_OF_COMPANIES = 23;
   const bucket = `${Bucket_URL}frontend/homepage/companieswecollaborate/`;
   const companyLogos = [];
   for (let i = 1; i <= NUMBER_OF_COMPANIES * 10; i++) {
     companyLogos.push({
       id: i,
-      logo: `${bucket}company${(i % 4) + 1}.png`,
+      logo: `${bucket}company${(i % NUMBER_OF_COMPANIES) + 1}.png`,
     });
   }
   const renderedCompanyLogos = companyLogos.map((company) => {
