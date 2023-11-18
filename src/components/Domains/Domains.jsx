@@ -1,25 +1,13 @@
-import React, { useState } from "react";
 import "./Domains.css";
-import { Link, Navigate, useNavigate } from "react-router-dom";
-import { useEffect } from "react";
-import getCookie, { getAccessToken } from "../../features/getCookieValues";
+import { useNavigate } from "react-router-dom";
+import getCookie from "../../features/getCookieValues";
+import colorWheel from "../../assets/colorWheel";
+import { isUserLoggedIn } from "../../features/User/UserDetails";
 
 export default function Domains({ domains }) {
   const navigate = useNavigate();
-  const colors = ["#F7D77F", "#8FC8E8", "#B2E887", "#E8BA98"];
 
-  const [width, setWidth] = useState(window.innerWidth);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-    window.addEventListener("resize", () => setWidth(window.innerWidth));
-    if (!!getAccessToken()) setIsLoggedIn(true);
-
-    return () => {
-      window.removeEventListener("resize", () => setWidth(window.innerWidth));
-    };
-  }, []);
+  const isLoggedIn = isUserLoggedIn();
 
   function handleClick(item) {
     if (isLoggedIn) {
@@ -38,29 +26,35 @@ export default function Domains({ domains }) {
     <div className="domains-section">
       <div className="domains-section__list">
         {domains.map((item, index) => (
-          <div
+          <button
             key={item._id}
             onClick={() => handleClick(item)}
-            className="on-hover-scale"
-            style={{ position: "relative", borderRadius: ".6rem" }}
+            style={{
+              backgroundColor: colorWheel[index % colorWheel.length],
+            }}
+            className="domain on-hover-scale"
           >
-            <div
-              style={{
-                backgroundImage: `url(${item.domainImage})`,
-                backgroundColor: colors[index % colors.length],
-                backgroundRepeat: "no-repeat",
-                backgroundPosition: "bottom right",
-                // boxShadow: `0px 10px 40px 1px ${colors[index % colors.length]}`,
-                boxShadow: ` ${
-                  colors[index % colors.length]
-                } 0px 10px 25px -2px`,
-                backgroundSize: width > 573 ? "120px" : "80px",
-              }}
-              className="domains-section__item dynamicShadow--off"
-            >
-              <div className="domains-section__item__title">{item.domain}</div>
+            <div className="count">125</div>
+            <span className="title text-crop-2">{item.domain}</span>
+            <div className="info-container">
+              {!!item.projects && (
+                <span className="info">{item.projects}+ Projects</span>
+              )}
+              {!!item.events && (
+                <span className="info">{item.events}+ Projects</span>
+              )}
+              {!!item.blogs && (
+                <span className="info">{item.blogs}+ Projects</span>
+              )}
             </div>
-          </div>
+            <div className="logo-container">
+              <img
+                src={item.domainImage}
+                alt="domain logo"
+                className="domain-logo"
+              />
+            </div>
+          </button>
         ))}
       </div>
     </div>
