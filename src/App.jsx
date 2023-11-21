@@ -72,6 +72,11 @@ import TrendingClubCard from "./components/TrendingClubCard/TrendingClubCard";
 import TrendingAlumni from "../src/components/TrendingAlumni/TrendingAlumni";
 import CampusDetailsOld from "./pages/Campus/ParticularCampus/CampusDetails.jsx";
 import TrendingWorkshops from "./pages/Campus/TrendingWorkshops.jsx";
+import ProjectWindow from "./pages/Community/Project/ProjectWindow.jsx";
+const NewProjectsPage = lazy(() =>
+  import("./pages/Community/Project/NewProjectsPage.jsx")
+);
+
 function App() {
   const [isChatOpen, setIsChatOpen] = useState(false);
   const [isEventModalOpen, setIsEventModalOpen] = useState(false);
@@ -167,7 +172,10 @@ function App() {
             <Route index element={<CommunityPage />} />
             <Route path="domains" element={<CommunityPage path="domains" />} />
             <Route path="projects">
-              <Route path=":id" element={<ProjectPage path="projects" />} />
+              {/* <Route path=":id" element={<ProjectPage path="projects" />} /> */}
+              <Route path=":id" element={<NewProjectsPage path="projects" />}>
+                <Route path=":projectId" element={<ProjectWindow />} />
+              </Route>
             </Route>
             <Route path="blogs">
               <Route path=":id" element={<BlogsPage path="blogs" />} />
