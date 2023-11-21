@@ -56,6 +56,7 @@ const SignupUser = () => {
     role: "User",
     firstName: "",
     lastName:"",
+    email:"",
     // accessToken: accessToken,
     // refreshToken: refreshToken,
   });
@@ -151,7 +152,7 @@ const SignupUser = () => {
             response.status === 204
           ) {
             setLoading(false);
-            navigate("/");
+            navigate("/otp-verification");
             window.location.reload(true);
           }
         })
@@ -183,14 +184,14 @@ const SignupUser = () => {
       //   severity: "error",
       //   message: "Wrong credentials!",
       // });
-      if (err && err instanceof AxiosError)
-        setError(err.response?.data.message);
-      else if (err && err instanceof Error) setError(err.message);
-      setSnackbarValues({
-        severity: "error",
-        message: "Invalid Credentials!",
-      });
-      setOpen(true);
+      // if (err && err instanceof AxiosError)
+      //   setError(err.response?.data.message);
+      // else if (err && err instanceof Error) setError(err.message);
+      // setSnackbarValues({
+      //   severity: "error",
+      //   message: "Invalid Credentials!",
+      // });
+      // setOpen(true);
     }
   }
   // const navigation=()=>{
@@ -642,7 +643,7 @@ const SignupUser = () => {
               </div>
               <div className="divisor d-flex justify-content-center">
                 <hr style={{ color: "#6c757d" }} />
-                <span className="d-flex justify-content-center p-2">or</span>
+                <span className="d-flex justify-content-center p-2" style={{textWrap:"nowrap"}}>or</span>
                 <hr />
               </div>
 
