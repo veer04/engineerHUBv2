@@ -152,7 +152,11 @@ const SignupUser = () => {
             response.status === 204
           ) {
             setLoading(false);
-            navigate("/otp-verification");
+            if (sessionStorage.getItem("redirectToAuth") === "true") {
+              sessionStorage.removeItem("redirectToAuth");
+              navigate(sessionStorage.getItem("redirectToAuthLink"));
+              sessionStorage.removeItem("redirectToAuthLink");
+            } else navigate("/");
             window.location.reload(true);
           }
         })

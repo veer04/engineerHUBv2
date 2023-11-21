@@ -59,9 +59,10 @@ export default function AlumniList({ data }) {
                     : `${trending.firstName} ${trending.lastName}`}
                 </span>
                 <span className="subheading text-crop-2">
-                  {!!Object.keys(trending?.experience).length
-                    ? `${trending?.experience?.designation} | ${trending?.experience?.organisationName}`
-                    : ""}
+                  {trending?.experience &&
+                    (!!Object.keys(trending?.experience).length
+                      ? `${trending?.experience?.designation} | ${trending?.experience?.organisationName}`
+                      : "")}
                 </span>
               </div>
             </div>

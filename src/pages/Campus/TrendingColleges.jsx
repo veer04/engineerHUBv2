@@ -128,7 +128,7 @@ export default function TrendingColleges() {
                       )}
                       {!!item?.totalAlumni && (
                         <div className="alma-count">
-                          {item?.totalAlumni}+ Students
+                          {item?.totalAlumni}+ Members
                         </div>
                       )}
                       {!!item?.totalEvents && (

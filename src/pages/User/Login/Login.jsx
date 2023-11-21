@@ -150,7 +150,11 @@ const Register = () => {
             response.status === 204
           ) {
             setLoading(false);
-            navigate("/");
+            if (sessionStorage.getItem("redirectToAuth") === "true") {
+              sessionStorage.removeItem("redirectToAuth");
+              navigate(sessionStorage.getItem("redirectToAuthLink"));
+              sessionStorage.removeItem("redirectToAuthLink");
+            } else navigate("/");
             window.location.reload(true);
           }
         })

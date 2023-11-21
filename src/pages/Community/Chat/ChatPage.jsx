@@ -10,6 +10,7 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import { API_URL } from "../../../services/APIUtils";
 import Page404 from "../../Maintenance/Page404";
+import { redirectToAuth } from "../../../features/redirectToAuth";
 
 export default function ChatPage({ path, setIsChatOpen }) {
   const { id } = useParams();
@@ -27,7 +28,7 @@ export default function ChatPage({ path, setIsChatOpen }) {
 
   const user = getAccessToken();
   if (user === "" || user === null || user === undefined) {
-    window.location.href = "/login";
+    redirectToAuth("/login")
   }
 
   if (

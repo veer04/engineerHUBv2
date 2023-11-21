@@ -17,7 +17,7 @@ const Success = () => {
     }, []);
     
     const [me, setMe] = useState({});
-    const redirect=false;
+    // const redirect=false;
     
     useEffect(() => {
       setSelectedPageNavbar("home");
@@ -35,26 +35,33 @@ const Success = () => {
           if (response.data.success === true ) {
             const decoded = jwt_decode(response.data.accessToken);
             const _id = decoded._id;
-            const firstName=decoded.firstName;
+            const firstName = decoded.firstName;
             console.log(decoded);
-            const lastName=decoded.lastName;
+            const lastName = decoded.lastName;
             // const chatDomain=JSON.stringfy(decoded.chatDomain);
-            const name=firstName.concat(" ",lastName);
+            const name = firstName.concat(" ", lastName);
             Cookies.set("access_token", response.data.accessToken);
-            Cookies.set("name",name);
-            Cookies.set("firstName",firstName);
-            Cookies.set("lastName",lastName);
-         
+            Cookies.set("name", name);
+            Cookies.set("firstName", firstName);
+            Cookies.set("lastName", lastName);
+
             Cookies.set("userName", decoded.userName);
             Cookies.set("email", decoded.email);
             Cookies.set("_id", _id);
             Cookies.set("image", decoded.image);
             Cookies.set("role", decoded.role);
             Cookies.set("mobile", decoded.mobile);
-            Cookies.set("chatDomain",JSON.stringify(decoded.chatDomain));
+            Cookies.set("chatDomain", JSON.stringify(decoded.chatDomain));
             console.log(response.data);
-            if(!redirect)
-            window.location.href=`/profile/user/${_id}`;
+            if (sessionStorage.getItem("redirectToAuth") === "true") {
+              sessionStorage.removeItem("redirectToAuth");
+              window.location.href =
+                sessionStorage.getItem("redirectToAuthLink");
+              // navigate(sessionStorage.getItem("redirectToAuthLink"));
+              sessionStorage.removeItem("redirectToAuthLink");
+            } else window.location.href = `/profile/user/${_id}`;
+            // if(!redirect)
+            // window.location.href=`/profile/user/${_id}`;
             // navigate(`/profile/user/${_id}`);
             // window.location.reload();
             // redirect= true;
