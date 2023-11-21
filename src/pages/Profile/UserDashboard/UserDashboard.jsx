@@ -26,6 +26,7 @@ import {
 import { useNavigate, useParams, Link } from "react-router-dom";
 import { Bucket_URL } from "../../../services/APIUtils";
 import {
+  getUserId,
   getUserRole,
   isUserLoggedIn,
 } from "../../../features/User/UserDetails";
@@ -69,10 +70,11 @@ export default function UserDashboard() {
     // let decode =jwt_decode(token);
     // let id=decode._id;
     
-    if(Cookies.get('_id')!==undefined)
+    if(user._id===getUserId())
     {
       setShowEditOptions(true);
     }
+
   }
   function fetchData() {
     getUserProfileById(setUser, userId, setFetchResponse);
@@ -89,6 +91,7 @@ export default function UserDashboard() {
 
   useEffect(() => {
     console.log(user);
+    handleEditOptions();
     console.log(showEditOptions);
         if (user?._id === userId) {
       setIsUserAdmin(true);
