@@ -162,7 +162,7 @@ export default function BlogsPage({ path }) {
             <div
               className={`project__list__container project__list_container--window-open `}
             >
-              <div
+              {/* <div
                 className={`project__list ${
                   isBlogOpen ? "project__list--collapsed" : ""
                 } ${width <= 1000 && isBlogOpen ? "--no-display" : ""}`}
@@ -175,7 +175,7 @@ export default function BlogsPage({ path }) {
                     {...blog}
                   />
                 ))}
-              </div>
+              </div> */}
               {isBlogOpen && (
                 <BlogWindow
                   blogOpened={blogOpened}
