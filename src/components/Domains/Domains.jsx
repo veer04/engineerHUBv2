@@ -41,10 +41,10 @@ export default function Domains({ domains }) {
                 <span className="info">{item.projects}+ Projects</span>
               )}
               {!!item.events && (
-                <span className="info">{item.events}+ Projects</span>
+                <span className="info">{item.events}+ Events</span>
               )}
               {!!item.blogs && (
-                <span className="info">{item.blogs}+ Projects</span>
+                <span className="info">{item.blogs}+ Blogs</span>
               )}
             </div>
             <div className="logo-container">

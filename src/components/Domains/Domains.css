@@ -1,11 +1,10 @@
-.domains-section{
+.domains-section {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-
-.domains-section__list {
+.domains-section .domains-section__list {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -16,7 +15,7 @@
   max-width: 62.5rem;
 }
 
-.domain {
+.domains-section .domains-section__list .domain {
   width: 15.625rem;
   height: 15.625rem;
   border-radius: 0.625rem;
@@ -28,7 +27,7 @@
   flex-direction: column;
   gap: 0.75rem;
 }
-.domain .count {
+.domains-section .domains-section__list .domain .count {
   position: absolute;
   top: 0;
   right: 0;
@@ -49,7 +48,7 @@
   transform: translate(50%, -50%);
 }
 
-.domain .title {
+.domains-section .domains-section__list .domain .title {
   color: var(--Primary-500, #002b36);
   font-size: 1.25rem;
   font-style: normal;
@@ -61,7 +60,7 @@
   text-align: start;
 }
 
-.domain .info-container {
+.domains-section .domains-section__list .domain .info-container {
   display: flex;
   align-items: center;
   align-content: center;
@@ -70,7 +69,7 @@
   flex-wrap: wrap;
 }
 
-.domain .info-container .info {
+.domains-section .domains-section__list .domain .info-container .info {
   display: flex;
   padding: 0.25rem 0.5rem;
   justify-content: center;
@@ -85,7 +84,7 @@
   line-height: normal;
 }
 
-.domain .logo-container {
+.domains-section .domains-section__list .domain .logo-container {
   position: absolute;
   bottom: 1rem;
   right: 1rem;
@@ -100,45 +99,39 @@
   overflow: hidden;
 }
 
-.domain .logo-container img {
+.domains-section .domains-section__list .domain .logo-container img {
   object-fit: contain;
   height: 2.5rem;
   width: 2.5rem;
 }
 
-.domain:hover {
+.domains-section .domains-section__list .domain:hover {
   cursor: pointer;
 }
 
-.domains-section__item__title {
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: black;
-}
-
 @media screen and (max-width: 1250px) {
-  .domains-section__list {
+  .domains-section .domains-section__list {
     gap: 3rem;
   }
 }
 
 @media screen and (max-width: 574px) {
-  .domains-section__list {
+  .domains-section .domains-section__list {
     gap: 1rem;
     flex-direction: column;
     width: 100%;
     padding: 0 0.5rem 0 0;
   }
-  .domain {
+  .domains-section .domains-section__list .domain {
     padding: 0.5rem 1.38rem;
     width: 100%;
     height: 3.8125rem;
     border-radius: 0.5rem;
   }
-  .domain .info-container {
+  .domains-section .domains-section__list .domain .info-container {
     display: none;
   }
-  .domain .logo-container {
+  .domains-section .domains-section__list .domain .logo-container {
     position: unset;
     height: 2.8125rem;
     min-height: 2.8125rem;
@@ -147,7 +140,7 @@
     min-width: 2.8125rem;
     max-width: 2.8125rem;
   }
-  .domain {
+  .domains-section .domains-section__list .domain {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;

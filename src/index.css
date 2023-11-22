@@ -60,7 +60,7 @@ span {
 }
 :root {
   --section-padding: min(10.41rem, 8vw);
-  --vertical-padding: min(2rem, 4vw);
+  --vertical-padding: min(1rem, 4vw);
 
   --main-background-color: #eeffff; /*rgb(238,255,255)*/
 
