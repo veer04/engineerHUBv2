@@ -131,14 +131,213 @@
   }
 }
 
-
-
-
-
-
 .sub-navbar {
   /* Mobile styles go here */
 
+  /* Initially, position it at 165px from the top */
+  top: 165px;
+}
+
+.sub-navbar.sticky {
+  /* Make it sticky when scrolling */
+  position: fixed;
+  top: 0;
+  /* You can also add other styles like background color, z-index, etc. */
+}
+.campus-page-container {
+  display: flex;
+}
+
+.column {
+  flex: 1;
+  padding: 20px;
+  /* Add your column styles */
+}
+
+.column-1.sticky {
+  position: fixed;
+  top: 0;
+  left: 0;
+  gap: 0.5rem;
+  width: 20.5625rem;
+}
+.column-3.sticky {
+  position: fixed;
+  top: 0;
+  right: 0;
+  gap: 0.5rem;
+  width: 20.5625rem;
+}
+
+.column-2.scrollable {
+  overflow-y: auto;
+  gap: 0.88rem;
+  width: 26rem;
+  /* z-index: 2; */
+  /* Add any additional styles for the scrollable column */
+}
+
+
+
+
+
+
+.campus-page {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: var(--vertical-padding) var(--section-padding);
+  scroll-behavior: auto;
+}
+
+.campus-page .heading-3 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--text-color-dark-green);
+  margin-bottom: 1rem;
+}
+
+.campus-page .subheading-1 {
+  font-size: 1.2rem;
+  font-weight: 400;
+  margin-bottom: 2rem;
+  color: var(--text-color-dark-green);
+}
+
+.campus-page .search-bar__container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.campus-page .search-bar__container > div {
+  width: max(50%, 23rem);
+  display: flex;
+  justify-content: center;
+}
+
+.campus-page-container {
+  display: flex;
+}
+
+.column {
+  flex: 1;
+  padding: 20px;
+  /* Add your column styles */
+}
+
+.column-1.sticky,
+.column-3.sticky {
+  position: fixed;
+  top: 0;
+}
+
+.column-2.scrollable {
+  overflow-y: auto;
+  /* Add any additional styles for the scrollable column */
+}
+
+.column-1,
+.column-3 {
+  gap: 0.5rem;
+  width: 20.5625rem;
+}
+
+.column-2 {
+  gap: 0.88rem;
+  width: 26rem;
+}
+
+@media screen and (max-width: 1320px) {
+  .campus-page-container {
+    grid-template-columns: repeat(2, auto);
+  }
+
+  .column-3 {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 910px) {
+  .campus-page .heading-3,
+  .campus-page .subheading-1 {
+    display: none;
+  }
+
+  .campus-page-container {
+    grid-template-columns: repeat(1, auto);
+  }
+
+  .column-2 {
+    width: 100%;
+  }
+
+  .column-1 {
+    display: none;
+  }
+}
+
+.mobile-campus-subnavbar {
+  display: flex;
+  width: 100%;
+  padding: 0.1rem;
+  top: 108px;
+  margin-bottom: 0.3rem;
+  justify-content: center;
+  align-items: center;
+  gap: 3rem;
+  border-radius: 0.625rem;
+  border: 1px solid var(--Primary-500, #002b36);
+  background: var(--Primary-500, #002b36);
+}
+
+.mobile-campus-subnavbar.sticky {
+  position: fixed;
+  top: 107.2px;
+  display: flex;
+  width: 95%;
+  padding: 0.5rem;
+  margin-bottom: 0.3rem;
+  justify-content: center;
+  align-items: center;
+  gap: 3rem;
+  border-radius: 0.625rem;
+  border: 1px solid var(--Primary-500, #002b36);
+  background: var(--Primary-500, #002b36);
+}
+
+.mobile-campus-subnavbar .option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.2rem;
+  color: #b0b0b0;
+  cursor: pointer;
+}
+
+.mobile-campus-subnavbar .option span {
+  font-size: 0.75rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 128.523%; /* 0.80325rem */
+}
+
+.mobile-campus-subnavbar .option .icon {
+  font-size: 1.1rem;
+}
+
+@media screen and (max-width: 380px) {
+  .mobile-campus-subnavbar {
+    gap: unset;
+    justify-content: space-evenly;
+  }
+}
+
+.sub-navbar {
+  /* Mobile styles go here */
   /* Initially, position it at 165px from the top */
   top: 165px;
 }

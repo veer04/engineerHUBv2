@@ -29,7 +29,9 @@ export default function NewCampusPage() {
   const [width, setWidth] = useState(window.innerWidth);
   const [choice, setChoice] = useState(1);
   const [isSticky, setIsSticky] = useState(false);
+  const [isStickySide,setIsStickySide] =useState(false);
   const [prevScrollPos, setPrevScrollPos] = useState(0);
+  const [scrollDirection, setScrollDirection] = useState(null);
   const [trendingPosts, setTrendingPosts] = useState([]);
   const [allCampuses, setAllCampuses] = useState([]);
   const [output, setOutput] = useState("");
@@ -76,12 +78,31 @@ export default function NewCampusPage() {
     };
   }, [prevScrollPos]);
 
-  // useEffect(() => {
-  //   console.log("trendingEvents",trendingEvents);
-  // }, [trendingEvents]);
-  // useEffect(() => {
-  //   console.log("trendingWorkshops",trendingWorkshops);
-  // }, [trendingWorkshops]);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollDistance = window.scrollY;
+      const triggerPoint = 200; // The point where you want the second column to start scrolling
+
+      // Check if scrolling down or up
+      const direction = scrollDistance > triggerPoint ? 'down' : 'up';
+
+      // Update the scroll direction
+      setScrollDirection(direction);
+
+      // Check if the second column should be sticky
+      setIsStickySide(scrollDistance > triggerPoint);
+    };
+
+    // Attach the event listener when the component mounts
+    window.addEventListener('scroll', handleScroll);
+
+    // Detach the event listener when the component unmounts
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
 
   useEffect(() => {
     if (width > 910) {
@@ -200,8 +221,8 @@ export default function NewCampusPage() {
         </div>
 
       )}
-      <div className="campus-page-container">
-        <section className="column column-1 ">
+      <div className={`campus-page-container ${isStickySide ? 'sticky' : ''}`}>
+        <section className={`column column-1 ${isStickySide && scrollDirection === 'down' ? 'sticky' : ''}`}>
           <TrendingListCollegeEvents />
           <TrendingListWorkshops />
           {width <= 1320 && (
@@ -212,7 +233,7 @@ export default function NewCampusPage() {
             </>
           )}
         </section>
-        <section className="column column-2">
+        <section className={`column column-2 ${isStickySide ? 'scrollable' : ''}`}>
           {choice === 1 && renderTrendingPosts}
           {choice === 2 && width < 910 && renderTrendingEventsMobile}
           {choice === 2 && width >= 910 && <TrendingListCollegeEvents />}
@@ -226,7 +247,7 @@ export default function NewCampusPage() {
             </>
           )}
         </section>
-        <section className="column column-3">
+        <section className={`column column-3 ${isStickySide && scrollDirection === 'down' ? 'sticky' : ''}`}>
           <TrendingListColleges />
           <TrendingListClubs />
           <TrendingListAlumni />
