@@ -61,8 +61,8 @@ export default function Modal({ handleClose, setShowModal }) {
           <div className="close-btn">
             <div
               onClick={() => {
-                handleClose();
                 navigate(-1);
+                handleClose();
               }}
             >
               <MdCancel />
