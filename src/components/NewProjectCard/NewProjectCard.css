@@ -4,6 +4,7 @@
   background-color: white;
   border-radius: 0.3125rem;
   border: 1px solid var(--foundation-black-black-50, #e6e6e6);
+  cursor: pointer;
 }
 .project-card .poster-container {
   width: 100%;

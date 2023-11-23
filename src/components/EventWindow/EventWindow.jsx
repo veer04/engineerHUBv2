@@ -1,11 +1,7 @@
 import React, { useEffect, useState } from "react";
 // import "./ProjectWindow.css";
 import { RxCross1 } from "react-icons/rx";
-import {
-  getProjectById,
-  controller,
-  getEventById,
-} from "../../services/APIConfig";
+import { controller, getEventById } from "../../services/APIConfig";
 import decryptData from "../../features/DeCrypt";
 
 export default function EventWindow({ projectOpened, setIsProjectOpen }) {

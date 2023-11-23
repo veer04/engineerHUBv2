@@ -4,7 +4,7 @@ import getCookie from "../../features/getCookieValues";
 import colorWheel from "../../assets/colorWheel";
 import { isUserLoggedIn } from "../../features/User/UserDetails";
 
-export default function Domains({ domains }) {
+function Domain({ item, index }) {
   const navigate = useNavigate();
 
   const isLoggedIn = isUserLoggedIn();
@@ -23,40 +23,39 @@ export default function Domains({ domains }) {
   }
 
   return (
+    <button
+      onClick={() => handleClick(item)}
+      style={{
+        backgroundColor: colorWheel[index % colorWheel.length],
+      }}
+      className="domain on-hover-scale"
+    >
+      <div className="count">125</div>
+      <span className="title text-crop-2">{item.domain}</span>
+      <div className="info-container">
+        {!!item.projects && (
+          <span className="info">{item.projects}+ Projects</span>
+        )}
+        {!!item.events && <span className="info">{item.events}+ Events</span>}
+        {!!item.blogs && <span className="info">{item.blogs}+ Blogs</span>}
+      </div>
+      <div className="logo-container">
+        <img src={item.domainImage} alt="domain logo" className="domain-logo" />
+      </div>
+    </button>
+  );
+}
+
+export default function Domains({ domains }) {
+  return (
     <div className="domains-section">
       <div className="domains-section__list">
         {domains.map((item, index) => (
-          <button
-            key={item._id}
-            onClick={() => handleClick(item)}
-            style={{
-              backgroundColor: colorWheel[index % colorWheel.length],
-            }}
-            className="domain on-hover-scale"
-          >
-            <div className="count">125</div>
-            <span className="title text-crop-2">{item.domain}</span>
-            <div className="info-container">
-              {!!item.projects && (
-                <span className="info">{item.projects}+ Projects</span>
-              )}
-              {!!item.events && (
-                <span className="info">{item.events}+ Events</span>
-              )}
-              {!!item.blogs && (
-                <span className="info">{item.blogs}+ Blogs</span>
-              )}
-            </div>
-            <div className="logo-container">
-              <img
-                src={item.domainImage}
-                alt="domain logo"
-                className="domain-logo"
-              />
-            </div>
-          </button>
+          <Domain key={item._id} item={item} index={index} />
         ))}
       </div>
     </div>
   );
 }
+
+export { Domain };

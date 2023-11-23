@@ -8,6 +8,7 @@ import EventCard from "../../../components/EventCard/EventCard";
 import "./EventsPage.css";
 import { MdCancel } from "react-icons/md";
 import useNavbar from "../../../hooks/use-navbar";
+import NewSidebarMobile from "../../../components/NewSidebarMobile/NewSidebarMobile";
 
 export default function EventsPage({ path }) {
   const { setSelectedPageNavbar } = useNavbar();
@@ -58,7 +59,7 @@ export default function EventsPage({ path }) {
 
   return (
     <>
-      <MobileSidebar path={path} />
+      <NewSidebarMobile/>
       {/* {showModal && modal} */}
       <div className="project-page">
         <div className="community__subpage__heading">

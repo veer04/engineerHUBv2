@@ -11,6 +11,7 @@ import axios from "axios";
 import { API_URL } from "../../../services/APIUtils";
 import Page404 from "../../Maintenance/Page404";
 import { redirectToAuth } from "../../../features/redirectToAuth";
+import NewSidebar from "../../../components/NewSidebar/NewSidebar";
 
 export default function ChatPage({ path, setIsChatOpen }) {
   const { id } = useParams();
@@ -28,7 +29,7 @@ export default function ChatPage({ path, setIsChatOpen }) {
 
   const user = getAccessToken();
   if (user === "" || user === null || user === undefined) {
-    redirectToAuth("/login")
+    redirectToAuth("/login");
   }
 
   if (
@@ -73,7 +74,7 @@ export default function ChatPage({ path, setIsChatOpen }) {
       <MobileSidebar path={path} />
       <main className="chat-page">
         <div className="chat-section">
-          <Sidebar path="chat" />
+          <NewSidebar />
           <Chat
             data={data}
             user={user}
