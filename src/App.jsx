@@ -73,8 +73,12 @@ import TrendingAlumni from "../src/components/TrendingAlumni/TrendingAlumni";
 import CampusDetailsOld from "./pages/Campus/ParticularCampus/CampusDetails.jsx";
 import TrendingWorkshops from "./pages/Campus/TrendingWorkshops.jsx";
 import ProjectWindow from "./pages/Community/Project/ProjectWindow.jsx";
+import EventWindow from "./pages/Community/Events/EventWindow.jsx";
 const NewProjectsPage = lazy(() =>
   import("./pages/Community/Project/NewProjectsPage.jsx")
+);
+const NewEventsPage = lazy(() =>
+  import("./pages/Community/Events/NewEventsPage.jsx")
 );
 
 function App() {
@@ -173,7 +177,7 @@ function App() {
             <Route path="domains" element={<CommunityPage path="domains" />} />
             <Route path="projects">
               {/* <Route path=":id" element={<ProjectPage path="projects" />} /> */}
-              <Route path=":id" element={<NewProjectsPage path="projects" />}>
+              <Route path=":id" element={<NewProjectsPage />}>
                 <Route path=":projectId" element={<ProjectWindow />} />
               </Route>
             </Route>
@@ -181,16 +185,17 @@ function App() {
               <Route path=":id" element={<BlogsPage path="blogs" />} />
             </Route>
             <Route path="events">
-              <Route path=":id">
-                <Route index element={<EventsPage path="events" />} />
-                <Route
+              <Route path=":id" element={<NewEventsPage />}>
+                <Route path=":eventId" element={<EventWindow />} />
+                {/* <Route index element={<EventsPage path="events" />} /> */}
+                {/* <Route
                   path=":eventId"
                   element={
                     <ParticularEvent
                       setIsEventModalOpen={setIsEventModalOpen}
                     />
                   }
-                />
+                /> */}
               </Route>
             </Route>
             <Route path="chat">

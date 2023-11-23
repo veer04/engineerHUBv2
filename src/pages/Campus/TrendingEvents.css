@@ -32,7 +32,7 @@
 .trending-events .content-container .column-1 .list-heading {
   padding: 0.5rem;
   border-radius: 3.125rem;
-  background: #8FC8E8;
+  background: #8fc8e8;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -263,5 +263,4 @@
     max-height: 100%;
     aspect-ratio: 1/1;
   }
-
 }

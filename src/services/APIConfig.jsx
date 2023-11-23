@@ -1773,10 +1773,10 @@ export const getEvents = (setEvents, id) => {
       signal: controller.signal,
     })
     .then((res) => {
-      const data = res.data.data;
-      setEvents(data);
+      setEvents(res);
     })
     .catch((err) => {
+      setEvents(err);
       if (axios.isCancel(err)) {
         console.log("req cancel");
       } else {
@@ -1785,17 +1785,17 @@ export const getEvents = (setEvents, id) => {
     });
 };
 
-export const getParticularEvent = (setEvent, eventId) => {
+export const getEventById = (setEvent, eventId) => {
   const controller = new AbortController();
   axios
     .get(`${API_URL}api/v1/event/${eventId}`, {
       signal: controller.signal,
     })
     .then((res) => {
-      const data = res.data.data;
-      setEvent(data);
+      setEvent(res);
     })
     .catch((err) => {
+      setEvent(err);
       if (axios.isCancel(err)) {
         console.log("req cancel");
       } else {
