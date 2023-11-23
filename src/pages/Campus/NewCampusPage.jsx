@@ -29,6 +29,7 @@ export default function NewCampusPage() {
   const [width, setWidth] = useState(window.innerWidth);
   const [choice, setChoice] = useState(1);
   const [isSticky, setIsSticky] = useState(false);
+  const [prevScrollPos, setPrevScrollPos] = useState(0);
   const [trendingPosts, setTrendingPosts] = useState([]);
   const [allCampuses, setAllCampuses] = useState([]);
   const [output, setOutput] = useState("");
@@ -52,23 +53,28 @@ export default function NewCampusPage() {
 
   useEffect(() => {
     const handleScroll = () => {
-      const subNavbar = document.querySelector('.sub-navbar');
       const scrollDistance = window.scrollY;
-      const triggerPoint = 165; // The point where you want the sub navbar to stick
+      const triggerPoint = 132; // The point where you want the sub navbar to stick
 
-      if (scrollDistance > triggerPoint) {
+      // Check if scrolling down and past the trigger point
+      if (scrollDistance > triggerPoint && prevScrollPos < scrollDistance) {
         setIsSticky(true);
       } else {
         setIsSticky(false);
       }
+
+      // Update the previous scroll position
+      setPrevScrollPos(scrollDistance);
     };
 
+    // Attach the event listener when the component mounts
     window.addEventListener('scroll', handleScroll);
 
+    // Detach the event listener when the component unmounts
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
-  }, []);
+  }, [prevScrollPos]);
 
   // useEffect(() => {
   //   console.log("trendingEvents",trendingEvents);
