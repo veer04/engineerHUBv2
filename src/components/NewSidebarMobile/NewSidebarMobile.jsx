@@ -5,13 +5,24 @@ import { CiViewList } from "react-icons/ci";
 import { MdOutlineCalendarMonth } from "react-icons/md";
 import { TbFileText } from "react-icons/tb";
 import useSidebar from "../../hooks/use-sidebar";
+import { useIsScrolling } from "../../hooks/useIsScrolling";
 
 export default function NewSidebarMobile() {
   const { id } = useParams();
   const navigate = useNavigate();
   const { selectedItem, setSelectedItem } = useSidebar();
+  const isScrolling = useIsScrolling();
+
   return (
-    <div id="new-community-sidebar-mobile" className="options">
+    <div
+      style={{
+        height: isScrolling ? 0 : "66.55px",
+        transition: "height 0.2s ease-in-out",
+        padding: isScrolling ? "0 .5rem" : "0.75rem 0.5rem",
+      }}
+      id="new-community-sidebar-mobile"
+      className="options"
+    >
       <div
         style={{
           color: selectedItem === "chat" ? "#FFD600" : "#b0b0b0",

@@ -12,12 +12,14 @@ import { API_URL } from "../../../services/APIUtils";
 import Page404 from "../../Maintenance/Page404";
 import { redirectToAuth } from "../../../features/redirectToAuth";
 import NewSidebar from "../../../components/NewSidebar/NewSidebar";
+import NewSidebarMobile from "../../../components/NewSidebarMobile/NewSidebarMobile";
+import useSidebar from "../../../hooks/use-sidebar";
 
 export default function ChatPage({ path, setIsChatOpen }) {
   const { id } = useParams();
   const { setSelectedPageNavbar } = useNavbar();
-  const [chat, setChat] = useState({});
   const [data, setData] = useState({});
+  const { setSelectedItem } = useSidebar();
 
   useEffect(() => {
     setIsChatOpen(true);
@@ -25,7 +27,7 @@ export default function ChatPage({ path, setIsChatOpen }) {
     return () => {
       setIsChatOpen(false);
     };
-  }, [chat]);
+  }, []);
 
   const user = getAccessToken();
   if (user === "" || user === null || user === undefined) {
@@ -48,6 +50,7 @@ export default function ChatPage({ path, setIsChatOpen }) {
   useEffect(() => {
     window.scrollTo(0, 0);
     setSelectedPageNavbar("community");
+    setSelectedItem("chat");
     const config = {
       headers: {
         accesstoken: getAccessToken(),
@@ -71,7 +74,8 @@ export default function ChatPage({ path, setIsChatOpen }) {
 
   return (
     <>
-      <MobileSidebar path={path} />
+      {/* <MobileSidebar path={path} /> */}
+      <NewSidebarMobile />
       <main className="chat-page">
         <div className="chat-section">
           <NewSidebar />

@@ -9,6 +9,8 @@ import "./EventsPage.css";
 import { MdCancel } from "react-icons/md";
 import useNavbar from "../../../hooks/use-navbar";
 import NewSidebarMobile from "../../../components/NewSidebarMobile/NewSidebarMobile";
+import NewSidebar from "../../../components/NewSidebar/NewSidebar";
+import useSidebar from "../../../hooks/use-sidebar";
 
 export default function EventsPage({ path }) {
   const { setSelectedPageNavbar } = useNavbar();
@@ -24,11 +26,13 @@ export default function EventsPage({ path }) {
     //   :
     []
   );
+  const { setSelectedItem } = useSidebar();
 
   useEffect(() => {
     getEvents(setEvents, id);
     window.scrollTo(0, 0);
     setSelectedPageNavbar("community");
+    setSelectedItem("events");
 
     return () => {
       controller.abort();
@@ -59,14 +63,15 @@ export default function EventsPage({ path }) {
 
   return (
     <>
-      <NewSidebarMobile/>
+      <NewSidebarMobile />
       {/* {showModal && modal} */}
       <div className="project-page">
         <div className="community__subpage__heading">
           <span>Events</span>
         </div>
         <div className="community__subpage__content">
-          <Sidebar path={path} />
+          {/* <Sidebar path={path} /> */}
+          <NewSidebar />
           <div className="project__content">
             {/* <div className="project__searchbar__container">
               <div className="project__searchbar input-group">

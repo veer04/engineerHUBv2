@@ -1,17 +1,20 @@
 import React, { useEffect, useState } from "react";
-import "./DomainSwitcher.css";
-import { useParams, useNavigate } from "react-router-dom";
-import useSidebar from "../../hooks/use-sidebar";
+import "./DomainSwitcherMobile.css";
+import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import { controller, getDomains } from "../../services/APIConfig";
+import { useParams, useNavigate } from "react-router-dom";
 import colorWheel from "../../assets/colorWheel";
+import useSidebar from "../../hooks/use-sidebar";
+import { useIsScrolling } from "../../hooks/useIsScrolling";
 
-export default function DomainSwitcher() {
+export default function DomainSwitcherMobile() {
   const navigate = useNavigate();
   const { id } = useParams();
   const [domains, setDomains] = useState([]);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [filteredDomains, setFilteredDomains] = useState([]);
   const { selectedItem } = useSidebar();
+  const isScrolling = useIsScrolling();
 
   useEffect(() => {
     if (sessionStorage.getItem("domainData")) {
@@ -34,23 +37,39 @@ export default function DomainSwitcher() {
     );
   }, [domains]);
 
-  const currentActiveDomain = filteredDomains?.find(
+  const currentActiveDomain = filteredDomains.find(
     (domain) => domain.domain === id
   );
+
   return (
-    <div id="domain-switcher" className="change-domain">
-      <span className="heading">Tap to select</span>
+    <aside
+      style={{
+        height: isScrolling ? 0 : "56px",
+        transition: "height 0.2s ease-in-out",
+        overflow: isScrolling ? "hidden" : "visible",
+      }}
+      id="domain-switcher-mobile"
+    >
       <button
-        onClick={() => setIsDropdownOpen((prev) => !prev)}
-        className="domain"
+        style={{
+          backgroundColor: colorWheel[0],
+        }}
+        onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+        className="active-item"
       >
-        <img
-          src={currentActiveDomain?.domainImage}
-          alt={`${currentActiveDomain?.domain} logo`}
-          loading="lazy"
-        />
+        <div className="left">
+          <div className="logo">
+            <img
+              src={`${currentActiveDomain?.domainImage}`}
+              alt={`${currentActiveDomain?.domain} logo`}
+            />
+          </div>
+          <span className="text-crop-1">{currentActiveDomain?.domain}</span>
+        </div>
+        <div className="logo arrow">
+          {isDropdownOpen ? <IoIosArrowUp /> : <IoIosArrowDown />}
+        </div>
       </button>
-      <span className="title text-crop-1">{currentActiveDomain?.domain}</span>
       {isDropdownOpen && (
         <div className="dropdown">
           {
@@ -87,6 +106,6 @@ export default function DomainSwitcher() {
           }
         </div>
       )}
-    </div>
+    </aside>
   );
 }

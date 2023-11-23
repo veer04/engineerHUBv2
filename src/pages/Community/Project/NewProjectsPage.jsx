@@ -11,9 +11,10 @@ import { Outlet } from "react-router-dom";
 import NewProjectCard from "../../../components/NewProjectCard/NewProjectCard";
 import NewSidebar from "../../../components/NewSidebar/NewSidebar";
 import Loading from "../../../components/Loader/Loading";
-import { Domain } from "../../../components/Domains/Domains";
 import NewSidebarMobile from "../../../components/NewSidebarMobile/NewSidebarMobile";
 import DomainSwitcher from "../../../components/DomainSwitcher/DomainSwitcher";
+import DomainSwitcherMobile from "../../../components/DomainSwitcher/DomainSwitcherMobile";
+import useSidebar from "../../../hooks/use-sidebar";
 
 export default function NewProjectsPage({ path }) {
   const { setSelectedPageNavbar } = useNavbar();
@@ -31,13 +32,14 @@ export default function NewProjectsPage({ path }) {
     []
   );
   const [filteredProjects, setFilteredProjects] = useState([]);
-
   const [searchedProjects, setSearchedProjects] = useState([]);
+  const { setSelectedItem } = useSidebar();
 
   useEffect(() => {
     window.scrollTo(0, 0);
     getProjects(setProjectsData, id);
     setSelectedPageNavbar("community");
+    setSelectedItem("projects");
     if (sessionStorage.getItem("domainData")) {
       setDomains(JSON.parse(sessionStorage.getItem("domainData")));
     } else {
@@ -46,6 +48,7 @@ export default function NewProjectsPage({ path }) {
 
     return () => {
       controller.abort();
+      setProjectsData({});
     };
   }, [id]);
 
@@ -91,40 +94,33 @@ export default function NewProjectsPage({ path }) {
     setSearchedProjects(filteredData);
   }, [q, filteredData]);
 
-  // const [width, setWidth] = useState(window.innerWidth);
-
-  // useEffect(() => {
-  //   window.addEventListener("resize", () => {
-  //     setWidth(window.innerWidth);
-  //   });
-
-  //   return () => {
-  //     window.removeEventListener("resize", () => {
-  //       setWidth(window.innerWidth);
-  //     });
-  //   };
-  // }, []);
-
-  const currentActiveDomain = filteredDomains.find(
-    (domain) => domain.domain === id
-  );
+  function handleHeight() {
+    setTimeout(() => {
+      document.getElementById("project-list").style.height = `${
+        document.getElementById("project-window").offsetHeight
+      }px`;
+    }, 100);
+  }
 
   const renderContentContainer = (
     <>
       <div
-        className={`project-list ${isProjectOpen ? "--flip-direction" : ""}`}
+        id="project-list"
+        className={`project-list ${
+          isProjectOpen ? "--flip-direction" : "h-100"
+        }`}
       >
         {filteredProjects.map((project) => (
           <NewProjectCard key={project._id} project={project} />
         ))}
       </div>
-      <Outlet />
+      <Outlet context={[handleHeight]} />
     </>
   );
 
   return (
     <>
-      <DomainSwitcher />
+      <DomainSwitcherMobile />
       <NewSidebarMobile />
       <main className="projects-page">
         {/* <div className="heading">
@@ -170,19 +166,7 @@ export default function NewProjectsPage({ path }) {
         <div className="main-container">
           {!isProjectOpen && (
             <aside className="options-container">
-              <div className="change-domain">
-                <span className="heading">Tap to select</span>
-                <button className="domain">
-                  <img
-                    src={currentActiveDomain?.domainImage}
-                    alt={`${currentActiveDomain?.domain} logo`}
-                    loading="lazy"
-                  />
-                </button>
-                <span className="title text-crop-1">
-                  {currentActiveDomain?.domain}
-                </span>
-              </div>
+              <DomainSwitcher />
               <NewSidebar />
             </aside>
           )}

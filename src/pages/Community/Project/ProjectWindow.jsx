@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { RxCross1 } from "react-icons/rx";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useOutletContext } from "react-router-dom";
 import { getProjectById } from "../../../services/APIConfig";
 import Loading from "../../../components/Loader/Loading";
 
@@ -9,6 +9,7 @@ export default function ProjectWindow() {
   const navigate = useNavigate();
   const [projectData, setProjectData] = useState({});
   const [project, setProject] = useState({});
+  const [handleHeight] = useOutletContext();
 
   if (!!!projectId) {
     return;
@@ -24,15 +25,26 @@ export default function ProjectWindow() {
   }, [projectId]);
 
   useEffect(() => {
-    console.log(projectData);
-    setProject(projectData?.data?.data);
+    setProject(projectData?.data?.data || {});
   }, [projectData]);
+
+  useEffect(() => {
+    if (Object.keys(project).length !== 0) {
+      handleHeight();
+    }
+  }, [project]);
 
   const renderProjectWindow = (
     <>
-      <div className="poster">
-        <img src={project?.projectImage} alt="poster" />
-      </div>
+      {!!project?.projectImage && (
+        <div className="poster">
+          <img
+            onLoad={() => handleHeight()}
+            src={project?.projectImage}
+            alt="poster"
+          />
+        </div>
+      )}
       <p className="title heading">{project?.projectName}</p>
       <p className="sub-heading">{project?.description}</p>
       <p className="heading">Tags</p>
@@ -84,7 +96,7 @@ export default function ProjectWindow() {
   );
 
   return (
-    <div className="project-window">
+    <div id="project-window" className="project-window">
       <div
         onClick={() =>
           navigate(`/community/projects/${encodeURIComponent(id)}`)
