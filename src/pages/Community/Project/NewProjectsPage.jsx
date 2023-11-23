@@ -16,7 +16,7 @@ import DomainSwitcher from "../../../components/DomainSwitcher/DomainSwitcher";
 import DomainSwitcherMobile from "../../../components/DomainSwitcher/DomainSwitcherMobile";
 import useSidebar from "../../../hooks/use-sidebar";
 
-export default function NewProjectsPage({ path }) {
+export default function NewProjectsPage() {
   const { setSelectedPageNavbar } = useNavbar();
   const [searchParams, setSearchParams] = useSearchParams({ q: "" });
   const q = searchParams.get("q");
