@@ -1716,10 +1716,10 @@ export const getBlogById = (setBlog, id) => {
       signal: controller.signal,
     })
     .then((res) => {
-      const data = res.data.data;
-      setBlog(data);
+      setBlog(res);
     })
     .catch((err) => {
+      setBlog(err);
       if (axios.isCancel(err)) {
         console.log("req cancel");
       } else {
