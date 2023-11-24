@@ -74,13 +74,18 @@ import CampusDetailsOld from "./pages/Campus/ParticularCampus/CampusDetails.jsx"
 import TrendingWorkshops from "./pages/Campus/TrendingWorkshops.jsx";
 import ProjectWindow from "./pages/Community/Project/ProjectWindow.jsx";
 import EventWindow from "./pages/Community/Events/EventWindow.jsx";
-import NewBlogsPage from "./pages/Community/Blogs/NewBlogsPage.jsx";
 import BlogWindow from "./pages/Community/Blogs/BlogWindow.jsx";
+const NewChatPage = lazy(() =>
+  import("./pages/Community/Chat/NewChatPage.jsx")
+);
 const NewProjectsPage = lazy(() =>
   import("./pages/Community/Project/NewProjectsPage.jsx")
 );
 const NewEventsPage = lazy(() =>
   import("./pages/Community/Events/NewEventsPage.jsx")
+);
+const NewBlogsPage = lazy(() =>
+  import("./pages/Community/Blogs/NewBlogsPage.jsx")
 );
 
 function App() {
@@ -203,10 +208,11 @@ function App() {
               </Route>
             </Route>
             <Route path="chat">
-              <Route
+              <Route path=":id" element={<NewChatPage />} />
+              {/* <Route
                 path=":id"
                 element={<ChatPage path="chat" setIsChatOpen={setIsChatOpen} />}
-              />
+              /> */}
             </Route>
           </Route>
           <Route path="/mentorChat" element={<MentorChat />} />
