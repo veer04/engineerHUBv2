@@ -1,5 +1,6 @@
 import React from "react";
 import "./BlogCard.css";
+import { useNavigate, useParams } from "react-router-dom";
 import { IoPeopleOutline } from "react-icons/io5";
 import useSidebar from "../../hooks/use-sidebar";
 import defaultPoster from "../../assets/defaultPoster";
@@ -16,6 +17,8 @@ export default function BlogCard({
   setIsBlogOpen,
   createdAt,
 }) {
+  const navigate = useNavigate();
+  const { id, blogId } = useParams();
   const { setIsCollapsed } = useSidebar();
   // useEffect(() => {
   //   document.getElementById(`blog-card-description-${_id}`).innerHTML =
@@ -25,9 +28,7 @@ export default function BlogCard({
   return (
     <div
       onClick={() => {
-        setBlogOpened(_id);
-        setIsBlogOpen(true);
-        setIsCollapsed(true);
+        navigate(`/community/blogs/${id}/${blogId}`);
       }}
       className="project__list__item blog__list__item card-hover"
     >
@@ -56,21 +57,27 @@ export default function BlogCard({
         </div>
       </div>
       <div className="title text-crop-2">{title}</div>
-      <div  className="description">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</div>
+      <div className="description">
+        Lorem Ipsum is simply dummy text of the printing and typesetting
+        industry. Lorem Ipsum has been the industry's standard dummy text ever
+        since the 1500s
+      </div>
       <div className="row">
-
         <div className="col-2">
           <img src="" alt="" />
         </div>
         <div className="col-1"></div>
         <div className="col-8">
           Created By
-      <div className="author " style={{
-        fontSize:"1.1rem",
-        fontWeight:"500",
-      }}>
-          {!!creatorId?.name ? `by ${creatorId?.name}` : "@engineerHUB"}
-        </div>
+          <div
+            className="author "
+            style={{
+              fontSize: "1.1rem",
+              fontWeight: "500",
+            }}
+          >
+            {!!creatorId?.name ? `by ${creatorId?.name}` : "@engineerHUB"}
+          </div>
         </div>
       </div>
       {/* <div className="topic">{domainName}</div> */}

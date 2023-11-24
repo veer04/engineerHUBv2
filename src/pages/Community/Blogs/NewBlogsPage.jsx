@@ -86,19 +86,21 @@ export default function NewBlogsPage() {
 
   const renderContentContainer = (
     <>
-      <div id="blog-list" className={`blog-list `}>
-        {filteredBlogs.length === 0 && (
-          <div
-            style={{ minHeight: "30vh" }}
-            className="d-flex justify-content-center align-items-center flex-column w-100"
-          >
-            <h4>No Blogs found</h4>
-          </div>
-        )}
-        {filteredBlogs.map((blog) => (
-          <BlogCard key={blog._id} {...blog} />
-        ))}
-      </div>
+      {!isBlogOpen && (
+        <div id="blog-list" className={`blog-list `}>
+          {filteredBlogs.length === 0 && (
+            <div
+              style={{ minHeight: "30vh" }}
+              className="d-flex justify-content-center align-items-center flex-column w-100"
+            >
+              <h4>No Blogs found</h4>
+            </div>
+          )}
+          {filteredBlogs.map((blog) => (
+            <BlogCard key={blog._id} {...blog} />
+          ))}
+        </div>
+      )}
       <Outlet context={[handleHeight]} />
     </>
   );

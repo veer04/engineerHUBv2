@@ -1,0 +1,153 @@
+import { useEffect, useState } from "react";
+import { RxCross1 } from "react-icons/rx";
+import { useParams, useNavigate, useOutletContext } from "react-router-dom";
+import { getProjectById } from "../../../services/APIConfig";
+import Loading from "../../../components/Loader/Loading";
+
+export default function BlogWindow() {
+  const { id, projectId } = useParams();
+  const navigate = useNavigate();
+  const [projectData, setProjectData] = useState({});
+  const [project, setProject] = useState({});
+  const [handleHeight] = useOutletContext();
+
+  if (!!!projectId) {
+    return;
+  }
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    getProjectById(setProjectData, projectId);
+
+    return () => {
+      setProjectData({});
+    };
+  }, [projectId]);
+
+  useEffect(() => {
+    setProject(projectData?.data?.data || {});
+  }, [projectData]);
+
+  useEffect(() => {
+    if (Object.keys(project).length !== 0) {
+      handleHeight();
+    }
+  }, [project]);
+
+  const [blog, setBlog] = useState({});
+  const { isCollapsed } = useSidebar();
+
+  useEffect(() => {
+    if (isCollapsed === false) setIsBlogOpen(false);
+  }, [isCollapsed]);
+  useEffect(() => {
+    getBlogById(setBlog, blogOpened);
+  }, [blogOpened]);
+  useEffect(() => {
+    document.getElementById("blog-description-box").innerHTML = blog?.postArea;
+  }, [blog]);
+
+  const renderProjectWindow = (
+    <>
+      {!!project?.projectImage && (
+        <div className="poster">
+          <img
+            onLoad={() => handleHeight()}
+            src={project?.projectImage}
+            alt="poster"
+          />
+        </div>
+      )}
+      <p className="title heading">{project?.projectName}</p>
+      <p className="sub-heading">{project?.description}</p>
+      <p className="heading">Tags</p>
+      <ul className="sub-heading">
+        {project?.techStack?.map((tag) => {
+          return <li key={tag}>{tag}</li>;
+        })}
+      </ul>
+      {!!project?.prerequisites?.length && (
+        <>
+          <p className="heading">Prerequisites</p>
+          <ul className="sub-heading">
+            {project?.prerequisites?.map((prerequisite) => {
+              return <li key={prerequisite}>{prerequisite}</li>;
+            })}
+          </ul>
+        </>
+      )}
+      {!!project?.softwareUsed?.length && (
+        <>
+          <p className="heading">Software Used</p>
+          <ul className="sub-heading">
+            {project?.softwareUsed?.map((software) => {
+              return <li key={software}>{software}</li>;
+            })}
+          </ul>
+        </>
+      )}
+      {!!project?.hardwareUsed?.length && (
+        <>
+          <p className="heading">Hardware Used</p>
+          <ul className="sub-heading">
+            {project?.hardwareUsed?.map((hardware) => {
+              return <li key={hardware}>{hardware}</li>;
+            })}
+          </ul>
+        </>
+      )}
+      {!!project?.applyLink && (
+        <a
+          target="_blank"
+          href={`${project?.applyLink}`}
+          rel="noopener noreferrer"
+        >
+          <button>View more</button>
+        </a>
+      )}
+    </>
+  );
+
+  return (
+    <div id="project-window" className="project-window">
+      <div className="project__window__title blog__window__title">
+        <div className="detail">
+          <div className="title">{blog.title}</div>
+        </div>
+        <div onClick={() => setIsBlogOpen(false)} className="link">
+          <RxCross1 />
+        </div>
+      </div>
+      <div
+        style={{
+          backgroundImage: `url(${blog.postIcon})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+          width: "100%",
+          height: "15rem",
+          backgroundColor: "var(--main-background-color)",
+          border: "1px solid lightgrey",
+          borderRadius: ".5rem",
+        }}
+        className="project_window__poster"
+      ></div>
+      <div className="project__window__description">
+        <div id="blog-description-box" className="description"></div>
+      </div>
+      <div className="blog__window__details">
+        {blog.creatorId && (
+          <div className="author">{`by ${blog.creatorId.name}`}</div>
+        )}
+        <div className="date">
+          {blog.createdAt &&
+            new Intl.DateTimeFormat("en-US", {
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+            }).format(date)}
+        </div>
+      </div>
+    </div>
+  );
+}
