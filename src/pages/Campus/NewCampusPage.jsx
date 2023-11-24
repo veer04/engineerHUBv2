@@ -53,55 +53,55 @@ export default function NewCampusPage() {
   }, []);
 
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollDistance = window.scrollY;
-      const triggerPoint = 132; // The point where you want the sub navbar to stick
+  // useEffect(() => {
+  //   const handleScroll = () => {
+  //     const scrollDistance = window.scrollY;
+  //     const triggerPoint = 132; // The point where you want the sub navbar to stick
 
-      // Check if scrolling down and past the trigger point
-      if (scrollDistance > triggerPoint && prevScrollPos < scrollDistance) {
-        setIsSticky(true);
-      } else {
-        setIsSticky(false);
-      }
+  //     // Check if scrolling down and past the trigger point
+  //     if (scrollDistance > triggerPoint && prevScrollPos < scrollDistance) {
+  //       setIsSticky(true);
+  //     } else {
+  //       setIsSticky(false);
+  //     }
 
-      // Update the previous scroll position
-      setPrevScrollPos(scrollDistance);
-    };
-
-    // Attach the event listener when the component mounts
-    window.addEventListener('scroll', handleScroll);
-
-    // Detach the event listener when the component unmounts
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, [prevScrollPos]);
-
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollDistance = window.scrollY;
-      const triggerPoint = 200; // The point where you want the second column to start scrolling
-
-      // Check if scrolling down or up
-      const direction = scrollDistance > triggerPoint ? 'down' : 'up';
-
-      // Update the scroll direction
-      setScrollDirection(direction);
-
-      // Check if the second column should be sticky
-      setIsStickySide(scrollDistance > triggerPoint);
-    };
+  //     // Update the previous scroll position
+  //     setPrevScrollPos(scrollDistance);
+  //   };
 
     // Attach the event listener when the component mounts
-    window.addEventListener('scroll', handleScroll);
+    // window.addEventListener('scroll', handleScroll);
 
     // Detach the event listener when the component unmounts
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
+  //   return () => {
+  //     window.removeEventListener('scroll', handleScroll);
+  //   };
+  // }, [prevScrollPos]);
+
+
+  // useEffect(() => {
+  //   const handleScroll = () => {
+  //     const scrollDistance = window.scrollY;
+  //     const triggerPoint = 200; // The point where you want the second column to start scrolling
+
+  //     // Check if scrolling down or up
+  //     const direction = scrollDistance > triggerPoint ? 'down' : 'up';
+
+  //     // Update the scroll direction
+  //     setScrollDirection(direction);
+
+  //     // Check if the second column should be sticky
+  //     setIsStickySide(scrollDistance > triggerPoint);
+  //   };
+
+  //   // Attach the event listener when the component mounts
+  //   window.addEventListener('scroll', handleScroll);
+
+  //   // Detach the event listener when the component unmounts
+  //   return () => {
+  //     window.removeEventListener('scroll', handleScroll);
+  //   };
+  // }, []);
 
 
   useEffect(() => {
