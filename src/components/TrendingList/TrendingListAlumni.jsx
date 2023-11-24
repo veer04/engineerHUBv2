@@ -13,13 +13,20 @@ export default function TrendingListAlumni({ expanded }) {
   const [viewMore, setViewMore] = useState(isExpanded);
 
   useEffect(() => {
-    getTrendingAlumni2(setTrendingList);
+    if (sessionStorage.getItem("trendingAlumni2"))
+      setTrendingList(JSON.parse(sessionStorage.getItem("trendingAlumni2")));
+    else getTrendingAlumni2(setTrendingList);
 
     return () => {
       controller.abort();
       setTrendingList([]);
     };
   }, []);
+
+  useEffect(() => {
+    if (trendingList.length !== 0)
+      sessionStorage.setItem("trendingAlumni2", JSON.stringify(trendingList));
+  }, [trendingList]);
 
   return (
     <div className="trending-cards-container">

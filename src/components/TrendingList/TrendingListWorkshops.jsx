@@ -12,13 +12,20 @@ export default function TrendingListWorkshops() {
   const [viewMore, setViewMore] = useState(false);
 
   useEffect(() => {
-    getEventByMode(setTrendingList, "Workshop");
+    if (sessionStorage.getItem("trendingWorkshops"))
+      setTrendingList(JSON.parse(sessionStorage.getItem("trendingWorkshops")));
+    else getEventByMode(setTrendingList, "Workshop");
 
     return () => {
       controller.abort();
       setTrendingList([]);
     };
   }, []);
+
+  useEffect(() => {
+    if (trendingList.length !== 0)
+      sessionStorage.setItem("trendingWorkshops", JSON.stringify(trendingList));
+  }, [trendingList]);
 
   return (
     <div className="trending-cards-container">

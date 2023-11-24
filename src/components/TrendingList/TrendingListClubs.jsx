@@ -12,13 +12,20 @@ export default function TrendingListClubs() {
   const [viewMore, setViewMore] = useState(false);
 
   useEffect(() => {
-    getTrendingClubs(setTrendingList);
+    if (sessionStorage.getItem("trendingClubs"))
+      setTrendingList(JSON.parse(sessionStorage.getItem("trendingClubs")));
+    else getTrendingClubs(setTrendingList);
 
     return () => {
       controller.abort();
       setTrendingList([]);
     };
   }, []);
+
+  useEffect(() => {
+    if (trendingList.length !== 0)
+      sessionStorage.setItem("trendingClubs", JSON.stringify(trendingList));
+  }, [trendingList]);
 
   return (
     <div className="trending-cards-container">

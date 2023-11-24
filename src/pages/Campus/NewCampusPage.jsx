@@ -29,7 +29,7 @@ export default function NewCampusPage() {
   const [width, setWidth] = useState(window.innerWidth);
   const [choice, setChoice] = useState(1);
   const [isSticky, setIsSticky] = useState(false);
-  const [isStickySide,setIsStickySide] =useState(false);
+  const [isStickySide, setIsStickySide] = useState(false);
   const [prevScrollPos, setPrevScrollPos] = useState(0);
   const [scrollDirection, setScrollDirection] = useState(null);
   const [trendingPosts, setTrendingPosts] = useState([]);
@@ -41,7 +41,9 @@ export default function NewCampusPage() {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    getAllCampuses(setAllCampuses);
+    if (sessionStorage.getItem("allCampuses"))
+      setAllCampuses(JSON.parse(sessionStorage.getItem("allCampuses")));
+    else getAllCampuses(setAllCampuses);
     if (!isLoggedIn) getTrendingActivities(setTrendingPosts);
     else getTrendingActivitiesInPrivateMode(setTrendingPosts);
     getFeaturedEvents(setTrendingEvents);
@@ -52,6 +54,10 @@ export default function NewCampusPage() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  useEffect(() => {
+    if (allCampuses.length !== 0)
+      sessionStorage.setItem("allCampuses", JSON.stringify(allCampuses));
+  }, [allCampuses]);
 
   // useEffect(() => {
   //   const handleScroll = () => {
@@ -69,15 +75,14 @@ export default function NewCampusPage() {
   //     setPrevScrollPos(scrollDistance);
   //   };
 
-    // Attach the event listener when the component mounts
-    // window.addEventListener('scroll', handleScroll);
+  // Attach the event listener when the component mounts
+  // window.addEventListener('scroll', handleScroll);
 
-    // Detach the event listener when the component unmounts
+  // Detach the event listener when the component unmounts
   //   return () => {
   //     window.removeEventListener('scroll', handleScroll);
   //   };
   // }, [prevScrollPos]);
-
 
   // useEffect(() => {
   //   const handleScroll = () => {
@@ -102,7 +107,6 @@ export default function NewCampusPage() {
   //     window.removeEventListener('scroll', handleScroll);
   //   };
   // }, []);
-
 
   useEffect(() => {
     if (width > 910) {
@@ -167,62 +171,71 @@ export default function NewCampusPage() {
         </div>
       </div>
       {width < 910 && (
-        <div style={{zIndex:"2"}} className="mobile-campus-subnavbar">
-          <div className={isSticky?'mobile-campus-subnavbar sticky':'mobile-campus-subnavbar'}>
+        <div style={{ zIndex: "2" }} className="mobile-campus-subnavbar">
           <div
-            style={{
-              color: choice === 1 ? "#FFD600" : "#b0b0b0",
-            }}
-            className="option"
-            onClick={() => setChoice(1)}
+            className={
+              isSticky
+                ? "mobile-campus-subnavbar sticky"
+                : "mobile-campus-subnavbar"
+            }
           >
-            <span className="icon">
-              <FiHome />
-            </span>
-            <span className="title">Feed</span>
-          </div>
-          <div
-            style={{
-              color: choice === 2 ? "#FFD600" : "#b0b0b0",
-            }}
-            className="option"
-            onClick={() => setChoice(2)}
-          >
-            <span className="icon">
-              <LuCalendar />
-            </span>
-            <span className="title">Events</span>
-          </div>
-          <div
-            style={{
-              color: choice === 3 ? "#FFD600" : "#b0b0b0",
-            }}
-            className="option"
-            onClick={() => setChoice(3)}
-          >
-            <span className="icon">
-              <BiPlayCircle />
-            </span>
-            <span className="title">Workshops</span>
-          </div>
-          <div
-            style={{
-              color: choice === 4 ? "#FFD600" : "#b0b0b0",
-            }}
-            className="option"
-            onClick={() => setChoice(4)}
-          >
-            <span className="icon">
-              <FaArrowTrendUp />
-            </span>
-            <span className="title">Trending</span>
+            <div
+              style={{
+                color: choice === 1 ? "#FFD600" : "#b0b0b0",
+              }}
+              className="option"
+              onClick={() => setChoice(1)}
+            >
+              <span className="icon">
+                <FiHome />
+              </span>
+              <span className="title">Feed</span>
+            </div>
+            <div
+              style={{
+                color: choice === 2 ? "#FFD600" : "#b0b0b0",
+              }}
+              className="option"
+              onClick={() => setChoice(2)}
+            >
+              <span className="icon">
+                <LuCalendar />
+              </span>
+              <span className="title">Events</span>
+            </div>
+            <div
+              style={{
+                color: choice === 3 ? "#FFD600" : "#b0b0b0",
+              }}
+              className="option"
+              onClick={() => setChoice(3)}
+            >
+              <span className="icon">
+                <BiPlayCircle />
+              </span>
+              <span className="title">Workshops</span>
+            </div>
+            <div
+              style={{
+                color: choice === 4 ? "#FFD600" : "#b0b0b0",
+              }}
+              className="option"
+              onClick={() => setChoice(4)}
+            >
+              <span className="icon">
+                <FaArrowTrendUp />
+              </span>
+              <span className="title">Trending</span>
+            </div>
           </div>
         </div>
-        </div>
-
       )}
-      <div className={`campus-page-container ${isStickySide ? 'sticky' : ''}`}>
-        <section className={`column column-1 ${isStickySide && scrollDirection === 'down' ? 'sticky' : ''}`}>
+      <div className={`campus-page-container ${isStickySide ? "sticky" : ""}`}>
+        <section
+          className={`column column-1 ${
+            isStickySide && scrollDirection === "down" ? "sticky" : ""
+          }`}
+        >
           <TrendingListCollegeEvents />
           <TrendingListWorkshops />
           {width <= 1320 && (
@@ -233,7 +246,9 @@ export default function NewCampusPage() {
             </>
           )}
         </section>
-        <section className={`column column-2 ${isStickySide ? 'scrollable' : ''}`}>
+        <section
+          className={`column column-2 ${isStickySide ? "scrollable" : ""}`}
+        >
           {choice === 1 && renderTrendingPosts}
           {choice === 2 && width < 910 && renderTrendingEventsMobile}
           {choice === 2 && width >= 910 && <TrendingListCollegeEvents />}
@@ -247,7 +262,11 @@ export default function NewCampusPage() {
             </>
           )}
         </section>
-        <section className={`column column-3 ${isStickySide && scrollDirection === 'down' ? 'sticky' : ''}`}>
+        <section
+          className={`column column-3 ${
+            isStickySide && scrollDirection === "down" ? "sticky" : ""
+          }`}
+        >
           <TrendingListColleges />
           <TrendingListClubs />
           <TrendingListAlumni />

@@ -12,13 +12,20 @@ export default function TrendingListColleges() {
   const [viewMore, setViewMore] = useState(false);
 
   useEffect(() => {
-    getTrendingCampuses(setTrendingList);
+    if (sessionStorage.getItem("trendingCampuses"))
+      setTrendingList(JSON.parse(sessionStorage.getItem("trendingCampuses")));
+    else getTrendingCampuses(setTrendingList);
 
     return () => {
       controller.abort();
       setTrendingList([]);
     };
   }, []);
+
+  useEffect(() => {
+    if (trendingList.length !== 0)
+      sessionStorage.setItem("trendingCampuses", JSON.stringify(trendingList));
+  }, [trendingList]);
 
   return (
     <div className="trending-cards-container">
