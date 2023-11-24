@@ -1,109 +1,102 @@
 import React, { useEffect, useState, useMemo } from "react";
-import "./NewProjectsPage.css";
+import "./NewBlogsPage.css";
 import { useParams, useSearchParams } from "react-router-dom";
-import {
-  controller,
-  getDomains,
-  getProjects,
-} from "../../../services/APIConfig";
+import { controller, getBlogs, getEvents } from "../../../services/APIConfig";
 import useNavbar from "../../../hooks/use-navbar";
 import { Outlet } from "react-router-dom";
-import NewProjectCard from "../../../components/NewProjectCard/NewProjectCard";
 import NewSidebar from "../../../components/NewSidebar/NewSidebar";
 import Loading from "../../../components/Loader/Loading";
 import NewSidebarMobile from "../../../components/NewSidebarMobile/NewSidebarMobile";
 import DomainSwitcher from "../../../components/DomainSwitcher/DomainSwitcher";
 import DomainSwitcherMobile from "../../../components/DomainSwitcher/DomainSwitcherMobile";
 import useSidebar from "../../../hooks/use-sidebar";
+import NewEventCard from "../../../components/NewEventCard/NewEventCard";
+import BlogCard from "../../../components/BlogCard/BlogCard";
 
-export default function NewProjectsPage() {
+export default function NewBlogsPage() {
   const { setSelectedPageNavbar } = useNavbar();
   const [searchParams, setSearchParams] = useSearchParams({ q: "" });
   const q = searchParams.get("q");
-  const { id, projectId } = useParams();
-  const [isProjectOpen, setIsProjectOpen] = useState(!!projectId);
-  const [projectsData, setProjectsData] = useState({});
-  const [projects, setProjects] = useState(
-    // sessionStorage.getItem(`${id} projects`)
-    //   ? JSON.parse(sessionStorage.getItem(`${id} projects`))
+  const { id, blogId } = useParams();
+  const [isBlogOpen, setIsBlogOpen] = useState(!!blogId);
+  const [blogsData, setBlogsData] = useState({});
+  const [blogs, setBlogs] = useState(
+    // sessionStorage.getItem(`${id} blogs`)
+    //   ? JSON.parse(sessionStorage.getItem(`${id} blogs`))
     //   :
     []
   );
-  const [filteredProjects, setFilteredProjects] = useState([]);
-  const [searchedProjects, setSearchedProjects] = useState([]);
+  const [filteredBlogs, setFilteredBlogs] = useState([]);
+  const [searchedBlogs, setSearchedBlogs] = useState([]);
   const { setSelectedItem } = useSidebar();
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    getProjects(setProjectsData, id);
+    getBlogs(setBlogsData, id);
     setSelectedPageNavbar("community");
-    setSelectedItem("projects");
+    setSelectedItem("blogs");
 
     return () => {
       controller.abort();
-      setProjectsData({});
+      setBlogsData({});
     };
   }, [id]);
 
   useEffect(() => {
-    if (!!Object.keys(projectsData).length) {
-      setProjects(projectsData?.data?.data || []);
+    if (!!Object.keys(blogsData).length) {
+      setBlogs(blogsData?.data?.data || []);
     }
-  }, [projectsData]);
+  }, [blogsData]);
 
   useEffect(() => {
-    setIsProjectOpen(!!projectId);
-  }, [projectId]);
+    setIsBlogOpen(!!blogId);
+  }, [blogId]);
 
   useEffect(() => {
-    if (searchedProjects.length > 0) {
-      setFilteredProjects(searchedProjects);
+    if (searchedBlogs.length > 0) {
+      setFilteredBlogs(searchedBlogs);
     } else {
-      setFilteredProjects([]);
+      setFilteredBlogs([]);
     }
-  }, [searchedProjects]);
+  }, [searchedBlogs]);
 
   const filteredData = useMemo(() => {
-    return projects.filter((value) => {
+    return blogs.filter((value) => {
       return (
-        value.projectName?.toLowerCase().includes(q.toLowerCase()) ||
+        value.title?.toLowerCase()?.includes(q?.toLowerCase()) ||
         value.techStack?.some((tag) =>
-          tag.toLowerCase().includes(q.toLowerCase())
-        )
+          tag.toLowerCase().includes(q?.toLowerCase())
+        ) ||
+        value.domainName?.toLowerCase()?.includes(q?.toLowerCase())
       );
     });
-  }, [projects, q]);
+  }, [blogs, q]);
 
   useEffect(() => {
-    setSearchedProjects(filteredData);
+    setSearchedBlogs(filteredData);
   }, [q, filteredData]);
 
   function handleHeight() {
     setTimeout(() => {
-      document.getElementById("project-list").style.height = `${
-        document.getElementById("project-window").offsetHeight
+      document.getElementById("blog-list").style.height = `${
+        document.getElementById("blog-window").offsetHeight
       }px`;
     }, 100);
   }
 
   const renderContentContainer = (
     <>
-      <div
-        id="project-list"
-        className={`project-list ${
-          isProjectOpen ? "--flip-direction" : "h-100"
-        }`}
-      >
-        {filteredProjects.length === 0 && (
+      <div id="blog-list" className={`blog-list `}>
+        {filteredBlogs.length === 0 && (
           <div
             style={{ minHeight: "30vh" }}
             className="d-flex justify-content-center align-items-center flex-column w-100"
           >
-            <h4>No Projects found</h4>
+            <h4>No Blogs found</h4>
           </div>
         )}
-        {filteredProjects.map((project) => (
-          <NewProjectCard key={project._id} project={project} />
+        {filteredBlogs.map((blog) => (
+          <BlogCard key={blog._id} {...blog} />
         ))}
       </div>
       <Outlet context={[handleHeight]} />
@@ -114,9 +107,9 @@ export default function NewProjectsPage() {
     <>
       <DomainSwitcherMobile />
       <NewSidebarMobile />
-      <main className="projects-page">
+      <main className="blogs-page">
         {/* <div className="heading">
-          <span>Project Ideas</span>
+          <span>Events</span>
         </div> */}
         <div className="project__searchbar__container company_searchbar_container">
           <div className="input-group mb-3">
@@ -156,14 +149,14 @@ export default function NewProjectsPage() {
           </div>
         </div>
         <div className="main-container">
-          {!isProjectOpen && (
+          {!isBlogOpen && (
             <aside className="options-container">
               <DomainSwitcher />
               <NewSidebar />
             </aside>
           )}
           <div className="content-container">
-            {Object.keys(projectsData).length === 0 && (
+            {Object.keys(blogsData).length === 0 && (
               <div
                 style={{ minHeight: "30vh" }}
                 className="d-flex justify-content-center align-items-center w-100"
@@ -171,15 +164,15 @@ export default function NewProjectsPage() {
                 <Loading />
               </div>
             )}
-            {Object.keys(projectsData).length !== 0 && (
+            {Object.keys(blogsData).length !== 0 && (
               <>
-                {projectsData?.status === 200 ? (
-                  projects.length === 0 ? (
+                {blogsData?.status === 200 ? (
+                  blogs.length === 0 ? (
                     <div
                       style={{ minHeight: "30vh" }}
                       className="d-flex justify-content-center align-items-center flex-column w-100"
                     >
-                      <h4>No Projects found</h4>
+                      <h4>No Blogs found</h4>
                     </div>
                   ) : (
                     renderContentContainer
@@ -189,7 +182,7 @@ export default function NewProjectsPage() {
                     style={{ minHeight: "30vh" }}
                     className="d-flex justify-content-center align-items-center flex-column w-100"
                   >
-                    <h4>No Projects found</h4>
+                    <h4>No Blogs found</h4>
                   </div>
                 )}
               </>

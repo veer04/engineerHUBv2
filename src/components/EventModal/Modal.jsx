@@ -5,11 +5,11 @@ import { Link, useNavigate } from "react-router-dom";
 import ReactDOM from "react-dom";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { controller, getParticularEvent } from "../../services/APIConfig";
+import { controller } from "../../services/APIConfig";
 import { useState } from "react";
 
 export default function Modal({ handleClose, setShowModal }) {
-  const { eventId } = useParams();
+  const { id, eventId } = useParams();
   const [event, setEvent] = useState(
     sessionStorage.getItem(`event details ${eventId}`)
       ? JSON.parse(sessionStorage.getItem(`event details ${eventId}`))
@@ -26,7 +26,7 @@ export default function Modal({ handleClose, setShowModal }) {
 
   useEffect(() => {
     console.log(eventId);
-    getParticularEvent(setEvent, eventId);
+    // getParticularEvent(setEvent, eventId);
 
     return () => {
       controller.abort();
@@ -62,7 +62,7 @@ export default function Modal({ handleClose, setShowModal }) {
             <div
               onClick={() => {
                 handleClose();
-                navigate(-1);
+                navigate(`/community/events/${encodeURIComponent(id)}`);
               }}
             >
               <MdCancel />
@@ -111,29 +111,29 @@ export default function Modal({ handleClose, setShowModal }) {
               <div>Logistics</div>
               <div>{time}</div>
             </div>
-          { (!event?.applyLink || event?.applyLink.trim() === "") ?(
-              <div >
-              {/* <a href={event.applyLink}> */}
-                <div   
+            {!event?.applyLink || event?.applyLink.trim() === "" ? (
+              <div>
+                {/* <a href={event.applyLink}> */}
+                <div
                   // onClick={() => {
                   //   handleClose();
-                    // navigate(-1);
+                  // navigate(-1);
                   // }}
                   style={{
-                    color:"grey"
+                    color: "grey",
                   }}
                   className="link"
                 >
                   Event Link
                 </div>
-              {/* </a> */}
+                {/* </a> */}
               </div>
 
           ):(
             
             <div >
             <a href={event?.applyLink}>
-                            <div   
+              <div   
                 onClick={() => {
                   handleClose();
                   // navigate(-1);

@@ -12,13 +12,18 @@ export default function EventCard({
   eventType,
   domainName,
   className,
+  trendingEvent,
 }) {
   const navigate = useNavigate();
 
   return (
     <div
       onClick={() => {
-        navigate(`/community/events/${encodeURIComponent(domainName)}/${_id}`);
+        if (trendingEvent) navigate(`/trending/events/${_id}`);
+        else
+          navigate(
+            `/community/events/${encodeURIComponent(domainName)}/${_id}`
+          );
         // setEventOpened(_id);
       }}
       className={`project__list__item event__list__item on-hover-scale ${className}`}

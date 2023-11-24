@@ -408,6 +408,7 @@ export default function ClubDashboard() {
                         key={index}
                         {...jobDetail}
                         className="scroll-card no-hover-scale"
+                        trendingEvent
                       />
                     ))
                   : featuredEvents
@@ -417,6 +418,7 @@ export default function ClubDashboard() {
                           key={index}
                           {...jobDetail}
                           className="scroll-card no-hover-scale"
+                          trendingEvent
                         />
                       ))}
               </div>

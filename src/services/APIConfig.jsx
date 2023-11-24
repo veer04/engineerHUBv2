@@ -1640,10 +1640,10 @@ export const getProjects = (setDomainData, id) => {
       signal: controller.signal,
     })
     .then((res) => {
-      const data = res.data.data;
-      setDomainData(data);
+      setDomainData(res);
     })
     .catch((err) => {
+      setDomainData(err);
       if (axios.isCancel(err)) {
         console.log("req cancel");
       } else {
@@ -1678,10 +1678,10 @@ export const getProjectById = (setProject, id) => {
       signal: controller.signal,
     })
     .then((res) => {
-      const data = res.data.data;
-      setProject(data);
+      setProject(res);
     })
     .catch((err) => {
+      setProject(err);
       if (axios.isCancel(err)) {
         console.log("req cancel");
       } else {
@@ -1697,10 +1697,10 @@ export const getBlogs = (setBlogs, id) => {
       signal: controller.signal,
     })
     .then((res) => {
-      const data = res.data.data;
-      setBlogs(data);
+      setBlogs(res);
     })
     .catch((err) => {
+      setBlogs(err);
       if (axios.isCancel(err)) {
         console.log("req cancel");
       } else {
@@ -1773,10 +1773,10 @@ export const getEvents = (setEvents, id) => {
       signal: controller.signal,
     })
     .then((res) => {
-      const data = res.data.data;
-      setEvents(data);
+      setEvents(res);
     })
     .catch((err) => {
+      setEvents(err);
       if (axios.isCancel(err)) {
         console.log("req cancel");
       } else {
@@ -1785,17 +1785,17 @@ export const getEvents = (setEvents, id) => {
     });
 };
 
-export const getParticularEvent = (setEvent, eventId) => {
+export const getEventById = (setEvent, eventId) => {
   const controller = new AbortController();
   axios
     .get(`${API_URL}api/v1/event/${eventId}`, {
       signal: controller.signal,
     })
     .then((res) => {
-      const data = res.data.data;
-      setEvent(data);
+      setEvent(res);
     })
     .catch((err) => {
+      setEvent(err);
       if (axios.isCancel(err)) {
         console.log("req cancel");
       } else {
@@ -2005,12 +2005,12 @@ export const getPostByIdPrivateMode = (setPost, postId) => {
     },
   };
   axios
-    .get(`${API_URL}api/v1/getIndividualPostInPrivateMode/${postId}`,config)
+    .get(`${API_URL}api/v1/getIndividualPostInPrivateMode/${postId}`, config)
     .then((res) => {
       setPost(res);
     })
     .catch((err) => {
-      setPost(err.response)
+      setPost(err.response);
       if (axios.isCancel(err)) {
         console.log("req cancel");
       } else {

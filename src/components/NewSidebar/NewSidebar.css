@@ -1,0 +1,30 @@
+#new-community-sidebar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 3rem 0;
+  border-radius: 0.625rem;
+  background: var(--Primary-500, #002b36);
+  width: 6rem;
+}
+#new-community-sidebar .option {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.2rem;
+  cursor: pointer;
+  color: #b0b0b0;
+  width: 100%;
+}
+#new-community-sidebar .option svg {
+  font-size: 1.5rem;
+}
+#new-community-sidebar .option span {
+  font-size: 0.75rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 128.523%; /* 0.96394rem */
+}

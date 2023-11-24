@@ -128,8 +128,16 @@ export default function TrendingEvents() {
                   {`${
                     !!event?.creatorId?.name
                       ? event?.creatorId?.name
-                      : `${event?.creatorId?.firstName} ${event?.creatorId?.lastName}`
-                  }` || "engineerHUB"}{" "}
+                      : `${
+                          event?.creatorId?.firstName
+                            ? `${event?.creatorId?.firstName} ${
+                                event?.creatorId?.lastName
+                                  ? event?.creatorId?.lastName
+                                  : ""
+                              }`
+                            : "engineerHUB"
+                        }`
+                  }`}
                 </strong>
               </span>
               <div className="type">#{event?.eventType}</div>

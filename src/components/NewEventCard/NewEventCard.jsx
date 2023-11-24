@@ -1,8 +1,9 @@
-import { useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import "./NewEventCard.css";
 import defaultPoster from "../../assets/defaultPoster";
 
-export default function NewEventCard({ data }) {
+export default function NewEventCard({ data, community }) {
+  const { id } = useParams();
   const navigate = useNavigate();
   const time = new Date(data?.eventStartTime);
   const eventDate = time.toLocaleString("default", {
@@ -31,7 +32,11 @@ export default function NewEventCard({ data }) {
 
   return (
     <div
-      onClick={() => navigate(`/trending/events/${data._id}`)}
+      onClick={() => {
+        if (community)
+          navigate(`/community/events/${encodeURIComponent(id)}/${data._id}`);
+        else navigate(`/trending/events/${data._id}`);
+      }}
       key={data._id}
       className="event-card-new card"
       style={{
@@ -49,11 +54,22 @@ export default function NewEventCard({ data }) {
         }}
         className="poster"
       >
-        <span style={{ backgroundColor: "#F7D77F",fontSize:".75rem",wordBreak:"break-all" }} className="text-crop-1">
+        <span
+          style={{
+            backgroundColor: "#F7D77F",
+            fontSize: ".75rem",
+            wordBreak: "break-all",
+          }}
+          className="text-crop-1"
+        >
           {data?.eventType}
         </span>
         <span
-          style={{ backgroundColor: "#F7D77F",fontSize:".75rem",wordBreak:"break-all" }}
+          style={{
+            backgroundColor: "#F7D77F",
+            fontSize: ".75rem",
+            wordBreak: "break-all",
+          }}
           className="text-crop-1"
         >{`${eventDateWithSuffix} @${eventTime}`}</span>
       </div>
