@@ -4,6 +4,13 @@
   width: 100%;
   padding: var(--vertical-padding) var(--section-padding);
 }
+.blogs-page .blog-window
+{
+  width: 48rem;
+  margin: auto;
+  padding: var(--vertical-padding);
+  background: #fff;
+}
 .blogs-page .main-container {
   display: flex;
   flex-direction: row;

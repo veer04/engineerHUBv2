@@ -3,7 +3,7 @@ import { RxCross1 } from "react-icons/rx";
 import { useParams, useNavigate, useOutletContext } from "react-router-dom";
 import { getProjectById, getBlogById } from "../../../services/APIConfig";
 import Loading from "../../../components/Loader/Loading";
-
+import "./BlogWindow.css";
 export default function BlogWindow() {
   const { id, blogId } = useParams();
   const navigate = useNavigate();
@@ -55,69 +55,69 @@ useEffect(()=>{
   }, [project]);
 
  
-  const renderProjectWindow = (
-    <>
-      {!!project?.projectImage && (
-        <div className="poster">
-          <img
-            onLoad={() => handleHeight()}
-            src={project?.projectImage}
-            alt="poster"
-          />
-        </div>
-      )}
-      <p className="title heading">{project?.projectName}</p>
-      <p className="sub-heading">{project?.description}</p>
-      <p className="heading">Tags</p>
-      <ul className="sub-heading">
-        {project?.techStack?.map((tag) => {
-          return <li key={tag}>{tag}</li>;
-        })}
-      </ul>
-      {!!project?.prerequisites?.length && (
-        <>
-          <p className="heading">Prerequisites</p>
-          <ul className="sub-heading">
-            {project?.prerequisites?.map((prerequisite) => {
-              return <li key={prerequisite}>{prerequisite}</li>;
-            })}
-          </ul>
-        </>
-      )}
-      {!!project?.softwareUsed?.length && (
-        <>
-          <p className="heading">Software Used</p>
-          <ul className="sub-heading">
-            {project?.softwareUsed?.map((software) => {
-              return <li key={software}>{software}</li>;
-            })}
-          </ul>
-        </>
-      )}
-      {!!project?.hardwareUsed?.length && (
-        <>
-          <p className="heading">Hardware Used</p>
-          <ul className="sub-heading">
-            {project?.hardwareUsed?.map((hardware) => {
-              return <li key={hardware}>{hardware}</li>;
-            })}
-          </ul>
-        </>
-      )}
-      {!!project?.applyLink && (
-        <a
-          target="_blank"
-          href={`${project?.applyLink}`}
-          rel="noopener noreferrer"
-        >
-          <button>View more</button>
-        </a>
-      )}
-    </>
-  );
+  // const renderProjectWindow = (
+  //   <>
+  //     {!!project?.projectImage && (
+  //       <div className="poster">
+  //         <img
+  //           onLoad={() => handleHeight()}
+  //           src={project?.projectImage}
+  //           alt="poster"
+  //         />
+  //       </div>
+  //     )}
+  //     <p className="title heading">{project?.projectName}</p>
+  //     <p className="sub-heading">{project?.description}</p>
+  //     <p className="heading">Tags</p>
+  //     <ul className="sub-heading">
+  //       {project?.techStack?.map((tag) => {
+  //         return <li key={tag}>{tag}</li>;
+  //       })}
+  //     </ul>
+  //     {!!project?.prerequisites?.length && (
+  //       <>
+  //         <p className="heading">Prerequisites</p>
+  //         <ul className="sub-heading">
+  //           {project?.prerequisites?.map((prerequisite) => {
+  //             return <li key={prerequisite}>{prerequisite}</li>;
+  //           })}
+  //         </ul>
+  //       </>
+  //     )}
+  //     {!!project?.softwareUsed?.length && (
+  //       <>
+  //         <p className="heading">Software Used</p>
+  //         <ul className="sub-heading">
+  //           {project?.softwareUsed?.map((software) => {
+  //             return <li key={software}>{software}</li>;
+  //           })}
+  //         </ul>
+  //       </>
+  //     )}
+  //     {!!project?.hardwareUsed?.length && (
+  //       <>
+  //         <p className="heading">Hardware Used</p>
+  //         <ul className="sub-heading">
+  //           {project?.hardwareUsed?.map((hardware) => {
+  //             return <li key={hardware}>{hardware}</li>;
+  //           })}
+  //         </ul>
+  //       </>
+  //     )}
+  //     {!!project?.applyLink && (
+  //       <a
+  //         target="_blank"
+  //         href={`${project?.applyLink}`}
+  //         rel="noopener noreferrer"
+  //       >
+  //         <button>View more</button>
+  //       </a>
+  //     )}
+  //   </>
+  // );
 
   return (
-    <div id="project-window" className="project-window">
+    <div id="blog-window" className="blog-window">
       <div className="project__window__title blog__window__title">
         <div className="detail">
           <div className="title">{project?.title}</div>
