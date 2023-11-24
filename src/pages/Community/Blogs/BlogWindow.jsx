@@ -25,7 +25,7 @@ export default function BlogWindow() {
   }, [blogId]);
 
   useEffect(() => {
-    setProject(projectData?.data?.data[0] || {});
+    setProject(projectData?.data?.data || {});
   }, [projectData]);
 
   useEffect(() => {
@@ -34,25 +34,27 @@ export default function BlogWindow() {
     }
   }, [project]);
 
-  const [blog, setBlog] = useState({});
+  // const [blog, setBlog] = useState({});
   // const { isCollapsed } = useSidebar();
 
   // useEffect(() => {
   //   if (isCollapsed === false) setIsBlogOpen(false);
   // }, [isCollapsed]);
-  useEffect(() => {
-    getBlogById(setBlog, blogId);
-  }, [blogId]);
-  return () => {
-    setProjectData({});
-  };
+  // useEffect(() => {
+  //   getBlogById(setBlog, blogId);
+  // }, [blogId]);
+  // return () => {
+  //   setProjectData({});
+  // };
+useEffect(()=>{
+  console.log(project);
+},[project])
+
   useEffect(() => {
     document.getElementById("blog-description-box").innerHTML = project?.postArea;
-  }, [blog]);
+  }, [project]);
 
-  useEffect(()=>{
-    console.log(project)
-  },[project])
+ 
   const renderProjectWindow = (
     <>
       {!!project?.projectImage && (
@@ -121,7 +123,7 @@ export default function BlogWindow() {
           <div className="title">{project?.title}</div>
         </div>
         <div onClick={() => setIsBlogOpen(false)} className="link">
-          <RxCross1 />
+          {/* <RxCross1 /> */}
         </div>
       </div>
       <div
