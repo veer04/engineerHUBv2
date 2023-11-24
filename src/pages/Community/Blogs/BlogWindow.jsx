@@ -1,31 +1,31 @@
 import { useEffect, useState } from "react";
 import { RxCross1 } from "react-icons/rx";
 import { useParams, useNavigate, useOutletContext } from "react-router-dom";
-import { getProjectById } from "../../../services/APIConfig";
+import { getProjectById, getBlogById } from "../../../services/APIConfig";
 import Loading from "../../../components/Loader/Loading";
 
 export default function BlogWindow() {
-  const { id, projectId } = useParams();
+  const { id, blogId } = useParams();
   const navigate = useNavigate();
   const [projectData, setProjectData] = useState({});
   const [project, setProject] = useState({});
   const [handleHeight] = useOutletContext();
 
-  if (!!!projectId) {
+  if (!!!blogId) {
     return;
   }
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    getProjectById(setProjectData, projectId);
+    getBlogById (setProjectData, blogId);
 
     return () => {
       setProjectData({});
     };
-  }, [projectId]);
+  }, [blogId]);
 
   useEffect(() => {
-    setProject(projectData?.data?.data || {});
+    setProject(projectData?.data?.data[0] || {});
   }, [projectData]);
 
   useEffect(() => {
@@ -35,18 +35,24 @@ export default function BlogWindow() {
   }, [project]);
 
   const [blog, setBlog] = useState({});
-  const { isCollapsed } = useSidebar();
+  // const { isCollapsed } = useSidebar();
 
+  // useEffect(() => {
+  //   if (isCollapsed === false) setIsBlogOpen(false);
+  // }, [isCollapsed]);
   useEffect(() => {
-    if (isCollapsed === false) setIsBlogOpen(false);
-  }, [isCollapsed]);
+    getBlogById(setBlog, blogId);
+  }, [blogId]);
+  return () => {
+    setProjectData({});
+  };
   useEffect(() => {
-    getBlogById(setBlog, blogOpened);
-  }, [blogOpened]);
-  useEffect(() => {
-    document.getElementById("blog-description-box").innerHTML = blog?.postArea;
+    document.getElementById("blog-description-box").innerHTML = project?.postArea;
   }, [blog]);
 
+  useEffect(()=>{
+    console.log(project)
+  },[project])
   const renderProjectWindow = (
     <>
       {!!project?.projectImage && (
@@ -112,7 +118,7 @@ export default function BlogWindow() {
     <div id="project-window" className="project-window">
       <div className="project__window__title blog__window__title">
         <div className="detail">
-          <div className="title">{blog.title}</div>
+          <div className="title">{project?.title}</div>
         </div>
         <div onClick={() => setIsBlogOpen(false)} className="link">
           <RxCross1 />
@@ -120,7 +126,7 @@ export default function BlogWindow() {
       </div>
       <div
         style={{
-          backgroundImage: `url(${blog.postIcon})`,
+          backgroundImage: `url(${project?.postIcon})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
@@ -136,11 +142,11 @@ export default function BlogWindow() {
         <div id="blog-description-box" className="description"></div>
       </div>
       <div className="blog__window__details">
-        {blog.creatorId && (
-          <div className="author">{`by ${blog.creatorId.name}`}</div>
+        {project?.creatorId && (
+          <div className="author">{`by ${project.creatorId.name}`}</div>
         )}
         <div className="date">
-          {blog.createdAt &&
+          {project?.createdAt &&
             new Intl.DateTimeFormat("en-US", {
               year: "numeric",
               month: "long",

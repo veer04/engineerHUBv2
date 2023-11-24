@@ -28,7 +28,7 @@ export default function BlogCard({
   return (
     <div
       onClick={() => {
-        navigate(`/community/blogs/${id}/${blogId}`);
+        navigate(`/community/blogs/${id}/${_id}`);
       }}
       className="project__list__item blog__list__item card-hover"
     >

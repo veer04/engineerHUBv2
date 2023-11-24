@@ -97,7 +97,7 @@ export default function NewBlogsPage() {
             </div>
           )}
           {filteredBlogs.map((blog) => (
-            <BlogCard key={blog._id} {...blog} />
+            <BlogCard key={blog._id} {...blog}/>
           ))}
         </div>
       )}
