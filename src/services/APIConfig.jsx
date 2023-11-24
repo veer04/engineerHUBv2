@@ -1697,10 +1697,10 @@ export const getBlogs = (setBlogs, id) => {
       signal: controller.signal,
     })
     .then((res) => {
-      const data = res.data.data;
-      setBlogs(data);
+      setBlogs(res);
     })
     .catch((err) => {
+      setBlogs(err);
       if (axios.isCancel(err)) {
         console.log("req cancel");
       } else {

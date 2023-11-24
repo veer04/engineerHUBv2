@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useMemo } from "react";
-import "./NewEventsPage.css";
+import "./NewBlogsPage.css";
 import { useParams, useSearchParams } from "react-router-dom";
-import { controller, getEvents } from "../../../services/APIConfig";
+import { controller, getBlogs, getEvents } from "../../../services/APIConfig";
 import useNavbar from "../../../hooks/use-navbar";
 import { Outlet } from "react-router-dom";
 import NewSidebar from "../../../components/NewSidebar/NewSidebar";
@@ -11,95 +11,92 @@ import DomainSwitcher from "../../../components/DomainSwitcher/DomainSwitcher";
 import DomainSwitcherMobile from "../../../components/DomainSwitcher/DomainSwitcherMobile";
 import useSidebar from "../../../hooks/use-sidebar";
 import NewEventCard from "../../../components/NewEventCard/NewEventCard";
+import BlogCard from "../../../components/BlogCard/BlogCard";
 
-export default function NewEventsPage() {
+export default function NewBlogsPage() {
   const { setSelectedPageNavbar } = useNavbar();
   const [searchParams, setSearchParams] = useSearchParams({ q: "" });
   const q = searchParams.get("q");
-  const { id, eventId } = useParams();
-  const [isEventOpen, setIsEventOpen] = useState(!!eventId);
-  const [eventsData, setEventsData] = useState({});
-  const [events, setEvents] = useState(
-    // sessionStorage.getItem(`${id} events`)
-    //   ? JSON.parse(sessionStorage.getItem(`${id} events`))
+  const { id, blogId } = useParams();
+  const [isBlogOpen, setIsBlogOpen] = useState(!!blogId);
+  const [blogsData, setBlogsData] = useState({});
+  const [blogs, setBlogs] = useState(
+    // sessionStorage.getItem(`${id} blogs`)
+    //   ? JSON.parse(sessionStorage.getItem(`${id} blogs`))
     //   :
     []
   );
-  const [filteredEvents, setFilteredEvents] = useState([]);
-  const [searchedEvents, setSearchedEvents] = useState([]);
+  const [filteredBlogs, setFilteredBlogs] = useState([]);
+  const [searchedBlogs, setSearchedBlogs] = useState([]);
   const { setSelectedItem } = useSidebar();
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    getEvents(setEventsData, id);
+    getBlogs(setBlogsData, id);
     setSelectedPageNavbar("community");
-    setSelectedItem("events");
+    setSelectedItem("blogs");
 
     return () => {
       controller.abort();
-      setEventsData({});
+      setBlogsData({});
     };
   }, [id]);
 
   useEffect(() => {
-    if (!!Object.keys(eventsData).length) {
-      setEvents(eventsData?.data?.data || []);
+    if (!!Object.keys(blogsData).length) {
+      setBlogs(blogsData?.data?.data || []);
     }
-  }, [eventsData]);
+  }, [blogsData]);
 
   useEffect(() => {
-    setIsEventOpen(!!eventId);
-  }, [eventId]);
+    setIsBlogOpen(!!blogId);
+  }, [blogId]);
 
   useEffect(() => {
-    if (searchedEvents.length > 0) {
-      setFilteredEvents(searchedEvents);
+    if (searchedBlogs.length > 0) {
+      setFilteredBlogs(searchedBlogs);
     } else {
-      setFilteredEvents([]);
+      setFilteredBlogs([]);
     }
-  }, [searchedEvents]);
+  }, [searchedBlogs]);
 
   const filteredData = useMemo(() => {
-    return events.filter((value) => {
+    return blogs.filter((value) => {
       return (
-        value.eventName?.toLowerCase()?.includes(q?.toLowerCase()) ||
-        value.tags?.some((tag) =>
+        value.title?.toLowerCase()?.includes(q?.toLowerCase()) ||
+        value.techStack?.some((tag) =>
           tag.toLowerCase().includes(q?.toLowerCase())
         ) ||
-        value.eventType?.toLowerCase()?.includes(q?.toLowerCase()) ||
         value.domainName?.toLowerCase()?.includes(q?.toLowerCase())
       );
     });
-  }, [events, q]);
+  }, [blogs, q]);
 
   useEffect(() => {
-    setSearchedEvents(filteredData);
+    setSearchedBlogs(filteredData);
   }, [q, filteredData]);
 
   function handleHeight() {
     setTimeout(() => {
-      document.getElementById("event-list").style.height = `${
-        document.getElementById("event-window").offsetHeight
+      document.getElementById("blog-list").style.height = `${
+        document.getElementById("blog-window").offsetHeight
       }px`;
     }, 100);
   }
 
   const renderContentContainer = (
     <>
-      <div
-        id="event-list"
-        className={`event-list ${isEventOpen ? "--flip-direction" : "h-100"}`}
-      >
-        {filteredEvents.length === 0 && (
+      <div id="blog-list" className={`blog-list `}>
+        {filteredBlogs.length === 0 && (
           <div
             style={{ minHeight: "30vh" }}
             className="d-flex justify-content-center align-items-center flex-column w-100"
           >
-            <h4>No Events found</h4>
+            <h4>No Blogs found</h4>
           </div>
         )}
-        {filteredEvents.map((event) => (
-          <NewEventCard key={event._id} data={event} community />
+        {filteredBlogs.map((blog) => (
+          <BlogCard key={blog._id} {...blog} />
         ))}
       </div>
       <Outlet context={[handleHeight]} />
@@ -110,7 +107,7 @@ export default function NewEventsPage() {
     <>
       <DomainSwitcherMobile />
       <NewSidebarMobile />
-      <main className="events-page">
+      <main className="blogs-page">
         {/* <div className="heading">
           <span>Events</span>
         </div> */}
@@ -152,14 +149,14 @@ export default function NewEventsPage() {
           </div>
         </div>
         <div className="main-container">
-          {!isEventOpen && (
+          {!isBlogOpen && (
             <aside className="options-container">
               <DomainSwitcher />
               <NewSidebar />
             </aside>
           )}
           <div className="content-container">
-            {Object.keys(eventsData).length === 0 && (
+            {Object.keys(blogsData).length === 0 && (
               <div
                 style={{ minHeight: "30vh" }}
                 className="d-flex justify-content-center align-items-center w-100"
@@ -167,15 +164,15 @@ export default function NewEventsPage() {
                 <Loading />
               </div>
             )}
-            {Object.keys(eventsData).length !== 0 && (
+            {Object.keys(blogsData).length !== 0 && (
               <>
-                {eventsData?.status === 200 ? (
-                  events.length === 0 ? (
+                {blogsData?.status === 200 ? (
+                  blogs.length === 0 ? (
                     <div
                       style={{ minHeight: "30vh" }}
                       className="d-flex justify-content-center align-items-center flex-column w-100"
                     >
-                      <h4>No Events found</h4>
+                      <h4>No Blogs found</h4>
                     </div>
                   ) : (
                     renderContentContainer
@@ -185,7 +182,7 @@ export default function NewEventsPage() {
                     style={{ minHeight: "30vh" }}
                     className="d-flex justify-content-center align-items-center flex-column w-100"
                   >
-                    <h4>No Events found</h4>
+                    <h4>No Blogs found</h4>
                   </div>
                 )}
               </>

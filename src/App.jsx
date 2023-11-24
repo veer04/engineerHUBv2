@@ -74,6 +74,7 @@ import CampusDetailsOld from "./pages/Campus/ParticularCampus/CampusDetails.jsx"
 import TrendingWorkshops from "./pages/Campus/TrendingWorkshops.jsx";
 import ProjectWindow from "./pages/Community/Project/ProjectWindow.jsx";
 import EventWindow from "./pages/Community/Events/EventWindow.jsx";
+import NewBlogsPage from "./pages/Community/Blogs/NewBlogsPage.jsx";
 const NewProjectsPage = lazy(() =>
   import("./pages/Community/Project/NewProjectsPage.jsx")
 );
@@ -182,7 +183,8 @@ function App() {
               </Route>
             </Route>
             <Route path="blogs">
-              <Route path=":id" element={<BlogsPage path="blogs" />} />
+              <Route path=":id" element={<NewBlogsPage />} />
+              <Route path=":blogId" element={<h1>Hello Manish</h1>} />
             </Route>
             <Route path="events">
               <Route path=":id" element={<NewEventsPage />}>

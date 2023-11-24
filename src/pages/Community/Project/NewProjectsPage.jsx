@@ -47,7 +47,7 @@ export default function NewProjectsPage() {
 
   useEffect(() => {
     if (!!Object.keys(projectsData).length) {
-      setProjects(projectsData?.data?.data);
+      setProjects(projectsData?.data?.data || []);
     }
   }, [projectsData]);
 
