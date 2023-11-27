@@ -4,7 +4,7 @@
   width: 100%;
   min-height: 50vh;
   /* max-height: calc(100dvh - 6.7rem - 63px); */
-  max-height: calc(calc(calc(100dvh - 6.7rem) - 63px) - 65px);
+  max-height: calc(calc(calc(100dvh - 9rem)));
   flex-wrap: nowrap;
   height: 100%;
 }
