@@ -62,7 +62,7 @@ const TrendingAlumni = () => {
   }
   useEffect(() => {
     window.scrollTo(0, 0);
-    getTrendingAlumni(setTrendingList);
+    getTrendingAlumni2(setTrendingList);
     fetchData();
     // getAlumniById(setAlumni, almaId);
     const handleResize = () => setWidth(window.innerWidth);

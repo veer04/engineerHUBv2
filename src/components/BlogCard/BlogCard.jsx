@@ -75,7 +75,7 @@ export default function BlogCard({
       </div>
       <div className="row">
         <div className="col-2 " >
-          <img src={defaultPoster} 
+          <img src={!!creatorId?.image ? creatorId?.image : defaultPoster} 
           style={{
             width:"46px",
             height:"46px",
