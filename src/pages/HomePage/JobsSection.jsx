@@ -2,16 +2,15 @@ import { useEffect, useState } from "react";
 import "./JobsSection.css";
 import arrow from "./svg/jobs-btn.svg";
 import { Bucket_URL } from "../../services/APIUtils";
-import defaultPoster from "../../assets/defaultPoster";
 import { useNavigate } from "react-router-dom";
-import { controller, getAllJobs } from "../../services/APIConfig";
+import { controller, getAllJobs2 } from "../../services/APIConfig";
 
 export default function JobsSection() {
   const navigate = useNavigate();
   const bucket = `${Bucket_URL}frontend/homepage/jobssection/`;
   const [jobs, setJobs] = useState([]);
   useEffect(() => {
-    getAllJobs(setJobs);
+    getAllJobs2(setJobs);
 
     return () => {
       controller.abort();

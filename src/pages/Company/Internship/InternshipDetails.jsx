@@ -2,7 +2,7 @@ import React, { useState, useEffect, useMemo } from "react";
 import JobCards from "./InternshipCard";
 import "./InternshipDetails.css";
 import JobDescription from "./InternshipDesc";
-import { controller, getHiringData } from "../../../services/APIConfig";
+import { controller, getAllInternships } from "../../../services/APIConfig";
 import colorWheel from "../../../assets/colorWheel";
 import LoadingPage from "../../../components/Loader/LoadingPage";
 import { useSearchParams } from "react-router-dom";
@@ -15,7 +15,7 @@ const InternshipDetails = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    getHiringData(setAllJobsData);
+    getAllInternships(setAllJobsData);
     return () => {
       controller.abort();
     };
@@ -90,17 +90,15 @@ const InternshipDetails = () => {
               </span>
             </div>
           </div>
-          {filteredProjects
-            .filter((res) => res.opportunityType === "Internship")
-            .map((item, index) => {
-              return (
-                <JobCards
-                  details={item}
-                  color={colorWheel[index % colorWheel.length]}
-                  key={index}
-                />
-              );
-            })}
+          {filteredProjects.map((item, index) => {
+            return (
+              <JobCards
+                details={item}
+                color={colorWheel[index % colorWheel.length]}
+                key={index}
+              />
+            );
+          })}
         </div>
         <div className="JobDetail">
           <JobDescription />

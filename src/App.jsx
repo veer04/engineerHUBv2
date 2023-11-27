@@ -58,7 +58,7 @@ import ProfilePopUp from "./components/ProfileSection/ProfilePopUp/ProfilePopUp"
 import CompanyDashboard from "./pages/Profile/CompanyDashboard/CompanyDashboard";
 import CompanyEditProfile from "./pages/Profile/CompanyDashboard/CompanyEditProfile";
 import CoverImageModal from "./components/Dashboard/CoverImageModal";
-import ClubDashboard from "./pages/Profile/ClubDashboard/ClubDashboard";
+// import ClubDashboard from "./pages/Profile/ClubDashboard/ClubDashboard";
 import ClubEditProfile from "./pages/Profile/ClubDashboard/ClubEditProfile";
 import AddPostModal from "./components/Dashboard/AddPostModal";
 import AddMemberModal from "./components/Dashboard/AddMemberModal";
@@ -75,6 +75,9 @@ import TrendingWorkshops from "./pages/Campus/TrendingWorkshops.jsx";
 import ProjectWindow from "./pages/Community/Project/ProjectWindow.jsx";
 import EventWindow from "./pages/Community/Events/EventWindow.jsx";
 import BlogWindow from "./pages/Community/Blogs/BlogWindow.jsx";
+const ClubDashboard = lazy(() =>
+  import("./pages/Profile/ClubDashboard/ClubDashboard")
+);
 const NewChatPage = lazy(() =>
   import("./pages/Community/Chat/NewChatPage.jsx")
 );

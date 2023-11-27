@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect, useMemo } from "react";
 import "./events.css";
-import { controller, getHiringData } from "../../../services/APIConfig";
+import { controller, getAllEvents2 } from "../../../services/APIConfig";
 import HackathonCard from "./EventsChoices/HackathonCards";
 import { useSearchParams } from "react-router-dom";
 
@@ -14,7 +14,7 @@ const Events = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    getHiringData(setEvent);
+    getAllEvents2(setEvent);
     return () => {
       controller.abort();
     };
@@ -94,7 +94,6 @@ const Events = () => {
         <div className="Hackathons">
           <div className="hackathonTiles">
             {filteredProjects
-              ?.filter((res) => res.opportunityType === "Event")
               .map((item, index) => {
                 return <HackathonCard {...item} key={index} />;
               })}

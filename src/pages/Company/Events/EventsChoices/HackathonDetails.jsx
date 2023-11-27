@@ -5,7 +5,7 @@ import { useParams, useSearchParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import {
   controller,
-  getHiringData,
+  getAllEvents2,
   getHiringDataById,
 } from "../../../../services/APIConfig";
 import HackathonCard from "./HackathonCards";
@@ -20,7 +20,7 @@ const HackathonDetails = () => {
 
   const { hackId } = useParams();
   useEffect(() => {
-    getHiringData(setHiring);
+    getAllEvents2(setHiring);
     getHiringDataById(setHiringData, hackId);
     return () => {
       controller.abort();
@@ -93,11 +93,9 @@ const HackathonDetails = () => {
             </span>
           </div>
         </div>
-        {filteredProjects
-          ?.filter((res) => res.opportunityType === "Event")
-          .map((item, index) => {
-            return <HackathonCard {...item} key={index} />;
-          })}
+        {filteredProjects.map((item, index) => {
+          return <HackathonCard {...item} key={index} />;
+        })}
       </div>
       <div className="hackathonDetail">
         {hackId === "" ? (

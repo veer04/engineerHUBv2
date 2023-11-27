@@ -3,7 +3,7 @@ import React, { useState, useEffect, useMemo } from "react";
 import JobCards from "./InternshipCard";
 import "./Internship.css";
 import colorWheel from "../../../assets/colorWheel";
-import { controller, getHiringData } from "../../../services/APIConfig";
+import { controller, getAllInternships } from "../../../services/APIConfig";
 import { useSearchParams } from "react-router-dom";
 
 const Jobs = () => {
@@ -16,7 +16,7 @@ const Jobs = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    getHiringData(setHiring);
+    getAllInternships(setHiring);
     return () => {
       controller.abort();
     };
@@ -95,17 +95,15 @@ const Jobs = () => {
       </div>
       <div className="Jobs">
         <div className="JobTiles">
-          {filteredProjects
-            .filter((res) => res.opportunityType === "Internship")
-            .map((item, index) => {
-              return (
-                <JobCards
-                  details={item}
-                  color={colorWheel[index % colorWheel.length]}
-                  key={index}
-                />
-              );
-            })}
+          {filteredProjects.map((item, index) => {
+            return (
+              <JobCards
+                details={item}
+                color={colorWheel[index % colorWheel.length]}
+                key={index}
+              />
+            );
+          })}
         </div>
       </div>
     </div>

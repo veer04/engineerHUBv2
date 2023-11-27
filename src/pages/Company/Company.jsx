@@ -4,7 +4,11 @@ import HackathonCard from "./Events/EventsChoices/HackathonCards";
 import { Bucket_URL } from "../../services/APIUtils";
 import { useEffect, useState } from "react";
 import useNavbar from "../../hooks/use-navbar";
-import { controller } from "../../services/APIConfig";
+import {
+  controller,
+  getAllEvents2,
+  getAllJobs2,
+} from "../../services/APIConfig";
 import { Link, useNavigate } from "react-router-dom";
 import { getHiringData, getProjectData } from "../../services/APIConfig";
 import colorWheel from "../../assets/colorWheel";
@@ -38,6 +42,8 @@ const CompanyCards = ({ data }) => {
   );
 };
 const Company = () => {
+  const [jobs, setJobs] = useState([]);
+  const [events, setEvents] = useState([]);
   const { setSelectedPageNavbar } = useNavbar();
   const [hiring, setHiring] = useState([]);
   const [project, setProject] = useState([]);
@@ -52,6 +58,8 @@ const Company = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
     setSelectedPageNavbar("company");
+    getAllJobs2(setJobs);
+    getAllEvents2(setEvents);
     getHiringData(setHiring);
     getProjectData(setProject);
     return () => {
@@ -220,18 +228,15 @@ const Company = () => {
           <h5>Featured Jobs</h5>
         </a>
         <div className="FeaturedJobsTiles">
-          {hiring
-            .filter((res) => res.opportunityType === "Job")
-            .slice(0, 6)
-            .map((item, index) => {
-              return (
-                <JobCards
-                  details={item}
-                  color={colorWheel[index % colorWheel.length]}
-                  key={index}
-                />
-              );
-            })}
+          {jobs.slice(0, 6).map((item, index) => {
+            return (
+              <JobCards
+                details={item}
+                color={colorWheel[index % colorWheel.length]}
+                key={index}
+              />
+            );
+          })}
         </div>
       </div>
       <div className="Opportunities">
@@ -239,12 +244,9 @@ const Company = () => {
           <h5>Trending Opportunities</h5>
         </a>
         <div className="OpportunitiesTiles">
-          {hiring
-            .filter((res) => res.opportunityType === "Event")
-            .slice(0, 6)
-            .map((item, index) => {
-              return <HackathonCard {...item} key={index} />;
-            })}
+          {events.slice(0, 6).map((item, index) => {
+            return <HackathonCard {...item} key={index} />;
+          })}
         </div>
       </div>
       <article
