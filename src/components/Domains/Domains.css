@@ -120,7 +120,7 @@
     gap: 1rem;
     flex-direction: column;
     width: 100%;
-    padding: 0 0.5rem 0 0;
+    /* padding: 0 0.5rem 0 0; */
   }
   .domains-section .domains-section__list .domain {
     padding: 0.5rem 1.38rem;

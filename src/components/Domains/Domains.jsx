@@ -30,7 +30,7 @@ function Domain({ item, index }) {
       }}
       className="domain on-hover-scale"
     >
-      <div className="count">125</div>
+      {/* <div className="count">125</div> */}
       <span className="title text-crop-2">{item.domain}</span>
       <div className="info-container">
         {!!item.projects && (

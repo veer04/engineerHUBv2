@@ -1,9 +1,18 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./Footer.css";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Bucket_URL } from "../../services/APIUtils";
 
 export default function Footer() {
+  const [displayFooter, setDisplayFooter] = useState(true);
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.pathname.includes("community/chat")) {
+      setDisplayFooter(false);
+    } else setDisplayFooter(true);
+  }, [location]);
+
   const bucket = `${Bucket_URL}frontend/footer/`;
 
   const domainLink = "/community/projects/";
@@ -219,59 +228,63 @@ export default function Footer() {
     });
   }
 
-  return (
-    <div className="footer">
-      <div className="footer-container">
-        <div className="footer-row-1 footer-row">
-          {createFooterContent(footer.slice(0, 4))}
-          <div className="footer-follow-section">
-            <div className={`footer-follow-content footer-follow-content`}>
-              <h5 style={{ color: "#FFD600", fontWeight: "600" }}>
-                {footer[4].title}
-              </h5>
-              <span>{footer[4].content}</span>
-              <ul
-                style={{
-                  display: "flex",
-                  gap: "10px",
-                }}
-              >
-                {footer[4].links &&
-                  footer[4].links.map((link, index) => {
-                    return (
-                      <li key={`5${index}`}>
-                        <Link style={{ color: "white" }} to={link.link}>
-                          {link.title}
-                        </Link>
-                      </li>
-                    );
-                  })}
-              </ul>
-            </div>
-            <div className={`footer-follow-content footer-follow-content`}>
-              <h5 style={{ color: "#FFD600", fontWeight: "600" }}>
-                {footer[5].title}
-              </h5>
-              <span>{footer[5].content}</span>
-              <ul>
-                {footer[5].links &&
-                  footer[5].links.map((link, index) => {
-                    return (
-                      <li key={`6${index}`}>
-                        <Link style={{ color: "white" }} to={link.link}>
-                          {link.title}
-                        </Link>
-                      </li>
-                    );
-                  })}
-              </ul>
+  return displayFooter ? (
+    <>
+      <div className="footer">
+        <div className="footer-container">
+          <div className="footer-row-1 footer-row">
+            {createFooterContent(footer.slice(0, 4))}
+            <div className="footer-follow-section">
+              <div className={`footer-follow-content footer-follow-content`}>
+                <h5 style={{ color: "#FFD600", fontWeight: "600" }}>
+                  {footer[4].title}
+                </h5>
+                <span>{footer[4].content}</span>
+                <ul
+                  style={{
+                    display: "flex",
+                    gap: "10px",
+                  }}
+                >
+                  {footer[4].links &&
+                    footer[4].links.map((link, index) => {
+                      return (
+                        <li key={`5${index}`}>
+                          <Link style={{ color: "white" }} to={link.link}>
+                            {link.title}
+                          </Link>
+                        </li>
+                      );
+                    })}
+                </ul>
+              </div>
+              <div className={`footer-follow-content footer-follow-content`}>
+                <h5 style={{ color: "#FFD600", fontWeight: "600" }}>
+                  {footer[5].title}
+                </h5>
+                <span>{footer[5].content}</span>
+                <ul>
+                  {footer[5].links &&
+                    footer[5].links.map((link, index) => {
+                      return (
+                        <li key={`6${index}`}>
+                          <Link style={{ color: "white" }} to={link.link}>
+                            {link.title}
+                          </Link>
+                        </li>
+                      );
+                    })}
+                </ul>
+              </div>
             </div>
           </div>
-        </div>
-        <div className="footer-row-2 footer-row">
-          {createFooterContent(footer.slice(6, 9))}
+          <div className="footer-row-2 footer-row">
+            {createFooterContent(footer.slice(6, 9))}
+          </div>
         </div>
       </div>
-    </div>
+    </>
+  ) : (
+    <></>
   );
 }

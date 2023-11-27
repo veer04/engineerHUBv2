@@ -12,13 +12,20 @@ export default function TrendingListCollegeEvents() {
   const [viewMore, setViewMore] = useState(false);
 
   useEffect(() => {
-    getFeaturedEvents(setTrendingList);
+    if (sessionStorage.getItem("trendingEvents"))
+      setTrendingList(JSON.parse(sessionStorage.getItem("trendingEvents")));
+    else getFeaturedEvents(setTrendingList);
 
     return () => {
       controller.abort();
       setTrendingList([]);
     };
   }, []);
+
+  useEffect(() => {
+    if (trendingList.length !== 0)
+      sessionStorage.setItem("trendingEvents", JSON.stringify(trendingList));
+  }, [trendingList]);
 
   return (
     <div className="trending-cards-container">
