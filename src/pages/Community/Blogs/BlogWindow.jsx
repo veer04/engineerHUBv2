@@ -126,7 +126,7 @@ useEffect(()=>{
           {/* <RxCross1 /> */}
         </div>
       </div>
-      <div
+      {project?.postIcon && <div
         style={{
           backgroundImage: `url(${project?.postIcon})`,
           backgroundSize: "cover",
@@ -139,7 +139,7 @@ useEffect(()=>{
           borderRadius: ".5rem",
         }}
         className="project_window__poster"
-      ></div>
+      ></div>}
       <div className="project__window__description">
         <div id="blog-description-box" className="description"></div>
       </div>
