@@ -13,6 +13,7 @@ import LoadingPage from "../../../components/Loader/LoadingPage";
 import Page404 from "../../Maintenance/Page404";
 import JobApplyModal from "./JobApplyModal";
 import CustomSnackbar from "../../User/Login/CustomSnackbar";
+import { redirectToAuth } from "../../../features/redirectToAuth";
 const JobDescription = () => {
     const { hiringId } = useParams();
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -170,9 +171,11 @@ const JobDescription = () => {
                                 )}
                             </div>
                         ) : (
-                            <Link to="/login">
-                                <div className="btn">Easy Apply</div>
-                            </Link>
+                            // <Link to="/login">
+                                <div onClick={()=>{
+                                    redirectToAuth("/login");
+                                }} className="btn">Easy Apply</div>
+                            // </Link>
                         )}
                     </div>
                 </span>

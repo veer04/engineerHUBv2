@@ -6,6 +6,9 @@ import BlogCard from "../../../components/BlogCard/BlogCard";
 import BlogWindow from "../../../components/BlogWindow/BlogWindow";
 import MobileSidebar from "../../../components/MobileSidebar/MobileSidebar";
 import useNavbar from "../../../hooks/use-navbar";
+import NewSidebar from "../../../components/NewSidebar/NewSidebar";
+import NewSidebarMobile from "../../../components/NewSidebarMobile/NewSidebarMobile";
+import useSidebar from "../../../hooks/use-sidebar";
 
 export default function BlogsPage({ path }) {
   const { setSelectedPageNavbar } = useNavbar();
@@ -22,11 +25,13 @@ export default function BlogsPage({ path }) {
     //   : 
       []
   );
+  const { setSelectedItem } = useSidebar();
 
   useEffect(() => {
     getBlogs(setBlogs, id);
     window.scrollTo(0, 0);
     setSelectedPageNavbar("community");
+    setSelectedItem("blogs");
 
     return () => {
       controller.abort();
@@ -96,13 +101,15 @@ export default function BlogsPage({ path }) {
 
   return (
     <>
-      <MobileSidebar path={path} />
+      {/* <MobileSidebar path={path} /> */}
+      <NewSidebarMobile />
       <div className="project-page">
         <div className="community__subpage__heading">
           <span>Blogs</span>
         </div>
         <div className="community__subpage__content">
-          <Sidebar path={path} />
+          {/* <Sidebar path={path} /> */}
+          <NewSidebar />
           <div className="project__content">
             <div className="project__searchbar__container">
               <div className="input-group mb-3">
@@ -162,7 +169,7 @@ export default function BlogsPage({ path }) {
             <div
               className={`project__list__container project__list_container--window-open `}
             >
-              <div
+              {/* <div
                 className={`project__list ${
                   isBlogOpen ? "project__list--collapsed" : ""
                 } ${width <= 1000 && isBlogOpen ? "--no-display" : ""}`}
@@ -175,7 +182,7 @@ export default function BlogsPage({ path }) {
                     {...blog}
                   />
                 ))}
-              </div>
+              </div> */}
               {isBlogOpen && (
                 <BlogWindow
                   blogOpened={blogOpened}

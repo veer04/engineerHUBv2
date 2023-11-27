@@ -15,6 +15,7 @@ import {
 } from "../../../services/APIConfig";
 import LoadingPage from "../../../components/Loader/LoadingPage";
 import Page404 from "../../Maintenance/Page404";
+import { redirectToAuth } from "../../../features/redirectToAuth";
 const InternshipDesc = () => {
   const { hiringId } = useParams();
   const [flag, setFlag] = useState(-1);
@@ -171,7 +172,6 @@ useEffect(()=>
                     Easy Apply
                   </button>
                 )}
-    
                 {/* {isApplicable &&
                   hiring?.applied === false &&
                   !isResumeUploaded && (
@@ -187,21 +187,23 @@ useEffect(()=>
               </div>
             ) : (
               <>
-              {
-                internShipData?._id==="6518157c04816b097318bff4" &&(
+                {internShipData?._id === "6518157c04816b097318bff4" && (
                   <Link to="https://docs.google.com/forms/d/e/1FAIpQLSd39WuMG3eBnPoVmMLneBEhYBTU2Q3CCbNx5kQKmIIkINdTlQ/viewform">
-                  <div className="btn">Easy Apply</div>
-                </Link>
-                )
-              }
-                {
-                internShipData?._id!=="6518157c04816b097318bff4" &&(
-                  <Link to="/login">
-                <div className="btn">Easy Apply</div>
-              </Link>
-                )
-              }
-           
+                    <div className="btn">Easy Apply</div>
+                  </Link>
+                )}
+                {internShipData?._id !== "6518157c04816b097318bff4" && (
+                  // <Link to="/login">
+                  <div
+                    onClick={() => {
+                      redirectToAuth("/login");
+                    }}
+                    className="btn"
+                  >
+                    Easy Apply
+                  </div>
+                  // </Link>
+                )}
               </>
             )}
           </div>

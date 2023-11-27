@@ -2,6 +2,7 @@ import React from "react";
 import "./CampusSearchBox.css";
 import { useEffect, useState, useRef, useMemo } from "react";
 import { HiOutlineSearch } from "react-icons/hi";
+import { useSearchParams } from "react-router-dom";
 
 export default function CampusSearchBox({
   data,
@@ -10,6 +11,8 @@ export default function CampusSearchBox({
   listLength,
   setOutput,
 }) {
+  const [searchParams2, setSearchParams2] = useSearchParams({ q: "" });
+  const q = searchParams2.get("q");
   const [query, setQuery] = useState("");
   const [isClickedOutside, setIsClickedOutside] = useState(false);
   const [results, setResults] = useState([]);
@@ -18,17 +21,38 @@ export default function CampusSearchBox({
 
   const handleChange = (e) => {
     const inputValue = e.target.value;
-    if (inputValue.trim().length === 0) setQuery("");
-    setQuery(inputValue);
+    if (inputValue.trim().length === 0)
+      setSearchParams2(
+        (prev) => {
+          prev.set("q", "");
+          return prev;
+        },
+        { replace: true }
+      );
+
+    setSearchParams2(
+      (prev) => {
+        prev.set("q", inputValue);
+        return prev;
+      },
+      { replace: true }
+    );
   };
 
   const handleClick = (e) => {
     e.preventDefault();
     setOutput(() => {
-      return data.filter((item) => item.collegeName === e.target.textContent)[0]
-        ._id;
+      // return data.filter((item) => item.collegeName === e.target.textContent)[0]
+      //   ._id;
+      return e.target.textContent;
     });
-    setQuery(e.target.textContent);
+    setSearchParams2(
+      (prev) => {
+        prev.set("q", e.target.textContent);
+        return prev;
+      },
+      { replace: true }
+    );
     setResults([]);
   };
 
@@ -41,11 +65,11 @@ export default function CampusSearchBox({
 
   // const debouncedResults = debounce(runFilterSearch, 1000);
 
-  useEffect(() => setResults([]), [query]);
+  useEffect(() => setResults([]), [q]);
 
   useEffect(() => {
-    if (data) debouncedResults(data, searchParams, query);
-  }, [data, query]);
+    if (data) debouncedResults(data, searchParams, q);
+  }, [data, q]);
 
   useEffect(() => {
     const handleClickOutside = (e) => {
@@ -66,13 +90,32 @@ export default function CampusSearchBox({
         <div className="combo__box stack-sm" ref={comboBoxRef}>
           <input
             type="text"
-            value={query}
+            value={q}
             placeholder={placeholder}
             onChange={handleChange}
             className="rounded-md combo__input"
             ref={inputRef}
+            // when searched it should show the results
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                setSearchParams2(
+                  (prev) => {
+                    prev.set("q", e.target.value);
+                    return prev;
+                  },
+                  { replace: true }
+                );
+                setResults([]);
+                setOutput(() => {
+                  // return data.filter(
+                  //   (item) => item.collegeName === e.target.value
+                  // )[0]._id;
+                  return e.target.value;
+                });
+              }
+            }}
           />
-          {query &&
+          {q &&
             results.length > 0 &&
             document.activeElement === inputRef.current &&
             !isClickedOutside && (
@@ -86,7 +129,7 @@ export default function CampusSearchBox({
                             className="result-item rounded-sm"
                             onClick={handleClick}
                           >
-                            {showSubstring(result.collegeName, query)}
+                            {showSubstring(result.collegeName, q)}
                           </button>
                         </li>
                       ))
@@ -105,10 +148,10 @@ const filterString = (objArray, searchParamsArr, queryStr) => {
     searchParamsArr.some(
       (param) =>
         item[param]
-          .toString()
-          .toLowerCase()
-          .trim()
-          .indexOf(queryStr.toLowerCase()) > -1
+          ?.toString()
+          ?.toLowerCase()
+          ?.trim()
+          ?.indexOf(queryStr?.toLowerCase()) > -1
     )
   );
 };

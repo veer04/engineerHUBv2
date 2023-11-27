@@ -728,19 +728,18 @@ export const followClub = (clubId, setResponse) => {
       config
     )
     .then((res) => {
-      console.log(res);
       setResponse(res);
       return res;
     })
     .catch((err) => {
+      console.log(err);
       if (axios.isCancel(err)) {
         console.log("req cancel");
-        setResponse(err);
+        setResponse(err.response);
         return err;
       } else {
         console.log("req performed");
-        setResponse(err);
-        console.log(err);
+        setResponse(err.response);
         return err;
       }
     });
@@ -971,7 +970,7 @@ export const getHiringData = (setHiring) => {
 };
 
 export const getHiringDataById = (setHiring, hiringId) => {
-  let userId = getUserId()
+  let userId = getUserId();
   const controller = new AbortController();
   axios
     .get(`${API_URL}api/v1/hiring/${hiringId}/${userId}`)
@@ -1483,7 +1482,7 @@ export const getTrendingCampuses = (setTrendingCampuses) => {
     });
 };
 
-export const getCampusAlumniAndClub = (setResult,campusId) => {
+export const getCampusAlumniAndClub = (setResult, campusId) => {
   const controller = new AbortController();
   axios
     .get(`${API_URL}api/v1/campusWithAlumniClubs/${campusId}`, {
@@ -1525,6 +1524,24 @@ export const getTrendingAlumni = (setTrendingAlumni) => {
   const controller = new AbortController();
   axios
     .get(`${API_URL}api/v1/trendingAlma`, {
+      signal: controller.signal,
+    })
+    .then((res) => {
+      const data = res.data.data;
+      setTrendingAlumni(data);
+    })
+    .catch((err) => {
+      if (axios.isCancel(err)) {
+        console.log("req cancel");
+      } else {
+        console.log("req performed");
+      }
+    });
+};
+export const getTrendingAlumni2 = (setTrendingAlumni) => {
+  const controller = new AbortController();
+  axios
+    .get(`${API_URL}api/v1/trendingAlumni`, {
       signal: controller.signal,
     })
     .then((res) => {
@@ -1623,10 +1640,10 @@ export const getProjects = (setDomainData, id) => {
       signal: controller.signal,
     })
     .then((res) => {
-      const data = res.data.data;
-      setDomainData(data);
+      setDomainData(res);
     })
     .catch((err) => {
+      setDomainData(err);
       if (axios.isCancel(err)) {
         console.log("req cancel");
       } else {
@@ -1661,10 +1678,10 @@ export const getProjectById = (setProject, id) => {
       signal: controller.signal,
     })
     .then((res) => {
-      const data = res.data.data;
-      setProject(data);
+      setProject(res);
     })
     .catch((err) => {
+      setProject(err);
       if (axios.isCancel(err)) {
         console.log("req cancel");
       } else {
@@ -1680,10 +1697,10 @@ export const getBlogs = (setBlogs, id) => {
       signal: controller.signal,
     })
     .then((res) => {
-      const data = res.data.data;
-      setBlogs(data);
+      setBlogs(res);
     })
     .catch((err) => {
+      setBlogs(err);
       if (axios.isCancel(err)) {
         console.log("req cancel");
       } else {
@@ -1699,10 +1716,10 @@ export const getBlogById = (setBlog, id) => {
       signal: controller.signal,
     })
     .then((res) => {
-      const data = res.data.data;
-      setBlog(data);
+      setBlog(res);
     })
     .catch((err) => {
+      setBlog(err);
       if (axios.isCancel(err)) {
         console.log("req cancel");
       } else {
@@ -1756,10 +1773,10 @@ export const getEvents = (setEvents, id) => {
       signal: controller.signal,
     })
     .then((res) => {
-      const data = res.data.data;
-      setEvents(data);
+      setEvents(res);
     })
     .catch((err) => {
+      setEvents(err);
       if (axios.isCancel(err)) {
         console.log("req cancel");
       } else {
@@ -1768,17 +1785,17 @@ export const getEvents = (setEvents, id) => {
     });
 };
 
-export const getParticularEvent = (setEvent, eventId) => {
+export const getEventById = (setEvent, eventId) => {
   const controller = new AbortController();
   axios
     .get(`${API_URL}api/v1/event/${eventId}`, {
       signal: controller.signal,
     })
     .then((res) => {
-      const data = res.data.data;
-      setEvent(data);
+      setEvent(res);
     })
     .catch((err) => {
+      setEvent(err);
       if (axios.isCancel(err)) {
         console.log("req cancel");
       } else {
@@ -1980,6 +1997,160 @@ export const getPostById = (setPost, postId) => {
     });
 };
 
+export const getPostByIdPrivateMode = (setPost, postId) => {
+  const controller = new AbortController();
+  const config = {
+    headers: {
+      accessToken: getAccessToken(),
+    },
+  };
+  axios
+    .get(`${API_URL}api/v1/getIndividualPostInPrivateMode/${postId}`, config)
+    .then((res) => {
+      setPost(res);
+    })
+    .catch((err) => {
+      setPost(err.response);
+      if (axios.isCancel(err)) {
+        console.log("req cancel");
+      } else {
+        console.log("req performed");
+      }
+    });
+};
+
+export const likePost = (postId, setResponse) => {
+  const controller = new AbortController();
+  const config = {
+    headers: {
+      accessToken: getAccessToken(),
+    },
+  };
+  axios
+    .patch(
+      `${API_URL}api/v1/club/likePost/${postId}`,
+      {
+        signal: controller.signal,
+      },
+      config
+    )
+    .then((res) => {
+      setResponse(res);
+      return res;
+    })
+    .catch((err) => {
+      console.log(err);
+      if (axios.isCancel(err)) {
+        console.log("req cancel");
+        setResponse(err.response);
+        return err;
+      } else {
+        console.log("req performed");
+        setResponse(err.response);
+        return err;
+      }
+    });
+};
+
+export const unLikePost = (postId, setResponse) => {
+  const controller = new AbortController();
+  const config = {
+    headers: {
+      accessToken: getAccessToken(),
+    },
+  };
+  axios
+    .patch(
+      `${API_URL}api/v1/club/likeBackPost/${postId}`,
+      {
+        signal: controller.signal,
+      },
+      config
+    )
+    .then((res) => {
+      setResponse(res);
+      return res;
+    })
+    .catch((err) => {
+      console.log(err);
+      if (axios.isCancel(err)) {
+        console.log("req cancel");
+        setResponse(err.response);
+        return err;
+      } else {
+        console.log("req performed");
+        setResponse(err.response);
+        return err;
+      }
+    });
+};
+
+export const savePost = (postId, setResponse) => {
+  const controller = new AbortController();
+  const config = {
+    headers: {
+      accessToken: getAccessToken(),
+    },
+  };
+  axios
+    .patch(
+      `${API_URL}api/v1/club/savePost/${postId}`,
+      {
+        signal: controller.signal,
+      },
+      config
+    )
+    .then((res) => {
+      setResponse(res);
+      return res;
+    })
+    .catch((err) => {
+      console.log(err);
+      if (axios.isCancel(err)) {
+        console.log("req cancel");
+        setResponse(err.response);
+        return err;
+      } else {
+        console.log("req performed");
+        setResponse(err.response);
+        return err;
+      }
+    });
+};
+
+export const unSavePost = (postId, setResponse) => {
+  const controller = new AbortController();
+  const config = {
+    headers: {
+      accessToken: getAccessToken(),
+    },
+  };
+  axios
+    .patch(
+      `${API_URL}api/v1/club/unSavePost/${postId}`,
+      {
+        signal: controller.signal,
+      },
+      config
+    )
+    .then((res) => {
+      setResponse(res);
+      return res;
+    })
+    .catch((err) => {
+      console.log(err);
+      if (axios.isCancel(err)) {
+        console.log("req cancel");
+        setResponse(err.response);
+        return err;
+      } else {
+        console.log("req performed");
+        setResponse(err.response);
+        return err;
+      }
+    });
+};
+
 export const getTrendingClubs = (setTrendingClubs) => {
   const controller = new AbortController();
   axios
@@ -2005,6 +2176,28 @@ export const getTrendingActivities = (setTrendingActivities) => {
     .get(`${API_URL}api/v1/getAllTrendingActivitiesPostsWithCampus`, {
       signal: controller.signal,
     })
+    .then((res) => {
+      const data = res.data.data;
+      setTrendingActivities(data);
+    })
+    .catch((err) => {
+      if (axios.isCancel(err)) {
+        console.log("req cancel");
+      } else {
+        console.log("req performed");
+      }
+    });
+};
+
+export const getTrendingActivitiesInPrivateMode = (setTrendingActivities) => {
+  const config = {
+    headers: {
+      accessToken: getAccessToken(),
+    },
+  };
+  const controller = new AbortController();
+  axios
+    .get(`${API_URL}api/v1/trendingActivitiesInPrivateMode`, config)
     .then((res) => {
       const data = res.data.data;
       setTrendingActivities(data);

@@ -3,6 +3,8 @@ import "../Dashboard.css"; // !import this file first
 import "../CompanyDashboard/CompanyDashboard.css";
 import "./UserDashboard.css";
 import moment from "moment";
+import Cookies from "js-cookie";
+import jwt_decode from "jwt-decode";
 import { PiGlobeLight } from "react-icons/pi";
 import { AiFillLinkedin } from "react-icons/ai";
 import { BiLogoInstagramAlt } from "react-icons/bi";
@@ -24,12 +26,15 @@ import {
 import { useNavigate, useParams, Link } from "react-router-dom";
 import { Bucket_URL } from "../../../services/APIUtils";
 import {
+  getUserId,
   getUserRole,
   isUserLoggedIn,
 } from "../../../features/User/UserDetails";
 import LoadingPage from "../../../components/Loader/LoadingPage";
 import Page404 from "../../Maintenance/Page404";
 import colorWheel from "../../../assets/colorWheel";
+import { getAccessToken } from "../../../features/getCookieValues";
+import { Cookie } from "@mui/icons-material";
 
 export default function UserDashboard() {
   const navigate = useNavigate();
@@ -50,14 +55,27 @@ export default function UserDashboard() {
   const [resumeErrors, setResumeErrors] = useState({
     resume: "",
   });
-
-  const [links, setLinks] = useState(true);
+  const [showEditOptions,setShowEditOptions]=useState(false);
+  
   const [isUpdating, setIsUpdating] = useState(false);
   const [isResumeUpdating, setIsResumeUpdating] = useState(false);
   const [isResumeUpdated, setIsResumeUpdated] = useState(false);
   const [resumeRes, setResumeRes] = useState(null);
   const [newResumeLink, setNewResumeLink] = useState("");
   const [response, setResponse] = useState(null);
+  const [links, setLinks] = useState(true);
+  function handleEditOptions()
+  { 
+    // let token=getAccessToken();
+    // let decode =jwt_decode(token);
+    // let id=decode._id;
+    
+    if(user._id===getUserId())
+    {
+      setShowEditOptions(true);
+    }
+
+  }
   function fetchData() {
     getUserProfileById(setUser, userId, setFetchResponse);
   }
@@ -73,12 +91,18 @@ export default function UserDashboard() {
 
   useEffect(() => {
     console.log(user);
-    if (user?._id === userId) {
+    handleEditOptions();
+    console.log(showEditOptions);
+        if (user?._id === userId) {
       setIsUserAdmin(true);
     } else {
       setIsUserAdmin(false);
     }
   }, [user]);
+
+  useEffect(()=>{
+    handleEditOptions();
+  })
   const validateInputResume = () => {
     let valid = true;
     const newErrors = {
@@ -96,6 +120,7 @@ export default function UserDashboard() {
     if (!!resumeRes) {
       if (resumeRes.status >= 200 && resumeRes.status < 300) {
         setIsResumeUpdated(true);
+        
         setNewResumeLink(resumeRes.data.data);
         setIsResumeUpdating(false);
         setOpen(true);
@@ -152,7 +177,7 @@ export default function UserDashboard() {
   ];
 
   const userDashboardPage = (
-    <main className="profile-dashboard">
+    <main className="profile-dashboard profile-dashboard--adjustment">
       <h1 className="title">Profile</h1>
       {links && user?.role !== "Alumni" && isUserLoggedIn() && (
         <section
@@ -225,7 +250,7 @@ export default function UserDashboard() {
             <img src={defaultPoster} alt="default image" />
           )}
         </div>
-        <div className="details">
+        <div className="details upperDetails">
           <span className="username text-crop-1 overflow-hidden">
             {`${user?.userName ? `@${user.userName}` : "No username"}`}
           </span>
@@ -262,7 +287,8 @@ export default function UserDashboard() {
               </a>
             )}
           </div>
-          {isUserAdmin && (
+
+          {showEditOptions && (
             <>
               {/* <p
     className="buttons"
@@ -321,7 +347,7 @@ export default function UserDashboard() {
               )}
             </>
           )}
-          {isUserAdmin && (
+          {showEditOptions && (
             <div className="buttons">
               <button
                 onClick={() => navigate("edit-profile")}
@@ -739,7 +765,7 @@ export default function UserDashboard() {
           </section>
         </div>
       </div>
-      {isUserAdmin && user?.role === "Alumni" && (
+      {showEditOptions && user?.role === "Alumni" && (
         <section className="box recruit-container">
           <p className="heading">MY ACTIVITIES</p>
           <div className="cards">

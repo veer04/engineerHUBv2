@@ -1,0 +1,116 @@
+.trending-cards-container {
+  display: flex;
+  width: 100%;
+  padding: 1rem;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  /* gap: 1rem; */
+  border-radius: 0.3125rem;
+  border: 1px solid var(--foundation-black-black-50, #e6e6e6);
+  background: var(--Color, #fff);
+  height: fit-content;
+}
+.trending-cards-container hr:last-of-type {
+  display: none;
+}
+.trending-cards-container .loading-container {
+  min-height: 4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+.trending-cards-container .loading-container span {
+  font-size: 0.875rem;
+  color: var(--foundation-black-black-400, #9b9b9b);
+}
+.trending-cards-container .title {
+  display: flex;
+  padding: 0.5rem;
+  justify-content: center;
+  align-items: center;
+  gap: 0.75rem;
+  align-self: stretch;
+  border-radius: 3.125rem;
+  margin-bottom: 1rem;
+}
+.trending-cards-container .title span {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--foundation-black-black-800, #000);
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 128.523%; /* 1.12456rem */
+}
+.trending-cards-container .title span svg {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.trending-cards-container .trending-card {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  gap: 0.75rem;
+  cursor: pointer;
+  width: 100%;
+}
+.trending-cards-container .trending-card .logo {
+  width: 3rem;
+  min-width: 3rem;
+  aspect-ratio: 1/1;
+}
+.trending-cards-container .trending-card .logo img {
+  object-fit: cover;
+  width: 100%;
+  border-radius: 50%;
+  aspect-ratio: 1/1;
+}
+.trending-cards-container .trending-card .content {
+  width: 100%;
+}
+  .trending-cards-container .trending-card .content .name {
+  overflow: hidden;
+  color: var(--foundation-black-black-800, #000);
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 128.523%; /* 1.28525rem */
+}
+.trending-cards-container .trending-card .content .subheading {
+  overflow: hidden;
+  color: var(--foundation-black-black-400, #333);
+  font-family: Inter;
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 128.523%; /* 1.12456rem */
+  word-break: break-word;
+}
+.trending-cards-container .view-more {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-top: 1rem;
+}
+.trending-cards-container .view-more button {
+  display: flex;
+  padding: 0.25rem 0.75rem;
+  justify-content: center;
+  align-items: center;
+  gap: 0.25rem;
+  border-radius: 3.125rem;
+  border: 0.5px solid var(--foundation-black-black-100, #b0b0b0);
+  background-color: transparent;
+  color: var(--foundation-black-black-200, #8a8a8a);
+  font-family: Inter;
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 128.523%; /* 1.12456rem */
+}

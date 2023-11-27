@@ -246,7 +246,10 @@ export default function CompanyDashboard() {
                     {organization?.subHeading ? (
                       organization?.subHeading
                     ) : (
-                      <i className="text-crop-1 overflow-hidden">
+                      <i
+                        style={{ color: "grey" }}
+                        className="text-crop-1 overflow-hidden"
+                      >
                         Subheading not available
                       </i>
                     )}
@@ -266,7 +269,10 @@ export default function CompanyDashboard() {
                           </div>
                         </>
                       ) : (
-                        <i className="text-crop-1 overflow-hidden">
+                        <i
+                          style={{ color: "grey" }}
+                          className="text-crop-1 overflow-hidden"
+                        >
                           Organization type not available
                         </i>
                       )}
@@ -361,7 +367,7 @@ export default function CompanyDashboard() {
               )}
               {!organization?.aboutUs && (
                 <p className="no-description">
-                  <i>Description not available</i>
+                  <i style={{ color: "grey" }}>Description not available</i>
                 </p>
               )}
               {organization?.aboutUs && !viewMore && (
@@ -467,7 +473,9 @@ export default function CompanyDashboard() {
             {!isActivityPresent && (
               <div className="no-jobs empty-container">
                 {/* <MdAddCircle /> */}
-                <p>{`No ${activityChoice} to show`}</p>
+                <p
+                  style={{ color: "grey" }}
+                >{`No ${activityChoice} to show`}</p>
               </div>
             )}
             {isActivityPresent && !showAll && (

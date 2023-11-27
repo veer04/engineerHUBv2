@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import ReactDOM from "react-dom";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { controller, getParticularEvent } from "../../services/APIConfig";
+import { controller } from "../../services/APIConfig";
 import { useState } from "react";
 
 export default function Modal({ handleClose, setShowModal }) {
@@ -26,7 +26,7 @@ export default function Modal({ handleClose, setShowModal }) {
 
   useEffect(() => {
     console.log(eventId);
-    getParticularEvent(setEvent, eventId);
+    // getParticularEvent(setEvent, eventId);
 
     return () => {
       controller.abort();
@@ -128,24 +128,27 @@ export default function Modal({ handleClose, setShowModal }) {
                 </div>
                 {/* </a> */}
               </div>
-            ) : (
-              <div>
-                <a href={event?.applyLink}>
-                  <div
-                    onClick={() => {
-                      handleClose();
-                      // navigate(-1);
-                    }}
-                    style={{
-                      color: "#fff",
-                    }}
-                    className="link"
-                  >
-                    Event Link
-                  </div>
-                </a>
+
+          ):(
+            
+            <div >
+            <a href={event?.applyLink}>
+              <div   
+                onClick={() => {
+                  handleClose();
+                  // navigate(-1);
+                }}
+                style={{
+                  color:"#fff"
+                }}
+                className="link"
+              >
+                Event Link
               </div>
-            )}
+            </a>
+            </div>
+          )
+          }
           </div>
         </div>
       ) : (

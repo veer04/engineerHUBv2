@@ -11,10 +11,6 @@ import IntraCollege from "./pages/Campus/IntraCollege/IntraCollege";
 import InterCollege from "./pages/Campus/InterCollege/InterCollege";
 import Workshops from "./pages/Campus/Workshops/Workshops";
 import ParticularCampus from "./pages/Campus/ParticularCampus/ParticularCampus";
-import CampusDetails from "./pages/Campus/ParticularCampus/CampusDetails";
-import ClubsPage from "./pages/Campus/ParticularCampus/ClubsPage";
-import AlumniPage from "./pages/Campus/ParticularCampus/AlumniPage";
-import ParticularClub from "./pages/Campus/ParticularCampus/ParticularClub";
 import Signup from "./pages/User/Signup/Signup";
 import RegistrationForm from "./components/Registration/Registration";
 import OTP from "./pages/User/OtpVerification/Otpverification";
@@ -41,22 +37,20 @@ import { Suspense } from "react";
 import LoadingPage from "./components/Loader/LoadingPage";
 import Role from "./pages/User/RoleWiseUserPage/Role";
 import PostModal from "./components/PostModal/PostModal";
-import ParticularAlumni from "./pages/Campus/ParticularCampus/ParticularAlumni";
 import StudentSignup from "./pages/User/Signup/StudentSignup";
 import ForgotPassword from "./pages/User/ForgotPassword/ForgotPassword";
-import AlumniProfilePage from "./pages/User/Profile/AlumniProdile/AlumniProfilePage";
-import GeneralAlumniData from "./pages/User/Profile/AlumniProdile/GeneralAlumniData";
-import EditAlumniData from "./pages/User/Profile/AlumniProdile/EditAlumniData";
-import SocialMediaAlumniData from "./pages/User/Profile/AlumniProdile/SocialMediaAlumniData";
 import JobRegistration from "./pages/Hosting/JobRegistration";
 import Page404 from "./pages/Maintenance/Page404";
 import SignupUser from "./pages/User/Signup/SignupUser";
 import jwt_decode from "jwt-decode";
 const CommunityPage = lazy(() => import("./pages/Community/CommunityPage"));
-const CampusPage = lazy(() => import("./pages/Campus/CampusPage"));
+const NewCampusPage = lazy(() => import("./pages/Campus/NewCampusPage"));
 const Company = lazy(() => import("./pages/Company/Company"));
 const Hosting = lazy(() => import("./pages/Hosting/Hosting.jsx"));
 const Login = lazy(() => import("./pages/User/Login/Login"));
+const CampusSearchPage = lazy(() => import("./pages/Campus/CampusSearchPage"));
+const CampusDetails = lazy(() => import("./pages/Campus/CampusDetails"));
+const TrendingEvents = lazy(() => import("./pages/Campus/TrendingEvents"));
 import ChangePassword from "./pages/User/ForgotPassword/ChangePassword";
 import getCookie, { getAccessToken } from "./features/getCookieValues";
 import ProjectHosting from "./pages/Hosting/ProjectHosting";
@@ -71,11 +65,32 @@ import AddMemberModal from "./components/Dashboard/AddMemberModal";
 import UserDashboard from "./pages/Profile/UserDashboard/UserDashboard";
 import GlobalSnackbar from "./components/GlobalSnackbar/GlobalSnackbar";
 import UserEditProfile from "./pages/Profile/UserDashboard/UserEditProfile";
+import TrendingColleges from "./pages/Campus/TrendingColleges";
+import TrendingClubCard from "./components/TrendingClubCard/TrendingClubCard";
+// import TrendingListAlumni from "./components/TrendingList/TrendingListAlumni";
+// import AlumniList from "./components/TrendingList/AlumniList";
+import TrendingAlumni from "../src/components/TrendingAlumni/TrendingAlumni";
+import CampusDetailsOld from "./pages/Campus/ParticularCampus/CampusDetails.jsx";
+import TrendingWorkshops from "./pages/Campus/TrendingWorkshops.jsx";
+import ProjectWindow from "./pages/Community/Project/ProjectWindow.jsx";
+import EventWindow from "./pages/Community/Events/EventWindow.jsx";
+import BlogWindow from "./pages/Community/Blogs/BlogWindow.jsx";
+const NewChatPage = lazy(() =>
+  import("./pages/Community/Chat/NewChatPage.jsx")
+);
+const NewProjectsPage = lazy(() =>
+  import("./pages/Community/Project/NewProjectsPage.jsx")
+);
+const NewEventsPage = lazy(() =>
+  import("./pages/Community/Events/NewEventsPage.jsx")
+);
+const NewBlogsPage = lazy(() =>
+  import("./pages/Community/Blogs/NewBlogsPage.jsx")
+);
 
 function App() {
   const [isChatOpen, setIsChatOpen] = useState(false);
   const [isEventModalOpen, setIsEventModalOpen] = useState(false);
-  const [hasSignedUp, setHasSignedUp] = useState(false);
   const [OtpRoute, setOtpRoute] = useState("False");
   const [eventHostRoute, setEventHostRoute] = useState(false);
   const [sendLogin, setSendLogin] = useState(true);
@@ -100,11 +115,6 @@ function App() {
       setSendLogin(true);
     }
   });
-  const userName = document.cookie
-    .split(";")
-    .map((cookie) => cookie.trim())
-    .find((cookie) => cookie.startsWith("userName="));
-  const isAuthenticated = !!userName;
 
   return (
     <>
@@ -114,6 +124,7 @@ function App() {
       <ProfilePopUp />
       <Suspense fallback={<LoadingPage />}>
         <Routes>
+          <Route path="/helloMoto" element={<TrendingClubCard />}></Route>
           <Route index element={<HomePage path="homepage" />} />
           <Route path="/home" element={<HomePage />} />
           <Route path="/success" element={<Success></Success>}></Route>
@@ -162,9 +173,9 @@ function App() {
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/change-password" element={<ChangePassword />} />
           {OtpRoute === "true" ? (
-            <Route exact path="/otpverification" element={<OTP />} />
+            <Route exact path="/otp-verification" element={<OTP />} />
           ) : (
-            <Route path="/otpverification" element={<Page404 />} />
+            <Route path="/otp-verification" element={<Page404 />} />
           )}
 
           <Route path="/under-maintenance" element={<ComingSoon />} />
@@ -172,56 +183,55 @@ function App() {
             <Route index element={<CommunityPage />} />
             <Route path="domains" element={<CommunityPage path="domains" />} />
             <Route path="projects">
-              <Route path=":id" element={<ProjectPage path="projects" />} />
+              {/* <Route path=":id" element={<ProjectPage path="projects" />} /> */}
+              <Route path=":id" element={<NewProjectsPage />}>
+                <Route path=":projectId" element={<ProjectWindow />} />
+              </Route>
             </Route>
             <Route path="blogs">
-              <Route path=":id" element={<BlogsPage path="blogs" />} />
+              <Route path=":id" element={<NewBlogsPage />}>
+                <Route path=":blogId" element={<BlogWindow />} />
+              </Route>
             </Route>
             <Route path="events">
-              <Route path=":id">
-                <Route index element={<EventsPage path="events" />} />
-                <Route
+              <Route path=":id" element={<NewEventsPage />}>
+                <Route path=":eventId" element={<EventWindow />} />
+                {/* <Route index element={<EventsPage path="events" />} /> */}
+                {/* <Route
                   path=":eventId"
                   element={
                     <ParticularEvent
                       setIsEventModalOpen={setIsEventModalOpen}
                     />
                   }
-                />
+                /> */}
               </Route>
             </Route>
             <Route path="chat">
-              <Route
+              <Route path=":id" element={<NewChatPage />} />
+              {/* <Route
                 path=":id"
                 element={<ChatPage path="chat" setIsChatOpen={setIsChatOpen} />}
-              />
+              /> */}
             </Route>
           </Route>
           <Route path="/mentorChat" element={<MentorChat />} />
+          <Route path="/trending">
+            <Route path="campuses/:collegeId">
+              <Route index element={<TrendingColleges />} />
+              <Route path="details" element={<CampusDetailsOld />} />
+            </Route>
+            <Route path="clubs/:clubId" element={<TrendingClubCard />} />
+            <Route path="alumni/:almaId" element={<TrendingAlumni />} />
+            <Route path="events/:eventId" element={<TrendingEvents />} />
+            <Route path="workshops/:eventId" element={<TrendingWorkshops />} />
+          </Route>
           <Route path="/campus">
-            <Route index element={<CampusPage />} />
-            <Route path="inter-college" element={<InterCollege />} />
-            <Route path="intra-college" element={<IntraCollege />} />
-            <Route path="workshop" element={<Workshops />} />
+            <Route index element={<NewCampusPage />} />
+            <Route path="search/:collegeId" element={<CampusSearchPage />} />
             <Route path=":collegeId">
-              <Route index element={<ParticularCampus />} />
-              <Route path="details" element={<CampusDetails />} />
-              <Route path="technical-clubs">
-                <Route index element={<ClubsPage type="Technical" />} />
-                <Route path=":clubId" element={<ParticularClub />}>
-                  <Route path="posts/:postId" element={<PostModal />} />
-                </Route>
-              </Route>
-              <Route path="cultural-clubs">
-                <Route index element={<ClubsPage type="Cultural" />} />
-                <Route path=":clubId" element={<ParticularClub />}>
-                  <Route path="posts/:postId" element={<PostModal />} />
-                </Route>
-              </Route>
-              <Route path="almas">
-                <Route index element={<AlumniPage />} />
-                <Route path=":almaId" element={<ParticularAlumni />} />
-              </Route>
+              <Route index element={<CampusDetails />} />
+              <Route path="details" element={<CampusDetailsOld />}></Route>
             </Route>
           </Route>
           <Route path="/mentorship" element={<ComingSoon />} />
@@ -239,7 +249,7 @@ function App() {
               <Route path="/host/internship" element={<JobRegistration />} />
             </>
           ) : (
-            <Route path="/hostjob" element={<Login />} />
+            <Route path="/host/job" element={<Login />} />
           )}
 
           <Route path="hosting">

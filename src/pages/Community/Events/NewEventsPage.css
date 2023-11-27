@@ -1,0 +1,388 @@
+.events-page {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: var(--vertical-padding) var(--section-padding);
+}
+.events-page .main-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+}
+.events-page .main-container .options-container {
+  display: flex;
+  flex-direction: column;
+  margin-right: 1.75rem;
+  max-width: 6rem;
+}
+.events-page .main-container .content-container {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+.events-page .main-container .content-container .event-list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  width: 100%;
+  min-width: 332px;
+  margin-right: 0.5rem;
+  justify-content: center;
+  overflow: auto;
+}
+.events-page .main-container .content-container .--flip-direction {
+  flex-direction: column;
+  width: fit-content;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+}
+.events-page .main-container .content-container .event-window section {
+  padding: 1rem 0;
+  border-radius: 0.3125rem;
+  background: var(--Color, #fff);
+  margin-bottom: 0.5rem;
+}
+
+.events-page .main-container .content-container .event-window .header {
+  display: flex;
+  flex-direction: row;
+  gap: 1.5rem;
+}
+.events-page .main-container .content-container .event-window .header .poster {
+  min-width: 9.375rem;
+  max-width: 9.375rem;
+  min-height: 9.375rem;
+  max-height: 9.375rem;
+  overflow: hidden;
+}
+.events-page
+  .main-container
+  .content-container
+  .event-window
+  .header
+  .poster
+  img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 0.3125rem;
+}
+.events-page .main-container .content-container .event-window .header .details {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+}
+.events-page
+  .main-container
+  .content-container
+  .event-window
+  .header
+  .details
+  .heading {
+  color: #000;
+  font-size: 1.375rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  margin-bottom: 0.5rem;
+}
+.events-page
+  .main-container
+  .content-container
+  .event-window
+  .header
+  .details
+  .name {
+  color: var(--foundation-black-black-200, #8a8a8a);
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  margin-bottom: 0.5rem;
+}
+.events-page
+  .main-container
+  .content-container
+  .event-window
+  .header
+  .details
+  .name
+  strong {
+  color: var(--foundation-black-black-800, #000);
+}
+.events-page
+  .main-container
+  .content-container
+  .event-window
+  .header
+  .details
+  .type {
+  display: flex;
+  padding: 0.5rem 1rem;
+  justify-content: center;
+  align-items: center;
+  gap: 0.625rem;
+  border-radius: 2rem;
+  border: 1px solid var(--foundation-black-black-100, #b0b0b0);
+  color: var(--foundation-black-black-800, #000);
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  width: fit-content;
+}
+.events-page .main-container .content-container .event-window section .detail {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  width: fit-content;
+  gap: 0.5rem;
+}
+.events-page
+  .main-container
+  .content-container
+  .event-window
+  section
+  .detail
+  .logo {
+  font-size: 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.5rem;
+  width: fit-content;
+  border-radius: 0.3125rem;
+  border: 1px solid var(--foundation-black-black-50, #e6e6e6);
+}
+.events-page
+  .main-container
+  .content-container
+  .event-window
+  section
+  .detail
+  .headings {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.events-page
+  .main-container
+  .content-container
+  .event-window
+  section
+  .detail
+  .headings
+  span:nth-child(1) {
+  color: var(--foundation-black-black-400, #333);
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+.events-page
+  .main-container
+  .content-container
+  .event-window
+  section
+  .detail
+  .headings
+  span:nth-child(2) {
+  color: var(--Primary-500, #002b36);
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  word-break: break-all;
+}
+.events-page
+  .main-container
+  .content-container
+  .event-window
+  .registration
+  div {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+}
+.events-page
+  .main-container
+  .content-container
+  .event-window
+  .registration
+  div
+  .register-btn {
+  padding: 0.625rem;
+  border-radius: 0.3125rem;
+  border: 1px solid var(--Primary-500, #002b36);
+  background: var(--Primary-500, #002b36);
+  color: white;
+}
+.events-page
+  .main-container
+  .content-container
+  .event-window
+  .registration
+  div
+  .register-btn:hover {
+  background-color: var(--primary-color-yellow, #ffd600);
+  border: 1px solid var(--primary-color-yellow, #ffd600);
+  color: #000;
+}
+.events-page .main-container .content-container .event-window .content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.events-page .main-container .content-container .event-window .content .data {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.events-page .main-container .content-container .event-window .description {
+  display: flex;
+  flex-direction: column;
+}
+.events-page
+  .main-container
+  .content-container
+  .event-window
+  .description
+  .heading {
+  color: #000;
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 120.023%; /* 1.05019rem */
+  text-transform: uppercase;
+  margin-bottom: 0.72rem;
+}
+.events-page
+  .main-container
+  .content-container
+  .event-window
+  .description
+  .details {
+  color: var(--foundation-black-black-400, #333);
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 126.023%;
+}
+.events-page .main-container .content-container .event-window {
+  max-width: 44.25rem;
+  width: 100%;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  margin: 0 auto;
+  border-radius: 0.3125rem;
+  background: var(--Color, #fff);
+  padding: 1.5rem;
+  position: relative;
+}
+.events-page .main-container .content-container .event-window .cancel {
+  position: absolute;
+  top: 0.1rem;
+  right: 0.3rem;
+  cursor: pointer;
+}
+.events-page .main-container .content-container .event-window button {
+  float: right;
+  border-radius: 0.3175rem;
+  border: none;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.5rem;
+  background-color: var(--primary-color-dark-green);
+  color: white;
+}
+.events-page .main-container .content-container .event-window button:hover {
+  background-color: var(--primary-color-green);
+  color: white;
+}
+.events-page .main-container .content-container .event-window button:active {
+  background-color: var(--primary-color-yellow);
+  color: black;
+}
+
+@media screen and (max-width: 820px) {
+  .events-page {
+    padding: calc(var(--vertical-padding) + 7.5rem) var(--section-padding);
+  }
+
+  .events-page .main-container .options-container {
+    display: none;
+  }
+  .events-page .main-container .content-container .--flip-direction {
+    display: none;
+  }
+  .events-page .main-container .content-container .event-window .header {
+    gap: 0.75rem;
+    flex-direction: column;
+    align-items: center;
+  }
+  .events-page
+    .main-container
+    .content-container
+    .event-window
+    .header
+    .poster {
+    min-width: 20rem;
+    max-width: 20rem;
+    min-height: 20rem;
+    max-height: 20rem;
+  }
+  .events-page
+    .main-container
+    .content-container
+    .event-window
+    .header
+    .details {
+    width: 100%;
+  }
+  .events-page
+    .main-container
+    .content-container
+    .event-window
+    .header
+    .details
+    .heading {
+    font-size: 1rem;
+  }
+  .events-page
+    .main-container
+    .content-container
+    .event-window
+    .header
+    .details
+    .name {
+    font-size: 0.875rem;
+  }
+  .events-page
+    .main-container
+    .content-container
+    .event-window
+    .header
+    .details
+    .type {
+    font-size: 0.75rem;
+  }
+}
+
+@media screen and (max-width: 440px) {
+  .events-page
+    .main-container
+    .content-container
+    .event-window
+    .header
+    .poster {
+    min-width: 100%;
+    max-width: 100%;
+    min-height: 0;
+    max-height: 100%;
+    aspect-ratio: 1/1;
+  }
+}

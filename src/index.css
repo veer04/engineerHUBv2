@@ -1,4 +1,4 @@
-main.page{
+main.page {
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -53,9 +53,14 @@ a {
 label {
   font-family: "Inter", sans-serif;
 }
+span {
+  word-break: break-all;
+  word-break: normal;
+  overflow-wrap: break-word;
+}
 :root {
   --section-padding: min(10.41rem, 8vw);
-  --vertical-padding: min(2rem, 4vw);
+  --vertical-padding: min(1rem, 4vw);
 
   --main-background-color: #eeffff; /*rgb(238,255,255)*/
 

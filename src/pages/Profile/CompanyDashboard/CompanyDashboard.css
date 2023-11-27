@@ -2,9 +2,10 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  padding: var(--vertical-padding) var(--section-padding);
+  /* padding: var(--vertical-padding) var(--section-padding); */
   scroll-behavior: auto;
 }
+
 .profile-dashboard > .details-container {
   display: flex;
   flex-direction: column;
@@ -87,6 +88,7 @@
   width: 100%;
   height: 100%;
   border-radius: 50%;
+  object-fit: cover;
 }
 .profile-dashboard > .details-container > .details {
   padding: 1.25rem;

@@ -34,11 +34,11 @@ export default function ClubDashboard() {
   const [showAll1, setShowAll1] = useState(false);
   const [showAll2, setShowAll2] = useState(false);
   const [showAll3, setShowAll3] = useState(false);
+  const [fetchResponse, setFetchResponse] = useState({});
   const [posts, setPosts] = useState([]);
   const [featuredEvents, setFeaturedEvents] = useState([]);
   const [followResponse, setFollowResponse] = useState({});
   const bucket2 = `${Bucket_URL}frontend/profile/dashboard/`;
-  const [fetchResponse, setFetchResponse] = useState({});
 
   function fetchData() {
     if (isUserLoggedIn()) {
@@ -81,7 +81,7 @@ export default function ClubDashboard() {
 
   const clubDashboardPage = (
     <>
-      <main className="profile-dashboard club-dashboard">
+      <main className="profile-dashboard club-dashboard club-dashboard--adjustment">
         <h1 className="title">Profile</h1>
         <h2 className="subheading">
           {/* Lorem ipsum dolor sit amet consectetur. Mattis aliquam sodales
@@ -140,7 +140,10 @@ export default function ClubDashboard() {
                     {organization?.subHeading ? (
                       organization?.subHeading
                     ) : (
-                      <i className="text-crop-1 overflow-hidden">
+                      <i
+                        style={{ color: "grey" }}
+                        className="text-crop-1 overflow-hidden"
+                      >
                         Subheading not available
                       </i>
                     )}
@@ -172,7 +175,10 @@ export default function ClubDashboard() {
                           </div>
                         </>
                       ) : (
-                        <i className="text-crop-1 overflow-hidden">
+                        <i
+                          style={{ color: "grey" }}
+                          className="text-crop-1 overflow-hidden"
+                        >
                           Organization type not available
                         </i>
                       )}
@@ -267,7 +273,7 @@ export default function ClubDashboard() {
               )}
               {!organization?.description && (
                 <p className="no-description">
-                  <i>Description not available</i>
+                  <i style={{ color: "grey" }}>Description not available</i>
                 </p>
               )}
               {organization?.description && !viewMore && (
@@ -303,7 +309,7 @@ export default function ClubDashboard() {
             {posts.length === 0 && (
               <div className="no-jobs empty-container">
                 {/* <MdAddCircle /> */}
-                <p>{`No posts to show`}</p>
+                <p style={{ color: "grey" }}>{`No posts to show`}</p>
               </div>
             )}
           </div>
@@ -361,7 +367,7 @@ export default function ClubDashboard() {
             {organization?.members?.length === 0 && (
               <div className="no-jobs empty-container">
                 {/* <MdAddCircle /> */}
-                <p>{`No members to show`}</p>
+                <p style={{ color: "grey" }}>{`No members to show`}</p>
               </div>
             )}
           </div>
@@ -402,6 +408,7 @@ export default function ClubDashboard() {
                         key={index}
                         {...jobDetail}
                         className="scroll-card no-hover-scale"
+                        trendingEvent
                       />
                     ))
                   : featuredEvents
@@ -411,6 +418,7 @@ export default function ClubDashboard() {
                           key={index}
                           {...jobDetail}
                           className="scroll-card no-hover-scale"
+                          trendingEvent
                         />
                       ))}
               </div>
@@ -419,7 +427,7 @@ export default function ClubDashboard() {
             {featuredEvents.length === 0 && (
               <div className="no-jobs empty-container">
                 {/* <MdAddCircle /> */}
-                <p>{`No events to show`}</p>
+                <p style={{ color: "grey" }}>{`No events to show`}</p>
               </div>
             )}
           </div>

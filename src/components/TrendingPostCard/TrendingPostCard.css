@@ -1,0 +1,145 @@
+.post-card-container {
+  display: flex;
+  padding: 0.75rem;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  /* gap: 0.25rem; */
+  border-radius: 0.3125rem;
+  border: 1px solid var(--foundation-black-black-50, #e6e6e6);
+  background: var(--Color, #fff);
+}
+
+.post-card-container .header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: nowrap;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 0.75rem;
+}
+.post-card-container .header div {
+  height: 100%;
+}
+.post-card-container .header .details {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  gap: 0.5rem;
+}
+.post-card-container .header .details .logo {
+  min-width: 3rem;
+  width: 3rem;
+  aspect-ratio: 1/1;
+}
+.post-card-container .header .details .logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  flex-wrap: nowrap;
+}
+.post-card-container .header .details .logo img {
+  width: 100%;
+  aspect-ratio: 1/1;
+  border-radius: 50%;
+}
+.post-card-container .header .details .name {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  flex-wrap: nowrap;
+}
+.post-card-container .header .details .name span {
+  color: #000;
+  font-family: Inter;
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 128.523%; /* 1.12456rem */
+  overflow: hidden;
+}
+.post-card-container .header .follow-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.post-card-container .header .follow-btn button {
+  display: flex;
+  padding: 0.25rem 0.75rem;
+  justify-content: center;
+  align-items: center;
+  gap: 0.25rem;
+  border-radius: 3.125rem;
+  border: 1px solid #007aeb;
+  background-color: transparent;
+  color: #007aeb;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 128.523%; /* 1.28525rem */
+}
+.post-card-container .post-image-container {
+  width: 100%;
+  margin-bottom: 0.5rem;
+  max-height: 24.4rem;
+  overflow: hidden;
+}
+.post-card-container .post-image-container img {
+  object-fit: cover;
+  width: 100%;
+  border-radius: 0.3125rem;
+}
+.post-card-container .impressions-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 0.25rem;
+}
+.post-card-container .impressions-container .left {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+}
+.post-card-container .impressions-container .left > div,
+.post-card-container .impressions-container .right > div {
+  font-size: 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.75rem;
+}
+.post-card-container .impressions-container .left svg,
+.post-card-container .impressions-container .right svg {
+  cursor: pointer;
+}
+
+.post-card-container .impressions-container .left .icon-container,
+.post-card-container .impressions-container .right .icon-container {
+  width: min-content;
+  height: min-content;
+}
+.post-card-container .likes {
+  overflow: hidden;
+  color: var(--foundation-black-black-800, #000);
+  text-overflow: ellipsis;
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 128.523%; /* 1.12456rem */
+  margin-bottom: 0.5rem;
+}
+.post-card-container .caption {
+  overflow: hidden;
+  color: var(--foundation-black-black-400, #333);
+  font-family: Inter;
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 128.523%; /* 1.12456rem */
+}

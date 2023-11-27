@@ -11,6 +11,7 @@ import getCookie, {
 } from "../../../../features/getCookieValues";
 import { API_URL } from "../../../../services/APIUtils";
 import jwt_decode from "jwt-decode";
+import { redirectToAuth } from "../../../../features/redirectToAuth";
 const HackathonDesc = ({ details }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
@@ -94,9 +95,16 @@ const HackathonDesc = ({ details }) => {
                 <div className="btn">Easy Apply</div>
               </Link>
             ) : (
-              <Link to="/login">
-                <div className="btn">Easy Apply</div>
-              </Link>
+              // <Link to="/login">
+              <div
+                onClick={() => {
+                  redirectToAuth("/login");
+                }}
+                className="btn"
+              >
+                Easy Apply
+              </div>
+              // </Link>
             )}
           </div>
         </span>

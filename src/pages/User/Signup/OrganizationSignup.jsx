@@ -275,7 +275,7 @@ const OrganizationSignup = () => {
             response.status === 204
           ) {
             setLoading(false);
-            navigate("/otpverification");
+            navigate("/otp-verification");
             window.location.reload(true);
           }
         },

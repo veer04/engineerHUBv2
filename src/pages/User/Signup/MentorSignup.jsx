@@ -312,7 +312,7 @@ const MentorSignup = () => {
             response.status === 204
           ) {
             setLoading(false);
-            navigate("/otpverification");
+            navigate("/otp-verification");
             setOpen(true);
             window.location.reload(true);
           }

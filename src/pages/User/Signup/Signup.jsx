@@ -313,7 +313,7 @@ if (!formData.branch) {
           if(response.status===200 || response.status===201 || response.status===202 || response.status===203 || response.status===204)
           {
             setLoading(false);
-            navigate("/otpverification");
+            navigate("/otp-verification");
             // window.location.reload(true);
             // window.location.reload(true);
           }

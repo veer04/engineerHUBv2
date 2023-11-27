@@ -1,0 +1,98 @@
+#domain-switcher {
+  display: flex;
+  flex-direction: column;
+  gap: 0.38rem;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  position: relative;
+}
+#domain-switcher .heading {
+  color: var(--foundation-black-black-100, #b0b0b0);
+  font-size: 0.75rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 128.523%; /* 0.96394rem */
+  text-align: center;
+}
+#domain-switcher .domain {
+  width: 4.6875rem;
+  height: 4.6875rem;
+  border-radius: 50%;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  overflow: hidden;
+  border: 1px solid var(--foundation-black-black-50, #e6e6e6);
+  background: var(--Color, #fff);
+}
+#domain-switcher .domain img {
+  object-fit: contain;
+  width: 100%;
+}
+#domain-switcher .title {
+  color: var(--foundation-black-black-800, #000);
+  font-size: 0.75rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 128.523%; /* 0.96394rem */
+  overflow: hidden;
+  word-break: break-all;
+}
+#domain-switcher .active-item {
+  display: flex;
+  width: 100%;
+  padding: 0.5rem 1.375rem;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 0.625rem;
+  /* background: rgba(247, 215, 127); */
+  border: none;
+}
+#domain-switcher .logo {
+  display: flex;
+  width: 2.5rem;
+  min-width: 2.5rem;
+  height: 2.5rem;
+  padding: 0.25rem;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.625rem;
+  border-radius: 3.125rem;
+  background: var(--Color, #fff);
+}
+#domain-switcher .logo img {
+  width: 100%;
+}
+#domain-switcher .active-item .left {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.75rem;
+}
+#domain-switcher .active-item .left span {
+  color: var(--foundation-black-black-800, #000);
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  text-align: left;
+  word-break: break-all;
+  overflow: hidden;
+}
+#domain-switcher .dropdown {
+  position: absolute;
+  z-index: 10;
+  width: 25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  background-color: #00000051;
+  padding: 0.5rem;
+  border-radius: 0 0.3175rem 0.3175rem 0.3175rem;
+  top: 0;
+  left: 6.5rem;
+}
