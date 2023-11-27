@@ -193,7 +193,7 @@ export default function TrendingPostCard({ post, updatePost }) {
             </RWebShare>
           </div>
         </div>
-        <div className="right">
+        {/* <div className="right">
           <div className="save">
             {!(isLoggedIn && post?.isSaved) ? (
               <FaRegBookmark onClick={() => handleSave()} />
@@ -204,7 +204,7 @@ export default function TrendingPostCard({ post, updatePost }) {
               />
             )}
           </div>
-        </div>
+        </div> */}
       </div>
       <div className="likes">
         <span>{post.totalLikes} likes</span>
