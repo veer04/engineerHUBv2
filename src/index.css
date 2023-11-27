@@ -41,6 +41,7 @@ body {
 a {
   text-decoration: none;
   color: black;
+  word-break: break-all;
 }
 #root {
   padding-top: 6.7rem;
