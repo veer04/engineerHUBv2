@@ -32,6 +32,7 @@
   border-radius: 2rem;
   background: #f7d77f;
   text-transform: capitalize;
+  font-size: 0.75rem;
 }
 .project-card .heading {
   color: var(--Primary-500, #002b36);
