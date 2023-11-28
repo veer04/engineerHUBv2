@@ -1,6 +1,6 @@
 import { useParams, useNavigate } from "react-router-dom";
 import "./NewEventCard.css";
-import defaultPoster from "../../assets/defaultPoster";
+import { ehubLogo } from "../../assets/defaultPoster";
 
 export default function NewEventCard({ data, community }) {
   const { id } = useParams();
@@ -82,8 +82,8 @@ export default function NewEventCard({ data, community }) {
               data?.campusId
                 ? data?.campusId?.length
                   ? data?.campusId[0]?.collegeLogo
-                  : defaultPoster
-                : defaultPoster
+                  : ehubLogo
+                : ehubLogo
             }`}
             alt="logo"
           />

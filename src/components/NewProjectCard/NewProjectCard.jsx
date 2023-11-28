@@ -48,7 +48,7 @@ export default function NewProjectCard({ project }) {
         </div>
         <div className="details">
           <span className="title">Created By</span>
-          <span className="name text-crop-1">EngineerHUB</span>
+          <span className="name text-crop-1">engineerHUB</span>
         </div>
       </div>
     </article>
