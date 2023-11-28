@@ -369,7 +369,7 @@ const JobRegistrationForm = () => {
           setOpen(true);
           setIsLoading(false);
           setTimeout(() => {
-            navigate("/hosting");
+            navigate("/host");
           }, 2000);
         })
         .catch((err) => {

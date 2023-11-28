@@ -163,7 +163,7 @@ export default function Navbar() {
             <Link
               className="nav-link"
               onClick={() => setSelectedPageNavbar("host")}
-              to="/hosting"
+              to="/host"
             >
               <ButtonRounded
                 className={`nav-middle-items host-btn ${

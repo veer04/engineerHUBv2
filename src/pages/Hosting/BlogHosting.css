@@ -1,0 +1,271 @@
+.eventR {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: var(--vertical-padding) var(--section-padding);
+  scroll-behavior: auto;
+}
+.eventR h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #000;
+  margin-bottom: 1rem;
+  color: var(--text-color-dark-green);
+}
+.eventR h2 {
+  font-size: 1.2rem;
+  font-weight: 400;
+  color: #000;
+  margin-bottom: 2rem;
+  color: var(--text-color-dark-green);
+}
+.headerSectionEvent {
+  margin-top: 3%;
+  color: #0a3f51;
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+.navDifferentPagesButton {
+  display: flex;
+  justify-content: space-evenly;
+  /* align-items: space-evenly; */
+}
+.btn1,
+.btn2,
+.btn3 {
+  margin-bottom: 3%;
+  margin-top: 2%;
+  text-align: center;
+  padding: 10px;
+  padding-left: 3%;
+  padding-right: 3%;
+  border: #0a3f51 solid 1px;
+  border-radius: 50px;
+}
+.btn1 {
+  background-color: #0a3f51;
+  color: #fff;
+}
+.formcontainer {
+  margin-top: 5%;
+  margin-bottom: 5%;
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  align-items: flex-start;
+}
+.eventR > div > form > div {
+  padding: 0 5rem;
+}
+.eventR label {
+  margin-bottom: 0.5rem;
+  padding: 0;
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+.step1Header {
+  color: #0a3f51;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+.inputHosting {
+  width: 40vw;
+  min-width: 25rem;
+  padding-top: 12.6px;
+  padding-bottom: 12.6px;
+  border: solid 1px #bdbdbd;
+  border-radius: 5px;
+  background-color: #eeffff;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.buttonOnHostingPage {
+  border: none;
+  background: rgba(18, 131, 129, 1);
+  color: #fff;
+  padding: 5px;
+  padding-left: 20px;
+  padding-right: 20px;
+  border-radius: 5px;
+  margin-bottom: 1%;
+}
+.home {
+  background-color: gray;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  margin-right: 10px;
+}
+
+.active {
+  background-color: blue;
+}
+
+.mui-copy-input-label {
+  color: rgba(0, 0, 0, 0.6);
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.4375em;
+  letter-spacing: 0.00938em;
+  padding: 0;
+  /* position: relative; */
+  display: block;
+  transform-origin: top left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: calc(133% - 32px);
+  position: absolute;
+  left: -8px;
+  top: 0;
+  -webkit-transform: translate(14px, -9px) scale(0.75);
+  -moz-transform: translate(14px, -9px) scale(0.75);
+  -ms-transform: translate(14px, -9px) scale(0.75);
+  transform: translate(14px, -9px) scale(0.75);
+  -webkit-transition: color 200ms cubic-bezier(0, 0, 0.2, 1) 0ms,
+    -webkit-transform 200ms cubic-bezier(0, 0, 0.2, 1) 0ms,
+    max-width 200ms cubic-bezier(0, 0, 0.2, 1) 0ms;
+  transition: color 200ms cubic-bezier(0, 0, 0.2, 1) 0ms,
+    transform 200ms cubic-bezier(0, 0, 0.2, 1) 0ms,
+    max-width 200ms cubic-bezier(0, 0, 0.2, 1) 0ms;
+  z-index: 1;
+  pointer-events: auto;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background-color: var(--main-background-color);
+  padding: 0 8px;
+}
+.mui-copy-input-label-2 {
+  color: rgba(0, 0, 0, 0.6);
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.4375em;
+  letter-spacing: 0.00938em;
+  padding: 0;
+  /* position: relative; */
+  display: block;
+  transform-origin: top left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: calc(133% - 32px);
+  position: absolute;
+  left: -8px;
+  top: 16px;
+  -webkit-transform: translate(14px, -9px) scale(0.75);
+  -moz-transform: translate(14px, -9px) scale(0.75);
+  -ms-transform: translate(14px, -9px) scale(0.75);
+  transform: translate(14px, -9px) scale(0.75);
+  -webkit-transition: color 200ms cubic-bezier(0, 0, 0.2, 1) 0ms,
+    -webkit-transform 200ms cubic-bezier(0, 0, 0.2, 1) 0ms,
+    max-width 200ms cubic-bezier(0, 0, 0.2, 1) 0ms;
+  transition: color 200ms cubic-bezier(0, 0, 0.2, 1) 0ms,
+    transform 200ms cubic-bezier(0, 0, 0.2, 1) 0ms,
+    max-width 200ms cubic-bezier(0, 0, 0.2, 1) 0ms;
+  z-index: 1;
+  pointer-events: auto;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background-color: var(--main-background-color);
+  padding: 0 8px;
+}
+
+.mui-copy-input-label-3 {
+  color: #d32f2f;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.4375em;
+  letter-spacing: 0.00938em;
+  padding: 0;
+  position: relative;
+  display: block;
+  transform-origin: top left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: calc(133% - 32px);
+  /* position: absolute; */
+  left: -5px;
+  top: 11px;
+  -webkit-transform: translate(14px, -9px) scale(0.75);
+  -moz-transform: translate(14px, -9px) scale(0.75);
+  -ms-transform: translate(14px, -9px) scale(0.75);
+  transform: translate(14px, -9px) scale(0.75);
+  -webkit-transition: color 200ms cubic-bezier(0, 0, 0.2, 1) 0ms,
+    -webkit-transform 200ms cubic-bezier(0, 0, 0.2, 1) 0ms,
+    max-width 200ms cubic-bezier(0, 0, 0.2, 1) 0ms;
+  transition: color 200ms cubic-bezier(0, 0, 0.2, 1) 0ms,
+    transform 200ms cubic-bezier(0, 0, 0.2, 1) 0ms,
+    max-width 200ms cubic-bezier(0, 0, 0.2, 1) 0ms;
+  z-index: 1;
+  pointer-events: auto;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background-color: var(--main-background-color);
+  padding: 0 8px;
+}
+
+.filename-container {
+  position: relative;
+  overflow: hidden;
+}
+.filename {
+  position: absolute;
+  top: 18px;
+  left: 120px;
+  max-width: 400px;
+}
+.next-button:disabled {
+  background-color: var(--primary-color-green) !important;
+  color: #fff !important;
+  opacity: 1 !important;
+}
+.ql-snow .ql-picker.ql-expanded .ql-picker-options {
+  z-index: 2;
+}
+.ql-toolbar,
+.ql-container {
+  border: none !important;
+}
+.ql-container {
+  border-top: 1px solid #ccc !important;
+}
+.quill-container {
+  border-radius: 5px;
+}
+.ql-editing {
+  z-index: 2;
+}
+.special-tag-blue {
+  color: #1976d2 !important;
+}
+
+@media screen and (max-width: 768px) {
+  .eventR > div > form > div {
+    padding: 0 2rem;
+  }
+}
+
+@media screen and (max-width: 530px) {
+  .inputHosting {
+    width: 100%;
+    min-width: 0;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .eventR > div > form > div {
+    padding: 0;
+  }
+}
