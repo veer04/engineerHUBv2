@@ -21,6 +21,8 @@ import {
   getFeaturedEvents,
   getAllPosts,
   getClubProfileByIdPrivateMode,
+  unFollowClub,
+  followClub,
 } from "../../services/APIConfig";
 import { FaArrowTrendUp } from "react-icons/fa6";
 import clubDashboard from "../../pages/Profile/ClubDashboard/ClubDashboard";
@@ -609,8 +611,6 @@ export default function TrendingClubCard() {
     <LoadingPage />
   );
 }
-
-
 
 {
   /* <div
