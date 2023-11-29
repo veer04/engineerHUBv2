@@ -169,7 +169,7 @@ useEffect(()=>
                 )}
                 {isApplicable && hiring?.applied === false && (
                   <button onClick={UserDataPost} className="btn">
-                    Easy Apply
+                    {!!hiring?.detailFound?.applyLink ? "Apply": `Easy Apply`}
                   </button>
                 )}
                 {/* {isApplicable &&

@@ -152,9 +152,9 @@ const JobDescription = () => {
                                         Not Applicable
                                     </button>
                                 )}
-                                {isApplicable && hiring?.applied === false && (
+                                {isApplicable && hiring?.applied === false &&  (
                                     <button onClick={UserDataPost} className="btn">
-                                        Easy Apply
+                                        {!!hiring?.detailFound?.applyLink ? "Apply": `Easy Apply`}
                                     </button>
                                 )}
                                 {/* {isApplicable &&
