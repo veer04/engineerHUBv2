@@ -92,7 +92,7 @@ const HackathonDesc = ({ details }) => {
           <div>
             {isLoggedIn ? (
               <Link to={details.websiteUrl}>
-                <div className="btn">Easy Apply</div>
+                <div className="btn">Apply</div>
               </Link>
             ) : (
               // <Link to="/login">
@@ -102,7 +102,7 @@ const HackathonDesc = ({ details }) => {
                 }}
                 className="btn"
               >
-                Easy Apply
+                Apply
               </div>
               // </Link>
             )}

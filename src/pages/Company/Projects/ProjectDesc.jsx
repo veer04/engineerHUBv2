@@ -131,7 +131,7 @@ const ProjectDesc = ({ data, isApplied }) => {
           )}
           {isApplicable && isApplied === false && (
             <button onClick={UserDataPost} className="btn ApplyNowBtn">
-              Easy Apply
+              {!!data?.applyLink ? "Apply": `Easy Apply`}
             </button>
           )}
           {isApplied === true && (
