@@ -1,6 +1,8 @@
 import React from "react";
 import "./NewProjectCard.css";
-import defaultPoster from "../../assets/defaultPoster";
+import defaultPoster, {
+  defaultProjectPoster,
+} from "../../assets/defaultPoster";
 import { useNavigate } from "react-router-dom";
 
 export default function NewProjectCard({ project }) {
@@ -10,15 +12,15 @@ export default function NewProjectCard({ project }) {
       onClick={() => navigate(`${project._id}`)}
       className="project-card"
     >
-      <div
-        style={{
-          backgroundImage: `url(${project?.projectImage})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-        }}
-        className="poster-container"
-      >
+      <div className="poster-container">
+        <img
+          onError={(e) => {
+            e.target.onerror = null;
+            e.target.src = defaultProjectPoster;
+          }}
+          src={project?.projectImage}
+          alt={`${project.projectName} poster`}
+        />
         <div className="tags">
           {project?.techStack?.slice(0, 2).map((tag) => (
             <span key={tag} className="tag">
