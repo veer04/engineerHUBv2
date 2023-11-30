@@ -10,8 +10,7 @@ import NewSidebarMobile from "../../../components/NewSidebarMobile/NewSidebarMob
 import DomainSwitcher from "../../../components/DomainSwitcher/DomainSwitcher";
 import DomainSwitcherMobile from "../../../components/DomainSwitcher/DomainSwitcherMobile";
 import useSidebar from "../../../hooks/use-sidebar";
-import NewEventCard from "../../../components/NewEventCard/NewEventCard";
-import BlogCard from "../../../components/BlogCard/BlogCard";
+import NewBlogCard from "../../../components/NewBlogCard/NewBlogCard";
 
 export default function NewBlogsPage() {
   const { setSelectedPageNavbar } = useNavbar();
@@ -97,7 +96,7 @@ export default function NewBlogsPage() {
             </div>
           )}
           {filteredBlogs.map((blog) => (
-            <BlogCard key={blog._id} {...blog} />
+            <NewBlogCard key={blog._id} blog={blog} />
           ))}
         </div>
       )}
