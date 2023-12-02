@@ -1,4 +1,4 @@
-.blog__list__item {
+/* .blog__list__item {
   height: 25rem;
   position: relative;
 }
@@ -35,7 +35,6 @@
   position: absolute;
   bottom: 1rem;
   font-size: 0.8rem;
-  /* margin-top: 1.5rem; */
   font-weight: 400;
   color: #9f9696;
 }
@@ -66,4 +65,4 @@
   border-radius: 2rem;
   background: #f7d77f;
   text-transform: capitalize;
-}
+} */

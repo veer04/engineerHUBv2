@@ -1,4 +1,4 @@
-.project-card {
+.blog-card {
   width: 20.25rem;
   padding: 0.75rem;
   background-color: white;
@@ -6,7 +6,7 @@
   border: 1px solid var(--foundation-black-black-50, #e6e6e6);
   cursor: pointer;
 }
-.project-card .poster-container {
+.blog-card .poster-container {
   width: 100%;
   height: 9.375rem;
   border-radius: 0.3125rem;
@@ -17,7 +17,7 @@
   /* padding: 0.5rem; */
   position: relative;
 }
-.project-card .poster-container img {
+.blog-card .poster-container img {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -25,7 +25,7 @@
   border-radius: 0.3125rem;
   position: absolute;
 }
-.project-card .poster-container .tags {
+.blog-card .poster-container .tags {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
@@ -35,7 +35,7 @@
   z-index: 1;
   margin: 0 0 0.5rem 0.5rem;
 }
-.project-card .poster-container .tags .tag {
+.blog-card .poster-container .tags .tag {
   display: flex;
   padding: 0.375rem 0.5rem;
   justify-content: center;
@@ -45,7 +45,7 @@
   text-transform: capitalize;
   font-size: 0.75rem;
 }
-.project-card .heading {
+.blog-card .heading {
   color: var(--Primary-500, #002b36);
   font-size: 1rem;
   font-style: normal;
@@ -53,8 +53,9 @@
   line-height: normal;
   overflow: hidden;
   margin-bottom: 0.25rem;
+  height: 38.4px;
 }
-.project-card .description {
+.blog-card .description {
   color: var(--foundation-black-black-400, #333);
   overflow: hidden;
   margin-bottom: 0.5rem;
@@ -63,13 +64,13 @@
   font-weight: 400;
   line-height: normal;
 }
-.project-card .info-container {
+.blog-card .info-container {
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
   gap: 0.5rem;
 }
-.project-card .info-container .logo {
+.blog-card .info-container .logo {
   width: 3rem;
   min-width: 3rem;
   max-width: 3rem;
@@ -79,12 +80,12 @@
   border-radius: 50%;
   overflow: hidden;
 }
-.project-card .info-container .logo img {
+.blog-card .info-container .logo img {
   object-fit: cover;
   object-position: center;
   width: 100%;
 }
-.project-card .info-container .details {
+.blog-card .info-container .details {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -92,14 +93,14 @@
   overflow: hidden;
   gap: 0.25rem;
 }
-.project-card .info-container .details .title {
+.blog-card .info-container .details .title {
   color: var(--foundation-black-black-400, #333);
   font-size: 0.75rem;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
 }
-.project-card .info-container .details .name {
+.blog-card .info-container .details .name {
   color: var(--foundation-black-black-800, #000);
   font-size: 0.875rem;
   font-style: normal;

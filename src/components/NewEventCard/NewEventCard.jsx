@@ -1,6 +1,6 @@
 import { useParams, useNavigate } from "react-router-dom";
 import "./NewEventCard.css";
-import defaultPoster from "../../assets/defaultPoster";
+import { defaultEventPoster, ehubLogo } from "../../assets/defaultPoster";
 
 export default function NewEventCard({ data, community }) {
   const { id } = useParams();
@@ -50,28 +50,37 @@ export default function NewEventCard({ data, community }) {
           backgroundSize: "cover",
           backgroundRepeat: "no-repeat",
           backgroundPosition: "center",
-          backgroundImage: `url(${data?.eventPoster})`,
         }}
         className="poster"
       >
-        <span
-          style={{
-            backgroundColor: "#F7D77F",
-            fontSize: ".75rem",
-            wordBreak: "break-all",
+        <img
+          onError={(e) => {
+            e.target.onerror = null;
+            e.target.src = defaultEventPoster;
           }}
-          className="text-crop-1"
-        >
-          {data?.eventType}
-        </span>
-        <span
-          style={{
-            backgroundColor: "#F7D77F",
-            fontSize: ".75rem",
-            wordBreak: "break-all",
-          }}
-          className="text-crop-1"
-        >{`${eventDateWithSuffix} @${eventTime}`}</span>
+          src={data?.eventPoster}
+          alt={`${data?.eventName} poster`}
+        />
+        <div className="tags-container">
+          <span
+            style={{
+              backgroundColor: "#F7D77F",
+              fontSize: ".75rem",
+              wordBreak: "break-all",
+            }}
+            className="text-crop-1"
+          >
+            {data?.eventType}
+          </span>
+          <span
+            style={{
+              backgroundColor: "#F7D77F",
+              fontSize: ".75rem",
+              wordBreak: "break-all",
+            }}
+            className="text-crop-1"
+          >{`${eventDateWithSuffix} @${eventTime}`}</span>
+        </div>
       </div>
       <span className="text-crop-2 heading">{data?.eventName}</span>
       <span className="text-crop-2 description">{data?.description}</span>
@@ -82,8 +91,8 @@ export default function NewEventCard({ data, community }) {
               data?.campusId
                 ? data?.campusId?.length
                   ? data?.campusId[0]?.collegeLogo
-                  : defaultPoster
-                : defaultPoster
+                  : ehubLogo
+                : ehubLogo
             }`}
             alt="logo"
           />
