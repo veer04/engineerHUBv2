@@ -21,17 +21,23 @@ import { useNavigate } from "react-router-dom";
 import CustomSnackbar from "../User/Login/CustomSnackbar";
 import JoditEditor from "jodit-react";
 import { getUserEmail } from "../../features/User/UserDetails";
+import { RxCross2 } from "react-icons/rx";
+import { BsUpload } from "react-icons/bs";
 
-const Example = ({ placeholder }) => {
+const JoditBlogEditor = ({ placeholder, setTextContent }) => {
   const editor = useRef(null);
   const [content, setContent] = useState("");
+
+  useEffect(() => {
+    setTextContent(content);
+  }, [content]);
 
   const config = useMemo(() => {
     return {
       readonly: false, // all options from https://xdsoft.net/jodit/docs/,
-      placeholder: placeholder || "Start typings...",
+      placeholder: placeholder || "Start typing here...",
     };
-  }, [placeholder]);
+  }, []);
 
   return (
     <JoditEditor
@@ -47,37 +53,23 @@ const Example = ({ placeholder }) => {
 
 const BlogHosting = () => {
   const navigate = useNavigate();
+  const ref = useRef(null);
+  const fileInput = useRef(null);
   const { setSelectedPageNavbar } = useNavbar();
-  const [step, setStep] = useState(1);
-  const [domainName, setDomainName] = useState("");
-  const [domain, setDomain] = useState([]); //only to fetch data
-  const [opportunityType, setOpportunityType] = useState("");
-  const [isPaid, setIsPaid] = useState(1);
-  const [description, setDescription] = useState("");
-  const [mobileNo, setMobileNo] = useState(""); //change the type to Number
-  const [alternateMobileNo, setAlterNetMobileNo] = useState("");
-  const [email, setEmail] = useState("");
-  const [amount, setAmount] = useState();
-  const [amountCopy, setAmountCopy] = useState();
-  const [amountInput, setAmountInput] = useState();
-  const [experience, setExperience] = useState("");
-  const [eligibility, setEligibility] = useState();
-  const [opportunityLocation, setJobLocation] = useState("");
-  const [opportunityMode, setJobType] = useState("Remote"); //enum Hybrid Remote InOffice
-  const [opportunityTiming, setJobTiming] = useState(""); // enum Full Time, Part Time, Contractual
-  const [duration, setDuration] = useState(""); //duration in months
-  const [websiteUrl, setWebsiteUrl] = useState("");
-  const [applyLink, setApplyLink] = useState(""); //optional
-  const [organisationName, setOrganisation] = useState("");
-  const [opportunityPoster, setOpportunityPoster] = useState({});
-  const [organisationLogo, setOrganizationPoster] = useState({});
-  const [skillsRequired, setSkillsRequired] = useState([]);
-  const [applicationStartTime, setApplicationStartTime] = useState("");
-  const [applicationEndTime, setApplicationEndTime] = useState("");
-  const [opportunityName, setOpportunityName] = useState("");
-  const [policy, setPolicy] = useState("");
-  const [featuredArray, setFeaturedArray] = useState([]);
   const [userEmail, setUserEmail] = useState("");
+  const [title, setTitle] = useState("");
+  const [allDomains, setAllDomains] = useState([]);
+  const [domain, setDomain] = useState("");
+  const [techStack, setTechStack] = useState("");
+  const [techStackArray, setTechStackArray] = useState([]);
+  const [coverImage, setCoverImage] = useState(null);
+  const [errors, setErrors] = useState({
+    title: "",
+    domain: "",
+    techStack: "",
+    coverImage: "",
+    post: "",
+  });
   const [isSpecialUser, setIsSpecialUser] = useState(false);
   const specialUserEmails = [
     {
@@ -90,32 +82,6 @@ const BlogHosting = () => {
       value: "haboma6770@dotvilla.com",
     },
   ];
-  const experienceValues = [
-    {
-      value: "0",
-      label: "0 for Freshers",
-    },
-    {
-      value: "1",
-      label: "1 year",
-    },
-    {
-      value: "2",
-      label: "2 years",
-    },
-    {
-      value: "3",
-      label: "3 years",
-    },
-    {
-      value: "4",
-      label: "4 years",
-    },
-    {
-      value: ">4",
-      label: "More than 4 years",
-    },
-  ];
   const [validation, setValidation] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [snackbarValues, setSnackbarValues] = useState({
@@ -123,50 +89,27 @@ const BlogHosting = () => {
     message: "",
   });
   const [open, setOpen] = useState(false);
-  const [errors, setErrors] = useState({
-    opportunityName: "",
-    organisationName: "",
-    opportunityPoster: "",
-    organisationLogo: "",
-    domainName: "",
-    mobileNo: "",
-    alternateMobileNo: "",
-    email: "",
-    amount: "",
-    opportunityMode: "",
-    opportunityLocation: "",
-    description: "",
-    applicationStartTime: "",
-    applicationEndTime: "",
-    opportunityTiming: "",
-    isPaid: "",
-    policy: "",
-    duration: "",
-    websiteUrl: "",
-    applyLink: "",
-    skillsRequired: "",
-  });
-
-  const checkUrl = () => {
-    const url = window.location.href;
-    if (url.includes("job")) {
-      return "Job";
-    } else if (url.includes("internship")) {
-      return "Internship";
-    } else {
-      return "";
-    }
-  };
+  const [blogContent, setBlogContent] = useState("");
 
   useEffect(() => {
-    window.scrollTo(0, 0);
-    setSelectedPageNavbar("host");
-    setOpportunityType(checkUrl());
-    getDomains(setDomain);
     setUserEmail(getUserEmail());
-    return () => {
-      controller.abort();
-    };
+    getDomains(setAllDomains);
+  }, []);
+
+  function handleInput(e) {
+    //check if the file is an image
+    if (e.target.files[0]) {
+      if (e.target.files[0].type.includes("image")) {
+        setCoverImage(e.target.files[0]);
+      } else {
+        alert("Please choose an image file only");
+      }
+    }
+  }
+
+  useEffect(() => {
+    // window.scrollTo(0, 0);
+    setSelectedPageNavbar("host");
   }, []);
 
   useEffect(() => {
@@ -179,41 +122,52 @@ const BlogHosting = () => {
   const validateInput1 = () => {
     let valid = true;
     const newErrors = {
-      opportunityName: "",
-      opportunityPoster: "",
-      organisationLogo: "",
+      title: "",
+      domain: "",
+      techStack: "",
+      coverImage: "",
+      post: "",
     };
+
+    if (!!!title) {
+      newErrors.title = "Title is required!";
+      valid = false;
+    } else if (title.length < 3) {
+      newErrors.title = "Title should be atleast 3 characters long!";
+      valid = false;
+    } else if (title.length > 250) {
+      newErrors.title = "Title should be less than 250 characters!";
+      valid = false;
+    }
+
+    if (!!!domain) {
+      newErrors.domain = "Domain is required!";
+      valid = false;
+    }
+
+    if (techStackArray.length === 0) {
+      newErrors.techStack = "Tech Stack is required!";
+      valid = false;
+    } else if (techStackArray.length > 25) {
+      newErrors.techStack = "Tech Stack should be less than 25!";
+      valid = false;
+    }
+
     function isImageFileName(fileName) {
       const imageRegex = /\.(jpg|jpeg|png)$/i;
       return imageRegex.test(fileName);
     }
-    if (!opportunityName) {
-      newErrors.opportunityName = "Opportunity Name is required!";
+
+    if (!!!coverImage?.name) {
+      newErrors.coverImage = "Cover image is required!";
       valid = false;
-    } else if (opportunityName.length < 2) {
-      newErrors.opportunityName =
-        "Opportunity Name should be atleast 2 characters long!";
-      valid = false;
-    } else if (opportunityName.length > 100) {
-      newErrors.opportunityName =
-        "Opportunity Name should be less than 100 characters!";
+    } else if (!isImageFileName(coverImage?.name)) {
+      newErrors.coverImage = "Cover image should be in jpg/jpeg/png format!";
       valid = false;
     }
 
-    if (!opportunityPoster.name) {
-      newErrors.opportunityPoster = "Opportunity Poster is required!";
-      valid = false;
-    } else if (!isImageFileName(opportunityPoster.name)) {
-      newErrors.opportunityPoster =
-        "Opportunity Poster should be in jpg/jpeg/png format!";
-      valid = false;
-    }
-    if (!organisationLogo.name) {
-      newErrors.organisationLogo = "Organisation Logo is required!";
-      valid = false;
-    } else if (!isImageFileName(organisationLogo.name)) {
-      newErrors.organisationLogo =
-        "Organisation Logo should be in jpg/jpeg/png format!";
+    if (!!!blogContent) {
+      newErrors.post = "Post is required!";
       valid = false;
     }
 
@@ -222,78 +176,18 @@ const BlogHosting = () => {
   };
 
   const handleSubmit = async (e) => {
-    const indianApplicationStartTime = new Date(
-      applicationStartTime.toLocaleString("en-US", {
-        timeZone: "Asia/Kolkata",
-      })
-    );
-    const indianApplicationEndTime = new Date(
-      applicationEndTime.toLocaleString("en-US", {
-        timeZone: "Asia/Kolkata",
-      })
-    );
-
     e.preventDefault();
     const form = new FormData();
-    if (featuredArray.length !== 0) {
-      form.append("featuredArray", featuredArray);
-    }
-    form.append("opportunityType", opportunityType);
-    form.append("opportunityPoster", opportunityPoster);
-    form.append("opportunityName", opportunityName);
-    form.append("organisationName", organisationName);
-    form.append("organisationLogo", organisationLogo);
-    form.append("domainName", domainName);
-    form.append("description", description);
-    form.append("mobileNo", mobileNo);
-    form.append("alternateMobileNo", alternateMobileNo);
-    form.append("email", email);
-    form.append("applicationStartTime", indianApplicationStartTime);
-    form.append("applicationEndTime", indianApplicationEndTime);
-    form.append("amount", amountCopy);
-    form.append("isPaid", isPaid);
-    form.append("eligibility", eligibility);
-    if (checkUrl() === "Job") {
-      form.append("experience", experience);
-    }
-    form.append("skillsRequired", skillsRequired);
-    form.append("opportunityLocation", opportunityLocation);
-    form.append("opportunityMode", opportunityMode);
-    form.append("opportunityTiming", opportunityTiming);
-    if (checkUrl() === "Internship") {
-      form.append("duration", duration);
-    }
-    form.append("websiteUrl", websiteUrl);
-    form.append("applyLink", applyLink);
-    if (!!policy) form.append("policy", policy);
+    form.append("title", title);
+    form.append("postArea", blogContent);
+    form.append("domainName", domain);
+    form.append("techStack", techStack);
+    form.append("postIcon", coverImage);
 
-    // console.log(form.get("opportunityType"), " opportunityType ");
-    // console.log(form.get("opportunityPoster"), " opportunityPoster ");
-    // console.log(form.get("opportunityName"), " opportunityName ");
-    // console.log(form.get("organisationName"), " organisationName ");
-    // console.log(form.get("organisationLogo"), " organisationLogo ");
-    // console.log(form.get("domainName"), " domainName ");
-    // console.log(form.get("description"), " description ");
-    // console.log(form.get("mobileNo"), " mobileNo ");
-    // console.log(form.get("alternateMobileNo"), " alternateMobileNo ");
-    // console.log(form.get("email"), " email ");
-    // console.log(form.get("applicationStartTime"), " applicationStartTime ");
-    // console.log(form.get("applicationEndTime"), " applicationEndTime ");
-    // console.log(form.get("amount"), " amountCopy ");
-    // console.log(form.get("isPaid"), " isPaid ");
-    // console.log(form.get("eligibility"), " eligibility ");
-    // console.log(form.get("experience"), " experience ");
-    // console.log(form.get("skillsRequired"), " skillsRequired ");
-    // console.log(form.get("opportunityLocation"), " opportunityLocation ");
-    // console.log(form.get("opportunityMode"), " opportunityMode ");
-    // console.log(form.get("opportunityTiming"), " opportunityTiming ");
-    // console.log(form.get("duration"), " duration ");
-    // console.log(form.get("websiteUrl"), " websiteUrl ");
-
-    if (validation === true) {
+    if (validateInput1() === true) {
       setIsLoading(true);
       const response = await axios
-        .post(`${API_URL}api/v1/hiring`, form, {
+        .post(`${API_URL}api/v1/blog`, form, {
           headers: {
             accesstoken: getAccessToken(),
           },
@@ -302,13 +196,10 @@ const BlogHosting = () => {
           console.log(res);
           setSnackbarValues({
             severity: "success",
-            message: `New ${checkUrl()} created`,
+            message: `New Blog created`,
           });
           setOpen(true);
           setIsLoading(false);
-          setTimeout(() => {
-            navigate("/host");
-          }, 2000);
         })
         .catch((err) => {
           console.log(err);
@@ -319,55 +210,213 @@ const BlogHosting = () => {
     }
   };
 
-  const step1 = (
-    <div>
-      <TextField
-        name="opportunityName"
-        label="Opportunity Title*"
-        variant="outlined"
-        value={opportunityName}
-        placeholder="Ex: Hiring for Software Developers, etc."
-        onChange={(e) => setOpportunityName(e.target.value)}
-        onBlur={(e) => setOpportunityName(e.target.value.trim())}
-        fullWidth
-        margin="normal"
-        error={!!errors.opportunityName}
-        helperText={errors.opportunityName}
-        autoComplete="off"
-      />
-      <Example placeholder={"Yo type shit here"} />
-    </div>
-  );
-
   return (
     <>
-      <main className="signup-page">
-        <section className="details-container">
-          <div className="details">
-            <form action="/" method="POST" onSubmit={handleSubmit}>
-              {step1}
-              {snackbarValues.severity === "success" && (
-                <CustomSnackbar
-                  setOpen={setOpen}
-                  open={open}
-                  message={snackbarValues.message}
-                  severity={snackbarValues.severity}
+      <main className="blog-hosting-page">
+        <h1 className="mb-4">Post your blogs here</h1>
+        <form action="/" method="POST" onSubmit={handleSubmit}>
+          <label className="label">
+            Title<span className="required">*</span>
+          </label>
+          <input
+            name="title"
+            type="text"
+            className="input-field"
+            placeholder="Enter your Organization / Company Name"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+          />
+          <label className="error-message">{errors.title}</label>
+          <label className="label">
+            Domain<span className="required">*</span>
+          </label>
+          <select
+            disabled={allDomains?.length === 0}
+            value={domain}
+            onChange={(e) => {
+              setDomain(e.target.value);
+            }}
+            className="input-field"
+          >
+            {allDomains.length !== 0 && (
+              <option value="" selected disabled>
+                Select the domain of the blog
+              </option>
+            )}
+            {allDomains.map((domain) => (
+              <option key={domain.domain} value={domain.domain}>
+                {domain.domain}
+              </option>
+            ))}
+          </select>
+          <label className="error-message">{errors.domain}</label>
+          <label className="label">
+            Tech Stack<span className="required">*</span>
+          </label>
+          <input
+            name="techStack"
+            type="text"
+            className="input-field"
+            placeholder="Enter the tech stack"
+            value={techStack}
+            onChange={(e) => setTechStack(e.target.value)}
+            // when enter key is pressed console log the value
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                e.preventDefault();
+                ref.current.click();
+              }
+            }}
+          />
+          <label className="error-message">{errors.techStack}</label>
+          {techStackArray.length > 0 && (
+            <div className="new-tech-stack-container">
+              {techStackArray.map((currentTech, index) => (
+                <div key={index} className="tech-stack">
+                  {currentTech.value}
+                  <div
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setTechStackArray(
+                        techStackArray.filter(
+                          (tech) => tech.id !== currentTech.id
+                        )
+                      );
+                    }}
+                  >
+                    <RxCross2 />
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+
+          <button
+            ref={ref}
+            onClick={() => {
+              if (techStack === "") {
+                return;
+              }
+              setTechStackArray((prev) => [
+                ...prev,
+                { id: techStackArray.length + 1, value: techStack },
+              ]);
+              setTechStack("");
+            }}
+            className="add-tech-stack-btn mt-1"
+          >
+            + Add
+          </button>
+
+          <label className="label mt-4">
+            Cover Photo<span className="required">*</span>
+          </label>
+          <label className="error-message">{errors.coverImage}</label>
+          <input
+            style={{ display: "none" }}
+            type="file"
+            onChange={handleInput}
+            ref={fileInput}
+          />
+          <div
+            style={{
+              maxHeight: "736px",
+              maxWidth: "unset",
+            }}
+            className="modal-container"
+          >
+            <div
+              onClick={() => {
+                fileInput.current.click();
+              }}
+              style={{
+                borderColor: !!!coverImage ? "#e6e6e6" : "#000",
+                height: !!!coverImage
+                  ? "max-content"
+                  : "max-content !important",
+              }}
+              className="upload-img-container post-upload-img-container"
+            >
+              {!!!coverImage ? (
+                <>
+                  <div className="upload-icon">
+                    <BsUpload />
+                  </div>
+                  <span>Choose an image file to upload</span>
+                  <span className="hint">Recommended Dimensions (736x736)</span>
+                </>
+              ) : (
+                <img
+                  style={{
+                    aspectRatio: "unset",
+                    objectFit: "cover",
+                    width: "100%",
+                    objectPosition: "center",
+                  }}
+                  className="uploaded-img"
+                  src={
+                    typeof coverImage === "string"
+                      ? coverImage
+                      : URL.createObjectURL(coverImage)
+                  }
+                  loading="lazy"
+                  alt="logo"
                 />
               )}
+            </div>
+          </div>
 
-              <div className="button-container">
-                <button
-                  type="submit"
-                  className="button next-button"
-                  disabled={isLoading}
-                >
-                  Upload
-                </button>
-              </div>
-            </form>
+          <label className="label mt-4">
+            Post<span className="required">*</span>
+          </label>
+          <label className="error-message">{errors.post}</label>
+          <JoditBlogEditor
+            placeholder={"Yo type shit here"}
+            setTextContent={setBlogContent}
+          />
+          <div className="button-container mt-4">
+            <button
+              // it should not run on any keypress
+              onKeyDown={(e) => {
+                e.preventDefault();
+              }}
+              onClick={(e) => handleSubmit(e)}
+              style={{
+                float: "right",
+                backgroundColor: "var(--primary-color-green)",
+                color: "white",
+                padding: ".5rem .75rem",
+                border: "none",
+                borderRadius: ".3125rem",
+              }}
+              type="submit"
+              className="button next-button"
+              disabled={isLoading}
+            >
+              Upload
+            </button>
+          </div>
+          {snackbarValues.severity === "success" && (
+            <CustomSnackbar
+              setOpen={setOpen}
+              open={open}
+              message={snackbarValues.message}
+              severity={snackbarValues.severity}
+            />
+          )}
+        </form>
+      </main>
+
+      {/* <main className="signup-page">
+        <section className="details-container">
+          <div className="details">
+              {step1}
+              
+
+              
           </div>
         </section>
-      </main>
+      </main> */}
     </>
   );
 };
