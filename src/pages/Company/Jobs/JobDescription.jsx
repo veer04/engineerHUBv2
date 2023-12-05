@@ -206,7 +206,7 @@ const JobDescription = () => {
                     <div className="JobInfoItem">
                         <h6>Salary</h6>
                         <p></p>
-                        <span>{hiring?.detailFound?.amount !== "N/A" ? `${formattedSalary} CTC` : "N/A"}</span>
+                        <span>{hiring?.detailFound?.amount !== "N/A" ? hiring?.detailFound?.amount : "N/A"}</span>
                         <img src={`${bucket}cash.svg`} alt="guide" />
                     </div>
                     <div className="JobInfoItem">

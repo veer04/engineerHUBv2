@@ -310,10 +310,11 @@ const JobRegistrationForm = () => {
     if (!!isPaid && !amountCopy) {
       newErrors.amount = "Amount is required!";
       valid = false;
-    } else if (!!isPaid && !/^[0-9]+$/.test(amountCopy)) {
-      newErrors.amount = "Amount should only be in numbers";
-      valid = false;
     }
+    //  else if (!!isPaid && !/^[0-9]+$/.test(amountCopy)) {
+    //   newErrors.amount = "Amount should only be in numbers";
+    //   valid = false;
+    // }
 
     setErrors(newErrors);
     return valid;
@@ -340,11 +341,12 @@ const JobRegistrationForm = () => {
     } else if (description.length < 50) {
       newErrors.description = "Description should have atleast 50 characters!";
       valid = false;
-    } else if (description.length > 1000) {
-      newErrors.description =
-        "Description should be less than 1000 characters!";
-      valid = false;
-    }
+    } 
+    // else if (description.length > 1000) {
+    //   newErrors.description =
+    //     "Description should be less than 1000 characters!";
+    //   valid = false;
+    // }
     if (!applicationStartTime) {
       newErrors.applicationStartTime = "Application Start Time is required!";
       valid = false;
@@ -899,32 +901,59 @@ const JobRegistrationForm = () => {
       )}
 
       {(!!isPaid || checkUrl() === "Job") && (
+        // <TextField
+        //   name="amount"
+        //   label={`${checkUrl() === "Job" ? "Salary" : "Stipend"}*`}
+        //   variant="outlined"
+        //   placeholder={`Enter ${checkUrl() === "Job" ? "CTC" : "stipend"}`}
+        //   value={amount}
+        //   onChange={(e) => {
+        //     setAmountCopy(e.target.value);
+        //     setAmount(e.target.value);
+        //     const formatter = new Intl.NumberFormat("en-IN", {
+        //       style: "currency",
+        //       currency: "INR",
+        //       minimumFractionDigits: 0,
+        //     });
+        //     const formattedSalary = formatter.format(e.target.value);
+        //     if (e.target.value === "") setAmountInput("");
+        //     else setAmountInput(formattedSalary);
+        //   }}
+        //   onFocus={() => {
+        //     setAmount(amountCopy);
+        //   }}
+        //   onBlur={() => {
+        //     setAmount(amountInput);
+        //   }}
+        //   fullWidth
+        //   margin="normal"
+        //   error={!!errors.amount}
+        //   helperText={errors.amount}
+        // />
         <TextField
           name="amount"
           label={`${checkUrl() === "Job" ? "Salary" : "Stipend"}*`}
           variant="outlined"
-          placeholder={`Enter ${
-            checkUrl() === "Job" ? "CTC" : "stipend"
-          } in numbers`}
-          value={amount}
+          placeholder={`Enter ${checkUrl() === "Job" ? "CTC" : "stipend"}`}
+          value={amountCopy}
           onChange={(e) => {
             setAmountCopy(e.target.value);
-            setAmount(e.target.value);
-            const formatter = new Intl.NumberFormat("en-IN", {
-              style: "currency",
-              currency: "INR",
-              minimumFractionDigits: 0,
-            });
-            const formattedSalary = formatter.format(e.target.value);
-            if (e.target.value === "") setAmountInput("");
-            else setAmountInput(formattedSalary);
+            // setAmount(e.target.value);
+            // const formatter = new Intl.NumberFormat("en-IN", {
+            //   style: "currency",
+            //   currency: "INR",
+            //   minimumFractionDigits: 0,
+            // });
+            // const formattedSalary = formatter.format(e.target.value);
+            // if (e.target.value === "") setAmountInput("");
+            // else setAmountInput(formattedSalary);
           }}
-          onFocus={() => {
-            setAmount(amountCopy);
-          }}
-          onBlur={() => {
-            setAmount(amountInput);
-          }}
+          // onFocus={() => {
+          //   setAmount(amountCopy);
+          // }}
+          // onBlur={() => {
+          //   setAmount(amountInput);
+          // }}
           fullWidth
           margin="normal"
           error={!!errors.amount}
