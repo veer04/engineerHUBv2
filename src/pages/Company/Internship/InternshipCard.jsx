@@ -27,7 +27,7 @@ const InternshipCard = ({
           {details?.featuredArray?.includes("CampusAmbassador") ? (
             <b>Bonus</b>
           ) : details.isPaid ? (
-            <b>{details.amount !== "N/A" ? formattedSalary : "N/A"}</b>
+            <b>{details.amount !== "N/A" ? details?.amount : "N/A"}</b>
           ) : (
             <b>Unpaid</b>
           )}

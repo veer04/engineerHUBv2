@@ -24,7 +24,7 @@ const JobCards = ({
       <div className="cardContent">
         <h6>
           Highest CTC :{" "}
-          <b>{details?.amount !== "N/A" ? formattedSalary : "N/A"}</b>
+          <b>{details?.amount !== "N/A" ? details?.amount : "N/A"}</b>
         </h6>
         <h6 className="text-crop-1 overflow-hidden">
           Job Location : <b>{details?.opportunityLocation}</b>

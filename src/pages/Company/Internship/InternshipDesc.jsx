@@ -244,7 +244,7 @@ useEffect(()=>
               ) : hiring?.detailFound?.isPaid ? (
                 <span>
                   {hiring?.detailFound?.amount !== "N/A"
-                    ? formattedSalary
+                    ? hiring?.detailFound?.amount
                     : "N/A"}
                 </span>
               ) : (
