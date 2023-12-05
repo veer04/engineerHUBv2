@@ -214,197 +214,193 @@ const BlogHosting = () => {
     <>
       <main className="blog-hosting-page">
         <h1 className="mb-4">Post your blogs here</h1>
-        <form action="/" method="POST" onSubmit={handleSubmit}>
-          <label className="label">
-            Title<span className="required">*</span>
-          </label>
-          <input
-            name="title"
-            type="text"
-            className="input-field"
-            placeholder="Enter your Organization / Company Name"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-          />
-          <label className="error-message">{errors.title}</label>
-          <label className="label">
-            Domain<span className="required">*</span>
-          </label>
-          <select
-            disabled={allDomains?.length === 0}
-            value={domain}
-            onChange={(e) => {
-              setDomain(e.target.value);
-            }}
-            className="input-field"
-          >
-            {allDomains.length !== 0 && (
-              <option value="" selected disabled>
-                Select the domain of the blog
-              </option>
-            )}
-            {allDomains.map((domain) => (
-              <option key={domain.domain} value={domain.domain}>
-                {domain.domain}
-              </option>
-            ))}
-          </select>
-          <label className="error-message">{errors.domain}</label>
-          <label className="label">
-            Tech Stack<span className="required">*</span>
-          </label>
-          <input
-            name="techStack"
-            type="text"
-            className="input-field"
-            placeholder="Enter the tech stack"
-            value={techStack}
-            onChange={(e) => setTechStack(e.target.value)}
-            // when enter key is pressed console log the value
-            onKeyDown={(e) => {
-              if (e.key === "Enter") {
-                e.preventDefault();
-                ref.current.click();
-              }
-            }}
-          />
-          <label className="error-message">{errors.techStack}</label>
-          {techStackArray.length > 0 && (
-            <div className="new-tech-stack-container">
-              {techStackArray.map((currentTech, index) => (
-                <div key={index} className="tech-stack">
-                  {currentTech.value}
-                  <div
-                    onClick={(e) => {
-                      e.preventDefault();
-                      setTechStackArray(
-                        techStackArray.filter(
-                          (tech) => tech.id !== currentTech.id
-                        )
-                      );
-                    }}
-                  >
-                    <RxCross2 />
-                  </div>
-                </div>
-              ))}
-            </div>
+        <label className="label">
+          Title<span className="required">*</span>
+        </label>
+        <input
+          name="title"
+          type="text"
+          className="input-field"
+          placeholder="Enter your Organization / Company Name"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+        />
+        <label className="error-message">{errors.title}</label>
+        <label className="label">
+          Domain<span className="required">*</span>
+        </label>
+        <select
+          disabled={allDomains?.length === 0}
+          value={domain}
+          onChange={(e) => {
+            setDomain(e.target.value);
+          }}
+          className="input-field"
+        >
+          {allDomains.length !== 0 && (
+            <option value="" selected disabled>
+              Select the domain of the blog
+            </option>
           )}
-
-          <button
-            ref={ref}
-            onClick={() => {
-              if (techStack === "") {
-                return;
-              }
-              setTechStackArray((prev) => [
-                ...prev,
-                { id: techStackArray.length + 1, value: techStack },
-              ]);
-              setTechStack("");
-            }}
-            className="add-tech-stack-btn mt-1"
-          >
-            + Add
-          </button>
-
-          <label className="label mt-4">
-            Cover Photo<span className="required">*</span>
-          </label>
-          <label className="error-message">{errors.coverImage}</label>
-          <input
-            style={{ display: "none" }}
-            type="file"
-            onChange={handleInput}
-            ref={fileInput}
-          />
-          <div
-            style={{
-              maxHeight: "736px",
-              maxWidth: "unset",
-            }}
-            className="modal-container"
-          >
-            <div
-              onClick={() => {
-                fileInput.current.click();
-              }}
-              style={{
-                borderColor: !!!coverImage ? "#e6e6e6" : "#000",
-                height: !!!coverImage
-                  ? "max-content"
-                  : "max-content !important",
-              }}
-              className="upload-img-container post-upload-img-container"
-            >
-              {!!!coverImage ? (
-                <>
-                  <div className="upload-icon">
-                    <BsUpload />
-                  </div>
-                  <span>Choose an image file to upload</span>
-                  <span className="hint">Recommended Dimensions (736x736)</span>
-                </>
-              ) : (
-                <img
-                  style={{
-                    aspectRatio: "unset",
-                    objectFit: "cover",
-                    width: "100%",
-                    objectPosition: "center",
+          {allDomains.map((domain) => (
+            <option key={domain.domain} value={domain.domain}>
+              {domain.domain}
+            </option>
+          ))}
+        </select>
+        <label className="error-message">{errors.domain}</label>
+        <label className="label">
+          Tech Stack<span className="required">*</span>
+        </label>
+        <input
+          name="techStack"
+          type="text"
+          className="input-field"
+          placeholder="Enter the tech stack"
+          value={techStack}
+          onChange={(e) => setTechStack(e.target.value)}
+          // when enter key is pressed console log the value
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              e.preventDefault();
+              ref.current.click();
+            }
+          }}
+        />
+        <label className="error-message">{errors.techStack}</label>
+        {techStackArray.length > 0 && (
+          <div className="new-tech-stack-container">
+            {techStackArray.map((currentTech, index) => (
+              <div key={index} className="tech-stack">
+                {currentTech.value}
+                <div
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setTechStackArray(
+                      techStackArray.filter(
+                        (tech) => tech.id !== currentTech.id
+                      )
+                    );
                   }}
-                  className="uploaded-img"
-                  src={
-                    typeof coverImage === "string"
-                      ? coverImage
-                      : URL.createObjectURL(coverImage)
-                  }
-                  loading="lazy"
-                  alt="logo"
-                />
-              )}
-            </div>
+                >
+                  <RxCross2 />
+                </div>
+              </div>
+            ))}
           </div>
+        )}
 
-          <label className="label mt-4">
-            Post<span className="required">*</span>
-          </label>
-          <label className="error-message">{errors.post}</label>
-          <JoditBlogEditor
-            placeholder={"Yo type shit here"}
-            setTextContent={setBlogContent}
-          />
-          <div className="button-container mt-4">
-            <button
-              // it should not run on any keypress
-              onKeyDown={(e) => {
-                e.preventDefault();
-              }}
-              onClick={(e) => handleSubmit(e)}
-              style={{
-                float: "right",
-                backgroundColor: "var(--primary-color-green)",
-                color: "white",
-                padding: ".5rem .75rem",
-                border: "none",
-                borderRadius: ".3125rem",
-              }}
-              type="submit"
-              className="button next-button"
-              disabled={isLoading}
-            >
-              Upload
-            </button>
+        <button
+          ref={ref}
+          onClick={() => {
+            if (techStack === "") {
+              return;
+            }
+            setTechStackArray((prev) => [
+              ...prev,
+              { id: techStackArray.length + 1, value: techStack },
+            ]);
+            setTechStack("");
+          }}
+          className="add-tech-stack-btn mt-1"
+        >
+          + Add
+        </button>
+
+        <label className="label mt-4">
+          Cover Photo<span className="required">*</span>
+        </label>
+        <label className="error-message">{errors.coverImage}</label>
+        <input
+          style={{ display: "none" }}
+          type="file"
+          onChange={handleInput}
+          ref={fileInput}
+        />
+        <div
+          style={{
+            maxHeight: "736px",
+            maxWidth: "unset",
+          }}
+          className="modal-container"
+        >
+          <div
+            onClick={() => {
+              fileInput.current.click();
+            }}
+            style={{
+              borderColor: !!!coverImage ? "#e6e6e6" : "#000",
+              height: !!!coverImage ? "max-content" : "max-content !important",
+            }}
+            className="upload-img-container post-upload-img-container"
+          >
+            {!!!coverImage ? (
+              <>
+                <div className="upload-icon">
+                  <BsUpload />
+                </div>
+                <span>Choose an image file to upload</span>
+                <span className="hint">Recommended Dimensions (736x736)</span>
+              </>
+            ) : (
+              <img
+                style={{
+                  aspectRatio: "unset",
+                  objectFit: "cover",
+                  width: "100%",
+                  objectPosition: "center",
+                }}
+                className="uploaded-img"
+                src={
+                  typeof coverImage === "string"
+                    ? coverImage
+                    : URL.createObjectURL(coverImage)
+                }
+                loading="lazy"
+                alt="logo"
+              />
+            )}
           </div>
-          {snackbarValues.severity === "success" && (
-            <CustomSnackbar
-              setOpen={setOpen}
-              open={open}
-              message={snackbarValues.message}
-              severity={snackbarValues.severity}
-            />
-          )}
-        </form>
+        </div>
+
+        <label className="label mt-4">
+          Post<span className="required">*</span>
+        </label>
+        <label className="error-message">{errors.post}</label>
+        <JoditBlogEditor
+          placeholder={"Yo type shit here"}
+          setTextContent={setBlogContent}
+        />
+        <div className="button-container mt-4">
+          <button
+            // it should not run on any keypress
+            onKeyDown={(e) => {
+              e.preventDefault();
+            }}
+            onClick={(e) => handleSubmit(e)}
+            style={{
+              float: "right",
+              backgroundColor: "var(--primary-color-green)",
+              color: "white",
+              padding: ".5rem .75rem",
+              border: "none",
+              borderRadius: ".3125rem",
+            }}
+            type="submit"
+            className="button next-button"
+            disabled={isLoading}
+          >
+            Upload
+          </button>
+        </div>
+        {snackbarValues.severity === "success" && (
+          <CustomSnackbar
+            setOpen={setOpen}
+            open={open}
+            message={snackbarValues.message}
+            severity={snackbarValues.severity}
+          />
+        )}
       </main>
 
       {/* <main className="signup-page">
