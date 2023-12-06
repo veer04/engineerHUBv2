@@ -16,16 +16,22 @@ import {
 import LoadingPage from "../../../components/Loader/LoadingPage";
 import Page404 from "../../Maintenance/Page404";
 import { redirectToAuth } from "../../../features/redirectToAuth";
+import CustomSnackbar from "../../User/Login/CustomSnackbar";
 const InternshipDesc = () => {
   const { hiringId } = useParams();
   const [flag, setFlag] = useState(-1);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const bucket = `${Bucket_URL}frontend/company/jobs/`;
   const [hiring, setHiring] = useState({});
-  const [internShipData,setInternshipData]=useState({});
+  const [internShipData, setInternshipData] = useState({});
   const [isApplicable, setIsApplicable] = useState(false);
   const [profile, setProfile] = useState({});
   const [isResumeUploaded, setIsResumeUploaded] = useState(false);
+  const [snackbarValues, setSnackbarValues] = useState({
+    severity: "error",
+    message: "",
+  });
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     if (getCookie("name")) {
@@ -98,6 +104,11 @@ useEffect(()=>
         },
       })
       .then((res) => {
+        setSnackbarValues({
+          severity: "success",
+          message: `You have successfully applied to this internship!`,
+        });
+        setOpen(true);
         if (
           res.status === 200 ||
           res.status === 201 ||
@@ -135,6 +146,15 @@ useEffect(()=>
 
   const InternshipDesc = (
     <div className="InternshipDesc">
+      {snackbarValues.severity === "success" && (
+        <CustomSnackbar
+          setOpen={setOpen}
+          open={open}
+          message={snackbarValues.message}
+          severity={snackbarValues.severity}
+          duration={5000}
+        />
+      )}
       <div className="JobDetailHeader">
         <span>
           <div className="w-100 d-flex">
@@ -167,18 +187,21 @@ useEffect(()=>
                     Not Applicable
                   </button>
                 )}
-                {isApplicable && hiring?.applied === false && (
-                  <button onClick={UserDataPost} className="btn">
-                    {!!hiring?.detailFound?.applyLink ? "Apply": `Easy Apply`}
-                  </button>
-                )}
-                {/* {isApplicable &&
+                {isApplicable &&
                   hiring?.applied === false &&
-                  !isResumeUploaded && (
+                  (!!hiring?.detailFound?.contactEmail ? (
+                    <a
+                      href={`mailto:${hiring?.detailFound?.contactEmail}?subject=${hiring?.detailFound?.contactEmailSubject}`}
+                    >
+                      <button className="btn">Apply</button>
+                    </a>
+                  ) : (
                     <button onClick={UserDataPost} className="btn">
-                      Apply
+                      {!!hiring?.detailFound?.applyLink
+                        ? "Apply"
+                        : `Easy Apply`}
                     </button>
-                  )} */}
+                  ))}
                 {hiring?.applied === true && (
                   <button className="btn" disabled>
                     Applied
@@ -189,7 +212,7 @@ useEffect(()=>
               <>
                 {internShipData?._id === "6518157c04816b097318bff4" && (
                   <Link to="https://docs.google.com/forms/d/e/1FAIpQLSd39WuMG3eBnPoVmMLneBEhYBTU2Q3CCbNx5kQKmIIkINdTlQ/viewform">
-                    <div className="btn">Easy Apply</div>
+                    <div className="btn">Apply</div>
                   </Link>
                 )}
                 {internShipData?._id !== "6518157c04816b097318bff4" && (
