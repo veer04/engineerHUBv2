@@ -152,10 +152,18 @@ const JobDescription = () => {
                                         Not Applicable
                                     </button>
                                 )}
-                                {isApplicable && hiring?.applied === false &&  (
+                                {isApplicable &&
+                                    hiring?.applied === false &&
+                                    (!!hiring?.detailFound?.contactEmail ? (
+                                    <a
+                                        href={`mailto:${hiring?.detailFound?.contactEmail}?subject=${hiring?.detailFound?.contactEmailSubject}`}
+                                    >
+                                        <button className="btn">Apply</button>
+                                    </a>
+                                    ) : (
                                     <button onClick={UserDataPost} className="btn">
-                                        {!!hiring?.detailFound?.applyLink ? "Apply": `Easy Apply`}
-                                    </button>
+                                        {!!hiring?.detailFound?.applyLink ? "Apply" : `Easy Apply`}
+                                    </button>)
                                 )}
                                 {/* {isApplicable &&
                   hiring?.applied === false &&

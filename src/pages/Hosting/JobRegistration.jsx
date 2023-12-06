@@ -16,6 +16,9 @@ import {
   InputLabel,
   FormHelperText,
 } from "@mui/material";
+import FormGroup from "@mui/material/FormGroup";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Switch from "@mui/material/Switch";
 import { controller, getDomains } from "../../services/APIConfig";
 import getCookie, { getAccessToken } from "../../features/getCookieValues";
 import { useNavigate } from "react-router-dom";
@@ -55,6 +58,9 @@ const JobRegistrationForm = () => {
   const [featuredArray, setFeaturedArray] = useState([]);
   const [userEmail, setUserEmail] = useState("");
   const [isSpecialUser, setIsSpecialUser] = useState(false);
+  const [applyViaEmail, setApplyViaEmail] = useState(false);
+  const [contactEmail, setContactEmail] = useState("");
+  const [contactEmailSubject, setContactEmailSubject] = useState("");
   const specialUserEmails = [
     {
       onlyForReference: "Email used by Ashish Soharia for Job Hosting",
@@ -64,6 +70,11 @@ const JobRegistrationForm = () => {
       onlyForReference:
         "Email used only for testing purpose. Delete this email after testing",
       value: "haboma6770@dotvilla.com",
+    },
+    {
+      onlyForReference:
+        "Email used only for testing purpose. Delete this email after testing",
+      value: "raj.swapnil1708@gmail.com",
     },
   ];
   const experienceValues = [
@@ -121,6 +132,8 @@ const JobRegistrationForm = () => {
     websiteUrl: "",
     applyLink: "",
     skillsRequired: "",
+    contactEmail: "",
+    contactEmailSubject: "",
   });
 
   const checkUrl = () => {
@@ -220,6 +233,15 @@ const JobRegistrationForm = () => {
     if (applyLink && !/^(ftp|http|https):\/\/[^ "]+$/.test(applyLink)) {
       newErrors.applyLink =
         "Invalid apply link! (Ex: https://www.engineerhub.in/)";
+      valid = false;
+    }
+    if (contactEmail && !/\S+@\S+\.\S+/.test(contactEmail)) {
+      newErrors.contactEmail = "Invalid email format!";
+      valid = false;
+    }
+    if (contactEmail && contactEmailSubject.length < 5) {
+      newErrors.contactEmailSubject =
+        "Enter a valid email subject of atleast 5 characters";
       valid = false;
     }
     if (!mobileNo) {
@@ -462,6 +484,8 @@ const JobRegistrationForm = () => {
     }
     form.append("websiteUrl", websiteUrl);
     form.append("applyLink", applyLink);
+    form.append("contactEmail", contactEmail);
+    form.append("contactEmailSubject", contactEmailSubject);
     if (!!policy) form.append("policy", policy);
 
     // console.log(form.get("opportunityType"), " opportunityType ");
@@ -634,18 +658,86 @@ const JobRegistrationForm = () => {
         error={!!errors.websiteUrl}
         helperText={errors.websiteUrl}
       />
-      <TextField
-        name="applyLink"
-        label="Apply Link"
-        variant="outlined"
-        placeholder="Enter apply link (Leave blank if not available)"
-        value={applyLink}
-        onChange={(e) => setApplyLink(e.target.value)}
-        fullWidth
-        margin="normal"
-        error={!!errors.applyLink}
-        helperText={errors.applyLink}
-      />
+      <FormGroup>
+        <FormControlLabel
+          control={
+            <Switch
+              checked={applyViaEmail}
+              onChange={() => {
+                setApplyViaEmail((prev) => !prev);
+                setApplyLink("");
+                setContactEmail("");
+                setContactEmailSubject("");
+              }}
+              inputProps={{ "aria-label": "controlled" }}
+            />
+          }
+          label="Apply via email instead"
+        />
+      </FormGroup>
+      {applyViaEmail && (
+        <div>
+          <label
+            className="special-tag-blue"
+            id=":rf:-helper-text"
+            style={{
+              fontWeight: "400",
+              fontSize: "0.75rem",
+              lineHeight: 1.66,
+              letterSpacing: "0.03333em",
+              textAlign: "left",
+              marginTop: "3px",
+              marginRight: "14px",
+              marginBottom: "0",
+              marginLeft: "14px",
+            }}
+          >
+            INFO: Candidates will now email directly to the recruiter for this
+            opening
+          </label>
+        </div>
+      )}
+      {!applyViaEmail ? (
+        <TextField
+          name="applyLink"
+          label="Apply Link"
+          variant="outlined"
+          placeholder="Enter apply link (Leave blank if not available)"
+          value={applyLink}
+          onChange={(e) => setApplyLink(e.target.value)}
+          fullWidth
+          margin="normal"
+          error={!!errors.applyLink}
+          helperText={errors.applyLink}
+        />
+      ) : (
+        <>
+          <TextField
+            name="contactEmail"
+            label="Recruiter Email Address"
+            variant="outlined"
+            placeholder="Enter recruiter contact email"
+            value={contactEmail}
+            onChange={(e) => setContactEmail(e.target.value)}
+            fullWidth
+            margin="normal"
+            error={!!errors.contactEmail}
+            helperText={errors.contactEmail}
+          />
+          <TextField
+            name="contactEmailSubject"
+            label="Email Subject"
+            variant="outlined"
+            placeholder={`Enter email subject for this ${checkUrl().toLowerCase()} application`}
+            value={contactEmailSubject}
+            onChange={(e) => setContactEmailSubject(e.target.value)}
+            fullWidth
+            margin="normal"
+            error={!!errors.contactEmailSubject}
+            helperText={errors.contactEmailSubject}
+          />
+        </>
+      )}
       <TextField
         name="mobileNo"
         label="Mobile No.*"
