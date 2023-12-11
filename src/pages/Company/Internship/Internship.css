@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap");
 
 .CompanyJob {
-  padding: 30px 150px;
+  padding: var(--vertical-padding) var(--section-padding);
   background: #eeffff;
 }
 
@@ -71,7 +71,7 @@
   display: flex;
   width: 100%;
   flex-direction: row;
-  margin-top: 55px;
+  margin-top: 20px;
   padding-bottom: 100px;
 }
 .CompanyJob .Jobs .JobTiles {
@@ -87,7 +87,7 @@
 }
 @media screen and (max-width: 600px) {
   .CompanyJob {
-    padding: 30px 20px;
+    /* padding: 30px 20px; */
   }
   .CompanyJob h2 {
     font-size: 24px;
