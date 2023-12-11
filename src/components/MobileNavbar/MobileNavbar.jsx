@@ -52,7 +52,7 @@ export default function MobileNavbar() {
       <div
         onClick={() => {
           setSelectedPageNavbar("host");
-          navigate("/hosting");
+          navigate("/host");
         }}
         className={`item-container ${
           selectedPageNavbar === "host" ? "is-active" : ""

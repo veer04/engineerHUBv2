@@ -157,6 +157,7 @@ select.input-field {
   background-position-x: calc(100% - 1.13rem);
   background-position-y: 50%;
   background-size: 0.75rem;
+  background-color: white;
 }
 
 .input-field::placeholder {

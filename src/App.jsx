@@ -75,6 +75,7 @@ import TrendingWorkshops from "./pages/Campus/TrendingWorkshops.jsx";
 import ProjectWindow from "./pages/Community/Project/ProjectWindow.jsx";
 import EventWindow from "./pages/Community/Events/EventWindow.jsx";
 import BlogWindow from "./pages/Community/Blogs/BlogWindow.jsx";
+const BlogHosting = lazy(() => import("./pages/Hosting/BlogHosting.jsx"));
 const ClubDashboard = lazy(() =>
   import("./pages/Profile/ClubDashboard/ClubDashboard")
 );
@@ -239,24 +240,23 @@ function App() {
           </Route>
           <Route path="/mentorship" element={<ComingSoon />} />
 
-          {eventHostRoute === true && sendLogin === true ? (
-            <Route path="/host/event" element={<HostEvent />} />
-          ) : (
-            <Route path="/host/event" element={<Login />} />
-          )}
-
-          {jobHostRoute === true && sendLogin === true ? (
-            <>
-              <Route path="/host/project" element={<ProjectHosting />} />
-              <Route path="/host/job" element={<JobRegistration />} />
-              <Route path="/host/internship" element={<JobRegistration />} />
-            </>
-          ) : (
-            <Route path="/host/job" element={<Login />} />
-          )}
-
-          <Route path="hosting">
+          <Route path="host">
             <Route index element={<Hosting />} />
+            {eventHostRoute === true && sendLogin === true ? (
+              <Route path="event" element={<HostEvent />} />
+            ) : (
+              <Route path="event" element={<Login />} />
+            )}
+            {jobHostRoute === true && sendLogin === true ? (
+              <>
+                <Route path="project" element={<ProjectHosting />} />
+                <Route path="job" element={<JobRegistration />} />
+                <Route path="internship" element={<JobRegistration />} />
+              </>
+            ) : (
+              <Route path="job" element={<Login />} />
+            )}
+            <Route path="blog" element={<BlogHosting />} />
           </Route>
           <Route path="/company">
             <Route path="" element={<Company />} />
