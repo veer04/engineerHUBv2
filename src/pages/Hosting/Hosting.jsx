@@ -8,7 +8,6 @@ import useNavbar from "../../hooks/use-navbar";
 import { getUserRole, isUserLoggedIn } from "../../features/User/UserDetails";
 import { redirectToAuth } from "../../features/redirectToAuth";
 export default function Hosting() {
-  console.log("test");
   const handleCardClick = (event) => {
     localStorage.setItem("event", event);
 

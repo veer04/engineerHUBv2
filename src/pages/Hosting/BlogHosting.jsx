@@ -1,28 +1,19 @@
 import { useState, useEffect, useRef, useMemo } from "react";
-import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import "./BlogHosting.css";
 import axios from "axios";
 import FormData from "form-data";
 import useNavbar from "../../hooks/use-navbar";
 import { API_URL } from "../../services/APIUtils";
-import { Select, MenuItem } from "@mui/material";
-import HostEventTimeline from "../../components/Timeline/HostEventTimeline";
-import {
-  TextField,
-  Autocomplete,
-  FormControl,
-  InputLabel,
-  FormHelperText,
-} from "@mui/material";
-import { controller, getDomains } from "../../services/APIConfig";
-import getCookie, { getAccessToken } from "../../features/getCookieValues";
+import { getDomains } from "../../services/APIConfig";
+import { getAccessToken } from "../../features/getCookieValues";
 import { useNavigate } from "react-router-dom";
 import CustomSnackbar from "../User/Login/CustomSnackbar";
 import JoditEditor from "jodit-react";
 import { getUserEmail } from "../../features/User/UserDetails";
 import { RxCross2 } from "react-icons/rx";
 import { BsUpload } from "react-icons/bs";
+import Page404 from "../Maintenance/Page404";
 
 const JoditBlogEditor = ({ placeholder, setTextContent }) => {
   const editor = useRef(null);
@@ -52,6 +43,26 @@ const JoditBlogEditor = ({ placeholder, setTextContent }) => {
 };
 
 const BlogHosting = () => {
+  const specialUserEmails = [
+    {
+      onlyForReference: "Email used by Kunwar Vidya Niwas for Blog posting",
+      value: "kunwar7376niwas@gmail.com",
+    },
+    {
+      onlyForReference: "Email used by Madhur Tripathi for Blog posting",
+      value: "madhurtripathi2001@gmail.com",
+    },
+    {
+      onlyForReference:
+        "Email used only for testing purpose. Delete this email after testing",
+      value: "raj.swapnil1708@gmail.com",
+    },
+  ];
+  const currentUserEmail = getUserEmail();
+  if (!specialUserEmails.some((e) => e.value === currentUserEmail)) {
+    return <Page404 />;
+  }
+
   const navigate = useNavigate();
   const ref = useRef(null);
   const fileInput = useRef(null);
@@ -71,17 +82,6 @@ const BlogHosting = () => {
     post: "",
   });
   const [isSpecialUser, setIsSpecialUser] = useState(false);
-  const specialUserEmails = [
-    {
-      onlyForReference: "Email used by Ashish Soharia for Job Hosting",
-      value: "career@engineerhub.in",
-    },
-    {
-      onlyForReference:
-        "Email used only for testing purpose. Delete this email after testing",
-      value: "haboma6770@dotvilla.com",
-    },
-  ];
   const [validation, setValidation] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [snackbarValues, setSnackbarValues] = useState({
@@ -178,10 +178,11 @@ const BlogHosting = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const form = new FormData();
+    const techStackArrayValues = techStackArray.map((tech) => tech.value);
     form.append("title", title);
     form.append("postArea", blogContent);
     form.append("domainName", domain);
-    form.append("techStack", techStack);
+    form.append("techStack", techStackArrayValues);
     form.append("postIcon", coverImage);
 
     if (validateInput1() === true) {
@@ -221,7 +222,7 @@ const BlogHosting = () => {
           name="title"
           type="text"
           className="input-field"
-          placeholder="Enter your Organization / Company Name"
+          placeholder="Enter the title of the blog"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
         />
@@ -368,7 +369,7 @@ const BlogHosting = () => {
         </label>
         <label className="error-message">{errors.post}</label>
         <JoditBlogEditor
-          placeholder={"Yo type shit here"}
+          placeholder={"Enter your blog here"}
           setTextContent={setBlogContent}
         />
         <div className="button-container mt-4">
@@ -402,17 +403,6 @@ const BlogHosting = () => {
           />
         )}
       </main>
-
-      {/* <main className="signup-page">
-        <section className="details-container">
-          <div className="details">
-              {step1}
-              
-
-              
-          </div>
-        </section>
-      </main> */}
     </>
   );
 };

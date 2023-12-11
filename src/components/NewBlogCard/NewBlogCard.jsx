@@ -55,7 +55,11 @@ export default function NewBlogCard({ blog }) {
         <div className="details">
           <span className="title">Created By</span>
           <span className="name text-crop-1">
-            {blog?.creatorId?.name || "engineerHUB"}
+            {blog?.creatorId?.firstName
+              ? `${blog?.creatorId?.firstName} ${
+                  blog?.creatorId?.lastName ? blog?.creatorId?.lastName : ""
+                }`
+              : "engineerHUB"}
           </span>
         </div>
       </div>
