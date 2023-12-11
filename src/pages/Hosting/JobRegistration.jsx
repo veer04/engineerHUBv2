@@ -363,7 +363,7 @@ const JobRegistrationForm = () => {
     } else if (description.length < 50) {
       newErrors.description = "Description should have atleast 50 characters!";
       valid = false;
-    } 
+    }
     // else if (description.length > 1000) {
     //   newErrors.description =
     //     "Description should be less than 1000 characters!";
@@ -672,7 +672,7 @@ const JobRegistrationForm = () => {
               inputProps={{ "aria-label": "controlled" }}
             />
           }
-          label="Apply via email instead"
+          label="Take application via email"
         />
       </FormGroup>
       {applyViaEmail && (

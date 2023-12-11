@@ -13,6 +13,7 @@ const Jobs = () => {
   const [query, setQuery] = useState("");
   const [filteredProjects, setFilteredProjects] = useState([]);
   const [searchedProjects, setSearchedProjects] = useState([]);
+  const [filterParam, setFilterParam] = useState(0); //filterParam can be 1 for jobs uploaded by engineerhub and 2 for recent jobs and 3 for job updates
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -93,17 +94,68 @@ const Jobs = () => {
           </span>
         </div>
       </div>
+      {Boolean(filteredProjects.length) && (
+        <div className="job-tags">
+          <div
+            onClick={() => {
+              filterParam !== 1 ? setFilterParam(1) : setFilterParam(0);
+            }}
+            className={`tag ${filterParam === 1 ? "--is-active" : ""}`}
+          >
+            Jobs by engineerhub
+          </div>
+          <div
+            onClick={() => {
+              filterParam !== 2 ? setFilterParam(2) : setFilterParam(0);
+            }}
+            // if there is no recent internships then this tag will not be shown
+            style={{
+              display: hiring.some(
+                (job) =>
+                  new Date(job.applicationStartTime) >= Date.now() - 6048e5
+              )
+                ? "block"
+                : "none",
+            }}
+            className={`tag ${filterParam === 2 ? "--is-active" : ""}`}
+          >
+            Recent Jobs
+          </div>
+          <div
+            onClick={() => {
+              filterParam !== 3 ? setFilterParam(3) : setFilterParam(0);
+            }}
+            className={`tag ${filterParam === 3 ? "--is-active" : ""}`}
+          >
+            Job Updates
+          </div>
+        </div>
+      )}
       <div className="Jobs">
         <div className="JobTiles">
-          {filteredProjects.map((item, index) => {
-            return (
-              <JobCards
-                details={item}
-                color={colorWheel[index % colorWheel.length]}
-                key={index}
-              />
-            );
-          })}
+          {filteredProjects
+            .filter((job) => {
+              if (filterParam === 1) {
+                return Boolean(job.applyLink);
+              } else if (filterParam === 2) {
+                return (
+                  new Date(job.applicationStartTime) >= Date.now() - 6048e5
+                );
+              } else if (filterParam === 3) {
+                return !Boolean(job.applyLink);
+              } else {
+                return true;
+              }
+            })
+            .map((item, index) => {
+              return (
+                <JobCards
+                  details={item}
+                  color={colorWheel[index % colorWheel.length]}
+                  key={index}
+                />
+              );
+            })}
         </div>
       </div>
     </div>
