@@ -11,6 +11,7 @@ import LoadingPage from "../../../components/Loader/LoadingPage";
 import Page404 from "../../Maintenance/Page404";
 import { getUserProfileById } from "../../../services/APIConfig";
 import { redirectToAuth } from "../../../features/redirectToAuth";
+import CustomSnackbar from "../../User/Login/CustomSnackbar";
 
 const ProjectDesc = ({ data, isApplied }) => {
   const { projectId } = useParams();
@@ -18,6 +19,11 @@ const ProjectDesc = ({ data, isApplied }) => {
   const [isApplicable, setIsApplicable] = useState(false);
   const [profile, setProfile] = useState({});
   const [isResumeUploaded, setIsResumeUploaded] = useState(false);
+  const [snackbarValues, setSnackbarValues] = useState({
+    severity: "error",
+    message: "",
+  });
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     if (getCookie("name")) {
@@ -48,7 +54,7 @@ const ProjectDesc = ({ data, isApplied }) => {
       return;
     }
 
-    if (isApplicable && hiring?.applied === false && !isResumeUploaded) {
+    if (isApplicable && isApplied === false && !isResumeUploaded) {
       window.alert("Please upload your resume first");
       window.location.href = `/profile/student/${getCookie("_id")[2]}/edit`;
       return;
@@ -56,6 +62,7 @@ const ProjectDesc = ({ data, isApplied }) => {
 
     const newData = {
       projectId,
+      resumeUrl: profile?.resume,
     };
     axios
       .post(`${API_URL}api/v1/projectRegistration`, newData, {
@@ -71,7 +78,14 @@ const ProjectDesc = ({ data, isApplied }) => {
           res.status === 203 ||
           res.status === 204
         ) {
-          window.location.reload();
+          setSnackbarValues({
+            severity: "success",
+            message: `You have successfully applied for this project!`,
+          });
+          setOpen(true);
+          setTimeout(() => {
+            window.location.reload();
+          }, 2000);
         }
       })
       .catch((res) => {
@@ -86,6 +100,15 @@ const ProjectDesc = ({ data, isApplied }) => {
   }, [data.description]);
   return (
     <div className="ProjectDesc">
+      {snackbarValues.severity === "success" && (
+        <CustomSnackbar
+          setOpen={setOpen}
+          open={open}
+          message={snackbarValues.message}
+          severity={snackbarValues.severity}
+          duration={5000}
+        />
+      )}
       <div className="ProjectDescHeader">
         <span className="logoIcon">
           <img src={data.organisationLogo} />
@@ -131,7 +154,7 @@ const ProjectDesc = ({ data, isApplied }) => {
           )}
           {isApplicable && isApplied === false && (
             <button onClick={UserDataPost} className="btn ApplyNowBtn">
-              {!!data?.applyLink ? "Apply": `Easy Apply`}
+              {!!data?.applyLink ? "Apply" : `Easy Apply`}
             </button>
           )}
           {isApplied === true && (

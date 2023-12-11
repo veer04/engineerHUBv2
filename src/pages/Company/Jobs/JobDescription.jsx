@@ -152,10 +152,18 @@ const JobDescription = () => {
                                         Not Applicable
                                     </button>
                                 )}
-                                {isApplicable && hiring?.applied === false &&  (
+                                {isApplicable &&
+                                    hiring?.applied === false &&
+                                    (!!hiring?.detailFound?.contactEmail ? (
+                                    <a
+                                        href={`mailto:${hiring?.detailFound?.contactEmail}?subject=${hiring?.detailFound?.contactEmailSubject}`}
+                                    >
+                                        <button className="btn">Apply</button>
+                                    </a>
+                                    ) : (
                                     <button onClick={UserDataPost} className="btn">
-                                        {!!hiring?.detailFound?.applyLink ? "Apply": `Easy Apply`}
-                                    </button>
+                                        {!!hiring?.detailFound?.applyLink ? "Apply" : `Easy Apply`}
+                                    </button>)
                                 )}
                                 {/* {isApplicable &&
                   hiring?.applied === false &&
@@ -206,7 +214,7 @@ const JobDescription = () => {
                     <div className="JobInfoItem">
                         <h6>Salary</h6>
                         <p></p>
-                        <span>{hiring?.detailFound?.amount !== "N/A" ? `${formattedSalary} CTC` : "N/A"}</span>
+                        <span>{hiring?.detailFound?.amount !== "N/A" ? hiring?.detailFound?.amount : "N/A"}</span>
                         <img src={`${bucket}cash.svg`} alt="guide" />
                     </div>
                     <div className="JobInfoItem">
