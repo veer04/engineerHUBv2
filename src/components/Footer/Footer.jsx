@@ -95,7 +95,7 @@ export default function Footer() {
         },
         {
           title: "Events",
-          link: "/community/events/App%20Development",
+          link: "/trending/workshops/64c0f9c6f0c72e2702488a5c",
         },
       ],
     },
@@ -171,7 +171,7 @@ export default function Footer() {
       id: 9,
       title: "Newsletter",
       content:
-        "We'll send you updates on the latest opportunities to showcase your talent and get hired and rewarded regularly.",
+        "We'll send you updates on the latest opportunities to showcase your talent and get hired and rewarded regularly. Coming soon!",
     },
   ];
 
