@@ -17,7 +17,7 @@ export default function BlogWindow() {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    getBlogById (setProjectData, blogId);
+    getBlogById(setProjectData, blogId);
 
     return () => {
       setProjectData({});
@@ -46,15 +46,12 @@ export default function BlogWindow() {
   // return () => {
   //   setProjectData({});
   // };
-useEffect(()=>{
-  console.log(project);
-},[project])
 
-  useEffect(() => {
-    document.getElementById("blog-description-box").innerHTML = project?.postArea;
-  }, [project]);
+  // useEffect(() => {
+  //   document.getElementById("blog-description-box").innerHTML =
+  //     project?.postArea;
+  // }, [project]);
 
- 
   // const renderProjectWindow = (
   //   <>
   //     {!!project?.projectImage && (
@@ -126,7 +123,8 @@ useEffect(()=>{
           {/* <RxCross1 /> */}
         </div>
       </div>
-      {project?.postIcon && <div
+      {/*
+       {project?.postIcon && <div
         style={{
           backgroundImage: `url(${project?.postIcon})`,
           backgroundSize: "cover",
@@ -140,8 +138,31 @@ useEffect(()=>{
         }}
         className="project_window__poster"
       ></div>}
+        */}
+      {project?.postIcon && (
+        <img
+          style={{
+            width: "100%",
+            maxWidth: "100%",
+            margin: "0 auto",
+            display: "block",
+            maxHeight: "736px",
+            backgroundColor: "var(--main-background-color)",
+            border: "1px solid lightgrey",
+            borderRadius: ".5rem",
+          }}
+          src={project?.postIcon}
+          alt="poster icon for a blog"
+        />
+      )}
       <div className="project__window__description">
-        <div id="blog-description-box" className="description"></div>
+        <div
+          id="blog-description-box"
+          className="description"
+          dangerouslySetInnerHTML={{
+            __html: project?.postArea,
+          }}
+        ></div>
       </div>
       <div className="blog__window__details">
         {project?.creatorId && (
