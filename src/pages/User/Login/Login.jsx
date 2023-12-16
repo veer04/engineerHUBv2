@@ -329,7 +329,7 @@ const Register = () => {
     );
     googleAuthUrl.searchParams.append(
       "client_id",
-      "111727756822-c6nh6mvi2acqcm51t59r5ummd3tc8j42.apps.googleusercontent.com"
+      "191366106902-f0pbl6ncfs9h2iicor5vm5viq94snf6l.apps.googleusercontent.com"
     );
     googleAuthUrl.searchParams.append(
       "redirect_uri",

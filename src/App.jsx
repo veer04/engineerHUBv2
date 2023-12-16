@@ -128,7 +128,6 @@ function App() {
       <ProfilePopUp />
       <Suspense fallback={<LoadingPage />}>
         <Routes>
-          <Route path="/helloMoto" element={<TrendingClubCard />}></Route>
           <Route index element={<HomePage path="homepage" />} />
           <Route path="/home" element={<HomePage />} />
           <Route path="/success" element={<Success></Success>}></Route>
