@@ -226,7 +226,7 @@ const ClubSignup = () => {
     if (step === 3) {
       if (validateInput3()) setValidation(true);
       {
-        localStorage.setItem("OtpRoute", "true");
+        sessionStorage.setItem("OtpRoute", "true");
       }
     }
   }

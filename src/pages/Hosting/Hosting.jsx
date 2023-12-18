@@ -9,7 +9,7 @@ import { getUserRole, isUserLoggedIn } from "../../features/User/UserDetails";
 import { redirectToAuth } from "../../features/redirectToAuth";
 export default function Hosting() {
   const handleCardClick = (event) => {
-    localStorage.setItem("event", event);
+    sessionStorage.setItem("event", event);
 
     let value;
     switch (event) {
@@ -34,7 +34,7 @@ export default function Hosting() {
       default:
         value = "";
     }
-    localStorage.setItem("event", event);
+    sessionStorage.setItem("event", event);
   };
 
   const { setSelectedPageNavbar } = useNavbar();

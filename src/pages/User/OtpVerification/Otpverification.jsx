@@ -30,7 +30,7 @@ const OTP = () => {
 
     const Result = {
       email: email,
-      role: localStorage.getItem("role"), //get The role from the response of the backend
+      role: Cookies.get("role"), //get The role from the response of the backend
       OTP: otp,
     };
     console.log(Result);
@@ -41,7 +41,6 @@ const OTP = () => {
         Cookies.set("access_token", response.data.accessToken);
         const token = response.data.accessToken;
         const decoded = jwt_decode(token);
-        console.log(decoded);
         Cookies.set("refresh_token", response.data.refreshToken);
         Cookies.set("userName", response.data.userName);
         Cookies.set("institutionName", response.data.institutionName);
@@ -52,15 +51,19 @@ const OTP = () => {
         Cookies.set("verifiedByEhub", decoded.verifiedByEhub);
         Cookies.set("mobile", decoded.mobile);
         Cookies.set("name", response.data.name);
+        if (decoded.role === "User" || decoded.role === "Alumni") {
+          Cookies.set("firstName", decoded.firstName);
+          Cookies.set("lastName", decoded.lastName);
+          Cookies.set("name", decoded.firstName.concat(" ", decoded.lastName));
+        }
         Cookies.set("_id", decoded._id);
+        Cookies.set("chatDomain", JSON.stringify(decoded.chatDomain));
 
-        console.log(response);
         if (response.data.success) {
           changeRouteValue();
           setLoading(false);
           window.location.href = "/";
         }
-        console.log(response.data.success);
       })
       .catch((error) => {
         setLoading(false);
@@ -69,7 +72,7 @@ const OTP = () => {
       });
   };
   const changeRouteValue = () => {
-    localStorage.setItem("OtpRoute", "False");
+    sessionStorage.setItem("OtpRoute", "false");
   };
 
   return (

@@ -129,21 +129,23 @@ const SignupUser = () => {
       const response = await axios
         .post(`${API_URL}api/v1/user/signup`, values)
         .then((response) => {
-          Cookies.set("access_token", response.data.accessToken);
-          const token = response.data.accessToken;
-          const decoded = jwt_decode(token);
-          Cookies.set("role", decoded.role);
-          Cookies.set("image", decoded.image);
-          Cookies.set("isVerified", decoded.isVerified);
-          Cookies.set("verifiedByEhub", decoded.verifiedByEhub);
-          Cookies.set("mobile", decoded.mobile);
-          Cookies.set("_id", decoded._id);
-          Cookies.set("name", response.data.name);
-          Cookies.set("refresh_token", response.data.refreshToken);
+          console.log(response)
+          // Cookies.set("access_token", response.data.accessToken);
+          // const token = response.data.accessToken;
+          // const decoded = jwt_decode(token);
+          Cookies.set("role", response.data.role);
+          // Cookies.set("image", decoded.image);
+          // Cookies.set("isVerified", decoded.isVerified);
+          // Cookies.set("verifiedByEhub", decoded.verifiedByEhub);
+          // Cookies.set("mobile", decoded.mobile);
+          // Cookies.set("_id", decoded._id);
+          // Cookies.set("name", response.data.name);
+          // Cookies.set("refresh_token", response.data.refreshToken);
           Cookies.set("userName", response.data.userName);
-          Cookies.set("institutionName", response.data.institutionName);
+          // Cookies.set("institutionName", response.data.institutionName);
           Cookies.set("email", response.data.email);
-          Cookies.set("chatDomain", JSON.stringify(decoded.chatDomain));
+          // Cookies.set("chatDomain", JSON.stringify(decoded.chatDomain));
+          sessionStorage.setItem("OtpRoute", true);
           if (
             response.status === 200 ||
             response.status === 201 ||
@@ -152,12 +154,13 @@ const SignupUser = () => {
             response.status === 204
           ) {
             setLoading(false);
-            if (sessionStorage.getItem("redirectToAuth") === "true") {
-              sessionStorage.removeItem("redirectToAuth");
-              navigate(sessionStorage.getItem("redirectToAuthLink"));
-              sessionStorage.removeItem("redirectToAuthLink");
-            } else navigate("/");
-            window.location.reload(true);
+            window.location.href = `/otp-verification`;
+            // if (sessionStorage.getItem("redirectToAuth") === "true") {
+            //   sessionStorage.removeItem("redirectToAuth");
+            //   navigate(sessionStorage.getItem("redirectToAuthLink"));
+            //   sessionStorage.removeItem("redirectToAuthLink");
+            // } else navigate("/");
+            // window.location.reload(true);
           }
         })
         .catch((error) => {

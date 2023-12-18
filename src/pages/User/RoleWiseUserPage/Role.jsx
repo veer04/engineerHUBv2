@@ -3,14 +3,13 @@ import { useNavigate } from "react-router-dom";
 import "./Role.css";
 export default function Role() {
   const handleCardClick = (role) => {
-    localStorage.setItem("role", role);
     let value;
     switch (role) {
       case "User":
         value = "User";
         break;
       case "Alumni":
-        value = "Alumni";
+        value = "User";
         break;
       case "Organization":
         value = "Organization";
@@ -21,7 +20,8 @@ export default function Role() {
       default:
         value = "";
     }
-    localStorage.setItem("value", value);
+    sessionStorage.setItem("role", value);
+    sessionStorage.setItem("value", value);
   };
   const navigate = useNavigate();
   const bucket = `${Bucket_URL}frontend/auth/roleselection/`;

@@ -95,13 +95,13 @@ const NewBlogsPage = lazy(() =>
 function App() {
   const [isChatOpen, setIsChatOpen] = useState(false);
   const [isEventModalOpen, setIsEventModalOpen] = useState(false);
-  const [OtpRoute, setOtpRoute] = useState("False");
+  const [OtpRoute, setOtpRoute] = useState("loading");
   const [eventHostRoute, setEventHostRoute] = useState(false);
   const [sendLogin, setSendLogin] = useState(true);
   const [jobHostRoute, setJobHostRoute] = useState(false);
 
   useEffect(() => {
-    setOtpRoute(localStorage.getItem("OtpRoute"));
+    setOtpRoute(Boolean(sessionStorage.getItem("OtpRoute")));
     if (getCookie("access_token")) {
       const token = getAccessToken();
       const decoded = jwt_decode(token);
@@ -175,10 +175,14 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/change-password" element={<ChangePassword />} />
-          {OtpRoute === "true" ? (
+          {OtpRoute === true && (
             <Route exact path="/otp-verification" element={<OTP />} />
-          ) : (
-            <Route path="/otp-verification" element={<Page404 />} />
+          )}
+          {OtpRoute === false && (
+            <Route exact path="/otp-verification" element={<Page404 />} />
+          )}
+          {OtpRoute === "loading" && (
+            <Route exact path="/otp-verification" element={<LoadingPage />} />
           )}
 
           <Route path="/under-maintenance" element={<ComingSoon />} />
