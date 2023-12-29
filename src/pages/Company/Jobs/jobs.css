@@ -112,28 +112,10 @@
   flex-wrap: wrap;
   justify-content: center;
 }
-
-.CompanyJob .job-tags .tag {
-  padding: 0.5rem 1rem;
-  border-radius: 0.5rem;
-  background-color: #fff;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-  font-size: 1rem;
-  font-weight: 500;
-  color: #000;
-  cursor: pointer;
-  transition: all 0.1s ease-in-out;
-}
-.CompanyJob .job-tags .tag:hover {
-  background-color: #014051;
-  color: #fff;
-}
-.CompanyJob .job-tags .tag:active {
-  transform: scale(0.95);
-}
 .CompanyJob .job-tags .tag.--is-active {
   background-color: var(--primary-color-yellow);
   color: #000;
+  border: none;
 }
 
 @media screen and (max-width: 600px) {
