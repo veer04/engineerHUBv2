@@ -5,6 +5,7 @@ import "./Internship.css";
 import colorWheel from "../../../assets/colorWheel";
 import { controller, getAllInternships } from "../../../services/APIConfig";
 import { useSearchParams } from "react-router-dom";
+import ButtonRounded from "../../../components/Buttons/ButtonRounded";
 
 const Jobs = () => {
   const [searchParams, setSearchParams] = useSearchParams({ q: "" });
@@ -96,15 +97,15 @@ const Jobs = () => {
       </div>
       {Boolean(filteredProjects.length) && (
         <div className="job-tags">
-          <div
+          <ButtonRounded
             onClick={() => {
               filterParam !== 1 ? setFilterParam(1) : setFilterParam(0);
             }}
             className={`tag ${filterParam === 1 ? "--is-active" : ""}`}
           >
             Internships by engineerhub
-          </div>
-          <div
+          </ButtonRounded>
+          <ButtonRounded
             onClick={() => {
               filterParam !== 2 ? setFilterParam(2) : setFilterParam(0);
             }}
@@ -120,15 +121,15 @@ const Jobs = () => {
             className={`tag ${filterParam === 2 ? "--is-active" : ""}`}
           >
             Recent Internships
-          </div>
-          <div
+          </ButtonRounded>
+          <ButtonRounded
             onClick={() => {
               filterParam !== 3 ? setFilterParam(3) : setFilterParam(0);
             }}
             className={`tag ${filterParam === 3 ? "--is-active" : ""}`}
           >
             Internship Updates
-          </div>
+          </ButtonRounded>
         </div>
       )}
       <div className="Jobs">
