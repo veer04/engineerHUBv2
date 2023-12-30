@@ -2,24 +2,30 @@ import React, { useState, useEffect, useMemo } from "react";
 import JobCards from "./JobCards";
 import "./JobDetails.css";
 import JobDescription from "./JobDescription";
-import { controller, getAllJobs2 } from "../../../services/APIConfig";
+import { controller, getAllJobs2, getJobs } from "../../../services/APIConfig";
 import colorWheel from "../../../assets/colorWheel";
 import LoadingPage from "../../../components/Loader/LoadingPage";
 import { useSearchParams } from "react-router-dom";
 const JobDetails = () => {
   const [searchParams, setSearchParams] = useSearchParams({ q: "" });
   const q = searchParams.get("q");
-  const [allJobsData, setAllJobsData] = useState([]);
+  const [allJobsData, setAllJobsData] = useState({});
+  const [allJobs, setAllJobs] = useState([]);
   const [filteredProjects, setFilteredProjects] = useState([]);
   const [searchedProjects, setSearchedProjects] = useState([]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    getAllJobs2(setAllJobsData);
+    getJobs(setAllJobsData, 1, 20);
     return () => {
       controller.abort();
     };
   }, [window.location.pathname]);
+
+  useEffect(() => {
+    if (Object.keys(allJobsData).length > 0)
+      setAllJobs(allJobsData?.data?.data);
+  }, [allJobsData]);
 
   useEffect(() => {
     if (searchedProjects.length > 0) {
@@ -30,7 +36,7 @@ const JobDetails = () => {
   }, [searchedProjects]);
 
   const filteredData = useMemo(() => {
-    return allJobsData.filter((value) => {
+    return allJobs.filter((value) => {
       return (
         value.opportunityName?.toLowerCase().includes(q.toLowerCase()) ||
         value.amount?.toLowerCase().includes(q.toLowerCase()) ||
@@ -42,7 +48,7 @@ const JobDetails = () => {
         value.organisationName?.toLowerCase().includes(q.toLowerCase())
       );
     });
-  }, [allJobsData, q]);
+  }, [allJobs, q]);
 
   useEffect(() => {
     setSearchedProjects(filteredData);
@@ -107,7 +113,7 @@ const JobDetails = () => {
     </div>
   );
 
-  return Object.keys(allJobsData).length !== 0 ? JobDetails : <LoadingPage />;
+  return Object.keys(allJobs).length !== 0 ? JobDetails : <LoadingPage />;
 };
 
 export default JobDetails;

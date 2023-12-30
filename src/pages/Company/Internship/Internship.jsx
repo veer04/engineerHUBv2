@@ -3,26 +3,35 @@ import React, { useState, useEffect, useMemo } from "react";
 import JobCards from "./InternshipCard";
 import "./Internship.css";
 import colorWheel from "../../../assets/colorWheel";
-import { controller, getAllInternships } from "../../../services/APIConfig";
+import { getInternships } from "../../../services/APIConfig";
 import { useSearchParams } from "react-router-dom";
 import ButtonRounded from "../../../components/Buttons/ButtonRounded";
+import PaginationBar from "../../../components/PaginationBar/PaginationBar";
+import Loading from "../../../components/Loader/Loading";
 
 const Jobs = () => {
   const [searchParams, setSearchParams] = useSearchParams({ q: "" });
   const q = searchParams.get("q");
-
+  const [hiringData, setHiringData] = useState({});
   const [hiring, setHiring] = useState([]);
   const [filteredProjects, setFilteredProjects] = useState([]);
   const [searchedProjects, setSearchedProjects] = useState([]);
   const [filterParam, setFilterParam] = useState(0); //filterParam can be 1 for jobs uploaded by engineerhub and 2 for recent jobs and 3 for job updates
+  const [currentPage, setCurrentPage] = useState(1);
+  const [limit, setLimit] = useState(21);
+  const [pageCount, setPageCount] = useState(1);
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    getAllInternships(setHiring);
+    getInternships(setHiringData, currentPage, limit);
     return () => {
-      controller.abort();
+      setHiring([]);
     };
-  }, [window.location.pathname]);
+  }, [window.location.pathname, currentPage, limit]);
+
+  useEffect(() => {
+    if (Object.keys(hiringData).length > 0) setHiring(hiringData?.data?.data);
+  }, [hiringData]);
 
   useEffect(() => {
     if (searchedProjects.length > 0) {
@@ -31,6 +40,46 @@ const Jobs = () => {
       setFilteredProjects([]);
     }
   }, [searchedProjects]);
+
+  useEffect(() => {
+    if (filterParam === 0) {
+      setPageCount(
+        Math.ceil(
+          (!!hiringData?.data?.pageSize ? hiringData?.data?.pageSize : 1) /
+            limit
+        )
+      );
+    } else if (filterParam === 1) {
+      setPageCount(
+        Math.ceil(
+          (!!filteredProjects.filter((job) => Boolean(job.applyLink)).length
+            ? filteredProjects.filter((job) => Boolean(job.applyLink)).length
+            : 1) / limit
+        )
+      );
+    } else if (filterParam === 2) {
+      setPageCount(
+        Math.ceil(
+          (!!filteredProjects.filter(
+            (job) => new Date(job.applicationStartTime) >= Date.now() - 6048e5
+          ).length
+            ? filteredProjects.filter(
+                (job) =>
+                  new Date(job.applicationStartTime) >= Date.now() - 6048e5
+              ).length
+            : 1) / limit
+        )
+      );
+    } else if (filterParam === 3) {
+      setPageCount(
+        Math.ceil(
+          (!!filteredProjects.filter((job) => !Boolean(job.applyLink)).length
+            ? filteredProjects.filter((job) => !Boolean(job.applyLink)).length
+            : 1) / limit
+        )
+      );
+    }
+  }, [hiringData, limit, filterParam]);
 
   const filteredData = useMemo(() => {
     return hiring.filter((value) => {
@@ -58,8 +107,8 @@ const Jobs = () => {
         Apply for the intership of your interest and get the offer letter in the
         next step.
       </p>
-      <div className="project__searchbar__container company_searchbar_container">
-        <div className="input-group mb-3">
+      <div className="project__searchbar__container company_searchbar_container mb-3">
+        <div className="input-group">
           <input
             type="text"
             className="form-control"
@@ -95,6 +144,11 @@ const Jobs = () => {
           </span>
         </div>
       </div>
+      {/* <PaginationBar
+        pages={pageCount}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+      /> */}
       {Boolean(filteredProjects.length) && (
         <div className="job-tags">
           <ButtonRounded
@@ -157,8 +211,20 @@ const Jobs = () => {
                 />
               );
             })}
+          {hiring.length === 0 && (
+            <div style={{ marginTop: "25dvh" }}>
+              <Loading />
+            </div>
+          )}
         </div>
       </div>
+      {hiring.length !== 0 && (
+        <PaginationBar
+          pages={pageCount}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+        />
+      )}
     </div>
   );
 };
