@@ -3,19 +3,25 @@ import "./JobsSection.css";
 import arrow from "./svg/jobs-btn.svg";
 import { Bucket_URL } from "../../services/APIUtils";
 import { useNavigate } from "react-router-dom";
-import { controller, getAllJobs2 } from "../../services/APIConfig";
+import { controller, getAllJobs2, getJobs } from "../../services/APIConfig";
 
 export default function JobsSection() {
   const navigate = useNavigate();
   const bucket = `${Bucket_URL}frontend/homepage/jobssection/`;
+  const [jobsData, setJobsData] = useState([]);
   const [jobs, setJobs] = useState([]);
   useEffect(() => {
-    getAllJobs2(setJobs);
+    getJobs(setJobsData,1,5);
 
     return () => {
       controller.abort();
     };
   }, []);
+
+  useEffect(() => {
+    if (Object.keys(jobsData).length > 0) setJobs(jobsData?.data?.data);
+  }, [jobsData]);
+
   function createJobs(jobs) {
     return jobs?.map((job) => (
       <div

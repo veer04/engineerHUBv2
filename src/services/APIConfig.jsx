@@ -1008,10 +1008,85 @@ export const getAllJobs2 = (setJobs) => {
     });
 };
 
+export const getJobs = (setJobs, pageNo, limit) => {
+  const controller = new AbortController();
+  axios
+    .get(`${API_URL}api/v1/getHiringByOpportunityType/`, {
+      params: {
+        opportunityType: "Job",
+        pageNo: pageNo,
+        limit: limit,
+      },
+    })
+    .then((res) => {
+      setJobs(res);
+    })
+    .catch((err) => {
+      setJobs(err);
+      if (axios.isCancel(err)) {
+        console.log("req cancel");
+      } else {
+        console.log("req performed");
+      }
+    });
+};
+
+export const getInternships = (setInternships, pageNo, limit) => {
+  const controller = new AbortController();
+  axios
+    .get(`${API_URL}api/v1/getHiringByOpportunityType/`, {
+      params: {
+        opportunityType: "Internship",
+        pageNo: pageNo,
+        limit: limit,
+      },
+    })
+    .then((res) => {
+      setInternships(res);
+    })
+    .catch((err) => {
+      setInternships(err);
+      if (axios.isCancel(err)) {
+        console.log("req cancel");
+      } else {
+        console.log("req performed");
+      }
+    });
+};
+
+export const getAllEvents = (setEvents, pageNo, limit) => {
+  const controller = new AbortController();
+  axios
+    .get(`${API_URL}api/v1/getHiringByOpportunityType/`, {
+      params: {
+        opportunityType: "Event",
+        pageNo: pageNo,
+        limit: limit,
+      },
+    })
+    .then((res) => {
+      setEvents(res);
+    })
+    .catch((err) => {
+      setEvents(err);
+      if (axios.isCancel(err)) {
+        console.log("req cancel");
+      } else {
+        console.log("req performed");
+      }
+    });
+};
+
 export const getJobsByOrganisationId = (organisationId, setJobs) => {
   const controller = new AbortController();
   axios
-    .get(`${API_URL}api/v1/getHiringByOpportunityType/Job/${organisationId}`, {
+    .get(`${API_URL}api/v1/getHiringByOpportunityType`, {
+      params: {
+        opportunityType: "Job",
+        pageNo: 1,
+        limit: 1000,
+        _id: organisationId,
+      },
       signal: controller.signal,
     })
     .then((res) => {
@@ -1054,12 +1129,15 @@ export const getInternshipsByOrganisationId = (
 ) => {
   const controller = new AbortController();
   axios
-    .get(
-      `${API_URL}api/v1/getHiringByOpportunityType/Internship/${organisationId}`,
-      {
-        signal: controller.signal,
-      }
-    )
+    .get(`${API_URL}api/v1/getHiringByOpportunityType`, {
+      params: {
+        opportunityType: "Internship",
+        pageNo: 1,
+        limit: 1000,
+        _id: organisationId,
+      },
+      signal: controller.signal,
+    })
     .then((res) => {
       const data = res.data.data;
       setInternships(data);
@@ -1100,12 +1178,15 @@ export const getInternshipsByOrganisationIdPrivateMode = (setInternships) => {
 export const getEventsByOrganisationId = (organisationId, setEvents) => {
   const controller = new AbortController();
   axios
-    .get(
-      `${API_URL}api/v1/getHiringByOpportunityType/Event/${organisationId}`,
-      {
-        signal: controller.signal,
-      }
-    )
+    .get(`${API_URL}api/v1/getHiringByOpportunityType`, {
+      params: {
+        opportunityType: "Event",
+        pageNo: 1,
+        limit: 1000,
+        _id: organisationId,
+      },
+      signal: controller.signal,
+    })
     .then((res) => {
       const data = res.data.data;
       setEvents(data);
@@ -1728,24 +1809,24 @@ export const getBlogById = (setBlog, id) => {
     });
 };
 
-export const getAllEvents = (setEvents) => {
-  const controller = new AbortController();
-  axios
-    .get(`${API_URL}api/v1/event`, {
-      signal: controller.signal,
-    })
-    .then((res) => {
-      const data = res.data.data;
-      setEvents(data);
-    })
-    .catch((err) => {
-      if (axios.isCancel(err)) {
-        console.log("req cancel");
-      } else {
-        console.log("req performed");
-      }
-    });
-};
+// export const getAllEvents = (setEvents) => {
+//   const controller = new AbortController();
+//   axios
+//     .get(`${API_URL}api/v1/event`, {
+//       signal: controller.signal,
+//     })
+//     .then((res) => {
+//       const data = res.data.data;
+//       setEvents(data);
+//     })
+//     .catch((err) => {
+//       if (axios.isCancel(err)) {
+//         console.log("req cancel");
+//       } else {
+//         console.log("req performed");
+//       }
+//     });
+// };
 
 export const getFeaturedEvents = (setFeaturedEvents) => {
   const controller = new AbortController();

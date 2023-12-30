@@ -194,7 +194,7 @@ export default function CompanyDashboard() {
 
   const companyDashboardPage = (
     <>
-      <main className="profile-dashboard">
+      <main className="profile-dashboard profile-dashboard-fix">
         <h1 className="title">Profile</h1>
         <h2 className="subheading">
           {/* Lorem ipsum dolor sit amet consectetur. Mattis aliquam sodales

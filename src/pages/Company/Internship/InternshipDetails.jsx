@@ -2,24 +2,34 @@ import React, { useState, useEffect, useMemo } from "react";
 import JobCards from "./InternshipCard";
 import "./InternshipDetails.css";
 import JobDescription from "./InternshipDesc";
-import { controller, getAllInternships } from "../../../services/APIConfig";
+import {
+  controller,
+  getAllInternships,
+  getInternships,
+} from "../../../services/APIConfig";
 import colorWheel from "../../../assets/colorWheel";
 import LoadingPage from "../../../components/Loader/LoadingPage";
 import { useSearchParams } from "react-router-dom";
 const InternshipDetails = () => {
   const [searchParams, setSearchParams] = useSearchParams({ q: "" });
   const q = searchParams.get("q");
-  const [allJobsData, setAllJobsData] = useState([]);
+  const [allJobsData, setAllJobsData] = useState({});
+  const [allJobs, setAllJobs] = useState([]);
   const [filteredProjects, setFilteredProjects] = useState([]);
   const [searchedProjects, setSearchedProjects] = useState([]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    getAllInternships(setAllJobsData);
+    getInternships(setAllJobsData, 1, 20);
     return () => {
       controller.abort();
     };
   }, [window.location.pathname]);
+
+  useEffect(() => {
+    if (Object.keys(allJobsData).length > 0)
+      setAllJobs(allJobsData?.data?.data);
+  }, [allJobsData]);
 
   useEffect(() => {
     if (searchedProjects.length > 0) {
@@ -30,7 +40,7 @@ const InternshipDetails = () => {
   }, [searchedProjects]);
 
   const filteredData = useMemo(() => {
-    return allJobsData.filter((value) => {
+    return allJobs.filter((value) => {
       return (
         value.opportunityName?.toLowerCase().includes(q.toLowerCase()) ||
         value.amount?.toLowerCase().includes(q.toLowerCase()) ||
@@ -42,7 +52,7 @@ const InternshipDetails = () => {
         value.organisationName?.toLowerCase().includes(q.toLowerCase())
       );
     });
-  }, [allJobsData, q]);
+  }, [allJobs, q]);
 
   useEffect(() => {
     setSearchedProjects(filteredData);
@@ -107,7 +117,7 @@ const InternshipDetails = () => {
     </div>
   );
 
-  return Object.keys(allJobsData).length !== 0 ? (
+  return Object.keys(allJobs).length !== 0 ? (
     InternshipDetails
   ) : (
     <LoadingPage />

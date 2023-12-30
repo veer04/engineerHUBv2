@@ -5,6 +5,9 @@
   /* padding: var(--vertical-padding) var(--section-padding); */
   scroll-behavior: auto;
 }
+.profile-dashboard-fix{
+  padding: var(--vertical-padding) var(--section-padding);
+}
 
 .profile-dashboard > .details-container {
   display: flex;

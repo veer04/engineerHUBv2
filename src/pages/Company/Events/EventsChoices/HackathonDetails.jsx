@@ -5,6 +5,7 @@ import { useParams, useSearchParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import {
   controller,
+  getAllEvents,
   getAllEvents2,
   getHiringDataById,
 } from "../../../../services/APIConfig";
@@ -13,6 +14,7 @@ import HackathonCard from "./HackathonCards";
 const HackathonDetails = () => {
   const [searchParams, setSearchParams] = useSearchParams({ q: "" });
   const q = searchParams.get("q");
+  const [eventData, setEventData] = useState({});
   const [hiring, setHiring] = useState([]);
   const [hiringData, setHiringData] = useState({});
   const [filteredProjects, setFilteredProjects] = useState([]);
@@ -20,12 +22,16 @@ const HackathonDetails = () => {
 
   const { hackId } = useParams();
   useEffect(() => {
-    getAllEvents2(setHiring);
+    getAllEvents(setEventData, 1, 20);
     getHiringDataById(setHiringData, hackId);
     return () => {
       controller.abort();
     };
   }, [hackId]);
+
+  useEffect(() => {
+    if (Object.keys(eventData).length > 0) setHiring(eventData?.data?.data);
+  }, [eventData]);
 
   useEffect(() => {
     if (searchedProjects.length > 0) {

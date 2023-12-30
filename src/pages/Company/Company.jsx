@@ -6,8 +6,11 @@ import { useEffect, useState } from "react";
 import useNavbar from "../../hooks/use-navbar";
 import {
   controller,
+  getAllEvents,
   getAllEvents2,
   getAllJobs2,
+  getEvents,
+  getJobs,
 } from "../../services/APIConfig";
 import { Link, useNavigate } from "react-router-dom";
 import { getHiringData, getProjectData } from "../../services/APIConfig";
@@ -42,7 +45,9 @@ const CompanyCards = ({ data }) => {
   );
 };
 const Company = () => {
+  const [jobsData, setJobsData] = useState([]);
   const [jobs, setJobs] = useState([]);
+  const [eventsData, setEventsData] = useState([]);
   const [events, setEvents] = useState([]);
   const { setSelectedPageNavbar } = useNavbar();
   const [hiring, setHiring] = useState([]);
@@ -58,14 +63,22 @@ const Company = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
     setSelectedPageNavbar("company");
-    getAllJobs2(setJobs);
-    getAllEvents2(setEvents);
+    getJobs(setJobsData,1,6);
+    getAllEvents(setEventsData,1,6);
     getHiringData(setHiring);
     getProjectData(setProject);
     return () => {
       controller.abort();
     };
   }, []);
+
+  useEffect(() => {
+    if (Object.keys(jobsData).length > 0) setJobs(jobsData?.data?.data);
+  }, [jobsData]);
+
+  useEffect(() => {
+    if (Object.keys(eventsData).length > 0) setEvents(eventsData?.data?.data);
+  }, [eventsData]);
 
   useEffect(() => {
     setCntEvent(

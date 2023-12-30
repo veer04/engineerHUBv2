@@ -1,24 +1,38 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect, useMemo } from "react";
 import "./events.css";
-import { controller, getAllEvents2 } from "../../../services/APIConfig";
+import {
+  controller,
+  getAllEvents,
+  getAllEvents2,
+} from "../../../services/APIConfig";
 import HackathonCard from "./EventsChoices/HackathonCards";
 import { useSearchParams } from "react-router-dom";
+import PaginationBar from "../../../components/PaginationBar/PaginationBar";
+import Loading from "../../../components/Loader/Loading";
 
 const Events = () => {
   const [searchParams, setSearchParams] = useSearchParams({ q: "" });
   const q = searchParams.get("q");
+  const [eventData, setEventData] = useState({});
   const [event, setEvent] = useState([]);
   const [filteredProjects, setFilteredProjects] = useState([]);
   const [searchedProjects, setSearchedProjects] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [limit, setLimit] = useState(21);
+  const [pageCount, setPageCount] = useState(1);
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    getAllEvents2(setEvent);
+    getAllEvents(setEventData, currentPage, limit);
     return () => {
       controller.abort();
     };
   }, [window.location.pathname]);
+
+  useEffect(() => {
+    if (Object.keys(eventData).length > 0) setEvent(eventData?.data?.data);
+  }, [eventData]);
 
   useEffect(() => {
     if (searchedProjects.length > 0) {
@@ -53,8 +67,8 @@ const Events = () => {
         Participate in the events directly conducted by the companies to
         highlight your profile.
       </p>
-      <div className="project__searchbar__container company_searchbar_container">
-        <div className="input-group mb-3">
+      <div className="project__searchbar__container company_searchbar_container mb-3">
+        <div className="input-group">
           <input
             type="text"
             className="form-control"
@@ -71,7 +85,7 @@ const Events = () => {
                 { replace: true }
               );
             }}
-        />
+          />
 
           <span className="input-group-text" id="basic-addon2">
             <svg
@@ -90,16 +104,32 @@ const Events = () => {
           </span>
         </div>
       </div>
+      {/* <PaginationBar
+        pages={pageCount}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+      /> */}
       <div className="ChoicesSelection">
         <div className="Hackathons">
           <div className="hackathonTiles">
-            {filteredProjects
-              .map((item, index) => {
-                return <HackathonCard {...item} key={index} />;
-              })}
+            {filteredProjects.map((item, index) => {
+              return <HackathonCard {...item} key={index} />;
+            })}
+            {event.length === 0 && (
+              <div style={{ marginTop: "25dvh" }}>
+                <Loading />
+              </div>
+            )}
           </div>
         </div>
       </div>
+      {event.length !== 0 && (
+        <PaginationBar
+          pages={pageCount}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+        />
+      )}
     </div>
   );
 };
