@@ -30,7 +30,11 @@ const Jobs = () => {
   }, [window.location.pathname, currentPage, limit]);
 
   useEffect(() => {
-    if (Object.keys(hiringData).length > 0) setHiring(hiringData?.data?.data);
+    if (Object.keys(hiringData).length > 0) {
+      if (hiringData?.status >= 200 && hiringData?.status < 300)
+        setHiring(hiringData?.data?.data);
+      else setHiring([]);
+    }
   }, [hiringData]);
 
   useEffect(() => {
@@ -211,11 +215,28 @@ const Jobs = () => {
                 />
               );
             })}
-          {hiring.length === 0 && (
-            <div style={{ marginTop: "25dvh" }}>
-              <Loading />
-            </div>
-          )}
+          {hiring.length === 0 &&
+            hiringData?.status >= 200 &&
+            hiringData?.status < 300 && (
+              <div style={{ marginTop: "25dvh" }}>
+                <Loading />
+              </div>
+            )}
+          {hiring.length === 0 &&
+            !(hiringData?.status >= 200 && hiringData?.status < 300) && (
+              <div
+                style={{
+                  marginTop: "25dvh",
+                  textAlign: "center",
+                  fontSize: "1.5rem",
+                  fontWeight: "bold",
+                  color: "#3C3C43",
+                  opacity: "0.6",
+                }}
+              >
+                Something went wrong. Please try again later.
+              </div>
+            )}
         </div>
       </div>
       {hiring.length !== 0 && (
