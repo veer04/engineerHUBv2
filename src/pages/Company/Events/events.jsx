@@ -31,7 +31,11 @@ const Events = () => {
   }, [window.location.pathname]);
 
   useEffect(() => {
-    if (Object.keys(eventData).length > 0) setEvent(eventData?.data?.data);
+    if (Object.keys(eventData).length > 0) {
+      if (eventData?.status >= 200 && eventData?.status < 300)
+        setEvent(eventData?.data?.data);
+      else setEvent([]);
+    }
   }, [eventData]);
 
   useEffect(() => {
@@ -120,6 +124,28 @@ const Events = () => {
                 <Loading />
               </div>
             )}
+            {event.length === 0 &&
+              eventData?.status >= 200 &&
+              eventData?.status < 300 && (
+                <div style={{ marginTop: "25dvh" }}>
+                  <Loading />
+                </div>
+              )}
+            {event.length === 0 &&
+              !(eventData?.status >= 200 && eventData?.status < 300) && (
+                <div
+                  style={{
+                    marginTop: "25dvh",
+                    textAlign: "center",
+                    fontSize: "1.5rem",
+                    fontWeight: "bold",
+                    color: "#3C3C43",
+                    opacity: "0.6",
+                  }}
+                >
+                  Something went wrong. Please try again later.
+                </div>
+              )}
           </div>
         </div>
       </div>
