@@ -223,7 +223,13 @@ const Jobs = () => {
                 <Loading />
               </div>
             )}
+          {hiring.length === 0 && Object.keys(hiringData).length === 0 && (
+            <div style={{ marginTop: "25dvh" }}>
+              <Loading />
+            </div>
+          )}
           {hiring.length === 0 &&
+            Object.keys(hiringData).length !== 0 &&
             !(hiringData?.status >= 200 && hiringData?.status < 300) && (
               <div
                 style={{

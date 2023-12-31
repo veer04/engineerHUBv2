@@ -119,11 +119,6 @@ const Events = () => {
             {filteredProjects.map((item, index) => {
               return <HackathonCard {...item} key={index} />;
             })}
-            {event.length === 0 && (
-              <div style={{ marginTop: "25dvh" }}>
-                <Loading />
-              </div>
-            )}
             {event.length === 0 &&
               eventData?.status >= 200 &&
               eventData?.status < 300 && (
@@ -131,7 +126,13 @@ const Events = () => {
                   <Loading />
                 </div>
               )}
+            {event.length === 0 && Object.keys(eventData).length === 0 && (
+              <div style={{ marginTop: "25dvh" }}>
+                <Loading />
+              </div>
+            )}
             {event.length === 0 &&
+              Object.keys(eventData).length !== 0 &&
               !(eventData?.status >= 200 && eventData?.status < 300) && (
                 <div
                   style={{
