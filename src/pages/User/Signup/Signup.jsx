@@ -297,7 +297,7 @@ if (!formData.branch) {
           // Cookies.set("refresh_token", response.data.refreshToken);
           // Cookies.set("userName", response.data.userName);
           // Cookies.set("institutionName", response.data.institutionName);
-          Cookies.set("email", response.data.email);
+          Cookies.set("email", response.data.email, { expires: 1 / 24 / 4 });
           // Cookies.set("role", decoded.role);
           // Cookies.set("image", decoded.image);
           // Cookies.set("isVerified", decoded.isVerified);

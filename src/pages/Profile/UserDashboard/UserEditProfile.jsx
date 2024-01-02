@@ -329,9 +329,8 @@ const UserEditProfile = () => {
         setSnackbarOpen(true);
         setEducationExist(true);
         const decoded = jwt_decode(updateEducationResponse.data.accessToken);
-        Cookies.set("access_token", updateEducationResponse.data.accessToken);
-        console.log(decoded);
-        Cookies.set("role", decoded.role);
+        Cookies.set("access_token", updateEducationResponse.data.accessToken, { expires: 400 });
+        Cookies.set("role", decoded.role, { expires: 400 });
         fetchData();
       } else {
         setSnackbarSeverity("error");

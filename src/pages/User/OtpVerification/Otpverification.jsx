@@ -38,26 +38,36 @@ const OTP = () => {
     axios
       .patch(`${API_URL}api/v1/signup/verify`, Result)
       .then((response) => {
-        Cookies.set("access_token", response.data.accessToken);
+        Cookies.set("access_token", response.data.accessToken, {
+          expires: 400,
+        });
         const token = response.data.accessToken;
         const decoded = jwt_decode(token);
-        Cookies.set("refresh_token", response.data.refreshToken);
-        Cookies.set("userName", response.data.userName);
-        Cookies.set("institutionName", response.data.institutionName);
-        Cookies.set("email", response.data.email);
-        Cookies.set("role", decoded.role);
-        Cookies.set("image", decoded.image);
-        Cookies.set("isVerified", "true");
-        Cookies.set("verifiedByEhub", decoded.verifiedByEhub);
-        Cookies.set("mobile", decoded.mobile);
-        Cookies.set("name", response.data.name);
+        Cookies.set("refresh_token", response.data.refreshToken, {
+          expires: 400,
+        });
+        Cookies.set("userName", response.data.userName, { expires: 400 });
+        Cookies.set("institutionName", response.data.institutionName, {
+          expires: 400,
+        });
+        Cookies.set("email", response.data.email, { expires: 400 });
+        Cookies.set("role", decoded.role, { expires: 400 });
+        Cookies.set("image", decoded.image, { expires: 400 });
+        Cookies.set("isVerified", "true", { expires: 400 });
+        Cookies.set("verifiedByEhub", decoded.verifiedByEhub, { expires: 400 });
+        Cookies.set("mobile", decoded.mobile, { expires: 400 });
+        Cookies.set("name", response.data.name, { expires: 400 });
         if (decoded.role === "User" || decoded.role === "Alumni") {
-          Cookies.set("firstName", decoded.firstName);
-          Cookies.set("lastName", decoded.lastName);
-          Cookies.set("name", decoded.firstName.concat(" ", decoded.lastName));
+          Cookies.set("firstName", decoded.firstName, { expires: 400 });
+          Cookies.set("lastName", decoded.lastName, { expires: 400 });
+          Cookies.set("name", decoded.firstName.concat(" ", decoded.lastName), {
+            expires: 400,
+          });
         }
-        Cookies.set("_id", decoded._id);
-        Cookies.set("chatDomain", JSON.stringify(decoded.chatDomain));
+        Cookies.set("_id", decoded._id, { expires: 400 });
+        Cookies.set("chatDomain", JSON.stringify(decoded.chatDomain), {
+          expires: 400,
+        });
 
         if (response.data.success) {
           changeRouteValue();
