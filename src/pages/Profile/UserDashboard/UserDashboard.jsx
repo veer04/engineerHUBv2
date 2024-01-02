@@ -6,9 +6,9 @@ import moment from "moment";
 import Cookies from "js-cookie";
 import jwt_decode from "jwt-decode";
 import { PiGlobeLight } from "react-icons/pi";
-import { AiFillLinkedin } from "react-icons/ai";
+import { AiFillLinkedin, AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 import { BiLogoInstagramAlt } from "react-icons/bi";
-import { BsArrowDown, BsArrowRight, BsChevronDown } from "react-icons/bs";
+import { BsArrowDown, BsArrowRight, BsArrowUp, BsChevronDown } from "react-icons/bs";
 import { FaBuildingColumns } from "react-icons/fa6";
 import defaultPoster from "../../../assets/defaultPoster";
 import { HiOutlineBuildingOffice2 } from "react-icons/hi2";
@@ -20,6 +20,10 @@ import { useEffect } from "react";
 import CustomSnackbar from "../../User/Login/CustomSnackbar";
 import {
   controller,
+  getEventsByOrganisationIdPrivateMode,
+  getInternshipsByOrganisationIdPrivateMode,
+  getJobsByOrganisationIdPrivateMode,
+  getProjectsByOrganisationIdPrivateMode,
   getUserProfileById,
   patchResume,
 } from "../../../services/APIConfig";
@@ -35,6 +39,10 @@ import Page404 from "../../Maintenance/Page404";
 import colorWheel from "../../../assets/colorWheel";
 import { getAccessToken } from "../../../features/getCookieValues";
 import { Cookie } from "@mui/icons-material";
+import JobCards from "../../Company/Jobs/JobCards";
+import InternshipCard from "../../Company/Internship/InternshipCard";
+import HackathonCard from "../../Company/Events/EventsChoices/HackathonCards";
+import ProjectCards from "../../Company/Projects/ProjectCards";
 
 export default function UserDashboard() {
   const navigate = useNavigate();
@@ -55,8 +63,8 @@ export default function UserDashboard() {
   const [resumeErrors, setResumeErrors] = useState({
     resume: "",
   });
-  const [showEditOptions,setShowEditOptions]=useState(false);
-  
+  const [showEditOptions, setShowEditOptions] = useState(false);
+
   const [isUpdating, setIsUpdating] = useState(false);
   const [isResumeUpdating, setIsResumeUpdating] = useState(false);
   const [isResumeUpdated, setIsResumeUpdated] = useState(false);
@@ -64,17 +72,33 @@ export default function UserDashboard() {
   const [newResumeLink, setNewResumeLink] = useState("");
   const [response, setResponse] = useState(null);
   const [links, setLinks] = useState(true);
-  function handleEditOptions()
-  { 
+  const [activityChoice, setActivityChoice] = useState("jobs");
+  const [isActivityPresent, setIsActivityPresent] = useState(true);
+  const [showAll, setShowAll] = useState(false);
+  const [activityLength, setActivityLength] = useState(false);
+  const [jobs, setJobs] = useState([]);
+  const [internships, setInternships] = useState([]);
+  const [hackathons, setHackathons] = useState([]);
+  const [projects, setProjects] = useState([]);
+  const [scrollAmount, setScrollAmount] = useState(220);
+
+  const scrollLeft = () => {
+    const carousel = document.querySelector(".carousel");
+    carousel.scrollLeft -= scrollAmount;
+  };
+  const scrollRight = () => {
+    const carousel = document.querySelector(".carousel");
+    carousel.scrollLeft += scrollAmount;
+  };
+
+  function handleEditOptions() {
     // let token=getAccessToken();
     // let decode =jwt_decode(token);
     // let id=decode._id;
-    
-    if(user._id===getUserId())
-    {
+
+    if (user._id === getUserId()) {
       setShowEditOptions(true);
     }
-
   }
   function fetchData() {
     getUserProfileById(setUser, userId, setFetchResponse);
@@ -84,25 +108,37 @@ export default function UserDashboard() {
     window.scrollTo(0, 0);
     fetchData();
 
-    return () => {
-      controller.abort();
-    };
+    if (isUserLoggedIn() && userId === getUserId()) {
+      setIsUserAdmin(true);
+      getJobsByOrganisationIdPrivateMode(setJobs);
+      getInternshipsByOrganisationIdPrivateMode(setInternships);
+      getEventsByOrganisationIdPrivateMode(setHackathons);
+      getProjectsByOrganisationIdPrivateMode(setProjects);
+    } else {
+      setIsUserAdmin(false);
+      getJobsByOrganisationId(userId, setJobs);
+      getInternshipsByOrganisationId(userId, setInternships);
+      getEventsByOrganisationId(userId, setHackathons);
+      getProjectsByOrganisationId(userId, setProjects);
+    }
+    setShowAll(false);
+    setActivityChoice("jobs");
+
   }, [userId]);
 
   useEffect(() => {
     console.log(user);
     handleEditOptions();
-    console.log(showEditOptions);
-        if (user?._id === userId) {
+    if (user?._id === userId) {
       setIsUserAdmin(true);
     } else {
       setIsUserAdmin(false);
     }
   }, [user]);
 
-  useEffect(()=>{
+  useEffect(() => {
     handleEditOptions();
-  })
+  });
   const validateInputResume = () => {
     let valid = true;
     const newErrors = {
@@ -120,7 +156,7 @@ export default function UserDashboard() {
     if (!!resumeRes) {
       if (resumeRes.status >= 200 && resumeRes.status < 300) {
         setIsResumeUpdated(true);
-        
+
         setNewResumeLink(resumeRes.data.data);
         setIsResumeUpdating(false);
         setOpen(true);
@@ -765,6 +801,123 @@ export default function UserDashboard() {
           </section>
         </div>
       </div>
+      <section id="recent-activities" className="box recent-activities">
+        <p className="heading">RECENT ACTIVITIES</p>
+        <div className="tags-container">
+          <button
+            onClick={() => setActivityChoice("jobs")}
+            className={`tag ${activityChoice === "jobs" ? "--is-active" : ""}`}
+          >
+            Jobs
+          </button>
+          <button
+            onClick={() => setActivityChoice("internships")}
+            className={`tag ${
+              activityChoice === "internships" ? "--is-active" : ""
+            }`}
+          >
+            Internships
+          </button>
+          <button
+            onClick={() => setActivityChoice("hackathons")}
+            className={`tag ${
+              activityChoice === "hackathons" ? "--is-active" : ""
+            }`}
+          >
+            Hackathons
+          </button>
+          <button
+            onClick={() => setActivityChoice("projects")}
+            className={`tag ${
+              activityChoice === "projects" ? "--is-active" : ""
+            }`}
+          >
+            Projects
+          </button>
+        </div>
+        <div className="carousel-container">
+          {isActivityPresent && !showAll && (
+            <button onClick={scrollLeft} className="arrow arrow-left">
+              <AiOutlineLeft />
+            </button>
+          )}
+          {isActivityPresent && (
+            <div className={`${showAll ? "carousel-grid" : "carousel"}`}>
+              {activityChoice === "jobs" &&
+                jobs.map((jobDetail, index) => (
+                  <JobCards
+                    key={index}
+                    details={jobDetail}
+                    color={colorWheel[index % colorWheel.length]}
+                    className="scroll-card no-hover-scale"
+                    adminView={isUserAdmin}
+                    filterByCompany={true}
+                    filterName={organization?.name}
+                  />
+                ))}
+              {activityChoice === "internships" &&
+                internships.map((jobDetail, index) => (
+                  <InternshipCard
+                    key={index}
+                    details={jobDetail}
+                    color={colorWheel[index % colorWheel.length]}
+                    className="scroll-card no-hover-scale"
+                    adminView={isUserAdmin}
+                    filterByCompany={true}
+                    filterName={organization?.name}
+                  />
+                ))}
+              {activityChoice === "hackathons" &&
+                hackathons.map((jobDetail, index) => (
+                  <HackathonCard
+                    key={index}
+                    {...jobDetail}
+                    className="scroll-card no-hover-scale"
+                    adminView={isUserAdmin}
+                    filterByCompany={true}
+                    filterName={organization?.name}
+                  />
+                ))}
+              {activityChoice === "projects" &&
+                projects.map((jobDetail, index) => (
+                  <ProjectCards
+                    key={index}
+                    data={jobDetail}
+                    className="scroll-card no-hover-scale"
+                    adminView={isUserAdmin}
+                    filterByCompany={true}
+                    filterName={organization?.name}
+                  />
+                ))}
+            </div>
+          )}
+          {!isActivityPresent && (
+            <div className="no-jobs empty-container">
+              {/* <MdAddCircle /> */}
+              <p style={{ color: "grey" }}>{`No ${activityChoice} to show`}</p>
+            </div>
+          )}
+          {isActivityPresent && !showAll && (
+            <button onClick={scrollRight} className="arrow arrow-right">
+              <AiOutlineRight />
+            </button>
+          )}
+        </div>
+        {isActivityPresent && activityLength && !showAll && (
+          <div className="btn-container">
+            <button onClick={() => setShowAll(true)} className="all-jobs-btn">
+              Show all {activityChoice} <BsArrowRight />
+            </button>
+          </div>
+        )}
+        {isActivityPresent && activityLength && showAll && (
+          <div className="btn-container">
+            <button onClick={() => setShowAll(false)} className="all-jobs-btn">
+              Show less {activityChoice} <BsArrowUp />
+            </button>
+          </div>
+        )}
+      </section>
       {showEditOptions && user?.role === "Alumni" && (
         <section className="box recruit-container">
           <p className="heading">MY ACTIVITIES</p>
