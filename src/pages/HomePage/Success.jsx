@@ -40,18 +40,18 @@ const Success = () => {
             const lastName = decoded.lastName;
             // const chatDomain=JSON.stringfy(decoded.chatDomain);
             const name = firstName.concat(" ", lastName);
-            Cookies.set("access_token", response.data.accessToken);
-            Cookies.set("name", name);
-            Cookies.set("firstName", firstName);
-            Cookies.set("lastName", lastName);
+            Cookies.set("access_token", response.data.accessToken, { expires: 400 });
+            Cookies.set("name", name, { expires: 400 });
+            Cookies.set("firstName", firstName, { expires: 400 });
+            Cookies.set("lastName", lastName, { expires: 400 });
 
-            Cookies.set("userName", decoded.userName);
-            Cookies.set("email", decoded.email);
-            Cookies.set("_id", _id);
-            Cookies.set("image", decoded.image);
-            Cookies.set("role", decoded.role);
-            Cookies.set("mobile", decoded.mobile);
-            Cookies.set("chatDomain", JSON.stringify(decoded.chatDomain));
+            Cookies.set("userName", decoded.userName, { expires: 400 });
+            Cookies.set("email", decoded.email, { expires: 400 });
+            Cookies.set("_id", _id, { expires: 400 });
+            Cookies.set("image", decoded.image, { expires: 400 });
+            Cookies.set("role", decoded.role, { expires: 400 });
+            Cookies.set("mobile", decoded.mobile, { expires: 400 });
+            Cookies.set("chatDomain", JSON.stringify(decoded.chatDomain), { expires: 400 });
             console.log(response.data);
             if (sessionStorage.getItem("redirectToAuth") === "true") {
               sessionStorage.removeItem("redirectToAuth");

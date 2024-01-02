@@ -247,7 +247,8 @@ export default function NewChat({
       .then((res) => {
         Cookies.set(
           "chatDomain",
-          JSON.stringify({ ...chatAccess, [id]: "allowed" })
+          JSON.stringify({ ...chatAccess, [id]: "allowed" }),
+          { expires: 400 }
         );
         setChatAccess({ ...chatAccess, [id]: "allowed" });
         window.location.reload();

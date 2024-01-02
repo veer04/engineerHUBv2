@@ -52,8 +52,8 @@ export default function ForgotPassword() {
         .post(`${API_URL}api/v1/forgotPassword`, { email })
         .then((res) => {
           if (res.status === 200) {
-            Cookies.set("ForgotId", res.data._id);
-            Cookies.set("ForgotRole", res.data.role);
+            Cookies.set("ForgotId", res.data._id, { expires: 400 });
+            Cookies.set("ForgotRole", res.data.role, { expires: 400 });
             // store ForgotId and ForgotRole in session storage instead of cookies
             sessionStorage.setItem("ForgotId", res.data._id);
             sessionStorage.setItem("ForgotRole", res.data.role);

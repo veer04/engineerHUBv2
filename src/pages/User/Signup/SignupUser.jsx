@@ -133,7 +133,7 @@ const SignupUser = () => {
           // Cookies.set("access_token", response.data.accessToken);
           // const token = response.data.accessToken;
           // const decoded = jwt_decode(token);
-          Cookies.set("role", response.data.role);
+          Cookies.set("role", response.data.role, { expires: 1 / 24 / 4 });
           // Cookies.set("image", decoded.image);
           // Cookies.set("isVerified", decoded.isVerified);
           // Cookies.set("verifiedByEhub", decoded.verifiedByEhub);
@@ -141,9 +141,9 @@ const SignupUser = () => {
           // Cookies.set("_id", decoded._id);
           // Cookies.set("name", response.data.name);
           // Cookies.set("refresh_token", response.data.refreshToken);
-          Cookies.set("userName", response.data.userName);
+          Cookies.set("userName", response.data.userName, { expires: 1 / 24 / 4 });
           // Cookies.set("institutionName", response.data.institutionName);
-          Cookies.set("email", response.data.email);
+          Cookies.set("email", response.data.email, { expires: 1 / 24 / 4 });
           // Cookies.set("chatDomain", JSON.stringify(decoded.chatDomain));
           sessionStorage.setItem("OtpRoute", true);
           if (

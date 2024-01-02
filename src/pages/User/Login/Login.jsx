@@ -119,29 +119,40 @@ const Register = () => {
       const response = await axios
         .post(`${API_URL}api/v1/login`, values)
         .then((response) => {
-          Cookies.set("access_token", response.data.accessToken);
+          Cookies.set("access_token", response.data.accessToken, {
+            expires: 400,
+          });
           const token = response.data.accessToken;
           const decoded = jwt_decode(token);
-          Cookies.set("role", decoded.role);
-          Cookies.set("name", response.data.name);
+          Cookies.set("role", decoded.role, { expires: 400 });
+          Cookies.set("name", response.data.name, { expires: 400 });
           if (decoded.role === "User" || decoded.role === "Alumni") {
-            Cookies.set("firstName", decoded.firstName);
-            Cookies.set("lastName", decoded.lastName);
+            Cookies.set("firstName", decoded.firstName, { expires: 400 });
+            Cookies.set("lastName", decoded.lastName, { expires: 400 });
             Cookies.set(
               "name",
-              decoded.firstName.concat(" ", decoded.lastName)
+              decoded.firstName.concat(" ", decoded.lastName),
+              { expires: 400 }
             );
           }
-          Cookies.set("image", decoded.image);
-          Cookies.set("isVerified", decoded.isVerified);
-          Cookies.set("verifiedByEhub", decoded.verifiedByEhub);
-          Cookies.set("mobile", decoded.mobile);
-          Cookies.set("_id", decoded._id);
-          Cookies.set("refresh_token", response.data.refreshToken);
-          Cookies.set("userName", response.data.userName);
-          Cookies.set("institutionName", response.data.institutionName);
-          Cookies.set("email", response.data.email);
-          Cookies.set("chatDomain", JSON.stringify(decoded.chatDomain));
+          Cookies.set("image", decoded.image, { expires: 400 });
+          Cookies.set("isVerified", decoded.isVerified, { expires: 400 });
+          Cookies.set("verifiedByEhub", decoded.verifiedByEhub, {
+            expires: 400,
+          });
+          Cookies.set("mobile", decoded.mobile, { expires: 400 });
+          Cookies.set("_id", decoded._id, { expires: 400 });
+          Cookies.set("refresh_token", response.data.refreshToken, {
+            expires: 400,
+          });
+          Cookies.set("userName", response.data.userName, { expires: 400 });
+          Cookies.set("institutionName", response.data.institutionName, {
+            expires: 400,
+          });
+          Cookies.set("email", response.data.email, { expires: 400 });
+          Cookies.set("chatDomain", JSON.stringify(decoded.chatDomain), {
+            expires: 400,
+          });
           if (
             response.status === 200 ||
             response.status === 201 ||
@@ -524,11 +535,10 @@ const Register = () => {
                   className="my-btn reg-si registerSSS "
                   type="submit"
                   // onClick={navigation}
-                  >
+                >
                   {loading ? "Loading..." : "Sign in"}
                 </button>
-
-                  </div>
+              </div>
               <div className="form-opt">
                 <div className="d-flex justify-content-center">
                   <div className="f-p" onClick={NavigateForgot}>
@@ -545,11 +555,11 @@ const Register = () => {
 
               <div className="sign-field reg-field">
                 {/* <div className="sign-opt "> */}
-                  {/* <div> */}
-                    <GoogleButton  onClick={handleLogin}>
-                      Sign in with Google
-                    </GoogleButton>
-                  {/* </div> */}
+                {/* <div> */}
+                <GoogleButton onClick={handleLogin}>
+                  Sign in with Google
+                </GoogleButton>
+                {/* </div> */}
                 {/* </div> */}
               </div>
 
