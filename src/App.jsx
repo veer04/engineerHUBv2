@@ -75,6 +75,7 @@ import TrendingWorkshops from "./pages/Campus/TrendingWorkshops.jsx";
 import ProjectWindow from "./pages/Community/Project/ProjectWindow.jsx";
 import EventWindow from "./pages/Community/Events/EventWindow.jsx";
 import BlogWindow from "./pages/Community/Blogs/BlogWindow.jsx";
+import NewHomePage from "./pages/NewHomepage/NewHomePage.jsx";
 const BlogHosting = lazy(() => import("./pages/Hosting/BlogHosting.jsx"));
 const ClubDashboard = lazy(() =>
   import("./pages/Profile/ClubDashboard/ClubDashboard")
@@ -128,8 +129,8 @@ function App() {
       <ProfilePopUp />
       <Suspense fallback={<LoadingPage />}>
         <Routes>
-          <Route index element={<HomePage path="homepage" />} />
-          <Route path="/home" element={<HomePage />} />
+          {/* <Route index element={<HomePage path="homepage" />} /> */}
+          <Route index element={<NewHomePage path="homepage" />} />
           <Route path="/success" element={<Success></Success>}></Route>
           <Route path="/register" element={<RegistrationForm />} />
           <Route path="/selectRole" element={<Role />} />
