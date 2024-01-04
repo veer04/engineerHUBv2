@@ -139,7 +139,7 @@ const Company = () => {
       background: "#8FC8E8",
       stats: {
         position: cntJob,
-        hiring: cntJobLive ? 390 : 0,
+        hiring: cntJobLive ? 900 : 0,
       },
       link: "/company/jobs",
       text1: "jobs live",
@@ -165,7 +165,7 @@ const Company = () => {
       background: "#e8ba98",
       stats: {
         position: cntInternship,
-        hiring: cntInternshipLive ? 78 : 0,
+        hiring: cntInternshipLive ? 250 : 0,
       },
       link: "/company/internships",
       text1: "internships live",
