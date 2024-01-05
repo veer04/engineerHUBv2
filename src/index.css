@@ -44,7 +44,7 @@ a {
   word-break: break-all;
 }
 #root {
-  padding-top: 6.7rem;
+  padding-top: var(--navbar-height);
   max-width: 1920px;
   width: 100%;
   font-family: "Inter", sans-serif;
@@ -63,7 +63,9 @@ span {
   --section-padding: min(10.41rem, 8vw);
   --vertical-padding: min(1rem, 4vw);
 
-  --main-background-color: #eeffff; /*rgb(238,255,255)*/
+  --navbar-height: 4.875rem;
+
+  --main-background-color: #F5FDFF; /*rgb(238,255,255)*/
 
   --neutral-text-color-1: #ffffff; /*rgb(255,255,255)*/
   --neutral-text-color-2: #000000; /*rgb(0,0,0)*/

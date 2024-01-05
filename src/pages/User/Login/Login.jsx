@@ -565,7 +565,7 @@ const Register = () => {
 
               <div className="my-item-cont">
                 <div>Don't have an account?</div>
-                <Link to="/selectRole" className="f-p ">
+                <Link to="/select-role" className="f-p ">
                   Sign Up
                 </Link>
                 {snackbarValues.severity !== "success" && (

@@ -1,22 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, lazy, Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
-import HomePage from "./pages/HomePage/HomePage";
-import ProjectPage from "./pages/Community/Project/ProjectsPage";
-import BlogsPage from "./pages/Community/Blogs/BlogsPage";
-import EventsPage from "./pages/Community/Events/EventsPage";
-import ChatPage from "./pages/Community/Chat/ChatPage";
 import MentorChat from "./components/1-1Mentorship/Mentorchat";
-import IntraCollege from "./pages/Campus/IntraCollege/IntraCollege";
-import InterCollege from "./pages/Campus/InterCollege/InterCollege";
-import Workshops from "./pages/Campus/Workshops/Workshops";
-import ParticularCampus from "./pages/Campus/ParticularCampus/ParticularCampus";
-import Signup from "./pages/User/Signup/Signup";
 import RegistrationForm from "./components/Registration/Registration";
 import OTP from "./pages/User/OtpVerification/Otpverification";
 import MobileNavbar from "./components/MobileNavbar/MobileNavbar";
 import HostEvent from "./pages/Hosting/EventRegistration";
-import Navbar from "./components/Navbar/Navbar";
+import NewNavbar from "./components/Navbar/NewNavbar";
 import Footer from "./components/Footer/Footer";
 import Events from "./pages/Company/Events/events";
 import Jobs from "./pages/Company/Jobs/jobs";
@@ -28,12 +18,9 @@ import HackathonDetails from "./pages/Company/Events/EventsChoices/HackathonDeta
 import Projects from "./pages/Company/Projects/Projects";
 import ProjectDetail from "./pages/Company/Projects/ProjectDetail";
 import ComingSoon from "./pages/Maintenance/ComingSoon";
-import ParticularEvent from "./pages/Community/Events/ParticularEvent";
-import { lazy } from "react";
 import ClubSignup from "./pages/User/Signup/ClubSignup";
 import MentorSignup from "./pages/User/Signup/MentorSignup";
 import OrganizationSignup from "./pages/User/Signup/OrganizationSignup";
-import { Suspense } from "react";
 import LoadingPage from "./components/Loader/LoadingPage";
 import Role from "./pages/User/RoleWiseUserPage/Role";
 import PostModal from "./components/PostModal/PostModal";
@@ -75,7 +62,7 @@ import TrendingWorkshops from "./pages/Campus/TrendingWorkshops.jsx";
 import ProjectWindow from "./pages/Community/Project/ProjectWindow.jsx";
 import EventWindow from "./pages/Community/Events/EventWindow.jsx";
 import BlogWindow from "./pages/Community/Blogs/BlogWindow.jsx";
-import NewHomePage from "./pages/NewHomepage/NewHomePage.jsx";
+const NewHomePage = lazy(() => import("./pages/NewHomepage/NewHomePage.jsx"));
 const BlogHosting = lazy(() => import("./pages/Hosting/BlogHosting.jsx"));
 const ClubDashboard = lazy(() =>
   import("./pages/Profile/ClubDashboard/ClubDashboard")
@@ -123,7 +110,8 @@ function App() {
 
   return (
     <>
-      {!isEventModalOpen && <Navbar />}
+      {!isEventModalOpen && <NewNavbar />}
+      {/* {!isEventModalOpen && <Navbar />} */}
       {!isEventModalOpen && <MobileNavbar />}
       <GlobalSnackbar />
       <ProfilePopUp />
@@ -133,7 +121,7 @@ function App() {
           <Route index element={<NewHomePage path="homepage" />} />
           <Route path="/success" element={<Success></Success>}></Route>
           <Route path="/register" element={<RegistrationForm />} />
-          <Route path="/selectRole" element={<Role />} />
+          <Route path="/select-role" element={<Role />} />
           <Route path="/profile">
             <Route
               path="user/:userId"
@@ -167,7 +155,6 @@ function App() {
               element={<CompanyEditProfile />}
             />
           </Route>
-          <Route path="/signup" element={<Signup />} />
           <Route path="/student-signup" element={<StudentSignup />} />
           <Route path="/User-signup" element={<SignupUser />} />
           <Route path="/clubSignup" element={<ClubSignup />} />
