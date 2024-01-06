@@ -18,6 +18,10 @@
   transform: translateY(-100%);
   transition: transform 0.5s ease-in-out;
 }
+#navbar.--is-shown {
+  transform: translateY(0);
+  transition: transform 0.5s ease-in-out;
+}
 #navbar .navbar-logo img {
   width: 6.03138rem;
   height: 2.96394rem;
@@ -42,8 +46,23 @@
   padding: 0.5rem 1rem;
   text-align: center;
 }
-#navbar .pages button:hover,
-#navbar .login-options .login-btn:hover {
+#navbar .pages .host-btn {
+  border-radius: 1.9375rem 0 0 1.9375rem;
+  padding-right: 0.5rem;
+}
+#navbar .pages .host-btn:hover {
+  border-radius: 1.9375rem 0 0 1.9375rem;
+}
+#navbar .pages .host-btn-chevron {
+  border-radius: 0 1.9375rem 1.9375rem 0;
+  padding-left: 0.5rem;
+}
+#navbar .pages .host-btn-chevron:hover {
+  border-radius: 0 1.9375rem 1.9375rem 0;
+}
+
+#navbar .pages button:hover {
+  /* #navbar .login-options .login-btn:hover { */
   border-radius: 1.9375rem;
   background-color: var(--primary-color-green);
   color: white;
@@ -117,11 +136,13 @@
   text-align: center;
 }
 #navbar .login-options .join-us-btn {
-  background-color: red;
   padding: 1rem 1.5rem;
   border-radius: 3.125rem;
-  background-color: var(--primary-color-dark-green);
+  background-color: #33555e;
   color: white;
+}
+#navbar .login-options .join-us-btn:hover {
+  background-color: var(--primary-color-dark-green);
 }
 #navbar .logged-in-container {
   display: flex;

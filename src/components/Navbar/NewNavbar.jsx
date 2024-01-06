@@ -47,7 +47,9 @@ export default function NewNavbar() {
         paddingRight: adjustmentPadding,
       }}
       id="navbar"
-      className={`${useScrollDirection() === "down" ? "--is-hidden" : ""}`}
+      className={`${
+        useScrollDirection() === "down" ? "--is-hidden" : "--is-shown"
+      }`}
     >
       <Link to="/" className="navbar-logo">
         <img src={`${bucket}logo.svg`} alt="engineerHUB logo" loading="lazy" />
@@ -84,83 +86,15 @@ export default function NewNavbar() {
           </button>
         </Link>
         <div className="dropdown">
-          <button
-            className={`${selectedPageNavbar === "host" ? "--is-active" : ""}`}
-            data-bs-toggle="dropdown"
-          >
-            Host <IoIosArrowDown />
-          </button>
-          <ul className="dropdown-menu">
-            <li>
-              <span className="dropdown-item dropdown-heading">
-                To engage your audience
-              </span>
-            </li>
-            <li>
-              <Link className="dropdown-item" to="/">
-                Cultural Event
-              </Link>
-            </li>
-            <li>
-              <Link className="dropdown-item" to="/">
-                Technical Event
-              </Link>
-            </li>
-            <li>
-              <Link className="dropdown-item" to="/">
-                Hackathons
-              </Link>
-            </li>
-            <li style={{ marginBottom: "0" }}>
-              <Link className="dropdown-item" to="/">
-                Webinars
-              </Link>
-            </li>
-            <li style={{ margin: ".75rem 0" }}>
-              <hr className="dropdown-divider" />
-            </li>
-            <li style={{ marginTop: "0" }}>
-              <span className="dropdown-item dropdown-heading">
-                Create jobs for right talent
-              </span>
-            </li>
-            <li>
-              <Link
-                onClick={() => setSelectedPageNavbar("host")}
-                className="dropdown-item"
-                to="/host/job"
-              >
-                Jobs
-              </Link>
-            </li>
-            <li>
-              <Link
-                onClick={() => setSelectedPageNavbar("host")}
-                className="dropdown-item"
-                to="/host/internship"
-              >
-                Internships
-              </Link>
-            </li>
-            <li>
-              <Link
-                onClick={() => setSelectedPageNavbar("host")}
-                className="dropdown-item"
-                to="/host/project"
-              >
-                Projects
-              </Link>
-            </li>
-            <li>
-              <Link
-                onClick={() => setSelectedPageNavbar("host")}
-                className="dropdown-item"
-                to="/host/event"
-              >
-                Event Hiring
-              </Link>
-            </li>
-          </ul>
+          <Link onClick={() => setSelectedPageNavbar("host")} to="/host">
+            <button
+              className={`${
+                selectedPageNavbar === "host" ? "--is-active" : ""
+              }`}
+            >
+              Host
+            </button>
+          </Link>
         </div>
       </div>
       {!isLoggedIn && (

@@ -58,6 +58,15 @@ span {
   word-break: break-all;
   word-break: normal;
   overflow-wrap: break-word;
+  cursor: default;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  cursor: default;
 }
 :root {
   --section-padding: min(10.41rem, 8vw);
@@ -65,7 +74,7 @@ span {
 
   --navbar-height: 4.875rem;
 
-  --main-background-color: #F5FDFF; /*rgb(238,255,255)*/
+  --main-background-color: #f5fdff; /*rgb(238,255,255)*/
 
   --neutral-text-color-1: #ffffff; /*rgb(255,255,255)*/
   --neutral-text-color-2: #000000; /*rgb(0,0,0)*/
