@@ -9,6 +9,7 @@ import {
   isUserLoggedIn,
 } from "../../features/User/UserDetails";
 import useNavbar from "../../hooks/use-navbar";
+import { useScrollDirection } from "../../features/scrollDirection";
 
 export default function NewNavbar() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -46,6 +47,7 @@ export default function NewNavbar() {
         paddingRight: adjustmentPadding,
       }}
       id="navbar"
+      className={`${useScrollDirection() === "down" ? "--is-hidden" : ""}`}
     >
       <Link to="/" className="navbar-logo">
         <img src={`${bucket}logo.svg`} alt="" />
