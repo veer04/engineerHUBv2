@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
 import "./NewNavbar.css";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Bucket_URL } from "../../services/APIUtils";
 import { IoIosArrowDown } from "react-icons/io";
@@ -8,12 +8,17 @@ import {
   getUserImage,
   isUserLoggedIn,
 } from "../../features/User/UserDetails";
+import useNavbar from "../../hooks/use-navbar";
 
 export default function NewNavbar() {
-  const bucket = `${Bucket_URL}frontend/navbar/`;
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [name, setName] = useState("");
   const [userImage, setUserImage] = useState("");
+  const [width, setWidth] = useState(window.innerWidth);
+
+  const { selectedPageNavbar, setSelectedPageNavbar } = useNavbar();
+
+  const bucket = `${Bucket_URL}frontend/navbar/`;
 
   useEffect(() => {
     setUserImage(getUserImage());
@@ -26,7 +31,6 @@ export default function NewNavbar() {
     };
   }, []);
 
-  const [width, setWidth] = useState(window.innerWidth);
   const handleResize = () => setWidth(window.innerWidth);
 
   // this adjustment is done for screen sizes above 1920px (or root div's max-width) to make the navbar go full stretch on bigger screens. You can comment our the style attribute on nav tag to see how this works.
@@ -47,17 +51,41 @@ export default function NewNavbar() {
         <img src={`${bucket}logo.svg`} alt="" />
       </Link>
       <div className="pages">
-        <Link to="/community" className="nav-link">
-          <button>Community</button>
+        <Link
+          onClick={() => setSelectedPageNavbar("community")}
+          to="/community"
+        >
+          <button
+            className={`${
+              selectedPageNavbar === "community" ? "--is-active" : ""
+            }`}
+          >
+            Community
+          </button>
         </Link>
-        <Link to="/campus" className="nav-link">
-          <button>Campus</button>
+        <Link onClick={() => setSelectedPageNavbar("campus")} to="/campus">
+          <button
+            className={`${
+              selectedPageNavbar === "campus" ? "--is-active" : ""
+            }`}
+          >
+            Campus
+          </button>
         </Link>
-        <Link to="/company" className="nav-link">
-          <button>Company</button>
+        <Link onClick={() => setSelectedPageNavbar("company")} to="/company">
+          <button
+            className={`${
+              selectedPageNavbar === "company" ? "--is-active" : ""
+            }`}
+          >
+            Company
+          </button>
         </Link>
         <div className="dropdown">
-          <button data-bs-toggle="dropdown">
+          <button
+            className={`${selectedPageNavbar === "host" ? "--is-active" : ""}`}
+            data-bs-toggle="dropdown"
+          >
             Host <IoIosArrowDown />
           </button>
           <ul className="dropdown-menu">
@@ -95,22 +123,38 @@ export default function NewNavbar() {
               </span>
             </li>
             <li>
-              <Link className="dropdown-item" to="/company/jobs">
+              <Link
+                onClick={() => setSelectedPageNavbar("host")}
+                className="dropdown-item"
+                to="/host/job"
+              >
                 Jobs
               </Link>
             </li>
             <li>
-              <Link className="dropdown-item" to="/company/internships">
+              <Link
+                onClick={() => setSelectedPageNavbar("host")}
+                className="dropdown-item"
+                to="/host/internship"
+              >
                 Internships
               </Link>
             </li>
             <li>
-              <Link className="dropdown-item" to="/company/projects">
+              <Link
+                onClick={() => setSelectedPageNavbar("host")}
+                className="dropdown-item"
+                to="/host/project"
+              >
                 Projects
               </Link>
             </li>
             <li>
-              <Link className="dropdown-item" to="/company/events">
+              <Link
+                onClick={() => setSelectedPageNavbar("host")}
+                className="dropdown-item"
+                to="/host/event"
+              >
                 Event Hiring
               </Link>
             </li>

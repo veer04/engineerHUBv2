@@ -41,6 +41,11 @@
 #navbar .pages button:hover,
 #navbar .login-options .login-btn:hover {
   border-radius: 1.9375rem;
+  background-color: var(--primary-color-green);
+  color: white;
+}
+#navbar .pages button.--is-active {
+  border-radius: 1.9375rem;
   background-color: #33555e;
   color: white;
 }
