@@ -50,7 +50,7 @@ export default function NewNavbar() {
       className={`${useScrollDirection() === "down" ? "--is-hidden" : ""}`}
     >
       <Link to="/" className="navbar-logo">
-        <img src={`${bucket}logo.svg`} alt="" />
+        <img src={`${bucket}logo.svg`} alt="engineerHUB logo" loading="lazy" />
       </Link>
       <div className="pages">
         <Link
@@ -181,7 +181,11 @@ export default function NewNavbar() {
           className="logged-in-container"
         >
           <div className="profile-picture-container">
-            <img src={userImage} alt="" />
+            <img
+              src={userImage}
+              alt={`${name}'s profile picture`}
+              loading="lazy"
+            />
           </div>
           <span className="user-full-name">{name}</span>
         </div>

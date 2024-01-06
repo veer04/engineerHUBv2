@@ -62,6 +62,7 @@ import TrendingWorkshops from "./pages/Campus/TrendingWorkshops.jsx";
 import ProjectWindow from "./pages/Community/Project/ProjectWindow.jsx";
 import EventWindow from "./pages/Community/Events/EventWindow.jsx";
 import BlogWindow from "./pages/Community/Blogs/BlogWindow.jsx";
+import NewMobileNavbar from "./components/MobileNavbar/NewMobileNavbar.jsx";
 const NewHomePage = lazy(() => import("./pages/NewHomepage/NewHomePage.jsx"));
 const BlogHosting = lazy(() => import("./pages/Hosting/BlogHosting.jsx"));
 const ClubDashboard = lazy(() =>
@@ -81,8 +82,6 @@ const NewBlogsPage = lazy(() =>
 );
 
 function App() {
-  const [isChatOpen, setIsChatOpen] = useState(false);
-  const [isEventModalOpen, setIsEventModalOpen] = useState(false);
   const [OtpRoute, setOtpRoute] = useState("loading");
   const [eventHostRoute, setEventHostRoute] = useState(false);
   const [sendLogin, setSendLogin] = useState(true);
@@ -110,9 +109,9 @@ function App() {
 
   return (
     <>
-      {!isEventModalOpen && <NewNavbar />}
-      {/* {!isEventModalOpen && <Navbar />} */}
-      {!isEventModalOpen && <MobileNavbar />}
+      <NewNavbar />
+      <MobileNavbar />
+      {/* <NewMobileNavbar /> */}
       <GlobalSnackbar />
       <ProfilePopUp />
       <Suspense fallback={<LoadingPage />}>
@@ -178,7 +177,6 @@ function App() {
             <Route index element={<CommunityPage />} />
             <Route path="domains" element={<CommunityPage path="domains" />} />
             <Route path="projects">
-              {/* <Route path=":id" element={<ProjectPage path="projects" />} /> */}
               <Route path=":id" element={<NewProjectsPage />}>
                 <Route path=":projectId" element={<ProjectWindow />} />
               </Route>
@@ -191,23 +189,10 @@ function App() {
             <Route path="events">
               <Route path=":id" element={<NewEventsPage />}>
                 <Route path=":eventId" element={<EventWindow />} />
-                {/* <Route index element={<EventsPage path="events" />} /> */}
-                {/* <Route
-                  path=":eventId"
-                  element={
-                    <ParticularEvent
-                      setIsEventModalOpen={setIsEventModalOpen}
-                    />
-                  }
-                /> */}
               </Route>
             </Route>
             <Route path="chat">
               <Route path=":id" element={<NewChatPage />} />
-              {/* <Route
-                path=":id"
-                element={<ChatPage path="chat" setIsChatOpen={setIsChatOpen} />}
-              /> */}
             </Route>
           </Route>
           <Route path="/mentorChat" element={<MentorChat />} />
@@ -272,7 +257,7 @@ function App() {
         </Routes>
       </Suspense>
 
-      {!isEventModalOpen && !isChatOpen && <Footer />}
+      <Footer />
     </>
   );
 }
