@@ -11,6 +11,7 @@ import SiliconValley from "../HomePage/SiliconValley";
 import JobsSection from "../HomePage/JobsSection";
 import { useEffect } from "react";
 import useNavbar from "../../hooks/use-navbar";
+import NewReviewSection from "./NewReviewSection";
 
 export default function NewHomePage() {
   const { setSelectedPageNavbar } = useNavbar();
@@ -30,7 +31,8 @@ export default function NewHomePage() {
       <JobsSection />
       <RecentActivitiesSection />
       <SiliconValley />
-      <ReviewsSection />
+      {/* <ReviewsSection /> */}
+      <NewReviewSection />
     </main>
   );
 }
