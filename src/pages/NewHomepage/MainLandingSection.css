@@ -101,6 +101,7 @@
   position: relative;
   bottom: -0.25rem;
   background-color: white;
+  display: flex;
 }
 .landing-section .featured-container .feature-item .image img {
   object-fit: cover;
