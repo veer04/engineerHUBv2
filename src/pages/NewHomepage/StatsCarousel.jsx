@@ -12,11 +12,11 @@ export default function StatsCarousel() {
     <section id="homepage-stats-section">
       <div
         id="carouselExampleControls"
-        class="carousel slide"
+        className="carousel slide"
         data-bs-ride="carousel"
       >
-        <div class="carousel-inner">
-          <div class="carousel-item active">
+        <div className="carousel-inner">
+          <div className="carousel-item active">
             <div className="stats-container">
               <p>Students from IIT’s, NIT’s and IIIT’s to form a community.</p>
               <div className="stat">
@@ -26,7 +26,7 @@ export default function StatsCarousel() {
               </div>
             </div>
           </div>
-          <div class="carousel-item">
+          <div className="carousel-item">
             <div className="stats-container">
               <p>Students from IIT’s, NIT’s and IIIT’s to form a community.</p>
               <div className="stat">
@@ -36,7 +36,7 @@ export default function StatsCarousel() {
               </div>
             </div>
           </div>
-          <div class="carousel-item">
+          <div className="carousel-item">
             <div className="stats-container">
               <p>Students from IIT’s, NIT’s and IIIT’s to form a community.</p>
               <div className="stat">
