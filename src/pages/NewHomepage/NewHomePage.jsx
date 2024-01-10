@@ -31,8 +31,7 @@ export default function NewHomePage() {
       <JobsSection /> {/* to be removed */}
       <RecentActivitiesSection /> {/* to be removed */}
       <SiliconValley /> {/* to be removed */}
-      <ReviewsSection /> {/* to be removed */}
-      {/* <NewReviewSection /> */} {/* in progress */}
+      <NewReviewSection />
     </main>
   );
 }
