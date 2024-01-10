@@ -8,7 +8,12 @@ import jwt_decode from "jwt-decode";
 import { PiGlobeLight } from "react-icons/pi";
 import { AiFillLinkedin, AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 import { BiLogoInstagramAlt } from "react-icons/bi";
-import { BsArrowDown, BsArrowRight, BsArrowUp, BsChevronDown } from "react-icons/bs";
+import {
+  BsArrowDown,
+  BsArrowRight,
+  BsArrowUp,
+  BsChevronDown,
+} from "react-icons/bs";
 import { FaBuildingColumns } from "react-icons/fa6";
 import defaultPoster from "../../../assets/defaultPoster";
 import { HiOutlineBuildingOffice2 } from "react-icons/hi2";
@@ -127,7 +132,6 @@ export default function UserDashboard() {
     }
     setShowAll(false);
     setActivityChoice("jobs");
-
   }, [userId]);
 
   useEffect(() => {
@@ -861,123 +865,132 @@ export default function UserDashboard() {
           </section>
         </div>
       </div>
-      <section id="recent-activities" className="box recent-activities">
-        <p className="heading">RECENT ACTIVITIES</p>
-        <div className="tags-container">
-          <button
-            onClick={() => setActivityChoice("jobs")}
-            className={`tag ${activityChoice === "jobs" ? "--is-active" : ""}`}
-          >
-            Jobs
-          </button>
-          <button
-            onClick={() => setActivityChoice("internships")}
-            className={`tag ${
-              activityChoice === "internships" ? "--is-active" : ""
-            }`}
-          >
-            Internships
-          </button>
-          <button
-            onClick={() => setActivityChoice("hackathons")}
-            className={`tag ${
-              activityChoice === "hackathons" ? "--is-active" : ""
-            }`}
-          >
-            Hackathons
-          </button>
-          <button
-            onClick={() => setActivityChoice("projects")}
-            className={`tag ${
-              activityChoice === "projects" ? "--is-active" : ""
-            }`}
-          >
-            Projects
-          </button>
-        </div>
-        <div className="carousel-container">
-          {isActivityPresent && !showAll && (
-            <button onClick={scrollLeft} className="arrow arrow-left">
-              <AiOutlineLeft />
+      {user?.role === "Alumni" && (
+        <section id="recent-activities" className="box recent-activities">
+          <p className="heading">RECENT ACTIVITIES</p>
+          <div className="tags-container">
+            <button
+              onClick={() => setActivityChoice("jobs")}
+              className={`tag ${
+                activityChoice === "jobs" ? "--is-active" : ""
+              }`}
+            >
+              Jobs
             </button>
-          )}
-          {isActivityPresent && (
-            <div className={`${showAll ? "carousel-grid" : "carousel"}`}>
-              {activityChoice === "jobs" &&
-                jobs.map((jobDetail, index) => (
-                  <JobCards
-                    key={index}
-                    details={jobDetail}
-                    color={colorWheel[index % colorWheel.length]}
-                    className="scroll-card no-hover-scale"
-                    adminView={isUserAdmin}
-                    filterByCompany={true}
-                    filterName={user?.name}
-                  />
-                ))}
-              {activityChoice === "internships" &&
-                internships.map((jobDetail, index) => (
-                  <InternshipCard
-                    key={index}
-                    details={jobDetail}
-                    color={colorWheel[index % colorWheel.length]}
-                    className="scroll-card no-hover-scale"
-                    adminView={isUserAdmin}
-                    filterByCompany={true}
-                    filterName={user?.name}
-                  />
-                ))}
-              {activityChoice === "hackathons" &&
-                hackathons.map((jobDetail, index) => (
-                  <HackathonCard
-                    key={index}
-                    {...jobDetail}
-                    className="scroll-card no-hover-scale"
-                    adminView={isUserAdmin}
-                    filterByCompany={true}
-                    filterName={user?.name}
-                  />
-                ))}
-              {activityChoice === "projects" &&
-                projects.map((jobDetail, index) => (
-                  <ProjectCards
-                    key={index}
-                    data={jobDetail}
-                    className="scroll-card no-hover-scale"
-                    adminView={isUserAdmin}
-                    filterByCompany={true}
-                    filterName={user?.name}
-                  />
-                ))}
-            </div>
-          )}
-          {!isActivityPresent && (
-            <div className="no-jobs empty-container">
-              {/* <MdAddCircle /> */}
-              <p style={{ color: "grey" }}>{`No ${activityChoice} to show`}</p>
-            </div>
-          )}
-          {isActivityPresent && !showAll && (
-            <button onClick={scrollRight} className="arrow arrow-right">
-              <AiOutlineRight />
+            <button
+              onClick={() => setActivityChoice("internships")}
+              className={`tag ${
+                activityChoice === "internships" ? "--is-active" : ""
+              }`}
+            >
+              Internships
             </button>
-          )}
-        </div>
-        {isActivityPresent && activityLength && !showAll && (
-          <div className="btn-container">
-            <button onClick={() => setShowAll(true)} className="all-jobs-btn">
-              Show all {activityChoice} <BsArrowRight />
+            <button
+              onClick={() => setActivityChoice("hackathons")}
+              className={`tag ${
+                activityChoice === "hackathons" ? "--is-active" : ""
+              }`}
+            >
+              Hackathons
+            </button>
+            <button
+              onClick={() => setActivityChoice("projects")}
+              className={`tag ${
+                activityChoice === "projects" ? "--is-active" : ""
+              }`}
+            >
+              Projects
             </button>
           </div>
-        )}
-        {isActivityPresent && activityLength && showAll && (
-          <div className="btn-container">
-            <button onClick={() => setShowAll(false)} className="all-jobs-btn">
-              Show less {activityChoice} <BsArrowUp />
-            </button>
+          <div className="carousel-container">
+            {isActivityPresent && !showAll && (
+              <button onClick={scrollLeft} className="arrow arrow-left">
+                <AiOutlineLeft />
+              </button>
+            )}
+            {isActivityPresent && (
+              <div className={`${showAll ? "carousel-grid" : "carousel"}`}>
+                {activityChoice === "jobs" &&
+                  jobs.map((jobDetail, index) => (
+                    <JobCards
+                      key={index}
+                      details={jobDetail}
+                      color={colorWheel[index % colorWheel.length]}
+                      className="scroll-card no-hover-scale"
+                      adminView={isUserAdmin}
+                      filterByCompany={true}
+                      filterName={user?.name}
+                    />
+                  ))}
+                {activityChoice === "internships" &&
+                  internships.map((jobDetail, index) => (
+                    <InternshipCard
+                      key={index}
+                      details={jobDetail}
+                      color={colorWheel[index % colorWheel.length]}
+                      className="scroll-card no-hover-scale"
+                      adminView={isUserAdmin}
+                      filterByCompany={true}
+                      filterName={user?.name}
+                    />
+                  ))}
+                {activityChoice === "hackathons" &&
+                  hackathons.map((jobDetail, index) => (
+                    <HackathonCard
+                      key={index}
+                      {...jobDetail}
+                      className="scroll-card no-hover-scale"
+                      adminView={isUserAdmin}
+                      filterByCompany={true}
+                      filterName={user?.name}
+                    />
+                  ))}
+                {activityChoice === "projects" &&
+                  projects.map((jobDetail, index) => (
+                    <ProjectCards
+                      key={index}
+                      data={jobDetail}
+                      className="scroll-card no-hover-scale"
+                      adminView={isUserAdmin}
+                      filterByCompany={true}
+                      filterName={user?.name}
+                    />
+                  ))}
+              </div>
+            )}
+            {!isActivityPresent && (
+              <div className="no-jobs empty-container">
+                {/* <MdAddCircle /> */}
+                <p
+                  style={{ color: "grey" }}
+                >{`No ${activityChoice} to show`}</p>
+              </div>
+            )}
+            {isActivityPresent && !showAll && (
+              <button onClick={scrollRight} className="arrow arrow-right">
+                <AiOutlineRight />
+              </button>
+            )}
           </div>
-        )}
-      </section>
+          {isActivityPresent && activityLength && !showAll && (
+            <div className="btn-container">
+              <button onClick={() => setShowAll(true)} className="all-jobs-btn">
+                Show all {activityChoice} <BsArrowRight />
+              </button>
+            </div>
+          )}
+          {isActivityPresent && activityLength && showAll && (
+            <div className="btn-container">
+              <button
+                onClick={() => setShowAll(false)}
+                className="all-jobs-btn"
+              >
+                Show less {activityChoice} <BsArrowUp />
+              </button>
+            </div>
+          )}
+        </section>
+      )}
       {showEditOptions && user?.role === "Alumni" && (
         <section className="box recruit-container">
           <p className="heading">MY ACTIVITIES</p>
