@@ -17,7 +17,7 @@ export default function NewHomePage() {
   const { setSelectedPageNavbar } = useNavbar();
   useEffect(() => {
     setSelectedPageNavbar("home");
-    window.scrollTo(0, 0);
+    // window.scrollTo(0, 0);
   }, []);
 
   return (
@@ -31,8 +31,8 @@ export default function NewHomePage() {
       <JobsSection />
       <RecentActivitiesSection />
       <SiliconValley />
-      {/* <ReviewsSection /> */}
-      <NewReviewSection />
+      <ReviewsSection />
+      {/* <NewReviewSection /> */}
     </main>
   );
 }

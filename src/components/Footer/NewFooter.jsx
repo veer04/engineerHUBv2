@@ -2,6 +2,16 @@ import React, { useEffect, useState } from "react";
 import "./NewFooter.css";
 import { Link, useLocation } from "react-router-dom";
 import { Bucket_URL } from "../../services/APIUtils";
+import {
+  BsDiscord,
+  BsInstagram,
+  BsLinkedin,
+  BsTelegram,
+  BsThreads,
+  BsTwitterX,
+  BsWhatsapp,
+  BsYoutube,
+} from "react-icons/bs";
 
 export default function NewFooter() {
   const [displayFooter, setDisplayFooter] = useState(true);
@@ -175,21 +185,6 @@ export default function NewFooter() {
     },
   ];
 
-  // for changes to be made in future for responsiveness 👇
-
-  //   const [width, setWidth] = useState(window.innerWidth);
-  //   const handleResize = () => setWidth(window.innerWidth);
-
-  //   useEffect(() => {
-  //     window.addEventListener("resize", handleResize);
-  //     return () => window.removeEventListener("resize", handleResize);
-  //   }, []);
-
-  //   const adjustmentPadding =
-  //     width >= 1920
-  //       ? `${(width - 1920) / 2 + 166.56}px`
-  //       : "var(--section-padding)";
-
   function createFooterContent(footer) {
     return footer.map((item) => {
       return (
@@ -228,63 +223,131 @@ export default function NewFooter() {
     });
   }
 
-  return displayFooter ? (
-    <>
-      <div className="footer">
-        <div className="footer-container">
-          <div className="footer-row-1 footer-row">
-            {createFooterContent(footer.slice(0, 4))}
-            <div className="footer-follow-section">
-              <div className={`footer-follow-content footer-follow-content`}>
-                <h5 style={{ color: "#FFD600", fontWeight: "600" }}>
-                  {footer[4].title}
-                </h5>
-                <span>{footer[4].content}</span>
-                <ul
-                  style={{
-                    display: "flex",
-                    gap: "10px",
-                  }}
-                >
-                  {footer[4].links &&
-                    footer[4].links.map((link, index) => {
-                      return (
-                        <li key={`5${index}`}>
-                          <Link style={{ color: "white" }} to={link.link}>
-                            {link.title}
-                          </Link>
-                        </li>
-                      );
-                    })}
-                </ul>
-              </div>
-              <div className={`footer-follow-content footer-follow-content`}>
-                <h5 style={{ color: "#FFD600", fontWeight: "600" }}>
-                  {footer[5].title}
-                </h5>
-                <span>{footer[5].content}</span>
-                <ul>
-                  {footer[5].links &&
-                    footer[5].links.map((link, index) => {
-                      return (
-                        <li key={`6${index}`}>
-                          <Link style={{ color: "white" }} to={link.link}>
-                            {link.title}
-                          </Link>
-                        </li>
-                      );
-                    })}
-                </ul>
-              </div>
-            </div>
+  return (
+    <footer>
+      <div className="content">
+        <div className="about-us-container">
+          <p className="title">About Us</p>
+          <p className="description">
+            engineerHUB is one stop solution for engineers ! A platform to learn
+            in community, explore campuses & get placed in dream companies.
+          </p>
+          <div className="our-links">
+            <Link to="https://x.com/engineerhub_in?t=ewStHI3a_LZV66vZ2Yswgw&s=09">
+              <BsTwitterX />
+            </Link>
+            <Link to="/">
+              <BsInstagram />
+            </Link>
+            <Link to="/">
+              <BsLinkedin />
+            </Link>
+            <Link to="/">
+              <BsYoutube />
+            </Link>
+            <Link to="/">
+              <BsDiscord />
+            </Link>
+            <Link to="/">
+              <BsWhatsapp />
+            </Link>
+            <Link to="/">
+              <BsThreads />
+            </Link>
+            <Link to="/">
+              <BsTelegram />
+            </Link>
           </div>
-          <div className="footer-row-2 footer-row">
-            {createFooterContent(footer.slice(6, 9))}
+          <p className="sub-title">Have a query?</p>
+          <div className="info">
+            <Link to="/" className="link">
+              info@engineerhub.in
+            </Link>
+            <span>+91 93546 47032</span>
+          </div>
+          <div className="info">
+            <Link to="/" className="link">
+              career@engineerhub.in
+            </Link>
+            <span>+91 91298 83089</span>
+          </div>
+        </div>
+        <div className="links-container">
+          <div className="pages">
+            <p className="title">Host</p>
+            <Link to="/" className="link">
+              Cultural Events
+            </Link>
+            <Link to="/" className="link">
+              Technical Events
+            </Link>
+            <Link to="/" className="link">
+              Hackathon
+            </Link>
+            <Link to="/" className="link">
+              Webinar
+            </Link>
+            <Link to="/" className="link">
+              Jobs
+            </Link>
+            <Link to="/" className="link">
+              Internships
+            </Link>
+            <Link to="/" className="link">
+              Projects
+            </Link>
+          </div>
+          <div className="pages">
+            <p className="title">Company</p>
+            <Link to="/" className="link">
+              Internships
+            </Link>
+            <Link to="/" className="link">
+              Jobs
+            </Link>
+            <Link to="/" className="link">
+              Hackathons
+            </Link>
+            <Link to="/" className="link">
+              Projects
+            </Link>
+          </div>
+          <div className="pages">
+            <p className="title">Campus</p>
+            <Link to="/" className="link">
+              Search Campuses
+            </Link>
+            <Link to="/" className="link">
+              Trending Events
+            </Link>
+            <Link to="/" className="link">
+              Trending Campus
+            </Link>
+            <Link to="/" className="link">
+              Trending Almas
+            </Link>
+            <Link to="/" className="link">
+              Workshops
+            </Link>
+          </div>
+          <div className="pages">
+            <p className="title">Community</p>
+            <Link to="/" className="link">
+              Chat
+            </Link>
+            <Link to="/" className="link">
+              Projects
+            </Link>
+            <Link to="/" className="link">
+              Events
+            </Link>
+            <Link to="/" className="link">
+              Blogs
+            </Link>
           </div>
         </div>
       </div>
-    </>
-  ) : (
-    <></>
+      <div className="courtesy">Campus Engineerhub Pvt. Ltd.</div>
+    </footer>
   );
 }

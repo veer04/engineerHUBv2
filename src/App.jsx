@@ -111,7 +111,7 @@ function App() {
   return (
     <>
       <NewNavbar />
-      <MobileNavbar />
+      {/* <MobileNavbar /> */}
       {/* <NewMobileNavbar /> */}
       <GlobalSnackbar />
       <ProfilePopUp />
