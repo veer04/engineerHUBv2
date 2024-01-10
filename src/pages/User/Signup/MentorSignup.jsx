@@ -302,7 +302,7 @@ const MentorSignup = () => {
       setLoading(true);
       axios.post(`${API_URL}api/v1/alumni/signup`, data).then(
         (response) => {
-          Cookies.set("email", response.data.email);
+          Cookies.set("email", response.data.email, { expires: 1 / 24 / 4 });
           console.log(response);
           if (
             response.status === 200 ||

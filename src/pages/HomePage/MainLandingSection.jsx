@@ -49,7 +49,7 @@ export default function MainLandingSection() {
             <span className="number-counter w-100 d-flex justify-content-center text-dark-green heading-3">
               <CountUp
                 start={0}
-                end={900}
+                end={1100}
                 duration={2}
                 smooth={true}
                 smartEasingAmount={true}
@@ -70,7 +70,7 @@ export default function MainLandingSection() {
             <span className="number-counter w-100 d-flex justify-content-center text-dark-green heading-3">
               <CountUp
                 start={0}
-                end={120}
+                end={125}
                 duration={2.5}
                 smooth={true}
                 smartEasingAmount={true}
