@@ -7,7 +7,7 @@ const InternshipCard = ({
   details,
   color,
   className,
-  adminView,
+  adminView = false,
   filterByCompany,
   filterName,
 }) => {

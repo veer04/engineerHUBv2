@@ -7,7 +7,7 @@ const JobCards = ({
   details,
   color,
   className,
-  adminView,
+  adminView = false,
   filterByCompany,
   filterName,
 }) => {

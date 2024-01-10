@@ -20,9 +20,13 @@ import { useEffect } from "react";
 import CustomSnackbar from "../../User/Login/CustomSnackbar";
 import {
   controller,
+  getEventsByOrganisationId,
   getEventsByOrganisationIdPrivateMode,
+  getInternshipsByOrganisationId,
   getInternshipsByOrganisationIdPrivateMode,
+  getJobsByOrganisationId,
   getJobsByOrganisationIdPrivateMode,
+  getProjectsByOrganisationId,
   getProjectsByOrganisationIdPrivateMode,
   getUserProfileById,
   patchResume,
@@ -129,11 +133,6 @@ export default function UserDashboard() {
   useEffect(() => {
     console.log(user);
     handleEditOptions();
-    if (user?._id === userId) {
-      setIsUserAdmin(true);
-    } else {
-      setIsUserAdmin(false);
-    }
   }, [user]);
 
   useEffect(() => {
@@ -170,6 +169,67 @@ export default function UserDashboard() {
       }
     }
   }, [resumeRes]);
+
+  useEffect(() => {
+    if (activityChoice === "jobs") {
+      if (jobs.length !== 0) {
+        setIsActivityPresent(true);
+        if (jobs.length > 3) {
+          setActivityLength(true);
+        } else {
+          setActivityLength(false);
+        }
+      } else {
+        setIsActivityPresent(false);
+      }
+    }
+    if (activityChoice === "internships") {
+      if (internships.length !== 0) {
+        setIsActivityPresent(true);
+        if (internships.length > 3) {
+          setActivityLength(true);
+        } else {
+          setActivityLength(false);
+        }
+      } else {
+        setIsActivityPresent(false);
+      }
+    }
+    if (activityChoice === "hackathons") {
+      if (hackathons.length !== 0) {
+        setIsActivityPresent(true);
+        if (hackathons.length > 3) {
+          setActivityLength(true);
+        } else {
+          setActivityLength(false);
+        }
+      } else {
+        setIsActivityPresent(false);
+      }
+    }
+    if (activityChoice === "projects") {
+      if (projects.length !== 0) {
+        setIsActivityPresent(true);
+        if (projects.length > 3) {
+          setActivityLength(true);
+        } else {
+          setActivityLength(false);
+        }
+      } else {
+        setIsActivityPresent(false);
+      }
+    }
+    setShowAll(false);
+    if (activityChoice === "jobs" || activityChoice === "internships") {
+      setScrollAmount(220);
+    }
+    if (activityChoice === "projects") {
+      setScrollAmount(201);
+    }
+    if (activityChoice === "hackathons") {
+      setScrollAmount(233);
+    }
+  }, [activityChoice, jobs, internships, hackathons, projects]);
 
   const handleResume = async () => {
     setIsResumeUpdating(true);
@@ -852,7 +912,7 @@ export default function UserDashboard() {
                     className="scroll-card no-hover-scale"
                     adminView={isUserAdmin}
                     filterByCompany={true}
-                    filterName={organization?.name}
+                    filterName={user?.name}
                   />
                 ))}
               {activityChoice === "internships" &&
@@ -864,7 +924,7 @@ export default function UserDashboard() {
                     className="scroll-card no-hover-scale"
                     adminView={isUserAdmin}
                     filterByCompany={true}
-                    filterName={organization?.name}
+                    filterName={user?.name}
                   />
                 ))}
               {activityChoice === "hackathons" &&
@@ -875,7 +935,7 @@ export default function UserDashboard() {
                     className="scroll-card no-hover-scale"
                     adminView={isUserAdmin}
                     filterByCompany={true}
-                    filterName={organization?.name}
+                    filterName={user?.name}
                   />
                 ))}
               {activityChoice === "projects" &&
@@ -886,7 +946,7 @@ export default function UserDashboard() {
                     className="scroll-card no-hover-scale"
                     adminView={isUserAdmin}
                     filterByCompany={true}
-                    filterName={organization?.name}
+                    filterName={user?.name}
                   />
                 ))}
             </div>

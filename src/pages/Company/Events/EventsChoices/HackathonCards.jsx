@@ -21,7 +21,7 @@ const HackathonCard = ({
   className,
   views,
   totalAppliedUsers,
-  adminView,
+  adminView = false,
 }) => {
   // const hiringId=useParams();
   // const[eventData,setEventData]=useState({})
