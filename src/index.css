@@ -73,6 +73,7 @@ h6 {
   --vertical-padding: min(1rem, 4vw);
 
   --navbar-height: 4.875rem;
+  --mobile-navbar-height: 4rem;
 
   --main-background-color: #f5fdff; /*rgb(238,255,255)*/
 

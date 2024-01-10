@@ -61,7 +61,6 @@ import TrendingWorkshops from "./pages/Campus/TrendingWorkshops.jsx";
 import ProjectWindow from "./pages/Community/Project/ProjectWindow.jsx";
 import EventWindow from "./pages/Community/Events/EventWindow.jsx";
 import BlogWindow from "./pages/Community/Blogs/BlogWindow.jsx";
-import NewMobileNavbar from "./components/MobileNavbar/NewMobileNavbar.jsx";
 import NewFooter from "./components/Footer/NewFooter.jsx";
 const NewHomePage = lazy(() => import("./pages/NewHomepage/NewHomePage.jsx"));
 const BlogHosting = lazy(() => import("./pages/Hosting/BlogHosting.jsx"));
@@ -111,7 +110,6 @@ function App() {
     <>
       <NewNavbar />
       <MobileNavbar />
-      {/* <NewMobileNavbar /> */}
       <GlobalSnackbar />
       <ProfilePopUp />
       <Suspense fallback={<LoadingPage />}>

@@ -169,11 +169,20 @@
     margin-top: 0.7px;
   }
   .chat-container.mobile {
-    max-height: calc(100dvh - 107.2px - 65px - 67.5px - 57px);
+    max-height: calc(
+      100dvh - var(--navbar-height) - var(--mobile-navbar-height) - 66.55px -
+        56px - 6px
+    );
+    /* 66.55px for Domain Selector height */
+    /* 56px for Community Sub-Section Selector height */
+    /* 6px for overlapping adjustment */
     height: 100%;
   }
   .chat-container.collapsed {
-    max-height: calc(100dvh - 107.2px - 65px);
+    max-height: calc(
+      100dvh - var(--navbar-height) - var(--mobile-navbar-height) - 6px
+    );
+    /* 6px for overlapping adjustment */
     height: 100%;
   }
   .chat-header {
