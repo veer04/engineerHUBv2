@@ -2,7 +2,7 @@ import "./MobileNavbar.css";
 import { Link } from "react-router-dom";
 import useNavbar from "../../hooks/use-navbar";
 
-function CommunitySvg({ className }) {
+export function CommunitySvg({ className }) {
   return (
     <svg
       className={`${className}`}
@@ -20,7 +20,7 @@ function CommunitySvg({ className }) {
     </svg>
   );
 }
-function CampusSvg({ className }) {
+export function CampusSvg({ className }) {
   return (
     <svg
       className={`${className}`}
@@ -38,7 +38,7 @@ function CampusSvg({ className }) {
     </svg>
   );
 }
-function CompanySvg({ className }) {
+export function CompanySvg({ className }) {
   return (
     <svg
       className={`${className}`}
@@ -59,7 +59,7 @@ function CompanySvg({ className }) {
     </svg>
   );
 }
-function HostSvg({ className }) {
+export function HostSvg({ className }) {
   return (
     <svg
       className={`${className}`}

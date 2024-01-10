@@ -126,6 +126,7 @@ footer .content .links-container .pages a {
 @media screen and (max-width: 565px) {
   footer .content {
     flex-direction: column-reverse;
+    align-items: center;
   }
   footer .content .links-container {
     grid-template-columns: 1fr 1fr;
