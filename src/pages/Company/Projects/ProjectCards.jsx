@@ -9,7 +9,7 @@ import ViewApplicantsModal from "../../../components/Dashboard/ViewApplicantsMod
 const ProjectCards = ({
   data,
   className,
-  adminView,
+  adminView = false,
   filterByCompany,
   filterName,
 }) => {
