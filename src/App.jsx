@@ -7,7 +7,6 @@ import OTP from "./pages/User/OtpVerification/Otpverification";
 import MobileNavbar from "./components/MobileNavbar/MobileNavbar";
 import HostEvent from "./pages/Hosting/EventRegistration";
 import NewNavbar from "./components/Navbar/NewNavbar";
-import Footer from "./components/Footer/Footer";
 import Events from "./pages/Company/Events/events";
 import Jobs from "./pages/Company/Jobs/jobs";
 import JobDetails from "./pages/Company/Jobs/JobDetails";
@@ -111,7 +110,7 @@ function App() {
   return (
     <>
       <NewNavbar />
-      {/* <MobileNavbar /> */}
+      <MobileNavbar />
       {/* <NewMobileNavbar /> */}
       <GlobalSnackbar />
       <ProfilePopUp />

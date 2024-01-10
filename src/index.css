@@ -58,7 +58,7 @@ span {
   word-break: break-all;
   word-break: normal;
   overflow-wrap: break-word;
-  cursor: default;
+  /* cursor: default; */
 }
 h1,
 h2,
