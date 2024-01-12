@@ -126,6 +126,28 @@ const SignupUser = () => {
     // console.log(response);
 
     try {
+      for (const key in values) {
+        if (Object.hasOwnProperty.call(values, key)) {
+          const element = values[key];
+          console.log(element);
+          if (!Boolean(element)) {
+            setSnackbarValues({
+              severity: "error",
+              message: "Please fill all the fields!",
+            });
+            setOpen(true);
+            return;
+          }
+        }
+      }
+      if (values.password !== values.confirmPassword) {
+        setSnackbarValues({
+          severity: "error",
+          message: "Password and confirm password must be same!",
+        });
+        setOpen(true);
+        return;
+      }
       const response = await axios
         .post(`${API_URL}api/v1/user/signup`, values)
         .then((response) => {
@@ -164,6 +186,11 @@ const SignupUser = () => {
           }
         })
         .catch((error) => {
+          setSnackbarValues({
+            severity: "error",
+            message: error?.response?.data?.message || "Something went wrong",
+          });
+          setOpen(true);
           console.error(error);
         });
       setValues({ ...values, password: "" });
