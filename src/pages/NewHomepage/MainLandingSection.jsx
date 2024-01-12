@@ -10,19 +10,19 @@ export default function MainLandingSection() {
       _id: 1,
       name: "Decimal",
       type: "Company",
-      image: defaultEventPoster,
+      image: "https://frontendehubbucket.s3.ap-south-1.amazonaws.com/backend/role/user/64ae9e736dc6d78031fe141f1696450195468.jpg",
     },
     {
       _id: 2,
       name: "Girish Shedge",
       type: "Alumni",
-      image: defaultPoster,
+      image: "https://frontendehubbucket.s3.ap-south-1.amazonaws.com/backend/role/user/64f2191025d4e975cdef39a6.jpg",
     },
     {
       _id: 3,
       name: "Swapnil Raj",
       type: "Club",
-      image: defaultEventPoster,
+      image: "https://frontendehubbucket.s3.ap-south-1.amazonaws.com/backend/role/user/64854cb91cb8a37947e8a090.jpg",
     },
     {
       _id: 4,
@@ -36,25 +36,25 @@ export default function MainLandingSection() {
       name: "Manish Rai",
       type: "Company",
       image:
-        "https://media.istockphoto.com/id/876177980/vector/university-vector.jpg?s=612x612&w=0&k=20&c=FqW7PHJFlpzTfK3ax3zPhxgTCgCnVQaPnnmTRPmdjjc=",
+        "https://frontendehubbucket.s3.ap-south-1.amazonaws.com/backend/role/organization/64d0b565e4e4201287d09086.jpg",
     },
     {
       _id: 6,
       name: "Kunwar Vidya Niwas",
       type: "Alumni",
-      image: defaultEventPoster,
+      image: "https://frontendehubbucket.s3.ap-south-1.amazonaws.com/backend/role/user/64f2cf6f7ef4eb43387fa371.jpg",
     },
     {
       _id: 7,
       name: "Karan Veer Singh",
       type: "Club",
-      image: defaultEventPoster,
+      image: "https://frontendehubbucket.s3.ap-south-1.amazonaws.com/backend/role/user/64ae9a4d6dc6d78031fe1355.jpg",
     },
     {
       _id: 8,
       name: "Kunika Maam",
       type: "Student",
-      image: defaultEventPoster,
+      image: "https://frontendehubbucket.s3.ap-south-1.amazonaws.com/backend/role/user/64f2cf6f7ef4eb43387fa371.jpg",
     },
   ];
 
