@@ -86,7 +86,7 @@ export default function NewReviewSection() {
                               ? review.userId?.name
                               : `${review.userId?.firstName} ${review.userId?.lastName}`}
                           </span>
-                          <span className="position">UI/UX Designer</span>
+                          {/* <span className="position">UI/UX Designer</span> */}
                         </div>
                       </div>
                     </div>
