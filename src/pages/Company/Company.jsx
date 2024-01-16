@@ -63,8 +63,8 @@ const Company = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
     setSelectedPageNavbar("company");
-    getJobs(setJobsData,1,6);
-    getAllEvents(setEventsData,1,6);
+    getJobs(setJobsData, 1, 6);
+    getAllEvents(setEventsData, 1, 6);
     getHiringData(setHiring);
     getProjectData(setProject);
     return () => {
@@ -139,7 +139,7 @@ const Company = () => {
       background: "#8FC8E8",
       stats: {
         position: cntJob,
-        hiring: cntJobLive ? 900 : 0,
+        hiring: cntJobLive ? 1150 : 0,
       },
       link: "/company/jobs",
       text1: "jobs live",
