@@ -75,6 +75,9 @@ import TrendingWorkshops from "./pages/Campus/TrendingWorkshops.jsx";
 import ProjectWindow from "./pages/Community/Project/ProjectWindow.jsx";
 import EventWindow from "./pages/Community/Events/EventWindow.jsx";
 import BlogWindow from "./pages/Community/Blogs/BlogWindow.jsx";
+const ProjectSubmission = lazy(() =>
+  import("./pages/Community/Project/ProjectSubmission.jsx")
+);
 const BlogHosting = lazy(() => import("./pages/Hosting/BlogHosting.jsx"));
 const ClubDashboard = lazy(() =>
   import("./pages/Profile/ClubDashboard/ClubDashboard")
@@ -194,6 +197,10 @@ function App() {
               <Route path=":id" element={<NewProjectsPage />}>
                 <Route path=":projectId" element={<ProjectWindow />} />
               </Route>
+              <Route
+                path=":id/:projectId/submit"
+                element={<ProjectSubmission />}
+              />
             </Route>
             <Route path="blogs">
               <Route path=":id" element={<NewBlogsPage />}>

@@ -3,6 +3,7 @@ import { RxCross1 } from "react-icons/rx";
 import { useParams, useNavigate, useOutletContext } from "react-router-dom";
 import { getProjectById } from "../../../services/APIConfig";
 import Loading from "../../../components/Loader/Loading";
+import { Link } from "react-router-dom";
 
 export default function ProjectWindow() {
   const { id, projectId } = useParams();
@@ -83,13 +84,19 @@ export default function ProjectWindow() {
           </ul>
         </>
       )}
+      <Link
+        to={`/community/projects/${encodeURIComponent(id)}/${projectId}/submit`}
+        className="apply"
+      >
+        <button>Submit</button>
+      </Link>
       {!!project?.applyLink && (
         <a
           target="_blank"
           href={`${project?.applyLink}`}
           rel="noopener noreferrer"
         >
-          <button>View more</button>
+          <button style={{ float: "left" }}>View more</button>
         </a>
       )}
     </>
