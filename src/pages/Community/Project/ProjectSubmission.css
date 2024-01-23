@@ -1,0 +1,293 @@
+#project-submission {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding: var(--vertical-padding) var(--section-padding);
+}
+#project-submission .box {
+  border-radius: 0.63rem;
+  overflow: hidden;
+  background-color: rgba(255, 255, 255, 1);
+  margin-bottom: 0.5rem;
+  padding: 1.25rem;
+  box-shadow: 5px 4px 20px 0px rgba(0, 0, 0, 0.05);
+  max-width: 45.5rem;
+}
+
+#project-submission .box .line {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: nowrap;
+  column-gap: 2rem;
+}
+#project-submission .box .line .column {
+  width: 100%;
+  /* margin-bottom: 1.25rem; */
+}
+#project-submission .update-btn {
+  padding: 0.5rem 1rem;
+  width: fit-content;
+  border-radius: 0.3125rem;
+  background: #014051;
+  color: white;
+  margin-top: 0.5rem;
+  float: right;
+}
+#project-submission .title {
+  font-size: 1.95313rem;
+  font-weight: 600;
+  margin-bottom: 0.19rem;
+}
+#project-submission .subheading {
+  font-weight: 500;
+  font-size: 1rem;
+  color: rgba(138, 138, 138, 1);
+  margin: 0;
+}
+
+#project-submission .heading {
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 120.023%;
+  color: rgba(0, 43, 54, 1);
+  margin-bottom: 0.5rem;
+}
+#project-submission .content {
+  overflow: hidden;
+  color: rgba(51, 51, 51, 1);
+  text-overflow: ellipsis;
+  white-space: wrap;
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 128.523%; /* 1.12456rem */
+}
+#project-submission .view-more {
+  color: rgba(0, 0, 0, 1);
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 128.523%;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 768px) {
+  #project-submission .box .line {
+    flex-wrap: wrap;
+  }
+  #project-submission .heading {
+    color: var(--foundation-black-black-800, #000);
+    font-size: 0.875rem;
+    font-weight: 600;
+    line-height: 120.023%; /* 1.05019rem */
+  }
+  #project-submission > .box {
+    padding: 1rem;
+    border-radius: 0.3125rem;
+  }
+  #project-submission > .title,
+  #project-submission > .subheading {
+    display: none;
+  }
+  #project-submission .user-box {
+    row-gap: 0.5rem;
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+}
+#project-submission > div {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  gap: 1.94rem;
+  margin-top: 1rem;
+}
+#project-submission > .md-options {
+  display: none;
+  height: 2.8125rem;
+  width: 100%;
+  overflow-x: auto;
+  background-color: white;
+  padding: 0 1rem;
+  margin-bottom: 0.5rem;
+  gap: 1rem;
+}
+#project-submission > .md-options > .option {
+  display: flex;
+  white-space: nowrap;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  flex-direction: row;
+  background-color: transparent;
+  border: none;
+  color: var(--foundation-black-black-200, #8a8a8a);
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 126.023%; /* 1.10269rem */
+  height: 100%;
+}
+#project-submission > .md-options > .option.--is-selected {
+  color: #014051;
+  font-weight: 600;
+  border-bottom: 0.2rem solid #014051;
+  padding-top: 0.2rem;
+}
+
+#project-submission > div > aside {
+  display: flex;
+  flex-direction: column;
+  gap: 0.63rem;
+  width: 100%;
+  max-width: 18rem;
+}
+#project-submission > div > aside > .options {
+  width: 100%;
+}
+#project-submission > div > aside > .options > .option {
+  width: 100%;
+  height: 3.8125rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0 1.69rem;
+  background-color: #fff;
+  border-left: 1px solid #dbdbdb;
+  border-right: 1px solid #dbdbdb;
+  border-top: none;
+  border-bottom: 1px solid #dbdbdb;
+  color: var(--foundation-black-black-100, #b0b0b0);
+  font-size: 1rem;
+  font-weight: 500;
+}
+#project-submission > div > aside > .options > .option:hover {
+  color: #014051;
+  font-weight: 600;
+}
+#project-submission > div > aside > .options > .--is-selected {
+  color: #014051;
+  font-weight: 600;
+  border-left: 4px solid #014051;
+  padding-left: 1.45rem;
+}
+#project-submission > div > aside > .options > :nth-child(1) {
+  border-radius: 0.3125rem 0.3125rem 0 0;
+  border-top: 1px solid #dbdbdb;
+}
+#project-submission > div > aside > .options > :last-child {
+  border-radius: 0 0 0.3125rem 0.3125rem;
+}
+
+#project-submission > div > aside > button {
+  width: 100%;
+  height: 3.8125rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0 1.69rem;
+  border-radius: 0.3125rem;
+  font-weight: 500;
+  background-color: transparent;
+  border-width: 1px;
+  gap: 0.125rem;
+}
+#project-submission > div > aside > .back-btn {
+  border-color: #002b36;
+  color: #002b36;
+}
+#project-submission > div > aside > .logout-button {
+  justify-content: center;
+  border-color: #ff0000;
+  color: #ff0000;
+}
+#project-submission > div > div {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+#project-submission > div > div > .box > .heading {
+  margin-bottom: 1.13rem;
+}
+#project-submission .label {
+  color: var(--foundation-black-black-800, #000);
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  margin-bottom: 0.31rem;
+}
+#project-submission .required {
+  color: var(--Red-Primary, #f00);
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: normal;
+  width: 100%;
+}
+#project-submission .error-message {
+  color: var(--Red-Primary, #f00);
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: normal;
+  margin-bottom: 0.25rem;
+  min-height: 1rem;
+  display: block;
+}
+.input-field {
+  padding: 0.9rem 1.13rem;
+  border-radius: 0.3125rem;
+  border: 1px solid var(--foundation-black-black-100, #b0b0b0);
+  width: 100%;
+  color: black;
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+select.input-field {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='8' height='4' fill='black'><polygon points='0,0 8,0 4,4'/></svg>")
+    no-repeat;
+  background-position-x: calc(100% - 1.13rem);
+  background-position-y: 50%;
+  background-size: 0.75rem;
+  background-color: white;
+}
+
+.input-field::placeholder {
+  color: var(--foundation-black-black-100, #b0b0b0);
+}
+.input-field option {
+  border-radius: 0.3125rem;
+  border: 1px solid var(--foundation-black-black-100, #b0b0b0);
+  width: 100%;
+  color: black;
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  margin-bottom: 1.31rem;
+  min-height: 2.875rem;
+}
+.input-field:disabled {
+  background-color: #f2f2f2;
+  cursor: not-allowed;
+}
+
+@media screen and (max-width: 768px) {
+  #project-submission > div {
+    margin-top: 0;
+  }
+  #project-submission > div > aside {
+    display: none;
+  }
+  #project-submission > .md-options {
+    display: flex;
+  }
+}
