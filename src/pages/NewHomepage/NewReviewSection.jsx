@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import "./NewReviewSection.css";
 import { getReviews } from "../../services/APIConfig";
-import colorWheel from "../../assets/colorWheel";
 
 export default function NewReviewSection() {
   //! This file will render twice with React StrictMode turned on and make the slider move faster.
   //! Hitting save multiple times without refreshing the page will make the page unresponsive.
   //! It is stable in production but unstable in development. Debug accordingly.
+
+  const colorWheel = ["#FAE8B7", "#C0E0F2", "#D6F3BF", "#F1D5C0"];
 
   const [reviews, setReviews] = useState([]);
   useEffect(() => {
@@ -73,7 +74,9 @@ export default function NewReviewSection() {
                           colorWheel[(index1 + index2 + 1) % colorWheel.length],
                       }}
                       key={index2}
-                      className="review"
+                      className={`review ${
+                        index2 === 1 ? "--hide-mobile" : ""
+                      }`}
                     >
                       <span className="text">{review.text}</span>
                       <div className="details-container">

@@ -4,7 +4,7 @@
   justify-content: center;
   align-items: center;
   gap: 1.5rem;
-  margin-bottom: 2rem;
+  margin-bottom: 5rem;
 }
 .review-section .heading {
   color: var(--Primary-500, #002b36);
@@ -33,7 +33,7 @@
 .review-section .scroller[data-animated="true"] .scroller__inner {
   width: max-content;
   flex-wrap: nowrap;
-  animation: scroll 40s linear infinite;
+  animation: scroll 80s linear infinite;
 }
 .review-section .scroller__inner {
   width: 100%;
@@ -41,6 +41,9 @@
   width: 100%;
   gap: 1rem;
   flex-wrap: wrap;
+}
+.review-section .scroller[data-animated="true"] .scroller__inner:hover {
+  animation-play-state: paused;
 }
 
 @keyframes scroll {
@@ -68,6 +71,9 @@
   background: var(--Saffron, #fae8b7);
   min-width: 18.75rem;
   max-width: 18.75rem;
+}
+.review-section .--hide-mobile {
+  display: flex;
 }
 .review-section .review .text {
   color: var(--Foundation-Black-black-800, #000);
@@ -119,4 +125,10 @@
   font-style: normal;
   font-weight: 400;
   line-height: 1.56763rem; /* 179.156% */
+}
+
+@media screen and (max-width: 520px) {
+  .review-section .--hide-mobile {
+    display: none;
+  }
 }
