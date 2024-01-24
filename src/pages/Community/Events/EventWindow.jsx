@@ -93,7 +93,7 @@ export default function EventWindow() {
             onClick={() => (window.location.href = event?.applyLink)}
             className="register-btn"
           >
-            Visit Now
+            Register Now
           </button>
         </div>
       </section>
