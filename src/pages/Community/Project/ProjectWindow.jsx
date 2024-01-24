@@ -47,19 +47,36 @@ export default function ProjectWindow() {
         </div>
       )}
       <p className="title heading">{project?.projectName}</p>
-      <p className="sub-heading">{project?.description}</p>
-      <p className="heading">Tags</p>
-      <ul className="sub-heading">
-        {project?.techStack?.map((tag) => {
-          return <li key={tag}>{tag}</li>;
-        })}
-      </ul>
+      <p
+        className="sub-heading"
+        dangerouslySetInnerHTML={{
+          __html: project?.description,
+        }}
+      ></p>
+      {!!project?.techStack?.length && (
+        <>
+          <p className="heading">Tags</p>
+          <ul className="sub-heading">
+            {project?.techStack?.map((tag) => {
+              return (
+                <li className="li" key={tag}>
+                  {tag}
+                </li>
+              );
+            })}
+          </ul>
+        </>
+      )}
       {!!project?.prerequisites?.length && (
         <>
           <p className="heading">Prerequisites</p>
           <ul className="sub-heading">
             {project?.prerequisites?.map((prerequisite) => {
-              return <li key={prerequisite}>{prerequisite}</li>;
+              return (
+                <li className="li" key={prerequisite}>
+                  {prerequisite}
+                </li>
+              );
             })}
           </ul>
         </>
@@ -69,7 +86,11 @@ export default function ProjectWindow() {
           <p className="heading">Software Used</p>
           <ul className="sub-heading">
             {project?.softwareUsed?.map((software) => {
-              return <li key={software}>{software}</li>;
+              return (
+                <li className="li" key={software}>
+                  {software}
+                </li>
+              );
             })}
           </ul>
         </>
@@ -79,7 +100,11 @@ export default function ProjectWindow() {
           <p className="heading">Hardware Used</p>
           <ul className="sub-heading">
             {project?.hardwareUsed?.map((hardware) => {
-              return <li key={hardware}>{hardware}</li>;
+              return (
+                <li className="li" key={hardware}>
+                  {hardware}
+                </li>
+              );
             })}
           </ul>
         </>
