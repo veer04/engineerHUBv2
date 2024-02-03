@@ -1835,7 +1835,7 @@ export const getFeaturedEvents = (setFeaturedEvents) => {
       signal: controller.signal,
     })
     .then((res) => {
-      const data = res.data.data.reverse();
+      const data = res.data.data;
       setFeaturedEvents(data);
     })
     .catch((err) => {
@@ -1911,7 +1911,7 @@ export const getEventByMode = (setEvents, mode) => {
       signal: controller.signal,
     })
     .then((res) => {
-      const data = res.data.data.reverse();
+      const data = res.data.data;
       setEvents(data);
     })
     .catch((err) => {
