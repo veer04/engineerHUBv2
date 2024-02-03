@@ -62,6 +62,7 @@ import ProjectWindow from "./pages/Community/Project/ProjectWindow.jsx";
 import EventWindow from "./pages/Community/Events/EventWindow.jsx";
 import BlogWindow from "./pages/Community/Blogs/BlogWindow.jsx";
 import NewFooter from "./components/Footer/NewFooter.jsx";
+import GetFeaturedForm from "./pages/NewHomepage/GetFeaturedForm.jsx";
 const NewHomePage = lazy(() => import("./pages/NewHomepage/NewHomePage.jsx"));
 const BlogHosting = lazy(() => import("./pages/Hosting/BlogHosting.jsx"));
 const ClubDashboard = lazy(() =>
@@ -116,6 +117,7 @@ function App() {
         <Routes>
           {/* <Route index element={<HomePage path="homepage" />} /> */}
           <Route index element={<NewHomePage path="homepage" />} />
+          <Route path="/get-featured" element={<GetFeaturedForm />} />
           <Route path="/success" element={<Success></Success>}></Route>
           <Route path="/register" element={<RegistrationForm />} />
           <Route path="/select-role" element={<Role />} />
