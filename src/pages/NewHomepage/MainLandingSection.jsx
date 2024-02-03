@@ -1,24 +1,40 @@
 import "./MainLandingSection.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaStar } from "react-icons/fa";
 import { IoArrowForward } from "react-icons/io5";
-import defaultPoster, { defaultEventPoster } from "../../assets/defaultPoster";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { API_URL } from "../../services/APIUtils";
 
 export default function MainLandingSection() {
   const [data, setData] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios
       .get(`${API_URL}api/v1/featuredList`)
       .then((res) => {
         setData([
-          ...res.data?.data?.students,
-          ...res.data?.data?.alumni,
-          ...res.data?.data?.clubs,
-          ...res.data?.data?.organizations,
+          ...res.data.data.students.map((item) => ({
+            ...item,
+            type: "Student",
+          })),
+          ,
+          ...res.data.data.alumni.map((item) => ({
+            ...item,
+            type: "Alumni",
+          })),
+          ,
+          ...res.data.data.clubs.map((item) => ({
+            ...item,
+            type: "Club",
+          })),
+          ,
+          ...res.data.data.organizations.map((item) => ({
+            ...item,
+            type: "Company",
+          })),
+          ,
         ]);
       })
       .catch((err) => {
@@ -113,7 +129,13 @@ export default function MainLandingSection() {
               <div
                 id={`item-${index + 1}`}
                 key={item._id}
-                // className={`item feature-item vibrate-1`}
+                onClick={() =>
+                  navigate(
+                    `/profile/${item.profileModel.toLowerCase()}/${
+                      item.profile
+                    }`
+                  )
+                }
                 className={`item feature-item vibrate-${((index + 1) % 4) + 1}`}
               >
                 <div className="image">
