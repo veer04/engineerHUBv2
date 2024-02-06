@@ -6,8 +6,8 @@ import {
   BsInstagram,
   BsLinkedin,
   BsTelegram,
-  BsThreads,
-  BsTwitterX,
+  // BsThreads,
+  // BsTwitterX,
   BsWhatsapp,
   BsYoutube,
 } from "react-icons/bs";
@@ -34,9 +34,7 @@ export default function NewFooter() {
               companies.
             </p>
             <div className="our-links">
-              <Link to="https://x.com/engineerhub_in?t=ewStHI3a_LZV66vZ2Yswgw&s=09">
-                <BsTwitterX />
-              </Link>
+              
               <Link to="http://www.instagram.com/engineerhub.in">
                 <BsInstagram />
               </Link>
@@ -52,9 +50,7 @@ export default function NewFooter() {
               <Link to="https://chat.whatsapp.com/CBXimuglKBk1j8VYWA5crE">
                 <BsWhatsapp />
               </Link>
-              <Link to="https://www.threads.net/@engineerhub.in">
-                <BsThreads />
-              </Link>
+              
               <Link to="https://t.me/engineerhub_in">
                 <BsTelegram />
               </Link>

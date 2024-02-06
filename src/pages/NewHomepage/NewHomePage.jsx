@@ -12,7 +12,11 @@ import SiliconValley from "../HomePage/SiliconValley";
 import JobsSection from "../HomePage/JobsSection";
 import NewReviewSection from "./NewReviewSection";
 import StatsCarousel from "./StatsCarousel";
-
+import NewCommunitySection from "./NewCommunitySectionHomePage";
+import NewCampusHomePage from "./NewCampusHomePage";
+import NewCompanyHomePage from "./NewCompanyHomePage";
+import NewHostHomePage from "./NewHostHomePage";
+import NewSiliconValley from "./NewSiliconValley";
 export default function NewHomePage() {
   const { setSelectedPageNavbar } = useNavbar();
   useEffect(() => {
@@ -24,6 +28,11 @@ export default function NewHomePage() {
     <main className="homepage">
       <MainLandingSection />
       <StatsCarousel />
+      <NewCommunitySection/>
+      <NewCampusHomePage/>
+      <NewCompanyHomePage/>
+      <NewHostHomePage/>
+      <NewSiliconValley/>
       <CommunitySection /> {/* to be removed */}
       <DomainsSection /> {/* to be removed */}
       <CampusUpdatesSection /> {/* to be removed */}
