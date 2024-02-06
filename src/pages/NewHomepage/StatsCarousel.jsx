@@ -10,11 +10,7 @@ export default function StatsCarousel() {
   const bucket = `${Bucket_URL}frontend/homepage/stats/`;
   return (
     <section id="homepage-stats-section">
-      <div
-        id="carouselExampleControls"
-        className="carousel slide"
-        data-bs-ride="carousel"
-      >
+      <div id="carousel" className="carousel slide" data-bs-ride="carousel">
         <div className="carousel-inner">
           <div className="carousel-item active">
             <div className="stats-container">
@@ -47,6 +43,24 @@ export default function StatsCarousel() {
             </div>
           </div>
         </div>
+        <button
+          class="carousel-control-prev"
+          type="button"
+          data-bs-target="#carousel"
+          data-bs-slide="prev"
+        >
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button
+          class="carousel-control-next"
+          type="button"
+          data-bs-target="#carousel"
+          data-bs-slide="next"
+        >
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
       </div>
       <div className="mobile-stats-container">
         <div className="first-line">
