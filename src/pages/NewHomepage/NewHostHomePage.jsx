@@ -92,7 +92,7 @@ const NewHostHomePage = () => {
                     >
                       Host
                     </span>
-                    events, jobs, webinars and projects
+                   {" "}events, jobs, webinars and projects{" "}
                     <span
                       style={{
                         backgroundColor: "#91F0EF",
