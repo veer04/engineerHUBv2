@@ -1,0 +1,59 @@
+.silicon-valley-card {
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+  background-color: transparent;
+  border: none;
+  max-width: 280px;
+  border-radius: 20px;
+}
+.silicon-valley-card .image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+  height: 15rem;
+  width: 15rem;
+  overflow: hidden;
+}
+.silicon-valley-card .image img {
+  width: 100%;
+  height: 100%;
+}
+.silicon-valley-card .details-container {
+  display: flex;
+  flex-direction: row;
+  gap: 0.325rem;
+  padding: 0.5rem;
+  border-radius: 10px;
+  background-color: #fafafa;
+}
+.silicon-valley-card .details-container .user-image {
+  width: 3rem;
+  min-width: 3rem;
+  height: 3rem;
+  min-height: 3rem;
+  border-radius: 50%;
+  object-fit: cover;
+  overflow: hidden;
+}
+.silicon-valley-card .details-container .user-image img {
+  width: 100%;
+  height: 100%;
+}
+.silicon-valley-card .details-container .details {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.silicon-valley-card .details-container .details p {
+  font-size: 14px;
+  font-weight: 500;
+  color: #000000;
+  margin: 0;
+  overflow: hidden;
+}
+.silicon-valley-card .details-container .details p:last-child {
+  font-weight: 400;
+}

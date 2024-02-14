@@ -123,6 +123,11 @@ button {
   
 
 }
+.buttonSwitch:hover{
+  background-color: #002b36 !important;
+  color: #fff;
+  transition: 0.3s;
+}
 
 @media screen and (max-width:1251px)
 {
@@ -232,7 +237,8 @@ button {
 @media screen and (max-width:767px)
 {
   .boxCommunity{
-    height:100vh !important;
+    /* height:100vh !important; */
+    height : 100%;
     width: 70vw;
     padding-top:5% ;
     padding-bottom: 5%;

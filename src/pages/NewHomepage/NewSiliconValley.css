@@ -1,0 +1,60 @@
+#silicon-valley {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 0 var(--section-padding);
+  margin-bottom: 3.75rem;
+}
+#silicon-valley .box {
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 70px 58px;
+  gap: 5.75rem;
+}
+#silicon-valley .box .heading {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+#silicon-valley .box .heading .time {
+  background-color: #fafafa;
+  padding: 0.5rem 0.75rem;
+  border-radius: 999rem;
+  border: 1px solid #bababa;
+  margin-bottom: 4px;
+  font-size: 12px;
+}
+#silicon-valley .box .heading h2 {
+  font-weight: bold;
+  font-size: 28px;
+  margin-bottom: 2px;
+  text-align: center;
+}
+#silicon-valley .box .heading h3 {
+  font-weight: medium;
+  font-size: 14px;
+  text-align: center;
+}
+#silicon-valley .box .content {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  max-width: 977px;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+@media screen and (max-width: 790px) {
+  #silicon-valley .box {
+    padding: 10px 2rem 44px;
+  }
+  #silicon-valley .box .heading h2 {
+    font-size: 24px;
+  }
+}

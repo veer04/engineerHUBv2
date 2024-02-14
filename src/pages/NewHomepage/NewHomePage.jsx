@@ -1,5 +1,5 @@
 import "./NewHomePage.css";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import useNavbar from "../../hooks/use-navbar";
 import MainLandingSection from "./MainLandingSection";
 import NewReviewSection from "./NewReviewSection";
@@ -9,11 +9,19 @@ import NewCampusHomePage from "./NewCampusHomePage";
 import NewCompanyHomePage from "./NewCompanyHomePage";
 import NewHostHomePage from "./NewHostHomePage";
 import NewSiliconValley from "./NewSiliconValley";
+import { getTrendingAlumni2, getTrendingClubs } from "../../services/APIConfig";
+
 export default function NewHomePage() {
   const { setSelectedPageNavbar } = useNavbar();
+  const [list, setList] = useState([]);
+  const [clubs, setClubs] = useState([]);
+
   useEffect(() => {
     setSelectedPageNavbar("home");
-    window.scrollTo(0, 0);
+    getTrendingAlumni2(setList);
+    getTrendingClubs(setClubs);
+
+    // window.scrollTo(0, 0);
   }, []);
 
   return (
@@ -21,7 +29,7 @@ export default function NewHomePage() {
       <MainLandingSection />
       <StatsCarousel />
       <NewCommunitySection />
-      <NewCampusHomePage />
+      <NewCampusHomePage list={list} clubs={clubs} />
       <NewCompanyHomePage />
       <NewHostHomePage />
       <NewSiliconValley />
