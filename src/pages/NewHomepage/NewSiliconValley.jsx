@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 // import SwipeableViews from "react-swipeable-views";
 // import { autoPlay } from "react-swipeable-views-utils";
 import "./NewSiliconValley.css";
-import SiliconValley from "./siliconValley.png";
+import SiliconValley from "./SiliconValley.png";
 import girishMain from "./girishMain.png";
 import girishLogo from "./girishLogo.png";
 import manishMain from "./manishMain.png";
@@ -142,23 +142,23 @@ const NewSiliconValley = () => {
     {
       _id: "1",
       name: "Girish Shedge",
-      title: "Design Lead @eHUB",
+      title: "Design Lead @engineerHUB",
       image: girishMain,
       logo: girishLogo,
     },
     {
       _id: "2",
       name: "Manish Kumar",
-      title: "Frontend Dev @eHUB",
+      title: "Frontend Dev @engineerHUB",
       image: manishMain,
-      logo: girishLogo,
+      logo: manishMain,
     },
     {
       _id: "3",
       name: "Ratnesh Maurya",
-      title: "Designer @eHUB",
+      title: "Designer @engineerHUB",
       image: ratneshMain,
-      logo: girishLogo,
+      logo: ratneshMain,
     },
   ];
 

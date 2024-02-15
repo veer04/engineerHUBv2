@@ -127,7 +127,7 @@ const NewCompanyHomePage = () => {
                             selectedSection === 0 ? "filled" : ""
                           }`}
                         >
-                          Job
+                          Login
                         </span>
                         <div className="verticalDash"></div>
                         <div className="verticalDash"></div>
@@ -148,7 +148,7 @@ const NewCompanyHomePage = () => {
                             selectedSection === 1 ? "filled" : ""
                           }`}
                         >
-                          Events
+                          Jobs / Internships
                         </span>
                         <div className="verticalDash"></div>
                         <div className="verticalDash"></div>
@@ -177,7 +177,7 @@ const NewCompanyHomePage = () => {
 
                   <div className="wrapButton">
                     <div
-                      onClick={handleExploreClick}
+                      onClick={()=>navigate("/company")}
                       style={{
                         width: "220px",
                         borderRadius: "50px",

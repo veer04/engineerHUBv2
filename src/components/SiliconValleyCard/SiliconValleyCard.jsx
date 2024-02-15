@@ -12,7 +12,15 @@ export default function SiliconValleyCard({ data, color }) {
         </div>
         <div className="details">
           <p className="text-crop-1">{data.name}</p>
-          <p className="text-crop-1">{data.title}</p>
+          <p
+            title={data.title}
+            style={{
+              wordBreak: "break-all",
+            }}
+            className="text-crop-1"
+          >
+            {data.title}
+          </p>
         </div>
       </div>
     </article>
