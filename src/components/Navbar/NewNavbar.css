@@ -153,7 +153,9 @@
 }
 #navbar .logged-in-container .profile-picture-container {
   width: 2.375rem;
+  min-width: 2.375rem;
   height: 2.375rem;
+  min-height: 2.375rem;
 }
 #navbar .logged-in-container .profile-picture-container img {
   object-fit: cover;

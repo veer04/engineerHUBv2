@@ -1,8 +1,7 @@
 import "./NewNavbar.css";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Bucket_URL } from "../../services/APIUtils";
-import { IoIosArrowDown } from "react-icons/io";
 import {
   getUserFullName,
   getUserImage,
@@ -34,7 +33,7 @@ export default function NewNavbar() {
 
   const handleResize = () => setWidth(window.innerWidth);
 
-  // this adjustment is done for screen sizes above 1920px (or root div's max-width) to make the navbar go full stretch on bigger screens. You can comment our the style attribute on nav tag to see how this works.
+  // this adjustment is done for screen sizes above 1920px (or root div's max-width) to make the navbar go full stretch on bigger screens. You can comment out the style attribute on nav tag to see how this works.
   const adjustmentPadding =
     width >= 1920
       ? `${(width - 1920) / 2 + 166.56}px`
