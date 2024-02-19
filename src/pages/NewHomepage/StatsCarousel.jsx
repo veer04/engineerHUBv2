@@ -14,7 +14,10 @@ export default function StatsCarousel() {
         <div className="carousel-inner">
           <div className="carousel-item active">
             <div className="stats-container">
-              <p>Students from IIT’s, NIT’s and IIIT’s to form a community.</p>
+              <p>
+                Students from across India, including those from IITs, NITs and
+                state colleges.
+              </p>
               <div className="stat">
                 <CommunitySvg className="svg" />
                 <span>75000+</span>
@@ -24,7 +27,10 @@ export default function StatsCarousel() {
           </div>
           <div className="carousel-item">
             <div className="stats-container">
-              <p>Students from IIT’s, NIT’s and IIIT’s to form a community.</p>
+              <p>
+                Now, every campus is at your fingertips. Explore their events,
+                alumni, and clubs.
+              </p>
               <div className="stat">
                 <CampusSvg className="svg" />
                 <span>1100+</span>
@@ -34,7 +40,11 @@ export default function StatsCarousel() {
           </div>
           <div className="carousel-item">
             <div className="stats-container">
-              <p>Students from IIT’s, NIT’s and IIIT’s to form a community.</p>
+              <p>
+                Companies from across India are hosting opportunities.
+                <br />
+                Log in, explore and apply.
+              </p>
               <div className="stat">
                 <CompanySvg className="svg" />
                 <span>125+</span>
@@ -49,7 +59,10 @@ export default function StatsCarousel() {
           data-bs-target="#carousel"
           data-bs-slide="prev"
         >
-          <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span
+            className="carousel-control-prev-icon"
+            aria-hidden="true"
+          ></span>
           <span className="visually-hidden">Previous</span>
         </button>
         <button
@@ -58,7 +71,10 @@ export default function StatsCarousel() {
           data-bs-target="#carousel"
           data-bs-slide="next"
         >
-          <span className="carousel-control-next-icon" aria-hidden="true"></span>
+          <span
+            className="carousel-control-next-icon"
+            aria-hidden="true"
+          ></span>
           <span className="visually-hidden">Next</span>
         </button>
       </div>
