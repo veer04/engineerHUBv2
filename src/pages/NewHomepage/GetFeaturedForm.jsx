@@ -4,9 +4,17 @@ import "./GetFeaturedForm.css";
 import axios from "axios";
 import { API_URL } from "../../services/APIUtils";
 import useGlobalSnackbar from "../../hooks/useGlobalSnackbar";
-import { getUserId, isUserLoggedIn } from "../../features/User/UserDetails";
+import {
+  getUserId,
+  getUserRole,
+  isUserLoggedIn,
+} from "../../features/User/UserDetails";
 import { redirectToAuth } from "../../features/redirectToAuth";
-import { getUserProfileById } from "../../services/APIConfig";
+import {
+  getClubProfileById,
+  getOrganizationProfileById,
+  getUserProfileById,
+} from "../../services/APIConfig";
 import countryCodes from "../../assets/countryCodes";
 import { getAccessToken } from "../../features/getCookieValues";
 
@@ -37,7 +45,13 @@ export default function GetFeaturedForm() {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    getUserProfileById(setUser, getUserId());
+    if (getUserRole() === "User" || getUserRole() === "Alumni") {
+      getUserProfileById(setUser, getUserId());
+    } else if (getUserRole() === "Club") {
+      getClubProfileById(setUser, getUserId());
+    } else if (getUserRole() === "Organization") {
+      getOrganizationProfileById(setUser, getUserId());
+    }
   }, []);
 
   useEffect(() => {
@@ -49,7 +63,7 @@ export default function GetFeaturedForm() {
         : ""
     );
     setEmail(user.email);
-    setContactNo(user.contactNo);
+    setContactNo(user?.contactNo || user.mobile);
   }, [user]);
 
   function validateForm() {
