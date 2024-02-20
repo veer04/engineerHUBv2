@@ -182,7 +182,7 @@ const JobDescription = () => {
                             // <Link to="/login">
                                 <div onClick={()=>{
                                     redirectToAuth("/login");
-                                }} className="btn">Easy Apply</div>
+                                }} className="btn">Apply</div>
                             // </Link>
                         )}
                     </div>
