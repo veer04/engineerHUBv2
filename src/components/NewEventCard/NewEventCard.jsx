@@ -11,8 +11,14 @@ export default function NewEventCard({ data, community }) {
     month: "long",
   });
   const formattedDate = eventDate.split(" ");
-  const month = formattedDate[0];
-  const date = formattedDate[1];
+  let month = formattedDate[0];
+  let date = formattedDate[1];
+  if (date.length > 2) {
+    // we will swap month and date
+    const temp = month;
+    month = date;
+    date = temp;
+  }
   let eventDateWithSuffix = "";
   if (date === "1" || date === "21" || date === "31") {
     eventDateWithSuffix = `${month} ${date}st `;
