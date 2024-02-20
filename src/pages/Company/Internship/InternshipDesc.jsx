@@ -223,7 +223,7 @@ useEffect(()=>
                     }}
                     className="btn"
                   >
-                    Easy Apply
+                    Apply
                   </div>
                   // </Link>
                 )}

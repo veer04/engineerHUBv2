@@ -53,6 +53,7 @@
   line-height: normal;
   overflow: hidden;
   margin-bottom: 0.25rem;
+  height: 2.4rem;
 }
 .project-card .description {
   color: var(--foundation-black-black-400, #333);
