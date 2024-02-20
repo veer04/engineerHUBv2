@@ -35,7 +35,7 @@ export default function NewProjectCard({ project }) {
       <p className="heading text-crop-2" title={`${project.projectName}`}>
         {project.projectName}
       </p>
-      <p className="description text-crop-1">{project.description}</p>
+      {/* <p className="description text-crop-1">{project.description}</p> */}
       <div className="info-container">
         <div className="logo">
           <img
