@@ -37,7 +37,7 @@ const InternshipDesc = () => {
     if (getCookie("name")) {
       getUserProfileById(setProfile, getCookie("_id")[2]);
       setIsLoggedIn(true);
-      
+
       if (
         Cookies.get("role") !== "Organization" &&
         Cookies.get("role") !== "Club" &&
@@ -65,25 +65,20 @@ const InternshipDesc = () => {
       controller.abort();
     };
   }, [hiringId]);
-  useEffect (()=>
-  {
+  useEffect(() => {
     // if(hiring?.detailFound._id==="6518157c04816b097318bff4")
     // {
     //   setIsLoggedIn(true);
     // }
     setInternshipData(hiring.detailFound);
-
-  },[hiring]
-  )
-useEffect(()=>
-{
-    console.log(internShipData?._id)
-},
-[internShipData])
+  }, [hiring]);
+  useEffect(() => {
+    console.log(internShipData?._id);
+  }, [internShipData]);
   if (hiring.success === false) return <Page404 />;
 
   const UserDataPost = () => {
-    if (!!hiring?.detailFound?.applyLink ) {
+    if (!!hiring?.detailFound?.applyLink) {
       window.open(hiring?.detailFound?.applyLink, "_blank");
       return;
     }
@@ -180,7 +175,11 @@ useEffect(()=>
             </span>
           </div>
           <div className="apply-btn-container">
-            {isLoggedIn ? (
+            {hiring?.detailFound?.isServiceOff === true ? (
+              <button className="btn" disabled>
+                Expired
+              </button>
+            ) : isLoggedIn ? (
               <div>
                 {!isApplicable && (
                   <button className="btn" disabled>

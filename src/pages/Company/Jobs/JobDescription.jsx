@@ -121,129 +121,164 @@ const JobDescription = () => {
     if (hiring?.success === false) return <Page404 />;
 
     const JobDescription = (
-        <div className="JobDescription">
-            {snackbarValues.severity === "success" && <CustomSnackbar setOpen={setOpen} open={open} message={snackbarValues.message} severity={snackbarValues.severity} duration={5000} />}
-            {isApplyingJob && <JobApplyModal change={handleModalState} jobApplied={handleJobApplied} resume={profile.resume} />}
-            <div className="JobDetailHeader">
-                <span>
-                    <div className="w-100 d-flex">
-                        <div
-                            style={{
-                                backgroundImage: `url(${hiring?.detailFound?.organisationLogo})`,
-                                backgroundPosition: "center",
-                                backgroundSize: "contain",
-                                backgroundRepeat: "no-repeat",
-                            }}
-                            className="imgBox"
-                        ></div>
-                        <span className="heads">
-                            <h1>{hiring?.detailFound?.opportunityName}</h1>
-                            <a href={hiring?.detailFound?.websiteUrl} target="_blank" rel="noopener noreferrer">
-                                <h3>{hiring?.detailFound?.organisationName}</h3>
-                            </a>
-                            <h3>{hiring?.detailFound?.opportunityLocation}</h3>
-                        </span>
-                    </div>
-                    <div className="apply-btn-container">
-                        {isLoggedIn ? (
-                            <div>
-                                {!isApplicable && (
-                                    <button className="btn" disabled>
-                                        Not Applicable
-                                    </button>
-                                )}
-                                {isApplicable &&
-                                    hiring?.applied === false &&
-                                    (!!hiring?.detailFound?.contactEmail ? (
-                                    <a
-                                        href={`mailto:${hiring?.detailFound?.contactEmail}?subject=${hiring?.detailFound?.contactEmailSubject}`}
-                                    >
-                                        <button className="btn">Apply</button>
-                                    </a>
-                                    ) : (
-                                    <button onClick={UserDataPost} className="btn">
-                                        {!!hiring?.detailFound?.applyLink ? "Apply" : `Easy Apply`}
-                                    </button>)
-                                )}
-                                {/* {isApplicable &&
+      <div className="JobDescription">
+        {snackbarValues.severity === "success" && (
+          <CustomSnackbar
+            setOpen={setOpen}
+            open={open}
+            message={snackbarValues.message}
+            severity={snackbarValues.severity}
+            duration={5000}
+          />
+        )}
+        {isApplyingJob && (
+          <JobApplyModal
+            change={handleModalState}
+            jobApplied={handleJobApplied}
+            resume={profile.resume}
+          />
+        )}
+        <div className="JobDetailHeader">
+          <span>
+            <div className="w-100 d-flex">
+              <div
+                style={{
+                  backgroundImage: `url(${hiring?.detailFound?.organisationLogo})`,
+                  backgroundPosition: "center",
+                  backgroundSize: "contain",
+                  backgroundRepeat: "no-repeat",
+                }}
+                className="imgBox"
+              ></div>
+              <span className="heads">
+                <h1>{hiring?.detailFound?.opportunityName}</h1>
+                <a
+                  href={hiring?.detailFound?.websiteUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <h3>{hiring?.detailFound?.organisationName}</h3>
+                </a>
+                <h3>{hiring?.detailFound?.opportunityLocation}</h3>
+              </span>
+            </div>
+            <div className="apply-btn-container">
+              {hiring?.detailFound?.isServiceOff === true ? (
+                <button className="btn" disabled>
+                  Expired
+                </button>
+              ) : isLoggedIn ? (
+                <div>
+                  {!isApplicable && (
+                    <button className="btn" disabled>
+                      Not Applicable
+                    </button>
+                  )}
+                  {isApplicable &&
+                    hiring?.applied === false &&
+                    (!!hiring?.detailFound?.contactEmail ? (
+                      <a
+                        href={`mailto:${hiring?.detailFound?.contactEmail}?subject=${hiring?.detailFound?.contactEmailSubject}`}
+                      >
+                        <button className="btn">Apply</button>
+                      </a>
+                    ) : (
+                      <button onClick={UserDataPost} className="btn">
+                        {!!hiring?.detailFound?.applyLink
+                          ? "Apply"
+                          : `Easy Apply`}
+                      </button>
+                    ))}
+                  {/* {isApplicable &&
                   hiring?.applied === false &&
                   !isResumeUploaded && (
                     <button onClick={UserDataPost} className="btn">
                       Apply
                     </button>
                   )} */}
-                                {hiring?.applied === true && (
-                                    <button className="btn" disabled>
-                                        Applied
-                                    </button>
-                                )}
-                            </div>
-                        ) : (
-                            // <Link to="/login">
-                                <div onClick={()=>{
-                                    redirectToAuth("/login");
-                                }} className="btn">Apply</div>
-                            // </Link>
-                        )}
-                    </div>
-                </span>
-                <span className="Tags">
-                    {hiring?.detailFound?.skillsRequired?.map((skillsRequired, index) => (
-                        <Chip
-                            key={index}
-                            variant="outlined"
-                            size="small"
-                            label={`#${skillsRequired}`}
-                            style={{
-                                fontWeight: "500",
-                                fontSize: "10px",
-                                marginRight: "15px",
-                                marginBottom: "5px",
-                            }}
-                        />
-                    ))}
-                </span>
-            </div>
-            <div className="JobDesc">
-                <h5>Job Description</h5>
-                <p id="quill-job-description"></p>
-            </div>
-            <div className="JobInfo">
-                <h5>More Information</h5>
-                <div className="JobInfoItems">
-                    <div className="JobInfoItem">
-                        <h6>Salary</h6>
-                        <p></p>
-                        <span>{hiring?.detailFound?.amount !== "N/A" ? hiring?.detailFound?.amount : "N/A"}</span>
-                        <img src={`${bucket}cash.svg`} alt="guide" />
-                    </div>
-                    <div className="JobInfoItem">
-                        <h6>Minimum Experience</h6>
-                        <p></p>
-                        <span>
-                            {hiring?.detailFound?.experience !== "0"
-                                ? hiring?.detailFound?.experience === "1"
-                                    ? `${hiring?.detailFound?.experience} year`
-                                    : `${hiring?.detailFound?.experience} years`
-                                : `Fresher`}
-                        </span>
-                        <img src={`${bucket}timer.svg`} alt="guide" />
-                    </div>
-                    <div className="JobInfoItem">
-                        <h6>Job Location</h6>
-                        <p></p>
-                        <span>{hiring?.detailFound?.opportunityLocation}</span>
-                        <img src={`${bucket}locate.svg`} alt="guide" />
-                    </div>
-                    <div className="JobInfoItem">
-                        <h6>Work type</h6>
-                        <p></p>
-                        <span>{hiring?.detailFound?.opportunityTiming}</span>
-                        <img src={`${bucket}time.svg`} alt="guide" />
-                    </div>
+                  {hiring?.applied === true && (
+                    <button className="btn" disabled>
+                      Applied
+                    </button>
+                  )}
                 </div>
+              ) : (
+                // <Link to="/login">
+                <div
+                  onClick={() => {
+                    redirectToAuth("/login");
+                  }}
+                  className="btn"
+                >
+                  Apply
+                </div>
+                // </Link>
+              )}
             </div>
+          </span>
+          <span className="Tags">
+            {hiring?.detailFound?.skillsRequired?.map(
+              (skillsRequired, index) => (
+                <Chip
+                  key={index}
+                  variant="outlined"
+                  size="small"
+                  label={`#${skillsRequired}`}
+                  style={{
+                    fontWeight: "500",
+                    fontSize: "10px",
+                    marginRight: "15px",
+                    marginBottom: "5px",
+                  }}
+                />
+              )
+            )}
+          </span>
         </div>
+        <div className="JobDesc">
+          <h5>Job Description</h5>
+          <p id="quill-job-description"></p>
+        </div>
+        <div className="JobInfo">
+          <h5>More Information</h5>
+          <div className="JobInfoItems">
+            <div className="JobInfoItem">
+              <h6>Salary</h6>
+              <p></p>
+              <span>
+                {hiring?.detailFound?.amount !== "N/A"
+                  ? hiring?.detailFound?.amount
+                  : "N/A"}
+              </span>
+              <img src={`${bucket}cash.svg`} alt="guide" />
+            </div>
+            <div className="JobInfoItem">
+              <h6>Minimum Experience</h6>
+              <p></p>
+              <span>
+                {hiring?.detailFound?.experience !== "0"
+                  ? hiring?.detailFound?.experience === "1"
+                    ? `${hiring?.detailFound?.experience} year`
+                    : `${hiring?.detailFound?.experience} years`
+                  : `Fresher`}
+              </span>
+              <img src={`${bucket}timer.svg`} alt="guide" />
+            </div>
+            <div className="JobInfoItem">
+              <h6>Job Location</h6>
+              <p></p>
+              <span>{hiring?.detailFound?.opportunityLocation}</span>
+              <img src={`${bucket}locate.svg`} alt="guide" />
+            </div>
+            <div className="JobInfoItem">
+              <h6>Work type</h6>
+              <p></p>
+              <span>{hiring?.detailFound?.opportunityTiming}</span>
+              <img src={`${bucket}time.svg`} alt="guide" />
+            </div>
+          </div>
+        </div>
+      </div>
     );
 
     useEffect(() => {
