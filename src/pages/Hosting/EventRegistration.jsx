@@ -336,8 +336,8 @@ const EventRegistrationForm = () => {
           label="Event Mode Type"
           onChange={(e) => setEventModeType(e.target.value)}
         >
-          <MenuItem value="InterCollege">InterCollege</MenuItem>
-          <MenuItem value="IntraCollege">IntraCollege</MenuItem>
+          {/* <MenuItem value="InterCollege">InterCollege</MenuItem> */}
+          <MenuItem value="collegeEvent">College Event</MenuItem>
           <MenuItem value="Workshop">Workshop</MenuItem>
         </Select>
         <FormHelperText error={!!errors.eventModeType}>
