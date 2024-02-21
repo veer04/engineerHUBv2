@@ -5,7 +5,7 @@ import { controller, getDomains } from "../../services/APIConfig";
 import { useParams, useNavigate } from "react-router-dom";
 import colorWheel from "../../assets/colorWheel";
 import useSidebar from "../../hooks/use-sidebar";
-import { useIsScrolling } from "../../hooks/useIsScrolling";
+import { useScrollDirection } from "../../features/scrollDirection";
 
 export default function DomainSwitcherMobile() {
   const navigate = useNavigate();
@@ -14,7 +14,6 @@ export default function DomainSwitcherMobile() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [filteredDomains, setFilteredDomains] = useState([]);
   const { selectedItem } = useSidebar();
-  const isScrolling = useIsScrolling();
 
   useEffect(() => {
     if (sessionStorage.getItem("domainData")) {
@@ -44,9 +43,9 @@ export default function DomainSwitcherMobile() {
   return (
     <aside
       style={{
-        height: isScrolling ? 0 : "56px",
+        height: useScrollDirection() === "down" ? 0 : "56px",
         transition: "height 0.2s ease-in-out",
-        overflow: isScrolling ? "hidden" : "visible",
+        overflow: useScrollDirection() === "down" ? "hidden" : "visible",
       }}
       id="domain-switcher-mobile"
     >

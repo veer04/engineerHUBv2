@@ -39,7 +39,7 @@ export default function JobsSection() {
           {job.opportunityName}
         </div>
         <div className="job-skills">
-          {job.skillsRequired?.slice(0, 3).map((skill, index) => (
+          {job.skillsRequired?.map((skill, index) => (
             <div key={`${job.id}${index}`}>{skill}</div>
           ))}
           {job.skillsRequired?.length > 3 ? (
@@ -66,13 +66,13 @@ export default function JobsSection() {
       </div>
       <div className="jobs-section-content">
         <div className="jobs-section-row jobs-section-row-1">
-          {createJobs(jobs.slice(0, 1))}
+          {createJobs(jobs)}
         </div>
         <div className="jobs-section-row jobs-section-row-2">
-          {createJobs(jobs.slice(1, 3))}
+          {createJobs(jobs)}
         </div>
         <div className="jobs-section-row jobs-section-row-3 justify-content-around">
-          {createJobs(jobs.slice(3, 5))}
+          {createJobs(jobs)}
         </div>
       </div>
       <div className="jobs-btn">

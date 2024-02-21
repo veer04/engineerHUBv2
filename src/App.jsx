@@ -1,23 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, lazy, Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
-import HomePage from "./pages/HomePage/HomePage";
-import ProjectPage from "./pages/Community/Project/ProjectsPage";
-import BlogsPage from "./pages/Community/Blogs/BlogsPage";
-import EventsPage from "./pages/Community/Events/EventsPage";
-import ChatPage from "./pages/Community/Chat/ChatPage";
 import MentorChat from "./components/1-1Mentorship/Mentorchat";
-import IntraCollege from "./pages/Campus/IntraCollege/IntraCollege";
-import InterCollege from "./pages/Campus/InterCollege/InterCollege";
-import Workshops from "./pages/Campus/Workshops/Workshops";
-import ParticularCampus from "./pages/Campus/ParticularCampus/ParticularCampus";
-import Signup from "./pages/User/Signup/Signup";
 import RegistrationForm from "./components/Registration/Registration";
 import OTP from "./pages/User/OtpVerification/Otpverification";
 import MobileNavbar from "./components/MobileNavbar/MobileNavbar";
 import HostEvent from "./pages/Hosting/EventRegistration";
-import Navbar from "./components/Navbar/Navbar";
-import Footer from "./components/Footer/Footer";
+import NewNavbar from "./components/Navbar/NewNavbar";
 import Events from "./pages/Company/Events/events";
 import Jobs from "./pages/Company/Jobs/jobs";
 import JobDetails from "./pages/Company/Jobs/JobDetails";
@@ -28,12 +17,9 @@ import HackathonDetails from "./pages/Company/Events/EventsChoices/HackathonDeta
 import Projects from "./pages/Company/Projects/Projects";
 import ProjectDetail from "./pages/Company/Projects/ProjectDetail";
 import ComingSoon from "./pages/Maintenance/ComingSoon";
-import ParticularEvent from "./pages/Community/Events/ParticularEvent";
-import { lazy } from "react";
 import ClubSignup from "./pages/User/Signup/ClubSignup";
 import MentorSignup from "./pages/User/Signup/MentorSignup";
 import OrganizationSignup from "./pages/User/Signup/OrganizationSignup";
-import { Suspense } from "react";
 import LoadingPage from "./components/Loader/LoadingPage";
 import Role from "./pages/User/RoleWiseUserPage/Role";
 import PostModal from "./components/PostModal/PostModal";
@@ -75,6 +61,9 @@ import TrendingWorkshops from "./pages/Campus/TrendingWorkshops.jsx";
 import ProjectWindow from "./pages/Community/Project/ProjectWindow.jsx";
 import EventWindow from "./pages/Community/Events/EventWindow.jsx";
 import BlogWindow from "./pages/Community/Blogs/BlogWindow.jsx";
+import NewFooter from "./components/Footer/NewFooter.jsx";
+import GetFeaturedForm from "./pages/NewHomepage/GetFeaturedForm.jsx";
+const NewHomePage = lazy(() => import("./pages/NewHomepage/NewHomePage.jsx"));
 const ProjectSubmission = lazy(() =>
   import("./pages/Community/Project/ProjectSubmission.jsx")
 );
@@ -96,8 +85,6 @@ const NewBlogsPage = lazy(() =>
 );
 
 function App() {
-  const [isChatOpen, setIsChatOpen] = useState(false);
-  const [isEventModalOpen, setIsEventModalOpen] = useState(false);
   const [OtpRoute, setOtpRoute] = useState("loading");
   const [eventHostRoute, setEventHostRoute] = useState(false);
   const [sendLogin, setSendLogin] = useState(true);
@@ -125,17 +112,18 @@ function App() {
 
   return (
     <>
-      {!isEventModalOpen && <Navbar />}
-      {!isEventModalOpen && <MobileNavbar />}
+      <NewNavbar />
+      <MobileNavbar />
       <GlobalSnackbar />
       <ProfilePopUp />
       <Suspense fallback={<LoadingPage />}>
         <Routes>
-          <Route index element={<HomePage path="homepage" />} />
-          <Route path="/home" element={<HomePage />} />
+          {/* <Route index element={<HomePage path="homepage" />} /> */}
+          <Route index element={<NewHomePage path="homepage" />} />
+          <Route path="/get-featured" element={<GetFeaturedForm />} />
           <Route path="/success" element={<Success></Success>}></Route>
           <Route path="/register" element={<RegistrationForm />} />
-          <Route path="/selectRole" element={<Role />} />
+          <Route path="/select-role" element={<Role />} />
           <Route path="/profile">
             <Route
               path="user/:userId"
@@ -169,7 +157,6 @@ function App() {
               element={<CompanyEditProfile />}
             />
           </Route>
-          <Route path="/signup" element={<Signup />} />
           <Route path="/student-signup" element={<StudentSignup />} />
           <Route path="/User-signup" element={<SignupUser />} />
           <Route path="/clubSignup" element={<ClubSignup />} />
@@ -193,7 +180,6 @@ function App() {
             <Route index element={<CommunityPage />} />
             <Route path="domains" element={<CommunityPage path="domains" />} />
             <Route path="projects">
-              {/* <Route path=":id" element={<ProjectPage path="projects" />} /> */}
               <Route path=":id" element={<NewProjectsPage />}>
                 <Route path=":projectId" element={<ProjectWindow />} />
               </Route>
@@ -210,23 +196,10 @@ function App() {
             <Route path="events">
               <Route path=":id" element={<NewEventsPage />}>
                 <Route path=":eventId" element={<EventWindow />} />
-                {/* <Route index element={<EventsPage path="events" />} /> */}
-                {/* <Route
-                  path=":eventId"
-                  element={
-                    <ParticularEvent
-                      setIsEventModalOpen={setIsEventModalOpen}
-                    />
-                  }
-                /> */}
               </Route>
             </Route>
             <Route path="chat">
               <Route path=":id" element={<NewChatPage />} />
-              {/* <Route
-                path=":id"
-                element={<ChatPage path="chat" setIsChatOpen={setIsChatOpen} />}
-              /> */}
             </Route>
           </Route>
           <Route path="/mentorChat" element={<MentorChat />} />
@@ -291,7 +264,7 @@ function App() {
         </Routes>
       </Suspense>
 
-      {!isEventModalOpen && !isChatOpen && <Footer />}
+      <NewFooter />
     </>
   );
 }

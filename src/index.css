@@ -44,7 +44,7 @@ a {
   word-break: break-all;
 }
 #root {
-  padding-top: 6.7rem;
+  padding-top: var(--navbar-height);
   max-width: 1920px;
   width: 100%;
   font-family: "Inter", sans-serif;
@@ -58,10 +58,22 @@ span {
   word-break: break-all;
   word-break: normal;
   overflow-wrap: break-word;
+  /* cursor: default; */
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  cursor: default;
 }
 :root {
   --section-padding: min(10.41rem, 8vw);
   --vertical-padding: min(1rem, 4vw);
+
+  --navbar-height: 4.875rem;
+  --mobile-navbar-height: 4rem;
 
   --main-background-color: #eeffff; /*rgb(238,255,255)*/
 

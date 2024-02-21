@@ -1,0 +1,293 @@
+
+
+.image-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.image-container img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  animation: bounce 1s infinite alternate; /* Apply the animation */
+  mix-blend-mode: multiply; /* Blend the image with the background */
+}
+
+/* Keyframe animation for continuous bouncing */
+@keyframes bounce {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-7px);
+  }
+}
+
+.linear-progress-container {
+  text-align: center;
+  margin-top: 20px;
+}
+
+button {
+  padding: 10px;
+  font-size: 16px;
+}
+
+.progress-bar {
+  width: 20px;
+  height: 200px;
+  background-color: #eee;
+  margin: 10px auto;
+  position: relative;
+}
+
+.progress {
+  background-color: #3498db;
+  transition: height 2s ease;
+}
+
+.step-texts {
+  display: flex;
+  justify-content: space-between;
+}
+
+.step-text {
+  width: 100px;
+  text-align: center;
+  color: #333;
+  font-size: 14px;
+  margin-top: 5px;
+  transition: color 0.5s ease;
+}
+
+.step-text.active {
+  color: #3498db;
+}
+.verticalDash{
+  height: 10px; /* Adjust the height as needed */
+  width: 3px; /* Adjust the width as needed */
+  background-color: black; /* Adjust the color as needed */
+  margin: 5px 0;
+  text-align: center;
+}
+.boxCommunity{
+  background:#FDF7E7;
+    border-radius:14px;
+    margin:auto;
+    width:85vw;
+     height:65vh;
+    margin-top:4%;
+    margin-bottom:4%;
+}
+
+.textDesc{
+  font-size:1.2rem;
+   font-weight:500;
+   color:#33555e;
+   line-height:0.8rem;
+}
+.textContent{
+  font-size:2rem;
+  font-weight:700;
+  line-height:1.6rem;
+  color:#002b36;
+}
+.textContaine{
+  margin-top:5%;
+  margin-left:5%;
+}
+
+.textContainer{
+  margin-top:5%;
+}
+.imageHome{
+  vertical-align: middle;
+    height: auto;
+    width: 260px;
+}
+.buttonSwitch{
+
+
+  display: inline-block;
+  /* margin-left: 5%; */
+  font-size: 0.9rem;
+  padding: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  color: #fff;
+  border-radius: 30px;
+  width: 90px;
+  text-align: center;
+  cursor: pointer;
+  margin-bottom: 12px;
+  
+
+}
+.buttonSwitch:hover{
+  background-color: #002b36 !important;
+  color: #fff;
+  transition: 0.3s;
+}
+
+@media screen and (max-width:1251px)
+{
+.boxCommunity{
+  height: 80vh;
+}
+.buttonSwitch{
+
+
+  display: inline-block;
+  
+  font-size: 0.8rem;
+  padding: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  color: #fff;
+  border-radius: 30px;
+  width: 80px;
+  text-align: center;
+  cursor: pointer;
+  margin-bottom: 10px;
+
+}
+}
+@media screen and (max-width:1201px)
+{
+  .textDesc{
+    font-size:1rem;
+     font-weight:400;
+     color:#33555e;
+     line-height:0.8rem;
+  }
+  .textContent{
+    font-size:1.7rem;
+    font-weight:700;
+    line-height:1.4rem;
+    color:#002b36;
+  }
+  .boxCommunity{
+    height: 80vh;
+  }
+}
+
+@media screen and (max-width: 992px)
+{
+  .boxCommunity{
+ width :70vw;
+ margin:auto;
+ margin-top:5%;
+ height: 80vh;
+  }
+
+  .textDesc{
+    font-size:0.8rem;
+     font-weight:400;
+     color:#33555e;
+     line-height:0.8rem;
+  }
+  .textContent{
+    font-size:1.4rem;
+    font-weight:700;
+    line-height:1.2rem;
+    color:#002b36;
+  }
+  .event-card-homePage {
+    padding: 1rem;
+    width: 100%;
+    background: #fff;
+    max-width: 16.75rem;
+  
+}
+.eventCardHomeCampus{
+  width: 100%;
+  background: #fff;
+  max-width: 16.75rem;
+}
+.almaCardHomePage{
+  max-width: 300px;
+}
+
+
+
+}
+@media screen and (max-width: 825px)
+{
+
+  .textDesc{
+    font-size:0.8rem;
+     font-weight:400;
+     color:#33555e;
+     line-height:0.8rem;
+     padding: 5px;
+  }
+  .almaCardHomePage{
+    max-width: 280px;
+  }
+  
+  .textContent{
+    font-size:1.5rem;
+    font-weight:700;
+    line-height:1.2rem;
+    color:#002b36;
+    padding:1px;
+  }
+
+}
+@media screen and (max-width:767px)
+{
+  .boxCommunity{
+    /* height:100vh !important; */
+    height : 100%;
+    width: 70vw;
+    padding-top:5% ;
+    padding-bottom: 5%;
+  }
+  .textContainer{
+    margin-top:5%;
+    margin-left:0%;
+    text-align: center;
+  }
+  .wrapButton{
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  .event-card-homePage {
+    padding: 1rem;
+    width: 70%;
+    background: #fff;
+    max-width: 15.75rem;
+}
+.eventCardHomeCampus{
+  width: 70%;
+  background: #fff;
+  max-width: 15.75rem;
+}
+.almaCardHomePage{
+  max-width: 260px;
+}
+}
+@media screen and (max-width:525px)
+{
+ .boxCommunity{
+  width: 90vw;
+ } 
+ .event-card-homePage{
+  padding: 1rem;
+    width: 80%;
+    background: #fff;
+    max-width: 15.75rem ;
+ }
+ .wrapButton{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 14px;
+  margin-top: 10px;
+}
+}
+
+

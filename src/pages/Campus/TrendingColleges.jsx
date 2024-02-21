@@ -95,52 +95,33 @@ export default function TrendingColleges() {
             </div>
           </div>
           <div className="cards">
-            {trendingList?.map((item) => (
-              <div
-                onClick={() => navigate(`/trending/campuses/${item._id}`)}
-                key={item._id}
-                className="card"
-                style={{
-                  cursor: "pointer",
-                }}
-              >
-                <div className="poster">
-                  {item?.collegePhoto?.length ? (
-                    <img src={item?.collegePhoto[0]} alt="poster" />
-                  ) : (
-                    <img src={defaultPoster} alt="poster" />
-                  )}
-                </div>
-                <div className="content">
-                  <div className="logo">
-                    <img src={item?.collegeLogo} alt="logo" />
-                  </div>
-                  <div className="details">
-                    <span className="name text-crop-3">
-                      {item?.collegeName}
-                    </span>
-                    <span className="location text-crop-2">{`${item?.city}, ${item?.state}`}</span>
-                    <div className="tags">
-                      {!!item?.totalClubs && (
-                        <div className="club-count">
-                          {item?.totalClubs}+ Clubs
-                        </div>
-                      )}
-                      {!!item?.totalAlumni && (
-                        <div className="alma-count">
-                          {item?.totalAlumni}+ Members
-                        </div>
-                      )}
-                      {!!item?.totalEvents && (
-                        <div className="student-count">
-                          {item?.totalEvents}+ Events
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                </div>
+          {trendingList
+        .slice(0, viewMore ? trendingList.length : 3)
+        .map((trending, index) => (
+          <Fragment key={trending._id}>
+            <div
+              onClick={() => navigate(`/profile/club/${trending._id}`)}
+              className="trending-card"
+            >
+              <div className="logo">
+                <img
+                  onError={(e) => {
+                    e.target.src = defaultPoster;
+                  }}
+                  src={trending.image}
+                  alt="logo"
+                />
               </div>
-            ))}
+              <div className="content">
+                <span className="name text-crop-2">{trending.name}</span>
+                <span className="subheading text-crop-2">
+                  {trending.aboutUs || trending.description}
+                </span>
+              </div>
+            </div>
+            <hr />
+          </Fragment>
+        ))}
           </div>
         </aside>
         <div id="column-2" className="column column-2">
