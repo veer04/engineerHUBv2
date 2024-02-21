@@ -34,7 +34,6 @@ export default function NewFooter() {
               companies.
             </p>
             <div className="our-links">
-              
               <Link to="http://www.instagram.com/engineerhub.in">
                 <BsInstagram />
               </Link>
@@ -50,7 +49,7 @@ export default function NewFooter() {
               <Link to="https://chat.whatsapp.com/CBXimuglKBk1j8VYWA5crE">
                 <BsWhatsapp />
               </Link>
-              
+
               <Link to="https://t.me/engineerhub_in">
                 <BsTelegram />
               </Link>
@@ -75,42 +74,30 @@ export default function NewFooter() {
           </div>
           <div className="links-container">
             <div className="pages">
-              <p className="title">Host</p>
-              <Link to="/host/event" className="link">
-                Cultural Events
+              <p className="title">Community</p>
+              <Link
+                to="/community/chat/Data%20Structures%20%26%20Algorithms"
+                className="link"
+              >
+                Chat
               </Link>
-              <Link to="/host/event" className="link">
-                Technical Events
-              </Link>
-              <Link to="/host/event" className="link">
-                Hackathon
-              </Link>
-              <Link to="/host/event" className="link">
-                Webinar
-              </Link>
-              <Link to="/host/job" className="link">
-                Jobs
-              </Link>
-              <Link to="/host/internship" className="link">
-                Internships
-              </Link>
-              <Link to="/host/project" className="link">
+              <Link
+                to="/community/projects/Data%20Structures%20%26%20Algorithms"
+                className="link"
+              >
                 Projects
               </Link>
-            </div>
-            <div className="pages">
-              <p className="title">Company</p>
-              <Link to="/company/internships" className="link">
-                Internships
+              <Link
+                to="/community/events/Data%20Structures%20%26%20Algorithms"
+                className="link"
+              >
+                Events
               </Link>
-              <Link to="/company/jobs" className="link">
-                Jobs
-              </Link>
-              <Link to="/company/events" className="link">
-                Hackathons
-              </Link>
-              <Link to="/company/projects" className="link">
-                Projects
+              <Link
+                to="/community/blogs/Data%20Structures%20%26%20Algorithms"
+                className="link"
+              >
+                Blogs
               </Link>
             </div>
             <div className="pages">
@@ -144,30 +131,42 @@ export default function NewFooter() {
               </Link>
             </div>
             <div className="pages">
-              <p className="title">Community</p>
-              <Link
-                to="/community/chat/Data%20Structures%20%26%20Algorithms"
-                className="link"
-              >
-                Chat
+              <p className="title">Company</p>
+              <Link to="/company/internships" className="link">
+                Internships
               </Link>
-              <Link
-                to="/community/projects/Data%20Structures%20%26%20Algorithms"
-                className="link"
-              >
+              <Link to="/company/jobs" className="link">
+                Jobs
+              </Link>
+              <Link to="/company/events" className="link">
+                Hackathons
+              </Link>
+              <Link to="/company/projects" className="link">
                 Projects
               </Link>
-              <Link
-                to="/community/events/Data%20Structures%20%26%20Algorithms"
-                className="link"
-              >
-                Events
+            </div>
+            <div className="pages">
+              <p className="title">Host</p>
+              <Link to="/host/event" className="link">
+                Cultural Events
               </Link>
-              <Link
-                to="/community/blogs/Data%20Structures%20%26%20Algorithms"
-                className="link"
-              >
-                Blogs
+              <Link to="/host/event" className="link">
+                Technical Events
+              </Link>
+              <Link to="/host/event" className="link">
+                Hackathon
+              </Link>
+              <Link to="/host/event" className="link">
+                Webinar
+              </Link>
+              <Link to="/host/job" className="link">
+                Jobs
+              </Link>
+              <Link to="/host/internship" className="link">
+                Internships
+              </Link>
+              <Link to="/host/project" className="link">
+                Projects
               </Link>
             </div>
           </div>
