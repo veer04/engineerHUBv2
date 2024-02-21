@@ -441,7 +441,7 @@
   }
   .landing-section .featured-container #item-3 {
     top: 45.55vh;
-    left: 9.15vw;
+    left: 12.15vw;
   }
   .landing-section .featured-container #item-4 {
     top: 40.37vh;
@@ -451,9 +451,17 @@
     top: 30.11vh;
     left: 31.54vw;
   }
-  .landing-section .featured-container #item-6,
-  .landing-section .featured-container #item-7,
+  .landing-section .featured-container #item-6 {
+    top: 57.11vh;
+    left: 40.54vw;
+  }
+  .landing-section .featured-container #item-7 {
+    top: 70.11vh;
+    left: 7.54vw;
+  }
+
   .landing-section .featured-container #item-8 {
-    display: none;
+    top: 70.11vh;
+    left: 58.54vw;
   }
 }
