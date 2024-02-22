@@ -114,7 +114,42 @@ const NewCompanyHomePage = () => {
                   </p>
 
                   <div>
-                    {isScreenBelow768 ? null : (
+                    {isScreenBelow768 ? (
+                      <div className={isScreenBelow768 ? "horizontal-mode" : ""}>
+  <input
+    type="radio"
+    name="section"
+    checked={selectedSection === 0}
+    readOnly
+  />
+  <span className={`circle ${selectedSection === 0 ? "filled" : ""}`}>
+    Login
+  </span>
+  {isScreenBelow768 && <div className="horizontalDash"></div>}
+
+  <input
+    type="radio"
+    name="section"
+    checked={selectedSection === 1}
+    readOnly
+  />
+  <span className={`circle ${selectedSection === 1 ? "filled" : ""}`}>
+    Jobs / Internships
+  </span>
+  {isScreenBelow768 && <div className="horizontalDash"></div>}
+
+  <input
+    type="radio"
+    name="section"
+    checked={selectedSection === 2}
+    readOnly
+  />
+  <span className={`circle ${selectedSection === 2 ? "filled" : ""}`}>
+    Apply
+  </span>
+</div>
+
+                    ) : (
                       <div>
                         <input
                           type="radio"
