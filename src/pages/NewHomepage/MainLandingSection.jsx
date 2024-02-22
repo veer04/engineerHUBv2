@@ -139,7 +139,9 @@ export default function MainLandingSection() {
                   <img src={item.image} alt="" />
                 </div>
                 <div className="details">
-                  <span>{item.name}</span>
+                  <span className="text-crop-1 overflow-hidden">
+                    {item.name}
+                  </span>
                   <span>{item.type}</span>
                 </div>
               </div>

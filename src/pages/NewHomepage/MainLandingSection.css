@@ -127,6 +127,7 @@
   font-style: normal;
   font-weight: 500;
   line-height: normal;
+  word-break: break-all
 }
 .landing-section .featured-container .feature-item .details span:last-child {
   color: var(--Primary-400, #33555e);
