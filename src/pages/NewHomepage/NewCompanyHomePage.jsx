@@ -123,9 +123,12 @@ const NewCompanyHomePage = () => {
     readOnly
   />
   <span className={`circle ${selectedSection === 0 ? "filled" : ""}`}>
-    Login
+  <span className="fontStylingSmallScreen">Login</span>  
   </span>
-  {isScreenBelow768 && <div className="horizontalDash"></div>}
+  {isScreenBelow768 && <><div className="horizontalDash"></div>
+  
+  <div className="horizontalDash"></div>
+  <div className="horizontalDash"></div></>}
 
   <input
     type="radio"
@@ -134,9 +137,13 @@ const NewCompanyHomePage = () => {
     readOnly
   />
   <span className={`circle ${selectedSection === 1 ? "filled" : ""}`}>
-    Jobs / Internships
+  <span className="fontStylingSmallScreen">  Jobs / Internships</span>  
+ 
   </span>
-  {isScreenBelow768 && <div className="horizontalDash"></div>}
+  {isScreenBelow768 && <><div className="horizontalDash"></div>
+  
+  <div className="horizontalDash"></div>
+  <div className="horizontalDash"></div></>}
 
   <input
     type="radio"
@@ -145,7 +152,7 @@ const NewCompanyHomePage = () => {
     readOnly
   />
   <span className={`circle ${selectedSection === 2 ? "filled" : ""}`}>
-    Apply
+  <span className="fontStylingSmallScreen"> Apply</span>  
   </span>
 </div>
 

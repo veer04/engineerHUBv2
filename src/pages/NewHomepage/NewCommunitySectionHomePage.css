@@ -297,8 +297,14 @@ button {
 }
 
 .horizontalDash {
-  width: 10px; /* Adjust width as needed */
+  width: 4px; /* Adjust width as needed */
   height: 2px; /* Adjust height as needed */
   background-color: black; /* Adjust color as needed */
-  margin: 0 5px; /* Adjust spacing as needed */
+  margin:  3px; /* Adjust spacing as needed */
+}
+@media  screen and (max-width:415px)
+{.fontStylingSmallScreen{
+
+  font-size: 0.85rem;
+}
 }
