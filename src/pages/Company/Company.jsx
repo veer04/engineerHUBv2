@@ -119,19 +119,7 @@ const Company = () => {
 
   const bucket = `${Bucket_URL}frontend/company/`;
   const CompanyCardEntries = [
-    {
-      name: "event hiring",
-      desc: "Participate in the events directly conducted by the companies to highlight your profile.",
-      char: `${bucket}EventChar.svg`,
-      stats: {
-        position: cntEvent,
-        hiring: cntEventLive ? 35 : 0,
-      },
-      link: "/company/events",
-      background: "#F7d77f",
-      text1: "events live",
-      text2: "total opening",
-    },
+      //Jobs
     {
       name: "job hiring",
       desc: "Apply for the jobs of your interest and get the offer letter in the next step.",
@@ -145,32 +133,55 @@ const Company = () => {
       text1: "jobs live",
       text2: "total opening",
     },
-    {
-      name: "project hub",
-      desc: "Paid projects that gives you hands-on experience for better career.",
-      char: `${bucket}ProjectChar.svg`,
-      background: "#B2E887",
-      stats: {
-        position: cntProject,
-        hiring: cntProject,
+
+      //Internship
+      {
+        name: "BE AN INTERN",
+        desc: "Apply for the Internships of your interest and get the offer letter in the next step.",
+        char: `${bucket}InternChar.svg`,
+        background: "#e8ba98",
+        stats: {
+          position: cntInternship,
+          hiring: cntInternshipLive ? 1500 : 0,
+        },
+        link: "/company/internships",
+        text1: "internships live",
+        text2: "total opening",
       },
-      link: "/company/projects",
-      text1: "projects live",
-      text2: "ongoing projects",
-    },
-    {
-      name: "BE AN INTERN",
-      desc: "Apply for the Internships of your interest and get the offer letter in the next step.",
-      char: `${bucket}InternChar.svg`,
-      background: "#e8ba98",
-      stats: {
-        position: cntInternship,
-        hiring: cntInternshipLive ? 1500 : 0,
+
+      //Project
+      {
+        name: "project hub",
+        desc: "Paid projects that gives you hands-on experience for better career.",
+        char: `${bucket}ProjectChar.svg`,
+        background: "#B2E887",
+        stats: {
+          position: cntProject,
+          hiring: cntProject,
+        },
+        link: "/company/projects",
+        text1: "projects live",
+        text2: "ongoing projects",
       },
-      link: "/company/internships",
-      text1: "internships live",
+
+      //Event
+
+    {
+      name: "event hiring",
+      desc: "Participate in the events directly conducted by the companies to highlight your profile.",
+      char: `${bucket}EventChar.svg`,
+      stats: {
+        position: cntEvent,
+        hiring: cntEventLive ? 35 : 0,
+      },
+      link: "/company/events",
+      background: "#F7d77f",
+      text1: "events live",
       text2: "total opening",
     },
+
+   
+
   ];
   const CategoryEntries = [
     { name: "Design", logo: `${bucket}appdevLogo.svg` },
@@ -212,7 +223,7 @@ const Company = () => {
           })}
         </div>
       </div>
-      <div className="Category">
+      <div className="Category" style={{display:"none"}}>
         <h5>Most on Demand Jobs Categories</h5>
         <div className="CategoryTiles">
           {CategoryEntries.map((item, index) => {
