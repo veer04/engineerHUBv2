@@ -30,7 +30,7 @@ const JobCards = ({
             <b>{details?.amount !== "N/A" ? details?.amount : "N/A"}</b>
           </h6>
           {details?.views > 0 ? (
-            <span>
+            <span style={{display:"none"}}>
               <MdOutlineRemoveRedEye /> {details?.views}
             </span>
           ) : (
