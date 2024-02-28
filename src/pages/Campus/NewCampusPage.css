@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  padding: calc(var(--vertical-padding) + var(--navbar-height)) var(--section-padding);
+  padding: var(--vertical-padding) var(--section-padding);
   scroll-behavior: auto;
 }
 .campus-page .heading-3 {
@@ -162,9 +162,16 @@
   line-height: 128.523%; /* 0.96394rem */
 }
 
-@media screen and (min-width: 821px) {
+@media screen and (min-width: 920px) {
   #campus-sidebar-mobile {
     display: none;
+  }
+}
+
+@media screen and (max-width: 920px) {
+  .campus-page {
+    padding: calc(var(--vertical-padding) + var(--navbar-height))
+      var(--section-padding);
   }
 }
 
