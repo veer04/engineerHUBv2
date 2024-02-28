@@ -179,4 +179,25 @@
 }
 .profile-menu > a > .recent-activities-btn {
   background-color: transparent;
+  border: 1px solid var(--primary-color-dark-green);
+  color: var(--primary-color-dark-green);
+}
+.profile-menu > a > .recent-activities-btn:hover {
+  background-color: var(--primary-color-dark-green);
+  color: white;
+}
+.profile-menu > a > .recent-activities-btn:active {
+  background-color: var(--primary-color-green);
+  color: white;
+}
+.profile-menu .logout-button {
+  color: #ff0000;
+  background-color: transparent;
+}
+.profile-menu .logout-button:hover {
+  color: white;
+  background-color: #ff0000;
+}
+.profile-menu .logout-button:active {
+  background-color: #ff7b7b;
 }

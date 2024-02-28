@@ -372,12 +372,10 @@ export default function ProfilePopUp() {
           padding: "0 1.69rem",
           borderRadius: "0.3125rem",
           fontWeight: "500",
-          backgroundColor: "transparent",
           borderWidth: "1px",
           gap: "0.125rem",
           justifyContent: "center",
           borderColor: "#ff0000",
-          color: "#ff0000",
           marginTop: "1rem",
         }}
         onClick={() => handleLogout()}
