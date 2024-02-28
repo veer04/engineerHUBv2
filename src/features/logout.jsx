@@ -24,5 +24,5 @@ export async function handleLogout() {
   cookiesToRemove.forEach((cookie) => {
     Cookies.remove(cookie);
   });
-  window.location.href = "/";
+  window.location.reload();
 }
