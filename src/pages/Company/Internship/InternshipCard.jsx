@@ -3,6 +3,8 @@ import { Chip } from "@mui/material";
 import "./InternshipCard.css";
 import { Link } from "react-router-dom";
 import ViewApplicantsModal from "../../../components/Dashboard/ViewApplicantsModal";
+import { MdOutlineRemoveRedEye } from "react-icons/md";
+
 const InternshipCard = ({
   details,
   color,
@@ -22,7 +24,26 @@ const InternshipCard = ({
   return (
     <div className={`JobCard on-hover-scale ${className}`}>
       <div className="cardContent">
-        <h6>
+        <div className="job-ctc-views">
+          <h6>
+            Stipend :{" "}
+            {details?.featuredArray?.includes("CampusAmbassador") ? (
+              <b>Bonus</b>
+            ) : details.isPaid ? (
+              <b>{details.amount !== "N/A" ? details?.amount : "N/A"}</b>
+            ) : (
+              <b>Unpaid</b>
+            )}
+          </h6>
+          {details?.views > 0 ? (
+            <span>
+              <MdOutlineRemoveRedEye /> {details?.views}
+            </span>
+          ) : (
+            ""
+          )}
+        </div>
+        {/* <h6>
           Stipend :{" "}
           {details?.featuredArray?.includes("CampusAmbassador") ? (
             <b>Bonus</b>
@@ -31,7 +52,7 @@ const InternshipCard = ({
           ) : (
             <b>Unpaid</b>
           )}
-        </h6>
+        </h6> */}
         <h6 className="text-crop-1 overflow-hidden">
           Job Location : <b>{details?.opportunityLocation}</b>
         </h6>
