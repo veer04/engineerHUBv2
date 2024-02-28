@@ -1,6 +1,6 @@
 .landing-section {
   min-height: 100vh;
-  min-height: 100svh;
+  min-height: calc(100lvh - 3.8rem);
   display: flex;
   justify-content: center;
   align-items: flex-start;
@@ -127,7 +127,7 @@
   font-style: normal;
   font-weight: 500;
   line-height: normal;
-  word-break: break-all
+  word-break: break-all;
 }
 .landing-section .featured-container .feature-item .details span:last-child {
   color: var(--Primary-400, #33555e);
@@ -464,5 +464,8 @@
   .landing-section .featured-container #item-8 {
     top: 70.11vh;
     left: 58.54vw;
+  }
+  .landing-section {
+    min-height: 100lvh;
   }
 }
