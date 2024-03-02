@@ -1,20 +1,12 @@
 import "./Company.css";
 import JobCards from "./Jobs/JobCards";
 import HackathonCard from "./Events/EventsChoices/HackathonCards";
-import { Bucket_URL } from "../../services/APIUtils";
+import { API_URL, Bucket_URL } from "../../services/APIUtils";
 import { useEffect, useState } from "react";
 import useNavbar from "../../hooks/use-navbar";
-import {
-  controller,
-  getAllEvents,
-  getAllEvents2,
-  getAllJobs2,
-  getEvents,
-  getJobs,
-} from "../../services/APIConfig";
 import { Link, useNavigate } from "react-router-dom";
-import { getHiringData, getProjectData } from "../../services/APIConfig";
 import colorWheel from "../../assets/colorWheel";
+import axios from "axios";
 
 const CompanyCards = ({ data }) => {
   return (
@@ -44,144 +36,183 @@ const CompanyCards = ({ data }) => {
     </div>
   );
 };
+
 const Company = () => {
-  const [jobsData, setJobsData] = useState([]);
-  const [jobs, setJobs] = useState([]);
-  const [eventsData, setEventsData] = useState([]);
-  const [events, setEvents] = useState([]);
-  const { setSelectedPageNavbar } = useNavbar();
-  const [hiring, setHiring] = useState([]);
-  const [project, setProject] = useState([]);
-  const [cntEvent, setCntEvent] = useState(-1);
-  const [cntEventLive, setCntEventLive] = useState(-1);
-  const [cntJob, setCntJob] = useState(-1);
-  const [cntJobLive, setCntJobLive] = useState(-1);
-  const [cntInternship, setCntInternship] = useState(-1);
-  const [cntInternshipLive, setCntInternshipLive] = useState(-1);
-  const [cntProject, setCntProject] = useState(-1);
   const navigate = useNavigate();
+  const { setSelectedPageNavbar } = useNavbar();
+
+  const [jobs, setJobs] = useState(
+    sessionStorage.getItem("companyPageJobs")
+      ? JSON.parse(sessionStorage.getItem("companyPageJobs"))
+      : []
+  );
+  const [events, setEvents] = useState(
+    sessionStorage.getItem("companyPageEvents")
+      ? JSON.parse(sessionStorage.getItem("companyPageEvents"))
+      : []
+  );
+  const [companyPageCounts, setCompanyPageCounts] = useState(
+    sessionStorage.getItem("companyPageCounts")
+      ? JSON.parse(sessionStorage.getItem("companyPageCounts"))
+      : {}
+  );
+
+  const getCompanyPageCounts = () => {
+    axios
+      .get(`${API_URL}api/v1/getCompanyPageCounts/`)
+      .then((res) => {
+        sessionStorage.setItem(
+          "companyPageCounts",
+          JSON.stringify(res?.data?.data)
+        );
+        setCompanyPageCounts(res?.data?.data);
+      })
+      .catch((err) => {
+        setCompanyPageCounts(err);
+        if (axios.isCancel(err)) {
+          console.log("req cancel");
+        } else {
+          console.log("req performed");
+        }
+      });
+  };
+
+  const getCompanyPageJobs = (setJobs, pageNo, limit) => {
+    axios
+      .get(`${API_URL}api/v1/getHiringByOpportunityType/`, {
+        params: {
+          opportunityType: "Job",
+          pageNo: pageNo,
+          limit: limit,
+        },
+      })
+      .then((res) => {
+        sessionStorage.setItem(
+          "companyPageJobs",
+          JSON.stringify(res?.data?.data)
+        );
+        setJobs(res?.data?.data);
+      })
+      .catch((err) => {
+        setJobs(err);
+        if (axios.isCancel(err)) {
+          console.log("req cancel");
+        } else {
+          console.log("req performed");
+        }
+      });
+  };
+
+  const getCompanyPageEvents = (setEvents, pageNo, limit) => {
+    axios
+      .get(`${API_URL}api/v1/getHiringByOpportunityType/`, {
+        params: {
+          opportunityType: "Event",
+          pageNo: pageNo,
+          limit: limit,
+        },
+      })
+      .then((res) => {
+        sessionStorage.setItem(
+          "companyPageEvents",
+          JSON.stringify(res?.data?.data)
+        );
+        setEvents(res?.data?.data);
+      })
+      .catch((err) => {
+        setEvents(err);
+        if (axios.isCancel(err)) {
+          console.log("req cancel");
+        } else {
+          console.log("req performed");
+        }
+      });
+  };
+
   useEffect(() => {
     window.scrollTo(0, 0);
     setSelectedPageNavbar("company");
-    getJobs(setJobsData, 1, 6);
-    getAllEvents(setEventsData, 1, 6);
-    getHiringData(setHiring);
-    getProjectData(setProject);
-    return () => {
-      controller.abort();
-    };
+    if (sessionStorage.getItem("companyPageCounts")) {
+      setCompanyPageCounts(
+        JSON.parse(sessionStorage.getItem("companyPageCounts"))
+      );
+    } else {
+      getCompanyPageCounts();
+    }
+    if (sessionStorage.getItem("companyPageJobs")) {
+      setJobs(JSON.parse(sessionStorage.getItem("companyPageJobs")));
+    } else {
+      getCompanyPageJobs(setJobs, 1, 6);
+    }
+    if (sessionStorage.getItem("companyPageEvents")) {
+      setJobs(JSON.parse(sessionStorage.getItem("companyPageEvents")));
+    } else {
+      getCompanyPageEvents(setEvents, 1, 6);
+    }
   }, []);
-
-  useEffect(() => {
-    if (Object.keys(jobsData).length > 0) setJobs(jobsData?.data?.data);
-  }, [jobsData]);
-
-  useEffect(() => {
-    if (Object.keys(eventsData).length > 0) setEvents(eventsData?.data?.data);
-  }, [eventsData]);
-
-  useEffect(() => {
-    setCntEvent(
-      Object.keys(hiring.filter((res) => res.opportunityType === "Event"))
-        .length
-    );
-    setCntEventLive(
-      Object.keys(
-        hiring.filter(
-          (res) => res.opportunityType === "Event" && res.isServiceOff === false
-        )
-      ).length
-    );
-    setCntJob(
-      Object.keys(hiring.filter((res) => res.opportunityType === "Job")).length
-    );
-    setCntJobLive(
-      Object.keys(
-        hiring.filter(
-          (res) => res.opportunityType === "Job" && res.isServiceOff === false
-        )
-      ).length
-    );
-    setCntInternship(
-      Object.keys(hiring.filter((res) => res.opportunityType === "Internship"))
-        .length
-    );
-    setCntInternshipLive(
-      Object.keys(
-        hiring.filter(
-          (res) =>
-            res.opportunityType === "Internship" && res.isServiceOff === false
-        )
-      ).length
-    );
-    setCntProject(Object.keys(project).length);
-  }, [hiring, project]);
 
   const bucket = `${Bucket_URL}frontend/company/`;
   const CompanyCardEntries = [
-      //Jobs
+    //Jobs
     {
       name: "job hiring",
       desc: "Apply for the jobs of your interest and get the offer letter in the next step.",
       char: `${bucket}JobChar.svg`,
       background: "#8FC8E8",
       stats: {
-        position: cntJob,
-        hiring: cntJobLive ? 4000 : 0,
+        position: companyPageCounts?.pageSizeJob,
+        hiring: companyPageCounts?.pageSizeJob ? 4000 : 0,
       },
       link: "/company/jobs",
       text1: "jobs live",
       text2: "total opening",
     },
 
-      //Internship
-      {
-        name: "BE AN INTERN",
-        desc: "Apply for the Internships of your interest and get the offer letter in the next step.",
-        char: `${bucket}InternChar.svg`,
-        background: "#e8ba98",
-        stats: {
-          position: cntInternship,
-          hiring: cntInternshipLive ? 1500 : 0,
-        },
-        link: "/company/internships",
-        text1: "internships live",
-        text2: "total opening",
+    //Internship
+    {
+      name: "BE AN INTERN",
+      desc: "Apply for the Internships of your interest and get the offer letter in the next step.",
+      char: `${bucket}InternChar.svg`,
+      background: "#e8ba98",
+      stats: {
+        position: companyPageCounts?.pageSizeInternship,
+        hiring: companyPageCounts?.pageSizeInternship ? 1500 : 0,
       },
+      link: "/company/internships",
+      text1: "internships live",
+      text2: "total opening",
+    },
 
-      //Project
-      {
-        name: "project hub",
-        desc: "Paid projects that gives you hands-on experience for better career.",
-        char: `${bucket}ProjectChar.svg`,
-        background: "#B2E887",
-        stats: {
-          position: cntProject,
-          hiring: cntProject,
-        },
-        link: "/company/projects",
-        text1: "projects live",
-        text2: "ongoing projects",
+    //Project
+    {
+      name: "project hub",
+      desc: "Paid projects that gives you hands-on experience for better career.",
+      char: `${bucket}ProjectChar.svg`,
+      background: "#B2E887",
+      stats: {
+        position: companyPageCounts?.pageSizeProjects,
+        hiring: companyPageCounts?.pageSizeProjects,
       },
+      link: "/company/projects",
+      text1: "projects live",
+      text2: "ongoing projects",
+    },
 
-      //Event
+    //Event
 
     {
       name: "event hiring",
       desc: "Participate in the events directly conducted by the companies to highlight your profile.",
       char: `${bucket}EventChar.svg`,
       stats: {
-        position: cntEvent,
-        hiring: cntEventLive ? 35 : 0,
+        position: companyPageCounts?.pageSizeEvent,
+        hiring: companyPageCounts?.pageSizeEvent ? 35 : 0,
       },
       link: "/company/events",
       background: "#F7d77f",
       text1: "events live",
       text2: "total opening",
     },
-
-   
-
   ];
   const CategoryEntries = [
     { name: "Design", logo: `${bucket}appdevLogo.svg` },
@@ -223,7 +254,7 @@ const Company = () => {
           })}
         </div>
       </div>
-      <div className="Category" style={{display:"none"}}>
+      <div className="Category" style={{ display: "none" }}>
         <h5>Most on Demand Jobs Categories</h5>
         <div className="CategoryTiles">
           {CategoryEntries.map((item, index) => {
