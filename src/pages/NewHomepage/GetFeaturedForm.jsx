@@ -17,7 +17,7 @@ import {
 } from "../../services/APIConfig";
 import countryCodes from "../../assets/countryCodes";
 import { getAccessToken } from "../../features/getCookieValues";
-
+import { getAllCampuses,controller ,  addUserEducation,} from "../../services/APIConfig";
 export default function GetFeaturedForm() {
   if (!isUserLoggedIn()) {
     redirectToAuth("/login");
@@ -27,14 +27,18 @@ export default function GetFeaturedForm() {
   const navigate = useNavigate();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [campuses, setCampuses] = useState([]);
+  const [newCampus, setNewCampus] = useState("");
   const [countryCode, setCountryCode] = useState("91"); //change the type to Number
   const [contactNo, setContactNo] = useState("");
+  const [updateEducationResponse, setUpdateEducationResponse] = useState({});
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState({
     name: "",
     email: "",
     countryCode: "",
     contactNo: "",
+    campus:"",
   });
   const {
     setSnackbarOpen,
@@ -47,12 +51,14 @@ export default function GetFeaturedForm() {
     window.scrollTo(0, 0);
     if (getUserRole() === "User" || getUserRole() === "Alumni") {
       getUserProfileById(setUser, getUserId());
+      getAllCampuses(setCampuses);
     } else if (getUserRole() === "Club") {
       getClubProfileById(setUser, getUserId());
     } else if (getUserRole() === "Organization") {
       getOrganizationProfileById(setUser, getUserId());
     }
   }, []);
+
 
   useEffect(() => {
     setName(
@@ -66,6 +72,30 @@ export default function GetFeaturedForm() {
     setContactNo(user?.contactNo || user.mobile);
   }, [user]);
 
+  useEffect(() => {
+    if (!!Object.keys(updateEducationResponse).length) {
+      setLoading(false);
+      if (
+        updateEducationResponse.status >= 200 &&
+        updateEducationResponse.status < 300
+      ) {
+        // setSnackbarSeverity("success");
+        // setSnackbarMessage("You are added to the waitlist🎉");
+        // setSnackbarDuration(8000);
+        // setSnackbarOpen(true);
+      } else {
+        // setSnackbarSeverity("error");
+        // setSnackbarMessage("Something went wrong");
+        // setSnackbarOpen(true);
+        // setSnackbarDuration(8000);
+      }
+      setUpdateEducationResponse({});
+      
+      setNewCampus("");
+      
+    }
+  }, [updateEducationResponse]);
+
   function validateForm() {
     let formIsValid = true;
     let error = {
@@ -73,6 +103,7 @@ export default function GetFeaturedForm() {
       email: "",
       countryCode: "",
       contactNo: "",
+      campus:"",
     };
 
     if (!name) {
@@ -95,7 +126,6 @@ export default function GetFeaturedForm() {
       error.countryCode = "Please select your country code";
       formIsValid = false;
     }
-
     if (!contactNo) {
       formIsValid = false;
       error.contactNo = "Contact no. is required";
@@ -111,7 +141,25 @@ export default function GetFeaturedForm() {
     return formIsValid;
   }
 
-  function submitFormData() {
+  const handleChangeCollegeId = (e) => {
+    // const { name, value } = e.target;
+    setNewCampus(e.target.value);
+  };
+
+
+
+
+  function handleUpdateEducation() {
+    const data = {
+      collegeId: newCampus,
+     
+    };
+    setLoading(true);
+    addUserEducation(data, setUpdateEducationResponse);
+  }
+
+  function  submitFormData() {
+
     const data = {
       name,
       email,
@@ -131,6 +179,11 @@ export default function GetFeaturedForm() {
         config
       )
       .then(() => {
+        if (getUserRole() === "User" || getUserRole() === "Alumni")
+        {
+
+          handleUpdateEducation() 
+        }
         setLoading(false);
         setSnackbarMessage("You are added to the waitlist🎉");
         setSnackbarSeverity("success");
@@ -139,6 +192,11 @@ export default function GetFeaturedForm() {
         navigate(`/`);
       })
       .catch((err) => {
+        if (getUserRole() === "User" || getUserRole() === "Alumni")
+        {
+
+          handleUpdateEducation() 
+        }
         setLoading(false);
         setSnackbarMessage(
           err?.response?.data?.message || "Something went wrong"
@@ -155,14 +213,17 @@ export default function GetFeaturedForm() {
   }
 
   function handleSubmit(e) {
+     
     e.preventDefault();
     setLoading(true);
     if (validateForm()) {
       submitFormData();
+     
     } else {
       setLoading(false);
     }
   }
+
 
   return (
     <main id="get-featured-form" className="get-featured-form">
@@ -232,7 +293,40 @@ export default function GetFeaturedForm() {
               <label className="error-message">{error.contactNo}</label>
             </div>
           </div>
+          {
+            getUserRole() === "User" || getUserRole() === "Alumni" ?(
+              <div className="row">
+              <label className="label">
+                Institute/College Name<span className="required">*</span>
+              </label>
+              <select
+                className="input-field"
+                labelid="campus-name"
+                id="student-signup-campus-select"
+                label="Institution Name"
+                name="institutionName"
+                value={newCampus}
+                onChange={handleChangeCollegeId}
+              >
+                <option value="" disabled>
+                  Select your Campus
+                </option>
+                {campuses.map((campus) => (
+                  <option key={campus._id} value={campus._id}>
+                    {campus.collegeName}
+                  </option>
+                ))}
+              </select>
+              <label className="error-message">{error.campus}</label>
+              </div>
 
+            ):(
+              <>
+              </>
+            )
+
+          }
+       
           <button
             disabled={loading}
             onClick={handleSubmit}
@@ -251,3 +345,5 @@ export default function GetFeaturedForm() {
     </main>
   );
 }
+
+
