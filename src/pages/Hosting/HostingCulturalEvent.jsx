@@ -1,13 +1,13 @@
-import "./HostingCulturalEvent.css";
+import { useState } from "react";
+import { IoIosArrowBack } from "react-icons/io";
 import { isUserLoggedIn } from "../../features/User/UserDetails";
 import { redirectToAuth } from "../../features/redirectToAuth";
-import { IoIosArrowBack } from "react-icons/io";
+import { Bucket_URL } from "../../services/APIUtils";
 import FormInput from "../../components/FormInputs/FormInput";
-import { useState } from "react";
 import FormInputTextarea from "../../components/FormInputs/FormInputTextArea";
 import FormInputDropdown from "../../components/FormInputs/FormInputDropdown";
-import { Bucket_URL } from "../../services/APIUtils";
 import FormInputUpload from "../../components/FormInputs/FormInputUpload";
+import "./HostingCulturalEvent.css";
 
 export default function HostingCulturalEvent() {
   if (!isUserLoggedIn()) {
@@ -107,7 +107,7 @@ export default function HostingCulturalEvent() {
             fileType="image/*"
             value={eventPoster}
             setValue={setEventPoster}
-            helperText={eventPoster}
+            helperText={errors.eventPoster}
             className="mb-2"
             // disabled
           />

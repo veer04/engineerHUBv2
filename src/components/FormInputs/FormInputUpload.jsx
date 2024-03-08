@@ -15,6 +15,7 @@ export default function FormInputUpload({
   disabled,
   ...rest
 }) {
+  console.log(value);
   const ref = useRef(null);
   const formattedSize = (size) => {
     const units = ["B", "KB", "MB", "GB", "TB"];
@@ -27,9 +28,9 @@ export default function FormInputUpload({
   };
 
   function handleChange(e) {
-    // if (e.target.files[0]) {
+    if (e.target.files[0]) {
       setValue(e.target.files[0]);
-    // }
+    }
   }
 
   return (
