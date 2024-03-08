@@ -6,8 +6,8 @@ import { Bucket_URL } from "../../services/APIUtils";
 import FormInput from "../../components/FormInputs/FormInput";
 import FormInputTextarea from "../../components/FormInputs/FormInputTextArea";
 import FormInputDropdown from "../../components/FormInputs/FormInputDropdown";
-import FormInputUpload from "../../components/FormInputs/FormInputUpload";
 import "./HostingCulturalEvent.css";
+import FormInputFileUpload from "../../components/FormInputs/FormInputFileUpload";
 
 export default function HostingCulturalEvent() {
   if (!isUserLoggedIn()) {
@@ -99,7 +99,7 @@ export default function HostingCulturalEvent() {
             className="mb-2"
             // disabled
           />
-          <FormInputUpload
+          <FormInputFileUpload
             label="Event Poster"
             required
             constraint="max 5MB"

@@ -2,7 +2,7 @@ import { useRef } from "react";
 import { RxCross1 } from "react-icons/rx";
 import "./FormInput.css";
 
-export default function FormInputUpload({
+export default function FormInputFileUpload({
   label,
   required,
   constraint,
@@ -102,7 +102,7 @@ export default function FormInputUpload({
           >
             {placeholder}
             <button disabled={disabled} className="browse-btn">
-              Browse files
+              Browse
             </button>
           </div>
         )}
