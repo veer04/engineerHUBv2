@@ -1384,7 +1384,7 @@ export const getUserProfileById = (
       setFetchResponse(res);
     })
     .catch((err) => {
-      setFetchResponse(err);
+      // setFetchResponse(err);
       if (axios.isCancel(err)) {
         console.log("req cancel");
       } else {
