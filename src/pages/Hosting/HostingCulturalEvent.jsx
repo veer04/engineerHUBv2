@@ -1,18 +1,18 @@
 import "./HostingCulturalEvent.css";
-import { getUserRole, isUserLoggedIn } from "../../features/User/UserDetails";
+import { isUserLoggedIn } from "../../features/User/UserDetails";
 import { redirectToAuth } from "../../features/redirectToAuth";
-import { MdArrowLeft } from "react-icons/md";
 import { IoIosArrowBack } from "react-icons/io";
-import culturalEventPosterLarge from "./cultural-event-poster-large.png";
 import FormInput from "../../components/FormInputs/FormInput";
 import { useState } from "react";
 import FormInputTextarea from "../../components/FormInputs/FormInputTextArea";
 import FormInputDropdown from "../../components/FormInputs/FormInputDropdown";
+import { Bucket_URL } from "../../services/APIUtils";
 
 export default function HostingCulturalEvent() {
   if (!isUserLoggedIn()) {
     redirectToAuth("/login");
   }
+  const bucket = `${Bucket_URL}frontend/hosting/`;
   const [eventName, setEventName] = useState("");
   const [eventDescription, setEventDescription] = useState("");
   const [eventType, setEventType] = useState();
@@ -39,7 +39,7 @@ export default function HostingCulturalEvent() {
     <main className="hosting-container">
       <aside
         style={{
-          backgroundImage: `url(${culturalEventPosterLarge})`,
+          backgroundImage: `url(${bucket}cultural-event-poster-large.png)`,
         }}
         className="poster-container"
       >
