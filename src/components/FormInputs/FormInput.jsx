@@ -10,11 +10,16 @@ export default function FormInput({
   setValue,
   helperText,
   className,
+  disabled,
+  ...rest
 }) {
   return (
-    <div className={`custom-form-input ${!!className ? className : ""}`}>
+    <div
+      {...rest}
+      className={`custom-form-input ${!!className ? className : ""}`}
+    >
       <div className="form-input-container">
-        <label htmlFor="" className="form-input-label">
+        <label htmlFor={label} className="form-input-label">
           {label}{" "}
           {label && required && <span className="required-mark">*</span>}
         </label>
@@ -22,10 +27,13 @@ export default function FormInput({
       </div>
       <input
         type="text"
-        name=""
-        id=""
+        name={label}
+        id={label}
         required={required}
-        className={`custom-input ${helperText ? "custom-input-error" : ""}`}
+        disabled={disabled}
+        className={`custom-input ${helperText ? "custom-input-error" : ""} ${
+          !!disabled ? "disabled" : ""
+        }`}
         placeholder={placeholder}
         value={value}
         onChange={(e) => setValue(e.target.value)}
