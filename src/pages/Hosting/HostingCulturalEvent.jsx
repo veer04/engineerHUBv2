@@ -7,6 +7,7 @@ import { useState } from "react";
 import FormInputTextarea from "../../components/FormInputs/FormInputTextArea";
 import FormInputDropdown from "../../components/FormInputs/FormInputDropdown";
 import { Bucket_URL } from "../../services/APIUtils";
+import FormInputUpload from "../../components/FormInputs/FormInputUpload";
 
 export default function HostingCulturalEvent() {
   if (!isUserLoggedIn()) {
@@ -16,6 +17,14 @@ export default function HostingCulturalEvent() {
   const [eventName, setEventName] = useState("");
   const [eventDescription, setEventDescription] = useState("");
   const [eventType, setEventType] = useState();
+  const [eventPoster, setEventPoster] = useState("");
+
+  const [errors, setErrors] = useState({
+    eventName: "",
+    eventDescription: "",
+    eventType: "",
+    eventPoster: "",
+  });
 
   const options = [
     { label: "Red", value: "red" },
@@ -29,11 +38,6 @@ export default function HostingCulturalEvent() {
     { label: "Grey", value: "grey" },
     { label: "Brown", value: "brown" },
   ];
-  const [errors, setErrors] = useState({
-    eventName: "",
-    eventDescription: "",
-    eventType: "",
-  });
 
   return (
     <main className="hosting-container">
@@ -70,7 +74,7 @@ export default function HostingCulturalEvent() {
             setValue={setEventName}
             helperText={errors.eventName}
             className="mb-2"
-            disabled
+            // disabled
           />
           <FormInputTextarea
             label="Event Description"
@@ -82,7 +86,7 @@ export default function HostingCulturalEvent() {
             setValue={setEventDescription}
             helperText={errors.eventDescription}
             className="mb-2"
-            disabled
+            // disabled
           />
           <FormInputDropdown
             label="Event Type"
@@ -93,7 +97,19 @@ export default function HostingCulturalEvent() {
             options={options}
             helperText={errors.eventType}
             className="mb-2"
-            disabled
+            // disabled
+          />
+          <FormInputUpload
+            label="Event Poster"
+            required
+            constraint="max 5MB"
+            placeholder="Upload event poster 1:1 ratio"
+            fileType="image/*"
+            value={eventPoster}
+            setValue={setEventPoster}
+            helperText={eventPoster}
+            className="mb-2"
+            // disabled
           />
         </div>
       </section>

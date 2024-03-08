@@ -1,3 +1,5 @@
+/* More than 9 components share this CSS file, so make changes with excessive testing only */
+
 .custom-form-input .form-input-container {
   display: flex;
   justify-content: space-between;
@@ -41,19 +43,60 @@
 .custom-form-input .custom-dropdown-container {
   position: relative;
 }
-.custom-form-input .custom-dropdown-container .custom-dropdown {
+.custom-form-input .custom-dropdown-container .custom-dropdown,
+.custom-form-input .custom-upload {
   display: flex;
   justify-content: space-between;
   align-items: center;
   cursor: pointer;
 }
-.custom-form-input .custom-dropdown-container .custom-dropdown-placeholder {
+.custom-form-input .custom-upload {
+  padding: 7px 16px;
+}
+.custom-form-input .custom-upload-active {
+  cursor: default;
+}
+.custom-form-input .custom-upload .file-cancel {
+  cursor: pointer;
+  height: 29px;
+  width: 29px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.custom-form-input .custom-upload .file-cancel:hover {
+  background-color: #f0f0f0;
+  border-radius: 5px;
+}
+
+.custom-form-input .custom-dropdown-container .custom-dropdown-placeholder,
+.custom-form-input .custom-upload-placeholder {
   color: #757575;
 }
 .custom-form-input
   .custom-dropdown-container
-  .custom-dropdown-placeholder.disabled {
+  .custom-dropdown-placeholder.disabled,
+.custom-form-input .custom-upload-placeholder.disabled {
   color: #a0a0a0 !important;
+}
+.custom-form-input .custom-input-file-input {
+  display: none;
+}
+.custom-form-input .browse-btn {
+  padding: 0.625rem;
+  border-radius: 5px;
+  border: none;
+  font-size: 14px;
+  line-height: 16px;
+  font-weight: 500;
+  color: white;
+  background-color: var(--primary-color-dark-green);
+  cursor: pointer;
+}
+.custom-form-input .browse-btn:disabled {
+  background-color: #757575;
+  color: white;
+  cursor: not-allowed;
 }
 .custom-form-input .custom-dropdown-container .options {
   position: absolute;
