@@ -1,0 +1,71 @@
+.hosting-container {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  color: var(--text-color-dark-green);
+  --poster-width: 23rem;
+}
+.hosting-container .poster-container {
+  max-width: 28rem;
+  max-height: 49rem;
+  width: var(--poster-width);
+  display: flex;
+  align-items: flex-end;
+  aspect-ratio: 448/784;
+  padding: 1.5rem;
+  background-position: center;
+  background-size: cover;
+}
+.hosting-container .poster-container .fact {
+  background-color: white;
+  padding: 0.75rem;
+  border-radius: 10px;
+}
+.hosting-container .poster-container .fact p:first-child {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+.hosting-container .poster-container .fact p:last-child {
+  font-size: 1rem;
+  font-weight: 400;
+  margin-bottom: 0rem;
+}
+.hosting-container .main {
+  width: calc(100% - var(--poster-width));
+  display: flex;
+  flex-direction: column;
+}
+.hosting-container .main .header {
+  padding: 1.5rem;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.hosting-container .main .header .navigate-back {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  margin-bottom: 1.5rem;
+  cursor: pointer;
+  width: fit-content;
+}
+.hosting-container .main .header .navigate-back:hover {
+  text-decoration: underline;
+}
+.hosting-container .main .header .navigate-back svg {
+  font-size: 1.25rem;
+}
+.hosting-container .main .header .title {
+  font-size: 1.75rem;
+  font-weight: 600;
+}
+.hosting-container .main .content {
+  padding: 1.5rem;
+}
+.hosting-container .main .content h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
