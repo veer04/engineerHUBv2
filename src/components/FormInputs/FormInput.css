@@ -1,0 +1,36 @@
+.custom-form-input .form-input-container {
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+  margin-bottom: 0.25rem;
+}
+.custom-form-input .form-input-container .form-input-label {
+  font-size: 14px;
+  font-weight: 600;
+  padding: 0;
+}
+.custom-form-input .form-input-container .required-mark {
+  color: #ff0000;
+}
+.custom-form-input .form-input-container .constraint {
+  font-size: 14px;
+}
+.custom-form-input .custom-input {
+  width: 100%;
+  height: 3.125rem;
+  border-radius: 5px;
+  border: 2px solid #b0b0b0;
+  padding: 1rem;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-color-dark-green);
+}
+.custom-form-input .custom-input.custom-input-error {
+  border-color: #ff0000;
+  outline-color: #ff0000;
+}
+.custom-form-input .helper-text {
+  font-size: 12px;
+  color: #ff0000;
+  margin-top: 0.25rem;
+}

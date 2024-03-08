@@ -5,11 +5,17 @@ import { MdArrowLeft } from "react-icons/md";
 import { IoIosArrowBack } from "react-icons/io";
 import culturalEventPosterLarge from "./cultural-event-poster-large.png";
 import FormInput from "../../components/FormInputs/FormInput";
+import { useState } from "react";
 
 export default function HostingCulturalEvent() {
   if (!isUserLoggedIn()) {
     redirectToAuth("/login");
   }
+  const [eventName, setEventName] = useState("");
+
+  const [errors, setErrors] = useState({
+    eventName: "",
+  });
 
   return (
     <main className="hosting-container">
@@ -35,9 +41,18 @@ export default function HostingCulturalEvent() {
           <h1 className="title">Cultural Event Details</h1>
           <div>indicator</div>
         </div>
-        <div className="content" >
+        <div className="content">
           <h2>Basic Details</h2>
-          <FormInput />
+          <FormInput
+            label="Event Name"
+            required
+            constraint="max 30 characters"
+            placeholder="This is a placeholder"
+            value={eventName}
+            setValue={setEventName}
+            helperText={errors.eventName}
+            className="mb-2"
+          />
         </div>
       </section>
     </main>
