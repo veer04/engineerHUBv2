@@ -1,5 +1,21 @@
-/* More than 9 components share this CSS file, so make changes with excessive testing only */
+/* More than 9 components share this CSS file, so make changes with extensive testing only */
 
+.custom-form-input {
+  --border-radius: 5px;
+  --alert-color: #ff0000;
+  --border-color: #b0b0b0;
+  --input-bg-color: #ffffff;
+  --input-bg-color-secondary: #f0f0f0;
+  --border-width: 2px;
+  --text-color-secondary: #757575;
+  --placeholder-color-disabled: #a0a0a0;
+
+  color: var(--text-color-dark-green);
+  font-size: 14px;
+}
+
+/* Default Form Input Field  */
+/* Textarea Form Input Field */
 .custom-form-input .form-input-container {
   display: flex;
   justify-content: space-between;
@@ -7,51 +23,97 @@
   margin-bottom: 0.25rem;
 }
 .custom-form-input .form-input-container .form-input-label {
-  font-size: 14px;
   font-weight: 600;
   padding: 0;
 }
 .custom-form-input .form-input-container .required-mark {
-  color: #ff0000;
-}
-.custom-form-input .form-input-container .constraint {
-  font-size: 14px;
+  color: var(--alert-color);
 }
 .custom-form-input .custom-input {
   width: 100%;
   min-height: 3.125rem;
-  border-radius: 5px;
-  border: 2px solid #b0b0b0;
+  border-radius: var(--border-radius);
+  border: var(--border-width) solid var(--border-color);
   padding: 0.75rem 1rem;
-  font-size: 14px;
   font-weight: 500;
   color: var(--text-color-dark-green);
-  background-color: white;
+  background-color: var(--input-bg-color);
+  cursor: pointer;
 }
 .custom-form-input .custom-input.custom-input-error {
-  border-color: #ff0000 !important;
-  outline-color: #ff0000 !important;
+  border-color: var(--alert-color) !important;
+  outline-color: var(--alert-color) !important;
 }
 .custom-form-input .custom-input.disabled {
-  background-color: #f0f0f0 !important ;
-  color: #757575 !important ;
+  background-color: var(--input-bg-color-secondary) !important ;
+  color: var(--text-color-secondary) !important ;
   cursor: not-allowed !important ;
 }
 .custom-form-input .custom-input.disabled::placeholder {
-  color: #a0a0a0;
+  color: var(--placeholder-color-disabled);
 }
+.custom-form-input .helper-text {
+  font-size: 12px;
+  color: var(--alert-color);
+  margin-top: 0.25rem;
+}
+
+/* Dropdown Form Input Field */
 .custom-form-input .custom-dropdown-container {
   position: relative;
 }
-.custom-form-input .custom-dropdown-container .custom-dropdown,
-.custom-form-input .custom-upload {
+.custom-form-input .custom-dropdown-container .custom-dropdown {
   display: flex;
   justify-content: space-between;
   align-items: center;
   cursor: pointer;
 }
+.custom-form-input .custom-dropdown-container .custom-dropdown-placeholder {
+  color: var(--text-color-secondary);
+}
+
+.custom-form-input
+  .custom-dropdown-container
+  .custom-dropdown-placeholder.disabled {
+  color: var(--placeholder-color-disabled) !important;
+}
+
+.custom-form-input .custom-dropdown-container .options {
+  position: absolute;
+  top: calc(100% + 0.25rem);
+  left: 0;
+  width: 100%;
+  z-index: 40;
+  background-color: var(--input-bg-color);
+  border: var(--border-width) solid var(--border-color);
+  border-radius: var(--border-radius);
+  max-height: 191.4px;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+.custom-form-input .custom-dropdown-container .option {
+  padding: 0.5rem 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  border-bottom: 1px solid var(--border-color);
+}
+.custom-form-input .custom-dropdown-container .option:last-child {
+  border-bottom: none;
+}
+.custom-form-input .custom-dropdown-container .option:hover {
+  background-color: var(--input-bg-color-secondary);
+}
+
+/* File Upload Form Input Field */
+.custom-form-input .custom-input-file-input {
+  display: none;
+}
 .custom-form-input .custom-upload {
-  padding: 7px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  padding: 7px 1rem;
 }
 .custom-form-input .custom-upload-active {
   cursor: default;
@@ -65,28 +127,19 @@
   align-items: center;
 }
 .custom-form-input .custom-upload .file-cancel:hover {
-  background-color: #f0f0f0;
-  border-radius: 5px;
+  background-color: var(--input-bg-color-secondary);
+  border-radius: var(--border-radius);
 }
-
-.custom-form-input .custom-dropdown-container .custom-dropdown-placeholder,
 .custom-form-input .custom-upload-placeholder {
-  color: #757575;
+  color: var(--text-color-secondary);
 }
-.custom-form-input
-  .custom-dropdown-container
-  .custom-dropdown-placeholder.disabled,
 .custom-form-input .custom-upload-placeholder.disabled {
-  color: #a0a0a0 !important;
-}
-.custom-form-input .custom-input-file-input {
-  display: none;
+  color: var(--placeholder-color-disabled) !important;
 }
 .custom-form-input .browse-btn {
   padding: 0.625rem;
   border-radius: 5px;
   border: none;
-  font-size: 14px;
   line-height: 16px;
   font-weight: 500;
   color: white;
@@ -94,38 +147,8 @@
   cursor: pointer;
 }
 .custom-form-input .browse-btn:disabled {
-  background-color: #757575;
-  color: white;
+  background-color: var(--text-color-secondary);
   cursor: not-allowed;
 }
-.custom-form-input .custom-dropdown-container .options {
-  position: absolute;
-  top: calc(100% + 0.25rem);
-  left: 0;
-  width: 100%;
-  z-index: 40;
-  background-color: white;
-  border: 2px solid #b0b0b0;
-  border-radius: 5px;
-  max-height: 191.4px;
-  overflow-x: hidden;
-  overflow-y: auto;
-}
-.custom-form-input .custom-dropdown-container .option {
-  padding: 0.5rem 1rem;
-  font-size: 14px;
-  font-weight: 500;
-  cursor: pointer;
-  border-bottom: 1px solid #b0b0b0;
-}
-.custom-form-input .custom-dropdown-container .option:last-child {
-  border-bottom: none;
-}
-.custom-form-input .custom-dropdown-container .option:hover {
-  background-color: #f0f0f0;
-}
-.custom-form-input .helper-text {
-  font-size: 12px;
-  color: #ff0000;
-  margin-top: 0.25rem;
-}
+
+/* Select Option Form Input Field */
