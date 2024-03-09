@@ -8,6 +8,7 @@ import FormInputTextarea from "../../components/FormInputs/FormInputTextArea";
 import FormInputDropdown from "../../components/FormInputs/FormInputDropdown";
 import "./HostingCulturalEvent.css";
 import FormInputFileUpload from "../../components/FormInputs/FormInputFileUpload";
+import FormInputSelect from "../../components/FormInputs/FormInputSelect";
 
 export default function HostingCulturalEvent() {
   if (!isUserLoggedIn()) {
@@ -18,6 +19,7 @@ export default function HostingCulturalEvent() {
   const [eventDescription, setEventDescription] = useState("");
   const [eventType, setEventType] = useState();
   const [eventPoster, setEventPoster] = useState("");
+  const [eventMode, setEventMode] = useState("Online");
 
   const [errors, setErrors] = useState({
     eventName: "",
@@ -111,6 +113,16 @@ export default function HostingCulturalEvent() {
             className="mb-2"
             // disabled
           />
+          <FormInputSelect
+            label="Event Mode"
+            required
+            placeholder="Select event mode"
+            value={eventMode}
+            setValue={setEventMode}
+            helperText={errors.eventMode}
+            className="mb-2"
+            // disabled
+          ></FormInputSelect>
         </div>
       </section>
     </main>

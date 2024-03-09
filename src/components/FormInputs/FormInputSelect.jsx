@@ -1,0 +1,46 @@
+import React from "react";
+import "./FormInput.css";
+
+export default function FormInputSelect({
+  label,
+  required,
+  constraint,
+  placeholder,
+  value,
+  setValue,
+  helperText,
+  className,
+  disabled,
+  children,
+  ...rest
+}) {
+  return (
+    <div
+      {...rest}
+      className={`custom-form-input ${!!className ? className : ""}`}
+    >
+      <div className="form-input-container">
+        <label htmlFor={label} className="form-input-label">
+          {label}{" "}
+          {label && required && <span className="required-mark">*</span>}
+        </label>
+        {constraint && <span className="constraint">({constraint})</span>}
+      </div>
+      {children}
+      {/* <input
+        type="text"
+        name={label}
+        id={label}
+        required={required}
+        disabled={disabled}
+        className={`custom-input ${helperText ? "custom-input-error" : ""} ${
+          !!disabled ? "disabled" : ""
+        }`}
+        placeholder={placeholder}
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+      /> */}
+      {helperText && <span className="helper-text">{helperText}</span>}
+    </div>
+  );
+}
