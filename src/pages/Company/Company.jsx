@@ -145,7 +145,7 @@ const Company = () => {
       getCompanyPageJobs(setJobs, 1, 6);
     }
     if (sessionStorage.getItem("companyPageEvents")) {
-      setJobs(JSON.parse(sessionStorage.getItem("companyPageEvents")));
+      setEvents(JSON.parse(sessionStorage.getItem("companyPageEvents")));
     } else {
       getCompanyPageEvents(setEvents, 1, 6);
     }
