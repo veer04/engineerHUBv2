@@ -271,7 +271,7 @@ export default function GetFeaturedForm() {
         navigate(`/`);
       })
       .catch((err) => {
-        if (getUserRole() === "User" || getUserRole() === "Alumni")
+        if (getUserRole() === "User" || getUserRole() === "Alumni" || getUserRole()=="Club")
         {
 
           handleUpdateEducation() 
@@ -309,7 +309,7 @@ export default function GetFeaturedForm() {
       <section className="box">
         <p className="heading">Get Yourself Featured</p>
         <section className="box">
-        <p className="heading">USER PROFILE PICTURE</p>
+        <p className="heading">{getUserRole().toUpperCase()} PROFILE PICTURE</p>
         <p className="md-alert-text">
           *Note Image size must be not more than 100kb
         </p>
@@ -448,7 +448,7 @@ export default function GetFeaturedForm() {
             </div>
           </div>
           {
-            getUserRole() === "User" || getUserRole() === "Alumni" ?(
+            getUserRole() === "User" || getUserRole() === "Alumni"  ?(
               <div className="row">
               <label className="label">
                 Institute/College Name<span className="required">*</span>
