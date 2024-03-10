@@ -10,6 +10,7 @@ import "./HostingCulturalEvent.css";
 import FormInputFileUpload from "../../components/FormInputs/FormInputFileUpload";
 import FormInputSelect from "../../components/FormInputs/FormInputSelect";
 import FormInputSelectOption from "../../components/FormInputs/FormInputSelectOption";
+import FormInputDate from "../../components/FormInputs/FormInputDate";
 
 export default function HostingCulturalEvent() {
   if (!isUserLoggedIn()) {
@@ -18,15 +19,18 @@ export default function HostingCulturalEvent() {
   const bucket = `${Bucket_URL}frontend/hosting/`;
   const [eventName, setEventName] = useState("");
   const [eventDescription, setEventDescription] = useState("");
-  const [eventType, setEventType] = useState();
+  const [eventType, setEventType] = useState("");
   const [eventPoster, setEventPoster] = useState("");
-  const [eventMode, setEventMode] = useState("Online");
-
+  const [eventMode, setEventMode] = useState("");
+  const [eventDate, setEventDate] = useState("");
+  console.log(eventDate);
   const [errors, setErrors] = useState({
     eventName: "",
     eventDescription: "",
     eventType: "",
     eventPoster: "",
+    eventMode: "",
+    eventDate: "",
   });
 
   const options = [
@@ -114,9 +118,9 @@ export default function HostingCulturalEvent() {
             fileType="image/*"
             value={eventPoster}
             setValue={setEventPoster}
-            helperText={'errors.eventPoster'}
+            helperText={errors.eventPoster}
             // className="mb-2"
-            disabled
+            // disabled
           />
           <FormInputSelect
             label="Event Mode"
@@ -171,11 +175,21 @@ export default function HostingCulturalEvent() {
                 setValue={setEventMode}
                 multiple
                 result="offline"
-                disabled
                 helperText={errors.eventMode}
+                // disabled
               />
             </div>
           </FormInputSelect>
+          <FormInputDate
+            label="Event Date"
+            required
+            constraint="max 3"
+            caption="Name of the event"
+            value={eventDate}
+            setValue={setEventDate}
+            helperText={errors.eventDate}
+            // className="mb-2"
+          />
         </div>
       </section>
     </main>
