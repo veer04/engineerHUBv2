@@ -46,9 +46,10 @@ export default function FormInputDropdown({
   const renderedOptions = options.map((option) => {
     return (
       <div
-        className="option"
+        className={`option ${value?.value === option.value ? "selected" : ""}`}
         onClick={() => handleOptionClick(option)}
         key={option.value}
+        disabled={option.disabled}
       >
         {option.label}
       </div>

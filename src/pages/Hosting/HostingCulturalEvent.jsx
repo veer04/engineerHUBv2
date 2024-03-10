@@ -6,12 +6,15 @@ import { Bucket_URL } from "../../services/APIUtils";
 import FormInput from "../../components/FormInputs/FormInput";
 import FormInputTextarea from "../../components/FormInputs/FormInputTextarea";
 import FormInputDropdown from "../../components/FormInputs/FormInputDropdown";
-import "./HostingCulturalEvent.css";
 import FormInputFileUpload from "../../components/FormInputs/FormInputFileUpload";
 import FormInputSelect from "../../components/FormInputs/FormInputSelect";
 import FormInputSelectOption from "../../components/FormInputs/FormInputSelectOption";
 import FormInputDate from "../../components/FormInputs/FormInputDate";
 import FormInputDateTime from "../../components/FormInputs/FormInputDateTime";
+import FormInputToggle from "../../components/FormInputs/FormInputToggle";
+import FormInputAutocomplete from "../../components/FormInputs/FormInputAutocomplete";
+import FormInputMultiValue from "../../components/FormInputs/FormInputMultiValue";
+import "./HostingCulturalEvent.css";
 
 export default function HostingCulturalEvent() {
   if (!isUserLoggedIn()) {
@@ -20,12 +23,15 @@ export default function HostingCulturalEvent() {
   const bucket = `${Bucket_URL}frontend/hosting/`;
   const [eventName, setEventName] = useState("");
   const [eventDescription, setEventDescription] = useState("");
-  const [eventType, setEventType] = useState("");
+  const [eventType, setEventType] = useState();
   const [eventPoster, setEventPoster] = useState("");
   const [eventMode, setEventMode] = useState("");
   const [eventDate, setEventDate] = useState("");
   const [eventTime, setEventTime] = useState("");
-  console.log(eventTime);
+  const [eventToggle, setEventToggle] = useState(false);
+  const [autocomplete, setAutocomplete] = useState("");
+  const [multiValue, setMultiValue] = useState([]);
+
   const [errors, setErrors] = useState({
     eventName: "",
     eventDescription: "",
@@ -34,19 +40,35 @@ export default function HostingCulturalEvent() {
     eventMode: "",
     eventDate: "",
     eventTime: "",
+    eventToggle: "",
+    autocomplete: "",
+    multiValue: "",
   });
 
   const options = [
     { label: "Red", value: "red" },
     { label: "Green", value: "green" },
     { label: "Blue", value: "blue" },
-    { label: "Yellow", value: "yellow" },
+    { label: "Yellow", value: "yellow", disabled: true },
     { label: "Orange", value: "orange" },
-    { label: "Purple", value: "purple" },
+    { label: "Purple", value: "purple", disabled: true },
     { label: "Black", value: "black" },
     { label: "White", value: "white" },
     { label: "Grey", value: "grey" },
     { label: "Brown", value: "brown" },
+  ];
+
+  const autocompleteOptions = [
+    "Red",
+    "Green",
+    "Blue",
+    "Yellow",
+    "Orange",
+    "Purple",
+    "Black",
+    "White",
+    "Grey",
+    "Brown",
   ];
 
   return (
@@ -202,6 +224,43 @@ export default function HostingCulturalEvent() {
             setValue={setEventTime}
             helperText={errors.eventTime}
             // className="mb-2"
+          />
+          <FormInputToggle
+            label="Show Contact Details to candidates"
+            // checkedLabel="Yes"
+            // uncheckedLabel="No"
+            required
+            value={eventToggle}
+            setValue={setEventToggle}
+            helperText={errors.eventToggle}
+            // className="mb-2"
+            // disabled
+          />
+          <FormInputAutocomplete
+            label="Autocomplete"
+            required
+            constraint="max 3"
+            placeholder="Enter skills"
+            caption="Name of the event"
+            value={autocomplete}
+            setValue={setAutocomplete}
+            options={autocompleteOptions}
+            helperText={errors.skills}
+            // className="mb-2"
+            // disabled
+          />
+          <FormInputMultiValue
+            label="Skills"
+            required
+            constraint="max 3"
+            placeholder="Enter skills"
+            caption="Name of the event"
+            value={multiValue}
+            setValue={setMultiValue}
+            options={autocompleteOptions}
+            helperText={errors.skills}
+            // className="mb-2"
+            // disabled
           />
         </div>
       </section>

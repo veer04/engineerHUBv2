@@ -107,6 +107,7 @@
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 .custom-form-input .custom-dropdown-container .option {
   padding: 0.5rem 1rem;
@@ -119,6 +120,11 @@
 }
 .custom-form-input .custom-dropdown-container .option:hover {
   background-color: var(--input-bg-color-secondary);
+}
+.custom-form-input .custom-dropdown-container .option[disabled] {
+  color: var(--text-color-secondary);
+  background-color: var(--input-bg-color-secondary);
+  cursor: not-allowed;
 }
 
 /* File Upload Form Input Field */
@@ -195,4 +201,56 @@
 .custom-form-input .custom-select-option.custom-input-error:disabled {
   border-width: var(--border-width) !important;
   border-color: var(--border-color) !important;
+}
+
+/* Toggle Form Input Field */
+.custom-form-input .custom-toggle-container {
+  justify-content: flex-end;
+}
+.custom-form-input .custom-toggle-container .custom-input {
+  cursor: default;
+}
+
+.custom-form-input .custom-toggle-container .custom-toggle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.custom-form-input .custom-toggle-container .custom-toggle .toggle-label {
+  width: calc(100% - 4.5rem);
+}
+.custom-form-input .custom-toggle-container .required-mark {
+  color: var(--alert-color);
+}
+.custom-form-input .custom-toggle-container .required-mark[disabled] {
+  color: var(--placeholder-color-disabled);
+}
+
+/* Multi Value Form Input Field */
+.custom-form-input .custom-dropdown-container .option.selected {
+  background-color: var(--input-selected-bg-color);
+}
+.custom-form-input .multi-value {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 0.5rem 1rem;
+  margin-top: 0.5rem;
+  flex-wrap: wrap;
+}
+.custom-form-input .multi-value .multi-value-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2px;
+  padding: 0.375rem 0.5rem;
+  border-radius: 99rem;
+  background-color: var(--primary-color-dark-green);
+  color: white;
+}
+.custom-form-input .multi-value .multi-value-item .cancel-btn {
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
