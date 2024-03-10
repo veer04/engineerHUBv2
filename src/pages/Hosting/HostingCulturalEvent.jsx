@@ -11,6 +11,7 @@ import FormInputFileUpload from "../../components/FormInputs/FormInputFileUpload
 import FormInputSelect from "../../components/FormInputs/FormInputSelect";
 import FormInputSelectOption from "../../components/FormInputs/FormInputSelectOption";
 import FormInputDate from "../../components/FormInputs/FormInputDate";
+import FormInputDateTime from "../../components/FormInputs/FormInputDateTime";
 
 export default function HostingCulturalEvent() {
   if (!isUserLoggedIn()) {
@@ -23,7 +24,8 @@ export default function HostingCulturalEvent() {
   const [eventPoster, setEventPoster] = useState("");
   const [eventMode, setEventMode] = useState("");
   const [eventDate, setEventDate] = useState("");
-  console.log(eventDate);
+  const [eventTime, setEventTime] = useState("");
+  console.log(eventTime);
   const [errors, setErrors] = useState({
     eventName: "",
     eventDescription: "",
@@ -31,6 +33,7 @@ export default function HostingCulturalEvent() {
     eventPoster: "",
     eventMode: "",
     eventDate: "",
+    eventTime: "",
   });
 
   const options = [
@@ -188,6 +191,16 @@ export default function HostingCulturalEvent() {
             value={eventDate}
             setValue={setEventDate}
             helperText={errors.eventDate}
+            // className="mb-2"
+          />
+          <FormInputDateTime
+            label="Event Time"
+            required
+            constraint="max 3"
+            caption="Name of the event"
+            value={eventTime}
+            setValue={setEventTime}
+            helperText={errors.eventTime}
             // className="mb-2"
           />
         </div>
