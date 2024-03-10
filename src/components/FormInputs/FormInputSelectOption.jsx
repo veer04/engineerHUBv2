@@ -2,45 +2,47 @@ import React from "react";
 import "./FormInput.css";
 
 export default function FormInputSelectOption({
+  icon,
   label,
-  required,
-  constraint,
-  placeholder,
+  multiple,
   value,
   setValue,
+  result,
   helperText,
   className,
   disabled,
-  children,
   ...rest
 }) {
+  function handleClick() {
+    if (!multiple) {
+      setValue(result);
+    } else {
+      if (value.includes(result)) {
+        setValue(value.filter((val) => val !== result));
+      } else {
+        setValue([...value, result]);
+      }
+    }
+  }
   return (
-    <div
+    <button
+      id={label}
+      disabled={disabled}
+      onClick={handleClick}
+      className={`custom-input custom-select-option ${
+        helperText ? "custom-input-error" : ""
+      } ${!!className ? className : ""} ${
+        !multiple
+          ? value === result
+            ? "selected"
+            : ""
+          : value.includes(result)
+          ? "selected"
+          : ""
+      } `}
       {...rest}
-      className={`custom-form-input ${!!className ? className : ""}`}
     >
-      <div className="form-input-container">
-        <label htmlFor={label} className="form-input-label">
-          {label}{" "}
-          {label && required && <span className="required-mark">*</span>}
-        </label>
-        {constraint && <span className="constraint">({constraint})</span>}
-      </div>
-      {children}
-      {/* <input
-        type="text"
-        name={label}
-        id={label}
-        required={required}
-        disabled={disabled}
-        className={`custom-input ${helperText ? "custom-input-error" : ""} ${
-          !!disabled ? "disabled" : ""
-        }`}
-        placeholder={placeholder}
-        value={value}
-        onChange={(e) => setValue(e.target.value)}
-      /> */}
-      {helperText && <span className="helper-text">{helperText}</span>}
-    </div>
+      {icon}{label}
+    </button>
   );
 }

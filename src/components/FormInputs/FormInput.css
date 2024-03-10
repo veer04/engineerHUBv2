@@ -6,8 +6,10 @@
   --border-color: #b0b0b0;
   --input-bg-color: #ffffff;
   --input-bg-color-secondary: #f0f0f0;
-  --border-width: 2px;
+  --input-selected-bg-color: #e6eaeb;
+  --border-width: 1px;
   --text-color-secondary: #757575;
+  --placeholder-color: #b0b0b0;
   --placeholder-color-disabled: #a0a0a0;
 
   color: var(--text-color-dark-green);
@@ -29,6 +31,12 @@
 .custom-form-input .form-input-container .required-mark {
   color: var(--alert-color);
 }
+.custom-form-input .caption {
+  font-size: 14px;
+  color: var(--text-color-secondary);
+  margin-bottom: 0.25rem;
+  font-weight: 400;
+}
 .custom-form-input .custom-input {
   width: 100%;
   min-height: 3.125rem;
@@ -41,6 +49,7 @@
   cursor: pointer;
 }
 .custom-form-input .custom-input.custom-input-error {
+  border-width: 2px;
   border-color: var(--alert-color) !important;
   outline-color: var(--alert-color) !important;
 }
@@ -48,6 +57,9 @@
   background-color: var(--input-bg-color-secondary) !important ;
   color: var(--text-color-secondary) !important ;
   cursor: not-allowed !important ;
+}
+.custom-form-input .custom-input::placeholder {
+  color: var(--placeholder-color);
 }
 .custom-form-input .custom-input.disabled::placeholder {
   color: var(--placeholder-color-disabled);
@@ -69,7 +81,7 @@
   cursor: pointer;
 }
 .custom-form-input .custom-dropdown-container .custom-dropdown-placeholder {
-  color: var(--text-color-secondary);
+  color: var(--placeholder-color);
 }
 
 .custom-form-input
@@ -95,7 +107,6 @@
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  
 }
 .custom-form-input .custom-dropdown-container .option {
   padding: 0.5rem 1rem;
@@ -137,7 +148,7 @@
   border-radius: var(--border-radius);
 }
 .custom-form-input .custom-upload-placeholder {
-  color: var(--text-color-secondary);
+  color: var(--placeholder-color);
 }
 .custom-form-input .custom-upload-placeholder.disabled {
   color: var(--placeholder-color-disabled) !important;
@@ -158,3 +169,30 @@
 }
 
 /* Select Option Form Input Field */
+.custom-form-input .custom-select-option {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.custom-form-input .custom-select-option.selected {
+  background-color: var(--input-selected-bg-color);
+  border-color: black;
+}
+.custom-form-input .custom-select-option:disabled {
+  background-color: var(--input-bg-color-secondary);
+  color: var(--text-color-secondary);
+  cursor: not-allowed;
+  border: var(--border-width) solid var(--border-color);
+}
+.custom-form-input .custom-select-option:disabled path {
+  color: var(--text-color-secondary);
+  fill: var(--text-color-secondary);
+}
+
+.custom-form-input .custom-select-option.custom-input-error {
+  border-width: 2px;
+}
+.custom-form-input .custom-select-option.custom-input-error:disabled {
+  border-width: var(--border-width) !important;
+  border-color: var(--border-color) !important;
+}

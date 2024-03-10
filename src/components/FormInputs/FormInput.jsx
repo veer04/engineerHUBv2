@@ -11,6 +11,7 @@ export default function FormInput({
   helperText,
   className,
   disabled,
+  caption,
   ...rest
 }) {
   return (
@@ -25,6 +26,7 @@ export default function FormInput({
         </label>
         {constraint && <span className="constraint">({constraint})</span>}
       </div>
+      {caption && <p className="caption">{caption}</p>}
       <input
         type="text"
         name={label}

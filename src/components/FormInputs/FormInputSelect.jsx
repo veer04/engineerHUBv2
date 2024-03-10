@@ -5,13 +5,10 @@ export default function FormInputSelect({
   label,
   required,
   constraint,
-  placeholder,
-  value,
-  setValue,
   helperText,
   className,
-  disabled,
   children,
+  caption,
   ...rest
 }) {
   return (
@@ -26,20 +23,8 @@ export default function FormInputSelect({
         </label>
         {constraint && <span className="constraint">({constraint})</span>}
       </div>
+      {caption && <p className="caption">{caption}</p>}
       {children}
-      {/* <input
-        type="text"
-        name={label}
-        id={label}
-        required={required}
-        disabled={disabled}
-        className={`custom-input ${helperText ? "custom-input-error" : ""} ${
-          !!disabled ? "disabled" : ""
-        }`}
-        placeholder={placeholder}
-        value={value}
-        onChange={(e) => setValue(e.target.value)}
-      /> */}
       {helperText && <span className="helper-text">{helperText}</span>}
     </div>
   );

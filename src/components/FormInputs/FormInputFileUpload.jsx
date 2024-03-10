@@ -13,9 +13,9 @@ export default function FormInputFileUpload({
   helperText,
   className,
   disabled,
+  caption,
   ...rest
 }) {
-  console.log(value);
   const ref = useRef(null);
   const formattedSize = (size) => {
     const units = ["B", "KB", "MB", "GB", "TB"];
@@ -45,6 +45,7 @@ export default function FormInputFileUpload({
         </label>
         {constraint && <span className="constraint">({constraint})</span>}
       </div>
+      {caption && <p className="caption">{caption}</p>}
       <input
         ref={ref}
         type="file"

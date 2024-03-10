@@ -14,6 +14,7 @@ export default function FormInputDropdown({
   helperText,
   className,
   disabled,
+  caption,
   ...rest
 }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -66,6 +67,7 @@ export default function FormInputDropdown({
         </label>
         {constraint && <span className="constraint">({constraint})</span>}
       </div>
+      {caption && <p className="caption">{caption}</p>}
       <div ref={divEl} className="custom-dropdown-container">
         {value?.label ? (
           <div

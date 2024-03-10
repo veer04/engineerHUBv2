@@ -4,6 +4,7 @@
   justify-content: center;
   color: var(--text-color-dark-green);
   --poster-width: 23rem;
+  background-color: white;
 }
 .hosting-container .poster-container {
   max-width: 28rem;
