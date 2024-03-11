@@ -254,3 +254,47 @@
   justify-content: center;
   align-items: center;
 }
+
+/* Form Button */
+.form-button {
+  font-size: 1rem;
+  font-weight: 400;
+  border: none;
+  background-color: var(--primary-color-dark-green);
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: 99rem;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  width: fit-content;
+}
+.form-button:hover {
+  background-color: var(--primary-color-green);
+  color: white;
+}
+.form-button:disabled {
+  background-color: #33555e;
+  color: white;
+  cursor: not-allowed;
+}
+
+/* Form Indicator */
+.form-indicator {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+}
+.form-indicator .indicator {
+  min-height: 4px;
+  border-radius: 99rem;
+  width: 100%;
+  background-color: #e6e6e6;
+}
+.form-indicator .indicator.--is-active {
+  background-color: #51ff41;
+}
