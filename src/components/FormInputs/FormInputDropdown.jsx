@@ -18,19 +18,19 @@ export default function FormInputDropdown({
   ...rest
 }) {
   const [isOpen, setIsOpen] = useState(false);
-  const divEl = useRef();
+  const divEl = useRef(null);
 
   useEffect(() => {
-    const handler = (event) => {
+    const dropdownHandler = (event) => {
       if (!divEl.current.contains(event.target)) {
         setIsOpen(false);
       }
     };
 
-    document.addEventListener("click", handler, true);
+    document.addEventListener("click", dropdownHandler, true);
 
     return () => {
-      document.removeEventListener("click", handler);
+      document.removeEventListener("click", dropdownHandler);
     };
   }, []);
 
@@ -47,7 +47,9 @@ export default function FormInputDropdown({
     return (
       <div
         className={`option ${value?.value === option.value ? "selected" : ""}`}
-        onClick={() => handleOptionClick(option)}
+        onClick={() => {
+          if (!option.disabled) handleOptionClick(option);
+        }}
         key={option.value}
         disabled={option.disabled}
       >
