@@ -109,12 +109,18 @@ export default function ProjectWindow() {
           </ul>
         </>
       )}
-      <Link
-        to={`/community/projects/${encodeURIComponent(id)}/${projectId}/submit`}
-        className="apply"
-      >
-        <button>Submit</button>
-      </Link>
+      {project?.isExpired ? (
+        <button className="project-btn-expired">Expired</button>
+      ) : (
+        <Link
+          to={`/community/projects/${encodeURIComponent(
+            id
+          )}/${projectId}/submit`}
+          className="apply"
+        >
+          <button>Submit</button>
+        </Link>
+      )}
       {!!project?.applyLink && (
         <a
           target="_blank"

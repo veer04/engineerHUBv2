@@ -130,6 +130,26 @@
   background-color: var(--primary-color-yellow);
   color: black;
 }
+.projects-page
+  .main-container
+  .content-container
+  .project-window
+  .project-btn-expired,
+.projects-page
+  .main-container
+  .content-container
+  .project-window
+  .project-btn-expired:hover,
+.projects-page
+  .main-container
+  .content-container
+  .project-window
+  .project-btn-expired:active {
+  background-color: var(--primary-color-dark-green);
+  color: white;
+  opacity: 0.7;
+  cursor: not-allowed;
+}
 
 @media screen and (max-width: 820px) {
   .projects-page {
