@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 import { IoIosArrowBack } from "react-icons/io";
 import { isUserLoggedIn } from "../../features/User/UserDetails";
 import { redirectToAuth } from "../../features/redirectToAuth";
@@ -17,15 +16,12 @@ import FormInputAutocomplete from "../../components/FormInputs/FormInputAutocomp
 import FormInputMultiValue from "../../components/FormInputs/FormInputMultiValue";
 import FormButton from "../../components/FormInputs/FormButton";
 import FormIndicator from "../../components/FormInputs/FormIndicator";
-import "./HostingCulturalEvent.css";
-import useNavbar from "../../hooks/use-navbar";
-
-export default function HostingCulturalEvent() {
+import "../../pages/Hosting/HostingCulturalEvent.css";
+ 
+export default function DoNotImportSampleFile() {
   if (!isUserLoggedIn()) {
     redirectToAuth("/login");
   }
-  const navigate = useNavigate();
-  const { setSelectedPageNavbar } = useNavbar();
   const bucket = `${Bucket_URL}frontend/hosting/`;
   const [eventName, setEventName] = useState("");
   const [eventDescription, setEventDescription] = useState("");
@@ -37,6 +33,7 @@ export default function HostingCulturalEvent() {
   const [eventToggle, setEventToggle] = useState(false);
   const [autocomplete, setAutocomplete] = useState("");
   const [multiValue, setMultiValue] = useState([]);
+
   const [errors, setErrors] = useState({
     eventName: "",
     eventDescription: "",
@@ -49,6 +46,7 @@ export default function HostingCulturalEvent() {
     autocomplete: "",
     multiValue: "",
   });
+
   const options = [
     { label: "Red", value: "red" },
     { label: "Green", value: "green" },
@@ -61,6 +59,7 @@ export default function HostingCulturalEvent() {
     { label: "Grey", value: "grey" },
     { label: "Brown", value: "brown" },
   ];
+
   const autocompleteOptions = [
     "Red",
     "Green",
@@ -73,11 +72,6 @@ export default function HostingCulturalEvent() {
     "Grey",
     "Brown",
   ];
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-    // setSelectedPageNavbar("host");
-  }, []);
 
   return (
     <main className="hosting-container">
@@ -97,15 +91,9 @@ export default function HostingCulturalEvent() {
       </aside>
       <section className="main">
         <div className="header">
-          <span onClick={() => navigate(`/host`)} className="navigate-back">
+          <span className="navigate-back">
             <IoIosArrowBack /> Back
           </span>
-          <div
-            style={{
-              backgroundImage: `url(${bucket}cultural-event-poster-small.png)`,
-            }}
-            className="poster-container-mobile"
-          />
           <h1 className="title">Cultural Event Details</h1>
           <FormIndicator className="mt-2" totalPages={4} currentPage={2} />
         </div>
@@ -193,7 +181,7 @@ export default function HostingCulturalEvent() {
                   // multiple
                   result="online"
                   helperText={errors.eventMode}
-                  // disabled
+                  disabled
                 />
                 <FormInputSelectOption
                   label="Offline"
