@@ -15,7 +15,11 @@ export default function FormInputSelectOption({
 }) {
   function handleClick() {
     if (!multiple) {
-      setValue(result);
+      if (value === result) {
+        setValue("");
+      } else {
+        setValue(result);
+      }
     } else {
       if (value.includes(result)) {
         setValue(value.filter((val) => val !== result));
@@ -42,7 +46,8 @@ export default function FormInputSelectOption({
       } `}
       {...rest}
     >
-      {icon}{label}
+      {icon}
+      {label}
     </button>
   );
 }

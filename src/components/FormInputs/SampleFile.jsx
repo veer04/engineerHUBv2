@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { IoIosArrowBack } from "react-icons/io";
 import { isUserLoggedIn } from "../../features/User/UserDetails";
 import { redirectToAuth } from "../../features/redirectToAuth";
@@ -16,12 +17,16 @@ import FormInputAutocomplete from "../../components/FormInputs/FormInputAutocomp
 import FormInputMultiValue from "../../components/FormInputs/FormInputMultiValue";
 import FormButton from "../../components/FormInputs/FormButton";
 import FormIndicator from "../../components/FormInputs/FormIndicator";
+import useNavbar from "../../hooks/use-navbar";
 import "../../pages/Hosting/HostingCulturalEvent.css";
- 
+import FormInputTime from "../../components/FormInputs/FormInputTime";
+
 export default function DoNotImportSampleFile() {
   if (!isUserLoggedIn()) {
     redirectToAuth("/login");
   }
+  const navigate = useNavigate();
+  const { setSelectedPageNavbar } = useNavbar();
   const bucket = `${Bucket_URL}frontend/hosting/`;
   const [eventName, setEventName] = useState("");
   const [eventDescription, setEventDescription] = useState("");
@@ -33,7 +38,6 @@ export default function DoNotImportSampleFile() {
   const [eventToggle, setEventToggle] = useState(false);
   const [autocomplete, setAutocomplete] = useState("");
   const [multiValue, setMultiValue] = useState([]);
-
   const [errors, setErrors] = useState({
     eventName: "",
     eventDescription: "",
@@ -46,7 +50,6 @@ export default function DoNotImportSampleFile() {
     autocomplete: "",
     multiValue: "",
   });
-
   const options = [
     { label: "Red", value: "red" },
     { label: "Green", value: "green" },
@@ -59,7 +62,6 @@ export default function DoNotImportSampleFile() {
     { label: "Grey", value: "grey" },
     { label: "Brown", value: "brown" },
   ];
-
   const autocompleteOptions = [
     "Red",
     "Green",
@@ -72,6 +74,10 @@ export default function DoNotImportSampleFile() {
     "Grey",
     "Brown",
   ];
+
+  useEffect(() => {
+    setSelectedPageNavbar("host");
+  }, []);
 
   return (
     <main className="hosting-container">
@@ -91,9 +97,15 @@ export default function DoNotImportSampleFile() {
       </aside>
       <section className="main">
         <div className="header">
-          <span className="navigate-back">
+          <span onClick={() => navigate(`/host`)} className="navigate-back">
             <IoIosArrowBack /> Back
           </span>
+          <div
+            style={{
+              backgroundImage: `url(${bucket}cultural-event-poster-small.png)`,
+            }}
+            className="poster-container-mobile"
+          />
           <h1 className="title">Cultural Event Details</h1>
           <FormIndicator className="mt-2" totalPages={4} currentPage={2} />
         </div>
@@ -181,7 +193,7 @@ export default function DoNotImportSampleFile() {
                   // multiple
                   result="online"
                   helperText={errors.eventMode}
-                  disabled
+                  // disabled
                 />
                 <FormInputSelectOption
                   label="Offline"
@@ -220,6 +232,16 @@ export default function DoNotImportSampleFile() {
               // className="mb-2"
             />
             <FormInputDateTime
+              label="Event Time"
+              required
+              constraint="max 3"
+              caption="Name of the event"
+              value={eventTime}
+              setValue={setEventTime}
+              helperText={errors.eventTime}
+              // className="mb-2"
+            />
+            <FormInputTime
               label="Event Time"
               required
               constraint="max 3"
