@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./FormInput.css";
 
 export default function FormInputAutocomplete({
@@ -16,20 +16,19 @@ export default function FormInputAutocomplete({
   ...rest
 }) {
   const [isOpen, setIsOpen] = useState(false);
-  const divEl = useRef();
+  const divEl = useRef(null);
   const [filteredOptions, setFilteredOptions] = useState(options);
 
   useEffect(() => {
-    const handler = (event) => {
+    const AutocompleteHandler = (event) => {
       if (!divEl?.current?.contains(event.target)) {
         setIsOpen(false);
       }
     };
-
-    document.addEventListener("click", handler, true);
+    document.addEventListener("click", AutocompleteHandler, true);
 
     return () => {
-      document.removeEventListener("click", handler);
+      document.removeEventListener("click", AutocompleteHandler);
     };
   }, []);
 
@@ -45,9 +44,8 @@ export default function FormInputAutocomplete({
   }, [value, options]);
 
   const handleOptionClick = (option) => {
-    console.log(option);
-    setValue(option);
     setIsOpen(false);
+    setValue(option);
   };
 
   const renderedOptions = filteredOptions.map((option) => {
@@ -75,7 +73,7 @@ export default function FormInputAutocomplete({
         {constraint && <span className="constraint">({constraint})</span>}
       </div>
       {caption && <p className="caption">{caption}</p>}
-      <div ref={divEl} className="custom-dropdown-container">
+      <div className="custom-dropdown-container">
         <input
           type="text"
           name={label}
@@ -90,9 +88,6 @@ export default function FormInputAutocomplete({
           onChange={(e) => {
             setValue(e.target.value);
             setIsOpen(true);
-          }}
-          onBlur={() => {
-            setIsOpen(false);
           }}
           onKeyDown={(e) => {
             if (e.key === "Escape") {
@@ -111,7 +106,9 @@ export default function FormInputAutocomplete({
           }}
         />
         {isOpen && !!filteredOptions.length && (
-          <div className="options">{renderedOptions}</div>
+          <div ref={divEl} className="options">
+            {renderedOptions}
+          </div>
         )}
       </div>
       {helperText && <span className="helper-text">{helperText}</span>}
