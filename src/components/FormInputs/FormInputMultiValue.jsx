@@ -22,16 +22,16 @@ export default function FormInputMultiValue({
   const [filteredOptions, setFilteredOptions] = useState(options);
 
   useEffect(() => {
-    const handler = (event) => {
+    const multiValueHandler = (event) => {
       if (!divEl?.current?.contains(event.target)) {
         setIsOpen(false);
       }
     };
 
-    document.addEventListener("click", handler, true);
+    document.addEventListener("click", multiValueHandler, true);
 
     return () => {
-      document.removeEventListener("click", handler);
+      document.removeEventListener("click", multiValueHandler);
     };
   }, []);
 
@@ -47,7 +47,6 @@ export default function FormInputMultiValue({
   }, [input, options]);
 
   const handleOption = (option) => {
-    console.log(option);
     setValue((prev) => {
       if (prev.includes(option)) {
         return prev.filter((v) => v !== option);
@@ -56,7 +55,6 @@ export default function FormInputMultiValue({
       }
     });
     setInput("");
-    // setIsOpen(false);
   };
 
   const renderedOptions = filteredOptions.map((option) => {
@@ -101,9 +99,6 @@ export default function FormInputMultiValue({
             setIsOpen(true);
           }}
           onFocus={() => setIsOpen(true)}
-          onBlur={() => {
-            setIsOpen(false);
-          }}
           onKeyDown={(e) => {
             if (e.key === "Enter") {
               e.preventDefault();
