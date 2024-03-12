@@ -22,7 +22,7 @@ export default function FormInputDropdown({
 
   useEffect(() => {
     const dropdownHandler = (event) => {
-      if (!divEl.current.contains(event.target)) {
+      if (!divEl?.current?.contains(event.target)) {
         setIsOpen(false);
       }
     };
@@ -71,7 +71,7 @@ export default function FormInputDropdown({
         {constraint && <span className="constraint">({constraint})</span>}
       </div>
       {caption && <p className="caption">{caption}</p>}
-      <div ref={divEl} className="custom-dropdown-container">
+      <div className="custom-dropdown-container">
         {value?.label ? (
           <div
             className={`custom-input custom-dropdown ${
@@ -97,7 +97,11 @@ export default function FormInputDropdown({
             <GoChevronDown className="text-lg" />
           </div>
         )}
-        {isOpen && <div className="options">{renderedOptions}</div>}
+        {isOpen && (
+          <div ref={divEl} className="options">
+            {renderedOptions}
+          </div>
+        )}
       </div>
       {helperText && <span className="helper-text">{helperText}</span>}
     </div>
