@@ -3,6 +3,8 @@ import { GoChevronDown } from "react-icons/go";
 import "./FormInput.css";
 
 export default function FormInputDropdown({
+  id,
+  name,
   options,
   value,
   onChange,
@@ -64,7 +66,7 @@ export default function FormInputDropdown({
       className={`custom-form-input ${!!className ? className : ""}`}
     >
       <div className="form-input-container">
-        <label htmlFor={label} className="form-input-label">
+        <label htmlFor={name} className="form-input-label">
           {label}{" "}
           {label && required && <span className="required-mark">*</span>}
         </label>
@@ -74,6 +76,7 @@ export default function FormInputDropdown({
       <div className="custom-dropdown-container">
         {value?.label ? (
           <div
+            id={id}
             className={`custom-input custom-dropdown ${
               helperText ? "custom-input-error" : ""
             } ${!!disabled ? "disabled" : ""}`}

@@ -2,6 +2,8 @@ import React from "react";
 import "./FormInput.css";
 
 export default function FormInputSelectOption({
+  id,
+  name,
   icon,
   label,
   multiple,
@@ -30,7 +32,7 @@ export default function FormInputSelectOption({
   }
   return (
     <button
-      id={label}
+      id={id}
       disabled={disabled}
       onClick={handleClick}
       className={`custom-input custom-select-option ${

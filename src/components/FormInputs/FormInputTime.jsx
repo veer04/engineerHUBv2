@@ -2,6 +2,8 @@ import React from "react";
 import "./FormInput.css";
 
 export default function FormInputTime({
+  id,
+  name,
   label,
   required,
   constraint,
@@ -20,7 +22,7 @@ export default function FormInputTime({
       className={`custom-form-input ${!!className ? className : ""}`}
     >
       <div className="form-input-container">
-        <label htmlFor={label} className="form-input-label">
+        <label htmlFor={name} className="form-input-label">
           {label}{" "}
           {label && required && <span className="required-mark">*</span>}
         </label>
@@ -29,8 +31,8 @@ export default function FormInputTime({
       {caption && <p className="caption">{caption}</p>}
       <input
         type="time"
-        name={label}
-        id={label}
+        name={name}
+        id={id}
         required={required}
         disabled={disabled}
         className={`custom-input ${helperText ? "custom-input-error" : ""} ${

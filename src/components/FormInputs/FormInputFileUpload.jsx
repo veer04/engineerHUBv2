@@ -3,6 +3,8 @@ import { RxCross1 } from "react-icons/rx";
 import "./FormInput.css";
 
 export default function FormInputFileUpload({
+  id,
+  name,
   label,
   required,
   constraint,
@@ -39,7 +41,7 @@ export default function FormInputFileUpload({
       className={`custom-form-input ${!!className ? className : ""}`}
     >
       <div className="form-input-container">
-        <label htmlFor={label} className="form-input-label">
+        <label htmlFor={name} className="form-input-label">
           {label}{" "}
           {label && required && <span className="required-mark">*</span>}
         </label>
@@ -49,8 +51,8 @@ export default function FormInputFileUpload({
       <input
         ref={ref}
         type="file"
-        name={label}
-        id={label}
+        name={name}
+        id={id}
         required={required}
         accept={fileType}
         disabled={disabled}

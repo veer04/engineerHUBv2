@@ -6,6 +6,8 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch from "@mui/material/Switch";
 
 export default function FormInputToggle({
+  id,
+  name,
   label,
   value,
   setValue,
@@ -87,6 +89,8 @@ export default function FormInputToggle({
     >
       <div className="custom-toggle-container">
         <div
+          id={id}
+          name={name}
           className={`custom-input custom-toggle ${
             helperText ? "custom-input-error" : ""
           } ${!!disabled ? "disabled" : ""}`}
