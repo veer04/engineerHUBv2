@@ -36,6 +36,41 @@ export default function FormInputDropdown({
     };
   }, []);
 
+  useEffect(() => {
+    if (isOpen) {
+      const selectedOption = document.querySelector(".option.selected");
+      selectedOption?.scrollIntoView({ behavior: "instant", block: "center" });
+    }
+
+    // if the dropdown is open, and if the user types a letter or a number, then that key down event will be detected by a event listener which will run a function that will focus and scroll to a option that starts with the letter or number that the user typed
+    const keydownHandler = (event) => {
+      if (isOpen) {
+        const options = document.querySelectorAll(".option");
+        const selectedOption = document.querySelector(".option.selected");
+        const selectedOptionIndex = Array.from(options).indexOf(selectedOption);
+
+        if (event.key.match(/^[a-zA-Z0-9]$/)) {
+          for (let i = selectedOptionIndex + 1; i < options.length; i++) {
+            if (options[i].textContent[0].toLowerCase() === event.key) {
+              options[i].focus();
+              options[i].scrollIntoView({
+                behavior: "instant",
+                block: "center",
+              });
+              break;
+            }
+          }
+        }
+      }
+    };
+
+    document.addEventListener("keydown", keydownHandler);
+
+    return () => {
+      document.removeEventListener("keydown", keydownHandler);
+    };
+  }, [isOpen]);
+
   const handleClick = () => {
     setIsOpen(!isOpen);
   };
@@ -59,7 +94,6 @@ export default function FormInputDropdown({
       </div>
     );
   });
-
   return (
     <div
       {...rest}
@@ -73,10 +107,9 @@ export default function FormInputDropdown({
         {constraint && <span className="constraint">({constraint})</span>}
       </div>
       {caption && <p className="caption">{caption}</p>}
-      <div className="custom-dropdown-container">
+      <div id={id} className="custom-dropdown-container">
         {value?.label ? (
           <div
-            id={id}
             className={`custom-input custom-dropdown ${
               helperText ? "custom-input-error" : ""
             } ${!!disabled ? "disabled" : ""}`}
