@@ -18,7 +18,7 @@ export default function FormInputSelect({
       {...rest}
       className={`custom-form-input ${!!className ? className : ""}`}
     >
-      <div className="form-input-container">
+      <div id={id} className="form-input-container">
         <label htmlFor={name} className="form-input-label">
           {label}{" "}
           {label && required && <span className="required-mark">*</span>}

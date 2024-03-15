@@ -64,6 +64,9 @@
 .custom-form-input .custom-input.disabled::placeholder {
   color: var(--placeholder-color-disabled);
 }
+.custom-form-input .custom-text {
+  cursor: text;
+}
 .custom-form-input .helper-text {
   font-size: 12px;
   color: var(--alert-color);
@@ -253,6 +256,17 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+/* Phone Number Form Input Field */
+.custom-form-input .custom-phone-number-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.custom-form-input .custom-phone-number .custom-input {
+  width: max-content;
 }
 
 /* Form Button */

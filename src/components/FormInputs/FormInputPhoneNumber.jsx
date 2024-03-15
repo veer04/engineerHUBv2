@@ -14,6 +14,7 @@ export default function FormInputPhoneNumber({
   setValue,
   countryCodeValue,
   setCountryCodeValue,
+  defaultCountryCode,
   helperText,
   className,
   disabled,
@@ -24,6 +25,9 @@ export default function FormInputPhoneNumber({
   const divEl = useRef(null);
 
   useEffect(() => {
+    if (defaultCountryCode) {
+      setCountryCodeValue(defaultCountryCode);
+    }
     const dropdownHandler = (event) => {
       if (!divEl?.current?.contains(event.target)) {
         setIsOpen(false);
@@ -52,7 +56,7 @@ export default function FormInputPhoneNumber({
 
         if (event.key.match(/^[a-zA-Z0-9]$/)) {
           for (let i = selectedOptionIndex + 1; i < options.length; i++) {
-            if (options[i].textContent[0].toLowerCase() === event.key) {
+            if (options[i].textContent[1].toLowerCase() === event.key) {
               options[i].focus();
               // make the option scroll to the center of the dropdown
               options[i].scrollIntoView({
@@ -89,7 +93,7 @@ export default function FormInputPhoneNumber({
         onClick={() => handleOptionClick(option)}
         key={option}
       >
-        {option}
+        +{option}
       </div>
     );
   });
@@ -156,7 +160,7 @@ export default function FormInputPhoneNumber({
           name={name}
           required={required}
           disabled={disabled}
-          className={`custom-input ${helperText ? "custom-input-error" : ""} ${
+          className={`custom-input custom-text ${helperText ? "custom-input-error" : ""} ${
             !!disabled ? "disabled" : ""
           }`}
           placeholder={placeholder}

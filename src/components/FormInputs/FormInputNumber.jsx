@@ -41,7 +41,7 @@ export default function FormInputNumber({
         max={max}
         step={step}
         disabled={disabled}
-        className={`custom-input ${helperText ? "custom-input-error" : ""} ${
+        className={`custom-input custom-text ${helperText ? "custom-input-error" : ""} ${
           !!disabled ? "disabled" : ""
         }`}
         placeholder={placeholder}

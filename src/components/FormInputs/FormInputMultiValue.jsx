@@ -91,7 +91,7 @@ export default function FormInputMultiValue({
           id={id}
           required={required}
           disabled={disabled}
-          className={`custom-input ${helperText ? "custom-input-error" : ""} ${
+          className={`custom-input custom-text ${helperText ? "custom-input-error" : ""} ${
             !!disabled ? "disabled" : ""
           }`}
           placeholder={placeholder}
