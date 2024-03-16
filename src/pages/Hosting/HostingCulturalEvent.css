@@ -62,6 +62,7 @@
 }
 .hosting-container .main .header .poster-container-mobile {
   display: none;
+  border-radius: 10px;
 }
 .hosting-container .main .header .title {
   font-size: 1.75rem;
@@ -74,6 +75,16 @@
   font-size: 1.5rem;
   font-weight: 600;
   margin-bottom: 1rem;
+}
+.hosting-container .mobile-item-container {
+  display: flex;
+  gap: 1.5rem;
+}
+
+@media screen and (min-width: 1550px) {
+  .hosting-container {
+    justify-content: center;
+  }
 }
 
 @media screen and (max-width: 820px) {
@@ -94,8 +105,9 @@
   }
 }
 
-@media screen and (min-width: 1500px) {
-  .hosting-container {
-    justify-content: center;
+@media screen and (max-width: 520px) {
+  .hosting-container .mobile-item-container {
+    flex-direction: column;
+    gap: 1.5rem;
   }
 }

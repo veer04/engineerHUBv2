@@ -1,9 +1,14 @@
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useRef, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { IoIosArrowBack } from "react-icons/io";
-import { isUserLoggedIn } from "../../features/User/UserDetails";
+import {
+  getAccessToken,
+  isUserLoggedIn,
+} from "../../features/User/UserDetails";
 import { redirectToAuth } from "../../features/redirectToAuth";
-import { Bucket_URL } from "../../services/APIUtils";
+import { API_URL, Bucket_URL } from "../../services/APIUtils";
+import axios from "axios";
+import useGlobalSnackbar from "../../hooks/useGlobalSnackbar";
 import FormIndicator from "../../components/FormInputs/FormIndicator";
 import FormInput from "../../components/FormInputs/FormInput";
 import FormInputTextarea from "../../components/FormInputs/FormInputTextarea";
@@ -23,6 +28,7 @@ import FormInputPhoneNumber from "../../components/FormInputs/FormInputPhoneNumb
 import FormButton from "../../components/FormInputs/FormButton";
 import useNavbar from "../../hooks/use-navbar";
 import "./HostingCulturalEvent.css";
+import { getDomains } from "../../services/APIConfig";
 
 export default function HostingCulturalEvent() {
   if (!isUserLoggedIn()) {
@@ -30,15 +36,22 @@ export default function HostingCulturalEvent() {
   }
   const navigate = useNavigate();
   const { setSelectedPageNavbar } = useNavbar();
+  const {
+    setSnackbarOpen,
+    setSnackbarMessage,
+    setSnackbarSeverity,
+    setSnackbarDuration,
+  } = useGlobalSnackbar();
   const bucket = `${Bucket_URL}frontend/hosting/`;
   const totalPages = 2;
-  const [currentPage, setCurrentPage] = useState(2);
+  const [currentPage, setCurrentPage] = useState(1);
   const [eventPoster, setEventPoster] = useState("");
   const [eventType, setEventType] = useState();
   const [eventName, setEventName] = useState("");
+  const [eventCategory, setEventCategory] = useState();
   const [eventMode, setEventMode] = useState("");
   const [eventDescription, setEventDescription] = useState("");
-  const [eventCategory, setEventCategory] = useState();
+  const [eventDomain, setEventDomain] = useState("");
   const [eventRegistrationStartDate, setEventRegistrationStartDate] =
     useState("");
   const [eventRegistrationEndDate, setEventRegistrationEndDate] = useState("");
@@ -49,14 +62,19 @@ export default function HostingCulturalEvent() {
   const [eventTargetZone, setEventTargetZone] = useState([]);
   const [contactEmail, setContactEmail] = useState("");
   const [contactNumber, setContactNumber] = useState("");
+  const [countryCode, setCountryCode] = useState("");
   const [showContactDetails, setShowContactDetails] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
+  const [previouslyViewedPageNumber, setPreviouslyViewedPageNumber] =
+    useState(1);
   const [errors, setErrors] = useState({
     eventPoster: "",
     eventType: "",
     eventName: "",
     eventMode: "",
-    eventDescription: "",
     eventCategory: "",
+    eventDescription: "",
+    eventDomain: "",
     eventRegistrationStartDate: "",
     eventRegistrationEndDate: "",
     eventStartDate: "",
@@ -68,34 +86,403 @@ export default function HostingCulturalEvent() {
     contactNumber: "",
     showContactDetails: "",
   });
-  const options = [
-    { label: "Red", value: "red" },
-    { label: "Green", value: "green" },
-    { label: "Blue", value: "blue" },
-    { label: "Yellow", value: "yellow" },
-    { label: "Orange", value: "orange" },
-    { label: "Purple", value: "purple" },
-    { label: "Black", value: "black" },
-    { label: "White", value: "white" },
-    { label: "Grey", value: "grey" },
-    { label: "Brown", value: "brown" },
+  let errorStack = [];
+  const eventTypeOptions = [
+    {
+      label: "Technical Event",
+      value: "Technical",
+    },
+    {
+      label: "Cultural Event",
+      value: "Cultural",
+    },
+    {
+      label: "Hackathon",
+      value: "Hackathon",
+    },
+    {
+      label: "Webinar",
+      value: "Webinar",
+    },
   ];
-  const autocompleteOptions = [
-    "Red",
-    "Green",
-    "Blue",
-    "Yellow",
-    "Orange",
-    "Purple",
-    "Black",
-    "White",
-    "Grey",
-    "Brown",
+  const eventCategoryOptions = [
+    {
+      label: "College Event",
+      value: "collegeEvent",
+    },
+    {
+      label: "Workshop",
+      value: "Workshop",
+    },
+  ];
+  const domainOptions = [
+    { label: "Non-Technical", value: "Non-Technical" },
+    {
+      label: "Data Structures & Algorithms",
+      value: "Data Structures & Algorithms",
+    },
+    { label: "Web Development", value: "Web Development" },
+    { label: "App Development", value: "App Development" },
+    { label: "Machine Learning & AI", value: "Machine Learning & AI" },
+    { label: "UI/UX Design", value: "UI/UX Design" },
+    { label: "Cyber Security", value: "Cyber Security" },
+    { label: "DevOps", value: "DevOps" },
   ];
 
   useEffect(() => {
     setSelectedPageNavbar("host");
+    setEventType(eventTypeOptions[1]);
   }, []);
+
+  function addToErrorStack(elem) {
+    errorStack.push(elem);
+  }
+
+  function handleFormErrors() {
+    if (errorStack.length > 0) {
+      const element = document.querySelector(errorStack[0]);
+      if (element) {
+        window.scrollTo({
+          behavior: "smooth",
+          top: element.offsetTop - 200,
+        });
+      }
+      setSnackbarMessage("Please fill all the required fields");
+      setSnackbarSeverity("error");
+      setSnackbarOpen(true);
+    }
+    errorStack = [];
+  }
+
+  function validateForm1() {
+    let isValid = true;
+    const errors = {
+      eventPoster: "",
+      eventType: "",
+      eventName: "",
+      eventMode: "",
+      eventDescription: "",
+    };
+
+    if (!eventPoster) {
+      errors.eventPoster = "Event poster is required";
+      isValid = false;
+      addToErrorStack("#eventPoster");
+    } else if (!eventPoster?.type?.includes("image")) {
+      errors.eventPoster = "Please upload an image file";
+      isValid = false;
+      addToErrorStack("#eventPoster");
+    } else if (eventPoster?.size > 1024 * 1024 * 5) {
+      errors.eventPoster = "File size should be less than 5MB";
+      isValid = false;
+      addToErrorStack("#eventPoster");
+    }
+
+    if (!eventType) {
+      errors.eventType = "Event type is required";
+      isValid = false;
+      addToErrorStack("#eventType");
+    }
+
+    if (!eventName) {
+      errors.eventName = "Event name is required";
+      isValid = false;
+      addToErrorStack("#eventName");
+    } else if (eventName.length < 5) {
+      errors.eventName = "Event name should be minimum 5 characters";
+      isValid = false;
+      addToErrorStack("#eventName");
+    } else if (eventName.length > 100) {
+      errors.eventName = "Event name should be maximum 100 characters";
+      isValid = false;
+      addToErrorStack("#eventName");
+    }
+
+    if (!eventMode) {
+      errors.eventMode = "Event mode is required";
+      isValid = false;
+      addToErrorStack("#eventMode");
+    }
+
+    if (!eventDescription) {
+      errors.eventDescription = "Event description is required";
+      isValid = false;
+      addToErrorStack("#eventDescription");
+    } else if (eventDescription.length < 100) {
+      errors.eventDescription =
+        "Event description should be minimum 100 characters";
+      isValid = false;
+      addToErrorStack("#eventDescription");
+    } else if (eventDescription.length > 10000) {
+      errors.eventDescription =
+        "Event description should be maximum 10000 characters";
+      isValid = false;
+      addToErrorStack("#eventDescription");
+    }
+
+    setErrors(errors);
+    handleFormErrors();
+    return isValid;
+  }
+
+  function validateForm2() {
+    let isValid = true;
+    const errors = {
+      eventDomain: "",
+      eventRegistrationStartDate: "",
+      eventRegistrationEndDate: "",
+      eventStartDate: "",
+      eventEndDate: "",
+      eventLink: "",
+      eventRegistrationType: "",
+      eventTargetZone: "",
+      contactEmail: "",
+      contactNumber: "",
+      showContactDetails: "",
+    };
+
+    if (!eventDomain) {
+      errors.eventDomain = "Event domain is required";
+      isValid = false;
+      addToErrorStack("#eventDomain");
+    }
+
+    if (!eventRegistrationStartDate) {
+      errors.eventRegistrationStartDate =
+        "Event registration start date is required";
+      isValid = false;
+      addToErrorStack("#eventRegistrationStartDate");
+    } else if (eventRegistrationStartDate > eventRegistrationEndDate) {
+      errors.eventRegistrationStartDate =
+        "Start date should be less than end date";
+      isValid = false;
+      addToErrorStack("#eventRegistrationStartDate");
+    } else if (eventRegistrationStartDate > eventStartDate) {
+      errors.eventRegistrationStartDate =
+        "Start date should be less than event start date";
+      isValid = false;
+      addToErrorStack("#eventRegistrationStartDate");
+    } else if (eventRegistrationStartDate > eventEndDate) {
+      errors.eventRegistrationStartDate =
+        "Start date should be less than event end date";
+      isValid = false;
+      addToErrorStack("#eventRegistrationStartDate");
+    }
+
+    if (!eventRegistrationEndDate) {
+      errors.eventRegistrationEndDate =
+        "Event registration end date is required";
+      isValid = false;
+      addToErrorStack("#eventRegistrationEndDate");
+    } else if (eventRegistrationEndDate < eventRegistrationStartDate) {
+      errors.eventRegistrationEndDate =
+        "End date should be greater than start date";
+      isValid = false;
+      addToErrorStack("#eventRegistrationEndDate");
+    } else if (eventRegistrationEndDate > eventEndDate) {
+      errors.eventRegistrationEndDate =
+        "End date should be less than event end date";
+      isValid = false;
+      addToErrorStack("#eventRegistrationEndDate");
+    }
+
+    if (!eventStartDate) {
+      errors.eventStartDate = "Event start date is required";
+      isValid = false;
+      addToErrorStack("#eventStartDate");
+    } else if (eventStartDate < eventRegistrationStartDate) {
+      errors.eventStartDate =
+        "Start date should be greater than registration start date";
+      isValid = false;
+      addToErrorStack("#eventStartDate");
+    } else if (eventStartDate > eventEndDate) {
+      errors.eventStartDate = "Start date should be less than event end date";
+      isValid = false;
+      addToErrorStack("#eventStartDate");
+    }
+
+    if (!eventEndDate) {
+      errors.eventEndDate = "Event end date is required";
+      isValid = false;
+      addToErrorStack("#eventEndDate");
+    } else if (eventEndDate < eventRegistrationStartDate) {
+      errors.eventEndDate =
+        "End date should be greater than registration start date";
+      isValid = false;
+      addToErrorStack("#eventEndDate");
+    } else if (eventEndDate < eventRegistrationEndDate) {
+      errors.eventEndDate =
+        "End date should be greater than registration end date";
+      isValid = false;
+      addToErrorStack("#eventEndDate");
+    } else if (eventEndDate < eventStartDate) {
+      errors.eventEndDate = "End date should be greater than start date";
+      isValid = false;
+      addToErrorStack("#eventEndDate");
+    }
+
+    if (!eventLink) {
+      errors.eventLink = "Event link is required";
+      isValid = false;
+      addToErrorStack("#eventLink");
+    } else if (!eventLink.match(/^(ftp|http|https):\/\/[^ "]+$/)) {
+      errors.eventLink =
+        "Please enter a valid URL (for example: https://www.engineerhub.in)";
+      isValid = false;
+      addToErrorStack("#eventLink");
+    }
+
+    if (!contactEmail) {
+      errors.contactEmail = "Contact email is required";
+      isValid = false;
+      addToErrorStack("#contactEmail");
+    } else if (!contactEmail.match(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/)) {
+      errors.contactEmail = "Please enter a valid email address";
+      isValid = false;
+      addToErrorStack("#contactEmail");
+    }
+
+    if (!contactNumber) {
+      errors.contactNumber = "Contact number is required";
+      isValid = false;
+      addToErrorStack("#contactNumber");
+    } else if (!contactNumber.match(/^\d{10}$/)) {
+      errors.contactNumber = "Please enter a valid contact number";
+      isValid = false;
+      addToErrorStack("#contactNumber");
+    }
+
+    setErrors(errors);
+    handleFormErrors();
+    return isValid;
+  }
+
+  async function submitForm() {
+    const form = new FormData();
+
+    const eventRegistrationStartDateIST = new Date(
+      eventRegistrationStartDate.toLocaleString("en-US", {
+        timeZone: "Asia/Kolkata",
+      })
+    );
+    const eventRegistrationEndDateIST = new Date(
+      eventRegistrationEndDate.toLocaleString("en-US", {
+        timeZone: "Asia/Kolkata",
+      })
+    );
+    const eventStartDateIST = new Date(
+      eventStartDate.toLocaleString("en-US", {
+        timeZone: "Asia/Kolkata",
+      })
+    );
+    const eventEndDateIST = new Date(
+      eventEndDate.toLocaleString("en-US", {
+        timeZone: "Asia/Kolkata",
+      })
+    );
+    form.append("eventPoster", eventPoster);
+    form.append("eventType", eventType.value);
+    form.append("eventName", eventName);
+    form.append("mode", eventMode);
+    form.append("description", eventDescription);
+    form.append("domainName", eventDomain.value);
+    form.append("eventRegistrationStartTime", eventRegistrationStartDateIST);
+    form.append("eventRegistrationEndTime", eventRegistrationEndDateIST);
+    form.append("eventStartTime", eventStartDateIST);
+    form.append("eventEndTime", eventEndDateIST);
+    form.append("applyLink", eventLink);
+    form.append("registrationType", eventRegistrationType);
+    // form.append("eventTargetZone", eventTargetZone);
+    form.append("organizerEmail", contactEmail);
+    form.append("organizerMobileCountryCode", countryCode);
+    form.append("organizerMobile", contactNumber);
+    form.append("showContactDetails", showContactDetails); //
+    form.append("eventModeType", eventCategory.value);
+
+    setIsLoading(true);
+    await axios
+      .post(`${API_URL}api/v1/event`, form, {
+        headers: {
+          accesstoken: getAccessToken(),
+        },
+      })
+      .then((res) => {
+        setIsLoading(false);
+        setSnackbarMessage(
+          <>
+            New cultural event created.{" "}
+            <Link
+              to={`/community/events/${encodeURIComponent(
+                res?.data?.data?.domainName
+              )}/${res?.data?.data?._id}`}
+              style={{ color: "rgb(13, 110, 253)" }}
+            >
+              Click here
+            </Link>{" "}
+            to view
+          </>
+        );
+        setSnackbarSeverity("success");
+        setSnackbarDuration(5000);
+        setSnackbarOpen(true);
+        emptyAllFields();
+        setCurrentPage(1);
+        setPreviouslyViewedPageNumber(1);
+      })
+      .catch((err) => {
+        setIsLoading(false);
+        setSnackbarMessage(
+          <>
+            <span>Failed to create event</span>
+            {err?.response?.data?.message && (
+              <>
+                {" "}
+                <br />
+                <span>Error: {err?.response?.data?.message}</span>
+              </>
+            )}
+          </>
+        );
+        setSnackbarSeverity("error");
+        setSnackbarDuration(5000);
+        setSnackbarOpen(true);
+      });
+  }
+
+  function emptyAllFields() {
+    setEventPoster("");
+    setEventType(eventTypeOptions[1]);
+    setEventName("");
+    setEventCategory("");
+    setEventMode("");
+    setEventDescription("");
+    setEventDomain("");
+    setEventRegistrationStartDate("");
+    setEventRegistrationEndDate("");
+    setEventStartDate("");
+    setEventEndDate("");
+    setEventLink("");
+    setEventRegistrationType("");
+    setEventTargetZone([]);
+    setContactEmail("");
+    setContactNumber("");
+    setCountryCode("");
+    setShowContactDetails(true);
+  }
+
+  function handleNextPage() {
+    // if the next page is not yet viewed then move to next page and scroll to top else only just move to next page
+    if (previouslyViewedPageNumber === currentPage) {
+      setCurrentPage((prev) => prev + 1);
+      setPreviouslyViewedPageNumber((prev) => prev + 1);
+      window.scrollTo({
+        behavior: "smooth",
+        top: 0,
+      });
+    } else {
+      setCurrentPage((prev) => prev + 1);
+    }
+  }
 
   const handlePrevious = () => {
     if (currentPage > 1) {
@@ -104,10 +491,10 @@ export default function HostingCulturalEvent() {
   };
 
   const handleNext = () => {
-    if (currentPage < totalPages) {
-      setCurrentPage((prev) => prev + 1);
-    } else {
-      // submit form
+    if (currentPage === 1) {
+      if (validateForm1()) handleNextPage();
+    } else if (currentPage === 2) {
+      if (validateForm2()) submitForm();
     }
   };
 
@@ -151,6 +538,8 @@ export default function HostingCulturalEvent() {
               <h2>Basic Details</h2>
               <FormInputFileUpload
                 label="Event Poster"
+                id="eventPoster"
+                name="eventPoster"
                 required
                 placeholder="Upload event poster 1:1 ratio"
                 fileType="image/*"
@@ -161,16 +550,33 @@ export default function HostingCulturalEvent() {
               />
               <FormInputDropdown
                 label="Event Type"
+                id="eventType"
+                name="eventType"
                 required
                 placeholder="Select event type"
                 value={eventType}
                 setValue={setEventType}
-                options={options}
+                options={eventTypeOptions}
                 helperText={errors.eventType}
+                className="mb-4"
+                disabled
+              />
+              <FormInputDropdown
+                label="Event Category"
+                id="eventCategory"
+                name="eventCategory"
+                required
+                placeholder="Select event category"
+                value={eventCategory}
+                setValue={setEventCategory}
+                options={eventCategoryOptions}
+                helperText={errors.eventCategory}
                 className="mb-4"
               />
               <FormInput
                 label="Event Name"
+                id="eventName"
+                name="eventName"
                 required
                 constraint="min 5 characters"
                 placeholder="Enter event name"
@@ -181,11 +587,13 @@ export default function HostingCulturalEvent() {
               />
               <FormInputSelect
                 label="Event Mode"
+                id="eventMode"
+                name="eventMode"
                 required
                 helperText={errors.eventMode}
                 className="mb-4"
               >
-                <div className="d-flex gap-4">
+                <div className="mobile-item-container">
                   <FormInputSelectOption
                     icon={
                       <svg
@@ -205,7 +613,7 @@ export default function HostingCulturalEvent() {
                     label="Online"
                     value={eventMode}
                     setValue={setEventMode}
-                    result="online"
+                    result="true"
                     helperText={errors.eventMode}
                   />
                   <FormInputSelectOption
@@ -227,13 +635,15 @@ export default function HostingCulturalEvent() {
                     }
                     value={eventMode}
                     setValue={setEventMode}
-                    result="offline"
+                    result="false"
                     helperText={errors.eventMode}
                   />
                 </div>
               </FormInputSelect>
               <FormInputTextarea
                 label="Event Description"
+                id="eventDescription"
+                name="eventDescription"
                 required
                 constraint="min 100 characters"
                 placeholder="Enter event description"
@@ -250,18 +660,22 @@ export default function HostingCulturalEvent() {
             <>
               <h2>Event Details</h2>
               <FormInputDropdown
-                label="Categories Name"
+                label="Domain Name"
+                id="eventDomain"
+                name="eventDomain"
                 required
-                placeholder="Select Categories"
-                value={eventCategory}
-                setValue={setEventCategory}
-                options={options}
-                helperText={errors.eventCategory}
+                placeholder="Select your domain"
+                value={eventDomain}
+                setValue={setEventDomain}
+                options={domainOptions}
+                helperText={errors.eventDomain}
                 className="mb-4"
               />
-              <div className="d-flex gap-4 mb-4">
+              <div className="mobile-item-container mb-4">
                 <FormInputDateTime
                   label="Event Registration Start Date & Time"
+                  id="eventRegistrationStartDate"
+                  name="eventRegistrationStartDate"
                   required
                   value={eventRegistrationStartDate}
                   setValue={setEventRegistrationStartDate}
@@ -270,6 +684,8 @@ export default function HostingCulturalEvent() {
                 />
                 <FormInputDateTime
                   label="Event Registration End Date & Time"
+                  id="eventRegistrationEndDate"
+                  name="eventRegistrationEndDate"
                   required
                   value={eventRegistrationEndDate}
                   setValue={setEventRegistrationEndDate}
@@ -277,9 +693,11 @@ export default function HostingCulturalEvent() {
                   style={{ width: "100%" }}
                 />
               </div>
-              <div className="d-flex gap-4 mb-4">
+              <div className="mobile-item-container mb-4">
                 <FormInputDateTime
                   label="Event Start Date & Time"
+                  id="eventStartDate"
+                  name="eventStartDate"
                   required
                   value={eventStartDate}
                   setValue={setEventStartDate}
@@ -288,6 +706,8 @@ export default function HostingCulturalEvent() {
                 />
                 <FormInputDateTime
                   label="Event End Date & Time"
+                  id="eventEndDate"
+                  name="eventEndDate"
                   required
                   value={eventEndDate}
                   setValue={setEventEndDate}
@@ -297,6 +717,9 @@ export default function HostingCulturalEvent() {
               </div>
               <FormInputLink
                 label="Event Link"
+                id="eventLink"
+                name="eventLink"
+                required
                 caption="The URL can be your organization’s website or an opportunity related URL"
                 placeholder="https://"
                 value={eventLink}
@@ -306,28 +729,32 @@ export default function HostingCulturalEvent() {
               />
               <FormInputSelect
                 label="Registration Type"
+                id="eventRegistrationType"
+                name="eventRegistrationType"
                 helperText={errors.eventRegistrationType}
                 className="mb-4"
               >
-                <div className="d-flex gap-4">
+                <div className="mobile-item-container">
                   <FormInputSelectOption
                     label="Free"
                     value={eventRegistrationType}
                     setValue={setEventRegistrationType}
-                    result="free"
+                    result="Free"
                     helperText={errors.eventRegistrationType}
                   />
                   <FormInputSelectOption
                     label="Paid"
                     value={eventRegistrationType}
                     setValue={setEventRegistrationType}
-                    result="paid"
+                    result="Paid"
                     helperText={errors.eventRegistrationType}
                   />
                 </div>
               </FormInputSelect>
-              <FormInputMultiValue
+              {/* <FormInputMultiValue
                 label="Target Zone"
+                id="eventTargetZone"
+                name="eventTargetZone"
                 constraint="max 3 zone"
                 placeholder="Select the target zone for registrations"
                 value={eventTargetZone}
@@ -335,10 +762,12 @@ export default function HostingCulturalEvent() {
                 options={autocompleteOptions}
                 helperText={errors.eventTargetZone}
                 className="mb-3"
-              />
+              /> */}
               <h2>Contact Details</h2>
               <FormInputEmail
                 label="Organizer Contact Email"
+                id="contactEmail"
+                name="contactEmail"
                 required
                 placeholder="Enter contact email"
                 value={contactEmail}
@@ -348,15 +777,22 @@ export default function HostingCulturalEvent() {
               />
               <FormInputPhoneNumber
                 label="Organizer Contact Number"
+                id="contactNumber"
+                name="contactNumber"
                 required
                 placeholder="Enter contact number"
                 value={contactNumber}
                 setValue={setContactNumber}
+                countryCodeValue={countryCode}
+                setCountryCodeValue={setCountryCode}
+                defaultCountryCode="91"
                 helperText={errors.contactNumber}
                 className="mb-4"
               />
               <FormInputToggle
                 label="Show Contact Details to candidates"
+                id="showContactDetails"
+                name="showContactDetails"
                 value={showContactDetails}
                 setValue={setShowContactDetails}
                 helperText={errors.showContactDetails}
@@ -368,7 +804,7 @@ export default function HostingCulturalEvent() {
             <FormButton disabled={currentPage === 1} onClick={handlePrevious}>
               Previous
             </FormButton>
-            <FormButton onClick={handleNext}>
+            <FormButton onClick={handleNext} isLoading={isLoading}>
               {currentPage === totalPages ? "Submit" : "Next"}
             </FormButton>
           </div>
