@@ -7,6 +7,7 @@ import {
 } from "../../features/User/UserDetails";
 import { redirectToAuth } from "../../features/redirectToAuth";
 import { API_URL, Bucket_URL } from "../../services/APIUtils";
+import { changeDocumentTitle } from "../../features/changeDocumentTitle";
 import axios from "axios";
 import useGlobalSnackbar from "../../hooks/useGlobalSnackbar";
 import FormIndicator from "../../components/FormInputs/FormIndicator";
@@ -28,12 +29,12 @@ import FormInputPhoneNumber from "../../components/FormInputs/FormInputPhoneNumb
 import FormButton from "../../components/FormInputs/FormButton";
 import useNavbar from "../../hooks/use-navbar";
 import "./HostingCulturalEvent.css";
-import { getDomains } from "../../services/APIConfig";
 
 export default function HostingCulturalEvent() {
   if (!isUserLoggedIn()) {
     redirectToAuth("/login");
   }
+  changeDocumentTitle("Host a Cultural Event | engineerHUB");
   const navigate = useNavigate();
   const { setSelectedPageNavbar } = useNavbar();
   const {
