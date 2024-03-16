@@ -44,7 +44,7 @@ export default function FormInputPhoneNumber({
   useEffect(() => {
     if (isOpen) {
       const selectedOption = document.querySelector(".option.selected");
-      selectedOption?.scrollIntoView({ behavior: "instant", block: "center" });
+      selectedOption?.scrollIntoView({ behavior: "instant", block: "nearest" });
     }
 
     // if the dropdown is open, and if the user types a letter or a number, then that key down event will be detected by a event listener which will run a function that will focus and scroll to a option that starts with the letter or number that the user typed
@@ -61,7 +61,7 @@ export default function FormInputPhoneNumber({
               // make the option scroll to the center of the dropdown
               options[i].scrollIntoView({
                 behavior: "instant",
-                block: "center",
+                block: "nearest",
               });
               break;
             }

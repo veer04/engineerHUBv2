@@ -4,7 +4,6 @@ import "./FormInput.css";
 export default function FormInputAutocomplete({
   id,
   name,
-
   label,
   required,
   constraint,
