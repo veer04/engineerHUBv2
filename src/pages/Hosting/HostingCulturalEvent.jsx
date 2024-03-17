@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { IoIosArrowBack } from "react-icons/io";
 import {
@@ -9,6 +9,7 @@ import { redirectToAuth } from "../../features/redirectToAuth";
 import { API_URL, Bucket_URL } from "../../services/APIUtils";
 import { changeDocumentTitle } from "../../features/changeDocumentTitle";
 import axios from "axios";
+import useNavbar from "../../hooks/use-navbar";
 import useGlobalSnackbar from "../../hooks/useGlobalSnackbar";
 import FormIndicator from "../../components/FormInputs/FormIndicator";
 import FormInput from "../../components/FormInputs/FormInput";
@@ -17,17 +18,12 @@ import FormInputDropdown from "../../components/FormInputs/FormInputDropdown";
 import FormInputFileUpload from "../../components/FormInputs/FormInputFileUpload";
 import FormInputSelect from "../../components/FormInputs/FormInputSelect";
 import FormInputSelectOption from "../../components/FormInputs/FormInputSelectOption";
-import FormInputDate from "../../components/FormInputs/FormInputDate";
 import FormInputDateTime from "../../components/FormInputs/FormInputDateTime";
-import FormInputTime from "../../components/FormInputs/FormInputTime";
 import FormInputToggle from "../../components/FormInputs/FormInputToggle";
-import FormInputAutocomplete from "../../components/FormInputs/FormInputAutocomplete";
-import FormInputMultiValue from "../../components/FormInputs/FormInputMultiValue";
 import FormInputLink from "../../components/FormInputs/FormInputLink";
 import FormInputEmail from "../../components/FormInputs/FormInputEmail";
 import FormInputPhoneNumber from "../../components/FormInputs/FormInputPhoneNumber";
 import FormButton from "../../components/FormInputs/FormButton";
-import useNavbar from "../../hooks/use-navbar";
 import "./HostingCulturalEvent.css";
 
 export default function HostingCulturalEvent() {
@@ -52,7 +48,8 @@ export default function HostingCulturalEvent() {
   const [eventCategory, setEventCategory] = useState();
   const [eventMode, setEventMode] = useState("");
   const [eventDescription, setEventDescription] = useState("");
-  const [eventDomain, setEventDomain] = useState("");
+  const [eventDomain, setEventDomain] = useState({});
+  const [eventDomainOther, setEventDomainOther] = useState("");
   const [eventRegistrationStartDate, setEventRegistrationStartDate] =
     useState("");
   const [eventRegistrationEndDate, setEventRegistrationEndDate] = useState("");
@@ -76,6 +73,7 @@ export default function HostingCulturalEvent() {
     eventCategory: "",
     eventDescription: "",
     eventDomain: "",
+    eventDomainOther: "",
     eventRegistrationStartDate: "",
     eventRegistrationEndDate: "",
     eventStartDate: "",
@@ -117,7 +115,6 @@ export default function HostingCulturalEvent() {
     },
   ];
   const domainOptions = [
-    { label: "Non-Technical", value: "Non-Technical" },
     {
       label: "Data Structures & Algorithms",
       value: "Data Structures & Algorithms",
@@ -128,6 +125,7 @@ export default function HostingCulturalEvent() {
     { label: "UI/UX Design", value: "UI/UX Design" },
     { label: "Cyber Security", value: "Cyber Security" },
     { label: "DevOps", value: "DevOps" },
+    { label: "Other", value: "Other" },
   ];
 
   useEffect(() => {
@@ -230,6 +228,7 @@ export default function HostingCulturalEvent() {
     let isValid = true;
     const errors = {
       eventDomain: "",
+      eventDomainOther: "",
       eventRegistrationStartDate: "",
       eventRegistrationEndDate: "",
       eventStartDate: "",
@@ -246,6 +245,11 @@ export default function HostingCulturalEvent() {
       errors.eventDomain = "Event domain is required";
       isValid = false;
       addToErrorStack("#eventDomain");
+    }
+    if (eventDomain?.value === "Other" && !eventDomainOther) {
+      errors.eventDomainOther = "Domain name is required";
+      isValid = false;
+      addToErrorStack("#eventDomainOther");
     }
 
     if (!eventRegistrationStartDate) {
@@ -386,7 +390,9 @@ export default function HostingCulturalEvent() {
     form.append("eventName", eventName);
     form.append("mode", eventMode);
     form.append("description", eventDescription);
-    form.append("domainName", eventDomain.value);
+    if (eventDomain.value === "Other")
+      form.append("domainName", eventDomainOther);
+    else form.append("domainName", eventDomain.value);
     form.append("eventRegistrationStartTime", eventRegistrationStartDateIST);
     form.append("eventRegistrationEndTime", eventRegistrationEndDateIST);
     form.append("eventStartTime", eventStartDateIST);
@@ -412,14 +418,31 @@ export default function HostingCulturalEvent() {
         setSnackbarMessage(
           <>
             New cultural event created.{" "}
-            <Link
-              to={`/community/events/${encodeURIComponent(
-                res?.data?.data?.domainName
-              )}/${res?.data?.data?._id}`}
-              style={{ color: "rgb(13, 110, 253)" }}
-            >
-              Click here
-            </Link>{" "}
+            {eventDomain === "Other" ? (
+              <Link
+                to={`/community/events/${encodeURIComponent(
+                  res?.data?.data?.domainName
+                )}/${res?.data?.data?._id}`}
+                style={{ color: "rgb(13, 110, 253)" }}
+                onMouseOver={(e) =>
+                  (e.target.style.textDecoration = "underline")
+                }
+                onMouseOut={(e) => (e.target.style.textDecoration = "none")}
+              >
+                Click here
+              </Link>
+            ) : (
+              <Link
+                to={`/trending/workshops/${res?.data?.data?._id}`}
+                style={{ color: "rgb(13, 110, 253)" }}
+                onMouseOver={(e) =>
+                  (e.target.style.textDecoration = "underline")
+                }
+                onMouseOut={(e) => (e.target.style.textDecoration = "none")}
+              >
+                Click here
+              </Link>
+            )}{" "}
             to view
           </>
         );
@@ -457,7 +480,8 @@ export default function HostingCulturalEvent() {
     setEventCategory("");
     setEventMode("");
     setEventDescription("");
-    setEventDomain("");
+    setEventDomain({});
+    setEventDomainOther("");
     setEventRegistrationStartDate("");
     setEventRegistrationEndDate("");
     setEventStartDate("");
@@ -478,7 +502,7 @@ export default function HostingCulturalEvent() {
       setPreviouslyViewedPageNumber((prev) => prev + 1);
       window.scrollTo({
         behavior: "smooth",
-        top: 0,
+        top: document.getElementById("content").offsetTop - 200,
       });
     } else {
       setCurrentPage((prev) => prev + 1);
@@ -533,7 +557,7 @@ export default function HostingCulturalEvent() {
             currentPage={currentPage}
           />
         </div>
-        <div className="content">
+        <div id="content" className="content">
           {currentPage === 1 && (
             <>
               <h2>Basic Details</h2>
@@ -670,8 +694,23 @@ export default function HostingCulturalEvent() {
                 setValue={setEventDomain}
                 options={domainOptions}
                 helperText={errors.eventDomain}
-                className="mb-4"
+                className={`${
+                  eventDomain?.value === "Other" ? "mb-1" : "mb-4"
+                }`}
               />
+              {eventDomain?.value === "Other" && (
+                <FormInput
+                  id="eventDomainOther"
+                  name="eventDomainOther"
+                  caption="If other, please specify"
+                  placeholder="Enter your domain"
+                  value={eventDomainOther}
+                  setValue={setEventDomainOther}
+                  helperText={errors.eventDomainOther}
+                  className="mb-4"
+                />
+              )}
+
               <div className="mobile-item-container mb-4">
                 <FormInputDateTime
                   label="Event Registration Start Date & Time"
