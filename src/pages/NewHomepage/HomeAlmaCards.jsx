@@ -16,7 +16,6 @@ const HomeAlmaCards = ({ list }) => {
 
   useEffect(() => {
     if (list.length > 0) {
-      console.log(list);
       setTrendingList([list[0]]);
       setTrendingList2([list[1]]);
       setTrendingList3([list[2]]);
@@ -39,7 +38,7 @@ const HomeAlmaCards = ({ list }) => {
           className="row trending-cards-container"
           style={{ marginBottom: "20px", cursor: "pointer" }}
         >
-          <Fragment style={{ marginBottom: "30px" }}>
+          <Fragment>
             <div
               className="trending-card"
               style={{

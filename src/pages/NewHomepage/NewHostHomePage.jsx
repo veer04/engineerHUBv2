@@ -28,9 +28,6 @@ const NewHostHomePage = () => {
       setFilteredEvents([]);
     }
   }, [searchedEvents]);
-  useEffect(() => {
-    console.log(eventsData);
-  }, [eventsData]);
   const data = [
     {
       _id: "658d2fc47db76e8f91ee34c0",
