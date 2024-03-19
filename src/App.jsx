@@ -63,6 +63,12 @@ import EventWindow from "./pages/Community/Events/EventWindow.jsx";
 import BlogWindow from "./pages/Community/Blogs/BlogWindow.jsx";
 import NewFooter from "./components/Footer/NewFooter.jsx";
 import GetFeaturedForm from "./pages/NewHomepage/GetFeaturedForm.jsx";
+import HostingTechnicalEvent from "./pages/Hosting/HostingTechnicalEvent.jsx";
+import HostingHackathon from "./pages/Hosting/HostingHackathon.jsx";
+import HostingWebinar from "./pages/Hosting/HostingWebinar.jsx";
+const HostingCulturalEvent = lazy(() =>
+  import("./pages/Hosting/HostingCulturalEvent.jsx")
+);
 const NewHomePage = lazy(() => import("./pages/NewHomepage/NewHomePage.jsx"));
 const ProjectSubmission = lazy(() =>
   import("./pages/Community/Project/ProjectSubmission.jsx")
@@ -239,6 +245,10 @@ function App() {
             ) : (
               <Route path="job" element={<Login />} />
             )}
+            <Route path="cultural-event" element={<HostingCulturalEvent />} />
+            <Route path="technical-event" element={<HostingTechnicalEvent />} />
+            <Route path="hackathon" element={<HostingHackathon />} />
+            <Route path="webinar" element={<HostingWebinar />} />
             <Route path="blog" element={<BlogHosting />} />
           </Route>
           <Route path="/company">
