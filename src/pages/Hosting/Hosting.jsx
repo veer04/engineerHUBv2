@@ -166,7 +166,7 @@ export default function Hosting() {
         <div className="cards ">
           {/* <Link to="/host/event"> */}
           <div
-            onClick={() => handleClick("event")}
+            onClick={() => navigate("/host/cultural-event")}
             style={{
               backgroundImage: `url(${bucket}cultural_event.png)`,
             }}
@@ -180,7 +180,7 @@ export default function Hosting() {
           {/* </Link> */}
           {/* <Link to="/host/event"> */}
           <div
-            onClick={() => handleClick("event")}
+            onClick={() => navigate("/host/technical-event")}
             style={{
               backgroundImage: `url(${bucket}technical_event.png)`,
             }}
@@ -194,7 +194,7 @@ export default function Hosting() {
           {/* </Link> */}
           {/* <Link to="/host/event"> */}
           <div
-            onClick={() => handleClick("event")}
+            onClick={() => navigate("/host/hackathon")}
             style={{
               backgroundImage: `url(${bucket}hackathon.png)`,
             }}
@@ -208,7 +208,7 @@ export default function Hosting() {
           {/* </Link>
           <Link to="/host/event"> */}
           <div
-            onClick={() => handleClick("event")}
+            onClick={() => navigate("/host/webinar")}
             style={{
               backgroundImage: `url(${bucket}webinar.png)`,
             }}
