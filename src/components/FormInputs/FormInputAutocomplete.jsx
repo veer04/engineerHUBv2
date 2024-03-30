@@ -10,7 +10,7 @@ export default function FormInputAutocomplete({
   placeholder,
   value,
   setValue,
-  options,
+  options = [],
   helperText,
   className,
   disabled,
@@ -43,7 +43,7 @@ export default function FormInputAutocomplete({
     } else {
       setFilteredOptions(options);
     }
-  }, [value, options]);
+  }, [value]);
 
   const handleOptionClick = (option) => {
     setIsOpen(false);
@@ -82,9 +82,9 @@ export default function FormInputAutocomplete({
           id={id}
           required={required}
           disabled={disabled}
-          className={`custom-input custom-text ${helperText ? "custom-input-error" : ""} ${
-            !!disabled ? "disabled" : ""
-          }`}
+          className={`custom-input custom-text ${
+            helperText ? "custom-input-error" : ""
+          } ${!!disabled ? "disabled" : ""}`}
           placeholder={placeholder}
           value={value}
           onChange={(e) => {

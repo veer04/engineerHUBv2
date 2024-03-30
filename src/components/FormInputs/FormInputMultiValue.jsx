@@ -11,7 +11,7 @@ export default function FormInputMultiValue({
   placeholder,
   value,
   setValue,
-  options,
+  options = [],
   helperText,
   className,
   disabled,
@@ -29,13 +29,12 @@ export default function FormInputMultiValue({
         setIsOpen(false);
       }
     };
-
     document.addEventListener("click", multiValueHandler, true);
 
     return () => {
       document.removeEventListener("click", multiValueHandler);
     };
-  }, []);
+  }, [divEl]);
 
   useEffect(() => {
     if (input.length) {
@@ -46,7 +45,7 @@ export default function FormInputMultiValue({
     } else {
       setFilteredOptions(options);
     }
-  }, [input, options]);
+  }, [input]);
 
   const handleOption = (option) => {
     setValue((prev) => {
@@ -91,9 +90,9 @@ export default function FormInputMultiValue({
           id={id}
           required={required}
           disabled={disabled}
-          className={`custom-input custom-text ${helperText ? "custom-input-error" : ""} ${
-            !!disabled ? "disabled" : ""
-          }`}
+          className={`custom-input custom-text ${
+            helperText ? "custom-input-error" : ""
+          } ${!!disabled ? "disabled" : ""}`}
           placeholder={placeholder}
           value={input}
           onChange={(e) => {
