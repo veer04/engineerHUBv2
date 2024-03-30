@@ -550,7 +550,7 @@ export default function HostingCulturalEvent() {
             }}
             className="poster-container-mobile"
           />
-          <h1 className="title">Cultural Event Details</h1>
+          <h1 className="title">Cultural Event</h1>
           <FormIndicator
             className="mt-2"
             totalPages={totalPages}

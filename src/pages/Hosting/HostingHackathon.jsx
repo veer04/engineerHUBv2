@@ -549,7 +549,7 @@ export default function HostingHackathon() {
             }}
             className="poster-container-mobile"
           />
-          <h1 className="title">Hackathon Details</h1>
+          <h1 className="title">Hackathon</h1>
           <FormIndicator
             className="mt-2"
             totalPages={totalPages}

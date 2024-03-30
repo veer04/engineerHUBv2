@@ -550,7 +550,7 @@ export default function HostingTechnicalEvent() {
             }}
             className="poster-container-mobile"
           />
-          <h1 className="title">Technical Event Details</h1>
+          <h1 className="title">Technical Event</h1>
           <FormIndicator
             className="mt-2"
             totalPages={totalPages}

@@ -547,7 +547,7 @@ export default function HostingWebinar() {
             }}
             className="poster-container-mobile"
           />
-          <h1 className="title">Webinar Details</h1>
+          <h1 className="title">Webinar</h1>
           <FormIndicator
             className="mt-2"
             totalPages={totalPages}
