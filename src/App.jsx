@@ -63,6 +63,8 @@ import EventWindow from "./pages/Community/Events/EventWindow.jsx";
 import BlogWindow from "./pages/Community/Blogs/BlogWindow.jsx";
 import NewFooter from "./components/Footer/NewFooter.jsx";
 import GetFeaturedForm from "./pages/NewHomepage/GetFeaturedForm.jsx";
+import HostingProject from "./pages/Hosting/HostingProject.jsx";
+import HostingEventHiring from "./pages/Hosting/HostingEventHiring.jsx";
 const HostingCulturalEvent = lazy(() =>
   import("./pages/Hosting/HostingCulturalEvent.jsx")
 );
@@ -235,24 +237,26 @@ function App() {
 
           <Route path="host">
             <Route index element={<Hosting />} />
-            {eventHostRoute === true && sendLogin === true ? (
+            {/* {eventHostRoute === true && sendLogin === true ? (
               <Route path="event" element={<HostEvent />} />
             ) : (
               <Route path="event" element={<Login />} />
-            )}
+            )} */}
             {jobHostRoute === true && sendLogin === true ? (
               <>
-                <Route path="project" element={<ProjectHosting />} />
+                {/* <Route path="project" element={<ProjectHosting />} /> */}
                 <Route path="job" element={<JobRegistration />} />
                 <Route path="internship" element={<JobRegistration />} />
               </>
             ) : (
               <Route path="job" element={<Login />} />
             )}
+            <Route path="project" element={<HostingProject />} />
             <Route path="cultural-event" element={<HostingCulturalEvent />} />
             <Route path="technical-event" element={<HostingTechnicalEvent />} />
             <Route path="hackathon" element={<HostingHackathon />} />
             <Route path="webinar" element={<HostingWebinar />} />
+            <Route path="event-hiring" element={<HostingEventHiring />} />
             <Route path="blog" element={<BlogHosting />} />
           </Route>
           <Route path="/company">

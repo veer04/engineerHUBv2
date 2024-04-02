@@ -255,7 +255,7 @@ export default function Hosting() {
             </div>
           </div>
           <div
-            onClick={() => handleClick("project")}
+            onClick={() => navigate("/host/project")}
             style={{
               backgroundImage: `url(${bucket}project.png)`,
             }}
@@ -267,7 +267,7 @@ export default function Hosting() {
             </div>
           </div>
           <div
-            onClick={() => handleClick("event")}
+            onClick={() => navigate("/host/event-hiring")}
             style={{
               backgroundImage: `url(${bucket}hackathon.png)`,
             }}
