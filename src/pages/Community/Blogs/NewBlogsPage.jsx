@@ -30,6 +30,7 @@ export default function NewBlogsPage() {
   const { setSelectedItem } = useSidebar();
 
   useEffect(() => {
+    document.title = `Blogs | ${id} | engineerHUB`;
     window.scrollTo(0, 0);
     getBlogs(setBlogsData, id);
     setSelectedPageNavbar("community");
@@ -48,6 +49,9 @@ export default function NewBlogsPage() {
   }, [blogsData]);
 
   useEffect(() => {
+    if (!blogId) {
+      document.title = `Blogs | ${id} | engineerHUB`;
+    }
     setIsBlogOpen(!!blogId);
   }, [blogId]);
 

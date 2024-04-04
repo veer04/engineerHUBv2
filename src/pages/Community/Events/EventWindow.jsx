@@ -31,6 +31,9 @@ export default function EventWindow() {
   }, [eventId]);
 
   useEffect(() => {
+    if (eventData?.data?.data) {
+      document.title = `${eventData?.data?.data?.eventName} | Events | engineerHUB`;
+    }
     setEvent(eventData?.data?.data || {});
   }, [eventData]);
 
@@ -90,21 +93,12 @@ export default function EventWindow() {
             </div>
           </div>
 
-
-          
-
           <button
             onClick={() => (window.location.href = event?.applyLink)}
             className="register-btn"
           >
             Register Now
           </button>
-
-
-
-
-
-
         </div>
       </section>
       <section className="content">

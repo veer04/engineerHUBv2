@@ -52,6 +52,7 @@ export default function TrendingEvents() {
 
   useEffect(() => {
     if (Object.keys(event).length !== 0) {
+      document.title = `${event?.eventName} | Event | engineerHUB`;
       setTimeout(() => {
         document.getElementById("column-1").style.height = `${
           document.getElementById("column-2").offsetHeight

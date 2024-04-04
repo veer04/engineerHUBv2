@@ -148,6 +148,12 @@ const JobRegistrationForm = () => {
   };
 
   useEffect(() => {
+    if (checkUrl() === "Job") {
+      document.title = `Host a Job | engineerHUB`;
+    } else if (checkUrl() === "Internship") {
+      document.title = `Host an Internship | engineerHUB`;
+    }
+
     window.scrollTo(0, 0);
     setSelectedPageNavbar("host");
     setOpportunityType(checkUrl());

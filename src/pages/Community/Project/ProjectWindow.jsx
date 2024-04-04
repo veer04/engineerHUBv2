@@ -26,6 +26,9 @@ export default function ProjectWindow() {
   }, [projectId]);
 
   useEffect(() => {
+    if (projectData?.data?.data) {
+      document.title = `${projectData?.data?.data?.projectName} | Projects | engineerHUB`;
+    }
     setProject(projectData?.data?.data || {});
   }, [projectData]);
 

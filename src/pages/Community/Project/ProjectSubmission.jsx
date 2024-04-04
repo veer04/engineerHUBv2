@@ -35,6 +35,7 @@ export default function ProjectSubmission() {
   } = useGlobalSnackbar();
 
   useEffect(() => {
+    document.title = `Project Submission | ${id} | engineerHUB`;
     window.scrollTo(0, 0);
   }, []);
 

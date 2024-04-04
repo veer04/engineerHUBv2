@@ -7,7 +7,9 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import axios from "axios";
 import { API_URL } from "../../../services/APIUtils";
+import { changeDocumentTitle } from "../../../features/changeDocumentTitle";
 export default function ForgotPassword() {
+  changeDocumentTitle("Forgot Password | engineerHUB");
   if (Cookies.get("name")) {
     let path = "";
     if (Cookies.get("role") === "User") {

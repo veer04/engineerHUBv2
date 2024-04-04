@@ -56,6 +56,11 @@ const JobDescription = () => {
             controller.abort();
         };
     }, [hiringId]);
+    useEffect(() => {
+        if (Object.keys(hiring).length !== 0) {
+            document.title = `${hiring?.detailFound?.opportunityName} | ${hiring?.detailFound?.organisationName} | engineerHUB`;
+        }
+    }, [hiring]);
 
     function handleModalState() {
         setIsApplyingJob(false);

@@ -11,6 +11,7 @@ const Success = () => {
     const navigate=useNavigate();
     const { setSelectedPageNavbar } = useNavbar();
     useEffect(() => {
+      document.title = "Redirecting | engineerHUB";
       setSelectedPageNavbar("home");
       window.scrollTo(0, 0);
     

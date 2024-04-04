@@ -48,6 +48,7 @@ export default function TrendingColleges() {
 
   useEffect(() => {
     if (Object.keys(campus).length !== 0) {
+      document.title = `${campus?.collegeName} | Campus | engineerHUB`;
       setTimeout(() => {
         document.getElementById("column-1").style.height = `${
           document.getElementById("column-2").offsetHeight

@@ -25,6 +25,9 @@ export default function BlogWindow() {
   }, [blogId]);
 
   useEffect(() => {
+    if (projectData?.data?.data) {
+      document.title = `${projectData?.data?.data?.title} | Blogs | engineerHUB`;
+    }
     setProject(projectData?.data?.data || {});
   }, [projectData]);
 

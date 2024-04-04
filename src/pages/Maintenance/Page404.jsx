@@ -2,8 +2,10 @@ import React from "react";
 import { Bucket_URL } from "../../services/APIUtils";
 import "./Page404.css";
 import { useNavigate } from "react-router-dom";
+import { changeDocumentTitle } from "../../features/changeDocumentTitle";
 
 export default function Page404() {
+  changeDocumentTitle("Page Not Found | engineerHUB");
   const navigate = useNavigate();
   const handleClick = () => {
     navigate("/");

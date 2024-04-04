@@ -196,6 +196,7 @@ export default function ClubEditProfile() {
 
   useEffect(() => {
     if (organization) {
+      document.title = `Edit Profile | Club | engineerHUB`;
       setNewName(organization?.name);
       setNewSubHeading(organization?.subHeading);
       setNewClubType(organization?.clubType);

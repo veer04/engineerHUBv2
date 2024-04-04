@@ -49,6 +49,12 @@ export default function ClubDashboard() {
   }
 
   useEffect(() => {
+    if (Object.keys(organization).length) {
+      document.title = `${organization?.name} | Club | engineerHUB`;
+    }
+  }, [organization]);
+
+  useEffect(() => {
     window.scrollTo(0, 0);
     fetchData();
     getAllPosts(setPosts, clubId);

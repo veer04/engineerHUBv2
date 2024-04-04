@@ -122,7 +122,7 @@ function App() {
           <Route index element={<NewHomePage path="homepage" />} />
           <Route path="/get-featured" element={<GetFeaturedForm />} />
           <Route path="/success" element={<Success></Success>}></Route>
-          <Route path="/register" element={<RegistrationForm />} />
+          {/* <Route path="/register" element={<RegistrationForm />} /> */}
           <Route path="/select-role" element={<Role />} />
           <Route path="/profile">
             <Route
@@ -157,10 +157,10 @@ function App() {
               element={<CompanyEditProfile />}
             />
           </Route>
-          <Route path="/student-signup" element={<StudentSignup />} />
+          {/* <Route path="/student-signup" element={<StudentSignup />} /> */}
           <Route path="/User-signup" element={<SignupUser />} />
           <Route path="/clubSignup" element={<ClubSignup />} />
-          <Route path="/mentorSignup" element={<MentorSignup />} />
+          {/* <Route path="/mentorSignup" element={<MentorSignup />} /> */}
           <Route path="/organizationSignup" element={<OrganizationSignup />} />
           <Route path="/login" element={<Login />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
@@ -202,7 +202,7 @@ function App() {
               <Route path=":id" element={<NewChatPage />} />
             </Route>
           </Route>
-          <Route path="/mentorChat" element={<MentorChat />} />
+          {/* <Route path="/mentorChat" element={<MentorChat />} /> */}
           <Route path="/trending">
             <Route path="campuses/:collegeId">
               <Route index element={<TrendingColleges />} />

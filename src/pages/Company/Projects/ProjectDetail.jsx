@@ -53,6 +53,11 @@ const ProjectDetail = () => {
   useEffect(() => {
     setSearchedProjects(filteredData);
   }, [q, filteredData]);
+  useEffect(() => {
+    if (Object.keys(project).length) {
+      document.title = `${project?.detailFound?.projectName} | Project | engineerHUB`;
+    }
+  }, [project]);
 
   return (
     <div className="ProjectDetail">

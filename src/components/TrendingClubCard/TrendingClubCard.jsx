@@ -115,10 +115,6 @@ export default function TrendingClubCard() {
       followClub(clubId, setFollowResponse);
     }
   }
-  useEffect(() => {
-    console.log(trendingList);
-    console.log(allClubs);
-  }, [trendingList, allClubs]);
 
   useEffect(() => {
     if (output) {
@@ -128,6 +124,7 @@ export default function TrendingClubCard() {
 
   useEffect(() => {
     if (Object.keys(clubData).length !== 0) {
+      document.title = `${clubData?.name} | Club | engineerHUB`;
       setTimeout(() => {
         document.getElementById("column-1").style.height = `${
           document.getElementById("column-2").offsetHeight
@@ -140,9 +137,7 @@ export default function TrendingClubCard() {
       setClub(clubData?.data?.data);
     }
   }, [clubData]);
-  useEffect(() => {
-    console.log(clubData);
-  }, [clubData]);
+
   const renderTrendingClub = (
     <>
       <main className="trending-colleges">

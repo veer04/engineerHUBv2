@@ -52,6 +52,7 @@ export default function CampusDetails() {
 
   useEffect(() => {
     if (Object.keys(campusData).length !== 0) {
+      document.title = `${campusData?.data?.data?.collegeName} | Campus | engineerHUB`;
       setCampus(campusData?.data?.data);
     }
   }, [campusData]);

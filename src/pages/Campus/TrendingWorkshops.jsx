@@ -52,6 +52,7 @@ export default function TrendingWorkshops() {
 
   useEffect(() => {
     if (Object.keys(event).length !== 0) {
+      document.title = `${event?.eventName} | Workshop | engineerHUB`;
       setTimeout(() => {
         document.getElementById("column-1").style.height = `${
           document.getElementById("column-2").offsetHeight
@@ -111,7 +112,7 @@ export default function TrendingWorkshops() {
           </div>
           <div className="cards">
             {trendingList?.map((item) => (
-              <NewEventCard data={item} key={item?._id} />
+              <NewEventCard data={item} key={item?._id} workshop={true} />
             ))}
           </div>
         </aside>

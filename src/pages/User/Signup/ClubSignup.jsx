@@ -27,6 +27,7 @@ const ClubSignup = () => {
   const { setSelectedPageNavbar } = useNavbar();
   const [loading, setLoading] = useState(false);
   useEffect(() => {
+    document.title = "Club Signup | engineerHUB";
     window.scrollTo(0, 0);
     setSelectedPageNavbar("login");
   }, []);

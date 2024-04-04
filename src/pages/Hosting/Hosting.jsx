@@ -39,6 +39,7 @@ export default function Hosting() {
 
   const { setSelectedPageNavbar } = useNavbar();
   useEffect(() => {
+    document.title = "Host an Opportunity | engineerHUB";
     setSelectedPageNavbar("host");
   }, []);
   const navigate = useNavigate();

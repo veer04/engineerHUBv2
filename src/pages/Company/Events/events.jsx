@@ -10,6 +10,7 @@ import HackathonCard from "./EventsChoices/HackathonCards";
 import { useSearchParams } from "react-router-dom";
 import PaginationBar from "../../../components/PaginationBar/PaginationBar";
 import Loading from "../../../components/Loader/Loading";
+import { changeDocumentTitle } from "../../../features/changeDocumentTitle";
 
 const Events = () => {
   const [searchParams, setSearchParams] = useSearchParams({ q: "" });
@@ -21,6 +22,8 @@ const Events = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [limit, setLimit] = useState(21);
   const [pageCount, setPageCount] = useState(1);
+
+  changeDocumentTitle("Events | Company | engineerHUB");
 
   useEffect(() => {
     window.scrollTo(0, 0);

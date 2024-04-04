@@ -2,7 +2,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import "./NewEventCard.css";
 import { defaultEventPoster, ehubLogo } from "../../assets/defaultPoster";
 
-export default function NewEventCard({ data, community }) {
+export default function NewEventCard({ data, community, workshop }) {
   const { id } = useParams();
   const navigate = useNavigate();
   const time = new Date(data?.eventStartTime);
@@ -41,7 +41,11 @@ export default function NewEventCard({ data, community }) {
       onClick={() => {
         if (community)
           navigate(`/community/events/${encodeURIComponent(id)}/${data._id}`);
-        else navigate(`/trending/events/${data._id}`);
+        else if (!workshop) {
+          navigate(`/trending/events/${data._id}`);
+        } else {
+          navigate(`/trending/workshops/${data._id}`);
+        }
       }}
       key={data._id}
       className="event-card-new card"

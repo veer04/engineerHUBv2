@@ -120,6 +120,12 @@ export default function CompanyDashboard() {
   }, [window.location.pathname]);
 
   useEffect(() => {
+    if (Object.keys(organization).length !== 0) {
+      document.title = `${organization?.name} | Company | engineerHUB`;
+    }
+  }, [organization]);
+
+  useEffect(() => {
     if (!!followResponse) fetchData();
   }, [followResponse]);
 

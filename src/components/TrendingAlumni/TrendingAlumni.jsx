@@ -82,12 +82,6 @@ const TrendingAlumni = () => {
       setIsUserAdmin(false);
     }
   }, [almaId]);
-  useEffect(() => {
-    console.log(trendingList);
-    console.log(alumniData);
-    console.log(almaId);
-    console.log(userId);
-  }, [trendingList,alumniData]);
 
   useEffect(() => {
     if (output) {
@@ -97,11 +91,9 @@ const TrendingAlumni = () => {
 
   useEffect(() => {
     if (Object.keys(alumniData).length !== 0) {
+      document.title = `${alumniData?.firstName} ${alumniData?.lastName} | Alumni | engineerHUB`;
       setAlumni(alumniData?.data?.data);
     }
-  }, [alumniData]);
-  useEffect(() => {
-    console.log(alumniData);
   }, [alumniData]);
  
   const renderTrendingAlumni = (

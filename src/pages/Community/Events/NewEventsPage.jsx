@@ -30,6 +30,7 @@ export default function NewEventsPage() {
   const { setSelectedItem } = useSidebar();
 
   useEffect(() => {
+    document.title = `Events | ${id} | engineerHUB`;
     window.scrollTo(0, 0);
     getEvents(setEventsData, id);
     setSelectedPageNavbar("community");
@@ -48,6 +49,9 @@ export default function NewEventsPage() {
   }, [eventsData]);
 
   useEffect(() => {
+    if (!eventId) {
+      document.title = `Events | ${id} | engineerHUB`;
+    }
     setIsEventOpen(!!eventId);
   }, [eventId]);
 

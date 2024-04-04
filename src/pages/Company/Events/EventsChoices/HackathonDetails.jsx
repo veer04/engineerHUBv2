@@ -40,6 +40,11 @@ const HackathonDetails = () => {
       setFilteredProjects([]);
     }
   }, [searchedProjects]);
+  useEffect(() => {
+    if (Object.keys(hiringData).length) {
+      document.title = `${hiringData?.detailFound?.opportunityName} | ${hiringData?.detailFound?.organisationName} | engineerHUB`;
+    }
+  }, [hiringData]);
 
   const filteredData = useMemo(() => {
     return hiring.filter((value) => {
