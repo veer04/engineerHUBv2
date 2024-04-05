@@ -7,6 +7,7 @@ export default function CommunityPage() {
   const { setSelectedPageNavbar } = useNavbar();
 
   useEffect(() => {
+    document.title = "Community | engineerHUB";
     setSelectedPageNavbar("community");
     window.scrollTo(0, 0);
   }, []);

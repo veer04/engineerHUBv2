@@ -26,6 +26,7 @@ const EventRegistrationForm = () => {
   const { setSelectedPageNavbar } = useNavbar();
 
   useEffect(() => {
+    document.title = "Host an Event | engineerHUB";
     window.scrollTo(0, 0);
     setSelectedPageNavbar("host");
     return () => {

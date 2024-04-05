@@ -34,6 +34,7 @@ export default function NewProjectsPage() {
   const { setSelectedItem } = useSidebar();
 
   useEffect(() => {
+    document.title = `Projects | ${id} | engineerHUB`;
     window.scrollTo(0, 0);
     getProjects(setProjectsData, id);
     setSelectedPageNavbar("community");
@@ -52,6 +53,9 @@ export default function NewProjectsPage() {
   }, [projectsData]);
 
   useEffect(() => {
+    if (!projectId) {
+      document.title = `Projects | ${id} | engineerHUB`;
+    }
     setIsProjectOpen(!!projectId);
   }, [projectId]);
 

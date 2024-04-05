@@ -71,6 +71,7 @@ export default function GetFeaturedForm() {
   } = useGlobalSnackbar();
 
   useEffect(() => {
+    document.title = "Get Featured | engineerHUB";
     window.scrollTo(0, 0);
     if (getUserRole() === "User" || getUserRole() === "Alumni") {
       getUserProfileById(setUser, getUserId());

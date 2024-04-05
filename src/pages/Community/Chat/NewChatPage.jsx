@@ -29,6 +29,7 @@ export default function NewChatPage() {
   };
 
   useEffect(() => {
+    document.title = `Chat | ${id} | engineerHUB`;
     window.addEventListener("resize", handleWindowSizeChange);
     return () => {
       window.removeEventListener("resize", handleWindowSizeChange);

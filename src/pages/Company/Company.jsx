@@ -130,6 +130,7 @@ const Company = () => {
   };
 
   useEffect(() => {
+    document.title = "Company | engineerHUB";
     window.scrollTo(0, 0);
     setSelectedPageNavbar("company");
     if (sessionStorage.getItem("companyPageCounts")) {
@@ -313,7 +314,7 @@ const Company = () => {
         }}
         id="promotional-banner"
       >
-        <a href="https://sayf.in" target="_blank">
+        <a href="https://learn.mentoraide.com/courses/Data-Structures--Algorithms-Beginner-to-Advanced-65bd3813e4b0d3e211a61380?affCode=GJXCM4" target="_blank">
           <img
             loading="lazy"
             src={`${Bucket_URL}frontend/company/promotion-banner/promotional-banner.png`}

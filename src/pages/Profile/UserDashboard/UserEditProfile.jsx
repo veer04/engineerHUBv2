@@ -224,8 +224,10 @@ const UserEditProfile = () => {
   }, [userId]);
 
   useEffect(() => {
-    console.log(user);
     if (Object.keys(user).length > 0) {
+      document.title = `Edit Profile | ${
+        user?.role ? user.role : "User"
+      } | engineerHUB`;
       setNewFirstName(user?.firstName);
       setNewLastName(user?.lastName);
       setEmail(user?.email);
@@ -285,8 +287,6 @@ const UserEditProfile = () => {
   }, [deleteResponse]);
 
   useEffect(() => {
-    console.log(newImage);
-    console.log(!!newImage);
     if (!!newImage) {
       if (newImage.type.includes("image")) {
         setIsImageLoading(true);
@@ -329,7 +329,9 @@ const UserEditProfile = () => {
         setSnackbarOpen(true);
         setEducationExist(true);
         const decoded = jwt_decode(updateEducationResponse.data.accessToken);
-        Cookies.set("access_token", updateEducationResponse.data.accessToken, { expires: 400 });
+        Cookies.set("access_token", updateEducationResponse.data.accessToken, {
+          expires: 400,
+        });
         Cookies.set("role", decoded.role, { expires: 400 });
         fetchData();
       } else {

@@ -31,6 +31,7 @@ const UpdateUserForm = () => {
   });
   const [open, setOpen] = useState(false);
   useEffect(() => {
+    document.title = "Change Password | engineerHUB";
     const storedRole = sessionStorage.getItem("ForgotRole");
     const storedId = sessionStorage.getItem("ForgotId");
     if (!!storedRole && !!storedId) {

@@ -28,6 +28,7 @@ export default function CampusSearchPage() {
   const [result, setResult] = useState({});
 
   useEffect(() => {
+    document.title = "Search | Campus | engineerHUB";
     window.scrollTo(0, 0);
     getCampusPageSearchResult(setResult, collegeId);
     getAllCampuses(setAllCampuses);

@@ -39,6 +39,7 @@ const SignupUser = () => {
   const { setSelectedPageNavbar } = useNavbar();
 
   useEffect(() => {
+    document.title = "Sign Up | engineerHUB";
     setSelectedPageNavbar("login");
     window.scrollTo(0, 0);
   }, []);

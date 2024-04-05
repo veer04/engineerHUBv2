@@ -14,6 +14,7 @@ const OTP = () => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    document.title = "OTP Verification | engineerHUB";
     window.scrollTo(0, 0);
     setSelectedPageNavbar("login");
   }, []);

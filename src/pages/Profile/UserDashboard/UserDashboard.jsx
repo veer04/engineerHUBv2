@@ -135,7 +135,9 @@ export default function UserDashboard() {
   }, [userId]);
 
   useEffect(() => {
-    console.log(user);
+    if (Object.keys(user).length !== 0){
+      document.title = `${user?.firstName} ${user?.lastName} | ${user?.role ? user.role : "User"} | engineerHUB`;
+    }
     handleEditOptions();
   }, [user]);
 

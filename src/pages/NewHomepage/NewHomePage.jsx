@@ -17,6 +17,7 @@ export default function NewHomePage() {
   const [clubs, setClubs] = useState([]);
 
   useEffect(() => {
+    document.title = "engineerHUB";
     setSelectedPageNavbar("home");
     getTrendingAlumni2(setList);
     getTrendingClubs(setClubs);

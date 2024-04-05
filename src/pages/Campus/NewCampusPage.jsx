@@ -46,6 +46,7 @@ export default function NewCampusPage() {
   const [trendingWorkshops, setTrendingWorkshops] = useState([]);
 
   useEffect(() => {
+    document.title = `Campus | engineerHUB`
     window.scrollTo(0, 0);
     getAllCampuses(setAllCampuses);
     if (!isLoggedIn) getTrendingActivities(setTrendingPosts);

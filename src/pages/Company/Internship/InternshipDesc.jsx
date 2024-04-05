@@ -66,15 +66,11 @@ const InternshipDesc = () => {
     };
   }, [hiringId]);
   useEffect(() => {
-    // if(hiring?.detailFound._id==="6518157c04816b097318bff4")
-    // {
-    //   setIsLoggedIn(true);
-    // }
+    if (Object.keys(hiring).length !== 0) {
+      document.title = `${hiring?.detailFound?.opportunityName} | ${hiring?.detailFound?.organisationName} | engineerHUB`;
+    }
     setInternshipData(hiring.detailFound);
   }, [hiring]);
-  useEffect(() => {
-    console.log(internShipData?._id);
-  }, [internShipData]);
   if (hiring.success === false) return <Page404 />;
 
   const UserDataPost = () => {

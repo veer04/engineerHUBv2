@@ -92,6 +92,7 @@ const BlogHosting = () => {
   const [blogContent, setBlogContent] = useState("");
 
   useEffect(() => {
+    document.title = "Blog Posting | engineerHUB";
     setUserEmail(getUserEmail());
     getDomains(setAllDomains);
   }, []);

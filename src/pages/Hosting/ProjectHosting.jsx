@@ -136,6 +136,7 @@ const JobRegistrationForm = () => {
   };
 
   useEffect(() => {
+    document.title = "Host a Project | engineerHUB"
     window.scrollTo(0, 0);
     setSelectedPageNavbar("host");
     setOpportunityType(checkUrl());

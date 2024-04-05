@@ -9,6 +9,7 @@ export default function ComingSoon() {
   const bucket = `${Bucket_URL}frontend/maintenance/`;
   
   useEffect(() => {
+    document.title = "Coming Soon | engineerHUB";
     window.scrollTo(0, 0);
     setSelectedPageNavbar("maintenance");
   });

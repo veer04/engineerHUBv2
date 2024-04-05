@@ -1,7 +1,9 @@
 import { Bucket_URL } from "../../../services/APIUtils";
 import { useNavigate } from "react-router-dom";
 import "./Role.css";
+import { changeDocumentTitle } from "../../../features/changeDocumentTitle";
 export default function Role() {
+  changeDocumentTitle("Select your Role | engineerHUB");
   const handleCardClick = (role) => {
     let value;
     switch (role) {

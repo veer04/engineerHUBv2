@@ -21,6 +21,8 @@ export default function CampusDetailsOld({ path }) {
     //check if campus if a empty object
     if (Object.keys(campus).length === 0 && campus.constructor === Object) {
       getCampusById(setCampusData, collegeId);
+    } else {
+      document.title = `${campus?.collegeName} | Campus | engineerHUB`;
     }
     setSelectedPageNavbar("campus");
 
@@ -31,6 +33,7 @@ export default function CampusDetailsOld({ path }) {
 
   useEffect(() => {
     if (Object.keys(campusData).length !== 0) {
+      document.title = `${campusData?.data?.data?.collegeName} | Campus | engineerHUB`;
       setCampus(campusData?.data?.data);
       sessionStorage.setItem(
         `${collegeId} campus`,
