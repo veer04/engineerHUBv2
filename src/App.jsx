@@ -65,6 +65,8 @@ import NewFooter from "./components/Footer/NewFooter.jsx";
 import GetFeaturedForm from "./pages/NewHomepage/GetFeaturedForm.jsx";
 import HostingProject from "./pages/Hosting/HostingProject.jsx";
 import HostingEventHiring from "./pages/Hosting/HostingEventHiring.jsx";
+const HostingInternship = lazy(() => import("./pages/Hosting/HostingInternship.jsx"));
+const HostingJob = lazy(() => import("./pages/Hosting/HostingJob.jsx"));
 const HostingCulturalEvent = lazy(() =>
   import("./pages/Hosting/HostingCulturalEvent.jsx")
 );
@@ -242,15 +244,17 @@ function App() {
             ) : (
               <Route path="event" element={<Login />} />
             )} */}
-            {jobHostRoute === true && sendLogin === true ? (
+            {/* {jobHostRoute === true && sendLogin === true ? (
               <>
-                {/* <Route path="project" element={<ProjectHosting />} /> */}
+                <Route path="project" element={<ProjectHosting />} />
                 <Route path="job" element={<JobRegistration />} />
                 <Route path="internship" element={<JobRegistration />} />
               </>
             ) : (
               <Route path="job" element={<Login />} />
-            )}
+            )} */}
+            <Route path="job" element={<HostingJob />} />
+            <Route path="internship" element={<HostingInternship />} />
             <Route path="project" element={<HostingProject />} />
             <Route path="cultural-event" element={<HostingCulturalEvent />} />
             <Route path="technical-event" element={<HostingTechnicalEvent />} />

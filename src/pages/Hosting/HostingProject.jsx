@@ -63,7 +63,7 @@ export default function HostingProject() {
   const [maxAmount, setMaxAmount] = useState("");
   const [projectDomain, setProjectDomain] = useState({});
   const [projectDomainOther, setProjectDomainOther] = useState("");
-  const [skillsRequired, setSkillsRequired] = useState([]);
+  const [techStack, setTechStack] = useState([]);
   const [experienceRequired, setExperienceRequired] = useState("");
   const [durationType, setDurationType] = useState("");
   const [estimatedTime, setEstimatedTime] = useState("");
@@ -101,7 +101,7 @@ export default function HostingProject() {
     maxAmount: "",
     projectDomain: "",
     projectDomainOther: "",
-    skillsRequired: "",
+    techStack: "",
     experienceRequired: "",
     durationType: "",
     estimatedTime: "",
@@ -327,25 +327,25 @@ export default function HostingProject() {
       addToErrorStack("#spendType");
     }
 
-    if (spendType === "Fixed Amount" && !fixedAmount) {
+    if (spendType === "fixed" && !fixedAmount) {
       errors.fixedAmount = "Fixed amount is required";
       isValid = false;
       addToErrorStack("#fixedAmount");
     }
 
-    if (spendType === "Hourly Basis" && !hourlyBasis) {
+    if (spendType === "hourly" && !hourlyBasis) {
       errors.hourlyBasis = "Hourly basis amount is required";
       isValid = false;
       addToErrorStack("#hourlyBasis");
     }
 
-    if (spendType === "Range" && !minAmount) {
+    if (spendType === "range" && !minAmount) {
       errors.minAmount = "Minimum amount is required";
       isValid = false;
       addToErrorStack("#minAmount");
     }
 
-    if (spendType === "Range" && !maxAmount) {
+    if (spendType === "range" && !maxAmount) {
       errors.maxAmount = "Maximum amount is required";
       isValid = false;
       addToErrorStack("#maxAmount");
@@ -361,7 +361,7 @@ export default function HostingProject() {
     const errors = {
       projectDomain: "",
       projectDomainOther: "",
-      skillsRequired: "",
+      techStack: "",
       experienceRequired: "",
       durationType: "",
       estimatedTime: "",
@@ -380,10 +380,10 @@ export default function HostingProject() {
       addToErrorStack("#projectDomainOther");
     }
 
-    if (skillsRequired.length === 0) {
-      errors.skillsRequired = "Skills are required";
+    if (techStack.length === 0) {
+      errors.techStack = "Skills are required";
       isValid = false;
-      addToErrorStack("#skillsRequired");
+      addToErrorStack("#techStack");
     }
 
     if (!experienceRequired) {
@@ -404,11 +404,7 @@ export default function HostingProject() {
       addToErrorStack("#estimatedTime");
     }
 
-    if (!applyLink) {
-      errors.applyLink = "Apply link is required";
-      isValid = false;
-      addToErrorStack("#applyLink");
-    } else if (!applyLink.match(/^(ftp|http|https):\/\/[^ "]+$/)) {
+    if (applyLink && !applyLink.match(/^(ftp|http|https):\/\/[^ "]+$/)) {
       errors.applyLink =
         "Please enter a valid URL (for example: https://www.engineerhub.in)";
       isValid = false;
@@ -424,7 +420,7 @@ export default function HostingProject() {
     const form = new FormData();
     form.append("hostName", hostName);
     form.append("profilePicture", profilePicture);
-    form.append("profileLink", profileLink);
+    form.append("websiteUrl", profileLink);
     form.append("mobileNo", contactNumber);
     form.append("mobileCountryCode", countryCode);
     form.append("alternateMobileNo", alternateContactNumber);
@@ -434,17 +430,19 @@ export default function HostingProject() {
     form.append("description", projectDescription);
     form.append("projectPoster", projectPoster);
     form.append("payingMethod", spendType);
-    form.append("fixedAmount", fixedAmount);
-    form.append("amountPerHour", hourlyBasis);
-    form.append("minRange", minAmount);
-    form.append("maxRange", maxAmount);
+    if (spendType === "fixed") form.append("fixedAmount", fixedAmount);
+    if (spendType === "hourly") form.append("amountPerHour", hourlyBasis);
+    if (spendType === "range") {
+      form.append("minRange", minAmount);
+      form.append("maxRange", maxAmount);
+    }
     form.append(
       "domainName",
       projectDomain?.value === "Other"
         ? projectDomainOther
         : projectDomain?.value
     );
-    form.append("skillsRequired", skillsRequired);
+    form.append("techStack", techStack);
     form.append("experience", experienceRequired);
     form.append("estimatedTime", estimatedTime);
     form.append("durationType", durationType);
@@ -519,7 +517,7 @@ export default function HostingProject() {
     setMaxAmount("");
     setProjectDomain({});
     setProjectDomainOther("");
-    setSkillsRequired([]);
+    setTechStack([]);
     setExperienceRequired("");
     setDurationType("");
     setEstimatedTime("");
@@ -735,28 +733,28 @@ export default function HostingProject() {
                     label="Fixed Amount"
                     value={spendType}
                     setValue={setSpendType}
-                    result="Fixed Amount"
+                    result="fixed"
                     helperText={errors.spendType}
                   />
                   <FormInputSelectOption
                     label="Hourly Basis"
                     value={spendType}
                     setValue={setSpendType}
-                    result="Hourly Basis"
+                    result="hourly"
                     helperText={errors.spendType}
                   />
                   <FormInputSelectOption
                     label="Range"
                     value={spendType}
                     setValue={setSpendType}
-                    result="Range"
+                    result="range"
                     helperText={errors.spendType}
                   />
                 </div>
               </FormInputSelect>
 
-              {spendType === "Fixed Amount" && (
-                <FormInput
+              {spendType === "fixed" && (
+                <FormInputNumber
                   label="Fixed Amount (in INR)"
                   id="fixedAmount"
                   name="fixedAmount"
@@ -769,8 +767,8 @@ export default function HostingProject() {
                 />
               )}
 
-              {spendType === "Hourly Basis" && (
-                <FormInput
+              {spendType === "hourly" && (
+                <FormInputNumber
                   label="Hourly Basis (in INR)"
                   id="hourlyBasis"
                   name="hourlyBasis"
@@ -783,9 +781,9 @@ export default function HostingProject() {
                 />
               )}
 
-              {spendType === "Range" && (
+              {spendType === "range" && (
                 <>
-                  <FormInput
+                  <FormInputNumber
                     label="Minimum Amount (in INR)"
                     id="minAmount"
                     name="minAmount"
@@ -796,7 +794,7 @@ export default function HostingProject() {
                     helperText={errors.minAmount}
                     className="mb-4"
                   />
-                  <FormInput
+                  <FormInputNumber
                     label="Maximum Amount (in INR)"
                     id="maxAmount"
                     name="maxAmount"
@@ -842,13 +840,13 @@ export default function HostingProject() {
 
               <FormInputMultiValue
                 label="Skills Required"
-                id="skillsRequired"
-                name="skillsRequired"
+                id="techStack"
+                name="techStack"
                 required
                 placeholder="Enter Skills required"
-                value={skillsRequired}
-                setValue={setSkillsRequired}
-                helperText={errors.skillsRequired}
+                value={techStack}
+                setValue={setTechStack}
+                helperText={errors.techStack}
                 className="mb-4"
               />
 
