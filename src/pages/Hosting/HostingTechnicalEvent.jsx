@@ -475,7 +475,7 @@ export default function HostingTechnicalEvent() {
 
   function emptyAllFields() {
     setEventPoster("");
-    setEventType(eventTypeOptions[1]);
+    setEventType(eventTypeOptions[0]);
     setEventName("");
     setEventCategory("");
     setEventMode("");

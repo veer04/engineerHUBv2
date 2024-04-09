@@ -475,7 +475,7 @@ export default function HostingWebinar() {
 
   function emptyAllFields() {
     setEventPoster("");
-    setEventType(eventTypeOptions[1]);
+    setEventType(eventTypeOptions[3]);
     setEventName("");
     setEventCategory("");
     setEventMode("");

@@ -475,7 +475,7 @@ export default function HostingHackathon() {
 
   function emptyAllFields() {
     setEventPoster("");
-    setEventType(eventTypeOptions[1]);
+    setEventType(eventTypeOptions[2]);
     setEventName("");
     setEventCategory("");
     setEventMode("");

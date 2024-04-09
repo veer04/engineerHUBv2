@@ -105,8 +105,8 @@ export default function HostingEventHiring() {
     },
     {
       label: "Event Hiring",
-      value: "Event",
-    }
+      value: "eventHiring",
+    },
   ];
   const eventCategoryOptions = [
     {
@@ -421,7 +421,7 @@ export default function HostingEventHiring() {
         setIsLoading(false);
         setSnackbarMessage(
           <>
-            New webinar created.{" "}
+            New event hiring created.{" "}
             {eventDomain === "Other" ? (
               <Link
                 to={`/community/events/${encodeURIComponent(
@@ -461,7 +461,7 @@ export default function HostingEventHiring() {
         setIsLoading(false);
         setSnackbarMessage(
           <>
-            <span>Failed to create event</span>
+            <span>Failed to create event hiring</span>
             {err?.response?.data?.message && (
               <>
                 {" "}
@@ -479,7 +479,7 @@ export default function HostingEventHiring() {
 
   function emptyAllFields() {
     setEventPoster("");
-    setEventType(eventTypeOptions[1]);
+    setEventType(eventTypeOptions[4]);
     setEventName("");
     setEventCategory("");
     setEventMode("");
@@ -531,7 +531,7 @@ export default function HostingEventHiring() {
     <main className="hosting-container">
       <aside
         style={{
-          backgroundImage: `url(${bucket}webinar-poster-large.png)`,
+          backgroundImage: `url(${bucket}event-hiring-poster-large.png)`,
         }}
         className="poster-container"
       >
@@ -547,7 +547,7 @@ export default function HostingEventHiring() {
           </span>
           <div
             style={{
-              backgroundImage: `url(${bucket}webinar-poster-small.png)`,
+              backgroundImage: `url(${bucket}event-hiring-poster-small.png)`,
             }}
             className="poster-container-mobile"
           />
