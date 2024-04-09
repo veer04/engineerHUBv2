@@ -551,7 +551,7 @@ export default function HostingEventHiring() {
             }}
             className="poster-container-mobile"
           />
-          <h1 className="title">Webinar</h1>
+          <h1 className="title">Event Hiring</h1>
           <FormIndicator
             className="mt-2"
             totalPages={totalPages}
