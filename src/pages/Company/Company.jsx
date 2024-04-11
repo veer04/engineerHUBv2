@@ -314,10 +314,10 @@ const Company = () => {
         }}
         id="promotional-banner"
       >
-        <a href="https://learn.mentoraide.com/courses/Data-Structures--Algorithms-Beginner-to-Advanced-65bd3813e4b0d3e211a61380?affCode=GJXCM4" target="_blank">
+        <a href="https://ipbazzaar.com/ip-league-3/" target="_blank">
           <img
             loading="lazy"
-            src={`${Bucket_URL}frontend/company/promotion-banner/promotional-banner.png`}
+            src={`${Bucket_URL}frontend/company/promotion-banner/promotional-banner-ip-bazzar.jpg`}
             alt="promotional banner"
             style={{
               width: "100%",
