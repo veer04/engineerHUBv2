@@ -205,12 +205,12 @@ const InternshipDesc = () => {
               </div>
             ) : (
               <>
-                {internShipData?._id === "6518157c04816b097318bff4" && (
+                {internShipData?._id === "65d0a7b2c58c23a4ac6b9f76" && (
                   <Link to="https://docs.google.com/forms/d/e/1FAIpQLSd39WuMG3eBnPoVmMLneBEhYBTU2Q3CCbNx5kQKmIIkINdTlQ/viewform">
                     <div className="btn">Apply</div>
                   </Link>
                 )}
-                {internShipData?._id !== "6518157c04816b097318bff4" && (
+                {internShipData?._id !== "65d0a7b2c58c23a4ac6b9f76" && (
                   // <Link to="/login">
                   <div
                     onClick={() => {
