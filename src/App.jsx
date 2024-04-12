@@ -65,7 +65,10 @@ import NewFooter from "./components/Footer/NewFooter.jsx";
 import GetFeaturedForm from "./pages/NewHomepage/GetFeaturedForm.jsx";
 import HostingProject from "./pages/Hosting/HostingProject.jsx";
 import HostingEventHiring from "./pages/Hosting/HostingEventHiring.jsx";
-const HostingInternship = lazy(() => import("./pages/Hosting/HostingInternship.jsx"));
+const HostingPage = lazy(() => import("./pages/Hosting/HostingPage.jsx"));
+const HostingInternship = lazy(() =>
+  import("./pages/Hosting/HostingInternship.jsx")
+);
 const HostingJob = lazy(() => import("./pages/Hosting/HostingJob.jsx"));
 const HostingCulturalEvent = lazy(() =>
   import("./pages/Hosting/HostingCulturalEvent.jsx")
@@ -238,7 +241,8 @@ function App() {
           <Route path="/mentorship" element={<ComingSoon />} />
 
           <Route path="host">
-            <Route index element={<Hosting />} />
+            {/* <Route index element={<Hosting />} /> */}
+            <Route index element={<HostingPage />} />
             {/* {eventHostRoute === true && sendLogin === true ? (
               <Route path="event" element={<HostEvent />} />
             ) : (

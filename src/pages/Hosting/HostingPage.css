@@ -1,0 +1,141 @@
+.hosting-page {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: var(--vertical-padding) var(--section-padding);
+  color: var(--primary-color-dark-green);
+}
+.hosting-page .header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+  margin-bottom: 3rem;
+  margin-top: 3rem;
+  gap: 1.5rem;
+}
+.hosting-page .header .left {
+  min-width: 22.5rem;
+  max-width: 22.5rem;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.hosting-page .header .left h1 {
+  font-weight: 600;
+  font-size: 2rem;
+}
+.hosting-page .header .left h2 {
+  font-weight: 400;
+  font-size: 1rem;
+  margin-bottom: 1.25rem;
+}
+.hosting-page .header .left button {
+  background-color: var(--primary-color-dark-green);
+  color: white;
+  padding: 0.8rem 2rem;
+  border-radius: 40px;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  border: none;
+  width: fit-content;
+}
+.hosting-page .header .left button:hover {
+  background-color: var(--primary-color-green);
+}
+.hosting-page .header .left button:active {
+  background-color: var(--primary-color-yellow);
+  color: black;
+}
+.hosting-page .header video {
+  border-radius: 10px;
+  width: 100%;
+  display: flex;
+  aspect-ratio: 2/1;
+  max-width: 37.5rem;
+}
+.hosting-page .tiles-container {
+  background-color: white;
+  padding: 1.5rem;
+}
+.hosting-page .tiles-container h3 {
+  font-weight: 500;
+  font-size: 1.25rem;
+  margin-bottom: 1.5rem;
+  color: black;
+}
+.hosting-page .tiles-container .tiles {
+  display: flex;
+  flex-direction: row;
+  gap: 1.5rem;
+  overflow: auto;
+}
+.hosting-page .tiles-container .tiles .tile {
+  display: flex;
+  padding: 0.75rem;
+  flex-direction: column;
+  min-width: 14rem;
+  max-width: 14rem;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.hosting-page .tiles-container .tiles .tile:hover {
+  background-color: #f5f5f5;
+}
+.hosting-page .tiles-container .tiles .tile img {
+  width: 100%;
+  aspect-ratio: 2/1;
+  border-radius: 5px;
+  object-fit: cover;
+  margin-bottom: 0.75rem;
+}
+.hosting-page .tiles-container .tiles .tile .heading {
+  font-weight: 600;
+  color: #002b36;
+}
+.hosting-page .tiles-container .tiles .tile .sub-heading {
+  font-weight: 400;
+  color: #33555e;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  margin-bottom: 0.35rem;
+}
+.hosting-page .tiles-container .tiles .tile .description {
+  font-size: 15px;
+  font-weight: 400;
+  color: #002b36;
+}
+
+@media screen and (max-width: 1185px) {
+  .hosting-page .header video {
+    max-width: 28rem;
+  }
+}
+
+@media screen and (max-width: 1185px) {
+  .hosting-page .header video {
+    max-width: 22.5rem;
+  }
+}
+
+@media screen and (max-width: 810px) {
+  .hosting-page .header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+@media screen and (max-width: 520px) {
+  .hosting-page .header .left {
+    min-width: 0;
+    max-width: none;
+  }
+
+  .hosting-page .header video {
+    max-width: none;
+  }
+}
