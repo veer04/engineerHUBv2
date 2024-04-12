@@ -5,6 +5,7 @@
   padding: var(--vertical-padding) var(--section-padding);
   color: var(--primary-color-dark-green);
 }
+
 .hosting-page .header {
   display: flex;
   flex-direction: row;
@@ -16,8 +17,8 @@
   gap: 1.5rem;
 }
 .hosting-page .header .left {
-  min-width: 22.5rem;
-  max-width: 22.5rem;
+  min-width: 25.5rem;
+  max-width: 25.5rem;
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -25,6 +26,77 @@
 .hosting-page .header .left h1 {
   font-weight: 600;
   font-size: 2rem;
+  display: flex;
+  flex-wrap: wrap;
+}
+.hosting-page .animation {
+  height: 50px;
+  overflow: hidden;
+  margin-left: 0.5rem;
+  width: fit-content;
+}
+
+@media screen and (max-width: 432px) {
+  .hosting-page .animation {
+    position: relative;
+    left: -0.5rem;
+    /* margin-left: 0; */
+  }
+}
+
+.hosting-page .animation > div > div {
+  /* padding: 0.25rem 0.75rem; */
+  width: fit-content;
+  height: 2.81rem;
+  margin-bottom: 2.81rem;
+  display: inline-block;
+}
+
+.hosting-page .animation div:first-child {
+  animation: text-animation 8s infinite;
+}
+
+/* .first div {
+  background-color: #20a7d8;
+}
+.second div {
+  background-color: #cd921e;
+}
+.third div {
+  background-color: #c10528;
+} */
+
+@keyframes text-animation {
+  0% {
+    margin-top: 0;
+  }
+  10% {
+    margin-top: 0;
+  }
+  20% {
+    margin-top: -5.62rem;
+  }
+  30% {
+    margin-top: -5.62rem;
+  }
+  40% {
+    margin-top: -11.24rem;
+  }
+  60% {
+    margin-top: -11.24rem;
+  }
+  70% {
+    margin-top: -5.62rem;
+  }
+  80% {
+    margin-top: -5.62rem;
+  }
+  90% {
+    margin-top: 0;
+  }
+  100% {
+    margin-top: 0;
+  }
 }
 .hosting-page .header .left h2 {
   font-weight: 400;
@@ -110,26 +182,20 @@
   color: #002b36;
 }
 
-@media screen and (max-width: 1185px) {
-  .hosting-page .header video {
-    max-width: 28rem;
-  }
-}
-
-@media screen and (max-width: 1185px) {
+@media screen and (max-width: 1233px) {
   .hosting-page .header video {
     max-width: 22.5rem;
   }
 }
 
-@media screen and (max-width: 810px) {
+@media screen and (max-width: 858px) {
   .hosting-page .header {
     flex-direction: column;
     align-items: flex-start;
   }
 }
 
-@media screen and (max-width: 520px) {
+@media screen and (max-width: 568px) {
   .hosting-page .header .left {
     min-width: 0;
     max-width: none;

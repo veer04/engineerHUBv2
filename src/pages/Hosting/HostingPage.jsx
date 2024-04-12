@@ -17,8 +17,6 @@ export default function HostingPage() {
     setSnackbarDuration,
   } = useGlobalSnackbar();
 
-  const [temp, setTemp] = useState(1);
-
   useEffect(() => {
     window.scrollTo(0, 0);
     document.title = "Host an Opportunity | engineerHUB";
@@ -142,7 +140,20 @@ export default function HostingPage() {
       <main className="hosting-page">
         <section className="header">
           <div className="left">
-            <h1>Create post as a Alma</h1>
+            <h1>
+              Create post as a
+              <div className="animation">
+                <div className="first">
+                  <div>Alma</div>
+                </div>
+                <div className="second">
+                  <div>Club</div>
+                </div>
+                <div className="third">
+                  <div>Company</div>
+                </div>
+              </div>
+            </h1>
             <h2>
               Share event updates, posts, competitions and your experience with
               us!
