@@ -246,7 +246,7 @@ export default function HostingInternship() {
       errors.organisationLogo = "Please upload an image file";
       isValid = false;
       addToErrorStack("#organisationLogo");
-    } else if (organisationLogo?.size > 1024 * 1024) {
+    } else if (organisationLogo?.size > 1024 * 1024 * 2) {
       errors.organisationLogo = "File size should be less than 2MB";
       isValid = false;
       addToErrorStack("#organisationLogo");
@@ -588,7 +588,7 @@ export default function HostingInternship() {
           </>
         );
         setSnackbarSeverity("success");
-        setSnackbarDuration(5000);
+        setSnackbarDuration(10000);
         setSnackbarOpen(true);
         emptyAllFields();
         setCurrentPage(1);
@@ -733,7 +733,7 @@ export default function HostingInternship() {
                 name="organisationLogo"
                 required
                 placeholder="Upload your Organisation Name"
-                constraint="less than 1 MB"
+                constraint="less than 2 MB"
                 fileType="image/*"
                 value={organisationLogo}
                 setValue={setOrganisationLogo}
