@@ -34,7 +34,7 @@ export default function HostingPage() {
 
     if (getUserRole() === "User" || getUserRole() === "Club") {
       if (
-        path === "culture-event" ||
+        path === "cultural-event" ||
         path === "technical-event" ||
         path === "hackathon" ||
         path === "webinar"
