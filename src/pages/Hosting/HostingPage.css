@@ -24,13 +24,15 @@
   width: 100%;
 }
 .hosting-page .header .left h1 {
-  font-weight: 600;
+  font-weight: 500;
   font-size: 2rem;
   display: flex;
   flex-wrap: wrap;
+  margin-bottom: 0;
 }
 .hosting-page .animation {
-  height: 50px;
+  font-weight: 600;
+  height: 45px;
   overflow: hidden;
   margin-left: 0.5rem;
   width: fit-content;
