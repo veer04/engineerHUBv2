@@ -135,6 +135,7 @@ export default function HostingInternship() {
   ];
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     setSelectedPageNavbar("host");
     getAllCountries(setAllCountries);
   }, []);
@@ -1172,7 +1173,7 @@ export default function HostingInternship() {
             </>
           )}
 
-          <div className="d-flex justify-content-between">
+          <div className="d-flex justify-content-between form-buttons-container">
             <FormButton disabled={currentPage === 1} onClick={handlePrevious}>
               Previous
             </FormButton>

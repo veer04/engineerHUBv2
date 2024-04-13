@@ -169,6 +169,7 @@ export default function HostingPage() {
             loop
             // controls
             muted
+            playsInline
           ></video>
         </section>
         <section className="tiles-container">

@@ -76,6 +76,7 @@ export default function DoNotImportSampleFile() {
   ];
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     setSelectedPageNavbar("host");
   }, []);
 

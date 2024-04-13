@@ -133,6 +133,7 @@ export default function HostingEventHiring() {
   ];
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     setSelectedPageNavbar("host");
     setEventType(eventTypeOptions[4]);
   }, []);
@@ -841,7 +842,7 @@ export default function HostingEventHiring() {
               />
             </>
           )}
-          <div className="d-flex justify-content-between">
+          <div className="d-flex justify-content-between form-buttons-container">
             <FormButton disabled={currentPage === 1} onClick={handlePrevious}>
               Previous
             </FormButton>

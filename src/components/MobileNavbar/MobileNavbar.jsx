@@ -1,6 +1,7 @@
 import "./MobileNavbar.css";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import useNavbar from "../../hooks/use-navbar";
+import { useEffect, useState } from "react";
 
 export function CommunitySvg({ className }) {
   return (
@@ -90,8 +91,17 @@ export function HostSvg({ className }) {
 
 export default function MobileNavbar() {
   const { selectedPageNavbar, setSelectedPageNavbar } = useNavbar();
+  const [showNavbar, setShowNavbar] = useState(true);
 
-  return (
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.pathname.includes("host/")) {
+      setShowNavbar(false);
+    } else setShowNavbar(true);
+  }, [location]);
+
+  return showNavbar ? (
     <div className="mobile-navbar">
       <Link
         to="/community"
@@ -142,5 +152,7 @@ export default function MobileNavbar() {
         Host
       </Link>
     </div>
+  ) : (
+    <></>
   );
 }

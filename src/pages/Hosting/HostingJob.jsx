@@ -208,6 +208,7 @@ export default function HostingJob() {
   ];
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     setSelectedPageNavbar("host");
     getAllCountries(setAllCountries);
   }, []);
@@ -391,8 +392,6 @@ export default function HostingJob() {
       isValid = false;
       addToErrorStack("#opportunityName");
     }
-
-    
 
     if (!opportunityMode) {
       errors.opportunityMode = "Opportunity type is required";
@@ -1151,7 +1150,7 @@ export default function HostingJob() {
               />
             </>
           )}
-          <div className="d-flex justify-content-between">
+          <div className="d-flex justify-content-between form-buttons-container">
             <FormButton disabled={currentPage === 1} onClick={handlePrevious}>
               Previous
             </FormButton>

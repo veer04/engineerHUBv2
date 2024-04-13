@@ -80,6 +80,9 @@
   display: flex;
   gap: 1.5rem;
 }
+.hosting-container .form-buttons-container {
+  margin-bottom: 2rem;
+}
 
 @media screen and (min-width: 1550px) {
   .hosting-container {
