@@ -17,7 +17,7 @@ export default function NewFooter() {
   const location = useLocation();
 
   useEffect(() => {
-    if (location.pathname.includes("community/chat")) {
+    if (location.pathname.includes("community/chat") || location.pathname.includes("host/")) {
       setDisplayFooter(false);
     } else setDisplayFooter(true);
   }, [location]);
