@@ -164,7 +164,7 @@ export default function HostingPage() {
             </button>
           </div>
           <video
-            src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
+            src={`${bucket}host-page-animation.mp4`}
             autoPlay
             loop
             // controls
