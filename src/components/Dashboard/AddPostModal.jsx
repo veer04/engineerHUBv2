@@ -92,7 +92,7 @@ export default function AddPostModal({ hostPage, setCloseModal }) {
         setSnackbarOpen(true);
       }
       setResponse({});
-      if (hostPage) setCloseModal(false);
+      if (!!hostPage) setCloseModal(false);
       else navigate(-1);
     }
   }, [response]);
@@ -121,7 +121,7 @@ export default function AddPostModal({ hostPage, setCloseModal }) {
         <div className="modal-container modal-padding post-modal-container">
           <div
             onClick={() => {
-              if (hostPage) setCloseModal(false);
+              if (!!hostPage) setCloseModal(false);
               else navigate(-1);
             }}
             className="modal-cancel-button-container"
