@@ -8,6 +8,7 @@ import useNavbar from "../../hooks/use-navbar";
 import { getUserRole, isUserLoggedIn } from "../../features/User/UserDetails";
 import { redirectToAuth } from "../../features/redirectToAuth";
 import useGlobalSnackbar from "../../hooks/useGlobalSnackbar";
+import AddPostModal from "../../components/Dashboard/AddPostModal";
 export default function HostingPage() {
   const { setSelectedPageNavbar } = useNavbar();
   const {
@@ -16,6 +17,7 @@ export default function HostingPage() {
     setSnackbarSeverity,
     setSnackbarDuration,
   } = useGlobalSnackbar();
+  const [showPostModal, setShowPostModal] = useState(false);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -158,16 +160,18 @@ export default function HostingPage() {
               Share event updates, posts, competitions and your experience with
               us!
             </h2>
-            <button>
+            <button onClick={() => setShowPostModal(true)}>
               <AiOutlinePlus />
               Create post
             </button>
+            {showPostModal && (
+              <AddPostModal hostPage={true} setCloseModal={setShowPostModal} />
+            )}
           </div>
           <video
             src={`${bucket}host-page-animation.mp4`}
             autoPlay
             loop
-            // controls
             muted
             playsInline
           ></video>

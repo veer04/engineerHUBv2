@@ -17,7 +17,7 @@ import {
 import { set } from "react-hook-form";
 import useGlobalSnackbar from "../../hooks/useGlobalSnackbar";
 
-export default function AddPostModal() {
+export default function AddPostModal({ hostPage, setCloseModal }) {
   const [newCoverPhoto, setNewCoverPhoto] = useState(null);
   const [caption, setCaption] = useState("");
   const fileInput = useRef(null);
@@ -26,8 +26,12 @@ export default function AddPostModal() {
   const [response, setResponse] = useState({});
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({ caption: "" });
-  const { setSnackbarOpen, setSnackbarMessage, setSnackbarSeverity } =
-    useGlobalSnackbar();
+  const {
+    setSnackbarOpen,
+    setSnackbarMessage,
+    setSnackbarSeverity,
+    setSnackbarDuration,
+  } = useGlobalSnackbar();
 
   const navigate = useNavigate();
 
@@ -79,14 +83,17 @@ export default function AddPostModal() {
       if (response.status >= 200 && response.status < 300) {
         setSnackbarSeverity("success");
         setSnackbarMessage("Post created successfully");
+        setSnackbarDuration(8000);
         setSnackbarOpen(true);
       } else {
         setSnackbarSeverity("error");
         setSnackbarMessage("Error in creating post");
+        setSnackbarDuration(8000);
         setSnackbarOpen(true);
       }
       setResponse({});
-      navigate(-1);
+      if (hostPage) setCloseModal(false);
+      else navigate(-1);
     }
   }, [response]);
 
@@ -114,7 +121,8 @@ export default function AddPostModal() {
         <div className="modal-container modal-padding post-modal-container">
           <div
             onClick={() => {
-              navigate(-1);
+              if (hostPage) setCloseModal(false);
+              else navigate(-1);
             }}
             className="modal-cancel-button-container"
           >
