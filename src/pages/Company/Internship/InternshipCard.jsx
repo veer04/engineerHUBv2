@@ -30,7 +30,23 @@ const InternshipCard = ({
             {details?.featuredArray?.includes("CampusAmbassador") ? (
               <b>Bonus</b>
             ) : details.isPaid ? (
-              <b>{details.amount !== "N/A" ? details?.amount : "N/A"}</b>
+              <b>
+                {details?.showSalary
+                  ? !!details?.amount && details?.amount !== "N/A"
+                    ? details?.amount
+                    : details?.salaryType === "Fixed"
+                    ? `${formatter.format(details?.salaryAmount)}`
+                    : details.salaryType === "Range"
+                    ? `${formatter.format(
+                        details?.minRange
+                      )} - ${formatter.format(details?.maxRange)}`
+                    : "N/A"
+                  : !!details?.amount && details?.amount !== "N/A"
+                  ? details?.amount
+                  : !!details?.salaryDisclosure
+                  ? details?.salaryDisclosure
+                  : "N/A"}
+              </b>
             ) : (
               <b>Unpaid</b>
             )}
@@ -54,7 +70,24 @@ const InternshipCard = ({
           )}
         </h6> */}
         <h6 className="text-crop-1 overflow-hidden">
-          Job Location : <b>{details?.opportunityLocation}</b>
+          Job Location :{" "}
+          <b>
+            {details?.opportunityLocation === "WFH"
+              ? "Work From Home"
+              : details?.opportunityLocation === "Hybrid"
+              ? `Hybrid${
+                  !!details?.city && details?.city !== "undefined"
+                    ? ` - ${details?.city}`
+                    : ""
+                }`
+              : details?.opportunityLocation === "On-Site"
+              ? !!details?.city && details?.city !== "undefined"
+                ? details?.city
+                : "On-Site"
+              : !!details?.opportunityLocation
+              ? details?.opportunityLocation
+              : "N/A"}
+          </b>
         </h6>
         <h3 className="text-crop-3 overflow-hidden p-0">
           {details?.opportunityName}

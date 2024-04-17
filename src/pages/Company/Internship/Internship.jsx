@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect, useMemo } from "react";
-import JobCards from "./InternshipCard";
+import InternshipCard from "./InternshipCard";
 import "./Internship.css";
 import colorWheel from "../../../assets/colorWheel";
 import { getInternships } from "../../../services/APIConfig";
@@ -211,7 +211,7 @@ const Jobs = () => {
             })
             .map((item, index) => {
               return (
-                <JobCards
+                <InternshipCard
                   details={item}
                   color={colorWheel[index % colorWheel.length]}
                   key={index}

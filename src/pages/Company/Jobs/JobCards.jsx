@@ -26,11 +26,31 @@ const JobCards = ({
       <div className="cardContent">
         <div className="job-ctc-views">
           <h6>
-            Highest CTC :{" "}
-            <b>{details?.amount !== "N/A" ? details?.amount : "N/A"}</b>
+            Package:{" "}
+            <b>
+              {details?.showSalary
+                ? !!details?.amount && details?.amount !== "N/A"
+                  ? details?.amount
+                  : details?.salaryType === "Fixed"
+                  ? `${formatter.format(details?.salaryAmount)} ${
+                      details?.salaryUnit
+                    }`
+                  : details.salaryType === "Range"
+                  ? `${formatter.format(
+                      details?.minRange
+                    )} - ${formatter.format(details?.maxRange)} ${
+                      details?.salaryUnit
+                    }`
+                  : "N/A"
+                : !!details?.amount && details?.amount !== "N/A"
+                ? details?.amount
+                : !!details?.salaryDisclosure
+                ? details?.salaryDisclosure
+                : "N/A"}
+            </b>
           </h6>
           {details?.views > 0 ? (
-            <span >
+            <span>
               <MdOutlineRemoveRedEye /> {details?.views}
             </span>
           ) : (
@@ -38,7 +58,24 @@ const JobCards = ({
           )}
         </div>
         <h6 className="text-crop-1 overflow-hidden">
-          Job Location : <b>{details?.opportunityLocation}</b>
+          Job Location :{" "}
+          <b>
+            {details?.opportunityLocation === "WFH"
+              ? "Work From Home"
+              : details?.opportunityLocation === "Hybrid"
+              ? `Hybrid${
+                  !!details?.city && details?.city !== "undefined"
+                    ? ` - ${details?.city}`
+                    : ""
+                }`
+              : details?.opportunityLocation === "On-Site"
+              ? !!details?.city && details?.city !== "undefined"
+                ? details?.city
+                : "On-Site"
+              : !!details?.opportunityLocation
+              ? details?.opportunityLocation
+              : "N/A"}
+          </b>
         </h6>
         <h3 className="text-crop-3 overflow-hidden p-0">
           {details?.opportunityName}

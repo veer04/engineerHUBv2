@@ -587,7 +587,7 @@ export default function HostingJob() {
       form.append("minExperience", minExperience?.value);
       form.append("maxExperience", maxExperience?.value);
     }
-    form.append("isForFresher", jobIsForFresher);
+    form.append("isForFreshers", jobIsForFresher);
     form.append("skillsRequired", skillsRequired);
     form.append("openings", openings);
     form.append("eligibility", minCGPA);
