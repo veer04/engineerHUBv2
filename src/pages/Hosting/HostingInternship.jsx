@@ -376,15 +376,11 @@ export default function HostingInternship() {
       addToErrorStack("#opportunityName");
     }
 
-    if (!opportunityPoster) {
-      errors.opportunityPoster = "Opportunity poster is required";
-      isValid = false;
-      addToErrorStack("#opportunityPoster");
-    } else if (!opportunityPoster?.type?.includes("image")) {
+    if (opportunityPoster && !opportunityPoster?.type?.includes("image")) {
       errors.opportunityPoster = "Please upload an image file";
       isValid = false;
       addToErrorStack("#opportunityPoster");
-    } else if (opportunityPoster?.size > 1024 * 1024) {
+    } else if (opportunityPoster && opportunityPoster?.size > 1024 * 1024) {
       errors.opportunityPoster = "File size should be less than 1MB";
       isValid = false;
       addToErrorStack("#opportunityPoster");
