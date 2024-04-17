@@ -834,7 +834,7 @@ export default function HostingInternship() {
 
           {currentPage === 2 && (
             <>
-              <h2>Job Details</h2>
+              <h2>Opportunity Details</h2>
 
               <FormInput
                 label="Opportunity Name"
