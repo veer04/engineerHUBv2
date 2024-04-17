@@ -15,7 +15,7 @@ export default function MainLandingSection() {
       .get(`${API_URL}api/v1/featuredList`)
       .then((res) => {
         setData([
-          ...res.data.data.students.slice(0, 2).map((item) => ({
+          ...res.data.data.students.map((item) => ({
             ...item,
             type: "Student",
           })),
@@ -31,15 +31,6 @@ export default function MainLandingSection() {
             ...item,
             type: "Company",
           })),
-          {
-            _id: "64ae7a54586afe9e0caa7531",
-            profileModel: "User",
-            profile: "64ae7a54586afe9e0caa7531",
-            name: "Kunwar Vidya Niwas",
-            type: "Alumni",
-            image:
-              "https://frontendehubbucket.s3.ap-south-1.amazonaws.com/backend/role/alumni/64ae7a54586afe9e0caa75311708691718510.jpg",
-          },
         ]);
       })
       .catch((err) => {
