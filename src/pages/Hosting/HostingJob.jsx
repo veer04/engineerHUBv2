@@ -731,7 +731,7 @@ export default function HostingJob() {
                 id="organisationLogo"
                 name="organisationLogo"
                 required
-                placeholder="Upload your Organisation Name"
+                placeholder="Upload your Organisation Logo"
                 constraint="less than 1 MB"
                 fileType="image/*"
                 value={organisationLogo}
