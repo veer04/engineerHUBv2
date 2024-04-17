@@ -1065,7 +1065,7 @@ export default function HostingInternship() {
                   {showSalaryToCandidates ? (
                     <>
                       <FormInputSelect
-                        label="Salary Type"
+                        label="Stipend Type"
                         id="salaryType"
                         name="salaryType"
                         required
