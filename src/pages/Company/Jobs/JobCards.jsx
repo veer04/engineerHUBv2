@@ -36,11 +36,15 @@ const JobCards = ({
                       details?.salaryUnit
                     }`
                   : details.salaryType === "Range"
-                  ? `${formatter.format(
-                      details?.minRange
-                    )} - ${formatter.format(details?.maxRange)} ${
-                      details?.salaryUnit
-                    }`
+                  ? `${
+                      details?.salaryUnit === "LPA"
+                        ? details?.minRange
+                        : formatter.format(details?.minRange)
+                    } - ${
+                      details?.salaryUnit === "LPA"
+                        ? details?.maxRange
+                        : formatter.format(details?.maxRange)
+                    } ${details?.salaryUnit}`
                   : "N/A"
                 : !!details?.amount && details?.amount !== "N/A"
                 ? details?.amount
