@@ -56,6 +56,7 @@ export default function HostingProject() {
   const [projectTitle, setProjectTitle] = useState("");
   const [projectDescription, setProjectDescription] = useState("");
   const [projectPoster, setProjectPoster] = useState("");
+  const [showSalaryToCandidates, setShowSalaryToCandidates] = useState(true);
   const [spendType, setSpendType] = useState("");
   const [fixedAmount, setFixedAmount] = useState("");
   const [hourlyBasis, setHourlyBasis] = useState("");
@@ -430,12 +431,17 @@ export default function HostingProject() {
     form.append("projectName", projectTitle);
     form.append("description", projectDescription);
     form.append("projectPoster", projectPoster);
-    form.append("payingMethod", spendType);
-    if (spendType === "fixed") form.append("fixedAmount", fixedAmount);
-    if (spendType === "hourly") form.append("amountPerHour", hourlyBasis);
-    if (spendType === "range") {
-      form.append("minRange", minAmount);
-      form.append("maxRange", maxAmount);
+    form.append("showPayDetails", showSalaryToCandidates);
+    if (showSalaryToCandidates) {
+      form.append("payingMethod", spendType);
+      if (spendType === "fixed") {
+        form.append("fixedAmount", fixedAmount);
+      } else if (spendType === "hourly")
+        form.append("amountPerHour", hourlyBasis);
+      else if (spendType === "range") {
+        form.append("minRange", minAmount);
+        form.append("maxRange", maxAmount);
+      }
     }
     form.append(
       "domainName",
@@ -446,7 +452,7 @@ export default function HostingProject() {
     form.append("techStack", techStack);
     form.append("experience", experienceRequired);
     form.append("estimatedTime", estimatedTime);
-    form.append("durationType", durationType);
+    form.append("timePeriod", durationType);
     form.append("applyLink", applyLink);
 
     setIsLoading(true);
@@ -720,6 +726,15 @@ export default function HostingProject() {
               />
 
               <h2>Pay Details</h2>
+
+              <FormInputToggle
+                label="Show Amount to Candidates"
+                id="showSalaryToCandidates"
+                name="showSalaryToCandidates"
+                value={showSalaryToCandidates}
+                setValue={setShowSalaryToCandidates}
+                className={showSalaryToCandidates ? `mb-4` : `mb-1`}
+              />
 
               <FormInputSelect
                 label="I am looking to spend"
