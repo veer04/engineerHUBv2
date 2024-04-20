@@ -4,7 +4,7 @@ import decryptData from "../features/DeCrypt";
 import getCookie, { getAccessToken } from "../features/getCookieValues";
 import { set } from "react-hook-form";
 import Cookies from "js-cookie";
-import { getUserId } from "../features/User/UserDetails";
+import { getUserId, getUserRole } from "../features/User/UserDetails";
 export const cancelToken = axios.CancelToken.source();
 export const controller = new AbortController();
 
@@ -1343,10 +1343,10 @@ export const getProjectData = (setProject) => {
 
 export const getProjectDataById = (setProject, projectId) => {
   let userId = "";
-
-  if (!!getCookie("role")) {
-    if (getCookie("role")[2] === "User") {
-      userId = getCookie("_id")[2];
+  const role = getUserRole();
+  if (!!role) {
+    if (role === "User" || role === "Alumni") {
+      userId = getUserId();
     }
   }
   const controller = new AbortController();

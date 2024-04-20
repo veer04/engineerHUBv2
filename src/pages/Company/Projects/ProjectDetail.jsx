@@ -1,6 +1,6 @@
 import { useState, useMemo } from "react";
 import { useParams, useSearchParams } from "react-router-dom";
-import ProjectDesc from "./ProjectDesc";
+// import ProjectDesc from "./ProjectDesc";
 import ProjectCards from "./ProjectCards";
 import "./ProjectDetail.css";
 import {
@@ -9,6 +9,8 @@ import {
   getProjectDataById,
 } from "../../../services/APIConfig";
 import { useEffect } from "react";
+import ProjectDescNew from "./ProjectDescNew";
+
 const ProjectDetail = () => {
   const [searchParams, setSearchParams] = useSearchParams({ q: "" });
   const q = searchParams.get("q");
@@ -108,7 +110,7 @@ const ProjectDetail = () => {
         {projectId === undefined ? (
           <div></div>
         ) : (
-          <ProjectDesc
+          <ProjectDescNew
             data={{ ...project?.detailFound }}
             isApplied={project?.applied}
           />
