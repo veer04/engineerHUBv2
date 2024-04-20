@@ -65,6 +65,7 @@ import NewFooter from "./components/Footer/NewFooter.jsx";
 import GetFeaturedForm from "./pages/NewHomepage/GetFeaturedForm.jsx";
 import HostingProject from "./pages/Hosting/HostingProject.jsx";
 import HostingEventHiring from "./pages/Hosting/HostingEventHiring.jsx";
+import ProjectDetailNew from "./pages/Company/Projects/ProjectDetailNew.jsx";
 const HostingPage = lazy(() => import("./pages/Hosting/HostingPage.jsx"));
 const HostingInternship = lazy(() =>
   import("./pages/Hosting/HostingInternship.jsx")
@@ -279,7 +280,8 @@ function App() {
             </Route>
             <Route path="projects">
               <Route path="" element={<Projects />} />
-              <Route path=":projectId" element={<ProjectDetail />} />
+              {/* <Route path=":projectId" element={<ProjectDetail />} /> */}
+              <Route path=":projectId" element={<ProjectDetailNew />} />
             </Route>
             <Route path="events">
               <Route path="" element={<Events />} />

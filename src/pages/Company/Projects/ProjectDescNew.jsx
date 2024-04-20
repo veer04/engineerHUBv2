@@ -360,12 +360,12 @@ const ProjectDescNew = ({ data, isApplied }) => {
               <div className="JobInfoItem">
                 <h6>Application Start Date</h6>
                 <span>{applicationStartDate}</span>
-                <img src={`${bucket}calendar.png`} alt="openings" />
+                <img src={`${bucket}calendar.png`} alt="calendar" />
               </div>
               <div className="JobInfoItem">
                 <h6>Application End Date</h6>
                 <span>{applicationEndDate}</span>
-                <img src={`${bucket}calendar.png`} alt="cgpa" />
+                <img src={`${bucket}calendar.png`} alt="calendar" />
               </div>
             </div>
           </div>
@@ -408,7 +408,7 @@ const ProjectDescNew = ({ data, isApplied }) => {
               <span>
                 {`${data?.estimatedTime} ${
                   data?.estimatedTime === 1
-                    ? data?.timePeriod.slice(0, data?.timePeriod - 1)
+                    ? data?.timePeriod?.slice(0, -1)
                     : data?.timePeriod
                 }`}
               </span>
