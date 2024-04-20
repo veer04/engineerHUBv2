@@ -124,7 +124,7 @@
 .JobInfo .JobInfoItems .JobInfoItem h6 {
   font-family: "Inter";
   font-style: normal;
-  font-weight: 600;
+  font-weight: 500;
   font-size: 16px;
   line-height: 19px;
   text-align: justify;
@@ -133,22 +133,20 @@
 .JobInfo .JobInfoItems .JobInfoItem span {
   font-family: "Inter";
   font-style: normal;
-  font-weight: 600;
-  font-size: 20px;
+  font-weight: 500;
+  font-size: 16px;
   line-height: 24px;
   text-align: justify;
   color: #014051;
   z-index: 2;
-  max-width: calc(100% - 82px);
+  max-width: calc(100% - 50px);
 }
 .JobInfo .JobInfoItems .JobInfoItem img {
   position: absolute;
   bottom: 0px;
   right: 0px;
   z-index: 1;
-}
-.JobInfo .JobInfoItems .JobInfoItem:nth-child(3) img {
-  right: -30px;
+  width: 70px;
 }
 #quill-job-description a {
   color: rgb(66, 136, 249);
@@ -156,15 +154,16 @@
 }
 
 @media screen and (max-width: 768px) {
+  .JobInfo .JobInfoItems .JobInfoItem img {
+    width: 60px;
+  }
   .JobDetailHeader span .imgBox {
     width: 65px;
     height: 57px;
   }
-  .JobDetailHeader span .heads h1 {
-    font-size: 14px;
-    line-height: 19px;
-  }
-  .JobDetailHeader span .heads h1 {
+  .JobDetailHeader span .heads h1,
+  .JobDetailHeader span .heads a,
+  .JobDetailHeader span .heads h3 {
     font-size: 12px;
     line-height: 17px;
   }
@@ -196,6 +195,9 @@
   .JobInfo div .JobInfoItem span {
     font-size: 20px;
     line-height: 24px;
+  }
+  .JobInfo .JobInfoItems .JobInfoItem span {
+    font-size: 14px;
   }
 }
 
