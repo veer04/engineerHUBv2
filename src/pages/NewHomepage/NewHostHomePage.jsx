@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./NewCommunitySectionHomePage.css";
 import { useParams, useNavigate, useSearchParams } from "react-router-dom";
 import { getEvents, controller } from "../../services/APIConfig";
-import { ehubLogo, defaultEventPoster } from "../../assets/defaultPoster";
+import { eHUBLogo, defaultEventPoster } from "../../assets/defaultPoster";
 import NewEventCard from "../../components/NewEventCard/NewEventCard";
 import Ellipse from "../../../src/assets/Ellipse.png";
 import logoMainPage from "../../../src/assets/logoMainPage.png";
