@@ -69,10 +69,10 @@
   min-height: 9.375rem;
   max-height: 9.375rem;
   overflow: hidden;
+  display: flex;
 }
 .trending-events .content-container .column-2 .header .poster img {
   width: 100%;
-  height: 100%;
   object-fit: cover;
   border-radius: 0.3125rem;
 }
@@ -162,7 +162,7 @@
   font-style: normal;
   font-weight: 600;
   line-height: normal;
-  word-break: break-all;
+  word-break: break-word;
 }
 .trending-events .content-container .column-2 .registration div {
   display: flex;
@@ -188,13 +188,14 @@
   color: #000;
 }
 .trending-events .content-container .column-2 .content {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-}
-.trending-events .content-container .column-2 .content .data {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+}
+.trending-events .content-container .column-2 .content .data {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
 }
 .trending-events .content-container .column-2 .description {
   display: flex;
@@ -252,6 +253,14 @@
   }
   .trending-events .content-container .column-2 .header .details .type {
     font-size: 0.75rem;
+  }
+}
+
+@media screen and (max-width: 520px) {
+  .trending-events .content-container .column-2 .content .data {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
   }
 }
 
