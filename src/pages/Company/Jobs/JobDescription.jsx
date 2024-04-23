@@ -18,10 +18,21 @@ import Page404 from "../../Maintenance/Page404";
 import JobApplyModal from "./JobApplyModal";
 import CustomSnackbar from "../../User/Login/CustomSnackbar";
 import { redirectToAuth } from "../../../features/redirectToAuth";
+import {
+  calendarEndDateIcon,
+  calendarStartDateIcon,
+  cgpaIcon,
+  experienceIcon,
+  locationIcon,
+  moneyIcon,
+  numberOfOpeningsIcon,
+  workTypeIcon,
+} from "./icons";
 const JobDescription = () => {
   const { hiringId } = useParams();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const bucket = `${Bucket_URL}frontend/company/jobs/`;
+  const bucket2 = `${Bucket_URL}frontend/company/icons/`;
   const [hiring, setHiring] = useState({});
   const [isApplicable, setIsApplicable] = useState(false);
   const [profile, setProfile] = useState({});
@@ -291,16 +302,16 @@ const JobDescription = () => {
         </span>
       </div>
       <div className="JobInfo">
-        <div className="JobInfoItems">
+        <div className="JobInfoItems JobInfoItems-date">
           <div className="JobInfoItem">
             <h6>Application Start Date</h6>
             <span>{applicationStartDate}</span>
-            <img src={`${bucket}calendar.png`} alt="openings" />
+            {calendarStartDateIcon}
           </div>
           <div className="JobInfoItem">
             <h6>Application End Date</h6>
             <span>{applicationEndDate}</span>
-            <img src={`${bucket}calendar.png`} alt="cgpa" />
+            {calendarEndDateIcon}
           </div>
         </div>
       </div>
@@ -336,7 +347,7 @@ const JobDescription = () => {
                 ? hiring?.detailFound?.salaryDisclosure
                 : "N/A"}
             </span>
-            <img src={`${bucket}cash.svg`} alt="guide" />
+            {moneyIcon}
           </div>
           <div className="JobInfoItem">
             <h6>Minimum Experience</h6>
@@ -368,7 +379,7 @@ const JobDescription = () => {
                     }`}
               </span>
             )}
-            <img src={`${bucket}timer.svg`} alt="guide" />
+            {experienceIcon}
           </div>
           <div className="JobInfoItem">
             <h6>Job Location</h6>
@@ -391,7 +402,7 @@ const JobDescription = () => {
                 ? hiring?.detailFound?.opportunityLocation
                 : "N/A"}
             </span>
-            <img src={`${bucket}locate.svg`} alt="guide" />
+            {locationIcon}
           </div>
           <div className="JobInfoItem">
             <h6>Work type</h6>
@@ -400,13 +411,13 @@ const JobDescription = () => {
                 ? hiring?.detailFound?.opportunityTiming
                 : hiring?.detailFound?.opportunityMode}
             </span>
-            <img src={`${bucket}time.svg`} alt="guide" />
+            {workTypeIcon}
           </div>
           {hiring?.detailFound?.openings && (
             <div className="JobInfoItem">
               <h6>Openings</h6>
               <span>{hiring?.detailFound?.openings}</span>
-              <img src={`${bucket}clipboard.png`} alt="openings" />
+              {numberOfOpeningsIcon}
             </div>
           )}
           <div className="JobInfoItem">
@@ -416,7 +427,7 @@ const JobDescription = () => {
                 ? hiring?.detailFound?.eligibility
                 : hiring?.detailFound?.eligibility}
             </span>
-            <img src={`${bucket}file.png`} alt="cgpa" />
+            {cgpaIcon}
           </div>
         </div>
       </div>

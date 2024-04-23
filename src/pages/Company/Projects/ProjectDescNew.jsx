@@ -15,6 +15,12 @@ import { redirectToAuth } from "../../../features/redirectToAuth";
 import CustomSnackbar from "../../User/Login/CustomSnackbar";
 import JobApplyModal from "../Jobs/JobApplyModal";
 import { Chip } from "@mui/material";
+import {
+  experienceIcon,
+  locationIcon,
+  moneyIcon,
+  workTypeIcon,
+} from "../Jobs/icons";
 
 const ProjectDescNew = ({ data, isApplied }) => {
   const { projectId } = useParams();
@@ -160,8 +166,7 @@ const ProjectDescNew = ({ data, isApplied }) => {
   const applicationEndDate = getEndDate.split("/")[0];
 
   return (
-    <>
-      {/* <div className="ProjectDesc">
+    <div className="JobDescription project-desc">
       {snackbarValues.severity === "success" && (
         <CustomSnackbar
           setOpen={setOpen}
@@ -171,263 +176,184 @@ const ProjectDescNew = ({ data, isApplied }) => {
           duration={5000}
         />
       )}
-      <div className="ProjectDescHeader">
-        <span className="logoIcon">
-          <img src={data.organisationLogo} />
-        </span>
-        <h1>{data.projectName}</h1>
-      </div>
-      <div className="ProjectDescImage">
-        <img src={data.projectPoster} alt="Project" />
-      </div>
-      <div className="ProjectDescription">
-        <h5>Description</h5>
-        <p id="project-description">{data.description}</p>
-      </div>
-      <div className="ProjectTags">
-        <h5>Project Tags</h5>
-        <span className="tag">
-          {data.techStack?.map((tag, index) => {
-            return <span key={index}>{tag}</span>;
-          })}
-        </span>
-      </div>
-      <div className="ProjectPrerequisite"></div>
-      <div className="AdditionalInfo">
-        {data?.stipend && (
-          <div className="AdditionalInfoChip">
-            <h5>Salary/Stipend</h5>
-            <p>{data.stipend}/-</p>
-          </div>
-        )}
-        {data?.estimatedTime && (
-          <div className="AdditionalInfoChip">
-            <h5>Work Availability</h5>
-            <p>{`${data.estimatedTime} ${data.timePeriod}`}</p>
-          </div>
-        )}
-      </div>
-      {isLoggedIn ? (
-        <div>
-          {!isApplicable && (
-            <button className="btn ApplyNowBtn" disabled>
-              Not Applicable
-            </button>
-          )}
-          {isApplicable && isApplied === false && (
-            <button onClick={UserDataPost} className="btn ApplyNowBtn">
-              {!!data?.applyLink ? "Apply" : `Easy Apply`}
-            </button>
-          )}
-          {isApplied === true && (
-            <button className="btn ApplyNowBtn" disabled>
-              Applied
-            </button>
-          )}
-        </div>
-      ) : (
-        // <Link to="/login">
-        <div
-          onClick={() => {
-            redirectToAuth("/login");
-          }}
-          className="btn ApplyNowBtn"
-        >
-          Easy Apply
-        </div>
-        // </Link>
+      {isApplyingJob && (
+        <JobApplyModal
+          change={handleModalState}
+          jobApplied={handleJobApplied}
+          resume={profile.resume}
+        />
       )}
-    </div> */}
-
-      <div className="JobDescription project-desc">
-        {snackbarValues.severity === "success" && (
-          <CustomSnackbar
-            setOpen={setOpen}
-            open={open}
-            message={snackbarValues.message}
-            severity={snackbarValues.severity}
-            duration={5000}
-          />
-        )}
-        {isApplyingJob && (
-          <JobApplyModal
-            change={handleModalState}
-            jobApplied={handleJobApplied}
-            resume={profile.resume}
-          />
-        )}
-        {/*<div className="ProjectDescHeader">*/}
-        {/*  <span className="logoIcon">*/}
-        {/*    <img src={data.organisationLogo} />*/}
-        {/*  </span>*/}
-        {/*  <h1>{data.projectName}</h1>*/}
-        {/*</div>*/}
-        {/*<div className="ProjectDescImage">*/}
-        {/*  <img src={data.projectPoster} alt="Project" />*/}
-        {/*</div>*/}
-        <div className="JobDetailHeader">
-          <div className="poster mb-4">
-            <img src={data?.projectPoster} alt="project poster" />
-          </div>
-          <span>
-            <div className="w-100 d-flex">
+      {/*<div className="ProjectDescHeader">*/}
+      {/*  <span className="logoIcon">*/}
+      {/*    <img src={data.organisationLogo} />*/}
+      {/*  </span>*/}
+      {/*  <h1>{data.projectName}</h1>*/}
+      {/*</div>*/}
+      {/*<div className="ProjectDescImage">*/}
+      {/*  <img src={data.projectPoster} alt="Project" />*/}
+      {/*</div>*/}
+      <div className="JobDetailHeader">
+        <div className="poster mb-4">
+          <img src={data?.projectPoster} alt="project poster" />
+        </div>
+        <span>
+          <div className="w-100 d-flex">
+            <a
+              href={data?.websiteUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <div
+                style={{
+                  backgroundImage: `url(${data?.organisationLogo})`,
+                  backgroundPosition: "center",
+                  backgroundSize: "contain",
+                  backgroundRepeat: "no-repeat",
+                }}
+                className="imgBox"
+              ></div>
+            </a>
+            <span className="heads">
+              <h1>{data?.projectName}</h1>
               <a
                 href={data?.websiteUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-              >
-                <div
-                  style={{
-                    backgroundImage: `url(${data?.organisationLogo})`,
-                    backgroundPosition: "center",
-                    backgroundSize: "contain",
-                    backgroundRepeat: "no-repeat",
-                  }}
-                  className="imgBox"
-                ></div>
-              </a>
-              <span className="heads">
-                <h1>{data?.projectName}</h1>
-                <a
-                  href={data?.websiteUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onMouseOver={(e) => {
-                    e.currentTarget.style.textDecoration = "underline";
-                  }}
-                  onMouseOut={(e) => {
-                    e.currentTarget.style.textDecoration = "none";
-                  }}
-                >
-                  {data?.organisationName}
-                </a>
-                <span> </span>
-              </span>
-            </div>
-            <div className="apply-btn-container">
-              {isLoggedIn ? (
-                <div>
-                  {!isApplicable && (
-                    <button className="btn ApplyNowBtn" disabled>
-                      Not Applicable
-                    </button>
-                  )}
-                  {isApplicable && isApplied === false && (
-                    <button onClick={UserDataPost} className="btn ApplyNowBtn">
-                      {!!data?.applyLink ? "Apply" : `Easy Apply`}
-                    </button>
-                  )}
-                  {isApplied === true && (
-                    <button className="btn ApplyNowBtn" disabled>
-                      Applied
-                    </button>
-                  )}
-                </div>
-              ) : (
-                // <Link to="/login">
-                <div
-                  onClick={() => {
-                    redirectToAuth("/login");
-                  }}
-                  className="btn ApplyNowBtn"
-                >
-                  Easy Apply
-                </div>
-                // </Link>
-              )}
-            </div>
-          </span>
-          <span className="Tags">
-            {data?.techStack?.map((tech, index) => (
-              <Chip
-                key={index}
-                variant="outlined"
-                size="small"
-                label={`#${tech}`}
-                style={{
-                  fontWeight: "500",
-                  fontSize: "12px",
-                  marginRight: "15px",
-                  marginBottom: "5px",
+                onMouseOver={(e) => {
+                  e.currentTarget.style.textDecoration = "underline";
                 }}
-              />
-            ))}
-          </span>
-        </div>
-        {data?.applicationStartTime && (
-          <div className="JobInfo">
-            <div className="JobInfoItems">
-              <div className="JobInfoItem">
-                <h6>Application Start Date</h6>
-                <span>{applicationStartDate}</span>
-                <img src={`${bucket}calendar.png`} alt="calendar" />
-              </div>
-              <div className="JobInfoItem">
-                <h6>Application End Date</h6>
-                <span>{applicationEndDate}</span>
-                <img src={`${bucket}calendar.png`} alt="calendar" />
-              </div>
-            </div>
+                onMouseOut={(e) => {
+                  e.currentTarget.style.textDecoration = "none";
+                }}
+              >
+                {data?.organisationName}
+              </a>
+              <span> </span>
+            </span>
           </div>
-        )}
-        <div className="JobDesc">
-          <h5>Description</h5>
-          <p
-            id="quill-job-description"
-            dangerouslySetInnerHTML={{
-              __html: data?.description,
-            }}
-          ></p>
-        </div>
+          <div className="apply-btn-container">
+            {isLoggedIn ? (
+              <div>
+                {!isApplicable && (
+                  <button className="btn ApplyNowBtn" disabled>
+                    Not Applicable
+                  </button>
+                )}
+                {isApplicable && isApplied === false && (
+                  <button onClick={UserDataPost} className="btn ApplyNowBtn">
+                    {!!data?.applyLink ? "Apply" : `Easy Apply`}
+                  </button>
+                )}
+                {isApplied === true && (
+                  <button className="btn ApplyNowBtn" disabled>
+                    Applied
+                  </button>
+                )}
+              </div>
+            ) : (
+              // <Link to="/login">
+              <div
+                onClick={() => {
+                  redirectToAuth("/login");
+                }}
+                className="btn ApplyNowBtn"
+              >
+                Easy Apply
+              </div>
+              // </Link>
+            )}
+          </div>
+        </span>
+        <span className="Tags">
+          {data?.techStack?.map((tech, index) => (
+            <Chip
+              key={index}
+              variant="outlined"
+              size="small"
+              label={`#${tech}`}
+              style={{
+                fontWeight: "500",
+                fontSize: "12px",
+                marginRight: "15px",
+                marginBottom: "5px",
+              }}
+            />
+          ))}
+        </span>
+      </div>
+      {data?.applicationStartTime && (
         <div className="JobInfo">
-          <h5>More Information</h5>
           <div className="JobInfoItems">
             <div className="JobInfoItem">
-              <h6>Amount</h6>
-              <span>
-                {data?.showPayDetails
-                  ? !!data?.stipend && data?.stipend !== "N/A"
-                    ? data?.stipend
-                    : data?.payingMethod === "fixed"
-                    ? `${formatter.format(data?.fixedAmount)}`
-                    : data.payingMethod === "range"
-                    ? `${formatter.format(data?.minRange)} - ${formatter.format(
-                        data?.maxRange
-                      )}`
-                    : data?.payingMethod === "hourly"
-                    ? `${formatter.format(data?.amountPerHour)} per hour`
-                    : "N/A"
-                  : !!data?.stipend && data?.stipend !== "N/A"
+              <h6>Application Start Date</h6>
+              <span>{applicationStartDate}</span>
+              <img src={`${bucket}calendar.png`} alt="calendar" />
+            </div>
+            <div className="JobInfoItem">
+              <h6>Application End Date</h6>
+              <span>{applicationEndDate}</span>
+              <img src={`${bucket}calendar.png`} alt="calendar" />
+            </div>
+          </div>
+        </div>
+      )}
+      <div className="JobDesc">
+        <h5>Description</h5>
+        <p
+          id="quill-job-description"
+          dangerouslySetInnerHTML={{
+            __html: data?.description,
+          }}
+        ></p>
+      </div>
+      <div className="JobInfo">
+        <h5>More Information</h5>
+        <div className="JobInfoItems">
+          <div className="JobInfoItem">
+            <h6>Amount</h6>
+            <span>
+              {data?.showPayDetails
+                ? !!data?.stipend && data?.stipend !== "N/A"
                   ? data?.stipend
-                  : data?.amountToDisclose}
-              </span>
-              <img src={`${bucket}cash.svg`} alt="guide" />
-            </div>
-            <div className="JobInfoItem">
-              <h6>Duration</h6>
-              <span>
-                {`${data?.estimatedTime} ${
-                  data?.estimatedTime === 1
-                    ? data?.timePeriod?.slice(0, -1)
-                    : data?.timePeriod
-                }`}
-              </span>
-              <img src={`${bucket}timer.svg`} alt="guide" />
-            </div>
-            <div className="JobInfoItem">
-              <h6>Contact Number</h6>
-              <span>{`+${data?.mobileCountryCode} ${data?.mobileNo}`}</span>
-              <img src={`${bucket}locate.svg`} alt="guide" />
-            </div>
-            <div className="JobInfoItem">
-              <h6>Contact Email</h6>
-              <span>{`${data?.contactEmail}`}</span>
-              <img src={`${bucket}locate.svg`} alt="guide" />
-            </div>
+                  : data?.payingMethod === "fixed"
+                  ? `${formatter.format(data?.fixedAmount)}`
+                  : data.payingMethod === "range"
+                  ? `${formatter.format(data?.minRange)} - ${formatter.format(
+                      data?.maxRange
+                    )}`
+                  : data?.payingMethod === "hourly"
+                  ? `${formatter.format(data?.amountPerHour)} per hour`
+                  : "N/A"
+                : !!data?.stipend && data?.stipend !== "N/A"
+                ? data?.stipend
+                : data?.amountToDisclose}
+            </span>
+            {moneyIcon}
+          </div>
+          <div className="JobInfoItem">
+            <h6>Duration</h6>
+            <span>
+              {`${data?.estimatedTime} ${
+                data?.estimatedTime === 1
+                  ? data?.timePeriod?.slice(0, -1)
+                  : data?.timePeriod
+              }`}
+            </span>
+            {experienceIcon}
+          </div>
+          <div className="JobInfoItem">
+            <h6>Contact Number</h6>
+            <span>{`+${data?.mobileCountryCode} ${data?.mobileNo}`}</span>
+            {locationIcon}
+          </div>
+          <div className="JobInfoItem">
+            <h6>Contact Email</h6>
+            <span>{`${data?.contactEmail}`}</span>
+            {workTypeIcon}
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

@@ -17,6 +17,14 @@ import LoadingPage from "../../../components/Loader/LoadingPage";
 import Page404 from "../../Maintenance/Page404";
 import { redirectToAuth } from "../../../features/redirectToAuth";
 import CustomSnackbar from "../../User/Login/CustomSnackbar";
+import {
+  calendarEndDateIcon,
+  calendarStartDateIcon,
+  experienceIcon,
+  locationIcon,
+  moneyIcon,
+  workTypeIcon,
+} from "../Jobs/icons";
 const InternshipDesc = () => {
   const { hiringId } = useParams();
   const [flag, setFlag] = useState(-1);
@@ -280,16 +288,16 @@ const InternshipDesc = () => {
         </span>
       </div>
       <div className="JobInfo">
-        <div className="JobInfoItems">
+        <div className="JobInfoItems JobInfoItems-date">
           <div className="JobInfoItem">
             <h6>Application Start Date</h6>
             <span>{applicationStartDate}</span>
-            <img src={`${bucket}calendar.png`} alt="openings" />
+            {calendarStartDateIcon}
           </div>
           <div className="JobInfoItem">
             <h6>Application End Date</h6>
             <span>{applicationEndDate}</span>
-            <img src={`${bucket}calendar.png`} alt="cgpa" />
+            {calendarEndDateIcon}
           </div>
         </div>
       </div>
@@ -332,7 +340,7 @@ const InternshipDesc = () => {
                 <span>Unpaid</span>
               )
             }
-            <img src={`${bucket}cash.svg`} alt="guide" />
+            {moneyIcon}
           </div>
           <div className="JobInfoItem">
             <h6>Duration</h6>
@@ -350,7 +358,7 @@ const InternshipDesc = () => {
                       : `${hiring?.detailFound?.minDuration} - ${hiring?.detailFound?.maxDuration} months`
                   }`}
             </span>
-            <img src={`${bucket}timer.svg`} alt="guide" />
+            {experienceIcon}
           </div>
           <div className="JobInfoItem">
             <h6>Job Location</h6>
@@ -373,7 +381,7 @@ const InternshipDesc = () => {
                 ? hiring?.detailFound?.opportunityLocation
                 : "N/A"}
             </span>
-            <img src={`${bucket}locate.svg`} alt="guide" />
+            {locationIcon}
           </div>
           <div className="JobInfoItem">
             <h6>Work type</h6>
@@ -382,7 +390,7 @@ const InternshipDesc = () => {
                 ? hiring?.detailFound?.opportunityTiming
                 : hiring?.detailFound?.opportunityMode}
             </span>
-            <img src={`${bucket}time.svg`} alt="guide" />
+            {workTypeIcon}
           </div>
         </div>
       </div>
