@@ -2,7 +2,12 @@ import { useParams, useNavigate } from "react-router-dom";
 import "./NewEventCard.css";
 import { defaultEventPoster, eHUBLogo } from "../../assets/defaultPoster";
 
-export default function NewEventCard({ data, community, workshop }) {
+export default function NewEventCard({
+  data,
+  community,
+  workshop,
+  eventHiring,
+}) {
   const { id } = useParams();
   const navigate = useNavigate();
   const time = new Date(data?.eventStartTime);
@@ -49,7 +54,9 @@ export default function NewEventCard({ data, community, workshop }) {
   return (
     <div
       onClick={() => {
-        if (community)
+        if (eventHiring) {
+          navigate(`/company/events/${data._id}`);
+        } else if (community)
           navigate(`/community/events/${encodeURIComponent(id)}/${data._id}`);
         else if (!workshop) {
           navigate(`/trending/events/${data._id}`);

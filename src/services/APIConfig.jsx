@@ -1930,8 +1930,25 @@ export const getEventByType = (setEvents, type) => {
       signal: controller.signal,
     })
     .then((res) => {
-      const data = res.data.data;
-      setEvents(data);
+      setEvents(res);
+    })
+    .catch((err) => {
+      if (axios.isCancel(err)) {
+        console.log("req cancel");
+      } else {
+        console.log("req performed");
+      }
+    });
+};
+
+export const getEventByTypeEventHiring = (setEvents) => {
+  const controller = new AbortController();
+  axios
+    .get(`${API_URL}api/v1/eventTypeWiseEvents/eventHiring`, {
+      signal: controller.signal,
+    })
+    .then((res) => {
+      setEvents(res?.data?.data);
     })
     .catch((err) => {
       if (axios.isCancel(err)) {
