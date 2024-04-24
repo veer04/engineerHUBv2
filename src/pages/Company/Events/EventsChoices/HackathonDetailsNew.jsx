@@ -118,14 +118,14 @@ export default function HackathonDetailsNew() {
       </div>
       <div className="content-container">
         <aside id="column-1" className="column column-1">
-          <div className="list-heading">
+          {/* <div className="list-heading">
             <div>
               <FaArrowTrendUp /> Trending Events
             </div>
-          </div>
+          </div> */}
           <div className="cards">
             {trendingList?.map((item) => (
-              <NewEventCard data={item} key={item?._id} />
+              <NewEventCard data={item} key={item?._id} eventHiring={true} />
             ))}
           </div>
         </aside>
