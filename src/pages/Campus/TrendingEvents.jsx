@@ -190,7 +190,7 @@ export default function TrendingEvents() {
                   <AiOutlineCalendar />
                 </div>
                 <div className="headings">
-                  <span>Registration End By:</span>
+                  <span>Register by:</span>
                   <span>{timeInText(event?.eventRegistrationEndTime)}</span>
                 </div>
               </div>
