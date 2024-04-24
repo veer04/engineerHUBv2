@@ -423,31 +423,14 @@ export default function HostingEventHiring() {
         setSnackbarMessage(
           <>
             New event hiring created.{" "}
-            {eventDomain === "Other" ? (
-              <Link
-                to={`/community/events/${encodeURIComponent(
-                  res?.data?.data?.domainName
-                )}/${res?.data?.data?._id}`}
-                style={{ color: "rgb(13, 110, 253)" }}
-                onMouseOver={(e) =>
-                  (e.target.style.textDecoration = "underline")
-                }
-                onMouseOut={(e) => (e.target.style.textDecoration = "none")}
-              >
-                Click here
-              </Link>
-            ) : (
-              <Link
-                to={`/trending/workshops/${res?.data?.data?._id}`}
-                style={{ color: "rgb(13, 110, 253)" }}
-                onMouseOver={(e) =>
-                  (e.target.style.textDecoration = "underline")
-                }
-                onMouseOut={(e) => (e.target.style.textDecoration = "none")}
-              >
-                Click here
-              </Link>
-            )}{" "}
+            <Link
+              to={`/company/events/${res?.data?.data?._id}`}
+              style={{ color: "rgb(13, 110, 253)" }}
+              onMouseOver={(e) => (e.target.style.textDecoration = "underline")}
+              onMouseOut={(e) => (e.target.style.textDecoration = "none")}
+            >
+              Click here
+            </Link>
             to view
           </>
         );

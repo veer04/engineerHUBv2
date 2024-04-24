@@ -19,6 +19,7 @@ import {
   AiOutlinePhone,
 } from "react-icons/ai";
 import NewEventCard from "../../components/NewEventCard/NewEventCard";
+import { BiPlayCircle } from "react-icons/bi";
 
 export default function TrendingWorkshops() {
   const { eventId } = useParams();
@@ -119,7 +120,7 @@ export default function TrendingWorkshops() {
         <aside id="column-1" className="column column-1">
           <div className="list-heading">
             <div>
-              <FaArrowTrendUp /> Trending Events
+              <BiPlayCircle /> Workshops
             </div>
           </div>
           <div className="cards">
