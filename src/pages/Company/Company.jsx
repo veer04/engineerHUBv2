@@ -7,6 +7,7 @@ import useNavbar from "../../hooks/use-navbar";
 import { Link, useNavigate } from "react-router-dom";
 import colorWheel from "../../assets/colorWheel";
 import axios from "axios";
+import NewEventCard from "../../components/NewEventCard/NewEventCard";
 
 const CompanyCards = ({ data }) => {
   return (
@@ -103,15 +104,35 @@ const Company = () => {
       });
   };
 
-  const getCompanyPageEvents = (setEvents, pageNo, limit) => {
+  // const getCompanyPageEvents = (setEvents, pageNo, limit) => {
+  //   axios
+  //     .get(`${API_URL}api/v1/getHiringByOpportunityType/`, {
+  //       params: {
+  //         opportunityType: "Event",
+  //         pageNo: pageNo,
+  //         limit: limit,
+  //       },
+  //     })
+  //     .then((res) => {
+  //       sessionStorage.setItem(
+  //         "companyPageEvents",
+  //         JSON.stringify(res?.data?.data)
+  //       );
+  //       setEvents(res?.data?.data);
+  //     })
+  //     .catch((err) => {
+  //       setEvents(err);
+  //       if (axios.isCancel(err)) {
+  //         console.log("req cancel");
+  //       } else {
+  //         console.log("req performed");
+  //       }
+  //     });
+  // };
+
+  const getEventByType = (setEvents) => {
     axios
-      .get(`${API_URL}api/v1/getHiringByOpportunityType/`, {
-        params: {
-          opportunityType: "Event",
-          pageNo: pageNo,
-          limit: limit,
-        },
-      })
+      .get(`${API_URL}api/v1/eventTypeWiseEvents/eventHiring`, {})
       .then((res) => {
         sessionStorage.setItem(
           "companyPageEvents",
@@ -148,7 +169,7 @@ const Company = () => {
     if (sessionStorage.getItem("companyPageEvents")) {
       setEvents(JSON.parse(sessionStorage.getItem("companyPageEvents")));
     } else {
-      getCompanyPageEvents(setEvents, 1, 6);
+      getEventByType(setEvents);
     }
   }, []);
 
@@ -301,7 +322,7 @@ const Company = () => {
         </a>
         <div className="OpportunitiesTiles">
           {events.slice(0, 6).map((item, index) => {
-            return <HackathonCard {...item} key={index} />;
+            return <NewEventCard data={item} key={index} eventHiring={true} />;
           })}
         </div>
       </div>
