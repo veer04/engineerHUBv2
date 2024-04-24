@@ -302,7 +302,7 @@ const InternshipDesc = () => {
         </div>
       </div>
       <div className="JobDesc">
-        <h5>Job Description</h5>
+        <h5>Description</h5>
         <p id="quill-job-description"></p>
       </div>
       <div className="JobInfo">
