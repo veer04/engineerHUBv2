@@ -66,22 +66,12 @@ export default function HostingProject() {
   const [projectDomainOther, setProjectDomainOther] = useState("");
   const [techStack, setTechStack] = useState([]);
   const [experienceRequired, setExperienceRequired] = useState("");
+  const [projectStartDate, setProjectStartDate] = useState("");
+  const [projectEndDate, setProjectEndDate] = useState("");
   const [durationType, setDurationType] = useState("");
   const [estimatedTime, setEstimatedTime] = useState("");
   const [applyLink, setApplyLink] = useState("");
 
-  const [eventType, setEventType] = useState();
-  const [eventName, setEventName] = useState("");
-  const [eventCategory, setEventCategory] = useState();
-  const [eventMode, setEventMode] = useState("");
-  const [eventRegistrationStartDate, setEventRegistrationStartDate] =
-    useState("");
-  const [eventRegistrationEndDate, setEventRegistrationEndDate] = useState("");
-  const [eventStartDate, setEventStartDate] = useState("");
-  const [eventEndDate, setEventEndDate] = useState("");
-  const [eventRegistrationType, setEventRegistrationType] = useState("");
-  const [eventTargetZone, setEventTargetZone] = useState([]);
-  const [showContactDetails, setShowContactDetails] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [previouslyViewedPageNumber, setPreviouslyViewedPageNumber] =
     useState(1);
@@ -104,6 +94,8 @@ export default function HostingProject() {
     projectDomainOther: "",
     techStack: "",
     experienceRequired: "",
+    projectStartDate: "",
+    projectEndDate: "",
     durationType: "",
     estimatedTime: "",
     applyLink: "",
@@ -365,6 +357,8 @@ export default function HostingProject() {
       projectDomainOther: "",
       techStack: "",
       experienceRequired: "",
+      projectStartDate: "",
+      projectEndDate: "",
       durationType: "",
       estimatedTime: "",
       applyLink: "",
@@ -392,6 +386,18 @@ export default function HostingProject() {
       errors.experienceRequired = "Experience is required";
       isValid = false;
       addToErrorStack("#experienceRequired");
+    }
+
+    if (!projectStartDate) {
+      errors.projectStartDate = "Registration start date is required";
+      isValid = false;
+      addToErrorStack("#projectStartDate");
+    }
+
+    if (!projectEndDate) {
+      errors.projectEndDate = "Registration end date is required";
+      isValid = false;
+      addToErrorStack("#projectEndDate");
     }
 
     if (!durationType) {
@@ -451,6 +457,8 @@ export default function HostingProject() {
     );
     form.append("techStack", techStack);
     form.append("experience", experienceRequired);
+    form.append("projectStartTime", projectStartDate);
+    form.append("projectEndTime", projectEndDate);
     form.append("estimatedTime", estimatedTime);
     form.append("timePeriod", durationType);
     form.append("applyLink", applyLink);
@@ -876,6 +884,28 @@ export default function HostingProject() {
                 setValue={setExperienceRequired}
                 options={experience}
                 helperText={errors.experienceRequired}
+                className="mb-4"
+              />
+
+              <FormInputDateTime
+                label="Project Registration Start Date"
+                id="projectStartDate"
+                name="projectStartDate"
+                required
+                value={projectStartDate}
+                setValue={setProjectStartDate}
+                helperText={errors.projectStartDate}
+                className="mb-4"
+              />
+
+              <FormInputDateTime
+                label="Project Registration End Date"
+                id="projectEndDate"
+                name="projectEndDate"
+                required
+                value={projectEndDate}
+                setValue={setProjectEndDate}
+                helperText={errors.projectEndDate}
                 className="mb-4"
               />
 
