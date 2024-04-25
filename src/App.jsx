@@ -65,6 +65,7 @@ import NewFooter from "./components/Footer/NewFooter.jsx";
 import GetFeaturedForm from "./pages/NewHomepage/GetFeaturedForm.jsx";
 import HostingProject from "./pages/Hosting/HostingProject.jsx";
 import HostingEventHiring from "./pages/Hosting/HostingEventHiring.jsx";
+import PostModalAllRole from "./components/PostModal/PostModalAllRole.jsx";
 const HackathonDetailsNew = lazy(() =>
   import("./pages/Company/Events/EventsChoices/HackathonDetailsNew.jsx")
 );
@@ -151,7 +152,10 @@ function App() {
             <Route
               path="user/:userId"
               element={<UserDashboard path="profile" />}
-            ></Route>
+            >
+              <Route path="add-post" element={<AddPostModal />} />
+              <Route path="posts/:postId" element={<PostModalAllRole />} />
+            </Route>
             <Route
               path="user/:userId/edit-profile"
               element={<UserEditProfile />}
@@ -174,6 +178,8 @@ function App() {
               element={<CompanyDashboard path="profile" />}
             >
               <Route path="edit-cover-image" element={<CoverImageModal />} />
+              <Route path="add-post" element={<AddPostModal />} />
+              <Route path="posts/:postId" element={<PostModalAllRole />} />
             </Route>
             <Route
               path="organization/:organizationId/edit-profile"

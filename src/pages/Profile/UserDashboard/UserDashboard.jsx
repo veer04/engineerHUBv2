@@ -25,6 +25,7 @@ import { useEffect } from "react";
 import CustomSnackbar from "../../User/Login/CustomSnackbar";
 import {
   controller,
+  getAllPosts,
   getEventsByOrganisationId,
   getEventsByOrganisationIdPrivateMode,
   getInternshipsByOrganisationId,
@@ -36,7 +37,7 @@ import {
   getUserProfileById,
   patchResume,
 } from "../../../services/APIConfig";
-import { useNavigate, useParams, Link } from "react-router-dom";
+import { useNavigate, useParams, Link, Outlet } from "react-router-dom";
 import { Bucket_URL } from "../../../services/APIUtils";
 import {
   getUserId,
@@ -52,6 +53,9 @@ import JobCards from "../../Company/Jobs/JobCards";
 import InternshipCard from "../../Company/Internship/InternshipCard";
 import HackathonCard from "../../Company/Events/EventsChoices/HackathonCards";
 import ProjectCards from "../../Company/Projects/ProjectCards";
+import { MdAdd } from "react-icons/md";
+import ClubPostCard from "../../../components/ClubPostCard/ClubPostCard";
+import PostCard from "../../../components/ClubPostCard/PostCard";
 
 export default function UserDashboard() {
   const navigate = useNavigate();
@@ -90,6 +94,8 @@ export default function UserDashboard() {
   const [hackathons, setHackathons] = useState([]);
   const [projects, setProjects] = useState([]);
   const [scrollAmount, setScrollAmount] = useState(220);
+  const [posts, setPosts] = useState([]);
+  const [showAll1, setShowAll1] = useState(false);
 
   const scrollLeft = () => {
     const carousel = document.querySelector(".carousel");
@@ -116,6 +122,7 @@ export default function UserDashboard() {
   useEffect(() => {
     window.scrollTo(0, 0);
     fetchData();
+    getAllPosts(setPosts, userId);
 
     if (isUserLoggedIn() && userId === getUserId()) {
       setIsUserAdmin(true);
@@ -135,8 +142,10 @@ export default function UserDashboard() {
   }, [userId]);
 
   useEffect(() => {
-    if (Object.keys(user).length !== 0){
-      document.title = `${user?.firstName} ${user?.lastName} | ${user?.role ? user.role : "User"} | engineerHUB`;
+    if (Object.keys(user).length !== 0) {
+      document.title = `${user?.firstName} ${user?.lastName} | ${
+        user?.role ? user.role : "User"
+      } | engineerHUB`;
     }
     handleEditOptions();
   }, [user]);
@@ -867,6 +876,50 @@ export default function UserDashboard() {
           </section>
         </div>
       </div>
+      <section className="box recent-activities">
+        {isUserAdmin && (
+          <div onClick={() => navigate("add-post")} className="add-option">
+            <MdAdd />
+          </div>
+        )}
+        <p className="heading">POSTS</p>
+        <div className="carousel-container">
+          {posts.length !== 0 && (
+            <div className="carousel-grid">
+              {showAll1
+                ? posts.map((jobDetail, index) => (
+                    <PostCard key={index} {...jobDetail} />
+                  ))
+                : posts
+                    .slice(0, 3)
+                    .map((jobDetail, index) => (
+                      <PostCard key={index} {...jobDetail} />
+                    ))}
+            </div>
+          )}
+
+          {posts.length === 0 && (
+            <div className="no-jobs empty-container">
+              {/* <MdAddCircle /> */}
+              <p style={{ color: "grey" }}>{`No posts to show`}</p>
+            </div>
+          )}
+        </div>
+        {posts.length > 3 && !showAll1 && (
+          <div className="btn-container">
+            <button onClick={() => setShowAll1(true)} className="all-jobs-btn">
+              Show all posts <BsArrowRight />
+            </button>
+          </div>
+        )}
+        {posts.length > 3 && showAll1 && (
+          <div className="btn-container">
+            <button onClick={() => setShowAll1(false)} className="all-jobs-btn">
+              Show less posts <BsArrowUp />
+            </button>
+          </div>
+        )}
+      </section>
       {user?.role === "Alumni" && (
         <section id="recent-activities" className="box recent-activities">
           <p className="heading">RECENT ACTIVITIES</p>
@@ -1054,6 +1107,7 @@ export default function UserDashboard() {
           </div>
         </section>
       )}
+      <Outlet />
     </main>
   );
 

@@ -4,7 +4,7 @@ import "./CompanyDashboard.css";
 import { BsArrowRight, BsArrowUp } from "react-icons/bs";
 import { FiEdit } from "react-icons/fi";
 import { AiOutlineLeft, AiOutlineRight, AiFillLinkedin } from "react-icons/ai";
-import { MdAddCircle } from "react-icons/md";
+import { MdAdd, MdAddCircle } from "react-icons/md";
 import { FiEdit2 } from "react-icons/fi";
 import { PiGlobeLight } from "react-icons/pi";
 import { BiLogoInstagramAlt } from "react-icons/bi";
@@ -26,6 +26,7 @@ import {
   getAllEvents2,
   getAllInternships,
   getAllJobs2,
+  getAllPosts,
   getEvents,
   getEventsByOrganisationId,
   getEventsByOrganisationIdPrivateMode,
@@ -46,6 +47,7 @@ import { useLayoutEffect } from "react";
 import Page404 from "../../Maintenance/Page404";
 import LoadingPage from "../../../components/Loader/LoadingPage";
 import InternshipCard from "../../Company/Internship/InternshipCard";
+import PostCard from "../../../components/ClubPostCard/PostCard";
 
 export default function CompanyDashboard() {
   const { organizationId } = useParams();
@@ -67,6 +69,8 @@ export default function CompanyDashboard() {
   const bucket2 = `${Bucket_URL}frontend/profile/dashboard/`;
   const [followResponse, setFollowResponse] = useState({});
   const [fetchResponse, setFetchResponse] = useState({});
+  const [posts, setPosts] = useState([]);
+  const [showAll1, setShowAll1] = useState(false);
 
   const scrollLeft = () => {
     const carousel = document.querySelector(".carousel");
@@ -96,6 +100,8 @@ export default function CompanyDashboard() {
   useEffect(() => {
     window.scrollTo(0, 0);
     fetchData();
+    getAllPosts(setPosts, organizationId);
+
     if (isUserLoggedIn() && organizationId === getUserId()) {
       setIsUserAdmin(true);
       getJobsByOrganisationIdPrivateMode(setJobs);
@@ -383,6 +389,56 @@ export default function CompanyDashboard() {
               )}
             </div>
           </div>
+        </section>
+        <section className="box recent-activities">
+          {isUserAdmin && (
+            <div onClick={() => navigate("add-post")} className="add-option">
+              <MdAdd />
+            </div>
+          )}
+          <p className="heading">POSTS</p>
+          <div className="carousel-container">
+            {posts.length !== 0 && (
+              <div className="carousel-grid">
+                {showAll1
+                  ? posts.map((jobDetail, index) => (
+                      <PostCard key={index} {...jobDetail} />
+                    ))
+                  : posts
+                      .slice(0, 3)
+                      .map((jobDetail, index) => (
+                        <PostCard key={index} {...jobDetail} />
+                      ))}
+              </div>
+            )}
+
+            {posts.length === 0 && (
+              <div className="no-jobs empty-container">
+                {/* <MdAddCircle /> */}
+                <p style={{ color: "grey" }}>{`No posts to show`}</p>
+              </div>
+            )}
+          </div>
+          {posts.length > 3 && !showAll1 && (
+            <div className="btn-container">
+              <button
+                onClick={() => setShowAll1(true)}
+                className="all-jobs-btn"
+              >
+                Show all posts <BsArrowRight />
+              </button>
+            </div>
+          )}
+          {posts.length > 3 && showAll1 && (
+            <div className="btn-container">
+              <button
+                onClick={() => setShowAll1(false)}
+                className="all-jobs-btn"
+              >
+                Show less posts <BsArrowUp />
+              </button>
+            </div>
+          )}
         </section>
         <section id="recent-activities" className="box recent-activities">
           <p className="heading">RECENT ACTIVITIES</p>

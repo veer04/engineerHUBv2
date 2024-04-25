@@ -65,13 +65,13 @@ export default function ClubDashboard() {
     } else {
       setIsUserAdmin(false);
     }
-  }, [clubId]);
+  }, [clubId,window.location.pathname]);
 
-  useLayoutEffect(() => {
-    fetchData();
-    getAllPosts(setPosts, clubId);
-    getFeaturedEvents(setFeaturedEvents);
-  }, [window.location.pathname]);
+  // useLayoutEffect(() => {
+  //   fetchData();
+  //   getAllPosts(setPosts, clubId);
+  //   getFeaturedEvents(setFeaturedEvents);
+  // }, [window.location.pathname]);
 
   useLayoutEffect(() => {
     if (!!Object.keys(followResponse).length) fetchData();
