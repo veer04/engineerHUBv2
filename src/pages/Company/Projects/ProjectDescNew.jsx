@@ -16,9 +16,12 @@ import CustomSnackbar from "../../User/Login/CustomSnackbar";
 import JobApplyModal from "../Jobs/JobApplyModal";
 import { Chip } from "@mui/material";
 import {
+  durationIcon,
+  emailIcon,
   experienceIcon,
   locationIcon,
   moneyIcon,
+  phoneIcon,
   workTypeIcon,
 } from "../Jobs/icons";
 
@@ -339,17 +342,17 @@ const ProjectDescNew = ({ data, isApplied }) => {
                   : data?.timePeriod
               }`}
             </span>
-            {experienceIcon}
+            {durationIcon}
           </div>
           <div className="JobInfoItem">
             <h6>Contact Number</h6>
             <span>{`+${data?.mobileCountryCode} ${data?.mobileNo}`}</span>
-            {locationIcon}
+            {phoneIcon}
           </div>
           <div className="JobInfoItem">
             <h6>Contact Email</h6>
             <span>{`${data?.contactEmail}`}</span>
-            {workTypeIcon}
+            {emailIcon}
           </div>
         </div>
       </div>

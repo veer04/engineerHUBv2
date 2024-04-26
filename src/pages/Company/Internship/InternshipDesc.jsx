@@ -20,6 +20,7 @@ import CustomSnackbar from "../../User/Login/CustomSnackbar";
 import {
   calendarEndDateIcon,
   calendarStartDateIcon,
+  durationIcon,
   experienceIcon,
   locationIcon,
   moneyIcon,
@@ -358,7 +359,7 @@ const InternshipDesc = () => {
                       : `${hiring?.detailFound?.minDuration} - ${hiring?.detailFound?.maxDuration} months`
                   }`}
             </span>
-            {experienceIcon}
+            {durationIcon}
           </div>
           <div className="JobInfoItem">
             <h6>Job Location</h6>

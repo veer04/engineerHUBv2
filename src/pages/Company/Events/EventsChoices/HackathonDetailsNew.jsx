@@ -216,7 +216,7 @@ export default function HackathonDetailsNew() {
               </div>
               <div className="detail">
                 <div className="logo">
-                  <AiOutlineClockCircle />
+                  <AiOutlineCalendar />
                 </div>
                 <div className="headings">
                   <span>Event End Date:</span>
@@ -227,7 +227,7 @@ export default function HackathonDetailsNew() {
             <div className="data">
               <div className="detail">
                 <div className="logo">
-                  <AiOutlinePhone />
+                  <AiOutlinePhone style={{transform: "rotate(90deg)"}} />
                 </div>
                 <div className="headings">
                   <span>Phone Number:</span>
