@@ -520,8 +520,8 @@ export default function HostingEventHiring() {
         className="poster-container"
       >
         <div className="fact">
-          <p>Do you know?</p>
-          <p>Every year around 2000+ webinar are host across Indian colleges</p>
+          <p> Its not just an event you are building your brand by engaging</p>
+          <p>250+ events is already engaging 1 lakh+ students .</p>
         </div>
       </aside>
       <section className="main">

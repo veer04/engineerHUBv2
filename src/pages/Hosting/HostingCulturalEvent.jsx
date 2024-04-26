@@ -533,10 +533,15 @@ export default function HostingCulturalEvent() {
         className="poster-container"
       >
         <div className="fact">
-          <p>Do you know?</p>
           <p>
-            Every year around 2000+ cultural event are host across Indian
-            colleges
+            {currentPage === 1 && "What's Happening on Campus?"}
+            {currentPage === 2 &&
+              "Enter the details & get direct visibility of 1500+ engineering campuses instant"}
+          </p>
+          <p>
+            {currentPage === 1 && "Thank You for Sharing!"}
+            {currentPage === 2 &&
+              "6000+ Events are already LIVE across PAN India"}
           </p>
         </div>
       </aside>

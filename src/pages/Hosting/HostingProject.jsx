@@ -578,10 +578,10 @@ export default function HostingProject() {
         className="poster-container"
       >
         <div className="fact">
-          <p>Do you know?</p>
+          <p>Let’s get it done best at the cheapest</p>
           <p>
-            Every year around 2000+ cultural event are host across Indian
-            colleges
+            Thank you alma/company for posting exciting projects for us
+            <br />– Manish Sharma, 3rd Year
           </p>
         </div>
       </aside>

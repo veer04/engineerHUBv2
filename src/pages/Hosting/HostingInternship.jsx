@@ -682,11 +682,11 @@ export default function HostingInternship() {
         className="poster-container"
       >
         <div className="fact">
-          <p>Do you know?</p>
           <p>
-            Every year around 2000+ cultural event are host across Indian
-            colleges
+            Your “This” opening will help you in building your future workforce,
+            who will surely be knowing you .
           </p>
+          <p>Thank you ! You making our future India Skilled</p>
         </div>
       </aside>
       <section className="main">

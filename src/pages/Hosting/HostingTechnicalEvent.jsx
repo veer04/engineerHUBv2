@@ -533,10 +533,16 @@ export default function HostingTechnicalEvent() {
         className="poster-container"
       >
         <div className="fact">
-          <p>Do you know?</p>
           <p>
-            Every year around 2000+ technical event are host across Indian
-            colleges
+            {currentPage === 1 &&
+              "What's New in Tech? OR Showcase Your Innovation!"}
+            {currentPage === 2 &&
+              "Looking to announce an event ? You’ve got Perfect target audience for it !"}
+          </p>
+          <p>
+            {currentPage === 1 && "You’re all set !"}
+            {currentPage === 2 &&
+              "Yeah ! 1 lakh+ community of engineers are waiting for your event"}
           </p>
         </div>
       </aside>

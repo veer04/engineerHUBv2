@@ -684,11 +684,10 @@ export default function HostingJob() {
         className="poster-container"
       >
         <div className="fact">
-          <p>Do you know?</p>
           <p>
-            Every year around 2000+ cultural event are host across Indian
-            colleges
+            Relax ! 48 hrs is what max our clients have waited to have the best.{" "}
           </p>
+          <p>Get access of Pan India eligible candidate at one go</p>
         </div>
       </aside>
       <section className="main">

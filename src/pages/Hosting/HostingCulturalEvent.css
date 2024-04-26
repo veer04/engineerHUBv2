@@ -24,9 +24,10 @@
   border-radius: 10px;
 }
 .hosting-container .poster-container .fact p:first-child {
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   font-weight: 600;
-  margin-bottom: 0.25rem;
+  margin-bottom: 0.5rem;
+  line-height: normal;
 }
 .hosting-container .poster-container .fact p:last-child {
   font-size: 1rem;

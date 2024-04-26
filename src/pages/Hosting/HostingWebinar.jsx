@@ -533,8 +533,21 @@ export default function HostingWebinar() {
         className="poster-container"
       >
         <div className="fact">
-          <p>Do you know?</p>
-          <p>Every year around 2000+ webinar are host across Indian colleges</p>
+          <p>
+            {currentPage === 1 && "Share Your Expertise !"}
+            {currentPage === 2 &&
+              "It’s just not only a webinar , you’re Building your personal brand among 1Lakh+ engineers"}
+          </p>
+          <p>
+            {currentPage === 1 &&
+              "Thanks for Sharing Your Expertise! OR Your Webinar - Let's Make it a Success!"}
+            {currentPage === 2 && (
+              <>
+                Thanks for being the supportive ‘Senior’ that we always look for
+                !<br />- Shipra (student)
+              </>
+            )}
+          </p>
         </div>
       </aside>
       <section className="main">

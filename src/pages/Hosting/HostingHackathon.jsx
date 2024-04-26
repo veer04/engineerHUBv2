@@ -533,9 +533,13 @@ export default function HostingHackathon() {
         className="poster-container"
       >
         <div className="fact">
-          <p>Do you know?</p>
           <p>
-            Every year around 2000+ hackathon are host across Indian colleges
+            {currentPage === 1 && "Innovate. Collaborate. Win!"}
+            {currentPage === 2 && "Just Host your Hackathon and rest assured !"}
+          </p>
+          <p>
+            {currentPage === 1 && "Hackathon Activated"}
+            {currentPage === 2 && "Make it  live. Need help to “promote” it !"}
           </p>
         </div>
       </aside>
