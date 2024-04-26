@@ -16,6 +16,8 @@ import {
 } from "../../services/APIConfig";
 import { set } from "react-hook-form";
 import useGlobalSnackbar from "../../hooks/useGlobalSnackbar";
+import { Link } from "react-router-dom";
+import { getUserId, getUserRole } from "../../features/User/UserDetails";
 
 export default function AddPostModal({ hostPage, setCloseModal }) {
   const [newCoverPhoto, setNewCoverPhoto] = useState(null);
@@ -82,7 +84,26 @@ export default function AddPostModal({ hostPage, setCloseModal }) {
       setLoading(false);
       if (response.status >= 200 && response.status < 300) {
         setSnackbarSeverity("success");
-        setSnackbarMessage("Post created successfully");
+        setSnackbarMessage(
+          <>
+            Post created successfully.{" "}
+            <Link
+              to={`/profile/${
+                getUserRole() === "Alumni"
+                  ? "user"
+                  : getUserRole() === "Club"
+                  ? "club"
+                  : "organization"
+              }/${getUserId()}/posts/${response?.data?.data?._id}`}
+              style={{ color: "rgb(13, 110, 253)" }}
+              onMouseOver={(e) => (e.target.style.textDecoration = "underline")}
+              onMouseOut={(e) => (e.target.style.textDecoration = "none")}
+            >
+              Click here
+            </Link>{" "}
+            to view
+          </>
+        );
         setSnackbarDuration(8000);
         setSnackbarOpen(true);
       } else {

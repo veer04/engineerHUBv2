@@ -9,6 +9,8 @@ import { getUserRole, isUserLoggedIn } from "../../features/User/UserDetails";
 import { redirectToAuth } from "../../features/redirectToAuth";
 import useGlobalSnackbar from "../../hooks/useGlobalSnackbar";
 import AddPostModal from "../../components/Dashboard/AddPostModal";
+import InfoModal from "./InfoModal";
+import { FaArrowRight } from "react-icons/fa";
 export default function HostingPage() {
   const { setSelectedPageNavbar } = useNavbar();
   const {
@@ -18,6 +20,7 @@ export default function HostingPage() {
     setSnackbarDuration,
   } = useGlobalSnackbar();
   const [showPostModal, setShowPostModal] = useState(false);
+  const [showInfoModal, setShowInfoModal] = useState(false);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -27,6 +30,18 @@ export default function HostingPage() {
 
   const navigate = useNavigate();
   const bucket = `${Bucket_URL}frontend/hosting/`;
+
+  function handleCreatePost() {
+    if (!isUserLoggedIn()) {
+      redirectToAuth("/login");
+      return;
+    }
+    if (getUserRole() === "User") {
+      setShowInfoModal(true);
+      return;
+    }
+    setShowPostModal(true);
+  }
 
   function handleNavigation(path) {
     if (!isUserLoggedIn()) {
@@ -160,13 +175,19 @@ export default function HostingPage() {
               Share event updates, posts, competitions and your experience with
               us!
             </h2>
-            <button onClick={() => setShowPostModal(true)}>
-              <AiOutlinePlus />
-              Create post
-            </button>
+            <div className="button-box">
+              <button onClick={() => handleCreatePost()}>
+                <AiOutlinePlus />
+                Create post
+              </button>
+              <button className="feed" onClick={() => navigate("/campus")}>
+                Explore Feed <FaArrowRight />
+              </button>
+            </div>
             {showPostModal && (
               <AddPostModal hostPage={true} setCloseModal={setShowPostModal} />
             )}
+            {showInfoModal && <InfoModal setState={setShowInfoModal} />}
           </div>
           <video
             src={`${bucket}host-page-animation.mp4`}
@@ -193,7 +214,7 @@ export default function HostingPage() {
           </div>
         </section>
         <section className="tiles-container">
-          <h3>Create Events</h3>
+          <h3 id="create-events">Create Events</h3>
           <div className="tiles">
             {HOSTING_ITEMS_2.map((item) => (
               <article key={item.id} onClick={item.onClick} className="tile">

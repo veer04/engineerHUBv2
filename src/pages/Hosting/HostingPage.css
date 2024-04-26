@@ -105,16 +105,25 @@
   font-size: 1rem;
   margin-bottom: 1.25rem;
 }
+.hosting-page .header .left .button-box {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
 .hosting-page .header .left button {
   background-color: var(--primary-color-dark-green);
   color: white;
-  padding: 0.8rem 2rem;
+  padding: 0.8rem 1rem;
   border-radius: 40px;
   display: flex;
   align-items: center;
   gap: 0.4rem;
   border: none;
-  width: fit-content;
+  width: 170px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .hosting-page .header .left button:hover {
   background-color: var(--primary-color-green);
@@ -123,6 +132,16 @@
   background-color: var(--primary-color-yellow);
   color: black;
 }
+.hosting-page .header .left .feed {
+  background-color: transparent;
+  border: 1px solid #002b36;
+  color: #002b36;
+}
+.hosting-page .header .left .feed:hover {
+  background-color: transparent;
+  text-decoration: underline;
+}
+
 .hosting-page .header video {
   border-radius: 10px;
   width: 100%;
@@ -133,6 +152,8 @@
 .hosting-page .tiles-container {
   background-color: white;
   padding: 1.5rem;
+  margin-bottom: 1rem;
+  border-radius: 10px;
 }
 .hosting-page .tiles-container h3 {
   font-weight: 500;
@@ -194,6 +215,7 @@
   .hosting-page .header {
     flex-direction: column;
     align-items: flex-start;
+    margin-top: 1.25rem;
   }
 }
 
