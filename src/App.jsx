@@ -187,7 +187,7 @@ function App() {
             />
           </Route>
           {/* <Route path="/student-signup" element={<StudentSignup />} /> */}
-          <Route path="/User-signup" element={<SignupUser />} />
+          <Route path="/signup" element={<SignupUser />} />
           <Route path="/clubSignup" element={<ClubSignup />} />
           {/* <Route path="/mentorSignup" element={<MentorSignup />} /> */}
           <Route path="/organizationSignup" element={<OrganizationSignup />} />

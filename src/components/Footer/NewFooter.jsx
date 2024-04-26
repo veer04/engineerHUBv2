@@ -21,7 +21,7 @@ export default function NewFooter() {
       location.pathname.includes("community/chat") ||
       location.pathname.includes("host/") ||
       location.pathname.includes("login") ||
-      location.pathname.includes("User-signup") ||
+      location.pathname.includes("signup") ||
       location.pathname.includes("clubSignup") ||
       location.pathname.includes("organizationSignup") ||
       location.pathname.includes("login") ||
