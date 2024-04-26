@@ -727,7 +727,7 @@ export default function HostingProject() {
                 className="mb-4"
               />
 
-              <h2>Peroject Description</h2>
+              <h2>Project Description</h2>
 
               <div className="mb-4">
                 <Editor
