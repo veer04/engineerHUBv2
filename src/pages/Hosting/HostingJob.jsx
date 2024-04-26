@@ -50,7 +50,7 @@ export default function HostingJob() {
   } = useGlobalSnackbar();
   const bucket = `${Bucket_URL}frontend/hosting/`;
   const totalPages = 3;
-  const [currentPage, setCurrentPage] = useState(2);
+  const [currentPage, setCurrentPage] = useState(1);
   const [organisationName, setOrganisationName] = useState("");
   const [organisationLogo, setOrganisationLogo] = useState("");
   const [organisationLink, setOrganisationLink] = useState("");
@@ -938,7 +938,7 @@ export default function HostingJob() {
                     setOpportunityDescription(content);
                   }}
                   onInit={(_evt, editor) => (editorRef.current = editor)}
-                  initialValue="<p>This is the initial content of the editor.</p>"
+                  initialValue=""
                   init={{
                     height: 500,
                     menubar: false,

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { IoIosArrowBack } from "react-icons/io";
 import {
@@ -6,7 +6,7 @@ import {
   isUserLoggedIn,
 } from "../../features/User/UserDetails";
 import { redirectToAuth } from "../../features/redirectToAuth";
-import { API_URL, Bucket_URL } from "../../services/APIUtils";
+import { API_URL, Bucket_URL, EDITOR_API_KEY } from "../../services/APIUtils";
 import { changeDocumentTitle } from "../../features/changeDocumentTitle";
 import axios from "axios";
 import useNavbar from "../../hooks/use-navbar";
@@ -28,6 +28,7 @@ import "./HostingCulturalEvent.css";
 import FormInputMultiValue from "../../components/FormInputs/FormInputMultiValue";
 import FormInputAutocomplete from "../../components/FormInputs/FormInputAutocomplete";
 import FormInputNumber from "../../components/FormInputs/FormInputNumber";
+import { Editor } from "@tinymce/tinymce-react";
 
 export default function HostingProject() {
   if (!isUserLoggedIn()) {
@@ -75,6 +76,12 @@ export default function HostingProject() {
   const [isLoading, setIsLoading] = useState(false);
   const [previouslyViewedPageNumber, setPreviouslyViewedPageNumber] =
     useState(1);
+  const editorRef = useRef(null);
+  const log = () => {
+    if (editorRef.current) {
+      console.log(editorRef.current.getContent());
+    }
+  };
   const [errors, setErrors] = useState({
     hostName: "",
     profilePicture: "",
@@ -706,19 +713,6 @@ export default function HostingProject() {
                 className="mb-4"
               />
 
-              <FormInputTextarea
-                label="Project Description"
-                id="projectDescription"
-                name="projectDescription"
-                required
-                rows={5}
-                placeholder="Enter your Project Description"
-                value={projectDescription}
-                setValue={setProjectDescription}
-                helperText={errors.projectDescription}
-                className="mb-4"
-              />
-
               <FormInputFileUpload
                 label="Project Poster"
                 id="projectPoster"
@@ -732,6 +726,52 @@ export default function HostingProject() {
                 helperText={errors.projectPoster}
                 className="mb-4"
               />
+
+              <h2>Peroject Description</h2>
+
+              <div className="mb-4">
+                <Editor
+                  apiKey={EDITOR_API_KEY}
+                  value={projectDescription}
+                  onEditorChange={(content) => {
+                    setProjectDescription(content);
+                  }}
+                  onInit={(_evt, editor) => (editorRef.current = editor)}
+                  initialValue=""
+                  init={{
+                    height: 500,
+                    menubar: false,
+                    plugins: [
+                      "advlist",
+                      "autolink",
+                      "lists",
+                      "link",
+                      "image",
+                      "charmap",
+                      "preview",
+                      "anchor",
+                      "searchreplace",
+                      "visualblocks",
+                      "code",
+                      "fullscreen",
+                      "insertdatetime",
+                      "media",
+                      "table",
+                      "code",
+                      "help",
+                      "wordcount",
+                    ],
+                    toolbar:
+                      "undo redo | blocks | " +
+                      "bold italic forecolor | alignleft aligncenter " +
+                      "alignright alignjustify | bullist numlist outdent indent | " +
+                      "removeformat | help",
+                    content_style:
+                      "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
+                  }}
+                />
+                {/* <button onClick={log}>Log editor content</button> */}
+              </div>
 
               <h2>Pay Details</h2>
 
