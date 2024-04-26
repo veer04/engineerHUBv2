@@ -496,7 +496,7 @@ const Register = () => {
             style={{
               color: "#0a3f51",
               padding: "0px 0px 8px 0px",
-              letterSpacing: "-2px",
+              letterSpacing: "-1px",
               textAlign: "center",
               width: "100%",
               lineHeight: "1.2",
