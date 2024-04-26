@@ -96,12 +96,12 @@ export default function ProfilePopUp() {
     {
       label: "Events",
       icon: <MdEmojiEvents />,
-      link: "/campus/intra-college",
+      link: "/campus",
     },
     {
       label: "Workshops",
       icon: <MdCastForEducation />,
-      link: "/campus/workshop",
+      link: "/campus",
     },
   ];
   const companyMenuItems = [
@@ -118,7 +118,7 @@ export default function ProfilePopUp() {
     {
       label: "Create Hackathons",
       icon: <AiOutlineFile />,
-      link: "/host/event",
+      link: "/host/hackathon",
     },
     {
       label: "Create Projects",
@@ -131,7 +131,7 @@ export default function ProfilePopUp() {
     {
       label: "Upload",
       icon: <RiSuitcase2Line />,
-      link: "/under-maintenance",
+      link: "/host",
     },
     {
       label: "Get Sponsor",
@@ -141,12 +141,12 @@ export default function ProfilePopUp() {
     {
       label: "Advertise your Club",
       icon: <AiOutlineFile />,
-      link: "/under-maintenance",
+      link: "/get-featured",
     },
     {
       label: "Create Projects",
       icon: <AiOutlineCalendar />,
-      link: "/under-maintenance",
+      link: "/host/project",
     },
   ];
 
