@@ -4,7 +4,7 @@ import "./BlogHosting.css";
 import axios from "axios";
 import FormData from "form-data";
 import useNavbar from "../../hooks/use-navbar";
-import { API_URL } from "../../services/APIUtils";
+import { API_URL, EDITOR_API_KEY } from "../../services/APIUtils";
 import { getDomains } from "../../services/APIConfig";
 import { getAccessToken } from "../../features/getCookieValues";
 import { useNavigate } from "react-router-dom";
@@ -14,6 +14,7 @@ import { getUserEmail } from "../../features/User/UserDetails";
 import { RxCross2 } from "react-icons/rx";
 import { BsUpload } from "react-icons/bs";
 import Page404 from "../Maintenance/Page404";
+import { Editor } from "@tinymce/tinymce-react";
 
 const JoditBlogEditor = ({ placeholder, setTextContent }) => {
   const editor = useRef(null);
@@ -90,6 +91,12 @@ const BlogHosting = () => {
   });
   const [open, setOpen] = useState(false);
   const [blogContent, setBlogContent] = useState("");
+  const editorRef = useRef(null);
+  const log = () => {
+    if (editorRef.current) {
+      console.log(editorRef.current.getContent());
+    }
+  };
 
   useEffect(() => {
     document.title = "Blog Posting | engineerHUB";
@@ -369,10 +376,55 @@ const BlogHosting = () => {
           Post<span className="required">*</span>
         </label>
         <label className="error-message">{errors.post}</label>
-        <JoditBlogEditor
+
+        <div className="mb-4">
+          <Editor
+            apiKey={EDITOR_API_KEY}
+            value={blogContent}
+            onEditorChange={(content) => {
+              setBlogContent(content);
+            }}
+            onInit={(_evt, editor) => (editorRef.current = editor)}
+            initialValue="Hi Kunwar sir😎"
+            init={{
+              height: 500,
+              menubar: true,
+              plugins: [
+                "advlist",
+                "autolink",
+                "lists",
+                "link",
+                "image",
+                "charmap",
+                "preview",
+                "anchor",
+                "searchreplace",
+                "visualblocks",
+                "code",
+                "fullscreen",
+                "insertdatetime",
+                "media",
+                "table",
+                "code",
+                "help",
+                "wordcount",
+              ],
+              toolbar:
+                "undo redo | blocks " +
+                "bold italic forecolor | alignleft aligncenter " +
+                "alignright alignjustify | bullist numlist outdent indent | " +
+                "removeformat | help",
+              content_style:
+                "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
+            }}
+          />
+          {/* <button onClick={log}>Log editor content</button> */}
+        </div>
+
+        {/* <JoditBlogEditor
           placeholder={"Enter your blog here"}
           setTextContent={setBlogContent}
-        />
+        /> */}
         <div className="button-container mt-4">
           <button
             // it should not run on any keypress
