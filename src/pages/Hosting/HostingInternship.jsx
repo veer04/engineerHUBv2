@@ -857,7 +857,7 @@ export default function HostingInternship() {
                       "wordcount",
                     ],
                     toolbar:
-                      "undo redo | blocks | " +
+                      "undo redo" +
                       "bold italic forecolor | alignleft aligncenter " +
                       "alignright alignjustify | bullist numlist outdent indent | " +
                       "removeformat | help",

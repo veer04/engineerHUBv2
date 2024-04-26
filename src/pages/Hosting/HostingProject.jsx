@@ -45,7 +45,7 @@ export default function HostingProject() {
   } = useGlobalSnackbar();
   const bucket = `${Bucket_URL}frontend/hosting/`;
   const totalPages = 3;
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(2);
   const [hostName, setHostName] = useState("");
   const [profilePicture, setProfilePicture] = useState("");
   const [profileLink, setProfileLink] = useState("");
@@ -164,7 +164,7 @@ export default function HostingProject() {
   ];
 
   useEffect(() => {
-    window.scrollTo(0, 0);
+    // window.scrollTo(0, 0);
     setSelectedPageNavbar("host");
   }, []);
 
@@ -762,7 +762,7 @@ export default function HostingProject() {
                       "wordcount",
                     ],
                     toolbar:
-                      "undo redo | blocks | " +
+                      "undo redo" +
                       "bold italic forecolor | alignleft aligncenter " +
                       "alignright alignjustify | bullist numlist outdent indent | " +
                       "removeformat | help",
