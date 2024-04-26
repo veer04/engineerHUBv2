@@ -497,7 +497,7 @@ const Register = () => {
               color: "#0a3f51",
               padding: "0px 0px 8px 0px",
               letterSpacing: "-2px",
-              textAlign: "start",
+              textAlign: "center",
               width: "100%",
               lineHeight: "1.2",
               fontSize: "36px",
@@ -505,7 +505,7 @@ const Register = () => {
           >
             Hey, Welcome back
           </div>
-          <div
+          {/* <div
             className="my-form-head"
             style={{
               color: "#0a3f51",
@@ -518,7 +518,7 @@ const Register = () => {
             }}
           >
             Community.Campus.Company
-          </div>
+          </div> */}
         </div>
 
         <form className="my-form custom-form-input" onSubmit={handleSubmit}>
