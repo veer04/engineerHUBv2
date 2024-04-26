@@ -22,8 +22,8 @@ export default function NewFooter() {
       location.pathname.includes("host/") ||
       location.pathname.includes("login") ||
       location.pathname.includes("signup") ||
-      location.pathname.includes("clubSignup") ||
-      location.pathname.includes("organizationSignup") ||
+      location.pathname.includes("club-signup") ||
+      location.pathname.includes("organization-signup") ||
       location.pathname.includes("login") ||
       location.pathname.includes("forgot-password") ||
       location.pathname.includes("change-password") ||

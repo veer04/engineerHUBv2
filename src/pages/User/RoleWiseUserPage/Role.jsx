@@ -37,11 +37,11 @@ export default function Role() {
   };
   const clubNavigation = () => {
     handleCardClick("Club");
-    navigate("/clubSignup");
+    navigate("/club-signup");
   };
   const organizationNavigation = () => {
     handleCardClick("Organization");
-    navigate("/organizationSignup");
+    navigate("/organization-signup");
   };
 
   const roles = [
