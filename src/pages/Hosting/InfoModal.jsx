@@ -41,7 +41,7 @@ export default function InfoModal({ setState }) {
       id="info-modal-container"
     >
       <>
-        <div className="info-container">
+        <div id="info-container" >
           <div
             onClick={() => {
               setState(false);
