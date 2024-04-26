@@ -1,11 +1,8 @@
 import React, { useState, useEffect, lazy, Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
-// import MentorChat from "./components/1-1Mentorship/Mentorchat";
-// import RegistrationForm from "./components/Registration/Registration";
 import OTP from "./pages/User/OtpVerification/Otpverification";
 import MobileNavbar from "./components/MobileNavbar/MobileNavbar";
-// import HostEvent from "./pages/Hosting/EventRegistration";
 import NewNavbar from "./components/Navbar/NewNavbar";
 import Events from "./pages/Company/Events/events";
 import Jobs from "./pages/Company/Jobs/jobs";
@@ -13,38 +10,30 @@ import JobDetails from "./pages/Company/Jobs/JobDetails";
 import Success from "./pages/HomePage/Success";
 import Internship from "./pages/Company/Internship/Internship";
 import InternshipDetails from "./pages/Company/Internship/InternshipDetails";
-import HackathonDetails from "./pages/Company/Events/EventsChoices/HackathonDetails";
 import Projects from "./pages/Company/Projects/Projects";
-import ProjectDetail from "./pages/Company/Projects/ProjectDetail";
 import ComingSoon from "./pages/Maintenance/ComingSoon";
 import ClubSignup from "./pages/User/Signup/ClubSignup";
-// import MentorSignup from "./pages/User/Signup/MentorSignup";
 import OrganizationSignup from "./pages/User/Signup/OrganizationSignup";
 import LoadingPage from "./components/Loader/LoadingPage";
 import Role from "./pages/User/RoleWiseUserPage/Role";
 import PostModal from "./components/PostModal/PostModal";
-// import StudentSignup from "./pages/User/Signup/StudentSignup";
 import ForgotPassword from "./pages/User/ForgotPassword/ForgotPassword";
-// import JobRegistration from "./pages/Hosting/JobRegistration";
 import Page404 from "./pages/Maintenance/Page404";
 import SignupUser from "./pages/User/Signup/SignupUser";
 import jwt_decode from "jwt-decode";
 const CommunityPage = lazy(() => import("./pages/Community/CommunityPage"));
 const NewCampusPage = lazy(() => import("./pages/Campus/NewCampusPage"));
 const Company = lazy(() => import("./pages/Company/Company"));
-// const Hosting = lazy(() => import("./pages/Hosting/Hosting.jsx"));
 const Login = lazy(() => import("./pages/User/Login/Login"));
 const CampusSearchPage = lazy(() => import("./pages/Campus/CampusSearchPage"));
 const CampusDetails = lazy(() => import("./pages/Campus/CampusDetails"));
 const TrendingEvents = lazy(() => import("./pages/Campus/TrendingEvents"));
 import ChangePassword from "./pages/User/ForgotPassword/ChangePassword";
 import getCookie, { getAccessToken } from "./features/getCookieValues";
-// import ProjectHosting from "./pages/Hosting/ProjectHosting";
 import ProfilePopUp from "./components/ProfileSection/ProfilePopUp/ProfilePopUp";
 import CompanyDashboard from "./pages/Profile/CompanyDashboard/CompanyDashboard";
 import CompanyEditProfile from "./pages/Profile/CompanyDashboard/CompanyEditProfile";
 import CoverImageModal from "./components/Dashboard/CoverImageModal";
-// import ClubDashboard from "./pages/Profile/ClubDashboard/ClubDashboard";
 import ClubEditProfile from "./pages/Profile/ClubDashboard/ClubEditProfile";
 import AddPostModal from "./components/Dashboard/AddPostModal";
 import AddMemberModal from "./components/Dashboard/AddMemberModal";
@@ -53,8 +42,6 @@ import GlobalSnackbar from "./components/GlobalSnackbar/GlobalSnackbar";
 import UserEditProfile from "./pages/Profile/UserDashboard/UserEditProfile";
 import TrendingColleges from "./pages/Campus/TrendingColleges";
 import TrendingClubCard from "./components/TrendingClubCard/TrendingClubCard";
-// import TrendingListAlumni from "./components/TrendingList/TrendingListAlumni";
-// import AlumniList from "./components/TrendingList/AlumniList";
 import TrendingAlumni from "../src/components/TrendingAlumni/TrendingAlumni";
 import CampusDetailsOld from "./pages/Campus/ParticularCampus/CampusDetails.jsx";
 import TrendingWorkshops from "./pages/Campus/TrendingWorkshops.jsx";
@@ -63,9 +50,13 @@ import EventWindow from "./pages/Community/Events/EventWindow.jsx";
 import BlogWindow from "./pages/Community/Blogs/BlogWindow.jsx";
 import NewFooter from "./components/Footer/NewFooter.jsx";
 import GetFeaturedForm from "./pages/NewHomepage/GetFeaturedForm.jsx";
-import HostingProject from "./pages/Hosting/HostingProject.jsx";
-import HostingEventHiring from "./pages/Hosting/HostingEventHiring.jsx";
-import PostModalAllRole from "./components/PostModal/PostModalAllRole.jsx";
+const PostModalAllRole = lazy(() =>
+  import("./components/PostModal/PostModalAllRole.jsx")
+);
+const HostingEventHiring = lazy(() =>
+  import("./pages/Hosting/HostingEventHiring.jsx")
+);
+const HostingProject = lazy(() => import("./pages/Hosting/HostingProject.jsx"));
 const HackathonDetailsNew = lazy(() =>
   import("./pages/Company/Events/EventsChoices/HackathonDetailsNew.jsx")
 );
