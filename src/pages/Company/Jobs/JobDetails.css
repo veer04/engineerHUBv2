@@ -146,6 +146,22 @@
     width: 348px;
     min-width: 250px;
   }
+  .JobDetail {
+    padding: 0 !important;
+  }
+  .CompanyJobDetails {
+    padding: 0px 8px !important;
+  }
+  .CompanyJobDetails .heads h1 {
+    font-size: 16px !important;
+  }
+  .CompanyJobDetails > h2 {
+    margin-top: 0.5rem;
+    padding-left: 0.5rem;
+  }
+  .Jobs {
+    margin-top: 1rem !important;
+  }
 }
 
 @media screen and (max-width: 900px) {
