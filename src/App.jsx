@@ -1,11 +1,8 @@
 import React, { useState, useEffect, lazy, Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
-import MentorChat from "./components/1-1Mentorship/Mentorchat";
-import RegistrationForm from "./components/Registration/Registration";
 import OTP from "./pages/User/OtpVerification/Otpverification";
 import MobileNavbar from "./components/MobileNavbar/MobileNavbar";
-import HostEvent from "./pages/Hosting/EventRegistration";
 import NewNavbar from "./components/Navbar/NewNavbar";
 import Events from "./pages/Company/Events/events";
 import Jobs from "./pages/Company/Jobs/jobs";
@@ -13,38 +10,30 @@ import JobDetails from "./pages/Company/Jobs/JobDetails";
 import Success from "./pages/HomePage/Success";
 import Internship from "./pages/Company/Internship/Internship";
 import InternshipDetails from "./pages/Company/Internship/InternshipDetails";
-import HackathonDetails from "./pages/Company/Events/EventsChoices/HackathonDetails";
 import Projects from "./pages/Company/Projects/Projects";
-import ProjectDetail from "./pages/Company/Projects/ProjectDetail";
 import ComingSoon from "./pages/Maintenance/ComingSoon";
 import ClubSignup from "./pages/User/Signup/ClubSignup";
-import MentorSignup from "./pages/User/Signup/MentorSignup";
 import OrganizationSignup from "./pages/User/Signup/OrganizationSignup";
 import LoadingPage from "./components/Loader/LoadingPage";
 import Role from "./pages/User/RoleWiseUserPage/Role";
 import PostModal from "./components/PostModal/PostModal";
-import StudentSignup from "./pages/User/Signup/StudentSignup";
 import ForgotPassword from "./pages/User/ForgotPassword/ForgotPassword";
-import JobRegistration from "./pages/Hosting/JobRegistration";
 import Page404 from "./pages/Maintenance/Page404";
 import SignupUser from "./pages/User/Signup/SignupUser";
 import jwt_decode from "jwt-decode";
 const CommunityPage = lazy(() => import("./pages/Community/CommunityPage"));
 const NewCampusPage = lazy(() => import("./pages/Campus/NewCampusPage"));
 const Company = lazy(() => import("./pages/Company/Company"));
-const Hosting = lazy(() => import("./pages/Hosting/Hosting.jsx"));
 const Login = lazy(() => import("./pages/User/Login/Login"));
 const CampusSearchPage = lazy(() => import("./pages/Campus/CampusSearchPage"));
 const CampusDetails = lazy(() => import("./pages/Campus/CampusDetails"));
 const TrendingEvents = lazy(() => import("./pages/Campus/TrendingEvents"));
 import ChangePassword from "./pages/User/ForgotPassword/ChangePassword";
 import getCookie, { getAccessToken } from "./features/getCookieValues";
-import ProjectHosting from "./pages/Hosting/ProjectHosting";
 import ProfilePopUp from "./components/ProfileSection/ProfilePopUp/ProfilePopUp";
 import CompanyDashboard from "./pages/Profile/CompanyDashboard/CompanyDashboard";
 import CompanyEditProfile from "./pages/Profile/CompanyDashboard/CompanyEditProfile";
 import CoverImageModal from "./components/Dashboard/CoverImageModal";
-// import ClubDashboard from "./pages/Profile/ClubDashboard/ClubDashboard";
 import ClubEditProfile from "./pages/Profile/ClubDashboard/ClubEditProfile";
 import AddPostModal from "./components/Dashboard/AddPostModal";
 import AddMemberModal from "./components/Dashboard/AddMemberModal";
@@ -53,8 +42,6 @@ import GlobalSnackbar from "./components/GlobalSnackbar/GlobalSnackbar";
 import UserEditProfile from "./pages/Profile/UserDashboard/UserEditProfile";
 import TrendingColleges from "./pages/Campus/TrendingColleges";
 import TrendingClubCard from "./components/TrendingClubCard/TrendingClubCard";
-// import TrendingListAlumni from "./components/TrendingList/TrendingListAlumni";
-// import AlumniList from "./components/TrendingList/AlumniList";
 import TrendingAlumni from "../src/components/TrendingAlumni/TrendingAlumni";
 import CampusDetailsOld from "./pages/Campus/ParticularCampus/CampusDetails.jsx";
 import TrendingWorkshops from "./pages/Campus/TrendingWorkshops.jsx";
@@ -63,6 +50,34 @@ import EventWindow from "./pages/Community/Events/EventWindow.jsx";
 import BlogWindow from "./pages/Community/Blogs/BlogWindow.jsx";
 import NewFooter from "./components/Footer/NewFooter.jsx";
 import GetFeaturedForm from "./pages/NewHomepage/GetFeaturedForm.jsx";
+const PostModalAllRole = lazy(() =>
+  import("./components/PostModal/PostModalAllRole.jsx")
+);
+const HostingEventHiring = lazy(() =>
+  import("./pages/Hosting/HostingEventHiring.jsx")
+);
+const HostingProject = lazy(() => import("./pages/Hosting/HostingProject.jsx"));
+const HackathonDetailsNew = lazy(() =>
+  import("./pages/Company/Events/EventsChoices/HackathonDetailsNew.jsx")
+);
+const ProjectDetailNew = lazy(() =>
+  import("./pages/Company/Projects/ProjectDetailNew.jsx")
+);
+const HostingPage = lazy(() => import("./pages/Hosting/HostingPage.jsx"));
+const HostingInternship = lazy(() =>
+  import("./pages/Hosting/HostingInternship.jsx")
+);
+const HostingJob = lazy(() => import("./pages/Hosting/HostingJob.jsx"));
+const HostingCulturalEvent = lazy(() =>
+  import("./pages/Hosting/HostingCulturalEvent.jsx")
+);
+const HostingTechnicalEvent = lazy(() =>
+  import("./pages/Hosting/HostingTechnicalEvent.jsx")
+);
+const HostingHackathon = lazy(() =>
+  import("./pages/Hosting/HostingHackathon.jsx")
+);
+const HostingWebinar = lazy(() => import("./pages/Hosting/HostingWebinar.jsx"));
 const NewHomePage = lazy(() => import("./pages/NewHomepage/NewHomePage.jsx"));
 const ProjectSubmission = lazy(() =>
   import("./pages/Community/Project/ProjectSubmission.jsx")
@@ -118,17 +133,18 @@ function App() {
       <ProfilePopUp />
       <Suspense fallback={<LoadingPage />}>
         <Routes>
-          {/* <Route index element={<HomePage path="homepage" />} /> */}
           <Route index element={<NewHomePage path="homepage" />} />
           <Route path="/get-featured" element={<GetFeaturedForm />} />
           <Route path="/success" element={<Success></Success>}></Route>
-          {/* <Route path="/register" element={<RegistrationForm />} /> */}
           <Route path="/select-role" element={<Role />} />
           <Route path="/profile">
             <Route
               path="user/:userId"
               element={<UserDashboard path="profile" />}
-            ></Route>
+            >
+              <Route path="add-post" element={<AddPostModal />} />
+              <Route path="posts/:postId" element={<PostModalAllRole />} />
+            </Route>
             <Route
               path="user/:userId/edit-profile"
               element={<UserEditProfile />}
@@ -151,17 +167,17 @@ function App() {
               element={<CompanyDashboard path="profile" />}
             >
               <Route path="edit-cover-image" element={<CoverImageModal />} />
+              <Route path="add-post" element={<AddPostModal />} />
+              <Route path="posts/:postId" element={<PostModalAllRole />} />
             </Route>
             <Route
               path="organization/:organizationId/edit-profile"
               element={<CompanyEditProfile />}
             />
           </Route>
-          {/* <Route path="/student-signup" element={<StudentSignup />} /> */}
-          <Route path="/User-signup" element={<SignupUser />} />
-          <Route path="/clubSignup" element={<ClubSignup />} />
-          {/* <Route path="/mentorSignup" element={<MentorSignup />} /> */}
-          <Route path="/organizationSignup" element={<OrganizationSignup />} />
+          <Route path="/signup" element={<SignupUser />} />
+          <Route path="/club-signup" element={<ClubSignup />} />
+          <Route path="/organization-signup" element={<OrganizationSignup />} />
           <Route path="/login" element={<Login />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/change-password" element={<ChangePassword />} />
@@ -202,7 +218,6 @@ function App() {
               <Route path=":id" element={<NewChatPage />} />
             </Route>
           </Route>
-          {/* <Route path="/mentorChat" element={<MentorChat />} /> */}
           <Route path="/trending">
             <Route path="campuses/:collegeId">
               <Route index element={<TrendingColleges />} />
@@ -224,21 +239,15 @@ function App() {
           <Route path="/mentorship" element={<ComingSoon />} />
 
           <Route path="host">
-            <Route index element={<Hosting />} />
-            {eventHostRoute === true && sendLogin === true ? (
-              <Route path="event" element={<HostEvent />} />
-            ) : (
-              <Route path="event" element={<Login />} />
-            )}
-            {jobHostRoute === true && sendLogin === true ? (
-              <>
-                <Route path="project" element={<ProjectHosting />} />
-                <Route path="job" element={<JobRegistration />} />
-                <Route path="internship" element={<JobRegistration />} />
-              </>
-            ) : (
-              <Route path="job" element={<Login />} />
-            )}
+            <Route index element={<HostingPage />} />
+            <Route path="job" element={<HostingJob />} />
+            <Route path="internship" element={<HostingInternship />} />
+            <Route path="project" element={<HostingProject />} />
+            <Route path="cultural-event" element={<HostingCulturalEvent />} />
+            <Route path="technical-event" element={<HostingTechnicalEvent />} />
+            <Route path="hackathon" element={<HostingHackathon />} />
+            <Route path="webinar" element={<HostingWebinar />} />
+            <Route path="event-hiring" element={<HostingEventHiring />} />
             <Route path="blog" element={<BlogHosting />} />
           </Route>
           <Route path="/company">
@@ -253,11 +262,11 @@ function App() {
             </Route>
             <Route path="projects">
               <Route path="" element={<Projects />} />
-              <Route path=":projectId" element={<ProjectDetail />} />
+              <Route path=":projectId" element={<ProjectDetailNew />} />
             </Route>
             <Route path="events">
               <Route path="" element={<Events />} />
-              <Route path=":hackId" element={<HackathonDetails />} />
+              <Route path=":hackId" element={<HackathonDetailsNew />} />
             </Route>
           </Route>
           <Route path="*" element={<Page404 />} />

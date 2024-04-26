@@ -1,0 +1,231 @@
+.hosting-page {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: var(--vertical-padding) var(--section-padding);
+  color: var(--primary-color-dark-green);
+}
+
+.hosting-page .header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+  margin-bottom: 3rem;
+  margin-top: 3rem;
+  gap: 1.5rem;
+}
+.hosting-page .header .left {
+  min-width: 25.5rem;
+  max-width: 25.5rem;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.hosting-page .header .left h1 {
+  font-weight: 500;
+  font-size: 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 0;
+}
+.hosting-page .animation {
+  font-weight: 600;
+  height: 45px;
+  overflow: hidden;
+  margin-left: 0.5rem;
+  width: fit-content;
+}
+
+@media screen and (max-width: 432px) {
+  .hosting-page .animation {
+    position: relative;
+    left: -0.5rem;
+    /* margin-left: 0; */
+  }
+}
+
+.hosting-page .animation > div > div {
+  /* padding: 0.25rem 0.75rem; */
+  width: fit-content;
+  height: 2.81rem;
+  margin-bottom: 2.81rem;
+  display: inline-block;
+}
+
+.hosting-page .animation div:first-child {
+  animation: text-animation 8s infinite;
+}
+
+/* .first div {
+  background-color: #20a7d8;
+}
+.second div {
+  background-color: #cd921e;
+}
+.third div {
+  background-color: #c10528;
+} */
+
+@keyframes text-animation {
+  0% {
+    margin-top: 0;
+  }
+  10% {
+    margin-top: 0;
+  }
+  20% {
+    margin-top: -5.62rem;
+  }
+  30% {
+    margin-top: -5.62rem;
+  }
+  40% {
+    margin-top: -11.24rem;
+  }
+  60% {
+    margin-top: -11.24rem;
+  }
+  70% {
+    margin-top: -5.62rem;
+  }
+  80% {
+    margin-top: -5.62rem;
+  }
+  90% {
+    margin-top: 0;
+  }
+  100% {
+    margin-top: 0;
+  }
+}
+.hosting-page .header .left h2 {
+  font-weight: 400;
+  font-size: 1rem;
+  margin-bottom: 1.25rem;
+}
+.hosting-page .header .left .button-box {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.hosting-page .header .left button {
+  background-color: var(--primary-color-dark-green);
+  color: white;
+  padding: 0.8rem 0;
+  border-radius: 40px;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  border: none;
+  width: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.hosting-page .header .left button:hover {
+  background-color: var(--primary-color-green);
+}
+.hosting-page .header .left button:active {
+  background-color: var(--primary-color-yellow);
+  color: black;
+}
+.hosting-page .header .left .feed {
+  background-color: transparent;
+  border: 1px solid #002b36;
+  color: #002b36;
+}
+.hosting-page .header .left .feed:hover {
+  background-color: transparent;
+  text-decoration: underline;
+}
+
+.hosting-page .header video {
+  border-radius: 10px;
+  width: 100%;
+  display: flex;
+  aspect-ratio: 2/1;
+  max-width: 37.5rem;
+}
+.hosting-page .tiles-container {
+  background-color: white;
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+  border-radius: 10px;
+}
+.hosting-page .tiles-container h3 {
+  font-weight: 500;
+  font-size: 1.25rem;
+  margin-bottom: 1.5rem;
+  color: black;
+}
+.hosting-page .tiles-container .tiles {
+  display: flex;
+  flex-direction: row;
+  gap: 1.5rem;
+  overflow: auto;
+}
+.hosting-page .tiles-container .tiles .tile {
+  display: flex;
+  padding: 0.75rem;
+  flex-direction: column;
+  min-width: 14rem;
+  max-width: 14rem;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.hosting-page .tiles-container .tiles .tile:hover {
+  background-color: #f5f5f5;
+}
+.hosting-page .tiles-container .tiles .tile img {
+  width: 100%;
+  aspect-ratio: 2/1;
+  border-radius: 5px;
+  object-fit: cover;
+  margin-bottom: 0.75rem;
+}
+.hosting-page .tiles-container .tiles .tile .heading {
+  font-weight: 600;
+  color: #002b36;
+}
+.hosting-page .tiles-container .tiles .tile .sub-heading {
+  font-weight: 400;
+  color: #33555e;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  margin-bottom: 0.35rem;
+}
+.hosting-page .tiles-container .tiles .tile .description {
+  font-size: 15px;
+  font-weight: 400;
+  color: #002b36;
+}
+
+@media screen and (max-width: 1233px) {
+  .hosting-page .header video {
+    max-width: 22.5rem;
+  }
+}
+
+@media screen and (max-width: 858px) {
+  .hosting-page .header {
+    flex-direction: column;
+    align-items: flex-start;
+    margin-top: 1.25rem;
+  }
+}
+
+@media screen and (max-width: 568px) {
+  .hosting-page .header .left {
+    min-width: 0;
+    max-width: none;
+  }
+
+  .hosting-page .header video {
+    max-width: none;
+  }
+}

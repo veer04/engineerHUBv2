@@ -1,0 +1,274 @@
+import { useEffect, useState } from "react";
+import "../../../Campus/TrendingEvents.css";
+import CampusSearchBox from "../../../../components/CampusSearchBox/CampusSearchBox";
+import { useNavigate, useParams } from "react-router-dom";
+import {
+  getAllCampuses,
+  getEventByMode,
+  getEventByTypeEventHiring,
+  getFeaturedEvents,
+  getParticularEventDetails,
+} from "../../../../services/APIConfig";
+import { FaArrowTrendUp } from "react-icons/fa6";
+import { defaultEventPoster } from "../../../../assets/defaultPoster";
+import Page404 from "../../../Maintenance/Page404";
+import LoadingPage from "../../../../components/Loader/LoadingPage";
+import {
+  AiOutlineCalendar,
+  AiOutlineClockCircle,
+  AiOutlineMail,
+  AiOutlinePhone,
+} from "react-icons/ai";
+import NewEventCard from "../../../../components/NewEventCard/NewEventCard";
+
+export default function HackathonDetailsNew() {
+  const { hackId } = useParams();
+  const navigate = useNavigate();
+  const [width, setWidth] = useState(window.innerWidth);
+  const [trendingList, setTrendingList] = useState([]);
+  const [eventData, setEventData] = useState({});
+  const [event, setEvent] = useState({});
+  const [allCampuses, setAllCampuses] = useState([]);
+  const [output, setOutput] = useState("");
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    // getEventByMode(setTrendingList, "Workshop");
+    getEventByTypeEventHiring(setTrendingList);
+    getParticularEventDetails(setEventData, hackId);
+    getAllCampuses(setAllCampuses);
+
+    const handleResize = () => setWidth(window.innerWidth);
+    window.addEventListener("resize", handleResize);
+    return () => {
+      setEventData({});
+      setEvent({});
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [hackId]);
+
+  // useEffect(() => {
+  //   console.log(trendingList);
+  // }, [trendingList]);
+
+  useEffect(() => {
+    if (Object.keys(event).length !== 0) {
+      document.title = `${event?.eventName} | Event | engineerHUB`;
+      setTimeout(() => {
+        document.getElementById("column-1").style.height = `${
+          document.getElementById("column-2").offsetHeight
+        }px`;
+      }, 250);
+    }
+  }, [event, trendingList, width]);
+
+  useEffect(() => {
+    if (output) {
+      navigate(`/campus/search/${output}`);
+    }
+  }, [output]);
+
+  useEffect(() => {
+    if (Object.keys(eventData).length !== 0) {
+      setEvent(eventData?.data?.data);
+    }
+  }, [eventData]);
+
+  // code for date element in card
+  const date = new Date(event?.eventEndTime);
+  const day = date.toLocaleString("en-IN", { weekday: "long" });
+  let getDate = date
+    .toLocaleTimeString("en-IN", {
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+    })
+    .replace(/,/g, " /");
+  getDate = getDate.replace("am", "AM");
+  getDate = getDate.replace("pm", "PM");
+  const eventDate = getDate.split("/")[0];
+  const time = getDate.split("/")[1];
+
+  function timeInText(time) {
+    const eventTime = new Date(time);
+    return eventTime.toLocaleTimeString("default", {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+      hour: "numeric",
+      minute: "numeric",
+      hour12: true,
+    });
+  }
+
+  const renderTrendingCollege = (
+    <main className="trending-events">
+      <div className="search-bar__container">
+        <div>
+          <CampusSearchBox
+            data={allCampuses}
+            placeholder="Search any Campus, Clubs or Alumni"
+            searchParams={["collegeName"]}
+            listLength={4}
+            setOutput={setOutput}
+          />
+        </div>
+      </div>
+      <div className="content-container">
+        <aside id="column-1" className="column column-1">
+          {/* <div className="list-heading">
+            <div>
+              <FaArrowTrendUp /> Trending Events
+            </div>
+          </div> */}
+          <div className="cards">
+            {trendingList?.map((item) => (
+              <NewEventCard data={item} key={item?._id} eventHiring={true} />
+            ))}
+          </div>
+        </aside>
+        <div id="column-2" className="column column-2">
+          <section className="header">
+            <div className="poster">
+              <img
+                onError={(e) => {
+                  e.target.onerror = null;
+                  e.target.src = defaultEventPoster;
+                }}
+                src={event?.eventPoster}
+                alt="poster"
+              />
+            </div>
+            <div className="details">
+              <span className="heading">{event?.eventName}</span>
+              <span className="name">
+                Organized by{" "}
+                <strong>
+                  {`${
+                    !!event?.creatorId?.name
+                      ? event?.creatorId?.name
+                      : `${
+                          event?.creatorId?.firstName
+                            ? `${event?.creatorId?.firstName} ${
+                                event?.creatorId?.lastName
+                                  ? event?.creatorId?.lastName
+                                  : ""
+                              }`
+                            : "engineerHUB"
+                        }`
+                  }`}
+                </strong>
+              </span>
+              <div className="d-flex gap-2 flex-wrap">
+                {event?.domainName && (
+                  <div className="type">#{event?.domainName}</div>
+                )}
+                {event?.eventType && (
+                  <div className="type">
+                    #
+                    {event?.eventType === "eventHiring"
+                      ? "Event Hiring"
+                      : event?.eventType}
+                  </div>
+                )}
+                {(event?.mode === true || event?.mode === false) && (
+                  <div className="type">
+                    #{event?.mode ? "Online" : "Offline"}
+                  </div>
+                )}
+                {event?.registrationType && (
+                  <div className="type">#{event?.registrationType}</div>
+                )}
+              </div>
+            </div>
+          </section>
+          <section className="registration">
+            <div>
+              <div className="detail">
+                <div className="logo">
+                  <AiOutlineCalendar />
+                </div>
+                <div className="headings">
+                  <span>Register by:</span>
+                  <span>{timeInText(event?.eventRegistrationEndTime)}</span>
+                </div>
+              </div>
+              <button
+                onClick={() => (window.location.href = event?.applyLink)}
+                className="register-btn"
+              >
+                Visit Now
+              </button>
+            </div>
+          </section>
+          <section className="content">
+            <div className="data">
+              <div className="detail">
+                <div className="logo">
+                  <AiOutlineCalendar />
+                </div>
+                <div className="headings">
+                  <span>Event Start Date:</span>
+                  <span>{timeInText(event?.eventStartTime)}</span>
+                </div>
+              </div>
+              <div className="detail">
+                <div className="logo">
+                  <AiOutlineCalendar />
+                </div>
+                <div className="headings">
+                  <span>Event End Date:</span>
+                  <span>{timeInText(event?.eventEndTime)}</span>
+                </div>
+              </div>
+            </div>
+            <div className="data">
+              <div className="detail">
+                <div className="logo">
+                  <AiOutlinePhone style={{transform: "rotate(90deg)"}} />
+                </div>
+                <div className="headings">
+                  <span>Phone Number:</span>
+                  <span>{event?.creatorId?.mobile || "Not Available"}</span>
+                </div>
+              </div>
+              <div className="detail">
+                <div className="logo">
+                  <AiOutlineMail />
+                </div>
+                <div className="headings">
+                  <span>Email:</span>
+                  <span>{event?.creatorId?.email || "Not Available"}</span>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section className="description">
+            <span className="heading">Event Details</span>
+            <span className="details">
+              {event?.description || "No description provided"}
+            </span>
+          </section>
+          {!!event?.policy && (
+            <section className="description">
+              <span className="heading">Policy</span>
+              <span className="details">{event?.policy}</span>
+            </section>
+          )}
+        </div>
+      </div>
+    </main>
+  );
+
+  return !!Object.keys(eventData).length ? (
+    eventData?.status >= 200 && eventData?.status <= 300 ? (
+      renderTrendingCollege
+    ) : (
+      <Page404 />
+    )
+  ) : (
+    <LoadingPage />
+  );
+}

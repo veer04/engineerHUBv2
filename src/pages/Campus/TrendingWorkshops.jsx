@@ -9,7 +9,7 @@ import {
   getParticularEventDetails,
 } from "../../services/APIConfig";
 import { FaArrowTrendUp } from "react-icons/fa6";
-import defaultPoster from "../../assets/defaultPoster";
+import defaultPoster, { defaultEventPoster } from "../../assets/defaultPoster";
 import Page404 from "../Maintenance/Page404";
 import LoadingPage from "../../components/Loader/LoadingPage";
 import {
@@ -19,6 +19,7 @@ import {
   AiOutlinePhone,
 } from "react-icons/ai";
 import NewEventCard from "../../components/NewEventCard/NewEventCard";
+import { BiPlayCircle } from "react-icons/bi";
 
 export default function TrendingWorkshops() {
   const { eventId } = useParams();
@@ -90,6 +91,18 @@ export default function TrendingWorkshops() {
   const eventDate = getDate.split("/")[0];
   const time = getDate.split("/")[1];
 
+  function timeInText(time) {
+    const eventTime = new Date(time);
+    return eventTime.toLocaleTimeString("default", {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+      hour: "numeric",
+      minute: "numeric",
+      hour12: true,
+    });
+  }
+
   const renderTrendingCollege = (
     <main className="trending-events">
       <div className="search-bar__container">
@@ -105,21 +118,28 @@ export default function TrendingWorkshops() {
       </div>
       <div className="content-container">
         <aside id="column-1" className="column column-1">
-          <div style={{ backgroundColor: "#F7D77F" }} className="list-heading">
+          <div className="list-heading">
             <div>
-              <FaArrowTrendUp /> Trending Workshops
+              <BiPlayCircle /> Workshops
             </div>
           </div>
           <div className="cards">
             {trendingList?.map((item) => (
-              <NewEventCard data={item} key={item?._id} workshop={true} />
+              <NewEventCard data={item} key={item?._id} />
             ))}
           </div>
         </aside>
         <div id="column-2" className="column column-2">
           <section className="header">
             <div className="poster">
-              <img src={event?.eventPoster} alt="poster" />
+              <img
+                onError={(e) => {
+                  e.target.onerror = null;
+                  e.target.src = defaultEventPoster;
+                }}
+                src={event?.eventPoster}
+                alt="poster"
+              />
             </div>
             <div className="details">
               <span className="heading">{event?.eventName}</span>
@@ -129,11 +149,39 @@ export default function TrendingWorkshops() {
                   {`${
                     !!event?.creatorId?.name
                       ? event?.creatorId?.name
-                      : `${event?.creatorId?.firstName} ${event?.creatorId?.lastName}`
-                  }` || "engineerHUB"}{" "}
+                      : `${
+                          event?.creatorId?.firstName
+                            ? `${event?.creatorId?.firstName} ${
+                                event?.creatorId?.lastName
+                                  ? event?.creatorId?.lastName
+                                  : ""
+                              }`
+                            : "engineerHUB"
+                        }`
+                  }`}
                 </strong>
               </span>
-              <div className="type">#{event?.eventType}</div>
+              <div className="d-flex gap-2 flex-wrap">
+                {event?.domainName && (
+                  <div className="type">#{event?.domainName}</div>
+                )}
+                {event?.eventType && (
+                  <div className="type">
+                    #
+                    {event?.eventType === "eventHiring"
+                      ? "Event Hiring"
+                      : event?.eventType}
+                  </div>
+                )}
+                {(event?.mode === true || event?.mode === false) && (
+                  <div className="type">
+                    #{event?.mode ? "Online" : "Offline"}
+                  </div>
+                )}
+                {event?.registrationType && (
+                  <div className="type">#{event?.registrationType}</div>
+                )}
+              </div>
             </div>
           </section>
           <section className="registration">
@@ -143,8 +191,8 @@ export default function TrendingWorkshops() {
                   <AiOutlineCalendar />
                 </div>
                 <div className="headings">
-                  <span>Event Date:</span>
-                  <span>{eventDate}</span>
+                  <span>Register by:</span>
+                  <span>{timeInText(event?.eventRegistrationEndTime)}</span>
                 </div>
               </div>
               <button
@@ -162,10 +210,21 @@ export default function TrendingWorkshops() {
                   <AiOutlineCalendar />
                 </div>
                 <div className="headings">
-                  <span>Day:</span>
-                  <span>{day}</span>
+                  <span>Event Start Date:</span>
+                  <span>{timeInText(event?.eventStartTime)}</span>
                 </div>
               </div>
+              <div className="detail">
+                <div className="logo">
+                  <AiOutlineClockCircle />
+                </div>
+                <div className="headings">
+                  <span>Event End Date:</span>
+                  <span>{timeInText(event?.eventEndTime)}</span>
+                </div>
+              </div>
+            </div>
+            <div className="data">
               <div className="detail">
                 <div className="logo">
                   <AiOutlinePhone />
@@ -173,17 +232,6 @@ export default function TrendingWorkshops() {
                 <div className="headings">
                   <span>Phone Number:</span>
                   <span>{event?.creatorId?.mobile || "Not Available"}</span>
-                </div>
-              </div>
-            </div>
-            <div className="data">
-              <div className="detail">
-                <div className="logo">
-                  <AiOutlineClockCircle />
-                </div>
-                <div className="headings">
-                  <span>Time:</span>
-                  <span>{time}</span>
                 </div>
               </div>
               <div className="detail">
@@ -203,12 +251,12 @@ export default function TrendingWorkshops() {
               {event?.description || "No description provided"}
             </span>
           </section>
-          <section className="description">
-            <span className="heading">Policy</span>
-            <span className="details">
-              {event?.policy || "No policy provided"}
-            </span>
-          </section>
+          {!!event?.policy && (
+            <section className="description">
+              <span className="heading">Policy</span>
+              <span className="details">{event?.policy}</span>
+            </section>
+          )}
         </div>
       </div>
     </main>

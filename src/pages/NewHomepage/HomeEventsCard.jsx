@@ -1,6 +1,6 @@
 import {useState,useEffect} from 'react'
 import "./NewCommunitySectionHomePage.css";
-import { ehubLogo,defaultEventPoster } from '../../assets/defaultPoster';
+import { eHUBLogo,defaultEventPoster } from '../../assets/defaultPoster';
 import { useParams, useNavigate, useSearchParams  } from "react-router-dom";
 import { getEvents,controller } from '../../services/APIConfig';
 import NewEventCard from '../../components/NewEventCard/NewEventCard';
@@ -120,8 +120,8 @@ const HomeEventsCard = () => {
               data?.campusId
                 ? data?.campusId?.length
                   ? data?.campusId[0]?.collegeLogo
-                  : ehubLogo
-                : ehubLogo
+                  : eHUBLogo
+                : eHUBLogo
             }`}
             alt="logo"
           />

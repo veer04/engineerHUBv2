@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import "./InternshipDesc.css";
+import "../Jobs/JobDescription.css";
 import { Chip } from "@mui/material";
 import { useParams } from "react-router-dom";
 import { API_URL, Bucket_URL } from "../../../services/APIUtils";
@@ -17,6 +17,15 @@ import LoadingPage from "../../../components/Loader/LoadingPage";
 import Page404 from "../../Maintenance/Page404";
 import { redirectToAuth } from "../../../features/redirectToAuth";
 import CustomSnackbar from "../../User/Login/CustomSnackbar";
+import {
+  calendarEndDateIcon,
+  calendarStartDateIcon,
+  durationIcon,
+  experienceIcon,
+  locationIcon,
+  moneyIcon,
+  workTypeIcon,
+} from "../Jobs/icons";
 const InternshipDesc = () => {
   const { hiringId } = useParams();
   const [flag, setFlag] = useState(-1);
@@ -135,6 +144,30 @@ const InternshipDesc = () => {
     ? (formattedDuration = "1 Month")
     : (formattedDuration = `${hiring?.detailFound?.duration} Months`);
 
+  const startDate = new Date(hiring?.detailFound?.applicationStartTime);
+  let getStartDate = startDate
+    .toLocaleTimeString("en-IN", {
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+    })
+    .replace(/,/g, " /");
+  const applicationStartDate = getStartDate.split("/")[0];
+
+  const endDate = new Date(hiring?.detailFound?.applicationEndTime);
+  let getEndDate = endDate
+    .toLocaleTimeString("en-IN", {
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+    })
+    .replace(/,/g, " /");
+  const applicationEndDate = getEndDate.split("/")[0];
+
   const InternshipDesc = (
     <div className="InternshipDesc">
       {snackbarValues.severity === "success" && (
@@ -149,23 +182,35 @@ const InternshipDesc = () => {
       <div className="JobDetailHeader">
         <span>
           <div className="w-100 d-flex">
-            <div
-              style={{
-                backgroundImage: `url(${hiring?.detailFound?.organisationLogo})`,
-                backgroundPosition: "center",
-                backgroundSize: "contain",
-                backgroundRepeat: "no-repeat",
-              }}
-              className="imgBox"
-            ></div>
+            <a
+              href={hiring?.detailFound?.websiteUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <div
+                style={{
+                  backgroundImage: `url(${hiring?.detailFound?.organisationLogo})`,
+                  backgroundPosition: "center",
+                  backgroundSize: "contain",
+                  backgroundRepeat: "no-repeat",
+                }}
+                className="imgBox"
+              ></div>
+            </a>
             <span className="heads">
               <h1>{hiring?.detailFound?.opportunityName}</h1>
               <a
                 href={hiring?.detailFound?.websiteUrl}
                 target="_blank"
                 rel="noopener noreferrer"
+                onMouseOver={(e) => {
+                  e.currentTarget.style.textDecoration = "underline";
+                }}
+                onMouseOut={(e) => {
+                  e.currentTarget.style.textDecoration = "none";
+                }}
               >
-                <h3>{hiring?.detailFound?.organisationName}</h3>
+                {hiring?.detailFound?.organisationName}
               </a>
               <h3>{hiring?.detailFound?.opportunityLocation}</h3>
             </span>
@@ -243,8 +288,22 @@ const InternshipDesc = () => {
           ))}
         </span>
       </div>
+      <div className="JobInfo">
+        <div className="JobInfoItems JobInfoItems-date">
+          <div className="JobInfoItem">
+            <h6>Application Start Date</h6>
+            <span>{applicationStartDate}</span>
+            {calendarStartDateIcon}
+          </div>
+          <div className="JobInfoItem">
+            <h6>Application End Date</h6>
+            <span>{applicationEndDate}</span>
+            {calendarEndDateIcon}
+          </div>
+        </div>
+      </div>
       <div className="JobDesc">
-        <h5>Job Description</h5>
+        <h5>Description</h5>
         <p id="quill-job-description"></p>
       </div>
       <div className="JobInfo">
@@ -252,7 +311,6 @@ const InternshipDesc = () => {
         <div className="JobInfoItems">
           <div className="JobInfoItem">
             <h6>Stipend</h6>
-            <p></p>
             {
               //check if featured array in hiring has CampusAmbassador then display "Bonus"
               hiring?.detailFound?.featuredArray?.includes(
@@ -261,33 +319,79 @@ const InternshipDesc = () => {
                 <span>Bonus</span>
               ) : hiring?.detailFound?.isPaid ? (
                 <span>
-                  {hiring?.detailFound?.amount !== "N/A"
+                  {hiring?.detailFound?.showSalary
+                    ? !!hiring?.detailFound?.amount &&
+                      hiring?.detailFound?.amount !== "N/A"
+                      ? hiring?.detailFound?.amount
+                      : hiring?.detailFound?.salaryType === "Fixed"
+                      ? `${formatter.format(hiring?.detailFound?.salaryAmount)}`
+                      : hiring?.detailFound.salaryType === "Range"
+                      ? `${formatter.format(
+                          hiring?.detailFound?.minRange
+                        )} - ${formatter.format(hiring?.detailFound?.maxRange)}`
+                      : "N/A"
+                    : !!hiring?.detailFound?.amount &&
+                      hiring?.detailFound?.amount !== "N/A"
                     ? hiring?.detailFound?.amount
+                    : !!hiring?.detailFound?.salaryDisclosure
+                    ? hiring?.detailFound?.salaryDisclosure
                     : "N/A"}
                 </span>
               ) : (
                 <span>Unpaid</span>
               )
             }
-            <img src={`${bucket}cash.svg`} alt="guide" />
+            {moneyIcon}
           </div>
           <div className="JobInfoItem">
             <h6>Duration</h6>
-            <p></p>
-            <span>{formattedDuration}</span>
-            <img src={`${bucket}timer.svg`} alt="guide" />
+            <span>
+              {!!hiring?.detailFound?.duration
+                ? formattedDuration
+                : `${
+                    hiring?.detailFound?.minDuration ===
+                    hiring?.detailFound?.maxDuration
+                      ? `${hiring?.detailFound?.minDuration} ${
+                          hiring?.detailFound?.minDuration === 1
+                            ? "month"
+                            : "months"
+                        }`
+                      : `${hiring?.detailFound?.minDuration} - ${hiring?.detailFound?.maxDuration} months`
+                  }`}
+            </span>
+            {durationIcon}
           </div>
           <div className="JobInfoItem">
             <h6>Job Location</h6>
-            <p></p>
-            <span>{hiring?.detailFound?.opportunityLocation}</span>
-            <img src={`${bucket}locate.svg`} alt="guide" />
+            <span>
+              {hiring?.detailFound?.opportunityLocation === "WFH"
+                ? "Work From Home"
+                : hiring?.detailFound?.opportunityLocation === "Hybrid"
+                ? `Hybrid${
+                    !!hiring?.detailFound?.city &&
+                    hiring?.detailFound?.city !== "undefined"
+                      ? ` - ${hiring?.detailFound?.city}`
+                      : ""
+                  }`
+                : hiring?.detailFound?.opportunityLocation === "On-Site"
+                ? !!hiring?.detailFound?.city &&
+                  hiring?.detailFound?.city !== "undefined"
+                  ? hiring?.detailFound?.city
+                  : "On-Site"
+                : !!hiring?.detailFound?.opportunityLocation
+                ? hiring?.detailFound?.opportunityLocation
+                : "N/A"}
+            </span>
+            {locationIcon}
           </div>
           <div className="JobInfoItem">
             <h6>Work type</h6>
-            <p></p>
-            <span>{hiring?.detailFound?.opportunityTiming}</span>
-            <img src={`${bucket}time.svg`} alt="guide" />
+            <span>
+              {hiring?.detailFound?.opportunityTiming
+                ? hiring?.detailFound?.opportunityTiming
+                : hiring?.detailFound?.opportunityMode}
+            </span>
+            {workTypeIcon}
           </div>
         </div>
       </div>

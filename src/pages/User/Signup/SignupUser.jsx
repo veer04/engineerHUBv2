@@ -529,7 +529,7 @@ const SignupUser = () => {
     <main className="Login">
       <div className="container">
         <div className="row d-flex justify-content-center">
-          <div
+          {/* <div
             className="col-lg-7 login-left-container"
             style={{
               borderRadius: "7px",
@@ -554,7 +554,7 @@ const SignupUser = () => {
               </div>
               <img src={loginLeft} alt="" />
             </div>
-          </div>
+          </div> */}
           <div
             className="cont col-lg-3 login-right-container"
             style={{

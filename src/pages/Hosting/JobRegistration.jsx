@@ -1061,10 +1061,6 @@ const JobRegistrationForm = () => {
     </div>
   );
 
-  useEffect(() => {
-    console.log(featuredArray);
-  }, [featuredArray]);
-
   const step3 = (
     <div>
       {isSpecialUser && (

@@ -29,10 +29,34 @@
   z-index: 1;
   display: flex;
   flex-direction: row;
-  flex-wrap: nowrap;
+  flex-wrap: wrap-reverse;
   gap: 0.5rem;
   padding: 0.5rem;
 }
+.event-card-new .poster .registration-text {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 3;
+  /* height: 25px; */
+  /* overflow: hidden; */
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+}
+.event-card-new .poster .registration-text svg {
+  position: relative;
+  left: 1px;
+}
+.event-card-new .poster .registration-text .box {
+  padding-right: 0.5rem;
+  font-size: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+}
+
 .event-card-new .poster span {
   padding: 0.5rem;
   background: white;
@@ -44,6 +68,26 @@
   line-height: normal;
   overflow: hidden;
 }
+/* .event-card-new .tags-container-outside {
+  z-index: 1;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding: 0.5rem 0;
+  margin-bottom: 0.5rem;
+}
+.event-card-new .tags-container-outside span {
+  padding: 0.5rem;
+  background: white;
+  border-radius: 2rem;
+  color: var(--foundation-black-black-800, #000);
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  overflow: hidden;
+} */
 
 .event-card-new .heading {
   color: #000;
@@ -69,10 +113,10 @@
   gap: 0.5rem;
 }
 .event-card-new .details .logo {
-  min-width: 3rem;
-  max-width: 3rem;
-  min-height: 3rem;
-  max-height: 3rem;
+  min-width: 40px;
+  max-width: 40px;
+  min-height: 40px;
+  max-height: 40px;
   aspect-ratio: 1/1;
 }
 .event-card-new .details .logo img {

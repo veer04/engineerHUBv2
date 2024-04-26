@@ -105,9 +105,9 @@ export default function Navbar() {
       }}
     >
       <div className="container-fluid d-flex justify-content-between flex-row ">
-        <Link to="/" className="navbar-brand">
+        <a href="/" className="navbar-brand">
           <img className="logo" src={`${bucket}logo.svg`} alt="Logo" />
-        </Link>
+        </a>
         <button
           className="navbar-toggler"
           type="button"

@@ -4,7 +4,7 @@ import decryptData from "../features/DeCrypt";
 import getCookie, { getAccessToken } from "../features/getCookieValues";
 import { set } from "react-hook-form";
 import Cookies from "js-cookie";
-import { getUserId } from "../features/User/UserDetails";
+import { getUserId, getUserRole } from "../features/User/UserDetails";
 export const cancelToken = axios.CancelToken.source();
 export const controller = new AbortController();
 
@@ -1343,10 +1343,10 @@ export const getProjectData = (setProject) => {
 
 export const getProjectDataById = (setProject, projectId) => {
   let userId = "";
-
-  if (!!getCookie("role")) {
-    if (getCookie("role")[2] === "User") {
-      userId = getCookie("_id")[2];
+  const role = getUserRole();
+  if (!!role) {
+    if (role === "User" || role === "Alumni") {
+      userId = getUserId();
     }
   }
   const controller = new AbortController();
@@ -1930,8 +1930,25 @@ export const getEventByType = (setEvents, type) => {
       signal: controller.signal,
     })
     .then((res) => {
-      const data = res.data.data;
-      setEvents(data);
+      setEvents(res);
+    })
+    .catch((err) => {
+      if (axios.isCancel(err)) {
+        console.log("req cancel");
+      } else {
+        console.log("req performed");
+      }
+    });
+};
+
+export const getEventByTypeEventHiring = (setEvents) => {
+  const controller = new AbortController();
+  axios
+    .get(`${API_URL}api/v1/eventTypeWiseEvents/eventHiring`, {
+      signal: controller.signal,
+    })
+    .then((res) => {
+      setEvents(res?.data?.data);
     })
     .catch((err) => {
       if (axios.isCancel(err)) {

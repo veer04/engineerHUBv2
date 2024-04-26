@@ -3,7 +3,7 @@ import "./NewBlogCard.css";
 import defaultPoster, {
   defaultBlogPoster,
   defaultProjectPoster,
-  ehubLogo,
+  eHUBLogo,
 } from "../../assets/defaultPoster";
 import { useNavigate } from "react-router-dom";
 
@@ -45,7 +45,7 @@ export default function NewBlogCard({ blog }) {
           <img
             onError={(e) => {
               // e.target.onerror = null;
-              e.target.src = ehubLogo;
+              e.target.src = eHUBLogo;
             }}
             src={blog?.creatorId?.image}
             alt={`${blog?.creatorId?.name ? blog?.creatorId?.name : ""} logo`}

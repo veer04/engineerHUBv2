@@ -5,12 +5,14 @@ import {
   controller,
   getAllEvents,
   getAllEvents2,
+  getEventByType,
 } from "../../../services/APIConfig";
 import HackathonCard from "./EventsChoices/HackathonCards";
 import { useSearchParams } from "react-router-dom";
 import PaginationBar from "../../../components/PaginationBar/PaginationBar";
 import Loading from "../../../components/Loader/Loading";
 import { changeDocumentTitle } from "../../../features/changeDocumentTitle";
+import NewEventCard from "../../../components/NewEventCard/NewEventCard";
 
 const Events = () => {
   const [searchParams, setSearchParams] = useSearchParams({ q: "" });
@@ -27,7 +29,8 @@ const Events = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    getAllEvents(setEventData, currentPage, limit);
+    getEventByType(setEventData, "eventHiring");
+    // getAllEvents(setEventData, currentPage, limit);
     return () => {
       controller.abort();
     };
@@ -120,7 +123,8 @@ const Events = () => {
         <div className="Hackathons">
           <div className="hackathonTiles">
             {filteredProjects.map((item, index) => {
-              return <HackathonCard {...item} key={index} />;
+              return <NewEventCard data={item} key={index} eventHiring={true} />;
+              // return <HackathonCard {...item} key={index} />;
             })}
             {event.length === 0 &&
               eventData?.status >= 200 &&

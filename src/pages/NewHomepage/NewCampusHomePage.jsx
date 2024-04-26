@@ -6,7 +6,7 @@ import {
   controller,
   getFeaturedEvents,
 } from "../../services/APIConfig";
-import { ehubLogo, defaultEventPoster } from "../../assets/defaultPoster";
+import { eHUBLogo, defaultEventPoster } from "../../assets/defaultPoster";
 import NewEventCard from "../../components/NewEventCard/NewEventCard";
 import HomeEventsCard from "./HomeEventsCard";
 import HomeAlmaCards from "./HomeAlmaCards";

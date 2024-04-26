@@ -91,6 +91,9 @@
   line-height: 19px;
   color: #242323;
 }
+.JobDesc p {
+  overflow-wrap: anywhere;
+}
 .JobReq ul {
   list-style-type: disc;
   padding-left: 15px;
@@ -105,52 +108,49 @@
   margin-top: 20px;
   padding-bottom: 45px;
 }
+.JobInfo .JobInfoItems-date {
+  padding-bottom: 20px;
+}
+
 .JobInfo .JobInfoItems .JobInfoItem {
   width: 286px;
-  height: 163px;
-  box-shadow: 4px 4px 25px rgba(0, 0, 0, 0.12);
+  height: 92px;
+  box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.065);
   border-radius: 10px;
   box-sizing: border-box;
   background: #ffffff;
   padding: 11px 13px;
   position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 .JobInfo .JobInfoItems .JobInfoItem h6 {
   font-family: "Inter";
   font-style: normal;
-  font-weight: 600;
+  font-weight: 500;
   font-size: 16px;
   line-height: 19px;
   text-align: justify;
   color: #000000;
 }
-.JobInfo .JobInfoItems .JobInfoItem p {
-  font-family: "Inter";
-  font-style: normal;
-  font-weight: 500;
-  font-size: 12px;
-  line-height: 15px;
-  text-align: justify;
-  color: #454545;
-}
 .JobInfo .JobInfoItems .JobInfoItem span {
   font-family: "Inter";
   font-style: normal;
-  font-weight: 600;
-  font-size: 20px;
+  font-weight: 500;
+  font-size: 16px;
   line-height: 24px;
   text-align: justify;
   color: #014051;
-  position: absolute;
-  bottom: 16px;
+  z-index: 2;
+  max-width: calc(100% - 50px);
 }
-.JobInfo .JobInfoItems .JobInfoItem img {
+.JobInfo .JobInfoItems .JobInfoItem svg {
   position: absolute;
-  bottom: 0px;
-  right: 0px;
-}
-.JobInfo .JobInfoItems .JobInfoItem:nth-child(3) img {
-  right: -30px;
+  bottom: 4px;
+  right: 4px;
+  z-index: 1;
+  width: 50px;
 }
 #quill-job-description a {
   color: rgb(66, 136, 249);
@@ -158,15 +158,16 @@
 }
 
 @media screen and (max-width: 768px) {
+  .JobInfo .JobInfoItems .JobInfoItem svg {
+    width: 60px;
+  }
   .JobDetailHeader span .imgBox {
     width: 65px;
     height: 57px;
   }
-  .JobDetailHeader span .heads h1 {
-    font-size: 14px;
-    line-height: 19px;
-  }
-  .JobDetailHeader span .heads h1 {
+  .JobDetailHeader span .heads h1,
+  .JobDetailHeader span .heads a,
+  .JobDetailHeader span .heads h3 {
     font-size: 12px;
     line-height: 17px;
   }
@@ -188,9 +189,6 @@
     line-height: 16px;
     color: #242323;
   }
-  .JobDesc p {
-    overflow-wrap: anywhere;
-  }
   .JobReq ul {
     padding-left: 30px;
   }
@@ -201,6 +199,9 @@
   .JobInfo div .JobInfoItem span {
     font-size: 20px;
     line-height: 24px;
+  }
+  .JobInfo .JobInfoItems .JobInfoItem span {
+    font-size: 14px;
   }
 }
 

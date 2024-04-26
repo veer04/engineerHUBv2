@@ -16,8 +16,10 @@ import {
 } from "../../services/APIConfig";
 import { set } from "react-hook-form";
 import useGlobalSnackbar from "../../hooks/useGlobalSnackbar";
+import { Link } from "react-router-dom";
+import { getUserId, getUserRole } from "../../features/User/UserDetails";
 
-export default function AddPostModal() {
+export default function AddPostModal({ hostPage, setCloseModal }) {
   const [newCoverPhoto, setNewCoverPhoto] = useState(null);
   const [caption, setCaption] = useState("");
   const fileInput = useRef(null);
@@ -26,8 +28,12 @@ export default function AddPostModal() {
   const [response, setResponse] = useState({});
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({ caption: "" });
-  const { setSnackbarOpen, setSnackbarMessage, setSnackbarSeverity } =
-    useGlobalSnackbar();
+  const {
+    setSnackbarOpen,
+    setSnackbarMessage,
+    setSnackbarSeverity,
+    setSnackbarDuration,
+  } = useGlobalSnackbar();
 
   const navigate = useNavigate();
 
@@ -78,15 +84,37 @@ export default function AddPostModal() {
       setLoading(false);
       if (response.status >= 200 && response.status < 300) {
         setSnackbarSeverity("success");
-        setSnackbarMessage("Post created successfully");
+        setSnackbarMessage(
+          <>
+            Post created successfully.{" "}
+            <Link
+              to={`/profile/${
+                getUserRole() === "Alumni"
+                  ? "user"
+                  : getUserRole() === "Club"
+                  ? "club"
+                  : "organization"
+              }/${getUserId()}/posts/${response?.data?.data?._id}`}
+              style={{ color: "rgb(13, 110, 253)" }}
+              onMouseOver={(e) => (e.target.style.textDecoration = "underline")}
+              onMouseOut={(e) => (e.target.style.textDecoration = "none")}
+            >
+              Click here
+            </Link>{" "}
+            to view
+          </>
+        );
+        setSnackbarDuration(8000);
         setSnackbarOpen(true);
       } else {
         setSnackbarSeverity("error");
         setSnackbarMessage("Error in creating post");
+        setSnackbarDuration(8000);
         setSnackbarOpen(true);
       }
       setResponse({});
-      navigate(-1);
+      if (!!hostPage) setCloseModal(false);
+      else navigate(-1);
     }
   }, [response]);
 
@@ -114,7 +142,8 @@ export default function AddPostModal() {
         <div className="modal-container modal-padding post-modal-container">
           <div
             onClick={() => {
-              navigate(-1);
+              if (!!hostPage) setCloseModal(false);
+              else navigate(-1);
             }}
             className="modal-cancel-button-container"
           >

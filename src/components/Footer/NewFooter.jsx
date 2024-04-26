@@ -17,7 +17,18 @@ export default function NewFooter() {
   const location = useLocation();
 
   useEffect(() => {
-    if (location.pathname.includes("community/chat")) {
+    if (
+      location.pathname.includes("community/chat") ||
+      location.pathname.includes("host/") ||
+      location.pathname.includes("login") ||
+      location.pathname.includes("signup") ||
+      location.pathname.includes("club-signup") ||
+      location.pathname.includes("organization-signup") ||
+      location.pathname.includes("login") ||
+      location.pathname.includes("forgot-password") ||
+      location.pathname.includes("change-password") ||
+      location.pathname.includes("otp-verification")
+    ) {
       setDisplayFooter(false);
     } else setDisplayFooter(true);
   }, [location]);

@@ -7,9 +7,12 @@ import {
   controller,
   getAllEvents,
   getAllEvents2,
+  getEventByType,
   getHiringDataById,
+  getParticularEventDetails,
 } from "../../../../services/APIConfig";
 import HackathonCard from "./HackathonCards";
+import NewEventCard from "../../../../components/NewEventCard/NewEventCard";
 
 const HackathonDetails = () => {
   const [searchParams, setSearchParams] = useSearchParams({ q: "" });
@@ -22,8 +25,11 @@ const HackathonDetails = () => {
 
   const { hackId } = useParams();
   useEffect(() => {
-    getAllEvents(setEventData, 1, 20);
-    getHiringDataById(setHiringData, hackId);
+    // getAllEvents(setEventData, 1, 20);
+    getEventByType(setEventData, "eventHiring");
+    // getHiringDataById(setHiringData, hackId);
+    getParticularEventDetails(setHiringData, hackId);
+
     return () => {
       controller.abort();
     };
@@ -42,7 +48,8 @@ const HackathonDetails = () => {
   }, [searchedProjects]);
   useEffect(() => {
     if (Object.keys(hiringData).length) {
-      document.title = `${hiringData?.detailFound?.opportunityName} | ${hiringData?.detailFound?.organisationName} | engineerHUB`;
+      console.log(hiringData?.data?.data);
+      document.title = `${hiringData?.data?.data?.opportunityName} | ${hiringData?.data?.data?.organisationName} | engineerHUB`;
     }
   }, [hiringData]);
 
@@ -105,14 +112,15 @@ const HackathonDetails = () => {
           </div>
         </div>
         {filteredProjects.map((item, index) => {
-          return <HackathonCard {...item} key={index} />;
+          return <NewEventCard data={item} key={index} eventHiring={true} />;
+          // return <HackathonCard {...item} key={index} />;
         })}
       </div>
       <div className="hackathonDetail">
         {hackId === "" ? (
           <div></div>
         ) : (
-          <HackathonDesc details={{ ...hiringData?.detailFound }} />
+          <HackathonDesc details={{ ...hiringData?.data?.data }} />
         )}
       </div>
     </div>
