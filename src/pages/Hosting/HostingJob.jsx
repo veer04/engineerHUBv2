@@ -1,12 +1,13 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { IoIosArrowBack } from "react-icons/io";
+import { Editor } from "@tinymce/tinymce-react";
 import {
   getAccessToken,
   isUserLoggedIn,
 } from "../../features/User/UserDetails";
 import { redirectToAuth } from "../../features/redirectToAuth";
-import { API_URL, Bucket_URL } from "../../services/APIUtils";
+import { API_URL, Bucket_URL, EDITOR_API_KEY } from "../../services/APIUtils";
 import { changeDocumentTitle } from "../../features/changeDocumentTitle";
 import axios, { all } from "axios";
 import useNavbar from "../../hooks/use-navbar";
@@ -49,7 +50,7 @@ export default function HostingJob() {
   } = useGlobalSnackbar();
   const bucket = `${Bucket_URL}frontend/hosting/`;
   const totalPages = 3;
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(2);
   const [organisationName, setOrganisationName] = useState("");
   const [organisationLogo, setOrganisationLogo] = useState("");
   const [organisationLink, setOrganisationLink] = useState("");
@@ -104,6 +105,12 @@ export default function HostingJob() {
   const [isLoading, setIsLoading] = useState(false);
   const [previouslyViewedPageNumber, setPreviouslyViewedPageNumber] =
     useState(1);
+  const editorRef = useRef(null);
+  const log = () => {
+    if (editorRef.current) {
+      console.log(editorRef.current.getContent());
+    }
+  };
   const [errors, setErrors] = useState({
     organisationName: "",
     organisationLogo: "",
@@ -674,7 +681,6 @@ export default function HostingJob() {
       if (validateForm3()) submitForm();
     }
   };
-
   return (
     <main className="hosting-container">
       <aside
@@ -924,18 +930,49 @@ export default function HostingJob() {
 
               <h2>Opportunity Description</h2>
 
-              <FormInputTextarea
-                label="Opportunity Description"
-                id="opportunityDescription"
-                name="opportunityDescription"
-                required
-                rows={5}
-                placeholder="Enter your Opportunity Description"
-                value={opportunityDescription}
-                setValue={setOpportunityDescription}
-                helperText={errors.opportunityDescription}
-                className="mb-4"
-              />
+              <div className="mb-4">
+                <Editor
+                  apiKey={EDITOR_API_KEY}
+                  value={opportunityDescription}
+                  onEditorChange={(content) => {
+                    setOpportunityDescription(content);
+                  }}
+                  onInit={(_evt, editor) => (editorRef.current = editor)}
+                  initialValue="<p>This is the initial content of the editor.</p>"
+                  init={{
+                    height: 500,
+                    menubar: false,
+                    plugins: [
+                      "advlist",
+                      "autolink",
+                      "lists",
+                      "link",
+                      "image",
+                      "charmap",
+                      "preview",
+                      "anchor",
+                      "searchreplace",
+                      "visualblocks",
+                      "code",
+                      "fullscreen",
+                      "insertdatetime",
+                      "media",
+                      "table",
+                      "code",
+                      "help",
+                      "wordcount",
+                    ],
+                    toolbar:
+                      "undo redo | blocks | " +
+                      "bold italic forecolor | alignleft aligncenter " +
+                      "alignright alignjustify | bullist numlist outdent indent | " +
+                      "removeformat | help",
+                    content_style:
+                      "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
+                  }}
+                />
+                {/* <button onClick={log}>Log editor content</button> */}
+              </div>
 
               <h2>Salary Details</h2>
 
