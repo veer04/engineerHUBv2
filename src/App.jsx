@@ -142,11 +142,9 @@ function App() {
       <ProfilePopUp />
       <Suspense fallback={<LoadingPage />}>
         <Routes>
-          {/* <Route index element={<HomePage path="homepage" />} /> */}
           <Route index element={<NewHomePage path="homepage" />} />
           <Route path="/get-featured" element={<GetFeaturedForm />} />
           <Route path="/success" element={<Success></Success>}></Route>
-          {/* <Route path="/register" element={<RegistrationForm />} /> */}
           <Route path="/select-role" element={<Role />} />
           <Route path="/profile">
             <Route
@@ -186,10 +184,8 @@ function App() {
               element={<CompanyEditProfile />}
             />
           </Route>
-          {/* <Route path="/student-signup" element={<StudentSignup />} /> */}
           <Route path="/signup" element={<SignupUser />} />
           <Route path="/club-signup" element={<ClubSignup />} />
-          {/* <Route path="/mentorSignup" element={<MentorSignup />} /> */}
           <Route path="/organization-signup" element={<OrganizationSignup />} />
           <Route path="/login" element={<Login />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
@@ -231,7 +227,6 @@ function App() {
               <Route path=":id" element={<NewChatPage />} />
             </Route>
           </Route>
-          {/* <Route path="/mentorChat" element={<MentorChat />} /> */}
           <Route path="/trending">
             <Route path="campuses/:collegeId">
               <Route index element={<TrendingColleges />} />
@@ -253,22 +248,7 @@ function App() {
           <Route path="/mentorship" element={<ComingSoon />} />
 
           <Route path="host">
-            {/* <Route index element={<Hosting />} /> */}
             <Route index element={<HostingPage />} />
-            {/* {eventHostRoute === true && sendLogin === true ? (
-              <Route path="event" element={<HostEvent />} />
-            ) : (
-              <Route path="event" element={<Login />} />
-            )} */}
-            {/* {jobHostRoute === true && sendLogin === true ? (
-              <>
-                <Route path="project" element={<ProjectHosting />} />
-                <Route path="job" element={<JobRegistration />} />
-                <Route path="internship" element={<JobRegistration />} />
-              </>
-            ) : (
-              <Route path="job" element={<Login />} />
-            )} */}
             <Route path="job" element={<HostingJob />} />
             <Route path="internship" element={<HostingInternship />} />
             <Route path="project" element={<HostingProject />} />
@@ -291,13 +271,8 @@ function App() {
             </Route>
             <Route path="projects">
               <Route path="" element={<Projects />} />
-              {/* <Route path=":projectId" element={<ProjectDetail />} /> */}
               <Route path=":projectId" element={<ProjectDetailNew />} />
             </Route>
-            {/* <Route path="events">
-              <Route path="" element={<Events />} />
-              <Route path=":hackId" element={<HackathonDetails />} />
-            </Route> */}
             <Route path="events">
               <Route path="" element={<Events />} />
               <Route path=":hackId" element={<HackathonDetailsNew />} />
