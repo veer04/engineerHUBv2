@@ -16,6 +16,7 @@ ARG VITE_BUCKET_URL
 ARG VITE_AESKEY
 ARG VITE_FRONTEND_URL
 ARG VITE_API_URLT
+ARG VITE_EDITOR_API_KEY
 
 # Install dependencies and build app
 RUN apk add --no-cache npm \
