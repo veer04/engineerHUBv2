@@ -49,10 +49,10 @@ const BlogHosting = () => {
       onlyForReference: "Email used by Kunwar Vidya Niwas for Blog posting",
       value: "kunwar7376niwas@gmail.com",
     },
-    {
-      onlyForReference: "Email used by Madhur Tripathi for Blog posting",
-      value: "madhurtripathi2001@gmail.com",
-    },
+    // {
+    //   onlyForReference: "Email used by Madhur Tripathi for Blog posting",
+    //   value: "madhurtripathi2001@gmail.com",
+    // },
     {
       onlyForReference:
         "Email used only for testing purpose. Delete this email after testing",
