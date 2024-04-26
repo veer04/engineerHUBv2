@@ -501,6 +501,7 @@ const Register = () => {
               width: "100%",
               lineHeight: "1.2",
               fontSize: "36px",
+              fontWeight: "6s00"
             }}
           >
             Hey, Welcome back
