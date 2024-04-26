@@ -45,6 +45,7 @@ jobs:
             VITE_API_URLT=${{ vars.VITE_TEST_API_URL }}
             VITE_AESKEY=${{ secrets.VITE_AESKEY }}
             VITE_FRONTEND_URL=${{ vars.VITE_TEST_FRONTEND_URL }}
+            VITE_EDITOR_API_KEY=${{ secrets.VITE_EDITOR_API_KEY }}
             TEST_SERVER_USERNAME=${{ secrets.TEST_SERVER_USERNAME }}
             TEST_SERVER_PASSWORD=${{ secrets.TEST_SERVER_PASSWORD }}
     
@@ -67,6 +68,7 @@ jobs:
             VITE_BUCKET_URL=${{ vars.VITE_BUCKET_URL }}
             VITE_AESKEY=${{ secrets.VITE_AESKEY }}
             VITE_FRONTEND_URL=${{ vars.VITE_FRONTEND_URL }}
+            VITE_EDITOR_API_KEY=${{ secrets.VITE_EDITOR_API_KEY }}
 
   # name: Use Private Action
   # on:
@@ -92,3 +94,4 @@ jobs:
   #         VITE_API_URL=${{ vars.VITE_API_URL }}
   #         VITE_BUCKET_URL=${{ vars.VITE_BUCKET_URL }}
   #         VITE_AESKEY=${{ vars.VITE_AESKEY }}
+  #         VITE_EDITOR_API_KEY=${{ secrets.VITE_EDITOR_API_KEY }}
