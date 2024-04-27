@@ -868,7 +868,7 @@ export default function HostingInternship() {
                 {/* <button onClick={log}>Log editor content</button> */}
               </div>
 
-              <FormInputTextarea
+              {/* <FormInputTextarea
                 label="About Internship"
                 id="opportunityDescription"
                 name="opportunityDescription"
@@ -879,7 +879,7 @@ export default function HostingInternship() {
                 setValue={setOpportunityDescription}
                 helperText={errors.opportunityDescription}
                 className="mb-4"
-              />
+              /> */}
             </>
           )}
 
