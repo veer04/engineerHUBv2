@@ -301,12 +301,13 @@ export default function HostingProject() {
         "Project description should be minimum 100 characters";
       isValid = false;
       addToErrorStack("#projectDescription");
-    } else if (projectDescription.length > 10000) {
-      errors.projectDescription =
-        "Project description should be maximum 10000 characters";
-      isValid = false;
-      addToErrorStack("#projectDescription");
     }
+    //  else if (projectDescription.length > 10000) {
+    //   errors.projectDescription =
+    //     "Project description should be maximum 10000 characters";
+    //   isValid = false;
+    //   addToErrorStack("#projectDescription");
+    // }
 
     if (!projectPoster) {
       errors.projectPoster = "Project poster is required";

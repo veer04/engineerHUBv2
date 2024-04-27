@@ -331,12 +331,13 @@ export default function HostingInternship() {
         "Internship description should be minimum 100 characters";
       isValid = false;
       addToErrorStack("#opportunityDescription");
-    } else if (opportunityDescription.length > 10000) {
-      errors.opportunityDescription =
-        "Internship description should be maximum 10000 characters";
-      isValid = false;
-      addToErrorStack("#opportunityDescription");
     }
+    // else if (opportunityDescription.length > 10000) {
+    //   errors.opportunityDescription =
+    //     "Internship description should be maximum 10000 characters";
+    //   isValid = false;
+    //   addToErrorStack("#opportunityDescription");
+    // }
 
     setErrors(errors);
     handleFormErrors();
