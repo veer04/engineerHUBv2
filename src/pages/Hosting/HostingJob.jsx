@@ -453,12 +453,13 @@ export default function HostingJob() {
         "Job description should be minimum 100 characters";
       isValid = false;
       addToErrorStack("#opportunityDescription");
-    } else if (opportunityDescription.length > 10000) {
-      errors.opportunityDescription =
-        "Job description should be maximum 10000 characters";
-      isValid = false;
-      addToErrorStack("#opportunityDescription");
-    }
+    }   
+    // else if (opportunityDescription.length > 10000) {
+    //   errors.opportunityDescription =
+    //     "Job description should be maximum 10000 characters";
+    //   isValid = false;
+    //   addToErrorStack("#opportunityDescription");
+    // }
 
     if (showSalaryToCandidates && !salaryUnit) {
       errors.salaryUnit = "Salary unit is required";
