@@ -29,6 +29,7 @@ import FormInputMultiValue from "../../components/FormInputs/FormInputMultiValue
 import FormInputAutocomplete from "../../components/FormInputs/FormInputAutocomplete";
 import FormInputNumber from "../../components/FormInputs/FormInputNumber";
 import { Editor } from "@tinymce/tinymce-react";
+import { linkWithHttpExpression } from "../../features/regex";
 
 export default function HostingProject() {
   if (!isUserLoggedIn()) {
@@ -227,7 +228,7 @@ export default function HostingProject() {
       addToErrorStack("#profilePicture");
     }
 
-    if (profileLink && !profileLink.match(/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()!@:%_\+.~#?&\/\/=]*)/gm)) {
+    if (profileLink && !profileLink.match(linkWithHttpExpression)) {
       errors.profileLink =
         "Please enter a valid URL. (Ex: https://www.linkedin.com/company/engineersummit/mycompany/)";
       isValid = false;
@@ -420,7 +421,7 @@ export default function HostingProject() {
       addToErrorStack("#estimatedTime");
     }
 
-    if (applyLink && !applyLink.match(/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()!@:%_\+.~#?&\/\/=]*)/gm)) {
+    if (applyLink && !applyLink.match(linkWithHttpExpression)) {
       errors.applyLink =
         "Please enter a valid URL (for example: https://www.engineerhub.in)";
       isValid = false;

@@ -25,6 +25,7 @@ import FormInputEmail from "../../components/FormInputs/FormInputEmail";
 import FormInputPhoneNumber from "../../components/FormInputs/FormInputPhoneNumber";
 import FormButton from "../../components/FormInputs/FormButton";
 import "./HostingCulturalEvent.css";
+import { linkWithHttpExpression } from "../../features/regex";
 
 export default function HostingTechnicalEvent() {
   if (!isUserLoggedIn()) {
@@ -331,7 +332,7 @@ export default function HostingTechnicalEvent() {
       errors.eventLink = "Event link is required";
       isValid = false;
       addToErrorStack("#eventLink");
-    } else if (!eventLink.match(/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()!@:%_\+.~#?&\/\/=]*)/gm)) {
+    } else if (!eventLink.match(linkWithHttpExpression)) {
       errors.eventLink =
         "Please enter a valid URL (for example: https://www.engineerhub.in)";
       isValid = false;

@@ -33,6 +33,7 @@ import {
   getStatesByCountry,
 } from "../../services/APIConfig";
 import { Editor } from "@tinymce/tinymce-react";
+import { linkWithHttpExpression } from "../../features/regex";
 
 export default function HostingInternship() {
   if (!isUserLoggedIn()) {
@@ -262,7 +263,7 @@ export default function HostingInternship() {
 
     if (
       organisationLink &&
-      !organisationLink.match(/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()!@:%_\+.~#?&\/\/=]*)/gm)
+      !organisationLink.match(linkWithHttpExpression)
     ) {
       errors.organisationLink =
         "Please enter a valid URL. (Ex: https://www.linkedin.com/company/engineersummit/mycompany/)";
@@ -450,7 +451,7 @@ export default function HostingInternship() {
     }
 
 
-    if (applyLink && !applyLink.match(/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()!@:%_\+.~#?&\/\/=]*)/gm)) {
+    if (applyLink && !applyLink.match(linkWithHttpExpression)) {
       errors.applyLink =
         "Please enter a valid URL (for example: https://www.engineerhub.in)";
       isValid = false;
