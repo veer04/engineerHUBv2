@@ -203,8 +203,8 @@ export default function HostingProject() {
       errors.hostName = "Host name is required";
       isValid = false;
       addToErrorStack("#hostName");
-    } else if (hostName.length < 5) {
-      errors.hostName = "Host name should be minimum 5 characters";
+    } else if (hostName.length < 3) {
+      errors.hostName = "Host name should be minimum 3 characters";
       isValid = false;
       addToErrorStack("#hostName");
     } else if (hostName.length > 100) {
@@ -282,8 +282,8 @@ export default function HostingProject() {
       errors.projectTitle = "Project title is required";
       isValid = false;
       addToErrorStack("#projectTitle");
-    } else if (projectTitle.length < 5) {
-      errors.projectTitle = "Project title should be minimum 5 characters";
+    } else if (projectTitle.length < 3) {
+      errors.projectTitle = "Project title should be minimum 3 characters";
       isValid = false;
       addToErrorStack("#projectTitle");
     } else if (projectTitle.length > 100) {

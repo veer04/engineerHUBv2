@@ -234,9 +234,9 @@ export default function HostingInternship() {
       errors.organisationName = "Organisation name is required";
       isValid = false;
       addToErrorStack("#organisationName");
-    } else if (organisationName.length < 5) {
+    } else if (organisationName.length < 3) {
       errors.organisationName =
-        "Organisation name should be minimum 5 characters";
+        "Organisation name should be minimum 3 characters";
       isValid = false;
       addToErrorStack("#organisationName");
     } else if (organisationName.length > 100) {
@@ -372,9 +372,9 @@ export default function HostingInternship() {
       errors.opportunityName = "Opportunity name is required";
       isValid = false;
       addToErrorStack("#opportunityName");
-    } else if (opportunityName.length < 5) {
+    } else if (opportunityName.length < 3) {
       errors.opportunityName =
-        "Opportunity name should be minimum 5 characters";
+        "Opportunity name should be minimum 3 characters";
       isValid = false;
       addToErrorStack("#opportunityName");
     } else if (opportunityName.length > 100) {

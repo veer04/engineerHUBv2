@@ -188,8 +188,8 @@ export default function HostingCulturalEvent() {
       errors.eventName = "Event name is required";
       isValid = false;
       addToErrorStack("#eventName");
-    } else if (eventName.length < 5) {
-      errors.eventName = "Event name should be minimum 5 characters";
+    } else if (eventName.length < 3) {
+      errors.eventName = "Event name should be minimum 3 characters";
       isValid = false;
       addToErrorStack("#eventName");
     } else if (eventName.length > 100) {
