@@ -453,7 +453,7 @@ export default function HostingJob() {
         "Job description should be minimum 100 characters";
       isValid = false;
       addToErrorStack("#opportunityDescription");
-    }   
+    }
     // else if (opportunityDescription.length > 10000) {
     //   errors.opportunityDescription =
     //     "Job description should be maximum 10000 characters";
@@ -526,14 +526,23 @@ export default function HostingJob() {
       addToErrorStack("#skillsRequired");
     }
 
-    if (!openings) {
-      errors.openings = "Openings are required";
+    if (openings && openings < 1) {
+      errors.openings = "Number of openings should be atleast 1";
       isValid = false;
       addToErrorStack("#openings");
     }
 
-    if (!minCGPA) {
-      errors.minCGPA = "Minimum CGPA is required";
+    // minCGPA is not mandatory and it can not be less than 0 or greater than 10 and it should not have more than 2 decimal places
+    if (minCGPA && minCGPA < 1) {
+      errors.minCGPA = "Minimum CGPA can not be less than 1";
+      isValid = false;
+      addToErrorStack("#minCGPA");
+    } else if (minCGPA && minCGPA > 10) {
+      errors.minCGPA = "Minimum CGPA can not be greater than 10";
+      isValid = false;
+      addToErrorStack("#minCGPA");
+    } else if (minCGPA && minCGPA.toString().split(".")[1]?.length > 2) {
+      errors.minCGPA = "Minimum CGPA can not have more than 2 decimal places";
       isValid = false;
       addToErrorStack("#minCGPA");
     }
@@ -1152,7 +1161,7 @@ export default function HostingJob() {
                 label="Number of Openings"
                 id="openings"
                 name="openings"
-                required
+                // required
                 placeholder="Enter the number of openings (Ex: 10,15 etc)"
                 value={openings}
                 setValue={setOpenings}
@@ -1164,7 +1173,7 @@ export default function HostingJob() {
                 label="Enter minimum CGPA required"
                 id="minCGPA"
                 name="minCGPA"
-                required
+                // required
                 placeholder="Enter Minimum CGPA"
                 step={0.01}
                 value={minCGPA}

@@ -443,11 +443,12 @@ export default function HostingInternship() {
       addToErrorStack("#maxDuration");
     }
 
-    if (!openings) {
-      errors.openings = "Openings are required";
+    if (openings && openings < 1) {
+      errors.openings = "Number of openings should be atleast 1";
       isValid = false;
       addToErrorStack("#openings");
     }
+
 
     if (applyLink && !applyLink.match(/^(ftp|http|https):\/\/[^ "]+$/)) {
       errors.applyLink =
@@ -1054,7 +1055,7 @@ export default function HostingInternship() {
                 label="Number of Openings"
                 id="openings"
                 name="openings"
-                required
+                // required
                 placeholder="Enter the number of openings (Ex: 10,15 etc)"
                 value={openings}
                 setValue={setOpenings}
