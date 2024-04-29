@@ -471,6 +471,13 @@ export default function HostingJob() {
       addToErrorStack("#maxExperience");
     }
 
+    if (!jobIsForFresher && minExperience?.value > maxExperience?.value) {
+      errors.maxExperience =
+        "Maximum experience should be greater than minimum experience";
+      isValid = false;
+      addToErrorStack("#maxExperience");
+    }
+
     if (skillsRequired.length === 0) {
       errors.skillsRequired = "Skills are required";
       isValid = false;
