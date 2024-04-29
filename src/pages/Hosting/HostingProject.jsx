@@ -165,7 +165,7 @@ export default function HostingProject() {
   ];
 
   useEffect(() => {
-    // window.scrollTo(0, 0);
+    window.scrollTo(0, 0);
     setSelectedPageNavbar("host");
   }, []);
 

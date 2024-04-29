@@ -79,7 +79,7 @@ export default function HostingInternship() {
   const [maxDuration, setMaxDuration] = useState("");
   const [openings, setOpenings] = useState("");
   const [applyLink, setApplyLink] = useState("");
-  const [isPaid, setIsPaid] = useState(true);
+  const [isPaid, setIsPaid] = useState("Paid");
   const [showSalaryToCandidates, setShowSalaryToCandidates] = useState(true);
   const [customSalary, setCustomSalary] = useState("");
   const [salaryType, setSalaryType] = useState("Fixed");
@@ -261,10 +261,7 @@ export default function HostingInternship() {
       addToErrorStack("#organisationLogo");
     }
 
-    if (
-      organisationLink &&
-      !organisationLink.match(linkWithHttpExpression)
-    ) {
+    if (organisationLink && !organisationLink.match(linkWithHttpExpression)) {
       errors.organisationLink =
         "Please enter a valid URL. (Ex: https://www.linkedin.com/company/engineersummit/mycompany/)";
       isValid = false;
@@ -449,7 +446,6 @@ export default function HostingInternship() {
       isValid = false;
       addToErrorStack("#openings");
     }
-
 
     if (applyLink && !applyLink.match(linkWithHttpExpression)) {
       errors.applyLink =
@@ -1187,7 +1183,7 @@ export default function HostingInternship() {
                     <FormInput
                       id="customSalary"
                       name="customSalary"
-                      placeholder="Any salary detail?"
+                      placeholder={`Any stipend related message? Ex: "Market Standard", "Not Disclosed", "Negotiable", etc`}
                       value={customSalary}
                       setValue={setCustomSalary}
                       helperText={errors.customSalary}

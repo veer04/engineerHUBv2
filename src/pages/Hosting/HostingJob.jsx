@@ -331,10 +331,7 @@ export default function HostingJob() {
       addToErrorStack("#organisationLogo");
     }
 
-    if (
-      organisationLink &&
-      !organisationLink.match(linkWithHttpExpression)
-    ) {
+    if (organisationLink && !organisationLink.match(linkWithHttpExpression)) {
       errors.organisationLink =
         "Please enter a valid URL. (Ex: https://www.linkedin.com/company/engineersummit/mycompany/)";
       isValid = false;
@@ -478,16 +475,40 @@ export default function HostingJob() {
       errors.fixedAmount = "Fixed amount is required";
       isValid = false;
       addToErrorStack("#fixedAmount");
+    } else if (
+      showSalaryToCandidates &&
+      salaryType === "Fixed" &&
+      fixedAmount < 0
+    ) {
+      errors.fixedAmount = "Fixed amount cannot be negative";
+      isValid = false;
+      addToErrorStack("#fixedAmount");
     }
 
     if (showSalaryToCandidates && salaryType === "Range" && !minAmount) {
       errors.minAmount = "Minimum amount is required";
       isValid = false;
       addToErrorStack("#minAmount");
+    } else if (
+      showSalaryToCandidates &&
+      salaryType === "Range" &&
+      minAmount < 0
+    ) {
+      errors.minAmount = "Minimum amount cannot be negative";
+      isValid = false;
+      addToErrorStack("#minAmount");
     }
 
     if (showSalaryToCandidates && salaryType === "Range" && !maxAmount) {
       errors.maxAmount = "Maximum amount is required";
+      isValid = false;
+      addToErrorStack("#maxAmount");
+    } else if (
+      showSalaryToCandidates &&
+      salaryType === "Range" &&
+      maxAmount < 0
+    ) {
+      errors.maxAmount = "Maximum amount cannot be negative";
       isValid = false;
       addToErrorStack("#maxAmount");
     }
@@ -1093,7 +1114,7 @@ export default function HostingJob() {
                 <FormInput
                   id="customSalary"
                   name="customSalary"
-                  placeholder="Any salary detail?"
+                  placeholder={`Any salary related message? Ex: "Market Standard", "Not Disclosed", "Negotiable", etc`}
                   value={customSalary}
                   setValue={setCustomSalary}
                   helperText={errors.customSalary}
