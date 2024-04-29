@@ -898,7 +898,7 @@ export default function HostingJob() {
 
               <h2>Opportunity Description</h2>
 
-              <div className="mb-4">
+              <div id="opportunityDescription" className="mb-4">
                 <Editor
                   apiKey={EDITOR_API_KEY}
                   value={opportunityDescription}
@@ -940,6 +940,13 @@ export default function HostingJob() {
                   }}
                 />
                 {/* <button onClick={log}>Log editor content</button> */}
+                <div className="custom-form-input">
+                  {errors.opportunityDescription && (
+                    <span className="helper-text">
+                      {errors.opportunityDescription}
+                    </span>
+                  )}
+                </div>
               </div>
 
               <h2>Salary Details</h2>

@@ -823,7 +823,7 @@ export default function HostingInternship() {
 
               <h2>Internship Description</h2>
 
-              <div className="mb-4">
+              <div id="opportunityDescription" className="mb-4">
                 <Editor
                   apiKey={EDITOR_API_KEY}
                   value={opportunityDescription}
@@ -865,6 +865,13 @@ export default function HostingInternship() {
                   }}
                 />
                 {/* <button onClick={log}>Log editor content</button> */}
+                <div className="custom-form-input">
+                  {errors.opportunityDescription && (
+                    <span className="helper-text">
+                      {errors.opportunityDescription}
+                    </span>
+                  )}
+                </div>
               </div>
 
               {/* <FormInputTextarea

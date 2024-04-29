@@ -731,7 +731,7 @@ export default function HostingProject() {
 
               <h2>Project Description</h2>
 
-              <div className="mb-4">
+              <div id="opportunityDescription" className="mb-4">
                 <Editor
                   apiKey={EDITOR_API_KEY}
                   value={projectDescription}
@@ -773,6 +773,13 @@ export default function HostingProject() {
                   }}
                 />
                 {/* <button onClick={log}>Log editor content</button> */}
+                <div className="custom-form-input">
+                  {errors.opportunityDescription && (
+                    <span className="helper-text">
+                      {errors.opportunityDescription}
+                    </span>
+                  )}
+                </div>
               </div>
 
               <h2>Pay Details</h2>
