@@ -9,12 +9,11 @@ import {
 import { redirectToAuth } from "../../features/redirectToAuth";
 import { API_URL, Bucket_URL, EDITOR_API_KEY } from "../../services/APIUtils";
 import { changeDocumentTitle } from "../../features/changeDocumentTitle";
-import axios, { all } from "axios";
+import axios from "axios";
 import useNavbar from "../../hooks/use-navbar";
 import useGlobalSnackbar from "../../hooks/useGlobalSnackbar";
 import FormIndicator from "../../components/FormInputs/FormIndicator";
 import FormInput from "../../components/FormInputs/FormInput";
-import FormInputTextarea from "../../components/FormInputs/FormInputTextarea";
 import FormInputDropdown from "../../components/FormInputs/FormInputDropdown";
 import FormInputFileUpload from "../../components/FormInputs/FormInputFileUpload";
 import FormInputSelect from "../../components/FormInputs/FormInputSelect";
@@ -27,7 +26,6 @@ import FormInputPhoneNumber from "../../components/FormInputs/FormInputPhoneNumb
 import FormButton from "../../components/FormInputs/FormButton";
 import "./HostingCulturalEvent.css";
 import FormInputMultiValue from "../../components/FormInputs/FormInputMultiValue";
-import FormInputAutocomplete from "../../components/FormInputs/FormInputAutocomplete";
 import FormInputNumber from "../../components/FormInputs/FormInputNumber";
 import {
   getAllCountries,
@@ -58,8 +56,6 @@ export default function HostingJob() {
   const [contactNumber, setContactNumber] = useState("");
   const [countryCode, setCountryCode] = useState("");
   const [contactEmail, setContactEmail] = useState("");
-  const [alternateContactNumber, setAlternateContactNumber] = useState("");
-  const [alternateCountryCode, setAlternateCountryCode] = useState("");
   const [opportunityName, setOpportunityName] = useState("");
   const [opportunityMode, setOpportunityMode] = useState("");
   const [opportunityLocation, setOpportunityLocation] = useState("");
@@ -77,17 +73,11 @@ export default function HostingJob() {
   const [opportunityDescription, setOpportunityDescription] = useState("");
   const [salaryUnit, setSalaryUnit] = useState("CTC");
   const [salaryType, setSalaryType] = useState("Fixed");
-
-  const [projectPoster, setProjectPoster] = useState("");
-  const [spendType, setSpendType] = useState("");
-
   const [fixedAmount, setFixedAmount] = useState("");
-  const [hourlyBasis, setHourlyBasis] = useState("");
   const [minAmount, setMinAmount] = useState("");
   const [maxAmount, setMaxAmount] = useState("");
   const [showSalaryToCandidates, setShowSalaryToCandidates] = useState(true);
   const [customSalary, setCustomSalary] = useState("");
-
   const [minExperience, setMinExperience] = useState({});
   const [maxExperience, setMaxExperience] = useState({});
   const [jobIsForFresher, setJobIsForFresher] = useState(false);
@@ -95,23 +85,17 @@ export default function HostingJob() {
   const [openings, setOpenings] = useState("");
   const [minCGPA, setMinCGPA] = useState("");
   const [applyLink, setApplyLink] = useState("");
-
-  const [projectDomain, setProjectDomain] = useState({});
-  const [projectDomainOther, setProjectDomainOther] = useState("");
-  const [experienceRequired, setExperienceRequired] = useState("");
-  const [durationType, setDurationType] = useState("");
-  const [estimatedTime, setEstimatedTime] = useState("");
-
-  const [showContactDetails, setShowContactDetails] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [previouslyViewedPageNumber, setPreviouslyViewedPageNumber] =
     useState(1);
+
   const editorRef = useRef(null);
   const log = () => {
     if (editorRef.current) {
       console.log(editorRef.current.getContent());
     }
   };
+
   const [errors, setErrors] = useState({
     organisationName: "",
     organisationLogo: "",
@@ -145,61 +129,6 @@ export default function HostingJob() {
     applyLink: "",
   });
   let errorStack = [];
-  const eventTypeOptions = [
-    {
-      label: "Technical Event",
-      value: "Technical",
-    },
-    {
-      label: "Cultural Event",
-      value: "Cultural",
-    },
-    {
-      label: "Hackathon",
-      value: "Hackathon",
-    },
-    {
-      label: "Webinar",
-      value: "Webinar",
-    },
-  ];
-  const eventCategoryOptions = [
-    {
-      label: "College Event",
-      value: "collegeEvent",
-    },
-    {
-      label: "Workshop",
-      value: "Workshop",
-    },
-  ];
-  const domainOptions = [
-    {
-      label: "Data Structures & Algorithms",
-      value: "Data Structures & Algorithms",
-    },
-    { label: "Web Development", value: "Web Development" },
-    { label: "App Development", value: "App Development" },
-    { label: "Machine Learning & AI", value: "Machine Learning & AI" },
-    { label: "UI/UX Design", value: "UI/UX Design" },
-    { label: "Cyber Security", value: "Cyber Security" },
-    { label: "DevOps", value: "DevOps" },
-    { label: "Other", value: "Other" },
-  ];
-
-  const experience = [
-    "Fresher",
-    "1+ years",
-    "2+ years",
-    "3+ years",
-    "4+ years",
-    "5+ years",
-    "6+ years",
-    "7+ years",
-    "8+ years",
-    "9+ years",
-    "10+ years",
-  ];
 
   const experienceDropdown = [
     { label: "No experience", value: 0 },
