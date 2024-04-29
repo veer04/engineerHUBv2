@@ -325,7 +325,7 @@ export default function HostingJob() {
       isValid = false;
       addToErrorStack("#organisationLogo");
     } else if (organisationLogo?.size > 1024 * 1024) {
-      errors.organisationLogo = "File size should be less than 2MB";
+      errors.organisationLogo = "File size should be less than 1MB";
       isValid = false;
       addToErrorStack("#organisationLogo");
     }
