@@ -335,7 +335,7 @@ export default function HostingEventHiring() {
       errors.eventLink = "Event link is required";
       isValid = false;
       addToErrorStack("#eventLink");
-    } else if (!eventLink.match(/^(ftp|http|https):\/\/[^ "]+$/)) {
+    } else if (!eventLink.match(/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()!@:%_\+.~#?&\/\/=]*)/gm)) {
       errors.eventLink =
         "Please enter a valid URL (for example: https://www.engineerhub.in)";
       isValid = false;
