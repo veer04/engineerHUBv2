@@ -29,7 +29,7 @@ import FormInputMultiValue from "../../components/FormInputs/FormInputMultiValue
 import FormInputAutocomplete from "../../components/FormInputs/FormInputAutocomplete";
 import FormInputNumber from "../../components/FormInputs/FormInputNumber";
 import { Editor } from "@tinymce/tinymce-react";
-import { linkWithHttpExpression } from "../../features/regex";
+import { emailExpression, linkWithHttpExpression } from "../../features/regex";
 
 export default function HostingProject() {
   if (!isUserLoggedIn()) {
@@ -255,7 +255,7 @@ export default function HostingProject() {
       errors.contactEmail = "Contact email is required";
       isValid = false;
       addToErrorStack("#contactEmail");
-    } else if (!contactEmail.match(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/)) {
+    } else if (!contactEmail.match(emailExpression)) {
       errors.contactEmail = "Please enter a valid email address";
       isValid = false;
       addToErrorStack("#contactEmail");

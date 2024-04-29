@@ -34,7 +34,7 @@ import {
   getCitiesByState,
   getStatesByCountry,
 } from "../../services/APIConfig";
-import { linkWithHttpExpression } from "../../features/regex";
+import { emailExpression, linkWithHttpExpression } from "../../features/regex";
 
 export default function HostingJob() {
   if (!isUserLoggedIn()) {
@@ -355,7 +355,7 @@ export default function HostingJob() {
       errors.contactEmail = "Contact email is required";
       isValid = false;
       addToErrorStack("#contactEmail");
-    } else if (!contactEmail.match(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/)) {
+    } else if (!contactEmail.match(emailExpression)) {
       errors.contactEmail = "Please enter a valid email address";
       isValid = false;
       addToErrorStack("#contactEmail");

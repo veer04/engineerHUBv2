@@ -25,7 +25,7 @@ import FormInputEmail from "../../components/FormInputs/FormInputEmail";
 import FormInputPhoneNumber from "../../components/FormInputs/FormInputPhoneNumber";
 import FormButton from "../../components/FormInputs/FormButton";
 import "./HostingCulturalEvent.css";
-import { linkWithHttpExpression } from "../../features/regex";
+import { emailExpression, linkWithHttpExpression } from "../../features/regex";
 
 export default function HostingEventHiring() {
   if (!isUserLoggedIn()) {
@@ -347,7 +347,7 @@ export default function HostingEventHiring() {
       errors.contactEmail = "Contact email is required";
       isValid = false;
       addToErrorStack("#contactEmail");
-    } else if (!contactEmail.match(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/)) {
+    } else if (!contactEmail.match(emailExpression)) {
       errors.contactEmail = "Please enter a valid email address";
       isValid = false;
       addToErrorStack("#contactEmail");
