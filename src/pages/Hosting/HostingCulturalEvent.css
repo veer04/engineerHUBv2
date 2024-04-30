@@ -5,6 +5,7 @@
   color: var(--text-color-dark-green);
   --poster-width: 23rem;
   background-color: white;
+  position: relative;
 }
 .hosting-container .poster-container {
   max-width: 28rem;
@@ -17,6 +18,8 @@
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
+  position: sticky;
+  top: 0;
 }
 .hosting-container .poster-container .fact {
   background-color: white;
