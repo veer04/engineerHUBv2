@@ -488,6 +488,10 @@ export default function HostingJob() {
       errors.openings = "Number of openings should be atleast 1";
       isValid = false;
       addToErrorStack("#openings");
+    } else if (openings && openings % 1 !== 0) {
+      errors.openings = "Number of openings should be an integer";
+      isValid = false;
+      addToErrorStack("#openings");
     }
 
     // minCGPA is not mandatory and it can not be less than 0 or greater than 10 and it should not have more than 2 decimal places
