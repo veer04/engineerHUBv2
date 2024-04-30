@@ -431,10 +431,18 @@ export default function HostingInternship() {
       errors.minDuration = "Minimum duration is required";
       isValid = false;
       addToErrorStack("#minDuration");
+    } else if (minDuration % 1 !== 0) {
+      errors.minDuration = "Minimum duration should be an integer";
+      isValid = false;
+      addToErrorStack("#minDuration");
     }
 
     if (!maxDuration) {
       errors.maxDuration = "Maximum duration is required";
+      isValid = false;
+      addToErrorStack("#maxDuration");
+    } else if (maxDuration % 1 !== 0) {
+      errors.maxDuration = "Maximum duration should be an integer";
       isValid = false;
       addToErrorStack("#maxDuration");
     }
@@ -447,6 +455,10 @@ export default function HostingInternship() {
 
     if (openings && openings < 1) {
       errors.openings = "Number of openings should be atleast 1";
+      isValid = false;
+      addToErrorStack("#openings");
+    } else if (openings && openings % 1 !== 0) {
+      errors.openings = "Number of openings should be an integer";
       isValid = false;
       addToErrorStack("#openings");
     }
