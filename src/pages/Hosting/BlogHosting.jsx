@@ -413,9 +413,9 @@ const BlogHosting = () => {
                 "undo redo | blocks " +
                 "bold italic forecolor | alignleft aligncenter " +
                 "alignright alignjustify | bullist numlist outdent indent | " +
-                "removeformat | help",
+                "removeformat",
               content_style:
-                "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
+                "body { font-family:Inter,Helvetica,Arial,sans-serif; font-size:14px }",
             }}
           />
           {/* <button onClick={log}>Log editor content</button> */}

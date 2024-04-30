@@ -33,6 +33,11 @@ import {
   getStatesByCountry,
 } from "../../services/APIConfig";
 import { Editor } from "@tinymce/tinymce-react";
+import {
+  emailExpression,
+  linkWithHttpExpression,
+  mobileNumberExpression,
+} from "../../features/regex";
 
 export default function HostingInternship() {
   if (!isUserLoggedIn()) {
@@ -78,7 +83,7 @@ export default function HostingInternship() {
   const [maxDuration, setMaxDuration] = useState("");
   const [openings, setOpenings] = useState("");
   const [applyLink, setApplyLink] = useState("");
-  const [isPaid, setIsPaid] = useState(true);
+  const [isPaid, setIsPaid] = useState("Paid");
   const [showSalaryToCandidates, setShowSalaryToCandidates] = useState(true);
   const [customSalary, setCustomSalary] = useState("");
   const [salaryType, setSalaryType] = useState("Fixed");
@@ -234,9 +239,9 @@ export default function HostingInternship() {
       errors.organisationName = "Organisation name is required";
       isValid = false;
       addToErrorStack("#organisationName");
-    } else if (organisationName.length < 5) {
+    } else if (organisationName.length < 3) {
       errors.organisationName =
-        "Organisation name should be minimum 5 characters";
+        "Organisation name should be minimum 3 characters";
       isValid = false;
       addToErrorStack("#organisationName");
     } else if (organisationName.length > 100) {
@@ -260,10 +265,7 @@ export default function HostingInternship() {
       addToErrorStack("#organisationLogo");
     }
 
-    if (
-      organisationLink &&
-      !organisationLink.match(/^(ftp|http|https):\/\/[^ "]+$/)
-    ) {
+    if (organisationLink && !organisationLink.match(linkWithHttpExpression)) {
       errors.organisationLink =
         "Please enter a valid URL. (Ex: https://www.linkedin.com/company/engineersummit/mycompany/)";
       isValid = false;
@@ -300,7 +302,7 @@ export default function HostingInternship() {
       errors.contactNumber = "Contact number is required";
       isValid = false;
       addToErrorStack("#contactNumber");
-    } else if (!contactNumber.match(/^\d{10}$/)) {
+    } else if (!contactNumber.match(mobileNumberExpression)) {
       errors.contactNumber = "Please enter a valid contact number";
       isValid = false;
       addToErrorStack("#contactNumber");
@@ -316,7 +318,7 @@ export default function HostingInternship() {
       errors.contactEmail = "Contact email is required";
       isValid = false;
       addToErrorStack("#contactEmail");
-    } else if (!contactEmail.match(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/)) {
+    } else if (!contactEmail.match(emailExpression)) {
       errors.contactEmail = "Please enter a valid email address";
       isValid = false;
       addToErrorStack("#contactEmail");
@@ -372,9 +374,9 @@ export default function HostingInternship() {
       errors.opportunityName = "Opportunity name is required";
       isValid = false;
       addToErrorStack("#opportunityName");
-    } else if (opportunityName.length < 5) {
+    } else if (opportunityName.length < 3) {
       errors.opportunityName =
-        "Opportunity name should be minimum 5 characters";
+        "Opportunity name should be minimum 3 characters";
       isValid = false;
       addToErrorStack("#opportunityName");
     } else if (opportunityName.length > 100) {
@@ -429,10 +431,18 @@ export default function HostingInternship() {
       errors.minDuration = "Minimum duration is required";
       isValid = false;
       addToErrorStack("#minDuration");
+    } else if (minDuration % 1 !== 0) {
+      errors.minDuration = "Minimum duration should be an integer";
+      isValid = false;
+      addToErrorStack("#minDuration");
     }
 
     if (!maxDuration) {
       errors.maxDuration = "Maximum duration is required";
+      isValid = false;
+      addToErrorStack("#maxDuration");
+    } else if (maxDuration % 1 !== 0) {
+      errors.maxDuration = "Maximum duration should be an integer";
       isValid = false;
       addToErrorStack("#maxDuration");
     }
@@ -443,13 +453,17 @@ export default function HostingInternship() {
       addToErrorStack("#maxDuration");
     }
 
-    if (!openings) {
-      errors.openings = "Openings are required";
+    if (openings && openings < 1) {
+      errors.openings = "Number of openings should be atleast 1";
+      isValid = false;
+      addToErrorStack("#openings");
+    } else if (openings && openings % 1 !== 0) {
+      errors.openings = "Number of openings should be an integer";
       isValid = false;
       addToErrorStack("#openings");
     }
 
-    if (applyLink && !applyLink.match(/^(ftp|http|https):\/\/[^ "]+$/)) {
+    if (applyLink && !applyLink.match(linkWithHttpExpression)) {
       errors.applyLink =
         "Please enter a valid URL (for example: https://www.engineerhub.in)";
       isValid = false;
@@ -462,26 +476,65 @@ export default function HostingInternship() {
       addToErrorStack("#isPaid");
     }
 
-    if (!salaryType) {
+    if (isPaid === "Paid" && !salaryType) {
       errors.salaryType = "Salary type is required";
       isValid = false;
       addToErrorStack("#salaryType");
     }
 
-    if (salaryType === "Fixed" && !fixedAmount) {
+    if (isPaid === "Paid" && salaryType === "Fixed" && !fixedAmount) {
       errors.fixedAmount = "Fixed amount is required";
+      isValid = false;
+      addToErrorStack("#fixedAmount");
+    } else if (isPaid === "Paid" && salaryType === "Fixed" && fixedAmount < 0) {
+      errors.fixedAmount = "Fixed amount cannot be negative";
+      isValid = false;
+      addToErrorStack("#fixedAmount");
+    } else if (
+      isPaid === "Paid" &&
+      salaryType === "Fixed" &&
+      fixedAmount.toString().split(".")[1]?.length > 2
+    ) {
+      errors.fixedAmount =
+        "Fixed amount cannot have more than 2 decimal places";
       isValid = false;
       addToErrorStack("#fixedAmount");
     }
 
-    if (salaryType === "Range" && !minAmount) {
+    if (isPaid === "Paid" && salaryType === "Range" && !minAmount) {
       errors.minAmount = "Minimum amount is required";
+      isValid = false;
+      addToErrorStack("#minAmount");
+    } else if (isPaid === "Paid" && salaryType === "Range" && minAmount < 0) {
+      errors.minAmount = "Minimum amount cannot be negative";
+      isValid = false;
+      addToErrorStack("#minAmount");
+    } else if (
+      isPaid === "Paid" &&
+      salaryType === "Range" &&
+      minAmount.toString().split(".")[1]?.length > 2
+    ) {
+      errors.minAmount =
+        "Minimum amount cannot have more than 2 decimal places";
       isValid = false;
       addToErrorStack("#minAmount");
     }
 
-    if (salaryType === "Range" && !maxAmount) {
+    if (isPaid === "Paid" && salaryType === "Range" && !maxAmount) {
       errors.maxAmount = "Maximum amount is required";
+      isValid = false;
+      addToErrorStack("#maxAmount");
+    } else if (isPaid === "Paid" && salaryType === "Range" && maxAmount < 0) {
+      errors.maxAmount = "Maximum amount cannot be negative";
+      isValid = false;
+      addToErrorStack("#maxAmount");
+    } else if (
+      isPaid === "Paid" &&
+      salaryType === "Range" &&
+      maxAmount.toString().split(".")[1]?.length > 2
+    ) {
+      errors.maxAmount =
+        "Maximum amount cannot have more than 2 decimal places";
       isValid = false;
       addToErrorStack("#maxAmount");
     }
@@ -825,7 +878,7 @@ export default function HostingInternship() {
 
               <h2>Internship Description</h2>
 
-              <div className="mb-4">
+              <div id="opportunityDescription" className="mb-4">
                 <Editor
                   apiKey={EDITOR_API_KEY}
                   value={opportunityDescription}
@@ -836,7 +889,7 @@ export default function HostingInternship() {
                   initialValue=""
                   init={{
                     height: 500,
-                    menubar: false,
+                    menubar: "file",
                     plugins: [
                       "advlist",
                       "autolink",
@@ -861,12 +914,19 @@ export default function HostingInternship() {
                       "undo redo" +
                       "bold italic forecolor | alignleft aligncenter " +
                       "alignright alignjustify | bullist numlist outdent indent | " +
-                      "removeformat | help",
+                      "removeformat",
                     content_style:
-                      "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
+                      "body { font-family:Inter,Helvetica,Arial,sans-serif; font-size:14px }",
                   }}
                 />
                 {/* <button onClick={log}>Log editor content</button> */}
+                <div className="custom-form-input">
+                  {errors.opportunityDescription && (
+                    <span className="helper-text">
+                      {errors.opportunityDescription}
+                    </span>
+                  )}
+                </div>
               </div>
 
               {/* <FormInputTextarea
@@ -1054,7 +1114,7 @@ export default function HostingInternship() {
                 label="Number of Openings"
                 id="openings"
                 name="openings"
-                required
+                // required
                 placeholder="Enter the number of openings (Ex: 10,15 etc)"
                 value={openings}
                 setValue={setOpenings}
@@ -1185,7 +1245,7 @@ export default function HostingInternship() {
                     <FormInput
                       id="customSalary"
                       name="customSalary"
-                      placeholder="Any salary detail?"
+                      placeholder={`Any stipend related message? Ex: "Market Standard", "Not Disclosed", "Negotiable", etc`}
                       value={customSalary}
                       setValue={setCustomSalary}
                       helperText={errors.customSalary}

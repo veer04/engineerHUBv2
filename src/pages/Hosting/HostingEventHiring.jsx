@@ -25,6 +25,11 @@ import FormInputEmail from "../../components/FormInputs/FormInputEmail";
 import FormInputPhoneNumber from "../../components/FormInputs/FormInputPhoneNumber";
 import FormButton from "../../components/FormInputs/FormButton";
 import "./HostingCulturalEvent.css";
+import {
+  emailExpression,
+  linkWithHttpExpression,
+  mobileNumberExpression,
+} from "../../features/regex";
 
 export default function HostingEventHiring() {
   if (!isUserLoggedIn()) {
@@ -192,8 +197,8 @@ export default function HostingEventHiring() {
       errors.eventName = "Event name is required";
       isValid = false;
       addToErrorStack("#eventName");
-    } else if (eventName.length < 5) {
-      errors.eventName = "Event name should be minimum 5 characters";
+    } else if (eventName.length < 3) {
+      errors.eventName = "Event name should be minimum 3 characters";
       isValid = false;
       addToErrorStack("#eventName");
     } else if (eventName.length > 100) {
@@ -335,7 +340,7 @@ export default function HostingEventHiring() {
       errors.eventLink = "Event link is required";
       isValid = false;
       addToErrorStack("#eventLink");
-    } else if (!eventLink.match(/^(ftp|http|https):\/\/[^ "]+$/)) {
+    } else if (!eventLink.match(linkWithHttpExpression)) {
       errors.eventLink =
         "Please enter a valid URL (for example: https://www.engineerhub.in)";
       isValid = false;
@@ -346,7 +351,7 @@ export default function HostingEventHiring() {
       errors.contactEmail = "Contact email is required";
       isValid = false;
       addToErrorStack("#contactEmail");
-    } else if (!contactEmail.match(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/)) {
+    } else if (!contactEmail.match(emailExpression)) {
       errors.contactEmail = "Please enter a valid email address";
       isValid = false;
       addToErrorStack("#contactEmail");
@@ -356,7 +361,7 @@ export default function HostingEventHiring() {
       errors.contactNumber = "Contact number is required";
       isValid = false;
       addToErrorStack("#contactNumber");
-    } else if (!contactNumber.match(/^\d{10}$/)) {
+    } else if (!contactNumber.match(mobileNumberExpression)) {
       errors.contactNumber = "Please enter a valid contact number";
       isValid = false;
       addToErrorStack("#contactNumber");

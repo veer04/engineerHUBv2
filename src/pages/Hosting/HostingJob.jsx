@@ -9,12 +9,11 @@ import {
 import { redirectToAuth } from "../../features/redirectToAuth";
 import { API_URL, Bucket_URL, EDITOR_API_KEY } from "../../services/APIUtils";
 import { changeDocumentTitle } from "../../features/changeDocumentTitle";
-import axios, { all } from "axios";
+import axios from "axios";
 import useNavbar from "../../hooks/use-navbar";
 import useGlobalSnackbar from "../../hooks/useGlobalSnackbar";
 import FormIndicator from "../../components/FormInputs/FormIndicator";
 import FormInput from "../../components/FormInputs/FormInput";
-import FormInputTextarea from "../../components/FormInputs/FormInputTextarea";
 import FormInputDropdown from "../../components/FormInputs/FormInputDropdown";
 import FormInputFileUpload from "../../components/FormInputs/FormInputFileUpload";
 import FormInputSelect from "../../components/FormInputs/FormInputSelect";
@@ -27,13 +26,17 @@ import FormInputPhoneNumber from "../../components/FormInputs/FormInputPhoneNumb
 import FormButton from "../../components/FormInputs/FormButton";
 import "./HostingCulturalEvent.css";
 import FormInputMultiValue from "../../components/FormInputs/FormInputMultiValue";
-import FormInputAutocomplete from "../../components/FormInputs/FormInputAutocomplete";
 import FormInputNumber from "../../components/FormInputs/FormInputNumber";
 import {
   getAllCountries,
   getCitiesByState,
   getStatesByCountry,
 } from "../../services/APIConfig";
+import {
+  emailExpression,
+  linkWithHttpExpression,
+  mobileNumberExpression,
+} from "../../features/regex";
 
 export default function HostingJob() {
   if (!isUserLoggedIn()) {
@@ -57,8 +60,6 @@ export default function HostingJob() {
   const [contactNumber, setContactNumber] = useState("");
   const [countryCode, setCountryCode] = useState("");
   const [contactEmail, setContactEmail] = useState("");
-  const [alternateContactNumber, setAlternateContactNumber] = useState("");
-  const [alternateCountryCode, setAlternateCountryCode] = useState("");
   const [opportunityName, setOpportunityName] = useState("");
   const [opportunityMode, setOpportunityMode] = useState("");
   const [opportunityLocation, setOpportunityLocation] = useState("");
@@ -76,17 +77,11 @@ export default function HostingJob() {
   const [opportunityDescription, setOpportunityDescription] = useState("");
   const [salaryUnit, setSalaryUnit] = useState("CTC");
   const [salaryType, setSalaryType] = useState("Fixed");
-
-  const [projectPoster, setProjectPoster] = useState("");
-  const [spendType, setSpendType] = useState("");
-
   const [fixedAmount, setFixedAmount] = useState("");
-  const [hourlyBasis, setHourlyBasis] = useState("");
   const [minAmount, setMinAmount] = useState("");
   const [maxAmount, setMaxAmount] = useState("");
   const [showSalaryToCandidates, setShowSalaryToCandidates] = useState(true);
   const [customSalary, setCustomSalary] = useState("");
-
   const [minExperience, setMinExperience] = useState({});
   const [maxExperience, setMaxExperience] = useState({});
   const [jobIsForFresher, setJobIsForFresher] = useState(false);
@@ -94,23 +89,17 @@ export default function HostingJob() {
   const [openings, setOpenings] = useState("");
   const [minCGPA, setMinCGPA] = useState("");
   const [applyLink, setApplyLink] = useState("");
-
-  const [projectDomain, setProjectDomain] = useState({});
-  const [projectDomainOther, setProjectDomainOther] = useState("");
-  const [experienceRequired, setExperienceRequired] = useState("");
-  const [durationType, setDurationType] = useState("");
-  const [estimatedTime, setEstimatedTime] = useState("");
-
-  const [showContactDetails, setShowContactDetails] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [previouslyViewedPageNumber, setPreviouslyViewedPageNumber] =
     useState(1);
+
   const editorRef = useRef(null);
   const log = () => {
     if (editorRef.current) {
       console.log(editorRef.current.getContent());
     }
   };
+
   const [errors, setErrors] = useState({
     organisationName: "",
     organisationLogo: "",
@@ -144,61 +133,6 @@ export default function HostingJob() {
     applyLink: "",
   });
   let errorStack = [];
-  const eventTypeOptions = [
-    {
-      label: "Technical Event",
-      value: "Technical",
-    },
-    {
-      label: "Cultural Event",
-      value: "Cultural",
-    },
-    {
-      label: "Hackathon",
-      value: "Hackathon",
-    },
-    {
-      label: "Webinar",
-      value: "Webinar",
-    },
-  ];
-  const eventCategoryOptions = [
-    {
-      label: "College Event",
-      value: "collegeEvent",
-    },
-    {
-      label: "Workshop",
-      value: "Workshop",
-    },
-  ];
-  const domainOptions = [
-    {
-      label: "Data Structures & Algorithms",
-      value: "Data Structures & Algorithms",
-    },
-    { label: "Web Development", value: "Web Development" },
-    { label: "App Development", value: "App Development" },
-    { label: "Machine Learning & AI", value: "Machine Learning & AI" },
-    { label: "UI/UX Design", value: "UI/UX Design" },
-    { label: "Cyber Security", value: "Cyber Security" },
-    { label: "DevOps", value: "DevOps" },
-    { label: "Other", value: "Other" },
-  ];
-
-  const experience = [
-    "Fresher",
-    "1+ years",
-    "2+ years",
-    "3+ years",
-    "4+ years",
-    "5+ years",
-    "6+ years",
-    "7+ years",
-    "8+ years",
-    "9+ years",
-    "10+ years",
-  ];
 
   const experienceDropdown = [
     { label: "No experience", value: 0 },
@@ -304,9 +238,9 @@ export default function HostingJob() {
       errors.organisationName = "Organisation name is required";
       isValid = false;
       addToErrorStack("#organisationName");
-    } else if (organisationName.length < 5) {
+    } else if (organisationName.length < 3) {
       errors.organisationName =
-        "Organisation name should be minimum 5 characters";
+        "Organisation name should be minimum 3 characters";
       isValid = false;
       addToErrorStack("#organisationName");
     } else if (organisationName.length > 100) {
@@ -325,15 +259,12 @@ export default function HostingJob() {
       isValid = false;
       addToErrorStack("#organisationLogo");
     } else if (organisationLogo?.size > 1024 * 1024) {
-      errors.organisationLogo = "File size should be less than 2MB";
+      errors.organisationLogo = "File size should be less than 1MB";
       isValid = false;
       addToErrorStack("#organisationLogo");
     }
 
-    if (
-      organisationLink &&
-      !organisationLink.match(/^(ftp|http|https):\/\/[^ "]+$/)
-    ) {
+    if (organisationLink && !organisationLink.match(linkWithHttpExpression)) {
       errors.organisationLink =
         "Please enter a valid URL. (Ex: https://www.linkedin.com/company/engineersummit/mycompany/)";
       isValid = false;
@@ -344,7 +275,7 @@ export default function HostingJob() {
       errors.contactNumber = "Contact number is required";
       isValid = false;
       addToErrorStack("#contactNumber");
-    } else if (!contactNumber.match(/^\d{10}$/)) {
+    } else if (!contactNumber.match(mobileNumberExpression)) {
       errors.contactNumber = "Please enter a valid contact number";
       isValid = false;
       addToErrorStack("#contactNumber");
@@ -354,7 +285,7 @@ export default function HostingJob() {
       errors.contactEmail = "Contact email is required";
       isValid = false;
       addToErrorStack("#contactEmail");
-    } else if (!contactEmail.match(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/)) {
+    } else if (!contactEmail.match(emailExpression)) {
       errors.contactEmail = "Please enter a valid email address";
       isValid = false;
       addToErrorStack("#contactEmail");
@@ -388,9 +319,9 @@ export default function HostingJob() {
       errors.opportunityName = "Opportunity name is required";
       isValid = false;
       addToErrorStack("#opportunityName");
-    } else if (opportunityName.length < 5) {
+    } else if (opportunityName.length < 3) {
       errors.opportunityName =
-        "Opportunity name should be minimum 5 characters";
+        "Opportunity name should be minimum 3 characters";
       isValid = false;
       addToErrorStack("#opportunityName");
     } else if (opportunityName.length > 100) {
@@ -453,7 +384,7 @@ export default function HostingJob() {
         "Job description should be minimum 100 characters";
       isValid = false;
       addToErrorStack("#opportunityDescription");
-    }   
+    }
     // else if (opportunityDescription.length > 10000) {
     //   errors.opportunityDescription =
     //     "Job description should be maximum 10000 characters";
@@ -472,9 +403,25 @@ export default function HostingJob() {
       isValid = false;
       addToErrorStack("#salaryType");
     }
-
     if (showSalaryToCandidates && salaryType === "Fixed" && !fixedAmount) {
       errors.fixedAmount = "Fixed amount is required";
+      isValid = false;
+      addToErrorStack("#fixedAmount");
+    } else if (
+      showSalaryToCandidates &&
+      salaryType === "Fixed" &&
+      fixedAmount < 0
+    ) {
+      errors.fixedAmount = "Fixed amount cannot be negative";
+      isValid = false;
+      addToErrorStack("#fixedAmount");
+    } else if (
+      showSalaryToCandidates &&
+      salaryType === "Fixed" &&
+      fixedAmount.toString().split(".")[1]?.length > 2
+    ) {
+      errors.fixedAmount =
+        "Fixed amount cannot have more than 2 decimal places";
       isValid = false;
       addToErrorStack("#fixedAmount");
     }
@@ -483,10 +430,43 @@ export default function HostingJob() {
       errors.minAmount = "Minimum amount is required";
       isValid = false;
       addToErrorStack("#minAmount");
+    } else if (
+      showSalaryToCandidates &&
+      salaryType === "Range" &&
+      minAmount < 0
+    ) {
+      errors.minAmount = "Minimum amount cannot be negative";
+      isValid = false;
+      addToErrorStack("#minAmount");
+    } else if (
+      showSalaryToCandidates &&
+      salaryType === "Range" &&
+      minAmount.toString().split(".")[1]?.length > 2
+    ) {
+      errors.minAmount =
+        "Minimum amount cannot have more than 2 decimal places";
+      isValid = false;
+      addToErrorStack("#minAmount");
     }
 
     if (showSalaryToCandidates && salaryType === "Range" && !maxAmount) {
       errors.maxAmount = "Maximum amount is required";
+      isValid = false;
+      addToErrorStack("#maxAmount");
+    } else if (
+      showSalaryToCandidates &&
+      salaryType === "Range" &&
+      maxAmount < minAmount
+    ) {
+      errors.maxAmount = "Maximum amount should be greater than minimum amount";
+      isValid = false;
+      addToErrorStack("#maxAmount");
+    } else if (
+      showSalaryToCandidates &&
+      salaryType === "Range" &&
+      maxAmount < 0
+    ) {
+      errors.maxAmount = "Maximum amount cannot be negative";
       isValid = false;
       addToErrorStack("#maxAmount");
     }
@@ -520,25 +500,45 @@ export default function HostingJob() {
       addToErrorStack("#maxExperience");
     }
 
+    if (!jobIsForFresher && minExperience?.value > maxExperience?.value) {
+      errors.maxExperience =
+        "Maximum experience should be greater than minimum experience";
+      isValid = false;
+      addToErrorStack("#maxExperience");
+    }
+
     if (skillsRequired.length === 0) {
       errors.skillsRequired = "Skills are required";
       isValid = false;
       addToErrorStack("#skillsRequired");
     }
 
-    if (!openings) {
-      errors.openings = "Openings are required";
+    if (openings && openings < 1) {
+      errors.openings = "Number of openings should be atleast 1";
+      isValid = false;
+      addToErrorStack("#openings");
+    } else if (openings && openings % 1 !== 0) {
+      errors.openings = "Number of openings should be an integer";
       isValid = false;
       addToErrorStack("#openings");
     }
 
-    if (!minCGPA) {
-      errors.minCGPA = "Minimum CGPA is required";
+    // minCGPA is not mandatory and it can not be less than 0 or greater than 10 and it should not have more than 2 decimal places
+    if (minCGPA && minCGPA < 1) {
+      errors.minCGPA = "Minimum CGPA can not be less than 1";
+      isValid = false;
+      addToErrorStack("#minCGPA");
+    } else if (minCGPA && minCGPA > 10) {
+      errors.minCGPA = "Minimum CGPA can not be greater than 10";
+      isValid = false;
+      addToErrorStack("#minCGPA");
+    } else if (minCGPA && minCGPA.toString().split(".")[1]?.length > 2) {
+      errors.minCGPA = "Minimum CGPA can not have more than 2 decimal places";
       isValid = false;
       addToErrorStack("#minCGPA");
     }
 
-    if (applyLink && !applyLink.match(/^(ftp|http|https):\/\/[^ "]+$/)) {
+    if (applyLink && !applyLink.match(linkWithHttpExpression)) {
       errors.applyLink =
         "Please enter a valid URL (for example: https://www.engineerhub.in)";
       isValid = false;
@@ -931,7 +931,7 @@ export default function HostingJob() {
 
               <h2>Opportunity Description</h2>
 
-              <div className="mb-4">
+              <div id="opportunityDescription" className="mb-4">
                 <Editor
                   apiKey={EDITOR_API_KEY}
                   value={opportunityDescription}
@@ -942,7 +942,7 @@ export default function HostingJob() {
                   initialValue=""
                   init={{
                     height: 500,
-                    menubar: false,
+                    menubar: "file",
                     plugins: [
                       "advlist",
                       "autolink",
@@ -967,12 +967,19 @@ export default function HostingJob() {
                       "undo redo" +
                       "bold italic forecolor | alignleft aligncenter " +
                       "alignright alignjustify | bullist numlist outdent indent | " +
-                      "removeformat | help",
+                      "removeformat",
                     content_style:
-                      "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
+                      "body { font-family:Inter,Helvetica,Arial,sans-serif; font-size:14px }",
                   }}
                 />
                 {/* <button onClick={log}>Log editor content</button> */}
+                <div className="custom-form-input">
+                  {errors.opportunityDescription && (
+                    <span className="helper-text">
+                      {errors.opportunityDescription}
+                    </span>
+                  )}
+                </div>
               </div>
 
               <h2>Salary Details</h2>
@@ -1083,7 +1090,7 @@ export default function HostingJob() {
                 <FormInput
                   id="customSalary"
                   name="customSalary"
-                  placeholder="Any salary detail?"
+                  placeholder={`Any salary related message? Ex: "Market Standard", "Not Disclosed", "Negotiable", etc`}
                   value={customSalary}
                   setValue={setCustomSalary}
                   helperText={errors.customSalary}
@@ -1152,7 +1159,7 @@ export default function HostingJob() {
                 label="Number of Openings"
                 id="openings"
                 name="openings"
-                required
+                // required
                 placeholder="Enter the number of openings (Ex: 10,15 etc)"
                 value={openings}
                 setValue={setOpenings}
@@ -1164,7 +1171,7 @@ export default function HostingJob() {
                 label="Enter minimum CGPA required"
                 id="minCGPA"
                 name="minCGPA"
-                required
+                // required
                 placeholder="Enter Minimum CGPA"
                 step={0.01}
                 value={minCGPA}
