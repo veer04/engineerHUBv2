@@ -476,26 +476,65 @@ export default function HostingInternship() {
       addToErrorStack("#isPaid");
     }
 
-    if (!salaryType) {
+    if (isPaid === "Paid" && !salaryType) {
       errors.salaryType = "Salary type is required";
       isValid = false;
       addToErrorStack("#salaryType");
     }
 
-    if (salaryType === "Fixed" && !fixedAmount) {
+    if (isPaid === "Paid" && salaryType === "Fixed" && !fixedAmount) {
       errors.fixedAmount = "Fixed amount is required";
+      isValid = false;
+      addToErrorStack("#fixedAmount");
+    } else if (isPaid === "Paid" && salaryType === "Fixed" && fixedAmount < 0) {
+      errors.fixedAmount = "Fixed amount cannot be negative";
+      isValid = false;
+      addToErrorStack("#fixedAmount");
+    } else if (
+      isPaid === "Paid" &&
+      salaryType === "Fixed" &&
+      fixedAmount.toString().split(".")[1]?.length > 2
+    ) {
+      errors.fixedAmount =
+        "Fixed amount cannot have more than 2 decimal places";
       isValid = false;
       addToErrorStack("#fixedAmount");
     }
 
-    if (salaryType === "Range" && !minAmount) {
+    if (isPaid === "Paid" && salaryType === "Range" && !minAmount) {
       errors.minAmount = "Minimum amount is required";
+      isValid = false;
+      addToErrorStack("#minAmount");
+    } else if (isPaid === "Paid" && salaryType === "Range" && minAmount < 0) {
+      errors.minAmount = "Minimum amount cannot be negative";
+      isValid = false;
+      addToErrorStack("#minAmount");
+    } else if (
+      isPaid === "Paid" &&
+      salaryType === "Range" &&
+      minAmount.toString().split(".")[1]?.length > 2
+    ) {
+      errors.minAmount =
+        "Minimum amount cannot have more than 2 decimal places";
       isValid = false;
       addToErrorStack("#minAmount");
     }
 
-    if (salaryType === "Range" && !maxAmount) {
+    if (isPaid === "Paid" && salaryType === "Range" && !maxAmount) {
       errors.maxAmount = "Maximum amount is required";
+      isValid = false;
+      addToErrorStack("#maxAmount");
+    } else if (isPaid === "Paid" && salaryType === "Range" && maxAmount < 0) {
+      errors.maxAmount = "Maximum amount cannot be negative";
+      isValid = false;
+      addToErrorStack("#maxAmount");
+    } else if (
+      isPaid === "Paid" &&
+      salaryType === "Range" &&
+      maxAmount.toString().split(".")[1]?.length > 2
+    ) {
+      errors.maxAmount =
+        "Maximum amount cannot have more than 2 decimal places";
       isValid = false;
       addToErrorStack("#maxAmount");
     }

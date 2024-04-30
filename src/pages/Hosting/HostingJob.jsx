@@ -32,7 +32,11 @@ import {
   getCitiesByState,
   getStatesByCountry,
 } from "../../services/APIConfig";
-import { emailExpression, linkWithHttpExpression, mobileNumberExpression } from "../../features/regex";
+import {
+  emailExpression,
+  linkWithHttpExpression,
+  mobileNumberExpression,
+} from "../../features/regex";
 
 export default function HostingJob() {
   if (!isUserLoggedIn()) {
@@ -399,7 +403,6 @@ export default function HostingJob() {
       isValid = false;
       addToErrorStack("#salaryType");
     }
-
     if (showSalaryToCandidates && salaryType === "Fixed" && !fixedAmount) {
       errors.fixedAmount = "Fixed amount is required";
       isValid = false;
@@ -410,6 +413,15 @@ export default function HostingJob() {
       fixedAmount < 0
     ) {
       errors.fixedAmount = "Fixed amount cannot be negative";
+      isValid = false;
+      addToErrorStack("#fixedAmount");
+    } else if (
+      showSalaryToCandidates &&
+      salaryType === "Fixed" &&
+      fixedAmount.toString().split(".")[1]?.length > 2
+    ) {
+      errors.fixedAmount =
+        "Fixed amount cannot have more than 2 decimal places";
       isValid = false;
       addToErrorStack("#fixedAmount");
     }
@@ -426,10 +438,27 @@ export default function HostingJob() {
       errors.minAmount = "Minimum amount cannot be negative";
       isValid = false;
       addToErrorStack("#minAmount");
+    } else if (
+      showSalaryToCandidates &&
+      salaryType === "Range" &&
+      minAmount.toString().split(".")[1]?.length > 2
+    ) {
+      errors.minAmount =
+        "Minimum amount cannot have more than 2 decimal places";
+      isValid = false;
+      addToErrorStack("#minAmount");
     }
 
     if (showSalaryToCandidates && salaryType === "Range" && !maxAmount) {
       errors.maxAmount = "Maximum amount is required";
+      isValid = false;
+      addToErrorStack("#maxAmount");
+    } else if (
+      showSalaryToCandidates &&
+      salaryType === "Range" &&
+      maxAmount < minAmount
+    ) {
+      errors.maxAmount = "Maximum amount should be greater than minimum amount";
       isValid = false;
       addToErrorStack("#maxAmount");
     } else if (

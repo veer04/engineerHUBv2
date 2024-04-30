@@ -341,10 +341,30 @@ export default function HostingProject() {
       errors.fixedAmount = "Fixed amount is required";
       isValid = false;
       addToErrorStack("#fixedAmount");
+    } else if (spendType === "fixed" && fixedAmount < 1) {
+      errors.fixedAmount = "Fixed amount should be greater than 0";
+      isValid = false;
+      addToErrorStack("#fixedAmount");
+    } else if (spendType === "fixed" && fixedAmount.split(".")[1]?.length > 2) {
+      errors.fixedAmount = "Fixed amount should have maximum 2 decimal places";
+      isValid = false;
+      addToErrorStack("#fixedAmount");
     }
 
     if (spendType === "hourly" && !hourlyBasis) {
       errors.hourlyBasis = "Hourly basis amount is required";
+      isValid = false;
+      addToErrorStack("#hourlyBasis");
+    } else if (spendType === "hourly" && hourlyBasis < 1) {
+      errors.hourlyBasis = "Hourly basis amount should be greater than 0";
+      isValid = false;
+      addToErrorStack("#hourlyBasis");
+    } else if (
+      spendType === "hourly" &&
+      hourlyBasis.split(".")[1]?.length > 2
+    ) {
+      errors.hourlyBasis =
+        "Hourly basis amount should have maximum 2 decimal places";
       isValid = false;
       addToErrorStack("#hourlyBasis");
     }
@@ -353,10 +373,30 @@ export default function HostingProject() {
       errors.minAmount = "Minimum amount is required";
       isValid = false;
       addToErrorStack("#minAmount");
+    } else if (spendType === "range" && minAmount < 1) {
+      errors.minAmount = "Minimum amount should be greater than 0";
+      isValid = false;
+      addToErrorStack("#minAmount");
+    } else if (spendType === "range" && minAmount.split(".")[1]?.length > 2) {
+      errors.minAmount = "Minimum amount should have maximum 2 decimal places";
+      isValid = false;
+      addToErrorStack("#minAmount");
     }
 
     if (spendType === "range" && !maxAmount) {
       errors.maxAmount = "Maximum amount is required";
+      isValid = false;
+      addToErrorStack("#maxAmount");
+    } else if (spendType === "range" && maxAmount < minAmount) {
+      errors.maxAmount = "Maximum amount should be greater than minimum amount";
+      isValid = false;
+      addToErrorStack("#maxAmount");
+    } else if (spendType === "range" && maxAmount < 1) {
+      errors.maxAmount = "Maximum amount should be greater than 0";
+      isValid = false;
+      addToErrorStack("#maxAmount");
+    } else if (spendType === "range" && maxAmount.split(".")[1]?.length > 2) {
+      errors.maxAmount = "Maximum amount should have maximum 2 decimal places";
       isValid = false;
       addToErrorStack("#maxAmount");
     }
