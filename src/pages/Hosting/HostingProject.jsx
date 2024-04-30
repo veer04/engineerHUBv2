@@ -50,7 +50,7 @@ export default function HostingProject() {
   } = useGlobalSnackbar();
   const bucket = `${Bucket_URL}frontend/hosting/`;
   const totalPages = 3;
-  const [currentPage, setCurrentPage] = useState(2);
+  const [currentPage, setCurrentPage] = useState(1);
   const [hostName, setHostName] = useState("");
   const [profilePicture, setProfilePicture] = useState("");
   const [profileLink, setProfileLink] = useState("");
@@ -63,6 +63,7 @@ export default function HostingProject() {
   const [projectDescription, setProjectDescription] = useState("");
   const [projectPoster, setProjectPoster] = useState("");
   const [showSalaryToCandidates, setShowSalaryToCandidates] = useState(true);
+  const [customSalary, setCustomSalary] = useState("");
   const [spendType, setSpendType] = useState("");
   const [fixedAmount, setFixedAmount] = useState("");
   const [hourlyBasis, setHourlyBasis] = useState("");
@@ -96,6 +97,7 @@ export default function HostingProject() {
     contactEmail: "",
     projectTitle: "",
     projectDescription: "",
+    customSalary: "",
     projectPoster: "",
     spendType: "",
     fixedAmount: "",
@@ -300,6 +302,20 @@ export default function HostingProject() {
       addToErrorStack("#projectTitle");
     }
 
+    if (!projectPoster) {
+      errors.projectPoster = "Project poster is required";
+      isValid = false;
+      addToErrorStack("#projectPoster");
+    } else if (!projectPoster?.type?.includes("image")) {
+      errors.projectPoster = "Please upload an image file";
+      isValid = false;
+      addToErrorStack("#projectPoster");
+    } else if (projectPoster?.size > 1024 * 1024 * 5) {
+      errors.projectPoster = "File size should be less than 5MB";
+      isValid = false;
+      addToErrorStack("#projectPoster");
+    }
+
     if (!projectDescription) {
       errors.projectDescription = "Project description is required";
       isValid = false;
@@ -317,49 +333,48 @@ export default function HostingProject() {
     //   addToErrorStack("#projectDescription");
     // }
 
-    if (!projectPoster) {
-      errors.projectPoster = "Project poster is required";
-      isValid = false;
-      addToErrorStack("#projectPoster");
-    } else if (!projectPoster?.type?.includes("image")) {
-      errors.projectPoster = "Please upload an image file";
-      isValid = false;
-      addToErrorStack("#projectPoster");
-    } else if (projectPoster?.size > 1024 * 1024 * 5) {
-      errors.projectPoster = "File size should be less than 5MB";
-      isValid = false;
-      addToErrorStack("#projectPoster");
-    }
-
-    if (!spendType) {
+    if (showSalaryToCandidates && !spendType) {
       errors.spendType = "Spend type is required";
       isValid = false;
       addToErrorStack("#spendType");
     }
 
-    if (spendType === "fixed" && !fixedAmount) {
+    if (showSalaryToCandidates && spendType === "fixed" && !fixedAmount) {
       errors.fixedAmount = "Fixed amount is required";
       isValid = false;
       addToErrorStack("#fixedAmount");
-    } else if (spendType === "fixed" && fixedAmount < 1) {
+    } else if (
+      showSalaryToCandidates &&
+      spendType === "fixed" &&
+      fixedAmount < 1
+    ) {
       errors.fixedAmount = "Fixed amount should be greater than 0";
       isValid = false;
       addToErrorStack("#fixedAmount");
-    } else if (spendType === "fixed" && fixedAmount.split(".")[1]?.length > 2) {
+    } else if (
+      showSalaryToCandidates &&
+      spendType === "fixed" &&
+      fixedAmount.split(".")[1]?.length > 2
+    ) {
       errors.fixedAmount = "Fixed amount should have maximum 2 decimal places";
       isValid = false;
       addToErrorStack("#fixedAmount");
     }
 
-    if (spendType === "hourly" && !hourlyBasis) {
+    if (showSalaryToCandidates && spendType === "hourly" && !hourlyBasis) {
       errors.hourlyBasis = "Hourly basis amount is required";
       isValid = false;
       addToErrorStack("#hourlyBasis");
-    } else if (spendType === "hourly" && hourlyBasis < 1) {
+    } else if (
+      showSalaryToCandidates &&
+      spendType === "hourly" &&
+      hourlyBasis < 1
+    ) {
       errors.hourlyBasis = "Hourly basis amount should be greater than 0";
       isValid = false;
       addToErrorStack("#hourlyBasis");
     } else if (
+      showSalaryToCandidates &&
       spendType === "hourly" &&
       hourlyBasis.split(".")[1]?.length > 2
     ) {
@@ -369,33 +384,53 @@ export default function HostingProject() {
       addToErrorStack("#hourlyBasis");
     }
 
-    if (spendType === "range" && !minAmount) {
+    if (showSalaryToCandidates && spendType === "range" && !minAmount) {
       errors.minAmount = "Minimum amount is required";
       isValid = false;
       addToErrorStack("#minAmount");
-    } else if (spendType === "range" && minAmount < 1) {
+    } else if (
+      showSalaryToCandidates &&
+      spendType === "range" &&
+      minAmount < 1
+    ) {
       errors.minAmount = "Minimum amount should be greater than 0";
       isValid = false;
       addToErrorStack("#minAmount");
-    } else if (spendType === "range" && minAmount.split(".")[1]?.length > 2) {
+    } else if (
+      showSalaryToCandidates &&
+      spendType === "range" &&
+      minAmount.split(".")[1]?.length > 2
+    ) {
       errors.minAmount = "Minimum amount should have maximum 2 decimal places";
       isValid = false;
       addToErrorStack("#minAmount");
     }
 
-    if (spendType === "range" && !maxAmount) {
+    if (showSalaryToCandidates && spendType === "range" && !maxAmount) {
       errors.maxAmount = "Maximum amount is required";
       isValid = false;
       addToErrorStack("#maxAmount");
-    } else if (spendType === "range" && maxAmount < minAmount) {
+    } else if (
+      showSalaryToCandidates &&
+      spendType === "range" &&
+      maxAmount < minAmount
+    ) {
       errors.maxAmount = "Maximum amount should be greater than minimum amount";
       isValid = false;
       addToErrorStack("#maxAmount");
-    } else if (spendType === "range" && maxAmount < 1) {
+    } else if (
+      showSalaryToCandidates &&
+      spendType === "range" &&
+      maxAmount < 1
+    ) {
       errors.maxAmount = "Maximum amount should be greater than 0";
       isValid = false;
       addToErrorStack("#maxAmount");
-    } else if (spendType === "range" && maxAmount.split(".")[1]?.length > 2) {
+    } else if (
+      showSalaryToCandidates &&
+      spendType === "range" &&
+      maxAmount.split(".")[1]?.length > 2
+    ) {
       errors.maxAmount = "Maximum amount should have maximum 2 decimal places";
       isValid = false;
       addToErrorStack("#maxAmount");
@@ -504,6 +539,8 @@ export default function HostingProject() {
         form.append("minRange", minAmount);
         form.append("maxRange", maxAmount);
       }
+    } else {
+      form.append("amountToDisclose", customSalary);
     }
     form.append(
       "domainName",
@@ -840,95 +877,110 @@ export default function HostingProject() {
                 className={showSalaryToCandidates ? `mb-4` : `mb-1`}
               />
 
-              <FormInputSelect
-                label="I am looking to spend"
-                id="spendType"
-                name="spendType"
-                required
-                helperText={errors.spendType}
-                className="mb-4"
-              >
-                <div className="mobile-item-container">
-                  <FormInputSelectOption
-                    label="Fixed Amount"
-                    value={spendType}
-                    setValue={setSpendType}
-                    result="fixed"
-                    helperText={errors.spendType}
-                  />
-                  <FormInputSelectOption
-                    label="Hourly Basis"
-                    value={spendType}
-                    setValue={setSpendType}
-                    result="hourly"
-                    helperText={errors.spendType}
-                  />
-                  <FormInputSelectOption
-                    label="Range"
-                    value={spendType}
-                    setValue={setSpendType}
-                    result="range"
-                    helperText={errors.spendType}
-                  />
-                </div>
-              </FormInputSelect>
-
-              {spendType === "fixed" && (
-                <FormInputNumber
-                  label="Fixed Amount (in INR)"
-                  id="fixedAmount"
-                  name="fixedAmount"
-                  required
-                  placeholder="Enter Fixed Amount"
-                  value={fixedAmount}
-                  setValue={setFixedAmount}
-                  helperText={errors.fixedAmount}
-                  className="mb-4"
-                />
-              )}
-
-              {spendType === "hourly" && (
-                <FormInputNumber
-                  label="Hourly Basis (in INR)"
-                  id="hourlyBasis"
-                  name="hourlyBasis"
-                  required
-                  placeholder="Enter Hourly Basis"
-                  value={hourlyBasis}
-                  setValue={setHourlyBasis}
-                  helperText={errors.hourlyBasis}
-                  className="mb-4"
-                />
-              )}
-
-              {spendType === "range" && (
+              {showSalaryToCandidates ? (
                 <>
-                  <FormInputNumber
-                    label="Minimum Amount (in INR)"
-                    id="minAmount"
-                    name="minAmount"
+                  <FormInputSelect
+                    label="I am looking to spend"
+                    id="spendType"
+                    name="spendType"
                     required
-                    placeholder="Enter Minimum Amount"
-                    value={minAmount}
-                    setValue={setMinAmount}
-                    helperText={errors.minAmount}
+                    helperText={errors.spendType}
                     className="mb-4"
-                  />
-                  <FormInputNumber
-                    label="Maximum Amount (in INR)"
-                    id="maxAmount"
-                    name="maxAmount"
-                    required
-                    placeholder="Enter Maximum Amount"
-                    value={maxAmount}
-                    setValue={setMaxAmount}
-                    helperText={errors.maxAmount}
-                    className="mb-4"
-                  />
+                  >
+                    <div className="mobile-item-container">
+                      <FormInputSelectOption
+                        label="Fixed Amount"
+                        value={spendType}
+                        setValue={setSpendType}
+                        result="fixed"
+                        helperText={errors.spendType}
+                      />
+                      <FormInputSelectOption
+                        label="Hourly Basis"
+                        value={spendType}
+                        setValue={setSpendType}
+                        result="hourly"
+                        helperText={errors.spendType}
+                      />
+                      <FormInputSelectOption
+                        label="Range"
+                        value={spendType}
+                        setValue={setSpendType}
+                        result="range"
+                        helperText={errors.spendType}
+                      />
+                    </div>
+                  </FormInputSelect>
+
+                  {spendType === "fixed" && (
+                    <FormInputNumber
+                      label="Fixed Amount (in INR)"
+                      id="fixedAmount"
+                      name="fixedAmount"
+                      required
+                      placeholder="Enter Fixed Amount"
+                      value={fixedAmount}
+                      setValue={setFixedAmount}
+                      helperText={errors.fixedAmount}
+                      className="mb-4"
+                    />
+                  )}
+
+                  {spendType === "hourly" && (
+                    <FormInputNumber
+                      label="Hourly Basis (in INR)"
+                      id="hourlyBasis"
+                      name="hourlyBasis"
+                      required
+                      placeholder="Enter Hourly Basis"
+                      value={hourlyBasis}
+                      setValue={setHourlyBasis}
+                      helperText={errors.hourlyBasis}
+                      className="mb-4"
+                    />
+                  )}
+
+                  {spendType === "range" && (
+                    <>
+                      <FormInputNumber
+                        label="Minimum Amount (in INR)"
+                        id="minAmount"
+                        name="minAmount"
+                        required
+                        placeholder="Enter Minimum Amount"
+                        value={minAmount}
+                        setValue={setMinAmount}
+                        helperText={errors.minAmount}
+                        className="mb-4"
+                      />
+                      <FormInputNumber
+                        label="Maximum Amount (in INR)"
+                        id="maxAmount"
+                        name="maxAmount"
+                        required
+                        placeholder="Enter Maximum Amount"
+                        value={maxAmount}
+                        setValue={setMaxAmount}
+                        helperText={errors.maxAmount}
+                        className="mb-4"
+                      />
+                    </>
+                  )}
                 </>
+              ) : (
+                <FormInput
+                  id="customSalary"
+                  name="customSalary"
+                  placeholder={`Any salary related message? Ex: "Market Standard", "Not Disclosed", "Negotiable", etc`}
+                  value={customSalary}
+                  setValue={setCustomSalary}
+                  helperText={errors.customSalary}
+                  className="mb-4"
+                />
               )}
             </>
           )}
+
           {currentPage === 3 && (
             <>
               <FormInputDropdown
