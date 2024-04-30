@@ -29,7 +29,11 @@ import FormInputMultiValue from "../../components/FormInputs/FormInputMultiValue
 import FormInputAutocomplete from "../../components/FormInputs/FormInputAutocomplete";
 import FormInputNumber from "../../components/FormInputs/FormInputNumber";
 import { Editor } from "@tinymce/tinymce-react";
-import { emailExpression, linkWithHttpExpression } from "../../features/regex";
+import {
+  emailExpression,
+  linkWithHttpExpression,
+  mobileNumberExpression,
+} from "../../features/regex";
 
 export default function HostingProject() {
   if (!isUserLoggedIn()) {
@@ -239,13 +243,16 @@ export default function HostingProject() {
       errors.contactNumber = "Contact number is required";
       isValid = false;
       addToErrorStack("#contactNumber");
-    } else if (!contactNumber.match(/^\d{10}$/)) {
+    } else if (!contactNumber.match(mobileNumberExpression)) {
       errors.contactNumber = "Please enter a valid contact number";
       isValid = false;
       addToErrorStack("#contactNumber");
     }
 
-    if (alternateContactNumber && !alternateContactNumber.match(/^\d{10}$/)) {
+    if (
+      alternateContactNumber &&
+      !alternateContactNumber.match(mobileNumberExpression)
+    ) {
       errors.alternateContactNumber = "Please enter a valid contact number";
       isValid = false;
       addToErrorStack("#alternateContactNumber");

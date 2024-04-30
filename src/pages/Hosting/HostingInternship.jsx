@@ -33,7 +33,11 @@ import {
   getStatesByCountry,
 } from "../../services/APIConfig";
 import { Editor } from "@tinymce/tinymce-react";
-import { emailExpression, linkWithHttpExpression } from "../../features/regex";
+import {
+  emailExpression,
+  linkWithHttpExpression,
+  mobileNumberExpression,
+} from "../../features/regex";
 
 export default function HostingInternship() {
   if (!isUserLoggedIn()) {
@@ -298,7 +302,7 @@ export default function HostingInternship() {
       errors.contactNumber = "Contact number is required";
       isValid = false;
       addToErrorStack("#contactNumber");
-    } else if (!contactNumber.match(/^\d{10}$/)) {
+    } else if (!contactNumber.match(mobileNumberExpression)) {
       errors.contactNumber = "Please enter a valid contact number";
       isValid = false;
       addToErrorStack("#contactNumber");

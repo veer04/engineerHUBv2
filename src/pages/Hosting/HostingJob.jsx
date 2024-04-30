@@ -32,7 +32,7 @@ import {
   getCitiesByState,
   getStatesByCountry,
 } from "../../services/APIConfig";
-import { emailExpression, linkWithHttpExpression } from "../../features/regex";
+import { emailExpression, linkWithHttpExpression, mobileNumberExpression } from "../../features/regex";
 
 export default function HostingJob() {
   if (!isUserLoggedIn()) {
@@ -271,7 +271,7 @@ export default function HostingJob() {
       errors.contactNumber = "Contact number is required";
       isValid = false;
       addToErrorStack("#contactNumber");
-    } else if (!contactNumber.match(/^\d{10}$/)) {
+    } else if (!contactNumber.match(mobileNumberExpression)) {
       errors.contactNumber = "Please enter a valid contact number";
       isValid = false;
       addToErrorStack("#contactNumber");

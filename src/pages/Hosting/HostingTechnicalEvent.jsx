@@ -25,7 +25,11 @@ import FormInputEmail from "../../components/FormInputs/FormInputEmail";
 import FormInputPhoneNumber from "../../components/FormInputs/FormInputPhoneNumber";
 import FormButton from "../../components/FormInputs/FormButton";
 import "./HostingCulturalEvent.css";
-import { emailExpression, linkWithHttpExpression } from "../../features/regex";
+import {
+  emailExpression,
+  linkWithHttpExpression,
+  mobileNumberExpression,
+} from "../../features/regex";
 
 export default function HostingTechnicalEvent() {
   if (!isUserLoggedIn()) {
@@ -353,7 +357,7 @@ export default function HostingTechnicalEvent() {
       errors.contactNumber = "Contact number is required";
       isValid = false;
       addToErrorStack("#contactNumber");
-    } else if (!contactNumber.match(/^\d{10}$/)) {
+    } else if (!contactNumber.match(mobileNumberExpression)) {
       errors.contactNumber = "Please enter a valid contact number";
       isValid = false;
       addToErrorStack("#contactNumber");
