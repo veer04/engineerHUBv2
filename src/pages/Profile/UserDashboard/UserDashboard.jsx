@@ -876,50 +876,58 @@ export default function UserDashboard() {
           </section>
         </div>
       </div>
-      <section className="box recent-activities">
-        {isUserAdmin && (
-          <div onClick={() => navigate("add-post")} className="add-option">
-            <MdAdd />
-          </div>
-        )}
-        <p className="heading">POSTS</p>
-        <div className="carousel-container">
-          {posts.length !== 0 && (
-            <div className="carousel-grid">
-              {showAll1
-                ? posts.map((jobDetail, index) => (
-                    <PostCard key={index} {...jobDetail} />
-                  ))
-                : posts
-                    .slice(0, 3)
-                    .map((jobDetail, index) => (
+      {user?.role === "Alumni" && (
+        <section className="box recent-activities">
+          {isUserAdmin && (
+            <div onClick={() => navigate("add-post")} className="add-option">
+              <MdAdd />
+            </div>
+          )}
+          <p className="heading">POSTS</p>
+          <div className="carousel-container">
+            {posts.length !== 0 && (
+              <div className="carousel-grid">
+                {showAll1
+                  ? posts.map((jobDetail, index) => (
                       <PostCard key={index} {...jobDetail} />
-                    ))}
-            </div>
-          )}
+                    ))
+                  : posts
+                      .slice(0, 3)
+                      .map((jobDetail, index) => (
+                        <PostCard key={index} {...jobDetail} />
+                      ))}
+              </div>
+            )}
 
-          {posts.length === 0 && (
-            <div className="no-jobs empty-container">
-              {/* <MdAddCircle /> */}
-              <p style={{ color: "grey" }}>{`No posts to show`}</p>
+            {posts.length === 0 && (
+              <div className="no-jobs empty-container">
+                {/* <MdAddCircle /> */}
+                <p style={{ color: "grey" }}>{`No posts to show`}</p>
+              </div>
+            )}
+          </div>
+          {posts.length > 3 && !showAll1 && (
+            <div className="btn-container">
+              <button
+                onClick={() => setShowAll1(true)}
+                className="all-jobs-btn"
+              >
+                Show all posts <BsArrowRight />
+              </button>
             </div>
           )}
-        </div>
-        {posts.length > 3 && !showAll1 && (
-          <div className="btn-container">
-            <button onClick={() => setShowAll1(true)} className="all-jobs-btn">
-              Show all posts <BsArrowRight />
-            </button>
-          </div>
-        )}
-        {posts.length > 3 && showAll1 && (
-          <div className="btn-container">
-            <button onClick={() => setShowAll1(false)} className="all-jobs-btn">
-              Show less posts <BsArrowUp />
-            </button>
-          </div>
-        )}
-      </section>
+          {posts.length > 3 && showAll1 && (
+            <div className="btn-container">
+              <button
+                onClick={() => setShowAll1(false)}
+                className="all-jobs-btn"
+              >
+                Show less posts <BsArrowUp />
+              </button>
+            </div>
+          )}
+        </section>
+      )}
       {user?.role === "Alumni" && (
         <section id="recent-activities" className="box recent-activities">
           <p className="heading">RECENT ACTIVITIES</p>
