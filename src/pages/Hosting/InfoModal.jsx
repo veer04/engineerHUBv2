@@ -50,7 +50,7 @@ export default function InfoModal({ setState }) {
           >
             <RxCross2 className="post-cancel-button" />
           </div>
-          <h1>Oops! Bad Luck</h1>
+          <h1>Oops! Try something else</h1>
           <span>
             Post feature is only available for <u>Alumni</u>, <u>Clubs</u> and{" "}
             <u>Companies</u>. However you can host <u>Technical Events</u>,{" "}
