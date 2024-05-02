@@ -420,15 +420,17 @@ const JobDescription = () => {
               {numberOfOpeningsIcon}
             </div>
           )}
-          <div className="JobInfoItem">
-            <h6>Minimum CGPA</h6>
-            <span>
-              {hiring?.detailFound?.eligibility
-                ? hiring?.detailFound?.eligibility
-                : hiring?.detailFound?.eligibility}
-            </span>
-            {cgpaIcon}
-          </div>
+          {hiring?.detailFound?.eligibility && (
+            <div className="JobInfoItem">
+              <h6>Minimum CGPA</h6>
+              <span>
+                {hiring?.detailFound?.eligibility
+                  ? hiring?.detailFound?.eligibility
+                  : hiring?.detailFound?.eligibility}
+              </span>
+              {cgpaIcon}
+            </div>
+          )}
         </div>
       </div>
     </div>
