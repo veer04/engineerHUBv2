@@ -41,10 +41,6 @@ export default function CampusDetails() {
   }, [collegeId]);
 
   useEffect(() => {
-    console.log(result);
-  }, [result]);
-
-  useEffect(() => {
     if (output) {
       navigate(`/campus/search/${output}`);
     }

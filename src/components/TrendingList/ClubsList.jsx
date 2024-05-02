@@ -6,9 +6,9 @@ import { controller, getTrendingClubs } from "../../services/APIConfig";
 import { useNavigate } from "react-router-dom";
 import defaultPoster from "../../assets/defaultPoster";
 
-export default function ClubsList({ data }) {
+export default function ClubsList({ data = [] }) {
   const navigate = useNavigate();
-  const [trendingList, setTrendingList] = useState(data || []);
+  const [trendingList, setTrendingList] = useState(data);
   const [viewMore, setViewMore] = useState(false);
 
   // useEffect(() => {

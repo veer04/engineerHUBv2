@@ -413,7 +413,7 @@ export default function HostingProject() {
     } else if (
       showSalaryToCandidates &&
       spendType === "range" &&
-      maxAmount < minAmount
+      minAmount < maxAmount
     ) {
       errors.maxAmount = "Maximum amount should be greater than minimum amount";
       isValid = false;
