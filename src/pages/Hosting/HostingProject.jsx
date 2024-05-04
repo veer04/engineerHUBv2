@@ -346,7 +346,7 @@ export default function HostingProject() {
     } else if (
       showSalaryToCandidates &&
       spendType === "fixed" &&
-      fixedAmount < 1
+      Number(fixedAmount) < 1
     ) {
       errors.fixedAmount = "Fixed amount should be greater than 0";
       isValid = false;
@@ -368,7 +368,7 @@ export default function HostingProject() {
     } else if (
       showSalaryToCandidates &&
       spendType === "hourly" &&
-      hourlyBasis < 1
+      Number(hourlyBasis) < 1
     ) {
       errors.hourlyBasis = "Hourly basis amount should be greater than 0";
       isValid = false;
@@ -391,7 +391,7 @@ export default function HostingProject() {
     } else if (
       showSalaryToCandidates &&
       spendType === "range" &&
-      minAmount < 1
+      Number(minAmount) < 1
     ) {
       errors.minAmount = "Minimum amount should be greater than 0";
       isValid = false;
@@ -413,7 +413,7 @@ export default function HostingProject() {
     } else if (
       showSalaryToCandidates &&
       spendType === "range" &&
-      minAmount < maxAmount
+      Number(minAmount) < Number(maxAmount)
     ) {
       errors.maxAmount = "Maximum amount should be greater than minimum amount";
       isValid = false;
@@ -421,7 +421,7 @@ export default function HostingProject() {
     } else if (
       showSalaryToCandidates &&
       spendType === "range" &&
-      maxAmount < 1
+      Number(maxAmount) < 1
     ) {
       errors.maxAmount = "Maximum amount should be greater than 0";
       isValid = false;

@@ -410,7 +410,7 @@ export default function HostingJob() {
     } else if (
       showSalaryToCandidates &&
       salaryType === "Fixed" &&
-      fixedAmount < 0
+      Number(fixedAmount) < 0
     ) {
       errors.fixedAmount = "Fixed amount cannot be negative";
       isValid = false;
@@ -433,7 +433,7 @@ export default function HostingJob() {
     } else if (
       showSalaryToCandidates &&
       salaryType === "Range" &&
-      minAmount < 0
+      Number(minAmount) < 0
     ) {
       errors.minAmount = "Minimum amount cannot be negative";
       isValid = false;
@@ -448,7 +448,6 @@ export default function HostingJob() {
       isValid = false;
       addToErrorStack("#minAmount");
     }
-
     if (showSalaryToCandidates && salaryType === "Range" && !maxAmount) {
       errors.maxAmount = "Maximum amount is required";
       isValid = false;
@@ -456,7 +455,7 @@ export default function HostingJob() {
     } else if (
       showSalaryToCandidates &&
       salaryType === "Range" &&
-      maxAmount < minAmount
+      Number(maxAmount) < Number(minAmount)
     ) {
       errors.maxAmount = "Maximum amount should be greater than minimum amount";
       isValid = false;
@@ -464,7 +463,7 @@ export default function HostingJob() {
     } else if (
       showSalaryToCandidates &&
       salaryType === "Range" &&
-      maxAmount < 0
+      Number(maxAmount) < 0
     ) {
       errors.maxAmount = "Maximum amount cannot be negative";
       isValid = false;
@@ -513,22 +512,22 @@ export default function HostingJob() {
       addToErrorStack("#skillsRequired");
     }
 
-    if (openings && openings < 1) {
+    if (openings && Number(openings) < 1) {
       errors.openings = "Number of openings should be atleast 1";
       isValid = false;
       addToErrorStack("#openings");
-    } else if (openings && openings % 1 !== 0) {
+    } else if (openings && Number(openings) % 1 !== 0) {
       errors.openings = "Number of openings should be an integer";
       isValid = false;
       addToErrorStack("#openings");
     }
 
     // minCGPA is not mandatory and it can not be less than 0 or greater than 10 and it should not have more than 2 decimal places
-    if (minCGPA && minCGPA < 1) {
+    if (minCGPA && Number(minCGPA) < 1) {
       errors.minCGPA = "Minimum CGPA can not be less than 1";
       isValid = false;
       addToErrorStack("#minCGPA");
-    } else if (minCGPA && minCGPA > 10) {
+    } else if (minCGPA && Number(minCGPA) > 10) {
       errors.minCGPA = "Minimum CGPA can not be greater than 10";
       isValid = false;
       addToErrorStack("#minCGPA");

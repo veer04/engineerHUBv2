@@ -431,7 +431,7 @@ export default function HostingInternship() {
       errors.minDuration = "Minimum duration is required";
       isValid = false;
       addToErrorStack("#minDuration");
-    } else if (minDuration % 1 !== 0) {
+    } else if (Number(minDuration) % 1 !== 0) {
       errors.minDuration = "Minimum duration should be an integer";
       isValid = false;
       addToErrorStack("#minDuration");
@@ -441,23 +441,27 @@ export default function HostingInternship() {
       errors.maxDuration = "Maximum duration is required";
       isValid = false;
       addToErrorStack("#maxDuration");
-    } else if (maxDuration % 1 !== 0) {
+    } else if (Number(maxDuration) % 1 !== 0) {
       errors.maxDuration = "Maximum duration should be an integer";
       isValid = false;
       addToErrorStack("#maxDuration");
     }
 
-    if (minDuration && maxDuration && minDuration > maxDuration) {
+    if (
+      minDuration &&
+      maxDuration &&
+      Number(minDuration) > Number(maxDuration)
+    ) {
       errors.maxDuration = "Maximum duration cannot be less than minimum";
       isValid = false;
       addToErrorStack("#maxDuration");
     }
 
-    if (openings && openings < 1) {
+    if (openings && Number(openings) < 1) {
       errors.openings = "Number of openings should be atleast 1";
       isValid = false;
       addToErrorStack("#openings");
-    } else if (openings && openings % 1 !== 0) {
+    } else if (openings && Number(openings) % 1 !== 0) {
       errors.openings = "Number of openings should be an integer";
       isValid = false;
       addToErrorStack("#openings");
@@ -486,7 +490,11 @@ export default function HostingInternship() {
       errors.fixedAmount = "Fixed amount is required";
       isValid = false;
       addToErrorStack("#fixedAmount");
-    } else if (isPaid === "Paid" && salaryType === "Fixed" && fixedAmount < 0) {
+    } else if (
+      isPaid === "Paid" &&
+      salaryType === "Fixed" &&
+      Number(fixedAmount) < 0
+    ) {
       errors.fixedAmount = "Fixed amount cannot be negative";
       isValid = false;
       addToErrorStack("#fixedAmount");
@@ -505,7 +513,11 @@ export default function HostingInternship() {
       errors.minAmount = "Minimum amount is required";
       isValid = false;
       addToErrorStack("#minAmount");
-    } else if (isPaid === "Paid" && salaryType === "Range" && minAmount < 0) {
+    } else if (
+      isPaid === "Paid" &&
+      salaryType === "Range" &&
+      Number(minAmount) < 0
+    ) {
       errors.minAmount = "Minimum amount cannot be negative";
       isValid = false;
       addToErrorStack("#minAmount");
@@ -524,7 +536,11 @@ export default function HostingInternship() {
       errors.maxAmount = "Maximum amount is required";
       isValid = false;
       addToErrorStack("#maxAmount");
-    } else if (isPaid === "Paid" && salaryType === "Range" && maxAmount < 0) {
+    } else if (
+      isPaid === "Paid" &&
+      salaryType === "Range" &&
+      Number(maxAmount) < 0
+    ) {
       errors.maxAmount = "Maximum amount cannot be negative";
       isValid = false;
       addToErrorStack("#maxAmount");
@@ -535,6 +551,14 @@ export default function HostingInternship() {
     ) {
       errors.maxAmount =
         "Maximum amount cannot have more than 2 decimal places";
+      isValid = false;
+      addToErrorStack("#maxAmount");
+    } else if (
+      isPaid === "Paid" &&
+      salaryType === "Range" &&
+      Number(maxAmount) < Number(minAmount)
+    ) {
+      errors.maxAmount = "Maximum amount should be greater than minimum amount";
       isValid = false;
       addToErrorStack("#maxAmount");
     }
