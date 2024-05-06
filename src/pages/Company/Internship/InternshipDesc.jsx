@@ -317,7 +317,7 @@ const InternshipDesc = () => {
                 "CampusAmbassador"
               ) ? (
                 <span>Bonus</span>
-              ) : hiring?.detailFound?.isPaid ? (
+              ) : hiring?.detailFound?.isPaid === "Paid" ? (
                 <span>
                   {hiring?.detailFound?.showSalary
                     ? !!hiring?.detailFound?.amount &&
