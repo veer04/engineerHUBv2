@@ -480,18 +480,24 @@ export default function HostingInternship() {
       addToErrorStack("#isPaid");
     }
 
-    if (isPaid === "Paid" && !salaryType) {
+    if (isPaid === "Paid" && showSalaryToCandidates && !salaryType) {
       errors.salaryType = "Salary type is required";
       isValid = false;
       addToErrorStack("#salaryType");
     }
 
-    if (isPaid === "Paid" && salaryType === "Fixed" && !fixedAmount) {
+    if (
+      isPaid === "Paid" &&
+      showSalaryToCandidates &&
+      salaryType === "Fixed" &&
+      !fixedAmount
+    ) {
       errors.fixedAmount = "Fixed amount is required";
       isValid = false;
       addToErrorStack("#fixedAmount");
     } else if (
       isPaid === "Paid" &&
+      showSalaryToCandidates &&
       salaryType === "Fixed" &&
       Number(fixedAmount) < 0
     ) {
@@ -500,6 +506,7 @@ export default function HostingInternship() {
       addToErrorStack("#fixedAmount");
     } else if (
       isPaid === "Paid" &&
+      showSalaryToCandidates &&
       salaryType === "Fixed" &&
       fixedAmount.toString().split(".")[1]?.length > 2
     ) {
@@ -509,12 +516,18 @@ export default function HostingInternship() {
       addToErrorStack("#fixedAmount");
     }
 
-    if (isPaid === "Paid" && salaryType === "Range" && !minAmount) {
+    if (
+      isPaid === "Paid" &&
+      showSalaryToCandidates &&
+      salaryType === "Range" &&
+      !minAmount
+    ) {
       errors.minAmount = "Minimum amount is required";
       isValid = false;
       addToErrorStack("#minAmount");
     } else if (
       isPaid === "Paid" &&
+      showSalaryToCandidates &&
       salaryType === "Range" &&
       Number(minAmount) < 0
     ) {
@@ -523,6 +536,7 @@ export default function HostingInternship() {
       addToErrorStack("#minAmount");
     } else if (
       isPaid === "Paid" &&
+      showSalaryToCandidates &&
       salaryType === "Range" &&
       minAmount.toString().split(".")[1]?.length > 2
     ) {
@@ -532,12 +546,18 @@ export default function HostingInternship() {
       addToErrorStack("#minAmount");
     }
 
-    if (isPaid === "Paid" && salaryType === "Range" && !maxAmount) {
+    if (
+      isPaid === "Paid" &&
+      showSalaryToCandidates &&
+      salaryType === "Range" &&
+      !maxAmount
+    ) {
       errors.maxAmount = "Maximum amount is required";
       isValid = false;
       addToErrorStack("#maxAmount");
     } else if (
       isPaid === "Paid" &&
+      showSalaryToCandidates &&
       salaryType === "Range" &&
       Number(maxAmount) < 0
     ) {
@@ -546,6 +566,7 @@ export default function HostingInternship() {
       addToErrorStack("#maxAmount");
     } else if (
       isPaid === "Paid" &&
+      showSalaryToCandidates &&
       salaryType === "Range" &&
       maxAmount.toString().split(".")[1]?.length > 2
     ) {
@@ -555,6 +576,7 @@ export default function HostingInternship() {
       addToErrorStack("#maxAmount");
     } else if (
       isPaid === "Paid" &&
+      showSalaryToCandidates &&
       salaryType === "Range" &&
       Number(maxAmount) < Number(minAmount)
     ) {
@@ -640,7 +662,7 @@ export default function HostingInternship() {
           form.append("maxRange", maxAmount);
         }
       } else {
-        form.append("salaryDisclosure", customSalary);
+        if (!!customSalary) form.append("salaryDisclosure", customSalary);
       }
     }
     form.append("applicationStartTime", applicationStartDateIST);
