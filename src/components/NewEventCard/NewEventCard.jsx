@@ -238,23 +238,20 @@ export default function NewEventCard({
       <span className="text-crop-2 description">{data?.description}</span>
       <div className="details">
         <div className="logo">
-          <img
-            src={`${
-              data?.campusId
-                ? data?.campusId?.length
-                  ? data?.campusId[0]?.collegeLogo
-                  : eHUBLogo
-                : eHUBLogo
-            }`}
-            alt="logo"
-          />
+          <img src={`${data?.creatorId?.image}`} alt="logo" />
         </div>
         <div className="name">
           <span className="title">Organized By</span>
           <span className="label text-crop-2">{`${
-            data?.campusId
-              ? data?.campusId?.length
-                ? data?.campusId[0]?.collegeName
+            Object.keys(data?.creatorId).length > 0
+              ? data?.creatorId?.firstName
+                ? `${data?.creatorId?.firstName}${
+                    data?.creatorId?.lastName
+                      ? ` ${data?.creatorId?.lastName}`
+                      : ""
+                  }`
+                : data?.creatorId?.name
+                ? data?.creatorId?.name
                 : "engineerHUB"
               : "engineerHUB"
           }`}</span>

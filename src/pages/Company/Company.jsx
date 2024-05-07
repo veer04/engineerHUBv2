@@ -227,8 +227,8 @@ const Company = () => {
       desc: "Participate in the events directly conducted by the companies to highlight your profile.",
       char: `${bucket}EventChar.svg`,
       stats: {
-        position: companyPageCounts?.pageSizeEvent,
-        hiring: companyPageCounts?.pageSizeEvent ? 35 : 0,
+        position: companyPageCounts?.newpageSizeEvent,
+        hiring: companyPageCounts?.newpageSizeEvent ? 35 : 0,
       },
       link: "/company/events",
       background: "#F7d77f",

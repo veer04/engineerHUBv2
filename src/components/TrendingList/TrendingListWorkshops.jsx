@@ -47,7 +47,7 @@ export default function TrendingListWorkshops() {
         </div>
       )}
       {trendingList
-        .slice(0, viewMore ? trendingList.length : 3)
+        .slice(0, viewMore ? 10 : 3)
         .map((trending, index) => (
           <Fragment key={trending._id}>
             <div
