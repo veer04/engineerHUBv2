@@ -227,11 +227,15 @@ export default function HackathonDetailsNew() {
             <div className="data">
               <div className="detail">
                 <div className="logo">
-                  <AiOutlinePhone style={{transform: "rotate(90deg)"}} />
+                  <AiOutlinePhone style={{ transform: "rotate(90deg)" }} />
                 </div>
                 <div className="headings">
                   <span>Phone Number:</span>
-                  <span>{event?.creatorId?.mobile || "Not Available"}</span>
+                  <span>
+                    {event?.organizerMobile
+                      ? `+${event?.organizerMobileCountryCode} ${event?.organizerMobile}`
+                      : "Not Available"}
+                  </span>
                 </div>
               </div>
               <div className="detail">
@@ -240,7 +244,7 @@ export default function HackathonDetailsNew() {
                 </div>
                 <div className="headings">
                   <span>Email:</span>
-                  <span>{event?.creatorId?.email || "Not Available"}</span>
+                  <span>{event?.organizerEmail || "Not Available"}</span>
                 </div>
               </div>
             </div>
