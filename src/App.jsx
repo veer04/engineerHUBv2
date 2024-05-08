@@ -20,7 +20,6 @@ import PostModal from "./components/PostModal/PostModal";
 import ForgotPassword from "./pages/User/ForgotPassword/ForgotPassword";
 import Page404 from "./pages/Maintenance/Page404";
 import SignupUser from "./pages/User/Signup/SignupUser";
-import jwt_decode from "jwt-decode";
 const CommunityPage = lazy(() => import("./pages/Community/CommunityPage"));
 const NewCampusPage = lazy(() => import("./pages/Campus/NewCampusPage"));
 const Company = lazy(() => import("./pages/Company/Company"));
@@ -29,7 +28,6 @@ const CampusSearchPage = lazy(() => import("./pages/Campus/CampusSearchPage"));
 const CampusDetails = lazy(() => import("./pages/Campus/CampusDetails"));
 const TrendingEvents = lazy(() => import("./pages/Campus/TrendingEvents"));
 import ChangePassword from "./pages/User/ForgotPassword/ChangePassword";
-import getCookie, { getAccessToken } from "./features/getCookieValues";
 import ProfilePopUp from "./components/ProfileSection/ProfilePopUp/ProfilePopUp";
 import CompanyDashboard from "./pages/Profile/CompanyDashboard/CompanyDashboard";
 import CompanyEditProfile from "./pages/Profile/CompanyDashboard/CompanyEditProfile";
@@ -49,7 +47,13 @@ import ProjectWindow from "./pages/Community/Project/ProjectWindow.jsx";
 import EventWindow from "./pages/Community/Events/EventWindow.jsx";
 import BlogWindow from "./pages/Community/Blogs/BlogWindow.jsx";
 import NewFooter from "./components/Footer/NewFooter.jsx";
-import GetFeaturedForm from "./pages/NewHomepage/GetFeaturedForm.jsx";
+const GetFeaturedForm = lazy(() =>
+  import("./pages/NewHomepage/GetFeaturedForm.jsx")
+);
+const NotesWindow = lazy(() =>
+  import("./pages/Community/Notes/NotesWindow.jsx")
+);
+const NotesPage = lazy(() => import("./pages/Community/Notes/NotesPage.jsx"));
 const PostModalAllRole = lazy(() =>
   import("./components/PostModal/PostModalAllRole.jsx")
 );
@@ -101,28 +105,9 @@ const NewBlogsPage = lazy(() =>
 
 function App() {
   const [OtpRoute, setOtpRoute] = useState("loading");
-  const [eventHostRoute, setEventHostRoute] = useState(false);
-  const [sendLogin, setSendLogin] = useState(true);
-  const [jobHostRoute, setJobHostRoute] = useState(false);
 
   useEffect(() => {
     setOtpRoute(Boolean(sessionStorage.getItem("OtpRoute")));
-    if (getCookie("access_token")) {
-      const token = getAccessToken();
-      const decoded = jwt_decode(token);
-      if (
-        decoded.role === "Alumni" ||
-        decoded.role === "Club" ||
-        decoded.role === "Organization"
-      ) {
-        setEventHostRoute(true);
-      }
-      if (decoded.role === "Organization" || decoded.role === "Alumni") {
-        setJobHostRoute(true);
-      }
-    } else {
-      setSendLogin(true);
-    }
   });
 
   return (
@@ -216,6 +201,11 @@ function App() {
             </Route>
             <Route path="chat">
               <Route path=":id" element={<NewChatPage />} />
+            </Route>
+            <Route path="notes">
+              <Route path=":id" element={<NotesPage />}>
+                <Route path=":notesId" element={<NotesWindow />} />
+              </Route>
             </Route>
           </Route>
           <Route path="/trending">
