@@ -4,6 +4,7 @@ import { RiChat3Line } from "react-icons/ri";
 import { CiViewList } from "react-icons/ci";
 import { MdOutlineCalendarMonth } from "react-icons/md";
 import { TbFileText } from "react-icons/tb";
+import { BsJournalBookmark } from "react-icons/bs";
 import useSidebar from "../../hooks/use-sidebar";
 import { useScrollDirection } from "../../features/scrollDirection";
 
@@ -96,6 +97,25 @@ export default function NewSidebarMobile() {
           }}
         >
           Blogs
+        </span>
+      </div>
+      <div
+        style={{
+          color: selectedItem === "notes" ? "#FFD600" : "#b0b0b0",
+        }}
+        onClick={() => {
+          navigate(`/community/notes/${encodeURIComponent(id)}`);
+          setSelectedItem("notes");
+        }}
+        className="option"
+      >
+        <BsJournalBookmark />
+        <span
+          style={{
+            fontWeight: selectedItem === "notes" ? "600" : "400",
+          }}
+        >
+          Notes
         </span>
       </div>
     </div>
