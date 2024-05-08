@@ -3,12 +3,13 @@ import React, { useEffect, useState } from "react";
 // import SwipeableViews from "react-swipeable-views";
 // import { autoPlay } from "react-swipeable-views-utils";
 import "./NewSiliconValley.css";
-import SiliconValley from "./SiliconValley.png";
-import girishMain from "./girishMain.png";
-import girishLogo from "./girishLogo.png";
-import manishMain from "./manishMain.png";
-import ratneshMain from "./ratneshMain.png";
+// import SiliconValley from "./SiliconValley.png";
+// import girishMain from "./girishMain.png";
+// import girishLogo from "./girishLogo.png";
+// import manishMain from "./manishMain.png";
+// import ratneshMain from "./ratneshMain.png";
 import SiliconValleyCard from "../../components/SiliconValleyCard/SiliconValleyCard";
+import { Bucket_URL } from "../../services/APIUtils";
 
 // const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
@@ -135,30 +136,31 @@ const NewSiliconValley = () => {
   // };
 
   // get the current month
+  const bucket = `${Bucket_URL}frontend/homepage/siliconvalleystreet/`
   const date = new Date();
   const month = date.toLocaleString("default", { month: "long" });
 
   const dummyData = [
     {
       _id: "1",
-      name: "Girish Shedge",
-      title: "Design Lead @engineerHUB",
-      image: girishMain,
-      logo: girishLogo,
+      name: "Kunwar Vidya Niwas",
+      title: "Content Head @engineerHUB",
+      image: `${bucket}kunwar.png`,
+      logo: `${bucket}kunwar.png`,
     },
     {
       _id: "2",
-      name: "Manish Kumar",
+      name: "Swapnil Raj",
       title: "Frontend Dev @engineerHUB",
-      image: manishMain,
-      logo: manishMain,
+      image: `${bucket}swapnil.png`,
+      logo: `${bucket}swapnil.png`,
     },
     {
       _id: "3",
-      name: "Ratnesh Maurya",
-      title: "Designer @engineerHUB",
-      image: ratneshMain,
-      logo: ratneshMain,
+      name: "Vinit Pundeer",
+      title: "Backend Dev @engineerHUB",
+      image: `${bucket}vinit.png`,
+      logo: `${bucket}vinit.png`,
     },
   ];
 
@@ -190,7 +192,7 @@ const NewSiliconValley = () => {
     <section id="silicon-valley">
       <div
         style={{
-          backgroundImage: `url(${SiliconValley})`,
+          backgroundImage: `url(${bucket}silicon_valley_street.png)`,
         }}
         className="box"
       >
