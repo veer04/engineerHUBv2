@@ -43,7 +43,7 @@ export default function NotesWindow() {
 
   useEffect(() => {
     if (projectData?.data?.data) {
-      document.title = `${projectData?.data?.data?.projectName} | Projects | engineerHUB`;
+      document.title = `${projectData?.data?.data?.title} | Notes | engineerHUB`;
     }
     setProject(projectData?.data?.data || {});
   }, [projectData]);
