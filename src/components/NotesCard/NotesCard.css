@@ -87,13 +87,18 @@
   color: black;
 }
 
-.notes-card .lower-container .insights {
+.notes-card .lower-container .info-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.notes-card .lower-container .info-container .insights {
   font-size: 14px;
   display: flex;
   flex-direction: row;
   gap: 0.25rem;
 }
 
-.notes-card .lower-container .insights span:nth-child(2) {
+.notes-card .lower-container .info-container .insights span:nth-child(2) {
   color: #8a8a8a;
 }
