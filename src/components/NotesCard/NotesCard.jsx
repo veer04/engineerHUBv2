@@ -6,9 +6,11 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { API_URL } from "../../services/APIUtils";
 import useGlobalSnackbar from "../../hooks/useGlobalSnackbar";
+import defaultPoster from "../../assets/defaultPoster";
 
 export default function NotesCard({ data }) {
   const [status, setStatus] = useState("idle");
+  const [progress, setProgress] = useState(0);
   const {
     setSnackbarOpen,
     setSnackbarMessage,
@@ -16,20 +18,33 @@ export default function NotesCard({ data }) {
     setSnackbarDuration,
   } = useGlobalSnackbar();
 
-  const download = () => {
+  const download = async () => {
     if (status === "loading") return;
     setStatus("loading");
-    axios
-      .get(`${API_URL}api/v1/downloadPdf/${data?._id}s`, {
-        responseType: "blob",
-      })
+    await axios({
+      url: `${API_URL}api/v1/downloadPdf/${data?._id}`,
+      method: "GET",
+      responseType: "blob", // important
+      onDownloadProgress: (progressEvent) => {
+        let percentCompleted = Math.round(
+          (progressEvent.loaded * 100) / progressEvent.total
+        ); // you can use this to show user percentage of file downloaded
+        setProgress(percentCompleted);
+      },
+    })
+      // axios
+      //   .get(`${API_URL}api/v1/downloadPdf/${data?._id}`, {
+      //     responseType: "blob",
+      //   })
       .then((response) => {
+        setProgress(100);
         const blob = new Blob([response.data], { type: "application/pdf" });
         const link = document.createElement("a");
         link.href = URL.createObjectURL(blob);
-        link.setAttribute("download", "file.pdf");
+        link.setAttribute("download", `${data.title}.pdf`);
         link.click();
         setStatus("downloaded");
+        setProgress(0);
       })
       .catch((err) => {
         setStatus("failed");
@@ -49,12 +64,13 @@ export default function NotesCard({ data }) {
         setSnackbarDuration(5000);
         setSnackbarOpen(true);
         console.error(err);
+        setProgress(0);
       });
   };
 
   const formattedSize = (size) => {
     //size is already in kilobytes
-    const units = ["KB", "MB", "GB", "TB"];
+    const units = ["B", "KB", "MB", "GB", "TB"];
     let unitIndex = 0;
     while (size > 1024) {
       size = size / 1024;
@@ -69,12 +85,16 @@ export default function NotesCard({ data }) {
         <div
           className="poster"
           style={{
-            backgroundImage: `url(${data?.notesImage})`,
+            backgroundImage: `url(${
+              !!data?.notesImage ? data?.notesImage : defaultPoster
+            })`,
           }}
         >
-          <div className="views">
-            <FaEye /> {data?.views}
-          </div>
+          {Boolean(data?.views) && (
+            <div className="views">
+              <FaEye /> {data?.views}
+            </div>
+          )}
         </div>
         <span className="title text-crop-2" title={data.title}>
           {data.title}
@@ -89,7 +109,7 @@ export default function NotesCard({ data }) {
                 <MdOutlineFileDownload /> Download
               </>
             )}
-            {status === "loading" && <>Downloading...</>}
+            {status === "loading" && <>{progress}%</>}
             {status === "downloaded" && <>Downloaded</>}
             {status === "failed" && (
               <>
@@ -105,18 +125,23 @@ export default function NotesCard({ data }) {
         <div className="info-container">
           <div className="insights">
             {/* If pages are present */}
-            {!!data?.pdfPages && <span>{data?.pdfPages} Pages</span>}
+            {Boolean(data?.pdfPages) && <span>{data?.pdfPages} Pages</span>}
             {/* If pages and size both are present */}
-            {!!data?.pdfPages && !!data?.pdfSize && <span>•</span>}
+            {Boolean(data?.pdfPages) && Boolean(data?.pdfSize) && (
+              <span>•</span>
+            )}
             {/* If size is present */}
-            {!!data?.pdfSize && (
+            {Boolean(data?.pdfSize) && (
               <span>{formattedSize(data?.pdfSize ? data?.pdfSize : 0)}</span>
             )}
           </div>
-          <span className="downloads">
-            <MdOutlineFileDownload />
-            50
-          </span>
+          {/* If download is present */}
+          {Boolean(data?.downloads) && (
+            <span className="downloads">
+              <MdOutlineFileDownload />
+              {data?.downloads}
+            </span>
+          )}
         </div>
       </div>
     </article>
