@@ -86,7 +86,7 @@ export default function NotesCard({ data }) {
           className="poster"
           style={{
             backgroundImage: `url(${
-              !!data?.notesImage ? data?.notesImage : defaultPoster
+              !!data?.image ? data?.image : defaultPoster
             })`,
           }}
         >
