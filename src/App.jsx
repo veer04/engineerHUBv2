@@ -47,6 +47,7 @@ import ProjectWindow from "./pages/Community/Project/ProjectWindow.jsx";
 import EventWindow from "./pages/Community/Events/EventWindow.jsx";
 import BlogWindow from "./pages/Community/Blogs/BlogWindow.jsx";
 import NewFooter from "./components/Footer/NewFooter.jsx";
+const HostingNotes = lazy(() => import("./pages/Hosting/HostingNotes.jsx"));
 const GetFeaturedForm = lazy(() =>
   import("./pages/NewHomepage/GetFeaturedForm.jsx")
 );
@@ -239,6 +240,7 @@ function App() {
             <Route path="webinar" element={<HostingWebinar />} />
             <Route path="event-hiring" element={<HostingEventHiring />} />
             <Route path="blog" element={<BlogHosting />} />
+            <Route path="notes" element={<HostingNotes />} />
           </Route>
           <Route path="/company">
             <Route path="" element={<Company />} />
