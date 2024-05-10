@@ -70,7 +70,7 @@ export default function NotesCard({ data }) {
 
   const formattedSize = (size) => {
     //size is already in kilobytes
-    const units = ["B", "KB", "MB", "GB", "TB"];
+    const units = ["B","KB", "MB", "GB", "TB"];
     let unitIndex = 0;
     while (size > 1024) {
       size = size / 1024;
