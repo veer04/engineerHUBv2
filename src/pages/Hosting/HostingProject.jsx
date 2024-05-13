@@ -13,7 +13,6 @@ import useNavbar from "../../hooks/use-navbar";
 import useGlobalSnackbar from "../../hooks/useGlobalSnackbar";
 import FormIndicator from "../../components/FormInputs/FormIndicator";
 import FormInput from "../../components/FormInputs/FormInput";
-import FormInputTextarea from "../../components/FormInputs/FormInputTextarea";
 import FormInputDropdown from "../../components/FormInputs/FormInputDropdown";
 import FormInputFileUpload from "../../components/FormInputs/FormInputFileUpload";
 import FormInputSelect from "../../components/FormInputs/FormInputSelect";

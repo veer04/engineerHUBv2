@@ -36,7 +36,7 @@
   line-height: 44px;
   color: #014051;
 }
-.CompanyEvent p {
+.CompanyEvent .temp-text {
   font-family: "Inter";
   font-style: normal;
   font-weight: 400;

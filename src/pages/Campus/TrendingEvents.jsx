@@ -215,7 +215,7 @@ export default function TrendingEvents() {
               </div>
               <div className="detail">
                 <div className="logo">
-                  <AiOutlineClockCircle />
+                  <AiOutlineCalendar />
                 </div>
                 <div className="headings">
                   <span>Event End Date:</span>
@@ -226,11 +226,17 @@ export default function TrendingEvents() {
             <div className="data">
               <div className="detail">
                 <div className="logo">
-                  <AiOutlinePhone />
+                  <AiOutlinePhone style={{ transform: "rotate(90deg)" }} />
                 </div>
                 <div className="headings">
                   <span>Phone Number:</span>
-                  <span>{event?.creatorId?.mobile || "Not Available"}</span>
+                  <span>
+                    {event?.showContactDetails
+                      ? event?.organizerMobile
+                        ? `+${event?.organizerMobileCountryCode} ${event?.organizerMobile}`
+                        : "Not Available"
+                      : "Not disclosed"}
+                  </span>
                 </div>
               </div>
               <div className="detail">
@@ -239,16 +245,25 @@ export default function TrendingEvents() {
                 </div>
                 <div className="headings">
                   <span>Email:</span>
-                  <span>{event?.creatorId?.email || "Not Available"}</span>
+                  <span>
+                    {event?.showContactDetails
+                      ? event?.organizerEmail
+                        ? event?.organizerEmail
+                        : "Not Available"
+                      : "Not disclosed"}
+                  </span>
                 </div>
               </div>
             </div>
           </section>
           <section className="description">
             <span className="heading">Event Details</span>
-            <span className="details">
-              {event?.description || "No description provided"}
-            </span>
+            <span
+              className="details"
+              dangerouslySetInnerHTML={{
+                __html: event?.description,
+              }}
+            ></span>
           </section>
           {!!event?.policy && (
             <section className="description">

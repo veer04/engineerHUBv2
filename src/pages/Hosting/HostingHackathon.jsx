@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { IoIosArrowBack } from "react-icons/io";
 import {
@@ -6,14 +6,13 @@ import {
   isUserLoggedIn,
 } from "../../features/User/UserDetails";
 import { redirectToAuth } from "../../features/redirectToAuth";
-import { API_URL, Bucket_URL } from "../../services/APIUtils";
+import { API_URL, Bucket_URL, EDITOR_API_KEY } from "../../services/APIUtils";
 import { changeDocumentTitle } from "../../features/changeDocumentTitle";
 import axios from "axios";
 import useNavbar from "../../hooks/use-navbar";
 import useGlobalSnackbar from "../../hooks/useGlobalSnackbar";
 import FormIndicator from "../../components/FormInputs/FormIndicator";
 import FormInput from "../../components/FormInputs/FormInput";
-import FormInputTextarea from "../../components/FormInputs/FormInputTextarea";
 import FormInputDropdown from "../../components/FormInputs/FormInputDropdown";
 import FormInputFileUpload from "../../components/FormInputs/FormInputFileUpload";
 import FormInputSelect from "../../components/FormInputs/FormInputSelect";
@@ -30,6 +29,7 @@ import {
   linkWithHttpExpression,
   mobileNumberExpression,
 } from "../../features/regex";
+import { Editor } from "@tinymce/tinymce-react";
 
 export default function HostingHackathon() {
   if (!isUserLoggedIn()) {
@@ -70,6 +70,7 @@ export default function HostingHackathon() {
   const [isLoading, setIsLoading] = useState(false);
   const [previouslyViewedPageNumber, setPreviouslyViewedPageNumber] =
     useState(1);
+  const editorRef = useRef(null);
   const [errors, setErrors] = useState({
     eventPoster: "",
     eventType: "",
@@ -674,19 +675,57 @@ export default function HostingHackathon() {
                   />
                 </div>
               </FormInputSelect>
-              <FormInputTextarea
-                label="Event Description"
-                id="eventDescription"
-                name="eventDescription"
-                required
-                constraint="min 100 characters"
-                placeholder="Enter event description"
-                rows={8}
-                value={eventDescription}
-                setValue={setEventDescription}
-                helperText={errors.eventDescription}
-                className="mb-4"
-              />
+              <h2>Event Description</h2>
+
+              <div id="eventDescription" className="mb-4">
+                <Editor
+                  apiKey={EDITOR_API_KEY}
+                  value={eventDescription}
+                  onEditorChange={(content) => {
+                    setEventDescription(content);
+                  }}
+                  onInit={(_evt, editor) => (editorRef.current = editor)}
+                  initialValue=""
+                  init={{
+                    height: 500,
+                    menubar: "file",
+                    plugins: [
+                      "advlist",
+                      "autolink",
+                      "lists",
+                      "link",
+                      "image",
+                      "charmap",
+                      "preview",
+                      "anchor",
+                      "searchreplace",
+                      "visualblocks",
+                      "code",
+                      "fullscreen",
+                      "insertdatetime",
+                      "media",
+                      "table",
+                      "code",
+                      "help",
+                      "wordcount",
+                    ],
+                    toolbar:
+                      "undo redo" +
+                      "bold italic forecolor | alignleft aligncenter " +
+                      "alignright alignjustify | bullist numlist outdent indent | " +
+                      "removeformat",
+                    content_style:
+                      "body { font-family:Inter,Helvetica,Arial,sans-serif; font-size:14px }",
+                  }}
+                />
+                <div className="custom-form-input">
+                  {errors.eventDescription && (
+                    <span className="helper-text">
+                      {errors.eventDescription}
+                    </span>
+                  )}
+                </div>
+              </div>
             </>
           )}
 
