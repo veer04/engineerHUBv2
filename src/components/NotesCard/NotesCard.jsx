@@ -118,9 +118,11 @@ export default function NotesCard({ data }) {
             )}
           </button>
           {/* </a> */}
-          <Link to={data._id}>
+          {/* <Link to={data._id}> */}
+          <a href={data.pdfLink} target="_blank">
             <button className="read-btn">Read</button>
-          </Link>
+          </a>
+          {/* </Link> */}
         </div>
         <div className="info-container">
           <div className="insights">
