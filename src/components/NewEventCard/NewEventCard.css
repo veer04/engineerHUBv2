@@ -101,7 +101,7 @@
 .event-card-new .description {
   overflow: hidden;
   color: var(--foundation-black-black-400, #333);
-  font-size: 0.875rem;
+  font-size: 0.875rem !important;
   font-style: normal;
   font-weight: 400;
   line-height: normal;

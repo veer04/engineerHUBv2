@@ -46,33 +46,34 @@ export default function TrendingListCollegeEvents() {
           </div>
         </div>
       )}
-      {trendingList
-        .slice(0, viewMore ? 10 : 3)
-        .map((trending, index) => (
-          <Fragment key={trending._id}>
-            <div
-              onClick={() => navigate(`/trending/events/${trending._id}`)}
-              className="trending-card"
-            >
-              <div className="logo">
-                <img
-                  onError={(e) => {
-                    e.target.src = defaultPoster;
-                  }}
-                  src={trending.eventPoster}
-                  alt="logo"
-                />
-              </div>
-              <div className="content">
-                <span className="name text-crop-2">{trending.eventName}</span>
-                <span className="subheading text-crop-2">
-                  {trending.description}
-                </span>
-              </div>
+      {trendingList.slice(0, viewMore ? 10 : 3).map((trending, index) => (
+        <Fragment key={trending._id}>
+          <div
+            onClick={() => navigate(`/trending/events/${trending._id}`)}
+            className="trending-card"
+          >
+            <div className="logo">
+              <img
+                onError={(e) => {
+                  e.target.src = defaultPoster;
+                }}
+                src={trending.eventPoster}
+                alt="logo"
+              />
             </div>
-            <hr />
-          </Fragment>
-        ))}
+            <div className="content">
+              <span className="name text-crop-2">{trending.eventName}</span>
+              <span
+                className="subheading text-crop-2"
+                dangerouslySetInnerHTML={{
+                  __html: trending?.description,
+                }}
+              ></span>
+            </div>
+          </div>
+          <hr />
+        </Fragment>
+      ))}
       {trendingList.length > 3 && !viewMore && (
         <div className="view-more">
           <button onClick={() => setViewMore(true)}>

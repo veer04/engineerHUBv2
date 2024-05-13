@@ -73,7 +73,7 @@ const Events = () => {
   return (
     <div className="CompanyEvent">
       <h2>Event Hiring</h2>
-      <p>
+      <p className="temp-text" >
         Participate in the events directly conducted by the companies to
         highlight your profile.
       </p>

@@ -9,6 +9,7 @@ import {
 import { useParams, useNavigate, useOutletContext } from "react-router-dom";
 import { getEventById, getProjectById } from "../../../services/APIConfig";
 import Loading from "../../../components/Loader/Loading";
+import { defaultEventPoster } from "../../../assets/defaultPoster";
 
 export default function EventWindow() {
   const { id, eventId } = useParams();
@@ -60,11 +61,30 @@ export default function EventWindow() {
   const eventDate = getDate.split("/")[0];
   const time = getDate.split("/")[1];
 
+  function timeInText(time) {
+    const eventTime = new Date(time);
+    return eventTime.toLocaleTimeString("default", {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+      hour: "numeric",
+      minute: "numeric",
+      hour12: true,
+    });
+  }
+
   const renderEventWindow = (
     <>
       <section className="header">
         <div className="poster">
-          <img src={event?.eventPoster} alt="poster" />
+          <img
+            onError={(e) => {
+              e.target.onerror = null;
+              e.target.src = defaultEventPoster;
+            }}
+            src={event?.eventPoster}
+            alt="poster"
+          />
         </div>
         <div className="details">
           <span className="heading">{event?.eventName}</span>
@@ -74,11 +94,37 @@ export default function EventWindow() {
               {`${
                 !!event?.creatorId?.name
                   ? event?.creatorId?.name
-                  : `${event?.creatorId?.firstName} ${event?.creatorId?.lastName}`
-              }` || "engineerHUB"}{" "}
+                  : `${
+                      event?.creatorId?.firstName
+                        ? `${event?.creatorId?.firstName} ${
+                            event?.creatorId?.lastName
+                              ? event?.creatorId?.lastName
+                              : ""
+                          }`
+                        : "engineerHUB"
+                    }`
+              }`}
             </strong>
           </span>
-          <div className="type">#{event?.eventType}</div>
+          <div className="d-flex gap-2 flex-wrap">
+            {event?.domainName && (
+              <div className="type">#{event?.domainName}</div>
+            )}
+            {event?.eventType && (
+              <div className="type">
+                #
+                {event?.eventType === "eventHiring"
+                  ? "Event Hiring"
+                  : event?.eventType}
+              </div>
+            )}
+            {(event?.mode === true || event?.mode === false) && (
+              <div className="type">#{event?.mode ? "Online" : "Offline"}</div>
+            )}
+            {event?.registrationType && (
+              <div className="type">#{event?.registrationType}</div>
+            )}
+          </div>
         </div>
       </section>
       <section className="registration">
@@ -88,48 +134,74 @@ export default function EventWindow() {
               <AiOutlineCalendar />
             </div>
             <div className="headings">
-              <span>Event Date:</span>
-              <span>{eventDate}</span>
+              <span>Register by:</span>
+              <span>
+                {timeInText(
+                  event?.eventRegistrationEndTime || event?.eventStartTime
+                )}
+              </span>
             </div>
           </div>
-
           <button
             onClick={() => (window.location.href = event?.applyLink)}
             className="register-btn"
           >
-            Register Now
+            Visit Now
           </button>
         </div>
       </section>
-      <section className="content">
-        <div className="data">
+      <section
+        style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}
+        className="content"
+      >
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "1fr 1fr",
+            gap: "0.5rem",
+          }}
+          className="data"
+        >
           <div className="detail">
             <div className="logo">
               <AiOutlineCalendar />
             </div>
             <div className="headings">
-              <span>Day:</span>
-              <span>{day}</span>
+              <span>Event Start Date:</span>
+              <span>{timeInText(event?.eventStartTime)}</span>
             </div>
           </div>
           <div className="detail">
             <div className="logo">
-              <AiOutlinePhone />
+              <AiOutlineCalendar />
             </div>
             <div className="headings">
-              <span>Phone Number:</span>
-              <span>{event?.creatorId?.mobile || "Not Available"}</span>
+              <span>Event End Date:</span>
+              <span>{timeInText(event?.eventEndTime)}</span>
             </div>
           </div>
         </div>
-        <div className="data">
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "1fr 1fr",
+            gap: "0.5rem",
+          }}
+          className="data"
+        >
           <div className="detail">
             <div className="logo">
-              <AiOutlineClockCircle />
+              <AiOutlinePhone style={{ transform: "rotate(90deg)" }} />
             </div>
             <div className="headings">
-              <span>Time:</span>
-              <span>{time}</span>
+              <span>Phone Number:</span>
+              <span>
+                {event?.showContactDetails
+                  ? event?.organizerMobile
+                    ? `+${event?.organizerMobileCountryCode} ${event?.organizerMobile}`
+                    : "Not Available"
+                  : "Not disclosed"}
+              </span>
             </div>
           </div>
           <div className="detail">
@@ -138,21 +210,32 @@ export default function EventWindow() {
             </div>
             <div className="headings">
               <span>Email:</span>
-              <span>{event?.creatorId?.email || "Not Available"}</span>
+              <span>
+                {event?.showContactDetails
+                  ? event?.organizerEmail
+                    ? event?.organizerEmail
+                    : "Not Available"
+                  : "Not disclosed"}
+              </span>
             </div>
           </div>
         </div>
       </section>
       <section className="description">
         <span className="heading">Event Details</span>
-        <span className="details">
-          {event?.description || "No description provided"}
-        </span>
+        <span
+          className="details"
+          dangerouslySetInnerHTML={{
+            __html: event?.description,
+          }}
+        ></span>
       </section>
-      <section className="description">
-        <span className="heading">Policy</span>
-        <span className="details">{event?.policy || "No policy provided"}</span>
-      </section>
+      {!!event?.policy && (
+        <section className="description">
+          <span className="heading">Policy</span>
+          <span className="details">{event?.policy}</span>
+        </section>
+      )}
     </>
   );
 

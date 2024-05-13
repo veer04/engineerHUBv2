@@ -232,9 +232,11 @@ export default function HackathonDetailsNew() {
                 <div className="headings">
                   <span>Phone Number:</span>
                   <span>
-                    {event?.organizerMobile
-                      ? `+${event?.organizerMobileCountryCode} ${event?.organizerMobile}`
-                      : "Not Available"}
+                    {event?.showContactDetails
+                      ? event?.organizerMobile
+                        ? `+${event?.organizerMobileCountryCode} ${event?.organizerMobile}`
+                        : "Not Available"
+                      : "Not disclosed"}
                   </span>
                 </div>
               </div>
@@ -244,16 +246,25 @@ export default function HackathonDetailsNew() {
                 </div>
                 <div className="headings">
                   <span>Email:</span>
-                  <span>{event?.organizerEmail || "Not Available"}</span>
+                  <span>
+                    {event?.showContactDetails
+                      ? event?.organizerEmail
+                        ? event?.organizerEmail
+                        : "Not Available"
+                      : "Not disclosed"}
+                  </span>
                 </div>
               </div>
             </div>
           </section>
           <section className="description">
             <span className="heading">Event Details</span>
-            <span className="details">
-              {event?.description || "No description provided"}
-            </span>
+            <span
+              className="details"
+              dangerouslySetInnerHTML={{
+                __html: event?.description,
+              }}
+            ></span>
           </section>
           {!!event?.policy && (
             <section className="description">
