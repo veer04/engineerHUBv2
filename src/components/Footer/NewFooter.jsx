@@ -11,10 +11,12 @@ import {
   BsWhatsapp,
   BsYoutube,
 } from "react-icons/bs";
+import { Bucket_URL } from "../../services/APIUtils";
 
 export default function NewFooter() {
   const [displayFooter, setDisplayFooter] = useState(true);
   const location = useLocation();
+  const bucket = `${Bucket_URL}frontend/footer/`;
 
   useEffect(() => {
     if (
@@ -44,6 +46,13 @@ export default function NewFooter() {
               learn in community, explore campuses & get placed in dream
               companies.
             </p>
+            <a href={`${bucket}certificate_of_recognition.pdf`} target="_blank">
+              <img
+                style={{ width: "100%", height: "auto", marginBottom: "20px" }}
+                src={`${bucket}certificate_of_recognition.png`}
+                alt="Certificate of recognition from #startupindia"
+              />
+            </a>
             <div className="our-links">
               <Link to="http://www.instagram.com/engineerhub.in">
                 <BsInstagram />
@@ -132,7 +141,7 @@ export default function NewFooter() {
                 to="/trending/alumni/6485eba73b1ce8dd9ff91a10"
                 className="link"
               >
-                Trending Almas
+                Trending Alumni
               </Link>
               <Link
                 to="/trending/workshops/64c0f9c6f0c72e2702488a5c"
