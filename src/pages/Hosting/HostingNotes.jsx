@@ -188,7 +188,7 @@ export default function HostingNotes() {
             <Link
               to={`/community/notes/${encodeURIComponent(
                 res?.data?.data?.domainName
-              )}/${res?.data?.data?._id}`}
+              )}`}
               style={{ color: "rgb(13, 110, 253)" }}
               onMouseOver={(e) => (e.target.style.textDecoration = "underline")}
               onMouseOut={(e) => (e.target.style.textDecoration = "none")}
