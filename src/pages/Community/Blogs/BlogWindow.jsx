@@ -122,9 +122,9 @@ export default function BlogWindow() {
         <div className="detail">
           <div className="title">{project?.title}</div>
         </div>
-        <div onClick={() => setIsBlogOpen(false)} className="link">
-          {/* <RxCross1 /> */}
-        </div>
+        {/* <div onClick={() => setIsBlogOpen(false)} className="link">
+          <RxCross1 />
+        </div> */}
       </div>
       {/*
        {project?.postIcon && <div
@@ -171,14 +171,14 @@ export default function BlogWindow() {
         {project?.creatorId && (
           <div className="author">{`by ${project.creatorId.name}`}</div>
         )}
-        <div className="date">
+        {/* <div className="date">
           {project?.createdAt &&
             new Intl.DateTimeFormat("en-US", {
               year: "numeric",
               month: "long",
               day: "numeric",
             }).format(date)}
-        </div>
+        </div> */}
       </div>
     </div>
   );
