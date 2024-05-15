@@ -235,12 +235,12 @@ export default function NewEventCard({
         </div>
       </div>
       <span className="text-crop-2 heading">{data?.eventName}</span>
-      <span
+      {/* <span
         className="text-crop-2 description"
         dangerouslySetInnerHTML={{
           __html: data?.description,
         }}
-      ></span>
+      ></span> */}
       <div className="details">
         <div className="logo">
           <img src={`${data?.creatorId?.image}`} alt="logo" />
