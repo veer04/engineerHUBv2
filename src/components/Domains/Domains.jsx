@@ -38,6 +38,7 @@ function Domain({ item, index }) {
         )}
         {!!item.events && <span className="info">{item.events}+ Events</span>}
         {!!item.blogs && <span className="info">{item.blogs}+ Blogs</span>}
+        {!!item.notes && <span className="info">{item.notes}+ Notes</span>}
       </div>
       <div className="logo-container">
         <img src={item.domainImage} alt="domain logo" className="domain-logo" />
