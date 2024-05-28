@@ -167,16 +167,16 @@ export default function NewFooter() {
             </div>
             <div className="pages">
               <p className="title">Host</p>
-              <Link to="/host/event" className="link">
+              <Link to="/host/cultural-event" className="link">
                 Cultural Events
               </Link>
-              <Link to="/host/event" className="link">
+              <Link to="/host/technical-event" className="link">
                 Technical Events
               </Link>
-              <Link to="/host/event" className="link">
+              <Link to="/host/hackathon" className="link">
                 Hackathon
               </Link>
-              <Link to="/host/event" className="link">
+              <Link to="/host/webinar" className="link">
                 Webinar
               </Link>
               <Link to="/host/job" className="link">
