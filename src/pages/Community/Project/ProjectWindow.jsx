@@ -112,27 +112,34 @@ export default function ProjectWindow() {
           </ul>
         </>
       )}
-      {project?.isExpired ? (
-        <button className="project-btn-expired">Expired</button>
-      ) : (
-        <Link
-          to={`/community/projects/${encodeURIComponent(
-            id
-          )}/${projectId}/submit`}
+      <div className="project-btn-container">
+        <a
+          href="https://chat.whatsapp.com/EUNhE4tFic58nC67X0Fh6W"
           className="apply"
         >
-          <button>Submit</button>
-        </Link>
-      )}
-      {!!project?.applyLink && (
-        <a
-          target="_blank"
-          href={`${project?.applyLink}`}
-          rel="noopener noreferrer"
-        >
-          <button style={{ float: "left" }}>View more</button>
+          <button>Discuss</button>
         </a>
-      )}
+        {!!project?.applyLink ? (
+          <a
+            target="_blank"
+            href={`${project?.applyLink}`}
+            rel="noopener noreferrer"
+          >
+            <button>View more</button>
+          </a>
+        ) : project?.isExpired ? (
+          <button className="project-btn-expired">Expired</button>
+        ) : (
+          <Link
+            to={`/community/projects/${encodeURIComponent(
+              id
+            )}/${projectId}/submit`}
+            className="apply"
+          >
+            <button>Submit</button>
+          </Link>
+        )}
+      </div>
     </>
   );
 

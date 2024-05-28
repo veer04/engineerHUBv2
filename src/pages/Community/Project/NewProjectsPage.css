@@ -107,8 +107,16 @@
   .sub-heading:nth-last-child(1) {
   margin-bottom: 0;
 }
+.projects-page
+  .main-container
+  .content-container
+  .project-window
+  .project-btn-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 .projects-page .main-container .content-container .project-window button {
-  float: right;
   border-radius: 0.3175rem;
   border: none;
   padding: 0.5rem 1rem;
