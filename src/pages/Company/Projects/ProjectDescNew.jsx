@@ -24,6 +24,7 @@ import {
   phoneIcon,
   workTypeIcon,
 } from "../Jobs/icons";
+import { getUserId } from "../../../features/User/UserDetails";
 
 const ProjectDescNew = ({ data, isApplied }) => {
   const { projectId } = useParams();
@@ -72,7 +73,7 @@ const ProjectDescNew = ({ data, isApplied }) => {
 
     if (isApplicable && isApplied === false && !isResumeUploaded) {
       window.alert("Please upload your resume first");
-      window.location.href = `/profile/student/${getCookie("_id")[2]}/edit`;
+      window.location.href = `/profile/user/${getUserId()}`;
       return;
     }
 
