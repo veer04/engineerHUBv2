@@ -101,7 +101,7 @@ const JobDescription = () => {
 
     if (isApplicable) {
       setIsApplyingJob(true);
-      // window.location.href = `/profile/student/${getCookie("_id")[2]}/edit`;
+      // window.location.href = `/profile/user/${getUserId()}`;
       return;
     }
 

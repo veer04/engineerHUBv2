@@ -12,6 +12,7 @@ import Page404 from "../../Maintenance/Page404";
 import { getUserProfileById } from "../../../services/APIConfig";
 import { redirectToAuth } from "../../../features/redirectToAuth";
 import CustomSnackbar from "../../User/Login/CustomSnackbar";
+import { getUserId } from "../../../features/User/UserDetails";
 
 const ProjectDesc = ({ data, isApplied }) => {
   const { projectId } = useParams();
@@ -56,7 +57,7 @@ const ProjectDesc = ({ data, isApplied }) => {
 
     if (isApplicable && isApplied === false && !isResumeUploaded) {
       window.alert("Please upload your resume first");
-      window.location.href = `/profile/student/${getCookie("_id")[2]}/edit`;
+      window.location.href = `/profile/user/${getUserId()}`;
       return;
     }
 
