@@ -245,26 +245,26 @@ main {
 /* Line Height */
 
 #root {
-  --line-height-6xl: 48;
-  --line-height-5xl: 43;
-  --line-height-4xl: 38;
-  --line-height-3xl: 36;
-  --line-height-2xl: 35;
-  --line-height-xl: 32;
-  --line-height-lg: 30;
-  --line-height-md: 27;
-  --line-height-sm: 25;
-  --line-height-xs: 24;
-  --line-height-xxs: 19;
-  --line-height-xxxs: 16;
+  --line-height-6xl: 48px;
+  --line-height-5xl: 43px;
+  --line-height-4xl: 38px;
+  --line-height-3xl: 36px;
+  --line-height-2xl: 35px;
+  --line-height-xl: 32px;
+  --line-height-lg: 30px;
+  --line-height-md: 27px;
+  --line-height-sm: 25px;
+  --line-height-xs: 24px;
+  --line-height-xxs: 19px;
+  --line-height-xxxs: 16px;
 }
 
 /* Letter Spacing */
 
 #root {
-  --letter-spacing-denser: -2;
-  --letter-spacing-dense: -1;
-  --letter-spacing-normal: 0;
+  --letter-spacing-denser: -2px;
+  --letter-spacing-dense: -1px;
+  --letter-spacing-normal: 0px;
 }
 
 /* Font Size */
@@ -304,19 +304,19 @@ main {
 /* Spacing */
 
 #root {
-  --space-xxxs: 2;
-  --space-xxs: 4;
-  --space-xs: 8;
-  --space-sm: 12;
-  --space-md: 16;
-  --space-lg: 24;
-  --space-xl: 32;
-  --space-2xl: 40;
-  --space-3xl: 48;
-  --space-4xl: 64;
-  --space-5xl: 80;
-  --space-6xl: 96;
-  --space-7xl: 128;
+  --space-xxxs: 2px;
+  --space-xxs: 4px;
+  --space-xs: 8px;
+  --space-sm: 12px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 40px;
+  --space-3xl: 48px;
+  --space-4xl: 64px;
+  --space-5xl: 80px;
+  --space-6xl: 96px;
+  --space-7xl: 128px;
 }
 
 /* Breakpoint: 1440 - 1025 */
@@ -447,7 +447,7 @@ main {
   /* no changes */
 }
 
-/* Breakpoint: 820 - 520 */
+/* Breakpoint: 820 - 0 */
 
 /* Display */
 
