@@ -80,6 +80,7 @@
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
+  word-break: break-word;
 }
 .trending-events .content-container .column-2 .header .details .heading {
   color: #000;
@@ -216,6 +217,7 @@
   font-style: normal;
   font-weight: 400;
   line-height: 126.023%;
+  word-break: break-word;
 }
 
 @media screen and (max-width: 1100px) {
