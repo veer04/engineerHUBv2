@@ -48,6 +48,7 @@ import ProjectWindow from "./pages/Community/Project/ProjectWindow.jsx";
 import EventWindow from "./pages/Community/Events/EventWindow.jsx";
 import BlogWindow from "./pages/Community/Blogs/BlogWindow.jsx";
 import NewFooter from "./components/Footer/NewFooter.jsx";
+const JobsPage = lazy(() => import("./pages/Company/Jobs/JobsPage.jsx"));
 const HostingNotes = lazy(() => import("./pages/Hosting/HostingNotes.jsx"));
 const GetFeaturedForm = lazy(() =>
   import("./pages/NewHomepage/GetFeaturedForm.jsx")
@@ -246,7 +247,8 @@ function App() {
           <Route path="/company">
             <Route path="" element={<Company />} />
             <Route path="jobs">
-              <Route path="" element={<Jobs />} />
+              <Route path="" element={<JobsPage />} />
+              {/* <Route path="" element={<Jobs />} /> */}
               <Route path=":hiringId" element={<JobDetails />} />
             </Route>
             <Route path="internships">

@@ -3,18 +3,18 @@
 /* Line Height */
 
 #root {
-  --line-height-6xl: 3; /* 48px */
-  --line-height-5xl: 2.6875; /* 43px */
-  --line-height-4xl: 2.375; /* 38px */
-  --line-height-3xl: 2.25; /* 36px */
-  --line-height-2xl: 2.1875; /* 35px */
-  --line-height-xl: 2; /* 32px */
-  --line-height-lg: 1.875; /* 30px */
-  --line-height-md: 1.6875; /* 27px */
-  --line-height-sm: 1.5625; /* 25px */
-  --line-height-xs: 1.5; /* 24px */
-  --line-height-xxs: 1.1875; /* 19px */
-  --line-height-xxxs: 1; /* 16px */
+  --line-height-6xl: 48px;
+  --line-height-5xl: 43px;
+  --line-height-4xl: 38px;
+  --line-height-3xl: 36px;
+  --line-height-2xl: 35px;
+  --line-height-xl: 32px;
+  --line-height-lg: 30px;
+  --line-height-md: 27px;
+  --line-height-sm: 25px;
+  --line-height-xs: 24px;
+  --line-height-xxs: 19px;
+  --line-height-xxxs: 16px;
 }
 
 /* Letter Spacing */
