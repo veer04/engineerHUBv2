@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import "./JobDescription.css";
 import { Chip } from "@mui/material";
+import { FaExternalLinkAlt } from "react-icons/fa";
 import { useParams } from "react-router-dom";
 import { API_URL, Bucket_URL } from "../../../services/APIUtils";
 import { Link } from "react-router-dom";
@@ -43,6 +44,9 @@ const JobDescription = () => {
     message: "",
   });
   const [open, setOpen] = useState(false);
+  const [width, setWidth] = useState(window.innerWidth);
+  const handleResize = () => setWidth(window.innerWidth);
+
   useEffect(() => {
     if (getCookie("name")) {
       getUserProfileById(setProfile, getCookie("_id")[2]);
@@ -55,6 +59,8 @@ const JobDescription = () => {
         setIsApplicable(true);
       }
     }
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   useEffect(() => {
@@ -300,6 +306,30 @@ const JobDescription = () => {
             />
           ))}
         </span>
+      </div>
+      <div
+        onClick={() => {
+          window.open(
+            `${`${Bucket_URL}frontend/company/promotion/pankaj-kalra.png`}`,
+            "_blank"
+          );
+        }}
+        style={{
+          backgroundImage: `url(${`${Bucket_URL}frontend/company/promotion/pankaj-kalra.png`})`,
+          aspectRatio: "2188/625",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+          borderRadius: "10px",
+          position: "relative",
+          cursor: "pointer",
+        }}
+      >
+        <a href="https://bit.ly/45bFpz6" target="__blank">
+          <button className="promotion-btn">
+            {width > 650 ? "Register Here" : <FaExternalLinkAlt />}
+          </button>
+        </a>
       </div>
       <div className="JobInfo">
         <div className="JobInfoItems JobInfoItems-date">

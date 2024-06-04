@@ -27,6 +27,7 @@ import {
   workTypeIcon,
 } from "../Jobs/icons";
 import { getUserId } from "../../../features/User/UserDetails";
+import { FaExternalLinkAlt } from "react-icons/fa";
 const InternshipDesc = () => {
   const { hiringId } = useParams();
   const [flag, setFlag] = useState(-1);
@@ -42,6 +43,8 @@ const InternshipDesc = () => {
     message: "",
   });
   const [open, setOpen] = useState(false);
+  const [width, setWidth] = useState(window.innerWidth);
+  const handleResize = () => setWidth(window.innerWidth);
 
   useEffect(() => {
     if (getCookie("name")) {
@@ -56,6 +59,8 @@ const InternshipDesc = () => {
         setIsApplicable(true);
       }
     }
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
   useEffect(() => {
     if (isLoggedIn) {
@@ -288,6 +293,30 @@ const InternshipDesc = () => {
             />
           ))}
         </span>
+      </div>
+      <div
+        onClick={() => {
+          window.open(
+            `${`${Bucket_URL}frontend/company/promotion/pankaj-kalra.png`}`,
+            "_blank"
+          );
+        }}
+        style={{
+          backgroundImage: `url(${`${Bucket_URL}frontend/company/promotion/pankaj-kalra.png`})`,
+          aspectRatio: "2188/625",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+          borderRadius: "10px",
+          position: "relative",
+          cursor: "pointer",
+        }}
+      >
+        <a href="https://bit.ly/45bFpz6" target="__blank">
+          <button className="promotion-btn">
+            {width > 650 ? "Register Here" : <FaExternalLinkAlt />}
+          </button>
+        </a>
       </div>
       <div className="JobInfo">
         <div className="JobInfoItems JobInfoItems-date">
