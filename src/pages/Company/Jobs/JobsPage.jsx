@@ -124,6 +124,7 @@ export default function JobsPage() {
           placeholder="Search for jobs, company, etc"
         />
       </div>
+      <FiltersContainer />
       {jobsQuery.isPending && (
         <>
           <div
