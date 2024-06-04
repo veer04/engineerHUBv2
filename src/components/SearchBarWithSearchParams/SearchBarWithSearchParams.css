@@ -1,0 +1,11 @@
+#search-box-ehub {
+  width: 21.875rem;
+  height: 2.25rem;
+  background: url("https://frontendehubbucket.s3.ap-south-1.amazonaws.com/frontend/company/search-bar/search-icon.png")
+    no-repeat scroll 12.5px 4px;
+  padding-left: 50px;
+  border-radius: 9999px;
+  border: 2px solid #547178;
+  background-color: #fdfdfd;
+  min-width: 0;
+}
