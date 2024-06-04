@@ -307,6 +307,12 @@ const ProjectDescNew = ({ data, isApplied }) => {
         </div>
       )}
       <div
+        onClick={() => {
+          window.open(
+            `${`${Bucket_URL}frontend/company/promotion/pankaj-kalra.png`}`,
+            "_blank"
+          );
+        }}
         style={{
           backgroundImage: `url(${`${Bucket_URL}frontend/company/promotion/pankaj-kalra.png`})`,
           aspectRatio: "2188/625",
@@ -315,6 +321,7 @@ const ProjectDescNew = ({ data, isApplied }) => {
           backgroundRepeat: "no-repeat",
           borderRadius: "10px",
           position: "relative",
+          cursor: "pointer",
         }}
       >
         <a href="https://bit.ly/45bFpz6" target="__blank">

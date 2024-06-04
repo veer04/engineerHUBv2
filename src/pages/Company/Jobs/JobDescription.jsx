@@ -307,6 +307,30 @@ const JobDescription = () => {
           ))}
         </span>
       </div>
+      <div
+        onClick={() => {
+          window.open(
+            `${`${Bucket_URL}frontend/company/promotion/pankaj-kalra.png`}`,
+            "_blank"
+          );
+        }}
+        style={{
+          backgroundImage: `url(${`${Bucket_URL}frontend/company/promotion/pankaj-kalra.png`})`,
+          aspectRatio: "2188/625",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+          borderRadius: "10px",
+          position: "relative",
+          cursor: "pointer",
+        }}
+      >
+        <a href="https://bit.ly/45bFpz6" target="__blank">
+          <button className="promotion-btn">
+            {width > 650 ? "Register Here" : <FaExternalLinkAlt />}
+          </button>
+        </a>
+      </div>
       <div className="JobInfo">
         <div className="JobInfoItems JobInfoItems-date">
           <div className="JobInfoItem">
@@ -320,23 +344,6 @@ const JobDescription = () => {
             {calendarEndDateIcon}
           </div>
         </div>
-      </div>
-      <div
-        style={{
-          backgroundImage: `url(${`${Bucket_URL}frontend/company/promotion/pankaj-kalra.png`})`,
-          aspectRatio: "2188/625",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-          borderRadius: "10px",
-          position: "relative",
-        }}
-      >
-        <a href="https://bit.ly/45bFpz6" target="__blank">
-          <button className="promotion-btn">
-            {width > 650 ? "Register Here" : <FaExternalLinkAlt />}
-          </button>
-        </a>
       </div>
       <div className="JobDesc">
         <h5>Job Description</h5>
