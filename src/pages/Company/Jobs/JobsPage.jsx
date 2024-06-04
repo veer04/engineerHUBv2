@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
-import FormInputAutocomplete from "../../../components/FormInputs/FormInputAutocomplete";
 import "./JobsPage.css";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { API_URL } from "../../../services/APIUtils";
@@ -11,12 +10,12 @@ import colorWheel from "../../../assets/colorWheel";
 import Loading from "../../../components/Loader/Loading";
 import SearchBarWithSearchParams from "../../../components/SearchBarWithSearchParams/SearchBarWithSearchParams";
 import useNavbar from "../../../hooks/use-navbar";
-import PaginationBar from "../../../components/PaginationBar/PaginationBar";
+import PaginationBarWithSearchParams from "../../../components/PaginationBarWithSearchParams/PaginationBarWithSearchParams";
+import FiltersContainer from "../../../components/Filter/Company/Jobs/FiltersContainer";
 
 export default function JobsPage() {
   const { setSelectedPageNavbar } = useNavbar();
   const [pageCount, setPageCount] = useState(1);
-  const [currentPage, setCurrentPage] = useState(1);
   const [searchParams, setSearchParams] = useSearchParams({
     search: "",
     pageNo: "",
@@ -89,10 +88,9 @@ export default function JobsPage() {
     },
     staleTime: 1000 * 60 * 1, // 1 minutes
   });
-  console.log(pageCount);
+
   useEffect(() => {
     if (jobsQuery.isSuccess) {
-      console.log("Yoo", jobsQuery.isSuccess);
       setPageCount(
         Math.ceil(
           (!!jobsQuery?.data?.data?.pageSize
@@ -105,9 +103,13 @@ export default function JobsPage() {
 
   useEffect(() => {
     document.title = "Jobs | Company | engineerHUB";
-    // window.scrollTo(0, 0);
+    window.scrollTo(0, 0);
     setSelectedPageNavbar("company");
   }, []);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pageNo]);
 
   return (
     <main className="jobs-page">
@@ -212,12 +214,8 @@ export default function JobsPage() {
           )}
         </>
       )}
-      {jobsQuery?.data?.data?.data?.length !== 0 && (
-        <PaginationBar
-          pages={pageCount}
-          currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
-        />
+      {jobsQuery.isSuccess && jobsQuery?.data?.data?.data?.length !== 0 && (
+        <PaginationBarWithSearchParams param="pageNo" pages={pageCount} />
       )}
     </main>
   );
