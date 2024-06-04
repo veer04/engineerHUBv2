@@ -80,7 +80,7 @@ export default function ProfilePopUp() {
     {
       label: "Jobs",
       icon: <RiSuitcase2Line />,
-      link: "/company/jobs",
+      link: "/company/jobs?pageNo=1&limit=21",
     },
     {
       label: "Projects",
