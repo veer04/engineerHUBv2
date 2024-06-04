@@ -4,6 +4,7 @@ import "./ProjectDescNew.css";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { API_URL, Bucket_URL } from "../../../services/APIUtils";
+import { FaExternalLinkAlt } from "react-icons/fa";
 import { useState } from "react";
 import getCookie, { getAccessToken } from "../../../features/getCookieValues";
 import Cookies from "js-cookie";
@@ -41,6 +42,8 @@ const ProjectDescNew = ({ data, isApplied }) => {
   const bucket = `${Bucket_URL}frontend/company/jobs/`;
   // const [hiring, setHiring] = useState({});
   const [isApplyingJob, setIsApplyingJob] = useState(false);
+  const [width, setWidth] = useState(window.innerWidth);
+  const handleResize = () => setWidth(window.innerWidth);
 
   useEffect(() => {
     if (getCookie("name")) {
@@ -54,6 +57,8 @@ const ProjectDescNew = ({ data, isApplied }) => {
         setIsApplicable(true);
       }
     }
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
   useEffect(() => {
     if (isLoggedIn) {
@@ -301,6 +306,23 @@ const ProjectDescNew = ({ data, isApplied }) => {
           </div>
         </div>
       )}
+      <div
+        style={{
+          backgroundImage: `url(${`${Bucket_URL}frontend/company/promotion/pankaj-kalra.png`})`,
+          aspectRatio: "2188/625",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+          borderRadius: "10px",
+          position: "relative",
+        }}
+      >
+        <a href="https://bit.ly/45bFpz6" target="__blank">
+          <button className="promotion-btn">
+            {width > 650 ? "Register Here" : <FaExternalLinkAlt />}
+          </button>
+        </a>
+      </div>
       <div className="JobDesc">
         <h5>Description</h5>
         <p
