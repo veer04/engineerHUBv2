@@ -325,11 +325,15 @@ const JobDescription = () => {
           cursor: "pointer",
         }}
       >
-        <a href="https://bit.ly/45bFpz6" target="__blank">
-          <button className="promotion-btn">
-            {width > 650 ? "Register Here" : <FaExternalLinkAlt />}
-          </button>
-        </a>
+        <button
+          onClick={(e) => {
+            e.stopPropagation;
+            window.open(`https://bit.ly/45bFpz6`, "_blank");
+          }}
+          className="promotion-btn"
+        >
+          {width > 650 ? "Register Here" : <FaExternalLinkAlt />}
+        </button>
       </div>
       <div className="JobInfo">
         <div className="JobInfoItems JobInfoItems-date">
