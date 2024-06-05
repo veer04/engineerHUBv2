@@ -276,7 +276,7 @@ const Company = () => {
           })}
         </div>
       </div>
-      <div className="Category" style={{ display: "none" }}>
+      {/* <div className="Category" style={{ display: "none" }}>
         <h5>Most on Demand Jobs Categories</h5>
         <div className="CategoryTiles">
           {CategoryEntries.map((item, index) => {
@@ -299,7 +299,7 @@ const Company = () => {
             );
           })}
         </div>
-      </div>
+      </div> */}
       <div className="FeaturedJobs">
         <a href="/company/jobs" style={{ textDecoration: "none" }}>
           <h5>Featured Jobs</h5>
