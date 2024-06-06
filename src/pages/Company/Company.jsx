@@ -41,6 +41,8 @@ const CompanyCards = ({ data }) => {
 const Company = () => {
   const navigate = useNavigate();
   const { setSelectedPageNavbar } = useNavbar();
+  const [width, setWidth] = useState(window.innerWidth);
+  const handleResize = () => setWidth(window.innerWidth);
 
   const [jobs, setJobs] = useState(
     sessionStorage.getItem("companyPageJobs")
@@ -171,6 +173,8 @@ const Company = () => {
     } else {
       getEventByType(setEvents);
     }
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   const bucket = `${Bucket_URL}frontend/company/`;
@@ -335,10 +339,14 @@ const Company = () => {
         }}
         id="promotional-banner"
       >
-        <a href="https://ipbazzaar.com/ip-league-3/" target="_blank">
+        <a href="https://bit.ly/45bFpz6" target="_blank">
           <img
             loading="lazy"
-            src={`${Bucket_URL}frontend/company/promotion-banner/promotional-banner-ip-bazzar.jpg`}
+            src={
+              width <= 520
+                ? `${`${Bucket_URL}frontend/company/promotion/pankaj-kalra-mobile.png`}`
+                : `${`${Bucket_URL}frontend/company/promotion/pankaj-kalra-desktop.png`}`
+            }
             alt="promotional banner"
             style={{
               width: "100%",
