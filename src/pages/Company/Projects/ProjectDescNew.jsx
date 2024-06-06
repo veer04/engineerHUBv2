@@ -309,13 +309,18 @@ const ProjectDescNew = ({ data, isApplied }) => {
       <div
         onClick={() => {
           window.open(
-            `${`${Bucket_URL}frontend/company/promotion/pankaj-kalra.png`}`,
+            width <= 520
+              ? `${`${Bucket_URL}frontend/company/promotion/pankaj-kalra-mobile.png`}`
+              : `${`${Bucket_URL}frontend/company/promotion/pankaj-kalra-desktop.png`}`,
             "_blank"
           );
         }}
         style={{
-          backgroundImage: `url(${`${Bucket_URL}frontend/company/promotion/pankaj-kalra.png`})`,
-          aspectRatio: "2188/625",
+          backgroundImage:
+            width <= 520
+              ? `url(${`${Bucket_URL}frontend/company/promotion/pankaj-kalra-mobile.png`})`
+              : `url(${`${Bucket_URL}frontend/company/promotion/pankaj-kalra-desktop.png`})`,
+          aspectRatio: width <= 520 ? "900/1146" : "2100/864",
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
@@ -324,11 +329,15 @@ const ProjectDescNew = ({ data, isApplied }) => {
           cursor: "pointer",
         }}
       >
-        <a href="https://bit.ly/45bFpz6" target="__blank">
-          <button className="promotion-btn">
-            {width > 650 ? "Register Here" : <FaExternalLinkAlt />}
-          </button>
-        </a>
+        <button
+          onClick={(e) => {
+            e.stopPropagation;
+            window.open(`https://bit.ly/45bFpz6`, "_blank");
+          }}
+          className="promotion-btn"
+        >
+          {width > 650 ? "Register" : <FaExternalLinkAlt />}
+        </button>
       </div>
       <div className="JobDesc">
         <h5>Description</h5>

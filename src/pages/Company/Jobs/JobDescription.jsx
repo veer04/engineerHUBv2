@@ -310,13 +310,18 @@ const JobDescription = () => {
       <div
         onClick={() => {
           window.open(
-            `${`${Bucket_URL}frontend/company/promotion/pankaj-kalra.png`}`,
+            width <= 520
+              ? `${`${Bucket_URL}frontend/company/promotion/pankaj-kalra-mobile.png`}`
+              : `${`${Bucket_URL}frontend/company/promotion/pankaj-kalra-desktop.png`}`,
             "_blank"
           );
         }}
         style={{
-          backgroundImage: `url(${`${Bucket_URL}frontend/company/promotion/pankaj-kalra.png`})`,
-          aspectRatio: "2188/625",
+          backgroundImage:
+            width <= 520
+              ? `url(${`${Bucket_URL}frontend/company/promotion/pankaj-kalra-mobile.png`})`
+              : `url(${`${Bucket_URL}frontend/company/promotion/pankaj-kalra-desktop.png`})`,
+          aspectRatio: width <= 520 ? "900/1146" : "2100/864",
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
@@ -332,7 +337,7 @@ const JobDescription = () => {
           }}
           className="promotion-btn"
         >
-          {width > 650 ? "Register Here" : <FaExternalLinkAlt />}
+          {width > 650 ? "Register" : <FaExternalLinkAlt />}
         </button>
       </div>
       <div className="JobInfo">
