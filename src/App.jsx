@@ -47,6 +47,7 @@ import ProjectWindow from "./pages/Community/Project/ProjectWindow.jsx";
 import EventWindow from "./pages/Community/Events/EventWindow.jsx";
 import BlogWindow from "./pages/Community/Blogs/BlogWindow.jsx";
 import NewFooter from "./components/Footer/NewFooter.jsx";
+import PopUpModal from "./components/PopUpModal/PopUpModal.jsx";
 const HostingNotes = lazy(() => import("./pages/Hosting/HostingNotes.jsx"));
 const GetFeaturedForm = lazy(() =>
   import("./pages/NewHomepage/GetFeaturedForm.jsx")
@@ -113,6 +114,7 @@ function App() {
 
   return (
     <>
+      <PopUpModal />
       <NewNavbar />
       <MobileNavbar />
       <GlobalSnackbar />

@@ -1,0 +1,11 @@
+.promo-image-pop-up {
+  height: 675px;
+  width: 540px;
+}
+
+@media screen and (max-width: 580px) {
+  .promo-image-pop-up {
+    height: 441px;
+    width: 352.8px;
+  }
+}
