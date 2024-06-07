@@ -1,11 +1,25 @@
+.modal-dialog-promo {
+  width: fit-content;
+  margin: auto;
+  height: fit-content;
+}
+.promo-image-pop-up-link {
+  width: fit-content;
+  display: flex;
+}
 .promo-image-pop-up {
-  height: 675px;
-  width: 540px;
+  aspect-ratio: 540/675;
+  width: 100%;
 }
 
 @media screen and (max-width: 580px) {
   .promo-image-pop-up {
-    height: 441px;
     width: 352.8px;
+  }
+}
+
+@media screen and (max-width: 365px) {
+  .promo-image-pop-up {
+    width: 270px;
   }
 }
