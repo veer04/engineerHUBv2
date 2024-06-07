@@ -48,6 +48,7 @@ import ProjectWindow from "./pages/Community/Project/ProjectWindow.jsx";
 import EventWindow from "./pages/Community/Events/EventWindow.jsx";
 import BlogWindow from "./pages/Community/Blogs/BlogWindow.jsx";
 import NewFooter from "./components/Footer/NewFooter.jsx";
+import PopUpModalBootstrap from "./components/PopUpModal/PopUpModalBootstrap.jsx";
 const JobsPage = lazy(() => import("./pages/Company/Jobs/JobsPage.jsx"));
 const HostingNotes = lazy(() => import("./pages/Hosting/HostingNotes.jsx"));
 const GetFeaturedForm = lazy(() =>
@@ -115,6 +116,7 @@ function App() {
 
   return (
     <>
+      <PopUpModalBootstrap />
       <NewNavbar />
       <MobileNavbar />
       <GlobalSnackbar />
