@@ -155,7 +155,7 @@ export default function NewFooter() {
               <Link to="/company/internships" className="link">
                 Internships
               </Link>
-              <Link to="/company/jobs" className="link">
+              <Link to="/company/jobs?pageNo=1&limit=21" className="link">
                 Jobs
               </Link>
               <Link to="/company/events" className="link">

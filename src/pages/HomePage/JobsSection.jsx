@@ -77,7 +77,7 @@ export default function JobsSection() {
       </div>
       <div className="jobs-btn">
         <button
-          onClick={() => navigate("company/jobs")}
+          onClick={() => navigate("company/jobs?pageNo=1&limit=21")}
           className="look-for-jobs"
         >
           Look for Jobs

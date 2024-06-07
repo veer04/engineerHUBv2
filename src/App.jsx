@@ -1,6 +1,7 @@
 import React, { useState, useEffect, lazy, Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
+import "./styles/DesignSystem.js";
 import OTP from "./pages/User/OtpVerification/Otpverification";
 import MobileNavbar from "./components/MobileNavbar/MobileNavbar";
 import NewNavbar from "./components/Navbar/NewNavbar";
@@ -48,6 +49,7 @@ import EventWindow from "./pages/Community/Events/EventWindow.jsx";
 import BlogWindow from "./pages/Community/Blogs/BlogWindow.jsx";
 import NewFooter from "./components/Footer/NewFooter.jsx";
 import PopUpModalBootstrap from "./components/PopUpModal/PopUpModalBootstrap.jsx";
+const JobsPage = lazy(() => import("./pages/Company/Jobs/JobsPage.jsx"));
 const HostingNotes = lazy(() => import("./pages/Hosting/HostingNotes.jsx"));
 const GetFeaturedForm = lazy(() =>
   import("./pages/NewHomepage/GetFeaturedForm.jsx")
@@ -247,7 +249,8 @@ function App() {
           <Route path="/company">
             <Route path="" element={<Company />} />
             <Route path="jobs">
-              <Route path="" element={<Jobs />} />
+              <Route path="" element={<JobsPage />} />
+              {/* <Route path="" element={<Jobs />} /> */}
               <Route path=":hiringId" element={<JobDetails />} />
             </Route>
             <Route path="internships">

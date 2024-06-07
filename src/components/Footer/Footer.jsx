@@ -43,7 +43,7 @@ export default function Footer() {
         },
         {
           title: "Hiring",
-          link: "/company/jobs",
+          link: "/company/jobs?pageNo=1&limit=21",
         },
         {
           title: "Mentorship",

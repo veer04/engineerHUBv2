@@ -9,28 +9,35 @@ import NavbarProvider from "./contexts/NavbarContext";
 import { EventModalProvider } from "./contexts/EventModalContext";
 import ChatProvider from "./contexts/chatProvider";
 import GlobalSnackbarProvider from "./contexts/GlobalSnackbarContext";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+
+const queryClient = new QueryClient();
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <BrowserRouter>
-      <AuthProvider
-        authType={"cookie"}
-        authName={"_auth"}
-        cookieDomain={window.location.hostname}
-        cookieSecure={false}
-      >
-        <GlobalSnackbarProvider>
-          <ChatProvider>
-            <EventModalProvider>
-              <NavbarProvider>
-                <SidebarProvider>
-                  <App />
-                </SidebarProvider>
-              </NavbarProvider>
-            </EventModalProvider>
-          </ChatProvider>
-        </GlobalSnackbarProvider>
-      </AuthProvider>
-    </BrowserRouter>
+    <QueryClientProvider client={queryClient}>
+      <BrowserRouter>
+        <AuthProvider
+          authType={"cookie"}
+          authName={"_auth"}
+          cookieDomain={window.location.hostname}
+          cookieSecure={false}
+        >
+          <GlobalSnackbarProvider>
+            <ChatProvider>
+              <EventModalProvider>
+                <NavbarProvider>
+                  <SidebarProvider>
+                    <App />
+                    <ReactQueryDevtools />
+                  </SidebarProvider>
+                </NavbarProvider>
+              </EventModalProvider>
+            </ChatProvider>
+          </GlobalSnackbarProvider>
+        </AuthProvider>
+      </BrowserRouter>
+    </QueryClientProvider>
   </React.StrictMode>
 );
