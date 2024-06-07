@@ -78,7 +78,7 @@ export default function JobTypeContainer({
       {isOpen && (
         <div className="filter-box job-type-container">
           <div className="top-container">
-            <h3 className="heading-sm">Job Type</h3>
+            <h3 className="body-md-semibold">Job Type</h3>
             <button
               onClick={() =>
                 setIsOpen((prev) => {
@@ -100,7 +100,7 @@ export default function JobTypeContainer({
                 <li key={index}>
                   <label
                     htmlFor={item.title}
-                    className="body-sm-regular filter-opt-label"
+                    className="label-sm filter-opt-label"
                   >
                     {item.title}
                     <input

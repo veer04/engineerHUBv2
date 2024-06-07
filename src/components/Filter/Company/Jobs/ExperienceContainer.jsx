@@ -123,7 +123,7 @@ export default function ExperienceContainer({
       {isOpen && (
         <div className="filter-box experience-container">
           <div className="top-container">
-            <h3 className="heading-sm">Experience</h3>
+            <h3 className="body-md-semibold">Experience</h3>
             <button
               onClick={() =>
                 setIsOpen((prev) => {
@@ -145,7 +145,7 @@ export default function ExperienceContainer({
                 <li key={index}>
                   <label
                     htmlFor={item.title}
-                    className="body-sm-regular filter-opt-label"
+                    className="label-sm filter-opt-label"
                   >
                     {item.title}
                     <input
