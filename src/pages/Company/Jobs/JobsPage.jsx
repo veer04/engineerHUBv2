@@ -73,8 +73,8 @@ export default function JobsPage() {
       !!params.recentlyPosted ? params.recentlyPosted : [],
       !!params.isFeatured ? params.isFeatured : [],
     ],
-    queryFn: async () => {
-      return await axios
+    queryFn: () =>
+      axios
         .get(
           `${API_URL}api/v1/getHiringByOpportunityType/`,
           {
@@ -84,8 +84,7 @@ export default function JobsPage() {
         )
         .then((res) => {
           return res;
-        });
-    },
+        }),
     staleTime: 1000 * 60 * 1, // 1 minutes
   });
 
@@ -181,9 +180,9 @@ export default function JobsPage() {
       )}
       {jobsQuery.isSuccess && (
         <>
-          {!!jobsQuery.data.data.data.length && (
+          {!!jobsQuery.data.data?.data?.length && (
             <div className="jobs-container">
-              {jobsQuery.data.data.data.map((item, index) => {
+              {jobsQuery.data.data?.data.map((item, index) => {
                 return (
                   <JobCards
                     details={item}
@@ -194,7 +193,7 @@ export default function JobsPage() {
               })}
             </div>
           )}
-          {!jobsQuery.data.data.data.length && (
+          {!jobsQuery.data.data?.data?.length && (
             <div
               style={{
                 marginTop: "20dvh",
@@ -208,9 +207,7 @@ export default function JobsPage() {
               }}
               className="jobs-container-empty"
             >
-              <h2 className="heading-sm">
-                No jobs found for the search criteria
-              </h2>
+              <h2 className="heading-sm">No Jobs Found</h2>
             </div>
           )}
         </>
