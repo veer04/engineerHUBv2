@@ -16,6 +16,7 @@
   border-radius: 99999px;
   border: none;
   text-wrap: nowrap;
+  color: black;
 }
 .filters-container .filter-box {
   position: absolute;
