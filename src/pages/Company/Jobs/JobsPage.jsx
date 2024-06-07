@@ -20,7 +20,7 @@ export default function JobsPage() {
     search: "",
     pageNo: "",
     limit: "",
-    experienceRequired: "",
+    exp: "",
     jobType: "",
     jobMode: "",
     salaryRange: "",
@@ -31,7 +31,7 @@ export default function JobsPage() {
   const search = searchParams.get("search");
   const pageNo = searchParams.get("pageNo");
   const limit = searchParams.get("limit");
-  const experienceRequired = searchParams.get("experienceRequired");
+  const exp = searchParams.get("exp");
   const jobType = searchParams.get("jobType");
   const jobMode = searchParams.get("jobMode");
   const salaryRange = searchParams.get("salaryRange");
@@ -44,7 +44,7 @@ export default function JobsPage() {
     opportunityType: "Job",
     pageNo: pageNo,
     limit: limit,
-    experienceRequired: experienceRequired,
+    experienceRequired: exp,
     jobType: jobType,
     jobMode: jobMode,
     salaryRange: salaryRange,

@@ -66,9 +66,9 @@ export default function ExperienceContainer({
   ]);
 
   const [searchParams, setSearchParams] = useSearchParams({
-    experienceRequired: "",
+    exp: "",
   });
-  const q = searchParams.get("experienceRequired");
+  const q = searchParams.get("exp");
 
   useEffect(() => {
     if (q) {
@@ -93,7 +93,7 @@ export default function ExperienceContainer({
     });
     setSearchParams(
       (prev) => {
-        prev.set("experienceRequired", "");
+        prev.set("exp", "");
         return prev;
       },
       { replace: true }
@@ -107,7 +107,7 @@ export default function ExperienceContainer({
       .flat();
     setSearchParams(
       (prev) => {
-        prev.set("experienceRequired", selectedExperience);
+        prev.set("exp", selectedExperience);
         return prev;
       },
       { replace: true }
