@@ -26,9 +26,9 @@ export default function JobModeContainer({
   ]);
 
   const [searchParams, setSearchParams] = useSearchParams({
-    testField3: "",
+    jobMode: "",
   });
-  const q = searchParams.get("testField3");
+  const q = searchParams.get("jobMode");
 
   useEffect(() => {
     if (q) {
@@ -53,7 +53,7 @@ export default function JobModeContainer({
     });
     setSearchParams(
       (prev) => {
-        prev.set("testField3", "");
+        prev.set("jobMode", "");
         return prev;
       },
       { replace: true }
@@ -67,7 +67,7 @@ export default function JobModeContainer({
       .flat();
     setSearchParams(
       (prev) => {
-        prev.set("testField3", selectedExperience);
+        prev.set("jobMode", selectedExperience);
         return prev;
       },
       { replace: true }

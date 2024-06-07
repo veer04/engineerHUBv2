@@ -21,9 +21,9 @@ export default function JobTypeContainer({
   ]);
 
   const [searchParams, setSearchParams] = useSearchParams({
-    testField2: "",
+    jobType: "",
   });
-  const q = searchParams.get("testField2");
+  const q = searchParams.get("jobType");
 
   useEffect(() => {
     if (q) {
@@ -48,7 +48,7 @@ export default function JobTypeContainer({
     });
     setSearchParams(
       (prev) => {
-        prev.set("testField2", "");
+        prev.set("jobType", "");
         return prev;
       },
       { replace: true }
@@ -62,7 +62,7 @@ export default function JobTypeContainer({
       .flat();
     setSearchParams(
       (prev) => {
-        prev.set("testField2", selectedExperience);
+        prev.set("jobType", selectedExperience);
         return prev;
       },
       { replace: true }

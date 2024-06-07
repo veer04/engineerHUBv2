@@ -26,9 +26,9 @@ export default function LocationContainer({
   ]);
 
   const [searchParams, setSearchParams] = useSearchParams({
-    testField4: "",
+    location: "",
   });
-  const q = searchParams.get("testField4");
+  const q = searchParams.get("location");
 
   useEffect(() => {
     if (q) {
@@ -53,7 +53,7 @@ export default function LocationContainer({
     });
     setSearchParams(
       (prev) => {
-        prev.set("testField4", "");
+        prev.set("location", "");
         return prev;
       },
       { replace: true }
@@ -67,7 +67,7 @@ export default function LocationContainer({
       .flat();
     setSearchParams(
       (prev) => {
-        prev.set("testField4", selectedExperience);
+        prev.set("location", selectedExperience);
         return prev;
       },
       { replace: true }
