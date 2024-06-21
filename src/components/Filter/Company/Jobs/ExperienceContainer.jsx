@@ -73,9 +73,13 @@ export default function ExperienceContainer({
   useEffect(() => {
     if (q) {
       const selectedExperience = q.split(",").map((item) => parseInt(item));
+
       setExperience((prev) => {
         return prev.map((item) => {
-          if (selectedExperience.includes(item.value[0])) {
+          if (
+            selectedExperience.includes(item.value[0]) &&
+            selectedExperience.includes(item.value[1])
+          ) {
             return { ...item, checked: true };
           }
           return item;

@@ -9,18 +9,73 @@ export default function LocationContainer({
 }) {
   const [experience, setExperience] = useState([
     {
-      title: "Work From Home",
-      value: ["WFH"],
+      title: "Bangalore Urban",
+      value: ["Bangalore Urban"],
       checked: false,
     },
     {
-      title: "Hybrid",
-      value: ["Hybrid"],
+      title: "Noida",
+      value: ["Noida"],
       checked: false,
     },
     {
-      title: "On-Site",
-      value: ["On-Site"],
+      title: "Gurgaon",
+      value: ["Gurgaon"],
+      checked: false,
+    },
+    {
+      title: "Chennai",
+      value: ["Chennai"],
+      checked: false,
+    },
+    {
+      title: "Delhi",
+      value: ["Delhi"],
+      checked: false,
+    },
+    {
+      title: "Mumbai",
+      value: ["Mumbai"],
+      checked: false,
+    },
+    {
+      title: "Pune",
+      value: ["Pune"],
+      checked: false,
+    },
+    {
+      title: "Hyderabad",
+      value: ["Hyderabad"],
+      checked: false,
+    },
+    {
+      title: "Surat",
+      value: ["Surat"],
+      checked: false,
+    },
+    {
+      title: "Dehradun",
+      value: ["Dehradun"],
+      checked: false,
+    },
+    {
+      title: "Mysuru",
+      value: ["Mysuru"],
+      checked: false,
+    },
+    {
+      title: "Kolkata",
+      value: ["Kolkata"],
+      checked: false,
+    },
+    {
+      title: "South Delhi",
+      value: ["South Delhi"],
+      checked: false,
+    },
+    {
+      title: "East Delhi",
+      value: ["East Delhi"],
       checked: false,
     },
   ]);
