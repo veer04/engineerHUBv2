@@ -21,7 +21,17 @@ export default function SearchBarWithSearchParams({
 
   return (
     <input
-      type={type}
+      autoCapitalize="none"
+      autoComplete="off"
+      autoCorrect="off"
+      name={param}
+      tabIndex="0"
+      type="text"
+      spellCheck="false"
+      role="combobox"
+      aria-haspopup="false"
+      aria-autocomplete="list"
+      dir="ltr"
       id={id}
       className={`body-sm-regular ${className}`}
       placeholder={placeholder}
