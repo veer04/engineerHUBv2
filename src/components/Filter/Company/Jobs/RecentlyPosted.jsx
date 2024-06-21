@@ -94,6 +94,7 @@ export default function RecentlyPosted({
     setSearchParams(
       (prev) => {
         prev.set("exp", "");
+        prev.set("pageNo", 1);
         return prev;
       },
       { replace: true }
@@ -108,6 +109,7 @@ export default function RecentlyPosted({
     setSearchParams(
       (prev) => {
         prev.set("exp", selectedExperience);
+        prev.set("pageNo", 1);
         return prev;
       },
       { replace: true }
