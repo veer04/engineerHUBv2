@@ -2,35 +2,54 @@ import { useEffect, useState } from "react";
 import { RxCross2 } from "react-icons/rx";
 import { useSearchParams } from "react-router-dom";
 
-export default function JobTypeContainer({
+export default function SalaryContainer({
   correspondingModal,
   isOpen,
   setIsOpen,
 }) {
   const [experience, setExperience] = useState([
     {
-      title: "Full Time",
-      value: ["Full Time"],
+      title: "Below > 5,00,000 lakhs",
+      value: [0, 500000],
       checked: false,
     },
     {
-      title: "Part Time",
-      value: ["Part Time"],
+      title: "5,00,000 - 10,00,000 lakhs",
+      value: [500000, 1000000],
+      checked: false,
+    },
+    {
+      title: "10,00,000 - 15,00,000 lakhs",
+      value: [1000000, 1500000],
+      checked: false,
+    },
+    {
+      title: "15,00,000 - 25,00,000 lakhs",
+      value: [1500000, 2500000],
+      checked: false,
+    },
+    {
+      title: "25,00,000 lakhs < above",
+      value: [2500000, 999999999],
       checked: false,
     },
   ]);
 
   const [searchParams, setSearchParams] = useSearchParams({
-    jobType: "",
+    salary: "",
   });
-  const q = searchParams.get("jobType");
+  const q = searchParams.get("salary");
 
   useEffect(() => {
     if (q) {
-      const selectedExperience = q.split(",");
+      const selectedExperience = q.split(",").map((item) => parseInt(item));
+
       setExperience((prev) => {
         return prev.map((item) => {
-          if (selectedExperience.includes(item.value[0])) {
+          if (
+            selectedExperience.includes(item.value[0]) &&
+            selectedExperience.includes(item.value[1])
+          ) {
             return { ...item, checked: true };
           }
           return item;
@@ -48,7 +67,7 @@ export default function JobTypeContainer({
     });
     setSearchParams(
       (prev) => {
-        prev.set("jobType", "");
+        prev.set("salary", "");
         return prev;
       },
       { replace: true }
@@ -62,7 +81,7 @@ export default function JobTypeContainer({
       .flat();
     setSearchParams(
       (prev) => {
-        prev.set("jobType", selectedExperience);
+        prev.set("salary", selectedExperience);
         return prev;
       },
       { replace: true }
@@ -76,9 +95,9 @@ export default function JobTypeContainer({
   return (
     <>
       {isOpen && (
-        <div className="filter-box job-type-container">
+        <div className="filter-box salary-container">
           <div className="top-container">
-            <h3 className="body-md-semibold">Job Type</h3>
+            <h3 className="body-md-semibold">Salary</h3>
             <button
               onClick={() =>
                 setIsOpen((prev) => {

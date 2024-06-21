@@ -49,6 +49,8 @@ import EventWindow from "./pages/Community/Events/EventWindow.jsx";
 import BlogWindow from "./pages/Community/Blogs/BlogWindow.jsx";
 import NewFooter from "./components/Footer/NewFooter.jsx";
 import PopUpModalBootstrap from "./components/PopUpModal/PopUpModalBootstrap.jsx";
+// import IndividualJob from "./pages/Company/Jobs/IndividualJob.jsx";
+import ParticularJob from "./pages/Company/Jobs/ParticularJob.jsx";
 const JobsPage = lazy(() => import("./pages/Company/Jobs/JobsPage.jsx"));
 const HostingNotes = lazy(() => import("./pages/Hosting/HostingNotes.jsx"));
 const GetFeaturedForm = lazy(() =>
@@ -249,9 +251,12 @@ function App() {
           <Route path="/company">
             <Route path="" element={<Company />} />
             <Route path="jobs">
-              <Route path="" element={<JobsPage />} />
+              <Route path="" element={<JobsPage />}>
+                <Route path=":hiringId" element={<ParticularJob />} />
+                {/* <Route path=":hiringId" element={<IndividualJob />} /> */}
+                {/* <Route path=":hiringId" element={<JobDetails />} /> */}
+              </Route>
               {/* <Route path="" element={<Jobs />} /> */}
-              <Route path=":hiringId" element={<JobDetails />} />
             </Route>
             <Route path="internships">
               <Route path="" element={<Internship />} />

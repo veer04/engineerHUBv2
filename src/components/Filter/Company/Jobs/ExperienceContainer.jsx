@@ -10,7 +10,7 @@ export default function ExperienceContainer({
   const [experience, setExperience] = useState([
     {
       title: "Fresher",
-      value: [0],
+      value: [0, 0],
       checked: false,
     },
     {
@@ -60,22 +60,26 @@ export default function ExperienceContainer({
     },
     {
       title: "10+ years",
-      value: [10],
+      value: [10, 99],
       checked: false,
     },
   ]);
 
   const [searchParams, setSearchParams] = useSearchParams({
-    testField: "",
+    exp: "",
   });
-  const q = searchParams.get("testField");
+  const q = searchParams.get("exp");
 
   useEffect(() => {
     if (q) {
       const selectedExperience = q.split(",").map((item) => parseInt(item));
+
       setExperience((prev) => {
         return prev.map((item) => {
-          if (selectedExperience.includes(item.value[0])) {
+          if (
+            selectedExperience.includes(item.value[0]) &&
+            selectedExperience.includes(item.value[1])
+          ) {
             return { ...item, checked: true };
           }
           return item;
@@ -93,7 +97,7 @@ export default function ExperienceContainer({
     });
     setSearchParams(
       (prev) => {
-        prev.set("testField", "");
+        prev.set("exp", "");
         return prev;
       },
       { replace: true }
@@ -107,7 +111,7 @@ export default function ExperienceContainer({
       .flat();
     setSearchParams(
       (prev) => {
-        prev.set("testField", selectedExperience);
+        prev.set("exp", selectedExperience);
         return prev;
       },
       { replace: true }

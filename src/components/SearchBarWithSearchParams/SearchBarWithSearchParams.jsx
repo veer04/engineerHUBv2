@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./SearchBarWithSearchParams.css";
 import { useSearchParams } from "react-router-dom";
 
@@ -13,7 +13,11 @@ export default function SearchBarWithSearchParams({
   ...rest
 }) {
   const [value, setValue] = useState("");
-  const [_, setSearchParams] = useSearchParams({ param: "" });
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  useEffect(() => {
+    setValue(searchParams.get(param) || "");
+  }, []);
 
   return (
     <input
@@ -40,12 +44,3 @@ export default function SearchBarWithSearchParams({
     />
   );
 }
-
-SearchBarWithSearchParams.propTypes = {
-  checkTypeValue: ({ param }) => {
-    if (!param) {
-      console.log(param);
-      return new Error("SearchBarWithSearchParams requires a param parameter.");
-    }
-  },
-};
