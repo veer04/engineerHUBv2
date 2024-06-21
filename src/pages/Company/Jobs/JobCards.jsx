@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Chip } from "@mui/material";
 import "./JobCards.css";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import ViewApplicantsModal from "../../../components/Dashboard/ViewApplicantsModal";
 import { MdOutlineRemoveRedEye } from "react-icons/md";
 
@@ -13,6 +13,8 @@ const JobCards = ({
   filterByCompany,
   filterName,
 }) => {
+  const { hiringId } = useParams();
+  const { search } = useLocation();
   const [toggleModal, setToggleModal] = useState(false);
   const formatter = new Intl.NumberFormat("en-IN", {
     style: "currency",
@@ -20,9 +22,11 @@ const JobCards = ({
     minimumFractionDigits: 0,
   });
   const formattedSalary = formatter.format(details?.amount);
-
+  
   return (
-    <div className={`JobCard on-hover-scale ${className}`}>
+    <div
+      className={`JobCard ${!!hiringId ? "" : `on-hover-scale`} ${className}`}
+    >
       <div className="cardContent">
         <div className="job-ctc-views">
           <h6>
@@ -120,11 +124,7 @@ const JobCards = ({
             <h5 className="text-crop-2 overflow-hidden">
               {details?.organisationName}
             </h5>
-            <Link
-              to={`/company/jobs/${details?._id}${
-                filterByCompany ? `?q=${filterName}` : ""
-              }`}
-            >
+            <Link to={`/company/jobs/${details?._id}${!!search ? search : ""}`}>
               <div className="btn">View</div>
             </Link>
           </>

@@ -1,5 +1,6 @@
 .JobCard {
   height: 357px;
+  min-height: 357px;
   min-width: 321px;
   position: relative;
   overflow: hidden;
@@ -110,6 +111,7 @@
 @media screen and (max-width: 600px) {
   .JobCard {
     height: 309px;
+    min-height: 309px;
     min-width: 305px;
   }
   .JobCard .cardContent h6 {

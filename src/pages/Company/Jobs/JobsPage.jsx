@@ -1,6 +1,11 @@
 import { useEffect, useState } from "react";
 import "./JobsPage.css";
-import { Outlet, useParams, useSearchParams } from "react-router-dom";
+import {
+  Outlet,
+  useLocation,
+  useParams,
+  useSearchParams,
+} from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { API_URL } from "../../../services/APIUtils";
@@ -62,7 +67,7 @@ export default function JobsPage() {
   };
   const jobsQuery = useQuery({
     queryKey: [
-      "Job",
+      "Jobs",
       !!params.search ? params.search : "",
       !!params.pageNo ? params.pageNo : 1,
       !!params.limit ? params.limit : 21,
@@ -98,12 +103,30 @@ export default function JobsPage() {
             : 1) / (!!limit ? limit : jobsQuery.data?.data?.data?.length)
         )
       );
+      setTimeout(() => {
+        if (
+          !!document.getElementById("jobs-container") &&
+          !!document.getElementById("individual-job-container")
+        )
+          document.getElementById("jobs-container").style.height = `${
+            document.getElementById("individual-job-container").offsetHeight -
+            98.4
+          }px`;
+      }, 100);
     }
   }, [jobsQuery]);
 
   useEffect(() => {
+    if (!Boolean(hiringId)) {
+      !!document.getElementById("jobs-container")
+        ? (document.getElementById("jobs-container").style.height = "initial")
+        : null;
+    }
+  }, [hiringId]);
+
+  useEffect(() => {
     document.title = "Jobs | Company | engineerHUB";
-    // window.scrollTo(0, 0);
+    window.scrollTo(0, 0);
     setSelectedPageNavbar("company");
     const handleResize = () => setWidth(window.innerWidth);
     window.addEventListener("resize", handleResize);
@@ -111,7 +134,7 @@ export default function JobsPage() {
   }, []);
 
   useEffect(() => {
-    // window.scrollTo(0, 0);
+    window.scrollTo(0, 0);
   }, [pageNo]);
 
   return (
@@ -136,6 +159,7 @@ export default function JobsPage() {
           <FiltersContainer
             style={{
               marginBottom: ".5rem",
+              maxWidth: !!hiringId ? "1230px" : "",
             }}
           />
         </>
@@ -205,7 +229,12 @@ export default function JobsPage() {
             {jobsQuery.isSuccess && (
               <>
                 {!!jobsQuery.data.data?.data?.length && (
-                  <div className="jobs-container">
+                  <div
+                    id="jobs-container"
+                    className={`jobs-container ${
+                      !!hiringId ? "--overflow" : ""
+                    }`}
+                  >
                     {jobsQuery.data.data?.data.map((item, index) => {
                       return (
                         <JobCards

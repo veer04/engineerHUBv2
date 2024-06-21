@@ -13,6 +13,12 @@
   justify-items: center;
   margin-top: 0.5rem;
 }
+.jobs-page .jobs-container.--overflow {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: auto;
+}
 .jobs-page .job-page-divider {
   display: flex;
   flex-direction: row;
