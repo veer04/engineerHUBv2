@@ -49,6 +49,7 @@ export default function JobTypeContainer({
     setSearchParams(
       (prev) => {
         prev.set("jobType", "");
+        prev.set("pageNo", 1);
         return prev;
       },
       { replace: true }
@@ -63,6 +64,7 @@ export default function JobTypeContainer({
     setSearchParams(
       (prev) => {
         prev.set("jobType", selectedExperience);
+        prev.set("pageNo", 1);
         return prev;
       },
       { replace: true }

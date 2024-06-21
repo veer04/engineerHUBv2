@@ -68,6 +68,7 @@ export default function SalaryContainer({
     setSearchParams(
       (prev) => {
         prev.set("salary", "");
+        prev.set("pageNo", 1);
         return prev;
       },
       { replace: true }
@@ -82,6 +83,7 @@ export default function SalaryContainer({
     setSearchParams(
       (prev) => {
         prev.set("salary", selectedExperience);
+        prev.set("pageNo", 1);
         return prev;
       },
       { replace: true }

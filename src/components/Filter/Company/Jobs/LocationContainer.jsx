@@ -109,6 +109,7 @@ export default function LocationContainer({
     setSearchParams(
       (prev) => {
         prev.set("location", "");
+        prev.set("pageNo", 1);
         return prev;
       },
       { replace: true }
@@ -123,6 +124,7 @@ export default function LocationContainer({
     setSearchParams(
       (prev) => {
         prev.set("location", selectedExperience);
+        prev.set("pageNo", 1);
         return prev;
       },
       { replace: true }

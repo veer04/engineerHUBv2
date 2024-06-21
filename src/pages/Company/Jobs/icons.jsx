@@ -21,7 +21,7 @@ export const moneyIcon = (
       height="15.2"
       transform="rotate(-11.7718 5.68799 19.625)"
       stroke="white"
-      stroke-width="0.475"
+      strokeWidth="0.475"
     />
     <circle
       cx="23.9788"
@@ -49,7 +49,7 @@ export const moneyIcon = (
       height="15.2"
       transform="rotate(8.30083 8.53223 13.6523)"
       stroke="white"
-      stroke-width="0.475"
+      strokeWidth="0.475"
     />
     <circle
       cx="24.3555"
@@ -100,7 +100,7 @@ export const calendarStartDateIcon = (
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
-    <g clip-path="url(#clip0_10627_27917)">
+    <g clipPath="url(#clip0_10627_27917)">
       <path
         d="M39.2 6.81818H37.3V3H33.5V6.81818H14.5V3H10.7V6.81818H8.8C6.71 6.81818 5 8.53636 5 10.6364V41.1818C5 43.2818 6.71 45 8.8 45H39.2C41.29 45 43 43.2818 43 41.1818V10.6364C43 8.53636 41.29 6.81818 39.2 6.81818ZM39.2 41.1818H8.8V16.3636H39.2V41.1818Z"
         fill="#002B36"
@@ -112,7 +112,7 @@ export const calendarStartDateIcon = (
         width="7"
         height="7"
         fill="#002B36"
-        fill-opacity="0.5"
+        fillOpacity="0.5"
       />
       <rect
         x="21"
@@ -120,7 +120,7 @@ export const calendarStartDateIcon = (
         width="7"
         height="7"
         fill="#002B36"
-        fill-opacity="0.5"
+        fillOpacity="0.5"
       />
       <rect
         x="21"
@@ -128,7 +128,7 @@ export const calendarStartDateIcon = (
         width="7"
         height="7"
         fill="#002B36"
-        fill-opacity="0.5"
+        fillOpacity="0.5"
       />
       <rect
         x="30"
@@ -136,7 +136,7 @@ export const calendarStartDateIcon = (
         width="7"
         height="7"
         fill="#002B36"
-        fill-opacity="0.5"
+        fillOpacity="0.5"
       />
       <rect
         x="30"
@@ -144,7 +144,7 @@ export const calendarStartDateIcon = (
         width="7"
         height="7"
         fill="#002B36"
-        fill-opacity="0.5"
+        fillOpacity="0.5"
       />
     </g>
     <defs>
@@ -163,7 +163,7 @@ export const calendarEndDateIcon = (
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
-    <g clip-path="url(#clip0_10627_27929)">
+    <g clipPath="url(#clip0_10627_27929)">
       <path
         d="M39.2 6.81818H37.3V3H33.5V6.81818H14.5V3H10.7V6.81818H8.8C6.71 6.81818 5 8.53636 5 10.6364V41.1818C5 43.2818 6.71 45 8.8 45H39.2C41.29 45 43 43.2818 43 41.1818V10.6364C43 8.53636 41.29 6.81818 39.2 6.81818ZM39.2 41.1818H8.8V16.3636H39.2V41.1818Z"
         fill="#002B36"
@@ -175,7 +175,7 @@ export const calendarEndDateIcon = (
         width="7"
         height="7"
         fill="#002B36"
-        fill-opacity="0.5"
+        fillOpacity="0.5"
       />
       <rect
         x="21"
@@ -183,7 +183,7 @@ export const calendarEndDateIcon = (
         width="7"
         height="7"
         fill="#002B36"
-        fill-opacity="0.5"
+        fillOpacity="0.5"
       />
       <rect
         x="21"
@@ -191,7 +191,7 @@ export const calendarEndDateIcon = (
         width="7"
         height="7"
         fill="#002B36"
-        fill-opacity="0.5"
+        fillOpacity="0.5"
       />
       <rect
         x="30"
@@ -199,7 +199,7 @@ export const calendarEndDateIcon = (
         width="7"
         height="7"
         fill="#002B36"
-        fill-opacity="0.5"
+        fillOpacity="0.5"
       />
       <rect x="30" y="30" width="7" height="7" fill="#002B36" />
     </g>
@@ -219,7 +219,7 @@ export const cgpaIcon = (
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
-    <g clip-path="url(#clip0_10627_27884)">
+    <g clipPath="url(#clip0_10627_27884)">
       <path
         d="M7 10C7 8.11438 7 7.17157 7.58579 6.58579C8.17157 6 9.11438 6 11 6H37C38.8856 6 39.8284 6 40.4142 6.58579C41 7.17157 41 8.11438 41 10V39C41 40.8856 41 41.8284 40.4142 42.4142C39.8284 43 38.8856 43 37 43H11C9.11438 43 8.17157 43 7.58579 42.4142C7 41.8284 7 40.8856 7 39V10Z"
         fill="#002B36"
@@ -255,7 +255,7 @@ export const locationIcon = (
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
-    <g clip-path="url(#clip0_10627_27872)">
+    <g clipPath="url(#clip0_10627_27872)">
       <path
         d="M23.9999 4C16.8128 4 11 9.66751 11 16.6749C11 26.1812 23.9999 40.2141 23.9999 40.2141C23.9999 40.2141 36.9999 26.1812 36.9999 16.6749C36.9999 9.66751 31.1871 4 23.9999 4ZM23.9999 21.2017C21.4371 21.2017 19.3571 19.1737 19.3571 16.6749C19.3571 14.1762 21.4371 12.1482 23.9999 12.1482C26.5628 12.1482 28.6428 14.1762 28.6428 16.6749C28.6428 19.1737 26.5628 21.2017 23.9999 21.2017Z"
         fill="#002B36"
@@ -266,7 +266,7 @@ export const locationIcon = (
         rx="15.5"
         ry="5"
         stroke="#002B36"
-        stroke-width="1.5"
+        strokeWidth="1.5"
       />
     </g>
     <defs>
@@ -285,7 +285,7 @@ export const numberOfOpeningsIcon = (
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
-    <g clip-path="url(#clip0_10627_27877)">
+    <g clipPath="url(#clip0_10627_27877)">
       <path
         d="M30.9211 27.9012H29.3337L28.7711 27.3587C31.1823 24.5455 32.4281 20.7076 31.7449 16.6286C30.8005 11.0426 26.1388 6.58179 20.5126 5.8986C12.0129 4.85373 4.85959 12.0071 5.90446 20.5067C6.58764 26.1329 11.0484 30.7947 16.6345 31.7391C20.7135 32.4223 24.5514 31.1765 27.3645 28.7652L27.907 29.3278V30.9152L36.4469 39.455C37.2707 40.2789 38.617 40.2789 39.4408 39.455C40.2647 38.6312 40.2647 37.2849 39.4408 36.4611L30.9211 27.9012ZM18.8649 27.9012C13.8616 27.9012 9.82273 23.8624 9.82273 18.859C9.82273 13.8557 13.8616 9.81687 18.8649 9.81687C23.8682 9.81687 27.907 13.8557 27.907 18.859C27.907 23.8624 23.8682 27.9012 18.8649 27.9012Z"
         fill="#002B36"
@@ -311,13 +311,13 @@ export const workTypeIcon = (
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
-    <g clip-path="url(#clip0_10627_27897)">
+    <g clipPath="url(#clip0_10627_27897)">
       <circle
         cx="23.929"
         cy="23.7664"
         r="17.286"
         stroke="#002B36"
-        stroke-width="1.62056"
+        strokeWidth="1.62056"
       />
       <rect
         x="22.8486"
@@ -392,8 +392,8 @@ export const workTypeIcon = (
       <path
         d="M23.9292 15.6641V24.307L27.1703 28.0883"
         stroke="#002B36"
-        stroke-width="1.08037"
-        stroke-linecap="round"
+        strokeWidth="1.08037"
+        strokeLinecap="round"
       />
       <path
         d="M24.3955 2.91797C24.2574 2.91797 24.1455 3.0299 24.1455 3.16797C24.1455 3.30604 24.2574 3.41797 24.3955 3.41797V2.91797ZM44.2056 23.8718C44.3032 23.9694 44.4615 23.9694 44.5592 23.8718L46.1502 22.2808C46.2478 22.1832 46.2478 22.0249 46.1502 21.9273C46.0525 21.8296 45.8942 21.8296 45.7966 21.9273L44.3824 23.3415L42.9682 21.9273C42.8705 21.8296 42.7123 21.8296 42.6146 21.9273C42.517 22.0249 42.517 22.1832 42.6146 22.2808L44.2056 23.8718ZM24.3955 3.41797C27.3158 3.41797 32.2596 4.59081 36.4681 7.71715C40.665 10.8348 44.1324 15.895 44.1324 23.695H44.6324C44.6324 15.7216 41.0774 10.5183 36.7663 7.31578C32.4669 4.12195 27.4173 2.91797 24.3955 2.91797V3.41797Z"
@@ -410,7 +410,7 @@ export const workTypeIcon = (
         r="4.86168"
         fill="#002B36"
         stroke="white"
-        stroke-width="1.08037"
+        strokeWidth="1.08037"
       />
       <circle
         cx="11.9712"
@@ -418,7 +418,7 @@ export const workTypeIcon = (
         r="4.86168"
         fill="#002B36"
         stroke="white"
-        stroke-width="1.08037"
+        strokeWidth="1.08037"
       />
       <circle cx="11.971" cy="9.64678" r="1.08037" fill="white" />
       <path
@@ -489,7 +489,7 @@ export const startDateAndTimeIcon = (
       width="5.83333"
       height="5.83333"
       fill="#002B36"
-      fill-opacity="0.5"
+      fillOpacity="0.5"
     />
     <rect
       x="21.5"
@@ -497,7 +497,7 @@ export const startDateAndTimeIcon = (
       width="5.83333"
       height="5.83333"
       fill="#002B36"
-      fill-opacity="0.5"
+      fillOpacity="0.5"
     />
     <rect
       x="21.5"
@@ -505,7 +505,7 @@ export const startDateAndTimeIcon = (
       width="5.83333"
       height="5.83333"
       fill="#002B36"
-      fill-opacity="0.5"
+      fillOpacity="0.5"
     />
     <rect
       x="29"
@@ -513,7 +513,7 @@ export const startDateAndTimeIcon = (
       width="5.83333"
       height="5.83333"
       fill="#002B36"
-      fill-opacity="0.5"
+      fillOpacity="0.5"
     />
     <rect
       x="29"
@@ -521,7 +521,7 @@ export const startDateAndTimeIcon = (
       width="5.83333"
       height="5.83333"
       fill="#002B36"
-      fill-opacity="0.5"
+      fillOpacity="0.5"
     />
     <rect
       x="31"
@@ -531,9 +531,9 @@ export const startDateAndTimeIcon = (
       rx="6"
       fill="white"
       stroke="#002B36"
-      stroke-width="1.5"
+      strokeWidth="1.5"
     />
-    <path d="M37 34.5V38L39 40" stroke="#002B36" stroke-linecap="round" />
+    <path d="M37 34.5V38L39 40" stroke="#002B36" strokeLinecap="round" />
   </svg>
 );
 
@@ -555,7 +555,7 @@ export const endDateAndTimeIcon = (
       width="5.83333"
       height="5.83333"
       fill="#002B36"
-      fill-opacity="0.5"
+      fillOpacity="0.5"
     />
     <rect
       x="13.1665"
@@ -563,7 +563,7 @@ export const endDateAndTimeIcon = (
       width="5.83333"
       height="5.83333"
       fill="#002B36"
-      fill-opacity="0.5"
+      fillOpacity="0.5"
     />
     <rect
       x="21.5"
@@ -571,7 +571,7 @@ export const endDateAndTimeIcon = (
       width="5.83333"
       height="5.83333"
       fill="#002B36"
-      fill-opacity="0.5"
+      fillOpacity="0.5"
     />
     <rect
       x="21.5"
@@ -579,7 +579,7 @@ export const endDateAndTimeIcon = (
       width="5.83333"
       height="5.83333"
       fill="#002B36"
-      fill-opacity="0.5"
+      fillOpacity="0.5"
     />
     <rect
       x="29"
@@ -587,7 +587,7 @@ export const endDateAndTimeIcon = (
       width="5.83333"
       height="5.83333"
       fill="#002B36"
-      fill-opacity="0.5"
+      fillOpacity="0.5"
     />
     <rect x="29" y="29" width="5.83333" height="5.83333" fill="#002B36" />
     <rect
@@ -598,9 +598,9 @@ export const endDateAndTimeIcon = (
       rx="6"
       fill="white"
       stroke="#002B36"
-      stroke-width="1.5"
+      strokeWidth="1.5"
     />
-    <path d="M37 34.5V38L39 40" stroke="#002B36" stroke-linecap="round" />
+    <path d="M37 34.5V38L39 40" stroke="#002B36" strokeLinecap="round" />
   </svg>
 );
 

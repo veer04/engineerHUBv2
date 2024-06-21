@@ -54,6 +54,7 @@ export default function JobModeContainer({
     setSearchParams(
       (prev) => {
         prev.set("jobMode", "");
+        prev.set("pageNo", 1);
         return prev;
       },
       { replace: true }
@@ -68,6 +69,7 @@ export default function JobModeContainer({
     setSearchParams(
       (prev) => {
         prev.set("jobMode", selectedExperience);
+        prev.set("pageNo", 1);
         return prev;
       },
       { replace: true }

@@ -189,7 +189,7 @@ const Company = () => {
         position: companyPageCounts?.pageSizeJob,
         hiring: companyPageCounts?.pageSizeJob ? 4000 : 0,
       },
-      link: "/company/jobs?pageNo=1&limit=21",
+      link: "/company/jobs?pageNo=1&limit=24",
       text1: "jobs live",
       text2: "total opening",
     },
