@@ -1,4 +1,4 @@
-import "./ParticularJob.css";
+import "./IndividualJob.css";
 import { useParams } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import { FaExternalLinkAlt } from "react-icons/fa";
@@ -34,7 +34,7 @@ import {
 } from "../../../features/User/UserDetails";
 import Loading from "../../../components/Loader/Loading";
 
-export default function ParticularJob() {
+export default function IndividualInternship() {
   const { hiringId } = useParams();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const bucket = `${Bucket_URL}frontend/company/jobs/`;
@@ -118,9 +118,9 @@ export default function ParticularJob() {
       return;
     }
 
-    if (isApplicable) {
-      setIsApplyingJob(true);
-      // window.location.href = `/profile/user/${getUserId()}`;
+    if (isApplicable && hiring?.applied === false && !isResumeUploaded) {
+      window.alert("Please upload your resume first");
+      window.location.href = `/profile/user/${getUserId()}/`;
       return;
     }
 
@@ -130,10 +130,15 @@ export default function ParticularJob() {
     axios
       .post(`${API_URL}api/v1/hiringRegistration`, data, {
         headers: {
-          accessToken: getAccessToken(),
+          accesstoken: getAccessToken(),
         },
       })
       .then((res) => {
+        setSnackbarValues({
+          severity: "success",
+          message: `You have successfully applied to this internship!`,
+        });
+        setOpen(true);
         if (
           res.status === 200 ||
           res.status === 201 ||
@@ -295,21 +300,36 @@ export default function ParticularJob() {
                     )}
                   </>
                 ) : (
-                  <button
-                    onClick={() => {
-                      redirectToAuth("/login");
-                    }}
-                    className="body-md-semibold hiring-apply-btn"
-                  >
-                    {!!hiring?.detailFound?.applyLink ? (
-                      <>
-                        Apply{" "}
-                        <FiExternalLink style={{ marginLeft: ".25rem" }} />
-                      </>
-                    ) : (
-                      `Easy Apply`
+                  <>
+                    {hiring?.detailFound?._id ===
+                      "65d0a7b2c58c23a4ac6b9f76" && (
+                      <Link to="https://docs.google.com/forms/d/e/1FAIpQLSd39WuMG3eBnPoVmMLneBEhYBTU2Q3CCbNx5kQKmIIkINdTlQ/viewform">
+                        <div className="body-md-semibold hiring-apply-btn">
+                          Apply
+                        </div>
+                      </Link>
                     )}
-                  </button>
+                    {hiring?.detailFound?._id !==
+                      "65d0a7b2c58c23a4ac6b9f76" && (
+                      // <Link to="/login">
+                      <button
+                        onClick={() => {
+                          redirectToAuth("/login");
+                        }}
+                        className="body-md-semibold hiring-apply-btn"
+                      >
+                        {!!hiring?.detailFound?.applyLink ? (
+                          <>
+                            Apply{" "}
+                            <FiExternalLink style={{ marginLeft: ".25rem" }} />
+                          </>
+                        ) : (
+                          `Easy Apply`
+                        )}
+                      </button>
+                      // </Link>
+                    )}
+                  </>
                 )}
               </>
             </div>
@@ -386,65 +406,60 @@ export default function ParticularJob() {
             <h4 className="body-sm-semibold">More Information</h4>
             <div className="info-tiles-container">
               <div className="info-tiles">
-                <h6>Package</h6>
+                <h6>Stipend</h6>
                 <div className="lower-container">
                   <span className="text-crop-2">
-                    {hiring?.detailFound?.showSalary
-                      ? !!hiring?.detailFound?.amount &&
-                        hiring?.detailFound?.amount !== "N/A"
-                        ? hiring?.detailFound?.amount
-                        : hiring?.detailFound?.salaryType === "Fixed"
-                        ? `${formatter.format(
-                            hiring?.detailFound?.salaryAmount
-                          )} ${hiring?.detailFound?.salaryUnit}`
-                        : hiring?.detailFound.salaryType === "Range"
-                        ? `${formatter.format(
-                            hiring?.detailFound?.minRange
-                          )} - ${hiring?.detailFound?.maxRange} ${
-                            hiring?.detailFound?.salaryUnit
-                          }`
-                        : "N/A"
-                      : !!hiring?.detailFound?.amount &&
-                        hiring?.detailFound?.amount !== "N/A"
-                      ? hiring?.detailFound?.amount
-                      : !!hiring?.detailFound?.salaryDisclosure
-                      ? hiring?.detailFound?.salaryDisclosure
-                      : "N/A"}
+                    {
+                      //check if featured array in hiring has CampusAmbassador then display "Bonus"
+                      hiring?.detailFound?.featuredArray?.includes(
+                        "CampusAmbassador"
+                      )
+                        ? "Bonus"
+                        : hiring?.detailFound?.isPaid === "Paid"
+                        ? hiring?.detailFound?.showSalary
+                          ? !!hiring?.detailFound?.amount &&
+                            hiring?.detailFound?.amount !== "N/A"
+                            ? hiring?.detailFound?.amount
+                            : hiring?.detailFound?.salaryType === "Fixed"
+                            ? `${formatter.format(
+                                hiring?.detailFound?.salaryAmount
+                              )}`
+                            : hiring?.detailFound.salaryType === "Range"
+                            ? `${formatter.format(
+                                hiring?.detailFound?.minRange
+                              )} - ${formatter.format(
+                                hiring?.detailFound?.maxRange
+                              )}`
+                            : "N/A"
+                          : !!hiring?.detailFound?.amount &&
+                            hiring?.detailFound?.amount !== "N/A"
+                          ? hiring?.detailFound?.amount
+                          : !!hiring?.detailFound?.salaryDisclosure
+                          ? hiring?.detailFound?.salaryDisclosure
+                          : "N/A"
+                        : "Unpaid"
+                    }
                   </span>
                   {moneyIcon}
                 </div>
               </div>
               <div className="info-tiles">
-                <h6>Minimum Experience</h6>
+                <h6>Duration</h6>
                 <div className="lower-container">
-                  {!!hiring?.detailFound?.experience ? (
-                    <span className="text-crop-2">
-                      {hiring?.detailFound?.experience !== "0"
-                        ? hiring?.detailFound?.experience === "1"
-                          ? `${hiring?.detailFound?.experience} year`
-                          : `${hiring?.detailFound?.experience} years`
-                        : `Fresher`}
-                    </span>
-                  ) : (
-                    <span className="text-crop-2">
-                      {hiring?.detailFound?.isForFreshers
-                        ? "Fresher"
-                        : `${
-                            hiring?.detailFound?.minExperience ===
-                            hiring?.detailFound?.maxExperience
-                              ? `${hiring?.detailFound?.minExperience} ${
-                                  hiring?.detailFound?.minExperience === 1
-                                    ? "year"
-                                    : "years"
-                                }`
-                              : `${hiring?.detailFound?.minExperience} - ${
-                                  hiring?.detailFound?.maxExperience === 1
-                                    ? `${hiring?.detailFound?.maxExperience} year`
-                                    : `${hiring?.detailFound?.maxExperience} years`
-                                }`
-                          }`}
-                    </span>
-                  )}
+                  <span className="text-crop-2">
+                    {!!hiring?.detailFound?.duration
+                      ? formattedDuration
+                      : `${
+                          hiring?.detailFound?.minDuration ===
+                          hiring?.detailFound?.maxDuration
+                            ? `${hiring?.detailFound?.minDuration} ${
+                                hiring?.detailFound?.minDuration === 1
+                                  ? "month"
+                                  : "months"
+                              }`
+                            : `${hiring?.detailFound?.minDuration} - ${hiring?.detailFound?.maxDuration} months`
+                        }`}
+                  </span>
                   {experienceIcon}
                 </div>
               </div>

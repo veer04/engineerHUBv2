@@ -17,8 +17,10 @@ import SearchBarWithSearchParams from "../../../components/SearchBarWithSearchPa
 import useNavbar from "../../../hooks/use-navbar";
 import PaginationBarWithSearchParams from "../../../components/PaginationBarWithSearchParams/PaginationBarWithSearchParams";
 import FiltersContainer from "../../../components/Filter/Company/Jobs/FiltersContainer";
+import InternshipCard from "../Internship/InternshipCard";
+import FiltersContainerInternship from "../../../components/Filter/Company/Jobs/FiltersContainerInternship";
 
-export default function JobsPage() {
+export default function InternshipsPage() {
   const { hiringId } = useParams();
   const { setSelectedPageNavbar } = useNavbar();
   const [width, setWidth] = useState(window.innerWidth);
@@ -48,7 +50,7 @@ export default function JobsPage() {
 
   const params = {
     search: q,
-    opportunityType: "Job",
+    opportunityType: "Internship",
     pageNo: pageNo ? pageNo : 1,
     limit: limit ? limit : 24,
     experienceRequired: exp,
@@ -67,7 +69,7 @@ export default function JobsPage() {
   };
   const jobsQuery = useQuery({
     queryKey: [
-      "Jobs",
+      "Internships",
       !!params.search ? params.search : "",
       !!params.pageNo ? params.pageNo : 1,
       !!params.limit ? params.limit : 24,
@@ -125,7 +127,7 @@ export default function JobsPage() {
   }, [hiringId]);
 
   useEffect(() => {
-    document.title = "Jobs | Company | engineerHUB";
+    document.title = "Internships | Company | engineerHUB";
     window.scrollTo(0, 0);
     setSelectedPageNavbar("company");
     const handleResize = () => setWidth(window.innerWidth);
@@ -141,10 +143,10 @@ export default function JobsPage() {
     <main className="jobs-page">
       {!Boolean(hiringId) && (
         <>
-          <h1 className="display-md">Job Hiring</h1>
+          <h1 className="display-md">Intern Hiring</h1>
           <h2 className="body-md-regular">
-            Apply for the jobs of your interest and get the offer letter in the
-            next step
+            Apply for the internship of your interest and get the offer letter
+            in the next step.
           </h2>
         </>
       )}
@@ -156,7 +158,7 @@ export default function JobsPage() {
               placeholder="Search for jobs, company, etc"
             />
           </div>
-          <FiltersContainer
+          <FiltersContainerInternship
             style={{
               marginBottom: ".5rem",
               maxWidth: !!hiringId ? "1230px" : "",
@@ -237,7 +239,7 @@ export default function JobsPage() {
                   >
                     {jobsQuery.data.data?.data.map((item, index) => {
                       return (
-                        <JobCards
+                        <InternshipCard
                           details={item}
                           color={colorWheel[index % colorWheel.length]}
                           key={index}

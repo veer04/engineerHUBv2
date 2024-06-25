@@ -204,7 +204,7 @@ const Company = () => {
         position: companyPageCounts?.pageSizeInternship,
         hiring: companyPageCounts?.pageSizeInternship ? 1500 : 0,
       },
-      link: "/company/internships",
+      link: "/company/internships?pageNo=1&limit=24",
       text1: "internships live",
       text2: "total opening",
     },

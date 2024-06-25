@@ -75,7 +75,7 @@ export default function ProfilePopUp() {
     {
       label: "Internship",
       icon: <HiOutlineSquares2X2 />,
-      link: "/company/internships",
+      link: "/company/internships?pageNo=1&limit=24",
     },
     {
       label: "Jobs",

@@ -10,7 +10,7 @@ export default function SalaryContainer({
   const [experience, setExperience] = useState([
     {
       title: "Below > 5,00,000 lakhs",
-      value: [0, 500000],
+      value: [100, 500000],
       checked: false,
     },
     {
