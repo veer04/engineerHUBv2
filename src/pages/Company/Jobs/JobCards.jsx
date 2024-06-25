@@ -22,7 +22,7 @@ const JobCards = ({
     minimumFractionDigits: 0,
   });
   const formattedSalary = formatter.format(details?.amount);
-  
+
   return (
     <div
       className={`JobCard ${!!hiringId ? "" : `on-hover-scale`} ${className}`}

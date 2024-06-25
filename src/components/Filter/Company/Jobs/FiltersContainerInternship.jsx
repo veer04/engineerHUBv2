@@ -9,7 +9,7 @@ import JobModeContainer from "./JobModeContainer";
 import LocationContainer from "./LocationContainer";
 import SalaryContainer from "./SalaryContainer";
 
-export default function FiltersContainer({ className, ...rest }) {
+export default function FiltersContainerInternship({ className, ...rest }) {
   const [openModal, setOpenModal] = useState({
     modal1: false, // Not in use, use this first before making new.
     modal2: false, // Not in use, use this first before making new.
@@ -80,14 +80,14 @@ export default function FiltersContainer({ className, ...rest }) {
           isOpen={openModal.modal2}
           setIsOpen={setOpenModal}
         /> */}
-        <FilterButton
+        {/* <FilterButton
           title="Experience"
           iconOpened={<IoIosArrowUp />}
           iconClosed={<IoIosArrowDown />}
           correspondingModal="modal3"
           isOpen={openModal.modal3}
           setIsOpen={setOpenModal}
-        />
+        /> */}
         <FilterButton
           title="Job Type"
           iconOpened={<IoIosArrowUp />}
@@ -121,11 +121,11 @@ export default function FiltersContainer({ className, ...rest }) {
           setIsOpen={setOpenModal}
         />
       </div>
-      <ExperienceContainer
+      {/* <ExperienceContainer
         correspondingModal="modal3"
         isOpen={openModal.modal3}
         setIsOpen={setOpenModal}
-      />
+      /> */}
       <JobTypeContainer
         correspondingModal="modal4"
         isOpen={openModal.modal4}

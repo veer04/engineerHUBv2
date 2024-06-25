@@ -1,12 +1,8 @@
 import "./IndividualJob.css";
 import { useParams } from "react-router-dom";
-import React, { useEffect } from "react";
-import "./JobDescription.css";
-import { Chip } from "@mui/material";
+import React, { useState, useEffect } from "react";
 import { FaExternalLinkAlt } from "react-icons/fa";
 import { API_URL, Bucket_URL } from "../../../services/APIUtils";
-import { Link } from "react-router-dom";
-import { useState } from "react";
 import getCookie, { getAccessToken } from "../../../features/getCookieValues";
 import Cookies from "js-cookie";
 import axios from "axios";
@@ -30,6 +26,13 @@ import {
   numberOfOpeningsIcon,
   workTypeIcon,
 } from "./icons";
+import { FiExternalLink } from "react-icons/fi";
+import {
+  getUserId,
+  getUserRole,
+  isUserLoggedIn,
+} from "../../../features/User/UserDetails";
+import Loading from "../../../components/Loader/Loading";
 
 export default function IndividualJob() {
   const { hiringId } = useParams();
@@ -50,14 +53,11 @@ export default function IndividualJob() {
   const handleResize = () => setWidth(window.innerWidth);
 
   useEffect(() => {
-    if (getCookie("name")) {
-      getUserProfileById(setProfile, getCookie("_id")[2]);
+    if (isUserLoggedIn()) {
+      getUserProfileById(setProfile, getUserId());
       setIsLoggedIn(true);
-      if (
-        Cookies.get("role") !== "Organization" &&
-        Cookies.get("role") !== "Club" &&
-        Cookies.get("role") !== "Admin"
-      ) {
+      const role = getUserRole();
+      if (role !== "Organization" && role !== "Club" && role !== "Admin") {
         setIsApplicable(true);
       }
     }
@@ -74,26 +74,37 @@ export default function IndividualJob() {
       }
     }
   }, [profile]);
+
   useEffect(() => {
     window.scrollTo(0, 0);
     getHiringDataById(setHiring, hiringId);
 
     return () => {
-      setHiring({});
       controller.abort();
     };
   }, [hiringId]);
+
   useEffect(() => {
     if (Object.keys(hiring).length !== 0) {
       document.title = `${hiring?.detailFound?.opportunityName} | ${hiring?.detailFound?.organisationName} | engineerHUB`;
     }
+    setTimeout(() => {
+      if (
+        !!document.getElementById("jobs-container") &&
+        !!document.getElementById("individual-job-container")
+      )
+        document.getElementById("jobs-container").style.height = `${
+          document.getElementById("individual-job-container").offsetHeight -
+          98.4
+        }px`;
+    }, 100);
   }, [hiring]);
 
   function handleModalState() {
     setIsApplyingJob(false);
   }
 
-  function handleJobApplied(data) {
+  function handleJobApplied() {
     setHiring((prev) => ({ ...prev, applied: true }));
     setSnackbarValues({
       severity: "success",
@@ -183,299 +194,336 @@ export default function IndividualJob() {
     })
     .replace(/,/g, " /");
   const applicationEndDate = getEndDate.split("/")[0];
+
   return (
     <section id="individual-job-container">
-      <div className="JobDescription">
-        {snackbarValues.severity === "success" && (
-          <CustomSnackbar
-            setOpen={setOpen}
-            open={open}
-            message={snackbarValues.message}
-            severity={snackbarValues.severity}
-            duration={5000}
-          />
-        )}
-        {isApplyingJob && (
-          <JobApplyModal
-            change={handleModalState}
-            jobApplied={handleJobApplied}
-            resume={profile.resume}
-          />
-        )}
-        <div className="JobDetailHeader">
-          <span>
-            <div className="w-100 d-flex">
-              <a
-                href={hiring?.detailFound?.websiteUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <div
-                  style={{
-                    backgroundImage: `url(${hiring?.detailFound?.organisationLogo})`,
-                    backgroundPosition: "center",
-                    backgroundSize: "contain",
-                    backgroundRepeat: "no-repeat",
-                  }}
-                  className="imgBox"
-                ></div>
-              </a>
-              <span className="heads">
-                <h1>{hiring?.detailFound?.opportunityName}</h1>
-                <a
-                  href={hiring?.detailFound?.websiteUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onMouseOver={(e) => {
-                    e.currentTarget.style.textDecoration = "underline";
-                  }}
-                  onMouseOut={(e) => {
-                    e.currentTarget.style.textDecoration = "none";
-                  }}
-                >
-                  {hiring?.detailFound?.organisationName}
-                </a>
-                <h3>{hiring?.detailFound?.opportunityLocation}</h3>
-              </span>
-            </div>
-            <div className="apply-btn-container">
-              {hiring?.detailFound?.isServiceOff === true ? (
-                <button className="btn" disabled>
-                  Expired
-                </button>
-              ) : isLoggedIn ? (
-                <div>
-                  {!isApplicable && (
-                    <button className="btn" disabled>
-                      Not Applicable
-                    </button>
-                  )}
-                  {isApplicable &&
-                    hiring?.applied === false &&
-                    (!!hiring?.detailFound?.contactEmail ? (
-                      <a
-                        href={`mailto:${hiring?.detailFound?.contactEmail}?subject=${hiring?.detailFound?.contactEmailSubject}`}
+      <CustomSnackbar
+        setOpen={setOpen}
+        open={open}
+        message={snackbarValues.message}
+        severity={snackbarValues.severity}
+        duration={5000}
+      />
+      {isApplyingJob && (
+        <JobApplyModal
+          change={handleModalState}
+          jobApplied={handleJobApplied}
+          resume={profile.resume}
+        />
+      )}
+      {Object.keys(hiring).length !== 0 ? (
+        <>
+          <div className="hiring-box">
+            <div className="hiring-header">
+              <div className="details">
+                <img
+                  className="hiring-logo"
+                  src={hiring?.detailFound?.organisationLogo}
+                  alt={`${hiring?.detailFound?.opportunityName} logo`}
+                  loading="lazy"
+                />
+                <div className="info">
+                  <h1 className="heading-sm">
+                    {hiring?.detailFound?.opportunityName}{" "}
+                  </h1>
+                  <h2 className="body-md-regular">
+                    <a
+                      href={hiring?.detailFound?.websiteUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {hiring?.detailFound?.organisationName} <FiExternalLink />
+                    </a>
+                  </h2>
+                  <h3 className="body-md-regular">
+                    {hiring?.detailFound?.opportunityLocation}
+                  </h3>
+                </div>
+              </div>
+              <>
+                {hiring?.detailFound?.isServiceOff === true ? (
+                  <button
+                    className="body-md-semibold hiring-apply-btn"
+                    disabled
+                  >
+                    Expired
+                  </button>
+                ) : isLoggedIn ? (
+                  <>
+                    {!isApplicable && (
+                      <button
+                        className="body-md-semibold hiring-apply-btn"
+                        disabled
                       >
-                        <button className="btn">Apply</button>
-                      </a>
-                    ) : (
-                      <button onClick={UserDataPost} className="btn">
-                        {!!hiring?.detailFound?.applyLink
-                          ? "Apply"
-                          : `Easy Apply`}
+                        Not Applicable
                       </button>
-                    ))}
-                  {/* {isApplicable &&
-                  hiring?.applied === false &&
-                  !isResumeUploaded && (
-                    <button onClick={UserDataPost} className="btn">
-                      Apply
-                    </button>
-                  )} */}
-                  {hiring?.applied === true && (
-                    <button className="btn" disabled>
-                      Applied
-                    </button>
+                    )}
+                    {isApplicable &&
+                      hiring?.applied === false &&
+                      (!!hiring?.detailFound?.contactEmail ? (
+                        <a
+                          href={`mailto:${hiring?.detailFound?.contactEmail}?subject=${hiring?.detailFound?.contactEmailSubject}`}
+                        >
+                          <button className="body-md-semibold hiring-apply-btn">
+                            Apply
+                          </button>
+                        </a>
+                      ) : (
+                        <button
+                          onClick={UserDataPost}
+                          className="body-md-semibold hiring-apply-btn"
+                        >
+                          {!!hiring?.detailFound?.applyLink ? (
+                            <>
+                              Apply{" "}
+                              <FiExternalLink
+                                style={{ marginLeft: ".25rem" }}
+                              />
+                            </>
+                          ) : (
+                            `Easy Apply`
+                          )}
+                        </button>
+                      ))}
+                    {hiring?.applied === true && (
+                      <button
+                        className="body-md-semibold hiring-apply-btn"
+                        disabled
+                      >
+                        Applied
+                      </button>
+                    )}
+                  </>
+                ) : (
+                  <button
+                    onClick={() => {
+                      redirectToAuth("/login");
+                    }}
+                    className="body-md-semibold hiring-apply-btn"
+                  >
+                    {!!hiring?.detailFound?.applyLink ? (
+                      <>
+                        Apply{" "}
+                        <FiExternalLink style={{ marginLeft: ".25rem" }} />
+                      </>
+                    ) : (
+                      `Easy Apply`
+                    )}
+                  </button>
+                )}
+              </>
+            </div>
+            <div className="hiring-tags">
+              {hiring?.detailFound?.skillsRequired?.map((skill, index) => (
+                <span key={index} className="hiring-tag label-sm">
+                  #{skill}
+                </span>
+              ))}
+            </div>
+          </div>
+          <div
+            onClick={() => {
+              window.open(
+                width <= 520
+                  ? `${`${Bucket_URL}frontend/company/promotion/pankaj-kalra-mobile.png`}`
+                  : `${`${Bucket_URL}frontend/company/promotion/pankaj-kalra-desktop.png`}`,
+                "_blank"
+              );
+            }}
+            style={{
+              backgroundImage:
+                width <= 520
+                  ? `url(${`${Bucket_URL}frontend/company/promotion/pankaj-kalra-mobile.png`})`
+                  : `url(${`${Bucket_URL}frontend/company/promotion/pankaj-kalra-desktop.png`})`,
+              aspectRatio: width <= 520 ? "900/1146" : "2100/864",
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+              backgroundRepeat: "no-repeat",
+              borderRadius: "10px",
+              position: "relative",
+              cursor: "pointer",
+              marginBottom: ".5rem",
+              boxShadow: "0px 4px 4px rgba(198, 198, 198, 0.25)",
+            }}
+          >
+            <button
+              onClick={(e) => {
+                window.open(`https://bit.ly/45bFpz6`, "_blank");
+              }}
+              className="promotion-btn"
+            >
+              {width > 650 ? "Register" : <FaExternalLinkAlt />}
+            </button>
+          </div>
+          <div className="hiring-box pt-4">
+            <div className="info-tiles-container">
+              <div className="info-tiles">
+                <h6>Application Start Date</h6>
+                <div className="lower-container">
+                  <span className="text-crop-2">{applicationStartDate}</span>
+                  {calendarStartDateIcon}
+                </div>
+              </div>
+              <div className="info-tiles">
+                <h6>Application End Date</h6>
+                <div className="lower-container">
+                  <span className="text-crop-2">{applicationEndDate}</span>
+                  {calendarEndDateIcon}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="hiring-box">
+            <h4 className="body-sm-semibold">Job Description</h4>
+            <div
+              dangerouslySetInnerHTML={{
+                __html: hiring?.detailFound?.description,
+              }}
+              className="hiring-styled-description"
+            ></div>
+          </div>
+          <div className="hiring-box">
+            <h4 className="body-sm-semibold">More Information</h4>
+            <div className="info-tiles-container">
+              <div className="info-tiles">
+                <h6>Package</h6>
+                <div className="lower-container">
+                  <span className="text-crop-2">
+                    {hiring?.detailFound?.showSalary
+                      ? !!hiring?.detailFound?.amount &&
+                        hiring?.detailFound?.amount !== "N/A"
+                        ? hiring?.detailFound?.amount
+                        : hiring?.detailFound?.salaryType === "Fixed"
+                        ? `${formatter.format(
+                            hiring?.detailFound?.salaryAmount
+                          )} ${hiring?.detailFound?.salaryUnit}`
+                        : hiring?.detailFound.salaryType === "Range"
+                        ? `${formatter.format(
+                            hiring?.detailFound?.minRange
+                          )} - ${hiring?.detailFound?.maxRange} ${
+                            hiring?.detailFound?.salaryUnit
+                          }`
+                        : "N/A"
+                      : !!hiring?.detailFound?.amount &&
+                        hiring?.detailFound?.amount !== "N/A"
+                      ? hiring?.detailFound?.amount
+                      : !!hiring?.detailFound?.salaryDisclosure
+                      ? hiring?.detailFound?.salaryDisclosure
+                      : "N/A"}
+                  </span>
+                  {moneyIcon}
+                </div>
+              </div>
+              <div className="info-tiles">
+                <h6>Minimum Experience</h6>
+                <div className="lower-container">
+                  {!!hiring?.detailFound?.experience ? (
+                    <span className="text-crop-2">
+                      {hiring?.detailFound?.experience !== "0"
+                        ? hiring?.detailFound?.experience === "1"
+                          ? `${hiring?.detailFound?.experience} year`
+                          : `${hiring?.detailFound?.experience} years`
+                        : `Fresher`}
+                    </span>
+                  ) : (
+                    <span className="text-crop-2">
+                      {hiring?.detailFound?.isForFreshers
+                        ? "Fresher"
+                        : `${
+                            hiring?.detailFound?.minExperience ===
+                            hiring?.detailFound?.maxExperience
+                              ? `${hiring?.detailFound?.minExperience} ${
+                                  hiring?.detailFound?.minExperience === 1
+                                    ? "year"
+                                    : "years"
+                                }`
+                              : `${hiring?.detailFound?.minExperience} - ${
+                                  hiring?.detailFound?.maxExperience === 1
+                                    ? `${hiring?.detailFound?.maxExperience} year`
+                                    : `${hiring?.detailFound?.maxExperience} years`
+                                }`
+                          }`}
+                    </span>
                   )}
+                  {experienceIcon}
                 </div>
-              ) : (
-                // <Link to="/login">
-                <div
-                  onClick={() => {
-                    redirectToAuth("/login");
-                  }}
-                  className="btn"
-                >
-                  Apply
+              </div>
+              <div className="info-tiles">
+                <h6>Job Location</h6>
+                <div className="lower-container">
+                  <span className="text-crop-2">
+                    {hiring?.detailFound?.opportunityLocation === "WFH"
+                      ? "Work From Home"
+                      : hiring?.detailFound?.opportunityLocation === "Hybrid"
+                      ? `Hybrid${
+                          !!hiring?.detailFound?.city &&
+                          hiring?.detailFound?.city !== "undefined"
+                            ? ` - ${hiring?.detailFound?.city}`
+                            : ""
+                        }`
+                      : hiring?.detailFound?.opportunityLocation === "On-Site"
+                      ? !!hiring?.detailFound?.city &&
+                        hiring?.detailFound?.city !== "undefined"
+                        ? hiring?.detailFound?.city
+                        : "On-Site"
+                      : !!hiring?.detailFound?.opportunityLocation
+                      ? hiring?.detailFound?.opportunityLocation
+                      : "N/A"}
+                  </span>
+                  {locationIcon}
                 </div>
-                // </Link>
+              </div>
+              <div className="info-tiles">
+                <h6>Work Type</h6>
+                <div className="lower-container">
+                  <span className="text-crop-2">
+                    {hiring?.detailFound?.opportunityTiming
+                      ? hiring?.detailFound?.opportunityTiming
+                      : hiring?.detailFound?.opportunityMode}
+                  </span>
+                  {workTypeIcon}
+                </div>
+              </div>
+              {hiring?.detailFound?.openings && (
+                <div className="info-tiles">
+                  <h6>Openings</h6>
+                  <div className="lower-container">
+                    <span className="text-crop-2">
+                      {hiring?.detailFound?.openings}
+                    </span>
+                    {numberOfOpeningsIcon}
+                  </div>
+                </div>
+              )}
+              {hiring?.detailFound?.eligibility && (
+                <div className="info-tiles">
+                  <h6>Minimum CGPA</h6>
+                  <div className="lower-container">
+                    <span className="text-crop-2">
+                      {hiring?.detailFound?.eligibility
+                        ? hiring?.detailFound?.eligibility
+                        : hiring?.detailFound?.eligibility}
+                    </span>
+                    {cgpaIcon}
+                  </div>
+                </div>
               )}
             </div>
-          </span>
-          <span className="Tags">
-            {hiring?.detailFound?.skillsRequired?.map(
-              (skillsRequired, index) => (
-                <Chip
-                  key={index}
-                  variant="outlined"
-                  size="small"
-                  label={`#${skillsRequired}`}
-                  style={{
-                    fontWeight: "500",
-                    fontSize: "10px",
-                    marginRight: "15px",
-                    marginBottom: "5px",
-                  }}
-                />
-              )
-            )}
-          </span>
-        </div>
+          </div>
+        </>
+      ) : (
         <div
-          onClick={() => {
-            window.open(
-              width <= 520
-                ? `${`${Bucket_URL}frontend/company/promotion/pankaj-kalra-mobile.png`}`
-                : `${`${Bucket_URL}frontend/company/promotion/pankaj-kalra-desktop.png`}`,
-              "_blank"
-            );
-          }}
           style={{
-            backgroundImage:
-              width <= 520
-                ? `url(${`${Bucket_URL}frontend/company/promotion/pankaj-kalra-mobile.png`})`
-                : `url(${`${Bucket_URL}frontend/company/promotion/pankaj-kalra-desktop.png`})`,
-            aspectRatio: width <= 520 ? "900/1146" : "2100/864",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            backgroundRepeat: "no-repeat",
-            borderRadius: "10px",
-            position: "relative",
-            cursor: "pointer",
+            width: "100%",
+            height: "50vh",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
           }}
         >
-          <button
-            onClick={(e) => {
-              window.open(`https://bit.ly/45bFpz6`, "_blank");
-            }}
-            className="promotion-btn"
-          >
-            {width > 650 ? "Register" : <FaExternalLinkAlt />}
-          </button>
+          <Loading />
         </div>
-        <div className="JobInfo">
-          <div className="JobInfoItems JobInfoItems-date">
-            <div className="JobInfoItem">
-              <h6>Application Start Date</h6>
-              <span>{applicationStartDate}</span>
-              {calendarStartDateIcon}
-            </div>
-            <div className="JobInfoItem">
-              <h6>Application End Date</h6>
-              <span>{applicationEndDate}</span>
-              {calendarEndDateIcon}
-            </div>
-          </div>
-        </div>
-        <div className="JobDesc">
-          <h5>Job Description</h5>
-          <p id="quill-job-description"></p>
-        </div>
-        <div className="JobInfo">
-          <h5>More Information</h5>
-          <div className="JobInfoItems">
-            <div className="JobInfoItem">
-              <h6>Package</h6>
-              <span>
-                {hiring?.detailFound?.showSalary
-                  ? !!hiring?.detailFound?.amount &&
-                    hiring?.detailFound?.amount !== "N/A"
-                    ? hiring?.detailFound?.amount
-                    : hiring?.detailFound?.salaryType === "Fixed"
-                    ? `${formatter.format(hiring?.detailFound?.salaryAmount)} ${
-                        hiring?.detailFound?.salaryUnit
-                      }`
-                    : hiring?.detailFound.salaryType === "Range"
-                    ? `${formatter.format(
-                        hiring?.detailFound?.minRange
-                      )} - ${formatter.format(hiring?.detailFound?.maxRange)} ${
-                        hiring?.detailFound?.salaryUnit
-                      }`
-                    : "N/A"
-                  : !!hiring?.detailFound?.amount &&
-                    hiring?.detailFound?.amount !== "N/A"
-                  ? hiring?.detailFound?.amount
-                  : !!hiring?.detailFound?.salaryDisclosure
-                  ? hiring?.detailFound?.salaryDisclosure
-                  : "N/A"}
-              </span>
-              {moneyIcon}
-            </div>
-            <div className="JobInfoItem">
-              <h6>Minimum Experience</h6>
-              {!!hiring?.detailFound?.experience ? (
-                <span>
-                  {hiring?.detailFound?.experience !== "0"
-                    ? hiring?.detailFound?.experience === "1"
-                      ? `${hiring?.detailFound?.experience} year`
-                      : `${hiring?.detailFound?.experience} years`
-                    : `Fresher`}
-                </span>
-              ) : (
-                <span>
-                  {hiring?.detailFound?.isForFreshers
-                    ? "Fresher"
-                    : `${
-                        hiring?.detailFound?.minExperience ===
-                        hiring?.detailFound?.maxExperience
-                          ? `${hiring?.detailFound?.minExperience} ${
-                              hiring?.detailFound?.minExperience === 1
-                                ? "year"
-                                : "years"
-                            }`
-                          : `${hiring?.detailFound?.minExperience} - ${
-                              hiring?.detailFound?.maxExperience === 1
-                                ? `${hiring?.detailFound?.maxExperience} year`
-                                : `${hiring?.detailFound?.maxExperience} years`
-                            }`
-                      }`}
-                </span>
-              )}
-              {experienceIcon}
-            </div>
-            <div className="JobInfoItem">
-              <h6>Job Location</h6>
-              <span>
-                {hiring?.detailFound?.opportunityLocation === "WFH"
-                  ? "Work From Home"
-                  : hiring?.detailFound?.opportunityLocation === "Hybrid"
-                  ? `Hybrid${
-                      !!hiring?.detailFound?.city &&
-                      hiring?.detailFound?.city !== "undefined"
-                        ? ` - ${hiring?.detailFound?.city}`
-                        : ""
-                    }`
-                  : hiring?.detailFound?.opportunityLocation === "On-Site"
-                  ? !!hiring?.detailFound?.city &&
-                    hiring?.detailFound?.city !== "undefined"
-                    ? hiring?.detailFound?.city
-                    : "On-Site"
-                  : !!hiring?.detailFound?.opportunityLocation
-                  ? hiring?.detailFound?.opportunityLocation
-                  : "N/A"}
-              </span>
-              {locationIcon}
-            </div>
-            <div className="JobInfoItem">
-              <h6>Work type</h6>
-              <span>
-                {hiring?.detailFound?.opportunityTiming
-                  ? hiring?.detailFound?.opportunityTiming
-                  : hiring?.detailFound?.opportunityMode}
-              </span>
-              {workTypeIcon}
-            </div>
-            {hiring?.detailFound?.openings && (
-              <div className="JobInfoItem">
-                <h6>Openings</h6>
-                <span>{hiring?.detailFound?.openings}</span>
-                {numberOfOpeningsIcon}
-              </div>
-            )}
-            {hiring?.detailFound?.eligibility && (
-              <div className="JobInfoItem">
-                <h6>Minimum CGPA</h6>
-                <span>
-                  {hiring?.detailFound?.eligibility
-                    ? hiring?.detailFound?.eligibility
-                    : hiring?.detailFound?.eligibility}
-                </span>
-                {cgpaIcon}
-              </div>
-            )}
-          </div>
-        </div>
-      </div>
+      )}
     </section>
   );
 }
