@@ -258,7 +258,7 @@ export default function InternshipsPage() {
                     }}
                     className="jobs-container-empty"
                   >
-                    <h2 className="heading-sm">No Jobs Found</h2>
+                    <h2 className="heading-sm">No Internships Found</h2>
                   </div>
                 )}
               </>
