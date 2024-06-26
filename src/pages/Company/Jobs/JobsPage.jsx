@@ -162,11 +162,14 @@ export default function JobsPage() {
       <div className={`${!!hiringId ? "job-page-divider" : ""}`}>
         {!(!!hiringId && width < 1150) && (
           <section className={`${!!hiringId ? "all-jobs-section" : ""}`}>
-            {jobsQuery.isSuccess && !!pageNo && !!pageCount && (
-              <span style={{ color: "#295397" }} className="label-sm">
-                Page {pageNo} of {pageCount}
-              </span>
-            )}
+            {jobsQuery.isSuccess &&
+              jobsQuery?.data?.data?.data?.length !== 0 &&
+              !!pageNo &&
+              !!pageCount && (
+                <span style={{ color: "#295397" }} className="label-sm">
+                  Page {pageNo} of {pageCount}
+                </span>
+              )}
             {jobsQuery.isPending && (
               <>
                 <div
