@@ -1,6 +1,7 @@
 .filter-container {
   display: flex;
   gap: 1rem;
+  overflow: auto;
 }
 .filter-box {
   position: absolute;
