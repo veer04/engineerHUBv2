@@ -16,7 +16,7 @@ import Loading from "../../../components/Loader/Loading";
 import SearchBarWithSearchParams from "../../../components/SearchBarWithSearchParams/SearchBarWithSearchParams";
 import useNavbar from "../../../hooks/use-navbar";
 import PaginationBarWithSearchParams from "../../../components/PaginationBarWithSearchParams/PaginationBarWithSearchParams";
-import FiltersContainer from "../../../components/Filter/Company/Jobs/FiltersContainer";
+import FilterContainerJob from "../../../components/Filter/Company/FilterContainerJob";
 
 export default function JobsPage() {
   const { hiringId } = useParams();
@@ -156,7 +156,7 @@ export default function JobsPage() {
               placeholder="Search for jobs, company, etc"
             />
           </div>
-          <FiltersContainer
+          <FilterContainerJob
             style={{
               marginBottom: ".5rem",
               maxWidth: !!hiringId ? "1230px" : "",

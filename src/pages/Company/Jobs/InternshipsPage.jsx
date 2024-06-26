@@ -19,6 +19,7 @@ import PaginationBarWithSearchParams from "../../../components/PaginationBarWith
 import FiltersContainer from "../../../components/Filter/Company/Jobs/FiltersContainer";
 import InternshipCard from "../Internship/InternshipCard";
 import FiltersContainerInternship from "../../../components/Filter/Company/Jobs/FiltersContainerInternship";
+import FilterContainerInternship from "../../../components/Filter/Company/FilterContainerInternship";
 
 export default function InternshipsPage() {
   const { hiringId } = useParams();
@@ -158,7 +159,7 @@ export default function InternshipsPage() {
               placeholder="Search for internships, company, etc"
             />
           </div>
-          <FiltersContainerInternship
+          <FilterContainerInternship
             style={{
               marginBottom: ".5rem",
               maxWidth: !!hiringId ? "1230px" : "",
