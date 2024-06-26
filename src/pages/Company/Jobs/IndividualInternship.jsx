@@ -33,6 +33,7 @@ import {
   isUserLoggedIn,
 } from "../../../features/User/UserDetails";
 import Loading from "../../../components/Loader/Loading";
+import { Link } from "react-router-dom";
 
 export default function IndividualInternship() {
   const { hiringId } = useParams();
@@ -303,11 +304,11 @@ export default function IndividualInternship() {
                   <>
                     {hiring?.detailFound?._id ===
                       "65d0a7b2c58c23a4ac6b9f76" && (
-                      <Link to="https://docs.google.com/forms/d/e/1FAIpQLSd39WuMG3eBnPoVmMLneBEhYBTU2Q3CCbNx5kQKmIIkINdTlQ/viewform">
-                        <div className="body-md-semibold hiring-apply-btn">
+                      <a href="https://docs.google.com/forms/d/e/1FAIpQLSd39WuMG3eBnPoVmMLneBEhYBTU2Q3CCbNx5kQKmIIkINdTlQ/viewform">
+                        <button className="body-md-semibold hiring-apply-btn">
                           Apply
-                        </div>
-                      </Link>
+                        </button>
+                      </a>
                     )}
                     {hiring?.detailFound?._id !==
                       "65d0a7b2c58c23a4ac6b9f76" && (
