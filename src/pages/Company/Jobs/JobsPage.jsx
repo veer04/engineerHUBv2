@@ -1,11 +1,6 @@
 import { useEffect, useState } from "react";
 import "./JobsPage.css";
-import {
-  Outlet,
-  useLocation,
-  useParams,
-  useSearchParams,
-} from "react-router-dom";
+import { Outlet, useParams, useSearchParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { API_URL } from "../../../services/APIUtils";

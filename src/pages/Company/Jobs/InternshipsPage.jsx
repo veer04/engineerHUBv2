@@ -1,24 +1,16 @@
 import { useEffect, useState } from "react";
 import "./JobsPage.css";
-import {
-  Outlet,
-  useLocation,
-  useParams,
-  useSearchParams,
-} from "react-router-dom";
+import { Outlet, useParams, useSearchParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { API_URL } from "../../../services/APIUtils";
 import { getAccessToken } from "../../../features/User/UserDetails";
-import JobCards from "./JobCards";
 import colorWheel from "../../../assets/colorWheel";
 import Loading from "../../../components/Loader/Loading";
 import SearchBarWithSearchParams from "../../../components/SearchBarWithSearchParams/SearchBarWithSearchParams";
 import useNavbar from "../../../hooks/use-navbar";
 import PaginationBarWithSearchParams from "../../../components/PaginationBarWithSearchParams/PaginationBarWithSearchParams";
-import FiltersContainer from "../../../components/Filter/Company/Jobs/FiltersContainer";
 import InternshipCard from "../Internship/InternshipCard";
-import FiltersContainerInternship from "../../../components/Filter/Company/Jobs/FiltersContainerInternship";
 import FilterContainerInternship from "../../../components/Filter/Company/FilterContainerInternship";
 
 export default function InternshipsPage() {
