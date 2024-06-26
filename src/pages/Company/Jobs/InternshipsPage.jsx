@@ -155,7 +155,7 @@ export default function InternshipsPage() {
           <div className="d-flex justify-content-center mt-2 mb-4">
             <SearchBarWithSearchParams
               param="q"
-              placeholder="Search for jobs, company, etc"
+              placeholder="Search for internships, company, etc"
             />
           </div>
           <FiltersContainerInternship
