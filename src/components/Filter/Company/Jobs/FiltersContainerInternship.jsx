@@ -7,7 +7,7 @@ import ExperienceContainer from "./ExperienceContainer";
 import JobTypeContainer from "./JobTypeContainer";
 import JobModeContainer from "./JobModeContainer";
 import LocationContainer from "./LocationContainer";
-import SalaryContainer from "./SalaryContainer";
+import StipendContainer from "./StipendContainer";
 
 export default function FiltersContainerInternship({ className, ...rest }) {
   const [openModal, setOpenModal] = useState({
@@ -89,7 +89,7 @@ export default function FiltersContainerInternship({ className, ...rest }) {
           setIsOpen={setOpenModal}
         /> */}
         <FilterButton
-          title="Job Type"
+          title="Internship Type"
           iconOpened={<IoIosArrowUp />}
           iconClosed={<IoIosArrowDown />}
           correspondingModal="modal4"
@@ -97,7 +97,7 @@ export default function FiltersContainerInternship({ className, ...rest }) {
           setIsOpen={setOpenModal}
         />
         <FilterButton
-          title="Job Mode"
+          title="Internship Mode"
           iconOpened={<IoIosArrowUp />}
           iconClosed={<IoIosArrowDown />}
           correspondingModal="modal5"
@@ -113,7 +113,7 @@ export default function FiltersContainerInternship({ className, ...rest }) {
           setIsOpen={setOpenModal}
         />
         <FilterButton
-          title="Salary"
+          title="Stipend"
           iconOpened={<IoIosArrowUp />}
           iconClosed={<IoIosArrowDown />}
           correspondingModal="modal7"
@@ -141,7 +141,7 @@ export default function FiltersContainerInternship({ className, ...rest }) {
         isOpen={openModal.modal6}
         setIsOpen={setOpenModal}
       />
-      <SalaryContainer
+      <StipendContainer
         correspondingModal="modal7"
         isOpen={openModal.modal7}
         setIsOpen={setOpenModal}
