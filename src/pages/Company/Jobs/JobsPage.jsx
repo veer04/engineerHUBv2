@@ -1,11 +1,6 @@
 import { useEffect, useState } from "react";
 import "./JobsPage.css";
-import {
-  Outlet,
-  useLocation,
-  useParams,
-  useSearchParams,
-} from "react-router-dom";
+import { Outlet, useParams, useSearchParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { API_URL } from "../../../services/APIUtils";
@@ -16,7 +11,7 @@ import Loading from "../../../components/Loader/Loading";
 import SearchBarWithSearchParams from "../../../components/SearchBarWithSearchParams/SearchBarWithSearchParams";
 import useNavbar from "../../../hooks/use-navbar";
 import PaginationBarWithSearchParams from "../../../components/PaginationBarWithSearchParams/PaginationBarWithSearchParams";
-import FiltersContainer from "../../../components/Filter/Company/Jobs/FiltersContainer";
+import FilterContainerJob from "../../../components/Filter/Company/FilterContainerJob";
 
 export default function JobsPage() {
   const { hiringId } = useParams();
@@ -156,7 +151,7 @@ export default function JobsPage() {
               placeholder="Search for jobs, company, etc"
             />
           </div>
-          <FiltersContainer
+          <FilterContainerJob
             style={{
               marginBottom: ".5rem",
               maxWidth: !!hiringId ? "1230px" : "",
@@ -167,11 +162,14 @@ export default function JobsPage() {
       <div className={`${!!hiringId ? "job-page-divider" : ""}`}>
         {!(!!hiringId && width < 1150) && (
           <section className={`${!!hiringId ? "all-jobs-section" : ""}`}>
-            {jobsQuery.isSuccess && !!pageNo && !!pageCount && (
-              <span style={{ color: "#295397" }} className="label-sm">
-                Page {pageNo} of {pageCount}
-              </span>
-            )}
+            {jobsQuery.isSuccess &&
+              jobsQuery?.data?.data?.data?.length !== 0 &&
+              !!pageNo &&
+              !!pageCount && (
+                <span style={{ color: "#295397" }} className="label-sm">
+                  Page {pageNo} of {pageCount}
+                </span>
+              )}
             {jobsQuery.isPending && (
               <>
                 <div

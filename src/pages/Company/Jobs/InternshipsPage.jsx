@@ -1,24 +1,17 @@
 import { useEffect, useState } from "react";
 import "./JobsPage.css";
-import {
-  Outlet,
-  useLocation,
-  useParams,
-  useSearchParams,
-} from "react-router-dom";
+import { Outlet, useParams, useSearchParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { API_URL } from "../../../services/APIUtils";
 import { getAccessToken } from "../../../features/User/UserDetails";
-import JobCards from "./JobCards";
 import colorWheel from "../../../assets/colorWheel";
 import Loading from "../../../components/Loader/Loading";
 import SearchBarWithSearchParams from "../../../components/SearchBarWithSearchParams/SearchBarWithSearchParams";
 import useNavbar from "../../../hooks/use-navbar";
 import PaginationBarWithSearchParams from "../../../components/PaginationBarWithSearchParams/PaginationBarWithSearchParams";
-import FiltersContainer from "../../../components/Filter/Company/Jobs/FiltersContainer";
 import InternshipCard from "../Internship/InternshipCard";
-import FiltersContainerInternship from "../../../components/Filter/Company/Jobs/FiltersContainerInternship";
+import FilterContainerInternship from "../../../components/Filter/Company/FilterContainerInternship";
 
 export default function InternshipsPage() {
   const { hiringId } = useParams();
@@ -158,7 +151,7 @@ export default function InternshipsPage() {
               placeholder="Search for internships, company, etc"
             />
           </div>
-          <FiltersContainerInternship
+          <FilterContainerInternship
             style={{
               marginBottom: ".5rem",
               maxWidth: !!hiringId ? "1230px" : "",
@@ -169,11 +162,14 @@ export default function InternshipsPage() {
       <div className={`${!!hiringId ? "job-page-divider" : ""}`}>
         {!(!!hiringId && width < 1150) && (
           <section className={`${!!hiringId ? "all-jobs-section" : ""}`}>
-            {jobsQuery.isSuccess && !!pageNo && !!pageCount && (
-              <span style={{ color: "#295397" }} className="label-sm">
-                Page {pageNo} of {pageCount}
-              </span>
-            )}
+            {jobsQuery.isSuccess &&
+              jobsQuery?.data?.data?.data?.length !== 0 &&
+              !!pageNo &&
+              !!pageCount && (
+                <span style={{ color: "#295397" }} className="label-sm">
+                  Page {pageNo} of {pageCount}
+                </span>
+              )}
             {jobsQuery.isPending && (
               <>
                 <div

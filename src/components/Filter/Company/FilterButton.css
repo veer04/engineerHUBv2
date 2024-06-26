@@ -1,0 +1,17 @@
+.filter-button {
+  padding: 0.65625rem 1rem;
+  border-radius: 99999px;
+  border: none;
+  text-wrap: nowrap;
+  color: black;
+}
+.filter-button .counter {
+  border-radius: 50%;
+  aspect-ratio: 1/1;
+  padding: 0.1rem 0.35rem;
+  background-color: var(--primary-color-green);
+  color: white;
+}
+.filter-button .counter.--large-border {
+  border-radius: 15px;
+}
