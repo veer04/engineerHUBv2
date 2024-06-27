@@ -152,10 +152,10 @@ export default function NewFooter() {
             </div>
             <div className="pages">
               <p className="title">Company</p>
-              <Link to="/company/internships" className="link">
+              <Link to="/company/internships?pageNo=1&limit=24" className="link">
                 Internships
               </Link>
-              <Link to="/company/jobs" className="link">
+              <Link to="/company/jobs?pageNo=1&limit=24" className="link">
                 Jobs
               </Link>
               <Link to="/company/events" className="link">

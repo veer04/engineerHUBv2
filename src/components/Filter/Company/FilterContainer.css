@@ -1,0 +1,82 @@
+.filter-container {
+  display: flex;
+  gap: 1rem;
+  overflow: auto;
+  margin: 0 auto;
+  width: 100%;
+}
+.filter-box {
+  position: absolute;
+  z-index: 5;
+  background-color: white;
+  border-radius: 15px;
+  box-shadow: 0 16px 70px #0003;
+  width: min(100%, 24.375rem);
+  overflow: hidden;
+  margin-top: 0.5rem;
+}
+.filter-box ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-height: 20rem;
+  overflow: auto;
+}
+.filter-box ul li {
+  display: flex;
+  cursor: pointer;
+}
+.filter-box ul li .filter-opt-label {
+  width: 100%;
+  padding: 0.75rem 1.75rem 0.75rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+}
+.filter-box ul li .filter-opt-input {
+  min-width: 24px;
+  min-height: 24px;
+  border-radius: 5px;
+}
+
+.filter-box .top-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+}
+.filter-box .top-container h3 {
+  margin: 0;
+}
+.filter-box .top-container .close-btn {
+  border: none;
+  background-color: transparent;
+  font-size: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.filter-box .bottom-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.75rem 1.5rem;
+  background-color: #f5f5f5;
+}
+.filter-box .bottom-container .clear-btn {
+  border: none;
+  background-color: transparent;
+}
+.filter-box .bottom-container .apply-btn {
+  color: white;
+  padding: 0.75rem 2rem;
+  border: none;
+  background-color: var(--primary-color-green);
+  border-radius: 5px;
+}
+
+@media screen and (max-width: 750px) {
+  .filter-box {
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+  }
+}

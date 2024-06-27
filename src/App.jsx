@@ -1,6 +1,7 @@
 import React, { useState, useEffect, lazy, Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
+import "./styles/DesignSystem.js";
 import OTP from "./pages/User/OtpVerification/Otpverification";
 import MobileNavbar from "./components/MobileNavbar/MobileNavbar";
 import NewNavbar from "./components/Navbar/NewNavbar";
@@ -48,6 +49,16 @@ import EventWindow from "./pages/Community/Events/EventWindow.jsx";
 import BlogWindow from "./pages/Community/Blogs/BlogWindow.jsx";
 import NewFooter from "./components/Footer/NewFooter.jsx";
 import PopUpModalBootstrap from "./components/PopUpModal/PopUpModalBootstrap.jsx";
+const JobsPage = lazy(() => import("./pages/Company/Jobs/JobsPage.jsx"));
+const InternshipsPage = lazy(() =>
+  import("./pages/Company/Jobs/InternshipsPage.jsx")
+);
+const IndividualInternship = lazy(() =>
+  import("./pages/Company/Jobs/IndividualInternship.jsx")
+);
+const IndividualJob = lazy(() =>
+  import("./pages/Company/Jobs/IndividualJob.jsx")
+);
 const HostingNotes = lazy(() => import("./pages/Hosting/HostingNotes.jsx"));
 const GetFeaturedForm = lazy(() =>
   import("./pages/NewHomepage/GetFeaturedForm.jsx")
@@ -247,13 +258,25 @@ function App() {
           <Route path="/company">
             <Route path="" element={<Company />} />
             <Route path="jobs">
-              <Route path="" element={<Jobs />} />
-              <Route path=":hiringId" element={<JobDetails />} />
+              <Route path="" element={<JobsPage />}>
+                <Route path=":hiringId" element={<IndividualJob />} />
+                {/* <Route path=":hiringId" element={<IndividualJob />} /> */}
+                {/* <Route path=":hiringId" element={<JobDetails />} /> */}
+              </Route>
+              {/* <Route path="" element={<Jobs />} /> */}
             </Route>
             <Route path="internships">
+              <Route path="" element={<InternshipsPage />}>
+                <Route path=":hiringId" element={<IndividualInternship />} />
+                {/* <Route path=":hiringId" element={<IndividualJob />} /> */}
+                {/* <Route path=":hiringId" element={<JobDetails />} /> */}
+              </Route>
+              {/* <Route path="" element={<Jobs />} /> */}
+            </Route>
+            {/* <Route path="internships">
               <Route path="" element={<Internship />} />
               <Route path=":hiringId" element={<InternshipDetails />} />
-            </Route>
+            </Route> */}
             <Route path="projects">
               <Route path="" element={<Projects />} />
               <Route path=":projectId" element={<ProjectDetailNew />} />

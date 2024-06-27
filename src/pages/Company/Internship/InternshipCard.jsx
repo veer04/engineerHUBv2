@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Chip } from "@mui/material";
 import "./InternshipCard.css";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import ViewApplicantsModal from "../../../components/Dashboard/ViewApplicantsModal";
 import { MdOutlineRemoveRedEye } from "react-icons/md";
 
@@ -13,6 +13,8 @@ const InternshipCard = ({
   filterByCompany,
   filterName,
 }) => {
+  const { hiringId } = useParams();
+  const { search } = useLocation();
   const [toggleModal, setToggleModal] = useState(false);
   const formatter = new Intl.NumberFormat("en-IN", {
     style: "currency",
@@ -22,7 +24,9 @@ const InternshipCard = ({
   const formattedSalary = formatter.format(details?.amount);
 
   return (
-    <div className={`JobCard on-hover-scale ${className}`}>
+    <div
+      className={`JobCard ${!!hiringId ? "" : `on-hover-scale`} ${className}`}
+    >
       <div className="cardContent">
         <div className="job-ctc-views">
           <h6>
@@ -130,7 +134,7 @@ const InternshipCard = ({
             </h5>
             <Link
               to={`/company/internships/${details?._id}${
-                filterByCompany ? `?q=${filterName}` : ""
+                !!search ? search : ""
               }`}
             >
               <div className="btn">View</div>
