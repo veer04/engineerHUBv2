@@ -221,6 +221,23 @@ main {
   padding: 1.5rem;
 }
 
+.override-link a {
+  color: #4e80e4 !important;
+}
+.override-link a:hover {
+  cursor: pointer !important;
+  text-decoration: underline !important;
+}
+.override-link a:visited {
+  color: #7e2acc !important;
+}
+.override-link a:visited:active {
+  color: #550d99 !important;
+}
+.override-link a:active {
+  color: #154dbe !important;
+}
+
 @media screen and (max-width: 900px) {
   :root {
     --section-padding: min(2rem, 4vw);
