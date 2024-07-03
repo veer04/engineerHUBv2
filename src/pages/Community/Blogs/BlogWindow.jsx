@@ -161,7 +161,7 @@ export default function BlogWindow() {
       <div className="project__window__description">
         <div
           id="blog-description-box"
-          className="description"
+          className="description override-link"
           dangerouslySetInnerHTML={{
             __html: project?.postArea,
           }}

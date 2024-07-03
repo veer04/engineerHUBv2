@@ -3,18 +3,13 @@ import { useParams } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import { FaExternalLinkAlt } from "react-icons/fa";
 import { API_URL, Bucket_URL } from "../../../services/APIUtils";
-import getCookie, { getAccessToken } from "../../../features/getCookieValues";
-import Cookies from "js-cookie";
 import axios from "axios";
 import {
   controller,
   getHiringDataById,
   getUserProfileById,
 } from "../../../services/APIConfig";
-import LoadingPage from "../../../components/Loader/LoadingPage";
 import Page404 from "../../Maintenance/Page404";
-import JobApplyModal from "./JobApplyModal";
-import CustomSnackbar from "../../User/Login/CustomSnackbar";
 import { redirectToAuth } from "../../../features/redirectToAuth";
 import {
   calendarEndDateIcon,
@@ -33,24 +28,17 @@ import {
   isUserLoggedIn,
 } from "../../../features/User/UserDetails";
 import Loading from "../../../components/Loader/Loading";
+import JobHiringModal from "./JobHiringModal";
 
 export default function IndividualJob() {
   const { hiringId } = useParams();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const bucket = `${Bucket_URL}frontend/company/jobs/`;
-  const bucket2 = `${Bucket_URL}frontend/company/icons/`;
   const [hiring, setHiring] = useState({});
   const [isApplicable, setIsApplicable] = useState(false);
   const [profile, setProfile] = useState({});
-  const [isResumeUploaded, setIsResumeUploaded] = useState(false);
-  const [isApplyingJob, setIsApplyingJob] = useState(false);
-  const [snackbarValues, setSnackbarValues] = useState({
-    severity: "error",
-    message: "",
-  });
-  const [open, setOpen] = useState(false);
   const [width, setWidth] = useState(window.innerWidth);
   const handleResize = () => setWidth(window.innerWidth);
+  const [userLatestInfo, setUserLatestInfo] = useState({});
 
   useEffect(() => {
     if (isUserLoggedIn()) {
@@ -67,11 +55,18 @@ export default function IndividualJob() {
 
   useEffect(() => {
     if (isLoggedIn) {
-      if (!!profile?.resume) {
-        setIsResumeUploaded(true);
-      } else {
-        setIsResumeUploaded(false);
-      }
+      axios
+        .get(`${API_URL}api/v1/getUserLatestInfo/${getUserId()}`)
+        .then((res) => {
+          setUserLatestInfo(res.data?.latestInfo);
+        })
+        .catch((err) => {
+          if (axios.isCancel(err)) {
+            console.log("req cancel");
+          } else {
+            console.log("req performed");
+          }
+        });
     }
   }, [profile]);
 
@@ -99,57 +94,6 @@ export default function IndividualJob() {
         }px`;
     }, 100);
   }, [hiring]);
-
-  function handleModalState() {
-    setIsApplyingJob(false);
-  }
-
-  function handleJobApplied() {
-    setHiring((prev) => ({ ...prev, applied: true }));
-    setSnackbarValues({
-      severity: "success",
-      message: `You have successfully applied to this job!`,
-    });
-    setOpen(true);
-  }
-  const UserDataPost = () => {
-    if (!!hiring?.detailFound?.applyLink) {
-      window.open(hiring?.detailFound?.applyLink, "_blank");
-      return;
-    }
-
-    if (isApplicable) {
-      setIsApplyingJob(true);
-      // window.location.href = `/profile/user/${getUserId()}`;
-      return;
-    }
-
-    const data = {
-      hiringId,
-    };
-    axios
-      .post(`${API_URL}api/v1/hiringRegistration`, data, {
-        headers: {
-          accessToken: getAccessToken(),
-        },
-      })
-      .then((res) => {
-        if (
-          res.status === 200 ||
-          res.status === 201 ||
-          res.status === 202 ||
-          res.status === 203 ||
-          res.status === 204
-        ) {
-          getHiringDataById(setHiring, hiringId);
-        }
-      })
-      .catch((res) => {
-        if (res.status === 409) {
-          window.alert("already applied!");
-        }
-      });
-  };
 
   const formatter = new Intl.NumberFormat("en-IN", {
     style: "currency",
@@ -197,20 +141,11 @@ export default function IndividualJob() {
 
   return (
     <section id="individual-job-container">
-      <CustomSnackbar
-        setOpen={setOpen}
-        open={open}
-        message={snackbarValues.message}
-        severity={snackbarValues.severity}
-        duration={5000}
+      <JobHiringModal
+        latestInfo={userLatestInfo}
+        hiringId={hiringId}
+        setHiring={setHiring}
       />
-      {isApplyingJob && (
-        <JobApplyModal
-          change={handleModalState}
-          jobApplied={handleJobApplied}
-          resume={profile.resume}
-        />
-      )}
       {Object.keys(hiring).length !== 0 ? (
         <>
           <div className="hiring-box">
@@ -268,21 +203,24 @@ export default function IndividualJob() {
                             Apply
                           </button>
                         </a>
+                      ) : !!hiring?.detailFound?.applyLink ? (
+                        <a
+                          href={hiring?.detailFound?.applyLink}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <button className="body-md-semibold hiring-apply-btn">
+                            Apply{" "}
+                            <FiExternalLink style={{ marginLeft: ".25rem" }} />
+                          </button>
+                        </a>
                       ) : (
                         <button
-                          onClick={UserDataPost}
+                          data-bs-toggle="modal"
+                          data-bs-target="#jobHiringModal"
                           className="body-md-semibold hiring-apply-btn"
                         >
-                          {!!hiring?.detailFound?.applyLink ? (
-                            <>
-                              Apply{" "}
-                              <FiExternalLink
-                                style={{ marginLeft: ".25rem" }}
-                              />
-                            </>
-                          ) : (
-                            `Easy Apply`
-                          )}
+                          Easy Apply
                         </button>
                       ))}
                     {hiring?.applied === true && (
