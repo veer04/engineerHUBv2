@@ -1,5 +1,5 @@
 import "./JobHiringModal.css";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import FormInputMultiValue from "../../../components/FormInputs/FormInputMultiValue";
 import useGlobalSnackbar from "../../../hooks/useGlobalSnackbar";
 import FormInput from "../../../components/FormInputs/FormInput";
@@ -18,6 +18,7 @@ export default function JobHiringModal({
   hiringId,
   setHiring,
 }) {
+  const ref = useRef(null);
   const [skillsRequired, setSkillsRequired] = useState([]);
   const [college, setCollege] = useState("");
   const [passOutYear, setPassOutYear] = useState("");
@@ -169,7 +170,8 @@ export default function JobHiringModal({
           res.status === 203 ||
           res.status === 204
         ) {
-          console.log("User data saved");
+          console.log("User data saved ref");
+          ref.current.click();
         }
       })
       .catch((err) => {
@@ -210,6 +212,7 @@ export default function JobHiringModal({
               className="btn-close"
               data-bs-dismiss="modal"
               aria-label="Close"
+              ref={ref}
             ></button>
           </div>
           <div className="modal-body">
