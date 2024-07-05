@@ -342,7 +342,7 @@ export default function IndividualInternship() {
               ))}
             </div>
           </div>
-          <div
+          {/* <div
             onClick={() => {
               window.open(
                 width <= 520
@@ -375,7 +375,7 @@ export default function IndividualInternship() {
             >
               {width > 650 ? "Register" : <FaExternalLinkAlt />}
             </button>
-          </div>
+          </div> */}
           <div className="hiring-box pt-4">
             <div className="info-tiles-container">
               <div className="info-tiles">

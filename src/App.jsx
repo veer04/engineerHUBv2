@@ -125,7 +125,7 @@ function App() {
 
   return (
     <>
-      <PopUpModalBootstrap />
+      {/* <PopUpModalBootstrap /> */}
       <NewNavbar />
       <MobileNavbar />
       <GlobalSnackbar />

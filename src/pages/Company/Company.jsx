@@ -330,7 +330,7 @@ const Company = () => {
           })}
         </div>
       </div>
-      <article
+      {/* <article
         style={{
           marginTop: "50px",
           cursor: "pointer",
@@ -355,7 +355,7 @@ const Company = () => {
             }}
           />
         </a>
-      </article>
+      </article> */}
       <div className="StudentReviews">
         <div className="heading">
           What our
