@@ -260,7 +260,7 @@ export default function UserDashboard() {
   };
 
   const whatsappLinks = [
-    { label: "DSA", link: "https://chat.whatsapp.com/GmcQ6ubbRIe0JLruQ0vnbI" },
+    { label: "DSA", link: "https://chat.whatsapp.com/Bg2Mwyqed6i0E9aDPfzJoc" },
     {
       label: "Python & ML",
       link: "https://chat.whatsapp.com/ByOOBlUdiSoEIh993OvESC",
@@ -279,7 +279,7 @@ export default function UserDashboard() {
     },
     {
       label: "Web Dev",
-      link: "https://chat.whatsapp.com/LhQw599u98NG4Dk4o2VU8w",
+      link: "https://chat.whatsapp.com/HJEoYPFJyAWLZvquutT4BV",
     },
     {
       label: "DevOps",

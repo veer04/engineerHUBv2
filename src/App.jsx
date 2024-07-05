@@ -6,11 +6,11 @@ import OTP from "./pages/User/OtpVerification/Otpverification";
 import MobileNavbar from "./components/MobileNavbar/MobileNavbar";
 import NewNavbar from "./components/Navbar/NewNavbar";
 import Events from "./pages/Company/Events/events";
-import Jobs from "./pages/Company/Jobs/jobs";
-import JobDetails from "./pages/Company/Jobs/JobDetails";
+// import Jobs from "./pages/Company/Jobs/jobs";
+// import JobDetails from "./pages/Company/Jobs/JobDetails";
 import Success from "./pages/HomePage/Success";
-import Internship from "./pages/Company/Internship/Internship";
-import InternshipDetails from "./pages/Company/Internship/InternshipDetails";
+// import Internship from "./pages/Company/Internship/Internship";
+// import InternshipDetails from "./pages/Company/Internship/InternshipDetails";
 import Projects from "./pages/Company/Projects/Projects";
 import ComingSoon from "./pages/Maintenance/ComingSoon";
 import ClubSignup from "./pages/User/Signup/ClubSignup";
@@ -48,7 +48,7 @@ import ProjectWindow from "./pages/Community/Project/ProjectWindow.jsx";
 import EventWindow from "./pages/Community/Events/EventWindow.jsx";
 import BlogWindow from "./pages/Community/Blogs/BlogWindow.jsx";
 import NewFooter from "./components/Footer/NewFooter.jsx";
-import PopUpModalBootstrap from "./components/PopUpModal/PopUpModalBootstrap.jsx";
+// import PopUpModalBootstrap from "./components/PopUpModal/PopUpModalBootstrap.jsx";
 const JobsPage = lazy(() => import("./pages/Company/Jobs/JobsPage.jsx"));
 const InternshipsPage = lazy(() =>
   import("./pages/Company/Jobs/InternshipsPage.jsx")
@@ -125,7 +125,7 @@ function App() {
 
   return (
     <>
-      <PopUpModalBootstrap />
+      {/* <PopUpModalBootstrap /> */}
       <NewNavbar />
       <MobileNavbar />
       <GlobalSnackbar />
