@@ -29,11 +29,15 @@ import {
 } from "../../../features/User/UserDetails";
 import Loading from "../../../components/Loader/Loading";
 import JobHiringModal from "./JobHiringModal";
+import { Link } from "react-router-dom";
 
 export default function IndividualJob() {
   const { hiringId } = useParams();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [hiring, setHiring] = useState({});
+  const [hiringName, setHiringName] = useState([]);
+  const [numberOfAlmas, setNumberOfAlmas] = useState([]);
+  const [error, setError] = useState(null);
   const [isApplicable, setIsApplicable] = useState(false);
   const [profile, setProfile] = useState({});
   const [width, setWidth] = useState(window.innerWidth);
@@ -138,6 +142,37 @@ export default function IndividualJob() {
     })
     .replace(/,/g, " /");
   const applicationEndDate = getEndDate.split("/")[0];
+
+  const getHiringDetails = async () => {
+    try {
+      const response = await axios.get(
+        `${API_URL}api/v1/hiring/${hiringId}/${getUserId()}`
+      );
+
+      if (response.status === 200) {
+        const result = response.data;
+        if (result.success) {
+          const { organisationName, numberOfAlmas } = result.data.detailFound;
+          setHiringName(organisationName);
+          setNumberOfAlmas(numberOfAlmas);
+        } else {
+          setError(result.message);
+        }
+      } else {
+        setError("Failed to fetch data.");
+      }
+
+      const result = response.data;
+      console.log(result, "hiringDetails");
+    } catch (error) {
+      console.error("Error fetching hiring details:", error);
+    }
+  };
+  console.log(hiringName, "hiringName");
+
+  useEffect(() => {
+    getHiringDetails();
+  }, [hiringId]);
 
   return (
     <section id="individual-job-container">
@@ -293,6 +328,45 @@ export default function IndividualJob() {
               {width > 650 ? "Register" : <FaExternalLinkAlt />}
             </button>
           </div> */}
+
+          {/* //first task 11/07/2024 saif */}
+          <div className="main-referral-container">
+            <div className="left-cont">
+              <div className="">
+                <h5 className="small-txt">
+                  Struggling with getting shortlisted? We got you covered
+                </h5>
+                <h3 className="big-txt">
+                  Need a referral in <span>{hiringName}?</span>
+                </h3>
+              </div>
+              <Link to={"https://topmate.io/engineerhub"} target="_blank">
+                <button className="referral-button">Get a referral</button>
+              </Link>
+            </div>
+
+            <div className="features">
+              <div className="feature">
+                <h5>#Feature 1</h5>
+                <p>
+                  Get Referred from <span>{numberOfAlmas}</span> Almas through
+                  engineerHUB's network
+                </p>
+              </div>
+              <div className="feature">
+                <h5>#Feature 2</h5>
+                <p>
+                  No more "Shortlisting"! Get directly to the OAs or Interview
+                  round.
+                </p>
+              </div>
+              <div className="feature">
+                <h5>#Feature 3</h5>
+                <p>100% Referral or Get your Money Back Guarantee</p>
+              </div>
+            </div>
+          </div>
+
           <div className="hiring-box pt-4">
             <div className="info-tiles-container">
               <div className="info-tiles">
