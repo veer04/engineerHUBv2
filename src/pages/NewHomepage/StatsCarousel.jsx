@@ -15,7 +15,8 @@ export default function StatsCarousel() {
           <div className="carousel-item active">
             <div className="stats-container">
               <p>
-                ross India, including those from IITs, NITs and state colleges.
+                Student from across India, including those from IITs, NITs and
+                state colleges.
               </p>
               <div className="stat">
                 <CommunitySvg className="svg" />
