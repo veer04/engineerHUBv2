@@ -84,7 +84,7 @@ export default function StatsCarousel() {
             <div className="svg-container">
               <CommunitySvg className="svg" />
             </div>
-            <span>1,00,000+</span>
+            <span>1,50,000+</span>
             <span>Students</span>
           </div>
         </div>
@@ -100,7 +100,7 @@ export default function StatsCarousel() {
             <div className="svg-container">
               <CompanySvg className="svg" />
             </div>
-            <span>500+</span>
+            <span>600+</span>
             <span>Companies</span>
           </div>
         </div>
