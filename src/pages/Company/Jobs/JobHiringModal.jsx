@@ -221,7 +221,7 @@ export default function JobHiringModal({
               id="skillsRequired"
               name="skillsRequired"
               required
-              placeholder="Enter your skills"
+              placeholder="Enter your skills one by one and hit enter"
               value={skillsRequired}
               setValue={setSkillsRequired}
               helperText={errors.skillsRequired}
