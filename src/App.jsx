@@ -48,6 +48,7 @@ import ProjectWindow from "./pages/Community/Project/ProjectWindow.jsx";
 import EventWindow from "./pages/Community/Events/EventWindow.jsx";
 import BlogWindow from "./pages/Community/Blogs/BlogWindow.jsx";
 import NewFooter from "./components/Footer/NewFooter.jsx";
+import BookNow from "./pages/Company/Referrals/BookNow/BookNow.jsx";
 // import PopUpModalBootstrap from "./components/PopUpModal/PopUpModalBootstrap.jsx";
 const JobsPage = lazy(() => import("./pages/Company/Jobs/JobsPage.jsx"));
 const InternshipsPage = lazy(() =>
@@ -115,6 +116,8 @@ const NewEventsPage = lazy(() =>
 const NewBlogsPage = lazy(() =>
   import("./pages/Community/Blogs/NewBlogsPage.jsx")
 );
+
+const Referrals = lazy(() => import("./pages/Company/Referrals/Referrals.jsx"));
 
 function App() {
   const [OtpRoute, setOtpRoute] = useState("loading");
@@ -286,6 +289,11 @@ function App() {
               <Route path=":hackId" element={<HackathonDetailsNew />} />
             </Route>
           </Route>
+
+          <Route path="/referrals" element={<Referrals />} />
+          {/* <Route path="/referrals/book-now" element={<BookNow />} /> */}
+          <Route path="/referrals/book-now/:referralId" element={<BookNow />} />
+
           <Route path="*" element={<Page404 />} />
         </Routes>
       </Suspense>
