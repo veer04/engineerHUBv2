@@ -15,13 +15,13 @@ export default function StatsCarousel() {
           <div className="carousel-item active">
             <div className="stats-container">
               <p>
-                Students from across India, including those from IITs, NITs and
+                Student from across India, including those from IITs, NITs and
                 state colleges.
               </p>
               <div className="stat">
                 <CommunitySvg className="svg" />
-                <span>1,00,000+</span>
-                <span>Students</span>
+                <span>1,50,000+</span>
+                <span>Members</span>
               </div>
             </div>
           </div>
@@ -47,7 +47,7 @@ export default function StatsCarousel() {
               </p>
               <div className="stat">
                 <CompanySvg className="svg" />
-                <span>500+</span>
+                <span>600+</span>
                 <span>Companies</span>
               </div>
             </div>
@@ -84,8 +84,10 @@ export default function StatsCarousel() {
             <div className="svg-container">
               <CommunitySvg className="svg" />
             </div>
-            <span>1,00,000+</span>
-            <span>Students</span>
+            <span>1,50,000+</span>
+
+            <span>Members</span>
+
           </div>
         </div>
         <div className="second-line">
@@ -100,7 +102,7 @@ export default function StatsCarousel() {
             <div className="svg-container">
               <CompanySvg className="svg" />
             </div>
-            <span>500+</span>
+            <span>600+</span>
             <span>Companies</span>
           </div>
         </div>
