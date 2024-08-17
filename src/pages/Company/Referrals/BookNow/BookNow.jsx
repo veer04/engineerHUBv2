@@ -8,6 +8,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
 import { getAccessToken } from "../../../../features/getCookieValues";
 import axios from "axios";
+import useGlobalSnackbar from "../../../../hooks/useGlobalSnackbar";
+import { API_URL } from "../../../../services/APIUtils";
 
 const BookNow = () => {
   const [currentPage, setCurrentPage] = useState(0);
@@ -17,6 +19,13 @@ const BookNow = () => {
   const [meetingData, setMeetingData] = useState([]);
   const [datesArray, setDatesArray] = useState([]);
   const [timeArray, setTimeArray] = useState([]);
+  const {
+    setSnackbarOpen,
+    setSnackbarMessage,
+    setSnackbarSeverity,
+    setSnackbarDuration,
+  } = useGlobalSnackbar();
+  const [busyEventData, setBusyEventData] = useState([]);
 
   console.log(referralId, "hgfd");
 
@@ -127,7 +136,7 @@ const BookNow = () => {
         });
         dates.push({ day, date });
       }
-      startDate.setDate(startDate.getDate() + 1); // Move to the next day
+      startDate.setDate(startDate.getDate() + 1);
     }
 
     return dates;
@@ -214,38 +223,29 @@ const BookNow = () => {
     };
   }, [timeArray, currentPage]);
 
-  // const onSubmitConfirmDetails = async () => {
-  //   if (!selectedTime || !endTime) {
-  //     alert("Please select both the date and time.");
-  //     return;
-  //   }
-  //   try {
-  //     const config = {
-  //       headers: {
-  //         accessToken: getAccessToken(),
-  //       },
-  //     };
+  const getBusyEvent = async () => {
+    try {
+      const config = {
+        headers: {
+          accesstoken: getAccessToken(),
+        },
+      };
 
-  //     console.log(config, "jhgfdfgh");
-  //     const response = await axios.post(
-  //       `https://69de-2401-4900-1cbd-1081-a85d-3d0f-776-1657.ngrok-free.app/api/v1/meet-event/register/${referralId}`,
+      const { data } = await axios.get(
+        `${API_URL}api/v1/calendar/getFreeBusyData/${referralId}`,
+        config
+      );
 
-  //       {
-  //         startDateTime: selectedTime,
-  //         endDateTime: endTime,
-  //       },
-  //       config
-  //     );
+      console.log(data, "busyeventdata");
+      setBusyEventData(data?.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-  //     const data = await response.data;
-  //     console.log(data, "onfinishData");
-
-  //     // setDatesArray([]);
-  //     // setTimeArray([]);
-  //   } catch (error) {
-  //     console.error("Error Sending Th Data");
-  //   }
-  // };
+  useEffect(() => {
+    getBusyEvent();
+  }, [referralId]);
 
   const onSubmitConfirmDetails = async () => {
     if (!selectedTime || !endTime || !selectedDates) {
@@ -324,6 +324,11 @@ const BookNow = () => {
         },
         config
       );
+
+      if (response.status === 201) {
+        setSnackbarMessage("Registered  Meeting Successfully");
+        setSnackbarOpen(true);
+      }
 
       const data = await response.data;
       console.log(data, "onfinishData");
