@@ -1,6 +1,6 @@
 .main-container-connect {
   max-width: 1161px;
-  height: 491px;
+  height: auto;
   margin: 0 auto;
   background-color: white;
   border-radius: 15px;
@@ -27,7 +27,7 @@
   margin-bottom: 10px;
 }
 
-.filter-cards-btns button:first-child {
+/* .filter-cards-btns button:first-child {
   background-color: #138382;
   padding: 4px 16px;
   border-radius: 10px;
@@ -57,7 +57,7 @@
   padding: 4px 16px;
   border-radius: 10px;
   border: none;
-}
+} */
 
 .connect-cards {
   display: grid;

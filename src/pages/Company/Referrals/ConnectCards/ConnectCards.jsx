@@ -1,9 +1,11 @@
 import React from "react";
 import "./connectcard.css";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const ConnectCards = ({ id, title, desc, duration, price, type }) => {
   const navigate = useNavigate();
+  const location = useLocation();
+  console.log(location, "location");
 
   const handleBookNow = () => {
     navigate(`/referrals/book-now/${id}`);
@@ -47,16 +49,28 @@ const ConnectCards = ({ id, title, desc, duration, price, type }) => {
 
         {/* //heading resume saif */}
         <div style={{ marginTop: "10px" }}>
-          <h5 className="resume-title">{title}</h5>
+          <h5
+            style={{
+              whiteSpace: "nowrap",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+            }}
+            className="resume-title"
+          >
+            {title}
+          </h5>
         </div>
 
         <div className="meeting-duration">
           <div className="m-left-duration">
-            <h5 style={{ fontSize: "12px", color: "#547178" }}>
+            <h5
+              className="text-h5"
+              style={{ fontSize: "12px", color: "#547178" }}
+            >
               Meeting Duration
             </h5>
             <h5
-              style={{ fontSize: "20px", fontWeight: "600", marginTop: "-5px" }}
+              style={{ fontSize: "18px", fontWeight: "500", marginTop: "-5px" }}
             >
               {duration}
             </h5>
@@ -67,15 +81,22 @@ const ConnectCards = ({ id, title, desc, duration, price, type }) => {
           <div className="m-right-duration">
             <h5 style={{ fontSize: "12px", color: "#547178" }}>Amount</h5>
             <h5
-              style={{ fontSize: "20px", fontWeight: "600", marginTop: "-5px" }}
+              style={{ fontSize: "18px", fontWeight: "500", marginTop: "-5px" }}
             >
-              {price}
+              &#8377;{price === 0 ? "Free" : price}
             </h5>
           </div>
         </div>
 
         <div className="btn-book-now">
-          <button onClick={handleBookNow}>Book Now</button>
+          {location.pathname === "/referrals" ||
+          location.pathname === "/referrals/" ? (
+            <button style={{ color: "white" }} onClick={handleBookNow}>
+              Book Now
+            </button>
+          ) : location.pathname === "/referrals/book-now/payment/" ? (
+            <button style={{ color: "white" }}>Add Now</button>
+          ) : null}
         </div>
       </div>
     </>

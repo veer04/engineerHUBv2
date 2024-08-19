@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./booknow.css";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import FeedBackCarousalForBookNow from "../FeedbackCarousalForBookNow/FeedBackCarousalForBookNow";
 import DateBoxes from "../DateBoxesCard/DateBoxes";
 import TimeBox from "../TimeBox/TimeBox";
@@ -10,6 +10,7 @@ import { getAccessToken } from "../../../../features/getCookieValues";
 import axios from "axios";
 import useGlobalSnackbar from "../../../../hooks/useGlobalSnackbar";
 import { API_URL } from "../../../../services/APIUtils";
+import StepIndicator from "../StepIndicator/StepIndicator";
 
 const BookNow = () => {
   const [currentPage, setCurrentPage] = useState(0);
@@ -26,6 +27,14 @@ const BookNow = () => {
     setSnackbarDuration,
   } = useGlobalSnackbar();
   const [busyEventData, setBusyEventData] = useState([]);
+  const navigate = useNavigate();
+
+  // useEffect(() => {
+  //   const carouselElement = document.querySelector("#feedbackCarousel");
+  //   if (carouselElement) {
+  //     new bootstrap.Carousel(carouselElement);
+  //   }
+  // }, []);
 
   console.log(referralId, "hgfd");
 
@@ -201,13 +210,13 @@ const BookNow = () => {
   // const timeArray = generateTimeArray();
 
   useEffect(() => {
-    setDatesArray(generateDatesForYear());
-    setTimeArray(generateTimeArray());
+    if (referralId) {
+      setDatesArray(generateDatesForYear());
+      setTimeArray(generateTimeArray());
+    }
   }, [referralId]);
 
   const totalPages = Math.ceil(timeArray.length / timesPerPage);
-
-  // console.log(timeArray, "tiemarray");
 
   useEffect(() => {
     const carouselElement = carouselRef.current;
@@ -232,7 +241,7 @@ const BookNow = () => {
       };
 
       const { data } = await axios.get(
-        `${API_URL}api/v1/calendar/getFreeBusyData/${referralId}`,
+        `https://meet-engineerhub.onrender.com/api/v1/calendar/getFreeBusyData/${referralId}`,
         config
       );
 
@@ -253,100 +262,76 @@ const BookNow = () => {
       return;
     }
 
-    try {
-      // Function to convert 12-hour time to 24-hour format
-      const convertTo24Hour = (time, meridiem) => {
-        let [hours, minutes] = time.split(":");
-        hours = parseInt(hours, 10);
-        if (meridiem === "PM" && hours !== 12) hours += 12;
-        if (meridiem === "AM" && hours === 12) hours = 0;
-        return `${hours.toString().padStart(2, "0")}:${minutes}`;
-      };
+    // Function to convert 12-hour time to 24-hour format
+    const convertTo24Hour = (time, meridiem) => {
+      let [hours, minutes] = time.split(":");
+      hours = parseInt(hours, 10);
+      if (meridiem === "PM" && hours !== 12) hours += 12;
+      if (meridiem === "AM" && hours === 12) hours = 0;
+      return `${hours.toString().padStart(2, "0")}:${minutes}`;
+    };
 
-      // Function to parse date and set current year
-      const parseDate = (dateString) => {
-        const date = new Date(dateString);
-        const currentYear = new Date().getFullYear();
-        date.setFullYear(currentYear); // Set the current year
-        return date; // Return as a Date object
-      };
+    // Function to parse date and set current year
+    const parseDate = (dateString) => {
+      const date = new Date(dateString);
+      const currentYear = new Date().getFullYear();
+      date.setFullYear(currentYear); // Set the current year
+      return date; // Return as a Date object
+    };
 
-      // Format times with 24-hour conversion
-      const startTimeMeridiem = selectedTime.split(" ")[1]; // AM or PM
-      const endTimeMeridiem = endTime.split(" ")[1]; // AM or PM
+    // Format times with 24-hour conversion
+    const startTimeMeridiem = selectedTime.split(" ")[1]; // AM or PM
+    const endTimeMeridiem = endTime.split(" ")[1]; // AM or PM
 
-      const startTime24 = convertTo24Hour(
-        selectedTime.split(" ")[0],
-        startTimeMeridiem
-      );
-      const endTime24 = convertTo24Hour(endTime.split(" ")[0], endTimeMeridiem);
+    const startTime24 = convertTo24Hour(
+      selectedTime.split(" ")[0],
+      startTimeMeridiem
+    );
+    const endTime24 = convertTo24Hour(endTime.split(" ")[0], endTimeMeridiem);
 
-      // Create Date objects with local time
-      const startDate = parseDate(selectedDates);
-      const endDate = new Date(startDate); // Create a new date object for end time
+    // Create Date objects with local time
+    const startDate = parseDate(selectedDates);
+    const endDate = new Date(startDate); // Create a new date object for end time
 
-      // Adjust for start time
-      const [startHours, startMinutes] = startTime24.split(":");
-      startDate.setHours(parseInt(startHours, 10));
-      startDate.setMinutes(parseInt(startMinutes, 10));
+    // Adjust for start time
+    const [startHours, startMinutes] = startTime24.split(":");
+    startDate.setHours(parseInt(startHours, 10));
+    startDate.setMinutes(parseInt(startMinutes, 10));
 
-      // Adjust for end time
-      const [endHours, endMinutes] = endTime24.split(":");
-      endDate.setHours(parseInt(endHours, 10));
-      endDate.setMinutes(parseInt(endMinutes, 10));
+    // Adjust for end time
+    const [endHours, endMinutes] = endTime24.split(":");
+    endDate.setHours(parseInt(endHours, 10));
+    endDate.setMinutes(parseInt(endMinutes, 10));
 
-      // Convert to ISO 8601 format without milliseconds
-      const formatISOWithoutMilliseconds = (date) => {
-        // Adjust to local time zone and format
-        return date.toISOString().split(".")[0] + "Z";
-      };
+    // Convert to ISO 8601 format without milliseconds
+    const formatISOWithoutMilliseconds = (date) => {
+      // Adjust to local time zone and format
+      return date.toISOString().split(".")[0] + "Z";
+    };
 
-      // Output for debugging
-      console.log("Start DateTime Object:", startDate);
-      console.log("End DateTime Object:", endDate);
+    // Output for debugging
+    console.log("Start DateTime Object:", startDate);
+    console.log("End DateTime Object:", endDate);
 
-      const startDateTimeISO = formatISOWithoutMilliseconds(startDate);
-      const endDateTimeISO = formatISOWithoutMilliseconds(endDate);
+    const startDateTimeISO = formatISOWithoutMilliseconds(startDate);
+    const endDateTimeISO = formatISOWithoutMilliseconds(endDate);
 
-      console.log(startDateTimeISO, endDateTimeISO, "hgfd");
+    console.log(startDateTimeISO, endDateTimeISO, "hgfd");
 
-      const config = {
-        headers: {
-          accessToken: getAccessToken(),
-        },
-      };
-
-      const response = await axios.post(
-        `https://meet-engineerhub.onrender.com/api/v1/meet-event/register/${referralId}`,
-        {
-          startDateTime: startDateTimeISO,
-          endDateTime: endDateTimeISO,
-        },
-        config
-      );
-
-      if (response.status === 201) {
-        setSnackbarMessage("Registered  Meeting Successfully");
-        setSnackbarOpen(true);
-      }
-
-      const data = await response.data;
-      console.log(data, "onfinishData");
-
-      axios
-        .post(
-          `https://meet-engineerhub.onrender.com/api/v1/meet-event/book/${data?.data?.meetRegistrationId}`,
-          {},
-          config
-        )
-        .then((res) => console.log(res.data))
-        .catch((err) => console.log(err));
-
-      // setDatesArray([]);
-      // setTimeArray([]);
-    } catch (error) {
-      console.error("Error Sending The Data", error);
-    }
+    setSnackbarMessage("Registered  Meeting Successfully");
+    setSnackbarOpen(true);
+    localStorage.setItem("selectedDates", JSON.stringify(selectedDates));
+    localStorage.setItem("selectedTime", JSON.stringify(selectedTime));
+    localStorage.setItem("meetingData", JSON.stringify(meetingData));
+    navigate("/referrals/book-now/payment/", {
+      state: {
+        selectedDates,
+        selectedTime,
+        meetingData,
+        startDateTimeISO,
+        endDateTimeISO,
+      },
+    });
   };
 
   return (
@@ -398,7 +383,7 @@ const BookNow = () => {
                   marginTop: "-5px",
                 }}
               >
-                {meetingData.price}
+                {meetingData.duration}
               </h5>
             </div>
 
@@ -413,7 +398,7 @@ const BookNow = () => {
                   marginTop: "-5px",
                 }}
               >
-                ₹399
+                {meetingData.price}
               </h5>
             </div>
           </div>
@@ -469,7 +454,7 @@ const BookNow = () => {
       </div>
       <div className="right-booknow-container">
         <div>
-          <h3 className="what-time-text">What time should we meet?</h3>
+          <h3 className="what-time-text">What day should we meet?</h3>
         </div>
         <div id="dateCarousel" className="carousel slide" ref={carouselRef}>
           <div className="carousel-inner">
@@ -581,10 +566,15 @@ const BookNow = () => {
               onClick={onSubmitConfirmDetails}
               className="confirm-btn-link"
             >
-              Confirm Details
+              Confirm Slots
             </button>
+
+            {/* <button data-bs-toggle="modal" data-bs-target="#stepindicatormodal">
+              Modal
+            </button> */}
           </div>
         </div>
+        {/* <StepIndicator currentStep={1} /> */}
       </div>
     </div>
   );

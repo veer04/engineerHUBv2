@@ -32,11 +32,11 @@
   }
 }
 
-.filter-cards-btns button {
+/* .filter-cards-btns button {
   background-color: #138382;
   color: white;
   transition: background-color 0.3s, color 0.3s;
-}
+} */
 
 .digital-cards.hidden {
   opacity: 0;

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, lazy, Suspense } from "react";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import "./App.css";
 import "./styles/DesignSystem.js";
 import OTP from "./pages/User/OtpVerification/Otpverification";
@@ -49,6 +49,9 @@ import EventWindow from "./pages/Community/Events/EventWindow.jsx";
 import BlogWindow from "./pages/Community/Blogs/BlogWindow.jsx";
 import NewFooter from "./components/Footer/NewFooter.jsx";
 import BookNow from "./pages/Company/Referrals/BookNow/BookNow.jsx";
+import BookNowPayment from "./pages/Company/Referrals/BookNowPayment/BookNowPayment.jsx";
+import BookNowPaymentSuccess from "./pages/Company/Referrals/BookNowPaymentSuccess/BookNowPaymentSuccess.jsx";
+import CompanyWisePrep from "./pages/Company/Referrals/CompanyWisePrep/CompanyWisePrep.jsx";
 // import PopUpModalBootstrap from "./components/PopUpModal/PopUpModalBootstrap.jsx";
 const JobsPage = lazy(() => import("./pages/Company/Jobs/JobsPage.jsx"));
 const InternshipsPage = lazy(() =>
@@ -125,6 +128,8 @@ function App() {
   useEffect(() => {
     setOtpRoute(Boolean(sessionStorage.getItem("OtpRoute")));
   });
+
+  const location = useLocation();
 
   return (
     <>
@@ -293,12 +298,33 @@ function App() {
           <Route path="/referrals" element={<Referrals />} />
           {/* <Route path="/referrals/book-now" element={<BookNow />} /> */}
           <Route path="/referrals/book-now/:referralId" element={<BookNow />} />
+          <Route
+            path="/referrals/book-now/payment"
+            element={<BookNowPayment />}
+          />
+
+          <Route
+            path="/referrals/book-now/payment/success"
+            element={<BookNowPaymentSuccess />}
+          />
+
+          <Route
+            path="/referrals/product-book-now"
+            element={<CompanyWisePrep />}
+          />
 
           <Route path="*" element={<Page404 />} />
         </Routes>
       </Suspense>
 
-      <NewFooter />
+      {location.pathname === "/referrals" ||
+      location.pathname === "/referrals/book-now/payment" ||
+      location.pathname === "/referrals/book-now/payment/" ||
+      location.pathname === "/referrals/product-book-now/" ||
+      location.pathname === "/referrals/product-book-now" ||
+      location.pathname === "/referral/book-now" ? null : (
+        <NewFooter />
+      )}
     </>
   );
 }
