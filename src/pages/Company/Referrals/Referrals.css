@@ -11,21 +11,6 @@
   justify-content: space-between;
 }
 
-.referral-main-container::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 1161px;
-  height: 538px;
-  margin: 20px auto;
-  background-image: url("/frame_referral.png");
-  background-size: cover;
-  background-position: center;
-  opacity: 0.05;
-  z-index: -0.8;
-}
-
 .b-left-side {
   margin-top: 80px;
   width: 429px;
@@ -107,16 +92,18 @@
     width: 100%;
     height: 100%;
     border-radius: 0;
-    gap: 10px;
+    margin: 0;
+    gap: 0;
   }
 
   .referral-main-container::before {
     width: 100%;
     height: 100%;
+    gap: 0;
   }
 
   .b-left-side {
-    width: 100%;
+    width: fit-content;
   }
 
   .b-left-side .ref-txt {

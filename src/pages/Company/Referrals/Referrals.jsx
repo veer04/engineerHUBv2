@@ -9,11 +9,21 @@ import vectorComp3 from "../../../../public/Vector3.svg";
 import ConnectWithUs from "./ConnectWithUs";
 import DigitalProducts from "./DigitalProducts/DigitalProducts";
 import ReferralRatings from "./ReferralRatings/ReferralRatings";
+import ReferralPageBanner from "./ReferralPageBanner.png";
+import { HashLink } from "react-router-hash-link";
 
 const Referrals = () => {
   return (
     <>
-      <div className="referral-main-container">
+      <div
+        style={{
+          backgroundImage: `url(${ReferralPageBanner})`,
+          backgroundSize: "cover",
+          backgroundRepeat: "no-repeat",
+          backgroundPosition: "center",
+        }}
+        className="referral-main-container"
+      >
         <div className="b-left-side">
           <h2 className="ref-txt">Referral, products, mentorship & more...</h2>
           <h5 className="ref-sm-txt">
@@ -22,9 +32,13 @@ const Referrals = () => {
             candidates.
           </h5>
           <div className="referral-btn">
-            <button className="btn-l">Referrals</button>
+            <HashLink to="/referrals#referral-section" >
+              <button className="btn-l">Referrals</button>
+            </HashLink>
+            <HashLink to="/referrals#digital-product" >
             <button className="btn-r">Digital Products</button>
-          </div>
+            </HashLink>
+            </div>
         </div>
 
         {/* //right side div saif */}
