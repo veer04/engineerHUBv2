@@ -64,7 +64,7 @@ const ConnectWithUs = ({ compName }) => {
     }
   };
   return (
-    <div className="main-container-connect">
+    <div id="referral-section" className="main-container-connect">
       <div>
         <h4 className="connect-txt">{compName}</h4>
       </div>

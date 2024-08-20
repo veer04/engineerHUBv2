@@ -36,7 +36,7 @@ const DigitalProducts = ({ compName }) => {
     }
   };
   return (
-    <div className="main-container-prdoucts">
+    <div id="digital-product" className="main-container-prdoucts">
       <div>
         <h4 className="connect-txt">{compName}</h4>
       </div>
@@ -93,25 +93,27 @@ const DigitalProducts = ({ compName }) => {
         ))}
       </div>
 
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          marginTop: "10px",
-        }}
-      >
-        <div className="button-container">
-          <span className="view-btn">View more</span>
-          <div className="icon-container">
-            <img
-              src="/chevro-right.svg"
-              alt="Chevron"
-              className="chevron-icon"
-            />
+      {visibleCards?.length > 3 && (
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            marginTop: "10px",
+          }}
+        >
+          <div className="button-container">
+            <span className="view-btn">View more</span>
+            <div className="icon-container">
+              <img
+                src="/chevro-right.svg"
+                alt="Chevron"
+                className="chevron-icon"
+              />
+            </div>
           </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };
