@@ -6,7 +6,7 @@ const BookNowPaymentSuccess = () => {
     <div className="main-success-cont">
       <div className="main-sub-success">
         <h3 style={{ fontSize: "22px", textAlign: "center", fontWeight: 600 }}>
-          Congratulations, Name
+          Congratulations
         </h3>
 
         <div className="main-svg-el1">
