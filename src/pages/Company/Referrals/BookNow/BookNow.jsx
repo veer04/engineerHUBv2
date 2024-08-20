@@ -398,7 +398,7 @@ const BookNow = () => {
                   marginTop: "-5px",
                 }}
               >
-                {meetingData.price}
+                &#8377;{meetingData.price === 0 ? "Free" : meetingData.price}
               </h5>
             </div>
           </div>

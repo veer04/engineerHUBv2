@@ -107,16 +107,18 @@
     width: 100%;
     height: 100%;
     border-radius: 0;
-    gap: 10px;
+    margin: 0;
+    gap: 0;
   }
 
   .referral-main-container::before {
     width: 100%;
     height: 100%;
+    gap: 0;
   }
 
   .b-left-side {
-    width: 100%;
+    width: fit-content;
   }
 
   .b-left-side .ref-txt {

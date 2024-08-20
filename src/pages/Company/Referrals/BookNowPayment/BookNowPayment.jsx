@@ -280,10 +280,10 @@ const BookNowPayment = () => {
 
           // localStorage.setItem("registrationData", JSON.stringify(data));
 
-          if (meetingData.price == 0) {
+          if (meetingData?.price == 0 || meetingData?.price) {
             await axios
               .post(
-                `https://meet-engineerhub.onrender.com/api/v1/meet-event/book/${data?.data?.meetRegistrationId}`,
+                `https://payment.betatestserverbackend.engineerhub.in/api/v1/meet-event/book/${data?.data?.meetRegistrationId}`,
                 {},
                 {
                   headers: {
@@ -332,7 +332,7 @@ const BookNowPayment = () => {
       const payload = {
         amount: totalPrice,
         currency: "INR",
-        callback_url: `${REFERRAL_REDIRECT_URL}/referrals/book-now/payment/success`,
+        callback_url: `${REFERRAL_REDIRECT_URL}/referrals/book-now/payment/success?date=${selectedDates}?time=${selectedTime}`,
         callback_method: "get",
         platform: "meet",
         meetRegistrationId: meetId.meetRegistrationId,

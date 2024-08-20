@@ -1,7 +1,16 @@
 import React from "react";
 import "./booknowpaymentsuccess.css";
+import { useSearchParams } from "react-router-dom";
 
 const BookNowPaymentSuccess = () => {
+  const [params, setParams] = useSearchParams({
+    selectedDates: "",
+    selectedTime: "",
+  });
+
+  const a = params.get("selectedDates");
+  const b = params.get("selectedTime");
+
   return (
     <div className="main-success-cont">
       <div className="main-sub-success">
@@ -33,8 +42,8 @@ const BookNowPaymentSuccess = () => {
             <img style={{ marginRight: "10px" }} src="/Calender2.svg" alt="" />
 
             <div>
-              <h4 className="data-text-h4">{"Thu, 26"}</h4>
-              <h5 className="data-text-h5">{"1:00 AM - 1:30 AM "}</h5>
+              <h4 className="data-text-h4">{a}</h4>
+              <h5 className="data-text-h5">{b}</h5>
             </div>
           </div>
 
