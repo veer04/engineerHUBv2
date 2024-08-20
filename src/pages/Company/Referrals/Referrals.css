@@ -110,6 +110,11 @@
     gap: 10px;
   }
 
+  .referral-main-container::before {
+    width: 100%;
+    height: 100%;
+  }
+
   .b-left-side {
     width: 100%;
   }

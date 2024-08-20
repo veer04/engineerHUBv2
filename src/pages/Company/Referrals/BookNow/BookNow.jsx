@@ -318,7 +318,7 @@ const BookNow = () => {
 
     console.log(startDateTimeISO, endDateTimeISO, "hgfd");
 
-    setSnackbarMessage("Registered  Meeting Successfully");
+    setSnackbarMessage("Slot Booked Successfully");
     setSnackbarOpen(true);
     localStorage.setItem("selectedDates", JSON.stringify(selectedDates));
     localStorage.setItem("selectedTime", JSON.stringify(selectedTime));
@@ -574,7 +574,7 @@ const BookNow = () => {
             </button> */}
           </div>
         </div>
-        {/* <StepIndicator currentStep={1} /> */}
+        {/* <StepIndicator currentStep={2} /> */}
       </div>
     </div>
   );
