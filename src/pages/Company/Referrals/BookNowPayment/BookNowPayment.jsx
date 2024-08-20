@@ -1,0 +1,874 @@
+import React, { useEffect, useState } from "react";
+import "./booknowpayment.css";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
+import FormInputFileUpload from "../../../../components/FormInputs/FormInputFileUpload";
+import { FaFilePdf } from "react-icons/fa";
+import FormInputToggle from "../../../../components/FormInputs/FormInputToggle";
+import useGlobalSnackbar from "../../../../hooks/useGlobalSnackbar";
+import ConnectCards from "../ConnectCards/ConnectCards";
+import { getAccessToken } from "../../../../features/getCookieValues";
+import axios from "axios";
+import { REFERRAL_REDIRECT_URL } from "../../../../services/APIUtils";
+
+const BookNowPayment = () => {
+  const [name, setName] = useState([]);
+  const [phoneNumber, setPhoneNumber] = useState([]);
+  const [email, setEmail] = useState([]);
+  const [resume, setResume] = useState("");
+  const [extraQuestions, setExtraQuestions] = useState([]);
+  const [usePreviousResume, setUsePreviousResume] = useState(false);
+  const [isResumePresent, setIsResumePresent] = useState(false);
+  const [allMeetData, setAllMeetData] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
+  const [meetId, setMeetId] = useState([]);
+  const [paymentData, setPaymentData] = useState([]);
+
+  // location.state.startDateTimeISO || JSON.parse(localStorage.getItem("startDateTimeISO"));
+  const location = useLocation();
+  const { startDateTimeISO, endDateTimeISO } = location.state || {};
+
+  const [selectedDates, setSelectedDates] = useState(() => {
+    return (
+      location.state?.selectedDates ||
+      JSON.parse(localStorage.getItem("selectedDates"))
+    );
+  });
+
+  const [selectedTime, setSelectedTime] = useState(() => {
+    return (
+      location.state?.selectedTime ||
+      JSON.parse(localStorage.getItem("selectedTime"))
+    );
+  });
+
+  const [meetingData, setMeetingData] = useState(() => {
+    return (
+      location.state?.meetingData ||
+      JSON.parse(localStorage.getItem("meetingData"))
+    );
+  });
+
+  useEffect(() => {
+    if (selectedDates)
+      localStorage.setItem("selectedDates", JSON.stringify(selectedDates));
+    if (selectedTime)
+      localStorage.setItem("selectedTime", JSON.stringify(selectedTime));
+    if (meetingData)
+      localStorage.setItem("meetingData", JSON.stringify(meetingData));
+    if (startDateTimeISO)
+      localStorage.setItem(
+        "startDateTimeISO",
+        JSON.stringify(startDateTimeISO)
+      );
+    if (endDateTimeISO)
+      localStorage.setItem("endDateTimeISO", JSON.stringify(endDateTimeISO));
+  }, [
+    selectedDates,
+    selectedTime,
+    meetingData,
+    startDateTimeISO,
+    endDateTimeISO,
+  ]);
+
+  const price = meetingData.price;
+  const gst = 0.18;
+  const platformFees = 0.02;
+  const gstAmount = price * gst;
+  const platformAmount = price * platformFees;
+
+  const totalPrice = price + gstAmount + platformAmount;
+
+  const getAllOpenMeet = async () => {
+    try {
+      const response = await fetch(
+        `https://meet-engineerhub.onrender.com/api/v1/meet/open`
+      );
+
+      if (response.ok) {
+        const data = await response.json();
+        setAllMeetData(data?.data);
+
+        console.log(data, "getallmeetdata");
+      } else {
+        throw new Error("error getting the data");
+      }
+    } catch (error) {
+      console.error("error getting the data");
+    }
+  };
+
+  useEffect(() => {
+    getAllOpenMeet();
+  }, []);
+
+  const handleNext = () => {
+    const carousel = document.querySelector("#connectCardsCarousel");
+    if (carousel) {
+      const carouselInstance = new bootstrap.Carousel(carousel);
+      carouselInstance.next();
+    }
+  };
+
+  const {
+    setSnackbarOpen,
+    setSnackbarMessage,
+    setSnackbarSeverity,
+    setSnackbarDuration,
+  } = useGlobalSnackbar();
+  let errorStack = [];
+
+  function addToErrorStack(elem) {
+    errorStack.push(elem);
+  }
+  const [errors, setErrors] = useState({
+    name: "",
+    phoneNumber: "",
+    email: "",
+    resume: "",
+    extraQuestions: "",
+  });
+
+  function handleFormErrors() {
+    if (errorStack.length > 0) {
+      const element = document.querySelector(errorStack[0]);
+      if (element) {
+        window.scrollTo({
+          behavior: "smooth",
+          top: element.offsetTop - 200,
+        });
+      }
+      setSnackbarMessage("Please fill all the required fields");
+      setSnackbarSeverity("error");
+      setSnackbarOpen(true);
+    }
+    errorStack = [];
+  }
+
+  function validateForm() {
+    let isValid = true;
+    const errors = {
+      name: "",
+      phoneNumber: "",
+      email: "",
+      resume: "",
+      extraQuestions: "",
+    };
+
+    if (name.length === 0) {
+      errors.name = "Name is Required";
+      isValid = false;
+      addToErrorStack("#name");
+    }
+    if (!phoneNumber) {
+      errors.phoneNumber = "Phone Number is Required";
+      isValid = false;
+      addToErrorStack("#phoneNumber");
+    } else if (phoneNumber.length !== 10) {
+      errors.phoneNumber = "Phone Number must be exactly 10 digits";
+      isValid = false;
+    }
+
+    if (!email) {
+      errors.email = "Email is Required";
+      isValid = false;
+      addToErrorStack("#email");
+    }
+    if (!usePreviousResume && !resume) {
+      errors.resume = "Resume is required";
+      isValid = false;
+      addToErrorStack("#resume");
+    }
+    if (!extraQuestions) {
+      errors.extraQuestions = "Extra Questions is Required";
+      isValid = false;
+      addToErrorStack("#extraQuestions");
+    }
+
+    setErrors(errors);
+    handleFormErrors();
+    return isValid;
+  }
+
+  const validateInput1 = () => {
+    let valid = true;
+    const newErrors = {
+      name: "",
+      phoneNumber: "",
+      email: "",
+      resume: "",
+      extraQuestions: "",
+    };
+
+    if (!name) {
+      newErrors.name = "name is required";
+      valid = false;
+    } else if (!/^[a-zA-Z\d\s]+$/.test(name)) {
+      newErrors.name = "Name should not contain special characters";
+      valid = false;
+    } else if (name.length < 3) {
+      newErrors.name = "Name should be at least 3 characters";
+      valid = false;
+    }
+    if (!phoneNumber) {
+      newErrors.phoneNumber = "Phone Number is required";
+      valid = false;
+    } else if (phoneNumber.length < 10) {
+      newErrors.phoneNumber = "Phone Number should be at least 10 digits";
+      valid = false;
+    }
+    if (!email) {
+      newErrors.email = "Email is required";
+      valid = false;
+    }
+    if (!resume) {
+      newErrors.resume = "Resume is required";
+      valid = false;
+    }
+    setErrors(newErrors);
+    return valid;
+  };
+
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    if (!validateForm() || !validateInput1()) {
+      return;
+    }
+    setIsLoading(true);
+    const payload = {
+      name: name,
+      mobile: phoneNumber,
+      email: email,
+
+      extraQuestions: extraQuestions,
+      startDateTime: startDateTimeISO,
+      endDateTime: endDateTimeISO,
+    };
+
+    axios
+      .post(
+        `https://meet-engineerhub.onrender.com/api/v1/meet-event/register/${meetingData._id}`,
+        payload,
+        {
+          headers: {
+            accessToken: getAccessToken(),
+          },
+        }
+      )
+      .then(async (res) => {
+        if (
+          res.status === 200 ||
+          res.status === 201 ||
+          res.status === 202 ||
+          res.status === 203 ||
+          res.status === 204
+        ) {
+          const data = res.data;
+          console.log(data, "Detaileddata");
+          setMeetId(data?.data);
+          setSnackbarMessage(
+            "You Have Submitted all the details successfully!"
+          );
+          setSnackbarSeverity("success");
+          setSnackbarOpen(true);
+          setIsLoading(false);
+          setName([]);
+          setPhoneNumber([]);
+          setEmail([]);
+          setResume([]);
+          setExtraQuestions([]);
+
+          // localStorage.setItem("registrationData", JSON.stringify(data));
+
+          if (meetingData.price == 0) {
+            await axios
+              .post(
+                `https://meet-engineerhub.onrender.com/api/v1/meet-event/book/${data?.data?.meetRegistrationId}`,
+                {},
+                {
+                  headers: {
+                    accessToken: getAccessToken(),
+                  },
+                }
+              )
+              .then((res) => {
+                if (
+                  res.status === 200 ||
+                  res.status === 201 ||
+                  res.status === 202 ||
+                  res.status === 203 ||
+                  res.status === 204
+                ) {
+                  const data = res.data;
+                  console.log(data, "meetregistrationdata");
+                  setSnackbarMessage("Your meet has been booked successfully!");
+                  setSnackbarSeverity("success");
+                }
+              });
+          }
+        }
+      })
+      .catch((res) => {
+        if (res.status === 409) {
+          window.alert("Fill the Details!");
+        }
+        setSnackbarMessage(
+          "Some server error occurred while applying for this job!"
+        );
+        setSnackbarSeverity("error");
+        setSnackbarOpen(true);
+        setIsLoading(false);
+      });
+
+    console.log("Name:", name);
+    console.log("Phone Number:", phoneNumber);
+    console.log("Email:", email);
+    console.log("resume", resume);
+    console.log("extraquesrions", extraQuestions);
+  };
+
+  const handlePay = async () => {
+    try {
+      const payload = {
+        amount: totalPrice,
+        currency: "INR",
+        callback_url: REFERRAL_REDIRECT_URL,
+        callback_method: "get",
+        platform: "meet",
+        meetRegistrationId: meetId.meetRegistrationId,
+      };
+
+      console.log(typeof payload.amount, "normal");
+      console.log(typeof Number(payload.amount), "float");
+      console.log(typeof parseFloat(payload.amount), "amount");
+
+      const response = await axios.post(
+        `https://ca87-52-66-146-44.ngrok-free.app/api/v1/razorpay/createPaymentLink`,
+
+        payload,
+        {
+          headers: {
+            accessToken: getAccessToken(),
+          },
+        }
+      );
+
+      const data = response.data;
+      if (
+        data.status === 201 ||
+        data.status === 200 ||
+        data.status === 202 ||
+        data.status === 203 ||
+        data.status === 204
+      ) {
+        setSnackbarMessage("You Have paid successfully");
+        setSnackbarOpen(true);
+        setPaymentData(data);
+        navigate();
+      }
+
+      console.log(data, "paymentData");
+    } catch (error) {
+      console.error("error getting the data");
+    }
+  };
+
+  return (
+    <div className="main-book-now-payment">
+      <div className="main-book-now-container">
+        <div className="book-goback-div">
+          <div className="book-goback-btn">
+            <img src="/chevro-left.svg" alt="" />
+            <Link to={`/referrals/`} className="goback-button-link">
+              Go Back
+            </Link>
+          </div>
+          {/* rating button */}
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              backgroundColor: "white",
+              width: "63px",
+              height: "32px",
+              padding: "4px 14px",
+              gap: 3,
+              borderRadius: 10,
+              boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.08)",
+            }}
+          >
+            <h5 style={{ fontSize: "13px", marginTop: "10px" }}>5</h5>
+            <img src={"/star.svg"} alt="" width={16} height={16} />
+          </div>
+
+          {/* rating button */}
+        </div>
+
+        <div className="text-div">
+          <h4 className="text-h4">{meetingData.title}</h4>
+        </div>
+
+        <div className="calendar-change">
+          <div className="calendar-content-data">
+            <img style={{ marginRight: "10px" }} src="/calendar.svg" alt="" />
+
+            <div>
+              <h4 className="data-text-h4">{selectedDates}</h4>
+              <h5 className="data-text-h5">{selectedTime}</h5>
+            </div>
+          </div>
+
+          <div className="calendar-button">
+            <button
+              onClick={() => navigate(`/referrals/book-now/${meetingData._id}`)}
+              className="calendar-btn-link"
+            >
+              Change
+            </button>
+          </div>
+        </div>
+
+        <div style={{ margin: "40px 0px" }}>
+          <form onSubmit={handleFormSubmit}>
+            <div
+              className="main-cont-name-phone"
+              style={{ display: "flex", gap: "10px" }}
+            >
+              <div className="name-cont">
+                <label
+                  style={{
+                    color: "#002B36",
+                    fontSize: "14px",
+                    fontWeight: "500",
+                  }}
+                >
+                  Name
+                </label>
+                <input
+                  required
+                  style={{
+                    padding: 15,
+                    borderRadius: "5px",
+                    border: "1px solid #cdcdcd",
+                    marginTop: "5px",
+                    marginLeft: "3px",
+                    color: "#002B36",
+                    fontSize: 14,
+                  }}
+                  type="text"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  placeholder="Enter Your Name"
+                />
+              </div>
+              <div className="phone-cont">
+                <label
+                  style={{
+                    color: "#002B36",
+                    fontSize: "14px",
+                    fontWeight: "500",
+                  }}
+                >
+                  Phone Number
+                </label>
+                <input
+                  required
+                  style={{
+                    padding: 15,
+                    borderRadius: "5px",
+                    border: "1px solid #cdcdcd",
+                    marginTop: "5px",
+                    marginLeft: "3px",
+                    color: "#002B36",
+                    fontSize: 14,
+                  }}
+                  value={phoneNumber}
+                  onChange={(e) => setPhoneNumber(e.target.value)}
+                  type="text"
+                  placeholder="Enter Your Phone Number"
+                />
+              </div>
+            </div>
+            <div style={{ marginTop: 20 }}>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  width: "100%    ",
+                }}
+              >
+                <label
+                  style={{
+                    color: "#002B36",
+                    fontSize: "14px",
+                    fontWeight: "500",
+                  }}
+                >
+                  Email
+                </label>
+                <input
+                  required
+                  style={{
+                    padding: 15,
+                    borderRadius: "5px",
+                    border: "1px solid #cdcdcd",
+                    marginTop: "5px",
+                    marginLeft: "3px",
+                    color: "#002B36",
+                    fontSize: 14,
+                  }}
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  type="text"
+                  placeholder="Enter your email"
+                />
+              </div>
+            </div>
+
+            <div style={{ marginTop: 20 }}>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  width: "100%",
+                  marginLeft: "4px",
+                }}
+              >
+                {isResumePresent && (
+                  <FormInputToggle
+                    label="Use previous resume"
+                    id="previousResume"
+                    name="previousResume"
+                    value={usePreviousResume}
+                    setValue={setUsePreviousResume}
+                    helperText={errors.usePreviousResume}
+                    className="mb-2"
+                  />
+                )}
+                {usePreviousResume ? (
+                  <>
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "flex-start",
+                        padding: "0 14px",
+                      }}
+                      className="mimic-file-upload"
+                    >
+                      <FaFilePdf
+                        style={{
+                          color: "#ff1b0e",
+                          fontSize: "1.5rem",
+                          marginRight: ".5rem",
+                        }}
+                      />
+                      <a
+                        // href={"/"}
+                        rel="noopener noreferrer"
+                        target="_blank"
+                        className="body-sm-regular override-link"
+                      >
+                        Click here to view resume
+                      </a>
+                    </div>
+                  </>
+                ) : (
+                  <FormInputFileUpload
+                    label="Upload your resume"
+                    id="resume"
+                    name="resume"
+                    placeholder="Upload your resume"
+                    constraint="less than 2 MB"
+                    fileType="application/pdf,application/vnd.ms-excel"
+                    value={resume}
+                    setValue={setResume}
+                    helperText={errors.resume}
+                    className="mb-4"
+                  />
+                )}
+              </div>
+            </div>
+
+            <div style={{ marginTop: 5 }}>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  width: "100%    ",
+                }}
+              >
+                <label
+                  style={{
+                    color: "#002B36",
+                    fontSize: "14px",
+                    fontWeight: "500",
+                  }}
+                >
+                  Extra Qestions you would like to cover
+                </label>
+                <input
+                  style={{
+                    padding: 15,
+                    borderRadius: "5px",
+                    border: "1px solid #cdcdcd",
+                    marginTop: "5px",
+                    marginLeft: "3px",
+                    color: "#002B36",
+                    fontSize: 14,
+                  }}
+                  value={extraQuestions}
+                  onChange={(e) => setExtraQuestions(e.target.value)}
+                  type="text"
+                  placeholder="Your Input"
+                />
+              </div>
+            </div>
+
+            <div>
+              <button
+                type="submit"
+                style={{
+                  padding: "10 24",
+                  backgroundColor: "#138382",
+                  border: "none",
+                  outline: "none",
+                  padding: "10px 24px",
+                  width: "170px",
+                  height: "48px",
+                  color: "white",
+                  fontSize: 14,
+                  borderRadius: 5,
+                  cursor: "pointer",
+                  marginTop: 10,
+                }}
+              >
+                Confirm Details
+              </button>
+            </div>
+          </form>
+
+          {meetId.meetId && meetingData.price > 0 ? (
+            <div
+              className="paynow-div"
+              onClick={handlePay}
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                marginTop: 40,
+                background: "white",
+                padding: "18px 12px",
+                boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.08)",
+                borderRadius: 5,
+                position: "fixed",
+                bottom: 0,
+
+                margin: "0 auto",
+                zIndex: 100,
+              }}
+            >
+              <div
+                style={{
+                  background: "#f7f9f9",
+                  padding: "13px 24px",
+                  borderRadius: 5,
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <h4
+                  style={{
+                    color: "#138382",
+                    fontSize: 16,
+                    marginBottom: "0px",
+                    textAlign: "center",
+                  }}
+                >
+                  Pay - &#8377;{totalPrice}
+                </h4>
+              </div>
+
+              <div>
+                <button
+                  style={{
+                    padding: "10 24",
+                    backgroundColor: "#138382",
+                    border: "none",
+                    outline: "none",
+                    padding: "10px 24px",
+                    width: "150px",
+                    height: "48px",
+                    color: "white",
+                    fontSize: 14,
+                    borderRadius: 5,
+                    cursor: "pointer",
+                  }}
+                >
+                  Pay Now
+                </button>
+              </div>
+            </div>
+          ) : null}
+        </div>
+
+        <div
+          style={{
+            marginTop: 40,
+            marginBottom: 15,
+            display: "flex",
+            justifyContent: "space-between",
+          }}
+        >
+          <h3 style={{ fontSize: 16 }}>People also brought</h3>
+          <button
+            style={{
+              padding: "4px 22px",
+              border: "none",
+              outline: "none",
+              borderRadius: "10px",
+              background: "#f2f4f5",
+              boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.08)",
+              display: "flex",
+              gap: "5px",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+            onClick={() => handleNext()}
+          >
+            Next
+            <img src="/chevro-right.svg" alt="" />
+          </button>
+        </div>
+
+        {/* {allMeetData &&
+              allMeetData.map((card, index) => {
+                return (
+                  <ConnectCards
+                    key={card._id}
+                    id={card._id}
+                    title={card.title}
+                    desc={card.description}
+                    duration={card.duration}
+                    price={card.price}
+                    type={card.type}
+                  />
+                );
+              })} */}
+
+        {/* Carousal */}
+        <div
+          id="connectCardsCarousel"
+          className="carousel slide"
+          data-bs-ride="carousel"
+        >
+          <div className="carousel-inner">
+            {allMeetData &&
+              allMeetData.map((card, index) => {
+                // Start a new carousel item every two cards
+                if (index % 2 === 0) {
+                  return (
+                    <div
+                      key={index}
+                      className={`carousel-item ${index === 0 ? "active" : ""}`}
+                    >
+                      <div className="d-flex justify-content-center gap-2">
+                        {/* First Card */}
+                        <div className="col-6">
+                          <ConnectCards
+                            id={card._id}
+                            title={card.title}
+                            desc={card.description}
+                            duration={card.duration}
+                            price={card.price}
+                            type={card.type}
+                          />
+                        </div>
+                        {/* Second Card, check if it exists */}
+                        {allMeetData[index + 1] && (
+                          <div className="col-6">
+                            <ConnectCards
+                              id={allMeetData[index + 1]._id}
+                              title={allMeetData[index + 1].title}
+                              desc={allMeetData[index + 1].description}
+                              duration={allMeetData[index + 1].duration}
+                              price={allMeetData[index + 1].price}
+                              type={allMeetData[index + 1].type}
+                            />
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  );
+                }
+                return null;
+              })}
+          </div>
+        </div>
+
+        {meetId.meetId && meetingData.price > 0 ? (
+          <div
+            style={{
+              background: "#f8f8f9",
+              padding: "16px",
+              borderRadius: "10px",
+              marginTop: 20,
+            }}
+          >
+            <h4 style={{ fontSize: "16px", fontWeight: 600 }}>Bill Summary</h4>
+
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                padding: "0 8px",
+                marginTop: 14,
+              }}
+            >
+              <h3 style={{ fontSize: "14px", fontWeight: 400 }}>Total MRP</h3>
+              <h3 style={{ fontSize: "14px", fontWeight: 400 }}>
+                ₹{meetingData.price}
+              </h3>
+            </div>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                padding: "0 8px",
+                marginTop: 5,
+              }}
+            >
+              <h3 style={{ fontSize: "14px", fontWeight: 400 }}>
+                Taxes and platform fees
+              </h3>
+              <h3 style={{ fontSize: "14px", fontWeight: 400 }}>
+                ₹{gstAmount}
+              </h3>
+            </div>
+
+            <div style={{ border: "1px solid #002B36", marginTop: 4 }}></div>
+
+            <div
+              style={{
+                marginTop: 15,
+                display: "flex",
+                justifyContent: "space-between",
+              }}
+            >
+              <h4 style={{ fontSize: "16px", fontWeight: 600 }}>
+                Total Amount
+              </h4>
+
+              <h4 style={{ fontSize: "16px", fontWeight: 600 }}>
+                ₹{totalPrice}
+              </h4>
+            </div>
+          </div>
+        ) : null}
+      </div>
+    </div>
+  );
+};
+
+export default BookNowPayment;

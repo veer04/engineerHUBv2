@@ -79,7 +79,7 @@
   margin: 0 10px;
 }
 
-.meeting-duration-book-now .stick::after {
+.meeting-duration-book-now .stick::before {
   content: "";
   position: absolute;
   top: 0;

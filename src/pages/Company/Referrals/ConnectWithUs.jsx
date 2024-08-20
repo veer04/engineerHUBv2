@@ -9,7 +9,7 @@ const ConnectWithUs = ({ compName }) => {
   const [visibleCards, setVisibleCards] = useState([]);
   const [animationClass, setAnimationClass] = useState("show");
   const [allMeetData, setAllMeetData] = useState([]);
-  const { referralId } = useParams();
+  const [activeFilter, setActiveFilter] = useState("All");
 
   const getAllOpenMeet = async () => {
     try {
@@ -46,6 +46,7 @@ const ConnectWithUs = ({ compName }) => {
 
   const handleFilter = (filter) => {
     setFilterConnects(filter);
+    setActiveFilter(filter);
   };
 
   const getFilteredCards = () => {
@@ -69,12 +70,63 @@ const ConnectWithUs = ({ compName }) => {
       </div>
 
       <div className="filter-cards-btns">
-        <button onClick={() => handleFilter("All")}>All</button>
-        <button onClick={() => handleFilter("Job Referrals")}>
+        <button
+          style={{
+            backgroundColor: activeFilter === "All" ? "#138382" : "#f2f4f5",
+            color: activeFilter === "All" ? "white" : "#002b36",
+            padding: "4px 16px",
+            borderRadius: "10px",
+            border: "none",
+            marginRight: "10px",
+            marginBottom: "10px",
+          }}
+          onClick={() => handleFilter("All")}
+        >
+          All
+        </button>
+        <button
+          style={{
+            backgroundColor:
+              activeFilter === "Job Referrals" ? "#138382" : "#f2f4f5",
+            color: activeFilter === "Job Referrals" ? "white" : "#002b36",
+            padding: "4px 16px",
+            borderRadius: "10px",
+            border: "none",
+            marginRight: "10px",
+            marginBottom: "10px",
+          }}
+          onClick={() => handleFilter("Job Referrals")}
+        >
           Job Referrals
         </button>
-        <button onClick={() => handleFilter("1:1 Connect")}>1:1 Connect</button>
-        <button onClick={() => handleFilter("Mock Interview")}>
+        <button
+          style={{
+            backgroundColor:
+              activeFilter === "1:1 Connect" ? "#138382" : "#f2f4f5",
+            color: activeFilter === "1:1 Connect" ? "white" : "#002b36",
+            padding: "4px 16px",
+            borderRadius: "10px",
+            border: "none",
+            marginRight: "10px",
+            marginBottom: "10px",
+          }}
+          onClick={() => handleFilter("1:1 Connect")}
+        >
+          1:1 Connect
+        </button>
+        <button
+          style={{
+            backgroundColor:
+              activeFilter === "Mock Interview" ? "#138382" : "#f2f4f5",
+            color: activeFilter === "Mock Interview" ? "white" : "#002b36",
+            padding: "4px 16px",
+            borderRadius: "10px",
+            border: "none",
+            marginRight: "10px",
+            marginBottom: "10px",
+          }}
+          onClick={() => handleFilter("Mock Interview")}
+        >
           Mock Interview
         </button>
       </div>
@@ -98,26 +150,30 @@ const ConnectWithUs = ({ compName }) => {
           />
         ))}
       </div>
+      {!allMeetData.length === 3 > 0 && (
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            marginTop: "10px",
+          }}
+        >
+          <div className="button-container">
+            <>
+              <span className="view-btn">View more</span>
 
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          marginTop: "10px",
-        }}
-      >
-        <div className="button-container">
-          <span className="view-btn">View more</span>
-          <div className="icon-container">
-            <img
-              src="/chevro-right.svg"
-              alt="Chevron"
-              className="chevron-icon"
-            />
+              <div className="icon-container">
+                <img
+                  src="/chevro-right.svg"
+                  alt="Chevron"
+                  className="chevron-icon"
+                />
+              </div>
+            </>
           </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };
