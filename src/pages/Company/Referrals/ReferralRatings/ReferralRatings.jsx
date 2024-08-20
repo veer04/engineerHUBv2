@@ -15,7 +15,8 @@ const ReferralRatings = () => {
           <h4 className="rating-h4">Ratings & Feedback</h4>
 
           <div className="rating-cards-btn">
-            <button
+            <span style={{color:"#138382",fontSize:"1.25rem"}} >Here are some feedbacks from our users.</span>
+            {/* <button
               style={{
                 backgroundColor: activeFilter === "All" ? "#138382" : "#f2f4f5",
                 color: activeFilter === "All" ? "white" : "#002b36",
@@ -59,7 +60,7 @@ const ReferralRatings = () => {
               onClick={() => handleFilter("Digital Products")}
             >
               Digital Products
-            </button>
+            </button> */}
           </div>
         </div>
         <div className="rating-slider-main">

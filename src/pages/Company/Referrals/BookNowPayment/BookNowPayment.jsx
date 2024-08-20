@@ -652,7 +652,6 @@ const BookNowPayment = () => {
           {meetId.meetId && meetingData.price > 0 ? (
             <div
               className="paynow-div"
-              onClick={handlePay}
               style={{
                 display: "flex",
                 justifyContent: "space-between",
@@ -692,6 +691,7 @@ const BookNowPayment = () => {
 
               <div>
                 <button
+                  onClick={handlePay}
                   style={{
                     padding: "10 24",
                     backgroundColor: "#138382",
@@ -713,7 +713,7 @@ const BookNowPayment = () => {
           ) : null}
         </div>
 
-        <div
+        {/* <div
           style={{
             marginTop: 40,
             marginBottom: 15,
@@ -740,7 +740,7 @@ const BookNowPayment = () => {
             Next
             <img src="/chevro-right.svg" alt="" />
           </button>
-        </div>
+        </div> */}
 
         {/* {allMeetData &&
               allMeetData.map((card, index) => {
@@ -758,7 +758,7 @@ const BookNowPayment = () => {
               })} */}
 
         {/* Carousal */}
-        <div
+        {/* <div
           id="connectCardsCarousel"
           className="carousel slide"
           data-bs-ride="carousel"
@@ -774,7 +774,6 @@ const BookNowPayment = () => {
                       className={`carousel-item ${index === 0 ? "active" : ""}`}
                     >
                       <div className="d-flex justify-content-center gap-2">
-                        {/* First Card */}
                         <div className="col-6">
                           <ConnectCards
                             id={card._id}
@@ -785,7 +784,6 @@ const BookNowPayment = () => {
                             type={card.type}
                           />
                         </div>
-                        {/* Second Card, check if it exists */}
                         {allMeetData[index + 1] && (
                           <div className="col-6">
                             <ConnectCards
@@ -805,7 +803,7 @@ const BookNowPayment = () => {
                 return null;
               })}
           </div>
-        </div>
+        </div> */}
 
         {meetId.meetId && meetingData.price > 0 ? (
           <div
@@ -814,6 +812,7 @@ const BookNowPayment = () => {
               padding: "16px",
               borderRadius: "10px",
               marginTop: 20,
+              marginBottom: "3.5rem",
             }}
           >
             <h4 style={{ fontSize: "16px", fontWeight: 600 }}>Bill Summary</h4>

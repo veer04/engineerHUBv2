@@ -7,12 +7,12 @@
 
 .main-book-now-container {
   width: 680px;
-  height: 1250px;
+  height: 100%;
   margin: 0 auto;
   background-color: white;
   border-radius: 10px;
   background-color: #f9fcfd;
-  padding: 0px 24px;
+  padding: 0px 24px 1px 24px;
   position: relative;
 }
 

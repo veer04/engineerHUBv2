@@ -318,8 +318,8 @@ const BookNow = () => {
 
     console.log(startDateTimeISO, endDateTimeISO, "hgfd");
 
-    setSnackbarMessage("Registered  Meeting Successfully");
-    setSnackbarOpen(true);
+    // setSnackbarMessage("Registered  Meeting Successfully");
+    // setSnackbarOpen(true);
     localStorage.setItem("selectedDates", JSON.stringify(selectedDates));
     localStorage.setItem("selectedTime", JSON.stringify(selectedTime));
     localStorage.setItem("meetingData", JSON.stringify(meetingData));
@@ -333,6 +333,11 @@ const BookNow = () => {
       },
     });
   };
+
+  // console.log("totalDatePages",totalDatePages)
+  // console.log("datesArray",datesArray)
+  // console.log("datesPerPage",datesPerPage)
+  // console.log("Array.from({ length: totalDatePages })",JSON.stringify(Array.from({ length: totalDatePages })))
 
   return (
     <div className="main-book-now">
