@@ -579,7 +579,7 @@ const BookNow = () => {
             </button> */}
           </div>
         </div>
-        {/* <StepIndicator currentStep={1} /> */}
+        {/* <StepIndicator currentStep={2} /> */}
       </div>
     </div>
   );

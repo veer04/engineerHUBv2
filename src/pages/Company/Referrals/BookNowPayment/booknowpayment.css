@@ -7,7 +7,7 @@
 
 .main-book-now-container {
   width: 680px;
-  height: 100%;
+  height: auto;
   margin: 0 auto;
   background-color: white;
   border-radius: 10px;
@@ -112,6 +112,13 @@
 }
 
 @media screen and (max-width: 520px) {
+  .main-book-now-payment {
+    width: 100%;
+    height: 100%;
+    background-color: #138382;
+    padding: 40px 0;
+  }
+
   .main-book-now-container {
     width: 100%;
     height: auto;

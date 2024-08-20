@@ -25,7 +25,6 @@ const DateBoxes = ({ day, date, isSelected, onClick }) => {
         style={{
           marginTop: "10px",
           color: isSelected ? "white" : "black",
-
           fontSize: "12px",
           fontFamily: "Inter",
           fontWeight: "500",

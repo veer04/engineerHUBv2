@@ -332,7 +332,7 @@ const BookNowPayment = () => {
       const payload = {
         amount: totalPrice,
         currency: "INR",
-        callback_url: REFERRAL_REDIRECT_URL,
+        callback_url: `${REFERRAL_REDIRECT_URL}/referrals/book-now/payment/success`,
         callback_method: "get",
         platform: "meet",
         meetRegistrationId: meetId.meetRegistrationId,
@@ -343,7 +343,7 @@ const BookNowPayment = () => {
       console.log(typeof parseFloat(payload.amount), "amount");
 
       const response = await axios.post(
-        `https://ca87-52-66-146-44.ngrok-free.app/api/v1/razorpay/createPaymentLink`,
+        `https://bc82-52-66-146-44.ngrok-free.app/api/v1/razorpay/createPaymentLink`,
 
         payload,
         {
@@ -368,6 +368,10 @@ const BookNowPayment = () => {
       }
 
       console.log(data, "paymentData");
+      console.log(data.data.payment_link, "paymentlink");
+      window.location.href = data?.data?.payment_link;
+
+      // navigate(`${data?.data?.payment_link}`);
     } catch (error) {
       console.error("error getting the data");
     }
