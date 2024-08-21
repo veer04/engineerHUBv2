@@ -75,7 +75,10 @@
 @media screen and (max-width: 520px) {
   .rating-title-main {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
   }
 
   .rating-h4 {
@@ -85,6 +88,7 @@
     font-weight: 600;
     line-height: 35px;
     word-wrap: break-word;
+    text-align: center !important;
   }
 
   .referral-sub {
