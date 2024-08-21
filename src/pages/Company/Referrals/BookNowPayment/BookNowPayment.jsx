@@ -10,6 +10,7 @@ import { getAccessToken } from "../../../../features/getCookieValues";
 import axios from "axios";
 import {
   BETA_SERVER,
+  FRONTEND_URL,
   REFERRAL_REDIRECT_URL,
 } from "../../../../services/APIUtils";
 import { isUserLoggedIn } from "../../../../features/User/UserDetails";
@@ -17,6 +18,10 @@ import { redirectToAuth } from "../../../../features/redirectToAuth";
 import FormInput from "../../../../components/FormInputs/FormInput";
 import FormInputPhoneNumber from "../../../../components/FormInputs/FormInputPhoneNumber";
 import FormInputEmail from "../../../../components/FormInputs/FormInputEmail";
+import {
+  emailExpression,
+  mobileNumberExpression,
+} from "../../../../features/regex";
 
 const BookNowPayment = () => {
   if (!isUserLoggedIn()) {
@@ -114,14 +119,6 @@ const BookNowPayment = () => {
     getAllOpenMeet();
   }, []);
 
-  const handleNext = () => {
-    const carousel = document.querySelector("#connectCardsCarousel");
-    if (carousel) {
-      const carouselInstance = new bootstrap.Carousel(carousel);
-      carouselInstance.next();
-    }
-  };
-
   const {
     setSnackbarOpen,
     setSnackbarMessage,
@@ -157,50 +154,50 @@ const BookNowPayment = () => {
     errorStack = [];
   }
 
-  function validateForm() {
-    let isValid = true;
-    const errors = {
-      name: "",
-      phoneNumber: "",
-      email: "",
-      resume: "",
-      extraQuestions: "",
-    };
+  // function validateForm() {
+  //   let isValid = true;
+  //   const errors = {
+  //     name: "",
+  //     phoneNumber: "",
+  //     email: "",
+  //     resume: "",
+  //     extraQuestions: "",
+  //   };
 
-    if (name.length === 0) {
-      errors.name = "Name is Required";
-      isValid = false;
-      addToErrorStack("#name");
-    }
-    if (!phoneNumber) {
-      errors.phoneNumber = "Phone Number is Required";
-      isValid = false;
-      addToErrorStack("#phoneNumber");
-    } else if (phoneNumber.length !== 10) {
-      errors.phoneNumber = "Phone Number must be exactly 10 digits";
-      isValid = false;
-    }
+  //   if (name.length === 0) {
+  //     errors.name = "Name is Required";
+  //     isValid = false;
+  //     addToErrorStack("#name");
+  //   }
+  //   if (!phoneNumber) {
+  //     errors.phoneNumber = "Phone Number is Required";
+  //     isValid = false;
+  //     addToErrorStack("#phoneNumber");
+  //   } else if (phoneNumber.length !== 10) {
+  //     errors.phoneNumber = "Phone Number must be exactly 10 digits";
+  //     isValid = false;
+  //   }
 
-    if (!email) {
-      errors.email = "Email is Required";
-      isValid = false;
-      addToErrorStack("#email");
-    }
-    if (!usePreviousResume && !resume) {
-      errors.resume = "Resume is required";
-      isValid = false;
-      addToErrorStack("#resume");
-    }
-    if (!extraQuestions) {
-      errors.extraQuestions = "Extra Questions is Required";
-      isValid = false;
-      addToErrorStack("#extraQuestions");
-    }
+  //   if (!email) {
+  //     errors.email = "Email is Required";
+  //     isValid = false;
+  //     addToErrorStack("#email");
+  //   }
+  //   if (!usePreviousResume && !resume) {
+  //     errors.resume = "Resume is required";
+  //     isValid = false;
+  //     addToErrorStack("#resume");
+  //   }
+  //   if (!extraQuestions) {
+  //     errors.extraQuestions = "Extra Questions is Required";
+  //     isValid = false;
+  //     addToErrorStack("#extraQuestions");
+  //   }
 
-    setErrors(errors);
-    handleFormErrors();
-    return isValid;
-  }
+  //   setErrors(errors);
+  //   handleFormErrors();
+  //   return isValid;
+  // }
 
   const validateInput1 = () => {
     let valid = true;
@@ -213,37 +210,55 @@ const BookNowPayment = () => {
     };
 
     if (!name) {
-      newErrors.name = "name is required";
+      newErrors.name = "Name is required";
       valid = false;
+      addToErrorStack("#name");
     } else if (!/^[a-zA-Z\d\s]+$/.test(name)) {
       newErrors.name = "Name should not contain special characters";
       valid = false;
+      addToErrorStack("#name");
     } else if (name.length < 3) {
       newErrors.name = "Name should be at least 3 characters";
       valid = false;
+      addToErrorStack("#name");
     }
+
     if (!phoneNumber) {
       newErrors.phoneNumber = "Phone Number is required";
       valid = false;
+      addToErrorStack("#phoneNumber");
     } else if (phoneNumber.length < 10) {
       newErrors.phoneNumber = "Phone Number should be at least 10 digits";
       valid = false;
+      addToErrorStack("#phoneNumber");
+    } else if (!mobileNumberExpression.test(phoneNumber)) {
+      newErrors.phoneNumber = "Invalid phone number format!";
+      valid = false;
+      addToErrorStack("#phoneNumber");
     }
+
     if (!email) {
       newErrors.email = "Email is required";
       valid = false;
+      addToErrorStack("#email");
+    } else if (!emailExpression.test(email)) {
+      newErrors.email = "Invalid email format!";
+      valid = false;
+      addToErrorStack("#email");
     }
+
     if (!resume) {
       newErrors.resume = "Resume is required";
       valid = false;
+      addToErrorStack("#resume");
     }
     setErrors(newErrors);
     return valid;
   };
 
-  const handleFormSubmit = (e) => {
-    e.preventDefault();
-    if (!validateForm() || !validateInput1()) {
+  const handleFormSubmit = () => {
+    // e.preventDefault();
+    if (!validateInput1()) {
       return;
     }
     setIsLoading(true);
@@ -292,7 +307,7 @@ const BookNowPayment = () => {
 
           // localStorage.setItem("registrationData", JSON.stringify(data));
 
-          if (meetingData?.price == 0 || meetingData?.price) {
+          if (meetingData?.price === 0) {
             await axios
               .post(
                 `${BETA_SERVER}/api/v1/meet-event/book/${data?.data?.meetRegistrationId}`,
@@ -344,7 +359,7 @@ const BookNowPayment = () => {
       const payload = {
         amount: totalPrice,
         currency: "INR",
-        callback_url: `${REFERRAL_REDIRECT_URL}/referrals/book-now/payment/success?date=${selectedDates}?time=${selectedTime}`,
+        callback_url: `${FRONTEND_URL}/referrals/book-now/payment/success?date=${selectedDates}?time=${selectedTime}`,
         callback_method: "get",
         platform: "meet",
         meetRegistrationId: meetId.meetRegistrationId,
@@ -464,77 +479,77 @@ const BookNowPayment = () => {
         </div>
 
         <div style={{ margin: "40px 0px" }}>
-          <form onSubmit={handleFormSubmit}>
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                gap: ".75rem",
-                flexWrap: "nowrap",
-              }}
-            >
-              <FormInput
-                label="Name"
-                id="name"
-                name="name"
-                required
-                placeholder="Enter your Name"
-                value={name}
-                setValue={setName}
-                helperText={errors.name}
-                className="mb-4 w-100"
-              />
-              <FormInput
-                label="Phone Number"
-                id="phoneNumber"
-                name="phoneNumber"
-                required
-                placeholder="Enter your Phone Number"
-                value={phoneNumber}
-                setValue={setPhoneNumber}
-                helperText={errors.phoneNumber}
-                className="mb-4 w-100"
-              />
-            </div>
-
-            <FormInputEmail
-              label="Email"
-              id="contactEmail"
-              name="contactEmail"
-              required
-              placeholder="Enter your Email"
-              value={email}
-              setValue={setEmail}
-              helperText={errors.email}
-              className="mb-4"
-            />
-
-            <FormInputFileUpload
-              label="Upload your resume"
-              id="resume"
-              name="resume"
-              required
-              placeholder="Upload your resume"
-              constraint="less than 2 MB"
-              fileType="application/pdf,application/vnd.ms-excel"
-              value={resume}
-              setValue={setResume}
-              helperText={errors.resume}
-              className="mb-4"
-            />
-
+          {/* <form onSubmit={handleFormSubmit}> */}
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              gap: ".75rem",
+              flexWrap: "nowrap",
+            }}
+          >
             <FormInput
-              label="Extra Questions you would like to cover"
-              id="extraQuestions"
-              name="extraQuestions"
-              placeholder="Enter your question"
-              value={extraQuestions}
-              setValue={setExtraQuestions}
-              helperText={errors.extraQuestions}
+              label="Name"
+              id="name"
+              name="name"
+              required
+              placeholder="Enter your Name"
+              value={name}
+              setValue={setName}
+              helperText={errors.name}
               className="mb-4 w-100"
             />
+            <FormInput
+              label="Phone Number"
+              id="phoneNumber"
+              name="phoneNumber"
+              required
+              placeholder="Enter your Phone Number"
+              value={phoneNumber}
+              setValue={setPhoneNumber}
+              helperText={errors.phoneNumber}
+              className="mb-4 w-100"
+            />
+          </div>
 
-            {/* <div
+          <FormInputEmail
+            label="Email"
+            id="contactEmail"
+            name="contactEmail"
+            required
+            placeholder="Enter your Email"
+            value={email}
+            setValue={setEmail}
+            helperText={errors.email}
+            className="mb-4"
+          />
+
+          <FormInputFileUpload
+            label="Upload your resume"
+            id="resume"
+            name="resume"
+            required
+            placeholder="Upload your resume"
+            constraint="less than 2 MB"
+            fileType="application/pdf,application/vnd.ms-excel"
+            value={resume}
+            setValue={setResume}
+            helperText={errors.resume}
+            className="mb-4"
+          />
+
+          <FormInput
+            label="Extra Questions you would like to cover"
+            id="extraQuestions"
+            name="extraQuestions"
+            placeholder="Enter your question"
+            value={extraQuestions}
+            setValue={setExtraQuestions}
+            helperText={errors.extraQuestions}
+            className="mb-4 w-100"
+          />
+
+          {/* <div
               className="main-cont-name-phone"
               style={{ display: "flex", gap: "10px" }}
             >
@@ -593,7 +608,7 @@ const BookNowPayment = () => {
                 />
               </div>
             </div> */}
-            {/* <div style={{ marginTop: 20 }}>
+          {/* <div style={{ marginTop: 20 }}>
               <div
                 style={{
                   display: "flex",
@@ -629,7 +644,7 @@ const BookNowPayment = () => {
               </div>
             </div> */}
 
-            {/* <div style={{ marginTop: 20 }}>
+          {/* <div style={{ marginTop: 20 }}>
               <div
                 style={{
                   display: "flex",
@@ -694,7 +709,7 @@ const BookNowPayment = () => {
               </div>
             </div> */}
 
-            {/* <div style={{ marginTop: 5 }}>
+          {/* <div style={{ marginTop: 5 }}>
               <div
                 style={{
                   display: "flex",
@@ -729,28 +744,29 @@ const BookNowPayment = () => {
               </div>
             </div> */}
 
-            <div>
-              <button
-                type="submit"
-                style={{
-                  padding: "10 24",
-                  backgroundColor: "#138382",
-                  border: "none",
-                  outline: "none",
-                  padding: "10px 24px",
-                  width: "170px",
-                  height: "48px",
-                  color: "white",
-                  fontSize: 14,
-                  borderRadius: 5,
-                  cursor: "pointer",
-                  marginTop: 10,
-                }}
-              >
-                Confirm Details
-              </button>
-            </div>
-          </form>
+          <div>
+            <button
+              onClick={() => handleFormSubmit()}
+              type="submit"
+              style={{
+                padding: "10 24",
+                backgroundColor: "#138382",
+                border: "none",
+                outline: "none",
+                padding: "10px 24px",
+                width: "170px",
+                height: "48px",
+                color: "white",
+                fontSize: 14,
+                borderRadius: 5,
+                cursor: "pointer",
+                marginTop: 10,
+              }}
+            >
+              Confirm Details
+            </button>
+          </div>
+          {/* </form> */}
 
           {meetId.meetId && meetingData.price > 0 ? (
             <div
