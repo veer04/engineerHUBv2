@@ -454,7 +454,7 @@ const BookNow = () => {
               <h3 className="text-h3">Recent Feedbacks</h3>
             </div>
 
-            <div className="feedback-btn-main-div">
+            {/* <div className="feedback-btn-main-div">
               <div className="feedback-btn">
                 <img src="/chevro-left.svg" alt="" />
                 <Link className="feedback-button-link">Previous</Link>
@@ -464,7 +464,7 @@ const BookNow = () => {
                 <Link className="feedback-button-link">Next</Link>
                 <img src="/chevro-right.svg" alt="" />
               </div>
-            </div>
+            </div> */}
           </div>
 
           <div className="feedback-carousal-div">

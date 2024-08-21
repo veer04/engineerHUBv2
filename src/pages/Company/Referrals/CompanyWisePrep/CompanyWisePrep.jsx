@@ -75,7 +75,7 @@ const CompanyWisePrep = () => {
             <h3 className="text-h3">Recent Feedbacks</h3>
           </div>
 
-          <div className="feedback-btn-main-div">
+          {/* <div className="feedback-btn-main-div">
             <div className="feedback-btn">
               <img src="/chevro-left.svg" alt="" />
               <Link className="feedback-button-link">Previous</Link>
@@ -85,7 +85,7 @@ const CompanyWisePrep = () => {
               <Link className="feedback-button-link">Next</Link>
               <img src="/chevro-right.svg" alt="" />
             </div>
-          </div>
+          </div> */}
         </div>
 
         <div className="prep-feedback-carousal-div">
@@ -117,9 +117,10 @@ const CompanyWisePrep = () => {
             borderRadius: 5,
             position: "fixed",
             bottom: 0,
-            transform: "translateX(-4%)",
+            transform: "translateX(-3.5%)",
             margin: "0 auto",
             zIndex: 100,
+            width: 670,
           }}
         >
           <div
