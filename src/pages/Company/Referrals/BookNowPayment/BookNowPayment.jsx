@@ -8,7 +8,10 @@ import useGlobalSnackbar from "../../../../hooks/useGlobalSnackbar";
 import ConnectCards from "../ConnectCards/ConnectCards";
 import { getAccessToken } from "../../../../features/getCookieValues";
 import axios from "axios";
-import { REFERRAL_REDIRECT_URL } from "../../../../services/APIUtils";
+import {
+  BETA_SERVER,
+  REFERRAL_REDIRECT_URL,
+} from "../../../../services/APIUtils";
 
 const BookNowPayment = () => {
   const [name, setName] = useState([]);
@@ -247,7 +250,7 @@ const BookNowPayment = () => {
 
     axios
       .post(
-        `https://meet-engineerhub.onrender.com/api/v1/meet-event/register/${meetingData._id}`,
+        `${BETA_SERVER}/api/v1/meet-event/register/${meetingData._id}`,
         payload,
         {
           headers: {
@@ -283,7 +286,7 @@ const BookNowPayment = () => {
           if (meetingData?.price == 0 || meetingData?.price) {
             await axios
               .post(
-                `https://payment.betatestserverbackend.engineerhub.in/api/v1/meet-event/book/${data?.data?.meetRegistrationId}`,
+                `${BETA_SERVER}/api/v1/meet-event/book/${data?.data?.meetRegistrationId}`,
                 {},
                 {
                   headers: {
@@ -343,7 +346,7 @@ const BookNowPayment = () => {
       console.log(typeof parseFloat(payload.amount), "amount");
 
       const response = await axios.post(
-        `https://bc82-52-66-146-44.ngrok-free.app/api/v1/razorpay/createPaymentLink`,
+        `${BETA_SERVER}/api/v1/razorpay/createPaymentLink`,
 
         payload,
         {
@@ -364,12 +367,30 @@ const BookNowPayment = () => {
         setSnackbarMessage("You Have paid successfully");
         setSnackbarOpen(true);
         setPaymentData(data);
-        navigate();
       }
 
       console.log(data, "paymentData");
       console.log(data.data.payment_link, "paymentlink");
       window.location.href = data?.data?.payment_link;
+
+      // setTimeout(() => {
+      //   axios
+      //     .post(
+      //       `${BETA_SERVER}/api/v1/razorpay/confirmPayment/${meetId.meetRegistrationId}`,
+      //       {},
+      //       {
+      //         headers: {
+      //           accessToken: getAccessToken(),
+      //         },
+      //       }
+      //     )
+      //     .then((response) => {
+      //       console.log("Payment confirmation successful", response);
+      //     })
+      //     .catch((error) => {
+      //       console.error("Error in payment confirmation", error);
+      //     });
+      // }, 2000);
 
       // navigate(`${data?.data?.payment_link}`);
     } catch (error) {
