@@ -712,7 +712,7 @@ const BookNowPayment = () => {
             </div>
           </form>
 
-          {meetId.meetId && meetingData.price > 0 ? (
+          {meetId?.meetId && meetingData?.price > 0 ? (
             <div
               className="paynow-div"
               style={{
