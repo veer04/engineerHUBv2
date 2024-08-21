@@ -11,6 +11,13 @@ import axios from "axios";
 import useGlobalSnackbar from "../../../../hooks/useGlobalSnackbar";
 import { API_URL } from "../../../../services/APIUtils";
 import StepIndicator from "../StepIndicator/StepIndicator";
+import {
+  PrevButton,
+  NextButton,
+  usePrevNextButtons,
+} from "./EmblaCarouselArrowButtons";
+import useEmblaCarousel from "embla-carousel-react";
+import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 
 const BookNow = () => {
   const [currentPage, setCurrentPage] = useState(0);
@@ -28,6 +35,27 @@ const BookNow = () => {
   } = useGlobalSnackbar();
   const [busyEventData, setBusyEventData] = useState([]);
   const navigate = useNavigate();
+  const [emblaRef, emblaApi] = useEmblaCarousel({ slidesToScroll: "auto" });
+  const [emblaRef2, emblaApi2] = useEmblaCarousel({ slidesToScroll: "auto" });
+
+  const {
+    prevBtnDisabled,
+    nextBtnDisabled,
+    onPrevButtonClick,
+    onNextButtonClick,
+  } = usePrevNextButtons(emblaApi);
+
+  const {
+    prevBtnDisabled:prevBtnDisabled2,
+    nextBtnDisabled:nextBtnDisabled2,
+    onPrevButtonClick:onPrevButtonClick2,
+    onNextButtonClick:onNextButtonClick2,
+  } = usePrevNextButtons(emblaApi2);
+
+  const DATES_SLIDE_COUNT = 12;
+  const TIME_SLIDE_COUNT = 3;
+  const DATES_SLIDES = Array.from(Array(DATES_SLIDE_COUNT).keys());
+  const TIME_SLIDES = Array.from(Array(TIME_SLIDE_COUNT).keys());
 
   // useEffect(() => {
   //   const carouselElement = document.querySelector("#feedbackCarousel");
@@ -461,7 +489,65 @@ const BookNow = () => {
         <div>
           <h3 className="what-time-text">What day should we meet?</h3>
         </div>
-        <div id="dateCarousel" className="carousel slide" ref={carouselRef}>
+
+        <div className="referral-dates-container">
+          <section className="embla">
+            <div className="embla__viewport" ref={emblaRef}>
+              <div className="embla__container">
+                {DATES_SLIDES.map((index) => (
+                  <div
+                    className="embla__slide"
+                    key={index}
+                    style={{
+                      gridTemplateColumns: isMobile
+                        ? "repeat(3, 1fr)"
+                        : "repeat(4, 1fr)",
+                    }}
+                  >
+                    {/* <div className="embla__slide__number">
+                      <span></span>
+                    </div> */}
+                    {datesArray
+                      .slice(index * datesPerPage, (index + 1) * datesPerPage)
+                      .map((dateObj, index) => (
+                        // <div className={isMobile ? "col-4" : "col-3"} key={index}>
+                        <DateBoxes
+                          key={index}
+                          isActive={false}
+                          day={dateObj.day}
+                          date={dateObj.date}
+                          isSelected={selectedDates === dateObj.date}
+                          onClick={() => handleDateClick(dateObj.date)}
+                        />
+                        // </div>
+                      ))}
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="time-meet-btns">
+              <button
+                className="time-meet-btn label-sm"
+                onClick={onPrevButtonClick}
+                disabled={prevBtnDisabled}
+              >
+                <IoIosArrowBack />
+                Previous
+              </button>
+
+              <button
+                className="time-meet-btn label-sm"
+                onClick={onNextButtonClick}
+                disabled={nextBtnDisabled}
+              >
+                Next
+                <IoIosArrowForward />
+              </button>
+            </div>
+          </section>
+        </div>
+
+        {/* <div id="dateCarousel" className="carousel slide" ref={carouselRef}>
           <div className="carousel-inner">
             {Array.from({ length: totalDatePages }).map((_, pageIndex) => (
               <div
@@ -491,19 +577,7 @@ const BookNow = () => {
               </div>
             ))}
           </div>
-        </div>
-
-        <div className="time-meet-btns">
-          <div className="time-meet-btn" onClick={handlePrevDates}>
-            <img src="/chevro-left.svg" alt="" />
-            <Link className="time-meet-button-link">Previous</Link>
-          </div>
-
-          <div className="time-meet-btn" onClick={handleNextDates}>
-            <Link className="time-meet-button-link">Next</Link>
-            <img src="/chevro-right.svg" alt="" />
-          </div>
-        </div>
+        </div> */}
 
         <div
           className="time-div"
@@ -515,13 +589,77 @@ const BookNow = () => {
           }}
         >
           <h3 className="select-time-text">Select time of the day</h3>
-          <div className="time-meet-btn" onClick={handleNext}>
-            <Link className="time-meet-button-link">Next</Link>
-            <img src="/chevro-right.svg" alt="" />
-          </div>
+          {/* <button
+            className="time-meet-btn label-sm"
+            onClick={onNextButtonClick}
+            disabled={nextBtnDisabled}
+          >
+            Next
+            <IoIosArrowForward />
+          </button> */}
         </div>
 
-        <div id="timeCarousel" className="carousel slide" ref={carouselRef}>
+        <div className="referral-dates-container">
+          <section className="embla">
+            <div className="embla__viewport" ref={emblaRef2}>
+              <div className="embla__container">
+                {TIME_SLIDES.map((index) => (
+                  <div
+                    className="embla__slide"
+                    key={index}
+                    style={{
+                      gridTemplateColumns: isMobile
+                        ? "repeat(3, 1fr)"
+                        : "repeat(4, 1fr)",
+                    }}
+                  >
+                    {/* <div className="embla__slide__number">
+                      <span></span>
+                    </div> */}
+                    {timeArray
+                      .slice(index * timesPerPage, (index + 1) * timesPerPage)
+                      .map((timeObj, index) => (
+                        // <div
+                        //   className={isMobile ? "col-4" : "col-3"}
+                        //   key={index}
+                        // >
+                        <TimeBox
+                          key={index}
+                          time={timeObj.time}
+                          isSelected={selectedTime === timeObj.time}
+                          onClick={() => handleTimeClick(timeObj.time)}
+                        />
+                        // </div>
+                      ))}
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="time-meet-btns">
+              <button
+                className="time-meet-btn label-sm"
+                onClick={onPrevButtonClick2}
+                disabled={prevBtnDisabled2}
+              >
+                <IoIosArrowBack />
+                Previous
+              </button>
+
+              <button
+                className="time-meet-btn label-sm"
+                onClick={onNextButtonClick2}
+                disabled={nextBtnDisabled2}
+              >
+                Next
+                <IoIosArrowForward />
+              </button>
+            </div>
+          </section>
+        </div>
+
+        <div
+          style={{display:"none"}}
+        id="timeCarousel" className="carousel slide" ref={carouselRef}>
           <div className="carousel-inner">
             {Array.from({ length: totalPages }).map((_, pageIndex) => (
               <div
@@ -558,10 +696,10 @@ const BookNow = () => {
 
             <div>
               <h4 className="data-text-h4">
-                {selectedDates ? selectedDates : "Select Date"}
+                {selectedDates ? selectedDates : "Date"}
               </h4>
               <h5 className="data-text-h5">
-                {selectedTime ? selectedTime : "& Time"}
+                {selectedTime ? selectedTime : "Time"}
               </h5>
             </div>
           </div>

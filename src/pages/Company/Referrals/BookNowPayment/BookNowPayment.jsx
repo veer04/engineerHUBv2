@@ -12,8 +12,15 @@ import {
   BETA_SERVER,
   REFERRAL_REDIRECT_URL,
 } from "../../../../services/APIUtils";
+import { isUserLoggedIn } from "../../../../features/User/UserDetails";
+import { redirectToAuth } from "../../../../features/redirectToAuth";
+import FormInput from "../../../../components/FormInputs/FormInput";
 
 const BookNowPayment = () => {
+  if (!isUserLoggedIn()) {
+    redirectToAuth("/login");
+    return null;
+  }
   const [name, setName] = useState([]);
   const [phoneNumber, setPhoneNumber] = useState([]);
   const [email, setEmail] = useState([]);
@@ -456,6 +463,37 @@ const BookNowPayment = () => {
 
         <div style={{ margin: "40px 0px" }}>
           <form onSubmit={handleFormSubmit}>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                gap: ".75rem",
+                flexWrap: "nowrap",
+              }}
+            >
+              <FormInput
+                label="Name"
+                id="name"
+                name="name"
+                required
+                placeholder="Enter your Name"
+                value={name}
+                setValue={setName}
+                helperText={errors.name}
+                className="mb-4 w-100"
+              />
+              <FormInput
+                label="Name"
+                id="name"
+                name="name"
+                required
+                placeholder="Enter your Name"
+                value={name}
+                setValue={setName}
+                helperText={errors.name}
+                className="mb-4 w-100"
+              />
+            </div>
             <div
               className="main-cont-name-phone"
               style={{ display: "flex", gap: "10px" }}
