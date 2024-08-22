@@ -48,7 +48,9 @@ import ProjectWindow from "./pages/Community/Project/ProjectWindow.jsx";
 import EventWindow from "./pages/Community/Events/EventWindow.jsx";
 import BlogWindow from "./pages/Community/Blogs/BlogWindow.jsx";
 import NewFooter from "./components/Footer/NewFooter.jsx";
-const BookNow = lazy(() => import("./pages/Company/Referrals/BookNow/BookNow.jsx"));
+const BookNow = lazy(() =>
+  import("./pages/Company/Referrals/BookNow/BookNow.jsx")
+);
 import BookNowPayment from "./pages/Company/Referrals/BookNowPayment/BookNowPayment.jsx";
 import BookNowPaymentSuccess from "./pages/Company/Referrals/BookNowPaymentSuccess/BookNowPaymentSuccess.jsx";
 import CompanyWisePrep from "./pages/Company/Referrals/CompanyWisePrep/CompanyWisePrep.jsx";
@@ -309,7 +311,7 @@ function App() {
           />
 
           <Route
-            path="/referrals/product-book-now"
+            path="/referrals/product-book-now/:booknowId"
             element={<CompanyWisePrep />}
           />
 
@@ -317,7 +319,7 @@ function App() {
         </Routes>
       </Suspense>
 
-      {location.pathname === "/referrals" ||
+      {location.pathname === "/referrals/book-now/:referralId" ||
       location.pathname === "/referrals/book-now/payment" ||
       location.pathname === "/referrals/book-now/payment/" ||
       location.pathname === "/referrals/product-book-now/" ||

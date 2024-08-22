@@ -358,11 +358,13 @@ const BookNowPayment = () => {
   };
 
   const handlePay = async () => {
+    localStorage.setItem("selectedDates", selectedDates);
+    localStorage.setItem("selectedTime", selectedTime);
     try {
       const payload = {
         amount: totalPrice,
         currency: "INR",
-        callback_url: `${BETA_SERVER}referrals/book-now/payment/success`,
+        callback_url: `${FRONTEND_URL}referrals/book-now/payment/success`,
         callback_method: "get",
         platform: "meet",
         meetRegistrationId: meetId?.meetRegistrationId,

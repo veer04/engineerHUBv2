@@ -1,6 +1,22 @@
 .digi-main-container {
   max-width: 324px;
   height: 183px;
+  position: relative;
+}
+
+.digi-img-container {
+  position: relative;
+}
+
+.popular-star {
+  position: absolute;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  gap: 15px;
+  padding: 0px 16px;
+  bottom: 17px;
+  left: 0;
 }
 
 .digi-h2 {
