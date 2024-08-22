@@ -1,0 +1,33 @@
+.referral-admin-page {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: var(--vertical-padding) var(--section-padding);
+  color: var(--primary-color-dark-green);
+}
+.referral-admin-page > section {
+  padding: 1.5rem;
+  background-color: white;
+}
+.referral-admin-page > p {
+  font-size: rem;
+  font-weight: 500;
+  margin-bottom: 1.5rem;
+  color: var(--main-background-color);
+  color: #418787;
+}
+.referral-admin-page > p > a {
+  font-size: 1.15rem;
+  color: #246a6a;
+}
+.referral-admin-page .table {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+}
+.referral-admin-page .table .table-headers {
+  /* border-radius: 0.9375rem; */
+  background: rgba(0, 43, 54, 0.1);
+}
+.referral-admin-page .table .table-headers:first-child {
+  border-radius: 0.9375rem 0 0 0.9375rem;
+}

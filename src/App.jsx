@@ -55,6 +55,9 @@ import BookNowPayment from "./pages/Company/Referrals/BookNowPayment/BookNowPaym
 import BookNowPaymentSuccess from "./pages/Company/Referrals/BookNowPaymentSuccess/BookNowPaymentSuccess.jsx";
 import CompanyWisePrep from "./pages/Company/Referrals/CompanyWisePrep/CompanyWisePrep.jsx";
 // import PopUpModalBootstrap from "./components/PopUpModal/PopUpModalBootstrap.jsx";
+const ReferralAdminPage = lazy(() =>
+  import("./pages/Admin/ReferralAdminPage.jsx")
+);
 const JobsPage = lazy(() => import("./pages/Company/Jobs/JobsPage.jsx"));
 const InternshipsPage = lazy(() =>
   import("./pages/Company/Jobs/InternshipsPage.jsx")
@@ -314,6 +317,11 @@ function App() {
             path="/referrals/product-book-now"
             element={<CompanyWisePrep />}
           />
+
+          <Route path="/admin">
+            <Route index element={<Page404 />} />
+            <Route path="referrals" element={<ReferralAdminPage />}></Route>
+          </Route>
 
           <Route path="*" element={<Page404 />} />
         </Routes>
