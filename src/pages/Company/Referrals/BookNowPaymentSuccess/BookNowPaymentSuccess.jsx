@@ -8,10 +8,13 @@ const BookNowPaymentSuccess = () => {
     selectedTime: "",
   });
 
+  const selectedDates = localStorage.getItem("selectedDates");
+  const selectedTime = localStorage.getItem("selectedTime");
+
   // Extract query parameters
-  const queryParams = new URLSearchParams(window.location.search);
-  const selectedDates = queryParams.get("selectedDates");
-  const selectedTime = queryParams.get("selectedTime");
+  // const queryParams = new URLSearchParams(window.location.search);
+  // const selectedDates = queryParams.get("selectedDates");
+  // const selectedTime = queryParams.get("selectedTime");
 
   console.log("Selected Dates:", selectedDates);
   console.log("Selected Time:", selectedTime);

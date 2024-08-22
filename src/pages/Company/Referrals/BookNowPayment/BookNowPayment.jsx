@@ -358,6 +358,8 @@ const BookNowPayment = () => {
   };
 
   const handlePay = async () => {
+    localStorage.setItem("selectedDates", selectedDates);
+    localStorage.setItem("selectedTime", selectedTime);
     try {
       const payload = {
         amount: totalPrice,

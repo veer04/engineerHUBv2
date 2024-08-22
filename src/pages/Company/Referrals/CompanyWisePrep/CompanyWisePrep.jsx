@@ -1,9 +1,40 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./companywiseprep.css";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import FeedBackCarousalForBookNow from "../FeedbackCarousalForBookNow/FeedBackCarousalForBookNow";
+import { getAccessToken } from "../../../../features/getCookieValues";
+import axios from "axios";
 
 const CompanyWisePrep = () => {
+  const { booknowId } = useParams();
+  const [singleProductData, setSingleProductData] = useState([]);
+
+  console.log(booknowId, "booknowid");
+
+  const getAllSingleProductData = async () => {
+    try {
+      const config = {
+        headers: {
+          accesstoken: getAccessToken(),
+        },
+      };
+
+      const { data } = await axios.get(
+        `https://meet-engineerhub.onrender.com/api/v1/course/${booknowId}`,
+        config
+      );
+
+      console.log(data, "singleProductData");
+      setSingleProductData(data?.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getAllSingleProductData();
+  }, []);
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -41,29 +72,51 @@ const CompanyWisePrep = () => {
 
         <div className="prep-slide">
           <img className="slide-img" src="/slider-prep.png" alt="" />
+
+          <div className="prep-popular-star">
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                backgroundColor: "white",
+                width: "55px",
+                height: "32px",
+                padding: "4px 12px",
+                gap: 3,
+                borderRadius: 10,
+                boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.08)",
+              }}
+            >
+              <h5 style={{ fontSize: "13px", marginTop: "10px" }}>5</h5>
+              <img src={"/star.svg"} alt="" width={16} height={16} />
+            </div>
+
+            <div
+              style={{
+                backgroundColor: "white",
+                width: "72px",
+                height: "32px",
+                padding: "4px 12px",
+                gap: 3,
+                borderRadius: 10,
+                boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.08)",
+              }}
+            >
+              <h5 style={{ fontSize: "13px", marginTop: "5px" }}>Popular</h5>
+            </div>
+          </div>
         </div>
 
         <div className="prep-24">
-          <h4 className="text-h4">
-            Company wise preparation guide for Batch 24-25
-          </h4>
+          <h4 className="text-h4">{singleProductData.title}</h4>
 
           <h3 className="text-h3">More details</h3>
         </div>
 
         <div className="prep-more-details-content">
           {/* <h4 className="text-h4">Here for the z at Amazon:</h4> */}
-          <h4 className="text-h4-content">
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industry's standard dummy text
-            ever since the 1500s, when an unknown printer took a galley of type
-            and scrambled it to make a type specimen book. It has survived not
-            only five centuries, but also the leap into electronic typesetting,
-            remaining essentially unchanged. It was popularised in the 1960s
-            with the release of Letraset sheets containing Lorem Ipsum passages,
-            and more recently with desktop publishing software like Aldus
-            PageMaker including versions of Lorem Ipsum
-          </h4>
+          <h4 className="text-h4-content">{singleProductData.description}</h4>
         </div>
 
         <div className="prep-feedback-section">
@@ -141,7 +194,7 @@ const CompanyWisePrep = () => {
                 textAlign: "center",
               }}
             >
-              Pay - &#8377;390
+              Pay - &#8377;{singleProductData.price}
             </h4>
           </div>
 
