@@ -310,7 +310,7 @@ const BookNowPayment = () => {
           if (meetingData?.price === 0) {
             await axios
               .post(
-                `${BETA_SERVER}/api/v1/meet-event/book/${data?.data?.meetRegistrationId}`, 
+                `${BETA_SERVER}/api/v1/meet-event/book/${data?.data?.meetRegistrationId}`,
                 {},
                 {
                   headers: {
@@ -330,6 +330,9 @@ const BookNowPayment = () => {
                   console.log(data, "meetregistrationdata");
                   setSnackbarMessage("Your meet has been booked successfully!");
                   setSnackbarSeverity("success");
+                  window.location.href = `/referrals/book-now/payment/success?selectedDates=${encodeURIComponent(
+                    selectedDates
+                  )}&selectedTime=${encodeURIComponent(selectedTime)}`;
                 }
               });
           }

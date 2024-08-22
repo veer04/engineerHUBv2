@@ -32,13 +32,13 @@ const Referrals = () => {
             candidates.
           </h5>
           <div className="referral-btn">
-            <HashLink to="/referrals#referral-section" >
+            <HashLink to="/referrals#referral-section">
               <button className="btn-l">Referrals</button>
             </HashLink>
-            <HashLink to="/referrals#digital-product" >
-            <button className="btn-r">Digital Products</button>
+            <HashLink to="/referrals#digital-product">
+              <button className="btn-r">Digital Products</button>
             </HashLink>
-            </div>
+          </div>
         </div>
 
         {/* //right side div saif */}

@@ -117,6 +117,7 @@
     height: 100%;
     background-color: #138382;
     padding: 40px 0;
+    margin-bottom: 30px;
   }
 
   .main-book-now-container {
@@ -126,8 +127,8 @@
     background-color: white;
     border-radius: 10px;
     background-color: #f9fcfd;
-    padding: 0px 24px;
-    margin-bottom: 20px;
+    padding: 0px 24px 5px 24px;
+    margin-bottom: 25px;
   }
 
   .paynow-div {
