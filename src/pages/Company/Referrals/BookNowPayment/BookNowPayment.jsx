@@ -362,7 +362,7 @@ const BookNowPayment = () => {
         callback_url: `${FRONTEND_URL}/referrals/book-now/payment/success?date=${selectedDates}?time=${selectedTime}`,
         callback_method: "get",
         platform: "meet",
-        meetRegistrationId: meetId.meetRegistrationId,
+        meetRegistrationId: meetId?.meetRegistrationId,
       };
 
       console.log(typeof payload.amount, "normal");
@@ -400,7 +400,7 @@ const BookNowPayment = () => {
       // setTimeout(() => {
       //   axios
       //     .post(
-      //       `${BETA_SERVER}/api/v1/razorpay/confirmPayment/${meetId.meetRegistrationId}`,
+      //       `${BETA_SERVER}/api/v1/razorpay/confirmPayment/${meetId?.meetRegistrationId}`,
       //       {},
       //       {
       //         headers: {
@@ -924,7 +924,7 @@ const BookNowPayment = () => {
           </div>
         </div> */}
 
-        {meetId.meetId && meetingData.price > 0 ? (
+        {meetId?.meetId && meetingData.price > 0 ? (
           <div
             style={{
               background: "#f8f8f9",
