@@ -46,10 +46,10 @@ const BookNow = () => {
   } = usePrevNextButtons(emblaApi);
 
   const {
-    prevBtnDisabled:prevBtnDisabled2,
-    nextBtnDisabled:nextBtnDisabled2,
-    onPrevButtonClick:onPrevButtonClick2,
-    onNextButtonClick:onNextButtonClick2,
+    prevBtnDisabled: prevBtnDisabled2,
+    nextBtnDisabled: nextBtnDisabled2,
+    onPrevButtonClick: onPrevButtonClick2,
+    onNextButtonClick: onNextButtonClick2,
   } = usePrevNextButtons(emblaApi2);
 
   const DATES_SLIDE_COUNT = 12;
@@ -658,8 +658,11 @@ const BookNow = () => {
         </div>
 
         <div
-          style={{display:"none"}}
-        id="timeCarousel" className="carousel slide" ref={carouselRef}>
+          style={{ display: "none" }}
+          id="timeCarousel"
+          className="carousel slide"
+          ref={carouselRef}
+        >
           <div className="carousel-inner">
             {Array.from({ length: totalPages }).map((_, pageIndex) => (
               <div
@@ -696,10 +699,14 @@ const BookNow = () => {
 
             <div>
               <h4 className="data-text-h4">
-                {selectedDates ? selectedDates : "Date"}
+                {selectedDates ? selectedDates : "Select Date"}
               </h4>
               <h5 className="data-text-h5">
-                {selectedTime ? selectedTime : "Time"}
+                {selectedTime
+                  ? selectedTime
+                  : selectedDates
+                  ? "Select Time"
+                  : "& Time"}
               </h5>
             </div>
           </div>
