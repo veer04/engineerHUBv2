@@ -310,7 +310,7 @@ const BookNowPayment = () => {
           if (meetingData?.price === 0) {
             await axios
               .post(
-                `${BETA_SERVER}/api/v1/meet-event/book/${data?.data?.meetRegistrationId}`,
+                `${BETA_SERVER}/api/v1/meet-event/book/${data?.data?.meetRegistrationId}`, 
                 {},
                 {
                   headers: {
