@@ -317,14 +317,7 @@ function App() {
         </Routes>
       </Suspense>
 
-      {location.pathname === "/referrals" ||
-      location.pathname === "/referrals/book-now/payment" ||
-      location.pathname === "/referrals/book-now/payment/" ||
-      location.pathname === "/referrals/product-book-now/" ||
-      location.pathname === "/referrals/product-book-now" ||
-      location.pathname === "/referral/book-now" ? null : (
-        <NewFooter />
-      )}
+      <NewFooter />
     </>
   );
 }
