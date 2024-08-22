@@ -20,14 +20,84 @@
   font-size: 1.15rem;
   color: #246a6a;
 }
-.referral-admin-page .table {
+.referral-admin-page .referral-table {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
+  justify-content: center;
 }
-.referral-admin-page .table .table-headers {
+.referral-admin-page .referral-table .table-headers {
   /* border-radius: 0.9375rem; */
   background: rgba(0, 43, 54, 0.1);
 }
-.referral-admin-page .table .table-headers:first-child {
+.referral-admin-page .referral-table .table-headers:nth-child(1) {
   border-radius: 0.9375rem 0 0 0.9375rem;
+}
+.referral-admin-page .referral-table .table-headers:nth-child(7) {
+  border-radius: 0 0.9375rem 0.9375rem 0;
+}
+.referral-admin-page .referral-table .table-item {
+  justify-content: center;
+  display: flex;
+  align-items: start;
+  text-align: start;
+  flex-direction: column;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+.referral-admin-page .referral-table .table-item p {
+  margin: 0;
+}
+.referral-admin-page .referral-table .table-content-2 {
+  align-items: start;
+}
+.referral-admin-page .referral-table .table-content-2 p {
+  margin: 0;
+}
+.referral-admin-page .referral-table .table-content-2 p:nth-child(2) {
+  color: #547178;
+  margin-bottom: 0.5rem;
+}
+
+.referral-admin-page .referral-table .table-content-2 a {
+  color: #0036e7;
+  font-size: 0.8125rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 1.1875rem;
+  letter-spacing: 0rem;
+}
+.referral-admin-page .referral-table .table-content-5 .join-btn {
+  width: 100%;
+  border: none;
+  padding: 0.5rem;
+  color: white;
+  border-radius: 0.3125rem;
+  background-color: #138382;
+}
+.referral-admin-page .referral-table .table-content-6 {
+  gap: 0.5rem;
+}
+.referral-admin-page .referral-table .table-content-6 > div {
+  display: flex;
+  flex-direction: column;
+}
+.referral-admin-page .referral-table .table-content {
+  background: rgba(0, 43, 54, 0.02);
+}
+.referral-admin-page .referral-table .table-content:nth-child(7n + 1) {
+  border-radius: 0.9375rem 0 0 0.9375rem;
+}
+.referral-admin-page .referral-table .table-content:nth-child(7n) {
+  border-radius: 0 0.9375rem 0.9375rem 0;
+}
+.referral-admin-page .referral-table .table-content-7 {
+  align-items: center;
+}
+.referral-admin-page .referral-table .table-content .status {
+  width: 2.4375rem;
+  aspect-ratio: 1/1;
+  border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
