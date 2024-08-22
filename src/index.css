@@ -212,9 +212,13 @@ h6 {
 
 main {
   min-height: 100lvh;
+  min-height: calc(100lvh - var(--navbar-height));
   min-height: 100vh;
+  min-height: calc(100vh - var(--navbar-height));
   min-height: 100svh;
+  min-height: calc(100svh - var(--navbar-height));
   min-height: 100dvh;
+  min-height: calc(100dvh - var(--navbar-height));
 }
 
 .modal-padding {

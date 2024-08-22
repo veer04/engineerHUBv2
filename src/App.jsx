@@ -48,7 +48,9 @@ import ProjectWindow from "./pages/Community/Project/ProjectWindow.jsx";
 import EventWindow from "./pages/Community/Events/EventWindow.jsx";
 import BlogWindow from "./pages/Community/Blogs/BlogWindow.jsx";
 import NewFooter from "./components/Footer/NewFooter.jsx";
-const BookNow = lazy(() => import("./pages/Company/Referrals/BookNow/BookNow.jsx"));
+const BookNow = lazy(() =>
+  import("./pages/Company/Referrals/BookNow/BookNow.jsx")
+);
 import BookNowPayment from "./pages/Company/Referrals/BookNowPayment/BookNowPayment.jsx";
 import BookNowPaymentSuccess from "./pages/Company/Referrals/BookNowPaymentSuccess/BookNowPaymentSuccess.jsx";
 import CompanyWisePrep from "./pages/Company/Referrals/CompanyWisePrep/CompanyWisePrep.jsx";
