@@ -19,7 +19,8 @@ export default function ReferralAdminPage() {
     "raj.swapnil1708@gmail.com",
     "career@engineerhub.in",
   ];
-  if (!allowedEmailIds.includes(getUserEmail())) return <Page404 />;
+  if (!allowedEmailIds.includes(getUserEmail().toLowerCase()))
+    return <Page404 />;
   const navigate = useNavigate();
   const [searchParams] = useSearchParams({
     pageNo: "",
@@ -63,19 +64,10 @@ export default function ReferralAdminPage() {
     if (!pageNo || !limit) {
       navigate("/admin/referrals?pageNo=1&limit=30");
     }
-    if (limit < 1 || limit > 50)
-      navigate(`/admin/referrals?pageNo=${pageNo}&limit=30`);
-  }, [pageNo, limit]);
+  }, []);
 
   useEffect(() => {
     if (referralQuery.isSuccess) {
-      if (
-        referralQuery?.data?.data?.data?.records?.length === 0 &&
-        pageNo !== 1
-      ) {
-        navigate(`/admin/referrals?pageNo=1&limit=${limit}`);
-        return;
-      }
       setPageCount(
         Math.ceil(
           (!!referralQuery.data?.data?.data?.totalRecords
