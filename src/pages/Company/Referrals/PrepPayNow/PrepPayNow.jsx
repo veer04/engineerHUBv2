@@ -158,7 +158,7 @@ const PrepPayNow = () => {
           if (priceOfproduct === 0) {
             await axios
               .get(
-                `${PAYMENT_API_URL}/api/v1/course-purchase/confirmation/${data?.data?.coursePurchaseRequestId}`,
+                `${PAYMENT_API_URL}api/v1/course-purchase/confirmation/${data?.data?.coursePurchaseRequestId}`,
                 {
                   headers: {
                     accessToken: getAccessToken(),
@@ -217,7 +217,7 @@ const PrepPayNow = () => {
     };
 
     const response = await axios.post(
-      `${PAYMENT_API_URL}/api/v1/razorpay/createPaymentLink`,
+      `${PAYMENT_API_URL}api/v1/razorpay/createPaymentLink`,
       payload,
       {
         headers: {
@@ -242,12 +242,12 @@ const PrepPayNow = () => {
 
     const pollInterval = setInterval(async () => {
       console.log(
-        `${PAYMENT_API_URL}/api/v1/razorpay/confirmCoursePayment/${productData?.coursePurchaseRequestId}`,
+        `${PAYMENT_API_URL}api/v1/razorpay/confirmCoursePayment/${productData?.coursePurchaseRequestId}`,
         "apiroute"
       );
       try {
         const checkResponse = await axios.get(
-          `${PAYMENT_API_URL}/api/v1/razorpay/confirmCoursePayment/${productData?.coursePurchaseRequestId}`,
+          `${PAYMENT_API_URL}api/v1/razorpay/confirmCoursePayment/${productData?.coursePurchaseRequestId}`,
           {
             headers: {
               accessToken: getAccessToken(),
@@ -280,7 +280,7 @@ const PrepPayNow = () => {
 
   return (
     <>
-      <div className="prep-book-now-payment">
+      <main className="prep-book-now-payment">
         <div className="main-book-now-container">
           <div className="book-goback-div">
             <div className="book-goback-btn">
@@ -527,7 +527,7 @@ const PrepPayNow = () => {
             </div>
           ) : null}
         </div>
-      </div>
+      </main>
     </>
   );
 };
