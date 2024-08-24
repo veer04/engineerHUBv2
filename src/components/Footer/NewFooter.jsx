@@ -12,6 +12,7 @@ import {
   BsYoutube,
 } from "react-icons/bs";
 import { Bucket_URL } from "../../services/APIUtils";
+import { IoLocationOutline } from "react-icons/io5";
 
 export default function NewFooter() {
   const [displayFooter, setDisplayFooter] = useState(true);
@@ -47,7 +48,6 @@ export default function NewFooter() {
               learn in community, explore campuses & get placed in dream
               companies.
             </p>
-
             <div
               style={{
                 display: "flex",
@@ -56,7 +56,11 @@ export default function NewFooter() {
                 gap: 5,
               }}
             >
-              <img src="/location.png" alt="" width={30} height={30} />
+              <IoLocationOutline
+                style={{
+                  fontSize: "36px",
+                }}
+              />
               <h3 style={{ fontSize: 14, lineHeight: "19px" }}>
                 8-B, Gyan Khand 4, Indirapuram, Ghaziabad, Uttar Pradesh
                 (201014)
