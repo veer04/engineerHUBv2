@@ -8,6 +8,17 @@ const BookNowPaymentSuccess = () => {
     selectedTime: "",
   });
 
+  const selectedDates = localStorage.getItem("selectedDates");
+  const selectedTime = localStorage.getItem("selectedTime");
+
+  // Extract query parameters
+  // const queryParams = new URLSearchParams(window.location.search);
+  // const selectedDates = queryParams.get("selectedDates");
+  // const selectedTime = queryParams.get("selectedTime");
+
+  console.log("Selected Dates:", selectedDates);
+  console.log("Selected Time:", selectedTime);
+
   const a = params.get("selectedDates");
   const b = params.get("selectedTime");
 
@@ -42,8 +53,8 @@ const BookNowPaymentSuccess = () => {
             <img style={{ marginRight: "10px" }} src="/Calender2.svg" alt="" />
 
             <div>
-              <h4 className="data-text-h4">{a}</h4>
-              <h5 className="data-text-h5">{b}</h5>
+              <h4 className="data-text-h4">{selectedDates}</h4>
+              <h5 className="data-text-h5">{selectedTime}</h5>
             </div>
           </div>
 

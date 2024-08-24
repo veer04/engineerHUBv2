@@ -314,7 +314,7 @@ function App() {
           />
 
           <Route
-            path="/referrals/product-book-now"
+            path="/referrals/product-book-now/:booknowId"
             element={<CompanyWisePrep />}
           />
 

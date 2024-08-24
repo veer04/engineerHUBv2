@@ -1,12 +1,39 @@
 import React, { useEffect, useState } from "react";
 import "./digitalproducts.css";
 import DigitalCards from "./DigitalCards";
+import axios from "axios";
+import { getAccessToken } from "../../../../features/getCookieValues";
 
 const DigitalProducts = ({ compName }) => {
   const [filterDigitalProducts, setFilterDigitalProducts] = useState("All");
   const [visibleCards, setVisibleCards] = useState([]);
   const [animationClass, setAnimationClass] = useState("show");
+  const [courseData, setCourseData] = useState([]);
   const [activeFilter, setActiveFilter] = useState("All");
+
+  const getallProductData = async () => {
+    try {
+      const config = {
+        headers: {
+          accesstoken: getAccessToken(),
+        },
+      };
+
+      const { data } = await axios.get(
+        `https://meet-engineerhub.onrender.com/api/v1/course/open`,
+        config
+      );
+
+      console.log(data, "productData");
+      setCourseData(data.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getallProductData();
+  }, []);
 
   useEffect(() => {
     setAnimationClass("hidden");
@@ -16,7 +43,7 @@ const DigitalProducts = ({ compName }) => {
     }, 500);
 
     return () => clearTimeout(timer);
-  }, [filterDigitalProducts]);
+  }, [filterDigitalProducts, courseData]);
 
   const handleFilterChange = (filter) => {
     setFilterDigitalProducts(filter);
@@ -26,11 +53,11 @@ const DigitalProducts = ({ compName }) => {
   const getFilterCards = () => {
     switch (filterDigitalProducts) {
       case "Cheatsheets":
-        return [1, 2];
+        return courseData.filter((card) => card.type === "Cheatsheet");
       case "Notes":
-        return [1];
+        return courseData.filter((card) => card.type === "Notes");
       case "All":
-        return [1, 2, 3];
+        return courseData;
       default:
         return [];
     }
@@ -89,7 +116,16 @@ const DigitalProducts = ({ compName }) => {
 
       <div className={`digital-cards ${animationClass}`}>
         {visibleCards.map((card, index) => (
-          <DigitalCards key={index} />
+          <DigitalCards
+            key={card._id}
+            id={card._id}
+            discount={card.discount}
+            price={card.price}
+            thumbnail={card.thumbnail}
+            title={card.title}
+            desc={card.description}
+            type={card.type}
+          />
         ))}
       </div>
 

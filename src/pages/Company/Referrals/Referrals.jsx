@@ -25,20 +25,26 @@ const Referrals = () => {
         className="referral-main-container"
       >
         <div className="b-left-side">
-          <h2 className="ref-txt">Referral, products, mentorship & more...</h2>
-          <h5 className="ref-sm-txt">
-            By assisting 600+ companies in their hiring, we understand their way
-            of hiring and what they prefer while hiring for 0-2 Yr experience
-            candidates.
+          <h3 style={{ color: "white", fontSize: 18, fontWeight: 400 }}>
+            Referrals, Digital Products &amp; Mentorship
+          </h3>
+          <h2 className="ref-txt">Unlock Opportunities</h2>
+          <h5
+            style={{ marginTop: 16, color: "#d5d5d5" }}
+            className="ref-sm-txt"
+          >
+            Partnering with 600+ companies, we specialize in guiding 0-2 year
+            experience candidates through the hiring process, tailored to
+            industry preferences.
           </h5>
           <div className="referral-btn">
-            <HashLink to="/referrals#referral-section" >
+            <HashLink to="/referrals#referral-section">
               <button className="btn-l">Referrals</button>
             </HashLink>
-            <HashLink to="/referrals#digital-product" >
-            <button className="btn-r">Digital Products</button>
+            <HashLink to="/referrals#digital-product">
+              <button className="btn-r">Digital Products</button>
             </HashLink>
-            </div>
+          </div>
         </div>
 
         {/* //right side div saif */}

@@ -118,6 +118,8 @@
 
   .b-left-side .ref-sm-txt {
     max-width: 400px;
+    color: #d5d5d5;
+    /* margin-top: 20px; */
   }
 
   .first,

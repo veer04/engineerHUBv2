@@ -48,6 +48,7 @@ jobs:
             VITE_EDITOR_API_KEY=${{ secrets.VITE_EDITOR_API_KEY }}
             TEST_SERVER_USERNAME=${{ secrets.TEST_SERVER_USERNAME }}
             TEST_SERVER_PASSWORD=${{ secrets.TEST_SERVER_PASSWORD }}
+            VITE_PAYMENT_API_URL=${{ secrets.VITE_PAYMENT_API_URL }}
     
       - name: Deploy to Production Server
         if: | 
@@ -69,6 +70,7 @@ jobs:
             VITE_AESKEY=${{ secrets.VITE_AESKEY }}
             VITE_FRONTEND_URL=${{ vars.VITE_FRONTEND_URL }}
             VITE_EDITOR_API_KEY=${{ secrets.VITE_EDITOR_API_KEY }}
+            VITE_PAYMENT_API_URL=${{ secrets.VITE_PAYMENT_API_URL }}
 
   # name: Use Private Action
   # on:
