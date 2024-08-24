@@ -122,7 +122,7 @@ const PrepPayNow = () => {
 
     axios
       .post(
-        `${PAYMENT_API_URL}/api/v1/course-purchase/request/${_id}`,
+        `${PAYMENT_API_URL}api/v1/course-purchase/request/${_id}`,
         payload,
         {
           headers: {
