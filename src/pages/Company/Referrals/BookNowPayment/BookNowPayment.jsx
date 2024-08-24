@@ -271,7 +271,6 @@ const BookNowPayment = () => {
       startDateTime: startDateTimeISO,
       endDateTime: endDateTimeISO,
     };
-
     axios
       .post(
         `${PAYMENT_API_URL}api/v1/meet-event/register/${meetingData._id}`,
