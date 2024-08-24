@@ -320,7 +320,9 @@ function App() {
 
           <Route path="/admin">
             <Route index element={<Page404 />} />
-            <Route path="referrals" element={<ReferralAdminPage />}></Route>
+            <Route path="referrals">
+              <Route index element={<ReferralAdminPage />} />
+            </Route>
           </Route>
 
           <Route path="*" element={<Page404 />} />
