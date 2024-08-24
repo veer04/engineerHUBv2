@@ -12,6 +12,7 @@ import {
   BsYoutube,
 } from "react-icons/bs";
 import { Bucket_URL } from "../../services/APIUtils";
+import { IoLocationOutline } from "react-icons/io5";
 
 export default function NewFooter() {
   const [displayFooter, setDisplayFooter] = useState(true);
@@ -46,6 +47,24 @@ export default function NewFooter() {
               learn in community, explore campuses & get placed in dream
               companies.
             </p>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "start",
+                alignItems: "start",
+                gap: 5,
+              }}
+            >
+              <IoLocationOutline
+                style={{
+                  fontSize: "36px",
+                }}
+              />
+              <h3 style={{ fontSize: 14, lineHeight: "19px" }}>
+                8-B, Gyan Khand 4, Indirapuram, Ghaziabad, Uttar Pradesh
+                (201014)
+              </h3>
+            </div>
             <a href={`${bucket}certificate_of_recognition.pdf`} target="_blank">
               <img
                 style={{ width: "100%", height: "auto", marginBottom: "20px" }}
@@ -152,7 +171,10 @@ export default function NewFooter() {
             </div>
             <div className="pages">
               <p className="title">Company</p>
-              <Link to="/company/internships?pageNo=1&limit=24" className="link">
+              <Link
+                to="/company/internships?pageNo=1&limit=24"
+                className="link"
+              >
                 Internships
               </Link>
               <Link to="/company/jobs?pageNo=1&limit=24" className="link">
