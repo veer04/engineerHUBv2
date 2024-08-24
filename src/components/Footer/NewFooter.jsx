@@ -29,7 +29,8 @@ export default function NewFooter() {
       location.pathname.includes("login") ||
       location.pathname.includes("forgot-password") ||
       location.pathname.includes("change-password") ||
-      location.pathname.includes("otp-verification")
+      location.pathname.includes("otp-verification") ||
+      location.pathname.includes("referrals")
     ) {
       setDisplayFooter(false);
     } else setDisplayFooter(true);
@@ -152,7 +153,10 @@ export default function NewFooter() {
             </div>
             <div className="pages">
               <p className="title">Company</p>
-              <Link to="/company/internships?pageNo=1&limit=24" className="link">
+              <Link
+                to="/company/internships?pageNo=1&limit=24"
+                className="link"
+              >
                 Internships
               </Link>
               <Link to="/company/jobs?pageNo=1&limit=24" className="link">
