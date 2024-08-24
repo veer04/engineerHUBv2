@@ -359,7 +359,7 @@ const BookNowPayment = () => {
       const payload = {
         amount: totalPrice,
         currency: "INR",
-        callback_url: `${FRONTEND_URL}/referrals/book-now/payment/success?date=${selectedDates}?time=${selectedTime}`,
+        callback_url: `${FRONTEND_URL}referrals/book-now/payment/success?date=${selectedDates}?time=${selectedTime}`,
         callback_method: "get",
         platform: "meet",
         meetRegistrationId: meetId?.meetRegistrationId,
