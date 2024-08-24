@@ -167,7 +167,7 @@
   }
 
   .paynow-div {
-    position: absolute;
+    position: relative;
     width: 100%;
   }
 
