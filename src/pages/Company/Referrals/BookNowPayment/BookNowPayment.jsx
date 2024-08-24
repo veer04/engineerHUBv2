@@ -329,6 +329,7 @@ const BookNowPayment = () => {
                   console.log(data, "meetregistrationdata");
                   setSnackbarMessage("Your meet has been booked successfully!");
                   setSnackbarSeverity("success");
+                  window.location.href = "/referrals/book-now/payment/success";
                 }
               });
           }
