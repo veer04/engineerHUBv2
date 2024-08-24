@@ -171,12 +171,11 @@ const CompanyWisePrep = () => {
             padding: "18px 12px",
             boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.08)",
             borderRadius: 5,
-            position: "absolute",
+            position: "fixed",
             bottom: 0,
             transform: "translateX(-3.5%)",
             margin: "0 auto",
             zIndex: 100,
-            width: 670,
           }}
         >
           <div

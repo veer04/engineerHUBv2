@@ -107,7 +107,7 @@
 }
 
 .prep-book-now-payment .paynow-div {
-  width: 680px;
+  max-width: 680px;
   transform: translateX(-3.5%);
 }
 
@@ -133,7 +133,7 @@
 
   .prep-book-now-payment .paynow-div {
     width: 100%;
-    transform: translateX(-10%);
+    transform: translateX(-5%);
   }
 
   #connectCardsCarousel .carousel-inner .carousel-item {
