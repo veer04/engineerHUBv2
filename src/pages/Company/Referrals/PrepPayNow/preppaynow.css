@@ -1,0 +1,169 @@
+.prep-book-now-payment {
+  width: 100%;
+  height: 100%;
+  background-color: #138382;
+  padding: 40px 24px;
+}
+
+.prep-book-now-payment .main-book-now-container {
+  width: 680px;
+  height: auto;
+  margin: 0 auto;
+  background-color: white;
+  border-radius: 10px;
+  background-color: #f9fcfd;
+  padding: 0px 24px 1px 24px;
+  position: relative;
+}
+
+.prep-book-now-payment .main-book-now-container .book-goback-div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 0px 20px 0px;
+}
+
+.prep-book-now-payment
+  .main-book-now-container
+  .book-goback-div
+  .book-goback-btn {
+  border-radius: 10px;
+  padding: 4px 16px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.08);
+}
+
+.prep-book-now-payment
+  .main-book-now-container
+  .book-goback-div
+  .book-goback-btn
+  .goback-button-link {
+  color: #002b36;
+  font-size: 14px;
+  font-family: Inter;
+  font-weight: 500;
+  line-height: 24px;
+  word-wrap: break-word;
+  margin-left: 5px;
+}
+
+.prep-book-now-payment .text-div .text-h4 {
+  color: #002b36;
+  font-size: 26px;
+  font-family: Inter;
+  font-weight: 700;
+  line-height: 35px;
+  word-wrap: break-word;
+}
+
+.prep-book-now-payment .calendar-change {
+  padding: 12px 12px;
+
+  display: flex;
+  justify-content: space-between;
+  background-color: #f7f9f9;
+  border-radius: 10px;
+  align-items: center;
+}
+
+.prep-book-now-payment .calendar-change .calendar-content-data {
+  display: flex;
+}
+
+.prep-book-now-payment .calendar-change .calendar-content-data .data-text-h4 {
+  color: #138382;
+  font-size: 14px;
+  font-family: Inter;
+  font-weight: 600;
+  line-height: 16px;
+  word-wrap: break-word;
+  margin-bottom: 3px;
+}
+
+.prep-book-now-payment .calendar-change .calendar-content-data .data-text-h5 {
+  color: #138382;
+  font-size: 14px;
+  font-family: Inter;
+  font-weight: 600;
+  line-height: 16px;
+  word-wrap: break-word;
+  margin-bottom: 3px;
+}
+
+.prep-book-now-payment .calendar-change .calendar-button {
+}
+
+.prep-book-now-payment .calendar-change .calendar-button .calendar-btn-link {
+  padding: 4px 16px;
+  color: white;
+  font-size: 14px;
+  font-family: Inter;
+  font-weight: 600;
+  line-height: 24px;
+  word-wrap: break-word;
+  background-color: #138382;
+  border: none;
+  outline: none;
+  border-radius: 10px;
+}
+
+.prep-book-now-payment .paynow-div {
+  max-width: 680px;
+  transform: translateX(-3.5%);
+}
+
+@media screen and (max-width: 520px) {
+  .prep-book-now-payment {
+    width: 100%;
+    height: 100%;
+    background-color: #138382;
+    padding: 40px 0;
+    margin-bottom: 30px;
+  }
+
+  .prep-book-now-payment .main-book-now-container {
+    width: 100%;
+    height: auto;
+    margin: 0 auto;
+    background-color: white;
+    border-radius: 10px;
+    background-color: #f9fcfd;
+    padding: 0px 24px 5px 24px;
+    margin-bottom: 25px;
+  }
+
+  .prep-book-now-payment .paynow-div {
+    width: 100%;
+    transform: translateX(-5%);
+  }
+
+  #connectCardsCarousel .carousel-inner .carousel-item {
+    display: block;
+  }
+
+  #connectCardsCarousel .carousel-inner .carousel-item .col-6 {
+    width: 100%;
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+
+  #connectCardsCarousel .carousel-inner .carousel-item .d-flex {
+    flex-direction: column;
+  }
+
+  .main-cont-name-phone {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .main-cont-name-phone .name-cont,
+  .phone-cont {
+    width: 100%;
+  }
+}
+
+.main-cont-name-phone .name-cont,
+.phone-cont {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}

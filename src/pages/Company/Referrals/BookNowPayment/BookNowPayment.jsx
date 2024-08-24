@@ -273,7 +273,7 @@ const BookNowPayment = () => {
     };
     axios
       .post(
-        `${PAYMENT_API_URL}api/v1/meet-event/register/${meetingData._id}`,
+        `${PAYMENT_API_URL}/api/v1/meet-event/register/${meetingData._id}`,
         payload,
         {
           headers: {
@@ -309,7 +309,7 @@ const BookNowPayment = () => {
           if (meetingData?.price === 0) {
             await axios
               .post(
-                `${PAYMENT_API_URL}api/v1/meet-event/book/${data?.data?.meetRegistrationId}`, 
+                `${PAYMENT_API_URL}/api/v1/meet-event/book/${data?.data?.meetRegistrationId}`,
                 {},
                 {
                   headers: {
@@ -364,12 +364,8 @@ const BookNowPayment = () => {
         meetRegistrationId: meetId?.meetRegistrationId,
       };
 
-      console.log(typeof payload.amount, "normal");
-      console.log(typeof Number(payload.amount), "float");
-      console.log(typeof parseFloat(payload.amount), "amount");
-
       const response = await axios.post(
-        `${PAYMENT_API_URL}api/v1/razorpay/createPaymentLink`,
+        `${PAYMENT_API_URL}/api/v1/razorpay/createPaymentLink`,
 
         payload,
         {

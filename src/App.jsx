@@ -54,6 +54,8 @@ const BookNow = lazy(() =>
 import BookNowPayment from "./pages/Company/Referrals/BookNowPayment/BookNowPayment.jsx";
 import BookNowPaymentSuccess from "./pages/Company/Referrals/BookNowPaymentSuccess/BookNowPaymentSuccess.jsx";
 import CompanyWisePrep from "./pages/Company/Referrals/CompanyWisePrep/CompanyWisePrep.jsx";
+import PrepPayNow from "./pages/Company/Referrals/PrepPayNow/PrepPayNow";
+import BookNowSuccessProduct from "./pages/Company/Referrals/BookNowPaymentSuccess/BookNowSuccessProduct.jsx";
 // import PopUpModalBootstrap from "./components/PopUpModal/PopUpModalBootstrap.jsx";
 const ReferralAdminPage = lazy(() =>
   import("./pages/Admin/ReferralAdminPage.jsx")
@@ -318,6 +320,16 @@ function App() {
             element={<CompanyWisePrep />}
           />
 
+          <Route
+            path="/referrals/product-book-now/payment"
+            element={<PrepPayNow />}
+          />
+
+          <Route
+            path="/referrals/product-book-now/payment/success"
+            element={<BookNowSuccessProduct />}
+          />
+
           <Route path="/admin">
             <Route index element={<Page404 />} />
             <Route path="referrals">
@@ -329,6 +341,15 @@ function App() {
         </Routes>
       </Suspense>
 
+      {/* {location.pathname === "/referrals/book-now/:referralId" ||
+      location.pathname === "/referrals/book-now/payment" ||
+      location.pathname === "/referrals/book-now/payment/" ||
+      location.pathname === "/referrals/product-book-now/" ||
+      location.pathname === "/referrals/product-book-now" ||
+      location.pathname === "/referrals/product-book-now/payment" ||
+      location.pathname === "/referral/book-now" ? null : (
+        <NewFooter />
+      )} */}
       <NewFooter />
     </>
   );

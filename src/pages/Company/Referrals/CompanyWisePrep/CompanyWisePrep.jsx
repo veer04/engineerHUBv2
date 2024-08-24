@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from "react";
 import "./companywiseprep.css";
-import { Link, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+
 import FeedBackCarousalForBookNow from "../FeedbackCarousalForBookNow/FeedBackCarousalForBookNow";
 import { getAccessToken } from "../../../../features/getCookieValues";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const CompanyWisePrep = () => {
   const { booknowId } = useParams();
   const [singleProductData, setSingleProductData] = useState([]);
+  const navigate = useNavigate();
 
   console.log(booknowId, "booknowid");
 
@@ -173,7 +176,6 @@ const CompanyWisePrep = () => {
             transform: "translateX(-3.5%)",
             margin: "0 auto",
             zIndex: 100,
-            width: 670,
           }}
         >
           <div
@@ -200,6 +202,11 @@ const CompanyWisePrep = () => {
 
           <div>
             <button
+              onClick={() =>
+                navigate("/referrals/product-book-now/payment", {
+                  state: { singleProductData },
+                })
+              }
               type="submit"
               style={{
                 padding: "10 24",
@@ -215,7 +222,7 @@ const CompanyWisePrep = () => {
                 cursor: "pointer",
               }}
             >
-              Pay Now
+              Buy Now
             </button>
           </div>
         </div>

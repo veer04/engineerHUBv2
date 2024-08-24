@@ -47,6 +47,21 @@ export default function NewFooter() {
               learn in community, explore campuses & get placed in dream
               companies.
             </p>
+
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "start",
+                alignItems: "start",
+                gap: 5,
+              }}
+            >
+              <img src="/location.png" alt="" width={30} height={30} />
+              <h3 style={{ fontSize: 14, lineHeight: "19px" }}>
+                8-B, Gyan Khand 4, Indirapuram, Ghaziabad, Uttar Pradesh
+                (201014)
+              </h3>
+            </div>
             <a href={`${bucket}certificate_of_recognition.pdf`} target="_blank">
               <img
                 style={{ width: "100%", height: "auto", marginBottom: "20px" }}

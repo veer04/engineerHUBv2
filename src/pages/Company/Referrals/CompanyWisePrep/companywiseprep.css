@@ -47,6 +47,10 @@
   position: relative;
 }
 
+.paynow-div {
+  max-width: 670px;
+}
+
 .prep-popular-star {
   position: absolute;
   display: flex;
@@ -167,7 +171,6 @@
   }
 
   .paynow-div {
-    position: absolute;
     width: 100%;
   }
 
