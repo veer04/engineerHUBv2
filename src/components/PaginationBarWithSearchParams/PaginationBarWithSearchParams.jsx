@@ -15,7 +15,7 @@ export default function PaginationBarWithSearchParams({
 
   return (
     // if there are more than 9 pages then pagination bar will adjust to show 4 pages before and after the current page
-    <div className={`pagination-bar ${className}`}>
+    <div className={`pagination-bar ${!!className ? className : ""}`}>
       <button
         className="item navigation"
         onClick={() => {

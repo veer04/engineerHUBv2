@@ -9,7 +9,7 @@ import ConnectCards from "../ConnectCards/ConnectCards";
 import { getAccessToken } from "../../../../features/getCookieValues";
 import axios from "axios";
 import {
-  BETA_SERVER,
+  PAYMENT_API_URL,
   FRONTEND_URL,
   REFERRAL_REDIRECT_URL,
 } from "../../../../services/APIUtils";
@@ -271,10 +271,9 @@ const BookNowPayment = () => {
       startDateTime: startDateTimeISO,
       endDateTime: endDateTimeISO,
     };
-
     axios
       .post(
-        `${BETA_SERVER}/api/v1/meet-event/register/${meetingData._id}`,
+        `${PAYMENT_API_URL}api/v1/meet-event/register/${meetingData._id}`,
         payload,
         {
           headers: {
@@ -310,7 +309,7 @@ const BookNowPayment = () => {
           if (meetingData?.price === 0) {
             await axios
               .post(
-                `${BETA_SERVER}/api/v1/meet-event/book/${data?.data?.meetRegistrationId}`,
+                `${PAYMENT_API_URL}api/v1/meet-event/book/${data?.data?.meetRegistrationId}`, 
                 {},
                 {
                   headers: {
@@ -330,9 +329,6 @@ const BookNowPayment = () => {
                   console.log(data, "meetregistrationdata");
                   setSnackbarMessage("Your meet has been booked successfully!");
                   setSnackbarSeverity("success");
-                  window.location.href = `/referrals/book-now/payment/success?selectedDates=${encodeURIComponent(
-                    selectedDates
-                  )}&selectedTime=${encodeURIComponent(selectedTime)}`;
                 }
               });
           }
@@ -358,13 +354,11 @@ const BookNowPayment = () => {
   };
 
   const handlePay = async () => {
-    localStorage.setItem("selectedDates", selectedDates);
-    localStorage.setItem("selectedTime", selectedTime);
     try {
       const payload = {
         amount: totalPrice,
         currency: "INR",
-        callback_url: `${FRONTEND_URL}referrals/book-now/payment/success`,
+        callback_url: `${FRONTEND_URL}referrals/book-now/payment/success?date=${selectedDates}?time=${selectedTime}`,
         callback_method: "get",
         platform: "meet",
         meetRegistrationId: meetId?.meetRegistrationId,
@@ -375,7 +369,7 @@ const BookNowPayment = () => {
       console.log(typeof parseFloat(payload.amount), "amount");
 
       const response = await axios.post(
-        `${BETA_SERVER}/api/v1/razorpay/createPaymentLink`,
+        `${PAYMENT_API_URL}api/v1/razorpay/createPaymentLink`,
 
         payload,
         {
@@ -405,7 +399,7 @@ const BookNowPayment = () => {
       // setTimeout(() => {
       //   axios
       //     .post(
-      //       `${BETA_SERVER}/api/v1/razorpay/confirmPayment/${meetId?.meetRegistrationId}`,
+      //       `${PAYMENT_API_URL}/api/v1/razorpay/confirmPayment/${meetId?.meetRegistrationId}`,
       //       {},
       //       {
       //         headers: {

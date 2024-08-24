@@ -23,7 +23,7 @@ const BookNowPaymentSuccess = () => {
   const b = params.get("selectedTime");
 
   return (
-    <div className="main-success-cont">
+    <main className="main-success-cont">
       <div className="main-sub-success">
         <h3 style={{ fontSize: "22px", textAlign: "center", fontWeight: 600 }}>
           Congratulations
@@ -70,7 +70,7 @@ const BookNowPaymentSuccess = () => {
           </h4>
         </div>
       </div>
-    </div>
+    </main>
   );
 };
 
