@@ -137,7 +137,7 @@ export default function NewFooter() {
               </Link>
 
               <Link to="/terms-and-conditions" className="link">
-                Terms And Conditions
+                Terms & Conditions
               </Link>
             </div>
             <div className="pages">

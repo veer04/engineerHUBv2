@@ -26,3 +26,10 @@
   line-height: 24px;
   word-wrap: break-word;
 }
+
+@media screen and (max-width: 520px) {
+  .terms-breadcrumb-main-div {
+    padding: 20px 16px;
+    background-color: #128381;
+  }
+}
