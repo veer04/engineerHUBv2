@@ -2,7 +2,7 @@
   width: 100%;
   height: auto;
   background-color: #128381;
-  padding: 40px 200px;
+  padding: 40px var(--section-padding);
   position: -webkit-sticky;
   position: sticky;
   top: 0;
