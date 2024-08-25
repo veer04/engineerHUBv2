@@ -142,6 +142,12 @@ export default function NewFooter() {
               <Link to="/terms-and-conditions" className="link">
                 Terms And Conditions
               </Link>
+              <Link to="/terms-and-conditions" className="link">
+                Privacy Policy
+              </Link>
+              <Link to="/terms-and-conditions" className="link">
+                Refund and cancellation policy
+              </Link>
             </div>
             <div className="pages">
               <p className="title">Campus</p>
