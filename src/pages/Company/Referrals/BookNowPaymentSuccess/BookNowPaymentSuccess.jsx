@@ -41,11 +41,11 @@ const BookNowPaymentSuccess = () => {
             Your booking is confirmed
           </h3>
 
-          <h4
+          {/* <h4
             style={{ fontSize: "16px", textAlign: "center", fontWeight: 400 }}
           >
             for job referral and carrer guidance
-          </h4>
+          </h4> */}
         </div>
 
         <div className="success-calendar-change">

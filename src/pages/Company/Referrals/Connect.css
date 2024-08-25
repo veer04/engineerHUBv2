@@ -106,11 +106,17 @@
   fill: #002b36; /* Set the icon color to match the button text */
 }
 
+@media screen and (max-width: 350px) {
+  .main-container-connect {
+    padding: 15px;
+  }
+}
+
 @media screen and (max-width: 520px) {
   .main-container-connect {
     max-width: 100%;
     height: 100%;
-    padding: 45px;
+    padding: 16px;
   }
 
   .connect-cards {
