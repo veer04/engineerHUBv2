@@ -22,6 +22,7 @@ import {
   emailExpression,
   mobileNumberExpression,
 } from "../../../../features/regex";
+import { patchResume } from "../../../../services/APIConfig";
 
 const BookNowPayment = () => {
   if (!isUserLoggedIn()) {
@@ -261,12 +262,26 @@ const BookNowPayment = () => {
     if (!validateInput1()) {
       return;
     }
+
     setIsLoading(true);
+
+    // const formData = new FormData();
+    // formData.append("name", name);
+    // formData.append("mobile", phoneNumber);
+    // formData.append("email", email);
+    // formData.append("resume", resume);
+
+    // formData.append("extraQuestions", extraQuestions);
+    // formData.append("startDateTime", startDateTimeISO);
+    // formData.append("endDateTime", endDateTimeISO);
+
+    // console.log(formData.get("resume"), "jhg");
+
     const payload = {
       name: name,
       mobile: phoneNumber,
       email: email,
-
+      // resume: resume,
       extraQuestions: extraQuestions,
       startDateTime: startDateTimeISO,
       endDateTime: endDateTimeISO,
@@ -289,6 +304,7 @@ const BookNowPayment = () => {
           res.status === 203 ||
           res.status === 204
         ) {
+          patchResume("", resume);
           const data = res.data;
           console.log(data, "Detaileddata");
           setMeetId(data?.data);
