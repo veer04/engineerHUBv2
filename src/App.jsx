@@ -115,6 +115,9 @@ const NewEventsPage = lazy(() =>
 const NewBlogsPage = lazy(() =>
   import("./pages/Community/Blogs/NewBlogsPage.jsx")
 );
+const TermsAndConditions = lazy(() =>
+  import("./pages/TermsAndConditions/TermsAndConditions.jsx")
+);
 
 function App() {
   const [OtpRoute, setOtpRoute] = useState("loading");
@@ -286,6 +289,10 @@ function App() {
               <Route path=":hackId" element={<HackathonDetailsNew />} />
             </Route>
           </Route>
+          <Route
+            path="/terms-and-conditions"
+            element={<TermsAndConditions />}
+          />
           <Route path="*" element={<Page404 />} />
         </Routes>
       </Suspense>
