@@ -56,7 +56,6 @@ import BookNowPaymentSuccess from "./pages/Company/Referrals/BookNowPaymentSucce
 import CompanyWisePrep from "./pages/Company/Referrals/CompanyWisePrep/CompanyWisePrep.jsx";
 import PrepPayNow from "./pages/Company/Referrals/PrepPayNow/PrepPayNow";
 import BookNowSuccessProduct from "./pages/Company/Referrals/BookNowPaymentSuccess/BookNowSuccessProduct.jsx";
-import TermsAndConditions from "./pages/TermsAndConditions/TermsAndConditions.jsx";
 // import PopUpModalBootstrap from "./components/PopUpModal/PopUpModalBootstrap.jsx";
 const ReferralAdminPage = lazy(() =>
   import("./pages/Admin/ReferralAdminPage.jsx")
@@ -129,6 +128,9 @@ const NewBlogsPage = lazy(() =>
 );
 
 const Referrals = lazy(() => import("./pages/Company/Referrals/Referrals.jsx"));
+const TermsAndConditions = lazy(() =>
+  import("./pages/TermsAndConditions/TermsAndConditions.jsx")
+);
 
 function App() {
   const [OtpRoute, setOtpRoute] = useState("loading");
@@ -302,47 +304,6 @@ function App() {
               <Route path=":hackId" element={<HackathonDetailsNew />} />
             </Route>
           </Route>
-
-          <Route path="/referrals" element={<Referrals />} />
-          {/* <Route path="/referrals/book-now" element={<BookNow />} /> */}
-          <Route path="/referrals/book-now/:referralId" element={<BookNow />} />
-          <Route
-            path="/referrals/book-now/payment"
-            element={<BookNowPayment />}
-          />
-
-          <Route
-            path="/referrals/book-now/payment/success"
-            element={<BookNowPaymentSuccess />}
-          />
-
-          <Route
-            path="/referrals/product-book-now/:booknowId"
-            element={<CompanyWisePrep />}
-          />
-
-          <Route
-            path="/referrals/product-book-now/payment"
-            element={<PrepPayNow />}
-          />
-
-          <Route
-            path="/referrals/product-book-now/payment/success"
-            element={<BookNowSuccessProduct />}
-          />
-
-          <Route
-            path="/terms-and-conditions"
-            element={<TermsAndConditions />}
-          />
-
-          <Route path="/admin">
-            <Route index element={<Page404 />} />
-            <Route path="referrals">
-              <Route index element={<ReferralAdminPage />} />
-            </Route>
-          </Route>
-
           <Route path="*" element={<Page404 />} />
         </Routes>
       </Suspense>
