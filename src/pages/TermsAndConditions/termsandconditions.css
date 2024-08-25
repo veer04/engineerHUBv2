@@ -3,7 +3,7 @@
 }
 
 .main-terms-div .sub-terms-div {
-  padding: 20px 200px;
+  padding: 20px var(--section-padding);
 }
 
 .main-terms-div .sub-terms-div .terms-of-use .use-h4 {
@@ -196,4 +196,9 @@
   line-height: 24px;
   word-wrap: break-word;
   text-align: justify;
+}
+@media screen and (max-width: 520px) {
+  .main-terms-div .sub-terms-div {
+    padding: 20px 16px;
+  }
 }
