@@ -56,7 +56,6 @@ import BookNowPaymentSuccess from "./pages/Company/Referrals/BookNowPaymentSucce
 import CompanyWisePrep from "./pages/Company/Referrals/CompanyWisePrep/CompanyWisePrep.jsx";
 import PrepPayNow from "./pages/Company/Referrals/PrepPayNow/PrepPayNow";
 import BookNowSuccessProduct from "./pages/Company/Referrals/BookNowPaymentSuccess/BookNowSuccessProduct.jsx";
-import TermsAndConditions from "./pages/TermsAndConditions/TermsAndConditions.jsx";
 // import PopUpModalBootstrap from "./components/PopUpModal/PopUpModalBootstrap.jsx";
 const ReferralAdminPage = lazy(() =>
   import("./pages/Admin/ReferralAdminPage.jsx")
@@ -129,6 +128,9 @@ const NewBlogsPage = lazy(() =>
 );
 
 const Referrals = lazy(() => import("./pages/Company/Referrals/Referrals.jsx"));
+const TermsAndConditions = lazy(() =>
+  import("./pages/TermsAndConditions/TermsAndConditions.jsx")
+);
 
 function App() {
   const [OtpRoute, setOtpRoute] = useState("loading");

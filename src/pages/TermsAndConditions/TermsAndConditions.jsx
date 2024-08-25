@@ -1,9 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./termsandconditions.css";
 import TermsSidebar from "./TermsSidebar/TermsSidebar";
 import { Link } from "react-router-dom";
 
 const TermsAndConditions = () => {
+
+  useEffect(() => {
+    document.title = "Terms and Conditions | engineerHUB";
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <>
       <main className="main-terms-div">
