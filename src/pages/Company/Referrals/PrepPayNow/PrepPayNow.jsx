@@ -236,42 +236,41 @@ const PrepPayNow = () => {
       data.status === 203 ||
       data.status === 204
     ) {
-      setSnackbarMessage("You Have paid successfully");
+      setSnackbarMessage("Payment Initialized successfully!");
       setSnackbarOpen(true);
-    }
-
-    const pollInterval = setInterval(async () => {
-      console.log(
-        `${PAYMENT_API_URL}api/v1/razorpay/confirmCoursePayment/${productData?.coursePurchaseRequestId}`,
-        "apiroute"
-      );
-      try {
-        const checkResponse = await axios.get(
+      const pollInterval = setInterval(async () => {
+        console.log(
           `${PAYMENT_API_URL}api/v1/razorpay/confirmCoursePayment/${productData?.coursePurchaseRequestId}`,
-          {
-            headers: {
-              accessToken: getAccessToken(),
-            },
-          }
+          "apiroute"
         );
+        try {
+          const checkResponse = await axios.get(
+            `${PAYMENT_API_URL}api/v1/razorpay/confirmCoursePayment/${productData?.coursePurchaseRequestId}`,
+            {
+              headers: {
+                accessToken: getAccessToken(),
+              },
+            }
+          );
 
-        const checkData = checkResponse.data;
+          const checkData = checkResponse.data;
 
-        if (checkData.status === "success") {
-          clearInterval(pollInterval);
-          setSnackbarMessage("Payment confirmed successfully");
-          setSnackbarOpen(true);
+          if (checkData.status === "success") {
+            clearInterval(pollInterval);
+            setSnackbarMessage("Payment confirmed successfully");
+            setSnackbarOpen(true);
 
-          localStorage.setItem("paymentData", JSON.stringify(checkData.data));
-        } else if (checkData.status === "failed") {
-          clearInterval(pollInterval);
-          setSnackbarMessage("Payment failed");
-          setSnackbarOpen(true);
+            localStorage.setItem("paymentData", JSON.stringify(checkData.data));
+          } else if (checkData.status === "failed") {
+            clearInterval(pollInterval);
+            setSnackbarMessage("Payment failed");
+            setSnackbarOpen(true);
+          }
+        } catch (error) {
+          console.error("Error checking payment status:", error);
         }
-      } catch (error) {
-        console.error("Error checking payment status:", error);
-      }
-    }, 2000);
+      }, 2000);
+    }
 
     console.log(data, "paymentData");
     console.log(data?.data?.payment_link, "paymentlink");
