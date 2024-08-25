@@ -18,6 +18,7 @@ import {
 } from "./EmblaCarouselArrowButtons";
 import useEmblaCarousel from "embla-carousel-react";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
+import moment from "moment/moment";
 
 const BookNow = () => {
   const [currentPage, setCurrentPage] = useState(0);
@@ -27,6 +28,7 @@ const BookNow = () => {
   const [meetingData, setMeetingData] = useState([]);
   const [datesArray, setDatesArray] = useState([]);
   const [timeArray, setTimeArray] = useState([]);
+  const [timeArrayCopy, setTimeArrayCopy] = useState([]);
   const {
     setSnackbarOpen,
     setSnackbarMessage,
@@ -64,8 +66,6 @@ const BookNow = () => {
   //   }
   // }, []);
 
-  console.log(referralId, "hgfd");
-
   useEffect(() => {
     const fetchMeetingData = async () => {
       try {
@@ -75,7 +75,6 @@ const BookNow = () => {
 
         if (response.ok) {
           const data = await response.json();
-          console.log(data, "referralidData");
           setMeetingData(data?.data);
         } else {
           throw new Error("Error fetching meeting data");
@@ -114,10 +113,6 @@ const BookNow = () => {
   const timesPerPage = isMobile ? 12 : 16; // 4 columns x 4 rows
   const datesPerPage = isMobile ? 6 : 8; // 2 rows x 4 columns
   const carouselRef = useRef(null);
-
-  console.log(selectedTime, "selecttime");
-  console.log(endTime, "endtime");
-  console.log(selectedDates, "selectdate");
 
   const handleTimeClick = (time) => {
     setSelectedTime(time);
@@ -229,7 +224,7 @@ const BookNow = () => {
       const displayMinutes = minutes < 10 ? `0${minutes}` : minutes;
       const timeString = `${displayHours}:${displayMinutes} ${ampm}`;
 
-      times.push({ time: timeString });
+      times.push({ time: timeString, actualTime: time, isDisabled: true });
     }
 
     return times;
@@ -241,6 +236,7 @@ const BookNow = () => {
     if (referralId) {
       setDatesArray(generateDatesForYear());
       setTimeArray(generateTimeArray());
+      setTimeArrayCopy(generateTimeArray());
     }
   }, [referralId]);
 
@@ -273,12 +269,55 @@ const BookNow = () => {
         config
       );
 
-      console.log(data, "busyeventdata");
+      // console.log(data, "busyeventdata");
       setBusyEventData(data?.data);
     } catch (error) {
       console.log(error);
     }
   };
+
+  const [renderTimes, setRenderTimes] = useState([]);
+
+  useEffect(() => {
+    // Now when the busy dates have been fetched then in the timeArray i want that to add a tag to that time as booked. The busy event data is an array of objects in format as end:"2024-08-25T13:00:00Z", start:"2024-08-25T12:00:00Z"
+
+    // console.log("timeArray", timeArray);
+    // console.log("busyEventData", busyEventData);
+    let renderTimes = [];
+    if (!!selectedDates) {
+      // console.log(
+      //   moment(new Date(`${selectedDates} 2024 8:30 PM`)).format(
+      //     "YYYY[-]MM[-]DD[T]HH[:]mm[:]ss[Z]"
+      //   )
+      // );
+      renderTimes = timeArray.filter(
+        (time) =>
+          busyEventData.filter(
+            (busyEvent) =>
+              // 2024-08-25T12:00:00Z
+
+              moment(new Date(`${selectedDates} 2024 ${time.time}`)).format(
+                "YYYY[-]MM[-]DD[T]HH[:]mm[:]ss[Z]"
+              ) === busyEvent.start
+          ).length === 0
+      );
+      // .map((time) => (time.isDisabled = false));
+    }
+    // console.log("Busy Events Updated", renderTimes);
+    setTimeArrayCopy(
+      timeArray.map((time) => {
+        if (
+          renderTimes.filter((renderTime) => renderTime.time === time.time)
+            .length > 0
+        ) {
+          return { ...time, isDisabled: false };
+        }
+        return time;
+      })
+    );
+  }, [busyEventData, selectedDates]);
+
+  // console.log("timeArrayCopy", timeArrayCopy);
 
   useEffect(() => {
     getBusyEvent();
@@ -338,13 +377,13 @@ const BookNow = () => {
     };
 
     // Output for debugging
-    console.log("Start DateTime Object:", startDate);
-    console.log("End DateTime Object:", endDate);
+    // console.log("Start DateTime Object:", startDate);
+    // console.log("End DateTime Object:", endDate);
 
     const startDateTimeISO = formatISOWithoutMilliseconds(startDate);
     const endDateTimeISO = formatISOWithoutMilliseconds(endDate);
 
-    console.log(startDateTimeISO, endDateTimeISO, "hgfd");
+    // console.log(startDateTimeISO, endDateTimeISO, "hgfd");
 
     // setSnackbarMessage("Registered  Meeting Successfully");
     // setSnackbarOpen(true);
@@ -512,6 +551,7 @@ const BookNow = () => {
                       .map((dateObj, index) => (
                         // <div className={isMobile ? "col-4" : "col-3"} key={index}>
                         <DateBoxes
+                          isDisabled={true}
                           key={index}
                           isActive={false}
                           day={dateObj.day}
@@ -579,83 +619,80 @@ const BookNow = () => {
           </div>
         </div> */}
 
-        <div
-          className="time-div"
-          style={{
-            marginTop: 20,
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-          }}
-        >
-          <h3 className="select-time-text">Select time of the day</h3>
-          {/* <button
-            className="time-meet-btn label-sm"
-            onClick={onNextButtonClick}
-            disabled={nextBtnDisabled}
-          >
-            Next
-            <IoIosArrowForward />
-          </button> */}
-        </div>
+        {selectedDates && (
+          <>
+            <div
+              className="time-div"
+              style={{
+                marginTop: 20,
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
+              <h3 className="select-time-text">Select time of the day</h3>
+            </div>
 
-        <div className="referral-dates-container">
-          <section className="embla">
-            <div className="embla__viewport" ref={emblaRef2}>
-              <div className="embla__container">
-                {TIME_SLIDES.map((index) => (
-                  <div
-                    className="embla__slide"
-                    key={index}
-                    style={{
-                      gridTemplateColumns: isMobile
-                        ? "repeat(3, 1fr)"
-                        : "repeat(4, 1fr)",
-                    }}
-                  >
-                    {/* <div className="embla__slide__number">
-                      <span></span>
-                    </div> */}
-                    {timeArray
-                      .slice(index * timesPerPage, (index + 1) * timesPerPage)
-                      .map((timeObj, index) => (
-                        // <div
-                        //   className={isMobile ? "col-4" : "col-3"}
-                        //   key={index}
-                        // >
-                        <TimeBox
-                          key={index}
-                          time={timeObj.time}
-                          isSelected={selectedTime === timeObj.time}
-                          onClick={() => handleTimeClick(timeObj.time)}
-                        />
-                        // </div>
-                      ))}
+            <div className="referral-dates-container">
+              <section className="embla">
+                <div className="embla__viewport" ref={emblaRef2}>
+                  <div className="embla__container">
+                    {TIME_SLIDES.map((index) => (
+                      <div
+                        className="embla__slide"
+                        key={index}
+                        style={{
+                          gridTemplateColumns: isMobile
+                            ? "repeat(3, 1fr)"
+                            : "repeat(4, 1fr)",
+                        }}
+                      >
+                        {timeArrayCopy
+                          .slice(
+                            index * timesPerPage,
+                            (index + 1) * timesPerPage
+                          )
+                          .map((timeObj, index) => (
+                            // <div
+                            //   className={isMobile ? "col-4" : "col-3"}
+                            //   key={index}
+                            // >
+                            <TimeBox
+                              isDisabled={timeObj?.isDisabled}
+                              key={index}
+                              time={timeObj.time}
+                              isSelected={selectedTime === timeObj.time}
+                              onClick={() => handleTimeClick(timeObj.time)}
+                            />
+                            // </div>
+                          ))}
+                      </div>
+                    ))}
                   </div>
-                ))}
-              </div>
-            </div>
-            <div className="time-meet-btns">
-              <button
-                className="time-meet-btn label-sm"
-                onClick={onPrevButtonClick2}
-                disabled={prevBtnDisabled2}
-              >
-                <IoIosArrowBack />
-                Previous
-              </button>
+                </div>
+                <div className="time-meet-btns">
+                  <button
+                    className="time-meet-btn label-sm"
+                    onClick={onPrevButtonClick2}
+                    disabled={prevBtnDisabled2}
+                  >
+                    <IoIosArrowBack />
+                    Previous
+                  </button>
 
-              <button
-                className="time-meet-btn label-sm"
-                onClick={onNextButtonClick2}
-                disabled={nextBtnDisabled2}
-              >
-                Next
-                <IoIosArrowForward />
-              </button>
+                  <button
+                    className="time-meet-btn label-sm"
+                    onClick={onNextButtonClick2}
+                    disabled={nextBtnDisabled2}
+                  >
+                    Next
+                    <IoIosArrowForward />
+                  </button>
+                </div>
+              </section>
             </div>
-          </section>
-        </div>
+          </>
+        )}
 
         <div
           style={{ display: "none" }}

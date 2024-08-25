@@ -1,40 +1,39 @@
-import React from "react";
+import "./TimeBox.css";
 
-const TimeBox = ({ time, isSelected, onClick }) => {
+const TimeBox = ({ time, isSelected, onClick, isDisabled }) => {
   return (
-    <div
+    <button
+      disabled={isDisabled}
       onClick={onClick}
       style={{
-        padding: "12px",
-        border: "1px solid #EBEBEB",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        width: "100px",
-        height: "51px",
-        borderRadius: "10px",
-        backgroundColor: isSelected ? "#138382" : "#faffff",
-        color: isSelected ? "#ffffff" : "#002B36",
-        cursor: "pointer",
-        transition: "background-color 0.3s ease, color 0.3s ease",
-        boxShadow: " rgba(0, 0, 0, 0.08) 0px 2px 4px",
+        backgroundColor: !isDisabled
+          ? isSelected
+            ? "#138382"
+            : "#faffff"
+          : "##f1f3f5",
+        color: !isDisabled ? (isSelected ? "#ffffff" : "#002B36") : "white",
       }}
+      className="referral-time-box"
     >
       <h2
         style={{
-          color: isSelected ? "white" : "#002B36",
+          color: !isDisabled
+            ? isSelected
+              ? "white"
+              : "#002B36"
+            : "light-dark(rgba(16, 16, 16, 0.3), rgba(255, 255, 255, 0.3))",
           fontSize: "14px",
           fontFamily: "Inter",
           fontWeight: "500",
           lineHeight: "19px",
           wordWrap: "break-word",
           marginTop: "10px",
-          cursor: "pointer",
+          cursor: isDisabled ? "not-allowed" : "pointer",
         }}
       >
         {time}
       </h2>
-    </div>
+    </button>
   );
 };
 
