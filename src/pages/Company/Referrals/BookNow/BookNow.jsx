@@ -449,6 +449,7 @@ const BookNow = () => {
                 Meeting Duration
               </h5>
               <h5
+                className="m-left-h4"
                 style={{
                   fontSize: "20px",
                   fontWeight: "600",

@@ -24,6 +24,10 @@ const BookNowPaymentSuccess = () => {
   const selectedDates = localStorage.getItem("selectedDates");
   const selectedTime = localStorage.getItem("selectedTime");
 
+  const MeetPaymentData = JSON.parse(localStorage.getItem("BookNowPayment"));
+
+  console.log(MeetPaymentData, "MeetPaymentData");
+
   // Extract query parameters
   // const queryParams = new URLSearchParams(window.location.search);
   // const selectedDates = queryParams.get("selectedDates");
@@ -39,7 +43,8 @@ const BookNowPaymentSuccess = () => {
     <main className="main-success-cont">
       <div className="main-sub-success">
         <h3 style={{ fontSize: "22px", textAlign: "center", fontWeight: 600 }}>
-          Congratulations
+          Congratulations,
+          {/* {MeetPaymentData?.name || "name"} */}
         </h3>
 
         <div className="main-svg-el1">

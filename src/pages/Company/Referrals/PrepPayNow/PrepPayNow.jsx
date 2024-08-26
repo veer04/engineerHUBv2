@@ -265,6 +265,7 @@ const PrepPayNow = () => {
             clearInterval(pollInterval);
             setSnackbarMessage("Payment failed");
             setSnackbarOpen(true);
+            window.location.href = "/referrals/booking/payment/failed";
           }
         } catch (error) {
           console.error("Error checking payment status:", error);

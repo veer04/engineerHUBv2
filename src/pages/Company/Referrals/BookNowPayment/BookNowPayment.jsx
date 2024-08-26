@@ -406,6 +406,41 @@ const BookNowPayment = () => {
         setSnackbarMessage("You Have paid successfully");
         setSnackbarOpen(true);
         setPaymentData(data);
+
+        // const pollInterval = setInterval(async () => {
+        //   try {
+        //     const checkResponse = await axios.get(
+        //       `${PAYMENT_API_URL}api/v1/razorpay/confirmCoursePayment/${meetId?.meetRegistrationId}`,
+        //       {
+        //         headers: {
+        //           accessToken: getAccessToken(),
+        //         },
+        //       }
+        //     );
+
+        //     const checkData = checkResponse?.data;
+        //     console.log(checkData, "Checkdatameet");
+        //     console.log(checkResponse, "Checkresponse");
+
+        //     if (checkData.status === "success") {
+        //       clearInterval(pollInterval);
+        //       setSnackbarMessage("Payment confirmed successfully");
+        //       setSnackbarOpen(true);
+
+        //       localStorage.setItem(
+        //         "BookNowPayment",
+        //         JSON.stringify(checkData?.data)
+        //       );
+        //     } else if (checkData.status === "failed") {
+        //       clearInterval(pollInterval);
+        //       setSnackbarMessage("Payment failed");
+        //       setSnackbarOpen(true);
+        //       window.location.href = "/referrals/booking/payment/failed";
+        //     }
+        //   } catch (error) {
+        //     console.error("Error checking payment status:", error);
+        //   }
+        // }, 2000);
       }
 
       setIsLoading1(false);

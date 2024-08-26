@@ -17,7 +17,7 @@ const BookNowSuccessProduct = () => {
     localStorage.getItem("singleProductData")
   );
 
-  console.log(productPaymentData);
+  console.log(productPaymentData, "jhgf");
 
   function downloadFile() {
     const productPaymentData = JSON.parse(
@@ -58,7 +58,8 @@ const BookNowSuccessProduct = () => {
     <main className="product-main-success-cont">
       <div className="main-sub-success">
         <h3 style={{ fontSize: "22px", textAlign: "center", fontWeight: 600 }}>
-          Congratulations, {productPaymentData.name || "name"}
+          Congratulations,
+          {/* {productPaymentData?.name || "name"} */}
         </h3>
 
         <div className="main-svg-el1">
