@@ -3,10 +3,6 @@
   height: auto;
   background-color: #128381;
   padding: 20px var(--section-padding);
-  position: -webkit-sticky;
-  position: sticky;
-  top: 0;
-  z-index: 1000;
 }
 
 .terms-breadcrumb-main-div .terms-breadcrumb-inner-div .terms-h4 {

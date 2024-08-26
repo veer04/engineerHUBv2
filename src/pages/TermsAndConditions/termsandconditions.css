@@ -6,6 +6,9 @@
   padding: 20px var(--section-padding);
 }
 
+.main-terms-div .sub-terms-div .TnC-container {
+  scroll-margin-top: calc(var(--navbar-height) + 1rem);
+}
 .main-terms-div .sub-terms-div .TnC-container .use-h4 {
   color: #002b36;
   font-size: 20px;
@@ -13,6 +16,9 @@
   font-weight: 700;
   line-height: 30px;
   word-wrap: break-word;
+}
+.main-terms-div .sub-terms-div .TnC-container:target {
+  scroll-margin-top: calc(var(--navbar-height) + 1rem);
 }
 
 .main-terms-div .sub-terms-div .TnC-container .use-p {

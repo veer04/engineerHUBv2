@@ -4,7 +4,6 @@ import TermsSidebar from "./TermsSidebar/TermsSidebar";
 import { Link } from "react-router-dom";
 
 const TermsAndConditions = () => {
-
   useEffect(() => {
     document.title = "Terms and Conditions | engineerHUB";
     window.scrollTo(0, 0);
@@ -167,7 +166,7 @@ const TermsAndConditions = () => {
             </p>
           </div>
 
-          <div className="TnC-container privacy-policy-div">
+          <div id="privacy-policy" className="TnC-container privacy-policy-div">
             <h4 className="use-h4">Privacy Policy</h4>
             <p className="use-p">
               The User hereby consents, expresses and agrees that he/she has
@@ -365,7 +364,10 @@ const TermsAndConditions = () => {
             </p>
           </div>
 
-          <div className="TnC-container advertising-material">
+          <div
+            id="refund-and-cancellation-policy"
+            className="TnC-container advertising-material"
+          >
             <h4 className="use-h4">Cancellation/Refund Policy</h4>
             <p className="use-p">
               All sales/purchase of services are final with no refund or
