@@ -2,7 +2,7 @@
   width: 100%;
   height: auto;
   background-color: #128381;
-  padding: 40px var(--section-padding);
+  padding: 20px var(--section-padding);
   position: -webkit-sticky;
   position: sticky;
   top: 0;
@@ -25,11 +25,18 @@
   font-weight: 400;
   line-height: 24px;
   word-wrap: break-word;
+  margin: 0;
 }
 
 @media screen and (max-width: 520px) {
   .terms-breadcrumb-main-div {
     padding: 20px 16px;
     background-color: #128381;
+  }
+  .terms-breadcrumb-main-div .terms-breadcrumb-inner-div .terms-h4 {
+    font-size: 24px;
+  }
+  .terms-breadcrumb-main-div .terms-breadcrumb-inner-div .terms-p {
+    font-size: 14px;
   }
 }

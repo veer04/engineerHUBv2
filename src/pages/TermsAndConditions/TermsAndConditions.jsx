@@ -16,7 +16,7 @@ const TermsAndConditions = () => {
         <TermsSidebar />
 
         <div className="sub-terms-div">
-          <div className="terms-of-use">
+          <div className="TnC-container terms-of-use">
             <h4 className="use-h4">Terms of use</h4>
             <p className="use-p">
               Your use of engineerHUB&#39;s products, software, services and
@@ -42,7 +42,7 @@ const TermsAndConditions = () => {
             </p>
           </div>
 
-          <div className="user-aggrement">
+          <div className="TnC-container user-aggrement">
             <h4 className="use-h4">User Aggrement</h4>
             <p className="use-p">
               These Terms of Use govern your use of Services offered through{" "}
@@ -64,7 +64,7 @@ const TermsAndConditions = () => {
             </p>
           </div>
 
-          <div className="acceptance-and-terms">
+          <div className="TnC-container acceptance-and-terms">
             <h4 className="use-h4">Acceptance of Terms</h4>
             <p className="use-p">
               You can accept the Terms by: <br />
@@ -89,7 +89,7 @@ const TermsAndConditions = () => {
             </p>
           </div>
 
-          <div className="modification">
+          <div className="TnC-container modification">
             <h4 className="use-h4">Modification</h4>
             <p className="use-p">
               engineerHUB.in reserves the right to suspend/cancel, or
@@ -107,7 +107,7 @@ const TermsAndConditions = () => {
             </p>
           </div>
 
-          <div className="registration-access">
+          <div className="TnC-container registration-access">
             <h4 className="use-h4">
               Registration, Access and Exchange of Information
             </h4>
@@ -154,7 +154,7 @@ const TermsAndConditions = () => {
             </p>
           </div>
 
-          <div className="passwords-and-acc-security">
+          <div className="TnC-container passwords-and-acc-security">
             <h4 className="use-h4">Your passwords and account security</h4>
             <p className="use-p">
               You agree and understand that you are responsible for maintaining
@@ -167,7 +167,7 @@ const TermsAndConditions = () => {
             </p>
           </div>
 
-          <div className="privacy-policy-div">
+          <div className="TnC-container privacy-policy-div">
             <h4 className="use-h4">Privacy Policy</h4>
             <p className="use-p">
               The User hereby consents, expresses and agrees that he/she has
@@ -177,7 +177,7 @@ const TermsAndConditions = () => {
             </p>
           </div>
 
-          <div className="advertising-material">
+          <div className="TnC-container advertising-material">
             <h4 className="use-h4">Advertising Material</h4>
             <p className="use-p">
               Part of the Site contains advertising information or promotion
@@ -202,7 +202,7 @@ const TermsAndConditions = () => {
             </p>
           </div>
 
-          <div className="advertising-material">
+          <div className="TnC-container advertising-material">
             <h4 className="use-h4">Cookies</h4>
             <p className="use-p">
               We employ the use of cookies. By accessing engineerHUB, you agreed
@@ -222,7 +222,7 @@ const TermsAndConditions = () => {
             </p>
           </div>
 
-          <div className="user-conduct-and-rules">
+          <div className="TnC-container user-conduct-and-rules">
             <h4 className="use-h4">User Conduct and rules</h4>
             <p className="use-p">
               You agree and undertake to use the Website and the Service only to
@@ -283,7 +283,7 @@ const TermsAndConditions = () => {
             </p>
           </div>
 
-          <div className="advertising-material">
+          <div className="TnC-container advertising-material">
             <h4 className="use-h4">User Warranty and representation</h4>
             <p className="use-p">
               The user guarantees, warrants, and certifies that you are the
@@ -298,7 +298,7 @@ const TermsAndConditions = () => {
             </p>
           </div>
 
-          <div className="advertising-material">
+          <div className="TnC-container advertising-material">
             <h4 className="use-h4">License</h4>
             <p className="use-p">
               You must not:
@@ -332,7 +332,7 @@ const TermsAndConditions = () => {
             </p>
           </div>
 
-          <div className="advertising-material">
+          <div className="TnC-container advertising-material">
             <h4 className="use-h4">Termination and Access Restriction</h4>
             <p className="use-p">
               engineerhub.in reserves the right, in its sole discretion, to
@@ -341,7 +341,7 @@ const TermsAndConditions = () => {
             </p>
           </div>
 
-          <div className="advertising-material">
+          <div className="TnC-container advertising-material">
             <h4 className="use-h4">Fee Payments</h4>
             <p className="use-p">
               enigneerhub.in reserves the right to charge
@@ -354,7 +354,7 @@ const TermsAndConditions = () => {
             </p>
           </div>
 
-          <div className="advertising-material">
+          <div className="TnC-container advertising-material">
             <h4 className="use-h4">Delivery of services</h4>
             <p className="use-p">
               All our services are online. No physical delivery will be carried
@@ -365,7 +365,7 @@ const TermsAndConditions = () => {
             </p>
           </div>
 
-          <div className="advertising-material">
+          <div className="TnC-container advertising-material">
             <h4 className="use-h4">Cancellation/Refund Policy</h4>
             <p className="use-p">
               All sales/purchase of services are final with no refund or
@@ -384,7 +384,7 @@ const TermsAndConditions = () => {
             </p>
           </div>
 
-          <div className="advertising-material">
+          <div className="TnC-container advertising-material">
             <h4 className="use-h4">
               Disclaimer of Warranties/Limitation of Liability
             </h4>
@@ -428,7 +428,7 @@ const TermsAndConditions = () => {
             </p>
           </div>
 
-          <div className="advertising-material">
+          <div className="TnC-container advertising-material">
             <h4 className="use-h4">Indemnification</h4>
             <p className="use-p">
               You agree to indemnify, defend and hold harmless engineerhub.in
@@ -444,7 +444,7 @@ const TermsAndConditions = () => {
             </p>
           </div>
 
-          <div className="advertising-material">
+          <div className="TnC-container advertising-material">
             <h4 className="use-h4">Governing Law</h4>
             <p className="use-p">
               These terms shall be governed by and constructed in accordance
@@ -455,7 +455,7 @@ const TermsAndConditions = () => {
             </p>
           </div>
 
-          <div className="advertising-material">
+          <div className="TnC-container advertising-material">
             <h4 className="use-h4">Severability</h4>
             <p className="use-p">
               If any provision of the Terms is determined to be invalid or
@@ -467,7 +467,7 @@ const TermsAndConditions = () => {
             </p>
           </div>
 
-          <div className="advertising-material">
+          <div className="TnC-container advertising-material">
             <h4 className="use-h4">Report Abuse</h4>
             <p className="use-p">
               As per these Terms, users are solely responsible for every
@@ -482,7 +482,7 @@ const TermsAndConditions = () => {
             </p>
           </div>
 
-          <div className="advertising-material">
+          <div className="TnC-container advertising-material">
             <h4 className="use-h4">Forum Rules</h4>
             <p className="use-p">
               Registration to the forum under engineerhub.in is free. We do
@@ -507,7 +507,7 @@ const TermsAndConditions = () => {
             </p>
           </div>
 
-          <div className="advertising-material">
+          <div className="TnC-container advertising-material">
             <h4 className="use-h4">
               Ending your relationship with engineerHUB.in
             </h4>
