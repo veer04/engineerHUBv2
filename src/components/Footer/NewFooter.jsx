@@ -13,6 +13,7 @@ import {
 } from "react-icons/bs";
 import { Bucket_URL } from "../../services/APIUtils";
 import { IoLocationOutline } from "react-icons/io5";
+import { HashLink } from "react-router-hash-link/dist/react-router-hash-link.cjs.production";
 
 export default function NewFooter() {
   const [displayFooter, setDisplayFooter] = useState(true);
@@ -139,15 +140,27 @@ export default function NewFooter() {
               >
                 Blogs
               </Link>
-              <Link to="/terms-and-conditions" className="link">
+              <HashLink to="/terms-and-conditions" className="link">
                 Terms And Conditions
-              </Link>
-              <Link to="/terms-and-conditions" className="link">
+              </HashLink>
+              <HashLink
+                style={{
+                  scrollMarginTop: "calc(var(--navbar-height) + 1rem)",
+                }}
+                to="/terms-and-conditions#privacy-policy"
+                className="link"
+              >
                 Privacy Policy
-              </Link>
-              <Link to="/terms-and-conditions" className="link">
+              </HashLink>
+              <HashLink
+                style={{
+                  scrollMarginTop: "calc(var(--navbar-height) + 1rem)",
+                }}
+                to="/terms-and-conditions#refund-and-cancellation-policy"
+                className="link"
+              >
                 Refund and cancellation policy
-              </Link>
+              </HashLink>
             </div>
             <div className="pages">
               <p className="title">Campus</p>
