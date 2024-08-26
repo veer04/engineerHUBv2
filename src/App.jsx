@@ -56,6 +56,7 @@ import BookNowPaymentSuccess from "./pages/Company/Referrals/BookNowPaymentSucce
 import CompanyWisePrep from "./pages/Company/Referrals/CompanyWisePrep/CompanyWisePrep.jsx";
 import PrepPayNow from "./pages/Company/Referrals/PrepPayNow/PrepPayNow";
 import BookNowSuccessProduct from "./pages/Company/Referrals/BookNowPaymentSuccess/BookNowSuccessProduct.jsx";
+import PaymentFailed from "./pages/Company/Referrals/PaymentFailed/PaymentFailed.jsx";
 // import PopUpModalBootstrap from "./components/PopUpModal/PopUpModalBootstrap.jsx";
 const ReferralAdminPage = lazy(() =>
   import("./pages/Admin/ReferralAdminPage.jsx")
@@ -331,6 +332,11 @@ function App() {
           <Route
             path="/referrals/product-book-now/payment/success"
             element={<BookNowSuccessProduct />}
+          />
+
+          <Route
+            path="/referrals/booking/payment/failed"
+            element={<PaymentFailed />}
           />
 
           <Route

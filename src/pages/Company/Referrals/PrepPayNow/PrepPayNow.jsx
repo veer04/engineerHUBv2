@@ -401,7 +401,7 @@ const PrepPayNow = () => {
 
             {productData?.coursePurchaseRequestId && priceOfproduct > 0 ? (
               <div
-                className="paynow-div"
+                className="paynow-div-prep"
                 style={{
                   display: "flex",
                   justifyContent: "space-between",

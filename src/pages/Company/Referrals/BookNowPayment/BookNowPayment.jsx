@@ -38,9 +38,12 @@ const BookNowPayment = () => {
   const [isResumePresent, setIsResumePresent] = useState(false);
   const [allMeetData, setAllMeetData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [isLoading1, setIsLoading1] = useState(false);
+
   const navigate = useNavigate();
   const [meetId, setMeetId] = useState([]);
   const [paymentData, setPaymentData] = useState([]);
+  const [clicked, setClicked] = useState(false);
 
   // location.state.startDateTimeISO || JSON.parse(localStorage.getItem("startDateTimeISO"));
   const location = useLocation();
@@ -99,9 +102,7 @@ const BookNowPayment = () => {
 
   const getAllOpenMeet = async () => {
     try {
-      const response = await fetch(
-        `https://meet-engineerhub.onrender.com/api/v1/meet/open`
-      );
+      const response = await fetch(`${PAYMENT_API_URL}api/v1/meet/open`);
 
       if (response.ok) {
         const data = await response.json();
@@ -282,7 +283,7 @@ const BookNowPayment = () => {
       mobile: phoneNumber,
       email: email,
       // resume: resume,
-      extraQuestions: extraQuestions,
+      // extraQuestions: extraQuestions,
       startDateTime: startDateTimeISO,
       endDateTime: endDateTimeISO,
     };
@@ -304,7 +305,7 @@ const BookNowPayment = () => {
           res.status === 203 ||
           res.status === 204
         ) {
-          patchResume("", resume);
+          // patchResume("", resume);
           const data = res.data;
           console.log(data, "Detaileddata");
           setMeetId(data?.data);
@@ -318,7 +319,8 @@ const BookNowPayment = () => {
           setPhoneNumber([]);
           setEmail([]);
           setResume([]);
-          setExtraQuestions([]);
+          setClicked(true);
+          // setExtraQuestions([]);
 
           // localStorage.setItem("registrationData", JSON.stringify(data));
 
@@ -367,10 +369,11 @@ const BookNowPayment = () => {
     console.log("Phone Number:", phoneNumber);
     console.log("Email:", email);
     console.log("resume", resume);
-    console.log("extraquesrions", extraQuestions);
+    // console.log("extraquesrions", extraQuestions);
   };
 
   const handlePay = async () => {
+    setIsLoading1(true);
     try {
       const payload = {
         amount: totalPrice,
@@ -404,6 +407,8 @@ const BookNowPayment = () => {
         setSnackbarOpen(true);
         setPaymentData(data);
       }
+
+      setIsLoading1(false);
 
       console.log(data, "paymentData");
       console.log(data.data.payment_link, "paymentlink");
@@ -472,11 +477,11 @@ const BookNowPayment = () => {
 
         <div className="calendar-change">
           <div className="calendar-content-data">
-            <img style={{ marginRight: "10px" }} src="/calendar.svg" alt="" />
+            <img style={{ marginRight: "10px" }} src="/Calender2.svg" alt="" />
 
             <div>
-              <h4 className="data-text-h4">{selectedDates}</h4>
-              <h5 className="data-text-h5">{selectedTime}</h5>
+              <h4 className="data-text-h4">Date: {selectedDates}</h4>
+              <h5 className="data-text-h5">Time: {selectedTime}</h5>
             </div>
           </div>
 
@@ -550,7 +555,7 @@ const BookNowPayment = () => {
             className="mb-4"
           />
 
-          <FormInput
+          {/* <FormInput
             label="Extra Questions you would like to cover"
             id="extraQuestions"
             name="extraQuestions"
@@ -559,210 +564,18 @@ const BookNowPayment = () => {
             setValue={setExtraQuestions}
             helperText={errors.extraQuestions}
             className="mb-4 w-100"
-          />
+          /> */}
 
-          {/* <div
-              className="main-cont-name-phone"
-              style={{ display: "flex", gap: "10px" }}
-            >
-              <div className="name-cont">
-                <label
-                  style={{
-                    color: "#002B36",
-                    fontSize: "14px",
-                    fontWeight: "500",
-                  }}
-                >
-                  Name
-                </label>
-                <input
-                  required
-                  style={{
-                    padding: 15,
-                    borderRadius: "5px",
-                    border: "1px solid #cdcdcd",
-                    marginTop: "5px",
-                    marginLeft: "3px",
-                    color: "#002B36",
-                    fontSize: 14,
-                  }}
-                  type="text"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  placeholder="Enter Your Name"
-                />
-              </div>
-              <div className="phone-cont">
-                <label
-                  style={{
-                    color: "#002B36",
-                    fontSize: "14px",
-                    fontWeight: "500",
-                  }}
-                >
-                  Phone Number
-                </label>
-                <input
-                  required
-                  style={{
-                    padding: 15,
-                    borderRadius: "5px",
-                    border: "1px solid #cdcdcd",
-                    marginTop: "5px",
-                    marginLeft: "3px",
-                    color: "#002B36",
-                    fontSize: 14,
-                  }}
-                  value={phoneNumber}
-                  onChange={(e) => setPhoneNumber(e.target.value)}
-                  type="text"
-                  placeholder="Enter Your Phone Number"
-                />
-              </div>
-            </div> */}
-          {/* <div style={{ marginTop: 20 }}>
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  width: "100%    ",
-                }}
-              >
-                <label
-                  style={{
-                    color: "#002B36",
-                    fontSize: "14px",
-                    fontWeight: "500",
-                  }}
-                >
-                  Email
-                </label>
-                <input
-                  required
-                  style={{
-                    padding: 15,
-                    borderRadius: "5px",
-                    border: "1px solid #cdcdcd",
-                    marginTop: "5px",
-                    marginLeft: "3px",
-                    color: "#002B36",
-                    fontSize: 14,
-                  }}
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  type="text"
-                  placeholder="Enter your email"
-                />
-              </div>
-            </div> */}
-
-          {/* <div style={{ marginTop: 20 }}>
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  width: "100%",
-                  marginLeft: "4px",
-                }}
-              >
-                {isResumePresent && (
-                  <FormInputToggle
-                    label="Use previous resume"
-                    id="previousResume"
-                    name="previousResume"
-                    value={usePreviousResume}
-                    setValue={setUsePreviousResume}
-                    helperText={errors.usePreviousResume}
-                    className="mb-2"
-                  />
-                )}
-                {usePreviousResume ? (
-                  <>
-                    <div
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "flex-start",
-                        padding: "0 14px",
-                      }}
-                      className="mimic-file-upload"
-                    >
-                      <FaFilePdf
-                        style={{
-                          color: "#ff1b0e",
-                          fontSize: "1.5rem",
-                          marginRight: ".5rem",
-                        }}
-                      />
-                      <a
-                        // href={"/"}
-                        rel="noopener noreferrer"
-                        target="_blank"
-                        className="body-sm-regular override-link"
-                      >
-                        Click here to view resume
-                      </a>
-                    </div>
-                  </>
-                ) : (
-                  <FormInputFileUpload
-                    label="Upload your resume"
-                    id="resume"
-                    name="resume"
-                    placeholder="Upload your resume"
-                    constraint="less than 2 MB"
-                    fileType="application/pdf,application/vnd.ms-excel"
-                    value={resume}
-                    setValue={setResume}
-                    helperText={errors.resume}
-                    className="mb-4"
-                  />
-                )}
-              </div>
-            </div> */}
-
-          {/* <div style={{ marginTop: 5 }}>
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  width: "100%    ",
-                }}
-              >
-                <label
-                  style={{
-                    color: "#002B36",
-                    fontSize: "14px",
-                    fontWeight: "500",
-                  }}
-                >
-                  Extra Qestions you would like to cover
-                </label>
-                <input
-                  style={{
-                    padding: 15,
-                    borderRadius: "5px",
-                    border: "1px solid #cdcdcd",
-                    marginTop: "5px",
-                    marginLeft: "3px",
-                    color: "#002B36",
-                    fontSize: 14,
-                  }}
-                  value={extraQuestions}
-                  onChange={(e) => setExtraQuestions(e.target.value)}
-                  type="text"
-                  placeholder="Your Input"
-                />
-              </div>
-            </div> */}
-
-          <div>
+          <div className="btn-confirm-details">
             <button
-              onClick={() => handleFormSubmit()}
+              onClick={() => {
+                if (!isLoading && !clicked) {
+                  handleFormSubmit();
+                }
+              }}
               type="submit"
               style={{
-                padding: "10 24",
-                backgroundColor: "#138382",
+                backgroundColor: clicked ? "#80D1CE" : "#138382",
                 border: "none",
                 outline: "none",
                 padding: "10px 24px",
@@ -770,12 +583,15 @@ const BookNowPayment = () => {
                 height: "48px",
                 color: "white",
                 fontSize: 14,
-                borderRadius: 5,
-                cursor: "pointer",
-                marginTop: 10,
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                borderRadius: 8,
+                cursor: clicked ? "not-allowed" : "pointer",
               }}
+              disabled={isLoading}
             >
-              Confirm Details
+              {isLoading ? <div className="loader"></div> : "Confirm Details"}
             </button>
           </div>
           {/* </form> */}
@@ -820,9 +636,13 @@ const BookNowPayment = () => {
                 </h4>
               </div>
 
-              <div>
+              <div className="btn-pay-now-click">
                 <button
-                  onClick={handlePay}
+                  onClick={() => {
+                    if (!isLoading1) {
+                      handlePay();
+                    }
+                  }}
                   style={{
                     padding: "10 24",
                     backgroundColor: "#138382",
@@ -831,13 +651,17 @@ const BookNowPayment = () => {
                     padding: "10px 24px",
                     width: "150px",
                     height: "48px",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
                     color: "white",
                     fontSize: 14,
                     borderRadius: 5,
                     cursor: "pointer",
                   }}
+                  disabled={isLoading1}
                 >
-                  Pay Now
+                  {isLoading1 ? <div className="loader-4"></div> : "Pay Now"}
                 </button>
               </div>
             </div>

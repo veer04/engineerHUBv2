@@ -106,7 +106,7 @@
   border-radius: 10px;
 }
 
-.prep-book-now-payment .paynow-div {
+.prep-book-now-payment .paynow-div-prep {
   max-width: 680px;
   transform: translateX(-3.5%);
 }
@@ -131,7 +131,7 @@
     margin-bottom: 25px;
   }
 
-  .prep-book-now-payment .paynow-div {
+  .prep-book-now-payment .paynow-div-prep {
     width: 100%;
     transform: translateX(-5%);
   }

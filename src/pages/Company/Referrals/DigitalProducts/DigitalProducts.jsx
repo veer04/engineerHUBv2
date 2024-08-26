@@ -3,6 +3,7 @@ import "./digitalproducts.css";
 import DigitalCards from "./DigitalCards";
 import axios from "axios";
 import { getAccessToken } from "../../../../features/getCookieValues";
+import { PAYMENT_API_URL } from "../../../../services/APIUtils";
 
 const DigitalProducts = ({ compName }) => {
   const [filterDigitalProducts, setFilterDigitalProducts] = useState("All");
@@ -20,7 +21,7 @@ const DigitalProducts = ({ compName }) => {
       };
 
       const { data } = await axios.get(
-        `https://meet-engineerhub.onrender.com/api/v1/course/open`,
+        `${PAYMENT_API_URL}api/v1/course/open`,
         config
       );
 

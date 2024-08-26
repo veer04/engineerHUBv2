@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./Connect.css";
 import ConnectCards from "./ConnectCards/ConnectCards";
-import { API_URL } from "../../../services/APIUtils";
+import { API_URL, PAYMENT_API_URL } from "../../../services/APIUtils";
 import { useParams } from "react-router-dom";
 
 const ConnectWithUs = ({ compName }) => {
@@ -13,9 +13,7 @@ const ConnectWithUs = ({ compName }) => {
 
   const getAllOpenMeet = async () => {
     try {
-      const response = await fetch(
-        `https://meet-engineerhub.onrender.com/api/v1/meet/open`
-      );
+      const response = await fetch(`${PAYMENT_API_URL}api/v1/meet/open`);
 
       if (response.ok) {
         const data = await response.json();
