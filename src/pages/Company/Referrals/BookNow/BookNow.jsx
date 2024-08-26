@@ -9,7 +9,7 @@ import "bootstrap/dist/js/bootstrap.bundle.min";
 import { getAccessToken } from "../../../../features/getCookieValues";
 import axios from "axios";
 import useGlobalSnackbar from "../../../../hooks/useGlobalSnackbar";
-import { API_URL } from "../../../../services/APIUtils";
+import { API_URL, PAYMENT_API_URL } from "../../../../services/APIUtils";
 import StepIndicator from "../StepIndicator/StepIndicator";
 import {
   PrevButton,
@@ -70,7 +70,7 @@ const BookNow = () => {
     const fetchMeetingData = async () => {
       try {
         const response = await fetch(
-          `https://meet-engineerhub.onrender.com/api/v1/meet/${referralId}`
+          `${PAYMENT_API_URL}api/v1/meet/${referralId}`
         );
 
         if (response.ok) {
@@ -265,7 +265,7 @@ const BookNow = () => {
       };
 
       const { data } = await axios.get(
-        `https://meet-engineerhub.onrender.com/api/v1/calendar/getFreeBusyData/${referralId}`,
+        `${PAYMENT_API_URL}api/v1/calendar/getFreeBusyData/${referralId}`,
         config
       );
 
@@ -449,6 +449,7 @@ const BookNow = () => {
                 Meeting Duration
               </h5>
               <h5
+                className="m-left-h4"
                 style={{
                   fontSize: "20px",
                   fontWeight: "600",
@@ -732,7 +733,7 @@ const BookNow = () => {
 
         <div className="calendar-content">
           <div className="calendar-content-data">
-            <img style={{ marginRight: "10px" }} src="/calendar.svg" alt="" />
+            <img style={{ marginRight: "10px" }} src="/Calender2.svg" alt="" />
 
             <div>
               <h4 className="data-text-h4">

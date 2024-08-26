@@ -72,7 +72,7 @@ const Referrals = () => {
           />
           <BannerCards
             img={vectorComp2}
-            text={"Successful referrals are MNC’s and FAANG Companies"}
+            text={"Successful referrals are MNC&#39;s and FAANG Companies"}
           />
           <BannerCards
             img={vectorComp3}
@@ -97,7 +97,7 @@ const Referrals = () => {
           <div className="carousel-item">
             <BannerCards
               img={vectorComp2}
-              text={"Successful referrals are MNC’s and FAANG Companies"}
+              text={"Successful referrals are MNC&#39;s and FAANG Companies"}
             />
           </div>
           <div className="carousel-item">

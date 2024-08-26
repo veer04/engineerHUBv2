@@ -6,8 +6,15 @@ import FeedBackCarousalForBookNow from "../FeedbackCarousalForBookNow/FeedBackCa
 import { getAccessToken } from "../../../../features/getCookieValues";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { PAYMENT_API_URL } from "../../../../services/APIUtils";
+import { isUserLoggedIn } from "../../../../features/User/UserDetails";
+import { redirectToAuth } from "../../../../features/redirectToAuth";
 
 const CompanyWisePrep = () => {
+  if (!isUserLoggedIn()) {
+    redirectToAuth("/login");
+    return null;
+  }
   const { booknowId } = useParams();
   const [singleProductData, setSingleProductData] = useState([]);
   const navigate = useNavigate();
@@ -23,7 +30,7 @@ const CompanyWisePrep = () => {
       };
 
       const { data } = await axios.get(
-        `https://meet-engineerhub.onrender.com/api/v1/course/${booknowId}`,
+        `${PAYMENT_API_URL}api/v1/course/${booknowId}`,
         config
       );
 

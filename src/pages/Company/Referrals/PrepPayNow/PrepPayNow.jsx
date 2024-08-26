@@ -265,6 +265,7 @@ const PrepPayNow = () => {
             clearInterval(pollInterval);
             setSnackbarMessage("Payment failed");
             setSnackbarOpen(true);
+            window.location.href = "/referrals/booking/payment/failed";
           }
         } catch (error) {
           console.error("Error checking payment status:", error);
@@ -401,7 +402,7 @@ const PrepPayNow = () => {
 
             {productData?.coursePurchaseRequestId && priceOfproduct > 0 ? (
               <div
-                className="paynow-div"
+                className="paynow-div-prep"
                 style={{
                   display: "flex",
                   justifyContent: "space-between",
