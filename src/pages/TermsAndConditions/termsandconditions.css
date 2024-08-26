@@ -6,7 +6,10 @@
   padding: 20px var(--section-padding);
 }
 
-.main-terms-div .sub-terms-div .terms-of-use .use-h4 {
+.main-terms-div .sub-terms-div .TnC-container {
+  scroll-margin-top: calc(var(--navbar-height) + 1rem);
+}
+.main-terms-div .sub-terms-div .TnC-container .use-h4 {
   color: #002b36;
   font-size: 20px;
   font-family: Inter;
@@ -14,8 +17,11 @@
   line-height: 30px;
   word-wrap: break-word;
 }
+.main-terms-div .sub-terms-div .TnC-container:target {
+  scroll-margin-top: calc(var(--navbar-height) + 1rem);
+}
 
-.main-terms-div .sub-terms-div .terms-of-use .use-p {
+.main-terms-div .sub-terms-div .TnC-container .use-p {
   font-size: 16px;
   font-family: inter;
   font-weight: 400;
@@ -24,181 +30,18 @@
   text-align: justify;
 }
 
-.main-terms-div .sub-terms-div .user-aggrement {
-  margin-top: 40px;
-}
-
-.main-terms-div .sub-terms-div .user-aggrement .use-h4 {
-  color: #002b36;
-  font-size: 20px;
-  font-family: Inter;
-  font-weight: 700;
-  line-height: 30px;
-  word-wrap: break-word;
-}
-
-.main-terms-div .sub-terms-div .user-aggrement .use-p {
-  font-size: 16px;
-  font-family: inter;
-  font-weight: 400;
-  line-height: 24px;
-  word-wrap: break-word;
-  text-align: justify;
-}
-.main-terms-div .sub-terms-div .acceptance-and-terms {
-  margin-top: 40px;
-}
-.main-terms-div .sub-terms-div .acceptance-and-terms .use-h4 {
-  color: #002b36;
-  font-size: 20px;
-  font-family: Inter;
-  font-weight: 700;
-  line-height: 30px;
-  word-wrap: break-word;
-}
-
-.main-terms-div .sub-terms-div .acceptance-and-terms .use-p {
-  font-size: 16px;
-  font-family: inter;
-  font-weight: 400;
-  line-height: 24px;
-  word-wrap: break-word;
-  text-align: justify;
-}
-
-.main-terms-div .sub-terms-div .modification {
-  margin-top: 40px;
-}
-
-.main-terms-div .sub-terms-div .modification .use-h4 {
-  color: #002b36;
-  font-size: 20px;
-  font-family: Inter;
-  font-weight: 700;
-  line-height: 30px;
-  word-wrap: break-word;
-}
-
-.main-terms-div .sub-terms-div .modification .use-p {
-  font-size: 16px;
-  font-family: inter;
-  font-weight: 400;
-  line-height: 24px;
-  word-wrap: break-word;
-  text-align: justify;
-}
-
-.main-terms-div .sub-terms-div .registration-access {
-  margin-top: 40px;
-}
-
-.main-terms-div .sub-terms-div .registration-access .use-h4 {
-  color: #002b36;
-  font-size: 20px;
-  font-family: Inter;
-  font-weight: 700;
-  line-height: 30px;
-  word-wrap: break-word;
-}
-
-.main-terms-div .sub-terms-div .registration-access .use-p {
-  font-size: 16px;
-  font-family: inter;
-  font-weight: 400;
-  line-height: 24px;
-  word-wrap: break-word;
-  text-align: justify;
-}
-
-.main-terms-div .sub-terms-div .passwords-and-acc-security {
-  margin-top: 40px;
-}
-
-.main-terms-div .sub-terms-div .passwords-and-acc-security .use-h4 {
-  color: #002b36;
-  font-size: 20px;
-  font-family: Inter;
-  font-weight: 700;
-  line-height: 30px;
-  word-wrap: break-word;
-}
-
-.main-terms-div .sub-terms-div .passwords-and-acc-security .use-p {
-  font-size: 16px;
-  font-family: inter;
-  font-weight: 400;
-  line-height: 24px;
-  word-wrap: break-word;
-  text-align: justify;
-}
-
-.main-terms-div .sub-terms-div .privacy-policy-div {
-  margin-top: 40px;
-}
-
-.main-terms-div .sub-terms-div .privacy-policy-div .use-h4 {
-  color: #002b36;
-  font-size: 20px;
-  font-family: Inter;
-  font-weight: 700;
-  line-height: 30px;
-  word-wrap: break-word;
-}
-
-.main-terms-div .sub-terms-div .privacy-policy-div .use-p {
-  font-size: 16px;
-  font-family: inter;
-  font-weight: 400;
-  line-height: 24px;
-  word-wrap: break-word;
-  text-align: justify;
-}
-
-.advertising-material {
-  margin-top: 40px;
-}
-
-.advertising-material .use-h4 {
-  color: #002b36;
-  font-size: 20px;
-  font-family: Inter;
-  font-weight: 700;
-  line-height: 30px;
-  word-wrap: break-word;
-}
-
-.advertising-material .use-p {
-  font-size: 16px;
-  font-family: inter;
-  font-weight: 400;
-  line-height: 24px;
-  word-wrap: break-word;
-  text-align: justify;
-}
-
-.user-conduct-and-rules {
-  margin-top: 40px;
-}
-
-.user-conduct-and-rules .use-h4 {
-  color: #002b36;
-  font-size: 20px;
-  font-family: Inter;
-  font-weight: 700;
-  line-height: 30px;
-  word-wrap: break-word;
-}
-
-.user-conduct-and-rules .use-p {
-  font-size: 16px;
-  font-family: inter;
-  font-weight: 400;
-  line-height: 24px;
-  word-wrap: break-word;
-  text-align: justify;
+.main-terms-div .sub-terms-div .TnC-container {
+  margin-bottom: 20px;
 }
 @media screen and (max-width: 520px) {
   .main-terms-div .sub-terms-div {
     padding: 20px 16px;
+  }
+  .main-terms-div .sub-terms-div .TnC-container .use-h4 {
+    font-size: 18px;
+  }
+
+  .main-terms-div .sub-terms-div .TnC-container .use-p {
+    font-size: 14px;
   }
 }
