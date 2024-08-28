@@ -219,8 +219,15 @@ const BookNow = () => {
       const hours = time.getHours();
       const minutes = time.getMinutes();
 
-      // Include times between 11 AM (11:00) and 8 PM (20:00), excluding 8:30 PM
-      if ((hours >= 11 && hours < 20) || (hours === 20 && minutes === 0)) {
+      // Include times between 10:30 AM - 12:30 PM and 4:30 PM - 7:30 PM
+      const isMorning =
+        (hours === 10 && minutes >= 30) || (hours >= 11 && hours < 13);
+      const isEvening =
+        (hours === 16 && minutes >= 30) ||
+        (hours >= 17 && hours < 19) ||
+        (hours === 19 && minutes <= 30);
+
+      if (isMorning || isEvening) {
         const ampm = hours >= 12 ? "PM" : "AM";
         const displayHours = hours % 12 || 12;
         const displayMinutes = minutes < 10 ? `0${minutes}` : minutes;
@@ -675,23 +682,23 @@ const BookNow = () => {
                   </div>
                 </div>
                 <div className="time-meet-btns">
-                  <button
+                  {/* <button
                     className="time-meet-btn label-sm"
                     onClick={onPrevButtonClick2}
                     disabled={prevBtnDisabled2}
                   >
                     <IoIosArrowBack />
                     Previous
-                  </button>
+                  </button> */}
 
-                  <button
+                  {/* <button
                     className="time-meet-btn label-sm"
                     onClick={onNextButtonClick2}
                     disabled={nextBtnDisabled2}
                   >
                     Next
                     <IoIosArrowForward />
-                  </button>
+                  </button> */}
                 </div>
               </section>
             </div>

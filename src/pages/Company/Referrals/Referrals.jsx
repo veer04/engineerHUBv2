@@ -74,7 +74,7 @@ const Referrals = () => {
           <BannerCards
             title={"1738+"}
             img={vectorComp2}
-            text={" engineers have consulted us fro their career"}
+            text={" engineers have consulted us for their career"}
           />
           <BannerCards
             title={"5/5"}
