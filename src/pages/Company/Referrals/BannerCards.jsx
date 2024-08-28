@@ -1,6 +1,6 @@
 import React from "react";
 
-const BannerCards = ({ img, text }) => {
+const BannerCards = ({ img, text, title }) => {
   return (
     <>
       <div
@@ -31,7 +31,7 @@ const BannerCards = ({ img, text }) => {
             <h2
               style={{ fontSize: "30px", paddingTop: "4px", fontWeight: "700" }}
             >
-              15+
+              {title}
             </h2>
           </div>
 

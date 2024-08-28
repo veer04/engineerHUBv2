@@ -209,22 +209,25 @@ const BookNow = () => {
   const generateTimeArray = () => {
     const times = [];
     const now = new Date();
-    const start = new Date(now.getTime()); // Start at the current time
-    start.setMinutes(Math.ceil(start.getMinutes() / 30) * 30); // Round up to the nearest 30 minutes
+    const start = new Date(now.getTime());
+    start.setMinutes(Math.ceil(start.getMinutes() / 30) * 30);
     start.setSeconds(0);
     start.setMilliseconds(0);
 
     for (let i = 0; i < 48; i++) {
-      // 48 intervals of 30 minutes in a day
-      const time = new Date(start.getTime() + i * 30 * 60 * 1000); // 30 minutes in milliseconds
+      const time = new Date(start.getTime() + i * 30 * 60 * 1000);
       const hours = time.getHours();
       const minutes = time.getMinutes();
-      const ampm = hours >= 12 ? "PM" : "AM";
-      const displayHours = hours % 12 || 12; // Convert 24-hour time to 12-hour time
-      const displayMinutes = minutes < 10 ? `0${minutes}` : minutes;
-      const timeString = `${displayHours}:${displayMinutes} ${ampm}`;
 
-      times.push({ time: timeString, actualTime: time, isDisabled: true });
+      // Include times between 11 AM (11:00) and 8 PM (20:00), excluding 8:30 PM
+      if ((hours >= 11 && hours < 20) || (hours === 20 && minutes === 0)) {
+        const ampm = hours >= 12 ? "PM" : "AM";
+        const displayHours = hours % 12 || 12;
+        const displayMinutes = minutes < 10 ? `0${minutes}` : minutes;
+        const timeString = `${displayHours}:${displayMinutes} ${ampm}`;
+
+        times.push({ time: timeString, actualTime: time, isDisabled: true });
+      }
     }
 
     return times;

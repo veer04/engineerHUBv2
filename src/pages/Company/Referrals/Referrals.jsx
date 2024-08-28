@@ -67,16 +67,21 @@ const Referrals = () => {
       <div className="banner-cards">
         <div className="banner-card">
           <BannerCards
+            title={"500+"}
             img={vectorComp1}
-            text={"Students and professionals are choosing are service"}
+            text={"Digital Sold or engineers bought our created resources"}
           />
           <BannerCards
+            title={"1738+"}
             img={vectorComp2}
-            text={"Successful referrals are MNC&#39;s and FAANG Companies"}
+            text={" engineers have consulted us fro their career"}
           />
           <BannerCards
+            title={"5/5"}
             img={vectorComp3}
-            text={"Students and professionals are choosing are service"}
+            text={
+              "89 out of 95 have rated us 5/5 for our solutions and some floating testimonials"
+            }
           />
         </div>
       </div>

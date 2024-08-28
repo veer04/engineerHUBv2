@@ -16,7 +16,7 @@ const DigitalCards = ({
       <Link to={`/referrals/product-book-now/${id}`}>
         <div className="digi-main-container">
           <div className="digi-img-container">
-            <img src={"/digitalcard.png"} alt="" />
+            <img src={"/Banner1.jpg"} alt="" width={324} height={183} />
             <div className="popular-star">
               <div
                 style={{

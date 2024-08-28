@@ -68,7 +68,7 @@ const FeedBackCarousalForBookNow = ({ name, profile, content }) => {
               fontWeight: "400",
             }}
           >
-            {profile}
+            {/* {profile} */}
           </h2>
         </div>
       </div>
