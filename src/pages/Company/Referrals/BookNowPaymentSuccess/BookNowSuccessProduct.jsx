@@ -1,10 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./booknowsuccessproduct.css";
 import { Link } from "react-router-dom";
+import { PAYMENT_API_URL } from "../../../../services/APIUtils";
+import axios from "axios";
+import { getAccessToken } from "../../../../features/getCookieValues";
 
 const BookNowSuccessProduct = () => {
   const [loading, setLoading] = useState(false);
   const [downloaded, setDownloaded] = useState(false);
+  const [paymentData1, setPaymentData1] = useState([]);
   const storedData = localStorage.getItem("paymentData");
   const paymentData = storedData ? JSON.parse(storedData) : null;
   console.log(storedData, "storeddate");
@@ -13,23 +17,69 @@ const BookNowSuccessProduct = () => {
     localStorage.getItem("ProductPaymentData")
   );
 
+  const confirmationData = JSON.parse(
+    localStorage.getItem("productConfirmatonData")
+  );
+
+  // const paymentResponse = JSON.parse(localStorage.getItem("paymentData"));
+
+  // console.log(paymentResponse, "PaymentResponse");
+
   const singleProductData = JSON.parse(
     localStorage.getItem("singleProductData")
   );
 
   console.log(productPaymentData, "jhgf");
 
+  console.log(confirmationData?.coursePurchaseRequestId, "jhgf");
+
+  const pollInterval = () =>
+    setInterval(async () => {
+      console.log(
+        `${PAYMENT_API_URL}api/v1/razorpay/confirmCoursePayment/${confirmationData?.coursePurchaseRequestId}`,
+        "apiroute"
+      );
+      try {
+        const checkResponse = await axios.get(
+          `${PAYMENT_API_URL}api/v1/razorpay/confirmCoursePayment/${confirmationData?.coursePurchaseRequestId}`,
+          {
+            headers: {
+              accessToken: getAccessToken(),
+            },
+          }
+        );
+
+        const checkData = checkResponse.data;
+
+        if (checkData.status === "success") {
+          clearInterval(pollInterval);
+          setSnackbarMessage("Payment confirmed successfully");
+          setSnackbarOpen(true);
+          setPaymentData1(checkData.data);
+
+          localStorage.setItem("paymentData", JSON.stringify(checkData.data));
+        } else if (checkData.status === "failed") {
+          clearInterval(pollInterval);
+          setSnackbarMessage("Payment failed");
+          setSnackbarOpen(true);
+          window.location.href = "/referrals/booking/payment/failed";
+        }
+      } catch (error) {
+        console.error("Error checking payment status:", error);
+      }
+    }, 3000);
+
+  useEffect(() => {
+    pollInterval();
+  }, []);
+
   function downloadFile() {
-    const productPaymentData = JSON.parse(
-      localStorage.getItem("ProductPaymentData")
-    );
+    // if (!paymentData1 || !paymentData1.coursePdf) {
+    //   console.error("No valid URL found in productPayment");
+    //   return;
+    // }
 
-    if (!productPaymentData || !productPaymentData.coursePdf) {
-      console.error("No valid URL found in productPaymentData");
-      return;
-    }
-
-    const imageUrl = productPaymentData.coursePdf;
+    const imageUrl = paymentData1.coursePdf;
     setLoading(true);
 
     fetch(imageUrl)
@@ -140,6 +190,42 @@ const BookNowSuccessProduct = () => {
               </span>
             </Link>
           </h4>
+        </div>
+      </div>
+      <div
+        className="concern-btn"
+        style={{
+          height: "auto",
+          margin: "0 auto",
+          display: "flex",
+          justifyContent: "start",
+          alignItems: "center",
+          marginTop: 20,
+        }}
+      >
+        <div>
+          <img src="/circle-dot.svg" alt="" />
+        </div>
+
+        <div>
+          <h3
+            style={{
+              fontSize: "14px",
+              color: "#002B36",
+              fontWeight: 400,
+              marginBottom: 0,
+              marginLeft: 8,
+            }}
+          >
+            <Link
+              to={
+                "https://wa.me/918303156089?text=Hey%20Rishabh,%20I%20have%20some%20issue!"
+              }
+              target="_blank"
+            >
+              Raise Concern
+            </Link>
+          </h3>
         </div>
       </div>
     </main>

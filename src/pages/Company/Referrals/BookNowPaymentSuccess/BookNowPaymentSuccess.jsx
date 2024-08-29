@@ -119,6 +119,42 @@ const BookNowPaymentSuccess = () => {
           </h4>
         </div>
       </div>
+      <div
+        className="concern-btn"
+        style={{
+          height: "auto",
+          margin: "0 auto",
+          display: "flex",
+          justifyContent: "start",
+          alignItems: "center",
+          marginTop: 20,
+        }}
+      >
+        <div>
+          <img src="/circle-dot.svg" alt="" />
+        </div>
+
+        <div>
+          <h3
+            style={{
+              fontSize: "14px",
+              color: "#002B36",
+              fontWeight: 400,
+              marginBottom: 0,
+              marginLeft: 8,
+            }}
+          >
+            <Link
+              to={
+                "https://wa.me/918303156089?text=Hey%20Rishabh,%20I%20have%20some%20issue!"
+              }
+              target="_blank"
+            >
+              Raise Concern
+            </Link>
+          </h3>
+        </div>
+      </div>
     </main>
   );
 };

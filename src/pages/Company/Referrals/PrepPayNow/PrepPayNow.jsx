@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import FormInput from "../../../../components/FormInputs/FormInput";
 import FormInputEmail from "../../../../components/FormInputs/FormInputEmail";
 import FormInputFileUpload from "../../../../components/FormInputs/FormInputFileUpload";
@@ -111,6 +111,10 @@ const PrepPayNow = () => {
     setErrors(newErrors);
     return valid;
   };
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const handleFormSubmit = () => {
     if (!validateInput1()) {
@@ -244,40 +248,6 @@ const PrepPayNow = () => {
     ) {
       setSnackbarMessage("Payment Initialized successfully!");
       setSnackbarOpen(true);
-      const pollInterval = setInterval(async () => {
-        console.log(
-          `${PAYMENT_API_URL}api/v1/razorpay/confirmCoursePayment/${productData?.coursePurchaseRequestId}`,
-          "apiroute"
-        );
-        try {
-          const checkResponse = await axios.get(
-            `${PAYMENT_API_URL}api/v1/razorpay/confirmCoursePayment/${productData?.coursePurchaseRequestId}`,
-            {
-              headers: {
-                accessToken: getAccessToken(),
-              },
-            }
-          );
-
-          const checkData = checkResponse.data;
-
-          if (checkData.status === "success") {
-            clearInterval(pollInterval);
-            setSnackbarMessage("Payment confirmed successfully");
-            setSnackbarOpen(true);
-            setIsLoading1(false);
-
-            localStorage.setItem("paymentData", JSON.stringify(checkData.data));
-          } else if (checkData.status === "failed") {
-            clearInterval(pollInterval);
-            setSnackbarMessage("Payment failed");
-            setSnackbarOpen(true);
-            window.location.href = "/referrals/booking/payment/failed";
-          }
-        } catch (error) {
-          console.error("Error checking payment status:", error);
-        }
-      }, 2000);
     }
 
     console.log(data, "paymentData");
@@ -516,7 +486,7 @@ const PrepPayNow = () => {
                   Taxes and platform fees
                 </h3>
                 <h3 style={{ fontSize: "14px", fontWeight: 400 }}>
-                  ₹{gstAmount}
+                  ₹{gstAmount.toFixed(2)}
                 </h3>
               </div>
 
