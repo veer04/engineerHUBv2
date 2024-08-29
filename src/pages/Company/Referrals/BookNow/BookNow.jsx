@@ -209,22 +209,32 @@ const BookNow = () => {
   const generateTimeArray = () => {
     const times = [];
     const now = new Date();
-    const start = new Date(now.getTime()); // Start at the current time
-    start.setMinutes(Math.ceil(start.getMinutes() / 30) * 30); // Round up to the nearest 30 minutes
+    const start = new Date(now.getTime());
+    start.setMinutes(Math.ceil(start.getMinutes() / 30) * 30);
     start.setSeconds(0);
     start.setMilliseconds(0);
 
     for (let i = 0; i < 48; i++) {
-      // 48 intervals of 30 minutes in a day
-      const time = new Date(start.getTime() + i * 30 * 60 * 1000); // 30 minutes in milliseconds
+      const time = new Date(start.getTime() + i * 30 * 60 * 1000);
       const hours = time.getHours();
       const minutes = time.getMinutes();
-      const ampm = hours >= 12 ? "PM" : "AM";
-      const displayHours = hours % 12 || 12; // Convert 24-hour time to 12-hour time
-      const displayMinutes = minutes < 10 ? `0${minutes}` : minutes;
-      const timeString = `${displayHours}:${displayMinutes} ${ampm}`;
 
-      times.push({ time: timeString, actualTime: time, isDisabled: true });
+      // Include times between 10:30 AM - 12:30 PM and 4:30 PM - 7:30 PM
+      const isMorning =
+        (hours === 10 && minutes >= 30) || (hours >= 11 && hours < 13);
+      const isEvening =
+        (hours === 16 && minutes >= 30) ||
+        (hours >= 17 && hours < 19) ||
+        (hours === 19 && minutes <= 30);
+
+      if (isMorning || isEvening) {
+        const ampm = hours >= 12 ? "PM" : "AM";
+        const displayHours = hours % 12 || 12;
+        const displayMinutes = minutes < 10 ? `0${minutes}` : minutes;
+        const timeString = `${displayHours}:${displayMinutes} ${ampm}`;
+
+        times.push({ time: timeString, actualTime: time, isDisabled: true });
+      }
     }
 
     return times;
@@ -672,23 +682,23 @@ const BookNow = () => {
                   </div>
                 </div>
                 <div className="time-meet-btns">
-                  <button
+                  {/* <button
                     className="time-meet-btn label-sm"
                     onClick={onPrevButtonClick2}
                     disabled={prevBtnDisabled2}
                   >
                     <IoIosArrowBack />
                     Previous
-                  </button>
+                  </button> */}
 
-                  <button
+                  {/* <button
                     className="time-meet-btn label-sm"
                     onClick={onNextButtonClick2}
                     disabled={nextBtnDisabled2}
                   >
                     Next
                     <IoIosArrowForward />
-                  </button>
+                  </button> */}
                 </div>
               </section>
             </div>
