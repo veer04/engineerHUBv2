@@ -6,7 +6,7 @@
 
 .product-main-success-cont .main-sub-success {
   width: 490px;
-  height: 413px;
+  height: 400px;
   background-color: #ffffff;
   border-radius: 10px;
   border: 1px solid gray;
@@ -88,11 +88,19 @@
   border-radius: 10px;
 }
 
+.concern-btn {
+  background-color: #f7f9f9;
+  padding: 16px 16px;
+  width: 490px;
+  border-radius: 10px;
+}
+
 @media screen and (max-width: 520px) {
   .product-main-success-cont {
     width: 100%;
     padding: 80px 0px;
     background-color: #138382;
+    padding: 12px 12px;
   }
   .product-main-success-cont .main-sub-success {
     width: 100%;
@@ -102,5 +110,11 @@
     border: 1px solid gray;
     margin: 0 auto;
     padding: 24px;
+  }
+  .concern-btn {
+    background-color: #f7f9f9;
+    padding: 16px 16px;
+
+    width: 100%;
   }
 }

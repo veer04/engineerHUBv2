@@ -7,6 +7,7 @@ const DigitalCards = ({
   price,
   thumbnail,
   title,
+  subTitle,
   type,
   desc,
   id,
@@ -16,7 +17,7 @@ const DigitalCards = ({
       <Link to={`/referrals/product-book-now/${id}`}>
         <div className="digi-main-container">
           <div className="digi-img-container">
-            <img src={"/Banner1.jpg"} alt="" width={324} height={183} />
+            <img src={thumbnail} alt="" width={324} height={183} />
             <div className="popular-star">
               <div
                 style={{
@@ -61,11 +62,11 @@ const DigitalCards = ({
                 WebkitBoxOrient: "vertical",
                 overflow: "hidden",
                 textOverflow: "ellipsis",
-                WebkitLineClamp: 3 /* Number of lines to show before truncating */,
+                WebkitLineClamp: 1 /* Number of lines to show before truncating */,
               }}
               className="digi-h4"
             >
-              {desc}
+              {subTitle}
             </h4>
 
             <div

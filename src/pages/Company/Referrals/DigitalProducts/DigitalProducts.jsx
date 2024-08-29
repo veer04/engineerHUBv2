@@ -124,6 +124,7 @@ const DigitalProducts = ({ compName }) => {
             price={card.price}
             thumbnail={card.thumbnail}
             title={card.title}
+            subTitle={card.subTitle}
             desc={card.description}
             type={card.type}
           />

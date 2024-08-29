@@ -76,11 +76,19 @@
   border-radius: 10px;
 }
 
+.concern-btn {
+  background-color: #f7f9f9;
+  padding: 16px 16px;
+  width: 490px;
+  border-radius: 10px;
+}
+
 @media screen and (max-width: 520px) {
   .main-success-cont {
     width: 100%;
     padding: 80px 0px;
     background-color: #138382;
+    padding: 12px 12px;
   }
   .main-success-cont .main-sub-success {
     width: 100%;
@@ -90,5 +98,12 @@
     border: 1px solid gray;
     margin: 0 auto;
     padding: 24px;
+  }
+
+  .concern-btn {
+    background-color: #f7f9f9;
+    padding: 16px 16px;
+
+    width: 100%;
   }
 }

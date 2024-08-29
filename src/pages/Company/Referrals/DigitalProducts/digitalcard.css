@@ -6,6 +6,8 @@
 
 .digi-img-container {
   position: relative;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
 }
 
 .popular-star {

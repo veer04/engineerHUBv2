@@ -23,6 +23,7 @@ import {
   mobileNumberExpression,
 } from "../../../../features/regex";
 import { patchResume } from "../../../../services/APIConfig";
+import PaymentRedirectPopup from "./PaymentRedirectPopup";
 
 const BookNowPayment = () => {
   if (!isUserLoggedIn()) {
@@ -39,6 +40,7 @@ const BookNowPayment = () => {
   const [allMeetData, setAllMeetData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isLoading1, setIsLoading1] = useState(false);
+  // const [showPopup, setShowPopup] = useState(false);
 
   const navigate = useNavigate();
   const [meetId, setMeetId] = useState([]);
@@ -374,6 +376,9 @@ const BookNowPayment = () => {
 
   const handlePay = async () => {
     setIsLoading1(true);
+    setSnackbarMessage("Redirecting you to the payment page");
+    setSnackbarOpen(true);
+
     try {
       const payload = {
         amount: totalPrice,
@@ -442,8 +447,6 @@ const BookNowPayment = () => {
         //   }
         // }, 2000);
       }
-
-      setIsLoading1(false);
 
       console.log(data, "paymentData");
       console.log(data.data.payment_link, "paymentlink");

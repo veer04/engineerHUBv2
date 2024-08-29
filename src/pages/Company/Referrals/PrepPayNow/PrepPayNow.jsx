@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import FormInput from "../../../../components/FormInputs/FormInput";
 import FormInputEmail from "../../../../components/FormInputs/FormInputEmail";
 import FormInputFileUpload from "../../../../components/FormInputs/FormInputFileUpload";
@@ -18,6 +18,7 @@ const PrepPayNow = () => {
   const [phoneNumber, setPhoneNumber] = useState([]);
   const [email, setEmail] = useState([]);
   const [productData, setProductData] = useState([]);
+  const [isLoading1, setIsLoading1] = useState(false);
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -27,7 +28,9 @@ const PrepPayNow = () => {
   console.log(singleProductData, "jhgf");
   localStorage.setItem("singleProductData", JSON.stringify(singleProductData));
 
-  const { title, description, price, _id } = singleProductData;
+  const { title, description, price, _id, subTitle } = singleProductData;
+
+  console.log(singleProductData, "kjhg");
 
   const priceOfproduct = price;
   const gst = 0.18;
@@ -108,6 +111,10 @@ const PrepPayNow = () => {
     setErrors(newErrors);
     return valid;
   };
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const handleFormSubmit = () => {
     if (!validateInput1()) {
@@ -207,8 +214,11 @@ const PrepPayNow = () => {
   };
 
   const handleProductPayment = async () => {
+    setIsLoading1(true);
+    setSnackbarMessage("Redirecting you to the payment page");
+    setSnackbarOpen(true);
     const payload = {
-      amount: totalPrice,
+      amount: totalPrice.toFixed(2),
       currency: "INR",
       callback_url: `${FRONTEND_URL}referrals/product-book-now/payment/success`,
       callback_method: "get",
@@ -238,39 +248,6 @@ const PrepPayNow = () => {
     ) {
       setSnackbarMessage("Payment Initialized successfully!");
       setSnackbarOpen(true);
-      const pollInterval = setInterval(async () => {
-        console.log(
-          `${PAYMENT_API_URL}api/v1/razorpay/confirmCoursePayment/${productData?.coursePurchaseRequestId}`,
-          "apiroute"
-        );
-        try {
-          const checkResponse = await axios.get(
-            `${PAYMENT_API_URL}api/v1/razorpay/confirmCoursePayment/${productData?.coursePurchaseRequestId}`,
-            {
-              headers: {
-                accessToken: getAccessToken(),
-              },
-            }
-          );
-
-          const checkData = checkResponse.data;
-
-          if (checkData.status === "success") {
-            clearInterval(pollInterval);
-            setSnackbarMessage("Payment confirmed successfully");
-            setSnackbarOpen(true);
-
-            localStorage.setItem("paymentData", JSON.stringify(checkData.data));
-          } else if (checkData.status === "failed") {
-            clearInterval(pollInterval);
-            setSnackbarMessage("Payment failed");
-            setSnackbarOpen(true);
-            window.location.href = "/referrals/booking/payment/failed";
-          }
-        } catch (error) {
-          console.error("Error checking payment status:", error);
-        }
-      }, 2000);
     }
 
     console.log(data, "paymentData");
@@ -322,7 +299,7 @@ const PrepPayNow = () => {
                 lineHeight: "19px",
               }}
             >
-              {description}
+              {subTitle}
             </h3>
           </div>
 
@@ -381,6 +358,9 @@ const PrepPayNow = () => {
                   outline: "none",
                   padding: "10px 24px",
                   width: "170px",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
                   height: "48px",
                   color: "white",
                   fontSize: 14,
@@ -390,13 +370,7 @@ const PrepPayNow = () => {
                 }}
                 disabled={isLoading}
               >
-                {isLoading ? (
-                  <div className="spinner-border text-light" role="status">
-                    <span className="sr-only"></span>
-                  </div>
-                ) : (
-                  "Confirm Details"
-                )}
+                {isLoading ? <div className="loader"></div> : "Confirm Details"}
               </button>
             </div>
 
@@ -411,6 +385,7 @@ const PrepPayNow = () => {
                   padding: "18px 12px",
                   boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.08)",
                   borderRadius: 5,
+
                   position: "fixed",
                   bottom: 0,
 
@@ -436,13 +411,17 @@ const PrepPayNow = () => {
                       textAlign: "center",
                     }}
                   >
-                    Pay - &#8377;{totalPrice}
+                    Pay - &#8377;{totalPrice.toFixed(2)}
                   </h4>
                 </div>
 
                 <div>
                   <button
-                    onClick={() => handleProductPayment()}
+                    onClick={() => {
+                      if (!isLoading1) {
+                        handleProductPayment();
+                      }
+                    }}
                     style={{
                       padding: "10 24",
                       backgroundColor: "#138382",
@@ -451,13 +430,17 @@ const PrepPayNow = () => {
                       padding: "10px 24px",
                       width: "150px",
                       height: "48px",
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
                       color: "white",
                       fontSize: 14,
                       borderRadius: 5,
                       cursor: "pointer",
                     }}
+                    disabled={isLoading1}
                   >
-                    Pay Now
+                    {isLoading1 ? <div className="loader"></div> : "Pay Now"}
                   </button>
                 </div>
               </div>
@@ -503,7 +486,7 @@ const PrepPayNow = () => {
                   Taxes and platform fees
                 </h3>
                 <h3 style={{ fontSize: "14px", fontWeight: 400 }}>
-                  ₹{gstAmount}
+                  ₹{gstAmount.toFixed(2)}
                 </h3>
               </div>
 
@@ -521,7 +504,7 @@ const PrepPayNow = () => {
                 </h4>
 
                 <h4 style={{ fontSize: "16px", fontWeight: 600 }}>
-                  ₹{totalPrice}
+                  ₹{totalPrice.toFixed(2)}
                 </h4>
               </div>
             </div>
