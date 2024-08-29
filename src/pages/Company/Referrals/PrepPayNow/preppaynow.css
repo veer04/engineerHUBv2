@@ -107,7 +107,7 @@
 }
 
 .prep-book-now-payment .paynow-div-prep {
-  max-width: 680px;
+  width: 680px !important;
   transform: translateX(-3.5%);
 }
 
@@ -132,8 +132,8 @@
   }
 
   .prep-book-now-payment .paynow-div-prep {
-    width: 100%;
-    transform: translateX(-5%);
+    width: 400px !important;
+    transform: translateX(-6.5%);
   }
 
   #connectCardsCarousel .carousel-inner .carousel-item {
@@ -166,4 +166,26 @@
   display: flex;
   flex-direction: column;
   width: 100%;
+}
+
+.loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  aspect-ratio: 4;
+  background: radial-gradient(circle closest-side, #ffffff 90%, #cecece00) 0 /
+    calc(100% / 3) 100% space;
+  clip-path: inset(0 100% 0 0);
+  animation: l1 1s steps(4) infinite;
+}
+@keyframes l1 {
+  to {
+    clip-path: inset(0 -34% 0 0);
+  }
+}
+
+.btn-confirm-details {
+  display: flex;
+  justify-content: end;
 }
