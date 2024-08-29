@@ -71,11 +71,7 @@ const Referrals = () => {
             img={vectorComp1}
             text={"Digital Sold or engineers bought our created resources"}
           />
-          <BannerCards
-            title={"1738+"}
-            img={vectorComp2}
-            text={" engineers have consulted us for their career"}
-          />
+     
           <BannerCards
             title={"5/5"}
             img={vectorComp3}
