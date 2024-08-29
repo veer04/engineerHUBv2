@@ -49,6 +49,7 @@ import EventWindow from "./pages/Community/Events/EventWindow.jsx";
 import BlogWindow from "./pages/Community/Blogs/BlogWindow.jsx";
 import NewFooter from "./components/Footer/NewFooter.jsx";
 // import PopUpModalBootstrap from "./components/PopUpModal/PopUpModalBootstrap.jsx";
+const JobBoard = lazy(() => import("./pages/Company/Board/JobBoard.jsx"));
 const JobsPage = lazy(() => import("./pages/Company/Jobs/JobsPage.jsx"));
 const InternshipsPage = lazy(() =>
   import("./pages/Company/Jobs/InternshipsPage.jsx")
@@ -265,6 +266,9 @@ function App() {
                 <Route path=":hiringId" element={<IndividualJob />} />
                 {/* <Route path=":hiringId" element={<IndividualJob />} /> */}
                 {/* <Route path=":hiringId" element={<JobDetails />} /> */}
+              </Route>
+              <Route path="board">
+                <Route path=":id" element={<JobBoard />} />
               </Route>
               {/* <Route path="" element={<Jobs />} /> */}
             </Route>

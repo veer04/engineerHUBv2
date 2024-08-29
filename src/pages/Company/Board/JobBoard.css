@@ -1,0 +1,148 @@
+.crm-board {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: var(--vertical-padding) var(--section-padding);
+  scroll-behavior: auto;
+}
+.crm-board * {
+  margin: 0;
+  padding: 0;
+  min-width: 0;
+}
+.crm-board .opportunity-status-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 0.5rem;
+  border-radius: 0.625rem 0.625rem 0rem 0rem;
+}
+.crm-board .main-container {
+  padding: 1rem;
+  background-color: white;
+}
+.crm-board .main-container .status-toggle-container {
+  display: flex;
+  width: 100%;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.72rem;
+}
+.crm-board .main-container .status-toggle-container input {
+  width: 1.25rem;
+  height: 1.25rem;
+  /* border: 2px solid black; */
+}
+.crm-board .main-container .heading {
+  display: flex;
+  gap: 0.25rem;
+}
+.crm-board .main-container .posted-on {
+  color: #547178;
+  margin-bottom: 0.75rem;
+}
+.crm-board .main-container .categories-container {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+}
+.crm-board .main-container .categories-container .categories {
+  display: flex;
+  gap: 0.25rem;
+  color: var(--text-dark-green);
+}
+.crm-board .main-container .categories-container .categories button {
+  border-radius: 0.3125rem;
+  background-color: white;
+  padding: 0.5rem 0.75rem;
+  gap: 0.25rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid transparent;
+}
+.crm-board .main-container .categories-container .categories button.--selected {
+  border: 1px solid var(--stroke-primary, #138382);
+  background-color: rgba(22, 133, 132, 0.03);
+}
+.crm-board .main-container .categories-container .categories button span {
+  width: 2.125rem;
+  height: 2.125rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  background: rgba(22, 133, 132, 0.1);
+}
+.crm-board
+  .main-container
+  .categories-container
+  .download-container
+  .download-btn {
+  border-radius: 0.3125rem;
+  background: #138382;
+  padding: 0.62rem;
+  color: white;
+  border: none;
+}
+.crm-board .main-container .action-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.crm-board .main-container .action-container .select-container {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+.crm-board .main-container .action-container .select-container .select-all {
+  display: flex;
+  gap: 0.25rem;
+  align-items: center;
+  justify-content: center;
+}
+.crm-board
+  .main-container
+  .action-container
+  .select-container
+  .select-all
+  input {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+.crm-board
+  .main-container
+  .action-container
+  .select-container
+  .select-all
+  label {
+  color: #000;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.1875rem;
+  letter-spacing: 0rem;
+}
+.crm-board .main-container .action-container .select-container .action-buttons {
+  display: flex;
+  gap: 0.5rem;
+}
+.crm-board
+  .main-container
+  .action-container
+  .select-container
+  .action-buttons
+  button {
+  aspect-ratio: 1/1;
+  width: 2.5rem;
+  /* height: 2.5rem; */
+  border-radius: 50%;
+  font-size: 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid rgba(0, 43, 54, 0.15);
+}
