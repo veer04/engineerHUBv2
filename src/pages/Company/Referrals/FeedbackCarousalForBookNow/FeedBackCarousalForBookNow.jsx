@@ -49,7 +49,15 @@ const FeedBackCarousalForBookNow = ({ name, profile, content }) => {
           alignItems: "center",
         }}
       >
-        <img src="/g.png" alt="" />
+        <img
+          style={{ borderRadius: "50%" }}
+          src={`https://ui-avatars.com/api/?background=0A5C36&color=fff&name=${encodeURIComponent(
+            name
+          )}`}
+          width={30}
+          height={30}
+          alt=""
+        />
         <div style={{ marginLeft: "5px" }}>
           <h2
             style={{

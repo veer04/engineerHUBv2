@@ -95,6 +95,7 @@ const BookNowPayment = () => {
   ]);
 
   const price = meetingData.price;
+  console.log(price, "price");
   const gst = 0.18;
   const platformFees = 0.02;
   const gstAmount = price * gst;
@@ -636,7 +637,7 @@ const BookNowPayment = () => {
 
           {meetId?.meetId && meetingData?.price > 0 ? (
             <div
-              className="paynow-div"
+              className="paynow-div-payment"
               style={{
                 display: "flex",
                 justifyContent: "space-between",

@@ -112,7 +112,7 @@ const ConnectWithUs = ({ compName }) => {
         >
           1:1 Connect
         </button>
-        <button
+        {/* <button
           style={{
             backgroundColor:
               activeFilter === "Mock Interview" ? "#138382" : "#f2f4f5",
@@ -126,7 +126,7 @@ const ConnectWithUs = ({ compName }) => {
           onClick={() => handleFilter("Mock Interview")}
         >
           Mock Interview
-        </button>
+        </button> */}
       </div>
 
       {/* <div className={`connect-cards `}>

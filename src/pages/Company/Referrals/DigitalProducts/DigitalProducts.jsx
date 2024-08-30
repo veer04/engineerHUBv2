@@ -99,7 +99,7 @@ const DigitalProducts = ({ compName }) => {
         >
           Cheatcheets
         </button>
-        <button
+        {/* <button
           style={{
             backgroundColor: activeFilter === "Notes" ? "#138382" : "#f2f4f5",
             color: activeFilter === "Notes" ? "white" : "#002b36",
@@ -112,7 +112,7 @@ const DigitalProducts = ({ compName }) => {
           onClick={() => handleFilterChange("Notes")}
         >
           Notes
-        </button>
+        </button> */}
       </div>
 
       <div className={`digital-cards ${animationClass}`}>

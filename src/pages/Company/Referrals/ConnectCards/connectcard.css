@@ -1,6 +1,6 @@
 .connect-card-main {
   max-width: 324px;
-  height: 232px;
+  height: auto;
   padding: 16px;
   background-color: #f3f9f9;
   border-radius: 10px;
@@ -61,6 +61,13 @@
   background-color: #138382;
   border: none;
   outline: none;
+  color: white;
+}
+
+.btn-book-now button:hover {
+  background-color: white;
+  color: #138382;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.08);
 }
 
 @media screen and (max-width: 520px) {

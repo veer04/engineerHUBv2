@@ -18,8 +18,19 @@ const CompanyWisePrep = () => {
   const { booknowId } = useParams();
   const [singleProductData, setSingleProductData] = useState([]);
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(true);
+  const [isError, setIsError] = useState(false);
 
   console.log(booknowId, "booknowid");
+
+  const handleImageLoad = () => {
+    setIsLoading(false); // Set loading to false when the image loads
+  };
+
+  const handleImageError = () => {
+    setIsError(true); // Set error to true if the image fails to load
+    setIsLoading(false);
+  };
 
   const getAllSingleProductData = async () => {
     try {
@@ -81,7 +92,22 @@ const CompanyWisePrep = () => {
         </div>
 
         <div className="prep-slide">
-          <img className="slide-img" src="/slider-prep.png" alt="" />
+          {isLoading ? (
+            <div className="spinner-border text-[#138382]" role="status">
+              <span className="sr-only"></span>
+            </div>
+          ) : null}
+
+          {!isError && (
+            <img
+              className="slide-img"
+              onLoad={handleImageLoad}
+              onError={handleImageError}
+              src={singleProductData?.thumbnail}
+              alt=""
+              style={{ display: isLoading ? "none" : "block" }}
+            />
+          )}
 
           <div className="prep-popular-star">
             <div
@@ -154,22 +180,22 @@ const CompanyWisePrep = () => {
         <div className="prep-feedback-carousal-div">
           <FeedBackCarousalForBookNow
             content={
-              "I had an excellent experience during my referral session for Google. The guidance I received was precise and immensely helpful. The session provided invaluable insights, and my resume was expertly refined and improved. I highly recommend this service to anyone seeking professional and effective career advice. Thank you for making the process seamless and enjoyable."
+              "Thanks for providing assistance & support for my recent career transition. With your help, I successfully secured a position at Cisco, an achievement I am incredibly proud of."
             }
-            name={"Girish Shedge"}
-            profile={"dd/mm/yy"}
+            name={"Ishaan Sikka"}
+            // profile={"dd/mm/yy"}
           />
           <FeedBackCarousalForBookNow
             content={
-              "Good session. I understood the problems in my resume and corrected those"
+              "Thanks for helping in understanding resume to attract recruiters."
             }
-            name={"Girish Shedge"}
+            name={"Ravindra Babu"}
             profile={"dd/mm/yy"}
           />
         </div>
 
         <div
-          className="paynow-div"
+          className="paynow-div-payment-prep-div"
           style={{
             display: "flex",
             justifyContent: "space-between",

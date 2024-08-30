@@ -54,12 +54,12 @@ const Referrals = () => {
           <SessionBox
             className="first"
             name={"Rohit Das"}
-            profile={"dd/mm/yy"}
+            // profile={"dd/mm/yy"}
           />
           <SessionBox
             className="second"
-            name={"Girish Shedge"}
-            profile={"BVDU Student"}
+            name={"Vandana Balasubramanian"}
+            // profile={"BVDU Student"}
           />
         </div>
       </div>

@@ -6,7 +6,8 @@ const SessionBox = ({ className, name, profile }) => {
   return (
     <div className={`session-cont ${className}`}>
       <h2 style={{ fontSize: "13px", color: "black" }}>
-        Good session. I understood the problems in my resume and corrected those
+        It was a great session. Mr Rishabh did a thorough review of my
+        Resume...highly recommended!!
       </h2>
 
       <div
@@ -16,7 +17,15 @@ const SessionBox = ({ className, name, profile }) => {
           alignItems: "center",
         }}
       >
-        <img src={g} alt="" />
+        <img
+          style={{ borderRadius: "50%" }}
+          src={`https://ui-avatars.com/api/?background=0A5C36&color=fff&name=${encodeURIComponent(
+            name
+          )}`}
+          alt=""
+          width={30}
+          height={30}
+        />
         <div style={{ marginLeft: "5px" }}>
           <h2
             style={{

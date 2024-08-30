@@ -8,7 +8,7 @@
 
 .prep-main-sub {
   width: 670px;
-  height: 1200px;
+  height: auto;
 
   padding: 24px;
   margin: 0 auto;
@@ -47,8 +47,8 @@
   position: relative;
 }
 
-.paynow-div {
-  max-width: 670px;
+.paynow-div-payment-prep-div {
+  width: 670px;
 }
 
 .prep-popular-star {
@@ -162,6 +162,11 @@
   padding: 24px 12px;
 }
 
+.slide-img {
+  width: 100%;
+  height: 100%;
+}
+
 @media screen and (max-width: 520px) {
   .prep-main-comp {
     width: 100%;
@@ -170,7 +175,7 @@
     background-color: #138382;
   }
 
-  .paynow-div {
+  .paynow-div-payment-prep-div {
     width: 100%;
   }
 
