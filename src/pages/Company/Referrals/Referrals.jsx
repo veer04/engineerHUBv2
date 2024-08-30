@@ -71,7 +71,12 @@ const Referrals = () => {
             img={vectorComp1}
             text={"Digital Sold or engineers bought our created resources"}
           />
-     
+          <BannerCards
+            title={"1738+"}
+            img={vectorComp1}
+            text={"engineers have consulted us fro their career"}
+          />
+
           <BannerCards
             title={"5/5"}
             img={vectorComp3}
@@ -91,20 +96,25 @@ const Referrals = () => {
         <div className="carousel-inner">
           <div className="carousel-item active">
             <BannerCards
+              title={"500+"}
               img={vectorComp1}
-              text={"Students and professionals are choosing our service"}
+              text={"Digital Sold or engineers bought our created resources"}
             />
           </div>
           <div className="carousel-item">
             <BannerCards
-              img={vectorComp2}
-              text={"Successful referrals are MNC&#39;s and FAANG Companies"}
+              title={"1738+"}
+              img={vectorComp1}
+              text={"engineers have consulted us fro their career"}
             />
           </div>
           <div className="carousel-item">
             <BannerCards
+              title={"5/5"}
               img={vectorComp3}
-              text={"Students and professionals are choosing our service"}
+              text={
+                "89 out of 95 have rated us 5/5 for our solutions and some floating testimonials"
+              }
             />
           </div>
         </div>
