@@ -38,7 +38,7 @@ export default function ReviewSlide() {
 
     {
       text: "I got an idea about how companies approach, what they expect from us, and how to customize my resume.",
-      name: "Mohammed Sulaiman I",
+      name: "Mohammed Sulaiman ",
     },
   ];
 

@@ -51,8 +51,10 @@ const ConnectCards = ({ id, title, desc, duration, price, type }) => {
         <div style={{ marginTop: "10px" }}>
           <h5
             style={{
-              whiteSpace: "nowrap",
-              overflow: "hidden",
+              display: "-webkit-box", // Enables the use of line clamping
+              WebkitLineClamp: 2, // Limits the text to 2 lines
+              WebkitBoxOrient: "vertical", // Sets the box orientation to vertical
+              overflow: "hidden", // Hides the overflow text
               textOverflow: "ellipsis",
             }}
             className="resume-title"
@@ -91,9 +93,7 @@ const ConnectCards = ({ id, title, desc, duration, price, type }) => {
         <div className="btn-book-now">
           {location.pathname === "/referrals" ||
           location.pathname === "/referrals/" ? (
-            <button style={{ color: "white" }} onClick={handleBookNow}>
-              Book Now
-            </button>
+            <button onClick={handleBookNow}>Book Now</button>
           ) : location.pathname === "/referrals/book-now/payment/" ? (
             <button style={{ color: "white" }}>Add Now</button>
           ) : null}

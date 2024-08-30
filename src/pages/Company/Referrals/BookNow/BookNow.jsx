@@ -520,17 +520,17 @@ const BookNow = () => {
           <div className="feedback-carousal-div">
             <FeedBackCarousalForBookNow
               content={
-                "I had an excellent experience during my referral session for Google. The guidance I received was precise and immensely helpful. The session provided invaluable insights, and my resume was expertly refined and improved. I highly recommend this service to anyone seeking professional and effective career advice. Thank you for making the process seamless and enjoyable."
+                "I have successfully received a referral from Microsoft, thank you engineerhub."
               }
-              name={"Girish Shedge"}
-              profile={"dd/mm/yy"}
+              name={"Satyam Singh"}
+              // profile={"dd/mm/yy"}
             />
             <FeedBackCarousalForBookNow
               content={
-                "Good session. I understood the problems in my resume and corrected those"
+                "I got an idea about how companies approach, what they expect from us, and how to customize my resume."
               }
-              name={"Girish Shedge"}
-              profile={"dd/mm/yy"}
+              name={"Mohammed Sulaiman"}
+              // profile={"dd/mm/yy"}
             />
           </div>
         </div>

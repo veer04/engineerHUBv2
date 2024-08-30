@@ -106,9 +106,9 @@
   border-radius: 10px;
 }
 
-.paynow-div {
+.paynow-div-payment {
   width: 680px;
-  transform: translateX(-3%);
+  transform: translateX(-3.5%);
 }
 
 @media screen and (max-width: 520px) {
@@ -131,9 +131,9 @@
     margin-bottom: 25px;
   }
 
-  .paynow-div {
+  .paynow-div-payment {
     width: 100%;
-    transform: translateX(-10%);
+    transform: translateX(-6.5%);
   }
 
   #connectCardsCarousel .carousel-inner .carousel-item {
