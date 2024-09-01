@@ -19,12 +19,13 @@
 
 .filter-cards-btns {
   display: block;
-  margin: 15px 0 35px 0;
+  margin: 16px 0 24px 0;
 }
 
 .filter-cards-btns button {
   margin-right: 10px;
   margin-bottom: 10px;
+  font-size: 16px;
 }
 
 /* .filter-cards-btns button:first-child {
@@ -127,12 +128,16 @@
     gap: 40px;
   }
 
+  .filter-cards-btns button {
+    font-size: 14px;
+  }
+
   .connect-txt {
     color: black;
-    font-size: 24px;
+    font-size: 22px;
     font-family: Inter;
     font-weight: 600;
-    line-height: 35px;
+    line-height: 32px;
     word-wrap: break-word;
   }
 }
