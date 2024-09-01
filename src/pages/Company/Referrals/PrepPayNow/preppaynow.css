@@ -11,7 +11,7 @@
   margin: 0 auto;
   background-color: white;
   border-radius: 10px;
-  background-color: #f9fcfd;
+  /* background-color: #f9fcfd; */
   padding: 0px 24px 1px 24px;
   position: relative;
 }
@@ -111,6 +111,13 @@
   transform: translateX(-3.5%);
 }
 
+.form-input-saif {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+  flex-wrap: nowrap;
+}
+
 @media screen and (max-width: 520px) {
   .prep-book-now-payment {
     width: 100%;
@@ -118,6 +125,12 @@
     background-color: #138382;
     padding: 40px 0;
     margin-bottom: 30px;
+  }
+
+  .form-input-saif {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
   }
 
   .prep-book-now-payment .main-book-now-container {
@@ -134,6 +147,15 @@
   .prep-book-now-payment .paynow-div-prep {
     width: 400px !important;
     transform: translateX(-6.5%);
+  }
+
+  .prep-book-now-payment .text-div .text-h4 {
+    color: #002b36;
+    font-size: 22px;
+    font-family: Inter;
+    font-weight: 700;
+    line-height: 35px;
+    word-wrap: break-word;
   }
 
   #connectCardsCarousel .carousel-inner .carousel-item {

@@ -21,6 +21,20 @@ const CompanyWisePrep = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
 
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 520);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 520);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   console.log(booknowId, "booknowid");
 
   const handleImageLoad = () => {
@@ -147,12 +161,19 @@ const CompanyWisePrep = () => {
         <div className="prep-24">
           <h4 className="text-h4">{singleProductData.title}</h4>
 
-          <h3 className="text-h3">More details</h3>
+          {/* <h3 className="text-h3">More details</h3> */}
         </div>
 
         <div className="prep-more-details-content">
-          {/* <h4 className="text-h4">Here for the z at Amazon:</h4> */}
-          <h4 className="text-h4-content">{singleProductData.description}</h4>
+          {/* <h4 className="text-h4-content">{singleProductData.description}</h4> */}
+          <h4 className="text-h4">More Details</h4>
+
+          <h4
+            className="text-h4-content"
+            dangerouslySetInnerHTML={{
+              __html: singleProductData.description,
+            }}
+          ></h4>
         </div>
 
         <div className="prep-feedback-section">
@@ -161,7 +182,7 @@ const CompanyWisePrep = () => {
               marginTop: "10px",
             }}
           >
-            <h3 className="text-h3">Recent Feedbacks</h3>
+            <h3 className="text-h3">Recent Feedback</h3>
           </div>
 
           {/* <div className="feedback-btn-main-div">
@@ -178,20 +199,35 @@ const CompanyWisePrep = () => {
         </div>
 
         <div className="prep-feedback-carousal-div">
-          <FeedBackCarousalForBookNow
-            content={
-              "Thanks for providing assistance & support for my recent career transition. With your help, I successfully secured a position at Cisco, an achievement I am incredibly proud of."
-            }
-            name={"Ishaan Sikka"}
-            // profile={"dd/mm/yy"}
-          />
-          <FeedBackCarousalForBookNow
-            content={
-              "Thanks for helping in understanding resume to attract recruiters."
-            }
-            name={"Ravindra Babu"}
-            profile={"dd/mm/yy"}
-          />
+          {isMobile ? (
+            <>
+              <FeedBackCarousalForBookNow
+                content={
+                  "Resourceful List! I've applied to some open positions among these."
+                }
+                name={"Rahul Pratap"}
+                profile={"dd/mm/yy"}
+              />
+            </>
+          ) : (
+            <>
+              <FeedBackCarousalForBookNow
+                content={
+                  "Thank you for providing such a wonderful resource it helped me a lot in my preparation."
+                }
+                name={"Girish Shedge"}
+                // profile={"dd/mm/yy"}
+              />
+              {/* 
+              <FeedBackCarousalForBookNow
+                content={
+                  "Thanks for helping in understanding resume to attract recruiters."
+                }
+                name={"Ravindra Babu"}
+                profile={"dd/mm/yy"}
+              /> */}
+            </>
+          )}
         </div>
 
         <div
@@ -206,7 +242,6 @@ const CompanyWisePrep = () => {
             borderRadius: 5,
             position: "fixed",
             bottom: 0,
-            transform: "translateX(-3.5%)",
             margin: "0 auto",
             zIndex: 100,
           }}

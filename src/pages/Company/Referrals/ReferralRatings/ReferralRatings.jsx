@@ -15,7 +15,9 @@ const ReferralRatings = () => {
           <h4 className="rating-h4">Ratings & Feedback</h4>
 
           <div className="rating-cards-btn">
-            <span style={{color:"#138382",fontSize:"1.25rem"}} >Here are some feedbacks from our users.</span>
+            <span style={{ color: "#138382", fontSize: "16px" }}>
+              Here are some feedbacks from our users.
+            </span>
             {/* <button
               style={{
                 backgroundColor: activeFilter === "All" ? "#138382" : "#f2f4f5",
