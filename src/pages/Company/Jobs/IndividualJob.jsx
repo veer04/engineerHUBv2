@@ -340,7 +340,7 @@ export default function IndividualJob() {
                   Need a referral in <span>{hiringName}?</span>
                 </h3>
               </div>
-              <Link to={"/referrals"} target="_blank">
+              <Link to={"https://topmate.io/engineerhub"} target="_blank">
                 <button className="referral-button">Get a referral</button>
               </Link>
             </div>
