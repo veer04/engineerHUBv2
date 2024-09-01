@@ -61,11 +61,17 @@
 } */
 
 .connect-cards {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  max-width: 1113px;
-  height: 252px;
+  /* display: grid; */
+  /* grid-template-columns: repeat(3, 1fr); */
+  /* max-width: 1113px; */
+  /* height: 252px; */
   transition: opacity 0.5s, transform 0.5s;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 1rem;
+  gap: 1rem;
 }
 
 .button-container {
@@ -120,13 +126,13 @@
     padding: 16px;
   }
 
-  .connect-cards {
+  /* .connect-cards {
     display: grid;
     grid-template-columns: repeat(1, 1fr);
     max-width: 100%;
     height: 100%;
     gap: 40px;
-  }
+  } */
 
   .filter-cards-btns button {
     font-size: 14px;
