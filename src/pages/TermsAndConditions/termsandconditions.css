@@ -33,6 +33,7 @@
 .main-terms-div .sub-terms-div .TnC-container {
   margin-bottom: 20px;
 }
+
 @media screen and (max-width: 520px) {
   .main-terms-div .sub-terms-div {
     padding: 20px 16px;

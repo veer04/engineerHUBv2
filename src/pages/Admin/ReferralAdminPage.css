@@ -1,0 +1,150 @@
+.referral-admin-page {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: var(--vertical-padding) var(--section-padding);
+  color: var(--primary-color-dark-green);
+}
+.referral-admin-page > section {
+  padding: 1.5rem;
+  background-color: white;
+}
+.referral-admin-page > p {
+  font-size: rem;
+  font-weight: 500;
+  margin-bottom: 1.5rem;
+  color: var(--main-background-color);
+  color: #418787;
+}
+.referral-admin-page > p > a {
+  font-size: 1.15rem;
+  color: #246a6a;
+}
+
+.referral-admin-page .referral-table-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+.referral-admin-page .limit-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-bottom: 1rem;
+  gap: 0.5rem;
+}
+.referral-admin-page .limit-container p {
+  margin: 0;
+}
+
+.referral-admin-page .referral-table {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  justify-content: flex-start;
+  overflow: auto;
+}
+.referral-admin-page .referral-table p,
+.referral-admin-page .referral-table a,
+.referral-admin-page .referral-table i,
+.referral-admin-page .referral-table button {
+  text-wrap: wrap;
+  word-break: break-word;
+}
+.referral-admin-page .referral-table .table-headers {
+  /* border-radius: 0.9375rem; */
+  background: rgba(0, 43, 54, 0.1);
+}
+.referral-admin-page .referral-table .table-headers:nth-child(1) {
+  border-radius: 0.9375rem 0 0 0.9375rem;
+}
+.referral-admin-page .referral-table .table-headers:nth-child(7) {
+  border-radius: 0 0.9375rem 0.9375rem 0;
+}
+.referral-admin-page .referral-table .table-item {
+  justify-content: center;
+  display: flex;
+  align-items: start;
+  text-align: start;
+  flex-direction: column;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  min-width: 10rem;
+}
+.referral-admin-page .referral-table .table-item p {
+  margin: 0;
+}
+.referral-admin-page .referral-table .table-content-2 {
+  align-items: start;
+}
+.referral-admin-page .referral-table .table-content-2 p {
+  margin: 0;
+}
+.referral-admin-page .referral-table .table-content-2 p:nth-child(2) {
+  color: #547178;
+  margin-bottom: 0.5rem;
+}
+
+.referral-admin-page .referral-table .table-content-2 a {
+  color: #0036e7;
+  font-size: 0.8125rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 1.1875rem;
+  letter-spacing: 0rem;
+}
+.referral-admin-page .referral-table .table-content-2 .not-present {
+  color: #547178;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  line-height: 1.1875rem;
+  letter-spacing: 0rem;
+}
+.referral-admin-page .referral-table .table-content-5 .join-btn {
+  width: 100%;
+  border: none;
+  padding: 0.5rem;
+  color: white;
+  border-radius: 0.3125rem;
+  background-color: #138382;
+}
+.referral-admin-page .referral-table .table-content-5 .join-btn:disabled {
+  background-color: #a7acad;
+  cursor: not-allowed;
+}
+.referral-admin-page .referral-table .table-content-6 {
+  gap: 0.5rem;
+}
+.referral-admin-page .referral-table .table-content-6 > div {
+  display: flex;
+  flex-direction: column;
+}
+.referral-admin-page .referral-table .table-content {
+  background: rgba(0, 43, 54, 0.02);
+}
+.referral-admin-page .referral-table .table-content:nth-child(7n + 1) {
+  border-radius: 0.9375rem 0 0 0.9375rem;
+}
+.referral-admin-page .referral-table .table-content:nth-child(7n) {
+  border-radius: 0 0.9375rem 0.9375rem 0;
+}
+.referral-admin-page .referral-table .table-content-7 {
+  align-items: center;
+}
+.referral-admin-page .referral-table .table-content .status {
+  width: 2.4375rem;
+  aspect-ratio: 1/1;
+  border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media screen and (max-width: 520px) {
+  .referral-admin-page .referral-table-title {
+    flex-wrap: wrap;
+  }
+  .referral-admin-page .referral-table-title .referral-table-pagination-bar {
+    width: 100%;
+  }
+}

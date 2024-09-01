@@ -1,0 +1,15 @@
+.referral-time-box {
+  padding: 12px;
+  border: 1px solid #ebebeb;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+  height: 51px;
+  border-radius: 10px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  box-shadow: rgba(0, 0, 0, 0.08) 0px 2px 4px;
+}
+.referral-time-box:disabled {
+  cursor: not-allowed;
+}
