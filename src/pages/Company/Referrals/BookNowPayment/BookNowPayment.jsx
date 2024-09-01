@@ -920,7 +920,7 @@ const BookNowPayment = () => {
                 Taxes and platform fees
               </h3>
               <h3 style={{ fontSize: "14px", fontWeight: 400 }}>
-                ₹{gstAmount}
+                ₹{gstAmount.toFixed(2)}
               </h3>
             </div>
 
@@ -938,7 +938,7 @@ const BookNowPayment = () => {
               </h4>
 
               <h4 style={{ fontSize: "16px", fontWeight: 600 }}>
-                ₹{totalPrice}
+                ₹{totalPrice.toFixed(2)}
               </h4>
             </div>
           </div>
