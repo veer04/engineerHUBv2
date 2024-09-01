@@ -85,7 +85,7 @@ const ConnectCards = ({ id, title, desc, duration, price, type }) => {
             <h5
               style={{ fontSize: "18px", fontWeight: "500", marginTop: "-5px" }}
             >
-              &#8377;{price === 0 ? "Free" : price}
+              {price === 0 ? "Free" : <>&#8377;{price}</>}
             </h5>
           </div>
         </div>

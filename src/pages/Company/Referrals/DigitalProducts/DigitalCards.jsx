@@ -85,7 +85,7 @@ const DigitalCards = ({
                     marginTop: "-5px",
                   }}
                 >
-                  &#8377;{price === 0 ? "Free" : price}
+                  {price === 0 ? "Free" : <>&#8377;{price}</>}
                 </h5>
               </div>
 
