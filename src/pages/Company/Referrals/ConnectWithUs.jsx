@@ -32,6 +32,9 @@ const ConnectWithUs = ({ compName }) => {
     getAllOpenMeet();
   }, []);
 
+  const rating = [5, 4.5, 4.5];
+  const popular = ["Popular", "Popular", ""];
+
   useEffect(() => {
     setAnimationClass("hidden");
     const timer = setTimeout(() => {
@@ -136,7 +139,7 @@ const ConnectWithUs = ({ compName }) => {
       </div> */}
 
       <div className={`connect-cards ${animationClass}`}>
-        {visibleCards.map((card) => (
+        {visibleCards.map((card, index) => (
           <ConnectCards
             key={card._id}
             id={card._id}
@@ -145,6 +148,8 @@ const ConnectWithUs = ({ compName }) => {
             duration={card.duration}
             price={card.price}
             type={card.type}
+            rating={rating[index % rating.length]}
+            popular={popular[index % popular.length]}
           />
         ))}
       </div>
