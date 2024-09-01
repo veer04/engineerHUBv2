@@ -93,6 +93,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 1rem;
 }
 .crm-board .main-container .action-container .select-container {
   display: flex;
@@ -136,6 +137,82 @@
   .select-container
   .action-buttons
   button {
+  aspect-ratio: 1/1;
+  width: 2.5rem;
+  /* height: 2.5rem; */
+  border-radius: 50%;
+  font-size: 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid rgba(0, 43, 54, 0.15);
+}
+.crm-board .main-container .board-table {
+  display: grid;
+  /* grid-template-columns: repeat(8, 1fr); */
+  grid-template-columns: 40px 11rem minmax(11rem,1fr) minmax(11rem,1fr) 7rem 8rem 7rem 10rem;
+  justify-content: flex-start;
+  overflow: auto;
+}
+.crm-board .main-container .board-table input[type="checkbox"] {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+.crm-board .main-container .board-table p,
+.crm-board .main-container .board-table a,
+.crm-board .main-container .board-table i,
+.crm-board .main-container .board-table button {
+  text-wrap: wrap;
+  word-break: break-word;
+}
+.crm-board .main-container .board-table .table-headers {
+  background: #eeeeeef5;
+}
+.crm-board .main-container .board-table .table-headers:nth-child(1) {
+  border-radius: 5px 0 0 5px;
+}
+.crm-board .main-container .board-table .table-headers:nth-child(8) {
+  border-radius: 0 5px 5px 0;
+}
+.crm-board .main-container .board-table .table-item {
+  justify-content: center;
+  display: flex;
+  align-items: start;
+  text-align: start;
+  flex-direction: column;
+  padding: 1rem 0.5rem;
+}
+.crm-board .main-container .board-table .table-item p {
+  margin: 0;
+  overflow: hidden;
+}
+.crm-board .main-container .board-table .table-content {
+  max-height: 4rem;
+  padding: 0.5rem;
+  border-bottom: 2px solid #e6e6e6;
+}
+.crm-board .main-container .board-table .table-content a {
+  text-decoration: underline;
+  cursor: pointer;
+}
+.crm-board .main-container .board-table .table-content a:hover {
+  color: var(--text-color-green);
+}
+.crm-board .main-container .board-table .table-content a:active {
+  color: var(--text-color-dark-green);
+}
+.crm-board .main-container .board-table .table-content:nth-child(8n + 1) {
+  border-radius: 5px 0 0 5px;
+}
+.crm-board .main-container .board-table .table-content:nth-child(8n) {
+  border-radius: 0 5px 5px 0;
+}
+
+.crm-board .main-container .board-table .table-content-8 {
+  gap: 0.5rem;
+  flex-direction: row;
+}
+.crm-board .main-container .board-table .table-content-8 button {
   aspect-ratio: 1/1;
   width: 2.5rem;
   /* height: 2.5rem; */
