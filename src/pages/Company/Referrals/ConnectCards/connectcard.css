@@ -58,15 +58,16 @@
   height: 42px;
   border-radius: 10px;
   color: #ffd600;
-  background-color: #138382;
+  background-color: white;
   border: none;
   outline: none;
-  color: white;
+  color: #138382;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.08);
 }
 
 .btn-book-now button:hover {
-  background-color: white;
-  color: #138382;
+  background-color: #138382;
+  color: white;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.08);
 }
 

@@ -38,7 +38,7 @@
   flex-direction: column;
   gap: 1rem;
   height: 100%;
-  animation: scroll1 180s linear infinite;
+  animation: scroll1 360s linear infinite;
 }
 
 .review-slide-section .scroller__inner {

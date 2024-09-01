@@ -28,7 +28,7 @@ const ConnectCards = ({ id, title, desc, duration, price, type }) => {
               boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.08)",
             }}
           >
-            <h5 style={{ fontSize: "13px", marginTop: "10px" }}>5</h5>
+            <h5 style={{ fontSize: "13px", marginTop: "10px" }}>4</h5>
             <img src={"/star.svg"} alt="" width={16} height={16} />
           </div>
 

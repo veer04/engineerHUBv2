@@ -305,12 +305,15 @@ const PrepPayNow = () => {
 
           <div style={{ margin: "40px 0px" }}>
             <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                gap: ".75rem",
-                flexWrap: "nowrap",
-              }}
+              className="form-input-saif"
+              style={
+                {
+                  // display: "flex",
+                  // justifyContent: "space-between",
+                  // gap: ".75rem",
+                  // flexWrap: "nowrap",
+                }
+              }
             >
               <FormInput
                 label="Name"
@@ -348,7 +351,7 @@ const PrepPayNow = () => {
               className="mb-4"
             />
 
-            <div>
+            <div style={{ display: "flex", justifyContent: "end" }}>
               <button
                 onClick={() => handleFormSubmit()}
                 style={{
@@ -457,7 +460,7 @@ const PrepPayNow = () => {
                 marginBottom: "3.5rem",
               }}
             >
-              <h4 style={{ fontSize: "16px", fontWeight: 600 }}>
+              <h4 style={{ fontSize: "14px", fontWeight: 600 }}>
                 Bill Summary
               </h4>
 
@@ -469,8 +472,8 @@ const PrepPayNow = () => {
                   marginTop: 14,
                 }}
               >
-                <h3 style={{ fontSize: "14px", fontWeight: 400 }}>Total MRP</h3>
-                <h3 style={{ fontSize: "14px", fontWeight: 400 }}>
+                <h3 style={{ fontSize: "13px", fontWeight: 400 }}>Total MRP</h3>
+                <h3 style={{ fontSize: "13px", fontWeight: 400 }}>
                   ₹{priceOfproduct}
                 </h3>
               </div>
@@ -482,10 +485,10 @@ const PrepPayNow = () => {
                   marginTop: 5,
                 }}
               >
-                <h3 style={{ fontSize: "14px", fontWeight: 400 }}>
+                <h3 style={{ fontSize: "13px", fontWeight: 400 }}>
                   Taxes and platform fees
                 </h3>
-                <h3 style={{ fontSize: "14px", fontWeight: 400 }}>
+                <h3 style={{ fontSize: "13px", fontWeight: 400 }}>
                   ₹{gstAmount.toFixed(2)}
                 </h3>
               </div>

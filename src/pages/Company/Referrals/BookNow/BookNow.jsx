@@ -55,7 +55,7 @@ const BookNow = () => {
   } = usePrevNextButtons(emblaApi2);
 
   const DATES_SLIDE_COUNT = 12;
-  const TIME_SLIDE_COUNT = 3;
+  const TIME_SLIDE_COUNT = 2;
   const DATES_SLIDES = Array.from(Array(DATES_SLIDE_COUNT).keys());
   const TIME_SLIDES = Array.from(Array(TIME_SLIDE_COUNT).keys());
 
@@ -110,8 +110,8 @@ const BookNow = () => {
   const [selectedTime, setSelectedTime] = useState(null);
   const [endTime, setEndTime] = useState(null);
   const [selectedDates, setSelectedDates] = useState(null);
-  const timesPerPage = isMobile ? 12 : 16; // 4 columns x 4 rows
-  const datesPerPage = isMobile ? 6 : 8; // 2 rows x 4 columns
+  const timesPerPage = isMobile ? 6 : 12; // 4 columns x 4 rows
+  const datesPerPage = isMobile ? 3 : 4; // 1 rows x 2 columns
   const carouselRef = useRef(null);
 
   const handleTimeClick = (time) => {
@@ -208,45 +208,65 @@ const BookNow = () => {
 
   const generateTimeArray = () => {
     const times = [];
-    const now = new Date();
-    const start = new Date(now.getTime());
-    start.setMinutes(Math.ceil(start.getMinutes() / 30) * 30);
-    start.setSeconds(0);
-    start.setMilliseconds(0);
 
-    for (let i = 0; i < 48; i++) {
-      const time = new Date(start.getTime() + i * 30 * 60 * 1000);
-      const hours = time.getHours();
-      const minutes = time.getMinutes();
+    // Define time ranges for the morning and evening sessions
+    const timeRanges = [
+      { start: [10, 30], end: [12, 30] }, // Morning range from 10:30 AM to 12:30 PM
+      { start: [16, 30], end: [19, 30] }, // Evening range from 4:30 PM to 7:30 PM
+    ];
 
-      // Include times between 10:30 AM - 12:30 PM and 4:30 PM - 7:30 PM
-      const isMorning =
-        (hours === 10 && minutes >= 30) || (hours >= 11 && hours < 13);
-      const isEvening =
-        (hours === 16 && minutes >= 30) ||
-        (hours >= 17 && hours < 19) ||
-        (hours === 19 && minutes <= 30);
+    timeRanges.forEach(({ start, end }) => {
+      const startTime = new Date();
+      startTime.setHours(start[0], start[1], 0, 0);
 
-      if (isMorning || isEvening) {
+      const Interval = parseInt(meetingData?.duration?.split(" ")[0], 10);
+      console.log(meetingData, "dration");
+
+      console.log(Interval, "Interval");
+
+      const endTime = new Date();
+      endTime.setHours(end[0], end[1], 0, 0);
+
+      for (
+        let time = new Date(startTime);
+        time <= endTime;
+        time.setMinutes(time.getMinutes() + Interval)
+      ) {
+        const hours = time.getHours();
+        const minutes = time.getMinutes();
         const ampm = hours >= 12 ? "PM" : "AM";
         const displayHours = hours % 12 || 12;
         const displayMinutes = minutes < 10 ? `0${minutes}` : minutes;
         const timeString = `${displayHours}:${displayMinutes} ${ampm}`;
 
-        times.push({ time: timeString, actualTime: time, isDisabled: true });
+        times.push({
+          time: timeString,
+          actualTime: new Date(time),
+          isDisabled: true,
+        });
       }
-    }
+    });
 
     return times;
   };
+
+  console.log(selectedDates, "selectedDate");
+  console.log(selectedTime, "selectedTime");
+  console.log(endTime, "endTime");
+
+  useEffect(() => {
+    if (Object.keys(meetingData).length > 0) {
+      setTimeArray(generateTimeArray());
+    }
+  }, [meetingData]);
 
   // const timeArray = generateTimeArray();
 
   useEffect(() => {
     if (referralId) {
       setDatesArray(generateDatesForYear());
-      setTimeArray(generateTimeArray());
-      setTimeArrayCopy(generateTimeArray());
+
+      // setTimeArrayCopy(generateTimeArray());
     }
   }, [referralId]);
 
@@ -461,7 +481,7 @@ const BookNow = () => {
               <h5
                 className="m-left-h4"
                 style={{
-                  fontSize: "20px",
+                  // fontSize: "20px",
                   fontWeight: "600",
                   marginTop: "-5px",
                 }}
@@ -475,8 +495,9 @@ const BookNow = () => {
             <div className="m-right-duration">
               <h5 style={{ fontSize: "12px", color: "#547178" }}>Amount</h5>
               <h5
+                className="m-right-h4"
                 style={{
-                  fontSize: "20px",
+                  // fontSize: "20px",
                   fontWeight: "600",
                   marginTop: "-5px",
                 }}
@@ -486,13 +507,17 @@ const BookNow = () => {
             </div>
           </div>
 
-          <div>
-            <h4 className="more-details">More details</h4>
-          </div>
+          <div>{/* <h4 className="more-details">More details</h4> */}</div>
 
           <div className="more-details-content">
-            {/* <h4 className="text-h4">Here for the z at Amazon:</h4> */}
-            <h4 className="text-h4-content">{meetingData.description}</h4>
+            <h4 className="text-h4">More Details</h4>
+            {/* <h4 className="text-h4-content">{meetingData.description}</h4> */}
+            <span
+              className="text-h4-content"
+              dangerouslySetInnerHTML={{
+                __html: meetingData?.description,
+              }}
+            ></span>
           </div>
 
           <div className="feedback-section">
@@ -518,20 +543,32 @@ const BookNow = () => {
           </div>
 
           <div className="feedback-carousal-div">
-            <FeedBackCarousalForBookNow
-              content={
-                "I have successfully received a referral from Microsoft, thank you engineerhub."
-              }
-              name={"Satyam Singh"}
-              // profile={"dd/mm/yy"}
-            />
-            <FeedBackCarousalForBookNow
-              content={
-                "I got an idea about how companies approach, what they expect from us, and how to customize my resume."
-              }
-              name={"Mohammed Sulaiman"}
-              // profile={"dd/mm/yy"}
-            />
+            {isMobile ? (
+              <FeedBackCarousalForBookNow
+                content={
+                  "I have successfully received a referral from Microsoft, thank you engineerhub."
+                }
+                name={"Satyam Singh"}
+                // profile={"dd/mm/yy"}
+              />
+            ) : (
+              <>
+                <FeedBackCarousalForBookNow
+                  content={
+                    "I got an idea about how companies approach, what they expect from us, and how to customize my resume."
+                  }
+                  name={"Mohammed Sulaiman"}
+                  // profile={"dd/mm/yy"}
+                />
+                <FeedBackCarousalForBookNow
+                  content={
+                    "I have successfully received a referral from Microsoft, thank you engineerhub."
+                  }
+                  name={"Satyam Singh"}
+                  // profile={"dd/mm/yy"}
+                />
+              </>
+            )}
           </div>
         </div>
       </div>
@@ -682,23 +719,23 @@ const BookNow = () => {
                   </div>
                 </div>
                 <div className="time-meet-btns">
-                  {/* <button
+                  <button
                     className="time-meet-btn label-sm"
                     onClick={onPrevButtonClick2}
                     disabled={prevBtnDisabled2}
                   >
                     <IoIosArrowBack />
                     Previous
-                  </button> */}
+                  </button>
 
-                  {/* <button
+                  <button
                     className="time-meet-btn label-sm"
                     onClick={onNextButtonClick2}
                     disabled={nextBtnDisabled2}
                   >
                     Next
                     <IoIosArrowForward />
-                  </button> */}
+                  </button>
                 </div>
               </section>
             </div>

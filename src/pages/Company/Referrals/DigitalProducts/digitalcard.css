@@ -47,22 +47,23 @@
 .purchase-btn button {
   width: 140px;
   height: 44px;
-  background-color: #138382;
+  background-color: white;
   padding: 10px;
   border: none;
   outline: none;
   border-radius: 10px;
-  color: #ffffff;
+  color: #138382;
   font-size: 14px;
   font-family: Inter;
   font-weight: 500;
   line-height: 19px;
   word-wrap: break-word;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.08);
 }
 
 .purchase-btn button:hover {
-  background-color: white;
-  color: #138382;
+  background-color: #138382;
+  color: white;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.08);
 }
 
