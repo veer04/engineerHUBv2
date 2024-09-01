@@ -2,7 +2,16 @@ import React from "react";
 import "./connectcard.css";
 import { useLocation, useNavigate } from "react-router-dom";
 
-const ConnectCards = ({ id, title, desc, duration, price, type }) => {
+const ConnectCards = ({
+  id,
+  title,
+  desc,
+  duration,
+  price,
+  type,
+  rating,
+  popular,
+}) => {
   const navigate = useNavigate();
   const location = useLocation();
   console.log(location, "location");
@@ -28,23 +37,24 @@ const ConnectCards = ({ id, title, desc, duration, price, type }) => {
               boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.08)",
             }}
           >
-            <h5 style={{ fontSize: "13px", marginTop: "10px" }}>4</h5>
+            <h5 style={{ fontSize: "13px", marginTop: "10px" }}>{rating}</h5>
             <img src={"/star.svg"} alt="" width={16} height={16} />
           </div>
-
-          <div
-            style={{
-              backgroundColor: "white",
-              width: "72px",
-              height: "32px",
-              padding: "4px 12px",
-              gap: 3,
-              borderRadius: 10,
-              boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.08)",
-            }}
-          >
-            <h5 style={{ fontSize: "13px", marginTop: "5px" }}>Popular</h5>
-          </div>
+          {popular && (
+            <div
+              style={{
+                backgroundColor: "white",
+                width: "72px",
+                height: "32px",
+                padding: "4px 12px",
+                gap: 3,
+                borderRadius: 10,
+                boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.08)",
+              }}
+            >
+              <h5 style={{ fontSize: "13px", marginTop: "5px" }}>{popular}</h5>
+            </div>
+          )}
         </div>
 
         {/* //heading resume saif */}
