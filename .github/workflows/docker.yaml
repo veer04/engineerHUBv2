@@ -48,7 +48,7 @@ jobs:
             VITE_EDITOR_API_KEY=${{ secrets.VITE_EDITOR_API_KEY }}
             TEST_SERVER_USERNAME=${{ secrets.TEST_SERVER_USERNAME }}
             TEST_SERVER_PASSWORD=${{ secrets.TEST_SERVER_PASSWORD }}
-            VITE_PAYMENT_API_URL=${{ vars.VITE_PAYMENT_API_URL }}
+            VITE_PAYMENT_API_URL=${{ vars.VITE_PAYMENT_API_URL_TESTING }}
             VITE_ADMIN_REFERRAL_TOKEN=${{ vars.VITE_ADMIN_REFERRAL_TOKEN }}
     
       - name: Deploy to Production Server
