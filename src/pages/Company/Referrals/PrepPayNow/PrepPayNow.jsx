@@ -202,7 +202,7 @@ const PrepPayNow = () => {
           window.alert("Fill the Details!");
         }
         setSnackbarMessage(
-          "Some server error occurred while applying for this job!"
+          "Some server error occurred while purchasing this meet!"
         );
         setSnackbarSeverity("error");
         setSnackbarOpen(true);
