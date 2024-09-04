@@ -20,6 +20,9 @@ export default function Footer() {
     {
       id: 1,
       title: "About Us",
+      icon: "/location.png",
+      address:
+        "8-B, Gyan Khand 4, Indirapuram, Ghaziabad, Uttar Pradesh (201014)",
       content:
         "engineerHUB is INDIA's leading community of engineers where students or alumni from IITs, NITs, IIITs and state colleges unite together to develop and nurture the skills of students all over India.",
       links: [],
@@ -199,6 +202,7 @@ export default function Footer() {
         >
           <h5 style={{ color: "#FFD600", fontWeight: "600" }}>{item.title}</h5>
           <span>{item.content}</span>
+
           <ul>
             {item.links &&
               item.links.map((link, index) => {

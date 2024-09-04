@@ -1,5 +1,5 @@
 import React, { useState, useEffect, lazy, Suspense } from "react";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import "./App.css";
 import "./styles/DesignSystem.js";
 import OTP from "./pages/User/OtpVerification/Otpverification";
@@ -48,7 +48,19 @@ import ProjectWindow from "./pages/Community/Project/ProjectWindow.jsx";
 import EventWindow from "./pages/Community/Events/EventWindow.jsx";
 import BlogWindow from "./pages/Community/Blogs/BlogWindow.jsx";
 import NewFooter from "./components/Footer/NewFooter.jsx";
+const BookNow = lazy(() =>
+  import("./pages/Company/Referrals/BookNow/BookNow.jsx")
+);
+import BookNowPayment from "./pages/Company/Referrals/BookNowPayment/BookNowPayment.jsx";
+import BookNowPaymentSuccess from "./pages/Company/Referrals/BookNowPaymentSuccess/BookNowPaymentSuccess.jsx";
+import CompanyWisePrep from "./pages/Company/Referrals/CompanyWisePrep/CompanyWisePrep.jsx";
+import PrepPayNow from "./pages/Company/Referrals/PrepPayNow/PrepPayNow";
+import BookNowSuccessProduct from "./pages/Company/Referrals/BookNowPaymentSuccess/BookNowSuccessProduct.jsx";
+import PaymentFailed from "./pages/Company/Referrals/PaymentFailed/PaymentFailed.jsx";
 // import PopUpModalBootstrap from "./components/PopUpModal/PopUpModalBootstrap.jsx";
+const ReferralAdminPage = lazy(() =>
+  import("./pages/Admin/ReferralAdminPage.jsx")
+);
 const JobBoard = lazy(() => import("./pages/Company/Board/JobBoard.jsx"));
 const JobsPage = lazy(() => import("./pages/Company/Jobs/JobsPage.jsx"));
 const InternshipsPage = lazy(() =>
@@ -116,6 +128,8 @@ const NewEventsPage = lazy(() =>
 const NewBlogsPage = lazy(() =>
   import("./pages/Community/Blogs/NewBlogsPage.jsx")
 );
+
+const Referrals = lazy(() => import("./pages/Company/Referrals/Referrals.jsx"));
 const TermsAndConditions = lazy(() =>
   import("./pages/TermsAndConditions/TermsAndConditions.jsx")
 );
@@ -126,6 +140,8 @@ function App() {
   useEffect(() => {
     setOtpRoute(Boolean(sessionStorage.getItem("OtpRoute")));
   });
+
+  const location = useLocation();
 
   return (
     <>
@@ -293,14 +309,65 @@ function App() {
               <Route path=":hackId" element={<HackathonDetailsNew />} />
             </Route>
           </Route>
+
+          <Route path="/referrals" element={<Referrals />} />
+          {/* <Route path="/referrals/book-now" element={<BookNow />} /> */}
+          <Route path="/referrals/book-now/:referralId" element={<BookNow />} />
+          <Route
+            path="/referrals/book-now/payment"
+            element={<BookNowPayment />}
+          />
+
+          <Route
+            path="/referrals/book-now/payment/success"
+            element={<BookNowPaymentSuccess />}
+          />
+
+          <Route
+            path="/referrals/product-book-now/:booknowId"
+            element={<CompanyWisePrep />}
+          />
+
+          <Route
+            path="/referrals/product-book-now/payment"
+            element={<PrepPayNow />}
+          />
+
+          <Route
+            path="/referrals/product-book-now/payment/success"
+            element={<BookNowSuccessProduct />}
+          />
+
+          <Route
+            path="/referrals/booking/payment/failed"
+            element={<PaymentFailed />}
+          />
+
           <Route
             path="/terms-and-conditions"
             element={<TermsAndConditions />}
           />
+
+          <Route path="/admin">
+            <Route index element={<Page404 />} />
+            <Route path="referrals">
+              <Route index element={<ReferralAdminPage />} />
+            </Route>
+          </Route>
+
           <Route path="*" element={<Page404 />} />
         </Routes>
       </Suspense>
 
+      {/* {location.pathname === "/referrals/book-now/:referralId" ||
+      location.pathname === "/referrals/book-now/payment" ||
+      location.pathname === "/referrals/book-now/payment/" ||
+      location.pathname === "/referrals/product-book-now/" ||
+      location.pathname === "/referrals/product-book-now" ||
+      location.pathname === "/referrals/product-book-now/payment" ||
+      location.pathname === "/referral/book-now" ? null : (
+        <NewFooter />
+      )} */}
       <NewFooter />
     </>
   );

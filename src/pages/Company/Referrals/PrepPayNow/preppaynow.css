@@ -1,0 +1,213 @@
+.prep-book-now-payment {
+  width: 100%;
+  height: 100%;
+  background-color: #138382;
+  padding: 40px 24px;
+}
+
+.prep-book-now-payment .main-book-now-container {
+  width: 680px;
+  height: auto;
+  margin: 0 auto;
+  background-color: white;
+  border-radius: 10px;
+  /* background-color: #f9fcfd; */
+  padding: 0px 24px 1px 24px;
+  position: relative;
+}
+
+.prep-book-now-payment .main-book-now-container .book-goback-div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 0px 20px 0px;
+}
+
+.prep-book-now-payment
+  .main-book-now-container
+  .book-goback-div
+  .book-goback-btn {
+  border-radius: 10px;
+  padding: 4px 16px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.08);
+}
+
+.prep-book-now-payment
+  .main-book-now-container
+  .book-goback-div
+  .book-goback-btn
+  .goback-button-link {
+  color: #002b36;
+  font-size: 14px;
+  font-family: Inter;
+  font-weight: 500;
+  line-height: 24px;
+  word-wrap: break-word;
+  margin-left: 5px;
+}
+
+.prep-book-now-payment .text-div .text-h4 {
+  color: #002b36;
+  font-size: 26px;
+  font-family: Inter;
+  font-weight: 700;
+  line-height: 35px;
+  word-wrap: break-word;
+}
+
+.prep-book-now-payment .calendar-change {
+  padding: 12px 12px;
+
+  display: flex;
+  justify-content: space-between;
+  background-color: #f7f9f9;
+  border-radius: 10px;
+  align-items: center;
+}
+
+.prep-book-now-payment .calendar-change .calendar-content-data {
+  display: flex;
+}
+
+.prep-book-now-payment .calendar-change .calendar-content-data .data-text-h4 {
+  color: #138382;
+  font-size: 14px;
+  font-family: Inter;
+  font-weight: 600;
+  line-height: 16px;
+  word-wrap: break-word;
+  margin-bottom: 3px;
+}
+
+.prep-book-now-payment .calendar-change .calendar-content-data .data-text-h5 {
+  color: #138382;
+  font-size: 14px;
+  font-family: Inter;
+  font-weight: 600;
+  line-height: 16px;
+  word-wrap: break-word;
+  margin-bottom: 3px;
+}
+
+.prep-book-now-payment .calendar-change .calendar-button {
+}
+
+.prep-book-now-payment .calendar-change .calendar-button .calendar-btn-link {
+  padding: 4px 16px;
+  color: white;
+  font-size: 14px;
+  font-family: Inter;
+  font-weight: 600;
+  line-height: 24px;
+  word-wrap: break-word;
+  background-color: #138382;
+  border: none;
+  outline: none;
+  border-radius: 10px;
+}
+
+.prep-book-now-payment .paynow-div-prep {
+  width: 680px !important;
+  transform: translateX(-3.5%);
+}
+
+.form-input-saif {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+  flex-wrap: nowrap;
+}
+
+@media screen and (max-width: 520px) {
+  .prep-book-now-payment {
+    width: 100%;
+    height: 100%;
+    background-color: #138382;
+    padding: 40px 0;
+    margin-bottom: 30px;
+  }
+
+  .form-input-saif {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .prep-book-now-payment .main-book-now-container {
+    width: 100%;
+    height: auto;
+    margin: 0 auto;
+    background-color: white;
+    border-radius: 10px;
+    background-color: #f9fcfd;
+    padding: 0px 24px 5px 24px;
+    margin-bottom: 25px;
+  }
+
+  .prep-book-now-payment .paynow-div-prep {
+    width: 400px !important;
+    transform: translateX(-6.5%);
+  }
+
+  .prep-book-now-payment .text-div .text-h4 {
+    color: #002b36;
+    font-size: 22px;
+    font-family: Inter;
+    font-weight: 700;
+    line-height: 35px;
+    word-wrap: break-word;
+  }
+
+  #connectCardsCarousel .carousel-inner .carousel-item {
+    display: block;
+  }
+
+  #connectCardsCarousel .carousel-inner .carousel-item .col-6 {
+    width: 100%;
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+
+  #connectCardsCarousel .carousel-inner .carousel-item .d-flex {
+    flex-direction: column;
+  }
+
+  .main-cont-name-phone {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .main-cont-name-phone .name-cont,
+  .phone-cont {
+    width: 100%;
+  }
+}
+
+.main-cont-name-phone .name-cont,
+.phone-cont {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  aspect-ratio: 4;
+  background: radial-gradient(circle closest-side, #ffffff 90%, #cecece00) 0 /
+    calc(100% / 3) 100% space;
+  clip-path: inset(0 100% 0 0);
+  animation: l1 1s steps(4) infinite;
+}
+@keyframes l1 {
+  to {
+    clip-path: inset(0 -34% 0 0);
+  }
+}
+
+.btn-confirm-details {
+  display: flex;
+  justify-content: end;
+}
