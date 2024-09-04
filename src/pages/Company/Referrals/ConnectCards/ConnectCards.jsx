@@ -17,7 +17,9 @@ const ConnectCards = ({
   console.log(location, "location");
 
   const handleBookNow = () => {
-    navigate(`/referrals/book-now/${id}`);
+    navigate(`/referrals/book-now/${id}`, {
+      state: { rating, popular },
+    });
   };
   return (
     <>

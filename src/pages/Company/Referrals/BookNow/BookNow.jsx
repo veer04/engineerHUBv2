@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./booknow.css";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import FeedBackCarousalForBookNow from "../FeedbackCarousalForBookNow/FeedBackCarousalForBookNow";
 import DateBoxes from "../DateBoxesCard/DateBoxes";
 import TimeBox from "../TimeBox/TimeBox";
@@ -53,6 +53,9 @@ const BookNow = () => {
     onPrevButtonClick: onPrevButtonClick2,
     onNextButtonClick: onNextButtonClick2,
   } = usePrevNextButtons(emblaApi2);
+
+  const location = useLocation();
+  const { rating, popular } = location.state || {};
 
   const DATES_SLIDE_COUNT = 12;
   const TIME_SLIDE_COUNT = 2;
@@ -154,8 +157,8 @@ const BookNow = () => {
   const generateDatesForYear = () => {
     const dates = [];
     const today = new Date();
-    const startDate = new Date(today.getFullYear(), 0, 1); // Start at January 1 of the current year
-    startDate.setHours(0, 0, 0, 0); // Ensure time is set to midnight
+    const startDate = new Date(today.getFullYear(), 0, 1);
+    startDate.setHours(0, 0, 0, 0);
 
     // Loop through the year
     while (startDate.getFullYear() === today.getFullYear()) {
@@ -427,6 +430,7 @@ const BookNow = () => {
         meetingData,
         startDateTimeISO,
         endDateTimeISO,
+        rating,
       },
     });
   };
@@ -461,7 +465,7 @@ const BookNow = () => {
               boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.08)",
             }}
           >
-            <h5 style={{ fontSize: "13px", marginTop: "10px" }}>5</h5>
+            <h5 style={{ fontSize: "13px", marginTop: "10px" }}>{rating}</h5>
             <img src={"/star.svg"} alt="" width={16} height={16} />
           </div>
 
