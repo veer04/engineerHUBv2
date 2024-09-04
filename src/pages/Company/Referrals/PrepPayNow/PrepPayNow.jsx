@@ -355,7 +355,6 @@ const PrepPayNow = () => {
               <button
                 onClick={() => handleFormSubmit()}
                 style={{
-                  padding: "10 24",
                   backgroundColor: "#138382",
                   border: "none",
                   outline: "none",
@@ -426,7 +425,6 @@ const PrepPayNow = () => {
                       }
                     }}
                     style={{
-                      padding: "10 24",
                       backgroundColor: "#138382",
                       border: "none",
                       outline: "none",

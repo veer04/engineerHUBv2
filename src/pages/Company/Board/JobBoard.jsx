@@ -156,12 +156,18 @@ export default function JobBoard() {
     queryKey: ["Jobs", "board", id],
     queryFn: () =>
       axios
-        .get(`${API_URL}api/v1/hiringDashboard/applicant?page=1&limit=30/`)
+        .get(
+          `${API_URL}api/v1/hiringDashboard/applicant?page=1&limit=30&hiringId=66850bfeafcdc22391c3ddd8`
+        )
         .then((res) => {
           return res;
         }),
     staleTime: 1000 * 60 * 1, // 1 minutes
   });
+
+  const [boardStatus, setBoardStatus] = useState("Show All");
+
+  console.log(boardData?.data?.data?.data?.applicants[2].userId.firstName);
 
   return (
     <main className="crm-board">
@@ -199,20 +205,41 @@ export default function JobBoard() {
         </div>
         <div className="categories-container">
           <div className="categories body-sm-regular">
-            <button className="--selected">
+            <button
+              onClick={() => setBoardStatus("Show All")}
+              className={`${boardStatus === "Show All" ? "--selected" : ""}`}
+            >
+              <p className="body-sm-regular">Show All</p>
+              <span className="body-sm-regular">3</span>
+            </button>
+            <button
+              onClick={() => setBoardStatus("Uncategorized")}
+              className={`${
+                boardStatus === "Uncategorized" ? "--selected" : ""
+              }`}
+            >
               <p className="body-sm-regular">Uncategorized</p>
               <span className="body-sm-regular">3</span>
             </button>
-            <button>
-              <p className="body-sm-regular">Uncategorized</p>
+            <button
+              onClick={() => setBoardStatus("Shortlisted")}
+              className={`${boardStatus === "Shortlisted" ? "--selected" : ""}`}
+            >
+              <p className="body-sm-regular">Shortlisted</p>
               <span className="body-sm-regular">3</span>
             </button>
-            <button>
-              <p className="body-sm-regular">Uncategorized</p>
+            <button
+              onClick={() => setBoardStatus("Rejected")}
+              className={`${boardStatus === "Rejected" ? "--selected" : ""}`}
+            >
+              <p className="body-sm-regular">Rejected</p>
               <span className="body-sm-regular">3</span>
             </button>
-            <button>
-              <p className="body-sm-regular">Uncategorized</p>
+            <button
+              onClick={() => setBoardStatus("Processing")}
+              className={`${boardStatus === "Processing" ? "--selected" : ""}`}
+            >
+              <p className="body-sm-regular">Processing</p>
               <span className="body-sm-regular">3</span>
             </button>
           </div>
@@ -330,51 +357,73 @@ export default function JobBoard() {
               </div>
             </>
           )} */}
-          {rowValues.map(
-            ({ _id, name, skills, college, batch, experience, resume }) => (
-              <Fragment key={_id}>
+          {boardData.isSuccess &&
+            boardData?.data?.data?.data?.applicants.map((item) => (
+              <Fragment key={item?._id}>
                 <div className="table-item table-content table-content-1">
                   <input
                     type="checkbox"
-                    name={`data-name-${_id}`}
-                    id={`data-id-${_id}`}
+                    name={`item-name-${item?._id}`}
+                    id={`item-id-${item?._id}`}
                   />
                 </div>
                 <div className="table-item table-content table-content-2">
-                  <p title={name} className="body-sm-regular text-crop-2">
-                    {name}
+                  <p
+                    title={`${item?.userId?.firstName}${
+                      item?.userId?.lastName ? ` ${item?.userId?.lastName}` : ""
+                    }`}
+                    className="body-sm-regular text-crop-2"
+                  >
+                    {`${item?.userId?.firstName}${
+                      item?.userId?.lastName ? ` ${item?.userId?.lastName}` : ""
+                    }`}
                   </p>
                 </div>
                 <div className="table-item table-content table-content-3">
-                  <p title={skills} className="body-sm-regular text-crop-2 ">
-                    {skills}
+                  <p
+                    title={item?.skills}
+                    className="body-sm-regular text-crop-2 "
+                  >
+                    {item?.skills}
                   </p>
                 </div>
                 <div className="table-item table-content table-content-4">
-                  <p title={college} className="body-sm-regular text-crop-2">
-                    {college}
+                  <p
+                    title={item?.college}
+                    className="body-sm-regular text-crop-2"
+                  >
+                    {item?.college}
                   </p>
                 </div>
                 <div className="table-item table-content table-content-5">
-                  <p title={batch} className="body-sm-regular text-crop-2">
-                    {batch}
+                  <p
+                    title={item?.batch}
+                    className="body-sm-regular text-crop-2"
+                  >
+                    {item?.batch}
                   </p>
                 </div>
                 <div className="table-item table-content table-content-6">
-                  <p title={experience} className="body-sm-regular text-crop-2">
-                    {experience}
+                  <p
+                    title={item?.experience}
+                    className="body-sm-regular text-crop-2"
+                  >
+                    {item?.experience}
                   </p>
                 </div>
                 <div className="table-item table-content table-content-7">
-                  <a
-                    title={resume}
-                    className="body-sm-regular text-crop-2"
-                    href={resume}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Link to view
-                  </a>
+                  {item?.resume ? (
+                    <a
+                      className="body-sm-regular text-crop-2"
+                      href={item?.resume}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Link to view
+                    </a>
+                  ) : (
+                    "-"
+                  )}
                 </div>
                 <div className="table-item table-content table-content-8">
                   <button>
@@ -388,8 +437,7 @@ export default function JobBoard() {
                   </button>
                 </div>
               </Fragment>
-            )
-          )}
+            ))}
           {/* <Fragment>
             <div className="table-item table-content table-content-1">
               <input
