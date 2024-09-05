@@ -218,6 +218,8 @@ const BookNow = () => {
       { start: [16, 30], end: [19, 30] }, // Evening range from 4:30 PM to 7:30 PM
     ];
 
+    const currenTime = Date.now() + 4;
+
     timeRanges.forEach(({ start, end }) => {
       const startTime = new Date();
       startTime.setHours(start[0], start[1], 0, 0);
@@ -453,7 +455,7 @@ const BookNow = () => {
     for (let i = 0; i < 12; i++) {
       const date = new Date();
       console.log(date);
-      date.setDate(currentTime.getDate() + i);
+      date.setDate(currentTime.getDate() + 1 + i);
       dates.push(date);
     }
     console.log(dates);
