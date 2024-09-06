@@ -163,6 +163,15 @@
     padding: 30px;
   }
 
+  /* .b-right-side video {
+    border-radius: 10px;
+    width: 100%;
+    display: flex;
+    aspect-ratio: 2/1;
+    max-width: 300px;
+    z-index: 10;
+  } */
+
   .banner-cards {
     display: none;
   }
@@ -172,9 +181,21 @@
   display: none;
 }
 
+.video {
+  width: 70% !important;
+  z-index: 2;
+  border-radius: 10px;
+}
+
 @media screen and (max-width: 520px) {
   .carousel {
     display: block;
+  }
+
+  .video {
+    width: 100% !important;
+    margin-top: 20px;
+    padding: 4px;
   }
 }
 
