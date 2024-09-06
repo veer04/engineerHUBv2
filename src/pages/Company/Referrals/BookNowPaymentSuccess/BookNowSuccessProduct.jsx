@@ -228,7 +228,7 @@ const BookNowSuccessProduct = () => {
           </h3>
         </div>
 
-        <Link
+        {/* <Link
           to={
             "https://docs.google.com/forms/d/e/1FAIpQLSeHSI4eYnFcJwTGZCPYn7cMSpUryIASWxKYIeguyCR1y7JNGQ/viewform"
           }
@@ -245,7 +245,7 @@ const BookNowSuccessProduct = () => {
           }}
         >
           Give Testimonial
-        </Link>
+        </Link> */}
       </div>
     </main>
   );
