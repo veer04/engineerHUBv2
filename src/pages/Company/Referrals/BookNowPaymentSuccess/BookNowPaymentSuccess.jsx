@@ -157,7 +157,7 @@ const BookNowPaymentSuccess = () => {
           </h3>
         </div>
 
-        <Link
+        {/* <Link
           to={
             "https://docs.google.com/forms/d/e/1FAIpQLSf0NZgIoidtJUf9haEmvYBzaZ3xCG4l8d25AXOy_OzwbZxOqA/viewform"
           }
@@ -174,7 +174,7 @@ const BookNowPaymentSuccess = () => {
           }}
         >
           Give Testimonial
-        </Link>
+        </Link> */}
       </div>
     </main>
   );
