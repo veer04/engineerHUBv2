@@ -500,6 +500,7 @@ const BookNow = () => {
         time <= morningEndTime.getTime();
         time = time + timeInterval * 60000
       ) {
+        let lastTime = time + timeInterval * 60000;
         // const hours = time.getHours();
         // const minutes = time.getMinutes();
         // const ampm = hours >= 12 ? "PM" : "AM";
@@ -508,20 +509,22 @@ const BookNow = () => {
         // const timeString = `${displayHours}:${displayMinutes} ${ampm}`;
         console.log(time);
         console.log(new Date(time));
-        timeSlots.push({ time: time, isEventBusy: false });
+        timeSlots.push({ time: time, isEventBusy: false, lastTime: lastTime });
       }
       for (
         let time = eveningStartTime.getTime();
         time <= eveningEndTime.getTime();
         time = time + timeInterval * 60000
       ) {
+        let lastTime = time + timeInterval * 60000;
+
         // const hours = time.getHours();
         // const minutes = time.getMinutes();
         // const ampm = hours >= 12 ? "PM" : "AM";
         // const displayHours = hours % 12 || 12;
         // const displayMinutes = minutes < 10 ? `0${minutes}` : minutes;
         // const timeString = `${displayHours}:${displayMinutes} ${ampm}`;
-        timeSlots.push({ time: time, isEventBusy: false });
+        timeSlots.push({ time: time, isEventBusy: false, lastTime: lastTime });
       }
 
       console.log("timeSlots", timeSlots);
@@ -533,40 +536,76 @@ const BookNow = () => {
 
   const [renderTimeArray, setRenderTimeArray] = useState([]);
 
+  const timeSlotFunction = () => {
+    const dataArray = timeSlots.map((item, index) => {
+      const reqStart = new Date(item.time).getTime();
+      const reqEnd = new Date(item.lastTime).getTime();
+
+      let isSlotBusy = false;
+      for (const time of busyEventData) {
+        const startTime = new Date(time.start).getTime();
+        const endTime = new Date(time.end).getTime();
+
+        if (
+          (reqStart >= startTime && reqEnd < endTime) ||
+          (reqEnd > startTime && reqEnd <= endTime) ||
+          (reqStart <= startTime && reqEnd >= endTime)
+        ) {
+          isSlotBusy = true;
+          // console.log(new Date(item.time), "timeToCheck", timeToCheck);
+          // console.log(new Date(item.lastTime), "lastTime");
+          // console.log(new Date(time.start), "startTime", startTime);
+          // console.log(new Date(time.end), "endTime", endTime);
+          break;
+        }
+      }
+
+      if (isSlotBusy) {
+        return {
+          time: item.time,
+          isEventBusy: true,
+        };
+      }
+      return item;
+    });
+    console.log(dataArray, "dataarray");
+    return dataArray;
+  };
+
   useEffect(() => {
     // if the date is valid after the conditions then it will be marked as isEventBusy: true
     let renderTimeArray = [];
     console.log("Busy Slots");
     if (!!selectedDates) {
       console.log("Generating Busy Slots");
-      renderTimeArray = timeSlots
-        .map((timeSlot) => {
-          if (
-            selectedDates === moment(timeSlot.time).format("MMM DD").toString()
-          ) {
-            if (currentTime.getTime() > timeSlot.time) {
-              return { time: new Date(timeSlot.time), isEventBusy: true };
-            }
-          }
-          return timeSlot;
-        })
-        .map((timeSlot) => {
-          if (
-            busyEventData.filter(
-              (busyEvent) =>
-                moment(busyEvent.start).format("YYYY-MM-DDTHH:mm:ss[Z]") ===
-                moment(timeSlot.time).format("YYYY-MM-DDTHH:mm:ss[Z]")
-            ).length > 0
-          ) {
+      renderTimeArray = timeSlots.map((timeSlot) => {
+        if (
+          selectedDates === moment(timeSlot.time).format("MMM DD").toString()
+        ) {
+          if (currentTime.getTime() > timeSlot.time) {
             return { time: new Date(timeSlot.time), isEventBusy: true };
           }
-          return { time: new Date(timeSlot.time), isEventBusy: false };
-        });
+        }
+        return timeSlot;
+      });
+      // .map((timeSlot) => {
+      //   if (
+      //     busyEventData.filter(
+      //       (busyEvent) =>
+      //         timeSlotFunction(busyEvent, timeSlot)
+      //         moment(busyEvent.start).format("YYYY-MM-DDTHH:mm:ss[Z]") ===
+      //         moment(timeSlot.time).format("YYYY-MM-DDTHH:mm:ss[Z]")
+      //     ).length > 0
+      //   ) {
+      //     return { time: new Date(timeSlot.time), isEventBusy: true };
+      //   }
+      //   return { time: new Date(timeSlot.time), isEventBusy: false };
+      // });
     }
     console.log("renderTimeArray", renderTimeArray);
     console.log("busyEventData", busyEventData);
 
-    setRenderTimeArray(renderTimeArray);
+    setRenderTimeArray(timeSlotFunction());
   }, [busyEventData, selectedDates, timeSlots]);
 
   return (
