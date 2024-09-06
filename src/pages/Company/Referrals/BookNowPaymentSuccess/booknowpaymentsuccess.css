@@ -103,7 +103,8 @@
   .concern-btn {
     background-color: #f7f9f9;
     padding: 16px 16px;
-
+    display: flex;
+    justify-content: space-between;
     width: 100%;
   }
 }

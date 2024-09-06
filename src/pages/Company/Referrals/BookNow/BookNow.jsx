@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./booknow.css";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import FeedBackCarousalForBookNow from "../FeedbackCarousalForBookNow/FeedBackCarousalForBookNow";
 import DateBoxes from "../DateBoxesCard/DateBoxes";
 import TimeBox from "../TimeBox/TimeBox";
@@ -53,6 +53,9 @@ const BookNow = () => {
     onPrevButtonClick: onPrevButtonClick2,
     onNextButtonClick: onNextButtonClick2,
   } = usePrevNextButtons(emblaApi2);
+
+  const location = useLocation();
+  const { rating, popular } = location.state || {};
 
   const DATES_SLIDE_COUNT = isMobile ? 4 : 3;
   const TIME_SLIDE_COUNT = 2;
@@ -154,8 +157,8 @@ const BookNow = () => {
   const generateDatesForYear = () => {
     const dates = [];
     const today = new Date();
-    const startDate = new Date(today.getFullYear(), 0, 1); // Start at January 1 of the current year
-    startDate.setHours(0, 0, 0, 0); // Ensure time is set to midnight
+    const startDate = new Date(today.getFullYear(), 0, 1);
+    startDate.setHours(0, 0, 0, 0);
 
     // Loop through the year
     while (startDate.getFullYear() === today.getFullYear()) {
@@ -176,7 +179,6 @@ const BookNow = () => {
 
   // const datesArray = generateDatesForYear();
 
-  // // console.log(datesArray, "datearray");
   const totalDatePages = Math.ceil(datesArray.length / datesPerPage);
 
   const handleNextDates = () => {
@@ -215,14 +217,13 @@ const BookNow = () => {
       { start: [16, 30], end: [19, 30] }, // Evening range from 4:30 PM to 7:30 PM
     ];
 
+    const currenTime = Date.now() + 4;
+
     timeRanges.forEach(({ start, end }) => {
       const startTime = new Date();
       startTime.setHours(start[0], start[1], 0, 0);
 
       const Interval = parseInt(meetingData?.duration?.split(" ")[0], 10);
-      // console.log(meetingData, "dration");
-
-      // console.log(Interval, "Interval");
 
       const endTime = new Date();
       endTime.setHours(end[0], end[1], 0, 0);
@@ -249,10 +250,6 @@ const BookNow = () => {
 
     return times;
   };
-
-  // console.log(selectedDates, "selectedDate");
-  // console.log(selectedTime, "selectedTime");
-  // console.log(endTime, "endTime");
 
   useEffect(() => {
     if (Object.keys(meetingData).length > 0) {
@@ -299,10 +296,9 @@ const BookNow = () => {
         config
       );
 
-      // // console.log(data, "busyeventdata");
       setBusyEventData(data?.data);
     } catch (error) {
-      // console.log(error);
+      console.log("Error getting the data", error);
     }
   };
 
@@ -311,11 +307,8 @@ const BookNow = () => {
   useEffect(() => {
     // Now when the busy dates have been fetched then in the timeArray i want that to add a tag to that time as booked. The busy event data is an array of objects in format as end:"2024-08-25T13:00:00Z", start:"2024-08-25T12:00:00Z"
 
-    // // console.log("timeArray", timeArray);
-    // // console.log("busyEventData", busyEventData);
     let renderTimes = [];
     if (!!selectedDates) {
-      // // console.log(
       //   moment(new Date(`${selectedDates} 2024 8:30 PM`)).format(
       //     "YYYY[-]MM[-]DD[T]HH[:]mm[:]ss[Z]"
       //   )
@@ -333,7 +326,6 @@ const BookNow = () => {
       );
       // .map((time) => (time.isDisabled = false));
     }
-    // // console.log("Busy Events Updated", renderTimes);
     setTimeArrayCopy(
       timeArray.map((time) => {
         if (
@@ -346,8 +338,6 @@ const BookNow = () => {
       })
     );
   }, [busyEventData, selectedDates]);
-
-  // // console.log("timeArrayCopy", timeArrayCopy);
 
   useEffect(() => {
     getBusyEvent();
@@ -407,13 +397,9 @@ const BookNow = () => {
     };
 
     // Output for debugging
-    // // console.log("Start DateTime Object:", startDate);
-    // // console.log("End DateTime Object:", endDate);
 
     const startDateTimeISO = formatISOWithoutMilliseconds(startDate);
     const endDateTimeISO = formatISOWithoutMilliseconds(endDate);
-
-    // // console.log(startDateTimeISO, endDateTimeISO, "hgfd");
 
     // setSnackbarMessage("Registered  Meeting Successfully");
     // setSnackbarOpen(true);
@@ -427,14 +413,10 @@ const BookNow = () => {
         meetingData,
         startDateTimeISO,
         endDateTimeISO,
+        rating,
       },
     });
   };
-
-  // // console.log("totalDatePages",totalDatePages)
-  // // console.log("datesArray",datesArray)
-  // // console.log("datesPerPage",datesPerPage)
-  // // console.log("Array.from({ length: totalDatePages })",JSON.stringify(Array.from({ length: totalDatePages })))
 
   // i am re-creating the date and time slot booking part from here because previous one got too confusing
 
@@ -444,15 +426,12 @@ const BookNow = () => {
 
   // i want 12 dates including current day
   useEffect(() => {
-    console.log("Generating Dates");
     const dates = [];
     for (let i = 0; i < 12; i++) {
       const date = new Date();
-      console.log(date);
-      date.setDate(currentTime.getDate() + i);
+      date.setDate(currentTime.getDate() + 1 + i);
       dates.push(date);
     }
-    console.log(dates);
     setDates(dates);
   }, []);
 
@@ -461,32 +440,23 @@ const BookNow = () => {
   const [timeSlots, setTimeSlots] = useState([]);
 
   useEffect(() => {
-    console.log("Times");
     if (dates.length && selectedDates) {
       const year = new Date().getFullYear();
       const currentYearSelectedDate = `${selectedDates} ${year}`;
-      console.log(currentYearSelectedDate);
-      console.log("Generating Times");
       const timeSlots = [];
       // the time interval will depend on the duration we get from the meetingData.duration. meetingData.duration is a string in "30 Mins" format. Extract the "30" out of it and use that as the time interval
       const timeInterval = parseInt(meetingData?.duration?.split(" ")[0], 10);
-      console.log(timeInterval);
       // i want the times array to be for only the selected date. The selectedDates variable contains the date selected. The selectedDates is a string in format of "Sep 03". Create time slots according to this.
       const selectedDate = new Date(currentYearSelectedDate);
-      console.log("selectedDate", selectedDate);
       // i want to create time slots from 10:30 AM to 12:30 PM and 4:30 PM to 7:30 PM
       const morningStartTime = new Date(selectedDate);
       morningStartTime.setHours(10, 30, 0, 0);
-      console.log("morningStartTime", morningStartTime);
       const morningEndTime = new Date(selectedDate);
       morningEndTime.setHours(12, 30, 0, 0);
-      console.log("morningEndTime", morningEndTime);
       const eveningStartTime = new Date(selectedDate);
       eveningStartTime.setHours(16, 30, 0, 0);
-      console.log("eveningStartTime", eveningStartTime);
       const eveningEndTime = new Date(selectedDate);
       eveningEndTime.setHours(19, 30, 0, 0);
-      console.log("eveningEndTime", eveningEndTime);
       // now i want to create time slots from morningStartTime to morningEndTime and eveningStartTime to eveningEndTime
       morningStartTime.getTime();
       for (
@@ -494,31 +464,31 @@ const BookNow = () => {
         time <= morningEndTime.getTime();
         time = time + timeInterval * 60000
       ) {
+        let lastTime = time + timeInterval * 60000;
         // const hours = time.getHours();
         // const minutes = time.getMinutes();
         // const ampm = hours >= 12 ? "PM" : "AM";
         // const displayHours = hours % 12 || 12;
         // const displayMinutes = minutes < 10 ? `0${minutes}` : minutes;
         // const timeString = `${displayHours}:${displayMinutes} ${ampm}`;
-        console.log(time);
-        console.log(new Date(time));
-        timeSlots.push({ time: time, isEventBusy: false });
+        timeSlots.push({ time: time, isEventBusy: false, lastTime: lastTime });
       }
       for (
         let time = eveningStartTime.getTime();
         time <= eveningEndTime.getTime();
         time = time + timeInterval * 60000
       ) {
+        let lastTime = time + timeInterval * 60000;
+
         // const hours = time.getHours();
         // const minutes = time.getMinutes();
         // const ampm = hours >= 12 ? "PM" : "AM";
         // const displayHours = hours % 12 || 12;
         // const displayMinutes = minutes < 10 ? `0${minutes}` : minutes;
         // const timeString = `${displayHours}:${displayMinutes} ${ampm}`;
-        timeSlots.push({ time: time, isEventBusy: false });
+        timeSlots.push({ time: time, isEventBusy: false, lastTime: lastTime });
       }
 
-      console.log("timeSlots", timeSlots);
       setTimeSlots(timeSlots);
     }
   }, [dates, selectedDates]);
@@ -527,40 +497,67 @@ const BookNow = () => {
 
   const [renderTimeArray, setRenderTimeArray] = useState([]);
 
+  const timeSlotFunction = () => {
+    const dataArray = timeSlots.map((item, index) => {
+      const reqStart = new Date(item.time).getTime();
+      const reqEnd = new Date(item.lastTime).getTime();
+
+      let isSlotBusy = false;
+      for (const time of busyEventData) {
+        const startTime = new Date(time.start).getTime();
+        const endTime = new Date(time.end).getTime();
+
+        if (
+          (reqStart >= startTime && reqEnd < endTime) ||
+          (reqEnd > startTime && reqEnd <= endTime) ||
+          (reqStart <= startTime && reqEnd >= endTime)
+        ) {
+          isSlotBusy = true;
+          break;
+        }
+      }
+
+      if (isSlotBusy) {
+        return {
+          time: item.time,
+          isEventBusy: true,
+        };
+      }
+      return item;
+    });
+    return dataArray;
+  };
+
   useEffect(() => {
     // if the date is valid after the conditions then it will be marked as isEventBusy: true
     let renderTimeArray = [];
-    console.log("Busy Slots");
     if (!!selectedDates) {
-      console.log("Generating Busy Slots");
-      renderTimeArray = timeSlots
-        .map((timeSlot) => {
-          if (
-            selectedDates === moment(timeSlot.time).format("MMM DD").toString()
-          ) {
-            if (currentTime.getTime() > timeSlot.time) {
-              return { time: new Date(timeSlot.time), isEventBusy: true };
-            }
-          }
-          return timeSlot;
-        })
-        .map((timeSlot) => {
-          if (
-            busyEventData.filter(
-              (busyEvent) =>
-                moment(busyEvent.start).format("YYYY-MM-DDTHH:mm:ss[Z]") ===
-                moment(timeSlot.time).format("YYYY-MM-DDTHH:mm:ss[Z]")
-            ).length > 0
-          ) {
+      renderTimeArray = timeSlots.map((timeSlot) => {
+        if (
+          selectedDates === moment(timeSlot.time).format("MMM DD").toString()
+        ) {
+          if (currentTime.getTime() > timeSlot.time) {
             return { time: new Date(timeSlot.time), isEventBusy: true };
           }
-          return { time: new Date(timeSlot.time), isEventBusy: false };
-        });
+        }
+        return timeSlot;
+      });
+      // .map((timeSlot) => {
+      //   if (
+      //     busyEventData.filter(
+      //       (busyEvent) =>
+      //         timeSlotFunction(busyEvent, timeSlot)
+      //         moment(busyEvent.start).format("YYYY-MM-DDTHH:mm:ss[Z]") ===
+      //         moment(timeSlot.time).format("YYYY-MM-DDTHH:mm:ss[Z]")
+      //     ).length > 0
+      //   ) {
+      //     return { time: new Date(timeSlot.time), isEventBusy: true };
+      //   }
+      //   return { time: new Date(timeSlot.time), isEventBusy: false };
+      // });
     }
-    console.log("renderTimeArray", renderTimeArray);
-    console.log("busyEventData", busyEventData);
 
-    setRenderTimeArray(renderTimeArray);
+    setRenderTimeArray(timeSlotFunction());
   }, [busyEventData, selectedDates, timeSlots]);
 
   return (
@@ -588,7 +585,7 @@ const BookNow = () => {
               boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.08)",
             }}
           >
-            <h5 style={{ fontSize: "13px", marginTop: "10px" }}>5</h5>
+            <h5 style={{ fontSize: "13px", marginTop: "10px" }}>{rating}</h5>
             <img src={"/star.svg"} alt="" width={16} height={16} />
           </div>
 
@@ -816,40 +813,43 @@ const BookNow = () => {
                 <div className="embla__viewport" ref={emblaRef2}>
                   <div className="embla__container">
                     {/* {TIME_SLIDES.map((index) => ( */}
-                      <div
-                        className="embla__slide"
-                        // key={index}
-                        style={{
-                          gridTemplateColumns: isMobile
-                            ? "repeat(3, 1fr)"
-                            : "repeat(4, 1fr)",
-                        }}
-                      >
-                        {renderTimeArray.map(
-                          (timeObj, index) => (
-                            <TimeBox
-                              isDisabled={timeObj.isEventBusy}
-                              key={index}
-                              time={moment(timeObj.time).format("hh:mm A")}
-                              isSelected={selectedTime === moment(timeObj.time).format("hh:mm A")}
-                              onClick={() =>
-                                handleTimeClick(
-                                  moment(timeObj.time).format("hh:mm A")
-                                )
-                              }
-                            />
-                          )
-                          // <div className={isMobile ? "col-4" : "col-3"} key={index}>
-                          //   <TimeBox
-                          //     isDisabled={timeObj.isEventBusy}
-                          //     key={index}
-                          //     time={timeObj.time}
-                          //     isSelected={selectedTime === timeObj.time}
-                          //     onClick={() => handleTimeClick(timeObj.time)}
-                          //   />
-                          // </div>
-                        )}
-                        {/* {timeArrayCopy
+                    <div
+                      className="embla__slide"
+                      // key={index}
+                      style={{
+                        gridTemplateColumns: isMobile
+                          ? "repeat(3, 1fr)"
+                          : "repeat(4, 1fr)",
+                      }}
+                    >
+                      {renderTimeArray.map(
+                        (timeObj, index) => (
+                          <TimeBox
+                            isDisabled={timeObj.isEventBusy}
+                            key={index}
+                            time={moment(timeObj.time).format("hh:mm A")}
+                            isSelected={
+                              selectedTime ===
+                              moment(timeObj.time).format("hh:mm A")
+                            }
+                            onClick={() =>
+                              handleTimeClick(
+                                moment(timeObj.time).format("hh:mm A")
+                              )
+                            }
+                          />
+                        )
+                        // <div className={isMobile ? "col-4" : "col-3"} key={index}>
+                        //   <TimeBox
+                        //     isDisabled={timeObj.isEventBusy}
+                        //     key={index}
+                        //     time={timeObj.time}
+                        //     isSelected={selectedTime === timeObj.time}
+                        //     onClick={() => handleTimeClick(timeObj.time)}
+                        //   />
+                        // </div>
+                      )}
+                      {/* {timeArrayCopy
                           .slice(
                             index * timesPerPage,
                             (index + 1) * timesPerPage
@@ -864,7 +864,7 @@ const BookNow = () => {
                               onClick={() => handleTimeClick(timeObj.time)}
                             />
                           ))} */}
-                      </div>
+                    </div>
                     {/* ))} */}
                   </div>
                 </div>

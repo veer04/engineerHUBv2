@@ -6,6 +6,7 @@
   border-radius: 15px;
   margin-bottom: 50px;
   padding: 24px;
+  padding-left: 40px;
 }
 
 .connect-txt {
@@ -68,10 +69,9 @@
   transition: opacity 0.5s, transform 0.5s;
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: start;
   align-items: flex-start;
-  gap: 1rem;
-  gap: 1rem;
+  gap: 3rem;
 }
 
 .button-container {
@@ -133,6 +133,20 @@
     height: 100%;
     gap: 40px;
   } */
+
+  .connect-cards {
+    /* display: grid; */
+    /* grid-template-columns: repeat(3, 1fr); */
+    /* max-width: 1113px; */
+    /* height: 252px; */
+    transition: opacity 0.5s, transform 0.5s;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 1rem;
+    gap: 1rem;
+  }
 
   .filter-cards-btns button {
     font-size: 14px;

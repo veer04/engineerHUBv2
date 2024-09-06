@@ -142,6 +142,8 @@ const BookNowPaymentSuccess = () => {
               fontWeight: 400,
               marginBottom: 0,
               marginLeft: 8,
+              display: "flex",
+              justifyContent: "space-between",
             }}
           >
             <Link
@@ -154,6 +156,25 @@ const BookNowPaymentSuccess = () => {
             </Link>
           </h3>
         </div>
+
+        {/* <Link
+          to={
+            "https://docs.google.com/forms/d/e/1FAIpQLSf0NZgIoidtJUf9haEmvYBzaZ3xCG4l8d25AXOy_OzwbZxOqA/viewform"
+          }
+          target="_blank"
+          style={{
+            marginLeft: "auto",
+            background: "#138382",
+            padding: "8px 14px",
+            borderRadius: "10px",
+            color: "white",
+            boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",
+            fontSize: 14,
+            wordBreak: "break-word",
+          }}
+        >
+          Give Testimonial
+        </Link> */}
       </div>
     </main>
   );

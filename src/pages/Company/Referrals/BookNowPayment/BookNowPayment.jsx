@@ -50,7 +50,7 @@ const BookNowPayment = () => {
 
   // location.state.startDateTimeISO || JSON.parse(localStorage.getItem("startDateTimeISO"));
   const location = useLocation();
-  const { startDateTimeISO, endDateTimeISO } = location.state || {};
+  const { startDateTimeISO, endDateTimeISO, rating } = location.state || {};
 
   const [selectedDates, setSelectedDates] = useState(() => {
     return (
@@ -375,9 +375,7 @@ const BookNowPayment = () => {
               if (res.status === 409) {
                 window.alert("Fill the Details!");
               }
-              setSnackbarMessage(
-                "Some server error occurred while applying for this job!"
-              );
+              setSnackbarMessage("Issue while submitting details, try again!");
               setSnackbarSeverity("error");
               setSnackbarOpen(true);
               setIsLoading(false);
@@ -495,9 +493,7 @@ const BookNowPayment = () => {
         if (res.status === 409) {
           window.alert("Fill the Details!");
         }
-        setSnackbarMessage(
-          "Some server error occurred while applying for this job!"
-        );
+        setSnackbarMessage("Issue while submitting details, try again!");
         setSnackbarSeverity("error");
         setSnackbarOpen(true);
         setIsLoading(false);
@@ -582,7 +578,7 @@ const BookNowPayment = () => {
               boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.08)",
             }}
           >
-            <h5 style={{ fontSize: "13px", marginTop: "10px" }}>5</h5>
+            <h5 style={{ fontSize: "13px", marginTop: "10px" }}>{rating}</h5>
             <img src={"/star.svg"} alt="" width={16} height={16} />
           </div>
 
