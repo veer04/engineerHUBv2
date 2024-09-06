@@ -6,6 +6,7 @@
   border-radius: 15px;
   margin-bottom: 80px;
   padding: 24px;
+  padding-left: 40px;
 }
 
 .digital-cards {
@@ -15,8 +16,8 @@
   height: 350px; */
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
-  gap: 1rem;
+  justify-content: start;
+  gap: 3rem;
   align-items: center;
   margin-bottom: 40px;
   transition: opacity 0.5s, transform 0.5s; /* Animation for opacity and transform */
@@ -36,6 +37,20 @@
     grid-template-columns: repeat(1, 1fr);
     gap: 20px;
   } */
+
+  .digital-cards {
+    /* display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    max-width: 1113px;
+    height: 350px; */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    align-items: center;
+    margin-bottom: 40px;
+    transition: opacity 0.5s, transform 0.5s; /* Animation for opacity and transform */
+  }
 }
 
 /* .filter-cards-btns button {

@@ -227,6 +227,25 @@ const BookNowSuccessProduct = () => {
             </Link>
           </h3>
         </div>
+
+        {/* <Link
+          to={
+            "https://docs.google.com/forms/d/e/1FAIpQLSeHSI4eYnFcJwTGZCPYn7cMSpUryIASWxKYIeguyCR1y7JNGQ/viewform"
+          }
+          target="_blank"
+          style={{
+            marginLeft: "auto",
+            background: "#138382",
+            padding: "8px 14px",
+            borderRadius: "10px",
+            color: "white",
+            boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",
+            fontSize: 14,
+            wordBreak: "break-word",
+          }}
+        >
+          Give Testimonial
+        </Link> */}
       </div>
     </main>
   );
