@@ -1,17 +1,26 @@
 import React, { useEffect, useState } from "react";
 import "./booknowsuccessproduct.css";
 import { Link } from "react-router-dom";
-import { PAYMENT_API_URL } from "../../../../services/APIUtils";
+import { API_URL, PAYMENT_API_URL } from "../../../../services/APIUtils";
 import axios from "axios";
 import { getAccessToken } from "../../../../features/getCookieValues";
+import useGlobalSnackbar from "../../../../hooks/useGlobalSnackbar";
 
 const BookNowSuccessProduct = () => {
   const [loading, setLoading] = useState(false);
+  const [status, setStatus] = useState("idle");
+  const [progress, setProgress] = useState(0);
   const [downloaded, setDownloaded] = useState(false);
   const [paymentData1, setPaymentData1] = useState([]);
+  const {
+    setSnackbarOpen,
+    setSnackbarMessage,
+    setSnackbarSeverity,
+    setSnackbarDuration,
+  } = useGlobalSnackbar();
   const storedData = localStorage.getItem("paymentData");
   const paymentData = storedData ? JSON.parse(storedData) : null;
-  console.log(storedData, "storeddate");
+  // console.log(storedData, "storeddate");
 
   const productPaymentData = JSON.parse(
     localStorage.getItem("ProductPaymentData")
@@ -35,10 +44,10 @@ const BookNowSuccessProduct = () => {
 
   const pollInterval = () =>
     setInterval(async () => {
-      console.log(
-        `${PAYMENT_API_URL}api/v1/razorpay/confirmCoursePayment/${confirmationData?.coursePurchaseRequestId}`,
-        "apiroute"
-      );
+      // console.log(
+      //   `${PAYMENT_API_URL}api/v1/razorpay/confirmCoursePayment/${confirmationData?.coursePurchaseRequestId}`,
+      //   "apiroute"
+      // );
       try {
         const checkResponse = await axios.get(
           `${PAYMENT_API_URL}api/v1/razorpay/confirmCoursePayment/${confirmationData?.coursePurchaseRequestId}`,
@@ -72,6 +81,113 @@ const BookNowSuccessProduct = () => {
   useEffect(() => {
     pollInterval();
   }, []);
+
+  // api/v1/downloadPdf?title=“”&url=“”
+
+  // const download = async () => {
+  //   if (status === "loading") return;
+  //   setStatus("loading");
+  //   await axios({
+  //     url: `${API_URL}api/v1/downloadPdf?title=${singleProductData.title}&url=${paymentData.coursePdf}`,
+  //     method: "GET",
+  //     responseType: "blob",
+  //     onDownloadProgress: (progressEvent) => {
+  //       let percentCompleted = Math.round(
+  //         (progressEvent.loaded * 100) / progressEvent.total
+  //       );
+
+  //       setProgress(percentCompleted);
+  //     },
+  //   })
+  //     .then((response) => {
+  //       setProgress(100);
+  //       const blob = new Blob([response.data], {
+  //         type: "application/pdf",
+  //       });
+
+  //       const link = document.createElement("a");
+  //       link.href = URL.createObjectURL(blob);
+  //       link.setAttribute("download", `${singleProductData.title}.pdf`);
+  //       link.click();
+  //       setStatus("downloaded");
+  //       setProgress(0);
+  //     })
+  //     .catch((err) => {
+  //       setStatus("failed");
+  //       setSnackbarMessage(
+  //         <>
+  //           <span>Download failed</span>
+  //           {err?.response?.data?.message && (
+  //             <>
+  //               {" "}
+  //               <br />
+  //               <span>Error: {err?.response?.data?.message}</span>
+  //             </>
+  //           )}
+  //         </>
+  //       );
+  //       setSnackbarSeverity("error");
+  //       setSnackbarDuration(5000);
+  //       setSnackbarOpen(true);
+  //       console.error(err);
+  //       setProgress(0);
+  //     });
+  // };
+
+  const download = async () => {
+    if (loading) return; // Prevent multiple downloads
+    setLoading(true); // Indicate loading
+    setStatus("loading"); // Set status to loading
+
+    try {
+      const response = await axios({
+        url: `${API_URL}api/v1/downloadPdf?title=${singleProductData?.title}&url=${paymentData?.coursePdf}`,
+        method: "GET",
+        responseType: "blob",
+        onDownloadProgress: (progressEvent) => {
+          let percentCompleted = Math.round(
+            (progressEvent.loaded * 100) / progressEvent.total
+          );
+          setProgress(percentCompleted); // Update progress
+        },
+      });
+
+      setProgress(100); // Download completed
+      const blob = new Blob([response.data], {
+        type: "application/pdf",
+      });
+
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.setAttribute("download", `${singleProductData?.title}.pdf`);
+      link.click();
+
+      setDownloaded(true); // Mark as downloaded
+      setStatus("downloaded");
+      setSnackbarMessage("Download successful!");
+      setSnackbarOpen(true);
+    } catch (err) {
+      setStatus("failed");
+      setSnackbarMessage(
+        <>
+          <span>Download failed</span>
+          {err?.response?.data?.message && (
+            <>
+              <br />
+              <span>Error: {err?.response?.data?.message}</span>
+            </>
+          )}
+        </>
+      );
+      setSnackbarSeverity("error");
+      setSnackbarDuration(5000);
+      setSnackbarOpen(true);
+      console.error(err);
+    } finally {
+      setLoading(false); // Reset loading state
+      setProgress(0); // Reset progress state
+    }
+  };
 
   function downloadFile() {
     // if (!paymentData1 || !paymentData1.coursePdf) {
@@ -160,17 +276,18 @@ const BookNowSuccessProduct = () => {
                 color: downloaded ? "white" : "",
               }}
               onClick={() => {
-                if (!loading && !downloaded) {
-                  downloadFile();
-                }
+                download();
               }}
               className="calendar-btn-link"
+              disabled={loading}
             >
-              {loading
-                ? "Downloading.."
-                : downloaded
-                ? "Downloaded"
-                : "Download"}
+              {loading ? (
+                <>{progress}%</>
+              ) : downloaded ? (
+                "Downloaded"
+              ) : (
+                "Download"
+              )}
             </button>
           </div>
         </div>
