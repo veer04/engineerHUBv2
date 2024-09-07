@@ -750,7 +750,7 @@ const BookNowPayment = () => {
                     textAlign: "center",
                   }}
                 >
-                  Pay - &#8377;{totalPrice}
+                  Pay - &#8377;{totalPrice.toFixed(2)}
                 </h4>
               </div>
 

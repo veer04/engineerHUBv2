@@ -93,7 +93,7 @@ const BookNowSuccessProduct = () => {
         const url = window.URL.createObjectURL(blob);
         const link = document.createElement("a");
         link.href = url;
-        link.download = "downloaded_image.jpg";
+        link.download = "download.pdf";
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
