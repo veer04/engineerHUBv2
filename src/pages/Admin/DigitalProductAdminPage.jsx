@@ -12,8 +12,8 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import moment from "moment/moment";
 import PaginationBarWithSearchParams from "../../components/PaginationBarWithSearchParams/PaginationBarWithSearchParams";
 import Loading from "../../components/Loader/Loading";
-import { MdOutlineFileDownload } from "react-icons/md";
 import { FiExternalLink } from "react-icons/fi";
+import DownloadButton from "./DownloadButton";
 
 export default function DigitalProductAdminPage() {
   if (!isUserLoggedIn()) return <Page404 />;
@@ -61,8 +61,6 @@ export default function DigitalProductAdminPage() {
         }),
     staleTime: 1000 * 60 * 5, // 5 minutes
   });
-
-  console.log(query?.data);
 
   useEffect(() => {
     if (!pageNo || !limit) {
@@ -149,23 +147,20 @@ export default function DigitalProductAdminPage() {
         </div>
         <div className="referral-table">
           <div className="table-item table-headers body-sm-regular">
-            Service Name
+            Product Name
           </div>
           <div className="table-item table-headers body-sm-regular">Name</div>
           <div className="table-item table-headers body-sm-regular">
             Phone Number
           </div>
-          {/* <div className="table-item table-headers body-sm-regular">
-            Date & Time Slot
-          </div> */}
           <div className="table-item table-headers body-sm-regular">
             Actions
           </div>
           <div className="table-item table-headers body-sm-regular">
-            Booking Details
+            Purchase Details
           </div>
           <div className="table-item table-headers body-sm-regular">
-            Booking Status
+            Process Status
           </div>
           {query.isPending && (
             <>
@@ -205,18 +200,8 @@ export default function DigitalProductAdminPage() {
                     <i>No phone number provided</i>
                   )}
                 </div>
-                {/* <div className="table-item table-content table-content-4">
-                  <p className="body-sm-regular">
-                    {moment(content?.startDateTime).format("D[/]M[/]YYYY")}
-                  </p>
-                  <p className="body-sm-regular">
-                    {moment(content?.startDateTime).format("h[:]mmA")} to{" "}
-                    {moment(content?.endDateTime).format("h[:]mmA")}
-                  </p>
-                </div> */}
                 <div className="table-item table-content table-content-5">
                   <button
-                    // disabled={!content?.eventData[0]?.meetLink}
                     className="join-btn view-btn body-sm-semibold"
                     onClick={() =>
                       window.open(content?.productData[0]?.coursePdf)
@@ -224,16 +209,7 @@ export default function DigitalProductAdminPage() {
                   >
                     View <FiExternalLink style={{ fontSize: "1rem" }} />
                   </button>
-                  <button
-                    // disabled={!content?.eventData[0]?.meetLink}
-                    className="join-btn body-sm-semibold"
-                    onClick={() =>
-                      window.open(content?.productData[0]?.coursePdf)
-                    }
-                  >
-                    Download{" "}
-                    <MdOutlineFileDownload style={{ fontSize: "1.25rem" }} />
-                  </button>
+                  <DownloadButton data={content} />
                 </div>
                 <div className="table-item table-content table-content-6">
                   <div key={index}>
@@ -261,38 +237,13 @@ export default function DigitalProductAdminPage() {
                   </div>
                 </div>
                 <div className="table-item table-content table-content-7">
-                  {new Date(content?.endDateTime).getTime() <
-                    new Date().getTime() && (
+                  {content?.status === "confirmed" && (
                     <div
                       className="status"
                       style={{ backgroundColor: "#0FB800" }}
                     >
                       <IoMdCheckmark
                         style={{ color: "white", fontSize: "1.5rem" }}
-                      />
-                    </div>
-                  )}
-                  {new Date(content?.startDateTime).getTime() <
-                    new Date().getTime() &&
-                    new Date().getTime() <
-                      new Date(content?.endDateTime).getTime() && (
-                      <div
-                        className="status"
-                        style={{ backgroundColor: "blue" }}
-                      >
-                        <IoVideocam
-                          style={{ color: "white", fontSize: "1.5rem" }}
-                        />
-                      </div>
-                    )}
-                  {new Date(content?.startDateTime).getTime() >
-                    new Date().getTime() && (
-                    <div
-                      className="status"
-                      style={{ backgroundColor: "#FFD600" }}
-                    >
-                      <IoIosInformationCircleOutline
-                        style={{ color: "black", fontSize: "1.5rem" }}
                       />
                     </div>
                   )}
