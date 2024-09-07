@@ -154,7 +154,7 @@ export default function ReferralAdminPage() {
             Date & Time Slot
           </div>
           <div className="table-item table-headers body-sm-regular">
-            Event Actions
+            Actions
           </div>
           <div className="table-item table-headers body-sm-regular">
             Booking Details

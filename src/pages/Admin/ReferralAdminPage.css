@@ -42,7 +42,7 @@
   gap: 0.5rem;
 }
 .referral-admin-page .limit-container .switch-options .option {
-  border: 1px solid var(--primary-color-dark-green);
+  border: 1px solid var(--primary-color-green);
   border-radius: 0.25rem;
   padding: 4px 8px;
   background-color: #d7eded;
@@ -77,6 +77,13 @@
 .referral-admin-page .referral-table .table-headers:nth-child(7) {
   border-radius: 0 0.9375rem 0.9375rem 0;
 }
+.digital-product-admin-page .referral-table .table-headers:nth-child(7) {
+  border-radius: 0;
+}
+.digital-product-admin-page .referral-table .table-headers:nth-child(6) {
+  border-radius: 0 0.9375rem 0.9375rem 0;
+}
+
 .referral-admin-page .referral-table .table-item {
   justify-content: center;
   display: flex;
@@ -133,15 +140,22 @@
   align-items: center;
   gap: 0.25rem;
 }
-.referral-admin-page .referral-table .table-content-5 .view-btn {
+.digital-product-admin-page .referral-table .table-content-5 .view-btn {
   color: #0036e7;
   background-color: transparent;
 }
-.referral-admin-page .referral-table .table-content-5 .view-btn:hover {
+.digital-product-admin-page .referral-table .table-content-5 .view-btn:hover {
   text-decoration: underline;
 }
 .referral-admin-page .referral-table .table-content-5 .join-btn:disabled {
   background-color: #a7acad;
+  cursor: not-allowed;
+}
+.digital-product-admin-page
+  .referral-table
+  .table-content-5
+  .download-btn:disabled {
+  background-color: #138382;
   cursor: not-allowed;
 }
 .referral-admin-page .referral-table .table-content-6 {
@@ -158,6 +172,18 @@
   border-radius: 0.9375rem 0 0 0.9375rem;
 }
 .referral-admin-page .referral-table .table-content:nth-child(7n) {
+  border-radius: 0 0.9375rem 0.9375rem 0;
+}
+.digital-product-admin-page .referral-table .table-content:nth-child(7n + 1) {
+  border-radius: 0;
+}
+.digital-product-admin-page .referral-table .table-content:nth-child(7n) {
+  border-radius: 0;
+}
+.digital-product-admin-page .referral-table .table-content:nth-child(6n + 1) {
+  border-radius: 0.9375rem 0 0 0.9375rem;
+}
+.digital-product-admin-page .referral-table .table-content:nth-child(6n) {
   border-radius: 0 0.9375rem 0.9375rem 0;
 }
 .referral-admin-page .referral-table .table-content-7 {
