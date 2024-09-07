@@ -421,7 +421,7 @@ export default function IndividualInternship() {
                   Need a referral in <span>{hiringName}?</span>
                 </h3>
               </div>
-              <Link to={"https://topmate.io/engineerhub"} target="_blank">
+              <Link to={"/referrals"} target="_blank">
                 <button className="referral-button">Get a referral</button>
               </Link>
             </div>
