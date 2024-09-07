@@ -12,6 +12,7 @@ const BookNowSuccessProduct = () => {
   const [progress, setProgress] = useState(0);
   const [downloaded, setDownloaded] = useState(false);
   const [paymentData1, setPaymentData1] = useState([]);
+  const [downloadButtonToShow, setDownloadButtonToShow] = useState([]);
 
   const {
     setSnackbarOpen,
@@ -40,51 +41,81 @@ const BookNowSuccessProduct = () => {
   );
 
   console.log(paymentData1, "saifalam");
+  console.log(downloadButtonToShow, "kaifalam");
 
   // console.log(productPaymentData, "jhgf");
 
   console.log(confirmationData?.coursePurchaseRequestId, "jhgf");
 
-  const pollInterval = () =>
-    setInterval(async () => {
-      // console.log(
-      //   `${PAYMENT_API_URL}api/v1/razorpay/confirmCoursePayment/${confirmationData?.coursePurchaseRequestId}`,
-      //   "apiroute"
-      // );
-      try {
-        const checkResponse = await axios.get(
-          `${PAYMENT_API_URL}api/v1/razorpay/confirmCoursePayment/${confirmationData?.coursePurchaseRequestId}`,
-          {
-            headers: {
-              accessToken: getAccessToken(),
-            },
-          }
-        );
+  // const pollInterval = setInterval(async () => {
 
-        const checkData = checkResponse.data;
-        console.log(checkData, "kjhgf");
-        setPaymentData1(checkData.data);
+  //   try {
+  //     const checkResponse = await axios.get(
+  //       `${PAYMENT_API_URL}api/v1/razorpay/confirmCoursePayment/${confirmationData?.coursePurchaseRequestId}`,
+  //       {
+  //         headers: {
+  //           accessToken: getAccessToken(),
+  //         },
+  //       }
+  //     );
 
-        if (checkData.status === "success") {
-          clearInterval(pollInterval);
-          setSnackbarMessage("Payment confirmed successfully");
-          setSnackbarOpen(true);
-          // setPaymentData1(checkData.data);
+  //     const checkData = checkResponse.data;
+  //     console.log(checkData, "checkData");
+  //     setDownloadButtonToShow(checkData.data);
+  //     console.log(checkData, "kjhgf");
+  //     setPaymentData1(checkData.data);
 
-          localStorage.setItem("paymentData", JSON.stringify(checkData.data));
-        } else if (checkData.status === "failed") {
-          clearInterval(pollInterval);
-          setSnackbarMessage("Payment failed");
-          setSnackbarOpen(true);
-          window.location.href = "/referrals/booking/payment/failed";
+  //     if (checkData?.data?.isPaymentPaid === true) {
+  //       clearInterval(pollInterval);
+  //       setSnackbarMessage("Payment confirmed successfully");
+  //       setSnackbarOpen(true);
+  //       // setPaymentData1(checkData.data);
+
+  //       localStorage.setItem("paymentData", JSON.stringify(checkData.data));
+  //     } else if (checkData.status === "failed") {
+  //       clearInterval(pollInterval);
+  //       setSnackbarMessage("Payment failed");
+  //       setSnackbarOpen(true);
+  //       window.location.href = "/referrals/booking/payment/failed";
+  //     }
+  //   } catch (error) {
+  //     console.error("Error checking payment status:", error);
+  //   }
+  // }, 3000);
+
+  const paymentCheckingApi = async () => {
+    try {
+      const checkResponse = await axios.get(
+        `${PAYMENT_API_URL}api/v1/razorpay/confirmCoursePayment/${confirmationData?.coursePurchaseRequestId}`,
+        {
+          headers: {
+            accessToken: getAccessToken(),
+          },
         }
-      } catch (error) {
-        console.error("Error checking payment status:", error);
+      );
+
+      const checkData = checkResponse.data;
+      console.log(checkData, "checkData");
+      setDownloadButtonToShow(checkData);
+      console.log(checkData, "kjhgf");
+      setPaymentData1(checkData.data);
+
+      if (checkData?.data?.isPaymentPaid === true) {
+        setSnackbarMessage("Payment confirmed successfully");
+        setSnackbarOpen(true);
+        // setPaymentData1(checkData.data);
+
+        localStorage.setItem("paymentData", JSON.stringify(checkData.data));
+      } else {
+        paymentCheckingApi();
       }
-    }, 3000);
+    } catch (error) {
+      console.error("Error checking payment status:", error);
+    }
+  };
 
   useEffect(() => {
-    pollInterval();
+    paymentCheckingApi();
   }, []);
 
   // api/v1/downloadPdf?title=“”&url=“”
@@ -275,27 +306,29 @@ const BookNowSuccessProduct = () => {
             </div>
           </div>
 
-          <div className="calendar-button">
-            <button
-              style={{
-                backgroundColor: downloaded ? "#80D1CE" : "#138382",
-                color: downloaded ? "white" : "",
-              }}
-              onClick={() => {
-                download();
-              }}
-              className="calendar-btn-link"
-              disabled={loading}
-            >
-              {loading ? (
-                <>{progress}%</>
-              ) : downloaded ? (
-                "Downloaded"
-              ) : (
-                "Download"
-              )}
-            </button>
-          </div>
+          {downloadButtonToShow?.data?.isPaymentPaid === true ? (
+            <div className="calendar-button">
+              <button
+                style={{
+                  backgroundColor: downloaded ? "#80D1CE" : "#138382",
+                  color: downloaded ? "white" : "",
+                }}
+                onClick={() => {
+                  download();
+                }}
+                className="calendar-btn-link"
+                disabled={loading}
+              >
+                {loading ? (
+                  <>{progress}%</>
+                ) : downloaded ? (
+                  "Downloaded"
+                ) : (
+                  "Download"
+                )}
+              </button>
+            </div>
+          ) : null}
         </div>
 
         <div style={{ marginTop: 20 }} className="success-calendar-change">
