@@ -33,12 +33,12 @@ const PrepPayNow = () => {
   console.log(singleProductData, "kjhg");
 
   const priceOfproduct = price;
-  const gst = 0.18;
-  const platformFees = 0.02;
+  const gst = 0.2;
+  // const platformFees = 0.02;
   const gstAmount = price * gst;
-  const platformAmount = price * platformFees;
+  // const platformAmount = price * platformFees;
 
-  const totalPrice = priceOfproduct + gstAmount + platformAmount;
+  const totalPrice = priceOfproduct + gstAmount;
 
   const {
     setSnackbarOpen,
