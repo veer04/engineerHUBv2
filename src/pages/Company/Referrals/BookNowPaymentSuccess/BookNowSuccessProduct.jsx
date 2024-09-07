@@ -147,7 +147,8 @@ const BookNowSuccessProduct = () => {
     try {
       const response = await axios({
         url: `${API_URL}api/v1/downloadPdf?title=${singleProductData?.title}&url=${paymentData1?.coursePdf}`,
-        method: "GET",
+        method: "POST",
+        data: { title: singleProductData?.title, url: paymentData1?.coursePdf },
         responseType: "blob",
         onDownloadProgress: (progressEvent) => {
           let percentCompleted = Math.round(
