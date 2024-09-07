@@ -12,6 +12,7 @@ const BookNowSuccessProduct = () => {
   const [progress, setProgress] = useState(0);
   const [downloaded, setDownloaded] = useState(false);
   const [paymentData1, setPaymentData1] = useState([]);
+
   const {
     setSnackbarOpen,
     setSnackbarMessage,
@@ -38,7 +39,9 @@ const BookNowSuccessProduct = () => {
     localStorage.getItem("singleProductData")
   );
 
-  console.log(productPaymentData, "jhgf");
+  console.log(paymentData1, "saifalam");
+
+  // console.log(productPaymentData, "jhgf");
 
   console.log(confirmationData?.coursePurchaseRequestId, "jhgf");
 
@@ -59,12 +62,14 @@ const BookNowSuccessProduct = () => {
         );
 
         const checkData = checkResponse.data;
+        console.log(checkData, "kjhgf");
+        setPaymentData1(checkData.data);
 
         if (checkData.status === "success") {
           clearInterval(pollInterval);
           setSnackbarMessage("Payment confirmed successfully");
           setSnackbarOpen(true);
-          setPaymentData1(checkData.data);
+          // setPaymentData1(checkData.data);
 
           localStorage.setItem("paymentData", JSON.stringify(checkData.data));
         } else if (checkData.status === "failed") {
@@ -141,7 +146,7 @@ const BookNowSuccessProduct = () => {
 
     try {
       const response = await axios({
-        url: `${API_URL}api/v1/downloadPdf?title=${singleProductData?.title}&url=${paymentData?.coursePdf}`,
+        url: `${API_URL}api/v1/downloadPdf?title=${singleProductData?.title}&url=${paymentData1?.coursePdf}`,
         method: "GET",
         responseType: "blob",
         onDownloadProgress: (progressEvent) => {
