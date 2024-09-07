@@ -20,7 +20,7 @@ const BookNowSuccessProduct = () => {
   } = useGlobalSnackbar();
   const storedData = localStorage.getItem("paymentData");
   const paymentData = storedData ? JSON.parse(storedData) : null;
-  console.log(storedData, "storeddate");
+  // console.log(storedData, "storeddate");
 
   const productPaymentData = JSON.parse(
     localStorage.getItem("ProductPaymentData")
@@ -141,7 +141,7 @@ const BookNowSuccessProduct = () => {
 
     try {
       const response = await axios({
-        url: `${API_URL}api/v1/downloadPdf?title=${singleProductData.title}&url=${paymentData.coursePdf}`,
+        url: `${API_URL}api/v1/downloadPdf?title=${singleProductData?.title}&url=${paymentData?.coursePdf}`,
         method: "GET",
         responseType: "blob",
         onDownloadProgress: (progressEvent) => {
@@ -159,7 +159,7 @@ const BookNowSuccessProduct = () => {
 
       const link = document.createElement("a");
       link.href = URL.createObjectURL(blob);
-      link.setAttribute("download", `${singleProductData.title}.pdf`);
+      link.setAttribute("download", `${singleProductData?.title}.pdf`);
       link.click();
 
       setDownloaded(true); // Mark as downloaded
