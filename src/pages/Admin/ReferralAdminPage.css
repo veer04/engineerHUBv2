@@ -37,12 +37,28 @@
 .referral-admin-page .limit-container p {
   margin: 0;
 }
-
+.referral-admin-page .limit-container .switch-options {
+  display: flex;
+  gap: 0.5rem;
+}
+.referral-admin-page .limit-container .switch-options .option {
+  border: 1px solid var(--primary-color-dark-green);
+  border-radius: 0.25rem;
+  padding: 4px 8px;
+  background-color: #d7eded;
+}
+.referral-admin-page .limit-container .switch-options .option.--selected {
+  background-color: var(--primary-color-green);
+  color: white;
+}
 .referral-admin-page .referral-table {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   justify-content: flex-start;
   overflow: auto;
+}
+.digital-product-admin-page .referral-table {
+  grid-template-columns: repeat(6, 1fr);
 }
 .referral-admin-page .referral-table p,
 .referral-admin-page .referral-table a,
@@ -100,6 +116,10 @@
   line-height: 1.1875rem;
   letter-spacing: 0rem;
 }
+.referral-admin-page .referral-table .table-content-5 {
+  gap: 0.5rem;
+  align-items: center;
+}
 .referral-admin-page .referral-table .table-content-5 .join-btn {
   width: 100%;
   border: none;
@@ -107,6 +127,18 @@
   color: white;
   border-radius: 0.3125rem;
   background-color: #138382;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.25rem;
+}
+.referral-admin-page .referral-table .table-content-5 .view-btn {
+  color: #0036e7;
+  background-color: transparent;
+}
+.referral-admin-page .referral-table .table-content-5 .view-btn:hover {
+  text-decoration: underline;
 }
 .referral-admin-page .referral-table .table-content-5 .join-btn:disabled {
   background-color: #a7acad;

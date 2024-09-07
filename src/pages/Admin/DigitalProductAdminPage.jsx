@@ -12,8 +12,10 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import moment from "moment/moment";
 import PaginationBarWithSearchParams from "../../components/PaginationBarWithSearchParams/PaginationBarWithSearchParams";
 import Loading from "../../components/Loader/Loading";
+import { MdOutlineFileDownload } from "react-icons/md";
+import { FiExternalLink } from "react-icons/fi";
 
-export default function ReferralAdminPage() {
+export default function DigitalProductAdminPage() {
   if (!isUserLoggedIn()) return <Page404 />;
   const allowedEmailIds = [
     "raj.swapnil1708@gmail.com",
@@ -41,17 +43,17 @@ export default function ReferralAdminPage() {
     },
   };
 
-  const referralQuery = useQuery({
+  const query = useQuery({
     queryKey: [
       "admin",
-      "referral",
+      "digitalProduct",
       !!params.pageNo ? params.pageNo : 1,
       !!params.limit ? params.limit : 10,
     ],
     queryFn: () =>
       axios
         .get(
-          `${PAYMENT_API_URL}api/v1/admin/meet-payment-records?page=${params.pageNo}&limit=${params.limit}`,
+          `${PAYMENT_API_URL}api/v1/admin/course-payment-records?page=${params.pageNo}&limit=${params.limit}`,
           config
         )
         .then((res) => {
@@ -60,30 +62,31 @@ export default function ReferralAdminPage() {
     staleTime: 1000 * 60 * 5, // 5 minutes
   });
 
+  console.log(query?.data);
+
   useEffect(() => {
     if (!pageNo || !limit) {
-      navigate("/admin/referrals?pageNo=1&limit=30");
+      navigate("/admin/digital-products?pageNo=1&limit=30");
     }
   }, []);
 
   useEffect(() => {
-    if (referralQuery.isSuccess) {
+    if (query.isSuccess) {
       setPageCount(
         Math.ceil(
-          (!!referralQuery.data?.data?.data?.totalRecords
-            ? referralQuery.data?.data?.data?.totalRecords
-            : 1) /
-            (!!limit ? limit : referralQuery.data?.data?.data?.records?.length)
+          (!!query.data?.data?.data?.totalRecords
+            ? query.data?.data?.data?.totalRecords
+            : 1) / (!!limit ? limit : query.data?.data?.data?.records?.length)
         )
       );
     }
-  }, [referralQuery]);
+  }, [query]);
 
   return (
-    <main className="referral-admin-page">
+    <main className="referral-admin-page digital-product-admin-page">
       <Helmet>
         <meta name="robots" content="noindex, nofollow" />
-        <title>Referrals | Admin Panel</title>
+        <title>Digital Products | Admin Panel</title>
       </Helmet>
       <p>
         This page is only accessible to authorized users. If you think this is a
@@ -107,7 +110,9 @@ export default function ReferralAdminPage() {
             id="limit"
             defaultValue={limit}
             onChange={(e) => {
-              navigate(`/admin/referrals?pageNo=1&limit=${e.target.value}`);
+              navigate(
+                `/admin/digital-products?pageNo=1&limit=${e.target.value}`
+              );
             }}
           >
             <option value="10">10</option>
@@ -128,7 +133,7 @@ export default function ReferralAdminPage() {
           <div className="switch-options">
             <button
               onClick={() => navigate("/admin/referrals?pageNo=1&limit=30")}
-              className="option --selected"
+              className="option"
             >
               Referrals
             </button>
@@ -136,7 +141,7 @@ export default function ReferralAdminPage() {
               onClick={() =>
                 navigate("/admin/digital-products?pageNo=1&limit=30")
               }
-              className="option"
+              className="option --selected"
             >
               Digital Products
             </button>
@@ -150,11 +155,11 @@ export default function ReferralAdminPage() {
           <div className="table-item table-headers body-sm-regular">
             Phone Number
           </div>
-          <div className="table-item table-headers body-sm-regular">
+          {/* <div className="table-item table-headers body-sm-regular">
             Date & Time Slot
-          </div>
+          </div> */}
           <div className="table-item table-headers body-sm-regular">
-            Event Actions
+            Actions
           </div>
           <div className="table-item table-headers body-sm-regular">
             Booking Details
@@ -162,7 +167,7 @@ export default function ReferralAdminPage() {
           <div className="table-item table-headers body-sm-regular">
             Booking Status
           </div>
-          {referralQuery.isPending && (
+          {query.isPending && (
             <>
               <div
                 style={{
@@ -179,11 +184,11 @@ export default function ReferralAdminPage() {
               </div>
             </>
           )}
-          {referralQuery.isSuccess &&
-            referralQuery.data.data.data.records.map((content, index) => (
+          {query.isSuccess &&
+            query.data.data.data.records.map((content, index) => (
               <Fragment key={index}>
                 <p className="table-item table-content body-md-semibold">
-                  {content?.meetData[0]?.title}
+                  {content?.productData[0]?.title}
                 </p>
                 <div className="table-item table-content table-content-2">
                   <p className="body-sm-semibold">
@@ -192,23 +197,6 @@ export default function ReferralAdminPage() {
                   <p className="label-sm">
                     {content?.email ? content?.email : <i>No email provided</i>}
                   </p>
-                  {content?.resume ? (
-                    <a
-                      href={
-                        // check if the resume link is ending with doc or docx then add to the starting this link "http://docs.google.com/gview?url=" else open the link
-                        content?.resume.endsWith("doc") ||
-                        content?.resume.endsWith("docx")
-                          ? `http://docs.google.com/gview?url=${content?.resume}`
-                          : content?.resume
-                      }
-                      target="_blank"
-                      rel="noreferrer noopener"
-                    >
-                      View Resume
-                    </a>
-                  ) : (
-                    <i className="not-present">No resume provided</i>
-                  )}
                 </div>
                 <div className="table-item table-content body-sm-semibold">
                   {content?.mobile ? (
@@ -217,7 +205,7 @@ export default function ReferralAdminPage() {
                     <i>No phone number provided</i>
                   )}
                 </div>
-                <div className="table-item table-content table-content-4">
+                {/* <div className="table-item table-content table-content-4">
                   <p className="body-sm-regular">
                     {moment(content?.startDateTime).format("D[/]M[/]YYYY")}
                   </p>
@@ -225,14 +213,26 @@ export default function ReferralAdminPage() {
                     {moment(content?.startDateTime).format("h[:]mmA")} to{" "}
                     {moment(content?.endDateTime).format("h[:]mmA")}
                   </p>
-                </div>
+                </div> */}
                 <div className="table-item table-content table-content-5">
                   <button
-                    disabled={!content?.eventData[0]?.meetLink}
-                    className="join-btn body-sm-semibold"
-                    onClick={() => window.open(content?.eventData[0]?.meetLink)}
+                    // disabled={!content?.eventData[0]?.meetLink}
+                    className="join-btn view-btn body-sm-semibold"
+                    onClick={() =>
+                      window.open(content?.productData[0]?.coursePdf)
+                    }
                   >
-                    Join
+                    View <FiExternalLink style={{ fontSize: "1rem" }} />
+                  </button>
+                  <button
+                    // disabled={!content?.eventData[0]?.meetLink}
+                    className="join-btn body-sm-semibold"
+                    onClick={() =>
+                      window.open(content?.productData[0]?.coursePdf)
+                    }
+                  >
+                    Download{" "}
+                    <MdOutlineFileDownload style={{ fontSize: "1.25rem" }} />
                   </button>
                 </div>
                 <div className="table-item table-content table-content-6">
