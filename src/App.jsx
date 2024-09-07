@@ -58,6 +58,9 @@ import PrepPayNow from "./pages/Company/Referrals/PrepPayNow/PrepPayNow";
 import BookNowSuccessProduct from "./pages/Company/Referrals/BookNowPaymentSuccess/BookNowSuccessProduct.jsx";
 import PaymentFailed from "./pages/Company/Referrals/PaymentFailed/PaymentFailed.jsx";
 // import PopUpModalBootstrap from "./components/PopUpModal/PopUpModalBootstrap.jsx";
+const DigitalProductAdminPage = lazy(() =>
+  import("./pages/Admin/DigitalProductAdminPage.jsx")
+);
 const ReferralAdminPage = lazy(() =>
   import("./pages/Admin/ReferralAdminPage.jsx")
 );
@@ -348,6 +351,9 @@ function App() {
             <Route index element={<Page404 />} />
             <Route path="referrals">
               <Route index element={<ReferralAdminPage />} />
+            </Route>
+            <Route path="digital-products">
+              <Route index element={<DigitalProductAdminPage />} />
             </Route>
           </Route>
 
