@@ -97,12 +97,12 @@ const BookNowPayment = () => {
 
   const price = meetingData.price;
   console.log(price, "price");
-  const gst = 0.18;
-  const platformFees = 0.02;
+  const gst = 0.2;
+  // const platformFees = 0.02;
   const gstAmount = price * gst;
-  const platformAmount = price * platformFees;
+  // const platformAmount = price * platformFees;
 
-  const totalPrice = price + gstAmount + platformAmount;
+  const totalPrice = price + gstAmount;
 
   const billSummaryRef = useRef(null);
 
@@ -750,7 +750,7 @@ const BookNowPayment = () => {
                     textAlign: "center",
                   }}
                 >
-                  Pay - &#8377;{totalPrice}
+                  Pay - &#8377;{totalPrice.toFixed(2)}
                 </h4>
               </div>
 

@@ -11,6 +11,10 @@ import DigitalProducts from "./DigitalProducts/DigitalProducts";
 import ReferralRatings from "./ReferralRatings/ReferralRatings";
 import ReferralPageBanner from "./ReferralPageBanner.png";
 import { HashLink } from "react-router-hash-link";
+import { Bucket_URL } from "../../../services/APIUtils";
+import zIndex from "@mui/material/styles/zIndex";
+
+const bucket = `${Bucket_URL}frontend/company/referral/`;
 
 const Referrals = () => {
   return (
@@ -49,7 +53,20 @@ const Referrals = () => {
 
         {/* //right side div saif */}
         <div className="b-right-side">
-          <img style={{ zIndex: "2" }} src={img} alt="right-side-img" />
+          {/* <img
+            style={{ zIndex: "2" }}
+            src={"/r-img.png"}
+            alt="right-side-img"
+          /> */}
+
+          <video
+            className="video"
+            src={`${bucket}referral-page-video.mp4`}
+            autoPlay
+            loop
+            muted
+            playsInline
+          ></video>
 
           <SessionBox
             className="first"

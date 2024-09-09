@@ -1,17 +1,28 @@
 import React, { useEffect, useState } from "react";
 import "./booknowsuccessproduct.css";
 import { Link } from "react-router-dom";
-import { PAYMENT_API_URL } from "../../../../services/APIUtils";
+import { API_URL, PAYMENT_API_URL } from "../../../../services/APIUtils";
 import axios from "axios";
 import { getAccessToken } from "../../../../features/getCookieValues";
+import useGlobalSnackbar from "../../../../hooks/useGlobalSnackbar";
 
 const BookNowSuccessProduct = () => {
   const [loading, setLoading] = useState(false);
+  const [status, setStatus] = useState("idle");
+  const [progress, setProgress] = useState(0);
   const [downloaded, setDownloaded] = useState(false);
   const [paymentData1, setPaymentData1] = useState([]);
+  const [downloadButtonToShow, setDownloadButtonToShow] = useState([]);
+
+  const {
+    setSnackbarOpen,
+    setSnackbarMessage,
+    setSnackbarSeverity,
+    setSnackbarDuration,
+  } = useGlobalSnackbar();
   const storedData = localStorage.getItem("paymentData");
   const paymentData = storedData ? JSON.parse(storedData) : null;
-  console.log(storedData, "storeddate");
+  // console.log(storedData, "storeddate");
 
   const productPaymentData = JSON.parse(
     localStorage.getItem("ProductPaymentData")
@@ -29,49 +40,191 @@ const BookNowSuccessProduct = () => {
     localStorage.getItem("singleProductData")
   );
 
-  console.log(productPaymentData, "jhgf");
+  console.log(paymentData1, "saifalam");
+  console.log(downloadButtonToShow, "kaifalam");
+
+  // console.log(productPaymentData, "jhgf");
 
   console.log(confirmationData?.coursePurchaseRequestId, "jhgf");
 
-  const pollInterval = () =>
-    setInterval(async () => {
-      console.log(
+  // const pollInterval = setInterval(async () => {
+
+  //   try {
+  //     const checkResponse = await axios.get(
+  //       `${PAYMENT_API_URL}api/v1/razorpay/confirmCoursePayment/${confirmationData?.coursePurchaseRequestId}`,
+  //       {
+  //         headers: {
+  //           accessToken: getAccessToken(),
+  //         },
+  //       }
+  //     );
+
+  //     const checkData = checkResponse.data;
+  //     console.log(checkData, "checkData");
+  //     setDownloadButtonToShow(checkData.data);
+  //     console.log(checkData, "kjhgf");
+  //     setPaymentData1(checkData.data);
+
+  //     if (checkData?.data?.isPaymentPaid === true) {
+  //       clearInterval(pollInterval);
+  //       setSnackbarMessage("Payment confirmed successfully");
+  //       setSnackbarOpen(true);
+  //       // setPaymentData1(checkData.data);
+
+  //       localStorage.setItem("paymentData", JSON.stringify(checkData.data));
+  //     } else if (checkData.status === "failed") {
+  //       clearInterval(pollInterval);
+  //       setSnackbarMessage("Payment failed");
+  //       setSnackbarOpen(true);
+  //       window.location.href = "/referrals/booking/payment/failed";
+  //     }
+  //   } catch (error) {
+  //     console.error("Error checking payment status:", error);
+  //   }
+  // }, 3000);
+
+  const paymentCheckingApi = async () => {
+    try {
+      const checkResponse = await axios.get(
         `${PAYMENT_API_URL}api/v1/razorpay/confirmCoursePayment/${confirmationData?.coursePurchaseRequestId}`,
-        "apiroute"
-      );
-      try {
-        const checkResponse = await axios.get(
-          `${PAYMENT_API_URL}api/v1/razorpay/confirmCoursePayment/${confirmationData?.coursePurchaseRequestId}`,
-          {
-            headers: {
-              accessToken: getAccessToken(),
-            },
-          }
-        );
-
-        const checkData = checkResponse.data;
-
-        if (checkData.status === "success") {
-          clearInterval(pollInterval);
-          setSnackbarMessage("Payment confirmed successfully");
-          setSnackbarOpen(true);
-          setPaymentData1(checkData.data);
-
-          localStorage.setItem("paymentData", JSON.stringify(checkData.data));
-        } else if (checkData.status === "failed") {
-          clearInterval(pollInterval);
-          setSnackbarMessage("Payment failed");
-          setSnackbarOpen(true);
-          window.location.href = "/referrals/booking/payment/failed";
+        {
+          headers: {
+            accessToken: getAccessToken(),
+          },
         }
-      } catch (error) {
-        console.error("Error checking payment status:", error);
+      );
+
+      const checkData = checkResponse.data;
+      console.log(checkData, "checkData");
+      setDownloadButtonToShow(checkData);
+      console.log(checkData, "kjhgf");
+      setPaymentData1(checkData.data);
+
+      if (checkData?.data?.isPaymentPaid === true) {
+        setSnackbarMessage("Payment confirmed successfully");
+        setSnackbarOpen(true);
+        // setPaymentData1(checkData.data);
+
+        localStorage.setItem("paymentData", JSON.stringify(checkData.data));
+      } else {
+        paymentCheckingApi();
       }
-    }, 3000);
+    } catch (error) {
+      console.error("Error checking payment status:", error);
+    }
+  };
 
   useEffect(() => {
-    pollInterval();
+    paymentCheckingApi();
   }, []);
+
+  // api/v1/downloadPdf?title=“”&url=“”
+
+  // const download = async () => {
+  //   if (status === "loading") return;
+  //   setStatus("loading");
+  //   await axios({
+  //     url: `${API_URL}api/v1/downloadPdf?title=${singleProductData.title}&url=${paymentData.coursePdf}`,
+  //     method: "GET",
+  //     responseType: "blob",
+  //     onDownloadProgress: (progressEvent) => {
+  //       let percentCompleted = Math.round(
+  //         (progressEvent.loaded * 100) / progressEvent.total
+  //       );
+
+  //       setProgress(percentCompleted);
+  //     },
+  //   })
+  //     .then((response) => {
+  //       setProgress(100);
+  //       const blob = new Blob([response.data], {
+  //         type: "application/pdf",
+  //       });
+
+  //       const link = document.createElement("a");
+  //       link.href = URL.createObjectURL(blob);
+  //       link.setAttribute("download", `${singleProductData.title}.pdf`);
+  //       link.click();
+  //       setStatus("downloaded");
+  //       setProgress(0);
+  //     })
+  //     .catch((err) => {
+  //       setStatus("failed");
+  //       setSnackbarMessage(
+  //         <>
+  //           <span>Download failed</span>
+  //           {err?.response?.data?.message && (
+  //             <>
+  //               {" "}
+  //               <br />
+  //               <span>Error: {err?.response?.data?.message}</span>
+  //             </>
+  //           )}
+  //         </>
+  //       );
+  //       setSnackbarSeverity("error");
+  //       setSnackbarDuration(5000);
+  //       setSnackbarOpen(true);
+  //       console.error(err);
+  //       setProgress(0);
+  //     });
+  // };
+
+  const download = async () => {
+    if (loading) return; // Prevent multiple downloads
+    setLoading(true); // Indicate loading
+    setStatus("loading"); // Set status to loading
+
+    try {
+      const response = await axios({
+        url: `${API_URL}api/v1/downloadPdf?title=${singleProductData?.title}&url=${paymentData1?.coursePdf}`,
+        method: "POST",
+        data: { title: singleProductData?.title, url: paymentData1?.coursePdf },
+        responseType: "blob",
+        onDownloadProgress: (progressEvent) => {
+          let percentCompleted = Math.round(
+            (progressEvent.loaded * 100) / progressEvent.total
+          );
+          setProgress(percentCompleted); // Update progress
+        },
+      });
+
+      setProgress(100); // Download completed
+      const blob = new Blob([response.data], {
+        type: "application/pdf",
+      });
+
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.setAttribute("download", `${singleProductData?.title}.pdf`);
+      link.click();
+
+      setDownloaded(true); // Mark as downloaded
+      setStatus("downloaded");
+      setSnackbarMessage("Download successful!");
+      setSnackbarOpen(true);
+    } catch (err) {
+      setStatus("failed");
+      setSnackbarMessage(
+        <>
+          <span>Download failed</span>
+          {err?.response?.data?.message && (
+            <>
+              <br />
+              <span>Error: {err?.response?.data?.message}</span>
+            </>
+          )}
+        </>
+      );
+      setSnackbarSeverity("error");
+      setSnackbarDuration(5000);
+      setSnackbarOpen(true);
+      console.error(err);
+    } finally {
+      setLoading(false); // Reset loading state
+      setProgress(0); // Reset progress state
+    }
+  };
 
   function downloadFile() {
     // if (!paymentData1 || !paymentData1.coursePdf) {
@@ -93,7 +246,7 @@ const BookNowSuccessProduct = () => {
         const url = window.URL.createObjectURL(blob);
         const link = document.createElement("a");
         link.href = url;
-        link.download = "downloaded_image.jpg";
+        link.download = "download.pdf";
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
@@ -153,26 +306,29 @@ const BookNowSuccessProduct = () => {
             </div>
           </div>
 
-          <div className="calendar-button">
-            <button
-              style={{
-                backgroundColor: downloaded ? "#80D1CE" : "#138382",
-                color: downloaded ? "white" : "",
-              }}
-              onClick={() => {
-                if (!loading && !downloaded) {
-                  downloadFile();
-                }
-              }}
-              className="calendar-btn-link"
-            >
-              {loading
-                ? "Downloading.."
-                : downloaded
-                ? "Downloaded"
-                : "Download"}
-            </button>
-          </div>
+          {downloadButtonToShow?.data?.isPaymentPaid === true ? (
+            <div className="calendar-button">
+              <button
+                style={{
+                  backgroundColor: downloaded ? "#80D1CE" : "#138382",
+                  color: downloaded ? "white" : "",
+                }}
+                onClick={() => {
+                  download();
+                }}
+                className="calendar-btn-link"
+                disabled={loading}
+              >
+                {loading ? (
+                  <>{progress}%</>
+                ) : downloaded ? (
+                  "Downloaded"
+                ) : (
+                  "Download"
+                )}
+              </button>
+            </div>
+          ) : null}
         </div>
 
         <div style={{ marginTop: 20 }} className="success-calendar-change">
