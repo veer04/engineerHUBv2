@@ -102,6 +102,7 @@ const BookNowSuccessProduct = () => {
 
       if (checkData?.data?.isPaymentPaid === true) {
         setSnackbarMessage("Payment confirmed successfully");
+        setSnackbarMessage("Wait for a second for downloading the product.");
         setSnackbarOpen(true);
         // setPaymentData1(checkData.data);
 

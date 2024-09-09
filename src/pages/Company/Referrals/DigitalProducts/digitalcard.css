@@ -20,19 +20,21 @@
   bottom: 17px;
   left: 0;
 }
+.digi-content-container {
+  padding: 16px;
+  background-color: #f3f9f9;
+}
 
-.digi-h2 {
+.digi-content-container .digi-h2 {
   color: #002b36;
   font-size: 16px;
   font-family: Inter;
   font-weight: 600;
   line-height: 24px;
   word-wrap: break-word;
-}
-
-.digi-content-container {
-  padding: 16px;
-  background-color: #f3f9f9;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .digi-h4 {
