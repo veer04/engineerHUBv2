@@ -71,11 +71,17 @@ const Referrals = () => {
           <SessionBox
             className="first"
             name={"Rohit Das"}
+            content={
+              "Thanks for helping in understanding resume to attract recruiters."
+            }
             // profile={"dd/mm/yy"}
           />
           <SessionBox
             className="second"
             name={"Vandana Balasubramanian"}
+            content={
+              "Resourceful List! I've applied to some open positions among these."
+            }
             // profile={"BVDU Student"}
           />
         </div>
