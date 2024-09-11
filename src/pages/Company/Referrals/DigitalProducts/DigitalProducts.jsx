@@ -122,6 +122,7 @@ const DigitalProducts = ({ compName }) => {
             id={card._id}
             discount={card.discount}
             price={card.price}
+            mrp={card.mrp}
             thumbnail={card.thumbnail}
             title={card.title}
             subTitle={card.subTitle}

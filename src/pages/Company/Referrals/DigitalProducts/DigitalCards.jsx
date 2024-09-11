@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 const DigitalCards = ({
   discount,
   price,
+  mrp,
   thumbnail,
   title,
   subTitle,
@@ -85,7 +86,13 @@ const DigitalCards = ({
                     marginTop: "-5px",
                   }}
                 >
-                  {price === 0 ? "Free" : <>&#8377;{price}</>}
+                  {price === 0 ? (
+                    "Free"
+                  ) : (
+                    <>
+                      &#8377;{price} <del>{mrp}</del>
+                    </>
+                  )}
                 </h5>
               </div>
 

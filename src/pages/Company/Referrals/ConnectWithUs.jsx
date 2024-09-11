@@ -147,6 +147,7 @@ const ConnectWithUs = ({ compName }) => {
             desc={card.description}
             duration={card.duration}
             price={card.price}
+            mrp={card.mrp}
             type={card.type}
             rating={rating[index % rating.length]}
             popular={popular[index % popular.length]}
