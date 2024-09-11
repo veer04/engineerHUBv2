@@ -103,7 +103,10 @@ const ConnectCards = ({
                 "Free"
               ) : (
                 <>
-                  <del style={{ fontSize: 14 }}>&#8377;{mrp}</del> &#8377;
+                  <del style={{ fontSize: 16, color: "#828282" }}>
+                    &#8377;{mrp}
+                  </del>{" "}
+                  &#8377;
                   {price}
                 </>
               )}

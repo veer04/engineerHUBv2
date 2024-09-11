@@ -33,7 +33,7 @@ const ConnectWithUs = ({ compName }) => {
   }, []);
 
   const rating = [5, 4.5, 4.5];
-  const popular = ["Popular", "Popular", ""];
+  const popular = ["Popular", "Popular", "", "Popular", ""];
 
   useEffect(() => {
     setAnimationClass("hidden");

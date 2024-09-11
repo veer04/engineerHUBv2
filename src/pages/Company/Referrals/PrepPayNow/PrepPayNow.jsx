@@ -23,7 +23,7 @@ const PrepPayNow = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const location = useLocation();
-  const { singleProductData } = location.state || "";
+  const { singleProductData, rating } = location.state || "";
 
   console.log(singleProductData, "jhgf");
   localStorage.setItem("singleProductData", JSON.stringify(singleProductData));
@@ -281,7 +281,9 @@ const PrepPayNow = () => {
                 boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.08)",
               }}
             >
-              <h5 style={{ fontSize: "13px", marginTop: "10px" }}>5</h5>
+              <h5 style={{ fontSize: "13px", marginTop: "10px" }}>
+                {rating || "4.5"}
+              </h5>
               <img src={"/star.svg"} alt="" width={16} height={16} />
             </div>
 

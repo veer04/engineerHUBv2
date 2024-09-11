@@ -32,6 +32,9 @@ const DigitalProducts = ({ compName }) => {
     }
   };
 
+  const rating = [5, 4.5, 4.5];
+  const popular = ["Popular", "Popular", "", "Popular", ""];
+
   useEffect(() => {
     getallProductData();
   }, []);
@@ -128,6 +131,8 @@ const DigitalProducts = ({ compName }) => {
             subTitle={card.subTitle}
             desc={card.description}
             type={card.type}
+            rating={rating[index % rating.length]}
+            popular={popular[index % popular.length]}
           />
         ))}
       </div>
