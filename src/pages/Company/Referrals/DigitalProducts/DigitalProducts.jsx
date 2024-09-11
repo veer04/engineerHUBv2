@@ -97,7 +97,7 @@ const DigitalProducts = ({ compName }) => {
           }}
           onClick={() => handleFilterChange("Cheatsheets")}
         >
-          Cheatcheet
+          Cheatsheet
         </button>
         {/* <button
           style={{
