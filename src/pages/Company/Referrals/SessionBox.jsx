@@ -2,13 +2,10 @@ import React from "react";
 import "./Session.css";
 import g from "../../../../public/g.png";
 
-const SessionBox = ({ className, name, profile }) => {
+const SessionBox = ({ className, name, profile, content }) => {
   return (
     <div className={`session-cont ${className}`}>
-      <h2 style={{ fontSize: "13px", color: "black" }}>
-        It was a great session. Mr Rishabh did a thorough review of my
-        Resume...highly recommended!!
-      </h2>
+      <h2 style={{ fontSize: "13px", color: "black" }}>{content}</h2>
 
       <div
         style={{
