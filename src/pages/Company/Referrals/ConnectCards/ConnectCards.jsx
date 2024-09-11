@@ -64,11 +64,12 @@ const ConnectCards = ({
         <div style={{ marginTop: "10px" }}>
           <h5
             style={{
-              display: "-webkit-box", // Enables the use of line clamping
-              WebkitLineClamp: 2, // Limits the text to 2 lines
-              WebkitBoxOrient: "vertical", // Sets the box orientation to vertical
-              overflow: "hidden", // Hides the overflow text
+              display: "-webkit-box",
+              WebkitLineClamp: 2,
+              WebkitBoxOrient: "vertical",
+              overflow: "hidden",
               textOverflow: "ellipsis",
+              minHeight: "3em",
             }}
             className="resume-title"
           >
@@ -102,7 +103,8 @@ const ConnectCards = ({
                 "Free"
               ) : (
                 <>
-                  &#8377;{price} <del>{mrp}</del>
+                  <del style={{ fontSize: 14 }}>&#8377;{mrp}</del> &#8377;
+                  {price}
                 </>
               )}
             </h5>
