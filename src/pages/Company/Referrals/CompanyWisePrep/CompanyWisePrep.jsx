@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./companywiseprep.css";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 import FeedBackCarousalForBookNow from "../FeedbackCarousalForBookNow/FeedBackCarousalForBookNow";
 import { getAccessToken } from "../../../../features/getCookieValues";
@@ -20,6 +20,8 @@ const CompanyWisePrep = () => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
+  const location = useLocation();
+  const { rating, popular } = location.state || {};
 
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 520);
 
@@ -98,7 +100,9 @@ const CompanyWisePrep = () => {
               boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.08)",
             }}
           >
-            <h5 style={{ fontSize: "13px", marginTop: "10px" }}>5</h5>
+            <h5 style={{ fontSize: "13px", marginTop: "10px" }}>
+              {rating || "5"}
+            </h5>
             <img src={"/star.svg"} alt="" width={16} height={16} />
           </div>
 
@@ -272,7 +276,7 @@ const CompanyWisePrep = () => {
             <button
               onClick={() =>
                 navigate("/referrals/product-book-now/payment", {
-                  state: { singleProductData },
+                  state: { singleProductData, rating },
                 })
               }
               type="submit"

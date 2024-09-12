@@ -33,7 +33,7 @@ const ConnectWithUs = ({ compName }) => {
   }, []);
 
   const rating = [5, 4.5, 4.5];
-  const popular = ["Popular", "Popular", ""];
+  const popular = ["Popular", "Popular", "", "Popular", ""];
 
   useEffect(() => {
     setAnimationClass("hidden");
@@ -147,6 +147,7 @@ const ConnectWithUs = ({ compName }) => {
             desc={card.description}
             duration={card.duration}
             price={card.price}
+            mrp={card.mrp}
             type={card.type}
             rating={rating[index % rating.length]}
             popular={popular[index % popular.length]}

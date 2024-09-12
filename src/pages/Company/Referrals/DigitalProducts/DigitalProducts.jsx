@@ -32,6 +32,9 @@ const DigitalProducts = ({ compName }) => {
     }
   };
 
+  const rating = [5, 4.5, 4.5];
+  const popular = ["Popular", "Popular", "", "Popular", ""];
+
   useEffect(() => {
     getallProductData();
   }, []);
@@ -99,7 +102,7 @@ const DigitalProducts = ({ compName }) => {
         >
           Cheatsheet
         </button>
-        {/* <button
+        <button
           style={{
             backgroundColor: activeFilter === "Notes" ? "#138382" : "#f2f4f5",
             color: activeFilter === "Notes" ? "white" : "#002b36",
@@ -112,7 +115,7 @@ const DigitalProducts = ({ compName }) => {
           onClick={() => handleFilterChange("Notes")}
         >
           Notes
-        </button> */}
+        </button>
       </div>
 
       <div className={`digital-cards ${animationClass}`}>
@@ -122,11 +125,14 @@ const DigitalProducts = ({ compName }) => {
             id={card._id}
             discount={card.discount}
             price={card.price}
+            mrp={card.mrp}
             thumbnail={card.thumbnail}
             title={card.title}
             subTitle={card.subTitle}
             desc={card.description}
             type={card.type}
+            rating={rating[index % rating.length]}
+            popular={popular[index % popular.length]}
           />
         ))}
       </div>
