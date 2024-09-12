@@ -12,6 +12,14 @@ const DigitalProducts = ({ compName }) => {
   const [courseData, setCourseData] = useState([]);
   const [activeFilter, setActiveFilter] = useState("All");
 
+  const shuffleArrayData = (array) => {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1 + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+  };
+
   const getallProductData = async () => {
     try {
       const config = {
@@ -26,7 +34,9 @@ const DigitalProducts = ({ compName }) => {
       );
 
       console.log(data, "productData");
-      setCourseData(data.data);
+
+      const shuffleData = shuffleArrayData(data.data);
+      setCourseData(shuffleData);
     } catch (error) {
       console.log(error);
     }
