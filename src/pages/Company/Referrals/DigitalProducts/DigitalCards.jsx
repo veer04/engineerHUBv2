@@ -35,7 +35,8 @@ const DigitalCards = ({
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
-                backgroundColor: "white",
+                backgroundColor: "rgba(38, 75, 84, 0.8)",
+                color: "white",
                 width: "65px",
                 height: "32px",
                 padding: "4px 12px",
@@ -50,7 +51,8 @@ const DigitalCards = ({
             {popular && (
               <div
                 style={{
-                  backgroundColor: "white",
+                  backgroundColor: "rgba(38, 75, 84, 0.8)",
+                  color: "white",
                   width: "72px",
                   height: "32px",
                   padding: "4px 12px",
