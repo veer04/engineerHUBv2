@@ -20,6 +20,28 @@ const DigitalProducts = ({ compName }) => {
     return array;
   };
 
+  const customOrder = [
+    "Editable Resume Template – 94% ATS Score",
+    "Company-Wise Complete Preparation Guide",
+    "ATS-Friendly Templates for Frontend, Backend, and Full-Stack Roles",
+    "FAANG Equivalent Companies - Top 100",
+    "Complete DSA Resources for Interview Preparation",
+    "A Complete Package for Data Science Students",
+  ];
+
+  const sortDataByCustomOrder = (data) => {
+    return data.sort((a, b) => {
+      const indexA = customOrder.indexOf(a.title);
+      const indexB = customOrder.indexOf(b.title);
+
+      // If the title is not found in the custom order, push it to the end
+      return (
+        (indexA === -1 ? data.length : indexA) -
+        (indexB === -1 ? data.length : indexB)
+      );
+    });
+  };
+
   const getallProductData = async () => {
     try {
       const config = {
@@ -35,8 +57,10 @@ const DigitalProducts = ({ compName }) => {
 
       console.log(data, "productData");
 
-      const shuffleData = shuffleArrayData(data.data);
-      setCourseData(shuffleData);
+      // const shuffleData = shuffleArrayData(data.data);
+      // setCourseData(shuffleData);
+      const sortedData = sortDataByCustomOrder(data.data);
+      setCourseData(sortedData);
     } catch (error) {
       console.log(error);
     }

@@ -488,7 +488,7 @@ const PrepPayNow = () => {
                 }}
               >
                 <h3 style={{ fontSize: "13px", fontWeight: 400 }}>
-                  Taxes and platform fees
+                  Taxes &amp; Gateway Charges
                 </h3>
                 <h3 style={{ fontSize: "13px", fontWeight: 400 }}>
                   ₹{gstAmount.toFixed(2)}
