@@ -27,7 +27,7 @@ const PromoteConnectCard = ({
       <div className="promote-connect-card-main">
         <img
           className="promote-connect-img"
-          src="./Banner4.jpg"
+          src="./Banner3.jpg"
           alt=""
           width={324}
           height={183}

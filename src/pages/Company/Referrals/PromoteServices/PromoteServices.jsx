@@ -64,8 +64,8 @@ const PromoteServices = ({ compName }) => {
 
   const filterData = (data) => {
     const filteredTitles = [
-      "ATS-Friendly Templates for Frontend, Backend, and Full-Stack Roles",
-      "A Complete Package for Data Science Students",
+      "Company-Wise Complete Preparation Guide",
+      "Editable Resume Template – 94% ATS Score",
     ];
 
     return data.filter((item) => filteredTitles.includes(item.title));
@@ -214,7 +214,7 @@ const PromoteServices = ({ compName }) => {
           style={{ marginTop: 20 }}
           className={`digital-cards ${animationClass}`}
         >
-          {visibleCards.map((card, index) => (
+          {courseData.map((card, index) => (
             <DigitalCards
               key={card._id}
               id={card._id}

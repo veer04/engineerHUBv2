@@ -307,7 +307,7 @@ const Company = () => {
       </div> */}
 
       <div>
-        <PromoteServices compName={"Our Services"} />
+        <PromoteServices compName={"Our Resources"} />
       </div>
 
       <div className="FeaturedJobs">
