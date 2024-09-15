@@ -29,6 +29,23 @@ const DigitalCards = ({
       <div className="digi-main-container">
         <div className="digi-img-container">
           <img src={thumbnail} alt="" width={324} height={183} />
+          <div
+            className="digital-chip"
+            style={{
+              backgroundColor: "rgba(38, 75, 84, 0.8)",
+              color: "white",
+              width: "120px",
+              height: "32px",
+              padding: "4px 12px",
+              gap: 3,
+              borderRadius: 10,
+              boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.08)",
+            }}
+          >
+            <h5 style={{ fontSize: "13px", marginTop: "5px" }}>
+              Digital Product
+            </h5>
+          </div>
           <div className="popular-star">
             <div
               style={{

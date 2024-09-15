@@ -4,9 +4,16 @@
   /* padding: 16px; */
   background-color: #f3f9f9;
   border-radius: 10px;
+  position: relative;
 }
 .promote-connect-card-main .promote-connect-img {
   padding: 0px;
+}
+
+.promote-connect-card-main .promote-chip {
+  position: absolute;
+  top: 12px;
+  left: 16px;
 }
 
 .promote-connect-card-main .connect-card-sub {

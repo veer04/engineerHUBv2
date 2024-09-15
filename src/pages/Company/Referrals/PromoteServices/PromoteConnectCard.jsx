@@ -27,11 +27,26 @@ const PromoteConnectCard = ({
       <div className="promote-connect-card-main">
         <img
           className="promote-connect-img"
-          src="./Banner3.jpg"
+          src="./Banner5.jpeg"
           alt=""
           width={324}
           height={183}
         />
+        <div
+          className="promote-chip"
+          style={{
+            backgroundColor: "rgba(38, 75, 84, 0.8)",
+            color: "white",
+            width: "100px",
+            height: "32px",
+            padding: "4px 12px",
+            gap: 3,
+            borderRadius: 10,
+            boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.08)",
+          }}
+        >
+          <h5 style={{ fontSize: "13px", marginTop: "5px" }}>1:1 Connect</h5>
+        </div>
         <div className="connect-card-sub">
           <div
             style={{
