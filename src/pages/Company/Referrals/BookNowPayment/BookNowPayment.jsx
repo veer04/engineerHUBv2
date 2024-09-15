@@ -913,7 +913,7 @@ const BookNowPayment = () => {
               }}
             >
               <h3 style={{ fontSize: "14px", fontWeight: 400 }}>
-                Taxes and platform fees
+                Taxes &amp; Gateway Charges
               </h3>
               <h3 style={{ fontSize: "14px", fontWeight: 400 }}>
                 ₹{gstAmount.toFixed(2)}

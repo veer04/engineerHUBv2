@@ -10,6 +10,12 @@
   border-top-right-radius: 8px;
 }
 
+.digi-img-container .digital-chip {
+  position: absolute;
+  top: 12px;
+  left: 16px;
+}
+
 .popular-star {
   position: absolute;
   display: flex;
@@ -20,6 +26,7 @@
   bottom: 17px;
   left: 0;
 }
+
 .digi-content-container {
   padding: 16px;
   background-color: #f3f9f9;
