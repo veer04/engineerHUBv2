@@ -8,6 +8,7 @@ import { Link, useNavigate } from "react-router-dom";
 import colorWheel from "../../assets/colorWheel";
 import axios from "axios";
 import NewEventCard from "../../components/NewEventCard/NewEventCard";
+import PromoteServices from "./Referrals/PromoteServices/PromoteServices";
 
 const CompanyCards = ({ data }) => {
   return (
@@ -154,7 +155,7 @@ const Company = () => {
 
   useEffect(() => {
     document.title = "Company | engineerHUB";
-    window.scrollTo(0, 0);
+    // window.scrollTo(0, 0);
     setSelectedPageNavbar("company");
     if (sessionStorage.getItem("companyPageCounts")) {
       setCompanyPageCounts(
@@ -304,6 +305,11 @@ const Company = () => {
           })}
         </div>
       </div> */}
+
+      <div>
+        <PromoteServices compName={"Our Resources"} />
+      </div>
+
       <div className="FeaturedJobs">
         <a href="/company/jobs" style={{ textDecoration: "none" }}>
           <h5>Featured Jobs</h5>
