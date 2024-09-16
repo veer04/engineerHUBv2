@@ -243,6 +243,10 @@ export default function ReferralAdminPage() {
                         moment(content?.paymentData[0]?.paymentDate).format(
                           "D[/]M[/]YY [at] h[:]mmA"
                         )
+                      ) : !!content?.updatedAt ? (
+                        moment(content?.updatedAt).format(
+                          "D[/]M[/]YY [at] h[:]mmA"
+                        )
                       ) : (
                         <i>--N/A--</i>
                       )}
@@ -251,12 +255,16 @@ export default function ReferralAdminPage() {
                   <div key={index}>
                     <p className="label-sm">Total Amount</p>
                     <p className="body-sm-semibold">
-                      {!!content?.paymentData[0]?.amount &&
+                      {!!content?.paymentData[0]?.amount ? (
                         new Intl.NumberFormat("en-in", {
                           style: "currency",
                           currency: "INR",
-                        }).format(content?.paymentData[0]?.amount / 100)}
-                      {!content?.paymentData[0]?.amount && <i>Not Paid</i>}
+                        }).format(content?.paymentData[0]?.amount / 100)
+                      ) : content?.isPaymentPaid ? (
+                        "Free"
+                      ) : (
+                        <i>Not Paid</i>
+                      )}
                     </p>
                   </div>
                 </div>
