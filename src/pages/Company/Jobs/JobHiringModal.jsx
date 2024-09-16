@@ -12,6 +12,7 @@ import FormInputNumber from "../../../components/FormInputs/FormInputNumber";
 import FormInputToggle from "../../../components/FormInputs/FormInputToggle";
 import { FaFilePdf } from "react-icons/fa";
 import Loading from "../../../components/Loader/Loading";
+import FormInputDropdown from "../../../components/FormInputs/FormInputDropdown";
 
 export default function JobHiringModal({
   latestInfo = {},
@@ -22,6 +23,7 @@ export default function JobHiringModal({
   const [skillsRequired, setSkillsRequired] = useState([]);
   const [college, setCollege] = useState("");
   const [passOutYear, setPassOutYear] = useState("");
+  const [experience, setExperience] = useState(0);
   const [resume, setResume] = useState("");
   const [usePreviousResume, setUsePreviousResume] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -29,6 +31,7 @@ export default function JobHiringModal({
     skillsRequired: "",
     college: "",
     passOutYear: "",
+    experience: "",
     resume: "",
   });
   const {
@@ -39,6 +42,19 @@ export default function JobHiringModal({
   } = useGlobalSnackbar();
   const [isResumePresent, setIsResumePresent] = useState(false);
   let errorStack = [];
+  const experienceDropdown = [
+    { label: "No experience", value: 0 },
+    { label: "1 year", value: 1 },
+    { label: "2 years", value: 2 },
+    { label: "3 years", value: 3 },
+    { label: "4 years", value: 4 },
+    { label: "5 years", value: 5 },
+    { label: "6 years", value: 6 },
+    { label: "7 years", value: 7 },
+    { label: "8 years", value: 8 },
+    { label: "9 years", value: 9 },
+    { label: "10+ years", value: 10 },
+  ];
 
   function addToErrorStack(elem) {
     errorStack.push(elem);
@@ -66,6 +82,7 @@ export default function JobHiringModal({
       skillsRequired: "",
       college: "",
       passOutYear: "",
+      experience: "",
       resume: "",
     };
 
@@ -84,6 +101,11 @@ export default function JobHiringModal({
       isValid = false;
       addToErrorStack("#passoutYear");
     }
+    if (!experience) {
+      errors.experience = "Experience is required";
+      isValid = false;
+      addToErrorStack("#experience");
+    }
     if (!usePreviousResume && !resume) {
       errors.resume = "Resume is required";
       isValid = false;
@@ -100,25 +122,56 @@ export default function JobHiringModal({
       setSkillsRequired(latestInfo?.skills);
       setCollege(latestInfo?.college);
       setPassOutYear(latestInfo?.passoutYear);
+      setExperience(latestInfo?.experience);
       setIsResumePresent(latestInfo?.resume ? true : false);
       setUsePreviousResume(latestInfo?.resume ? true : false);
     }
   }, [latestInfo]);
 
-  function handleApply() {
-    if (!validateForm()) {
-      return;
-    }
-    setIsLoading(true);
+  const config = {
+    headers: {
+      accessToken: getAccessToken(),
+    },
+  };
+
+  function registerWithNewResume() {
+    const form = new FormData();
+    form.append("resume", resume);
+    let resumeLink = "";
+    axios
+      .patch(`${API_URL}api/v1/user/resumeUpdate`, form, config)
+      .then((res) => {
+        setSnackbarMessage("Resume uploaded successfully!");
+        setSnackbarSeverity("info");
+        setSnackbarOpen(true);
+        resumeLink = res?.data?.data;
+        submitData(resumeLink);
+      })
+      .catch((err) => {
+        setSnackbarMessage("Couldn't upload resume!");
+        setSnackbarSeverity("error");
+        setSnackbarOpen(true);
+        setIsLoading(false);
+        return;
+      });
+  }
+
+  function registerWithPreviousResume() {
+    submitData(latestInfo?.resume);
+  }
+
+  function submitData(resumeLink) {
     const data = {
       hiringId,
+      skills: skillsRequired.join(","),
+      college,
+      batch: passOutYear,
+      experience: experience.value,
+      resume: resumeLink,
     };
+
     axios
-      .post(`${API_URL}api/v1/hiringRegistration`, data, {
-        headers: {
-          accessToken: getAccessToken(),
-        },
-      })
+      .post(`${API_URL}api/v1/hiringRegistration`, data, config)
       .then((res) => {
         if (
           res.status === 200 ||
@@ -151,6 +204,7 @@ export default function JobHiringModal({
     formData.append("skills", skillsRequired);
     formData.append("college", college);
     formData.append("passoutYear", passOutYear);
+    formData.append("experience", experience);
     if (!usePreviousResume) {
       formData.append("resume", resume);
     } else {
@@ -179,16 +233,31 @@ export default function JobHiringModal({
       });
   }
 
+  function handleApply() {
+    if (!validateForm()) {
+      return;
+    }
+    setIsLoading(true);
+
+    if (!usePreviousResume) {
+      registerWithNewResume();
+    } else {
+      registerWithPreviousResume();
+    }
+  }
+
   function handleClear() {
     setSkillsRequired([]);
     setCollege("");
     setPassOutYear("");
+    setExperience(0);
     setResume("");
     setUsePreviousResume(false);
     setErrors({
       skillsRequired: "",
       college: "",
       passOutYear: "",
+      experience: "",
       resume: "",
     });
   }
@@ -247,6 +316,18 @@ export default function JobHiringModal({
               value={passOutYear}
               setValue={setPassOutYear}
               helperText={errors.passOutYear}
+              className="mb-4"
+            />
+            <FormInputDropdown
+              label="Experience"
+              id="experience"
+              name="experience"
+              required
+              placeholder="Select Experience"
+              value={experience}
+              setValue={setExperience}
+              options={experienceDropdown}
+              helperText={errors.experience}
               className="mb-4"
             />
             {isResumePresent && (

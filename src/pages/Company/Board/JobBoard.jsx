@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import "./JobBoard.css";
 import { FiDownload, FiUserPlus, FiUserX } from "react-icons/fi";
 import { MdDeleteOutline } from "react-icons/md";
@@ -8,156 +8,89 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { API_URL } from "../../../services/APIUtils";
 import { Helmet } from "react-helmet";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
+import moment from "moment";
+import { getAccessToken } from "../../../features/User/UserDetails";
+import JobBoardRow from "./JobBoardRow";
+import PaginationBarWithSearchParams from "../../../components/PaginationBarWithSearchParams/PaginationBarWithSearchParams";
+import FormInputDropdown from "../../../components/FormInputs/FormInputDropdown";
 
 export default function JobBoard() {
-  const rows = [
-    {
-      _id: 1,
-      name: "Roanne Mcwhinney",
-      skills: "Air Quality",
-      college: "Nagoya University of Arts",
-      batch: "6473 - 5570",
-      experience: "1 year",
-      resume: "https://www.example2.com",
-    },
-    {
-      _id: 2,
-      name: "Othelia Judkin",
-      skills: "TV News Production",
-      college: "University of Iowa",
-      batch: "6537 - 4835",
-      experience: "No experience",
-      resume: "https://www.example3.com",
-    },
-    {
-      _id: 3,
-      name: "Fabian Soper",
-      skills: "NCSim",
-      college: "Embry-Riddle Aeronautical University",
-      batch: "2068 - 6741",
-      experience: "2 years",
-      resume: "https://www.example1.com",
-    },
-    {
-      _id: 4,
-      name: "Dana Slidders",
-      skills: "Security Awareness",
-      college: "University of Connecticut Health Center",
-      batch: "9213 - 8618",
-      experience: "1 year",
-      resume: "https://www.example3.com",
-    },
-    {
-      _id: 5,
-      name: "Theresita Eykelbosch",
-      skills: "EIFS",
-      college: "Centro de Estudios Avanzados de Puerto Rico y el Caribe",
-      batch: "0691 - 8251",
-      experience: "3 years",
-      resume: "https://www.example3.com",
-    },
-    {
-      _id: 6,
-      name: "Muhammad Haversham",
-      skills: "Occupational Therapists",
-      college: "Kanda University of International Studies",
-      batch: "4205 - 9367",
-      experience: "1 year",
-      resume: "https://www.example3.com",
-    },
-    {
-      _id: 7,
-      name: "Alberto Lelliott",
-      skills: "Real Estate Transactions",
-      college: "Universidad México Americana del Norte",
-      batch: "1918 - 7912",
-      experience: "2 years",
-      resume: "https://www.example2.com",
-    },
-    {
-      _id: 8,
-      name: "Elia Cummings",
-      skills: "IGOR Pro",
-      college: "Kansas City Art Institute",
-      batch: "1058 - 5388",
-      experience: "2 years",
-      resume: "https://www.example2.com",
-    },
-    {
-      _id: 9,
-      name: "Ailsun Reay",
-      skills: "Yahoo Search Marketing",
-      college: "Lambuth University",
-      batch: "6895 - 4747",
-      experience: "1 year",
-      resume: "https://www.example2.com",
-    },
-    {
-      _id: 10,
-      name: "Karoly Offen",
-      skills: "Training",
-      college: "Colby-Sawyer College",
-      batch: "8800 - 2459",
-      experience: "No experience",
-      resume: "https://www.example3.com",
-    },
-    {
-      _id: 11,
-      name: "Norine Breedy",
-      skills: "IoC",
-      college: "Kent State University - Ashtabula",
-      batch: "6315 - 5510",
-      experience: "2 years",
-      resume: "https://www.example2.com",
-    },
-    {
-      _id: 12,
-      name: "Sallie Liepina",
-      skills: "XML Gateway",
-      college: "Indira Gandhi Agricultural University",
-      batch: "7113 - 8827",
-      experience: "2 years",
-      resume: "https://www.example1.com",
-    },
-    {
-      _id: 13,
-      name: "Elsa McIvor",
-      skills: "DMF",
-      college: "Nile Valley University",
-      batch: "3100 - 3724",
-      experience: "2 years",
-      resume: "https://www.example1.com",
-    },
-    {
-      _id: 14,
-      name: "Cletus Westmancoat",
-      skills: "PDH",
-      college: "Bunkyo University",
-      batch: "8448 - 2657",
-      experience: "No experience",
-      resume: "https://www.example2.com",
-    },
-    {
-      _id: 15,
-      name: "Harris Ridsdell",
-      skills: "Merchandising",
-      college: "Universidad Dr. Jose Matias Delgado",
-      batch: "2254 - 1041",
-      experience: "No experience",
-      resume: "https://www.example2.com",
-    },
-  ];
-
-  const [rowValues, setRowValues] = useState([]);
+  const navigate = useNavigate();
   const { id } = useParams();
+  const [searchParams, setSearchParams] = useSearchParams({
+    pageNo: "",
+    limit: "",
+    status: "",
+    exp: "",
+  });
+  const [boardDataRows, setBoardDataRows] = useState([]);
+  const [pageCount, setPageCount] = useState(1);
+  const [experience, setExperience] = useState("");
+  const pageNo = searchParams.get("pageNo");
+  const limit = searchParams.get("limit");
+  const status = searchParams.get("status");
+  const exp = searchParams.get("exp");
 
-  const boardData = useQuery({
-    queryKey: ["Jobs", "board", id],
+  const params = {
+    pageNo: pageNo ? pageNo : 1,
+    limit: limit ? limit : 30,
+    status: status ? status : "", // Show All as empty string, Shortlisted, Rejected, Processing , Uncategorized, Removed
+    exp: exp ? exp : "",
+  };
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  useEffect(() => {
+    if (!pageNo || !limit) {
+      navigate(
+        `/company/jobs/board/${id}?pageNo=1&limit=30${
+          !!params.status ? `&status=${params.status}` : ""
+        }`
+      );
+    }
+  }, []);
+
+  const config = {
+    headers: {
+      accessToken: getAccessToken(),
+    },
+  };
+
+  const jobData = useQuery({
+    queryKey: ["Job", id],
+    queryFn: () =>
+      axios
+        .get(`${API_URL}api/v1/hiringDashboard/hiringDetails/${id}`, config)
+        .then((res) => res),
+  });
+
+  const applicantsCountData = useQuery({
+    queryKey: ["ApplicantsCount", id],
     queryFn: () =>
       axios
         .get(
-          `${API_URL}api/v1/hiringDashboard/applicant?page=1&limit=30&hiringId=66850bfeafcdc22391c3ddd8`
+          `${API_URL}api/v1/hiringDashboard/getApplicantsStatus/?hiringId=${id}${
+            exp ? `&experience=${exp}` : ""
+          }`,
+          config
+        )
+        .then((res) => res),
+  });
+
+  const boardData = useQuery({
+    queryKey: ["Jobs", "board", params.pageNo, params.limit, id, params.status],
+    queryFn: () =>
+      axios
+        .get(
+          `${API_URL}api/v1/hiringDashboard/applicant?page=${
+            params.pageNo
+          }&limit=${params.limit}&hiringId=${id}${
+            !!params.status ? `&status=${params.status}` : ""
+          }${exp ? `&experience=${exp}` : ""}`,
+          config
         )
         .then((res) => {
           return res;
@@ -165,9 +98,20 @@ export default function JobBoard() {
     staleTime: 1000 * 60 * 1, // 1 minutes
   });
 
-  const [boardStatus, setBoardStatus] = useState("Show All");
-
-  console.log(boardData?.data?.data?.data?.applicants[2].userId.firstName);
+  useEffect(() => {
+    if (boardData.isSuccess) {
+      setBoardDataRows(boardData.data.data.data.applicants);
+      console.log(boardData.data.data.data);
+      setPageCount(
+        Math.ceil(
+          (!!boardData.data?.data?.data?.totalApplicants
+            ? boardData.data?.data?.data?.totalApplicants
+            : 1) /
+            (!!limit ? limit : boardData.data?.data?.data?.applicants?.length)
+        )
+      );
+    }
+  }, [boardData]);
 
   return (
     <main className="crm-board">
@@ -177,12 +121,22 @@ export default function JobBoard() {
       </Helmet>
       <div
         style={{
-          color: "#00643A",
-          backgroundColor: "rgba(0, 213, 136, 0.1)",
+          color:
+            jobData?.data?.data?.data?.isServiceOff === true
+              ? "#FF0000"
+              : "#00643A",
+          backgroundColor:
+            jobData?.data?.data?.data?.isServiceOff === true
+              ? "#FF00001A"
+              : "rgba(0, 213, 136, 0.1)",
         }}
         className="opportunity-status-container"
       >
-        <p className="body-sm-regular">This job is still accepting responses</p>
+        <p className="body-sm-regular">
+          {jobData?.data?.data?.data?.isServiceOff === true
+            ? "This job is no longer accepting responses"
+            : "This job is still accepting responses"}
+        </p>
       </div>
       <section className="main-container">
         <div className="status-toggle-container">
@@ -192,55 +146,158 @@ export default function JobBoard() {
           </label>
         </div>
         <div className="heading heading-sm">
-          <p>Product Designer</p>
+          <p>{jobData?.data?.data?.data?.opportunityName || <i>Job Name</i>}</p>
           <span>|</span>
-          <p>ID : 1234567</p>
+          <p>
+            {jobData?.data?.data?.data?._id ? (
+              `ID : ${jobData?.data?.data?.data?._id}`
+            ) : (
+              <i>ID : Not found</i>
+            )}
+          </p>
           <span>|</span>
-          <p>Part-time</p>
+          <p>{jobData?.data?.data?.data?.opportunityMode || <i>Type</i>}</p>
           <span>|</span>
-          <p>Delhi</p>
+          <p>{jobData?.data?.data?.data?.city || <i>Location</i>}</p>
         </div>
         <div className="posted-on body-md-semibold">
-          Posted on : 06/07/24/Sunday/06:00 PM
+          {jobData?.data?.data?.data?.createdAt ? (
+            // use moment to format the date
+            `Posted on : ${moment(jobData?.data?.data?.data?.createdAt).format(
+              "DD/MM/YY/dddd/HH:mm A"
+            )}`
+          ) : (
+            <i>Posted on : Not found</i>
+          )}
         </div>
         <div className="categories-container">
           <div className="categories body-sm-regular">
             <button
-              onClick={() => setBoardStatus("Show All")}
-              className={`${boardStatus === "Show All" ? "--selected" : ""}`}
+              onClick={() =>
+                setSearchParams(
+                  (prev) => {
+                    prev.set("status", "");
+                    return prev;
+                  },
+                  { replace: true }
+                )
+              }
+              className={`${params.status === "" ? "--selected" : ""}`}
             >
               <p className="body-sm-regular">Show All</p>
-              <span className="body-sm-regular">3</span>
+              <span className="body-sm-regular">
+                {applicantsCountData?.data?.data?.data?.reduce(
+                  (acc, item) => acc + item.count,
+                  0
+                )}
+              </span>
             </button>
             <button
-              onClick={() => setBoardStatus("Uncategorized")}
+              onClick={() =>
+                setSearchParams(
+                  (prev) => {
+                    prev.set("status", "Uncategorized");
+                    return prev;
+                  },
+                  { replace: true }
+                )
+              }
               className={`${
-                boardStatus === "Uncategorized" ? "--selected" : ""
+                params.status === "Uncategorized" ? "--selected" : ""
               }`}
             >
               <p className="body-sm-regular">Uncategorized</p>
-              <span className="body-sm-regular">3</span>
+              {/* Data comes in the form of an array with the following structure:  [{count: 1, status: 'Processing'}, {count: 1, status: 'Shortlisted'}, {count: 1, status: 'Uncategorized'}, {count: 1, status: 'Rejected'}] */}
+              {!!applicantsCountData?.data?.data?.data?.find(
+                (item) => item.status === "Uncategorized"
+              )?.count && (
+                <span className="body-sm-regular">
+                  {
+                    applicantsCountData?.data?.data?.data?.find(
+                      (item) => item.status === "Uncategorized"
+                    )?.count
+                  }
+                </span>
+              )}
             </button>
             <button
-              onClick={() => setBoardStatus("Shortlisted")}
-              className={`${boardStatus === "Shortlisted" ? "--selected" : ""}`}
+              onClick={() =>
+                setSearchParams(
+                  (prev) => {
+                    prev.set("status", "Shortlisted");
+                    return prev;
+                  },
+                  { replace: true }
+                )
+              }
+              className={`${
+                params.status === "Shortlisted" ? "--selected" : ""
+              }`}
             >
               <p className="body-sm-regular">Shortlisted</p>
-              <span className="body-sm-regular">3</span>
+              {!!applicantsCountData?.data?.data?.data?.find(
+                (item) => item.status === "Shortlisted"
+              )?.count && (
+                <span className="body-sm-regular">
+                  {
+                    applicantsCountData?.data?.data?.data?.find(
+                      (item) => item.status === "Shortlisted"
+                    )?.count
+                  }
+                </span>
+              )}
             </button>
             <button
-              onClick={() => setBoardStatus("Rejected")}
-              className={`${boardStatus === "Rejected" ? "--selected" : ""}`}
+              onClick={() =>
+                setSearchParams(
+                  (prev) => {
+                    prev.set("status", "Rejected");
+                    return prev;
+                  },
+                  { replace: true }
+                )
+              }
+              className={`${params.status === "Rejected" ? "--selected" : ""}`}
             >
               <p className="body-sm-regular">Rejected</p>
-              <span className="body-sm-regular">3</span>
+              {!!applicantsCountData?.data?.data?.data?.find(
+                (item) => item.status === "Rejected"
+              )?.count && (
+                <span className="body-sm-regular">
+                  {
+                    applicantsCountData?.data?.data?.data?.find(
+                      (item) => item.status === "Rejected"
+                    )?.count
+                  }
+                </span>
+              )}
             </button>
             <button
-              onClick={() => setBoardStatus("Processing")}
-              className={`${boardStatus === "Processing" ? "--selected" : ""}`}
+              onClick={() =>
+                setSearchParams(
+                  (prev) => {
+                    prev.set("status", "Processing");
+                    return prev;
+                  },
+                  { replace: true }
+                )
+              }
+              className={`${
+                params.status === "Processing" ? "--selected" : ""
+              }`}
             >
               <p className="body-sm-regular">Processing</p>
-              <span className="body-sm-regular">3</span>
+              {!!applicantsCountData?.data?.data?.data?.find(
+                (item) => item.status === "Processing"
+              )?.count && (
+                <span className="body-sm-regular">
+                  {
+                    applicantsCountData?.data?.data?.data?.find(
+                      (item) => item.status === "Processing"
+                    )?.count
+                  }
+                </span>
+              )}
             </button>
           </div>
           <div className="download-container">
@@ -260,7 +317,10 @@ export default function JobBoard() {
             <div className="select-all">
               <input type="checkbox" name="selectAll" id="selectAll" />
               <label htmlFor="selectAll body-sm-regular">
-                Select All {`(${0}/${7})`}
+                Select All{" "}
+                {`(${0}/${
+                  boardData?.data?.data?.data?.applicants?.length || 0
+                })`}
               </label>
             </div>
             <div className="action-buttons">
@@ -281,7 +341,37 @@ export default function JobBoard() {
               </button>
             </div>
           </div>
-          <div className="search-container">
+          <div className="search-container d-flex align-items-center gap-2">
+            <div>
+              <span>Sort by experience </span>
+              <select
+                name="experience"
+                id="experience"
+                defaultValue={exp}
+                onChange={(e) => {
+                  navigate(
+                    `/company/jobs/board/${id}?pageNo=1&limit=1${
+                      !!params.status ? `&status=${params.status}` : ""
+                    }${!!e.target.value ? `&exp=${e.target.value}` : ""}`
+                  );
+                }}
+              >
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option
+                  style={{
+                    display: "none",
+                  }}
+                  value={exp}
+                >
+                  {exp}
+                </option>
+              </select>
+            </div>
             <input
               aria-required="false"
               autoCapitalize="none"
@@ -297,8 +387,8 @@ export default function JobBoard() {
               dir="ltr"
               // id={id}
               className={`body-sm-regular
-              
-                `}
+                
+                  `}
               // placeholder={placeholder}
               // aria-label={ariaLabel}
               // aria-describedby={ariaDescribedby}
@@ -318,6 +408,43 @@ export default function JobBoard() {
               // {...rest}
             />
           </div>
+        </div>
+        <div className="d-flex justify-content-between align-items-center w-100 mb-3">
+          <div>
+            <span>Showing </span>
+            <select
+              name="limit"
+              id="limit"
+              defaultValue={limit}
+              onChange={(e) => {
+                navigate(
+                  `/company/jobs/board/${id}?pageNo=1&limit=${e.target.value}${
+                    !!params.status ? `&status=${params.status}` : ""
+                  }`
+                );
+              }}
+            >
+              <option value="10">10</option>
+              <option value="20">20</option>
+              <option value="30">30</option>
+              <option value="40">40</option>
+              <option value="50">50</option>
+              <option
+                style={{
+                  display: "none",
+                }}
+                value={limit}
+              >
+                {limit}
+              </option>
+            </select>
+            <span> results</span>
+          </div>
+          <PaginationBarWithSearchParams
+            className="m-0"
+            param="pageNo"
+            pages={pageCount}
+          />
         </div>
         <div className="board-table">
           <div className="table-item table-headers table-header-1 body-sm-regular"></div>
@@ -340,7 +467,7 @@ export default function JobBoard() {
             Resume
           </div>
           <div className="table-item table-headers table-header-8 body-sm-regular"></div>
-          {/* {referralQuery.isPending && (
+          {boardData.isLoading && (
             <>
               <div
                 style={{
@@ -349,163 +476,18 @@ export default function JobBoard() {
                   display: "flex",
                   justifyContent: "center",
                   alignItems: "center",
-                  gridColumn: "1/8",
+                  gridColumn: "1/9",
                   gridRow: "7/7",
                 }}
               >
                 <Loading />
               </div>
             </>
-          )} */}
+          )}
           {boardData.isSuccess &&
-            boardData?.data?.data?.data?.applicants.map((item) => (
-              <Fragment key={item?._id}>
-                <div className="table-item table-content table-content-1">
-                  <input
-                    type="checkbox"
-                    name={`item-name-${item?._id}`}
-                    id={`item-id-${item?._id}`}
-                  />
-                </div>
-                <div className="table-item table-content table-content-2">
-                  <p
-                    title={`${item?.userId?.firstName}${
-                      item?.userId?.lastName ? ` ${item?.userId?.lastName}` : ""
-                    }`}
-                    className="body-sm-regular text-crop-2"
-                  >
-                    {`${item?.userId?.firstName}${
-                      item?.userId?.lastName ? ` ${item?.userId?.lastName}` : ""
-                    }`}
-                  </p>
-                </div>
-                <div className="table-item table-content table-content-3">
-                  <p
-                    title={item?.skills}
-                    className="body-sm-regular text-crop-2 "
-                  >
-                    {item?.skills}
-                  </p>
-                </div>
-                <div className="table-item table-content table-content-4">
-                  <p
-                    title={item?.college}
-                    className="body-sm-regular text-crop-2"
-                  >
-                    {item?.college}
-                  </p>
-                </div>
-                <div className="table-item table-content table-content-5">
-                  <p
-                    title={item?.batch}
-                    className="body-sm-regular text-crop-2"
-                  >
-                    {item?.batch}
-                  </p>
-                </div>
-                <div className="table-item table-content table-content-6">
-                  <p
-                    title={item?.experience}
-                    className="body-sm-regular text-crop-2"
-                  >
-                    {item?.experience}
-                  </p>
-                </div>
-                <div className="table-item table-content table-content-7">
-                  {item?.resume ? (
-                    <a
-                      className="body-sm-regular text-crop-2"
-                      href={item?.resume}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      Link to view
-                    </a>
-                  ) : (
-                    "-"
-                  )}
-                </div>
-                <div className="table-item table-content table-content-8">
-                  <button>
-                    <FiUserPlus />
-                  </button>
-                  <button>
-                    <FiUserX />
-                  </button>
-                  <button>
-                    <MdDeleteOutline />
-                  </button>
-                </div>
-              </Fragment>
+            boardDataRows.map((item) => (
+              <JobBoardRow key={item?._id} data={item} />
             ))}
-          {/* <Fragment>
-            <div className="table-item table-content table-content-1">
-              <input
-                type="checkbox"
-                name={`data-name-${""}`}
-                id={`data-id-${""}`}
-              />
-            </div>
-            <div className="table-item table-content table-content-2">
-              <p
-                title={"Girish Shedge"}
-                className="body-sm-regular text-crop-2"
-              >
-                Girish Shedge
-              </p>
-            </div>
-            <div className="table-item table-content table-content-3">
-              <p
-                title={"Figma, Adobe Photoshop, Illustrator"}
-                className="body-sm-regular text-crop-2 "
-              >
-                Figma, Adobe Photoshop, Illustrator
-              </p>
-            </div>
-            <div className="table-item table-content table-content-4">
-              <p
-                title={
-                  "Bharati Vidyapeeth College of Engineering and Technology, Navi Mumbai"
-                }
-                className="body-sm-regular text-crop-2"
-              >
-                Bharati Vidyapeeth College of Engineering and Technology, Navi
-                Mumbai
-              </p>
-            </div>
-            <div className="table-item table-content table-content-5">
-              <p title={"2024-2028"} className="body-sm-regular text-crop-2">
-                2024 - 2028
-              </p>
-            </div>
-            <div className="table-item table-content table-content-6">
-              <p
-                title={"Product Designer @engineerHUB"}
-                className="body-sm-regular text-crop-2"
-              >
-                Product Designer @engineerHUB
-              </p>
-            </div>
-            <div className="table-item table-content table-content-7">
-              <a
-                title={"Product Designer @engineerHUB"}
-                className="body-sm-regular text-crop-2"
-              >
-                Link to view
-              </a>
-            </div>
-            <div className="table-item table-content table-content-8">
-              <button>
-                <FiUserPlus />
-              </button>
-              <button>
-                <FiUserX />
-              </button>
-              <button>
-                <MdDeleteOutline />
-              </button>
-            </div>
-          </Fragment> */}
         </div>
       </section>
     </main>
