@@ -762,7 +762,6 @@ const BookNowPayment = () => {
                     }
                   }}
                   style={{
-                    padding: "10 24",
                     backgroundColor: "#138382",
                     border: "none",
                     outline: "none",

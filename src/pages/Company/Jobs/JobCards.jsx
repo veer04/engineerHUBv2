@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Chip } from "@mui/material";
 import "./JobCards.css";
-import { Link, useLocation, useParams } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import ViewApplicantsModal from "../../../components/Dashboard/ViewApplicantsModal";
 import { MdOutlineRemoveRedEye } from "react-icons/md";
 
@@ -15,6 +15,7 @@ const JobCards = ({
 }) => {
   const { hiringId } = useParams();
   const { search } = useLocation();
+  const navigate = useNavigate();
   const [toggleModal, setToggleModal] = useState(false);
   const formatter = new Intl.NumberFormat("en-IN", {
     style: "currency",
@@ -139,7 +140,8 @@ const JobCards = ({
               {details?.views} Views
             </span>
             <button
-              onClick={() => setToggleModal(true)}
+              // onClick={() => setToggleModal(true)}
+              onClick={() => navigate(`/company/jobs/board/${details?._id}`)}
               style={{
                 backgroundColor: "#014051",
                 border: "none",
