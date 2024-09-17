@@ -4,7 +4,7 @@ import { FiDownload, FiUserPlus, FiUserX } from "react-icons/fi";
 import { MdDeleteOutline } from "react-icons/md";
 import { RiInboxArchiveLine } from "react-icons/ri";
 import Loading from "../../../components/Loader/Loading";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { API_URL } from "../../../services/APIUtils";
 import { Helmet } from "react-helmet";
@@ -13,11 +13,12 @@ import moment from "moment";
 import { getAccessToken } from "../../../features/User/UserDetails";
 import JobBoardRow from "./JobBoardRow";
 import PaginationBarWithSearchParams from "../../../components/PaginationBarWithSearchParams/PaginationBarWithSearchParams";
-import FormInputDropdown from "../../../components/FormInputs/FormInputDropdown";
+import useGlobalSnackbar from "../../../hooks/useGlobalSnackbar";
 
 export default function JobBoard() {
   const navigate = useNavigate();
   const { id } = useParams();
+  const queryClient = useQueryClient();
   const [searchParams, setSearchParams] = useSearchParams({
     pageNo: "",
     limit: "",
@@ -27,6 +28,16 @@ export default function JobBoard() {
   const [boardDataRows, setBoardDataRows] = useState([]);
   const [pageCount, setPageCount] = useState(1);
   const [experience, setExperience] = useState("");
+  const [selectedJobs, setSelectedJobs] = useState([]);
+  const [progress, setProgress] = useState(0);
+  const [isDownloading, setIsDownloading] = useState(false);
+  const [isAnyRowUpdating, setIsAnyRowUpdating] = useState(false); // if any row is updating, then disable the download button
+  const {
+    setSnackbarOpen,
+    setSnackbarMessage,
+    setSnackbarSeverity,
+    setSnackbarDuration,
+  } = useGlobalSnackbar();
   const pageNo = searchParams.get("pageNo");
   const limit = searchParams.get("limit");
   const status = searchParams.get("status");
@@ -68,7 +79,7 @@ export default function JobBoard() {
   });
 
   const applicantsCountData = useQuery({
-    queryKey: ["ApplicantsCount", id],
+    queryKey: ["ApplicantsCount", id, exp],
     queryFn: () =>
       axios
         .get(
@@ -81,7 +92,15 @@ export default function JobBoard() {
   });
 
   const boardData = useQuery({
-    queryKey: ["Jobs", "board", params.pageNo, params.limit, id, params.status],
+    queryKey: [
+      "Jobs",
+      "board",
+      params.pageNo,
+      params.limit,
+      id,
+      params.status,
+      exp,
+    ],
     queryFn: () =>
       axios
         .get(
@@ -101,7 +120,6 @@ export default function JobBoard() {
   useEffect(() => {
     if (boardData.isSuccess) {
       setBoardDataRows(boardData.data.data.data.applicants);
-      console.log(boardData.data.data.data);
       setPageCount(
         Math.ceil(
           (!!boardData.data?.data?.data?.totalApplicants
@@ -112,6 +130,145 @@ export default function JobBoard() {
       );
     }
   }, [boardData]);
+
+  const handleDownload = async () => {
+    if (selectedJobs.length === 0) {
+      setSnackbarMessage("Please select at least one applicant");
+      setSnackbarSeverity("error");
+      setSnackbarDuration(3000);
+      setSnackbarOpen(true);
+      return;
+    }
+    setIsDownloading(true);
+    await axios({
+      url: `${API_URL}api/v1/hiringDashboard/downloadApplicantDetails`,
+      data: {
+        data: selectedJobs,
+      },
+      method: "POST",
+      responseType: "blob", // important
+      onDownloadProgress: (progressEvent) => {
+        let percentCompleted = Math.round(
+          (progressEvent.loaded * 100) / progressEvent.total
+        );
+        setProgress(percentCompleted);
+      },
+    })
+      .then((response) => {
+        setIsDownloading(false);
+        setProgress(100);
+        const blob = new Blob([response.data], { type: "application/xlsx" });
+        const link = document.createElement("a");
+        link.href = URL.createObjectURL(blob);
+        link.setAttribute(
+          "download",
+          `${jobData?.data?.data?.data?.opportunityName} Applicants.xlsx`
+        );
+        link.click();
+        setProgress(0);
+      })
+      .catch((err) => {
+        setIsDownloading(false);
+        setSnackbarMessage(
+          <>
+            <span>Download failed</span>
+            {err?.response?.data?.message && (
+              <>
+                {" "}
+                <br />
+                <span>Error: {err?.response?.data?.message}</span>
+              </>
+            )}
+          </>
+        );
+        setSnackbarSeverity("error");
+        setSnackbarDuration(5000);
+        setSnackbarOpen(true);
+        console.error(err);
+        setProgress(0);
+      });
+  };
+
+  function shortlistApplicants() {
+    const shortlistedApplicants = selectedJobs.map((job) => ({
+      registrationId: job?._id,
+      status: "Shortlisted",
+    }));
+    axios
+      .patch(
+        `${API_URL}api/v1/hiringDashboard/updateApplicantsStatus`,
+        {
+          hiringId: id,
+          data: shortlistedApplicants,
+        },
+        config
+      )
+      .then((res) => {
+        queryClient.invalidateQueries({ queryKey: ["ApplicantsCount"] });
+        queryClient.invalidateQueries({
+          queryKey: ["Jobs", "board"],
+        });
+        console.log(res);
+        setSelectedJobs([]);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  function rejectApplicants() {
+    const rejectedApplicants = selectedJobs.map((job) => ({
+      registrationId: job?._id,
+      status: "Rejected",
+    }));
+    axios
+      .patch(
+        `${API_URL}api/v1/hiringDashboard/updateApplicantsStatus`,
+        {
+          hiringId: id,
+          data: rejectedApplicants,
+        },
+        config
+      )
+      .then((res) => {
+        queryClient.invalidateQueries({ queryKey: ["ApplicantsCount"] });
+        queryClient.invalidateQueries({
+          queryKey: ["Jobs", "board"],
+        });
+        console.log(res);
+        setSelectedJobs([]);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  function uncategorizeApplicants() {
+    const uncategorizedApplicants = selectedJobs.map((job) => ({
+      registrationId: job?._id,
+      status: "Uncategorized",
+    }));
+    axios
+      .patch(
+        `${API_URL}api/v1/hiringDashboard/updateApplicantsStatus`,
+        {
+          hiringId: id,
+          data: uncategorizedApplicants,
+        },
+        config
+      )
+      .then((res) => {
+        queryClient.invalidateQueries({ queryKey: ["ApplicantsCount"] });
+        queryClient.invalidateQueries({
+          queryKey: ["Jobs", "board"],
+        });
+        console.log(res);
+        setSelectedJobs([]);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
 
   return (
     <main className="crm-board">
@@ -139,12 +296,12 @@ export default function JobBoard() {
         </p>
       </div>
       <section className="main-container">
-        <div className="status-toggle-container">
+        {/* <div className="status-toggle-container">
           <input type="checkbox" name="jobStatus" id="jobStatus" />
           <label htmlFor="jobStatus" className="body-sm-regular">
             Do not accept response on this job
           </label>
-        </div>
+        </div> */}
         <div className="heading heading-sm">
           <p>{jobData?.data?.data?.data?.opportunityName || <i>Job Name</i>}</p>
           <span>|</span>
@@ -172,26 +329,6 @@ export default function JobBoard() {
         </div>
         <div className="categories-container">
           <div className="categories body-sm-regular">
-            <button
-              onClick={() =>
-                setSearchParams(
-                  (prev) => {
-                    prev.set("status", "");
-                    return prev;
-                  },
-                  { replace: true }
-                )
-              }
-              className={`${params.status === "" ? "--selected" : ""}`}
-            >
-              <p className="body-sm-regular">Show All</p>
-              <span className="body-sm-regular">
-                {applicantsCountData?.data?.data?.data?.reduce(
-                  (acc, item) => acc + item.count,
-                  0
-                )}
-              </span>
-            </button>
             <button
               onClick={() =>
                 setSearchParams(
@@ -299,10 +436,34 @@ export default function JobBoard() {
                 </span>
               )}
             </button>
+            <button
+              onClick={() =>
+                setSearchParams(
+                  (prev) => {
+                    prev.set("status", "");
+                    return prev;
+                  },
+                  { replace: true }
+                )
+              }
+              className={`${params.status === "" ? "--selected" : ""}`}
+            >
+              <p className="body-sm-regular">Show All</p>
+              <span className="body-sm-regular">
+                {applicantsCountData?.data?.data?.data?.reduce(
+                  (acc, item) => acc + item.count,
+                  0
+                )}
+              </span>
+            </button>
           </div>
           <div className="download-container">
-            <button className="download-btn body-sm-semibold">
-              <FiDownload /> Download
+            <button
+              onClick={handleDownload}
+              disabled={isDownloading}
+              className="download-btn body-sm-semibold d-flex align-items-center gap-1"
+            >
+              <FiDownload /> {isDownloading ? `${progress}%` : "Download"}
             </button>
           </div>
         </div>
@@ -315,53 +476,67 @@ export default function JobBoard() {
         <div className="action-container">
           <div className="select-container">
             <div className="select-all">
-              <input type="checkbox" name="selectAll" id="selectAll" />
+              <input
+                type="checkbox"
+                name="selectAll"
+                id="selectAll"
+                checked={
+                  selectedJobs.length === boardDataRows.length &&
+                  boardDataRows.length !== 0
+                }
+                onChange={() => {
+                  setSelectedJobs(
+                    selectedJobs.length === boardDataRows.length
+                      ? []
+                      : boardDataRows
+                  );
+                }}
+              />
               <label htmlFor="selectAll body-sm-regular">
                 Select All{" "}
-                {`(${0}/${
+                {`(${selectedJobs.length}/${
                   boardData?.data?.data?.data?.applicants?.length || 0
                 })`}
               </label>
             </div>
             <div className="action-buttons">
-              <button>
+              <button onClick={() => shortlistApplicants()}>
                 <FiUserPlus />
               </button>
-              <button>
+              <button onClick={() => rejectApplicants()}>
                 <FiUserX />
               </button>
-              <button>
+              <button onClick={() => uncategorizeApplicants()}>
                 <RiInboxArchiveLine />
-              </button>
-              <button>
-                <FiDownload />
-              </button>
-              <button>
-                <MdDeleteOutline />
               </button>
             </div>
           </div>
           <div className="search-container d-flex align-items-center gap-2">
             <div>
-              <span>Sort by experience </span>
+              <span>Minimum experience </span>
               <select
                 name="experience"
                 id="experience"
                 defaultValue={exp}
                 onChange={(e) => {
                   navigate(
-                    `/company/jobs/board/${id}?pageNo=1&limit=1${
+                    `/company/jobs/board/${id}?pageNo=1&limit=30${
                       !!params.status ? `&status=${params.status}` : ""
                     }${!!e.target.value ? `&exp=${e.target.value}` : ""}`
                   );
                 }}
               >
-                <option value="0">0</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
+                <option value="">No Experience</option>
+                <option value="1">1 year</option>
+                <option value="2">2 years</option>
+                <option value="3">3 years</option>
+                <option value="4">4 years</option>
+                <option value="5">5 years</option>
+                <option value="6">6 years</option>
+                <option value="7">7 years</option>
+                <option value="8">8 years</option>
+                <option value="9">9 years</option>
+                <option value="10">10 years</option>
                 <option
                   style={{
                     display: "none",
@@ -372,6 +547,7 @@ export default function JobBoard() {
                 </option>
               </select>
             </div>
+            {/* 
             <input
               aria-required="false"
               autoCapitalize="none"
@@ -407,6 +583,7 @@ export default function JobBoard() {
               // }}
               // {...rest}
             />
+            */}
           </div>
         </div>
         <div className="d-flex justify-content-between align-items-center w-100 mb-3">
@@ -484,9 +661,53 @@ export default function JobBoard() {
               </div>
             </>
           )}
+          {!boardData.isLoading &&
+            boardData.isFetching &&
+            boardDataRows.length !== 0 && (
+              <div
+                style={{
+                  marginTop: ".5rem",
+                  marginBottom: ".5rem",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  gridColumn: "1/9",
+                  // gridRow: "1",
+                  color: "grey",
+                  fontSize: ".8rem",
+                }}
+              >
+                Refreshing Data...
+              </div>
+            )}
+          {!boardData.isLoading &&
+            boardData.isFetching &&
+            boardDataRows.length === 0 && (
+              <div
+                style={{
+                  marginTop: "5dvh",
+                  marginBottom: "10dvh",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  gridColumn: "1/9",
+                  gridRow: "7/7",
+                }}
+              >
+                <Loading />
+              </div>
+            )}
           {boardData.isSuccess &&
             boardDataRows.map((item) => (
-              <JobBoardRow key={item?._id} data={item} />
+              <JobBoardRow
+                key={item?._id}
+                data={item}
+                selectedJobs={selectedJobs}
+                setSelectedJobs={setSelectedJobs}
+                isAnyRowUpdating={isAnyRowUpdating}
+                setIsAnyRowUpdating={setIsAnyRowUpdating}
+                isDataFetching={boardData.isFetching}
+              />
             ))}
         </div>
       </section>

@@ -32,7 +32,8 @@ export default function NewFooter() {
       location.pathname.includes("forgot-password") ||
       location.pathname.includes("change-password") ||
       location.pathname.includes("otp-verification") ||
-      location.pathname.includes("referrals")
+      location.pathname.includes("referrals") ||
+      location.pathname.includes("company/jobs/board")
     ) {
       setDisplayFooter(false);
     } else setDisplayFooter(true);

@@ -153,8 +153,12 @@
   align-items: center;
   width: 40px;
   aspect-ratio: 4;
-  background: radial-gradient(circle closest-side, var(--primary-color-green) 90%, #cecece00) 0 /
-    calc(100% / 3) 100% space;
+  background: radial-gradient(
+      circle closest-side,
+      var(--primary-color-green) 90%,
+      #cecece00
+    )
+    0 / calc(100% / 3) 100% space;
   clip-path: inset(0 100% 0 0);
   animation: l1 1s steps(4) infinite;
 }
@@ -225,7 +229,19 @@
 .crm-board .main-container .board-table .table-content:nth-child(8n) {
   border-radius: 0 5px 5px 0;
 }
-
+.crm-board .main-container .board-table .table-content-2.--show-all {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+.crm-board .main-container .board-table .table-content-2 .status-tag {
+  padding: 4px 6px;
+  border-radius: 999px;
+  font-weight: 500;
+  font-size: 11px;
+  line-height: 13.31px;
+  text-align: center;
+}
 .crm-board .main-container .board-table .table-content-8 {
   gap: 0.5rem;
   flex-direction: row;

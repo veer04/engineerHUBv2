@@ -7,7 +7,14 @@ import { API_URL } from "../../../services/APIUtils";
 import { getAccessToken } from "../../../features/User/UserDetails";
 import { useQueryClient } from "@tanstack/react-query";
 
-export default function JobBoardRow({ data }) {
+export default function JobBoardRow({
+  data,
+  selectedJobs,
+  setSelectedJobs,
+  isAnyRowUpdating,
+  setIsAnyRowUpdating,
+  isDataFetching,
+}) {
   // get the hiring id from the url use useParams
   const { id } = useParams();
   const queryClient = useQueryClient();
@@ -21,6 +28,10 @@ export default function JobBoardRow({ data }) {
   const [isUpdating, setIsUpdating] = useState(false);
 
   useEffect(() => {
+    setStatus(searchParams.get("status"));
+  }, [searchParams.get("status")]);
+
+  useEffect(() => {
     setIsHired(data?.isHired);
     setIsHiringLoading(false);
   }, [data?.isHired]);
@@ -32,11 +43,16 @@ export default function JobBoardRow({ data }) {
   };
 
   function handleSelectApplicant() {
-    setIsSelected(!isSelected);
+    if (selectedJobs.some((job) => job?._id === data?._id)) {
+      setSelectedJobs(selectedJobs.filter((job) => job?._id !== data?._id));
+    } else {
+      setSelectedJobs([...selectedJobs, data]);
+    }
   }
 
-  async function shortlistApplicant() {
+  function shortlistApplicant() {
     setIsUpdating(true);
+    setIsAnyRowUpdating(true);
     axios
       .patch(
         `${API_URL}api/v1/hiringDashboard/updateApplicantsStatus`,
@@ -52,6 +68,7 @@ export default function JobBoardRow({ data }) {
         config
       )
       .then((res) => {
+        setIsAnyRowUpdating(false);
         queryClient.invalidateQueries({ queryKey: ["ApplicantsCount"] });
         queryClient.invalidateQueries({
           queryKey: ["Jobs", "board", pageNo, limit, id, status],
@@ -63,13 +80,15 @@ export default function JobBoardRow({ data }) {
         setIsUpdating(false);
       })
       .catch((err) => {
+        setIsAnyRowUpdating(false);
         console.log(err);
         setIsUpdating(false);
       });
   }
 
-  async function rejectApplicant() {
+  function rejectApplicant() {
     setIsUpdating(true);
+    setIsAnyRowUpdating(true);
     axios
       .patch(
         `${API_URL}api/v1/hiringDashboard/updateApplicantsStatus`,
@@ -85,6 +104,7 @@ export default function JobBoardRow({ data }) {
         config
       )
       .then((res) => {
+        setIsAnyRowUpdating(false);
         queryClient.invalidateQueries({ queryKey: ["ApplicantsCount"] });
         queryClient.invalidateQueries({
           queryKey: ["Jobs", "board", pageNo, limit, id, status],
@@ -96,13 +116,15 @@ export default function JobBoardRow({ data }) {
         setIsUpdating(false);
       })
       .catch((err) => {
+        setIsAnyRowUpdating(false);
         console.log(err);
         setIsUpdating(false);
       });
   }
 
-  async function uncategorizeApplicant() {
+  function uncategorizeApplicant() {
     setIsUpdating(true);
+    setIsAnyRowUpdating(true);
     axios
       .patch(
         `${API_URL}api/v1/hiringDashboard/updateApplicantsStatus`,
@@ -118,6 +140,7 @@ export default function JobBoardRow({ data }) {
         config
       )
       .then((res) => {
+        setIsAnyRowUpdating(false);
         queryClient.invalidateQueries({ queryKey: ["ApplicantsCount"] });
         queryClient.invalidateQueries({
           queryKey: ["Jobs", "board", pageNo, limit, id, status],
@@ -129,6 +152,7 @@ export default function JobBoardRow({ data }) {
         setIsUpdating(false);
       })
       .catch((err) => {
+        setIsAnyRowUpdating(false);
         console.log(err);
         setIsUpdating(false);
       });
@@ -170,11 +194,15 @@ export default function JobBoardRow({ data }) {
           type="checkbox"
           name={`item-name-${data?._id}`}
           id={`item-id-${data?._id}`}
-          checked={isSelected}
+          checked={selectedJobs.some((job) => job?._id === data?._id)}
           onChange={() => handleSelectApplicant()}
         />
       </div>
-      <div className="table-item table-content table-content-2">
+      <div
+        className={`table-item table-content table-content-2 ${
+          !!status === false ? "--show-all" : ""
+        }`}
+      >
         <p
           title={`${data?.firstName}${
             data?.lastName ? ` ${data?.lastName}` : ""
@@ -183,6 +211,31 @@ export default function JobBoardRow({ data }) {
         >
           {`${data?.firstName}${data?.lastName ? ` ${data?.lastName}` : ""}`}
         </p>
+        {!!status === false && (
+          <span
+            className="status-tag"
+            style={{
+              backgroundColor:
+                data?.status === "Shortlisted"
+                  ? "#00D5881A"
+                  : data?.status === "Rejected"
+                  ? "#FF00001A"
+                  : data?.status === "Uncategorized"
+                  ? "#01405126"
+                  : "#FFD60026",
+              color:
+                data?.status === "Shortlisted"
+                  ? "#00643A"
+                  : data?.status === "Rejected"
+                  ? "#FF0000"
+                  : data?.status === "Uncategorized"
+                  ? "#002B36"
+                  : "#B89A00",
+            }}
+          >
+            {data?.status}
+          </span>
+        )}
       </div>
       <div className="table-item table-content text-crop-1 overflow-hidden table-content-3">
         <p
@@ -225,31 +278,46 @@ export default function JobBoardRow({ data }) {
         {isUpdating && <div className="loader-4"></div>}
         {!isUpdating && (
           <>
-            {(status === "" || status === "Show All") && (
+            {(!!status === false || status === "Show All") && (
               <>
                 {data?.status === "Uncategorized" && (
                   <>
-                    <button onClick={() => shortlistApplicant()}>
+                    <button
+                      onClick={() => shortlistApplicant()}
+                      disabled={isAnyRowUpdating || isDataFetching}
+                    >
                       <FiUserPlus />
                     </button>
-                    <button onClick={() => rejectApplicant()}>
+                    <button
+                      onClick={() => rejectApplicant()}
+                      disabled={isAnyRowUpdating || isDataFetching}
+                    >
                       <FiUserX />
                     </button>
                   </>
                 )}
                 {data?.status === "Shortlisted" && (
                   <>
-                    <button onClick={() => rejectApplicant()}>
+                    <button
+                      onClick={() => rejectApplicant()}
+                      disabled={isAnyRowUpdating || isDataFetching}
+                    >
                       <FiUserX />
                     </button>
-                    <button onClick={() => uncategorizeApplicant()}>
+                    <button
+                      onClick={() => uncategorizeApplicant()}
+                      disabled={isAnyRowUpdating || isDataFetching}
+                    >
                       <RiInboxArchiveLine />
                     </button>
                   </>
                 )}
                 {data?.status === "Rejected" && (
                   <>
-                    <button onClick={() => uncategorizeApplicant()}>
+                    <button
+                      onClick={() => uncategorizeApplicant()}
+                      disabled={isAnyRowUpdating || isDataFetching}
+                    >
                       <RiInboxArchiveLine />
                     </button>
                   </>
@@ -258,10 +326,16 @@ export default function JobBoardRow({ data }) {
             )}
             {status === "Uncategorized" && (
               <>
-                <button onClick={() => shortlistApplicant()}>
+                <button
+                  onClick={() => shortlistApplicant()}
+                  disabled={isAnyRowUpdating || isDataFetching}
+                >
                   <FiUserPlus />
                 </button>
-                <button onClick={() => rejectApplicant()}>
+                <button
+                  onClick={() => rejectApplicant()}
+                  disabled={isAnyRowUpdating || isDataFetching}
+                >
                   <FiUserX />
                 </button>
               </>
@@ -269,10 +343,16 @@ export default function JobBoardRow({ data }) {
 
             {status === "Shortlisted" && (
               <>
-                <button onClick={() => rejectApplicant()}>
+                <button
+                  onClick={() => rejectApplicant()}
+                  disabled={isAnyRowUpdating || isDataFetching}
+                >
                   <FiUserX />
                 </button>
-                <button onClick={() => uncategorizeApplicant()}>
+                <button
+                  onClick={() => uncategorizeApplicant()}
+                  disabled={isAnyRowUpdating || isDataFetching}
+                >
                   <RiInboxArchiveLine />
                 </button>
               </>
@@ -280,7 +360,10 @@ export default function JobBoardRow({ data }) {
 
             {status === "Rejected" && (
               <>
-                <button onClick={() => uncategorizeApplicant()}>
+                <button
+                  onClick={() => uncategorizeApplicant()}
+                  disabled={isAnyRowUpdating || isDataFetching}
+                >
                   <RiInboxArchiveLine />
                 </button>
               </>
