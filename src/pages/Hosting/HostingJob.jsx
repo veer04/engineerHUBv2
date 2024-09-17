@@ -238,9 +238,9 @@ export default function HostingJob() {
       errors.organisationName = "Organisation name is required";
       isValid = false;
       addToErrorStack("#organisationName");
-    } else if (organisationName.length < 3) {
+    } else if (organisationName.length < 2) {
       errors.organisationName =
-        "Organisation name should be minimum 3 characters";
+        "Organisation name should be minimum 2 characters";
       isValid = false;
       addToErrorStack("#organisationName");
     } else if (organisationName.length > 100) {
