@@ -64,6 +64,7 @@ const DigitalProductAdminPage = lazy(() =>
 const ReferralAdminPage = lazy(() =>
   import("./pages/Admin/ReferralAdminPage.jsx")
 );
+const JobBoard = lazy(() => import("./pages/Company/Board/JobBoard.jsx"));
 const JobsPage = lazy(() => import("./pages/Company/Jobs/JobsPage.jsx"));
 const InternshipsPage = lazy(() =>
   import("./pages/Company/Jobs/InternshipsPage.jsx")
@@ -284,6 +285,9 @@ function App() {
                 <Route path=":hiringId" element={<IndividualJob />} />
                 {/* <Route path=":hiringId" element={<IndividualJob />} /> */}
                 {/* <Route path=":hiringId" element={<JobDetails />} /> */}
+              </Route>
+              <Route path="board">
+                <Route path=":id" element={<JobBoard />} />
               </Route>
               {/* <Route path="" element={<Jobs />} /> */}
             </Route>
