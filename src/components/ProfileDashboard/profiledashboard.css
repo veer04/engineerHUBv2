@@ -1,0 +1,16 @@
+.main-profile-dashboard-panel {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  width: 1159px;
+  height: auto;
+  margin: 60px auto;
+}
+
+.main-profile-dashboard-left {
+  width: 367px;
+}
+
+.main-profile-dashboard-right {
+  width: 775px;
+}
