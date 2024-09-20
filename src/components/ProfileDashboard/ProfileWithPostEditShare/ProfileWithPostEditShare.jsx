@@ -145,7 +145,7 @@ const ProfileWithPostEditShare = () => {
 
             <div
               style={{
-                backgroundColor: "#1383821a",
+                backgroundColor: "#FF58581A",
                 padding: "8px 10px",
                 borderRadius: "50%",
                 display: "flex",
