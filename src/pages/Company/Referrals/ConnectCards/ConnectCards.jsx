@@ -18,10 +18,18 @@ const ConnectCards = ({
   console.log(location, "location");
 
   const handleBookNow = () => {
-    navigate(`/referrals/book-now/${id}`, {
-      state: { rating, popular },
-    });
+    navigate(
+      `/referrals/book-now/${id}${
+        location.search.includes("ref")
+          ? `?ref=${location.search.split("ref=")[1].split("&")[0]}`
+          : ``
+      }`,
+      {
+        state: { rating, popular },
+      }
+    );
   };
+
   return (
     <>
       <div className="connect-card-main">

@@ -165,7 +165,11 @@ const PrepPayNow = () => {
           if (priceOfproduct === 0) {
             await axios
               .get(
-                `${PAYMENT_API_URL}api/v1/course-purchase/confirmation/${data?.data?.coursePurchaseRequestId}`,
+                `${PAYMENT_API_URL}api/v1/course-purchase/confirmation?coursePurchaseRequestId=${
+                  data?.data?.coursePurchaseRequestId
+                }&ehub_referral=${
+                  location.search.split("ref=")[1].split("&")[0] || ""
+                }`,
                 {
                   headers: {
                     accessToken: getAccessToken(),
@@ -190,8 +194,11 @@ const PrepPayNow = () => {
                     "Your course has been purchased successfully!"
                   );
                   setSnackbarSeverity("success");
-                  window.location.href =
-                    "/referrals/product-book-now/payment/success";
+                  window.location.href = `/referrals/product-book-now/payment/success${
+                    location.search.includes("ref")
+                      ? `?ref=${location.search.split("ref=")[1].split("&")[0]}`
+                      : ``
+                  }`;
                 }
               });
           }
@@ -220,10 +227,17 @@ const PrepPayNow = () => {
     const payload = {
       amount: totalPrice.toFixed(2),
       currency: "INR",
-      callback_url: `${FRONTEND_URL}referrals/product-book-now/payment/success`,
+      callback_url: `${FRONTEND_URL}referrals/product-book-now/payment/success${
+        location.search.includes("ref")
+          ? `?ref=${location.search.split("ref=")[1].split("&")[0]}`
+          : ``
+      }`,
       callback_method: "get",
       platform: "course",
       coursePurchaseRequestId: productData?.coursePurchaseRequestId,
+      ehub_referral: location.search.includes("ref")
+        ? location.search.split("ref=")[1].split("&")[0]
+        : "",
     };
 
     const response = await axios.post(

@@ -18,9 +18,16 @@ const DigitalCards = ({
   const navigate = useNavigate();
 
   const handlePurchaseNow = () => {
-    navigate(`/referrals/product-book-now/${id}`, {
-      state: { rating, popular },
-    });
+    navigate(
+      `/referrals/product-book-now/${id}${
+        location.search.includes("ref")
+          ? `?ref=${location.search.split("ref=")[1].split("&")[0]}`
+          : ``
+      }`,
+      {
+        state: { rating, popular },
+      }
+    );
   };
 
   return (

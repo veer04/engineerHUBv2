@@ -13,10 +13,12 @@ import ReferralPageBanner from "./ReferralPageBanner.png";
 import { HashLink } from "react-router-hash-link";
 import { Bucket_URL } from "../../../services/APIUtils";
 import zIndex from "@mui/material/styles/zIndex";
+import { useLocation } from "react-router-dom";
 
 const bucket = `${Bucket_URL}frontend/company/referral/`;
 
 const Referrals = () => {
+  const location = useLocation();
   return (
     <>
       <div
@@ -42,10 +44,23 @@ const Referrals = () => {
             industry preferences.
           </h5>
           <div className="referral-btn">
-            <HashLink to="/referrals#referral-section">
+            <HashLink
+              to={`/referrals#referral-section${
+                location.search.includes("ref")
+                  ? `?ref=${location.search.split("ref=")[1].split("&")[0]}`
+                  : ``
+              }`}
+            >
+              {/* disable this link */}
               <button className="btn-l">Referrals</button>
             </HashLink>
-            <HashLink to="/referrals#digital-product">
+            <HashLink
+              to={`/referrals#digital-product${
+                location.search.includes("ref")
+                  ? `?ref=${location.search.split("ref=")[1].split("&")[0]}`
+                  : ``
+              }`}
+            >
               <button className="btn-r">Digital Products</button>
             </HashLink>
           </div>
