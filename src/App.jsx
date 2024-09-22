@@ -57,6 +57,7 @@ import CompanyWisePrep from "./pages/Company/Referrals/CompanyWisePrep/CompanyWi
 import PrepPayNow from "./pages/Company/Referrals/PrepPayNow/PrepPayNow";
 import BookNowSuccessProduct from "./pages/Company/Referrals/BookNowPaymentSuccess/BookNowSuccessProduct.jsx";
 import PaymentFailed from "./pages/Company/Referrals/PaymentFailed/PaymentFailed.jsx";
+import ProfileDashboard from "./components/ProfileDashboard/ProfileDashboard.jsx";
 // import PopUpModalBootstrap from "./components/PopUpModal/PopUpModalBootstrap.jsx";
 const DigitalProductAdminPage = lazy(() =>
   import("./pages/Admin/DigitalProductAdminPage.jsx")
@@ -360,6 +361,8 @@ function App() {
               <Route index element={<DigitalProductAdminPage />} />
             </Route>
           </Route>
+
+          <Route path="/profiledashboard" element={<ProfileDashboard />} />
 
           <Route path="*" element={<Page404 />} />
         </Routes>
