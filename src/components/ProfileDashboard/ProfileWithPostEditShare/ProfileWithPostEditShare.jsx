@@ -35,7 +35,6 @@ const ProfileWithPostEditShare = () => {
           style={{
             fontWeight: 400,
             fontSize: 16,
-            color: "white",
             lineHeight: "22px",
             color: "#f3f3f3",
           }}
@@ -53,7 +52,7 @@ const ProfileWithPostEditShare = () => {
             style={{
               fontWeight: 400,
               fontSize: 14,
-              color: "white",
+
               lineHeight: "22px",
               color: "#f3f3f3",
               marginBottom: 0,
@@ -73,7 +72,7 @@ const ProfileWithPostEditShare = () => {
             style={{
               fontWeight: 400,
               fontSize: 14,
-              color: "white",
+
               lineHeight: "22px",
               color: "#f3f3f3",
               marginBottom: 0,

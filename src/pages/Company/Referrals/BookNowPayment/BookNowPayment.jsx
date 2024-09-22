@@ -31,11 +31,11 @@ const BookNowPayment = () => {
     redirectToAuth("/login");
     return null;
   }
-  const [name, setName] = useState([]);
-  const [phoneNumber, setPhoneNumber] = useState([]);
-  const [email, setEmail] = useState([]);
+  const [name, setName] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [email, setEmail] = useState("");
   const [resume, setResume] = useState("");
-  const [extraQuestions, setExtraQuestions] = useState([]);
+  const [extraQuestions, setExtraQuestions] = useState("");
   const [usePreviousResume, setUsePreviousResume] = useState(false);
   const [isResumePresent, setIsResumePresent] = useState(false);
   const [allMeetData, setAllMeetData] = useState([]);
@@ -267,6 +267,24 @@ const BookNowPayment = () => {
       valid = false;
       addToErrorStack("#resume");
     }
+
+    const isExtraQuestionsVisible =
+      meetingData.title === "Personalized Projects for Your Target Role" ||
+      meetingData.title === "Ask Anything Related to Engineering";
+
+    if (isExtraQuestionsVisible) {
+      if (!extraQuestions) {
+        newErrors.extraQuestions =
+          "This is required so our mentor can be well prepared for you";
+        valid = false;
+        addToErrorStack("#extraQuestions");
+      } else if (extraQuestions.length > 150) {
+        newErrors.extraQuestions =
+          "Questions should be at least 150 characters";
+        valid = false;
+        addToErrorStack("#extraQuestions");
+      }
+    }
     setErrors(newErrors);
     return valid;
   };
@@ -302,6 +320,7 @@ const BookNowPayment = () => {
             mobile: phoneNumber,
             email: email,
             resume: res?.data?.data,
+            extraQuestions: extraQuestions,
             startDateTime: startDateTimeISO,
             endDateTime: endDateTimeISO,
           };
@@ -333,10 +352,11 @@ const BookNowPayment = () => {
                 setSnackbarSeverity("success");
                 setSnackbarOpen(true);
                 setIsLoading(false);
-                setName([]);
-                setPhoneNumber([]);
-                setEmail([]);
-                setResume([]);
+                setName("");
+                setPhoneNumber("");
+                setEmail("");
+                setResume("");
+                setExtraQuestions("");
                 setClicked(true);
 
                 if (meetingData?.price === 0) {
@@ -672,16 +692,27 @@ const BookNowPayment = () => {
             className="mb-4"
           />
 
-          {/* <FormInput
-            label="Extra Questions you would like to cover"
-            id="extraQuestions"
-            name="extraQuestions"
-            placeholder="Enter your question"
-            value={extraQuestions}
-            setValue={setExtraQuestions}
-            helperText={errors.extraQuestions}
-            className="mb-4 w-100"
-          /> */}
+          {meetingData.title == "Personalized Projects for Your Target Role" ||
+          meetingData.title === "Ask Anything Related to Engineering" ? (
+            <FormInput
+              label={
+                meetingData.title === "Ask Anything Related to Engineering"
+                  ? "Drop your Query"
+                  : meetingData.title ===
+                    "Personalized Projects for Your Target Role"
+                  ? "Drop your current stack and role which you're targeting?"
+                  : "Here goes the question"
+              }
+              id="extraQuestions"
+              name="extraQuestions"
+              placeholder="Enter your answer"
+              constraint="Min 150 characters"
+              value={extraQuestions}
+              setValue={setExtraQuestions}
+              helperText={errors.extraQuestions}
+              className="mb-4"
+            />
+          ) : null}
 
           <div className="btn-confirm-details">
             <button
