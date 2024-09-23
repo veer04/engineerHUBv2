@@ -51,13 +51,29 @@ import NewFooter from "./components/Footer/NewFooter.jsx";
 const BookNow = lazy(() =>
   import("./pages/Company/Referrals/BookNow/BookNow.jsx")
 );
-import BookNowPayment from "./pages/Company/Referrals/BookNowPayment/BookNowPayment.jsx";
-import BookNowPaymentSuccess from "./pages/Company/Referrals/BookNowPaymentSuccess/BookNowPaymentSuccess.jsx";
-import CompanyWisePrep from "./pages/Company/Referrals/CompanyWisePrep/CompanyWisePrep.jsx";
-import PrepPayNow from "./pages/Company/Referrals/PrepPayNow/PrepPayNow";
-import BookNowSuccessProduct from "./pages/Company/Referrals/BookNowPaymentSuccess/BookNowSuccessProduct.jsx";
-import PaymentFailed from "./pages/Company/Referrals/PaymentFailed/PaymentFailed.jsx";
-// import PopUpModalBootstrap from "./components/PopUpModal/PopUpModalBootstrap.jsx";
+const BookNowPayment = lazy(() =>
+  import("./pages/Company/Referrals/BookNowPayment/BookNowPayment.jsx")
+);
+const BookNowPaymentSuccess = lazy(() =>
+  import(
+    "./pages/Company/Referrals/BookNowPaymentSuccess/BookNowPaymentSuccess.jsx"
+  )
+);
+const CompanyWisePrep = lazy(() =>
+  import("./pages/Company/Referrals/CompanyWisePrep/CompanyWisePrep.jsx")
+);
+const PrepPayNow = lazy(() =>
+  import("./pages/Company/Referrals/PrepPayNow/PrepPayNow")
+);
+const BookNowSuccessProduct = lazy(() =>
+  import(
+    "./pages/Company/Referrals/BookNowPaymentSuccess/BookNowSuccessProduct.jsx"
+  )
+);
+const PaymentFailed = lazy(() =>
+  import("./pages/Company/Referrals/PaymentFailed/PaymentFailed.jsx")
+);
+import ProfileDashboard from "./components/ProfileDashboard/ProfileDashboard.jsx";
 const DigitalProductAdminPage = lazy(() =>
   import("./pages/Admin/DigitalProductAdminPage.jsx")
 );
@@ -361,19 +377,11 @@ function App() {
             </Route>
           </Route>
 
+          <Route path="/profiledashboard" element={<ProfileDashboard />} />
+
           <Route path="*" element={<Page404 />} />
         </Routes>
       </Suspense>
-
-      {/* {location.pathname === "/referrals/book-now/:referralId" ||
-      location.pathname === "/referrals/book-now/payment" ||
-      location.pathname === "/referrals/book-now/payment/" ||
-      location.pathname === "/referrals/product-book-now/" ||
-      location.pathname === "/referrals/product-book-now" ||
-      location.pathname === "/referrals/product-book-now/payment" ||
-      location.pathname === "/referral/book-now" ? null : (
-        <NewFooter />
-      )} */}
       <NewFooter />
     </>
   );
