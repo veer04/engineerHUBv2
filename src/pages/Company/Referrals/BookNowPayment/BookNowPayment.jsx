@@ -320,7 +320,7 @@ const BookNowPayment = () => {
             mobile: phoneNumber,
             email: email,
             resume: res?.data?.data,
-            extraQuestions: extraQuestions,
+            query: extraQuestions,
             startDateTime: startDateTimeISO,
             endDateTime: endDateTimeISO,
           };
