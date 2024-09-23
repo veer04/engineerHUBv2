@@ -278,9 +278,9 @@ const BookNowPayment = () => {
           "This is required so our mentor can be well prepared for you";
         valid = false;
         addToErrorStack("#extraQuestions");
-      } else if (extraQuestions.length > 150) {
+      } else if (extraQuestions.length > 100) {
         newErrors.extraQuestions =
-          "Questions should be at least 150 characters";
+          "Questions should be at least 100 characters";
         valid = false;
         addToErrorStack("#extraQuestions");
       }
@@ -320,7 +320,7 @@ const BookNowPayment = () => {
             mobile: phoneNumber,
             email: email,
             resume: res?.data?.data,
-            extraQuestions: extraQuestions,
+            query: extraQuestions,
             startDateTime: startDateTimeISO,
             endDateTime: endDateTimeISO,
           };
@@ -734,7 +734,7 @@ const BookNowPayment = () => {
               id="extraQuestions"
               name="extraQuestions"
               placeholder="Enter your answer"
-              constraint="Min 150 characters"
+              constraint="Min 100 characters"
               value={extraQuestions}
               setValue={setExtraQuestions}
               helperText={errors.extraQuestions}

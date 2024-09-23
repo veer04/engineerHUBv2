@@ -40,6 +40,7 @@ const BookNow = () => {
   const [emblaRef, emblaApi] = useEmblaCarousel({ slidesToScroll: "auto" });
   const [emblaRef2, emblaApi2] = useEmblaCarousel({ slidesToScroll: "auto" });
 
+  console.log(meetingData, "meetingdatasingle");
   const {
     prevBtnDisabled,
     nextBtnDisabled,

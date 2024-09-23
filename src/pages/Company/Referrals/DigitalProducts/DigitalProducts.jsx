@@ -134,7 +134,7 @@ const DigitalProducts = ({ compName }) => {
           }}
           onClick={() => handleFilterChange("Cheatsheets")}
         >
-          Cheatsheet
+          Resume
         </button>
         <button
           style={{
@@ -148,7 +148,7 @@ const DigitalProducts = ({ compName }) => {
           }}
           onClick={() => handleFilterChange("Notes")}
         >
-          Notes
+          Resources
         </button>
       </div>
 
@@ -180,7 +180,7 @@ const DigitalProducts = ({ compName }) => {
             marginTop: "10px",
           }}
         >
-          <div className="button-container">
+          {/* <div className="button-container">
             <span className="view-btn">View more</span>
             <div className="icon-container">
               <img
@@ -189,7 +189,7 @@ const DigitalProducts = ({ compName }) => {
                 className="chevron-icon"
               />
             </div>
-          </div>
+          </div> */}
         </div>
       )}
     </div>
