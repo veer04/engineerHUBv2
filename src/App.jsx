@@ -73,6 +73,7 @@ const BookNowSuccessProduct = lazy(() =>
 const PaymentFailed = lazy(() =>
   import("./pages/Company/Referrals/PaymentFailed/PaymentFailed.jsx")
 );
+import ProfileDashboard from "./components/ProfileDashboard/ProfileDashboard.jsx";
 const DigitalProductAdminPage = lazy(() =>
   import("./pages/Admin/DigitalProductAdminPage.jsx")
 );
@@ -375,6 +376,8 @@ function App() {
               <Route index element={<DigitalProductAdminPage />} />
             </Route>
           </Route>
+
+          <Route path="/profiledashboard" element={<ProfileDashboard />} />
 
           <Route path="*" element={<Page404 />} />
         </Routes>
