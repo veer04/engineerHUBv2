@@ -11,13 +11,38 @@ const ConnectWithUs = ({ compName }) => {
   const [allMeetData, setAllMeetData] = useState([]);
   const [activeFilter, setActiveFilter] = useState("All");
 
+  const customOrder = [
+    "Personalized Projects for Your Target Role",
+    "Resume Writing",
+    "Ask Anything Related to Engineering",
+    "Internship / Job Search & Strategy Guide",
+    "Resume + Career Guidance | Referral (Exp: 0-2 years)",
+    "1:1 Consultation Calls for Freelancers",
+    "Resume + Career Guidance | Referral (Exp: 2+ years)",
+    "Placement Preparation Roadmap for 2025",
+    "Internship / Job Search & Strategy Guide",
+  ];
+
+  const sortDataByCustomOrder = (data) => {
+    return data.sort((a, b) => {
+      const indexA = customOrder.indexOf(a.title);
+      const indexB = customOrder.indexOf(b.title);
+
+      return (
+        (indexA === -1 ? data.length : indexA) -
+        (indexB === -1 ? data.length : indexB)
+      );
+    });
+  };
+
   const getAllOpenMeet = async () => {
     try {
       const response = await fetch(`${PAYMENT_API_URL}api/v1/meet/open`);
 
       if (response.ok) {
         const data = await response.json();
-        setAllMeetData(data?.data);
+        const sortedData = sortDataByCustomOrder(data.data);
+        setAllMeetData(sortedData);
 
         console.log(data, "getallmeetdata");
       } else {
@@ -32,7 +57,7 @@ const ConnectWithUs = ({ compName }) => {
     getAllOpenMeet();
   }, []);
 
-  const rating = [5, 4.5, 4.5];
+  const rating = [5, 5, 4.5, 5, 4.7];
   const popular = ["Popular", "Popular", "", "Popular", ""];
 
   useEffect(() => {
@@ -54,8 +79,15 @@ const ConnectWithUs = ({ compName }) => {
     switch (filterConnects) {
       case "All":
         return allMeetData;
-      case "Job Referrals":
-        return allMeetData.filter((card) => card.type === "Job Referral");
+      // case "Job Referrals":
+      //   return allMeetData.filter((card) => card.type === "Job Referral");
+      case "Referrals":
+        return allMeetData.filter(
+          (card) =>
+            card.title ===
+              "Resume + Career Guidance | Referral (Exp: 0-2 years)" ||
+            card.title === "Resume + Career Guidance | Referral (Exp: 2+ years)"
+        );
       case "1:1 Connect":
         return allMeetData.filter((card) => card.type === "1:1 Connect");
       case "Mock Interview":
@@ -85,7 +117,7 @@ const ConnectWithUs = ({ compName }) => {
         >
           All
         </button>
-        <button
+        {/* <button
           style={{
             backgroundColor:
               activeFilter === "Job Referrals" ? "#138382" : "#f2f4f5",
@@ -99,6 +131,21 @@ const ConnectWithUs = ({ compName }) => {
           onClick={() => handleFilter("Job Referrals")}
         >
           Job Referrals
+        </button> */}
+        <button
+          style={{
+            backgroundColor:
+              activeFilter === "Referrals" ? "#138382" : "#f2f4f5",
+            color: activeFilter === "Referrals" ? "white" : "#002b36",
+            padding: "4px 16px",
+            borderRadius: "10px",
+            border: "none",
+            marginRight: "10px",
+            marginBottom: "10px",
+          }}
+          onClick={() => handleFilter("Referrals")}
+        >
+          Referrals
         </button>
         <button
           style={{
