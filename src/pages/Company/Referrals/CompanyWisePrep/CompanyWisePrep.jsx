@@ -37,8 +37,6 @@ const CompanyWisePrep = () => {
     };
   }, []);
 
-  console.log(booknowId, "booknowid");
-
   const handleImageLoad = () => {
     setIsLoading(false); // Set loading to false when the image loads
   };
@@ -57,7 +55,9 @@ const CompanyWisePrep = () => {
       };
 
       const { data } = await axios.get(
-        `${PAYMENT_API_URL}api/v1/course/${booknowId}`,
+        `${PAYMENT_API_URL}api/v1/course?_id=${booknowId}&ehub_referral=${
+          location?.search?.split("ref=")[1]?.split("&")[0] || ""
+        }`,
         config
       );
 
@@ -81,7 +81,14 @@ const CompanyWisePrep = () => {
         <div className="prep-goback-div">
           <div className="goback-btn">
             <img src="/chevro-left.svg" alt="" />
-            <Link to={"/referrals"} className="goback-button-link">
+            <Link
+              to={`/referrals${
+                location.search.includes("ref")
+                  ? `?ref=${location?.search?.split("ref=")[1]?.split("&")[0]}`
+                  : ``
+              }`}
+              className="goback-button-link"
+            >
               Go Back
             </Link>
           </div>
@@ -275,9 +282,16 @@ const CompanyWisePrep = () => {
           <div>
             <button
               onClick={() =>
-                navigate("/referrals/product-book-now/payment", {
-                  state: { singleProductData, rating },
-                })
+                navigate(
+                  `/referrals/product-book-now/payment${
+                    location.search.includes("ref")
+                      ? `?ref=${location?.search?.split("ref=")[1]?.split("&")[0]}`
+                      : ``
+                  }`,
+                  {
+                    state: { singleProductData, rating },
+                  }
+                )
               }
               type="submit"
               style={{

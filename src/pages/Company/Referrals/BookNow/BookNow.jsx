@@ -73,7 +73,9 @@ const BookNow = () => {
     const fetchMeetingData = async () => {
       try {
         const response = await fetch(
-          `${PAYMENT_API_URL}api/v1/meet/${referralId}`
+          `${PAYMENT_API_URL}api/v1/meet?_id=${referralId}&ehub_referral=${
+            location?.search?.split("ref=")[1]?.split("&")[0] || ""
+          }`
         );
 
         if (response.ok) {
@@ -406,16 +408,23 @@ const BookNow = () => {
     localStorage.setItem("selectedDates", JSON.stringify(selectedDates));
     localStorage.setItem("selectedTime", JSON.stringify(selectedTime));
     localStorage.setItem("meetingData", JSON.stringify(meetingData));
-    navigate("/referrals/book-now/payment/", {
-      state: {
-        selectedDates,
-        selectedTime,
-        meetingData,
-        startDateTimeISO,
-        endDateTimeISO,
-        rating,
-      },
-    });
+    navigate(
+      `/referrals/book-now/payment${
+        location.search.includes("ref")
+          ? `?ref=${location?.search?.split("ref=")[1]?.split("&")[0]}`
+          : ``
+      }`,
+      {
+        state: {
+          selectedDates,
+          selectedTime,
+          meetingData,
+          startDateTimeISO,
+          endDateTimeISO,
+          rating,
+        },
+      }
+    );
   };
 
   // i am re-creating the date and time slot booking part from here because previous one got too confusing
@@ -566,7 +575,14 @@ const BookNow = () => {
         <div className="top-goback-div">
           <div className="goback-btn">
             <img src="/chevro-left.svg" alt="" />
-            <Link to={"/referrals"} className="goback-button-link">
+            <Link
+              to={`/referrals${
+                location.search.includes("ref")
+                  ? `?ref=${location?.search?.split("ref=")[1]?.split("&")[0]}`
+                  : ``
+              }`}
+              className="goback-button-link"
+            >
               Go Back
             </Link>
           </div>
