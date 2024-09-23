@@ -56,7 +56,7 @@ const CompanyWisePrep = () => {
 
       const { data } = await axios.get(
         `${PAYMENT_API_URL}api/v1/course?_id=${booknowId}&ehub_referral=${
-          location.search.split("ref=")[1].split("&")[0] || ""
+          location?.search?.split("ref=")[1]?.split("&")[0] || ""
         }`,
         config
       );
@@ -84,7 +84,7 @@ const CompanyWisePrep = () => {
             <Link
               to={`/referrals${
                 location.search.includes("ref")
-                  ? `?ref=${location.search.split("ref=")[1].split("&")[0]}`
+                  ? `?ref=${location?.search?.split("ref=")[1]?.split("&")[0]}`
                   : ``
               }`}
               className="goback-button-link"
@@ -285,7 +285,7 @@ const CompanyWisePrep = () => {
                 navigate(
                   `/referrals/product-book-now/payment${
                     location.search.includes("ref")
-                      ? `?ref=${location.search.split("ref=")[1].split("&")[0]}`
+                      ? `?ref=${location?.search?.split("ref=")[1]?.split("&")[0]}`
                       : ``
                   }`,
                   {

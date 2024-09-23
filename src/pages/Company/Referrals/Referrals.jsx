@@ -47,7 +47,7 @@ const Referrals = () => {
             <HashLink
               to={`/referrals#referral-section${
                 location.search.includes("ref")
-                  ? `?ref=${location.search.split("ref=")[1].split("&")[0]}`
+                  ? `?ref=${location?.search?.split("ref=")[1]?.split("&")[0]}`
                   : ``
               }`}
             >
@@ -57,7 +57,7 @@ const Referrals = () => {
             <HashLink
               to={`/referrals#digital-product${
                 location.search.includes("ref")
-                  ? `?ref=${location.search.split("ref=")[1].split("&")[0]}`
+                  ? `?ref=${location?.search?.split("ref=")[1]?.split("&")[0]}`
                   : ``
               }`}
             >

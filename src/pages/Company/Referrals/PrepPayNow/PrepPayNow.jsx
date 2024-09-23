@@ -168,7 +168,7 @@ const PrepPayNow = () => {
                 `${PAYMENT_API_URL}api/v1/course-purchase/confirmation?coursePurchaseRequestId=${
                   data?.data?.coursePurchaseRequestId
                 }&ehub_referral=${
-                  location.search.split("ref=")[1].split("&")[0] || ""
+                  location?.search?.split("ref=")[1]?.split("&")[0] || ""
                 }`,
                 {
                   headers: {
@@ -196,7 +196,9 @@ const PrepPayNow = () => {
                   setSnackbarSeverity("success");
                   window.location.href = `/referrals/product-book-now/payment/success${
                     location.search.includes("ref")
-                      ? `?ref=${location.search.split("ref=")[1].split("&")[0]}`
+                      ? `?ref=${
+                          location?.search?.split("ref=")[1]?.split("&")[0]
+                        }`
                       : ``
                   }`;
                 }
@@ -229,14 +231,14 @@ const PrepPayNow = () => {
       currency: "INR",
       callback_url: `${FRONTEND_URL}referrals/product-book-now/payment/success${
         location.search.includes("ref")
-          ? `?ref=${location.search.split("ref=")[1].split("&")[0]}`
+          ? `?ref=${location?.search?.split("ref=")[1]?.split("&")[0]}`
           : ``
       }`,
       callback_method: "get",
       platform: "course",
       coursePurchaseRequestId: productData?.coursePurchaseRequestId,
       ehub_referral: location.search.includes("ref")
-        ? location.search.split("ref=")[1].split("&")[0]
+        ? location?.search?.split("ref=")[1]?.split("&")[0]
         : "",
     };
 

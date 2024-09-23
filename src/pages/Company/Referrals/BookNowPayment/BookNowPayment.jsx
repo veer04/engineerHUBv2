@@ -27,8 +27,9 @@ import { patchResume } from "../../../../services/APIConfig";
 import PaymentRedirectPopup from "./PaymentRedirectPopup";
 
 const BookNowPayment = () => {
+  const location = useLocation();
   if (!isUserLoggedIn()) {
-    redirectToAuth("/login");
+    redirectToAuth("/login", `${location.pathname}${location.search}`);
     return null;
   }
   const [name, setName] = useState("");
@@ -49,7 +50,6 @@ const BookNowPayment = () => {
   const [clicked, setClicked] = useState(false);
 
   // location.state.startDateTimeISO || JSON.parse(localStorage.getItem("startDateTimeISO"));
-  const location = useLocation();
   const { startDateTimeISO, endDateTimeISO, rating } = location.state || {};
 
   const [selectedDates, setSelectedDates] = useState(() => {
@@ -365,7 +365,7 @@ const BookNowPayment = () => {
                       `${PAYMENT_API_URL}api/v1/meet-event/book?meetRegistrationId=${
                         data?.data?.meetRegistrationId
                       }&ehub_referral=${
-                        location.search.split("ref=")[1].split("&")[0] || ""
+                        location?.search?.split("ref=")[1]?.split("&")[0] || ""
                       }`,
                       {},
                       {
@@ -539,18 +539,18 @@ const BookNowPayment = () => {
       const payload = {
         amount: totalPrice,
         currency: "INR",
-        callback_url: `${FRONTEND_URL}referrals/book-now/payment/success?date=${selectedDates}&time=${selectedTime}${
-          location.search.includes("ref")
-            ? `?ref=${location.search.split("ref=")[1].split("&")[0]}`
-            : ``
-        }`,
+        callback_url: `${FRONTEND_URL}referrals/book-now/payment/success?date=${selectedDates}&time=${selectedTime}`,
         callback_method: "get",
         platform: "meet",
         meetRegistrationId: meetId?.meetRegistrationId,
-        ehub_referral: location.search.includes("ref")
-          ? location.search.split("ref=")[1].split("&")[0]
-          : "",
       };
+      const ehubReferral = location.search.includes("ref")
+        ? location?.search?.split("ref=")[1]?.split("&")[0]
+        : null;
+
+      if (ehubReferral) {
+        payload.ehub_referral = ehubReferral;
+      }
 
       const response = await axios.post(
         `${PAYMENT_API_URL}api/v1/razorpay/createPaymentLink`,
@@ -593,7 +593,7 @@ const BookNowPayment = () => {
             <Link
               to={`/referrals${
                 location.search.includes("ref")
-                  ? `?ref=${location.search.split("ref=")[1].split("&")[0]}`
+                  ? `?ref=${location?.search?.split("ref=")[1]?.split("&")[0]}`
                   : ``
               }`}
               className="goback-button-link"
@@ -643,7 +643,9 @@ const BookNowPayment = () => {
                 navigate(
                   `/referrals/book-now/${meetingData._id}${
                     location.search.includes("ref")
-                      ? `?ref=${location.search.split("ref=")[1].split("&")[0]}`
+                      ? `?ref=${
+                          location?.search?.split("ref=")[1]?.split("&")[0]
+                        }`
                       : ``
                   }`
                 )

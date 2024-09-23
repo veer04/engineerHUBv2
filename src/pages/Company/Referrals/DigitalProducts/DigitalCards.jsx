@@ -21,7 +21,7 @@ const DigitalCards = ({
     navigate(
       `/referrals/product-book-now/${id}${
         location.search.includes("ref")
-          ? `?ref=${location.search.split("ref=")[1].split("&")[0]}`
+          ? `?ref=${location?.search?.split("ref=")[1]?.split("&")[0]}`
           : ``
       }`,
       {

@@ -74,7 +74,7 @@ const BookNow = () => {
       try {
         const response = await fetch(
           `${PAYMENT_API_URL}api/v1/meet?_id=${referralId}&ehub_referral=${
-            location.search.split("ref=")[1].split("&")[0] || ""
+            location?.search?.split("ref=")[1]?.split("&")[0] || ""
           }`
         );
 
@@ -411,7 +411,7 @@ const BookNow = () => {
     navigate(
       `/referrals/book-now/payment${
         location.search.includes("ref")
-          ? `?ref=${location.search.split("ref=")[1].split("&")[0]}`
+          ? `?ref=${location?.search?.split("ref=")[1]?.split("&")[0]}`
           : ``
       }`,
       {
@@ -578,7 +578,7 @@ const BookNow = () => {
             <Link
               to={`/referrals${
                 location.search.includes("ref")
-                  ? `?ref=${location.search.split("ref=")[1].split("&")[0]}`
+                  ? `?ref=${location?.search?.split("ref=")[1]?.split("&")[0]}`
                   : ``
               }`}
               className="goback-button-link"
