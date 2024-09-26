@@ -1,0 +1,25 @@
+.recommendation-card1-main {
+  background-color: #fefbf2;
+  padding: 12px;
+  border-radius: 15px;
+  width: 324px;
+  min-width: 324px;
+  height: auto;
+  margin-top: 16px;
+}
+
+.recommendation-card1-main .icon-section-recommended-1 {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+}
+
+.recommendation-card1-main
+  .icon-section-recommended-1
+  .absolute-position-amazon {
+  position: absolute;
+  right: 0px;
+  bottom: 0px;
+  border: 1px solid gray;
+  border-radius: 50%;
+}

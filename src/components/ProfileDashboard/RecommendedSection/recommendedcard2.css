@@ -1,0 +1,15 @@
+.recommendation-card-main2 {
+  background-color: #ecf9e1;
+  padding: 12px;
+  border-radius: 15px;
+  width: 324px;
+  min-width: 324px;
+  height: auto;
+  margin-top: 16px;
+}
+
+.call-duration-div {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 43px;
+}
