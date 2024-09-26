@@ -4,6 +4,7 @@ import ProfileWithPostEditShare from "./ProfileWithPostEditShare/ProfileWithPost
 import ProfileCompletionSection from "./ProfileCompletionSection/ProfileCompletionSection";
 import RecommendedSection from "./RecommendedSection/RecommendedSection";
 import PerformanceSection from "./PerformanceSection/PerformanceSection";
+import HostPageForProfileDashboard from "./HostpageForProfileDashboard/HostPageForProfileDashboard";
 
 const ProfileDashboard = () => {
   return (
@@ -27,7 +28,13 @@ const ProfileDashboard = () => {
 
           <div className="main-profile-dashboard-right">
             <RecommendedSection />
-            <PerformanceSection />
+            <div style={{ marginTop: 15 }}>
+              <PerformanceSection />
+            </div>
+
+            <div style={{ marginTop: 15 }}>
+              <HostPageForProfileDashboard />
+            </div>
           </div>
         </div>
       </main>
