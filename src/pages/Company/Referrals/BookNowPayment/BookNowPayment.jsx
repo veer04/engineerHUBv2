@@ -544,18 +544,14 @@ const BookNowPayment = () => {
         platform: "meet",
         meetRegistrationId: meetId?.meetRegistrationId,
       };
-      console.log(payload, "payload");
       const ehubReferral = location.search.includes("ref")
         ? location?.search?.split("ref=")[1]?.split("&")[0]
         : null;
-      console.log(ehubReferral, "ehubReferral");
+
       if (ehubReferral) {
-        console.log("inside if");
         payload.ehub_referral = ehubReferral;
       }
-      // wait here for 15 seconds
-      await new Promise((resolve) => setTimeout(resolve, 15000));
-      console.log("after 15 seconds");
+
       const response = await axios.post(
         `${PAYMENT_API_URL}api/v1/razorpay/createPaymentLink`,
 

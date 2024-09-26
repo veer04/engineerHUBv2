@@ -237,10 +237,14 @@ const PrepPayNow = () => {
       callback_method: "get",
       platform: "course",
       coursePurchaseRequestId: productData?.coursePurchaseRequestId,
-      ehub_referral: location.search.includes("ref")
-        ? location?.search?.split("ref=")[1]?.split("&")[0]
-        : "",
     };
+    const ehubReferral = location.search.includes("ref")
+      ? location?.search?.split("ref=")[1]?.split("&")[0]
+      : "";
+
+    if (ehubReferral) {
+      payload.ehub_referral = ehubReferral;
+    }
 
     const response = await axios.post(
       `${PAYMENT_API_URL}api/v1/razorpay/createPaymentLink`,
