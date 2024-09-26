@@ -1,0 +1,31 @@
+.recommended-main-section-div {
+  width: 100%;
+  height: auto;
+  padding: 16px;
+  border-radius: 10px;
+  background-color: white;
+}
+
+.recommended-main-section-div .recommendation-cards-saif {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  width: 100%;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+}
+
+.recommended-main-section-div .recommendation-cards-saif::-webkit-scrollbar {
+  height: 0px;
+}
+
+.recommended-main-section-div
+  .recommendation-cards-saif::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 4px;
+}
+
+.recommended-main-section-div
+  .recommendation-cards-saif::-webkit-scrollbar-track {
+  background-color: #f1f1f1;
+}
