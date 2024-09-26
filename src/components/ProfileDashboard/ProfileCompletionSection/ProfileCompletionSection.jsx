@@ -25,7 +25,7 @@ const ProfileCompletionSection = () => {
             fontStyle: "normal",
             color: "#002B36",
             marginBottom: 0,
-            color: "#DA1E28",
+            // color: "#DA1E28",
             textAlign: "center",
             marginTop: 5,
           }}
