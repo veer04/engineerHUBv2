@@ -257,7 +257,11 @@ export default function JobBoardRow({
       </div>
       <div className="table-item table-content table-content-6">
         <p title={data?.experience} className="body-sm-regular text-crop-2">
-          {!!data?.experience ? `${data?.experience} yrs` : ""}
+          {data?.experience > 0
+            ? data?.experience === 1
+              ? `${data?.experience} year`
+              : `${data?.experience} years`
+            : ""}
         </p>
       </div>
       <div className="table-item table-content table-content-7">
