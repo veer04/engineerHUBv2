@@ -9,8 +9,8 @@ import { useQueryClient } from "@tanstack/react-query";
 
 export default function JobBoardRow({
   data,
-  selectedJobs,
-  setSelectedJobs,
+  selectedRows,
+  setSelectedRows,
   isAnyRowUpdating,
   setIsAnyRowUpdating,
   isDataFetching,
@@ -43,10 +43,10 @@ export default function JobBoardRow({
   };
 
   function handleSelectApplicant() {
-    if (selectedJobs.some((job) => job?._id === data?._id)) {
-      setSelectedJobs(selectedJobs.filter((job) => job?._id !== data?._id));
+    if (selectedRows.some((job) => job?._id === data?._id)) {
+      setSelectedRows(selectedRows.filter((job) => job?._id !== data?._id));
     } else {
-      setSelectedJobs([...selectedJobs, data]);
+      setSelectedRows([...selectedRows, data]);
     }
   }
 
@@ -194,7 +194,7 @@ export default function JobBoardRow({
           type="checkbox"
           name={`item-name-${data?._id}`}
           id={`item-id-${data?._id}`}
-          checked={selectedJobs.some((job) => job?._id === data?._id)}
+          checked={selectedRows.some((job) => job?._id === data?._id)}
           onChange={() => handleSelectApplicant()}
         />
       </div>

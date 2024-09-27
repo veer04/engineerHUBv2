@@ -28,7 +28,7 @@ export default function JobBoard() {
   const [boardDataRows, setBoardDataRows] = useState([]);
   const [pageCount, setPageCount] = useState(1);
   const [experience, setExperience] = useState("");
-  const [selectedJobs, setSelectedJobs] = useState([]);
+  const [selectedRows, setSelectedRows] = useState([]);
   const [progress, setProgress] = useState(0);
   const [isDownloading, setIsDownloading] = useState(false);
   const [isAnyRowUpdating, setIsAnyRowUpdating] = useState(false); // if any row is updating, then disable the download button
@@ -132,7 +132,7 @@ export default function JobBoard() {
   }, [boardData]);
 
   const handleDownload = async () => {
-    if (selectedJobs.length === 0) {
+    if (selectedRows.length === 0) {
       setSnackbarMessage("Please select at least one applicant");
       setSnackbarSeverity("error");
       setSnackbarDuration(3000);
@@ -140,10 +140,26 @@ export default function JobBoard() {
       return;
     }
     setIsDownloading(true);
+    const applicantsData = selectedRows.map((applicant) => ({
+      Name: `${applicant?.firstName}${
+        applicant?.lastName ? ` ${applicant?.lastName}` : ""
+      }`,
+      Skills: applicant?.skills?.split(",")?.join(", "),
+      College: applicant?.college,
+      Batch: applicant?.batch,
+      Exp: `${
+        applicant?.experience > 0
+          ? applicant?.experience === 1
+            ? `${applicant?.experience} year`
+            : `${applicant?.experience} years`
+          : "Fresher"
+      }`,
+      "Resume Link": applicant?.resumeUrl,
+    }));
     await axios({
       url: `${API_URL}api/v1/hiringDashboard/downloadApplicantDetails`,
       data: {
-        data: selectedJobs,
+        data: applicantsData,
       },
       method: "POST",
       responseType: "blob", // important
@@ -190,7 +206,7 @@ export default function JobBoard() {
   };
 
   function shortlistApplicants() {
-    const shortlistedApplicants = selectedJobs.map((job) => ({
+    const shortlistedApplicants = selectedRows.map((job) => ({
       registrationId: job?._id,
       status: "Shortlisted",
     }));
@@ -209,7 +225,7 @@ export default function JobBoard() {
           queryKey: ["Jobs", "board"],
         });
         console.log(res);
-        setSelectedJobs([]);
+        setSelectedRows([]);
       })
       .catch((err) => {
         console.log(err);
@@ -217,7 +233,7 @@ export default function JobBoard() {
   }
 
   function rejectApplicants() {
-    const rejectedApplicants = selectedJobs.map((job) => ({
+    const rejectedApplicants = selectedRows.map((job) => ({
       registrationId: job?._id,
       status: "Rejected",
     }));
@@ -236,7 +252,7 @@ export default function JobBoard() {
           queryKey: ["Jobs", "board"],
         });
         console.log(res);
-        setSelectedJobs([]);
+        setSelectedRows([]);
       })
       .catch((err) => {
         console.log(err);
@@ -244,7 +260,7 @@ export default function JobBoard() {
   }
 
   function uncategorizeApplicants() {
-    const uncategorizedApplicants = selectedJobs.map((job) => ({
+    const uncategorizedApplicants = selectedRows.map((job) => ({
       registrationId: job?._id,
       status: "Uncategorized",
     }));
@@ -263,7 +279,7 @@ export default function JobBoard() {
           queryKey: ["Jobs", "board"],
         });
         console.log(res);
-        setSelectedJobs([]);
+        setSelectedRows([]);
       })
       .catch((err) => {
         console.log(err);
@@ -481,12 +497,12 @@ export default function JobBoard() {
                 name="selectAll"
                 id="selectAll"
                 checked={
-                  selectedJobs.length === boardDataRows.length &&
+                  selectedRows.length === boardDataRows.length &&
                   boardDataRows.length !== 0
                 }
                 onChange={() => {
-                  setSelectedJobs(
-                    selectedJobs.length === boardDataRows.length
+                  setSelectedRows(
+                    selectedRows.length === boardDataRows.length
                       ? []
                       : boardDataRows
                   );
@@ -494,7 +510,7 @@ export default function JobBoard() {
               />
               <label htmlFor="selectAll body-sm-regular">
                 Select All{" "}
-                {`(${selectedJobs.length}/${
+                {`(${selectedRows.length}/${
                   boardData?.data?.data?.data?.applicants?.length || 0
                 })`}
               </label>
@@ -702,8 +718,8 @@ export default function JobBoard() {
               <JobBoardRow
                 key={item?._id}
                 data={item}
-                selectedJobs={selectedJobs}
-                setSelectedJobs={setSelectedJobs}
+                selectedRows={selectedRows}
+                setSelectedRows={setSelectedRows}
                 isAnyRowUpdating={isAnyRowUpdating}
                 setIsAnyRowUpdating={setIsAnyRowUpdating}
                 isDataFetching={boardData.isFetching}
