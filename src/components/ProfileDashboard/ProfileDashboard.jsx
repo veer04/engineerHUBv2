@@ -5,6 +5,7 @@ import ProfileCompletionSection from "./ProfileCompletionSection/ProfileCompleti
 import RecommendedSection from "./RecommendedSection/RecommendedSection";
 import PerformanceSection from "./PerformanceSection/PerformanceSection";
 import HostPageForProfileDashboard from "./HostpageForProfileDashboard/HostPageForProfileDashboard";
+import YourActivitySection from "./YourActivitySection/YourActivitySection";
 
 const ProfileDashboard = () => {
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 520);
@@ -50,6 +51,10 @@ const ProfileDashboard = () => {
 
             <div style={{ marginTop: 15 }}>
               <HostPageForProfileDashboard />
+            </div>
+
+            <div style={{ marginTop: 15 }}>
+              <YourActivitySection />
             </div>
           </div>
         </div>
