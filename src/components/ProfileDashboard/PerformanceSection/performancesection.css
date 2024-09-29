@@ -48,3 +48,24 @@
   align-items: center;
   justify-content: center;
 }
+
+@media screen and (max-width: 520px) {
+  .performance-section-main-div .analytics-boxes-div {
+    margin-top: 10px;
+    display: grid;
+    gap: 16px;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .performance-section-main-div .analytics-boxes-div .analytics-box-1 {
+    width: 160px;
+  }
+
+  .performance-section-main-div .analytics-boxes-div .analytics-box-2 {
+    width: 160px;
+  }
+
+  .performance-section-main-div .analytics-boxes-div .analytics-box-3 {
+    width: 160px;
+  }
+}
