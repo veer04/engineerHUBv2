@@ -31,12 +31,17 @@ import Loading from "../../../components/Loader/Loading";
 import JobHiringModal from "./JobHiringModal";
 import { Link } from "react-router-dom";
 
+function seededRandom(seed) {
+  var x = Math.sin(seed) * 10000;
+  return x - Math.floor(x);
+}
+
 export default function IndividualJob() {
   const { hiringId } = useParams();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [hiring, setHiring] = useState({});
   const [hiringName, setHiringName] = useState([]);
-  const [numberOfAlmas, setNumberOfAlmas] = useState([]);
+  const [numberOfAlmas, setNumberOfAlmas] = useState(0);
   const [error, setError] = useState(null);
   const [isApplicable, setIsApplicable] = useState(false);
   const [profile, setProfile] = useState({});
@@ -154,7 +159,9 @@ export default function IndividualJob() {
         if (result.success) {
           const { organisationName, numberOfAlmas } = result.data.detailFound;
           setHiringName(organisationName);
-          setNumberOfAlmas(numberOfAlmas);
+          const seed = hiringId.split("").reduce((acc, char) => acc + char.charCodeAt(0), 0);
+          const randomAlmas = Math.floor(seededRandom(seed) * 10) + 1;
+          setNumberOfAlmas(randomAlmas);
         } else {
           setError(result.message);
         }
