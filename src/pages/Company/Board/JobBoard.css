@@ -78,6 +78,27 @@
   border-radius: 50%;
   background: rgba(22, 133, 132, 0.1);
 }
+.crm-board .main-container .categories-container .download-container {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+.crm-board
+  .main-container
+  .categories-container
+  .download-container
+  .send-mail-btn {
+  border-radius: 0.3125rem;
+  background: #1383821a;
+  padding: 0.62rem;
+  color: #138382;
+  border: none;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
 .crm-board
   .main-container
   .categories-container
