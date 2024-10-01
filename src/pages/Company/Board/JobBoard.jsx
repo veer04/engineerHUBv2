@@ -368,7 +368,7 @@ export default function JobBoard() {
         : "Uncategorized";
     await axios
       .post(
-        `https://7764-52-66-146-44.ngrok-free.app/api/v1/hiringDashboard/sendCrmEmail`,
+        `${API_URL}api/v1/hiringDashboard/sendCrmEmail`,
         {
           hiringId: id,
           subject,
@@ -376,12 +376,7 @@ export default function JobBoard() {
           status: applicantsNextStatus,
           registration_ids: selectedRows.map((job) => job?._id),
         },
-        {
-          headers: {
-            accessToken: getAccessToken(),
-            "ngrok-skip-browser-warning": "6969",
-          },
-        }
+        config
       )
       .then((res) => {
         console.log(res);
