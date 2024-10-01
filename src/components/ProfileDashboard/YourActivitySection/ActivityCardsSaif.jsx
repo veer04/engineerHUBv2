@@ -1,6 +1,6 @@
 import React from "react";
 import "./activitycardssaif.css";
-import ActivityCardSmallBox from "./activitycardSmallBox";
+import ActivityCardSmallBox from "./ActivityCardSmallBox";
 
 const ActivityCardsSaif = () => {
   const smallBoxesArray = Array.from({ length: 31 }, (_, index) => index + 1);
