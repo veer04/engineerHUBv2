@@ -6,7 +6,7 @@ import { RiInboxArchiveLine } from "react-icons/ri";
 import Loading from "../../../components/Loader/Loading";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
-import { API_URL } from "../../../services/APIUtils";
+import { API_URL, EDITOR_API_KEY } from "../../../services/APIUtils";
 import { Helmet } from "react-helmet";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import moment from "moment";
@@ -16,6 +16,7 @@ import PaginationBarWithSearchParams from "../../../components/PaginationBarWith
 import useGlobalSnackbar from "../../../hooks/useGlobalSnackbar";
 import FormInput from "../../../components/FormInputs/FormInput";
 import FormInputTextarea from "../../../components/FormInputs/FormInputTextarea";
+import { Editor } from "@tinymce/tinymce-react";
 
 export default function JobBoard() {
   const navigate = useNavigate();
@@ -28,6 +29,7 @@ export default function JobBoard() {
     exp: "",
   });
   const ref = useRef(null);
+  const editorRef = useRef(null);
   const [boardDataRows, setBoardDataRows] = useState([]);
   const [pageCount, setPageCount] = useState(1);
   const [experience, setExperience] = useState("");
@@ -342,15 +344,11 @@ export default function JobBoard() {
       errors.message = "Message is required";
       isValid = false;
       addToErrorStack("#message");
-    } else if (message.length < 3) {
-      errors.message = "Message should be minimum 3 characters";
+    } else if (message.length < 10) {
+      errors.message = "Message should be minimum 10 characters";
       isValid = false;
       addToErrorStack("#message");
-    } else if (message.length > 1000) {
-      errors.message = "Message should be maximum 1000 characters";
-      isValid = false;
-      addToErrorStack("#message");
-    }
+    } 
 
     setErrors(errors);
     handleFormErrors();
@@ -460,7 +458,10 @@ export default function JobBoard() {
                 setValue={setSubject}
                 helperText={errors.subject}
               />
-              <FormInputTextarea
+              <label htmlFor={message} style={{ fontSize: "14px", fontWeight: "500", margin: "0", padding: "0"  }} >
+                Message <span style={{ color: "red", fontSize: "14px"  }}>*</span>
+              </label>
+              {/* <FormInputTextarea
                 id="message"
                 name="message"
                 label="Message"
@@ -471,7 +472,50 @@ export default function JobBoard() {
                 value={message}
                 setValue={setMessage}
                 helperText={errors.message}
-              />
+              /> */}
+              <div className="mb-4">
+                <Editor
+                  apiKey={EDITOR_API_KEY}
+                  value={message}
+                  onEditorChange={(content) => {
+                    setMessage(content);
+                  }}
+                  onInit={(_evt, editor) => (editorRef.current = editor)}
+                  initialValue=""
+                  init={{
+                    height: 500,
+                    menubar: "file",
+                    plugins: [
+                      "advlist",
+                      "autolink",
+                      "lists",
+                      "link",
+                      "image",
+                      "charmap",
+                      "preview",
+                      "anchor",
+                      "searchreplace",
+                      "visualblocks",
+                      "code",
+                      "fullscreen",
+                      "insertdatetime",
+                      "media",
+                      "table",
+                      "code",
+                      "help",
+                      "wordcount",
+                    ],
+                    toolbar:
+                      "undo redo" +
+                      "bold italic forecolor | alignleft aligncenter " +
+                      "alignright alignjustify | bullist numlist outdent indent | " +
+                      "removeformat",
+                    content_style:
+                      "body { font-family:Inter,Helvetica,Arial,sans-serif; font-size:14px }",
+                  }}
+                />
+                {/* <button onClick={log}>Log editor content</button> */}
+              </div>
             </div>
             <div className="modal-footer">
               <button
