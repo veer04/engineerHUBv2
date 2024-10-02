@@ -20,7 +20,7 @@ export default function JobHiringModal({
   setHiring,
 }) {
   const ref = useRef(null);
-  const [skillsRequired, setSkillsRequired] = useState([]);
+  const [skillsRequired, setSkillsRequired] = useState("");
   const [college, setCollege] = useState("");
   const [passOutYear, setPassOutYear] = useState("");
   const [experience, setExperience] = useState(0);
@@ -86,7 +86,7 @@ export default function JobHiringModal({
       resume: "",
     };
 
-    if (skillsRequired.length === 0) {
+    if (!skillsRequired) {
       errors.skillsRequired = "Skills are required";
       isValid = false;
       addToErrorStack("#skillsRequired");
@@ -163,7 +163,7 @@ export default function JobHiringModal({
   function submitData(resumeLink) {
     const data = {
       hiringId,
-      skills: skillsRequired.join(","),
+      skills: skillsRequired,
       college,
       batch: passOutYear,
       experience: experience.value,
@@ -247,7 +247,7 @@ export default function JobHiringModal({
   }
 
   function handleClear() {
-    setSkillsRequired([]);
+    setSkillsRequired("");
     setCollege("");
     setPassOutYear("");
     setExperience(0);
@@ -285,12 +285,12 @@ export default function JobHiringModal({
             ></button>
           </div>
           <div className="modal-body">
-            <FormInputMultiValue
+            <FormInput
               label="Enter your skills"
               id="skillsRequired"
               name="skillsRequired"
               required
-              placeholder="Enter your skills one by one and hit enter"
+              placeholder="Enter your skills separated by commas"
               value={skillsRequired}
               setValue={setSkillsRequired}
               helperText={errors.skillsRequired}
