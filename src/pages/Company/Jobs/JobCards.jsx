@@ -139,24 +139,24 @@ const JobCards = ({
             >
               {details?.views} Views
             </span>
-            <button
-              // onClick={() => setToggleModal(true)}
-              onClick={() => navigate(`/company/jobs/board/${details?._id}`)}
-              style={{
-                backgroundColor: "#014051",
-                border: "none",
-                borderRadius: "5px",
-                padding: "10px",
-                color: "#fff",
-                fontWeight: "500",
-                fontSize: "14px",
-                cursor: "pointer",
-                outline: "none",
-                boxShadow: "0px 0px 3.5px 0px rgba(0,0,0,0.75)",
-              }}
-            >
-              View Applicants
-            </button>
+            <Link to={`/company/jobs/board/${details?._id}`}>
+              <button
+                style={{
+                  backgroundColor: "#014051",
+                  border: "none",
+                  borderRadius: "5px",
+                  padding: "10px",
+                  color: "#fff",
+                  fontWeight: "500",
+                  fontSize: "14px",
+                  cursor: "pointer",
+                  outline: "none",
+                  boxShadow: "0px 0px 3.5px 0px rgba(0,0,0,0.75)",
+                }}
+              >
+                View Applicants
+              </button>
+            </Link>
           </>
         )}
       </div>

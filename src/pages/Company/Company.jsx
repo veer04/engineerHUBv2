@@ -188,7 +188,7 @@ const Company = () => {
       background: "#8FC8E8",
       stats: {
         position: companyPageCounts?.pageSizeJob,
-        hiring: companyPageCounts?.pageSizeJob ? 4000 : 0,
+        hiring: companyPageCounts?.pageSizeJob ? 1800 : 0,
       },
       link: "/company/jobs?pageNo=1&limit=24",
       text1: "jobs live",
@@ -203,7 +203,7 @@ const Company = () => {
       background: "#e8ba98",
       stats: {
         position: companyPageCounts?.pageSizeInternship,
-        hiring: companyPageCounts?.pageSizeInternship ? 1500 : 0,
+        hiring: companyPageCounts?.pageSizeInternship ? 350 : 0,
       },
       link: "/company/internships?pageNo=1&limit=24",
       text1: "internships live",
@@ -218,7 +218,7 @@ const Company = () => {
       background: "#B2E887",
       stats: {
         position: companyPageCounts?.pageSizeProjects,
-        hiring: companyPageCounts?.pageSizeProjects,
+        hiring: companyPageCounts?.pageSizeProjects ? 20 : 0,
       },
       link: "/company/projects",
       text1: "projects live",
@@ -233,7 +233,7 @@ const Company = () => {
       char: `${bucket}EventChar.svg`,
       stats: {
         position: companyPageCounts?.newpageSizeEvent,
-        hiring: companyPageCounts?.newpageSizeEvent ? 35 : 0,
+        hiring: companyPageCounts?.newpageSizeEvent ? 10 : 0,
       },
       link: "/company/events",
       background: "#F7d77f",

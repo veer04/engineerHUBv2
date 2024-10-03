@@ -108,13 +108,18 @@
   margin-bottom: 0.5rem;
 }
 
-.referral-admin-page .referral-table .table-content-2 a {
+.referral-admin-page .referral-table .table-content-2 a,
+.referral-admin-page .referral-table .table-content-2 .question-response {
   color: #0036e7;
-  font-size: 0.8125rem;
+  font-size: 13px;
   font-style: normal;
   font-weight: 600;
   line-height: 1.1875rem;
   letter-spacing: 0rem;
+  cursor: pointer;
+  border: none;
+  padding: 0;
+  background-color: transparent;
 }
 .referral-admin-page .referral-table .table-content-2 .not-present {
   color: #547178;

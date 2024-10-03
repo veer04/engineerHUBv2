@@ -209,6 +209,102 @@ export default function ReferralAdminPage() {
                   ) : (
                     <i className="not-present">No resume provided</i>
                   )}
+                  {content?.resume ? (
+                    <>
+                      <button
+                        type="button"
+                        data-bs-toggle="modal"
+                        data-bs-target={`#responseModal-${index}`}
+                        className="question-response"
+                      >
+                        View Response
+                      </button>
+                      <div
+                        className="modal fade"
+                        id={`responseModal-${index}`}
+                        aria-labelledby="responseModalLabel"
+                        aria-hidden="true"
+                      >
+                        <div className="modal-dialog modal-dialog-centered">
+                          <div className="modal-content">
+                            <div className="modal-header">
+                              <h1
+                                className="modal-title heading-sm"
+                                id="responseModalLabel"
+                              >
+                                {content?.meetData[0]?.title}
+                              </h1>
+                              <button
+                                type="button"
+                                className="btn-close"
+                                data-bs-dismiss="modal"
+                                aria-label="Close"
+                              ></button>
+                            </div>
+                            <p className="px-3 py-1 body-sm-regular">
+                              Response by{" "}
+                              <span className="body-sm-semibold">
+                                {content?.name}
+                              </span>
+                            </p>
+                            <div
+                              className="modal-body"
+                              style={{ fontSize: "14px", fontWeight: "700" }}
+                            >
+                              {content?.query ? (
+                                content?.query
+                              ) : (
+                                <i style={{ fontWeight: "500" }}>
+                                  -No response provided-
+                                </i>
+                              )}
+                            </div>
+                            <div className="modal-footer">
+                              <a
+                                href={
+                                  content?.resume.endsWith("doc") ||
+                                  content?.resume.endsWith("docx")
+                                    ? `http://docs.google.com/gview?url=${content?.resume}`
+                                    : content?.resume
+                                }
+                                target="_blank"
+                                rel="noreferrer noopener"
+                              >
+                                <button
+                                  type="button"
+                                  className="btn btn-primary"
+                                  style={{
+                                    backgroundColor: "#1383821A",
+                                    color: "var(--primary-color-green)",
+                                    borderRadius: "10px",
+                                    border: "none",
+                                    padding: "10px 24px",
+                                  }}
+                                >
+                                  View Resume
+                                </button>
+                              </a>
+                              <button
+                                type="button"
+                                className="btn btn-secondary"
+                                style={{
+                                  backgroundColor: "var(--primary-color-green)",
+                                  borderRadius: "10px",
+                                  border: "none",
+                                  padding: "10px 40px",
+                                }}
+                                data-bs-dismiss="modal"
+                              >
+                                Ok
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </>
+                  ) : (
+                    <i className="not-present">No response provided</i>
+                  )}
                 </div>
                 <div className="table-item table-content body-sm-semibold">
                   {content?.mobile ? (
