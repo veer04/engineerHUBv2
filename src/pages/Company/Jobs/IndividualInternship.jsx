@@ -34,6 +34,7 @@ import {
 } from "../../../features/User/UserDetails";
 import Loading from "../../../components/Loader/Loading";
 import { Link } from "react-router-dom";
+import JobHiringModal from "./JobHiringModal";
 
 export default function IndividualInternship() {
   const { hiringId } = useParams();
@@ -54,6 +55,7 @@ export default function IndividualInternship() {
   const [open, setOpen] = useState(false);
   const [width, setWidth] = useState(window.innerWidth);
   const handleResize = () => setWidth(window.innerWidth);
+  const [userLatestInfo, setUserLatestInfo] = useState({});
 
   useEffect(() => {
     if (isUserLoggedIn()) {
@@ -70,11 +72,18 @@ export default function IndividualInternship() {
 
   useEffect(() => {
     if (isLoggedIn) {
-      if (!!profile?.resume) {
-        setIsResumeUploaded(true);
-      } else {
-        setIsResumeUploaded(false);
-      }
+      axios
+        .get(`${API_URL}api/v1/getUserLatestInfo/${getUserId()}`)
+        .then((res) => {
+          setUserLatestInfo(res.data?.latestInfo);
+        })
+        .catch((err) => {
+          if (axios.isCancel(err)) {
+            console.log("req cancel");
+          } else {
+            console.log("req performed");
+          }
+        });
     }
   }, [profile]);
 
@@ -236,6 +245,11 @@ export default function IndividualInternship() {
 
   return (
     <section id="individual-job-container">
+      <JobHiringModal
+        latestInfo={userLatestInfo}
+        hiringId={hiringId}
+        setHiring={setHiring}
+      />
       <CustomSnackbar
         setOpen={setOpen}
         open={open}
@@ -309,19 +323,11 @@ export default function IndividualInternship() {
                         </a>
                       ) : (
                         <button
-                          onClick={UserDataPost}
+                          data-bs-toggle="modal"
+                          data-bs-target="#jobHiringModal"
                           className="body-md-semibold hiring-apply-btn"
                         >
-                          {!!hiring?.detailFound?.applyLink ? (
-                            <>
-                              Apply{" "}
-                              <FiExternalLink
-                                style={{ marginLeft: ".25rem" }}
-                              />
-                            </>
-                          ) : (
-                            `Easy Apply`
-                          )}
+                          Easy Apply
                         </button>
                       ))}
                     {hiring?.applied === true && (
