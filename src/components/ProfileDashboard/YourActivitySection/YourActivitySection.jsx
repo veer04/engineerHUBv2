@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import "./youractivitysection.css";
 import { GoStopwatch } from "react-icons/go";
 import ActivityCardsSaif from "./ActivityCardsSaif";
+import PostCardActivity from "./PostCardActivity/PostCardActivity";
+import RecommendationCard1 from "../RecommendedSection/RecommendationCard1";
+import RecommendedCard2 from "../RecommendedSection/RecommendedSection2";
 
 const YourActivitySection = () => {
   const [actionButton, setActionButton] = useState("Streak");
@@ -9,6 +12,13 @@ const YourActivitySection = () => {
   const handleButtonClick = (buttonName) => {
     setActionButton(actionButton === buttonName ? null : buttonName);
   };
+
+  const activityCardArray = Array.from({ length: 12 }, (_, index) => index + 1);
+
+  const postCardActivityArray = Array.from(
+    { length: 7 },
+    (_, index) => index + 1
+  );
 
   return (
     <div className="your-activity-section-main">
@@ -28,7 +38,7 @@ const YourActivitySection = () => {
       </div>
 
       <div style={{ marginTop: 10 }}>
-        {["Streak", "Posts", "Jobs", "Events"].map((buttonName, index) => (
+        {["Streak", "Posts", "Jobs"].map((buttonName, index) => (
           <button
             key={buttonName}
             onClick={() => handleButtonClick(buttonName)}
@@ -52,20 +62,29 @@ const YourActivitySection = () => {
         ))}
       </div>
 
-      <div className="grid-activity-section">
-        <ActivityCardsSaif />
-        <ActivityCardsSaif />
-        <ActivityCardsSaif />
-        <ActivityCardsSaif />
-        <ActivityCardsSaif />
-        <ActivityCardsSaif />
-        <ActivityCardsSaif />
-        <ActivityCardsSaif />
-        <ActivityCardsSaif />
-        <ActivityCardsSaif />
-        <ActivityCardsSaif />
-        <ActivityCardsSaif />
-      </div>
+      {actionButton === "Streak" && (
+        <div className="grid-activity-section">
+          {activityCardArray.map((card, index) => (
+            <ActivityCardsSaif key={card} />
+          ))}
+        </div>
+      )}
+
+      {actionButton === "Posts" && (
+        <div className="grid-post-card-activity-empty">
+          {postCardActivityArray.map((post) => (
+            <PostCardActivity key={post} />
+          ))}
+        </div>
+      )}
+
+      {actionButton === "Jobs" && (
+        <div className="grid-job-card-activity">
+          <RecommendationCard1 />
+          <RecommendedCard2 />
+          <RecommendationCard1 />
+        </div>
+      )}
 
       <div
         style={{
