@@ -161,9 +161,19 @@ export default function JobHiringModal({
   }
 
   function submitData(resumeLink) {
+    const skillsRequiredString = Array.isArray(skillsRequired)
+      ? skillsRequired
+          .map((skill) =>
+            skill
+              .split(",")
+              .map((s) => s.trim())
+              .join(", ")
+          )
+          .join(", ")
+      : skillsRequired;
     const data = {
       hiringId,
-      skills: skillsRequired,
+      skills: skillsRequiredString,
       college,
       batch: passOutYear,
       experience: experience.value,
@@ -201,7 +211,7 @@ export default function JobHiringModal({
 
     const formData = new FormData();
     formData.append("userId", getUserId());
-    formData.append("skills", skillsRequired);
+    formData.append("skills", skillsRequiredString);
     formData.append("college", college);
     formData.append("passoutYear", passOutYear);
     formData.append("experience", experience);
