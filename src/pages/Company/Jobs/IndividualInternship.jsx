@@ -321,6 +321,14 @@ export default function IndividualInternship() {
                             Apply
                           </button>
                         </a>
+                      ) : !!hiring?.detailFound?.applyLink ? (
+                        <button
+                          onClick={UserDataPost}
+                          className="body-md-semibold hiring-apply-btn"
+                        >
+                          Apply{" "}
+                          <FiExternalLink style={{ marginLeft: ".25rem" }} />
+                        </button>
                       ) : (
                         <button
                           data-bs-toggle="modal"
