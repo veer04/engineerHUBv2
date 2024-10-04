@@ -140,6 +140,19 @@ export default function MobileNavbar() {
         Company
       </Link>
       <Link
+        to="/services"
+        onClick={() => {
+          setSelectedPageNavbar("services");
+        }}
+        className={`item-container ${
+          selectedPageNavbar === "services" ? "--is-active" : ""
+        }`}
+      >
+        <img src="./services_icon.svg" alt="" width={"24px"} height={"24px"} />
+        Services
+      </Link>
+
+      <Link
         to="/host"
         onClick={() => {
           setSelectedPageNavbar("host");
@@ -148,7 +161,8 @@ export default function MobileNavbar() {
           selectedPageNavbar === "host" ? "--is-active" : ""
         }`}
       >
-        <HostSvg className="svg" />
+        {/* <HostSvg className="svg" /> */}
+        <img src="./add_circle.svg" alt="" width={"28px"} height={"28px"} />
         Host
       </Link>
     </div>
