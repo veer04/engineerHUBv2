@@ -63,16 +63,6 @@ const InternshipCard = ({
             ""
           )}
         </div>
-        {/* <h6>
-          Stipend :{" "}
-          {details?.featuredArray?.includes("CampusAmbassador") ? (
-            <b>Bonus</b>
-          ) : details.isPaid ? (
-            <b>{details.amount !== "N/A" ? details?.amount : "N/A"}</b>
-          ) : (
-            <b>Unpaid</b>
-          )}
-        </h6> */}
         <h6 className="text-crop-1 overflow-hidden">
           Job Location :{" "}
           <b>
@@ -150,23 +140,24 @@ const InternshipCard = ({
             >
               {details?.views} Views
             </span>
-            <button
-              onClick={() => setToggleModal(true)}
-              style={{
-                backgroundColor: "#014051",
-                border: "none",
-                borderRadius: "5px",
-                padding: "10px",
-                color: "#fff",
-                fontWeight: "500",
-                fontSize: "14px",
-                cursor: "pointer",
-                outline: "none",
-                boxShadow: "0px 0px 3.5px 0px rgba(0,0,0,0.75)",
-              }}
-            >
-              View Applicants
-            </button>
+            <Link to={`/company/jobs/board/${details?._id}`}>
+              <button
+                style={{
+                  backgroundColor: "#014051",
+                  border: "none",
+                  borderRadius: "5px",
+                  padding: "10px",
+                  color: "#fff",
+                  fontWeight: "500",
+                  fontSize: "14px",
+                  cursor: "pointer",
+                  outline: "none",
+                  boxShadow: "0px 0px 3.5px 0px rgba(0,0,0,0.75)",
+                }}
+              >
+                View Applicants
+              </button>
+            </Link>
           </>
         )}
       </div>
