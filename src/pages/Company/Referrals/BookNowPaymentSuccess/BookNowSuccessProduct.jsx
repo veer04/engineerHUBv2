@@ -266,7 +266,7 @@ const BookNowSuccessProduct = () => {
           {/* {productPaymentData?.name || "name"} */}
         </h3>
 
-        <div className="main-svg-el1">
+        <div style={{ marginTop: 40 }} className="main-svg-el1">
           <img src="/el1.svg" alt="/el1.svg" />
           <img
             className="tick-svg"

@@ -24,11 +24,13 @@
   line-height: normal;
 }
 .mobile-navbar .item-container:hover .svg path,
+.mobile-navbar .item-container:hover .svg rect,
 .mobile-navbar .item-container:hover {
   fill: var(--primary-color-green);
   color: var(--primary-color-green);
 }
 .mobile-navbar .item-container.--is-active .svg path,
+.mobile-navbar .item-container.--is-active .svg rect,
 .mobile-navbar .item-container.--is-active {
   fill: #002b36;
   color: #002b36;

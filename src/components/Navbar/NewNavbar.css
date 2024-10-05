@@ -136,10 +136,11 @@
   text-align: center;
 }
 #navbar .login-options .join-us-btn {
-  padding: 1rem 1.5rem;
+  padding: 12px 24px;
   border-radius: 3.125rem;
-  background-color: #33555e;
-  color: white;
+  background-color: transparent;
+  color: #138382;
+  border: 1px solid #138382;
 }
 #navbar .login-options .join-us-btn:hover {
   background-color: var(--primary-color-dark-green);

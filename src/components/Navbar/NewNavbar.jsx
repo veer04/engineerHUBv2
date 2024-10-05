@@ -85,19 +85,64 @@ export default function NewNavbar() {
           </button>
         </Link>
         <div className="dropdown">
-          <Link onClick={() => setSelectedPageNavbar("host")} to="/host">
+          <Link
+            onClick={() => setSelectedPageNavbar("services")}
+            to="/referrals"
+          >
             <button
               className={`${
-                selectedPageNavbar === "host" ? "--is-active" : ""
+                selectedPageNavbar === "services" ? "--is-active" : ""
               }`}
             >
-              Host
+              Services
             </button>
           </Link>
         </div>
       </div>
       {!isLoggedIn && (
         <div className="login-options">
+          <Link
+            style={{
+              display: "flex",
+              gap: 4,
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+            to="/login"
+          >
+            <button
+              style={{
+                background: "#138382",
+                padding: "8px 18px",
+                borderRadius: "32px",
+                marginBottom: 0,
+                fontSize: 16,
+                fontWeight: 400,
+                lineHeight: "20px",
+                color: "white",
+                display: "flex",
+                gap: 4,
+                alignItems: "center",
+              }}
+            >
+              <img
+                src="./plus_logo.svg"
+                alt=""
+                width={"24px"}
+                height={"24px"}
+              />
+              Host
+            </button>
+
+            <div
+              style={{
+                width: "1.8px",
+                background:
+                  "linear-gradient(180deg, #FFF -20.18%, #DADADA 49.68%, #FFF 118.6%)",
+                alignSelf: "stretch",
+              }}
+            ></div>
+          </Link>
           <Link to="/login" className="nav-link">
             <button className="login-btn">Login</button>
           </Link>
