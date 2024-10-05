@@ -299,26 +299,16 @@ function App() {
             <Route path="jobs">
               <Route path="" element={<JobsPage />}>
                 <Route path=":hiringId" element={<IndividualJob />} />
-                {/* <Route path=":hiringId" element={<IndividualJob />} /> */}
-                {/* <Route path=":hiringId" element={<JobDetails />} /> */}
               </Route>
               <Route path="board">
                 <Route path=":id" element={<JobBoard />} />
               </Route>
-              {/* <Route path="" element={<Jobs />} /> */}
             </Route>
             <Route path="internships">
               <Route path="" element={<InternshipsPage />}>
                 <Route path=":hiringId" element={<IndividualInternship />} />
-                {/* <Route path=":hiringId" element={<IndividualJob />} /> */}
-                {/* <Route path=":hiringId" element={<JobDetails />} /> */}
               </Route>
-              {/* <Route path="" element={<Jobs />} /> */}
             </Route>
-            {/* <Route path="internships">
-              <Route path="" element={<Internship />} />
-              <Route path=":hiringId" element={<InternshipDetails />} />
-            </Route> */}
             <Route path="projects">
               <Route path="" element={<Projects />} />
               <Route path=":projectId" element={<ProjectDetailNew />} />
@@ -330,7 +320,6 @@ function App() {
           </Route>
 
           <Route path="/referrals" element={<Referrals />} />
-          {/* <Route path="/referrals/book-now" element={<BookNow />} /> */}
           <Route path="/referrals/book-now/:referralId" element={<BookNow />} />
           <Route
             path="/referrals/book-now/payment"
