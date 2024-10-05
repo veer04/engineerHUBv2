@@ -59,6 +59,7 @@ export function CompanySvg({ className }) {
     </svg>
   );
 }
+
 export function HostSvg({ className }) {
   return (
     <svg
@@ -84,6 +85,82 @@ export function HostSvg({ className }) {
       <path
         d="M13.4446 30.3251H6.55854C5.99454 30.3251 5.5376 29.8682 5.5376 29.3041C5.5376 28.7401 5.99487 28.2832 6.55854 28.2832H13.4443C14.0083 28.2832 14.4652 28.7401 14.4652 29.3041C14.4652 29.8682 14.0086 30.3251 13.4446 30.3251Z"
         fill="#B0B0B0"
+      />
+    </svg>
+  );
+}
+
+export function HostSvg1({ className }) {
+  return (
+    <svg
+      className={`${className}`}
+      width="25"
+      height="24"
+      viewBox="0 0 25 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M24.1667 12.0007C24.1667 5.55733 18.9433 0.333984 12.5 0.333984C6.05672 0.333984 0.833374 5.55733 0.833374 12.0007C0.833374 18.4439 6.05672 23.6673 12.5 23.6673C18.9433 23.6673 24.1667 18.4439 24.1667 12.0007Z"
+        fill="#138382"
+        fill-opacity="0.5"
+      />
+      <path
+        d="M12.4987 7.33203V16.6654M17.1654 11.9987H7.83203"
+        stroke="white"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+    </svg>
+  );
+}
+
+export function ServicesSvg({ className }) {
+  return (
+    <svg
+      className={`${className}`}
+      width="28"
+      height="28"
+      viewBox="0 0 28 28"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        x="0.783203"
+        y="0.533203"
+        width="12"
+        height="12"
+        rx="6"
+        fill="#138382"
+        fill-opacity="0.3"
+      />
+      <path
+        x="0.783203"
+        y="15.4668"
+        width="12"
+        height="12"
+        rx="2.42083"
+        fill="#138382"
+        fill-opacity="0.3"
+      />
+      <path
+        x="15.7168"
+        y="15.4668"
+        width="12"
+        height="12"
+        rx="2.42083"
+        fill="#138382"
+        fill-opacity="0.3"
+      />
+      <path
+        x="15.7168"
+        y="0.533203"
+        width="12"
+        height="12"
+        rx="2.42083"
+        fill="#138382"
+        fill-opacity="0.3"
       />
     </svg>
   );
@@ -140,7 +217,7 @@ export default function MobileNavbar() {
         Company
       </Link>
       <Link
-        to="/services"
+        to="/referrals"
         onClick={() => {
           setSelectedPageNavbar("services");
         }}
@@ -148,7 +225,7 @@ export default function MobileNavbar() {
           selectedPageNavbar === "services" ? "--is-active" : ""
         }`}
       >
-        <img src="./services_icon.svg" alt="" width={"24px"} height={"24px"} />
+        <ServicesSvg className="svg" />
         Services
       </Link>
 
@@ -161,8 +238,7 @@ export default function MobileNavbar() {
           selectedPageNavbar === "host" ? "--is-active" : ""
         }`}
       >
-        {/* <HostSvg className="svg" /> */}
-        <img src="./add_circle.svg" alt="" width={"28px"} height={"28px"} />
+        <HostSvg1 className="svg" />
         Host
       </Link>
     </div>
