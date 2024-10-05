@@ -85,10 +85,13 @@ export default function NewNavbar() {
           </button>
         </Link>
         <div className="dropdown">
-          <Link onClick={() => setSelectedPageNavbar("host")} to="/host">
+          <Link
+            onClick={() => setSelectedPageNavbar("services")}
+            to="/referrals"
+          >
             <button
               className={`${
-                selectedPageNavbar === "host" ? "--is-active" : ""
+                selectedPageNavbar === "services" ? "--is-active" : ""
               }`}
             >
               Services
