@@ -16,7 +16,7 @@
   flex-direction: column;
   height: 100%;
   width: 25%;
-  color: #b0b0b0;
+  color: #13838280;
   text-align: center;
   font-size: 0.75rem;
   font-style: normal;
@@ -24,14 +24,16 @@
   line-height: normal;
 }
 .mobile-navbar .item-container:hover .svg path,
+.mobile-navbar .item-container:hover .svg rect,
 .mobile-navbar .item-container:hover {
   fill: var(--primary-color-green);
   color: var(--primary-color-green);
 }
 .mobile-navbar .item-container.--is-active .svg path,
+.mobile-navbar .item-container.--is-active .svg rect,
 .mobile-navbar .item-container.--is-active {
-  fill: #002b36;
-  color: #002b36;
+  fill: #138382;
+  color: #138382;
 }
 @media screen and (min-width: 821px) {
   .mobile-navbar {

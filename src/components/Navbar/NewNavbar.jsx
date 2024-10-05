@@ -39,6 +39,30 @@ export default function NewNavbar() {
       ? `${(width - 1920) / 2 + 166.56}px`
       : "var(--section-padding)";
 
+  const HostSvg = (
+    <svg
+      width="23"
+      height="22"
+      viewBox="0 0 23 22"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M21.7021 11C21.7021 5.47715 17.2249 1 11.7021 1C6.1793 1 1.70215 5.47715 1.70215 11C1.70215 16.5228 6.1793 21 11.7021 21C17.2249 21 21.7021 16.5228 21.7021 11Z"
+        fill="white"
+        stroke="#138382"
+        stroke-width="1.5"
+      />
+      <path
+        d="M11.7011 7V15M15.7011 11H7.70105"
+        stroke="#138382"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+    </svg>
+  );
+
   return (
     <nav
       style={{
@@ -84,26 +108,35 @@ export default function NewNavbar() {
             Company
           </button>
         </Link>
-        <div className="dropdown">
-          <Link onClick={() => setSelectedPageNavbar("host")} to="/host">
-            <button
+        <Link onClick={() => setSelectedPageNavbar("services")} to="/referrals">
+          <button
+            className={`${
+              selectedPageNavbar === "services" ? "--is-active" : ""
+            } services-btn`}
+          >
+            Services
+            <span
               className={`${
-                selectedPageNavbar === "host" ? "--is-active" : ""
-              }`}
+                selectedPageNavbar === "services" ? "--is-active" : ""
+              } new-badge`}
             >
-              Host
-            </button>
-          </Link>
-        </div>
+              New
+            </span>
+          </button>
+        </Link>
       </div>
       {!isLoggedIn && (
         <div className="login-options">
+          <Link to="/host" className="nav-link">
+            <button className="host-btn">{HostSvg} Host</button>
+          </Link>
+          <div className="divider"></div>
           <Link to="/login" className="nav-link">
             <button className="login-btn">Login</button>
           </Link>
-          <Link to="/select-role" className="nav-link">
+          {/* <Link to="/select-role" className="nav-link">
             <button className="join-us-btn">Join Us</button>
-          </Link>
+          </Link> */}
         </div>
       )}
       {isLoggedIn && (
