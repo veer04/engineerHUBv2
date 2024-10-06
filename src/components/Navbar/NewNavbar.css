@@ -1,5 +1,4 @@
 #navbar {
-  padding: 0 var(--section-padding);
   height: var(--navbar-height);
   display: flex;
   flex-direction: row;
@@ -23,8 +22,9 @@
   transition: transform 0.5s ease-in-out;
 }
 #navbar .navbar-logo img {
-  width: 6.03138rem;
+  /* width: 6.03138rem; */
   height: 2.96394rem;
+  aspect-ratio: 2/1;
   object-fit: contain;
 }
 #navbar .pages {
@@ -54,7 +54,7 @@
   border-radius: 1.9375rem;
   border: 1px solid var(--primary-color-green);
   color: var(--primary-color-green);
-  font-weight: 700;
+  font-weight: 600;
 }
 #navbar .pages .services-btn {
   position: relative;
@@ -202,17 +202,18 @@
   max-width: 10rem;
   text-overflow: ellipsis;
   display: -webkit-box;
+  line-clamp: 1;
   -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
   overflow: hidden;
   word-break: break-all;
 }
 
-@media screen and (max-width: 1120px) {
+/* @media screen and (max-width: 1120px) {
   #navbar .pages {
-    /* gap: 1.5rem; */
+    gap: 1.5rem;
   }
-}
+} */
 
 @media screen and (max-width: 1000px) {
   #navbar .pages {
@@ -239,6 +240,9 @@
   #navbar .login-options .host-btn,
   #navbar .login-options .divider {
     display: none;
+  }
+  #navbar .navbar-logo img {
+    height: 2.75rem;
   }
 }
 @media screen and (max-width: 520px) {
