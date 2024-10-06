@@ -140,20 +140,28 @@ export default function NewNavbar() {
         </div>
       )}
       {isLoggedIn && (
-        <div
-          data-bs-toggle="offcanvas"
-          data-bs-target="#offcanvasRight"
-          aria-controls="offcanvasRight"
-          className="logged-in-container"
-        >
-          <div className="profile-picture-container">
-            <img
-              src={userImage}
-              alt={`${name}'s profile picture`}
-              loading="lazy"
-            />
+        <div className="d-flex align-items-center justify-content-center gap-2 flex-row">
+          <div className="login-options ">
+            <Link to="/host" className="nav-link d-flex flex-row flex-nowrap">
+              <button style={{marginRight:"24px"}} className="host-btn">{HostSvg} Host</button>
+              <div style={{marginRight:"18px"}} className="divider"></div>
+            </Link>
           </div>
-          <span className="user-full-name">{name}</span>
+          <div
+            data-bs-toggle="offcanvas"
+            data-bs-target="#offcanvasRight"
+            aria-controls="offcanvasRight"
+            className="logged-in-container"
+          >
+            <div className="profile-picture-container">
+              <img
+                src={userImage}
+                alt={`${name}'s profile picture`}
+                loading="lazy"
+              />
+            </div>
+            {/* <span className="user-full-name">{name}</span> */}
+          </div>
         </div>
       )}
     </nav>

@@ -148,6 +148,9 @@
   align-items: center;
   gap: 10px;
   padding: 11px 16px;
+  height: 40px;
+  margin-top: auto;
+  margin-bottom: auto;
 }
 #navbar .login-options .divider {
   height: 44px;
@@ -178,10 +181,10 @@
   cursor: pointer;
 }
 #navbar .logged-in-container .profile-picture-container {
-  width: 2.375rem;
-  min-width: 2.375rem;
-  height: 2.375rem;
-  min-height: 2.375rem;
+  width: 2.5rem;
+  min-width: 2.5rem;
+  height: 2.5rem;
+  min-height: 2.5rem;
   display: flex;
 }
 #navbar .logged-in-container .profile-picture-container img {
@@ -207,7 +210,7 @@
 
 @media screen and (max-width: 1120px) {
   #navbar .pages {
-    gap: 1.5rem;
+    /* gap: 1.5rem; */
   }
 }
 
