@@ -36,7 +36,7 @@ const HomeAlmaCards = ({ list }) => {
           key={trending._id}
           onClick={() => navigate(`/profile/user/${trending._id}`)}
           className="row trending-cards-container"
-          style={{ marginBottom: "20px", cursor: "pointer" }}
+          style={{ marginBottom: "15px", cursor: "pointer" }}
         >
           <Fragment>
             <div

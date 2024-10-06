@@ -43,7 +43,7 @@ const NewCampusHomePage = ({ list, clubs }) => {
   const buttonNames = ["Almas", "Events", "Clubs"];
 
   useEffect(() => {
-    window.scrollTo(0, 0);
+    // window.scrollTo(0, 0);
     // getEvents(setEventsData, id);
     getFeaturedEvents(setEventsData);
 
@@ -106,7 +106,7 @@ const NewCampusHomePage = ({ list, clubs }) => {
             className="boxCommunity row"
             style={{
               background: "#f1fbea",
-              height: "100%",
+              // height: "550px",
             }}
           >
             <div className="col-md-6">
@@ -188,6 +188,7 @@ const NewCampusHomePage = ({ list, clubs }) => {
                     justifyContent: "center",
                     display: "flex",
                     gap: "10px",
+                    marginBottom: 10,
                   }}
                 >
                   {buttonColors.map((color, index) => (
@@ -216,6 +217,7 @@ const NewCampusHomePage = ({ list, clubs }) => {
                     display: "flex",
                     justifyContent: "center",
                     maxWdith: "14.75rem",
+                    height: 400,
                   }}
                 >
                   {activeCard === 1 && (
@@ -230,7 +232,7 @@ const NewCampusHomePage = ({ list, clubs }) => {
                   {activeCard === 2 && (
                     <div className="eventCardHomeCampus">
                       {eventsData?.length > 0 && (
-                        <NewEventCard data={eventsData[0]} />
+                        <NewEventCard data={eventsData[5]} />
                       )}
                     </div>
                   )}
