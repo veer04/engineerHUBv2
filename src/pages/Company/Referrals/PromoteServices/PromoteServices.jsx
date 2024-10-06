@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import "./promoteservices.css";
 
 import axios from "axios";
@@ -7,6 +7,14 @@ import { getAccessToken } from "../../../../features/getCookieValues";
 import DigitalCards from "../DigitalProducts/DigitalCards";
 import { PAYMENT_API_URL } from "../../../../services/APIUtils";
 import PromoteConnectCard from "./PromoteConnectCard";
+import useEmblaCarousel from "embla-carousel-react";
+import { FaCircleChevronLeft, FaCircleChevronRight } from "react-icons/fa6";
+import {
+  NextButton,
+  PrevButton,
+  usePrevNextButtons,
+} from "./emblaCarousalArrowButton";
+import { Link } from "react-router-dom";
 
 const PromoteServices = ({ compName }) => {
   const [filterDigitalProducts, setFilterDigitalProducts] = useState("All");
@@ -15,6 +23,26 @@ const PromoteServices = ({ compName }) => {
   const [courseData, setCourseData] = useState([]);
   const [activeFilter, setActiveFilter] = useState("All");
   const [allMeetData, setAllMeetData] = useState([]);
+  const [emblaRef, emblaApi] = useEmblaCarousel({
+    slidesToScroll: 1,
+  });
+
+  const {
+    prevBtnDisabled,
+    nextBtnDisabled,
+    onPrevButtonClick,
+    onNextButtonClick,
+  } = usePrevNextButtons(emblaApi);
+  const [combineData, setCombineData] = useState([]);
+
+  const mainTargetOrderForCarousal = [
+    "Resume + Career Guidance | Referral (Exp: 0-2 years)",
+    "Editable Resume Template – 94% ATS Score",
+    "Last 2 Years' Startup & Mid-Company Tech Interview Ques",
+    "Personalized Projects for Your Target Role",
+    "Company-Wise Complete Preparation Guide",
+    "Internship / Job Search & Strategy Guide",
+  ];
 
   const getAllOpenMeet = async () => {
     try {
@@ -23,11 +51,8 @@ const PromoteServices = ({ compName }) => {
       if (response.ok) {
         const data = await response.json();
 
-        // Filter the data to only show the desired item
-        const filteredData = data?.data.filter(
-          (item) =>
-            item.title ===
-            "Resume + Career Guidance | Referral (Exp: 0-2 years)"
+        const filteredData = data?.data.filter((item) =>
+          mainTargetOrderForCarousal.includes(item.title)
         );
 
         setAllMeetData(filteredData);
@@ -39,49 +64,6 @@ const PromoteServices = ({ compName }) => {
     } catch (error) {
       console.error("error getting the data", error);
     }
-  };
-
-  useEffect(() => {
-    getAllOpenMeet();
-  }, []);
-
-  const shuffleArrayData = (array) => {
-    for (let i = array.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1 + 1));
-      [array[i], array[j]] = [array[j], array[i]];
-    }
-    return array;
-  };
-
-  const customOrder = [
-    "Editable Resume Template – 94% ATS Score",
-    "Company-Wise Complete Preparation Guide",
-    "ATS-Friendly Templates for Frontend, Backend, and Full-Stack Roles",
-    "FAANG Equivalent Companies - Top 100",
-    "Complete DSA Resources for Interview Preparation",
-    "A Complete Package for Data Science Students",
-  ];
-
-  const filterData = (data) => {
-    const filteredTitles = [
-      "Company-Wise Complete Preparation Guide",
-      "Editable Resume Template – 94% ATS Score",
-    ];
-
-    return data.filter((item) => filteredTitles.includes(item.title));
-  };
-
-  const sortDataByCustomOrder = (data) => {
-    return data.sort((a, b) => {
-      const indexA = customOrder.indexOf(a.title);
-      const indexB = customOrder.indexOf(b.title);
-
-      // If the title is not found in the custom order, push it to the end
-      return (
-        (indexA === -1 ? data.length : indexA) -
-        (indexB === -1 ? data.length : indexB)
-      );
-    });
   };
 
   const getallProductData = async () => {
@@ -98,21 +80,37 @@ const PromoteServices = ({ compName }) => {
       );
 
       console.log(data, "productData");
+      const filteredCourseData = data?.data.filter((item) =>
+        mainTargetOrderForCarousal.includes(item.title)
+      );
 
-      const filteredData = filterData(data.data);
-      const sortedData = sortDataByCustomOrder(filteredData);
-      setCourseData(sortedData);
+      setCourseData(filteredCourseData);
     } catch (error) {
       console.log(error);
     }
   };
 
-  const rating = [5, 4.5, 4.5];
-  const popular = ["Popular", "Popular", "", "Popular", ""];
+  const mergeDataInOrder = useCallback(() => {
+    const mergedData = [...allMeetData, ...courseData].sort((a, b) => {
+      return (
+        mainTargetOrderForCarousal.indexOf(a.title) -
+        mainTargetOrderForCarousal.indexOf(b.title)
+      );
+    });
+    setCombineData(mergedData);
+  }, [allMeetData, courseData]);
 
   useEffect(() => {
+    getAllOpenMeet();
     getallProductData();
   }, []);
+
+  useEffect(() => {
+    mergeDataInOrder();
+  }, [allMeetData, courseData, mergeDataInOrder]);
+
+  const rating = [5, 4.5, 4.5];
+  const popular = ["Popular", "Popular", "", "Popular", ""];
 
   useEffect(() => {
     setAnimationClass("hidden");
@@ -143,8 +141,21 @@ const PromoteServices = ({ compName }) => {
   };
   return (
     <div id="digital-product" className="promote-main-container-prdoucts">
-      <div>
-        <h4 className="promote-txt">{compName}</h4>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          marginBottom: 10,
+        }}
+      >
+        <div>
+          <h4 className="promote-txt">{compName}</h4>
+        </div>
+
+        {/* <div className="embla__buttons">
+          <PrevButton onClick={onPrevButtonClick} disabled={prevBtnDisabled} />
+          <NextButton onClick={onNextButtonClick} disabled={nextBtnDisabled} />
+        </div> */}
       </div>
 
       {/* <div className="filter-cards-btns">
@@ -193,67 +204,90 @@ const PromoteServices = ({ compName }) => {
         </button>
       </div> */}
 
-      <div className="promote-flex-div">
-        <div className="digital-cards">
-          {allMeetData.map((card, index) => (
-            <PromoteConnectCard
-              key={card._id}
-              id={card._id}
-              title={card.title}
-              desc={card.description}
-              duration={card.duration}
-              price={card.price}
-              mrp={card.mrp}
-              type={card.type}
-              rating={rating[index % rating.length]}
-              popular={popular[index % popular.length]}
-            />
-          ))}
-        </div>
-        <div
-          style={{ marginTop: 20 }}
-          className={`digital-cards ${animationClass}`}
-        >
-          {courseData.map((card, index) => (
-            <DigitalCards
-              key={card._id}
-              id={card._id}
-              discount={card.discount}
-              price={card.price}
-              mrp={card.mrp}
-              thumbnail={card.thumbnail}
-              title={card.title}
-              subTitle={card.subTitle}
-              desc={card.description}
-              type={card.type}
-              rating={rating[index % rating.length]}
-              popular={popular[index % popular.length]}
-            />
-          ))}
+      <div className="embla" ref={emblaRef}>
+        <div className="embla__container">
+          {combineData.map((card, index) => {
+            return card.duration ? (
+              <div className="embla__slide" key={card._id}>
+                <PromoteConnectCard
+                  id={card._id}
+                  title={card.title}
+                  desc={card.description}
+                  duration={card.duration}
+                  price={card.price}
+                  mrp={card.mrp}
+                  type={card.type}
+                  rating={rating[index % rating.length]}
+                  popular={popular[index % popular.length]}
+                />
+              </div>
+            ) : (
+              <div className="embla__slide" key={card._id}>
+                <DigitalCards
+                  id={card._id}
+                  discount={card.discount}
+                  price={card.price}
+                  mrp={card.mrp}
+                  thumbnail={card.thumbnail}
+                  title={card.title}
+                  subTitle={card.subTitle}
+                  desc={card.description}
+                  type={card.type}
+                  rating={rating[index % rating.length]}
+                  popular={popular[index % popular.length]}
+                />
+              </div>
+            );
+          })}
         </div>
       </div>
 
-      {visibleCards?.length > 3 && (
-        <div
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          marginTop: "10px",
+          gap: 15,
+        }}
+      >
+        <div>
+          <PrevButton onClick={onPrevButtonClick} disabled={prevBtnDisabled} />
+        </div>
+        <Link
+          to={"/referrals"}
           style={{
+            background: "transparent",
+            border: "1px solid #138283",
             display: "flex",
-            justifyContent: "center",
+            gap: 5,
             alignItems: "center",
-            marginTop: "10px",
+            justifyContent: "center",
+            width: "120px",
+            height: "40px",
+            borderRadius: 10,
+            color: "white",
+            cursor: "pointer",
           }}
         >
-          {/* <div className="button-container">
-            <span className="view-btn">View more</span>
-            <div className="icon-container">
-              <img
-                src="/chevro-right.svg"
-                alt="Chevron"
-                className="chevron-icon"
-              />
-            </div>
-          </div> */}
+          <span
+            style={{
+              fontSize: 16,
+              lineHeight: "20px",
+              color: "#138382",
+              fontWeight: 600,
+              textAlign: "center",
+            }}
+          >
+            View more
+          </span>
+          {/* <FaCircleChevronRight /> */}
+        </Link>
+
+        <div>
+          <NextButton onClick={onNextButtonClick} disabled={nextBtnDisabled} />
         </div>
-      )}
+      </div>
     </div>
   );
 };
