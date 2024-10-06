@@ -10,6 +10,8 @@ const HomeClubCards = ({ clubs }) => {
 
   const [trendingList, setTrendingList] = useState([]);
 
+  console.log(trendingList, "trendingList");
+
   useEffect(() => {
     setTrendingList(clubs);
   }, [clubs]);
@@ -23,7 +25,7 @@ const HomeClubCards = ({ clubs }) => {
         }}
         className="cards"
       >
-        {trendingList?.slice(0, 1).map((item) => (
+        {trendingList?.slice(trendingList.length - 1).map((item) => (
           <div
             onClick={() => navigate(`/profile/club/${item._id}`)}
             key={item._id}

@@ -1912,6 +1912,7 @@ export const getEventByMode = (setEvents, mode) => {
     })
     .then((res) => {
       const data = res.data.data;
+      console.log(data, "eventsdata");
       setEvents(data);
     })
     .catch((err) => {

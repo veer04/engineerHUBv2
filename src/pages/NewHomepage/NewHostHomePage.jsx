@@ -13,7 +13,7 @@ const NewHostHomePage = () => {
   const [eventsData, setEventsData] = useState({});
   const navigate = useNavigate();
   useEffect(() => {
-    window.scrollTo(0, 0);
+    // window.scrollTo(0, 0);
     getEvents(setEventsData, id);
 
     return () => {
@@ -88,8 +88,8 @@ const NewHostHomePage = () => {
                       }}
                     >
                       Host
-                    </span>
-                   {" "}events, jobs, webinars and projects{" "}
+                    </span>{" "}
+                    events, jobs, webinars and projects{" "}
                     <span
                       style={{
                         backgroundColor: "#91F0EF",
@@ -144,10 +144,14 @@ const NewHostHomePage = () => {
             >
               <div className="container" style={{}}>
                 <div
-                  className="alignMid image-container"
-                  style={{ display: "flex", justifyContent: "center" }}
+                  className=" image-container"
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    marginBottom: 50,
+                  }}
                 >
-                  <img src={logoMainPage} alt="" />
+                  <img src={logoMainPage} alt="" width={"350"} height={"350"} />
                 </div>
 
                 <div className="row">

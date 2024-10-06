@@ -1,0 +1,48 @@
+.your-activity-section-main {
+  width: 100%;
+  height: auto;
+  padding: 16px;
+  border-radius: 10px;
+  background-color: white;
+}
+
+.your-activity-section-main .grid-activity-section {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.your-activity-section-main .grid-post-card-activity-empty {
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 10px;
+  overflow: auto;
+  scroll-behavior: smooth;
+}
+
+.your-activity-section-main .grid-post-card-activity-empty::-webkit-scrollbar {
+  height: 0px;
+}
+
+.your-activity-section-main .grid-job-card-activity {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  overflow: auto;
+  scroll-behavior: smooth;
+}
+
+.your-activity-section-main .grid-job-card-activity::-webkit-scrollbar {
+  height: 0;
+}
+
+@media screen and (max-width: 520px) {
+  .your-activity-section-main .grid-activity-section {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-top: 20px;
+  }
+}

@@ -96,11 +96,11 @@ const NewCommunitySection = () => {
                   style={{
                     display: "flex",
                     justifyContent: "center",
-                    padding: "1.5rem",
+                    // padding: "1.5rem",
                   }}
                 >
                   {eventsData?.length > 0 && (
-                    <NewEventCard data={eventsData[0]} />
+                    <NewEventCard data={eventsData[46]} />
                   )}
                 </div>
               </div>
