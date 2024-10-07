@@ -1,0 +1,138 @@
+.main-profile-with-follow-and-mail {
+  width: 100%;
+  height: auto;
+  background-color: var(--primary-color-green);
+  padding: 16px;
+  border-radius: 16px;
+}
+
+.main-profile-with-follow-and-mail .img-share-div {
+  display: flex;
+  justify-content: space-between;
+}
+
+.main-profile-with-follow-and-mail .g2-img {
+  width: 80px;
+  height: 80px;
+}
+
+.main-profile-with-follow-and-mail .img-thumbsup-div {
+  background-color: white;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  margin-left: 5px;
+}
+
+.main-profile-with-follow-and-mail .img-thumbsup-div .img-thumbsup {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  z-index: 1;
+}
+
+.main-profile-with-follow-and-mail .name-desc-div {
+  margin-top: 10px;
+}
+
+.main-profile-with-follow-and-mail .name-desc-div .g-3-text {
+  font-size: 22px;
+  color: white;
+}
+
+.main-profile-with-follow-and-mail .icon-div {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.main-profile-with-follow-and-mail .btn-siv-edit-post-share {
+  margin-top: 10px;
+}
+
+.main-profile-with-follow-and-mail
+  .btn-siv-edit-post-share
+  button:nth-child(1) {
+  background-color: transparent;
+  color: white;
+  padding: 8px 36px;
+  border: 2px solid white;
+  border-radius: 10px;
+  font-size: 14px;
+}
+
+.main-profile-with-follow-and-mail
+  .btn-siv-edit-post-share
+  button:nth-child(2) {
+  margin-left: 8px;
+  background-color: transparent;
+  color: white;
+  padding: 8px 36px;
+  border: 2px solid white;
+  border-radius: 10px;
+  font-size: 14px;
+}
+
+.main-profile-with-follow-and-mail
+  .btn-siv-edit-post-share
+  button:nth-child(3) {
+  margin-left: 8px;
+  background-color: transparent;
+  color: white;
+  padding: 8px 34px;
+  border: 2px solid white;
+  border-radius: 10px;
+  font-size: 14px;
+}
+
+.main-profile-with-follow-and-mail .score-update-view {
+  background-color: white;
+  margin-top: 10px;
+  border-radius: 10px;
+  width: 100%;
+  height: auto;
+  padding: 12px;
+}
+
+.main-profile-with-follow-and-mail .update-view-trash-download {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 16px;
+}
+
+.main-profile-with-follow-and-mail .update-view-btn button:nth-child(1) {
+  padding: 6px 12px;
+  background-color: #1383821a;
+  border: none;
+  outline: none;
+  border-radius: 8px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.08);
+  font-size: 14px;
+  font-weight: 600;
+  color: #138382;
+}
+
+.main-profile-with-follow-and-mail .update-view-btn button:nth-child(2) {
+  margin-left: 10px;
+  padding: 6px 12px;
+  background-color: #1383821a;
+  border: none;
+  outline: none;
+  border-radius: 8px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.08);
+  font-size: 14px;
+  font-weight: 600;
+  color: #138382;
+}
+
+.main-profile-with-follow-and-mail .download-trash-icon {
+  width: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+}

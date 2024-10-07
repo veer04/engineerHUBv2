@@ -6,6 +6,7 @@ import RecommendedSection from "./RecommendedSection/RecommendedSection";
 import PerformanceSection from "./PerformanceSection/PerformanceSection";
 import HostPageForProfileDashboard from "./HostpageForProfileDashboard/HostPageForProfileDashboard";
 import YourActivitySection from "./YourActivitySection/YourActivitySection";
+import ProfileWithFollowAndMail from "./UserViewProfileDashboard/ProfileWithFollowAndMail/ProfileWithFollowAndMail";
 
 const ProfileDashboard = () => {
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 520);
@@ -28,6 +29,9 @@ const ProfileDashboard = () => {
         <div className="main-profile-dashboard-panel">
           <div className="main-profile-dashboard-left">
             <ProfileWithPostEditShare />
+            <div style={{ marginTop: 20 }}>
+              <ProfileWithFollowAndMail />
+            </div>
             <ProfileCompletionSection />
 
             {!isMobile && (
