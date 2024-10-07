@@ -19,6 +19,8 @@ import {
 import useEmblaCarousel from "embla-carousel-react";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import moment from "moment/moment";
+import { isUserLoggedIn } from "../../../../features/User/UserDetails";
+import { redirectToAuth } from "../../../../features/redirectToAuth";
 
 const BookNow = () => {
   const [currentPage, setCurrentPage] = useState(0);
@@ -347,6 +349,11 @@ const BookNow = () => {
   }, [referralId]);
 
   const onSubmitConfirmDetails = async () => {
+    if (!isUserLoggedIn()) {
+      redirectToAuth("/login");
+      return null;
+    }
+
     if (!selectedTime || !endTime || !selectedDates) {
       alert("Please select both the date and time.");
       return;
