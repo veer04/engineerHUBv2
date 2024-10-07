@@ -11,10 +11,6 @@ import { isUserLoggedIn } from "../../../../features/User/UserDetails";
 import { redirectToAuth } from "../../../../features/redirectToAuth";
 
 const CompanyWisePrep = () => {
-  if (!isUserLoggedIn()) {
-    redirectToAuth("/login");
-    return null;
-  }
   const { booknowId } = useParams();
   const [singleProductData, setSingleProductData] = useState([]);
   const navigate = useNavigate();
@@ -75,6 +71,24 @@ const CompanyWisePrep = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  function handleBuyNow() {
+    if (!isUserLoggedIn()) {
+      redirectToAuth("/login");
+      return null;
+    }
+    navigate(
+      `/referrals/product-book-now/payment${
+        location.search.includes("ref")
+          ? `?ref=${location?.search?.split("ref=")[1]?.split("&")[0]}`
+          : ``
+      }`,
+      {
+        state: { singleProductData, rating },
+      }
+    );
+  }
+
   return (
     <div className="prep-main-comp">
       <div className="prep-main-sub">
@@ -281,18 +295,7 @@ const CompanyWisePrep = () => {
 
           <div>
             <button
-              onClick={() =>
-                navigate(
-                  `/referrals/product-book-now/payment${
-                    location.search.includes("ref")
-                      ? `?ref=${location?.search?.split("ref=")[1]?.split("&")[0]}`
-                      : ``
-                  }`,
-                  {
-                    state: { singleProductData, rating },
-                  }
-                )
-              }
+              onClick={() => handleBuyNow()}
               type="submit"
               style={{
                 backgroundColor: "#138382",
