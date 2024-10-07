@@ -72,7 +72,16 @@ export default function EventCard({
       >
         {eventName}
       </div>
-      <div className="description text-crop-5">{description}</div>
+      <div className="description text-crop-5">
+        <div
+          dangerouslySetInnerHTML={{
+            __html: description,
+          }}
+          className="hiring-styled-description"
+        ></div>
+
+        {/* {description} */}
+      </div>
     </div>
   );
 }
