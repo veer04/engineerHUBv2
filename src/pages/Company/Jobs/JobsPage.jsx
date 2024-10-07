@@ -12,6 +12,7 @@ import SearchBarWithSearchParams from "../../../components/SearchBarWithSearchPa
 import useNavbar from "../../../hooks/use-navbar";
 import PaginationBarWithSearchParams from "../../../components/PaginationBarWithSearchParams/PaginationBarWithSearchParams";
 import FilterContainerJob from "../../../components/Filter/Company/FilterContainerJob";
+import AdsenseComp from "../../../components/AdsenseComp/AdsenseComp";
 
 export default function JobsPage() {
   const { hiringId } = useParams();
@@ -298,17 +299,8 @@ export default function JobsPage() {
                           key={index}
                         />
                       ) : (
-                        <amp-ad
-                          width="100vw"
-                          height="320"
-                          type="adsense"
-                          data-ad-client="ca-pub-8474972598474156"
-                          data-ad-slot="3646805465"
-                          data-auto-format="rspv"
-                          data-full-width=""
-                        >
-                          <div overflow=""></div>
-                        </amp-ad>
+                        // <h1>Ad here</h1>
+                        <AdsenseComp key={index} />
                       );
                     })}
                   </div>
