@@ -55,7 +55,7 @@ export default function ClubDashboard() {
   }, [organization]);
 
   useEffect(() => {
-    window.scrollTo(0, 0);
+    // window.scrollTo(0, 0);
     fetchData();
     getAllPosts(setPosts, clubId);
     getFeaturedEvents(setFeaturedEvents);
@@ -65,7 +65,7 @@ export default function ClubDashboard() {
     } else {
       setIsUserAdmin(false);
     }
-  }, [clubId,window.location.pathname]);
+  }, [clubId, window.location.pathname]);
 
   // useLayoutEffect(() => {
   //   fetchData();

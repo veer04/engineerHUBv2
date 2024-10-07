@@ -11,6 +11,7 @@ import NewEventCard from "../../components/NewEventCard/NewEventCard";
 import PromoteServices from "./Referrals/PromoteServices/PromoteServices";
 
 const CompanyCards = ({ data }) => {
+  console.log(data, "companydata");
   return (
     <div
       className="companyCards"
@@ -211,19 +212,19 @@ const Company = () => {
     },
 
     //Project
-    {
-      name: "project hub",
-      desc: "Paid projects that gives you hands-on experience for better career.",
-      char: `${bucket}ProjectChar.svg`,
-      background: "#B2E887",
-      stats: {
-        position: companyPageCounts?.pageSizeProjects,
-        hiring: companyPageCounts?.pageSizeProjects ? 20 : 0,
-      },
-      link: "/company/projects",
-      text1: "projects live",
-      text2: "ongoing projects",
-    },
+    // {
+    //   name: "project hub",
+    //   desc: "Paid projects that gives you hands-on experience for better career.",
+    //   char: `${bucket}ProjectChar.svg`,
+    //   background: "#B2E887",
+    //   stats: {
+    //     position: companyPageCounts?.pageSizeProjects,
+    //     hiring: companyPageCounts?.pageSizeProjects ? 20 : 0,
+    //   },
+    //   link: "/company/projects",
+    //   text1: "projects live",
+    //   text2: "ongoing projects",
+    // },
 
     //Event
 
