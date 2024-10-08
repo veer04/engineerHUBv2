@@ -178,7 +178,6 @@ export default function JobsPage() {
 
   return (
     <main className="jobs-page">
-      {/* empty commit */}
       {!Boolean(hiringId) && (
         <>
           <h1 className="display-md">Job Hiring</h1>
