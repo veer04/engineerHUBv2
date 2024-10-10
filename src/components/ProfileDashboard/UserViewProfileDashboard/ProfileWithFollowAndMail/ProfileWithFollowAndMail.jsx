@@ -105,7 +105,7 @@ const ProfileWithFollowAndMail = () => {
                 fontWeight: 600,
               }}
             >
-              johndoersume24.pdf
+              Resume
             </h3>
           </div>
           <div
@@ -119,39 +119,9 @@ const ProfileWithFollowAndMail = () => {
               ATS Score: 80%
             </h3>
           </div>
-        </div>
-
-        <div className="update-view-trash-download">
-          <div className="update-view-btn">
-            <button>Update</button>
-            <button>View</button>
-          </div>
-
-          <div className="download-trash-icon">
-            <div
-              style={{
-                backgroundColor: "#1383821a",
-                padding: "8px 10px",
-                borderRadius: "50%",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <FiDownload color="#138382" size={22} />
-            </div>
-
-            <div
-              style={{
-                backgroundColor: "#FF58581A",
-                padding: "8px 10px",
-                borderRadius: "50%",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <GoTrash color="red" style={{}} size={22} />
+          <div className="update-view-trash-download">
+            <div className="update-view-btn">
+              <button>View</button>
             </div>
           </div>
         </div>
