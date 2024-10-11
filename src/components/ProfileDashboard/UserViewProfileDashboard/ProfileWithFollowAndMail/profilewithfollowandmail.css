@@ -59,9 +59,11 @@
   button:nth-child(1) {
   background-color: transparent;
   color: white;
-  padding: 8px 36px;
+  width: 149px;
+  padding: 8px;
+  height: 40px;
   border: 2px solid white;
-  border-radius: 10px;
+  border-radius: 12px;
   font-size: 14px;
 }
 
@@ -71,9 +73,11 @@
   margin-left: 8px;
   background-color: transparent;
   color: white;
-  padding: 8px 36px;
+  width: 149px;
+  padding: 8px;
+  height: 40px;
   border: 2px solid white;
-  border-radius: 10px;
+  border-radius: 12px;
   font-size: 14px;
 }
 
@@ -92,41 +96,31 @@
 .main-profile-with-follow-and-mail .score-update-view {
   background-color: white;
   margin-top: 10px;
-  border-radius: 10px;
+  border-radius: 12px;
   width: 100%;
   height: auto;
-  padding: 12px;
+  padding: 8px 16px;
 }
 
 .main-profile-with-follow-and-mail .update-view-trash-download {
   display: flex;
   justify-content: space-between;
-  margin-top: 16px;
 }
 
-.main-profile-with-follow-and-mail .update-view-btn button:nth-child(1) {
+.main-profile-with-follow-and-mail
+  .update-view-trash-download
+  .update-view-btn
+  button {
   padding: 6px 12px;
-  background-color: #1383821a;
   border: none;
   outline: none;
   border-radius: 8px;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.08);
+  /* box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.08); */
   font-size: 14px;
   font-weight: 600;
+  line-height: 20px;
   color: #138382;
-}
-
-.main-profile-with-follow-and-mail .update-view-btn button:nth-child(2) {
-  margin-left: 10px;
-  padding: 6px 12px;
-  background-color: #1383821a;
-  border: none;
-  outline: none;
-  border-radius: 8px;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.08);
-  font-size: 14px;
-  font-weight: 600;
-  color: #138382;
+  background-color: transparent;
 }
 
 .main-profile-with-follow-and-mail .download-trash-icon {

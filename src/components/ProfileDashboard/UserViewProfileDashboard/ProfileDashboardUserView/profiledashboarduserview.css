@@ -1,0 +1,18 @@
+.profile-dashboard-user-view-main {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  margin: 48px auto;
+  width: 1264px;
+  height: auto;
+  gap: 10px;
+}
+
+.profile-dashboard-user-view-main .left-profile-dashboard-user {
+  width: 340px;
+  height: auto;
+}
+
+.profile-dashboard-user-view-main .right-profile-dashboard-user {
+  width: 900px;
+  height: auto;
+}

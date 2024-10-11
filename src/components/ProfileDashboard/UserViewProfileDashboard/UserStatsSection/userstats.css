@@ -1,0 +1,47 @@
+.main-user-stats-secttion {
+  width: 100%;
+  height: auto;
+  padding: 16px;
+  border-radius: 16px;
+  background-color: white;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.08);
+}
+
+.main-user-stats-secttion .user-stats-title-section {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.main-user-stats-secttion .jobs-events-projects-posts-div {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.main-user-stats-secttion .jobs-events-projects-posts-div .jobs-box-div-1,
+.events-box-div-1,
+.projects-box-div-1,
+.posts-box-div-1 {
+  width: 146px;
+  height: 76px;
+  background-color: rgba(143, 200, 232, 0.25);
+  padding: 12px;
+  border-radius: 8px;
+}
+
+.main-user-stats-secttion {
+}
+
+.main-user-stats-secttion {
+}
+
+.main-user-stats-secttion {
+}
+
+.main-user-stats-secttion {
+}
+
+.main-user-stats-secttion {
+}
