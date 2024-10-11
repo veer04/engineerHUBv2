@@ -25,6 +25,7 @@ import {
 } from "../../../../features/regex";
 import { patchResume } from "../../../../services/APIConfig";
 import PaymentRedirectPopup from "./PaymentRedirectPopup";
+import FormInputDropdown from "../../../../components/FormInputs/FormInputDropdown";
 
 const BookNowPayment = () => {
   const location = useLocation();
@@ -36,6 +37,7 @@ const BookNowPayment = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [email, setEmail] = useState("");
   const [resume, setResume] = useState("");
+  const [state, setState] = useState("");
   const [extraQuestions, setExtraQuestions] = useState("");
   const [usePreviousResume, setUsePreviousResume] = useState(false);
   const [isResumePresent, setIsResumePresent] = useState(false);
@@ -48,6 +50,7 @@ const BookNowPayment = () => {
   const [meetId, setMeetId] = useState([]);
   const [paymentData, setPaymentData] = useState([]);
   const [clicked, setClicked] = useState(false);
+  const [stateData, setStateData] = useState([]);
 
   // location.state.startDateTimeISO || JSON.parse(localStorage.getItem("startDateTimeISO"));
   const { startDateTimeISO, endDateTimeISO, rating } = location.state || {};
@@ -113,6 +116,35 @@ const BookNowPayment = () => {
     }
   }, [clicked]);
 
+  const getAllStateData = async () => {
+    try {
+      const config = {
+        headers: {
+          accessToken: getAccessToken(),
+        },
+      };
+      const { data } = await axios.get(
+        `${API_URL}api/v1//getStates/IN`,
+        config
+      );
+
+      console.log(data, "stateData");
+
+      setStateData(data.data);
+    } catch (error) {
+      console.log("Error getting the state Data");
+    }
+  };
+
+  const mappedStateData = stateData.map((item) => ({
+    label: item.state,
+    value: item.stateCode,
+  }));
+
+  useEffect(() => {
+    getAllStateData();
+  }, []);
+
   const getAllOpenMeet = async () => {
     try {
       const response = await fetch(`${PAYMENT_API_URL}api/v1/meet/open`);
@@ -150,6 +182,7 @@ const BookNowPayment = () => {
     phoneNumber: "",
     email: "",
     resume: "",
+    state: "",
     extraQuestions: "",
   });
 
@@ -221,6 +254,7 @@ const BookNowPayment = () => {
       phoneNumber: "",
       email: "",
       resume: "",
+      state: "",
       extraQuestions: "",
     };
 
@@ -266,6 +300,12 @@ const BookNowPayment = () => {
       newErrors.resume = "Resume is required";
       valid = false;
       addToErrorStack("#resume");
+    }
+
+    if (!state || !state.label) {
+      newErrors.state = "State is required";
+      valid = false;
+      addToErrorStack("#state");
     }
 
     const isExtraQuestionsVisible =
@@ -541,9 +581,11 @@ const BookNowPayment = () => {
         currency: "INR",
         callback_url: `${FRONTEND_URL}referrals/book-now/payment/success?date=${selectedDates}&time=${selectedTime}`,
         callback_method: "get",
+        state: state.label,
         platform: "meet",
         meetRegistrationId: meetId?.meetRegistrationId,
       };
+      console.log(payload, "payload");
       const ehubReferral = location.search.includes("ref")
         ? location?.search?.split("ref=")[1]?.split("&")[0]
         : null;
@@ -719,6 +761,19 @@ const BookNowPayment = () => {
             helperText={errors.resume}
             className="mb-4"
           />
+
+          <div style={{ marginBottom: 20 }}>
+            <FormInputDropdown
+              label={"Select Your State"}
+              id="selectState"
+              name="state"
+              required
+              placeholder={"Select Your State"}
+              value={state}
+              setValue={setState}
+              options={mappedStateData}
+            />
+          </div>
 
           {meetingData.title == "Personalized Projects for Your Target Role" ||
           meetingData.title === "Ask Anything Related to Engineering" ? (
