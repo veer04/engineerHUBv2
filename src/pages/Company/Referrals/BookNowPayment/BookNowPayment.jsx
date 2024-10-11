@@ -182,7 +182,7 @@ const BookNowPayment = () => {
     phoneNumber: "",
     email: "",
     resume: "",
-    state: "",
+    selectState: "",
     extraQuestions: "",
   });
 
@@ -254,7 +254,7 @@ const BookNowPayment = () => {
       phoneNumber: "",
       email: "",
       resume: "",
-      state: "",
+      selectState: "",
       extraQuestions: "",
     };
 
@@ -303,9 +303,9 @@ const BookNowPayment = () => {
     }
 
     if (!state || !state.label) {
-      newErrors.state = "State is required";
+      newErrors.selectState = "State is required";
       valid = false;
-      addToErrorStack("#state");
+      addToErrorStack("#selectState");
     }
 
     const isExtraQuestionsVisible =
@@ -771,6 +771,7 @@ const BookNowPayment = () => {
               placeholder={"Select Your State"}
               value={state}
               setValue={setState}
+              helperText={errors.selectState}
               options={mappedStateData}
             />
           </div>

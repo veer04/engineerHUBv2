@@ -64,6 +64,7 @@ const PrepPayNow = () => {
     phoneNumber: "",
     email: "",
     resume: "",
+    selectState: "",
     extraQuestions: "",
   });
 
@@ -74,7 +75,7 @@ const PrepPayNow = () => {
       phoneNumber: "",
       email: "",
       resume: "",
-      state: "",
+      selectState: "",
       extraQuestions: "",
     };
 
@@ -117,9 +118,9 @@ const PrepPayNow = () => {
     }
 
     if (!state || !state.label) {
-      newErrors.state = "State is required";
+      newErrors.selectState = "State is required";
       valid = false;
-      addToErrorStack("#state");
+      addToErrorStack("#selectState");
     }
 
     setErrors(newErrors);
@@ -426,6 +427,7 @@ const PrepPayNow = () => {
                 placeholder={"Select Your State"}
                 value={state}
                 setValue={setState}
+                helperText={errors.selectState}
                 options={mappedStateData}
               />
             </div>
