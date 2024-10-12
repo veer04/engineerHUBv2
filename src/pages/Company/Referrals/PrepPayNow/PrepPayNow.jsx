@@ -11,16 +11,23 @@ import useGlobalSnackbar from "../../../../hooks/useGlobalSnackbar";
 import "./preppaynow.css";
 import axios from "axios";
 import { getAccessToken } from "../../../../features/getCookieValues";
-import { FRONTEND_URL, PAYMENT_API_URL } from "../../../../services/APIUtils";
+import {
+  API_URL,
+  FRONTEND_URL,
+  PAYMENT_API_URL,
+} from "../../../../services/APIUtils";
+import FormInputDropdown from "../../../../components/FormInputs/FormInputDropdown";
 
 const PrepPayNow = () => {
   const [name, setName] = useState([]);
   const [phoneNumber, setPhoneNumber] = useState([]);
   const [email, setEmail] = useState([]);
+  const [state, setState] = useState("");
   const [productData, setProductData] = useState([]);
   const [isLoading1, setIsLoading1] = useState(false);
 
   const [isLoading, setIsLoading] = useState(false);
+  const [stateData, setStateData] = useState([]);
 
   const location = useLocation();
   const { singleProductData, rating } = location.state || "";
@@ -57,6 +64,7 @@ const PrepPayNow = () => {
     phoneNumber: "",
     email: "",
     resume: "",
+    selectState: "",
     extraQuestions: "",
   });
 
@@ -67,6 +75,7 @@ const PrepPayNow = () => {
       phoneNumber: "",
       email: "",
       resume: "",
+      selectState: "",
       extraQuestions: "",
     };
 
@@ -108,12 +117,47 @@ const PrepPayNow = () => {
       addToErrorStack("#email");
     }
 
+    if (!state || !state.label) {
+      newErrors.selectState = "State is required";
+      valid = false;
+      addToErrorStack("#selectState");
+    }
+
     setErrors(newErrors);
     return valid;
   };
 
   useEffect(() => {
     window.scrollTo(0, 0);
+  }, []);
+
+  const getAllStateData = async () => {
+    try {
+      const config = {
+        headers: {
+          accessToken: getAccessToken(),
+        },
+      };
+      const { data } = await axios.get(
+        `${API_URL}api/v1//getStates/IN`,
+        config
+      );
+
+      console.log(data, "stateData");
+
+      setStateData(data.data);
+    } catch (error) {
+      console.log("Error getting the state Data");
+    }
+  };
+
+  const mappedStateData = stateData.map((item) => ({
+    label: item.state,
+    value: item.stateCode,
+  }));
+
+  useEffect(() => {
+    getAllStateData();
   }, []);
 
   const handleFormSubmit = () => {
@@ -235,6 +279,7 @@ const PrepPayNow = () => {
           : ``
       }`,
       callback_method: "get",
+      state: state.label,
       platform: "course",
       coursePurchaseRequestId: productData?.coursePurchaseRequestId,
     };
@@ -372,6 +417,20 @@ const PrepPayNow = () => {
               helperText={errors.email}
               className="mb-4"
             />
+
+            <div style={{ marginBottom: 20 }}>
+              <FormInputDropdown
+                label={"Select Your State"}
+                id="selectState"
+                name="state"
+                required
+                placeholder={"Select Your State"}
+                value={state}
+                setValue={setState}
+                helperText={errors.selectState}
+                options={mappedStateData}
+              />
+            </div>
 
             <div style={{ display: "flex", justifyContent: "end" }}>
               <button

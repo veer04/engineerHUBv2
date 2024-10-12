@@ -50,11 +50,11 @@
   gap: 5px;
 }
 
-.btn-siv-edit-post-share {
+.main-profile-with-post-share .btn-siv-edit-post-share {
   margin-top: 10px;
 }
 
-.btn-siv-edit-post-share button:nth-child(1) {
+.main-profile-with-post-share .btn-siv-edit-post-share button:nth-child(1) {
   background-color: transparent;
   color: white;
   padding: 8px 36px;
@@ -63,7 +63,7 @@
   font-size: 14px;
 }
 
-.btn-siv-edit-post-share button:nth-child(2) {
+.main-profile-with-post-share .btn-siv-edit-post-share button:nth-child(2) {
   margin-left: 8px;
   background-color: transparent;
   color: white;
@@ -73,7 +73,7 @@
   font-size: 14px;
 }
 
-.btn-siv-edit-post-share button:nth-child(3) {
+.main-profile-with-post-share .btn-siv-edit-post-share button:nth-child(3) {
   margin-left: 8px;
   background-color: transparent;
   color: white;
@@ -83,7 +83,7 @@
   font-size: 14px;
 }
 
-.score-update-view {
+.main-profile-with-post-share .score-update-view {
   background-color: white;
   margin-top: 10px;
   border-radius: 10px;
@@ -92,13 +92,13 @@
   padding: 12px;
 }
 
-.update-view-trash-download {
+.main-profile-with-post-share .update-view-trash-download {
   display: flex;
   justify-content: space-between;
   margin-top: 16px;
 }
 
-.update-view-btn button:nth-child(1) {
+.main-profile-with-post-share .update-view-btn button:nth-child(1) {
   padding: 6px 12px;
   background-color: #1383821a;
   border: none;
@@ -110,7 +110,7 @@
   color: #138382;
 }
 
-.update-view-btn button:nth-child(2) {
+.main-profile-with-post-share .update-view-btn button:nth-child(2) {
   margin-left: 10px;
   padding: 6px 12px;
   background-color: #1383821a;
@@ -123,7 +123,7 @@
   color: #138382;
 }
 
-.download-trash-icon {
+.main-profile-with-post-share .download-trash-icon {
   width: auto;
   display: flex;
   justify-content: space-between;

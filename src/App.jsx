@@ -74,6 +74,7 @@ const PaymentFailed = lazy(() =>
   import("./pages/Company/Referrals/PaymentFailed/PaymentFailed.jsx")
 );
 import ProfileDashboard from "./components/ProfileDashboard/ProfileDashboard.jsx";
+import ProfileDashboardUserView from "./components/ProfileDashboard/UserViewProfileDashboard/ProfileDashboardUserView/ProfileDashboardUserView.jsx";
 const DigitalProductAdminPage = lazy(() =>
   import("./pages/Admin/DigitalProductAdminPage.jsx")
 );
@@ -367,6 +368,10 @@ function App() {
           </Route>
 
           <Route path="/profiledashboard" element={<ProfileDashboard />} />
+          <Route
+            path="/profiledashboarduserview"
+            element={<ProfileDashboardUserView />}
+          />
 
           <Route path="*" element={<Page404 />} />
         </Routes>
