@@ -348,7 +348,7 @@ export default function JobBoard() {
       errors.message = "Message should be minimum 10 characters";
       isValid = false;
       addToErrorStack("#message");
-    } 
+    }
 
     setErrors(errors);
     handleFormErrors();
@@ -458,8 +458,17 @@ export default function JobBoard() {
                 setValue={setSubject}
                 helperText={errors.subject}
               />
-              <label htmlFor={message} style={{ fontSize: "14px", fontWeight: "500", margin: "0", padding: "0"  }} >
-                Message <span style={{ color: "red", fontSize: "14px"  }}>*</span>
+              <label
+                htmlFor={message}
+                style={{
+                  fontSize: "14px",
+                  fontWeight: "500",
+                  margin: "0",
+                  padding: "0",
+                }}
+              >
+                Message{" "}
+                <span style={{ color: "red", fontSize: "14px" }}>*</span>
               </label>
               {/* <FormInputTextarea
                 id="message"
@@ -616,6 +625,8 @@ export default function JobBoard() {
                   setSearchParams(
                     (prev) => {
                       prev.set("status", "Uncategorized");
+                      prev.set("pageNo", "1");
+                      prev.set("limit", "30");
                       return prev;
                     },
                     { replace: true }
@@ -644,6 +655,8 @@ export default function JobBoard() {
                   setSearchParams(
                     (prev) => {
                       prev.set("status", "Shortlisted");
+                      prev.set("pageNo", "1");
+                      prev.set("limit", "30");
                       return prev;
                     },
                     { replace: true }
@@ -671,6 +684,8 @@ export default function JobBoard() {
                   setSearchParams(
                     (prev) => {
                       prev.set("status", "Rejected");
+                      prev.set("pageNo", "1");
+                      prev.set("limit", "30");
                       return prev;
                     },
                     { replace: true }
@@ -698,6 +713,8 @@ export default function JobBoard() {
                   setSearchParams(
                     (prev) => {
                       prev.set("status", "Processing");
+                      prev.set("pageNo", "1");
+                      prev.set("limit", "30");
                       return prev;
                     },
                     { replace: true }
@@ -725,6 +742,8 @@ export default function JobBoard() {
                   setSearchParams(
                     (prev) => {
                       prev.set("status", "");
+                      prev.set("pageNo", "1");
+                      prev.set("limit", "30");
                       return prev;
                     },
                     { replace: true }
@@ -892,7 +911,7 @@ export default function JobBoard() {
               <select
                 name="limit"
                 id="limit"
-                defaultValue={limit}
+                value={limit}
                 onChange={(e) => {
                   navigate(
                     `/company/jobs/board/${id}?pageNo=1&limit=${
