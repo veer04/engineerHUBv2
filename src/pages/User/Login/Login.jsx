@@ -18,8 +18,7 @@ import { API_URL, API_URLT, FRONTEND_URL } from "../../../services/APIUtils";
 import FormInputDropdown from "../../../components/FormInputs/FormInputDropdown";
 
 const Register = () => {
-  const loginLeft =
-    "https://frontendehubbucket.s3.ap-south-1.amazonaws.com/frontend/auth/loginLeft.png";
+  const navigate = useNavigate();
   if (Cookies.get("name")) {
     let path = "";
     if (Cookies.get("role") === "User") {
@@ -31,7 +30,11 @@ const Register = () => {
     } else if (Cookies.get("role") === "Organization") {
       path = "organization";
     }
-    window.location.href = `/profile/${path}/${Cookies.get("_id")}`;
+    if (sessionStorage.getItem("redirectToAuth") === "true") {
+      sessionStorage.removeItem("redirectToAuth");
+      navigate(sessionStorage.getItem("redirectToAuthLink"));
+      sessionStorage.removeItem("redirectToAuthLink");
+    } else window.location.href = `/profile/${path}/${Cookies.get("_id")}`;
     return;
   }
 
@@ -46,7 +49,6 @@ const Register = () => {
   }, []);
 
   const signIn = useSignIn();
-  const navigate = useNavigate();
   const [password, setPassword] = useState("");
   // const [formPassword, setFormPassword] = useState("");
   // const [focused, setFocused] = useState(false);
@@ -210,12 +212,12 @@ const Register = () => {
       //   severity: "success",
       //   message: "Logged in Successfully!",
       // });
-      setCookieValue(
-        Cookies.get("_auth_state").slice(
-          6,
-          Cookies.get("_auth_state").length - 12
-        )
-      );
+      // setCookieValue(
+      //   Cookies.get("_auth_state").slice(
+      //     6,
+      //     Cookies.get("_auth_state").length - 12
+      //   )
+      // );
     } catch (err) {
       setLoading(false);
       // setSnackbarValues({
@@ -501,7 +503,7 @@ const Register = () => {
               width: "100%",
               lineHeight: "1.2",
               fontSize: "36px",
-              fontWeight: "6s00"
+              fontWeight: "6s00",
             }}
           >
             Hey, Welcome back

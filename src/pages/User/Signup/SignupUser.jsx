@@ -17,20 +17,23 @@ import useNavbar from "../../../hooks/use-navbar";
 import { API_URL, API_URLT, FRONTEND_URL } from "../../../services/APIUtils";
 
 const SignupUser = () => {
-  const loginLeft =
-    "https://frontendehubbucket.s3.ap-south-1.amazonaws.com/frontend/auth/loginLeft.png";
+  const navigate = useNavigate();
   if (Cookies.get("name")) {
     let path = "";
     if (Cookies.get("role") === "User") {
-      path = "student";
+      path = "user";
     } else if (Cookies.get("role") === "Alumni") {
-      path = "alumni";
+      path = "user";
     } else if (Cookies.get("role") === "Club") {
       path = "club";
     } else if (Cookies.get("role") === "Organization") {
       path = "organization";
     }
-    window.location.href = `/profile/${path}/${Cookies.get("_id")}`;
+    if (sessionStorage.getItem("redirectToAuth") === "true") {
+      sessionStorage.removeItem("redirectToAuth");
+      navigate(sessionStorage.getItem("redirectToAuthLink"));
+      sessionStorage.removeItem("redirectToAuthLink");
+    } else window.location.href = `/profile/${path}/${Cookies.get("_id")}`;
     return;
   }
 
@@ -45,7 +48,6 @@ const SignupUser = () => {
   }, []);
 
   const signIn = useSignIn();
-  const navigate = useNavigate();
   const [password, setPassword] = useState("");
   const [confirmPassword,setConfirmPassword]=useState("");
   // const [formPassword, setFormPassword] = useState("");

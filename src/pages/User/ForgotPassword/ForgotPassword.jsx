@@ -10,21 +10,25 @@ import { API_URL } from "../../../services/APIUtils";
 import { changeDocumentTitle } from "../../../features/changeDocumentTitle";
 export default function ForgotPassword() {
   changeDocumentTitle("Forgot Password | engineerHUB");
+  const navigate = useNavigate();
   if (Cookies.get("name")) {
     let path = "";
     if (Cookies.get("role") === "User") {
-      path = "student";
+      path = "user";
     } else if (Cookies.get("role") === "Alumni") {
-      path = "alumni";
+      path = "user";
     } else if (Cookies.get("role") === "Club") {
       path = "club";
     } else if (Cookies.get("role") === "Organization") {
       path = "organization";
     }
-    window.location.href = `/profile/${path}/${Cookies.get("_id")}`;
+    if (sessionStorage.getItem("redirectToAuth") === "true") {
+      sessionStorage.removeItem("redirectToAuth");
+      navigate(sessionStorage.getItem("redirectToAuthLink"));
+      sessionStorage.removeItem("redirectToAuthLink");
+    } else window.location.href = `/profile/${path}/${Cookies.get("_id")}`;
     return;
   }
-  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
