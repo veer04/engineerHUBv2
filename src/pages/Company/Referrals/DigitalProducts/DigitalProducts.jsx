@@ -23,6 +23,7 @@ const DigitalProducts = ({ compName }) => {
   const customOrder = [
     "Editable Resume Template – 94% ATS Score",
     "Company-Wise Complete Preparation Guide",
+    "Last 2 Years' Startup & Mid-Company Tech Interview Ques",
     "ATS-Friendly Templates for Frontend, Backend, and Full-Stack Roles",
     "FAANG Equivalent Companies - Top 100",
     "Complete DSA Resources for Interview Preparation",

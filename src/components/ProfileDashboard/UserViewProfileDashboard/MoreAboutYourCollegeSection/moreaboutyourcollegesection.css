@@ -1,0 +1,9 @@
+.more-about-college-main-div {
+  max-width: 804px;
+  height: auto;
+  padding: 16px;
+  border-radius: 16px;
+  background-color: white;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.08);
+  margin-top: 10px;
+}
