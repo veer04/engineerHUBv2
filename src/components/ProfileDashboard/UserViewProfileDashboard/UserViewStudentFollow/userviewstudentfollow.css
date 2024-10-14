@@ -1,0 +1,20 @@
+.user-view-student-follow-main-div {
+  width: 100%;
+  height: auto;
+  padding: 16px;
+  border-radius: 10px;
+  background-color: white;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.08);
+}
+
+.user-view-student-follow-main-div .user-follow-section-with-img {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.user-view-student-follow-main-div {
+}
+
+.user-view-student-follow-main-div {
+}

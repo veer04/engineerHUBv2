@@ -2,9 +2,9 @@
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   margin: 48px auto;
-  width: 1264px;
+  width: 1150px;
   height: auto;
-  gap: 10px;
+  gap: 15px;
 }
 
 .profile-dashboard-user-view-main .left-profile-dashboard-user {
@@ -13,6 +13,21 @@
 }
 
 .profile-dashboard-user-view-main .right-profile-dashboard-user {
-  width: 900px;
+  width: 804px;
   height: auto;
+}
+
+.profile-dashboard-user-view-main
+  .right-profile-dashboard-user
+  .profile-dashboard-resume-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.profile-dashboard-user-view-main
+  .right-profile-dashboard-user
+  .profile-dashboard-resume-grid
+  .profile-dashboard-resume-grid-left {
 }
