@@ -11,6 +11,10 @@
   width: 340px;
   height: auto;
 }
+.profile-dashboard-user-view-main .left-profile-dashboard-user .user-view-img {
+  width: 340px;
+  height: 340px;
+}
 
 .profile-dashboard-user-view-main .right-profile-dashboard-user {
   width: 804px;
@@ -30,4 +34,48 @@
   .right-profile-dashboard-user
   .profile-dashboard-resume-grid
   .profile-dashboard-resume-grid-left {
+}
+
+@media screen and (max-width: 520px) {
+  .profile-dashboard-user-view-main {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    width: 100%;
+    height: 100%;
+    padding: 8px;
+    margin: 12px auto;
+  }
+
+  .profile-dashboard-user-view-main .left-profile-dashboard-user {
+    width: 100%;
+    height: auto;
+  }
+
+  .profile-dashboard-user-view-main
+    .left-profile-dashboard-user
+    .user-view-img {
+    width: 100%;
+    height: 100%;
+  }
+
+  .profile-dashboard-user-view-main .right-profile-dashboard-user {
+    width: 100%;
+    height: 100%;
+    padding: 2px;
+  }
+
+  .profile-dashboard-user-view-main
+    .right-profile-dashboard-user
+    .user1-view-img {
+    width: 100%;
+    height: 100%;
+  }
+
+  .profile-dashboard-user-view-main
+    .right-profile-dashboard-user
+    .profile-dashboard-resume-grid {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    margin-top: 10px;
+  }
 }

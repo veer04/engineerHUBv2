@@ -81,7 +81,9 @@ const YourActivitySection = () => {
       {actionButton === "Jobs" && (
         <div className="grid-job-card-activity">
           <RecommendationCard1 />
-          <RecommendedCard2 />
+          <RecommendationCard1 />
+
+          {/* <RecommendedCard2 /> */}
           <RecommendationCard1 />
         </div>
       )}
