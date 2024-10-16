@@ -6,8 +6,8 @@ const UserProfileAboutDesc = () => {
     <div className="user-profile-about-main-div">
       <h3
         style={{
-          fontSize: 20,
-          fontWeight: 700,
+          fontSize: 18,
+          fontWeight: 600,
           lineHeight: "24px",
           color: "#002B36",
         }}

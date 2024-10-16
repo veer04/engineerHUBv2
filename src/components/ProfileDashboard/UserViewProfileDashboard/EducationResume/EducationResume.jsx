@@ -6,7 +6,7 @@ const EducationResume = () => {
       <h3
         style={{
           fontSize: 18,
-          fontWeight: 700,
+          fontWeight: 600,
           lineHeight: "24px",
           color: "#002B36",
           marginBottom: 0,
@@ -19,7 +19,7 @@ const EducationResume = () => {
         <h3
           style={{
             fontSize: 16,
-            fontWeight: 700,
+            fontWeight: 600,
             lineHeight: "24px",
             color: "#002B36",
             marginBottom: 0,
@@ -88,7 +88,7 @@ const EducationResume = () => {
         <h3
           style={{
             fontSize: 16,
-            fontWeight: 700,
+            fontWeight: 600,
             lineHeight: "24px",
             color: "#002B36",
             marginBottom: 0,

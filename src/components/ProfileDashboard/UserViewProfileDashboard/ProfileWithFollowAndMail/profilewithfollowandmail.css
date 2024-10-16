@@ -25,6 +25,16 @@
   align-items: center;
   border-radius: 50%;
   margin-left: 5px;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+}
+
+.animate {
+  transition: transform 0.3s ease-in-out, opacity 0.3s;
+}
+
+.animate:active {
+  transform: scale(1.2);
 }
 
 .main-profile-with-follow-and-mail .img-thumbsup-div .img-thumbsup {
@@ -57,7 +67,7 @@
 .main-profile-with-follow-and-mail
   .btn-siv-edit-post-share
   button:nth-child(1) {
-  background-color: transparent;
+  /* background-color: transparent; */
   color: white;
   width: 149px;
   padding: 8px;
@@ -71,7 +81,7 @@
   .btn-siv-edit-post-share
   button:nth-child(2) {
   margin-left: 8px;
-  background-color: transparent;
+  /* background-color: transparent; */
   color: white;
   width: 149px;
   padding: 8px;
@@ -91,6 +101,16 @@
   border: 2px solid white;
   border-radius: 10px;
   font-size: 14px;
+}
+
+.main-profile-with-follow-and-mail .btn-siv-edit-post-share .btn-default {
+  background-color: transparent;
+  color: white;
+}
+
+.btn-active {
+  background-color: #0f6968;
+  color: white;
 }
 
 .main-profile-with-follow-and-mail .score-update-view {
@@ -129,4 +149,33 @@
   justify-content: space-between;
   align-items: center;
   gap: 15px;
+}
+
+@media screen and (max-width: 520px) {
+  .main-profile-with-follow-and-mail
+    .btn-siv-edit-post-share
+    button:nth-child(1) {
+    /* background-color: transparent; */
+    color: white;
+    width: 50%;
+    padding: 8px;
+    height: 40px;
+    border: 2px solid white;
+    border-radius: 12px;
+    font-size: 14px;
+  }
+
+  .main-profile-with-follow-and-mail
+    .btn-siv-edit-post-share
+    button:nth-child(2) {
+    margin-left: 8px;
+    /* background-color: transparent; */
+    color: white;
+    width: 47%;
+    padding: 8px;
+    height: 40px;
+    border: 2px solid white;
+    border-radius: 12px;
+    font-size: 14px;
+  }
 }

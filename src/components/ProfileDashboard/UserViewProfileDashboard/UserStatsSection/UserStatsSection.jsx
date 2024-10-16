@@ -11,7 +11,7 @@ const UserStatsSection = () => {
           style={{
             fontSize: 18,
             color: "#002B36",
-            fontWeight: 700,
+            fontWeight: 600,
             lineHeight: "24px",
             marginBottom: 0,
           }}
