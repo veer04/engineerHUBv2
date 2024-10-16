@@ -159,7 +159,9 @@ export default function IndividualJob() {
         if (result.success) {
           const { organisationName, numberOfAlmas } = result.data.detailFound;
           setHiringName(organisationName);
-          const seed = hiringId.split("").reduce((acc, char) => acc + char.charCodeAt(0), 0);
+          const seed = hiringId
+            .split("")
+            .reduce((acc, char) => acc + char.charCodeAt(0), 0);
           const randomAlmas = Math.floor(seededRandom(seed) * 10) + 1;
           setNumberOfAlmas(randomAlmas);
         } else {
@@ -400,6 +402,19 @@ export default function IndividualJob() {
               }}
               className="hiring-styled-description"
             ></div>
+          </div>
+          <div style={{ margin: "1rem 0" }}>
+            <amp-ad
+              width="100vw"
+              height="320"
+              type="adsense"
+              data-ad-client="ca-pub-8474972598474156"
+              data-ad-slot="2309720790"
+              data-auto-format="rspv"
+              data-full-width=""
+            >
+              <div overflow=""></div>
+            </amp-ad>
           </div>
           <div className="hiring-box">
             <h4 className="body-sm-semibold">More Information</h4>
