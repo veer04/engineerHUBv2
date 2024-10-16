@@ -63,11 +63,85 @@ const YourActivitySection = () => {
       </div>
 
       {actionButton === "Streak" && (
-        <div className="grid-activity-section">
-          {activityCardArray.map((card, index) => (
-            <ActivityCardsSaif key={card} />
-          ))}
-        </div>
+        <>
+          <div className="grid-activity-section">
+            {activityCardArray.map((card, index) => (
+              <ActivityCardsSaif key={card} />
+            ))}
+          </div>
+
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              marginTop: 20,
+            }}
+          >
+            <h3
+              style={{
+                textAlign: "center",
+                fontSize: 14,
+                fontWeight: 400,
+                lineHeight: "20px",
+                color: "#002B36",
+                marginBottom: 0,
+              }}
+            >
+              Latest Streak : 5 days
+            </h3>
+
+            <div style={{ display: "flex", gap: 3, alignItems: "center" }}>
+              <span
+                style={{
+                  fontSize: 12,
+                  fontWeight: 400,
+                  lineHeight: "16px",
+                  color: "#002B36",
+                }}
+              >
+                Less
+              </span>
+              <div
+                style={{
+                  width: "12.79px",
+                  height: "12.79px",
+                  background: "#39D3531A",
+                  borderRadius: "3.2px",
+                  flexShrink: 0,
+                }}
+              ></div>
+              <div
+                style={{
+                  width: "12.79px",
+                  height: "12.79px",
+                  background: "#39D35380",
+                  borderRadius: "3.2px",
+                  flexShrink: 0,
+                }}
+              ></div>
+              <div
+                style={{
+                  width: "12.79px",
+                  height: "12.79px",
+                  background: "#39D353",
+                  borderRadius: "3.2px",
+                  flexShrink: 0,
+                }}
+              ></div>
+              <span
+                style={{
+                  fontSize: 12,
+                  fontWeight: 400,
+                  lineHeight: "16px",
+                  color: "#002B36",
+                }}
+              >
+                More
+              </span>
+            </div>
+          </div>
+        </>
       )}
 
       {actionButton === "Posts" && (
@@ -87,78 +161,6 @@ const YourActivitySection = () => {
           <RecommendationCard1 />
         </div>
       )}
-
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          marginTop: 20,
-        }}
-      >
-        <h3
-          style={{
-            textAlign: "center",
-            fontSize: 14,
-            fontWeight: 400,
-            lineHeight: "20px",
-            color: "#002B36",
-            marginBottom: 0,
-          }}
-        >
-          Latest Streak : 5 days
-        </h3>
-
-        <div style={{ display: "flex", gap: 3, alignItems: "center" }}>
-          <span
-            style={{
-              fontSize: 12,
-              fontWeight: 400,
-              lineHeight: "16px",
-              color: "#002B36",
-            }}
-          >
-            Less
-          </span>
-          <div
-            style={{
-              width: "12.79px",
-              height: "12.79px",
-              background: "#39D3531A",
-              borderRadius: "3.2px",
-              flexShrink: 0,
-            }}
-          ></div>
-          <div
-            style={{
-              width: "12.79px",
-              height: "12.79px",
-              background: "#39D35380",
-              borderRadius: "3.2px",
-              flexShrink: 0,
-            }}
-          ></div>
-          <div
-            style={{
-              width: "12.79px",
-              height: "12.79px",
-              background: "#39D353",
-              borderRadius: "3.2px",
-              flexShrink: 0,
-            }}
-          ></div>
-          <span
-            style={{
-              fontSize: 12,
-              fontWeight: 400,
-              lineHeight: "16px",
-              color: "#002B36",
-            }}
-          >
-            More
-          </span>
-        </div>
-      </div>
     </div>
   );
 };
