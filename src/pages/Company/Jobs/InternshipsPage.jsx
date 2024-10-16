@@ -12,12 +12,14 @@ import useNavbar from "../../../hooks/use-navbar";
 import PaginationBarWithSearchParams from "../../../components/PaginationBarWithSearchParams/PaginationBarWithSearchParams";
 import InternshipCard from "../Internship/InternshipCard";
 import FilterContainerInternship from "../../../components/Filter/Company/FilterContainerInternship";
+import AdsenseComp from "../../../components/AdsenseComp/AdsenseComp";
 
 export default function InternshipsPage() {
   const { hiringId } = useParams();
   const { setSelectedPageNavbar } = useNavbar();
   const [width, setWidth] = useState(window.innerWidth);
   const [pageCount, setPageCount] = useState(1);
+  const [jobsWithAds, setJobsWithAds] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams({
     q: "",
     pageNo: "",
@@ -132,6 +134,48 @@ export default function InternshipsPage() {
     window.scrollTo(0, 0);
   }, [pageNo]);
 
+  useEffect(() => {
+    const jobs = jobsQuery?.data?.data?.data;
+    const jobsWithAds = [];
+
+    jobs?.forEach((job, index) => {
+      jobsWithAds.push(job);
+      if ((index + 1) % 4 === 0) {
+        jobsWithAds.push(
+          <amp-ad
+            width="100vw"
+            height="320"
+            type="adsense"
+            data-ad-client="ca-pub-8474972598474156"
+            data-ad-slot="3646805465"
+            data-auto-format="rspv"
+            data-full-width=""
+          >
+            <div overflow=""></div>
+          </amp-ad>
+        );
+      }
+    });
+
+    if (jobs?.length % 4 !== 0) {
+      jobsWithAds.push(
+        <amp-ad
+          width="100vw"
+          height="320"
+          type="adsense"
+          data-ad-client="ca-pub-8474972598474156"
+          data-ad-slot="3646805465"
+          data-auto-format="rspv"
+          data-full-width=""
+        >
+          <div overflow=""></div>
+        </amp-ad>
+      );
+    }
+
+    setJobsWithAds(jobsWithAds);
+  }, [jobsQuery]);
+
   return (
     <main className="jobs-page">
       {!Boolean(hiringId) && (
@@ -159,6 +203,20 @@ export default function InternshipsPage() {
           />
         </>
       )}
+      <script
+        async
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8474972598474156"
+        crossOrigin="anonymous"
+      ></script>
+      <ins
+        className="adsbygoogle"
+        style={{ display: "block" }}
+        data-ad-client="ca-pub-8474972598474156"
+        data-ad-slot="3867233093"
+        data-ad-format="auto"
+        data-full-width-responsive="true"
+      ></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
       <div className={`${!!hiringId ? "job-page-divider" : ""}`}>
         {!(!!hiringId && width < 1150) && (
           <section className={`${!!hiringId ? "all-jobs-section" : ""}`}>
@@ -233,13 +291,16 @@ export default function InternshipsPage() {
                       !!hiringId ? "--overflow" : ""
                     }`}
                   >
-                    {jobsQuery.data.data?.data.map((item, index) => {
-                      return (
+                    {jobsWithAds?.map((item, index) => {
+                      return index === 0 || (index + 1) % 5 !== 0 ? (
                         <InternshipCard
                           details={item}
                           color={colorWheel[index % colorWheel.length]}
                           key={index}
                         />
+                      ) : (
+                        // <h1>Ad here</h1>
+                        <AdsenseComp key={index} />
                       );
                     })}
                   </div>
