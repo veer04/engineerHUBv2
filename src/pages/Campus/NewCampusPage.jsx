@@ -5,7 +5,7 @@ import TrendingListClubs from "../../components/TrendingList/TrendingListClubs";
 import TrendingListAlumni from "../../components/TrendingList/TrendingListAlumni";
 import TrendingPostCard from "../../components/TrendingPostCard/TrendingPostCard";
 import CampusSearchBox from "../../components/CampusSearchBox/CampusSearchBox";
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { FiHome } from "react-icons/fi";
 import { LuCalendar } from "react-icons/lu";
 import { BiPlayCircle } from "react-icons/bi";
@@ -46,7 +46,7 @@ export default function NewCampusPage() {
   const [trendingWorkshops, setTrendingWorkshops] = useState([]);
 
   useEffect(() => {
-    document.title = `Campus | engineerHUB`
+    document.title = `Campus | engineerHUB`;
     window.scrollTo(0, 0);
     getAllCampuses(setAllCampuses);
     if (!isLoggedIn) getTrendingActivities(setTrendingPosts);
@@ -116,8 +116,28 @@ export default function NewCampusPage() {
     getPostByIdPrivateMode(setUpdatedPost, postId);
   }
 
-  const renderTrendingPosts = trendingPosts.map((post) => (
-    <TrendingPostCard key={post._id} post={post} updatePost={updatePost} />
+  const renderTrendingPosts = trendingPosts.map((post, index) => (
+    <Fragment key={post._id}>
+      <TrendingPostCard post={post} updatePost={updatePost} />
+      {index >= 1 && (index + 1) % 6 === 0 && (
+        <>
+          <script
+            async
+            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8474972598474156"
+            crossOrigin="anonymous"
+          ></script>
+          <ins
+            className="adsbygoogle"
+            style={{ display: "block" }}
+            data-ad-format="fluid"
+            data-ad-layout-key="-6t+ed+2i-1n-4w"
+            data-ad-client="ca-pub-8474972598474156"
+            data-ad-slot="1548911694"
+          ></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </>
+      )}
+    </Fragment>
   ));
 
   const renderTrendingEventsMobile = trendingEvents.map((event) => (
@@ -222,65 +242,6 @@ export default function NewCampusPage() {
             </span>
           </div>
         </div>
-
-        // <div style={{ zIndex: "2" }} className="mobile-campus-subnavbar">
-        //   <div
-        //     className={
-        //       isSticky
-        //         ? "mobile-campus-subnavbar sticky"
-        //         : "mobile-campus-subnavbar"
-        //     }
-        //   >
-        //     <div
-        //       style={{
-        //         color: choice === 1 ? "#FFD600" : "#b0b0b0",
-        //       }}
-        //       className="option"
-        //       onClick={() => setChoice(1)}
-        //     >
-        //       <span className="icon">
-        //         <FiHome />
-        //       </span>
-        //       <span className="title">Feed</span>
-        //     </div>
-        //     <div
-        //       style={{
-        //         color: choice === 2 ? "#FFD600" : "#b0b0b0",
-        //       }}
-        //       className="option"
-        //       onClick={() => setChoice(2)}
-        //     >
-        //       <span className="icon">
-        //         <LuCalendar />
-        //       </span>
-        //       <span className="title">Events</span>
-        //     </div>
-        //     <div
-        //       style={{
-        //         color: choice === 3 ? "#FFD600" : "#b0b0b0",
-        //       }}
-        //       className="option"
-        //       onClick={() => setChoice(3)}
-        //     >
-        //       <span className="icon">
-        //         <BiPlayCircle />
-        //       </span>
-        //       <span className="title">Workshops</span>
-        //     </div>
-        //     <div
-        //       style={{
-        //         color: choice === 4 ? "#FFD600" : "#b0b0b0",
-        //       }}
-        //       className="option"
-        //       onClick={() => setChoice(4)}
-        //     >
-        //       <span className="icon">
-        //         <FaArrowTrendUp />
-        //       </span>
-        //       <span className="title">Trending</span>
-        //     </div>
-        //   </div>
-        // </div>
       )}
       <div className={`campus-page-container ${isStickySide ? "sticky" : ""}`}>
         <section
