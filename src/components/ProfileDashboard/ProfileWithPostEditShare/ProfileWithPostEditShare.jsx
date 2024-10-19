@@ -1,20 +1,41 @@
-import React from "react";
+import React, { useState } from "react";
 import "./profilewithposteditshare.css";
 import { FaRegThumbsUp } from "react-icons/fa";
+import { FaThumbsUp } from "react-icons/fa";
+
 import { FaGraduationCap } from "react-icons/fa6";
 import { HiOutlineBuildingOffice2 } from "react-icons/hi2";
 import { FiDownload } from "react-icons/fi";
 import { GoTrash } from "react-icons/go";
 
 const ProfileWithPostEditShare = () => {
+  const [isLiked, setIsLiked] = useState(false);
+  const [likeCount, setLikeCount] = useState(0);
+
+  const handleThumbsUpClick = () => {
+    setIsLiked(true);
+    setLikeCount(likeCount + 1);
+  };
   return (
     <div className="main-profile-with-post-share">
       <div className="img-share-div">
         <img src="/g2.svg" className="g2-img" alt="g2_img" />
 
         <div>
-          <div className="img-thumbsup-div">
-            <FaRegThumbsUp color="#128381" size={22} />
+          <div onClick={handleThumbsUpClick} className="img-thumbsup-div">
+            {isLiked ? (
+              <FaThumbsUp
+                className="thumbs-up-icon animate"
+                color="#128381"
+                size={22}
+              />
+            ) : (
+              <FaRegThumbsUp
+                className="thumbs-up-icon animate"
+                color="#128381"
+                size={22}
+              />
+            )}
           </div>
           <h4
             style={{
@@ -22,9 +43,10 @@ const ProfileWithPostEditShare = () => {
               marginTop: 5,
               color: "white",
               fontWeight: 400,
+              marginLeft: 3,
             }}
           >
-            50 Likes
+            {likeCount} {likeCount === 1 ? "Like" : "Likes"}
           </h4>
         </div>
       </div>
