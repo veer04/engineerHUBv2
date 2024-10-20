@@ -1,0 +1,20 @@
+.profile-dashboard-edit-start-div {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  margin: 48px auto;
+  width: 1150px;
+  height: auto;
+  gap: 15px;
+}
+
+.profile-dashboard-edit-start-div .profile-dashboard-edit-left-div {
+  width: 367px;
+  height: auto;
+}
+
+.profile-dashboard-edit-start-div .profile-dashboard-edit-right-div {
+  width: 775px;
+  height: auto;
+}
+.profile-dashboard-edit-start-div {
+}
