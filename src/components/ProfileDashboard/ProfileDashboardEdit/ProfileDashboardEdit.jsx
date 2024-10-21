@@ -1,7 +1,7 @@
 import React from "react";
 import "./profiledashboardedit.css";
 import ProfileAddSectionLeft from "./ProfileAddSectionLeft/ProfileAddSectionLeft";
-import ProfileCompletionEditSection from "./profileCompletionEditSection/profileCompletionEditSection";
+import ProfileCompletionEditSection from "./profileCompletionEditSection/ProfileCompletionEditSection";
 import ProfileInformationEdit from "./ProfileInformationEdit/ProfileInformationEdit";
 
 const ProfileDashboardEdit = () => {
