@@ -11,6 +11,7 @@ const DigitalProducts = ({ compName }) => {
   const [animationClass, setAnimationClass] = useState("show");
   const [courseData, setCourseData] = useState([]);
   const [activeFilter, setActiveFilter] = useState("All");
+  const [availableTypes, setAvailableTypes] = useState([]);
 
   const shuffleArrayData = (array) => {
     for (let i = array.length - 1; i > 0; i--) {
@@ -62,6 +63,9 @@ const DigitalProducts = ({ compName }) => {
       // setCourseData(shuffleData);
       const sortedData = sortDataByCustomOrder(data.data);
       setCourseData(sortedData);
+
+      const uniqueTypes = [...new Set(data.data.map((item) => item.type))];
+      setAvailableTypes(uniqueTypes);
     } catch (error) {
       console.log(error);
     }
@@ -90,17 +94,12 @@ const DigitalProducts = ({ compName }) => {
   };
 
   const getFilterCards = () => {
-    switch (filterDigitalProducts) {
-      case "Cheatsheets":
-        return courseData.filter((card) => card.type === "Cheatsheet");
-      case "Notes":
-        return courseData.filter((card) => card.type === "Notes");
-      case "All":
-        return courseData;
-      default:
-        return [];
+    if (filterDigitalProducts === "All") {
+      return courseData;
     }
+    return courseData.filter((card) => card.type === filterDigitalProducts);
   };
+
   return (
     <div id="digital-product" className="main-container-prdoucts">
       <div>
@@ -122,7 +121,26 @@ const DigitalProducts = ({ compName }) => {
         >
           All
         </button>
-        <button
+
+        {availableTypes.map((type) => (
+          <button
+            key={type}
+            style={{
+              backgroundColor: activeFilter === type ? "#138382" : "#f2f4f5",
+              color: activeFilter === type ? "white" : "#002b36",
+              padding: "4px 16px",
+              borderRadius: "10px",
+              border: "none",
+              marginRight: "10px",
+              marginBottom: "10px",
+            }}
+            onClick={() => handleFilterChange(type)}
+          >
+            {type}
+          </button>
+        ))}
+
+        {/* <button
           style={{
             backgroundColor:
               activeFilter === "Cheatsheets" ? "#138382" : "#f2f4f5",
@@ -150,7 +168,7 @@ const DigitalProducts = ({ compName }) => {
           onClick={() => handleFilterChange("Notes")}
         >
           Resources
-        </button>
+        </button> */}
       </div>
 
       <div className={`digital-cards ${animationClass}`}>
