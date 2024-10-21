@@ -3,7 +3,9 @@
   grid-template-columns: repeat(2, 1fr);
   margin: 48px auto;
   width: 1150px;
+  width: 1150px;
   height: auto;
+  gap: 15px;
   gap: 15px;
 }
 

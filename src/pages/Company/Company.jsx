@@ -327,6 +327,27 @@ const Company = () => {
           })}
         </div>
       </div>
+      <div
+        style={{
+          marginTop: "50px",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          width: "100%",
+        }}
+      >
+        <amp-ad
+          width="100vw"
+          height="320"
+          type="adsense"
+          data-ad-client="ca-pub-8474972598474156"
+          data-ad-slot="7731176663"
+          data-auto-format="rspv"
+          data-full-width=""
+        >
+          <div overflow=""></div>
+        </amp-ad>
+      </div>
       <div className="Opportunities">
         <a href="/company/events" style={{ textDecoration: "none" }}>
           <h5>Trending Opportunities</h5>
