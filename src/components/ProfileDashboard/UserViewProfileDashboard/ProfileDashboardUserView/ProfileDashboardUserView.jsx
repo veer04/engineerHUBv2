@@ -4,24 +4,15 @@ import ProfileWithFollowAndMail from "../ProfileWithFollowAndMail/ProfileWithFol
 import UserStatsSection from "../UserStatsSection/UserStatsSection";
 import UserProfileAboutDesc from "../UserProfileAboutDesc/UserProfileAboutDesc";
 import UserViewStudentFollow from "../UserViewStudentFollow/UserViewStudentFollow";
-import EducationResume from "../EducationResume/EducationResume";
-import ExperienceResume from "../ExperienceResume/ExperienceResume";
-import SkillsResume from "../SkillsResume/SkillsResume";
+
 import AchievementsResume from "../AchievementsResume/AchievementsResume";
 import CertificationsResume from "../CertificationsResume/CertificationsResume";
 import ProjectsResume from "../ProjectsResume/ProjectsResume";
 import YourActivitySection from "../../YourActivitySection/YourActivitySection";
 import MoreAboutYourCollegeSection from "../MoreAboutYourCollegeSection/MoreAboutYourCollegeSection";
-import UserProfileAboutDesc from "../UserProfileAboutDesc/UserProfileAboutDesc";
-import UserViewStudentFollow from "../UserViewStudentFollow/UserViewStudentFollow";
 import EducationResume from "../EducationResume/EducationResume";
 import ExperienceResume from "../ExperienceResume/ExperienceResume";
 import SkillsResume from "../SkillsResume/SkillsResume";
-import AchievementsResume from "../AchievementsResume/AchievementsResume";
-import CertificationsResume from "../CertificationsResume/CertificationsResume";
-import ProjectsResume from "../ProjectsResume/ProjectsResume";
-import YourActivitySection from "../../YourActivitySection/YourActivitySection";
-import MoreAboutYourCollegeSection from "../MoreAboutYourCollegeSection/MoreAboutYourCollegeSection";
 
 const ProfileDashboardUserView = () => {
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 520);
