@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./recommendedsection.css";
 import { FaRegHandshake } from "react-icons/fa";
 import RecommendationCard1 from "./RecommendationCard1";
 import RecommendedCard2 from "./RecommendedSection2";
+import { API_URL } from "../../../services/APIUtils";
+import { getAccessToken } from "../../../features/getCookieValues";
 
 const RecommendedSection = () => {
+  const [recommendationData, setRecommendationData] = useState([]);
+
   return (
     <>
       <div className="recommended-main-section-div">

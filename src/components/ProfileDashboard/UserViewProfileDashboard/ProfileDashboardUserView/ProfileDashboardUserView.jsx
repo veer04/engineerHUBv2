@@ -1,19 +1,34 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./profiledashboarduserview.css";
 import ProfileWithFollowAndMail from "../ProfileWithFollowAndMail/ProfileWithFollowAndMail";
 import UserStatsSection from "../UserStatsSection/UserStatsSection";
 import UserProfileAboutDesc from "../UserProfileAboutDesc/UserProfileAboutDesc";
 import UserViewStudentFollow from "../UserViewStudentFollow/UserViewStudentFollow";
-import EducationResume from "../EducationResume/EducationResume";
-import ExperienceResume from "../ExperienceResume/ExperienceResume";
-import SkillsResume from "../SkillsResume/SkillsResume";
+
 import AchievementsResume from "../AchievementsResume/AchievementsResume";
 import CertificationsResume from "../CertificationsResume/CertificationsResume";
 import ProjectsResume from "../ProjectsResume/ProjectsResume";
 import YourActivitySection from "../../YourActivitySection/YourActivitySection";
 import MoreAboutYourCollegeSection from "../MoreAboutYourCollegeSection/MoreAboutYourCollegeSection";
+import EducationResume from "../EducationResume/EducationResume";
+import ExperienceResume from "../ExperienceResume/ExperienceResume";
+import SkillsResume from "../SkillsResume/SkillsResume";
 
 const ProfileDashboardUserView = () => {
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 520);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 520);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   return (
     <>
       <div className="profile-dashboard-user-view-main">
@@ -24,21 +39,26 @@ const ProfileDashboardUserView = () => {
             <UserStatsSection />
           </div>
 
-          <div style={{ marginTop: 10 }}>
-            <UserViewStudentFollow title={"Other students from AKGCE"} />
-          </div>
-          <div style={{ marginTop: 10 }}>
-            <UserViewStudentFollow title={"“Girish” also follows"} />
-          </div>
+          {/* //in desktop yeh dikhega */}
 
-          <div style={{ marginTop: 10 }}>
-            <img
-              style={{ borderRadius: 8 }}
-              src="./rectangle-img.png"
-              width={340}
-              height={340}
-            />
-          </div>
+          {isMobile ? null : (
+            <>
+              <div style={{ marginTop: 10 }}>
+                <UserViewStudentFollow title={"Other students from AKGCE"} />
+              </div>
+              <div style={{ marginTop: 10 }}>
+                <UserViewStudentFollow title={"“Girish” also follows"} />
+              </div>
+
+              <div style={{ marginTop: 10 }}>
+                <img
+                  className="user-view-img"
+                  style={{ borderRadius: 8 }}
+                  src="./rectangle-img.png"
+                />
+              </div>
+            </>
+          )}
         </div>
 
         <div className="right-profile-dashboard-user">
@@ -50,8 +70,8 @@ const ProfileDashboardUserView = () => {
             >
               <h3
                 style={{
-                  fontSize: 18,
-                  fontWeight: 700,
+                  fontSize: 20,
+                  fontWeight: 600,
                   lineHeight: "24px",
                   color: "#002B36",
                   marginBottom: 0,
@@ -60,9 +80,7 @@ const ProfileDashboardUserView = () => {
                 Girish's Profile
               </h3>
             </div>
-
             <UserProfileAboutDesc />
-
             <div className="profile-dashboard-resume-grid">
               <div className="profile-dashboard-resume-grid-left">
                 <EducationResume />
@@ -75,12 +93,33 @@ const ProfileDashboardUserView = () => {
                 <ProjectsResume />
               </div>
             </div>
-
             <div style={{ marginTop: 15 }}>
               <YourActivitySection />
             </div>
-
             <MoreAboutYourCollegeSection />
+
+            {/* //in mobile yeh dikhega */}
+            {isMobile ? (
+              <>
+                <div style={{ marginTop: 10 }}>
+                  <UserViewStudentFollow title={"Other students from AKGCE"} />
+                </div>
+
+                <div style={{ marginTop: 10 }}>
+                  <UserViewStudentFollow title={"Other students from AKGCE"} />
+                </div>
+
+                <div style={{ marginTop: 10 }}>
+                  <img
+                    className="user1-view-img"
+                    style={{ borderRadius: 8 }}
+                    src="./rectangle-img.png"
+                  />
+                </div>
+              </>
+            ) : null}
+
+            {/* //in mobile yeh dikhega */}
           </div>
         </div>
       </div>

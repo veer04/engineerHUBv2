@@ -1,0 +1,19 @@
+.profile-add-section-main {
+  padding: 16px 0;
+}
+
+.profile-add-section-main .image-section {
+  position: relative;
+}
+
+.profile-add-section-main .image-section .g2-img-left {
+  border: 2px solid #138382;
+  border-radius: 80px;
+}
+
+.profile-add-section-main .image-section .add-circle {
+  position: absolute;
+  bottom: 5px;
+  left: 55px;
+  cursor: pointer;
+}
