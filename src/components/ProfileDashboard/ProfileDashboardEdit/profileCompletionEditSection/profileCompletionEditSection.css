@@ -1,0 +1,29 @@
+.profile-completion-edit-main-section {
+  width: 100%;
+  height: auto;
+  background-color: white;
+  padding: 16px;
+  border-radius: 8px;
+}
+
+.profile-completion-edit-main-section .percentage-and-completed-section {
+  display: flex;
+  gap: 5px;
+}
+
+.profile-completion-edit-main-section .progress-container-main {
+  width: 100%;
+  border-radius: 64px;
+  background-color: #e0e0e0;
+  overflow: hidden;
+  position: relative;
+}
+
+.profile-completion-edit-main-section
+  .progress-container-main
+  .progress-bar-sub {
+  height: 8px;
+  background: #da1e28;
+  transition: width 0.4s ease;
+  border-radius: 64px;
+}

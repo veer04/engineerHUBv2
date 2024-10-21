@@ -1,0 +1,30 @@
+.profile-information-edit-main {
+  width: 100%;
+  padding: 16px;
+  border-radius: 16px;
+  background-color: white;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.08);
+}
+
+.profile-information-edit-main .personal-information-section {
+  padding: 8px 0px;
+}
+
+.profile-information-edit-main .personal-information-section .personal-i-sub {
+  display: flex;
+  justify-content: space-between;
+}
+
+.profile-information-edit-main .name-date-of-birth {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.profile-information-edit-main .name-date-of-birth .name-date-of-birth-left {
+  width: 280px;
+}
+
+.profile-information-edit-main .name-date-of-birth .name-date-of-birth-right {
+  width: auto;
+}
