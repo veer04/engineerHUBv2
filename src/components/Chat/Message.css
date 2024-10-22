@@ -3,7 +3,7 @@
   /* align-items: center; */
   flex-wrap: nowrap;
   justify-content: flex-start;
-  color: white;
+  color: #002B36;
   /* margin: 0 3.5rem; */
   padding: 0 3.5rem;
 }
@@ -61,7 +61,7 @@
 }
 .message-body .time {
   font-size: 0.6rem;
-  color: #7b7676;
+  color: #002B36;
   /* margin: 0 0.5rem; */
   white-space: nowrap;
 }
@@ -76,7 +76,7 @@
 .message-container .tags .tag {
   padding: 0.1rem 0.3rem;
   border-radius: 0.1rem;
-  background-color: white;
+  background-color: rgb(236, 236, 236);
   color: black;
 }
 .message-container .message-body {
@@ -96,7 +96,7 @@
 }
 
 .message-container .message-body .message {
-  background-color: #3d3f41;
+  background-color: #DFE5E8;
   padding: 0.45rem;
   border-radius: 0.5rem 0.5rem 0.5rem 0.5rem;
   flex-flow: wrap;
