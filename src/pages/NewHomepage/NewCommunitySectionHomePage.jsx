@@ -1,15 +1,27 @@
 import { useState, useEffect } from "react";
 import "./NewCommunitySectionHomePage.css";
 import { useNavigate } from "react-router-dom";
-import { getEventByMode } from "../../services/APIConfig";
 import NewEventCard from "../../components/NewEventCard/NewEventCard";
+import axios from "axios";
+import { API_URL } from "../../services/APIUtils";
 
 const NewCommunitySection = () => {
   const [eventsData, setEventsData] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
-    getEventByMode(setEventsData, "Workshop");
+    axios
+      .get(`${API_URL}api/v1/eventTypeWiseEvents/eventHiring`)
+      .then((res) => {
+        setEventsData(res?.data?.data);
+      })
+      .catch((err) => {
+        if (axios.isCancel(err)) {
+          console.log("req cancel");
+        } else {
+          console.log("req performed");
+        }
+      });
   }, []);
 
   return (
@@ -100,7 +112,10 @@ const NewCommunitySection = () => {
                   }}
                 >
                   {eventsData?.length > 0 && (
-                    <NewEventCard data={eventsData[46]} />
+                    <NewEventCard
+                      data={eventsData[eventsData.length - 1]}
+                      eventHiring={true}
+                    />
                   )}
                 </div>
               </div>
