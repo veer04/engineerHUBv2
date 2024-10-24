@@ -3,6 +3,7 @@ import "./profiledashboardedit.css";
 import ProfileAddSectionLeft from "./ProfileAddSectionLeft/ProfileAddSectionLeft";
 import ProfileCompletionEditSection from "./profileCompletionEditSection/ProfileCompletionEditSection";
 import ProfileInformationEdit from "./ProfileInformationEdit/ProfileInformationEdit";
+import SocialLinksProfile from "./SocialLinksProfile/SocialLinksProfile";
 
 const ProfileDashboardEdit = () => {
   return (
@@ -14,6 +15,7 @@ const ProfileDashboardEdit = () => {
       </div>
       <div className="profile-dashboard-edit-right-div">
         <ProfileInformationEdit />
+        <SocialLinksProfile />
       </div>
     </main>
   );

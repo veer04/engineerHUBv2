@@ -1,0 +1,34 @@
+.social-links-main-div-edit {
+  width: 100%;
+  padding: 16px;
+  border-radius: 16px;
+  background-color: white;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.08);
+  margin-top: 20px;
+}
+
+.social-links-main-div-edit .social-links-section {
+  padding: 8px 0px;
+}
+.social-links-main-div-edit .social-links-section .social-l-sub {
+  display: flex;
+  justify-content: space-between;
+}
+
+.social-links-main-div-edit .linkedin-id-and-github {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.social-links-main-div-edit
+  .linkedin-id-and-github
+  .linkedin-id-and-github-left {
+  width: 280px;
+}
+
+.social-links-main-div-edit
+  .linkedin-id-and-github
+  .linkedin-id-and-github-right {
+  width: auto;
+}
