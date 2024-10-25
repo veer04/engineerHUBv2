@@ -1,0 +1,42 @@
+.modal-main-cont {
+  padding: 16px 20px;
+  border-radius: 16px;
+}
+
+.modal-main-cont .form-div-modal {
+  margin-top: 15px;
+}
+
+.modal-main-cont .form-div-modal .modal-div-innner {
+  display: flex;
+  gap: 20px;
+}
+
+.modal-main-cont .modal-button-div {
+  display: flex;
+  justify-content: end;
+  margin-top: 20px;
+  gap: 20px;
+}
+
+.modal-main-cont .modal-button-div .cancel-modal-btn {
+  padding: 8px 24px;
+  border-radius: 10px;
+  background: rgba(19, 131, 130, 0.1);
+  border: none;
+  color: #138382;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 24px;
+}
+
+.modal-main-cont .modal-button-div .save-modal-btn {
+  padding: 8px 24px;
+  border-radius: 10px;
+  background: #138382;
+  border: none;
+  color: white;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 24px;
+}
