@@ -310,23 +310,9 @@ export default function NewChat({
             chatAccess[id] === "waiting" || !!!chatAccess[id]
               ? "hidden"
               : "auto",
-          position: "relative",
         }}
         className="chat-display"
       >
-        <img
-          src="https://frontendehubbucket.s3.ap-south-1.amazonaws.com/frontend/community/chat-background.png"
-          alt=""
-          style={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            width: "100%",
-            height: "100%",
-            opacity: 0.5,
-            objectFit: "cover",
-          }}
-        />
         {socketConnected && messages.length !== 0 ? (
           messages?.map((message, index) => {
             return (
