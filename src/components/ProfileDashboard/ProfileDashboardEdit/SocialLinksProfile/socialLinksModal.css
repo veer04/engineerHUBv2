@@ -1,4 +1,4 @@
-.custom-modal-overlay {
+.social-modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -11,7 +11,7 @@
   z-index: 1000;
 }
 
-.custom-modal {
+.social-modal {
   background: white;
   width: 100%;
   max-width: 588px;
@@ -88,6 +88,11 @@
   border: none;
 }
 
+.required-indicator {
+  color: #ff3737;
+  margin-left: 2px;
+}
+
 .error-p {
   color: #f00;
   font-size: 14px;
@@ -96,41 +101,24 @@
   margin-bottom: 0;
 }
 
-.modal-div-inner .input-css {
+.input-css {
   width: 250px;
   height: 48px;
   padding: 12px 16px;
   border-radius: 12px;
   border: 1px solid #cccccc;
-  /* outline: 1px solid #547178; */
 }
 
-.modal-div-inner .input-css::placeholder {
+.input-css::placeholder {
   font-size: 14px;
   line-height: 20px;
   font-weight: 400;
   color: #547178;
 }
 
-.modal-div-inner .label-css {
+.label-css {
   font-size: 14px;
   line-height: 20px;
   font-weight: 400;
   color: #002b36;
-}
-
-.modal-div-inner .img-calendar {
-  position: absolute;
-  right: 10px;
-  top: 65%;
-  transform: translateY(-50%);
-  cursor: pointer;
-}
-
-.modal-div-inner .image-input-main-div {
-  position: relative;
-}
-
-.image-input-main-div.error .img-calendar {
-  top: 50%;
 }
