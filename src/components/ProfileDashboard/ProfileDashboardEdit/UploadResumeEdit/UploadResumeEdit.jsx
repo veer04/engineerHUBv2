@@ -92,22 +92,7 @@ const UploadResumeEdit = () => {
           Don&#39;t have a perfect resume yet?
         </h3>
 
-        <button
-          style={{
-            fontSize: 14,
-            fontWeight: 700,
-            lineHeight: "20px",
-            marginBottom: 0,
-            color: "white",
-            outline: "none",
-            border: "none",
-            borderRadius: 12,
-            background: "#138382",
-            padding: "8px 12px",
-          }}
-        >
-          Book a session
-        </button>
+        <button className="book-a-session-btn">Book a session</button>
       </div>
     </div>
   );

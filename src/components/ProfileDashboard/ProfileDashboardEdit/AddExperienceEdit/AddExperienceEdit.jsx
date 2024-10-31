@@ -1,9 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import "./addexperienceedit.css";
+import AddExperienceModal from "./AddExperienceModal";
 
 const AddExperienceEdit = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
   return (
     <>
+      <AddExperienceModal isOpen={isModalOpen} onClose={closeModal} />
       <div className="add-experience-main-div">
         <div className="add-headline-sub-div">
           <div className="add-headlline-sub-left">
@@ -33,12 +39,14 @@ const AddExperienceEdit = () => {
 
           <div className="add-headline-sub-right">
             <h3
+              onClick={openModal}
               style={{
                 fontSize: 16,
                 fontWeight: 700,
                 lineHeight: "24px",
                 marginBottom: 0,
                 color: "#138382",
+                cursor: "pointer",
               }}
             >
               Add

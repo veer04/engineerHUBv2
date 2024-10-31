@@ -1,0 +1,203 @@
+.certificate-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.certificate-modal-overlay .certi-modal {
+  background: white;
+  width: 100%;
+  max-width: 588px;
+  border-radius: 16px;
+  padding: 32px;
+  position: relative;
+}
+
+.certificate-modal-overlay .certi-modal .modal-header {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+}
+
+.certificate-modal-overlay.certi-modal .modal-title {
+  font-size: 24px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.certificate-modal-overlay .certi-modal .close-btn {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.certificate-modal-overlay .certi-modal .modal-content {
+  margin-top: 0px;
+}
+
+.certificate-modal-overlay .certi-modal .modal-subtitle {
+  font-size: 16px;
+  color: #547178;
+  margin-bottom: 20px;
+}
+
+.certificate-modal-overlay .certi-modal .form-div-modal {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.certificate-modal-overlay .certi-modal .modal-div-inner-certi {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.certificate-modal-overlay .certi-modal .modal-div-inner {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.certificate-modal-overlay .certi-modal .modal-button-div {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.certificate-modal-overlay .certi-modal .cancel-modal-btn,
+.save-modal-btn {
+  padding: 8px 24px;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  color: #138382;
+}
+
+.certificate-modal-overlay .certi-modal .cancel-modal-btn {
+  background: #f5f5f5;
+  border: none;
+}
+
+.certificate-modal-overlay .certi-modal .save-modal-btn {
+  background: #138382;
+  color: white;
+  border: none;
+}
+
+.certificate-modal-overlay .certi-modal .required-indicator {
+  color: #ff3737;
+  margin-left: 2px;
+}
+
+.certificate-modal-overlay .certi-modal .error-p {
+  color: #f00;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  margin-bottom: 0;
+}
+.certificate-modal-overlay .certi-modal .input-css-title-link {
+  width: 100%;
+  height: 48px;
+  padding: 12px 16px;
+  border-radius: 12px;
+  border: 1px solid #cccccc;
+}
+.certificate-modal-overlay .certi-modal .input-css {
+  width: 250px;
+  height: 48px;
+  padding: 12px 16px;
+  border-radius: 12px;
+  border: 1px solid #cccccc;
+}
+
+.certificate-modal-overlay .certi-modal .input-css::placeholder,
+.input-css-title-link::placeholder {
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 400;
+  color: #547178;
+}
+
+.certificate-modal-overlay .certi-modal .label-css {
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 400;
+  color: #002b36;
+}
+.certificate-modal-overlay .certi-modal .relative-end-date,
+.relative-start-date {
+  position: relative;
+}
+
+.certificate-modal-overlay .certi-modal .img-calendar-project {
+  position: absolute;
+  right: 10px;
+  top: 65%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+.certificate-modal-overlay .certi-modal .project-desc {
+  width: 100%;
+}
+
+.certificate-modal-overlay
+  .certi-modal
+  .image-input-main-div.error
+  .img-calendar-project {
+  top: 50%;
+}
+
+@media screen and (max-width: 520px) {
+  .certificate-modal-overlay .certi-modal .modal-div-inner {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .certificate-modal-overlay .certi-modal .input-css {
+    width: 100%;
+    height: 48px;
+    padding: 12px 16px;
+    border-radius: 12px;
+    border: 1px solid #cccccc;
+  }
+
+  .certificate-modal-overlay .certi-modal .modal-button-div {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+  }
+
+  .certificate-modal-overlay .certi-modal .modal-div-inner-certi {
+    width: 100%;
+    height: 78vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .certificate-modal-overlay .certi-modal {
+    background: white;
+    width: 100%;
+    max-width: 588px;
+    border-radius: 16px;
+    padding: 16px;
+    position: relative;
+  }
+}

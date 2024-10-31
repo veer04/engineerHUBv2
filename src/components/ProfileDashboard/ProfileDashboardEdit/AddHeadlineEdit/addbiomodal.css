@@ -1,4 +1,4 @@
-.custom-modal-overlay {
+.Bio-modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -11,7 +11,7 @@
   z-index: 1000;
 }
 
-.custom-modal-overlay .custom-modal {
+.Bio-modal-overlay .Bio-modal {
   background: white;
   width: 100%;
   max-width: 588px;
@@ -20,106 +20,128 @@
   position: relative;
 }
 
-.custom-modal-overlay .modal-header {
+.Bio-modal-overlay .Bio-modal .modal-header {
   display: flex;
   justify-content: end;
   align-items: center;
 }
 
-.custom-modal-overlay .modal-title {
+.Bio-modal .modal-title {
   font-size: 24px;
   font-weight: 600;
   margin: 0;
 }
 
-.custom-modal-overlay .close-btn {
+.Bio-modal .close-btn {
   background: none;
   border: none;
   font-size: 24px;
   cursor: pointer;
 }
 
-.custom-modal-overlay .modal-content {
+.Bio-modal .modal-content {
   margin-top: 0px;
 }
 
-.custom-modal-overlay .modal-subtitle {
+.Bio-modal .modal-subtitle {
   font-size: 16px;
   color: #547178;
   margin-bottom: 20px;
 }
 
-.custom-modal-overlay .form-div-modal {
+.Bio-modal .form-div-modal {
   display: flex;
   gap: 10px;
   flex-wrap: wrap;
 }
 
-.custom-modal-overlay .modal-div-inner {
+.Bio-modal .bio-div-inner-project {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.Bio-modal .modal-div-inner {
   width: 100%;
   display: flex;
   justify-content: space-between;
   gap: 24px;
 }
 
-.custom-modal-overlay .modal-button-div {
+.Bio-modal .modal-button-div {
   display: flex;
   justify-content: flex-end;
   gap: 10px;
   margin-top: 20px;
 }
 
-.custom-modal-overlay .cancel-modal-btn,
+.Bio-modal .cancel-modal-btn,
 .save-modal-btn {
   padding: 8px 24px;
   border-radius: 8px;
   font-size: 14px;
   cursor: pointer;
+  color: #138382;
 }
 
-.custom-modal-overlay .cancel-modal-btn {
+.Bio-modal .cancel-modal-btn {
   background: #f5f5f5;
   border: none;
 }
 
-.custom-modal-overlay .modal-button-div .save-modal-btn {
+.Bio-modal .save-modal-btn {
   background: #138382;
   color: white;
   border: none;
 }
 
-.custom-modal-overlay .error-p {
+.Bio-modal .required-indicator {
+  color: #ff3737;
+  margin-left: 2px;
+}
+
+.Bio-modal .error-p {
   color: #f00;
   font-size: 14px;
   font-weight: 400;
   line-height: 20px;
   margin-bottom: 0;
 }
-
-.custom-modal-overlay .modal-div-inner .input-css {
+.Bio-modal .input-css-title-link {
+  width: 100%;
+  height: 48px;
+  padding: 12px 16px;
+  border-radius: 12px;
+  border: 1px solid #cccccc;
+}
+.Bio-modal .input-css {
   width: 250px;
   height: 48px;
   padding: 12px 16px;
   border-radius: 12px;
   border: 1px solid #cccccc;
-  /* outline: 1px solid #547178; */
 }
 
-.custom-modal-overlay .modal-div-inner .input-css::placeholder {
+.Bio-modall .input-css::placeholder,
+.input-css-title-link::placeholder {
   font-size: 14px;
   line-height: 20px;
   font-weight: 400;
   color: #547178;
 }
 
-.custom-modal-overlay .modal-div-inner .label-css {
+.Bio-modal .label-css {
   font-size: 14px;
   line-height: 20px;
   font-weight: 400;
   color: #002b36;
 }
+.Bio-modal .relative-end-date,
+.relative-start-date {
+  position: relative;
+}
 
-.custom-modal-overlay .modal-div-inner .img-calendar {
+.Bio-modal .img-calendar-project {
   position: absolute;
   right: 10px;
   top: 65%;
@@ -127,45 +149,38 @@
   cursor: pointer;
 }
 
-.custom-modal-overlay .modal-div-inner .image-input-main-div {
-  position: relative;
+.Bio-modal .project-desc {
+  width: 100%;
 }
 
-.custom-modal-overlay .image-input-main-div.error .img-calendar {
+.Bio-modal .image-input-main-div.error .img-calendar-project {
   top: 50%;
 }
 
 @media screen and (max-width: 520px) {
-  .custom-modal-overlay .modal-div-inner {
+  .Bio-modal-overlay .Bio-modal {
+    background: white;
     width: 100%;
+    height: 100vh;
+    max-width: 588px;
+    border-radius: 16px;
+    padding: 18px;
+    position: relative;
+  }
+
+  .Bio-modal .bio-div-inner-project {
+    width: 100%;
+    height: 78vh;
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    justify-content: space-between;
   }
 
-  .custom-modal-overlay .modal-div-inner .input-css {
-    width: 100%;
-    height: 48px;
-    padding: 12px 16px;
-    border-radius: 12px;
-    border: 1px solid #cccccc;
-    /* outline: 1px solid #547178; */
-  }
-
-  .custom-modal-overlay .modal-button-div {
+  .Bio-modal .modal-button-div {
     display: flex;
     justify-content: space-between;
     gap: 10px;
-    margin-top: 40px;
-    margin-bottom: 20px;
-  }
-
-  .custom-modal-overlay .custom-modal {
-    background: white;
-    width: 100%;
-    max-width: 588px;
-    border-radius: 16px;
-    padding: 16px;
-    position: relative;
+    margin-top: 20px;
+    margin-bottom: 10px;
   }
 }
