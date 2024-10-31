@@ -11,7 +11,7 @@
   z-index: 1000;
 }
 
-.custom-modal {
+.custom-modal-overlay .custom-modal {
   background: white;
   width: 100%;
   max-width: 588px;
@@ -20,56 +20,56 @@
   position: relative;
 }
 
-.modal-header {
+.custom-modal-overlay .modal-header {
   display: flex;
   justify-content: end;
   align-items: center;
 }
 
-.modal-title {
+.custom-modal-overlay .modal-title {
   font-size: 24px;
   font-weight: 600;
   margin: 0;
 }
 
-.close-btn {
+.custom-modal-overlay .close-btn {
   background: none;
   border: none;
   font-size: 24px;
   cursor: pointer;
 }
 
-.modal-content {
+.custom-modal-overlay .modal-content {
   margin-top: 0px;
 }
 
-.modal-subtitle {
+.custom-modal-overlay .modal-subtitle {
   font-size: 16px;
   color: #547178;
   margin-bottom: 20px;
 }
 
-.form-div-modal {
+.custom-modal-overlay .form-div-modal {
   display: flex;
   gap: 10px;
   flex-wrap: wrap;
 }
 
-.modal-div-inner {
+.custom-modal-overlay .modal-div-inner {
   width: 100%;
   display: flex;
   justify-content: space-between;
   gap: 24px;
 }
 
-.modal-button-div {
+.custom-modal-overlay .modal-button-div {
   display: flex;
   justify-content: flex-end;
   gap: 10px;
   margin-top: 20px;
 }
 
-.cancel-modal-btn,
+.custom-modal-overlay .cancel-modal-btn,
 .save-modal-btn {
   padding: 8px 24px;
   border-radius: 8px;
@@ -77,18 +77,18 @@
   cursor: pointer;
 }
 
-.cancel-modal-btn {
+.custom-modal-overlay .cancel-modal-btn {
   background: #f5f5f5;
   border: none;
 }
 
-.save-modal-btn {
+.custom-modal-overlay .modal-button-div .save-modal-btn {
   background: #138382;
   color: white;
   border: none;
 }
 
-.error-p {
+.custom-modal-overlay .error-p {
   color: #f00;
   font-size: 14px;
   font-weight: 400;
@@ -96,7 +96,7 @@
   margin-bottom: 0;
 }
 
-.modal-div-inner .input-css {
+.custom-modal-overlay .modal-div-inner .input-css {
   width: 250px;
   height: 48px;
   padding: 12px 16px;
@@ -105,21 +105,21 @@
   /* outline: 1px solid #547178; */
 }
 
-.modal-div-inner .input-css::placeholder {
+.custom-modal-overlay .modal-div-inner .input-css::placeholder {
   font-size: 14px;
   line-height: 20px;
   font-weight: 400;
   color: #547178;
 }
 
-.modal-div-inner .label-css {
+.custom-modal-overlay .modal-div-inner .label-css {
   font-size: 14px;
   line-height: 20px;
   font-weight: 400;
   color: #002b36;
 }
 
-.modal-div-inner .img-calendar {
+.custom-modal-overlay .modal-div-inner .img-calendar {
   position: absolute;
   right: 10px;
   top: 65%;
@@ -127,10 +127,45 @@
   cursor: pointer;
 }
 
-.modal-div-inner .image-input-main-div {
+.custom-modal-overlay .modal-div-inner .image-input-main-div {
   position: relative;
 }
 
-.image-input-main-div.error .img-calendar {
+.custom-modal-overlay .image-input-main-div.error .img-calendar {
   top: 50%;
+}
+
+@media screen and (max-width: 520px) {
+  .custom-modal-overlay .modal-div-inner {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .custom-modal-overlay .modal-div-inner .input-css {
+    width: 100%;
+    height: 48px;
+    padding: 12px 16px;
+    border-radius: 12px;
+    border: 1px solid #cccccc;
+    /* outline: 1px solid #547178; */
+  }
+
+  .custom-modal-overlay .modal-button-div {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 40px;
+    margin-bottom: 20px;
+  }
+
+  .custom-modal-overlay .custom-modal {
+    background: white;
+    width: 100%;
+    max-width: 588px;
+    border-radius: 16px;
+    padding: 16px;
+    position: relative;
+  }
 }

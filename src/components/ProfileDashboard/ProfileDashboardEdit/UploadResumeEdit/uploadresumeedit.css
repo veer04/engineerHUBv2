@@ -50,3 +50,32 @@
   justify-content: space-between;
   align-items: center;
 }
+
+.upload-resume-main-div .book-a-session-btn {
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 20px;
+  margin-bottom: 0;
+  color: white;
+  outline: none;
+  border: none;
+  background-color: #138382;
+  padding: 8px 12px;
+  border-radius: 12px;
+}
+
+@media screen and (max-width: 520px) {
+  .upload-resume-main-div .book-a-session-btn {
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 20px;
+    margin-bottom: 0;
+    color: white;
+    outline: none;
+    border: none;
+    background-color: #138382;
+    padding: 8px 12px;
+    border-radius: 12px;
+    width: 60%;
+  }
+}

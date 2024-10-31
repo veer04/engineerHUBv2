@@ -72,7 +72,7 @@ const AddProjectsModal = ({ isOpen, onClose }) => {
           <p className="modal-subtitle">Add Projects</p>
           <div className="form-div-modal">
             <div className="modal-div-inner-project">
-              <div className="mb-4">
+              <div className="mb-2">
                 <label
                   htmlFor="projectTitle"
                   className="label-css block text-sm font-medium"
@@ -96,7 +96,7 @@ const AddProjectsModal = ({ isOpen, onClose }) => {
                   </p>
                 )}
               </div>
-              <div className="mb-4">
+              <div className="mb-2">
                 <label
                   htmlFor="projectLink"
                   className="label-css block text-sm font-medium"
@@ -190,7 +190,7 @@ const AddProjectsModal = ({ isOpen, onClose }) => {
               </div>
             </div>
 
-            <div className="mb-4 project-desc ">
+            <div className="mb-2 project-desc ">
               <label
                 htmlFor="projectDescription"
                 className="label-css block text-sm font-medium"

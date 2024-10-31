@@ -1,16 +1,17 @@
 import React, { useState } from "react";
-import "./addeducationmodal.css";
+import "./addexperiencemodal.css";
 import { IoMdClose } from "react-icons/io";
 import { Bucket_URL } from "../../../../services/APIUtils";
 
-const AddEducationModal = ({ isOpen, onClose }) => {
+const AddExperienceModal = ({ isOpen, onClose }) => {
   const [formData, setFormData] = useState({
-    collegeName: "",
-    specialization: "",
+    experienceType: "",
+    role: "",
     startYear: "",
     endYear: "",
-    cgpa: "",
+    organizationName: "",
   });
+
   const [errors, setErrors] = useState({});
 
   const handleChange = (field, value) => {
@@ -20,14 +21,14 @@ const AddEducationModal = ({ isOpen, onClose }) => {
   const validateForm = () => {
     const newErrors = {};
 
-    if (!formData.collegeName.trim())
-      newErrors.collegeName = "College name is required.";
-    if (!formData.specialization.trim())
-      newErrors.specialization = "Specialization is required.";
+    if (!formData.experienceType.trim())
+      newErrors.experienceType = "Experience type is required.";
+    if (!formData.role.trim()) newErrors.role = "Role is required.";
     if (!formData.startYear.trim())
       newErrors.startYear = "Start year is required.";
     if (!formData.endYear.trim()) newErrors.endYear = "End year is required.";
-    if (!formData.cgpa.trim()) newErrors.cgpa = "CGPA is required.";
+    if (!formData.organizationName.trim())
+      newErrors.organizationName = "Organization/Company name is required.";
 
     return newErrors;
   };
@@ -47,43 +48,46 @@ const AddEducationModal = ({ isOpen, onClose }) => {
     setErrors({});
     onClose();
     setFormData({
-      collegeName: "",
-      specialization: "",
+      experienceType: "",
+      role: "",
       startYear: "",
       endYear: "",
-      cgpa: "",
+      organizationName: "",
     });
   };
 
   if (!isOpen) return null;
 
   return (
-    <div className="education-modal-overlay">
-      <div className="edu-modal">
+    <div className="experience-modal-overlay">
+      <div className="exp-modal">
         <div className="modal-header">
           <button className="close-btn" onClick={handleClose}>
             <IoMdClose />
           </button>
         </div>
         <div className="modal-content">
-          <h3 className="modal-title">Add Education</h3>
-          <p className="modal-subtitle">Add Education</p>
+          <h3 className="modal-title">Add Experience</h3>
+          <p className="modal-subtitle">Add Experience</p>
 
           <div className="form-div-modal">
             <div className="modal-div-inner-project">
               <div className="mb-2">
                 <label
-                  htmlFor="collegeName"
+                  htmlFor="experienceType"
                   className="label-css block text-sm font-medium"
                 >
-                  College Name
+                  Experience Type
                 </label>
-                <span className="required-indicator">*</span>
                 <select
-                  id="collegeName"
-                  value={formData.collegeName}
-                  onChange={(e) => handleChange("collegeName", e.target.value)}
-                  className={`select-hover  mt-1 ${errors.collegeName}`}
+                  id="experienceType"
+                  value={formData.experienceType}
+                  onChange={(e) =>
+                    handleChange("experienceType", e.target.value)
+                  }
+                  className={`select-hover mt-1 ${
+                    errors.experienceType ? "border-red-500" : "border-gray-300"
+                  }`}
                 >
                   <option
                     className="option-select-css"
@@ -91,101 +95,51 @@ const AddEducationModal = ({ isOpen, onClose }) => {
                     disabled
                     hidden
                   >
-                    Select your college name
+                    Select your experience type
                   </option>
-                  <option
-                    className="option-select-css"
-                    value="Harvard University"
-                  >
-                    Harvard University
+                  <option className="option-select-css" value="Fresher">
+                    Fresher
                   </option>
-                  <option
-                    className="option-select-css"
-                    value="Stanford University"
-                  >
-                    Stanford University
+                  <option className="option-select-css" value="Senior">
+                    Senior
                   </option>
-                  <option className="option-select-css" value="MIT">
-                    Massachusetts Institute of Technology (MIT)
-                  </option>
-                  <option
-                    className="option-select-css"
-                    value="Oxford University"
-                  >
-                    University of Oxford
-                  </option>
-                  <option
-                    className="option-select-css"
-                    value="Cambridge University"
-                  >
-                    University of Cambridge
+                  <option className="option-select-css" value="Manager">
+                    Manager
                   </option>
                 </select>
-                {errors.collegeName && (
+                {errors.experienceType && (
                   <p className="mt-1 error-p text-sm text-red-500">
-                    {errors.collegeName}
+                    {errors.experienceType}
                   </p>
                 )}
               </div>
 
               <div className="mb-2">
                 <label
-                  htmlFor="specialization"
+                  htmlFor="role"
                   className="label-css block text-sm font-medium"
                 >
-                  Specialization
+                  Type your Role
                 </label>
                 <span className="required-indicator">*</span>
-                <select
-                  id="specialization"
-                  value={formData.collegeName}
-                  onChange={(e) => handleChange("collegeName", e.target.value)}
-                  className={`select-hover  mt-1 ${errors.collegeName}`}
-                >
-                  <option
-                    className="option-select-css"
-                    value=""
-                    disabled
-                    hidden
-                  >
-                    Specialization
-                  </option>
-                  <option
-                    className="option-select-css"
-                    value="Harvard University"
-                  >
-                    CSE
-                  </option>
-                  <option
-                    className="option-select-css"
-                    value="Stanford University"
-                  >
-                    CSBS
-                  </option>
-                  <option className="option-select-css" value="MIT">
-                    Massachusetts Institute of Technology (MIT)
-                  </option>
-                  <option
-                    className="option-select-css"
-                    value="Oxford University"
-                  >
-                    IT
-                  </option>
-                  <option
-                    className="option-select-css"
-                    value="Cambridge University"
-                  >
-                    CIVIL
-                  </option>
-                </select>
-                {errors.specialization && (
+                <input
+                  type="text"
+                  id="role"
+                  value={formData.role}
+                  onChange={(e) => handleChange("role", e.target.value)}
+                  className={`input-css-title-link mt-1 ${
+                    errors.role ? "border-red-500" : "border-gray-300"
+                  }`}
+                  placeholder="Your Role"
+                />
+                {errors.role && (
                   <p className="mt-1 error-p text-sm text-red-500">
-                    {errors.specialization}
+                    {errors.role}
                   </p>
                 )}
               </div>
 
-              <div className="modal-div-inner" style={{ marginBottom: 20 }}>
+              <div className="modal-div-inner" style={{ marginBottom: 10 }}>
                 <div
                   className={`mb-2 relative-start-date image-input-main-div ${
                     errors.startYear ? "error" : ""
@@ -256,25 +210,29 @@ const AddEducationModal = ({ isOpen, onClose }) => {
 
               <div className="mb-2">
                 <label
-                  htmlFor="cgpa"
+                  htmlFor="organizationName"
                   className="label-css block text-sm font-medium"
                 >
-                  CGPA
+                  Organization/Company Name
                 </label>
                 <span className="required-indicator">*</span>
                 <input
                   type="text"
-                  id="cgpa"
-                  value={formData.cgpa}
-                  onChange={(e) => handleChange("cgpa", e.target.value)}
+                  id="organizationName"
+                  value={formData.organizationName}
+                  onChange={(e) =>
+                    handleChange("organizationName", e.target.value)
+                  }
                   className={`input-css-title-link mt-1 ${
-                    errors.cgpa ? "border-red-500" : "border-gray-300"
+                    errors.organizationName
+                      ? "border-red-500"
+                      : "border-gray-300"
                   }`}
-                  placeholder="Enter your CGPA"
+                  placeholder="Add your organization/company name"
                 />
-                {errors.cgpa && (
+                {errors.organizationName && (
                   <p className="mt-1 error-p text-sm text-red-500">
-                    {errors.cgpa}
+                    {errors.organizationName}
                   </p>
                 )}
               </div>
@@ -295,4 +253,4 @@ const AddEducationModal = ({ isOpen, onClose }) => {
   );
 };
 
-export default AddEducationModal;
+export default AddExperienceModal;

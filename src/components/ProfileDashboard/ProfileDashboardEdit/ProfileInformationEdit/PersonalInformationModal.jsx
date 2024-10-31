@@ -148,7 +148,7 @@ const PersonalInformationModal = ({ isOpen, onClose }) => {
               </div>
             </div>
             <div className="modal-div-inner">
-              <div className="mb-4">
+              <div className="mb-2">
                 <label
                   htmlFor="email"
                   className="label-css block text-sm font-medium"

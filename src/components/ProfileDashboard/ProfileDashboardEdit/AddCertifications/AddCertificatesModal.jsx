@@ -35,6 +35,7 @@ const AddCertificationsModal = ({ isOpen, onClose }) => {
     } else {
       console.log("Form Submitted:", formData);
       setErrors({});
+
       onClose();
     }
   };
@@ -65,99 +66,105 @@ const AddCertificationsModal = ({ isOpen, onClose }) => {
             <p className="modal-subtitle">Add Certificates</p>
 
             <div className="form-div-modal">
-              <div className="modal-div-inner-project">
-                <div className="mb-4">
-                  <label
-                    htmlFor="certificateName"
-                    className="label-css block text-sm font-medium"
-                  >
-                    Certificate Name
-                  </label>
-                  <span className="required-indicator">*</span>
-                  <input
-                    type="text"
-                    id="certificateName"
-                    value={formData.certificateName}
-                    onChange={(e) =>
-                      handleChange("certificateName", e.target.value)
-                    }
-                    className={`input-css-title-link mt-1 ${
-                      errors.certificateName
-                        ? "border-red-500"
-                        : "border-gray-300"
-                    }`}
-                    placeholder="Add certificate name"
-                  />
-                  {errors.certificateName && (
-                    <p className="mt-1 error-p text-sm text-red-500">
-                      {errors.certificateName}
-                    </p>
-                  )}
-                </div>
-
-                <div className="modal-div-inner">
-                  <div
-                    className={`mb-2 relative-start-date image-input-main-div ${
-                      errors.issueDate ? "error" : ""
-                    }`}
-                  >
+              <div className="modal-div-inner-certi">
+                <div>
+                  <div className="mb-4">
                     <label
-                      htmlFor="issueDate"
+                      htmlFor="certificateName"
                       className="label-css block text-sm font-medium"
                     >
-                      Issue Date
+                      Certificate Name
                     </label>
                     <span className="required-indicator">*</span>
                     <input
                       type="text"
-                      id="issueDate"
-                      value={formData.issueDate}
+                      id="certificateName"
+                      value={formData.certificateName}
                       onChange={(e) =>
-                        handleChange("issueDate", e.target.value)
+                        handleChange("certificateName", e.target.value)
                       }
-                      className={`input-css mt-1 ${
-                        errors.issueDate ? "border-red-500" : "border-gray-300"
+                      className={`input-css-title-link mt-1 ${
+                        errors.certificateName
+                          ? "border-red-500"
+                          : "border-gray-300"
                       }`}
-                      placeholder="Add issued date"
+                      placeholder="Add certificate name"
                     />
-                    <img
-                      src={`${Bucket_URL}UserViewDashboard/Calendar.svg`}
-                      alt=""
-                      className="img-calendar-project"
-                    />
-                    {errors.issueDate && (
+                    {errors.certificateName && (
                       <p className="mt-1 error-p text-sm text-red-500">
-                        {errors.issueDate}
+                        {errors.certificateName}
                       </p>
                     )}
                   </div>
-                  <div
-                    className={`mb-2 relative-end-date image-input-main-div ${
-                      errors.issuedBy ? "error" : ""
-                    }`}
-                  >
-                    <label
-                      htmlFor="issuedBy"
-                      className="label-css block text-sm font-medium"
-                    >
-                      Issued By
-                    </label>
-                    <span className="required-indicator">*</span>
-                    <input
-                      type="text"
-                      id="issuedBy"
-                      value={formData.issuedBy}
-                      onChange={(e) => handleChange("issuedBy", e.target.value)}
-                      className={`input-css mt-1 ${
-                        errors.issuedBy ? "border-red-500" : "border-gray-300"
+
+                  <div className="modal-div-inner">
+                    <div
+                      className={`mb-2 relative-start-date image-input-main-div ${
+                        errors.issueDate ? "error" : ""
                       }`}
-                      placeholder="Issued by organization"
-                    />
-                    {errors.issuedBy && (
-                      <p className="mt-1 error-p text-sm text-red-500">
-                        {errors.issuedBy}
-                      </p>
-                    )}
+                    >
+                      <label
+                        htmlFor="issueDate"
+                        className="label-css block text-sm font-medium"
+                      >
+                        Issue Date
+                      </label>
+                      <span className="required-indicator">*</span>
+                      <input
+                        type="text"
+                        id="issueDate"
+                        value={formData.issueDate}
+                        onChange={(e) =>
+                          handleChange("issueDate", e.target.value)
+                        }
+                        className={`input-css mt-1 ${
+                          errors.issueDate
+                            ? "border-red-500"
+                            : "border-gray-300"
+                        }`}
+                        placeholder="Add issued date"
+                      />
+                      <img
+                        src={`${Bucket_URL}UserViewDashboard/Calendar.svg`}
+                        alt=""
+                        className="img-calendar-project"
+                      />
+                      {errors.issueDate && (
+                        <p className="mt-1 error-p text-sm text-red-500">
+                          {errors.issueDate}
+                        </p>
+                      )}
+                    </div>
+                    <div
+                      className={`mb-2 relative-end-date image-input-main-div ${
+                        errors.issuedBy ? "error" : ""
+                      }`}
+                    >
+                      <label
+                        htmlFor="issuedBy"
+                        className="label-css block text-sm font-medium"
+                      >
+                        Issued By
+                      </label>
+                      <span className="required-indicator">*</span>
+                      <input
+                        type="text"
+                        id="issuedBy"
+                        value={formData.issuedBy}
+                        onChange={(e) =>
+                          handleChange("issuedBy", e.target.value)
+                        }
+                        className={`input-css mt-1 ${
+                          errors.issuedBy ? "border-red-500" : "border-gray-300"
+                        }`}
+                        placeholder="Issued by organization"
+                      />
+                      {errors.issuedBy && (
+                        <p className="mt-1 error-p text-sm text-red-500">
+                          {errors.issuedBy}
+                        </p>
+                      )}
+                    </div>
                   </div>
                 </div>
 
