@@ -1,4 +1,4 @@
-.delete-modal-overlay {
+.delete-modal-ok-overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -11,7 +11,7 @@
   z-index: 1000;
 }
 
-.delete-modal-overlay .delete-modal {
+.delete-modal-ok-overlay .delete-modal {
   background: white;
   width: 100%;
   max-width: 342px;
@@ -20,31 +20,30 @@
   padding: 16px;
   position: relative;
 }
-.delete-modal-overlay .delete-modal .modal-header {
+.delete-modal-ok-overlay .delete-modal .modal-header {
   display: flex;
   justify-content: end;
   align-items: center;
 }
 
-.delete-modal-overlay .delete-modal .close-btn {
+.delete-modal-ok-overlay .delete-modal .close-btn {
   background: none;
   border: none;
   font-size: 24px;
   cursor: pointer;
 }
 
-.delete-modal-overlay .delete-modal .main-success-div {
+.delete-modal-ok-overlay .delete-modal .main-success-div {
   display: flex;
   gap: 10px;
   align-items: center;
 }
 
-.delete-modal-overlay .delete-modal .btn-div-ok {
+.delete-modal-ok-overlay .delete-modal .btn-div-ok {
   display: flex;
   justify-content: flex-end;
-  gap: 10px;
 }
-.delete-modal-overlay .delete-modal .btn-div-ok .ok-btn-style {
+.delete-modal-ok-overlay .delete-modal .btn-div-ok .ok-btn-style {
   padding: 6px 29px;
   background-color: #138382;
   border-radius: 8px;
@@ -57,11 +56,11 @@
   margin-top: 20px;
 }
 
-.delete-modal-overlay .delete-modal .btn-div-ok .yes-btn-style {
+.delete-modal-ok-overlay .delete-modal .btn-div-ok .yes-btn-style {
   padding: 6px 29px;
   background-color: transparent;
   border-radius: 8px;
-  border: 1px solid #138382;
+  border: #138382;
   outline: none;
   color: #138382;
   font-size: 14px;
@@ -69,5 +68,5 @@
   line-height: 20px;
   margin-top: 20px;
 }
-.delete-modal-overlay .delete-modal {
+.delete-modal-ok-overlay .delete-modal {
 }

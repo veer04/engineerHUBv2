@@ -1,13 +1,13 @@
 import React from "react";
 import { IoMdClose } from "react-icons/io";
-import "./deletemodal.css";
+import "./deletemodalok.css";
 import { FaRegTrashCan } from "react-icons/fa6";
 
-const DeleteModal = ({ isOpenDeleted, onClose }) => {
+const DeleteModalOK = ({ isOpenDeleted, onClose }) => {
   if (!isOpenDeleted) return null;
   return (
     <>
-      <div className="delete-modal-overlay">
+      <div className="delete-modal-ok-overlay">
         <div className="delete-modal">
           <div className="modal-header"></div>
 
@@ -35,7 +35,7 @@ const DeleteModal = ({ isOpenDeleted, onClose }) => {
                     marginBottom: 0,
                   }}
                 >
-                  Delete item
+                  Item Deleted
                 </h3>
 
                 <h4
@@ -46,17 +46,17 @@ const DeleteModal = ({ isOpenDeleted, onClose }) => {
                     color: "#002B36",
                   }}
                 >
-                  You cannot undo this action later.
+                  The details has been deleted.
                 </h4>
               </div>
             </div>
 
             <div className="btn-div-ok">
-              <button className="yes-btn-style" onClick={onClose}>
+              {/* <button className="yes-btn-style" onClick={onClose}>
                 Yes
-              </button>
+              </button> */}
               <button className="ok-btn-style" onClick={onClose}>
-                No
+                Ok
               </button>
             </div>
           </div>
@@ -66,4 +66,4 @@ const DeleteModal = ({ isOpenDeleted, onClose }) => {
   );
 };
 
-export default DeleteModal;
+export default DeleteModalOK;
