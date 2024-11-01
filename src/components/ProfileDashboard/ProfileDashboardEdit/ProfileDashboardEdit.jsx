@@ -13,14 +13,24 @@ import AddAchievements from "./AddAchievementsEdit/AddAchievements";
 import AddCertifications from "./AddCertifications/AddCertifications";
 import SuccessfullyUpdatedModal from "./ModalUpdatedAndDeleted/SuccessfullyUpdatedModal";
 import DeleteModal from "./ModalUpdatedAndDeleted/DeleteModal";
+import DeleteModalOK from "./ModalUpdatedAndDeleted/DeleteModalOk";
 
 const ProfileDashboardEdit = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isModalDeleteOpen, setIsModalDeleteOpen] = useState(false);
+  const [isOkModalDeleteOpen, setIsOkModalDeleteOpen] = useState(false);
 
   const openDeleteModal = () => {
     console.log("click");
     setIsModalDeleteOpen(true);
+  };
+
+  const openDeleteOkModal = () => {
+    setIsOkModalDeleteOpen(true);
+  };
+
+  const closeOkDeleteModal = () => {
+    setIsOkModalDeleteOpen(false);
   };
 
   const closeDeleteModal = () => setIsModalDeleteOpen(false);
@@ -42,6 +52,12 @@ const ProfileDashboardEdit = () => {
         isOpenDeleted={isModalDeleteOpen}
         onClose={closeDeleteModal}
       />
+
+      <DeleteModalOK
+        isOpenDeleted={isOkModalDeleteOpen}
+        onClose={closeOkDeleteModal}
+      />
+
       <main className="profile-dashboard-edit-start-div">
         <div className="profile-dashboard-edit-left-div">
           <ProfileAddSectionLeft />
@@ -62,6 +78,7 @@ const ProfileDashboardEdit = () => {
           <div style={{ display: "flex", gap: "5px" }}>
             <button onClick={openModal}>Open Success Modal</button>
             <button onClick={openDeleteModal}>Open Delete Modal</button>
+            <button onClick={openDeleteOkModal}>Open Ok Delete Modal</button>
           </div>
         </div>
       </main>
