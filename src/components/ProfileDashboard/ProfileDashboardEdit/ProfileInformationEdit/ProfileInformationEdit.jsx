@@ -1,11 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import "./profileinformationedit.css";
 import PersonalInformationModal from "./PersonalInformationModal";
 
 const ProfileInformationEdit = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
   return (
     <>
-      <PersonalInformationModal />
+      <PersonalInformationModal isOpen={isModalOpen} onClose={closeModal} />
       <div className="profile-information-edit-main">
         <div className="personal-information-section">
           <div className="personal-i-sub">
@@ -36,8 +40,7 @@ const ProfileInformationEdit = () => {
 
             <div className="personal-i-right">
               <h3
-                data-bs-toggle="modal"
-                data-bs-target="#personalInformationModal"
+                onClick={openModal}
                 style={{
                   fontSize: 16,
                   fontWeight: 700,

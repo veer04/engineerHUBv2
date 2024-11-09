@@ -1,9 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import "./addaboutedit.css";
+import AddEducationModal from "../AddEducationModal/AddEducationModal";
 
 const AddAboutEdit = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
   return (
     <>
+      <AddEducationModal isOpen={isModalOpen} onClose={closeModal} />
       <div className="add-about-main-div">
         <div className="add-headline-sub-div">
           <div className="add-headlline-sub-left">
@@ -33,12 +39,14 @@ const AddAboutEdit = () => {
 
           <div className="add-headline-sub-right">
             <h3
+              onClick={openModal}
               style={{
                 fontSize: 16,
                 fontWeight: 700,
                 lineHeight: "24px",
                 marginBottom: 0,
                 color: "#138382",
+                cursor: "pointer",
               }}
             >
               Add
