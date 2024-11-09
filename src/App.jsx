@@ -1,5 +1,5 @@
 import React, { useState, useEffect, lazy, Suspense } from "react";
-import { Route, Routes, useLocation } from "react-router-dom";
+import { Route, Routes, useLocation, Navigate } from "react-router-dom";
 import "./App.css";
 import "./styles/DesignSystem.js";
 import OTP from "./pages/User/OtpVerification/Otpverification";
@@ -76,6 +76,8 @@ const PaymentFailed = lazy(() =>
 import ProfileDashboard from "./components/ProfileDashboard/ProfileDashboard.jsx";
 import ProfileDashboardUserView from "./components/ProfileDashboard/UserViewProfileDashboard/ProfileDashboardUserView/ProfileDashboardUserView.jsx";
 import ProfileDashboardEdit from "./components/ProfileDashboard/ProfileDashboardEdit/ProfileDashboardEdit.jsx";
+import FloatingChatButton from "./components/FloatingChatButton/FloatingChatButton.jsx";
+import CommunityChat from "./pages/Chat/CommunityChat.jsx";
 const DigitalProductAdminPage = lazy(() =>
   import("./pages/Admin/DigitalProductAdminPage.jsx")
 );
@@ -171,6 +173,7 @@ function App() {
       <MobileNavbar />
       <GlobalSnackbar />
       <ProfilePopUp />
+      <FloatingChatButton />
       <Suspense fallback={<LoadingPage />}>
         <Routes>
           <Route index element={<NewHomePage path="homepage" />} />
@@ -262,6 +265,19 @@ function App() {
                 <Route path=":notesId" element={<NotesWindow />} />
               </Route>
             </Route>
+          </Route>
+          <Route path="/chat">
+            <Route
+              index
+              element={
+                <Navigate
+                  to={`/chat/${encodeURIComponent(
+                    "Data Structures & Algorithms"
+                  )}`}
+                />
+              }
+            />
+            <Route path=":chatId" element={<CommunityChat />} />
           </Route>
           <Route path="/trending">
             <Route path="campuses/:collegeId">
