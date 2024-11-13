@@ -17,7 +17,6 @@
   justify-content: fle;
   min-width: 3rem;
   height: 100%;
-  
 }
 .chat-message .avatar {
   width: 2.5rem;
@@ -170,7 +169,10 @@
   height: fit-content;
   display: inline-flex;
   flex-flow: wrap;
-  /* line-break: anywhere; */
+}
+.message-container .message-body--flipped .message-content *,
+.message-container .message-body .message-content * {
+  line-break: anywhere;
 }
 .message-container .message-body--flipped .message-content > p,
 .message-container .message-body .message-content > p {
@@ -219,6 +221,23 @@
   display: inline-flex;
   height: min-content;
 }
+.message-sending-loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  aspect-ratio: 4;
+  background: radial-gradient(circle closest-side, #999999 90%, #cecece00) 0 /
+    calc(100% / 3) 100% space;
+  clip-path: inset(0 100% 0 0);
+  animation: l1 1s steps(4) infinite;
+}
+@keyframes l1 {
+  to {
+    clip-path: inset(0 -34% 0 0);
+  }
+}
+
 @media screen and (max-width: 1100px) {
   .chat-message {
     padding: 0 2rem;
@@ -245,7 +264,7 @@
     width: 2rem;
     height: 2rem;
   }
-  .message-container .message-body {
+  /* .message-container .message-body {
     max-width: 100%;
-  }
+  } */
 }

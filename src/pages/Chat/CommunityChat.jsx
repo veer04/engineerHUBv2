@@ -76,7 +76,7 @@ export default function CommunityChat() {
 
   return (
     <main id="chat-page">
-      {width > 820 && <CommunityChatHeader onlineCount={100} />}
+      {width > 820 && <CommunityChatHeader/>}
       <div className="chat-container">
         {width > 820 ? (
           <CommunityChatGroupList />

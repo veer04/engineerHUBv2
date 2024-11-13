@@ -16,9 +16,11 @@ export default function CommunityChatHeader({ onlineCount }) {
     <div className="header">
       <h1 className="body-lg-semibold">Community Chats</h1>
       <div className="right">
-        <button className="online label-sm">
-          {OnlineGroupIcon} Online: {onlineCount}
-        </button>
+        {!!onlineCount && (
+          <button className="online label-sm">
+            {OnlineGroupIcon} Online: {onlineCount}
+          </button>
+        )}
         <button className="cancel" onClick={handleCloseChat}>
           {CrossIcon}
         </button>

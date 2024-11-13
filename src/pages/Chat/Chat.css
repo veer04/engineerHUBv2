@@ -58,6 +58,15 @@
   overflow: hidden;
   cursor: pointer;
 }
+#chat .header-container .cross-option {
+  padding: 0px 16px 0px 12px;
+  display: none;
+}
+#chat .header-container .cross-option .cross {
+  background-color: transparent;
+  border: none;
+  color: #ffffff;
+}
 #chat .header-container .options {
   padding: 0px 16px 0px 12px;
 }
@@ -124,6 +133,9 @@
     color: #ffffff;
   }
   #chat .header-container .back {
+    display: flex;
+  }
+  #chat .header-container .cross-option {
     display: flex;
   }
 }

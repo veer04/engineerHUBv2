@@ -1,29 +1,28 @@
-import { SlOptionsVertical } from "react-icons/sl";
 import "./Chat.css";
 import { Bucket_URL } from "../../services/APIUtils";
 import { FaChevronLeft, FaPlus } from "react-icons/fa";
 import { SendIcon } from "./icons";
-import { useParams } from "react-router-dom";
-import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import axios from "axios";
-import { API_URL, API_URLT } from "../../services/APIUtils";
+import { API_URL } from "../../services/APIUtils";
 import getCookie, { getAccessToken } from "../../features/getCookieValues";
 import { io } from "socket.io-client";
-import { Cookie } from "@mui/icons-material";
 import Cookies from "js-cookie";
-import {
-  TbLayoutBottombarCollapseFilled,
-  TbLayoutNavbarCollapseFilled,
-} from "react-icons/tb";
 import Message from "./Message";
 import useCommunityChat from "../../hooks/useCommunityChat";
-const ENDPOINT = API_URLT;
+import { RxCross1 } from "react-icons/rx";
+import MessageSending from "./MessageSending";
+const ENDPOINT = API_URL;
 var socket;
 
 const bucket = `${Bucket_URL}frontend/navbar/`;
 
 export default function Chat({ data, user, chatAccess, setChatAccess }) {
   const { chatId } = useParams();
+  const navigate = useNavigate();
+  const inputRef = useRef(null);
+  const messagesContainerRef = useRef(null); // Ref for messages container
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(false);
   const [input, setInput] = useState("");
@@ -33,16 +32,25 @@ export default function Chat({ data, user, chatAccess, setChatAccess }) {
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(5);
   const [isLoadingMoreMessages, setIsLoadingMoreMessages] = useState(false);
+  const [isSendingMessage, setIsSendingMessage] = useState(false);
+  const [loader, setLoader] = useState(false);
   const clientId = getCookie("_id")[2];
   const config = {
     headers: {
       accesstoken: getAccessToken(),
     },
   };
-  const { step, setStep } = useCommunityChat();
+  const { setIsChatOpen, navigateBackTo, setNavigateBackTo, step, setStep } =
+    useCommunityChat();
 
   const handleBackButton = () => {
     setStep(1);
+  };
+
+  const handleCloseChat = () => {
+    setIsChatOpen(false);
+    navigate(navigateBackTo ? navigateBackTo : "/");
+    setNavigateBackTo("");
   };
 
   useEffect(() => {
@@ -67,6 +75,11 @@ export default function Chat({ data, user, chatAccess, setChatAccess }) {
         .then((res) => {
           setMessages(res.data.data.messages.reverse());
           setPage(2);
+          // Scroll to bottom after initial load
+          if (messagesContainerRef.current) {
+            messagesContainerRef.current.scrollTop =
+              messagesContainerRef.current.scrollHeight;
+          }
         })
         .catch((err) => {
           // if (
@@ -79,9 +92,18 @@ export default function Chat({ data, user, chatAccess, setChatAccess }) {
     }
   }, [data]);
 
+  const prevScrollHeightRef = useRef(0);
+  const isPrependingRef = useRef(false);
+
   const loadMoreMessages = () => {
-    if (isLoadingMoreMessages) return;
+    if (isLoadingMoreMessages || !socketConnected || messages.length === 0)
+      return;
     setIsLoadingMoreMessages(true);
+
+    if (messagesContainerRef.current) {
+      prevScrollHeightRef.current = messagesContainerRef.current.scrollHeight;
+    }
+
     axios
       .get(
         `${ENDPOINT}api/v1/chatMessage?chat_id=${encodeURIComponent(
@@ -92,6 +114,7 @@ export default function Chat({ data, user, chatAccess, setChatAccess }) {
       .then((res) => {
         setMessages((prev) => [...res.data.data.messages.reverse(), ...prev]);
         setPage(page + 1);
+        isPrependingRef.current = true;
       })
       .catch((err) => {
         // if (
@@ -106,21 +129,32 @@ export default function Chat({ data, user, chatAccess, setChatAccess }) {
   };
 
   useEffect(() => {
-    const messagesContainer = document.querySelector(".messages-container");
-    if (!messagesContainer) return;
-
     const handleScroll = () => {
-      if (messagesContainer.scrollTop === 0) {
+      if (messagesContainerRef.current.scrollTop === 0) {
         loadMoreMessages();
       }
     };
 
-    messagesContainer.addEventListener("scroll", handleScroll);
+    const messagesContainer = messagesContainerRef.current;
+    if (messagesContainer) {
+      messagesContainer.addEventListener("scroll", handleScroll);
+    }
 
     return () => {
-      messagesContainer.removeEventListener("scroll", handleScroll);
+      if (messagesContainer) {
+        messagesContainer.removeEventListener("scroll", handleScroll);
+      }
     };
   }, [loadMoreMessages]);
+
+  useLayoutEffect(() => {
+    if (isPrependingRef.current && messagesContainerRef.current) {
+      const newScrollHeight = messagesContainerRef.current.scrollHeight;
+      const scrollDifference = newScrollHeight - prevScrollHeightRef.current;
+      messagesContainerRef.current.scrollTop = scrollDifference;
+      isPrependingRef.current = false;
+    }
+  }, [messages]);
 
   // const renderedMessages =
   //   messages.length !== 0
@@ -138,10 +172,13 @@ export default function Chat({ data, user, chatAccess, setChatAccess }) {
       !(chatAccess[chatId] === "waiting" || !!!chatAccess[chatId]) &&
       (page === 1 || page === 2)
     )
-      document
-        .getElementsByClassName("messages-container")[0]
-        .scrollTo(0, 999999999);
-  }, [messages]);
+      if (messagesContainerRef.current) {
+        messagesContainerRef.current.scrollTo(
+          0,
+          messagesContainerRef.current.scrollHeight
+        );
+      }
+  }, [messages, chatAccess, chatId, page]);
 
   // function handleSubmit() {
   //   console.log(getCookie("_id")[2]);
@@ -200,14 +237,16 @@ export default function Chat({ data, user, chatAccess, setChatAccess }) {
       // event.preventDefault();
       const inputCopy = input;
       setInput("");
+      if (inputRef.current) {
+        inputRef.current.style.height = "auto";
+      }
       try {
         const config = {
           headers: {
             accesstoken: getAccessToken(),
           },
         };
-
-        console.log(inputCopy);
+        setIsSendingMessage(true);
         const newData = await axios
           .post(
             `${ENDPOINT}api/v1/chatMessage`,
@@ -221,9 +260,18 @@ export default function Chat({ data, user, chatAccess, setChatAccess }) {
             socket.emit("new message", res.data);
             // setMessages([...messages, res.data.data]);
             setMessages((prev) => [...prev, res.data.data]);
+            // Scroll to bottom after sending a message
+            if (messagesContainerRef.current) {
+              document
+                .getElementsByClassName("messages-container")[0]
+                .scrollTo(0, 999999999);
+            }
           })
           .catch((err) => {
             console.log(err);
+          })
+          .finally(() => {
+            setIsSendingMessage(false);
           });
       } catch (error) {
         console.log(error);
@@ -234,6 +282,10 @@ export default function Chat({ data, user, chatAccess, setChatAccess }) {
   useEffect(() => {
     socket.on("message received", (inputReceived) => {
       setMessages((prev) => [...prev, inputReceived]);
+      // Scroll to bottom when a new message is received
+      // if (messagesContainerRef.current) {
+      //   messagesContainerRef.current.scrollTop = messagesContainerRef.current.scrollHeight;
+      // }
     });
     return () => socket.off("message received");
   }, [socket]);
@@ -281,12 +333,24 @@ export default function Chat({ data, user, chatAccess, setChatAccess }) {
           { expires: 400 }
         );
         setChatAccess({ ...chatAccess, [chatId]: "allowed" });
+        // After accepting, scroll to bottom
+        if (messagesContainerRef.current) {
+          messagesContainerRef.current.scrollTop =
+            messagesContainerRef.current.scrollHeight;
+        }
       })
       .catch((err) => {
         console.log(err);
       });
   }
-  const [loader, setLoader] = useState(false);
+
+  useEffect(() => {
+    if (isSendingMessage) {
+      document
+        .getElementsByClassName("messages-container")[0]
+        .scrollTo(0, 999999999);
+    }
+  }, [isSendingMessage]);
 
   return (
     <div id="chat">
@@ -300,16 +364,22 @@ export default function Chat({ data, user, chatAccess, setChatAccess }) {
           <img src={`${bucket}logo.svg`} alt="Group icon" />
         </div>
         <div className="group">
-          <h3 className="text-crop-1">Announcements & Updates</h3>
-          <p className="text-crop-1">Click to view details</p>
+          <h3 className="text-crop-1">{data?.chatName}</h3>
+          {/* <p className="text-crop-1">Click to view details</p> */}
         </div>
-        <div className="options">
+        <div className="cross-option">
+          <button onClick={handleCloseChat} className="cross">
+            <RxCross1 />
+          </button>
+        </div>
+        {/* <div className="options">
           <button className="option">
             <SlOptionsVertical />
           </button>
-        </div>
+        </div> */}
       </div>
       <div
+        ref={messagesContainerRef} // Attach ref to messages container
         style={{
           backgroundImage: `url(https://frontendehubbucket.s3.ap-south-1.amazonaws.com/frontend/community/chat-background.png)`,
           backgroundSize: "cover",
@@ -317,19 +387,32 @@ export default function Chat({ data, user, chatAccess, setChatAccess }) {
         }}
         className="messages-container"
       >
+        {isLoadingMoreMessages && (
+          <div className="loading-more-messages d-flex justify-content-center align-items-center pt-2">
+            <div
+              className="spinner-border spinner-border-md text-primary"
+              role="status"
+            >
+              <span className="sr-only"></span>
+            </div>
+          </div>
+        )}
         {chatAccess[chatId] === "allowed" &&
           (socketConnected && messages.length !== 0 ? (
-            messages?.map((message, index) => {
-              return (
-                <Message
-                  key={message._id}
-                  index={index}
-                  messages={messages}
-                  {...message}
-                  clientId={clientId}
-                />
-              );
-            })
+            <>
+              {messages?.map((message, index) => {
+                return (
+                  <Message
+                    key={message._id}
+                    index={index}
+                    messages={messages}
+                    {...message}
+                    clientId={clientId}
+                  />
+                );
+              })}
+              {isSendingMessage && <MessageSending />}
+            </>
           ) : (
             <div
               style={{
@@ -417,16 +500,19 @@ export default function Chat({ data, user, chatAccess, setChatAccess }) {
         messages.length !== 0 &&
         socketConnected && (
           <div className="input-container">
-            <div className="attachment-container">
+            {/* <div className="attachment-container">
               <button className="attachment">
                 <FaPlus />
               </button>
-            </div>
+            </div> */}
             <textarea
               className="text-input"
               placeholder="Enter message"
+              ref={inputRef}
               rows={1}
               style={{
+                // marginLeft to be removed when attachment button is added
+                marginLeft: "12px",
                 overflowY: "auto",
                 resize: "none",
                 maxHeight: "120px", // Adjust this value based on your line-height to accommodate up to 5 rows
@@ -444,6 +530,7 @@ export default function Chat({ data, user, chatAccess, setChatAccess }) {
               onChange={(e) => {
                 setInput(e.target.value);
               }}
+              // onKeyDown={handleKeyDown}
             />
             <div className="send-container">
               <button onClick={sendMessage} className="send">

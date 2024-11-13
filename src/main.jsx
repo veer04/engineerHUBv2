@@ -32,7 +32,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
                   <NavbarProvider>
                     <SidebarProvider>
                       <App />
-                      <ReactQueryDevtools />
+                      {/* <ReactQueryDevtools /> */}
                     </SidebarProvider>
                   </NavbarProvider>
                 </EventModalProvider>
