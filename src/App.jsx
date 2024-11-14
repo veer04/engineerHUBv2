@@ -1,16 +1,12 @@
 import React, { useState, useEffect, lazy, Suspense } from "react";
-import { Route, Routes, useLocation, Navigate } from "react-router-dom";
+import { Route, Routes, Navigate } from "react-router-dom";
 import "./App.css";
 import "./styles/DesignSystem.js";
 import OTP from "./pages/User/OtpVerification/Otpverification";
 import MobileNavbar from "./components/MobileNavbar/MobileNavbar";
 import NewNavbar from "./components/Navbar/NewNavbar";
 import Events from "./pages/Company/Events/events";
-// import Jobs from "./pages/Company/Jobs/jobs";
-// import JobDetails from "./pages/Company/Jobs/JobDetails";
 import Success from "./pages/HomePage/Success";
-// import Internship from "./pages/Company/Internship/Internship";
-// import InternshipDetails from "./pages/Company/Internship/InternshipDetails";
 import Projects from "./pages/Company/Projects/Projects";
 import ComingSoon from "./pages/Maintenance/ComingSoon";
 import ClubSignup from "./pages/User/Signup/ClubSignup";
@@ -139,9 +135,6 @@ const BlogHosting = lazy(() => import("./pages/Hosting/BlogHosting.jsx"));
 const ClubDashboard = lazy(() =>
   import("./pages/Profile/ClubDashboard/ClubDashboard")
 );
-const NewChatPage = lazy(() =>
-  import("./pages/Community/Chat/NewChatPage.jsx")
-);
 const NewProjectsPage = lazy(() =>
   import("./pages/Community/Project/NewProjectsPage.jsx")
 );
@@ -164,11 +157,8 @@ function App() {
     setOtpRoute(Boolean(sessionStorage.getItem("OtpRoute")));
   });
 
-  const location = useLocation();
-
   return (
     <>
-      {/* <PopUpModalBootstrap /> */}
       <NewNavbar />
       <MobileNavbar />
       <GlobalSnackbar />
@@ -268,9 +258,7 @@ function App() {
               index
               element={
                 <Navigate
-                  to={`/chat/${encodeURIComponent(
-                    "Data Structures & Algorithms"
-                  )}`}
+                  to={`/chat/${encodeURIComponent("Announcements & Updates")}`}
                 />
               }
             />

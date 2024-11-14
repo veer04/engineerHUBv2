@@ -119,7 +119,7 @@ export default function NewFooter() {
             <div className="pages">
               <p className="title">Community</p>
               <Link
-                to="/community/chat/Data%20Structures%20%26%20Algorithms"
+                to="/chat"
                 className="link"
               >
                 Chat
