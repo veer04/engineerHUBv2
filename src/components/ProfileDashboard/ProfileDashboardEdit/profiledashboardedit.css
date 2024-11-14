@@ -18,3 +18,25 @@
 }
 .profile-dashboard-edit-start-div {
 }
+
+@media screen and (max-width: 520px) {
+  .profile-dashboard-edit-start-div {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    margin: 24px auto;
+    width: 100%;
+    height: auto;
+    gap: 15px;
+    padding: 10px;
+  }
+
+  .profile-dashboard-edit-start-div .profile-dashboard-edit-left-div {
+    width: 100%;
+    height: auto;
+  }
+
+  .profile-dashboard-edit-start-div .profile-dashboard-edit-right-div {
+    width: 100%;
+    height: auto;
+  }
+}

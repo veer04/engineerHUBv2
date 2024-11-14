@@ -159,7 +159,10 @@ export default function MobileNavbar() {
   const location = useLocation();
 
   useEffect(() => {
-    if (location.pathname.includes("host/")) {
+    if (
+      location.pathname.includes("host/") ||
+      location.pathname.includes("/chat/")
+    ) {
       setShowNavbar(false);
     } else setShowNavbar(true);
   }, [location]);

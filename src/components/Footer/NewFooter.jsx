@@ -33,7 +33,8 @@ export default function NewFooter() {
       location.pathname.includes("change-password") ||
       location.pathname.includes("otp-verification") ||
       location.pathname.includes("referrals") ||
-      location.pathname.includes("company/jobs/board")
+      location.pathname.includes("company/jobs/board") ||
+      location.pathname.includes("/chat/")
     ) {
       setDisplayFooter(false);
     } else setDisplayFooter(true);
@@ -118,7 +119,7 @@ export default function NewFooter() {
             <div className="pages">
               <p className="title">Community</p>
               <Link
-                to="/community/chat/Data%20Structures%20%26%20Algorithms"
+                to="/chat"
                 className="link"
               >
                 Chat
