@@ -69,7 +69,7 @@ const SocialLinksProfile = () => {
                 marginBottom: 0,
               }}
             >
-              Linkedin ID
+              Linkedin
             </h3>
             <h3
               style={{
@@ -81,7 +81,7 @@ const SocialLinksProfile = () => {
                 marginBottom: 0,
               }}
             >
-              Add your name
+              Add Username
             </h3>
           </div>
           <div className="linkedin-id-and-github-right">
@@ -107,7 +107,7 @@ const SocialLinksProfile = () => {
                 marginBottom: 0,
               }}
             >
-              Add Link
+              Add Username
             </h3>
           </div>
         </div>
