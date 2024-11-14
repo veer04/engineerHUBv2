@@ -34,7 +34,7 @@ import {
 import { Editor } from "@tinymce/tinymce-react";
 import {
   emailExpression,
-  linkWithHttpExpression,
+  isValidUrl,
   mobileNumberExpression,
 } from "../../features/regex";
 
@@ -264,7 +264,7 @@ export default function HostingInternship() {
       addToErrorStack("#organisationLogo");
     }
 
-    if (organisationLink && !organisationLink.match(linkWithHttpExpression)) {
+    if (organisationLink && !isValidUrl(organisationLink)) {
       errors.organisationLink =
         "Please enter a valid URL. (Ex: https://www.linkedin.com/company/engineersummit/mycompany/)";
       isValid = false;
@@ -466,7 +466,7 @@ export default function HostingInternship() {
       addToErrorStack("#openings");
     }
 
-    if (applyLink && !applyLink.match(linkWithHttpExpression)) {
+    if (applyLink && !isValidUrl(applyLink)) {
       errors.applyLink =
         "Please enter a valid URL (for example: https://www.engineerhub.in)";
       isValid = false;
