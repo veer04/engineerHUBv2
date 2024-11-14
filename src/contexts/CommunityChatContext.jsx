@@ -7,6 +7,7 @@ export const CommunityChatProvider = ({ children }) => {
   const [isChatOpen, setIsChatOpen] = useState(false);
   const [navigateBackTo, setNavigateBackTo] = useState("");
   const [step, setStep] = useState(1);
+  const [lastOpenChat, setLastOpenChat] = useState("");
 
   return (
     <CommunityChatContext.Provider
@@ -17,6 +18,8 @@ export const CommunityChatProvider = ({ children }) => {
         setNavigateBackTo,
         step,
         setStep,
+        lastOpenChat,
+        setLastOpenChat,
       }}
     >
       {children}

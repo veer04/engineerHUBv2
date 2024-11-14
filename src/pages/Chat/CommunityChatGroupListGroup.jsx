@@ -5,10 +5,11 @@ import useCommunityChat from "../../hooks/useCommunityChat";
 
 export default function CommunityChatGroupListGroup({ group }) {
   const navigate = useNavigate();
-  const { setStep } = useCommunityChat();
+  const { setStep, setLastOpenChat } = useCommunityChat();
   const handleClick = () => {
     setStep(2);
-    navigate(`/chat/${encodeURIComponent(group.domain)}`);
+    setLastOpenChat(group.chatName);
+    navigate(`/chat/${encodeURIComponent(group.chatName)}`);
   };
   return (
     <button
@@ -20,16 +21,16 @@ export default function CommunityChatGroupListGroup({ group }) {
     >
       <div className="icon">
         <img
-          src={group.domainImage}
-          alt={group.domain}
+          src={group.image}
+          alt={group.chatName}
           onError={(e) => {
             e.target.src = defaultPoster;
           }}
         />
       </div>
       <div className="content">
-        <p title={group.domain} className="group-name label-sm text-crop-1">
-          {group.domain}
+        <p title={group.chatName} className="group-name label-sm text-crop-1">
+          {group.chatName}
         </p>
         {/* <p
           title={group?.lastMessage}

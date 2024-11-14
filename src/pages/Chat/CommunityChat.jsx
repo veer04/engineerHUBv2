@@ -40,6 +40,7 @@ export default function CommunityChat() {
   const { step, setStep } = useCommunityChat();
 
   useEffect(() => {
+    document.title = `Chat | ${chatId} | engineerHUB`;
     const handleResize = () => setWidth(window.innerWidth);
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
@@ -47,10 +48,7 @@ export default function CommunityChat() {
 
   useEffect(() => {
     axios
-      .get(
-        `${API_URL}api/v1/chat/${encodeURIComponent(chatId)}`, //change api route after discussion with backend
-        config
-      )
+      .get(`${API_URL}api/v1/chat/${encodeURIComponent(chatId)}`, config)
       .then((res) => {
         setData(res.data.data);
       })
@@ -76,7 +74,7 @@ export default function CommunityChat() {
 
   return (
     <main id="chat-page">
-      {width > 820 && <CommunityChatHeader/>}
+      {width > 820 && <CommunityChatHeader />}
       <div className="chat-container">
         {width > 820 ? (
           <CommunityChatGroupList />

@@ -257,9 +257,6 @@ function App() {
                 <Route path=":eventId" element={<EventWindow />} />
               </Route>
             </Route>
-            <Route path="chat">
-              <Route path=":id" element={<NewChatPage />} />
-            </Route>
             <Route path="notes">
               <Route path=":id" element={<NotesPage />}>
                 <Route path=":notesId" element={<NotesWindow />} />
