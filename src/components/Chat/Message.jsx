@@ -77,7 +77,7 @@ export default function Message({
         return (
           <span key={index} className="link-margin mx-1">
             <a
-              style={{ color: "rgb(124, 170, 243)" }}
+              style={{ color: "rgb(138,180,248)" }}
               className="text-break"
               href={part}
               target="_blank"

@@ -1,12 +1,16 @@
 import React, { useState, useEffect, lazy, Suspense } from "react";
-import { Route, Routes, Navigate } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import "./App.css";
 import "./styles/DesignSystem.js";
 import OTP from "./pages/User/OtpVerification/Otpverification";
 import MobileNavbar from "./components/MobileNavbar/MobileNavbar";
 import NewNavbar from "./components/Navbar/NewNavbar";
 import Events from "./pages/Company/Events/events";
+// import Jobs from "./pages/Company/Jobs/jobs";
+// import JobDetails from "./pages/Company/Jobs/JobDetails";
 import Success from "./pages/HomePage/Success";
+// import Internship from "./pages/Company/Internship/Internship";
+// import InternshipDetails from "./pages/Company/Internship/InternshipDetails";
 import Projects from "./pages/Company/Projects/Projects";
 import ComingSoon from "./pages/Maintenance/ComingSoon";
 import ClubSignup from "./pages/User/Signup/ClubSignup";
@@ -72,8 +76,6 @@ const PaymentFailed = lazy(() =>
 import ProfileDashboard from "./components/ProfileDashboard/ProfileDashboard.jsx";
 import ProfileDashboardUserView from "./components/ProfileDashboard/UserViewProfileDashboard/ProfileDashboardUserView/ProfileDashboardUserView.jsx";
 import ProfileDashboardEdit from "./components/ProfileDashboard/ProfileDashboardEdit/ProfileDashboardEdit.jsx";
-import FloatingChatButton from "./components/FloatingChatButton/FloatingChatButton.jsx";
-import CommunityChat from "./pages/Chat/CommunityChat.jsx";
 const DigitalProductAdminPage = lazy(() =>
   import("./pages/Admin/DigitalProductAdminPage.jsx")
 );
@@ -135,6 +137,9 @@ const BlogHosting = lazy(() => import("./pages/Hosting/BlogHosting.jsx"));
 const ClubDashboard = lazy(() =>
   import("./pages/Profile/ClubDashboard/ClubDashboard")
 );
+const NewChatPage = lazy(() =>
+  import("./pages/Community/Chat/NewChatPage.jsx")
+);
 const NewProjectsPage = lazy(() =>
   import("./pages/Community/Project/NewProjectsPage.jsx")
 );
@@ -157,13 +162,15 @@ function App() {
     setOtpRoute(Boolean(sessionStorage.getItem("OtpRoute")));
   });
 
+  const location = useLocation();
+
   return (
     <>
+      {/* <PopUpModalBootstrap /> */}
       <NewNavbar />
       <MobileNavbar />
       <GlobalSnackbar />
       <ProfilePopUp />
-      <FloatingChatButton />
       <Suspense fallback={<LoadingPage />}>
         <Routes>
           <Route index element={<NewHomePage path="homepage" />} />
@@ -247,22 +254,14 @@ function App() {
                 <Route path=":eventId" element={<EventWindow />} />
               </Route>
             </Route>
+            <Route path="chat">
+              <Route path=":id" element={<NewChatPage />} />
+            </Route>
             <Route path="notes">
               <Route path=":id" element={<NotesPage />}>
                 <Route path=":notesId" element={<NotesWindow />} />
               </Route>
             </Route>
-          </Route>
-          <Route path="/chat">
-            <Route
-              index
-              element={
-                <Navigate
-                  to={`/chat/${encodeURIComponent("Announcements & Updates")}`}
-                />
-              }
-            />
-            <Route path=":chatId" element={<CommunityChat />} />
           </Route>
           <Route path="/trending">
             <Route path="campuses/:collegeId">

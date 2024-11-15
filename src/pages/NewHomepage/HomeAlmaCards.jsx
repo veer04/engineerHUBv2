@@ -15,7 +15,7 @@ const HomeAlmaCards = ({ list }) => {
   const [trendingList3, setTrendingList3] = useState([]);
 
   useEffect(() => {
-    if (list?.length > 0) {
+    if (list.length > 0) {
       setTrendingList([list[0]]);
       setTrendingList2([list[1]]);
       setTrendingList3([list[2]]);
@@ -31,7 +31,7 @@ const HomeAlmaCards = ({ list }) => {
         justifyContent: "center",
       }}
     >
-      {list?.slice(0, 3)?.map((trending, index) => (
+      {list.slice(0, 3)?.map((trending, index) => (
         <div
           key={trending._id}
           onClick={() => navigate(`/profile/user/${trending._id}`)}

@@ -15,7 +15,7 @@ export default function NewReviewSection() {
   }, []);
 
   useEffect(() => {
-    if (!!reviews?.length) {
+    if (!!reviews.length) {
       if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
         addAnimation();
         addAnimation();
@@ -66,7 +66,7 @@ export default function NewReviewSection() {
             return (
               <div key={index1} className="column">
                 {reviews
-                  ?.slice(index1 * 2, index1 * 2 + 2)
+                  .slice(index1 * 2, index1 * 2 + 2)
                   .map((review, index2) => (
                     <div
                       style={{

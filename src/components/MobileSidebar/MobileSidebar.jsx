@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import "./MobileSidebar.css";
+import { RiChat3Line } from "react-icons/ri";
 import { CiViewList } from "react-icons/ci";
 import { MdOutlineCalendarMonth } from "react-icons/md";
 import { TbFileText } from "react-icons/tb";
@@ -30,6 +31,17 @@ export default function MobileSidebar({ path }) {
 
   return (
     <div id="mobile-sidebar" className="mobile-sidebar">
+      {!isClubOrOrganisation && (
+        <Link
+          onClick={() => setSelectedItem("chat")}
+          to={`/community/chat/${encodeURIComponent(id)}`}
+        >
+          <div className={`${path === "chat" ? "is-active" : ""}`}>
+            <RiChat3Line className="svg" />
+            Chat
+          </div>
+        </Link>
+      )}
       <Link
         onClick={() => setSelectedItem("projects")}
         to={`/community/projects/${encodeURIComponent(id)}`}

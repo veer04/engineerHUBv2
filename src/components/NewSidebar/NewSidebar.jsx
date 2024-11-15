@@ -1,5 +1,6 @@
 import { useNavigate, useParams } from "react-router-dom";
 import "./NewSidebar.css";
+import { RiChat3Line } from "react-icons/ri";
 import { CiViewList } from "react-icons/ci";
 import { MdOutlineCalendarMonth } from "react-icons/md";
 import { TbFileText } from "react-icons/tb";
@@ -12,6 +13,25 @@ export default function NewSidebar() {
   const { selectedItem, setSelectedItem } = useSidebar();
   return (
     <div id="new-community-sidebar" className="options">
+      <div
+        style={{
+          color: selectedItem === "chat" ? "#FFD600" : "#b0b0b0",
+        }}
+        onClick={() => {
+          navigate(`/community/chat/${encodeURIComponent(id)}`);
+          setSelectedItem("chat");
+        }}
+        className="option"
+      >
+        <RiChat3Line />
+        <span
+          style={{
+            fontWeight: selectedItem === "chat" ? "600" : "400",
+          }}
+        >
+          Chat
+        </span>
+      </div>
       <div
         style={{
           color: selectedItem === "projects" ? "#FFD600" : "#b0b0b0",
