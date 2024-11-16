@@ -8,9 +8,7 @@ export default function SidebarProvider({ children }) {
   const [selectedItem, setSelectedItem] = useState("");
 
   useEffect(() => {
-    if (window.location.href.includes("chat")) setSelectedItem("chat");
-    else if (window.location.href.includes("projects"))
-      setSelectedItem("projects");
+    if (window.location.href.includes("projects")) setSelectedItem("projects");
     else if (window.location.href.includes("events")) setSelectedItem("events");
     else if (window.location.href.includes("blogs")) setSelectedItem("blogs");
     else if (window.location.href.includes("notes")) setSelectedItem("notes");

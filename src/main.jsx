@@ -7,10 +7,10 @@ import { AuthProvider } from "react-auth-kit";
 import SidebarProvider from "./contexts/SidebarContext";
 import NavbarProvider from "./contexts/NavbarContext";
 import { EventModalProvider } from "./contexts/EventModalContext";
-import ChatProvider from "./contexts/chatProvider";
 import GlobalSnackbarProvider from "./contexts/GlobalSnackbarContext";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { CommunityChatProvider } from "./contexts/CommunityChatContext";
 
 const queryClient = new QueryClient();
 
@@ -25,16 +25,16 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           cookieSecure={false}
         >
           <GlobalSnackbarProvider>
-            <ChatProvider>
+            <CommunityChatProvider>
               <EventModalProvider>
                 <NavbarProvider>
                   <SidebarProvider>
                     <App />
-                    <ReactQueryDevtools />
+                    {/* <ReactQueryDevtools /> */}
                   </SidebarProvider>
                 </NavbarProvider>
               </EventModalProvider>
-            </ChatProvider>
+            </CommunityChatProvider>
           </GlobalSnackbarProvider>
         </AuthProvider>
       </BrowserRouter>
