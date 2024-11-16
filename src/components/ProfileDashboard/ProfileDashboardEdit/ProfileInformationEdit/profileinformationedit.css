@@ -28,12 +28,3 @@
 .profile-information-edit-main .name-date-of-birth .name-date-of-birth-right {
   width: auto;
 }
-
-@media screen and (max-width: 520px) {
-  .profile-information-edit-main .name-date-of-birth {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-top: 20px;
-  }
-}

@@ -10,15 +10,15 @@ function Domain({ item, index }) {
   const isLoggedIn = isUserLoggedIn();
 
   function handleClick(item) {
-    // if (isLoggedIn) {
-    //   if (
-    //     getCookie("role")[2] === "User" ||
-    //     getCookie("role")[2] === "Alumni"
-    //   ) {
-    //     navigate(`/community/chat/${encodeURIComponent(item.domain)}`); // route does not exist anymore
-    //     return;
-    //   }
-    // }
+    if (isLoggedIn) {
+      if (
+        getCookie("role")[2] === "User" ||
+        getCookie("role")[2] === "Alumni"
+      ) {
+        navigate(`/community/chat/${encodeURIComponent(item.domain)}`);
+        return;
+      }
+    }
     navigate(`/community/projects/${encodeURIComponent(item.domain)}`);
   }
 
