@@ -361,7 +361,7 @@ export default function Chat({ data, user, chatAccess, setChatAccess }) {
           </button>
         </div>
         <div className="icon">
-          <img src={`${bucket}logo.svg`} alt="Group icon" />
+          {data?.image && <img src={data?.image} alt="Group icon" />}
         </div>
         <div className="group">
           <h3 className="text-crop-1">{data?.chatName}</h3>

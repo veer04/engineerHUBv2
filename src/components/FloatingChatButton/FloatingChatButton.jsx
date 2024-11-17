@@ -7,7 +7,7 @@ import useCommunityChat from "../../hooks/useCommunityChat";
 export default function FloatingChatButton() {
   const location = useLocation();
   const navigate = useNavigate();
-  const { isChatOpen, setIsChatOpen, setNavigateBackTo, setStep } =
+  const { isChatOpen, setIsChatOpen, setNavigateBackTo, lastOpenChat } =
     useCommunityChat();
   const [width, setWidth] = useState(window.innerWidth);
 
@@ -20,7 +20,11 @@ export default function FloatingChatButton() {
   useEffect(() => {
     if (isChatOpen && !location.pathname.includes("/chat")) {
       setTimeout(() => {
-        navigate(`/chat/${encodeURIComponent(`UI/UX Design`)}`);
+        navigate(
+          `/chat/${encodeURIComponent(
+            lastOpenChat ? lastOpenChat : `Announcements & Updates`
+          )}`
+        );
         if (document.getElementById("floating-chat-button")) {
           document.getElementById("floating-chat-button").style.display =
             "none";
@@ -38,7 +42,6 @@ export default function FloatingChatButton() {
   }, [location.pathname]);
 
   const handleOpenChat = () => {
-    setStep(1);
     setNavigateBackTo(location.pathname + location.search);
     setIsChatOpen(true);
   };

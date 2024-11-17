@@ -9,6 +9,8 @@ export default function useCommunityChat() {
     setNavigateBackTo,
     step,
     setStep,
+    lastOpenChat,
+    setLastOpenChat,
   } = useContext(CommunityChatContext);
 
   return {
@@ -18,5 +20,7 @@ export default function useCommunityChat() {
     setNavigateBackTo,
     step,
     setStep,
+    lastOpenChat,
+    setLastOpenChat,
   };
 }
