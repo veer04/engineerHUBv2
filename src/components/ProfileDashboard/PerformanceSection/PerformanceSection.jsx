@@ -88,7 +88,6 @@ const PerformanceSection = () => {
               borderRadius: 5,
               background: "#547178",
               border: 0,
-              color: "white",
               cursor: "pointer",
             }}
           >
