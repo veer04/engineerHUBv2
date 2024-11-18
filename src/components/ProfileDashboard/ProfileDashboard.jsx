@@ -10,41 +10,35 @@ import ProfileWithFollowAndMail from "./UserViewProfileDashboard/ProfileWithFoll
 import UserStatsSection from "./UserViewProfileDashboard/UserStatsSection/UserStatsSection";
 
 const ProfileDashboard = () => {
-  const [isMobile, setIsMobile] = useState(window.innerWidth <= 520);
+  // const [isMobile, setIsMobile] = useState(window.innerWidth <= 520);
 
-  useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth <= 520);
-    };
+  // useEffect(() => {
+  //   const handleResize = () => {
+  //     setIsMobile(window.innerWidth <= 520);
+  //   };
 
-    window.addEventListener("resize", handleResize);
+  //   window.addEventListener("resize", handleResize);
 
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
+  //   return () => {
+  //     window.removeEventListener("resize", handleResize);
+  //   };
+  // }, []);
 
   return (
     <>
-      <main>
+      <main className="main-profile-dashboard">
         <div className="main-profile-dashboard-panel">
           <div className="main-profile-dashboard-left">
             <ProfileWithPostEditShare />
             <div style={{ marginTop: 20 }}>
               <ProfileCompletionSection />
             </div>
-
-            {!isMobile && (
-              <div style={{ marginTop: 20, borderRadius: 8 }}>
-                <img
-                  style={{ borderRadius: 8 }}
-                  src="./rectangle-img.png"
-                  width={367}
-                  height={367}
-                  alt=""
-                />
-              </div>
-            )}
+            <img
+              className="profile-dashboard-rectangle-img-1"
+              style={{ marginTop: 20, borderRadius: 8 }}
+              src="./rectangle-img.png"
+              alt="We are live poster"
+            />
           </div>
 
           <div className="main-profile-dashboard-right">
@@ -63,24 +57,17 @@ const ProfileDashboard = () => {
           </div>
         </div>
 
-        {isMobile && (
-          <div
-            style={{
-              marginTop: -20,
-              padding: "10px",
-              borderRadius: 8,
-              marginBottom: 20,
-            }}
-          >
-            <img
-              style={{ borderRadius: 8 }}
-              src="./rectangle-img.png"
-              width={367}
-              height={367}
-              alt=""
-            />
-          </div>
-        )}
+        <img
+          style={{
+            marginTop: 20,
+            padding: "10px",
+            borderRadius: 8,
+            marginBottom: 20,
+          }}
+          className="profile-dashboard-rectangle-img-2"
+          src="./rectangle-img.png"
+          alt="We are live poster"
+        />
       </main>
     </>
   );

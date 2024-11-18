@@ -52,9 +52,10 @@ const RecommendedSection = () => {
         </div>
 
         <div className="recommendation-cards-saif">
-          {recommendationData.map((data, index) => (
+          {/* {recommendationData.map((data, index) => (
             <RecommendationCard1 key={index} data={data.job} />
-          ))}
+          ))} */}
+          <RecommendationCard1 />
           <RecommendedCard2 />
           <RecommendationCard1 />
         </div>
