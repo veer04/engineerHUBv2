@@ -9,6 +9,30 @@ import { getAccessToken } from "../../../features/getCookieValues";
 const RecommendedSection = () => {
   const [recommendationData, setRecommendationData] = useState([]);
 
+  const fetchRecommendationData = async () => {
+    try {
+      const response = await fetch(
+        `${API_URL}api/v1/userDashboard/recommendation-area`,
+        {
+          method: "GET",
+          headers: {
+            accesstoken: getAccessToken(),
+          },
+        }
+      );
+
+      const data = await response.json();
+      console.log(data, "responsedatarecommended");
+      setRecommendationData(data.data);
+    } catch (error) {
+      console.error("Error getting the data", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchRecommendationData();
+  }, []);
+
   return (
     <>
       <div className="recommended-main-section-div">
@@ -28,7 +52,9 @@ const RecommendedSection = () => {
         </div>
 
         <div className="recommendation-cards-saif">
-          <RecommendationCard1 />
+          {recommendationData.map((data, index) => (
+            <RecommendationCard1 key={index} data={data.job} />
+          ))}
           <RecommendedCard2 />
           <RecommendationCard1 />
         </div>
