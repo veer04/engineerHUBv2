@@ -210,7 +210,10 @@ export default function TrendingPostCard({ post, updatePost }) {
         <span>{post.totalLikes} likes</span>
       </div>
       <span
-        style={{ cursor: "default" }}
+        style={{
+          cursor: "default",
+          wordBreak: "break-word",
+        }}
         className={`caption ${isShownMore ? "no-text-crop" : "text-crop-1"} `}
       >
         {post.description}

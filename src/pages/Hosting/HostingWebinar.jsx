@@ -26,7 +26,7 @@ import FormButton from "../../components/FormInputs/FormButton";
 import "./HostingCulturalEvent.css";
 import {
   emailExpression,
-  linkWithHttpExpression,
+  isValidUrl,
   mobileNumberExpression,
 } from "../../features/regex";
 import { Editor } from "@tinymce/tinymce-react";
@@ -337,7 +337,7 @@ export default function HostingWebinar() {
       errors.eventLink = "Event link is required";
       isValid = false;
       addToErrorStack("#eventLink");
-    } else if (!eventLink.match(linkWithHttpExpression)) {
+    } else if (!isValidUrl(eventLink)) {
       errors.eventLink =
         "Please enter a valid URL (for example: https://www.engineerhub.in)";
       isValid = false;
