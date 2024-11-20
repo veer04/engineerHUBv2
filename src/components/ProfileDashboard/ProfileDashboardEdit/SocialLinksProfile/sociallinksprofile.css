@@ -24,18 +24,19 @@
 .social-links-main-div-edit
   .linkedin-id-and-github
   .linkedin-id-and-github-left {
-  width: 280px;
+  width: 440px;
 }
 
 .social-links-main-div-edit
   .linkedin-id-and-github
   .linkedin-id-and-github-right {
-  width: auto;
+  width: 100%;
 }
 
-@media screen and (max-width: 520px) {
+@media screen and (max-width: 720px) {
   .social-links-main-div-edit .linkedin-id-and-github {
     display: flex;
+    flex-wrap: wrap;
     flex-direction: column;
     gap: 10px;
     margin-top: 20px;

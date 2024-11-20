@@ -31,7 +31,7 @@ const ProfileDashboardUserView = () => {
 
   return (
     <>
-      <div className="profile-dashboard-user-view-main">
+      <main className="profile-dashboard-user-view-main">
         <div className="left-profile-dashboard-user">
           <ProfileWithFollowAndMail />
 
@@ -122,7 +122,7 @@ const ProfileDashboardUserView = () => {
             {/* //in mobile yeh dikhega */}
           </div>
         </div>
-      </div>
+      </main>
     </>
   );
 };

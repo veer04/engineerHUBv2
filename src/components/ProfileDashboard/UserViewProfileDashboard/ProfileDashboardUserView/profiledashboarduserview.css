@@ -1,12 +1,10 @@
 .profile-dashboard-user-view-main {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  margin: 48px auto;
-  width: 1150px;
-  width: 1150px;
-  height: auto;
-  gap: 15px;
-  gap: 15px;
+  display: flex;
+  flex-direction: row;
+  padding: var(--vertical-padding) var(--section-padding);
+  scroll-behavior: auto;
+  font-family: "Lato", sans-serif;
+  gap: 16px;
 }
 
 .profile-dashboard-user-view-main .left-profile-dashboard-user {
@@ -19,8 +17,7 @@
 }
 
 .profile-dashboard-user-view-main .right-profile-dashboard-user {
-  width: 804px;
-  height: auto;
+  width: 100%;
 }
 
 .profile-dashboard-user-view-main
