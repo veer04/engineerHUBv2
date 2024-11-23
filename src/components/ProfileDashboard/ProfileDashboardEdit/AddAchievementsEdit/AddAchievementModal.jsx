@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./addachievemodal.css";
 import { IoMdClose } from "react-icons/io";
+import { addUserAchievement } from "../../../../services/APIConfig";
 
 const AddAchievementModal = ({ isOpen, onClose }) => {
   const [formData, setFormData] = useState({
@@ -8,6 +9,7 @@ const AddAchievementModal = ({ isOpen, onClose }) => {
     achievementDescription: "",
   });
   const [errors, setErrors] = useState({});
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (field, value) => {
     setFormData((prevData) => ({ ...prevData, [field]: value }));
@@ -28,11 +30,24 @@ const AddAchievementModal = ({ isOpen, onClose }) => {
     const validationErrors = validateForm();
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
-    } else {
-      console.log("Form Submitted:", formData);
-      setErrors({});
-      onClose();
+      return;
     }
+
+    setLoading(true);
+
+    addUserAchievement(formData)
+      .then((response) => {
+        console.log("Update successful:", response);
+        setSnackbarMessage("Achievement Added successful");
+        setSnackbarOpen(true);
+        onClose();
+      })
+      .catch((error) => {
+        console.error("Update failed:", error);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   };
 
   const handleClose = () => {

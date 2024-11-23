@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./addexperiencemodal.css";
 import { IoMdClose } from "react-icons/io";
 import { Bucket_URL } from "../../../../services/APIUtils";
+import { addUserExperience } from "../../../../services/APIConfig";
 
 const AddExperienceModal = ({ isOpen, onClose }) => {
   const [formData, setFormData] = useState({
@@ -13,6 +14,7 @@ const AddExperienceModal = ({ isOpen, onClose }) => {
   });
 
   const [errors, setErrors] = useState({});
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (field, value) => {
     setFormData((prevData) => ({ ...prevData, [field]: value }));
@@ -37,11 +39,33 @@ const AddExperienceModal = ({ isOpen, onClose }) => {
     const validationErrors = validateForm();
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
-    } else {
-      console.log("Form Submitted:", formData);
-      setErrors({});
-      onClose();
+      return;
     }
+    setLoading(true);
+
+    addUserExperience(formData)
+      .then((response) => {
+        console.log("Update successful:", response);
+
+        setFormData({
+          experienceType: "",
+          role: "",
+          startYear: "",
+          endYear: "",
+          organizationName: "",
+        });
+        setSnackbarMessage("Experience Added successful");
+        setSnackbarOpen(true);
+        onClose();
+      })
+      .catch((error) => {
+        setSnackbarMessage("Failed to add Experience. Please try again.");
+        setSnackbarOpen(true);
+        console.error("Update failed:", error);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   };
 
   const handleClose = () => {
@@ -98,13 +122,22 @@ const AddExperienceModal = ({ isOpen, onClose }) => {
                     Select your experience type
                   </option>
                   <option className="option-select-css" value="Fresher">
-                    Fresher
+                    Full Time
                   </option>
                   <option className="option-select-css" value="Senior">
-                    Senior
+                    Part Time
                   </option>
                   <option className="option-select-css" value="Manager">
-                    Manager
+                    Self-employed
+                  </option>
+                  <option className="option-select-css" value="Manager">
+                    Freelance
+                  </option>
+                  <option className="option-select-css" value="Manager">
+                    Internship
+                  </option>
+                  <option className="option-select-css" value="Manager">
+                    Trainee
                   </option>
                 </select>
                 {errors.experienceType && (
@@ -153,7 +186,7 @@ const AddExperienceModal = ({ isOpen, onClose }) => {
                   </label>
                   <span className="required-indicator">*</span>
                   <input
-                    type="text"
+                    type="date"
                     id="startYear"
                     value={formData.startYear}
                     onChange={(e) => handleChange("startYear", e.target.value)}
@@ -162,11 +195,11 @@ const AddExperienceModal = ({ isOpen, onClose }) => {
                     }`}
                     placeholder="Enter start year"
                   />
-                  <img
+                  {/* <img
                     src={`${Bucket_URL}UserViewDashboard/Calendar.svg`}
                     alt=""
                     className="img-calendar-project"
-                  />
+                  /> */}
                   {errors.startYear && (
                     <p className="mt-1 error-p text-sm text-red-500">
                       {errors.startYear}
@@ -186,7 +219,7 @@ const AddExperienceModal = ({ isOpen, onClose }) => {
                   </label>
                   <span className="required-indicator">*</span>
                   <input
-                    type="text"
+                    type="date"
                     id="endYear"
                     value={formData.endYear}
                     onChange={(e) => handleChange("endYear", e.target.value)}
@@ -195,11 +228,11 @@ const AddExperienceModal = ({ isOpen, onClose }) => {
                     }`}
                     placeholder="Enter end year"
                   />
-                  <img
+                  {/* <img
                     src={`${Bucket_URL}UserViewDashboard/Calendar.svg`}
                     alt=""
                     className="img-calendar-project"
-                  />
+                  /> */}
                   {errors.endYear && (
                     <p className="mt-1 error-p text-sm text-red-500">
                       {errors.endYear}

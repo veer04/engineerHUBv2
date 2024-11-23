@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import "./addprojectsmodal.css";
 import { IoMdClose } from "react-icons/io";
 import { Bucket_URL } from "../../../../services/APIUtils";
+import { addUserProject } from "../../../../services/APIConfig";
+import useGlobalSnackbar from "../../../../hooks/useGlobalSnackbar";
 
 const AddProjectsModal = ({ isOpen, onClose }) => {
   const [formData, setFormData] = useState({
@@ -13,6 +15,14 @@ const AddProjectsModal = ({ isOpen, onClose }) => {
   });
 
   const [errors, setErrors] = useState({});
+  const [loading, setLoading] = useState(false);
+
+  const {
+    setSnackbarOpen,
+    setSnackbarMessage,
+    setSnackbarSeverity,
+    setSnackbarDuration,
+  } = useGlobalSnackbar();
 
   const handleChange = (field, value) => {
     setFormData((prevData) => ({ ...prevData, [field]: value }));
@@ -38,11 +48,34 @@ const AddProjectsModal = ({ isOpen, onClose }) => {
     const validationErrors = validateForm();
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
-    } else {
-      console.log("Form Submitted:", formData);
-      setErrors({});
-      onClose();
+      return;
     }
+
+    setLoading(true);
+
+    addUserProject(formData)
+      .then((response) => {
+        console.log("Update successful:", response);
+
+        setFormData({
+          projectTitle: "",
+          projectLink: "",
+          startDate: "",
+          endDate: "",
+          projectDescription: "",
+        });
+        setSnackbarMessage("Project Added successful");
+        setSnackbarOpen(true);
+        onClose();
+      })
+      .catch((error) => {
+        setSnackbarMessage("Failed to add project. Please try again.");
+        setSnackbarOpen(true);
+        console.error("Update failed:", error);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   };
 
   const handleClose = () => {
@@ -135,7 +168,7 @@ const AddProjectsModal = ({ isOpen, onClose }) => {
                 </label>
                 <span className="required-indicator">*</span>
                 <input
-                  type="text"
+                  type="date"
                   id="startDate"
                   value={formData.startDate}
                   onChange={(e) => handleChange("startDate", e.target.value)}
@@ -144,11 +177,11 @@ const AddProjectsModal = ({ isOpen, onClose }) => {
                   }`}
                   placeholder="Select Start Date"
                 />
-                <img
+                {/* <img
                   src={`${Bucket_URL}UserViewDashboard/Calendar.svg`}
                   alt=""
                   className="img-calendar-project"
-                />
+                /> */}
                 {errors.startDate && (
                   <p className="mt-1 error-p text-sm text-red-500">
                     {errors.startDate}
@@ -168,7 +201,7 @@ const AddProjectsModal = ({ isOpen, onClose }) => {
                 </label>
                 <span className="required-indicator">*</span>
                 <input
-                  type="text"
+                  type="date"
                   id="endDate"
                   value={formData.endDate}
                   onChange={(e) => handleChange("endDate", e.target.value)}
@@ -177,11 +210,11 @@ const AddProjectsModal = ({ isOpen, onClose }) => {
                   }`}
                   placeholder="Select End Date"
                 />
-                <img
+                {/* <img
                   src={`${Bucket_URL}UserViewDashboard/Calendar.svg`}
                   alt=""
                   className="img-calendar-project"
-                />
+                /> */}
                 {errors.endDate && (
                   <p className="mt-1 error-p text-sm text-red-500">
                     {errors.endDate}

@@ -10,20 +10,6 @@ import ProfileWithFollowAndMail from "./UserViewProfileDashboard/ProfileWithFoll
 import UserStatsSection from "./UserViewProfileDashboard/UserStatsSection/UserStatsSection";
 
 const ProfileDashboard = () => {
-  // const [isMobile, setIsMobile] = useState(window.innerWidth <= 520);
-
-  // useEffect(() => {
-  //   const handleResize = () => {
-  //     setIsMobile(window.innerWidth <= 520);
-  //   };
-
-  //   window.addEventListener("resize", handleResize);
-
-  //   return () => {
-  //     window.removeEventListener("resize", handleResize);
-  //   };
-  // }, []);
-
   return (
     <>
       <main className="main-profile-dashboard">

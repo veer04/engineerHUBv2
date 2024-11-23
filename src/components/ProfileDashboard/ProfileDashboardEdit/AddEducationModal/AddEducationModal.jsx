@@ -1,17 +1,33 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./addeducationmodal.css";
 import { IoMdClose } from "react-icons/io";
-import { Bucket_URL } from "../../../../services/APIUtils";
+import { API_URL, Bucket_URL } from "../../../../services/APIUtils";
+import {
+  addUserEducation,
+  getAllBranches,
+  getAllCampuses,
+} from "../../../../services/APIConfig";
 
 const AddEducationModal = ({ isOpen, onClose }) => {
+  const [campus, setCampus] = useState([]);
+  const [branches, setBranches] = useState([]);
   const [formData, setFormData] = useState({
     collegeName: "",
     specialization: "",
     startYear: "",
     endYear: "",
-    cgpa: "",
+    marks: "",
+    country: "IN",
+    state: "rajasthan",
+    degree: "btech",
   });
   const [errors, setErrors] = useState({});
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    getAllCampuses(setCampus);
+    getAllBranches(setBranches);
+  }, []);
 
   const handleChange = (field, value) => {
     setFormData((prevData) => ({ ...prevData, [field]: value }));
@@ -27,7 +43,7 @@ const AddEducationModal = ({ isOpen, onClose }) => {
     if (!formData.startYear.trim())
       newErrors.startYear = "Start year is required.";
     if (!formData.endYear.trim()) newErrors.endYear = "End year is required.";
-    if (!formData.cgpa.trim()) newErrors.cgpa = "CGPA is required.";
+    if (!formData.marks.trim()) newErrors.marks = "marks is required.";
 
     return newErrors;
   };
@@ -36,11 +52,34 @@ const AddEducationModal = ({ isOpen, onClose }) => {
     const validationErrors = validateForm();
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
-    } else {
-      console.log("Form Submitted:", formData);
-      setErrors({});
-      onClose();
+      return;
     }
+
+    setLoading(true);
+
+    addUserEducation(formData)
+      .then((response) => {
+        console.log("Update successful:", response);
+
+        setFormData({
+          collegeName: "",
+          specialization: "",
+          startYear: "",
+          endYear: "",
+          marks: "",
+        });
+        setSnackbarMessage("Education Added successful");
+        setSnackbarOpen(true);
+        onClose();
+      })
+      .catch((error) => {
+        setSnackbarMessage("Failed to add education. Please try again.");
+        setSnackbarOpen(true);
+        console.error("Update failed:", error);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   };
 
   const handleClose = () => {
@@ -51,7 +90,7 @@ const AddEducationModal = ({ isOpen, onClose }) => {
       specialization: "",
       startYear: "",
       endYear: "",
-      cgpa: "",
+      marks: "",
     });
   };
 
@@ -93,33 +132,16 @@ const AddEducationModal = ({ isOpen, onClose }) => {
                   >
                     Select your college name
                   </option>
-                  <option
-                    className="option-select-css"
-                    value="Harvard University"
-                  >
-                    Harvard University
-                  </option>
-                  <option
-                    className="option-select-css"
-                    value="Stanford University"
-                  >
-                    Stanford University
-                  </option>
-                  <option className="option-select-css" value="MIT">
-                    Massachusetts Institute of Technology (MIT)
-                  </option>
-                  <option
-                    className="option-select-css"
-                    value="Oxford University"
-                  >
-                    University of Oxford
-                  </option>
-                  <option
-                    className="option-select-css"
-                    value="Cambridge University"
-                  >
-                    University of Cambridge
-                  </option>
+                  {campus &&
+                    campus.map((college) => (
+                      <option
+                        key={college._id}
+                        className="option-select-css"
+                        value={college._id}
+                      >
+                        {college.collegeName}
+                      </option>
+                    ))}
                 </select>
                 {errors.collegeName && (
                   <p className="mt-1 error-p text-sm text-red-500">
@@ -138,45 +160,22 @@ const AddEducationModal = ({ isOpen, onClose }) => {
                 <span className="required-indicator">*</span>
                 <select
                   id="specialization"
-                  value={formData.collegeName}
-                  onChange={(e) => handleChange("collegeName", e.target.value)}
-                  className={`select-hover  mt-1 ${errors.collegeName}`}
+                  value={formData.specialization}
+                  onChange={(e) =>
+                    handleChange("specialization", e.target.value)
+                  }
+                  className={`select-hover  mt-1 ${errors.specialization}`}
                 >
-                  <option
-                    className="option-select-css"
-                    value=""
-                    disabled
-                    hidden
-                  >
-                    Specialization
-                  </option>
-                  <option
-                    className="option-select-css"
-                    value="Harvard University"
-                  >
-                    CSE
-                  </option>
-                  <option
-                    className="option-select-css"
-                    value="Stanford University"
-                  >
-                    CSBS
-                  </option>
-                  <option className="option-select-css" value="MIT">
-                    Massachusetts Institute of Technology (MIT)
-                  </option>
-                  <option
-                    className="option-select-css"
-                    value="Oxford University"
-                  >
-                    IT
-                  </option>
-                  <option
-                    className="option-select-css"
-                    value="Cambridge University"
-                  >
-                    CIVIL
-                  </option>
+                  {branches &&
+                    branches.map((branch, index) => (
+                      <option
+                        key={branch}
+                        className="option-select-css"
+                        value={branch}
+                      >
+                        {branch}
+                      </option>
+                    ))}
                 </select>
                 {errors.specialization && (
                   <p className="mt-1 error-p text-sm text-red-500">
@@ -199,7 +198,7 @@ const AddEducationModal = ({ isOpen, onClose }) => {
                   </label>
                   <span className="required-indicator">*</span>
                   <input
-                    type="text"
+                    type="date"
                     id="startYear"
                     value={formData.startYear}
                     onChange={(e) => handleChange("startYear", e.target.value)}
@@ -208,11 +207,11 @@ const AddEducationModal = ({ isOpen, onClose }) => {
                     }`}
                     placeholder="Enter start year"
                   />
-                  <img
+                  {/* <img
                     src={`${Bucket_URL}UserViewDashboard/Calendar.svg`}
                     alt=""
                     className="img-calendar-project"
-                  />
+                  /> */}
                   {errors.startYear && (
                     <p className="mt-1 error-p text-sm text-red-500">
                       {errors.startYear}
@@ -232,7 +231,7 @@ const AddEducationModal = ({ isOpen, onClose }) => {
                   </label>
                   <span className="required-indicator">*</span>
                   <input
-                    type="text"
+                    type="date"
                     id="endYear"
                     value={formData.endYear}
                     onChange={(e) => handleChange("endYear", e.target.value)}
@@ -241,11 +240,11 @@ const AddEducationModal = ({ isOpen, onClose }) => {
                     }`}
                     placeholder="Enter end year"
                   />
-                  <img
+                  {/* <img
                     src={`${Bucket_URL}UserViewDashboard/Calendar.svg`}
                     alt=""
                     className="img-calendar-project"
-                  />
+                  /> */}
                   {errors.endYear && (
                     <p className="mt-1 error-p text-sm text-red-500">
                       {errors.endYear}
@@ -256,25 +255,25 @@ const AddEducationModal = ({ isOpen, onClose }) => {
 
               <div className="mb-2">
                 <label
-                  htmlFor="cgpa"
+                  htmlFor="marks"
                   className="label-css block text-sm font-medium"
                 >
-                  CGPA
+                  marks
                 </label>
                 <span className="required-indicator">*</span>
                 <input
                   type="text"
-                  id="cgpa"
-                  value={formData.cgpa}
-                  onChange={(e) => handleChange("cgpa", e.target.value)}
+                  id="marks"
+                  value={formData.marks}
+                  onChange={(e) => handleChange("marks", e.target.value)}
                   className={`input-css-title-link mt-1 ${
-                    errors.cgpa ? "border-red-500" : "border-gray-300"
+                    errors.marks ? "border-red-500" : "border-gray-300"
                   }`}
-                  placeholder="Enter your CGPA"
+                  placeholder="Enter your marks"
                 />
-                {errors.cgpa && (
+                {errors.marks && (
                   <p className="mt-1 error-p text-sm text-red-500">
-                    {errors.cgpa}
+                    {errors.marks}
                   </p>
                 )}
               </div>
