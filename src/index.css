@@ -145,36 +145,42 @@ h6 {
 
 .no-text-crop {
   display: -webkit-box; /* Set display to WebKit box */
+  line-clamp: unset !important;
   -webkit-line-clamp: unset !important;
   -webkit-box-orient: vertical; /* Set box orientation */
   text-overflow: ellipsis; /* Add ellipsis for truncated text */
 }
 .text-crop-1 {
   display: -webkit-box; /* Set display to WebKit box */
+  line-clamp: 1; /* Set the number of lines to show */
   -webkit-line-clamp: 1; /* Set the number of lines to show */
   -webkit-box-orient: vertical; /* Set box orientation */
   text-overflow: ellipsis; /* Add ellipsis for truncated text */
 }
 .text-crop-2 {
   display: -webkit-box; /* Set display to WebKit box */
+  line-clamp: 2; /* Set the number of lines to show */
   -webkit-line-clamp: 2; /* Set the number of lines to show */
   -webkit-box-orient: vertical; /* Set box orientation */
   text-overflow: ellipsis; /* Add ellipsis for truncated text */
 }
 .text-crop-3 {
   display: -webkit-box; /* Set display to WebKit box */
+  line-clamp: 3; /* Set the number of lines to show */
   -webkit-line-clamp: 3; /* Set the number of lines to show */
   -webkit-box-orient: vertical; /* Set box orientation */
   text-overflow: ellipsis; /* Add ellipsis for truncated text */
 }
 .text-crop-4 {
   display: -webkit-box; /* Set display to WebKit box */
+  line-clamp: 4; /* Set the number of lines to show */
   -webkit-line-clamp: 4; /* Set the number of lines to show */
   -webkit-box-orient: vertical; /* Set box orientation */
   text-overflow: ellipsis; /* Add ellipsis for truncated text */
 }
 .text-crop-5 {
   display: -webkit-box; /* Set display to WebKit box */
+  line-clamp: 5; /* Set the number of lines to show */
   -webkit-line-clamp: 5; /* Set the number of lines to show */
   -webkit-box-orient: vertical; /* Set box orientation */
   text-overflow: ellipsis; /* Add ellipsis for truncated text */
