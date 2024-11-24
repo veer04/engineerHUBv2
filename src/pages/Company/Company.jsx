@@ -9,9 +9,9 @@ import colorWheel from "../../assets/colorWheel";
 import axios from "axios";
 import NewEventCard from "../../components/NewEventCard/NewEventCard";
 import PromoteServices from "./Referrals/PromoteServices/PromoteServices";
+import { useQuery } from "@tanstack/react-query";
 
 const CompanyCards = ({ data }) => {
-  console.log(data, "companydata");
   return (
     <div
       className="companyCards"
@@ -242,16 +242,19 @@ const Company = () => {
       text2: "total opening",
     },
   ];
-  const CategoryEntries = [
-    { name: "Design", logo: `${bucket}appdevLogo.svg` },
-    { name: "App-Dev", logo: `${bucket}appdevLogo.svg` },
-    { name: "Web-Dev", logo: `${bucket}webdevLogo.svg` },
-    { name: "Database", logo: `${bucket}databaseLogo.svg` },
-  ];
+
+  const testimonialsQuery = useQuery({
+    queryKey: ["Testimonials"],
+    queryFn: () =>
+      axios.get(`${API_URL}api/v1/testimonials?page=1&limit=30`).then((res) => {
+        return res;
+      }),
+    staleTime: Infinity,
+  });
 
   return (
     <div className="companyHome">
-      <div className="pagesContainer">
+      <div className="pagesContainer padding-adjustment">
         <div className="spiral">
           <h1>One Step Closer to your Dream Job</h1>
           <img src={`${bucket}spiral.svg`} alt="spiral" className="spiralImg" />
@@ -307,11 +310,11 @@ const Company = () => {
         </div>
       </div> */}
 
-      <div>
+      <div className="padding-adjustment">
         <PromoteServices compName={"Our Resources"} />
       </div>
 
-      <div className="FeaturedJobs">
+      <div className="FeaturedJobs padding-adjustment">
         <a href="/company/jobs" style={{ textDecoration: "none" }}>
           <h5>Featured Jobs</h5>
         </a>
@@ -335,6 +338,7 @@ const Company = () => {
           alignItems: "center",
           width: "100%",
         }}
+        className="padding-adjustment"
       >
         <amp-ad
           width="100vw"
@@ -348,7 +352,7 @@ const Company = () => {
           <div overflow=""></div>
         </amp-ad>
       </div>
-      <div className="Opportunities">
+      <div className="Opportunities padding-adjustment">
         <a href="/company/events" style={{ textDecoration: "none" }}>
           <h5>Trending Opportunities</h5>
         </a>
@@ -358,65 +362,60 @@ const Company = () => {
           })}
         </div>
       </div>
-      {/* <article
-        style={{
-          marginTop: "50px",
-          cursor: "pointer",
-          borderRadius: "10px",
-          overflow: "hidden",
-        }}
-        id="promotional-banner"
-      >
-        <a href="https://bit.ly/45bFpz6" target="_blank">
-          <img
-            loading="lazy"
-            src={
-              width <= 520
-                ? `${`${Bucket_URL}frontend/company/promotion/pankaj-kalra-mobile.png`}`
-                : `${`${Bucket_URL}frontend/company/promotion/pankaj-kalra-desktop.png`}`
-            }
-            alt="promotional banner"
-            style={{
-              width: "100%",
-              height: "auto",
-              objectFit: "contain",
-            }}
-          />
-        </a>
-      </article> */}
-      <div className="StudentReviews">
-        <div className="heading">
-          What our
-          <br />
-          Students say?
-        </div>
-        <div className="reviewCard">
-          <img src={`${bucket}studentAvatar.svg`} alt="Avatar" />
-          <p>
-            EngineerHUB's mentors are truly exceptional! Their expertise and
-            patience made learning complex engineering concepts a breeze. Highly
-            recommended for any student seeking personalized mentorship!
-          </p>
-          <h6>Girish Shedge</h6>
-        </div>
-        <div className="reviewCard reviewCard2">
-          <img
-            style={{
-              height: "58px",
-              width: "58px",
-              borderRadius: "50%",
-              objectFit: "cover",
-            }}
-            src={`https://ehubtestbucket.s3.ap-south-1.amazonaws.com/image/teams/Backend/yash.jpeg`}
-            alt="Avatar"
-          />
-          <p>
-            I highly recommend EngineerHUB for students. The live batches are
-            well-structured, and the mentors are experienced and supportive.
-          </p>
-          <h6>Yash Vardhan</h6>
-        </div>
-      </div>
+      {testimonialsQuery.isSuccess && (
+        <section className="testimonials">
+          <h3 className="heading-md">Our placed students and their reviews</h3>
+          <div className="testimonial-container">
+            {testimonialsQuery?.data?.data?.data?.testimonials?.map(
+              (item, index) => {
+                return (
+                  <div className="flip-card" key={index}>
+                    <div className="flip-card-inner">
+                      <div className="flip-card-front testimonial-card-front">
+                        <div className="author-image">
+                          <img src={item?.image} alt="author-image" />
+                          <div className="role">
+                            <p title={item?.role} className="label-xsm">
+                              {item?.role}
+                            </p>
+                          </div>
+                        </div>
+                        <p title={item?.name} className="name text-crop-1">
+                          {item?.name}
+                        </p>
+                        <p className="placed-at">Placed at</p>
+                        <img
+                          title={item?.company}
+                          className="company-logo"
+                          src={item?.companyLogo}
+                          alt={item?.company}
+                        />
+                      </div>
+                      <div className="flip-card-back testimonial-card-back">
+                        <p title={item?.text} className="testimonial">
+                          {item?.text}
+                        </p>
+                        <div className="placement-details">
+                          <div className="detail">
+                            <p>Role</p>
+                            <p title={item?.role} className="text-crop-3">
+                              {item?.role}
+                            </p>
+                          </div>
+                          <div className="detail">
+                            <p>Package</p>
+                            <p>{item?.package}</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                );
+              }
+            )}
+          </div>
+        </section>
+      )}
     </div>
   );
 };
