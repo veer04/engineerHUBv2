@@ -1,12 +1,20 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./profileaddsectionleft.css";
-import { Bucket_URL } from "../../../../services/APIUtils";
+import { API_URL, Bucket_URL } from "../../../../services/APIUtils";
+import { getUserId } from "../../../../features/User/UserDetails";
+import axios from "axios";
 
-const ProfileAddSectionLeft = () => {
+const ProfileAddSectionLeft = ({ profileData }) => {
   return (
     <div className="profile-add-section-main">
       <div className="image-section">
-        <img src="/g2.svg" className="g2-img-left" alt="g2_img" />
+        <img
+          src={profileData ? profileData.image : "/g2.svg"}
+          className="g2-img-left"
+          alt="g2_img"
+          width={100}
+          height={100}
+        />
         <img
           src={`${Bucket_URL}UserViewDashboard/add-circle.svg`}
           className="add-circle"
@@ -24,7 +32,9 @@ const ProfileAddSectionLeft = () => {
           marginBottom: 0,
         }}
       >
-        Girish Shedge
+        {profileData
+          ? `${profileData.firstName} ${profileData.lastName}`
+          : "Your Name"}
       </h3>
 
       <h3
@@ -35,7 +45,9 @@ const ProfileAddSectionLeft = () => {
           color: "#002B36",
         }}
       >
-        Associate Software engineer at company name
+        {profileData
+          ? `${profileData.aboutMe}`
+          : "Associate Software engineer at company name"}
       </h3>
     </div>
   );

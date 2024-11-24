@@ -14,6 +14,10 @@ const AddProjectsModal = ({ isOpen, onClose }) => {
     projectDescription: "",
   });
 
+  console.log(formData, "formData");
+  console.log(new Date(formData.startDate), "formData");
+  console.log(formData.endDate, "formData");
+
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
 
@@ -170,7 +174,7 @@ const AddProjectsModal = ({ isOpen, onClose }) => {
                 <input
                   type="date"
                   id="startDate"
-                  value={formData.startDate}
+                  value={new Date(formData.startDate)}
                   onChange={(e) => handleChange("startDate", e.target.value)}
                   className={`input-css mt-1 ${
                     errors.startDate ? "border-red-500" : "border-gray-300"
@@ -203,7 +207,7 @@ const AddProjectsModal = ({ isOpen, onClose }) => {
                 <input
                   type="date"
                   id="endDate"
-                  value={formData.endDate}
+                  value={new Date(formData.startDate)}
                   onChange={(e) => handleChange("endDate", e.target.value)}
                   className={`input-css mt-1 ${
                     errors.endDate ? "border-red-500" : "border-gray-300"

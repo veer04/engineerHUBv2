@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./personalinformationmodal.css";
 import { IoMdClose } from "react-icons/io";
 import { Bucket_URL } from "../../../../services/APIUtils";
 import { updateUserDetails } from "../../../../services/APIConfig";
 import useGlobalSnackbar from "../../../../hooks/useGlobalSnackbar";
+import moment from "moment";
 
-const PersonalInformationModal = ({ isOpen, onClose }) => {
+const PersonalInformationModal = ({ isOpen, onClose, data }) => {
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -36,10 +37,11 @@ const PersonalInformationModal = ({ isOpen, onClose }) => {
       newErrors.firstName = "First name is required.";
     if (!formData.lastName.trim())
       newErrors.lastName = "Last name is required.";
-    if (!formData.dateOfBirth.trim())
+    if (!formData.dateOfBirth)
+      // Check if dateOfBirth is empty
       newErrors.dateOfBirth = "Date of Birth is required.";
     if (!formData.aboutMe.trim()) newErrors.aboutMe = "About Me is required.";
-    if (!formData.mobile.trim()) {
+    if (!formData.mobile) {
       newErrors.mobile = "Mobile Number is required.";
     } else if (!/^\d{10}$/.test(formData.mobile)) {
       newErrors.mobile = "Mobile Number must be 10 digits.";
@@ -48,6 +50,21 @@ const PersonalInformationModal = ({ isOpen, onClose }) => {
 
     return newErrors;
   };
+
+  useEffect(() => {
+    if (isOpen && data) {
+      setFormData({
+        firstName: data.firstName || "",
+        lastName: data.lastName || "",
+        dateOfBirth: data.dateOfBirth
+          ? new Date(data.dateOfBirth).toISOString().split("T")[0]
+          : "",
+        aboutMe: data.aboutMe || "",
+        mobile: data.mobile || "",
+        gender: data.gender || "",
+      });
+    }
+  }, [isOpen, data]);
 
   const handleSubmit = () => {
     const validationErrors = validateForm();
@@ -62,11 +79,15 @@ const PersonalInformationModal = ({ isOpen, onClose }) => {
       .then((response) => {
         console.log("Update successful:", response);
         setSnackbarMessage("Update successful");
+        setSnackbarSeverity("success");
         setSnackbarOpen(true);
         onClose();
       })
       .catch((error) => {
         console.error("Update failed:", error);
+        setSnackbarMessage("Update failed");
+        setSnackbarSeverity("error");
+        setSnackbarOpen(true);
       })
       .finally(() => {
         setLoading(false);

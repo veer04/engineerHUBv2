@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./profiledashboardedit.css";
 import ProfileAddSectionLeft from "./ProfileAddSectionLeft/ProfileAddSectionLeft";
 import ProfileCompletionEditSection from "./profileCompletionEditSection/ProfileCompletionEditSection";
@@ -14,6 +14,9 @@ import AddCertifications from "./AddCertifications/AddCertifications";
 import SuccessfullyUpdatedModal from "./ModalUpdatedAndDeleted/SuccessfullyUpdatedModal";
 import DeleteModal from "./ModalUpdatedAndDeleted/DeleteModal";
 import DeleteModalOK from "./ModalUpdatedAndDeleted/DeleteModalOk";
+import { getUserId } from "../../../features/User/UserDetails";
+import axios from "axios";
+import { API_URL } from "../../../services/APIUtils";
 
 const ProfileDashboardEdit = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -41,6 +44,37 @@ const ProfileDashboardEdit = () => {
   };
 
   const closeModal = () => setIsModalOpen(false);
+
+  const [profileData, setProfileData] = useState(null);
+
+  const getProfileData = async () => {
+    const userId = getUserId();
+
+    try {
+      console.log("Fetching profile data...");
+      const response = await axios.get(
+        `${API_URL}api/v1/getUserWithId/${userId}`
+      );
+
+      if (response.status === 200) {
+        console.log("Profile data retrieved successfully:", response.data);
+
+        const data = response.data;
+        setProfileData(data.data);
+      } else {
+        console.error("Unexpected response status:", response.status);
+      }
+    } catch (error) {
+      console.error(
+        "Error fetching profile data:",
+        error.response || error.message
+      );
+    }
+  };
+
+  useEffect(() => {
+    getProfileData();
+  }, []);
   return (
     <>
       <SuccessfullyUpdatedModal
@@ -60,14 +94,14 @@ const ProfileDashboardEdit = () => {
 
       <main className="profile-dashboard-edit-start-div">
         <div className="profile-dashboard-edit-left-div">
-          <ProfileAddSectionLeft />
+          <ProfileAddSectionLeft profileData={profileData} />
 
           <ProfileCompletionEditSection />
         </div>
         <div className="profile-dashboard-edit-right-div">
-          <ProfileInformationEdit />
+          <ProfileInformationEdit profileData={profileData} />
           <SocialLinksProfile />
-          <UploadResumeEdit />
+          <UploadResumeEdit profileData={profileData} />
           <AddHeadlineEdit />
           <AddAboutEdit />
           <AddExperienceEdit />

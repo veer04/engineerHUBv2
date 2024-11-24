@@ -1,8 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./socialLinksModal.css";
 import { IoMdClose } from "react-icons/io";
+import { API_URL } from "../../../../services/APIUtils";
+import { getAccessToken } from "../../../../features/getCookieValues";
 
 const SocialLinksModal = ({ isOpen, onClose }) => {
+  const [socialMedia, setSocialMedia] = useState([]);
   const [formData, setFormData] = useState({
     linkedin: "",
     github: "",
@@ -29,14 +32,39 @@ const SocialLinksModal = ({ isOpen, onClose }) => {
     return newErrors;
   };
 
-  const handleSubmit = () => {
-    const validationErrors = validateForm();
-    if (Object.keys(validationErrors).length > 0) {
-      setErrors(validationErrors);
-    } else {
-      console.log("Form Submitted:", formData);
-      setErrors({});
-      onClose();
+  const handleSubmit = async () => {
+    // const validationErrors = validateForm();
+    // if (Object.keys(validationErrors).length > 0) {
+    //   setErrors(validationErrors);
+    //   return;
+    // }
+
+    const socialMediaData = [
+      { mediaLink: formData.linkedin, type: "LinkedIn" },
+      { mediaLink: formData.github, type: "GitHub" },
+      { mediaLink: formData.portfolio, type: "Portfolio" },
+      { mediaLink: formData.cpLink, type: "CP" },
+    ];
+
+    try {
+      const response = await fetch(`${API_URL}api/v1/add/socialMedia`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          accessToken: getAccessToken(),
+        },
+        body: JSON.stringify({
+          socialMedia: socialMediaData,
+        }),
+      });
+
+      const data = await response.json();
+      console.log(data);
+      if (data.success) {
+        onClose(); // Close the modal on success
+      }
+    } catch (error) {
+      console.error("Error adding the social data", error);
     }
   };
 
