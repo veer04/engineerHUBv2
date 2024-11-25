@@ -100,7 +100,7 @@
 #   #         VITE_AESKEY=${{ vars.VITE_AESKEY }}
 #   #         VITE_EDITOR_API_KEY=${{ secrets.VITE_EDITOR_API_KEY }}
 
-name: Build and Push Docker Image
+name: Build and Push Docker Image to ECR
 
 on:
   pull_request:
@@ -111,10 +111,10 @@ on:
       - closed
 
 permissions:
-  contents: read # Required for git checkout
+  contents: read
 
 jobs:
-  Build_Push_Deploy_Docker_Image:
+  Build_Push_ECR:
     runs-on: ubuntu-latest
     if: github.event.pull_request.merged == true
     steps:
@@ -132,48 +132,19 @@ jobs:
       - name: Login to Amazon ECR
         uses: aws-actions/amazon-ecr-login@v1.6.0
 
-      - name: Deploy to Test Server
-        if: |
-          hashFiles('**/Dockerfile*', '**/dockerfile*') &&
-          github.ref == 'refs/heads/testing'
+      - name: Build and Push to ECR
         uses: docker/build-push-action@v2
         with:
           context: .
-          file: ./Dockerfile-test
+          file: ./Dockerfile
           push: true
           tags: |
-            ${{ vars.ECR_REGISTRY }}/${{ vars.TEST_ECR_REPO }}:latest
-          build-args: |
-            VITE_API_URL=${{ vars.VITE_TEST_API_URL }}
-            VITE_BUCKET_URL=${{ vars.VITE_BUCKET_URL }}
-            VITE_API_URLT=${{ vars.VITE_TEST_API_URL }}
-            VITE_AESKEY=${{ secrets.VITE_AESKEY }}
-            VITE_FRONTEND_URL=${{ vars.VITE_TEST_FRONTEND_URL }}
-            VITE_EDITOR_API_KEY=${{ secrets.VITE_EDITOR_API_KEY }}
-            TEST_SERVER_USERNAME=${{ secrets.TEST_SERVER_USERNAME }}
-            TEST_SERVER_PASSWORD=${{ secrets.TEST_SERVER_PASSWORD }}
-            VITE_PAYMENT_API_URL=${{ vars.VITE_PAYMENT_API_URL_TESTING }}
-            VITE_ADMIN_REFERRAL_TOKEN=${{ vars.VITE_ADMIN_REFERRAL_TOKEN }}
-
-      - name: Deploy to Production Server
-        if: |
-          hashFiles('**/Dockerfile*', '**/dockerfile*') &&
-          github.ref == 'refs/heads/main'
-        uses: docker/build-push-action@v2
-        with:
-          context: .
-          file: ./Dockerfile-prod
-          push: true
-          tags: |
-            ${{ vars.ECR_REGISTRY }}/${{ vars.PROD_ECR_REPO }}:latest
-            ${{ vars.ECR_REGISTRY }}/${{ vars.PROD_ECR_REPO }}:${{ github.run_number }}
+            ${{ vars.ECR_REGISTRY }}/${{ vars.REPO_NAME }}:latest
+            ${{ vars.ECR_REGISTRY }}/${{ vars.REPO_NAME }}:${{ github.run_number }}
           build-args: |
             VITE_API_URL=${{ vars.VITE_API_URL }}
-            VITE_API_URLT=${{ vars.VITE_API_URL }}
             VITE_BUCKET_URL=${{ vars.VITE_BUCKET_URL }}
             VITE_AESKEY=${{ secrets.VITE_AESKEY }}
             VITE_FRONTEND_URL=${{ vars.VITE_FRONTEND_URL }}
             VITE_EDITOR_API_KEY=${{ secrets.VITE_EDITOR_API_KEY }}
-            VITE_PAYMENT_API_URL=${{ vars.VITE_PAYMENT_API_URL }}
-            VITE_ADMIN_REFERRAL_TOKEN=${{ vars.VITE_ADMIN_REFERRAL_TOKEN }}
 
