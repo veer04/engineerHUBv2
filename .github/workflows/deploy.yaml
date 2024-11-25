@@ -158,7 +158,8 @@ jobs:
       - name: Deploy to Production Server
         if: |
           hashFiles('**/Dockerfile*', '**/dockerfile*') &&
-          github.ref == 'refs/heads/main'
+          github.ref == 'refs/heads/main' &&
+          github.event.pull_request.head.ref == 'testing'
         uses: docker/build-push-action@v2
         with:
           context: .
