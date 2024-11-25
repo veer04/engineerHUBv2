@@ -1,10 +1,14 @@
-name: Validate Docker Build
+name: Validate Docker Build on Pull Request
 
 on:
-  push:
+  pull_request:
     branches:
       - main
       - testing
+    types:
+      - opened
+      - reopened
+      - synchronize
 
 permissions:
   contents: read
@@ -20,17 +24,17 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: .
-          file: ./Dockerfile # Adjust to match the appropriate Dockerfile for the environment
+          file: ${{ github.ref == 'refs/heads/main' && './Dockerfile-prod' || './Dockerfile-test' }}
           push: false # Only validate, no push
           tags: temp-build:latest
           build-args: |
-            VITE_API_URL=${{ vars.VITE_TEST_API_URL }}
+            VITE_API_URL=${{ github.ref == 'refs/heads/main' && vars.VITE_API_URL || vars.VITE_TEST_API_URL }}
             VITE_BUCKET_URL=${{ vars.VITE_BUCKET_URL }}
-            VITE_API_URLT=${{ vars.VITE_TEST_API_URL }}
+            VITE_API_URLT=${{ github.ref == 'refs/heads/main' && vars.VITE_API_URL || vars.VITE_TEST_API_URL }}
             VITE_AESKEY=${{ secrets.VITE_AESKEY }}
-            VITE_FRONTEND_URL=${{ vars.VITE_TEST_FRONTEND_URL }}
+            VITE_FRONTEND_URL=${{ github.ref == 'refs/heads/main' && vars.VITE_FRONTEND_URL || vars.VITE_TEST_FRONTEND_URL }}
             VITE_EDITOR_API_KEY=${{ secrets.VITE_EDITOR_API_KEY }}
             TEST_SERVER_USERNAME=${{ secrets.TEST_SERVER_USERNAME }}
             TEST_SERVER_PASSWORD=${{ secrets.TEST_SERVER_PASSWORD }}
-            VITE_PAYMENT_API_URL=${{ vars.VITE_PAYMENT_API_URL_TESTING }}
+            VITE_PAYMENT_API_URL=${{ github.ref == 'refs/heads/main' && vars.VITE_PAYMENT_API_URL || vars.VITE_PAYMENT_API_URL_TESTING }}
             VITE_ADMIN_REFERRAL_TOKEN=${{ vars.VITE_ADMIN_REFERRAL_TOKEN }}
