@@ -1,12 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./addbiomodal.css";
 import { IoMdClose } from "react-icons/io";
+import { updateUserDetails } from "../../../../services/APIConfig";
 
-const AddBioModal = ({ isOpen, onClose }) => {
+const AddBioModal = ({ isOpen, onClose, data }) => {
   const [formData, setFormData] = useState({
     bio: "",
   });
   const [errors, setErrors] = useState({});
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (field, value) => {
     setFormData((prevData) => ({ ...prevData, [field]: value }));
@@ -15,21 +17,45 @@ const AddBioModal = ({ isOpen, onClose }) => {
   const validateForm = () => {
     const newErrors = {};
 
-    if (!formData.achievementHeading.trim())
+    if (!formData.achievementHeading)
       newErrors.achievementHeading = "This is required.";
 
     return newErrors;
   };
 
+  useEffect(() => {
+    if (isOpen && data) {
+      setFormData({
+        bio: data.bio,
+      });
+    }
+  }, [isOpen, data]);
+
   const handleSubmit = () => {
     const validationErrors = validateForm();
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
-    } else {
-      console.log("Form Submitted:", formData);
-      setErrors({});
-      onClose();
+      return;
     }
+    setLoading(true);
+
+    updateUserDetails(formData)
+      .then((response) => {
+        console.log("Update successful:", response);
+        setSnackbarMessage("Update successful");
+        setSnackbarSeverity("success");
+        setSnackbarOpen(true);
+        onClose();
+      })
+      .catch((error) => {
+        console.error("Update failed:", error);
+        setSnackbarMessage("Update failed");
+        setSnackbarSeverity("error");
+        setSnackbarOpen(true);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   };
 
   const handleClose = () => {
@@ -69,13 +95,11 @@ const AddBioModal = ({ isOpen, onClose }) => {
                     type="text"
                     id="bioHeading"
                     value={formData.bio}
-                    onChange={(e) =>
-                      handleChange("achievementHeading", e.target.value)
-                    }
+                    onChange={(e) => handleChange("bio", e.target.value)}
                     className={`input-css-title-link mt-1 ${
                       errors.bio ? "border-red-500" : "border-gray-300"
                     }`}
-                    placeholder="Add your achievement heading"
+                    placeholder="Add your bio"
                   />
                   {errors.bio && (
                     <p className="mt-1 error-p text-sm text-red-500">
@@ -89,7 +113,7 @@ const AddBioModal = ({ isOpen, onClose }) => {
                     Cancel
                   </button>
                   <button className="save-modal-btn" onClick={handleSubmit}>
-                    Save
+                    {loading ? "Saving..." : "Save"}
                   </button>
                 </div>
               </div>

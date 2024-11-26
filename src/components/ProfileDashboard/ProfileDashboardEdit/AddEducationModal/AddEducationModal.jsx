@@ -6,13 +6,16 @@ import {
   addUserEducation,
   getAllBranches,
   getAllCampuses,
+  updateUserDetails,
 } from "../../../../services/APIConfig";
+import { getAccessToken } from "../../../../features/getCookieValues";
 
-const AddEducationModal = ({ isOpen, onClose }) => {
+const AddEducationModal = ({ isOpen, onClose, data }) => {
+  console.log(data, "darasaif");
   const [campus, setCampus] = useState([]);
   const [branches, setBranches] = useState([]);
   const [formData, setFormData] = useState({
-    collegeName: "",
+    collegeId: "",
     specialization: "",
     startYear: "",
     endYear: "",
@@ -23,6 +26,26 @@ const AddEducationModal = ({ isOpen, onClose }) => {
   });
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (data) {
+      setFormData({
+        collegeId: data.collegeId || "",
+        // collegeName: data.collegeName || "",
+        specialization: data.specialization || "",
+        startYear: data.startYear
+          ? new Date(data.startYear).toISOString().split("T")[0]
+          : "",
+        endYear: data.endYear
+          ? new Date(data.endYear).toISOString().split("T")[0]
+          : "",
+        marks: data.marks || "",
+        country: "IN",
+        state: "rajasthan",
+        degree: "btech",
+      });
+    }
+  }, [data]);
 
   useEffect(() => {
     getAllCampuses(setCampus);
@@ -36,17 +59,39 @@ const AddEducationModal = ({ isOpen, onClose }) => {
   const validateForm = () => {
     const newErrors = {};
 
-    if (!formData.collegeName.trim())
-      newErrors.collegeName = "College name is required.";
-    if (!formData.specialization.trim())
+    // Check for collegeId (string or object)
+    if (!formData.collegeId?.collegeName?.trim()) {
+      newErrors.collegeId = "College name is required.";
+    }
+
+    // Check for specialization
+    if (!formData.specialization.trim()) {
       newErrors.specialization = "Specialization is required.";
-    if (!formData.startYear.trim())
+    }
+
+    // Check for startYear
+    if (!formData.startYear.trim()) {
       newErrors.startYear = "Start year is required.";
-    if (!formData.endYear.trim()) newErrors.endYear = "End year is required.";
-    if (!formData.marks.trim()) newErrors.marks = "marks is required.";
+    }
+
+    // Check for endYear
+    if (!formData.endYear.trim()) {
+      newErrors.endYear = "End year is required.";
+    }
+
+    // Check for marks
+    // Since marks might be a number, we check it differently
+    if (
+      !formData.marks ||
+      (typeof formData.marks === "string" && !formData.marks.trim())
+    ) {
+      newErrors.marks = "Marks are required.";
+    }
 
     return newErrors;
   };
+
+  updateUserDetails;
 
   const handleSubmit = () => {
     const validationErrors = validateForm();
@@ -62,7 +107,7 @@ const AddEducationModal = ({ isOpen, onClose }) => {
         console.log("Update successful:", response);
 
         setFormData({
-          collegeName: "",
+          collegeId: "",
           specialization: "",
           startYear: "",
           endYear: "",
@@ -86,7 +131,7 @@ const AddEducationModal = ({ isOpen, onClose }) => {
     setErrors({});
     onClose();
     setFormData({
-      collegeName: "",
+      collegeId: "",
       specialization: "",
       startYear: "",
       endYear: "",
@@ -105,24 +150,33 @@ const AddEducationModal = ({ isOpen, onClose }) => {
           </button>
         </div>
         <div className="modal-content">
-          <h3 className="modal-title">Add Education</h3>
-          <p className="modal-subtitle">Add Education</p>
+          <h3 className="modal-title">
+            {data && Object.keys(data).length > 0
+              ? "Update Education"
+              : "Add Education"}
+          </h3>
+          <p className="modal-subtitle">
+            {" "}
+            {data && Object.keys(data).length > 0
+              ? "Update the details of your education"
+              : "Add new education details"}
+          </p>
 
           <div className="form-div-modal">
             <div className="modal-div-inner-project">
               <div className="mb-2">
                 <label
-                  htmlFor="collegeName"
+                  htmlFor="collegeId"
                   className="label-css block text-sm font-medium"
                 >
                   College Name
                 </label>
                 <span className="required-indicator">*</span>
                 <select
-                  id="collegeName"
-                  value={formData.collegeName}
-                  onChange={(e) => handleChange("collegeName", e.target.value)}
-                  className={`select-hover  mt-1 ${errors.collegeName}`}
+                  id="collegeId"
+                  value={formData.collegeId}
+                  onChange={(e) => handleChange("collegeId", e.target.value)}
+                  className={`select-hover  mt-1 ${errors.collegeId}`}
                 >
                   <option
                     className="option-select-css"
@@ -143,9 +197,9 @@ const AddEducationModal = ({ isOpen, onClose }) => {
                       </option>
                     ))}
                 </select>
-                {errors.collegeName && (
+                {errors.collegeId && (
                   <p className="mt-1 error-p text-sm text-red-500">
-                    {errors.collegeName}
+                    {errors.collegeId}
                   </p>
                 )}
               </div>
@@ -200,7 +254,7 @@ const AddEducationModal = ({ isOpen, onClose }) => {
                   <input
                     type="date"
                     id="startYear"
-                    value={new Date(formData.startYear)}
+                    value={formData.startYear}
                     onChange={(e) => handleChange("startYear", e.target.value)}
                     className={`input-css mt-1 ${
                       errors.startYear ? "border-red-500" : "border-gray-300"
@@ -233,7 +287,7 @@ const AddEducationModal = ({ isOpen, onClose }) => {
                   <input
                     type="date"
                     id="endYear"
-                    value={new Date(formData.endYear)}
+                    value={formData.endYear}
                     onChange={(e) => handleChange("endYear", e.target.value)}
                     className={`input-css mt-1 ${
                       errors.endYear ? "border-red-500" : "border-gray-300"
@@ -283,7 +337,7 @@ const AddEducationModal = ({ isOpen, onClose }) => {
                   Cancel
                 </button>
                 <button className="save-modal-btn" onClick={handleSubmit}>
-                  Save
+                  {data && Object.keys(data).length > 0 ? "Update" : "Save"}
                 </button>
               </div>
             </div>

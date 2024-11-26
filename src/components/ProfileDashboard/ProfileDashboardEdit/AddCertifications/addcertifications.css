@@ -10,4 +10,14 @@
 .add-certifications-main-div .add-headline-sub-div {
   display: flex;
   justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.certi-display-div {
+  width: 100%;
+}
+
+.certi-display-sub-div {
+  display: flex;
+  justify-content: space-between;
 }

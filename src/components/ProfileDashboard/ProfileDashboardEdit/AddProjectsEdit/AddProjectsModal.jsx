@@ -5,7 +5,7 @@ import { Bucket_URL } from "../../../../services/APIUtils";
 import { addUserProject } from "../../../../services/APIConfig";
 import useGlobalSnackbar from "../../../../hooks/useGlobalSnackbar";
 
-const AddProjectsModal = ({ isOpen, onClose }) => {
+const AddProjectsModal = ({ isOpen, onClose, data }) => {
   const [formData, setFormData] = useState({
     projectTitle: "",
     projectLink: "",
@@ -174,7 +174,7 @@ const AddProjectsModal = ({ isOpen, onClose }) => {
                 <input
                   type="date"
                   id="startDate"
-                  value={new Date(formData.startDate)}
+                  value={formData.startDate}
                   onChange={(e) => handleChange("startDate", e.target.value)}
                   className={`input-css mt-1 ${
                     errors.startDate ? "border-red-500" : "border-gray-300"
@@ -207,7 +207,7 @@ const AddProjectsModal = ({ isOpen, onClose }) => {
                 <input
                   type="date"
                   id="endDate"
-                  value={new Date(formData.startDate)}
+                  value={formData.startDate}
                   onChange={(e) => handleChange("endDate", e.target.value)}
                   className={`input-css mt-1 ${
                     errors.endDate ? "border-red-500" : "border-gray-300"

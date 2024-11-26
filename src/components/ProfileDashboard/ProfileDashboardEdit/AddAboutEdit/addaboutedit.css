@@ -10,4 +10,17 @@
 .add-about-main-div .add-headline-sub-div {
   display: flex;
   justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.education-display-div {
+  width: 100%;
+}
+
+.education-display-sub-div {
+  display: flex;
+  justify-content: space-between;
+}
+
+.education-display-left-div {
 }

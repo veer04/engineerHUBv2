@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./sociallinksprofile.css";
 import SocialLinksModal from "./SocialLinksModal";
 
-const SocialLinksProfile = () => {
+const SocialLinksProfile = ({ profileData }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const openModal = () => setIsModalOpen(true);

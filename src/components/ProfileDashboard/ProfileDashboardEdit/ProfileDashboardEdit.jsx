@@ -100,14 +100,14 @@ const ProfileDashboardEdit = () => {
         </div>
         <div className="profile-dashboard-edit-right-div">
           <ProfileInformationEdit profileData={profileData} />
-          <SocialLinksProfile />
+          <SocialLinksProfile profileData={profileData} />
           <UploadResumeEdit profileData={profileData} />
-          <AddHeadlineEdit />
-          <AddAboutEdit />
-          <AddExperienceEdit />
-          <AddProjectsEdit />
-          <AddAchievements />
-          <AddCertifications />
+          <AddHeadlineEdit profileData={profileData} />
+          <AddAboutEdit profileData={profileData} />
+          <AddExperienceEdit profileData={profileData} />
+          <AddProjectsEdit profileData={profileData} />
+          <AddAchievements profileData={profileData} />
+          <AddCertifications profileData={profileData} />
 
           <div style={{ display: "flex", gap: "5px" }}>
             <button onClick={openModal}>Open Success Modal</button>
