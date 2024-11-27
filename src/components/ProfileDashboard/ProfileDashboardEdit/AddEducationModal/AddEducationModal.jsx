@@ -91,8 +91,6 @@ const AddEducationModal = ({ isOpen, onClose, data }) => {
     return newErrors;
   };
 
-  updateUserDetails;
-
   const handleSubmit = () => {
     const validationErrors = validateForm();
     if (Object.keys(validationErrors).length > 0) {
@@ -151,13 +149,13 @@ const AddEducationModal = ({ isOpen, onClose, data }) => {
         </div>
         <div className="modal-content">
           <h3 className="modal-title">
-            {data && Object.keys(data).length > 0
+            {data && Object.keys(data).length > 0 && data.collegeId
               ? "Update Education"
               : "Add Education"}
           </h3>
           <p className="modal-subtitle">
             {" "}
-            {data && Object.keys(data).length > 0
+            {data && Object.keys(data).length > 0 && data.collegeId
               ? "Update the details of your education"
               : "Add new education details"}
           </p>
@@ -337,7 +335,9 @@ const AddEducationModal = ({ isOpen, onClose, data }) => {
                   Cancel
                 </button>
                 <button className="save-modal-btn" onClick={handleSubmit}>
-                  {data && Object.keys(data).length > 0 ? "Update" : "Save"}
+                  {data && Object.keys(data).length > 0 && data.collegeId
+                    ? "Update"
+                    : "Save"}
                 </button>
               </div>
             </div>
