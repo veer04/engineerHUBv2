@@ -74,6 +74,7 @@ import ProfileDashboardUserView from "./components/ProfileDashboard/UserViewProf
 import ProfileDashboardEdit from "./components/ProfileDashboard/ProfileDashboardEdit/ProfileDashboardEdit.jsx";
 import FloatingChatButton from "./components/FloatingChatButton/FloatingChatButton.jsx";
 import CommunityChat from "./pages/Chat/CommunityChat.jsx";
+import { ToastContainer } from "react-toastify";
 const DigitalProductAdminPage = lazy(() =>
   import("./pages/Admin/DigitalProductAdminPage.jsx")
 );
@@ -161,6 +162,7 @@ function App() {
     <>
       <NewNavbar />
       <MobileNavbar />
+      <ToastContainer />
       <GlobalSnackbar />
       <ProfilePopUp />
       <FloatingChatButton />

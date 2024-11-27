@@ -5,6 +5,8 @@ import { Bucket_URL } from "../../../../services/APIUtils";
 import { updateUserDetails } from "../../../../services/APIConfig";
 import useGlobalSnackbar from "../../../../hooks/useGlobalSnackbar";
 import moment from "moment";
+import { Bounce, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const PersonalInformationModal = ({ isOpen, onClose, data }) => {
   const [formData, setFormData] = useState({
@@ -57,7 +59,7 @@ const PersonalInformationModal = ({ isOpen, onClose, data }) => {
         firstName: data.firstName || "",
         lastName: data.lastName || "",
         dateOfBirth: data.dateOfBirth
-          ? new Date(data.dateOfBirth).toISOString().split("T")[0]
+          ? new Date(data.dateOfBirth)?.toISOString().split("T")[0]
           : "",
         aboutMe: data.aboutMe || "",
         mobile: data.mobile || "",
@@ -65,6 +67,19 @@ const PersonalInformationModal = ({ isOpen, onClose, data }) => {
       });
     }
   }, [isOpen, data]);
+
+  const handleClose = () => {
+    setErrors({});
+    onClose();
+    setFormData({
+      firstName: "",
+      lastName: "",
+      dateOfBirth: "",
+      aboutMe: "",
+      mobile: "",
+      gender: "",
+    });
+  };
 
   const handleSubmit = () => {
     const validationErrors = validateForm();
@@ -78,33 +93,31 @@ const PersonalInformationModal = ({ isOpen, onClose, data }) => {
     updateUserDetails(formData)
       .then((response) => {
         console.log("Update successful:", response);
-        setSnackbarMessage("Update successful");
-        setSnackbarSeverity("success");
-        setSnackbarOpen(true);
-        onClose();
+        if (response.data) {
+          toast("🥳 Profile Information added Successfully!", {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+            transition: Bounce,
+          });
+
+          handleClose();
+        } else {
+          toast.error("Something went wrong!");
+        }
       })
       .catch((error) => {
         console.error("Update failed:", error);
-        setSnackbarMessage("Update failed");
-        setSnackbarSeverity("error");
-        setSnackbarOpen(true);
+        toast.error("Something went wrong!");
       })
       .finally(() => {
         setLoading(false);
       });
-  };
-
-  const handleClose = () => {
-    setErrors({});
-    onClose();
-    setFormData({
-      firstName: "",
-      lastName: "",
-      dateOfBirth: "",
-      aboutMe: "",
-      mobile: "",
-      gender: "",
-    });
   };
 
   if (!isOpen) return null;
@@ -286,7 +299,7 @@ const PersonalInformationModal = ({ isOpen, onClose, data }) => {
               disabled={loading}
               onClick={handleSubmit}
             >
-              {loading ? "Saving..." : "Save"}
+              Save
             </button>
           </div>
         </div>

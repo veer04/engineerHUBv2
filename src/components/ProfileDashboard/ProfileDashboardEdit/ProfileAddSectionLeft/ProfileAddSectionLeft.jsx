@@ -1,25 +1,100 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./profileaddsectionleft.css";
 import { API_URL, Bucket_URL } from "../../../../services/APIUtils";
 import { getUserId } from "../../../../features/User/UserDetails";
 import axios from "axios";
+import { Bounce, toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { patchProfilePicture } from "../../../../services/APIConfig";
+import { getAccessToken } from "../../../../features/getCookieValues";
 
 const ProfileAddSectionLeft = ({ profileData }) => {
+  const fileInputRef = useRef(null);
+  const [profilePhoto, setProfilePhoto] = useState(profileData?.image || null);
+  const [newImage, setNewImage] = useState(null);
+  const [isImageLoading, setIsImageLoading] = useState(false);
+
+  useEffect(() => {
+    if (!!newImage) {
+      if (newImage.type.includes("image")) {
+        setIsImageLoading(true);
+
+        const file = new FormData();
+        file.append("profileImage", newImage);
+
+        patchProfilePicture(getUserId(), file, (response) => {
+          setIsImageLoading(false);
+          if (response?.status === 200) {
+            toast("🥳 Profile has been Updated Successfully!", {
+              position: "top-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "dark",
+              transition: Bounce,
+            });
+
+            setProfilePhoto(
+              response.data.imageUrl || URL.createObjectURL(newImage)
+            );
+          } else {
+            toast.error("Failed to upload profile photo.");
+            console.error("Upload error:", response);
+          }
+        });
+
+        setNewImage(null);
+      } else {
+        toast.error("Please choose an image file only.");
+        setNewImage(null);
+      }
+    }
+  }, [newImage]);
+
+  const handleUploadClick = () => {
+    fileInputRef.current.click();
+  };
+
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      setNewImage(file);
+    }
+  };
+
   return (
     <div className="profile-add-section-main">
       <div className="image-section">
-        <img
-          src={profileData ? profileData.image : "/g2.svg"}
-          className="g2-img-left"
-          alt="g2_img"
-          width={100}
-          height={100}
-        />
-        <img
-          src={`${Bucket_URL}UserViewDashboard/add-circle.svg`}
-          className="add-circle"
-          alt="g2_img"
-        />
+        {isImageLoading ? (
+          <div className="loader-main-div">
+            <span class="loader-new"></span>
+          </div>
+        ) : (
+          <img
+            src={profilePhoto || "/g2.svg"}
+            className="g2-img-left"
+            alt="Profile"
+            width={100}
+            height={100}
+          />
+        )}
+        <div onClick={handleUploadClick}>
+          <img
+            src={`${Bucket_URL}UserViewDashboard/add-circle.svg`}
+            className="add-circle"
+            alt="Upload Profile"
+          />
+          <input
+            type="file"
+            ref={fileInputRef}
+            style={{ display: "none" }}
+            accept="image/*"
+            onChange={handleFileChange}
+          />
+        </div>
       </div>
 
       <h3
