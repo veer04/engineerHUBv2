@@ -8,7 +8,12 @@ import moment from "moment";
 import { Bounce, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const PersonalInformationModal = ({ isOpen, onClose, data }) => {
+const PersonalInformationModal = ({
+  isOpen,
+  onClose,
+  data,
+  setProfileData,
+}) => {
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -18,15 +23,9 @@ const PersonalInformationModal = ({ isOpen, onClose, data }) => {
     gender: "",
   });
 
-  const {
-    setSnackbarOpen,
-    setSnackbarMessage,
-    setSnackbarSeverity,
-    setSnackbarDuration,
-  } = useGlobalSnackbar();
-
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
+  const [updateUserResponse, setUpdateUserResponse] = useState({});
 
   const handleChange = (field, value) => {
     setFormData((prevData) => ({ ...prevData, [field]: value }));
@@ -52,6 +51,8 @@ const PersonalInformationModal = ({ isOpen, onClose, data }) => {
 
     return newErrors;
   };
+
+  // console.log(data.aboutMe);
 
   useEffect(() => {
     if (isOpen && data) {
@@ -81,7 +82,7 @@ const PersonalInformationModal = ({ isOpen, onClose, data }) => {
     });
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const validationErrors = validateForm();
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
@@ -90,34 +91,34 @@ const PersonalInformationModal = ({ isOpen, onClose, data }) => {
 
     setLoading(true);
 
-    updateUserDetails(formData)
-      .then((response) => {
-        console.log("Update successful:", response);
-        if (response.data) {
-          toast("🥳 Profile Information added Successfully!", {
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "dark",
-            transition: Bounce,
-          });
+    try {
+      await updateUserDetails(formData, setUpdateUserResponse);
 
-          handleClose();
-        } else {
-          toast.error("Something went wrong!");
-        }
-      })
-      .catch((error) => {
-        console.error("Update failed:", error);
+      const response = setUpdateUserResponse;
+
+      if (response) {
+        toast("🥳 Profile Information added Successfully!", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+          transition: Bounce,
+        });
+
+        onClose();
+      } else {
         toast.error("Something went wrong!");
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+      }
+    } catch (error) {
+      console.error("Update failed:", error);
+      toast.error("Something went wrong!");
+    } finally {
+      setLoading(false);
+    }
   };
 
   if (!isOpen) return null;
@@ -274,10 +275,11 @@ const PersonalInformationModal = ({ isOpen, onClose, data }) => {
                   About Me
                 </label>
                 <textarea
+                  rows={2}
                   id="aboutMe"
                   value={formData.aboutMe}
                   onChange={(e) => handleChange("aboutMe", e.target.value)}
-                  className={`mt-1 input-css ${
+                  className={`mt-1 input-css-textarea ${
                     errors.aboutMe ? "border-red-500" : "border-gray-300"
                   }`}
                   placeholder="Tell something about yourself"

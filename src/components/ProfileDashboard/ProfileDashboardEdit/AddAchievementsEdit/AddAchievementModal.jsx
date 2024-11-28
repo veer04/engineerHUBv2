@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./addachievemodal.css";
 import { IoMdClose } from "react-icons/io";
 import { addUserAchievement } from "../../../../services/APIConfig";
 
-const AddAchievementModal = ({ isOpen, onClose }) => {
+const AddAchievementModal = ({ isOpen, onClose, data }) => {
   const [formData, setFormData] = useState({
     achievementName: "",
     achievementDate: "",
@@ -31,6 +31,19 @@ const AddAchievementModal = ({ isOpen, onClose }) => {
 
     return newErrors;
   };
+
+  useEffect(() => {
+    if (data) {
+      setFormData({
+        achievementName: data.achievementName,
+        achievementDate: data.achievementDate
+          ? new Date(data.achievementDate).toISOString().split("T")[0]
+          : "",
+        description: data.description,
+        achievementUrl: data.achievementUrl,
+      });
+    }
+  }, [data]);
 
   const handleSubmit = () => {
     const validationErrors = validateForm();

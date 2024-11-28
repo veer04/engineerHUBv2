@@ -6,11 +6,21 @@ const AddAchievements = ({ profileData }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedAchievement, setSelecetedAchievement] = useState(null);
 
-  const openModal = () => setIsModalOpen(true);
-  const closeModal = () => setIsModalOpen(false);
+  const openModal = (achieve) => {
+    setSelecetedAchievement(achieve);
+    setIsModalOpen(true);
+  };
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setSelecetedAchievement(null);
+  };
   return (
     <>
-      <AddAchievementModal isOpen={isModalOpen} onClose={closeModal} />
+      <AddAchievementModal
+        isOpen={isModalOpen}
+        onClose={closeModal}
+        data={selectedAchievement}
+      />
       <div className="add-achievementss-main-div">
         <div className="add-headline-sub-div">
           <div className="add-headlline-sub-left">

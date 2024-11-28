@@ -7,17 +7,20 @@ import axios from "axios";
 import { API_URL } from "../../../../services/APIUtils";
 import moment from "moment";
 
-const ProfileInformationEdit = ({ profileData }) => {
+const ProfileInformationEdit = ({ profileData, setProfileData }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  // console.log(profileData?.aboutMe, "aboutmain");
 
   const modalData = profileData
     ? {
-        firstName: profileData.firstName,
-        lastName: profileData.lastName,
-        email: profileData.email,
-        mobile: profileData.mobile,
-        dateOfBirth: moment(profileData.dateOfBirth).format("DD/MM/YYYY"),
-        gender: profileData.gender,
+        firstName: profileData?.firstName,
+        lastName: profileData?.lastName,
+        email: profileData?.email,
+        mobile: profileData?.mobile,
+        dateOfBirth: moment(profileData?.dateOfBirth).format("DD/MM/YYYY"),
+        gender: profileData?.gender,
+        aboutMe: profileData?.aboutMe,
       }
     : {};
 
@@ -29,6 +32,7 @@ const ProfileInformationEdit = ({ profileData }) => {
         isOpen={isModalOpen}
         onClose={closeModal}
         data={modalData}
+        setProfileData={setProfileData}
       />
       <div className="profile-information-edit-main">
         <div className="personal-information-section">

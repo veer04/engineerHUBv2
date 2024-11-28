@@ -92,11 +92,11 @@ const AddEducationModal = ({ isOpen, onClose, data }) => {
   };
 
   const handleSubmit = () => {
-    const validationErrors = validateForm();
-    if (Object.keys(validationErrors).length > 0) {
-      setErrors(validationErrors);
-      return;
-    }
+    // const validationErrors = validateForm();
+    // if (Object.keys(validationErrors).length > 0) {
+    //   setErrors(validationErrors);
+    //   return;
+    // }
 
     setLoading(true);
 

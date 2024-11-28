@@ -4,12 +4,23 @@ import AddCertificationsModal from "./AddCertificatesModal";
 
 const AddCertifications = ({ profileData }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedCertificate, setSelectedCertificate] = useState(null);
 
-  const openModal = () => setIsModalOpen(true);
-  const closeModal = () => setIsModalOpen(false);
+  const openModal = (certi) => {
+    setSelectedCertificate(certi);
+    setIsModalOpen(true);
+  };
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setSelectedCertificate(null);
+  };
   return (
     <>
-      <AddCertificationsModal isOpen={isModalOpen} onClose={closeModal} />
+      <AddCertificationsModal
+        isOpen={isModalOpen}
+        onClose={closeModal}
+        data={selectedCertificate}
+      />
       <div className="add-certifications-main-div">
         <div className="add-headline-sub-div">
           <div className="add-headlline-sub-left">

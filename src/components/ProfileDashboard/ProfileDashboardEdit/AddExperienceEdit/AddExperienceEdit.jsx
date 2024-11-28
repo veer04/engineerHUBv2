@@ -2,15 +2,40 @@ import React, { useState } from "react";
 import "./addexperienceedit.css";
 import AddExperienceModal from "./AddExperienceModal";
 
-const AddExperienceEdit = ({ profileData }) => {
+const AddExperienceEdit = ({ profileData, setProfileData }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedExperience, setSelectedExperience] = useState(null);
 
-  const openModal = () => setIsModalOpen(true);
-  const closeModal = () => setIsModalOpen(false);
+  const openModal = (experience) => {
+    console.log(experience, "SelectedExperience");
+    setSelectedExperience({
+      ...experience,
+    });
+    setIsModalOpen(true);
+  };
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setSelectedExperience(null);
+  };
+
+  const handleUpdateExperience = (updatedExperience) => {
+    const updatedExperienceDetails = profileData.experienceDetails.map((exp) =>
+      exp._id === updatedExperience._id ? updatedExperience : exp
+    );
+    setProfileData({
+      ...profileData,
+      experienceDetails: updatedExperienceDetails,
+    });
+  };
+
   return (
     <>
-      <AddExperienceModal isOpen={isModalOpen} onClose={closeModal} />
+      <AddExperienceModal
+        isOpen={isModalOpen}
+        onClose={closeModal}
+        data={selectedExperience}
+        onUpdateExperience={handleUpdateExperience}
+      />
       <div className="add-experience-main-div">
         <div className="add-headline-sub-div">
           <div className="add-headlline-sub-left">
@@ -134,7 +159,7 @@ const AddExperienceEdit = ({ profileData }) => {
                   </>
                   <div className="experience-display-right-div">
                     <div
-                      onClick={() => openModal(education)}
+                      onClick={() => openModal(experience)}
                       style={{ cursor: "pointer" }}
                     >
                       <svg
@@ -161,7 +186,7 @@ const AddExperienceEdit = ({ profileData }) => {
                     </div>
                   </div>
                 </div>
-                {index !== profileData.educationDetails.length - 1 && (
+                {index !== profileData.experienceDetails.length - 1 && (
                   <div
                     style={{
                       height: "2px",

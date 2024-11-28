@@ -2,11 +2,15 @@ import React, { useEffect, useState } from "react";
 import "./addbiomodal.css";
 import { IoMdClose } from "react-icons/io";
 import { updateUserDetails } from "../../../../services/APIConfig";
+import { Bounce, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const AddBioModal = ({ isOpen, onClose, data }) => {
   const [formData, setFormData] = useState({
     bio: "",
   });
+  const [updateUserResponse, setUpdateUserResponse] = useState({});
+
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
 
@@ -31,31 +35,42 @@ const AddBioModal = ({ isOpen, onClose, data }) => {
     }
   }, [isOpen, data]);
 
-  const handleSubmit = () => {
-    const validationErrors = validateForm();
-    if (Object.keys(validationErrors).length > 0) {
-      setErrors(validationErrors);
-      return;
-    }
+  const handleSubmit = async () => {
+    // const validationErrors = validateForm();
+    // if (Object.keys(validationErrors).length > 0) {
+    //   setErrors(validationErrors);
+    //   return;
+    // }
     setLoading(true);
 
-    updateUserDetails(formData)
-      .then((response) => {
-        console.log("Update successful:", response);
-        setSnackbarMessage("Update successful");
-        setSnackbarSeverity("success");
-        setSnackbarOpen(true);
+    try {
+      await updateUserDetails(formData, setUpdateUserResponse);
+
+      const response = setUpdateUserResponse;
+
+      if (response) {
+        toast("🥳 Profile Information added Successfully!", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+          transition: Bounce,
+        });
+
         onClose();
-      })
-      .catch((error) => {
-        console.error("Update failed:", error);
-        setSnackbarMessage("Update failed");
-        setSnackbarSeverity("error");
-        setSnackbarOpen(true);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+      } else {
+        toast.error("Something went wrong!");
+      }
+    } catch (error) {
+      console.error("Update failed:", error);
+      toast.error("Something went wrong!");
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleClose = () => {

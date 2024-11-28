@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./addprojectsedit.css";
 import AddProjectsModal from "./AddProjectsModal";
+import { Link } from "react-router-dom";
 
 const AddProjectsEdit = ({ profileData }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -116,7 +117,9 @@ const AddProjectsEdit = ({ profileData }) => {
                             background: "#547178",
                           }}
                         ></div>
-                        <span
+                        <Link
+                          to={projects.projectLink || ""}
+                          target="_blank"
                           style={{
                             fontSize: 14,
                             fontWeight: 400,
@@ -126,7 +129,7 @@ const AddProjectsEdit = ({ profileData }) => {
                           }}
                         >
                           Link to certificate
-                        </span>
+                        </Link>
                       </div>
                       <h3
                         style={{

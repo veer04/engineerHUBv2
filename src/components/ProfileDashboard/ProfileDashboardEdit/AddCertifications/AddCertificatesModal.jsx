@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./addcertificatemodal.css";
 import { IoMdClose } from "react-icons/io";
 import { Bucket_URL } from "../../../../services/APIUtils";
 import useGlobalSnackbar from "../../../../hooks/useGlobalSnackbar";
 import { addUserCertification } from "../../../../services/APIConfig";
 
-const AddCertificationsModal = ({ isOpen, onClose }) => {
+const AddCertificationsModal = ({ isOpen, onClose, data }) => {
   const [formData, setFormData] = useState({
     certificationName: "",
     certificateUrl: "",
@@ -40,6 +40,21 @@ const AddCertificationsModal = ({ isOpen, onClose }) => {
 
     return newErrors;
   };
+
+  useEffect(() => {
+    if (data) {
+      setFormData({
+        certificationName: data.certificationName,
+        certificateUrl: data.certificateUrl,
+        issuedDate: data.issuedDate
+          ? new Date(data.issuedDate).toISOString().split("T")[0]
+          : "",
+        issuedBy: data.issuedBy
+          ? new Date(data.issuedBy).toISOString().split("T")[0]
+          : "",
+      });
+    }
+  }, [data]);
 
   const handleSubmit = () => {
     const validationErrors = validateForm();

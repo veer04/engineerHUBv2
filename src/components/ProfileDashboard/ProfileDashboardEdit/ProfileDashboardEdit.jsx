@@ -99,21 +99,30 @@ const ProfileDashboardEdit = () => {
           <ProfileCompletionEditSection />
         </div>
         <div className="profile-dashboard-edit-right-div">
-          <ProfileInformationEdit profileData={profileData} />
-          <SocialLinksProfile profileData={profileData} />
+          <ProfileInformationEdit
+            profileData={profileData}
+            setProfileData={setProfileData}
+          />
+          <SocialLinksProfile
+            profileData={profileData}
+            setProfileData={setProfileData}
+          />
           <UploadResumeEdit profileData={profileData} />
           <AddHeadlineEdit profileData={profileData} />
           <AddAboutEdit profileData={profileData} />
-          <AddExperienceEdit profileData={profileData} />
+          <AddExperienceEdit
+            profileData={profileData}
+            setProfileData={setProfileData}
+          />
           <AddProjectsEdit profileData={profileData} />
           <AddAchievements profileData={profileData} />
           <AddCertifications profileData={profileData} />
 
-          <div style={{ display: "flex", gap: "5px" }}>
+          {/* <div style={{ display: "flex", gap: "5px" }}>
             <button onClick={openModal}>Open Success Modal</button>
             <button onClick={openDeleteModal}>Open Delete Modal</button>
             <button onClick={openDeleteOkModal}>Open Ok Delete Modal</button>
-          </div>
+          </div> */}
         </div>
       </main>
     </>

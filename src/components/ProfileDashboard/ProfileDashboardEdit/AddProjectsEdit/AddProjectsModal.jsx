@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./addprojectsmodal.css";
 import { IoMdClose } from "react-icons/io";
 import { Bucket_URL } from "../../../../services/APIUtils";
@@ -20,6 +20,16 @@ const AddProjectsModal = ({ isOpen, onClose, data }) => {
 
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (data) {
+      setFormData({
+        projectTitle: data.projectTitle,
+        projectLink: data.projectLink,
+        projectDescription: data.projectDescription,
+      });
+    }
+  }, [data]);
 
   const {
     setSnackbarOpen,

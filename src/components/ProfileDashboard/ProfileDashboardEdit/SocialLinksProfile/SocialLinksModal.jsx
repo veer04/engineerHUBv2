@@ -3,8 +3,10 @@ import "./socialLinksModal.css";
 import { IoMdClose } from "react-icons/io";
 import { API_URL } from "../../../../services/APIUtils";
 import { getAccessToken } from "../../../../features/getCookieValues";
+import { Bounce, toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-const SocialLinksModal = ({ isOpen, onClose }) => {
+const SocialLinksModal = ({ isOpen, onClose, data, setProfileData }) => {
   const [socialMedia, setSocialMedia] = useState([]);
   const [formData, setFormData] = useState({
     linkedin: "",
@@ -12,6 +14,17 @@ const SocialLinksModal = ({ isOpen, onClose }) => {
     portfolio: "",
     cpLink: "",
   });
+
+  useEffect(() => {
+    if (isOpen && data) {
+      setFormData({
+        linkedin: data.linkedin || "",
+        github: data.github || "",
+        portfolio: data.portfolio || "",
+        cpLink: data.cpLink || "",
+      });
+    }
+  }, [isOpen, data]);
 
   const [errors, setErrors] = useState({});
 
@@ -61,10 +74,36 @@ const SocialLinksModal = ({ isOpen, onClose }) => {
       const data = await response.json();
       console.log(data);
       if (data.success) {
-        onClose(); // Close the modal on success
+        toast("🥳 Social Links has been Added Successfully!", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+          transition: Bounce,
+        });
+
+        const updatedSocialMediaDetails = socialMediaData.map((item) => ({
+          mediaLink: item.mediaLink,
+          type: item.type,
+        }));
+
+        setProfileData((prevData) => ({
+          ...prevData,
+          socialMediaDetails: updatedSocialMediaDetails,
+        }));
+        onClose();
       }
     } catch (error) {
       console.error("Error adding the social data", error);
+      toast.error("Failed to update social links. Please try again.", {
+        position: "top-right",
+        autoClose: 5000,
+        theme: "dark",
+      });
     }
   };
 

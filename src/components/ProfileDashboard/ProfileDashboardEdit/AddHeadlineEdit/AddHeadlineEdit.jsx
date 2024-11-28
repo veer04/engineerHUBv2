@@ -31,7 +31,7 @@ const AddHeadlineEdit = ({ profileData }) => {
             >
               {profileData ? "Add Bio" : "Add bio"}
             </h3>
-            {!profileData && (
+            {profileData && (
               <h4
                 style={{
                   fontSize: 14,
