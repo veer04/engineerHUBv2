@@ -3,7 +3,8 @@ import "./recommendationcard1.css";
 import { FaRegEye } from "react-icons/fa";
 import { IoEyeOffOutline } from "react-icons/io5";
 
-const RecommendationCard1 = ({ data = {} }) => {
+const RecommendationCard1 = ({ data }) => {
+  // console.log(data, "jokbdata");
   const [isEyeVisible, setIsEyeVisible] = useState(false);
 
   const toggleAmountShow = () => {
@@ -21,7 +22,7 @@ const RecommendationCard1 = ({ data = {} }) => {
     organisationName = "Unknown Organisation",
     showSalary = false,
     salaryDisclosure = "Not Disclosed",
-  } = data;
+  } = data || {};
 
   return (
     <>
@@ -119,7 +120,13 @@ const RecommendationCard1 = ({ data = {} }) => {
           </div>
 
           <div className="absolute-position-amazon">
-            <img src={organisationLogo} width={48} height={48} alt="" />
+            <img
+              style={{ borderRadius: "50%" }}
+              src={organisationLogo}
+              width={48}
+              height={48}
+              alt=""
+            />
           </div>
         </div>
 
@@ -145,7 +152,7 @@ const RecommendationCard1 = ({ data = {} }) => {
             marginTop: 10,
           }}
         >
-          <button
+          {/* <button
             style={{
               background: "#feebe3",
               border: "1px solid #FF3737",
@@ -157,6 +164,20 @@ const RecommendationCard1 = ({ data = {} }) => {
             }}
           >
             Closed
+          </button> */}
+
+          <button
+            style={{
+              background: "#eaf7e2",
+              border: "1px solid #69d578",
+              fontSize: 12,
+              fontWeight: 400,
+              lineHeight: "16px",
+              padding: "4px 4px",
+              borderRadius: 5,
+            }}
+          >
+            New Opening
           </button>
 
           {/* //eye div saif */}

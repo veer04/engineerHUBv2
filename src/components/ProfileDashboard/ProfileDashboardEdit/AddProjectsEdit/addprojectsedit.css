@@ -10,4 +10,14 @@
 .add-projects-main-div .add-headline-sub-div {
   display: flex;
   justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.add-projects-main-div .projects-display-div {
+  width: 100%;
+}
+
+.add-projects-main-div .projects-display-sub-div {
+  display: flex;
+  justify-content: space-between;
 }

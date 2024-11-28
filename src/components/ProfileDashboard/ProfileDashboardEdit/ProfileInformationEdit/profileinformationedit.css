@@ -22,16 +22,17 @@
 }
 
 .profile-information-edit-main .name-date-of-birth .name-date-of-birth-left {
-  width: 280px;
+  width: 420px;
 }
 
 .profile-information-edit-main .name-date-of-birth .name-date-of-birth-right {
-  width: auto;
+  width: 100%;
 }
 
-@media screen and (max-width: 520px) {
+@media screen and (max-width: 720px) {
   .profile-information-edit-main .name-date-of-birth {
     display: flex;
+    flex-wrap: wrap;
     flex-direction: column;
     gap: 10px;
     margin-top: 20px;

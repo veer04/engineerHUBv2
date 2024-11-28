@@ -1,7 +1,18 @@
 import React from "react";
 import "./recommendedcard2.css";
 
-const RecommendedCard2 = () => {
+const RecommendedCard2 = ({ data = {} }) => {
+  // console.log(data, "meetData");
+
+  const {
+    description,
+    duration,
+    mrp,
+    price,
+    type,
+    title = " Resume Building+Career Guidance | Referral for Job",
+  } = data;
+
   return (
     <>
       <div className="recommendation-card-main2">
@@ -35,7 +46,7 @@ const RecommendedCard2 = () => {
               marginBottom: 0,
             }}
           >
-            Resume Building+Career Guidance | Referral for Job
+            {title}
           </h3>
         </div>
 
@@ -61,7 +72,7 @@ const RecommendedCard2 = () => {
                 marginBottom: 0,
               }}
             >
-              30 mins
+              {duration}
             </h4>
           </div>
 
@@ -77,7 +88,7 @@ const RecommendedCard2 = () => {
               }}
             >
               {" "}
-              &#8377;399
+              &#8377;{mrp}
             </button>
           </div>
         </div>

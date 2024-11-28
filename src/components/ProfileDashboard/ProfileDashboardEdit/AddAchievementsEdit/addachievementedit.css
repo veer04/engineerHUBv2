@@ -10,4 +10,14 @@
 .add-achievementss-main-div .add-headline-sub-div {
   display: flex;
   justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.achieve-display-div {
+  width: 100%;
+}
+
+.achieve-display-sub-div {
+  display: flex;
+  justify-content: space-between;
 }

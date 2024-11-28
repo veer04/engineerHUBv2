@@ -1,11 +1,19 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./personalinformationmodal.css";
 import { IoMdClose } from "react-icons/io";
 import { Bucket_URL } from "../../../../services/APIUtils";
 import { updateUserDetails } from "../../../../services/APIConfig";
 import useGlobalSnackbar from "../../../../hooks/useGlobalSnackbar";
+import moment from "moment";
+import { Bounce, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-const PersonalInformationModal = ({ isOpen, onClose }) => {
+const PersonalInformationModal = ({
+  isOpen,
+  onClose,
+  data,
+  setProfileData,
+}) => {
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -15,15 +23,9 @@ const PersonalInformationModal = ({ isOpen, onClose }) => {
     gender: "",
   });
 
-  const {
-    setSnackbarOpen,
-    setSnackbarMessage,
-    setSnackbarSeverity,
-    setSnackbarDuration,
-  } = useGlobalSnackbar();
-
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
+  const [updateUserResponse, setUpdateUserResponse] = useState({});
 
   const handleChange = (field, value) => {
     setFormData((prevData) => ({ ...prevData, [field]: value }));
@@ -36,10 +38,11 @@ const PersonalInformationModal = ({ isOpen, onClose }) => {
       newErrors.firstName = "First name is required.";
     if (!formData.lastName.trim())
       newErrors.lastName = "Last name is required.";
-    if (!formData.dateOfBirth.trim())
+    if (!formData.dateOfBirth)
+      // Check if dateOfBirth is empty
       newErrors.dateOfBirth = "Date of Birth is required.";
     if (!formData.aboutMe.trim()) newErrors.aboutMe = "About Me is required.";
-    if (!formData.mobile.trim()) {
+    if (!formData.mobile) {
       newErrors.mobile = "Mobile Number is required.";
     } else if (!/^\d{10}$/.test(formData.mobile)) {
       newErrors.mobile = "Mobile Number must be 10 digits.";
@@ -49,29 +52,22 @@ const PersonalInformationModal = ({ isOpen, onClose }) => {
     return newErrors;
   };
 
-  const handleSubmit = () => {
-    const validationErrors = validateForm();
-    if (Object.keys(validationErrors).length > 0) {
-      setErrors(validationErrors);
-      return;
-    }
+  // console.log(data.aboutMe);
 
-    setLoading(true);
-
-    updateUserDetails(formData)
-      .then((response) => {
-        console.log("Update successful:", response);
-        setSnackbarMessage("Update successful");
-        setSnackbarOpen(true);
-        onClose();
-      })
-      .catch((error) => {
-        console.error("Update failed:", error);
-      })
-      .finally(() => {
-        setLoading(false);
+  useEffect(() => {
+    if (isOpen && data) {
+      setFormData({
+        firstName: data.firstName || "",
+        lastName: data.lastName || "",
+        dateOfBirth: data.dateOfBirth
+          ? new Date(data.dateOfBirth)?.toISOString().split("T")[0]
+          : "",
+        aboutMe: data.aboutMe || "",
+        mobile: data.mobile || "",
+        gender: data.gender || "",
       });
-  };
+    }
+  }, [isOpen, data]);
 
   const handleClose = () => {
     setErrors({});
@@ -84,6 +80,45 @@ const PersonalInformationModal = ({ isOpen, onClose }) => {
       mobile: "",
       gender: "",
     });
+  };
+
+  const handleSubmit = async () => {
+    const validationErrors = validateForm();
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      await updateUserDetails(formData, setUpdateUserResponse);
+
+      const response = setUpdateUserResponse;
+
+      if (response) {
+        toast("🥳 Profile Information added Successfully!", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+          transition: Bounce,
+        });
+
+        onClose();
+      } else {
+        toast.error("Something went wrong!");
+      }
+    } catch (error) {
+      console.error("Update failed:", error);
+      toast.error("Something went wrong!");
+    } finally {
+      setLoading(false);
+    }
   };
 
   if (!isOpen) return null;
@@ -240,10 +275,11 @@ const PersonalInformationModal = ({ isOpen, onClose }) => {
                   About Me
                 </label>
                 <textarea
+                  rows={2}
                   id="aboutMe"
                   value={formData.aboutMe}
                   onChange={(e) => handleChange("aboutMe", e.target.value)}
-                  className={`mt-1 input-css ${
+                  className={`mt-1 input-css-textarea ${
                     errors.aboutMe ? "border-red-500" : "border-gray-300"
                   }`}
                   placeholder="Tell something about yourself"
@@ -265,7 +301,7 @@ const PersonalInformationModal = ({ isOpen, onClose }) => {
               disabled={loading}
               onClick={handleSubmit}
             >
-              {loading ? "Saving..." : "Save"}
+              Save
             </button>
           </div>
         </div>

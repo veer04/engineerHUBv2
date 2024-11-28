@@ -1,34 +1,55 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./addexperiencemodal.css";
 import { IoMdClose } from "react-icons/io";
 import { Bucket_URL } from "../../../../services/APIUtils";
+import { addUserExperience } from "../../../../services/APIConfig";
 
-const AddExperienceModal = ({ isOpen, onClose }) => {
+const AddExperienceModal = ({ isOpen, onClose, data, onUpdateExperience }) => {
   const [formData, setFormData] = useState({
-    experienceType: "",
-    role: "",
+    empType: "",
+    designation: "",
     startYear: "",
     endYear: "",
-    organizationName: "",
+    organisationName: "",
+    country: "IN",
+    state: "rajasthan",
   });
 
   const [errors, setErrors] = useState({});
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (field, value) => {
     setFormData((prevData) => ({ ...prevData, [field]: value }));
   };
 
+  useEffect(() => {
+    if (data) {
+      setFormData({
+        empType: data.empType,
+        designation: data.designation,
+        startYear: data.startYear
+          ? new Date(data.startYear).toISOString().split("T")[0]
+          : "",
+        endYear: data.endYear
+          ? new Date(data.endYear).toISOString().split("T")[0]
+          : "",
+        organisationName: data.organisationName,
+      });
+    }
+  }, [data]);
+
   const validateForm = () => {
     const newErrors = {};
 
-    if (!formData.experienceType.trim())
-      newErrors.experienceType = "Experience type is required.";
-    if (!formData.role.trim()) newErrors.role = "Role is required.";
+    if (!formData.empType.trim())
+      newErrors.empType = "Experience type is required.";
+    if (!formData.designation.trim())
+      newErrors.designation = "designation is required.";
     if (!formData.startYear.trim())
       newErrors.startYear = "Start year is required.";
     if (!formData.endYear.trim()) newErrors.endYear = "End year is required.";
-    if (!formData.organizationName.trim())
-      newErrors.organizationName = "Organization/Company name is required.";
+    if (!formData.organisationName.trim())
+      newErrors.organisationName = "Organization/Company name is required.";
 
     return newErrors;
   };
@@ -37,22 +58,44 @@ const AddExperienceModal = ({ isOpen, onClose }) => {
     const validationErrors = validateForm();
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
-    } else {
-      console.log("Form Submitted:", formData);
-      setErrors({});
-      onClose();
+      return;
     }
+    setLoading(true);
+
+    addUserExperience(formData)
+      .then((response) => {
+        console.log("Update successful:", response);
+
+        setFormData({
+          empType: "",
+          designation: "",
+          startYear: "",
+          endYear: "",
+          organisationName: "",
+        });
+        setSnackbarMessage("Experience Added successful");
+        setSnackbarOpen(true);
+        onClose();
+      })
+      .catch((error) => {
+        setSnackbarMessage("Failed to add Experience. Please try again.");
+        setSnackbarOpen(true);
+        console.error("Update failed:", error);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   };
 
   const handleClose = () => {
     setErrors({});
     onClose();
     setFormData({
-      experienceType: "",
-      role: "",
+      empType: "",
+      designation: "",
       startYear: "",
       endYear: "",
-      organizationName: "",
+      organisationName: "",
     });
   };
 
@@ -67,26 +110,33 @@ const AddExperienceModal = ({ isOpen, onClose }) => {
           </button>
         </div>
         <div className="modal-content">
-          <h3 className="modal-title">Add Experience</h3>
-          <p className="modal-subtitle">Add Experience</p>
+          <h3 className="modal-title">
+            {data && Object.keys(data).length > 0 && data.profile
+              ? "Update Experience"
+              : "Add Experience"}
+          </h3>
+
+          <p className="modal-subtitle">
+            {data && Object.keys(data).length > 0 && data.profile
+              ? "Update th details of your experience"
+              : "Add Experience"}
+          </p>
 
           <div className="form-div-modal">
             <div className="modal-div-inner-project">
               <div className="mb-2">
                 <label
-                  htmlFor="experienceType"
+                  htmlFor="empType"
                   className="label-css block text-sm font-medium"
                 >
                   Experience Type
                 </label>
                 <select
-                  id="experienceType"
-                  value={formData.experienceType}
-                  onChange={(e) =>
-                    handleChange("experienceType", e.target.value)
-                  }
+                  id="empType"
+                  value={formData.empType}
+                  onChange={(e) => handleChange("empType", e.target.value)}
                   className={`select-hover mt-1 ${
-                    errors.experienceType ? "border-red-500" : "border-gray-300"
+                    errors.empType ? "border-red-500" : "border-gray-300"
                   }`}
                 >
                   <option
@@ -97,44 +147,56 @@ const AddExperienceModal = ({ isOpen, onClose }) => {
                   >
                     Select your experience type
                   </option>
-                  <option className="option-select-css" value="Fresher">
-                    Fresher
+                  <option className="option-select-css" value="Full-time">
+                    Full-time
                   </option>
-                  <option className="option-select-css" value="Senior">
-                    Senior
+                  <option className="option-select-css" value="Part-time">
+                    Part-time
                   </option>
-                  <option className="option-select-css" value="Manager">
-                    Manager
+                  <option className="option-select-css" value="Self-employed">
+                    Self-employed
+                  </option>
+                  <option className="option-select-css" value="Freelance">
+                    Freelance
+                  </option>
+                  <option className="option-select-css" value="Internship">
+                    Internship
+                  </option>
+                  <option className="option-select-css" value="Trainee">
+                    Trainee
+                  </option>
+                  <option className="option-select-css" value="Contractual">
+                    Contractual
                   </option>
                 </select>
-                {errors.experienceType && (
+                {errors.empType && (
                   <p className="mt-1 error-p text-sm text-red-500">
-                    {errors.experienceType}
+                    {errors.empType}
                   </p>
                 )}
               </div>
 
               <div className="mb-2">
                 <label
-                  htmlFor="role"
+                  htmlFor="designation"
                   className="label-css block text-sm font-medium"
                 >
-                  Type your Role
+                  Type your designation
                 </label>
                 <span className="required-indicator">*</span>
                 <input
                   type="text"
-                  id="role"
-                  value={formData.role}
-                  onChange={(e) => handleChange("role", e.target.value)}
+                  id="designation"
+                  value={formData.designation}
+                  onChange={(e) => handleChange("designation", e.target.value)}
                   className={`input-css-title-link mt-1 ${
-                    errors.role ? "border-red-500" : "border-gray-300"
+                    errors.designation ? "border-red-500" : "border-gray-300"
                   }`}
-                  placeholder="Your Role"
+                  placeholder="Your designation"
                 />
-                {errors.role && (
+                {errors.designation && (
                   <p className="mt-1 error-p text-sm text-red-500">
-                    {errors.role}
+                    {errors.designation}
                   </p>
                 )}
               </div>
@@ -153,7 +215,7 @@ const AddExperienceModal = ({ isOpen, onClose }) => {
                   </label>
                   <span className="required-indicator">*</span>
                   <input
-                    type="text"
+                    type="date"
                     id="startYear"
                     value={formData.startYear}
                     onChange={(e) => handleChange("startYear", e.target.value)}
@@ -162,11 +224,11 @@ const AddExperienceModal = ({ isOpen, onClose }) => {
                     }`}
                     placeholder="Enter start year"
                   />
-                  <img
+                  {/* <img
                     src={`${Bucket_URL}UserViewDashboard/Calendar.svg`}
                     alt=""
                     className="img-calendar-project"
-                  />
+                  /> */}
                   {errors.startYear && (
                     <p className="mt-1 error-p text-sm text-red-500">
                       {errors.startYear}
@@ -186,7 +248,7 @@ const AddExperienceModal = ({ isOpen, onClose }) => {
                   </label>
                   <span className="required-indicator">*</span>
                   <input
-                    type="text"
+                    type="date"
                     id="endYear"
                     value={formData.endYear}
                     onChange={(e) => handleChange("endYear", e.target.value)}
@@ -195,11 +257,11 @@ const AddExperienceModal = ({ isOpen, onClose }) => {
                     }`}
                     placeholder="Enter end year"
                   />
-                  <img
+                  {/* <img
                     src={`${Bucket_URL}UserViewDashboard/Calendar.svg`}
                     alt=""
                     className="img-calendar-project"
-                  />
+                  /> */}
                   {errors.endYear && (
                     <p className="mt-1 error-p text-sm text-red-500">
                       {errors.endYear}
@@ -210,7 +272,7 @@ const AddExperienceModal = ({ isOpen, onClose }) => {
 
               <div className="mb-2">
                 <label
-                  htmlFor="organizationName"
+                  htmlFor="organisationName"
                   className="label-css block text-sm font-medium"
                 >
                   Organization/Company Name
@@ -218,21 +280,21 @@ const AddExperienceModal = ({ isOpen, onClose }) => {
                 <span className="required-indicator">*</span>
                 <input
                   type="text"
-                  id="organizationName"
-                  value={formData.organizationName}
+                  id="organisationName"
+                  value={formData.organisationName}
                   onChange={(e) =>
-                    handleChange("organizationName", e.target.value)
+                    handleChange("organisationName", e.target.value)
                   }
                   className={`input-css-title-link mt-1 ${
-                    errors.organizationName
+                    errors.organisationName
                       ? "border-red-500"
                       : "border-gray-300"
                   }`}
                   placeholder="Add your organization/company name"
                 />
-                {errors.organizationName && (
+                {errors.organisationName && (
                   <p className="mt-1 error-p text-sm text-red-500">
-                    {errors.organizationName}
+                    {errors.organisationName}
                   </p>
                 )}
               </div>
@@ -242,7 +304,9 @@ const AddExperienceModal = ({ isOpen, onClose }) => {
                   Cancel
                 </button>
                 <button className="save-modal-btn" onClick={handleSubmit}>
-                  Save
+                  {data && Object.keys(data).length > 0 && data.profile
+                    ? "Update"
+                    : "Save"}
                 </button>
               </div>
             </div>

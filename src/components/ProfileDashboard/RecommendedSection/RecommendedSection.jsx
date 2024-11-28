@@ -9,6 +9,8 @@ import { getAccessToken } from "../../../features/getCookieValues";
 const RecommendedSection = () => {
   const [recommendationData, setRecommendationData] = useState([]);
 
+  console.log(recommendationData, "recomsaif");
+
   const fetchRecommendationData = async () => {
     try {
       const response = await fetch(
@@ -22,10 +24,11 @@ const RecommendedSection = () => {
       );
 
       const data = await response.json();
-      console.log(data, "responsedatarecommended");
+      // console.log(data, "responsedatarecommended");
       setRecommendationData(data.data);
     } catch (error) {
       console.error("Error getting the data", error);
+      setRecommendationData([]);
     }
   };
 
@@ -52,11 +55,13 @@ const RecommendedSection = () => {
         </div>
 
         <div className="recommendation-cards-saif">
-          {recommendationData.map((data, index) => (
-            <RecommendationCard1 key={index} data={data.job} />
-          ))}
-          <RecommendedCard2 />
-          <RecommendationCard1 />
+          {recommendationData?.job && (
+            <RecommendationCard1 data={recommendationData.job} />
+          )}
+
+          {recommendationData?.meet && (
+            <RecommendedCard2 data={recommendationData.meet} />
+          )}
         </div>
       </div>
     </>

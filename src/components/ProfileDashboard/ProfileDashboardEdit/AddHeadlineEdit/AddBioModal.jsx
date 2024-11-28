@@ -1,12 +1,18 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./addbiomodal.css";
 import { IoMdClose } from "react-icons/io";
+import { updateUserDetails } from "../../../../services/APIConfig";
+import { Bounce, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-const AddBioModal = ({ isOpen, onClose }) => {
+const AddBioModal = ({ isOpen, onClose, data }) => {
   const [formData, setFormData] = useState({
     bio: "",
   });
+  const [updateUserResponse, setUpdateUserResponse] = useState({});
+
   const [errors, setErrors] = useState({});
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (field, value) => {
     setFormData((prevData) => ({ ...prevData, [field]: value }));
@@ -15,20 +21,55 @@ const AddBioModal = ({ isOpen, onClose }) => {
   const validateForm = () => {
     const newErrors = {};
 
-    if (!formData.achievementHeading.trim())
+    if (!formData.achievementHeading)
       newErrors.achievementHeading = "This is required.";
 
     return newErrors;
   };
 
-  const handleSubmit = () => {
-    const validationErrors = validateForm();
-    if (Object.keys(validationErrors).length > 0) {
-      setErrors(validationErrors);
-    } else {
-      console.log("Form Submitted:", formData);
-      setErrors({});
-      onClose();
+  useEffect(() => {
+    if (isOpen && data) {
+      setFormData({
+        bio: data.bio,
+      });
+    }
+  }, [isOpen, data]);
+
+  const handleSubmit = async () => {
+    // const validationErrors = validateForm();
+    // if (Object.keys(validationErrors).length > 0) {
+    //   setErrors(validationErrors);
+    //   return;
+    // }
+    setLoading(true);
+
+    try {
+      await updateUserDetails(formData, setUpdateUserResponse);
+
+      const response = setUpdateUserResponse;
+
+      if (response) {
+        toast("🥳 Profile Information added Successfully!", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+          transition: Bounce,
+        });
+
+        onClose();
+      } else {
+        toast.error("Something went wrong!");
+      }
+    } catch (error) {
+      console.error("Update failed:", error);
+      toast.error("Something went wrong!");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -69,13 +110,11 @@ const AddBioModal = ({ isOpen, onClose }) => {
                     type="text"
                     id="bioHeading"
                     value={formData.bio}
-                    onChange={(e) =>
-                      handleChange("achievementHeading", e.target.value)
-                    }
+                    onChange={(e) => handleChange("bio", e.target.value)}
                     className={`input-css-title-link mt-1 ${
                       errors.bio ? "border-red-500" : "border-gray-300"
                     }`}
-                    placeholder="Add your achievement heading"
+                    placeholder="Add your bio"
                   />
                   {errors.bio && (
                     <p className="mt-1 error-p text-sm text-red-500">
@@ -89,7 +128,7 @@ const AddBioModal = ({ isOpen, onClose }) => {
                     Cancel
                   </button>
                   <button className="save-modal-btn" onClick={handleSubmit}>
-                    Save
+                    {loading ? "Saving..." : "Save"}
                   </button>
                 </div>
               </div>

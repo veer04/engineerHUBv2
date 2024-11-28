@@ -1,13 +1,17 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./addachievemodal.css";
 import { IoMdClose } from "react-icons/io";
+import { addUserAchievement } from "../../../../services/APIConfig";
 
-const AddAchievementModal = ({ isOpen, onClose }) => {
+const AddAchievementModal = ({ isOpen, onClose, data }) => {
   const [formData, setFormData] = useState({
-    achievementHeading: "",
-    achievementDescription: "",
+    achievementName: "",
+    achievementDate: "",
+    description: "",
+    achievementUrl: "",
   });
   const [errors, setErrors] = useState({});
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (field, value) => {
     setFormData((prevData) => ({ ...prevData, [field]: value }));
@@ -16,31 +20,63 @@ const AddAchievementModal = ({ isOpen, onClose }) => {
   const validateForm = () => {
     const newErrors = {};
 
-    if (!formData.achievementHeading.trim())
-      newErrors.achievementHeading = "Achievement heading is required.";
-    if (!formData.achievementDescription.trim())
-      newErrors.achievementDescription = "About your achievement is required.";
+    if (!formData.achievementName.trim())
+      newErrors.achievementName = "Achievement name is required.";
+    if (!formData.achievementDate.trim())
+      newErrors.achievementDate = "Achievement date is required.";
+    if (!formData.description.trim())
+      newErrors.description = "Description is required.";
+    if (!formData.achievementUrl.trim())
+      newErrors.achievementUrl = "Achievement URL is required.";
 
     return newErrors;
   };
+
+  useEffect(() => {
+    if (data) {
+      setFormData({
+        achievementName: data.achievementName,
+        achievementDate: data.achievementDate
+          ? new Date(data.achievementDate).toISOString().split("T")[0]
+          : "",
+        description: data.description,
+        achievementUrl: data.achievementUrl,
+      });
+    }
+  }, [data]);
 
   const handleSubmit = () => {
     const validationErrors = validateForm();
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
-    } else {
-      console.log("Form Submitted:", formData);
-      setErrors({});
-      onClose();
+      return;
     }
+
+    setLoading(true);
+
+    addUserAchievement(formData)
+      .then((response) => {
+        console.log("Update successful:", response);
+        setSnackbarMessage("Achievement Added successful");
+        setSnackbarOpen(true);
+        onClose();
+      })
+      .catch((error) => {
+        console.error("Update failed:", error);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   };
 
   const handleClose = () => {
     setErrors({});
     onClose();
     setFormData({
-      achievementHeading: "",
-      achievementDescription: "",
+      achievementName: "",
+      achievementDate: "",
+      description: "",
+      achievementUrl: "",
     });
   };
 
@@ -56,65 +92,126 @@ const AddAchievementModal = ({ isOpen, onClose }) => {
             </button>
           </div>
           <div className="modal-content">
-            <h3 className="modal-title">Add Achievements</h3>
-            <p className="modal-subtitle">Add Achievements</p>
+            <h3 className="modal-title">Add Achievement</h3>
 
             <div className="form-div-modal">
               <div className="modal-div-inner-achieve">
                 <div>
+                  {/* Achievement Name */}
                   <div className="mb-4">
                     <label
-                      htmlFor="achievementHeading"
+                      htmlFor="achievementName"
                       className="label-css block text-sm font-medium"
                     >
-                      Achievement Heading
+                      Achievement Name
                     </label>
                     <span className="required-indicator">*</span>
                     <input
                       type="text"
-                      id="achievementHeading"
-                      value={formData.achievementHeading}
+                      id="achievementName"
+                      value={formData.achievementName}
                       onChange={(e) =>
-                        handleChange("achievementHeading", e.target.value)
+                        handleChange("achievementName", e.target.value)
                       }
                       className={`input-css-title-link mt-1 ${
-                        errors.achievementHeading
+                        errors.achievementName
                           ? "border-red-500"
                           : "border-gray-300"
                       }`}
-                      placeholder="Add your achievement heading"
+                      placeholder="Enter achievement name"
                     />
-                    {errors.achievementHeading && (
+                    {errors.achievementName && (
                       <p className="mt-1 error-p text-sm text-red-500">
-                        {errors.achievementHeading}
+                        {errors.achievementName}
                       </p>
                     )}
                   </div>
+
+                  {/* Achievement Date */}
                   <div className="mb-4">
                     <label
-                      htmlFor="achievementDescription"
+                      htmlFor="achievementDate"
                       className="label-css block text-sm font-medium"
                     >
-                      Write about your achievement
+                      Achievement Date
                     </label>
                     <span className="required-indicator">*</span>
                     <input
-                      type="text"
-                      id="achievementDescription"
-                      value={formData.achievementDescription}
+                      type="date"
+                      id="achievementDate"
+                      value={formData.achievementDate}
                       onChange={(e) =>
-                        handleChange("achievementDescription", e.target.value)
+                        handleChange("achievementDate", e.target.value)
                       }
                       className={`input-css-title-link mt-1 ${
-                        errors.achievementDescription
+                        errors.achievementDate
                           ? "border-red-500"
                           : "border-gray-300"
                       }`}
-                      placeholder="About your achievement"
                     />
-                    {errors.achievementDescription && (
+                    {errors.achievementDate && (
                       <p className="mt-1 error-p text-sm text-red-500">
-                        {errors.achievementDescription}
+                        {errors.achievementDate}
+                      </p>
+                    )}
+                  </div>
+
+                  {/* Description */}
+                  <div className="mb-4">
+                    <label
+                      htmlFor="description"
+                      className="label-css block text-sm font-medium"
+                    >
+                      Description
+                    </label>
+                    <span className="required-indicator">*</span>
+                    <textarea
+                      rows={4}
+                      id="description"
+                      value={formData.description}
+                      onChange={(e) =>
+                        handleChange("description", e.target.value)
+                      }
+                      className={` mt-1 ${
+                        errors.description
+                          ? "border-red-500"
+                          : "border-gray-300"
+                      }`}
+                      placeholder="Describe your achievement"
+                    />
+                    {errors.description && (
+                      <p className="mt-1 error-p text-sm text-red-500">
+                        {errors.description}
+                      </p>
+                    )}
+                  </div>
+
+                  {/* Achievement URL */}
+                  <div className="mb-4">
+                    <label
+                      htmlFor="achievementUrl"
+                      className="label-css block text-sm font-medium"
+                    >
+                      Achievement URL
+                    </label>
+                    <span className="required-indicator">*</span>
+                    <input
+                      type="url"
+                      id="achievementUrl"
+                      value={formData.achievementUrl}
+                      onChange={(e) =>
+                        handleChange("achievementUrl", e.target.value)
+                      }
+                      className={`input-css-title-link mt-1 ${
+                        errors.achievementUrl
+                          ? "border-red-500"
+                          : "border-gray-300"
+                      }`}
+                      placeholder="Enter a URL"
+                    />
+                    {errors.achievementUrl && (
+                      <p className="mt-1 error-p text-sm text-red-500">
+                        {errors.achievementUrl}
                       </p>
                     )}
                   </div>
@@ -124,8 +221,12 @@ const AddAchievementModal = ({ isOpen, onClose }) => {
                   <button className="cancel-modal-btn" onClick={handleClose}>
                     Cancel
                   </button>
-                  <button className="save-modal-btn" onClick={handleSubmit}>
-                    Save
+                  <button
+                    className="save-modal-btn"
+                    onClick={handleSubmit}
+                    disabled={loading}
+                  >
+                    {"Save"}
                   </button>
                 </div>
               </div>

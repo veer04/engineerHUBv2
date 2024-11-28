@@ -83,7 +83,7 @@ const PerformanceSection = () => {
               fontSize: 12,
               fontWeight: 400,
               lineHeight: "16px",
-              color: "#002B36",
+              color: "white",
               padding: "4px 8px",
               borderRadius: 5,
               background: "#547178",
