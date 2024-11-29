@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./addaboutedit.css";
 import AddEducationModal from "../AddEducationModal/AddEducationModal";
 
-const AddAboutEdit = ({ profileData }) => {
+const AddAboutEdit = ({ profileData, setProfileData }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedEducation, setSelectedEducation] = useState(null);
 
@@ -25,6 +25,7 @@ const AddAboutEdit = ({ profileData }) => {
         isOpen={isModalOpen}
         onClose={closeModal}
         data={selectedEducation}
+        setProfileData={setProfileData}
       />
       <div className="add-about-main-div">
         <div className="add-headline-sub-div">

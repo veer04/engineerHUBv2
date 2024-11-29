@@ -18,23 +18,13 @@ const AddExperienceEdit = ({ profileData, setProfileData }) => {
     setSelectedExperience(null);
   };
 
-  const handleUpdateExperience = (updatedExperience) => {
-    const updatedExperienceDetails = profileData.experienceDetails.map((exp) =>
-      exp._id === updatedExperience._id ? updatedExperience : exp
-    );
-    setProfileData({
-      ...profileData,
-      experienceDetails: updatedExperienceDetails,
-    });
-  };
-
   return (
     <>
       <AddExperienceModal
         isOpen={isModalOpen}
         onClose={closeModal}
         data={selectedExperience}
-        onUpdateExperience={handleUpdateExperience}
+        setProfileData={setProfileData}
       />
       <div className="add-experience-main-div">
         <div className="add-headline-sub-div">

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./addcertifications.css";
 import AddCertificationsModal from "./AddCertificatesModal";
 
-const AddCertifications = ({ profileData }) => {
+const AddCertifications = ({ profileData, setProfileData }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedCertificate, setSelectedCertificate] = useState(null);
 
@@ -20,6 +20,7 @@ const AddCertifications = ({ profileData }) => {
         isOpen={isModalOpen}
         onClose={closeModal}
         data={selectedCertificate}
+        setProfileData={setProfileData}
       />
       <div className="add-certifications-main-div">
         <div className="add-headline-sub-div">

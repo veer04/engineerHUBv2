@@ -9,8 +9,10 @@ import {
   updateUserDetails,
 } from "../../../../services/APIConfig";
 import { getAccessToken } from "../../../../features/getCookieValues";
+import { Bounce, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-const AddEducationModal = ({ isOpen, onClose, data }) => {
+const AddEducationModal = ({ isOpen, onClose, data, setProfileData }) => {
   console.log(data, "darasaif");
   const [campus, setCampus] = useState([]);
   const [branches, setBranches] = useState([]);
@@ -22,10 +24,11 @@ const AddEducationModal = ({ isOpen, onClose, data }) => {
     marks: "",
     country: "IN",
     state: "rajasthan",
-    degree: "btech",
+    degree: "Btech",
   });
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
+  const [updateEducationResponse, setUpdateEducationResponse] = useState({});
 
   useEffect(() => {
     if (data) {
@@ -58,29 +61,22 @@ const AddEducationModal = ({ isOpen, onClose, data }) => {
 
   const validateForm = () => {
     const newErrors = {};
-
-    // Check for collegeId (string or object)
     if (!formData.collegeId?.collegeName?.trim()) {
       newErrors.collegeId = "College name is required.";
     }
 
-    // Check for specialization
     if (!formData.specialization.trim()) {
       newErrors.specialization = "Specialization is required.";
     }
 
-    // Check for startYear
     if (!formData.startYear.trim()) {
       newErrors.startYear = "Start year is required.";
     }
 
-    // Check for endYear
     if (!formData.endYear.trim()) {
       newErrors.endYear = "End year is required.";
     }
 
-    // Check for marks
-    // Since marks might be a number, we check it differently
     if (
       !formData.marks ||
       (typeof formData.marks === "string" && !formData.marks.trim())
@@ -100,29 +96,61 @@ const AddEducationModal = ({ isOpen, onClose, data }) => {
 
     setLoading(true);
 
-    addUserEducation(formData)
-      .then((response) => {
-        console.log("Update successful:", response);
+    try {
+      addUserEducation(formData, setUpdateEducationResponse);
 
-        setFormData({
-          collegeId: "",
-          specialization: "",
-          startYear: "",
-          endYear: "",
-          marks: "",
-        });
-        setSnackbarMessage("Education Added successful");
-        setSnackbarOpen(true);
+      const response = setUpdateEducationResponse;
+      if (response) {
+        toast(
+          data && data._id
+            ? "✏️ Education has been updated successfully!"
+            : "🥳 Education has been added successfully!",
+          {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+            transition: Bounce,
+          }
+        );
+
+        setProfileData((prevData) => ({
+          ...prevData,
+          educationDetails: [
+            ...(prevData.educationDetails || []),
+            {
+              _id: response._id,
+              profile: response.profile,
+              degree: formData.degree,
+              startYear: formData.startYear,
+              endYear: formData.endYear,
+              marks: formData.marks,
+              specialization: formData.specialization,
+              collegeId: {
+                _id: formData.collegeId._id,
+                collegeName: formData.collegeId.collegeName,
+                collegeLogo: formData.collegeId.collegeLogo,
+              },
+              country: formData.country,
+              state: formData.state,
+            },
+          ],
+        }));
+
         onClose();
-      })
-      .catch((error) => {
-        setSnackbarMessage("Failed to add education. Please try again.");
-        setSnackbarOpen(true);
-        console.error("Update failed:", error);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+      } else {
+        toast.error("Something went wrong!");
+      }
+    } catch (error) {
+      console.error("Update failed:", error);
+      toast.error("Something went wrong!");
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleClose = () => {

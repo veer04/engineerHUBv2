@@ -5,7 +5,7 @@ import { updateUserDetails } from "../../../../services/APIConfig";
 import { Bounce, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const AddBioModal = ({ isOpen, onClose, data }) => {
+const AddBioModal = ({ isOpen, onClose, data, setProfileData }) => {
   const [formData, setFormData] = useState({
     bio: "",
   });
@@ -49,17 +49,27 @@ const AddBioModal = ({ isOpen, onClose, data }) => {
       const response = setUpdateUserResponse;
 
       if (response) {
-        toast("🥳 Profile Information added Successfully!", {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "dark",
-          transition: Bounce,
-        });
+        toast(
+          data && data.bio
+            ? "✏️ Bio has been updated successfully!"
+            : "🥳 Bio has been added successfully!",
+          {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+            transition: Bounce,
+          }
+        );
+
+        setProfileData((prevData) => ({
+          ...prevData,
+          bio: formData.bio,
+        }));
 
         onClose();
       } else {

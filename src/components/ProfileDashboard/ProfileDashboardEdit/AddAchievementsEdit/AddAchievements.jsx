@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./addachievementedit.css";
 import AddAchievementModal from "./AddAchievementModal";
 
-const AddAchievements = ({ profileData }) => {
+const AddAchievements = ({ profileData, setProfileData }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedAchievement, setSelecetedAchievement] = useState(null);
 
@@ -20,6 +20,7 @@ const AddAchievements = ({ profileData }) => {
         isOpen={isModalOpen}
         onClose={closeModal}
         data={selectedAchievement}
+        setProfileData={setProfileData}
       />
       <div className="add-achievementss-main-div">
         <div className="add-headline-sub-div">
