@@ -4,8 +4,10 @@ import { IoMdClose } from "react-icons/io";
 import { Bucket_URL } from "../../../../services/APIUtils";
 import useGlobalSnackbar from "../../../../hooks/useGlobalSnackbar";
 import { addUserCertification } from "../../../../services/APIConfig";
+import { Bounce, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-const AddCertificationsModal = ({ isOpen, onClose, data }) => {
+const AddCertificationsModal = ({ isOpen, onClose, data, setProfileData }) => {
   const [formData, setFormData] = useState({
     certificationName: "",
     certificateUrl: "",
@@ -13,6 +15,8 @@ const AddCertificationsModal = ({ isOpen, onClose, data }) => {
     issuedBy: "",
   });
   const [errors, setErrors] = useState({});
+  const [updateCertificationResponse, setUpdateCertificationResponse] =
+    useState({});
   const [loading, setLoading] = useState(false);
 
   const handleChange = (field, value) => {
@@ -65,19 +69,54 @@ const AddCertificationsModal = ({ isOpen, onClose, data }) => {
 
     setLoading(true);
 
-    addUserCertification(formData)
-      .then((response) => {
-        console.log("Certificate successful:", response);
-        setSnackbarMessage("Certificate Added successful");
-        setSnackbarOpen(true);
+    try {
+      addUserCertification(formData, setUpdateCertificationResponse);
+
+      const response = setUpdateCertificationResponse;
+
+      if (response) {
+        toast(
+          data && data._id
+            ? "✏️ licenceDetails has been updated successfully!"
+            : "🥳 licenceDetails has been added successfully!",
+          {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+            transition: Bounce,
+          }
+        );
+
+        setProfileData((prevData) => ({
+          ...prevData,
+          licenceDetails: [
+            ...(prevData.licenceDetails || []),
+            {
+              _id: response._id,
+              profile: response.profile,
+              certificateUrl: formData.certificateUrl,
+              certificationName: formData.certificationName,
+              issuedBy: formData.issuedBy,
+              issuedDate: formData.issuedDate,
+            },
+          ],
+        }));
+
         onClose();
-      })
-      .catch((error) => {
-        console.error("Addition of certificate  failed:", error);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+      } else {
+        toast.error("Something went wrong!");
+      }
+    } catch (error) {
+      console.error("Update failed:", error);
+      toast.error("Something went wrong!");
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleClose = () => {

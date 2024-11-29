@@ -108,16 +108,31 @@ const ProfileDashboardEdit = () => {
             setProfileData={setProfileData}
           />
           <UploadResumeEdit profileData={profileData} />
-          <AddHeadlineEdit profileData={profileData} />
-          <AddAboutEdit profileData={profileData} />
+          <AddHeadlineEdit
+            profileData={profileData}
+            setProfileData={setProfileData}
+          />
+          <AddAboutEdit
+            profileData={profileData}
+            setProfileData={setProfileData}
+          />
           <AddExperienceEdit
             profileData={profileData}
             setProfileData={setProfileData}
           />
-          <AddProjectsEdit profileData={profileData} />
-          <AddAchievements profileData={profileData} />
-          <AddCertifications profileData={profileData} />
 
+          <AddProjectsEdit
+            profileData={profileData}
+            setProfileData={setProfileData}
+          />
+          <AddAchievements
+            profileData={profileData}
+            setProfileData={setProfileData}
+          />
+          <AddCertifications
+            profileData={profileData}
+            setProfileData={setProfileData}
+          />
           {/* <div style={{ display: "flex", gap: "5px" }}>
             <button onClick={openModal}>Open Success Modal</button>
             <button onClick={openDeleteModal}>Open Delete Modal</button>

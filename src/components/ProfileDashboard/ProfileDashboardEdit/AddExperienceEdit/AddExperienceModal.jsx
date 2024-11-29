@@ -4,7 +4,10 @@ import { IoMdClose } from "react-icons/io";
 import { Bucket_URL } from "../../../../services/APIUtils";
 import { addUserExperience } from "../../../../services/APIConfig";
 
-const AddExperienceModal = ({ isOpen, onClose, data, onUpdateExperience }) => {
+import { Bounce, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+const AddExperienceModal = ({ isOpen, onClose, data, setProfileData }) => {
   const [formData, setFormData] = useState({
     empType: "",
     designation: "",
@@ -17,6 +20,8 @@ const AddExperienceModal = ({ isOpen, onClose, data, onUpdateExperience }) => {
 
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
+
+  const [updateExperienceResponse, setUpdateExperienceResponse] = useState({});
 
   const handleChange = (field, value) => {
     setFormData((prevData) => ({ ...prevData, [field]: value }));
@@ -62,29 +67,56 @@ const AddExperienceModal = ({ isOpen, onClose, data, onUpdateExperience }) => {
     }
     setLoading(true);
 
-    addUserExperience(formData)
-      .then((response) => {
-        console.log("Update successful:", response);
+    try {
+      addUserExperience(formData, setUpdateExperienceResponse);
 
-        setFormData({
-          empType: "",
-          designation: "",
-          startYear: "",
-          endYear: "",
-          organisationName: "",
-        });
-        setSnackbarMessage("Experience Added successful");
-        setSnackbarOpen(true);
+      const response = setUpdateExperienceResponse;
+      if (response) {
+        toast(
+          data && data._id
+            ? "✏️ Experience has been updated successfully!"
+            : "🥳 Experience has been added successfully!",
+          {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+            transition: Bounce,
+          }
+        );
+
+        setProfileData((prevData) => ({
+          ...prevData,
+          experienceDetails: [
+            ...(prevData.experienceDetails || []),
+            {
+              _id: response._id,
+              profile: response.profile,
+              country: formData.country,
+              designation: formData.designation,
+              empType: formData.empType,
+              startYear: formData.startYear,
+              endYear: formData.endYear,
+              organisationName: formData.organisationName,
+              state: formData.state,
+            },
+          ],
+        }));
+
         onClose();
-      })
-      .catch((error) => {
-        setSnackbarMessage("Failed to add Experience. Please try again.");
-        setSnackbarOpen(true);
-        console.error("Update failed:", error);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+      } else {
+        toast.error("Something went wrong!");
+      }
+    } catch (error) {
+      console.error("Update failed:", error);
+      toast.error("Something went wrong!");
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleClose = () => {

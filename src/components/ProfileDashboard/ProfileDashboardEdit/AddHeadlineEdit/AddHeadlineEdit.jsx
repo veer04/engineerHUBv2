@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./addheadlineedit.css";
 import AddBioModal from "./AddBioModal";
 
-const AddHeadlineEdit = ({ profileData }) => {
+const AddHeadlineEdit = ({ profileData, setProfileData }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const modalData = profileData
@@ -16,7 +16,12 @@ const AddHeadlineEdit = ({ profileData }) => {
 
   return (
     <>
-      <AddBioModal isOpen={isModalOpen} onClose={closeModal} data={modalData} />
+      <AddBioModal
+        isOpen={isModalOpen}
+        onClose={closeModal}
+        data={modalData}
+        setProfileData={setProfileData}
+      />
       <div className="add-headline-main-div">
         <div className="add-headline-sub-div">
           <div className="add-headlline-sub-left">
