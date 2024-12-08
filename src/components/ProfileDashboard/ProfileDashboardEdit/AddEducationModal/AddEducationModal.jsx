@@ -13,7 +13,7 @@ import { Bounce, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const AddEducationModal = ({ isOpen, onClose, data, setProfileData }) => {
-  console.log(data, "darasaif");
+  // console.log(data, "darasaif");
   const [campus, setCampus] = useState([]);
   const [branches, setBranches] = useState([]);
   const [formData, setFormData] = useState({

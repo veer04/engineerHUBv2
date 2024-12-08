@@ -107,7 +107,10 @@ const ProfileDashboardEdit = () => {
             profileData={profileData}
             setProfileData={setProfileData}
           />
-          <UploadResumeEdit profileData={profileData} />
+          <UploadResumeEdit
+            profileData={profileData}
+            setProfileData={setProfileData}
+          />
           <AddHeadlineEdit
             profileData={profileData}
             setProfileData={setProfileData}

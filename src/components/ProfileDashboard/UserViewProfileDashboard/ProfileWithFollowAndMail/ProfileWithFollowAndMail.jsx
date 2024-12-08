@@ -6,7 +6,7 @@ import { HiOutlineBuildingOffice2 } from "react-icons/hi2";
 
 import { FaThumbsUp } from "react-icons/fa";
 
-const ProfileWithFollowAndMail = () => {
+const ProfileWithFollowAndMail = ({ DashboardAdminData }) => {
   const [isLiked, setIsLiked] = useState(false);
   const [likeCount, setLikeCount] = useState(0);
   const [isFollowActive, setFollowActive] = useState(false);
@@ -28,7 +28,11 @@ const ProfileWithFollowAndMail = () => {
   return (
     <div className="main-profile-with-follow-and-mail">
       <div className="img-share-div">
-        <img src="/g2.svg" className="g2-img" alt="g2_img" />
+        <img
+          src={(DashboardAdminData && DashboardAdminData.image) || "/g2.svg"}
+          className="g2-img"
+          alt="g2_img"
+        />
 
         <div>
           <div onClick={handleThumbsUpClick} className="img-thumbsup-div">
@@ -61,7 +65,9 @@ const ProfileWithFollowAndMail = () => {
       </div>
 
       <div className="name-desc-div">
-        <h3 className="g-3-text">Girish Shedge</h3>
+        <h3 className="g-3-text">{`${
+          DashboardAdminData && DashboardAdminData?.firstName
+        } ${DashboardAdminData?.lastName}`}</h3>
         <h2
           style={{
             fontWeight: 400,
@@ -74,45 +80,52 @@ const ProfileWithFollowAndMail = () => {
         </h2>
       </div>
 
-      <div style={{ marginTop: 10 }} className="icon-div">
-        <div>
-          <FaGraduationCap size={22} color="white" />
-        </div>
-        <div>
-          <h3
-            style={{
-              fontWeight: 400,
-              fontSize: 14,
+      {DashboardAdminData && DashboardAdminData.educationDetails.length > 0 && (
+        <div style={{ marginTop: 10 }} className="icon-div">
+          <div>
+            <FaGraduationCap size={22} color="white" />
+          </div>
+          <div>
+            <h3
+              style={{
+                fontWeight: 400,
+                fontSize: 14,
 
-              lineHeight: "22px",
-              color: "#f3f3f3",
-              marginBottom: 0,
-            }}
-          >
-            Ajay Kumar Garg Engineering College
-          </h3>
+                lineHeight: "22px",
+                color: "#f3f3f3",
+                marginBottom: 0,
+              }}
+            >
+              {DashboardAdminData.educationDetails[0].collegeId.collegeName ||
+                " Ajay Kumar Garg Engineering College"}
+            </h3>
+          </div>
         </div>
-      </div>
+      )}
 
-      <div style={{ marginTop: 5 }} className="icon-div">
-        <div>
-          <HiOutlineBuildingOffice2 size={22} color="white" />
-        </div>
-        <div>
-          <h3
-            style={{
-              fontWeight: 400,
-              fontSize: 14,
+      {DashboardAdminData &&
+        DashboardAdminData.experienceDetails.length > 0 && (
+          <div style={{ marginTop: 5 }} className="icon-div">
+            <div>
+              <HiOutlineBuildingOffice2 size={22} color="white" />
+            </div>
+            <div>
+              <h3
+                style={{
+                  fontWeight: 400,
+                  fontSize: 14,
 
-              lineHeight: "22px",
-              color: "#f3f3f3",
-              marginBottom: 0,
-            }}
-          >
-            engineerHub
-          </h3>
-        </div>
-      </div>
+                  lineHeight: "22px",
+                  color: "#f3f3f3",
+                  marginBottom: 0,
+                }}
+              >
+                {DashboardAdminData.experienceDetails[0].organisationName ||
+                  "engineerHub"}
+              </h3>
+            </div>
+          </div>
+        )}
 
       <div className="btn-siv-edit-post-share">
         <button

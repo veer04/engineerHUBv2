@@ -3,7 +3,7 @@ import "./addprojectsedit.css";
 import AddProjectsModal from "./AddProjectsModal";
 import { Link } from "react-router-dom";
 
-const AddProjectsEdit = ({ profileData }) => {
+const AddProjectsEdit = ({ profileData, setProfileData }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedProject, setSelectedProject] = useState(null);
 
@@ -21,6 +21,7 @@ const AddProjectsEdit = ({ profileData }) => {
         isOpen={isModalOpen}
         onClose={closeModal}
         data={selectedProject}
+        setProfileData={setProfileData}
       />
       <div className="add-projects-main-div">
         <div className="add-headline-sub-div">
