@@ -5,16 +5,23 @@ import { FaGraduationCap } from "react-icons/fa6";
 import { HiOutlineBuildingOffice2 } from "react-icons/hi2";
 
 import { FaThumbsUp } from "react-icons/fa";
+import axios from "axios";
+import { API_URL } from "../../../../services/APIUtils";
+import { getUserId } from "../../../../features/User/UserDetails";
+import { Bounce, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { getAccessToken } from "../../../../features/getCookieValues";
 
 const ProfileWithFollowAndMail = ({ DashboardAdminData }) => {
   const [isLiked, setIsLiked] = useState(false);
   const [likeCount, setLikeCount] = useState(0);
   const [isFollowActive, setFollowActive] = useState(false);
   const [isMailActive, setMailActive] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleFollowClick = () => {
-    setFollowActive(!isFollowActive);
-  };
+  // const handleFollowClick = () => {
+  //   setFollowActive(!isFollowActive);
+  // };
 
   const handleMailClick = () => {
     setMailActive(!isMailActive);
@@ -23,6 +30,92 @@ const ProfileWithFollowAndMail = ({ DashboardAdminData }) => {
   const handleThumbsUpClick = () => {
     setIsLiked(true);
     setLikeCount(likeCount + 1);
+  };
+
+  const handleFollowClick = async () => {
+    const userId = getUserId();
+    const token = getAccessToken();
+
+    if (!token) {
+      console.log("No access token found!");
+      toast.error("🚨 Access token not found. Please log in again.", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        transition: Bounce,
+      });
+      return;
+    }
+
+    const config = {
+      headers: {
+        accesstoken: token,
+      },
+    };
+
+    setIsLoading(true);
+
+    try {
+      console.log("Config", config);
+
+      if (isFollowActive) {
+        await axios.post(
+          `${API_URL}api/v1/userDashboard/unfollow/${userId}`,
+          {},
+          config
+        );
+        setFollowActive(false);
+        toast("❌ You have unfollowed the user!", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+          transition: Bounce,
+        });
+      } else {
+        await axios.post(
+          `${API_URL}api/v1/userDashboard/follow/${userId}`,
+          {},
+          config
+        );
+        setFollowActive(true);
+        toast("🥳 You are now following the user!", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+          transition: Bounce,
+        });
+      }
+    } catch (error) {
+      toast.error("🚨 Something went wrong. Please try again!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        transition: Bounce,
+      });
+      console.error("Error following/unfollowing user:", error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -76,7 +169,8 @@ const ProfileWithFollowAndMail = ({ DashboardAdminData }) => {
             color: "#f3f3f3",
           }}
         >
-          Associate Software engineer at company name
+          {DashboardAdminData?.aboutMe ||
+            "Associate Software engineer at company name"}
         </h2>
       </div>
 
@@ -131,8 +225,15 @@ const ProfileWithFollowAndMail = ({ DashboardAdminData }) => {
         <button
           onClick={handleFollowClick}
           className={isFollowActive ? "btn-active" : "btn-default"}
+          disabled={isLoading}
         >
-          {isFollowActive ? "Following" : "Follow"}
+          {isLoading ? (
+            <div className="loader"></div>
+          ) : isFollowActive ? (
+            "Following"
+          ) : (
+            "Follow"
+          )}
         </button>
         <button
           onClick={handleMailClick}

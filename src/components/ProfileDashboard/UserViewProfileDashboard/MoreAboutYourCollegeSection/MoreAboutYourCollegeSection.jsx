@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import "./moreaboutyourcollegesection.css";
+import UserViewStudentFollow from "../UserViewStudentFollow/UserViewStudentFollow";
+import UserStudentFollowInMoreAbout from "../UserViewStudentFollow/UserStudentFollowInMoreAbout";
 
 const MoreAboutYourCollegeSection = () => {
   const [actionButton, setActionButton] = useState("About");
@@ -74,6 +76,10 @@ const MoreAboutYourCollegeSection = () => {
           </h4>
         </div>
       )}
+
+      {actionButton === "Clubs" && <UserStudentFollowInMoreAbout />}
+
+      {actionButton === "Almas" && <UserViewStudentFollow />}
     </div>
   );
 };

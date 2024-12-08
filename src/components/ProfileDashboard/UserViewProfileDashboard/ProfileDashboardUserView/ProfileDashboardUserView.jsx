@@ -16,10 +16,12 @@ import SkillsResume from "../SkillsResume/SkillsResume";
 import { getUserId } from "../../../../features/User/UserDetails";
 import axios from "axios";
 import { API_URL } from "../../../../services/APIUtils";
+import { getAccessToken } from "../../../../features/getCookieValues";
 
 const ProfileDashboardUserView = () => {
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 520);
   const [DashboardAdminData, setDashboardAdminData] = useState(null);
+  const [recommendationData, setRecommendationData] = useState([]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -57,8 +59,30 @@ const ProfileDashboardUserView = () => {
     }
   };
 
+  const fetchRecommendationData = async () => {
+    try {
+      const response = await fetch(
+        `${API_URL}api/v1/userDashboard/recommendation-area`,
+        {
+          method: "GET",
+          headers: {
+            accesstoken: getAccessToken(),
+          },
+        }
+      );
+
+      const data = await response.json();
+      console.log(data.data, "responsedatarecommended");
+      setRecommendationData(data.data);
+    } catch (error) {
+      console.error("Error getting the data", error);
+      setRecommendationData([]);
+    }
+  };
+
   useEffect(() => {
     getPublicDashboardData();
+    fetchRecommendationData();
   }, []);
 
   return (
@@ -112,13 +136,13 @@ const ProfileDashboardUserView = () => {
                 {`${DashboardAdminData?.firstName}'s Profile`}
               </h3>
             </div>
-            <UserProfileAboutDesc />
+            <UserProfileAboutDesc DashboardAdminData={DashboardAdminData} />
             <div className="profile-dashboard-resume-grid">
               <div className="profile-dashboard-resume-grid-left">
                 <EducationResume DashboardAdminData={DashboardAdminData} />
                 <SkillsResume DashboardAdminData={DashboardAdminData} />
-                <AchievementsResume />
-                <CertificationsResume />
+                <AchievementsResume DashboardAdminData={DashboardAdminData} />
+                <CertificationsResume DashboardAdminData={DashboardAdminData} />
               </div>
               <div className="profile-dashboard-resume-grid-right">
                 <ExperienceResume DashboardAdminData={DashboardAdminData} />
@@ -126,7 +150,7 @@ const ProfileDashboardUserView = () => {
               </div>
             </div>
             <div style={{ marginTop: 15 }}>
-              <YourActivitySection />
+              <YourActivitySection recommendationData={recommendationData} />
             </div>
             <MoreAboutYourCollegeSection />
 

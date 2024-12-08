@@ -6,7 +6,7 @@ import PostCardActivity from "./PostCardActivity/PostCardActivity";
 import RecommendationCard1 from "../RecommendedSection/RecommendationCard1";
 import RecommendedCard2 from "../RecommendedSection/RecommendedSection2";
 
-const YourActivitySection = () => {
+const YourActivitySection = ({ recommendationData }) => {
   const [actionButton, setActionButton] = useState("Streak");
 
   const handleButtonClick = (buttonName) => {
@@ -154,11 +154,9 @@ const YourActivitySection = () => {
 
       {actionButton === "Jobs" && (
         <div className="grid-job-card-activity">
-          <RecommendationCard1 />
-          <RecommendationCard1 />
-
-          {/* <RecommendedCard2 /> */}
-          <RecommendationCard1 />
+          {recommendationData?.job && (
+            <RecommendationCard1 data={recommendationData.job} />
+          )}
         </div>
       )}
     </div>
