@@ -297,7 +297,7 @@ function App() {
             <Route path="blog" element={<BlogHosting />} />
             <Route path="notes" element={<HostingNotes />} />
           </Route>
-          <Route path="/company">
+          <Route path="/career">
             <Route path="" element={<Company />} />
             <Route path="jobs">
               <Route path="" element={<JobsPage />}>

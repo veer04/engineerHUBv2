@@ -99,13 +99,13 @@ export default function NewNavbar() {
             Campus
           </button>
         </Link>
-        <Link onClick={() => setSelectedPageNavbar("company")} to="/company">
+        <Link onClick={() => setSelectedPageNavbar("career")} to="/career">
           <button
             className={`${
-              selectedPageNavbar === "company" ? "--is-active" : ""
+              selectedPageNavbar === "career" ? "--is-active" : ""
             }`}
           >
-            Company
+            Career
           </button>
         </Link>
         <Link onClick={() => setSelectedPageNavbar("services")} to="/referrals">
@@ -143,8 +143,10 @@ export default function NewNavbar() {
         <div className="d-flex align-items-center justify-content-center gap-2 flex-row">
           <div className="login-options ">
             <Link to="/host" className="nav-link d-flex flex-row flex-nowrap">
-              <button style={{marginRight:"24px"}} className="host-btn">{HostSvg} Host</button>
-              <div style={{marginRight:"18px"}} className="divider"></div>
+              <button style={{ marginRight: "24px" }} className="host-btn">
+                {HostSvg} Host
+              </button>
+              <div style={{ marginRight: "18px" }} className="divider"></div>
             </Link>
           </div>
           <div
