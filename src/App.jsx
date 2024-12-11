@@ -297,7 +297,7 @@ function App() {
             <Route path="blog" element={<BlogHosting />} />
             <Route path="notes" element={<HostingNotes />} />
           </Route>
-          <Route path="/career">
+          <Route path="/company">
             <Route path="" element={<Company />} />
             <Route path="jobs">
               <Route path="" element={<JobsPage />}>
@@ -322,7 +322,7 @@ function App() {
             </Route>
           </Route>
 
-          <Route path="/company" element={<Company />} />
+          {/* <Route path="/company" element={<Company />} /> */}
 
           <Route path="/referrals" element={<Referrals />} />
           <Route path="/referrals/book-now/:referralId" element={<BookNow />} />

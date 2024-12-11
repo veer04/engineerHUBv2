@@ -194,16 +194,16 @@ export default function MobileNavbar() {
         <span>Campus</span>
       </Link>
       <Link
-        to="/career"
+        to="/company"
         onClick={() => {
-          setSelectedPageNavbar("career");
+          setSelectedPageNavbar("company");
         }}
         className={`item-container ${
-          selectedPageNavbar === "career" ? "--is-active" : ""
+          selectedPageNavbar === "company" ? "--is-active" : ""
         }`}
       >
         <CompanySvg className="svg" />
-        <span>Career</span>
+        <span>Company</span>
       </Link>
       <Link
         to="/referrals"

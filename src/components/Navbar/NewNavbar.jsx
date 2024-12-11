@@ -99,13 +99,13 @@ export default function NewNavbar() {
             Campus
           </button>
         </Link>
-        <Link onClick={() => setSelectedPageNavbar("career")} to="/career">
+        <Link onClick={() => setSelectedPageNavbar("company")} to="/company">
           <button
             className={`${
-              selectedPageNavbar === "career" ? "--is-active" : ""
+              selectedPageNavbar === "company" ? "--is-active" : ""
             }`}
           >
-            Career
+            Company
           </button>
         </Link>
         <Link onClick={() => setSelectedPageNavbar("services")} to="/referrals">
