@@ -322,6 +322,8 @@ function App() {
             </Route>
           </Route>
 
+          <Route path="/company" element={<Company />} />
+
           <Route path="/referrals" element={<Referrals />} />
           <Route path="/referrals/book-now/:referralId" element={<BookNow />} />
           <Route
