@@ -13,9 +13,15 @@ import MoreAboutYourCollegeSection from "../MoreAboutYourCollegeSection/MoreAbou
 import EducationResume from "../EducationResume/EducationResume";
 import ExperienceResume from "../ExperienceResume/ExperienceResume";
 import SkillsResume from "../SkillsResume/SkillsResume";
+import { getUserId } from "../../../../features/User/UserDetails";
+import axios from "axios";
+import { API_URL } from "../../../../services/APIUtils";
+import { getAccessToken } from "../../../../features/getCookieValues";
 
 const ProfileDashboardUserView = () => {
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 520);
+  const [DashboardAdminData, setDashboardAdminData] = useState(null);
+  const [recommendationData, setRecommendationData] = useState([]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -29,11 +35,61 @@ const ProfileDashboardUserView = () => {
     };
   }, []);
 
+  const getPublicDashboardData = async () => {
+    const userId = getUserId();
+
+    try {
+      const response = await axios.get(
+        `${API_URL}api/v1/userDashboard/public/${userId}`
+      );
+
+      if (response.status === 200) {
+        console.log(response.data, "Public Admin Data");
+
+        const data = response.data;
+        setDashboardAdminData(data.data.data);
+      } else {
+        console.error("Unexpected response status:", response.status);
+      }
+    } catch (error) {
+      console.error(
+        "Error fetching profile data:",
+        error.response || error.message
+      );
+    }
+  };
+
+  const fetchRecommendationData = async () => {
+    try {
+      const response = await fetch(
+        `${API_URL}api/v1/userDashboard/recommendation-area`,
+        {
+          method: "GET",
+          headers: {
+            accesstoken: getAccessToken(),
+          },
+        }
+      );
+
+      const data = await response.json();
+      console.log(data.data, "responsedatarecommended");
+      setRecommendationData(data.data);
+    } catch (error) {
+      console.error("Error getting the data", error);
+      setRecommendationData([]);
+    }
+  };
+
+  useEffect(() => {
+    getPublicDashboardData();
+    fetchRecommendationData();
+  }, []);
+
   return (
     <>
       <main className="profile-dashboard-user-view-main">
         <div className="left-profile-dashboard-user">
-          <ProfileWithFollowAndMail />
+          <ProfileWithFollowAndMail DashboardAdminData={DashboardAdminData} />
 
           <div style={{ marginTop: 10 }}>
             <UserStatsSection />
@@ -77,24 +133,24 @@ const ProfileDashboardUserView = () => {
                   marginBottom: 0,
                 }}
               >
-                Girish's Profile
+                {`${DashboardAdminData?.firstName}'s Profile`}
               </h3>
             </div>
-            <UserProfileAboutDesc />
+            <UserProfileAboutDesc DashboardAdminData={DashboardAdminData} />
             <div className="profile-dashboard-resume-grid">
               <div className="profile-dashboard-resume-grid-left">
-                <EducationResume />
-                <SkillsResume />
-                <AchievementsResume />
-                <CertificationsResume />
+                <EducationResume DashboardAdminData={DashboardAdminData} />
+                <SkillsResume DashboardAdminData={DashboardAdminData} />
+                <AchievementsResume DashboardAdminData={DashboardAdminData} />
+                <CertificationsResume DashboardAdminData={DashboardAdminData} />
               </div>
               <div className="profile-dashboard-resume-grid-right">
-                <ExperienceResume />
-                <ProjectsResume />
+                <ExperienceResume DashboardAdminData={DashboardAdminData} />
+                <ProjectsResume DashboardAdminData={DashboardAdminData} />
               </div>
             </div>
             <div style={{ marginTop: 15 }}>
-              <YourActivitySection />
+              <YourActivitySection recommendationData={recommendationData} />
             </div>
             <MoreAboutYourCollegeSection />
 

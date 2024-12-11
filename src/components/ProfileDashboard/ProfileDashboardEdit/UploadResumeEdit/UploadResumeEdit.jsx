@@ -7,7 +7,7 @@ import { FiDownload } from "react-icons/fi";
 import { GoTrash } from "react-icons/go";
 import moment from "moment/moment";
 
-const UploadResumeEdit = ({ profileData }) => {
+const UploadResumeEdit = ({ profileData, setProfileData }) => {
   const [resumeFile, setResumeFile] = useState(null);
   const [resumeUrl, setResumeUrl] = useState("");
   const [uploadMessage, setUploadMessage] = useState("");

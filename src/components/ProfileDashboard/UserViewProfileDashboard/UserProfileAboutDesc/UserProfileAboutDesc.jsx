@@ -1,7 +1,7 @@
 import React from "react";
 import "./userprofileaboutdesc.css";
 
-const UserProfileAboutDesc = () => {
+const UserProfileAboutDesc = ({ DashboardAdminData }) => {
   return (
     <div className="user-profile-about-main-div">
       <h3
@@ -24,10 +24,8 @@ const UserProfileAboutDesc = () => {
           marginBottom: 0,
         }}
       >
-        Result-oriented and confident professional with over 3 years of hands-on
-        experience in PHP, CakePHP, and Laravel frameworks. My aim is to
-        leverage my technical expertise and strong problem-solving skills to
-        contribute effectively to a dynamic organization.
+        {(DashboardAdminData && DashboardAdminData.bio) ||
+          "Result-oriented and confident professional with over 3 years of hands-on experience in CakePHP, and Laravel frameworks. My aim is to leverage my technical expertise and strong problem-solving skills to contribute effectively to a dynamic organization."}
       </p>
     </div>
   );

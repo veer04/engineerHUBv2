@@ -4,19 +4,22 @@ import { IoMdClose } from "react-icons/io";
 import { Bucket_URL } from "../../../../services/APIUtils";
 import { addUserProject } from "../../../../services/APIConfig";
 import useGlobalSnackbar from "../../../../hooks/useGlobalSnackbar";
+import { Bounce, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-const AddProjectsModal = ({ isOpen, onClose, data }) => {
+const AddProjectsModal = ({ isOpen, onClose, data, setProfileData }) => {
   const [formData, setFormData] = useState({
     projectTitle: "",
     projectLink: "",
-    startDate: "",
-    endDate: "",
+    startYear: "",
+    endYear: "",
     projectDescription: "",
   });
 
-  console.log(formData, "formData");
-  console.log(new Date(formData.startDate), "formData");
-  console.log(formData.endDate, "formData");
+  // console.log(formData, "formData");
+  // console.log(new Date(formData.startYear), "formData");
+  // console.log(formData.endYear, "formData");
+  const [updateProjectResponse, setUpdateProjectResponse] = useState({});
 
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
@@ -49,9 +52,9 @@ const AddProjectsModal = ({ isOpen, onClose, data }) => {
       newErrors.projectTitle = "Project title is required.";
     if (!formData.projectLink.trim())
       newErrors.projectLink = "Project link is required.";
-    if (!formData.startDate.trim())
-      newErrors.startDate = "Start date is required.";
-    if (!formData.endDate.trim()) newErrors.endDate = "End date is required.";
+    if (!formData.startYear.trim())
+      newErrors.startYear = "Start date is required.";
+    if (!formData.endYear.trim()) newErrors.endYear = "End date is required.";
     if (!formData.projectDescription.trim())
       newErrors.projectDescription = "Project description is required.";
 
@@ -67,29 +70,54 @@ const AddProjectsModal = ({ isOpen, onClose, data }) => {
 
     setLoading(true);
 
-    addUserProject(formData)
-      .then((response) => {
-        console.log("Update successful:", response);
+    try {
+      addUserProject(formData, setUpdateProjectResponse);
 
-        setFormData({
-          projectTitle: "",
-          projectLink: "",
-          startDate: "",
-          endDate: "",
-          projectDescription: "",
-        });
-        setSnackbarMessage("Project Added successful");
-        setSnackbarOpen(true);
+      const response = setUpdateProjectResponse;
+      if (response) {
+        toast(
+          data && data._id
+            ? "✏️ Projects has been updated successfully!"
+            : "🥳 Projects has been added successfully!",
+          {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+            transition: Bounce,
+          }
+        );
+
+        setProfileData((prevData) => ({
+          ...prevData,
+          projectDetails: [
+            ...(prevData.projectDetails || []),
+            {
+              _id: response._id,
+              profile: response.profile,
+              projectTitle: formData.projectTitle,
+              projectLink: formData.projectLink,
+              projectDescription: formData.projectDescription,
+              startYear: formData.startYear,
+              endYear: formData.endYear,
+            },
+          ],
+        }));
+
         onClose();
-      })
-      .catch((error) => {
-        setSnackbarMessage("Failed to add project. Please try again.");
-        setSnackbarOpen(true);
-        console.error("Update failed:", error);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+      } else {
+        toast.error("Something went wrong!");
+      }
+    } catch (error) {
+      console.error("Update failed:", error);
+      toast.error("Something went wrong!");
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleClose = () => {
@@ -98,8 +126,8 @@ const AddProjectsModal = ({ isOpen, onClose, data }) => {
     setFormData({
       projectTitle: "",
       projectLink: "",
-      startDate: "",
-      endDate: "",
+      startYear: "",
+      endYear: "",
       projectDescription: "",
     });
   };
@@ -171,11 +199,11 @@ const AddProjectsModal = ({ isOpen, onClose, data }) => {
             <div className="modal-div-inner">
               <div
                 className={`mb-2 relative-start-date image-input-main-div ${
-                  errors.startDate ? "error" : ""
+                  errors.startYear ? "error" : ""
                 }`}
               >
                 <label
-                  htmlFor="startDate"
+                  htmlFor="startYear"
                   className="label-css block text-sm font-medium"
                 >
                   Start Date
@@ -183,11 +211,11 @@ const AddProjectsModal = ({ isOpen, onClose, data }) => {
                 <span className="required-indicator">*</span>
                 <input
                   type="date"
-                  id="startDate"
-                  value={formData.startDate}
-                  onChange={(e) => handleChange("startDate", e.target.value)}
+                  id="startYear"
+                  value={formData.startYear}
+                  onChange={(e) => handleChange("startYear", e.target.value)}
                   className={`input-css mt-1 ${
-                    errors.startDate ? "border-red-500" : "border-gray-300"
+                    errors.startYear ? "border-red-500" : "border-gray-300"
                   }`}
                   placeholder="Select Start Date"
                 />
@@ -196,19 +224,19 @@ const AddProjectsModal = ({ isOpen, onClose, data }) => {
                   alt=""
                   className="img-calendar-project"
                 /> */}
-                {errors.startDate && (
+                {errors.startYear && (
                   <p className="mt-1 error-p text-sm text-red-500">
-                    {errors.startDate}
+                    {errors.startYear}
                   </p>
                 )}
               </div>
               <div
                 className={`mb-2 relative-end-date image-input-main-div ${
-                  errors.endDate ? "error" : ""
+                  errors.endYear ? "error" : ""
                 }`}
               >
                 <label
-                  htmlFor="endDate"
+                  htmlFor="endYear"
                   className="label-css block text-sm font-medium"
                 >
                   End Date
@@ -216,11 +244,11 @@ const AddProjectsModal = ({ isOpen, onClose, data }) => {
                 <span className="required-indicator">*</span>
                 <input
                   type="date"
-                  id="endDate"
-                  value={formData.startDate}
-                  onChange={(e) => handleChange("endDate", e.target.value)}
+                  id="endYear"
+                  value={formData.endYear}
+                  onChange={(e) => handleChange("endYear", e.target.value)}
                   className={`input-css mt-1 ${
-                    errors.endDate ? "border-red-500" : "border-gray-300"
+                    errors.endYear ? "border-red-500" : "border-gray-300"
                   }`}
                   placeholder="Select End Date"
                 />
@@ -229,9 +257,9 @@ const AddProjectsModal = ({ isOpen, onClose, data }) => {
                   alt=""
                   className="img-calendar-project"
                 /> */}
-                {errors.endDate && (
+                {errors.endYear && (
                   <p className="mt-1 error-p text-sm text-red-500">
-                    {errors.endDate}
+                    {errors.endYear}
                   </p>
                 )}
               </div>
