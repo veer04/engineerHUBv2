@@ -43,7 +43,10 @@ export default function FloatingChatButton() {
   }, [location.pathname]);
 
   useEffect(() => {
-    if (location.pathname.includes("referrals")) {
+    if (
+      location.pathname.includes("referrals") ||
+      location.pathname.includes("host")
+    ) {
       setDisplayChatButton(false);
     } else setDisplayChatButton(true);
   }, [location]);
