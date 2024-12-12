@@ -70,7 +70,7 @@ export default function JobBoard() {
   useEffect(() => {
     if (!pageNo || !limit) {
       navigate(
-        `/company/jobs/board/${id}?pageNo=1&limit=30${
+        `/career/jobs/board/${id}?pageNo=1&limit=30${
           !!params.status ? `&status=${params.status}` : ""
         }`
       );
@@ -839,7 +839,7 @@ export default function JobBoard() {
                   defaultValue={exp}
                   onChange={(e) => {
                     navigate(
-                      `/company/jobs/board/${id}?pageNo=1&limit=30${
+                      `/career/jobs/board/${id}?pageNo=1&limit=30${
                         !!params.status ? `&status=${params.status}` : ""
                       }${!!e.target.value ? `&exp=${e.target.value}` : ""}`
                     );
@@ -914,9 +914,9 @@ export default function JobBoard() {
                 value={limit}
                 onChange={(e) => {
                   navigate(
-                    `/company/jobs/board/${id}?pageNo=1&limit=${
-                      e.target.value
-                    }${!!params.status ? `&status=${params.status}` : ""}`
+                    `/career/jobs/board/${id}?pageNo=1&limit=${e.target.value}${
+                      !!params.status ? `&status=${params.status}` : ""
+                    }`
                   );
                 }}
               >

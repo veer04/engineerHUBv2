@@ -430,7 +430,7 @@ export default function HostingEventHiring() {
           <>
             New event hiring created.{" "}
             <Link
-              to={`/company/events/${res?.data?.data?._id}`}
+              to={`/career/events/${res?.data?.data?._id}`}
               style={{ color: "rgb(13, 110, 253)" }}
               onMouseOver={(e) => (e.target.style.textDecoration = "underline")}
               onMouseOut={(e) => (e.target.style.textDecoration = "none")}

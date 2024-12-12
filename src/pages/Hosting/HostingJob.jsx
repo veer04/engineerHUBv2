@@ -613,7 +613,7 @@ export default function HostingJob() {
           <>
             New job created.{" "}
             <Link
-              to={`/company/jobs/${res?.data?.data?._id}`}
+              to={`/career/jobs/${res?.data?.data?._id}`}
               style={{ color: "rgb(13, 110, 253)" }}
               onMouseOver={(e) => (e.target.style.textDecoration = "underline")}
               onMouseOut={(e) => (e.target.style.textDecoration = "none")}

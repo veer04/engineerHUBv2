@@ -55,7 +55,7 @@ export default function NewEventCard({
     <div
       onClick={() => {
         if (eventHiring) {
-          navigate(`/company/events/${data._id}`);
+          navigate(`/career/events/${data._id}`);
         } else if (community)
           navigate(`/community/events/${encodeURIComponent(id)}/${data._id}`);
         else if (!workshop) {

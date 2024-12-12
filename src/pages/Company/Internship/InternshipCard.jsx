@@ -123,7 +123,7 @@ const InternshipCard = ({
               {details?.organisationName}
             </h5>
             <Link
-              to={`/company/internships/${details?._id}${
+              to={`/career/internships/${details?._id}${
                 !!search ? search : ""
               }`}
             >
@@ -140,7 +140,7 @@ const InternshipCard = ({
             >
               {details?.views} Views
             </span>
-            <Link to={`/company/jobs/board/${details?._id}`}>
+            <Link to={`/career/jobs/board/${details?._id}`}>
               <button
                 style={{
                   backgroundColor: "#014051",

@@ -51,7 +51,7 @@ const HackathonCard = ({
     <div
       onClick={() => {
         navigate(
-          `/company/events/${_id}${filterByCompany ? `?q=${filterName}` : ""}`
+          `/career/events/${_id}${filterByCompany ? `?q=${filterName}` : ""}`
         );
       }}
       className={`HackathonCard ${!!className ? className : ""}`}

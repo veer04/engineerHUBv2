@@ -11,7 +11,7 @@ export default function JobsSection() {
   const [jobsData, setJobsData] = useState([]);
   const [jobs, setJobs] = useState([]);
   useEffect(() => {
-    getJobs(setJobsData,1,5);
+    getJobs(setJobsData, 1, 5);
 
     return () => {
       controller.abort();
@@ -25,7 +25,7 @@ export default function JobsSection() {
   function createJobs(jobs) {
     return jobs?.map((job) => (
       <div
-        onClick={() => navigate(`/company/jobs/${job._id}`)}
+        onClick={() => navigate(`/career/jobs/${job._id}`)}
         key={job._id}
         className={`jobs-section-card jobs-section-card-${job._id}`}
       >
@@ -77,7 +77,7 @@ export default function JobsSection() {
       </div>
       <div className="jobs-btn">
         <button
-          onClick={() => navigate("company/jobs?pageNo=1&limit=24")}
+          onClick={() => navigate("career/jobs?pageNo=1&limit=24")}
           className="look-for-jobs"
         >
           Look for Jobs
