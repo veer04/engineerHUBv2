@@ -122,7 +122,7 @@ export default function InternshipsPage() {
   }, [hiringId]);
 
   useEffect(() => {
-    document.title = "Internships | Company | engineerHUB";
+    document.title = "Internships | Career | engineerHUB";
     window.scrollTo(0, 0);
     setSelectedPageNavbar("company");
     const handleResize = () => setWidth(window.innerWidth);

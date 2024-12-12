@@ -127,7 +127,7 @@ export default function CompanyDashboard() {
 
   useEffect(() => {
     if (Object.keys(organization).length !== 0) {
-      document.title = `${organization?.name} | Company | engineerHUB`;
+      document.title = `${organization?.name} | Career | engineerHUB`;
     }
   }, [organization]);
 
