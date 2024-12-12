@@ -125,7 +125,7 @@ const JobCards = ({
             <h5 className="text-crop-2 overflow-hidden">
               {details?.organisationName}
             </h5>
-            <Link to={`/company/jobs/${details?._id}${!!search ? search : ""}`}>
+            <Link to={`/career/jobs/${details?._id}${!!search ? search : ""}`}>
               <div className="btn">View</div>
             </Link>
           </>
@@ -139,7 +139,7 @@ const JobCards = ({
             >
               {details?.views} Views
             </span>
-            <Link to={`/company/jobs/board/${details?._id}`}>
+            <Link to={`/career/jobs/board/${details?._id}`}>
               <button
                 style={{
                   backgroundColor: "#014051",

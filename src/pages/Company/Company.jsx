@@ -191,7 +191,7 @@ const Company = () => {
         position: companyPageCounts?.pageSizeJob,
         hiring: companyPageCounts?.pageSizeJob ? 1800 : 0,
       },
-      link: "/company/jobs?pageNo=1&limit=24",
+      link: "/career/jobs?pageNo=1&limit=24",
       text1: "jobs live",
       text2: "total opening",
     },
@@ -206,7 +206,7 @@ const Company = () => {
         position: companyPageCounts?.pageSizeInternship,
         hiring: companyPageCounts?.pageSizeInternship ? 350 : 0,
       },
-      link: "/company/internships?pageNo=1&limit=24",
+      link: "/career/internships?pageNo=1&limit=24",
       text1: "internships live",
       text2: "total opening",
     },
@@ -236,7 +236,7 @@ const Company = () => {
         position: companyPageCounts?.newpageSizeEvent,
         hiring: companyPageCounts?.newpageSizeEvent ? 10 : 0,
       },
-      link: "/company/events",
+      link: "/career/events",
       background: "#F7d77f",
       text1: "events live",
       text2: "total opening",
@@ -315,7 +315,7 @@ const Company = () => {
       </div>
 
       <div className="FeaturedJobs padding-adjustment">
-        <a href="/company/jobs" style={{ textDecoration: "none" }}>
+        <a href="/career/jobs" style={{ textDecoration: "none" }}>
           <h5>Featured Jobs</h5>
         </a>
         <div className="FeaturedJobsTiles">
@@ -353,7 +353,7 @@ const Company = () => {
         </amp-ad>
       </div>
       <div className="Opportunities padding-adjustment">
-        <a href="/company/events" style={{ textDecoration: "none" }}>
+        <a href="/career/events" style={{ textDecoration: "none" }}>
           <h5>Trending Opportunities</h5>
         </a>
         <div className="OpportunitiesTiles">
