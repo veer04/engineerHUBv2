@@ -155,7 +155,7 @@ const Company = () => {
   };
 
   useEffect(() => {
-    document.title = "Company | engineerHUB";
+    document.title = "Career | engineerHUB";
     // window.scrollTo(0, 0);
     setSelectedPageNavbar("company");
     if (sessionStorage.getItem("companyPageCounts")) {

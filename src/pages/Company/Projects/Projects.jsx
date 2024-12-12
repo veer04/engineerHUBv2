@@ -12,7 +12,7 @@ const Projects = () => {
   const [searchedProjects, setSearchedProjects] = useState([]);
 
   useEffect(() => {
-    document.title = "Projects | Company | engineerHUB";
+    document.title = "Projects | Career | engineerHUB";
     getProjectData(setProject);
 
     return () => {

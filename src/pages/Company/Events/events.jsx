@@ -25,7 +25,7 @@ const Events = () => {
   const [limit, setLimit] = useState(21);
   const [pageCount, setPageCount] = useState(1);
 
-  changeDocumentTitle("Events | Company | engineerHUB");
+  changeDocumentTitle("Events | Career | engineerHUB");
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -73,7 +73,7 @@ const Events = () => {
   return (
     <div className="CompanyEvent">
       <h2>Event Hiring</h2>
-      <p className="temp-text" >
+      <p className="temp-text">
         Participate in the events directly conducted by the companies to
         highlight your profile.
       </p>
@@ -123,7 +123,9 @@ const Events = () => {
         <div className="Hackathons">
           <div className="hackathonTiles">
             {filteredProjects.map((item, index) => {
-              return <NewEventCard data={item} key={index} eventHiring={true} />;
+              return (
+                <NewEventCard data={item} key={index} eventHiring={true} />
+              );
               // return <HackathonCard {...item} key={index} />;
             })}
             {event.length === 0 &&
