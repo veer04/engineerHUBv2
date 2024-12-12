@@ -62,32 +62,17 @@
 
 .main-profile-with-post-share .btn-siv-edit-post-share {
   margin-top: 10px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 12px;
+  flex-wrap: wrap;
 }
 
-.main-profile-with-post-share .btn-siv-edit-post-share button:nth-child(1) {
+.main-profile-with-post-share .btn-siv-edit-post-share button{
   background-color: transparent;
   color: white;
   padding: 8px 36px;
-  border: 2px solid white;
-  border-radius: 10px;
-  font-size: 14px;
-}
-
-.main-profile-with-post-share .btn-siv-edit-post-share button:nth-child(2) {
-  margin-left: 8px;
-  background-color: transparent;
-  color: white;
-  padding: 8px 36px;
-  border: 2px solid white;
-  border-radius: 10px;
-  font-size: 14px;
-}
-
-.main-profile-with-post-share .btn-siv-edit-post-share button:nth-child(3) {
-  margin-left: 8px;
-  background-color: transparent;
-  color: white;
-  padding: 8px 34px;
   border: 2px solid white;
   border-radius: 10px;
   font-size: 14px;

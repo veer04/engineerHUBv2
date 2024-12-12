@@ -26,7 +26,7 @@ const ProjectCards = ({
       onClick={() => {
         if (adminView) return;
         navigate(
-          `/company/projects/${data._id}${
+          `/career/projects/${data._id}${
             filterByCompany ? `?q=${filterName}` : ""
           }`
         );

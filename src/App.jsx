@@ -74,6 +74,7 @@ import ProfileDashboardUserView from "./components/ProfileDashboard/UserViewProf
 import ProfileDashboardEdit from "./components/ProfileDashboard/ProfileDashboardEdit/ProfileDashboardEdit.jsx";
 import FloatingChatButton from "./components/FloatingChatButton/FloatingChatButton.jsx";
 import CommunityChat from "./pages/Chat/CommunityChat.jsx";
+import { ToastContainer } from "react-toastify";
 const DigitalProductAdminPage = lazy(() =>
   import("./pages/Admin/DigitalProductAdminPage.jsx")
 );
@@ -161,6 +162,7 @@ function App() {
     <>
       <NewNavbar />
       <MobileNavbar />
+      <ToastContainer />
       <GlobalSnackbar />
       <ProfilePopUp />
       <FloatingChatButton />
@@ -297,6 +299,31 @@ function App() {
             <Route path="blog" element={<BlogHosting />} />
             <Route path="notes" element={<HostingNotes />} />
           </Route>
+          <Route path="/career">
+            <Route path="" element={<Company />} />
+            <Route path="jobs">
+              <Route path="" element={<JobsPage />}>
+                <Route path=":hiringId" element={<IndividualJob />} />
+              </Route>
+              <Route path="board">
+                <Route path=":id" element={<JobBoard />} />
+              </Route>
+            </Route>
+            <Route path="internships">
+              <Route path="" element={<InternshipsPage />}>
+                <Route path=":hiringId" element={<IndividualInternship />} />
+              </Route>
+            </Route>
+            <Route path="projects">
+              <Route path="" element={<Projects />} />
+              <Route path=":projectId" element={<ProjectDetailNew />} />
+            </Route>
+            <Route path="events">
+              <Route path="" element={<Events />} />
+              <Route path=":hackId" element={<HackathonDetailsNew />} />
+            </Route>
+          </Route>
+
           <Route path="/company">
             <Route path="" element={<Company />} />
             <Route path="jobs">

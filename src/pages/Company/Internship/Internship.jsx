@@ -22,7 +22,7 @@ const Jobs = () => {
   const [limit, setLimit] = useState(21);
   const [pageCount, setPageCount] = useState(1);
 
-  changeDocumentTitle("Internships | Company | engineerHUB");
+  changeDocumentTitle("Internships | Career | engineerHUB");
 
   useEffect(() => {
     window.scrollTo(0, 0);

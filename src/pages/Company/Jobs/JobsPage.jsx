@@ -122,7 +122,7 @@ export default function JobsPage() {
   }, [hiringId]);
 
   useEffect(() => {
-    document.title = "Jobs | Company | engineerHUB";
+    document.title = "Jobs | Career | engineerHUB";
     window.scrollTo(0, 0);
     setSelectedPageNavbar("company");
     const handleResize = () => setWidth(window.innerWidth);

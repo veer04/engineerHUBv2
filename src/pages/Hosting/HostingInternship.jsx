@@ -680,7 +680,7 @@ export default function HostingInternship() {
           <>
             New internship created.{" "}
             <Link
-              to={`/company/internships/${res?.data?.data?._id}`}
+              to={`/career/internships/${res?.data?.data?._id}`}
               style={{ color: "rgb(13, 110, 253)" }}
               onMouseOver={(e) => (e.target.style.textDecoration = "underline")}
               onMouseOut={(e) => (e.target.style.textDecoration = "none")}

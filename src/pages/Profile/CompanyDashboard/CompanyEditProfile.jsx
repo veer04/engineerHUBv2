@@ -188,7 +188,7 @@ export default function CompanyEditProfile() {
 
   useEffect(() => {
     if (organization) {
-      document.title = `Edit Profile | Company | engineerHUB`;
+      document.title = `Edit Profile | Career | engineerHUB`;
       setNewName(organization?.name);
       setNewSubHeading(organization?.subHeading);
       setNewOrganizationType(organization?.organisationType);

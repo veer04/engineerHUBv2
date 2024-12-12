@@ -8,6 +8,24 @@
 }
 
 .upload-resume-main-div .upload-resume-head-desc {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.upload-resume-main-div .upload-resume-head-desc .update-resume-btn button {
+  color: #138382;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 24px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.after-upload-div .after-upload-div-sub {
+  display: flex;
+  justify-content: space-between;
 }
 
 .upload-resume-main-div .upload-resume-upload-img-div {
@@ -78,4 +96,10 @@
     border-radius: 12px;
     width: 60%;
   }
+}
+
+.after-upload-div .after-upload-div-sub .download-trash-icon {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }

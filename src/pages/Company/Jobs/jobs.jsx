@@ -23,7 +23,7 @@ const Jobs = () => {
   const [limit, setLimit] = useState(21);
   const [pageCount, setPageCount] = useState(1);
 
-  changeDocumentTitle("Jobs | Company | engineerHUB");
+  changeDocumentTitle("Jobs | Career | engineerHUB");
 
   useEffect(() => {
     window.scrollTo(0, 0);

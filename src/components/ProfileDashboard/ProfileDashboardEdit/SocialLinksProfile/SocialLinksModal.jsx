@@ -1,14 +1,30 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./socialLinksModal.css";
 import { IoMdClose } from "react-icons/io";
+import { API_URL } from "../../../../services/APIUtils";
+import { getAccessToken } from "../../../../features/getCookieValues";
+import { Bounce, toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-const SocialLinksModal = ({ isOpen, onClose }) => {
+const SocialLinksModal = ({ isOpen, onClose, data, setProfileData }) => {
+  const [socialMedia, setSocialMedia] = useState([]);
   const [formData, setFormData] = useState({
     linkedin: "",
     github: "",
     portfolio: "",
     cpLink: "",
   });
+
+  useEffect(() => {
+    if (isOpen && data) {
+      setFormData({
+        linkedin: data.linkedin || "",
+        github: data.github || "",
+        portfolio: data.portfolio || "",
+        cpLink: data.cpLink || "",
+      });
+    }
+  }, [isOpen, data]);
 
   const [errors, setErrors] = useState({});
 
@@ -29,14 +45,65 @@ const SocialLinksModal = ({ isOpen, onClose }) => {
     return newErrors;
   };
 
-  const handleSubmit = () => {
-    const validationErrors = validateForm();
-    if (Object.keys(validationErrors).length > 0) {
-      setErrors(validationErrors);
-    } else {
-      console.log("Form Submitted:", formData);
-      setErrors({});
-      onClose();
+  const handleSubmit = async () => {
+    // const validationErrors = validateForm();
+    // if (Object.keys(validationErrors).length > 0) {
+    //   setErrors(validationErrors);
+    //   return;
+    // }
+
+    const socialMediaData = [
+      { mediaLink: formData.linkedin, type: "LinkedIn" },
+      { mediaLink: formData.github, type: "GitHub" },
+      { mediaLink: formData.portfolio, type: "Portfolio" },
+      { mediaLink: formData.cpLink, type: "CP" },
+    ];
+
+    try {
+      const response = await fetch(`${API_URL}api/v1/add/socialMedia`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          accessToken: getAccessToken(),
+        },
+        body: JSON.stringify({
+          socialMedia: socialMediaData,
+        }),
+      });
+
+      const data = await response.json();
+      console.log(data);
+      if (data.success) {
+        toast("🥳 Social Links has been Added Successfully!", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+          transition: Bounce,
+        });
+
+        const updatedSocialMediaDetails = socialMediaData.map((item) => ({
+          mediaLink: item.mediaLink,
+          type: item.type,
+        }));
+
+        setProfileData((prevData) => ({
+          ...prevData,
+          socialMediaDetails: updatedSocialMediaDetails,
+        }));
+        onClose();
+      }
+    } catch (error) {
+      console.error("Error adding the social data", error);
+      toast.error("Failed to update social links. Please try again.", {
+        position: "top-right",
+        autoClose: 5000,
+        theme: "dark",
+      });
     }
   };
 

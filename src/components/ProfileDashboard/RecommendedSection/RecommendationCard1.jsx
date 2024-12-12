@@ -3,12 +3,27 @@ import "./recommendationcard1.css";
 import { FaRegEye } from "react-icons/fa";
 import { IoEyeOffOutline } from "react-icons/io5";
 
-const RecommendationCard1 = () => {
+const RecommendationCard1 = ({ data }) => {
+  // console.log(data, "jokbdata");
   const [isEyeVisible, setIsEyeVisible] = useState(false);
 
   const toggleAmountShow = () => {
     setIsEyeVisible(!isEyeVisible);
   };
+
+  const {
+    opportunityName = "Unknown Position",
+    city = "Unknown City",
+    opportunityLocation = "Remote",
+    minExperience = 0,
+    maxExperience = 0,
+    isForFreshers = false,
+    organisationLogo = "./amazon.png",
+    organisationName = "Unknown Organisation",
+    showSalary = false,
+    salaryDisclosure = "Not Disclosed",
+  } = data || {};
+
   return (
     <>
       <div className="recommendation-card1-main">
@@ -22,7 +37,7 @@ const RecommendationCard1 = () => {
               marginBottom: 0,
             }}
           >
-            Wordline
+            {organisationName}
           </h4>
 
           <h3
@@ -34,7 +49,7 @@ const RecommendationCard1 = () => {
               marginBottom: 0,
             }}
           >
-            Full Stack Web Developer
+            {opportunityName}
           </h3>
         </div>
         {/* //recommendation profile data */}
@@ -54,7 +69,7 @@ const RecommendationCard1 = () => {
                 marginTop: 3,
               }}
             >
-              Pune (On-Site)
+              {city} ({opportunityLocation})
             </h3>
           </div>
 
@@ -76,7 +91,7 @@ const RecommendationCard1 = () => {
                 marginTop: 3,
               }}
             >
-              6-10 LPA
+              {showSalary ? salaryDisclosure : "Salary Not Disclosed"}
             </h3>
           </div>
 
@@ -98,12 +113,20 @@ const RecommendationCard1 = () => {
                 marginTop: 3,
               }}
             >
-              Fresher
+              {isForFreshers
+                ? "Fresher"
+                : `${minExperience}-${maxExperience} Years`}
             </h3>
           </div>
 
           <div className="absolute-position-amazon">
-            <img src="./amazon.png" width={48} height={48} alt="" />
+            <img
+              style={{ borderRadius: "50%" }}
+              src={organisationLogo}
+              width={48}
+              height={48}
+              alt=""
+            />
           </div>
         </div>
 
@@ -129,7 +152,7 @@ const RecommendationCard1 = () => {
             marginTop: 10,
           }}
         >
-          <button
+          {/* <button
             style={{
               background: "#feebe3",
               border: "1px solid #FF3737",
@@ -141,6 +164,20 @@ const RecommendationCard1 = () => {
             }}
           >
             Closed
+          </button> */}
+
+          <button
+            style={{
+              background: "#eaf7e2",
+              border: "1px solid #69d578",
+              fontSize: 12,
+              fontWeight: 400,
+              lineHeight: "16px",
+              padding: "4px 4px",
+              borderRadius: 5,
+            }}
+          >
+            New Opening
           </button>
 
           {/* //eye div saif */}

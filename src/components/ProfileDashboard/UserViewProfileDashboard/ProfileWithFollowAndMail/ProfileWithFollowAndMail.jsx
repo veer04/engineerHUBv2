@@ -5,16 +5,23 @@ import { FaGraduationCap } from "react-icons/fa6";
 import { HiOutlineBuildingOffice2 } from "react-icons/hi2";
 
 import { FaThumbsUp } from "react-icons/fa";
+import axios from "axios";
+import { API_URL } from "../../../../services/APIUtils";
+import { getUserId } from "../../../../features/User/UserDetails";
+import { Bounce, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { getAccessToken } from "../../../../features/getCookieValues";
 
-const ProfileWithFollowAndMail = () => {
+const ProfileWithFollowAndMail = ({ DashboardAdminData }) => {
   const [isLiked, setIsLiked] = useState(false);
   const [likeCount, setLikeCount] = useState(0);
   const [isFollowActive, setFollowActive] = useState(false);
   const [isMailActive, setMailActive] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleFollowClick = () => {
-    setFollowActive(!isFollowActive);
-  };
+  // const handleFollowClick = () => {
+  //   setFollowActive(!isFollowActive);
+  // };
 
   const handleMailClick = () => {
     setMailActive(!isMailActive);
@@ -25,10 +32,100 @@ const ProfileWithFollowAndMail = () => {
     setLikeCount(likeCount + 1);
   };
 
+  const handleFollowClick = async () => {
+    const userId = getUserId();
+    const token = getAccessToken();
+
+    if (!token) {
+      console.log("No access token found!");
+      toast.error("🚨 Access token not found. Please log in again.", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        transition: Bounce,
+      });
+      return;
+    }
+
+    const config = {
+      headers: {
+        accesstoken: token,
+      },
+    };
+
+    setIsLoading(true);
+
+    try {
+      console.log("Config", config);
+
+      if (isFollowActive) {
+        await axios.post(
+          `${API_URL}api/v1/userDashboard/unfollow/${userId}`,
+          {},
+          config
+        );
+        setFollowActive(false);
+        toast("❌ You have unfollowed the user!", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+          transition: Bounce,
+        });
+      } else {
+        await axios.post(
+          `${API_URL}api/v1/userDashboard/follow/${userId}`,
+          {},
+          config
+        );
+        setFollowActive(true);
+        toast("🥳 You are now following the user!", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+          transition: Bounce,
+        });
+      }
+    } catch (error) {
+      toast.error("🚨 Something went wrong. Please try again!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        transition: Bounce,
+      });
+      console.error("Error following/unfollowing user:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <div className="main-profile-with-follow-and-mail">
       <div className="img-share-div">
-        <img src="/g2.svg" className="g2-img" alt="g2_img" />
+        <img
+          src={(DashboardAdminData && DashboardAdminData.image) || "/g2.svg"}
+          className="g2-img"
+          alt="g2_img"
+        />
 
         <div>
           <div onClick={handleThumbsUpClick} className="img-thumbsup-div">
@@ -61,7 +158,9 @@ const ProfileWithFollowAndMail = () => {
       </div>
 
       <div className="name-desc-div">
-        <h3 className="g-3-text">Girish Shedge</h3>
+        <h3 className="g-3-text">{`${
+          DashboardAdminData && DashboardAdminData?.firstName
+        } ${DashboardAdminData?.lastName}`}</h3>
         <h2
           style={{
             fontWeight: 400,
@@ -70,56 +169,71 @@ const ProfileWithFollowAndMail = () => {
             color: "#f3f3f3",
           }}
         >
-          Associate Software engineer at company name
+          {DashboardAdminData?.aboutMe ||
+            "Associate Software engineer at company name"}
         </h2>
       </div>
 
-      <div style={{ marginTop: 10 }} className="icon-div">
-        <div>
-          <FaGraduationCap size={22} color="white" />
-        </div>
-        <div>
-          <h3
-            style={{
-              fontWeight: 400,
-              fontSize: 14,
+      {DashboardAdminData && DashboardAdminData.educationDetails.length > 0 && (
+        <div style={{ marginTop: 10 }} className="icon-div">
+          <div>
+            <FaGraduationCap size={22} color="white" />
+          </div>
+          <div>
+            <h3
+              style={{
+                fontWeight: 400,
+                fontSize: 14,
 
-              lineHeight: "22px",
-              color: "#f3f3f3",
-              marginBottom: 0,
-            }}
-          >
-            Ajay Kumar Garg Engineering College
-          </h3>
+                lineHeight: "22px",
+                color: "#f3f3f3",
+                marginBottom: 0,
+              }}
+            >
+              {DashboardAdminData.educationDetails[0].collegeId.collegeName ||
+                " Ajay Kumar Garg Engineering College"}
+            </h3>
+          </div>
         </div>
-      </div>
+      )}
 
-      <div style={{ marginTop: 5 }} className="icon-div">
-        <div>
-          <HiOutlineBuildingOffice2 size={22} color="white" />
-        </div>
-        <div>
-          <h3
-            style={{
-              fontWeight: 400,
-              fontSize: 14,
+      {DashboardAdminData &&
+        DashboardAdminData.experienceDetails.length > 0 && (
+          <div style={{ marginTop: 5 }} className="icon-div">
+            <div>
+              <HiOutlineBuildingOffice2 size={22} color="white" />
+            </div>
+            <div>
+              <h3
+                style={{
+                  fontWeight: 400,
+                  fontSize: 14,
 
-              lineHeight: "22px",
-              color: "#f3f3f3",
-              marginBottom: 0,
-            }}
-          >
-            engineerHub
-          </h3>
-        </div>
-      </div>
+                  lineHeight: "22px",
+                  color: "#f3f3f3",
+                  marginBottom: 0,
+                }}
+              >
+                {DashboardAdminData.experienceDetails[0].organisationName ||
+                  "engineerHub"}
+              </h3>
+            </div>
+          </div>
+        )}
 
       <div className="btn-siv-edit-post-share">
         <button
           onClick={handleFollowClick}
           className={isFollowActive ? "btn-active" : "btn-default"}
+          disabled={isLoading}
         >
-          {isFollowActive ? "Following" : "Follow"}
+          {isLoading ? (
+            <div className="loader"></div>
+          ) : isFollowActive ? (
+            "Following"
+          ) : (
+            "Follow"
+          )}
         </button>
         <button
           onClick={handleMailClick}

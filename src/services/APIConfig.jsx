@@ -313,19 +313,18 @@ export const updateUserDetails = (data, setResponse) => {
 
 export const addUserEducation = (data, setResponse) => {
   const controller = new AbortController();
+  const updatedData = {
+    ...data,
+    startYear: new Date(data.startYear),
+    endYear: new Date(data.endYear),
+  };
   const config = {
     headers: {
       accessToken: getAccessToken(),
     },
   };
   axios
-    .post(
-      `${API_URL}api/v1/add/education`,
-      {
-        ...data,
-      },
-      config
-    )
+    .post(`${API_URL}api/v1/add/education`, updatedData, config)
     .then((res) => {
       console.log(res);
       setResponse(res);
@@ -381,6 +380,8 @@ export const addUserCertification = (data, setResponse) => {
       `${API_URL}api/v1/add/licence`,
       {
         ...data,
+        issuedDate: new Date(data.issuedDate),
+        issuedBy: new Date(data.issuedBy),
       },
       config
     )

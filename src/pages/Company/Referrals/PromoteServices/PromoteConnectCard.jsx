@@ -139,8 +139,8 @@ const PromoteConnectCard = ({
         </div>
 
         <div className="btn-book-now">
-          {location.pathname === "/company" ||
-          location.pathname === "/company/" ? (
+          {location.pathname === "/career" ||
+          location.pathname === "/career/" ? (
             <button onClick={handleBookNow}>Book Now</button>
           ) : location.pathname === "/referrals/book-now/payment/" ? (
             <button style={{ color: "white" }}>Add Now</button>

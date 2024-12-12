@@ -115,47 +115,70 @@ const NewCompanyHomePage = () => {
 
                   <div>
                     {isScreenBelow768 ? (
-                      <div className={isScreenBelow768 ? "horizontal-mode" : ""}>
-  <input
-    type="radio"
-    name="section"
-    checked={selectedSection === 0}
-    readOnly
-  />
-  <span className={`circle ${selectedSection === 0 ? "filled" : ""}`}>
-  <span className="fontStylingSmallScreen">Login</span>  
-  </span>
-  {isScreenBelow768 && <><div className="horizontalDash"></div>
-  
-  <div className="horizontalDash"></div>
-  <div className="horizontalDash"></div></>}
+                      <div
+                        className={isScreenBelow768 ? "horizontal-mode" : ""}
+                      >
+                        <input
+                          type="radio"
+                          name="section"
+                          checked={selectedSection === 0}
+                          readOnly
+                        />
+                        <span
+                          className={`circle ${
+                            selectedSection === 0 ? "filled" : ""
+                          }`}
+                        >
+                          <span className="fontStylingSmallScreen">Login</span>
+                        </span>
+                        {isScreenBelow768 && (
+                          <>
+                            <div className="horizontalDash"></div>
 
-  <input
-    type="radio"
-    name="section"
-    checked={selectedSection === 1}
-    readOnly
-  />
-  <span className={`circle ${selectedSection === 1 ? "filled" : ""}`}>
-  <span className="fontStylingSmallScreen">  Jobs / Internships</span>  
- 
-  </span>
-  {isScreenBelow768 && <><div className="horizontalDash"></div>
-  
-  <div className="horizontalDash"></div>
-  <div className="horizontalDash"></div></>}
+                            <div className="horizontalDash"></div>
+                            <div className="horizontalDash"></div>
+                          </>
+                        )}
 
-  <input
-    type="radio"
-    name="section"
-    checked={selectedSection === 2}
-    readOnly
-  />
-  <span className={`circle ${selectedSection === 2 ? "filled" : ""}`}>
-  <span className="fontStylingSmallScreen"> Apply</span>  
-  </span>
-</div>
+                        <input
+                          type="radio"
+                          name="section"
+                          checked={selectedSection === 1}
+                          readOnly
+                        />
+                        <span
+                          className={`circle ${
+                            selectedSection === 1 ? "filled" : ""
+                          }`}
+                        >
+                          <span className="fontStylingSmallScreen">
+                            {" "}
+                            Jobs / Internships
+                          </span>
+                        </span>
+                        {isScreenBelow768 && (
+                          <>
+                            <div className="horizontalDash"></div>
 
+                            <div className="horizontalDash"></div>
+                            <div className="horizontalDash"></div>
+                          </>
+                        )}
+
+                        <input
+                          type="radio"
+                          name="section"
+                          checked={selectedSection === 2}
+                          readOnly
+                        />
+                        <span
+                          className={`circle ${
+                            selectedSection === 2 ? "filled" : ""
+                          }`}
+                        >
+                          <span className="fontStylingSmallScreen"> Apply</span>
+                        </span>
+                      </div>
                     ) : (
                       <div>
                         <input
@@ -219,7 +242,7 @@ const NewCompanyHomePage = () => {
 
                   <div className="wrapButton">
                     <div
-                      onClick={()=>navigate("/company")}
+                      onClick={() => navigate("/company")}
                       style={{
                         width: "220px",
                         borderRadius: "50px",
@@ -258,19 +281,19 @@ const NewCompanyHomePage = () => {
                 >
                   {/* {rightContent} */}
                   {selectedSection === 0 ? (
-                    <Link to="/company">
+                    <Link to="/career">
                       <div>
                         <img className="imageHome" src={Login} alt="" />
                       </div>
                     </Link>
                   ) : selectedSection === 1 ? (
-                    <Link to="/company">
+                    <Link to="/career">
                       <div>
                         <img className="imageHome" src={jobs} alt="" />
                       </div>
                     </Link>
                   ) : (
-                    <Link to="/company">
+                    <Link to="/career">
                       <div>
                         <img className="imageHome" src={Apply} alt="" />
                       </div>

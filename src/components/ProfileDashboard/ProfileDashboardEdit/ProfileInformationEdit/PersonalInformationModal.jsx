@@ -1,18 +1,31 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./personalinformationmodal.css";
 import { IoMdClose } from "react-icons/io";
 import { Bucket_URL } from "../../../../services/APIUtils";
+import { updateUserDetails } from "../../../../services/APIConfig";
+import useGlobalSnackbar from "../../../../hooks/useGlobalSnackbar";
+import moment from "moment";
+import { Bounce, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-const PersonalInformationModal = ({ isOpen, onClose }) => {
+const PersonalInformationModal = ({
+  isOpen,
+  onClose,
+  data,
+  setProfileData,
+}) => {
   const [formData, setFormData] = useState({
-    name: "",
-    dob: "",
-    email: "",
+    firstName: "",
+    lastName: "",
+    dateOfBirth: "",
+    aboutMe: "",
     mobile: "",
+    gender: "",
   });
-  console.log(formData, "jh");
 
   const [errors, setErrors] = useState({});
+  const [loading, setLoading] = useState(false);
+  const [updateUserResponse, setUpdateUserResponse] = useState({});
 
   const handleChange = (field, value) => {
     setFormData((prevData) => ({ ...prevData, [field]: value }));
@@ -21,39 +34,91 @@ const PersonalInformationModal = ({ isOpen, onClose }) => {
   const validateForm = () => {
     const newErrors = {};
 
-    if (!formData.name.trim()) newErrors.name = "Name is required.";
-    if (!formData.dob.trim()) newErrors.dob = "Date of Birth is required.";
-
-    if (!formData.email.trim()) {
-      newErrors.email = "Email is required.";
-    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = "Email is invalid.";
-    }
-
-    if (!formData.mobile.trim()) {
+    if (!formData.firstName.trim())
+      newErrors.firstName = "First name is required.";
+    if (!formData.lastName.trim())
+      newErrors.lastName = "Last name is required.";
+    if (!formData.dateOfBirth)
+      // Check if dateOfBirth is empty
+      newErrors.dateOfBirth = "Date of Birth is required.";
+    if (!formData.aboutMe.trim()) newErrors.aboutMe = "About Me is required.";
+    if (!formData.mobile) {
       newErrors.mobile = "Mobile Number is required.";
     } else if (!/^\d{10}$/.test(formData.mobile)) {
       newErrors.mobile = "Mobile Number must be 10 digits.";
     }
+    if (!formData.gender.trim()) newErrors.gender = "Gender is required.";
 
     return newErrors;
   };
 
-  const handleSubmit = () => {
-    const validationErrors = validateForm();
-    if (Object.keys(validationErrors).length > 0) {
-      setErrors(validationErrors);
-    } else {
-      console.log("Form Submitted:", formData);
-      setErrors({});
-      onClose();
+  // console.log(data.aboutMe);
+
+  useEffect(() => {
+    if (isOpen && data) {
+      setFormData({
+        firstName: data.firstName || "",
+        lastName: data.lastName || "",
+        dateOfBirth: data.dateOfBirth
+          ? new Date(data.dateOfBirth)?.toISOString().split("T")[0]
+          : "",
+        aboutMe: data.aboutMe || "",
+        mobile: data.mobile || "",
+        gender: data.gender || "",
+      });
     }
-  };
+  }, [isOpen, data]);
 
   const handleClose = () => {
     setErrors({});
     onClose();
-    setFormData({});
+    setFormData({
+      firstName: "",
+      lastName: "",
+      dateOfBirth: "",
+      aboutMe: "",
+      mobile: "",
+      gender: "",
+    });
+  };
+
+  const handleSubmit = async () => {
+    const validationErrors = validateForm();
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      await updateUserDetails(formData, setUpdateUserResponse);
+
+      const response = setUpdateUserResponse;
+
+      if (response) {
+        toast("🥳 Profile Information added Successfully!", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+          transition: Bounce,
+        });
+
+        onClose();
+      } else {
+        toast.error("Something went wrong!");
+      }
+    } catch (error) {
+      console.error("Update failed:", error);
+      toast.error("Something went wrong!");
+    } finally {
+      setLoading(false);
+    }
   };
 
   if (!isOpen) return null;
@@ -75,127 +140,61 @@ const PersonalInformationModal = ({ isOpen, onClose }) => {
             <div className="modal-div-inner">
               <div className="mb-2">
                 <label
-                  htmlFor="name"
+                  htmlFor="firstName"
                   className="label-css block text-sm font-medium"
                 >
-                  Name
+                  First Name
                 </label>
-                <span
-                  style={{
-                    alignSelf: "stretch",
-                    color: "#FF3737",
-                    marginLeft: 2,
-                  }}
-                >
-                  *
-                </span>
                 <input
                   type="text"
-                  id="name"
-                  value={formData.name}
-                  onChange={(e) => handleChange("name", e.target.value)}
-                  className={`input-css mt-1  ${
-                    errors.name ? "border-red-500" : "border-gray-300"
+                  id="firstName"
+                  value={formData.firstName}
+                  onChange={(e) => handleChange("firstName", e.target.value)}
+                  className={`input-css mt-1 ${
+                    errors.firstName ? "border-red-500" : "border-gray-300"
                   }`}
-                  placeholder="Enter Your Name"
+                  placeholder="Enter Your First Name"
                 />
-                {errors.name && (
+                {errors.firstName && (
                   <p className="mt-1 error-p text-sm text-red-500">
-                    {errors.name}
+                    {errors.firstName}
                   </p>
                 )}
               </div>
-              <div
-                className={`mb-2 image-input-main-div ${
-                  errors.dob ? "error" : ""
-                }`}
-              >
+
+              <div className="mb-2">
                 <label
-                  htmlFor="dob"
+                  htmlFor="lastName"
                   className="label-css block text-sm font-medium"
                 >
-                  Date of Birth
+                  Last Name
                 </label>
-                <span
-                  style={{
-                    alignSelf: "stretch",
-                    color: "#FF3737",
-                    marginLeft: 2,
-                  }}
-                >
-                  *
-                </span>
                 <input
                   type="text"
-                  id="dob"
-                  value={formData.dob}
-                  onChange={(e) => handleChange("dob", e.target.value)}
-                  className={`mt-1 input-css ${
-                    errors.dob ? "border-red-500" : "border-gray-300"
+                  id="lastName"
+                  value={formData.lastName}
+                  onChange={(e) => handleChange("lastName", e.target.value)}
+                  className={`input-css mt-1 ${
+                    errors.lastName ? "border-red-500" : "border-gray-300"
                   }`}
-                  placeholder="Enter Your DOB"
+                  placeholder="Enter Your Last Name"
                 />
-                <img
-                  src={`${Bucket_URL}UserViewDashboard/Calendar.svg`}
-                  alt=""
-                  className="img-calendar"
-                />
-                {errors.dob && (
-                  <p className="error-p mt-1 text-sm text-red-500">
-                    {errors.dob}
+                {errors.lastName && (
+                  <p className="mt-1 error-p text-sm text-red-500">
+                    {errors.lastName}
                   </p>
                 )}
               </div>
             </div>
+
             <div className="modal-div-inner">
               <div className="mb-2">
-                <label
-                  htmlFor="email"
-                  className="label-css block text-sm font-medium"
-                >
-                  Email
-                </label>
-                <span
-                  style={{
-                    alignSelf: "stretch",
-                    color: "#FF3737",
-                    marginLeft: 2,
-                  }}
-                >
-                  *
-                </span>
-                <input
-                  type="email"
-                  id="email"
-                  value={formData.email}
-                  onChange={(e) => handleChange("email", e.target.value)}
-                  className={`mt-1 input-css  ${
-                    errors.email ? "border-red-500" : "border-gray-300"
-                  }`}
-                  placeholder="Enter Your Email"
-                />
-                {errors.email && (
-                  <p className="mt-1 error-p text-sm text-red-500">
-                    {errors.email}
-                  </p>
-                )}
-              </div>
-              <div className="mb-4">
                 <label
                   htmlFor="mobile"
                   className="label-css block text-sm font-medium"
                 >
                   Phone Number
                 </label>
-                <span
-                  style={{
-                    alignSelf: "stretch",
-                    color: "#FF3737",
-                    marginLeft: 2,
-                  }}
-                >
-                  *
-                </span>
                 <input
                   type="text"
                   id="mobile"
@@ -212,13 +211,96 @@ const PersonalInformationModal = ({ isOpen, onClose }) => {
                   </p>
                 )}
               </div>
+
+              <div className="mb-2">
+                <label
+                  htmlFor="gender"
+                  className="label-css block text-sm font-medium"
+                >
+                  Gender
+                </label>
+                <select
+                  id="gender"
+                  value={formData.gender}
+                  onChange={(e) => handleChange("gender", e.target.value)}
+                  className={`mt-1 input-css ${
+                    errors.gender ? "border-red-500" : "border-gray-300"
+                  }`}
+                >
+                  <option value="">Select Gender</option>
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
+                </select>
+                {errors.gender && (
+                  <p className="mt-1 error-p text-sm text-red-500">
+                    {errors.gender}
+                  </p>
+                )}
+              </div>
+            </div>
+
+            <div className="modal-div-inner">
+              <div
+                className={`mb-2 image-input-main-div ${
+                  errors.dateOfBirth ? "error" : ""
+                }`}
+              >
+                <label
+                  htmlFor="dateOfBirth"
+                  className="label-css block text-sm font-medium"
+                >
+                  Date of Birth
+                </label>
+                <input
+                  type="date"
+                  id="dateOfBirth"
+                  value={formData.dateOfBirth}
+                  onChange={(e) => handleChange("dateOfBirth", e.target.value)}
+                  className={`mt-1 input-css ${
+                    errors.dateOfBirth ? "border-red-500" : "border-gray-300"
+                  }`}
+                />
+                {errors.dateOfBirth && (
+                  <p className="error-p mt-1 text-sm text-red-500">
+                    {errors.dateOfBirth}
+                  </p>
+                )}
+              </div>
+
+              <div className="mb-2">
+                <label
+                  htmlFor="aboutMe"
+                  className="label-css block text-sm font-medium"
+                >
+                  About Me
+                </label>
+                <textarea
+                  rows={2}
+                  id="aboutMe"
+                  value={formData.aboutMe}
+                  onChange={(e) => handleChange("aboutMe", e.target.value)}
+                  className={`mt-1 input-css-textarea ${
+                    errors.aboutMe ? "border-red-500" : "border-gray-300"
+                  }`}
+                  placeholder="Tell something about yourself"
+                />
+                {errors.aboutMe && (
+                  <p className="mt-1 error-p text-sm text-red-500">
+                    {errors.aboutMe}
+                  </p>
+                )}
+              </div>
             </div>
           </div>
           <div className="modal-button-div">
             <button className="cancel-modal-btn" onClick={handleClose}>
               Cancel
             </button>
-            <button className="save-modal-btn" onClick={handleSubmit}>
+            <button
+              className="save-modal-btn"
+              disabled={loading}
+              onClick={handleSubmit}
+            >
               Save
             </button>
           </div>

@@ -33,7 +33,7 @@ export default function NewFooter() {
       location.pathname.includes("change-password") ||
       location.pathname.includes("otp-verification") ||
       location.pathname.includes("referrals") ||
-      location.pathname.includes("company/jobs/board") ||
+      location.pathname.includes("career/jobs/board") ||
       location.pathname.includes("/chat/")
     ) {
       setDisplayFooter(false);
@@ -118,10 +118,7 @@ export default function NewFooter() {
           <div className="links-container">
             <div className="pages">
               <p className="title">Community</p>
-              <Link
-                to="/chat"
-                className="link"
-              >
+              <Link to="/chat" className="link">
                 Chat
               </Link>
               <Link
@@ -195,20 +192,17 @@ export default function NewFooter() {
               </Link>
             </div>
             <div className="pages">
-              <p className="title">Company</p>
-              <Link
-                to="/company/internships?pageNo=1&limit=24"
-                className="link"
-              >
+              <p className="title">Career</p>
+              <Link to="/career/internships?pageNo=1&limit=24" className="link">
                 Internships
               </Link>
-              <Link to="/company/jobs?pageNo=1&limit=24" className="link">
+              <Link to="/career/jobs?pageNo=1&limit=24" className="link">
                 Jobs
               </Link>
-              <Link to="/company/events" className="link">
+              <Link to="/career/events" className="link">
                 Hackathons
               </Link>
-              <Link to="/company/projects" className="link">
+              <Link to="/career/projects" className="link">
                 Projects
               </Link>
             </div>
