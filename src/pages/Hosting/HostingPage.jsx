@@ -93,15 +93,15 @@ export default function HostingPage() {
       image: "internship-poster-small.png",
       onClick: () => handleNavigation("internship"),
     },
-    {
-      id: 3,
-      heading: "Projects",
-      subHeading: "Create Projects",
-      description:
-        "Collaborate, innovate, and showcase your skills by working on impactful projects.",
-      image: "project-poster-small.png",
-      onClick: () => handleNavigation("project"),
-    },
+    // {
+    //   id: 3,
+    //   heading: "Projects",
+    //   subHeading: "Create Projects",
+    //   description:
+    //     "Collaborate, innovate, and showcase your skills by working on impactful projects.",
+    //   image: "project-poster-small.png",
+    //   onClick: () => handleNavigation("project"),
+    // },
     {
       id: 4,
       heading: "Event Hiring",
