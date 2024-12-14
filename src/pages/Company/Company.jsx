@@ -204,7 +204,7 @@ const Company = () => {
       background: "#e8ba98",
       stats: {
         position: companyPageCounts?.pageSizeInternship,
-        hiring: companyPageCounts?.pageSizeInternship ? 350 : 0,
+        hiring: companyPageCounts?.pageSizeInternship ? 820 : 0,
       },
       link: "/career/internships?pageNo=1&limit=24",
       text1: "internships live",
