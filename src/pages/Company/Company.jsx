@@ -211,6 +211,7 @@ const Company = () => {
       text2: "total opening",
     },
 
+    //
     //Project
     // {
     //   name: "project hub",
