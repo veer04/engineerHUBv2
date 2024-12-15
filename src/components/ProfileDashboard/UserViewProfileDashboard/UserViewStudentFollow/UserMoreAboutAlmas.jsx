@@ -1,17 +1,15 @@
 import React, { useState } from "react";
-import "./userviewstudentfollow.css";
+import "./UserMoreAboutAlmas.css";
 import { API_URL, Bucket_URL } from "../../../../services/APIUtils";
-
-import { Bounce, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import { getUserId } from "../../../../features/User/UserDetails";
 import { getAccessToken } from "../../../../features/getCookieValues";
 import axios from "axios";
+import { Bounce, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-const UserViewStudentFollow = ({ title, fellowUsers }) => {
+const UserMoreAboutAlamas = ({ title, almaData }) => {
   const [followState, setFollowState] = useState({});
-  const [sectionsToShow, setSectionsToShow] = useState(2);
   const [loadingState, setLoadingState] = useState({});
+  const [sectionsToShow, setSectionsToShow] = useState(2);
 
   const handleViewMoreClick = () => {
     setSectionsToShow(sectionsToShow + 2);
@@ -108,63 +106,41 @@ const UserViewStudentFollow = ({ title, fellowUsers }) => {
   };
 
   return (
-    <div className="user-view-student-follow-main-div">
-      <h3
-        style={{
-          fontSize: 18,
-          fontWeight: 600,
-          lineHeight: "24px",
-          color: "#002B36",
-          marginBottom: 0,
-          textTransform: "uppercase",
-        }}
-      >
-        {title}
-      </h3>
-
-      {fellowUsers &&
-        fellowUsers?.students?.slice(0, sectionsToShow).map((user, index) => (
-          <>
-            <div key={index}>
+    <>
+      <div className="user-view-student-follow-main-div-more-about-almas">
+        {almaData &&
+          almaData?.alumni?.slice(0, sectionsToShow).map((user, index) => (
+            <div key={index} className="user-follow-card">
               <div className="user-follow-section-with-img">
                 <div className="user-follow-section-with-img-left">
                   <img
                     src={
-                      user.profile?.image &&
-                      user.profile?.image.includes("frontendehubbucket")
-                        ? user.profile?.image
+                      user.image && user?.image.includes("frontendehubbucket")
+                        ? user?.image
                         : `${Bucket_URL}UserViewDashboard/profile_follow.png`
                     }
-                    className="profile-img-userfollow"
-                    alt="img"
+                    alt="profile_img"
                     width={48}
                     height={48}
                   />
                 </div>
-
-                <div
-                  className="
-        user-follow-section-with-img-right"
-                >
+                <div className="user-follow-section-with-img-right">
                   <h3
                     style={{
                       fontSize: 16,
                       fontWeight: 600,
-                      lineHeight: "24px",
                       color: "#002B36",
-                      marginBottom: 0,
+                      marginBottom: 5,
                     }}
                   >
-                    {user.profile?.firstName} {user.profile?.lastName}
+                    {user.firstName} {user.profile?.lastName}
                   </h3>
-
                   <h5
                     style={{
                       fontSize: 14,
                       fontWeight: 400,
-                      lineHeight: "20px",
                       color: "#547178",
-                      marginBottom: 10,
+                      marginBottom: 8,
                       display: "-webkit-box",
                       WebkitLineClamp: 2,
                       WebkitBoxOrient: "vertical",
@@ -172,9 +148,8 @@ const UserViewStudentFollow = ({ title, fellowUsers }) => {
                       textOverflow: "ellipsis",
                     }}
                   >
-                    {user.profile?.aboutMe || "No about me available."}
+                    {user.bio || "No about me available."}
                   </h5>
-
                   <button
                     onClick={() => handleFollowClick(user._id)}
                     className={
@@ -192,23 +167,20 @@ const UserViewStudentFollow = ({ title, fellowUsers }) => {
                   </button>
                 </div>
               </div>
-
-              {index !== fellowUsers.students.length - 1 && (
-                <div
-                  style={{
-                    background: "#D9D9D9",
-                    height: "2px",
-                    margin: "10px 0px",
-                  }}
-                ></div>
-              )}
             </div>
-          </>
-        ))}
+          ))}
+      </div>
 
-      {sectionsToShow < 6 && fellowUsers?.students?.length > 2 && (
-        <div style={{ marginTop: 15, padding: "8px 16px" }}>
+      {sectionsToShow < almaData.alumni.length && (
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
           <button
+            className="view-more-btn-clubs"
             onClick={handleViewMoreClick}
             style={{
               display: "flex",
@@ -218,7 +190,6 @@ const UserViewStudentFollow = ({ title, fellowUsers }) => {
               outline: "none",
               fontSize: 14,
               fontWeight: 700,
-              lineHeight: "20px",
               color: "#138382",
             }}
           >
@@ -226,8 +197,8 @@ const UserViewStudentFollow = ({ title, fellowUsers }) => {
           </button>
         </div>
       )}
-    </div>
+    </>
   );
 };
 
-export default UserViewStudentFollow;
+export default UserMoreAboutAlamas;

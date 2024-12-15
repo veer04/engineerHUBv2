@@ -23,8 +23,17 @@ const ProfileWithFollowAndMail = ({ DashboardAdminData }) => {
   //   setFollowActive(!isFollowActive);
   // };
 
+  const handleViewResume = () => {
+    if (DashboardAdminData) {
+      window.open(DashboardAdminData.resume, "_blank");
+    } else {
+      toast.error("Resume not available yet!");
+    }
+  };
+
   const handleMailClick = () => {
     setMailActive(!isMailActive);
+    window.location.href = `mailto:${DashboardAdminData.email}`;
   };
 
   const handleThumbsUpClick = () => {
@@ -121,11 +130,17 @@ const ProfileWithFollowAndMail = ({ DashboardAdminData }) => {
   return (
     <div className="main-profile-with-follow-and-mail">
       <div className="img-share-div">
-        <img
-          src={(DashboardAdminData && DashboardAdminData.image) || "/g2.svg"}
-          className="g2-img"
-          alt="g2_img"
-        />
+        {!DashboardAdminData ? (
+          <div className="loader-main-div">
+            <span className="loader-new-saif1"></span>
+          </div>
+        ) : (
+          <img
+            src={(DashboardAdminData && DashboardAdminData.image) || "/g2.svg"}
+            className="g2-img"
+            alt="g2_img"
+          />
+        )}
 
         <div>
           <div onClick={handleThumbsUpClick} className="img-thumbsup-div">
@@ -158,9 +173,12 @@ const ProfileWithFollowAndMail = ({ DashboardAdminData }) => {
       </div>
 
       <div className="name-desc-div">
-        <h3 className="g-3-text">{`${
-          DashboardAdminData && DashboardAdminData?.firstName
-        } ${DashboardAdminData?.lastName}`}</h3>
+        <h3 className="g-3-text">
+          {" "}
+          {DashboardAdminData
+            ? `${DashboardAdminData.firstName} ${DashboardAdminData.lastName}`
+            : "Your Name"}
+        </h3>
         <h2
           style={{
             fontWeight: 400,
@@ -276,7 +294,7 @@ const ProfileWithFollowAndMail = ({ DashboardAdminData }) => {
           </div>
           <div className="update-view-trash-download">
             <div className="update-view-btn">
-              <button>View</button>
+              <button onClick={handleViewResume}>View</button>
             </div>
           </div>
         </div>

@@ -1,8 +1,44 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./userstats.css";
 import { ImStatsBars2 } from "react-icons/im";
+import axios from "axios";
+import { API_URL } from "../../../../services/APIUtils";
+import { getUserId } from "../../../../features/User/UserDetails";
+import { Bounce, toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-const UserStatsSection = () => {
+const UserStatsSection = ({ DashboardAdminData }) => {
+  const [statsData, setStatsData] = useState([]);
+
+  const getStatsData = async () => {
+    const userId = getUserId();
+    try {
+      const response = await axios.get(
+        `${API_URL}api/v1/userDashboard/public-stats/${userId}`
+      );
+
+      if (response.data) {
+        // console.log(response.data, "stats data");
+        setStatsData(response.data?.data?.applicationStats);
+      } else {
+        console.error("Error getting the stats data");
+      }
+    } catch (error) {
+      console.error("Error getting the stats data", error);
+    }
+  };
+
+  useEffect(() => {
+    getStatsData();
+  }, []);
+
+  // const totalApplications = statsData[0]?.total || 0;
+
+  const totalApplications = statsData.reduce(
+    (sum, stat) => sum + stat.total,
+    0
+  );
+
   return (
     <div className="main-user-stats-secttion">
       <div className="user-stats-title-section">
@@ -16,7 +52,9 @@ const UserStatsSection = () => {
             marginBottom: 0,
           }}
         >
-          Girish's Stats
+          {DashboardAdminData
+            ? `${DashboardAdminData.firstName}'s Stats`
+            : "Your Stats"}
         </h3>
       </div>
 
@@ -32,7 +70,7 @@ const UserStatsSection = () => {
               textAlign: "center",
             }}
           >
-            98
+            {totalApplications}
           </h3>
 
           <h3
@@ -45,10 +83,10 @@ const UserStatsSection = () => {
               textAlign: "center",
             }}
           >
-            Jobs Applied
+            Opportunity Applied
           </h3>
         </div>
-        <div className="events-box-div-1">
+        {/* <div className="events-box-div-1">
           <h3
             style={{
               fontSize: 24,
@@ -72,7 +110,7 @@ const UserStatsSection = () => {
               textAlign: "center",
             }}
           >
-            Jobs Applied
+            Events Applied
           </h3>
         </div>
         <div className="projects-box-div-1">
@@ -99,7 +137,7 @@ const UserStatsSection = () => {
               textAlign: "center",
             }}
           >
-            Jobs Applied
+            Projects Completed
           </h3>
         </div>
         <div className="posts-box-div-1">
@@ -113,7 +151,7 @@ const UserStatsSection = () => {
               textAlign: "center",
             }}
           >
-            98
+            5
           </h3>
 
           <h3
@@ -126,9 +164,9 @@ const UserStatsSection = () => {
               textAlign: "center",
             }}
           >
-            Jobs Applied
+            Posts
           </h3>
-        </div>
+        </div> */}
       </div>
     </div>
   );
