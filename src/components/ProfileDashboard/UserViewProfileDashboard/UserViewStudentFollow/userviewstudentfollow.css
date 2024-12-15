@@ -13,6 +13,36 @@
   margin-top: 10px;
 }
 
+.user-view-student-follow-main-div .profile-img-userfollow {
+  border-radius: 50%;
+}
+
+.user-view-student-follow-main-div .btn-default {
+  background-color: #128381;
+  color: white;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  padding: 4px 16px;
+  border: 1px solid #128381;
+  outline: none;
+  transition: 0.2s ease;
+  border-radius: 8px;
+}
+
+.user-view-student-follow-main-div .btn-active {
+  background-color: rgba(19, 131, 130, 0.05);
+  color: #138382;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  padding: 4px 16px;
+  border: 1px solid #138382;
+  outline: none;
+  transition: 0.2s ease;
+  border-radius: 8px;
+}
+
 .user-view-student-follow-main-div {
 }
 
@@ -20,4 +50,21 @@
 }
 
 @media screen and (max-width: 820px) {
+}
+
+.loader-0000 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  aspect-ratio: 4;
+  background: radial-gradient(circle closest-side, #5dfffc 90%, #cecece00) 0 /
+    calc(100% / 3) 100% space;
+  clip-path: inset(0 100% 0 0);
+  animation: l1 1s steps(4) infinite;
+}
+@keyframes l1 {
+  to {
+    clip-path: inset(0 -34% 0 0);
+  }
 }

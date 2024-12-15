@@ -24,8 +24,8 @@
 .events-box-div-1,
 .projects-box-div-1,
 .posts-box-div-1 {
-  width: 146px;
-  height: 76px;
+  width: 100%;
+  height: auto;
   background-color: rgba(143, 200, 232, 0.25);
   padding: 12px;
   border-radius: 8px;
