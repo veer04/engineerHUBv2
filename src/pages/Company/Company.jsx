@@ -133,6 +133,7 @@ const Company = () => {
   //       }
   //     });
   // };
+  //
 
   const getEventByType = (setEvents) => {
     axios
