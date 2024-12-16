@@ -94,7 +94,10 @@ const ProfileDashboardEdit = () => {
 
       <main className="profile-dashboard-edit-start-div">
         <div className="profile-dashboard-edit-left-div">
-          <ProfileAddSectionLeft profileData={profileData} />
+          <ProfileAddSectionLeft
+            profileData={profileData}
+            setProfileData={setProfileData}
+          />
 
           <ProfileCompletionEditSection />
         </div>

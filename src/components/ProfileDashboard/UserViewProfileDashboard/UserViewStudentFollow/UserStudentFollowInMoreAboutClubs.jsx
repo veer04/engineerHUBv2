@@ -109,11 +109,12 @@ const UserStudentFollowInMoreAboutClubs = ({ title, clubData }) => {
   return (
     <>
       <div className="user-view-student-follow-main-div-more-about">
-        {clubData.clubs.slice(0, sectionsToShow).map((user, index) => (
+        {clubData?.clubs?.slice(0, sectionsToShow).map((user, index) => (
           <div key={index} className="user-follow-card">
             <div className="user-follow-section-with-img">
               <div className="user-follow-section-with-img-left">
                 <img
+                  className="profile-img-club"
                   src={
                     user.image && user?.image.includes("frontendehubbucket")
                       ? user?.image
@@ -133,7 +134,7 @@ const UserStudentFollowInMoreAboutClubs = ({ title, clubData }) => {
                     marginBottom: 5,
                   }}
                 >
-                  {user.firstName} {user.profile?.lastName}
+                  {user?.name || "No Club name  available."}
                 </h3>
                 <h5
                   style={{
@@ -148,7 +149,7 @@ const UserStudentFollowInMoreAboutClubs = ({ title, clubData }) => {
                     textOverflow: "ellipsis",
                   }}
                 >
-                  {user.bio || "No about me available."}
+                  {/* {user.name || "No Club name  available."} */}
                 </h5>
                 <button
                   onClick={() => handleFollowClick(user._id)}

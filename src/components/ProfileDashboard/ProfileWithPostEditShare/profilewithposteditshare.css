@@ -17,6 +17,36 @@
   border-radius: 50%;
 }
 
+.main-profile-with-post-share .thumbs-up-and-follow-main-div {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  gap: 15px;
+}
+
+.main-profile-with-post-share .profile-img-follow-main-div {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.main-profile-with-post-share .profile-img-follow {
+  background-color: white;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+}
+.main-profile-with-post-share .img-thumsup-main-div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 .main-profile-with-post-share .img-thumbsup-div {
   background-color: white;
   width: 40px;
@@ -25,7 +55,7 @@
   justify-content: center;
   align-items: center;
   border-radius: 50%;
-  margin-left: 5px;
+  margin-left: 0px;
   cursor: pointer;
   transition: transform 0.2s ease-in-out;
 }

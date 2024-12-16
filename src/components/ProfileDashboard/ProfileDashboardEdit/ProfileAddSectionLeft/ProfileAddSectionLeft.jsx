@@ -8,11 +8,13 @@ import "react-toastify/dist/ReactToastify.css";
 import { patchProfilePicture } from "../../../../services/APIConfig";
 import { getAccessToken } from "../../../../features/getCookieValues";
 
-const ProfileAddSectionLeft = ({ profileData }) => {
+const ProfileAddSectionLeft = ({ profileData, setProfileData }) => {
   const fileInputRef = useRef(null);
   const [profilePhoto, setProfilePhoto] = useState(profileData?.image || null);
   const [newImage, setNewImage] = useState(null);
   const [isImageLoading, setIsImageLoading] = useState(false);
+
+  // console.log(profileData.image);
 
   useEffect(() => {
     if (!!newImage) {
@@ -37,9 +39,14 @@ const ProfileAddSectionLeft = ({ profileData }) => {
               transition: Bounce,
             });
 
-            setProfilePhoto(
-              response.data.imageUrl || URL.createObjectURL(newImage)
-            );
+            const imageUrl =
+              response.data.imageUrl || URL.createObjectURL(newImage);
+            setProfilePhoto(imageUrl);
+
+            setProfileData((prevProfileData) => ({
+              ...prevProfileData,
+              image: imageUrl,
+            }));
           } else {
             toast.error("Failed to upload profile photo.");
             console.error("Upload error:", response);
@@ -52,7 +59,7 @@ const ProfileAddSectionLeft = ({ profileData }) => {
         setNewImage(null);
       }
     }
-  }, [newImage]);
+  }, [newImage, setProfileData]);
 
   const handleUploadClick = () => {
     fileInputRef.current.click();
@@ -68,13 +75,13 @@ const ProfileAddSectionLeft = ({ profileData }) => {
   return (
     <div className="profile-add-section-main">
       <div className="image-section">
-        {isImageLoading ? (
+        {!profileData || isImageLoading ? (
           <div className="loader-main-div">
             <span class="loader-new"></span>
           </div>
         ) : (
           <img
-            src={profilePhoto || "/g2.svg"}
+            src={(profileData && profileData?.image) || "/g2.svg"}
             className="g2-img-left"
             alt="Profile"
             width={100}
