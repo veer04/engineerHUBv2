@@ -23,6 +23,10 @@
   margin-top: 10px;
 }
 
+.user-view-student-follow-main-div-more-about-almas .profile-img-alumni {
+  border-radius: 50%;
+}
+
 .user-view-student-follow-main-div-more-about-almas
   .user-follow-section-with-img-left {
   flex-shrink: 0;

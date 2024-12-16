@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./profilewithposteditshare.css";
 import { FaRegThumbsUp } from "react-icons/fa";
 import { FaThumbsUp } from "react-icons/fa";
@@ -17,12 +17,30 @@ const ProfileWithPostEditShare = ({
   privateDashboardData,
   setPrivateDashboardData,
 }) => {
+  console.log(privateDashboardData?.resume);
   const [isLiked, setIsLiked] = useState(false);
   const [likeCount, setLikeCount] = useState(0);
-  const [isResumeUploaded, setIsResumeUploaded] = useState(false);
+  const [isResumeUploaded, setIsResumeUploaded] = useState(
+    !!privateDashboardData?.resume
+  );
+
+  const [uploadedFileName, setUploadedFileName] = useState(
+    privateDashboardData?.resume
+      ? privateDashboardData?.resume.split("/").pop()
+      : ""
+  );
   const [resume, setResume] = useState(null);
   const [resumeUrl, setResumeUrl] = useState("");
   const fileInputRef = React.useRef(null);
+  const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    if (privateDashboardData?.resume) {
+      setIsResumeUploaded(true);
+      setUploadedFileName(privateDashboardData?.resume?.split("/").pop());
+    }
+  }, [privateDashboardData?.resume]);
+
   const handleResumeUploadClick = () => {
     fileInputRef.current.click();
   };
@@ -72,11 +90,50 @@ const ProfileWithPostEditShare = ({
     }
   };
 
+  const handleEditPage = () => {
+    window.open("/profiledashboardedit", "_blank");
+  };
+
+  const handlePostPage = () => {
+    window.open("/host", "_blank");
+  };
+
   const handleViewResume = () => {
-    if (resumeUrl) {
-      window.open(resumeUrl, "_blank");
+    if (privateDashboardData?.resume) {
+      window.open(privateDashboardData?.resume, "_blank");
     } else {
       toast.error("Resume URL not available yet!");
+    }
+  };
+
+  const downloadResume = async () => {
+    try {
+      const response = await axios({
+        url: `${API_URL}api/v1/downloadPdf?title=${privateDashboardData?.resume}&url=${privateDashboardData?.resume}`,
+        method: "POST",
+        data: { title: resumeUrl, url: privateDashboardData?.resume },
+        responseType: "blob",
+        onDownloadProgress: (progressEvent) => {
+          let percentCompleted = Math.round(
+            (progressEvent.loaded * 100) / progressEvent.total
+          );
+          setProgress(percentCompleted);
+        },
+      });
+
+      setProgress(100);
+      const blob = new Blob([response.data], {
+        type: "application/pdf",
+      });
+
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.setAttribute("download", `${privateDashboardData?.resume}`);
+      link.click();
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -93,39 +150,85 @@ const ProfileWithPostEditShare = ({
           </div>
         ) : (
           <img
-            src={privateDashboardData.image || "/g2.svg"}
+            src={privateDashboardData?.image || "/g2.svg"}
             className="g2-img"
             alt="g2_img"
           />
         )}
 
         <div>
-          <div onClick={handleThumbsUpClick} className="img-thumbsup-div">
-            {isLiked ? (
-              <FaThumbsUp
-                className="thumbs-up-icon animate"
-                color="#128381"
-                size={22}
-              />
-            ) : (
-              <FaRegThumbsUp
-                className="thumbs-up-icon animate"
-                color="#128381"
-                size={22}
-              />
-            )}
+          <div className="thumbs-up-and-follow-main-div">
+            <div className="profile-img-follow-main-div">
+              <div className="profile-img-follow">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                >
+                  <path
+                    d="M20 21V19C20 17.9391 19.5786 16.9217 18.8284 16.1716C18.0783 15.4214 17.0609 15 16 15H8C6.93913 15 5.92172 15.4214 5.17157 16.1716C4.42143 16.9217 4 17.9391 4 19V21"
+                    stroke="#138382"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                  <path
+                    d="M12 11C14.2091 11 16 9.20914 16 7C16 4.79086 14.2091 3 12 3C9.79086 3 8 4.79086 8 7C8 9.20914 9.79086 11 12 11Z"
+                    stroke="#138382"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </div>
+
+              <h4
+                style={{
+                  fontSize: 12,
+                  marginTop: 5,
+                  color: "white",
+                  fontWeight: 400,
+                  marginLeft: 3,
+                }}
+              >
+                {`${
+                  privateDashboardData && privateDashboardData.followers
+                    ? privateDashboardData.followers
+                    : "25"
+                } Followers`}
+              </h4>
+            </div>
+            <div className="img-thumsup-main-div">
+              <div onClick={handleThumbsUpClick} className="img-thumbsup-div">
+                {isLiked ? (
+                  <FaThumbsUp
+                    className="thumbs-up-icon animate"
+                    color="#128381"
+                    size={22}
+                  />
+                ) : (
+                  <FaRegThumbsUp
+                    className="thumbs-up-icon animate"
+                    color="#128381"
+                    size={22}
+                  />
+                )}
+              </div>
+              <h4
+                style={{
+                  fontSize: 12,
+                  marginTop: 5,
+                  color: "white",
+                  fontWeight: 400,
+                  marginLeft: 3,
+                }}
+              >
+                {likeCount} {likeCount === 1 ? "Like" : "Likes"}
+              </h4>
+            </div>
           </div>
-          <h4
-            style={{
-              fontSize: 12,
-              marginTop: 5,
-              color: "white",
-              fontWeight: 400,
-              marginLeft: 3,
-            }}
-          >
-            {likeCount} {likeCount === 1 ? "Like" : "Likes"}
-          </h4>
         </div>
       </div>
 
@@ -144,53 +247,62 @@ const ProfileWithPostEditShare = ({
             color: "#f3f3f3",
           }}
         >
-          Associate Software engineer at company name
+          {privateDashboardData?.aboutMe ||
+            "Associate Software engineer at company name"}
         </h2>
       </div>
 
-      <div style={{ marginTop: 10 }} className="icon-div">
-        <div>
-          <FaGraduationCap size={22} color="white" />
-        </div>
-        <div>
-          <h3
-            style={{
-              fontWeight: 400,
-              fontSize: 14,
+      {privateDashboardData &&
+        privateDashboardData.educationDetails.length > 0 && (
+          <div style={{ marginTop: 10 }} className="icon-div">
+            <div>
+              <FaGraduationCap size={22} color="white" />
+            </div>
+            <div>
+              <h3
+                style={{
+                  fontWeight: 400,
+                  fontSize: 14,
 
-              lineHeight: "22px",
-              color: "#f3f3f3",
-              marginBottom: 0,
-            }}
-          >
-            Ajay Kumar Garg Engineering College
-          </h3>
-        </div>
-      </div>
+                  lineHeight: "22px",
+                  color: "#f3f3f3",
+                  marginBottom: 0,
+                }}
+              >
+                {privateDashboardData.educationDetails[0].collegeId
+                  .collegeName || " Ajay Kumar Garg Engineering College"}
+              </h3>
+            </div>
+          </div>
+        )}
 
-      <div style={{ marginTop: 5 }} className="icon-div">
-        <div>
-          <HiOutlineBuildingOffice2 size={22} color="white" />
-        </div>
-        <div>
-          <h3
-            style={{
-              fontWeight: 400,
-              fontSize: 14,
+      {privateDashboardData &&
+        privateDashboardData.educationDetails.length > 0 && (
+          <div style={{ marginTop: 5 }} className="icon-div">
+            <div>
+              <HiOutlineBuildingOffice2 size={22} color="white" />
+            </div>
+            <div>
+              <h3
+                style={{
+                  fontWeight: 400,
+                  fontSize: 14,
 
-              lineHeight: "22px",
-              color: "#f3f3f3",
-              marginBottom: 0,
-            }}
-          >
-            engineerHub
-          </h3>
-        </div>
-      </div>
+                  lineHeight: "22px",
+                  color: "#f3f3f3",
+                  marginBottom: 0,
+                }}
+              >
+                {privateDashboardData.experienceDetails[0].organisationName ||
+                  "engineerHub"}
+              </h3>
+            </div>
+          </div>
+        )}
 
       <div className="btn-siv-edit-post-share">
-        <button>Edit</button>
-        <button>Post</button>
+        <button onClick={handleEditPage}>Edit</button>
+        <button onClick={handlePostPage}>Post</button>
         <button>Share</button>
       </div>
 
@@ -247,12 +359,13 @@ const ProfileWithPostEditShare = ({
 
           <div className="update-view-trash-download">
             <div className="update-view-btn">
-              <button>Update</button>
+              <button onClick={handleResumeUploadClick}>Update</button>
               <button onClick={handleViewResume}>View</button>
             </div>
 
             <div className="download-trash-icon">
               <div
+                onClick={downloadResume}
                 style={{
                   backgroundColor: "#1383821a",
                   width: 40,

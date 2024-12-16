@@ -114,6 +114,7 @@ const UserMoreAboutAlamas = ({ title, almaData }) => {
               <div className="user-follow-section-with-img">
                 <div className="user-follow-section-with-img-left">
                   <img
+                    className="profile-img-alumni"
                     src={
                       user.image && user?.image.includes("frontendehubbucket")
                         ? user?.image
