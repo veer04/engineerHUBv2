@@ -12,6 +12,9 @@
   gap: 10px;
   margin-top: 10px;
 }
+.user-view-student-follow-main-div-also-follow .user-follows-saif {
+  border-radius: 50%;
+}
 
 .user-view-student-follow-main-div-also-follow .btn-default {
   background-color: #128381;

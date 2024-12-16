@@ -30,8 +30,8 @@ const MoreAboutYourCollegeSection = ({
       >
         {` More about ${
           DashboardAdminData &&
-          DashboardAdminData.educationDetails &&
-          DashboardAdminData?.educationDetails[0].collegeId.collegeName
+          DashboardAdminData?.educationDetails &&
+          DashboardAdminData?.educationDetails?.[0]?.collegeId?.collegeName
         }`}
       </h3>
 

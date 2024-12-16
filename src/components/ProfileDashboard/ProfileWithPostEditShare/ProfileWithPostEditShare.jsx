@@ -17,7 +17,6 @@ const ProfileWithPostEditShare = ({
   privateDashboardData,
   setPrivateDashboardData,
 }) => {
-  console.log(privateDashboardData?.resume);
   const [isLiked, setIsLiked] = useState(false);
   const [likeCount, setLikeCount] = useState(0);
   const [isResumeUploaded, setIsResumeUploaded] = useState(

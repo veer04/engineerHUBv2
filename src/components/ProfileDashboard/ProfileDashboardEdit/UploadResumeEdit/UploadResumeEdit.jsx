@@ -13,23 +13,23 @@ const UploadResumeEdit = ({ profileData, setProfileData }) => {
   const [resumeUrl, setResumeUrl] = useState(profileData?.resume || "");
   const fileInputRef = React.useRef(null);
   const [uploadMessage, setUploadMessage] = useState("");
-  const [isUploaded, setIsUploaded] = useState(!!profileData.resume);
+  const [isUploaded, setIsUploaded] = useState(!!profileData?.resume);
   const [uploadedFileName, setUploadedFileName] = useState(
-    profileData.resume ? profileData.resume.split("/").pop() : ""
+    profileData?.resume ? profileData?.resume.split("/").pop() : ""
   );
   const [uploadDate, setUploadDate] = useState(
-    profileData.resume ? moment().format("YYYY-MM-DD") : ""
+    profileData?.resume ? moment().format("YYYY-MM-DD") : ""
   );
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    if (profileData.resume) {
+    if (profileData?.resume) {
       setIsUploaded(true);
-      setUploadedFileName(profileData.resume.split("/").pop());
-      setResumeUrl(profileData.resume);
+      setUploadedFileName(profileData?.resume.split("/").pop());
+      setResumeUrl(profileData?.resume);
       setUploadDate(moment().format("YYYY-MM-DD"));
     }
-  }, [profileData.resume]);
+  }, [profileData?.resume]);
 
   const handleResumeUploadClick = () => {
     fileInputRef.current.click();

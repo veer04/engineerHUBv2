@@ -172,7 +172,7 @@ const UserMoreAboutAlamas = ({ title, almaData }) => {
           ))}
       </div>
 
-      {sectionsToShow < almaData.alumni.length && (
+      {sectionsToShow < almaData?.alumni?.length && (
         <div
           style={{
             display: "flex",
