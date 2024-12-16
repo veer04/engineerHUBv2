@@ -1,0 +1,190 @@
+import React, { useState } from "react";
+import "./recommendationcard1.css";
+import { FaRegEye } from "react-icons/fa";
+import { IoEyeOffOutline } from "react-icons/io5";
+
+const RecommendationCard2Activity = ({ data }) => {
+  const [isEyeVisible, setIsEyeVisible] = useState(false);
+
+  const toggleAmountShow = () => {
+    setIsEyeVisible(!isEyeVisible);
+  };
+
+  return (
+    <>
+      {data.map((job, index) => (
+        <div className="recommendation-card1-main" key={index}>
+          <div>
+            <h4
+              style={{
+                fontSize: 12,
+                fontWeight: 400,
+                lineHeight: "16px",
+                color: "#002B36",
+                marginBottom: 0,
+              }}
+            >
+              {job.organisationName}
+            </h4>
+
+            <h3
+              style={{
+                fontSize: 16,
+                fontWeight: 700,
+                lineHeight: "24px",
+                color: "#002B36",
+                marginBottom: 0,
+              }}
+            >
+              {job.opportunityName}
+            </h3>
+          </div>
+          {/* //recommendation profile data */}
+          <div style={{ marginTop: 5 }} className="icon-section-recommended-1">
+            <div style={{ display: "flex", gap: "8px", alignItems: "center" }}>
+              <div>
+                <img src="./location3.svg" alt="" />
+              </div>
+
+              <h3
+                style={{
+                  fontSize: 14,
+                  fontWeight: 400,
+                  lineHeight: "20px",
+                  color: "#002B36",
+                  marginBottom: 0,
+                  marginTop: 3,
+                }}
+              >
+                {job.city} ({job.opportunityLocation})
+              </h3>
+            </div>
+
+            <div></div>
+          </div>
+          <div style={{ marginTop: 3 }} className="icon-section-recommended-1">
+            <div style={{ display: "flex", gap: "8px", alignItems: "center" }}>
+              <div>
+                <img src="./salary.svg" alt="" />
+              </div>
+
+              <h3
+                style={{
+                  fontSize: 14,
+                  fontWeight: 400,
+                  lineHeight: "20px",
+                  color: "#002B36",
+                  marginBottom: 0,
+                  marginTop: 3,
+                }}
+              >
+                {job.showSalary ? job.salaryDisclosure : "Salary Not Disclosed"}
+              </h3>
+            </div>
+
+            <div></div>
+          </div>
+          <div style={{ marginTop: 3 }} className="icon-section-recommended-1">
+            <div style={{ display: "flex", gap: "8px", alignItems: "center" }}>
+              <div>
+                <img src="./experience.svg" alt="" />
+              </div>
+
+              <h3
+                style={{
+                  fontSize: 14,
+                  fontWeight: 400,
+                  lineHeight: "20px",
+                  color: "#002B36",
+                  marginBottom: 0,
+                  marginTop: 3,
+                }}
+              >
+                {job.isForFreshers
+                  ? "Fresher"
+                  : `${job.minExperience}-${job.maxExperience} Years` ||
+                    `1-2 Years`}
+              </h3>
+            </div>
+
+            <div className="absolute-position-amazon">
+              <img
+                style={{ borderRadius: "50%" }}
+                src={job.organisationLogo}
+                width={48}
+                height={48}
+                alt=""
+              />
+            </div>
+          </div>
+
+          {/* //recommendation profile data end */}
+
+          <div
+            style={{
+              height: 1,
+              background: "#B0B0B0",
+              alignSelf: "stretch",
+              marginTop: 10,
+            }}
+          ></div>
+
+          {/* //border end */}
+
+          {/* //button div */}
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              marginTop: 10,
+            }}
+          >
+            <button
+              style={{
+                background: "#eaf7e2",
+                border: "1px solid #69d578",
+                fontSize: 12,
+                fontWeight: 400,
+                lineHeight: "16px",
+                padding: "4px 4px",
+                borderRadius: 5,
+              }}
+            >
+              New Opening
+            </button>
+
+            {/* //eye div saif */}
+            <div style={{ display: "flex", gap: 3 }}>
+              {isEyeVisible ? (
+                <FaRegEye
+                  onClick={toggleAmountShow}
+                  style={{ cursor: "pointer" }}
+                />
+              ) : (
+                <IoEyeOffOutline
+                  onClick={toggleAmountShow}
+                  style={{ cursor: "pointer" }}
+                />
+              )}
+
+              <h3
+                style={{
+                  fontSize: 12,
+                  fontWeight: 400,
+                  lineHeight: "16px",
+                  color: "#002B36",
+                  marginBottom: 0,
+                }}
+              >
+                {isEyeVisible ? "1200" : "xxxx"}
+              </h3>
+            </div>
+          </div>
+        </div>
+      ))}
+    </>
+  );
+};
+
+export default RecommendationCard2Activity;

@@ -10,11 +10,7 @@ const UserViewStudentFollowAlsoFollow = ({ title, followUsers }) => {
   const [loadingState, setLoadingState] = useState({});
   const [sectionsToShow, setSectionsToShow] = useState(2);
 
-  const handleButtonClick = (index) => {
-    const newState = [...isFollowing];
-    newState[index] = !newState[index];
-    setIsFollowing(newState);
-  };
+  console.log(followUsers, "followusers");
 
   const handleViewMoreClick = () => {
     setSectionsToShow(sectionsToShow + 2);
@@ -110,49 +106,6 @@ const UserViewStudentFollowAlsoFollow = ({ title, followUsers }) => {
     }
   };
 
-  const users = [
-    {
-      name: "Hema Priya U",
-      description:
-        "Top UX Design Voice| UI UX designer l Talks about products, design, human psychology and AI",
-    },
-    {
-      name: "Asmita Biswas",
-      description:
-        "Top UX Design Voice| UI UX designer l Talks about products, design, human psychology and AI",
-    },
-    {
-      name: "John Doe",
-      description:
-        "Product Manager | Passionate about leadership, strategy, and innovation",
-    },
-    {
-      name: "Jane Smith",
-      description:
-        "UX Researcher | Enthusiastic about human-centered design and digital products",
-    },
-    {
-      name: "Hema Priya U",
-      description:
-        "Top UX Design Voice| UI UX designer l Talks about products, design, human psychology and AI",
-    },
-    {
-      name: "Asmita Biswas",
-      description:
-        "Top UX Design Voice| UI UX designer l Talks about products, design, human psychology and AI",
-    },
-    {
-      name: "John Doe",
-      description:
-        "Product Manager | Passionate about leadership, strategy, and innovation",
-    },
-    {
-      name: "Jane Smith",
-      description:
-        "UX Researcher | Enthusiastic about human-centered design and digital products",
-    },
-  ];
-
   return (
     <div className="user-view-student-follow-main-div-also-follow">
       <h3
@@ -168,81 +121,92 @@ const UserViewStudentFollowAlsoFollow = ({ title, followUsers }) => {
         {title}
       </h3>
 
-      {users.slice(0, sectionsToShow).map((user, index) => (
-        <>
-          <div key={index}>
-            <div className="user-follow-section-with-img">
-              <div className="user-follow-section-with-img-left">
-                <img
-                  src={`${Bucket_URL}UserViewDashboard/profile_follow.png`}
-                  alt="profile_img"
-                  width={48}
-                  height={48}
-                />
+      {followUsers?.followings
+        ?.slice(0, sectionsToShow)
+        .map((followingItem, index) =>
+          followingItem.following.map((user, userIndex) => (
+            <div key={`${index}-${userIndex}`}>
+              <div className="user-follow-section-with-img">
+                <div className="user-follow-section-with-img-left">
+                  <img
+                    className="user-follows-saif"
+                    src={
+                      user?.image && user?.image.includes("frontendehubbucket")
+                        ? user?.image
+                        : `${Bucket_URL}UserViewDashboard/profile_follow.png`
+                    }
+                    alt="profile_img"
+                    width={48}
+                    height={48}
+                  />
+                </div>
+
+                <div className="user-follow-section-with-img-right">
+                  <h3
+                    style={{
+                      fontSize: 16,
+                      fontWeight: 600,
+                      lineHeight: "24px",
+                      color: "#002B36",
+                      marginBottom: 0,
+                    }}
+                  >
+                    {user.firstName} {user.lastName}
+                  </h3>
+
+                  <h5
+                    style={{
+                      fontSize: 14,
+                      fontWeight: 400,
+                      lineHeight: "20px",
+                      color: "#547178",
+                      marginBottom: 10,
+                      display: "-webkit-box",
+                      WebkitLineClamp: 2,
+                      WebkitBoxOrient: "vertical",
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                    }}
+                  >
+                    {user?.aboutMe || "No about me available."}
+                  </h5>
+
+                  <button
+                    onClick={() => handleFollowClick(user._id)}
+                    className={
+                      followState[user._id] ? "btn-active" : "btn-default"
+                    }
+                    disabled={loadingState[user._id]}
+                  >
+                    {loadingState[user._id] ? (
+                      <div className="loader-0000"></div>
+                    ) : followState[user._id] ? (
+                      "Following"
+                    ) : (
+                      "Follow"
+                    )}
+                  </button>
+                </div>
               </div>
 
-              <div
-                className="
-        user-follow-section-with-img-right"
-              >
-                <h3
+              {userIndex !== followingItem.following.length - 1 && (
+                <div
                   style={{
-                    fontSize: 16,
-                    fontWeight: 600,
-                    lineHeight: "24px",
-                    color: "#002B36",
-                    marginBottom: 0,
+                    background: "#D9D9D9",
+                    height: "2px",
+                    margin: "10px 0px",
                   }}
-                >
-                  {user.name}
-                </h3>
-
-                <h5
-                  style={{
-                    fontSize: 14,
-                    fontWeight: 400,
-                    lineHeight: "20px",
-                    color: "#547178",
-                    marginBottom: 10,
-                    display: "-webkit-box",
-                    WebkitLineClamp: 2,
-                    WebkitBoxOrient: "vertical",
-                    overflow: "hidden",
-                    textOverflow: "ellipsis",
-                  }}
-                >
-                  {user.description}
-                </h5>
-
-                <button
-                  onClick={() => handleFollowClick(user._id)}
-                  className={
-                    followState[user._id] ? "btn-active" : "btn-default"
-                  }
-                  disabled={loadingState[user._id]}
-                >
-                  {loadingState[user._id] ? (
-                    <div className="loader-0000"></div>
-                  ) : followState[user._id] ? (
-                    "Following"
-                  ) : (
-                    "Follow"
-                  )}
-                </button>
-              </div>
+                ></div>
+              )}
             </div>
-            <div
-              style={{
-                background: "#D9D9D9",
-                height: "2px",
-                margin: "10px 0px",
-              }}
-            ></div>
-          </div>
-        </>
-      ))}
+          ))
+        )}
 
-      {sectionsToShow < users.length && (
+      {sectionsToShow <
+        followUsers?.followings?.reduce(
+          (acc, followingItem) => acc + followingItem.following.length,
+          0
+        ) && (
         <div style={{ marginTop: 15, padding: "8px 16px" }}>
           <button
             onClick={handleViewMoreClick}
