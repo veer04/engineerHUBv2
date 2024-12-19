@@ -7,6 +7,8 @@ const RecommendationCard1 = ({ data }) => {
   // console.log(data, "jokbdata");
   const [isEyeVisible, setIsEyeVisible] = useState(false);
 
+  // console.log(data, "RecommendationData");
+
   const toggleAmountShow = () => {
     setIsEyeVisible(!isEyeVisible);
   };

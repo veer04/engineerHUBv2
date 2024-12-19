@@ -56,12 +56,11 @@ const PersonalInformationModal = ({
 
   useEffect(() => {
     if (isOpen && data) {
+      console.log(data, "data");
       setFormData({
         firstName: data.firstName || "",
         lastName: data.lastName || "",
-        dateOfBirth: data.dateOfBirth
-          ? new Date(data.dateOfBirth)?.toISOString().split("T")[0]
-          : "",
+        dateOfBirth: data.dateOfBirth || "",
         aboutMe: data.aboutMe || "",
         mobile: data.mobile || "",
         gender: data.gender || "",
