@@ -123,31 +123,33 @@ const PerformanceSection = () => {
           </h3>
         </div>
 
-        <div className="analytics-box-2">
-          <h3
-            style={{
-              fontSize: 20,
-              fontWeight: 700,
-              lineHeight: "24px",
-              color: "#002B36",
-              marginBottom: 0,
-            }}
-          >
-            98 Jobs
-          </h3>
+        {performaceData?.counts?.map((count, index) => (
+          <div className="analytics-box-2">
+            <h3
+              style={{
+                fontSize: 20,
+                fontWeight: 700,
+                lineHeight: "24px",
+                color: "#002B36",
+                marginBottom: 0,
+              }}
+            >
+              {count.total}
+            </h3>
 
-          <h3
-            style={{
-              fontSize: 12,
-              fontWeight: 400,
-              lineHeight: "16px",
-              color: "#486D76",
-              marginBottom: 0,
-            }}
-          >
-            Opportunity Applied
-          </h3>
-        </div>
+            <h3
+              style={{
+                fontSize: 12,
+                fontWeight: 400,
+                lineHeight: "16px",
+                color: "#486D76",
+                marginBottom: 0,
+              }}
+            >
+              Opportunity Applied
+            </h3>
+          </div>
+        ))}
 
         {performaceData &&
           performaceData?.counts?.map((c, index) => {
@@ -180,11 +182,7 @@ const PerformanceSection = () => {
                       }}
                     >
                       <img
-                        src={
-                          _id === "Shortlisted"
-                            ? "./arrow-green.svg"
-                            : "./arrow-up.svg"
-                        }
+                        src={"./arrow-green.svg"}
                         alt=""
                         width={"16px"}
                         height={"16px"}
@@ -201,12 +199,59 @@ const PerformanceSection = () => {
                       marginBottom: 0,
                     }}
                   >
-                    {_id}
+                    Shortlisted
                   </h3>
                 </div>
               </>
             );
           })}
+
+        <div className="analytics-box-3">
+          <div style={{ display: "flex", gap: 4 }}>
+            <h3
+              style={{
+                fontSize: 20,
+                fontWeight: 700,
+                lineHeight: "24px",
+                color: "#002B36",
+                marginBottom: 0,
+              }}
+            >
+              8
+            </h3>
+
+            <div
+              style={{
+                background: "#f4eded",
+                borderRadius: "50%",
+                width: 22,
+                height: 22,
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <img
+                src={"./arrow-up.svg"}
+                alt=""
+                width={"16px"}
+                height={"16px"}
+              />
+            </div>
+          </div>
+
+          <h3
+            style={{
+              fontSize: 12,
+              fontWeight: 400,
+              lineHeight: "16px",
+              color: "#486D76",
+              marginBottom: 0,
+            }}
+          >
+            Rejected
+          </h3>
+        </div>
       </div>
 
       {/* //table div */}

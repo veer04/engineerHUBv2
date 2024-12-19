@@ -1,4 +1,4 @@
-.user-view-student-follow-main-div {
+.user-view-student-follow-main-div-also-follow {
   width: 100%;
   height: auto;
   padding: 16px;
@@ -7,17 +7,16 @@
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.08);
 }
 
-.user-view-student-follow-main-div .user-follow-section-with-img {
+.user-view-student-follow-main-div-also-follow .user-follow-section-with-img {
   display: flex;
   gap: 10px;
   margin-top: 10px;
 }
-
-.user-view-student-follow-main-div .profile-img-userfollow {
+.user-view-student-follow-main-div-also-follow .user-follows-saif {
   border-radius: 50%;
 }
 
-.user-view-student-follow-main-div .btn-default {
+.user-view-student-follow-main-div-also-follow .btn-default {
   background-color: #128381;
   color: white;
   font-size: 14px;
@@ -30,7 +29,7 @@
   border-radius: 8px;
 }
 
-.user-view-student-follow-main-div .btn-active {
+.user-view-student-follow-main-div-also-follow .btn-active {
   background-color: rgba(19, 131, 130, 0.05);
   color: #138382;
   font-size: 14px;
@@ -43,28 +42,5 @@
   border-radius: 8px;
 }
 
-.user-view-student-follow-main-div {
-}
-
-.user-view-student-follow-main-div {
-}
-
 @media screen and (max-width: 820px) {
-}
-
-.loader-0000 {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 40px;
-  aspect-ratio: 4;
-  background: radial-gradient(circle closest-side, #5dfffc 90%, #cecece00) 0 /
-    calc(100% / 3) 100% space;
-  clip-path: inset(0 100% 0 0);
-  animation: l1 1s steps(4) infinite;
-}
-@keyframes l1 {
-  to {
-    clip-path: inset(0 -34% 0 0);
-  }
 }

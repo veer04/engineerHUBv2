@@ -1,13 +1,20 @@
 import React, { useState } from "react";
 import "./moreaboutyourcollegesection.css";
-import UserViewStudentFollow from "../UserViewStudentFollow/UserViewStudentFollow";
-import UserStudentFollowInMoreAbout from "../UserViewStudentFollow/UserStudentFollowInMoreAbout";
+import UserMoreAboutAlamas from "../UserViewStudentFollow/UserMoreAboutAlmas";
+import UserStudentFollowInMoreAboutClubs from "../UserViewStudentFollow/UserStudentFollowInMoreAboutClubs";
 
-const MoreAboutYourCollegeSection = () => {
+const MoreAboutYourCollegeSection = ({
+  DashboardAdminData,
+  aboutData,
+  clubData,
+  almaData,
+}) => {
   const [actionButton, setActionButton] = useState("About");
   const handleButtonClick = (buttonName) => {
     setActionButton(actionButton === buttonName ? null : buttonName);
   };
+
+  console.log(aboutData, "aboutData");
 
   return (
     <div className="more-about-college-main-div">
@@ -18,9 +25,14 @@ const MoreAboutYourCollegeSection = () => {
           lineHeight: "24px",
           color: "#002B36",
           marginBottom: 0,
+          textTransform: "uppercase",
         }}
       >
-        More about “AKGCE”
+        {` More about ${
+          DashboardAdminData &&
+          DashboardAdminData?.educationDetails &&
+          DashboardAdminData?.educationDetails?.[0]?.collegeId?.collegeName
+        }`}
       </h3>
 
       <div style={{ marginTop: 10 }}>
@@ -64,22 +76,30 @@ const MoreAboutYourCollegeSection = () => {
               textAlign: "justify",
             }}
           >
-            The college was established in 1998 and offers B.Tech Courses in all
-            major disciplines of Engineering. The college also offers M.Tech in
-            Electronics & Communication Engineering, Computer Science,
-            Electrical and Electronics Engineering and Mechanical Engineering.
-            The college has been consistently maintaining excellent academic
-            results and placements. The college has the distinction of being the
-            first and only college in UP to receive the Acedemic Excellence
-            Award for the Best Engineering College in UPTU from H.E. the
-            Governor of UP for two successive years.
+            {aboutData ? (
+              aboutData.college.aboutUs
+            ) : (
+              <p>
+                The college was established in 1998 and offers B.Tech Courses in
+                all major disciplines of Engineering. The college also offers
+                M.Tech in Electronics & Communication Engineering, Computer
+                Science, Electrical and Electronics Engineering and Mechanical
+                Engineering. The college has been consistently maintaining
+                excellent academic results and placements. The college has the
+                distinction of being the first and only college in UP to receive
+                the Acedemic Excellence Award for the Best Engineering College
+                in UPTU from H.E. the Governor of UP for two successive years.
+              </p>
+            )}
           </h4>
         </div>
       )}
 
-      {actionButton === "Clubs" && <UserStudentFollowInMoreAbout />}
+      {actionButton === "Clubs" && (
+        <UserStudentFollowInMoreAboutClubs clubData={clubData} />
+      )}
 
-      {actionButton === "Almas" && <UserViewStudentFollow />}
+      {actionButton === "Almas" && <UserMoreAboutAlamas almaData={almaData} />}
     </div>
   );
 };

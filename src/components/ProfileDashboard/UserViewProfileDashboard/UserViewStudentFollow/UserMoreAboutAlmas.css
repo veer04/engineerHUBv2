@@ -1,47 +1,43 @@
-.user-view-student-follow-main-div-more-about {
+.user-view-student-follow-main-div-more-about-almas {
   width: 100%;
   height: auto;
   padding: 16px;
   border-radius: 10px;
   background-color: white;
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(1, 1fr);
   gap: 16px;
 }
 
-.user-view-student-follow-main-div-more-about .user-follow-card {
+.user-view-student-follow-main-div-more-about-almas .user-follow-card {
   display: flex;
   flex-direction: column;
-  padding-right: 10px;
-  border-bottom: none;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #d9d9d9;
 }
 
-.user-view-student-follow-main-div-more-about .user-follow-card:nth-child(odd) {
-  border-right: 2px solid #d9d9d9;
-}
-
-.user-view-student-follow-main-div-more-about .user-follow-section-with-img {
+.user-view-student-follow-main-div-more-about-almas
+  .user-follow-section-with-img {
   display: flex;
   gap: 10px;
   margin-top: 10px;
 }
 
-.user-view-student-follow-main-div-more-about
+.user-view-student-follow-main-div-more-about-almas .profile-img-alumni {
+  border-radius: 50%;
+}
+
+.user-view-student-follow-main-div-more-about-almas
   .user-follow-section-with-img-left {
   flex-shrink: 0;
 }
 
-.user-view-student-follow-main-div-more-about .profile-img-club {
-  border-radius: 50%;
-  /* border: 1px solid #128381; */
-}
-
-.user-view-student-follow-main-div-more-about
+.user-view-student-follow-main-div-more-about-almas
   .user-follow-section-with-img-right {
   flex-grow: 1;
 }
 
-.user-view-student-follow-main-div-more-about .btn-default {
+.user-view-student-follow-main-div-more-about-almas .btn-default {
   background-color: #128381;
   color: white;
   font-size: 14px;
@@ -54,7 +50,7 @@
   border-radius: 8px;
 }
 
-.user-view-student-follow-main-div-more-about .btn-active {
+.user-view-student-follow-main-div-more-about-almas .btn-active {
   background-color: rgba(19, 131, 130, 0.05);
   color: #138382;
   font-size: 14px;
@@ -68,16 +64,16 @@
 }
 
 @media screen and (max-width: 820px) {
-  .user-view-student-follow-main-div-more-about {
+  .user-view-student-follow-main-div-more-about-almas {
     grid-template-columns: 1fr;
   }
 
-  .user-view-student-follow-main-div-more-about .user-follow-card {
+  .user-view-student-follow-main-div-more-about-almas .user-follow-card {
     border-bottom: 2px solid #d9d9d9;
     padding-bottom: 10px;
   }
 
-  .user-view-student-follow-main-div-more-about
+  .user-view-student-follow-main-div-more-about-almas
     .user-follow-card:nth-child(odd) {
     border-right: none;
   }

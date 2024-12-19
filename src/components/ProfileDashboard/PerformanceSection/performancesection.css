@@ -14,9 +14,9 @@
 }
 
 .performance-section-main-div .analytics-boxes-div .analytics-box-1 {
-  padding: 12px;
+  padding: 18px 12px;
   border-radius: 10px;
-  width: 200px;
+  width: 100%;
   height: auto;
   background-color: #ffe5e5;
   display: flex;
@@ -26,9 +26,9 @@
 }
 
 .performance-section-main-div .analytics-boxes-div .analytics-box-2 {
-  padding: 12px;
+  padding: 18px 12px;
   border-radius: 10px;
-  width: 200px;
+  width: 100%;
   height: auto;
   background-color: #f3f9f9;
   display: flex;
@@ -38,9 +38,9 @@
 }
 
 .performance-section-main-div .analytics-boxes-div .analytics-box-3 {
-  padding: 12px;
+  padding: 18px 12px;
   border-radius: 10px;
-  width: 145px;
+  width: 100%;
   height: auto;
   background-color: #f3f9f9;
   display: flex;

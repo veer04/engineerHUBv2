@@ -4,142 +4,118 @@ import { API_URL, Bucket_URL } from "../../../../services/APIUtils";
 import { getAccessToken } from "../../../../features/getCookieValues";
 import axios from "axios";
 import { FiDownload } from "react-icons/fi";
-import { GoTrash } from "react-icons/go";
 import moment from "moment/moment";
+import { Bounce, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const UploadResumeEdit = ({ profileData, setProfileData }) => {
-  const [resumeFile, setResumeFile] = useState(null);
-  const [resumeUrl, setResumeUrl] = useState("");
+  const [resume, setResume] = useState(null);
+  const [resumeUrl, setResumeUrl] = useState(profileData?.resume || "");
+  const fileInputRef = React.useRef(null);
   const [uploadMessage, setUploadMessage] = useState("");
-  const [isUploaded, setIsUploaded] = useState(false);
-  const [uploadedFileName, setUploadedFileName] = useState("");
-  const [uploadDate, setUploadDate] = useState("");
+  const [isUploaded, setIsUploaded] = useState(!!profileData?.resume);
+  const [uploadedFileName, setUploadedFileName] = useState(
+    profileData?.resume ? profileData?.resume.split("/").pop() : ""
+  );
+  const [uploadDate, setUploadDate] = useState(
+    profileData?.resume ? moment().format("YYYY-MM-DD") : ""
+  );
+  const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    const savedResumeUrl = localStorage.getItem("resumeUrl");
-    const savedResumeName = localStorage.getItem("uploadedFileName");
-    const savedUploadDate = localStorage.getItem("uploadDate");
-
-    if (savedResumeUrl && savedResumeName && savedUploadDate) {
-      setResumeUrl(savedResumeUrl);
-      setUploadedFileName(savedResumeName);
-      setUploadDate(savedUploadDate);
+    if (profileData?.resume) {
       setIsUploaded(true);
+      setUploadedFileName(profileData?.resume.split("/").pop());
+      setResumeUrl(profileData?.resume);
+      setUploadDate(moment().format("YYYY-MM-DD"));
     }
-  }, []);
+  }, [profileData?.resume]);
 
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
+  const handleResumeUploadClick = () => {
+    fileInputRef.current.click();
+  };
+
+  const handleFileChange = async (event) => {
+    const file = event.target.files[0];
     if (file) {
-      if (file.size <= 5 * 1024 * 1024) {
-        setResumeFile(file);
-        setUploadMessage("");
-      } else {
-        setUploadMessage("File size exceeds the 5 MB limit.");
+      setResume(file);
+      try {
+        const formData = new FormData();
+        formData.append("resume", file);
+
+        const config = {
+          headers: {
+            accessToken: getAccessToken(),
+          },
+        };
+
+        const response = await axios.patch(
+          `${API_URL}api/v1/user/resumeUpdate`,
+          formData,
+          config
+        );
+
+        if (response.data) {
+          setIsUploaded(true);
+          setUploadedFileName(file.name);
+          setResumeUrl(response.data.data);
+          setUploadDate(moment().format("YYYY-MM-DD"));
+          toast("🥳 Resume Added Successfully!", {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+            transition: Bounce,
+          });
+        }
+        console.log("Resume upload response:", response.data);
+      } catch (error) {
+        console.error(
+          "Error uploading resume:",
+          error.response ? error.response.data : error.message
+        );
       }
     }
   };
 
-  const handleAddUpdateResume = async () => {
-    if (!resumeFile) {
-      setUploadMessage("Please select a file to upload.");
-      return;
-    }
-
-    try {
-      const formData = new FormData();
-      formData.append("resume", resumeFile);
-
-      const config = {
-        headers: {
-          accessToken: getAccessToken(),
-          "Content-Type": "multipart/form-data",
-        },
-      };
-
-      const response = await axios.patch(
-        `${API_URL}api/v1/user/resumeUpdate`,
-        formData,
-        config
-      );
-
-      setResumeUrl(response.data.data);
-      setUploadMessage("Resume uploaded successfully.");
-      setIsUploaded(true);
-      setUploadedFileName(resumeFile.name);
-      setUploadDate(new Date().toLocaleDateString());
-      console.log(response, "resumeData");
-
-      localStorage.setItem("resumeUrl", response.data.data);
-      localStorage.setItem("uploadedFileName", resumeFile.name);
-      localStorage.setItem("uploadDate", new Date().toLocaleDateString());
-    } catch (error) {
-      console.error("Error uploading resume:", error);
-      setUploadMessage("Failed to upload resume. Please try again.");
-    }
+  const handleSessionBook = () => {
+    window.open("/referrals", "_blank");
   };
 
-  // const download = async () => {
-  //   if (loading) return; // Prevent multiple downloads
-  //   setLoading(true); // Indicate loading
-  //   setStatus("loading"); // Set status to loading
+  const downloadResume = async () => {
+    try {
+      const response = await axios({
+        url: `${API_URL}api/v1/downloadPdf?title=${profileData?.resume}&url=${profileData?.resume}`,
+        method: "POST",
+        data: { title: resumeUrl, url: profileData?.resume },
+        responseType: "blob",
+        onDownloadProgress: (progressEvent) => {
+          let percentCompleted = Math.round(
+            (progressEvent.loaded * 100) / progressEvent.total
+          );
+          setProgress(percentCompleted);
+        },
+      });
 
-  //   try {
-  //     const response = await axios({
-  //       url: `${API_URL}api/v1/downloadPdf`, // API endpoint
-  //       method: "POST",
-  //       data: {
-  //         title: uploadedFileName, // Use uploadedFileName instead of singleProductData?.title
-  //         url: paymentData1?.coursePdf, // URL for the uploaded resume
-  //       },
-  //       responseType: "blob", // Expect a file in binary format
-  //       onDownloadProgress: (progressEvent) => {
-  //         let percentCompleted = Math.round(
-  //           (progressEvent.loaded * 100) / progressEvent.total
-  //         );
-  //         setProgress(percentCompleted); // Update progress
-  //       },
-  //     });
+      setProgress(100);
+      const blob = new Blob([response.data], {
+        type: "application/pdf",
+      });
 
-  //     setProgress(100); // Download completed
-  //     const blob = new Blob([response.data], {
-  //       type: "application/pdf", // Ensure the correct file type
-  //     });
-
-  //     // Create a link element to trigger file download
-  //     const link = document.createElement("a");
-  //     link.href = URL.createObjectURL(blob);
-  //     link.setAttribute("download", `${uploadedFileName || "resume"}.pdf`); // Use uploadedFileName for download name
-  //     link.click();
-
-  //     // Update the download state
-  //     setDownloaded(true);
-  //     setStatus("downloaded");
-  //     setSnackbarMessage("Download successful!");
-  //     setSnackbarOpen(true);
-  //   } catch (err) {
-  //     // Handle errors
-  //     setStatus("failed");
-  //     setSnackbarMessage(
-  //       <>
-  //         <span>Download failed</span>
-  //         {err?.response?.data?.message && (
-  //           <>
-  //             <br />
-  //             <span>Error: {err?.response?.data?.message}</span>
-  //           </>
-  //         )}
-  //       </>
-  //     );
-  //     setSnackbarSeverity("error");
-  //     setSnackbarDuration(5000);
-  //     setSnackbarOpen(true);
-  //     console.error(err);
-  //   } finally {
-  //     setLoading(false); // Reset loading state
-  //     setProgress(0); // Reset progress state
-  //   }
-  // };
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.setAttribute("download", `${profileData?.resume}`);
+      link.click();
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="upload-resume-main-div">
@@ -171,7 +147,15 @@ const UploadResumeEdit = ({ profileData, setProfileData }) => {
 
         {isUploaded && (
           <div className="update-resume-btn">
-            <button onClick={handleAddUpdateResume}>Update</button>
+            <button onClick={handleResumeUploadClick}>Update</button>
+            <input
+              id="hidden-file-input"
+              type="file"
+              ref={fileInputRef}
+              style={{ display: "none" }}
+              accept=".pdf, .docx"
+              onChange={handleFileChange}
+            />
           </div>
         )}
       </div>
@@ -207,21 +191,46 @@ const UploadResumeEdit = ({ profileData, setProfileData }) => {
             </div>
             <div className="download-trash-icon">
               <div
+                onClick={downloadResume}
                 style={{
                   backgroundColor: "#1383821a",
-                  padding: "8px 10px",
+                  width: 40,
+                  height: 40,
                   borderRadius: "50%",
                   display: "flex",
                   justifyContent: "center",
                   alignItems: "center",
+                  cursor: "pointer",
                 }}
               >
-                <FiDownload color="#138382" size={22} />
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                >
+                  <path
+                    d="M12 14.5V4.5M12 14.5C11.2998 14.5 9.99153 12.5057 9.5 12M12 14.5C12.7002 14.5 14.0085 12.5057 14.5 12"
+                    stroke="#138382"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                  <path
+                    d="M20 16.5C20 18.982 19.482 19.5 17 19.5H7C4.518 19.5 4 18.982 4 16.5"
+                    stroke="#138382"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
               </div>
               <div
                 style={{
                   backgroundColor: "#FF58581A",
-                  padding: "8px 10px",
+                  width: 40,
+                  height: 40,
                   borderRadius: "50%",
                   display: "flex",
                   justifyContent: "center",
@@ -272,9 +281,7 @@ const UploadResumeEdit = ({ profileData, setProfileData }) => {
             <form onSubmit={(e) => e.preventDefault()}>
               <div
                 className="upload-img-div"
-                onClick={() =>
-                  document.getElementById("hidden-file-input").click()
-                }
+                onClick={handleResumeUploadClick}
                 style={{ cursor: "pointer" }}
               >
                 <img
@@ -286,6 +293,7 @@ const UploadResumeEdit = ({ profileData, setProfileData }) => {
               <input
                 id="hidden-file-input"
                 type="file"
+                ref={fileInputRef}
                 style={{ display: "none" }}
                 accept=".pdf, .docx"
                 onChange={handleFileChange}
@@ -317,15 +325,9 @@ const UploadResumeEdit = ({ profileData, setProfileData }) => {
               Formats .pdf, .docx upto 5 MB
             </h3>
 
-            {uploadMessage && <p style={{ color: "red" }}>{uploadMessage}</p>}
+            {/* {uploadMessage && <p style={{ color: "red" }}>{uploadMessage}</p>} */}
           </div>
-          <button
-            className="book-a-session-btn"
-            onClick={handleAddUpdateResume}
-            style={{ marginTop: "20px" }}
-          >
-            Upload Resume
-          </button>
+
           <div className="book-session-div">
             <h3
               style={{
@@ -339,7 +341,9 @@ const UploadResumeEdit = ({ profileData, setProfileData }) => {
               Don&#39;t have a perfect resume yet?
             </h3>
 
-            <button className="book-a-session-btn">Book a session</button>
+            <button className="book-a-session-btn" onClick={handleSessionBook}>
+              Book a session
+            </button>
           </div>
         </>
       )}

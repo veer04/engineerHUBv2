@@ -17,11 +17,27 @@ import { getUserId } from "../../../../features/User/UserDetails";
 import axios from "axios";
 import { API_URL } from "../../../../services/APIUtils";
 import { getAccessToken } from "../../../../features/getCookieValues";
+import UserViewStudentFollowAlsoFollow from "../UserViewStudentFollow/UserViewStudentFollowAlsoFollow";
 
 const ProfileDashboardUserView = () => {
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 520);
   const [DashboardAdminData, setDashboardAdminData] = useState(null);
   const [recommendationData, setRecommendationData] = useState([]);
+  const [limit, setLimit] = useState(10);
+  const [page, setPage] = useState(1);
+  const [fellowUsers, setFellowUsers] = useState([]);
+  const [followUsers, setFollowUsers] = useState([]);
+  const [aboutData, setAboutData] = useState(null);
+  const [clubData, setClubData] = useState(null);
+  const [almaData, setAlmaData] = useState(null);
+  const [streakData, setStreakData] = useState(null);
+  const [jobData, setJobData] = useState(null);
+  const [postData, setPostData] = useState(null);
+  const [error, setError] = useState(null);
+
+  const [loading, setLoading] = useState(false);
+
+  const userId = getUserId();
 
   useEffect(() => {
     const handleResize = () => {
@@ -35,9 +51,57 @@ const ProfileDashboardUserView = () => {
     };
   }, []);
 
-  const getPublicDashboardData = async () => {
-    const userId = getUserId();
+  const getActivityData = async (userId, section) => {
+    setLoading(true);
+    try {
+      const response = await axios.get(
+        `${API_URL}api/v1/userDashboard/activity-area?userId=${userId}&section=${section}&limit=${limit}&page=${page}`
+      );
 
+      if (response.status === 200) {
+        if (section === "streak") {
+          setStreakData(response.data.data);
+        } else if (section === "job") {
+          setJobData(response.data.data.applications);
+        } else if (section === "post") {
+          setPostData(response.data.data);
+        } else {
+          setError("Unexpected response status.");
+        }
+      }
+    } catch (error) {
+      console.log("Error getting the data");
+      setError("Error fetching Activity data.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const getCollegeDetails = async (collegeId, section) => {
+    setLoading(true);
+    try {
+      const response = await axios.get(
+        `${API_URL}api/v1/userDashboard/college-details?collegeId=${collegeId}&section=${section}`
+      );
+      if (response.status === 200) {
+        if (section === "about") {
+          setAboutData(response.data.data);
+        } else if (section === "club") {
+          setClubData(response.data.data);
+        } else if (section === "almas") {
+          setAlmaData(response.data.data);
+        }
+      } else {
+        setError("Unexpected response status.");
+      }
+    } catch (err) {
+      setError("Error fetching College data.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const getPublicDashboardData = async () => {
     try {
       const response = await axios.get(
         `${API_URL}api/v1/userDashboard/public/${userId}`
@@ -59,6 +123,79 @@ const ProfileDashboardUserView = () => {
     }
   };
 
+  //follow users data
+  const getFollowUsersData = async () => {
+    try {
+      setLoading(true);
+      const response = await axios.get(
+        `${API_URL}api/v1/userDashboard/followings?userId=${userId}&limit=${limit}&page=${page}`
+      );
+      if (response.data) {
+        console.log(response.data);
+        console.log(response.data, "followuser data");
+        setFollowUsers(response.data.data);
+        setLoading(false);
+      }
+    } catch (error) {
+      console.error("Error fetching followuser  data:", error);
+      setLoading(false);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    getFollowUsersData();
+  }, [userId]);
+
+  //fellow users data
+
+  const getFellowUsersData = async (collegeId) => {
+    try {
+      if (collegeId) {
+        setLoading(true);
+        const response = await axios.get(
+          `${API_URL}api/v1/userDashboard/fellow-users?collegeId=${collegeId}&limit=${limit}&page=${page}`
+        );
+        if (response.data) {
+          console.log(response.data);
+          setFellowUsers(response.data.data);
+          setLoading(false);
+        }
+      } else {
+        console.log("No collegeId found in DashboardAdminData");
+      }
+    } catch (error) {
+      console.error("Error fetching fellow users data:", error);
+      setLoading(false);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (DashboardAdminData) {
+      const collegeId =
+        DashboardAdminData?.educationDetails?.[0]?.collegeId?._id;
+      if (collegeId) {
+        getFellowUsersData(collegeId);
+        getCollegeDetails(collegeId, "about");
+        getCollegeDetails(collegeId, "club");
+        getCollegeDetails(collegeId, "almas");
+      }
+    }
+  }, [DashboardAdminData, limit, page]);
+
+  useEffect(() => {
+    if (DashboardAdminData) {
+      if (userId) {
+        getActivityData(userId, "streak");
+        getActivityData(userId, "job");
+        getActivityData(userId, "post");
+      }
+    }
+  }, [DashboardAdminData, limit, page]);
+
   const fetchRecommendationData = async () => {
     try {
       const response = await fetch(
@@ -72,7 +209,7 @@ const ProfileDashboardUserView = () => {
       );
 
       const data = await response.json();
-      console.log(data.data, "responsedatarecommended");
+      // console.log(data.data, "responsedatarecommended");
       setRecommendationData(data.data);
     } catch (error) {
       console.error("Error getting the data", error);
@@ -92,7 +229,7 @@ const ProfileDashboardUserView = () => {
           <ProfileWithFollowAndMail DashboardAdminData={DashboardAdminData} />
 
           <div style={{ marginTop: 10 }}>
-            <UserStatsSection />
+            <UserStatsSection DashboardAdminData={DashboardAdminData} />
           </div>
 
           {/* //in desktop yeh dikhega */}
@@ -100,10 +237,23 @@ const ProfileDashboardUserView = () => {
           {isMobile ? null : (
             <>
               <div style={{ marginTop: 10 }}>
-                <UserViewStudentFollow title={"Other students from AKGCE"} />
+                <UserViewStudentFollow
+                  fellowUsers={fellowUsers}
+                  title={`Other students from ${
+                    DashboardAdminData &&
+                    DashboardAdminData?.educationDetails &&
+                    DashboardAdminData?.educationDetails?.[0]?.collegeId
+                      .collegeName
+                  }`}
+                />
               </div>
               <div style={{ marginTop: 10 }}>
-                <UserViewStudentFollow title={"“Girish” also follows"} />
+                <UserViewStudentFollowAlsoFollow
+                  followUsers={followUsers}
+                  title={`${
+                    DashboardAdminData && DashboardAdminData.firstName
+                  } also follows`}
+                />
               </div>
 
               <div style={{ marginTop: 10 }}>
@@ -150,19 +300,37 @@ const ProfileDashboardUserView = () => {
               </div>
             </div>
             <div style={{ marginTop: 15 }}>
-              <YourActivitySection recommendationData={recommendationData} />
+              <YourActivitySection streakData={streakData} jobData={jobData} />
             </div>
-            <MoreAboutYourCollegeSection />
+            <MoreAboutYourCollegeSection
+              aboutData={aboutData}
+              clubData={clubData}
+              almaData={almaData}
+              DashboardAdminData={DashboardAdminData}
+            />
 
             {/* //in mobile yeh dikhega */}
             {isMobile ? (
               <>
                 <div style={{ marginTop: 10 }}>
-                  <UserViewStudentFollow title={"Other students from AKGCE"} />
+                  <UserViewStudentFollow
+                    fellowUsers={fellowUsers}
+                    title={`Other students from ${
+                      DashboardAdminData &&
+                      DashboardAdminData.educationDetails &&
+                      DashboardAdminData?.educationDetails?.[0]?.collegeId
+                        .collegeName
+                    }`}
+                  />
                 </div>
 
                 <div style={{ marginTop: 10 }}>
-                  <UserViewStudentFollow title={"Other students from AKGCE"} />
+                  <UserViewStudentFollowAlsoFollow
+                    followUsers={followUsers}
+                    title={`${
+                      DashboardAdminData && DashboardAdminData.firstName
+                    } also follows`}
+                  />
                 </div>
 
                 <div style={{ marginTop: 10 }}>

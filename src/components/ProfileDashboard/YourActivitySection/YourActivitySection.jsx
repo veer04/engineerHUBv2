@@ -5,13 +5,16 @@ import ActivityCardsSaif from "./ActivityCardsSaif";
 import PostCardActivity from "./PostCardActivity/PostCardActivity";
 import RecommendationCard1 from "../RecommendedSection/RecommendationCard1";
 import RecommendedCard2 from "../RecommendedSection/RecommendedSection2";
+import RecommendationCard2Activity from "../RecommendedSection/RecommendationCard2Activity";
 
-const YourActivitySection = ({ recommendationData }) => {
+const YourActivitySection = ({ streakData, jobData }) => {
   const [actionButton, setActionButton] = useState("Streak");
 
   const handleButtonClick = (buttonName) => {
     setActionButton(actionButton === buttonName ? null : buttonName);
   };
+
+  console.log(jobData, "Jobdata");
 
   const activityCardArray = Array.from({ length: 12 }, (_, index) => index + 1);
 
@@ -154,9 +157,7 @@ const YourActivitySection = ({ recommendationData }) => {
 
       {actionButton === "Jobs" && (
         <div className="grid-job-card-activity">
-          {recommendationData?.job && (
-            <RecommendationCard1 data={recommendationData.job} />
-          )}
+          {jobData && <RecommendationCard2Activity data={jobData} />}
         </div>
       )}
     </div>

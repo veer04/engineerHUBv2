@@ -172,7 +172,7 @@
 }
 .message-container .message-body--flipped .message-content *,
 .message-container .message-body .message-content * {
-  line-break: anywhere;
+  /* line-break: anywhere; */
 }
 .message-container .message-body--flipped .message-content > p,
 .message-container .message-body .message-content > p {
@@ -211,7 +211,7 @@
 }
 .message-content .text-content {
   line-break: auto;
-  white-space: pre-wrap;
+  /* white-space: pre-wrap; */
   display: inline-flex;
   height: min-content;
 }

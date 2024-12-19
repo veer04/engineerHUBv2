@@ -1,17 +1,16 @@
 import React, { useState } from "react";
-import "./userviewstudentfollow.css";
-import { API_URL, Bucket_URL } from "../../../../services/APIUtils";
-
-import { Bounce, toast } from "react-toastify";
+import "./UserViewStudentFollowAlsoFollow.css";
+import { Bucket_URL } from "../../../../services/APIUtils";
 import "react-toastify/dist/ReactToastify.css";
-import { getUserId } from "../../../../features/User/UserDetails";
 import { getAccessToken } from "../../../../features/getCookieValues";
 import axios from "axios";
 
-const UserViewStudentFollow = ({ title, fellowUsers }) => {
+const UserViewStudentFollowAlsoFollow = ({ title, followUsers }) => {
   const [followState, setFollowState] = useState({});
-  const [sectionsToShow, setSectionsToShow] = useState(2);
   const [loadingState, setLoadingState] = useState({});
+  const [sectionsToShow, setSectionsToShow] = useState(2);
+
+  console.log(followUsers, "followusers");
 
   const handleViewMoreClick = () => {
     setSectionsToShow(sectionsToShow + 2);
@@ -108,7 +107,7 @@ const UserViewStudentFollow = ({ title, fellowUsers }) => {
   };
 
   return (
-    <div className="user-view-student-follow-main-div">
+    <div className="user-view-student-follow-main-div-also-follow">
       <h3
         style={{
           fontSize: 18,
@@ -122,30 +121,27 @@ const UserViewStudentFollow = ({ title, fellowUsers }) => {
         {title}
       </h3>
 
-      {fellowUsers &&
-        fellowUsers?.students?.slice(0, sectionsToShow).map((user, index) => (
-          <>
-            <div key={index}>
+      {followUsers?.followings
+        ?.slice(0, sectionsToShow)
+        .map((followingItem, index) =>
+          followingItem.following.map((user, userIndex) => (
+            <div key={`${index}-${userIndex}`}>
               <div className="user-follow-section-with-img">
                 <div className="user-follow-section-with-img-left">
                   <img
+                    className="user-follows-saif"
                     src={
-                      user.profile?.image &&
-                      user.profile?.image.includes("frontendehubbucket")
-                        ? user.profile?.image
+                      user?.image && user?.image.includes("frontendehubbucket")
+                        ? user?.image
                         : `${Bucket_URL}UserViewDashboard/profile_follow.png`
                     }
-                    className="profile-img-userfollow"
-                    alt="img"
+                    alt="profile_img"
                     width={48}
                     height={48}
                   />
                 </div>
 
-                <div
-                  className="
-        user-follow-section-with-img-right"
-                >
+                <div className="user-follow-section-with-img-right">
                   <h3
                     style={{
                       fontSize: 16,
@@ -155,7 +151,7 @@ const UserViewStudentFollow = ({ title, fellowUsers }) => {
                       marginBottom: 0,
                     }}
                   >
-                    {user.profile?.firstName} {user.profile?.lastName}
+                    {user.firstName} {user.lastName}
                   </h3>
 
                   <h5
@@ -172,7 +168,7 @@ const UserViewStudentFollow = ({ title, fellowUsers }) => {
                       textOverflow: "ellipsis",
                     }}
                   >
-                    {user.profile?.aboutMe || "No about me available."}
+                    {user?.aboutMe || "No about me available."}
                   </h5>
 
                   <button
@@ -193,7 +189,7 @@ const UserViewStudentFollow = ({ title, fellowUsers }) => {
                 </div>
               </div>
 
-              {index !== fellowUsers.students.length - 1 && (
+              {userIndex !== followingItem.following.length - 1 && (
                 <div
                   style={{
                     background: "#D9D9D9",
@@ -203,10 +199,14 @@ const UserViewStudentFollow = ({ title, fellowUsers }) => {
                 ></div>
               )}
             </div>
-          </>
-        ))}
+          ))
+        )}
 
-      {sectionsToShow < 6 && fellowUsers?.students?.length > 2 && (
+      {sectionsToShow <
+        followUsers?.followings?.reduce(
+          (acc, followingItem) => acc + followingItem.following.length,
+          0
+        ) && (
         <div style={{ marginTop: 15, padding: "8px 16px" }}>
           <button
             onClick={handleViewMoreClick}
@@ -230,4 +230,4 @@ const UserViewStudentFollow = ({ title, fellowUsers }) => {
   );
 };
 
-export default UserViewStudentFollow;
+export default UserViewStudentFollowAlsoFollow;
