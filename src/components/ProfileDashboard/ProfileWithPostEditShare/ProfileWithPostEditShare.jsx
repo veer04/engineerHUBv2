@@ -246,8 +246,7 @@ const ProfileWithPostEditShare = ({
             color: "#f3f3f3",
           }}
         >
-          {privateDashboardData?.aboutMe ||
-            "Associate Software engineer at company name"}
+          {privateDashboardData?.aboutMe || "No Bio Added"}
         </h2>
       </div>
 
