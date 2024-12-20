@@ -172,7 +172,7 @@
 }
 .message-container .message-body--flipped .message-content *,
 .message-container .message-body .message-content * {
-  /* line-break: anywhere; */
+  line-break: anywhere;
 }
 .message-container .message-body--flipped .message-content > p,
 .message-container .message-body .message-content > p {
