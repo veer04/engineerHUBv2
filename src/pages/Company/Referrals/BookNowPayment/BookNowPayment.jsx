@@ -106,6 +106,9 @@ const BookNowPayment = () => {
   // const platformAmount = price * platformFees;
 
   const totalPrice = price + gstAmount;
+  console.log(Math.ceil(totalPrice), "jhg");
+
+  // console.log(object);
 
   const billSummaryRef = useRef(null);
 
@@ -577,7 +580,7 @@ const BookNowPayment = () => {
 
     try {
       const payload = {
-        amount: totalPrice,
+        amount: Math.ceil(totalPrice),
         currency: "INR",
         callback_url: `${FRONTEND_URL}referrals/book-now/payment/success?date=${selectedDates}&time=${selectedTime}`,
         callback_method: "get",
