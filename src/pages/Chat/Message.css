@@ -181,6 +181,7 @@
 .message-container .message-body .message-content {
   border-radius: 0rem 0.5rem 0.5rem 0.5rem;
 }
+
 .message-container .message-body--flipped .message-content {
   border-radius: 0.5rem 0 0.5rem 0.5rem;
 }
