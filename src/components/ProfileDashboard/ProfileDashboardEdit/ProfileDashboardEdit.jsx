@@ -17,6 +17,7 @@ import DeleteModalOK from "./ModalUpdatedAndDeleted/DeleteModalOk";
 import { getUserId } from "../../../features/User/UserDetails";
 import axios from "axios";
 import { API_URL } from "../../../services/APIUtils";
+import AddSkill from "./AddSkill/AddSkill";
 
 const ProfileDashboardEdit = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -114,6 +115,9 @@ const ProfileDashboardEdit = () => {
             profileData={profileData}
             setProfileData={setProfileData}
           />
+
+          <AddSkill profileData={profileData} setProfileData={setProfileData} />
+
           <AddHeadlineEdit
             profileData={profileData}
             setProfileData={setProfileData}
