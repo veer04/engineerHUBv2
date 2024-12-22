@@ -134,6 +134,8 @@
   max-width: max(75%, 10rem);
   align-items: flex-start;
   gap: 0.5rem;
+  white-space: pre-wrap;
+  word-wrap: break-word;
 }
 .message-container .message-body--flipped {
   flex-direction: column;
@@ -172,7 +174,7 @@
 }
 .message-container .message-body--flipped .message-content *,
 .message-container .message-body .message-content * {
-  line-break: anywhere;
+  /* line-break: anywhere; */
 }
 .message-container .message-body--flipped .message-content > p,
 .message-container .message-body .message-content > p {
