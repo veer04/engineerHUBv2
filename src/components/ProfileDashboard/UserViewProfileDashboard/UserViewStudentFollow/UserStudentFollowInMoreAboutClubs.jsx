@@ -5,6 +5,7 @@ import { getAccessToken } from "../../../../features/getCookieValues";
 import axios from "axios";
 import { Bounce, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import NoDataCompBySaif from "./NoDataCompBySaif";
 
 const UserStudentFollowInMoreAboutClubs = ({ title, clubData }) => {
   const [followState, setFollowState] = useState({});
@@ -105,6 +106,10 @@ const UserStudentFollowInMoreAboutClubs = ({ title, clubData }) => {
       }));
     }
   };
+
+  if (!clubData || !clubData.clubs || clubData.clubs.length === 0) {
+    return <NoDataCompBySaif titleName={"Club"} />;
+  }
 
   return (
     <>

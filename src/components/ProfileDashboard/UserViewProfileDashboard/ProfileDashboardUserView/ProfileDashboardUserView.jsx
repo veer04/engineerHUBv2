@@ -32,6 +32,7 @@ const ProfileDashboardUserView = () => {
   const [almaData, setAlmaData] = useState(null);
   const [streakData, setStreakData] = useState(null);
   const [jobData, setJobData] = useState(null);
+  const [internshipData, setInternshipData] = useState(null);
   const [postData, setPostData] = useState(null);
   const [error, setError] = useState(null);
 
@@ -63,6 +64,8 @@ const ProfileDashboardUserView = () => {
           setStreakData(response.data.data);
         } else if (section === "job") {
           setJobData(response.data.data.applications);
+        } else if (section === "internship") {
+          setInternshipData(response.data.data.applications);
         } else if (section === "post") {
           setPostData(response.data.data);
         } else {
@@ -191,6 +194,7 @@ const ProfileDashboardUserView = () => {
       if (userId) {
         getActivityData(userId, "streak");
         getActivityData(userId, "job");
+        getActivityData(userId, "internship");
         getActivityData(userId, "post");
       }
     }
@@ -300,7 +304,11 @@ const ProfileDashboardUserView = () => {
               </div>
             </div>
             <div style={{ marginTop: 15 }}>
-              <YourActivitySection streakData={streakData} jobData={jobData} />
+              <YourActivitySection
+                streakData={streakData}
+                jobData={jobData}
+                internshipData={internshipData}
+              />
             </div>
             <MoreAboutYourCollegeSection
               aboutData={aboutData}
