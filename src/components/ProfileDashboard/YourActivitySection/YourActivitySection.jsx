@@ -7,14 +7,14 @@ import RecommendationCard1 from "../RecommendedSection/RecommendationCard1";
 import RecommendedCard2 from "../RecommendedSection/RecommendedSection2";
 import RecommendationCard2Activity from "../RecommendedSection/RecommendationCard2Activity";
 
-const YourActivitySection = ({ streakData, jobData }) => {
+const YourActivitySection = ({ streakData, jobData, internshipData }) => {
   const [actionButton, setActionButton] = useState("Streak");
 
   const handleButtonClick = (buttonName) => {
     setActionButton(actionButton === buttonName ? null : buttonName);
   };
 
-  console.log(jobData, "Jobdata");
+  // console.log(jobData, "Jobdata");
 
   const activityCardArray = Array.from({ length: 12 }, (_, index) => index + 1);
 
@@ -41,7 +41,7 @@ const YourActivitySection = ({ streakData, jobData }) => {
       </div>
 
       <div style={{ marginTop: 10 }}>
-        {["Streak", "Posts", "Jobs"].map((buttonName, index) => (
+        {["Streak", "Posts", "Jobs", "Internships"].map((buttonName, index) => (
           <button
             key={buttonName}
             onClick={() => handleButtonClick(buttonName)}
@@ -158,6 +158,12 @@ const YourActivitySection = ({ streakData, jobData }) => {
       {actionButton === "Jobs" && (
         <div className="grid-job-card-activity">
           {jobData && <RecommendationCard2Activity data={jobData} />}
+        </div>
+      )}
+
+      {actionButton === "Internships" && (
+        <div className="grid-job-card-activity">
+          {jobData && <RecommendationCard2Activity data={internshipData} />}
         </div>
       )}
     </div>
