@@ -117,6 +117,9 @@ const UploadResumeEdit = ({ profileData, setProfileData }) => {
     }
   };
 
+  let cleanFileName =
+    uploadedFileName.split("_")[0] + "_" + uploadedFileName.split("_")[2];
+
   return (
     <div className="upload-resume-main-div">
       <div className="upload-resume-head-desc">
@@ -174,7 +177,7 @@ const UploadResumeEdit = ({ profileData, setProfileData }) => {
                   lineHeight: "24px",
                 }}
               >
-                {uploadedFileName}
+                {cleanFileName}
               </h3>
               <h4
                 style={{
