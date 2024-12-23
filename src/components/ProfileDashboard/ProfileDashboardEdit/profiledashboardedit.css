@@ -1,19 +1,16 @@
 .profile-dashboard-edit-start-div {
-  /* display: grid;
-  grid-template-columns: repeat(2, 1fr); */
   display: flex;
   flex-direction: row;
   padding: var(--vertical-padding) var(--section-padding);
-
   width: 100%;
   scroll-behavior: auto;
   font-family: "Lato", sans-serif;
-
   gap: 16px;
 }
 
 .profile-dashboard-edit-start-div .profile-dashboard-edit-left-div {
   width: 367px;
+  height: 100%;
 }
 
 .profile-dashboard-edit-start-div .profile-dashboard-edit-right-div {

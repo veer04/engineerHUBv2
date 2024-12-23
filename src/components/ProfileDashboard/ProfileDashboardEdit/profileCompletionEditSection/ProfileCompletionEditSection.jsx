@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import "./profileCompletionEditSection.css";
 import SocialLinksModal from "../SocialLinksProfile/SocialLinksModal";
 
-const ProfileCompletionEditSection = () => {
+const ProfileCompletionEditSection = ({ privateDashboardData }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  console.log(privateDashboardData, "privateDashboardData");
   const openModal = () => {
     setIsModalOpen(true);
   };
@@ -95,7 +96,7 @@ const ProfileCompletionEditSection = () => {
                 marginBottom: 0,
               }}
             >
-              Social Links
+              Achievement
             </h3>
             <h4
               style={{
@@ -108,7 +109,10 @@ const ProfileCompletionEditSection = () => {
                 marginLeft: 10,
               }}
             >
-              10%
+              {(privateDashboardData &&
+                privateDashboardData.achievementDetails) ||
+                0}
+              %
             </h4>
           </div>
 
@@ -147,7 +151,7 @@ const ProfileCompletionEditSection = () => {
                 marginBottom: 0,
               }}
             >
-              Resume
+              Education
             </h3>
             <h4
               style={{
@@ -160,58 +164,10 @@ const ProfileCompletionEditSection = () => {
                 marginLeft: 10,
               }}
             >
-              10%
-            </h4>
-          </div>
-
-          <div>
-            <h3
-              style={{
-                fontSize: 14,
-                fontWeight: 700,
-                lineHeight: "20px",
-                fontStyle: "normal",
-                color: "#138382",
-                marginBottom: 0,
-              }}
-            >
-              Upload
-            </h3>
-          </div>
-        </div>
-
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            marginTop: 20,
-          }}
-        >
-          <div style={{ display: "flex" }}>
-            <h3
-              style={{
-                fontSize: 14,
-                fontWeight: 400,
-                lineHeight: "20px",
-                fontStyle: "normal",
-                color: "#002B36",
-                marginBottom: 0,
-              }}
-            >
-              Personal Details
-            </h3>
-            <h4
-              style={{
-                fontSize: 14,
-                fontWeight: 700,
-                lineHeight: "20px",
-                fontStyle: "normal",
-                color: "#39D353",
-                marginBottom: 0,
-                marginLeft: 10,
-              }}
-            >
-              10%
+              {(privateDashboardData &&
+                privateDashboardData?.educationDetails) ||
+                0}
+              %
             </h4>
           </div>
 
@@ -249,7 +205,7 @@ const ProfileCompletionEditSection = () => {
                 marginBottom: 0,
               }}
             >
-              Upload Picture
+              Experience
             </h3>
             <h4
               style={{
@@ -262,7 +218,10 @@ const ProfileCompletionEditSection = () => {
                 marginLeft: 10,
               }}
             >
-              10%
+              {(privateDashboardData &&
+                privateDashboardData?.experienceDetails) ||
+                0}
+              %
             </h4>
           </div>
 
@@ -277,7 +236,60 @@ const ProfileCompletionEditSection = () => {
                 marginBottom: 0,
               }}
             >
-              Upload
+              Add
+            </h3>
+          </div>
+        </div>
+
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            marginTop: 20,
+          }}
+        >
+          <div style={{ display: "flex" }}>
+            <h3
+              style={{
+                fontSize: 14,
+                fontWeight: 400,
+                lineHeight: "20px",
+                fontStyle: "normal",
+                color: "#002B36",
+                marginBottom: 0,
+              }}
+            >
+              Certificate
+            </h3>
+            <h4
+              style={{
+                fontSize: 14,
+                fontWeight: 700,
+                lineHeight: "20px",
+                fontStyle: "normal",
+                color: "#39D353",
+                marginBottom: 0,
+                marginLeft: 10,
+              }}
+            >
+              {(privateDashboardData && privateDashboardData?.licenceDetails) ||
+                0}
+              %
+            </h4>
+          </div>
+
+          <div>
+            <h3
+              style={{
+                fontSize: 14,
+                fontWeight: 700,
+                lineHeight: "20px",
+                fontStyle: "normal",
+                color: "#138382",
+                marginBottom: 0,
+              }}
+            >
+              Add
             </h3>
           </div>
         </div>
@@ -313,7 +325,9 @@ const ProfileCompletionEditSection = () => {
                 marginLeft: 10,
               }}
             >
-              10%
+              {(privateDashboardData && privateDashboardData?.skillsDetails) ||
+                0}
+              %
             </h4>
           </div>
 
@@ -351,7 +365,7 @@ const ProfileCompletionEditSection = () => {
                 marginBottom: 0,
               }}
             >
-              About
+              Resume
             </h3>
             <h4
               style={{
@@ -364,7 +378,7 @@ const ProfileCompletionEditSection = () => {
                 marginLeft: 10,
               }}
             >
-              10%
+              {(privateDashboardData && privateDashboardData?.resume) || 0}%
             </h4>
           </div>
 
@@ -380,6 +394,60 @@ const ProfileCompletionEditSection = () => {
               }}
             >
               Upload
+            </h3>
+          </div>
+        </div>
+
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            marginTop: 20,
+          }}
+        >
+          <div style={{ display: "flex" }}>
+            <h3
+              style={{
+                fontSize: 14,
+                fontWeight: 400,
+                lineHeight: "20px",
+                fontStyle: "normal",
+                color: "#002B36",
+                marginBottom: 0,
+              }}
+            >
+              Social Media
+            </h3>
+            <h4
+              style={{
+                fontSize: 14,
+                fontWeight: 700,
+                lineHeight: "20px",
+                fontStyle: "normal",
+                color: "#39D353",
+                marginBottom: 0,
+                marginLeft: 10,
+              }}
+            >
+              {(privateDashboardData &&
+                privateDashboardData?.socialMediaDetails) ||
+                0}
+              %
+            </h4>
+          </div>
+
+          <div>
+            <h3
+              style={{
+                fontSize: 14,
+                fontWeight: 700,
+                lineHeight: "20px",
+                fontStyle: "normal",
+                color: "#138382",
+                marginBottom: 0,
+              }}
+            >
+              Add
             </h3>
           </div>
         </div>
