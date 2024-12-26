@@ -34,13 +34,13 @@ export default function TrendingPostCard({ post, updatePost }) {
       if (followResponse?.data?.success) {
         updatePost(post._id);
         setSnackbarSeverity("success");
-        setSnackbarMessage(`You are now following ${post?.club[0]?.name}`);
+        setSnackbarMessage(`You are now following ${post?.creator?.name}`);
         setSnackbarOpen(true);
       } else {
         if (followResponse?.data?.message === "Already Followed.") {
           setSnackbarSeverity("warning");
           setSnackbarMessage(
-            `You are already following ${post?.club[0]?.name}`
+            `You are already following ${post?.creator?.name}`
           );
         } else {
           setSnackbarSeverity("error");
@@ -147,27 +147,27 @@ export default function TrendingPostCard({ post, updatePost }) {
       <div className="header">
         <div className="details">
           <div className="logo">
-            <img loading="lazy" src={post?.club[0]?.image} alt="logo" />
+            <img loading="lazy" src={post?.postLogo} alt="logo" />
           </div>
           <div className="name">
             <span
               style={{ cursor: "pointer" }}
-              onClick={() => navigate(`/profile/club/${post.clubId}`)}
+              onClick={() => navigate(`/profile/club/${post.creatorId}`)}
               className="text-crop-1"
             >
-              {post?.club[0]?.name}
+              {post?.creator?.name}
             </span>
           </div>
         </div>
-        {/* <div className="follow-btn">
+        <div className="follow-btn">
           {!(isLoggedIn && post?.isFollow) && (
             <button
-              onClick={() => handleFollow(post?.club[0]?.name, post?.clubId)}
+              onClick={() => handleFollow(post?.creator?.name, post?.creatorId)}
             >
               Follow
             </button>
           )}
-        </div> */}
+        </div>
       </div>
       <div className="post-image-container">
         <img src={post?.postLogo} alt="" />
@@ -185,7 +185,7 @@ export default function TrendingPostCard({ post, updatePost }) {
             <RWebShare
               data={{
                 text: `Check out this post`,
-                url: `${FRONTEND_URL}profile/club/${post?.clubId}/posts/${post?._id}`,
+                url: `${FRONTEND_URL}profile/club/${post?.creatorId}/posts/${post?._id}`,
                 title: "Check out this post at engineerHUB",
               }}
             >
