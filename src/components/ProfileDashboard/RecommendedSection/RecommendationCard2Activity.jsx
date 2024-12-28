@@ -4,10 +4,13 @@ import { FaRegEye } from "react-icons/fa";
 import { IoEyeOffOutline } from "react-icons/io5";
 
 const RecommendationCard2Activity = ({ data }) => {
-  const [isEyeVisible, setIsEyeVisible] = useState(false);
+  const [viewVisibility, setViewVisibility] = useState({});
 
-  const toggleAmountShow = () => {
-    setIsEyeVisible(!isEyeVisible);
+  const toggleAmountShow = (id) => {
+    setViewVisibility((prev) => ({
+      ...prev,
+      [id]: !prev[id],
+    }));
   };
 
   return (
@@ -156,14 +159,14 @@ const RecommendationCard2Activity = ({ data }) => {
 
             {/* //eye div saif */}
             <div style={{ display: "flex", gap: 3 }}>
-              {isEyeVisible ? (
+              {viewVisibility[job._id] ? (
                 <FaRegEye
-                  onClick={toggleAmountShow}
+                  onClick={() => toggleAmountShow(job._id)}
                   style={{ cursor: "pointer" }}
                 />
               ) : (
                 <IoEyeOffOutline
-                  onClick={toggleAmountShow}
+                  onClick={() => toggleAmountShow(job._id)}
                   style={{ cursor: "pointer" }}
                 />
               )}
@@ -177,7 +180,7 @@ const RecommendationCard2Activity = ({ data }) => {
                   marginBottom: 0,
                 }}
               >
-                {isEyeVisible ? "1200" : "xxxx"}
+                {viewVisibility[job._id] ? job.views : "xxxx"}
               </h3>
             </div>
           </div>

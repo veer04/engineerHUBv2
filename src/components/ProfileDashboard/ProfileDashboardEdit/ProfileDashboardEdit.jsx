@@ -17,6 +17,8 @@ import DeleteModalOK from "./ModalUpdatedAndDeleted/DeleteModalOk";
 import { getUserId } from "../../../features/User/UserDetails";
 import axios from "axios";
 import { API_URL } from "../../../services/APIUtils";
+import AddSkill from "./AddSkill/AddSkill";
+import { getAccessToken } from "../../../features/getCookieValues";
 
 const ProfileDashboardEdit = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -39,13 +41,13 @@ const ProfileDashboardEdit = () => {
   const closeDeleteModal = () => setIsModalDeleteOpen(false);
 
   const openModal = () => {
-    console.log("click");
     setIsModalOpen(true);
   };
 
   const closeModal = () => setIsModalOpen(false);
 
   const [profileData, setProfileData] = useState(null);
+  const [privateDashboardData, setPrivateDashboardData] = useState(null);
 
   const getProfileData = async () => {
     const userId = getUserId();
@@ -75,6 +77,40 @@ const ProfileDashboardEdit = () => {
   useEffect(() => {
     getProfileData();
   }, []);
+
+  const getPrivateDashboardData = async () => {
+    try {
+      console.log("Fetching Public data...");
+      const config = {
+        accessToken: getAccessToken(),
+      };
+      const response = await axios.get(
+        `${API_URL}api/v1/userDashboard/private`,
+
+        {
+          headers: config,
+        }
+      );
+
+      if (response.status === 200) {
+        console.log("Public data retrieved successfully:", response.data);
+
+        const data = response.data;
+        setPrivateDashboardData(data.data.profileStatus);
+      } else {
+        console.error("Unexpected response status:", response.status);
+      }
+    } catch (error) {
+      console.error(
+        "Error fetching Public data:",
+        error.response || error.message
+      );
+    }
+  };
+
+  useEffect(() => {
+    getPrivateDashboardData();
+  }, []);
   return (
     <>
       <SuccessfullyUpdatedModal
@@ -99,7 +135,9 @@ const ProfileDashboardEdit = () => {
             setProfileData={setProfileData}
           />
 
-          <ProfileCompletionEditSection />
+          <ProfileCompletionEditSection
+            privateDashboardData={privateDashboardData}
+          />
         </div>
         <div className="profile-dashboard-edit-right-div">
           <ProfileInformationEdit
@@ -114,6 +152,9 @@ const ProfileDashboardEdit = () => {
             profileData={profileData}
             setProfileData={setProfileData}
           />
+
+          <AddSkill profileData={profileData} setProfileData={setProfileData} />
+
           <AddHeadlineEdit
             profileData={profileData}
             setProfileData={setProfileData}

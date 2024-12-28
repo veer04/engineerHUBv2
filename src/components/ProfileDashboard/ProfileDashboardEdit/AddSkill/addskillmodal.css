@@ -1,0 +1,205 @@
+.skill-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.skill-modal-overlay .skill-modal {
+  background: white;
+  width: 100%;
+  max-width: 588px;
+  border-radius: 16px;
+  padding: 32px;
+  position: relative;
+}
+
+.skill-modal-overlay .skill-modal .modal-header {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+}
+
+.skill-modal .modal-title {
+  font-size: 24px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.skill-modal .close-btn {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.skill-modal .modal-content {
+  margin-top: 0px;
+}
+
+.skill-modal .modal-subtitle {
+  font-size: 16px;
+  color: #547178;
+  margin-bottom: 20px;
+}
+
+.skill-modal .form-div-modal {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.skill-modal .skill-div-inner-div {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.skill-modal .modal-button-div {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.skill-modal .cancel-modal-btn,
+.save-modal-btn {
+  padding: 8px 24px;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  color: #138382;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 20px;
+}
+
+.skill-modal .cancel-modal-btn {
+  background: #f5f5f5;
+  border: none;
+}
+
+.skill-modal .save-modal-btn {
+  background: #138382;
+  color: white;
+  border: none;
+}
+
+.skill-modal .required-indicator {
+  color: #ff3737;
+  margin-left: 2px;
+}
+
+.skill-modal .error-p {
+  color: #f00;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  margin-bottom: 0;
+}
+.skill-modal .input-css-title-skill {
+  width: 100%;
+  height: 48px;
+  padding: 12px 16px;
+  border-radius: 12px;
+  border: 1px solid #cccccc;
+}
+
+.skill-modal .label-css-skill {
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 400;
+  color: #002b36;
+  padding-left: 0;
+  margin-bottom: 5px;
+}
+
+.skill-modal .skill-input-div-main-main {
+  margin-bottom: 20px;
+}
+
+.skill-modal .skill-input-div-main {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 5px;
+}
+
+.skill-modal .skill-add-btn {
+  padding: 8px 24px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 20px;
+  cursor: pointer;
+  background: #138382;
+  border: none;
+  color: white;
+}
+
+.skill-modal .below-div-with-skill-name {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.skill-modal .below-div-with-skill-name .skill-name-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  padding: 8px 16px;
+  border-radius: 10px;
+  background-color: #e5eaeb;
+}
+
+.skill-modal .below-div-with-skill-name .skill-name-div .skill-name-h3 {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 20px;
+  color: #002b36;
+  margin-bottom: 0;
+}
+
+@media screen and (max-width: 520px) {
+  .skill-modal-overlay .skill-modal {
+    background: white;
+    width: 100%;
+    height: 100vh;
+    max-width: 588px;
+    border-radius: 16px;
+    padding: 18px;
+    position: relative;
+  }
+
+  .skill-modal .skill-div-inner-div {
+    width: 100%;
+    height: 78vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .skill-modal .modal-button-div {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+  }
+
+  .skill-modal .skill-input-div-main-main {
+    margin-bottom: 40px;
+  }
+
+  .skill-modal .skill-input-div-main {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 5px;
+  }
+}
