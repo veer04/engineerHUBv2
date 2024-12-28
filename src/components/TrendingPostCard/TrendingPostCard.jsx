@@ -152,10 +152,17 @@ export default function TrendingPostCard({ post, updatePost }) {
           <div className="name">
             <span
               style={{ cursor: "pointer" }}
-              onClick={() => navigate(`/profile/club/${post.creatorId}`)}
+              onClick={() =>
+                navigate(
+                  `/profile/${post?.creatorRole?.toLowerCase()}/${
+                    post.creatorId
+                  }`
+                )
+              }
               className="text-crop-1"
             >
-              {post?.creator?.name}
+              {post?.creator?.name ||
+                `${post?.creator?.firstName} ${post?.creator?.lastName}`}
             </span>
           </div>
         </div>
