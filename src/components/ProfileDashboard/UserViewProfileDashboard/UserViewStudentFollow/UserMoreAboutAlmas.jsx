@@ -5,11 +5,16 @@ import { getAccessToken } from "../../../../features/getCookieValues";
 import axios from "axios";
 import { Bounce, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import NoDataCompBySaif from "./NoDataCompBySaif";
 
 const UserMoreAboutAlamas = ({ title, almaData }) => {
   const [followState, setFollowState] = useState({});
   const [loadingState, setLoadingState] = useState({});
   const [sectionsToShow, setSectionsToShow] = useState(2);
+
+  if (!almaData || !almaData.alumni || almaData.alumni.length === 0) {
+    return <NoDataCompBySaif titleName={"Almas"} />;
+  }
 
   const handleViewMoreClick = () => {
     setSectionsToShow(sectionsToShow + 2);

@@ -14,7 +14,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { set } from "react-hook-form";
 import { RWebShare } from "react-web-share";
-import { FRONTEND_URL } from "../../services/APIUtils";
+import { Bucket_URL, FRONTEND_URL } from "../../services/APIUtils";
 
 export default function TrendingPostCard({ post, updatePost }) {
   const navigate = useNavigate();
@@ -147,7 +147,15 @@ export default function TrendingPostCard({ post, updatePost }) {
       <div className="header">
         <div className="details">
           <div className="logo">
-            <img loading="lazy" src={post?.postLogo} alt="logo" />
+            <img
+              loading="lazy"
+              src={
+                post?.creator?.image
+                  ? post?.creator?.image
+                  : `${Bucket_URL}UserViewDashboard/profile_follow.png`
+              }
+              alt="logo"
+            />
           </div>
           <div className="name">
             <span
