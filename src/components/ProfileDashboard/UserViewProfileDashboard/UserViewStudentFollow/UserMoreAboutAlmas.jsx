@@ -5,6 +5,7 @@ import { getAccessToken } from "../../../../features/getCookieValues";
 import axios from "axios";
 import { Bounce, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import NoDataCompBySaif from "./NoDataCompBySaif";
 
 const UserMoreAboutAlamas = ({ title, almaData }) => {
   const [followState, setFollowState] = useState({});
