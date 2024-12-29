@@ -27,12 +27,6 @@ const AddAchievementModal = ({ isOpen, onClose, data, setProfileData }) => {
 
     if (!formData.achievementName.trim())
       newErrors.achievementName = "Achievement name is required.";
-    if (!formData.achievementDate.trim())
-      newErrors.achievementDate = "Achievement date is required.";
-    if (!formData.description.trim())
-      newErrors.description = "Description is required.";
-    if (!formData.achievementUrl.trim())
-      newErrors.achievementUrl = "Achievement URL is required.";
 
     return newErrors;
   };
@@ -175,7 +169,7 @@ const AddAchievementModal = ({ isOpen, onClose, data, setProfileData }) => {
                     >
                       Achievement Date
                     </label>
-                    <span className="required-indicator">*</span>
+                    {/* <span className="required-indicator">*</span> */}
                     <input
                       type="date"
                       id="achievementDate"
@@ -204,7 +198,7 @@ const AddAchievementModal = ({ isOpen, onClose, data, setProfileData }) => {
                     >
                       Description
                     </label>
-                    <span className="required-indicator">*</span>
+                    {/* <span className="required-indicator">*</span> */}
                     <textarea
                       rows={4}
                       id="description"
@@ -234,7 +228,7 @@ const AddAchievementModal = ({ isOpen, onClose, data, setProfileData }) => {
                     >
                       Achievement URL
                     </label>
-                    <span className="required-indicator">*</span>
+                    {/* <span className="required-indicator">*</span> */}
                     <input
                       type="url"
                       id="achievementUrl"

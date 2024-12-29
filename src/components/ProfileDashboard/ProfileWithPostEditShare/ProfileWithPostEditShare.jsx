@@ -23,6 +23,7 @@ const ProfileWithPostEditShare = ({
   const [isResumeUploaded, setIsResumeUploaded] = useState(
     !!privateDashboardData?.resume
   );
+  const [loading, setLoading] = useState(false);
 
   const [uploadedFileName, setUploadedFileName] = useState(
     privateDashboardData?.resume
@@ -70,11 +71,6 @@ const ProfileWithPostEditShare = ({
           const newResumeUrl = response.data.data;
           setResumeUrl(newResumeUrl);
 
-          setPrivateDashboardData((prevData) => ({
-            ...prevData,
-            resume: newResumeUrl,
-          }));
-          setUploadedFileName(newResumeUrl.split("/").pop());
           toast("🥳 Resume Added Successfully!", {
             position: "top-right",
             autoClose: 5000,
@@ -86,6 +82,11 @@ const ProfileWithPostEditShare = ({
             theme: "dark",
             transition: Bounce,
           });
+          setPrivateDashboardData((prevData) => ({
+            ...prevData,
+            resume: newResumeUrl,
+          }));
+          setUploadedFileName(newResumeUrl.split("/").pop());
         }
         console.log("Resume upload response:", response.data);
       } catch (error) {
@@ -144,8 +145,7 @@ const ProfileWithPostEditShare = ({
     }
   };
 
-  let cleanFileName =
-    uploadedFileName.split("_")[0] + "_" + uploadedFileName.split("_")[2];
+  let cleanFileName = uploadedFileName.split("_")[0].pdf;
 
   const handleThumbsUpClick = () => {
     setIsLiked(true);
@@ -367,7 +367,7 @@ const ProfileWithPostEditShare = ({
                   fontWeight: 600,
                 }}
               >
-                {"saif_ansari.pdf"}
+                {cleanFileName || "saif_ansari.pdf"}
               </h3>
             </div>
             <div

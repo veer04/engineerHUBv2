@@ -17,7 +17,7 @@ const YourActivitySection = ({
     setActionButton(actionButton === buttonName ? null : buttonName);
   };
 
-  console.log(postData, "postData");
+  console.log(jobData, "jobData");
 
   const activityCardArray = Array.from({ length: 12 }, (_, index) => index + 1);
 

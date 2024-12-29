@@ -31,7 +31,7 @@ const PerformanceSection = () => {
       const data = await response.json();
       setPerformanceData(data.data);
       setLoading(false);
-      console.log(data.data, "performaceData");
+      // console.log(data.data, "performaceData");
     } catch (error) {
       console.error("Error getting the data");
     }
@@ -77,23 +77,25 @@ const PerformanceSection = () => {
           </h3>
         </div>
 
-        <div>
-          <button
-            style={{
-              fontSize: 12,
-              fontWeight: 400,
-              lineHeight: "16px",
-              color: "white",
-              padding: "4px 8px",
-              borderRadius: 5,
-              background: "#547178",
-              border: 0,
-              cursor: "pointer",
-            }}
-          >
-            {showHeader ? "Close Analytics" : "View Analytics"}
-          </button>
-        </div>
+        {performaceData?.counts?.length > 0 && (
+          <div>
+            <button
+              style={{
+                fontSize: 12,
+                fontWeight: 400,
+                lineHeight: "16px",
+                color: "white",
+                padding: "4px 8px",
+                borderRadius: 5,
+                background: "#547178",
+                border: 0,
+                cursor: "pointer",
+              }}
+            >
+              {showHeader ? "Close Analytics" : "View Analytics"}
+            </button>
+          </div>
+        )}
       </div>
 
       <div className="analytics-boxes-div">
@@ -131,88 +133,134 @@ const PerformanceSection = () => {
           </h3>
         </div>
 
-        {performaceData?.counts?.map((count, index) => (
-          <div className="analytics-box-2">
+        <div className="analytics-box-2">
+          {performaceData &&
+          performaceData.counts &&
+          performaceData.counts.length > 0 ? (
+            performaceData.counts.map((count, index) => (
+              <div key={index}>
+                <h3
+                  style={{
+                    fontSize: 20,
+                    fontWeight: 700,
+                    lineHeight: "24px",
+                    color: "#002B36",
+                    marginBottom: 0,
+                  }}
+                >
+                  {count.total || "Not Applied"}
+                </h3>
+              </div>
+            ))
+          ) : (
             <h3
               style={{
-                fontSize: 20,
+                fontSize: 12,
                 fontWeight: 700,
                 lineHeight: "24px",
                 color: "#002B36",
                 marginBottom: 0,
               }}
             >
-              {count.total}
+              {"Not Applied"}
             </h3>
+          )}
 
-            <h3
-              style={{
-                fontSize: 12,
-                fontWeight: 400,
-                lineHeight: "16px",
-                color: "#486D76",
-                marginBottom: 0,
-              }}
-            >
-              Opportunity Applied
-            </h3>
-          </div>
-        ))}
+          <h3
+            style={{
+              fontSize: 12,
+              fontWeight: 400,
+              lineHeight: "16px",
+              color: "#486D76",
+              marginBottom: 0,
+            }}
+          >
+            Opportunity Applied
+          </h3>
+        </div>
 
         {performaceData &&
           performaceData?.counts?.map((c, index) => {
             const { _id, total } = c;
             return (
-              <>
-                <div key={index} className="analytics-box-3">
-                  <div style={{ display: "flex", gap: 4 }}>
-                    <h3
-                      style={{
-                        fontSize: 20,
-                        fontWeight: 700,
-                        lineHeight: "24px",
-                        color: "#002B36",
-                        marginBottom: 0,
-                      }}
-                    >
-                      {total}
-                    </h3>
-
-                    <div
-                      style={{
-                        background: "#f4eded",
-                        borderRadius: "50%",
-                        width: 22,
-                        height: 22,
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                      }}
-                    >
-                      <img
-                        src={"./arrow-green.svg"}
-                        alt=""
-                        width={"16px"}
-                        height={"16px"}
-                      />
-                    </div>
-                  </div>
-
+              <div key={index} className="analytics-box-3">
+                <div style={{ display: "flex", gap: 4 }}>
                   <h3
                     style={{
-                      fontSize: 12,
-                      fontWeight: 400,
-                      lineHeight: "16px",
-                      color: "#486D76",
+                      fontSize: 20,
+                      fontWeight: 700,
+                      lineHeight: "24px",
+                      color: "#002B36",
                       marginBottom: 0,
                     }}
                   >
-                    Shortlisted
+                    {total ? total : "Not Applied"}
                   </h3>
+
+                  <div
+                    style={{
+                      background: "#f4eded",
+                      borderRadius: "50%",
+                      width: 22,
+                      height: 22,
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <img
+                      src={"./arrow-green.svg"}
+                      alt=""
+                      width={"16px"}
+                      height={"16px"}
+                    />
+                  </div>
                 </div>
-              </>
+
+                <h3
+                  style={{
+                    fontSize: 12,
+                    fontWeight: 400,
+                    lineHeight: "16px",
+                    color: "#486D76",
+                    marginBottom: 0,
+                  }}
+                >
+                  {total ? "Shortlisted" : "Not Applied"}
+                </h3>
+              </div>
             );
           })}
+
+        {/* Fallback for empty or undefined `performaceData.counts` */}
+        {!(performaceData && performaceData.counts?.length) && (
+          <div className="analytics-box-3">
+            <div style={{ display: "flex", gap: 4 }}>
+              <h3
+                style={{
+                  fontSize: 12,
+                  fontWeight: 700,
+                  lineHeight: "24px",
+                  color: "#002B36",
+                  marginBottom: -4,
+                }}
+              >
+                {"Not Applied"}
+              </h3>
+            </div>
+            <h3
+              style={{
+                fontSize: 12,
+                fontWeight: 400,
+                lineHeight: "24px",
+                color: "#486D76",
+                marginBottom: 0,
+              }}
+            >
+              Shortlisted
+            </h3>
+          </div>
+        )}
 
         <div className="analytics-box-3">
           <div style={{ display: "flex", gap: 4 }}>
@@ -370,32 +418,34 @@ const PerformanceSection = () => {
               </tbody>
             )}
           </table>
-          <div
-            style={{
-              position: "absolute",
-              top: "50%",
-              left: "50%",
-              transform: "translate(-50%, 20%)",
-            }}
-          >
-            {showButton && (
-              <button
-                onClick={handleViewTable}
-                style={{
-                  borderRadius: 10,
-                  background: "#138382",
-                  padding: "6px 16px",
-                  border: 0,
-                  color: "white",
-                  fontSize: 14,
-                  fontWeight: 400,
-                  lineHeight: "20px",
-                }}
-              >
-                View Analysis
-              </button>
-            )}
-          </div>
+          {performaceData?.counts?.length > 0 && (
+            <div
+              style={{
+                position: "absolute",
+                top: "50%",
+                left: "50%",
+                transform: "translate(-50%, 10%)",
+              }}
+            >
+              {showButton && (
+                <button
+                  onClick={handleViewTable}
+                  style={{
+                    borderRadius: 10,
+                    background: "#138382",
+                    padding: "6px 16px",
+                    border: 0,
+                    color: "white",
+                    fontSize: 14,
+                    fontWeight: 400,
+                    lineHeight: "20px",
+                  }}
+                >
+                  View Analysis
+                </button>
+              )}
+            </div>
+          )}
         </div>
       )}
     </div>

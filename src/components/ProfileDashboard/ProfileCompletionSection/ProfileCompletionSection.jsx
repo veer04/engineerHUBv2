@@ -1,10 +1,54 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./profilecompletionsection.css";
 import SocialLinksModal from "../ProfileDashboardEdit/SocialLinksProfile/SocialLinksModal";
 
-const ProfileCompletionSection = () => {
+const ProfileCompletionSection = ({ privateDashboardData = "" }) => {
+  const [profileCompletion, setProfileCompletion] = useState(100);
+
+  console.log(privateDashboardData, "privateDashboardData");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
+  useEffect(() => {
+    if (privateDashboardData) {
+      const {
+        achievementDetails = 0,
+        educationDetails = 0,
+        experienceDetails = 0,
+        licenceDetails = 0,
+        projectDetails = 0,
+        resume = 0,
+        skillsDetails = 0,
+        socialMediaDetails = 0,
+      } = privateDashboardData;
+
+      const totalCompletion =
+        achievementDetails +
+        educationDetails +
+        experienceDetails +
+        licenceDetails +
+        projectDetails +
+        resume +
+        skillsDetails +
+        socialMediaDetails;
+
+      const totalFields = 8;
+
+      const averageCompletion = totalCompletion / totalFields;
+
+      setProfileCompletion(totalCompletion);
+    }
+  }, [privateDashboardData]);
+
   return (
     <>
+      <SocialLinksModal isOpen={isModalOpen} onClose={closeModal} />
+
       <div className="profile-completion-main-section">
         <h3
           style={{
@@ -32,7 +76,7 @@ const ProfileCompletionSection = () => {
               marginTop: 5,
             }}
           >
-            43%
+            {profileCompletion ? `${profileCompletion.toFixed(1)} %` : "0"}
           </h3>
 
           <div>
@@ -64,7 +108,13 @@ const ProfileCompletionSection = () => {
         </div>
 
         <div className="progress-container-main">
-          <div className="progress-bar-sub" style={{ width: "40%" }}></div>
+          <div
+            className="progress-bar-sub"
+            style={{
+              width: `${profileCompletion}%`,
+              backgroundColor: profileCompletion > 70 ? "#08E045" : "#DA1E28",
+            }}
+          ></div>
         </div>
 
         <div
@@ -85,7 +135,7 @@ const ProfileCompletionSection = () => {
                 marginBottom: 0,
               }}
             >
-              Social Links
+              Achievement
             </h3>
             <h4
               style={{
@@ -98,7 +148,10 @@ const ProfileCompletionSection = () => {
                 marginLeft: 10,
               }}
             >
-              10%
+              {(privateDashboardData &&
+                privateDashboardData.achievementDetails) ||
+                0}
+              %
             </h4>
           </div>
 
@@ -137,7 +190,7 @@ const ProfileCompletionSection = () => {
                 marginBottom: 0,
               }}
             >
-              Resume
+              Education
             </h3>
             <h4
               style={{
@@ -150,7 +203,10 @@ const ProfileCompletionSection = () => {
                 marginLeft: 10,
               }}
             >
-              10%
+              {(privateDashboardData &&
+                privateDashboardData?.educationDetails) ||
+                0}
+              %
             </h4>
           </div>
 
@@ -188,7 +244,7 @@ const ProfileCompletionSection = () => {
                 marginBottom: 0,
               }}
             >
-              Personal Details
+              Experience
             </h3>
             <h4
               style={{
@@ -201,7 +257,10 @@ const ProfileCompletionSection = () => {
                 marginLeft: 10,
               }}
             >
-              10%
+              {(privateDashboardData &&
+                privateDashboardData?.experienceDetails) ||
+                0}
+              %
             </h4>
           </div>
 
@@ -239,7 +298,7 @@ const ProfileCompletionSection = () => {
                 marginBottom: 0,
               }}
             >
-              Upload Picture
+              Certificate
             </h3>
             <h4
               style={{
@@ -252,7 +311,9 @@ const ProfileCompletionSection = () => {
                 marginLeft: 10,
               }}
             >
-              10%
+              {(privateDashboardData && privateDashboardData?.licenceDetails) ||
+                0}
+              %
             </h4>
           </div>
 
@@ -267,7 +328,7 @@ const ProfileCompletionSection = () => {
                 marginBottom: 0,
               }}
             >
-              Upload
+              Add
             </h3>
           </div>
         </div>
@@ -303,7 +364,9 @@ const ProfileCompletionSection = () => {
                 marginLeft: 10,
               }}
             >
-              10%
+              {(privateDashboardData && privateDashboardData?.skillsDetails) ||
+                0}
+              %
             </h4>
           </div>
 
@@ -341,7 +404,7 @@ const ProfileCompletionSection = () => {
                 marginBottom: 0,
               }}
             >
-              About
+              Resume
             </h3>
             <h4
               style={{
@@ -354,12 +417,13 @@ const ProfileCompletionSection = () => {
                 marginLeft: 10,
               }}
             >
-              10%
+              {(privateDashboardData && privateDashboardData?.resume) || 0}%
             </h4>
           </div>
 
           <div>
             <h3
+              onClick={openModal}
               style={{
                 fontSize: 14,
                 fontWeight: 700,
@@ -367,9 +431,66 @@ const ProfileCompletionSection = () => {
                 fontStyle: "normal",
                 color: "#138382",
                 marginBottom: 0,
+                cursor: "pointer",
               }}
             >
               Upload
+            </h3>
+          </div>
+        </div>
+
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            marginTop: 20,
+          }}
+        >
+          <div style={{ display: "flex" }}>
+            <h3
+              style={{
+                fontSize: 14,
+                fontWeight: 400,
+                lineHeight: "20px",
+                fontStyle: "normal",
+                color: "#002B36",
+                marginBottom: 0,
+              }}
+            >
+              Social Media
+            </h3>
+            <h4
+              style={{
+                fontSize: 14,
+                fontWeight: 700,
+                lineHeight: "20px",
+                fontStyle: "normal",
+                color: "#39D353",
+                marginBottom: 0,
+                marginLeft: 10,
+              }}
+            >
+              {(privateDashboardData &&
+                privateDashboardData?.socialMediaDetails) ||
+                0}
+              %
+            </h4>
+          </div>
+
+          <div>
+            <h3
+              onClick={openModal}
+              style={{
+                fontSize: 14,
+                fontWeight: 700,
+                lineHeight: "20px",
+                fontStyle: "normal",
+                color: "#138382",
+                marginBottom: 0,
+                cursor: "pointer",
+              }}
+            >
+              Add
             </h3>
           </div>
         </div>

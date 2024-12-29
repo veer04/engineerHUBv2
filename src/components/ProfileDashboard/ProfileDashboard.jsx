@@ -15,6 +15,9 @@ import { getAccessToken } from "../../features/getCookieValues";
 
 const ProfileDashboard = () => {
   const [privateDashboardData, setPrivateDashboardData] = useState(null);
+  const [privateDashboardDataForComp, setPrivateDashboardDataForComp] =
+    useState(null);
+
   const [streakData, setStreakData] = useState(null);
   const [jobData, setJobData] = useState(null);
   const [internshipData, setInternshipData] = useState(null);
@@ -22,6 +25,7 @@ const ProfileDashboard = () => {
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(1);
   const userId = getUserId();
+  const [loading, setLoading] = useState(false);
 
   const getPrivateDashboardData = async () => {
     try {
@@ -40,6 +44,7 @@ const ProfileDashboard = () => {
 
         const data = response.data;
         setPrivateDashboardData(data.data.data);
+        setPrivateDashboardDataForComp(data.data.profileStatus);
       } else {
         console.error("Unexpected response status:", response.status);
       }
@@ -104,7 +109,9 @@ const ProfileDashboard = () => {
               setPrivateDashboardData={setPrivateDashboardData}
             />
             <div style={{ marginTop: 20 }}>
-              <ProfileCompletionSection />
+              <ProfileCompletionSection
+                privateDashboardData={privateDashboardDataForComp}
+              />
             </div>
             <img
               className="profile-dashboard-rectangle-img-1"
