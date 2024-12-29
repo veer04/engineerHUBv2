@@ -1,66 +1,69 @@
 import React from "react";
 import { FaArrowRight } from "react-icons/fa";
 import { FaPlus } from "react-icons/fa6";
+import { Link } from "react-router-dom";
 
 const CreateJobCard = () => {
   return (
     <>
-      <div
-        style={{
-          width: "224px",
-          padding: "12px",
-          borderRadius: "8px",
-          background: "#f3f9f9",
-        }}
-      >
+      <Link to={"/host/job"}>
         <div
           style={{
-            width: "200px",
-            height: "100px",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "center",
-            borderRadius: 5,
+            width: "224px",
+            padding: "12px",
+            borderRadius: "8px",
+            background: "#f3f9f9",
           }}
         >
-          <img src="./job-frame.png" alt="" />
-        </div>
-
-        <div style={{ marginTop: 8 }}>
-          <h3
-            style={{
-              fontSize: 16,
-              fontWeight: 700,
-              lineHeight: "24px",
-              color: "#002B36",
-              marginBottom: 0,
-            }}
-          >
-            Jobs
-          </h3>
-
           <div
             style={{
+              width: "200px",
+              height: "100px",
               display: "flex",
-              gap: 5,
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+              borderRadius: 5,
             }}
           >
+            <img src="./job-frame.png" alt="" />
+          </div>
+
+          <div style={{ marginTop: 8 }}>
             <h3
               style={{
-                fontSize: 12,
-                fontWeight: 400,
-                lineHeight: "16px",
-                color: "#33555E",
+                fontSize: 16,
+                fontWeight: 700,
+                lineHeight: "24px",
+                color: "#002B36",
                 marginBottom: 0,
               }}
             >
-              Create Jobs
+              Jobs
             </h3>
-            <FaArrowRight size={14} />
+
+            <div
+              style={{
+                display: "flex",
+                gap: 5,
+              }}
+            >
+              <h3
+                style={{
+                  fontSize: 12,
+                  fontWeight: 400,
+                  lineHeight: "16px",
+                  color: "#33555E",
+                  marginBottom: 0,
+                }}
+              >
+                Create Jobs
+              </h3>
+              <FaArrowRight size={14} />
+            </div>
           </div>
         </div>
-      </div>
+      </Link>
     </>
   );
 };

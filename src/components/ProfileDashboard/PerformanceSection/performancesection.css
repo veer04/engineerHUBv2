@@ -18,11 +18,13 @@
   border-radius: 10px;
   width: 100%;
   height: auto;
-  background-color: #ffe5e5;
+  /* background-color: #ffe5e5; */
+  /* background-color: #f3f9f9; */
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .performance-section-main-div .analytics-boxes-div .analytics-box-2 {

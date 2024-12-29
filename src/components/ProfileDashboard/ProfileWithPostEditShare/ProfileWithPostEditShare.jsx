@@ -9,9 +9,10 @@ import { FiDownload } from "react-icons/fi";
 import { GoTrash } from "react-icons/go";
 import { getAccessToken } from "../../../features/getCookieValues";
 import axios from "axios";
-import { API_URL } from "../../../services/APIUtils";
+import { API_URL, FRONTEND_URL } from "../../../services/APIUtils";
 import { Bounce, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { RWebShare } from "react-web-share";
 
 const ProfileWithPostEditShare = ({
   privateDashboardData,
@@ -320,10 +321,18 @@ const ProfileWithPostEditShare = ({
       <div className="btn-siv-edit-post-share">
         <button onClick={handleEditPage}>Edit</button>
         <button onClick={handlePostPage}>Post</button>
-        <button>Share</button>
+        <RWebShare
+          data={{
+            text: `Check out this post`,
+            url: `${FRONTEND_URL}profiledashboard`,
+            title: "Check out this post at engineerHUB",
+          }}
+        >
+          <button>Share</button>
+        </RWebShare>
       </div>
 
-      {isResumeUploaded ? (
+      {!isResumeUploaded ? (
         <div className="click-to-upload-your-resume">
           <div className="click-to-upload-your-resume-innner">
             <button
@@ -358,7 +367,7 @@ const ProfileWithPostEditShare = ({
                   fontWeight: 600,
                 }}
               >
-                {cleanFileName || "johndoersume24.pdf"}
+                {"saif_ansari.pdf"}
               </h3>
             </div>
             <div

@@ -97,17 +97,25 @@ const PerformanceSection = () => {
       </div>
 
       <div className="analytics-boxes-div">
-        <div className="analytics-box-1">
+        <div
+          className="analytics-box-1"
+          style={{
+            backgroundColor:
+              performaceData?.performance === "Poor" ? "#ffe5e5" : "#f3f9f9",
+          }}
+        >
           <h3
             style={{
               fontSize: 20,
               fontWeight: 700,
               lineHeight: "24px",
-              color: "#FF0000",
+              color:
+                performaceData?.performance === "Poor" ? "#FF0000" : "#2CC546",
+
               marginBottom: 0,
             }}
           >
-            {performaceData.performace || "Good"}
+            {performaceData?.performance || "Good"}
           </h3>
 
           <h3
@@ -217,7 +225,7 @@ const PerformanceSection = () => {
                 marginBottom: 0,
               }}
             >
-              8
+              0
             </h3>
 
             <div

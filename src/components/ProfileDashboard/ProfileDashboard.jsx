@@ -15,6 +15,13 @@ import { getAccessToken } from "../../features/getCookieValues";
 
 const ProfileDashboard = () => {
   const [privateDashboardData, setPrivateDashboardData] = useState(null);
+  const [streakData, setStreakData] = useState(null);
+  const [jobData, setJobData] = useState(null);
+  const [internshipData, setInternshipData] = useState(null);
+  const [postData, setPostData] = useState(null);
+  const [limit, setLimit] = useState(10);
+  const [page, setPage] = useState(1);
+  const userId = getUserId();
 
   const getPrivateDashboardData = async () => {
     try {
@@ -48,6 +55,45 @@ const ProfileDashboard = () => {
     getPrivateDashboardData();
   }, []);
 
+  const getActivityData = async (userId, section) => {
+    setLoading(true);
+    try {
+      const response = await axios.get(
+        `${API_URL}api/v1/userDashboard/activity-area?userId=${userId}&section=${section}&limit=${limit}&page=${page}`
+      );
+
+      if (response.status === 200) {
+        if (section === "streak") {
+          setStreakData(response.data.data);
+        } else if (section === "job") {
+          setJobData(response.data.data.applications);
+        } else if (section === "internship") {
+          setInternshipData(response.data.data.applications);
+        } else if (section === "post") {
+          setPostData(response.data.data);
+        } else {
+          setError("Unexpected response status.");
+        }
+      }
+    } catch (error) {
+      console.log("Error getting the data");
+      setError("Error fetching Activity data.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (privateDashboardData) {
+      if (userId) {
+        getActivityData(userId, "streak");
+        getActivityData(userId, "job");
+        getActivityData(userId, "internship");
+        getActivityData(userId, "post");
+      }
+    }
+  }, [privateDashboardData, limit, page]);
+
   return (
     <>
       <main className="main-profile-dashboard">
@@ -79,7 +125,12 @@ const ProfileDashboard = () => {
             </div>
 
             <div style={{ marginTop: 15 }}>
-              <YourActivitySection />
+              <YourActivitySection
+                streakData={streakData}
+                jobData={jobData}
+                internshipData={internshipData}
+                postData={postData}
+              />
             </div>
           </div>
         </div>
