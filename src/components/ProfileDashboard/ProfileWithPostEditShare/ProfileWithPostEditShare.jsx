@@ -66,7 +66,14 @@ const ProfileWithPostEditShare = ({
 
         if (response.data) {
           setIsResumeUploaded(true);
-          setResumeUrl(response.data.data);
+          const newResumeUrl = response.data.data;
+          setResumeUrl(newResumeUrl);
+
+          setPrivateDashboardData((prevData) => ({
+            ...prevData,
+            resume: newResumeUrl,
+          }));
+          setUploadedFileName(newResumeUrl.split("/").pop());
           toast("🥳 Resume Added Successfully!", {
             position: "top-right",
             autoClose: 5000,
@@ -136,10 +143,14 @@ const ProfileWithPostEditShare = ({
     }
   };
 
+  let cleanFileName =
+    uploadedFileName.split("_")[0] + "_" + uploadedFileName.split("_")[2];
+
   const handleThumbsUpClick = () => {
     setIsLiked(true);
     setLikeCount(likeCount + 1);
   };
+
   return (
     <div className="main-profile-with-post-share">
       <div className="img-share-div">
@@ -200,8 +211,8 @@ const ProfileWithPostEditShare = ({
               </h4>
             </div>
             <div className="img-thumsup-main-div">
-              <div onClick={handleThumbsUpClick} className="img-thumbsup-div">
-                {isLiked ? (
+              <div className="img-thumbsup-div">
+                {/* {isLiked ? (
                   <FaThumbsUp
                     className="thumbs-up-icon animate"
                     color="#128381"
@@ -213,7 +224,13 @@ const ProfileWithPostEditShare = ({
                     color="#128381"
                     size={22}
                   />
-                )}
+                )} */}
+
+                <FaRegThumbsUp
+                  className="thumbs-up-icon animate"
+                  color="#128381"
+                  size={22}
+                />
               </div>
               <h4
                 style={{
@@ -221,10 +238,12 @@ const ProfileWithPostEditShare = ({
                   marginTop: 5,
                   color: "white",
                   fontWeight: 400,
-                  marginLeft: 3,
+                  textAlign: "center",
                 }}
               >
-                {likeCount} {likeCount === 1 ? "Like" : "Likes"}
+                {/* {likeCount} {likeCount === 1 ? "Like" : "Likes"} */}
+
+                <p>{privateDashboardData?.likes || 0} Likes</p>
               </h4>
             </div>
           </div>
@@ -304,7 +323,7 @@ const ProfileWithPostEditShare = ({
         <button>Share</button>
       </div>
 
-      {!isResumeUploaded ? (
+      {isResumeUploaded ? (
         <div className="click-to-upload-your-resume">
           <div className="click-to-upload-your-resume-innner">
             <button
@@ -339,7 +358,7 @@ const ProfileWithPostEditShare = ({
                   fontWeight: 600,
                 }}
               >
-                johndoersume24.pdf
+                {cleanFileName || "johndoersume24.pdf"}
               </h3>
             </div>
             <div
