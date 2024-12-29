@@ -67,7 +67,7 @@ const ProfileDashboardUserView = () => {
         } else if (section === "internship") {
           setInternshipData(response.data.data.applications);
         } else if (section === "post") {
-          setPostData(response.data.data);
+          setPostData(response.data.data.applications);
         } else {
           setError("Unexpected response status.");
         }

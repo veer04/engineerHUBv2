@@ -35,12 +35,6 @@ const AddCertificationsModal = ({ isOpen, onClose, data, setProfileData }) => {
 
     if (!formData.certificationName.trim())
       newErrors.certificationName = "Certificate name is required.";
-    if (!formData.certificateUrl.trim())
-      newErrors.certificateUrl = "Certificate Url is required.";
-    if (!formData.issuedDate.trim())
-      newErrors.issuedDate = "Issue date is required.";
-    if (!formData.issuedBy.trim())
-      newErrors.issuedBy = "Issuing organization is required.";
 
     return newErrors;
   };
@@ -184,7 +178,7 @@ const AddCertificationsModal = ({ isOpen, onClose, data, setProfileData }) => {
                     >
                       Certificate URL
                     </label>
-                    <span className="required-indicator">*</span>
+                    {/* <span className="required-indicator">*</span> */}
                     <input
                       type="text"
                       id="certificateUrl"
@@ -218,7 +212,7 @@ const AddCertificationsModal = ({ isOpen, onClose, data, setProfileData }) => {
                       >
                         Issue Date
                       </label>
-                      <span className="required-indicator">*</span>
+                      {/* <span className="required-indicator">*</span> */}
                       <input
                         type="date"
                         id="issuedDate"
@@ -255,7 +249,7 @@ const AddCertificationsModal = ({ isOpen, onClose, data, setProfileData }) => {
                       >
                         Issued By
                       </label>
-                      <span className="required-indicator">*</span>
+                      {/* <span className="required-indicator">*</span> */}
                       <input
                         type="date"
                         id="issuedBy"
