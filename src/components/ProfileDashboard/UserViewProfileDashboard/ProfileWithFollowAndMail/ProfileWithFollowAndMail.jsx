@@ -13,15 +13,12 @@ import "react-toastify/dist/ReactToastify.css";
 import { getAccessToken } from "../../../../features/getCookieValues";
 
 const ProfileWithFollowAndMail = ({ DashboardAdminData }) => {
+  console.log(DashboardAdminData, "dashboardadim");
   const [isLiked, setIsLiked] = useState(false);
   const [likeCount, setLikeCount] = useState(0);
   const [isFollowActive, setFollowActive] = useState(false);
   const [isMailActive, setMailActive] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-
-  // const handleFollowClick = () => {
-  //   setFollowActive(!isFollowActive);
-  // };
 
   const handleViewResume = () => {
     if (DashboardAdminData) {
@@ -30,6 +27,11 @@ const ProfileWithFollowAndMail = ({ DashboardAdminData }) => {
       toast.error("Resume not available yet!");
     }
   };
+
+  const likesPrint =
+    DashboardAdminData &&
+    DashboardAdminData.length > 0 &&
+    DashboardAdminData.likes;
 
   const handleMailClick = () => {
     setMailActive(!isMailActive);
@@ -143,8 +145,8 @@ const ProfileWithFollowAndMail = ({ DashboardAdminData }) => {
         )}
 
         <div>
-          <div onClick={handleThumbsUpClick} className="img-thumbsup-div">
-            {isLiked ? (
+          <div className="img-thumbsup-div">
+            {/* {isLiked ? (
               <FaThumbsUp
                 className="thumbs-up-icon animate"
                 color="#128381"
@@ -156,7 +158,13 @@ const ProfileWithFollowAndMail = ({ DashboardAdminData }) => {
                 color="#128381"
                 size={22}
               />
-            )}
+            )} */}
+
+            <FaThumbsUp
+              className="thumbs-up-icon animate"
+              color="#128381"
+              size={22}
+            />
           </div>
           <h4
             style={{
@@ -164,10 +172,11 @@ const ProfileWithFollowAndMail = ({ DashboardAdminData }) => {
               marginTop: 5,
               color: "white",
               fontWeight: 400,
-              marginLeft: 3,
+              textAlign: "center",
             }}
           >
-            {likeCount} {likeCount === 1 ? "Like" : "Likes"}
+            {/* {likeCount} {likeCount === 1 ? "Like" : "Likes"} */}
+            <p>{DashboardAdminData?.likes || 0} likes</p>
           </h4>
         </div>
       </div>
@@ -289,7 +298,7 @@ const ProfileWithFollowAndMail = ({ DashboardAdminData }) => {
             }}
           >
             <h3 style={{ fontSize: 12, marginBottom: 0, fontWeight: 500 }}>
-              ATS Score: 80%
+              ATS Score: 70%
             </h3>
           </div>
           <div className="update-view-trash-download">
