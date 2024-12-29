@@ -79,17 +79,7 @@ const MoreAboutYourCollegeSection = ({
             {aboutData ? (
               aboutData.college.aboutUs
             ) : (
-              <p>
-                The college was established in 1998 and offers B.Tech Courses in
-                all major disciplines of Engineering. The college also offers
-                M.Tech in Electronics & Communication Engineering, Computer
-                Science, Electrical and Electronics Engineering and Mechanical
-                Engineering. The college has been consistently maintaining
-                excellent academic results and placements. The college has the
-                distinction of being the first and only college in UP to receive
-                the Acedemic Excellence Award for the Best Engineering College
-                in UPTU from H.E. the Governor of UP for two successive years.
-              </p>
+              <p>No College About is there</p>
             )}
           </h4>
         </div>

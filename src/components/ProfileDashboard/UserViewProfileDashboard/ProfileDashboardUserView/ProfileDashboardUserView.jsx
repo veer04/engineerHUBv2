@@ -308,6 +308,7 @@ const ProfileDashboardUserView = () => {
                 streakData={streakData}
                 jobData={jobData}
                 internshipData={internshipData}
+                postData={postData}
               />
             </div>
             <MoreAboutYourCollegeSection
