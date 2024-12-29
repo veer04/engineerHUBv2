@@ -3,11 +3,14 @@ import "./youractivitysection.css";
 import { GoStopwatch } from "react-icons/go";
 import ActivityCardsSaif from "./ActivityCardsSaif";
 import PostCardActivity from "./PostCardActivity/PostCardActivity";
-import RecommendationCard1 from "../RecommendedSection/RecommendationCard1";
-import RecommendedCard2 from "../RecommendedSection/RecommendedSection2";
 import RecommendationCard2Activity from "../RecommendedSection/RecommendationCard2Activity";
 
-const YourActivitySection = ({ streakData, jobData, internshipData }) => {
+const YourActivitySection = ({
+  streakData,
+  jobData,
+  internshipData,
+  postData,
+}) => {
   const [actionButton, setActionButton] = useState("Streak");
 
   const handleButtonClick = (buttonName) => {
@@ -148,23 +151,57 @@ const YourActivitySection = ({ streakData, jobData, internshipData }) => {
       )}
 
       {actionButton === "Posts" && (
-        <div className="grid-post-card-activity-empty">
-          {postCardActivityArray.map((post) => (
-            <PostCardActivity key={post} />
-          ))}
-        </div>
+        <>
+          <div className="grid-post-card-activity-empty">
+            {postCardActivityArray.map((post) => (
+              <PostCardActivity key={post} />
+            ))}
+          </div>
+        </>
       )}
 
       {actionButton === "Jobs" && (
-        <div className="grid-job-card-activity">
-          {jobData && <RecommendationCard2Activity data={jobData} />}
-        </div>
+        <>
+          {jobData && jobData?.length > 0 ? (
+            <div className="grid-job-card-activity">
+              <RecommendationCard2Activity data={jobData} />
+            </div>
+          ) : (
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                width: "100%",
+                padding: "20px",
+              }}
+            >
+              <p style={{ margin: 0 }}>No Jobs found!</p>
+            </div>
+          )}
+        </>
       )}
 
       {actionButton === "Internships" && (
-        <div className="grid-job-card-activity">
-          {jobData && <RecommendationCard2Activity data={internshipData} />}
-        </div>
+        <>
+          {internshipData && internshipData?.length > 0 ? (
+            <div className="grid-job-card-activity">
+              <RecommendationCard2Activity data={internshipData} />
+            </div>
+          ) : (
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                width: "100%",
+                padding: "20px",
+              }}
+            >
+              <p style={{ margin: 0 }}>No Internships found!</p>
+            </div>
+          )}
+        </>
       )}
     </div>
   );

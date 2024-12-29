@@ -11,6 +11,10 @@ const UserMoreAboutAlamas = ({ title, almaData }) => {
   const [loadingState, setLoadingState] = useState({});
   const [sectionsToShow, setSectionsToShow] = useState(2);
 
+  if (!almaData || !almaData.alumni || almaData.alumni.length === 0) {
+    return <NoDataCompBySaif titleName={"Almas"} />;
+  }
+
   const handleViewMoreClick = () => {
     setSectionsToShow(sectionsToShow + 2);
   };

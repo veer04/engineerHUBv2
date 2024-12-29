@@ -24,8 +24,7 @@ const UserProfileAboutDesc = ({ DashboardAdminData }) => {
           marginBottom: 0,
         }}
       >
-        {(DashboardAdminData && DashboardAdminData.bio) ||
-          "Result-oriented and confident professional with over 3 years of hands-on experience in CakePHP, and Laravel frameworks. My aim is to leverage my technical expertise and strong problem-solving skills to contribute effectively to a dynamic organization."}
+        {(DashboardAdminData && DashboardAdminData.bio) || "No Bio is there"}
       </p>
     </div>
   );
