@@ -371,7 +371,8 @@ const BookNow = () => {
     // Function to parse date and set current year
     const parseDate = (dateString) => {
       const date = new Date(dateString);
-      const currentYear = new Date().getFullYear();
+      // const currentYear = new Date().getFullYear();
+      const currentYear = 2025;
       date.setFullYear(currentYear); // Set the current year
       return date; // Return as a Date object
     };
@@ -441,6 +442,8 @@ const BookNow = () => {
 
   const [dates, setDates] = useState([]);
 
+  console.log(dates, "dates");
+
   // i want 12 dates including current day
   useEffect(() => {
     const dates = [];
@@ -458,7 +461,10 @@ const BookNow = () => {
 
   useEffect(() => {
     if (dates.length && selectedDates) {
-      const year = new Date().getFullYear();
+      const currentDate = new Date();
+      // let year = currentDate.getFullYear();
+      let year = 2025;
+      console.log(year, "year");
       const currentYearSelectedDate = `${selectedDates} ${year}`;
       const timeSlots = [];
       // the time interval will depend on the duration we get from the meetingData.duration. meetingData.duration is a string in "30 Mins" format. Extract the "30" out of it and use that as the time interval

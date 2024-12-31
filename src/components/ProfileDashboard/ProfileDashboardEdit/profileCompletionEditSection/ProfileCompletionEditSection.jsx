@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./profileCompletionEditSection.css";
 import SocialLinksModal from "../SocialLinksProfile/SocialLinksModal";
 
 const ProfileCompletionEditSection = ({ privateDashboardData }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [profileCompletion, setProfileCompletion] = useState(100);
 
   console.log(privateDashboardData, "privateDashboardData");
   const openModal = () => {
@@ -12,6 +13,36 @@ const ProfileCompletionEditSection = ({ privateDashboardData }) => {
   const closeModal = () => {
     setIsModalOpen(false);
   };
+  useEffect(() => {
+    if (privateDashboardData) {
+      const {
+        achievementDetails = 0,
+        educationDetails = 0,
+        experienceDetails = 0,
+        licenceDetails = 0,
+        projectDetails = 0,
+        resume = 0,
+        skillsDetails = 0,
+        socialMediaDetails = 0,
+      } = privateDashboardData;
+
+      const totalCompletion =
+        achievementDetails +
+        educationDetails +
+        experienceDetails +
+        licenceDetails +
+        projectDetails +
+        resume +
+        skillsDetails +
+        socialMediaDetails;
+
+      const totalFields = 8;
+
+      const averageCompletion = totalCompletion / totalFields;
+
+      setProfileCompletion(totalCompletion);
+    }
+  }, [privateDashboardData]);
   return (
     <>
       <SocialLinksModal isOpen={isModalOpen} onClose={closeModal} />
@@ -43,7 +74,7 @@ const ProfileCompletionEditSection = ({ privateDashboardData }) => {
               marginTop: 5,
             }}
           >
-            43%
+            {profileCompletion ? `${profileCompletion.toFixed(1)} %` : "0"}
           </h3>
 
           <div>
@@ -75,7 +106,13 @@ const ProfileCompletionEditSection = ({ privateDashboardData }) => {
         </div>
 
         <div className="progress-container-main">
-          <div className="progress-bar-sub" style={{ width: "40%" }}></div>
+          <div
+            className="progress-bar-sub"
+            style={{
+              width: `${profileCompletion}%`,
+              backgroundColor: profileCompletion > 70 ? "#08E045" : "#DA1E28",
+            }}
+          ></div>
         </div>
 
         <div

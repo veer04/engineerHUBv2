@@ -22,7 +22,7 @@
 
 .profile-completion-main-section .progress-container-main .progress-bar-sub {
   height: 8px;
-  background: #da1e28;
+  /* background: #da1e28; */
   transition: width 0.4s ease;
   border-radius: 64px;
 }

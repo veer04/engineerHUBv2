@@ -17,14 +17,14 @@ const YourActivitySection = ({
     setActionButton(actionButton === buttonName ? null : buttonName);
   };
 
-  // console.log(jobData, "Jobdata");
+  console.log(jobData, "jobData");
 
   const activityCardArray = Array.from({ length: 12 }, (_, index) => index + 1);
 
-  const postCardActivityArray = Array.from(
-    { length: 7 },
-    (_, index) => index + 1
-  );
+  // const postCardActivityArray = Array.from(
+  //   { length: 7 },
+  //   (_, index) => index + 1
+  // );
 
   return (
     <div className="your-activity-section-main">
@@ -152,11 +152,23 @@ const YourActivitySection = ({
 
       {actionButton === "Posts" && (
         <>
-          <div className="grid-post-card-activity-empty">
-            {postCardActivityArray.map((post) => (
-              <PostCardActivity key={post} />
-            ))}
-          </div>
+          {postData && postData?.length > 0 ? (
+            <div className="grid-post-card-activity">
+              <PostCardActivity data={postData} />
+            </div>
+          ) : (
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                width: "100%",
+                padding: "20px",
+              }}
+            >
+              <p style={{ margin: 0 }}>No Posts Added!</p>
+            </div>
+          )}
         </>
       )}
 
@@ -176,7 +188,7 @@ const YourActivitySection = ({
                 padding: "20px",
               }}
             >
-              <p style={{ margin: 0 }}>No Jobs found!</p>
+              <p style={{ margin: 0 }}>No Jobs Hosted!</p>
             </div>
           )}
         </>
@@ -198,7 +210,7 @@ const YourActivitySection = ({
                 padding: "20px",
               }}
             >
-              <p style={{ margin: 0 }}>No Internships found!</p>
+              <p style={{ margin: 0 }}>No Internships Hosted!</p>
             </div>
           )}
         </>

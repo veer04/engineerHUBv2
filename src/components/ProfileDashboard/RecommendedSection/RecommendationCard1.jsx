@@ -7,7 +7,7 @@ const RecommendationCard1 = ({ data }) => {
   // console.log(data, "jokbdata");
   const [isEyeVisible, setIsEyeVisible] = useState(false);
 
-  // console.log(data, "RecommendationData");
+  console.log(data, "RecommendationData");
 
   const toggleAmountShow = () => {
     setIsEyeVisible(!isEyeVisible);
@@ -184,7 +184,7 @@ const RecommendationCard1 = ({ data }) => {
 
           {/* //eye div saif */}
           <div style={{ display: "flex", gap: 3 }}>
-            {isEyeVisible ? (
+            {/* {isEyeVisible ? (
               <FaRegEye
                 onClick={toggleAmountShow}
                 style={{ cursor: "pointer" }}
@@ -194,8 +194,10 @@ const RecommendationCard1 = ({ data }) => {
                 onClick={toggleAmountShow}
                 style={{ cursor: "pointer" }}
               />
-            )}
-
+            )} */}
+            <FaRegEye
+            // style={{ cursor: "pointer" }}
+            />
             <h3
               style={{
                 fontSize: 12,
@@ -205,7 +207,8 @@ const RecommendationCard1 = ({ data }) => {
                 marginBottom: 0,
               }}
             >
-              {isEyeVisible ? "1200" : "xxxx"}
+              {/* {isEyeVisible ? "1200" : "xxxx"} */}
+              1200
             </h3>
           </div>
         </div>
