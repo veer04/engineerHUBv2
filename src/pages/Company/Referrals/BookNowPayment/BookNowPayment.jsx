@@ -62,6 +62,8 @@ const BookNowPayment = () => {
     );
   });
 
+  console.log(selectedDates, "selectedDates");
+
   const [selectedTime, setSelectedTime] = useState(() => {
     return (
       location.state?.selectedTime ||
