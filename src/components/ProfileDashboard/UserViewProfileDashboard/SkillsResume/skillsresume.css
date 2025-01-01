@@ -14,7 +14,7 @@
   gap: 10px;
 }
 
-.skills-resume-main-div .skills-box {
+.skills-resume-main-div .skills-box-main .skills-box {
   padding: 8px 16px;
   border-radius: 10px;
   display: flex;

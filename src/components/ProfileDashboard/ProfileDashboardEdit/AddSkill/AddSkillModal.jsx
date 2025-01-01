@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./addskillmodal.css";
 import { IoMdClose } from "react-icons/io";
 import { validSkills } from "./techskill";
@@ -8,7 +8,7 @@ import { Bounce, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { getAccessToken } from "../../../../features/getCookieValues";
 
-const AddSkillModal = ({ isOpen, onClose, setProfileData }) => {
+const AddSkillModal = ({ isOpen, onClose, setProfileData, profileData }) => {
   const [formData, setFormData] = useState({
     skill: "",
   });
@@ -28,6 +28,16 @@ const AddSkillModal = ({ isOpen, onClose, setProfileData }) => {
     setSkills([]);
     onClose();
   };
+
+  useEffect(() => {
+    if (profileData && isOpen) {
+      setSkills(profileData?.skillsDetails?.map((skill) => skill?.skills));
+      setFormData({ skill: "" });
+    } else {
+      setSkills([]);
+      setFormData({ skill: "" });
+    }
+  }, [profileData, isOpen]);
 
   const handleInputChange = (e) => {
     setFormData({

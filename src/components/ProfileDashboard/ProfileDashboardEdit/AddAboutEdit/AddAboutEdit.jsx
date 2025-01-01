@@ -76,7 +76,7 @@ const AddAboutEdit = ({ profileData, setProfileData }) => {
 
         <div className="education-display-div">
           {profileData &&
-            profileData.educationDetails.map((education, index) => (
+            profileData?.educationDetails?.map((education, index) => (
               <>
                 <div className="education-display-sub-div">
                   <>
@@ -93,7 +93,7 @@ const AddAboutEdit = ({ profileData, setProfileData }) => {
                           marginBottom: 0,
                         }}
                       >
-                        {education.degree}
+                        {education?.degree}
                       </h3>
                       <h3
                         style={{
@@ -104,7 +104,7 @@ const AddAboutEdit = ({ profileData, setProfileData }) => {
                           marginBottom: 0,
                         }}
                       >
-                        {education.collegeId.collegeName}
+                        {education?.collegeId?.collegeName}
                       </h3>
 
                       <div

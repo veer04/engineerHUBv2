@@ -72,7 +72,7 @@ const AddProjectsEdit = ({ profileData, setProfileData }) => {
 
         <div className="projects-display-div">
           {profileData &&
-            profileData.projectDetails.map((projects, index) => (
+            profileData?.projectDetails?.map((projects, index) => (
               <>
                 <div className="projects-display-sub-div">
                   <>
