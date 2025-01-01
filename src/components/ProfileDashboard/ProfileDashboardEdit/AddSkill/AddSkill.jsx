@@ -5,10 +5,8 @@ import AddSkillModal from "./AddSkillModal";
 const AddSkill = ({ profileData, setProfileData }) => {
   console.log(profileData, "profiledataskill");
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isSkillsEdit, setIsSkillsEdit] = useState(null);
 
-  const openModal = (skillDetails = null) => {
-    setIsSkillsEdit(skillDetails ? { ...skillDetails } : { skills: "" });
+  const openModal = () => {
     setIsModalOpen(true);
   };
 
@@ -66,18 +64,19 @@ const AddSkill = ({ profileData, setProfileData }) => {
                   Update a skills in.
                 </h4>
                 <div className="skills-box-main">
-                  {profileData.skillsDetails.map((skill, index) => (
-                    <span key={index} className="skills-box">
-                      {skill.skills}
-                    </span>
-                  ))}
+                  {profileData &&
+                    profileData.skillsDetails.map((skill, index) => (
+                      <span key={index} className="skills-box">
+                        {skill.skills}
+                      </span>
+                    ))}
                 </div>
               </>
             )}
           </div>
 
           <div className="add-skill-sub-right">
-            {profileData ? (
+            {profileData && profileData.skillsDetails.length > 0 ? (
               <div onClick={() => openModal()} style={{ cursor: "pointer" }}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
