@@ -35,22 +35,41 @@ const SocialLinksModal = ({ isOpen, onClose, data, setProfileData }) => {
   const validateForm = () => {
     const newErrors = {};
 
-    if (!formData.linkedin.trim())
-      newErrors.linkedin = "LinkedIn profile is required.";
-    if (!formData.github.trim()) newErrors.github = "GitHub link is required.";
-    if (!formData.portfolio.trim())
-      newErrors.portfolio = "Personal portfolio is required.";
-    if (!formData.cpLink.trim()) newErrors.cpLink = "CP link is required.";
+    const isValidUrl = (url) =>
+      /^(https?:\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}([\/\w \.-]*)*\/?$/.test(
+        url
+      );
+
+    if (formData.linkedin && !isValidUrl(formData.linkedin))
+      newErrors.linkedin = "Please enter a valid LinkedIn URL.";
+    if (formData.github && !isValidUrl(formData.github))
+      newErrors.github = "Please enter a valid GitHub URL.";
+    if (formData.portfolio && !isValidUrl(formData.portfolio))
+      newErrors.portfolio = "Please enter a valid Portfolio URL.";
+    if (formData.cpLink && !isValidUrl(formData.cpLink))
+      newErrors.cpLink = "Please enter a valid CP URL.";
+
+    // Check if two links are the same
+    const links = [
+      formData.linkedin,
+      formData.github,
+      formData.portfolio,
+      formData.cpLink,
+    ];
+    const uniqueLinks = new Set(links);
+    if (uniqueLinks.size !== links.length) {
+      newErrors.links = "Links must be unique.";
+    }
 
     return newErrors;
   };
 
   const handleSubmit = async () => {
-    // const validationErrors = validateForm();
-    // if (Object.keys(validationErrors).length > 0) {
-    //   setErrors(validationErrors);
-    //   return;
-    // }
+    const validationErrors = validateForm();
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      return;
+    }
 
     const socialMediaData = [
       { mediaLink: formData.linkedin, type: "LinkedIn" },
