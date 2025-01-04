@@ -29,6 +29,12 @@ const PersonalInformationModal = ({
 
   const handleChange = (field, value) => {
     setFormData((prevData) => ({ ...prevData, [field]: value }));
+
+    setErrors((prevErrors) => {
+      const newErrors = { ...prevErrors };
+      if (newErrors[field]) delete newErrors[field];
+      return newErrors;
+    });
   };
 
   const validateForm = () => {
@@ -57,10 +63,14 @@ const PersonalInformationModal = ({
   useEffect(() => {
     if (isOpen && data) {
       console.log(data, "data");
+      const formattedDateOfBirth = data.dateOfBirth
+        ? moment(data.dateOfBirth, "DD/MM/YYYY").format("YYYY-MM-DD")
+        : "";
+
       setFormData({
         firstName: data.firstName || "",
         lastName: data.lastName || "",
-        dateOfBirth: data.dateOfBirth || "",
+        dateOfBirth: formattedDateOfBirth,
         aboutMe: data.aboutMe || "",
         mobile: data.mobile || "",
         gender: data.gender || "",
@@ -88,10 +98,17 @@ const PersonalInformationModal = ({
       return;
     }
 
+    const formattedDate = {
+      ...formData,
+      dateOfBirth: moment(formData.dateOfBirth, "DD/MM/YYYY").format(
+        "YYYY-MM-DD"
+      ),
+    };
+
     setLoading(true);
 
     try {
-      await updateUserDetails(formData, setUpdateUserResponse);
+      await updateUserDetails(formattedDate, setUpdateUserResponse);
 
       const response = setUpdateUserResponse;
 
@@ -107,6 +124,16 @@ const PersonalInformationModal = ({
           theme: "dark",
           transition: Bounce,
         });
+
+        setProfileData((prevData) => ({
+          ...prevData,
+          firstName: formData.firstName,
+          lastName: formData.lastName,
+          dateOfBirth: formattedDate.dateOfBirth,
+          aboutMe: formData.aboutMe,
+          mobile: formData.mobile,
+          gender: formData.gender,
+        }));
 
         onClose();
       } else {
