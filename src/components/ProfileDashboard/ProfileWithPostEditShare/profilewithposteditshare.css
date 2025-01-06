@@ -202,6 +202,10 @@
   .main-profile-with-post-share .btn-siv-edit-post-share {
     justify-content: flex-start;
   }
+
+  .main-profile-with-post-share .btn-siv-edit-post-share button {
+    padding: 8px 34px;
+  }
 }
 
 .main-profile-with-post-share .loader-main-div {

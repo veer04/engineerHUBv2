@@ -13,6 +13,8 @@ import { API_URL, FRONTEND_URL } from "../../../services/APIUtils";
 import { Bounce, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { RWebShare } from "react-web-share";
+import { deleteResume } from "../../../services/APIConfig";
+import { getUserId } from "../../../features/User/UserDetails";
 
 const ProfileWithPostEditShare = ({
   privateDashboardData,
@@ -24,6 +26,7 @@ const ProfileWithPostEditShare = ({
     !!privateDashboardData?.resume
   );
   const [loading, setLoading] = useState(false);
+  const userId = getUserId();
 
   const [uploadedFileName, setUploadedFileName] = useState(
     privateDashboardData?.resume
@@ -34,6 +37,7 @@ const ProfileWithPostEditShare = ({
   const [resumeUrl, setResumeUrl] = useState("");
   const fileInputRef = React.useRef(null);
   const [progress, setProgress] = useState(0);
+  const [response, setResponse] = useState(null);
 
   useEffect(() => {
     if (privateDashboardData?.resume) {
@@ -48,6 +52,7 @@ const ProfileWithPostEditShare = ({
 
   const handleFileChange = async (event) => {
     const file = event.target.files[0];
+
     if (file) {
       setResume(file);
       try {
@@ -70,6 +75,11 @@ const ProfileWithPostEditShare = ({
           setIsResumeUploaded(true);
           const newResumeUrl = response.data.data;
           setResumeUrl(newResumeUrl);
+
+          const fullFilename = newResumeUrl.split("/").pop();
+          const trimmedFilename = fullFilename.split("_")[0] + ".pdf";
+
+          setUploadedFileName(trimmedFilename);
 
           toast("🥳 Resume Added Successfully!", {
             position: "top-right",
@@ -133,10 +143,12 @@ const ProfileWithPostEditShare = ({
       const blob = new Blob([response.data], {
         type: "application/pdf",
       });
+      const url = privateDashboardData?.resume;
+      const fileName = url?.split("/").pop().split("_")[1] + ".pdf";
 
       const link = document.createElement("a");
       link.href = URL.createObjectURL(blob);
-      link.setAttribute("download", `${privateDashboardData?.resume}`);
+      link.setAttribute("download", fileName);
       link.click();
     } catch (err) {
       console.error(err);
@@ -145,11 +157,45 @@ const ProfileWithPostEditShare = ({
     }
   };
 
-  let cleanFileName = uploadedFileName.split("_")[0].pdf;
+  // console.log(uploadedFileName, "iploadefilename");
+  // const handleThumbsUpClick = () => {
+  //   setIsLiked(true);
+  //   setLikeCount(likeCount + 1);
+  // };
 
-  const handleThumbsUpClick = () => {
-    setIsLiked(true);
-    setLikeCount(likeCount + 1);
+  const handleDeleteResume = () => {
+    deleteResume(userId, (res) => {
+      console.log(res, "res");
+      setResponse(res);
+      if (res.status === 200) {
+        toast("💀 Resume Delete Successfully!", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+          transition: Bounce,
+        });
+      } else {
+        const errorMessage = res?.response?.data?.message;
+
+        console.error("Error deleting the resume", errorMessage);
+        toast(`✖️ ${errorMessage}`, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+          transition: Bounce,
+        });
+      }
+    });
   };
 
   return (
@@ -367,7 +413,7 @@ const ProfileWithPostEditShare = ({
                   fontWeight: 600,
                 }}
               >
-                {cleanFileName || "saif_ansari.pdf"}
+                {`${privateDashboardData.firstName} ${privateDashboardData.lastName} Resume`}
               </h3>
             </div>
             <div
@@ -428,6 +474,7 @@ const ProfileWithPostEditShare = ({
               </div>
 
               <div
+                onClick={() => handleDeleteResume()}
                 style={{
                   backgroundColor: "#FF58581A",
                   width: 40,

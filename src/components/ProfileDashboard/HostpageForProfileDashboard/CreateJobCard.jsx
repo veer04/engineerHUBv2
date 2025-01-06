@@ -2,6 +2,7 @@ import React from "react";
 import { FaArrowRight } from "react-icons/fa";
 import { FaPlus } from "react-icons/fa6";
 import { Link } from "react-router-dom";
+import { Bucket_URL } from "../../../services/APIUtils";
 
 const CreateJobCard = () => {
   return (
@@ -26,7 +27,12 @@ const CreateJobCard = () => {
               borderRadius: 5,
             }}
           >
-            <img src="./job-frame.png" alt="" />
+            <img
+              src={`${Bucket_URL}frontend/hosting/job-poster-small.png`}
+              alt="hello"
+              width={"200px"}
+              height={"100px"}
+            />
           </div>
 
           <div style={{ marginTop: 8 }}>

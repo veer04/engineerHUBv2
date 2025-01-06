@@ -145,6 +145,40 @@ export const patchResume = (userId, file, setResponse) => {
     });
 };
 
+///delete resume saif
+export const deleteResume = (userId, setResponse) => {
+  const controller = new AbortController();
+  const config = {
+    headers: {
+      accessToken: getAccessToken(),
+    },
+    signal: controller.signal,
+  };
+
+  axios
+    .patch(
+      `${API_URL}api/v1/user/resumeUpdate?isDeleted=true`,
+      { userId },
+      config
+    )
+    .then((res) => {
+      console.log("Resume deleted successfully", res);
+      setResponse(res);
+      return res;
+    })
+    .catch((err) => {
+      if (axios.isCancel(err)) {
+        console.log("Request canceled");
+        setResponse(err);
+        return err;
+      } else {
+        console.log("Request failed", err);
+        setResponse(err);
+        return err;
+      }
+    });
+};
+
 export const patchStudentData = (userId, data, setResponse) => {
   const controller = new AbortController();
   const config = {
@@ -339,6 +373,72 @@ export const addUserEducation = (data, setResponse) => {
       }
     });
 };
+
+//update user education
+export const updateEducation = async (
+  { educationId, user, body },
+  setResponse
+) => {
+  const controller = new AbortController();
+  const accessToken = getAccessToken();
+  const config = {
+    headers: {
+      accessToken: accessToken,
+    },
+    signal: controller.signal,
+  };
+
+  try {
+    const response = await axios.patch(
+      `${API_URL}api/v1/update/education/${educationId}`,
+      body,
+      config
+    );
+
+    setResponse(response);
+    return response;
+  } catch (err) {
+    if (axios.isCancel(err)) {
+      console.log("Request canceled");
+    } else {
+      console.error("Error updating education details:", err);
+    }
+    setResponse(err);
+    return err;
+  }
+};
+
+//delete education
+export const deleteEducation = async (_id, setResponse) => {
+  const controller = new AbortController();
+  const config = {
+    headers: {
+      accessToken: getAccessToken(),
+    },
+    signal: controller.signal,
+  };
+
+  try {
+    const res = await axios.delete(
+      `${API_URL}api/v1/delete/education/${_id}`,
+      config
+    );
+    console.log(res);
+    setResponse(res?.data);
+  } catch (err) {
+    console.log(err);
+    if (axios.isCancel(err)) {
+      console.log("Request canceled");
+    } else {
+      console.log("Request failed", err);
+    }
+    setResponse({
+      success: false,
+      message: err.message || "Something went wrong!",
+    });
+  }
+};
+
 export const addUserAchievement = (data, setResponse) => {
   const controller = new AbortController();
   const config = {
@@ -457,7 +557,7 @@ export const deleteUserEducation = (_id, setResponse) => {
     .delete(`${API_URL}api/v1/delete/education/${_id}`, config)
     .then((res) => {
       console.log(res);
-      setResponse(res);
+      setResponse(res?.data);
     })
     .catch((err) => {
       console.log(err);
@@ -510,7 +610,7 @@ export const deleteUserExperience = (_id, setResponse) => {
   axios
     .delete(`${API_URL}api/v1/delete/experience/${_id}`, config)
     .then((res) => {
-      console.log(res);
+      console.log(res, "hello");
       setResponse(res);
     })
     .catch((err) => {

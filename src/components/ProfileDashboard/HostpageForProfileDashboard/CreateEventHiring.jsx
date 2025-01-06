@@ -2,6 +2,7 @@ import React from "react";
 import { FaArrowRight } from "react-icons/fa";
 import { FaPlus } from "react-icons/fa6";
 import { Link } from "react-router-dom";
+import { Bucket_URL } from "../../../services/APIUtils";
 
 const CreateEventHiring = () => {
   return (
@@ -28,7 +29,7 @@ const CreateEventHiring = () => {
           >
             <img
               style={{ borderRadius: 5 }}
-              src="./event-card.png"
+              src={`${Bucket_URL}frontend/hosting/hackathon-poster-small.png`}
               alt=""
               width={"200px"}
               height={"100px"}

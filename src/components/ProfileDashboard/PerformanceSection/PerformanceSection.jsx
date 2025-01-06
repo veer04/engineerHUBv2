@@ -208,12 +208,40 @@ const PerformanceSection = () => {
                       alignItems: "center",
                     }}
                   >
-                    <img
-                      src={"./arrow-green.svg"}
-                      alt=""
-                      width={"16px"}
-                      height={"16px"}
-                    />
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="17"
+                      height="16"
+                      viewBox="0 0 17 16"
+                      fill="none"
+                    >
+                      <g clip-path="url(#clip0_2585_3908)">
+                        <path
+                          d="M8.25018 3.44903L8.25018 14.499"
+                          stroke="#FF0000"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M13.7752 8.97403L8.25021 14.499L2.72521 8.97403"
+                          stroke="#FF0000"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </g>
+                      <defs>
+                        <clipPath id="clip0_2585_3908">
+                          <rect
+                            width="15.6"
+                            height="15.6"
+                            fill="white"
+                            transform="translate(16.05 15.7998) rotate(180)"
+                          />
+                        </clipPath>
+                      </defs>
+                    </svg>
                   </div>
                 </div>
 
@@ -287,12 +315,40 @@ const PerformanceSection = () => {
                 alignItems: "center",
               }}
             >
-              <img
-                src={"./arrow-up.svg"}
-                alt=""
-                width={"16px"}
-                height={"16px"}
-              />
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="17"
+                height="16"
+                viewBox="0 0 17 16"
+                fill="none"
+              >
+                <g clip-path="url(#clip0_2585_3918)">
+                  <path
+                    d="M8.75018 3.44903L8.75018 14.499"
+                    stroke="#2CC546"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                  <path
+                    d="M14.2752 8.97403L8.75018 14.499L3.22518 8.97403"
+                    stroke="#2CC546"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </g>
+                <defs>
+                  <clipPath id="clip0_2585_3918">
+                    <rect
+                      width="15.6"
+                      height="15.6"
+                      fill="white"
+                      transform="translate(16.55 15.7998) rotate(180)"
+                    />
+                  </clipPath>
+                </defs>
+              </svg>
             </div>
           </div>
 
