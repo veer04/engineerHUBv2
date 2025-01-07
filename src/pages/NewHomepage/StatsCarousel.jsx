@@ -65,6 +65,7 @@ export default function StatsCarousel() {
           ></span>
           <span className="visually-hidden">Previous</span>
         </button>
+        {/* // */}
         <button
           className="carousel-control-next"
           type="button"
