@@ -75,7 +75,7 @@ const AddExperienceEdit = ({ profileData, setProfileData }) => {
 
         <div className="experience-display-div">
           {profileData &&
-            profileData.experienceDetails.map((experience, index) => (
+            profileData?.experienceDetails?.map((experience, index) => (
               <>
                 <div className="experience-display-sub-div">
                   <>

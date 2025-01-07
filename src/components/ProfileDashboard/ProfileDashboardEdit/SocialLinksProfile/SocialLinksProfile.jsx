@@ -227,7 +227,7 @@ const SocialLinksProfile = ({ profileData, setProfileData }) => {
         )}
 
         {profileData &&
-          profileData?.socialMediaDetails.map((social, index) => (
+          profileData?.socialMediaDetails?.map((social, index) => (
             <>
               <div key={social._id} className="linkedin-id-and-github">
                 <div className="linkedin-id-and-github-left">

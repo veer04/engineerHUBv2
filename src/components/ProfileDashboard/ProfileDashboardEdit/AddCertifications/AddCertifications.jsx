@@ -70,7 +70,7 @@ const AddCertifications = ({ profileData, setProfileData }) => {
 
         <div className="certi-display-div">
           {profileData &&
-            profileData.licenceDetails.map((certi, index) => (
+            profileData?.licenceDetails?.map((certi, index) => (
               <>
                 <div className="certi-display-sub-div">
                   <>

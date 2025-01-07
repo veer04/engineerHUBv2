@@ -176,6 +176,7 @@ function App() {
             <Route
               path="user/:userId"
               element={<UserDashboard path="profile" />}
+              // element={<ProfileDashboard path="profile" />}
             >
               <Route path="add-post" element={<AddPostModal />} />
               <Route path="posts/:postId" element={<PostModalAllRole />} />
@@ -183,6 +184,7 @@ function App() {
             <Route
               path="user/:userId/edit-profile"
               element={<UserEditProfile />}
+              // element={<ProfileDashboardEdit />}
             />
             <Route
               path="club/:clubId"

@@ -3,9 +3,17 @@ import "./addskill.css";
 import AddSkillModal from "./AddSkillModal";
 
 const AddSkill = ({ profileData, setProfileData }) => {
+  console.log(profileData, "profiledataskill");
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const openModal = () => setIsModalOpen(true);
-  const closeModal = () => setIsModalOpen(false);
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setselectedSkill(null);
+  };
 
   return (
     <>
@@ -13,6 +21,7 @@ const AddSkill = ({ profileData, setProfileData }) => {
         isOpen={isModalOpen}
         onClose={closeModal}
         setProfileData={setProfileData}
+        profileData={profileData}
       />
       <div className="add-skill-main-div">
         <div className="add-skill-sub-div">
@@ -26,9 +35,9 @@ const AddSkill = ({ profileData, setProfileData }) => {
                 color: "#002B36",
               }}
             >
-              {!profileData ? "Add Skill" : "Add Skill"}
+              {!profileData ? "Add Skill" : "Update Skill"}
             </h3>
-            {profileData && (
+            {!profileData ? (
               <h4
                 style={{
                   fontSize: 14,
@@ -40,12 +49,35 @@ const AddSkill = ({ profileData, setProfileData }) => {
               >
                 Add a skills in which you are good at.
               </h4>
+            ) : (
+              <>
+                <h4
+                  style={{
+                    fontSize: 14,
+                    fontWeight: 400,
+                    lineHeight: "20px",
+                    marginBottom: 0,
+                    marginTop: 3,
+                    color: "#547178",
+                  }}
+                >
+                  Update a skills in.
+                </h4>
+                <div className="skills-box-main">
+                  {profileData &&
+                    profileData.skillsDetails.map((skill, index) => (
+                      <span key={index} className="skills-box">
+                        {skill.skills}
+                      </span>
+                    ))}
+                </div>
+              </>
             )}
           </div>
 
           <div className="add-skill-sub-right">
-            {!profileData ? (
-              <div onClick={openModal} style={{ cursor: "pointer" }}>
+            {profileData && profileData.skillsDetails.length > 0 ? (
+              <div onClick={() => openModal()} style={{ cursor: "pointer" }}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="18"

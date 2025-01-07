@@ -11,3 +11,26 @@
   display: flex;
   justify-content: space-between;
 }
+
+.add-skill-main-div .skills-box-main {
+  margin-top: 15px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.add-skill-main-div .skills-box-main .skills-box {
+  padding: 8px 16px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(19, 131, 130, 0.05);
+  border-radius: 10px;
+  width: auto;
+  height: 36px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  color: #002b36;
+}

@@ -71,7 +71,7 @@ const AddAchievements = ({ profileData, setProfileData }) => {
 
         <div className="achieve-display-div">
           {profileData &&
-            profileData.achievementDetails.map((achieve, index) => (
+            profileData?.achievementDetails?.map((achieve, index) => (
               <>
                 <div className="achieve-display-sub-div">
                   <>
