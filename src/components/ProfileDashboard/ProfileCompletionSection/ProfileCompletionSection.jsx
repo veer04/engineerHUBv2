@@ -45,6 +45,10 @@ const ProfileCompletionSection = ({ privateDashboardData = "" }) => {
     }
   }, [privateDashboardData]);
 
+  const handleEditPage = () => {
+    window.open("/profiledashboardedit", "_blank");
+  };
+
   return (
     <>
       <SocialLinksModal isOpen={isModalOpen} onClose={closeModal} />
@@ -157,6 +161,7 @@ const ProfileCompletionSection = ({ privateDashboardData = "" }) => {
 
           <div>
             <h3
+              onClick={handleEditPage}
               style={{
                 fontSize: 14,
                 fontWeight: 700,
@@ -212,6 +217,7 @@ const ProfileCompletionSection = ({ privateDashboardData = "" }) => {
 
           <div>
             <h3
+              onClick={handleEditPage}
               style={{
                 fontSize: 14,
                 fontWeight: 700,
@@ -221,7 +227,7 @@ const ProfileCompletionSection = ({ privateDashboardData = "" }) => {
                 marginBottom: 0,
               }}
             >
-              Upload
+              Add
             </h3>
           </div>
         </div>
@@ -266,6 +272,7 @@ const ProfileCompletionSection = ({ privateDashboardData = "" }) => {
 
           <div>
             <h3
+              onClick={handleEditPage}
               style={{
                 fontSize: 14,
                 fontWeight: 700,
@@ -319,6 +326,7 @@ const ProfileCompletionSection = ({ privateDashboardData = "" }) => {
 
           <div>
             <h3
+              onClick={handleEditPage}
               style={{
                 fontSize: 14,
                 fontWeight: 700,
@@ -372,6 +380,7 @@ const ProfileCompletionSection = ({ privateDashboardData = "" }) => {
 
           <div>
             <h3
+              onClick={handleEditPage}
               style={{
                 fontSize: 14,
                 fontWeight: 700,
@@ -423,7 +432,7 @@ const ProfileCompletionSection = ({ privateDashboardData = "" }) => {
 
           <div>
             <h3
-              onClick={openModal}
+              onClick={handleEditPage}
               style={{
                 fontSize: 14,
                 fontWeight: 700,
@@ -479,7 +488,7 @@ const ProfileCompletionSection = ({ privateDashboardData = "" }) => {
 
           <div>
             <h3
-              onClick={openModal}
+              onClick={handleEditPage}
               style={{
                 fontSize: 14,
                 fontWeight: 700,

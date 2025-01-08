@@ -65,11 +65,11 @@ const SocialLinksModal = ({ isOpen, onClose, data, setProfileData }) => {
   };
 
   const handleSubmit = async () => {
-    const validationErrors = validateForm();
-    if (Object.keys(validationErrors).length > 0) {
-      setErrors(validationErrors);
-      return;
-    }
+    // const validationErrors = validateForm();
+    // if (Object.keys(validationErrors).length > 0) {
+    //   setErrors(validationErrors);
+    //   return;
+    // }
 
     const socialMediaData = [
       { mediaLink: formData.linkedin, type: "LinkedIn" },
