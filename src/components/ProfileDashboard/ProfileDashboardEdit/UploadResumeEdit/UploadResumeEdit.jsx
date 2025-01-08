@@ -127,9 +127,9 @@ const UploadResumeEdit = ({ profileData, setProfileData }) => {
   const handleDeleteResume = async () => {
     try {
       const formData = new FormData();
-      if (profileData && profileData.resume) {
-        formData.append("resume", profileData.resume);
-      }
+      // if (profileData && profileData.resume) {
+      //   formData.append("resume", profileData.resume);
+      // }
 
       const config = {
         headers: {
