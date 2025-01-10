@@ -371,8 +371,8 @@ const BookNow = () => {
     // Function to parse date and set current year
     const parseDate = (dateString) => {
       const date = new Date(dateString);
-      // const currentYear = new Date().getFullYear();
-      const currentYear = 2025;
+      const currentYear = new Date().getFullYear();
+      // const currentYear = 2025;
       date.setFullYear(currentYear); // Set the current year
       return date; // Return as a Date object
     };
@@ -462,8 +462,8 @@ const BookNow = () => {
   useEffect(() => {
     if (dates.length && selectedDates) {
       const currentDate = new Date();
-      // let year = currentDate.getFullYear();
-      let year = 2025;
+      let year = currentDate.getFullYear();
+      // let year = 2025;
       console.log(year, "year");
       const currentYearSelectedDate = `${selectedDates} ${year}`;
       const timeSlots = [];

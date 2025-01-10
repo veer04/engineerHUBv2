@@ -1872,12 +1872,17 @@ export const getProjectById = (setProject, id) => {
     });
 };
 
-export const getBlogs = (setBlogs, id) => {
+export const getBlogs = (setBlogs, id, page = 1, limit = 10) => {
   const controller = new AbortController();
   axios
-    .get(`${API_URL}api/v1/domainWiseBlog/${encodeURIComponent(id)}`, {
-      signal: controller.signal,
-    })
+    .get(
+      `${API_URL}api/v1/domainWiseBlog/${encodeURIComponent(
+        id
+      )}?page=${page}&limit=${limit}`,
+      {
+        signal: controller.signal,
+      }
+    )
     .then((res) => {
       setBlogs(res);
     })

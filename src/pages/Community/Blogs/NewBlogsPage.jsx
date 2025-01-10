@@ -11,6 +11,7 @@ import DomainSwitcher from "../../../components/DomainSwitcher/DomainSwitcher";
 import DomainSwitcherMobile from "../../../components/DomainSwitcher/DomainSwitcherMobile";
 import useSidebar from "../../../hooks/use-sidebar";
 import NewBlogCard from "../../../components/NewBlogCard/NewBlogCard";
+import PaginationBar from "../../../components/PaginationBar/PaginationBar";
 
 export default function NewBlogsPage() {
   const { setSelectedPageNavbar } = useNavbar();
@@ -25,14 +26,17 @@ export default function NewBlogsPage() {
     //   :
     []
   );
+
   const [filteredBlogs, setFilteredBlogs] = useState([]);
   const [searchedBlogs, setSearchedBlogs] = useState([]);
   const { setSelectedItem } = useSidebar();
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
 
   useEffect(() => {
     document.title = `Blogs | ${id} | engineerHUB`;
     window.scrollTo(0, 0);
-    getBlogs(setBlogsData, id);
+    getBlogs(setBlogsData, id, currentPage);
     setSelectedPageNavbar("community");
     setSelectedItem("blogs");
 
@@ -40,11 +44,13 @@ export default function NewBlogsPage() {
       controller.abort();
       setBlogsData({});
     };
-  }, [id]);
+  }, [id, currentPage]);
 
   useEffect(() => {
     if (!!Object.keys(blogsData).length) {
       setBlogs(blogsData?.data?.data || []);
+      const totalBlogs = blogsData?.data?.total || 0;
+      setTotalPages(Math.ceil(totalBlogs / 10));
     }
   }, [blogsData]);
 
@@ -87,6 +93,12 @@ export default function NewBlogsPage() {
     }, 100);
   }
 
+  useEffect(() => {
+    console.log("Blogs:", blogs);
+    console.log("Filtered Blogs:", filteredBlogs);
+    console.log("Total Pages:", totalPages);
+  }, [blogs, filteredBlogs, totalPages]);
+
   const renderContentContainer = (
     <>
       {!isBlogOpen && (
@@ -102,6 +114,13 @@ export default function NewBlogsPage() {
           {filteredBlogs.map((blog) => (
             <NewBlogCard key={blog._id} blog={blog} />
           ))}
+          {filteredBlogs.length > 0 && totalPages > 1 && (
+            <PaginationBar
+              pages={totalPages}
+              currentPage={currentPage}
+              setCurrentPage={setCurrentPage}
+            />
+          )}
         </div>
       )}
       <Outlet context={[handleHeight]} />
