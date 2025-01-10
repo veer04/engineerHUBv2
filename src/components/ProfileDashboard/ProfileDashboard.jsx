@@ -9,7 +9,7 @@ import YourActivitySection from "./YourActivitySection/YourActivitySection";
 import ProfileWithFollowAndMail from "./UserViewProfileDashboard/ProfileWithFollowAndMail/ProfileWithFollowAndMail";
 import UserStatsSection from "./UserViewProfileDashboard/UserStatsSection/UserStatsSection";
 import { getUserId } from "../../features/User/UserDetails";
-import { API_URL } from "../../services/APIUtils";
+import { API_URL, Bucket_URL } from "../../services/APIUtils";
 import axios from "axios";
 import { getAccessToken } from "../../features/getCookieValues";
 
@@ -116,7 +116,7 @@ const ProfileDashboard = () => {
             <img
               className="profile-dashboard-rectangle-img-1"
               style={{ marginTop: 20, borderRadius: 8 }}
-              src="./rectangle-img.png"
+              src={`${Bucket_URL}UserViewDashboard/rectangle-img.png`}
               alt="We are live poster"
             />
           </div>
@@ -150,7 +150,7 @@ const ProfileDashboard = () => {
             marginBottom: 20,
           }}
           className="profile-dashboard-rectangle-img-2"
-          src="./rectangle-img.png"
+          src={`${Bucket_URL}UserViewDashboard/rectangle-img.png`}
           alt="We are live poster"
         />
       </main>

@@ -7,6 +7,8 @@ import { FiDownload } from "react-icons/fi";
 import moment from "moment/moment";
 import { Bounce, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { getUserId } from "../../../../features/User/UserDetails";
+import { deleteResume } from "../../../../services/APIConfig";
 
 const UploadResumeEdit = ({ profileData, setProfileData }) => {
   const [resume, setResume] = useState(null);
@@ -21,6 +23,8 @@ const UploadResumeEdit = ({ profileData, setProfileData }) => {
     profileData?.resume ? moment().format("YYYY-MM-DD") : ""
   );
   const [progress, setProgress] = useState(0);
+  const userId = getUserId();
+  const [response, setResponse] = useState(null);
 
   useEffect(() => {
     if (profileData?.resume) {
@@ -120,6 +124,61 @@ const UploadResumeEdit = ({ profileData, setProfileData }) => {
   let cleanFileName =
     uploadedFileName.split("_")[0] + "_" + uploadedFileName.split("_")[2];
 
+  const handleDeleteResume = async () => {
+    try {
+      const formData = new FormData();
+      // if (profileData && profileData.resume) {
+      //   formData.append("resume", profileData.resume);
+      // }
+
+      const config = {
+        headers: {
+          accessToken: getAccessToken(),
+        },
+      };
+
+      const response = await axios.patch(
+        `${API_URL}api/v1/user/resumeUpdate?isDeleted=true`,
+        formData,
+        config
+      );
+
+      if (response.data) {
+        setIsUploaded(false);
+        setUploadedFileName("");
+        setResumeUrl("");
+        toast("💀 Resume Deleted Successfully!", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+          transition: Bounce,
+        });
+      }
+      console.log("Resume delete response:", response.data);
+    } catch (error) {
+      console.error(
+        "Error deleting resume:",
+        error.response ? error.response.data : error.message
+      );
+      toast(`✖️ Error deleting resume: ${error.message}`, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        transition: Bounce,
+      });
+    }
+  };
+
   return (
     <div className="upload-resume-main-div">
       <div className="upload-resume-head-desc">
@@ -192,6 +251,7 @@ const UploadResumeEdit = ({ profileData, setProfileData }) => {
                 Uploaded on {`${moment(uploadDate).format("DD/MM/YYYY")}`}
               </h4>
             </div>
+            {/* //download resume */}
             <div className="download-trash-icon">
               <div
                 onClick={downloadResume}
@@ -229,7 +289,10 @@ const UploadResumeEdit = ({ profileData, setProfileData }) => {
                   />
                 </svg>
               </div>
+
+              {/* //delete resume */}
               <div
+                onClick={() => handleDeleteResume()}
                 style={{
                   backgroundColor: "#FF58581A",
                   width: 40,
@@ -238,6 +301,7 @@ const UploadResumeEdit = ({ profileData, setProfileData }) => {
                   display: "flex",
                   justifyContent: "center",
                   alignItems: "center",
+                  cursor: "pointer",
                 }}
               >
                 <svg

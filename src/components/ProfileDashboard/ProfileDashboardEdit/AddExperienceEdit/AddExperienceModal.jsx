@@ -2,7 +2,10 @@ import React, { useEffect, useState } from "react";
 import "./addexperiencemodal.css";
 import { IoMdClose } from "react-icons/io";
 import { Bucket_URL } from "../../../../services/APIUtils";
-import { addUserExperience } from "../../../../services/APIConfig";
+import {
+  addUserExperience,
+  deleteUserExperience,
+} from "../../../../services/APIConfig";
 
 import { Bounce, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -20,6 +23,7 @@ const AddExperienceModal = ({ isOpen, onClose, data, setProfileData }) => {
 
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
+  const [response, setResponse] = useState(null);
 
   const [updateExperienceResponse, setUpdateExperienceResponse] = useState({});
 
@@ -129,6 +133,31 @@ const AddExperienceModal = ({ isOpen, onClose, data, setProfileData }) => {
       endYear: "",
       organisationName: "",
     });
+  };
+
+  const handleDeleteExperience = async () => {
+    try {
+      await deleteUserExperience(data._id, setResponse);
+
+      if (response && response?.data?.success) {
+        console.log(response, "saif");
+        toast.success("Experience deleted successfully!");
+
+        setProfileData((prevData) => ({
+          ...prevData,
+          experienceDetails: prevData.experienceDetails.filter(
+            (exp) => exp._id !== data._id
+          ),
+        }));
+
+        onClose();
+      } else {
+        toast.error(response?.data?.message || "Failed to delete experience.");
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error("Something went wrong!");
+    }
   };
 
   if (!isOpen) return null;
@@ -331,15 +360,63 @@ const AddExperienceModal = ({ isOpen, onClose, data, setProfileData }) => {
                 )}
               </div>
 
-              <div className="modal-button-div">
-                <button className="cancel-modal-btn" onClick={handleClose}>
-                  Cancel
-                </button>
-                <button className="save-modal-btn" onClick={handleSubmit}>
-                  {data && Object.keys(data).length > 0 && data.profile
-                    ? "Update"
-                    : "Save"}
-                </button>
+              <div className="modal-delete-sav-cancel-main-div-exp">
+                <div
+                  onClick={() => handleDeleteExperience()}
+                  style={{
+                    cursor: "pointer",
+                    backgroundColor: "#FF58581A",
+                    width: 40,
+                    height: 40,
+                    borderRadius: "50%",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                  >
+                    <path
+                      d="M19.5 5.49609L18.8803 15.5212C18.7219 18.0825 18.6428 19.3632 18.0008 20.284C17.6833 20.7392 17.2747 21.1234 16.8007 21.4121C15.8421 21.9961 14.559 21.9961 11.9927 21.9961C9.42312 21.9961 8.1383 21.9961 7.17905 21.411C6.7048 21.1218 6.296 20.7369 5.97868 20.2809C5.33688 19.3587 5.25945 18.0762 5.10461 15.5113L4.5 5.49609"
+                      stroke="#FF3737"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                    />
+                    <path
+                      d="M3 5.50391H21M16.0557 5.50391L15.3731 4.09564C14.9196 3.16017 14.6928 2.69243 14.3017 2.40072C14.215 2.33601 14.1231 2.27845 14.027 2.22861C13.5939 2.00391 13.0741 2.00391 12.0345 2.00391C10.9688 2.00391 10.436 2.00391 9.99568 2.23803C9.8981 2.28992 9.80498 2.34981 9.71729 2.41708C9.32164 2.72061 9.10063 3.20546 8.65861 4.17517L8.05292 5.50391"
+                      stroke="#FF3737"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                    />
+                    <path
+                      d="M9.5 16.5V10.5"
+                      stroke="#FF3737"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                    />
+                    <path
+                      d="M14.5 16.5V10.5"
+                      stroke="#FF3737"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                    />
+                  </svg>
+                </div>
+                <div className="modal-button-div">
+                  <button className="cancel-modal-btn" onClick={handleClose}>
+                    Cancel
+                  </button>
+                  <button className="save-modal-btn" onClick={handleSubmit}>
+                    {data && Object.keys(data).length > 0 && data.profile
+                      ? "Update"
+                      : "Save"}
+                  </button>
+                </div>
               </div>
             </div>
           </div>
