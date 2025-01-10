@@ -8,6 +8,8 @@ export default function PaginationBar({
   setCurrentPage,
 }) {
   // if there is only one page then pagination bar will not be shown
+  if (isNaN(pages) || pages <= 0) pages = 1;
+  if (isNaN(currentPage) || currentPage <= 0) currentPage = 1;
   if (pages === 1) return null;
 
   return (
