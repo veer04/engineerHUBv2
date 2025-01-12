@@ -1,0 +1,33 @@
+.main-community-blog-section-div {
+  width: 100%;
+  max-width: 1080px;
+  height: 100%;
+  margin: 40px auto;
+  background-color: white;
+  border-radius: 15px;
+  margin-bottom: 80px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.main-community-blog-section-div .h4-com-blog-sec {
+  margin-bottom: 0;
+  font-weight: 600;
+}
+
+.main-community-blog-section-div .main-community-blog-sub {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+.main-community-blog-section-div {
+}
+.main-community-blog-section-div {
+}
+.main-community-blog-section-div {
+}
+.main-community-blog-section-div {
+}
