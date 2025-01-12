@@ -1909,6 +1909,7 @@ export const getBlogs = (setBlogs, id, page = 1, limit = 10) => {
       }
     )
     .then((res) => {
+      console.log(res, "res");
       setBlogs(res.data);
     })
     .catch((err) => {
