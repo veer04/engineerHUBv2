@@ -52,10 +52,10 @@ export default function NewBlogsPage() {
       setBlogs(
         Array.isArray(blogsData?.data?.blogs) ? blogsData?.data?.blogs : []
       );
-      const totalBlogs = blogsData.data.blogs.length || 0;
+      const totalBlogs = blogsData?.data?.blogs.length || 0;
 
-      setTotalPages(blogsData.totalPage);
-      setCurrentPage(blogsData.currentPage);
+      setTotalPages(blogsData?.data?.totalPage);
+      setCurrentPage(blogsData?.data?.currentPage);
     }
   }, [blogsData, limit]);
 
@@ -213,11 +213,14 @@ export default function NewBlogsPage() {
                   </div>
                 )}
 
-                {/* <PaginationBar
-                  currentPage={currentPage}
-                  pages={totalPages}
-                  setCurrentPage={setCurrentPage}
-                /> */}
+                {!isBlogOpen && (
+                  <PaginationBar
+                    className={"mx-auto"}
+                    currentPage={currentPage}
+                    pages={totalPages}
+                    setCurrentPage={setCurrentPage}
+                  />
+                )}
               </>
             )}
           </div>

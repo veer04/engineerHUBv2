@@ -5,12 +5,13 @@ import { useParams } from "react-router-dom";
 import NewBlogCard from "../../components/NewBlogCard/NewBlogCard";
 import NewBlogCard2 from "../../components/NewBlogCard/NewBlogCard2";
 import Loading from "../../components/Loader/Loading";
+import PaginationBar from "../../components/PaginationBar/PaginationBar";
 
 const CommunityPageBlogSection = () => {
   const [generalBlogData, setGeneralBlogData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const [limit, setLimit] = useState(10);
+  const [limit, setLimit] = useState(3);
   const [blogsData, setBlogsData] = useState({});
   const [blogs, setBlogs] = useState([]);
   const { id, blogId } = useParams();
@@ -33,8 +34,8 @@ const CommunityPageBlogSection = () => {
       );
       const totalBlogs = blogsData.data.blogs.length || 0;
 
-      setTotalPages(blogsData.totalPage);
-      setCurrentPage(blogsData.currentPage);
+      setTotalPages(blogsData?.data?.totalPage);
+      setCurrentPage(blogsData?.data?.currentPage);
     }
   }, [blogsData, limit]);
 
@@ -60,6 +61,12 @@ const CommunityPageBlogSection = () => {
           })
         )}
       </div>
+
+      <PaginationBar
+        currentPage={currentPage}
+        pages={totalPages}
+        setCurrentPage={setCurrentPage}
+      />
     </div>
   );
 };
