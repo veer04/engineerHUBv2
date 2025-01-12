@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import "./CommunityPage.css";
 import DomainsSection from "./DomainsSection";
 import useNavbar from "../../hooks/use-navbar";
+import CommunityPageBlogSection from "./CommunityPageBlogSection";
 
 export default function CommunityPage() {
   const { setSelectedPageNavbar } = useNavbar();
@@ -13,8 +14,11 @@ export default function CommunityPage() {
   }, []);
 
   return (
-    <div className="community-page">
-      <DomainsSection />
-    </div>
+    <>
+      <div className="community-page">
+        <DomainsSection />
+        <CommunityPageBlogSection />
+      </div>
+    </>
   );
 }

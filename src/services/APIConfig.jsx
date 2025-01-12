@@ -1872,21 +1872,70 @@ export const getProjectById = (setProject, id) => {
     });
 };
 
+// export const getBlogs = (setBlogs, id, page = 1, limit = 10) => {
+//   const controller = new AbortController();
+//   axios
+//     .get(
+//       `${API_URL}api/v1/domainWiseBlog/${encodeURIComponent(
+//         id
+//       )}?page=${page}&limit=${limit}`,
+//       {
+//         signal: controller.signal,
+//       }
+//     )
+//     .then((res) => {
+//       setBlogs(res);
+//     })
+//     .catch((err) => {
+//       console.log(err, "err");
+//       setBlogs(err);
+//       if (axios.isCancel(err)) {
+//         console.log("req cancel");
+//       } else {
+//         console.log("req performed");
+//       }
+//     });
+// };
+
 export const getBlogs = (setBlogs, id, page = 1, limit = 10) => {
   const controller = new AbortController();
   axios
     .get(
-      `${API_URL}api/v1/domainWiseBlog/${encodeURIComponent(
+      `${API_URL}api/v1/domainWiseBlog?domainName=${encodeURIComponent(
         id
-      )}?page=${page}&limit=${limit}`,
+      )}&page=${page}&limit=${limit}`,
       {
         signal: controller.signal,
       }
     )
     .then((res) => {
-      setBlogs(res);
+      setBlogs(res.data);
     })
     .catch((err) => {
+      console.log(err, "err");
+      setBlogs(err);
+      if (axios.isCancel(err)) {
+        console.log("req cancel");
+      } else {
+        console.log("req performed");
+      }
+    });
+};
+
+export const getGeneralBlogs = (setBlogs, id, page = 1, limit = 10) => {
+  const controller = new AbortController();
+  axios
+    .get(
+      `${API_URL}api/v1/domainWiseBlog?domainName=General&page=${page}&limit=${limit}`,
+      {
+        signal: controller.signal,
+      }
+    )
+    .then((res) => {
+      setBlogs(res.data);
+    })
+    .catch((err) => {
+      console.log(err, "err");
       setBlogs(err);
       if (axios.isCancel(err)) {
         console.log("req cancel");
