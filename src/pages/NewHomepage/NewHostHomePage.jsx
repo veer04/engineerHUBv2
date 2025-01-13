@@ -96,7 +96,7 @@ const NewHostHomePage = () => {
                         backgroundColor: "#91F0EF",
                       }}
                     >
-                      to engage audience
+                      to engage & hire talents
                     </span>
                   </p>
                   <p
