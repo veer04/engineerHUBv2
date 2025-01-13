@@ -112,6 +112,9 @@ const NewCampusHomePage = ({ list, clubs }) => {
             <div className="col-md-6">
               <div className="container">
                 <div className="textContainer">
+                  <p style={{ textAlign: "left" }}>
+                    Want to explore engineering colleges in India?
+                  </p>
                   <p
                     style={{
                       lineHeight: "normal",

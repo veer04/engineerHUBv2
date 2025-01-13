@@ -86,6 +86,9 @@ const NewCompanyHomePage = () => {
             <div className="col-md-6">
               <div className="container">
                 <div className="textContainer">
+                  <p style={{ textAlign: "left" }}>
+                    Looking for Jobs/Internships?
+                  </p>
                   <p
                     style={{
                       lineHeight: "normal",

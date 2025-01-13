@@ -42,6 +42,9 @@ const NewCommunitySection = () => {
             <div className="col-md-6">
               <div className="container">
                 <div className="textContainer">
+                  <p style={{ textAlign: "left" }}>
+                    Are you a college student?
+                  </p>
                   <p
                     style={{
                       lineHeight: "normal",

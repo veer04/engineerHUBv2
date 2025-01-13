@@ -75,6 +75,7 @@ const NewHostHomePage = () => {
             <div className="col-md-6">
               <div className="container">
                 <div className="textContainer">
+                  <p style={{ textAlign: "left" }}>Are you a company/HR?</p>
                   <p
                     style={{
                       lineHeight: "normal",
