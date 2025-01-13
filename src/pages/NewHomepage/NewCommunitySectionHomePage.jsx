@@ -43,7 +43,7 @@ const NewCommunitySection = () => {
               <div className="container">
                 <div className="textContainer">
                   <p style={{ textAlign: "left" }}>
-                    Are you a college student?
+                    Are you a college student or young professional?
                   </p>
                   <p
                     style={{
@@ -69,7 +69,7 @@ const NewCommunitySection = () => {
                     className="textDesc"
                   >
                     connect with like minded people,read blogs, built projects
-                    and attend live sessions for free.
+                    and chat for free.
                   </p>
                   <div className="wrapButton">
                     <div

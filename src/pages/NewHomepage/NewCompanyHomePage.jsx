@@ -216,7 +216,7 @@ const NewCompanyHomePage = () => {
                             selectedSection === 1 ? "filled" : ""
                           }`}
                         >
-                          Jobs / Internships
+                          Explore Jobs / Internships
                         </span>
                         <div className="verticalDash"></div>
                         <div className="verticalDash"></div>
@@ -237,7 +237,7 @@ const NewCompanyHomePage = () => {
                             selectedSection === 2 ? "filled" : ""
                           }`}
                         >
-                          Apply
+                          Easy Apply
                         </span>
                       </div>
                     )}
@@ -266,7 +266,7 @@ const NewCompanyHomePage = () => {
                           display: "flex",
                         }}
                       >
-                        Explore companies
+                        Explore opportunities
                       </p>
                     </div>
                   </div>
