@@ -13,7 +13,10 @@ const NewCommunitySection = () => {
     axios
       .get(`${API_URL}api/v1/eventTypeWiseEvents/eventHiring`)
       .then((res) => {
-        setEventsData(res?.data?.data);
+        const sortedEvents = res?.data?.data.sort(
+          (a, b) => new Date(b.eventStartTime) - new Date(a.eventStartTime)
+        );
+        setEventsData(sortedEvents);
       })
       .catch((err) => {
         if (axios.isCancel(err)) {
@@ -113,10 +116,7 @@ const NewCommunitySection = () => {
                   }}
                 >
                   {eventsData?.length > 0 && (
-                    <NewEventCard
-                      data={eventsData[eventsData.length - 1]}
-                      eventHiring={true}
-                    />
+                    <NewEventCard data={eventsData[0]} eventHiring={true} />
                   )}
                 </div>
               </div>
