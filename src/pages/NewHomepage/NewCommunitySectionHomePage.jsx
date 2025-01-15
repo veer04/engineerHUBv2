@@ -11,7 +11,12 @@ const NewCommunitySection = () => {
 
   useEffect(() => {
     axios
-      .get(`${API_URL}api/v1/eventTypeWiseEvents/eventHiring`)
+      .get(`${API_URL}api/v1/eventTypeWiseEvents/eventHiring`, {
+        params: {
+          page: 1,
+          limit: 5,
+        },
+      })
       .then((res) => {
         const sortedEvents = res?.data?.data.sort(
           (a, b) => new Date(b.eventStartTime) - new Date(a.eventStartTime)
