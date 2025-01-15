@@ -45,7 +45,9 @@ const NewCommunitySection = () => {
             <div className="col-md-6">
               <div className="container">
                 <div className="textContainer">
-                  <p>Are you a college student?</p>
+                  <p style={{ textAlign: "left" }}>
+                    Are you a college student or young professional?
+                  </p>
                   <p
                     style={{
                       lineHeight: "normal",
@@ -70,7 +72,7 @@ const NewCommunitySection = () => {
                     className="textDesc"
                   >
                     connect with like minded people,read blogs, built projects
-                    and attend live sessions for free.
+                    and chat for free.
                   </p>
                   <div className="wrapButton">
                     <div

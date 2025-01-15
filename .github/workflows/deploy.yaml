@@ -107,6 +107,7 @@ on:
     branches:
       - main
       - testing
+      - 'bug-fix/**'
     types:
       - closed
 
@@ -159,7 +160,7 @@ jobs:
         if: |
           hashFiles('**/Dockerfile*', '**/dockerfile*') &&
           github.ref == 'refs/heads/main' &&
-          github.event.pull_request.head.ref == 'testing'
+          (github.event.pull_request.head.ref == 'testing' || startsWith(github.event.pull_request.head.ref, 'bug-fix/'))
         uses: docker/build-push-action@v2
         with:
           context: .

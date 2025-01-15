@@ -106,7 +106,9 @@ export default function MainLandingSection() {
   return (
     <section className="landing-section">
       <div className="content">
-        <h1 className="splash-heading">One stop solution for engineers !</h1>
+        <h1 className="splash-heading">
+          One stop career solution for engineers !
+        </h1>
         <h2 className="splash-subheading">
           A platform to learn in community, explore campuses & get placed in
           dream companies
