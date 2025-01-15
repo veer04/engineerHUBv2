@@ -32,11 +32,12 @@ export default function NewBlogsPage() {
   const { setSelectedItem } = useSidebar();
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  const [limit, setLimit] = useState(10);
 
   useEffect(() => {
     document.title = `Blogs | ${id} | engineerHUB`;
     window.scrollTo(0, 0);
-    getBlogs(setBlogsData, id, currentPage);
+    getBlogs(setBlogsData, id, currentPage, limit);
     setSelectedPageNavbar("community");
     setSelectedItem("blogs");
 
@@ -44,15 +45,19 @@ export default function NewBlogsPage() {
       controller.abort();
       setBlogsData({});
     };
-  }, [id, currentPage]);
+  }, [id, currentPage, limit]);
 
   useEffect(() => {
-    if (!!Object.keys(blogsData).length) {
-      setBlogs(blogsData?.data?.data || []);
-      const totalBlogs = blogsData?.data?.total || 0;
-      setTotalPages(Math.ceil(totalBlogs / 10));
+    if (blogsData && blogsData.data && blogsData.data.blogs) {
+      setBlogs(
+        Array.isArray(blogsData?.data?.blogs) ? blogsData?.data?.blogs : []
+      );
+      const totalBlogs = blogsData?.data?.blogs.length || 0;
+
+      setTotalPages(blogsData?.data?.totalPage);
+      setCurrentPage(blogsData?.data?.currentPage);
     }
-  }, [blogsData]);
+  }, [blogsData, limit]);
 
   useEffect(() => {
     if (!blogId) {
@@ -70,19 +75,22 @@ export default function NewBlogsPage() {
   }, [searchedBlogs]);
 
   const filteredData = useMemo(() => {
-    return blogs.filter((value) => {
-      return (
-        value.title?.toLowerCase()?.includes(q?.toLowerCase()) ||
-        value.techStack?.some((tag) =>
-          tag.toLowerCase().includes(q?.toLowerCase())
-        ) ||
-        value.domainName?.toLowerCase()?.includes(q?.toLowerCase())
-      );
-    });
+    return Array.isArray(blogs)
+      ? blogs.filter((value) => {
+          return (
+            value.title?.toLowerCase()?.includes(q?.toLowerCase()) ||
+            value.techStack?.some((tag) =>
+              tag.toLowerCase().includes(q?.toLowerCase())
+            ) ||
+            value.domainName?.toLowerCase()?.includes(q?.toLowerCase())
+          );
+        })
+      : [];
   }, [blogs, q]);
 
   useEffect(() => {
     setSearchedBlogs(filteredData);
+    setFilteredBlogs(filteredData);
   }, [q, filteredData]);
 
   function handleHeight() {
@@ -93,36 +101,28 @@ export default function NewBlogsPage() {
     }, 100);
   }
 
-  useEffect(() => {
-    console.log("Blogs:", blogs);
-    console.log("Filtered Blogs:", filteredBlogs);
-    console.log("Total Pages:", totalPages);
-  }, [blogs, filteredBlogs, totalPages]);
-
   const renderContentContainer = (
     <>
       {!isBlogOpen && (
-        <div id="blog-list" className={`blog-list `}>
-          {filteredBlogs.length === 0 && (
-            <div
-              style={{ minHeight: "30vh" }}
-              className="d-flex justify-content-center align-items-center flex-column w-100"
-            >
-              <h4>No Blogs found</h4>
-            </div>
-          )}
-          {filteredBlogs.map((blog) => (
-            <NewBlogCard key={blog._id} blog={blog} />
-          ))}
-          {filteredBlogs.length > 0 && totalPages > 1 && (
-            <PaginationBar
-              pages={totalPages}
-              currentPage={currentPage}
-              setCurrentPage={setCurrentPage}
-            />
-          )}
-        </div>
+        <>
+          <div id="blog-list" className={`blog-list `}>
+            {filteredBlogs.length === 0 ? (
+              <div
+                style={{ minHeight: "30vh" }}
+                className="d-flex justify-content-center align-items-center flex-column w-100"
+              >
+                <h4>No Blogs found</h4>
+              </div>
+            ) : (
+              filteredBlogs &&
+              filteredBlogs.map((blog) => {
+                return <NewBlogCard key={blog._id} blog={blog} />;
+              })
+            )}
+          </div>
+        </>
       )}
+
       <Outlet context={[handleHeight]} />
     </>
   );
@@ -193,7 +193,7 @@ export default function NewBlogsPage() {
             )}
             {Object.keys(blogsData).length !== 0 && (
               <>
-                {blogsData?.status === 200 ? (
+                {blogsData?.success === true ? (
                   blogs.length === 0 ? (
                     <div
                       style={{ minHeight: "30vh" }}
@@ -211,6 +211,15 @@ export default function NewBlogsPage() {
                   >
                     <h4>No Blogs found</h4>
                   </div>
+                )}
+
+                {!isBlogOpen && (
+                  <PaginationBar
+                    className={"mx-auto"}
+                    currentPage={currentPage}
+                    pages={totalPages}
+                    setCurrentPage={setCurrentPage}
+                  />
                 )}
               </>
             )}

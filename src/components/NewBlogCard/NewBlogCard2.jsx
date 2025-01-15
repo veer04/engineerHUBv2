@@ -5,13 +5,15 @@ import defaultPoster, {
   defaultProjectPoster,
   eHUBLogo,
 } from "../../assets/defaultPoster";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-export default function NewBlogCard({ blog }) {
-  const { id } = useParams();
+export default function NewBlogCard2({ blog }) {
   const navigate = useNavigate();
   return (
-    <article onClick={() => navigate(`${blog._id}`)} className="blog-card">
+    <article
+      onClick={() => navigate(`/community/blogs/General/${blog._id}`)}
+      className="blog-card"
+    >
       <div className="poster-container">
         <img
           onError={(e) => {
@@ -48,22 +50,14 @@ export default function NewBlogCard({ blog }) {
               // e.target.onerror = null;
               e.target.src = eHUBLogo;
             }}
-            src={id === "General" ? eHUBLogo : blog?.creatorId?.image}
+            src={eHUBLogo}
             alt={`${blog?.creatorId?.name ? blog?.creatorId?.name : ""} logo`}
             loading="lazy"
           />
         </div>
         <div className="details">
           <span className="title">Created By</span>
-          <span className="name text-crop-1">
-            {id === "General"
-              ? "engineerHUB"
-              : blog?.creatorId?.firstName
-              ? `${blog?.creatorId?.firstName} ${
-                  blog?.creatorId?.lastName ? blog?.creatorId?.lastName : ""
-                }`
-              : "engineerHUB"}
-          </span>
+          <span className="name text-crop-1">engineerHUB</span>
         </div>
       </div>
     </article>
