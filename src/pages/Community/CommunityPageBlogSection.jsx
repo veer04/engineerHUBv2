@@ -18,7 +18,7 @@ const CommunityPageBlogSection = () => {
 
   useEffect(() => {
     document.title = `Blogs | ${id} | engineerHUB`;
-    window.scrollTo(0, 0);
+    // window.scrollTo(0, 0);
     getGeneralBlogs(setBlogsData, id, currentPage, limit);
 
     return () => {
