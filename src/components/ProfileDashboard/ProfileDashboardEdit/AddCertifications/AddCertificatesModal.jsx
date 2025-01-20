@@ -3,7 +3,10 @@ import "./addcertificatemodal.css";
 import { IoMdClose } from "react-icons/io";
 import { Bucket_URL } from "../../../../services/APIUtils";
 import useGlobalSnackbar from "../../../../hooks/useGlobalSnackbar";
-import { addUserCertification } from "../../../../services/APIConfig";
+import {
+  addUserCertification,
+  updateUserCertification,
+} from "../../../../services/APIConfig";
 import { Bounce, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -18,6 +21,7 @@ const AddCertificationsModal = ({ isOpen, onClose, data, setProfileData }) => {
   const [updateCertificationResponse, setUpdateCertificationResponse] =
     useState({});
   const [loading, setLoading] = useState(false);
+  const [response, setResponse] = useState(null);
 
   const handleChange = (field, value) => {
     setFormData((prevData) => ({ ...prevData, [field]: value }));
@@ -110,6 +114,51 @@ const AddCertificationsModal = ({ isOpen, onClose, data, setProfileData }) => {
       toast.error("Something went wrong!");
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleUpdateCertificate = async () => {
+    const result = await updateUserCertification(
+      {
+        licenceId: data._id,
+        body: formData,
+      },
+      setResponse
+    );
+
+    if (result.status === 200) {
+      toast("👌 Certificate Updated Successfully!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        transition: Bounce,
+      });
+
+      setProfileData((prevData) => ({
+        ...prevData,
+        licenceDetails: prevData.licenceDetails.map((cert) =>
+          cert._id === result.data.data._id ? result.data.data : cert
+        ),
+      }));
+
+      onClose();
+    } else {
+      toast(`✖️ ${"Error Updating Certificate"}`, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        transition: Bounce,
+      });
     }
   };
 
@@ -321,8 +370,17 @@ const AddCertificationsModal = ({ isOpen, onClose, data, setProfileData }) => {
                     <button className="cancel-modal-btn" onClick={handleClose}>
                       Cancel
                     </button>
-                    <button className="save-modal-btn" onClick={handleSubmit}>
-                      Save
+                    <button
+                      className="save-modal-btn"
+                      onClick={
+                        data && Object.keys(data).length > 0 && data._id
+                          ? handleUpdateCertificate
+                          : handleSubmit
+                      }
+                    >
+                      {data && Object.keys(data).length > 0 && data.profile
+                        ? "Update"
+                        : "Save"}
                     </button>
                   </div>
                 </div>

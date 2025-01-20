@@ -5,6 +5,7 @@ import { Bucket_URL } from "../../../../services/APIUtils";
 import {
   addUserExperience,
   deleteUserExperience,
+  updateUserExperience,
 } from "../../../../services/APIConfig";
 
 import { Bounce, toast } from "react-toastify";
@@ -157,6 +158,48 @@ const AddExperienceModal = ({ isOpen, onClose, data, setProfileData }) => {
     } catch (error) {
       console.error(error);
       toast.error("Something went wrong!");
+    }
+  };
+
+  const handleUpdateExperience = async () => {
+    const result = await updateUserExperience(
+      { experienceId: data?._id, body: formData },
+      setResponse
+    );
+
+    if (result.status === 200) {
+      toast("👌 Experience Updated Successfully!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        transition: Bounce,
+      });
+
+      setProfileData((prevData) => ({
+        ...prevData,
+        experienceDetails: prevData.experienceDetails.map((exp) =>
+          exp._id === result.data.data._id ? result.data.data : exp
+        ),
+      }));
+
+      onClose();
+    } else {
+      toast(`✖️ ${"Error Updating Education"}`, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        transition: Bounce,
+      });
     }
   };
 
@@ -411,7 +454,14 @@ const AddExperienceModal = ({ isOpen, onClose, data, setProfileData }) => {
                   <button className="cancel-modal-btn" onClick={handleClose}>
                     Cancel
                   </button>
-                  <button className="save-modal-btn" onClick={handleSubmit}>
+                  <button
+                    className="save-modal-btn"
+                    onClick={
+                      data && Object.keys(data).length > 0 && data._id
+                        ? handleUpdateExperience
+                        : handleSubmit
+                    }
+                  >
                     {data && Object.keys(data).length > 0 && data.profile
                       ? "Update"
                       : "Save"}

@@ -400,7 +400,7 @@ function App() {
             </Route>
           </Route>
 
-          {/* <Route path="/profiledashboard" element={<ProfileDashboard />} />
+          <Route path="/profiledashboard" element={<ProfileDashboard />} />
           <Route
             path="/profiledashboarduserview"
             element={<ProfileDashboardUserView />}
@@ -409,7 +409,7 @@ function App() {
           <Route
             path="/profiledashboardedit"
             element={<ProfileDashboardEdit />}
-          /> */}
+          />
 
           <Route path="*" element={<Page404 />} />
         </Routes>
