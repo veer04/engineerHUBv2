@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from "react";
 import "./addprojectsmodal.css";
 import { IoMdClose } from "react-icons/io";
-import { Bucket_URL } from "../../../../services/APIUtils";
-import { addUserProject } from "../../../../services/APIConfig";
+import {
+  addUserProject,
+  deleteUserProject,
+  updateUserProject,
+} from "../../../../services/APIConfig";
 import useGlobalSnackbar from "../../../../hooks/useGlobalSnackbar";
 import { Bounce, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useQueryClient } from "@tanstack/react-query";
 
 const AddProjectsModal = ({ isOpen, onClose, data, setProfileData }) => {
   const [formData, setFormData] = useState({
@@ -15,11 +19,11 @@ const AddProjectsModal = ({ isOpen, onClose, data, setProfileData }) => {
     endYear: "",
     projectDescription: "",
   });
+  console.log(data, "data");
+  const queryClient = useQueryClient();
 
-  // console.log(formData, "formData");
-  // console.log(new Date(formData.startYear), "formData");
-  // console.log(formData.endYear, "formData");
   const [updateProjectResponse, setUpdateProjectResponse] = useState({});
+  const [response, setResponse] = useState(null);
 
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
@@ -27,19 +31,19 @@ const AddProjectsModal = ({ isOpen, onClose, data, setProfileData }) => {
   useEffect(() => {
     if (data) {
       setFormData({
-        projectTitle: data.projectTitle,
-        projectLink: data.projectLink,
-        projectDescription: data.projectDescription,
+        _id: data._id,
+        projectTitle: data.projectTitle || "",
+        projectLink: data.projectLink || "",
+        projectDescription: data.projectDescription || "",
+        startYear: data.startYear
+          ? new Date(data.startYear).toISOString().split("T")[0]
+          : "",
+        endYear: data.endYear
+          ? new Date(data.endYear).toISOString().split("T")[0]
+          : "",
       });
     }
   }, [data]);
-
-  const {
-    setSnackbarOpen,
-    setSnackbarMessage,
-    setSnackbarSeverity,
-    setSnackbarDuration,
-  } = useGlobalSnackbar();
 
   const handleChange = (field, value) => {
     setFormData((prevData) => ({ ...prevData, [field]: value }));
@@ -73,7 +77,9 @@ const AddProjectsModal = ({ isOpen, onClose, data, setProfileData }) => {
     try {
       addUserProject(formData, setUpdateProjectResponse);
 
-      const response = setUpdateProjectResponse;
+      const response = updateProjectResponse;
+      console.log("updateprojectres", updateProjectResponse);
+      console.log("responsebelow", response);
       if (response) {
         toast(
           data && data._id
@@ -91,6 +97,8 @@ const AddProjectsModal = ({ isOpen, onClose, data, setProfileData }) => {
             transition: Bounce,
           }
         );
+
+        // queryClient.invalidateQueries({ queryKey: ["profileData"] });
 
         setProfileData((prevData) => ({
           ...prevData,
@@ -120,6 +128,48 @@ const AddProjectsModal = ({ isOpen, onClose, data, setProfileData }) => {
     }
   };
 
+  const handleUpdateProject = async () => {
+    const result = await updateUserProject(
+      { projectId: data._id, body: formData },
+      setResponse
+    );
+
+    if (result.status === 200) {
+      toast("👌 Project Updated Successfully!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        transition: Bounce,
+      });
+
+      setProfileData((prevData) => ({
+        ...prevData,
+        projectDetails: prevData.projectDetails.map((exp) =>
+          exp._id === result.data.data._id ? result.data.data : exp
+        ),
+      }));
+
+      onClose();
+    } else {
+      toast(`✖️ ${"Error Updating Project"}`, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        transition: Bounce,
+      });
+    }
+  };
+
   const handleClose = () => {
     setErrors({});
     onClose();
@@ -130,6 +180,33 @@ const AddProjectsModal = ({ isOpen, onClose, data, setProfileData }) => {
       endYear: "",
       projectDescription: "",
     });
+  };
+
+  const handleDeleteProject = async () => {
+    if (!data || !data._id) {
+      toast.error("No project selected for deletion.");
+      return;
+    }
+    try {
+      await deleteUserProject(data?._id, setResponse);
+
+      if (response) {
+        toast.success("Project deleted successfully!");
+        setProfileData((prevData) => ({
+          ...prevData,
+          projectDetails: prevData?.projectDetails.filter(
+            (pro) => pro._id !== data._id
+          ),
+        }));
+
+        onClose();
+      } else {
+        toast.error(response?.message || "Failed to delete Project.");
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error("Something went wrong!");
+    }
   };
 
   if (!isOpen) return null;
@@ -297,6 +374,7 @@ const AddProjectsModal = ({ isOpen, onClose, data, setProfileData }) => {
 
           <div className="modal-delete-sav-cancel-main-div-pro">
             <div
+              onClick={() => handleDeleteProject()}
               style={{
                 cursor: "pointer",
                 backgroundColor: "#FF58581A",
@@ -345,8 +423,17 @@ const AddProjectsModal = ({ isOpen, onClose, data, setProfileData }) => {
               <button className="cancel-modal-btn" onClick={handleClose}>
                 Cancel
               </button>
-              <button className="save-modal-btn" onClick={handleSubmit}>
-                Save
+              <button
+                className="save-modal-btn"
+                onClick={
+                  data && Object.keys(data).length > 0 && data._id
+                    ? handleUpdateProject
+                    : handleSubmit
+                }
+              >
+                {data && Object.keys(data).length > 0 && data.profile
+                  ? "Update"
+                  : "Save"}
               </button>
             </div>
           </div>

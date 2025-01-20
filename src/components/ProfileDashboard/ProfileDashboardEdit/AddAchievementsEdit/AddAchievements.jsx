@@ -14,6 +14,7 @@ const AddAchievements = ({ profileData, setProfileData }) => {
     setIsModalOpen(false);
     setSelecetedAchievement(null);
   };
+
   return (
     <>
       <AddAchievementModal
@@ -97,6 +98,7 @@ const AddAchievements = ({ profileData, setProfileData }) => {
                           lineHeight: "20px",
                           color: "#002B36",
                           marginBottom: 0,
+                          wordBreak: "break-word",
                         }}
                       >
                         {achieve.description}
