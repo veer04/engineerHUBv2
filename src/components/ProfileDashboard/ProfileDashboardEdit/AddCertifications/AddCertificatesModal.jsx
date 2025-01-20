@@ -5,6 +5,7 @@ import { Bucket_URL } from "../../../../services/APIUtils";
 import useGlobalSnackbar from "../../../../hooks/useGlobalSnackbar";
 import {
   addUserCertification,
+  deleteUserCertification,
   updateUserCertification,
 } from "../../../../services/APIConfig";
 import { Bounce, toast } from "react-toastify";
@@ -173,6 +174,34 @@ const AddCertificationsModal = ({ isOpen, onClose, data, setProfileData }) => {
     });
   };
 
+  const handleDeleteCertificate = async () => {
+    if (!data || !data._id) {
+      toast.error("No Certificate selected for deletion.");
+      return;
+    }
+
+    try {
+      await deleteUserCertification(data?._id, setResponse);
+
+      if (response) {
+        toast.success("Certificate deleted successfully!");
+        setProfileData((prevData) => ({
+          ...prevData,
+          licenceDetails: prevData?.licenceDetails.filter(
+            (lic) => lic._id !== data._id
+          ),
+        }));
+
+        onClose();
+      } else {
+        toast.error(response?.message || "Failed to delete Certificate.");
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error("Something went wrong!");
+    }
+  };
+
   if (!isOpen) return null;
 
   return (
@@ -322,6 +351,7 @@ const AddCertificationsModal = ({ isOpen, onClose, data, setProfileData }) => {
 
                 <div className="modal-delete-sav-cancel-main-div-cert">
                   <div
+                    onClick={() => handleDeleteCertificate()}
                     style={{
                       cursor: "pointer",
                       backgroundColor: "#FF58581A",

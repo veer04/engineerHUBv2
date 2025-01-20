@@ -155,7 +155,7 @@ const AddAchievementModal = ({ isOpen, onClose, data, setProfileData }) => {
     try {
       await deleteUserAchievement(data._id, setResponse);
 
-      if (response && response?.data?.success) {
+      if (response) {
         toast.success("Achievement deleted successfully!");
 
         setProfileData((prevData) => ({
