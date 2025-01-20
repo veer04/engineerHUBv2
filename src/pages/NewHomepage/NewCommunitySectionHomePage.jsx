@@ -11,9 +11,17 @@ const NewCommunitySection = () => {
 
   useEffect(() => {
     axios
-      .get(`${API_URL}api/v1/eventTypeWiseEvents/eventHiring`)
+      .get(`${API_URL}api/v1/eventTypeWiseEvents/eventHiring`, {
+        params: {
+          page: 1,
+          limit: 5,
+        },
+      })
       .then((res) => {
-        setEventsData(res?.data?.data);
+        const sortedEvents = res?.data?.data.sort(
+          (a, b) => new Date(b.eventStartTime) - new Date(a.eventStartTime)
+        );
+        setEventsData(sortedEvents);
       })
       .catch((err) => {
         if (axios.isCancel(err)) {
@@ -42,7 +50,9 @@ const NewCommunitySection = () => {
             <div className="col-md-6">
               <div className="container">
                 <div className="textContainer">
-                  <p>Are you a college student?</p>
+                  <p style={{ textAlign: "left" }}>
+                    Are you a college student or young professional?
+                  </p>
                   <p
                     style={{
                       lineHeight: "normal",
@@ -67,7 +77,7 @@ const NewCommunitySection = () => {
                     className="textDesc"
                   >
                     connect with like minded people,read blogs, built projects
-                    and attend live sessions for free.
+                    and chat for free.
                   </p>
                   <div className="wrapButton">
                     <div
@@ -113,10 +123,7 @@ const NewCommunitySection = () => {
                   }}
                 >
                   {eventsData?.length > 0 && (
-                    <NewEventCard
-                      data={eventsData[eventsData.length - 1]}
-                      eventHiring={true}
-                    />
+                    <NewEventCard data={eventsData[0]} eventHiring={true} />
                   )}
                 </div>
               </div>

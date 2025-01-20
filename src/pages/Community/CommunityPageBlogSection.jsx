@@ -18,7 +18,7 @@ const CommunityPageBlogSection = () => {
 
   useEffect(() => {
     document.title = `Blogs | ${id} | engineerHUB`;
-    window.scrollTo(0, 0);
+    // window.scrollTo(0, 0);
     getGeneralBlogs(setBlogsData, id, currentPage, limit);
 
     return () => {
@@ -43,7 +43,7 @@ const CommunityPageBlogSection = () => {
   return (
     <div className="main-community-blog-section-div">
       <div className="mb-4">
-        <h4 className="h4-com-blog-sec">Community Blog Section</h4>
+        <h4 className="h4-com-blog-sec">Get Updated With Latest topics</h4>
       </div>
 
       <div className="main-community-blog-sub">

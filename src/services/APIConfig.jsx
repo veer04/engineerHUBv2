@@ -468,6 +468,40 @@ export const addUserAchievement = (data, setResponse) => {
       }
     });
 };
+
+export const updateUserAchievement = async (
+  { achievementId, body },
+  setResponse
+) => {
+  const controller = new AbortController();
+  const accessToken = getAccessToken();
+  const config = {
+    headers: {
+      accessToken: accessToken,
+    },
+    signal: controller.signal,
+  };
+
+  try {
+    const response = await axios.patch(
+      `${API_URL}api/v1/update/achievement/${achievementId}`,
+      body,
+      config
+    );
+
+    setResponse(response);
+    return response;
+  } catch (error) {
+    if (axios.isCancel(error)) {
+      console.log("Request Cancelled");
+    } else {
+      console.log("error updating experience details", error);
+    }
+    setResponse(error);
+    return error;
+  }
+};
+
 export const addUserCertification = (data, setResponse) => {
   const controller = new AbortController();
   const config = {
@@ -499,6 +533,39 @@ export const addUserCertification = (data, setResponse) => {
       }
     });
 };
+
+export const updateUserCertification = async (
+  { licenceId, body },
+  setResponse
+) => {
+  const controller = new AbortController();
+  const accessToken = getAccessToken();
+  const config = {
+    headers: {
+      accessToken: accessToken,
+    },
+    signal: controller.signal,
+  };
+
+  try {
+    const response = await axios.patch(
+      `${API_URL}api/v1/update/licence/${licenceId}`,
+      body,
+      config
+    );
+    setResponse(response);
+    return response;
+  } catch (error) {
+    if (axios.isCancel(error)) {
+      console.log("Request canceled");
+    } else {
+      console.error("Error updating education details:", error);
+    }
+    setResponse(error);
+    return error;
+  }
+};
+
 export const deleteUserCertification = (_id, setResponse) => {
   const controller = new AbortController();
   const config = {
@@ -522,6 +589,7 @@ export const deleteUserCertification = (_id, setResponse) => {
       }
     });
 };
+
 export const deleteUserAchievement = (_id, setResponse) => {
   const controller = new AbortController();
   const config = {
@@ -624,6 +692,39 @@ export const deleteUserExperience = (_id, setResponse) => {
     });
 };
 
+export const updateUserExperience = async (
+  { experienceId, body },
+  setResponse
+) => {
+  const controller = new AbortController();
+  const accessToken = getAccessToken();
+  const config = {
+    headers: {
+      accessToken: accessToken,
+    },
+    signal: controller.signal,
+  };
+
+  try {
+    const response = await axios.patch(
+      `${API_URL}api/v1/update/experience/${experienceId}`,
+      body,
+      config
+    );
+
+    setResponse(response);
+    return response;
+  } catch (error) {
+    if (axios.isCancel(error)) {
+      console.log("Request Cancelled");
+    } else {
+      console.log("error updating experience details", error);
+    }
+    setResponse(error);
+    return error;
+  }
+};
+
 export const addUserProject = (data, setResponse) => {
   const controller = new AbortController();
   const config = {
@@ -640,8 +741,9 @@ export const addUserProject = (data, setResponse) => {
       config
     )
     .then((res) => {
-      console.log(res);
-      setResponse(res);
+      console.log(res, "res");
+      setResponse(res.data.data);
+      return res.data;
     })
     .catch((err) => {
       console.log(err);
@@ -654,6 +756,36 @@ export const addUserProject = (data, setResponse) => {
     });
 };
 
+export const updateUserProject = async ({ projectId, body }, setResponse) => {
+  const controller = new AbortController();
+  const accessToken = getAccessToken();
+  const config = {
+    headers: {
+      accessToken: accessToken,
+    },
+    signal: controller.signal,
+  };
+
+  try {
+    const response = await axios.patch(
+      `${API_URL}api/v1/update/projectDetails/${projectId}`,
+      body,
+      config
+    );
+
+    setResponse(response);
+    return response;
+  } catch (error) {
+    if (axios.isCancel(error)) {
+      console.log("Request canceled");
+    } else {
+      console.error("Error updating education details:", error);
+    }
+    setResponse(error);
+    return error;
+  }
+};
+
 export const deleteUserProject = (_id, setResponse) => {
   const controller = new AbortController();
   const config = {
@@ -664,8 +796,8 @@ export const deleteUserProject = (_id, setResponse) => {
   axios
     .delete(`${API_URL}api/v1/delete/projectDetails/${_id}`, config)
     .then((res) => {
-      console.log(res);
-      setResponse(res);
+      console.log(res, "res");
+      setResponse(res?.data);
     })
     .catch((err) => {
       console.log(err);

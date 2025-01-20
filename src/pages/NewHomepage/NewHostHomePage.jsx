@@ -75,7 +75,7 @@ const NewHostHomePage = () => {
             <div className="col-md-6">
               <div className="container">
                 <div className="textContainer">
-                  <p>Are you a company/HR?</p>
+                  <p style={{ textAlign: "left" }}>Are you a company/HR?</p>
                   <p
                     style={{
                       lineHeight: "normal",
@@ -96,7 +96,7 @@ const NewHostHomePage = () => {
                         backgroundColor: "#91F0EF",
                       }}
                     >
-                      to engage audience
+                      to engage & hire talents
                     </span>
                   </p>
                   <p

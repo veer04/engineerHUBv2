@@ -136,9 +136,10 @@ const NewSiliconValley = () => {
   // };
 
   // get the current month
-  const bucket = `${Bucket_URL}frontend/homepage/siliconvalleystreet/`
+  const bucket = `${Bucket_URL}frontend/homepage/siliconvalleystreet/`;
   const date = new Date();
   const month = date.toLocaleString("default", { month: "long" });
+  const year = date.getFullYear();
 
   const dummyData = [
     {
@@ -197,7 +198,9 @@ const NewSiliconValley = () => {
         className="box"
       >
         <div className="heading">
-          <div className="time">{month} 2024</div>
+          <div className="time">
+            {month} {year}
+          </div>
           <h2>"Silicon Valley Street"</h2>
           <h3>
             Featuring personalities for their outstanding performance and

@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from "react";
 import "./addachievemodal.css";
 import { IoMdClose } from "react-icons/io";
-import { addUserAchievement } from "../../../../services/APIConfig";
+import {
+  addUserAchievement,
+  deleteUserAchievement,
+  updateUserAchievement,
+} from "../../../../services/APIConfig";
 import { Bounce, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -12,11 +16,13 @@ const AddAchievementModal = ({ isOpen, onClose, data, setProfileData }) => {
     description: "",
     achievementUrl: "",
   });
+  console.log(data, "achievementData");
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
   const [updateAchievementResponse, setUpdateAchievementResponse] = useState(
     {}
   );
+  const [response, setResponse] = useState(null);
 
   const handleChange = (field, value) => {
     setFormData((prevData) => ({ ...prevData, [field]: value }));
@@ -56,7 +62,7 @@ const AddAchievementModal = ({ isOpen, onClose, data, setProfileData }) => {
     try {
       addUserAchievement(formData, setUpdateAchievementResponse);
 
-      const response = setUpdateAchievementResponse;
+      const response = updateAchievementResponse;
 
       if (response) {
         toast(
@@ -100,6 +106,72 @@ const AddAchievementModal = ({ isOpen, onClose, data, setProfileData }) => {
       toast.error("Something went wrong!");
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleUpdateAchievement = async () => {
+    const result = await updateUserAchievement(
+      { achievementId: data?._id, body: formData },
+      setResponse
+    );
+
+    if (result.status === 200) {
+      toast("👌 Achievement Updated Successfully!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        transition: Bounce,
+      });
+
+      setProfileData((prevData) => ({
+        ...prevData,
+        achievementDetails: prevData.achievementDetails.map((exp) =>
+          exp._id === result.data.data._id ? result.data.data : exp
+        ),
+      }));
+
+      onClose();
+    } else {
+      toast(`✖️ ${"Error Updating Achievement"}`, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        transition: Bounce,
+      });
+    }
+  };
+
+  const handleDeleteAchievement = async () => {
+    try {
+      await deleteUserAchievement(data._id, setResponse);
+
+      if (response && response?.data?.success) {
+        toast.success("Achievement deleted successfully!");
+
+        setProfileData((prevData) => ({
+          ...prevData,
+          achievementDetails: prevData.achievementDetails.filter(
+            (achi) => achi._id !== achi._id
+          ),
+        }));
+
+        onClose();
+      } else {
+        toast.error(response?.data?.message || "Failed to delete Achievement.");
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error("Something went wrong!");
     }
   };
 
@@ -253,6 +325,7 @@ const AddAchievementModal = ({ isOpen, onClose, data, setProfileData }) => {
 
                 <div className="modal-delete-sav-cancel-main-div-achi">
                   <div
+                    onClick={() => handleDeleteAchievement()}
                     style={{
                       cursor: "pointer",
                       backgroundColor: "#FF58581A",
@@ -303,10 +376,16 @@ const AddAchievementModal = ({ isOpen, onClose, data, setProfileData }) => {
                     </button>
                     <button
                       className="save-modal-btn"
-                      onClick={handleSubmit}
+                      onClick={
+                        data && Object.keys(data).length > 0 && data._id
+                          ? handleUpdateAchievement
+                          : handleSubmit
+                      }
                       disabled={loading}
                     >
-                      {"Save"}
+                      {data && Object.keys(data).length > 0 && data._id
+                        ? "Update"
+                        : "Save"}
                     </button>
                   </div>
                 </div>

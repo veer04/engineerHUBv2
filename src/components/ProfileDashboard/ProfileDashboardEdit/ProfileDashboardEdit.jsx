@@ -19,12 +19,13 @@ import axios from "axios";
 import { API_URL } from "../../../services/APIUtils";
 import AddSkill from "./AddSkill/AddSkill";
 import { getAccessToken } from "../../../features/getCookieValues";
+import { useQuery } from "@tanstack/react-query";
 
 const ProfileDashboardEdit = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isModalDeleteOpen, setIsModalDeleteOpen] = useState(false);
   const [isOkModalDeleteOpen, setIsOkModalDeleteOpen] = useState(false);
-
+  const userId = getUserId();
   const openDeleteModal = () => {
     console.log("click");
     setIsModalDeleteOpen(true);
@@ -49,34 +50,48 @@ const ProfileDashboardEdit = () => {
   const [profileData, setProfileData] = useState(null);
   const [privateDashboardData, setPrivateDashboardData] = useState(null);
 
-  const getProfileData = async () => {
-    const userId = getUserId();
+  const profileDataQuery = useQuery({
+    queryKey: ["profileData"],
+    queryFn: () =>
+      axios.get(`${API_URL}api/v1/getUserWithId/${userId}`).then((res) => {
+        setProfileData(res.data.data);
+        return res;
+      }),
+    staleTime: Infinity,
+  });
 
-    try {
-      console.log("Fetching profile data...");
-      const response = await axios.get(
-        `${API_URL}api/v1/getUserWithId/${userId}`
-      );
+  // if (profileDataQuery.isSuccess) {
+  //   console.log(profileDataQuery.data, "kjhgf");
+  // }
 
-      if (response.status === 200) {
-        console.log("Profile data retrieved successfully:", response.data);
+  // const getProfileData = async () => {
+  //   const userId = getUserId();
 
-        const data = response.data;
-        setProfileData(data.data);
-      } else {
-        console.error("Unexpected response status:", response.status);
-      }
-    } catch (error) {
-      console.error(
-        "Error fetching profile data:",
-        error.response || error.message
-      );
-    }
-  };
+  //   try {
+  //     console.log("Fetching profile data...");
+  //     const response = await axios.get(
+  //       `${API_URL}api/v1/getUserWithId/${userId}`
+  //     );
 
-  useEffect(() => {
-    getProfileData();
-  }, []);
+  //     if (response.status === 200) {
+  //       console.log("Profile data retrieved successfully:", response.data);
+
+  //       const data = response.data;
+  //       setProfileData(data.data);
+  //     } else {
+  //       console.error("Unexpected response status:", response.status);
+  //     }
+  //   } catch (error) {
+  //     console.error(
+  //       "Error fetching profile data:",
+  //       error.response || error.message
+  //     );
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   getProfileData();
+  // }, []);
 
   const getPrivateDashboardData = async () => {
     try {

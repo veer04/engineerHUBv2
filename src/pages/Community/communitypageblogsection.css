@@ -38,4 +38,10 @@
     grid-template-columns: repeat(1, 1fr);
     gap: 10px;
   }
+
+  .main-community-blog-section-div .h4-com-blog-sec {
+    margin-bottom: 0;
+    font-weight: 600;
+    font-size: 18px;
+  }
 }

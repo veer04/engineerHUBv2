@@ -17,7 +17,6 @@ import DeleteModal from "../ModalUpdatedAndDeleted/DeleteModal";
 import { getUserId } from "../../../../features/User/UserDetails";
 
 const AddEducationModal = ({ isOpen, onClose, data, setProfileData }) => {
-  console.log(data, "darasaif");
   const [campus, setCampus] = useState([]);
   const [branches, setBranches] = useState([]);
   const [formData, setFormData] = useState({
