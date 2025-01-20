@@ -52,9 +52,7 @@ const AddCertificationsModal = ({ isOpen, onClose, data, setProfileData }) => {
         issuedDate: data.issuedDate
           ? new Date(data.issuedDate).toISOString().split("T")[0]
           : "",
-        issuedBy: data.issuedBy
-          ? new Date(data.issuedBy).toISOString().split("T")[0]
-          : "",
+        issuedBy: data.issuedBy,
       });
     }
   }, [data]);
@@ -71,7 +69,7 @@ const AddCertificationsModal = ({ isOpen, onClose, data, setProfileData }) => {
     try {
       addUserCertification(formData, setUpdateCertificationResponse);
 
-      const response = setUpdateCertificationResponse;
+      const response = updateCertificationResponse;
 
       if (response) {
         toast(
@@ -329,7 +327,7 @@ const AddCertificationsModal = ({ isOpen, onClose, data, setProfileData }) => {
                       </label>
                       {/* <span className="required-indicator">*</span> */}
                       <input
-                        type="date"
+                        type="text"
                         id="issuedBy"
                         value={formData.issuedBy}
                         onChange={(e) =>

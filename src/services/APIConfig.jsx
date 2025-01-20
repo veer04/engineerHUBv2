@@ -515,7 +515,7 @@ export const addUserCertification = (data, setResponse) => {
       {
         ...data,
         issuedDate: new Date(data.issuedDate),
-        issuedBy: new Date(data.issuedBy),
+        issuedBy: data.issuedBy,
       },
       config
     )
