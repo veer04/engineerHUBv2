@@ -39,6 +39,8 @@ const ProfileWithPostEditShare = ({
   const [progress, setProgress] = useState(0);
   const [response, setResponse] = useState(null);
 
+  console.log("data", privateDashboardData);
+
   useEffect(() => {
     if (privateDashboardData?.resume) {
       setIsResumeUploaded(true);
@@ -251,9 +253,9 @@ const ProfileWithPostEditShare = ({
                 }}
               >
                 {`${
-                  privateDashboardData && privateDashboardData.followers
-                    ? privateDashboardData.followers
-                    : "25"
+                  privateDashboardData &&
+                  privateDashboardData.followers &&
+                  privateDashboardData.followers
                 } Followers`}
               </h4>
             </div>

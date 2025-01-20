@@ -26,22 +26,16 @@ const AddCertificationsModal = ({ isOpen, onClose, data, setProfileData }) => {
 
   const handleChange = (field, value) => {
     setFormData((prevData) => ({ ...prevData, [field]: value }));
-  };
-
-  const {
-    setSnackbarOpen,
-    setSnackbarMessage,
-    setSnackbarSeverity,
-    setSnackbarDuration,
-  } = useGlobalSnackbar();
-
-  const validateForm = () => {
-    const newErrors = {};
-
-    if (!formData.certificationName.trim())
-      newErrors.certificationName = "Certificate name is required.";
-
-    return newErrors;
+    setErrors((prevErrors) => {
+      const newErrors = { ...prevErrors };
+      if (field === "certificationName" && value.trim()) {
+        delete newErrors.certificationName;
+      }
+      if (field === "issuedBy" && value.trim()) {
+        delete newErrors.issuedBy;
+      }
+      return newErrors;
+    });
   };
 
   useEffect(() => {
@@ -56,6 +50,19 @@ const AddCertificationsModal = ({ isOpen, onClose, data, setProfileData }) => {
       });
     }
   }, [data]);
+
+  const validateForm = () => {
+    const newErrors = {};
+
+    if (!formData.certificationName)
+      newErrors.certificationName = "Certificate name is required.";
+
+    if (!formData.issuedBy) {
+      newErrors.issuedBy = "Issuer name is required.";
+    }
+
+    return newErrors;
+  };
 
   const handleSubmit = () => {
     const validationErrors = validateForm();

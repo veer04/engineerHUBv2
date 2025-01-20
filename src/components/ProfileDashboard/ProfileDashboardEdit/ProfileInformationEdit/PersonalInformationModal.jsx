@@ -59,18 +59,27 @@ const PersonalInformationModal = ({
   };
 
   // console.log(data.aboutMe);
+  // console.log(data.dateOfBirth, "dob");
 
   useEffect(() => {
     if (isOpen && data) {
       console.log(data, "data");
-      const formattedDateOfBirth = data.dateOfBirth
-        ? moment(data.dateOfBirth, "DD/MM/YYYY").format("YYYY-MM-DD")
-        : "";
+
+      let dateOfBirth = "";
+      if (data.dateOfBirth) {
+        const [day, month, year] = data.dateOfBirth.split("/");
+
+        const parsedDate = new Date(`${year}-${month}-${day}`);
+
+        if (!isNaN(parsedDate.getTime())) {
+          dateOfBirth = parsedDate.toISOString().split("T")[0];
+        }
+      }
 
       setFormData({
         firstName: data.firstName || "",
         lastName: data.lastName || "",
-        dateOfBirth: formattedDateOfBirth,
+        dateOfBirth: dateOfBirth,
         aboutMe: data.aboutMe || "",
         mobile: data.mobile || "",
         gender: data.gender || "",
@@ -98,17 +107,10 @@ const PersonalInformationModal = ({
       return;
     }
 
-    const formattedDate = {
-      ...formData,
-      dateOfBirth: moment(formData.dateOfBirth, "DD/MM/YYYY").format(
-        "YYYY-MM-DD"
-      ),
-    };
-
     setLoading(true);
 
     try {
-      await updateUserDetails(formattedDate, setUpdateUserResponse);
+      await updateUserDetails(formData, setUpdateUserResponse);
 
       const response = setUpdateUserResponse;
 
@@ -129,7 +131,7 @@ const PersonalInformationModal = ({
           ...prevData,
           firstName: formData.firstName,
           lastName: formData.lastName,
-          dateOfBirth: formattedDate.dateOfBirth,
+          dateOfBirth: formData.dateOfBirth,
           aboutMe: formData.aboutMe,
           mobile: formData.mobile,
           gender: formData.gender,
