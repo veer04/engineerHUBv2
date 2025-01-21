@@ -18,9 +18,14 @@ const NewCommunitySection = () => {
         },
       })
       .then((res) => {
-        const sortedEvents = res?.data?.data.sort(
-          (a, b) => new Date(b.eventStartTime) - new Date(a.eventStartTime)
-        );
+        const sortedEvents = res?.data?.data
+          .filter((event) => new Date(event.eventEndTime) >= new Date())
+          .sort(
+            (a, b) => new Date(b.eventStartTime) - new Date(a.eventStartTime)
+          );
+
+        // console.log(sortedEvents, "sorted");
+
         setEventsData(sortedEvents);
       })
       .catch((err) => {
