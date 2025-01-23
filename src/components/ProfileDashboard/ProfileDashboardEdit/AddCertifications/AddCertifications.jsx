@@ -36,7 +36,9 @@ const AddCertifications = ({ profileData, setProfileData }) => {
             >
               Add Certifications
             </h3>
-            {!profileData && (
+            {(!profileData ||
+              (profileData.licenceDetails &&
+                profileData.licenceDetails.length === 0)) && (
               <h4
                 style={{
                   fontSize: 14,
