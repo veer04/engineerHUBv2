@@ -5,6 +5,7 @@ import { Bucket_URL } from "../../../../services/APIUtils";
 import useGlobalSnackbar from "../../../../hooks/useGlobalSnackbar";
 import {
   addUserCertification,
+  deleteUserCertification,
   updateUserCertification,
 } from "../../../../services/APIConfig";
 import { Bounce, toast } from "react-toastify";
@@ -25,22 +26,16 @@ const AddCertificationsModal = ({ isOpen, onClose, data, setProfileData }) => {
 
   const handleChange = (field, value) => {
     setFormData((prevData) => ({ ...prevData, [field]: value }));
-  };
-
-  const {
-    setSnackbarOpen,
-    setSnackbarMessage,
-    setSnackbarSeverity,
-    setSnackbarDuration,
-  } = useGlobalSnackbar();
-
-  const validateForm = () => {
-    const newErrors = {};
-
-    if (!formData.certificationName.trim())
-      newErrors.certificationName = "Certificate name is required.";
-
-    return newErrors;
+    setErrors((prevErrors) => {
+      const newErrors = { ...prevErrors };
+      if (field === "certificationName" && value.trim()) {
+        delete newErrors.certificationName;
+      }
+      if (field === "issuedBy" && value.trim()) {
+        delete newErrors.issuedBy;
+      }
+      return newErrors;
+    });
   };
 
   useEffect(() => {
@@ -51,12 +46,23 @@ const AddCertificationsModal = ({ isOpen, onClose, data, setProfileData }) => {
         issuedDate: data.issuedDate
           ? new Date(data.issuedDate).toISOString().split("T")[0]
           : "",
-        issuedBy: data.issuedBy
-          ? new Date(data.issuedBy).toISOString().split("T")[0]
-          : "",
+        issuedBy: data.issuedBy,
       });
     }
   }, [data]);
+
+  const validateForm = () => {
+    const newErrors = {};
+
+    if (!formData.certificationName)
+      newErrors.certificationName = "Certificate name is required.";
+
+    if (!formData.issuedBy) {
+      newErrors.issuedBy = "Issuer name is required.";
+    }
+
+    return newErrors;
+  };
 
   const handleSubmit = () => {
     const validationErrors = validateForm();
@@ -70,7 +76,7 @@ const AddCertificationsModal = ({ isOpen, onClose, data, setProfileData }) => {
     try {
       addUserCertification(formData, setUpdateCertificationResponse);
 
-      const response = setUpdateCertificationResponse;
+      const response = updateCertificationResponse;
 
       if (response) {
         toast(
@@ -171,6 +177,34 @@ const AddCertificationsModal = ({ isOpen, onClose, data, setProfileData }) => {
       issuedDate: "",
       issuedBy: "",
     });
+  };
+
+  const handleDeleteCertificate = async () => {
+    if (!data || !data._id) {
+      toast.error("No Certificate selected for deletion.");
+      return;
+    }
+
+    try {
+      await deleteUserCertification(data?._id, setResponse);
+
+      if (response) {
+        toast.success("Certificate deleted successfully!");
+        setProfileData((prevData) => ({
+          ...prevData,
+          licenceDetails: prevData?.licenceDetails.filter(
+            (lic) => lic._id !== data._id
+          ),
+        }));
+
+        onClose();
+      } else {
+        toast.error(response?.message || "Failed to delete Certificate.");
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error("Something went wrong!");
+    }
   };
 
   if (!isOpen) return null;
@@ -300,7 +334,7 @@ const AddCertificationsModal = ({ isOpen, onClose, data, setProfileData }) => {
                       </label>
                       {/* <span className="required-indicator">*</span> */}
                       <input
-                        type="date"
+                        type="text"
                         id="issuedBy"
                         value={formData.issuedBy}
                         onChange={(e) =>
@@ -322,6 +356,7 @@ const AddCertificationsModal = ({ isOpen, onClose, data, setProfileData }) => {
 
                 <div className="modal-delete-sav-cancel-main-div-cert">
                   <div
+                    onClick={() => handleDeleteCertificate()}
                     style={{
                       cursor: "pointer",
                       backgroundColor: "#FF58581A",

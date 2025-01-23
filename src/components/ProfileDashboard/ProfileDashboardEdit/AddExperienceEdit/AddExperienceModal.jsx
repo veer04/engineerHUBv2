@@ -75,7 +75,7 @@ const AddExperienceModal = ({ isOpen, onClose, data, setProfileData }) => {
     try {
       addUserExperience(formData, setUpdateExperienceResponse);
 
-      const response = setUpdateExperienceResponse;
+      const response = updateExperienceResponse;
       if (response) {
         toast(
           data && data._id
