@@ -18,6 +18,8 @@ const AddCertificationsModal = ({ isOpen, onClose, data, setProfileData }) => {
     issuedDate: "",
     issuedBy: "",
   });
+
+  console.log(data, "data");
   const [errors, setErrors] = useState({});
   const [updateCertificationResponse, setUpdateCertificationResponse] =
     useState({});
@@ -77,6 +79,8 @@ const AddCertificationsModal = ({ isOpen, onClose, data, setProfileData }) => {
       addUserCertification(formData, setUpdateCertificationResponse);
 
       const response = updateCertificationResponse;
+      console.log(updateCertificationResponse, "res1");
+      console.log(response, "res");
 
       if (response) {
         toast(

@@ -59,10 +59,10 @@ const BlogHosting = () => {
       value: "raj.swapnil1708@gmail.com",
     },
   ];
-  const currentUserEmail = getUserEmail();
-  if (!specialUserEmails.some((e) => e.value === currentUserEmail)) {
-    return <Page404 />;
-  }
+  // const currentUserEmail = getUserEmail();
+  // if (!specialUserEmails.some((e) => e.value === currentUserEmail)) {
+  //   return <Page404 />;
+  // }
 
   const navigate = useNavigate();
   const ref = useRef(null);
@@ -120,12 +120,12 @@ const BlogHosting = () => {
     setSelectedPageNavbar("host");
   }, []);
 
-  useEffect(() => {
-    // check if the userEmail exist in specialUserEmails
-    if (specialUserEmails.some((e) => e.value === userEmail)) {
-      setIsSpecialUser(true);
-    }
-  }, [userEmail]);
+  // useEffect(() => {
+  //   // check if the userEmail exist in specialUserEmails
+  //   if (specialUserEmails.some((e) => e.value === userEmail)) {
+  //     setIsSpecialUser(true);
+  //   }
+  // }, [userEmail]);
 
   const validateInput1 = () => {
     let valid = true;

@@ -115,13 +115,13 @@ export default function NewNavbar() {
             } services-btn`}
           >
             Services
-            <span
+            {/* <span
               className={`${
                 selectedPageNavbar === "services" ? "--is-active" : ""
               } new-badge`}
             >
               New
-            </span>
+            </span> */}
           </button>
         </Link>
       </div>

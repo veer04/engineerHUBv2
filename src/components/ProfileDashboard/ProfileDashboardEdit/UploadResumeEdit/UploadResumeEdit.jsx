@@ -234,6 +234,7 @@ const UploadResumeEdit = ({ profileData, setProfileData }) => {
                   marginBottom: 0,
                   fontWeight: 600,
                   lineHeight: "24px",
+                  wordBreak: "break-word",
                 }}
               >
                 {cleanFileName}

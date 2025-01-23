@@ -521,7 +521,8 @@ export const addUserCertification = (data, setResponse) => {
     )
     .then((res) => {
       console.log(res);
-      setResponse(res);
+      setResponse(res.data);
+      return res.data;
     })
     .catch((err) => {
       console.log(err);
@@ -531,6 +532,7 @@ export const addUserCertification = (data, setResponse) => {
       } else {
         console.log("req performed");
       }
+      throw err;
     });
 };
 
