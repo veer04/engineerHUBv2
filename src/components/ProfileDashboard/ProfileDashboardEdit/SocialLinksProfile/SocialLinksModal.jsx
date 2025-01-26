@@ -29,6 +29,48 @@ const SocialLinksModal = ({ isOpen, onClose, data, setProfileData }) => {
   const [errors, setErrors] = useState({});
 
   const handleChange = (field, value) => {
+    const newErrors = { ...errors };
+    if (
+      field === "linkedin" &&
+      value &&
+      !value.startsWith("https://www.linkedin.com")
+    ) {
+      newErrors.linkedin = "Linkedin URL is not valid!";
+    } else {
+      delete newErrors.linkedin;
+    }
+
+    if (
+      field === "github" &&
+      value &&
+      !value.startsWith("https://github.com")
+    ) {
+      newErrors.github = "Github URL is not valid!";
+    } else {
+      delete newErrors.github;
+    }
+
+    if (
+      field === "portfolio" &&
+      value &&
+      !(value.startsWith("https://") || value.startsWith("http://"))
+    ) {
+      newErrors.portfolio = " URL must starts with 'http://' or 'https://'";
+    } else {
+      delete newErrors.portfolio;
+    }
+
+    if (
+      field === "cpLink" &&
+      value &&
+      !(value.startsWith("https://") || value.startsWith("http://"))
+    ) {
+      newErrors.cpLink = " URL must b a link starts with https or http";
+    } else {
+      delete newErrors.cpLink;
+    }
+
+    setErrors(newErrors);
     setFormData((prevData) => ({ ...prevData, [field]: value }));
   };
 
@@ -40,36 +82,63 @@ const SocialLinksModal = ({ isOpen, onClose, data, setProfileData }) => {
         url
       );
 
-    if (formData.linkedin && !isValidUrl(formData.linkedin))
-      newErrors.linkedin = "Please enter a valid LinkedIn URL.";
-    if (formData.github && !isValidUrl(formData.github))
-      newErrors.github = "Please enter a valid GitHub URL.";
-    if (formData.portfolio && !isValidUrl(formData.portfolio))
-      newErrors.portfolio = "Please enter a valid Portfolio URL.";
-    if (formData.cpLink && !isValidUrl(formData.cpLink))
-      newErrors.cpLink = "Please enter a valid CP URL.";
-
-    // Check if two links are the same
-    const links = [
-      formData.linkedin,
-      formData.github,
-      formData.portfolio,
-      formData.cpLink,
-    ];
-    const uniqueLinks = new Set(links);
-    if (uniqueLinks.size !== links.length) {
-      newErrors.links = "Links must be unique.";
+    if (formData.linkedin) {
+      if (
+        !isValidUrl(formData.linkedin) ||
+        !formData.linkedin.startsWith("https://www.linkedin.com")
+      ) {
+        newErrors.linkedin = "LinkedIn URL must start with 'linkedin.com'";
+      }
     }
 
+    if (formData.github) {
+      if (
+        !isValidUrl(formData.github) ||
+        !formData.github.startsWith("https://github.com")
+      ) {
+        newErrors.github = "GitHub URL must start with 'https://github.com'";
+      }
+    }
+
+    if (formData.portfolio) {
+      if (
+        !isValidUrl(formData.portfolio) ||
+        !(
+          formData.portfolio.startsWith("https://") ||
+          formData.portfolio.startsWith("http://")
+        )
+      ) {
+        newErrors.portfolio =
+          "Portfolio URL must start with 'http://' or 'https://'.";
+      }
+    }
+
+    if (formData.cpLink) {
+      if (
+        !isValidUrl(formData.cpLink) ||
+        !(
+          formData.cpLink.startsWith("https://") ||
+          formData.cpLink.startsWith("http://")
+        )
+      ) {
+        newErrors.cpLink = "CP URL must start with 'http://' or 'https://'.";
+      }
+    }
+
+    setErrors(newErrors);
     return newErrors;
   };
 
   const handleSubmit = async () => {
-    // const validationErrors = validateForm();
-    // if (Object.keys(validationErrors).length > 0) {
-    //   setErrors(validationErrors);
-    //   return;
-    // }
+    const validationErrors = validateForm();
+    if (Object.keys(validationErrors).length > 0) {
+      toast.error("Please add the input before submitting.", {
+        position: "top-right",
+        autoClose: 5000,
+        theme: "dark",
+      });
+      return;
+    }
 
     const socialMediaData = [
       { mediaLink: formData.linkedin, type: "LinkedIn" },
@@ -204,7 +273,7 @@ const SocialLinksModal = ({ isOpen, onClose, data, setProfileData }) => {
                 >
                   Enter your Personal Portfolio
                 </label>
-                <span className="required-indicator">*</span>
+                {/* <span className="required-indicator">*</span> */}
                 <input
                   type="text"
                   id="portfolio"
@@ -228,7 +297,7 @@ const SocialLinksModal = ({ isOpen, onClose, data, setProfileData }) => {
                 >
                   Enter your CP Link
                 </label>
-                <span className="required-indicator">*</span>
+                {/* <span className="required-indicator">*</span> */}
                 <input
                   type="text"
                   id="cpLink"
