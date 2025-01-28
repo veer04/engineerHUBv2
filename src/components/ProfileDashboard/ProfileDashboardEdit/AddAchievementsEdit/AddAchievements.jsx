@@ -23,7 +23,7 @@ const AddAchievements = ({ profileData, setProfileData }) => {
         data={selectedAchievement}
         setProfileData={setProfileData}
       />
-      <div className="add-achievementss-main-div">
+      <div className="add-achievementss-main-div" id="achievement-div-id">
         <div className="add-headline-sub-div">
           <div className="add-headlline-sub-left">
             <h3
@@ -38,19 +38,21 @@ const AddAchievements = ({ profileData, setProfileData }) => {
               Add Achievements
             </h3>
 
-            {!profileData && (
-              <h4
-                style={{
-                  fontSize: 14,
-                  fontWeight: 400,
-                  lineHeight: "20px",
-                  marginBottom: 0,
-                  color: "#547178",
-                }}
-              >
-                Add Achievements
-              </h4>
-            )}
+            {!profileData ||
+              (profileData.achievementDetails &&
+                profileData.achievementDetails.length === 0 && (
+                  <h4
+                    style={{
+                      fontSize: 14,
+                      fontWeight: 400,
+                      lineHeight: "20px",
+                      marginBottom: 0,
+                      color: "#547178",
+                    }}
+                  >
+                    Add Achievements
+                  </h4>
+                ))}
           </div>
 
           <div className="add-headline-sub-right">

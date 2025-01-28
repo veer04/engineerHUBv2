@@ -10,6 +10,8 @@ import useGlobalSnackbar from "../../../../hooks/useGlobalSnackbar";
 import { Bounce, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useQueryClient } from "@tanstack/react-query";
+import { getAccessToken } from "../../../../features/getCookieValues";
+import { API_URL } from "../../../../services/APIUtils";
 
 const AddProjectsModal = ({ isOpen, onClose, data, setProfileData }) => {
   const [formData, setFormData] = useState({
@@ -47,20 +49,103 @@ const AddProjectsModal = ({ isOpen, onClose, data, setProfileData }) => {
 
   const handleChange = (field, value) => {
     setFormData((prevData) => ({ ...prevData, [field]: value }));
+
+    // Validate the specific field dynamically
+    setErrors((prevErrors) => {
+      const newErrors = { ...prevErrors };
+
+      // Field-specific validations
+      if (field === "projectTitle") {
+        if (!value.trim()) {
+          newErrors.projectTitle = "Project title is required.";
+        } else {
+          delete newErrors.projectTitle;
+        }
+      }
+
+      if (field === "projectLink") {
+        if (!value.trim()) {
+          newErrors.projectLink = "Project link is required.";
+        } else {
+          delete newErrors.projectLink;
+        }
+      }
+
+      if (field === "startYear") {
+        if (!value.trim()) {
+          newErrors.startYear = "Start date is required.";
+        } else if (
+          formData.endYear &&
+          new Date(value) > new Date(formData.endYear)
+        ) {
+          newErrors.startYear = "Start date cannot be after the end date.";
+        } else {
+          delete newErrors.startYear;
+        }
+      }
+
+      if (field === "endYear") {
+        if (!value.trim()) {
+          newErrors.endYear = "End date is required.";
+        } else if (
+          formData.startYear &&
+          new Date(value) < new Date(formData.startYear)
+        ) {
+          newErrors.endYear = "End date cannot be before the start date.";
+        } else {
+          delete newErrors.endYear;
+        }
+      }
+
+      if (field === "projectDescription") {
+        if (!value.trim()) {
+          newErrors.projectDescription = "Project description is required.";
+        } else {
+          delete newErrors.projectDescription;
+        }
+      }
+
+      return newErrors;
+    });
   };
 
   const validateForm = () => {
     const newErrors = {};
 
-    if (!formData.projectTitle.trim())
+    // Validate project title
+    if (!formData.projectTitle || !formData.projectTitle.trim()) {
       newErrors.projectTitle = "Project title is required.";
-    if (!formData.projectLink.trim())
+    }
+
+    // Validate project link
+    if (!formData.projectLink || !formData.projectLink.trim()) {
       newErrors.projectLink = "Project link is required.";
-    if (!formData.startYear.trim())
+    }
+
+    // Validate start year
+    if (!formData.startYear || !formData.startYear.trim()) {
       newErrors.startYear = "Start date is required.";
-    if (!formData.endYear.trim()) newErrors.endYear = "End date is required.";
-    if (!formData.projectDescription.trim())
+    } else if (
+      formData.endYear &&
+      new Date(formData.startYear) > new Date(formData.endYear)
+    ) {
+      newErrors.startYear = "Start date cannot be after the end date.";
+    }
+
+    // Validate end year
+    if (!formData.endYear || !formData.endYear.trim()) {
+      newErrors.endYear = "End date is required.";
+    } else if (
+      formData.startYear &&
+      new Date(formData.endYear) < new Date(formData.startYear)
+    ) {
+      newErrors.endYear = "End date cannot be before the start date.";
+    }
+
+    // Validate project description
+    if (!formData.projectDescription || !formData.projectDescription.trim()) {
       newErrors.projectDescription = "Project description is required.";
+    }
 
     return newErrors;
   };
@@ -183,18 +268,22 @@ const AddProjectsModal = ({ isOpen, onClose, data, setProfileData }) => {
   };
 
   const handleDeleteProject = async () => {
-    if (!data || !data._id) {
-      toast.error("No project selected for deletion.");
-      return;
-    }
     try {
-      await deleteUserProject(data?._id, setResponse);
+      const response = await fetch(
+        `${API_URL}api/v1/delete/projectDetails/${data._id}`,
+        {
+          method: "DELETE",
+          headers: {
+            accessToken: getAccessToken(),
+          },
+        }
+      );
 
-      if (response) {
+      if (response.ok) {
         toast.success("Project deleted successfully!");
         setProfileData((prevData) => ({
           ...prevData,
-          projectDetails: prevData?.projectDetails.filter(
+          projectDetails: prevData.projectDetails.filter(
             (pro) => pro._id !== data._id
           ),
         }));
@@ -204,8 +293,8 @@ const AddProjectsModal = ({ isOpen, onClose, data, setProfileData }) => {
         toast.error(response?.message || "Failed to delete Project.");
       }
     } catch (error) {
-      console.error(error);
-      toast.error("Something went wrong!");
+      console.error(error, "Error updating the Project");
+      toast.error(response?.message || "Failed to delete Project.");
     }
   };
 

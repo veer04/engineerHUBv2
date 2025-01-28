@@ -1,18 +1,22 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./profileCompletionEditSection.css";
 import SocialLinksModal from "../SocialLinksProfile/SocialLinksModal";
+import { Link } from "react-router-dom";
 
 const ProfileCompletionEditSection = ({ privateDashboardData }) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [profileCompletion, setProfileCompletion] = useState(100);
 
   console.log(privateDashboardData, "privateDashboardData");
-  const openModal = () => {
-    setIsModalOpen(true);
+
+  const achievementSectionRef = useRef(null);
+
+  // Scroll to the target section
+  const scrollToSection = () => {
+    if (achievementSectionRef.current) {
+      achievementSectionRef.current.scrollIntoView({ behavior: "smooth" });
+    }
   };
-  const closeModal = () => {
-    setIsModalOpen(false);
-  };
+
   useEffect(() => {
     if (privateDashboardData) {
       const {
@@ -45,8 +49,6 @@ const ProfileCompletionEditSection = ({ privateDashboardData }) => {
   }, [privateDashboardData]);
   return (
     <>
-      <SocialLinksModal isOpen={isModalOpen} onClose={closeModal} />
-
       <div className="profile-completion-edit-main-section">
         <h3
           style={{
@@ -153,21 +155,23 @@ const ProfileCompletionEditSection = ({ privateDashboardData }) => {
             </h4>
           </div>
 
-          <div onClick={openModal}>
-            <h3
-              style={{
-                fontSize: 14,
-                fontWeight: 700,
-                lineHeight: "20px",
-                fontStyle: "normal",
-                color: "#138382",
-                marginBottom: 0,
-                cursor: "pointer",
-              }}
-            >
-              Add
-            </h3>
-          </div>
+          <Link to={"#achievement-div-id"}>
+            <div>
+              <h3
+                style={{
+                  fontSize: 14,
+                  fontWeight: 700,
+                  lineHeight: "20px",
+                  fontStyle: "normal",
+                  color: "#138382",
+                  marginBottom: 0,
+                  cursor: "pointer",
+                }}
+              >
+                Add
+              </h3>
+            </div>
+          </Link>
         </div>
 
         <div
