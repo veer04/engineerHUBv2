@@ -27,7 +27,7 @@ const AddAboutEdit = ({ profileData, setProfileData }) => {
         data={selectedEducation}
         setProfileData={setProfileData}
       />
-      <div className="add-about-main-div">
+      <div className="add-about-main-div" id="add-education">
         <div className="add-headline-sub-div">
           <div className="add-headlline-sub-left">
             <h3

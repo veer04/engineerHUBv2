@@ -11,6 +11,8 @@
 .profile-dashboard-edit-start-div .profile-dashboard-edit-left-div {
   width: 367px;
   height: 100%;
+  position: sticky;
+  top: 40px;
 }
 
 .profile-dashboard-edit-start-div .profile-dashboard-edit-right-div {

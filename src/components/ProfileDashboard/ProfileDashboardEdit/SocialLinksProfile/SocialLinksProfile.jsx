@@ -40,7 +40,7 @@ const SocialLinksProfile = ({ profileData, setProfileData }) => {
         setProfileData={setProfileData}
       />
 
-      <div className="social-links-main-div-edit">
+      <div className="social-links-main-div-edit" id="add-social-links">
         <div className="social-links-section">
           <div className="social-l-sub">
             <div className="social-l-left">

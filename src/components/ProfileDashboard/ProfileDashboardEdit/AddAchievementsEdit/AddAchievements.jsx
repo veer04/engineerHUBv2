@@ -23,7 +23,7 @@ const AddAchievements = ({ profileData, setProfileData }) => {
         data={selectedAchievement}
         setProfileData={setProfileData}
       />
-      <div className="add-achievementss-main-div" id="achievement-div-id">
+      <div className="add-achievementss-main-div" id="add-achievements">
         <div className="add-headline-sub-div">
           <div className="add-headlline-sub-left">
             <h3

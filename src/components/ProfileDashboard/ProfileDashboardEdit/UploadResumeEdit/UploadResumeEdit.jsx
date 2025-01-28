@@ -180,7 +180,7 @@ const UploadResumeEdit = ({ profileData, setProfileData }) => {
   };
 
   return (
-    <div className="upload-resume-main-div">
+    <div className="upload-resume-main-div" id="upload-resume">
       <div className="upload-resume-head-desc">
         <div>
           <h3
