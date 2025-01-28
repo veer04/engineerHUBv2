@@ -26,7 +26,7 @@ const AddExperienceEdit = ({ profileData, setProfileData }) => {
         data={selectedExperience}
         setProfileData={setProfileData}
       />
-      <div className="add-experience-main-div">
+      <div className="add-experience-main-div" id="add-experience">
         <div className="add-headline-sub-div">
           <div className="add-headlline-sub-left">
             <h3

@@ -1,19 +1,29 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./profileCompletionEditSection.css";
 import SocialLinksModal from "../SocialLinksProfile/SocialLinksModal";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const ProfileCompletionEditSection = ({ privateDashboardData }) => {
   const [profileCompletion, setProfileCompletion] = useState(100);
 
   console.log(privateDashboardData, "privateDashboardData");
+  const navigate = useNavigate();
+  const location = useLocation();
 
-  const achievementSectionRef = useRef(null);
+  useEffect(() => {
+    if (location.hash) {
+      const element = document.getElementById(location.hash.substring(1));
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+  }, [location]);
 
-  // Scroll to the target section
-  const scrollToSection = () => {
-    if (achievementSectionRef.current) {
-      achievementSectionRef.current.scrollIntoView({ behavior: "smooth" });
+  const handleRedirectAndScroll = (id) => {
+    navigate(`#${id}`);
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
     }
   };
 
@@ -155,23 +165,21 @@ const ProfileCompletionEditSection = ({ privateDashboardData }) => {
             </h4>
           </div>
 
-          <Link to={"#achievement-div-id"}>
-            <div>
-              <h3
-                style={{
-                  fontSize: 14,
-                  fontWeight: 700,
-                  lineHeight: "20px",
-                  fontStyle: "normal",
-                  color: "#138382",
-                  marginBottom: 0,
-                  cursor: "pointer",
-                }}
-              >
-                Add
-              </h3>
-            </div>
-          </Link>
+          <div onClick={() => handleRedirectAndScroll("add-achievements")}>
+            <h3
+              style={{
+                fontSize: 14,
+                fontWeight: 700,
+                lineHeight: "20px",
+                fontStyle: "normal",
+                color: "#138382",
+                marginBottom: 0,
+                cursor: "pointer",
+              }}
+            >
+              Add
+            </h3>
+          </div>
         </div>
 
         <div
@@ -212,7 +220,7 @@ const ProfileCompletionEditSection = ({ privateDashboardData }) => {
             </h4>
           </div>
 
-          <div>
+          <div onClick={() => handleRedirectAndScroll("add-education")}>
             <h3
               style={{
                 fontSize: 14,
@@ -221,6 +229,7 @@ const ProfileCompletionEditSection = ({ privateDashboardData }) => {
                 fontStyle: "normal",
                 color: "#138382",
                 marginBottom: 0,
+                cursor: "pointer",
               }}
             >
               Add
@@ -266,7 +275,7 @@ const ProfileCompletionEditSection = ({ privateDashboardData }) => {
             </h4>
           </div>
 
-          <div>
+          <div onClick={() => handleRedirectAndScroll("add-experience")}>
             <h3
               style={{
                 fontSize: 14,
@@ -275,6 +284,7 @@ const ProfileCompletionEditSection = ({ privateDashboardData }) => {
                 fontStyle: "normal",
                 color: "#138382",
                 marginBottom: 0,
+                cursor: "pointer",
               }}
             >
               Add
@@ -319,7 +329,7 @@ const ProfileCompletionEditSection = ({ privateDashboardData }) => {
             </h4>
           </div>
 
-          <div>
+          <div onClick={() => handleRedirectAndScroll("add-certifications")}>
             <h3
               style={{
                 fontSize: 14,
@@ -328,6 +338,7 @@ const ProfileCompletionEditSection = ({ privateDashboardData }) => {
                 fontStyle: "normal",
                 color: "#138382",
                 marginBottom: 0,
+                cursor: "pointer",
               }}
             >
               Add
@@ -372,7 +383,7 @@ const ProfileCompletionEditSection = ({ privateDashboardData }) => {
             </h4>
           </div>
 
-          <div>
+          <div onClick={() => handleRedirectAndScroll("add-skills")}>
             <h3
               style={{
                 fontSize: 14,
@@ -381,6 +392,7 @@ const ProfileCompletionEditSection = ({ privateDashboardData }) => {
                 fontStyle: "normal",
                 color: "#138382",
                 marginBottom: 0,
+                cursor: "pointer",
               }}
             >
               Add
@@ -423,7 +435,7 @@ const ProfileCompletionEditSection = ({ privateDashboardData }) => {
             </h4>
           </div>
 
-          <div>
+          <div onClick={() => handleRedirectAndScroll("upload-resume")}>
             <h3
               style={{
                 fontSize: 14,
@@ -432,6 +444,7 @@ const ProfileCompletionEditSection = ({ privateDashboardData }) => {
                 fontStyle: "normal",
                 color: "#138382",
                 marginBottom: 0,
+                cursor: "pointer",
               }}
             >
               Upload
@@ -477,7 +490,7 @@ const ProfileCompletionEditSection = ({ privateDashboardData }) => {
             </h4>
           </div>
 
-          <div>
+          <div onClick={() => handleRedirectAndScroll("add-social-links")}>
             <h3
               style={{
                 fontSize: 14,
@@ -486,6 +499,7 @@ const ProfileCompletionEditSection = ({ privateDashboardData }) => {
                 fontStyle: "normal",
                 color: "#138382",
                 marginBottom: 0,
+                cursor: "pointer",
               }}
             >
               Add

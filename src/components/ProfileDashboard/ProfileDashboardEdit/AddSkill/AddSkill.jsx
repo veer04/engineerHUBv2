@@ -23,7 +23,7 @@ const AddSkill = ({ profileData, setProfileData }) => {
         setProfileData={setProfileData}
         profileData={profileData}
       />
-      <div className="add-skill-main-div">
+      <div className="add-skill-main-div" id="add-skills">
         <div className="add-skill-sub-div">
           <div className="add-skill-sub-left">
             <h3
