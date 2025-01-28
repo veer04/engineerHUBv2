@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./addcertificatemodal.css";
 import { IoMdClose } from "react-icons/io";
-import { Bucket_URL } from "../../../../services/APIUtils";
+import { API_URL, Bucket_URL } from "../../../../services/APIUtils";
 import useGlobalSnackbar from "../../../../hooks/useGlobalSnackbar";
 import {
   addUserCertification,
@@ -10,6 +10,7 @@ import {
 } from "../../../../services/APIConfig";
 import { Bounce, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { getAccessToken } from "../../../../features/getCookieValues";
 
 const AddCertificationsModal = ({ isOpen, onClose, data, setProfileData }) => {
   const [formData, setFormData] = useState({
@@ -183,16 +184,47 @@ const AddCertificationsModal = ({ isOpen, onClose, data, setProfileData }) => {
     });
   };
 
+  // const handleDeleteCertificate = async () => {
+  //   if (!data || !data._id) {
+  //     toast.error("No Certificate selected for deletion.");
+  //     return;
+  //   }
+
+  //   try {
+  //     await deleteUserCertification(data?._id, setResponse);
+
+  //     if (response) {
+  //       toast.success("Certificate deleted successfully!");
+  //       setProfileData((prevData) => ({
+  //         ...prevData,
+  //         licenceDetails: prevData?.licenceDetails.filter(
+  //           (lic) => lic._id !== data._id
+  //         ),
+  //       }));
+
+  //       onClose();
+  //     } else {
+  //       toast.error(response?.message || "Failed to delete Certificate.");
+  //     }
+  //   } catch (error) {
+  //     console.error(error);
+  //     toast.error("Something went wrong!");
+  //   }
+  // };
+
   const handleDeleteCertificate = async () => {
-    if (!data || !data._id) {
-      toast.error("No Certificate selected for deletion.");
-      return;
-    }
-
     try {
-      await deleteUserCertification(data?._id, setResponse);
+      const response = await fetch(
+        `${API_URL}api/v1/delete/licence/${data._id}`,
+        {
+          method: "DELETE",
+          headers: {
+            accessToken: getAccessToken(),
+          },
+        }
+      );
 
-      if (response) {
+      if (response.ok) {
         toast.success("Certificate deleted successfully!");
         setProfileData((prevData) => ({
           ...prevData,
@@ -206,8 +238,8 @@ const AddCertificationsModal = ({ isOpen, onClose, data, setProfileData }) => {
         toast.error(response?.message || "Failed to delete Certificate.");
       }
     } catch (error) {
-      console.error(error);
-      toast.error("Something went wrong!");
+      console.error(error, "Error updating the Certificate");
+      toast.error(response?.message || "Failed to delete Certificate.");
     }
   };
 

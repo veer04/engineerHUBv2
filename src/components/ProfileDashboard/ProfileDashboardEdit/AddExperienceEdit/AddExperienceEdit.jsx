@@ -41,7 +41,9 @@ const AddExperienceEdit = ({ profileData, setProfileData }) => {
               Add Experience
             </h3>
 
-            {!profileData && (
+            {(!profileData ||
+              (profileData.experienceDetails &&
+                profileData.experienceDetails.length === 0)) && (
               <h4
                 style={{
                   fontSize: 14,

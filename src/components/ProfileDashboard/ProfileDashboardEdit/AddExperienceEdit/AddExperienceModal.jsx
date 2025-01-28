@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./addexperiencemodal.css";
 import { IoMdClose } from "react-icons/io";
-import { Bucket_URL } from "../../../../services/APIUtils";
+import { API_URL, Bucket_URL } from "../../../../services/APIUtils";
 import {
   addUserExperience,
   deleteUserExperience,
@@ -10,6 +10,7 @@ import {
 
 import { Bounce, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { getAccessToken } from "../../../../features/getCookieValues";
 
 const AddExperienceModal = ({ isOpen, onClose, data, setProfileData }) => {
   const [formData, setFormData] = useState({
@@ -28,10 +29,6 @@ const AddExperienceModal = ({ isOpen, onClose, data, setProfileData }) => {
 
   const [updateExperienceResponse, setUpdateExperienceResponse] = useState({});
 
-  const handleChange = (field, value) => {
-    setFormData((prevData) => ({ ...prevData, [field]: value }));
-  };
-
   useEffect(() => {
     if (data) {
       setFormData({
@@ -48,18 +45,120 @@ const AddExperienceModal = ({ isOpen, onClose, data, setProfileData }) => {
     }
   }, [data]);
 
+  const handleChange = (field, value) => {
+    setFormData((prevData) => ({ ...prevData, [field]: value }));
+
+    const currentDate = new Date();
+
+    setErrors((prevErrors) => {
+      const newErrors = { ...prevErrors };
+
+      if (field === "empType" && !value.trim()) {
+        newErrors.empType = "Experience type is required.";
+      } else if (field === "empType") {
+        delete newErrors.empType;
+      }
+
+      if (field === "designation" && !value.trim()) {
+        newErrors.designation = "Designation is required.";
+      } else if (field === "designation") {
+        delete newErrors.designation;
+      }
+
+      if (field === "startYear") {
+        if (!value.trim()) {
+          newErrors.startYear = "Start year is required.";
+        } else {
+          const startDate = new Date(value);
+
+          if (startDate > currentDate) {
+            newErrors.startYear = "Start year cannot be in the future.";
+          } else if (
+            formData.endYear &&
+            startDate > new Date(formData.endYear)
+          ) {
+            newErrors.startYear = "Start year cannot be after the end year.";
+          } else {
+            delete newErrors.startYear;
+          }
+        }
+      }
+
+      if (field === "endYear") {
+        if (!value.trim()) {
+          newErrors.endYear = "End year is required.";
+        } else {
+          const endDate = new Date(value);
+
+          if (endDate > currentDate) {
+            newErrors.endYear = "End year cannot be in the future.";
+          } else if (
+            formData.startYear &&
+            endDate < new Date(formData.startYear)
+          ) {
+            newErrors.endYear = "End year cannot be before the start year.";
+          } else {
+            delete newErrors.endYear;
+          }
+        }
+      }
+
+      if (field === "organisationName" && !value.trim()) {
+        newErrors.organisationName = "Organization/Company name is required.";
+      } else if (field === "organisationName") {
+        delete newErrors.organisationName;
+      }
+
+      return newErrors;
+    });
+  };
+
   const validateForm = () => {
     const newErrors = {};
+    const currentDate = new Date();
 
-    if (!formData.empType.trim())
+    if (!formData.empType || !formData.empType.trim()) {
       newErrors.empType = "Experience type is required.";
-    if (!formData.designation.trim())
-      newErrors.designation = "designation is required.";
-    if (!formData.startYear.trim())
+    }
+
+    if (!formData.designation || !formData.designation.trim()) {
+      newErrors.designation = "Designation is required.";
+    }
+
+    if (!formData.startYear) {
       newErrors.startYear = "Start year is required.";
-    if (!formData.endYear.trim()) newErrors.endYear = "End year is required.";
-    if (!formData.organisationName.trim())
+    } else {
+      const startDate = new Date(formData.startYear);
+      if (startDate > currentDate) {
+        newErrors.startYear = "Start year cannot be in the future.";
+      } else if (formData.endYear && startDate > new Date(formData.endYear)) {
+        newErrors.startYear = "Start year cannot be after the end year.";
+      }
+    }
+
+    if (!formData.endYear) {
+      newErrors.endYear = "End year is required.";
+    } else {
+      const endDate = new Date(formData.endYear);
+      if (endDate > currentDate) {
+        newErrors.endYear = "End year cannot be in the future.";
+      } else if (formData.startYear && endDate < new Date(formData.startYear)) {
+        newErrors.endYear = "End year cannot be before the start year.";
+      }
+    }
+
+    if (formData.startYear && formData.endYear) {
+      const start = new Date(formData.startYear);
+      const end = new Date(formData.endYear);
+      if (start > end) {
+        newErrors.startYear = "Start year cannot be after the end year.";
+        newErrors.endYear = "End year cannot be before the start year.";
+      }
+    }
+
+    if (!formData.organisationName || !formData.organisationName.trim()) {
       newErrors.organisationName = "Organization/Company name is required.";
+    }
 
     return newErrors;
   };
@@ -136,14 +235,45 @@ const AddExperienceModal = ({ isOpen, onClose, data, setProfileData }) => {
     });
   };
 
+  // const handleDeleteExperience = async () => {
+  //   try {
+  //     await deleteUserExperience(data._id, setResponse);
+
+  //     if (response && response?.data?.success) {
+  //       console.log(response, "saif");
+  //       toast.success("Experience deleted successfully!");
+
+  //       setProfileData((prevData) => ({
+  //         ...prevData,
+  //         experienceDetails: prevData.experienceDetails.filter(
+  //           (exp) => exp._id !== data._id
+  //         ),
+  //       }));
+
+  //       onClose();
+  //     } else {
+  //       toast.error(response?.data?.message || "Failed to delete experience.");
+  //     }
+  //   } catch (error) {
+  //     console.error(error);
+  //     toast.error("Something went wrong!");
+  //   }
+  // };
+
   const handleDeleteExperience = async () => {
     try {
-      await deleteUserExperience(data._id, setResponse);
+      const response = await fetch(
+        `${API_URL}api/v1/delete/experience/${data._id}`,
+        {
+          method: "DELETE",
+          headers: {
+            accessToken: getAccessToken(),
+          },
+        }
+      );
 
-      if (response && response?.data?.success) {
-        console.log(response, "saif");
+      if (response.ok) {
         toast.success("Experience deleted successfully!");
-
         setProfileData((prevData) => ({
           ...prevData,
           experienceDetails: prevData.experienceDetails.filter(
@@ -153,11 +283,11 @@ const AddExperienceModal = ({ isOpen, onClose, data, setProfileData }) => {
 
         onClose();
       } else {
-        toast.error(response?.data?.message || "Failed to delete experience.");
+        toast.error(response?.message || "Failed to delete Experience.");
       }
     } catch (error) {
-      console.error(error);
-      toast.error("Something went wrong!");
+      console.error(error, "Error updating the Experience");
+      toast.error(response?.message || "Failed to delete Experience.");
     }
   };
 
