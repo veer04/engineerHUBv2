@@ -67,14 +67,14 @@ const Success = () => {
     // Polling logic
     let attempts = 0;
     const intervalId = setInterval(() => {
-      if (attempts < 3) {
+      if (attempts < 4) {
         attempts++;
         fetchData();
       } else {
         clearInterval(intervalId);
         setErrorMessage("OOPs! Login failed due to network error try again.");
       }
-    }, 2000);
+    }, 5000);
 
     // Cleanup interval on component unmount
     return () => clearInterval(intervalId);
