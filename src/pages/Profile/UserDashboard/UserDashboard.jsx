@@ -35,6 +35,7 @@ import {
   getProjectsByOrganisationId,
   getProjectsByOrganisationIdPrivateMode,
   getUserProfileById,
+  getUserProfileByIdPrivate,
   patchResume,
 } from "../../../services/APIConfig";
 import { useNavigate, useParams, Link, Outlet } from "react-router-dom";
@@ -106,6 +107,8 @@ export default function UserDashboard() {
     carousel.scrollLeft += scrollAmount;
   };
 
+  const token = getAccessToken();
+
   function handleEditOptions() {
     // let token=getAccessToken();
     // let decode =jwt_decode(token);
@@ -116,7 +119,7 @@ export default function UserDashboard() {
     }
   }
   function fetchData() {
-    getUserProfileById(setUser, userId, setFetchResponse);
+    getUserProfileByIdPrivate(setUser, token, setFetchResponse);
   }
 
   useEffect(() => {
