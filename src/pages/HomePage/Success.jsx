@@ -72,7 +72,7 @@ const Success = () => {
         fetchData();
       } else {
         clearInterval(intervalId);
-        setErrorMessage("Login Failed due to network error.");
+        setErrorMessage("OOPs! Login failed due to network error try again.");
       }
     }, 2000);
 
@@ -98,7 +98,7 @@ const Success = () => {
         }}
       >
         {errorMessage ? (
-          <div style={{ color: "red" }}>{errorMessage}</div>
+          <div style={{ color: "" }}>{errorMessage}</div>
         ) : (
           <>
             <div className="spinner-border text-info" role="status">
