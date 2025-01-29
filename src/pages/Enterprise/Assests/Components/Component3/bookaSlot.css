@@ -1,0 +1,458 @@
+.frameBookaSlot {
+    align-items: center;
+    background-color: #ffffff;
+    border-radius: 20px;
+    display: flex;
+    justify-content: space-around;
+    overflow: hidden;
+    padding: 40px;
+    position: relative;
+}
+
+.frameBookaSlot .div {
+    align-items: center;
+    display: flex;
+    flex: 1;
+    flex-grow: 1;
+    justify-content: space-between;
+    position: relative;
+}
+
+.frameBookaSlot .frameBookaSlot-wrapper {
+    align-items: flex-start;
+    align-self: stretch;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    flex-grow: 1;
+    gap: 16px;
+    justify-content: center;
+    position: relative;
+}
+
+.frameBookaSlot .div-2 {
+    align-items: flex-start;
+    align-self: stretch;
+    display: flex;
+    flex: 0 0 auto;
+    flex-direction: column;
+    gap: 8px;
+    justify-content: center;
+    position: relative;
+    width: 100%;
+}
+
+.frameBookaSlot .div-wrapper {
+    align-items: center;
+    align-self: stretch;
+    display: flex;
+    flex: 0 0 auto;
+    position: relative;
+    width: 100%;
+}
+
+.frameBookaSlot .text-wrapper {
+    color: var(--border-secondary);
+    flex: 1;
+    font-family: var(--desktop-body-body-md-md-regular-font-family);
+    font-size: var(--desktop-body-body-md-md-regular-font-size);
+    font-style: var(--desktop-body-body-md-md-regular-font-style);
+    font-weight: var(--desktop-body-body-md-md-regular-font-weight);
+    letter-spacing: var(--desktop-body-body-md-md-regular-letter-spacing);
+    line-height: var(--desktop-body-body-md-md-regular-line-height);
+    margin-top: -1.00px;
+    position: relative;
+}
+
+.frameBookaSlot .div-wrapper-2 {
+    align-items: center;
+    align-self: stretch;
+    display: flex;
+    flex: 0 0 auto;
+    gap: 1px;
+    justify-content: center;
+    padding: 1px;
+    position: relative;
+    width: 100%;
+}
+
+.frameBookaSlot .p {
+    color: #002b36;
+    flex: 1;
+    font-family: var(--desktop-heading-dt-heading-md-font-family);
+    font-size: var(--desktop-heading-dt-heading-md-font-size);
+    font-style: var(--desktop-heading-dt-heading-md-font-style);
+    font-weight: var(--desktop-heading-dt-heading-md-font-weight);
+    letter-spacing: var(--desktop-heading-dt-heading-md-letter-spacing);
+    line-height: var(--desktop-heading-dt-heading-md-line-height);
+    margin-top: -1.00px;
+    position: relative;
+}
+
+.frameBookaSlot .text-wrapper-2 {
+    color: var(--border-secondary);
+    flex: 1;
+    font-family: var(--desktop-body-body-sm-sm-regular-font-family);
+    font-size: var(--desktop-body-body-sm-sm-regular-font-size);
+    font-style: var(--desktop-body-body-sm-sm-regular-font-style);
+    font-weight: var(--desktop-body-body-sm-sm-regular-font-weight);
+    letter-spacing: var(--desktop-body-body-sm-sm-regular-letter-spacing);
+    line-height: var(--desktop-body-body-sm-sm-regular-line-height);
+    margin-top: -1.00px;
+    position: relative;
+}
+
+.frameBookaSlot .div-3 {
+    align-items: center;
+    display: inline-flex;
+    flex: 0 0 auto;
+    flex-direction: column;
+    gap: 16px;
+    justify-content: center;
+    position: relative;
+}
+
+.frameBookaSlot .div-wrapper-3 {
+    align-items: center;
+    align-self: stretch;
+    background-color: var(--buttonsbutton-primary);
+    border-radius: 43px;
+    display: flex;
+    height: 44px;
+    justify-content: center;
+    padding: 0px 16px;
+    position: relative;
+    width: 100%;
+}
+
+.frameBookaSlot .text-wrapper-3 {
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    color: var(--texttext-white);
+    display: -webkit-box;
+    font-family: var(--desktop-label-md-dt-label-bold-font-family);
+    font-size: var(--desktop-label-md-dt-label-bold-font-size);
+    font-style: var(--desktop-label-md-dt-label-bold-font-style);
+    font-weight: var(--desktop-label-md-dt-label-bold-font-weight);
+    letter-spacing: var(--desktop-label-md-dt-label-bold-letter-spacing);
+    line-height: var(--desktop-label-md-dt-label-bold-line-height);
+    overflow: hidden;
+    position: relative;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: fit-content;
+}
+
+.frameBookaSlot .div-4 {
+    align-items: center;
+    display: flex;
+    flex: 0 0 auto;
+    justify-content: space-between;
+    position: relative;
+    width: 382px;
+}
+
+.frameBookaSlot .div-5 {
+    align-items: center;
+    display: inline-flex;
+    flex: 0 0 auto;
+    gap: 8px;
+    position: relative;
+}
+
+.frameBookaSlot .img {
+    height: 20px;
+    position: relative;
+    width: 20px;
+}
+
+.frameBookaSlot .div-wrapper-4 {
+    align-items: center;
+    border-radius: 43px;
+    display: inline-flex;
+    flex: 0 0 auto;
+    justify-content: center;
+    position: relative;
+}
+
+.frameBookaSlot .element {
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    color: transparent;
+    display: -webkit-box;
+    font-family: var(--desktop-label-md-dt-label-bold-font-family);
+    font-size: var(--desktop-label-md-dt-label-bold-font-size);
+    font-style: var(--desktop-label-md-dt-label-bold-font-style);
+    font-weight: var(--desktop-label-md-dt-label-bold-font-weight);
+    letter-spacing: var(--desktop-label-md-dt-label-bold-letter-spacing);
+    line-height: var(--desktop-label-md-dt-label-bold-line-height);
+    margin-top: -1.00px;
+    overflow: hidden;
+    position: relative;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: fit-content;
+}
+
+.frameBookaSlot .span {
+    color: #138382;
+    font-family: var(--desktop-label-md-dt-label-bold-font-family);
+    font-size: var(--desktop-label-md-dt-label-bold-font-size);
+    font-style: var(--desktop-label-md-dt-label-bold-font-style);
+    font-weight: var(--desktop-label-md-dt-label-bold-font-weight);
+    letter-spacing: var(--desktop-label-md-dt-label-bold-letter-spacing);
+    line-height: var(--desktop-label-md-dt-label-bold-line-height);
+}
+
+.frameBookaSlot .text-wrapper-4 {
+    color: #002b36;
+    font-family: var(--desktop-label-md-dt-label-bold-font-family);
+    font-size: var(--desktop-label-md-dt-label-bold-font-size);
+    font-style: var(--desktop-label-md-dt-label-bold-font-style);
+    font-weight: var(--desktop-label-md-dt-label-bold-font-weight);
+    letter-spacing: var(--desktop-label-md-dt-label-bold-letter-spacing);
+    line-height: var(--desktop-label-md-dt-label-bold-line-height);
+}
+
+.frameBookaSlot .text-wrapper-5 {
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    color: var(--stroke-primary);
+    display: -webkit-box;
+    font-family: var(--desktop-label-md-dt-label-bold-font-family);
+    font-size: var(--desktop-label-md-dt-label-bold-font-size);
+    font-style: var(--desktop-label-md-dt-label-bold-font-style);
+    font-weight: var(--desktop-label-md-dt-label-bold-font-weight);
+    letter-spacing: var(--desktop-label-md-dt-label-bold-letter-spacing);
+    line-height: var(--desktop-label-md-dt-label-bold-line-height);
+    margin-top: -1.00px;
+    overflow: hidden;
+    position: relative;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: fit-content;
+}
+
+:root {
+    --bg-surface-secondary: rgba(245, 245, 245, 1);
+    --bg-surface-white: rgba(255, 255, 255, 1);
+    --border: rgba(204, 204, 204, 1);
+    --border-secondary: rgba(84, 113, 120, 1);
+    --buttonsbutton-disabled: rgba(128, 209, 206, 1);
+    --buttonsbutton-hover: rgba(17, 118, 117, 1);
+    --buttonsbutton-pressed: rgba(15, 105, 104, 1);
+    --buttonsbutton-primary: rgba(19, 131, 130, 1);
+    --desktop-body-body-lg-bold-font-family: "Lato", Helvetica;
+    --desktop-body-body-lg-bold-font-size: 20px;
+    --desktop-body-body-lg-bold-font-style: normal;
+    --desktop-body-body-lg-bold-font-weight: 700;
+    --desktop-body-body-lg-bold-letter-spacing: 0px;
+    --desktop-body-body-lg-bold-line-height: 24px;
+    --desktop-body-body-lg-regular-font-family: "Lato", Helvetica;
+    --desktop-body-body-lg-regular-font-size: 20px;
+    --desktop-body-body-lg-regular-font-style: normal;
+    --desktop-body-body-lg-regular-font-weight: 400;
+    --desktop-body-body-lg-regular-letter-spacing: 0px;
+    --desktop-body-body-lg-regular-line-height: 24px;
+    --desktop-body-body-md-md-bold-font-family: "Lato", Helvetica;
+    --desktop-body-body-md-md-bold-font-size: 18px;
+    --desktop-body-body-md-md-bold-font-style: normal;
+    --desktop-body-body-md-md-bold-font-weight: 600;
+    --desktop-body-body-md-md-bold-letter-spacing: 0px;
+    --desktop-body-body-md-md-bold-line-height: 24px;
+    --desktop-body-body-md-md-regular-font-family: "Lato", Helvetica;
+    --desktop-body-body-md-md-regular-font-size: 18px;
+    --desktop-body-body-md-md-regular-font-style: normal;
+    --desktop-body-body-md-md-regular-font-weight: 400;
+    --desktop-body-body-md-md-regular-letter-spacing: 0px;
+    --desktop-body-body-md-md-regular-line-height: 24px;
+    --desktop-body-body-sm-sm-bold-font-family: "Lato", Helvetica;
+    --desktop-body-body-sm-sm-bold-font-size: 16px;
+    --desktop-body-body-sm-sm-bold-font-style: normal;
+    --desktop-body-body-sm-sm-bold-font-weight: 700;
+    --desktop-body-body-sm-sm-bold-letter-spacing: 0px;
+    --desktop-body-body-sm-sm-bold-line-height: 20px;
+    --desktop-body-body-sm-sm-regular-font-family: "Lato", Helvetica;
+    --desktop-body-body-sm-sm-regular-font-size: 16px;
+    --desktop-body-body-sm-sm-regular-font-style: normal;
+    --desktop-body-body-sm-sm-regular-font-weight: 400;
+    --desktop-body-body-sm-sm-regular-letter-spacing: 0px;
+    --desktop-body-body-sm-sm-regular-line-height: 20px;
+    --desktop-display-dt-display-md-font-family: "DM Sans", Helvetica;
+    --desktop-display-dt-display-md-font-size: 40px;
+    --desktop-display-dt-display-md-font-style: normal;
+    --desktop-display-dt-display-md-font-weight: 700;
+    --desktop-display-dt-display-md-letter-spacing: 0px;
+    --desktop-display-dt-display-md-line-height: 48px;
+    --desktop-display-dt-display-sm-font-family: "DM Sans", Helvetica;
+    --desktop-display-dt-display-sm-font-size: 36px;
+    --desktop-display-dt-display-sm-font-style: normal;
+    --desktop-display-dt-display-sm-font-weight: 600;
+    --desktop-display-dt-display-sm-letter-spacing: 0px;
+    --desktop-display-dt-display-sm-line-height: 48px;
+    --desktop-heading-dt-heading-md-font-family: "DM Sans", Helvetica;
+    --desktop-heading-dt-heading-md-font-size: 28px;
+    --desktop-heading-dt-heading-md-font-style: normal;
+    --desktop-heading-dt-heading-md-font-weight: 700;
+    --desktop-heading-dt-heading-md-letter-spacing: 0px;
+    --desktop-heading-dt-heading-md-line-height: 32px;
+    --desktop-heading-dt-heading-sm-font-family: "DM Sans", Helvetica;
+    --desktop-heading-dt-heading-sm-font-size: 24px;
+    --desktop-heading-dt-heading-sm-font-style: normal;
+    --desktop-heading-dt-heading-sm-font-weight: 600;
+    --desktop-heading-dt-heading-sm-letter-spacing: -1px;
+    --desktop-heading-dt-heading-sm-line-height: 28px;
+    --desktop-label-md-dt-label-bold-font-family: "Lato", Helvetica;
+    --desktop-label-md-dt-label-bold-font-size: 14px;
+    --desktop-label-md-dt-label-bold-font-style: normal;
+    --desktop-label-md-dt-label-bold-font-weight: 700;
+    --desktop-label-md-dt-label-bold-letter-spacing: 0px;
+    --desktop-label-md-dt-label-bold-line-height: 16px;
+    --desktop-label-md-dt-label-regular-font-family: "Lato", Helvetica;
+    --desktop-label-md-dt-label-regular-font-size: 14px;
+    --desktop-label-md-dt-label-regular-font-style: normal;
+    --desktop-label-md-dt-label-regular-font-weight: 400;
+    --desktop-label-md-dt-label-regular-letter-spacing: 0px;
+    --desktop-label-md-dt-label-regular-line-height: 20px;
+    --desktop-label-sm-dt-label-light-font-family: "Lato", Helvetica;
+    --desktop-label-sm-dt-label-light-font-size: 12px;
+    --desktop-label-sm-dt-label-light-font-style: normal;
+    --desktop-label-sm-dt-label-light-font-weight: 600;
+    --desktop-label-sm-dt-label-light-letter-spacing: 0px;
+    --desktop-label-sm-dt-label-light-line-height: 16px;
+    --desktop-label-sm-dt-label-regular-font-family: "Lato", Helvetica;
+    --desktop-label-sm-dt-label-regular-font-size: 12px;
+    --desktop-label-sm-dt-label-regular-font-style: normal;
+    --desktop-label-sm-dt-label-regular-font-weight: 500;
+    --desktop-label-sm-dt-label-regular-letter-spacing: 0px;
+    --desktop-label-sm-dt-label-regular-line-height: 14px;
+    --green-status: rgba(44, 197, 70, 1);
+    --green-status-10: rgba(57, 211, 83, 0.1);
+    --green-status-50: rgba(57, 211, 83, 0.5);
+    --icon-filled-brand: rgba(19, 131, 130, 1);
+    --icon-primary: rgba(0, 43, 54, 1);
+    --icon-white: rgba(255, 255, 255, 1);
+    --mobile-body-mb-body-lg-numeric-font-family: "DM Sans", Helvetica;
+    --mobile-body-mb-body-lg-numeric-font-size: 16px;
+    --mobile-body-mb-body-lg-numeric-font-style: normal;
+    --mobile-body-mb-body-lg-numeric-font-weight: 400;
+    --mobile-body-mb-body-lg-numeric-letter-spacing: 0px;
+    --mobile-body-mb-body-lg-numeric-line-height: 24px;
+    --mobile-body-mb-body-lg-regular-font-family: "DM Sans", Helvetica;
+    --mobile-body-mb-body-lg-regular-font-size: 16px;
+    --mobile-body-mb-body-lg-regular-font-style: normal;
+    --mobile-body-mb-body-lg-regular-font-weight: 400;
+    --mobile-body-mb-body-lg-regular-letter-spacing: 0px;
+    --mobile-body-mb-body-lg-regular-line-height: 20px;
+    --mobile-body-mb-body-lg-semibold-font-family: "DM Sans", Helvetica;
+    --mobile-body-mb-body-lg-semibold-font-size: 16px;
+    --mobile-body-mb-body-lg-semibold-font-style: normal;
+    --mobile-body-mb-body-lg-semibold-font-weight: 600;
+    --mobile-body-mb-body-lg-semibold-letter-spacing: 0px;
+    --mobile-body-mb-body-lg-semibold-line-height: 16px;
+    --mobile-body-mb-body-lg-underline-font-family: "DM Sans", Helvetica;
+    --mobile-body-mb-body-lg-underline-font-size: 16px;
+    --mobile-body-mb-body-lg-underline-font-style: normal;
+    --mobile-body-mb-body-lg-underline-font-weight: 400;
+    --mobile-body-mb-body-lg-underline-letter-spacing: 0px;
+    --mobile-body-mb-body-lg-underline-line-height: 24px;
+    --mobile-body-mb-body-md-md-semibold-font-family: "DM Sans", Helvetica;
+    --mobile-body-mb-body-md-md-semibold-font-size: 14px;
+    --mobile-body-mb-body-md-md-semibold-font-style: normal;
+    --mobile-body-mb-body-md-md-semibold-font-weight: 600;
+    --mobile-body-mb-body-md-md-semibold-letter-spacing: 0px;
+    --mobile-body-mb-body-md-md-semibold-line-height: 16px;
+    --mobile-body-mb-body-md-numeric-font-family: "DM Sans", Helvetica;
+    --mobile-body-mb-body-md-numeric-font-size: 14px;
+    --mobile-body-mb-body-md-numeric-font-style: normal;
+    --mobile-body-mb-body-md-numeric-font-weight: 400;
+    --mobile-body-mb-body-md-numeric-letter-spacing: 0px;
+    --mobile-body-mb-body-md-numeric-line-height: 16px;
+    --mobile-body-mb-body-md-regular-font-family: "DM Sans", Helvetica;
+    --mobile-body-mb-body-md-regular-font-size: 14px;
+    --mobile-body-mb-body-md-regular-font-style: normal;
+    --mobile-body-mb-body-md-regular-font-weight: 400;
+    --mobile-body-mb-body-md-regular-letter-spacing: 0px;
+    --mobile-body-mb-body-md-regular-line-height: 19px;
+    --mobile-body-mb-body-md-underline-font-family: "DM Sans", Helvetica;
+    --mobile-body-mb-body-md-underline-font-size: 14px;
+    --mobile-body-mb-body-md-underline-font-style: normal;
+    --mobile-body-mb-body-md-underline-font-weight: 400;
+    --mobile-body-mb-body-md-underline-letter-spacing: 0px;
+    --mobile-body-mb-body-md-underline-line-height: 16px;
+    --mobile-body-mb-body-sm-medium-font-family: "DM Sans", Helvetica;
+    --mobile-body-mb-body-sm-medium-font-size: 14px;
+    --mobile-body-mb-body-sm-medium-font-style: normal;
+    --mobile-body-mb-body-sm-medium-font-weight: 500;
+    --mobile-body-mb-body-sm-medium-letter-spacing: 0px;
+    --mobile-body-mb-body-sm-medium-line-height: 19px;
+    --mobile-body-mb-body-sm-numeric-font-family: "DM Sans", Helvetica;
+    --mobile-body-mb-body-sm-numeric-font-size: 12px;
+    --mobile-body-mb-body-sm-numeric-font-style: normal;
+    --mobile-body-mb-body-sm-numeric-font-weight: 400;
+    --mobile-body-mb-body-sm-numeric-letter-spacing: 0px;
+    --mobile-body-mb-body-sm-numeric-line-height: 19px;
+    --mobile-body-mb-body-sm-regular-font-family: "DM Sans", Helvetica;
+    --mobile-body-mb-body-sm-regular-font-size: 12px;
+    --mobile-body-mb-body-sm-regular-font-style: normal;
+    --mobile-body-mb-body-sm-regular-font-weight: 400;
+    --mobile-body-mb-body-sm-regular-letter-spacing: 0px;
+    --mobile-body-mb-body-sm-regular-line-height: 16px;
+    --mobile-body-mb-body-sm-semibold-font-family: "DM Sans", Helvetica;
+    --mobile-body-mb-body-sm-semibold-font-size: 12px;
+    --mobile-body-mb-body-sm-semibold-font-style: normal;
+    --mobile-body-mb-body-sm-semibold-font-weight: 600;
+    --mobile-body-mb-body-sm-semibold-letter-spacing: 0px;
+    --mobile-body-mb-body-sm-semibold-line-height: 19px;
+    --mobile-body-mb-body-sm-underline-font-family: "DM Sans", Helvetica;
+    --mobile-body-mb-body-sm-underline-font-size: 12px;
+    --mobile-body-mb-body-sm-underline-font-style: normal;
+    --mobile-body-mb-body-sm-underline-font-weight: 400;
+    --mobile-body-mb-body-sm-underline-letter-spacing: 0px;
+    --mobile-body-mb-body-sm-underline-line-height: 19px;
+    --mobile-display-mb-display-md-font-family: "DM Sans", Helvetica;
+    --mobile-display-mb-display-md-font-size: 32px;
+    --mobile-display-mb-display-md-font-style: normal;
+    --mobile-display-mb-display-md-font-weight: 700;
+    --mobile-display-mb-display-md-letter-spacing: 0px;
+    --mobile-display-mb-display-md-line-height: 40px;
+    --mobile-display-mb-display-sm-font-family: "DM Sans", Helvetica;
+    --mobile-display-mb-display-sm-font-size: 28px;
+    --mobile-display-mb-display-sm-font-style: normal;
+    --mobile-display-mb-display-sm-font-weight: 600;
+    --mobile-display-mb-display-sm-letter-spacing: -1px;
+    --mobile-display-mb-display-sm-line-height: 32px;
+    --mobile-heading-mb-heading-md-font-family: "DM Sans", Helvetica;
+    --mobile-heading-mb-heading-md-font-size: 16px;
+    --mobile-heading-mb-heading-md-font-style: normal;
+    --mobile-heading-mb-heading-md-font-weight: 600;
+    --mobile-heading-mb-heading-md-letter-spacing: 0px;
+    --mobile-heading-mb-heading-md-line-height: 28px;
+    --mobile-heading-mb-heading-sm-font-family: "DM Sans", Helvetica;
+    --mobile-heading-mb-heading-sm-font-size: 12px;
+    --mobile-heading-mb-heading-sm-font-style: normal;
+    --mobile-heading-mb-heading-sm-font-weight: 600;
+    --mobile-heading-mb-heading-sm-letter-spacing: 0px;
+    --mobile-heading-mb-heading-sm-line-height: 16px;
+    --mobile-label-mb-label-sm-font-family: "DM Sans", Helvetica;
+    --mobile-label-mb-label-sm-font-size: 12px;
+    --mobile-label-mb-label-sm-font-style: normal;
+    --mobile-label-mb-label-sm-font-weight: 400;
+    --mobile-label-mb-label-sm-letter-spacing: 0px;
+    --mobile-label-mb-label-sm-line-height: 16px;
+    --red: rgba(255, 55, 55, 1);
+    --red-25: rgba(255, 88, 88, 0.1);
+    --stroke-primary: rgba(19, 131, 130, 1);
+    --tertiary-coloursehub-blue: rgba(143, 200, 232, 1);
+    --tertiary-coloursehub-blue-25: rgba(143, 200, 232, 0.15);
+    --tertiary-coloursehub-green: rgba(178, 232, 135, 1);
+    --tertiary-coloursehub-green-25: rgba(178, 232, 135, 0.25);
+    --tertiary-coloursehub-orange: rgba(232, 186, 152, 1);
+    --tertiary-coloursehub-orange-25: rgba(232, 186, 152, 0.15);
+    --tertiary-coloursehub-saffron: rgba(247, 215, 127, 1);
+    --tertiary-coloursehub-saffron-15: rgba(247, 215, 127, 0.15);
+    --texttext-brand-primary: rgba(19, 131, 130, 1);
+    --texttext-brand-secondary: rgba(0, 43, 54, 1);
+    --texttext-secondary: rgba(84, 113, 120, 1);
+    --texttext-white: rgba(255, 255, 255, 1);
+}
