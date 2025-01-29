@@ -118,8 +118,13 @@ export default function UserDashboard() {
       setShowEditOptions(true);
     }
   }
+
   function fetchData() {
-    getUserProfileByIdPrivate(setUser, token, setFetchResponse);
+    if (userId != getUserId()) {
+      getUserProfileById(setUser, userId, setFetchResponse);
+    } else {
+      getUserProfileByIdPrivate(setUser, token, setFetchResponse);
+    }
   }
 
   useEffect(() => {
