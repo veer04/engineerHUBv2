@@ -23,7 +23,7 @@ const AddSkill = ({ profileData, setProfileData }) => {
         setProfileData={setProfileData}
         profileData={profileData}
       />
-      <div className="add-skill-main-div">
+      <div className="add-skill-main-div" id="add-skills">
         <div className="add-skill-sub-div">
           <div className="add-skill-sub-left">
             <h3
@@ -35,9 +35,11 @@ const AddSkill = ({ profileData, setProfileData }) => {
                 color: "#002B36",
               }}
             >
-              {!profileData ? "Add Skill" : "Update Skill"}
+              {!profileData?.skillsDetails?.length > 0
+                ? "Add Skill"
+                : "Update Skill"}
             </h3>
-            {!profileData ? (
+            {!profileData?.skillsDetails?.length > 0 ? (
               <h4
                 style={{
                   fontSize: 14,
@@ -65,11 +67,19 @@ const AddSkill = ({ profileData, setProfileData }) => {
                 </h4>
                 <div className="skills-box-main">
                   {profileData &&
-                    profileData.skillsDetails.map((skill, index) => (
-                      <span key={index} className="skills-box">
-                        {skill.skills}
-                      </span>
-                    ))}
+                    profileData?.skillsDetails?.map((skill, index) => {
+                      const skillList = skill.skills.split(",");
+                      return skillList?.map((singleSkill, skillIndex) =>
+                        singleSkill && singleSkill !== "" ? (
+                          <span
+                            key={`${index}-${skillIndex}`}
+                            className="skills-box"
+                          >
+                            {singleSkill}
+                          </span>
+                        ) : null
+                      );
+                    })}
                 </div>
               </>
             )}

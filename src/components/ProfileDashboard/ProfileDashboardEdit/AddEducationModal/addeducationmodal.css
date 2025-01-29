@@ -70,7 +70,6 @@
 
 .education-modal-overlay .edu-modal .modal-delete-sav-cancel-main-div {
   display: flex;
-  justify-content: space-between;
   margin-top: 20px;
   align-items: center;
 }
@@ -213,6 +212,12 @@
     display: flex;
     flex-direction: column;
     gap: 6px;
+  }
+
+  .education-modal-overlay .edu-modal .modal-delete-sav-cancel-main-div {
+    display: flex;
+    margin-top: 0px;
+    align-items: center;
   }
 
   .education-modal-overlay .edu-modal .modal-button-div {

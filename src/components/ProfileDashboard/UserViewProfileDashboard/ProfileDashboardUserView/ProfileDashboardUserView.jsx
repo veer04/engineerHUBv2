@@ -240,17 +240,21 @@ const ProfileDashboardUserView = () => {
 
           {isMobile ? null : (
             <>
-              <div style={{ marginTop: 10 }}>
-                <UserViewStudentFollow
-                  fellowUsers={fellowUsers}
-                  title={`Other students from ${
-                    DashboardAdminData &&
-                    DashboardAdminData?.educationDetails &&
-                    DashboardAdminData?.educationDetails?.[0]?.collegeId
-                      .collegeName
-                  }`}
-                />
-              </div>
+              {DashboardAdminData &&
+                DashboardAdminData.educationDetails.length > 0 && (
+                  <div style={{ marginTop: 10 }}>
+                    <UserViewStudentFollow
+                      fellowUsers={fellowUsers}
+                      title={`Other students from ${
+                        DashboardAdminData &&
+                        DashboardAdminData?.educationDetails &&
+                        DashboardAdminData?.educationDetails?.[0]?.collegeId
+                          .collegeName
+                      }`}
+                    />
+                  </div>
+                )}
+
               <div style={{ marginTop: 10 }}>
                 <UserViewStudentFollowAlsoFollow
                   followUsers={followUsers}
@@ -311,12 +315,15 @@ const ProfileDashboardUserView = () => {
                 postData={postData}
               />
             </div>
-            <MoreAboutYourCollegeSection
-              aboutData={aboutData}
-              clubData={clubData}
-              almaData={almaData}
-              DashboardAdminData={DashboardAdminData}
-            />
+            {DashboardAdminData &&
+              DashboardAdminData.educationDetails.length > 0 && (
+                <MoreAboutYourCollegeSection
+                  aboutData={aboutData}
+                  clubData={clubData}
+                  almaData={almaData}
+                  DashboardAdminData={DashboardAdminData}
+                />
+              )}
 
             {/* //in mobile yeh dikhega */}
             {isMobile ? (

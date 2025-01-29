@@ -8,6 +8,8 @@ import {
 } from "../../../../services/APIConfig";
 import { Bounce, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { getAccessToken } from "../../../../features/getCookieValues";
+import { API_URL } from "../../../../services/APIUtils";
 
 const AddAchievementModal = ({ isOpen, onClose, data, setProfileData }) => {
   const [formData, setFormData] = useState({
@@ -24,19 +26,6 @@ const AddAchievementModal = ({ isOpen, onClose, data, setProfileData }) => {
   );
   const [response, setResponse] = useState(null);
 
-  const handleChange = (field, value) => {
-    setFormData((prevData) => ({ ...prevData, [field]: value }));
-  };
-
-  const validateForm = () => {
-    const newErrors = {};
-
-    if (!formData.achievementName.trim())
-      newErrors.achievementName = "Achievement name is required.";
-
-    return newErrors;
-  };
-
   useEffect(() => {
     if (data) {
       setFormData({
@@ -49,6 +38,58 @@ const AddAchievementModal = ({ isOpen, onClose, data, setProfileData }) => {
       });
     }
   }, [data]);
+
+  const handleChange = (field, value) => {
+    setFormData((prevData) => ({ ...prevData, [field]: value }));
+
+    setErrors((prevErrors) => {
+      const newErrors = { ...prevErrors };
+
+      if (field === "achievementName") {
+        if (!value.trim()) {
+          newErrors.achievementName = "Achievement name is required.";
+        } else {
+          delete newErrors.achievementName;
+        }
+      }
+
+      if (field === "achievementUrl") {
+        if (!value.trim()) {
+          newErrors.achievementUrl = "Achievement URL is required.";
+        } else {
+          delete newErrors.achievementUrl;
+        }
+      }
+
+      if (field === "description") {
+        if (!value.trim()) {
+          newErrors.description = "Description is required.";
+        } else {
+          delete newErrors.description;
+        }
+      }
+
+      return newErrors;
+    });
+  };
+
+  const validateForm = () => {
+    const newErrors = {};
+
+    if (!formData.achievementName || !formData.achievementName.trim()) {
+      newErrors.achievementName = "Achievement name is required.";
+    }
+
+    if (!formData.achievementUrl || !formData.achievementUrl.trim()) {
+      newErrors.achievementUrl = "Achievement URL is required.";
+    }
+
+    if (!formData.description || !formData.description.trim()) {
+      newErrors.description = "Description is required.";
+    }
+
+    return newErrors;
+  };
 
   const handleSubmit = () => {
     const validationErrors = validateForm();
@@ -153,11 +194,18 @@ const AddAchievementModal = ({ isOpen, onClose, data, setProfileData }) => {
 
   const handleDeleteAchievement = async () => {
     try {
-      await deleteUserAchievement(data._id, setResponse);
+      const response = await fetch(
+        `${API_URL}api/v1/delete/achievement/${data._id}`,
+        {
+          method: "DELETE",
+          headers: {
+            accessToken: getAccessToken(),
+          },
+        }
+      );
 
-      if (response) {
+      if (response.ok) {
         toast.success("Achievement deleted successfully!");
-
         setProfileData((prevData) => ({
           ...prevData,
           achievementDetails: prevData.achievementDetails.filter(
@@ -170,8 +218,8 @@ const AddAchievementModal = ({ isOpen, onClose, data, setProfileData }) => {
         toast.error(response?.data?.message || "Failed to delete Achievement.");
       }
     } catch (error) {
-      console.error(error);
-      toast.error("Something went wrong!");
+      console.error(error, "Error updating the Achievement");
+      toast.error(response?.message || "Failed to delete Achievement.");
     }
   };
 
@@ -270,7 +318,7 @@ const AddAchievementModal = ({ isOpen, onClose, data, setProfileData }) => {
                     >
                       Description
                     </label>
-                    {/* <span className="required-indicator">*</span> */}
+                    <span className="required-indicator">*</span>
                     <textarea
                       rows={4}
                       id="description"
@@ -300,7 +348,7 @@ const AddAchievementModal = ({ isOpen, onClose, data, setProfileData }) => {
                     >
                       Achievement URL
                     </label>
-                    {/* <span className="required-indicator">*</span> */}
+                    <span className="required-indicator">*</span>
                     <input
                       type="url"
                       id="achievementUrl"
