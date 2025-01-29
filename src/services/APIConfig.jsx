@@ -1607,7 +1607,38 @@ export const getUserProfileById = (
 ) => {
   const controller = new AbortController();
   axios
-    .get(`${API_URL}api/v1/getUserWithId/${userId}`, {
+    .get(`${API_URL}api/v1/user-public-profile/${userId}`, {
+      signal: controller.signal,
+    })
+    .then((res) => {
+      const data = res.data.data;
+      // console.log(data)
+      setUserProfile(data);
+      setFetchResponse(res);
+    })
+    .catch((err) => {
+      // setFetchResponse(err);
+      if (axios.isCancel(err)) {
+        console.log("req cancel");
+      } else {
+        console.log("req performed");
+      }
+    });
+};
+
+export const getUserProfileByIdPrivate = (
+  setUserProfile,
+  token,
+  setFetchResponse
+) => {
+  const controller = new AbortController();
+  const config = {
+    headers: {
+      accessToken: token,
+    },
+  };
+  axios
+    .get(`${API_URL}api/v1/getUserWithId`, config, {
       signal: controller.signal,
     })
     .then((res) => {
