@@ -4,7 +4,7 @@ import Cookies from "js-cookie";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import useNavbar from "../../hooks/use-navbar";
-import { API_URL, API_URLT } from "../../services/APIUtils";
+import { API_URLT } from "../../services/APIUtils";
 
 const Success = () => {
   const navigate = useNavigate();
@@ -22,14 +22,13 @@ const Success = () => {
     setSelectedPageNavbar("home");
     window.scrollTo(0, 0);
 
-    const fetchData = async () => {
+    const fetchData = async (attempt = 0) => {
       try {
         const response = await axios.get(`${API_URLT}api/v1/auth/details`, {
           withCredentials: true,
         });
 
         console.log(response.data);
-        console.log(response.data.success);
         setMe(response.data);
 
         if (response.data.success === true) {
@@ -61,23 +60,15 @@ const Success = () => {
         }
       } catch (error) {
         console.error("Error fetching user data:", error);
+        if (attempt < 3) {
+          setTimeout(() => fetchData(attempt + 1), 5000);
+        } else {
+          setErrorMessage("OOPs! Login failed due to network error, try again.");
+        }
       }
     };
 
-    // Polling logic
-    let attempts = 0;
-    const intervalId = setInterval(() => {
-      if (attempts < 4) {
-        attempts++;
-        fetchData();
-      } else {
-        clearInterval(intervalId);
-        setErrorMessage("OOPs! Login failed due to network error try again.");
-      }
-    }, 5000);
-
-    // Cleanup interval on component unmount
-    return () => clearInterval(intervalId);
+    fetchData();
   }, []);
 
   return (
