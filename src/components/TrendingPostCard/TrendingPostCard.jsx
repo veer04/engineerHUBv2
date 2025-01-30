@@ -27,12 +27,13 @@ export default function TrendingPostCard({ post, updatePost }) {
   const [saveResponse, setSaveResponse] = useState({});
   const [unsaveResponse, setUnsaveResponse] = useState({});
   const [isShownMore, setIsShownMore] = useState(false);
+  const [localPost, setLocalPost] = useState(post);
 
   useEffect(() => {
     // console.log(followResponse);
     if (Object.keys(followResponse).length !== 0) {
       if (followResponse?.data?.success) {
-        updatePost(post._id);
+        // updatePost(post._id);
         setSnackbarSeverity("success");
         setSnackbarMessage(`You are now following ${post?.creator?.name}`);
         setSnackbarOpen(true);
@@ -51,17 +52,17 @@ export default function TrendingPostCard({ post, updatePost }) {
     }
   }, [followResponse]);
 
-  useEffect(() => {
-    if (Object.keys(likeResponse).length !== 0) {
-      if (likeResponse?.data?.success) {
-        updatePost(post._id);
-      } else {
-        setSnackbarSeverity("error");
-        setSnackbarMessage(`Something went wrong.`);
-        setSnackbarOpen(true);
-      }
-    }
-  }, [likeResponse]);
+  // useEffect(() => {
+  //   if (Object.keys(likeResponse).length !== 0) {
+  //     if (likeResponse?.data?.success) {
+  //       updatePost(post._id);
+  //     } else {
+  //       setSnackbarSeverity("error");
+  //       setSnackbarMessage(`Something went wrong.`);
+  //       setSnackbarOpen(true);
+  //     }
+  //   }
+  // }, [likeResponse]);
 
   useEffect(() => {
     if (Object.keys(unlikeResponse).length !== 0) {
@@ -123,9 +124,22 @@ export default function TrendingPostCard({ post, updatePost }) {
       setSnackbarSeverity("error");
       setSnackbarMessage("You need to login to like a post");
       setSnackbarOpen(true);
+      return;
+    }
+
+    setLocalPost((prevPost) => {
+      const isLiked = prevPost.isLike;
+      return {
+        ...prevPost,
+        isLike: !isLiked,
+        totalLikes: isLiked ? prevPost.totalLikes - 1 : prevPost.totalLikes + 1,
+      };
+    });
+
+    if (localPost.isLike) {
+      unLikePost(post._id, () => {}); // Call API but UI updates instantly
     } else {
-      if (post?.isLike) unLikePost(post._id, setUnlikeResponse);
-      else likePost(post._id, setLikeResponse);
+      likePost(post._id, () => {}); // Call API but UI updates instantly
     }
   }
 
@@ -141,6 +155,10 @@ export default function TrendingPostCard({ post, updatePost }) {
   }
 
   function handleShare() {}
+
+  useEffect(() => {
+    console.log("Updated post:", post);
+  }, [post]);
 
   return (
     <div className="post-card-container">
@@ -189,13 +207,13 @@ export default function TrendingPostCard({ post, updatePost }) {
       </div>
       <div className="impressions-container">
         <div className="left">
-          {/* <div className="heart">
-            {!(isLoggedIn && post?.isLike) ? (
-              <FaRegHeart onClick={() => handleLike()} />
+          <div className="heart" onClick={handleLike}>
+            {!(isLoggedIn && localPost.isLike) ? (
+              <FaRegHeart style={{ cursor: "pointer" }} />
             ) : (
-              <FaHeart style={{ color: "red" }} onClick={() => handleLike()} />
+              <FaHeart style={{ color: "red", cursor: "pointer" }} />
             )}
-          </div> */}
+          </div>
           <div className="share">
             <RWebShare
               data={{
@@ -221,9 +239,9 @@ export default function TrendingPostCard({ post, updatePost }) {
           </div>
         </div> */}
       </div>
-      {/* <div className="likes">
-        <span>{post.totalLikes} likes</span>
-      </div> */}
+      <div className="likes">
+        <span>{localPost.totalLikes} likes</span>
+      </div>
       <span
         style={{
           cursor: "default",
