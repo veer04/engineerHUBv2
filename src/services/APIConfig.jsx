@@ -520,8 +520,9 @@ export const addUserCertification = (data, setResponse) => {
       config
     )
     .then((res) => {
-      console.log(res);
-      setResponse(res);
+      console.log(res, "res");
+      setResponse(res.data.data);
+      return res.data;
     })
     .catch((err) => {
       console.log(err);
