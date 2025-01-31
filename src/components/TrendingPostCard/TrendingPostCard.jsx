@@ -192,7 +192,7 @@ export default function TrendingPostCard({ post, updatePost }) {
             </span>
           </div>
         </div>
-        <div className="follow-btn">
+        {/* <div className="follow-btn">
           {!(isLoggedIn && post?.isFollow) && (
             <button
               onClick={() => handleFollow(post?.creator?.name, post?.creatorId)}
@@ -200,7 +200,7 @@ export default function TrendingPostCard({ post, updatePost }) {
               Follow
             </button>
           )}
-        </div>
+        </div> */}
       </div>
       <div className="post-image-container">
         <img src={post?.postLogo} alt="" />
