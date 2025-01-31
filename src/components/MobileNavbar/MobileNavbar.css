@@ -4,7 +4,7 @@
   position: fixed;
   bottom: 0;
   width: 100%;
-  padding: 6px 12px;
+  padding: 9px 12px;
   z-index: 20;
   box-shadow: 0px 4px 32px 0px rgba(0, 0, 0, 0.1);
 }
@@ -26,6 +26,10 @@
   margin-top: -0.25rem;
   line-height: 16px;
 }
+
+.mobile-navbar .item-container svg {
+  margin-bottom: 8px;
+}
 .mobile-navbar .item-container:hover .svg path,
 .mobile-navbar .item-container:hover .svg rect,
 .mobile-navbar .item-container:hover {
@@ -43,3 +47,7 @@
     display: none;
   }
 }
+
+/* .new-design-color {
+  color: #a2d4d3;
+} */
