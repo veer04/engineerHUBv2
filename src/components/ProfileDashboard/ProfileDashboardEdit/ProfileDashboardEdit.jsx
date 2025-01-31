@@ -20,6 +20,10 @@ import { API_URL } from "../../../services/APIUtils";
 import AddSkill from "./AddSkill/AddSkill";
 import { getAccessToken } from "../../../features/getCookieValues";
 import { useQuery } from "@tanstack/react-query";
+import {
+  getUserProfileById,
+  getUserProfileByIdPrivate,
+} from "../../../services/APIConfig";
 
 const ProfileDashboardEdit = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -49,16 +53,22 @@ const ProfileDashboardEdit = () => {
 
   const [profileData, setProfileData] = useState(null);
   const [privateDashboardData, setPrivateDashboardData] = useState(null);
+  const [fetchResponse, setFetchResponse] = useState({});
 
-  const profileDataQuery = useQuery({
-    queryKey: ["profileData"],
-    queryFn: () =>
-      axios.get(`${API_URL}api/v1/getUserWithId/${userId}`).then((res) => {
-        setProfileData(res.data.data);
-        return res;
-      }),
-    staleTime: Infinity,
-  });
+  function fetchData() {
+    const token = getAccessToken();
+
+    if (userId !== getUserId()) {
+      getUserProfileById(setProfileData, userId, setFetchResponse);
+    } else {
+      console.log(token, "token");
+      getUserProfileByIdPrivate(setProfileData, token, setFetchResponse);
+    }
+  }
+
+  useEffect(() => {
+    fetchData();
+  }, [userId]);
 
   // if (profileDataQuery.isSuccess) {
   //   console.log(profileDataQuery.data, "kjhgf");

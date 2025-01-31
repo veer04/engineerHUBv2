@@ -359,7 +359,7 @@ const ProfileWithPostEditShare = ({
                   marginBottom: 0,
                 }}
               >
-                {privateDashboardData.experienceDetails[0].organisationName ||
+                {privateDashboardData?.experienceDetails[0]?.organisationName ||
                   "engineerHub"}
               </h3>
             </div>

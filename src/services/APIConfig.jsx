@@ -502,15 +502,13 @@ export const updateUserAchievement = async (
   }
 };
 
-export const addUserCertification = (data, setResponse) => {
-  const controller = new AbortController();
-  const config = {
-    headers: {
-      accessToken: getAccessToken(),
-    },
-  };
-  axios
-    .post(
+export const addUserCertification = async (data) => {
+  try {
+    const config = {
+      headers: { accessToken: getAccessToken() },
+    };
+
+    const response = await axios.post(
       `${API_URL}api/v1/add/licence`,
       {
         ...data,
@@ -518,24 +516,19 @@ export const addUserCertification = (data, setResponse) => {
         issuedBy: data.issuedBy,
       },
       config
-    )
-    .then((res) => {
-      console.log(res);
-      setResponse(res.data);
-      return res.data;
-    })
-    .catch((err) => {
-      console.log(err);
-      setResponse(err);
-      if (axios.isCancel(err)) {
-        console.log("req cancel");
-      } else {
-        console.log("req performed");
-      }
-      throw err;
-    });
-};
+    );
 
+    console.log(response.data, "API Response");
+    return response.data.data; // Ensure the function returns the data
+  } catch (error) {
+    if (axios.isCancel(error)) {
+      console.log("Request canceled");
+    } else {
+      console.error("Request failed", error);
+    }
+    throw error; // Propagate error to caller
+  }
+};
 export const updateUserCertification = async (
   { licenceId, body },
   setResponse
