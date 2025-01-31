@@ -170,7 +170,7 @@ export default function TrendingPostCard({ post, updatePost }) {
               className="text-crop-1"
             >
               {post?.creator?.name ||
-                `${post?.creator?.firstName} ${post?.creator?.lastName}`}
+                `${post?.creator?.firstName} ${post?.creator?.lastName}` }
             </span>
           </div>
         </div>
@@ -189,13 +189,13 @@ export default function TrendingPostCard({ post, updatePost }) {
       </div>
       <div className="impressions-container">
         <div className="left">
-          <div className="heart">
-            {!(isLoggedIn && post?.isLike) ? (
-              <FaRegHeart onClick={() => handleLike()} />
-            ) : (
-              <FaHeart style={{ color: "red" }} onClick={() => handleLike()} />
-            )}
-          </div>
+         {/*<div className="heart">
+         {!(isLoggedIn && post?.isLike) ? (
+           <FaRegHeart onClick={() => handleLike()} />
+         ) : (
+           <FaHeart style={{ color: "red" }} onClick={() => handleLike()} />
+         )}
+       </div>*/} 
           <div className="share">
             <RWebShare
               data={{
@@ -221,9 +221,9 @@ export default function TrendingPostCard({ post, updatePost }) {
           </div>
         </div> */}
       </div>
-      <div className="likes">
+     {/* <div className="likes">
         <span>{post.totalLikes} likes</span>
-      </div>
+      </div> */}
       <span
         style={{
           cursor: "default",

@@ -355,7 +355,7 @@
 .frame .div-9 {
     align-items: flex-start;
     align-self: stretch;
-    background-color: #ffffff;
+    background-color: rgba(247, 215, 127, 0.15);
     border-radius: 20px;
     display: flex;
     height: 440px;
