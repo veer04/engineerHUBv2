@@ -1,8 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Component1 } from "./Component1";
-import { Component3 } from "./Component3/Component3";
-import { EnterpriseCampus } from "./Component3/EnterpriseCampus";
-import { Frame } from "./Component3/Frame";
 import { JobAThonMobile } from "./MobileView/EnterpriseMobileView";
 import {JobAThonDesktopView} from "./JobAThonDesktopView";
 const Enterprise = () => {
