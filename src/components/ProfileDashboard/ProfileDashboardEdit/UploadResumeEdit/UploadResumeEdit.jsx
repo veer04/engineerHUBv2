@@ -86,6 +86,17 @@ const UploadResumeEdit = ({ profileData, setProfileData }) => {
           "Error uploading resume:",
           error.response ? error.response.data : error.message
         );
+        toast(`💀Only PDF's Allowed`, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+          transition: Bounce,
+        });
       }
     }
   };
