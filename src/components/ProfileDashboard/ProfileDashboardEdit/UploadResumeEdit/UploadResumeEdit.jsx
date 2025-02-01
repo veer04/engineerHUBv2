@@ -20,6 +20,7 @@ const UploadResumeEdit = ({ profileData, setProfileData }) => {
     profileData?.resume ? moment().format("YYYY-MM-DD") : ""
   );
   const [downloadProgress, setDownloadProgress] = useState(null);
+  const [isDownloading, setIsDownloading] = useState(false);
 
   useEffect(() => {
     if (profileData?.resume) {
@@ -95,6 +96,7 @@ const UploadResumeEdit = ({ profileData, setProfileData }) => {
 
   const downloadResume = async () => {
     try {
+      setIsDownloading(true);
       setDownloadProgress(0);
 
       const response = await axios({
@@ -123,23 +125,27 @@ const UploadResumeEdit = ({ profileData, setProfileData }) => {
       link.setAttribute("download", `${cleanFileName}`);
       link.click();
 
+      if (downloadProgress === 100) {
+        setIsDownloading(false); // Re-enable button when download is complete
+      }
+
       setTimeout(() => {
         setDownloadProgress(null);
       }, 1000);
     } catch (err) {
       console.error(err);
     } finally {
-      setLoading(false);
+      setIsDownloading(false);
     }
   };
 
-  const fullFileName = profileData?.resume?.split("/").pop();
-  if (!fullFileName) {
-    console.error("File name not found");
-    return;
-  }
-  const nameMatch = fullFileName.match(/([a-zA-Z]+)\.pdf/i);
-  const cleanFileName = nameMatch ? nameMatch[1] : "resume";
+  // const fullFileName = profileData?.resume?.split("/").pop();
+  // if (!fullFileName) {
+  //   console.error("File name not found");
+  //   return;
+  // }
+  // const nameMatch = fullFileName.match(/([a-zA-Z]+)\.pdf/i);
+  // const cleanFileName = nameMatch ? nameMatch[1] : "resume";
 
   const handleDeleteResume = async () => {
     try {
@@ -271,8 +277,9 @@ const UploadResumeEdit = ({ profileData, setProfileData }) => {
             </div>
             {/* //download resume */}
             <div className="download-trash-icon">
-              <div
+              <button
                 onClick={downloadResume}
+                disabled={isDownloading || downloadProgress === 100}
                 style={{
                   backgroundColor: "#1383821a",
                   width: 40,
@@ -281,7 +288,9 @@ const UploadResumeEdit = ({ profileData, setProfileData }) => {
                   display: "flex",
                   justifyContent: "center",
                   alignItems: "center",
-                  cursor: "pointer",
+                  cursor: isDownloading ? "not-allowed" : "pointer",
+                  opacity: isDownloading ? 0.5 : 1,
+                  border: "none",
                 }}
               >
                 {downloadProgress !== null ? (
@@ -318,7 +327,7 @@ const UploadResumeEdit = ({ profileData, setProfileData }) => {
                     />
                   </svg>
                 )}
-              </div>
+              </button>
 
               {/* //delete resume */}
               <div
