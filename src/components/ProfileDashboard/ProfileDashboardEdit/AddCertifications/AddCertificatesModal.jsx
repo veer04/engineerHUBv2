@@ -78,7 +78,7 @@ const AddCertificationsModal = ({ isOpen, onClose, data, setProfileData }) => {
 
     try {
       const dataRes = await addUserCertification(formData);
-      console.log(dataRes, "datares");
+      // console.log(dataRes, "datares");
 
       if (dataRes && dataRes._id) {
         toast(

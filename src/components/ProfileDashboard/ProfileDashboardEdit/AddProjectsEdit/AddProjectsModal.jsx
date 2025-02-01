@@ -21,8 +21,6 @@ const AddProjectsModal = ({ isOpen, onClose, data, setProfileData }) => {
     endYear: "",
     projectDescription: "",
   });
-  console.log(data, "data");
-  const queryClient = useQueryClient();
 
   const [updateProjectResponse, setUpdateProjectResponse] = useState({});
   const [response, setResponse] = useState(null);
@@ -150,7 +148,7 @@ const AddProjectsModal = ({ isOpen, onClose, data, setProfileData }) => {
     return newErrors;
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const validationErrors = validateForm();
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
@@ -160,12 +158,10 @@ const AddProjectsModal = ({ isOpen, onClose, data, setProfileData }) => {
     setLoading(true);
 
     try {
-      addUserProject(formData, setUpdateProjectResponse);
+      const dataRes = await addUserProject(formData);
+      // console.log(dataRes, "datares");
 
-      const response = updateProjectResponse;
-      console.log("updateprojectres", updateProjectResponse);
-      console.log("responsebelow", response);
-      if (response) {
+      if (dataRes && dataRes._id) {
         toast(
           data && data._id
             ? "✏️ Projects has been updated successfully!"
@@ -183,15 +179,15 @@ const AddProjectsModal = ({ isOpen, onClose, data, setProfileData }) => {
           }
         );
 
-        // queryClient.invalidateQueries({ queryKey: ["profileData"] });
-
         setProfileData((prevData) => ({
           ...prevData,
           projectDetails: [
-            ...(prevData.projectDetails || []),
+            ...(prevData.projectDetails || []).filter(
+              (item) => item._id !== dataRes._id
+            ),
             {
-              _id: response._id,
-              profile: response.profile,
+              _id: dataRes._id,
+              profile: dataRes.profile,
               projectTitle: formData.projectTitle,
               projectLink: formData.projectLink,
               projectDescription: formData.projectDescription,
@@ -201,6 +197,7 @@ const AddProjectsModal = ({ isOpen, onClose, data, setProfileData }) => {
           ],
         }));
 
+        setFormData(null);
         onClose();
       } else {
         toast.error("Something went wrong!");
@@ -324,7 +321,7 @@ const AddProjectsModal = ({ isOpen, onClose, data, setProfileData }) => {
                 <input
                   type="text"
                   id="projectTitle"
-                  value={formData.projectTitle}
+                  value={formData?.projectTitle}
                   onChange={(e) => handleChange("projectTitle", e.target.value)}
                   className={`input-css-title-link mt-1 ${
                     errors.projectTitle ? "border-red-500" : "border-gray-300"
@@ -348,7 +345,7 @@ const AddProjectsModal = ({ isOpen, onClose, data, setProfileData }) => {
                 <input
                   type="text"
                   id="projectLink"
-                  value={formData.projectLink}
+                  value={formData?.projectLink}
                   onChange={(e) => handleChange("projectLink", e.target.value)}
                   className={`input-css-title-link mt-1 ${
                     errors.projectLink ? "border-red-500" : "border-gray-300"
@@ -378,7 +375,7 @@ const AddProjectsModal = ({ isOpen, onClose, data, setProfileData }) => {
                 <input
                   type="date"
                   id="startYear"
-                  value={formData.startYear}
+                  value={formData?.startYear}
                   onChange={(e) => handleChange("startYear", e.target.value)}
                   className={`input-css mt-1 ${
                     errors.startYear ? "border-red-500" : "border-gray-300"
@@ -411,7 +408,7 @@ const AddProjectsModal = ({ isOpen, onClose, data, setProfileData }) => {
                 <input
                   type="date"
                   id="endYear"
-                  value={formData.endYear}
+                  value={formData?.endYear}
                   onChange={(e) => handleChange("endYear", e.target.value)}
                   className={`input-css mt-1 ${
                     errors.endYear ? "border-red-500" : "border-gray-300"
@@ -442,7 +439,7 @@ const AddProjectsModal = ({ isOpen, onClose, data, setProfileData }) => {
               <input
                 type="text"
                 id="projectDescription"
-                value={formData.projectDescription}
+                value={formData?.projectDescription}
                 onChange={(e) =>
                   handleChange("projectDescription", e.target.value)
                 }
