@@ -26,7 +26,7 @@ const AddCertificationsModal = ({ isOpen, onClose, data, setProfileData }) => {
   const [loading, setLoading] = useState(false);
   const [response, setResponse] = useState(null);
 
-  console.log(data, "data");
+  // console.log(data, "data");
   const handleChange = (field, value) => {
     setFormData((prevData) => ({ ...prevData, [field]: value }));
     setErrors((prevErrors) => {
@@ -78,7 +78,7 @@ const AddCertificationsModal = ({ isOpen, onClose, data, setProfileData }) => {
 
     try {
       const dataRes = await addUserCertification(formData);
-      console.log(dataRes, "datares");
+      // console.log(dataRes, "datares");
 
       if (dataRes && dataRes._id) {
         toast(
