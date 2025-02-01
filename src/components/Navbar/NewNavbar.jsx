@@ -114,7 +114,7 @@ export default function NewNavbar() {
               selectedPageNavbar === "services" ? "--is-active" : ""
             } services-btn`}
           >
-            Services
+            Referrals
             {/* <span
               className={`${
                 selectedPageNavbar === "services" ? "--is-active" : ""
