@@ -163,7 +163,7 @@ const AddExperienceModal = ({ isOpen, onClose, data, setProfileData }) => {
     return newErrors;
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const validationErrors = validateForm();
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
@@ -172,10 +172,9 @@ const AddExperienceModal = ({ isOpen, onClose, data, setProfileData }) => {
     setLoading(true);
 
     try {
-      addUserExperience(formData, setUpdateExperienceResponse);
+      const dataRes = await addUserExperience(formData);
 
-      const response = updateExperienceResponse;
-      if (response) {
+      if (dataRes && dataRes._id) {
         toast(
           data && data._id
             ? "✏️ Experience has been updated successfully!"
@@ -196,10 +195,12 @@ const AddExperienceModal = ({ isOpen, onClose, data, setProfileData }) => {
         setProfileData((prevData) => ({
           ...prevData,
           experienceDetails: [
-            ...(prevData.experienceDetails || []),
+            ...(prevData.experienceDetails || []).filter(
+              (item) => item._id !== dataRes._id
+            ),
             {
-              _id: response._id,
-              profile: response.profile,
+              _id: dataRes._id,
+              profile: dataRes.profile,
               country: formData.country,
               designation: formData.designation,
               empType: formData.empType,
@@ -211,6 +212,7 @@ const AddExperienceModal = ({ isOpen, onClose, data, setProfileData }) => {
           ],
         }));
 
+        setFormData(null);
         onClose();
       } else {
         toast.error("Something went wrong!");
@@ -281,6 +283,7 @@ const AddExperienceModal = ({ isOpen, onClose, data, setProfileData }) => {
           ),
         }));
 
+        setFormData(null);
         onClose();
       } else {
         toast.error(response?.message || "Failed to delete Experience.");
@@ -367,7 +370,7 @@ const AddExperienceModal = ({ isOpen, onClose, data, setProfileData }) => {
                 </label>
                 <select
                   id="empType"
-                  value={formData.empType}
+                  value={formData?.empType}
                   onChange={(e) => handleChange("empType", e.target.value)}
                   className={`select-hover mt-1 ${
                     errors.empType ? "border-red-500" : "border-gray-300"
@@ -421,7 +424,7 @@ const AddExperienceModal = ({ isOpen, onClose, data, setProfileData }) => {
                 <input
                   type="text"
                   id="designation"
-                  value={formData.designation}
+                  value={formData?.designation}
                   onChange={(e) => handleChange("designation", e.target.value)}
                   className={`input-css-title-link mt-1 ${
                     errors.designation ? "border-red-500" : "border-gray-300"
@@ -451,7 +454,7 @@ const AddExperienceModal = ({ isOpen, onClose, data, setProfileData }) => {
                   <input
                     type="date"
                     id="startYear"
-                    value={formData.startYear}
+                    value={formData?.startYear}
                     onChange={(e) => handleChange("startYear", e.target.value)}
                     className={`input-css mt-1 ${
                       errors.startYear ? "border-red-500" : "border-gray-300"
@@ -484,7 +487,7 @@ const AddExperienceModal = ({ isOpen, onClose, data, setProfileData }) => {
                   <input
                     type="date"
                     id="endYear"
-                    value={formData.endYear}
+                    value={formData?.endYear}
                     onChange={(e) => handleChange("endYear", e.target.value)}
                     className={`input-css mt-1 ${
                       errors.endYear ? "border-red-500" : "border-gray-300"
@@ -515,7 +518,7 @@ const AddExperienceModal = ({ isOpen, onClose, data, setProfileData }) => {
                 <input
                   type="text"
                   id="organisationName"
-                  value={formData.organisationName}
+                  value={formData?.organisationName}
                   onChange={(e) =>
                     handleChange("organisationName", e.target.value)
                   }
