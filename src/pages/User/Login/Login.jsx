@@ -200,13 +200,30 @@ const Register = () => {
           console.error(error);
         });
       setValues({ ...values, password: "" });
- 
+      // signIn({
+      //   token: response.data.accessToken,
+      //   expiresIn: 3600,
+      //   tokenType: "Bearer",
+      //   authState: { m:values.email },
+      // });
       setValidation(true);
       setOpen(true);
-
+      // setSnackbarValues({
+      //   severity: "success",
+      //   message: "Logged in Successfully!",
+      // });
+      // setCookieValue(
+      //   Cookies.get("_auth_state").slice(
+      //     6,
+      //     Cookies.get("_auth_state").length - 12
+      //   )
+      // );
     } catch (err) {
       setLoading(false);
-  
+      // setSnackbarValues({
+      //   severity: "error",
+      //   message: "Wrong credentials!",
+      // });
       if (err && err instanceof AxiosError)
         setError(err.response?.data.message);
       else if (err && err instanceof Error) setError(err.message);
@@ -217,7 +234,12 @@ const Register = () => {
       setOpen(true);
     }
   }
+  // const navigation=()=>{
+  //  if(validation===true)
+  //   {
 
+  //   }
+  // };
 
   const validatePassword = () => {
     let errorMessage = "Password must contain at least";
@@ -318,24 +340,26 @@ const Register = () => {
       }
     }
   }
-  function pollLoginStatus() {
-    const pollInterval = 1500; // 1.5 seconds
-    const maxDuration = 5000; // 5 seconds
-    const startTime = Date.now();
-  
-    const intervalId = setInterval(() => {
-      console.log("Checking login status...");
-      handleLogin(); // Call your login function
-  
-      // Stop polling after 5 seconds
-      if (Date.now() - startTime >= maxDuration) {
-        clearInterval(intervalId);
-        console.log("Polling completed. No further attempts.");
-      }
-    }, pollInterval);
-  }
-  
-  
+
+  // const [me, setMe] = useState(null);
+
+  // useEffect(() => {
+  //   async function getMe() {
+  //     try {
+  //       const response = await axios.get("https://engineerhub-yash.onrender.com/api/v1/auth/details", {
+  //         withCredentials: true,
+  //       });
+  //       // console.log(response.data);
+  //       setMe(response.data);
+
+  //     } catch (error) {
+  //       console.error("Error fetching user data:", error);
+  //     }
+  //   }
+
+  //   getMe();
+  // }, []);
+
   const handleLogin = () => {
     const dynamicRedirectUrl = `${FRONTEND_URL}success`;
     const googleAuthUrl = new URL(
@@ -356,12 +380,50 @@ const Register = () => {
     googleAuthUrl.searchParams.append("prompt", "consent");
 
     window.location.href = googleAuthUrl.toString();
-
+    //  setTimeout(()=>{
+    //     window.location.reload();
+    //  },2000)
   };
-  pollLoginStatus();
-  
+
+  // Call the function to make the API request
+
+  //   const gauth = useGoogleLogin({
+  //     onSuccess: (codeResponse) => setUser(codeResponse),
+  //     onError: (error) => console.log('Login Failed:', error)
+  // });
+
+  // useEffect(
+  //     () => {
+  //         if (user) {
+  //             axios
+  //                 .get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`, {
+  //                     headers: {
+  //                         Authorization: `Bearer ${user.access_token}`,
+  //                         Accept: 'application/json'
+  //                     }
+  //                 })
+  //                 .then((res) => {
+  //                     setProfile(res.data);
+  //                 })
+  //                 .catch((err) => console.log(err));
+  //         }
+  //     },
+  //     [ user ]
+  // );
+
+  // log out function to log the user out of google and set the profile array to null
+  // const logOut = () => {
+  //     googleLogout();
+  //     setProfile(null);
+  // };
+
+  // const [isEmailValid, setIsEmailValid] = useState(false);
+  // const [isPasswordValid, setIsPasswordValid] = useState(false);
+
   const handlePassword = () => {
-  
+    // setFocused(true);
+    // setFormPassword(validatePassword(password).length > 0?);
+    // setIsPasswordValid(validatePassword(password).length > 0?);
     let checkPassword = validatePassword();
     if (checkPassword.length !== 0 && values.password !== "") {
       setSnackbarValues({
@@ -382,7 +444,8 @@ const Register = () => {
   };
   const validateEmail = () => {
     const emailRegex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
-
+    // setIsEmailValid(emailRegex.test(values.email));
+    // console.log(isEmailValid);
     if (emailRegex.test(values.email) === false && values.email !== "") {
       setSnackbarValues({
         severity: "error",
@@ -394,7 +457,32 @@ const Register = () => {
 
   return (
     <main className="Login">
-      
+      {/* <div
+            className="col-lg-6 login-left-container"
+            style={{
+              borderRadius: "7px",
+              background: "#fff",
+              marginBottom: "2%",
+            }}
+          >
+            <div className="cont-head">
+              <div
+                className="my-form-head"
+                style={{
+                  color: "var(--Primary-500, #002B36)",
+                  fontFamily: "Gotham Black",
+                  padding: "30px",
+                  fontWeight: "800",
+                }}
+              >
+                Join the India’s{" "}
+                <span style={{ textDecoration: "line-through" }}> largest</span>{" "}
+                <br />
+                coolest community of engineers
+              </div>
+              <img src={loginLeft} alt="" />
+            </div>
+          </div> */}
       <div
         className="cont col-lg-3 login-right-container"
         style={{
@@ -420,7 +508,20 @@ const Register = () => {
           >
             Hey, Welcome back
           </div>
-      
+          {/* <div
+            className="my-form-head"
+            style={{
+              color: "#0a3f51",
+              padding: "0px 0px 30px 0px",
+              fontWeight: "500",
+              textAlign: "start",
+              width: "100%",
+              lineHeight: "1.2",
+              fontSize: "16px",
+            }}
+          >
+            Community.Campus.Company
+          </div> */}
         </div>
 
         <form className="my-form custom-form-input" onSubmit={handleSubmit}>
@@ -451,7 +552,21 @@ const Register = () => {
               // disabled={!allCountriesCopy.length}
               // className="mb-4"
             />
-          
+            {/* <select
+                  className="reg-input"
+                  placeholder="role"
+                  type="text"
+                  name="role"
+                  value={values.role}
+                  onChange={handleChange("role")}
+                  required
+                  // onBlur={validateRole}
+                >
+                  <option value="User">Student</option>
+                  <option value="Alumni">Alumni</option>
+                  <option value="Club">Club</option>
+                  <option value="Organization">Company</option>
+                </select> */}
           </div>
           <div className="form-cont passwordContainer">
             <input
@@ -512,8 +627,11 @@ const Register = () => {
           </div>
 
           <div className="sign-field reg-field">
-      
-        
+            {/* <div className="sign-opt "> */}
+            {/* <div> */}
+            {/* <GoogleButton onClick={handleLogin}>
+              Sign in with Google
+            </GoogleButton> */}
             <button className="my-btn google-btn" onClick={handleLogin}>
               <svg
                 width="24"
@@ -541,7 +659,8 @@ const Register = () => {
               </svg>
               Sign in with Google
             </button>
-        
+            {/* </div> */}
+            {/* </div> */}
           </div>
 
           <div className="my-item-cont">
