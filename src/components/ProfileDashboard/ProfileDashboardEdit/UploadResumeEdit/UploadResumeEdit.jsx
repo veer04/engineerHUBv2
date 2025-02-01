@@ -68,6 +68,7 @@ const UploadResumeEdit = ({ profileData, setProfileData }) => {
           const cleanFileName = nameMatch ? nameMatch[1] : "resume";
           setUploadedFileName(cleanFileName);
           setUploadDate(moment().format("YYYY-MM-DD"));
+          setResumeUrl(uploadedUrl);
           toast("🥳 Resume Added Successfully!", {
             position: "top-right",
             autoClose: 5000,
@@ -86,6 +87,17 @@ const UploadResumeEdit = ({ profileData, setProfileData }) => {
           "Error uploading resume:",
           error.response ? error.response.data : error.message
         );
+        toast(`💀Only PDF's Allowed`, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+          transition: Bounce,
+        });
       }
     }
   };
@@ -100,9 +112,9 @@ const UploadResumeEdit = ({ profileData, setProfileData }) => {
       setDownloadProgress(0);
 
       const response = await axios({
-        url: `${API_URL}api/v1/downloadPdf?title=${profileData?.resume}&url=${profileData?.resume}`,
+        url: `${API_URL}api/v1/downloadPdf?title=${uploadedFileName}&url=${resumeUrl}`,
         method: "POST",
-        data: { title: resumeUrl, url: profileData?.resume },
+        data: { title: uploadedFileName, url: resumeUrl },
         responseType: "blob",
         onDownloadProgress: (progressEvent) => {
           let percentCompleted = Math.round(
@@ -112,7 +124,7 @@ const UploadResumeEdit = ({ profileData, setProfileData }) => {
         },
       });
 
-      const fullFileName = profileData?.resume?.split("/").pop(); // Get last part of URL
+      const fullFileName = resumeUrl?.split("/").pop(); // Get last part of URL
       const nameMatch = fullFileName.match(/([a-zA-Z]+)\.pdf/i); // Extract name before ".pdf"
       const cleanFileName = nameMatch ? nameMatch[1] : "resume";
 

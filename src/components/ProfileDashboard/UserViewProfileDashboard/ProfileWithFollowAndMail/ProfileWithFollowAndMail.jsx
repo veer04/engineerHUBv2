@@ -290,7 +290,7 @@ const ProfileWithFollowAndMail = ({ DashboardAdminData }) => {
               Resume
             </h3>
           </div>
-          <div
+          {/* <div
             style={{
               backgroundColor: "#F7D77F",
               padding: "4px 6px",
@@ -300,7 +300,7 @@ const ProfileWithFollowAndMail = ({ DashboardAdminData }) => {
             <h3 style={{ fontSize: 12, marginBottom: 0, fontWeight: 500 }}>
               ATS Score: 70%
             </h3>
-          </div>
+          </div> */}
           <div className="update-view-trash-download">
             <div className="update-view-btn">
               <button onClick={handleViewResume}>View</button>
