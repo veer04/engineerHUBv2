@@ -166,6 +166,24 @@ export default function NewNavbar() {
           </div>
         </div>
       )}
+      <div className="pages" style ={{ display :  "flex"}}>
+      <Link onClick={() => setSelectedPageNavbar("enterprise")} to="/enterprise">
+      <button
+        className={`${
+          selectedPageNavbar === "enterprise" ? "--is-active" : ""
+        } services-btn`}
+      >
+        Enterprise
+        {/* <span
+          className={`${
+            selectedPageNavbar === "services" ? "--is-active" : ""
+          } new-badge`}
+        >
+          New
+        </span> */}
+      </button>
+    </Link>
+    </div>
     </nav>
   );
 }

@@ -1,0 +1,149 @@
+.frameReviews {
+    align-items: center;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    justify-content: center;
+    padding: 24px 0px;
+    position: relative;
+    width: 1200px;
+}
+
+.frameReviews .div {
+    align-items: center;
+    display: inline-flex;
+    flex: 0 0 auto;
+    gap: 10px;
+    justify-content: center;
+    position: relative;
+}
+
+.frameReviews .text-wrapper {
+    color: var(--icon-primary);
+    font-family: var(--desktop-heading-dt-heading-md-font-family);
+    font-size: var(--desktop-heading-dt-heading-md-font-size);
+    font-style: var(--desktop-heading-dt-heading-md-font-style);
+    font-weight: var(--desktop-heading-dt-heading-md-font-weight);
+    letter-spacing: var(--desktop-heading-dt-heading-md-letter-spacing);
+    line-height: var(--desktop-heading-dt-heading-md-line-height);
+    margin-top: -1.00px;
+    position: relative;
+    white-space: nowrap;
+    width: fit-content;
+}
+
+.frameReviews .vector {
+    height: 18.48px;
+    position: relative;
+    width: 20.16px;
+}
+
+.frameReviews .feedback {
+    align-items: flex-start;
+    align-self: stretch;
+    display: flex;
+    flex: 0 0 auto;
+    justify-content: space-between;
+    position: relative;
+    width: 100%;
+}
+
+.frameReviews .frameReviews-wrapper {
+    align-items: flex-start;
+    background-color: #ffffff;
+    box-shadow: var(--drop-shadow-100);
+    display: inline-flex;
+    flex: 0 0 auto;
+    flex-direction: column;
+    gap: 16px;
+    position: relative;
+}
+
+.frameReviews .div-2 {
+    align-items: flex-start;
+    border: 1px solid;
+    border-color: #000000;
+    border-radius: 12px;
+    box-shadow: var(--drop-shadow-100);
+    display: flex;
+    flex: 0 0 auto;
+    flex-direction: column;
+    gap: 16px;
+    justify-content: center;
+    padding: 20px;
+    position: relative;
+    width: 275px;
+}
+
+.frameReviews .div-wrapper {
+    align-items: center;
+    align-self: stretch;
+    display: flex;
+    flex: 0 0 auto;
+    gap: 10px;
+    justify-content: center;
+    position: relative;
+    width: 100%;
+}
+
+.frameReviews .p {
+    color: var(--icon-primary);
+    flex: 1;
+    font-family: var(--desktop-label-md-dt-label-regular-font-family);
+    font-size: var(--desktop-label-md-dt-label-regular-font-size);
+    font-style: var(--desktop-label-md-dt-label-regular-font-style);
+    font-weight: var(--desktop-label-md-dt-label-regular-font-weight);
+    letter-spacing: var(--desktop-label-md-dt-label-regular-letter-spacing);
+    line-height: var(--desktop-label-md-dt-label-regular-line-height);
+    margin-top: -1.00px;
+    position: relative;
+}
+
+.frameReviews .div-3 {
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    height: 36px;
+    justify-content: center;
+    position: relative;
+    width: 235px;
+}
+
+.frameReviews .text-wrapper-2 {
+    color: var(--icon-primary);
+    font-family: var(--desktop-label-md-dt-label-bold-font-family);
+    font-size: var(--desktop-label-md-dt-label-bold-font-size);
+    font-style: var(--desktop-label-md-dt-label-bold-font-style);
+    font-weight: var(--desktop-label-md-dt-label-bold-font-weight);
+    letter-spacing: var(--desktop-label-md-dt-label-bold-letter-spacing);
+    line-height: var(--desktop-label-md-dt-label-bold-line-height);
+    margin-top: -1.00px;
+    position: relative;
+    white-space: nowrap;
+    width: fit-content;
+}
+
+.frameReviews .text-wrapper-3 {
+    color: var(--texttext-secondary);
+    font-family: var(--desktop-label-md-dt-label-regular-font-family);
+    font-size: var(--desktop-label-md-dt-label-regular-font-size);
+    font-style: var(--desktop-label-md-dt-label-regular-font-style);
+    font-weight: var(--desktop-label-md-dt-label-regular-font-weight);
+    letter-spacing: var(--desktop-label-md-dt-label-regular-letter-spacing);
+    line-height: var(--desktop-label-md-dt-label-regular-line-height);
+    margin-top: -1.00px;
+    position: relative;
+    white-space: nowrap;
+    width: fit-content;
+}
+
+.frameReviews .frameReviews-wrapper-2 {
+    align-items: flex-start;
+    background-color: #ffffff;
+    display: inline-flex;
+    flex: 0 0 auto;
+    flex-direction: column;
+    gap: 16px;
+    position: relative;
+}

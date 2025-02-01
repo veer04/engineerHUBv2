@@ -1,0 +1,161 @@
+.connectWithUs {
+    flex: 1;
+    position: relative;
+    line-height: 24px;
+}
+.connectWithUsWrapper {
+    align-self: stretch;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+}
+.letUsHelp {
+    flex: 1;
+    position: relative;
+    line-height: 32px;
+}
+.letUsHelpYouToHireTheBeWrapper {
+    align-self: stretch;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 1px;
+    font-size: 28px;
+    color: #002b36;
+    font-family: 'DM Sans';
+}
+.bookASlot {
+    flex: 1;
+    position: relative;
+    line-height: 20px;
+}
+.bookASlotWithOurTeamOrRWrapper {
+    align-self: stretch;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 1px;
+    font-size: 16px;
+}
+.frameContainer {
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 8px;
+}
+.frameWrapper {
+    align-self: stretch;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+}
+.bookASlotNowWrapper {
+    align-self: stretch;
+    border-radius: 43px;
+    background-color: #138382;
+    height: 44px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 0px 16px;
+    box-sizing: border-box;
+}
+.vectorIcon {
+    width: 16.6px;
+    position: relative;
+    height: 16.6px;
+}
+.phone {
+    width: 20px;
+    height: 20px;
+    overflow: hidden;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+}
+.span {
+    color: #002b36;
+}
+.b {
+    position: relative;
+    line-height: 16px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.wrapper {
+    border-radius: 43px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+.phoneParent {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 8px;
+}
+.mailIcon {
+    width: 20px;
+    position: relative;
+    height: 20px;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+.frameParent1 {
+    width: 382px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    color: #138382;
+}
+.frameDiv {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    font-size: 14px;
+    color: #fff;
+}
+.frameGroup {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+.frameParent {
+    width: 80vw;
+    position: relative;
+    border-radius: 20px;
+    background-color: #fff;
+    overflow: hidden;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    box-sizing: border-box;
+    text-align: left;
+    font-size: 18px;
+    color: #547178;
+    font-family: Lato;
+    margin-left: 10%;
+    margin-top: -8%;
+    margin-bottom: -7%;
+}
+
