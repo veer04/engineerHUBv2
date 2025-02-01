@@ -18,12 +18,9 @@ const AddAchievementModal = ({ isOpen, onClose, data, setProfileData }) => {
     description: "",
     achievementUrl: "",
   });
-  console.log(data, "achievementData");
+
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
-  const [updateAchievementResponse, setUpdateAchievementResponse] = useState(
-    {}
-  );
   const [response, setResponse] = useState(null);
 
   useEffect(() => {
@@ -91,7 +88,7 @@ const AddAchievementModal = ({ isOpen, onClose, data, setProfileData }) => {
     return newErrors;
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const validationErrors = validateForm();
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
@@ -101,11 +98,8 @@ const AddAchievementModal = ({ isOpen, onClose, data, setProfileData }) => {
     setLoading(true);
 
     try {
-      addUserAchievement(formData, setUpdateAchievementResponse);
-
-      const response = updateAchievementResponse;
-
-      if (response) {
+      const dataRes = await addUserAchievement(formData);
+      if (dataRes && dataRes._id) {
         toast(
           data && data._id
             ? "✏️ Achievements has been updated successfully!"
@@ -126,10 +120,12 @@ const AddAchievementModal = ({ isOpen, onClose, data, setProfileData }) => {
         setProfileData((prevData) => ({
           ...prevData,
           achievementDetails: [
-            ...(prevData.achievementDetails || []),
+            ...(prevData.achievementDetails || []).filter(
+              (item) => item._id !== dataRes._id
+            ),
             {
-              _id: response._id,
-              profile: response.profile,
+              _id: dataRes._id,
+              profile: dataRes.profile,
               achievementDate: formData.achievementDate,
               achievementName: formData.achievementName,
               achievementUrl: formData.achievementUrl,
@@ -204,18 +200,21 @@ const AddAchievementModal = ({ isOpen, onClose, data, setProfileData }) => {
         }
       );
 
+      console.log(response, "responseDelete");
+
       if (response.ok) {
         toast.success("Achievement deleted successfully!");
         setProfileData((prevData) => ({
           ...prevData,
-          achievementDetails: prevData.achievementDetails.filter(
-            (achi) => achi._id !== achi._id
+          achievementDetails: prevData?.achievementDetails.filter(
+            (achi) => achi._id !== data._id
           ),
         }));
 
+        setFormData(null);
         onClose();
       } else {
-        toast.error(response?.data?.message || "Failed to delete Achievement.");
+        toast.error(response?.message || "Failed to delete Achievement.");
       }
     } catch (error) {
       console.error(error, "Error updating the Achievement");
@@ -263,7 +262,7 @@ const AddAchievementModal = ({ isOpen, onClose, data, setProfileData }) => {
                     <input
                       type="text"
                       id="achievementName"
-                      value={formData.achievementName}
+                      value={formData?.achievementName}
                       onChange={(e) =>
                         handleChange("achievementName", e.target.value)
                       }
@@ -293,7 +292,7 @@ const AddAchievementModal = ({ isOpen, onClose, data, setProfileData }) => {
                     <input
                       type="date"
                       id="achievementDate"
-                      value={formData.achievementDate}
+                      value={formData?.achievementDate}
                       onChange={(e) =>
                         handleChange("achievementDate", e.target.value)
                       }
@@ -322,7 +321,7 @@ const AddAchievementModal = ({ isOpen, onClose, data, setProfileData }) => {
                     <textarea
                       rows={4}
                       id="description"
-                      value={formData.description}
+                      value={formData?.description}
                       onChange={(e) =>
                         handleChange("description", e.target.value)
                       }
@@ -352,7 +351,7 @@ const AddAchievementModal = ({ isOpen, onClose, data, setProfileData }) => {
                     <input
                       type="url"
                       id="achievementUrl"
-                      value={formData.achievementUrl}
+                      value={formData?.achievementUrl}
                       onChange={(e) =>
                         handleChange("achievementUrl", e.target.value)
                       }
