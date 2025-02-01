@@ -415,10 +415,10 @@ const ProfileWithPostEditShare = ({
                   fontWeight: 600,
                 }}
               >
-                {`${privateDashboardData.firstName} ${privateDashboardData.lastName} Resume`}
+                Resume
               </h3>
             </div>
-            <div
+            {/* <div
               style={{
                 backgroundColor: "#F7D77F",
                 padding: "4px 6px",
@@ -428,7 +428,7 @@ const ProfileWithPostEditShare = ({
               <h3 style={{ fontSize: 12, marginBottom: 0, fontWeight: 500 }}>
                 ATS Score: 80%
               </h3>
-            </div>
+            </div> */}
           </div>
 
           <div className="update-view-trash-download">

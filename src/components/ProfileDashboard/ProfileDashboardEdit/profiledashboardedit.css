@@ -6,6 +6,7 @@
   scroll-behavior: auto;
   font-family: "Lato", sans-serif;
   gap: 16px;
+  background-color: #fafafa !important;
 }
 
 .profile-dashboard-edit-start-div .profile-dashboard-edit-left-div {

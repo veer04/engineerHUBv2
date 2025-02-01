@@ -267,7 +267,7 @@ const PersonalInformationModal = ({
               </div>
             </div>
 
-            <div className="modal-div-inner">
+            <div className="modal-div-inner-full">
               <div
                 className={`mb-2 image-input-main-div ${
                   errors.dateOfBirth ? "error" : ""
@@ -284,7 +284,7 @@ const PersonalInformationModal = ({
                   id="dateOfBirth"
                   value={formData.dateOfBirth}
                   onChange={(e) => handleChange("dateOfBirth", e.target.value)}
-                  className={`mt-1 input-css ${
+                  className={`mt-1 input-css-full ${
                     errors.dateOfBirth ? "border-red-500" : "border-gray-300"
                   }`}
                 />
@@ -300,9 +300,9 @@ const PersonalInformationModal = ({
                   htmlFor="aboutMe"
                   className="label-css block text-sm font-medium"
                 >
-                  About Me
+                  Short Bio
                 </label>
-                <textarea
+                <input
                   rows={2}
                   id="aboutMe"
                   value={formData.aboutMe}

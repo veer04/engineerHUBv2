@@ -37,6 +37,20 @@ const AddCertificationsModal = ({ isOpen, onClose, data, setProfileData }) => {
       if (field === "issuedBy" && value.trim()) {
         delete newErrors.issuedBy;
       }
+
+      if (field === "issuedDate") {
+        const selectedDate = new Date(value);
+        const currentDate = new Date();
+
+        selectedDate.setHours(0, 0, 0, 0);
+        currentDate.setHours(0, 0, 0, 0);
+
+        if (selectedDate > currentDate) {
+          newErrors.issuedDate = "Issue date cannot be in the future.";
+        } else {
+          delete newErrors.issuedDate;
+        }
+      }
       return newErrors;
     });
   };
@@ -62,6 +76,20 @@ const AddCertificationsModal = ({ isOpen, onClose, data, setProfileData }) => {
 
     if (!formData.issuedBy) {
       newErrors.issuedBy = "Issuer name is required.";
+    }
+
+    if (!formData.issuedDate) {
+      newErrors.issueDate = "Issue date is required.";
+    } else {
+      const selectedDate = new Date(formData.issuedDate);
+      const currentDate = new Date();
+
+      selectedDate.setHours(0, 0, 0, 0);
+      currentDate.setHours(0, 0, 0, 0);
+
+      if (selectedDate > currentDate) {
+        newErrors.issueDate = "Issue date cannot be in the future.";
+      }
     }
 
     return newErrors;

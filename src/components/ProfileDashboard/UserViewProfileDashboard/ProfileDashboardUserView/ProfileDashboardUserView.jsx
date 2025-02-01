@@ -255,14 +255,16 @@ const ProfileDashboardUserView = () => {
                   </div>
                 )}
 
-              <div style={{ marginTop: 10 }}>
-                <UserViewStudentFollowAlsoFollow
-                  followUsers={followUsers}
-                  title={`${
-                    DashboardAdminData && DashboardAdminData.firstName
-                  } also follows`}
-                />
-              </div>
+              {followUsers && followUsers.length >= 0 && (
+                <div style={{ marginTop: 10 }}>
+                  <UserViewStudentFollowAlsoFollow
+                    followUsers={followUsers}
+                    title={`${
+                      DashboardAdminData && DashboardAdminData.firstName
+                    } also follows`}
+                  />
+                </div>
+              )}
 
               <div style={{ marginTop: 10 }}>
                 <img
