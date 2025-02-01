@@ -345,33 +345,34 @@ export const updateUserDetails = (data, setResponse) => {
     });
 };
 
-export const addUserEducation = (data, setResponse) => {
-  const controller = new AbortController();
-  const updatedData = {
-    ...data,
-    startYear: new Date(data.startYear),
-    endYear: new Date(data.endYear),
-  };
-  const config = {
-    headers: {
-      accessToken: getAccessToken(),
-    },
-  };
-  axios
-    .post(`${API_URL}api/v1/add/education`, updatedData, config)
-    .then((res) => {
-      console.log(res);
-      setResponse(res);
-    })
-    .catch((err) => {
-      console.log(err);
-      setResponse(err);
-      if (axios.isCancel(err)) {
-        console.log("req cancel");
-      } else {
-        console.log("req performed");
-      }
-    });
+export const addUserEducation = async (data) => {
+  try {
+    const updatedData = {
+      ...data,
+      startYear: new Date(data.startYear),
+      endYear: new Date(data.endYear),
+    };
+    const config = {
+      headers: {
+        accessToken: getAccessToken(),
+      },
+    };
+    const response = await axios.post(
+      `${API_URL}api/v1/add/education`,
+      updatedData,
+      config
+    );
+
+    console.log(response.data, "API Response");
+    return response.data.data;
+  } catch (error) {
+    if (axios.isCancel(error)) {
+      console.log("Request canceled");
+    } else {
+      console.error("Request failed", error);
+    }
+    throw error; // Propagate error to caller
+  }
 };
 
 //update user education
