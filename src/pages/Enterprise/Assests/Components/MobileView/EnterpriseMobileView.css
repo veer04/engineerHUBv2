@@ -8,7 +8,7 @@
 
 .job-a-thon-mobile .div {
     background-color: #f9f9f9;
-    height: 6225px;
+    height: 4700px;
     position: relative;
     width: 390px;
 }
@@ -28,7 +28,7 @@
     gap: 24px;
     justify-content: center;
     left: 0;
-    padding: 24px 16px;
+    /* padding: 24px 16px; */
     position: absolute;
     top: 0;
     width: 390px;
@@ -578,6 +578,29 @@
     width: 100%;
 }
 
+.frameMobView-20 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* Ensures 4 items per row */
+    gap: 16px;
+    width: 100%;
+    max-width: 800px; /* Adjust max-width as needed */
+}
+
+.grid-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+
 .job-a-thon-mobile .frameMobView-21 {
     align-items: center;
     display: flex;
@@ -650,7 +673,7 @@
 }
 
 .job-a-thon-mobile .bits-min-png {
-    background-image: url(./bits-min.png.png);
+    
     background-position: 50% 50%;
     background-size: cover;
     height: 55.25px;
@@ -672,7 +695,7 @@
 }
 
 .job-a-thon-mobile .iima-min-webp {
-    background-image: url(./iima-min.webp.png);
+   
     background-position: 50% 50%;
     background-size: cover;
     height: 55.25px;
@@ -682,7 +705,7 @@
 }
 
 .job-a-thon-mobile .iimcal-min-webp {
-    background-image: url(./iimcal-min.webp.png);
+    
     background-position: 50% 50%;
     background-size: cover;
     height: 55.25px;
@@ -692,7 +715,7 @@
 }
 
 .job-a-thon-mobile .vnit-logo-webp {
-    background-image: url(./vnit-logo.webp.png);
+  
     background-position: 50% 50%;
     background-size: cover;
     height: 58.45px;
@@ -702,7 +725,6 @@
 }
 
 .job-a-thon-mobile .srm-logo-webp {
-    background-image: url(./srm-logo.webp.png);
     background-position: 50% 50%;
     background-size: cover;
     height: 55.25px;
@@ -712,7 +734,6 @@
 }
 
 .job-a-thon-mobile .nmims-min-png {
-    background-image: url(./nmims-min.png.png);
     background-position: 50% 50%;
     background-size: cover;
     height: 55.25px;
@@ -722,7 +743,6 @@
 }
 
 .job-a-thon-mobile .spjain-min-webp {
-    background-image: url(./spjain-min.webp.png);
     background-position: 50% 50%;
     background-size: cover;
     height: 55.25px;
@@ -732,7 +752,6 @@
 }
 
 .job-a-thon-mobile .bml-munjal-min-png {
-    background-image: url(./bml-munjal-min.png.png);
     background-position: 50% 50%;
     background-size: cover;
     height: 55.25px;

@@ -1,23 +1,17 @@
 import React from "react";
-import x2304030502293900241 from "./230403050229390024-1.png";
-import EHUBWhite1 from "./EHUB-white-1.png";
-// import { IconComponentNode } from "./SocialIcons.svg";
-// import { SocialIcons } from "./SocialIcons.svg";
-// import { SocialIcons1 } from "./SocialIcons.svg";
-// import { SocialIcons2 } from "./SocialIcons.svg";
-import company42 from "./Company-4-2.png";
-import group48095607 from "./group-48095607.svg";
-import image131 from "./image-131.png";
-import image from "./Vector-2.svg";
-import importantRecruitingMetricsFeatured11 from "./important-recruiting-metrics-featured-1-1.png";
-import mail from "./mail.svg";
-import orangeWhiteGreenNeoBrutalismBusinessPerformanceDashboardGraph1 from "./orange-white-green-neo-brutalism-business-performance-dashboard-graph-1.png";
-import phone from "./Vector.svg";
+import { Bucket_URL } from "../../../../../services/APIUtils";
 import "./EnterpriseMobileView.css";
-import vector2 from "./vector-2.svg";
-import vector from "./vector.svg";
-
 export const JobAThonMobile = () => {
+    const bucket = `${Bucket_URL}frontend/enterprise/mobileView/`;
+    const bitsminpng =`${bucket}bits-min.png.png`;
+    const iimaminwebp =`${bucket}iima-min.webp.png`;
+    const iimcalminwebp = `${bucket}iimcal-min.webp.png`;
+    const vnitlogowebp =`${bucket}vnit-logo.webp.png`;
+    const nmimsminpng = `${bucket}nmims-min.png.png`;
+    const spjainminwebp = `${bucket}spjain-min.webp.png`;
+    const bmlmunjalminpng = `${bucket}bml-munjal-min.png.png`; 
+    const srmlogowebppng = `${bucket}srm-logo.webp.png`;
+
     return (
         <div className="job-a-thon-mobile">
             <div className="div">
@@ -53,7 +47,7 @@ export const JobAThonMobile = () => {
                         </div>
                     </div>
 
-                    <img className="company" alt="Company" src={company42} />
+                    <img className="company" alt="Company" src={`${bucket}company-4-2.png`} />
                 </div>
 
                 <div className="frameMobView-7">
@@ -136,7 +130,7 @@ export const JobAThonMobile = () => {
                             <img
                                 className="element"
                                 alt="Element"
-                                src={x2304030502293900241}
+                                src={`${bucket}230403050229390024-1.png`}
                             />
                         </div>
                     </div>
@@ -160,7 +154,7 @@ export const JobAThonMobile = () => {
                             <img
                                 className="important-recruiting"
                                 alt="Important recruiting"
-                                src={importantRecruitingMetricsFeatured11}
+                                src={`${bucket}important-recruiting-metrics-featured-1-1.png`}
                             />
 
                             <p className="connect-hire-top">Connect &amp; Hire Top Talent</p>
@@ -187,7 +181,7 @@ export const JobAThonMobile = () => {
                                 className="orange-white-green"
                                 alt="Orange white green"
                                 src={
-                                    orangeWhiteGreenNeoBrutalismBusinessPerformanceDashboardGraph1
+                                    `${bucket}orange-white-green-neo-brutalism-business-performance-dashboard-graph-1.png`
                                 }
                             />
 
@@ -213,56 +207,61 @@ export const JobAThonMobile = () => {
                         </div>
 
                         <div className="frameMobView-20">
-                            <div className="frameMobView-23">
-                                <div className="container">
-                                    <div className="bits-min-png" />
+      <div className="grid-container">
+        <div className="grid-item">
+          <div className="bits-min-png" 
+          
+          style={{
+            backgroundImage : `url(${bitsminpng})`
+          }}
+          />
+          <div className="text-wrapper-14">BITS Pilani</div>
+        </div>
+        <div className="grid-item">
+          <div className="iima-min-webp"
+          
+          style={{
+            backgroundImage : `url(${iimaminwebp})`
+          }}
+          />
+          <div className="text-wrapper-14">IIM Ahmedabad</div>
+        </div>
+        <div className="grid-item">
+          <div className="iimcal-min-webp" 
+          style={{
 
-                                    <div className="text-wrapper-14">BITS Pilani</div>
-                                </div>
-
-                                <div className="container">
-                                    <div className="iima-min-webp" />
-
-                                    <div className="text-wrapper-14">IIM Ahmedabad</div>
-                                </div>
-
-                                <div className="container">
-                                    <div className="iimcal-min-webp" />
-
-                                    <div className="text-wrapper-14">IIM Calcutta</div>
-                                </div>
-
-                                <div className="container">
-                                    <div className="vnit-logo-webp" />
-
-                                    <div className="text-wrapper-14">VNIT, Nagpur</div>
-                                </div>
-
-                                <div className="container">
-                                    <div className="srm-logo-webp" />
-
-                                    <div className="text-wrapper-14">SRM University</div>
-                                </div>
-
-                                <div className="container">
-                                    <div className="nmims-min-png" />
-
-                                    <div className="text-wrapper-14">NMIMS</div>
-                                </div>
-
-                                <div className="container">
-                                    <div className="spjain-min-webp" />
-
-                                    <div className="text-wrapper-14">SP Jain</div>
-                                </div>
-
-                                <div className="container">
-                                    <div className="bml-munjal-min-png" />
-
-                                    <div className="text-wrapper-14">BML</div>
-                                </div>
-                            </div>
-                        </div>
+            backgroundImage : `url(${iimcalminwebp})`
+          }}
+          />
+          <div className="text-wrapper-14">IIM Calcutta</div>
+        </div>
+        <div className="grid-item">
+          <div className="vnit-logo-webp" 
+          style={{backgroundImage : `url(${vnitlogowebp})`}}
+          />
+          <div className="text-wrapper-14">VNIT, Nagpur</div>
+        </div>
+        <div className="grid-item">
+          <div className="srm-logo-webp" style={{backgroundImage : `url$(srmlogowebppng)`}} />
+          <div className="text-wrapper-14">SRM University</div>
+        </div>
+        <div className="grid-item">
+          <div className="nmims-min-png" 
+          style={{ backgroundImage : `url(${nmimsminpng})`}}
+          />
+          <div className="text-wrapper-14">NMIMS</div>
+        </div>
+        <div className="grid-item">
+          <div className="spjain-min-webp" style={{backgroundImage : `url(${spjainminwebp})`}} />
+          <div className="text-wrapper-14">SP Jain</div>
+        </div>
+        <div className="grid-item">
+          <div className="bml-munjal-min-png"
+          style ={{  backgroundImage : `url(${bmlmunjalminpng})`}} />
+          <div className="text-wrapper-14">BML</div>
+        </div>
+      </div>
+    </div>
                     </div>
 
                     <div className="frameMobView-24">
@@ -295,7 +294,7 @@ export const JobAThonMobile = () => {
 
                                 <div className="frameMobView-30">
                                     <div className="frameMobView-31">
-                                        <img className="img" alt="Phone" src={phone} />
+                                        <img className="img" alt="Phone" src={`${bucket}Vector.svg`} />
 
                                         <div className="frameMobView-32">
                                             <div className="element-2">
@@ -307,7 +306,7 @@ export const JobAThonMobile = () => {
                                     </div>
 
                                     <div className="frameMobView-31">
-                                        <img className="img" alt="Mail" src={mail} />
+                                        <img className="img" alt="Mail" src={`${bucket}mail.svg`} />
 
                                         <div className="frameMobView-32">
                                             <div className="text-wrapper-19">info@engineerhub.in</div>
@@ -322,7 +321,7 @@ export const JobAThonMobile = () => {
                         <div className="frameMobView-34">
                             <div className="text-wrapper-20">Why HRs support us</div>
 
-                            <img className="vector" alt="Vector" src={vector2} />
+                            <img className="vector" alt="Vector" src={`${bucket}Vector-2.svg`} />
                         </div>
 
                         <div className="feedback">
