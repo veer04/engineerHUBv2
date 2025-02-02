@@ -401,7 +401,7 @@ function App() {
             </Route>
           </Route>
 
-          <Route path="/profiledashboard" element={<ProfileDashboard />} />
+          {/* <Route path="/profiledashboard" element={<ProfileDashboard />} />
           <Route
             path="/profiledashboarduserview"
             element={<ProfileDashboardUserView />}
@@ -410,9 +410,9 @@ function App() {
           <Route
             path="/profiledashboardedit"
             element={<ProfileDashboardEdit />}
-          />
+          /> */}
           <Route path="*" element={<Page404 />} />
-          <Route path= "/Enterprise" element ={<Enterprise/>}/>
+          <Route path="/Enterprise" element={<Enterprise />} />
         </Routes>
       </Suspense>
       <NewFooter />
