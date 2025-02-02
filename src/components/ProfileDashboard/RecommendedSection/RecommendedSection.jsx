@@ -9,7 +9,7 @@ import { getAccessToken } from "../../../features/getCookieValues";
 const RecommendedSection = () => {
   const [recommendationData, setRecommendationData] = useState([]);
 
-  // console.log(recommendationData, "recomsaif");
+  console.log(recommendationData, "recomsaif");
 
   const fetchRecommendationData = async () => {
     try {
@@ -56,11 +56,11 @@ const RecommendedSection = () => {
 
         <div className="recommendation-cards-saif">
           {recommendationData?.job && (
-            <RecommendationCard1 data={recommendationData.job} />
+            <RecommendationCard1 data={recommendationData?.job} />
           )}
 
           {recommendationData?.meet && (
-            <RecommendedCard2 data={recommendationData.meet} />
+            <RecommendedCard2 data={recommendationData?.meet} />
           )}
         </div>
       </div>
