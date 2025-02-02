@@ -194,6 +194,11 @@ const ProfileWithFollowAndMail = ({ DashboardAdminData }) => {
             fontSize: 16,
             lineHeight: "22px",
             color: "#f3f3f3",
+            display: "-webkit-box",
+            WebkitBoxOrient: "vertical",
+            WebkitLineClamp: 2, // Limits text to 2 lines
+            overflow: "hidden",
+            textOverflow: "ellipsis",
           }}
         >
           {DashboardAdminData?.aboutMe ||
