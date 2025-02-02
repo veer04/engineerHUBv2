@@ -15,36 +15,45 @@ import "react-toastify/dist/ReactToastify.css";
 import { RWebShare } from "react-web-share";
 import { deleteResume } from "../../../services/APIConfig";
 import { getUserId } from "../../../features/User/UserDetails";
+import moment from "moment";
+import { useNavigate } from "react-router-dom";
 
 const ProfileWithPostEditShare = ({
   privateDashboardData,
   setPrivateDashboardData,
 }) => {
-  const [isLiked, setIsLiked] = useState(false);
-  const [likeCount, setLikeCount] = useState(0);
   const [isResumeUploaded, setIsResumeUploaded] = useState(
     !!privateDashboardData?.resume
   );
-  const [loading, setLoading] = useState(false);
+
   const userId = getUserId();
 
-  const [uploadedFileName, setUploadedFileName] = useState(
-    privateDashboardData?.resume
-      ? privateDashboardData?.resume.split("/").pop()
-      : ""
-  );
+  const [uploadedFileName, setUploadedFileName] = useState(null);
+
   const [resume, setResume] = useState(null);
   const [resumeUrl, setResumeUrl] = useState("");
   const fileInputRef = React.useRef(null);
-  const [progress, setProgress] = useState(0);
+  const [downloadProgress, setDownloadProgress] = useState(null);
+  const [isDownloading, setIsDownloading] = useState(false);
   const [response, setResponse] = useState(null);
+  const [uploadDate, setUploadDate] = useState(
+    privateDashboardData?.resume ? moment().format("YYYY-MM-DD") : ""
+  );
+  const [isLoadingClickToUploadResume, setIsLoadingClickToUploadResume] =
+    useState(false);
 
   console.log("data", privateDashboardData);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (privateDashboardData?.resume) {
       setIsResumeUploaded(true);
-      setUploadedFileName(privateDashboardData?.resume?.split("/").pop());
+      const fullFileName = privateDashboardData?.resume.split("/").pop();
+      const nameMatch = fullFileName.match(/([a-zA-Z0-9_-]+)\.pdf/i);
+      const cleanFileName = nameMatch ? nameMatch[1] : "resume";
+      setUploadedFileName(cleanFileName);
+      setResumeUrl(privateDashboardData?.resume);
+      setUploadDate(moment().format("YYYY-MM-DD"));
     }
   }, [privateDashboardData?.resume]);
 
@@ -57,6 +66,8 @@ const ProfileWithPostEditShare = ({
 
     if (file) {
       setResume(file);
+      setIsLoadingClickToUploadResume(true);
+
       try {
         const formData = new FormData();
         formData.append("resume", file);
@@ -75,13 +86,15 @@ const ProfileWithPostEditShare = ({
 
         if (response.data) {
           setIsResumeUploaded(true);
-          const newResumeUrl = response.data.data;
-          setResumeUrl(newResumeUrl);
+          const uploadedUrl = response.data.data;
+          const fullFileName = uploadedUrl.split("/").pop();
+          const nameMatch = fullFileName.match(/([a-zA-Z0-9_-]+)\.pdf/i);
+          const cleanFileName = nameMatch ? nameMatch[1] : "resume";
 
-          const fullFilename = newResumeUrl.split("/").pop();
-          const trimmedFilename = fullFilename.split("_")[0] + ".pdf";
-
-          setUploadedFileName(trimmedFilename);
+          setUploadedFileName(cleanFileName);
+          setUploadDate(moment().format("YYYY-MM-DD"));
+          setResumeUrl(uploadedUrl);
+          setIsLoadingClickToUploadResume(false);
 
           toast("🥳 Resume Added Successfully!", {
             position: "top-right",
@@ -96,9 +109,8 @@ const ProfileWithPostEditShare = ({
           });
           setPrivateDashboardData((prevData) => ({
             ...prevData,
-            resume: newResumeUrl,
+            resume: resumeUrl,
           }));
-          setUploadedFileName(newResumeUrl.split("/").pop());
         }
         console.log("Resume upload response:", response.data);
       } catch (error) {
@@ -119,8 +131,8 @@ const ProfileWithPostEditShare = ({
   };
 
   const handleViewResume = () => {
-    if (privateDashboardData?.resume) {
-      window.open(privateDashboardData?.resume, "_blank");
+    if (resumeUrl) {
+      window.open(resumeUrl, "_blank");
     } else {
       toast.error("Resume URL not available yet!");
     }
@@ -128,48 +140,57 @@ const ProfileWithPostEditShare = ({
 
   const downloadResume = async () => {
     try {
+      setIsDownloading(true);
+      setDownloadProgress(0);
       const response = await axios({
-        url: `${API_URL}api/v1/downloadPdf?title=${privateDashboardData?.resume}&url=${privateDashboardData?.resume}`,
+        url: `${API_URL}api/v1/downloadPdf?title=${uploadedFileName}`,
         method: "POST",
-        data: { title: resumeUrl, url: privateDashboardData?.resume },
+        data: { title: uploadedFileName, url: resumeUrl },
         responseType: "blob",
         onDownloadProgress: (progressEvent) => {
           let percentCompleted = Math.round(
             (progressEvent.loaded * 100) / progressEvent.total
           );
-          setProgress(percentCompleted);
+          setDownloadProgress(percentCompleted);
         },
       });
 
-      setProgress(100);
+      const fullFileName = resumeUrl?.split("/").pop(); // Get last part of URL
+      const nameMatch = fullFileName.match(/([a-zA-Z]+)\.pdf/i); // Extract name before ".pdf"
+      const cleanFileName = nameMatch ? nameMatch[1] : "resume";
+
       const blob = new Blob([response.data], {
         type: "application/pdf",
       });
-      const url = privateDashboardData?.resume;
-      const fileName = url?.split("/").pop().split("_")[1] + ".pdf";
 
       const link = document.createElement("a");
       link.href = URL.createObjectURL(blob);
-      link.setAttribute("download", fileName);
+      link.setAttribute("download", cleanFileName);
       link.click();
+
+      if (downloadProgress === 100) {
+        setIsDownloading(false); // Re-enable button when download is complete
+      }
+
+      setTimeout(() => {
+        setDownloadProgress(null);
+      }, 1000);
     } catch (err) {
       console.error(err);
     } finally {
-      setLoading(false);
+      setIsDownloading(false);
     }
   };
-
-  // console.log(uploadedFileName, "iploadefilename");
-  // const handleThumbsUpClick = () => {
-  //   setIsLiked(true);
-  //   setLikeCount(likeCount + 1);
-  // };
 
   const handleDeleteResume = () => {
     deleteResume(userId, (res) => {
       console.log(res, "res");
       setResponse(res);
       if (res.status === 200) {
+        setIsResumeUploaded(false);
+        setUploadedFileName("");
+        setResumeUrl("");
+        setIsLoadingClickToUploadResume(false);
         toast("💀 Resume Delete Successfully!", {
           position: "top-right",
           autoClose: 5000,
@@ -367,7 +388,7 @@ const ProfileWithPostEditShare = ({
         )}
 
       <div className="btn-siv-edit-post-share">
-        <button onClick={handleEditPage}>Edit</button>
+        <button onClick={() => navigate("edit-profile")}>Edit</button>
         <button onClick={handlePostPage}>Post</button>
         <RWebShare
           data={{
@@ -384,7 +405,11 @@ const ProfileWithPostEditShare = ({
         <div className="click-to-upload-your-resume">
           <div className="click-to-upload-your-resume-innner">
             <button
-              onClick={handleResumeUploadClick}
+              onClick={() => {
+                if (!isLoadingClickToUploadResume) {
+                  handleResumeUploadClick();
+                }
+              }}
               style={{
                 fontWeight: 700,
                 fontSize: 14,
@@ -392,8 +417,13 @@ const ProfileWithPostEditShare = ({
                 color: "#547178",
                 marginBottom: 0,
               }}
+              disabled={isLoadingClickToUploadResume}
             >
-              Click to upload your resume
+              {isLoadingClickToUploadResume ? (
+                <div className="loader-4"></div>
+              ) : (
+                "Click to upload your resume"
+              )}
             </button>
           </div>
         </div>
@@ -415,7 +445,7 @@ const ProfileWithPostEditShare = ({
                   fontWeight: 600,
                 }}
               >
-                Resume
+                {uploadedFileName}
               </h3>
             </div>
             {/* <div
@@ -438,8 +468,9 @@ const ProfileWithPostEditShare = ({
             </div>
 
             <div className="download-trash-icon">
-              <div
+              <button
                 onClick={downloadResume}
+                disabled={isDownloading || downloadProgress === 100}
                 style={{
                   backgroundColor: "#1383821a",
                   width: 40,
@@ -448,32 +479,46 @@ const ProfileWithPostEditShare = ({
                   display: "flex",
                   justifyContent: "center",
                   alignItems: "center",
-                  cursor: "pointer",
+                  cursor: isDownloading ? "not-allowed" : "pointer",
+                  opacity: isDownloading ? 0.5 : 1,
+                  border: "none",
                 }}
               >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                >
-                  <path
-                    d="M12 14.5V4.5M12 14.5C11.2998 14.5 9.99153 12.5057 9.5 12M12 14.5C12.7002 14.5 14.0085 12.5057 14.5 12"
-                    stroke="#138382"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                  <path
-                    d="M20 16.5C20 18.982 19.482 19.5 17 19.5H7C4.518 19.5 4 18.982 4 16.5"
-                    stroke="#138382"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                </svg>
-              </div>
+                {downloadProgress !== null ? (
+                  <span
+                    style={{
+                      fontSize: "14px",
+                      fontWeight: "bold",
+                      color: "#138382",
+                    }}
+                  >
+                    {downloadProgress}%
+                  </span>
+                ) : (
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                  >
+                    <path
+                      d="M12 14.5V4.5M12 14.5C11.2998 14.5 9.99153 12.5057 9.5 12M12 14.5C12.7002 14.5 14.0085 12.5057 14.5 12"
+                      stroke="#138382"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                    <path
+                      d="M20 16.5C20 18.982 19.482 19.5 17 19.5H7C4.518 19.5 4 18.982 4 16.5"
+                      stroke="#138382"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                )}
+              </button>
 
               <div
                 onClick={() => handleDeleteResume()}
