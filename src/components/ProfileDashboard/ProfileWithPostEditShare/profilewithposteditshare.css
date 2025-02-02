@@ -4,6 +4,7 @@
   background-color: var(--primary-color-green);
   padding: 16px;
   border-radius: 16px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.08);
 }
 
 .main-profile-with-post-share .img-share-div {

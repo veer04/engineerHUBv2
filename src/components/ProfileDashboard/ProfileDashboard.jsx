@@ -12,6 +12,7 @@ import { getUserId } from "../../features/User/UserDetails";
 import { API_URL, Bucket_URL } from "../../services/APIUtils";
 import axios from "axios";
 import { getAccessToken } from "../../features/getCookieValues";
+import { useParams } from "react-router-dom";
 
 const ProfileDashboard = () => {
   const [privateDashboardData, setPrivateDashboardData] = useState(null);
@@ -26,6 +27,7 @@ const ProfileDashboard = () => {
   const [page, setPage] = useState(1);
   const userId = getUserId();
   const [loading, setLoading] = useState(false);
+  const { userIdParams } = useParams();
 
   const getPrivateDashboardData = async () => {
     try {

@@ -11,7 +11,7 @@ const YourActivitySection = ({
   internshipData,
   postData,
 }) => {
-  const [actionButton, setActionButton] = useState("Streak");
+  const [actionButton, setActionButton] = useState("Posts");
 
   const handleButtonClick = (buttonName) => {
     setActionButton(actionButton === buttonName ? null : buttonName);
@@ -43,8 +43,15 @@ const YourActivitySection = ({
         </h3>
       </div>
 
-      <div style={{ marginTop: 10 }}>
-        {["Streak", "Posts", "Jobs", "Internships"].map((buttonName, index) => (
+      <div
+        style={{
+          marginTop: 10,
+          display: "flex",
+          gap: 10,
+          alignItems: "center",
+        }}
+      >
+        {["Posts", "Jobs", "Internships"].map((buttonName, index) => (
           <button
             key={buttonName}
             onClick={() => handleButtonClick(buttonName)}
@@ -57,7 +64,7 @@ const YourActivitySection = ({
               lineHeight: "20px",
               color: actionButton === buttonName ? "white" : "black",
               border: "none",
-              marginLeft: index === 0 ? 0 : 10,
+              // marginLeft: index === 0 ? 0 : 10,
               boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.03)",
               cursor: "pointer",
               transition: "background 0.3s ease",
@@ -68,7 +75,7 @@ const YourActivitySection = ({
         ))}
       </div>
 
-      {actionButton === "Streak" && (
+      {/* {actionButton === "Streak" && (
         <>
           <div className="grid-activity-section">
             {activityCardArray.map((card, index) => (
@@ -148,7 +155,7 @@ const YourActivitySection = ({
             </div>
           </div>
         </>
-      )}
+      )} */}
 
       {actionButton === "Posts" && (
         <>
@@ -159,10 +166,11 @@ const YourActivitySection = ({
           ) : (
             <div
               style={{
+                width: "100%",
+                height: "30vh",
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
-                width: "100%",
                 padding: "20px",
               }}
             >
@@ -185,6 +193,7 @@ const YourActivitySection = ({
                 justifyContent: "center",
                 alignItems: "center",
                 width: "100%",
+                height: "30vh",
                 padding: "20px",
               }}
             >
@@ -207,6 +216,7 @@ const YourActivitySection = ({
                 justifyContent: "center",
                 alignItems: "center",
                 width: "100%",
+                height: "30vh",
                 padding: "20px",
               }}
             >
