@@ -15,9 +15,10 @@ import ExperienceResume from "../ExperienceResume/ExperienceResume";
 import SkillsResume from "../SkillsResume/SkillsResume";
 import { getUserId } from "../../../../features/User/UserDetails";
 import axios from "axios";
-import { API_URL } from "../../../../services/APIUtils";
+import { API_URL, Bucket_URL } from "../../../../services/APIUtils";
 import { getAccessToken } from "../../../../features/getCookieValues";
 import UserViewStudentFollowAlsoFollow from "../UserViewStudentFollow/UserViewStudentFollowAlsoFollow";
+import { useParams } from "react-router-dom";
 
 const ProfileDashboardUserView = () => {
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 520);
@@ -38,7 +39,7 @@ const ProfileDashboardUserView = () => {
 
   const [loading, setLoading] = useState(false);
 
-  const userId = getUserId();
+  const { userId } = useParams();
 
   useEffect(() => {
     const handleResize = () => {
@@ -270,7 +271,7 @@ const ProfileDashboardUserView = () => {
                 <img
                   className="user-view-img"
                   style={{ borderRadius: 8 }}
-                  src="./rectangle-img.png"
+                  src={`${Bucket_URL}UserViewDashboard/rectangle-img.png`}
                 />
               </div>
             </>
