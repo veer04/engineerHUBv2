@@ -242,7 +242,7 @@ export const JobAThonMobile = () => {
           <div className="text-wrapper-14">VNIT, Nagpur</div>
         </div>
         <div className="grid-item">
-          <div className="srm-logo-webp" style={{backgroundImage : `url$(srmlogowebppng)`}} />
+          <div className="srm-logo-webp" style={{backgroundImage : `url(${srmlogowebppng})`}} />
           <div className="text-wrapper-14">SRM University</div>
         </div>
         <div className="grid-item">

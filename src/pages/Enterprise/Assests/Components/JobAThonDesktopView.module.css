@@ -55,7 +55,11 @@
     flex-direction: column;
     align-items: flex-start;
     justify-content: center;
-    gap: 12px;
+    gap: 0px;
+    font-family: Lato;
+    font-size: 23px;
+    font-style: normal;
+    font-weight: 400;
 }
 .connectWithUs {
     position: relative;
@@ -387,12 +391,12 @@
 }
 .orangeWhiteGreenNeoBrutali {
     position: absolute;
-    top: 118.02px;
+    top: 38.02px;
     left: 38.96px;
     border-radius: 12px;
-    width: 547px;
+    width: 531px;
     height: 410.3px;
-    object-fit: cover;
+    object-fit: contain;
 }
 .frameParent10 {
     align-self: stretch;
