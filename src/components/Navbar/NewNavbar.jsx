@@ -173,7 +173,7 @@ export default function NewNavbar() {
           selectedPageNavbar === "enterprise" ? "--is-active" : ""
         } services-btn`}
       >
-        Enterprise
+        For Employers
         {/* <span
           className={`${
             selectedPageNavbar === "services" ? "--is-active" : ""
