@@ -283,48 +283,139 @@ const BookNowPayment = () => {
     setErrors(newErrors);
     return valid;
   };
+  const validateInput2 = () => {
+    let valid = true;
+    const newErrors = {
+      name: "",
+      email: "",
+      companyName: "",
+      designation: "",
+      query: "",
+    };
+  
+    if (!name) {
+      newErrors.name = "Name is required";
+      valid = false;
+      addToErrorStack("#name");
+    } else if (!/^[a-zA-Z\d\s]+$/.test(name)) {
+      newErrors.name = "Name should not contain special characters";
+      valid = false;
+      addToErrorStack("#name");
+    } else if (name.length < 3) {
+      newErrors.name = "Name should be at least 3 characters";
+      valid = false;
+      addToErrorStack("#name");
+    }
+  
+    if (!email) {
+      newErrors.email = "Email is required";
+      valid = false;
+      addToErrorStack("#email");
+    } else if (!emailExpression.test(email)) {
+      newErrors.email = "Invalid email format!";
+      valid = false;
+      addToErrorStack("#email");
+    }
+  
+    if (!companyName) {
+      newErrors.companyName = "Company Name is required";
+      valid = false;
+      addToErrorStack("#companyName");
+    }
+  
+    if (!designation) {
+      newErrors.designation = "Designation is required";
+      valid = false;
+      addToErrorStack("#designation");
+    }
+  
+    if (!query) {
+      newErrors.query = "Query is required";
+      valid = false;
+      addToErrorStack("#query");
+    } else if (query.length < 10) {
+      newErrors.query = "Query should be at least 10 characters";
+      valid = false;
+      addToErrorStack("#query");
+    }
+  
+    setErrors(newErrors);
+    return valid;
+  };
 const handleMeetingSub =() => {
   
+  // if (!validateInput2()) {
+  //   return;
+  // }
   setIsLoading(true);
 
-  if (meetingData?.price === 0 || meetingData?.fees === 0) {
-    axios
-      .post(
-        `${PAYMENT_API_URL}api/v1/meet-event/book?meetRegistrationId=${
-          meetingData?._id
-        }&ehub_referral=${
-          location?.search?.split("ref=")[1]?.split("&")[0] || ""
-        }`,
-        {},
-        {
-          headers: {
-            accessToken: getAccessToken(),
-          },
-        }
-      )
-      .then((res) => {
-        if (
-          res.status >= 200 &&
-          res.status < 300
-        ) {
-          console.log(res.data, "meetregistrationdata");
-          setSnackbarMessage("Your meet has been booked successfully!");
-          setSnackbarSeverity("success");
-          window.location.href = "/referrals/book-now/payment/success";
-        }
-      })
-      .catch((err) => {
-        console.error("Error booking meet", err);
-        setSnackbarMessage("Issue while booking meet, try again!");
-        setSnackbarSeverity("error");
+  const payload = {
+    name: name,
+    mobile: phoneNumber,
+    email: email,
+    query: extraQuestions,
+    startDateTime: startDateTimeISO,
+    endDateTime: endDateTimeISO,
+  };
+
+  axios
+    .post(
+      `${PAYMENT_API_URL}api/v1/meet-event/register/${meetingData._id}`,
+      payload,
+      {
+        headers: {
+          accessToken: getAccessToken(),
+        },
+      }
+    )
+    .then((res) => {
+      if (res.status >= 200 && res.status < 300) {
+        console.log(res.data, "registrationData");
+        setSnackbarMessage("You have registered successfully!");
+        setSnackbarSeverity("success");
         setSnackbarOpen(true);
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
-  } else {
-    setIsLoading(false);
-  }
+        
+        if (meetingData?.price === 0 || meetingData?.fees === 0) {
+          axios
+            .post(
+              `${PAYMENT_API_URL}api/v1/meet-event/book?meetRegistrationId=${
+                res.data?.data?.meetRegistrationId
+              }&ehub_referral=${
+                location?.search?.split("ref=")[1]?.split("&")[0] || ""
+              }`,
+              {},
+              {
+                headers: {
+                  accessToken: getAccessToken(),
+                },
+              }
+            )
+            .then((res) => {
+              if (res.status >= 200 && res.status < 300) {
+                console.log(res.data, "meetregistrationdata");
+                setSnackbarMessage("Your meet has been booked successfully!");
+                setSnackbarSeverity("success");
+                window.location.href = "/referrals/book-now/payment/success";
+              }
+            })
+            .catch((err) => {
+              console.error("Error booking meet", err);
+              setSnackbarMessage("Issue while booking meet, try again!");
+              setSnackbarSeverity("error");
+              setSnackbarOpen(true);
+            });
+        }
+      }
+    })
+    .catch((err) => {
+      console.error("Error registering for meet", err);
+      setSnackbarMessage("Issue while registering, try again!");
+      setSnackbarSeverity("error");
+      setSnackbarOpen(true);
+    })
+    .finally(() => {
+      setIsLoading(false);
+    });
 }
 
   const handleResume = () => {
@@ -623,7 +714,7 @@ const handleMeetingSub =() => {
             />
              <div className="btn-confirm-details" onClick={() => {
                
-                  handleMeetingSub();
+                  handleMeetingSub()
                 }
               }>
             <button
