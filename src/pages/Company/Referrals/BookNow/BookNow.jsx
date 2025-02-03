@@ -95,6 +95,7 @@ const BookNow = () => {
     fetchMeetingData();
   }, [referralId]);
 
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -125,6 +126,7 @@ const BookNow = () => {
   const handleTimeClick = (time) => {
     setSelectedTime(time);
     const durationInMinutes = parseInt(meetingData.duration.split(" ")[0], 10);
+    console.log(durationInMinutes , "durationInMinutes")
     // Convert selected time string to Date object
     const [timeString, period] = time.split(" ");
     const [hour, minute] = timeString.split(":").map(Number);
@@ -257,6 +259,7 @@ const BookNow = () => {
   };
 
   useEffect(() => {
+    console.log( (Object.keys(meetingData).length > 0),(meetingData).length, "flag check" )
     if (Object.keys(meetingData).length > 0) {
       setTimeArray(generateTimeArray());
     }
