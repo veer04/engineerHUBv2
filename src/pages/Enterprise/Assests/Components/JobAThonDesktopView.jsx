@@ -211,7 +211,7 @@ export const JobAThonDesktopView = () => {
                     										</div>
                   									</div>
                   									<div className={styles.frameParent18}>
-                    										<div className={styles.bookASlotNowWrapper}>
+                    										<div className={styles.bookASlotNowWrapper} onClick={()=>Navigate("/referrals/book-now/67a107c89d57a46e99582bd1")}>
                       											<b className={styles.forCompanies}>Book a slot now</b>
                     										</div>
                     										<div className={styles.frameParent19}>

@@ -80,10 +80,14 @@ const BookNow = () => {
             location?.search?.split("ref=")[1]?.split("&")[0] || ""
           }`
         );
-
         if (response.ok) {
-          const data = await response.json();
-          setMeetingData(data?.data);
+          const data = await response.json(); 
+          // Replace 'excludedId' with the ID you want to exclude
+          const excludedId = "67a107c89d57a46e99582bd1"; 
+          // Filter out the data with the excluded ID
+          const filteredData = data?.data?.filter(item => item._id !== excludedId);
+          console.log(filteredData);
+          setMeetingData(filteredData);
         } else {
           throw new Error("Error fetching meeting data");
         }
@@ -91,8 +95,9 @@ const BookNow = () => {
         console.error("Error fetching meeting data", error);
       }
     };
-
+    
     fetchMeetingData();
+  
   }, [referralId]);
 
   useEffect(() => {
@@ -640,7 +645,7 @@ const BookNow = () => {
                   marginTop: "-5px",
                 }}
               >
-                {meetingData.duration}
+                {meetingData?.duration}
               </h5>
             </div>
 
@@ -656,7 +661,7 @@ const BookNow = () => {
                   marginTop: "-5px",
                 }}
               >
-                &#8377;{meetingData.price === 0 ? "Free" : meetingData.price}
+                &#8377;{meetingData?.price === 0 ? "Free" : meetingData?.price}
               </h5>
             </div>
           </div>
