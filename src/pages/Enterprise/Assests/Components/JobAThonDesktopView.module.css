@@ -55,7 +55,11 @@
     flex-direction: column;
     align-items: flex-start;
     justify-content: center;
-    gap: 12px;
+    gap: 0px;
+    font-family: Lato;
+    font-size: 23px;
+    font-style: normal;
+    font-weight: 400;
 }
 .connectWithUs {
     position: relative;
