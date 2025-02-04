@@ -1,5 +1,6 @@
 import React from "react";
 import { Bucket_URL } from "../../../../../services/APIUtils";
+import { useNavigate } from "react-router-dom";
 import "./EnterpriseMobileView.css";
 export const JobAThonMobile = () => {
     const bucket = `${Bucket_URL}frontend/enterprise/mobileView/`;
@@ -11,7 +12,7 @@ export const JobAThonMobile = () => {
     const spjainminwebp = `${bucket}spjain-min.webp.png`;
     const bmlmunjalminpng = `${bucket}bml-munjal-min.png.png`; 
     const srmlogowebppng = `${bucket}srm-logo.webp.png`;
-
+    const Navigate = useNavigate();
     return (
         <div className="job-a-thon-mobile">
             <div className="div">
@@ -242,7 +243,7 @@ export const JobAThonMobile = () => {
           <div className="text-wrapper-14">VNIT, Nagpur</div>
         </div>
         <div className="grid-item">
-          <div className="srm-logo-webp" style={{backgroundImage : `url$(srmlogowebppng)`}} />
+          <div className="srm-logo-webp" style={{backgroundImage : `url(${srmlogowebppng})`}} />
           <div className="text-wrapper-14">SRM University</div>
         </div>
         <div className="grid-item">
@@ -288,7 +289,7 @@ export const JobAThonMobile = () => {
                             </div>
 
                             <div className="frameMobView-26">
-                                <div className="frameMobView-29">
+                                <div className="frameMobView-29" onClick={()=>Navigate("/referrals/book-now/67a107c89d57a46e99582bd1")}>
                                     <div className="text-wrapper-18">Book a slot now</div>
                                 </div>
 

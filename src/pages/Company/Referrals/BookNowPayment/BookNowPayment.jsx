@@ -44,15 +44,15 @@ const BookNowPayment = () => {
   const [allMeetData, setAllMeetData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isLoading1, setIsLoading1] = useState(false);
-  // const [showPopup, setShowPopup] = useState(false);
-
   const navigate = useNavigate();
   const [meetId, setMeetId] = useState([]);
+  const [companyName, setCompanyName] = useState("");
+  const [designation, setDesignation] = useState("");
+  const [query, setQuery] = useState("");
+  const [showCustomFields, setShowCustomFields] = useState(false);
   const [paymentData, setPaymentData] = useState([]);
   const [clicked, setClicked] = useState(false);
   const [stateData, setStateData] = useState([]);
-
-  // location.state.startDateTimeISO || JSON.parse(localStorage.getItem("startDateTimeISO"));
   const { startDateTimeISO, endDateTimeISO, rating } = location.state || {};
 
   const [selectedDates, setSelectedDates] = useState(() => {
@@ -77,7 +77,6 @@ const BookNowPayment = () => {
       JSON.parse(localStorage.getItem("meetingData"))
     );
   });
-
   useEffect(() => {
     if (selectedDates)
       localStorage.setItem("selectedDates", JSON.stringify(selectedDates));
@@ -99,24 +98,17 @@ const BookNowPayment = () => {
     startDateTimeISO,
     endDateTimeISO,
   ]);
-
   const price = meetingData.price;
   console.log(price, "price");
   const gst = 0.2;
-  // const platformFees = 0.02;
   const gstAmount = price * gst;
-  // const platformAmount = price * platformFees;
 
   const totalPrice = price + gstAmount;
   console.log(Math.ceil(totalPrice), "jhg");
-
-  // console.log(object);
-
   const billSummaryRef = useRef(null);
-
   useEffect(() => {
     if (clicked && billSummaryRef.current) {
-      // Scroll to the bottom of the referenced container
+    
       billSummaryRef.current.scrollIntoView({ behavior: "smooth" });
     }
   }, [clicked]);
@@ -132,9 +124,7 @@ const BookNowPayment = () => {
         `${API_URL}api/v1//getStates/IN`,
         config
       );
-
       console.log(data, "stateData");
-
       setStateData(data.data);
     } catch (error) {
       console.log("Error getting the state Data");
@@ -166,9 +156,14 @@ const BookNowPayment = () => {
       console.error("error getting the data");
     }
   };
-
   useEffect(() => {
     getAllOpenMeet();
+  }, []);
+  useEffect(() => {
+    const storedMeetingData = JSON.parse(localStorage.getItem("meetingData"));
+    if (storedMeetingData && storedMeetingData._id === "67a107c89d57a46e99582bd1") {
+      setShowCustomFields(true);
+    }
   }, []);
 
   const {
@@ -206,51 +201,6 @@ const BookNowPayment = () => {
     }
     errorStack = [];
   }
-
-  // function validateForm() {
-  //   let isValid = true;
-  //   const errors = {
-  //     name: "",
-  //     phoneNumber: "",
-  //     email: "",
-  //     resume: "",
-  //     extraQuestions: "",
-  //   };
-
-  //   if (name.length === 0) {
-  //     errors.name = "Name is Required";
-  //     isValid = false;
-  //     addToErrorStack("#name");
-  //   }
-  //   if (!phoneNumber) {
-  //     errors.phoneNumber = "Phone Number is Required";
-  //     isValid = false;
-  //     addToErrorStack("#phoneNumber");
-  //   } else if (phoneNumber.length !== 10) {
-  //     errors.phoneNumber = "Phone Number must be exactly 10 digits";
-  //     isValid = false;
-  //   }
-
-  //   if (!email) {
-  //     errors.email = "Email is Required";
-  //     isValid = false;
-  //     addToErrorStack("#email");
-  //   }
-  //   if (!usePreviousResume && !resume) {
-  //     errors.resume = "Resume is required";
-  //     isValid = false;
-  //     addToErrorStack("#resume");
-  //   }
-  //   if (!extraQuestions) {
-  //     errors.extraQuestions = "Extra Questions is Required";
-  //     isValid = false;
-  //     addToErrorStack("#extraQuestions");
-  //   }
-
-  //   setErrors(errors);
-  //   handleFormErrors();
-  //   return isValid;
-  // }
 
   const validateInput1 = () => {
     let valid = true;
@@ -333,6 +283,140 @@ const BookNowPayment = () => {
     setErrors(newErrors);
     return valid;
   };
+  const validateInput2 = () => {
+    let valid = true;
+    const newErrors = {
+      name: "",
+      email: "",
+      companyName: "",
+      designation: "",
+      query: "",
+    };
+  
+    if (!name) {
+      newErrors.name = "Name is required";
+      valid = false;
+      addToErrorStack("#name");
+    } else if (!/^[a-zA-Z\d\s]+$/.test(name)) {
+      newErrors.name = "Name should not contain special characters";
+      valid = false;
+      addToErrorStack("#name");
+    } else if (name.length < 3) {
+      newErrors.name = "Name should be at least 3 characters";
+      valid = false;
+      addToErrorStack("#name");
+    }
+  
+    if (!email) {
+      newErrors.email = "Email is required";
+      valid = false;
+      addToErrorStack("#email");
+    } else if (!emailExpression.test(email)) {
+      newErrors.email = "Invalid email format!";
+      valid = false;
+      addToErrorStack("#email");
+    }
+  
+    if (!companyName) {
+      newErrors.companyName = "Company Name is required";
+      valid = false;
+      addToErrorStack("#companyName");
+    }
+  
+    if (!designation) {
+      newErrors.designation = "Designation is required";
+      valid = false;
+      addToErrorStack("#designation");
+    }
+  
+    if (!query) {
+      newErrors.query = "Query is required";
+      valid = false;
+      addToErrorStack("#query");
+    } else if (query.length < 10) {
+      newErrors.query = "Query should be at least 10 characters";
+      valid = false;
+      addToErrorStack("#query");
+    }
+  
+    setErrors(newErrors);
+    return valid;
+  };
+const handleMeetingSub =() => {
+  
+  // if (!validateInput2()) {
+  //   return;
+  // }
+  setIsLoading(true);
+
+  const payload = {
+    name: name,
+    mobile: phoneNumber,
+    email: email,
+    query: extraQuestions,
+    startDateTime: startDateTimeISO,
+    endDateTime: endDateTimeISO,
+  };
+
+  axios
+    .post(
+      `${PAYMENT_API_URL}api/v1/meet-event/register/${meetingData._id}`,
+      payload,
+      {
+        headers: {
+          accessToken: getAccessToken(),
+        },
+      }
+    )
+    .then((res) => {
+      if (res.status >= 200 && res.status < 300) {
+        console.log(res.data, "registrationData");
+        setSnackbarMessage("You have registered successfully!");
+        setSnackbarSeverity("success");
+        setSnackbarOpen(true);
+        
+        if (meetingData?.price === 0 || meetingData?.fees === 0) {
+          axios
+            .post(
+              `${PAYMENT_API_URL}api/v1/meet-event/book?meetRegistrationId=${
+                res.data?.data?.meetRegistrationId
+              }&ehub_referral=${
+                location?.search?.split("ref=")[1]?.split("&")[0] || ""
+              }`,
+              {},
+              {
+                headers: {
+                  accessToken: getAccessToken(),
+                },
+              }
+            )
+            .then((res) => {
+              if (res.status >= 200 && res.status < 300) {
+                console.log(res.data, "meetregistrationdata");
+                setSnackbarMessage("Your meet has been booked successfully!");
+                setSnackbarSeverity("success");
+                window.location.href = "/referrals/book-now/payment/success";
+              }
+            })
+            .catch((err) => {
+              console.error("Error booking meet", err);
+              setSnackbarMessage("Issue while booking meet, try again!");
+              setSnackbarSeverity("error");
+              setSnackbarOpen(true);
+            });
+        }
+      }
+    })
+    .catch((err) => {
+      console.error("Error registering for meet", err);
+      setSnackbarMessage("Issue while registering, try again!");
+      setSnackbarSeverity("error");
+      setSnackbarOpen(true);
+    })
+    .finally(() => {
+      setIsLoading(false);
+    });
+}
 
   const handleResume = () => {
     if (!validateInput1()) {
@@ -352,14 +436,6 @@ const BookNowPayment = () => {
         .patch(`${API_URL}api/v1/user/resumeUpdate`, formData, config)
         .then((res) => {
           console.log(res, "resumeData");
-          // const formData = new FormData();
-          // formData.append("name", name);
-          // formData.append("mobile", phoneNumber);
-          // formData.append("email", email);
-          // formData.append("resume", res?.data?.data);
-          // formData.append("startDateTime", startDateTimeISO);
-          // formData.append("endDateTime", endDateTimeISO);
-
           const payload = {
             name: name,
             mobile: phoneNumber,
@@ -465,116 +541,7 @@ const BookNowPayment = () => {
     } catch (error) {
       console.error("getting error the resume", error);
     }
-  };
-
-  // const handleFormSubmit = () => {
-  //   // e.preventDefault();
-  //   if (!validateInput1()) {
-  //     return;
-  //   }
-
-  //   setIsLoading(true);
-
-  //   const formData = new FormData();
-  //   formData.append("name", name);
-  //   formData.append("mobile", phoneNumber);
-  //   formData.append("email", email);
-  //   formData.append("resume", resume);
-  //   formData.append("startDateTime", startDateTimeISO);
-  //   formData.append("endDateTime", endDateTimeISO);
-
-  //   console.log(formData.get("resume"), "jhg");
-
-  //   // const payload = {
-  //   //   name: name,
-  //   //   mobile: phoneNumber,
-  //   //   email: email,
-  //   //   resume: resume,
-  //   //   // extraQuestions: extraQuestions,
-  //   //   startDateTime: startDateTimeISO,
-  //   //   endDateTime: endDateTimeISO,
-  //   // };
-  //   axios
-  //     .post(
-  //       `${PAYMENT_API_URL}api/v1/meet-event/register/${meetingData._id}`,
-  //       formData,
-  //       {
-  //         headers: {
-  //           accessToken: getAccessToken(),
-  //           "Content-Type": "multipart/form-data",
-  //         },
-  //       }
-  //     )
-  //     .then(async (res) => {
-  //       if (
-  //         res.status === 200 ||
-  //         res.status === 201 ||
-  //         res.status === 202 ||
-  //         res.status === 203 ||
-  //         res.status === 204
-  //       ) {
-  //         patchResume("", resume);
-  //         const data = res.data;
-  //         console.log(data, "Detaileddata");
-  //         setMeetId(data?.data);
-  //         setSnackbarMessage(
-  //           "You Have Submitted all the details successfully!"
-  //         );
-  //         setSnackbarSeverity("success");
-  //         setSnackbarOpen(true);
-  //         setIsLoading(false);
-  //         setName([]);
-  //         setPhoneNumber([]);
-  //         setEmail([]);
-  //         setResume([]);
-  //         setClicked(true);
-
-  //         if (meetingData?.price === 0) {
-  //           await axios
-  //             .post(
-  //               `${PAYMENT_API_URL}api/v1/meet-event/book?meetRegistrationId=${data?.data?.meetRegistrationId}`,
-  //               {},
-  //               {
-  //                 headers: {
-  //                   accessToken: getAccessToken(),
-  //                 },
-  //               }
-  //             )
-  //             .then((res) => {
-  //               if (
-  //                 res.status === 200 ||
-  //                 res.status === 201 ||
-  //                 res.status === 202 ||
-  //                 res.status === 203 ||
-  //                 res.status === 204
-  //               ) {
-  //                 const data = res.data;
-  //                 console.log(data, "meetregistrationdata");
-  //                 setSnackbarMessage("Your meet has been booked successfully!");
-  //                 setSnackbarSeverity("success");
-  //                 window.location.href = "/referrals/book-now/payment/success";
-  //               }
-  //             });
-  //         }
-  //       }
-  //     })
-  //     .catch((res) => {
-  //       if (res.status === 409) {
-  //         window.alert("Fill the Details!");
-  //       }
-  //       setSnackbarMessage("Issue while submitting details, try again!");
-  //       setSnackbarSeverity("error");
-  //       setSnackbarOpen(true);
-  //       setIsLoading(false);
-  //     });
-
-  //   console.log("Name:", name);
-  //   console.log("Phone Number:", phoneNumber);
-  //   console.log("Email:", email);
-  //   console.log("resume", resume);
-  //   // console.log("extraquesrions", extraQuestions);
-  // };
-
+  }; 
   const handlePay = async () => {
     setIsLoading1(true);
     setSnackbarMessage("Redirecting you to the payment page");
@@ -609,7 +576,6 @@ const BookNowPayment = () => {
           },
         }
       );
-
       const data = response.data;
       if (
         data.status === 201 ||
@@ -622,7 +588,6 @@ const BookNowPayment = () => {
         setSnackbarOpen(true);
         setPaymentData(data);
       }
-
       console.log(data, "paymentData");
       console.log(data.data.payment_link, "paymentlink");
       window.location.href = data?.data?.payment_link;
@@ -630,7 +595,6 @@ const BookNowPayment = () => {
       console.error("error getting the data");
     }
   };
-
   return (
     <div className="main-book-now-payment">
       <div className="main-book-now-container">
@@ -648,7 +612,6 @@ const BookNowPayment = () => {
               Go Back
             </Link>
           </div>
-          {/* rating button */}
           <div
             style={{
               display: "flex",
@@ -666,24 +629,18 @@ const BookNowPayment = () => {
             <h5 style={{ fontSize: "13px", marginTop: "10px" }}>{rating}</h5>
             <img src={"/star.svg"} alt="" width={16} height={16} />
           </div>
-
-          {/* rating button */}
         </div>
-
         <div className="text-div">
           <h4 className="text-h4">{meetingData.title}</h4>
         </div>
-
         <div className="calendar-change">
           <div className="calendar-content-data">
             <img style={{ marginRight: "10px" }} src="/Calender2.svg" alt="" />
-
             <div>
               <h4 className="data-text-h4">Date: {selectedDates}</h4>
               <h5 className="data-text-h5">Time: {selectedTime}</h5>
             </div>
           </div>
-
           <div className="calendar-button">
             <button
               onClick={() =>
@@ -703,17 +660,94 @@ const BookNowPayment = () => {
             </button>
           </div>
         </div>
-
-        <div style={{ margin: "20px 0px" }}>
-          {/* <form onSubmit={handleFormSubmit}> */}
+{showCustomFields ?  (
+          <div>
+            <FormInput
+              label="Name"
+              id="name"
+              name="name"
+              required
+              placeholder="Enter your Name"
+              value={name}
+              setValue={setName}
+              className="mb-4"
+            />
+            <FormInputEmail
+              label="Email"
+              id="email"
+              name="email"
+              required
+              placeholder="Enter your Email"
+              value={email}
+              setValue={setEmail}
+              className="mb-4"
+            />
+            <FormInput
+              label="Company Name"
+              id="companyName"
+              name="companyName"
+              required
+              placeholder="Enter your Company Name"
+              value={companyName}
+              setValue={setCompanyName}
+              className="mb-4"
+            />
+            <FormInput
+              label="Designation"
+              id="designation"
+              name="designation"
+              required
+              placeholder="Enter your Designation"
+              value={designation}
+              setValue={setDesignation}
+              className="mb-4"
+            />
+            <FormInput
+              label="Query"
+              id="query"
+              name="query"
+              required
+              placeholder="Enter your Query"
+              value={query}
+              setValue={setQuery}
+              className="mb-4"
+            />
+             <div className="btn-confirm-details" onClick={() => {
+               
+                  handleMeetingSub()
+                }
+              }>
+            <button
+             
+              type="submit"
+              style={{
+                backgroundColor: clicked ? "#80D1CE" : "#138382",
+                border: "none",
+                outline: "none",
+                padding: "10px 24px",
+                width: "170px",
+                height: "48px",
+                color: "white",
+                fontSize: 14,
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                borderRadius: 8,
+                cursor: clicked ? "not-allowed" : "pointer",
+              }}
+              disabled={isLoading}
+            >
+              {isLoading ? <div className="loader"></div> : "Confirm Details"}
+            </button>
+          </div>
+          </div>
+                    
+        ) : ( <div style={{ margin: "20px 0px" }}>
           <div
             className="form-input-saifalam"
             style={
               {
-                // display: "flex",
-                // justifyContent: "space-between",
-                // gap: ".75rem",
-                // flexWrap: "nowrap",
+        
               }
             }
           >
@@ -903,8 +937,7 @@ const BookNowPayment = () => {
               </div>
             </div>
           ) : null}
-        </div>
-
+        </div>)}
         {/* <div
           style={{
             marginTop: 40,
@@ -934,68 +967,7 @@ const BookNowPayment = () => {
           </button>
         </div> */}
 
-        {/* {allMeetData &&
-              allMeetData.map((card, index) => {
-                return (
-                  <ConnectCards
-                    key={card._id}
-                    id={card._id}
-                    title={card.title}
-                    desc={card.description}
-                    duration={card.duration}
-                    price={card.price}
-                    type={card.type}
-                  />
-                );
-              })} */}
-
-        {/* Carousal */}
-        {/* <div
-          id="connectCardsCarousel"
-          className="carousel slide"
-          data-bs-ride="carousel"
-        >
-          <div className="carousel-inner">
-            {allMeetData &&
-              allMeetData.map((card, index) => {
-                // Start a new carousel item every two cards
-                if (index % 2 === 0) {
-                  return (
-                    <div
-                      key={index}
-                      className={`carousel-item ${index === 0 ? "active" : ""}`}
-                    >
-                      <div className="d-flex justify-content-center gap-2">
-                        <div className="col-6">
-                          <ConnectCards
-                            id={card._id}
-                            title={card.title}
-                            desc={card.description}
-                            duration={card.duration}
-                            price={card.price}
-                            type={card.type}
-                          />
-                        </div>
-                        {allMeetData[index + 1] && (
-                          <div className="col-6">
-                            <ConnectCards
-                              id={allMeetData[index + 1]._id}
-                              title={allMeetData[index + 1].title}
-                              desc={allMeetData[index + 1].description}
-                              duration={allMeetData[index + 1].duration}
-                              price={allMeetData[index + 1].price}
-                              type={allMeetData[index + 1].type}
-                            />
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                  );
-                }
-                return null;
-              })}
-          </div>
-        </div> */}
+  
 
         {meetId?.meetId && meetingData.price > 0 ? (
           <div

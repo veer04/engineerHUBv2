@@ -211,13 +211,13 @@ export const JobAThonDesktopView = () => {
                     										</div>
                   									</div>
                   									<div className={styles.frameParent18}>
-                    										<div className={styles.bookASlotNowWrapper} onClick={()=>Navigate("/referrals/book-now/66b88f1c5671bb5bfcc61b40")}>
+                    										<div className={styles.bookASlotNowWrapper} onClick={()=>Navigate("/referrals/book-now/67a107c89d57a46e99582bd1")}>
                       											<b className={styles.forCompanies}>Book a slot now</b>
                     										</div>
                     										<div className={styles.frameParent19}>
                       											<div className={styles.phoneParent}>
                         												<div className={styles.phone}>
-                          													<img className={styles.vectorIcon} alt="" src={`{bucket}Vector`}/>
+                          													<img className={styles.vectorIcon} alt="" src={`${bucket}Vector.svg`}/>
                         												</div>
                         												<div className={styles.wrapper}>
                           													<b className={styles.forCompanies}>
