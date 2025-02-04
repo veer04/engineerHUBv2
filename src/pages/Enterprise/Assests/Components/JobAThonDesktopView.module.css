@@ -88,7 +88,7 @@
 }
 .frameParent {
     position: absolute;
-    top: 244px;
+    top: 200px;
     left: 120px;
     width: 409px;
     display: flex;
@@ -102,6 +102,7 @@
     position: relative;
     line-height: 48px;
     font-weight: 600;
+    margin-top: -8%;
 }
 .heading2 {
     align-self: stretch;
@@ -1017,7 +1018,7 @@
 }
 .company41 {
     position: absolute;
-    top: 97px;
+    top: 40px;
     left: 529px;
     width: 886.9px;
     height: 486.6px;
@@ -1168,7 +1169,7 @@
     width: 100%;
     position: relative;
     background-color: #fafafa;
-    height: 3350px;
+    height: 3300px;
     overflow: hidden;
     text-align: left;
     font-size: 23px;
