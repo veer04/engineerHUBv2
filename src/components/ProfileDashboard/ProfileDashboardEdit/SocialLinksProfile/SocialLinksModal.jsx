@@ -232,7 +232,7 @@ const SocialLinksModal = ({ isOpen, onClose, data, setProfileData }) => {
                   className={`input-css mt-1 ${
                     errors.linkedin ? "border-red-500" : "border-gray-300"
                   }`}
-                  placeholder="Add your LinkedIn Profile"
+                  placeholder="Link format https://your_link"
                 />
                 {errors.linkedin && (
                   <p className="mt-1 error-p text-sm text-red-500">
@@ -256,7 +256,7 @@ const SocialLinksModal = ({ isOpen, onClose, data, setProfileData }) => {
                   className={`input-css mt-1 ${
                     errors.github ? "border-red-500" : "border-gray-300"
                   }`}
-                  placeholder="Add your GitHub Link"
+                  placeholder="Link format https://your_link"
                 />
                 {errors.github && (
                   <p className="mt-1 error-p text-sm text-red-500">
@@ -282,7 +282,7 @@ const SocialLinksModal = ({ isOpen, onClose, data, setProfileData }) => {
                   className={`input-css mt-1 ${
                     errors.portfolio ? "border-red-500" : "border-gray-300"
                   }`}
-                  placeholder="Enter your Personal Portfolio"
+                  placeholder="Link format https://your_link"
                 />
                 {errors.portfolio && (
                   <p className="mt-1 error-p text-sm text-red-500">
@@ -295,7 +295,7 @@ const SocialLinksModal = ({ isOpen, onClose, data, setProfileData }) => {
                   htmlFor="cpLink"
                   className="label-css block text-sm font-medium"
                 >
-                  Enter your CP Link
+                  Any Other Link
                 </label>
                 {/* <span className="required-indicator">*</span> */}
                 <input
@@ -306,7 +306,7 @@ const SocialLinksModal = ({ isOpen, onClose, data, setProfileData }) => {
                   className={`input-css mt-1 ${
                     errors.cpLink ? "border-red-500" : "border-gray-300"
                   }`}
-                  placeholder="Enter your CP Link"
+                  placeholder="Link format https://your_link"
                 />
                 {errors.cpLink && (
                   <p className="mt-1 error-p text-sm text-red-500">

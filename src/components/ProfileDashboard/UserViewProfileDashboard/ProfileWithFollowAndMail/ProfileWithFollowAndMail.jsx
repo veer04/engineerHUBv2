@@ -21,7 +21,8 @@ const ProfileWithFollowAndMail = ({ DashboardAdminData }) => {
   const [isLoading, setIsLoading] = useState(false);
 
   const handleViewResume = () => {
-    if (DashboardAdminData) {
+    if (DashboardAdminData?.resume) {
+      console.log(DashboardAdminData.resume, "resume");
       window.open(DashboardAdminData.resume, "_blank");
     } else {
       toast.error("Resume not available yet!");

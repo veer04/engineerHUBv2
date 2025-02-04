@@ -99,6 +99,8 @@ const AddAchievementModal = ({ isOpen, onClose, data, setProfileData }) => {
 
     try {
       const dataRes = await addUserAchievement(formData);
+      console.log(dataRes, "datares");
+
       if (dataRes && dataRes._id) {
         toast(
           data && data._id
@@ -140,7 +142,9 @@ const AddAchievementModal = ({ isOpen, onClose, data, setProfileData }) => {
       }
     } catch (error) {
       console.error("Update failed:", error);
-      toast.error("Something went wrong!");
+      toast.error(
+        error?.response?.data?.message || "An unexpected error occurred!"
+      );
     } finally {
       setLoading(false);
     }
@@ -360,7 +364,7 @@ const AddAchievementModal = ({ isOpen, onClose, data, setProfileData }) => {
                           ? "border-red-500"
                           : "border-gray-300"
                       }`}
-                      placeholder="Enter a URL"
+                      placeholder="Link format https://your_achievement_url"
                     />
                     {errors.achievementUrl && (
                       <p className="mt-1 error-p text-sm text-red-500">

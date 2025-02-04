@@ -35,7 +35,7 @@ export default function NewFooter() {
       location.pathname.includes("referrals") ||
       location.pathname.includes("career/jobs/board") ||
       location.pathname.includes("/chat/") ||
-      location.pathname.includes("/profiledashboard")
+      location.pathname.includes("/profile/user")
     ) {
       setDisplayFooter(false);
     } else setDisplayFooter(true);
