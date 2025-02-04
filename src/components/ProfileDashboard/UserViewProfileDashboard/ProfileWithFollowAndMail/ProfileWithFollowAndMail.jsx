@@ -145,9 +145,9 @@ const ProfileWithFollowAndMail = ({ DashboardAdminData }) => {
           />
         )}
 
-        <div>
+        {/* <div>
           <div className="img-thumbsup-div">
-            {/* {isLiked ? (
+            {isLiked ? (
               <FaThumbsUp
                 className="thumbs-up-icon animate"
                 color="#128381"
@@ -159,7 +159,7 @@ const ProfileWithFollowAndMail = ({ DashboardAdminData }) => {
                 color="#128381"
                 size={22}
               />
-            )} */}
+            )}
 
             <FaThumbsUp
               className="thumbs-up-icon animate"
@@ -176,10 +176,10 @@ const ProfileWithFollowAndMail = ({ DashboardAdminData }) => {
               textAlign: "center",
             }}
           >
-            {/* {likeCount} {likeCount === 1 ? "Like" : "Likes"} */}
+            {likeCount} {likeCount === 1 ? "Like" : "Likes"}
             <p>{DashboardAdminData?.likes || 0} likes</p>
           </h4>
-        </div>
+        </div> */}
       </div>
 
       <div className="name-desc-div">
