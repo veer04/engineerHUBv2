@@ -345,33 +345,34 @@ export const updateUserDetails = (data, setResponse) => {
     });
 };
 
-export const addUserEducation = (data, setResponse) => {
-  const controller = new AbortController();
-  const updatedData = {
-    ...data,
-    startYear: new Date(data.startYear),
-    endYear: new Date(data.endYear),
-  };
-  const config = {
-    headers: {
-      accessToken: getAccessToken(),
-    },
-  };
-  axios
-    .post(`${API_URL}api/v1/add/education`, updatedData, config)
-    .then((res) => {
-      console.log(res);
-      setResponse(res);
-    })
-    .catch((err) => {
-      console.log(err);
-      setResponse(err);
-      if (axios.isCancel(err)) {
-        console.log("req cancel");
-      } else {
-        console.log("req performed");
-      }
-    });
+export const addUserEducation = async (data) => {
+  try {
+    const updatedData = {
+      ...data,
+      startYear: new Date(data.startYear),
+      endYear: new Date(data.endYear),
+    };
+    const config = {
+      headers: {
+        accessToken: getAccessToken(),
+      },
+    };
+    const response = await axios.post(
+      `${API_URL}api/v1/add/education`,
+      updatedData,
+      config
+    );
+
+    console.log(response.data, "API Response");
+    return response.data.data;
+  } catch (error) {
+    if (axios.isCancel(error)) {
+      console.log("Request canceled");
+    } else {
+      console.error("Request failed", error);
+    }
+    throw error; // Propagate error to caller
+  }
 };
 
 //update user education
@@ -439,34 +440,32 @@ export const deleteEducation = async (_id, setResponse) => {
   }
 };
 
-export const addUserAchievement = (data, setResponse) => {
-  const controller = new AbortController();
-  const config = {
-    headers: {
-      accessToken: getAccessToken(),
-    },
-  };
-  axios
-    .post(
+export const addUserAchievement = async (data) => {
+  try {
+    const config = {
+      headers: {
+        accessToken: getAccessToken(),
+      },
+    };
+
+    const response = await axios.post(
       `${API_URL}api/v1/add/achievement`,
       {
         ...data,
       },
       config
-    )
-    .then((res) => {
-      console.log(res);
-      setResponse(res);
-    })
-    .catch((err) => {
-      console.log(err);
-      setResponse(err);
-      if (axios.isCancel(err)) {
-        console.log("req cancel");
-      } else {
-        console.log("req performed");
-      }
-    });
+    );
+
+    console.log(response.data, "Api Respones");
+    return response.data.data;
+  } catch (error) {
+    if (axios.isCancel(error)) {
+      console.log("Request canceled");
+    } else {
+      console.error("Request failed", error?.message);
+    }
+    throw error; // Propagate error to caller
+  }
 };
 
 export const updateUserAchievement = async (
@@ -502,39 +501,33 @@ export const updateUserAchievement = async (
   }
 };
 
-export const addUserCertification = (data, setResponse) => {
-  const controller = new AbortController();
-  const config = {
-    headers: {
-      accessToken: getAccessToken(),
-    },
-  };
-  axios
-    .post(
+export const addUserCertification = async (data) => {
+  try {
+    const config = {
+      headers: { accessToken: getAccessToken() },
+    };
+
+    const response = await axios.post(
       `${API_URL}api/v1/add/licence`,
       {
         ...data,
         issuedDate: new Date(data.issuedDate),
-        issuedBy: new Date(data.issuedBy),
+        issuedBy: data.issuedBy,
       },
       config
-    )
-    .then((res) => {
-      console.log(res, "res");
-      setResponse(res.data.data);
-      return res.data;
-    })
-    .catch((err) => {
-      console.log(err);
-      setResponse(err);
-      if (axios.isCancel(err)) {
-        console.log("req cancel");
-      } else {
-        console.log("req performed");
-      }
-    });
-};
+    );
 
+    console.log(response.data, "API Response");
+    return response.data.data;
+  } catch (error) {
+    if (axios.isCancel(error)) {
+      console.log("Request canceled");
+    } else {
+      console.error("Request failed", error);
+    }
+    throw error; // Propagate error to caller
+  }
+};
 export const updateUserCertification = async (
   { licenceId, body },
   setResponse
@@ -639,34 +632,31 @@ export const deleteUserEducation = (_id, setResponse) => {
     });
 };
 
-export const addUserExperience = (data, setResponse) => {
-  const controller = new AbortController();
-  const config = {
-    headers: {
-      accessToken: getAccessToken(),
-    },
-  };
-  axios
-    .post(
+export const addUserExperience = async (data) => {
+  try {
+    const config = {
+      headers: {
+        accessToken: getAccessToken(),
+      },
+    };
+    const response = await axios.post(
       `${API_URL}api/v1/add/experience`,
       {
         ...data,
       },
       config
-    )
-    .then((res) => {
-      console.log(res);
-      setResponse(res);
-    })
-    .catch((err) => {
-      console.log(err);
-      setResponse(err);
-      if (axios.isCancel(err)) {
-        console.log("req cancel");
-      } else {
-        console.log("req performed");
-      }
-    });
+    );
+
+    console.log(response.data, "API Response");
+    return response.data.data;
+  } catch (error) {
+    if (axios.isCancel(error)) {
+      console.log("Request canceled");
+    } else {
+      console.error("Request failed", error);
+    }
+    throw error; // Propagate error to caller
+  }
 };
 
 export const deleteUserExperience = (_id, setResponse) => {
@@ -726,35 +716,31 @@ export const updateUserExperience = async (
   }
 };
 
-export const addUserProject = (data, setResponse) => {
-  const controller = new AbortController();
-  const config = {
-    headers: {
-      accessToken: getAccessToken(),
-    },
-  };
-  axios
-    .post(
+export const addUserProject = async (data) => {
+  try {
+    const config = {
+      headers: {
+        accessToken: getAccessToken(),
+      },
+    };
+    const response = await axios.post(
       `${API_URL}api/v1/add/projectDetails`,
       {
         ...data,
       },
       config
-    )
-    .then((res) => {
-      console.log(res, "res");
-      setResponse(res.data.data);
-      return res.data;
-    })
-    .catch((err) => {
-      console.log(err);
-      setResponse(err);
-      if (axios.isCancel(err)) {
-        console.log("req cancel");
-      } else {
-        console.log("req performed");
-      }
-    });
+    );
+
+    console.log(response.data, "API Response");
+    return response.data.data;
+  } catch (error) {
+    if (axios.isCancel(error)) {
+      console.log("Request canceled");
+    } else {
+      console.error("Request failed", error);
+    }
+    throw error;
+  }
 };
 
 export const updateUserProject = async ({ projectId, body }, setResponse) => {

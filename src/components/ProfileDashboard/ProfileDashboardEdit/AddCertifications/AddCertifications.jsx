@@ -22,7 +22,7 @@ const AddCertifications = ({ profileData, setProfileData }) => {
         data={selectedCertificate}
         setProfileData={setProfileData}
       />
-      <div className="add-certifications-main-div">
+      <div className="add-certifications-main-div" id="add-certifications">
         <div className="add-headline-sub-div">
           <div className="add-headlline-sub-left">
             <h3
@@ -36,7 +36,9 @@ const AddCertifications = ({ profileData, setProfileData }) => {
             >
               Add Certifications
             </h3>
-            {!profileData && (
+            {(!profileData ||
+              (profileData.licenceDetails &&
+                profileData.licenceDetails.length === 0)) && (
               <h4
                 style={{
                   fontSize: 14,
