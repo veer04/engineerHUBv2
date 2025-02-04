@@ -201,7 +201,7 @@
 
 @media screen and (max-width: 820px) {
   .main-profile-with-post-share .btn-siv-edit-post-share {
-    justify-content: flex-start;
+    justify-content: center;
   }
 
   .main-profile-with-post-share .btn-siv-edit-post-share button {
