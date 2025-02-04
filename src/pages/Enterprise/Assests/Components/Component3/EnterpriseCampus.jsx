@@ -16,7 +16,7 @@ export const EnterpriseCampus = () => {
 
                         <div className="div-wrapper-2">
                             <p className="p">
-                                We have engineer’s from 1950+ colleges across India
+                                We have engineers from 1950+ colleges across India
                             </p>
                         </div>
                     </div>
