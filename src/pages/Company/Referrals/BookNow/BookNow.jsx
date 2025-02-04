@@ -95,6 +95,7 @@ const BookNow = () => {
     fetchMeetingData();
   }, [referralId]);
 
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -125,6 +126,7 @@ const BookNow = () => {
   const handleTimeClick = (time) => {
     setSelectedTime(time);
     const durationInMinutes = parseInt(meetingData.duration.split(" ")[0], 10);
+    console.log(durationInMinutes , "durationInMinutes")
     // Convert selected time string to Date object
     const [timeString, period] = time.split(" ");
     const [hour, minute] = timeString.split(":").map(Number);
@@ -257,6 +259,7 @@ const BookNow = () => {
   };
 
   useEffect(() => {
+    console.log( (Object.keys(meetingData).length > 0),(meetingData).length, "flag check" )
     if (Object.keys(meetingData).length > 0) {
       setTimeArray(generateTimeArray());
     }
@@ -674,46 +677,34 @@ const BookNow = () => {
             ></span>
           </div>
 
-          <div className="feedback-section">
-            <div
-              style={{
-                marginTop: "10px",
-              }}
-            >
-              <h3 className="text-h3">Recent Feedbacks</h3>
+          {referralId !== "67a107c89d57a46e99582bd1" && (
+            <div className="feedback-section">
+              <div
+                style={{
+                  marginTop: "10px",
+                }}
+              >
+                <h3 className="text-h3">Recent Feedbacks</h3>
+              </div>
+          
+              {/* <div className="feedback-btn-main-div">
+                <div className="feedback-btn">
+                  <img src="/chevro-left.svg" alt="" />
+                  <Link className="feedback-button-link">Previous</Link>
+                </div>
+          
+                <div className="feedback-btn">
+                  <Link className="feedback-button-link">Next</Link>
+                  <img src="/chevro-right.svg" alt="" />
+                </div>
+              </div> */}
             </div>
+          )}
+          
 
-            {/* <div className="feedback-btn-main-div">
-              <div className="feedback-btn">
-                <img src="/chevro-left.svg" alt="" />
-                <Link className="feedback-button-link">Previous</Link>
-              </div>
-
-              <div className="feedback-btn">
-                <Link className="feedback-button-link">Next</Link>
-                <img src="/chevro-right.svg" alt="" />
-              </div>
-            </div> */}
-          </div>
-
-          <div className="feedback-carousal-div">
-            {isMobile ? (
-              <FeedBackCarousalForBookNow
-                content={
-                  "I have successfully received a referral from Microsoft, thank you engineerhub."
-                }
-                name={"Satyam Singh"}
-                // profile={"dd/mm/yy"}
-              />
-            ) : (
-              <>
-                <FeedBackCarousalForBookNow
-                  content={
-                    "I got an idea about how companies approach, what they expect from us, and how to customize my resume."
-                  }
-                  name={"Mohammed Sulaiman"}
-                  // profile={"dd/mm/yy"}
-                />
+          {referralId !== "67a107c89d57a46e99582bd1" && (
+            <div className="feedback-carousal-div">
+              {isMobile ? (
                 <FeedBackCarousalForBookNow
                   content={
                     "I have successfully received a referral from Microsoft, thank you engineerhub."
@@ -721,9 +712,27 @@ const BookNow = () => {
                   name={"Satyam Singh"}
                   // profile={"dd/mm/yy"}
                 />
-              </>
-            )}
-          </div>
+              ) : (
+                <>
+                  <FeedBackCarousalForBookNow
+                    content={
+                      "I got an idea about how companies approach, what they expect from us, and how to customize my resume."
+                    }
+                    name={"Mohammed Sulaiman"}
+                    // profile={"dd/mm/yy"}
+                  />
+                  <FeedBackCarousalForBookNow
+                    content={
+                      "I have successfully received a referral from Microsoft, thank you engineerhub."
+                    }
+                    name={"Satyam Singh"}
+                    // profile={"dd/mm/yy"}
+                  />
+                </>
+              )}
+            </div>
+          )}
+          
         </div>
       </div>
       <div className="right-booknow-container">

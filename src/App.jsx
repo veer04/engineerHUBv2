@@ -75,6 +75,7 @@ import ProfileDashboardEdit from "./components/ProfileDashboard/ProfileDashboard
 import FloatingChatButton from "./components/FloatingChatButton/FloatingChatButton.jsx";
 import CommunityChat from "./pages/Chat/CommunityChat.jsx";
 import { ToastContainer } from "react-toastify";
+import Enterprise from "./pages/Enterprise/Assests/Components/Enterprise.jsx";
 const DigitalProductAdminPage = lazy(() =>
   import("./pages/Admin/DigitalProductAdminPage.jsx")
 );
@@ -410,8 +411,8 @@ function App() {
             path="/profiledashboardedit"
             element={<ProfileDashboardEdit />}
           />
-
           <Route path="*" element={<Page404 />} />
+          <Route path= "/employer" element ={<Enterprise/>}/>
         </Routes>
       </Suspense>
       <NewFooter />
