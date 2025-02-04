@@ -173,16 +173,10 @@ export default function NewNavbar() {
           selectedPageNavbar === "enterprise" ? "--is-active" : ""
         } services-btn`}
       >
-        For Employers
-        {/* <span
-          className={`${
-            selectedPageNavbar === "services" ? "--is-active" : ""
-          } new-badge`}
-        >
-          New
-        </span> */}
+        {width < 600 ? "Employer" : "For Employers"}
       </button>
     </Link>
+    
     </div>
     </nav>
   );
