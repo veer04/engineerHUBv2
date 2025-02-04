@@ -27,7 +27,7 @@ const HostPageForProfileDashboard = () => {
       </div>
 
       <div className="post-create-main-sub">
-        {/* <CreatePostCard /> */}
+        <CreatePostCard />
         <CreateJobCard />
         <CreateInternshipCard />
         {/* <Createprojects /> */}
