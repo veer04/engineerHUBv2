@@ -25,8 +25,10 @@ export const JobAThonDesktopView = () => {
         				</div>
         				<div className={styles.frameWrapper}>
           					<div className={styles.frameContainer}>
-            						<div className={styles.frameContainer}>
-              							<b className={styles.connectWithUs}>Connect with us</b>
+            						<div className={styles.frameContainer} onClick={() => {
+										document.getElementById("book-slot-section")?.scrollIntoView({ behavior: "smooth" });
+									}}>
+              							<b className={styles.connectWithUs}    >Connect with us</b>
             						</div>
           					</div>
         				</div>
@@ -212,7 +214,7 @@ export const JobAThonDesktopView = () => {
                   									</div>
                   									<div className={styles.frameParent18}>
                     										<div className={styles.bookASlotNowWrapper} onClick={()=>Navigate("/referrals/book-now/67a107c89d57a46e99582bd1")}>
-                      											<b className={styles.forCompanies}>Book a slot now</b>
+                      											<b className={styles.forCompanies} id= "book-slot-section">Book a slot now</b>
                     										</div>
                     										<div className={styles.frameParent19}>
                       											<div className={styles.phoneParent}>
