@@ -204,7 +204,9 @@ const AddProjectsModal = ({ isOpen, onClose, data, setProfileData }) => {
       }
     } catch (error) {
       console.error("Update failed:", error);
-      toast.error("Something went wrong!");
+      toast.error(
+        error?.response?.data?.message || "An unexpected error occurred!"
+      );
     } finally {
       setLoading(false);
     }
@@ -350,7 +352,7 @@ const AddProjectsModal = ({ isOpen, onClose, data, setProfileData }) => {
                   className={`input-css-title-link mt-1 ${
                     errors.projectLink ? "border-red-500" : "border-gray-300"
                   }`}
-                  placeholder="Add your project link"
+                  placeholder="Link format https://your_project_link"
                 />
                 {errors.projectLink && (
                   <p className="mt-1 error-p text-sm text-red-500">

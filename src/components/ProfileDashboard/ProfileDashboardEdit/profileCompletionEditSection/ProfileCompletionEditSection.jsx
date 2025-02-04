@@ -86,7 +86,7 @@ const ProfileCompletionEditSection = ({ privateDashboardData }) => {
               marginTop: 5,
             }}
           >
-            {profileCompletion ? `${profileCompletion.toFixed(1)} %` : "0"}
+            {profileCompletion ? `${profileCompletion.toFixed(1)} %` : "0 %"}
           </h3>
 
           <div>

@@ -462,7 +462,7 @@ export const addUserAchievement = async (data) => {
     if (axios.isCancel(error)) {
       console.log("Request canceled");
     } else {
-      console.error("Request failed", error);
+      console.error("Request failed", error?.message);
     }
     throw error; // Propagate error to caller
   }

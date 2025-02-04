@@ -340,7 +340,7 @@ const AddCertificationsModal = ({ isOpen, onClose, data, setProfileData }) => {
                           ? "border-red-500"
                           : "border-gray-300"
                       }`}
-                      placeholder="Add certificate Url"
+                      placeholder="Link format https://your_certificate_url"
                     />
                     {errors.certificateUrl && (
                       <p className="mt-1 error-p text-sm text-red-500">
