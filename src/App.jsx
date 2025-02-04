@@ -412,7 +412,7 @@ function App() {
             element={<ProfileDashboardEdit />}
           />
           <Route path="*" element={<Page404 />} />
-          <Route path= "/Enterprise" element ={<Enterprise/>}/>
+          <Route path= "/employer" element ={<Enterprise/>}/>
         </Routes>
       </Suspense>
       <NewFooter />
