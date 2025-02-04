@@ -202,6 +202,7 @@
 .btn-confirm-details {
   display: flex;
   justify-content: end;
+  margin-bottom: 5%;
 }
 
 /* .btn-confirm-details button {
