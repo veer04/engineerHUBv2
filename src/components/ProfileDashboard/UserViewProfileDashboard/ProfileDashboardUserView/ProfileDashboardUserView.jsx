@@ -256,16 +256,16 @@ const ProfileDashboardUserView = () => {
                   </div>
                 )}
 
-              {followUsers && followUsers.length >= 0 && (
-                <div style={{ marginTop: 10 }}>
-                  <UserViewStudentFollowAlsoFollow
-                    followUsers={followUsers}
-                    title={`${
-                      DashboardAdminData && DashboardAdminData.firstName
-                    } also follows`}
-                  />
-                </div>
-              )}
+              {/* {fellowUsers && fellowUsers.length >= 0 && ( */}
+              <div style={{ marginTop: 10 }}>
+                <UserViewStudentFollowAlsoFollow
+                  followUsers={followUsers}
+                  title={`${
+                    DashboardAdminData && DashboardAdminData.firstName
+                  } also follows`}
+                />
+              </div>
+              {/* )} */}
 
               <div style={{ marginTop: 10 }}>
                 <img
@@ -323,7 +323,7 @@ const ProfileDashboardUserView = () => {
                 <MoreAboutYourCollegeSection
                   aboutData={aboutData}
                   clubData={clubData}
-                  almaData={almaData}
+                  almaData={fellowUsers}
                   DashboardAdminData={DashboardAdminData}
                 />
               )}
