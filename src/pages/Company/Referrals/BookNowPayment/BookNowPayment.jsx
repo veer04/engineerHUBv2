@@ -281,6 +281,7 @@ const BookNowPayment = () => {
       }
     }
     setErrors(newErrors);
+    
     return valid;
   };
   const validateInput2 = () => {
@@ -343,10 +344,10 @@ const BookNowPayment = () => {
     return valid;
   };
 const handleMeetingSub =() => {
-  
-  // if (!validateInput2()) {
-  //   return;
-  // }
+  // console.log(validateInput2())
+  if (!validateInput2()) {
+    return;
+  }
   setIsLoading(true);
 
   const payload = {
@@ -661,86 +662,88 @@ const handleMeetingSub =() => {
           </div>
         </div>
 {showCustomFields ?  (
-          <div>
-            <FormInput
-              label="Name"
-              id="name"
-              name="name"
-              required
-              placeholder="Enter your Name"
-              value={name}
-              setValue={setName}
-              className="mb-4"
-            />
-            <FormInputEmail
-              label="Email"
-              id="email"
-              name="email"
-              required
-              placeholder="Enter your Email"
-              value={email}
-              setValue={setEmail}
-              className="mb-4"
-            />
-            <FormInput
-              label="Company Name"
-              id="companyName"
-              name="companyName"
-              required
-              placeholder="Enter your Company Name"
-              value={companyName}
-              setValue={setCompanyName}
-              className="mb-4"
-            />
-            <FormInput
-              label="Designation"
-              id="designation"
-              name="designation"
-              required
-              placeholder="Enter your Designation"
-              value={designation}
-              setValue={setDesignation}
-              className="mb-4"
-            />
-            <FormInput
-              label="Query"
-              id="query"
-              name="query"
-              required
-              placeholder="Enter your Query"
-              value={query}
-              setValue={setQuery}
-              className="mb-4"
-            />
-             <div className="btn-confirm-details" onClick={() => {
-               
-                  handleMeetingSub()
-                }
-              }>
-            <button
-             
-              type="submit"
-              style={{
-                backgroundColor: clicked ? "#80D1CE" : "#138382",
-                border: "none",
-                outline: "none",
-                padding: "10px 24px",
-                width: "170px",
-                height: "48px",
-                color: "white",
-                fontSize: 14,
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                borderRadius: 8,
-                cursor: clicked ? "not-allowed" : "pointer",
-              }}
-              disabled={isLoading}
-            >
-              {isLoading ? <div className="loader"></div> : "Confirm Details"}
-            </button>
-          </div>
-          </div>
+  <div>
+    <FormInput
+      label="Name"
+      id="name"
+      name="name"
+      required
+      placeholder="Enter your Name"
+      value={name}
+      setValue={setName}
+      helperText={errors.name}
+      className="mb-4"
+    />
+    <FormInputEmail
+      label="Email"
+      id="email"
+      name="email"
+      required
+      placeholder="Enter your Email"
+      value={email}
+      setValue={setEmail}
+      helperText={errors.email}
+      className="mb-4"
+    />
+    <FormInput
+      label="Company Name"
+      id="companyName"
+      name="companyName"
+      required
+      placeholder="Enter your Company Name"
+      value={companyName}
+      setValue={setCompanyName}
+      helperText={errors.companyName}
+      className="mb-4"
+    />
+    <FormInput
+      label="Designation"
+      id="designation"
+      name="designation"
+      required
+      placeholder="Enter your Designation"
+      value={designation}
+      setValue={setDesignation}
+      helperText={errors.designation}
+      className="mb-4"
+    />
+    <FormInput
+      label="Query"
+      id="query"
+      name="query"
+      required
+      placeholder="Enter your Query"
+      value={query}
+      setValue={setQuery}
+      helperText={errors.query}
+      className="mb-4"
+    />
+     <div className="btn-confirm-details" onClick={() => {
+        handleMeetingSub()
+      }}>
+      <button
+        type="submit"
+        style={{
+          backgroundColor: clicked ? "#80D1CE" : "#138382",
+          border: "none",
+          outline: "none",
+          padding: "10px 24px",
+          width: "170px",
+          height: "48px",
+          color: "white",
+          fontSize: 14,
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          borderRadius: 8,
+          cursor: clicked ? "not-allowed" : "pointer",
+        }}
+        disabled={isLoading}
+      >
+        {isLoading ? <div className="loader"></div> : "Confirm Details"}
+      </button>
+    </div>
+  </div>
                     
         ) : ( <div style={{ margin: "20px 0px" }}>
           <div

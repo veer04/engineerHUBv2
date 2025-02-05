@@ -42,7 +42,9 @@ export const JobAThonMobile = () => {
                         <div className="frameMobView-4">
                             <div className="frameMobView-5">
                                 <div className="frameMobView-6">
-                                    <div className="text-wrapper-3">Connect with us</div>
+                                    <div className="text-wrapper-3"   onClick={() => {
+                                        document.getElementById("book-slot-section")?.scrollIntoView({ behavior: "smooth" });
+                                    }} >Connect with us</div>
                                 </div>
                             </div>
                         </div>
@@ -270,7 +272,9 @@ export const JobAThonMobile = () => {
                             <div className="frameMobView-26">
                                 <div className="frameMobView-27">
                                     <div className="frameMobView-28">
-                                        <div className="text-wrapper-15">Connect with us</div>
+                                        <div className="text-wrapper-15"
+                                      
+                                        >Connect with us</div>
                                     </div>
 
                                     <div className="frameMobView-18">
@@ -287,8 +291,7 @@ export const JobAThonMobile = () => {
                                     </div>
                                 </div>
                             </div>
-
-                            <div className="frameMobView-26">
+                            <div id="book-slot-section" className="frameMobView-26">
                                 <div className="frameMobView-29" onClick={()=>Navigate("/referrals/book-now/67a107c89d57a46e99582bd1")}>
                                     <div className="text-wrapper-18">Book a slot now</div>
                                 </div>
@@ -315,6 +318,7 @@ export const JobAThonMobile = () => {
                                     </div>
                                 </div>
                             </div>
+                           
                         </div>
                     </div>
 
