@@ -31,7 +31,7 @@ const PerformanceSection = () => {
       const data = await response.json();
       setPerformanceData(data.data);
       setLoading(false);
-      // console.log(data.data, "performaceData");
+      console.log(data.data, "performaceData");
     } catch (error) {
       console.error("Error getting the data");
     }
@@ -79,21 +79,28 @@ const PerformanceSection = () => {
 
         {performaceData?.counts?.length > 0 && (
           <div>
-            <button
-              style={{
-                fontSize: 12,
-                fontWeight: 400,
-                lineHeight: "16px",
-                color: "white",
-                padding: "4px 8px",
-                borderRadius: 5,
-                background: "#547178",
-                border: 0,
-                cursor: "pointer",
-              }}
-            >
-              {showHeader ? "Close Analytics" : "View Analytics"}
-            </button>
+            {showHeader && (
+              <button
+                onClick={() => {
+                  setShowHeader(false);
+                  setBlurEnabled(true);
+                  setShowButton(true);
+                }}
+                style={{
+                  fontSize: 12,
+                  fontWeight: 400,
+                  lineHeight: "16px",
+                  color: "white",
+                  padding: "4px 8px",
+                  borderRadius: 5,
+                  background: "#547178",
+                  border: 0,
+                  cursor: "pointer",
+                }}
+              >
+                {showHeader && "Close Analytics"}
+              </button>
+            )}
           </div>
         )}
       </div>
@@ -194,10 +201,10 @@ const PerformanceSection = () => {
                       marginBottom: 0,
                     }}
                   >
-                    {total ? total : "Not Applied"}
+                    {total ? "0" : "Not Applied"}
                   </h3>
 
-                  <div
+                  {/* <div
                     style={{
                       background: "#f4eded",
                       borderRadius: "50%",
@@ -242,7 +249,7 @@ const PerformanceSection = () => {
                         </clipPath>
                       </defs>
                     </svg>
-                  </div>
+                  </div> */}
                 </div>
 
                 <h3
@@ -304,7 +311,7 @@ const PerformanceSection = () => {
               0
             </h3>
 
-            <div
+            {/* <div
               style={{
                 background: "#f4eded",
                 borderRadius: "50%",
@@ -349,7 +356,7 @@ const PerformanceSection = () => {
                   </clipPath>
                 </defs>
               </svg>
-            </div>
+            </div> */}
           </div>
 
           <h3
