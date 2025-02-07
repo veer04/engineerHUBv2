@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./recommendationcard1.css";
 import { FaRegEye } from "react-icons/fa";
 import { IoEyeOffOutline } from "react-icons/io5";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { getUserId, isUserLoggedIn } from "../../../features/User/UserDetails";
+import { Link } from "react-router-dom";
 
 const RecommendationCard1 = ({ data }) => {
-  // console.log(data, "hello");
+  console.log(data, "hello");
   const { search } = useLocation();
   const navigate = useNavigate();
 
@@ -13,157 +15,188 @@ const RecommendationCard1 = ({ data }) => {
     navigate(`/career/jobs/${id}${!!search ? search : ""}`);
   };
 
+  function isJobCreator(id) {
+    console.log(id, "creatorId");
+    return isUserLoggedIn() && id === getUserId();
+  }
+
   return (
     <>
       {data &&
-        data?.map((job) => (
-          <div
-            onClick={() => JobRedirect(job._id)}
-            key={job._id}
-            className="recommendation-card1-main"
-          >
-            <div>
-              <h4
+        data?.map((job) => {
+          console.log(job._id, "jobId");
+          console.log(isJobCreator(job.creatorId));
+          return (
+            <div
+              onClick={() => {
+                JobRedirect(job._id);
+              }}
+              key={job._id}
+              className="recommendation-card1-main"
+            >
+              <div>
+                <div
+                  style={{ display: "flex", justifyContent: "space-between" }}
+                >
+                  <h4
+                    style={{
+                      fontSize: 12,
+                      fontWeight: 400,
+                      lineHeight: "16px",
+                      color: "#002B36",
+                      marginBottom: 0,
+                    }}
+                  >
+                    {job.organisationName}
+                  </h4>
+
+                  {isJobCreator(job.creatorId) && (
+                    <Link to={`/career/jobs/board/${job?._id}`}>
+                      <h4
+                        style={{
+                          fontSize: 12,
+                          fontWeight: 400,
+                          lineHeight: "16px",
+                          color: "#002B36",
+                          marginBottom: 0,
+                          cursor: "pointer",
+                        }}
+                      >
+                        View Candidates
+                      </h4>
+                    </Link>
+                  )}
+                </div>
+
+                <h3
+                  style={{
+                    fontSize: 16,
+                    fontWeight: 700,
+                    lineHeight: "24px",
+                    color: "#002B36",
+                    marginBottom: 0,
+                  }}
+                >
+                  {job.opportunityName}
+                </h3>
+              </div>
+              {/* //recommendation profile data */}
+              <div
+                style={{ marginTop: 5 }}
+                className="icon-section-recommended-1"
+              >
+                <div
+                  style={{ display: "flex", gap: "8px", alignItems: "center" }}
+                >
+                  <div>
+                    <img src="./location3.svg" alt="" />
+                  </div>
+
+                  <h3
+                    style={{
+                      fontSize: 14,
+                      fontWeight: 400,
+                      lineHeight: "20px",
+                      color: "#002B36",
+                      marginBottom: 0,
+                      marginTop: 3,
+                    }}
+                  >
+                    {(job.city === "undefined" ? "" : job.city) || "N/A"} (
+                    {job.opportunityLocation})
+                  </h3>
+                </div>
+              </div>
+              <div
+                style={{ marginTop: 3 }}
+                className="icon-section-recommended-1"
+              >
+                <div
+                  style={{ display: "flex", gap: "8px", alignItems: "center" }}
+                >
+                  <div>
+                    <img src="./salary.svg" alt="" />
+                  </div>
+
+                  <h3
+                    style={{
+                      fontSize: 14,
+                      fontWeight: 400,
+                      lineHeight: "20px",
+                      color: "#002B36",
+                      marginBottom: 0,
+                      marginTop: 3,
+                    }}
+                  >
+                    {job.showSalary
+                      ? job.salaryDisclosure
+                      : "Salary Not Disclosed"}
+                  </h3>
+                </div>
+
+                <div></div>
+              </div>
+              <div
+                style={{ marginTop: 3 }}
+                className="icon-section-recommended-1"
+              >
+                <div
+                  style={{ display: "flex", gap: "8px", alignItems: "center" }}
+                >
+                  <div>
+                    <img src="./experience.svg" alt="" />
+                  </div>
+
+                  <h3
+                    style={{
+                      fontSize: 14,
+                      fontWeight: 400,
+                      lineHeight: "20px",
+                      color: "#002B36",
+                      marginBottom: 0,
+                      marginTop: 3,
+                    }}
+                  >
+                    {job.isForFreshers
+                      ? "Fresher"
+                      : `${job.minExperience}-${job.maxExperience} Years`}
+                  </h3>
+                </div>
+
+                <div className="absolute-position-amazon">
+                  <img
+                    style={{ borderRadius: "50%" }}
+                    src={job.organisationLogo}
+                    width={48}
+                    height={48}
+                    alt=""
+                  />
+                </div>
+              </div>
+
+              {/* //recommendation profile data end */}
+
+              <div
                 style={{
-                  fontSize: 12,
-                  fontWeight: 400,
-                  lineHeight: "16px",
-                  color: "#002B36",
-                  marginBottom: 0,
+                  height: 1,
+                  background: "#B0B0B0",
+                  alignSelf: "stretch",
+                  marginTop: 10,
+                }}
+              ></div>
+
+              {/* //border end */}
+
+              {/* //button div */}
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  marginTop: 10,
                 }}
               >
-                {job.organisationName}
-              </h4>
-
-              <h3
-                style={{
-                  fontSize: 16,
-                  fontWeight: 700,
-                  lineHeight: "24px",
-                  color: "#002B36",
-                  marginBottom: 0,
-                }}
-              >
-                {job.opportunityName}
-              </h3>
-            </div>
-            {/* //recommendation profile data */}
-            <div
-              style={{ marginTop: 5 }}
-              className="icon-section-recommended-1"
-            >
-              <div
-                style={{ display: "flex", gap: "8px", alignItems: "center" }}
-              >
-                <div>
-                  <img src="./location3.svg" alt="" />
-                </div>
-
-                <h3
-                  style={{
-                    fontSize: 14,
-                    fontWeight: 400,
-                    lineHeight: "20px",
-                    color: "#002B36",
-                    marginBottom: 0,
-                    marginTop: 3,
-                  }}
-                >
-                  {(job.city === "undefined" ? "" : job.city) || "N/A"} (
-                  {job.opportunityLocation})
-                </h3>
-              </div>
-            </div>
-            <div
-              style={{ marginTop: 3 }}
-              className="icon-section-recommended-1"
-            >
-              <div
-                style={{ display: "flex", gap: "8px", alignItems: "center" }}
-              >
-                <div>
-                  <img src="./salary.svg" alt="" />
-                </div>
-
-                <h3
-                  style={{
-                    fontSize: 14,
-                    fontWeight: 400,
-                    lineHeight: "20px",
-                    color: "#002B36",
-                    marginBottom: 0,
-                    marginTop: 3,
-                  }}
-                >
-                  {job.showSalary
-                    ? job.salaryDisclosure
-                    : "Salary Not Disclosed"}
-                </h3>
-              </div>
-
-              <div></div>
-            </div>
-            <div
-              style={{ marginTop: 3 }}
-              className="icon-section-recommended-1"
-            >
-              <div
-                style={{ display: "flex", gap: "8px", alignItems: "center" }}
-              >
-                <div>
-                  <img src="./experience.svg" alt="" />
-                </div>
-
-                <h3
-                  style={{
-                    fontSize: 14,
-                    fontWeight: 400,
-                    lineHeight: "20px",
-                    color: "#002B36",
-                    marginBottom: 0,
-                    marginTop: 3,
-                  }}
-                >
-                  {job.isForFreshers
-                    ? "Fresher"
-                    : `${job.minExperience}-${job.maxExperience} Years`}
-                </h3>
-              </div>
-
-              <div className="absolute-position-amazon">
-                <img
-                  style={{ borderRadius: "50%" }}
-                  src={job.organisationLogo}
-                  width={48}
-                  height={48}
-                  alt=""
-                />
-              </div>
-            </div>
-
-            {/* //recommendation profile data end */}
-
-            <div
-              style={{
-                height: 1,
-                background: "#B0B0B0",
-                alignSelf: "stretch",
-                marginTop: 10,
-              }}
-            ></div>
-
-            {/* //border end */}
-
-            {/* //button div */}
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                marginTop: 10,
-              }}
-            >
-              {/* <button
+                {/* <button
             style={{
               background: "#feebe3",
               border: "1px solid #FF3737",
@@ -177,23 +210,23 @@ const RecommendationCard1 = ({ data }) => {
             Closed
           </button> */}
 
-              <button
-                style={{
-                  background: "#eaf7e2",
-                  border: "1px solid #69d578",
-                  fontSize: 12,
-                  fontWeight: 400,
-                  lineHeight: "16px",
-                  padding: "4px 4px",
-                  borderRadius: 5,
-                }}
-              >
-                New Opening
-              </button>
+                <button
+                  style={{
+                    background: "#eaf7e2",
+                    border: "1px solid #69d578",
+                    fontSize: 12,
+                    fontWeight: 400,
+                    lineHeight: "16px",
+                    padding: "4px 4px",
+                    borderRadius: 5,
+                  }}
+                >
+                  New Opening
+                </button>
 
-              {/* //eye div saif */}
-              <div style={{ display: "flex", gap: 3 }}>
-                {/* {isEyeVisible ? (
+                {/* //eye div saif */}
+                <div style={{ display: "flex", gap: 3 }}>
+                  {/* {isEyeVisible ? (
               <FaRegEye
                 onClick={toggleAmountShow}
                 style={{ cursor: "pointer" }}
@@ -204,25 +237,26 @@ const RecommendationCard1 = ({ data }) => {
                 style={{ cursor: "pointer" }}
               />
             )} */}
-                <FaRegEye
-                // style={{ cursor: "pointer" }}
-                />
-                <h3
-                  style={{
-                    fontSize: 12,
-                    fontWeight: 400,
-                    lineHeight: "16px",
-                    color: "#002B36",
-                    marginBottom: 0,
-                  }}
-                >
-                  {/* {isEyeVisible ? "1200" : "xxxx"} */}
-                  1200
-                </h3>
+                  <FaRegEye
+                  // style={{ cursor: "pointer" }}
+                  />
+                  <h3
+                    style={{
+                      fontSize: 12,
+                      fontWeight: 400,
+                      lineHeight: "16px",
+                      color: "#002B36",
+                      marginBottom: 0,
+                    }}
+                  >
+                    {/* {isEyeVisible ? "1200" : "xxxx"} */}
+                    1200
+                  </h3>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
     </>
   );
 };

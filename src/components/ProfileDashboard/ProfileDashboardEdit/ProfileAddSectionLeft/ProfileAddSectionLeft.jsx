@@ -119,6 +119,25 @@ const ProfileAddSectionLeft = ({ profileData, setProfileData }) => {
           : "Your Name"}
       </h3>
 
+      <h2
+        style={{
+          fontWeight: 400,
+          fontSize: 16,
+          lineHeight: "22px",
+          color: "#002B36",
+        }}
+      >
+        {profileData?.aboutMe
+          ? profileData.aboutMe
+          : profileData?.educationDetails?.some((edu) => {
+              const currentDate = new Date();
+              const graduationDate = new Date(edu.endYear, edu.endMonth - 1);
+              return currentDate < graduationDate;
+            })
+          ? "Student"
+          : "Alma"}
+      </h2>
+
       <h3
         style={{
           fontWeight: 400,

@@ -218,7 +218,7 @@ const AddAchievementModal = ({ isOpen, onClose, data, setProfileData }) => {
         setFormData(null);
         onClose();
       } else {
-        toast.error(response?.message || "Failed to delete Achievement.");
+        toast.error(response?.message || "Only alumini has access.");
       }
     } catch (error) {
       console.error(error, "Error updating the Achievement");

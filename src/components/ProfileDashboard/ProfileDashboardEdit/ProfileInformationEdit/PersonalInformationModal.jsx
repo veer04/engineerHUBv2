@@ -47,7 +47,7 @@ const PersonalInformationModal = ({
     if (!formData.dateOfBirth)
       // Check if dateOfBirth is empty
       newErrors.dateOfBirth = "Date of Birth is required.";
-    if (!formData.aboutMe.trim()) newErrors.aboutMe = "About Me is required.";
+    // if (!formData.aboutMe.trim()) newErrors.aboutMe = "Short Bio is required.";
     if (!formData.mobile) {
       newErrors.mobile = "Mobile Number is required.";
     } else if (!/^\d{10}$/.test(formData.mobile)) {
