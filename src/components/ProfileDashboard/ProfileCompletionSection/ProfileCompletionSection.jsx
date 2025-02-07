@@ -83,7 +83,7 @@ const ProfileCompletionSection = ({ privateDashboardData = "" }) => {
               marginTop: 5,
             }}
           >
-            {profileCompletion ? `${profileCompletion.toFixed(1)} %` : "0"}
+            {profileCompletion ? `${profileCompletion.toFixed(1)} %` : "0 %"}
           </h3>
 
           <div>
@@ -175,7 +175,9 @@ const ProfileCompletionSection = ({ privateDashboardData = "" }) => {
                 cursor: "pointer",
               }}
             >
-              Add
+              {privateDashboardData && privateDashboardData.achievementDetails
+                ? null
+                : "Add"}
             </h3>
           </div>
         </div>
@@ -231,7 +233,9 @@ const ProfileCompletionSection = ({ privateDashboardData = "" }) => {
                 cursor: "pointer",
               }}
             >
-              Add
+              {privateDashboardData && privateDashboardData.educationDetails
+                ? null
+                : "Add"}
             </h3>
           </div>
         </div>
@@ -287,7 +291,9 @@ const ProfileCompletionSection = ({ privateDashboardData = "" }) => {
                 cursor: "pointer",
               }}
             >
-              Add
+              {privateDashboardData && privateDashboardData.experienceDetails
+                ? null
+                : "Add"}
             </h3>
           </div>
         </div>
@@ -342,7 +348,9 @@ const ProfileCompletionSection = ({ privateDashboardData = "" }) => {
                 cursor: "pointer",
               }}
             >
-              Add
+              {privateDashboardData && privateDashboardData.licenceDetails
+                ? null
+                : "Add"}
             </h3>
           </div>
         </div>
@@ -397,7 +405,9 @@ const ProfileCompletionSection = ({ privateDashboardData = "" }) => {
                 cursor: "pointer",
               }}
             >
-              Add
+              {privateDashboardData && privateDashboardData.skillsDetails
+                ? null
+                : "Add"}
             </h3>
           </div>
         </div>
@@ -450,7 +460,9 @@ const ProfileCompletionSection = ({ privateDashboardData = "" }) => {
                 cursor: "pointer",
               }}
             >
-              Upload
+              {privateDashboardData && privateDashboardData.resume
+                ? null
+                : "Upload"}
             </h3>
           </div>
         </div>
@@ -506,7 +518,9 @@ const ProfileCompletionSection = ({ privateDashboardData = "" }) => {
                 cursor: "pointer",
               }}
             >
-              Add
+              {privateDashboardData && privateDashboardData.socialMediaDetails
+                ? null
+                : "Add"}
             </h3>
           </div>
         </div>

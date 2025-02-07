@@ -335,7 +335,15 @@ const ProfileWithPostEditShare = ({
             color: "#f3f3f3",
           }}
         >
-          {privateDashboardData?.aboutMe || "No Bio Added"}
+          {privateDashboardData?.aboutMe
+            ? privateDashboardData.aboutMe
+            : privateDashboardData?.educationDetails?.some((edu) => {
+                const currentDate = new Date();
+                const graduationDate = new Date(edu.endYear, edu.endMonth - 1);
+                return currentDate < graduationDate;
+              })
+            ? "Student"
+            : "Alma"}
         </h2>
       </div>
 
@@ -422,7 +430,7 @@ const ProfileWithPostEditShare = ({
               {isLoadingClickToUploadResume ? (
                 <div className="loader-4"></div>
               ) : (
-                "Click to upload your resume"
+                "Click here to pload your resume"
               )}
             </button>
           </div>

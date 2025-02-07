@@ -124,7 +124,7 @@ const PerformanceSection = () => {
               marginBottom: 0,
             }}
           >
-            {performaceData?.performance || "Good"}
+            {performaceData?.performance || "Poor"}
           </h3>
 
           <h3
@@ -155,7 +155,7 @@ const PerformanceSection = () => {
                     marginBottom: 0,
                   }}
                 >
-                  {count.total || "Not Applied"}
+                  {count.total || "0"}
                 </h3>
               </div>
             ))
@@ -169,7 +169,7 @@ const PerformanceSection = () => {
                 marginBottom: 0,
               }}
             >
-              {"Not Applied"}
+              {"0"}
             </h3>
           )}
 
@@ -201,7 +201,7 @@ const PerformanceSection = () => {
                       marginBottom: 0,
                     }}
                   >
-                    {total ? "0" : "Not Applied"}
+                    {total ? "0" : "0"}
                   </h3>
 
                   {/* <div
@@ -261,7 +261,7 @@ const PerformanceSection = () => {
                     marginBottom: 0,
                   }}
                 >
-                  {total ? "Shortlisted" : "Not Applied"}
+                  {"Shortlisted"}
                 </h3>
               </div>
             );
@@ -280,7 +280,7 @@ const PerformanceSection = () => {
                   marginBottom: -4,
                 }}
               >
-                {"Not Applied"}
+                {"0"}
               </h3>
             </div>
             <h3
