@@ -7,12 +7,24 @@ import { Bounce, toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { patchProfilePicture } from "../../../../services/APIConfig";
 import { getAccessToken } from "../../../../features/getCookieValues";
+import Cookies from "js-cookie";
 
 const ProfileAddSectionLeft = ({ profileData, setProfileData }) => {
   const fileInputRef = useRef(null);
   const [profilePhoto, setProfilePhoto] = useState(profileData?.image || null);
   const [newImage, setNewImage] = useState(null);
   const [isImageLoading, setIsImageLoading] = useState(false);
+
+  const [userRole, setUserRole] = useState("");
+
+  useEffect(() => {
+    const role = Cookies.get("role");
+    if (role) {
+      setUserRole(role);
+    }
+  }, []);
+
+  console.log(userRole, "userRole");
 
   // console.log(profileData.image);
 
@@ -127,15 +139,7 @@ const ProfileAddSectionLeft = ({ profileData, setProfileData }) => {
           color: "#002B36",
         }}
       >
-        {profileData?.aboutMe
-          ? profileData.aboutMe
-          : profileData?.educationDetails?.some((edu) => {
-              const currentDate = new Date();
-              const graduationDate = new Date(edu.endYear, edu.endMonth - 1);
-              return currentDate < graduationDate;
-            })
-          ? "Student"
-          : "Alma"}
+        {userRole}
       </h2>
 
       <h3
@@ -146,9 +150,7 @@ const ProfileAddSectionLeft = ({ profileData, setProfileData }) => {
           color: "#002B36",
         }}
       >
-        {profileData
-          ? `${profileData.aboutMe}`
-          : "Associate Software engineer at company name"}
+        {profileData?.aboutMe ? `${profileData?.aboutMe}` : "Your Designation"}
       </h3>
     </div>
   );

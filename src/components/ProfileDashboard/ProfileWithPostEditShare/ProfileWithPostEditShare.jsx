@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import "./profilewithposteditshare.css";
 import { FaRegThumbsUp } from "react-icons/fa";
 import { FaThumbsUp } from "react-icons/fa";
-
+import Cookies from "js-cookie";
+import jwt_decode from "jwt-decode";
 import { FaGraduationCap } from "react-icons/fa6";
 import { HiOutlineBuildingOffice2 } from "react-icons/hi2";
 import { FiDownload } from "react-icons/fi";
@@ -27,8 +28,17 @@ const ProfileWithPostEditShare = ({
   );
 
   const userId = getUserId();
-
   const [uploadedFileName, setUploadedFileName] = useState(null);
+  const [userRole, setUserRole] = useState("");
+
+  useEffect(() => {
+    const role = Cookies.get("role");
+    if (role) {
+      setUserRole(role);
+    }
+  }, []);
+
+  console.log(userRole, "userRole");
 
   const [resume, setResume] = useState(null);
   const [resumeUrl, setResumeUrl] = useState("");
@@ -335,15 +345,7 @@ const ProfileWithPostEditShare = ({
             color: "#f3f3f3",
           }}
         >
-          {privateDashboardData?.aboutMe
-            ? privateDashboardData.aboutMe
-            : privateDashboardData?.educationDetails?.some((edu) => {
-                const currentDate = new Date();
-                const graduationDate = new Date(edu.endYear, edu.endMonth - 1);
-                return currentDate < graduationDate;
-              })
-            ? "Student"
-            : "Alma"}
+          {userRole}
         </h2>
       </div>
 
