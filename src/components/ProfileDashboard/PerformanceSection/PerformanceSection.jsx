@@ -292,7 +292,8 @@ const PerformanceSection = () => {
                 {performaceData &&
                   performaceData?.applications?.map((app, index) => {
                     const { hiringId, status, createdAt, _id } = app;
-                    const { organisationName, opportunityName } = hiringId;
+                    const organisationName = hiringId?.organisationName || "N/A"; 
+                    const opportunityName = hiringId?.opportunityName || "N/A";
 
                     return (
                       <tr
