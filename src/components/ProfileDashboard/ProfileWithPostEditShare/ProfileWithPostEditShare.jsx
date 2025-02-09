@@ -403,7 +403,7 @@ const ProfileWithPostEditShare = ({
         <RWebShare
           data={{
             text: `Check out this post`,
-            url: `${FRONTEND_URL}/profile/user/${userId}`,
+            url: `${FRONTEND_URL}profile/user/${userId}`,
             title: "Check out this post at engineerHUB",
           }}
         >
