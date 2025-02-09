@@ -71,7 +71,7 @@
   color: rgba(138, 138, 138, 1);
 }
 .profile-menu > .show-profile-btn {
-  background-color: var(--primary-color-dark-green);
+  background-color: rgb(19,131,128);
   color: white;
 }
 .profile-menu > .redirect-btn,
