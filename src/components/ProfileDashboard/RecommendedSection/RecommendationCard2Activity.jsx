@@ -57,17 +57,15 @@ const RecommendationCard2Activity = ({ data }) => {
                   {job.organisationName}
                 </h4>
 
-                {isJobCreator(job.creatorId) && (
-                  <button
-                    className="btn-h4-main"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleNavigateJobBoard(job._id);
-                    }}
-                  >
-                    <h4 className="h4-view-candidates">View Candidates</h4>
-                  </button>
-                )}
+                <button
+                  className="btn-h4-main"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleNavigateJobBoard(job._id);
+                  }}
+                >
+                  <h4 className="h4-view-candidates">View Candidates</h4>
+                </button>
               </div>
 
               <h3
