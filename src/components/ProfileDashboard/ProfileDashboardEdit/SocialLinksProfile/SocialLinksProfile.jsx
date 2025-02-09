@@ -142,7 +142,7 @@ const SocialLinksProfile = ({ profileData, setProfileData }) => {
                     marginBottom: 0,
                   }}
                 >
-                  Add Username
+                  Add Linkedin Link
                 </h3>
               </div>
               <div className="linkedin-id-and-github-right">
@@ -168,7 +168,7 @@ const SocialLinksProfile = ({ profileData, setProfileData }) => {
                     marginBottom: 0,
                   }}
                 >
-                  Add Username
+                  Add Github Link
                 </h3>
               </div>
             </div>

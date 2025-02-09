@@ -28,7 +28,7 @@ const EducationResume = ({ DashboardAdminData }) => {
             margin: 0,
           }}
         >
-          <p style={{ margin: 0 }}>No Education Available.</p>
+          <p style={{ margin: 0 }}>No Education Added.</p>
         </div>
       ) : (
         <>

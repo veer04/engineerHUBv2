@@ -24,7 +24,7 @@ const UserProfileAboutDesc = ({ DashboardAdminData }) => {
           marginBottom: 0,
         }}
       >
-        {(DashboardAdminData && DashboardAdminData.bio) || "No Bio is there"}
+        {(DashboardAdminData && DashboardAdminData.bio) || "No Bio Added."}
       </p>
     </div>
   );

@@ -7,7 +7,11 @@ import { Bounce, toast } from "react-toastify";
 import { getAccessToken } from "../../../../features/getCookieValues";
 import { getUserId } from "../../../../features/User/UserDetails";
 
-const UserViewStudentFollowAlsoFollow = ({ title, followUsers }) => {
+const UserViewStudentFollowAlsoFollow = ({
+  title,
+  followUsers,
+  DashboardAdminData,
+}) => {
   const [followState, setFollowState] = useState({});
   const [loadingState, setLoadingState] = useState({});
   const [sectionsToShow, setSectionsToShow] = useState(2);
@@ -134,7 +138,18 @@ const UserViewStudentFollowAlsoFollow = ({ title, followUsers }) => {
                       textOverflow: "ellipsis",
                     }}
                   >
-                    {user?.aboutMe || "No about me available."}
+                    {user.aboutMe
+                      ? user.aboutMe
+                      : DashboardAdminData?.educationDetails?.some((edu) => {
+                          const currentDate = new Date();
+                          const graduationDate = new Date(
+                            edu.endYear,
+                            edu.endMonth - 1
+                          );
+                          return currentDate < graduationDate;
+                        })
+                      ? "Student"
+                      : "Alma"}
                   </h5>
 
                   <button

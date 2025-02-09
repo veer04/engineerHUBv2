@@ -39,7 +39,7 @@ const YourActivitySection = ({
             marginBottom: 0,
           }}
         >
-          Your Activity
+          Activities
         </h3>
       </div>
 
