@@ -332,7 +332,7 @@ export default function ProfilePopUp() {
           navigate(`/profile/${role.toLowerCase()}/${getUserId()}`);
         }}
       >
-        {`${profileProgress < 100 ? "Complete Profile" : "View Profile"}`}
+        {`${profileProgress < 100 ? "Open Dashboard" : "View Dashboard"}`}
       </button>
       <div className="divider"></div>
       {/* Main Content */}

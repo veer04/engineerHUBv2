@@ -269,10 +269,10 @@ export const JobAThonDesktopView = () => {
                       											</div>
                       											<div className={styles.frameParent22}>
                         												<div className={styles.frameContainer}>
-                          													<b className={styles.connectWithUs}>Mr. RK Sharma</b>
+                          													<b className={styles.connectWithUs}>Mr. RB Mouli</b>
                         												</div>
                         												<div className={styles.placementHeadBirlaCampusWrapper}>
-                          													<div className={styles.placementHeadBirla}>Placement Head, Vidyapeeth</div>
+                          													<div className={styles.placementHeadBirla}>Placement Head, Birla Campus</div>
                         												</div>
                       											</div>
                     										</div>
@@ -284,10 +284,10 @@ export const JobAThonDesktopView = () => {
                       											</div>
                       											<div className={styles.frameParent22}>
                         												<div className={styles.frameContainer}>
-                          													<b className={styles.connectWithUs}>Mrs. Sonal</b>
+                          													<b className={styles.connectWithUs}>Mr. RB Mouli</b>
                         												</div>
                         												<div className={styles.placementHeadBirlaCampusWrapper}>
-                          													<div className={styles.placementHeadBirla}>Human Resource Associate, TCS</div>
+                          													<div className={styles.placementHeadBirla}>Placement Head, Birla Campus</div>
                         												</div>
                       											</div>
                     										</div>
@@ -299,10 +299,10 @@ export const JobAThonDesktopView = () => {
                       											</div>
                       											<div className={styles.frameParent22}>
                         												<div className={styles.frameContainer}>
-                          													<b className={styles.connectWithUs}>Mrs. Radhika</b>
+                          													<b className={styles.connectWithUs}>Mr. RB Mouli</b>
                         												</div>
                         												<div className={styles.placementHeadBirlaCampusWrapper}>
-                          													<div className={styles.placementHeadBirla}>Human Resource , Pwc</div>
+                          													<div className={styles.placementHeadBirla}>Placement Head, Birla Campus</div>
                         												</div>
                       											</div>
                     										</div>

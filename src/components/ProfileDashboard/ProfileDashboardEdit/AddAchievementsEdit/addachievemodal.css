@@ -141,7 +141,7 @@
   font-size: 14px;
   line-height: 20px;
   font-weight: 400;
-  color: #547178;
+  color: #d1d1d1;
 }
 
 .achieve-modal .label-css {
@@ -175,6 +175,7 @@
   .achieve-modal-overlay .achieve-modal {
     background: white;
     width: 100%;
+    height: 100%;
     max-width: 588px;
     border-radius: 16px;
     padding: 16px;

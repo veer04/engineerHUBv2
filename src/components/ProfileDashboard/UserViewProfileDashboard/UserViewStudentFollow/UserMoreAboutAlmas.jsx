@@ -6,13 +6,14 @@ import axios from "axios";
 import { Bounce, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import NoDataCompBySaif from "./NoDataCompBySaif";
+import { getUserId } from "../../../../features/User/UserDetails";
 
 const UserMoreAboutAlamas = ({ title, almaData }) => {
   const [followState, setFollowState] = useState({});
   const [loadingState, setLoadingState] = useState({});
   const [sectionsToShow, setSectionsToShow] = useState(2);
 
-  if (!almaData || !almaData.alumni || almaData.alumni.length === 0) {
+  if (!almaData || !almaData.students || almaData.students.length === 0) {
     return <NoDataCompBySaif titleName={"Almas"} />;
   }
 
@@ -20,7 +21,11 @@ const UserMoreAboutAlamas = ({ title, almaData }) => {
     setSectionsToShow(sectionsToShow + 2);
   };
 
-  const handleFollowClick = async (userId) => {
+  const handleFollowClick = async (id) => {
+    const userId = getUserId();
+
+    if (loadingState[id]) return;
+
     const token = getAccessToken();
 
     if (!token) {
@@ -28,85 +33,46 @@ const UserMoreAboutAlamas = ({ title, almaData }) => {
       toast.error("🚨 Access token not found. Please log in again.", {
         position: "top-right",
         autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
         theme: "dark",
         transition: Bounce,
       });
       return;
     }
 
-    const config = {
-      headers: {
-        accesstoken: token,
-      },
-    };
-
-    setLoadingState((prevState) => ({
-      ...prevState,
-      [userId]: true,
-    }));
+    setLoadingState((prev) => ({ ...prev, [id]: true }));
+    const isAlreadyFollowed = followState[id] || false;
+    setFollowState((prev) => ({ ...prev, [id]: !isAlreadyFollowed }));
 
     try {
-      const isAlreadyFollowed = followState[userId] || false;
-      if (isAlreadyFollowed) {
-        await axios.post(
-          `${API_URL}api/v1/userDashboard/unfollow/${userId}`,
-          {},
-          config
-        );
-        setFollowState((prevState) => ({ ...prevState, [userId]: false }));
-        toast("❌ You have unfollowed the user!", {
+      const config = { headers: { accessToken: token } };
+      const url = `${API_URL}api/v1/userDashboard/${
+        isAlreadyFollowed ? "unfollow" : "follow"
+      }/${userId}`;
+
+      await axios.post(url, {}, config);
+
+      toast(
+        isAlreadyFollowed
+          ? "❌ You have unfollowed the user!"
+          : "🥳 You are now following the user!",
+        {
           position: "top-right",
           autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
           theme: "dark",
           transition: Bounce,
-        });
-      } else {
-        await axios.post(
-          `${API_URL}api/v1/userDashboard/follow/${userId}`,
-          {},
-          config
-        );
-        setFollowState((prevState) => ({ ...prevState, [userId]: true }));
-        toast("🥳 You are now following the user!", {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "dark",
-          transition: Bounce,
-        });
-      }
+        }
+      );
     } catch (error) {
+      setFollowState((prev) => ({ ...prev, [id]: isAlreadyFollowed }));
       toast.error("🚨 Something went wrong. Please try again!", {
         position: "top-right",
         autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
         theme: "dark",
         transition: Bounce,
       });
       console.error("Error following/unfollowing user:", error);
     } finally {
-      setLoadingState((prevState) => ({
-        ...prevState,
-        [userId]: false,
-      }));
+      setLoadingState((prev) => ({ ...prev, [id]: false }));
     }
   };
 
@@ -114,15 +80,16 @@ const UserMoreAboutAlamas = ({ title, almaData }) => {
     <>
       <div className="user-view-student-follow-main-div-more-about-almas">
         {almaData &&
-          almaData?.alumni?.slice(0, sectionsToShow).map((user, index) => (
+          almaData?.students?.slice(0, sectionsToShow).map((user, index) => (
             <div key={index} className="user-follow-card">
               <div className="user-follow-section-with-img">
                 <div className="user-follow-section-with-img-left">
                   <img
                     className="profile-img-alumni"
                     src={
-                      user.image && user?.image.includes("frontendehubbucket")
-                        ? user?.image
+                      user.profile?.image &&
+                      user.profile?.image.includes("frontendehubbucket")
+                        ? user.profile?.image
                         : `${Bucket_URL}UserViewDashboard/profile_follow.png`
                     }
                     alt="profile_img"
@@ -139,7 +106,7 @@ const UserMoreAboutAlamas = ({ title, almaData }) => {
                       marginBottom: 5,
                     }}
                   >
-                    {user.firstName} {user.profile?.lastName}
+                    {user.profile?.firstName} {user.profile?.lastName}
                   </h3>
                   <h5
                     style={{
@@ -154,7 +121,7 @@ const UserMoreAboutAlamas = ({ title, almaData }) => {
                       textOverflow: "ellipsis",
                     }}
                   >
-                    {user.bio || "No about me available."}
+                    {user.profile?.aboutMe || "No about me available."}
                   </h5>
                   <button
                     onClick={() => handleFollowClick(user._id)}
@@ -177,7 +144,7 @@ const UserMoreAboutAlamas = ({ title, almaData }) => {
           ))}
       </div>
 
-      {sectionsToShow < almaData?.alumni?.length && (
+      {sectionsToShow < almaData?.students?.length && (
         <div
           style={{
             display: "flex",

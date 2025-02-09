@@ -1,18 +1,32 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./profileCompletionEditSection.css";
 import SocialLinksModal from "../SocialLinksProfile/SocialLinksModal";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const ProfileCompletionEditSection = ({ privateDashboardData }) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [profileCompletion, setProfileCompletion] = useState(100);
 
   console.log(privateDashboardData, "privateDashboardData");
-  const openModal = () => {
-    setIsModalOpen(true);
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.hash) {
+      const element = document.getElementById(location.hash.substring(1));
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+  }, [location]);
+
+  const handleRedirectAndScroll = (id) => {
+    navigate(`#${id}`);
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
   };
-  const closeModal = () => {
-    setIsModalOpen(false);
-  };
+
   useEffect(() => {
     if (privateDashboardData) {
       const {
@@ -45,8 +59,6 @@ const ProfileCompletionEditSection = ({ privateDashboardData }) => {
   }, [privateDashboardData]);
   return (
     <>
-      <SocialLinksModal isOpen={isModalOpen} onClose={closeModal} />
-
       <div className="profile-completion-edit-main-section">
         <h3
           style={{
@@ -74,7 +86,7 @@ const ProfileCompletionEditSection = ({ privateDashboardData }) => {
               marginTop: 5,
             }}
           >
-            {profileCompletion ? `${profileCompletion.toFixed(1)} %` : "0"}
+            {profileCompletion ? `${profileCompletion.toFixed(1)} %` : "0 %"}
           </h3>
 
           <div>
@@ -153,7 +165,7 @@ const ProfileCompletionEditSection = ({ privateDashboardData }) => {
             </h4>
           </div>
 
-          <div onClick={openModal}>
+          <div onClick={() => handleRedirectAndScroll("add-achievements")}>
             <h3
               style={{
                 fontSize: 14,
@@ -165,7 +177,9 @@ const ProfileCompletionEditSection = ({ privateDashboardData }) => {
                 cursor: "pointer",
               }}
             >
-              Add
+              {privateDashboardData && privateDashboardData.achievementDetails
+                ? null
+                : "Add"}
             </h3>
           </div>
         </div>
@@ -208,7 +222,7 @@ const ProfileCompletionEditSection = ({ privateDashboardData }) => {
             </h4>
           </div>
 
-          <div>
+          <div onClick={() => handleRedirectAndScroll("add-education")}>
             <h3
               style={{
                 fontSize: 14,
@@ -217,9 +231,12 @@ const ProfileCompletionEditSection = ({ privateDashboardData }) => {
                 fontStyle: "normal",
                 color: "#138382",
                 marginBottom: 0,
+                cursor: "pointer",
               }}
             >
-              Add
+              {privateDashboardData && privateDashboardData.educationDetails
+                ? null
+                : "Add"}
             </h3>
           </div>
         </div>
@@ -262,7 +279,7 @@ const ProfileCompletionEditSection = ({ privateDashboardData }) => {
             </h4>
           </div>
 
-          <div>
+          <div onClick={() => handleRedirectAndScroll("add-experience")}>
             <h3
               style={{
                 fontSize: 14,
@@ -271,9 +288,12 @@ const ProfileCompletionEditSection = ({ privateDashboardData }) => {
                 fontStyle: "normal",
                 color: "#138382",
                 marginBottom: 0,
+                cursor: "pointer",
               }}
             >
-              Add
+              {privateDashboardData && privateDashboardData.experienceDetails
+                ? null
+                : "Add"}
             </h3>
           </div>
         </div>
@@ -315,7 +335,7 @@ const ProfileCompletionEditSection = ({ privateDashboardData }) => {
             </h4>
           </div>
 
-          <div>
+          <div onClick={() => handleRedirectAndScroll("add-certifications")}>
             <h3
               style={{
                 fontSize: 14,
@@ -324,9 +344,12 @@ const ProfileCompletionEditSection = ({ privateDashboardData }) => {
                 fontStyle: "normal",
                 color: "#138382",
                 marginBottom: 0,
+                cursor: "pointer",
               }}
             >
-              Add
+              {privateDashboardData && privateDashboardData.licenceDetails
+                ? null
+                : "Add"}
             </h3>
           </div>
         </div>
@@ -368,7 +391,7 @@ const ProfileCompletionEditSection = ({ privateDashboardData }) => {
             </h4>
           </div>
 
-          <div>
+          <div onClick={() => handleRedirectAndScroll("add-skills")}>
             <h3
               style={{
                 fontSize: 14,
@@ -377,9 +400,12 @@ const ProfileCompletionEditSection = ({ privateDashboardData }) => {
                 fontStyle: "normal",
                 color: "#138382",
                 marginBottom: 0,
+                cursor: "pointer",
               }}
             >
-              Add
+              {privateDashboardData && privateDashboardData.skillsDetails
+                ? null
+                : "Add"}
             </h3>
           </div>
         </div>
@@ -419,7 +445,7 @@ const ProfileCompletionEditSection = ({ privateDashboardData }) => {
             </h4>
           </div>
 
-          <div>
+          <div onClick={() => handleRedirectAndScroll("upload-resume")}>
             <h3
               style={{
                 fontSize: 14,
@@ -428,9 +454,12 @@ const ProfileCompletionEditSection = ({ privateDashboardData }) => {
                 fontStyle: "normal",
                 color: "#138382",
                 marginBottom: 0,
+                cursor: "pointer",
               }}
             >
-              Upload
+              {privateDashboardData && privateDashboardData.resume
+                ? null
+                : "Upload"}
             </h3>
           </div>
         </div>
@@ -473,7 +502,7 @@ const ProfileCompletionEditSection = ({ privateDashboardData }) => {
             </h4>
           </div>
 
-          <div>
+          <div onClick={() => handleRedirectAndScroll("add-social-links")}>
             <h3
               style={{
                 fontSize: 14,
@@ -482,9 +511,12 @@ const ProfileCompletionEditSection = ({ privateDashboardData }) => {
                 fontStyle: "normal",
                 color: "#138382",
                 marginBottom: 0,
+                cursor: "pointer",
               }}
             >
-              Add
+              {privateDashboardData && privateDashboardData.socialMediaDetails
+                ? null
+                : "Add"}
             </h3>
           </div>
         </div>
