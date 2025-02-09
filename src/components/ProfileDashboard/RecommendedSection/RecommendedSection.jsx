@@ -19,7 +19,7 @@ const RecommendedSection = () => {
           method: "GET",
           headers: {
             accesstoken: getAccessToken(),
-            "ngrok-skip-browser-warning": "true",
+            // "ngrok-skip-browser-warning": "true",
           },
         }
       );
