@@ -1,5 +1,4 @@
 import React from "react";
-import "./postcardsaif.css";
 
 const PostCardActivity = ({ data }) => {
   return (
@@ -13,6 +12,7 @@ const PostCardActivity = ({ data }) => {
               borderRadius: "12px",
               width: 150,
               height: 150,
+              margin: "10px",
               padding: "10px",
               display: "flex",
               flexDirection: "column",

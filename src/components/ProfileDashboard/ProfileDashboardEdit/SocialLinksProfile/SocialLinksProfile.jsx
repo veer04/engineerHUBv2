@@ -40,7 +40,7 @@ const SocialLinksProfile = ({ profileData, setProfileData }) => {
         setProfileData={setProfileData}
       />
 
-      <div className="social-links-main-div-edit" id="add-social-links">
+      <div className="social-links-main-div-edit">
         <div className="social-links-section">
           <div className="social-l-sub">
             <div className="social-l-left">
@@ -69,9 +69,7 @@ const SocialLinksProfile = ({ profileData, setProfileData }) => {
             </div>
 
             <div className="social-l-right">
-              {profileData &&
-              profileData.socialMediaDetails &&
-              profileData.socialMediaDetails.length > 0 ? (
+              {profileData ? (
                 <div onClick={openModal} style={{ cursor: "pointer" }}>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -114,9 +112,7 @@ const SocialLinksProfile = ({ profileData, setProfileData }) => {
           </div>
         </div>
 
-        {(!profileData ||
-          (profileData.socialMediaDetails &&
-            profileData.socialMediaDetails.length === 0)) && (
+        {!profileData && (
           <>
             <div className="linkedin-id-and-github">
               <div className="linkedin-id-and-github-left">
@@ -142,7 +138,7 @@ const SocialLinksProfile = ({ profileData, setProfileData }) => {
                     marginBottom: 0,
                   }}
                 >
-                  Add Linkedin Link
+                  Add Username
                 </h3>
               </div>
               <div className="linkedin-id-and-github-right">
@@ -168,7 +164,7 @@ const SocialLinksProfile = ({ profileData, setProfileData }) => {
                     marginBottom: 0,
                   }}
                 >
-                  Add Github Link
+                  Add Username
                 </h3>
               </div>
             </div>
@@ -255,7 +251,6 @@ const SocialLinksProfile = ({ profileData, setProfileData }) => {
                       fontStyle: "normal",
                       color: "#547178",
                       marginBottom: 0,
-                      wordBreak: "break-word",
                     }}
                   >
                     {social.mediaLink || "Not Added the Link"}

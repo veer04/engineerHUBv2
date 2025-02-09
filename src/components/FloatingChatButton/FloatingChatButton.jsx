@@ -45,8 +45,7 @@ export default function FloatingChatButton() {
   useEffect(() => {
     if (
       location.pathname.includes("referrals") ||
-      location.pathname.includes("host") ||
-      location.pathname.includes("/profile/user")
+      location.pathname.includes("host")
     ) {
       setDisplayChatButton(false);
     } else setDisplayChatButton(true);

@@ -4,7 +4,6 @@
   background-color: var(--primary-color-green);
   padding: 16px;
   border-radius: 16px;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.08);
 }
 
 .main-profile-with-post-share .img-share-div {
@@ -94,43 +93,20 @@
 
 .main-profile-with-post-share .btn-siv-edit-post-share {
   margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
   margin-bottom: 10px;
 }
 
-.main-profile-with-post-share .btn-siv-edit-post-share button:nth-child(1) {
+.main-profile-with-post-share .btn-siv-edit-post-share button {
   background-color: transparent;
   color: white;
-  width: 105px;
-  padding: 8px;
-  height: 40px;
+  padding: 8px 36px;
   border: 2px solid white;
-  border-radius: 12px;
-  font-size: 14px;
-}
-
-.main-profile-with-post-share .btn-siv-edit-post-share button:nth-child(2) {
-  background-color: transparent;
-  margin-left: 8px;
-
-  color: white;
-  width: 105px;
-
-  padding: 8px;
-  height: 40px;
-  border: 2px solid white;
-  border-radius: 12px;
-  font-size: 14px;
-}
-
-.main-profile-with-post-share .btn-siv-edit-post-share button:nth-child(3) {
-  background-color: transparent;
-  color: white;
-  margin-left: 8px;
-  width: 105px;
-  padding: 8px;
-  height: 40px;
-  border: 2px solid white;
-  border-radius: 12px;
+  border-radius: 10px;
   font-size: 14px;
 }
 
@@ -224,42 +200,11 @@
 
 @media screen and (max-width: 820px) {
   .main-profile-with-post-share .btn-siv-edit-post-share {
-    /* justify-content: center; */
+    justify-content: flex-start;
   }
 
-  .main-profile-with-post-share .btn-siv-edit-post-share button:nth-child(1) {
-    background-color: transparent;
-    color: white;
-    width: 31%;
-    padding: 8px;
-    height: 40px;
-    border: 2px solid white;
-    border-radius: 12px;
-    font-size: 14px;
-  }
-
-  .main-profile-with-post-share .btn-siv-edit-post-share button:nth-child(2) {
-    background-color: transparent;
-    margin-left: 8px;
-    color: white;
-    width: 31%;
-    padding: 8px;
-    height: 40px;
-    border: 2px solid white;
-    border-radius: 12px;
-    font-size: 14px;
-  }
-
-  .main-profile-with-post-share .btn-siv-edit-post-share button:nth-child(3) {
-    background-color: transparent;
-    color: white;
-    /* margin-left: 8px; */
-    width: 32%;
-    padding: 8px;
-    height: 40px;
-    border: 2px solid white;
-    border-radius: 12px;
-    font-size: 14px;
+  .main-profile-with-post-share .btn-siv-edit-post-share button {
+    padding: 8px 34px;
   }
 }
 
@@ -341,22 +286,5 @@
   }
   87% {
     box-shadow: 0.2em -0.2em 0 0 currentcolor;
-  }
-}
-
-.click-to-upload-your-resume-innner button .loader-4 {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 40px;
-  aspect-ratio: 4;
-  background: radial-gradient(circle closest-side, #138382 90%, #cecece00) 0 /
-    calc(100% / 3) 100% space;
-  clip-path: inset(0 100% 0 0);
-  animation: l1 1s steps(4) infinite;
-}
-@keyframes l1 {
-  to {
-    clip-path: inset(0 -34% 0 0);
   }
 }

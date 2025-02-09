@@ -8,8 +8,6 @@ import {
 } from "../../../../services/APIConfig";
 import { Bounce, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { getAccessToken } from "../../../../features/getCookieValues";
-import { API_URL } from "../../../../services/APIUtils";
 
 const AddAchievementModal = ({ isOpen, onClose, data, setProfileData }) => {
   const [formData, setFormData] = useState({
@@ -18,10 +16,26 @@ const AddAchievementModal = ({ isOpen, onClose, data, setProfileData }) => {
     description: "",
     achievementUrl: "",
   });
-
+  console.log(data, "achievementData");
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
+  const [updateAchievementResponse, setUpdateAchievementResponse] = useState(
+    {}
+  );
   const [response, setResponse] = useState(null);
+
+  const handleChange = (field, value) => {
+    setFormData((prevData) => ({ ...prevData, [field]: value }));
+  };
+
+  const validateForm = () => {
+    const newErrors = {};
+
+    if (!formData.achievementName.trim())
+      newErrors.achievementName = "Achievement name is required.";
+
+    return newErrors;
+  };
 
   useEffect(() => {
     if (data) {
@@ -36,59 +50,7 @@ const AddAchievementModal = ({ isOpen, onClose, data, setProfileData }) => {
     }
   }, [data]);
 
-  const handleChange = (field, value) => {
-    setFormData((prevData) => ({ ...prevData, [field]: value }));
-
-    setErrors((prevErrors) => {
-      const newErrors = { ...prevErrors };
-
-      if (field === "achievementName") {
-        if (!value.trim()) {
-          newErrors.achievementName = "Achievement name is required.";
-        } else {
-          delete newErrors.achievementName;
-        }
-      }
-
-      if (field === "achievementUrl") {
-        if (!value.trim()) {
-          newErrors.achievementUrl = "Achievement URL is required.";
-        } else {
-          delete newErrors.achievementUrl;
-        }
-      }
-
-      if (field === "description") {
-        if (!value.trim()) {
-          newErrors.description = "Description is required.";
-        } else {
-          delete newErrors.description;
-        }
-      }
-
-      return newErrors;
-    });
-  };
-
-  const validateForm = () => {
-    const newErrors = {};
-
-    if (!formData.achievementName || !formData.achievementName.trim()) {
-      newErrors.achievementName = "Achievement name is required.";
-    }
-
-    if (!formData.achievementUrl || !formData.achievementUrl.trim()) {
-      newErrors.achievementUrl = "Achievement URL is required.";
-    }
-
-    if (!formData.description || !formData.description.trim()) {
-      newErrors.description = "Description is required.";
-    }
-
-    return newErrors;
-  };
-
-  const handleSubmit = async () => {
+  const handleSubmit = () => {
     const validationErrors = validateForm();
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
@@ -98,10 +60,11 @@ const AddAchievementModal = ({ isOpen, onClose, data, setProfileData }) => {
     setLoading(true);
 
     try {
-      const dataRes = await addUserAchievement(formData);
-      console.log(dataRes, "datares");
+      addUserAchievement(formData, setUpdateAchievementResponse);
 
-      if (dataRes && dataRes._id) {
+      const response = updateAchievementResponse;
+
+      if (response) {
         toast(
           data && data._id
             ? "✏️ Achievements has been updated successfully!"
@@ -122,12 +85,10 @@ const AddAchievementModal = ({ isOpen, onClose, data, setProfileData }) => {
         setProfileData((prevData) => ({
           ...prevData,
           achievementDetails: [
-            ...(prevData.achievementDetails || []).filter(
-              (item) => item._id !== dataRes._id
-            ),
+            ...(prevData.achievementDetails || []),
             {
-              _id: dataRes._id,
-              profile: dataRes.profile,
+              _id: response._id,
+              profile: response.profile,
               achievementDate: formData.achievementDate,
               achievementName: formData.achievementName,
               achievementUrl: formData.achievementUrl,
@@ -142,9 +103,7 @@ const AddAchievementModal = ({ isOpen, onClose, data, setProfileData }) => {
       }
     } catch (error) {
       console.error("Update failed:", error);
-      toast.error(
-        error?.response?.data?.message || "An unexpected error occurred!"
-      );
+      toast.error("Something went wrong!");
     } finally {
       setLoading(false);
     }
@@ -194,35 +153,25 @@ const AddAchievementModal = ({ isOpen, onClose, data, setProfileData }) => {
 
   const handleDeleteAchievement = async () => {
     try {
-      const response = await fetch(
-        `${API_URL}api/v1/delete/achievement/${data._id}`,
-        {
-          method: "DELETE",
-          headers: {
-            accessToken: getAccessToken(),
-          },
-        }
-      );
+      await deleteUserAchievement(data._id, setResponse);
 
-      console.log(response, "responseDelete");
-
-      if (response.ok) {
+      if (response && response?.data?.success) {
         toast.success("Achievement deleted successfully!");
+
         setProfileData((prevData) => ({
           ...prevData,
-          achievementDetails: prevData?.achievementDetails.filter(
-            (achi) => achi._id !== data._id
+          achievementDetails: prevData.achievementDetails.filter(
+            (achi) => achi._id !== achi._id
           ),
         }));
 
-        setFormData(null);
         onClose();
       } else {
-        toast.error(response?.message || "Only alumini has access.");
+        toast.error(response?.data?.message || "Failed to delete Achievement.");
       }
     } catch (error) {
-      console.error(error, "Error updating the Achievement");
-      toast.error(response?.message || "Failed to delete Achievement.");
+      console.error(error);
+      toast.error("Something went wrong!");
     }
   };
 
@@ -266,7 +215,7 @@ const AddAchievementModal = ({ isOpen, onClose, data, setProfileData }) => {
                     <input
                       type="text"
                       id="achievementName"
-                      value={formData?.achievementName}
+                      value={formData.achievementName}
                       onChange={(e) =>
                         handleChange("achievementName", e.target.value)
                       }
@@ -296,7 +245,7 @@ const AddAchievementModal = ({ isOpen, onClose, data, setProfileData }) => {
                     <input
                       type="date"
                       id="achievementDate"
-                      value={formData?.achievementDate}
+                      value={formData.achievementDate}
                       onChange={(e) =>
                         handleChange("achievementDate", e.target.value)
                       }
@@ -321,11 +270,11 @@ const AddAchievementModal = ({ isOpen, onClose, data, setProfileData }) => {
                     >
                       Description
                     </label>
-                    <span className="required-indicator">*</span>
+                    {/* <span className="required-indicator">*</span> */}
                     <textarea
                       rows={4}
                       id="description"
-                      value={formData?.description}
+                      value={formData.description}
                       onChange={(e) =>
                         handleChange("description", e.target.value)
                       }
@@ -351,11 +300,11 @@ const AddAchievementModal = ({ isOpen, onClose, data, setProfileData }) => {
                     >
                       Achievement URL
                     </label>
-                    <span className="required-indicator">*</span>
+                    {/* <span className="required-indicator">*</span> */}
                     <input
                       type="url"
                       id="achievementUrl"
-                      value={formData?.achievementUrl}
+                      value={formData.achievementUrl}
                       onChange={(e) =>
                         handleChange("achievementUrl", e.target.value)
                       }
@@ -364,7 +313,7 @@ const AddAchievementModal = ({ isOpen, onClose, data, setProfileData }) => {
                           ? "border-red-500"
                           : "border-gray-300"
                       }`}
-                      placeholder="Link format https://your_achievement_url"
+                      placeholder="Enter a URL"
                     />
                     {errors.achievementUrl && (
                       <p className="mt-1 error-p text-sm text-red-500">

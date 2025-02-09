@@ -34,8 +34,7 @@ export default function NewFooter() {
       location.pathname.includes("otp-verification") ||
       location.pathname.includes("referrals") ||
       location.pathname.includes("career/jobs/board") ||
-      location.pathname.includes("/chat/") ||
-      location.pathname.includes("/profile/user")
+      location.pathname.includes("/chat/")
     ) {
       setDisplayFooter(false);
     } else setDisplayFooter(true);

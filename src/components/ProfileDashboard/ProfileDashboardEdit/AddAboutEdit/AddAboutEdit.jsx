@@ -27,7 +27,7 @@ const AddAboutEdit = ({ profileData, setProfileData }) => {
         data={selectedEducation}
         setProfileData={setProfileData}
       />
-      <div className="add-about-main-div" id="add-education">
+      <div className="add-about-main-div">
         <div className="add-headline-sub-div">
           <div className="add-headlline-sub-left">
             <h3
@@ -42,21 +42,19 @@ const AddAboutEdit = ({ profileData, setProfileData }) => {
               Add Education
             </h3>
 
-            {!profileData ||
-              (profileData.educationDetails &&
-                profileData.educationDetails.length === 0 && (
-                  <h4
-                    style={{
-                      fontSize: 14,
-                      fontWeight: 400,
-                      lineHeight: "20px",
-                      marginBottom: 0,
-                      color: "#547178",
-                    }}
-                  >
-                    Add Education
-                  </h4>
-                ))}
+            {!profileData && (
+              <h4
+                style={{
+                  fontSize: 14,
+                  fontWeight: 400,
+                  lineHeight: "20px",
+                  marginBottom: 0,
+                  color: "#547178",
+                }}
+              >
+                Add Education
+              </h4>
+            )}
           </div>
 
           <div className="add-headline-sub-right">
@@ -90,24 +88,23 @@ const AddAboutEdit = ({ profileData, setProfileData }) => {
                         style={{
                           fontSize: 16,
                           fontWeight: 600,
-                          lineHeight: "20px",
-                          color: "#002B36",
-                          marginBottom: 0,
-                        }}
-                      >
-                        {education?.collegeId?.collegeName}
-                      </h3>
-
-                      <h3
-                        style={{
-                          fontSize: 14,
-                          fontWeight: 400,
                           lineHeight: "24px",
                           color: "#002B36",
                           marginBottom: 0,
                         }}
                       >
                         {education?.degree}
+                      </h3>
+                      <h3
+                        style={{
+                          fontSize: 14,
+                          fontWeight: 400,
+                          lineHeight: "20px",
+                          color: "#002B36",
+                          marginBottom: 0,
+                        }}
+                      >
+                        {education?.collegeId?.collegeName}
                       </h3>
 
                       <div

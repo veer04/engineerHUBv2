@@ -15,10 +15,9 @@ import ExperienceResume from "../ExperienceResume/ExperienceResume";
 import SkillsResume from "../SkillsResume/SkillsResume";
 import { getUserId } from "../../../../features/User/UserDetails";
 import axios from "axios";
-import { API_URL, Bucket_URL } from "../../../../services/APIUtils";
+import { API_URL } from "../../../../services/APIUtils";
 import { getAccessToken } from "../../../../features/getCookieValues";
 import UserViewStudentFollowAlsoFollow from "../UserViewStudentFollow/UserViewStudentFollowAlsoFollow";
-import { useParams } from "react-router-dom";
 
 const ProfileDashboardUserView = () => {
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 520);
@@ -39,7 +38,7 @@ const ProfileDashboardUserView = () => {
 
   const [loading, setLoading] = useState(false);
 
-  const { userId } = useParams();
+  const userId = getUserId();
 
   useEffect(() => {
     const handleResize = () => {
@@ -241,38 +240,31 @@ const ProfileDashboardUserView = () => {
 
           {isMobile ? null : (
             <>
-              {DashboardAdminData &&
-                DashboardAdminData.educationDetails.length > 0 && (
-                  <div style={{ marginTop: 10 }}>
-                    <UserViewStudentFollow
-                      fellowUsers={fellowUsers}
-                      title={`Other students from ${
-                        DashboardAdminData &&
-                        DashboardAdminData?.educationDetails &&
-                        DashboardAdminData?.educationDetails?.[0]?.collegeId
-                          .collegeName
-                      }`}
-                    />
-                  </div>
-                )}
-
-              {followUsers.followings && (
-                <div style={{ marginTop: 10 }}>
-                  <UserViewStudentFollowAlsoFollow
-                    followUsers={followUsers}
-                    DashboardAdminData={DashboardAdminData}
-                    title={`${
-                      DashboardAdminData && DashboardAdminData.firstName
-                    } also follows`}
-                  />
-                </div>
-              )}
+              <div style={{ marginTop: 10 }}>
+                <UserViewStudentFollow
+                  fellowUsers={fellowUsers}
+                  title={`Other students from ${
+                    DashboardAdminData &&
+                    DashboardAdminData?.educationDetails &&
+                    DashboardAdminData?.educationDetails?.[0]?.collegeId
+                      .collegeName
+                  }`}
+                />
+              </div>
+              <div style={{ marginTop: 10 }}>
+                <UserViewStudentFollowAlsoFollow
+                  followUsers={followUsers}
+                  title={`${
+                    DashboardAdminData && DashboardAdminData.firstName
+                  } also follows`}
+                />
+              </div>
 
               <div style={{ marginTop: 10 }}>
                 <img
                   className="user-view-img"
                   style={{ borderRadius: 8 }}
-                  src={`${Bucket_URL}UserViewDashboard/rectangle-img.png`}
+                  src="./rectangle-img.png"
                 />
               </div>
             </>
@@ -319,15 +311,12 @@ const ProfileDashboardUserView = () => {
                 postData={postData}
               />
             </div>
-            {DashboardAdminData &&
-              DashboardAdminData.educationDetails.length > 0 && (
-                <MoreAboutYourCollegeSection
-                  aboutData={aboutData}
-                  clubData={clubData}
-                  almaData={fellowUsers}
-                  DashboardAdminData={DashboardAdminData}
-                />
-              )}
+            <MoreAboutYourCollegeSection
+              aboutData={aboutData}
+              clubData={clubData}
+              almaData={almaData}
+              DashboardAdminData={DashboardAdminData}
+            />
 
             {/* //in mobile yeh dikhega */}
             {isMobile ? (
