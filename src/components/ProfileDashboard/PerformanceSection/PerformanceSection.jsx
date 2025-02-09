@@ -389,7 +389,7 @@ const PerformanceSection = () => {
           )}
         </div>
       )}
-      <div>
+      <div className="pagination-mobile">
         <PaginationCompNewSaif
           pages={totalPages}
           currentPage={currentPage}

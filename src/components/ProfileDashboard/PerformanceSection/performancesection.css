@@ -126,3 +126,7 @@
     transform: rotateY(-180deg);
   }
 }
+
+.pagination-mobile {
+  display: block;
+}
