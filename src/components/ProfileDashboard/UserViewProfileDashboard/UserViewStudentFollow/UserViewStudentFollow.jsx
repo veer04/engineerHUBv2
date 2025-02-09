@@ -17,93 +17,55 @@ const UserViewStudentFollow = ({ title, fellowUsers }) => {
     setSectionsToShow(sectionsToShow + 2);
   };
 
-  const handleFollowClick = async (userId) => {
-    const token = getAccessToken();
+  const handleFollowClick = async (id) => {
+    const userId = getUserId();
 
+    const token = getAccessToken();
     if (!token) {
-      console.log("No access token found!");
       toast.error("🚨 Access token not found. Please log in again.", {
         position: "top-right",
         autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
         theme: "dark",
         transition: Bounce,
       });
       return;
     }
 
-    const config = {
-      headers: {
-        accesstoken: token,
-      },
-    };
+    setLoadingState((prev) => ({ ...prev, [id]: true }));
 
-    setLoadingState((prevState) => ({
-      ...prevState,
-      [userId]: true,
-    }));
+    const isAlreadyFollowed = followState[id] || false;
+    setFollowState((prev) => ({ ...prev, [id]: !isAlreadyFollowed }));
 
     try {
-      const isAlreadyFollowed = followState[userId] || false;
-      if (isAlreadyFollowed) {
-        await axios.post(
-          `${API_URL}api/v1/userDashboard/unfollow/${userId}`,
-          {},
-          config
-        );
-        setFollowState((prevState) => ({ ...prevState, [userId]: false }));
-        toast("❌ You have unfollowed the user!", {
+      const config = { headers: { accessToken: token } };
+      const url = `${API_URL}api/v1/userDashboard/${
+        isAlreadyFollowed ? "unfollow" : "follow"
+      }/${userId}`;
+
+      await axios.post(url, {}, config);
+
+      toast(
+        isAlreadyFollowed
+          ? "❌ You have unfollowed the user!"
+          : "🥳 You are now following the user!",
+        {
           position: "top-right",
           autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
           theme: "dark",
           transition: Bounce,
-        });
-      } else {
-        await axios.post(
-          `${API_URL}api/v1/userDashboard/follow/${userId}`,
-          {},
-          config
-        );
-        setFollowState((prevState) => ({ ...prevState, [userId]: true }));
-        toast("🥳 You are now following the user!", {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "dark",
-          transition: Bounce,
-        });
-      }
+        }
+      );
     } catch (error) {
+      setFollowState((prev) => ({ ...prev, [id]: isAlreadyFollowed }));
       toast.error("🚨 Something went wrong. Please try again!", {
         position: "top-right",
         autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
         theme: "dark",
         transition: Bounce,
       });
       console.error("Error following/unfollowing user:", error);
     } finally {
-      setLoadingState((prevState) => ({
-        ...prevState,
-        [userId]: false,
-      }));
+      setLoadingState((prev) => ({ ...prev, [id]: false }));
     }
   };
 
@@ -116,7 +78,7 @@ const UserViewStudentFollow = ({ title, fellowUsers }) => {
           lineHeight: "24px",
           color: "#002B36",
           marginBottom: 0,
-          textTransform: "uppercase",
+          // textTransform: "uppercase",
         }}
       >
         {title}

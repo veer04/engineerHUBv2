@@ -1,7 +1,12 @@
 import React from "react";
 import "./skillsresume.css";
 
-const SkillsResume = () => {
+const SkillsResume = ({ DashboardAdminData }) => {
+  const hasSkillsDetails =
+    DashboardAdminData &&
+    DashboardAdminData.skillsDetails &&
+    DashboardAdminData.skillsDetails.length > 0;
+
   return (
     <div className="skills-resume-main-div">
       <h3
@@ -16,15 +21,33 @@ const SkillsResume = () => {
         Skills
       </h3>
 
-      <div className="skills-box-main">
-        <span className="skills-box">Figma</span>
-        <span className="skills-box">Framer</span>
-        <span className="skills-box">Product Design</span>
-        <span className="skills-box">Product Design</span>{" "}
-        <span className="skills-box">Product Design</span>{" "}
-        <span className="skills-box">Product Design</span>{" "}
-        <span className="skills-box">Product Design</span>
-      </div>
+      {!hasSkillsDetails ? (
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            padding: "20px",
+            margin: 0,
+          }}
+        >
+          <p style={{ margin: 0 }}>No Skills Added.</p>
+        </div>
+      ) : (
+        <div className="skills-box-main">
+          {DashboardAdminData &&
+            DashboardAdminData?.skillsDetails?.map((skill, index) => {
+              const skillList = skill.skills.split(",");
+              return skillList?.map((singleSkill, skillIndex) =>
+                singleSkill && singleSkill !== "" ? (
+                  <span key={`${index}-${skillIndex}`} className="skills-box">
+                    {singleSkill}
+                  </span>
+                ) : null
+              );
+            })}
+        </div>
+      )}
     </div>
   );
 };

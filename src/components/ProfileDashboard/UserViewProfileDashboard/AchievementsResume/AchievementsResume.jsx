@@ -30,7 +30,7 @@ const AchievementsResume = ({ DashboardAdminData }) => {
             margin: 0,
           }}
         >
-          <p style={{ margin: 0 }}>No Achievements Available.</p>
+          <p style={{ margin: 0 }}>No Achievements Added.</p>
         </div>
       ) : (
         <>

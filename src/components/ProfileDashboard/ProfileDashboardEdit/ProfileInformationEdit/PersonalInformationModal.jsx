@@ -47,7 +47,7 @@ const PersonalInformationModal = ({
     if (!formData.dateOfBirth)
       // Check if dateOfBirth is empty
       newErrors.dateOfBirth = "Date of Birth is required.";
-    if (!formData.aboutMe.trim()) newErrors.aboutMe = "About Me is required.";
+    // if (!formData.aboutMe.trim()) newErrors.aboutMe = "Short Bio is required.";
     if (!formData.mobile) {
       newErrors.mobile = "Mobile Number is required.";
     } else if (!/^\d{10}$/.test(formData.mobile)) {
@@ -59,18 +59,27 @@ const PersonalInformationModal = ({
   };
 
   // console.log(data.aboutMe);
+  // console.log(data.dateOfBirth, "dob");
 
   useEffect(() => {
     if (isOpen && data) {
       console.log(data, "data");
-      const formattedDateOfBirth = data.dateOfBirth
-        ? moment(data.dateOfBirth, "DD/MM/YYYY").format("YYYY-MM-DD")
-        : "";
+
+      let dateOfBirth = "";
+      if (data.dateOfBirth) {
+        const [day, month, year] = data.dateOfBirth.split("/");
+
+        const parsedDate = new Date(`${year}-${month}-${day}`);
+
+        if (!isNaN(parsedDate.getTime())) {
+          dateOfBirth = parsedDate.toISOString().split("T")[0];
+        }
+      }
 
       setFormData({
         firstName: data.firstName || "",
         lastName: data.lastName || "",
-        dateOfBirth: formattedDateOfBirth,
+        dateOfBirth: dateOfBirth,
         aboutMe: data.aboutMe || "",
         mobile: data.mobile || "",
         gender: data.gender || "",
@@ -98,17 +107,10 @@ const PersonalInformationModal = ({
       return;
     }
 
-    const formattedDate = {
-      ...formData,
-      dateOfBirth: moment(formData.dateOfBirth, "DD/MM/YYYY").format(
-        "YYYY-MM-DD"
-      ),
-    };
-
     setLoading(true);
 
     try {
-      await updateUserDetails(formattedDate, setUpdateUserResponse);
+      await updateUserDetails(formData, setUpdateUserResponse);
 
       const response = setUpdateUserResponse;
 
@@ -129,7 +131,7 @@ const PersonalInformationModal = ({
           ...prevData,
           firstName: formData.firstName,
           lastName: formData.lastName,
-          dateOfBirth: formattedDate.dateOfBirth,
+          dateOfBirth: formData.dateOfBirth,
           aboutMe: formData.aboutMe,
           mobile: formData.mobile,
           gender: formData.gender,
@@ -265,7 +267,7 @@ const PersonalInformationModal = ({
               </div>
             </div>
 
-            <div className="modal-div-inner">
+            <div className="modal-div-inner-full">
               <div
                 className={`mb-2 image-input-main-div ${
                   errors.dateOfBirth ? "error" : ""
@@ -282,7 +284,7 @@ const PersonalInformationModal = ({
                   id="dateOfBirth"
                   value={formData.dateOfBirth}
                   onChange={(e) => handleChange("dateOfBirth", e.target.value)}
-                  className={`mt-1 input-css ${
+                  className={`mt-1 input-css-full ${
                     errors.dateOfBirth ? "border-red-500" : "border-gray-300"
                   }`}
                 />
@@ -298,9 +300,9 @@ const PersonalInformationModal = ({
                   htmlFor="aboutMe"
                   className="label-css block text-sm font-medium"
                 >
-                  About Me
+                  Short Bio
                 </label>
-                <textarea
+                <input
                   rows={2}
                   id="aboutMe"
                   value={formData.aboutMe}
