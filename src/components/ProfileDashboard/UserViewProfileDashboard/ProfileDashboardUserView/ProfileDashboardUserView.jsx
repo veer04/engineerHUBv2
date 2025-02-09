@@ -256,16 +256,17 @@ const ProfileDashboardUserView = () => {
                   </div>
                 )}
 
-              {/* {fellowUsers && fellowUsers.length >= 0 && ( */}
-              <div style={{ marginTop: 10 }}>
-                <UserViewStudentFollowAlsoFollow
-                  followUsers={followUsers}
-                  title={`${
-                    DashboardAdminData && DashboardAdminData.firstName
-                  } also follows`}
-                />
-              </div>
-              {/* )} */}
+              {followUsers.followings && (
+                <div style={{ marginTop: 10 }}>
+                  <UserViewStudentFollowAlsoFollow
+                    followUsers={followUsers}
+                    DashboardAdminData={DashboardAdminData}
+                    title={`${
+                      DashboardAdminData && DashboardAdminData.firstName
+                    } also follows`}
+                  />
+                </div>
+              )}
 
               <div style={{ marginTop: 10 }}>
                 <img

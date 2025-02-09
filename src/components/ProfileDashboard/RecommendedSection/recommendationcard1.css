@@ -25,3 +25,24 @@
   border: 1px solid gray;
   border-radius: 50%;
 }
+
+.recommendation-card1-main .btn-h4-main {
+  background-color: #138382;
+  border-radius: 5px;
+  color: white;
+  border: none;
+  padding: 3px 5px;
+}
+
+.recommendation-card1-main .h4-view-candidates {
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+  color: white;
+  margin-bottom: 0;
+  cursor: pointer;
+}
+
+.recommendation-card1-main .h4-view-candidates:hover {
+  color: #c9c9c9;
+}

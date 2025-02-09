@@ -3,6 +3,7 @@ import "./performancesection.css";
 import { VscGraph } from "react-icons/vsc";
 import { API_URL } from "../../../services/APIUtils";
 import { getAccessToken } from "../../../features/getCookieValues";
+import PaginationCompNewSaif from "../PaginationNewCompSaif/PaginationCompNewSaif";
 
 const PerformanceSection = () => {
   const [showHeader, setShowHeader] = useState(false);
@@ -10,10 +11,14 @@ const PerformanceSection = () => {
   const [showButton, setShowButton] = useState(true);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 520);
   const [currentPage, setCurrentPage] = useState(1);
-  const [limit, setLimit] = useState(20);
+  const [totalPages, setTotalPages] = useState(1);
+  const [limit, setLimit] = useState(6);
   const [loading, setLoading] = useState(false);
 
   const [performaceData, setPerformanceData] = useState([]);
+
+  console.log(totalPages, "totalpages");
+  console.log(currentPage, "currentPage");
 
   const fetchRecommendationData = async () => {
     setLoading(true);
@@ -30,6 +35,8 @@ const PerformanceSection = () => {
 
       const data = await response.json();
       setPerformanceData(data.data);
+      setTotalPages(data.data.totalPage);
+      setCurrentPage(data.data.currentPage);
       setLoading(false);
       console.log(data.data, "performaceData");
     } catch (error) {
@@ -39,7 +46,7 @@ const PerformanceSection = () => {
 
   useEffect(() => {
     fetchRecommendationData();
-  }, []);
+  }, [currentPage]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -104,7 +111,6 @@ const PerformanceSection = () => {
           </div>
         )}
       </div>
-
       <div className="analytics-boxes-div">
         <div
           className="analytics-box-1"
@@ -144,32 +150,33 @@ const PerformanceSection = () => {
           {performaceData &&
           performaceData.counts &&
           performaceData.counts.length > 0 ? (
-            performaceData.counts.map((count, index) => (
-              <div key={index}>
-                <h3
-                  style={{
-                    fontSize: 20,
-                    fontWeight: 700,
-                    lineHeight: "24px",
-                    color: "#002B36",
-                    marginBottom: 0,
-                  }}
-                >
-                  {count.total || "0"}
-                </h3>
-              </div>
-            ))
+            <div>
+              <h3
+                style={{
+                  fontSize: 20,
+                  fontWeight: 700,
+                  lineHeight: "24px",
+                  color: "#002B36",
+                  marginBottom: 0,
+                }}
+              >
+                {performaceData.counts.reduce(
+                  (acc, count) => acc + (count.total || 0),
+                  0
+                )}
+              </h3>
+            </div>
           ) : (
             <h3
               style={{
-                fontSize: 12,
+                fontSize: 20,
                 fontWeight: 700,
                 lineHeight: "24px",
                 color: "#002B36",
                 marginBottom: 0,
               }}
             >
-              {"0"}
+              0
             </h3>
           )}
 
@@ -186,116 +193,35 @@ const PerformanceSection = () => {
           </h3>
         </div>
 
-        {performaceData &&
-          performaceData?.counts?.map((c, index) => {
-            const { _id, total } = c;
-            return (
-              <div key={index} className="analytics-box-3">
-                <div style={{ display: "flex", gap: 4 }}>
-                  <h3
-                    style={{
-                      fontSize: 20,
-                      fontWeight: 700,
-                      lineHeight: "24px",
-                      color: "#002B36",
-                      marginBottom: 0,
-                    }}
-                  >
-                    {total ? "0" : "0"}
-                  </h3>
-
-                  {/* <div
-                    style={{
-                      background: "#f4eded",
-                      borderRadius: "50%",
-                      width: 22,
-                      height: 22,
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                    }}
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="17"
-                      height="16"
-                      viewBox="0 0 17 16"
-                      fill="none"
-                    >
-                      <g clip-path="url(#clip0_2585_3908)">
-                        <path
-                          d="M8.25018 3.44903L8.25018 14.499"
-                          stroke="#FF0000"
-                          stroke-width="2"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                        />
-                        <path
-                          d="M13.7752 8.97403L8.25021 14.499L2.72521 8.97403"
-                          stroke="#FF0000"
-                          stroke-width="2"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                        />
-                      </g>
-                      <defs>
-                        <clipPath id="clip0_2585_3908">
-                          <rect
-                            width="15.6"
-                            height="15.6"
-                            fill="white"
-                            transform="translate(16.05 15.7998) rotate(180)"
-                          />
-                        </clipPath>
-                      </defs>
-                    </svg>
-                  </div> */}
-                </div>
-
-                <h3
-                  style={{
-                    fontSize: 12,
-                    fontWeight: 400,
-                    lineHeight: "16px",
-                    color: "#486D76",
-                    marginBottom: 0,
-                  }}
-                >
-                  {"Shortlisted"}
-                </h3>
-              </div>
-            );
-          })}
-
-        {/* Fallback for empty or undefined `performaceData.counts` */}
-        {!(performaceData && performaceData.counts?.length) && (
-          <div className="analytics-box-3">
-            <div style={{ display: "flex", gap: 4 }}>
-              <h3
-                style={{
-                  fontSize: 12,
-                  fontWeight: 700,
-                  lineHeight: "24px",
-                  color: "#002B36",
-                  marginBottom: -4,
-                }}
-              >
-                {"0"}
-              </h3>
-            </div>
+        <div className="analytics-box-3">
+          <div style={{ display: "flex", gap: 4 }}>
             <h3
               style={{
-                fontSize: 12,
-                fontWeight: 400,
+                fontSize: 20,
+                fontWeight: 700,
                 lineHeight: "24px",
-                color: "#486D76",
+                color: "#002B36",
                 marginBottom: 0,
               }}
             >
-              Shortlisted
+              {performaceData?.counts?.find(
+                (item) => item._id === "Shortlisted"
+              )?.total || 0}
             </h3>
           </div>
-        )}
+
+          <h3
+            style={{
+              fontSize: 12,
+              fontWeight: 400,
+              lineHeight: "16px",
+              color: "#486D76",
+              marginBottom: 0,
+            }}
+          >
+            Shortlisted
+          </h3>
+        </div>
 
         <div className="analytics-box-3">
           <div style={{ display: "flex", gap: 4 }}>
@@ -308,55 +234,9 @@ const PerformanceSection = () => {
                 marginBottom: 0,
               }}
             >
-              0
+              {performaceData?.counts?.find((item) => item._id === "Rejected")
+                ?.total || 0}
             </h3>
-
-            {/* <div
-              style={{
-                background: "#f4eded",
-                borderRadius: "50%",
-                width: 22,
-                height: 22,
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="17"
-                height="16"
-                viewBox="0 0 17 16"
-                fill="none"
-              >
-                <g clip-path="url(#clip0_2585_3918)">
-                  <path
-                    d="M8.75018 3.44903L8.75018 14.499"
-                    stroke="#2CC546"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                  <path
-                    d="M14.2752 8.97403L8.75018 14.499L3.22518 8.97403"
-                    stroke="#2CC546"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                </g>
-                <defs>
-                  <clipPath id="clip0_2585_3918">
-                    <rect
-                      width="15.6"
-                      height="15.6"
-                      fill="white"
-                      transform="translate(16.55 15.7998) rotate(180)"
-                    />
-                  </clipPath>
-                </defs>
-              </svg>
-            </div> */}
           </div>
 
           <h3
@@ -372,9 +252,7 @@ const PerformanceSection = () => {
           </h3>
         </div>
       </div>
-
       {/* //table div */}
-
       {!isMobile && (
         <div style={{ marginTop: 15, paddingBottom: 20, position: "relative" }}>
           <table
@@ -481,7 +359,7 @@ const PerformanceSection = () => {
               </tbody>
             )}
           </table>
-          {performaceData?.counts?.length > 0 && (
+          {performaceData?.counts?.length > 0 && !loading && (
             <div
               style={{
                 position: "absolute",
@@ -511,6 +389,13 @@ const PerformanceSection = () => {
           )}
         </div>
       )}
+      <div>
+        <PaginationCompNewSaif
+          pages={totalPages}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+        />
+      </div>
     </div>
   );
 };

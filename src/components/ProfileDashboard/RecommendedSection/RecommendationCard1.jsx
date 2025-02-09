@@ -7,7 +7,7 @@ import { getUserId, isUserLoggedIn } from "../../../features/User/UserDetails";
 import { Link } from "react-router-dom";
 
 const RecommendationCard1 = ({ data }) => {
-  console.log(data, "hello");
+  // console.log(data, "hello");
   const { search } = useLocation();
   const navigate = useNavigate();
 
@@ -16,9 +16,16 @@ const RecommendationCard1 = ({ data }) => {
   };
 
   function isJobCreator(id) {
-    console.log(id, "creatorId");
+    // console.log(id, "creatorId");
     return isUserLoggedIn() && id === getUserId();
   }
+
+  const handleNavigateJobBoard = (id) => {
+    console.log("click");
+    navigate(`/career/jobs/board/${id}${!!search ? search : ""}`, {
+      replace: true,
+    });
+  };
 
   return (
     <>
@@ -51,20 +58,15 @@ const RecommendationCard1 = ({ data }) => {
                   </h4>
 
                   {isJobCreator(job.creatorId) && (
-                    <Link to={`/career/jobs/board/${job?._id}`}>
-                      <h4
-                        style={{
-                          fontSize: 12,
-                          fontWeight: 400,
-                          lineHeight: "16px",
-                          color: "#002B36",
-                          marginBottom: 0,
-                          cursor: "pointer",
-                        }}
-                      >
-                        View Candidates
-                      </h4>
-                    </Link>
+                    <button
+                      className="btn-h4-main"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleNavigateJobBoard(job._id);
+                      }}
+                    >
+                      <h4 className="h4-view-candidates">View Candidates</h4>
+                    </button>
                   )}
                 </div>
 

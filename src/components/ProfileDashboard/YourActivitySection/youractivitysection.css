@@ -48,4 +48,12 @@
     gap: 10px;
     margin-top: 20px;
   }
+
+  .your-activity-section-main .grid-job-card-activity {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 10px;
+    /* overflow: auto;
+    scroll-behavior: smooth; */
+  }
 }

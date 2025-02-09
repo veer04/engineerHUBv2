@@ -7,6 +7,8 @@ import CreateJobCard from "./CreateJobCard";
 import CreateInternshipCard from "./CreateInternshipCard";
 import Createprojects from "./CreateProjects";
 import CreateEventHiring from "./CreateEventHiring";
+import TechnicalEventComp from "./TechnicalEventComp";
+import CulturalEventComp from "./CulturalEventComp";
 
 const HostPageForProfileDashboard = () => {
   return (
@@ -29,6 +31,8 @@ const HostPageForProfileDashboard = () => {
       <div className="post-create-main-sub">
         {/* <CreatePostCard /> */}
         <CreateJobCard />
+        <TechnicalEventComp />
+        <CulturalEventComp />
         <CreateInternshipCard />
         {/* <Createprojects /> */}
         <CreateEventHiring />

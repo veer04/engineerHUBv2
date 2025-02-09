@@ -78,7 +78,7 @@ const UserViewStudentFollow = ({ title, fellowUsers }) => {
           lineHeight: "24px",
           color: "#002B36",
           marginBottom: 0,
-          textTransform: "uppercase",
+          // textTransform: "uppercase",
         }}
       >
         {title}
