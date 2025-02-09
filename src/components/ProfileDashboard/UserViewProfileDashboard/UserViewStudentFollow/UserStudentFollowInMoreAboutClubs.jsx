@@ -6,7 +6,6 @@ import axios from "axios";
 import { Bounce, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import NoDataCompBySaif from "./NoDataCompBySaif";
-import { getUserId } from "../../../../features/User/UserDetails";
 
 const UserStudentFollowInMoreAboutClubs = ({ title, clubData }) => {
   const [followState, setFollowState] = useState({});
@@ -18,57 +17,93 @@ const UserStudentFollowInMoreAboutClubs = ({ title, clubData }) => {
     setSectionsToShow(sectionsToShow + 2);
   };
 
-  const handleFollowClick = async (id) => {
-    const userId = getUserId();
-
-    if (loadingState[id]) return;
-
+  const handleFollowClick = async (userId) => {
     const token = getAccessToken();
+
     if (!token) {
+      console.log("No access token found!");
       toast.error("🚨 Access token not found. Please log in again.", {
         position: "top-right",
         autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
         theme: "dark",
         transition: Bounce,
       });
       return;
     }
 
-    setLoadingState((prev) => ({ ...prev, [id]: true }));
+    const config = {
+      headers: {
+        accesstoken: token,
+      },
+    };
 
-    const isAlreadyFollowed = followState[id] || false;
-    setFollowState((prev) => ({ ...prev, [id]: !isAlreadyFollowed }));
+    setLoadingState((prevState) => ({
+      ...prevState,
+      [userId]: true,
+    }));
 
     try {
-      const config = { headers: { accessToken: token } };
-      const url = `${API_URL}api/v1/userDashboard/${
-        isAlreadyFollowed ? "unfollow" : "follow"
-      }/${userId}`;
-
-      await axios.post(url, {}, config);
-
-      toast(
-        isAlreadyFollowed
-          ? "❌ You have unfollowed the user!"
-          : "🥳 You are now following the user!",
-        {
+      const isAlreadyFollowed = followState[userId] || false;
+      if (isAlreadyFollowed) {
+        await axios.post(
+          `${API_URL}api/v1/userDashboard/unfollow/${userId}`,
+          {},
+          config
+        );
+        setFollowState((prevState) => ({ ...prevState, [userId]: false }));
+        toast("❌ You have unfollowed the user!", {
           position: "top-right",
           autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
           theme: "dark",
           transition: Bounce,
-        }
-      );
+        });
+      } else {
+        await axios.post(
+          `${API_URL}api/v1/userDashboard/follow/${userId}`,
+          {},
+          config
+        );
+        setFollowState((prevState) => ({ ...prevState, [userId]: true }));
+        toast("🥳 You are now following the user!", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+          transition: Bounce,
+        });
+      }
     } catch (error) {
-      setFollowState((prev) => ({ ...prev, [id]: isAlreadyFollowed }));
       toast.error("🚨 Something went wrong. Please try again!", {
         position: "top-right",
         autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
         theme: "dark",
         transition: Bounce,
       });
       console.error("Error following/unfollowing user:", error);
     } finally {
-      setLoadingState((prev) => ({ ...prev, [id]: false }));
+      setLoadingState((prevState) => ({
+        ...prevState,
+        [userId]: false,
+      }));
     }
   };
 

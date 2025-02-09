@@ -14,23 +14,22 @@ const UploadResumeEdit = ({ profileData, setProfileData }) => {
   const [resume, setResume] = useState(null);
   const [resumeUrl, setResumeUrl] = useState(profileData?.resume || "");
   const fileInputRef = React.useRef(null);
+  const [uploadMessage, setUploadMessage] = useState("");
   const [isUploaded, setIsUploaded] = useState(!!profileData?.resume);
-  const [uploadedFileName, setUploadedFileName] = useState(null);
+  const [uploadedFileName, setUploadedFileName] = useState(
+    profileData?.resume ? profileData?.resume.split("/").pop() : ""
+  );
   const [uploadDate, setUploadDate] = useState(
     profileData?.resume ? moment().format("YYYY-MM-DD") : ""
   );
-  const [downloadProgress, setDownloadProgress] = useState(null);
-  const [isDownloading, setIsDownloading] = useState(false);
+  const [progress, setProgress] = useState(0);
+  const userId = getUserId();
+  const [response, setResponse] = useState(null);
 
   useEffect(() => {
     if (profileData?.resume) {
       setIsUploaded(true);
-
-      const fullFileName = profileData?.resume.split("/").pop();
-      const nameMatch = fullFileName.match(/([a-zA-Z0-9_-]+)\.pdf/i);
-      const cleanFileName = nameMatch ? nameMatch[1] : "resume";
-
-      setUploadedFileName(cleanFileName);
+      setUploadedFileName(profileData?.resume.split("/").pop());
       setResumeUrl(profileData?.resume);
       setUploadDate(moment().format("YYYY-MM-DD"));
     }
@@ -62,13 +61,9 @@ const UploadResumeEdit = ({ profileData, setProfileData }) => {
 
         if (response.data) {
           setIsUploaded(true);
-          const uploadedUrl = response.data.data;
-          const fullFileName = uploadedUrl.split("/").pop();
-          const nameMatch = fullFileName.match(/([a-zA-Z0-9_-]+)\.pdf/i);
-          const cleanFileName = nameMatch ? nameMatch[1] : "resume";
-          setUploadedFileName(cleanFileName);
+          setUploadedFileName(file.name);
+          setResumeUrl(response.data.data);
           setUploadDate(moment().format("YYYY-MM-DD"));
-          setResumeUrl(uploadedUrl);
           toast("🥳 Resume Added Successfully!", {
             position: "top-right",
             autoClose: 5000,
@@ -87,17 +82,6 @@ const UploadResumeEdit = ({ profileData, setProfileData }) => {
           "Error uploading resume:",
           error.response ? error.response.data : error.message
         );
-        toast(`💀Only PDF's Allowed`, {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "dark",
-          transition: Bounce,
-        });
       }
     }
   };
@@ -108,56 +92,37 @@ const UploadResumeEdit = ({ profileData, setProfileData }) => {
 
   const downloadResume = async () => {
     try {
-      setIsDownloading(true);
-      setDownloadProgress(0);
-
       const response = await axios({
-        url: `${API_URL}api/v1/downloadPdf?title=${uploadedFileName}&url=${resumeUrl}`,
+        url: `${API_URL}api/v1/downloadPdf?title=${profileData?.resume}&url=${profileData?.resume}`,
         method: "POST",
-        data: { title: uploadedFileName, url: resumeUrl },
+        data: { title: resumeUrl, url: profileData?.resume },
         responseType: "blob",
         onDownloadProgress: (progressEvent) => {
           let percentCompleted = Math.round(
             (progressEvent.loaded * 100) / progressEvent.total
           );
-          setDownloadProgress(percentCompleted);
+          setProgress(percentCompleted);
         },
       });
 
-      const fullFileName = resumeUrl?.split("/").pop(); // Get last part of URL
-      const nameMatch = fullFileName.match(/([a-zA-Z]+)\.pdf/i); // Extract name before ".pdf"
-      const cleanFileName = nameMatch ? nameMatch[1] : "resume";
-
+      setProgress(100);
       const blob = new Blob([response.data], {
         type: "application/pdf",
       });
 
       const link = document.createElement("a");
       link.href = URL.createObjectURL(blob);
-      link.setAttribute("download", `${cleanFileName}`);
+      link.setAttribute("download", `${profileData?.resume}`);
       link.click();
-
-      if (downloadProgress === 100) {
-        setIsDownloading(false); // Re-enable button when download is complete
-      }
-
-      setTimeout(() => {
-        setDownloadProgress(null);
-      }, 1000);
     } catch (err) {
       console.error(err);
     } finally {
-      setIsDownloading(false);
+      setLoading(false);
     }
   };
 
-  // const fullFileName = profileData?.resume?.split("/").pop();
-  // if (!fullFileName) {
-  //   console.error("File name not found");
-  //   return;
-  // }
-  // const nameMatch = fullFileName.match(/([a-zA-Z]+)\.pdf/i);
-  // const cleanFileName = nameMatch ? nameMatch[1] : "resume";
+  let cleanFileName =
+    uploadedFileName.split("_")[0] + "_" + uploadedFileName.split("_")[2];
 
   const handleDeleteResume = async () => {
     try {
@@ -215,7 +180,7 @@ const UploadResumeEdit = ({ profileData, setProfileData }) => {
   };
 
   return (
-    <div className="upload-resume-main-div" id="upload-resume">
+    <div className="upload-resume-main-div">
       <div className="upload-resume-head-desc">
         <div>
           <h3
@@ -269,10 +234,9 @@ const UploadResumeEdit = ({ profileData, setProfileData }) => {
                   marginBottom: 0,
                   fontWeight: 600,
                   lineHeight: "24px",
-                  wordBreak: "break-word",
                 }}
               >
-                {uploadedFileName}
+                {cleanFileName}
               </h3>
               <h4
                 style={{
@@ -289,9 +253,8 @@ const UploadResumeEdit = ({ profileData, setProfileData }) => {
             </div>
             {/* //download resume */}
             <div className="download-trash-icon">
-              <button
+              <div
                 onClick={downloadResume}
-                disabled={isDownloading || downloadProgress === 100}
                 style={{
                   backgroundColor: "#1383821a",
                   width: 40,
@@ -300,46 +263,32 @@ const UploadResumeEdit = ({ profileData, setProfileData }) => {
                   display: "flex",
                   justifyContent: "center",
                   alignItems: "center",
-                  cursor: isDownloading ? "not-allowed" : "pointer",
-                  opacity: isDownloading ? 0.5 : 1,
-                  border: "none",
+                  cursor: "pointer",
                 }}
               >
-                {downloadProgress !== null ? (
-                  <span
-                    style={{
-                      fontSize: "14px",
-                      fontWeight: "bold",
-                      color: "#138382",
-                    }}
-                  >
-                    {downloadProgress}%
-                  </span>
-                ) : (
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                  >
-                    <path
-                      d="M12 14.5V4.5M12 14.5C11.2998 14.5 9.99153 12.5057 9.5 12M12 14.5C12.7002 14.5 14.0085 12.5057 14.5 12"
-                      stroke="#138382"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                    <path
-                      d="M20 16.5C20 18.982 19.482 19.5 17 19.5H7C4.518 19.5 4 18.982 4 16.5"
-                      stroke="#138382"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                  </svg>
-                )}
-              </button>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                >
+                  <path
+                    d="M12 14.5V4.5M12 14.5C11.2998 14.5 9.99153 12.5057 9.5 12M12 14.5C12.7002 14.5 14.0085 12.5057 14.5 12"
+                    stroke="#138382"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                  <path
+                    d="M20 16.5C20 18.982 19.482 19.5 17 19.5H7C4.518 19.5 4 18.982 4 16.5"
+                    stroke="#138382"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </div>
 
               {/* //delete resume */}
               <div

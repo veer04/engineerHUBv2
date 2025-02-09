@@ -1,15 +1,11 @@
 import React from "react";
 import { FaPlus } from "react-icons/fa6";
 import { FaArrowRight } from "react-icons/fa6";
-import { useNavigate } from "react-router-dom";
 
 const CreatePostCard = () => {
-  const navigate = useNavigate();
-
   return (
     <>
       <div
-        onClick={() => navigate("/host")}
         style={{
           width: "224px",
           padding: "12px",

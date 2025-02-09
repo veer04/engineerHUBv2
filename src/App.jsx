@@ -176,16 +176,16 @@ function App() {
           <Route path="/profile">
             <Route
               path="user/:userId"
-              // element={<UserDashboard path="profile" />}
-              element={<ProfileDashboard path="profile" />}
+              element={<UserDashboard path="profile" />}
+              // element={<ProfileDashboard path="profile" />}
             >
               <Route path="add-post" element={<AddPostModal />} />
               <Route path="posts/:postId" element={<PostModalAllRole />} />
             </Route>
             <Route
               path="user/:userId/edit-profile"
-              // element={<UserEditProfile />}
-              element={<ProfileDashboardEdit />}
+              element={<UserEditProfile />}
+              // element={<ProfileDashboardEdit />}
             />
             <Route
               path="club/:clubId"
@@ -401,7 +401,7 @@ function App() {
             </Route>
           </Route>
 
-          {/* <Route path="/profiledashboard" element={<ProfileDashboard />} />
+          <Route path="/profiledashboard" element={<ProfileDashboard />} />
           <Route
             path="/profiledashboarduserview"
             element={<ProfileDashboardUserView />}
@@ -410,11 +410,9 @@ function App() {
           <Route
             path="/profiledashboardedit"
             element={<ProfileDashboardEdit />}
-          /> */}
+          />
           <Route path="*" element={<Page404 />} />
-
           <Route path= "/employer" element ={<Enterprise/>}/>
-
         </Routes>
       </Suspense>
       <NewFooter />

@@ -218,7 +218,7 @@ const ProfileInformationEdit = ({ profileData, setProfileData }) => {
                 marginBottom: 0,
               }}
             >
-              {profileData?.mobile ?? "Add your Mobile Number"}
+              {profileData ? `${profileData.mobile}` : "Add your Mobile Number"}
             </h3>
           </div>
         </div>

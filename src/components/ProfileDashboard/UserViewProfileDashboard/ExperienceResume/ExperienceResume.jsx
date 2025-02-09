@@ -31,7 +31,7 @@ const ExperienceResume = ({ DashboardAdminData }) => {
             margin: 0,
           }}
         >
-          <p style={{ margin: 0 }}>No Work Experience Added.</p>
+          <p style={{ margin: 0 }}>No Work Experience Available.</p>
         </div>
       ) : (
         <>
