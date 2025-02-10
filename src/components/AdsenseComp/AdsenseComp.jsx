@@ -6,7 +6,7 @@ const AdsenseComp = () => {
   
   useEffect(() => {
     const url = `${location.pathname}${location.search}`;
-    console.log(url);
+    // console.log(url);
 
     const scriptElement = document.querySelector(
       `script[src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8474972598474156"]`
@@ -15,14 +15,14 @@ const AdsenseComp = () => {
     const handleScriptLoad = () => {
       try {
         if (window.adsbygoogle) {
-          console.log("pushing ads");
+          // console.log("pushing ads");
           window.adsbygoogle.push({});
         } else {
           scriptElement.addEventListener("load", handleScriptLoad);
           console.log("waiting until adsense lib is loaded");
         }
       } catch (error) {
-        console.log("error in adsense", error);
+        // console.log("error in adsense", error);
       }
     };
 
