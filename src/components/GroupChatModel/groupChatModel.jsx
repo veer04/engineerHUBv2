@@ -45,7 +45,7 @@ const GroupChatModel = ({ children,user }) => {
 
   const handleSearch = async (query) => {
     setSearch(query);
-    console.log(query);
+    // console.log(query);
     if (query.trim().length === 0) {
       return;
     }
@@ -61,11 +61,11 @@ const GroupChatModel = ({ children,user }) => {
         `${API_URL}api/v1/getAllUsersForChats?search=${search}`,
         config
       );
-      console.log(data);
+      // console.log(data);
       setLoading(false);
       setSearchResult(data.data);
     } catch (error) {
-      console.log(error.message);
+      // console.log(error.message);
     }
   };
 
