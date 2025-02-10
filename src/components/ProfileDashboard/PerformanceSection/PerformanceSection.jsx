@@ -441,8 +441,9 @@ const PerformanceSection = () => {
                           ></div>
                         )}
 
-                        {/* Table Data */}
+                        {/* Table Data new table data*/}
                         <td>{index + 1}</td>
+                        
                         <td>{organisationName}</td>
                         <td>{opportunityName}</td>
                         <td style={{ width: "180px" }}>{`Applied On ${new Date(

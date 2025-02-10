@@ -89,7 +89,7 @@ export default function Chat({
           //   err.response.data.message !==
           //   "Sorry, you are not in this chat room."
           // )
-          console.log(err);
+          // console.log(err);
         });
       socket.emit("join chat", encodeURIComponent(data._id));
     }
@@ -169,7 +169,7 @@ export default function Chat({
           },
         };
         setInput("");
-        console.log(input);
+        // console.log(input);
         const newData = await axios
           .post(
             `${ENDPOINT}api/v1/chatMessage`,
@@ -181,15 +181,15 @@ export default function Chat({
           )
           .then((res) => {
             socket.emit("new message", res.data);
-            console.log(res.data);
+            // console.log(res.data);
             // setMessages([...messages, res.data.data]);
             setMessages((prev) => [...prev, res.data.data]);
           })
           .catch((err) => {
-            console.log(err);
+            // console.log(err);
           });
       } catch (error) {
-        console.log(error);
+        // console.log(error);
       }
     }
   };
