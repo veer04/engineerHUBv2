@@ -2,8 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./profilewithposteditshare.css";
 import { FaRegThumbsUp } from "react-icons/fa";
 import { FaThumbsUp } from "react-icons/fa";
-import Cookies from "js-cookie";
-import jwt_decode from "jwt-decode";
+
 import { FaGraduationCap } from "react-icons/fa6";
 import { HiOutlineBuildingOffice2 } from "react-icons/hi2";
 import { FiDownload } from "react-icons/fi";
@@ -16,54 +15,34 @@ import "react-toastify/dist/ReactToastify.css";
 import { RWebShare } from "react-web-share";
 import { deleteResume } from "../../../services/APIConfig";
 import { getUserId } from "../../../features/User/UserDetails";
-import moment from "moment";
-import { useNavigate } from "react-router-dom";
 
 const ProfileWithPostEditShare = ({
   privateDashboardData,
   setPrivateDashboardData,
 }) => {
+  const [isLiked, setIsLiked] = useState(false);
+  const [likeCount, setLikeCount] = useState(0);
   const [isResumeUploaded, setIsResumeUploaded] = useState(
     !!privateDashboardData?.resume
   );
-
+  const [loading, setLoading] = useState(false);
   const userId = getUserId();
-  const [uploadedFileName, setUploadedFileName] = useState(null);
-  const [userRole, setUserRole] = useState("");
 
-  useEffect(() => {
-    const role = Cookies.get("role");
-    if (role) {
-      setUserRole(role);
-    }
-  }, []);
-
-  console.log(userRole, "userRole");
-
+  const [uploadedFileName, setUploadedFileName] = useState(
+    privateDashboardData?.resume
+      ? privateDashboardData?.resume.split("/").pop()
+      : ""
+  );
   const [resume, setResume] = useState(null);
   const [resumeUrl, setResumeUrl] = useState("");
   const fileInputRef = React.useRef(null);
-  const [downloadProgress, setDownloadProgress] = useState(null);
-  const [isDownloading, setIsDownloading] = useState(false);
+  const [progress, setProgress] = useState(0);
   const [response, setResponse] = useState(null);
-  const [uploadDate, setUploadDate] = useState(
-    privateDashboardData?.resume ? moment().format("YYYY-MM-DD") : ""
-  );
-  const [isLoadingClickToUploadResume, setIsLoadingClickToUploadResume] =
-    useState(false);
-
-  console.log("data", privateDashboardData);
-  const navigate = useNavigate();
 
   useEffect(() => {
     if (privateDashboardData?.resume) {
       setIsResumeUploaded(true);
-      const fullFileName = privateDashboardData?.resume.split("/").pop();
-      const nameMatch = fullFileName.match(/([a-zA-Z0-9_-]+)\.pdf/i);
-      const cleanFileName = nameMatch ? nameMatch[1] : "resume";
-      setUploadedFileName(cleanFileName);
-      setResumeUrl(privateDashboardData?.resume);
-      setUploadDate(moment().format("YYYY-MM-DD"));
+      setUploadedFileName(privateDashboardData?.resume?.split("/").pop());
     }
   }, [privateDashboardData?.resume]);
 
@@ -76,8 +55,6 @@ const ProfileWithPostEditShare = ({
 
     if (file) {
       setResume(file);
-      setIsLoadingClickToUploadResume(true);
-
       try {
         const formData = new FormData();
         formData.append("resume", file);
@@ -96,15 +73,13 @@ const ProfileWithPostEditShare = ({
 
         if (response.data) {
           setIsResumeUploaded(true);
-          const uploadedUrl = response.data.data;
-          const fullFileName = uploadedUrl.split("/").pop();
-          const nameMatch = fullFileName.match(/([a-zA-Z0-9_-]+)\.pdf/i);
-          const cleanFileName = nameMatch ? nameMatch[1] : "resume";
+          const newResumeUrl = response.data.data;
+          setResumeUrl(newResumeUrl);
 
-          setUploadedFileName(cleanFileName);
-          setUploadDate(moment().format("YYYY-MM-DD"));
-          setResumeUrl(uploadedUrl);
-          setIsLoadingClickToUploadResume(false);
+          const fullFilename = newResumeUrl.split("/").pop();
+          const trimmedFilename = fullFilename.split("_")[0] + ".pdf";
+
+          setUploadedFileName(trimmedFilename);
 
           toast("🥳 Resume Added Successfully!", {
             position: "top-right",
@@ -119,8 +94,9 @@ const ProfileWithPostEditShare = ({
           });
           setPrivateDashboardData((prevData) => ({
             ...prevData,
-            resume: resumeUrl,
+            resume: newResumeUrl,
           }));
+          setUploadedFileName(newResumeUrl.split("/").pop());
         }
         console.log("Resume upload response:", response.data);
       } catch (error) {
@@ -141,8 +117,8 @@ const ProfileWithPostEditShare = ({
   };
 
   const handleViewResume = () => {
-    if (resumeUrl) {
-      window.open(resumeUrl, "_blank");
+    if (privateDashboardData?.resume) {
+      window.open(privateDashboardData?.resume, "_blank");
     } else {
       toast.error("Resume URL not available yet!");
     }
@@ -150,57 +126,48 @@ const ProfileWithPostEditShare = ({
 
   const downloadResume = async () => {
     try {
-      setIsDownloading(true);
-      setDownloadProgress(0);
       const response = await axios({
-        url: `${API_URL}api/v1/downloadPdf?title=${uploadedFileName}`,
+        url: `${API_URL}api/v1/downloadPdf?title=${privateDashboardData?.resume}&url=${privateDashboardData?.resume}`,
         method: "POST",
-        data: { title: uploadedFileName, url: resumeUrl },
+        data: { title: resumeUrl, url: privateDashboardData?.resume },
         responseType: "blob",
         onDownloadProgress: (progressEvent) => {
           let percentCompleted = Math.round(
             (progressEvent.loaded * 100) / progressEvent.total
           );
-          setDownloadProgress(percentCompleted);
+          setProgress(percentCompleted);
         },
       });
 
-      const fullFileName = resumeUrl?.split("/").pop(); // Get last part of URL
-      const nameMatch = fullFileName.match(/([a-zA-Z]+)\.pdf/i); // Extract name before ".pdf"
-      const cleanFileName = nameMatch ? nameMatch[1] : "resume";
-
+      setProgress(100);
       const blob = new Blob([response.data], {
         type: "application/pdf",
       });
+      const url = privateDashboardData?.resume;
+      const fileName = url?.split("/").pop().split("_")[1] + ".pdf";
 
       const link = document.createElement("a");
       link.href = URL.createObjectURL(blob);
-      link.setAttribute("download", cleanFileName);
+      link.setAttribute("download", fileName);
       link.click();
-
-      if (downloadProgress === 100) {
-        setIsDownloading(false); // Re-enable button when download is complete
-      }
-
-      setTimeout(() => {
-        setDownloadProgress(null);
-      }, 1000);
     } catch (err) {
       console.error(err);
     } finally {
-      setIsDownloading(false);
+      setLoading(false);
     }
   };
+
+  // console.log(uploadedFileName, "iploadefilename");
+  // const handleThumbsUpClick = () => {
+  //   setIsLiked(true);
+  //   setLikeCount(likeCount + 1);
+  // };
 
   const handleDeleteResume = () => {
     deleteResume(userId, (res) => {
       console.log(res, "res");
       setResponse(res);
       if (res.status === 200) {
-        setIsResumeUploaded(false);
-        setUploadedFileName("");
-        setResumeUrl("");
-        setIsLoadingClickToUploadResume(false);
         toast("💀 Resume Delete Successfully!", {
           position: "top-right",
           autoClose: 5000,
@@ -246,7 +213,88 @@ const ProfileWithPostEditShare = ({
           />
         )}
 
-       
+        <div>
+          <div className="thumbs-up-and-follow-main-div">
+            <div className="profile-img-follow-main-div">
+              <div className="profile-img-follow">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                >
+                  <path
+                    d="M20 21V19C20 17.9391 19.5786 16.9217 18.8284 16.1716C18.0783 15.4214 17.0609 15 16 15H8C6.93913 15 5.92172 15.4214 5.17157 16.1716C4.42143 16.9217 4 17.9391 4 19V21"
+                    stroke="#138382"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                  <path
+                    d="M12 11C14.2091 11 16 9.20914 16 7C16 4.79086 14.2091 3 12 3C9.79086 3 8 4.79086 8 7C8 9.20914 9.79086 11 12 11Z"
+                    stroke="#138382"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </div>
+
+              <h4
+                style={{
+                  fontSize: 12,
+                  marginTop: 5,
+                  color: "white",
+                  fontWeight: 400,
+                  marginLeft: 3,
+                }}
+              >
+                {`${
+                  privateDashboardData && privateDashboardData.followers
+                    ? privateDashboardData.followers
+                    : "25"
+                } Followers`}
+              </h4>
+            </div>
+            <div className="img-thumsup-main-div">
+              <div className="img-thumbsup-div">
+                {/* {isLiked ? (
+                  <FaThumbsUp
+                    className="thumbs-up-icon animate"
+                    color="#128381"
+                    size={22}
+                  />
+                ) : (
+                  <FaRegThumbsUp
+                    className="thumbs-up-icon animate"
+                    color="#128381"
+                    size={22}
+                  />
+                )} */}
+
+                <FaRegThumbsUp
+                  className="thumbs-up-icon animate"
+                  color="#128381"
+                  size={22}
+                />
+              </div>
+              <h4
+                style={{
+                  fontSize: 12,
+                  marginTop: 5,
+                  color: "white",
+                  fontWeight: 400,
+                  textAlign: "center",
+                }}
+              >
+                {/* {likeCount} {likeCount === 1 ? "Like" : "Likes"} */}
+
+                <p>{privateDashboardData?.likes || 0} Likes</p>
+              </h4>
+            </div>
+          </div>
+        </div>
       </div>
 
       <div className="name-desc-div">
@@ -264,7 +312,7 @@ const ProfileWithPostEditShare = ({
             color: "#f3f3f3",
           }}
         >
-          {userRole}
+          {privateDashboardData?.aboutMe || "No Bio Added"}
         </h2>
       </div>
 
@@ -317,12 +365,12 @@ const ProfileWithPostEditShare = ({
         )}
 
       <div className="btn-siv-edit-post-share">
-        <button onClick={() => navigate("edit-profile")}>Edit</button>
+        <button onClick={handleEditPage}>Edit</button>
         <button onClick={handlePostPage}>Post</button>
         <RWebShare
           data={{
             text: `Check out this post`,
-            url: `${FRONTEND_URL}profile/user/${userId}`,
+            url: `${FRONTEND_URL}profiledashboard`,
             title: "Check out this post at engineerHUB",
           }}
         >
@@ -334,11 +382,7 @@ const ProfileWithPostEditShare = ({
         <div className="click-to-upload-your-resume">
           <div className="click-to-upload-your-resume-innner">
             <button
-              onClick={() => {
-                if (!isLoadingClickToUploadResume) {
-                  handleResumeUploadClick();
-                }
-              }}
+              onClick={handleResumeUploadClick}
               style={{
                 fontWeight: 700,
                 fontSize: 14,
@@ -346,13 +390,8 @@ const ProfileWithPostEditShare = ({
                 color: "#547178",
                 marginBottom: 0,
               }}
-              disabled={isLoadingClickToUploadResume}
             >
-              {isLoadingClickToUploadResume ? (
-                <div className="loader-4"></div>
-              ) : (
-                "Click here to pload your resume"
-              )}
+              Click to upload your resume
             </button>
           </div>
         </div>
@@ -374,10 +413,10 @@ const ProfileWithPostEditShare = ({
                   fontWeight: 600,
                 }}
               >
-                {uploadedFileName}
+                {`${privateDashboardData.firstName} ${privateDashboardData.lastName} Resume`}
               </h3>
             </div>
-            {/* <div
+            <div
               style={{
                 backgroundColor: "#F7D77F",
                 padding: "4px 6px",
@@ -387,7 +426,7 @@ const ProfileWithPostEditShare = ({
               <h3 style={{ fontSize: 12, marginBottom: 0, fontWeight: 500 }}>
                 ATS Score: 80%
               </h3>
-            </div> */}
+            </div>
           </div>
 
           <div className="update-view-trash-download">
@@ -397,9 +436,8 @@ const ProfileWithPostEditShare = ({
             </div>
 
             <div className="download-trash-icon">
-              <button
+              <div
                 onClick={downloadResume}
-                disabled={isDownloading || downloadProgress === 100}
                 style={{
                   backgroundColor: "#1383821a",
                   width: 40,
@@ -408,46 +446,32 @@ const ProfileWithPostEditShare = ({
                   display: "flex",
                   justifyContent: "center",
                   alignItems: "center",
-                  cursor: isDownloading ? "not-allowed" : "pointer",
-                  opacity: isDownloading ? 0.5 : 1,
-                  border: "none",
+                  cursor: "pointer",
                 }}
               >
-                {downloadProgress !== null ? (
-                  <span
-                    style={{
-                      fontSize: "14px",
-                      fontWeight: "bold",
-                      color: "#138382",
-                    }}
-                  >
-                    {downloadProgress}%
-                  </span>
-                ) : (
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                  >
-                    <path
-                      d="M12 14.5V4.5M12 14.5C11.2998 14.5 9.99153 12.5057 9.5 12M12 14.5C12.7002 14.5 14.0085 12.5057 14.5 12"
-                      stroke="#138382"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                    <path
-                      d="M20 16.5C20 18.982 19.482 19.5 17 19.5H7C4.518 19.5 4 18.982 4 16.5"
-                      stroke="#138382"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                  </svg>
-                )}
-              </button>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                >
+                  <path
+                    d="M12 14.5V4.5M12 14.5C11.2998 14.5 9.99153 12.5057 9.5 12M12 14.5C12.7002 14.5 14.0085 12.5057 14.5 12"
+                    stroke="#138382"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                  <path
+                    d="M20 16.5C20 18.982 19.482 19.5 17 19.5H7C4.518 19.5 4 18.982 4 16.5"
+                    stroke="#138382"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </div>
 
               <div
                 onClick={() => handleDeleteResume()}

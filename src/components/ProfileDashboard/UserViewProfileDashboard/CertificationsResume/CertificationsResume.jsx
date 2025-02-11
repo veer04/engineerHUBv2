@@ -31,7 +31,7 @@ const CertificationsResume = ({ DashboardAdminData }) => {
             margin: 0,
           }}
         >
-          <p style={{ margin: 0 }}>No Certifications Added.</p>
+          <p style={{ margin: 0 }}>No Certifications Available.</p>
         </div>
       ) : (
         <>

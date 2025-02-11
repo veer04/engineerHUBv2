@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./profilecompletionsection.css";
 import SocialLinksModal from "../ProfileDashboardEdit/SocialLinksProfile/SocialLinksModal";
-import { useNavigate } from "react-router-dom";
 
 const ProfileCompletionSection = ({ privateDashboardData = "" }) => {
   const [profileCompletion, setProfileCompletion] = useState(100);
@@ -14,8 +13,6 @@ const ProfileCompletionSection = ({ privateDashboardData = "" }) => {
   const closeModal = () => {
     setIsModalOpen(false);
   };
-
-  const navigate = useNavigate();
 
   useEffect(() => {
     if (privateDashboardData) {
@@ -49,7 +46,7 @@ const ProfileCompletionSection = ({ privateDashboardData = "" }) => {
   }, [privateDashboardData]);
 
   const handleEditPage = () => {
-    navigate("edit-profile");
+    window.open("/profiledashboardedit", "_blank");
   };
 
   return (
@@ -83,7 +80,7 @@ const ProfileCompletionSection = ({ privateDashboardData = "" }) => {
               marginTop: 5,
             }}
           >
-            {profileCompletion ? `${profileCompletion.toFixed(1)} %` : "0 %"}
+            {profileCompletion ? `${profileCompletion.toFixed(1)} %` : "0"}
           </h3>
 
           <div>
@@ -175,9 +172,7 @@ const ProfileCompletionSection = ({ privateDashboardData = "" }) => {
                 cursor: "pointer",
               }}
             >
-              {privateDashboardData && privateDashboardData.achievementDetails
-                ? null
-                : "Add"}
+              Add
             </h3>
           </div>
         </div>
@@ -230,12 +225,9 @@ const ProfileCompletionSection = ({ privateDashboardData = "" }) => {
                 fontStyle: "normal",
                 color: "#138382",
                 marginBottom: 0,
-                cursor: "pointer",
               }}
             >
-              {privateDashboardData && privateDashboardData.educationDetails
-                ? null
-                : "Add"}
+              Add
             </h3>
           </div>
         </div>
@@ -288,12 +280,9 @@ const ProfileCompletionSection = ({ privateDashboardData = "" }) => {
                 fontStyle: "normal",
                 color: "#138382",
                 marginBottom: 0,
-                cursor: "pointer",
               }}
             >
-              {privateDashboardData && privateDashboardData.experienceDetails
-                ? null
-                : "Add"}
+              Add
             </h3>
           </div>
         </div>
@@ -345,12 +334,9 @@ const ProfileCompletionSection = ({ privateDashboardData = "" }) => {
                 fontStyle: "normal",
                 color: "#138382",
                 marginBottom: 0,
-                cursor: "pointer",
               }}
             >
-              {privateDashboardData && privateDashboardData.licenceDetails
-                ? null
-                : "Add"}
+              Add
             </h3>
           </div>
         </div>
@@ -402,12 +388,9 @@ const ProfileCompletionSection = ({ privateDashboardData = "" }) => {
                 fontStyle: "normal",
                 color: "#138382",
                 marginBottom: 0,
-                cursor: "pointer",
               }}
             >
-              {privateDashboardData && privateDashboardData.skillsDetails
-                ? null
-                : "Add"}
+              Add
             </h3>
           </div>
         </div>
@@ -460,9 +443,7 @@ const ProfileCompletionSection = ({ privateDashboardData = "" }) => {
                 cursor: "pointer",
               }}
             >
-              {privateDashboardData && privateDashboardData.resume
-                ? null
-                : "Upload"}
+              Upload
             </h3>
           </div>
         </div>
@@ -518,9 +499,7 @@ const ProfileCompletionSection = ({ privateDashboardData = "" }) => {
                 cursor: "pointer",
               }}
             >
-              {privateDashboardData && privateDashboardData.socialMediaDetails
-                ? null
-                : "Add"}
+              Add
             </h3>
           </div>
         </div>

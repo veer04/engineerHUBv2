@@ -7,16 +7,8 @@ import CreateJobCard from "./CreateJobCard";
 import CreateInternshipCard from "./CreateInternshipCard";
 import Createprojects from "./CreateProjects";
 import CreateEventHiring from "./CreateEventHiring";
-import TechnicalEventComp from "./TechnicalEventComp";
-import CulturalEventComp from "./CulturalEventComp";
-import Cookies from "js-cookie";
-import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
-import WebinarCardSaif from "./WebinarCardSaif";
 
 const HostPageForProfileDashboard = () => {
-  const userRole = Cookies.get("role");
-
   return (
     <div className="host-page-main-profile-dashboard">
       <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
@@ -35,22 +27,11 @@ const HostPageForProfileDashboard = () => {
       </div>
 
       <div className="post-create-main-sub">
-        {userRole === "Alumni" ? (
-          <>
-            <WebinarCardSaif />
-            <CreateJobCard />
-            <TechnicalEventComp />
-            <CulturalEventComp />
-            <CreateInternshipCard />
-            <CreateEventHiring />
-          </>
-        ) : (
-          <>
-            <WebinarCardSaif />
-            <TechnicalEventComp />
-            <CulturalEventComp />
-          </>
-        )}
+        {/* <CreatePostCard /> */}
+        <CreateJobCard />
+        <CreateInternshipCard />
+        {/* <Createprojects /> */}
+        <CreateEventHiring />
       </div>
     </div>
   );

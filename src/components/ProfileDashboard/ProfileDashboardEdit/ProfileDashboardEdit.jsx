@@ -61,6 +61,7 @@ const ProfileDashboardEdit = () => {
     if (userId !== getUserId()) {
       getUserProfileById(setProfileData, userId, setFetchResponse);
     } else {
+      console.log(token, "token");
       getUserProfileByIdPrivate(setProfileData, token, setFetchResponse);
     }
   }

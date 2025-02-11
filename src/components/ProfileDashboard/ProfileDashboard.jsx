@@ -12,8 +12,6 @@ import { getUserId } from "../../features/User/UserDetails";
 import { API_URL, Bucket_URL } from "../../services/APIUtils";
 import axios from "axios";
 import { getAccessToken } from "../../features/getCookieValues";
-import { useParams } from "react-router-dom";
-import ProfileDashboardUserView from "./UserViewProfileDashboard/ProfileDashboardUserView/ProfileDashboardUserView";
 
 const ProfileDashboard = () => {
   const [privateDashboardData, setPrivateDashboardData] = useState(null);
@@ -26,14 +24,8 @@ const ProfileDashboard = () => {
   const [postData, setPostData] = useState(null);
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(1);
-  const currentUserId = getUserId();
+  const userId = getUserId();
   const [loading, setLoading] = useState(false);
-  const { userId } = useParams();
-  // console.log(userId, "kjhgf");
-
-  if (userId && userId != currentUserId) {
-    return <ProfileDashboardUserView />;
-  }
 
   const getPrivateDashboardData = async () => {
     try {
@@ -68,11 +60,11 @@ const ProfileDashboard = () => {
     getPrivateDashboardData();
   }, []);
 
-  const getActivityData = async (currentUserId, section) => {
+  const getActivityData = async (userId, section) => {
     setLoading(true);
     try {
       const response = await axios.get(
-        `${API_URL}api/v1/userDashboard/activity-area?userId=${currentUserId}&section=${section}&limit=${limit}&page=${page}`
+        `${API_URL}api/v1/userDashboard/activity-area?userId=${userId}&section=${section}&limit=${limit}&page=${page}`
       );
 
       if (response.status === 200) {
@@ -98,11 +90,11 @@ const ProfileDashboard = () => {
 
   useEffect(() => {
     if (privateDashboardData) {
-      if (currentUserId) {
-        getActivityData(currentUserId, "streak");
-        getActivityData(currentUserId, "job");
-        getActivityData(currentUserId, "internship");
-        getActivityData(currentUserId, "post");
+      if (userId) {
+        getActivityData(userId, "streak");
+        getActivityData(userId, "job");
+        getActivityData(userId, "internship");
+        getActivityData(userId, "post");
       }
     }
   }, [privateDashboardData, limit, page]);

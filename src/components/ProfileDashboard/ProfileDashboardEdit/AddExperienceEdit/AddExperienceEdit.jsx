@@ -26,7 +26,7 @@ const AddExperienceEdit = ({ profileData, setProfileData }) => {
         data={selectedExperience}
         setProfileData={setProfileData}
       />
-      <div className="add-experience-main-div" id="add-experience">
+      <div className="add-experience-main-div">
         <div className="add-headline-sub-div">
           <div className="add-headlline-sub-left">
             <h3
@@ -41,9 +41,7 @@ const AddExperienceEdit = ({ profileData, setProfileData }) => {
               Add Experience
             </h3>
 
-            {(!profileData ||
-              (profileData.experienceDetails &&
-                profileData.experienceDetails.length === 0)) && (
+            {!profileData && (
               <h4
                 style={{
                   fontSize: 14,

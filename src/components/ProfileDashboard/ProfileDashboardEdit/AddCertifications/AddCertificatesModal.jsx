@@ -1,16 +1,14 @@
 import React, { useEffect, useState } from "react";
 import "./addcertificatemodal.css";
 import { IoMdClose } from "react-icons/io";
-import { API_URL, Bucket_URL } from "../../../../services/APIUtils";
+import { Bucket_URL } from "../../../../services/APIUtils";
 import useGlobalSnackbar from "../../../../hooks/useGlobalSnackbar";
 import {
   addUserCertification,
-  deleteUserCertification,
   updateUserCertification,
 } from "../../../../services/APIConfig";
 import { Bounce, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { getAccessToken } from "../../../../features/getCookieValues";
 
 const AddCertificationsModal = ({ isOpen, onClose, data, setProfileData }) => {
   const [formData, setFormData] = useState({
@@ -19,40 +17,30 @@ const AddCertificationsModal = ({ isOpen, onClose, data, setProfileData }) => {
     issuedDate: "",
     issuedBy: "",
   });
-
   const [errors, setErrors] = useState({});
   const [updateCertificationResponse, setUpdateCertificationResponse] =
     useState({});
   const [loading, setLoading] = useState(false);
   const [response, setResponse] = useState(null);
 
-  // console.log(data, "data");
   const handleChange = (field, value) => {
     setFormData((prevData) => ({ ...prevData, [field]: value }));
-    setErrors((prevErrors) => {
-      const newErrors = { ...prevErrors };
-      if (field === "certificationName" && value.trim()) {
-        delete newErrors.certificationName;
-      }
-      if (field === "issuedBy" && value.trim()) {
-        delete newErrors.issuedBy;
-      }
+  };
 
-      if (field === "issuedDate") {
-        const selectedDate = new Date(value);
-        const currentDate = new Date();
+  const {
+    setSnackbarOpen,
+    setSnackbarMessage,
+    setSnackbarSeverity,
+    setSnackbarDuration,
+  } = useGlobalSnackbar();
 
-        selectedDate.setHours(0, 0, 0, 0);
-        currentDate.setHours(0, 0, 0, 0);
+  const validateForm = () => {
+    const newErrors = {};
 
-        if (selectedDate > currentDate) {
-          newErrors.issuedDate = "Issue date cannot be in the future.";
-        } else {
-          delete newErrors.issuedDate;
-        }
-      }
-      return newErrors;
-    });
+    if (!formData.certificationName.trim())
+      newErrors.certificationName = "Certificate name is required.";
+
+    return newErrors;
   };
 
   useEffect(() => {
@@ -63,39 +51,14 @@ const AddCertificationsModal = ({ isOpen, onClose, data, setProfileData }) => {
         issuedDate: data.issuedDate
           ? new Date(data.issuedDate).toISOString().split("T")[0]
           : "",
-        issuedBy: data.issuedBy,
+        issuedBy: data.issuedBy
+          ? new Date(data.issuedBy).toISOString().split("T")[0]
+          : "",
       });
     }
   }, [data]);
 
-  const validateForm = () => {
-    const newErrors = {};
-
-    if (!formData.certificationName)
-      newErrors.certificationName = "Certificate name is required.";
-
-    if (!formData.issuedBy) {
-      newErrors.issuedBy = "Issuer name is required.";
-    }
-
-    if (!formData.issuedDate) {
-      newErrors.issueDate = "Issue date is required.";
-    } else {
-      const selectedDate = new Date(formData.issuedDate);
-      const currentDate = new Date();
-
-      selectedDate.setHours(0, 0, 0, 0);
-      currentDate.setHours(0, 0, 0, 0);
-
-      if (selectedDate > currentDate) {
-        newErrors.issueDate = "Issue date cannot be in the future.";
-      }
-    }
-
-    return newErrors;
-  };
-
-  const handleSubmit = async () => {
+  const handleSubmit = () => {
     const validationErrors = validateForm();
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
@@ -105,14 +68,15 @@ const AddCertificationsModal = ({ isOpen, onClose, data, setProfileData }) => {
     setLoading(true);
 
     try {
-      const dataRes = await addUserCertification(formData);
-      // console.log(dataRes, "datares");
+      addUserCertification(formData, setUpdateCertificationResponse);
 
-      if (dataRes && dataRes._id) {
+      const response = setUpdateCertificationResponse;
+
+      if (response) {
         toast(
           data && data._id
-            ? "✏️ Licence details have been updated successfully!"
-            : "🥳 Licence details have been added successfully!",
+            ? "✏️ licenceDetails has been updated successfully!"
+            : "🥳 licenceDetails has been added successfully!",
           {
             position: "top-right",
             autoClose: 5000,
@@ -129,12 +93,10 @@ const AddCertificationsModal = ({ isOpen, onClose, data, setProfileData }) => {
         setProfileData((prevData) => ({
           ...prevData,
           licenceDetails: [
-            ...(prevData.licenceDetails || []).filter(
-              (item) => item._id !== dataRes._id
-            ), // Remove any existing entry with the same _id
+            ...(prevData.licenceDetails || []),
             {
-              _id: dataRes._id, // Ensure _id is stored
-              profile: dataRes.profile,
+              _id: response._id,
+              profile: response.profile,
               certificateUrl: formData.certificateUrl,
               certificationName: formData.certificationName,
               issuedBy: formData.issuedBy,
@@ -143,10 +105,9 @@ const AddCertificationsModal = ({ isOpen, onClose, data, setProfileData }) => {
           ],
         }));
 
-        setFormData(null);
         onClose();
       } else {
-        throw new Error("Invalid response data");
+        toast.error("Something went wrong!");
       }
     } catch (error) {
       console.error("Update failed:", error);
@@ -185,7 +146,6 @@ const AddCertificationsModal = ({ isOpen, onClose, data, setProfileData }) => {
         ),
       }));
 
-      setFormData(null);
       onClose();
     } else {
       toast(`✖️ ${"Error Updating Certificate"}`, {
@@ -211,66 +171,6 @@ const AddCertificationsModal = ({ isOpen, onClose, data, setProfileData }) => {
       issuedDate: "",
       issuedBy: "",
     });
-  };
-
-  // const handleDeleteCertificate = async () => {
-  //   if (!data || !data._id) {
-  //     toast.error("No Certificate selected for deletion.");
-  //     return;
-  //   }
-
-  //   try {
-  //     await deleteUserCertification(data?._id, setResponse);
-
-  //     if (response) {
-  //       toast.success("Certificate deleted successfully!");
-  //       setProfileData((prevData) => ({
-  //         ...prevData,
-  //         licenceDetails: prevData?.licenceDetails.filter(
-  //           (lic) => lic._id !== data._id
-  //         ),
-  //       }));
-
-  //       onClose();
-  //     } else {
-  //       toast.error(response?.message || "Failed to delete Certificate.");
-  //     }
-  //   } catch (error) {
-  //     console.error(error);
-  //     toast.error("Something went wrong!");
-  //   }
-  // };
-
-  const handleDeleteCertificate = async () => {
-    try {
-      const response = await fetch(
-        `${API_URL}api/v1/delete/licence/${data._id}`,
-        {
-          method: "DELETE",
-          headers: {
-            accessToken: getAccessToken(),
-          },
-        }
-      );
-
-      if (response.ok) {
-        toast.success("Certificate deleted successfully!");
-        setProfileData((prevData) => ({
-          ...prevData,
-          licenceDetails: prevData?.licenceDetails.filter(
-            (lic) => lic._id !== data._id
-          ),
-        }));
-
-        setFormData(null);
-        onClose();
-      } else {
-        toast.error(response?.message || "Failed to delete Certificate.");
-      }
-    } catch (error) {
-      console.error(error, "Error updating the Certificate");
-      toast.error(response?.message || "Failed to delete Certificate.");
-    }
   };
 
   if (!isOpen) return null;
@@ -302,7 +202,7 @@ const AddCertificationsModal = ({ isOpen, onClose, data, setProfileData }) => {
                     <input
                       type="text"
                       id="certificationName"
-                      value={formData?.certificationName}
+                      value={formData.certificationName}
                       onChange={(e) =>
                         handleChange("certificationName", e.target.value)
                       }
@@ -331,7 +231,7 @@ const AddCertificationsModal = ({ isOpen, onClose, data, setProfileData }) => {
                     <input
                       type="text"
                       id="certificateUrl"
-                      value={formData?.certificateUrl}
+                      value={formData.certificateUrl}
                       onChange={(e) =>
                         handleChange("certificateUrl", e.target.value)
                       }
@@ -340,7 +240,7 @@ const AddCertificationsModal = ({ isOpen, onClose, data, setProfileData }) => {
                           ? "border-red-500"
                           : "border-gray-300"
                       }`}
-                      placeholder="Link format https://your_certificate_url"
+                      placeholder="Add certificate Url"
                     />
                     {errors.certificateUrl && (
                       <p className="mt-1 error-p text-sm text-red-500">
@@ -365,7 +265,7 @@ const AddCertificationsModal = ({ isOpen, onClose, data, setProfileData }) => {
                       <input
                         type="date"
                         id="issuedDate"
-                        value={formData?.issuedDate}
+                        value={formData.issuedDate}
                         onChange={(e) =>
                           handleChange("issuedDate", e.target.value)
                         }
@@ -400,9 +300,9 @@ const AddCertificationsModal = ({ isOpen, onClose, data, setProfileData }) => {
                       </label>
                       {/* <span className="required-indicator">*</span> */}
                       <input
-                        type="text"
+                        type="date"
                         id="issuedBy"
-                        value={formData?.issuedBy}
+                        value={formData.issuedBy}
                         onChange={(e) =>
                           handleChange("issuedBy", e.target.value)
                         }
@@ -422,7 +322,6 @@ const AddCertificationsModal = ({ isOpen, onClose, data, setProfileData }) => {
 
                 <div className="modal-delete-sav-cancel-main-div-cert">
                   <div
-                    onClick={() => handleDeleteCertificate()}
                     style={{
                       cursor: "pointer",
                       backgroundColor: "#FF58581A",

@@ -34,7 +34,7 @@ const AddHeadlineEdit = ({ profileData, setProfileData }) => {
                 color: "#002B36",
               }}
             >
-              {profileData && profileData?.bio ? "About Me" : "About Me"}
+              {profileData ? "Add Bio" : "Add bio"}
             </h3>
             {profileData && (
               <h4
@@ -46,7 +46,7 @@ const AddHeadlineEdit = ({ profileData, setProfileData }) => {
                   color: "#547178",
                 }}
               >
-                {profileData && profileData.bio
+                {profileData
                   ? profileData.bio
                   : "Add a summary of your resume to introduce yourself to recruiters"}
               </h4>
@@ -54,7 +54,7 @@ const AddHeadlineEdit = ({ profileData, setProfileData }) => {
           </div>
 
           <div className="add-headline-sub-right">
-            {profileData && profileData?.bio ? (
+            {profileData ? (
               <div onClick={openModal} style={{ cursor: "pointer" }}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
