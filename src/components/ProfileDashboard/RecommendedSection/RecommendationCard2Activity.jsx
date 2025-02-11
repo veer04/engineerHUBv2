@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./recommendationcard1.css";
 import { FaRegEye } from "react-icons/fa";
 import { IoEyeOffOutline } from "react-icons/io5";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { getUserId, isUserLoggedIn } from "../../../features/User/UserDetails";
 
 const RecommendationCard2Activity = ({ data }) => {
@@ -17,14 +17,14 @@ const RecommendationCard2Activity = ({ data }) => {
 
   const { search } = useLocation();
   const navigate = useNavigate();
+  const { userId } = useParams();
 
   const JobRedirect = (id) => {
     navigate(`/career/jobs/${id}${!!search ? search : ""}`);
   };
 
   function isJobCreator(id) {
-    // console.log(id, "creatorId");
-    return isUserLoggedIn() && id === getUserId();
+    return isUserLoggedIn() && isUserLoggedIn() === id;
   }
 
   const handleNavigateJobBoard = (id) => {
@@ -57,15 +57,17 @@ const RecommendationCard2Activity = ({ data }) => {
                   {job.organisationName}
                 </h4>
 
-                <button
-                  className="btn-h4-main"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handleNavigateJobBoard(job._id);
-                  }}
-                >
-                  <h4 className="h4-view-candidates">View Candidates</h4>
-                </button>
+                {isUserLoggedIn() && userId && isJobCreator(job.creatorId) && (
+                  <button
+                    className="btn-h4-main"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleNavigateJobBoard(job._id);
+                    }}
+                  >
+                    <h4 className="h4-view-candidates">View Candidates</h4>
+                  </button>
+                )}
               </div>
 
               <h3
