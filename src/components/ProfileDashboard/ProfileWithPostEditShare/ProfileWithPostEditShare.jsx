@@ -245,8 +245,6 @@ const ProfileWithPostEditShare = ({
             alt="g2_img"
           />
         )}
-
-       
       </div>
 
       <div className="name-desc-div">
@@ -374,7 +372,8 @@ const ProfileWithPostEditShare = ({
                   fontWeight: 600,
                 }}
               >
-                {uploadedFileName}
+                Resume
+                {/* {uploadedFileName} */}
               </h3>
             </div>
             {/* <div
