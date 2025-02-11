@@ -19,19 +19,23 @@ const RecommendationCard2Activity = ({ data }) => {
 
   const { search } = useLocation();
   const navigate = useNavigate();
-  const { userId } = getUserId();
-  const { idparams } = useParams();
+  const userId  = getUserId();
+  const  idparams  = useParams();
 
   const JobRedirect = (id) => {
     navigate(`/career/jobs/${id}${!!search ? search : ""}`);
   };
 
   function isJobCreator() {
-    console.log(isUserLoggedIn() && userId === idparams, "hgf");
-    return isUserLoggedIn() && userId === idparams;
+    // console.log(userId)
+    // console.log(idparams.userId)
+    // console.log(isUserLoggedIn() && userId === idparams?.userId, "hgf");  // here useParams returns an object with key as userId that is why need to describe it out.
+    return isUserLoggedIn() && userId === idparams?.userId;
   }
+  console.log(isJobCreator());
 
   useEffect(() => {
+
     isJobCreator();
   }, []);
 
@@ -65,7 +69,7 @@ const RecommendationCard2Activity = ({ data }) => {
                   {job.organisationName}
                 </h4>
 
-                {isUserLoggedIn() && isJobCreator() && (
+                { isJobCreator() && (
                   <button
                     className="btn-h4-main"
                     onClick={(e) => {
