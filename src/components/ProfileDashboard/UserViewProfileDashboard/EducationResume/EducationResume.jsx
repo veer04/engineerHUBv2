@@ -28,7 +28,7 @@ const EducationResume = ({ DashboardAdminData }) => {
             margin: 0,
           }}
         >
-          <p style={{ margin: 0 }}>No Education Available.</p>
+          <p style={{ margin: 0 }}>No Education Added.</p>
         </div>
       ) : (
         <>
@@ -40,23 +40,23 @@ const EducationResume = ({ DashboardAdminData }) => {
                     style={{
                       fontSize: 16,
                       fontWeight: 600,
-                      lineHeight: "24px",
-                      color: "#002B36",
-                      marginBottom: 0,
-                    }}
-                  >
-                    {education.degree}
-                  </h3>
-                  <h3
-                    style={{
-                      fontSize: 14,
-                      fontWeight: 400,
                       lineHeight: "20px",
                       color: "#002B36",
                       marginBottom: 0,
                     }}
                   >
                     {education.collegeId.collegeName}
+                  </h3>
+                  <h3
+                    style={{
+                      fontSize: 14,
+                      fontWeight: 400,
+                      lineHeight: "24px",
+                      color: "#002B36",
+                      marginBottom: 0,
+                    }}
+                  >
+                    {education.degree}
                   </h3>
 
                   <div

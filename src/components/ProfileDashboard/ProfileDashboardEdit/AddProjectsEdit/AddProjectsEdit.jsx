@@ -38,19 +38,21 @@ const AddProjectsEdit = ({ profileData, setProfileData }) => {
               Add Projects
             </h3>
 
-            {!profileData && (
-              <h4
-                style={{
-                  fontSize: 14,
-                  fontWeight: 400,
-                  lineHeight: "20px",
-                  marginBottom: 0,
-                  color: "#547178",
-                }}
-              >
-                Add Projects
-              </h4>
-            )}
+            {!profileData ||
+              (profileData.projectDetails &&
+                profileData.projectDetails.length === 0 && (
+                  <h4
+                    style={{
+                      fontSize: 14,
+                      fontWeight: 400,
+                      lineHeight: "20px",
+                      marginBottom: 0,
+                      color: "#547178",
+                    }}
+                  >
+                    Add Projects
+                  </h4>
+                ))}
           </div>
 
           <div className="add-headline-sub-right">
