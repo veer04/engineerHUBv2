@@ -479,7 +479,7 @@ const AddEducationModal = ({ isOpen, onClose, data, setProfileData }) => {
                     <input
                       type="date"
                       id="startYear"
-                      value={formData?.startYear}
+                      value={formData?.startYear ?? ""}
                       onChange={(e) =>
                         handleChange("startYear", e.target.value)
                       }
@@ -514,7 +514,7 @@ const AddEducationModal = ({ isOpen, onClose, data, setProfileData }) => {
                     <input
                       type="date"
                       id="endYear"
-                      value={formData?.endYear}
+                      value={formData?.endYear ?? ""}
                       onChange={(e) => handleChange("endYear", e.target.value)}
                       className={`input-css mt-1 ${
                         errors.endYear ? "border-red-500" : "border-gray-300"
