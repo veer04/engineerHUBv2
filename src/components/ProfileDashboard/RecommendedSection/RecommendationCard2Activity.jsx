@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./recommendationcard1.css";
 import { FaRegEye } from "react-icons/fa";
 import { IoEyeOffOutline } from "react-icons/io5";
@@ -7,6 +7,8 @@ import { getUserId, isUserLoggedIn } from "../../../features/User/UserDetails";
 
 const RecommendationCard2Activity = ({ data }) => {
   const [viewVisibility, setViewVisibility] = useState({});
+
+  console.log(data, "data");
 
   const toggleAmountShow = (id) => {
     setViewVisibility((prev) => ({
@@ -17,15 +19,21 @@ const RecommendationCard2Activity = ({ data }) => {
 
   const { search } = useLocation();
   const navigate = useNavigate();
-  const { userId } = useParams();
+  const { userId } = getUserId();
+  const { idparams } = useParams();
 
   const JobRedirect = (id) => {
     navigate(`/career/jobs/${id}${!!search ? search : ""}`);
   };
 
-  function isJobCreator(id) {
-    return isUserLoggedIn() && isUserLoggedIn() === id;
+  function isJobCreator() {
+    console.log(isUserLoggedIn() && userId === idparams, "hgf");
+    return isUserLoggedIn() && userId === idparams;
   }
+
+  useEffect(() => {
+    isJobCreator();
+  }, []);
 
   const handleNavigateJobBoard = (id) => {
     console.log("click");
@@ -57,7 +65,7 @@ const RecommendationCard2Activity = ({ data }) => {
                   {job.organisationName}
                 </h4>
 
-                {isUserLoggedIn() && userId && isJobCreator(job.creatorId) && (
+                {isUserLoggedIn() && isJobCreator() && (
                   <button
                     className="btn-h4-main"
                     onClick={(e) => {
