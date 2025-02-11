@@ -2184,9 +2184,9 @@ export const getEventById = (setEvent, eventId) => {
     .catch((err) => {
       setEvent(err);
       if (axios.isCancel(err)) {
-        console.log("req cancel");
+        // console.log("req cancel");
       } else {
-        console.log("req performed");
+        // console.log("req performed");
       }
     });
 };
@@ -2203,9 +2203,9 @@ export const getParticularEventDetails = (setEvent, eventId) => {
     .catch((err) => {
       setEvent(err.response);
       if (axios.isCancel(err)) {
-        console.log("req cancel");
+        // console.log("req cancel");
       } else {
-        console.log("req performed");
+        // console.log("req performed");
       }
     });
 };
@@ -2218,14 +2218,14 @@ export const getEventByMode = (setEvents, mode) => {
     })
     .then((res) => {
       const data = res.data.data;
-      console.log(data, "eventsdata");
+      // console.log(data, "eventsdata");
       setEvents(data);
     })
     .catch((err) => {
       if (axios.isCancel(err)) {
-        console.log("req cancel");
+        // console.log("req cancel");
       } else {
-        console.log("req performed");
+        // console.log("req performed");
       }
     });
 };

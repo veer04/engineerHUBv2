@@ -172,6 +172,7 @@ const YourActivitySection = ({
                 justifyContent: "center",
                 alignItems: "center",
                 padding: "20px",
+                
               }}
             >
               <p style={{ margin: 0 }}>No Posts Added!</p>
