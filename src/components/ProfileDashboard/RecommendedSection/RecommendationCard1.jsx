@@ -252,7 +252,7 @@ const RecommendationCard1 = ({ data }) => {
                     }}
                   >
                     {/* {isEyeVisible ? "1200" : "xxxx"} */}
-                    1200
+                    {job.views}
                   </h3>
                 </div>
               </div>
