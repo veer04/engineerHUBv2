@@ -341,7 +341,7 @@ const PerformanceSection = () => {
                               status === "Shortlisted"
                                 ? "#ebfbee"
                                 : status === "Uncategorized"
-                                ? "#f4eded"
+                                ? "#FFFF8F"
                                 : "#ffe5e5",
                             color:
                               status === "Shortlisted"
