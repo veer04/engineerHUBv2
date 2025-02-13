@@ -105,7 +105,7 @@ const RecommendedCard2 = ({ data }) => {
                   }}
                 >
                   {" "}
-                  &#8377;{meet?.mrp}
+                  &#8377;{meet?.price}
                 </button>
               </div>
             </div>
