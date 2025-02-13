@@ -47,12 +47,12 @@ export const Component3 = () => {
 
                         <div className="div-3">
                             <div className="div">
-                                <div className="text-wrapper-2">Mr. RB Mouli</div>
+                                <div className="text-wrapper-2">Mr. Shiva Shankar</div>
                             </div>
 
                             <div className="div">
                                 <div className="text-wrapper-3">
-                                    Placement Head, Birla Campus
+                                    Human Resource , pwc
                                 </div>
                             </div>
                         </div>
@@ -72,12 +72,12 @@ export const Component3 = () => {
 
                         <div className="div-3">
                             <div className="div">
-                                <div className="text-wrapper-2">Mr. RB Mouli</div>
+                                <div className="text-wrapper-2">Mrs. Sonal</div>
                             </div>
 
                             <div className="div">
                                 <div className="text-wrapper-3">
-                                    Placement Head, Birla Campus
+                                   HR Associate , TCS
                                 </div>
                             </div>
                         </div>
@@ -97,12 +97,12 @@ export const Component3 = () => {
 
                         <div className="div-3">
                             <div className="div">
-                                <div className="text-wrapper-2">Mr. RB Mouli</div>
+                                <div className="text-wrapper-2">Mr. Rahul Sharma</div>
                             </div>
 
                             <div className="div">
                                 <div className="text-wrapper-3">
-                                    Placement Head, Birla Campus
+                                    Placement Head
                                 </div>
                             </div>
                         </div>
