@@ -35,7 +35,7 @@ const CompanyDashboardNew = () => {
         />
       </div>
 
-      <div>
+      <div style={{ marginBottom: 40 }}>
         <NewCompanyThirdAndFourthSec
           title={"70% less screening time"}
           desc={
