@@ -13,23 +13,31 @@ const YourActivitySection = ({
 }) => {
   const [actionButton, setActionButton] = useState("Posts");
   const [jobPage, setJobPage] = useState(1);
-  const jobsPerPage = 10;
-  const maxJobs = 100;
+  const [internshipPage, setInternshipPage] = useState(1);
+
+  const itemsPerPage = 10;
+  const maxItems = 100;
 
   const handleButtonClick = (buttonName) => {
     setActionButton(buttonName);
-    if (buttonName === "Jobs") {
-      setJobPage(1);
-    }
+    if (buttonName === "Jobs") setJobPage(1);
+    if (buttonName === "Internships") setInternshipPage(1);
   };
 
-  // Limit job data to 100 items
-  const limitedJobData = jobData?.slice(0, maxJobs) || [];
-  
-  // Get the data for the current page
-  const startIndex = (jobPage - 1) * jobsPerPage;
-  const endIndex = startIndex + jobsPerPage;
-  const paginatedJobs = limitedJobData.slice(startIndex, endIndex);
+  // Limit job & internship data to 100 items
+  const limitedJobData = jobData?.slice(0, maxItems) || [];
+  const limitedInternshipData = internshipData?.slice(0, maxItems) || [];
+
+  // Get paginated data for jobs & internships
+  const paginatedJobs = limitedJobData.slice(
+    (jobPage - 1) * itemsPerPage,
+    jobPage * itemsPerPage
+  );
+
+  const paginatedInternships = limitedInternshipData.slice(
+    (internshipPage - 1) * itemsPerPage,
+    internshipPage * itemsPerPage
+  );
 
   return (
     <div className="your-activity-section-main">
@@ -81,14 +89,7 @@ const YourActivitySection = ({
                 <RecommendationCard2Activity data={paginatedJobs} />
               </div>
 
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  gap: 10,
-                  marginTop: 10,
-                }}
-              >
+              <div style={{ display: "flex", justifyContent: "center", gap: 10, marginTop: 10 }}>
                 <button
                   onClick={() => setJobPage((prev) => Math.max(prev - 1, 1))}
                   disabled={jobPage === 1}
@@ -108,21 +109,24 @@ const YourActivitySection = ({
                 <button
                   onClick={() =>
                     setJobPage((prev) =>
-                      prev * jobsPerPage < limitedJobData.length ? prev + 1 : prev
+                      prev * itemsPerPage < limitedJobData.length ? prev + 1 : prev
                     )
                   }
-                  disabled={endIndex >= limitedJobData.length}
+                  disabled={jobPage * itemsPerPage >= limitedJobData.length}
                   style={{
                     padding: "8px 16px",
                     borderRadius: "8px",
-                    background: endIndex >= limitedJobData.length
-                      ? "#f2f4f5"
-                      : "#138382",
-                    color: endIndex >= limitedJobData.length ? "#888" : "white",
+                    background:
+                      jobPage * itemsPerPage >= limitedJobData.length
+                        ? "#f2f4f5"
+                        : "#138382",
+                    color:
+                      jobPage * itemsPerPage >= limitedJobData.length ? "#888" : "white",
                     border: "none",
-                    cursor: endIndex >= limitedJobData.length
-                      ? "default"
-                      : "pointer",
+                    cursor:
+                      jobPage * itemsPerPage >= limitedJobData.length
+                        ? "default"
+                        : "pointer",
                     boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.03)",
                   }}
                 >
@@ -138,10 +142,59 @@ const YourActivitySection = ({
 
       {actionButton === "Internships" && (
         <>
-          {internshipData?.length > 0 ? (
-            <div className="grid-job-card-activity">
-              <RecommendationCard2Activity data={internshipData} />
-            </div>
+          {paginatedInternships.length > 0 ? (
+            <>
+              <div className="grid-job-card-activity">
+                <RecommendationCard2Activity data={paginatedInternships} />
+              </div>
+
+              <div style={{ display: "flex", justifyContent: "center", gap: 10, marginTop: 10 }}>
+                <button
+                  onClick={() => setInternshipPage((prev) => Math.max(prev - 1, 1))}
+                  disabled={internshipPage === 1}
+                  style={{
+                    padding: "8px 16px",
+                    borderRadius: "8px",
+                    background: internshipPage === 1 ? "#f2f4f5" : "#138382",
+                    color: internshipPage === 1 ? "#888" : "white",
+                    border: "none",
+                    cursor: internshipPage === 1 ? "default" : "pointer",
+                    boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.03)",
+                  }}
+                >
+                  Previous
+                </button>
+
+                <button
+                  onClick={() =>
+                    setInternshipPage((prev) =>
+                      prev * itemsPerPage < limitedInternshipData.length ? prev + 1 : prev
+                    )
+                  }
+                  disabled={internshipPage * itemsPerPage >= limitedInternshipData.length}
+                  style={{
+                    padding: "8px 16px",
+                    borderRadius: "8px",
+                    background:
+                      internshipPage * itemsPerPage >= limitedInternshipData.length
+                        ? "#f2f4f5"
+                        : "#138382",
+                    color:
+                      internshipPage * itemsPerPage >= limitedInternshipData.length
+                        ? "#888"
+                        : "white",
+                    border: "none",
+                    cursor:
+                      internshipPage * itemsPerPage >= limitedInternshipData.length
+                        ? "default"
+                        : "pointer",
+                    boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.03)",
+                  }}
+                >
+                  Next
+                </button>
+              </div>
+            </>
           ) : (
             <p>No Internships Hosted!</p>
           )}
