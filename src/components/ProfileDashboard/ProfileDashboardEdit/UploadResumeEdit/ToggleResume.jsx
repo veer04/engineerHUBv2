@@ -10,7 +10,7 @@ const ToggleSwitch = () => {
   const dispatch = useDispatch();
   const isChecked = useSelector((state) => state.resumeToggle.isVisible);
 
-  console.log(isChecked, "kjhgf");
+  //   console.log(isChecked, "kjhgf");
 
   const handleToggle = () => {
     console.log("Before Dispatch:", isChecked);
