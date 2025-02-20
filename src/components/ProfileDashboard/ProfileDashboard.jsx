@@ -70,42 +70,74 @@ const ProfileDashboard = () => {
 
   const getActivityData = async (currentUserId, section) => {
     setLoading(true);
+    let currentPage = 1; // Start from page 1
+    const pageLimit = 10; // Fetch data in chunks
+    let allData = [];
+  
     try {
-      const response = await axios.get(
-        `${API_URL}api/v1/userDashboard/activity-area?userId=${currentUserId}&section=${section}&limit=${limit}&page=${page}`
-      );
-
-      if (response.status === 200) {
-        if (section === "streak") {
-          setStreakData(response.data.data);
-        } else if (section === "job") {
-          setJobData(response.data.data.applications);
-        } else if (section === "internship") {
-          setInternshipData(response.data.data.applications);
-        } else if (section === "post") {
-          setPostData(response.data.data);
+      while (true) {
+        const response = await axios.get(
+          `${API_URL}api/v1/userDashboard/activity-area?userId=${currentUserId}&section=${section}&limit=${pageLimit}&page=${currentPage}`
+        );
+  
+        if (response.status === 200 && response.data.data) {
+          let newData = [];
+  
+          if (section === "streak") {
+            newData = Array.isArray(response.data.data) ? response.data.data : [];
+            setStreakData((prevData) => [...(prevData || []), ...newData]);
+          } else if (section === "job") {
+            newData = Array.isArray(response.data.data.applications)
+              ? response.data.data.applications
+              : [];
+  
+            setJobData((prevData) => {
+              const updatedData = [...(prevData || []), ...newData];
+              return updatedData.slice(0, 100); // Ensure jobData never exceeds 100 items
+            });
+  
+            if ((allData.length + newData.length) >= 100) break; // Stop fetching if 100 items are reached
+          } else if (section === "internship") {
+            newData = Array.isArray(response.data.data.applications)
+              ? response.data.data.applications
+              : [];
+            setInternshipData((prevData) => [...(prevData || []), ...newData]);
+          } else if (section === "post") {
+            newData = Array.isArray(response.data.data) ? response.data.data : [];
+            setPostData((prevData) => [...(prevData || []), ...newData]);
+          } else {
+            setError("Unexpected response format.");
+            break;
+          }
+  
+          if (newData.length === 0) break; // Stop fetching if no new data
+  
+          allData = [...allData, ...newData];
+          currentPage++; // Increment page
+  
+          if (section === "job" && allData.length >= 100) break; // Stop fetching jobData beyond 100 items
         } else {
-          setError("Unexpected response status.");
+          break; // Stop fetching if response is not 200
         }
       }
     } catch (error) {
-      console.log("Error getting the data");
+      console.log("Error getting the data:", error);
       setError("Error fetching Activity data.");
     } finally {
       setLoading(false);
     }
   };
-
+  
   useEffect(() => {
-    if (privateDashboardData) {
-      if (currentUserId) {
-        getActivityData(currentUserId, "streak");
-        getActivityData(currentUserId, "job");
-        getActivityData(currentUserId, "internship");
-        getActivityData(currentUserId, "post");
-      }
+    if (privateDashboardData && currentUserId) {
+      getActivityData(currentUserId, "streak");
+      getActivityData(currentUserId, "job");
+      getActivityData(currentUserId, "internship");
+      getActivityData(currentUserId, "post");
     }
-  }, [privateDashboardData, limit, page]);
+  }, [privateDashboardData]);
+  
+  
 
   return (
     <>

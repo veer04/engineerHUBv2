@@ -55,32 +55,54 @@ const ProfileDashboardUserView = () => {
 
   const getActivityData = async (userId, section) => {
     setLoading(true);
+    let currentPage = 1; // Start from page 1
+    const pageLimit = 10; // You can adjust the limit if needed
+    let allData = [];
+  
     try {
-      const response = await axios.get(
-        `${API_URL}api/v1/userDashboard/activity-area?userId=${userId}&section=${section}&limit=${limit}&page=${page}`
-      );
-
-      if (response.status === 200) {
-        if (section === "streak") {
-          setStreakData(response.data.data);
-        } else if (section === "job") {
-          setJobData(response.data.data.applications);
-        } else if (section === "internship") {
-          setInternshipData(response.data.data.applications);
-        } else if (section === "post") {
-          setPostData(response.data.data.applications);
+      while (true) {
+        const response = await axios.get(
+          `${API_URL}api/v1/userDashboard/activity-area?userId=${userId}&section=${section}&limit=${pageLimit}&page=${currentPage}`
+        );
+  
+        if (response.status === 200 && response.data.data) {
+          let newData = [];
+  
+          if (section === "streak") {
+            newData = response.data.data;
+            setStreakData((prevData) => [...prevData, ...newData]);
+          } else if (section === "job") {
+            newData = response.data.data.applications;
+            setJobData((prevData) => [...prevData, ...newData]);
+          } else if (section === "internship") {
+            newData = response.data.data.applications;
+            setInternshipData((prevData) => [...prevData, ...newData]);
+          } else if (section === "post") {
+            newData = response.data.data.applications;
+            setPostData((prevData) => [...prevData, ...newData]);
+          } else {
+            setError("Unexpected response format.");
+            break;
+          }
+  
+          // Stop fetching if no more data is received
+          if (newData.length === 0) break;
+  
+          // Append fetched data
+          allData = [...allData, ...newData];
+          currentPage++; // Increment page
         } else {
-          setError("Unexpected response status.");
+          break; // Stop fetching if response is not 200
         }
       }
     } catch (error) {
-      console.log("Error getting the data");
+      console.log("Error getting the data:", error);
       setError("Error fetching Activity data.");
     } finally {
       setLoading(false);
     }
   };
-
+  
   const getCollegeDetails = async (collegeId, section) => {
     setLoading(true);
     try {

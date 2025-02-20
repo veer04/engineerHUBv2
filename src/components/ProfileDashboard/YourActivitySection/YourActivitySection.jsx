@@ -12,51 +12,36 @@ const YourActivitySection = ({
   postData,
 }) => {
   const [actionButton, setActionButton] = useState("Posts");
+  const [jobPage, setJobPage] = useState(1);
+  const jobsPerPage = 10;
+  const maxJobs = 100;
 
   const handleButtonClick = (buttonName) => {
-    setActionButton(actionButton === buttonName ? null : buttonName);
+    setActionButton(buttonName);
+    if (buttonName === "Jobs") {
+      setJobPage(1);
+    }
   };
-  const [showAllJobs, setShowAllJobs] = useState(false);
 
-const toggleShowJobs = () => {
-  setShowAllJobs((prev) => !prev);
-};
-
-  console.log(jobData, "jobData");
-
-  const activityCardArray = Array.from({ length: 12 }, (_, index) => index + 1);
-
-  // const postCardActivityArray = Array.from(
-  //   { length: 7 },
-  //   (_, index) => index + 1
-  // );
+  // Limit job data to 100 items
+  const limitedJobData = jobData?.slice(0, maxJobs) || [];
+  
+  // Get the data for the current page
+  const startIndex = (jobPage - 1) * jobsPerPage;
+  const endIndex = startIndex + jobsPerPage;
+  const paginatedJobs = limitedJobData.slice(startIndex, endIndex);
 
   return (
     <div className="your-activity-section-main">
       <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
         <GoStopwatch size={18} />
-        <h3
-          style={{
-            fontSize: 16,
-            fontWeight: 700,
-            lineHeight: "24px",
-            color: "#002B36",
-            marginBottom: 0,
-          }}
-        >
+        <h3 style={{ fontSize: 16, fontWeight: 700, color: "#002B36" }}>
           Activities
         </h3>
       </div>
 
-      <div
-        style={{
-          marginTop: 10,
-          display: "flex",
-          gap: 10,
-          alignItems: "center",
-        }}
-      >
-        {["Posts", "Jobs", "Internships"].map((buttonName, index) => (
+      <div style={{ marginTop: 10, display: "flex", gap: 10 }}>
+        {["Posts", "Jobs", "Internships"].map((buttonName) => (
           <button
             key={buttonName}
             onClick={() => handleButtonClick(buttonName)}
@@ -65,14 +50,10 @@ const toggleShowJobs = () => {
               borderRadius: "10px",
               background: actionButton === buttonName ? "#138382" : "#f2f4f5",
               fontSize: 14,
-              fontWeight: 400,
-              lineHeight: "20px",
               color: actionButton === buttonName ? "white" : "black",
               border: "none",
-              // marginLeft: index === 0 ? 0 : 10,
-              boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.03)",
               cursor: "pointer",
-              transition: "background 0.3s ease",
+              boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.03)",
             }}
           >
             {buttonName}
@@ -80,171 +61,89 @@ const toggleShowJobs = () => {
         ))}
       </div>
 
-      {/* {actionButton === "Streak" && (
-        <>
-          <div className="grid-activity-section">
-            {activityCardArray.map((card, index) => (
-              <ActivityCardsSaif key={card} />
-            ))}
-          </div>
-
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              marginTop: 20,
-            }}
-          >
-            <h3
-              style={{
-                textAlign: "center",
-                fontSize: 14,
-                fontWeight: 400,
-                lineHeight: "20px",
-                color: "#002B36",
-                marginBottom: 0,
-              }}
-            >
-              Latest Streak : 5 days
-            </h3>
-
-            <div style={{ display: "flex", gap: 3, alignItems: "center" }}>
-              <span
-                style={{
-                  fontSize: 12,
-                  fontWeight: 400,
-                  lineHeight: "16px",
-                  color: "#002B36",
-                }}
-              >
-                Less
-              </span>
-              <div
-                style={{
-                  width: "12.79px",
-                  height: "12.79px",
-                  background: "#39D3531A",
-                  borderRadius: "3.2px",
-                  flexShrink: 0,
-                }}
-              ></div>
-              <div
-                style={{
-                  width: "12.79px",
-                  height: "12.79px",
-                  background: "#39D35380",
-                  borderRadius: "3.2px",
-                  flexShrink: 0,
-                }}
-              ></div>
-              <div
-                style={{
-                  width: "12.79px",
-                  height: "12.79px",
-                  background: "#39D353",
-                  borderRadius: "3.2px",
-                  flexShrink: 0,
-                }}
-              ></div>
-              <span
-                style={{
-                  fontSize: 12,
-                  fontWeight: 400,
-                  lineHeight: "16px",
-                  color: "#002B36",
-                }}
-              >
-                More
-              </span>
-            </div>
-          </div>
-        </>
-      )} */}
-
       {actionButton === "Posts" && (
         <>
-          {postData && postData?.length > 0 ? (
+          {postData?.length > 0 ? (
             <div className="grid-post-card-activity">
               <PostCardActivity data={postData} />
             </div>
           ) : (
-            <div
-              style={{
-                width: "100%",
-                height: "30vh",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                padding: "20px",
-                
-              }}
-            >
-              <p style={{ margin: 0 }}>No Posts Added!</p>
-            </div>
+            <p>No Posts Added!</p>
           )}
         </>
       )}
-{actionButton === "Jobs" && (
-  <>
-    {jobData && jobData?.length > 0 ? (
-      <>
-        <div className="grid-job-card-activity">
-          <RecommendationCard2Activity data={showAllJobs ? jobData : jobData.slice(0, 9)} />
-        </div>
-        {jobData.length > 9 && (
-          <button
-            onClick={toggleShowJobs}
-            style={{
-              marginTop: 10,
-              padding: "8px 16px",
-              borderRadius: "8px",
-              background: "#138382",
-              color: "white",
-              border: "none",
-              cursor: "pointer",
-            }}
-          >
-            {showAllJobs ? "Show Less" : "Show More"}
-          </button>
-        )}
-      </>
-    ) : (
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          width: "100%",
-          height: "30vh",
-          padding: "20px",
-        }}
-      >
-        <p style={{ margin: 0 }}>No Jobs Hosted!</p>
-      </div>
-    )}
-  </>
-        )}
 
-      { actionButton === "Internships" && (
+      {actionButton === "Jobs" && (
         <>
-          {internshipData && internshipData?.length > 0 ? (
+          {paginatedJobs.length > 0 ? (
+            <>
+              <div className="grid-job-card-activity">
+                <RecommendationCard2Activity data={paginatedJobs} />
+              </div>
+
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  gap: 10,
+                  marginTop: 10,
+                }}
+              >
+                <button
+                  onClick={() => setJobPage((prev) => Math.max(prev - 1, 1))}
+                  disabled={jobPage === 1}
+                  style={{
+                    padding: "8px 16px",
+                    borderRadius: "8px",
+                    background: jobPage === 1 ? "#f2f4f5" : "#138382",
+                    color: jobPage === 1 ? "#888" : "white",
+                    border: "none",
+                    cursor: jobPage === 1 ? "default" : "pointer",
+                    boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.03)",
+                  }}
+                >
+                  Previous
+                </button>
+
+                <button
+                  onClick={() =>
+                    setJobPage((prev) =>
+                      prev * jobsPerPage < limitedJobData.length ? prev + 1 : prev
+                    )
+                  }
+                  disabled={endIndex >= limitedJobData.length}
+                  style={{
+                    padding: "8px 16px",
+                    borderRadius: "8px",
+                    background: endIndex >= limitedJobData.length
+                      ? "#f2f4f5"
+                      : "#138382",
+                    color: endIndex >= limitedJobData.length ? "#888" : "white",
+                    border: "none",
+                    cursor: endIndex >= limitedJobData.length
+                      ? "default"
+                      : "pointer",
+                    boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.03)",
+                  }}
+                >
+                  Next
+                </button>
+              </div>
+            </>
+          ) : (
+            <p>No Jobs Hosted!</p>
+          )}
+        </>
+      )}
+
+      {actionButton === "Internships" && (
+        <>
+          {internshipData?.length > 0 ? (
             <div className="grid-job-card-activity">
               <RecommendationCard2Activity data={internshipData} />
             </div>
           ) : (
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                width: "100%",
-                height: "30vh",
-                padding: "20px",
-              }}
-            >
-              <p style={{ margin: 0 }}>No Internships Hosted!</p>
-            </div>
+            <p>No Internships Hosted!</p>
           )}
         </>
       )}
