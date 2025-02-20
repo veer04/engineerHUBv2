@@ -16,6 +16,11 @@ const YourActivitySection = ({
   const handleButtonClick = (buttonName) => {
     setActionButton(actionButton === buttonName ? null : buttonName);
   };
+  const [showAllJobs, setShowAllJobs] = useState(false);
+
+const toggleShowJobs = () => {
+  setShowAllJobs((prev) => !prev);
+};
 
   console.log(jobData, "jobData");
 
@@ -180,31 +185,48 @@ const YourActivitySection = ({
           )}
         </>
       )}
+{actionButton === "Jobs" && (
+  <>
+    {jobData && jobData?.length > 0 ? (
+      <>
+        <div className="grid-job-card-activity">
+          <RecommendationCard2Activity data={showAllJobs ? jobData : jobData.slice(0, 9)} />
+        </div>
+        {jobData.length > 9 && (
+          <button
+            onClick={toggleShowJobs}
+            style={{
+              marginTop: 10,
+              padding: "8px 16px",
+              borderRadius: "8px",
+              background: "#138382",
+              color: "white",
+              border: "none",
+              cursor: "pointer",
+            }}
+          >
+            {showAllJobs ? "Show Less" : "Show More"}
+          </button>
+        )}
+      </>
+    ) : (
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          width: "100%",
+          height: "30vh",
+          padding: "20px",
+        }}
+      >
+        <p style={{ margin: 0 }}>No Jobs Hosted!</p>
+      </div>
+    )}
+  </>
+        )}
 
-      {actionButton === "Jobs" && (
-        <>
-          {jobData && jobData?.length > 0 ? (
-            <div className="grid-job-card-activity">
-              <RecommendationCard2Activity data={jobData} />
-            </div>
-          ) : (
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                width: "100%",
-                height: "30vh",
-                padding: "20px",
-              }}
-            >
-              <p style={{ margin: 0 }}>No Jobs Hosted!</p>
-            </div>
-          )}
-        </>
-      )}
-
-      {actionButton === "Internships" && (
+      { actionButton === "Internships" && (
         <>
           {internshipData && internshipData?.length > 0 ? (
             <div className="grid-job-card-activity">
