@@ -73,51 +73,55 @@ const ProfileDashboard = () => {
     let currentPage = 1; // Start from page 1
     const pageLimit = 10; // Fetch data in chunks
     let allData = [];
-  
+
     try {
       while (true) {
         const response = await axios.get(
           `${API_URL}api/v1/userDashboard/activity-area?userId=${currentUserId}&section=${section}&limit=${pageLimit}&page=${currentPage}`
         );
-  
+
         if (response.status === 200 && response.data.data) {
           let newData = [];
-  
+
           if (section === "streak") {
-            newData = Array.isArray(response.data.data) ? response.data.data : [];
+            newData = Array.isArray(response.data.data)
+              ? response.data.data
+              : [];
             setStreakData((prevData) => [...(prevData || []), ...newData]);
           } else if (section === "job") {
             newData = Array.isArray(response.data.data.applications)
               ? response.data.data.applications
               : [];
-  
+
             setJobData((prevData) => {
               const updatedData = [...(prevData || []), ...newData];
               return updatedData.slice(0, 100); // Ensure jobData never exceeds 100 items
             });
-  
-            if ((allData.length + newData.length) >= 100) break; // Stop fetching if 100 items are reached
+
+            if (allData.length + newData.length >= 100) break; // Stop fetching if 100 items are reached
           } else if (section === "internship") {
             newData = Array.isArray(response.data.data.applications)
               ? response.data.data.applications
               : [];
             setInternshipData((prevData) => [...(prevData || []), ...newData]);
           } else if (section === "post") {
-            newData = Array.isArray(response.data.data) ? response.data.data : [];
+            newData = Array.isArray(response.data.data)
+              ? response.data.data
+              : [];
             setPostData((prevData) => [...(prevData || []), ...newData]);
           } else {
             setError("Unexpected response format.");
             break;
           }
-  
+
           if (newData.length === 0) break; // Stop fetching if no new data
-  
+
           allData = [...allData, ...newData];
           currentPage++; // Increment page
-  
+
           if (section === "job" && allData.length >= 100) break; // Stop fetching jobData beyond 100 items
         } else {
-          break; // Stop fetching if response is not 200
+          break;
         }
       }
     } catch (error) {
@@ -127,7 +131,7 @@ const ProfileDashboard = () => {
       setLoading(false);
     }
   };
-  
+
   useEffect(() => {
     if (privateDashboardData && currentUserId) {
       getActivityData(currentUserId, "streak");
@@ -136,8 +140,6 @@ const ProfileDashboard = () => {
       getActivityData(currentUserId, "post");
     }
   }, [privateDashboardData]);
-  
-  
 
   return (
     <>
