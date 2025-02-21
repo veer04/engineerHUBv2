@@ -6,6 +6,7 @@ import HostPageForProfileDashboard from "../../../components/ProfileDashboard/Ho
 import AboutCompNewCompany from "./AboutCompNewCompany/AboutCompNewCompany";
 import NewCompanyThirdAndFourthSec from "./SectionThreeAndFourNewCompany/NewCompanyThirdAndFourthSec";
 import { Bucket_URL } from "../../../services/APIUtils";
+import YourCompanyActivitySection from "./NewCompanyDashboardHeader/YourCompanyActivitySection";
 
 const CompanyDashboardNew = () => {
   return (
@@ -20,6 +21,10 @@ const CompanyDashboardNew = () => {
 
       <div style={{ marginBottom: 20 }}>
         <HostPageForProfileDashboard />
+      </div>
+
+      <div style={{ marginBottom: 20 }}>
+        <YourCompanyActivitySection />
       </div>
 
       <div style={{ marginBottom: 20 }}>
