@@ -1,22 +1,54 @@
 import React from "react";
 import "./newcompanydashboardheader.css";
 import { Bucket_URL } from "../../../../services/APIUtils";
-const NewCompanyDashboardHeader = () => {
+import { FiEdit } from "react-icons/fi";
+import { useNavigate } from "react-router-dom";
+const NewCompanyDashboardHeader = ({ isUserAdmin, organization }) => {
+  const navigate = useNavigate();
   return (
     <div className="main-div-header-company-dashboard">
       <div className="banner-div-main">
-        <img
-          src={`${Bucket_URL}newcompanydashboard/new-company-banner.png`}
-          alt="banner_img"
-        />
+        {organization?.imagePoster && (
+          <img src={organization?.imagePoster} alt="banner_img" />
+        )}
+
+        {!organization?.imagePoster && (
+          <img
+            src={`${Bucket_URL}newcompanydashboard/new-company-banner.png`}
+            alt="banner_img"
+          />
+        )}
+
+        {isUserAdmin && (
+          <button
+            onClick={() => navigate("edit-cover-image")}
+            className="edit-btn-main"
+          >
+            <FiEdit />
+          </button>
+        )}
       </div>
 
       <div className="header-content-section">
         <div className="logo-and-social-section">
-          <img
-            src={`${Bucket_URL}newcompanydashboard/image.png`}
-            alt="banner_img"
-          />
+          {organization?.image && (
+            <img
+              src={
+                organization?.image ||
+                `${Bucket_URL}newcompanydashboard/image.png`
+              }
+              className="logo-main-image"
+              alt="banner_img"
+            />
+          )}
+
+          {!organization?.image && (
+            <img
+              src={`${Bucket_URL}newcompanydashboard/image.png`}
+              className=""
+              alt="banner_img"
+            />
+          )}
 
           <div className="social-icon-div">
             <svg
@@ -93,10 +125,11 @@ const NewCompanyDashboardHeader = () => {
                   color: "#002B36",
                 }}
               >
-                engineerHUB
+                {organization?.name || "engineerHUB"}
               </h4>
 
               <h5
+                className="text-crop-1 overflow-hidden"
                 style={{
                   fontSize: "18px",
                   fontWeight: 400,
@@ -104,56 +137,82 @@ const NewCompanyDashboardHeader = () => {
                   color: "#002B36",
                 }}
               >
-                One stop solution for engineers
+                {organization?.subHeading ? (
+                  organization?.subHeading
+                ) : (
+                  <i
+                    style={{ color: "grey" }}
+                    className="text-crop-1 overflow-hidden"
+                  >
+                    Subheading not available
+                  </i>
+                )}
               </h5>
 
-              <div
-                style={{
-                  display: "flex",
-                  gap: 4,
-                  alignItems: "center",
-                  marginBottom: 10,
-                }}
-              >
-                <h4
-                  style={{
-                    fontSize: "14px",
-                    fontWeight: 400,
-                    lineHeight: "20px",
-                    color: "#547178",
-                    marginBottom: 0,
-                  }}
-                >
-                  Edtech
-                </h4>
+              {organization?.organisationType ? (
                 <div
                   style={{
-                    width: "1.4px",
-                    height: "14px",
-                    background: "#547178",
-                    color: "#002B36",
-                  }}
-                ></div>
-                <h4
-                  style={{
-                    fontSize: "14px",
-                    fontWeight: 400,
-                    lineHeight: "20px",
-                    color: "#547178",
-                    marginBottom: 0,
+                    display: "flex",
+                    gap: 4,
+                    alignItems: "center",
+                    marginBottom: 10,
                   }}
                 >
-                  Delhi, India
-                </h4>
-              </div>
+                  <h4
+                    style={{
+                      fontSize: "14px",
+                      fontWeight: 400,
+                      lineHeight: "20px",
+                      color: "#547178",
+                      marginBottom: 0,
+                    }}
+                  >
+                    {organization?.organisationType}
+                  </h4>
+                  <div
+                    style={{
+                      width: "1.4px",
+                      height: "14px",
+                      background: "#547178",
+                      color: "#002B36",
+                    }}
+                  ></div>
+                  <h4
+                    style={{
+                      fontSize: "14px",
+                      fontWeight: 400,
+                      lineHeight: "20px",
+                      color: "#547178",
+                      marginBottom: 0,
+                    }}
+                  >
+                    {organization?.country}
+                  </h4>
+                </div>
+              ) : (
+                <i
+                  style={{ color: "grey" }}
+                  className="text-crop-1 overflow-hidden"
+                >
+                  Organization type not available
+                </i>
+              )}
             </div>
 
             <div className="main-edit-create-post-btn">
               <div>
-                <button className="edit-btn">Edit Profile</button>
+                <button
+                  onClick={() => navigate("edit-profile")}
+                  className="edit-btn"
+                >
+                  Edit Profile
+                </button>
               </div>
               <div>
-                <button className="create-post">
+                <button
+                  className="create-post"
+                  onClick={() => navigate("/host")}
+                >
                   <span style={{ marginBottom: 2 }}>
                     {" "}
                     <svg
@@ -177,20 +236,23 @@ const NewCompanyDashboardHeader = () => {
               </div>
             </div>
           </div>
-          <p
-            className="more-about-sect"
-            style={{
-              fontSize: "16px",
-              fontWeight: 400,
-              lineHeight: "20px",
-              color: "#002B36",
-              marginBottom: 0,
-            }}
-          >
-            Community | Campus | Company. engineerHUB is one stop solution for
+          {organization?.aboutUs && (
+            <p
+              className="more-about-sect"
+              style={{
+                fontSize: "16px",
+                fontWeight: 400,
+                lineHeight: "20px",
+                color: "#002B36",
+                marginBottom: 0,
+              }}
+            >
+              {organization?.aboutUs ||
+                `Community | Campus | Company. engineerHUB is one stop solution for
             engineers ! A platform to learn in community, explore campuses & get
-            placed in dream companies.
-          </p>
+            placed in dream companies.`}
+            </p>
+          )}
         </div>
       </div>
     </div>

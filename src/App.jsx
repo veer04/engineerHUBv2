@@ -203,7 +203,8 @@ function App() {
             />
             <Route
               path="organization/:organizationId"
-              element={<CompanyDashboard path="profile" />}
+              // element={<CompanyDashboard path="profile" />}
+              element={<CompanyDashboardNew path="profile" />}
             >
               <Route path="edit-cover-image" element={<CoverImageModal />} />
               <Route path="add-post" element={<AddPostModal />} />
@@ -416,10 +417,10 @@ function App() {
 
           <Route path="/employer" element={<Enterprise />} />
 
-          <Route
+          {/* <Route
             path="/companydashboardnew"
             element={<CompanyDashboardNew />}
-          />
+          /> */}
         </Routes>
       </Suspense>
       <NewFooter />

@@ -17,7 +17,7 @@ const YourCompanyActivitySection = () => {
       </div>
 
       <div className="main-btn-divs">
-        {["Posts", "Jobs", "Internships", "Hackathons"].map(
+        {["Posts", "Jobs", "Internships", "Hackathons", "Projects"].map(
           (buttonName, index) => (
             <button
               key={buttonName}

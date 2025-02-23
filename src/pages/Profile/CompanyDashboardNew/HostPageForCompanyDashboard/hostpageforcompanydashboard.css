@@ -1,0 +1,20 @@
+.host-page-main-company-dashboard {
+  width: 100%;
+  height: auto;
+  padding: 16px;
+  border-radius: 10px;
+  background-color: white;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.08);
+}
+
+.host-page-main-company-dashboard .post-create-main-sub {
+  margin-top: 16px;
+  display: flex;
+  gap: 10px;
+  overflow: auto;
+  scroll-behavior: smooth;
+}
+
+.host-page-main-company-dashboard .post-create-main-sub::-webkit-scrollbar {
+  height: 2px;
+}
