@@ -44,8 +44,9 @@ const CompanyDashboardNew = () => {
 
   const { organizationId } = useParams();
   const [showAll, setShowAll] = useState(false);
+  const [showAll1, setShowAll1] = useState(false);
 
-  console.log(organization, "organization");
+  // console.log(organization, "organization");
   function fetchData() {
     if (isUserLoggedIn()) {
       getOrganizationProfileByIdPrivateMode(
@@ -177,7 +178,20 @@ const CompanyDashboardNew = () => {
       </div>
 
       <div style={{ marginBottom: 20 }}>
-        <YourCompanyActivitySection />
+        <YourCompanyActivitySection
+          posts={posts}
+          showAll={showAll}
+          showAll1={showAll1}
+          setShowAll1={setShowAll1}
+          jobs={jobs}
+          setJobs={setJobs}
+          isActivityPresent={isActivityPresent}
+          hackathons={hackathons}
+          isUserAdmin={isUserAdmin}
+          organization={organization}
+          projects={projects}
+          internships={internships}
+        />
       </div>
 
       <div style={{ marginBottom: 20 }}>

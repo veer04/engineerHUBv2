@@ -1,13 +1,70 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import "./yourcompanyactivitysection.css";
 import { GoStopwatch } from "react-icons/go";
+import NewCompanyPostCard from "./NewCompanyPostCard";
+import { BsArrowRight, BsArrowUp } from "react-icons/bs";
+import RecommendationCard2Activity from "../../../../components/ProfileDashboard/RecommendedSection/RecommendationCard2Activity";
+import HackathonCard from "../../../Company/Events/EventsChoices/HackathonCards";
+import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
+import ProjectCards from "../../../Company/Projects/ProjectCards";
 
-const YourCompanyActivitySection = () => {
+const YourCompanyActivitySection = ({
+  posts,
+  showAll,
+  showAll1,
+  setShowAll1,
+  jobs,
+  setJobs,
+  isActivityPresent,
+  hackathons,
+  isUserAdmin,
+  organization,
+  projects,
+  internships,
+}) => {
   const [actionButton, setActionButton] = useState("Posts");
+  const scrollContainerRef = useRef(null);
+  const scrollAmount = 300;
+
+  const scrollLeft = () => {
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollBy({
+        left: -scrollAmount,
+        behavior: "smooth",
+      });
+    }
+  };
+
+  const scrollRight = () => {
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollBy({
+        left: scrollAmount,
+        behavior: "smooth",
+      });
+    }
+  };
 
   const handleButtonClick = (buttonName) => {
-    setActionButton(actionButton === buttonName ? null : buttonName);
+    setActionButton((prev) => (prev === buttonName ? null : buttonName));
   };
+
+  const currentData = (() => {
+    switch (actionButton) {
+      case "Posts":
+        return posts;
+      case "Jobs":
+        return jobs;
+      case "Internships":
+        return internships;
+      case "Hackathons":
+        return hackathons;
+      case "Projects":
+        return projects;
+
+      default:
+        return [];
+    }
+  })();
 
   return (
     <div className="your-company-activity-section">
@@ -18,7 +75,7 @@ const YourCompanyActivitySection = () => {
 
       <div className="main-btn-divs">
         {["Posts", "Jobs", "Internships", "Hackathons", "Projects"].map(
-          (buttonName, index) => (
+          (buttonName) => (
             <button
               key={buttonName}
               onClick={() => handleButtonClick(buttonName)}
@@ -31,7 +88,6 @@ const YourCompanyActivitySection = () => {
                 lineHeight: "20px",
                 color: actionButton === buttonName ? "white" : "black",
                 border: "none",
-                // marginLeft: index === 0 ? 0 : 10,
                 boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.03)",
                 cursor: "pointer",
                 transition: "background 0.3s ease",
@@ -42,6 +98,62 @@ const YourCompanyActivitySection = () => {
           )
         )}
       </div>
+
+      {currentData && currentData.length > 0 ? (
+        <div className="carousel-container">
+          <button className="carousel-btn left" onClick={scrollLeft}>
+            <AiOutlineLeft size={24} />
+          </button>
+
+          <div className="carousel" ref={scrollContainerRef}>
+            {actionButton === "Posts" &&
+              posts.map((jobDetail, index) => (
+                <NewCompanyPostCard key={index} {...jobDetail} />
+              ))}
+
+            {actionButton === "Jobs" && (
+              <RecommendationCard2Activity data={jobs} />
+            )}
+
+            {actionButton === "Internships" && (
+              <RecommendationCard2Activity data={internships} />
+            )}
+
+            {actionButton === "Hackathons" &&
+              isActivityPresent &&
+              hackathons.map((jobDetail, index) => (
+                <HackathonCard
+                  key={index}
+                  {...jobDetail}
+                  className="scroll-card no-hover-scale"
+                  adminView={isUserAdmin}
+                  filterByCompany={true}
+                  filterName={organization?.name}
+                />
+              ))}
+
+            {actionButton === "Projects" &&
+              projects.map((jobDetail, index) => (
+                <ProjectCards
+                  key={index}
+                  data={jobDetail}
+                  className="scroll-card no-hover-scale"
+                  adminView={isUserAdmin}
+                  filterByCompany={true}
+                  filterName={organization?.name}
+                />
+              ))}
+          </div>
+
+          <button className="carousel-btn right" onClick={scrollRight}>
+            <AiOutlineRight size={24} />
+          </button>
+        </div>
+      ) : (
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          <p style={{ color: "grey" }}>{`No ${actionButton} to show`}</p>
+        </div>
+      )}
     </div>
   );
 };

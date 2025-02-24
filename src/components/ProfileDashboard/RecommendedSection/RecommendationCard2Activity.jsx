@@ -19,8 +19,8 @@ const RecommendationCard2Activity = ({ data }) => {
 
   const { search } = useLocation();
   const navigate = useNavigate();
-  const userId  = getUserId();
-  const  idparams  = useParams();
+  const userId = getUserId();
+  const idparams = useParams();
 
   const JobRedirect = (id) => {
     navigate(`/career/jobs/${id}${!!search ? search : ""}`);
@@ -35,7 +35,6 @@ const RecommendationCard2Activity = ({ data }) => {
   console.log(isJobCreator());
 
   useEffect(() => {
-
     isJobCreator();
   }, []);
 
@@ -49,6 +48,7 @@ const RecommendationCard2Activity = ({ data }) => {
   return (
     <>
       {data &&
+        data.length > 0 &&
         data?.map((job, index) => (
           <div
             onClick={() => JobRedirect(job._id)}
@@ -69,7 +69,7 @@ const RecommendationCard2Activity = ({ data }) => {
                   {job.organisationName}
                 </h4>
 
-                { isJobCreator() && (
+                {isJobCreator() && (
                   <button
                     className="btn-h4-main"
                     onClick={(e) => {

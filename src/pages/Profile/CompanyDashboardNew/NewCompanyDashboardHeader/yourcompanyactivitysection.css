@@ -25,4 +25,96 @@
   display: flex;
   gap: 10px;
   align-items: center;
+  margin-bottom: 20px;
+}
+
+.your-company-activity-section .carousel-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.your-company-activity-section .carousel {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding-bottom: 10px;
+}
+
+.your-company-activity-section .carousel::-webkit-scrollbar {
+  display: none;
+}
+
+.your-company-activity-section .carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.5);
+  border: none;
+  color: white;
+  padding: 8px;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.your-company-activity-section .carousel-btn.left {
+  left: 0;
+}
+
+.your-company-activity-section .carousel-btn.right {
+  right: 0;
+}
+
+.your-company-activity-section .post-grid-main {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  margin-bottom: 20px;
+  gap: 10px;
+}
+
+.your-company-activity-section .projects-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin-bottom: 20px;
+  gap: 20px;
+  overflow: hidden;
+}
+.your-company-activity-section .btn-container-main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.your-company-activity-section .btn-container-main button {
+  background-color: #002b36;
+  color: white;
+  border: none;
+  outline: none;
+  border-radius: 10px;
+  padding: 10px 30px;
+}
+
+@media screen and (max-width: 900px) {
+  .your-company-activity-section .post-grid-main {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 10px;
+  }
+
+  .your-company-activity-section .main-btn-divs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+
+  .your-company-activity-section .carousel::-webkit-scrollbar {
+    display: none;
+  }
+
+  .your-company-activity-section .carousel > * {
+    flex: 0 0 100%;
+  }
 }
