@@ -11,6 +11,7 @@ import { getUserId } from "../../../../features/User/UserDetails";
 import { Bounce, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { getAccessToken } from "../../../../features/getCookieValues";
+import { useSelector } from "react-redux";
 
 const ProfileWithFollowAndMail = ({ DashboardAdminData }) => {
   console.log(DashboardAdminData, "dashboardadim");
@@ -19,6 +20,7 @@ const ProfileWithFollowAndMail = ({ DashboardAdminData }) => {
   const [isFollowActive, setFollowActive] = useState(false);
   const [isMailActive, setMailActive] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const isChecked = useSelector((state) => state.resumeToggle.isVisible);
 
   const handleViewResume = () => {
     if (DashboardAdminData?.resume) {
