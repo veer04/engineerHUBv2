@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import "./newcompanydashboardheader.css";
 import { Bucket_URL } from "../../../../services/APIUtils";
 import { FiEdit } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
+import CoverImageModal from "../../../../components/Dashboard/CoverImageModal";
 const NewCompanyDashboardHeader = ({ isUserAdmin, organization }) => {
   const navigate = useNavigate();
+  const [showCoverImageModal, setShowCoverImageModal] = useState(false);
+
   return (
     <div className="main-div-header-company-dashboard">
       <div className="banner-div-main">
@@ -21,11 +24,15 @@ const NewCompanyDashboardHeader = ({ isUserAdmin, organization }) => {
 
         {isUserAdmin && (
           <button
-            onClick={() => navigate("edit-cover-image")}
+            onClick={() => setShowCoverImageModal(true)}
             className="edit-btn-main"
           >
             <FiEdit />
           </button>
+        )}
+
+        {showCoverImageModal && (
+          <CoverImageModal onClose={() => setShowCoverImageModal(false)} />
         )}
       </div>
 
