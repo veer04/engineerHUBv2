@@ -42,6 +42,10 @@ import {
 } from "../../SvgsIconsComps/SvgsComps";
 import NewProfileConnectCard from "./NewProfileConnectCard";
 import BelowHostComponent from "./BelowHostComponent";
+import ProfileCompletionScoreComp from "./ProfileCompletionScoreComp";
+import { API_URL } from "../../../services/APIUtils";
+import { getAccessToken } from "../../../features/getCookieValues";
+import axios from "axios";
 
 export default function ProfilePopUp() {
   if (!isUserLoggedIn()) {
@@ -54,6 +58,8 @@ export default function ProfilePopUp() {
   const userFullName = getUserFullName();
   const userImage = getUserImage();
   const [profileProgress, setProfileProgress] = useState(75);
+  const [privateDashboardDataForComp, setPrivateDashboardDataForComp] =
+    useState(null);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -64,6 +70,36 @@ export default function ProfilePopUp() {
     return () => {
       clearInterval(timer);
     };
+  }, []);
+
+  const getPrivateDashboardData = async () => {
+    try {
+      const config = {
+        accessToken: getAccessToken(),
+      };
+      const response = await axios.get(
+        `${API_URL}api/v1/userDashboard/private`,
+        {
+          headers: config,
+        }
+      );
+
+      if (response.status === 200) {
+        const data = response.data;
+        setPrivateDashboardDataForComp(data.data.profileStatus);
+      } else {
+        console.error("Unexpected response status:", response.status);
+      }
+    } catch (error) {
+      console.error(
+        "Error fetching profile data:",
+        error.response || error.message
+      );
+    }
+  };
+
+  useEffect(() => {
+    getPrivateDashboardData();
   }, []);
 
   const promotionalSvg = (
@@ -558,9 +594,27 @@ export default function ProfilePopUp() {
               />
             </svg>
           </div>
+
           {/* <div className="sub-name">Software Development</div> */}
         </div>
       </div>
+
+      {role === "User" && (
+        <div style={{ marginTop: 0 }}>
+          <ProfileCompletionScoreComp
+            privateDashboardData={privateDashboardDataForComp}
+          />
+        </div>
+      )}
+
+      {role === "Alumni" && (
+        <div style={{ marginTop: 0 }}>
+          <ProfileCompletionScoreComp
+            privateDashboardData={privateDashboardDataForComp}
+          />
+        </div>
+      )}
+
       <button
         data-bs-dismiss="offcanvas"
         aria-label="Close"
