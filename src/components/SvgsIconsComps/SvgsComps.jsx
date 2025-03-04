@@ -257,6 +257,7 @@ export const HackathonIcon = () => {
     </svg>
   );
 };
+
 export const ArrowSvgCompright = () => {
   return (
     <svg
@@ -427,5 +428,118 @@ export const QuerybtnIcon = () => {
         stroke-linejoin="round"
       />
     </svg>
+  );
+};
+
+export const ForHeadingComp = ({ title }) => {
+  return (
+    <div>
+      <h3
+        style={{
+          color: "#547178",
+          fontSize: 14,
+          fontWeight: 400,
+          lineHeight: "20px",
+          marginBottom: 5,
+          marginLeft: 10,
+        }}
+      >
+        {title}
+      </h3>
+    </div>
+  );
+};
+
+export const ResumeWritingIcon = () => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="25"
+      height="24"
+      viewBox="0 0 25 24"
+      fill="none"
+    >
+      <path
+        d="M14.7109 2H10.7109C7.43171 2 5.7921 2 4.62985 2.81382C4.19985 3.1149 3.82584 3.48891 3.52476 3.91891C2.71094 5.08116 2.71094 6.72077 2.71094 10C2.71094 13.2792 2.71094 14.9188 3.52476 16.0811C3.82584 16.5111 4.19985 16.8851 4.62985 17.1862C5.7921 18 7.43171 18 10.7109 18H14.7109C17.9901 18 19.6297 18 20.792 17.1862C21.222 16.8851 21.596 16.5111 21.8971 16.0811C22.7109 14.9188 22.7109 13.2792 22.7109 10C22.7109 6.72077 22.7109 5.08116 21.8971 3.91891C21.596 3.48891 21.222 3.1149 20.792 2.81382C19.6297 2 17.9901 2 14.7109 2Z"
+        stroke="#141B34"
+        stroke-width="1.5"
+        stroke-linecap="round"
+      />
+      <path
+        d="M15.2109 22L14.8954 21.5811C14.1842 20.6369 14.0078 19.1944 14.4577 18M10.2109 22L10.5264 21.5811C11.2376 20.6369 11.414 19.1944 10.9641 18"
+        stroke="#141B34"
+        stroke-width="1.5"
+        stroke-linecap="round"
+      />
+      <path
+        d="M7.71094 22H17.7109"
+        stroke="#141B34"
+        stroke-width="1.5"
+        stroke-linecap="round"
+      />
+      <path
+        d="M8.71094 14C10.5494 11.4046 14.8297 11.263 16.7109 14M14.7109 8C14.7109 9.10457 13.8155 10 12.7109 10C11.6063 10 10.7109 9.10457 10.7109 8C10.7109 6.89543 11.6063 6 12.7109 6C13.8155 6 14.7109 6.89543 14.7109 8Z"
+        stroke="#141B34"
+        stroke-width="1.5"
+        stroke-linecap="round"
+      />
+    </svg>
+  );
+};
+
+export const AtsScoreIcon = () => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="25"
+      height="24"
+      viewBox="0 0 25 24"
+      fill="none"
+    >
+      <path
+        d="M15.2107 19H13.2107C10.3823 19 8.96811 19 8.08943 18.1213C7.21075 17.2426 7.21075 15.8284 7.21075 13V8C7.21075 5.17157 7.21075 3.75736 8.08943 2.87868C8.96811 2 10.3823 2 13.2107 2H14.5539C15.3714 2 15.7801 2 16.1477 2.15224C16.5152 2.30448 16.8042 2.59351 17.3823 3.17157L20.0391 5.82843C20.6172 6.40648 20.9062 6.69552 21.0585 7.06306C21.2107 7.4306 21.2107 7.83935 21.2107 8.65685V13C21.2107 15.8284 21.2107 17.2426 20.332 18.1213C19.4534 19 18.0391 19 15.2107 19Z"
+        stroke="#141B34"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <path
+        d="M15.7107 2.5V3.5C15.7107 5.38562 15.7107 6.32843 16.2965 6.91421C16.8823 7.5 17.8251 7.5 19.7107 7.5H20.7107"
+        stroke="#141B34"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <path
+        d="M7.20996 5C5.55311 5 4.20996 6.34315 4.20996 8V16C4.20996 18.8285 4.20996 20.2427 5.08864 21.1213C5.96732 22 7.38153 22 10.21 22H15.2103C16.8671 22 18.2103 20.6568 18.2103 19"
+        stroke="#141B34"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <path
+        d="M10.7109 11H14.7109M10.7109 15H17.7109"
+        stroke="#141B34"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+    </svg>
+  );
+};
+
+export const DividerCompMain = () => {
+  return (
+    <div style={{ width: "100%" }}>
+      <hr
+        style={{
+          width: "100%",
+          height: "1px",
+          background: "#808080",
+          border: "none",
+          margin: "10px 0",
+        }}
+      />
+    </div>
   );
 };

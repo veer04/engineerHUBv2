@@ -25,19 +25,23 @@ import { CgLogOut } from "react-icons/cg";
 import { HashLink } from "react-router-hash-link";
 import {
   ApplicationManageIcon,
+  AtsScoreIcon,
   BlogIcon,
   Card1ImageSvgProfileSidebar,
   Card2ImageSvgProfileSidebar,
   Card3ImageSvgProfileSidebar,
+  DividerCompMain,
+  ForHeadingComp,
   HackathonIcon,
   JobIcon,
   LogoutbtnIcon,
   NoteIcon,
   QuerybtnIcon,
+  ResumeWritingIcon,
   WebinarIcon,
 } from "../../SvgsIconsComps/SvgsComps";
 import NewProfileConnectCard from "./NewProfileConnectCard";
-import Cookies from "js-cookie";
+import BelowHostComponent from "./BelowHostComponent";
 
 export default function ProfilePopUp() {
   if (!isUserLoggedIn()) {
@@ -50,15 +54,6 @@ export default function ProfilePopUp() {
   const userFullName = getUserFullName();
   const userImage = getUserImage();
   const [profileProgress, setProfileProgress] = useState(75);
-
-  const [userRole, setUserRole] = useState("");
-
-  useEffect(() => {
-    const role = Cookies.get("role");
-    if (role) {
-      setUserRole(role);
-    }
-  }, []);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -140,6 +135,47 @@ export default function ProfilePopUp() {
     //   link: "/campus",
     // },
   ];
+
+  const alumniHostPagesMenus = [
+    {
+      label: "Jobs",
+      icon: <JobIcon />,
+      link: "/career/jobs?pageNo=1&limit=24",
+    },
+
+    {
+      label: "Internships",
+      icon: <JobIcon />,
+      link: "/career/internships?pageNo=1&limit=24",
+    },
+
+    {
+      label: "Hackathons",
+      icon: <HackathonIcon />,
+      link: "/campus",
+    },
+
+    {
+      label: "Host Webinar",
+      icon: <WebinarIcon />,
+      link: "/host/webinar",
+    },
+  ];
+
+  const userCulturalAndTechnicalMenu = [
+    {
+      label: "Cultural Event",
+      icon: <WebinarIcon />,
+      link: "/host/cultural-event",
+    },
+
+    {
+      label: "Technical Event",
+      icon: <WebinarIcon />,
+      link: "/host/technical-event",
+    },
+  ];
+
   const companyMenuItems = [
     {
       label: "Host Jobs",
@@ -251,6 +287,42 @@ export default function ProfilePopUp() {
     );
   });
 
+  const renderHostPages = alumniHostPagesMenus.map((item, index) => {
+    return (
+      <button
+        key={index}
+        data-bs-dismiss="offcanvas"
+        aria-label="Close"
+        className="item"
+        onClick={() => {
+          navigate(item.link);
+        }}
+      >
+        <div className="icon">{item.icon}</div>
+        <div className="label">{item.label}</div>
+      </button>
+    );
+  });
+
+  const renderTechnicalAndCulturalMenu = userCulturalAndTechnicalMenu.map(
+    (item, index) => {
+      return (
+        <button
+          key={index}
+          data-bs-dismiss="offcanvas"
+          aria-label="Close"
+          className="item"
+          onClick={() => {
+            navigate(item.link);
+          }}
+        >
+          <div className="icon">{item.icon}</div>
+          <div className="label">{item.label}</div>
+        </button>
+      );
+    }
+  );
+
   const renderClubMenuItems = clubMenuItems.map((item, index) => (
     <button
       key={index}
@@ -328,7 +400,7 @@ export default function ProfilePopUp() {
 
   const renderConnectWithUsHiringProcess = (
     <>
-      <div>
+      <div style={{ marginBottom: 20 }}>
         <NewProfileConnectCard
           image={<Card1ImageSvgProfileSidebar />}
           bgColor={"#f7d77f"}
@@ -343,7 +415,7 @@ export default function ProfilePopUp() {
         />
       </div>
 
-      <div>
+      <div style={{ marginBottom: 10 }}>
         <NewProfileConnectCard
           image={<Card2ImageSvgProfileSidebar />}
           bgColor={"#e8ba98"}
@@ -360,7 +432,7 @@ export default function ProfilePopUp() {
   );
 
   const renderLetTheCommunityKnow = (
-    <div>
+    <div style={{ marginBottom: 10 }}>
       <NewProfileConnectCard
         image={<Card3ImageSvgProfileSidebar />}
         bgColor={"#8fc8e8"}
@@ -440,13 +512,17 @@ export default function ProfilePopUp() {
               lineHeight: "20px",
             }}
           >
-            {userRole}
+            {role}
           </h3>
 
           <div
             className="edit-profile-div"
             onClick={() => {
-              navigate(`/profile/${role.toLowerCase()}/${getUserId()}`);
+              const profileRoute =
+                role === "User" || role === "Alumni"
+                  ? "user"
+                  : role.toLowerCase();
+              navigate(`/profile/${profileRoute}/${getUserId()}`);
             }}
             data-bs-dismiss="offcanvas"
             aria-label="Close"
@@ -490,28 +566,18 @@ export default function ProfilePopUp() {
         aria-label="Close"
         className="show-profile-btn redirect-btn"
         onClick={() => {
-          navigate(`/profile/${role.toLowerCase()}/${getUserId()}`);
+          const profileRoute =
+            role === "User" || role === "Alumni" ? "user" : role.toLowerCase();
+          navigate(`/profile/${profileRoute}/${getUserId()}`);
         }}
       >
         {`${profileProgress < 100 ? "Open Dashboard" : "View Dashboard"}`}
       </button>
-      <div className="divider"></div>
+      <DividerCompMain />
+
       {/* Main Content */}
 
-      <div>
-        <h3
-          style={{
-            color: "#547178",
-            fontSize: 14,
-            fontWeight: 400,
-            lineHeight: "20px",
-            marginBottom: 5,
-            marginLeft: 10,
-          }}
-        >
-          For You
-        </h3>
-      </div>
+      <ForHeadingComp title={"For You"} />
       <div className="items-list">
         {role === "User" && renderStudentMenuItems}
         {role === "Alumni" && renderAlumniMenuItems}
@@ -523,11 +589,112 @@ export default function ProfilePopUp() {
       {role === "Alumni" && renderLetTheCommunityKnow}
       {role === "Organization" && renderConnectWithUsHiringProcess}
       {role === "Club" && renderClubPromotionalContent}
+
+      <DividerCompMain />
+
+      {role === "Alumni" && (
+        <>
+          <ForHeadingComp title={"Host"} />
+          <div className="items-list">
+            {role === "Alumni" && renderHostPages}
+          </div>
+          <DividerCompMain />
+          <ForHeadingComp title={"1:1 Connect"} />
+
+          <BelowHostComponent
+            icon={<ResumeWritingIcon />}
+            btnText={"Resume Writing"}
+            btnLink={"/referrals"}
+            tagBgColor={"#8FC8E826"}
+            tagText={"Popular"}
+            borderColor={"#8fc8e8"}
+          />
+
+          <BelowHostComponent
+            icon={<ResumeWritingIcon />}
+            btnText={"Referrals in MNC’s"}
+            btnLink={"/referrals"}
+            tagBgColor={"#B2E88726"}
+            tagText={"Price Drop"}
+            borderColor={"#B2E887"}
+          />
+          <DividerCompMain />
+
+          <ForHeadingComp title={"Digital Products"} />
+
+          <BelowHostComponent
+            icon={<AtsScoreIcon />}
+            btnText={"94% ATS Resume"}
+            btnLink={"/referrals"}
+            tagBgColor={"#8FC8E826"}
+            tagText={"Popular"}
+            borderColor={"#8fc8e8"}
+          />
+
+          <BelowHostComponent
+            icon={<AtsScoreIcon />}
+            btnText={"Complete DSA"}
+            btnLink={"/referrals"}
+            tagBgColor={"#E8BA981F"}
+            tagText={"New"}
+            borderColor={"#E8BA98"}
+          />
+          <DividerCompMain />
+        </>
+      )}
+
+      {role === "User" && (
+        <>
+          <ForHeadingComp title={"Host"} />
+          <div className="items-list">{renderTechnicalAndCulturalMenu}</div>
+          <DividerCompMain />
+          <ForHeadingComp title={"1:1 Connect"} />
+
+          <BelowHostComponent
+            icon={<ResumeWritingIcon />}
+            btnText={"Resume Writing"}
+            btnLink={"/referrals"}
+            tagBgColor={"#8FC8E826"}
+            tagText={"Popular"}
+            borderColor={"#8fc8e8"}
+          />
+
+          <BelowHostComponent
+            icon={<ResumeWritingIcon />}
+            btnText={"Referrals in MNC’s"}
+            btnLink={"/referrals"}
+            tagBgColor={"#B2E88726"}
+            tagText={"Price Drop"}
+            borderColor={"#B2E887"}
+          />
+          <DividerCompMain />
+
+          <ForHeadingComp title={"Digital Products"} />
+
+          <BelowHostComponent
+            icon={<AtsScoreIcon />}
+            btnText={"94% ATS Resume"}
+            btnLink={"/referrals"}
+            tagBgColor={"#8FC8E826"}
+            tagText={"Popular"}
+            borderColor={"#8fc8e8"}
+          />
+
+          <BelowHostComponent
+            icon={<AtsScoreIcon />}
+            btnText={"Complete DSA"}
+            btnLink={"/referrals"}
+            tagBgColor={"#E8BA981F"}
+            tagText={"New"}
+            borderColor={"#E8BA98"}
+          />
+          <DividerCompMain />
+        </>
+      )}
+
       {/* <Link
         to={`/profile/${role.toLowerCase()}/${getUserId()}/#recent-activities`}
       > */}
-
-      <div className="divider"></div>
 
       <div className="logout-main-div">
         <div className="btn-div-logout">

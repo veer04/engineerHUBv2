@@ -1,0 +1,36 @@
+.below-host-main-div {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.below-host-main-div .below-host-left-main-div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+.below-host-main-div .below-host-left-main-div .item {
+  display: flex;
+  flex-direction: row;
+  gap: 1.25rem;
+  padding: 0.5rem 0.57rem;
+  background-color: transparent;
+  border: none;
+  border-radius: 0.3125rem;
+  height: 3rem;
+  align-items: center;
+}
+.below-host-main-div .below-host-right-main-div button {
+  width: 80px;
+  padding: 4px 1px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  /* border: 1px solid #8fc8e8; */
+  /* background: rgba(143, 200, 232, 0.15); */
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 16px;
+  color: #002b36;
+}

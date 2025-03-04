@@ -105,7 +105,7 @@
   display: flex;
   flex-direction: column;
   gap: 0.2rem;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
 }
 .profile-menu > .promotion > .items-list > .item,
 .profile-menu > .items-list > .item {
@@ -218,6 +218,7 @@
   flex-direction: row;
   width: 100%;
   gap: 10px;
+  margin-top: 10px;
 }
 
 .profile-menu .logout-main-div .btn-div-logout {
