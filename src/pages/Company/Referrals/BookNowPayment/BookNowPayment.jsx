@@ -357,6 +357,8 @@ const handleMeetingSub =() => {
     query: extraQuestions,
     startDateTime: startDateTimeISO,
     endDateTime: endDateTimeISO,
+    companyName: companyName,
+    designation: designation
   };
 
   axios
