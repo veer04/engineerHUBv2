@@ -202,7 +202,7 @@ function App() {
             />
             <Route
               path="organization/:organizationId"
-              element={<CompanyDashboard path="profile" />}
+              element={<CompanyDashboard path="profile" />}  // new companyDashboard
             >
               <Route path="edit-cover-image" element={<CoverImageModal />} />
               <Route path="add-post" element={<AddPostModal />} />

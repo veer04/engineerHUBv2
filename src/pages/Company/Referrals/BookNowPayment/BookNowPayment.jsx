@@ -344,7 +344,7 @@ const BookNowPayment = () => {
     return valid;
   };
 const handleMeetingSub =() => {
-  // console.log(validateInput2())
+  // console.log(validateInput2()) hello
   if (!validateInput2()) {
     return;
   }
@@ -357,6 +357,8 @@ const handleMeetingSub =() => {
     query: extraQuestions,
     startDateTime: startDateTimeISO,
     endDateTime: endDateTimeISO,
+    companyName: companyName,
+    designation: designation
   };
 
   axios
@@ -685,6 +687,17 @@ const handleMeetingSub =() => {
       helperText={errors.email}
       className="mb-4"
     />
+      <FormInput
+              label="Phone Number"
+              id="phoneNumber"
+              name="phoneNumber"
+              required
+              placeholder="Enter your Phone Number"
+              value={phoneNumber}
+              setValue={setPhoneNumber}
+              helperText={errors.phoneNumber}
+              className="mb-4 w-100"
+            />
     <FormInput
       label="Company Name"
       id="companyName"
