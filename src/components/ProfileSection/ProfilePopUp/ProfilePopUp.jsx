@@ -141,7 +141,7 @@ export default function ProfilePopUp() {
     {
       label: "Notes",
       icon: <NoteIcon />,
-      link: "/community/blogs/Data%20Structures%20%26%20Algorithms",
+      link: "/community/notes/Data%20Structures%20%26%20Algorithms",
     },
     // {
     //   label: "Projects",
@@ -157,7 +157,7 @@ export default function ProfilePopUp() {
     {
       label: "Hackathons",
       icon: <HackathonIcon />,
-      link: "/host/hackathon",
+      link: "/career",
     },
 
     // {
@@ -176,19 +176,19 @@ export default function ProfilePopUp() {
     {
       label: "Jobs",
       icon: <JobIcon />,
-      link: "/career/jobs?pageNo=1&limit=24",
+      link: "/host/job",
     },
 
     {
       label: "Internships",
       icon: <JobIcon />,
-      link: "/career/internships?pageNo=1&limit=24",
+      link: "/host/internship",
     },
 
     {
       label: "Hackathons",
       icon: <HackathonIcon />,
-      link: "/campus",
+      link: "/host/hackathon",
     },
 
     {
@@ -236,7 +236,7 @@ export default function ProfilePopUp() {
     {
       label: "Manage Applications",
       icon: <ApplicationManageIcon />,
-      link: "/host/hackathon",
+      link: `/profile/organization/${getUserId()}`,
     },
     // {
     //   label: "Create Projects",
@@ -548,7 +548,7 @@ export default function ProfilePopUp() {
               lineHeight: "20px",
             }}
           >
-            {role}
+            {role && role === "Organization" ? "Company" : role}
           </h3>
 
           <div
@@ -558,7 +558,7 @@ export default function ProfilePopUp() {
                 role === "User" || role === "Alumni"
                   ? "user"
                   : role.toLowerCase();
-              navigate(`/profile/${profileRoute}/${getUserId()}`);
+              navigate(`/profile/${profileRoute}/${getUserId()}/edit-profile`);
             }}
             data-bs-dismiss="offcanvas"
             aria-label="Close"
@@ -658,7 +658,7 @@ export default function ProfilePopUp() {
           <BelowHostComponent
             icon={<ResumeWritingIcon />}
             btnText={"Resume Writing"}
-            btnLink={"/referrals"}
+            btnLink={"/referrals/book-now/66e091cc56ed7c8c16400d91"}
             tagBgColor={"#8FC8E826"}
             tagText={"Popular"}
             borderColor={"#8fc8e8"}
@@ -667,7 +667,7 @@ export default function ProfilePopUp() {
           <BelowHostComponent
             icon={<ResumeWritingIcon />}
             btnText={"Referrals in MNC’s"}
-            btnLink={"/referrals"}
+            btnLink={"/referrals/book-now/66d4572436b0cd9739a994e8"}
             tagBgColor={"#B2E88726"}
             tagText={"Price Drop"}
             borderColor={"#B2E887"}
@@ -679,7 +679,7 @@ export default function ProfilePopUp() {
           <BelowHostComponent
             icon={<AtsScoreIcon />}
             btnText={"94% ATS Resume"}
-            btnLink={"/referrals"}
+            btnLink={"/referrals/product-book-now/66d45c0b36b0cd9739a994f6"}
             tagBgColor={"#8FC8E826"}
             tagText={"Popular"}
             borderColor={"#8fc8e8"}
@@ -687,8 +687,8 @@ export default function ProfilePopUp() {
 
           <BelowHostComponent
             icon={<AtsScoreIcon />}
-            btnText={"Complete DSA"}
-            btnLink={"/referrals"}
+            btnText={"Complete DSA Resources"}
+            btnLink={"/referrals/product-book-now/66d45c2e36b0cd9739a994fc"}
             tagBgColor={"#E8BA981F"}
             tagText={"New"}
             borderColor={"#E8BA98"}
@@ -707,7 +707,7 @@ export default function ProfilePopUp() {
           <BelowHostComponent
             icon={<ResumeWritingIcon />}
             btnText={"Resume Writing"}
-            btnLink={"/referrals"}
+            btnLink={"/referrals/book-now/66e091cc56ed7c8c16400d91"}
             tagBgColor={"#8FC8E826"}
             tagText={"Popular"}
             borderColor={"#8fc8e8"}
@@ -716,7 +716,7 @@ export default function ProfilePopUp() {
           <BelowHostComponent
             icon={<ResumeWritingIcon />}
             btnText={"Referrals in MNC’s"}
-            btnLink={"/referrals"}
+            btnLink={"/referrals/book-now/66d4572436b0cd9739a994e8"}
             tagBgColor={"#B2E88726"}
             tagText={"Price Drop"}
             borderColor={"#B2E887"}
@@ -728,7 +728,7 @@ export default function ProfilePopUp() {
           <BelowHostComponent
             icon={<AtsScoreIcon />}
             btnText={"94% ATS Resume"}
-            btnLink={"/referrals"}
+            btnLink={"/referrals/product-book-now/66d45c0b36b0cd9739a994f6"}
             tagBgColor={"#8FC8E826"}
             tagText={"Popular"}
             borderColor={"#8fc8e8"}
@@ -736,8 +736,8 @@ export default function ProfilePopUp() {
 
           <BelowHostComponent
             icon={<AtsScoreIcon />}
-            btnText={"Complete DSA"}
-            btnLink={"/referrals"}
+            btnText={"Complete DSA Resources"}
+            btnLink={"/referrals/product-book-now/66d45c2e36b0cd9739a994fc"}
             tagBgColor={"#E8BA981F"}
             tagText={"New"}
             borderColor={"#E8BA98"}

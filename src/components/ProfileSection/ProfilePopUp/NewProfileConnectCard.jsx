@@ -9,7 +9,12 @@ import { useNavigate } from "react-router-dom";
 const NewProfileConnectCard = ({ image, bgColor, title, btnName, btnLink }) => {
   const navigate = useNavigate();
   return (
-    <div className="main-connect-card-div" style={{ background: bgColor }}>
+    <div
+      data-bs-dismiss="offcanvas"
+      aria-label="Close"
+      className="main-connect-card-div"
+      style={{ background: bgColor }}
+    >
       <div className="main-connect-sub-div">
         <div className="left-div-card">
           <h4 className="connect-h4">{title}</h4>
