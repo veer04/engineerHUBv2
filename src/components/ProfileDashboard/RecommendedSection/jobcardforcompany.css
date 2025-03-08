@@ -1,0 +1,48 @@
+.job-card-for-company-main {
+  background-color: white;
+  padding: 12px;
+  border-radius: 15px;
+  width: 324px;
+  min-width: 324px;
+  height: auto;
+  margin-top: 16px;
+  border: 1px solid rgb(241, 241, 241);
+  cursor: pointer;
+}
+
+.recommendation-card1-main .icon-section-recommended-1 {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+}
+
+.recommendation-card1-main
+  .icon-section-recommended-1
+  .absolute-position-amazon {
+  position: absolute;
+  right: 0px;
+  bottom: 0px;
+  border: 1px solid gray;
+  border-radius: 50%;
+}
+
+.recommendation-card1-main .btn-h4-main {
+  background-color: #138382;
+  border-radius: 5px;
+  color: white;
+  border: none;
+  padding: 3px 5px;
+}
+
+.recommendation-card1-main .h4-view-candidates {
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+  color: white;
+  margin-bottom: 0;
+  cursor: pointer;
+}
+
+.recommendation-card1-main .h4-view-candidates:hover {
+  color: #c9c9c9;
+}

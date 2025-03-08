@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import "./recommendationcard1.css";
+import "./jobcardforcompany.css";
 import { FaRegEye } from "react-icons/fa";
 import { IoEyeOffOutline } from "react-icons/io5";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { getUserId, isUserLoggedIn } from "../../../features/User/UserDetails";
 
-const RecommendationCard2Activity = ({ data }) => {
+const JobCardForCompany = ({ data, adminView }) => {
   const [viewVisibility, setViewVisibility] = useState({});
 
   console.log(data, "data");
@@ -69,7 +69,7 @@ const RecommendationCard2Activity = ({ data }) => {
                   {job.organisationName}
                 </h4>
 
-                {isJobCreator() && (
+                {
                   <button
                     className="btn-h4-main"
                     onClick={(e) => {
@@ -79,7 +79,7 @@ const RecommendationCard2Activity = ({ data }) => {
                   >
                     <h4 className="h4-view-candidates">View Candidates</h4>
                   </button>
-                )}
+                }
               </div>
 
               <h3
@@ -249,4 +249,4 @@ const RecommendationCard2Activity = ({ data }) => {
   );
 };
 
-export default RecommendationCard2Activity;
+export default JobCardForCompany;

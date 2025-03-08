@@ -76,6 +76,7 @@ import FloatingChatButton from "./components/FloatingChatButton/FloatingChatButt
 import CommunityChat from "./pages/Chat/CommunityChat.jsx";
 import { ToastContainer } from "react-toastify";
 import Enterprise from "./pages/Enterprise/Assests/Components/Enterprise.jsx";
+import CompanyDashboardNew from "./pages/Profile/CompanyDashboardNew/CompanyDashboardNew.jsx";
 const DigitalProductAdminPage = lazy(() =>
   import("./pages/Admin/DigitalProductAdminPage.jsx")
 );
@@ -202,7 +203,8 @@ function App() {
             />
             <Route
               path="organization/:organizationId"
-              element={<CompanyDashboard path="profile" />}  // new companyDashboard
+              // element={<CompanyDashboard path="profile" />}
+              element={<CompanyDashboardNew path="profile" />}
             >
               <Route path="edit-cover-image" element={<CoverImageModal />} />
               <Route path="add-post" element={<AddPostModal />} />
@@ -413,8 +415,12 @@ function App() {
           /> */}
           <Route path="*" element={<Page404 />} />
 
-          <Route path= "/employer" element ={<Enterprise/>}/>
+          <Route path="/employer" element={<Enterprise />} />
 
+          {/* <Route
+            path="/companydashboardnew"
+            element={<CompanyDashboardNew />}
+          /> */}
         </Routes>
       </Suspense>
       <NewFooter />

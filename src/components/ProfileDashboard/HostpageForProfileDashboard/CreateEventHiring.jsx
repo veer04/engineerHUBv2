@@ -57,7 +57,8 @@ const CreateEventHiring = () => {
             >
               <h3
                 style={{
-                  fontSize: 12,
+                  fontSize: 13,
+
                   fontWeight: 400,
                   lineHeight: "16px",
                   color: "#33555E",

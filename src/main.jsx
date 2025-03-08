@@ -11,6 +11,7 @@ import GlobalSnackbarProvider from "./contexts/GlobalSnackbarContext";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { CommunityChatProvider } from "./contexts/CommunityChatContext";
+import AppProvider from "./components/AppProvider";
 
 const queryClient = new QueryClient();
 
@@ -29,7 +30,9 @@ ReactDOM.createRoot(document.getElementById("root")).render(
               <EventModalProvider>
                 <NavbarProvider>
                   <SidebarProvider>
-                    <App />
+                    <AppProvider>
+                      <App />
+                    </AppProvider>
                     {/* <ReactQueryDevtools /> */}
                   </SidebarProvider>
                 </NavbarProvider>

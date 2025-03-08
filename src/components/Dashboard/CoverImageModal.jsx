@@ -15,7 +15,7 @@ import {
 } from "../../services/APIConfig";
 import useGlobalSnackbar from "../../hooks/useGlobalSnackbar";
 
-export default function CoverImageModal() {
+export default function CoverImageModal({}) {
   const [newCoverPhoto, setNewCoverPhoto] = useState(null);
   const fileInput = useRef(null);
   const { organizationId } = useParams();

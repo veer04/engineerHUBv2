@@ -18,6 +18,7 @@ import { deleteResume } from "../../../services/APIConfig";
 import { getUserId } from "../../../features/User/UserDetails";
 import moment from "moment";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const ProfileWithPostEditShare = ({
   privateDashboardData,
@@ -26,6 +27,8 @@ const ProfileWithPostEditShare = ({
   const [isResumeUploaded, setIsResumeUploaded] = useState(
     !!privateDashboardData?.resume
   );
+  const isChecked = useSelector((state) => state.resumeToggle.isVisible);
+  console.log(isChecked, "ghgg");
 
   const userId = getUserId();
   const [uploadedFileName, setUploadedFileName] = useState(null);
@@ -496,6 +499,54 @@ const ProfileWithPostEditShare = ({
               </div>
             </div>
           </div>
+          {isChecked ? (
+            <div style={{ marginTop: 8 }}>
+              <h3
+                style={{
+                  fontSize: 14,
+                  marginLeft: 4,
+                  marginBottom: 0,
+                  fontWeight: 400,
+                }}
+              >
+                Your Resume is Visible To Everyone. If you Want to hide it.{" "}
+                <span
+                  style={{
+                    fontStyle: "italic",
+                    color: "#1300bf",
+                    cursor: "pointer",
+                  }}
+                  onClick={() => navigate("edit-profile")}
+                >
+                  Click Here
+                </span>
+              </h3>
+            </div>
+          ) : (
+            <div style={{ marginTop: 8 }}>
+              <h3
+                style={{
+                  fontSize: 14,
+                  marginLeft: 4,
+                  marginBottom: 0,
+                  fontWeight: 400,
+                }}
+              >
+                Your Resume is Hidden From Everyone. If you want to make it
+                visible click here.{" "}
+                <span
+                  style={{
+                    fontStyle: "italic",
+                    color: "#1300bf",
+                    cursor: "pointer",
+                  }}
+                  onClick={() => navigate("edit-profile")}
+                >
+                  Click Here
+                </span>
+              </h3>
+            </div>
+          )}
         </div>
       )}
 
