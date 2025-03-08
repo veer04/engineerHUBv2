@@ -7,6 +7,7 @@ import RecommendationCard2Activity from "../../../../components/ProfileDashboard
 import HackathonCard from "../../../Company/Events/EventsChoices/HackathonCards";
 import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 import ProjectCards from "../../../Company/Projects/ProjectCards";
+import JobCardForCompany from "../../../../components/ProfileDashboard/RecommendedSection/JobCardForCompany";
 
 const YourCompanyActivitySection = ({
   posts,
@@ -112,11 +113,11 @@ const YourCompanyActivitySection = ({
               ))}
 
             {actionButton === "Jobs" && (
-              <RecommendationCard2Activity data={jobs} />
+              <JobCardForCompany data={jobs} adminView={isUserAdmin} />
             )}
 
             {actionButton === "Internships" && (
-              <RecommendationCard2Activity data={internships} />
+              <JobCardForCompany data={internships} adminView={isUserAdmin} />
             )}
 
             {actionButton === "Hackathons" &&

@@ -24,16 +24,17 @@ const NewCompanyDashboardHeader = ({ isUserAdmin, organization }) => {
 
         {isUserAdmin && (
           <button
-            onClick={() => setShowCoverImageModal(true)}
+            onClick={() => navigate("edit-cover-image")}
+            // onClick={() => setShowCoverImageModal(true)}
             className="edit-btn-main"
           >
             <FiEdit />
           </button>
         )}
 
-        {showCoverImageModal && (
-          <CoverImageModal onClose={() => setShowCoverImageModal(false)} />
-        )}
+        {/* {showCoverImageModal && (
+          <CoverImageModal  />
+        )} */}
       </div>
 
       <div className="header-content-section">
@@ -130,6 +131,7 @@ const NewCompanyDashboardHeader = ({ isUserAdmin, organization }) => {
                   fontWeight: 700,
                   lineHeight: "32px",
                   color: "#002B36",
+                  fontFamily: "'DM Sans', sans-serif",
                 }}
               >
                 {organization?.name || "engineerHUB"}
@@ -142,6 +144,7 @@ const NewCompanyDashboardHeader = ({ isUserAdmin, organization }) => {
                   fontWeight: 400,
                   lineHeight: "24px",
                   color: "#002B36",
+                  fontFamily: "'Lato', sans-serif",
                 }}
               >
                 {organization?.subHeading ? (
@@ -172,6 +175,7 @@ const NewCompanyDashboardHeader = ({ isUserAdmin, organization }) => {
                       lineHeight: "20px",
                       color: "#547178",
                       marginBottom: 0,
+                      fontFamily: "'Lato', sans-serif",
                     }}
                   >
                     {organization?.organisationType}
@@ -191,6 +195,7 @@ const NewCompanyDashboardHeader = ({ isUserAdmin, organization }) => {
                       lineHeight: "20px",
                       color: "#547178",
                       marginBottom: 0,
+                      fontFamily: "'Lato', sans-serif",
                     }}
                   >
                     {organization?.country}
@@ -252,6 +257,7 @@ const NewCompanyDashboardHeader = ({ isUserAdmin, organization }) => {
                 lineHeight: "20px",
                 color: "#002B36",
                 marginBottom: 0,
+                fontFamily: "'Lato', sans-serif",
               }}
             >
               {organization?.aboutUs ||

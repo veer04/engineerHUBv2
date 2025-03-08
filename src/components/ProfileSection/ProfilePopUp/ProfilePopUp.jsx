@@ -447,7 +447,9 @@ export default function ProfilePopUp() {
             </>
           }
           btnName={"Connect Now"}
-          btnLink={`/employer`}
+          btnLink={`https://wa.me/+918303156089?text=${encodeURIComponent(
+            "Hey, need to connect with you regarding the hiring process."
+          )}`}
         />
       </div>
 

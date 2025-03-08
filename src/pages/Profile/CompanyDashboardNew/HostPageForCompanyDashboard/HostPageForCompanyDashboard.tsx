@@ -16,7 +16,7 @@ const HostPageForComapnyDashboard = () => {
         <FaBullhorn size={18} />
         <h3
           style={{
-            fontSize: 16,
+            fontSize: 18,
             fontWeight: 700,
             lineHeight: "24px",
             color: "#002B36",
