@@ -15,7 +15,7 @@ import {
 } from "../../services/APIConfig";
 import useGlobalSnackbar from "../../hooks/useGlobalSnackbar";
 
-export default function CoverImageModal({ onClose }) {
+export default function CoverImageModal({}) {
   const [newCoverPhoto, setNewCoverPhoto] = useState(null);
   const fileInput = useRef(null);
   const { organizationId } = useParams();
@@ -95,8 +95,7 @@ export default function CoverImageModal({ onClose }) {
         <div className="modal-container modal-padding">
           <div
             onClick={() => {
-              // navigate(-1);
-              onClose();
+              navigate(-1);
             }}
             className="modal-cancel-button-container"
           >

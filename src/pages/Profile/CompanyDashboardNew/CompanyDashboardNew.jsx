@@ -22,7 +22,7 @@ import {
   getProjectsByOrganisationIdPrivateMode,
   unFollowOrganization,
 } from "../../../services/APIConfig";
-import { useParams } from "react-router-dom";
+import { Outlet, useParams } from "react-router-dom";
 import { getUserId, isUserLoggedIn } from "../../../features/User/UserDetails";
 import HostPageForComapnyDashboard from "./HostPageForCompanyDashboard/HostPageForCompanyDashboard";
 
@@ -202,7 +202,7 @@ const CompanyDashboardNew = () => {
           }
           bgColor={"#E8BA9826"}
           btn={"For Companies"}
-          btnLink={"/about"}
+          btnLink={"/employer"}
           rightImage={`${Bucket_URL}newcompanydashboard/right_frame1.png`}
         />
       </div>
@@ -215,10 +215,11 @@ const CompanyDashboardNew = () => {
           }
           bgColor={"#8FC8E826"}
           btn={"For HRs"}
-          btnLink={"/about"}
+          btnLink={"/employer"}
           rightImage={`${Bucket_URL}newcompanydashboard/right_frame2.png`}
         />
       </div>
+      <Outlet />
     </main>
   );
 };

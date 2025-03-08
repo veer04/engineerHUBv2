@@ -8,6 +8,10 @@ import { useNavigate } from "react-router-dom";
 
 const NewProfileConnectCard = ({ image, bgColor, title, btnName, btnLink }) => {
   const navigate = useNavigate();
+
+  const handleSendToThatPage = () => {
+    window.open(btnLink, "_blank");
+  };
   return (
     <div
       data-bs-dismiss="offcanvas"
@@ -20,7 +24,7 @@ const NewProfileConnectCard = ({ image, bgColor, title, btnName, btnLink }) => {
           <h4 className="connect-h4">{title}</h4>
 
           <div className="connect-button-div">
-            <button onClick={() => navigate(btnLink)}>
+            <button onClick={() => handleSendToThatPage()}>
               {btnName}
               <ArrowSvgCompright />
             </button>

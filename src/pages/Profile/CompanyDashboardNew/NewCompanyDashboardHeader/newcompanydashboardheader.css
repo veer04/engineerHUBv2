@@ -87,6 +87,7 @@
   .main-edit-create-post-btn {
   display: flex;
   gap: 16px;
+  font-family: "Lato", sans-serif;
 }
 
 .main-div-header-company-dashboard
@@ -115,10 +116,10 @@
   padding: 12px 24px;
   border-radius: 50px;
   background: rgba(18, 131, 129, 0.1);
-  color: #51a4a3;
+  color: #128381;
   border: none;
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 600;
   line-height: 16px;
   display: flex;
   align-items: center;
