@@ -87,7 +87,7 @@ export default function Navbar() {
   const handleClick = () => {
     setIsClicked(true);
 
-    console.log(isClicked);
+    // console.log(isClicked);
   };
 
   const adjustmentPadding =

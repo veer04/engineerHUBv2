@@ -46,7 +46,8 @@ export default function FloatingChatButton() {
     if (
       location.pathname.includes("referrals") ||
       location.pathname.includes("host") ||
-      location.pathname.includes("/profiledashboard")
+      location.pathname.includes("/profile/user") ||
+      location.pathname.includes("/profile/organization")
     ) {
       setDisplayChatButton(false);
     } else setDisplayChatButton(true);

@@ -18,7 +18,7 @@ const CompanyWisePrep = () => {
   const [isError, setIsError] = useState(false);
   const location = useLocation();
   const { rating, popular } = location.state || {};
-
+  // const [excludedId, setExcludedId] = useState("");
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 520);
 
   useEffect(() => {

@@ -1,0 +1,112 @@
+.frame {
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    justify-content: center;
+    position: relative;
+    width: 484px;
+}
+
+.frame .div {
+    align-items: flex-start;
+    align-self: stretch;
+    display: flex;
+    flex: 0 0 auto;
+    flex-direction: column;
+    gap: 12px;
+    justify-content: center;
+    position: relative;
+    width: 100%;
+}
+
+.frame .we-streamline-hiring-wrapper {
+    align-items: center;
+    display: inline-flex;
+    flex: 0 0 auto;
+    gap: 1px;
+    justify-content: center;
+    margin-right: -21.00px;
+    position: relative;
+}
+
+.frame .we-streamline-hiring {
+    color: #002b36;
+    font-family: var(--desktop-display-dt-display-md-font-family);
+    font-size: var(--desktop-display-dt-display-md-font-size);
+    font-style: var(--desktop-display-dt-display-md-font-style);
+    font-weight: var(--desktop-display-dt-display-md-font-weight);
+    letter-spacing: var(--desktop-display-dt-display-md-letter-spacing);
+    line-height: var(--desktop-display-dt-display-md-line-height);
+    margin-top: -1.00px;
+    position: relative;
+    width: fit-content;
+}
+
+.frame .helping-fresh-wrapper {
+    align-items: center;
+    align-self: stretch;
+    display: flex;
+    flex: 0 0 auto;
+    gap: 1px;
+    justify-content: center;
+    position: relative;
+    width: 100%;
+}
+
+.frame .helping-fresh {
+    color: #002b36;
+    flex: 1;
+    font-family: var(--desktop-body-body-md-md-regular-font-family);
+    font-size: var(--desktop-body-body-md-md-regular-font-size);
+    font-style: var(--desktop-body-body-md-md-regular-font-style);
+    font-weight: var(--desktop-body-body-md-md-regular-font-weight);
+    letter-spacing: var(--desktop-body-body-md-md-regular-letter-spacing);
+    line-height: var(--desktop-body-body-md-md-regular-line-height);
+    margin-top: -1.00px;
+    position: relative;
+}
+
+.frame .frame-wrapper {
+    align-items: center;
+    background-color: #168584;
+    border-radius: 100px;
+    display: flex;
+    height: 44px;
+    justify-content: center;
+    padding: 8px 12px;
+    position: relative;
+    width: 140px;
+}
+
+.frame .div-wrapper {
+    align-items: center;
+    display: inline-flex;
+    flex: 0 0 auto;
+    gap: 8px;
+    justify-content: center;
+    position: relative;
+}
+
+.frame .div-wrapper-2 {
+    align-items: center;
+    display: inline-flex;
+    flex: 0 0 auto;
+    gap: 10px;
+    justify-content: center;
+    position: relative;
+}
+
+.frame .text-wrapper {
+    color: #ffffff;
+    font-family: var(--desktop-label-md-dt-label-bold-font-family);
+    font-size: var(--desktop-label-md-dt-label-bold-font-size);
+    font-style: var(--desktop-label-md-dt-label-bold-font-style);
+    font-weight: var(--desktop-label-md-dt-label-bold-font-weight);
+    letter-spacing: var(--desktop-label-md-dt-label-bold-letter-spacing);
+    line-height: var(--desktop-label-md-dt-label-bold-line-height);
+    margin-top: -1.00px;
+    position: relative;
+    white-space: nowrap;
+    width: fit-content;
+}

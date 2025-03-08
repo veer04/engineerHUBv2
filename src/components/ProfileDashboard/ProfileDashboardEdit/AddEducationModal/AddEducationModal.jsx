@@ -33,7 +33,6 @@ const AddEducationModal = ({ isOpen, onClose, data, setProfileData }) => {
   });
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
-  const [updateEducationResponse, setUpdateEducationResponse] = useState({});
   const [response, setResponse] = useState(null);
   const userId = getUserId();
 
@@ -43,7 +42,7 @@ const AddEducationModal = ({ isOpen, onClose, data, setProfileData }) => {
     if (data) {
       setFormData({
         collegeId: data.collegeId?._id || "",
-        collegeName: data.collegeId?.collegeName || "",
+        collegeName: data?.collegeId?.collegeName || "",
         specialization: data.specialization || "",
         startYear: data.startYear
           ? new Date(data.startYear).toISOString().split("T")[0]
@@ -65,7 +64,16 @@ const AddEducationModal = ({ isOpen, onClose, data, setProfileData }) => {
   }, []);
 
   const handleChange = (field, value) => {
-    setFormData((prevData) => ({ ...prevData, [field]: value }));
+    let updatedData = { ...formData, [field]: value };
+
+    if (field === "collegeId") {
+      const selectedCollege = campus.find((college) => college._id === value);
+      updatedData.collegeName = selectedCollege
+        ? selectedCollege.collegeName
+        : "";
+    }
+
+    setFormData(updatedData);
 
     // Inline validation
     let errorMessage = "";
@@ -80,9 +88,9 @@ const AddEducationModal = ({ isOpen, onClose, data, setProfileData }) => {
         if (!value.trim()) {
           errorMessage = "Start year is required.";
         } else if (
-          formData.endYear &&
+          updatedData.endYear &&
           new Date(value).getFullYear() + 3 >
-            new Date(formData.endYear).getFullYear()
+            new Date(updatedData.endYear).getFullYear()
         ) {
           errorMessage =
             "There must be a gap of at least 3 years between start and end years.";
@@ -92,8 +100,8 @@ const AddEducationModal = ({ isOpen, onClose, data, setProfileData }) => {
         if (!value.trim()) {
           errorMessage = "End year is required.";
         } else if (
-          formData.startYear &&
-          new Date(formData.startYear).getFullYear() + 3 >
+          updatedData.startYear &&
+          new Date(updatedData.startYear).getFullYear() + 3 >
             new Date(value).getFullYear()
         ) {
           errorMessage =
@@ -159,7 +167,7 @@ const AddEducationModal = ({ isOpen, onClose, data, setProfileData }) => {
     return newErrors;
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const validationErrors = validateForm();
 
     if (Object.keys(validationErrors).length > 0) {
@@ -172,10 +180,10 @@ const AddEducationModal = ({ isOpen, onClose, data, setProfileData }) => {
     setLoading(true);
 
     try {
-      addUserEducation(formData, setUpdateEducationResponse);
+      const dataRes = await addUserEducation(formData);
+      console.log(dataRes, "Datares");
 
-      const response = setUpdateEducationResponse;
-      if (response) {
+      if (dataRes && dataRes._id) {
         toast(
           data && data._id
             ? "✏️ Education has been updated successfully!"
@@ -193,27 +201,34 @@ const AddEducationModal = ({ isOpen, onClose, data, setProfileData }) => {
           }
         );
 
-        setProfileData((prevData) => ({
-          ...prevData,
-          educationDetails: [
-            ...(prevData.educationDetails || []),
-            {
-              _id: response._id,
-              profile: response.profile,
-              degree: formData.degree,
-              startYear: formData.startYear,
-              endYear: formData.endYear,
-              marks: formData.marks,
-              specialization: formData.specialization,
-              collegeId: formData.collegeId,
-              collegeName: formData.collegeId.collegeName,
-              collegeLogo: formData.collegeId.collegeLogo,
-              country: formData.country,
-              state: formData.state,
-            },
-          ],
-        }));
+        setProfileData((prevData) => {
+          const selectedCollege = campus.find(
+            (college) => college._id === formData.collegeId
+          );
+          return {
+            ...prevData,
+            educationDetails: [
+              ...(prevData.educationDetails || []).filter(
+                (item) => item._id !== dataRes._id
+              ),
+              {
+                _id: dataRes._id,
+                profile: dataRes.profile,
+                degree: formData.degree,
+                startYear: formData.startYear,
+                endYear: formData.endYear,
+                marks: formData.marks,
+                specialization: formData.specialization,
+                collegeId: formData.collegeId,
+                collegeName: selectedCollege ? selectedCollege.collegeName : "",
+                country: formData.country,
+                state: formData.state,
+              },
+            ],
+          };
+        });
 
+        setFormData(null);
         onClose();
       } else {
         toast.error("Something went wrong!");
@@ -301,6 +316,7 @@ const AddEducationModal = ({ isOpen, onClose, data, setProfileData }) => {
           ),
         }));
 
+        setFormData(null);
         onClose();
       } else {
         toast.error(response?.message || "Failed to delete education.");
@@ -347,7 +363,7 @@ const AddEducationModal = ({ isOpen, onClose, data, setProfileData }) => {
                   <span className="required-indicator">*</span>
                   <select
                     id="collegeId"
-                    value={formData.collegeId}
+                    value={formData?.collegeId}
                     onChange={(e) => handleChange("collegeId", e.target.value)}
                     className={`select-hover  mt-1 ${errors.collegeId}`}
                   >
@@ -387,7 +403,7 @@ const AddEducationModal = ({ isOpen, onClose, data, setProfileData }) => {
                   <span className="required-indicator">*</span>
                   <select
                     id="specialization"
-                    value={formData.specialization}
+                    value={formData?.specialization}
                     onChange={(e) =>
                       handleChange("specialization", e.target.value)
                     }
@@ -421,7 +437,7 @@ const AddEducationModal = ({ isOpen, onClose, data, setProfileData }) => {
                   <span className="required-indicator">*</span>
                   <select
                     id="degree"
-                    value={formData.degree}
+                    value={formData?.degree}
                     onChange={(e) => handleChange("degree", e.target.value)}
                     className={`select-hover mt-1 ${
                       errors.degree ? "border-red-500" : ""
@@ -463,7 +479,7 @@ const AddEducationModal = ({ isOpen, onClose, data, setProfileData }) => {
                     <input
                       type="date"
                       id="startYear"
-                      value={formData.startYear}
+                      value={formData?.startYear ?? ""}
                       onChange={(e) =>
                         handleChange("startYear", e.target.value)
                       }
@@ -498,7 +514,7 @@ const AddEducationModal = ({ isOpen, onClose, data, setProfileData }) => {
                     <input
                       type="date"
                       id="endYear"
-                      value={formData.endYear}
+                      value={formData?.endYear ?? ""}
                       onChange={(e) => handleChange("endYear", e.target.value)}
                       className={`input-css mt-1 ${
                         errors.endYear ? "border-red-500" : "border-gray-300"
@@ -529,7 +545,7 @@ const AddEducationModal = ({ isOpen, onClose, data, setProfileData }) => {
                   <input
                     type="text"
                     id="marks"
-                    value={formData.marks}
+                    value={formData?.marks}
                     onChange={(e) => handleChange("marks", e.target.value)}
                     className={`input-css-title-link mt-1 ${
                       errors.marks ? "border-red-500" : "border-gray-300"

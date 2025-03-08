@@ -34,7 +34,7 @@ const AddHeadlineEdit = ({ profileData, setProfileData }) => {
                 color: "#002B36",
               }}
             >
-              {profileData && profileData?.bio ? "Update Bio" : "Add bio"}
+              {profileData && profileData?.bio ? "About Me" : "About Me"}
             </h3>
             {profileData && (
               <h4

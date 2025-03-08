@@ -26,7 +26,7 @@ const AddCertificationsModal = ({ isOpen, onClose, data, setProfileData }) => {
   const [loading, setLoading] = useState(false);
   const [response, setResponse] = useState(null);
 
-  console.log(data, "data");
+  // console.log(data, "data");
   const handleChange = (field, value) => {
     setFormData((prevData) => ({ ...prevData, [field]: value }));
     setErrors((prevErrors) => {
@@ -36,6 +36,20 @@ const AddCertificationsModal = ({ isOpen, onClose, data, setProfileData }) => {
       }
       if (field === "issuedBy" && value.trim()) {
         delete newErrors.issuedBy;
+      }
+
+      if (field === "issuedDate") {
+        const selectedDate = new Date(value);
+        const currentDate = new Date();
+
+        selectedDate.setHours(0, 0, 0, 0);
+        currentDate.setHours(0, 0, 0, 0);
+
+        if (selectedDate > currentDate) {
+          newErrors.issuedDate = "Issue date cannot be in the future.";
+        } else {
+          delete newErrors.issuedDate;
+        }
       }
       return newErrors;
     });
@@ -64,6 +78,20 @@ const AddCertificationsModal = ({ isOpen, onClose, data, setProfileData }) => {
       newErrors.issuedBy = "Issuer name is required.";
     }
 
+    if (!formData.issuedDate) {
+      newErrors.issueDate = "Issue date is required.";
+    } else {
+      const selectedDate = new Date(formData.issuedDate);
+      const currentDate = new Date();
+
+      selectedDate.setHours(0, 0, 0, 0);
+      currentDate.setHours(0, 0, 0, 0);
+
+      if (selectedDate > currentDate) {
+        newErrors.issueDate = "Issue date cannot be in the future.";
+      }
+    }
+
     return newErrors;
   };
 
@@ -78,7 +106,7 @@ const AddCertificationsModal = ({ isOpen, onClose, data, setProfileData }) => {
 
     try {
       const dataRes = await addUserCertification(formData);
-      console.log(dataRes, "datares");
+      // console.log(dataRes, "datares");
 
       if (dataRes && dataRes._id) {
         toast(
@@ -312,7 +340,7 @@ const AddCertificationsModal = ({ isOpen, onClose, data, setProfileData }) => {
                           ? "border-red-500"
                           : "border-gray-300"
                       }`}
-                      placeholder="Add certificate Url"
+                      placeholder="Link format https://your_certificate_url"
                     />
                     {errors.certificateUrl && (
                       <p className="mt-1 error-p text-sm text-red-500">

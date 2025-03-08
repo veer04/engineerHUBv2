@@ -41,10 +41,14 @@ const ConnectWithUs = ({ compName }) => {
 
       if (response.ok) {
         const data = await response.json();
-        const sortedData = sortDataByCustomOrder(data.data);
+        const excludedId = "67a107c89d57a46e99582bd1"; 
+        // Filter out the data with the excluded ID
+        console.log(data.data, "All meets")
+        const filteredData = data?.data?.filter(item => item._id !== excludedId);
+        console.log(filteredData);
+        const sortedData = sortDataByCustomOrder(filteredData);
         setAllMeetData(sortedData);
-
-        console.log(data, "getallmeetdata");
+        // console.log(data, "getallmeetdata");
       } else {
         throw new Error("error getting the data");
       }

@@ -81,15 +81,17 @@ const AddSkillModal = ({ isOpen, onClose, setProfileData, profileData }) => {
     }
   };
 
-  const handleRemoveSkill = (index) => {
-    const updatedSkills = skills.filter((_, i) => i !== index);
+  const handleRemoveSkill = (skillToRemove) => {
+    const updatedSkills = skills.filter((skill) => skill !== skillToRemove);
     setSkills(updatedSkills);
 
     const updatedSkillsInProfile = profileData.skillsDetails.map(
       (skillDetail) => {
         const skillArray = skillDetail.skills.split(",");
-        skillArray.splice(index, 1);
-        skillDetail.skills = skillArray.join(",");
+        const updatedSkillArray = skillArray.filter(
+          (skill11) => skill11 !== skillToRemove
+        );
+        skillDetail.skills = updatedSkillArray.join(",");
         return skillDetail;
       }
     );
@@ -275,7 +277,7 @@ const AddSkillModal = ({ isOpen, onClose, setProfileData, profileData }) => {
                               <h3 className="skill-name-h3">{singleSkill}</h3>
                               <svg
                                 style={{ cursor: "pointer" }}
-                                onClick={() => handleRemoveSkill(index)} // Pass the index for removal
+                                onClick={() => handleRemoveSkill(singleSkill)} // Pass the index for removal
                                 xmlns="http://www.w3.org/2000/svg"
                                 width="14"
                                 height="14"

@@ -16,7 +16,7 @@ export default function EventWindow({ projectOpened, setIsProjectOpen }) {
     };
   }, [projectOpened]);
 
-  console.log(event);
+  // console.log(event);
 
   return (
     <div className="project__window">

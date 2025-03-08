@@ -1,0 +1,1205 @@
+.frame {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: 80px;
+    position: relative;
+}
+
+.frame .div {
+    align-items: flex-end;
+    display: flex;
+    flex: 0 0 auto;
+    flex-wrap: wrap;
+    gap: 24px 27px;
+    position: relative;
+    width: 1200px;
+}
+
+.frame .div-2 {
+    align-items: center;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    flex-grow: 1;
+    justify-content: center;
+    position: relative;
+}
+
+.frame .text-wrapper {
+    align-self: stretch;
+    color: #25252533;
+    font-family: var(--desktop-display-dt-display-sm-font-family);
+    font-size: var(--desktop-display-dt-display-sm-font-size);
+    font-style: var(--desktop-display-dt-display-sm-font-style);
+    font-weight: var(--desktop-display-dt-display-sm-font-weight);
+    letter-spacing: var(--desktop-display-dt-display-sm-letter-spacing);
+    line-height: var(--desktop-display-dt-display-sm-line-height);
+    margin-top: -1.00px;
+    position: relative;
+    text-align: center;
+}
+
+.frame .heading-you-focus {
+    align-self: stretch;
+    color: var(--pizoaicod-gray);
+    font-family: var(--desktop-display-dt-display-sm-font-family);
+    font-size: var(--desktop-display-dt-display-sm-font-size);
+    font-style: var(--desktop-display-dt-display-sm-font-style);
+    font-weight: var(--desktop-display-dt-display-sm-font-weight);
+    letter-spacing: var(--desktop-display-dt-display-sm-letter-spacing);
+    line-height: var(--desktop-display-dt-display-sm-line-height);
+    position: relative;
+    text-align: center;
+}
+
+.frame .div-3 {
+    align-items: center;
+    display: flex;
+    gap: 24px;
+    position: relative;
+    width: 1200px;
+}
+
+.frame .paragraph-background {
+    align-items: flex-start;
+    align-self: stretch;
+    background-color: #1685840d;
+    border-radius: 22.5px;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    flex-grow: 1;
+    gap: 8px;
+    padding: 28px 40px;
+    position: relative;
+}
+
+.frame .heading {
+    align-self: stretch;
+    color: var(--pizoaitimber-green);
+    font-family: var(--desktop-display-dt-display-sm-font-family);
+    font-size: var(--desktop-display-dt-display-sm-font-size);
+    font-style: var(--desktop-display-dt-display-sm-font-style);
+    font-weight: var(--desktop-display-dt-display-sm-font-weight);
+    letter-spacing: var(--desktop-display-dt-display-sm-letter-spacing);
+    line-height: var(--desktop-display-dt-display-sm-line-height);
+    margin-top: -1.00px;
+    position: relative;
+}
+
+.frame .text-wrapper-2 {
+    align-self: stretch;
+    color: var(--pizoaicod-gray);
+    font-family: var(--desktop-body-body-sm-sm-bold-font-family);
+    font-size: var(--desktop-body-body-sm-sm-bold-font-size);
+    font-style: var(--desktop-body-body-sm-sm-bold-font-style);
+    font-weight: var(--desktop-body-body-sm-sm-bold-font-weight);
+    letter-spacing: var(--desktop-body-body-sm-sm-bold-letter-spacing);
+    line-height: var(--desktop-body-body-sm-sm-bold-line-height);
+    position: relative;
+}
+
+.frame .p {
+    align-self: stretch;
+    color: #1b1b1bcc;
+    font-family: var(--desktop-label-sm-dt-label-regular-font-family);
+    font-size: var(--desktop-label-sm-dt-label-regular-font-size);
+    font-style: var(--desktop-label-sm-dt-label-regular-font-style);
+    font-weight: var(--desktop-label-sm-dt-label-regular-font-weight);
+    letter-spacing: var(--desktop-label-sm-dt-label-regular-letter-spacing);
+    line-height: var(--desktop-label-sm-dt-label-regular-line-height);
+    position: relative;
+}
+
+.frame .paragraph-background-2 {
+    align-items: flex-start;
+    background-color: #1685840d;
+    border-radius: 22.5px;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    flex-grow: 1;
+    gap: 8px;
+    padding: 28px 40px;
+    position: relative;
+}
+
+.frame .div-4 {
+    align-items: flex-start;
+    display: flex;
+    flex: 0 0 auto;
+    flex-direction: column;
+    gap: 40px;
+    position: relative;
+    width: 1200px;
+}
+
+.frame .div-5 {
+    align-items: center;
+    align-self: stretch;
+    background-color: #ffffff;
+    border-radius: 20px;
+    display: flex;
+    height: 440px;
+    justify-content: space-between;
+    padding: 40px;
+    position: relative;
+    width: 100%;
+}
+
+.frame .div-6 {
+    align-items: flex-start;
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    position: relative;
+    width: 502px;
+}
+
+.frame .div-7 {
+    align-items: flex-start;
+    align-self: stretch;
+    display: flex;
+    flex: 0 0 auto;
+    flex-direction: column;
+    gap: 16px;
+    position: relative;
+    width: 100%;
+}
+
+.frame .div-wrapper {
+    align-items: center;
+    display: inline-flex;
+    flex: 0 0 auto;
+    gap: 1px;
+    justify-content: center;
+    padding: 1px;
+    position: relative;
+}
+
+.frame .text-wrapper-3 {
+    color: #002b36;
+    font-family: var(--desktop-body-body-md-md-regular-font-family);
+    font-size: var(--desktop-body-body-md-md-regular-font-size);
+    font-style: var(--desktop-body-body-md-md-regular-font-style);
+    font-weight: var(--desktop-body-body-md-md-regular-font-weight);
+    letter-spacing: var(--desktop-body-body-md-md-regular-letter-spacing);
+    line-height: var(--desktop-body-body-md-md-regular-line-height);
+    margin-top: -1.00px;
+    position: relative;
+    white-space: nowrap;
+    width: fit-content;
+}
+
+.frame .div-8 {
+    align-items: flex-start;
+    align-self: stretch;
+    display: flex;
+    flex: 0 0 auto;
+    flex-direction: column;
+    gap: 8px;
+    position: relative;
+    width: 100%;
+}
+
+.frame .div-wrapper-2 {
+    align-items: center;
+    align-self: stretch;
+    display: flex;
+    flex: 0 0 auto;
+    gap: 1px;
+    justify-content: center;
+    padding: 1px;
+    position: relative;
+    width: 100%;
+}
+
+.frame .text-wrapper-4 {
+    color: #002b36;
+    flex: 1;
+    font-family: var(--desktop-heading-dt-heading-md-font-family);
+    font-size: var(--desktop-heading-dt-heading-md-font-size);
+    font-style: var(--desktop-heading-dt-heading-md-font-style);
+    font-weight: var(--desktop-heading-dt-heading-md-font-weight);
+    letter-spacing: var(--desktop-heading-dt-heading-md-letter-spacing);
+    line-height: var(--desktop-heading-dt-heading-md-line-height);
+    margin-top: -1.00px;
+    position: relative;
+}
+
+.frame .text-wrapper-5 {
+    color: var(--border-secondary);
+    font-family: var(--desktop-body-body-sm-sm-regular-font-family);
+    font-size: var(--desktop-body-body-sm-sm-regular-font-size);
+    font-style: var(--desktop-body-body-sm-sm-regular-font-style);
+    font-weight: var(--desktop-body-body-sm-sm-regular-font-weight);
+    letter-spacing: var(--desktop-body-body-sm-sm-regular-letter-spacing);
+    line-height: var(--desktop-body-body-sm-sm-regular-line-height);
+    margin-top: -1.00px;
+    position: relative;
+    width: 499.49px;
+}
+
+.frame .div-wrapper-3 {
+    align-items: center;
+    background-color: #168584;
+    border-radius: 43px;
+    display: flex;
+    gap: 1px;
+    height: 44px;
+    justify-content: center;
+    padding: 1px 16px;
+    position: relative;
+    width: 160px;
+}
+
+.frame .text-wrapper-6 {
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    color: var(--icon-white);
+    display: -webkit-box;
+    font-family: var(--desktop-label-md-dt-label-bold-font-family);
+    font-size: var(--desktop-label-md-dt-label-bold-font-size);
+    font-style: var(--desktop-label-md-dt-label-bold-font-style);
+    font-weight: var(--desktop-label-md-dt-label-bold-font-weight);
+    letter-spacing: var(--desktop-label-md-dt-label-bold-letter-spacing);
+    line-height: var(--desktop-label-md-dt-label-bold-line-height);
+    overflow: hidden;
+    position: relative;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: fit-content;
+}
+
+.frame .rectangle {
+    align-self: stretch;
+    background-color: var(--tertiary-coloursehub-orange-25);
+    border-radius: 25px;
+    overflow: hidden;
+    position: relative;
+    width: 586px;
+}
+
+.frame .overlap-group {
+    background-image: url(./image.png);
+    background-position: 50% 50%;
+    background-size: cover;
+    height: 204px;
+    left: 42px;
+    position: absolute;
+    top: 80px;
+    width: 242px;
+}
+
+.frame .text-wrapper-7 {
+    color: #ffffff;
+    font-family: "Lato-Bold", Helvetica;
+    font-size: 17.2px;
+    font-weight: 700;
+    height: 22px;
+    left: 16px;
+    letter-spacing: 0;
+    line-height: 21.5px;
+    position: absolute;
+    text-align: center;
+    text-shadow: 0px 4.3px 4.3px #0000004c;
+    top: 168px;
+    white-space: nowrap;
+}
+
+.frame .overlap {
+    background-image: url(./image-2.png);
+    background-position: 50% 50%;
+    background-size: cover;
+    height: 204px;
+    left: 302px;
+    position: absolute;
+    top: 80px;
+    width: 242px;
+}
+
+.frame .text-wrapper-8 {
+    color: #ffffff;
+    font-family: "Lato-Bold", Helvetica;
+    font-size: 17.2px;
+    font-weight: 700;
+    height: 22px;
+    left: 20px;
+    letter-spacing: 0;
+    line-height: 21.5px;
+    position: absolute;
+    text-align: center;
+    text-shadow: 0px 4.3px 4.3px #0000004c;
+    top: 168px;
+    white-space: nowrap;
+}
+
+.frame .text-wrapper-9 {
+    color: #000000;
+    font-family: var(--desktop-heading-dt-heading-sm-font-family);
+    font-size: var(--desktop-heading-dt-heading-sm-font-size);
+    font-style: var(--desktop-heading-dt-heading-sm-font-style);
+    font-weight: var(--desktop-heading-dt-heading-sm-font-weight);
+    height: 28px;
+    left: 38px;
+    letter-spacing: var(--desktop-heading-dt-heading-sm-letter-spacing);
+    line-height: var(--desktop-heading-dt-heading-sm-line-height);
+    position: absolute;
+    text-align: center;
+    top: 32px;
+    white-space: nowrap;
+}
+
+.frame .div-9 {
+    align-items: flex-start;
+    align-self: stretch;
+    background-color: rgba(247, 215, 127, 0.15);
+    border-radius: 20px;
+    display: flex;
+    height: 440px;
+    justify-content: space-between;
+    padding: 40px;
+    position: relative;
+    width: 100%;
+}
+
+.frame .rectangle-2 {
+    align-self: stretch;
+    background-color: #1685840d;
+    border-radius: 25px;
+    position: relative;
+    width: 586px;
+}
+
+.frame .rectangle-3 {
+    align-self: stretch;
+    background-color: var(--tertiary-coloursehub-green-25);
+    border-radius: 25px;
+    overflow: hidden;
+    position: relative;
+    width: 586px;
+}
+
+.frame .text-wrapper-10 {
+    color: #000000;
+    font-family: var(--desktop-heading-dt-heading-sm-font-family);
+    font-size: var(--desktop-heading-dt-heading-sm-font-size);
+    font-style: var(--desktop-heading-dt-heading-sm-font-style);
+    font-weight: var(--desktop-heading-dt-heading-sm-font-weight);
+    height: 28px;
+    left: 39px;
+    letter-spacing: var(--desktop-heading-dt-heading-sm-letter-spacing);
+    line-height: var(--desktop-heading-dt-heading-sm-line-height);
+    position: absolute;
+    text-align: center;
+    top: 43px;
+    white-space: nowrap;
+}
+
+.frame .image {
+    height: 146px;
+    left: 39px;
+    mix-blend-mode: luminosity;
+    position: absolute;
+    top: 139px;
+    width: 512px;
+}
+
+.frame .img {
+    height: 65px;
+    left: 39px;
+    mix-blend-mode: luminosity;
+    position: absolute;
+    top: 295px;
+    width: 512px;
+}
+
+.frame .div-10 {
+    align-items: center;
+    display: inline-flex;
+    gap: 16px;
+    left: 39px;
+    position: absolute;
+    top: 92px;
+}
+
+.frame .div-wrapper-4 {
+    align-items: center;
+    background-color: #002b36;
+    border-radius: 7px;
+    display: inline-flex;
+    flex: 0 0 auto;
+    gap: 1px;
+    justify-content: center;
+    padding: 4px 12px;
+    position: relative;
+}
+
+.frame .text-wrapper-11 {
+    color: #ffffff;
+    font-family: var(--desktop-label-sm-dt-label-regular-font-family);
+    font-size: var(--desktop-label-sm-dt-label-regular-font-size);
+    font-style: var(--desktop-label-sm-dt-label-regular-font-style);
+    font-weight: var(--desktop-label-sm-dt-label-regular-font-weight);
+    letter-spacing: var(--desktop-label-sm-dt-label-regular-letter-spacing);
+    line-height: var(--desktop-label-sm-dt-label-regular-line-height);
+    margin-top: -1.00px;
+    position: relative;
+    white-space: nowrap;
+    width: fit-content;
+}
+
+.frame .div-wrapper-5 {
+    align-items: center;
+    background-color: #002b3680;
+    border-radius: 7px;
+    display: inline-flex;
+    flex: 0 0 auto;
+    gap: 1px;
+    justify-content: center;
+    padding: 4px 12px;
+    position: relative;
+}
+
+.frame .div-11 {
+    align-items: center;
+    border-radius: 20px;
+    display: flex;
+    flex: 0 0 auto;
+    flex-direction: column;
+    gap: 40px;
+    overflow: hidden;
+    padding: 24px 0px;
+    position: relative;
+    width: 1200px;
+}
+
+.frame .frame-wrapper {
+    align-items: center;
+    align-self: stretch;
+    display: flex;
+    flex: 0 0 auto;
+    flex-direction: column;
+    gap: 24px;
+    justify-content: center;
+    position: relative;
+    width: 100%;
+}
+
+.frame .frame-wrapper-2 {
+    align-items: center;
+    display: flex;
+    flex: 0 0 auto;
+    flex-direction: column;
+    gap: 16px;
+    position: relative;
+    width: 502px;
+}
+
+.frame .div-wrapper-6 {
+    align-items: center;
+    align-self: stretch;
+    display: flex;
+    flex: 0 0 auto;
+    justify-content: center;
+    position: relative;
+    width: 100%;
+}
+
+.frame .text-wrapper-12 {
+    color: #002b36;
+    flex: 1;
+    font-family: var(--desktop-heading-dt-heading-md-font-family);
+    font-size: var(--desktop-heading-dt-heading-md-font-size);
+    font-style: var(--desktop-heading-dt-heading-md-font-style);
+    font-weight: var(--desktop-heading-dt-heading-md-font-weight);
+    letter-spacing: var(--desktop-heading-dt-heading-md-letter-spacing);
+    line-height: var(--desktop-heading-dt-heading-md-line-height);
+    margin-top: -1.00px;
+    position: relative;
+    text-align: center;
+}
+
+.frame .text-wrapper-13 {
+    color: #33555e;
+    font-family: var(--desktop-body-body-sm-sm-regular-font-family);
+    font-size: var(--desktop-body-body-sm-sm-regular-font-size);
+    font-style: var(--desktop-body-body-sm-sm-regular-font-style);
+    font-weight: var(--desktop-body-body-sm-sm-regular-font-weight);
+    letter-spacing: var(--desktop-body-body-sm-sm-regular-letter-spacing);
+    line-height: var(--desktop-body-body-sm-sm-regular-line-height);
+    margin-top: -1.00px;
+    position: relative;
+    text-align: center;
+    width: 499.49px;
+}
+
+.frame .div-12 {
+    align-items: center;
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    height: 245px;
+    justify-content: center;
+    padding: 0px 24px;
+    position: relative;
+    width: 100%;
+}
+
+.frame .div-13 {
+    align-items: flex-start;
+    align-self: stretch;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0px 219px;
+    height: 110px;
+    justify-content: space-between;
+    position: relative;
+    width: 100%;
+}
+
+.frame .container {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    height: 107px;
+    position: relative;
+    width: 140px;
+}
+
+.frame .bits-min-png {
+    background-image: url(./bits-min.png.png);
+    background-position: 50% 50%;
+    background-size: cover;
+    height: 80px;
+    max-width: 80px;
+    position: relative;
+    width: 80px;
+}
+
+.frame .text-wrapper-14 {
+    color: #333333;
+    font-family: "Roboto-Regular", Helvetica;
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: 20px;
+    position: relative;
+    white-space: nowrap;
+    width: fit-content;
+}
+
+.frame .iima-min-webp {
+    background-image: url(./iima-min.webp.png);
+    background-position: 50% 50%;
+    background-size: cover;
+    height: 80px;
+    max-width: 80px;
+    position: relative;
+    width: 80px;
+}
+
+.frame .iimcal-min-webp {
+    background-image: url(./iimcal-min.webp.png);
+    background-position: 50% 50%;
+    background-size: cover;
+    height: 80px;
+    max-width: 80px;
+    position: relative;
+    width: 80px;
+}
+
+.frame .container-2 {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    height: 112px;
+    margin-bottom: -2.00px;
+    position: relative;
+    width: 140px;
+}
+
+.frame .vnit-logo-webp {
+    background-image: url(./vnit-logo.webp.png);
+    background-position: 50% 50%;
+    background-size: cover;
+    height: 84.63px;
+    max-width: 80px;
+    position: relative;
+    width: 80px;
+}
+
+.frame .srm-logo-webp {
+    background-image: url(./srm-logo.webp.png);
+    background-position: 50% 50%;
+    background-size: cover;
+    height: 80px;
+    max-width: 80px;
+    position: relative;
+    width: 80px;
+}
+
+.frame .nmims-min-png {
+    background-image: url(./nmims-min.png.png);
+    background-position: 50% 50%;
+    background-size: cover;
+    height: 80px;
+    max-width: 80px;
+    position: relative;
+    width: 80px;
+}
+
+.frame .spjain-min-webp {
+    background-image: url(./spjain-min.webp.png);
+    background-position: 50% 50%;
+    background-size: cover;
+    height: 80px;
+    max-width: 80px;
+    position: relative;
+    width: 80px;
+}
+
+.frame .bml-munjal-min-png {
+    background-image: url(./bml-munjal-min.png.png);
+    background-position: 50% 50%;
+    background-size: cover;
+    height: 80px;
+    max-width: 80px;
+    position: relative;
+    width: 80px;
+}
+
+.frame .ashoka-min-png {
+    background-image: url(./ashoka-min.png.png);
+    background-position: 50% 50%;
+    background-size: cover;
+    height: 80px;
+    max-width: 80px;
+    position: relative;
+    width: 80px;
+}
+
+.frame .container-3 {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: 17px;
+    height: 109px;
+    position: relative;
+    width: 140px;
+}
+
+.frame .medicaps {
+    background-image: url(./Medicaps-UniversityLogo.webp.png);
+    background-position: 50% 50%;
+    background-size: cover;
+    height: 72.33px;
+    max-width: 80px;
+    position: relative;
+    width: 80px;
+}
+
+.frame .raisoni-min-png {
+    background-image: url(./raisoni-min.png.png);
+    background-position: 50% 50%;
+    background-size: cover;
+    height: 80px;
+    max-width: 80px;
+    position: relative;
+    width: 80px;
+}
+
+.frame .iitropar-min-jpg {
+    background-image: url(./iitropar-min.jpg.png);
+    background-position: 50% 50%;
+    background-size: cover;
+    height: 80px;
+    max-width: 80px;
+    position: relative;
+    width: 80px;
+}
+
+.frame .upes-logo-webp {
+    background-image: url(./upes-logo.webp.png);
+    background-position: 50% 50%;
+    background-size: cover;
+    height: 80px;
+    max-width: 80px;
+    position: relative;
+    width: 80px;
+}
+
+.frame .container-4 {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    height: 105px;
+    position: relative;
+    width: 140px;
+}
+
+.frame .IIT-kanpur-logo-svg {
+    align-items: flex-start;
+    display: flex;
+    flex: 0 0 auto;
+    flex-direction: column;
+    max-width: 80px;
+    position: relative;
+    width: 100%;
+}
+
+.frame .component-wrapper {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    height: 78.22px;
+    justify-content: center;
+    padding: 0px 0px;
+    position: relative;
+    width: 80px;
+}
+
+.frame .component {
+    height: 78.22px !important;
+    position: relative !important;
+    width: 80px !important;
+}
+
+.frame .container-5 {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    height: 103px;
+    position: relative;
+    width: 140px;
+}
+
+.frame .manipal-logo-webp {
+    background-image: url(./manipal-logo.webp.png);
+    background-position: 50% 50%;
+    background-size: cover;
+    height: 75.94px;
+    max-width: 80px;
+    position: relative;
+    width: 80px;
+}
+
+.frame .container-6 {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    height: 100px;
+    position: relative;
+    width: 140px;
+}
+
+.frame .flame-logo-webp {
+    background-image: url(./flame-logo.webp.png);
+    background-position: 50% 50%;
+    background-size: cover;
+    height: 73.47px;
+    max-width: 80px;
+    position: relative;
+    width: 80px;
+}
+
+:root {
+    --bg-surface-secondary: rgba(245, 245, 245, 1);
+    --bg-surface-white: rgba(255, 255, 255, 1);
+    --border: rgba(204, 204, 204, 1);
+    --border-secondary: rgba(84, 113, 120, 1);
+    --buttonsbutton-disabled: rgba(128, 209, 206, 1);
+    --buttonsbutton-hover: rgba(17, 118, 117, 1);
+    --buttonsbutton-pressed: rgba(15, 105, 104, 1);
+    --buttonsbutton-primary: rgba(19, 131, 130, 1);
+    --desktop-body-body-lg-bold-font-family: "Lato", Helvetica;
+    --desktop-body-body-lg-bold-font-size: 20px;
+    --desktop-body-body-lg-bold-font-style: normal;
+    --desktop-body-body-lg-bold-font-weight: 700;
+    --desktop-body-body-lg-bold-letter-spacing: 0px;
+    --desktop-body-body-lg-bold-line-height: 24px;
+    --desktop-body-body-lg-regular-font-family: "Lato", Helvetica;
+    --desktop-body-body-lg-regular-font-size: 20px;
+    --desktop-body-body-lg-regular-font-style: normal;
+    --desktop-body-body-lg-regular-font-weight: 400;
+    --desktop-body-body-lg-regular-letter-spacing: 0px;
+    --desktop-body-body-lg-regular-line-height: 24px;
+    --desktop-body-body-md-md-bold-font-family: "Lato", Helvetica;
+    --desktop-body-body-md-md-bold-font-size: 18px;
+    --desktop-body-body-md-md-bold-font-style: normal;
+    --desktop-body-body-md-md-bold-font-weight: 600;
+    --desktop-body-body-md-md-bold-letter-spacing: 0px;
+    --desktop-body-body-md-md-bold-line-height: 24px;
+    --desktop-body-body-md-md-regular-font-family: "Lato", Helvetica;
+    --desktop-body-body-md-md-regular-font-size: 18px;
+    --desktop-body-body-md-md-regular-font-style: normal;
+    --desktop-body-body-md-md-regular-font-weight: 400;
+    --desktop-body-body-md-md-regular-letter-spacing: 0px;
+    --desktop-body-body-md-md-regular-line-height: 24px;
+    --desktop-body-body-sm-sm-bold-font-family: "Lato", Helvetica;
+    --desktop-body-body-sm-sm-bold-font-size: 16px;
+    --desktop-body-body-sm-sm-bold-font-style: normal;
+    --desktop-body-body-sm-sm-bold-font-weight: 700;
+    --desktop-body-body-sm-sm-bold-letter-spacing: 0px;
+    --desktop-body-body-sm-sm-bold-line-height: 20px;
+    --desktop-body-body-sm-sm-regular-font-family: "Lato", Helvetica;
+    --desktop-body-body-sm-sm-regular-font-size: 16px;
+    --desktop-body-body-sm-sm-regular-font-style: normal;
+    --desktop-body-body-sm-sm-regular-font-weight: 400;
+    --desktop-body-body-sm-sm-regular-letter-spacing: 0px;
+    --desktop-body-body-sm-sm-regular-line-height: 20px;
+    --desktop-display-dt-display-md-font-family: "DM Sans", Helvetica;
+    --desktop-display-dt-display-md-font-size: 40px;
+    --desktop-display-dt-display-md-font-style: normal;
+    --desktop-display-dt-display-md-font-weight: 700;
+    --desktop-display-dt-display-md-letter-spacing: 0px;
+    --desktop-display-dt-display-md-line-height: 48px;
+    --desktop-display-dt-display-sm-font-family: "DM Sans", Helvetica;
+    --desktop-display-dt-display-sm-font-size: 36px;
+    --desktop-display-dt-display-sm-font-style: normal;
+    --desktop-display-dt-display-sm-font-weight: 600;
+    --desktop-display-dt-display-sm-letter-spacing: 0px;
+    --desktop-display-dt-display-sm-line-height: 48px;
+    --desktop-heading-dt-heading-md-font-family: "DM Sans", Helvetica;
+    --desktop-heading-dt-heading-md-font-size: 28px;
+    --desktop-heading-dt-heading-md-font-style: normal;
+    --desktop-heading-dt-heading-md-font-weight: 700;
+    --desktop-heading-dt-heading-md-letter-spacing: 0px;
+    --desktop-heading-dt-heading-md-line-height: 32px;
+    --desktop-heading-dt-heading-sm-font-family: "DM Sans", Helvetica;
+    --desktop-heading-dt-heading-sm-font-size: 24px;
+    --desktop-heading-dt-heading-sm-font-style: normal;
+    --desktop-heading-dt-heading-sm-font-weight: 600;
+    --desktop-heading-dt-heading-sm-letter-spacing: -1px;
+    --desktop-heading-dt-heading-sm-line-height: 28px;
+    --desktop-label-md-dt-label-bold-font-family: "Lato", Helvetica;
+    --desktop-label-md-dt-label-bold-font-size: 14px;
+    --desktop-label-md-dt-label-bold-font-style: normal;
+    --desktop-label-md-dt-label-bold-font-weight: 700;
+    --desktop-label-md-dt-label-bold-letter-spacing: 0px;
+    --desktop-label-md-dt-label-bold-line-height: 16px;
+    --desktop-label-md-dt-label-regular-font-family: "Lato", Helvetica;
+    --desktop-label-md-dt-label-regular-font-size: 14px;
+    --desktop-label-md-dt-label-regular-font-style: normal;
+    --desktop-label-md-dt-label-regular-font-weight: 400;
+    --desktop-label-md-dt-label-regular-letter-spacing: 0px;
+    --desktop-label-md-dt-label-regular-line-height: 20px;
+    --desktop-label-sm-dt-label-light-font-family: "Lato", Helvetica;
+    --desktop-label-sm-dt-label-light-font-size: 12px;
+    --desktop-label-sm-dt-label-light-font-style: normal;
+    --desktop-label-sm-dt-label-light-font-weight: 600;
+    --desktop-label-sm-dt-label-light-letter-spacing: 0px;
+    --desktop-label-sm-dt-label-light-line-height: 16px;
+    --desktop-label-sm-dt-label-regular-font-family: "Lato", Helvetica;
+    --desktop-label-sm-dt-label-regular-font-size: 12px;
+    --desktop-label-sm-dt-label-regular-font-style: normal;
+    --desktop-label-sm-dt-label-regular-font-weight: 500;
+    --desktop-label-sm-dt-label-regular-letter-spacing: 0px;
+    --desktop-label-sm-dt-label-regular-line-height: 14px;
+    --drop-shadow-100: 0px 1px 4px 0px rgba(12, 12, 13, 0.05);
+    --green-status: rgba(44, 197, 70, 1);
+    --green-status-10: rgba(57, 211, 83, 0.1);
+    --green-status-50: rgba(57, 211, 83, 0.5);
+    --icon-filled-brand: rgba(19, 131, 130, 1);
+    --icon-primary: rgba(0, 43, 54, 1);
+    --icon-white: rgba(255, 255, 255, 1);
+    --joinsupersetcomdodger-blue: rgba(49, 124, 241, 1);
+    --joinsupersetcomelephant: rgba(22, 68, 80, 1);
+    --joinsupersetcomgovernor-bay: rgba(59, 50, 179, 1);
+    --joinsupersetcomroyal-blue: rgba(91, 78, 235, 1);
+    --joinsupersetcomsupernova: rgba(255, 206, 0, 1);
+    --joinsupersetcomtundora: rgba(74, 74, 74, 1);
+    --mobile-body-mb-body-lg-numeric-font-family: "DM Sans", Helvetica;
+    --mobile-body-mb-body-lg-numeric-font-size: 16px;
+    --mobile-body-mb-body-lg-numeric-font-style: normal;
+    --mobile-body-mb-body-lg-numeric-font-weight: 400;
+    --mobile-body-mb-body-lg-numeric-letter-spacing: 0px;
+    --mobile-body-mb-body-lg-numeric-line-height: 24px;
+    --mobile-body-mb-body-lg-regular-font-family: "DM Sans", Helvetica;
+    --mobile-body-mb-body-lg-regular-font-size: 16px;
+    --mobile-body-mb-body-lg-regular-font-style: normal;
+    --mobile-body-mb-body-lg-regular-font-weight: 400;
+    --mobile-body-mb-body-lg-regular-letter-spacing: 0px;
+    --mobile-body-mb-body-lg-regular-line-height: 20px;
+    --mobile-body-mb-body-lg-semibold-font-family: "DM Sans", Helvetica;
+    --mobile-body-mb-body-lg-semibold-font-size: 16px;
+    --mobile-body-mb-body-lg-semibold-font-style: normal;
+    --mobile-body-mb-body-lg-semibold-font-weight: 600;
+    --mobile-body-mb-body-lg-semibold-letter-spacing: 0px;
+    --mobile-body-mb-body-lg-semibold-line-height: 16px;
+    --mobile-body-mb-body-lg-underline-font-family: "DM Sans", Helvetica;
+    --mobile-body-mb-body-lg-underline-font-size: 16px;
+    --mobile-body-mb-body-lg-underline-font-style: normal;
+    --mobile-body-mb-body-lg-underline-font-weight: 400;
+    --mobile-body-mb-body-lg-underline-letter-spacing: 0px;
+    --mobile-body-mb-body-lg-underline-line-height: 24px;
+    --mobile-body-mb-body-md-md-semibold-font-family: "DM Sans", Helvetica;
+    --mobile-body-mb-body-md-md-semibold-font-size: 14px;
+    --mobile-body-mb-body-md-md-semibold-font-style: normal;
+    --mobile-body-mb-body-md-md-semibold-font-weight: 600;
+    --mobile-body-mb-body-md-md-semibold-letter-spacing: 0px;
+    --mobile-body-mb-body-md-md-semibold-line-height: 16px;
+    --mobile-body-mb-body-md-numeric-font-family: "DM Sans", Helvetica;
+    --mobile-body-mb-body-md-numeric-font-size: 14px;
+    --mobile-body-mb-body-md-numeric-font-style: normal;
+    --mobile-body-mb-body-md-numeric-font-weight: 400;
+    --mobile-body-mb-body-md-numeric-letter-spacing: 0px;
+    --mobile-body-mb-body-md-numeric-line-height: 16px;
+    --mobile-body-mb-body-md-regular-font-family: "DM Sans", Helvetica;
+    --mobile-body-mb-body-md-regular-font-size: 14px;
+    --mobile-body-mb-body-md-regular-font-style: normal;
+    --mobile-body-mb-body-md-regular-font-weight: 400;
+    --mobile-body-mb-body-md-regular-letter-spacing: 0px;
+    --mobile-body-mb-body-md-regular-line-height: 19px;
+    --mobile-body-mb-body-md-underline-font-family: "DM Sans", Helvetica;
+    --mobile-body-mb-body-md-underline-font-size: 14px;
+    --mobile-body-mb-body-md-underline-font-style: normal;
+    --mobile-body-mb-body-md-underline-font-weight: 400;
+    --mobile-body-mb-body-md-underline-letter-spacing: 0px;
+    --mobile-body-mb-body-md-underline-line-height: 16px;
+    --mobile-body-mb-body-sm-medium-font-family: "DM Sans", Helvetica;
+    --mobile-body-mb-body-sm-medium-font-size: 14px;
+    --mobile-body-mb-body-sm-medium-font-style: normal;
+    --mobile-body-mb-body-sm-medium-font-weight: 500;
+    --mobile-body-mb-body-sm-medium-letter-spacing: 0px;
+    --mobile-body-mb-body-sm-medium-line-height: 19px;
+    --mobile-body-mb-body-sm-numeric-font-family: "DM Sans", Helvetica;
+    --mobile-body-mb-body-sm-numeric-font-size: 12px;
+    --mobile-body-mb-body-sm-numeric-font-style: normal;
+    --mobile-body-mb-body-sm-numeric-font-weight: 400;
+    --mobile-body-mb-body-sm-numeric-letter-spacing: 0px;
+    --mobile-body-mb-body-sm-numeric-line-height: 19px;
+    --mobile-body-mb-body-sm-regular-font-family: "DM Sans", Helvetica;
+    --mobile-body-mb-body-sm-regular-font-size: 12px;
+    --mobile-body-mb-body-sm-regular-font-style: normal;
+    --mobile-body-mb-body-sm-regular-font-weight: 400;
+    --mobile-body-mb-body-sm-regular-letter-spacing: 0px;
+    --mobile-body-mb-body-sm-regular-line-height: 16px;
+    --mobile-body-mb-body-sm-semibold-font-family: "DM Sans", Helvetica;
+    --mobile-body-mb-body-sm-semibold-font-size: 12px;
+    --mobile-body-mb-body-sm-semibold-font-style: normal;
+    --mobile-body-mb-body-sm-semibold-font-weight: 600;
+    --mobile-body-mb-body-sm-semibold-letter-spacing: 0px;
+    --mobile-body-mb-body-sm-semibold-line-height: 19px;
+    --mobile-body-mb-body-sm-underline-font-family: "DM Sans", Helvetica;
+    --mobile-body-mb-body-sm-underline-font-size: 12px;
+    --mobile-body-mb-body-sm-underline-font-style: normal;
+    --mobile-body-mb-body-sm-underline-font-weight: 400;
+    --mobile-body-mb-body-sm-underline-letter-spacing: 0px;
+    --mobile-body-mb-body-sm-underline-line-height: 19px;
+    --mobile-display-mb-display-md-font-family: "DM Sans", Helvetica;
+    --mobile-display-mb-display-md-font-size: 32px;
+    --mobile-display-mb-display-md-font-style: normal;
+    --mobile-display-mb-display-md-font-weight: 700;
+    --mobile-display-mb-display-md-letter-spacing: 0px;
+    --mobile-display-mb-display-md-line-height: 40px;
+    --mobile-display-mb-display-sm-font-family: "DM Sans", Helvetica;
+    --mobile-display-mb-display-sm-font-size: 28px;
+    --mobile-display-mb-display-sm-font-style: normal;
+    --mobile-display-mb-display-sm-font-weight: 600;
+    --mobile-display-mb-display-sm-letter-spacing: -1px;
+    --mobile-display-mb-display-sm-line-height: 32px;
+    --mobile-heading-mb-heading-md-font-family: "DM Sans", Helvetica;
+    --mobile-heading-mb-heading-md-font-size: 16px;
+    --mobile-heading-mb-heading-md-font-style: normal;
+    --mobile-heading-mb-heading-md-font-weight: 600;
+    --mobile-heading-mb-heading-md-letter-spacing: 0px;
+    --mobile-heading-mb-heading-md-line-height: 28px;
+    --mobile-heading-mb-heading-sm-font-family: "DM Sans", Helvetica;
+    --mobile-heading-mb-heading-sm-font-size: 12px;
+    --mobile-heading-mb-heading-sm-font-style: normal;
+    --mobile-heading-mb-heading-sm-font-weight: 600;
+    --mobile-heading-mb-heading-sm-letter-spacing: 0px;
+    --mobile-heading-mb-heading-sm-line-height: 16px;
+    --mobile-label-mb-label-sm-font-family: "DM Sans", Helvetica;
+    --mobile-label-mb-label-sm-font-size: 12px;
+    --mobile-label-mb-label-sm-font-style: normal;
+    --mobile-label-mb-label-sm-font-weight: 400;
+    --mobile-label-mb-label-sm-letter-spacing: 0px;
+    --mobile-label-mb-label-sm-line-height: 16px;
+    --pizo-ai-DM-sans-18pt-medium-font-family: "DM Sans 18pt", Helvetica;
+    --pizo-ai-DM-sans-18pt-medium-font-size: 13.5px;
+    --pizo-ai-DM-sans-18pt-medium-font-style: normal;
+    --pizo-ai-DM-sans-18pt-medium-font-weight: 500;
+    --pizo-ai-DM-sans-18pt-medium-letter-spacing: -0.009999999776482582px;
+    --pizo-ai-DM-sans-18pt-medium-line-height: 15.529999732971191px;
+    --pizo-ai-DM-sans-18pt-medium-lower-font-family: "DM Sans 18pt", Helvetica;
+    --pizo-ai-DM-sans-18pt-medium-lower-font-size: 36px;
+    --pizo-ai-DM-sans-18pt-medium-lower-font-style: normal;
+    --pizo-ai-DM-sans-18pt-medium-lower-font-weight: 500;
+    --pizo-ai-DM-sans-18pt-medium-lower-letter-spacing: -0.6399999856948853px;
+    --pizo-ai-DM-sans-18pt-medium-lower-line-height: 43.20000076293945px;
+    --pizo-ai-DM-sans-18pt-medium-upper-font-family: "DM Sans 18pt", Helvetica;
+    --pizo-ai-DM-sans-18pt-medium-upper-font-size: 81.4921875px;
+    --pizo-ai-DM-sans-18pt-medium-upper-font-style: normal;
+    --pizo-ai-DM-sans-18pt-medium-upper-font-weight: 500;
+    --pizo-ai-DM-sans-18pt-medium-upper-letter-spacing: 0px;
+    --pizo-ai-DM-sans-18pt-medium-upper-line-height: 128.25px;
+    --pizo-ai-DM-sans-18pt-semibold-lower-font-family: "DM Sans 18pt", Helvetica;
+    --pizo-ai-DM-sans-18pt-semibold-lower-font-size: 20.299999237060547px;
+    --pizo-ai-DM-sans-18pt-semibold-lower-font-style: normal;
+    --pizo-ai-DM-sans-18pt-semibold-lower-font-weight: 600;
+    --pizo-ai-DM-sans-18pt-semibold-lower-letter-spacing: -0.009999999776482582px;
+    --pizo-ai-DM-sans-18pt-semibold-lower-line-height: 28.350000381469727px;
+    --pizo-ai-semantic-heading-1-lower-font-family: "DM Sans 18pt", Helvetica;
+    --pizo-ai-semantic-heading-1-lower-font-size: 112.5px;
+    --pizo-ai-semantic-heading-1-lower-font-style: normal;
+    --pizo-ai-semantic-heading-1-lower-font-weight: 500;
+    --pizo-ai-semantic-heading-1-lower-letter-spacing: -0.47999998927116394px;
+    --pizo-ai-semantic-heading-1-lower-line-height: 112.5px;
+    --pizo-ai-semantic-heading-2-lower-font-family: "DM Sans 18pt", Helvetica;
+    --pizo-ai-semantic-heading-2-lower-font-size: 63px;
+    --pizo-ai-semantic-heading-2-lower-font-style: normal;
+    --pizo-ai-semantic-heading-2-lower-font-weight: 500;
+    --pizo-ai-semantic-heading-2-lower-letter-spacing: -0.6399999856948853px;
+    --pizo-ai-semantic-heading-2-lower-line-height: 75.5999984741211px;
+    --pizo-ai-semantic-heading-3-lower-font-family: "DM Sans 18pt", Helvetica;
+    --pizo-ai-semantic-heading-3-lower-font-size: 78.80000305175781px;
+    --pizo-ai-semantic-heading-3-lower-font-style: normal;
+    --pizo-ai-semantic-heading-3-lower-font-weight: 500;
+    --pizo-ai-semantic-heading-3-lower-letter-spacing: -1.399999976158142px;
+    --pizo-ai-semantic-heading-3-lower-line-height: 78.75px;
+    --pizo-ai-semantic-heading-4-lower-font-family: "DM Sans 18pt", Helvetica;
+    --pizo-ai-semantic-heading-4-lower-font-size: 63px;
+    --pizo-ai-semantic-heading-4-lower-font-style: normal;
+    --pizo-ai-semantic-heading-4-lower-font-weight: 500;
+    --pizo-ai-semantic-heading-4-lower-letter-spacing: -0.36000001430511475px;
+    --pizo-ai-semantic-heading-4-lower-line-height: 68.62999725341797px;
+    --pizo-ai-semantic-heading-5-font-family: "DM Sans 18pt", Helvetica;
+    --pizo-ai-semantic-heading-5-font-size: 74.30000305175781px;
+    --pizo-ai-semantic-heading-5-font-style: normal;
+    --pizo-ai-semantic-heading-5-font-weight: 500;
+    --pizo-ai-semantic-heading-5-letter-spacing: 0px;
+    --pizo-ai-semantic-heading-5-line-height: 111.37999725341797px;
+    --pizo-ai-semantic-heading-6-font-family: "DM Sans 18pt", Helvetica;
+    --pizo-ai-semantic-heading-6-font-size: 26.578125px;
+    --pizo-ai-semantic-heading-6-font-style: normal;
+    --pizo-ai-semantic-heading-6-font-weight: 700;
+    --pizo-ai-semantic-heading-6-letter-spacing: 0px;
+    --pizo-ai-semantic-heading-6-line-height: 37.79999923706055px;
+    --pizo-ai-semantic-input-font-family: "DM Sans 18pt", Helvetica;
+    --pizo-ai-semantic-input-font-size: 18px;
+    --pizo-ai-semantic-input-font-style: normal;
+    --pizo-ai-semantic-input-font-weight: 500;
+    --pizo-ai-semantic-input-letter-spacing: 0px;
+    --pizo-ai-semantic-input-line-height: normal;
+    --pizo-ai-semantic-item-font-family: "DM Sans 18pt", Helvetica;
+    --pizo-ai-semantic-item-font-size: 22.5px;
+    --pizo-ai-semantic-item-font-style: normal;
+    --pizo-ai-semantic-item-font-weight: 500;
+    --pizo-ai-semantic-item-letter-spacing: 0px;
+    --pizo-ai-semantic-item-line-height: 33.75px;
+    --pizoaiamaranth: rgba(224, 30, 90, 1);
+    --pizoaiaquamarine: rgba(86, 248, 170, 1);
+    --pizoaiaquamarine-30: rgba(144, 251, 200, 0.3);
+    --pizoaiatlantis: rgba(180, 211, 52, 1);
+    --pizoaibay-of-many: rgba(31, 69, 126, 1);
+    --pizoaiblack: rgba(0, 0, 0, 1);
+    --pizoaiblue-ribbon: rgba(0, 107, 255, 1);
+    --pizoaibondi-blue: rgba(0, 155, 181, 1);
+    --pizoaibright-turquoise: rgba(10, 232, 240, 1);
+    --pizoaibuttercup: rgba(246, 159, 26, 1);
+    --pizoaibutterfly-bush: rgba(100, 74, 152, 1);
+    --pizoaicardinal: rgba(199, 32, 55, 1);
+    --pizoaicarissma: rgba(229, 128, 185, 1);
+    --pizoaicarnation: rgba(245, 99, 88, 1);
+    --pizoaicerulean: rgba(0, 170, 242, 1);
+    --pizoaichalet-green: rgba(90, 117, 61, 1);
+    --pizoaichambray: rgba(58, 75, 155, 1);
+    --pizoaicharade: rgba(41, 41, 51, 1);
+    --pizoaichateau-green: rgba(52, 168, 83, 1);
+    --pizoaichathams-blue: rgba(20, 68, 125, 1);
+    --pizoaicinnabar: rgba(234, 67, 53, 1);
+    --pizoaicod-gray: rgba(27, 27, 27, 1);
+    --pizoaicod-gray-50: rgba(27, 27, 27, 0.5);
+    --pizoaicornflower-blue: rgba(102, 157, 243, 1);
+    --pizoaicrimson: rgba(234, 16, 16, 1);
+    --pizoaicurious-blue: rgba(20, 144, 223, 1);
+    --pizoaideep-sapphire: rgba(10, 39, 103, 1);
+    --pizoaideep-sea-green: rgba(10, 92, 72, 1);
+    --pizoaidenim: rgba(25, 103, 210, 1);
+    --pizoaidodger-blue: rgba(51, 182, 255, 1);
+    --pizoaiendeavour: rgba(0, 103, 171, 1);
+    --pizoaifern-green: rgba(70, 133, 62, 1);
+    --pizoaifire-bush: rgba(235, 145, 41, 1);
+    --pizoaifountain-blue: rgba(72, 168, 175, 1);
+    --pizoaifrench-gray: rgba(195, 198, 204, 1);
+    --pizoaifuel-yellow: rgba(236, 178, 46, 1);
+    --pizoaifun-green: rgba(0, 133, 63, 1);
+    --pizoaigothic: rgba(113, 153, 166, 1);
+    --pizoaihaiti: rgba(27, 14, 63, 1);
+    --pizoaihorizon: rgba(91, 135, 155, 1);
+    --pizoaiindigo: rgba(80, 89, 201, 1);
+    --pizoaiiron: rgba(225, 227, 230, 1);
+    --pizoaijewel: rgba(24, 128, 56, 1);
+    --pizoaijordy-blue: rgba(153, 182, 247, 1);
+    --pizoaijungle-green: rgba(46, 182, 125, 1);
+    --pizoaila-palma: rgba(23, 175, 38, 1);
+    --pizoailightning-yellow: rgba(251, 192, 45, 1);
+    --pizoailima: rgba(115, 196, 29, 1);
+    --pizoailochmara: rgba(0, 126, 187, 1);
+    --pizoaimalachite: rgba(11, 177, 71, 1);
+    --pizoaimalibu: rgba(80, 217, 255, 1);
+    --pizoaimojo: rgba(199, 70, 52, 1);
+    --pizoaimountain-meadow: rgba(22, 184, 162, 1);
+    --pizoaimy-sin: rgba(255, 180, 31, 1);
+    --pizoaipastel-green: rgba(130, 220, 123, 1);
+    --pizoaipicton-blue: rgba(40, 168, 234, 1);
+    --pizoaipine-green: rgba(0, 117, 106, 1);
+    --pizoaiportage: rgba(123, 131, 235, 1);
+    --pizoairolling-stone: rgba(117, 126, 134, 1);
+    --pizoairoyal-blue: rgba(26, 115, 232, 1);
+    --pizoaisaffron: rgba(248, 207, 53, 1);
+    --pizoaisalem: rgba(13, 171, 64, 1);
+    --pizoaisaltpan: rgba(253, 254, 253, 1);
+    --pizoaiscience-blue: rgba(3, 100, 184, 1);
+    --pizoaisea-green: rgba(46, 125, 50, 1);
+    --pizoaiselective-yellow: rgba(251, 188, 4, 1);
+    --pizoaishark: rgba(30, 33, 36, 1);
+    --pizoaishark-40: rgba(25, 32, 35, 0.4);
+    --pizoaismalt: rgba(0, 58, 155, 1);
+    --pizoaispring-wood: rgba(243, 239, 233, 1);
+    --pizoaisushi: rgba(129, 192, 69, 1);
+    --pizoaitango: rgba(232, 118, 45, 1);
+    --pizoaitea: rgba(200, 192, 180, 1);
+    --pizoaitimber-green: rgba(19, 44, 38, 1);
+    --pizoaitrout: rgba(79, 88, 97, 1);
+    --pizoaivermilion: rgba(255, 75, 17, 1);
+    --pizoaiwaikawa-gray: rgba(92, 102, 146, 1);
+    --pizoaiwattle: rgba(196, 214, 77, 1);
+    --pizoaiwhite: rgba(255, 255, 255, 1);
+    --pizoaiwhite-40: rgba(255, 255, 255, 0.4);
+    --pizoaiwild-strawberry: rgba(254, 75, 161, 1);
+    --red: rgba(255, 55, 55, 1);
+    --red-25: rgba(255, 88, 88, 0.1);
+    --stroke-primary: rgba(19, 131, 130, 1);
+    --tertiary-coloursehub-blue: rgba(143, 200, 232, 1);
+    --tertiary-coloursehub-blue-25: rgba(143, 200, 232, 0.25);
+    --tertiary-coloursehub-green: rgba(178, 232, 135, 1);
+    --tertiary-coloursehub-green-25: rgba(178, 232, 135, 0.25);
+    --tertiary-coloursehub-orange: rgba(232, 186, 152, 1);
+    --tertiary-coloursehub-orange-25: rgba(232, 186, 152, 0.25);
+    --tertiary-coloursehub-saffron: rgba(247, 215, 127, 1);
+    --tertiary-coloursehub-saffron-15: rgba(247, 215, 127, 0.1);
+    --texttext-brand-primary: rgba(19, 131, 130, 1);
+    --texttext-brand-secondary: rgba(0, 43, 54, 1);
+    --texttext-secondary: rgba(84, 113, 120, 1);
+    --texttext-white: rgba(255, 255, 255, 1);
+  }
+
+  .CenterEnterprise{
+  
+  display: flex;
+  justify-content: center; /* Horizontal alignment */
+  align-items: center;    /* Vertical alignment */
+  height: 100vh;
+  
+  }

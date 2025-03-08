@@ -16,6 +16,8 @@ const CommunityPageBlogSection = () => {
   const [blogs, setBlogs] = useState([]);
   const { id, blogId } = useParams();
 
+  console.log(blogs, "blogs");
+
   useEffect(() => {
     document.title = `Blogs | ${id} | engineerHUB`;
     // window.scrollTo(0, 0);
@@ -29,9 +31,10 @@ const CommunityPageBlogSection = () => {
 
   useEffect(() => {
     if (blogsData && blogsData.data && blogsData.data.blogs) {
-      setBlogs(
-        Array.isArray(blogsData?.data?.blogs) ? blogsData?.data?.blogs : []
+      const sortedBlogs = [...blogsData.data.blogs].sort(
+        (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
       );
+      setBlogs(Array.isArray(sortedBlogs) ? sortedBlogs : []);
       const totalBlogs = blogsData.data.blogs.length || 0;
 
       setTotalPages(blogsData?.data?.totalPage);

@@ -11,6 +11,7 @@ import { getUserId } from "../../../../features/User/UserDetails";
 import { Bounce, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { getAccessToken } from "../../../../features/getCookieValues";
+import { useSelector } from "react-redux";
 
 const ProfileWithFollowAndMail = ({ DashboardAdminData }) => {
   console.log(DashboardAdminData, "dashboardadim");
@@ -19,9 +20,11 @@ const ProfileWithFollowAndMail = ({ DashboardAdminData }) => {
   const [isFollowActive, setFollowActive] = useState(false);
   const [isMailActive, setMailActive] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const isChecked = useSelector((state) => state.resumeToggle.isVisible);
 
   const handleViewResume = () => {
-    if (DashboardAdminData) {
+    if (DashboardAdminData?.resume) {
+      console.log(DashboardAdminData.resume, "resume");
       window.open(DashboardAdminData.resume, "_blank");
     } else {
       toast.error("Resume not available yet!");
@@ -144,9 +147,9 @@ const ProfileWithFollowAndMail = ({ DashboardAdminData }) => {
           />
         )}
 
-        <div>
+        {/* <div>
           <div className="img-thumbsup-div">
-            {/* {isLiked ? (
+            {isLiked ? (
               <FaThumbsUp
                 className="thumbs-up-icon animate"
                 color="#128381"
@@ -158,7 +161,7 @@ const ProfileWithFollowAndMail = ({ DashboardAdminData }) => {
                 color="#128381"
                 size={22}
               />
-            )} */}
+            )}
 
             <FaThumbsUp
               className="thumbs-up-icon animate"
@@ -175,10 +178,10 @@ const ProfileWithFollowAndMail = ({ DashboardAdminData }) => {
               textAlign: "center",
             }}
           >
-            {/* {likeCount} {likeCount === 1 ? "Like" : "Likes"} */}
+            {likeCount} {likeCount === 1 ? "Like" : "Likes"}
             <p>{DashboardAdminData?.likes || 0} likes</p>
           </h4>
-        </div>
+        </div> */}
       </div>
 
       <div className="name-desc-div">
@@ -194,6 +197,11 @@ const ProfileWithFollowAndMail = ({ DashboardAdminData }) => {
             fontSize: 16,
             lineHeight: "22px",
             color: "#f3f3f3",
+            display: "-webkit-box",
+            WebkitBoxOrient: "vertical",
+            WebkitLineClamp: 2, // Limits text to 2 lines
+            overflow: "hidden",
+            textOverflow: "ellipsis",
           }}
         >
           {DashboardAdminData?.aboutMe ||
@@ -290,7 +298,7 @@ const ProfileWithFollowAndMail = ({ DashboardAdminData }) => {
               Resume
             </h3>
           </div>
-          <div
+          {/* <div
             style={{
               backgroundColor: "#F7D77F",
               padding: "4px 6px",
@@ -300,7 +308,7 @@ const ProfileWithFollowAndMail = ({ DashboardAdminData }) => {
             <h3 style={{ fontSize: 12, marginBottom: 0, fontWeight: 500 }}>
               ATS Score: 70%
             </h3>
-          </div>
+          </div> */}
           <div className="update-view-trash-download">
             <div className="update-view-btn">
               <button onClick={handleViewResume}>View</button>

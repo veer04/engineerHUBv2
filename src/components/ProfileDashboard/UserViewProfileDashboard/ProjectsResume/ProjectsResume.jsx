@@ -31,7 +31,7 @@ const ProjectsResume = ({ DashboardAdminData }) => {
             margin: 0,
           }}
         >
-          <p style={{ margin: 0 }}>No Projects Available.</p>
+          <p style={{ margin: 0 }}>No Projects Added.</p>
         </div>
       ) : (
         <>

@@ -31,7 +31,7 @@ const SkillsResume = ({ DashboardAdminData }) => {
             margin: 0,
           }}
         >
-          <p style={{ margin: 0 }}>No Skills Available.</p>
+          <p style={{ margin: 0 }}>No Skills Added.</p>
         </div>
       ) : (
         <div className="skills-box-main">

@@ -37,7 +37,7 @@ const AddSkill = ({ profileData, setProfileData }) => {
             >
               {!profileData?.skillsDetails?.length > 0
                 ? "Add Skill"
-                : "Update Skill"}
+                : "Add Skill"}
             </h3>
             {!profileData?.skillsDetails?.length > 0 ? (
               <h4
@@ -63,7 +63,7 @@ const AddSkill = ({ profileData, setProfileData }) => {
                     color: "#547178",
                   }}
                 >
-                  Update a skills in.
+                  Enter your relevant skill.
                 </h4>
                 <div className="skills-box-main">
                   {profileData &&

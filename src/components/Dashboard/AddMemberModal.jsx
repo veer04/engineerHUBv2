@@ -66,7 +66,7 @@ export default function AddMemberModal() {
   }, []);
 
   function validateData() {
-    console.log("validate");
+    // console.log("validate");
     let isValid = true;
     let newErrors = { name: "", role: "", linkedin: "" };
 
@@ -103,8 +103,8 @@ export default function AddMemberModal() {
         "Invalid linkedin url! (URL Ex: https://www.linkedin.com/company/engineersummit)";
       isValid = false;
     }
-    console.log("newErrors", newErrors);
-    console.log("errors", errors);
+    // console.log("newErrors", newErrors);
+    // console.log("errors", errors);
     setErrors(newErrors);
     return isValid;
   }

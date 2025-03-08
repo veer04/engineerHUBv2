@@ -34,7 +34,7 @@ export default function Drawer({ user }) {
   };
 
   const handleSearch = async () => {
-    console.log("yes" + search);
+    // console.log("yes" + search);
     if (search.trim().length === 0) {
       <Alert severity="warning">This is a warning alert — check it out!</Alert>;
       return;
@@ -48,25 +48,25 @@ export default function Drawer({ user }) {
           Authorization: `Bearer ${user.token}`,
         },
       };
-      console.log("here2" + config.headers.Authorization);
-      console.log(search);
+      // console.log("here2" + config.headers.Authorization);
+      // console.log(search);
       const { data } = await axios.get(
         `http://localhost:3000/api/user?search=${search.trim()}`,
         config
       );
-      console.log("here3");
+      // console.log("here3");
 
       setLoading(false);
       setSearchResult(data);
-      console.log(searchResult);
+      // console.log(searchResult);
     } catch (error) {
-      console.log(error.message);
+      // console.log(error.message);
       <Alert severity="error">error</Alert>;
     }
   };
 
   const accessChat = async (userId) => {
-    console.log(userId);
+    // console.log(userId);
 
     try {
       setLoadingChat(true);

@@ -166,6 +166,18 @@ export default function NewNavbar() {
           </div>
         </div>
       )}
+      <div className="pages" style ={{ display :  "flex"}}>
+      <Link  className ="employerToLeft" onClick={() => setSelectedPageNavbar("enterprise")} to="/employer">
+      <button
+        className={`${
+          selectedPageNavbar === "enterprise" ? "--is-active" : ""
+        } --is-active`}
+      >
+        {width < 600 ? "Employer" : "For Employers"}
+      </button>
+    </Link>
+    
+    </div>
     </nav>
   );
 }

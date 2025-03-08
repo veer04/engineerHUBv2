@@ -1,0 +1,21 @@
+.about-comp-new-company-main {
+  padding: 12px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.08);
+}
+
+.about-comp-new-company-main .about-text {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 20px;
+  color: #002b36;
+}
+
+.about-comp-new-company-main .about-paragraph {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  color: #547178;
+  margin-bottom: 0;
+}

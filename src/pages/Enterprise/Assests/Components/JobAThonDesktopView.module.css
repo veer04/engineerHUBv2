@@ -1,0 +1,1179 @@
+.jobAThonDesktopViewChild {
+    position: absolute;
+    top: 22px;
+    left: 518.45px;
+    border-radius: 31px;
+    width: 89px;
+    height: 36px;
+}
+.oneStopHiring {
+    flex: 1;
+    position: relative;
+    line-height: 28px;
+}
+.oneStopHiringSolutionForCWrapper {
+    align-self: stretch;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+.sourceEngage {
+    flex: 1;
+    position: relative;
+    line-height: 48px;
+}
+.sourceEngageHireWrapper {
+    align-self: stretch;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    font-size: 40px;
+    font-family: 'Lato';
+}
+.empoweringRecruitersTo {
+    margin: 0;
+}
+.empoweringRecruitersToContainer {
+    flex: 1;
+    position: relative;
+    line-height: 24px;
+}
+.empoweringRecruitersToHireWrapper {
+    align-self: stretch;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    color: #547178;
+}
+.frameGroup {
+    align-self: stretch;
+    display: flex
+;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 8px;
+    font-family: Lato;
+    font-size: 23px;
+    font-style: normal;
+    font-weight: 400;
+}
+.connectWithUs {
+    position: relative;
+    line-height: 16px;
+}
+.frameContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+.frameWrapper {
+    width: 160px;
+    border-radius: 100px;
+    background-color: #168584;
+    height: 44px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 12px;
+    box-sizing: border-box;
+    font-size: 14px;
+    color: #fff;
+}
+.frameParent {
+    position: absolute;
+    top: 200px;
+    left: 120px;
+    width: 409px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 24px;
+}
+.weStreamlineHiring {
+    align-self: stretch;
+    position: relative;
+    line-height: 48px;
+    font-weight: 600;
+    margin-top: -8%;
+}
+.heading2 {
+    align-self: stretch;
+    position: relative;
+    line-height: 48px;
+    font-weight: 600;
+    color: #002b36;
+}
+.weStreamlineHiringParent {
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.heading3 {
+    align-self: stretch;
+    position: relative;
+    line-height: 48px;
+    font-weight: 600;
+    font-family: 'DM Sans';
+}
+.lessTimeSpent {
+    align-self: stretch;
+    position: relative;
+    font-size: 16px;
+    line-height: 20px;
+}
+.automatedShortlistingSaves {
+    align-self: stretch;
+    flex: 1;
+    position: relative;
+    font-size: 12px;
+    line-height: 14px;
+    font-weight: 500;
+    color: #547178;
+}
+.paragraphbackground {
+    align-self: stretch;
+    flex: 1;
+    border-radius: 22.5px;
+    background-color: rgba(22, 133, 132, 0.05);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 28px 40px;
+    gap: 8px;
+}
+.integratedThirdPartyAssessm {
+    margin: 0;
+    white-space: pre-wrap;
+}
+.paragraphbackground1 {
+    flex: 1;
+    border-radius: 22.5px;
+    background-color: rgba(22, 133, 132, 0.05);
+    height: 210px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 28px 40px;
+    box-sizing: border-box;
+    gap: 8px;
+}
+.smartToolsLike {
+    align-self: stretch;
+    flex: 1;
+    position: relative;
+    font-size: 12px;
+    line-height: 14px;
+    font-weight: 500;
+    color: #547178;
+    white-space: pre-wrap;
+}
+.paragraphbackgroundParent {
+    width: 1200px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 24px;
+    text-align: left;
+    color: #002b36;
+    font-family: Lato;
+}
+.frameParent2 {
+    width: 1200px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-end;
+    gap: 40px;
+    text-align: center;
+}
+.simplifyingCampusRecruitment {
+    flex: 1;
+    position: relative;
+    line-height: 32px;
+}
+.simplifyingCampusRecruitmentWrapper {
+    align-self: stretch;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 1px;
+}
+.fromConnectingWith {
+    width: 499.5px;
+    position: relative;
+    line-height: 20px;
+    display: inline-block;
+    flex-shrink: 0;
+}
+.fromConnectingWith5LakhEWrapper {
+    align-self: stretch;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 1px;
+    font-size: 16px;
+    color: #547178;
+    font-family: Lato;
+}
+.frameParent6 {
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 8px;
+}
+.forCompanies {
+    position: relative;
+    line-height: 16px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.forCompaniesWrapper {
+    width: 160px;
+    border-radius: 43px;
+    background-color: #168584;
+    height: 44px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 1px 16px;
+    box-sizing: border-box;
+    font-size: 14px;
+    color: #fff;
+    font-family: Lato;
+}
+.frameParent5 {
+    align-self: stretch;
+    width: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 24px;
+}
+.hireFromAny {
+    position: absolute;
+    top: 35.26px;
+    left: 38.09px;
+    line-height: 24px;
+}
+.icon {
+    position: absolute;
+    top: 78.79px;
+    left: 38.09px;
+    border-radius: 24px;
+    width: 609.7px;
+    height: 343px;
+    object-fit: cover;
+}
+.hireFromAnyTierOfCampusParent {
+    align-self: stretch;
+    width: 586px;
+    position: relative;
+    border-radius: 25px;
+    background-color: #fff;
+    overflow: hidden;
+    flex-shrink: 0;
+    text-align: center;
+    font-size: 20px;
+    color: #000;
+    font-family: Lato;
+}
+.frameParent4 {
+    align-self: stretch;
+    border-radius: 20px;
+    background-color: rgba(232, 186, 152, 0.15);
+    height: 440px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 40px;
+    box-sizing: border-box;
+}
+.connectHire {
+    position: absolute;
+    top: 23.56px;
+    left: 41.39px;
+    line-height: 24px;
+}
+.importantRecruitingMetricsFIcon {
+    position: absolute;
+    top: 73.19px;
+    left: 41.39px;
+    border-radius: 20px;
+    width: 576px;
+    height: 341px;
+    object-fit: cover;
+}
+.connectHireTopTalentParent {
+    align-self: stretch;
+    width: 586px;
+    position: relative;
+    border-radius: 25px;
+    background-color: #faffff;
+    overflow: hidden;
+    flex-shrink: 0;
+    text-align: center;
+    font-size: 20px;
+    color: #000;
+    font-family: Lato;
+}
+.frameParent7 {
+    align-self: stretch;
+    border-radius: 20px;
+    background-color: rgba(143, 200, 232, 0.15);
+    height: 440px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 40px;
+    box-sizing: border-box;
+}
+.manageOnlinePlacements {
+    position: absolute;
+    top: 33.1px;
+    left: 41.96px;
+    line-height: 24px;
+}
+.studentData {
+    position: relative;
+    line-height: 14px;
+    font-weight: 500;
+}
+.studentDataWrapper {
+    border-radius: 7px;
+    background-color: #002b36;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 4px 12px;
+}
+.jobsWrapper {
+    border-radius: 7px;
+    background-color: rgba(0, 43, 54, 0.5);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 4px 12px;
+}
+.frameParent13 {
+    position: absolute;
+    top: 78px;
+    left: 38.96px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 16px;
+    text-align: left;
+    font-size: 12px;
+    color: #fff;
+}
+.orangeWhiteGreenNeoBrutali {
+    position: absolute;
+    top: 38.02px;
+    left: 38.96px;
+    border-radius: 12px;
+    width: 531px;
+    height: 410.3px;
+    object-fit: contain;
+}
+.frameParent10 {
+    align-self: stretch;
+    border-radius: 20px;
+    background-color: rgba(247, 215, 127, 0.15);
+    height: 440px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 40px;
+    box-sizing: border-box;
+}
+.weHaveEngineers {
+    flex: 1;
+    position: relative;
+    line-height: 20px;
+}
+.weHaveEngineersFrom1950Wrapper {
+    align-self: stretch;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    color: #33555e;
+    font-family: Lato;
+}
+.bitsMinpngIcon {
+    width: 82.9px;
+    position: relative;
+    height: 82.9px;
+    overflow: hidden;
+    flex-shrink: 0;
+    object-fit: cover;
+    max-width: 82.88px;
+}
+.bitsPilani {
+    position: relative;
+    line-height: 20.72px;
+}
+.container {
+    width: 144px;
+    height: 120px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 1.04px;
+}
+.th1Icon {
+    width: 92px;
+    position: relative;
+    height: 78px;
+    object-fit: cover;
+}
+.iimcalMinwebpIcon {
+    width: 82.9px;
+    position: relative;
+    height: 75px;
+    overflow: hidden;
+    flex-shrink: 0;
+    object-fit: cover;
+    max-width: 82.88px;
+}
+.container2 {
+    width: 144px;
+    height: 120px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 24px;
+    min-height: 1.04px;
+}
+.vnitLogowebpIcon {
+    width: 82.9px;
+    position: relative;
+    height: 87.7px;
+    overflow: hidden;
+    flex-shrink: 0;
+    object-fit: cover;
+    max-width: 82.88px;
+}
+.bharatiVidyapeethLogo1Icon {
+    position: absolute;
+    top: 4px;
+    left: 6.8px;
+    width: 69px;
+    height: 74px;
+    object-fit: cover;
+}
+.spjainMinwebp {
+    width: 82.9px;
+    position: relative;
+    background-color: #fafafa;
+    height: 82.9px;
+    overflow: hidden;
+    flex-shrink: 0;
+    max-width: 82.88px;
+}
+.containerParent {
+    align-self: stretch;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+.frameWrapper6 {
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: left;
+    font-size: 14.5px;
+    color: #333;
+    font-family: Roboto;
+}
+.frameParent14 {
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 28px;
+    text-align: center;
+}
+.connectWithUsContainer {
+    align-self: stretch;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+}
+.letUsHelpYouToHireTheBeWrapper {
+    align-self: stretch;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 1px;
+    font-size: 28px;
+    color: #002b36;
+    font-family: 'DM Sans';
+}
+.bookASlotWithOurTeamOrRWrapper {
+    align-self: stretch;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 1px;
+    font-size: 16px;
+}
+.frameParent17 {
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 8px;
+}
+.frameWrapper8 {
+    align-self: stretch;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+}
+.bookASlotNowWrapper {
+    align-self: stretch;
+    border-radius: 43px;
+    background-color: #138382;
+    height: 44px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 0px 16px;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+.vectorIcon {
+    width: 16.6px;
+    position: relative;
+    height: 16.6px;
+}
+.phone {
+    width: 20px;
+    height: 20px;
+    overflow: hidden;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+}
+.span {
+    color: #002b36;
+}
+.wrapper {
+    border-radius: 43px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+.phoneParent {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 8px;
+}
+.mailIcon {
+    width: 20px;
+    position: relative;
+    height: 20px;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+.frameParent19 {
+    width: 382px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    color: #138382;
+}
+.frameParent18 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    font-size: 14px;
+    color: #fff;
+}
+.frameParent16 {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+.frameWrapper7 {
+    align-self: stretch;
+    border-radius: 20px;
+    background-color: #fff;
+    overflow: hidden;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    font-size: 18px;
+    color: #547178;
+    font-family: Lato;
+}
+.whyHrsSupport {
+    position: relative;
+    line-height: 32px;
+}
+.vectorIcon1 {
+    width: 20.2px;
+    position: relative;
+    height: 18.5px;
+}
+.whyHrsSupportUsParent {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+.frameWrapper9 {
+    align-self: stretch;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.placementHeadBirla {
+    position: relative;
+    line-height: 20px;
+}
+.placementHeadBirlaCampusWrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    color: #547178;
+}
+.frameParent22 {
+    width: 235px;
+    height: 36px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+}
+.frameParent21 {
+    width: 275px;
+    filter: drop-shadow(0px 1px 4px rgba(12, 12, 13, 0.05));
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 20px;
+    box-sizing: border-box;
+    gap: 16px;
+}
+.feedbackInner {
+    border-radius: 13px;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+.feedbackChild {
+    box-shadow: 0px 1px 4px rgba(12, 12, 13, 0.05);
+    border-radius: 12px;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+.feedbackInner1 {
+    border-radius: 12px;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+.feedback {
+    align-self: stretch;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+    font-size: 14px;
+    font-family: Lato;
+}
+.frameParent20 {
+    width: 1200px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 40px;
+}
+.frameParent3 {
+    width: 1200px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 40px;
+    font-size: 28px;
+    color: #002b36;
+}
+.ehubWhite1 {
+    width: 178.6px;
+    position: relative;
+    height: 31.4px;
+    object-fit: cover;
+}
+.frameChild {
+    width: 177.5px;
+    position: relative;
+    height: 10.1px;
+}
+.ehubWhite1Parent {
+    width: 178.6px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+.engineerhubIsOne {
+    align-self: stretch;
+    position: relative;
+    line-height: 20px;
+}
+.engineerhubIsOneStopSolutiWrapper {
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+.socialIcons {
+    width: 28px;
+    position: relative;
+    height: 28px;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+.socialIcons3 {
+    width: 28px;
+    position: relative;
+    height: 28px;
+}
+.socialIconsParent {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 16px;
+}
+.frameWrapper12 {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+}
+.frameParent32 {
+    align-self: stretch;
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 28px;
+}
+.image131Icon {
+    align-self: stretch;
+    position: relative;
+    max-width: 100%;
+    overflow: hidden;
+    height: 136.2px;
+    flex-shrink: 0;
+    object-fit: cover;
+}
+.image131Wrapper {
+    width: 357.8px;
+    height: 136.2px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+}
+.frameParent31 {
+    align-self: stretch;
+    height: 199px;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+    color: #719ba5;
+}
+.frameParent36 {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 8px;
+    color: #719ba5;
+}
+.frameParent35 {
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 12px;
+}
+.frameParent39 {
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 12px;
+}
+.frameWrapper14 {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+.frameWrapper13 {
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+.frameParent34 {
+    align-self: stretch;
+    height: 200px;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    align-content: flex-start;
+}
+.frameParent47 {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 8px;
+}
+.frameWrapper16 {
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    color: #719ba5;
+}
+.frameParent52 {
+    width: 200px;
+    height: 72px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 12px;
+}
+.frameParent54 {
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 8px;
+    color: #719ba5;
+}
+.frameParent30 {
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 24px;
+}
+.campusEngineerhubPvtLtdWrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    color: #fff;
+}
+.vectorIcon2 {
+    width: 3.1px;
+    position: relative;
+    height: 3.2px;
+}
+.frameParent55 {
+    align-self: stretch;
+    height: 96px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 16px;
+    color: #547178;
+}
+.frameWrapper11 {
+    width: 1440px;
+    background: linear-gradient(107.08deg, #002b36, #004355);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 24px 120px;
+    box-sizing: border-box;
+}
+.frameWrapper10 {
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    color: #fff;
+    font-family: Lato;
+}
+.frameParent1 {
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 80px;
+}
+.frameDiv {
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+.jobAThonDesktopViewInner {
+    position: absolute;
+    top: 647px;
+    left: calc(50% - 720px);
+    width: 1440px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    font-size: 36px;
+    color: #ccc;
+    font-family: 'DM Sans';
+}
+.company41 {
+    position: absolute;
+    top: 40px;
+    left: 529px;
+    width: 886.9px;
+    height: 486.6px;
+    object-fit: cover;
+}
+.eHubLogoUpdated6 {
+    width: 91.7px;
+    position: relative;
+    height: 46px;
+    object-fit: cover;
+}
+.eHubLogoUpdated6Wrapper {
+    width: 100px;
+    height: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.communityContainer {
+    border-radius: 31px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 16px;
+}
+.new {
+    position: relative;
+    line-height: 16px;
+    font-weight: 600;
+}
+.newWrapper {
+    align-self: stretch;
+    border-radius: 11px;
+    background-color: rgba(0, 178, 114, 0.15);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 2px 6px;
+}
+.frameWrapper29 {
+    align-self: stretch;
+    width: 33px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    margin-left: -8px;
+    font-size: 10px;
+    color: #00694f;
+}
+.frameParent56 {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+}
+.tabs {
+    align-self: stretch;
+    border-radius: 37px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
+.addCircleStrokeRounded2 {
+    width: 24px;
+    position: relative;
+    height: 24px;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+.addCircleStrokeRounded2Parent {
+    border-radius: 32px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 16px;
+    gap: 8px;
+}
+.frameItem {
+    align-self: stretch;
+    width: 1.8px;
+    position: relative;
+    border-radius: 17px;
+    background: linear-gradient(180deg, #fff, #dadada 50.34%, #fff);
+}
+.loginWrapper {
+    border-radius: 32px;
+    background-color: #138382;
+    height: 44px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 24px;
+    box-sizing: border-box;
+}
+.joinUsWrapper {
+    border-radius: 53px;
+    background-color: #fff;
+    border: 1px solid #138382;
+    box-sizing: border-box;
+    height: 43px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 16px;
+    color: #138382;
+}
+.loginsignup {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    color: #fff;
+}
+.frameParent57 {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 12px;
+    color: #138382;
+}
+.dtNavBar {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    background-color: #fff;
+    width: 1438.5px;
+    height: 80px;
+    display: none;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 4px 120px;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+.jobAThonDesktopView {
+    width: 100%;
+    position: relative;
+    background-color: #fafafa;
+    height: 3300px;
+    overflow: hidden;
+    text-align: left;
+    font-size: 23px;
+    color: #002b36;
+    font-family: Lato;
+}
+

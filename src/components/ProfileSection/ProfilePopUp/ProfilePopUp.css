@@ -2,6 +2,7 @@
   padding: 1.31rem;
   overflow-y: auto;
   overflow-x: hidden;
+  font-family: "Lato", sans-serif;
 }
 .profile-menu > .header {
   display: flex;
@@ -70,15 +71,25 @@
   line-height: 16.94px;
   color: rgba(138, 138, 138, 1);
 }
-.profile-menu > .show-profile-btn {
-  background-color: var(--primary-color-dark-green);
-  color: white;
+
+.profile-menu > .user-details > .personal-details > .edit-profile-div {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
 }
+.profile-menu > .show-profile-btn {
+  background-color: rgb(19, 131, 128);
+  color: white;
+  border: none;
+}
+
 .profile-menu > .redirect-btn,
 .profile-menu > a > .redirect-btn {
   width: 100%;
   min-height: 2.6875rem;
-  border-radius: 0.5rem;
+  border-radius: 50px;
   box-shadow: 5px 4px 20px 0px rgba(0, 0, 0, 0.05);
 }
 .profile-menu > .divider {
@@ -94,7 +105,7 @@
   display: flex;
   flex-direction: column;
   gap: 0.2rem;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
 }
 .profile-menu > .promotion > .items-list > .item,
 .profile-menu > .items-list > .item {
@@ -104,7 +115,7 @@
   background-color: transparent;
   border: none;
   border-radius: 0.3125rem;
-  height: 3.375rem;
+  height: 3rem;
   align-items: center;
 }
 .profile-menu > .promotion > .items-list > .item:hover,
@@ -200,4 +211,47 @@
 }
 .profile-menu .logout-button:active {
   background-color: #ff7b7b;
+}
+
+.profile-menu .logout-main-div {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.profile-menu .logout-main-div .btn-div-logout {
+  width: 100%;
+}
+
+.profile-menu .logout-main-div .btn-div-logout .log-btn {
+  width: 100%;
+  border-radius: 8px;
+  display: flex;
+  height: 44px;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+
+  border-radius: 8px;
+  border: 1px solid #f00;
+  background: rgba(255, 88, 88, 0.1);
+}
+
+.profile-menu .logout-main-div .query-btn-div {
+  width: 100%;
+}
+
+.profile-menu .logout-main-div .query-btn-div .quer-btn {
+  width: 100%;
+  height: 44px;
+  border-radius: 8px;
+  display: flex;
+  height: 44px;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  background: rgba(19, 131, 130, 0.1);
+  border: 1px solid #138382;
 }

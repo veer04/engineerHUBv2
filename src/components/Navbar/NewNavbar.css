@@ -209,11 +209,12 @@
   word-break: break-all;
 }
 
-/* @media screen and (max-width: 1120px) {
-  #navbar .pages {
-    gap: 1.5rem;
+@media screen and (max-width: 1420px) {
+  .employerToLeft{
+    position: relative;
+    right: 10%;
   }
-} */
+}
 
 @media screen and (max-width: 1000px) {
   #navbar .pages {
@@ -246,6 +247,10 @@
   }
 }
 @media screen and (max-width: 520px) {
+  .profile-picture-container{
+    position: relative;
+    left : 100%;
+  }
   #navbar .login-options {
     gap: 0.5rem;
   }
@@ -260,4 +265,8 @@
   #navbar .logged-in-container .user-full-name {
     display: none;
   }
+}
+.employerToLeft{
+  position: relative;
+  right: 25%;
 }
