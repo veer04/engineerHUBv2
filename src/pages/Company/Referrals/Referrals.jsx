@@ -14,6 +14,7 @@ import { HashLink } from "react-router-hash-link";
 import { Bucket_URL } from "../../../services/APIUtils";
 import zIndex from "@mui/material/styles/zIndex";
 import { useLocation } from "react-router-dom";
+import OurMentors from "./OurMentors/OurMentors";
 
 const bucket = `${Bucket_URL}frontend/company/referral/`;
 
@@ -182,6 +183,7 @@ const Referrals = () => {
 
       <ConnectWithUs compName={"Connect With Us"} />
       <DigitalProducts compName={"Digital Products"} />
+      <OurMentors />
       <ReferralRatings />
     </>
   );

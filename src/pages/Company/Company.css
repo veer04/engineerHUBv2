@@ -393,7 +393,7 @@
   scroll-snap-type: x mandatory;
   scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch;
-  padding : 1.35rem 0
+  padding: 1.35rem 0;
 }
 
 .companyHome .flip-card {
@@ -402,7 +402,7 @@
   height: fit-content;
   perspective: 900px;
   scroll-snap-align: start;
-  padding: 0 .5rem;
+  padding: 0 0.5rem;
 }
 
 .companyHome .flip-card-inner {
@@ -552,7 +552,6 @@
   }
 }
 
-
 @media screen and (max-width: 785px) {
   .pagesContainer {
     padding: 0;
@@ -681,5 +680,42 @@
     padding-left: 33px;
     font-size: 12px;
     line-height: 15px;
+  }
+}
+
+.Our-Other-Pages-Main-Div {
+  margin: 40px auto;
+  width: 100%;
+  max-width: 1320px;
+}
+
+.Our-Other-Pages-Main-Div > .wrapper-other-pages {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  gap: 10px;
+}
+
+.Our-Other-Pages-Main-Div > .wrapper-other-pages::-webkit-scrollbar {
+  height: 1px;
+}
+
+.Our-Other-Pages-Main-Div > .wrapper-other-pages::-webkit-scrollbar-thumb {
+  background: rgba(219, 219, 219, 0.5); /* Scrollbar color */
+  border-radius: 10px;
+}
+
+@media screen and (max-width: 785px) {
+  .Our-Other-Pages-Main-Div {
+    padding: 0 20px;
+  }
+
+  .Our-Other-Pages-Main-Div > .wrapper-other-pages {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
   }
 }

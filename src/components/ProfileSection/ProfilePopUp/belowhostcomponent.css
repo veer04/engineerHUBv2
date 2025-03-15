@@ -1,3 +1,18 @@
+:root {
+  --btn-border: 1px solid rgba(255, 255, 255, 0.2);
+  --btn-shadow: 1px 1px 25px 10px rgba(255, 255, 255, 0.5);
+  --shine-degree: 120deg;
+  --shine-color: rgba(255, 255, 255, 0.9);
+  --shine-effect: linear-gradient(
+    var(--shine-degree),
+    transparent,
+    var(--shine-color),
+    transparent
+  );
+  --shine-transition: all 0.7s ease-in-out;
+  --anim-duration: 1.5s;
+}
+
 .below-host-main-div {
   display: flex;
   align-items: center;
@@ -29,7 +44,7 @@
   height: 3rem;
   align-items: center;
 }
-.below-host-main-div .below-host-right-main-div button {
+.below-host-main-div .below-host-right-main-div .btn-shine {
   width: 80px;
   padding: 4px 1px;
   display: flex;
@@ -42,4 +57,26 @@
   font-weight: 700;
   line-height: 16px;
   color: #002b36;
+  position: relative;
+  overflow: hidden;
+}
+
+.below-host-main-div .below-host-right-main-div .btn-shine::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -150%;
+  width: 200%;
+  height: 100%;
+  background: var(--shine-effect);
+  animation: shine-effect var(--anim-duration) infinite linear;
+}
+
+@keyframes shine-effect {
+  0% {
+    left: -150%;
+  }
+  100% {
+    left: 150%;
+  }
 }
