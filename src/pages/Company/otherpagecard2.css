@@ -1,0 +1,45 @@
+.main-other-page-comp-div-2 {
+  width: 200px;
+  height: 200px;
+  flex-shrink: 0;
+  border-radius: 12px;
+  background: #0baab2;
+  padding: 12px;
+  cursor: pointer;
+}
+
+/* .main-other-page-comp-div-2 .image-div {
+  width: 200px;
+  height: 200px;
+  flex-shrink: 0;
+  border-radius: 12px;
+} */
+
+.main-other-page-comp-div-2 .grid-div {
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  grid-template-columns: repeat(3, 1fr);
+  width: 100%;
+  /* border: 1px solid black; */
+  gap: 10px;
+  margin-left: 3px;
+}
+
+.main-other-page-comp-div-2 .grid-div .grid-div-sub {
+  background: #fff;
+  padding: 0;
+  width: 46.578px;
+  height: 46.578px;
+  flex-shrink: 0;
+  aspect-ratio: 46.58/46.58;
+  border-radius: 50%;
+}
+
+.main-other-page-comp-div-2 .grid-div .grid-div-sub .img-icons-css {
+  width: 46.578px;
+  height: 46.578px;
+  flex-shrink: 0;
+  aspect-ratio: 46.58/46.58;
+  border-radius: 50%;
+}

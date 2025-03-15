@@ -10,6 +10,9 @@ import axios from "axios";
 import NewEventCard from "../../components/NewEventCard/NewEventCard";
 import PromoteServices from "./Referrals/PromoteServices/PromoteServices";
 import { useQuery } from "@tanstack/react-query";
+import OtherPageCard from "./OtherPageCard";
+import OtherPageCard2 from "./OtherPageCard2";
+import OtherPageCard3 from "./OtherPageCard3";
 
 const CompanyCards = ({ data }) => {
   return (
@@ -45,7 +48,7 @@ const Company = () => {
   const { setSelectedPageNavbar } = useNavbar();
   const [width, setWidth] = useState(window.innerWidth);
   const handleResize = () => setWidth(window.innerWidth);
-
+  let count = 0;
   const [jobs, setJobs] = useState(
     sessionStorage.getItem("companyPageJobs")
       ? JSON.parse(sessionStorage.getItem("companyPageJobs"))
@@ -364,6 +367,62 @@ const Company = () => {
           })}
         </div>
       </div>
+
+      <div className="Our-Other-Pages-Main-Div">
+        <h4
+          style={{
+            color: "#000",
+            fontSize: "18px",
+            lineHeight: "24px",
+            letterSpacing: "0.9px",
+            fontWeight: "700",
+            fontFamily: "Lato, sans-serif",
+            marginBottom: 20,
+            textAlign: "center",
+          }}
+        >
+          EXPLORE OTHER PAGES
+        </h4>
+
+        <div className="wrapper-other-pages">
+          <OtherPageCard
+            link={
+              "https://engineerhub.in/referrals/book-now/66e091cc56ed7c8c16400d91"
+            }
+            image={`${Bucket_URL}Mentors/otherpages/1.png`}
+            showText={++count === 4}
+          />
+
+          <OtherPageCard2
+            link={
+              "https://engineerhub.in/referrals/book-now/66d4572436b0cd9739a994e8"
+            }
+          />
+          <OtherPageCard
+            link={"https://engineerhub.in/chat/Let%E2%80%99s%20Discuss"}
+            image={`${Bucket_URL}Mentors/otherpages/2.png`}
+            showText={++count === 4}
+          />
+          <OtherPageCard
+            link={"https://engineerhub.in/campus"}
+            image={`${Bucket_URL}Mentors/otherpages/3.png`}
+            showText={++count === 4}
+          />
+          <OtherPageCard
+            link={"https://www.engineerhub.in/host"}
+            image={`${Bucket_URL}Mentors/otherpages/5.png`}
+            showText={++count === 4}
+          />
+
+          <OtherPageCard3
+            link={
+              "https://engineerhub.in/community/notes/Data%20Structures%20%26%20Algorithms"
+            }
+            image={`${Bucket_URL}Mentors/otherpages/4.png`}
+          />
+        </div>
+      </div>
+
       {testimonialsQuery.isSuccess && (
         <section className="testimonials">
           <h3 className="heading-md">Our placed students and their reviews</h3>
