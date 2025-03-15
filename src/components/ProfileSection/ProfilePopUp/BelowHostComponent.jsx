@@ -1,6 +1,5 @@
 import React from "react";
 import "./belowhostcomponent.css";
-import { ResumeWritingIcon } from "../../SvgsIconsComps/SvgsComps";
 import { useNavigate } from "react-router-dom";
 
 const BelowHostComponent = ({
@@ -31,6 +30,7 @@ const BelowHostComponent = ({
 
       <div className="below-host-right-main-div">
         <button
+          className="btn-shine"
           style={{ background: tagBgColor, border: `1px solid ${borderColor}` }}
         >
           {tagText}

@@ -1,0 +1,17 @@
+.main-other-page-comp-div {
+  width: 200px;
+  height: 200px;
+  flex-shrink: 0;
+  border-radius: 12px;
+  background: lightgray 50% / cover no-repeat;
+  cursor: pointer;
+  position: relative;
+}
+
+.main-other-page-comp-div .image-div {
+  width: 200px;
+  height: 200px;
+  flex-shrink: 0;
+  border-radius: 12px;
+  background: lightgray 50% / cover no-repeat;
+}
