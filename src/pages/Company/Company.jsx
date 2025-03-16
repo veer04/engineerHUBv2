@@ -82,13 +82,14 @@ const Company = () => {
       });
   };
 
-  const getCompanyPageJobs = (setJobs, pageNo, limit) => {
+  const getCompanyPageJobs = (setJobs, pageNo, limit , isEasyApply) => {
     axios
       .get(`${API_URL}api/v1/getHiringByOpportunityType/`, {
         params: {
           opportunityType: "Job",
           pageNo: pageNo,
           limit: limit,
+          isEasyApply :isEasyApply,
         },
       })
       .then((res) => {
@@ -169,7 +170,7 @@ const Company = () => {
     if (sessionStorage.getItem("companyPageJobs")) {
       setJobs(JSON.parse(sessionStorage.getItem("companyPageJobs")));
     } else {
-      getCompanyPageJobs(setJobs, 1, 6);
+      getCompanyPageJobs(setJobs, 1, 6,1);
     }
     if (sessionStorage.getItem("companyPageEvents")) {
       setEvents(JSON.parse(sessionStorage.getItem("companyPageEvents")));

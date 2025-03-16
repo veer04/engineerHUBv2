@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./profilewithfollowandmail.css";
 import { FaRegThumbsUp } from "react-icons/fa";
 import { FaGraduationCap } from "react-icons/fa6";
@@ -19,7 +19,10 @@ const ProfileWithFollowAndMail = ({ DashboardAdminData }) => {
   const [likeCount, setLikeCount] = useState(0);
   const [isFollowActive, setFollowActive] = useState(false);
   const [isMailActive, setMailActive] = useState(false);
+  const [fellowUsers, setFellowUsers] = useState([]);
+  const [fellowUsersID, setFellowUsersID] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
   const isChecked = useSelector((state) => state.resumeToggle.isVisible);
 
   const handleViewResume = () => {
@@ -45,7 +48,21 @@ const ProfileWithFollowAndMail = ({ DashboardAdminData }) => {
     setIsLiked(true);
     setLikeCount(likeCount + 1);
   };
-
+  const getFellowUsersData = async (collegeId) => {
+    if (!collegeId) return;
+    setLoading(true);
+    try {
+      const response = await axios.get(`${API_URL}api/v1/userDashboard/fellow-users`, {
+        params: { collegeId, limit: 10, page: 1 },
+      });
+      if (response.data) setFellowUsers(response.data.data);
+    } catch (error) {
+      console.error("Error fetching fellow users:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+  
   const handleFollowClick = async () => {
     const userId = getUserId();
     const token = getAccessToken();
