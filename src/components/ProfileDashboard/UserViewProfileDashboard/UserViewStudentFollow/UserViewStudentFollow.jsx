@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState , useEffect} from "react";
 import "./userviewstudentfollow.css";
 import { API_URL, Bucket_URL } from "../../../../services/APIUtils";
 
@@ -12,11 +12,13 @@ const UserViewStudentFollow = ({ title, fellowUsers }) => {
   const [followState, setFollowState] = useState({});
   const [sectionsToShow, setSectionsToShow] = useState(2);
   const [loadingState, setLoadingState] = useState({});
+  const [fellowUsersId, setFellowUsersId] = useState([]);
+  const [userFollowed, setUserFollowed] = useState([]);
 
   const handleViewMoreClick = () => {
     setSectionsToShow(sectionsToShow + 2);
   };
-
+  console.log("fellow Users data", fellowUsers?.students?.profile);
   const handleFollowClick = async (id) => {
     const userId = getUserId();
 
@@ -68,6 +70,48 @@ const UserViewStudentFollow = ({ title, fellowUsers }) => {
       setLoadingState((prev) => ({ ...prev, [id]: false }));
     }
   };
+
+  useEffect(() => {
+    if (fellowUsers?.students) {
+      const ids = fellowUsers.students
+        .map((user) => user?.profile?._id)
+        .filter((id) => id); // Remove undefined values
+      setFellowUsersId(ids);
+    }
+  }, [fellowUsers]);
+  useEffect(() => {
+    if (fellowUsersId.length > 0) {
+      sendFollowRequest();
+    }
+  }, [fellowUsersId]);
+
+  const sendFollowRequest = async () => {
+    try {
+      // Extract the access_token from cookies
+      const config = {
+             accessToken: getAccessToken(),
+           };
+  
+      const response = await axios.post(
+        `${API_URL}api/v1/userDashboard/likes-followings`,
+        {
+          usersData: fellowUsersId,
+          type: "following",
+        },
+        {
+          headers: config,
+        }
+      );
+  
+      console.log("Follow request successful:", response.data);
+      setUserFollowed(response.data); // Updated state name
+    } catch (error) {
+      console.error("Error sending follow request:", error.response?.data || error.message);
+    }
+  };
+  
+
+  console.log("fellow Users data in array format",fellowUsersId); 
 
   return (
     <div className="user-view-student-follow-main-div">
