@@ -40,7 +40,7 @@ const ProfileSuggestionsComp = () => {
 
                   <div
                     className="
-        user-follow-section-with-img-right"
+        -section-with-img-right"
                   >
                     <h3
                       style={{
