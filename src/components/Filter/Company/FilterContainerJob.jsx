@@ -5,6 +5,7 @@ import JobTypeFilter from "./JobTypeFilter";
 import JobModeFilter from "./JobModeFilter";
 import LocationFilter from "./LocationFilter";
 import SalaryFilter from "./SalaryFilter";
+import IsEasyApplyFilter from "./IsEasyApplyFilter";
 
 export default function FilterContainerJob({ className, ...rest }) {
   return (
@@ -12,11 +13,12 @@ export default function FilterContainerJob({ className, ...rest }) {
       className={`filter-container ${Boolean(className) ? className : ""}`}
       {...rest}
     >
-      <ExperienceFilter />
-      <JobTypeFilter />
-      <JobModeFilter />
-      <LocationFilter />
-      <SalaryFilter />
+      <ExperienceFilter/>
+      <JobTypeFilter/>
+      <JobModeFilter/>
+      <LocationFilter/>
+      <SalaryFilter/>
+      <IsEasyApplyFilter/>
     </aside>
   );
 }
