@@ -40,9 +40,11 @@ export default function JobBoard() {
   const [isSendingMail, setIsSendingMail] = useState(false);
   const [subject, setSubject] = useState("");
   const [message, setMessage] = useState("");
+  const [senderEmail, setSenderEmail] = useState("");
   const [errors, setErrors] = useState({
     subject: "",
     message: "",
+    senderEmail: "",
   });
   const {
     setSnackbarOpen,
@@ -324,6 +326,7 @@ export default function JobBoard() {
     const errors = {
       subject: "",
       message: "",
+      senderEmail: "",
     };
 
     if (!subject) {
@@ -350,6 +353,16 @@ export default function JobBoard() {
       addToErrorStack("#message");
     }
 
+    if (!senderEmail) {
+      errors.senderEmail = "Sender's email is required";
+      isValid = false;
+      addToErrorStack("#senderEmail");
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(senderEmail)) {
+      errors.senderEmail = "Please enter a valid email address";
+      isValid = false;
+      addToErrorStack("#senderEmail");
+    }
+
     setErrors(errors);
     handleFormErrors();
     return isValid;
@@ -373,6 +386,7 @@ export default function JobBoard() {
           text: message,
           status: applicantsNextStatus,
           registration_ids: selectedRows.map((job) => job?._id),
+          senderEmail: senderEmail,
         },
         config
       )
@@ -393,9 +407,11 @@ export default function JobBoard() {
         setSelectedRows([]);
         setSubject("");
         setMessage("");
+        setSenderEmail("");
         setErrors({
           subject: "",
           message: "",
+          senderEmail: "",
         });
       })
       .catch((err) => {
@@ -447,6 +463,17 @@ export default function JobBoard() {
               ></button>
             </div>
             <div className="modal-body">
+              <FormInput
+                id="senderEmail"
+                name="senderEmail"
+                label="Sender's Email"
+                placeholder="Enter sender's email"
+                className="mb-2"
+                required
+                value={senderEmail}
+                setValue={setSenderEmail}
+                helperText={errors.senderEmail}
+              />
               <FormInput
                 id="subject"
                 name="subject"
@@ -828,6 +855,19 @@ export default function JobBoard() {
                 <button onClick={() => uncategorizeApplicants()}>
                   <RiInboxArchiveLine />
                 </button>
+                {selectedRows.length > 0 && (
+                  <button
+                    onClick={() => {
+                      const modal = document.getElementById(`sendMailModal-${jobData?.data?.data?.data?._id}`);
+                      if (modal) {
+                        const bsModal = new window.bootstrap.Modal(modal);
+                        bsModal.show();
+                      }
+                    }}
+                  >
+                    <MdMailOutline />
+                  </button>
+                )}
               </div>
             </div>
             <div className="search-container d-flex align-items-center gap-2">
@@ -962,7 +1002,9 @@ export default function JobBoard() {
             <div className="table-item table-headers table-header-7 body-sm-regular">
               Resume
             </div>
-            <div className="table-item table-headers table-header-8 body-sm-regular"></div>
+            <div className="table-item table-headers table-header-8 body-sm-regular">
+              Actions
+            </div>
             {boardData.isLoading && (
               <>
                 <div
@@ -1026,6 +1068,14 @@ export default function JobBoard() {
                   isAnyRowUpdating={isAnyRowUpdating}
                   setIsAnyRowUpdating={setIsAnyRowUpdating}
                   isDataFetching={boardData.isFetching}
+                  onSendMail={() => {
+                    setSelectedRows([item]);
+                    const modal = document.getElementById(`sendMailModal-${jobData?.data?.data?.data?._id}`);
+                    if (modal) {
+                      const bsModal = new window.bootstrap.Modal(modal);
+                      bsModal.show();
+                    }
+                  }}
                 />
               ))}
           </div>
