@@ -115,7 +115,7 @@ export default function JobsPage() {
           }px`;
       }, 100);
     }
-  }, [jobsQuery]);
+  }, [jobsQuery, isEasyApply]);
 
   useEffect(() => {
     if (!Boolean(hiringId)) {
