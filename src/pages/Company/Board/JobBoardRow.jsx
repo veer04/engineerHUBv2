@@ -2,6 +2,7 @@ import axios from "axios";
 import { Fragment, useEffect, useState } from "react";
 import { FiUserPlus, FiUserX } from "react-icons/fi";
 import { RiInboxArchiveLine } from "react-icons/ri";
+import { MdMailOutline } from "react-icons/md";
 import { useParams, useSearchParams } from "react-router-dom";
 import { API_URL } from "../../../services/APIUtils";
 import { getAccessToken } from "../../../features/User/UserDetails";
@@ -14,6 +15,7 @@ export default function JobBoardRow({
   isAnyRowUpdating,
   setIsAnyRowUpdating,
   isDataFetching,
+  onSendMail,
 }) {
   // get the hiring id from the url use useParams
   const { id } = useParams();
@@ -420,6 +422,9 @@ export default function JobBoardRow({
                 )}
               </div>
             )}
+            <button onClick={onSendMail} title="Send Mail">
+              <MdMailOutline />
+            </button>
           </>
         )}
       </div>
