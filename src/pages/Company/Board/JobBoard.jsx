@@ -665,7 +665,6 @@ export default function JobBoard() {
                 params.status === "Shortlisted" && (
                   <>
                     <button
-                      // onClick={handleSendMail}
                       className="send-mail-btn"
                       type="button"
                       data-bs-toggle="modal"
@@ -778,43 +777,6 @@ export default function JobBoard() {
                   </option>
                 </select>
               </div>
-              {/* 
-            <input
-              aria-required="false"
-              autoCapitalize="none"
-              autoComplete="off"
-              autoCorrect="off"
-              // name={param}
-              tabIndex="0"
-              type="text"
-              spellCheck="false"
-              role="combobox"
-              aria-haspopup="false"
-              aria-autocomplete="list"
-              dir="ltr"
-              // id={id}
-              className={`body-sm-regular
-                
-                  `}
-              // placeholder={placeholder}
-              // aria-label={ariaLabel}
-              // aria-describedby={ariaDescribedby}
-              // value={value}
-              // onChange={(e) => setValue(e.target.value)}
-              // onKeyDown={(e) => {
-              //   if (e.key === "Enter") {
-              //     setSearchParams(
-              //       (prev) => {
-              //         prev.set(param, value);
-              //         return prev;
-              //       },
-              //       { replace: true }
-              //     );
-              //   }
-              // }}
-              // {...rest}
-            />
-            */}
             </div>
           </div>
           <div className="d-flex justify-content-between align-items-center w-100 mb-3">

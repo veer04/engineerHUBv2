@@ -2615,3 +2615,52 @@ export const getTrendingActivitiesInPrivateMode = (setTrendingActivities) => {
       }
     });
 };
+
+export const getAssessmentResponses = async (hiringId, page, limit) => {
+  try {
+    const config = {
+      headers: {
+        accessToken: getAccessToken(),
+      },
+    };
+
+    const response = await axios.get(
+      `${API_URL}api/v1/assessments/responses/${hiringId}?page=${page}&limit=${limit}`,
+      config
+    );
+
+    return response.data;
+  } catch (error) {
+    if (axios.isCancel(error)) {
+      console.log("Request canceled");
+    } else {
+      console.error("Request failed", error);
+    }
+    throw error;
+  }
+};
+
+export const updateAssessmentStatus = async (hiringId, data) => {
+  try {
+    const config = {
+      headers: {
+        accessToken: getAccessToken(),
+      },
+    };
+
+    const response = await axios.patch(
+      `${API_URL}api/v1/assessments/responses/status/${hiringId}`,
+      data,
+      config
+    );
+
+    return response.data;
+  } catch (error) {
+    if (axios.isCancel(error)) {
+      console.log("Request canceled");
+    } else {
+      console.error("Request failed", error);
+    }
+    throw error;
+  }
+};

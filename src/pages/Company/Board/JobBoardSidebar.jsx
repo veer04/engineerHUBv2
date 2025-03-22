@@ -52,7 +52,7 @@ export default function JobBoardSidebar({ isCollapsed, setIsCollapsed }) {
       id: "interview",
       title: "Interview",
       icon: <FiUserPlus />,
-      path: `/career/jobs/interview/${id}`,
+      path: `/career/jobs/assessment/Interview/${id}`,
     },
     {
       id: "hired-candidates",
