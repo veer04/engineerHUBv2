@@ -959,6 +959,105 @@ export default function JobBoard() {
           </div>
         </section>
       </div>
+      {/* Send Mail Modal */}
+      <div
+        className="modal fade"
+        id={`sendMailModal-${jobData?.data?.data?.data?._id}`}
+        tabIndex="-1"
+        aria-labelledby={`sendMailModalLabel-${jobData?.data?.data?.data?._id}`}
+        aria-hidden="true"
+      >
+        <div className="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h1 className="modal-title heading-sm" id={`sendMailModalLabel-${jobData?.data?.data?.data?._id}`}>
+                Send Mail to Selected Applicants
+              </h1>
+              <button
+                type="button"
+                className="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+                ref={ref}
+              ></button>
+            </div>
+            <div className="modal-body">
+              <FormInput
+                label="Subject"
+                id="subject"
+                name="subject"
+                required
+                placeholder="Enter email subject"
+                value={subject}
+                setValue={setSubject}
+                helperText={errors.subject}
+                className="mb-4"
+              />
+              <FormInput
+                label="Sender's Email"
+                id="senderEmail"
+                name="senderEmail"
+                required
+                placeholder="Enter sender's email"
+                value={senderEmail}
+                setValue={setSenderEmail}
+                helperText={errors.senderEmail}
+                className="mb-4"
+              />
+              <div className="mb-4">
+                <label htmlFor="message" className="form-label">Message</label>
+                <Editor
+                  apiKey={EDITOR_API_KEY}
+                  onInit={(evt, editor) => editorRef.current = editor}
+                  init={{
+                    height: 300,
+                    menubar: false,
+                    plugins: [
+                      'advlist', 'autolink', 'lists', 'link', 'image', 'charmap', 'preview',
+                      'anchor', 'searchreplace', 'visualblocks', 'code', 'fullscreen',
+                      'insertdatetime', 'media', 'table', 'code', 'help', 'wordcount'
+                    ],
+                    toolbar: 'undo redo | blocks | ' +
+                      'bold italic forecolor | alignleft aligncenter ' +
+                      'alignright alignjustify | bullist numlist outdent indent | ' +
+                      'removeformat | help',
+                    content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
+                  }}
+                  value={message}
+                  onEditorChange={(content) => setMessage(content)}
+                />
+                {errors.message && <div className="form-text text-danger">{errors.message}</div>}
+              </div>
+            </div>
+            <div className="modal-footer justify-content-between">
+              <button
+                onClick={() => {
+                  setSubject("");
+                  setMessage("");
+                  setSenderEmail("");
+                  setErrors({
+                    subject: "",
+                    message: "",
+                    senderEmail: "",
+                  });
+                }}
+                className="clear-btn body-sm-semibold px-2 py-2"
+              >
+                Clear
+              </button>
+              <button
+                onClick={handleSendMail}
+                type="button"
+                className="apply-btn body-sm-semibold"
+                disabled={isSendingMail}
+              >
+                {isSendingMail ? <Loading /> : "Send"}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
     </>
   );
 }
+

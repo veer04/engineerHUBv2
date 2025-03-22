@@ -152,6 +152,7 @@ const Referrals = lazy(() => import("./pages/Company/Referrals/Referrals.jsx"));
 const TermsAndConditions = lazy(() =>
   import("./pages/TermsAndConditions/TermsAndConditions.jsx")
 );
+const CreateAssessment = lazy(() => import("./pages/Company/Board/CreateAssessment.jsx"));
 
 function App() {
   const [OtpRoute, setOtpRoute] = useState("loading");
@@ -312,6 +313,9 @@ function App() {
               </Route>
               <Route path="board">
                 <Route path=":id" element={<JobBoard />} />
+              </Route>
+              <Route path="assessment">
+                <Route path="create/:id" element={<CreateAssessment />} />
               </Route>
             </Route>
             <Route path="internships">
