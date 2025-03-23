@@ -74,7 +74,7 @@
     padding: 1rem;
     padding-top: 4rem;
   }
-  
+
   .crm-board.expanded {
     width: 100%;
     margin-left: 0;
@@ -131,7 +131,7 @@
   }
 
   .main-menu-toggle {
-    position:fixed;
+    position: fixed;
     top: 20px;
     left: 10px;
     height: 30px;
@@ -224,7 +224,9 @@
   background: #888;
   border-radius: 3px;
 }
-.crm-board .main-container .categories-container::-webkit-scrollbar-thumb:hover {
+.crm-board
+  .main-container
+  .categories-container::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
 .crm-board .main-container .categories-container .categories {
@@ -547,7 +549,6 @@
   background-color: #00d58826;
 }
 
-
 .main-menu-toggle:hover {
   transform: scale(1.1);
   box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
@@ -602,12 +603,12 @@
   #sendMailModal .modal-dialog {
     margin: 1rem;
   }
-  
+
   #sendMailModal .modal-footer {
     flex-direction: column;
     gap: 1rem;
   }
-  
+
   #sendMailModal .modal-footer button {
     width: 100%;
   }

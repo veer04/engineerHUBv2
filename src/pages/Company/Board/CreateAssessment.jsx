@@ -9,12 +9,13 @@ import { FiMail, FiMenu, FiDownload } from "react-icons/fi";
 import { MdAssessment } from "react-icons/md";
 import JobBoardSidebar from "./JobBoardSidebar";
 import PaginationBarWithSearchParams from "../../../components/PaginationBarWithSearchParams/PaginationBarWithSearchParams";
+import AssessmentCard from "./AssessmentCard";
 
 export default function CreateAssessment() {
   const { id } = useParams();
   const [searchParams, setSearchParams] = useSearchParams({
     pageNo: "1",
-    limit: "10"
+    limit: "10",
   });
   const [assessments, setAssessments] = useState([]);
   const [applicants, setApplicants] = useState([]);
@@ -36,8 +37,8 @@ export default function CreateAssessment() {
     };
 
     handleResize(); // Initial check
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   // Dummy data for initial development
@@ -49,7 +50,7 @@ export default function CreateAssessment() {
       email: "john@example.com",
       resume: "https://example.com/resume1.pdf",
       assessmentSent: false,
-      mailSent: false
+      mailSent: false,
     },
     {
       id: 2,
@@ -58,8 +59,8 @@ export default function CreateAssessment() {
       email: "jane@example.com",
       resume: "https://example.com/resume2.pdf",
       assessmentSent: false,
-      mailSent: false
-    }
+      mailSent: false,
+    },
   ];
 
   const dummyAssessments = [
@@ -67,14 +68,14 @@ export default function CreateAssessment() {
       id: 1,
       title: "Frontend Developer Assessment",
       description: "Test for React.js and JavaScript skills",
-      createdAt: "2024-03-15"
+      createdAt: "2024-03-15",
     },
     {
       id: 2,
       title: "Backend Developer Assessment",
       description: "Test for Node.js and database skills",
-      createdAt: "2024-03-16"
-    }
+      createdAt: "2024-03-16",
+    },
   ];
 
   useEffect(() => {
@@ -116,8 +117,8 @@ export default function CreateAssessment() {
   };
 
   const handleSendAssessment = (applicantId) => {
-    setApplicants(prevApplicants =>
-      prevApplicants.map(applicant =>
+    setApplicants((prevApplicants) =>
+      prevApplicants.map((applicant) =>
         applicant.id === applicantId
           ? { ...applicant, assessmentSent: true }
           : applicant
@@ -126,8 +127,8 @@ export default function CreateAssessment() {
   };
 
   const handleSendMail = (applicantId) => {
-    setApplicants(prevApplicants =>
-      prevApplicants.map(applicant =>
+    setApplicants((prevApplicants) =>
+      prevApplicants.map((applicant) =>
         applicant.id === applicantId
           ? { ...applicant, mailSent: true }
           : applicant
@@ -150,34 +151,51 @@ export default function CreateAssessment() {
 
   return (
     <>
-      <button 
+      <button
         className="main-menu-toggle"
         onClick={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
         aria-label="Toggle menu"
       >
         <FiMenu />
       </button>
-      <JobBoardSidebar isCollapsed={isSidebarCollapsed} setIsCollapsed={setIsSidebarCollapsed} />
-      <div className={`create-assessment-container ${!isSidebarCollapsed ? 'expanded' : ''}`}>
+      <JobBoardSidebar
+        isCollapsed={isSidebarCollapsed}
+        setIsCollapsed={setIsSidebarCollapsed}
+      />
+      <div
+        className={`create-assessment-container ${
+          !isSidebarCollapsed ? "expanded" : ""
+        }`}
+      >
         <div className="assessment-header">
           <h2>Create Assessment</h2>
-          <button className="create-assessment-btn" onClick={handleCreateAssessment}>
+          <button
+            className="create-assessment-btn"
+            onClick={handleCreateAssessment}
+          >
             Click to Create Assessment
           </button>
         </div>
 
         {assessments.length > 0 && (
           <div className="existing-assessments">
-            <h3>Existing Assessments</h3>
-            <div className="assessment-cards">
-              {assessments.map(assessment => (
+            <h3 style={{ marginBottom: 20 }}>Existing Assessments</h3>
+            <div className="main-assessment-grid">
+              {assessments.map((asses, index) => (
+                <AssessmentCard data={asses} />
+              ))}
+            </div>
+            {/* <div className="assessment-cards">
+              {assessments.map((assessment) => (
                 <div key={assessment.id} className="assessment-card">
                   <h4>{assessment.title}</h4>
                   <p>{assessment.description}</p>
-                  <span className="created-date">Created: {assessment.createdAt}</span>
+                  <span className="created-date">
+                    Created: {assessment.createdAt}
+                  </span>
                 </div>
               ))}
-            </div>
+            </div> */}
           </div>
         )}
 
@@ -189,10 +207,15 @@ export default function CreateAssessment() {
                   type="checkbox"
                   name="selectAll"
                   id="selectAll"
-                  checked={selectedRows.length === applicants.length && applicants.length !== 0}
+                  checked={
+                    selectedRows.length === applicants.length &&
+                    applicants.length !== 0
+                  }
                   onChange={() => {
                     setSelectedRows(
-                      selectedRows.length === applicants.length ? [] : applicants
+                      selectedRows.length === applicants.length
+                        ? []
+                        : applicants
                     );
                   }}
                 />
@@ -219,20 +242,30 @@ export default function CreateAssessment() {
           <div className="board-table">
             <div className="table-item table-headers table-header-1"></div>
             <div className="table-item table-headers table-header-2">Name</div>
-            <div className="table-item table-headers table-header-3">Mobile Number</div>
+            <div className="table-item table-headers table-header-3">
+              Mobile Number
+            </div>
             <div className="table-item table-headers table-header-4">Email</div>
-            <div className="table-item table-headers table-header-5">Resume</div>
-            <div className="table-item table-headers table-header-6">Actions</div>
+            <div className="table-item table-headers table-header-5">
+              Resume
+            </div>
+            <div className="table-item table-headers table-header-6">
+              Actions
+            </div>
 
-            {applicants.map(applicant => (
+            {applicants.map((applicant) => (
               <Fragment key={applicant.id}>
                 <div className="table-item table-content table-content-1">
                   <input
                     type="checkbox"
-                    checked={selectedRows.some(row => row.id === applicant.id)}
+                    checked={selectedRows.some(
+                      (row) => row.id === applicant.id
+                    )}
                     onChange={() => {
-                      if (selectedRows.some(row => row.id === applicant.id)) {
-                        setSelectedRows(selectedRows.filter(row => row.id !== applicant.id));
+                      if (selectedRows.some((row) => row.id === applicant.id)) {
+                        setSelectedRows(
+                          selectedRows.filter((row) => row.id !== applicant.id)
+                        );
                       } else {
                         setSelectedRows([...selectedRows, applicant]);
                       }
@@ -240,13 +273,19 @@ export default function CreateAssessment() {
                   />
                 </div>
                 <div className="table-item table-content table-content-2">
-                  <p className="body-sm-regular text-crop-2">{applicant.name}</p>
+                  <p className="body-sm-regular text-crop-2">
+                    {applicant.name}
+                  </p>
                 </div>
                 <div className="table-item table-content table-content-3">
-                  <p className="body-sm-regular text-crop-2">{applicant.mobile}</p>
+                  <p className="body-sm-regular text-crop-2">
+                    {applicant.mobile}
+                  </p>
                 </div>
                 <div className="table-item table-content table-content-4">
-                  <p className="body-sm-regular text-crop-2">{applicant.email}</p>
+                  <p className="body-sm-regular text-crop-2">
+                    {applicant.email}
+                  </p>
                 </div>
                 <div className="table-item table-content table-content-5">
                   <a
@@ -260,14 +299,16 @@ export default function CreateAssessment() {
                 </div>
                 <div className="table-item table-content table-content-6">
                   <button
-                    className={`action-btn ${applicant.assessmentSent ? 'sent' : ''}`}
+                    className={`action-btn ${
+                      applicant.assessmentSent ? "sent" : ""
+                    }`}
                     onClick={() => handleSendAssessment(applicant.id)}
                     title="Send Assessment"
                   >
                     <MdAssessment />
                   </button>
                   <button
-                    className={`action-btn ${applicant.mailSent ? 'sent' : ''}`}
+                    className={`action-btn ${applicant.mailSent ? "sent" : ""}`}
                     onClick={() => handleSendMail(applicant.id)}
                     title="Send Mail"
                   >
@@ -286,7 +327,7 @@ export default function CreateAssessment() {
                 onChange={(e) => {
                   setSearchParams({
                     pageNo: "1",
-                    limit: e.target.value
+                    limit: e.target.value,
                   });
                 }}
               >
@@ -300,7 +341,9 @@ export default function CreateAssessment() {
             </div>
             <div className="pagination-info">
               <span>
-                Showing {((parseInt(pageNo) - 1) * parseInt(limit)) + 1} to {Math.min(parseInt(pageNo) * parseInt(limit), totalApplicants)} of {totalApplicants} entries
+                Showing {(parseInt(pageNo) - 1) * parseInt(limit) + 1} to{" "}
+                {Math.min(parseInt(pageNo) * parseInt(limit), totalApplicants)}{" "}
+                of {totalApplicants} entries
               </span>
               <PaginationBarWithSearchParams
                 className="m-0"
@@ -313,4 +356,4 @@ export default function CreateAssessment() {
       </div>
     </>
   );
-} 
+}
