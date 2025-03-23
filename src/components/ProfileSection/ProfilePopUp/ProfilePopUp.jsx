@@ -157,7 +157,7 @@ export default function ProfilePopUp() {
     {
       label: "Hackathons",
       icon: <HackathonIcon />,
-      link: "/career",
+      link: "/career/events",
     },
 
     // {
