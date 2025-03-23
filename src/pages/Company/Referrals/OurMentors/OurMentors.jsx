@@ -39,7 +39,7 @@ const MentorData = [
 const OurMentors = () => {
   return (
     <div className="our-mentors-main">
-      <h4 className="h4-our-mentor">Our Mentors</h4>
+      <h4 className="h4-our-mentor">Our Instructor</h4>
 
       <div className="main-comp-card-grid">
         {MentorData &&

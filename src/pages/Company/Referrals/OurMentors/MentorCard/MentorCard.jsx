@@ -28,9 +28,9 @@ const MentorCard = ({ data, index }) => {
             <h4 className="mentor-name">{name}</h4>
           </div>
 
-          <div style={{ cursor: "pointer" }} onClick={() => handleLink()}>
+          {/* <div style={{ cursor: "pointer" }} onClick={() => handleLink()}>
             <LinkedinIcon />
-          </div>
+          </div> */}
         </div>
 
         <div className="desc-div">

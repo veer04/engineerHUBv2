@@ -202,7 +202,7 @@ const CompanyDashboardNew = () => {
           }
           bgColor={"#E8BA9826"}
           btn={"For Companies"}
-          btnLink={"/employer"}
+          btnLink={"/referrals/book-now/67a107c89d57a46e99582bd1"}
           rightImage={`${Bucket_URL}newcompanydashboard/right_frame1.png`}
         />
       </div>
@@ -215,7 +215,7 @@ const CompanyDashboardNew = () => {
           }
           bgColor={"#8FC8E826"}
           btn={"For HRs"}
-          btnLink={"/employer"}
+          btnLink={"/referrals/book-now/67a107c89d57a46e99582bd1"}
           rightImage={`${Bucket_URL}newcompanydashboard/right_frame2.png`}
         />
       </div>
