@@ -1,6 +1,14 @@
 import React, { useEffect } from "react";
 import "./JobBoardSidebar.css";
-import { FiUsers, FiFileText, FiClipboard, FiUserCheck, FiUserPlus, FiMenu, FiArrowLeft } from "react-icons/fi";
+import {
+  FiUsers,
+  FiFileText,
+  FiClipboard,
+  FiUserCheck,
+  FiUserPlus,
+  FiMenu,
+  FiArrowLeft,
+} from "react-icons/fi";
 import { useNavigate, useParams, useLocation } from "react-router-dom";
 import { getUserRole } from "../../../features/User/UserDetails";
 
@@ -72,7 +80,7 @@ export default function JobBoardSidebar({ isCollapsed, setIsCollapsed }) {
           {!isCollapsed ? (
             <>
               <span className="header-title">Job Board</span>
-              <button 
+              <button
                 className="collapse-btn"
                 onClick={() => setIsCollapsed(true)}
               >
@@ -80,7 +88,7 @@ export default function JobBoardSidebar({ isCollapsed, setIsCollapsed }) {
               </button>
             </>
           ) : (
-            <button 
+            <button
               className="sidebar-menu-toggle"
               onClick={() => setIsCollapsed(false)}
             >
@@ -92,7 +100,9 @@ export default function JobBoardSidebar({ isCollapsed, setIsCollapsed }) {
           {menuItems.map((item) => (
             <div
               key={item.id}
-              className={`menu-item ${location.pathname === item.path ? "selected" : ""}`}
+              className={`menu-item ${
+                location.pathname === item.path ? "selected" : ""
+              }`}
               onClick={() => {
                 navigate(item.path);
                 if (window.innerWidth <= 768) {
@@ -108,4 +118,4 @@ export default function JobBoardSidebar({ isCollapsed, setIsCollapsed }) {
       </div>
     </>
   );
-} 
+}

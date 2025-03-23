@@ -75,7 +75,7 @@
     padding: 1rem;
     padding-top: 4rem; /* Space for the mobile menu toggle */
   }
-  
+
   .create-assessment-container.expanded {
     width: 100%;
     margin-left: 0;
@@ -228,7 +228,6 @@
 .board-table {
   display: grid;
   grid-template-columns: 40px 1fr 1fr 1fr 1fr 120px;
-  gap: 0.5rem;
   margin-bottom: 1rem;
 }
 
@@ -241,7 +240,6 @@
 .table-headers {
   background: #eeeeeef5;
   font-weight: 500;
-  border-radius: 5px;
 }
 
 .table-content {
@@ -374,4 +372,9 @@
     flex-direction: column;
     align-items: flex-start;
   }
-} 
+}
+
+.main-assessment-grid {
+  display: flex;
+  gap: 16px;
+}

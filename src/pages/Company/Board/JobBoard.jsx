@@ -90,8 +90,8 @@ export default function JobBoard() {
     };
 
     handleResize(); // Initial check
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   const config = {
@@ -450,15 +450,18 @@ export default function JobBoard() {
 
   return (
     <>
-      <button 
+      <button
         className="main-menu-toggle"
         onClick={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
         aria-label="Toggle menu"
       >
         <FiMenu />
       </button>
-      <JobBoardSidebar isCollapsed={isSidebarCollapsed} setIsCollapsed={setIsSidebarCollapsed} />
-      <div className={`crm-board ${!isSidebarCollapsed ? 'expanded' : ''}`}>
+      <JobBoardSidebar
+        isCollapsed={isSidebarCollapsed}
+        setIsCollapsed={setIsSidebarCollapsed}
+      />
+      <div className={`crm-board ${!isSidebarCollapsed ? "expanded" : ""}`}>
         <Helmet>
           <meta name="robots" content="noindex, nofollow" />
           <title>Job Board{false ? ` | Job Name` : ""}</title>
@@ -729,7 +732,9 @@ export default function JobBoard() {
                 {selectedRows.length > 0 && (
                   <button
                     onClick={() => {
-                      const modal = document.getElementById(`sendMailModal-${jobData?.data?.data?.data?._id}`);
+                      const modal = document.getElementById(
+                        `sendMailModal-${jobData?.data?.data?.data?._id}`
+                      );
                       if (modal) {
                         const bsModal = new window.bootstrap.Modal(modal);
                         bsModal.show();
@@ -780,7 +785,7 @@ export default function JobBoard() {
             </div>
           </div>
           <div className="d-flex justify-content-between align-items-center w-100 mb-3">
-            <div className="d-flex align-items-center gap-1">
+            <div className="d-flex justify-content-between align-items-center gap-2">
               <span>Showing</span>
               <select
                 name="limit"
@@ -793,7 +798,11 @@ export default function JobBoard() {
                     }`
                   );
                 }}
-                className="form-select form-select-sm"
+                style={{
+                  minWidth: 80,
+                  fontSize: "0.875rem",
+                  borderRadius: "0.25rem",
+                }}
               >
                 <option value="10">10</option>
                 <option value="20">20</option>
@@ -809,11 +818,16 @@ export default function JobBoard() {
                   {limit}
                 </option>
               </select>
-              <span>entries</span>
+              <span>Entries</span>
             </div>
             <div className="d-flex align-items-center gap-3">
               <span className="text-muted">
-                Showing {((parseInt(pageNo) - 1) * parseInt(limit)) + 1} to {Math.min(parseInt(pageNo) * parseInt(limit), boardData?.data?.data?.data?.totalApplicants || 0)} of {boardData?.data?.data?.data?.totalApplicants || 0} entries
+                Showing {(parseInt(pageNo) - 1) * parseInt(limit) + 1} to{" "}
+                {Math.min(
+                  parseInt(pageNo) * parseInt(limit),
+                  boardData?.data?.data?.data?.totalApplicants || 0
+                )}{" "}
+                of {boardData?.data?.data?.data?.totalApplicants || 0} entries
               </span>
               <PaginationBarWithSearchParams
                 className="m-0"
@@ -910,7 +924,9 @@ export default function JobBoard() {
                   isDataFetching={boardData.isFetching}
                   onSendMail={() => {
                     setSelectedRows([item]);
-                    const modal = document.getElementById(`sendMailModal-${jobData?.data?.data?.data?._id}`);
+                    const modal = document.getElementById(
+                      `sendMailModal-${jobData?.data?.data?.data?._id}`
+                    );
                     if (modal) {
                       const bsModal = new window.bootstrap.Modal(modal);
                       bsModal.show();
@@ -932,7 +948,10 @@ export default function JobBoard() {
         <div className="modal-dialog modal-dialog-centered modal-dialog-scrollable">
           <div className="modal-content">
             <div className="modal-header">
-              <h1 className="modal-title heading-sm" id={`sendMailModalLabel-${jobData?.data?.data?.data?._id}`}>
+              <h1
+                className="modal-title heading-sm"
+                id={`sendMailModalLabel-${jobData?.data?.data?.data?._id}`}
+              >
                 Send Mail to Selected Applicants
               </h1>
               <button
@@ -967,28 +986,49 @@ export default function JobBoard() {
                 className="mb-4"
               />
               <div className="mb-4">
-                <label htmlFor="message" className="form-label">Message</label>
+                <label htmlFor="message" className="form-label">
+                  Message
+                </label>
                 <Editor
                   apiKey={EDITOR_API_KEY}
-                  onInit={(evt, editor) => editorRef.current = editor}
+                  onInit={(evt, editor) => (editorRef.current = editor)}
                   init={{
                     height: 300,
                     menubar: false,
                     plugins: [
-                      'advlist', 'autolink', 'lists', 'link', 'image', 'charmap', 'preview',
-                      'anchor', 'searchreplace', 'visualblocks', 'code', 'fullscreen',
-                      'insertdatetime', 'media', 'table', 'code', 'help', 'wordcount'
+                      "advlist",
+                      "autolink",
+                      "lists",
+                      "link",
+                      "image",
+                      "charmap",
+                      "preview",
+                      "anchor",
+                      "searchreplace",
+                      "visualblocks",
+                      "code",
+                      "fullscreen",
+                      "insertdatetime",
+                      "media",
+                      "table",
+                      "code",
+                      "help",
+                      "wordcount",
                     ],
-                    toolbar: 'undo redo | blocks | ' +
-                      'bold italic forecolor | alignleft aligncenter ' +
-                      'alignright alignjustify | bullist numlist outdent indent | ' +
-                      'removeformat | help',
-                    content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
+                    toolbar:
+                      "undo redo | blocks | " +
+                      "bold italic forecolor | alignleft aligncenter " +
+                      "alignright alignjustify | bullist numlist outdent indent | " +
+                      "removeformat | help",
+                    content_style:
+                      "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
                   }}
                   value={message}
                   onEditorChange={(content) => setMessage(content)}
                 />
-                {errors.message && <div className="form-text text-danger">{errors.message}</div>}
+                {errors.message && (
+                  <div className="form-text text-danger">{errors.message}</div>
+                )}
               </div>
             </div>
             <div className="modal-footer justify-content-between">
@@ -1022,4 +1062,3 @@ export default function JobBoard() {
     </>
   );
 }
-
