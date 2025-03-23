@@ -243,7 +243,8 @@
     display: none;
   }
   #navbar .navbar-logo img {
-    height: 2.75rem;
+    height: 2.25rem;
+    margin-left: 2rem;
   }
 }
 @media screen and (max-width: 520px) {

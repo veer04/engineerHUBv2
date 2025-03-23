@@ -31,6 +31,7 @@ export default function JobsPage() {
     location: "",
     recentlyPosted: "",
     isFeatured: "",
+  
   });
   const q = searchParams.get("q");
   const pageNo = searchParams.get("pageNo");
@@ -42,7 +43,7 @@ export default function JobsPage() {
   const location = searchParams.get("location");
   const recentlyPosted = searchParams.get("recentlyPosted");
   const isFeatured = searchParams.get("isFeatured");
-
+  const isEasyApply = searchParams.get("isEasyApply");
   const params = {
     search: q,
     opportunityType: "Job",
@@ -55,6 +56,7 @@ export default function JobsPage() {
     location: location,
     recentlyPosted: recentlyPosted,
     isFeatured: isFeatured,
+    isEasyApply: isEasyApply === "1" ? 1 : undefined,
   };
 
   const config = {
@@ -75,6 +77,8 @@ export default function JobsPage() {
       !!params.location ? params.location : [],
       !!params.recentlyPosted ? params.recentlyPosted : [],
       !!params.isFeatured ? params.isFeatured : [],
+      
+
     ],
     queryFn: () =>
       axios
@@ -111,7 +115,7 @@ export default function JobsPage() {
           }px`;
       }, 100);
     }
-  }, [jobsQuery]);
+  }, [jobsQuery, isEasyApply]);
 
   useEffect(() => {
     if (!Boolean(hiringId)) {
