@@ -200,45 +200,77 @@ export default function AssessmentResponse() {
                 <span>entries</span>
               </div>
 
-              {selectedRows.length > 0 && (
-                <div className="bulk-actions">
-                  <button 
-                    className="btn btn-sm btn-outline-primary me-2"
-                    onClick={() => handleBulkAction("view")}
-                  >
-                    <FiEye /> View Selected ({selectedRows.length})
-                  </button>
-                  <button 
-                    className="btn btn-sm btn-outline-danger"
-                    onClick={() => handleBulkAction("reject")}
-                  >
-                    <FiUserX /> Reject Selected ({selectedRows.length})
-                  </button>
+              <div className="d-flex align-items-center gap-3">
+                <span className="text-muted">
+                  Showing {((parseInt(pageNo) - 1) * parseInt(limit)) + 1} to {Math.min(parseInt(pageNo) * parseInt(limit), totalResponses)} of {totalResponses} entries
+                </span>
+                <PaginationBarWithSearchParams
+                  className="m-0"
+                  param="pageNo"
+                  pages={pageCount}
+                />
+              </div>
+            </div>
+
+            <div className="action-container">
+              <div className="select-container">
+                <div className="select-all">
+                  <input
+                    type="checkbox"
+                    name="selectAll"
+                    id="selectAll"
+                    checked={selectedRows.length === responses.filter(r => r.status !== 'rejected').length && responses.length > 0}
+                    onChange={handleSelectAll}
+                  />
+                  <label htmlFor="selectAll" className="body-sm-regular">
+                    Select All {`(${selectedRows.length}/${responses.filter(r => r.status !== 'rejected').length})`}
+                  </label>
                 </div>
-              )}
+                {selectedRows.length > 0 && (
+                  <div className="action-buttons">
+                    <button 
+                      onClick={() => handleBulkAction("view")}
+                      title="View Selected"
+                    >
+                      <FiEye />
+                    </button>
+                    <button 
+                      onClick={() => handleBulkAction("reject")}
+                      title="Reject Selected"
+                    >
+                      <FiUserX />
+                    </button>
+                    <button
+                      title="Send Mail to Selected"
+                    >
+                      <MdMailOutline />
+                    </button>
+                  </div>
+                )}
+              </div>
             </div>
 
             <div className="table-responsive">
               <table className="table">
                 <thead>
                   <tr>
-                    <th>
+                    <th style={{ width: "40px" }}>
                       <input
                         type="checkbox"
                         checked={selectedRows.length === responses.filter(r => r.status !== 'rejected').length && responses.length > 0}
                         onChange={handleSelectAll}
                       />
                     </th>
-                    <th>Rank</th>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Answered</th>
-                    <th>Score</th>
-                    <th>Time Taken</th>
-                    <th>Tabs</th>
-                    <th>Submissions</th>
-                    <th>Status</th>
-                    <th>Actions</th>
+                    <th style={{ width: "60px" }}>Rank</th>
+                    <th style={{ width: "180px" }}>Name</th>
+                    <th style={{ width: "200px" }}>Email</th>
+                    <th style={{ width: "100px" }}>Answered</th>
+                    <th style={{ width: "80px" }}>Score</th>
+                    <th style={{ width: "100px" }}>Time Taken</th>
+                    <th style={{ width: "80px" }}>Tabs</th>
+                    <th style={{ width: "120px" }}>Submissions</th>
+                    <th style={{ width: "100px" }}>Status</th>
+                    <th style={{ width: "120px" }}>Actions</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -308,17 +340,6 @@ export default function AssessmentResponse() {
                   )}
                 </tbody>
               </table>
-            </div>
-
-            <div className="pagination-info mt-3 d-flex justify-content-between align-items-center">
-              <div>
-                Showing {((parseInt(pageNo) - 1) * parseInt(limit)) + 1} to {Math.min(parseInt(pageNo) * parseInt(limit), totalResponses)} of {totalResponses} entries
-              </div>
-              <PaginationBarWithSearchParams
-                className="m-0"
-                param="pageNo"
-                pages={pageCount}
-              />
             </div>
           </div>
         </section>
