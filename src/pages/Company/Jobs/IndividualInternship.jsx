@@ -293,93 +293,6 @@ export default function IndividualInternship() {
                   </h3>
                 </div>
               </div>
-              <>
-                {hiring?.detailFound?.isServiceOff === true ? (
-                  <button
-                    className="body-md-semibold hiring-apply-btn"
-                    disabled
-                  >
-                    Expired
-                  </button>
-                ) : isLoggedIn ? (
-                  <>
-                    {!isApplicable && (
-                      <button
-                        className="body-md-semibold hiring-apply-btn"
-                        disabled
-                      >
-                        Not Applicable
-                      </button>
-                    )}
-                    {isApplicable &&
-                      hiring?.applied === false &&
-                      (!!hiring?.detailFound?.contactEmail ? (
-                        <a
-                          href={`mailto:${hiring?.detailFound?.contactEmail}?subject=${hiring?.detailFound?.contactEmailSubject}`}
-                        >
-                          <button className="body-md-semibold hiring-apply-btn">
-                            Apply
-                          </button>
-                        </a>
-                      ) : !!hiring?.detailFound?.applyLink ? (
-                        <button
-                          onClick={UserDataPost}
-                          className="body-md-semibold hiring-apply-btn"
-                        >
-                          Apply{" "}
-                          <FiExternalLink style={{ marginLeft: ".25rem" }} />
-                        </button>
-                      ) : (
-                        <button
-                          data-bs-toggle="modal"
-                          data-bs-target="#jobHiringModal"
-                          className="body-md-semibold hiring-apply-btn"
-                        >
-                          Easy Apply
-                        </button>
-                      ))}
-                    {hiring?.applied === true && (
-                      <button
-                        className="body-md-semibold hiring-apply-btn"
-                        disabled
-                      >
-                        Applied
-                      </button>
-                    )}
-                  </>
-                ) : (
-                  <>
-                    {hiring?.detailFound?._id ===
-                      "65d0a7b2c58c23a4ac6b9f76" && (
-                      <a href="https://docs.google.com/forms/d/e/1FAIpQLSd39WuMG3eBnPoVmMLneBEhYBTU2Q3CCbNx5kQKmIIkINdTlQ/viewform">
-                        <button className="body-md-semibold hiring-apply-btn">
-                          Apply
-                        </button>
-                      </a>
-                    )}
-                    {hiring?.detailFound?._id !==
-                      "65d0a7b2c58c23a4ac6b9f76" && (
-                      // <Link to="/login">
-                      <button
-                        onClick={() => {
-                          redirectToAuth("/login");
-                        }}
-                        className="body-md-semibold hiring-apply-btn"
-                      >
-                        {!!hiring?.detailFound?.applyLink ? (
-                          <>
-                            Apply{" "}
-                            <FiExternalLink style={{ marginLeft: ".25rem" }} />
-                          </>
-                        ) : (
-                          `Easy Apply`
-                        )}
-                      </button>
-                      // </Link>
-                    )}
-                  </>
-                )}
-              </>
             </div>
             <div className="hiring-tags">
               {hiring?.detailFound?.skillsRequired?.map((skill, index) => (
@@ -625,6 +538,88 @@ export default function IndividualInternship() {
               )}
             </div>
           </div>
+
+          <>
+            {hiring?.detailFound?.isServiceOff === true ? (
+              <button className="body-md-semibold hiring-apply-btn" disabled>
+                Expired
+              </button>
+            ) : isLoggedIn ? (
+              <>
+                {!isApplicable && (
+                  <button
+                    className="body-md-semibold hiring-apply-btn"
+                    disabled
+                  >
+                    Not Applicable
+                  </button>
+                )}
+                {isApplicable &&
+                  hiring?.applied === false &&
+                  (!!hiring?.detailFound?.contactEmail ? (
+                    <a
+                      href={`mailto:${hiring?.detailFound?.contactEmail}?subject=${hiring?.detailFound?.contactEmailSubject}`}
+                    >
+                      <button className="body-md-semibold hiring-apply-btn">
+                        Apply
+                      </button>
+                    </a>
+                  ) : !!hiring?.detailFound?.applyLink ? (
+                    <button
+                      onClick={UserDataPost}
+                      className="body-md-semibold hiring-apply-btn"
+                    >
+                      Apply <FiExternalLink style={{ marginLeft: ".25rem" }} />
+                    </button>
+                  ) : (
+                    <button
+                      data-bs-toggle="modal"
+                      data-bs-target="#jobHiringModal"
+                      className="body-md-semibold hiring-apply-btn"
+                    >
+                      Easy Apply
+                    </button>
+                  ))}
+                {hiring?.applied === true && (
+                  <button
+                    className="body-md-semibold hiring-apply-btn"
+                    disabled
+                  >
+                    Applied
+                  </button>
+                )}
+              </>
+            ) : (
+              <>
+                {hiring?.detailFound?._id === "65d0a7b2c58c23a4ac6b9f76" && (
+                  <a href="https://docs.google.com/forms/d/e/1FAIpQLSd39WuMG3eBnPoVmMLneBEhYBTU2Q3CCbNx5kQKmIIkINdTlQ/viewform">
+                    <button className="body-md-semibold hiring-apply-btn">
+                      Apply
+                    </button>
+                  </a>
+                )}
+                {hiring?.detailFound?._id !== "65d0a7b2c58c23a4ac6b9f76" && (
+                  // <Link to="/login">
+                  <button
+                    onClick={() => {
+                      redirectToAuth("/login");
+                    }}
+                    className="body-md-semibold hiring-apply-btn"
+                  >
+                    {!!hiring?.detailFound?.applyLink ? (
+                      <>
+                        Apply{" "}
+                        <FiExternalLink style={{ marginLeft: ".25rem" }} />
+                      </>
+                    ) : (
+                      `Easy Apply`
+                    )}
+                  </button>
+                  // </Link>
+                )}
+              </>
+            )}
+          </>
         </>
       ) : (
         <div
