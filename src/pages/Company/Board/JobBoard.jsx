@@ -384,6 +384,27 @@ export default function JobBoard() {
   }
 
   async function submitForm() {
+    if (selectedRows.length === 0) {
+      setSnackbarMessage("Please select at least one applicant");
+      setSnackbarSeverity("error");
+      setSnackbarDuration(3000);
+      setSnackbarOpen(true);
+      return;
+    }
+
+    // Validate that all selected rows have valid IDs
+    const validRegistrationIds = selectedRows
+      .filter(row => row && row._id)
+      .map(row => row._id);
+
+    if (validRegistrationIds.length === 0) {
+      setSnackbarMessage("No valid applicant IDs found in selected rows");
+      setSnackbarSeverity("error");
+      setSnackbarDuration(3000);
+      setSnackbarOpen(true);
+      return;
+    }
+
     setIsSendingMail(true);
     setIsAnyRowUpdating(true);
     const applicantsNextStatus =
@@ -400,7 +421,7 @@ export default function JobBoard() {
           subject,
           text: message,
           status: applicantsNextStatus,
-          registration_ids: selectedRows.map((job) => job?._id),
+          registration_ids: validRegistrationIds,
           creatorEmail: creatorEmail,
         },
         config
