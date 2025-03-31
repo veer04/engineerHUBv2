@@ -41,12 +41,12 @@ export default function JobBoard() {
   const [isSendingMail, setIsSendingMail] = useState(false);
   const [subject, setSubject] = useState("");
   const [message, setMessage] = useState("");
-  const [senderEmail, setSenderEmail] = useState("");
+  const [creatorEmail, setcreatorEmail] = useState("");
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(true); // Default to collapsed on mobile
   const [errors, setErrors] = useState({
     subject: "",
     message: "",
-    senderEmail: "",
+    creatorEmail: "",
   });
   const {
     setSnackbarOpen,
@@ -341,7 +341,7 @@ export default function JobBoard() {
     const errors = {
       subject: "",
       message: "",
-      senderEmail: "",
+      creatorEmail: "",
     };
 
     if (!subject) {
@@ -368,14 +368,14 @@ export default function JobBoard() {
       addToErrorStack("#message");
     }
 
-    if (!senderEmail) {
-      errors.senderEmail = "Sender's email is required";
+    if (!creatorEmail) {
+      errors.creatorEmail = "Sender's email is required";
       isValid = false;
-      addToErrorStack("#senderEmail");
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(senderEmail)) {
-      errors.senderEmail = "Please enter a valid email address";
+      addToErrorStack("#creatorEmail");
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(creatorEmail)) {
+      errors.creatorEmail = "Please enter a valid email address";
       isValid = false;
-      addToErrorStack("#senderEmail");
+      addToErrorStack("#creatorEmail");
     }
 
     setErrors(errors);
@@ -401,7 +401,7 @@ export default function JobBoard() {
           text: message,
           status: applicantsNextStatus,
           registration_ids: selectedRows.map((job) => job?._id),
-          senderEmail: senderEmail,
+          creatorEmail: creatorEmail,
         },
         config
       )
@@ -422,11 +422,11 @@ export default function JobBoard() {
         setSelectedRows([]);
         setSubject("");
         setMessage("");
-        setSenderEmail("");
+        setcreatorEmail("");
         setErrors({
           subject: "",
           message: "",
-          senderEmail: "",
+          creatorEmail: "",
         });
       })
       .catch((err) => {
@@ -976,13 +976,13 @@ export default function JobBoard() {
               />
               <FormInput
                 label="Sender's Email"
-                id="senderEmail"
-                name="senderEmail"
+                id="creatorEmail"
+                name="creatorEmail"
                 required
                 placeholder="Enter sender's email"
-                value={senderEmail}
-                setValue={setSenderEmail}
-                helperText={errors.senderEmail}
+                value={creatorEmail}
+                setValue={setcreatorEmail}
+                helperText={errors.creatorEmail}
                 className="mb-4"
               />
               <div className="mb-4">
@@ -1036,11 +1036,11 @@ export default function JobBoard() {
                 onClick={() => {
                   setSubject("");
                   setMessage("");
-                  setSenderEmail("");
+                  setcreatorEmail("");
                   setErrors({
                     subject: "",
                     message: "",
-                    senderEmail: "",
+                    creatorEmail: "",
                   });
                 }}
                 className="clear-btn body-sm-semibold px-2 py-2"
