@@ -12,10 +12,11 @@ const MentorCard = ({ data, index }) => {
     studentsMentored,
     linkedinLink,
     mentorImage,
+    companyLogo,
   } = data;
 
   const handleLink = () => {
-    window.open(linkedinLink, "_blank");
+    // window.open(linkedinLink, "_blank");
   };
 
   return (
@@ -28,9 +29,13 @@ const MentorCard = ({ data, index }) => {
             <h4 className="mentor-name">{name}</h4>
           </div>
 
-          {/* <div style={{ cursor: "pointer" }} onClick={() => handleLink()}>
-            <LinkedinIcon />
-          </div> */}
+          <div style={{ cursor: "pointer" }} onClick={() => handleLink()}>
+            <img
+              src={companyLogo}
+              alt=""
+              style={{ width: 50, height: 50, borderRadius: "50%" }}
+            />
+          </div>
         </div>
 
         <div className="desc-div">
@@ -47,17 +52,17 @@ const MentorCard = ({ data, index }) => {
 
           <div>
             <h3 className="session-value-h3">{totalSessionHours}</h3>
-            <h4 className="total-session-h4"> Total Session hours</h4>
+            <h4 className="total-session-h4"> Referral Generated</h4>
           </div>
 
           <div>
             <h3 className="session-value-h3">{studentsMentored}</h3>
-            <h4 className="total-session-h4">Students Mentored </h4>
+            <h4 className="total-session-h4">Profile Mentored </h4>
           </div>
         </div>
-        <div>
+        <div className="mentor-image-div">
           {" "}
-          <img src={mentorImage} alt="mentor_image" />
+          <img src={mentorImage} alt="mentor_image" className="mentor-img" />
         </div>
       </div>
     </div>
