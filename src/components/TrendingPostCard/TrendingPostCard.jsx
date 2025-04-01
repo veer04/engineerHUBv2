@@ -188,7 +188,7 @@ export default function TrendingPostCard({ post, updatePost }) {
               className="text-crop-1"
             >
               {post?.creator?.name ||
-                `${post?.creator?.firstName} ${post?.creator?.lastName}` }
+                `${post?.creator?.firstName} ${post?.creator?.lastName}`}
             </span>
           </div>
         </div>
@@ -246,6 +246,7 @@ export default function TrendingPostCard({ post, updatePost }) {
         style={{
           cursor: "default",
           wordBreak: "break-word",
+          whiteSpace: "pre-wrap",
         }}
         className={`caption ${isShownMore ? "no-text-crop" : "text-crop-1"} `}
       >

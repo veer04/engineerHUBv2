@@ -59,8 +59,8 @@ const YourCompanyActivitySection = ({
         return internships;
       case "Hackathons":
         return hackathons;
-      case "Projects":
-        return projects;
+      // case "Projects":
+      //   return projects;
 
       default:
         return [];
@@ -75,29 +75,27 @@ const YourCompanyActivitySection = ({
       </div>
 
       <div className="main-btn-divs">
-        {["Posts", "Jobs", "Internships", "Hackathons", "Projects"].map(
-          (buttonName) => (
-            <button
-              key={buttonName}
-              onClick={() => handleButtonClick(buttonName)}
-              style={{
-                padding: "4px 16px",
-                borderRadius: "10px",
-                background: actionButton === buttonName ? "#138382" : "#f2f4f5",
-                fontSize: 14,
-                fontWeight: 400,
-                lineHeight: "20px",
-                color: actionButton === buttonName ? "white" : "black",
-                border: "none",
-                boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.03)",
-                cursor: "pointer",
-                transition: "background 0.3s ease",
-              }}
-            >
-              {buttonName}
-            </button>
-          )
-        )}
+        {["Posts", "Jobs", "Internships", "Hackathons"].map((buttonName) => (
+          <button
+            key={buttonName}
+            onClick={() => handleButtonClick(buttonName)}
+            style={{
+              padding: "4px 16px",
+              borderRadius: "10px",
+              background: actionButton === buttonName ? "#138382" : "#f2f4f5",
+              fontSize: 14,
+              fontWeight: 400,
+              lineHeight: "20px",
+              color: actionButton === buttonName ? "white" : "black",
+              border: "none",
+              boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.03)",
+              cursor: "pointer",
+              transition: "background 0.3s ease",
+            }}
+          >
+            {buttonName}
+          </button>
+        ))}
       </div>
 
       {currentData && currentData.length > 0 ? (
