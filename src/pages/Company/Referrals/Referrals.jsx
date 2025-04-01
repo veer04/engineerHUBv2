@@ -183,7 +183,7 @@ const Referrals = () => {
 
       <ConnectWithUs compName={"Connect With Us"} />
       <DigitalProducts compName={"Digital Products"} />
-      {/* <OurMentors /> */}
+      <OurMentors />
       <ReferralRatings />
     </>
   );
