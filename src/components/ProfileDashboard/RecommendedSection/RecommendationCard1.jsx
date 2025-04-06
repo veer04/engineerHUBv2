@@ -31,8 +31,10 @@ const RecommendationCard1 = ({ data }) => {
     <>
       {data &&
         data?.map((job) => {
-          console.log(job._id, "jobId");
-          console.log(isJobCreator(job.creatorId));
+          {
+            /* console.log(job._id, "jobId");
+          console.log(isJobCreator(job.creatorId)); */
+          }
           return (
             <div
               onClick={() => {

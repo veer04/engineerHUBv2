@@ -28,7 +28,7 @@ const ProfileWithPostEditShare = ({
     !!privateDashboardData?.resume
   );
   const isChecked = useSelector((state) => state.resumeToggle.isVisible);
-  console.log(isChecked, "ghgg");
+  // console.log(isChecked, "ghgg");
 
   const userId = getUserId();
   const [uploadedFileName, setUploadedFileName] = useState(null);
@@ -41,7 +41,7 @@ const ProfileWithPostEditShare = ({
     }
   }, []);
 
-  console.log(userRole, "userRole");
+  // console.log(userRole, "userRole");
 
   const [resume, setResume] = useState(null);
   const [resumeUrl, setResumeUrl] = useState("");
@@ -55,7 +55,7 @@ const ProfileWithPostEditShare = ({
   const [isLoadingClickToUploadResume, setIsLoadingClickToUploadResume] =
     useState(false);
 
-  console.log("data", privateDashboardData);
+  // console.log("data", privateDashboardData);
   const navigate = useNavigate();
 
   useEffect(() => {
