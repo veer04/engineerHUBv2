@@ -5,6 +5,13 @@ const EducationResume = ({ DashboardAdminData }) => {
     DashboardAdminData &&
     DashboardAdminData.educationDetails &&
     DashboardAdminData.educationDetails.length > 0;
+
+  const formatYear = (dateString) => {
+    if (!dateString) return "N/A";
+    const year = new Date(dateString).getFullYear();
+    return year === 1970 ? "N/A" : year;
+  };
+
   return (
     <div className="education-resume-main-div">
       <h3
@@ -76,8 +83,8 @@ const EducationResume = ({ DashboardAdminData }) => {
                         marginBottom: 0,
                       }}
                     >
-                      {new Date(education.startYear).getFullYear()} -{" "}
-                      {new Date(education.endYear).getFullYear()}
+                      {formatYear(education.startDate)} -{" "}
+                      {formatYear(education.endDate)}
                     </h4>
                     <div
                       style={{
@@ -95,7 +102,7 @@ const EducationResume = ({ DashboardAdminData }) => {
                         marginBottom: 0,
                       }}
                     >
-                      CGPA : {education.marks}
+                      CGPA : {education.marks || "N/A"}
                     </h4>
                   </div>
                 </div>

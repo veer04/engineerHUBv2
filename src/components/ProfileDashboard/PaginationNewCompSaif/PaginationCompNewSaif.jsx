@@ -6,8 +6,6 @@ export default function PaginationCompNewSaif({
   currentPage = 1,
   setCurrentPage,
 }) {
-  console.log(pages, "hjgfg");
-  console.log(pages,"abcdef")
   const handlePageChange = (page) => {
     console.log("hgfdff");
     if (page >= 1 && page <= pages) {

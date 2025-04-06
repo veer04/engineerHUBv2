@@ -3,7 +3,7 @@ import "./recommendedcard2.css";
 import { useLocation, useNavigate } from "react-router-dom";
 
 const RecommendedCard2 = ({ data }) => {
-  console.log(data, "meetData");
+  // console.log(data, "meetData");
   const navigate = useNavigate();
   const location = useLocation();
   const ratingArray = [5, 5, 4.5, 5, 4.7];

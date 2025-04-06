@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 const ProfileCompletionSection = ({ privateDashboardData = "" }) => {
   const [profileCompletion, setProfileCompletion] = useState(100);
 
-  console.log(privateDashboardData, "privateDashboardData");
+  // console.log(privateDashboardData, "privateDashboardData");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const openModal = () => {
     setIsModalOpen(true);
