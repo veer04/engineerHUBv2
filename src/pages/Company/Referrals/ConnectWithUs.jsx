@@ -12,13 +12,14 @@ const ConnectWithUs = ({ compName }) => {
   const [activeFilter, setActiveFilter] = useState("All");
 
   const customOrder = [
-    "Personalized Projects for Your Target Role",
     "Resume Writing",
+    "Resume + Career Guidance | Referral (Exp: 0-2 years)",
+    "Referral for Abroad Careers",
+    "Resume + Career Guidance | Referral (Exp: 2+ years)",
+    "Personalized Projects for Your Target Role",
     "Ask Anything Related to Engineering",
     "Internship / Job Search & Strategy Guide",
-    "Resume + Career Guidance | Referral (Exp: 0-2 years)",
     "1:1 Consultation Calls for Freelancers",
-    "Resume + Career Guidance | Referral (Exp: 2+ years)",
     "Placement Preparation Roadmap for 2025",
     "Internship / Job Search & Strategy Guide",
   ];
@@ -41,10 +42,12 @@ const ConnectWithUs = ({ compName }) => {
 
       if (response.ok) {
         const data = await response.json();
-        const excludedId = "67a107c89d57a46e99582bd1"; 
+        const excludedId = "67a107c89d57a46e99582bd1";
         // Filter out the data with the excluded ID
-        console.log(data.data, "All meets")
-        const filteredData = data?.data?.filter(item => item._id !== excludedId);
+        console.log(data.data, "All meets");
+        const filteredData = data?.data?.filter(
+          (item) => item._id !== excludedId
+        );
         console.log(filteredData);
         const sortedData = sortDataByCustomOrder(filteredData);
         setAllMeetData(sortedData);
