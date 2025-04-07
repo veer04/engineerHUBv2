@@ -6,12 +6,13 @@ import { API_URL } from "../../../../services/APIUtils";
 import { getUserId } from "../../../../features/User/UserDetails";
 import { Bounce, toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useParams } from "react-router-dom";
 
 const UserStatsSection = ({ DashboardAdminData }) => {
   const [statsData, setStatsData] = useState([]);
+  const { userId } = useParams();
 
   const getStatsData = async () => {
-    const userId = getUserId();
     try {
       const response = await axios.get(
         `${API_URL}api/v1/userDashboard/public-stats/${userId}`
