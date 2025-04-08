@@ -4,6 +4,7 @@ import LocationFilter from "./LocationFilter";
 import InternshipTypeFilter from "./InternshipTypeFilter";
 import InternshipModeFilter from "./InternshipModeFilter";
 import StipendFilter from "./StipendFilter";
+import IsEasyApplyFilter from "./IsEasyApplyFilter";
 
 export default function FilterContainerInternship({ className, ...rest }) {
   return (
@@ -11,6 +12,7 @@ export default function FilterContainerInternship({ className, ...rest }) {
       className={`filter-container ${Boolean(className) ? className : ""}`}
       {...rest}
     >
+    <IsEasyApplyFilter/>
       <InternshipTypeFilter />
       <InternshipModeFilter />
       <LocationFilter />
