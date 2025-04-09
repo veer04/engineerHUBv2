@@ -108,3 +108,5 @@ const OurMentors = () => {
     </div>
   );
 };
+
+export default OurMentors;
