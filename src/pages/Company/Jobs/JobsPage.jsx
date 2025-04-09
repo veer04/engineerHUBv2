@@ -31,7 +31,6 @@ export default function JobsPage() {
     location: "",
     recentlyPosted: "",
     isFeatured: "",
-  
   });
   const q = searchParams.get("q");
   const pageNo = searchParams.get("pageNo");
@@ -77,8 +76,6 @@ export default function JobsPage() {
       !!params.location ? params.location : [],
       !!params.recentlyPosted ? params.recentlyPosted : [],
       !!params.isFeatured ? params.isFeatured : [],
-      
-
     ],
     queryFn: () =>
       axios
@@ -186,10 +183,10 @@ export default function JobsPage() {
       {!Boolean(hiringId) && (
         <>
           <h1 className="display-md">Job Hiring</h1>
-          <h2 className="body-md-regular">
+          {/* <h2 className="body-md-regular">
             Apply for the jobs of your interest and get the offer letter in the
             next step
-          </h2>
+          </h2> */}
         </>
       )}
       {!(!!hiringId && width < 1150) && (
@@ -208,20 +205,7 @@ export default function JobsPage() {
           />
         </>
       )}
-      <script
-        async
-        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8474972598474156"
-        crossOrigin="anonymous"
-      ></script>
-      <ins
-        className="adsbygoogle"
-        style={{ display: "block" }}
-        data-ad-client="ca-pub-8474972598474156"
-        data-ad-slot="3867233093"
-        data-ad-format="auto"
-        data-full-width-responsive="true"
-      ></ins>
-      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+
       <div className={`${!!hiringId ? "job-page-divider" : ""}`}>
         {!(!!hiringId && width < 1150) && (
           <section className={`${!!hiringId ? "all-jobs-section" : ""}`}>
@@ -340,6 +324,21 @@ export default function JobsPage() {
         )}
         <Outlet />
       </div>
+
+      <script
+        async
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8474972598474156"
+        crossOrigin="anonymous"
+      ></script>
+      <ins
+        className="adsbygoogle"
+        style={{ display: "block" }}
+        data-ad-client="ca-pub-8474972598474156"
+        data-ad-slot="3867233093"
+        data-ad-format="auto"
+        data-full-width-responsive="true"
+      ></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
     </main>
   );
 }
