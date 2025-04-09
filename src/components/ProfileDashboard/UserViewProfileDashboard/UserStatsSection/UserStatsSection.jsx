@@ -33,6 +33,8 @@ const UserStatsSection = ({ DashboardAdminData }) => {
     getStatsData();
   }, []);
 
+  //
+
   // const totalApplications = statsData[0]?.total || 0;
 
   const totalApplications = statsData.reduce(
