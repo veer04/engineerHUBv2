@@ -4,6 +4,7 @@ import { VscGraph } from "react-icons/vsc";
 import { API_URL } from "../../../services/APIUtils";
 import { getAccessToken } from "../../../features/getCookieValues";
 import PaginationCompNewSaif from "../PaginationNewCompSaif/PaginationCompNewSaif";
+import { getUserId } from "../../../features/User/UserDetails";
 
 const PerformanceSection = () => {
   const [showHeader, setShowHeader] = useState(false);
@@ -16,9 +17,6 @@ const PerformanceSection = () => {
   const [loading, setLoading] = useState(false);
 
   const [performaceData, setPerformanceData] = useState([]);
-
-  console.log(totalPages, "totalpages");
-  console.log(currentPage, "currentPage");
 
   const fetchRecommendationData = async () => {
     setLoading(true);
@@ -38,7 +36,7 @@ const PerformanceSection = () => {
       setTotalPages(data.data.totalPage);
       setCurrentPage(data.data.currentPage);
       setLoading(false);
-      console.log(data.data, "performaceData");
+      // console.log(data.data, "performaceData");
     } catch (error) {
       console.error("Error getting the data");
     }
@@ -292,7 +290,8 @@ const PerformanceSection = () => {
                 {performaceData &&
                   performaceData?.applications?.map((app, index) => {
                     const { hiringId, status, createdAt, _id } = app;
-                    const organisationName = hiringId?.organisationName || "N/A"; 
+                    const organisationName =
+                      hiringId?.organisationName || "N/A";
                     const opportunityName = hiringId?.opportunityName || "N/A";
 
                     return (
@@ -328,7 +327,7 @@ const PerformanceSection = () => {
 
                         {/* Table Data new table data*/}
                         <td>{index + 1}</td>
-                        
+
                         <td>{organisationName}</td>
                         <td>{opportunityName}</td>
                         <td style={{ width: "180px" }}>{`Applied On ${new Date(

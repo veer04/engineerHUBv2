@@ -7,6 +7,13 @@ const ExperienceResume = ({ DashboardAdminData }) => {
     DashboardAdminData.experienceDetails &&
     DashboardAdminData.experienceDetails.length > 0;
 
+  const formatYear = (dateString) => {
+    if (!dateString) return "N/A";
+
+    const year = new Date(dateString).getFullYear();
+    return year === 1970 ? "N/A" : year;
+  };
+
   return (
     <div className="experience-resume-main-div">
       <h3
@@ -97,8 +104,8 @@ const ExperienceResume = ({ DashboardAdminData }) => {
                         marginBottom: 0,
                       }}
                     >
-                      {new Date(experience.startYear).getFullYear()} -{" "}
-                      {new Date(experience.endYear).getFullYear()}
+                      {formatYear(experience.startYear)} -{" "}
+                      {formatYear(experience.endYear)}
                     </h4>
                   </div>
                 </div>

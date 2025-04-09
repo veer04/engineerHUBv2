@@ -48,7 +48,7 @@ const ProfileDashboard = () => {
       );
 
       if (response.status === 200) {
-        console.log(response.data, "Private Admin Data");
+        // console.log(response.data, "Private Admin Data");
 
         const data = response.data;
         setPrivateDashboardData(data.data.data);

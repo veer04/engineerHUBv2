@@ -9,8 +9,6 @@ import { getAccessToken } from "../../../features/getCookieValues";
 const RecommendedSection = () => {
   const [recommendationData, setRecommendationData] = useState([]);
 
-  console.log(recommendationData, "recomsaif");
-
   const fetchRecommendationData = async () => {
     try {
       const response = await fetch(

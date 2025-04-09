@@ -48,11 +48,13 @@
 .hiring-box .hiring-header .details .info a:hover {
   text-decoration: underline;
 }
-.hiring-box .hiring-header .hiring-apply-btn {
+/* .hiring-box .hiring-header */
+.hiring-apply-btn {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 0.75rem 1.25rem;
+  padding: 0.75rem 6.25rem;
+  float: right;
   height: fit-content;
   width: fit-content;
   border-radius: 10px;
@@ -60,7 +62,8 @@
   color: #ffffff;
   border: none;
 }
-.hiring-box .hiring-header .hiring-apply-btn:disabled {
+/* .hiring-box .hiring-header */
+.hiring-apply-btn:disabled {
   opacity: 0.65;
   cursor: not-allowed;
 }
@@ -116,8 +119,10 @@
     height: 4.5rem;
   }
 
-  .hiring-box .hiring-header .hiring-apply-btn {
+  /* .hiring-box .hiring-header */
+  .hiring-apply-btn {
     margin: 0.5rem 0;
+    width: 100%;
   }
 }
 

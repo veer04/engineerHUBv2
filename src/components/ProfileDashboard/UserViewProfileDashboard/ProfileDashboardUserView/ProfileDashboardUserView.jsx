@@ -49,7 +49,9 @@ const ProfileDashboardUserView = () => {
 
   const getPublicDashboardData = async () => {
     try {
-      const response = await axios.get(`${API_URL}api/v1/userDashboard/public/${userId}`);
+      const response = await axios.get(
+        `${API_URL}api/v1/userDashboard/public/${userId}`
+      );
       if (response.status === 200) {
         setDashboardAdminData(response.data.data.data);
       }
@@ -84,9 +86,12 @@ const ProfileDashboardUserView = () => {
   const getActivityData = async (userId, section) => {
     setLoading(true);
     try {
-      const response = await axios.get(`${API_URL}api/v1/userDashboard/activity-area`, {
-        params: { userId, section, limit: 10, page: 1 },
-      });
+      const response = await axios.get(
+        `${API_URL}api/v1/userDashboard/activity-area`,
+        {
+          params: { userId, section, limit: 10, page: 1 },
+        }
+      );
 
       if (response.status === 200) {
         const { data } = response.data;
@@ -117,9 +122,12 @@ const ProfileDashboardUserView = () => {
   const getCollegeDetails = async (collegeId, section) => {
     setLoading(true);
     try {
-      const response = await axios.get(`${API_URL}api/v1/userDashboard/college-details`, {
-        params: { collegeId, section },
-      });
+      const response = await axios.get(
+        `${API_URL}api/v1/userDashboard/college-details`,
+        {
+          params: { collegeId, section },
+        }
+      );
       if (response.status === 200) {
         switch (section) {
           case "about":
@@ -146,9 +154,12 @@ const ProfileDashboardUserView = () => {
     if (!collegeId) return;
     setLoading(true);
     try {
-      const response = await axios.get(`${API_URL}api/v1/userDashboard/fellow-users`, {
-        params: { collegeId, limit: 10, page: 1 },
-      });
+      const response = await axios.get(
+        `${API_URL}api/v1/userDashboard/fellow-users`,
+        {
+          params: { collegeId, limit: 10, page: 1 },
+        }
+      );
       if (response.data) setFellowUsers(response.data.data);
     } catch (error) {
       console.error("Error fetching fellow users:", error);

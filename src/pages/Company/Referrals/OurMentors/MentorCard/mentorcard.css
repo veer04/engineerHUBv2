@@ -1,6 +1,6 @@
 .mentor-card-main {
   width: 360px;
-  height: 100%;
+  height: 450px;
   padding: 16px 16px 0px 16px;
   border-radius: 15px;
   border-top: 2px solid #138382;
@@ -14,6 +14,12 @@
   flex-direction: column;
   align-items: flex-end;
   gap: 16px;
+}
+
+.mentor-card-main > .top-main-div {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .mentor-card-main > .top-main-div > .mentor-head-and-linkedin {
@@ -42,13 +48,13 @@
   letter-spacing: -1px;
 }
 
-.mentor-card-main > .top-main-div > .desc-div .desc-p {
+.mentor-card-main .top-main-div .desc-p {
   color: #547178;
   font-family: "Lato", sans-serif;
   font-size: 14px;
   font-weight: 400;
   line-height: 20px;
-  margin-bottom: 3px;
+  text-align: justify;
 }
 
 .mentor-card-main > .bottom-main-div {
@@ -80,4 +86,18 @@
   flex-direction: column;
   gap: 24px;
   justify-content: center;
+}
+
+.mentor-card-main > .bottom-main-div .mentor-image-div {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  overflow: hidden;
+  /* border: 1px solid black; */
+}
+
+.mentor-card-main > .bottom-main-div .mentor-image-div .mentor-img {
+  width: 100%;
 }

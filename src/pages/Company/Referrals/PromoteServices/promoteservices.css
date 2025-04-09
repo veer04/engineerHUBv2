@@ -113,6 +113,12 @@
   gap: 20px; /* Space between slides */
 }
 
+.embla__container1 {
+  display: flex;
+  flex-direction: row;
+  gap: 5px; /* Space between slides */
+}
+
 .embla__slide {
   min-width: 30%; /* Ensures 3 slides show at once */
   flex: 0 0 auto;

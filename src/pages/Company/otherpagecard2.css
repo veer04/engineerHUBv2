@@ -6,6 +6,10 @@
   background: #0baab2;
   padding: 12px;
   cursor: pointer;
+<<<<<<< HEAD
+=======
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+>>>>>>> a55c65159056a03e5cd914e533ea9bf559422eec
 }
 
 /* .main-other-page-comp-div-2 .image-div {
@@ -15,6 +19,14 @@
   border-radius: 12px;
 } */
 
+<<<<<<< HEAD
+=======
+.main-other-page-comp-div-2:hover {
+  transform: scale(1.02);
+  box-shadow: 0px 12px 24px rgba(0, 0, 0, 0.2);
+}
+
+>>>>>>> a55c65159056a03e5cd914e533ea9bf559422eec
 .main-other-page-comp-div-2 .grid-div {
   display: grid;
   align-items: center;
