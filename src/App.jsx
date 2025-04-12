@@ -77,6 +77,7 @@ import CommunityChat from "./pages/Chat/CommunityChat.jsx";
 import { ToastContainer } from "react-toastify";
 import Enterprise from "./pages/Enterprise/Assests/Components/Enterprise.jsx";
 import CompanyDashboardNew from "./pages/Profile/CompanyDashboardNew/CompanyDashboardNew.jsx";
+import Interview from "./pages/Company/Board/Interview.jsx";
 const DigitalProductAdminPage = lazy(() =>
   import("./pages/Admin/DigitalProductAdminPage.jsx")
 );
@@ -152,6 +153,8 @@ const Referrals = lazy(() => import("./pages/Company/Referrals/Referrals.jsx"));
 const TermsAndConditions = lazy(() =>
   import("./pages/TermsAndConditions/TermsAndConditions.jsx")
 );
+const CreateAssessment = lazy(() => import("./pages/Company/Board/CreateAssessment.jsx"));
+const AssessmentResponse = lazy(() => import("./pages/Company/AssessmentResponse/AssessmentResponse.jsx"));
 
 function App() {
   const [OtpRoute, setOtpRoute] = useState("loading");
@@ -312,6 +315,11 @@ function App() {
               </Route>
               <Route path="board">
                 <Route path=":id" element={<JobBoard />} />
+              </Route>
+              <Route path="assessment">
+                <Route path="create/:id" element={<CreateAssessment />} />
+                <Route path="responses/:id" element={<AssessmentResponse />} />
+                <Route path="Interview/:id" element={<Interview/>} />
               </Route>
             </Route>
             <Route path="internships">

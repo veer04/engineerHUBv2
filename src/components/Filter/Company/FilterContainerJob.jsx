@@ -13,12 +13,12 @@ export default function FilterContainerJob({ className, ...rest }) {
       className={`filter-container ${Boolean(className) ? className : ""}`}
       {...rest}
     >
+      <IsEasyApplyFilter/>
       <ExperienceFilter/>
       <JobTypeFilter/>
       <JobModeFilter/>
       <LocationFilter/>
       <SalaryFilter/>
-      <IsEasyApplyFilter/>
     </aside>
   );
 }
