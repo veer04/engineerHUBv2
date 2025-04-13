@@ -30,6 +30,7 @@ import {
 import Loading from "../../../components/Loader/Loading";
 import JobHiringModal from "./JobHiringModal";
 import { Link } from "react-router-dom";
+import BannerSpaceComp from "../BannerSpaceComp/BannerSpaceComp";
 
 function seededRandom(seed) {
   var x = Math.sin(seed) * 10000;
@@ -468,6 +469,10 @@ export default function IndividualJob() {
                 </div>
               )}
             </div>
+          </div>
+
+          <div className="banner-space-div-to-promote-companies">
+            <BannerSpaceComp image={""} />
           </div>
 
           <>

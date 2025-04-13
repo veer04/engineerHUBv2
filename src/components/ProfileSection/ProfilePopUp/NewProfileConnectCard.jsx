@@ -5,13 +5,21 @@ import {
   Card1ImageSvgProfileSidebar,
 } from "../../SvgsIconsComps/SvgsComps";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { openPostModal } from "../../../store/slices/postModalSlice";
 
 const NewProfileConnectCard = ({ image, bgColor, title, btnName, btnLink }) => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleSendToThatPage = () => {
-    window.open(btnLink, "_blank");
+    navigate(btnLink);
+    setTimeout(() => {
+      const action = openPostModal();
+      dispatch(action);
+    }, 100);
   };
+
   return (
     <div
       data-bs-dismiss="offcanvas"
