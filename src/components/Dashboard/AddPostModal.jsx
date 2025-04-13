@@ -18,6 +18,8 @@ import { set } from "react-hook-form";
 import useGlobalSnackbar from "../../hooks/useGlobalSnackbar";
 import { Link } from "react-router-dom";
 import { getUserId, getUserRole } from "../../features/User/UserDetails";
+import { Bounce, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function AddPostModal({ hostPage, setCloseModal }) {
   const [newCoverPhoto, setNewCoverPhoto] = useState(null);
@@ -54,13 +56,41 @@ export default function AddPostModal({ hostPage, setCloseModal }) {
   }, []);
 
   function handleInput(e) {
-    //check if the file is an image
-    if (e.target.files[0]) {
-      if (e.target.files[0].type.includes("image")) {
-        setNewCoverPhoto(e.target.files[0]);
-      } else {
-        alert("Please choose an image file only");
+    const file = e.target.files[0];
+    if (file) {
+      const allowedTypes = ["image/jpeg", "image/png"];
+      const isValidType = allowedTypes.includes(file.type);
+      const isUnder1MB = file.size <= 1 * 1024 * 1024;
+
+      if (!isValidType) {
+        toast.error("Only JPG and PNG images are allowed.", {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+        return;
       }
+
+      if (!isUnder1MB) {
+        toast.error("File size should not exceed 1MB.", {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+        return;
+      }
+
+      setNewCoverPhoto(file);
     }
   }
 
