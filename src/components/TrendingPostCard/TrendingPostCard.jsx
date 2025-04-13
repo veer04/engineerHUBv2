@@ -160,6 +160,13 @@ export default function TrendingPostCard({ post, updatePost }) {
     console.log("Updated post:", post);
   }, [post]);
 
+  function convertTextToLinks(text) {
+    const urlRegex = /(https:\/\/[^\s]+)/g; // Only match https:// links
+    return text.replace(urlRegex, (url) => {
+      return `<a href="${url}" target="_blank" rel="noopener noreferrer" style="color: #0d6efd;">${url}</a>`;
+    });
+  }
+
   return (
     <div className="post-card-container">
       <div className="header">
@@ -243,15 +250,17 @@ export default function TrendingPostCard({ post, updatePost }) {
         <span>{localPost.totalLikes} likes</span>
       </div>
       <span
+        dangerouslySetInnerHTML={{
+          __html: convertTextToLinks(post.description),
+        }}
         style={{
           cursor: "default",
           wordBreak: "break-word",
           whiteSpace: "pre-wrap",
         }}
         className={`caption ${isShownMore ? "no-text-crop" : "text-crop-1"} `}
-      >
-        {post.description}
-      </span>
+      ></span>
+
       {!!post.description && !isShownMore && (
         <div
           style={{ fontSize: ".75rem", cursor: "pointer" }}
