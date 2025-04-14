@@ -327,7 +327,7 @@ export default function JobsPage() {
       </div>
 
       <div className="banner-space-div-to-promote-companies">
-        <BannerSpaceComp image={`${Bucket_URL}banner1.png`} />
+        <BannerSpaceComp image={`${Bucket_URL}banner2.png`} />
       </div>
 
       <script
