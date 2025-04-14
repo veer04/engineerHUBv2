@@ -78,7 +78,7 @@ const ProfileCompletionScoreComp = ({ privateDashboardData }) => {
               fontWeight: 600,
               lineHeight: "20px",
               fontStyle: "normal",
-              color: profileCompletion > 70 ? "#08E045" : "#DA1E28",
+              color: profileCompletion >= 70 ? "#08E045" : "#DA1E28",
               marginBottom: 0,
               textAlign: "center",
               marginTop: 5,
@@ -94,7 +94,7 @@ const ProfileCompletionScoreComp = ({ privateDashboardData }) => {
           className="progress-bar-sub"
           style={{
             width: `${profileCompletion}%`,
-            backgroundColor: profileCompletion > 70 ? "#08E045" : "#DA1E28",
+            backgroundColor: profileCompletion >= 70 ? "#08E045" : "#DA1E28",
           }}
         ></div>
       </div>
