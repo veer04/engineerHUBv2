@@ -3,7 +3,7 @@ import "./JobsPage.css";
 import { Outlet, useParams, useSearchParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { API_URL } from "../../../services/APIUtils";
+import { API_URL, Bucket_URL } from "../../../services/APIUtils";
 import { getAccessToken } from "../../../features/User/UserDetails";
 import JobCards from "./JobCards";
 import colorWheel from "../../../assets/colorWheel";
@@ -13,6 +13,7 @@ import useNavbar from "../../../hooks/use-navbar";
 import PaginationBarWithSearchParams from "../../../components/PaginationBarWithSearchParams/PaginationBarWithSearchParams";
 import FilterContainerJob from "../../../components/Filter/Company/FilterContainerJob";
 import AdsenseComp from "../../../components/AdsenseComp/AdsenseComp";
+import BannerSpaceComp from "../BannerSpaceComp/BannerSpaceComp";
 
 export default function JobsPage() {
   const { hiringId } = useParams();
@@ -323,6 +324,10 @@ export default function JobsPage() {
           </section>
         )}
         <Outlet />
+      </div>
+
+      <div className="banner-space-div-to-promote-companies">
+        <BannerSpaceComp image={`${Bucket_URL}banner1.png`} />
       </div>
 
       <script
