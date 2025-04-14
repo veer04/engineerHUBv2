@@ -471,10 +471,6 @@ export default function IndividualJob() {
             </div>
           </div>
 
-          <div className="banner-space-div-to-promote-companies">
-            <BannerSpaceComp image={""} />
-          </div>
-
           <>
             {hiring?.detailFound?.isServiceOff === true ? (
               <button className="body-md-semibold hiring-apply-btn" disabled>
