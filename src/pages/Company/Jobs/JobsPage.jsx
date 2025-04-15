@@ -3,7 +3,7 @@ import "./JobsPage.css";
 import { Outlet, useParams, useSearchParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { API_URL, Bucket_URL } from "../../../services/APIUtils";
+import { API_URL } from "../../../services/APIUtils";
 import { getAccessToken } from "../../../features/User/UserDetails";
 import JobCards from "./JobCards";
 import colorWheel from "../../../assets/colorWheel";
@@ -13,7 +13,6 @@ import useNavbar from "../../../hooks/use-navbar";
 import PaginationBarWithSearchParams from "../../../components/PaginationBarWithSearchParams/PaginationBarWithSearchParams";
 import FilterContainerJob from "../../../components/Filter/Company/FilterContainerJob";
 import AdsenseComp from "../../../components/AdsenseComp/AdsenseComp";
-import BannerSpaceComp from "../BannerSpaceComp/BannerSpaceComp";
 
 export default function JobsPage() {
   const { hiringId } = useParams();
@@ -32,6 +31,7 @@ export default function JobsPage() {
     location: "",
     recentlyPosted: "",
     isFeatured: "",
+  
   });
   const q = searchParams.get("q");
   const pageNo = searchParams.get("pageNo");
@@ -77,6 +77,8 @@ export default function JobsPage() {
       !!params.location ? params.location : [],
       !!params.recentlyPosted ? params.recentlyPosted : [],
       !!params.isFeatured ? params.isFeatured : [],
+      
+
     ],
     queryFn: () =>
       axios
@@ -184,10 +186,10 @@ export default function JobsPage() {
       {!Boolean(hiringId) && (
         <>
           <h1 className="display-md">Job Hiring</h1>
-          {/* <h2 className="body-md-regular">
+          <h2 className="body-md-regular">
             Apply for the jobs of your interest and get the offer letter in the
             next step
-          </h2> */}
+          </h2>
         </>
       )}
       {!(!!hiringId && width < 1150) && (
@@ -206,7 +208,20 @@ export default function JobsPage() {
           />
         </>
       )}
-
+      <script
+        async
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8474972598474156"
+        crossOrigin="anonymous"
+      ></script>
+      <ins
+        className="adsbygoogle"
+        style={{ display: "block" }}
+        data-ad-client="ca-pub-8474972598474156"
+        data-ad-slot="3867233093"
+        data-ad-format="auto"
+        data-full-width-responsive="true"
+      ></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
       <div className={`${!!hiringId ? "job-page-divider" : ""}`}>
         {!(!!hiringId && width < 1150) && (
           <section className={`${!!hiringId ? "all-jobs-section" : ""}`}>
@@ -325,25 +340,6 @@ export default function JobsPage() {
         )}
         <Outlet />
       </div>
-
-      <div className="banner-space-div-to-promote-companies">
-        <BannerSpaceComp image={`${Bucket_URL}banner1.png`} />
-      </div>
-
-      <script
-        async
-        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8474972598474156"
-        crossOrigin="anonymous"
-      ></script>
-      <ins
-        className="adsbygoogle"
-        style={{ display: "block" }}
-        data-ad-client="ca-pub-8474972598474156"
-        data-ad-slot="3867233093"
-        data-ad-format="auto"
-        data-full-width-responsive="true"
-      ></ins>
-      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
     </main>
   );
 }

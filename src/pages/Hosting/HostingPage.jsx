@@ -11,7 +11,6 @@ import useGlobalSnackbar from "../../hooks/useGlobalSnackbar";
 import AddPostModal from "../../components/Dashboard/AddPostModal";
 import InfoModal from "./InfoModal";
 import { FaArrowRight } from "react-icons/fa";
-import { useSelector } from "react-redux";
 export default function HostingPage() {
   const { setSelectedPageNavbar } = useNavbar();
   const {
@@ -22,9 +21,6 @@ export default function HostingPage() {
   } = useGlobalSnackbar();
   const [showPostModal, setShowPostModal] = useState(false);
   const [showInfoModal, setShowInfoModal] = useState(false);
-  const showPostModalRedux = useSelector(
-    (state) => state.postModal.showPostModal
-  );
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -40,18 +36,12 @@ export default function HostingPage() {
       redirectToAuth("/login");
       return;
     }
-    // if (getUserRole() === "User") {
-    //   setShowInfoModal(true);
-    //   return;
-    // }
+    if (getUserRole() === "User") {
+      setShowInfoModal(true);
+      return;
+    }
     setShowPostModal(true);
   }
-
-  useEffect(() => {
-    if (showPostModalRedux) {
-      handleCreatePost();
-    }
-  }, [showPostModalRedux]);
 
   function handleNavigation(path) {
     if (!isUserLoggedIn()) {
