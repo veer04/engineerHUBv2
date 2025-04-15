@@ -24,8 +24,6 @@ const YourActivitySection = ({
     if (buttonName === "Internships") setInternshipPage(1);
   };
 
-  console.log(postData, "postdata");
-
   // Limit job & internship data to 100 items
   const limitedJobData = jobData?.slice(0, maxItems) || [];
   const limitedInternshipData = internshipData?.slice(0, maxItems) || [];
@@ -78,17 +76,7 @@ const YourActivitySection = ({
               <PostCardActivity data={postData} />
             </div>
           ) : (
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                height: "70px",
-                // border: "1px solid black",
-              }}
-            >
-              <p style={{ marginBottom: 0 }}>No Posts Added!</p>
-            </div>
+            <p>No Posts Added!</p>
           )}
         </>
       )}
@@ -101,14 +89,7 @@ const YourActivitySection = ({
                 <RecommendationCard2Activity data={paginatedJobs} />
               </div>
 
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  gap: 10,
-                  marginTop: 10,
-                }}
-              >
+              <div style={{ display: "flex", justifyContent: "center", gap: 10, marginTop: 10 }}>
                 <button
                   onClick={() => setJobPage((prev) => Math.max(prev - 1, 1))}
                   disabled={jobPage === 1}
@@ -128,9 +109,7 @@ const YourActivitySection = ({
                 <button
                   onClick={() =>
                     setJobPage((prev) =>
-                      prev * itemsPerPage < limitedJobData.length
-                        ? prev + 1
-                        : prev
+                      prev * itemsPerPage < limitedJobData.length ? prev + 1 : prev
                     )
                   }
                   disabled={jobPage * itemsPerPage >= limitedJobData.length}
@@ -142,9 +121,7 @@ const YourActivitySection = ({
                         ? "#f2f4f5"
                         : "#138382",
                     color:
-                      jobPage * itemsPerPage >= limitedJobData.length
-                        ? "#888"
-                        : "white",
+                      jobPage * itemsPerPage >= limitedJobData.length ? "#888" : "white",
                     border: "none",
                     cursor:
                       jobPage * itemsPerPage >= limitedJobData.length
@@ -158,16 +135,7 @@ const YourActivitySection = ({
               </div>
             </>
           ) : (
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                height: "70px",
-              }}
-            >
-              <p style={{ marginBottom: 0 }}>No Jobs Hosted!</p>
-            </div>
+            <p>No Jobs Hosted!</p>
           )}
         </>
       )}
@@ -180,18 +148,9 @@ const YourActivitySection = ({
                 <RecommendationCard2Activity data={paginatedInternships} />
               </div>
 
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  gap: 10,
-                  marginTop: 10,
-                }}
-              >
+              <div style={{ display: "flex", justifyContent: "center", gap: 10, marginTop: 10 }}>
                 <button
-                  onClick={() =>
-                    setInternshipPage((prev) => Math.max(prev - 1, 1))
-                  }
+                  onClick={() => setInternshipPage((prev) => Math.max(prev - 1, 1))}
                   disabled={internshipPage === 1}
                   style={{
                     padding: "8px 16px",
@@ -209,32 +168,24 @@ const YourActivitySection = ({
                 <button
                   onClick={() =>
                     setInternshipPage((prev) =>
-                      prev * itemsPerPage < limitedInternshipData.length
-                        ? prev + 1
-                        : prev
+                      prev * itemsPerPage < limitedInternshipData.length ? prev + 1 : prev
                     )
                   }
-                  disabled={
-                    internshipPage * itemsPerPage >=
-                    limitedInternshipData.length
-                  }
+                  disabled={internshipPage * itemsPerPage >= limitedInternshipData.length}
                   style={{
                     padding: "8px 16px",
                     borderRadius: "8px",
                     background:
-                      internshipPage * itemsPerPage >=
-                      limitedInternshipData.length
+                      internshipPage * itemsPerPage >= limitedInternshipData.length
                         ? "#f2f4f5"
                         : "#138382",
                     color:
-                      internshipPage * itemsPerPage >=
-                      limitedInternshipData.length
+                      internshipPage * itemsPerPage >= limitedInternshipData.length
                         ? "#888"
                         : "white",
                     border: "none",
                     cursor:
-                      internshipPage * itemsPerPage >=
-                      limitedInternshipData.length
+                      internshipPage * itemsPerPage >= limitedInternshipData.length
                         ? "default"
                         : "pointer",
                     boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.03)",
@@ -245,16 +196,7 @@ const YourActivitySection = ({
               </div>
             </>
           ) : (
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                height: "70px",
-              }}
-            >
-              <p style={{ marginBottom: 0 }}>No Internships Hosted!</p>
-            </div>
+            <p>No Internships Hosted!</p>
           )}
         </>
       )}

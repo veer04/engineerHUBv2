@@ -1,6 +1,6 @@
 import { Fragment, useEffect, useRef, useState } from "react";
 import "./JobBoard.css";
-import { FiDownload, FiUserPlus, FiUserX, FiMenu } from "react-icons/fi";
+import { FiDownload, FiUserPlus, FiUserX } from "react-icons/fi";
 import { MdDeleteOutline, MdMailOutline } from "react-icons/md";
 import { RiInboxArchiveLine } from "react-icons/ri";
 import Loading from "../../../components/Loader/Loading";
@@ -17,7 +17,6 @@ import useGlobalSnackbar from "../../../hooks/useGlobalSnackbar";
 import FormInput from "../../../components/FormInputs/FormInput";
 import FormInputTextarea from "../../../components/FormInputs/FormInputTextarea";
 import { Editor } from "@tinymce/tinymce-react";
-import JobBoardSidebar from "./JobBoardSidebar";
 
 export default function JobBoard() {
   const navigate = useNavigate();
@@ -41,12 +40,11 @@ export default function JobBoard() {
   const [isSendingMail, setIsSendingMail] = useState(false);
   const [subject, setSubject] = useState("");
   const [message, setMessage] = useState("");
-  const [creatorEmail, setcreatorEmail] = useState("");
-  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(true); // Default to collapsed on mobile
+  const [senderEmail, setSenderEmail] = useState("");
   const [errors, setErrors] = useState({
     subject: "",
     message: "",
-    creatorEmail: "",
+    senderEmail: "",
   });
   const {
     setSnackbarOpen,
@@ -79,19 +77,6 @@ export default function JobBoard() {
         }`
       );
     }
-  }, []);
-
-  // Add effect to handle window resize
-  useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth <= 700) {
-        setIsSidebarCollapsed(true);
-      }
-    };
-
-    handleResize(); // Initial check
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   const config = {
@@ -341,7 +326,7 @@ export default function JobBoard() {
     const errors = {
       subject: "",
       message: "",
-      creatorEmail: "",
+      senderEmail: "",
     };
 
     if (!subject) {
@@ -368,14 +353,14 @@ export default function JobBoard() {
       addToErrorStack("#message");
     }
 
-    if (!creatorEmail) {
-      errors.creatorEmail = "Sender's email is required";
+    if (!senderEmail) {
+      errors.senderEmail = "Sender's email is required";
       isValid = false;
-      addToErrorStack("#creatorEmail");
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(creatorEmail)) {
-      errors.creatorEmail = "Please enter a valid email address";
+      addToErrorStack("#senderEmail");
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(senderEmail)) {
+      errors.senderEmail = "Please enter a valid email address";
       isValid = false;
-      addToErrorStack("#creatorEmail");
+      addToErrorStack("#senderEmail");
     }
 
     setErrors(errors);
@@ -384,27 +369,6 @@ export default function JobBoard() {
   }
 
   async function submitForm() {
-    if (selectedRows.length === 0) {
-      setSnackbarMessage("Please select at least one applicant");
-      setSnackbarSeverity("error");
-      setSnackbarDuration(3000);
-      setSnackbarOpen(true);
-      return;
-    }
-
-    // Validate that all selected rows have valid IDs
-    const validRegistrationIds = selectedRows
-      .filter(row => row && row._id)
-      .map(row => row._id);
-
-    if (validRegistrationIds.length === 0) {
-      setSnackbarMessage("No valid applicant IDs found in selected rows");
-      setSnackbarSeverity("error");
-      setSnackbarDuration(3000);
-      setSnackbarOpen(true);
-      return;
-    }
-
     setIsSendingMail(true);
     setIsAnyRowUpdating(true);
     const applicantsNextStatus =
@@ -421,8 +385,8 @@ export default function JobBoard() {
           subject,
           text: message,
           status: applicantsNextStatus,
-          registration_ids: validRegistrationIds,
-          creatorEmail: creatorEmail,
+          registration_ids: selectedRows.map((job) => job?._id),
+          senderEmail: senderEmail,
         },
         config
       )
@@ -443,11 +407,11 @@ export default function JobBoard() {
         setSelectedRows([]);
         setSubject("");
         setMessage("");
-        setcreatorEmail("");
+        setSenderEmail("");
         setErrors({
           subject: "",
           message: "",
-          creatorEmail: "",
+          senderEmail: "",
         });
       })
       .catch((err) => {
@@ -471,18 +435,159 @@ export default function JobBoard() {
 
   return (
     <>
-      <button
-        className="main-menu-toggle"
-        onClick={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
-        aria-label="Toggle menu"
+      <div
+        className="modal fade"
+        id={`sendMailModal-${jobData?.data?.data?.data?._id}`}
+        data-bs-backdrop="static"
+        data-bs-keyboard="false"
+        tabIndex="-1"
+        aria-labelledby="sendMailModalLabel"
+        aria-hidden="true"
       >
-        <FiMenu />
-      </button>
-      <JobBoardSidebar
-        isCollapsed={isSidebarCollapsed}
-        setIsCollapsed={setIsSidebarCollapsed}
-      />
-      <div className={`crm-board ${!isSidebarCollapsed ? "expanded" : ""}`}>
+        <div className="modal-dialog modal-dialog-centered">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h1
+                className="modal-title fs-5 heading-sm"
+                id="sendMailModalLabel"
+              >
+                Send mail to all selected candidates
+              </h1>
+              <button
+                type="button"
+                className="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+                disabled={isSendingMail}
+                ref={ref}
+              ></button>
+            </div>
+            <div className="modal-body">
+              <FormInput
+                id="senderEmail"
+                name="senderEmail"
+                label="Sender's Email"
+                placeholder="Enter sender's email"
+                className="mb-2"
+                required
+                value={senderEmail}
+                setValue={setSenderEmail}
+                helperText={errors.senderEmail}
+              />
+              <FormInput
+                id="subject"
+                name="subject"
+                label="Subject"
+                placeholder="Enter the subject"
+                className="mb-2"
+                required
+                value={subject}
+                setValue={setSubject}
+                helperText={errors.subject}
+              />
+              <label
+                htmlFor={message}
+                style={{
+                  fontSize: "14px",
+                  fontWeight: "500",
+                  margin: "0",
+                  padding: "0",
+                }}
+              >
+                Message{" "}
+                <span style={{ color: "red", fontSize: "14px" }}>*</span>
+              </label>
+              {/* <FormInputTextarea
+                id="message"
+                name="message"
+                label="Message"
+                placeholder="Enter the message"
+                rows={5}
+                className="mb-2"
+                required
+                value={message}
+                setValue={setMessage}
+                helperText={errors.message}
+              /> */}
+              <div className="mb-4">
+                <Editor
+                  apiKey={EDITOR_API_KEY}
+                  value={message}
+                  onEditorChange={(content) => {
+                    setMessage(content);
+                  }}
+                  onInit={(_evt, editor) => (editorRef.current = editor)}
+                  initialValue=""
+                  init={{
+                    height: 500,
+                    menubar: "file",
+                    plugins: [
+                      "advlist",
+                      "autolink",
+                      "lists",
+                      "link",
+                      "image",
+                      "charmap",
+                      "preview",
+                      "anchor",
+                      "searchreplace",
+                      "visualblocks",
+                      "code",
+                      "fullscreen",
+                      "insertdatetime",
+                      "media",
+                      "table",
+                      "code",
+                      "help",
+                      "wordcount",
+                    ],
+                    toolbar:
+                      "undo redo" +
+                      "bold italic forecolor | alignleft aligncenter " +
+                      "alignright alignjustify | bullist numlist outdent indent | " +
+                      "removeformat",
+                    content_style:
+                      "body { font-family:Inter,Helvetica,Arial,sans-serif; font-size:14px }",
+                  }}
+                />
+                {/* <button onClick={log}>Log editor content</button> */}
+              </div>
+            </div>
+            <div className="modal-footer">
+              <button
+                type="button"
+                className="btn btn-primary"
+                style={{
+                  backgroundColor: "#1383821A",
+                  color: "var(--primary-color-green)",
+                  borderRadius: "10px",
+                  border: "none",
+                  padding: "10px 24px",
+                }}
+                data-bs-dismiss="modal"
+                disabled={isSendingMail}
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                className="btn btn-secondary"
+                style={{
+                  backgroundColor: "var(--primary-color-green)",
+                  borderRadius: "10px",
+                  border: "none",
+                  padding: "10px 40px",
+                }}
+                onClick={() => handleSendMail()}
+                disabled={isSendingMail}
+              >
+                Send Mail
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <main className="crm-board">
         <Helmet>
           <meta name="robots" content="noindex, nofollow" />
           <title>Job Board{false ? ` | Job Name` : ""}</title>
@@ -514,23 +619,21 @@ export default function JobBoard() {
           </label>
         </div> */}
           <div className="heading heading-sm">
-            <div className="d-flex align-items-center gap-2">
-              <p>
-                {jobData?.data?.data?.data?.opportunityName || <i>Job Name</i>}
-              </p>
-              <span>|</span>
-              <p>
-                {jobData?.data?.data?.data?._id ? (
-                  `ID : ${jobData?.data?.data?.data?._id}`
-                ) : (
-                  <i>ID : Not found</i>
-                )}
-              </p>
-              <span>|</span>
-              <p>{jobData?.data?.data?.data?.opportunityMode || <i>Type</i>}</p>
-              <span>|</span>
-              <p>{jobData?.data?.data?.data?.city || <i>Location</i>}</p>
-            </div>
+            <p>
+              {jobData?.data?.data?.data?.opportunityName || <i>Job Name</i>}
+            </p>
+            <span>|</span>
+            <p>
+              {jobData?.data?.data?.data?._id ? (
+                `ID : ${jobData?.data?.data?.data?._id}`
+              ) : (
+                <i>ID : Not found</i>
+              )}
+            </p>
+            <span>|</span>
+            <p>{jobData?.data?.data?.data?.opportunityMode || <i>Type</i>}</p>
+            <span>|</span>
+            <p>{jobData?.data?.data?.data?.city || <i>Location</i>}</p>
           </div>
           <div className="posted-on body-md-semibold">
             {jobData?.data?.data?.data?.createdAt ? (
@@ -548,28 +651,6 @@ export default function JobBoard() {
                 onClick={() =>
                   setSearchParams(
                     (prev) => {
-                      prev.set("status", "");
-                      prev.set("pageNo", "1");
-                      prev.set("limit", "30");
-                      return prev;
-                    },
-                    { replace: true }
-                  )
-                }
-                className={`${params.status === "" ? "--selected" : ""}`}
-              >
-                <p className="body-sm-regular">Show All</p>
-                <span className="body-sm-regular">
-                  {applicantsCountData?.data?.data?.data?.reduce(
-                    (acc, item) => acc + item.count,
-                    0
-                  )}
-                </span>
-              </button>
-              <button
-                onClick={() =>
-                  setSearchParams(
-                    (prev) => {
                       prev.set("status", "Uncategorized");
                       prev.set("pageNo", "1");
                       prev.set("limit", "30");
@@ -583,6 +664,7 @@ export default function JobBoard() {
                 }`}
               >
                 <p className="body-sm-regular">Uncategorized</p>
+                {/* Data comes in the form of an array with the following structure:  [{count: 1, status: 'Processing'}, {count: 1, status: 'Shortlisted'}, {count: 1, status: 'Uncategorized'}, {count: 1, status: 'Rejected'}] */}
                 {!!applicantsCountData?.data?.data?.data?.find(
                   (item) => item.status === "Uncategorized"
                 )?.count && (
@@ -682,6 +764,28 @@ export default function JobBoard() {
                   </span>
                 )}
               </button>
+              <button
+                onClick={() =>
+                  setSearchParams(
+                    (prev) => {
+                      prev.set("status", "");
+                      prev.set("pageNo", "1");
+                      prev.set("limit", "30");
+                      return prev;
+                    },
+                    { replace: true }
+                  )
+                }
+                className={`${params.status === "" ? "--selected" : ""}`}
+              >
+                <p className="body-sm-regular">Show All</p>
+                <span className="body-sm-regular">
+                  {applicantsCountData?.data?.data?.data?.reduce(
+                    (acc, item) => acc + item.count,
+                    0
+                  )}
+                </span>
+              </button>
             </div>
             <div className="download-container">
               {boardDataRows.length > 0 &&
@@ -689,6 +793,7 @@ export default function JobBoard() {
                 params.status === "Shortlisted" && (
                   <>
                     <button
+                      // onClick={handleSendMail}
                       className="send-mail-btn"
                       type="button"
                       data-bs-toggle="modal"
@@ -753,9 +858,7 @@ export default function JobBoard() {
                 {selectedRows.length > 0 && (
                   <button
                     onClick={() => {
-                      const modal = document.getElementById(
-                        `sendMailModal-${jobData?.data?.data?.data?._id}`
-                      );
+                      const modal = document.getElementById(`sendMailModal-${jobData?.data?.data?.data?._id}`);
                       if (modal) {
                         const bsModal = new window.bootstrap.Modal(modal);
                         bsModal.show();
@@ -803,11 +906,48 @@ export default function JobBoard() {
                   </option>
                 </select>
               </div>
+              {/* 
+            <input
+              aria-required="false"
+              autoCapitalize="none"
+              autoComplete="off"
+              autoCorrect="off"
+              // name={param}
+              tabIndex="0"
+              type="text"
+              spellCheck="false"
+              role="combobox"
+              aria-haspopup="false"
+              aria-autocomplete="list"
+              dir="ltr"
+              // id={id}
+              className={`body-sm-regular
+                
+                  `}
+              // placeholder={placeholder}
+              // aria-label={ariaLabel}
+              // aria-describedby={ariaDescribedby}
+              // value={value}
+              // onChange={(e) => setValue(e.target.value)}
+              // onKeyDown={(e) => {
+              //   if (e.key === "Enter") {
+              //     setSearchParams(
+              //       (prev) => {
+              //         prev.set(param, value);
+              //         return prev;
+              //       },
+              //       { replace: true }
+              //     );
+              //   }
+              // }}
+              // {...rest}
+            />
+            */}
             </div>
           </div>
           <div className="d-flex justify-content-between align-items-center w-100 mb-3">
-            <div className="d-flex justify-content-between align-items-center gap-2">
-              <span>Showing</span>
+            <div>
+              <span>Showing </span>
               <select
                 name="limit"
                 id="limit"
@@ -818,11 +958,6 @@ export default function JobBoard() {
                       !!params.status ? `&status=${params.status}` : ""
                     }`
                   );
-                }}
-                style={{
-                  minWidth: 80,
-                  fontSize: "0.875rem",
-                  borderRadius: "0.25rem",
                 }}
               >
                 <option value="10">10</option>
@@ -839,23 +974,13 @@ export default function JobBoard() {
                   {limit}
                 </option>
               </select>
-              <span>Entries</span>
+              <span> results</span>
             </div>
-            <div className="d-flex align-items-center gap-3">
-              <span className="text-muted">
-                Showing {(parseInt(pageNo) - 1) * parseInt(limit) + 1} to{" "}
-                {Math.min(
-                  parseInt(pageNo) * parseInt(limit),
-                  boardData?.data?.data?.data?.totalApplicants || 0
-                )}{" "}
-                of {boardData?.data?.data?.data?.totalApplicants || 0} entries
-              </span>
-              <PaginationBarWithSearchParams
-                className="m-0"
-                param="pageNo"
-                pages={pageCount}
-              />
-            </div>
+            <PaginationBarWithSearchParams
+              className="m-0"
+              param="pageNo"
+              pages={pageCount}
+            />
           </div>
           <div className="board-table">
             <div className="table-item table-headers table-header-1 body-sm-regular"></div>
@@ -945,9 +1070,7 @@ export default function JobBoard() {
                   isDataFetching={boardData.isFetching}
                   onSendMail={() => {
                     setSelectedRows([item]);
-                    const modal = document.getElementById(
-                      `sendMailModal-${jobData?.data?.data?.data?._id}`
-                    );
+                    const modal = document.getElementById(`sendMailModal-${jobData?.data?.data?.data?._id}`);
                     if (modal) {
                       const bsModal = new window.bootstrap.Modal(modal);
                       bsModal.show();
@@ -957,129 +1080,7 @@ export default function JobBoard() {
               ))}
           </div>
         </section>
-      </div>
-      {/* Send Mail Modal */}
-      <div
-        className="modal fade"
-        id={`sendMailModal-${jobData?.data?.data?.data?._id}`}
-        tabIndex="-1"
-        aria-labelledby={`sendMailModalLabel-${jobData?.data?.data?.data?._id}`}
-        aria-hidden="true"
-      >
-        <div className="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h1
-                className="modal-title heading-sm"
-                id={`sendMailModalLabel-${jobData?.data?.data?.data?._id}`}
-              >
-                Send Mail to Selected Applicants
-              </h1>
-              <button
-                type="button"
-                className="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-                ref={ref}
-              ></button>
-            </div>
-            <div className="modal-body">
-              <FormInput
-                label="Subject"
-                id="subject"
-                name="subject"
-                required
-                placeholder="Enter email subject"
-                value={subject}
-                setValue={setSubject}
-                helperText={errors.subject}
-                className="mb-4"
-              />
-              <FormInput
-                label="Sender's Email"
-                id="creatorEmail"
-                name="creatorEmail"
-                required
-                placeholder="Enter sender's email"
-                value={creatorEmail}
-                setValue={setcreatorEmail}
-                helperText={errors.creatorEmail}
-                className="mb-4"
-              />
-              <div className="mb-4">
-                <label htmlFor="message" className="form-label">
-                  Message
-                </label>
-                <Editor
-                  apiKey={EDITOR_API_KEY}
-                  onInit={(evt, editor) => (editorRef.current = editor)}
-                  init={{
-                    height: 300,
-                    menubar: false,
-                    plugins: [
-                      "advlist",
-                      "autolink",
-                      "lists",
-                      "link",
-                      "image",
-                      "charmap",
-                      "preview",
-                      "anchor",
-                      "searchreplace",
-                      "visualblocks",
-                      "code",
-                      "fullscreen",
-                      "insertdatetime",
-                      "media",
-                      "table",
-                      "code",
-                      "help",
-                      "wordcount",
-                    ],
-                    toolbar:
-                      "undo redo | blocks | " +
-                      "bold italic forecolor | alignleft aligncenter " +
-                      "alignright alignjustify | bullist numlist outdent indent | " +
-                      "removeformat | help",
-                    content_style:
-                      "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
-                  }}
-                  value={message}
-                  onEditorChange={(content) => setMessage(content)}
-                />
-                {errors.message && (
-                  <div className="form-text text-danger">{errors.message}</div>
-                )}
-              </div>
-            </div>
-            <div className="modal-footer justify-content-between">
-              <button
-                onClick={() => {
-                  setSubject("");
-                  setMessage("");
-                  setcreatorEmail("");
-                  setErrors({
-                    subject: "",
-                    message: "",
-                    creatorEmail: "",
-                  });
-                }}
-                className="clear-btn body-sm-semibold px-2 py-2"
-              >
-                Clear
-              </button>
-              <button
-                onClick={handleSendMail}
-                type="button"
-                className="apply-btn body-sm-semibold"
-                disabled={isSendingMail}
-              >
-                {isSendingMail ? <Loading /> : "Send"}
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
+      </main>
     </>
   );
 }
