@@ -22,11 +22,13 @@
 
 .profile-dashboard-rectangle-img-1 {
   width: 100%;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .profile-dashboard-rectangle-img-2 {
   width: 100%;
   display: none;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 @media screen and (max-width: 820px) {

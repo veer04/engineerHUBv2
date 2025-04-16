@@ -31,7 +31,8 @@
   }
 
   .banner-space-container .image-banner {
-    border-radius: 3px;
+    border-radius: 10px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
   }
 
   .banner-space-container .desktop-banner {

@@ -141,6 +141,10 @@ const ProfileDashboard = () => {
     }
   }, [privateDashboardData]);
 
+  const handleRedirect = () => {
+    window.open(`https://collegele.com/application`, "_blank");
+  };
+
   return (
     <>
       <main className="main-profile-dashboard">
@@ -156,9 +160,10 @@ const ProfileDashboard = () => {
               />
             </div>
             <img
+              onClick={handleRedirect}
               className="profile-dashboard-rectangle-img-1"
-              style={{ marginTop: 20, borderRadius: 8 }}
-              src={`${Bucket_URL}UserViewDashboard/rectangle-img.png`}
+              style={{ marginTop: 20, borderRadius: 8, cursor: "pointer" }}
+              src={`${Bucket_URL}13404898.png`}
               alt="We are live poster"
             />
           </div>
@@ -185,14 +190,16 @@ const ProfileDashboard = () => {
         </div>
 
         <img
+          onClick={handleRedirect}
           style={{
             marginTop: 20,
-            padding: "10px",
+            // padding: "10px",
             borderRadius: 8,
-            marginBottom: 20,
+            marginBottom: 80,
+            cursor: "pointer",
           }}
           className="profile-dashboard-rectangle-img-2"
-          src={`${Bucket_URL}UserViewDashboard/rectangle-img.png`}
+          src={`${Bucket_URL}13404898.png`}
           alt="We are live poster"
         />
       </main>
