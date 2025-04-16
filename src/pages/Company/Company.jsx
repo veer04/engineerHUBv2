@@ -13,6 +13,7 @@ import { useQuery } from "@tanstack/react-query";
 import OtherPageCard from "./OtherPageCard";
 import OtherPageCard2 from "./OtherPageCard2";
 import OtherPageCard3 from "./OtherPageCard3";
+import BannerSpaceComp from "./BannerSpaceComp/BannerSpaceComp";
 
 const CompanyCards = ({ data }) => {
   return (
@@ -85,14 +86,14 @@ const Company = () => {
       });
   };
 
-  const getCompanyPageJobs = (setJobs, pageNo, limit , isEasyApply) => {
+  const getCompanyPageJobs = (setJobs, pageNo, limit, isEasyApply) => {
     axios
       .get(`${API_URL}api/v1/getHiringByOpportunityType/`, {
         params: {
           opportunityType: "Job",
           pageNo: pageNo,
           limit: limit,
-          isEasyApply :isEasyApply,
+          isEasyApply: isEasyApply,
         },
       })
       .then((res) => {
@@ -173,7 +174,7 @@ const Company = () => {
     if (sessionStorage.getItem("companyPageJobs")) {
       setJobs(JSON.parse(sessionStorage.getItem("companyPageJobs")));
     } else {
-      getCompanyPageJobs(setJobs, 1, 6,1);
+      getCompanyPageJobs(setJobs, 1, 6, 1);
     }
     if (sessionStorage.getItem("companyPageEvents")) {
       setEvents(JSON.parse(sessionStorage.getItem("companyPageEvents")));
@@ -315,6 +316,13 @@ const Company = () => {
           })}
         </div>
       </div> */}
+
+      <div className="banner-space-div-to-promote-companies">
+        <BannerSpaceComp
+          image={`${Bucket_URL}banner1.png`}
+          mobileImage={`${Bucket_URL}13404898.png`}
+        />
+      </div>
 
       <div className="padding-adjustment">
         <PromoteServices compName={"Our Resources"} />
