@@ -14,4 +14,30 @@
   background-size: cover;
   height: 100%;
   border-radius: 15px;
+  display: block;
+  object-fit: cover;
+}
+
+.banner-space-container .desktop-banner {
+  display: block;
+}
+.banner-space-container .mobile-banner {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .banner-space-container {
+    margin: 20px 15px;
+  }
+
+  .banner-space-container .image-banner {
+    border-radius: 3px;
+  }
+
+  .banner-space-container .desktop-banner {
+    display: none;
+  }
+  .banner-space-container .mobile-banner {
+    display: block;
+  }
 }

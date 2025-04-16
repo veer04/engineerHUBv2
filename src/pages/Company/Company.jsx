@@ -318,7 +318,10 @@ const Company = () => {
       </div> */}
 
       <div className="banner-space-div-to-promote-companies">
-        <BannerSpaceComp image={`${Bucket_URL}banner1.png`} />
+        <BannerSpaceComp
+          image={`${Bucket_URL}banner1.png`}
+          mobileImage={`${Bucket_URL}mobile_banner2.jpeg`}
+        />
       </div>
 
       <div className="padding-adjustment">
