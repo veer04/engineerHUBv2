@@ -352,7 +352,7 @@ const ProfileWithPostEditShare = ({
               {isLoadingClickToUploadResume ? (
                 <div className="loader-4"></div>
               ) : (
-                "Click here to pload your resume"
+                "Click here to upload your resume"
               )}
             </button>
           </div>
