@@ -10,6 +10,7 @@ import NewCompanyHomePage from "./NewCompanyHomePage";
 import NewHostHomePage from "./NewHostHomePage";
 import NewSiliconValley from "./NewSiliconValley";
 import { getTrendingAlumni2, getTrendingClubs } from "../../services/APIConfig";
+import EasyWayToHire from "../Enterprise/Assests/Components/EasyWayToHire/EasyWayToHire";
 
 export default function NewHomePage() {
   const { setSelectedPageNavbar } = useNavbar();
@@ -33,6 +34,9 @@ export default function NewHomePage() {
       <NewCampusHomePage list={list} clubs={clubs} />
       <NewCompanyHomePage />
       <NewHostHomePage />
+
+      <EasyWayToHire />
+
       <NewSiliconValley />
       <NewReviewSection />
     </main>

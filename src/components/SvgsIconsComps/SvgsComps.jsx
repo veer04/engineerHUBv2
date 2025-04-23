@@ -572,3 +572,59 @@ export const LinkedinIcon = () => {
     </svg>
   );
 };
+
+export const FreeOrangeBand = () => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="61"
+      height="88"
+      viewBox="0 0 61 88"
+      fill="none"
+    >
+      <g filter="url(#filter0_d_3683_4429)">
+        <path
+          d="M29.9997 0.499959L57.0051 46L57.0051 80L4.4965 0.499925L29.9997 0.499959Z"
+          fill="#FF0000"
+        />
+      </g>
+      <defs>
+        <filter
+          id="filter0_d_3683_4429"
+          x="0.496094"
+          y="0.499878"
+          width="60.5088"
+          height="87.5001"
+          filterUnits="userSpaceOnUse"
+          color-interpolation-filters="sRGB"
+        >
+          <feFlood flood-opacity="0" result="BackgroundImageFix" />
+          <feColorMatrix
+            in="SourceAlpha"
+            type="matrix"
+            values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+            result="hardAlpha"
+          />
+          <feOffset dy="4" />
+          <feGaussianBlur stdDeviation="2" />
+          <feComposite in2="hardAlpha" operator="out" />
+          <feColorMatrix
+            type="matrix"
+            values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"
+          />
+          <feBlend
+            mode="normal"
+            in2="BackgroundImageFix"
+            result="effect1_dropShadow_3683_4429"
+          />
+          <feBlend
+            mode="normal"
+            in="SourceGraphic"
+            in2="effect1_dropShadow_3683_4429"
+            result="shape"
+          />
+        </filter>
+      </defs>
+    </svg>
+  );
+};
