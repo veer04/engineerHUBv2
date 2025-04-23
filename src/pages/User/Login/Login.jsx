@@ -198,6 +198,13 @@ const Register = () => {
         })
         .catch((error) => {
           console.error(error);
+          setSnackbarValues({
+            severity: "error",
+            message: error.response.data.message,
+          });
+          setLoading(false);
+          setOpen(true);
+          console.error(error.response.data.message);
         });
       setValues({ ...values, password: "" });
       // signIn({
