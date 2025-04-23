@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { JobAThonMobile } from "./MobileView/EnterpriseMobileView";
-import {JobAThonDesktopView} from "./JobAThonDesktopView";
+import { JobAThonDesktopView } from "./JobAThonDesktopView";
 const Enterprise = () => {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 600);
 
@@ -10,7 +10,7 @@ const Enterprise = () => {
     };
 
     window.addEventListener("resize", handleResize);
-    
+
     // Initial check to update state on mount
     handleResize();
 
@@ -18,14 +18,13 @@ const Enterprise = () => {
   }, []);
 
   return (
-   
     <div>
       {isMobile ? (
         <JobAThonMobile />
       ) : (
         <>
-        <JobAThonDesktopView/>
-         {/*
+          <JobAThonDesktopView />
+          {/*
   // Rendering Component1
   <Component1 />
 
@@ -44,8 +43,6 @@ const Enterprise = () => {
     <Component3 />
   </div>
 */}
-
-          
         </>
       )}
     </div>
