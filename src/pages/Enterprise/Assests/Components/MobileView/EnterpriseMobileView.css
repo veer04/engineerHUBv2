@@ -1,1721 +1,1716 @@
 .job-a-thon-mobile {
-    background-color: #f9f9f9;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    width: 100%;
+  background-color: #f9f9f9;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
 }
 
 .job-a-thon-mobile .div {
-    background-color: #f9f9f9;
-    height: 4700px;
-    position: relative;
-    width: 390px;
+  background-color: #f9f9f9;
+  height: 5404px;
+  position: relative;
+  width: 390px;
 }
 
 .job-a-thon-mobile .overlap-group {
-    height: 576px;
-    left: 0;
-    position: absolute;
-    top: 70px;
-    width: 390px;
+  height: 576px;
+  left: 0;
+  position: absolute;
+  top: 70px;
+  width: 390px;
 }
 
 .job-a-thon-mobile .frameMobView {
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-    justify-content: center;
-    left: 0;
-    /* padding: 24px 16px; */
-    position: absolute;
-    top: 0;
-    width: 390px;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  justify-content: center;
+  left: 0;
+  /* padding: 24px 16px; */
+  position: absolute;
+  top: 0;
+  width: 390px;
 }
 
 .job-a-thon-mobile .frameMobView-wrapper {
-    align-items: flex-start;
-    align-self: stretch;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    height: 152px;
-    justify-content: center;
-    position: relative;
-    width: 100%;
+  align-items: flex-start;
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  height: 152px;
+  justify-content: center;
+  position: relative;
+  width: 100%;
 }
 
 .job-a-thon-mobile .frameMobView-2 {
-    align-items: flex-start;
-    align-self: stretch;
-    display: flex;
-    flex: 0 0 auto;
-    flex-direction: column;
-    gap: 0px;
-    position: relative;
-    width: 100%;
+  align-items: flex-start;
+  align-self: stretch;
+  display: flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  gap: 0px;
+  position: relative;
+  width: 100%;
 }
 
 .job-a-thon-mobile .div-wrapper {
-    align-items: center;
-    align-self: stretch;
-    display: flex;
-    flex: 0 0 auto;
-    gap: 1px;
-    justify-content: center;
-    position: relative;
-    width: 100%;
+  align-items: center;
+  align-self: stretch;
+  display: flex;
+  flex: 0 0 auto;
+  gap: 1px;
+  justify-content: center;
+  position: relative;
+  width: 100%;
 }
 
 .job-a-thon-mobile .text-wrapper {
-    color: #002b36;
-    flex: 1;
-    font-family: var(--desktop-body-body-md-md-regular-font-family);
-    font-size: var(--desktop-body-body-md-md-regular-font-size);
-    font-style: var(--desktop-body-body-md-md-regular-font-style);
-    font-weight: var(--desktop-body-body-md-md-regular-font-weight);
-    letter-spacing: var(--desktop-body-body-md-md-regular-letter-spacing);
-    line-height: var(--desktop-body-body-md-md-regular-line-height);
-    margin-top: -1.00px;
-    position: relative;
-    text-align: center;
+  color: #002b36;
+  flex: 1;
+  font-family: var(--desktop-body-body-md-md-regular-font-family);
+  font-size: var(--desktop-body-body-md-md-regular-font-size);
+  font-style: var(--desktop-body-body-md-md-regular-font-style);
+  font-weight: var(--desktop-body-body-md-md-regular-font-weight);
+  letter-spacing: var(--desktop-body-body-md-md-regular-letter-spacing);
+  line-height: var(--desktop-body-body-md-md-regular-line-height);
+  margin-top: -1px;
+  position: relative;
+  text-align: center;
 }
 
 .job-a-thon-mobile .frameMobView-3 {
-    align-items: center;
-    align-self: stretch;
-    display: flex;
-    flex: 0 0 auto;
-    gap: 10px;
-    position: relative;
-    width: 100%;
+  align-items: center;
+  align-self: stretch;
+  display: flex;
+  flex: 0 0 auto;
+  gap: 10px;
+  position: relative;
+  width: 100%;
 }
 
 .job-a-thon-mobile .p {
-    color: #002b36;
-    flex: 1;
-    font-family: var(--mobile-display-mb-display-md-font-family);
-    font-size: var(--mobile-display-mb-display-md-font-size);
-    font-style: var(--mobile-display-mb-display-md-font-style);
-    font-weight: var(--mobile-display-mb-display-md-font-weight);
-    letter-spacing: var(--mobile-display-mb-display-md-letter-spacing);
-    line-height: var(--mobile-display-mb-display-md-line-height);
-    margin-top: -1.00px;
-    position: relative;
-    text-align: center;
+  color: #002b36;
+  flex: 1;
+  font-family: var(--mobile-display-mb-display-md-font-family);
+  font-size: var(--mobile-display-mb-display-md-font-size);
+  font-style: var(--mobile-display-mb-display-md-font-style);
+  font-weight: var(--mobile-display-mb-display-md-font-weight);
+  letter-spacing: var(--mobile-display-mb-display-md-letter-spacing);
+  line-height: var(--mobile-display-mb-display-md-line-height);
+  margin-top: -1px;
+  position: relative;
+  text-align: center;
 }
 
 .job-a-thon-mobile .text-wrapper-2 {
-    color: var(--border-secondary);
-    flex: 1;
-    font-family: var(--desktop-body-body-sm-sm-regular-font-family);
-    font-size: var(--desktop-body-body-sm-sm-regular-font-size);
-    font-style: var(--desktop-body-body-sm-sm-regular-font-style);
-    font-weight: var(--desktop-body-body-sm-sm-regular-font-weight);
-    letter-spacing: var(--desktop-body-body-sm-sm-regular-letter-spacing);
-    line-height: var(--desktop-body-body-sm-sm-regular-line-height);
-    margin-top: -1.00px;
-    position: relative;
-    text-align: center;
+  color: var(--border-secondary);
+  flex: 1;
+  font-family: var(--desktop-body-body-sm-sm-regular-font-family);
+  font-size: var(--desktop-body-body-sm-sm-regular-font-size);
+  font-style: var(--desktop-body-body-sm-sm-regular-font-style);
+  font-weight: var(--desktop-body-body-sm-sm-regular-font-weight);
+  letter-spacing: var(--desktop-body-body-sm-sm-regular-letter-spacing);
+  line-height: var(--desktop-body-body-sm-sm-regular-line-height);
+  margin-top: -1px;
+  position: relative;
+  text-align: center;
 }
 
 .job-a-thon-mobile .frameMobView-4 {
-    align-items: center;
-    background-color: #168584;
-    border-radius: 100px;
-    display: flex;
-    height: 48px;
-    justify-content: center;
-    padding: 8px 12px;
-    position: relative;
-    width: 180px;
+  align-items: center;
+  background-color: #168584;
+  border-radius: 100px;
+  display: flex;
+  height: 48px;
+  justify-content: center;
+  padding: 8px 12px;
+  position: relative;
+  width: 180px;
 }
 
 .job-a-thon-mobile .frameMobView-5 {
-    align-items: center;
-    display: inline-flex;
-    flex: 0 0 auto;
-    gap: 8px;
-    justify-content: center;
-    position: relative;
+  align-items: center;
+  display: inline-flex;
+  flex: 0 0 auto;
+  gap: 8px;
+  justify-content: center;
+  position: relative;
 }
 
 .job-a-thon-mobile .frameMobView-6 {
-    align-items: center;
-    display: inline-flex;
-    flex: 0 0 auto;
-    gap: 10px;
-    justify-content: center;
-    position: relative;
+  align-items: center;
+  display: inline-flex;
+  flex: 0 0 auto;
+  gap: 10px;
+  justify-content: center;
+  position: relative;
 }
 
 .job-a-thon-mobile .text-wrapper-3 {
-    color: #ffffff;
-    font-family: var(--desktop-body-body-sm-sm-bold-font-family);
-    font-size: var(--desktop-body-body-sm-sm-bold-font-size);
-    font-style: var(--desktop-body-body-sm-sm-bold-font-style);
-    font-weight: var(--desktop-body-body-sm-sm-bold-font-weight);
-    letter-spacing: var(--desktop-body-body-sm-sm-bold-letter-spacing);
-    line-height: var(--desktop-body-body-sm-sm-bold-line-height);
-    margin-top: -1.00px;
-    position: relative;
-    white-space: nowrap;
-    width: fit-content;
+  color: #ffffff;
+  font-family: var(--desktop-body-body-sm-sm-bold-font-family);
+  font-size: var(--desktop-body-body-sm-sm-bold-font-size);
+  font-style: var(--desktop-body-body-sm-sm-bold-font-style);
+  font-weight: var(--desktop-body-body-sm-sm-bold-font-weight);
+  letter-spacing: var(--desktop-body-body-sm-sm-bold-letter-spacing);
+  line-height: var(--desktop-body-body-sm-sm-bold-line-height);
+  margin-top: -1px;
+  position: relative;
+  white-space: nowrap;
+  width: fit-content;
 }
 
 .job-a-thon-mobile .company {
-    height: 328px;
-    left: 0;
-    object-fit: cover;
-    position: absolute;
-    top: 248px;
-    width: 390px;
+  height: 328px;
+  left: 0;
+  object-fit: cover;
+  position: absolute;
+  top: 248px;
+  width: 390px;
 }
 
 .job-a-thon-mobile .frameMobView-7 {
-    align-items: flex-start;
-    display: flex;
-    flex-direction: column;
-    gap: 60px;
-    left: 0;
-    position: absolute;
-    top: 647px;
-    width: 390px;
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+  left: 0;
+  position: absolute;
+  top: 647px;
+  width: 390px;
 }
 
 .job-a-thon-mobile .frameMobView-8 {
-    align-items: center;
-    display: flex;
-    flex: 0 0 auto;
-    flex-direction: column;
-    gap: 28px;
-    justify-content: center;
-    padding: 0px 16px;
-    position: relative;
-    width: 390px;
+  align-items: center;
+  display: flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  gap: 28px;
+  justify-content: center;
+  padding: 0px 16px;
+  position: relative;
+  width: 390px;
 }
 
 .job-a-thon-mobile .frameMobView-9 {
-    align-items: center;
-    align-self: stretch;
-    display: flex;
-    flex: 0 0 auto;
-    flex-direction: column;
-    justify-content: center;
-    position: relative;
-    width: 100%;
+  align-items: center;
+  align-self: stretch;
+  display: flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  width: 100%;
 }
 
 .job-a-thon-mobile .text-wrapper-4 {
-    align-self: stretch;
-    color: #25252533;
-    font-family: var(--desktop-heading-dt-heading-sm-font-family);
-    font-size: var(--desktop-heading-dt-heading-sm-font-size);
-    font-style: var(--desktop-heading-dt-heading-sm-font-style);
-    font-weight: var(--desktop-heading-dt-heading-sm-font-weight);
-    letter-spacing: var(--desktop-heading-dt-heading-sm-letter-spacing);
-    line-height: var(--desktop-heading-dt-heading-sm-line-height);
-    margin-top: -1.00px;
-    position: relative;
-    text-align: center;
+  align-self: stretch;
+  color: #25252533;
+  font-family: var(--desktop-heading-dt-heading-sm-font-family);
+  font-size: var(--desktop-heading-dt-heading-sm-font-size);
+  font-style: var(--desktop-heading-dt-heading-sm-font-style);
+  font-weight: var(--desktop-heading-dt-heading-sm-font-weight);
+  letter-spacing: var(--desktop-heading-dt-heading-sm-letter-spacing);
+  line-height: var(--desktop-heading-dt-heading-sm-line-height);
+  margin-top: -1px;
+  position: relative;
+  text-align: center;
 }
 
 .job-a-thon-mobile .heading-you-focus {
-    align-self: stretch;
-    color: #1b1b1b;
-    font-family: var(--desktop-heading-dt-heading-sm-font-family);
-    font-size: var(--desktop-heading-dt-heading-sm-font-size);
-    font-style: var(--desktop-heading-dt-heading-sm-font-style);
-    font-weight: var(--desktop-heading-dt-heading-sm-font-weight);
-    letter-spacing: var(--desktop-heading-dt-heading-sm-letter-spacing);
-    line-height: var(--desktop-heading-dt-heading-sm-line-height);
-    position: relative;
-    text-align: center;
+  align-self: stretch;
+  color: #1b1b1b;
+  font-family: var(--desktop-heading-dt-heading-sm-font-family);
+  font-size: var(--desktop-heading-dt-heading-sm-font-size);
+  font-style: var(--desktop-heading-dt-heading-sm-font-style);
+  font-weight: var(--desktop-heading-dt-heading-sm-font-weight);
+  letter-spacing: var(--desktop-heading-dt-heading-sm-letter-spacing);
+  line-height: var(--desktop-heading-dt-heading-sm-line-height);
+  position: relative;
+  text-align: center;
 }
 
 .job-a-thon-mobile .frameMobView-10 {
-    align-items: flex-start;
-    display: flex;
-    flex: 0 0 auto;
-    flex-direction: column;
-    gap: 24px;
-    justify-content: center;
-    margin-left: -0.50px;
-    margin-right: -0.50px;
-    position: relative;
-    width: 359px;
+  align-items: flex-start;
+  display: flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  gap: 24px;
+  justify-content: center;
+  margin-left: -0.5px;
+  margin-right: -0.5px;
+  position: relative;
+  width: 359px;
 }
 
 .job-a-thon-mobile .paragraph-background {
-    align-items: flex-start;
-    align-self: stretch;
-    background-color: #1685840d;
-    border-radius: 22.5px;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    height: 210px;
-    padding: 28px 40px;
-    position: relative;
-    width: 100%;
+  align-items: flex-start;
+  align-self: stretch;
+  background-color: #1685840d;
+  border-radius: 22.5px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  height: 210px;
+  padding: 28px 40px;
+  position: relative;
+  width: 100%;
 }
 
 .job-a-thon-mobile .heading {
-    align-self: stretch;
-    color: var(--icon-primary);
-    font-family: var(--desktop-display-dt-display-sm-font-family);
-    font-size: var(--desktop-display-dt-display-sm-font-size);
-    font-style: var(--desktop-display-dt-display-sm-font-style);
-    font-weight: var(--desktop-display-dt-display-sm-font-weight);
-    letter-spacing: var(--desktop-display-dt-display-sm-letter-spacing);
-    line-height: var(--desktop-display-dt-display-sm-line-height);
-    margin-top: -1.00px;
-    position: relative;
+  align-self: stretch;
+  color: var(--icon-primary);
+  font-family: var(--desktop-display-dt-display-sm-font-family);
+  font-size: var(--desktop-display-dt-display-sm-font-size);
+  font-style: var(--desktop-display-dt-display-sm-font-style);
+  font-weight: var(--desktop-display-dt-display-sm-font-weight);
+  letter-spacing: var(--desktop-display-dt-display-sm-letter-spacing);
+  line-height: var(--desktop-display-dt-display-sm-line-height);
+  margin-top: -1px;
+  position: relative;
 }
 
 .job-a-thon-mobile .text-wrapper-5 {
-    align-self: stretch;
-    color: var(--icon-primary);
-    font-family: var(--desktop-body-body-sm-sm-bold-font-family);
-    font-size: var(--desktop-body-body-sm-sm-bold-font-size);
-    font-style: var(--desktop-body-body-sm-sm-bold-font-style);
-    font-weight: var(--desktop-body-body-sm-sm-bold-font-weight);
-    letter-spacing: var(--desktop-body-body-sm-sm-bold-letter-spacing);
-    line-height: var(--desktop-body-body-sm-sm-bold-line-height);
-    position: relative;
+  align-self: stretch;
+  color: var(--icon-primary);
+  font-family: var(--desktop-body-body-sm-sm-bold-font-family);
+  font-size: var(--desktop-body-body-sm-sm-bold-font-size);
+  font-style: var(--desktop-body-body-sm-sm-bold-font-style);
+  font-weight: var(--desktop-body-body-sm-sm-bold-font-weight);
+  letter-spacing: var(--desktop-body-body-sm-sm-bold-letter-spacing);
+  line-height: var(--desktop-body-body-sm-sm-bold-line-height);
+  position: relative;
 }
 
 .job-a-thon-mobile .text-wrapper-6 {
-    align-self: stretch;
-    color: #1b1b1bcc;
-    font-family: var(--desktop-label-sm-dt-label-regular-font-family);
-    font-size: var(--desktop-label-sm-dt-label-regular-font-size);
-    font-style: var(--desktop-label-sm-dt-label-regular-font-style);
-    font-weight: var(--desktop-label-sm-dt-label-regular-font-weight);
-    letter-spacing: var(--desktop-label-sm-dt-label-regular-letter-spacing);
-    line-height: var(--desktop-label-sm-dt-label-regular-line-height);
-    position: relative;
+  align-self: stretch;
+  color: #1b1b1bcc;
+  font-family: var(--desktop-label-sm-dt-label-regular-font-family);
+  font-size: var(--desktop-label-sm-dt-label-regular-font-size);
+  font-style: var(--desktop-label-sm-dt-label-regular-font-style);
+  font-weight: var(--desktop-label-sm-dt-label-regular-font-weight);
+  letter-spacing: var(--desktop-label-sm-dt-label-regular-letter-spacing);
+  line-height: var(--desktop-label-sm-dt-label-regular-line-height);
+  position: relative;
 }
 
 .job-a-thon-mobile .paragraph-background-2 {
-    align-items: flex-start;
-    align-self: stretch;
-    background-color: #1685840d;
-    border-radius: 22.5px;
-    display: flex;
-    flex: 0 0 auto;
-    flex-direction: column;
-    gap: 8px;
-    padding: 28px 40px;
-    position: relative;
-    width: 100%;
+  align-items: flex-start;
+  align-self: stretch;
+  background-color: #1685840d;
+  border-radius: 22.5px;
+  display: flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  gap: 8px;
+  padding: 28px 40px;
+  position: relative;
+  width: 100%;
 }
 
 .job-a-thon-mobile .frameMobView-11 {
-    align-items: center;
-    align-self: stretch;
-    background-color: var(--tertiary-coloursehub-orange-25);
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-    height: 550px;
-    padding: 24px 16px;
-    position: relative;
-    width: 100%;
+  align-items: center;
+  align-self: stretch;
+  background-color: var(--tertiary-coloursehub-orange-25);
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  height: 550px;
+  padding: 24px 16px;
+  position: relative;
+  width: 100%;
 }
 
 .job-a-thon-mobile .frameMobView-12 {
-    align-items: center;
-    align-self: stretch;
-    display: flex;
-    flex: 0 0 auto;
-    flex-direction: column;
-    gap: 16px;
-    justify-content: center;
-    position: relative;
-    width: 100%;
+  align-items: center;
+  align-self: stretch;
+  display: flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  gap: 16px;
+  justify-content: center;
+  position: relative;
+  width: 100%;
 }
 
 .job-a-thon-mobile .frameMobView-13 {
-    align-items: center;
-    background-color: #168584;
-    border-radius: 43px;
-    display: flex;
-    gap: 1px;
-    height: 44px;
-    justify-content: center;
-    padding: 1px 16px;
-    position: relative;
-    width: 160px;
+  align-items: center;
+  background-color: #168584;
+  border-radius: 43px;
+  display: flex;
+  gap: 1px;
+  height: 44px;
+  justify-content: center;
+  padding: 1px 16px;
+  position: relative;
+  width: 160px;
 }
 
 .job-a-thon-mobile .text-wrapper-7 {
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 1;
-    color: var(--icon-white);
-    display: -webkit-box;
-    font-family: var(--desktop-label-md-dt-label-bold-font-family);
-    font-size: var(--desktop-label-md-dt-label-bold-font-size);
-    font-style: var(--desktop-label-md-dt-label-bold-font-style);
-    font-weight: var(--desktop-label-md-dt-label-bold-font-weight);
-    letter-spacing: var(--desktop-label-md-dt-label-bold-letter-spacing);
-    line-height: var(--desktop-label-md-dt-label-bold-line-height);
-    overflow: hidden;
-    position: relative;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    width: fit-content;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  color: var(--icon-white);
+  display: -webkit-box;
+  font-family: var(--desktop-label-md-dt-label-bold-font-family);
+  font-size: var(--desktop-label-md-dt-label-bold-font-size);
+  font-style: var(--desktop-label-md-dt-label-bold-font-style);
+  font-weight: var(--desktop-label-md-dt-label-bold-font-weight);
+  letter-spacing: var(--desktop-label-md-dt-label-bold-letter-spacing);
+  line-height: var(--desktop-label-md-dt-label-bold-line-height);
+  overflow: hidden;
+  position: relative;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: fit-content;
 }
 
 .job-a-thon-mobile .frameMobView-14 {
-    align-items: center;
-    align-self: stretch;
-    display: flex;
-    flex: 0 0 auto;
-    gap: 1px;
-    justify-content: center;
-    padding: 1px;
-    position: relative;
-    width: 100%;
+  align-items: center;
+  align-self: stretch;
+  display: flex;
+  flex: 0 0 auto;
+  gap: 1px;
+  justify-content: center;
+  padding: 1px;
+  position: relative;
+  width: 100%;
 }
 
 .job-a-thon-mobile .text-wrapper-8 {
-    color: #002b36;
-    flex: 1;
-    font-family: var(--mobile-display-mb-display-sm-font-family);
-    font-size: var(--mobile-display-mb-display-sm-font-size);
-    font-style: var(--mobile-display-mb-display-sm-font-style);
-    font-weight: var(--mobile-display-mb-display-sm-font-weight);
-    letter-spacing: var(--mobile-display-mb-display-sm-letter-spacing);
-    line-height: var(--mobile-display-mb-display-sm-line-height);
-    margin-top: -1.00px;
-    position: relative;
-    text-align: center;
+  color: #002b36;
+  flex: 1;
+  font-family: var(--mobile-display-mb-display-sm-font-family);
+  font-size: var(--mobile-display-mb-display-sm-font-size);
+  font-style: var(--mobile-display-mb-display-sm-font-style);
+  font-weight: var(--mobile-display-mb-display-sm-font-weight);
+  letter-spacing: var(--mobile-display-mb-display-sm-letter-spacing);
+  line-height: var(--mobile-display-mb-display-sm-line-height);
+  margin-top: -1px;
+  position: relative;
+  text-align: center;
 }
 
 .job-a-thon-mobile .rectangle {
-    align-self: stretch;
-    background-color: #ffffff;
-    border-radius: 25px;
-    flex: 1;
-    flex-grow: 1;
-    overflow: hidden;
-    position: relative;
-    width: 100%;
+  align-self: stretch;
+  background-color: #ffffff;
+  border-radius: 25px;
+  flex: 1;
+  flex-grow: 1;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
 }
 
 .job-a-thon-mobile .text-wrapper-9 {
-    color: #000000;
-    font-family: var(--desktop-body-body-md-md-regular-font-family);
-    font-size: var(--desktop-body-body-md-md-regular-font-size);
-    font-style: var(--desktop-body-body-md-md-regular-font-style);
-    font-weight: var(--desktop-body-body-md-md-regular-font-weight);
-    height: 24px;
-    left: 62px;
-    letter-spacing: var(--desktop-body-body-md-md-regular-letter-spacing);
-    line-height: var(--desktop-body-body-md-md-regular-line-height);
-    position: absolute;
-    text-align: center;
-    top: 24px;
-    white-space: nowrap;
+  color: #000000;
+  font-family: var(--desktop-body-body-md-md-regular-font-family);
+  font-size: var(--desktop-body-body-md-md-regular-font-size);
+  font-style: var(--desktop-body-body-md-md-regular-font-style);
+  font-weight: var(--desktop-body-body-md-md-regular-font-weight);
+  height: 24px;
+  left: 62px;
+  letter-spacing: var(--desktop-body-body-md-md-regular-letter-spacing);
+  line-height: var(--desktop-body-body-md-md-regular-line-height);
+  position: absolute;
+  text-align: center;
+  top: 24px;
+  white-space: nowrap;
 }
 
 .job-a-thon-mobile .element {
-    height: 255px;
-    left: 0;
-    object-fit: cover;
-    position: absolute;
-    top: 65px;
-    width: 358px;
+  height: 255px;
+  left: 0;
+  object-fit: cover;
+  position: absolute;
+  top: 65px;
+  width: 358px;
 }
 
 .job-a-thon-mobile .frameMobView-15 {
-    align-items: center;
-    align-self: stretch;
-    background-color: var(--tertiary-coloursehub-blue-25);
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-    height: 550px;
-    padding: 24px 16px;
-    position: relative;
-    width: 100%;
+  align-items: center;
+  align-self: stretch;
+  background-color: var(--tertiary-coloursehub-blue-25);
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  height: 550px;
+  padding: 24px 16px;
+  position: relative;
+  width: 100%;
 }
 
 .job-a-thon-mobile .frameMobView-16 {
-    align-items: center;
-    background-color: var(--stroke-primary);
-    border-radius: 43px;
-    display: flex;
-    height: 44px;
-    justify-content: center;
-    position: relative;
-    width: 160px;
+  align-items: center;
+  background-color: var(--stroke-primary);
+  border-radius: 43px;
+  display: flex;
+  height: 44px;
+  justify-content: center;
+  position: relative;
+  width: 160px;
 }
 
 .job-a-thon-mobile .text-wrapper-10 {
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 1;
-    color: #ffffff;
-    display: -webkit-box;
-    font-family: var(--desktop-label-md-dt-label-bold-font-family);
-    font-size: var(--desktop-label-md-dt-label-bold-font-size);
-    font-style: var(--desktop-label-md-dt-label-bold-font-style);
-    font-weight: var(--desktop-label-md-dt-label-bold-font-weight);
-    letter-spacing: var(--desktop-label-md-dt-label-bold-letter-spacing);
-    line-height: var(--desktop-label-md-dt-label-bold-line-height);
-    overflow: hidden;
-    position: relative;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    width: fit-content;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  color: #ffffff;
+  display: -webkit-box;
+  font-family: var(--desktop-label-md-dt-label-bold-font-family);
+  font-size: var(--desktop-label-md-dt-label-bold-font-size);
+  font-style: var(--desktop-label-md-dt-label-bold-font-style);
+  font-weight: var(--desktop-label-md-dt-label-bold-font-weight);
+  letter-spacing: var(--desktop-label-md-dt-label-bold-letter-spacing);
+  line-height: var(--desktop-label-md-dt-label-bold-line-height);
+  overflow: hidden;
+  position: relative;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: fit-content;
 }
 
 .job-a-thon-mobile .from-hi-to-hired-wrapper {
-    align-items: center;
-    align-self: stretch;
-    display: flex;
-    flex: 0 0 auto;
-    gap: 1px;
-    padding: 1px;
-    position: relative;
-    width: 100%;
+  align-items: center;
+  align-self: stretch;
+  display: flex;
+  flex: 0 0 auto;
+  gap: 1px;
+  padding: 1px;
+  position: relative;
+  width: 100%;
 }
 
 .job-a-thon-mobile .important-recruiting {
-    height: 280px;
-    left: 0;
-    object-fit: cover;
-    position: absolute;
-    top: 72px;
-    width: 358px;
+  height: 280px;
+  left: 0;
+  object-fit: cover;
+  position: absolute;
+  top: 72px;
+  width: 358px;
 }
 
 .job-a-thon-mobile .connect-hire-top {
-    color: #000000;
-    font-family: var(--desktop-body-body-md-md-regular-font-family);
-    font-size: var(--desktop-body-body-md-md-regular-font-size);
-    font-style: var(--desktop-body-body-md-md-regular-font-style);
-    font-weight: var(--desktop-body-body-md-md-regular-font-weight);
-    height: 24px;
-    left: 76px;
-    letter-spacing: var(--desktop-body-body-md-md-regular-letter-spacing);
-    line-height: var(--desktop-body-body-md-md-regular-line-height);
-    position: absolute;
-    text-align: center;
-    top: 25px;
-    white-space: nowrap;
+  color: #000000;
+  font-family: var(--desktop-body-body-md-md-regular-font-family);
+  font-size: var(--desktop-body-body-md-md-regular-font-size);
+  font-style: var(--desktop-body-body-md-md-regular-font-style);
+  font-weight: var(--desktop-body-body-md-md-regular-font-weight);
+  height: 24px;
+  left: 76px;
+  letter-spacing: var(--desktop-body-body-md-md-regular-letter-spacing);
+  line-height: var(--desktop-body-body-md-md-regular-line-height);
+  position: absolute;
+  text-align: center;
+  top: 25px;
+  white-space: nowrap;
 }
 
 .job-a-thon-mobile .frameMobView-17 {
-    align-items: center;
-    align-self: stretch;
-    background-color: var(--tertiary-coloursehub-saffron-15);
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-    height: 550px;
-    padding: 24px 16px;
-    position: relative;
-    width: 100%;
+  align-items: center;
+  align-self: stretch;
+  background-color: var(--tertiary-coloursehub-saffron-15);
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  height: 550px;
+  padding: 24px 16px;
+  position: relative;
+  width: 100%;
 }
 
 .job-a-thon-mobile .frameMobView-18 {
-    align-items: center;
-    align-self: stretch;
-    display: flex;
-    flex: 0 0 auto;
-    justify-content: center;
-    position: relative;
-    width: 100%;
+  align-items: center;
+  align-self: stretch;
+  display: flex;
+  flex: 0 0 auto;
+  justify-content: center;
+  position: relative;
+  width: 100%;
 }
 
 .job-a-thon-mobile .orange-white-green {
-    height: 279px;
-    left: 0;
-    object-fit: cover;
-    position: absolute;
-    top: 75px;
-    width: 358px;
+  height: 279px;
+  left: 0;
+  object-fit: cover;
+  position: absolute;
+  top: 75px;
+  width: 358px;
 }
 
 .job-a-thon-mobile .text-wrapper-11 {
-    color: #000000;
-    font-family: var(--desktop-body-body-md-md-regular-font-family);
-    font-size: var(--desktop-body-body-md-md-regular-font-size);
-    font-style: var(--desktop-body-body-md-md-regular-font-style);
-    font-weight: var(--desktop-body-body-md-md-regular-font-weight);
-    height: 24px;
-    left: 72px;
-    letter-spacing: var(--desktop-body-body-md-md-regular-letter-spacing);
-    line-height: var(--desktop-body-body-md-md-regular-line-height);
-    position: absolute;
-    text-align: center;
-    top: 23px;
-    white-space: nowrap;
+  color: #000000;
+  font-family: var(--desktop-body-body-md-md-regular-font-family);
+  font-size: var(--desktop-body-body-md-md-regular-font-size);
+  font-style: var(--desktop-body-body-md-md-regular-font-style);
+  font-weight: var(--desktop-body-body-md-md-regular-font-weight);
+  height: 24px;
+  left: 72px;
+  letter-spacing: var(--desktop-body-body-md-md-regular-letter-spacing);
+  line-height: var(--desktop-body-body-md-md-regular-line-height);
+  position: absolute;
+  text-align: center;
+  top: 23px;
+  white-space: nowrap;
 }
 
 .job-a-thon-mobile .frameMobView-19 {
-    align-items: center;
-    display: flex;
-    flex: 0 0 auto;
-    flex-direction: column;
-    gap: 48px;
-    position: relative;
-    width: 390px;
+  align-items: center;
+  display: flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  gap: 48px;
+  position: relative;
+  width: 390px;
 }
 
 .job-a-thon-mobile .frameMobView-20 {
-    align-items: center;
-    align-self: stretch;
-    display: flex;
-    flex: 0 0 auto;
-    flex-direction: column;
-    gap: 24px;
-    justify-content: center;
-    position: relative;
-    width: 100%;
+  align-items: center;
+  align-self: stretch;
+  display: flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  gap: 24px;
+  justify-content: center;
+  position: relative;
+  width: 100%;
 }
 
 .frameMobView-20 {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
 }
 
 .grid-container {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr); /* Ensures 4 items per row */
-    gap: 16px;
-    width: 100%;
-    max-width: 800px; /* Adjust max-width as needed */
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* Ensures 4 items per row */
+  gap: 16px;
+  width: 100%;
+  max-width: 800px; /* Adjust max-width as needed */
 }
 
 .grid-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
 }
 
-
 .job-a-thon-mobile .frameMobView-21 {
-    align-items: center;
-    display: flex;
-    flex: 0 0 auto;
-    flex-direction: column;
-    gap: 16px;
-    position: relative;
-    width: 358px;
+  align-items: center;
+  display: flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  gap: 16px;
+  position: relative;
+  width: 358px;
 }
 
 .job-a-thon-mobile .frameMobView-22 {
-    align-items: flex-start;
-    align-self: stretch;
-    display: flex;
-    flex: 0 0 auto;
-    flex-direction: column;
-    gap: 8px;
-    position: relative;
-    width: 100%;
+  align-items: flex-start;
+  align-self: stretch;
+  display: flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  gap: 8px;
+  position: relative;
+  width: 100%;
 }
 
 .job-a-thon-mobile .text-wrapper-12 {
-    color: #002b36;
-    flex: 1;
-    font-family: var(--desktop-heading-dt-heading-sm-font-family);
-    font-size: var(--desktop-heading-dt-heading-sm-font-size);
-    font-style: var(--desktop-heading-dt-heading-sm-font-style);
-    font-weight: var(--desktop-heading-dt-heading-sm-font-weight);
-    letter-spacing: var(--desktop-heading-dt-heading-sm-letter-spacing);
-    line-height: var(--desktop-heading-dt-heading-sm-line-height);
-    margin-top: -1.00px;
-    position: relative;
-    text-align: center;
+  color: #002b36;
+  flex: 1;
+  font-family: var(--desktop-heading-dt-heading-sm-font-family);
+  font-size: var(--desktop-heading-dt-heading-sm-font-size);
+  font-style: var(--desktop-heading-dt-heading-sm-font-style);
+  font-weight: var(--desktop-heading-dt-heading-sm-font-weight);
+  letter-spacing: var(--desktop-heading-dt-heading-sm-letter-spacing);
+  line-height: var(--desktop-heading-dt-heading-sm-line-height);
+  margin-top: -1px;
+  position: relative;
+  text-align: center;
 }
 
 .job-a-thon-mobile .text-wrapper-13 {
-    color: #33555e;
-    flex: 1;
-    font-family: var(--desktop-body-body-sm-sm-regular-font-family);
-    font-size: var(--desktop-body-body-sm-sm-regular-font-size);
-    font-style: var(--desktop-body-body-sm-sm-regular-font-style);
-    font-weight: var(--desktop-body-body-sm-sm-regular-font-weight);
-    letter-spacing: var(--desktop-body-body-sm-sm-regular-letter-spacing);
-    line-height: var(--desktop-body-body-sm-sm-regular-line-height);
-    margin-top: -1.00px;
-    position: relative;
-    text-align: center;
+  color: #33555e;
+  flex: 1;
+  font-family: var(--desktop-body-body-sm-sm-regular-font-family);
+  font-size: var(--desktop-body-body-sm-sm-regular-font-size);
+  font-style: var(--desktop-body-body-sm-sm-regular-font-style);
+  font-weight: var(--desktop-body-body-sm-sm-regular-font-weight);
+  letter-spacing: var(--desktop-body-body-sm-sm-regular-letter-spacing);
+  line-height: var(--desktop-body-body-sm-sm-regular-line-height);
+  margin-top: -1px;
+  position: relative;
+  text-align: center;
 }
 
 .job-a-thon-mobile .frameMobView-23 {
-    align-items: flex-start;
-    align-self: stretch;
-    display: flex;
-    flex: 0 0 auto;
-    flex-wrap: wrap;
-    gap: 24px 219px;
-    justify-content: space-between;
-    position: relative;
-    width: 100%;
+  align-items: flex-start;
+  align-self: stretch;
+  display: flex;
+  flex: 0 0 auto;
+  flex-wrap: wrap;
+  gap: 24px 219px;
+  justify-content: space-between;
+  position: relative;
+  width: 100%;
 }
 
 .job-a-thon-mobile .container {
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-    height: 80px;
-    justify-content: space-between;
-    position: relative;
-    width: 96px;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 80px;
+  justify-content: space-between;
+  position: relative;
+  width: 96px;
 }
 
 .job-a-thon-mobile .bits-min-png {
-    
-    background-position: 50% 50%;
-    background-size: cover;
-    height: 55.25px;
-    max-width: 55.25px;
-    position: relative;
-    width: 55.25px;
+  background-position: 50% 50%;
+  background-size: cover;
+  height: 55.25px;
+  max-width: 55.25px;
+  position: relative;
+  width: 55.25px;
 }
 
 .job-a-thon-mobile .text-wrapper-14 {
-    color: #333333;
-    font-family: "Roboto-Regular", Helvetica;
-    font-size: 9.7px;
-    font-weight: 400;
-    letter-spacing: 0;
-    line-height: 13.8px;
-    position: relative;
-    white-space: nowrap;
-    width: fit-content;
+  color: #333333;
+  font-family: "Roboto-Regular", Helvetica;
+  font-size: 9.7px;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 13.8px;
+  position: relative;
+  white-space: nowrap;
+  width: fit-content;
 }
 
 .job-a-thon-mobile .iima-min-webp {
-   
-    background-position: 50% 50%;
-    background-size: cover;
-    height: 55.25px;
-    max-width: 55.25px;
-    position: relative;
-    width: 55.25px;
+  background-position: 50% 50%;
+  background-size: cover;
+  height: 55.25px;
+  max-width: 55.25px;
+  position: relative;
+  width: 55.25px;
 }
 
 .job-a-thon-mobile .iimcal-min-webp {
-    
-    background-position: 50% 50%;
-    background-size: cover;
-    height: 55.25px;
-    max-width: 55.25px;
-    position: relative;
-    width: 55.25px;
+  background-position: 50% 50%;
+  background-size: cover;
+  height: 55.25px;
+  max-width: 55.25px;
+  position: relative;
+  width: 55.25px;
 }
 
 .job-a-thon-mobile .vnit-logo-webp {
-  
-    background-position: 50% 50%;
-    background-size: cover;
-    height: 58.45px;
-    max-width: 55.25px;
-    position: relative;
-    width: 55.25px;
+  background-position: 50% 50%;
+  background-size: cover;
+  height: 58.45px;
+  max-width: 55.25px;
+  position: relative;
+  width: 55.25px;
 }
 
 .job-a-thon-mobile .srm-logo-webp {
-    background-position: 50% 50%;
-    background-size: cover;
-    height: 55.25px;
-    max-width: 55.25px;
-    position: relative;
-    width: 55.25px;
+  background-position: 50% 50%;
+  background-size: cover;
+  height: 55.25px;
+  max-width: 55.25px;
+  position: relative;
+  width: 55.25px;
 }
 
 .job-a-thon-mobile .nmims-min-png {
-    background-position: 50% 50%;
-    background-size: cover;
-    height: 55.25px;
-    max-width: 55.25px;
-    position: relative;
-    width: 55.25px;
+  background-position: 50% 50%;
+  background-size: cover;
+  height: 55.25px;
+  max-width: 55.25px;
+  position: relative;
+  width: 55.25px;
 }
 
 .job-a-thon-mobile .spjain-min-webp {
-    background-position: 50% 50%;
-    background-size: cover;
-    height: 55.25px;
-    max-width: 55.25px;
-    position: relative;
-    width: 55.25px;
+  background-position: 50% 50%;
+  background-size: cover;
+  height: 55.25px;
+  max-width: 55.25px;
+  position: relative;
+  width: 55.25px;
 }
 
 .job-a-thon-mobile .bml-munjal-min-png {
-    background-position: 50% 50%;
-    background-size: cover;
-    height: 55.25px;
-    max-width: 55.25px;
-    position: relative;
-    width: 55.25px;
+  background-position: 50% 50%;
+  background-size: cover;
+  height: 55.25px;
+  max-width: 55.25px;
+  position: relative;
+  width: 55.25px;
 }
 
 .job-a-thon-mobile .frameMobView-24 {
-    align-items: flex-start;
-    display: flex;
-    flex: 0 0 auto;
-    flex-direction: column;
-    padding: 0px 16px;
-    position: relative;
-    width: 390px;
+  align-items: flex-start;
+  display: flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  padding: 0px 16px;
+  position: relative;
+  width: 390px;
 }
 
 .job-a-thon-mobile .frameMobView-25 {
-    align-items: flex-start;
-    align-self: stretch;
-    background-color: #ffffff;
-    border-radius: 12px;
-    display: flex;
-    flex: 0 0 auto;
-    flex-direction: column;
-    gap: 24px;
-    padding: 12px;
-    position: relative;
-    width: 100%;
+  align-items: flex-start;
+  align-self: stretch;
+  background-color: #ffffff;
+  border-radius: 12px;
+  display: flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  gap: 24px;
+  padding: 12px;
+  position: relative;
+  width: 100%;
 }
 
 .job-a-thon-mobile .frameMobView-26 {
-    align-items: flex-start;
-    align-self: stretch;
-    display: flex;
-    flex: 0 0 auto;
-    flex-direction: column;
-    gap: 16px;
-    justify-content: center;
-    position: relative;
-    width: 100%;
+  align-items: flex-start;
+  align-self: stretch;
+  display: flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  gap: 16px;
+  justify-content: center;
+  position: relative;
+  width: 100%;
 }
 
 .job-a-thon-mobile .frameMobView-27 {
-    align-items: flex-start;
-    align-self: stretch;
-    display: flex;
-    flex: 0 0 auto;
-    flex-direction: column;
-    gap: 8px;
-    justify-content: center;
-    position: relative;
-    width: 100%;
+  align-items: flex-start;
+  align-self: stretch;
+  display: flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  gap: 8px;
+  justify-content: center;
+  position: relative;
+  width: 100%;
 }
 
 .job-a-thon-mobile .frameMobView-28 {
-    align-items: center;
-    align-self: stretch;
-    display: flex;
-    flex: 0 0 auto;
-    position: relative;
-    width: 100%;
+  align-items: center;
+  align-self: stretch;
+  display: flex;
+  flex: 0 0 auto;
+  position: relative;
+  width: 100%;
 }
 
 .job-a-thon-mobile .text-wrapper-15 {
-    color: var(--border-secondary);
-    flex: 1;
-    font-family: var(--desktop-body-body-md-md-regular-font-family);
-    font-size: var(--desktop-body-body-md-md-regular-font-size);
-    font-style: var(--desktop-body-body-md-md-regular-font-style);
-    font-weight: var(--desktop-body-body-md-md-regular-font-weight);
-    letter-spacing: var(--desktop-body-body-md-md-regular-letter-spacing);
-    line-height: var(--desktop-body-body-md-md-regular-line-height);
-    margin-top: -1.00px;
-    position: relative;
+  color: var(--border-secondary);
+  flex: 1;
+  font-family: var(--desktop-body-body-md-md-regular-font-family);
+  font-size: var(--desktop-body-body-md-md-regular-font-size);
+  font-style: var(--desktop-body-body-md-md-regular-font-style);
+  font-weight: var(--desktop-body-body-md-md-regular-font-weight);
+  letter-spacing: var(--desktop-body-body-md-md-regular-letter-spacing);
+  line-height: var(--desktop-body-body-md-md-regular-line-height);
+  margin-top: -1px;
+  position: relative;
 }
 
 .job-a-thon-mobile .text-wrapper-16 {
-    color: #002b36;
-    flex: 1;
-    font-family: var(--desktop-heading-dt-heading-sm-font-family);
-    font-size: var(--desktop-heading-dt-heading-sm-font-size);
-    font-style: var(--desktop-heading-dt-heading-sm-font-style);
-    font-weight: var(--desktop-heading-dt-heading-sm-font-weight);
-    letter-spacing: var(--desktop-heading-dt-heading-sm-letter-spacing);
-    line-height: var(--desktop-heading-dt-heading-sm-line-height);
-    margin-top: -1.00px;
-    position: relative;
+  color: #002b36;
+  flex: 1;
+  font-family: var(--desktop-heading-dt-heading-sm-font-family);
+  font-size: var(--desktop-heading-dt-heading-sm-font-size);
+  font-style: var(--desktop-heading-dt-heading-sm-font-style);
+  font-weight: var(--desktop-heading-dt-heading-sm-font-weight);
+  letter-spacing: var(--desktop-heading-dt-heading-sm-letter-spacing);
+  line-height: var(--desktop-heading-dt-heading-sm-line-height);
+  margin-top: -1px;
+  position: relative;
 }
 
 .job-a-thon-mobile .text-wrapper-17 {
-    color: var(--border-secondary);
-    flex: 1;
-    font-family: var(--desktop-label-md-dt-label-regular-font-family);
-    font-size: var(--desktop-label-md-dt-label-regular-font-size);
-    font-style: var(--desktop-label-md-dt-label-regular-font-style);
-    font-weight: var(--desktop-label-md-dt-label-regular-font-weight);
-    letter-spacing: var(--desktop-label-md-dt-label-regular-letter-spacing);
-    line-height: var(--desktop-label-md-dt-label-regular-line-height);
-    margin-top: -1.00px;
-    position: relative;
+  color: var(--border-secondary);
+  flex: 1;
+  font-family: var(--desktop-label-md-dt-label-regular-font-family);
+  font-size: var(--desktop-label-md-dt-label-regular-font-size);
+  font-style: var(--desktop-label-md-dt-label-regular-font-style);
+  font-weight: var(--desktop-label-md-dt-label-regular-font-weight);
+  letter-spacing: var(--desktop-label-md-dt-label-regular-letter-spacing);
+  line-height: var(--desktop-label-md-dt-label-regular-line-height);
+  margin-top: -1px;
+  position: relative;
 }
 
 .job-a-thon-mobile .frameMobView-29 {
-    align-items: center;
-    align-self: stretch;
-    background-color: var(--buttonsbutton-primary);
-    border-radius: 43px;
-    display: flex;
-    height: 44px;
-    justify-content: center;
-    padding: 0px 16px;
-    position: relative;
-    width: 100%;
+  align-items: center;
+  align-self: stretch;
+  background-color: var(--buttonsbutton-primary);
+  border-radius: 43px;
+  display: flex;
+  height: 44px;
+  justify-content: center;
+  padding: 0px 16px;
+  position: relative;
+  width: 100%;
 }
 
 .job-a-thon-mobile .text-wrapper-18 {
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 1;
-    color: var(--texttext-white);
-    display: -webkit-box;
-    font-family: var(--desktop-label-md-dt-label-bold-font-family);
-    font-size: var(--desktop-label-md-dt-label-bold-font-size);
-    font-style: var(--desktop-label-md-dt-label-bold-font-style);
-    font-weight: var(--desktop-label-md-dt-label-bold-font-weight);
-    letter-spacing: var(--desktop-label-md-dt-label-bold-letter-spacing);
-    line-height: var(--desktop-label-md-dt-label-bold-line-height);
-    overflow: hidden;
-    position: relative;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    width: fit-content;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  color: var(--texttext-white);
+  display: -webkit-box;
+  font-family: var(--desktop-label-md-dt-label-bold-font-family);
+  font-size: var(--desktop-label-md-dt-label-bold-font-size);
+  font-style: var(--desktop-label-md-dt-label-bold-font-style);
+  font-weight: var(--desktop-label-md-dt-label-bold-font-weight);
+  letter-spacing: var(--desktop-label-md-dt-label-bold-letter-spacing);
+  line-height: var(--desktop-label-md-dt-label-bold-line-height);
+  overflow: hidden;
+  position: relative;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: fit-content;
 }
 
 .job-a-thon-mobile .frameMobView-30 {
-    align-items: center;
-    align-self: stretch;
-    display: flex;
-    flex: 0 0 auto;
-    justify-content: space-between;
-    position: relative;
-    width: 100%;
+  align-items: center;
+  align-self: stretch;
+  display: flex;
+  flex: 0 0 auto;
+  justify-content: space-between;
+  position: relative;
+  width: 100%;
 }
 
 .job-a-thon-mobile .frameMobView-31 {
-    align-items: center;
-    display: inline-flex;
-    flex: 0 0 auto;
-    gap: 8px;
-    position: relative;
+  align-items: center;
+  display: inline-flex;
+  flex: 0 0 auto;
+  gap: 8px;
+  position: relative;
 }
 
 .job-a-thon-mobile .img {
-    height: 20px;
-    position: relative;
-    width: 20px;
+  height: 20px;
+  position: relative;
+  width: 20px;
 }
 
 .job-a-thon-mobile .frameMobView-32 {
-    align-items: center;
-    border-radius: 43px;
-    display: inline-flex;
-    flex: 0 0 auto;
-    justify-content: center;
-    position: relative;
+  align-items: center;
+  border-radius: 43px;
+  display: inline-flex;
+  flex: 0 0 auto;
+  justify-content: center;
+  position: relative;
 }
 
 .job-a-thon-mobile .element-2 {
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2;
-    color: var(--stroke-primary);
-    display: -webkit-box;
-    font-family: var(--desktop-label-sm-dt-label-regular-font-family);
-    font-size: var(--desktop-label-sm-dt-label-regular-font-size);
-    font-style: var(--desktop-label-sm-dt-label-regular-font-style);
-    font-weight: var(--desktop-label-sm-dt-label-regular-font-weight);
-    letter-spacing: var(--desktop-label-sm-dt-label-regular-letter-spacing);
-    line-height: var(--desktop-label-sm-dt-label-regular-line-height);
-    margin-top: -1.00px;
-    overflow: hidden;
-    position: relative;
-    text-overflow: ellipsis;
-    width: 73px;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  color: var(--stroke-primary);
+  display: -webkit-box;
+  font-family: var(--desktop-label-sm-dt-label-regular-font-family);
+  font-size: var(--desktop-label-sm-dt-label-regular-font-size);
+  font-style: var(--desktop-label-sm-dt-label-regular-font-style);
+  font-weight: var(--desktop-label-sm-dt-label-regular-font-weight);
+  letter-spacing: var(--desktop-label-sm-dt-label-regular-letter-spacing);
+  line-height: var(--desktop-label-sm-dt-label-regular-line-height);
+  margin-top: -1px;
+  overflow: hidden;
+  position: relative;
+  text-overflow: ellipsis;
+  width: 73px;
 }
 
 .job-a-thon-mobile .text-wrapper-19 {
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 1;
-    color: var(--stroke-primary);
-    display: -webkit-box;
-    font-family: var(--desktop-label-sm-dt-label-regular-font-family);
-    font-size: var(--desktop-label-sm-dt-label-regular-font-size);
-    font-style: var(--desktop-label-sm-dt-label-regular-font-style);
-    font-weight: var(--desktop-label-sm-dt-label-regular-font-weight);
-    letter-spacing: var(--desktop-label-sm-dt-label-regular-letter-spacing);
-    line-height: var(--desktop-label-sm-dt-label-regular-line-height);
-    margin-top: -1.00px;
-    overflow: hidden;
-    position: relative;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    width: fit-content;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  color: var(--stroke-primary);
+  display: -webkit-box;
+  font-family: var(--desktop-label-sm-dt-label-regular-font-family);
+  font-size: var(--desktop-label-sm-dt-label-regular-font-size);
+  font-style: var(--desktop-label-sm-dt-label-regular-font-style);
+  font-weight: var(--desktop-label-sm-dt-label-regular-font-weight);
+  letter-spacing: var(--desktop-label-sm-dt-label-regular-letter-spacing);
+  line-height: var(--desktop-label-sm-dt-label-regular-line-height);
+  margin-top: -1px;
+  overflow: hidden;
+  position: relative;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: fit-content;
 }
 
 .job-a-thon-mobile .frameMobView-33 {
-    align-items: center;
-    border-radius: 16px;
-    display: flex;
-    flex: 0 0 auto;
-    flex-direction: column;
-    gap: 24px;
-    justify-content: center;
-    padding: 0px 16px;
-    position: relative;
-    width: 390px;
+  align-items: center;
+  border-radius: 16px;
+  display: flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  gap: 24px;
+  justify-content: center;
+  padding: 0px 16px;
+  position: relative;
+  width: 390px;
 }
 
 .job-a-thon-mobile .frameMobView-34 {
-    align-items: center;
-    align-self: stretch;
-    display: flex;
-    flex: 0 0 auto;
-    gap: 10px;
-    justify-content: center;
-    position: relative;
-    width: 100%;
+  align-items: center;
+  align-self: stretch;
+  display: flex;
+  flex: 0 0 auto;
+  gap: 10px;
+  justify-content: center;
+  position: relative;
+  width: 100%;
 }
 
 .job-a-thon-mobile .text-wrapper-20 {
-    color: var(--icon-primary);
-    font-family: var(--desktop-heading-dt-heading-sm-font-family);
-    font-size: var(--desktop-heading-dt-heading-sm-font-size);
-    font-style: var(--desktop-heading-dt-heading-sm-font-style);
-    font-weight: var(--desktop-heading-dt-heading-sm-font-weight);
-    letter-spacing: var(--desktop-heading-dt-heading-sm-letter-spacing);
-    line-height: var(--desktop-heading-dt-heading-sm-line-height);
-    margin-top: -1.00px;
-    position: relative;
-    white-space: nowrap;
-    width: fit-content;
+  color: var(--icon-primary);
+  font-family: var(--desktop-heading-dt-heading-sm-font-family);
+  font-size: var(--desktop-heading-dt-heading-sm-font-size);
+  font-style: var(--desktop-heading-dt-heading-sm-font-style);
+  font-weight: var(--desktop-heading-dt-heading-sm-font-weight);
+  letter-spacing: var(--desktop-heading-dt-heading-sm-letter-spacing);
+  line-height: var(--desktop-heading-dt-heading-sm-line-height);
+  margin-top: -1px;
+  position: relative;
+  white-space: nowrap;
+  width: fit-content;
 }
 
 .job-a-thon-mobile .vector {
-    height: 18.48px;
-    position: relative;
-    width: 20.16px;
+  height: 18.48px;
+  position: relative;
+  width: 20.16px;
 }
 
 .job-a-thon-mobile .feedback {
-    align-items: flex-start;
-    align-self: stretch;
-    display: flex;
-    flex: 0 0 auto;
-    gap: 16px;
-    justify-content: space-around;
-    position: relative;
-    width: 100%;
+  align-items: flex-start;
+  align-self: stretch;
+  display: flex;
+  flex: 0 0 auto;
+  gap: 16px;
+  justify-content: space-around;
+  position: relative;
+  width: 100%;
 }
 
 .job-a-thon-mobile .frameMobView-35 {
-    align-items: flex-start;
-    background-color: #ffffff;
-    border-radius: 12px;
-    box-shadow: var(--drop-shadow-100);
-    display: inline-flex;
-    flex: 0 0 auto;
-    flex-direction: column;
-    gap: 16px;
-    position: relative;
+  align-items: flex-start;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: var(--drop-shadow-100);
+  display: inline-flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  gap: 16px;
+  position: relative;
 }
 
 .job-a-thon-mobile .frameMobView-36 {
-    align-items: flex-start;
-    border-radius: 12px;
-    box-shadow: var(--drop-shadow-100);
-    display: flex;
-    flex: 0 0 auto;
-    flex-direction: column;
-    gap: 16px;
-    justify-content: center;
-    padding: 20px;
-    position: relative;
-    width: 275px;
+  align-items: flex-start;
+  border-radius: 12px;
+  box-shadow: var(--drop-shadow-100);
+  display: flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  gap: 16px;
+  justify-content: center;
+  padding: 20px;
+  position: relative;
+  width: 275px;
 }
 
 .job-a-thon-mobile .engineerhub-s {
-    color: var(--icon-primary);
-    flex: 1;
-    font-family: var(--desktop-label-md-dt-label-regular-font-family);
-    font-size: var(--desktop-label-md-dt-label-regular-font-size);
-    font-style: var(--desktop-label-md-dt-label-regular-font-style);
-    font-weight: var(--desktop-label-md-dt-label-regular-font-weight);
-    letter-spacing: var(--desktop-label-md-dt-label-regular-letter-spacing);
-    line-height: var(--desktop-label-md-dt-label-regular-line-height);
-    margin-top: -1.00px;
-    position: relative;
+  color: var(--icon-primary);
+  flex: 1;
+  font-family: var(--desktop-label-md-dt-label-regular-font-family);
+  font-size: var(--desktop-label-md-dt-label-regular-font-size);
+  font-style: var(--desktop-label-md-dt-label-regular-font-style);
+  font-weight: var(--desktop-label-md-dt-label-regular-font-weight);
+  letter-spacing: var(--desktop-label-md-dt-label-regular-letter-spacing);
+  line-height: var(--desktop-label-md-dt-label-regular-line-height);
+  margin-top: -1px;
+  position: relative;
 }
 
 .job-a-thon-mobile .frameMobView-37 {
-    align-items: flex-start;
-    display: flex;
-    flex-direction: column;
-    height: 36px;
-    justify-content: center;
-    position: relative;
-    width: 235px;
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  height: 36px;
+  justify-content: center;
+  position: relative;
+  width: 235px;
 }
 
 .job-a-thon-mobile .text-wrapper-21 {
-    color: var(--icon-primary);
-    font-family: var(--desktop-label-md-dt-label-bold-font-family);
-    font-size: var(--desktop-label-md-dt-label-bold-font-size);
-    font-style: var(--desktop-label-md-dt-label-bold-font-style);
-    font-weight: var(--desktop-label-md-dt-label-bold-font-weight);
-    letter-spacing: var(--desktop-label-md-dt-label-bold-letter-spacing);
-    line-height: var(--desktop-label-md-dt-label-bold-line-height);
-    margin-top: -1.00px;
-    position: relative;
-    white-space: nowrap;
-    width: fit-content;
+  color: var(--icon-primary);
+  font-family: var(--desktop-label-md-dt-label-bold-font-family);
+  font-size: var(--desktop-label-md-dt-label-bold-font-size);
+  font-style: var(--desktop-label-md-dt-label-bold-font-style);
+  font-weight: var(--desktop-label-md-dt-label-bold-font-weight);
+  letter-spacing: var(--desktop-label-md-dt-label-bold-letter-spacing);
+  line-height: var(--desktop-label-md-dt-label-bold-line-height);
+  margin-top: -1px;
+  position: relative;
+  white-space: nowrap;
+  width: fit-content;
 }
 
 .job-a-thon-mobile .text-wrapper-22 {
-    color: var(--texttext-secondary);
-    font-family: var(--desktop-label-md-dt-label-regular-font-family);
-    font-size: var(--desktop-label-md-dt-label-regular-font-size);
-    font-style: var(--desktop-label-md-dt-label-regular-font-style);
-    font-weight: var(--desktop-label-md-dt-label-regular-font-weight);
-    letter-spacing: var(--desktop-label-md-dt-label-regular-letter-spacing);
-    line-height: var(--desktop-label-md-dt-label-regular-line-height);
-    margin-top: -1.00px;
-    position: relative;
-    white-space: nowrap;
-    width: fit-content;
+  color: var(--texttext-secondary);
+  font-family: var(--desktop-label-md-dt-label-regular-font-family);
+  font-size: var(--desktop-label-md-dt-label-regular-font-size);
+  font-style: var(--desktop-label-md-dt-label-regular-font-style);
+  font-weight: var(--desktop-label-md-dt-label-regular-font-weight);
+  letter-spacing: var(--desktop-label-md-dt-label-regular-letter-spacing);
+  line-height: var(--desktop-label-md-dt-label-regular-line-height);
+  margin-top: -1px;
+  position: relative;
+  white-space: nowrap;
+  width: fit-content;
 }
 
 .job-a-thon-mobile .frameMobView-38 {
-    align-items: flex-start;
-    background: linear-gradient(
-        180deg,
-        rgb(0, 43, 54) 0%,
-        rgb(0.28, 67.4, 84.58) 100%
-    );
-    display: flex;
-    flex-direction: column;
-    gap: 74px;
-    left: 0;
-    padding: 24px 16px;
-    position: absolute;
-    top: 4527px;
-    width: 390px;
+  align-items: flex-start;
+  background: linear-gradient(
+    180deg,
+    rgb(0, 43, 54) 0%,
+    rgb(0.28, 67.4, 84.58) 100%
+  );
+  display: flex;
+  flex-direction: column;
+  gap: 74px;
+  left: 0;
+  padding: 24px 16px;
+  position: absolute;
+  top: 4527px;
+  width: 390px;
 }
 
 .job-a-thon-mobile .frameMobView-39 {
-    align-items: center;
-    align-self: stretch;
-    display: flex;
-    flex: 0 0 auto;
-    flex-direction: column;
-    position: relative;
-    width: 100%;
+  align-items: center;
+  align-self: stretch;
+  display: flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  position: relative;
+  width: 100%;
 }
 
 .job-a-thon-mobile .frameMobView-40 {
-    align-items: flex-start;
-    align-self: stretch;
-    display: flex;
-    flex: 0 0 auto;
-    flex-direction: column;
-    gap: 20px;
-    position: relative;
-    width: 100%;
+  align-items: flex-start;
+  align-self: stretch;
+  display: flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  gap: 20px;
+  position: relative;
+  width: 100%;
 }
 
 .job-a-thon-mobile .frameMobView-41 {
-    align-items: flex-start;
-    align-self: stretch;
-    display: flex;
-    flex: 0 0 auto;
-    flex-direction: column;
-    gap: 24px;
-    position: relative;
-    width: 100%;
+  align-items: flex-start;
+  align-self: stretch;
+  display: flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  gap: 24px;
+  position: relative;
+  width: 100%;
 }
 
 .job-a-thon-mobile .frameMobView-42 {
-    align-items: flex-start;
-    align-self: stretch;
-    display: flex;
-    flex: 0 0 auto;
-    flex-direction: column;
-    gap: 28px;
-    position: relative;
-    width: 100%;
+  align-items: flex-start;
+  align-self: stretch;
+  display: flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  gap: 28px;
+  position: relative;
+  width: 100%;
 }
 
 .job-a-thon-mobile .frameMobView-43 {
-    align-items: flex-start;
-    display: flex;
-    flex: 0 0 auto;
-    flex-direction: column;
-    position: relative;
-    width: 178.58px;
+  align-items: flex-start;
+  display: flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  position: relative;
+  width: 178.58px;
 }
 
 .job-a-thon-mobile .EHUB-white {
-    height: 31.44px;
-    object-fit: cover;
-    position: relative;
-    width: 178.58px;
+  height: 31.44px;
+  object-fit: cover;
+  position: relative;
+  width: 178.58px;
 }
 
 .job-a-thon-mobile .group {
-    height: 10.06px;
-    position: relative;
-    width: 177.54px;
+  height: 10.06px;
+  position: relative;
+  width: 177.54px;
 }
 
 .job-a-thon-mobile .frameMobView-44 {
-    align-items: flex-start;
-    align-self: stretch;
-    display: flex;
-    flex: 0 0 auto;
-    flex-direction: column;
-    gap: 24px;
-    justify-content: center;
-    position: relative;
-    width: 100%;
+  align-items: flex-start;
+  align-self: stretch;
+  display: flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  gap: 24px;
+  justify-content: center;
+  position: relative;
+  width: 100%;
 }
 
 .job-a-thon-mobile .engineerhub-is-one {
-    align-self: stretch;
-    color: #719ba5;
-    font-family: var(--desktop-body-body-sm-sm-regular-font-family);
-    font-size: var(--desktop-body-body-sm-sm-regular-font-size);
-    font-style: var(--desktop-body-body-sm-sm-regular-font-style);
-    font-weight: var(--desktop-body-body-sm-sm-regular-font-weight);
-    letter-spacing: var(--desktop-body-body-sm-sm-regular-letter-spacing);
-    line-height: var(--desktop-body-body-sm-sm-regular-line-height);
-    margin-top: -1.00px;
-    position: relative;
+  align-self: stretch;
+  color: #719ba5;
+  font-family: var(--desktop-body-body-sm-sm-regular-font-family);
+  font-size: var(--desktop-body-body-sm-sm-regular-font-size);
+  font-style: var(--desktop-body-body-sm-sm-regular-font-style);
+  font-weight: var(--desktop-body-body-sm-sm-regular-font-weight);
+  letter-spacing: var(--desktop-body-body-sm-sm-regular-letter-spacing);
+  line-height: var(--desktop-body-body-sm-sm-regular-line-height);
+  margin-top: -1px;
+  position: relative;
 }
 
 .job-a-thon-mobile .frameMobView-45 {
-    align-items: flex-start;
-    display: inline-flex;
-    flex: 0 0 auto;
-    flex-direction: column;
-    gap: 10px;
-    justify-content: center;
-    position: relative;
+  align-items: flex-start;
+  display: inline-flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: center;
+  position: relative;
 }
 
 .job-a-thon-mobile .frameMobView-46 {
-    align-items: flex-start;
-    display: inline-flex;
-    flex: 0 0 auto;
-    gap: 16px;
-    position: relative;
+  align-items: flex-start;
+  display: inline-flex;
+  flex: 0 0 auto;
+  gap: 16px;
+  position: relative;
 }
 
 .job-a-thon-mobile .social-icons {
-    height: 28px !important;
-    position: relative !important;
-    width: 28px !important;
+  height: 28px !important;
+  position: relative !important;
+  width: 28px !important;
 }
 
 .job-a-thon-mobile .image-wrapper {
-    align-items: flex-start;
-    display: flex;
-    flex-direction: column;
-    gap: 4.77px;
-    height: 136.22px;
-    justify-content: center;
-    position: relative;
-    width: 357.82px;
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  gap: 4.77px;
+  height: 136.22px;
+  justify-content: center;
+  position: relative;
+  width: 357.82px;
 }
 
 .job-a-thon-mobile .image {
-    align-self: stretch;
-    height: 136.22px;
-    object-fit: cover;
-    position: relative;
-    width: 100%;
+  align-self: stretch;
+  height: 136.22px;
+  object-fit: cover;
+  position: relative;
+  width: 100%;
 }
 
 .job-a-thon-mobile .frameMobView-47 {
-    align-items: flex-start;
-    display: inline-flex;
-    flex: 0 0 auto;
-    gap: 2px;
-    position: relative;
+  align-items: flex-start;
+  display: inline-flex;
+  flex: 0 0 auto;
+  gap: 2px;
+  position: relative;
 }
 
 .job-a-thon-mobile .frameMobView-48 {
-    align-items: flex-start;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    position: relative;
-    width: 175px;
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  position: relative;
+  width: 175px;
 }
 
 .job-a-thon-mobile .frameMobView-49 {
-    align-items: flex-start;
-    display: inline-flex;
-    flex: 0 0 auto;
-    flex-direction: column;
-    gap: 12px;
-    position: relative;
+  align-items: flex-start;
+  display: inline-flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  gap: 12px;
+  position: relative;
 }
 
 .job-a-thon-mobile .text-wrapper-23 {
-    color: #719ba5;
-    font-family: var(--desktop-body-body-sm-sm-regular-font-family);
-    font-size: var(--desktop-body-body-sm-sm-regular-font-size);
-    font-style: var(--desktop-body-body-sm-sm-regular-font-style);
-    font-weight: var(--desktop-body-body-sm-sm-regular-font-weight);
-    letter-spacing: var(--desktop-body-body-sm-sm-regular-letter-spacing);
-    line-height: var(--desktop-body-body-sm-sm-regular-line-height);
-    margin-top: -1.00px;
-    position: relative;
-    white-space: nowrap;
-    width: fit-content;
+  color: #719ba5;
+  font-family: var(--desktop-body-body-sm-sm-regular-font-family);
+  font-size: var(--desktop-body-body-sm-sm-regular-font-size);
+  font-style: var(--desktop-body-body-sm-sm-regular-font-style);
+  font-weight: var(--desktop-body-body-sm-sm-regular-font-weight);
+  letter-spacing: var(--desktop-body-body-sm-sm-regular-letter-spacing);
+  line-height: var(--desktop-body-body-sm-sm-regular-line-height);
+  margin-top: -1px;
+  position: relative;
+  white-space: nowrap;
+  width: fit-content;
 }
 
 .job-a-thon-mobile .frameMobView-50 {
-    align-items: flex-start;
-    align-self: stretch;
-    display: flex;
-    flex: 0 0 auto;
-    position: relative;
-    width: 100%;
+  align-items: flex-start;
+  align-self: stretch;
+  display: flex;
+  flex: 0 0 auto;
+  position: relative;
+  width: 100%;
 }
 
 .job-a-thon-mobile .frameMobView-51 {
-    align-items: flex-start;
-    display: inline-flex;
-    flex: 0 0 auto;
-    flex-direction: column;
-    gap: 20px;
-    position: relative;
+  align-items: flex-start;
+  display: inline-flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  gap: 20px;
+  position: relative;
 }
 
 .job-a-thon-mobile .frameMobView-52 {
-    align-items: flex-start;
-    display: inline-flex;
-    flex: 0 0 auto;
-    position: relative;
+  align-items: flex-start;
+  display: inline-flex;
+  flex: 0 0 auto;
+  position: relative;
 }
 
 .job-a-thon-mobile .frameMobView-53 {
-    align-items: flex-start;
-    display: inline-flex;
-    flex: 0 0 auto;
-    gap: 1px;
-    position: relative;
+  align-items: flex-start;
+  display: inline-flex;
+  flex: 0 0 auto;
+  gap: 1px;
+  position: relative;
 }
 
 .job-a-thon-mobile .frameMobView-54 {
-    align-items: flex-start;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    position: relative;
-    width: 175px;
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  position: relative;
+  width: 175px;
 }
 
 .job-a-thon-mobile .frameMobView-55 {
-    align-items: flex-start;
-    align-self: stretch;
-    display: flex;
-    flex: 1;
-    flex-direction: column;
-    flex-grow: 1;
-    gap: 12px;
-    position: relative;
+  align-items: flex-start;
+  align-self: stretch;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  flex-grow: 1;
+  gap: 12px;
+  position: relative;
 }
 
 .job-a-thon-mobile .frameMobView-56 {
-    align-items: flex-start;
-    display: inline-flex;
-    flex: 0 0 auto;
-    flex-direction: column;
-    gap: 4px;
-    position: relative;
+  align-items: flex-start;
+  display: inline-flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  gap: 4px;
+  position: relative;
 }
 
 .job-a-thon-mobile .frameMobView-57 {
-    align-items: flex-start;
-    align-self: stretch;
-    display: flex;
-    flex: 0 0 auto;
-    flex-direction: column;
-    gap: 20px;
-    justify-content: center;
-    padding: 20px 0px;
-    position: relative;
-    width: 100%;
+  align-items: flex-start;
+  align-self: stretch;
+  display: flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  gap: 20px;
+  justify-content: center;
+  padding: 20px 0px;
+  position: relative;
+  width: 100%;
 }
 
 .job-a-thon-mobile .frameMobView-58 {
-    align-items: center;
-    align-self: stretch;
-    display: flex;
-    flex: 0 0 auto;
-    gap: 12px;
-    justify-content: center;
-    position: relative;
-    width: 100%;
+  align-items: center;
+  align-self: stretch;
+  display: flex;
+  flex: 0 0 auto;
+  gap: 12px;
+  justify-content: center;
+  position: relative;
+  width: 100%;
 }
 
 .job-a-thon-mobile .frameMobView-59 {
-    align-items: center;
-    display: inline-flex;
-    flex: 0 0 auto;
-    gap: 1px;
-    justify-content: center;
-    position: relative;
+  align-items: center;
+  display: inline-flex;
+  flex: 0 0 auto;
+  gap: 1px;
+  justify-content: center;
+  position: relative;
 }
 
 .job-a-thon-mobile .text-wrapper-24 {
-    color: var(--texttext-secondary);
-    font-family: var(--desktop-label-sm-dt-label-regular-font-family);
-    font-size: var(--desktop-label-sm-dt-label-regular-font-size);
-    font-style: var(--desktop-label-sm-dt-label-regular-font-style);
-    font-weight: var(--desktop-label-sm-dt-label-regular-font-weight);
-    letter-spacing: var(--desktop-label-sm-dt-label-regular-letter-spacing);
-    line-height: var(--desktop-label-sm-dt-label-regular-line-height);
-    margin-top: -1.00px;
-    position: relative;
-    white-space: nowrap;
-    width: fit-content;
+  color: var(--texttext-secondary);
+  font-family: var(--desktop-label-sm-dt-label-regular-font-family);
+  font-size: var(--desktop-label-sm-dt-label-regular-font-size);
+  font-style: var(--desktop-label-sm-dt-label-regular-font-style);
+  font-weight: var(--desktop-label-sm-dt-label-regular-font-weight);
+  letter-spacing: var(--desktop-label-sm-dt-label-regular-letter-spacing);
+  line-height: var(--desktop-label-sm-dt-label-regular-line-height);
+  margin-top: -1px;
+  position: relative;
+  white-space: nowrap;
+  width: fit-content;
 }
 
 .job-a-thon-mobile .vector-2 {
-    height: 3.18px;
-    position: relative;
-    width: 3.12px;
+  height: 3.18px;
+  position: relative;
+  width: 3.12px;
 }
 
 .job-a-thon-mobile .frameMobView-60 {
-    align-items: center;
-    align-self: stretch;
-    display: flex;
-    flex: 0 0 auto;
-    gap: 1px;
-    position: relative;
-    width: 100%;
+  align-items: center;
+  align-self: stretch;
+  display: flex;
+  flex: 0 0 auto;
+  gap: 1px;
+  position: relative;
+  width: 100%;
 }
 
 .job-a-thon-mobile .text-wrapper-25 {
-    color: var(--texttext-white);
-    flex: 1;
-    font-family: var(--desktop-body-body-md-md-bold-font-family);
-    font-size: var(--desktop-body-body-md-md-bold-font-size);
-    font-style: var(--desktop-body-body-md-md-bold-font-style);
-    font-weight: var(--desktop-body-body-md-md-bold-font-weight);
-    letter-spacing: var(--desktop-body-body-md-md-bold-letter-spacing);
-    line-height: var(--desktop-body-body-md-md-bold-line-height);
-    margin-top: -1.00px;
-    position: relative;
-    text-align: center;
+  color: var(--texttext-white);
+  flex: 1;
+  font-family: var(--desktop-body-body-md-md-bold-font-family);
+  font-size: var(--desktop-body-body-md-md-bold-font-size);
+  font-style: var(--desktop-body-body-md-md-bold-font-style);
+  font-weight: var(--desktop-body-body-md-md-bold-font-weight);
+  letter-spacing: var(--desktop-body-body-md-md-bold-letter-spacing);
+  line-height: var(--desktop-body-body-md-md-bold-line-height);
+  margin-top: -1px;
+  position: relative;
+  text-align: center;
 }
 
 .job-a-thon-mobile .nav-bar {
-    align-items: center;
-    background-color: #ffffff;
-    display: flex;
-    height: 70px;
-    justify-content: space-between;
-    left: 0;
-    padding: 0px 16px;
-    position: absolute;
-    top: 0;
-    width: 390px;
+  align-items: center;
+  background-color: #ffffff;
+  display: flex;
+  height: 70px;
+  justify-content: space-between;
+  left: 0;
+  padding: 0px 16px;
+  position: absolute;
+  top: 0;
+  width: 390px;
 }
 
 .job-a-thon-mobile .frameMobView-61 {
-    height: 40px;
-    position: relative;
-    width: 80px;
+  height: 40px;
+  position: relative;
+  width: 80px;
 }
 
 .job-a-thon-mobile .frameMobView-62 {
-    align-items: center;
-    display: inline-flex;
-    flex: 0 0 auto;
-    gap: 16px;
-    position: relative;
+  align-items: center;
+  display: inline-flex;
+  flex: 0 0 auto;
+  gap: 16px;
+  position: relative;
 }
 
 .job-a-thon-mobile .frameMobView-63 {
-    align-items: center;
-    display: inline-flex;
-    flex: 0 0 auto;
-    gap: 16px;
-    justify-content: flex-end;
-    position: relative;
+  align-items: center;
+  display: inline-flex;
+  flex: 0 0 auto;
+  gap: 16px;
+  justify-content: flex-end;
+  position: relative;
 }
 
 .job-a-thon-mobile .frameMobView-64 {
-    align-items: center;
-    border-radius: 32px;
-    display: inline-flex;
-    flex: 0 0 auto;
-    gap: 10px;
-    height: 40px;
-    justify-content: center;
-    padding: 12px;
-    position: relative;
+  align-items: center;
+  border-radius: 32px;
+  display: inline-flex;
+  flex: 0 0 auto;
+  gap: 10px;
+  height: 40px;
+  justify-content: center;
+  padding: 12px;
+  position: relative;
 }
 
 .job-a-thon-mobile .text-wrapper-26 {
-    color: var(--stroke-primary);
-    font-family: var(--desktop-label-md-dt-label-regular-font-family);
-    font-size: var(--desktop-label-md-dt-label-regular-font-size);
-    font-style: var(--desktop-label-md-dt-label-regular-font-style);
-    font-weight: var(--desktop-label-md-dt-label-regular-font-weight);
-    letter-spacing: var(--desktop-label-md-dt-label-regular-letter-spacing);
-    line-height: var(--desktop-label-md-dt-label-regular-line-height);
-    margin-bottom: -1.00px;
-    margin-top: -3.00px;
-    position: relative;
-    white-space: nowrap;
-    width: fit-content;
+  color: var(--stroke-primary);
+  font-family: var(--desktop-label-md-dt-label-regular-font-family);
+  font-size: var(--desktop-label-md-dt-label-regular-font-size);
+  font-style: var(--desktop-label-md-dt-label-regular-font-style);
+  font-weight: var(--desktop-label-md-dt-label-regular-font-weight);
+  letter-spacing: var(--desktop-label-md-dt-label-regular-letter-spacing);
+  line-height: var(--desktop-label-md-dt-label-regular-line-height);
+  margin-bottom: -1px;
+  margin-top: -3px;
+  position: relative;
+  white-space: nowrap;
+  width: fit-content;
 }
 
 .job-a-thon-mobile .frameMobView-65 {
-    align-items: center;
-    border: 1px solid;
-    border-color: var(--stroke-primary);
-    border-radius: 32px;
-    display: inline-flex;
-    flex: 0 0 auto;
-    gap: 10px;
-    height: 40px;
-    justify-content: center;
-    padding: 12px;
-    position: relative;
+  align-items: center;
+  border: 1px solid;
+  border-color: var(--stroke-primary);
+  border-radius: 32px;
+  display: inline-flex;
+  flex: 0 0 auto;
+  gap: 10px;
+  height: 40px;
+  justify-content: center;
+  padding: 12px;
+  position: relative;
 }
 
 :root {
-    --bg-surface-secondary: rgba(245, 245, 245, 1);
-    --bg-surface-white: rgba(255, 255, 255, 1);
-    --border: rgba(204, 204, 204, 1);
-    --border-secondary: rgba(84, 113, 120, 1);
-    --buttonsbutton-disabled: rgba(128, 209, 206, 1);
-    --buttonsbutton-hover: rgba(17, 118, 117, 1);
-    --buttonsbutton-pressed: rgba(15, 105, 104, 1);
-    --buttonsbutton-primary: rgba(19, 131, 130, 1);
-    --desktop-body-body-lg-bold-font-family: "Lato", Helvetica;
-    --desktop-body-body-lg-bold-font-size: 20px;
-    --desktop-body-body-lg-bold-font-style: normal;
-    --desktop-body-body-lg-bold-font-weight: 700;
-    --desktop-body-body-lg-bold-letter-spacing: 0px;
-    --desktop-body-body-lg-bold-line-height: 24px;
-    --desktop-body-body-lg-regular-font-family: "Lato", Helvetica;
-    --desktop-body-body-lg-regular-font-size: 20px;
-    --desktop-body-body-lg-regular-font-style: normal;
-    --desktop-body-body-lg-regular-font-weight: 400;
-    --desktop-body-body-lg-regular-letter-spacing: 0px;
-    --desktop-body-body-lg-regular-line-height: 24px;
-    --desktop-body-body-md-md-bold-font-family: "Lato", Helvetica;
-    --desktop-body-body-md-md-bold-font-size: 18px;
-    --desktop-body-body-md-md-bold-font-style: normal;
-    --desktop-body-body-md-md-bold-font-weight: 600;
-    --desktop-body-body-md-md-bold-letter-spacing: 0px;
-    --desktop-body-body-md-md-bold-line-height: 24px;
-    --desktop-body-body-md-md-regular-font-family: "Lato", Helvetica;
-    --desktop-body-body-md-md-regular-font-size: 18px;
-    --desktop-body-body-md-md-regular-font-style: normal;
-    --desktop-body-body-md-md-regular-font-weight: 400;
-    --desktop-body-body-md-md-regular-letter-spacing: 0px;
-    --desktop-body-body-md-md-regular-line-height: 24px;
-    --desktop-body-body-sm-sm-bold-font-family: "Lato", Helvetica;
-    --desktop-body-body-sm-sm-bold-font-size: 16px;
-    --desktop-body-body-sm-sm-bold-font-style: normal;
-    --desktop-body-body-sm-sm-bold-font-weight: 700;
-    --desktop-body-body-sm-sm-bold-letter-spacing: 0px;
-    --desktop-body-body-sm-sm-bold-line-height: 20px;
-    --desktop-body-body-sm-sm-regular-font-family: "Lato", Helvetica;
-    --desktop-body-body-sm-sm-regular-font-size: 16px;
-    --desktop-body-body-sm-sm-regular-font-style: normal;
-    --desktop-body-body-sm-sm-regular-font-weight: 400;
-    --desktop-body-body-sm-sm-regular-letter-spacing: 0px;
-    --desktop-body-body-sm-sm-regular-line-height: 20px;
-    --desktop-display-dt-display-md-font-family: "DM Sans", Helvetica;
-    --desktop-display-dt-display-md-font-size: 40px;
-    --desktop-display-dt-display-md-font-style: normal;
-    --desktop-display-dt-display-md-font-weight: 700;
-    --desktop-display-dt-display-md-letter-spacing: 0px;
-    --desktop-display-dt-display-md-line-height: 48px;
-    --desktop-display-dt-display-sm-font-family: "DM Sans", Helvetica;
-    --desktop-display-dt-display-sm-font-size: 36px;
-    --desktop-display-dt-display-sm-font-style: normal;
-    --desktop-display-dt-display-sm-font-weight: 600;
-    --desktop-display-dt-display-sm-letter-spacing: 0px;
-    --desktop-display-dt-display-sm-line-height: 48px;
-    --desktop-heading-dt-heading-md-font-family: "DM Sans", Helvetica;
-    --desktop-heading-dt-heading-md-font-size: 28px;
-    --desktop-heading-dt-heading-md-font-style: normal;
-    --desktop-heading-dt-heading-md-font-weight: 700;
-    --desktop-heading-dt-heading-md-letter-spacing: 0px;
-    --desktop-heading-dt-heading-md-line-height: 32px;
-    --desktop-heading-dt-heading-sm-font-family: "DM Sans", Helvetica;
-    --desktop-heading-dt-heading-sm-font-size: 24px;
-    --desktop-heading-dt-heading-sm-font-style: normal;
-    --desktop-heading-dt-heading-sm-font-weight: 600;
-    --desktop-heading-dt-heading-sm-letter-spacing: -1px;
-    --desktop-heading-dt-heading-sm-line-height: 28px;
-    --desktop-label-md-dt-label-bold-font-family: "Lato", Helvetica;
-    --desktop-label-md-dt-label-bold-font-size: 14px;
-    --desktop-label-md-dt-label-bold-font-style: normal;
-    --desktop-label-md-dt-label-bold-font-weight: 700;
-    --desktop-label-md-dt-label-bold-letter-spacing: 0px;
-    --desktop-label-md-dt-label-bold-line-height: 16px;
-    --desktop-label-md-dt-label-regular-font-family: "Lato", Helvetica;
-    --desktop-label-md-dt-label-regular-font-size: 14px;
-    --desktop-label-md-dt-label-regular-font-style: normal;
-    --desktop-label-md-dt-label-regular-font-weight: 400;
-    --desktop-label-md-dt-label-regular-letter-spacing: 0px;
-    --desktop-label-md-dt-label-regular-line-height: 20px;
-    --desktop-label-sm-dt-label-light-font-family: "Lato", Helvetica;
-    --desktop-label-sm-dt-label-light-font-size: 12px;
-    --desktop-label-sm-dt-label-light-font-style: normal;
-    --desktop-label-sm-dt-label-light-font-weight: 600;
-    --desktop-label-sm-dt-label-light-letter-spacing: 0px;
-    --desktop-label-sm-dt-label-light-line-height: 16px;
-    --desktop-label-sm-dt-label-regular-font-family: "Lato", Helvetica;
-    --desktop-label-sm-dt-label-regular-font-size: 12px;
-    --desktop-label-sm-dt-label-regular-font-style: normal;
-    --desktop-label-sm-dt-label-regular-font-weight: 500;
-    --desktop-label-sm-dt-label-regular-letter-spacing: 0px;
-    --desktop-label-sm-dt-label-regular-line-height: 14px;
-    --drop-shadow-100: 0px 1px 4px 0px rgba(12, 12, 13, 0.05);
-    --green-status: rgba(44, 197, 70, 1);
-    --green-status-10: rgba(57, 211, 83, 0.1);
-    --green-status-50: rgba(57, 211, 83, 0.5);
-    --icon-filled-brand: rgba(19, 131, 130, 1);
-    --icon-primary: rgba(0, 43, 54, 1);
-    --icon-white: rgba(255, 255, 255, 1);
-    --mobile-body-mb-body-lg-numeric-font-family: "DM Sans", Helvetica;
-    --mobile-body-mb-body-lg-numeric-font-size: 16px;
-    --mobile-body-mb-body-lg-numeric-font-style: normal;
-    --mobile-body-mb-body-lg-numeric-font-weight: 400;
-    --mobile-body-mb-body-lg-numeric-letter-spacing: 0px;
-    --mobile-body-mb-body-lg-numeric-line-height: 24px;
-    --mobile-body-mb-body-lg-regular-font-family: "DM Sans", Helvetica;
-    --mobile-body-mb-body-lg-regular-font-size: 16px;
-    --mobile-body-mb-body-lg-regular-font-style: normal;
-    --mobile-body-mb-body-lg-regular-font-weight: 400;
-    --mobile-body-mb-body-lg-regular-letter-spacing: 0px;
-    --mobile-body-mb-body-lg-regular-line-height: 20px;
-    --mobile-body-mb-body-lg-semibold-font-family: "DM Sans", Helvetica;
-    --mobile-body-mb-body-lg-semibold-font-size: 16px;
-    --mobile-body-mb-body-lg-semibold-font-style: normal;
-    --mobile-body-mb-body-lg-semibold-font-weight: 600;
-    --mobile-body-mb-body-lg-semibold-letter-spacing: 0px;
-    --mobile-body-mb-body-lg-semibold-line-height: 16px;
-    --mobile-body-mb-body-lg-underline-font-family: "DM Sans", Helvetica;
-    --mobile-body-mb-body-lg-underline-font-size: 16px;
-    --mobile-body-mb-body-lg-underline-font-style: normal;
-    --mobile-body-mb-body-lg-underline-font-weight: 400;
-    --mobile-body-mb-body-lg-underline-letter-spacing: 0px;
-    --mobile-body-mb-body-lg-underline-line-height: 24px;
-    --mobile-body-mb-body-md-md-semibold-font-family: "DM Sans", Helvetica;
-    --mobile-body-mb-body-md-md-semibold-font-size: 14px;
-    --mobile-body-mb-body-md-md-semibold-font-style: normal;
-    --mobile-body-mb-body-md-md-semibold-font-weight: 600;
-    --mobile-body-mb-body-md-md-semibold-letter-spacing: 0px;
-    --mobile-body-mb-body-md-md-semibold-line-height: 16px;
-    --mobile-body-mb-body-md-numeric-font-family: "DM Sans", Helvetica;
-    --mobile-body-mb-body-md-numeric-font-size: 14px;
-    --mobile-body-mb-body-md-numeric-font-style: normal;
-    --mobile-body-mb-body-md-numeric-font-weight: 400;
-    --mobile-body-mb-body-md-numeric-letter-spacing: 0px;
-    --mobile-body-mb-body-md-numeric-line-height: 16px;
-    --mobile-body-mb-body-md-regular-font-family: "DM Sans", Helvetica;
-    --mobile-body-mb-body-md-regular-font-size: 14px;
-    --mobile-body-mb-body-md-regular-font-style: normal;
-    --mobile-body-mb-body-md-regular-font-weight: 400;
-    --mobile-body-mb-body-md-regular-letter-spacing: 0px;
-    --mobile-body-mb-body-md-regular-line-height: 19px;
-    --mobile-body-mb-body-md-underline-font-family: "DM Sans", Helvetica;
-    --mobile-body-mb-body-md-underline-font-size: 14px;
-    --mobile-body-mb-body-md-underline-font-style: normal;
-    --mobile-body-mb-body-md-underline-font-weight: 400;
-    --mobile-body-mb-body-md-underline-letter-spacing: 0px;
-    --mobile-body-mb-body-md-underline-line-height: 16px;
-    --mobile-body-mb-body-sm-medium-font-family: "DM Sans", Helvetica;
-    --mobile-body-mb-body-sm-medium-font-size: 14px;
-    --mobile-body-mb-body-sm-medium-font-style: normal;
-    --mobile-body-mb-body-sm-medium-font-weight: 500;
-    --mobile-body-mb-body-sm-medium-letter-spacing: 0px;
-    --mobile-body-mb-body-sm-medium-line-height: 19px;
-    --mobile-body-mb-body-sm-numeric-font-family: "DM Sans", Helvetica;
-    --mobile-body-mb-body-sm-numeric-font-size: 12px;
-    --mobile-body-mb-body-sm-numeric-font-style: normal;
-    --mobile-body-mb-body-sm-numeric-font-weight: 400;
-    --mobile-body-mb-body-sm-numeric-letter-spacing: 0px;
-    --mobile-body-mb-body-sm-numeric-line-height: 19px;
-    --mobile-body-mb-body-sm-regular-font-family: "DM Sans", Helvetica;
-    --mobile-body-mb-body-sm-regular-font-size: 12px;
-    --mobile-body-mb-body-sm-regular-font-style: normal;
-    --mobile-body-mb-body-sm-regular-font-weight: 400;
-    --mobile-body-mb-body-sm-regular-letter-spacing: 0px;
-    --mobile-body-mb-body-sm-regular-line-height: 16px;
-    --mobile-body-mb-body-sm-semibold-font-family: "DM Sans", Helvetica;
-    --mobile-body-mb-body-sm-semibold-font-size: 12px;
-    --mobile-body-mb-body-sm-semibold-font-style: normal;
-    --mobile-body-mb-body-sm-semibold-font-weight: 600;
-    --mobile-body-mb-body-sm-semibold-letter-spacing: 0px;
-    --mobile-body-mb-body-sm-semibold-line-height: 19px;
-    --mobile-body-mb-body-sm-underline-font-family: "DM Sans", Helvetica;
-    --mobile-body-mb-body-sm-underline-font-size: 12px;
-    --mobile-body-mb-body-sm-underline-font-style: normal;
-    --mobile-body-mb-body-sm-underline-font-weight: 400;
-    --mobile-body-mb-body-sm-underline-letter-spacing: 0px;
-    --mobile-body-mb-body-sm-underline-line-height: 19px;
-    --mobile-display-mb-display-md-font-family: "DM Sans", Helvetica;
-    --mobile-display-mb-display-md-font-size: 32px;
-    --mobile-display-mb-display-md-font-style: normal;
-    --mobile-display-mb-display-md-font-weight: 700;
-    --mobile-display-mb-display-md-letter-spacing: 0px;
-    --mobile-display-mb-display-md-line-height: 40px;
-    --mobile-display-mb-display-sm-font-family: "DM Sans", Helvetica;
-    --mobile-display-mb-display-sm-font-size: 28px;
-    --mobile-display-mb-display-sm-font-style: normal;
-    --mobile-display-mb-display-sm-font-weight: 600;
-    --mobile-display-mb-display-sm-letter-spacing: -1px;
-    --mobile-display-mb-display-sm-line-height: 32px;
-    --mobile-heading-mb-heading-md-font-family: "DM Sans", Helvetica;
-    --mobile-heading-mb-heading-md-font-size: 16px;
-    --mobile-heading-mb-heading-md-font-style: normal;
-    --mobile-heading-mb-heading-md-font-weight: 600;
-    --mobile-heading-mb-heading-md-letter-spacing: 0px;
-    --mobile-heading-mb-heading-md-line-height: 28px;
-    --mobile-heading-mb-heading-sm-font-family: "DM Sans", Helvetica;
-    --mobile-heading-mb-heading-sm-font-size: 12px;
-    --mobile-heading-mb-heading-sm-font-style: normal;
-    --mobile-heading-mb-heading-sm-font-weight: 600;
-    --mobile-heading-mb-heading-sm-letter-spacing: 0px;
-    --mobile-heading-mb-heading-sm-line-height: 16px;
-    --mobile-label-mb-label-sm-font-family: "DM Sans", Helvetica;
-    --mobile-label-mb-label-sm-font-size: 12px;
-    --mobile-label-mb-label-sm-font-style: normal;
-    --mobile-label-mb-label-sm-font-weight: 400;
-    --mobile-label-mb-label-sm-letter-spacing: 0px;
-    --mobile-label-mb-label-sm-line-height: 16px;
-    --red: rgba(255, 55, 55, 1);
-    --red-25: rgba(255, 88, 88, 0.1);
-    --stroke-primary: rgba(19, 131, 130, 1);
-    --tertiary-coloursehub-blue: rgba(143, 200, 232, 1);
-    --tertiary-coloursehub-blue-25: rgba(143, 200, 232, 0.15);
-    --tertiary-coloursehub-green: rgba(178, 232, 135, 1);
-    --tertiary-coloursehub-green-25: rgba(178, 232, 135, 0.25);
-    --tertiary-coloursehub-orange: rgba(232, 186, 152, 1);
-    --tertiary-coloursehub-orange-25: rgba(232, 186, 152, 0.15);
-    --tertiary-coloursehub-saffron: rgba(247, 215, 127, 1);
-    --tertiary-coloursehub-saffron-15: rgba(247, 215, 127, 0.15);
-    --texttext-brand-primary: rgba(19, 131, 130, 1);
-    --texttext-brand-secondary: rgba(0, 43, 54, 1);
-    --texttext-secondary: rgba(84, 113, 120, 1);
-    --texttext-white: rgba(255, 255, 255, 1);
+  --bg-surface-secondary: rgba(245, 245, 245, 1);
+  --bg-surface-white: rgba(255, 255, 255, 1);
+  --border: rgba(204, 204, 204, 1);
+  --border-secondary: rgba(84, 113, 120, 1);
+  --buttonsbutton-disabled: rgba(128, 209, 206, 1);
+  --buttonsbutton-hover: rgba(17, 118, 117, 1);
+  --buttonsbutton-pressed: rgba(15, 105, 104, 1);
+  --buttonsbutton-primary: rgba(19, 131, 130, 1);
+  --desktop-body-body-lg-bold-font-family: "Lato", Helvetica;
+  --desktop-body-body-lg-bold-font-size: 20px;
+  --desktop-body-body-lg-bold-font-style: normal;
+  --desktop-body-body-lg-bold-font-weight: 700;
+  --desktop-body-body-lg-bold-letter-spacing: 0px;
+  --desktop-body-body-lg-bold-line-height: 24px;
+  --desktop-body-body-lg-regular-font-family: "Lato", Helvetica;
+  --desktop-body-body-lg-regular-font-size: 20px;
+  --desktop-body-body-lg-regular-font-style: normal;
+  --desktop-body-body-lg-regular-font-weight: 400;
+  --desktop-body-body-lg-regular-letter-spacing: 0px;
+  --desktop-body-body-lg-regular-line-height: 24px;
+  --desktop-body-body-md-md-bold-font-family: "Lato", Helvetica;
+  --desktop-body-body-md-md-bold-font-size: 18px;
+  --desktop-body-body-md-md-bold-font-style: normal;
+  --desktop-body-body-md-md-bold-font-weight: 600;
+  --desktop-body-body-md-md-bold-letter-spacing: 0px;
+  --desktop-body-body-md-md-bold-line-height: 24px;
+  --desktop-body-body-md-md-regular-font-family: "Lato", Helvetica;
+  --desktop-body-body-md-md-regular-font-size: 18px;
+  --desktop-body-body-md-md-regular-font-style: normal;
+  --desktop-body-body-md-md-regular-font-weight: 400;
+  --desktop-body-body-md-md-regular-letter-spacing: 0px;
+  --desktop-body-body-md-md-regular-line-height: 24px;
+  --desktop-body-body-sm-sm-bold-font-family: "Lato", Helvetica;
+  --desktop-body-body-sm-sm-bold-font-size: 16px;
+  --desktop-body-body-sm-sm-bold-font-style: normal;
+  --desktop-body-body-sm-sm-bold-font-weight: 700;
+  --desktop-body-body-sm-sm-bold-letter-spacing: 0px;
+  --desktop-body-body-sm-sm-bold-line-height: 20px;
+  --desktop-body-body-sm-sm-regular-font-family: "Lato", Helvetica;
+  --desktop-body-body-sm-sm-regular-font-size: 16px;
+  --desktop-body-body-sm-sm-regular-font-style: normal;
+  --desktop-body-body-sm-sm-regular-font-weight: 400;
+  --desktop-body-body-sm-sm-regular-letter-spacing: 0px;
+  --desktop-body-body-sm-sm-regular-line-height: 20px;
+  --desktop-display-dt-display-md-font-family: "DM Sans", Helvetica;
+  --desktop-display-dt-display-md-font-size: 40px;
+  --desktop-display-dt-display-md-font-style: normal;
+  --desktop-display-dt-display-md-font-weight: 700;
+  --desktop-display-dt-display-md-letter-spacing: 0px;
+  --desktop-display-dt-display-md-line-height: 48px;
+  --desktop-display-dt-display-sm-font-family: "DM Sans", Helvetica;
+  --desktop-display-dt-display-sm-font-size: 36px;
+  --desktop-display-dt-display-sm-font-style: normal;
+  --desktop-display-dt-display-sm-font-weight: 600;
+  --desktop-display-dt-display-sm-letter-spacing: 0px;
+  --desktop-display-dt-display-sm-line-height: 48px;
+  --desktop-heading-dt-heading-md-font-family: "DM Sans", Helvetica;
+  --desktop-heading-dt-heading-md-font-size: 28px;
+  --desktop-heading-dt-heading-md-font-style: normal;
+  --desktop-heading-dt-heading-md-font-weight: 700;
+  --desktop-heading-dt-heading-md-letter-spacing: 0px;
+  --desktop-heading-dt-heading-md-line-height: 32px;
+  --desktop-heading-dt-heading-sm-font-family: "DM Sans", Helvetica;
+  --desktop-heading-dt-heading-sm-font-size: 24px;
+  --desktop-heading-dt-heading-sm-font-style: normal;
+  --desktop-heading-dt-heading-sm-font-weight: 600;
+  --desktop-heading-dt-heading-sm-letter-spacing: -1px;
+  --desktop-heading-dt-heading-sm-line-height: 28px;
+  --desktop-label-md-dt-label-bold-font-family: "Lato", Helvetica;
+  --desktop-label-md-dt-label-bold-font-size: 14px;
+  --desktop-label-md-dt-label-bold-font-style: normal;
+  --desktop-label-md-dt-label-bold-font-weight: 700;
+  --desktop-label-md-dt-label-bold-letter-spacing: 0px;
+  --desktop-label-md-dt-label-bold-line-height: 16px;
+  --desktop-label-md-dt-label-regular-font-family: "Lato", Helvetica;
+  --desktop-label-md-dt-label-regular-font-size: 14px;
+  --desktop-label-md-dt-label-regular-font-style: normal;
+  --desktop-label-md-dt-label-regular-font-weight: 400;
+  --desktop-label-md-dt-label-regular-letter-spacing: 0px;
+  --desktop-label-md-dt-label-regular-line-height: 20px;
+  --desktop-label-sm-dt-label-light-font-family: "Lato", Helvetica;
+  --desktop-label-sm-dt-label-light-font-size: 12px;
+  --desktop-label-sm-dt-label-light-font-style: normal;
+  --desktop-label-sm-dt-label-light-font-weight: 600;
+  --desktop-label-sm-dt-label-light-letter-spacing: 0px;
+  --desktop-label-sm-dt-label-light-line-height: 16px;
+  --desktop-label-sm-dt-label-regular-font-family: "Lato", Helvetica;
+  --desktop-label-sm-dt-label-regular-font-size: 12px;
+  --desktop-label-sm-dt-label-regular-font-style: normal;
+  --desktop-label-sm-dt-label-regular-font-weight: 500;
+  --desktop-label-sm-dt-label-regular-letter-spacing: 0px;
+  --desktop-label-sm-dt-label-regular-line-height: 14px;
+  --drop-shadow-100: 0px 1px 4px 0px rgba(12, 12, 13, 0.05);
+  --green-status: rgba(44, 197, 70, 1);
+  --green-status-10: rgba(57, 211, 83, 0.1);
+  --green-status-50: rgba(57, 211, 83, 0.5);
+  --icon-filled-brand: rgba(19, 131, 130, 1);
+  --icon-primary: rgba(0, 43, 54, 1);
+  --icon-white: rgba(255, 255, 255, 1);
+  --mobile-body-mb-body-lg-numeric-font-family: "DM Sans", Helvetica;
+  --mobile-body-mb-body-lg-numeric-font-size: 16px;
+  --mobile-body-mb-body-lg-numeric-font-style: normal;
+  --mobile-body-mb-body-lg-numeric-font-weight: 400;
+  --mobile-body-mb-body-lg-numeric-letter-spacing: 0px;
+  --mobile-body-mb-body-lg-numeric-line-height: 24px;
+  --mobile-body-mb-body-lg-regular-font-family: "DM Sans", Helvetica;
+  --mobile-body-mb-body-lg-regular-font-size: 16px;
+  --mobile-body-mb-body-lg-regular-font-style: normal;
+  --mobile-body-mb-body-lg-regular-font-weight: 400;
+  --mobile-body-mb-body-lg-regular-letter-spacing: 0px;
+  --mobile-body-mb-body-lg-regular-line-height: 20px;
+  --mobile-body-mb-body-lg-semibold-font-family: "DM Sans", Helvetica;
+  --mobile-body-mb-body-lg-semibold-font-size: 16px;
+  --mobile-body-mb-body-lg-semibold-font-style: normal;
+  --mobile-body-mb-body-lg-semibold-font-weight: 600;
+  --mobile-body-mb-body-lg-semibold-letter-spacing: 0px;
+  --mobile-body-mb-body-lg-semibold-line-height: 16px;
+  --mobile-body-mb-body-lg-underline-font-family: "DM Sans", Helvetica;
+  --mobile-body-mb-body-lg-underline-font-size: 16px;
+  --mobile-body-mb-body-lg-underline-font-style: normal;
+  --mobile-body-mb-body-lg-underline-font-weight: 400;
+  --mobile-body-mb-body-lg-underline-letter-spacing: 0px;
+  --mobile-body-mb-body-lg-underline-line-height: 24px;
+  --mobile-body-mb-body-md-md-semibold-font-family: "DM Sans", Helvetica;
+  --mobile-body-mb-body-md-md-semibold-font-size: 14px;
+  --mobile-body-mb-body-md-md-semibold-font-style: normal;
+  --mobile-body-mb-body-md-md-semibold-font-weight: 600;
+  --mobile-body-mb-body-md-md-semibold-letter-spacing: 0px;
+  --mobile-body-mb-body-md-md-semibold-line-height: 16px;
+  --mobile-body-mb-body-md-numeric-font-family: "DM Sans", Helvetica;
+  --mobile-body-mb-body-md-numeric-font-size: 14px;
+  --mobile-body-mb-body-md-numeric-font-style: normal;
+  --mobile-body-mb-body-md-numeric-font-weight: 400;
+  --mobile-body-mb-body-md-numeric-letter-spacing: 0px;
+  --mobile-body-mb-body-md-numeric-line-height: 16px;
+  --mobile-body-mb-body-md-regular-font-family: "DM Sans", Helvetica;
+  --mobile-body-mb-body-md-regular-font-size: 14px;
+  --mobile-body-mb-body-md-regular-font-style: normal;
+  --mobile-body-mb-body-md-regular-font-weight: 400;
+  --mobile-body-mb-body-md-regular-letter-spacing: 0px;
+  --mobile-body-mb-body-md-regular-line-height: 19px;
+  --mobile-body-mb-body-md-underline-font-family: "DM Sans", Helvetica;
+  --mobile-body-mb-body-md-underline-font-size: 14px;
+  --mobile-body-mb-body-md-underline-font-style: normal;
+  --mobile-body-mb-body-md-underline-font-weight: 400;
+  --mobile-body-mb-body-md-underline-letter-spacing: 0px;
+  --mobile-body-mb-body-md-underline-line-height: 16px;
+  --mobile-body-mb-body-sm-medium-font-family: "DM Sans", Helvetica;
+  --mobile-body-mb-body-sm-medium-font-size: 14px;
+  --mobile-body-mb-body-sm-medium-font-style: normal;
+  --mobile-body-mb-body-sm-medium-font-weight: 500;
+  --mobile-body-mb-body-sm-medium-letter-spacing: 0px;
+  --mobile-body-mb-body-sm-medium-line-height: 19px;
+  --mobile-body-mb-body-sm-numeric-font-family: "DM Sans", Helvetica;
+  --mobile-body-mb-body-sm-numeric-font-size: 12px;
+  --mobile-body-mb-body-sm-numeric-font-style: normal;
+  --mobile-body-mb-body-sm-numeric-font-weight: 400;
+  --mobile-body-mb-body-sm-numeric-letter-spacing: 0px;
+  --mobile-body-mb-body-sm-numeric-line-height: 19px;
+  --mobile-body-mb-body-sm-regular-font-family: "DM Sans", Helvetica;
+  --mobile-body-mb-body-sm-regular-font-size: 12px;
+  --mobile-body-mb-body-sm-regular-font-style: normal;
+  --mobile-body-mb-body-sm-regular-font-weight: 400;
+  --mobile-body-mb-body-sm-regular-letter-spacing: 0px;
+  --mobile-body-mb-body-sm-regular-line-height: 16px;
+  --mobile-body-mb-body-sm-semibold-font-family: "DM Sans", Helvetica;
+  --mobile-body-mb-body-sm-semibold-font-size: 12px;
+  --mobile-body-mb-body-sm-semibold-font-style: normal;
+  --mobile-body-mb-body-sm-semibold-font-weight: 600;
+  --mobile-body-mb-body-sm-semibold-letter-spacing: 0px;
+  --mobile-body-mb-body-sm-semibold-line-height: 19px;
+  --mobile-body-mb-body-sm-underline-font-family: "DM Sans", Helvetica;
+  --mobile-body-mb-body-sm-underline-font-size: 12px;
+  --mobile-body-mb-body-sm-underline-font-style: normal;
+  --mobile-body-mb-body-sm-underline-font-weight: 400;
+  --mobile-body-mb-body-sm-underline-letter-spacing: 0px;
+  --mobile-body-mb-body-sm-underline-line-height: 19px;
+  --mobile-display-mb-display-md-font-family: "DM Sans", Helvetica;
+  --mobile-display-mb-display-md-font-size: 32px;
+  --mobile-display-mb-display-md-font-style: normal;
+  --mobile-display-mb-display-md-font-weight: 700;
+  --mobile-display-mb-display-md-letter-spacing: 0px;
+  --mobile-display-mb-display-md-line-height: 40px;
+  --mobile-display-mb-display-sm-font-family: "DM Sans", Helvetica;
+  --mobile-display-mb-display-sm-font-size: 28px;
+  --mobile-display-mb-display-sm-font-style: normal;
+  --mobile-display-mb-display-sm-font-weight: 600;
+  --mobile-display-mb-display-sm-letter-spacing: -1px;
+  --mobile-display-mb-display-sm-line-height: 32px;
+  --mobile-heading-mb-heading-md-font-family: "DM Sans", Helvetica;
+  --mobile-heading-mb-heading-md-font-size: 16px;
+  --mobile-heading-mb-heading-md-font-style: normal;
+  --mobile-heading-mb-heading-md-font-weight: 600;
+  --mobile-heading-mb-heading-md-letter-spacing: 0px;
+  --mobile-heading-mb-heading-md-line-height: 28px;
+  --mobile-heading-mb-heading-sm-font-family: "DM Sans", Helvetica;
+  --mobile-heading-mb-heading-sm-font-size: 12px;
+  --mobile-heading-mb-heading-sm-font-style: normal;
+  --mobile-heading-mb-heading-sm-font-weight: 600;
+  --mobile-heading-mb-heading-sm-letter-spacing: 0px;
+  --mobile-heading-mb-heading-sm-line-height: 16px;
+  --mobile-label-mb-label-sm-font-family: "DM Sans", Helvetica;
+  --mobile-label-mb-label-sm-font-size: 12px;
+  --mobile-label-mb-label-sm-font-style: normal;
+  --mobile-label-mb-label-sm-font-weight: 400;
+  --mobile-label-mb-label-sm-letter-spacing: 0px;
+  --mobile-label-mb-label-sm-line-height: 16px;
+  --red: rgba(255, 55, 55, 1);
+  --red-25: rgba(255, 88, 88, 0.1);
+  --stroke-primary: rgba(19, 131, 130, 1);
+  --tertiary-coloursehub-blue: rgba(143, 200, 232, 1);
+  --tertiary-coloursehub-blue-25: rgba(143, 200, 232, 0.15);
+  --tertiary-coloursehub-green: rgba(178, 232, 135, 1);
+  --tertiary-coloursehub-green-25: rgba(178, 232, 135, 0.25);
+  --tertiary-coloursehub-orange: rgba(232, 186, 152, 1);
+  --tertiary-coloursehub-orange-25: rgba(232, 186, 152, 0.15);
+  --tertiary-coloursehub-saffron: rgba(247, 215, 127, 1);
+  --tertiary-coloursehub-saffron-15: rgba(247, 215, 127, 0.15);
+  --texttext-brand-primary: rgba(19, 131, 130, 1);
+  --texttext-brand-secondary: rgba(0, 43, 54, 1);
+  --texttext-secondary: rgba(84, 113, 120, 1);
+  --texttext-white: rgba(255, 255, 255, 1);
 }

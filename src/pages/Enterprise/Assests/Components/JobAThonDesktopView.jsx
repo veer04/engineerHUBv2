@@ -499,6 +499,7 @@ export const JobAThonDesktopView = () => {
           </div>
         </div>
       </div>
+
       <img
         className={styles.company41}
         alt=""
