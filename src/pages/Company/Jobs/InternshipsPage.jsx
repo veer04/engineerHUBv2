@@ -42,6 +42,7 @@ export default function InternshipsPage() {
   const location = searchParams.get("location");
   const recentlyPosted = searchParams.get("recentlyPosted");
   const isFeatured = searchParams.get("isFeatured");
+  const isEasyApply = searchParams.get("isEasyApply");
 
   const params = {
     search: q,
