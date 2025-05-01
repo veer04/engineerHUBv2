@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { FaExternalLinkAlt } from "react-icons/fa";
 import { API_URL, Bucket_URL } from "../../../services/APIUtils";
 import axios from "axios";
+import AdsenseComp from "../../../components/AdsenseComp/AdsenseComp";
 import {
   controller,
   getHiringDataById,
@@ -320,6 +321,10 @@ export default function IndividualJob() {
               </div>
             </div>
           </div>
+          {/* AD-7 */}
+          <div className="d-flex justify-content-center mb-3">
+            <AdsenseComp />
+          </div>
           <div className="hiring-box">
             <h4 className="body-sm-semibold">Job Description</h4>
             <div
@@ -341,6 +346,10 @@ export default function IndividualJob() {
             >
               <div overflow=""></div>
             </amp-ad>
+          </div>
+          {/* AD-8 */}
+          <div className="d-flex justify-content-center mb-3">
+            <AdsenseComp />
           </div>
           <div className="hiring-box">
             <h4 className="body-sm-semibold">More Information</h4>
@@ -556,6 +565,10 @@ export default function IndividualJob() {
           <Loading />
         </div>
       )}
+      {/* AD-9 */}
+      <div className="d-flex justify-content-center mb-3">
+        <AdsenseComp />
+      </div>
     </section>
   );
 }

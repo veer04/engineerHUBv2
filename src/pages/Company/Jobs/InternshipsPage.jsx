@@ -55,6 +55,7 @@ export default function InternshipsPage() {
     location: location,
     recentlyPosted: recentlyPosted,
     isFeatured: isFeatured,
+    isEasyApply: isEasyApply,
   };
 
   const config = {
@@ -195,6 +196,10 @@ export default function InternshipsPage() {
               placeholder="Search for internships, company, etc"
             />
           </div>
+          {/* AD-4 */}
+          <div className="d-flex justify-content-center mb-3">
+            <AdsenseComp />
+          </div>
           <FilterContainerInternship
             style={{
               marginBottom: ".5rem",
@@ -203,6 +208,7 @@ export default function InternshipsPage() {
           />
         </>
       )}
+      {/*
       <script
         async
         src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8474972598474156"
@@ -216,7 +222,7 @@ export default function InternshipsPage() {
         data-ad-format="auto"
         data-full-width-responsive="true"
       ></ins>
-      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> */}
       <div className={`${!!hiringId ? "job-page-divider" : ""}`}>
         {!(!!hiringId && width < 1150) && (
           <section className={`${!!hiringId ? "all-jobs-section" : ""}`}>
@@ -331,6 +337,10 @@ export default function InternshipsPage() {
                   pages={pageCount}
                 />
               )}
+            {/* AD-3 */}
+            <div className="d-flex justify-content-center mb-3">
+              <AdsenseComp />
+            </div>
           </section>
         )}
         <Outlet />
