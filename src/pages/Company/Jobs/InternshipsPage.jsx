@@ -31,7 +31,6 @@ export default function InternshipsPage() {
     location: "",
     recentlyPosted: "",
     isFeatured: "",
-    isEasyApply: "",
   });
   const q = searchParams.get("q");
   const pageNo = searchParams.get("pageNo");
@@ -43,7 +42,6 @@ export default function InternshipsPage() {
   const location = searchParams.get("location");
   const recentlyPosted = searchParams.get("recentlyPosted");
   const isFeatured = searchParams.get("isFeatured");
-  const isEasyApply = searchParams.get("isEasyApply");
 
   const params = {
     search: q,
@@ -57,8 +55,6 @@ export default function InternshipsPage() {
     location: location,
     recentlyPosted: recentlyPosted,
     isFeatured: isFeatured,
-    isEasyApply: isEasyApply,
-
   };
 
   const config = {
@@ -79,7 +75,6 @@ export default function InternshipsPage() {
       !!params.location ? params.location : [],
       !!params.recentlyPosted ? params.recentlyPosted : [],
       !!params.isFeatured ? params.isFeatured : [],
-      !!params.isEasyApply ? params.isEasyApply : [],
     ],
     queryFn: () =>
       axios
