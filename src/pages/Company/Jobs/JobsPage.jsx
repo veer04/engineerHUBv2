@@ -184,10 +184,10 @@ export default function JobsPage() {
       {!Boolean(hiringId) && (
         <>
           <h1 className="display-md">Job Hiring</h1>
-           <h2 className="body-md-regular">
+          {/* <h2 className="body-md-regular">
             Apply for the jobs of your interest and get the offer letter in the
             next step
-          </h2> 
+          </h2> */}
         </>
       )}
       {!(!!hiringId && width < 1150) && (
@@ -198,12 +198,6 @@ export default function JobsPage() {
               placeholder="Search for jobs, company, etc"
             />
           </div>
-
-          {/* AD-1 */}
-          <div className="d-flex justify-content-center mb-3">
-            <AdsenseComp />
-          </div>
-
           <FilterContainerJob
             style={{
               marginBottom: ".5rem",
@@ -212,21 +206,7 @@ export default function JobsPage() {
           />
         </>
       )}
-      {/*
-      <script
-        async
-        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8474972598474156"
-        crossOrigin="anonymous"
-      ></script>
-      <ins
-        className="adsbygoogle"
-        style={{ display: "block" }}
-        data-ad-client="ca-pub-8474972598474156"
-        data-ad-slot="3867233093"
-        data-ad-format="auto"
-        data-full-width-responsive="true"
-      ></ins>
-      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> */}
+
       <div className={`${!!hiringId ? "job-page-divider" : ""}`}>
         {!(!!hiringId && width < 1150) && (
           <section className={`${!!hiringId ? "all-jobs-section" : ""}`}>
@@ -341,10 +321,6 @@ export default function JobsPage() {
                   pages={pageCount}
                 />
               )}
-            {/* AD-2 */}
-            <div className="d-flex justify-content-center mb-3">
-              <AdsenseComp />
-            </div>
           </section>
         )}
         <Outlet />
@@ -357,7 +333,7 @@ export default function JobsPage() {
         />
       </div>
 
-  {/*    <script
+      <script
         async
         src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8474972598474156"
         crossOrigin="anonymous"
@@ -371,8 +347,6 @@ export default function JobsPage() {
         data-full-width-responsive="true"
       ></ins>
       <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-
-      */}
     </main>
   );
 }

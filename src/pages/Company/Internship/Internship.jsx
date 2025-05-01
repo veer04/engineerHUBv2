@@ -46,9 +46,8 @@ const Jobs = () => {
     } else {
       setFilteredProjects([]);
     }
-    
   }, [searchedProjects]);
-  
+
   useEffect(() => {
     if (filterParam === 0) {
       setPageCount(
@@ -112,7 +111,7 @@ const Jobs = () => {
     <div className="CompanyJob">
       <h2>Intern Hiring</h2>
       <p>
-        Apply for the internship of your interest and get the offer letter in the
+        Apply for the intership of your interest and get the offer letter in the
         next step.
       </p>
       <div className="project__searchbar__container company_searchbar_container mb-3">
