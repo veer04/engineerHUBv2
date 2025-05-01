@@ -23,7 +23,8 @@ const Jobs = () => {
   const [pageCount, setPageCount] = useState(1);
 
   changeDocumentTitle("Internships | Career | engineerHUB");
-
+  //comment added
+  console.log(window.location.pathname);
   useEffect(() => {
     window.scrollTo(0, 0);
     getInternships(setHiringData, currentPage, limit);
