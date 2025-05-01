@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { Bucket_URL } from "../../../../services/APIUtils";
 import styles from "./JobAThonDesktopView.module.css";
 import EasyWayToHire from "./EasyWayToHire/EasyWayToHire";
-import OurClientale from "../../../../components/OurClientale/OurClientale";
 
 export const JobAThonDesktopView = () => {
   const bucket = `${Bucket_URL}frontend/enterprise/desktopView/`;
@@ -323,7 +322,6 @@ export const JobAThonDesktopView = () => {
                   </div>
                 </div>
               </div>
-
               <div className={styles.frameWrapper7}>
                 <div className={styles.frameParent16}>
                   <div className={styles.frameWrapper8}>
@@ -390,11 +388,6 @@ export const JobAThonDesktopView = () => {
                   </div>
                 </div>
               </div>
-
-              <div>
-                <OurClientale />
-              </div>
-
               <div className={styles.frameParent20}>
                 <div className={styles.frameWrapper9}>
                   <div className={styles.whyHrsSupportUsParent}>
