@@ -195,7 +195,7 @@ const Company = () => {
       background: "#8FC8E8",
       stats: {
         position: companyPageCounts?.pageSizeJob,
-        hiring: companyPageCounts?.pageSizeJob ? 1800 : 0,
+        hiring: companyPageCounts?.pageSizeJob ? 8235 : 0,
       },
       link: "/career/jobs?pageNo=1&limit=24",
       text1: "jobs live",
@@ -210,7 +210,7 @@ const Company = () => {
       background: "#e8ba98",
       stats: {
         position: companyPageCounts?.pageSizeInternship,
-        hiring: companyPageCounts?.pageSizeInternship ? 820 : 0,
+        hiring: companyPageCounts?.pageSizeInternship ? 1150 : 0,
       },
       link: "/career/internships?pageNo=1&limit=24",
       text1: "internships live",
