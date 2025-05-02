@@ -1,6 +1,8 @@
 import { useRef } from "react";
 import { RxCross1 } from "react-icons/rx";
 import "./FormInput.css";
+import { Bounce, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function FormInputFileUpload({
   id,
@@ -19,6 +21,8 @@ export default function FormInputFileUpload({
   ...rest
 }) {
   const ref = useRef(null);
+  const allowedTypes = ["image/jpeg", "image/png"];
+
   const formattedSize = (size) => {
     const units = ["B", "KB", "MB", "GB", "TB"];
     let unitIndex = 0;
@@ -30,9 +34,23 @@ export default function FormInputFileUpload({
   };
 
   function handleChange(e) {
-    if (e.target.files[0]) {
-      setValue(e.target.files[0]);
+    const file = e.target.files[0];
+
+    if (file) {
+      if (!allowedTypes.includes(file.type)) {
+        toast.error("❌ Only JPEG and PNG formats are allowed.", {
+          position: "top-right",
+          autoClose: 4000,
+          theme: "dark",
+        });
+        return;
+      }
+      setValue(file);
     }
+
+    // if (e.target.files[0]) {
+    //   setValue(e.target.files[0]);
+    // }
   }
 
   return (
