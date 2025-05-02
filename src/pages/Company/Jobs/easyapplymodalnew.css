@@ -1,0 +1,93 @@
+.main-easy-apply-modal-div {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.main-easy-apply-new-modal-container {
+  display: flex;
+  gap: 20px;
+  animation: slideDown 0.4s ease-out forwards;
+  transform: translateY(-50px);
+  opacity: 0;
+}
+
+.easy-apply-left-panel {
+  width: 555px;
+  height: 100%;
+  background-color: white;
+  border-radius: 15px;
+}
+
+.easy-apply-right-panel {
+  width: 647px;
+  height: 100%;
+  background-color: white;
+  border-radius: 15px;
+  padding: 20px 15px;
+}
+
+.main-easy-apply-modal-div .easy-apply-right-panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.main-easy-apply-modal-div
+  .easy-apply-right-panel-header
+  .apply-for-this-job-h4 {
+  color: #002b36;
+  font-family: "DM Sans", sans-serif;
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 28px;
+  margin-bottom: 0;
+}
+
+.main-easy-apply-modal-div {
+}
+.main-easy-apply-modal-div {
+}
+.main-easy-apply-modal-div {
+}
+.main-easy-apply-modal-div {
+}
+.main-easy-apply-modal-div {
+}
+.main-easy-apply-modal-div {
+}
+.main-easy-apply-modal-div {
+}
+
+@keyframes slideDown {
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.last-footer-div .apply-btn {
+  color: white;
+  padding: 0.75rem 2rem;
+  border: none;
+  background-color: var(--primary-color-green);
+  border-radius: 5px;
+}
+
+.last-footer-div .apply-btn:active {
+  background-color: var(--primary-color-dark-green);
+}
+
+.last-footer-div .clear-btn {
+  background-color: transparent;
+  border: none;
+  color: var(--primary-color-green);
+}

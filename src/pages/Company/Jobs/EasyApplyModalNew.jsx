@@ -1,26 +1,16 @@
-import "./JobHiringModal.css";
-import { useEffect, useRef, useState } from "react";
-import FormInputMultiValue from "../../../components/FormInputs/FormInputMultiValue";
-import useGlobalSnackbar from "../../../hooks/useGlobalSnackbar";
-import FormInput from "../../../components/FormInputs/FormInput";
-import FormInputFileUpload from "../../../components/FormInputs/FormInputFileUpload";
-import { API_URL } from "../../../services/APIUtils";
-import { getAccessToken, getUserId } from "../../../features/User/UserDetails";
-import { getHiringDataById } from "../../../services/APIConfig";
-import axios from "axios";
-import FormInputNumber from "../../../components/FormInputs/FormInputNumber";
-import FormInputToggle from "../../../components/FormInputs/FormInputToggle";
-import { FaFilePdf } from "react-icons/fa";
-import Loading from "../../../components/Loader/Loading";
+import React, { useState } from "react";
+import "./easyapplymodalnew.css";
+import { CloseButtonSVG } from "../../../components/SvgsIconsComps/SvgsComps";
 import FormInputDropdown from "../../../components/FormInputs/FormInputDropdown";
-import EasyApplyModalNew from "./EasyApplyModalNew";
+import FormInputToggle from "../../../components/FormInputs/FormInputToggle";
+import FormInputNumber from "../../../components/FormInputs/FormInputNumber";
+import FormInput from "../../../components/FormInputs/FormInput";
+import { getAccessToken } from "../../../features/getCookieValues";
+import useGlobalSnackbar from "../../../hooks/useGlobalSnackbar";
+import FormInputFileUpload from "../../../components/FormInputs/FormInputFileUpload";
 
-export default function JobHiringModal({
-  latestInfo = {},
-  hiringId,
-  setHiring,
-}) {
-  const ref = useRef(null);
+const EasyApplyModalNew = ({ isOpen, onClose }) => {
+  if (!isOpen) return null;
   const [skillsRequired, setSkillsRequired] = useState("");
   const [college, setCollege] = useState("");
   const [passOutYear, setPassOutYear] = useState("");
@@ -35,8 +25,6 @@ export default function JobHiringModal({
     experience: "",
     resume: "",
   });
-
- 
 
   const {
     setSnackbarOpen,
@@ -121,16 +109,46 @@ export default function JobHiringModal({
     return isValid;
   }
 
-  useEffect(() => {
-    if (Object.keys(latestInfo).length) {
-      setSkillsRequired(latestInfo?.skills);
-      setCollege(latestInfo?.college);
-      setPassOutYear(latestInfo?.passoutYear);
-      setExperience(latestInfo?.experience);
-      setIsResumePresent(latestInfo?.resume ? true : false);
-      setUsePreviousResume(latestInfo?.resume ? true : false);
+  function validateForm() {
+    let isValid = true;
+    const errors = {
+      skillsRequired: "",
+      college: "",
+      passOutYear: "",
+      experience: "",
+      resume: "",
+    };
+
+    if (!skillsRequired) {
+      errors.skillsRequired = "Skills are required";
+      isValid = false;
+      addToErrorStack("#skillsRequired");
     }
-  }, [latestInfo]);
+    if (!college) {
+      errors.college = "College name is required";
+      isValid = false;
+      addToErrorStack("#collegeName");
+    }
+    if (!passOutYear) {
+      errors.passOutYear = "Passout year is required";
+      isValid = false;
+      addToErrorStack("#passoutYear");
+    }
+    if (!experience) {
+      errors.experience = "Experience is required";
+      isValid = false;
+      addToErrorStack("#experience");
+    }
+    if (!usePreviousResume && !resume) {
+      errors.resume = "Resume is required";
+      isValid = false;
+      addToErrorStack("#resume");
+    }
+
+    setErrors(errors);
+    handleFormErrors();
+    return isValid;
+  }
 
   const config = {
     headers: {
@@ -277,28 +295,19 @@ export default function JobHiringModal({
   }
 
   return (
-    <>
-      <div
-        className="modal fade"
-        id="jobHiringModal"
-        tabIndex="-1"
-        aria-labelledby="jobHiringModalLabel"
-        aria-hidden="true"
-      >
-        <div className="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h1 className="modal-title heading-sm" id="jobHiringModalLabel">
-                Apply for this job
-              </h1>
-              <button
-                type="button"
-                className="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-                ref={ref}
-              ></button>
+    <div className="main-easy-apply-modal-div">
+      <div className="main-easy-apply-new-modal-container">
+        <div className="easy-apply-left-panel"></div>
+        <div className="easy-apply-right-panel">
+          <div className="easy-apply-right-panel-header">
+            <h4 className="apply-for-this-job-h4">Apply for this job</h4>
+
+            <div onClick={onClose}>
+              <CloseButtonSVG />
             </div>
+          </div>
+
+          <div className="main-form-content-right-modal-div">
             <div className="modal-body">
               <FormInput
                 label="Enter your skills"
@@ -365,7 +374,7 @@ export default function JobHiringModal({
                       justifyContent: "flex-start",
                       padding: "0 14px",
                     }}
-                    className="mimic-file-upload"
+                    className=""
                   >
                     <FaFilePdf
                       style={{
@@ -400,7 +409,17 @@ export default function JobHiringModal({
                 />
               )}
             </div>
-            <div className="modal-footer justify-content-between">
+
+            <div
+              style={{
+                width: "100%",
+                height: "1.225rem",
+                borderTop: "1px solid #b0b0b0",
+                borderRadius: "0px",
+              }}
+            ></div>
+
+            <div className="modal-footer last-footer-div justify-content-between">
               <button
                 onClick={handleClear}
                 className="clear-btn body-sm-semibold px-2 py-2"
@@ -419,6 +438,8 @@ export default function JobHiringModal({
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
-}
+};
+
+export default EasyApplyModalNew;

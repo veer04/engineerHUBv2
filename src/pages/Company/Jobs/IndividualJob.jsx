@@ -31,6 +31,7 @@ import Loading from "../../../components/Loader/Loading";
 import JobHiringModal from "./JobHiringModal";
 import { Link } from "react-router-dom";
 import BannerSpaceComp from "../BannerSpaceComp/BannerSpaceComp";
+import EasyApplyModalNew from "./EasyApplyModalNew";
 
 function seededRandom(seed) {
   var x = Math.sin(seed) * 10000;
@@ -184,13 +185,25 @@ export default function IndividualJob() {
     getHiringDetails();
   }, [hiringId]);
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
   return (
     <section id="individual-job-container">
-      <JobHiringModal
+      <EasyApplyModalNew isOpen={isModalOpen} onClose={closeModal} />
+
+      {/* <JobHiringModal
         latestInfo={userLatestInfo}
         hiringId={hiringId}
         setHiring={setHiring}
-      />
+      /> */}
       {Object.keys(hiring).length !== 0 ? (
         <>
           <div className="hiring-box">
@@ -509,8 +522,9 @@ export default function IndividualJob() {
                     </a>
                   ) : (
                     <button
-                      data-bs-toggle="modal"
-                      data-bs-target="#jobHiringModal"
+                      onClick={() => openModal()}
+                      // data-bs-toggle="modal"
+                      // data-bs-target="#jobHiringModal"
                       className="body-md-semibold hiring-apply-btn"
                     >
                       Easy Apply
