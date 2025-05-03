@@ -199,7 +199,7 @@ export default function InternshipsPage() {
           </div>
           {/* AD-4 */}
           <div className="d-flex justify-content-center mb-3">
-            <AdsenseComp />
+            <AdsenseComp  adSlot="8908232121"/>
           </div>
           <FilterContainerInternship
             style={{
@@ -340,7 +340,7 @@ export default function InternshipsPage() {
               )}
             {/* AD-3 */}
             <div className="d-flex justify-content-center mb-3">
-              <AdsenseComp />
+              <AdsenseComp adSlot="1464856375"/>
             </div>
           </section>
         )}

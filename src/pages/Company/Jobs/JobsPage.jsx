@@ -198,6 +198,10 @@ export default function JobsPage() {
               placeholder="Search for jobs, company, etc"
             />
           </div>
+          {/* AD-5 */}
+          <div className="d-flex justify-content-center mb-3">
+            <AdsenseComp adSlot="8908232121" />
+          </div>
           <FilterContainerJob
             style={{
               marginBottom: ".5rem",
@@ -321,6 +325,9 @@ export default function JobsPage() {
                   pages={pageCount}
                 />
               )}
+            <div className="d-flex justify-content-center mb-3">
+              <AdsenseComp adSlot="1464856375" />
+            </div>
           </section>
         )}
         <Outlet />
@@ -332,7 +339,7 @@ export default function JobsPage() {
           mobileImage={`${Bucket_URL}13404897.png`}
         />
       </div>
-
+      {/*
       <script
         async
         src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8474972598474156"
@@ -347,6 +354,7 @@ export default function JobsPage() {
         data-full-width-responsive="true"
       ></ins>
       <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+      */}
     </main>
   );
 }

@@ -80,7 +80,7 @@ const Events = () => {
       </p>
       {/* AD-5 */}
       <div className="d-flex justify-content-center mb-3">
-        <AdsenseComp />
+        <AdsenseComp adSlot="8908232121" />
       </div>
       <div className="project__searchbar__container company_searchbar_container mb-3">
         <div className="input-group">
@@ -173,7 +173,7 @@ const Events = () => {
       )}
       {/* AD-6 */}
       <div className="d-flex justify-content-center mb-3">
-        <AdsenseComp />
+        <AdsenseComp adSlot="1464856375"/>
       </div>
     </div>
   );
