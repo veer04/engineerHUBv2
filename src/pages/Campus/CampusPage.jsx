@@ -2,6 +2,7 @@ import React from "react";
 import "./CampusPage.css";
 import CampusEventCard from "../../components/CampusEventCard/CampusEventCard";
 import EventCard from "../../components/EventCard/EventCard";
+//import AdsenseComp from "../../components/AdsenseComp/AdsenseComp";
 import { useEffect, useState } from "react";
 import {
   controller,
@@ -154,6 +155,11 @@ export default function CampusPage() {
           <div className="coming-soon">Coming Soon</div>
         </div>
       )}
+       {/* AD-14 
+       <div className="d-flex justify-content-center mb-3">
+        <AdsenseComp adSlot="1464856375"/>
+      </div>
+      */}
     </div>
   );
 }

@@ -3,6 +3,7 @@ import "./CommunityPage.css";
 import DomainsSection from "./DomainsSection";
 import useNavbar from "../../hooks/use-navbar";
 import CommunityPageBlogSection from "./CommunityPageBlogSection";
+import AdsenseComp from "../../components/AdsenseComp/AdsenseComp";
 
 export default function CommunityPage() {
   const { setSelectedPageNavbar } = useNavbar();
@@ -18,6 +19,10 @@ export default function CommunityPage() {
       <div className="community-page">
         <DomainsSection />
         <CommunityPageBlogSection />
+      </div>
+       {/* AD-14 */}
+       <div className="d-flex justify-content-center mb-3">
+        <AdsenseComp adSlot="1464856375"/>
       </div>
     </>
   );
