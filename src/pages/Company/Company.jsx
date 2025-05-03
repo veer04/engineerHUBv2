@@ -14,6 +14,7 @@ import OtherPageCard from "./OtherPageCard";
 import OtherPageCard2 from "./OtherPageCard2";
 import OtherPageCard3 from "./OtherPageCard3";
 import BannerSpaceComp from "./BannerSpaceComp/BannerSpaceComp";
+import AdsenseComp from "../../components/AdsenseComp/AdsenseComp";
 
 const CompanyCards = ({ data }) => {
   return (
@@ -486,6 +487,10 @@ const Company = () => {
           </div>
         </section>
       )}
+       {/* AD-13 */}
+       <div className="d-flex justify-content-center mb-3">
+        <AdsenseComp adSlot="1464856375"/>
+      </div>
     </div>
   );
 };
