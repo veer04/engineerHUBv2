@@ -15,6 +15,7 @@ import OtherPageCard2 from "./OtherPageCard2";
 import OtherPageCard3 from "./OtherPageCard3";
 import BannerSpaceComp from "./BannerSpaceComp/BannerSpaceComp";
 import JobsForYouFilterComp from "./JobsForYouFilterPage/JobsForYouFilterComp";
+import AdsenseComp from "../../components/AdsenseComp/AdsenseComp";
 
 const CompanyCards = ({ data }) => {
   return (
@@ -196,7 +197,7 @@ const Company = () => {
       background: "#8FC8E8",
       stats: {
         position: companyPageCounts?.pageSizeJob,
-        hiring: companyPageCounts?.pageSizeJob ? 1800 : 0,
+        hiring: companyPageCounts?.pageSizeJob ? 8235 : 0,
       },
       link: "/career/jobs?pageNo=1&limit=24",
       text1: "jobs live",
@@ -211,7 +212,7 @@ const Company = () => {
       background: "#e8ba98",
       stats: {
         position: companyPageCounts?.pageSizeInternship,
-        hiring: companyPageCounts?.pageSizeInternship ? 820 : 0,
+        hiring: companyPageCounts?.pageSizeInternship ? 1150 : 0,
       },
       link: "/career/internships?pageNo=1&limit=24",
       text1: "internships live",
@@ -491,6 +492,10 @@ const Company = () => {
           </div>
         </section>
       )}
+      {/* AD-13 */}
+      <div className="d-flex justify-content-center mb-3">
+        <AdsenseComp adSlot="1464856375" />
+      </div>
     </div>
   );
 };

@@ -12,7 +12,6 @@ import AddPostModal from "../../components/Dashboard/AddPostModal";
 import InfoModal from "./InfoModal";
 import { FaArrowRight } from "react-icons/fa";
 import { useSelector } from "react-redux";
-import OurClientale from "../../components/OurClientale/OurClientale";
 export default function HostingPage() {
   const { setSelectedPageNavbar } = useNavbar();
   const {
@@ -240,8 +239,6 @@ export default function HostingPage() {
             ))}
           </div>
         </section>
-
-        <OurClientale />
       </main>
     </>
   );

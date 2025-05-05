@@ -31,7 +31,6 @@ export default function InternshipsPage() {
     location: "",
     recentlyPosted: "",
     isFeatured: "",
-    isEasyApply: "",
   });
   const q = searchParams.get("q");
   const pageNo = searchParams.get("pageNo");
@@ -78,7 +77,6 @@ export default function InternshipsPage() {
       !!params.location ? params.location : [],
       !!params.recentlyPosted ? params.recentlyPosted : [],
       !!params.isFeatured ? params.isFeatured : [],
-      !!params.isEasyApply ? params.isEasyApply : [],
     ],
     queryFn: () =>
       axios
@@ -185,11 +183,10 @@ export default function InternshipsPage() {
       {!Boolean(hiringId) && (
         <>
           <h1 className="display-md">Intern Hiring</h1>
-         {/* <h2 className="body-md-regular">
+          <h2 className="body-md-regular">
             Apply for the internship of your interest and get the offer letter
             in the next step.
           </h2>
-          */}
         </>
       )}
       {!(!!hiringId && width < 1150) && (
@@ -199,10 +196,10 @@ export default function InternshipsPage() {
               param="q"
               placeholder="Search for internships, company, etc"
             />
-            {/* AD-4 */}
-            <div className="d-flex justify-content-center mb-3">
-              <AdsenseComp />
-            </div>
+          </div>
+          {/* AD-4 */}
+          <div className="d-flex justify-content-center mb-3">
+            <AdsenseComp  adSlot="8908232121"/>
           </div>
           <FilterContainerInternship
             style={{
@@ -343,7 +340,7 @@ export default function InternshipsPage() {
               )}
             {/* AD-3 */}
             <div className="d-flex justify-content-center mb-3">
-              <AdsenseComp />
+              <AdsenseComp adSlot="1464856375"/>
             </div>
           </section>
         )}

@@ -6,6 +6,7 @@ import { API_URL, Bucket_URL } from "../../../services/APIUtils";
 import getCookie, { getAccessToken } from "../../../features/getCookieValues";
 import Cookies from "js-cookie";
 import axios from "axios";
+import AdsenseComp from "../../../components/AdsenseComp/AdsenseComp";
 import {
   controller,
   getHiringDataById,
@@ -374,7 +375,11 @@ export default function IndividualInternship() {
               </div>
             </div>
           </div>
-
+          {/* AD-10 */}
+          <div className="d-flex justify-content-center mb-3">
+            <AdsenseComp adSlot="1960197314"/>
+          </div>
+          
           <div className="hiring-box pt-4">
             <div className="info-tiles-container">
               <div className="info-tiles">
@@ -402,6 +407,8 @@ export default function IndividualInternship() {
               className="hiring-styled-description"
             ></div>
           </div>
+
+          {/*
           <div style={{ margin: "1rem 0" }}>
             <amp-ad
               width="100vw"
@@ -414,6 +421,11 @@ export default function IndividualInternship() {
             >
               <div overflow=""></div>
             </amp-ad>
+          </div>
+          */}
+          {/*AD-12**/}
+          <div className="d-flex justify-content-center mb-3">
+            <AdsenseComp adSlot="1960197314"/>
           </div>
           <div className="hiring-box">
             <h4 className="body-sm-semibold">More Information</h4>
@@ -634,6 +646,10 @@ export default function IndividualInternship() {
           <Loading />
         </div>
       )}
+       {/* AD-11*/} 
+      <div className="d-flex justify-content-center mb-3">
+        <AdsenseComp adSlot="1464856375"/>
+      </div>
     </section>
   );
 }

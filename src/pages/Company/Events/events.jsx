@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect, useMemo } from "react";
 import "./events.css";
+import AdsenseComp from "../../../components/AdsenseComp/AdsenseComp";
 import {
   controller,
   getAllEvents,
@@ -77,6 +78,10 @@ const Events = () => {
         Participate in the events directly conducted by the companies to
         highlight your profile.
       </p>
+      {/* AD-5 */}
+      <div className="d-flex justify-content-center mb-3">
+        <AdsenseComp adSlot="8908232121" />
+      </div>
       <div className="project__searchbar__container company_searchbar_container mb-3">
         <div className="input-group">
           <input
@@ -166,6 +171,10 @@ const Events = () => {
           setCurrentPage={setCurrentPage}
         />
       )}
+      {/* AD-6 */}
+      <div className="d-flex justify-content-center mb-3">
+        <AdsenseComp adSlot="1464856375"/>
+      </div>
     </div>
   );
 };

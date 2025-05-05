@@ -77,6 +77,7 @@ import CommunityChat from "./pages/Chat/CommunityChat.jsx";
 import { ToastContainer } from "react-toastify";
 import Enterprise from "./pages/Enterprise/Assests/Components/Enterprise.jsx";
 import CompanyDashboardNew from "./pages/Profile/CompanyDashboardNew/CompanyDashboardNew.jsx";
+import { getUserRole } from "./features/User/UserDetails.jsx";
 const DigitalProductAdminPage = lazy(() =>
   import("./pages/Admin/DigitalProductAdminPage.jsx")
 );
@@ -155,6 +156,7 @@ const TermsAndConditions = lazy(() =>
 
 function App() {
   const [OtpRoute, setOtpRoute] = useState("loading");
+  const role = getUserRole();
 
   useEffect(() => {
     setOtpRoute(Boolean(sessionStorage.getItem("OtpRoute")));
@@ -293,7 +295,8 @@ function App() {
 
           <Route path="host">
             <Route index element={<HostingPage />} />
-            <Route path="job" element={<HostingJob />} />
+
+            {role !== "User" && <Route path="job" element={<HostingJob />} />}
             <Route path="internship" element={<HostingInternship />} />
             <Route path="project" element={<HostingProject />} />
             <Route path="cultural-event" element={<HostingCulturalEvent />} />

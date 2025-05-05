@@ -3,7 +3,6 @@ import { Bucket_URL } from "../../../../../services/APIUtils";
 import { useNavigate } from "react-router-dom";
 import "./EnterpriseMobileView.css";
 import EasyWayToHire from "../EasyWayToHire/EasyWayToHire";
-import OurClientale from "../../../../../components/OurClientale/OurClientale";
 export const JobAThonMobile = () => {
   const bucket = `${Bucket_URL}frontend/enterprise/mobileView/`;
   const bitsminpng = `${bucket}bits-min.png.png`;
@@ -351,10 +350,6 @@ export const JobAThonMobile = () => {
                 </div>
               </div>
             </div>
-          </div>
-
-          <div>
-            <OurClientale />
           </div>
 
           <div className="frameMobView-33">
