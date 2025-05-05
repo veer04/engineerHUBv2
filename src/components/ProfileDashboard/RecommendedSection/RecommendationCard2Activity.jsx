@@ -8,7 +8,7 @@ import { getUserId, isUserLoggedIn } from "../../../features/User/UserDetails";
 const RecommendationCard2Activity = ({ data }) => {
   const [viewVisibility, setViewVisibility] = useState({});
 
-  console.log(data, "data");
+  // console.log(data, "datajobdata");
 
   const toggleAmountShow = (id) => {
     setViewVisibility((prev) => ({

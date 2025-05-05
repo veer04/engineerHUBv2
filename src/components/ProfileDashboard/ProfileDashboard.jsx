@@ -105,7 +105,7 @@ const ProfileDashboard = () => {
               : [];
             setInternshipData((prevData) => [...(prevData || []), ...newData]);
           } else if (section === "post") {
-            newData = Array.isArray(response.data.data)
+            newData = Array.isArray(response.data.data.applications)
               ? response.data.data.applications
               : [];
             setPostData((prevData) => [...(prevData || []), ...newData]);
