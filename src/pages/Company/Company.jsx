@@ -14,6 +14,7 @@ import OtherPageCard from "./OtherPageCard";
 import OtherPageCard2 from "./OtherPageCard2";
 import OtherPageCard3 from "./OtherPageCard3";
 import BannerSpaceComp from "./BannerSpaceComp/BannerSpaceComp";
+import JobsForYouFilterComp from "./JobsForYouFilterPage/JobsForYouFilterComp";
 
 const CompanyCards = ({ data }) => {
   return (
@@ -375,6 +376,10 @@ const Company = () => {
             return <NewEventCard data={item} key={index} eventHiring={true} />;
           })}
         </div>
+      </div>
+
+      <div>
+        <JobsForYouFilterComp />
       </div>
 
       <div className="Our-Other-Pages-Main-Div">

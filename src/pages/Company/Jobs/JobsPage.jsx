@@ -93,90 +93,90 @@ export default function JobsPage() {
     staleTime: 1000 * 60 * 5, // 5 minutes
   });
 
-  // useEffect(() => {
-  //   if (jobsQuery.isSuccess) {
-  //     setPageCount(
-  //       Math.ceil(
-  //         (!!jobsQuery.data?.data?.pageSize
-  //           ? jobsQuery.data?.data?.pageSize
-  //           : 1) / (!!limit ? limit : jobsQuery.data?.data?.data?.length)
-  //       )
-  //     );
-  //     setTimeout(() => {
-  //       if (
-  //         !!document.getElementById("jobs-container") &&
-  //         !!document.getElementById("individual-job-container")
-  //       )
-  //         document.getElementById("jobs-container").style.height = `${
-  //           document.getElementById("individual-job-container").offsetHeight -
-  //           98.4
-  //         }px`;
-  //     }, 100);
-  //   }
-  // }, [jobsQuery, isEasyApply]);
+  useEffect(() => {
+    if (jobsQuery.isSuccess) {
+      setPageCount(
+        Math.ceil(
+          (!!jobsQuery.data?.data?.pageSize
+            ? jobsQuery.data?.data?.pageSize
+            : 1) / (!!limit ? limit : jobsQuery.data?.data?.data?.length)
+        )
+      );
+      setTimeout(() => {
+        if (
+          !!document.getElementById("jobs-container") &&
+          !!document.getElementById("individual-job-container")
+        )
+          document.getElementById("jobs-container").style.height = `${
+            document.getElementById("individual-job-container").offsetHeight -
+            98.4
+          }px`;
+      }, 100);
+    }
+  }, [jobsQuery, isEasyApply]);
 
-  // useEffect(() => {
-  //   if (!Boolean(hiringId)) {
-  //     !!document.getElementById("jobs-container")
-  //       ? (document.getElementById("jobs-container").style.height = "initial")
-  //       : null;
-  //   }
-  // }, [hiringId]);
+  useEffect(() => {
+    if (!Boolean(hiringId)) {
+      !!document.getElementById("jobs-container")
+        ? (document.getElementById("jobs-container").style.height = "initial")
+        : null;
+    }
+  }, [hiringId]);
 
-  // useEffect(() => {
-  //   document.title = "Jobs | Career | engineerHUB";
-  //   window.scrollTo(0, 0);
-  //   setSelectedPageNavbar("company");
-  //   const handleResize = () => setWidth(window.innerWidth);
-  //   window.addEventListener("resize", handleResize);
-  //   return () => window.removeEventListener("resize", handleResize);
-  // }, []);
+  useEffect(() => {
+    document.title = "Jobs | Career | engineerHUB";
+    window.scrollTo(0, 0);
+    setSelectedPageNavbar("company");
+    const handleResize = () => setWidth(window.innerWidth);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
-  // useEffect(() => {
-  //   window.scrollTo(0, 0);
-  // }, [pageNo]);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pageNo]);
 
-  // useEffect(() => {
-  //   const jobs = jobsQuery?.data?.data?.data;
-  //   const jobsWithAds = [];
+  useEffect(() => {
+    const jobs = jobsQuery?.data?.data?.data;
+    const jobsWithAds = [];
 
-  //   jobs?.forEach((job, index) => {
-  //     jobsWithAds.push(job);
-  //     if ((index + 1) % 4 === 0) {
-  //       jobsWithAds.push(
-  //         <amp-ad
-  //           width="100vw"
-  //           height="320"
-  //           type="adsense"
-  //           data-ad-client="ca-pub-8474972598474156"
-  //           data-ad-slot="3646805465"
-  //           data-auto-format="rspv"
-  //           data-full-width=""
-  //         >
-  //           <div overflow=""></div>
-  //         </amp-ad>
-  //       );
-  //     }
-  //   });
+    jobs?.forEach((job, index) => {
+      jobsWithAds.push(job);
+      if ((index + 1) % 4 === 0) {
+        jobsWithAds.push(
+          <amp-ad
+            width="100vw"
+            height="320"
+            type="adsense"
+            data-ad-client="ca-pub-8474972598474156"
+            data-ad-slot="3646805465"
+            data-auto-format="rspv"
+            data-full-width=""
+          >
+            <div overflow=""></div>
+          </amp-ad>
+        );
+      }
+    });
 
-  //   if (jobs?.length % 4 !== 0) {
-  //     jobsWithAds.push(
-  //       <amp-ad
-  //         width="100vw"
-  //         height="320"
-  //         type="adsense"
-  //         data-ad-client="ca-pub-8474972598474156"
-  //         data-ad-slot="3646805465"
-  //         data-auto-format="rspv"
-  //         data-full-width=""
-  //       >
-  //         <div overflow=""></div>
-  //       </amp-ad>
-  //     );
-  //   }
+    if (jobs?.length % 4 !== 0) {
+      jobsWithAds.push(
+        <amp-ad
+          width="100vw"
+          height="320"
+          type="adsense"
+          data-ad-client="ca-pub-8474972598474156"
+          data-ad-slot="3646805465"
+          data-auto-format="rspv"
+          data-full-width=""
+        >
+          <div overflow=""></div>
+        </amp-ad>
+      );
+    }
 
-  //   setJobsWithAds(jobsWithAds);
-  // }, [jobsQuery]);
+    setJobsWithAds(jobsWithAds);
+  }, [jobsQuery]);
 
   return (
     <main className="jobs-page">
