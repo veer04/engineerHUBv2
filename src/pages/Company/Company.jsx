@@ -87,6 +87,7 @@ const Company = () => {
       });
   };
 
+
   const getCompanyPageJobs = (setJobs, pageNo, limit, isEasyApply) => {
     axios
       .get(`${API_URL}api/v1/getHiringByOpportunityType/`, {
@@ -317,6 +318,12 @@ const Company = () => {
           })}
         </div>
       </div> */}
+      {
+    /* AD-15 */
+  }
+  <div className="d-flex justify-content-center mb-3">
+    <AdsenseComp adSlot="4766701351" />
+  </div>;
 
       <div className="banner-space-div-to-promote-companies">
         <BannerSpaceComp
@@ -355,7 +362,7 @@ const Company = () => {
         }}
         className="padding-adjustment"
       >
-        <amp-ad
+       {/*} <amp-ad
           width="100vw"
           height="320"
           type="adsense"
@@ -365,8 +372,15 @@ const Company = () => {
           data-full-width=""
         >
           <div overflow=""></div>
-        </amp-ad>
+        </amp-ad>*/}
       </div>
+      {
+    /* AD-16 */
+  }
+  <div className="d-flex justify-content-center mb-3">
+    <AdsenseComp adSlot="9315486303" />
+  </div> 
+
       <div className="Opportunities padding-adjustment">
         <a href="/career/events" style={{ textDecoration: "none" }}>
           <h5>Trending Opportunities</h5>
@@ -487,10 +501,11 @@ const Company = () => {
           </div>
         </section>
       )}
-       {/* AD-13 */}
-       <div className="d-flex justify-content-center mb-3">
-        <AdsenseComp adSlot="1464856375"/>
-      </div>
+         { /* AD-17 */
+  }
+  <div className="d-flex justify-content-center mb-3">
+    <AdsenseComp adSlot="1464856375" />
+  </div>
     </div>
   );
 };
