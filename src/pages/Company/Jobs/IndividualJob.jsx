@@ -197,7 +197,13 @@ export default function IndividualJob() {
 
   return (
     <section id="individual-job-container">
-      <EasyApplyModalNew isOpen={isModalOpen} onClose={closeModal} />
+      <EasyApplyModalNew
+        latestInfo={userLatestInfo}
+        hiringId={hiringId}
+        setHiring={setHiring}
+        isOpen={isModalOpen}
+        onClose={closeModal}
+      />
 
       {/* <JobHiringModal
         latestInfo={userLatestInfo}
