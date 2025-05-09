@@ -38,7 +38,7 @@ export default function DomainsSection() {
       <h2 className="subheading-1">
         Our technical areas specialize students in what industry is looking for
         in candidates, rather than spending ample time in building general
-        skills. Now is the time to start developing skills in the field where
+        skills. Now is the time to start developing skills in  field where
         our interests lie and build a career in that direction.
       </h2>
       
