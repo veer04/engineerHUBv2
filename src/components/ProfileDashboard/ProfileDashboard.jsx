@@ -14,6 +14,7 @@ import axios from "axios";
 import { getAccessToken } from "../../features/getCookieValues";
 import { useParams } from "react-router-dom";
 import ProfileDashboardUserView from "./UserViewProfileDashboard/ProfileDashboardUserView/ProfileDashboardUserView";
+import AdsenseComp from "../AdsenseComp/AdsenseComp";
 
 const ProfileDashboard = () => {
   const [privateDashboardData, setPrivateDashboardData] = useState(null);
@@ -29,7 +30,6 @@ const ProfileDashboard = () => {
   const currentUserId = getUserId();
   const [loading, setLoading] = useState(false);
   const { userId } = useParams();
-  // console.log(userId, "kjhgf");
 
   if (userId && userId != currentUserId) {
     return <ProfileDashboardUserView />;
@@ -202,6 +202,11 @@ const ProfileDashboard = () => {
           src={`${Bucket_URL}13404898.png`}
           alt="We are live poster"
         />
+        {/*AD - 19}*/}
+        <div className="d-flex justify-content-center mb-3">
+          <AdsenseComp adSlot="1464856375" />
+        </div>
+        
       </main>
     </>
   );

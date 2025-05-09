@@ -183,10 +183,12 @@ export default function InternshipsPage() {
       {!Boolean(hiringId) && (
         <>
           <h1 className="display-md">Intern Hiring</h1>
+          {/*
           <h2 className="body-md-regular">
             Apply for the internship of your interest and get the offer letter
             in the next step.
           </h2>
+          */}
         </>
       )}
       {!(!!hiringId && width < 1150) && (
