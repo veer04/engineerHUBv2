@@ -33,15 +33,15 @@ export default function DomainsSection() {
 
   return (
     <div className="community-domains-section">
-      <h1 className="heading-3">Our Domains</h1>
-      {/*
+      <h1 className="heading-3">Our Domains </h1>
+      
       <h2 className="subheading-1">
         Our technical areas specialize students in what industry is looking for
         in candidates, rather than spending ample time in building general
-        skills. Now is the time to start developing skills in the field where
+        skills. Now is the time to start developing skills in  field where
         our interests lie and build a career in that direction.
       </h2>
-      */}
+      
       <div className="domain-content-section">
         <Domains domains={filteredData} />
       </div>
