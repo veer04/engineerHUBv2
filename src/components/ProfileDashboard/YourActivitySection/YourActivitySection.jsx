@@ -14,9 +14,17 @@ const YourActivitySection = ({
   const [actionButton, setActionButton] = useState("Posts");
   const [jobPage, setJobPage] = useState(1);
   const [internshipPage, setInternshipPage] = useState(1);
+  const [postPage, setPostPage] = useState(1);
 
-  const itemsPerPage = 10;
+  const itemsPerPage = 4;
   const maxItems = 100;
+
+  const limitedPostData = postData?.slice(0, maxItems) || [];
+
+  const paginatedPosts = limitedPostData.slice(
+    (postPage - 1) * itemsPerPage,
+    postPage * itemsPerPage
+  );
 
   const handleButtonClick = (buttonName) => {
     setActionButton(buttonName);
@@ -73,10 +81,68 @@ const YourActivitySection = ({
 
       {actionButton === "Posts" && (
         <>
-          {postData?.length > 0 ? (
-            <div className="grid-post-card-activity">
-              <PostCardActivity data={postData} />
-            </div>
+          {paginatedPosts?.length > 0 ? (
+            <>
+              <div className="grid-post-card-activity">
+                <PostCardActivity data={paginatedPosts} />
+              </div>
+
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  gap: 10,
+                  marginTop: 10,
+                }}
+              >
+                <button
+                  onClick={() => setPostPage((prev) => Math.max(prev - 1, 1))}
+                  disabled={postPage === 1}
+                  style={{
+                    padding: "8px 16px",
+                    borderRadius: "8px",
+                    background: postPage === 1 ? "#f2f4f5" : "#138382",
+                    color: postPage === 1 ? "#888" : "white",
+                    border: "none",
+                    cursor: postPage === 1 ? "default" : "pointer",
+                    boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.03)",
+                  }}
+                >
+                  Previous
+                </button>
+
+                <button
+                  onClick={() =>
+                    setPostPage((prev) =>
+                      prev * itemsPerPage < limitedPostData.length
+                        ? prev + 1
+                        : prev
+                    )
+                  }
+                  disabled={postPage * itemsPerPage >= limitedPostData.length}
+                  style={{
+                    padding: "8px 16px",
+                    borderRadius: "8px",
+                    background:
+                      postPage * itemsPerPage >= limitedPostData.length
+                        ? "#f2f4f5"
+                        : "#138382",
+                    color:
+                      postPage * itemsPerPage >= limitedPostData.length
+                        ? "#888"
+                        : "white",
+                    border: "none",
+                    cursor:
+                      postPage * itemsPerPage >= limitedPostData.length
+                        ? "default"
+                        : "pointer",
+                    boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.03)",
+                  }}
+                >
+                  Next
+                </button>
+              </div>
+            </>
           ) : (
             <div
               style={{

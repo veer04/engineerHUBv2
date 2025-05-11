@@ -209,9 +209,35 @@ export default function TrendingPostCard({ post, updatePost }) {
           )}
         </div> */}
       </div>
-      <div className="post-image-container">
+      {/* <div className="post-image-container">
         <img src={post?.postLogo} alt="" />
-      </div>
+      </div> */}
+
+      {post?.postLogo ? (
+        <div className="post-image-container">
+          <img src={post?.postLogo} alt="Post" />
+        </div>
+      ) : (
+        <div
+          className="caption-only-post"
+          style={{
+            backgroundColor: "#f9f9f9",
+            borderRadius: "10px",
+            padding: "1rem",
+            marginBottom: "1rem",
+            whiteSpace: "pre-wrap",
+            wordBreak: "break-word",
+            fontSize: "1rem",
+          }}
+        >
+          <span
+            dangerouslySetInnerHTML={{
+              __html: convertTextToLinks(post.description),
+            }}
+          />
+        </div>
+      )}
+
       <div className="impressions-container">
         <div className="left">
           <div className="heart" onClick={handleLike}>
@@ -249,26 +275,32 @@ export default function TrendingPostCard({ post, updatePost }) {
       <div className="likes">
         <span>{localPost.totalLikes} likes</span>
       </div>
-      <span
-        dangerouslySetInnerHTML={{
-          __html: convertTextToLinks(post.description),
-        }}
-        style={{
-          cursor: "default",
-          wordBreak: "break-word",
-          whiteSpace: "pre-wrap",
-        }}
-        className={`caption ${isShownMore ? "no-text-crop" : "text-crop-1"} `}
-      ></span>
+      {post?.postLogo && (
+        <>
+          <span
+            dangerouslySetInnerHTML={{
+              __html: convertTextToLinks(post.description),
+            }}
+            style={{
+              cursor: "default",
+              wordBreak: "break-word",
+              whiteSpace: "pre-wrap",
+            }}
+            className={`caption ${
+              isShownMore ? "no-text-crop" : "text-crop-1"
+            } `}
+          ></span>
 
-      {!!post.description && !isShownMore && (
-        <div
-          style={{ fontSize: ".75rem", cursor: "pointer" }}
-          onClick={() => setIsShownMore(true)}
-          className="see-more"
-        >
-          See More
-        </div>
+          {!!post.description && !isShownMore && (
+            <div
+              style={{ fontSize: ".75rem", cursor: "pointer" }}
+              onClick={() => setIsShownMore(true)}
+              className="see-more"
+            >
+              See More
+            </div>
+          )}
+        </>
       )}
     </div>
   );

@@ -32,6 +32,10 @@ export default function JobsPage() {
     location: "",
     recentlyPosted: "",
     isFeatured: "",
+    isEasyApply: "",
+    isRemote: "",
+    isMaang: "",
+    isForFreshers: "",
   });
   const q = searchParams.get("q");
   const pageNo = searchParams.get("pageNo");
@@ -44,6 +48,10 @@ export default function JobsPage() {
   const recentlyPosted = searchParams.get("recentlyPosted");
   const isFeatured = searchParams.get("isFeatured");
   const isEasyApply = searchParams.get("isEasyApply");
+  const isRemote = searchParams.get("isRemote");
+  const isMaang = searchParams.get("isMaang");
+  const isForFreshers = searchParams.get("isForFreshers");
+
   const params = {
     search: q,
     opportunityType: "Job",
@@ -57,6 +65,9 @@ export default function JobsPage() {
     recentlyPosted: recentlyPosted,
     isFeatured: isFeatured,
     isEasyApply: isEasyApply === "1" ? 1 : undefined,
+    isRemote: isRemote === "1" ? 1 : undefined,
+    isMaang: isMaang === "1" ? 1 : undefined,
+    isForFreshers: isForFreshers === "1" ? 1 : undefined,
   };
 
   const config = {
@@ -77,6 +88,10 @@ export default function JobsPage() {
       !!params.location ? params.location : [],
       !!params.recentlyPosted ? params.recentlyPosted : [],
       !!params.isFeatured ? params.isFeatured : [],
+      !!params.isForFreshers ? params.isForFreshers : [],
+      !!params.isRemote ? params.isRemote : [],
+      !!params.isMaang ? params.isMaang : [],
+      !!params.isEasyApply ? params.isEasyApply : [],
     ],
     queryFn: () =>
       axios

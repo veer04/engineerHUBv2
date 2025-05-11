@@ -1,26 +1,32 @@
-import "./JobHiringModal.css";
-import { useEffect, useRef, useState } from "react";
-import FormInputMultiValue from "../../../components/FormInputs/FormInputMultiValue";
-import useGlobalSnackbar from "../../../hooks/useGlobalSnackbar";
-import FormInput from "../../../components/FormInputs/FormInput";
-import FormInputFileUpload from "../../../components/FormInputs/FormInputFileUpload";
-import { API_URL } from "../../../services/APIUtils";
-import { getAccessToken, getUserId } from "../../../features/User/UserDetails";
-import { getHiringDataById } from "../../../services/APIConfig";
-import axios from "axios";
-import FormInputNumber from "../../../components/FormInputs/FormInputNumber";
-import FormInputToggle from "../../../components/FormInputs/FormInputToggle";
-import { FaFilePdf } from "react-icons/fa";
-import Loading from "../../../components/Loader/Loading";
+import React, { useEffect, useState } from "react";
+import "./easyapplymodalnew.css";
+import { CloseButtonSVG } from "../../../components/SvgsIconsComps/SvgsComps";
 import FormInputDropdown from "../../../components/FormInputs/FormInputDropdown";
-import EasyApplyModalNew from "./EasyApplyModalNew";
+import FormInputToggle from "../../../components/FormInputs/FormInputToggle";
+import FormInputNumber from "../../../components/FormInputs/FormInputNumber";
+import FormInput from "../../../components/FormInputs/FormInput";
+import { getAccessToken } from "../../../features/getCookieValues";
+import useGlobalSnackbar from "../../../hooks/useGlobalSnackbar";
+import FormInputFileUpload from "../../../components/FormInputs/FormInputFileUpload";
+import DigitalCards from "../Referrals/DigitalProducts/DigitalCards";
+import {
+  API_URL,
+  Bucket_URL,
+  PAYMENT_API_URL,
+} from "../../../services/APIUtils";
+import axios from "axios";
+import Loading from "../../../components/Loader/Loading";
+import { getUserId } from "../../../features/User/UserDetails";
+import { FaFilePdf } from "react-icons/fa";
 
-export default function JobHiringModal({
+const EasyApplyModalNew = ({
+  isOpen,
+  onClose,
   latestInfo = {},
   hiringId,
   setHiring,
-}) {
-  const ref = useRef(null);
+}) => {
+  if (!isOpen) return null;
   const [skillsRequired, setSkillsRequired] = useState("");
   const [college, setCollege] = useState("");
   const [passOutYear, setPassOutYear] = useState("");
@@ -28,6 +34,8 @@ export default function JobHiringModal({
   const [resume, setResume] = useState("");
   const [usePreviousResume, setUsePreviousResume] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [courseData, setCourseData] = useState([]);
+
   const [errors, setErrors] = useState({
     skillsRequired: "",
     college: "",
@@ -35,8 +43,6 @@ export default function JobHiringModal({
     experience: "",
     resume: "",
   });
-
- 
 
   const {
     setSnackbarOpen,
@@ -121,6 +127,47 @@ export default function JobHiringModal({
     return isValid;
   }
 
+  function validateForm() {
+    let isValid = true;
+    const errors = {
+      skillsRequired: "",
+      college: "",
+      passOutYear: "",
+      experience: "",
+      resume: "",
+    };
+
+    if (!skillsRequired) {
+      errors.skillsRequired = "Skills are required";
+      isValid = false;
+      addToErrorStack("#skillsRequired");
+    }
+    if (!college) {
+      errors.college = "College name is required";
+      isValid = false;
+      addToErrorStack("#collegeName");
+    }
+    if (!passOutYear) {
+      errors.passOutYear = "Passout year is required";
+      isValid = false;
+      addToErrorStack("#passoutYear");
+    }
+    if (!experience) {
+      errors.experience = "Experience is required";
+      isValid = false;
+      addToErrorStack("#experience");
+    }
+    if (!usePreviousResume && !resume) {
+      errors.resume = "Resume is required";
+      isValid = false;
+      addToErrorStack("#resume");
+    }
+
+    setErrors(errors);
+    handleFormErrors();
+    return isValid;
+  }
+
   useEffect(() => {
     if (Object.keys(latestInfo).length) {
       setSkillsRequired(latestInfo?.skills);
@@ -152,6 +199,7 @@ export default function JobHiringModal({
         submitData(resumeLink);
       })
       .catch((err) => {
+        console.error("Resume Upload Error:", err?.response || err);
         setSnackbarMessage("Couldn't upload resume!");
         setSnackbarSeverity("error");
         setSnackbarOpen(true);
@@ -276,29 +324,128 @@ export default function JobHiringModal({
     });
   }
 
+  const getallProductData = async () => {
+    try {
+      const config = {
+        headers: {
+          accesstoken: getAccessToken(),
+        },
+      };
+
+      const { data } = await axios.get(
+        `${PAYMENT_API_URL}api/v1/course/open`,
+        config
+      );
+
+      console.log(data, "productData");
+
+      // const shuffleData = shuffleArrayData(data.data);
+      // setCourseData(shuffleData);
+      const sortedData = sortDataByCustomOrder(data.data);
+      setCourseData(sortedData);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const rating = [5];
+  const popular = ["Popular"];
+  const customOrder = [
+    "ATS-Friendly Templates for Frontend, Backend, and Full-Stack Roles",
+  ];
+
+  // useEffect(() => {
+  //   getallProductData();
+  // }, []);
+
+  const getallProductData1 = () => {
+    const dummyData = [
+      {
+        _id: "66e1e87b6a46c46b0623a205",
+        discount: 50,
+        price: 99,
+        mrp: 199,
+        thumbnail: `${Bucket_URL}image_demo.jpg`,
+        title:
+          "ATS-Friendly Templates for Frontend, Backend, and Full-Stack Roles",
+        subTitle: "Get hired faster with industry-standard resumes",
+        description:
+          "High-quality, ATS-friendly resume templates designed by hiring experts.",
+        type: "digital",
+      },
+      // Add more dummy products if needed
+    ];
+
+    setCourseData(dummyData);
+  };
+
+  useEffect(() => {
+    getallProductData1();
+  }, []);
+
   return (
-    <>
-      <div
-        className="modal fade"
-        id="jobHiringModal"
-        tabIndex="-1"
-        aria-labelledby="jobHiringModalLabel"
-        aria-hidden="true"
-      >
-        <div className="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h1 className="modal-title heading-sm" id="jobHiringModalLabel">
-                Apply for this job
-              </h1>
-              <button
-                type="button"
-                className="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-                ref={ref}
-              ></button>
+    <div className="main-easy-apply-modal-div">
+      <div className="main-easy-apply-new-modal-container">
+        <div className="easy-apply-left-panel">
+          <h3 className="h3-apply-left-head">
+            Lets build a{" "}
+            <span style={{ backgroundColor: "#fdf751" }}> perfect</span> resume
+            first !{" "}
+          </h3>
+
+          <div className="middle-div">
+            {courseData
+              ?.filter((card) => customOrder.includes(card.title))
+              .map((card, index) => (
+                <DigitalCards
+                  key={card._id}
+                  id={card._id}
+                  discount={card.discount}
+                  price={card.price}
+                  mrp={card.mrp}
+                  thumbnail={card.thumbnail}
+                  title={card.title}
+                  subTitle={card.subTitle}
+                  desc={card.description}
+                  type={card.type}
+                  rating={rating[index % rating.length]}
+                  popular={popular[index % popular.length]}
+                />
+              ))}
+          </div>
+
+          <div className="last-div-left-panel">
+            <h3 className="what-u-will-get-h3">what you will get ?</h3>
+
+            <div>
+              <ol style={{ marginBottom: 0 }}>
+                <li style={{ fontSize: "0.9rem" }}>
+                  <span>95+ ATS score resume </span>
+                </li>
+
+                <li style={{ fontSize: "0.9rem" }}>
+                  <span>Free guidance by our instructor</span>
+                </li>
+
+                <li style={{ fontSize: "0.9rem" }}>
+                  <span>Life time validity</span>
+                </li>
+              </ol>
             </div>
+          </div>
+        </div>
+
+        {/* //right div starts */}
+        <div className="easy-apply-right-panel">
+          <div className="easy-apply-right-panel-header">
+            <h4 className="apply-for-this-job-h4">Apply for this job</h4>
+
+            <div onClick={onClose} style={{ cursor: "pointer" }}>
+              <CloseButtonSVG />
+            </div>
+          </div>
+
+          <div className="main-form-content-right-modal-div">
             <div className="modal-body">
               <FormInput
                 label="Enter your skills"
@@ -309,7 +456,7 @@ export default function JobHiringModal({
                 value={skillsRequired}
                 setValue={setSkillsRequired}
                 helperText={errors.skillsRequired}
-                className="mb-4"
+                className="mb-3"
               />
               <FormInput
                 label="Enter your college/university"
@@ -320,7 +467,7 @@ export default function JobHiringModal({
                 value={college}
                 setValue={setCollege}
                 helperText={errors.college}
-                className="mb-4"
+                className="mb-3"
               />
               <FormInputNumber
                 label="Enter your graduation year"
@@ -331,7 +478,7 @@ export default function JobHiringModal({
                 value={passOutYear}
                 setValue={setPassOutYear}
                 helperText={errors.passOutYear}
-                className="mb-4"
+                className="mb-3"
               />
               <FormInputDropdown
                 label="Experience"
@@ -353,7 +500,7 @@ export default function JobHiringModal({
                   value={usePreviousResume}
                   setValue={setUsePreviousResume}
                   helperText={errors.usePreviousResume}
-                  className="mb-2"
+                  className="mb-4"
                 />
               )}
               {usePreviousResume ? (
@@ -363,9 +510,9 @@ export default function JobHiringModal({
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "flex-start",
-                      padding: "0 14px",
+                      padding: "10px 14px",
                     }}
-                    className="mimic-file-upload"
+                    className=""
                   >
                     <FaFilePdf
                       style={{
@@ -400,7 +547,17 @@ export default function JobHiringModal({
                 />
               )}
             </div>
-            <div className="modal-footer justify-content-between">
+
+            <div
+              style={{
+                width: "100%",
+                height: "1.225rem",
+                borderTop: "1px solid #b0b0b0",
+                borderRadius: "0px",
+              }}
+            ></div>
+
+            <div className="modal-footer last-footer-div justify-content-between">
               <button
                 onClick={handleClear}
                 className="clear-btn body-sm-semibold px-2 py-2"
@@ -419,6 +576,8 @@ export default function JobHiringModal({
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
-}
+};
+
+export default EasyApplyModalNew;

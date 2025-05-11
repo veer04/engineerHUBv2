@@ -1,0 +1,44 @@
+.main-div-card-job {
+  width: 233px;
+  height: 227px;
+  flex-shrink: 0;
+  border-radius: 21px;
+  background: rgba(250, 168, 209, 0.3);
+  box-shadow: 10px 10px 27px 0px rgba(0, 0, 0, 0.25);
+  position: relative;
+  /* border: 1px solid black; */
+  padding: 4px 10px;
+  margin: 0 auto;
+  cursor: pointer;
+}
+
+.main-div-card-job .heading-job-filter-card {
+  position: absolute;
+  left: 20px;
+  top: 10px;
+  width: 139px;
+  height: 42px;
+  flex-shrink: 0;
+}
+
+.main-div-card-job .heading-job-filter-card .filter-cardheading-h4 {
+  color: #002b36;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  font-family: "Lato";
+  line-height: 24px;
+}
+
+.main-div-card-job .parent-svg {
+  position: absolute;
+  right: 17px;
+  bottom: 0;
+  z-index: 1;
+}
+.main-div-card-job .child-svg {
+  position: absolute;
+  right: -20px;
+  bottom: -20px;
+  z-index: 2;
+}

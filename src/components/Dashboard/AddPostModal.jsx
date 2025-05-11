@@ -154,7 +154,10 @@ export default function AddPostModal({ hostPage, setCloseModal }) {
     if (isValid) {
       const formData = new FormData();
       formData.append("description", caption);
-      formData.append("postLogo", newCoverPhoto);
+      // formData.append("postLogo", newCoverPhoto);
+      if (newCoverPhoto) {
+        formData.append("postLogo", newCoverPhoto);
+      }
       setLoading(true);
       uploadNewPost(formData, setResponse);
     }
@@ -227,7 +230,8 @@ export default function AddPostModal({ hostPage, setCloseModal }) {
           />
           <label className="error-message">{errors.caption}</label>
           <button
-            disabled={loading || !(!!newCoverPhoto && caption.length !== 0)}
+            // disabled={loading || !(!!newCoverPhoto && caption.length !== 0)}
+            disabled={loading || caption.length === 0}
             onClick={() => handleUpload()}
             className="submit-button"
           >
