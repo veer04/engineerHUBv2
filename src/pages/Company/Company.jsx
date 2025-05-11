@@ -262,39 +262,48 @@ const Company = () => {
   });
 
   return (
-    <div className="companyHome">
-      <div className="pagesContainer padding-adjustment">
-        <div className="spiral">
-          <h1>One Step Closer to your Dream Job</h1>
-          <img src={`${bucket}spiral.svg`} alt="spiral" className="spiralImg" />
-          <img
-            src={`${bucket}cartoonChar.svg`}
-            alt="Character"
-            className="cartoon"
-          />
-          <img
-            src={`${bucket}curveArrow.svg`}
-            alt="Arrow"
-            className="curveArrow"
-          />
-          <img src={`${bucket}uber.svg`} alt="uber" className="uber" />
-          <img src={`${bucket}netflix.svg`} alt="netflix" className="netflix" />
-          <img src={`${bucket}meta.svg`} alt="meta" className="meta" />
-          <img src={`${bucket}amazon.svg`} alt="amazon" className="amazon" />
-          <img src={`${bucket}google.svg`} alt="google" className="google" />
-          <img
-            src={`${bucket}microsoft.svg`}
-            alt="microsoft"
-            className="microsoft"
-          />
+    <>
+      <div className="companyHome">
+        <div className="pagesContainer padding-adjustment">
+          <div className="spiral">
+            <h1>One Step Closer to your Dream Job</h1>
+            <img
+              src={`${bucket}spiral.svg`}
+              alt="spiral"
+              className="spiralImg"
+            />
+            <img
+              src={`${bucket}cartoonChar.svg`}
+              alt="Character"
+              className="cartoon"
+            />
+            <img
+              src={`${bucket}curveArrow.svg`}
+              alt="Arrow"
+              className="curveArrow"
+            />
+            <img src={`${bucket}uber.svg`} alt="uber" className="uber" />
+            <img
+              src={`${bucket}netflix.svg`}
+              alt="netflix"
+              className="netflix"
+            />
+            <img src={`${bucket}meta.svg`} alt="meta" className="meta" />
+            <img src={`${bucket}amazon.svg`} alt="amazon" className="amazon" />
+            <img src={`${bucket}google.svg`} alt="google" className="google" />
+            <img
+              src={`${bucket}microsoft.svg`}
+              alt="microsoft"
+              className="microsoft"
+            />
+          </div>
+          <div className="pages">
+            {CompanyCardEntries.map((item, index) => {
+              return <CompanyCards data={item} key={index} />;
+            })}
+          </div>
         </div>
-        <div className="pages">
-          {CompanyCardEntries.map((item, index) => {
-            return <CompanyCards data={item} key={index} />;
-          })}
-        </div>
-      </div>
-      {/* <div className="Category" style={{ display: "none" }}>
+        {/* <div className="Category" style={{ display: "none" }}>
         <h5>Most on Demand Jobs Categories</h5>
         <div className="CategoryTiles">
           {CategoryEntries.map((item, index) => {
@@ -318,45 +327,47 @@ const Company = () => {
           })}
         </div>
       </div> */}
-
-      <div className="banner-space-div-to-promote-companies">
-        <BannerSpaceComp
-          image={`${Bucket_URL}banner1.png`}
-          mobileImage={`${Bucket_URL}13404898.png`}
-        />
-      </div>
-
-      <div className="padding-adjustment">
-        <PromoteServices compName={"Our Resources"} />
-      </div>
-
-      <div className="FeaturedJobs padding-adjustment">
-        <a href="/career/jobs" style={{ textDecoration: "none" }}>
-          <h5>Featured Jobs</h5>
-        </a>
-        <div className="FeaturedJobsTiles">
-          {jobs.slice(0, 6).map((item, index) => {
-            return (
-              <JobCards
-                details={item}
-                color={colorWheel[index % colorWheel.length]}
-                key={index}
-              />
-            );
-          })}
+        {/* AD-15 */}
+        <div className="d-flex justify-content-center mb-3">
+          <AdsenseComp adSlot="4766701351" />
         </div>
-      </div>
-      <div
-        style={{
-          marginTop: "50px",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          width: "100%",
-        }}
-        className="padding-adjustment"
-      >
-        <amp-ad
+        ;
+        <div className="banner-space-div-to-promote-companies">
+          <BannerSpaceComp
+            image={`${Bucket_URL}banner1.png`}
+            mobileImage={`${Bucket_URL}13404898.png`}
+          />
+        </div>
+        <div className="padding-adjustment">
+          <PromoteServices compName={"Our Resources"} />
+        </div>
+        <div className="FeaturedJobs padding-adjustment">
+          <a href="/career/jobs" style={{ textDecoration: "none" }}>
+            <h5>Featured Jobs</h5>
+          </a>
+          <div className="FeaturedJobsTiles">
+            {jobs.slice(0, 6).map((item, index) => {
+              return (
+                <JobCards
+                  details={item}
+                  color={colorWheel[index % colorWheel.length]}
+                  key={index}
+                />
+              );
+            })}
+          </div>
+        </div>
+        <div
+          style={{
+            marginTop: "50px",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            width: "100%",
+          }}
+          className="padding-adjustment"
+        >
+          {/*} <amp-ad
           width="100vw"
           height="320"
           type="adsense"
@@ -366,137 +377,143 @@ const Company = () => {
           data-full-width=""
         >
           <div overflow=""></div>
-        </amp-ad>
-      </div>
-      <div className="Opportunities padding-adjustment">
-        <a href="/career/events" style={{ textDecoration: "none" }}>
-          <h5>Trending Opportunities</h5>
-        </a>
-        <div className="OpportunitiesTiles">
-          {events.slice(0, 6).map((item, index) => {
-            return <NewEventCard data={item} key={index} eventHiring={true} />;
-          })}
+        </amp-ad>*/}
         </div>
-      </div>
-
-      <div>
-        <JobsForYouFilterComp />
-      </div>
-
-      <div className="Our-Other-Pages-Main-Div">
-        <h4
-          style={{
-            color: "#000",
-            fontSize: "18px",
-            lineHeight: "24px",
-            letterSpacing: "0.9px",
-            fontWeight: "700",
-            fontFamily: "Lato, sans-serif",
-            marginBottom: 20,
-            textAlign: "center",
-          }}
-        >
-          EXPLORE OTHER PAGES
-        </h4>
-
-        <div className="wrapper-other-pages">
-          <OtherPageCard
-            link={
-              "https://engineerhub.in/referrals/book-now/66e091cc56ed7c8c16400d91"
-            }
-            image={`${Bucket_URL}Mentors/otherpages/1.png`}
-            showText={++count === 4}
-          />
-
-          <OtherPageCard2
-            link={
-              "https://engineerhub.in/referrals/book-now/66d4572436b0cd9739a994e8"
-            }
-          />
-          <OtherPageCard
-            link={"https://engineerhub.in/chat/Let%E2%80%99s%20Discuss"}
-            image={`${Bucket_URL}Mentors/otherpages/2.png`}
-            showText={++count === 4}
-          />
-          <OtherPageCard
-            link={"https://engineerhub.in/campus"}
-            image={`${Bucket_URL}Mentors/otherpages/3.png`}
-            showText={++count === 4}
-          />
-          <OtherPageCard
-            link={"https://www.engineerhub.in/host"}
-            image={`${Bucket_URL}Mentors/otherpages/5.png`}
-            showText={++count === 4}
-          />
-
-          <OtherPageCard3
-            link={
-              "https://engineerhub.in/community/notes/Data%20Structures%20%26%20Algorithms"
-            }
-            image={`${Bucket_URL}Mentors/otherpages/4.png`}
-          />
+        {/* AD-16 */}
+        <div className="d-flex justify-content-center mb-3">
+          <AdsenseComp adSlot="9315486303" />
         </div>
-      </div>
+        <div className="Opportunities padding-adjustment">
+          <a href="/career/events" style={{ textDecoration: "none" }}>
+            <h5>Trending Opportunities</h5>
+          </a>
+          <div className="OpportunitiesTiles">
+            {events.slice(0, 6).map((item, index) => {
+              return (
+                <NewEventCard data={item} key={index} eventHiring={true} />
+              );
+            })}
+          </div>
+        </div>
+        <div>
+          <JobsForYouFilterComp />
+        </div>
+        <div className="Our-Other-Pages-Main-Div">
+          <h4
+            style={{
+              color: "#000",
+              fontSize: "18px",
+              lineHeight: "24px",
+              letterSpacing: "0.9px",
+              fontWeight: "700",
+              fontFamily: "Lato, sans-serif",
+              marginBottom: 20,
+              textAlign: "center",
+            }}
+          >
+            EXPLORE OTHER PAGES
+          </h4>
 
-      {testimonialsQuery.isSuccess && (
-        <section className="testimonials">
-          <h3 className="heading-md">Our placed students and their reviews</h3>
-          <div className="testimonial-container">
-            {testimonialsQuery?.data?.data?.data?.testimonials?.map(
-              (item, index) => {
-                return (
-                  <div className="flip-card" key={index}>
-                    <div className="flip-card-inner">
-                      <div className="flip-card-front testimonial-card-front">
-                        <div className="author-image">
-                          <img src={item?.image} alt="author-image" />
-                          <div className="role">
-                            <p title={item?.role} className="label-xsm">
-                              {item?.role}
-                            </p>
+          <div className="wrapper-other-pages">
+            <OtherPageCard
+              link={
+                "https://engineerhub.in/referrals/book-now/66e091cc56ed7c8c16400d91"
+              }
+              image={`${Bucket_URL}Mentors/otherpages/1.png`}
+              showText={++count === 4}
+            />
+
+            <OtherPageCard2
+              link={
+                "https://engineerhub.in/referrals/book-now/66d4572436b0cd9739a994e8"
+              }
+            />
+            <OtherPageCard
+              link={"https://engineerhub.in/chat/Let%E2%80%99s%20Discuss"}
+              image={`${Bucket_URL}Mentors/otherpages/2.png`}
+              showText={++count === 4}
+            />
+            <OtherPageCard
+              link={"https://engineerhub.in/campus"}
+              image={`${Bucket_URL}Mentors/otherpages/3.png`}
+              showText={++count === 4}
+            />
+            <OtherPageCard
+              link={"https://www.engineerhub.in/host"}
+              image={`${Bucket_URL}Mentors/otherpages/5.png`}
+              showText={++count === 4}
+            />
+
+            <OtherPageCard3
+              link={
+                "https://engineerhub.in/community/notes/Data%20Structures%20%26%20Algorithms"
+              }
+              image={`${Bucket_URL}Mentors/otherpages/4.png`}
+            />
+          </div>
+        </div>
+        {testimonialsQuery.isSuccess && (
+          <section className="testimonials">
+            <h3 className="heading-md">
+              Our placed students and their reviews
+            </h3>
+            <div className="testimonial-container">
+              {testimonialsQuery?.data?.data?.data?.testimonials?.map(
+                (item, index) => {
+                  return (
+                    <div className="flip-card" key={index}>
+                      <div className="flip-card-inner">
+                        <div className="flip-card-front testimonial-card-front">
+                          <div className="author-image">
+                            <img src={item?.image} alt="author-image" />
+                            <div className="role">
+                              <p title={item?.role} className="label-xsm">
+                                {item?.role}
+                              </p>
+                            </div>
                           </div>
+                          <p title={item?.name} className="name text-crop-1">
+                            {item?.name}
+                          </p>
+                          <p className="placed-at">Placed at</p>
+                          <img
+                            title={item?.company}
+                            className="company-logo"
+                            src={item?.companyLogo}
+                            alt={item?.company}
+                          />
                         </div>
-                        <p title={item?.name} className="name text-crop-1">
-                          {item?.name}
-                        </p>
-                        <p className="placed-at">Placed at</p>
-                        <img
-                          title={item?.company}
-                          className="company-logo"
-                          src={item?.companyLogo}
-                          alt={item?.company}
-                        />
-                      </div>
-                      <div className="flip-card-back testimonial-card-back">
-                        <p title={item?.text} className="testimonial">
-                          {item?.text}
-                        </p>
-                        <div className="placement-details">
-                          <div className="detail">
-                            <p>Role</p>
-                            <p title={item?.role} className="text-crop-3">
-                              {item?.role}
-                            </p>
-                          </div>
-                          <div className="detail">
-                            <p>Package</p>
-                            <p>{item?.package}</p>
+                        <div className="flip-card-back testimonial-card-back">
+                          <p title={item?.text} className="testimonial">
+                            {item?.text}
+                          </p>
+                          <div className="placement-details">
+                            <div className="detail">
+                              <p>Role</p>
+                              <p title={item?.role} className="text-crop-3">
+                                {item?.role}
+                              </p>
+                            </div>
+                            <div className="detail">
+                              <p>Package</p>
+                              <p>{item?.package}</p>
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                );
-              }
-            )}
-          </div>
-        </section>
-      )}
-      {/* AD-13 */}
-      <div className="d-flex justify-content-center mb-3">
-        <AdsenseComp adSlot="1464856375" />
+                  );
+                }
+              )}
+            </div>
+          </section>
+        )}
+        {/* AD-17 */}
+        <div className="d-flex justify-content-center mb-3">
+          <AdsenseComp adSlot="1464856375" />
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

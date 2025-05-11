@@ -74,10 +74,13 @@ const Events = () => {
   return (
     <div className="CompanyEvent">
       <h2>Event Hiring</h2>
+      {/*
       <p className="temp-text">
         Participate in the events directly conducted by the companies to
         highlight your profile.
       </p>
+      */}
+
       {/* AD-5 */}
       <div className="d-flex justify-content-center mb-3">
         <AdsenseComp adSlot="8908232121" />
@@ -173,7 +176,7 @@ const Events = () => {
       )}
       {/* AD-6 */}
       <div className="d-flex justify-content-center mb-3">
-        <AdsenseComp adSlot="1464856375"/>
+        <AdsenseComp adSlot="1464856375" />
       </div>
     </div>
   );

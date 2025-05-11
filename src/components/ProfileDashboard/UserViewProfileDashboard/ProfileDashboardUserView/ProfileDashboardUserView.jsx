@@ -18,6 +18,7 @@ import { API_URL, Bucket_URL } from "../../../../services/APIUtils";
 import { getAccessToken } from "../../../../features/getCookieValues";
 import UserViewStudentFollowAlsoFollow from "../UserViewStudentFollow/UserViewStudentFollowAlsoFollow";
 import { useParams } from "react-router-dom";
+import AdsenseComp from "../../../AdsenseComp/AdsenseComp";
 
 const ProfileDashboardUserView = () => {
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 520);
@@ -304,8 +305,11 @@ const ProfileDashboardUserView = () => {
               </>
             ) : null}
 
-            {/* //in mobile yeh dikhega */}
+            {/* in mobile yeh dikhega */}
           </div>
+        </div>
+        <div className="d-flex justify-content-center mb-3">
+          <AdsenseComp adSlot="1464856375" />
         </div>
       </main>
     </>

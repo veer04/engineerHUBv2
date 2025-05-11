@@ -183,10 +183,12 @@ export default function InternshipsPage() {
       {!Boolean(hiringId) && (
         <>
           <h1 className="display-md">Intern Hiring</h1>
+          {/*
           <h2 className="body-md-regular">
             Apply for the internship of your interest and get the offer letter
             in the next step.
           </h2>
+          */}
         </>
       )}
       {!(!!hiringId && width < 1150) && (
@@ -199,7 +201,7 @@ export default function InternshipsPage() {
           </div>
           {/* AD-4 */}
           <div className="d-flex justify-content-center mb-3">
-            <AdsenseComp  adSlot="8908232121"/>
+            <AdsenseComp adSlot="8908232121" />
           </div>
           <FilterContainerInternship
             style={{
@@ -340,7 +342,7 @@ export default function InternshipsPage() {
               )}
             {/* AD-3 */}
             <div className="d-flex justify-content-center mb-3">
-              <AdsenseComp adSlot="1464856375"/>
+              <AdsenseComp adSlot="1464856375" />
             </div>
           </section>
         )}
