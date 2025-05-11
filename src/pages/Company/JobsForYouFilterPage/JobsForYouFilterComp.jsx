@@ -12,10 +12,10 @@ const JobsForYouFilterComp = () => {
       </div>
 
       <div className="second-grid-div-jobs-for-you-filter">
-        <JobFilterCardSaif />
-        <JobFilterCardSaif2 />
-        <JobFilterCardSaif3 />
-        <JobFilterCardSaif4 />
+        <JobFilterCardSaif queryParam="isForFreshers" />
+        <JobFilterCardSaif2 queryParam="isRemote" />
+        <JobFilterCardSaif3 queryParam="isEasyApply" />
+        <JobFilterCardSaif4 queryParam="isMaang" />
       </div>
     </div>
   );

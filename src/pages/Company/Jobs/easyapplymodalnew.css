@@ -42,12 +42,12 @@
   font-size: 24px;
   font-weight: 600;
   line-height: 28px;
-  margin-bottom: 0;
+  margin-bottom: 5px;
 }
 
 .main-easy-apply-modal-div .easy-apply-left-panel {
   width: 555px;
-  height: 100%;
+  height: auto;
   flex-shrink: 0;
   border-radius: 15px;
   background: #effcff;

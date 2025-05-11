@@ -17,6 +17,7 @@ import {
 import axios from "axios";
 import Loading from "../../../components/Loader/Loading";
 import { getUserId } from "../../../features/User/UserDetails";
+import { FaFilePdf } from "react-icons/fa";
 
 const EasyApplyModalNew = ({
   isOpen,
@@ -166,6 +167,17 @@ const EasyApplyModalNew = ({
     handleFormErrors();
     return isValid;
   }
+
+  useEffect(() => {
+    if (Object.keys(latestInfo).length) {
+      setSkillsRequired(latestInfo?.skills);
+      setCollege(latestInfo?.college);
+      setPassOutYear(latestInfo?.passoutYear);
+      setExperience(latestInfo?.experience);
+      setIsResumePresent(latestInfo?.resume ? true : false);
+      setUsePreviousResume(latestInfo?.resume ? true : false);
+    }
+  }, [latestInfo]);
 
   const config = {
     headers: {
@@ -349,7 +361,7 @@ const EasyApplyModalNew = ({
   const getallProductData1 = () => {
     const dummyData = [
       {
-        _id: "demo123",
+        _id: "66e1e87b6a46c46b0623a205",
         discount: 50,
         price: 99,
         mrp: 199,
@@ -444,7 +456,7 @@ const EasyApplyModalNew = ({
                 value={skillsRequired}
                 setValue={setSkillsRequired}
                 helperText={errors.skillsRequired}
-                className="mb-4"
+                className="mb-3"
               />
               <FormInput
                 label="Enter your college/university"
@@ -455,7 +467,7 @@ const EasyApplyModalNew = ({
                 value={college}
                 setValue={setCollege}
                 helperText={errors.college}
-                className="mb-4"
+                className="mb-3"
               />
               <FormInputNumber
                 label="Enter your graduation year"
@@ -466,7 +478,7 @@ const EasyApplyModalNew = ({
                 value={passOutYear}
                 setValue={setPassOutYear}
                 helperText={errors.passOutYear}
-                className="mb-4"
+                className="mb-3"
               />
               <FormInputDropdown
                 label="Experience"
@@ -488,7 +500,7 @@ const EasyApplyModalNew = ({
                   value={usePreviousResume}
                   setValue={setUsePreviousResume}
                   helperText={errors.usePreviousResume}
-                  className="mb-2"
+                  className="mb-4"
                 />
               )}
               {usePreviousResume ? (
@@ -498,7 +510,7 @@ const EasyApplyModalNew = ({
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "flex-start",
-                      padding: "0 14px",
+                      padding: "10px 14px",
                     }}
                     className=""
                   >
