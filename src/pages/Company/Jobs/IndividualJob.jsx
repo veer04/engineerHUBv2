@@ -198,19 +198,20 @@ export default function IndividualJob() {
 
   return (
     <section id="individual-job-container">
-      <EasyApplyModalNew
+      {/* <EasyApplyModalNew
         latestInfo={userLatestInfo}
         hiringId={hiringId}
         setHiring={setHiring}
         isOpen={isModalOpen}
         onClose={closeModal}
       />
+      */}
 
-      {/* <JobHiringModal
+      <JobHiringModal
         latestInfo={userLatestInfo}
         hiringId={hiringId}
         setHiring={setHiring}
-      /> */}
+      />
       {Object.keys(hiring).length !== 0 ? (
         <>
           <div className="hiring-box">
@@ -342,7 +343,7 @@ export default function IndividualJob() {
           </div>
           {/* AD-7 */}
           <div className="d-flex justify-content-center mb-3">
-            <AdsenseComp adSlot="1960197314"/>
+            <AdsenseComp adSlot="1960197314" />
           </div>
           <div className="hiring-box">
             <h4 className="body-sm-semibold">Job Description</h4>
@@ -353,7 +354,7 @@ export default function IndividualJob() {
               className="hiring-styled-description"
             ></div>
           </div>
-         {/* <div style={{ margin: "1rem 0" }}>
+          {/* <div style={{ margin: "1rem 0" }}>
             <amp-ad
               width="100vw"
               height="320"
@@ -369,7 +370,7 @@ export default function IndividualJob() {
           */}
           {/* AD-8 */}
           <div className="d-flex justify-content-center mb-3">
-            <AdsenseComp adSlot="1960197314"/>
+            <AdsenseComp adSlot="1960197314" />
           </div>
           <div className="hiring-box">
             <h4 className="body-sm-semibold">More Information</h4>
@@ -539,8 +540,8 @@ export default function IndividualJob() {
                   ) : (
                     <button
                       onClick={() => openModal()}
-                      // data-bs-toggle="modal"
-                      // data-bs-target="#jobHiringModal"
+                      data-bs-toggle="modal"
+                      data-bs-target="#jobHiringModal"
                       className="body-md-semibold hiring-apply-btn"
                     >
                       Easy Apply
@@ -588,7 +589,7 @@ export default function IndividualJob() {
       )}
       {/* AD-9 */}
       <div className="d-flex justify-content-center mb-3">
-        <AdsenseComp adSlot="1464856375"/>
+        <AdsenseComp adSlot="1464856375" />
       </div>
     </section>
   );

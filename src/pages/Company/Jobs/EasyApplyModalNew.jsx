@@ -363,7 +363,7 @@ const EasyApplyModalNew = ({
       {
         _id: "66e1e87b6a46c46b0623a205",
         discount: 50,
-        price: 99,
+        price: 49,
         mrp: 199,
         thumbnail: `${Bucket_URL}image_demo.jpg`,
         title:
