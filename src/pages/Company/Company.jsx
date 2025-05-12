@@ -338,6 +338,9 @@ const Company = () => {
             mobileImage={`${Bucket_URL}13404898.png`}
           />
         </div>
+        <div>
+          <JobsForYouFilterComp />
+        </div>
         <div className="padding-adjustment">
           <PromoteServices compName={"Our Resources"} />
         </div>
@@ -394,9 +397,6 @@ const Company = () => {
               );
             })}
           </div>
-        </div>
-        <div>
-          <JobsForYouFilterComp />
         </div>
         <div className="Our-Other-Pages-Main-Div">
           <h4

@@ -12,6 +12,7 @@ import NewSiliconValley from "./NewSiliconValley";
 import { getTrendingAlumni2, getTrendingClubs } from "../../services/APIConfig";
 import EasyWayToHire from "../Enterprise/Assests/Components/EasyWayToHire/EasyWayToHire";
 import OurClientale from "../../components/OurClientale/OurClientale";
+import JobsForYouFilterComp from "../Company/JobsForYouFilterPage/JobsForYouFilterComp";
 
 export default function NewHomePage() {
   const { setSelectedPageNavbar } = useNavbar();
@@ -33,6 +34,8 @@ export default function NewHomePage() {
       <StatsCarousel />
       <NewCommunitySection />
       <NewCampusHomePage list={list} clubs={clubs} />
+      <JobsForYouFilterComp/>
+
       <NewCompanyHomePage />
       <NewHostHomePage />
 
