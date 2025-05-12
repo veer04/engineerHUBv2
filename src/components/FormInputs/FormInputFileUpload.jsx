@@ -21,19 +21,11 @@ export default function FormInputFileUpload({
   ...rest
 }) {
   const ref = useRef(null);
-  const allowedTypes = fileType
-    ? fileType.split(",").map((type) => type.trim())
-    : ["image/jpeg", "image/png"];
-
-  {
-    /*  const allowedTypes = ["image/jpeg", "image/png","application/pdf"];*/
-  }
-  {
-    /* const allowedTypes = fileType
+  const allowedTypes = ["image/jpeg", "image/png","application/pdf"];
+ {/* const allowedTypes = fileType
   ? fileType.split(",").map((type) => type.trim())
   : ["application/pdf"];
-*/
-  }
+*/}
 
   const formattedSize = (size) => {
     const units = ["B", "KB", "MB", "GB", "TB"];
@@ -50,23 +42,11 @@ export default function FormInputFileUpload({
 
     if (file) {
       if (!allowedTypes.includes(file.type)) {
-        toast.error(`❌ Only ${allowedTypes.join(", ")} formats are allowed.`, {
+        toast.error("❌ Only JPEG ,PNG & Pdf formats are allowed A/c to Input File.", {
           position: "top-right",
           autoClose: 4000,
           theme: "dark",
         });
-
-        {
-          /*        toast.error(
-          "❌ Only JPEG,PNG & Pdf formats are allowed A/c to Input File.",
-          {
-            position: "top-right",
-            autoClose: 4000,
-            theme: "dark",
-          }
-            */
-        }
-
         return;
       }
       setValue(file);
