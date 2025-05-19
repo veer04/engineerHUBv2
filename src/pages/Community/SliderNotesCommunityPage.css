@@ -1,0 +1,93 @@
+.slider-section {
+  background-color: rgba(190, 226, 162, 0.6);;
+  padding: 2rem 0;
+  text-align: center;
+
+  width: 100%;
+  max-width: 1080px;
+  height: 100%;
+  margin: 40px auto;
+  border-radius: 15px;
+  margin-bottom: 80px;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.slider-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  margin: 1rem;
+ 
+  padding: 0;
+}
+
+/*Extra addition */
+.cards-wrapper {
+  display: flex;
+  justify-content: center;
+  gap: 0;
+  flex-wrap: wrap;
+  min-height: 100px; /* Ensures space even if no notes yet */
+}
+
+
+
+.slider-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.slider-track {
+  display: flex;
+  gap: 1rem;
+  transition: transform 0.4s ease-in-out;
+}
+
+.slider-arrow {
+  background-color: #00796b;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  font-size: 1.2rem;
+  width: 35px;
+  height: 35px;
+  cursor: pointer;
+  position: relative;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.slider-arrow:hover {
+  background-color: #0284c7;
+}
+
+.pagination {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+  gap: 0.4rem;
+}
+
+.page-btn {
+  border: none;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.85rem;
+  cursor: pointer;
+  background-color: #fff;
+  border-radius: 4px;
+}
+
+.page-btn.active {
+  background-color: #002B36;
+  color: white;
+}

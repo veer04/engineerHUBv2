@@ -1,0 +1,111 @@
+.note-card {
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  padding: 1rem;
+  margin: 0.5rem;
+  width: 300px;
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.note-card:hover {
+  transform: translateY(-5px);
+}
+
+.note-img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 0.75rem;
+}
+
+.note-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 0.75rem;
+}
+
+.btn-group {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.btn-download {
+  flex: 1;
+  padding: 6px 20px;
+  border: 2px solid #00796b;
+  border-radius: 999px; /* pill shape */
+  background-color: white;
+  color: #00796b;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: 0.3s ease;
+}
+
+.btn-download:hover {
+  background-color: #e0f2f1;
+}
+
+.btn-read {
+  flex: 1;
+  padding: 6px 20px;
+  background-color: #00796b;
+  color: white;
+  border-radius: 999px;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: 0.3s ease;
+}
+
+.btn-read:hover {
+  background-color: #004d40;
+}
+
+/*
+.btn-download,
+.btn-read {
+  flex: 1;
+  padding: 0.4rem 0.6rem;
+  font-size: 0.9rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.btn-download {
+  background-color: #f0f0f0;
+  color: #222;
+  text-decoration: none;
+  text-align: center;
+}
+
+.btn-read {
+  background-color: #0891b2;
+  color: white;
+}
+
+.btn-read:hover {
+  background-color: #0ea5e9;
+}
+*/
+.note-meta span {
+  display: inline-block;
+  font-size: 0.8rem;
+  color: #666;
+  margin-right: 0.5rem;
+}

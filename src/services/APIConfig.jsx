@@ -2096,6 +2096,29 @@ export const getGeneralBlogs = (setBlogs, id, page = 1, limit = 10) => {
     });
 };
 
+{/* Random notes  */}
+export const getRandomNotes = (setNotes) => {
+  const controller = new AbortController();
+
+  axios
+    .get(`http://localhost:3000/api/v1/randomNotes`, {
+      signal: controller.signal,
+    })
+    .then((res) => {
+      setNotes(res.data.data); // extracting only the notes array
+    })
+    .catch((err) => {
+      console.log("Error fetching random notes:", err);
+      setNotes([]);
+      if (axios.isCancel(err)) {
+        console.log("Request cancelled");
+      }
+    });
+
+  return controller; // optional, in case you want to cancel later
+};
+
+
 export const getBlogById = (setBlog, id) => {
   const controller = new AbortController();
   axios
