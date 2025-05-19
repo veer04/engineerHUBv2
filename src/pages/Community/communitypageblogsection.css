@@ -3,10 +3,10 @@
   max-width: 1080px;
   height: 100%;
   margin: 40px auto;
-  background-color: white;
+  background-color: rgba(254, 228, 226, 0.5);
   border-radius: 15px;
   margin-bottom: 80px;
-  padding: 24px;
+  padding: 2rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
