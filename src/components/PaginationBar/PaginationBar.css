@@ -1,26 +1,22 @@
 .pagination-bar {
+  margin-top: 1rem;
   display: flex;
   justify-content: center;
-  align-items: center;
-  margin-top: 20px;
-  margin-bottom: 20px;
-  font-size: 1rem;
+  gap: 0.4rem;
 }
 .pagination-bar .item {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #fff;
-  color: var(--primary-color-dark-green);
-  cursor: pointer;
-  transition: all 0.3s ease;
+
+  border: none;
   padding: 0.5rem 0.75rem;
-  border: 1px solid #bbbbbb;
-  line-height: 1;
-  font-weight: 600;
+  font-size: 0.85rem;
+  cursor: pointer;
+  background-color: #fff;
+  border-radius: 4px;
+
+
 }
 .pagination-bar .item:hover {
-  background-color: var(--primary-color-green);
+  background-color: var(--primary-color-dark-green);
   color: #fff;
 }
 .pagination-bar .navigation {
@@ -42,7 +38,7 @@
   border-bottom-right-radius: 0.25rem;
 }
 .pagination-bar .item.--is-active {
-  background-color: var(--primary-color-dark-green);
+  background-color: var(--primary-color-green);
   color: #fff;
 }
 .pagination-bar .dots {

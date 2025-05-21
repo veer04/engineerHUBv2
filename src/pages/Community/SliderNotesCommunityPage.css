@@ -1,5 +1,5 @@
 .slider-section {
-  background-color: rgba(190, 226, 162, 0.6);;
+  background-color: #e0f8dc;
   padding: 2rem 0;
   text-align: center;
 
@@ -76,6 +76,7 @@
   display: flex;
   justify-content: center;
   gap: 0.4rem;
+
 }
 
 .page-btn {
@@ -87,7 +88,12 @@
   border-radius: 4px;
 }
 
-.page-btn.active {
-  background-color: #002B36;
+.page-btn.active{
+  background-color: #00897b;
   color: white;
+}
+
+.page-btn:hover{
+  background-color: #002b36;
+  color: #fff;
 }

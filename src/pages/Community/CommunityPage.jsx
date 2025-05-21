@@ -5,6 +5,7 @@ import useNavbar from "../../hooks/use-navbar";
 import CommunityPageBlogSection from "./CommunityPageBlogSection";
 import AdsenseComp from "../../components/AdsenseComp/AdsenseComp";
 import SliderNotesCommunityPage from './SliderNotesCommunityPage';
+import ProjectSlider from "./ProjectSlider";
 
 
 export default function CommunityPage() {
@@ -22,6 +23,8 @@ export default function CommunityPage() {
         <DomainsSection />
         <CommunityPageBlogSection />
         <SliderNotesCommunityPage />
+        <ProjectSlider/>
+        
 
       </div>
        {/* AD-14 */}
