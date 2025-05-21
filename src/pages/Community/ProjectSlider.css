@@ -1,0 +1,58 @@
+.project-slider-container {
+  background-color: rgba(255, 236, 174, 0.4);
+  padding: 2rem;
+  border-radius: 1rem;
+  text-align: center;
+
+  width: 100%;
+  max-width: 1080px;
+  height: 100%;
+  margin: 40px auto;
+  border-radius: 15px;
+  margin-bottom: 80px;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.slider-heading {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  color: #002b36;
+}
+
+.project-slider {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.pagination {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+  gap: 0.4rem;
+}
+
+.pagination-btn {
+  border: none;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.85rem;
+  cursor: pointer;
+  background-color: #fff;
+  border-radius: 4px;
+}
+
+.pagination-btn.active{
+  background-color: #00897b;
+  color: white;
+}
+
+.pagination-btn:hover {
+  background-color: #002b36;
+   color: white;
+}
