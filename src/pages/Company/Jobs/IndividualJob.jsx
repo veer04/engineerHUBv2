@@ -345,6 +345,9 @@ export default function IndividualJob() {
           <div className="d-flex justify-content-center mb-3">
             <AdsenseComp adSlot="1960197314" />
           </div>
+          <div className="d-flex justify-content-center mb-3">
+            <AdsenseComp adSlot="6898770594" />
+          </div>
           <div className="hiring-box">
             <h4 className="body-sm-semibold">Job Description</h4>
             <div
@@ -371,6 +374,9 @@ export default function IndividualJob() {
           {/* AD-8 */}
           <div className="d-flex justify-content-center mb-3">
             <AdsenseComp adSlot="1960197314" />
+          </div>
+          <div className="d-flex justify-content-center mb-3">
+            <AdsenseComp adSlot="6898770594" />
           </div>
           <div className="hiring-box">
             <h4 className="body-sm-semibold">More Information</h4>
@@ -589,7 +595,7 @@ export default function IndividualJob() {
       )}
       {/* AD-9 */}
       <div className="d-flex justify-content-center mb-3">
-        <AdsenseComp adSlot="1464856375" />
+        <AdsenseComp adSlot="8096000870" />
       </div>
     </section>
   );
