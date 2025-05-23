@@ -33,7 +33,7 @@ export default function DomainsSection() {
 
   return (
     <div className="community-domains-section">
-      <h1 className="heading-3">Our Domains </h1>
+      <h1 className="heading-3">Learn here! </h1>
 
       {/* <h2 className="subheading-1">
         Our technical areas specialize students in what industry is looking for

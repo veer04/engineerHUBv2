@@ -1,5 +1,5 @@
 .slider-section {
-  background-color: #e0f8dc;
+  background-color: rgba(255, 236, 174, 0.45);
   padding: 2rem 0;
   text-align: center;
 
@@ -8,7 +8,7 @@
   height: 100%;
   margin: 40px auto;
   border-radius: 15px;
-  margin-bottom: 80px;
+  margin-bottom: 50px;
   padding: 2rem;
   display: flex;
   flex-direction: column;
@@ -16,6 +16,9 @@
   align-items: center;
 }
 
+.slider-section .slider-heading{
+  margin-bottom: 0.5rem;
+}
 .slider-container {
   display: flex;
   align-items: center;
@@ -96,4 +99,20 @@
 .page-btn:hover{
   background-color: #002b36;
   color: #fff;
+}
+
+@media screen and (max-width: 820px) {
+ 
+  
+
+  .slider-section .slider-heading {
+    margin-bottom: 0;
+    font-weight: 600;
+    font-size: 22px;
+    color: #002b36;
+  }
+
+  .slider-section{
+    margin-bottom: 30px;
+  }
 }
