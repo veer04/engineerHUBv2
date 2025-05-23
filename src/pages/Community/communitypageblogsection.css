@@ -4,8 +4,10 @@
   height: 100%;
   margin: 40px auto;
   background-color: rgba(254, 228, 226, 0.5);
+  
+  
   border-radius: 15px;
-  margin-bottom: 80px;
+  margin-bottom: 50px;
   padding: 2rem;
   display: flex;
   flex-direction: column;
@@ -42,6 +44,11 @@
   .main-community-blog-section-div .h4-com-blog-sec {
     margin-bottom: 0;
     font-weight: 600;
-    font-size: 18px;
+    font-size: 22px;
+      color: #002b36;
+  }
+
+  .main-community-blog-section-div{
+    margin-bottom: 30px;
   }
 }

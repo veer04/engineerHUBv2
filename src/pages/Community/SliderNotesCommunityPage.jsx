@@ -45,7 +45,7 @@ const SliderNotesCommunityPage = () => {
 
   return (
     <div className="slider-section">
-      <h4 style={{ fontWeight: 600 }} >Explore Notes from Community</h4>
+      <h4 className="slider-heading"  >Read Notes </h4>
 
       {loading ? (
         <p>Loading notes...</p>

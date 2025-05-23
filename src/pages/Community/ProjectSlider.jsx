@@ -39,7 +39,7 @@ export default function ProjectSlider() {
 
   return (
     <section className="project-slider-container">
-      <h2 className="slider-heading">Explore Projects from Community</h2>
+      <h2 className="slider-heading">Build Projects</h2>
 
       {loading && <p>Loading projects...</p>}
       {error && <p>{error}</p>}

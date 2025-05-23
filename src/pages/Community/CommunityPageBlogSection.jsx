@@ -46,7 +46,7 @@ const CommunityPageBlogSection = () => {
   return (
     <div className="main-community-blog-section-div">
       <div className="mb-4">
-        <h4 className="h4-com-blog-sec">Get Updated With Latest topics</h4>
+        <h4 className="h4-com-blog-sec">Trending topics for you</h4>
       </div>
 
       <div className="main-community-blog-sub">
