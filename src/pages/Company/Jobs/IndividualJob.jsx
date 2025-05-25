@@ -505,80 +505,85 @@ export default function IndividualJob() {
                 </div>
               )}
             </div>
-          </div>
-
-          <>
-            {hiring?.detailFound?.isServiceOff === true ? (
-              <button className="body-md-semibold hiring-apply-btn" disabled>
-                Expired
-              </button>
-            ) : isLoggedIn ? (
-              <>
-                {!isApplicable && (
-                  <button
-                    className="body-md-semibold hiring-apply-btn"
-                    disabled
-                  >
-                    Not Applicable
-                  </button>
-                )}
-                {isApplicable &&
-                  hiring?.applied === false &&
-                  (!!hiring?.detailFound?.contactEmail ? (
-                    <a
-                      href={`mailto:${hiring?.detailFound?.contactEmail}?subject=${hiring?.detailFound?.contactEmailSubject}`}
+            
+            <div className="hiring-button-container">
+              {hiring?.detailFound?.isServiceOff === true ? (
+                <button 
+                  className="body-md-semibold hiring-apply-btn w-100 expired"
+                  disabled
+                >
+                  Expired
+                </button>
+              ) : isLoggedIn ? (
+                <>
+                  {!isApplicable && (
+                    <button 
+                      className="body-md-semibold hiring-apply-btn w-100"
+                      disabled
                     >
-                      <button className="body-md-semibold hiring-apply-btn">
-                        Apply
-                      </button>
-                    </a>
-                  ) : !!hiring?.detailFound?.applyLink ? (
-                    <a
-                      href={hiring?.detailFound?.applyLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <button className="body-md-semibold hiring-apply-btn">
-                        Apply{" "}
-                        <FiExternalLink style={{ marginLeft: ".25rem" }} />
-                      </button>
-                    </a>
-                  ) : (
-                    <button
-                      onClick={() => openModal()}
-                      data-bs-toggle="modal"
-                      data-bs-target="#jobHiringModal"
-                      className="body-md-semibold hiring-apply-btn"
-                    >
-                      Easy Apply
+                      Not Applicable
                     </button>
-                  ))}
-                {hiring?.applied === true && (
-                  <button
-                    className="body-md-semibold hiring-apply-btn"
-                    disabled
-                  >
-                    Applied
-                  </button>
-                )}
-              </>
-            ) : (
-              <button
-                onClick={() => {
-                  redirectToAuth("/login");
-                }}
-                className="body-md-semibold hiring-apply-btn"
-              >
-                {!!hiring?.detailFound?.applyLink ? (
-                  <>
-                    Apply <FiExternalLink style={{ marginLeft: ".25rem" }} />
-                  </>
-                ) : (
-                  `Easy Apply`
-                )}
-              </button>
-            )}
-          </>
+                  )}
+                  {isApplicable &&
+                    hiring?.applied === false &&
+                    (!!hiring?.detailFound?.contactEmail ? (
+                      <a href={`mailto:${hiring?.detailFound?.contactEmail}?subject=${hiring?.detailFound?.contactEmailSubject}`} className="w-100">
+                        <button 
+                          className="body-md-semibold hiring-apply-btn w-100"
+                        >
+                          Apply
+                        </button>
+                      </a>
+                    ) : !!hiring?.detailFound?.applyLink ? (
+                      <a
+                        href={hiring?.detailFound?.applyLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="w-100"
+                      >
+                        <button 
+                          className="body-md-semibold hiring-apply-btn w-100"
+                        >
+                          Apply <FiExternalLink style={{ marginLeft: ".25rem" }} />
+                        </button>
+                      </a>
+                    ) : (
+                      <button
+                        onClick={() => openModal()}
+                        data-bs-toggle="modal"
+                        data-bs-target="#jobHiringModal"
+                        className="body-md-semibold hiring-apply-btn w-100"
+                      >
+                        Easy Apply
+                      </button>
+                    ))}
+                  {hiring?.applied === true && (
+                    <button 
+                      className="body-md-semibold hiring-apply-btn w-100"
+                      disabled
+                    >
+                      Applied
+                    </button>
+                  )}
+                </>
+              ) : (
+                <button
+                  onClick={() => {
+                    redirectToAuth("/login");
+                  }}
+                  className="body-md-semibold hiring-apply-btn w-100"
+                >
+                  {!!hiring?.detailFound?.applyLink ? (
+                    <>
+                      Apply <FiExternalLink style={{ marginLeft: ".25rem" }} />
+                    </>
+                  ) : (
+                    `Easy Apply`
+                  )}
+                </button>
+              )}
+            </div>
+          </div>
         </>
       ) : (
         <div
