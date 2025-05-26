@@ -91,6 +91,7 @@
   flex-direction: column;
   justify-content: space-between;
   padding: 0.75rem;
+
   border-radius: 10px;
   box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.065);
   width: 100%;
@@ -284,13 +285,13 @@
   display: flex;
   justify-content: center;
   width: 100%;
-  padding: 0 0.75rem;
+  padding: 0;
 }
 
 .hiring-apply-btn.w-100 {
-  max-width: calc((17.875rem * 2) + 2.5rem); /* Exactly two info tiles */
   width: 100%;
-  float: none;
+  max-width: 100%;
+  margin: 0 auto;
 }
 
 .hiring-apply-btn.expired {
