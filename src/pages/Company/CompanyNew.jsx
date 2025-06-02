@@ -33,7 +33,7 @@ const SearchSection = () => {
         </button>
         <input
           type="text"
-          placeholder="Search for Jobs/Internships"
+          placeholder="Search for opportunities,company..etc"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
         />
