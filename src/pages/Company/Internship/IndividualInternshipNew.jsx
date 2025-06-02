@@ -1,8 +1,8 @@
-import "./IndividualJob.css";
+import "./IndividualInternshipNew.css";
 import { useParams } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import { FaExternalLinkAlt } from "react-icons/fa";
-import { API_URL, Bucket_URL } from "../../../services/APIUtils";
+import { API_URL } from "../../../services/APIUtils";
 import axios from "axios";
 import AdsenseComp from "../../../components/AdsenseComp/AdsenseComp";
 import {
@@ -21,7 +21,7 @@ import {
   moneyIcon,
   numberOfOpeningsIcon,
   workTypeIcon,
-} from "./icons";
+} from "../Jobs/icons";
 import { FiExternalLink } from "react-icons/fi";
 import {
   getUserId,
@@ -29,17 +29,15 @@ import {
   isUserLoggedIn,
 } from "../../../features/User/UserDetails";
 import Loading from "../../../components/Loader/Loading";
-import JobHiringModal from "./JobHiringModal";
+import JobHiringModal from "../Jobs/JobHiringModal";
 import { Link } from "react-router-dom";
-import BannerSpaceComp from "../BannerSpaceComp/BannerSpaceComp";
-import EasyApplyModalNew from "./EasyApplyModalNew";
 
 function seededRandom(seed) {
   var x = Math.sin(seed) * 10000;
   return x - Math.floor(x);
 }
 
-export default function IndividualJob() {
+export default function IndividualInternshipNew() {
   const { hiringId } = useParams();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [hiring, setHiring] = useState({});
@@ -51,6 +49,7 @@ export default function IndividualJob() {
   const [width, setWidth] = useState(window.innerWidth);
   const handleResize = () => setWidth(window.innerWidth);
   const [userLatestInfo, setUserLatestInfo] = useState({});
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     if (isUserLoggedIn()) {
@@ -102,18 +101,6 @@ export default function IndividualJob() {
     currency: "INR",
     minimumFractionDigits: 0,
   });
-  let formattedSalary = formatter.format(hiring?.detailFound?.amount);
-  formattedSalary.includes("NaN") ? (formattedSalary = "N/A") : formattedSalary;
-
-  //using Intl formatter, check if the duration is 1 month or more than 1 month
-  //if it is 1 month, then display "1 month" else display "2 months"
-  let formattedDuration = new Intl.PluralRules("en-IN", {
-    type: "ordinal",
-  }).select(hiring?.detailFound?.duration);
-
-  formattedDuration === "one"
-    ? (formattedDuration = "1 Month")
-    : (formattedDuration = `${hiring?.detailFound?.duration} Months`);
 
   if (hiring?.success === false) return <Page404 />;
 
@@ -163,20 +150,14 @@ export default function IndividualJob() {
       } else {
         setError("Failed to fetch data.");
       }
-
-      const result = response.data;
-      console.log(result, "hiringDetails");
     } catch (error) {
       console.error("Error fetching hiring details:", error);
     }
   };
-  console.log(hiringName, "hiringName");
 
   useEffect(() => {
     getHiringDetails();
   }, [hiringId]);
-
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -186,17 +167,43 @@ export default function IndividualJob() {
     setIsModalOpen(false);
   };
 
-  return (
-    <section id="individual-job-container">
-      {/* <EasyApplyModalNew
-        latestInfo={userLatestInfo}
-        hiringId={hiringId}
-        setHiring={setHiring}
-        isOpen={isModalOpen}
-        onClose={closeModal}
-      />
-      */}
+  const UserDataPost = () => {
+    if (!!hiring?.detailFound?.applyLink) {
+      window.open(hiring?.detailFound?.applyLink, "_blank");
+      return;
+    }
 
+    const data = {
+      hiringId,
+    };
+    axios
+      .post(`${API_URL}api/v1/hiringRegistration`, data, {
+        headers: {
+          accesstoken: getAccessToken(),
+        },
+      })
+      .then((res) => {
+        if (
+          res.status === 200 ||
+          res.status === 201 ||
+          res.status === 202 ||
+          res.status === 203 ||
+          res.status === 204
+        ) {
+          getHiringDataById(setHiring, hiringId);
+        }
+      })
+      .catch((err) => {
+        if (err.response?.status === 409) {
+          window.alert("Already applied!");
+        } else {
+          console.error("Error applying:", err);
+        }
+      });
+  };
+
+  return (
+    <section id="individual-internship-container">
       <JobHiringModal
         latestInfo={userLatestInfo}
         hiringId={hiringId}
@@ -240,42 +247,7 @@ export default function IndividualJob() {
               ))}
             </div>
           </div>
-          {/* <div
-            onClick={() => {
-              window.open(
-                width <= 520
-                  ? `${`${Bucket_URL}frontend/company/promotion/pankaj-kalra-mobile.png`}`
-                  : `${`${Bucket_URL}frontend/company/promotion/pankaj-kalra-desktop.png`}`,
-                "_blank"
-              );
-            }}
-            style={{
-              backgroundImage:
-                width <= 520
-                  ? `url(${`${Bucket_URL}frontend/company/promotion/pankaj-kalra-mobile.png`})`
-                  : `url(${`${Bucket_URL}frontend/company/promotion/pankaj-kalra-desktop.png`})`,
-              aspectRatio: width <= 520 ? "900/1146" : "2100/864",
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-              backgroundRepeat: "no-repeat",
-              borderRadius: "10px",
-              position: "relative",
-              cursor: "pointer",
-              marginBottom: ".5rem",
-              boxShadow: "0px 4px 4px rgba(198, 198, 198, 0.25)",
-            }}
-          >
-            <button
-              onClick={(e) => {
-                window.open(`https://bit.ly/45bFpz6`, "_blank");
-              }}
-              className="promotion-btn"
-            >
-              {width > 650 ? "Register" : <FaExternalLinkAlt />}
-            </button>
-          </div> */}
 
-          {/* //first task 11/07/2024 saif */}
           <div className="main-referral-container">
             <div className="left-cont">
               <div className="">
@@ -313,6 +285,13 @@ export default function IndividualJob() {
             </div>
           </div>
 
+          <div className="d-flex justify-content-center mb-3">
+            <AdsenseComp adSlot="1960197314" />
+          </div>
+          <div className="d-flex justify-content-center mb-3">
+            <AdsenseComp adSlot="6898770594" />
+          </div>
+
           <div className="hiring-box pt-4">
             <div className="info-tiles-container">
               <div className="info-tiles">
@@ -331,15 +310,9 @@ export default function IndividualJob() {
               </div>
             </div>
           </div>
-          {/* AD-7 */}
-          <div className="d-flex justify-content-center mb-3">
-            <AdsenseComp adSlot="1960197314" />
-          </div>
-          <div className="d-flex justify-content-center mb-3">
-            <AdsenseComp adSlot="6898770594" />
-          </div>
+
           <div className="hiring-box">
-            <h4 className="body-sm-semibold">Job Description</h4>
+            <h4 className="body-sm-semibold">Internship Description</h4>
             <div
               dangerouslySetInnerHTML={{
                 __html: hiring?.detailFound?.description,
@@ -347,95 +320,76 @@ export default function IndividualJob() {
               className="hiring-styled-description"
             ></div>
           </div>
-          {/* <div style={{ margin: "1rem 0" }}>
-            <amp-ad
-              width="100vw"
-              height="320"
-              type="adsense"
-              data-ad-client="ca-pub-8474972598474156"
-              data-ad-slot="2309720790"
-              data-auto-format="rspv"
-              data-full-width=""
-            >
-              <div overflow=""></div>
-            </amp-ad>
-          </div>
-          */}
-          {/* AD-8 */}
+
           <div className="d-flex justify-content-center mb-3">
             <AdsenseComp adSlot="1960197314" />
           </div>
           <div className="d-flex justify-content-center mb-3">
             <AdsenseComp adSlot="6898770594" />
           </div>
+
           <div className="hiring-box">
             <h4 className="body-sm-semibold">More Information</h4>
             <div className="info-tiles-container">
               <div className="info-tiles">
-                <h6>Package</h6>
+                <h6>Stipend</h6>
                 <div className="lower-container">
                   <span className="text-crop-2">
-                    {hiring?.detailFound?.showSalary
-                      ? !!hiring?.detailFound?.amount &&
-                        hiring?.detailFound?.amount !== "N/A"
+                    {hiring?.detailFound?.featuredArray?.includes(
+                      "CampusAmbassador"
+                    )
+                      ? "Bonus"
+                      : hiring?.detailFound?.isPaid === "Paid"
+                      ? hiring?.detailFound?.showSalary
+                        ? !!hiring?.detailFound?.amount &&
+                          hiring?.detailFound?.amount !== "N/A"
+                          ? hiring?.detailFound?.amount
+                          : hiring?.detailFound?.salaryType === "Fixed"
+                          ? `${formatter.format(
+                              hiring?.detailFound?.salaryAmount
+                            )}`
+                          : hiring?.detailFound.salaryType === "Range"
+                          ? `${formatter.format(
+                              hiring?.detailFound?.minRange
+                            )} - ${formatter.format(
+                              hiring?.detailFound?.maxRange
+                            )}`
+                          : "N/A"
+                        : !!hiring?.detailFound?.amount &&
+                          hiring?.detailFound?.amount !== "N/A"
                         ? hiring?.detailFound?.amount
-                        : hiring?.detailFound?.salaryType === "Fixed"
-                        ? `${formatter.format(
-                            hiring?.detailFound?.salaryAmount
-                          )} ${hiring?.detailFound?.salaryUnit}`
-                        : hiring?.detailFound.salaryType === "Range"
-                        ? `${formatter.format(
-                            hiring?.detailFound?.minRange
-                          )} - ${hiring?.detailFound?.maxRange} ${
-                            hiring?.detailFound?.salaryUnit
-                          }`
+                        : !!hiring?.detailFound?.salaryDisclosure
+                        ? hiring?.detailFound?.salaryDisclosure
                         : "N/A"
-                      : !!hiring?.detailFound?.amount &&
-                        hiring?.detailFound?.amount !== "N/A"
-                      ? hiring?.detailFound?.amount
-                      : !!hiring?.detailFound?.salaryDisclosure
-                      ? hiring?.detailFound?.salaryDisclosure
-                      : "N/A"}
+                      : "Unpaid"}
                   </span>
                   {moneyIcon}
                 </div>
               </div>
               <div className="info-tiles">
-                <h6>Minimum Experience</h6>
+                <h6>Duration</h6>
                 <div className="lower-container">
-                  {!!hiring?.detailFound?.experience ? (
-                    <span className="text-crop-2">
-                      {hiring?.detailFound?.experience !== "0"
-                        ? hiring?.detailFound?.experience === "1"
-                          ? `${hiring?.detailFound?.experience} year`
-                          : `${hiring?.detailFound?.experience} years`
-                        : `Fresher`}
-                    </span>
-                  ) : (
-                    <span className="text-crop-2">
-                      {hiring?.detailFound?.isForFreshers
-                        ? "Fresher"
-                        : `${
-                            hiring?.detailFound?.minExperience ===
-                            hiring?.detailFound?.maxExperience
-                              ? `${hiring?.detailFound?.minExperience} ${
-                                  hiring?.detailFound?.minExperience === 1
-                                    ? "year"
-                                    : "years"
-                                }`
-                              : `${hiring?.detailFound?.minExperience} - ${
-                                  hiring?.detailFound?.maxExperience === 1
-                                    ? `${hiring?.detailFound?.maxExperience} year`
-                                    : `${hiring?.detailFound?.maxExperience} years`
-                                }`
-                          }`}
-                    </span>
-                  )}
+                  <span className="text-crop-2">
+                    {!!hiring?.detailFound?.duration
+                      ? hiring?.detailFound?.duration === 1
+                        ? "1 Month"
+                        : `${hiring?.detailFound?.duration} Months`
+                      : `${
+                          hiring?.detailFound?.minDuration ===
+                          hiring?.detailFound?.maxDuration
+                            ? `${hiring?.detailFound?.minDuration} ${
+                                hiring?.detailFound?.minDuration === 1
+                                  ? "month"
+                                  : "months"
+                              }`
+                            : `${hiring?.detailFound?.minDuration} - ${hiring?.detailFound?.maxDuration} months`
+                        }`}
+                  </span>
                   {experienceIcon}
                 </div>
               </div>
               <div className="info-tiles">
-                <h6>Job Location</h6>
+                <h6>Location</h6>
                 <div className="lower-container">
                   <span className="text-crop-2">
                     {hiring?.detailFound?.opportunityLocation === "WFH"
@@ -486,9 +440,7 @@ export default function IndividualJob() {
                   <h6>Minimum CGPA</h6>
                   <div className="lower-container">
                     <span className="text-crop-2">
-                      {hiring?.detailFound?.eligibility
-                        ? hiring?.detailFound?.eligibility
-                        : hiring?.detailFound?.eligibility}
+                      {hiring?.detailFound?.eligibility}
                     </span>
                     {cgpaIcon}
                   </div>
@@ -525,21 +477,14 @@ export default function IndividualJob() {
                         </button>
                       </a>
                     ) : !!hiring?.detailFound?.applyLink ? (
-                      <a
-                        href={hiring?.detailFound?.applyLink}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="w-100"
+                      <button
+                        onClick={UserDataPost}
+                        className="body-md-semibold hiring-apply-btn w-100"
                       >
-                        <button 
-                          className="body-md-semibold hiring-apply-btn w-100"
-                        >
-                          Apply <FiExternalLink style={{ marginLeft: ".25rem" }} />
-                        </button>
-                      </a>
+                        Apply <FiExternalLink style={{ marginLeft: ".25rem" }} />
+                      </button>
                     ) : (
                       <button
-                        onClick={() => openModal()}
                         data-bs-toggle="modal"
                         data-bs-target="#jobHiringModal"
                         className="body-md-semibold hiring-apply-btn w-100"
@@ -557,22 +502,40 @@ export default function IndividualJob() {
                   )}
                 </>
               ) : (
-                <button
-                  onClick={() => {
-                    redirectToAuth("/login");
-                  }}
-                  className="body-md-semibold hiring-apply-btn w-100"
-                >
-                  {!!hiring?.detailFound?.applyLink ? (
-                    <>
-                      Apply <FiExternalLink style={{ marginLeft: ".25rem" }} />
-                    </>
-                  ) : (
-                    `Easy Apply`
+                <>
+                  {hiring?.detailFound?._id === "65d0a7b2c58c23a4ac6b9f76" && (
+                    <a href="https://docs.google.com/forms/d/e/1FAIpQLSd39WuMG3eBnPoVmMLneBEhYBTU2Q3CCbNx5kQKmIIkINdTlQ/viewform" className="w-100">
+                      <button 
+                        className="body-md-semibold hiring-apply-btn w-100"
+                      >
+                        Apply
+                      </button>
+                    </a>
                   )}
-                </button>
+                  {hiring?.detailFound?._id !== "65d0a7b2c58c23a4ac6b9f76" && (
+                    <button
+                      onClick={() => {
+                        redirectToAuth("/login");
+                      }}
+                      className="body-md-semibold hiring-apply-btn w-100"
+                    >
+                      {!!hiring?.detailFound?.applyLink ? (
+                        <>
+                          Apply{" "}
+                          <FiExternalLink style={{ marginLeft: ".25rem" }} />
+                        </>
+                      ) : (
+                        `Easy Apply`
+                      )}
+                    </button>
+                  )}
+                </>
               )}
             </div>
+          </div>
+
+          <div className="d-flex justify-content-center mb-3">
+            <AdsenseComp adSlot="8096000870" />
           </div>
         </>
       ) : (
@@ -588,10 +551,6 @@ export default function IndividualJob() {
           <Loading />
         </div>
       )}
-      {/* AD-9 */}
-      <div className="d-flex justify-content-center mb-3">
-        <AdsenseComp adSlot="8096000870" />
-      </div>
     </section>
   );
-}
+} 

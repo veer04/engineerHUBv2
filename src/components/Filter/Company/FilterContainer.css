@@ -1,10 +1,16 @@
 .filter-container {
   display: flex;
-  gap: 1rem;
-  overflow: auto;
-  margin: 0 auto;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin: 1rem auto;
   width: 100%;
+  max-width: 1200px;
+  padding: 0 1rem;
+  justify-content: center;
+  align-items: center;
 }
+
 .filter-box {
   position: absolute;
   z-index: 5;
@@ -15,6 +21,7 @@
   overflow: hidden;
   margin-top: 0.5rem;
 }
+
 .filter-box ul {
   list-style: none;
   padding: 0;
@@ -22,16 +29,19 @@
   max-height: 20rem;
   overflow: auto;
 }
+
 .filter-box ul li {
   display: flex;
   cursor: pointer;
 }
+
 .filter-box ul li .filter-opt-label {
   width: 100%;
   padding: 0.75rem 1.75rem 0.75rem 1.5rem;
   display: flex;
   justify-content: space-between;
 }
+
 .filter-box ul li .filter-opt-input {
   min-width: 24px;
   min-height: 24px;
@@ -44,9 +54,11 @@
   align-items: center;
   padding: 1rem 1.5rem;
 }
+
 .filter-box .top-container h3 {
   margin: 0;
 }
+
 .filter-box .top-container .close-btn {
   border: none;
   background-color: transparent;
@@ -62,10 +74,12 @@
   padding: 0.75rem 1.5rem;
   background-color: #f5f5f5;
 }
+
 .filter-box .bottom-container .clear-btn {
   border: none;
   background-color: transparent;
 }
+
 .filter-box .bottom-container .apply-btn {
   color: white;
   padding: 0.75rem 2rem;
@@ -78,5 +92,34 @@
   .filter-box {
     left: 50% !important;
     transform: translateX(-50%) !important;
+  }
+
+  .filter-container {
+    justify-content: flex-start;
+    padding: 0.5rem 1rem;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: #888 #f1f1f1;
+  }
+
+  /* Custom scrollbar styles for filter container */
+  .filter-container::-webkit-scrollbar {
+    height: 6px;
+  }
+
+  .filter-container::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+  }
+
+  .filter-container::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 3px;
+  }
+
+  .filter-container::-webkit-scrollbar-thumb:hover {
+    background: #555;
   }
 }

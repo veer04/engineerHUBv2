@@ -8,6 +8,11 @@
 }
 .promote-connect-card-main .promote-connect-img {
   padding: 0px;
+  width: 100%;
+  height: 183px;
+  object-fit: cover;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
 }
 
 .promote-connect-card-main .promote-chip {
@@ -21,6 +26,16 @@
   gap: 10px;
   padding: 0 16px;
   margin-top: -46px;
+  position: relative;
+  z-index: 1;
+}
+
+.promote-connect-card-main .connect-card-sub::after {
+  display: none;
+}
+
+.promote-connect-card-main .connect-card-sub > div {
+  position: relative;
 }
 
 .promote-connect-card-main .resume-title {
@@ -73,7 +88,7 @@
 .promote-connect-card-main .btn-book-now button {
   font-size: 14px;
   margin-top: 5px;
-  width: 292px;
+  width: 100%;
   height: 42px;
   border-radius: 10px;
   color: #ffd600;
@@ -91,6 +106,61 @@
 }
 
 @media screen and (max-width: 520px) {
+  .promote-connect-card-main {
+    width: 100%;
+    max-width: none;
+    height: auto;
+    min-height: 355px;
+  }
+
+  .promote-connect-card-main .promote-connect-img {
+    width: 100%;
+    height: 183px;
+  }
+
+  .promote-connect-card-main .resume-title {
+    min-height: auto;
+    margin-bottom: 15px;
+  }
+
+  .promote-connect-card-main .meeting-duration {
+    margin-bottom: 15px;
+  }
+
+  .promote-connect-card-main .btn-book-now {
+    width: 100%;
+  }
+
+  .promote-connect-card-main .promote-chip {
+    top: 8px;
+    left: 12px;
+  }
+
+  .promote-connect-card-main .promote-chip h5 {
+    font-size: 12px !important;
+    margin-top: 4px !important;
+  }
+
+  .promote-connect-card-main .connect-card-sub {
+    gap: 8px;
+    padding: 0 12px;
+    margin-top: -40px;
+  }
+
+  .promote-connect-card-main .connect-card-sub > div {
+    height: 28px !important;
+    padding: 4px 8px !important;
+  }
+
+  .promote-connect-card-main .connect-card-sub h5 {
+    font-size: 12px !important;
+    margin-top: 8px !important;
+  }
+
+  .promote-connect-card-main .connect-card-sub img {
+    width: 14px;
+    height: 14px;
+  }
 }
 
 .promote-connect-card-main .meeting-duration .m-left-duration .text-h5 {

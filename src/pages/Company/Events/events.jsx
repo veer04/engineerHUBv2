@@ -8,7 +8,7 @@ import {
   getAllEvents2,
   getEventByType,
 } from "../../../services/APIConfig";
-import HackathonCard from "./EventsChoices/HackathonCards";
+
 import { useSearchParams } from "react-router-dom";
 import PaginationBar from "../../../components/PaginationBar/PaginationBar";
 import Loading from "../../../components/Loader/Loading";
@@ -30,20 +30,23 @@ const Events = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    getEventByType(setEventData, "eventHiring");
-    // getAllEvents(setEventData, currentPage, limit);
+    getEventByType(setEventData, "eventHiring", currentPage, limit);
     return () => {
       controller.abort();
     };
-  }, [window.location.pathname]);
+  }, [window.location.pathname, currentPage, limit]);
 
   useEffect(() => {
     if (Object.keys(eventData).length > 0) {
-      if (eventData?.status >= 200 && eventData?.status < 300)
+      if (eventData?.status >= 200 && eventData?.status < 300) {
         setEvent(eventData?.data?.data);
-      else setEvent([]);
+        setPageCount(Math.ceil((eventData?.data?.pageSize || 1) / limit));
+      } else {
+        setEvent([]);
+        setPageCount(1);
+      }
     }
-  }, [eventData]);
+  }, [eventData, limit]);
 
   useEffect(() => {
     if (searchedProjects.length > 0) {
@@ -82,6 +85,7 @@ const Events = () => {
       */}
 
       {/* AD-5 */}
+      {/*
       <div className="d-flex justify-content-center mb-3">
         <AdsenseComp adSlot="8908232121" />
       </div>
@@ -122,6 +126,7 @@ const Events = () => {
           </span>
         </div>
       </div>
+      */}
       {/* <PaginationBar
         pages={pageCount}
         currentPage={currentPage}
@@ -131,10 +136,7 @@ const Events = () => {
         <div className="Hackathons">
           <div className="hackathonTiles">
             {filteredProjects.map((item, index) => {
-              return (
-                <NewEventCard data={item} key={index} eventHiring={true} />
-              );
-              // return <HackathonCard {...item} key={index} />;
+              return <NewEventCard data={item} key={index} eventHiring={true} />;
             })}
             {event.length === 0 &&
               eventData?.status >= 200 &&
@@ -167,14 +169,19 @@ const Events = () => {
           </div>
         </div>
       </div>
-      {event.length !== 0 && (
-        <PaginationBar
-          pages={pageCount}
-          currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
-        />
+      
+      {/* Pagination Section */}
+      {filteredProjects.length > 0 && (
+        <div className="d-flex justify-content-center mt-4 mb-4">
+          <PaginationBar
+            pages={pageCount}
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+          />
+        </div>
       )}
-      {/* AD-6 */}
+
+      {/* Advertisement Section */}
       <div className="d-flex justify-content-center mb-3">
         <AdsenseComp adSlot="1464856375" />
       </div>

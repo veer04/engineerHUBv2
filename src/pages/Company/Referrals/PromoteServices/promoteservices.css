@@ -7,6 +7,8 @@
   margin-bottom: 80px;
   padding: 24px;
   padding-left: 40px;
+  position: relative;
+  overflow: hidden;
 }
 
 .promote-main-container-prdoucts .digital-cards-connect {
@@ -105,12 +107,14 @@
 .embla {
   overflow: hidden;
   width: 100%;
+  position: relative;
 }
 
 .embla__container {
   display: flex;
   flex-direction: row;
-  gap: 20px; /* Space between slides */
+  gap: 20px;
+  position: relative;
 }
 
 .embla__container1 {
@@ -120,14 +124,19 @@
 }
 
 .embla__slide {
-  min-width: 30%; /* Ensures 3 slides show at once */
+  min-width: 30%;
   flex: 0 0 auto;
   padding: 10px;
   box-sizing: border-box;
   background-color: transparent;
   border-radius: 8px;
-  /* box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); */
   transition: transform 0.3s ease;
+  position: relative;
+}
+
+.embla__slide::before,
+.embla__slide::after {
+  display: none;
 }
 
 .embla__slide:hover {

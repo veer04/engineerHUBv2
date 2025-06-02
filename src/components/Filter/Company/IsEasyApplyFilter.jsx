@@ -51,7 +51,6 @@ export default function IsEasyApplyFilter() {
       { replace: true }
     );
     setOpen(false);
-    window.location.reload();
   };
 
   return (

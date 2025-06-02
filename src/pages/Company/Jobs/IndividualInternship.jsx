@@ -45,6 +45,7 @@ export default function IndividualInternship() {
   const [hiring, setHiring] = useState({});
   const [hiringName, setHiringName] = useState([]);
   const [numberOfAlmas, setNumberOfAlmas] = useState([]);
+  const [error, setError] = useState(null);
   const [isApplicable, setIsApplicable] = useState(false);
   const [profile, setProfile] = useState({});
   const [isResumeUploaded, setIsResumeUploaded] = useState(false);
@@ -57,6 +58,12 @@ export default function IndividualInternship() {
   const [width, setWidth] = useState(window.innerWidth);
   const handleResize = () => setWidth(window.innerWidth);
   const [userLatestInfo, setUserLatestInfo] = useState({});
+
+  const formatter = new Intl.NumberFormat("en-IN", {
+    style: "currency",
+    currency: "INR",
+    minimumFractionDigits: 0,
+  });
 
   useEffect(() => {
     if (isUserLoggedIn()) {
@@ -169,11 +176,6 @@ export default function IndividualInternship() {
       });
   };
 
-  const formatter = new Intl.NumberFormat("en-IN", {
-    style: "currency",
-    currency: "INR",
-    minimumFractionDigits: 0,
-  });
   let formattedSalary = formatter.format(hiring?.detailFound?.amount);
   formattedSalary.includes("NaN") ? (formattedSalary = "N/A") : formattedSalary;
 

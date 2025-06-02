@@ -52,7 +52,7 @@ import { getAccessToken } from "../../../features/getCookieValues";
 import { Cookie } from "@mui/icons-material";
 import JobCards from "../../Company/Jobs/JobCards";
 import InternshipCard from "../../Company/Internship/InternshipCard";
-import HackathonCard from "../../Company/Events/EventsChoices/HackathonCards";
+import NewEventCard from "../../../components/NewEventCard/NewEventCard";
 import ProjectCards from "../../Company/Projects/ProjectCards";
 import { MdAdd } from "react-icons/md";
 import ClubPostCard from "../../../components/ClubPostCard/ClubPostCard";
@@ -1006,16 +1006,9 @@ export default function UserDashboard() {
                     />
                   ))}
                 {activityChoice === "hackathons" &&
-                  hackathons.map((jobDetail, index) => (
-                    <HackathonCard
-                      key={index}
-                      {...jobDetail}
-                      className="scroll-card no-hover-scale"
-                      adminView={isUserAdmin}
-                      filterByCompany={true}
-                      filterName={user?.name}
-                    />
-                  ))}
+                  hackathons.map((item, index) => {
+                    return <NewEventCard data={item} key={index} eventHiring={true} />;
+                  })}
                 {activityChoice === "projects" &&
                   projects.map((jobDetail, index) => (
                     <ProjectCards

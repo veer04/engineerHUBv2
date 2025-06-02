@@ -1,0 +1,200 @@
+.company-new {
+  min-height: 100vh;
+  background: linear-gradient(to bottom, #EEFFFF, #F5F5F5);
+  padding: 40px 5% 80px;
+  color: var(--primary-color-dark-green);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Search Section Styles */
+.search-section {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto 2rem;
+  padding: 0 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.search-section .search-container {
+  width: 100%;
+  max-width: 600px;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-section .search-container input {
+  width: 100%;
+  height: 48px;
+  padding: 0 48px;
+  border: 1px solid #E0E0E0;
+  border-radius: 24px;
+  font-size: 1rem;
+  color: #333;
+  background: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+}
+
+.search-section .search-container input:focus {
+  outline: none;
+  border-color: var(--primary-color-green);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.search-section .search-container input::placeholder {
+  color: #999;
+}
+
+.search-section .search-container button {
+  position: absolute;
+  left: 12px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #666;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.search-section .search-container button:hover {
+  color: var(--primary-color-green);
+}
+
+.search-section .quick-links {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.search-section .quick-link-btn {
+  padding: 8px 24px;
+  border: none;
+  border-radius: 24px;
+  background: #F5F5F5;
+  color: #333;
+  font-weight: 500;
+  font-size: 0.875rem;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.search-section .quick-link-btn:hover,
+.search-section .quick-link-btn.active {
+  background: white;
+  color: var(--primary-color-green);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Filter Cards Section Styles */
+.main-jobs-for-you-filter {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto 2rem;
+  padding: 2rem;
+  background: #FFFFFF;
+  border-radius: 24px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+.main-jobs-for-you-filter h4 {
+  font-size: 24px;
+  font-weight: 600;
+  color: #1E1E1E;
+  margin: 0 0 2rem;
+  padding: 0 0.5rem;
+}
+
+.second-grid-div-jobs-for-you-filter {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  padding: 0 0.5rem;
+}
+
+@media screen and (max-width: 1200px) {
+  .second-grid-div-jobs-for-you-filter {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .second-grid-div-jobs-for-you-filter {
+    grid-template-columns: 1fr;
+  }
+  
+  .main-jobs-for-you-filter {
+    padding: 1.5rem;
+  }
+}
+
+/* Responsive Styles */
+@media screen and (max-width: 768px) {
+  .company-new {
+    padding: 24px 16px 60px;
+  }
+
+  .search-section {
+    margin: 0 auto 1.5rem;
+    gap: 1rem;
+  }
+
+  .search-section .search-container input {
+    height: 40px;
+    font-size: 0.875rem;
+    padding: 0 40px;
+  }
+
+  .search-section .quick-link-btn {
+    padding: 6px 16px;
+    font-size: 0.75rem;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .company-new {
+    padding: 16px 12px 40px;
+  }
+
+  .search-section .quick-links {
+    gap: 0.75rem;
+  }
+
+  .search-section .quick-link-btn {
+    padding: 4px 12px;
+    font-size: 0.75rem;
+  }
+}
+
+/* Standardized Segment Heading Styles */
+.segment-heading {
+  font-family: "Inter", sans-serif;
+  font-size: 24px;
+  font-weight: 600;
+  color: #0A3F51;
+  margin: 0;
+  padding: 0;
+  line-height: 1.4;
+}
+
+@media screen and (max-width: 768px) {
+  .segment-heading {
+    font-size: 20px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .segment-heading {
+    font-size: 18px;
+  }
+}

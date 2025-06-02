@@ -1,11 +1,23 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import "./otherpagecard2.css";
 import { Bucket_URL } from "../../services/APIUtils";
 
 const OtherPageCard2 = ({ image, link }) => {
+  const navigate = useNavigate();
+  
   const handleClick = () => {
-    window.open(link, "_blank");
+    // Check if it's an internal or external link
+    if (link.startsWith('https://engineerhub.in')) {
+      // For internal links, use navigate
+      const path = link.replace('https://engineerhub.in', '');
+      navigate(path);
+    } else {
+      // For external links, use window.open
+      window.open(link, "_blank");
+    }
   };
+
   return (
     <div className="main-other-page-comp-div-2" onClick={handleClick}>
       {/* <img src={image} alt="" className="image-div" /> */}
@@ -20,7 +32,7 @@ const OtherPageCard2 = ({ image, link }) => {
           marginBottom: 35,
         }}
       >
-        Get Referred in top MNC’s
+        Get Referred in top MNC's
       </h3>
 
       <div className="grid-div">

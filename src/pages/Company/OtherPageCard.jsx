@@ -1,10 +1,22 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import "./otherpagecard.css";
 
 const OtherPageCard = ({ image, link, showText }) => {
+  const navigate = useNavigate();
+  
   const handleClick = () => {
-    window.open(link, "_blank");
+    // Check if it's an internal or external link
+    if (link.startsWith('https://engineerhub.in')) {
+      // For internal links, use navigate
+      const path = link.replace('https://engineerhub.in', '');
+      navigate(path);
+    } else {
+      // For external links, use window.open
+      window.open(link, "_blank");
+    }
   };
+
   return (
     <div className="main-other-page-comp-div" onClick={handleClick}>
       <img src={image} alt="" className="image-div" />

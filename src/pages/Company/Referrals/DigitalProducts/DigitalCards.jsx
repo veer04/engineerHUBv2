@@ -61,7 +61,7 @@ const DigitalCards = ({
                 alignItems: "center",
                 backgroundColor: "rgba(38, 75, 84, 0.8)",
                 color: "white",
-                width: "65px",
+                width: "55px",
                 height: "32px",
                 padding: "4px 12px",
                 gap: 3,
@@ -85,9 +85,7 @@ const DigitalCards = ({
                   boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.08)",
                 }}
               >
-                <h5 style={{ fontSize: "13px", marginTop: "5px" }}>
-                  {popular}
-                </h5>
+                <h5 style={{ fontSize: "13px", marginTop: "5px" }}>{popular}</h5>
               </div>
             )}
           </div>

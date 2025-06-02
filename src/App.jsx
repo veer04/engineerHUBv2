@@ -17,8 +17,10 @@ import PostModal from "./components/PostModal/PostModal";
 import ForgotPassword from "./pages/User/ForgotPassword/ForgotPassword";
 import Page404 from "./pages/Maintenance/Page404";
 import SignupUser from "./pages/User/Signup/SignupUser";
+import IndividualInternshipNew from "./pages/Company/Internship/IndividualInternshipNew";
 const CommunityPage = lazy(() => import("./pages/Community/CommunityPage"));
 const NewCampusPage = lazy(() => import("./pages/Campus/NewCampusPage"));
+const CompanyNew = lazy(() => import("./pages/Company/CompanyNew"));
 const Company = lazy(() => import("./pages/Company/Company"));
 const Login = lazy(() => import("./pages/User/Login/Login"));
 const CampusSearchPage = lazy(() => import("./pages/Campus/CampusSearchPage"));
@@ -86,14 +88,12 @@ const ReferralAdminPage = lazy(() =>
 );
 const JobBoard = lazy(() => import("./pages/Company/Board/JobBoard.jsx"));
 const JobsPage = lazy(() => import("./pages/Company/Jobs/JobsPage.jsx"));
-const InternshipsPage = lazy(() =>
-  import("./pages/Company/Jobs/InternshipsPage.jsx")
+const JobsPageNew = lazy(() => import("./pages/Company/Jobs/JobsPageNew.jsx"));
+const InternshipPageNew = lazy(() =>
+  import("./pages/Company/Internship/InternshipPageNew.jsx")
 );
-const IndividualInternship = lazy(() =>
-  import("./pages/Company/Jobs/IndividualInternship.jsx")
-);
-const IndividualJob = lazy(() =>
-  import("./pages/Company/Jobs/IndividualJob.jsx")
+const IndividualJobNew = lazy(() =>
+  import("./pages/Company/Jobs/IndividualJobNew.jsx")
 );
 const HostingNotes = lazy(() => import("./pages/Hosting/HostingNotes.jsx"));
 const GetFeaturedForm = lazy(() =>
@@ -153,6 +153,10 @@ const Referrals = lazy(() => import("./pages/Company/Referrals/Referrals.jsx"));
 const TermsAndConditions = lazy(() =>
   import("./pages/TermsAndConditions/TermsAndConditions.jsx")
 );
+
+// Import the new event components
+// import EventsNew from "./pages/Company/Events/EventsNew";
+// import EventDetailsNew from "./pages/Company/Events/EventsChoices/EventDetailsNew";
 
 function App() {
   const [OtpRoute, setOtpRoute] = useState("loading");
@@ -308,18 +312,18 @@ function App() {
             <Route path="notes" element={<HostingNotes />} />
           </Route>
           <Route path="/career">
-            <Route path="" element={<Company />} />
+            <Route path="" element={<CompanyNew />} />
             <Route path="jobs">
-              <Route path="" element={<JobsPage />}>
-                <Route path=":hiringId" element={<IndividualJob />} />
+              <Route path="" element={<JobsPageNew />}>
+                <Route path=":hiringId" element={<IndividualJobNew />} />
               </Route>
               <Route path="board">
                 <Route path=":id" element={<JobBoard />} />
               </Route>
             </Route>
             <Route path="internships">
-              <Route path="" element={<InternshipsPage />}>
-                <Route path=":hiringId" element={<IndividualInternship />} />
+              <Route path="" element={<InternshipPageNew />}>
+                <Route path=":hiringId" element={<IndividualInternshipNew />} />
               </Route>
             </Route>
             <Route path="projects">
@@ -333,18 +337,18 @@ function App() {
           </Route>
 
           <Route path="/company">
-            <Route path="" element={<Company />} />
+            <Route path="" element={<CompanyNew />} />
             <Route path="jobs">
-              <Route path="" element={<JobsPage />}>
-                <Route path=":hiringId" element={<IndividualJob />} />
+              <Route path="" element={<JobsPageNew />}>
+                <Route path=":hiringId" element={<IndividualJobNew />} />
               </Route>
               <Route path="board">
                 <Route path=":id" element={<JobBoard />} />
               </Route>
             </Route>
             <Route path="internships">
-              <Route path="" element={<InternshipsPage />}>
-                <Route path=":hiringId" element={<IndividualInternship />} />
+              <Route path="" element={<InternshipPageNew />}>
+                <Route path=":hiringId" element={<IndividualInternshipNew />} />
               </Route>
             </Route>
             <Route path="projects">

@@ -4,10 +4,10 @@ import { GoStopwatch } from "react-icons/go";
 import NewCompanyPostCard from "./NewCompanyPostCard";
 import { BsArrowRight, BsArrowUp } from "react-icons/bs";
 import RecommendationCard2Activity from "../../../../components/ProfileDashboard/RecommendedSection/RecommendationCard2Activity";
-import HackathonCard from "../../../Company/Events/EventsChoices/HackathonCards";
 import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 import ProjectCards from "../../../Company/Projects/ProjectCards";
 import JobCardForCompany from "../../../../components/ProfileDashboard/RecommendedSection/JobCardForCompany";
+import NewEventCard from "../../../../components/NewEventCard/NewEventCard";
 
 const YourCompanyActivitySection = ({
   posts,
@@ -120,15 +120,8 @@ const YourCompanyActivitySection = ({
 
             {actionButton === "Hackathons" &&
               isActivityPresent &&
-              hackathons.map((jobDetail, index) => (
-                <HackathonCard
-                  key={index}
-                  {...jobDetail}
-                  className="scroll-card no-hover-scale"
-                  adminView={isUserAdmin}
-                  filterByCompany={true}
-                  filterName={organization?.name}
-                />
+              hackathons.map((item, index) => (
+                <NewEventCard data={item} key={index} eventHiring={true} />
               ))}
 
             {actionButton === "Projects" &&

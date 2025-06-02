@@ -3,15 +3,15 @@
   height: 200px;
   flex-shrink: 0;
   border-radius: 12px;
-  background: lightgray 50% / cover no-repeat;
+  background: transparent;
   cursor: pointer;
   position: relative;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.3s ease;
+  overflow: hidden;
 }
 
 .main-other-page-comp-div:hover {
   transform: scale(1.02);
-  box-shadow: 0px 12px 24px rgba(0, 0, 0, 0.2);
 }
 
 .main-other-page-comp-div .image-div {
@@ -19,5 +19,36 @@
   height: 200px;
   flex-shrink: 0;
   border-radius: 12px;
-  background: lightgray 50% / cover no-repeat;
+  object-fit: cover;
+}
+
+.heading-md{
+  font-size: 24px;
+  font-weight: 600;
+  color: #0A3F51;
+  margin-bottom: 20px;
+  text-align: left;
+  padding: 0;
+}
+
+@media screen and (max-width: 480px) {
+  .main-other-page-comp-div {
+    width: 100%;
+    height: 0;
+    padding-bottom: 100%; /* This creates a square aspect ratio */
+    position: relative;
+  }
+
+  .main-other-page-comp-div .image-div {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .main-other-page-comp-div:hover {
+    transform: none;
+  }
 }
