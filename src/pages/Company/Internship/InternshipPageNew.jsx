@@ -186,7 +186,7 @@ export default function InternshipPageNew() {
                   </div>
                 ) : (
                   <div className="no-results">
-                    <h2>No Internships Found</h2>
+                    <h2>No Internship Found</h2>
                     <p>Try adjusting your search or filters</p>
                   </div>
                 )}
