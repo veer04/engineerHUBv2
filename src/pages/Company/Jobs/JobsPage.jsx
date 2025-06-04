@@ -194,30 +194,25 @@ export default function JobsPage() {
   }, [jobsQuery]);
 
   return (
-    <main className="jobs-page">
-      {/* empty commit */}
+    <main className={`jobs-page ${hiringId ? "with-details" : ""}`}>
       {!Boolean(hiringId) && (
         <>
           <h1 className="display-md">Job Hiring</h1>
-          {/* <h2 className="body-md-regular">
-            Apply for the jobs of your interest and get the offer letter in the
-            next step
-          </h2> */}
         </>
       )}
       {!(!!hiringId && width < 1150) && (
         <>
-          <div className="d-flex justify-content-center mt-2 mb-4">
+          <div className="search-container d-flex justify-content-center mt-2 mb-4">
             <SearchBarWithSearchParams
               param="q"
               placeholder="Search for jobs, company, etc"
             />
           </div>
-          {/* AD-5 */}
           <div className="d-flex justify-content-center mb-3">
             <AdsenseComp adSlot="8908232121" />
           </div>
           <FilterContainerJob
+            className="filter-section"
             style={{
               marginBottom: ".5rem",
               maxWidth: !!hiringId ? "1230px" : "",
@@ -226,33 +221,91 @@ export default function JobsPage() {
         </>
       )}
 
-      <div className={`${!!hiringId ? "job-page-divider" : ""}`}>
-        {!(!!hiringId && width < 1150) && (
-          <section className={`${!!hiringId ? "all-jobs-section" : ""}`}>
-            {jobsQuery.isSuccess &&
-              jobsQuery?.data?.data?.data?.length !== 0 &&
-              !!pageNo &&
-              !!pageCount && (
-                <span style={{ color: "#295397" }} className="label-sm">
-                  Page {pageNo} of {pageCount}
+      <div className={`job-page-divider ${hiringId ? "with-details" : ""}`}>
+        <section className={`all-jobs-section ${hiringId ? "with-details" : ""}`}>
+          {jobsQuery.isSuccess &&
+            jobsQuery?.data?.data?.data?.length !== 0 &&
+            !!pageNo &&
+            !!pageCount && (
+              <span style={{ color: "#295397" }} className="label-sm">
+                Page {pageNo} of {pageCount}
+              </span>
+            )}
+          {jobsQuery.isPending && (
+            <>
+              <div
+                style={{
+                  marginTop: "25dvh",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <Loading />
+              </div>
+            </>
+          )}
+          {jobsQuery.error && (
+            <>
+              <div
+                style={{
+                  marginTop: "20dvh",
+                  display: "flex",
+                  justifyContent: "center",
+                  textAlign: "center",
+                  alignItems: "center",
+                  flexDirection: "column",
+                  fontSize: "1.5rem",
+                  fontWeight: "bold",
+                  color: "#3C3C43",
+                  opacity: "0.6",
+                }}
+              >
+                <span className="mb-1">
+                  Something went wrong. Please try again later.
                 </span>
-              )}
-            {jobsQuery.isPending && (
-              <>
-                <div
+                <span
+                  className="mb-1"
                   style={{
-                    marginTop: "25dvh",
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
+                    fontSize: "1rem",
+                    color: "black",
                   }}
                 >
-                  <Loading />
+                  {jobsQuery.error.message}
+                </span>
+                <span
+                  className="mb-1"
+                  style={{
+                    fontSize: "1rem",
+                    color: "black",
+                  }}
+                >
+                  {jobsQuery.error.name}
+                </span>
+              </div>
+            </>
+          )}
+          {jobsQuery.isSuccess && (
+            <>
+              {!!jobsQuery.data.data?.data?.length && (
+                <div
+                  id="jobs-container"
+                  className={`jobs-container ${hiringId ? "--overflow" : ""}`}
+                >
+                  {jobsWithAds?.map((item, index) => {
+                    return index === 0 || (index + 1) % 5 !== 0 ? (
+                      <JobCards
+                        details={item}
+                        color={colorWheel[index % colorWheel.length]}
+                        key={index}
+                      />
+                    ) : (
+                      <AdsenseComp key={index} />
+                    );
+                  })}
                 </div>
-              </>
-            )}
-            {jobsQuery.error && (
-              <>
+              )}
+              {!jobsQuery.data.data?.data?.length && (
                 <div
                   style={{
                     marginTop: "20dvh",
@@ -261,90 +314,23 @@ export default function JobsPage() {
                     textAlign: "center",
                     alignItems: "center",
                     flexDirection: "column",
-                    fontSize: "1.5rem",
-                    fontWeight: "bold",
                     color: "#3C3C43",
                     opacity: "0.6",
                   }}
+                  className="jobs-container-empty"
                 >
-                  <span className="mb-1">
-                    Something went wrong. Please try again later.
-                  </span>
-                  <span
-                    className="mb-1"
-                    style={{
-                      fontSize: "1rem",
-                      color: "black",
-                    }}
-                  >
-                    {jobsQuery.error.message}
-                  </span>
-                  <span
-                    className="mb-1"
-                    style={{
-                      fontSize: "1rem",
-                      color: "black",
-                    }}
-                  >
-                    {jobsQuery.error.name}
-                  </span>
+                  <h2 className="heading-sm">No Jobs Found</h2>
                 </div>
-              </>
-            )}
-            {jobsQuery.isSuccess && (
-              <>
-                {!!jobsQuery.data.data?.data?.length && (
-                  <div
-                    id="jobs-container"
-                    className={`jobs-container ${
-                      !!hiringId ? "--overflow" : ""
-                    }`}
-                  >
-                    {jobsWithAds?.map((item, index) => {
-                      return index === 0 || (index + 1) % 5 !== 0 ? (
-                        <JobCards
-                          details={item}
-                          color={colorWheel[index % colorWheel.length]}
-                          key={index}
-                        />
-                      ) : (
-                        // <h1>Ad here</h1>
-                        <AdsenseComp key={index} />
-                      );
-                    })}
-                  </div>
-                )}
-                {!jobsQuery.data.data?.data?.length && (
-                  <div
-                    style={{
-                      marginTop: "20dvh",
-                      display: "flex",
-                      justifyContent: "center",
-                      textAlign: "center",
-                      alignItems: "center",
-                      flexDirection: "column",
-                      color: "#3C3C43",
-                      opacity: "0.6",
-                    }}
-                    className="jobs-container-empty"
-                  >
-                    <h2 className="heading-sm">No Jobs Found</h2>
-                  </div>
-                )}
-              </>
-            )}
-            {jobsQuery.isSuccess &&
-              jobsQuery?.data?.data?.data?.length !== 0 && (
-                <PaginationBarWithSearchParams
-                  param="pageNo"
-                  pages={pageCount}
-                />
               )}
-            <div className="d-flex justify-content-center mb-3">
-              <AdsenseComp adSlot="1464856375" />
-            </div>
-          </section>
-        )}
+            </>
+          )}
+          {jobsQuery.isSuccess && jobsQuery?.data?.data?.data?.length !== 0 && (
+            <PaginationBarWithSearchParams param="pageNo" pages={pageCount} />
+          )}
+          <div className="d-flex justify-content-center mb-3">
+            <AdsenseComp adSlot="1464856375" />
+          </div>
+        </section>
         <Outlet />
       </div>
 
@@ -354,22 +340,6 @@ export default function JobsPage() {
           mobileImage={`${Bucket_URL}13404897.png`}
         />
       </div>
-      {/*
-      <script
-        async
-        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8474972598474156"
-        crossOrigin="anonymous"
-      ></script>
-      <ins
-        className="adsbygoogle"
-        style={{ display: "block" }}
-        data-ad-client="ca-pub-8474972598474156"
-        data-ad-slot="3867233093"
-        data-ad-format="auto"
-        data-full-width-responsive="true"
-      ></ins>
-      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-      */}
     </main>
   );
 }

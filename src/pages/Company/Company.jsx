@@ -1,6 +1,5 @@
 import "./Company.css";
 import JobCards from "./Jobs/JobCards";
-import HackathonCard from "./Events/EventsChoices/HackathonCards";
 import { API_URL, Bucket_URL } from "../../services/APIUtils";
 import { useEffect, useState } from "react";
 import useNavbar from "../../hooks/use-navbar";
@@ -42,6 +41,41 @@ const CompanyCards = ({ data }) => {
       <Link to={data.link}>
         <div className="Btn">Explore More</div>
       </Link>
+    </div>
+  );
+};
+
+// Search Section Component
+const SearchSection = () => {
+  const navigate = useNavigate();
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    // Navigate to search results with query
+    navigate(`/career/jobs?q=${searchQuery}&pageNo=1&limit=24`);
+  };
+
+  return (
+    <div className="search-section">
+      <form onSubmit={handleSearch} className="search-container">
+        <input
+          type="text"
+          placeholder="Search for Jobs/Internships"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+        />
+        <button type="submit">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M21 21L16.65 16.65M19 11C19 15.4183 15.4183 19 11 19C6.58172 19 3 15.4183 3 11C3 6.58172 6.58172 3 11 3C15.4183 3 19 6.58172 19 11Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        </button>
+      </form>
+      <div className="quick-links">
+        <Link to="/career/jobs" className="quick-link-btn">Jobs</Link>
+        <Link to="/career/internships" className="quick-link-btn">Internships</Link>
+        <Link to="/career/hackathons" className="quick-link-btn">Hackathons</Link>
+      </div>
     </div>
   );
 };
@@ -262,8 +296,8 @@ const Company = () => {
   });
 
   return (
-    <>
-      <div className="companyHome">
+    <main className="companyHome">
+      <SearchSection />
         <div className="pagesContainer padding-adjustment">
           <div className="spiral">
             <h1>One Step Closer to your Dream Job</h1>
@@ -276,11 +310,6 @@ const Company = () => {
               src={`${bucket}cartoonChar.svg`}
               alt="Character"
               className="cartoon"
-            />
-            <img
-              src={`${bucket}curveArrow.svg`}
-              alt="Arrow"
-              className="curveArrow"
             />
             <img src={`${bucket}uber.svg`} alt="uber" className="uber" />
             <img
@@ -512,8 +541,7 @@ const Company = () => {
         <div className="d-flex justify-content-center mb-3">
           <AdsenseComp adSlot="1464856375" />
         </div>
-      </div>
-    </>
+    </main>
   );
 };
 

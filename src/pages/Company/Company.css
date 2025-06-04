@@ -111,13 +111,6 @@
   left: 0%;
   width: 100px;
 }
-.companyHome .pagesContainer .spiral .curveArrow {
-  position: absolute;
-  top: 35%;
-  right: 10%;
-  width: 150px;
-  z-index: 4;
-}
 .companyCards {
   margin: 0px 10px;
   position: relative;
@@ -613,9 +606,6 @@
     top: 60%;
     left: -10%;
     width: 50px;
-  }
-  .companyHome .pagesContainer .spiral .curveArrow {
-    display: none;
   }
   .companyCards {
     width: 250px;

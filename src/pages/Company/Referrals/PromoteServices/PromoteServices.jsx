@@ -208,7 +208,7 @@ const PromoteServices = ({ compName }) => {
         <div className="embla__container">
           {combineData.map((card, index) => {
             return card.duration ? (
-              <div className="embla__slide" key={card._id}>
+              <div className="embla__slide" key={card._id} style={{ position: 'relative' }}>
                 <PromoteConnectCard
                   id={card._id}
                   title={card.title}
@@ -222,7 +222,7 @@ const PromoteServices = ({ compName }) => {
                 />
               </div>
             ) : (
-              <div className="embla__slide" key={card._id}>
+              <div className="embla__slide" key={card._id} style={{ position: 'relative' }}>
                 <DigitalCards
                   id={card._id}
                   discount={card.discount}

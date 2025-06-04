@@ -41,7 +41,7 @@ import {
   getProjectsByOrganisationIdPrivateMode,
   unFollowOrganization,
 } from "../../../services/APIConfig";
-import HackathonCard from "../../Company/Events/EventsChoices/HackathonCards";
+import NewEventCard from "../../../components/NewEventCard/NewEventCard";
 import ProjectCards from "../../Company/Projects/ProjectCards";
 import { useLayoutEffect } from "react";
 import Page404 from "../../Maintenance/Page404";
@@ -509,16 +509,9 @@ export default function CompanyDashboard() {
                     />
                   ))}
                 {activityChoice === "hackathons" &&
-                  hackathons.map((jobDetail, index) => (
-                    <HackathonCard
-                      key={index}
-                      {...jobDetail}
-                      className="scroll-card no-hover-scale"
-                      adminView={isUserAdmin}
-                      filterByCompany={true}
-                      filterName={organization?.name}
-                    />
-                  ))}
+                  hackathons.map((item, index) => {
+                    return <NewEventCard data={item} key={index} eventHiring={true} />;
+                  })}
                 {activityChoice === "projects" &&
                   projects.map((jobDetail, index) => (
                     <ProjectCards
