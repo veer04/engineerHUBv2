@@ -21,8 +21,8 @@ ARG VITE_PAYMENT_API_URL
 ARG VITE_ADMIN_REFERRAL_TOKEN
 
 # Install dependencies and build app
-RUN apk add --no-cache npm \
-    && npm ci --force --silent \
+RUN apk add --no-cache nodejs npm \
+    && npm install --force \
     && npm run build \
     && rm -rf /root/.npm
 
