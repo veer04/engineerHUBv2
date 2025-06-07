@@ -11,6 +11,7 @@ import useNavbar from "../../../hooks/use-navbar";
 import PaginationBarWithSearchParams from "../../../components/PaginationBarWithSearchParams/PaginationBarWithSearchParams";
 import InternshipCardNew from "./InternshipCardNew";
 import FilterContainerInternship from "../../../components/Filter/Company/FilterContainerInternship";
+import AdsenseComp from "../../../components/AdsenseComp/AdsenseComp";
 
 export default function InternshipPageNew() {
   const { hiringId } = useParams();
@@ -144,6 +145,10 @@ export default function InternshipPageNew() {
               placeholder="Search for internships,companies etc"
             />
           </div>
+                 {/* AD-4 */}
+                 <div className="d-flex justify-content-center mb-3">
+            <AdsenseComp adSlot="8908232121" />
+          </div>
 
           <FilterContainerInternship
             className="filter-section"
@@ -206,6 +211,9 @@ export default function InternshipPageNew() {
         {/* Outlet for individual internship details */}
         <Outlet />
       </div>
+      <div className="d-flex justify-content-center mb-3">
+            <AdsenseComp adSlot="1464856375" />
+          </div>
     </main>
   );
 } 

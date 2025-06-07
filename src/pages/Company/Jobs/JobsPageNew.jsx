@@ -12,6 +12,7 @@ import useNavbar from "../../../hooks/use-navbar";
 import PaginationBarWithSearchParams from "../../../components/PaginationBarWithSearchParams/PaginationBarWithSearchParams";
 import FilterContainerJob from "../../../components/Filter/Company/FilterContainerJob";
 import BannerSpaceComp from "../BannerSpaceComp/BannerSpaceComp";
+import AdsenseComp from "../../../components/AdsenseComp/AdsenseComp";
 
 const JobsPageNew = () => {
   const { hiringId } = useParams();
@@ -171,6 +172,9 @@ const JobsPageNew = () => {
               placeholder="Search for jobs, companies etc"
             />
           </div>
+          <div className="d-flex justify-content-center mb-3">
+            <AdsenseComp adSlot="8908232121" />
+          </div>
           
           <FilterContainerJob
             className="filter-section"
@@ -239,6 +243,9 @@ const JobsPageNew = () => {
         )}
         <Outlet />
       </div>
+      <div className="d-flex justify-content-center mb-3">
+            <AdsenseComp adSlot="1464856375" />
+          </div>
 
       <div className="banner-space-div">
         <BannerSpaceComp
