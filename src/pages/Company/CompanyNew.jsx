@@ -7,6 +7,7 @@ import JobsForYouFilterComp from './JobsForYouFilterPage/JobsForYouFilterComp';
 import ServicesSegment from './ServicesSegment/ServicesSegment';
 import ExploreOtherPages from './ExploreOtherPages/ExploreOtherPages';
 import TestimonialsSection from './TestimonialsSection/TestimonialsSection';
+import AdsenseComp from "../../components/AdsenseComp/AdsenseComp";
 
 // Search Section Component
 const SearchSection = () => {
@@ -68,12 +69,43 @@ const CompanyNew = () => {
       <SearchSection />
       
       <JobsSegment />
+       {/* AD-1 */}
+       <div className="d-flex justify-content-center mb-3">
+          <AdsenseComp adSlot="2075126233" />
+        </div>
+    
       <InternshipSegment />
+        {/* AD-2*/}
+        <div className="d-flex justify-content-center mb-3">
+          <AdsenseComp adSlot="4766701351" />
+        </div>
       
       <JobsForYouFilterComp />
       <ServicesSegment />
+        {/* AD-3 */}
+        <div className="d-flex justify-content-center mb-3">
+          <AdsenseComp adSlot="9608720063" />
+        </div>
       <ExploreOtherPages />
+        {/* AD-4 */}
+        <div className="d-flex justify-content-center mb-3">
+          <AdsenseComp adSlot="3771351287" />
+        </div>
       <TestimonialsSection />
+              {/* AD-5 */}
+              <div className="d-flex justify-content-center mb-3">
+          <AdsenseComp adSlot="2075126233" />
+        </div>
+                {/* AD-6 */}
+                <div className="d-flex justify-content-center mb-3">
+          <AdsenseComp adSlot="3771351287" />
+        </div>
+                {/* AD-7 */}
+                <div className="d-flex justify-content-center mb-3">
+          <AdsenseComp adSlot="2618267316" />
+        </div>
+       
+        
     </main>
   );
 };
