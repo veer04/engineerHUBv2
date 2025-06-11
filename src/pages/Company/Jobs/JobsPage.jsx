@@ -208,7 +208,8 @@ export default function JobsPage() {
               placeholder="Search for jobs, company, etc"
             />
           </div>
-          <div className="d-flex justify-content-center mb-3">
+          {/* AD Block size   */}
+          <div >
             <AdsenseComp adSlot="8908232121" />
           </div>
           <FilterContainerJob

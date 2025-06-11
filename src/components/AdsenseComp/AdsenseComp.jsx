@@ -58,7 +58,15 @@ const AdsenseComp = ({ adSlot }) => {
   }, [isVisible, location.pathname]);
 
   return (
-    <div style={{ width: "100%", display: "flex", justifyContent: "center", margin: "10px auto" }}>
+    <div style={{ 
+      overflow: "hidden", 
+      width: "100%", 
+      maxWidth: "970px",
+      minWidth: "300px",
+      margin: "10px auto",
+      display: "flex",
+      justifyContent: "center"
+    }}>
       <ins
         ref={adRef}
         className="adsbygoogle"
