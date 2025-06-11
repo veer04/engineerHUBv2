@@ -146,9 +146,9 @@ export default function InternshipPageNew() {
             />
           </div>
                  {/* AD-4 */}
-                 <div className="d-flex justify-content-center mb-3">
-            <AdsenseComp adSlot="8908232121" />
-          </div>
+               
+            <AdsenseComp adSlot="5168117459" />
+       
 
           <FilterContainerInternship
             className="filter-section"
