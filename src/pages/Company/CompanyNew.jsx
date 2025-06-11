@@ -69,10 +69,10 @@ const CompanyNew = () => {
       <SearchSection />
       
       <JobsSegment />
-      {/* AD-1 
-      <div className="d-flex justify-content-center my-4">
+      {/* AD-1 */}
+    
         <AdsenseComp adSlot="2075126233" />
-      </div>*/}
+      
     
       <InternshipSegment />
       {/* AD-2 */}
@@ -82,29 +82,29 @@ const CompanyNew = () => {
       <JobsForYouFilterComp />
       <ServicesSegment />
       {/* AD-3 */}
-      {/*<div className="d-flex justify-content-center my-4">
+    
         <AdsenseComp adSlot="9608720063" />
-      </div>*/}
+     
       
       <ExploreOtherPages />
       {/* AD-4 */}
-      {/*<div className="d-flex justify-content-center my-4">
+    
         <AdsenseComp adSlot="3771351287" />
-      </div>*/}
+     
       
       <TestimonialsSection />
       {/* AD-5 */}
-      {/*<div className="d-flex justify-content-center my-4">
+    
         <AdsenseComp adSlot="5248084515" />
-      </div>*/}
+ 
       {/* AD-6 */}
-      {/*<div className="d-flex justify-content-center my-4">
+    
         <AdsenseComp adSlot="6721817643" />
-      </div>*/}
+    
       {/* AD-7 */}
-      {/* <div className="d-flex justify-content-center my-4">
+     
         <AdsenseComp adSlot="2618267316" />
-      </div>*/}
+     
 
     </main>
   );

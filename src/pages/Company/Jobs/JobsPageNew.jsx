@@ -172,9 +172,9 @@ const JobsPageNew = () => {
               placeholder="Search for jobs, companies etc"
             />
           </div>
-          <div className="d-flex justify-content-center mb-3">
+         
             <AdsenseComp adSlot="8908232121" />
-          </div>
+         
           
           <FilterContainerJob
             className="filter-section"
