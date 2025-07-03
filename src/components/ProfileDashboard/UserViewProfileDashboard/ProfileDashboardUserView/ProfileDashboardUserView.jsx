@@ -308,9 +308,11 @@ const ProfileDashboardUserView = () => {
             {/* in mobile yeh dikhega */}
           </div>
         </div>
+        {/*
         <div className="d-flex justify-content-center mb-3">
           <AdsenseComp adSlot="1464856375" />
         </div>
+        */}
       </main>
     </>
   );
