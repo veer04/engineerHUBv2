@@ -253,9 +253,9 @@ export default function IndividualJobNew() {
           <div className="d-flex justify-content-center mb-3">
             <AdsenseComp adSlot="1960197314" />
           </div>
-          <div className="d-flex justify-content-center mb-3">
+         {/* <div className="d-flex justify-content-center mb-3">
             <AdsenseComp adSlot="6898770594" />
-          </div>
+          </div> */} 
 
           <div className="hiring-box pt-4">
             <div className="info-tiles-container">
@@ -289,9 +289,9 @@ export default function IndividualJobNew() {
           <div className="d-flex justify-content-center mb-3">
             <AdsenseComp adSlot="1960197314" />
           </div>
-          <div className="d-flex justify-content-center mb-3">
+          {/* <div className="d-flex justify-content-center mb-3">
             <AdsenseComp adSlot="6898770594" />
-          </div>
+          </div> */}
 
           <div className="hiring-box">
             <h4 className="body-sm-semibold">More Information</h4>
