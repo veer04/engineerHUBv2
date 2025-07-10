@@ -116,7 +116,8 @@ export default function JobCardsNew({ details }) {
             </div>
             <div className="detail-item">
               <BsBriefcase className="icon" />
-              <span>{getFormattedExperience()}</span>
+              {/* <span>{getFormattedExperience()}</span> */}
+              <span>{details?.opportunityTiming ? details.opportunityTiming : details?.opportunityMode}</span>
             </div>
           </div>
         </div>
