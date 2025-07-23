@@ -90,6 +90,7 @@ export default function NewNavbar() {
             Community
           </button>
         </Link>
+        {/*
         <Link onClick={() => setSelectedPageNavbar("campus")} to="/campus">
           <button
             className={`${
@@ -99,6 +100,8 @@ export default function NewNavbar() {
             Campus
           </button>
         </Link>
+        */}
+        
         <Link onClick={() => setSelectedPageNavbar("career")} to="/career">
           <button
             className={`${

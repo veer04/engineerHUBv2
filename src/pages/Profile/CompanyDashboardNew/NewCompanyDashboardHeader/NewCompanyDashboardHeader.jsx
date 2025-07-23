@@ -220,6 +220,7 @@ const NewCompanyDashboardHeader = ({ isUserAdmin, organization }) => {
                   Edit Profile
                 </button>
               </div>
+{/*
               <div>
                 <button
                   className="create-post"
@@ -245,7 +246,7 @@ const NewCompanyDashboardHeader = ({ isUserAdmin, organization }) => {
                   </span>
                   Create Post
                 </button>
-              </div>
+              </div>*/}
             </div>
           </div>
           {organization?.aboutUs && (

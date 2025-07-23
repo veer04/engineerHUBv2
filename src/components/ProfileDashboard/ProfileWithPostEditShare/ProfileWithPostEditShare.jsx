@@ -319,7 +319,7 @@ const ProfileWithPostEditShare = ({
 
       <div className="btn-siv-edit-post-share">
         <button onClick={() => navigate("edit-profile")}>Edit</button>
-        <button onClick={handlePostPage}>Post</button>
+        {/*<button onClick={handlePostPage}>Post</button>*/}  
         <RWebShare
           data={{
             text: `Check out this post`,

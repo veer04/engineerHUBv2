@@ -95,12 +95,15 @@
 .main-profile-with-post-share .btn-siv-edit-post-share {
   margin-top: 10px;
   margin-bottom: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .main-profile-with-post-share .btn-siv-edit-post-share button:nth-child(1) {
   background-color: transparent;
   color: white;
-  width: 105px;
+  width: 50% !important;
   padding: 8px;
   height: 40px;
   border: 2px solid white;
@@ -113,7 +116,7 @@
   margin-left: 8px;
 
   color: white;
-  width: 105px;
+  width: 50% !important;
 
   padding: 8px;
   height: 40px;

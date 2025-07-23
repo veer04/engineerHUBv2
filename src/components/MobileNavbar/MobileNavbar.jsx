@@ -181,7 +181,7 @@ export default function MobileNavbar() {
         <CommunitySvg className="svg" />
         <span>Community</span>
       </Link>
-      <Link
+      {/*<Link
         to="/campus"
         onClick={() => {
           setSelectedPageNavbar("campus");
@@ -193,6 +193,7 @@ export default function MobileNavbar() {
         <CampusSvg className="svg" />
         <span>Campus</span>
       </Link>
+      */}
       <Link
         to="/career"
         onClick={() => {

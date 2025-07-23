@@ -29,10 +29,12 @@ const HostPageForComapnyDashboard = () => {
 
       <div className="post-create-main-sub">
         <>
-          <WebinarCardSaif />
+          
           <CreateJobCard />
+          {/*
           <TechnicalEventComp />
-          <CulturalEventComp />
+          <WebinarCardSaif />
+          <CulturalEventComp /> */}
           <CreateInternshipCard />
           <CreateEventHiring />
         </>
