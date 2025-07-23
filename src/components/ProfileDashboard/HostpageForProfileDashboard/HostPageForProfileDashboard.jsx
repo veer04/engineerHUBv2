@@ -37,18 +37,21 @@ const HostPageForProfileDashboard = () => {
       <div className="post-create-main-sub">
         {userRole === "Alumni" ? (
           <>
-            <WebinarCardSaif />
+            
             <CreateJobCard />
+            {/*
+            <WebinarCardSaif />
             <TechnicalEventComp />
             <CulturalEventComp />
+            */}
             <CreateInternshipCard />
             <CreateEventHiring />
           </>
         ) : (
           <>
             <WebinarCardSaif />
-            <TechnicalEventComp />
-            <CulturalEventComp />
+            {/*<TechnicalEventComp />
+            <CulturalEventComp /> */}
           </>
         )}
       </div>

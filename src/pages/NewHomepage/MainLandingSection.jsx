@@ -110,8 +110,7 @@ export default function MainLandingSection() {
           One stop career solution for engineers !
         </h1>
         <h2 className="splash-subheading">
-          A platform to learn in community, explore campuses & get placed in
-          dream companies
+          A platform to learn with like minded people & get hired by your dream companies...
         </h2>
         <Link to="/get-featured">
           <button className="waitlist-btn">

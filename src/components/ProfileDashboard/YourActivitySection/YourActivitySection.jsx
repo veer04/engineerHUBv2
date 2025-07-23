@@ -59,7 +59,7 @@ const YourActivitySection = ({
       </div>
 
       <div style={{ marginTop: 10, display: "flex", gap: 10 }}>
-        {["Posts", "Jobs", "Internships"].map((buttonName) => (
+        {["Jobs", "Internships"].map((buttonName) => (
           <button
             key={buttonName}
             onClick={() => handleButtonClick(buttonName)}

@@ -46,14 +46,15 @@ const ExploreOtherPages = () => {
         showText: ++count === 4
       }
     },
-    {
+    
+    /*{
       component: OtherPageCard,
       props: {
         link: "https://engineerhub.in/campus",
         image: `${Bucket_URL}Mentors/otherpages/3.png`,
         showText: ++count === 4
       }
-    },
+    },*/
     {
       component: OtherPageCard,
       props: {

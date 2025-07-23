@@ -166,6 +166,7 @@ export default function HostingPage() {
   return (
     <>
       <main className="hosting-page">
+        {/* }
         <section className="header">
           <div className="left">
             <h1>
@@ -208,6 +209,7 @@ export default function HostingPage() {
             playsInline
           ></video>
         </section>
+        */}
         <section className="tiles-container">
           <h3>Hire Talent</h3>
           <div className="tiles">
@@ -224,6 +226,8 @@ export default function HostingPage() {
             ))}
           </div>
         </section>
+
+        {/*
         <section className="tiles-container">
           <h3 id="create-events">Create Events</h3>
           <div className="tiles">
@@ -240,6 +244,7 @@ export default function HostingPage() {
             ))}
           </div>
         </section>
+        */}
 
         <OurClientale />
       </main>

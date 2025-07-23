@@ -33,7 +33,7 @@ export default function NewHomePage() {
       <MainLandingSection />
       <StatsCarousel />
       <NewCommunitySection />
-      <NewCampusHomePage list={list} clubs={clubs} />
+     {/* <NewCampusHomePage list={list} clubs={clubs} />*/}
       <JobsForYouFilterComp/>
 
       <NewCompanyHomePage />
