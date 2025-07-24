@@ -186,20 +186,22 @@ export default function ProfilePopUp() {
     },
 
     {
-      label: "Hackathons",
+      label: "Event Hiring",
       icon: <HackathonIcon />,
-      link: "/host/hackathon",
+      link: "/host/event-hiring",
     },
-
+/*
     {
       label: "Host Webinar",
       icon: <WebinarIcon />,
       link: "/host/webinar",
     },
+    */
   ];
 
   const userCulturalAndTechnicalMenu = [
-    {
+     /*{
+     
       label: "Cultural Event",
       icon: <WebinarIcon />,
       link: "/host/cultural-event",
@@ -209,7 +211,7 @@ export default function ProfilePopUp() {
       label: "Technical Event",
       icon: <WebinarIcon />,
       link: "/host/technical-event",
-    },
+    },*/
   ];
 
   const companyMenuItems = [
@@ -218,11 +220,13 @@ export default function ProfilePopUp() {
       icon: <JobIcon />,
       link: "/host/job",
     },
+    /*
     {
       label: "Host Webinar",
       icon: <WebinarIcon />,
       link: "/host/webinar",
     },
+    */
     {
       label: "Host Internships",
       icon: <JobIcon />,
@@ -231,7 +235,7 @@ export default function ProfilePopUp() {
     {
       label: "Host Hackathons",
       icon: <JobIcon />,
-      link: "/host/hackathon",
+      link: "/host/event-hiring",
     },
     {
       label: "Manage Applications",
@@ -246,6 +250,7 @@ export default function ProfilePopUp() {
   ];
 
   const clubMenuItems = [
+    /*
     {
       label: "Upload",
       icon: <RiSuitcase2Line />,
@@ -266,9 +271,11 @@ export default function ProfilePopUp() {
       icon: <AiOutlineCalendar />,
       link: "/host/project",
     },
+    */
   ];
 
   const clubPromotionalList = [
+    /*
     {
       label: "Clubs",
       icon: promotionalSvg,
@@ -287,6 +294,7 @@ export default function ProfilePopUp() {
       link: "/under-maintenance",
       tag: "Trending",
     },
+    */
   ];
 
   const renderStudentMenuItems = studentMenuItems.map((item, index) => {
@@ -446,6 +454,7 @@ export default function ProfilePopUp() {
               hiring process!
             </>
           }
+          
           btnName={"Connect Now"}
           btnLink={`https://wa.me/+918303156089?text=${encodeURIComponent(
             "Hey, need to connect with you regarding the hiring process."
@@ -459,10 +468,10 @@ export default function ProfilePopUp() {
           bgColor={"#e8ba98"}
           title={
             <>
-              Share stories, job updates <br />& events
+              Share Opportunity <br/>updates 
             </>
           }
-          btnName={"Create Post"}
+          btnName={"Host Now"}
           btnLink={`/host`}
         />
       </div>
@@ -476,12 +485,12 @@ export default function ProfilePopUp() {
         bgColor={"#8fc8e8"}
         title={
           <>
-            Let the community know <br />
-            what’s happening!
+            Discuss with our <br />
+            Community members!
           </>
         }
-        btnName={"Create Post"}
-        btnLink={`/host`}
+        btnName={"Let's Connect"}
+        btnLink={`/chat`}
       />
     </div>
   );
@@ -642,6 +651,7 @@ export default function ProfilePopUp() {
       </div>
       {/* Promotional Content */}
       {/* {role === "Organization" && renderCompanyPromotionalContent} */}
+      {role === "User" && renderLetTheCommunityKnow}
       {role === "Alumni" && renderLetTheCommunityKnow}
       {role === "Organization" && renderConnectWithUsHiringProcess}
       {role === "Club" && renderClubPromotionalContent}
@@ -701,9 +711,11 @@ export default function ProfilePopUp() {
 
       {role === "User" && (
         <>
-          <ForHeadingComp title={"Host"} />
+          {/* 
+          <ForHeadingComp title={"Host"} /> 
           <div className="items-list">{renderTechnicalAndCulturalMenu}</div>
           <DividerCompMain />
+          */}
           <ForHeadingComp title={"1:1 Connect"} />
 
           <BelowHostComponent
@@ -764,7 +776,7 @@ export default function ProfilePopUp() {
           <button
             className="quer-btn"
             onClick={() =>
-              (window.location.href = "mailto:info@engineerhub.in")
+              (window.location.href = "mailto:myengineerhub@gmail.com")
             }
           >
             <QuerybtnIcon />
