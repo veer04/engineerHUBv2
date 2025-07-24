@@ -161,36 +161,38 @@ export default function NewFooter() {
                 Refund and cancellation policy
               </HashLink>
             </div>
+            
             <div className="pages">
-              <p className="title">Campus</p>
-              <Link to="/campus/search/IIT%20KANPUR" className="link">
-                Search Campuses
+              <p className="title">Referrals</p>
+              <Link to="/referrals/book-now/66e091cc56ed7c8c16400d91" className="link">
+                Resume Writing
               </Link>
               <Link
-                to="/trending/events/64e611837c5cb93359147f46"
+                to="/referrals/book-now/67e6e68ab701163934a31d1d"
                 className="link"
               >
-                Trending Events
+                Referral for Abroad
               </Link>
               <Link
-                to="/trending/campuses/64e88d0f3e682ea8e588a8a0"
+                to="/referrals/book-now/66ee8c10538060c46dc731a1"
                 className="link"
               >
-                Trending Campus
+                Ask Anything
               </Link>
               <Link
-                to="/trending/alumni/6485eba73b1ce8dd9ff91a10"
+                to="/referrals/product-book-now/66d45c0b36b0cd9739a994f6"
                 className="link"
               >
-                Trending Alumni
+                Editable Resume
               </Link>
               <Link
-                to="/trending/workshops/64c0f9c6f0c72e2702488a5c"
+                to="/referrals/product-book-now/66e1e87b6a46c46b0623a205"
                 className="link"
               >
-                Workshops
+                ATS-Friendly Resume
               </Link>
             </div>
+            
             <div className="pages">
               <p className="title">Career</p>
               <Link to="/career/internships?pageNo=1&limit=24" className="link">
@@ -202,12 +204,11 @@ export default function NewFooter() {
               <Link to="/career/events" className="link">
                 Hackathons
               </Link>
-              <Link to="/career/projects" className="link">
-                Projects
-              </Link>
+              
             </div>
             <div className="pages">
               <p className="title">Host</p>
+              {/*
               <Link to="/host/cultural-event" className="link">
                 Cultural Events
               </Link>
@@ -220,15 +221,14 @@ export default function NewFooter() {
               <Link to="/host/webinar" className="link">
                 Webinar
               </Link>
+              */}
               <Link to="/host/job" className="link">
                 Jobs
               </Link>
               <Link to="/host/internship" className="link">
                 Internships
               </Link>
-              <Link to="/host/project" className="link">
-                Projects
-              </Link>
+              
             </div>
           </div>
         </div>
