@@ -20,7 +20,7 @@ export default function StatsCarousel() {
               </p>
               <div className="stat">
                 <CommunitySvg className="svg" />
-                <span>5,00,000+</span>
+                <span>2,25,000+</span>
                 <span>Members</span>
               </div>
             </div>
@@ -28,12 +28,11 @@ export default function StatsCarousel() {
           <div className="carousel-item">
             <div className="stats-container">
               <p>
-                Now, every campus is at your fingertips. Explore their events,
-                alumni, and clubs.
+              Now students from colleges of all tiers are here!
               </p>
               <div className="stat">
                 <CampusSvg className="svg" />
-                <span>1,950+</span>
+                <span>800+</span>
                 <span>Campuses</span>
               </div>
             </div>
@@ -47,7 +46,7 @@ export default function StatsCarousel() {
               </p>
               <div className="stat">
                 <CompanySvg className="svg" />
-                <span>800+</span>
+                <span>65+</span>
                 <span>Companies</span>
               </div>
             </div>
@@ -85,7 +84,7 @@ export default function StatsCarousel() {
             <div className="svg-container">
               <CommunitySvg className="svg" />
             </div>
-            <span>5,00,000+</span>
+            <span>2,25,000+</span>
 
             <span>Members</span>
           </div>
@@ -95,14 +94,14 @@ export default function StatsCarousel() {
             <div className="svg-container">
               <CampusSvg className="svg" />
             </div>
-            <span>1,950+</span>
+            <span>800+</span>
             <span>Campuses</span>
           </div>
           <div className="mobile-stat">
             <div className="svg-container">
               <CompanySvg className="svg" />
             </div>
-            <span>800+</span>
+            <span>65+</span>
             <span>Companies</span>
           </div>
         </div>

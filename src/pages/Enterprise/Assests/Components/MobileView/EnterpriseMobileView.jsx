@@ -217,7 +217,7 @@ export const JobAThonMobile = () => {
 
                   <div className="frameMobView-18">
                     <p className="text-wrapper-13">
-                      We have engineer’s from 1950+ colleges across India
+                      We have engineer’s from 800+ colleges across India
                     </p>
                   </div>
                 </div>

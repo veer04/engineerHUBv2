@@ -88,15 +88,15 @@ const NewHostHomePage = () => {
                         backgroundColor: "#91F0EF",
                       }}
                     >
-                      Host
+                      Host 
                     </span>{" "}
-                    events, jobs, webinars and projects{" "}
+                    Opportunities to{" "}
                     <span
                       style={{
                         backgroundColor: "#91F0EF",
                       }}
                     >
-                      to engage & hire talents
+                      hire talents
                     </span>
                   </p>
                   <p
@@ -106,8 +106,8 @@ const NewHostHomePage = () => {
                     }}
                     className="textDesc"
                   >
-                    Host events to engage your target audience and create Jobs
-                    for the right talent.
+                    Host hackathons to engage your target audience and create Jobs
+                    to grab the right talent.
                   </p>
                   <div className="wrapButton">
                     <div
