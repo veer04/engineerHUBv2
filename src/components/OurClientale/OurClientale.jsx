@@ -33,7 +33,7 @@ const OurClientale = () => {
       <div className="main-heading-div">
         <h3 className="h3-clientale">Our Clientale</h3>
         <p className="p-clientale">
-          Over 800 top companies have hired talent through engineerHUB
+          Over 65 top companies have hired talent through engineerHUB
         </p>
       </div>
 

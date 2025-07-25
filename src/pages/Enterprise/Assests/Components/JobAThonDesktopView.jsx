@@ -244,7 +244,7 @@ export const JobAThonDesktopView = () => {
                       </div>
                       <div className={styles.weHaveEngineersFrom1950Wrapper}>
                         <div className={styles.weHaveEngineers}>
-                          We have engineer’s from 1950+ colleges across India
+                          We have engineer’s from 800+ colleges across India
                         </div>
                       </div>
                     </div>

@@ -32,11 +32,12 @@ export default function NewHomePage() {
     <main className="homepage">
       <MainLandingSection />
       <StatsCarousel />
-      <NewCommunitySection />
+     {/* <NewCommunitySection /> */}
      {/* <NewCampusHomePage list={list} clubs={clubs} />*/}
-      <JobsForYouFilterComp/>
+      
 
       <NewCompanyHomePage />
+      <JobsForYouFilterComp/>
       <NewHostHomePage />
 
       <EasyWayToHire />
