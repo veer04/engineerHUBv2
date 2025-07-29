@@ -28,7 +28,7 @@ const EasyWayModal = ({ isOpen, onClose }) => {
 
         <div className="modal-contact" onClick={handleWhatsAppClick}>
           <MdPhone className="modal-icon" />
-          <span>+91 8303156089</span>
+          <span>+91 8303156089</span> 
         </div>
 
         <button className="modal-back-btn" onClick={onClose}>
