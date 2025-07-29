@@ -37,7 +37,7 @@ const EasyWayToHire = () => {
     <>
       <div className="main-easy-way-to-hire-div">
         <div className="h3-3easy-hire-div">
-          <h3 className="h3-3easy-hire">
+          <h3 className="h3-3easy-hire"> 
             3 easy ways to{" "}
             <span style={{ backgroundColor: "#fdf751" }}> Hire</span> through
             engineerHUB{" "}

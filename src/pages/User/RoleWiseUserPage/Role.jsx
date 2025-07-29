@@ -35,10 +35,12 @@ export default function Role() {
     handleCardClick("Alumni");
     navigate("/signup");
   };
+  
   const clubNavigation = () => {
     handleCardClick("Club");
     navigate("/club-signup");
   };
+  
   const organizationNavigation = () => {
     handleCardClick("Organization");
     navigate("/organization-signup");
@@ -61,6 +63,7 @@ export default function Role() {
         "Your juniors are waiting to connect with you. Lets create one account for them.",
       onClick: mentorNavigation,
     },
+      /*
     {
       id: 3,
       title: "Club",
@@ -68,7 +71,7 @@ export default function Role() {
       description:
         "Get you club activities reach millions. Register to have participants.",
       onClick: clubNavigation,
-    },
+    },*/
     {
       id: 4,
       title: "Company",

@@ -120,7 +120,7 @@ export const JobAThonDesktopView = () => {
                       </div>
                       <div className={styles.fromConnectingWith5LakhEWrapper}>
                         <div className={styles.fromConnectingWith}>
-                          From connecting with 5 lakh+ engineers to assessments,
+                          From connecting with 2 lakh+ engineers to assessments,
                           virtual interviews, advanced analytics, and
                           ATS-powered shortlisting—our platform automates and
                           streamlines every step of the recruitment journey.
