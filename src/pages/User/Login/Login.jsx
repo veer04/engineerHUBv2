@@ -84,12 +84,13 @@ const Register = () => {
       label: "Alumni",
       value: "Alumni",
     },
+    /*
     {
       label: "Club",
       value: "Club",
-    },
+    },*/
     {
-      label: "Company",
+      label: "Employer  ",
       value: "Organization",
     },
   ];
@@ -493,10 +494,11 @@ const Register = () => {
       <div
         className="cont col-lg-3 login-right-container"
         style={{
-          borderRadius: "7px",
+          borderRadius: "20px",
           background: "#fff",
-          marginBottom: "2%",
-          marginLeft: "20px",
+          marginLeft: "auto",
+          marginRight: "auto",
+          boxShadow: "0 4px 20px rgba(0, 0, 0, 0.1)",
         }}
       >
         <div className="cont-head">
@@ -509,11 +511,11 @@ const Register = () => {
               textAlign: "center",
               width: "100%",
               lineHeight: "1.2",
-              fontSize: "36px",
+              fontSize: "26px",
               fontWeight: "6s00",
             }}
           >
-            Hey, Welcome back
+            Hey ! Welcome back
           </div>
           {/* <div
             className="my-form-head"
@@ -530,6 +532,59 @@ const Register = () => {
             Community.Campus.Company
           </div> */}
         </div>
+        <div className="sign-field reg-field">
+            {/* <div className="sign-opt "> */}
+            {/* <div> */}
+            {/* <GoogleButton onClick={handleLogin}>
+              Sign in with Google
+            </GoogleButton> */}
+            <button className="my-btn google-btn" onClick={handleLogin}>
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M21.8055 10.0415H21V10H12V14H17.6515C16.827 16.3285 14.6115 18 12 18C8.6865 18 6 15.3135 6 12C6 8.6865 8.6865 6 12 6C13.5295 6 14.921 6.577 15.9805 7.5195L18.809 4.691C17.023 3.0265 14.634 2 12 2C6.4775 2 2 6.4775 2 12C2 17.5225 6.4775 22 12 22C17.5225 22 22 17.5225 22 12C22 11.3295 21.931 10.675 21.8055 10.0415Z"
+                  fill="#FFC107"
+                />
+                <path
+                  d="M3.15308 7.3455L6.43858 9.755C7.32758 7.554 9.48058 6 12.0001 6C13.5296 6 14.9211 6.577 15.9806 7.5195L18.8091 4.691C17.0231 3.0265 14.6341 2 12.0001 2C8.15908 2 4.82808 4.1685 3.15308 7.3455Z"
+                  fill="#FF3D00"
+                />
+                <path
+                  d="M11.9999 22.0003C14.5829 22.0003 16.9299 21.0118 18.7044 19.4043L15.6094 16.7853C14.6054 17.5458 13.3574 18.0003 11.9999 18.0003C9.39891 18.0003 7.19041 16.3418 6.35841 14.0273L3.09741 16.5398C4.75241 19.7783 8.11341 22.0003 11.9999 22.0003Z"
+                  fill="#4CAF50"
+                />
+                <path
+                  d="M21.8055 10.0415H21V10H12V14H17.6515C17.2555 15.1185 16.536 16.083 15.608 16.7855L15.6095 16.7845L18.7045 19.4035C18.4855 19.6025 22 17 22 12C22 11.3295 21.931 10.675 21.8055 10.0415Z"
+                  fill="#1976D2"
+                />
+              </svg>
+              Sign in with Google
+            </button>
+            {/* </div> */}
+            {/* </div> */}
+          </div>
+          <div className="divisor d-flex justify-content-center w-100">
+            <hr
+              style={{
+                borderColor: "rgb(163, 163, 163)",
+                borderWidth: "1px",
+                height: "1px",
+              }}
+            />
+            <span className="d-flex justify-content-center p-2">or</span>
+            <hr
+              style={{
+                borderColor: "rgb(163, 163, 163)",
+                borderWidth: "1px",
+                height: "1px",
+              }}
+            />
+          </div>
 
         <form className="my-form custom-form-input" onSubmit={handleSubmit}>
           <div className="form-cont ">
@@ -615,60 +670,9 @@ const Register = () => {
               {/* <div className="f-p "onClick={gauth}>Reset Now </div> */}
             </div>
           </div>
-          <div className="divisor d-flex justify-content-center w-100">
-            <hr
-              style={{
-                borderColor: "rgb(163, 163, 163)",
-                borderWidth: "1px",
-                height: "1px",
-              }}
-            />
-            <span className="d-flex justify-content-center p-2">or</span>
-            <hr
-              style={{
-                borderColor: "rgb(163, 163, 163)",
-                borderWidth: "1px",
-                height: "1px",
-              }}
-            />
-          </div>
+          
 
-          <div className="sign-field reg-field">
-            {/* <div className="sign-opt "> */}
-            {/* <div> */}
-            {/* <GoogleButton onClick={handleLogin}>
-              Sign in with Google
-            </GoogleButton> */}
-            <button className="my-btn google-btn" onClick={handleLogin}>
-              <svg
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M21.8055 10.0415H21V10H12V14H17.6515C16.827 16.3285 14.6115 18 12 18C8.6865 18 6 15.3135 6 12C6 8.6865 8.6865 6 12 6C13.5295 6 14.921 6.577 15.9805 7.5195L18.809 4.691C17.023 3.0265 14.634 2 12 2C6.4775 2 2 6.4775 2 12C2 17.5225 6.4775 22 12 22C17.5225 22 22 17.5225 22 12C22 11.3295 21.931 10.675 21.8055 10.0415Z"
-                  fill="#FFC107"
-                />
-                <path
-                  d="M3.15308 7.3455L6.43858 9.755C7.32758 7.554 9.48058 6 12.0001 6C13.5296 6 14.9211 6.577 15.9806 7.5195L18.8091 4.691C17.0231 3.0265 14.6341 2 12.0001 2C8.15908 2 4.82808 4.1685 3.15308 7.3455Z"
-                  fill="#FF3D00"
-                />
-                <path
-                  d="M11.9999 22.0003C14.5829 22.0003 16.9299 21.0118 18.7044 19.4043L15.6094 16.7853C14.6054 17.5458 13.3574 18.0003 11.9999 18.0003C9.39891 18.0003 7.19041 16.3418 6.35841 14.0273L3.09741 16.5398C4.75241 19.7783 8.11341 22.0003 11.9999 22.0003Z"
-                  fill="#4CAF50"
-                />
-                <path
-                  d="M21.8055 10.0415H21V10H12V14H17.6515C17.2555 15.1185 16.536 16.083 15.608 16.7855L15.6095 16.7845L18.7045 19.4035C18.4855 19.6025 22 17 22 12C22 11.3295 21.931 10.675 21.8055 10.0415Z"
-                  fill="#1976D2"
-                />
-              </svg>
-              Sign in with Google
-            </button>
-            {/* </div> */}
-            {/* </div> */}
-          </div>
+          
 
           <div className="my-item-cont">
             <div>Don't have an account?</div>
@@ -685,6 +689,24 @@ const Register = () => {
             )}
           </div>
         </form>
+      </div>
+      
+      {/* Disclaimer Section */}
+      <div className="disclaimer-container">
+        <div className="disclaimer-title">
+          Note:
+        </div>
+        <ol className="disclaimer-list">
+          <li>
+          Only students and alumni can log in or sign up using Google.
+          </li>
+          <li>
+          Employers must use the standard login process.
+          </li>
+          <li>
+          Students who have added their education details and have graduated before the current year will automatically be moved to the alumni category.
+          </li>
+        </ol>
       </div>
     </main>
   );
