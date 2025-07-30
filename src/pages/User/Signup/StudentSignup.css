@@ -4,6 +4,18 @@
   width: 100%;
   padding: var(--vertical-padding) var(--section-padding);
   scroll-behavior: auto;
+
+}
+
+.Login {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+ /* padding-top: calc(var(--navbar-height) + 50px);*/
+  min-height: 100vh;
+  padding-bottom: 80px; 
+  /* Account for mobile bottom navbar */
 }
 .signup-page > .details-container {
   display: flex;

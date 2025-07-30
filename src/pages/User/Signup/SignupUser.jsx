@@ -528,9 +528,20 @@ const SignupUser = () => {
   };
 
   return (
-    <main className="Login">
-      <div className="container">
-        <div className="row d-flex justify-content-center">
+    <main className="Login"
+    style={{
+      borderRadius: "20px",
+      background: "#fff",
+      marginLeft: "auto",
+      marginRight: "auto",
+      boxShadow: "0 4px 20px rgba(0, 0, 0, 0.1)",
+      maxWidth:"480px",
+      marginBottom:"60px", 
+      marginTop:"30px" 
+    
+    }} >
+      <div className="container" >
+        <div className="row d-flex justify-content-center" >
           {/* <div
             className="col-lg-7 login-left-container"
             style={{
@@ -559,19 +570,14 @@ const SignupUser = () => {
           </div> */}
           <div
             className="cont col-lg-3 login-right-container"
-            style={{
-              borderRadius: "7px",
-              background: "#fff",
-              marginBottom: "2%",
-              marginLeft: "20px",
-            }}
+         
           >
             <div className="cont-head">
               <div
                 className="my-form-head"
                 style={{
                   color: "#0a3f51",
-                  padding: "0px 0px 30px 0px",
+                  padding: "0px 0px 10px 0px",
                 }}
               >
                 Sign Up
