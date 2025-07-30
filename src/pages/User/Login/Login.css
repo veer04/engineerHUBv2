@@ -218,14 +218,16 @@ label {
 .my-item-cont {
   display: flex;
   justify-content: center;
-  margin: 10px 0px;
+  margin: 5px 0px;
 }
 .Login {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   width: 100%;
+ /* padding-top: calc(var(--navbar-height) + 50px);*/
+  min-height: 100vh;
+  padding-bottom: 80px; /* Account for mobile bottom navbar */
 }
 
 .Login .google-btn {
@@ -258,7 +260,7 @@ label {
 .login-right-container {
   margin: 0 auto !important;
   position: relative;
-  top: calc(0px - var(--navbar-height) + 25px);
+  top: calc(0px - var(--navbar-height) + 120px);
 }
 @media screen and (max-width: 456px) {
   .cont {
@@ -281,4 +283,109 @@ label {
 .positionRelBottom {
   position: relative;
   top: 15px;
+}
+
+/* Disclaimer Styles */
+.disclaimer-container {
+  margin-top: 80px;
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  border: 1px solid #e9ecef;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #6c757d;
+  max-width: 480px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 10px;
+}
+
+.disclaimer-title {
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: #495057;
+}
+
+.disclaimer-list {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.disclaimer-list li {
+  margin-bottom: 8px;
+}
+
+.disclaimer-list li:last-child {
+  margin-bottom: 0;
+}
+
+/* Mobile Responsive Styles for Disclaimer */
+@media screen and (max-width: 768px) {
+  .Login {
+    padding-bottom: 100px; /* More space for mobile navbar */
+  }
+  
+  .login-right-container {
+    max-width: 90vw;
+    margin-left: 5vw;
+    margin-right: 5vw;
+  }
+  
+  .disclaimer-container {
+    margin-top: 100px;
+    padding: 15px;
+    font-size: 13px;
+    max-width: 90vw;
+    margin-left: 5vw;
+    margin-right: 5vw;
+  }
+  
+  .disclaimer-title {
+    font-size: 14px;
+    margin-bottom: 8px;
+  }
+  
+  .disclaimer-list {
+    padding-left: 15px;
+  }
+  
+  .disclaimer-list li {
+    margin-bottom: 6px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .Login {
+    padding-bottom: 100px; /* Even more space for smaller mobile navbar */
+  }
+  
+  .login-right-container {
+    max-width: 95vw;
+    margin-left: 2.5vw;
+    margin-right: 2.5vw;
+  }
+  
+  .disclaimer-container {
+    margin-top: 80px;
+    padding: 12px;
+    font-size: 12px;
+    max-width: 95vw;
+    margin-left: 2.5vw;
+    margin-right: 2.5vw;
+  }
+  
+  .disclaimer-title {
+    font-size: 13px;
+    margin-bottom: 6px;
+  }
+  
+  .disclaimer-list {
+    padding-left: 12px;
+  }
+  
+  .disclaimer-list li {
+    margin-bottom: 5px;
+  }
 }

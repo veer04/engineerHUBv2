@@ -49,20 +49,21 @@ export default function Role() {
   const roles = [
     {
       id: 1,
-      title: "Student",
-      image: `${bucket}student.png`,
+      title: "Job Seekers",
+      image: `${bucket}Student.png`,
       description:
-        "Explore, learn and apply for opportunities by just one-click.",
+        "Connect with like minded people & get hired by your dream companies",
       onClick: studentNavigation,
     },
+    /*
     {
       id: 2,
       title: "Alma",
-      image: `${bucket}alumni.png`,
+      image: `${bucket}alumni_new.png`,
       description:
         "Your juniors are waiting to connect with you. Lets create one account for them.",
       onClick: mentorNavigation,
-    },
+    },*/
       /*
     {
       id: 3,
@@ -74,17 +75,17 @@ export default function Role() {
     },*/
     {
       id: 4,
-      title: "Company",
-      image: `${bucket}organization.png`,
-      description: "Now post for free to have quality candidates.",
+      title: "Employer",
+      image: `${bucket}employer_new.png`,
+      description: "Get the right candidates, already shortlisted, within 3 days.",
       onClick: organizationNavigation,
     },
   ];
   return (
     <>
       <main className="role-selection-page">
-        <h1>Get Started Now</h1>
-        <h2>Select for whom you have to create account for</h2>
+        <h3>Let’s Get Started</h3>
+        <h2>Choose your role to continue !</h2>
         <section>
           {roles.map((role) => {
             return (
@@ -94,7 +95,8 @@ export default function Role() {
                     backgroundImage: `url(${role.image})`,
                     backgroundPosition: "center",
                     backgroundRepeat: "no-repeat",
-                    backgroundColor: "var(--primary-color-green)",
+                    backgroundSize: "cover",
+                    
                   }}
                   className="role-image"
                 ></div>

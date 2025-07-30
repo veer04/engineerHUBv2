@@ -687,7 +687,21 @@ const SignupUser = () => {
               <div className="sign-field reg-field">
                 {/* <div className="sign-opt "> */}
                   {/* <div> */}
-                    <GoogleButton onClick={handleLogin}>
+                    <GoogleButton onClick={handleLogin} style={{
+    borderRadius: "30px",         // circular look
+    padding: "12px 20px",         // same vertical/horizontal padding
+    backgroundColor: "#ffffff",   // optional: white background to match Google style
+    color: "#000",                // Google buttons often use dark text
+    border: "1px solid #ccc",     // subtle border
+    fontWeight: "500",
+    width: "100%",                // full-width like other inputs
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: "8px",                   // space between icon and text
+    boxShadow: "0 2px 4px rgba(0,0,0,0.1)", // subtle shadow
+    cursor: "pointer"
+  }}>
                       Sign Up with Google
                     </GoogleButton>
                   {/* </div> */}
