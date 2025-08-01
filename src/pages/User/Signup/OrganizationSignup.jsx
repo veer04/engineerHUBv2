@@ -16,7 +16,7 @@ import useNavbar from "../../../hooks/use-navbar";
 import { Select, MenuItem } from "@mui/material";
 import { API_URL } from "../../../services/APIUtils";
 import Cookies from "js-cookie";
-import HostEventTimeline from "../../../components/Timeline/HostEventTimeline";
+import TimelineEmployer from "../../../components/Timeline/TimelineEmployer";
 import { controller } from "../../../services/APIConfig";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import countryCodes from "../../../assets/countryCodes";
@@ -159,6 +159,8 @@ const OrganizationSignup = () => {
     const newErrors = {
       organizationName: "",
       webSiteURL: "",
+      password: "",
+      confirmPassword: "",
     };
 
     if (!formData.organizationName) {
@@ -170,6 +172,46 @@ const OrganizationSignup = () => {
       valid = false;
     } else if (!/^https:\/\//.test(formData.webSiteURL)) {
       newErrors.webSiteURL = "URL must begin with https://";
+      valid = false;
+    }
+
+    // Password validation (from validateInput3)
+    if (!formData.password) {
+      newErrors.password = "Password is required";
+      valid = false;
+    } else {
+      newErrors.password = "Password must contain at least";
+      let allErrors = [];
+      if (formData.password.length < 8) {
+        allErrors.push(" 8 characters");
+      }
+      if (!/[A-Z]/.test(formData.password)) {
+        allErrors.push(" 1 uppercase character");
+      }
+      if (!/[a-z]/.test(formData.password)) {
+        allErrors.push(" 1 lowercase character");
+      }
+      if (!/\d/.test(formData.password)) {
+        allErrors.push(" 1 numeric character");
+      }
+      if (!/[!@#$%^&*(),.?":{}|<>]/.test(formData.password)) {
+        allErrors.push(" 1 special character");
+      }
+      if (allErrors.length > 0) {
+        newErrors.password += allErrors.join(",");
+        newErrors.password += ".";
+        valid = false;
+      } else {
+        newErrors.password = "";
+      }
+    }
+    if (!formData.confirmPassword) {
+      newErrors.confirmPassword = "Confirm password is required";
+      valid = false;
+    }
+    if (formData.password !== formData.confirmPassword) {
+      newErrors.confirmPassword =
+        "Password and Confirm Password does not match";
       valid = false;
     }
 
@@ -230,11 +272,8 @@ const OrganizationSignup = () => {
       if (validateInput1()) setStep(step + 1);
     }
     if (step === 2) {
-      if (validateInput2()) setStep(step + 1);
-    }
-    if (step === 3) {
-      if (validateInput3()) setValidation(true);
-      {
+      if (validateInput2()) {
+        setValidation(true);
         sessionStorage.setItem("OtpRoute", "true");
       }
     }
@@ -428,11 +467,8 @@ const OrganizationSignup = () => {
           {errors.hiringType}
         </FormHelperText>
       </FormControl>
-    </div>
-  );
 
-  const step3 = (
-    <div>
+      {/* Password Fields from step3 */}
       <FormControl margin="normal" fullWidth variant="outlined">
         <InputLabel
           htmlFor="student-signup-outlined-adornment-password"
@@ -503,17 +539,25 @@ const OrganizationSignup = () => {
   return (
     <>
       <main className="signup-page">
-        <section className="details-container">
+        <section className="details-container signup-details-frame">
+          <div className="signup-header">
+            <h2 className="signup-heading" style={{
+                  color: "#0a3f51",
+                  padding: "0px 0px 10px 0px",
+                  fontWeight: "700",
+                  textAlign: "center",
+              
+                }}>Employer Signup</h2>
+          </div>
           <div className="details">
-            <HostEventTimeline
+            <TimelineEmployer
               step={step}
-              numberOfCheckpoints={3}
-              width="100%"
+              numberOfCheckpoints={2} // <-- set this to 2
+              width="85%"
             />
             <form action="/" method="POST" onSubmit={handleSubmit}>
               {step === 1 && step1}
               {step === 2 && step2}
-              {step === 3 && step3}
               <div className="button-container">
                 <button
                   type="button"
@@ -524,11 +568,11 @@ const OrganizationSignup = () => {
                   Previous
                 </button>
                 <button
-                  type={`${step === 3 ? "submit" : "button"}`}
+                  type={`${step === 2 ? "submit" : "button"}`}
                   onClick={handleNext}
                   className="button next-button"
                 >
-                  {`${step === 3 ? "Submit" : "Next"}`}
+                  {`${step === 2 ? "Submit" : "Next"}`}
                 </button>
               </div>
             </form>

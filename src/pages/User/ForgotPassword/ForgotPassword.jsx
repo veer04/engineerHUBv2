@@ -80,12 +80,7 @@ export default function ForgotPassword() {
         <div className="details">
           <div className="cont-head">
             <div
-              className="my-form-head forgotPassHeader"
-              style={{
-                fontSize: "40px",
-                color: "#0a3f51",
-                padding: "0px 0px 30px 0px",
-              }}
+              className="forgotPassHeader"
             >
               Forgot Password
             </div>

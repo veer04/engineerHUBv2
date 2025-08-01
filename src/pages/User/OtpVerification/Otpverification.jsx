@@ -198,7 +198,19 @@ const OTP = () => {
                         pattern="[0-9]*"
                         required
                       /> */}
-                    <button className="logBtn logout-btn" type="submit">
+                    <button className="verify button" type="submit" 
+                    style={{ width: "100%", 
+                      color: "white",
+                      backgroundColor: "var(--primary-color-green)",
+                      borderRadius: "8px",
+                      padding: "0.5rem 1rem",
+                      fontSize: "1rem",
+                      fontWeight: "600",
+                      border: "none",
+                      cursor: "pointer",
+                    
+                
+                    }}>
                       {loading ? "Loading..." : "Verify"}
                     </button>
                   </form>
