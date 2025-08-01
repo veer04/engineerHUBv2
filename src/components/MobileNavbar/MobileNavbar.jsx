@@ -170,16 +170,16 @@ export default function MobileNavbar() {
   return showNavbar ? (
     <div className="mobile-navbar">
       <Link
-        to="/community"
+        to="/chat"
         onClick={() => {
-          setSelectedPageNavbar("community");
+          setSelectedPageNavbar("chat");
         }}
         className={`item-container ${
           selectedPageNavbar === "community" ? "--is-active" : ""
         }`}
       >
         <CommunitySvg className="svg" />
-        <span>Community</span>
+        <span> Chat</span>
       </Link>
       {/*<Link
         to="/campus"
