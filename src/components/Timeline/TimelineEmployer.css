@@ -4,7 +4,7 @@
   justify-content: center;
   align-items: center;
   width: 100%;
-  margin: 2em 0;
+  margin: 0.5em 0;
 }
 .timeline__container > .timeline-buttons {
   display: flex;
@@ -14,9 +14,9 @@
   position: relative;
 }
 .timeline__container > .timeline-buttons > .form-button {
-  background-color: white;
+  background-color: var(--main-background-color);
   color: #a1a1a1;
-  border-radius: 50%;
+  border-radius: 100%;
   width: 3rem;
   display: flex;
   justify-content: center;
@@ -28,7 +28,7 @@
 }
 .timeline__container > .timeline-buttons > .line {
   position: absolute;
-  border: 2px dashed #a1a1a1;
+  border: 1px dashed #a1a1a1;
 }
 
 @media screen and (max-width: 530px) {

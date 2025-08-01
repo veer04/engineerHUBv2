@@ -1,27 +1,73 @@
 .otpBox {
-  background-color: #fff;
+  background: #fff;
+  box-shadow: 0 6px 32px rgba(0,0,0,0.13), 0 1.5px 4px rgba(0,0,0,0.08);
+  border-radius: 18px;
+  padding: 2.5rem 2.5rem;
+  max-width: 400px;
+  margin: 2.5rem auto 7%;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
-  height: 40vh;
-  margin-bottom: 7%;
+  transition: box-shadow 0.2s;
 }
+
+@media (max-width: 600px) {
+  .otpBox {
+    padding: 1.2rem 0.7rem;
+    max-width: 98vw;
+    margin: 1.2rem 1vw 7%;
+    border-radius: 12px;
+  }
+}
+
 .headerOtpVerification {
   margin-top: 5%;
-  margin-left: 5%;
+  margin-left: 0;
   color: rgba(1, 64, 81, 1);
   font-size: 2rem;
   font-weight: 700;
   text-align: center;
 }
-.btnSubmit {
-  border: none;
-  padding: 10px;
-}
+
 .otpVbox > form {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: flex-start;
+  align-items: stretch;
   margin-bottom: 5%;
+  width: 100%;
 }
+
+.otpVbox input[type="text"], .otpVbox input[type="email"], .otpVbox input[type="number"] {
+  padding: 0.7rem;
+  border-radius: 8px;
+  border: 1px solid #b2dfdb;
+  margin-bottom: 1.2rem;
+  background: #e6fcfc;
+  font-size: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+  outline: none;
+  transition: border 0.2s;
+}
+.otpVbox input:focus {
+  border: 1.5px solid #0a3f51;
+}
+
+.otpVbox input[type="submit"] {
+  background-color: #0a3f51;
+  color: #fff;
+  border: none;
+  padding: 0.8rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
+}
+.otpVbox input[type="submit"]:hover {
+  background-color: #0a3f51;
+  transform: scale(1.02);
+}
+.otpVbox input[type="submit"]:active {
+  background-color: #0a3f51; 
+}     
