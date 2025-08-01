@@ -173,7 +173,7 @@ function App() {
       <ToastContainer />
       <GlobalSnackbar />
       <ProfilePopUp />
-      <FloatingChatButton />
+      {/* <FloatingChatButton /> */}
       <Suspense fallback={<LoadingPage />}>
         <Routes>
           <Route index element={<NewHomePage path="homepage" />} />

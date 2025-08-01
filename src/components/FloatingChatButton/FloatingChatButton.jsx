@@ -65,6 +65,7 @@ export default function FloatingChatButton() {
           id="floating-chat-button"
           onClick={handleOpenChat}
           className="body-lg-regular"
+          
           style={{
             position: "fixed",
             zIndex: 1000,
@@ -88,7 +89,7 @@ export default function FloatingChatButton() {
         >
           {width > 820 ? "Community Chat" : "Chat"}
           <div className="chat-button-icon">
-            {/* <IoIosArrowUp /> */}
+            
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="32"

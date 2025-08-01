@@ -79,15 +79,15 @@ export default function NewNavbar() {
       </Link>
       <div className="pages">
         <Link
-          onClick={() => setSelectedPageNavbar("community")}
-          to="/community"
+          onClick={() => setSelectedPageNavbar("community chat")}
+          to="/Chat"
         >
           <button
             className={`${
               selectedPageNavbar === "community" ? "--is-active" : ""
             }`}
           >
-            Community
+            Community Chat
           </button>
         </Link>
         {/*
