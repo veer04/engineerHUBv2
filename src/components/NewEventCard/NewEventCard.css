@@ -1,8 +1,15 @@
 .event-card-new {
-  padding: 1rem;
-  width: 100%;
-  background: #fff;
-  max-width: 20.75rem;
+  background: #FFFFFF;
+  border: 1px solid #E0E0E0;
+  border-radius: 8px;
+  padding: 16px;
+  position: relative;
+  transition: all 0.2s ease;
+  /* Remove height: 100% to prevent infinite description box */
+  display: flex;
+  flex-direction: column;
+  /* Add isolation to prevent CSS conflicts */
+  isolation: isolate;
 }
 .event-card-new .poster {
   overflow: hidden;
@@ -111,6 +118,15 @@
   display: flex;
   flex-direction: row;
   gap: 0.5rem;
+  /* Ensure this doesn't affect other .details classes */
+  position: relative;
+  z-index: 1;
+  /* Prevent any inherited card-like styling */
+  background: transparent;
+  box-shadow: none;
+  border-radius: 0;
+  padding: 0;
+  margin: 0;
 }
 .event-card-new .details .logo {
   min-width: 40px;

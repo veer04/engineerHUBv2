@@ -5,6 +5,24 @@
   height: auto;
   position: relative;
   padding-bottom: 24px;
+  /* Add isolation to prevent CSS conflicts */
+  isolation: isolate;
+}
+
+/* Ensure internship-specific details don't conflict with other components */
+#individual-internship-container .hiring-box .hiring-header .details {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  width: 100%;
+  position: relative;
+  z-index: 1;
+  /* Prevent any inherited card-like styling */
+  background: transparent;
+  box-shadow: none;
+  border-radius: 0;
+  padding: 0;
+  margin: 0;
 }
 
 .hiring-box {

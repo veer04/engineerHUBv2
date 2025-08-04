@@ -5,6 +5,8 @@
   border-radius: 0.3125rem;
   border: 1px solid var(--foundation-black-black-50, #e6e6e6);
   cursor: pointer;
+  /* Add isolation to prevent CSS conflicts */
+  isolation: isolate;
 }
 .project-card .poster-container {
   width: 100%;
@@ -92,6 +94,14 @@
   align-items: flex-start;
   overflow: hidden;
   gap: 0.25rem;
+  /* Override any global .details styles */
+  background: transparent !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  max-width: none !important;
+  width: auto !important;
 }
 .project-card .info-container .details .title {
   color: var(--foundation-black-black-400, #333);

@@ -93,15 +93,10 @@ const CompanyNew = () => {
      
       
       <TestimonialsSection />
-      {/* AD-5 */}
+      
     
-        <AdsenseComp adSlot="5248084515" />
- 
-      {/* AD-6 */}
     
-        <AdsenseComp adSlot="6721817643" />
-    
-      {/* AD-7 */}
+      {/* AD-7 display */}
      
         <AdsenseComp adSlot="2618267316" />
      

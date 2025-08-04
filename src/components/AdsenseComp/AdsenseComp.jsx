@@ -7,6 +7,18 @@ const AdsenseComp = ({ adSlot }) => {
   const [isVisible, setIsVisible] = useState(false);
   const location = useLocation();
 
+  // Pre-load the AdSense script as soon as component mounts
+  useEffect(() => {
+    const scriptSrc = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8474972598474156";
+    if (!document.querySelector(`script[src="${scriptSrc}"]`)) {
+      const script = document.createElement("script");
+      script.src = scriptSrc;
+      script.async = true;
+      script.crossOrigin = "anonymous";
+      document.head.appendChild(script);
+    }
+  }, []);
+
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -15,7 +27,10 @@ const AdsenseComp = ({ adSlot }) => {
           observer.disconnect();
         }
       },
-      { threshold: 0.1 }
+      { 
+        threshold: 0,
+        rootMargin: '200px 0px' // Start loading when ad is 200px away from viewport
+      }
     );
 
     if (adRef.current) {
@@ -25,14 +40,10 @@ const AdsenseComp = ({ adSlot }) => {
     return () => {
       observer.disconnect();
     };
-  }, [location.pathname]); // remount on route change
+  }, [location.pathname]);
 
   useEffect(() => {
-    const scriptSrc = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8474972598474156";
-
     if (!isVisible || initializedRef.current) return;
-
-    const script = document.querySelector(`script[src="${scriptSrc}"]`);
 
     const initAd = () => {
       try {
@@ -45,15 +56,20 @@ const AdsenseComp = ({ adSlot }) => {
       }
     };
 
-    if (!script) {
-      const newScript = document.createElement("script");
-      newScript.src = scriptSrc;
-      newScript.async = true;
-      newScript.crossOrigin = "anonymous";
-      newScript.onload = initAd;
-      document.head.appendChild(newScript);
-    } else {
+    // Try to initialize immediately if adsbygoogle is already loaded
+    if (window.adsbygoogle) {
       initAd();
+    } else {
+      // If not loaded, wait for it and try again
+      const checkAdsense = setInterval(() => {
+        if (window.adsbygoogle) {
+          initAd();
+          clearInterval(checkAdsense);
+        }
+      }, 50); // Check every 50ms
+
+      // Clear interval after 5 seconds to prevent infinite checking
+      setTimeout(() => clearInterval(checkAdsense), 5000);
     }
   }, [isVisible, location.pathname]);
 
@@ -81,121 +97,3 @@ const AdsenseComp = ({ adSlot }) => {
 };
 
 export default AdsenseComp;
-
-
-{/* import React, { useEffect } from "react";
-import { useLocation } from "react-router-dom";
-
-const AdsenseComp = () => {
-  const location = useLocation();
-  
-  useEffect(() => {
-    const url = `${location.pathname}${location.search}`;
-    // console.log(url);
-
-    const scriptElement = document.querySelector(
-      `script[src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8474972598474156"]`
-    );
-
-    const handleScriptLoad = () => {
-      try {
-        if (window.adsbygoogle) {
-          // console.log("pushing ads");
-          window.adsbygoogle.push({});
-        } else {
-          scriptElement.addEventListener("load", handleScriptLoad);
-          console.log("waiting until adsense lib is loaded");
-        }
-      } catch (error) {
-        // console.log("error in adsense", error);
-      }
-    };
-
-    handleScriptLoad();
-
-    return () => {
-      if (scriptElement) {
-        scriptElement.removeEventListener("load", handleScriptLoad);
-      }
-    };
-  }, [location.pathname, location.search]);
-
-  return (
-    <div style={{ overflow: "hidden", margin: "5px", width: "100%" }}>
-      <ins
-        className="adsbygoogle"
-        style={{ display: "block" }}
-        data-ad-format="fluid"
-        width="300px"
-        data-ad-layout-key="-ff-x+8-eb+f5"
-        data-ad-client="ca-pub-8474972598474156"
-        data-ad-slot="2127277024"
-      ></ins>
-    </div>
-  );
-};
-
-export default AdsenseComp;
-
-
-
-import React, { useEffect } from "react";
-import { useLocation } from "react-router-dom";
-
-const AdsenseComp = () => {
-  const location = useLocation();
-
-  useEffect(() => {
-    const url = `${location.pathname}${location.search}`;
-    let scriptElement = document.querySelector(
-      `script[src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8474972598474156"]`
-    );
-
-    const addScript = () => {
-      scriptElement = document.createElement("script");
-      scriptElement.src =
-        "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8474972598474156";
-      scriptElement.async = true;
-      scriptElement.crossOrigin = "anonymous";
-      document.head.appendChild(scriptElement);
-    };
-
-    const handleScriptLoad = () => {
-      try {
-        if (window.adsbygoogle) {
-          window.adsbygoogle.push({});
-        }
-      } catch (error) {
-        console.error("Adsense error:", error);
-      }
-    };
-
-    if (!scriptElement) {
-      addScript();
-    }
-
-    scriptElement?.addEventListener("load", handleScriptLoad);
-    handleScriptLoad();
-
-    return () => {
-      scriptElement?.removeEventListener("load", handleScriptLoad);
-    };
-  }, [location.pathname, location.search]);
-
-  return (
-    <div style={{ overflow: "hidden", margin: "10px auto", width: "100%", display: "flex", justifyContent: "center" }}>
-      <ins
-        className="adsbygoogle"
-        style={{ display: "block", width: "100%", maxWidth: "970px", height: "auto" }}
-        data-ad-client="ca-pub-8474972598474156"
-        data-ad-slot= {adSlot}
-        data-ad-format="auto"
-        data-full-width-responsive="true"
-      ></ins>
-    </div>
-  );
-};
-
-export default AdsenseComp;
-
-*/}
