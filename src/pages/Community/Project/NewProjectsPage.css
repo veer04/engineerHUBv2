@@ -3,6 +3,8 @@
   flex-direction: column;
   width: 100%;
   padding: var(--vertical-padding) var(--section-padding);
+  /* Add isolation to prevent CSS conflicts */
+  isolation: isolate;
 }
 .projects-page .main-container {
   display: flex;

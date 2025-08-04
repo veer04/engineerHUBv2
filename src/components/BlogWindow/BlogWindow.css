@@ -16,6 +16,11 @@
   font-size: 0.8rem;
   font-weight: 400;
   padding: 0.2rem 0;
+  /* Override any global .details styles */
+  background: transparent !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  max-width: none !important;
 }
 #blog-description-box img{
   max-width: 100%;

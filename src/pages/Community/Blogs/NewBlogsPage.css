@@ -3,6 +3,8 @@
   flex-direction: column;
   width: 100%;
   padding: var(--vertical-padding) var(--section-padding);
+  /* Add isolation to prevent CSS conflicts */
+  isolation: isolate;
 }
 .blogs-page .blog-window {
   width: 48rem;
