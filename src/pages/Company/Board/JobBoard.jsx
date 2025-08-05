@@ -41,6 +41,7 @@ export default function JobBoard() {
   const [isSendingMail, setIsSendingMail] = useState(false);
   const [isAISorting, setIsAISorting] = useState(false);
   const [isClearingSorted, setIsClearingSorted] = useState(false);
+  const [isMigrating, setIsMigrating] = useState(false);
   const [subject, setSubject] = useState("");
   const [message, setMessage] = useState("");
   const [senderEmail, setSenderEmail] = useState("");
@@ -76,7 +77,7 @@ export default function JobBoard() {
     if (!pageNo || !limit) {
       navigate(
         `/career/jobs/board/${id}?pageNo=1&limit=30${
-          !!params.status ? `&status=${params.status}` : ""
+          !!params.status ? `&status=${params.status}` : "&status=Response"
         }`
       );
     }
@@ -551,6 +552,51 @@ export default function JobBoard() {
     }
   };
 
+  const handleMigrateUncategorized = async () => {
+    setIsMigrating(true);
+    try {
+      const response = await axios.post(
+        `${API_URL}api/v1/hiringDashboard/migrateUncategorizedToResponse`,
+        {},
+        config
+      );
+
+      if (response.data.success) {
+        setSnackbarMessage(`Successfully migrated ${response.data.data.modifiedCount} applications from Uncategorized to Response`);
+        setSnackbarSeverity("success");
+        setSnackbarDuration(5000);
+        setSnackbarOpen(true);
+        
+        // Refresh data to show migrated applications in Response segment
+        queryClient.invalidateQueries({ queryKey: ["ApplicantsCount"] });
+        queryClient.invalidateQueries({ queryKey: ["Jobs", "board"] });
+        
+        // Navigate to Response segment to see the migrated data
+        setSearchParams(
+          (prev) => {
+            prev.set("status", "Response");
+            prev.set("pageNo", "1");
+            prev.set("limit", "30");
+            return prev;
+          },
+          { replace: true }
+        );
+      } else {
+        throw new Error(response.data.message || "Migration failed");
+      }
+    } catch (error) {
+      console.error("Migration error:", error);
+      setSnackbarMessage(
+        error?.response?.data?.message || "Failed to migrate uncategorized applications"
+      );
+      setSnackbarSeverity("error");
+      setSnackbarDuration(5000);
+      setSnackbarOpen(true);
+    } finally {
+      setIsMigrating(false);
+    }
+  };
+
   return (
     <>
       <div
@@ -955,6 +1001,24 @@ export default function JobBoard() {
                     </button>
                   </>
                 )}
+              {params.status === "Response" && boardDataRows.length === 0 && (
+                <button
+                  onClick={handleMigrateUncategorized}
+                  disabled={isMigrating}
+                  className="migrate-btn body-sm-semibold d-flex align-items-center gap-1"
+                  style={{
+                    backgroundColor: "#ffa500",
+                    color: "white",
+                    border: "none",
+                    borderRadius: "8px",
+                    padding: "8px 16px",
+                    fontSize: "14px",
+                    fontWeight: "600",
+                  }}
+                >
+                  <RiInboxArchiveLine /> {isMigrating ? "Migrating..." : "Migrate Old Data"}
+                </button>
+              )}
               {params.status !== "Sorted" && (
                 <button
                   onClick={handleAISort}
@@ -1217,7 +1281,7 @@ export default function JobBoard() {
                     <h4>No Data Available</h4>
                     <p>
                       {params.status === "Response" 
-                        ? "No response applications found for this job."
+                        ? "No response applications found for this job. If you had applications before, they might be marked as 'Uncategorized'. Click 'Migrate Old Data' to convert them to Response status."
                         : params.status === "Sorted" 
                         ? "No sorted candidates available. Try sorting response candidates first."
                         : params.status === "Shortlisted"
@@ -1232,6 +1296,11 @@ export default function JobBoard() {
                     {params.status === "Sorted" && (
                       <small>
                         Navigate to "Response" segment and click "Sort" to create sorted candidates.
+                      </small>
+                    )}
+                    {params.status === "Response" && (
+                      <small>
+                        Check the "Show All" tab to see if there are applications that need to be migrated.
                       </small>
                     )}
                   </div>
