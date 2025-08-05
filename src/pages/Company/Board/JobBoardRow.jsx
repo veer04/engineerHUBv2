@@ -2,7 +2,7 @@ import axios from "axios";
 import { Fragment, useEffect, useState } from "react";
 import { FiUserPlus, FiUserX } from "react-icons/fi";
 import { RiInboxArchiveLine } from "react-icons/ri";
-import { MdMailOutline } from "react-icons/md";
+import { MdMailOutline, MdVisibility, MdClose } from "react-icons/md";
 import { useParams, useSearchParams } from "react-router-dom";
 import { API_URL } from "../../../services/APIUtils";
 import { getAccessToken } from "../../../features/User/UserDetails";
@@ -15,6 +15,7 @@ export default function JobBoardRow({
   isAnyRowUpdating,
   setIsAnyRowUpdating,
   isDataFetching,
+  showAIScore,
   onSendMail,
 }) {
   // get the hiring id from the url use useParams
@@ -28,6 +29,7 @@ export default function JobBoardRow({
   const [isSelected, setIsSelected] = useState(false);
   const [isHiringLoading, setIsHiringLoading] = useState(false);
   const [isUpdating, setIsUpdating] = useState(false);
+  const [showSummaryModal, setShowSummaryModal] = useState(false);
 
   useEffect(() => {
     setStatus(searchParams.get("status"));
@@ -135,7 +137,7 @@ export default function JobBoardRow({
           data: [
             {
               registrationId: data?._id,
-              status: "Uncategorized",
+              status: "Response",
             },
           ],
         },
@@ -148,7 +150,7 @@ export default function JobBoardRow({
           queryKey: ["Jobs", "board", pageNo, limit, id, status],
         });
         queryClient.invalidateQueries({
-          queryKey: ["Jobs", "board", pageNo, limit, id, "Uncategorized"],
+          queryKey: ["Jobs", "board", pageNo, limit, id, "Response"],
         });
         console.log(res);
         setIsUpdating(false);
@@ -222,7 +224,7 @@ export default function JobBoardRow({
                   ? "#00D5881A"
                   : data?.status === "Rejected"
                   ? "#FF00001A"
-                  : data?.status === "Uncategorized"
+                  : data?.status === "Response"
                   ? "#01405126"
                   : "#FFD60026",
               color:
@@ -230,7 +232,7 @@ export default function JobBoardRow({
                   ? "#00643A"
                   : data?.status === "Rejected"
                   ? "#FF0000"
-                  : data?.status === "Uncategorized"
+                  : data?.status === "Response"
                   ? "#002B36"
                   : "#B89A00",
             }}
@@ -280,13 +282,46 @@ export default function JobBoardRow({
           "-"
         )}
       </div>
+      {showAIScore && (
+        <div className="table-item table-content table-content-sorted">
+          <div className="ai-score-container">
+            <div className="ai-score">
+              <span className="score-value">
+                {data?.aiScore !== undefined && data?.aiScore !== null 
+                  ? `${Math.round(data.aiScore)}/100` 
+                  : "N/A"}
+              </span>
+            </div>
+            {data?.aiScoringSuccess === false && (
+              <small className="score-warning">⚠️ Fallback</small>
+            )}
+          </div>
+        </div>
+      )}
+      {showAIScore && (
+        <div className="table-item table-content table-content-summary">
+          <div className="summary-content">
+            {data?.aiScoreDetails?.reasoning ? (
+              <button 
+                className="view-summary-btn body-sm-regular"
+                onClick={() => setShowSummaryModal(true)}
+                title="View AI Analysis Summary"
+              >
+                <MdVisibility /> View Summary
+              </button>
+            ) : (
+              <small>No summary available</small>
+            )}
+          </div>
+        </div>
+      )}
       <div className={`table-item table-content table-content-8`}>
         {isUpdating && <div className="loader-4"></div>}
         {!isUpdating && (
           <>
             {(!!status === false || status === "Show All") && (
               <>
-                {data?.status === "Uncategorized" && (
+                {data?.status === "Response" && (
                   <>
                     <button
                       onClick={() => shortlistApplicant()}
@@ -330,7 +365,7 @@ export default function JobBoardRow({
                 )}
               </>
             )}
-            {status === "Uncategorized" && (
+            {status === "Response" && (
               <>
                 <button
                   onClick={() => shortlistApplicant()}
@@ -428,6 +463,90 @@ export default function JobBoardRow({
           </>
         )}
       </div>
+
+      {/* AI Summary Modal */}
+      {showSummaryModal && (
+        <div className="ai-summary-modal-overlay" onClick={() => setShowSummaryModal(false)}>
+          <div className="ai-summary-modal" onClick={(e) => e.stopPropagation()}>
+            <div className="modal-header">
+              <h3 className="modal-title">AI Analysis Summary</h3>
+              <button 
+                className="modal-close-btn"
+                onClick={() => setShowSummaryModal(false)}
+                title="Close"
+              >
+                <MdClose />
+              </button>
+            </div>
+            <div className="modal-content">
+              <div className="candidate-info">
+                <h4>{`${data?.firstName}${data?.lastName ? ` ${data?.lastName}` : ""}`}</h4>
+                <p className="ai-score-display">
+                  <strong>AI Score: </strong>
+                  <span className="score-badge">
+                    {data?.aiScore !== undefined && data?.aiScore !== null 
+                      ? `${Math.round(data.aiScore)}/100` 
+                      : "N/A"}
+                  </span>
+                  {data?.aiScoringSuccess === false && (
+                    <span className="fallback-warning">⚠️ Fallback Score</span>
+                  )}
+                </p>
+              </div>
+              
+              {data?.aiScoreDetails?.reasoning && (
+                <div className="reasoning-section">
+                  <h5>Analysis Reasoning:</h5>
+                  <p>{data.aiScoreDetails.reasoning}</p>
+                </div>
+              )}
+              
+              {data?.aiScoreDetails?.keyStrengths && data.aiScoreDetails.keyStrengths.length > 0 && (
+                <div className="strengths-section">
+                  <h5>Key Strengths:</h5>
+                  <ul>
+                    {data.aiScoreDetails.keyStrengths.map((strength, index) => (
+                      <li key={index}>{strength}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+              
+              {data?.aiScoreDetails?.skillMatch !== undefined && (
+                <div className="detailed-scores">
+                  <h5>Detailed Breakdown:</h5>
+                  <div className="score-breakdown">
+                    {data.aiScoreDetails.skillMatch !== undefined && (
+                      <div className="score-item">
+                        <span>Skill Match:</span>
+                        <span>{data.aiScoreDetails.skillMatch}/100</span>
+                      </div>
+                    )}
+                    {data.aiScoreDetails.experienceRelevance !== undefined && (
+                      <div className="score-item">
+                        <span>Experience Relevance:</span>
+                        <span>{data.aiScoreDetails.experienceRelevance}/100</span>
+                      </div>
+                    )}
+                    {data.aiScoreDetails.educationFit !== undefined && (
+                      <div className="score-item">
+                        <span>Education Fit:</span>
+                        <span>{data.aiScoreDetails.educationFit}/100</span>
+                      </div>
+                    )}
+                    {data.aiScoreDetails.overallFit !== undefined && (
+                      <div className="score-item">
+                        <span>Overall Fit:</span>
+                        <span>{data.aiScoreDetails.overallFit}/100</span>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
     </Fragment>
   );
 }
