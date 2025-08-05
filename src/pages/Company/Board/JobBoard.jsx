@@ -1,8 +1,9 @@
 import { Fragment, useEffect, useRef, useState } from "react";
 import "./JobBoard.css";
-import { FiDownload, FiUserPlus, FiUserX } from "react-icons/fi";
+import { FiDownload, FiUserPlus, FiUserX, FiInbox } from "react-icons/fi";
 import { MdDeleteOutline, MdMailOutline } from "react-icons/md";
 import { RiInboxArchiveLine } from "react-icons/ri";
+import { BiSort } from "react-icons/bi";
 import Loading from "../../../components/Loader/Loading";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
@@ -38,6 +39,8 @@ export default function JobBoard() {
   const [isDownloading, setIsDownloading] = useState(false);
   const [isAnyRowUpdating, setIsAnyRowUpdating] = useState(false); // if any row is updating, then disable the download button
   const [isSendingMail, setIsSendingMail] = useState(false);
+  const [isAISorting, setIsAISorting] = useState(false);
+  const [isClearingSorted, setIsClearingSorted] = useState(false);
   const [subject, setSubject] = useState("");
   const [message, setMessage] = useState("");
   const [senderEmail, setSenderEmail] = useState("");
@@ -61,7 +64,7 @@ export default function JobBoard() {
   const params = {
     pageNo: pageNo ? pageNo : 1,
     limit: limit ? limit : 30,
-    status: status ? status : "", // Show All as empty string, Shortlisted, Rejected, Processing , Uncategorized, Removed
+    status: status ? status : "", // Show All as empty string, Shortlisted, Rejected, Processing , Response, Removed
     exp: exp ? exp : "",
   };
 
@@ -134,6 +137,14 @@ export default function JobBoard() {
 
   useEffect(() => {
     if (boardData.isSuccess) {
+      console.log('BoardData loaded:', {
+        status: params.status,
+        applicantsCount: boardData.data.data.data.applicants.length,
+        totalApplicants: boardData.data.data.data.totalApplicants,
+        pageNo: params.pageNo,
+        limit: params.limit
+      });
+      
       setBoardDataRows(boardData.data.data.data.applicants);
       setPageCount(
         Math.ceil(
@@ -144,7 +155,7 @@ export default function JobBoard() {
         )
       );
     }
-  }, [boardData]);
+  }, [boardData, params.status, params.pageNo, params.limit]);
 
   const handleDownload = async () => {
     if (selectedRows.length === 0) {
@@ -275,16 +286,16 @@ export default function JobBoard() {
   }
 
   function uncategorizeApplicants() {
-    const uncategorizedApplicants = selectedRows.map((job) => ({
+    const responseApplicants = selectedRows.map((job) => ({
       registrationId: job?._id,
-      status: "Uncategorized",
+      status: "Response",
     }));
     axios
       .patch(
         `${API_URL}api/v1/hiringDashboard/updateApplicantsStatus`,
         {
           hiringId: id,
-          data: uncategorizedApplicants,
+          data: responseApplicants,
         },
         config
       )
@@ -376,7 +387,7 @@ export default function JobBoard() {
         ? "Processing"
         : params.status === "Rejected"
         ? "Rejected"
-        : "Uncategorized";
+        : "Response";
     await axios
       .post(
         `${API_URL}api/v1/hiringDashboard/sendCrmEmail`,
@@ -432,6 +443,113 @@ export default function JobBoard() {
       submitForm();
     }
   }
+
+  const handleAISort = async () => {
+    if (boardDataRows.length === 0) {
+      setSnackbarMessage("No applicants to sort");
+      setSnackbarSeverity("error");
+      setSnackbarDuration(3000);
+      setSnackbarOpen(true);
+      return;
+    }
+
+    setIsAISorting(true);
+    try {
+      const response = await axios.post(
+        `${API_URL}api/v1/hiringDashboard/sortApplicantsWithAI`,
+        {
+          hiringId: id,
+        },
+        config
+      );
+
+      if (response.data.success) {
+        setSnackbarMessage("Response candidates moved to 'Sorted' segment successfully!");
+        setSnackbarSeverity("success");
+        setSnackbarDuration(5000);
+        setSnackbarOpen(true);
+        
+        // Refresh data to show the new Sorted segment
+        queryClient.invalidateQueries({ queryKey: ["ApplicantsCount"] });
+        queryClient.invalidateQueries({ queryKey: ["Jobs", "board"] });
+        
+        // Navigate to the Sorted segment
+        setSearchParams(
+          (prev) => {
+            prev.set("status", "Sorted");
+            prev.set("pageNo", "1");
+            prev.set("limit", "30");
+            return prev;
+          },
+          { replace: true }
+        );
+      } else {
+        throw new Error(response.data.message || "AI sorting failed");
+      }
+    } catch (error) {
+      console.error("AI sorting error:", error);
+      let errorMessage = "Failed to move candidates to sorted segment";
+      
+      if (error?.response?.data?.message?.includes("already exists")) {
+        errorMessage = "Sorted data already exists. Please clear existing sorted data first.";
+      } else if (error?.response?.data?.message) {
+        errorMessage = error.response.data.message;
+      }
+      
+      setSnackbarMessage(errorMessage);
+      setSnackbarSeverity("error");
+      setSnackbarDuration(5000);
+      setSnackbarOpen(true);
+    } finally {
+      setIsAISorting(false);
+    }
+  };
+
+  const handleClearSorted = async () => {
+    setIsClearingSorted(true);
+    try {
+      const response = await axios.post(
+        `${API_URL}api/v1/hiringDashboard/clearSortedData`,
+        {
+          hiringId: id,
+        },
+        config
+      );
+
+      if (response.data.success) {
+        setSnackbarMessage(`Successfully moved ${response.data.data.movedCount} candidates back to Response segment`);
+        setSnackbarSeverity("success");
+        setSnackbarDuration(3000);
+        setSnackbarOpen(true);
+        
+        // Refresh data and navigate to Response segment
+        queryClient.invalidateQueries({ queryKey: ["ApplicantsCount"] });
+        queryClient.invalidateQueries({ queryKey: ["Jobs", "board"] });
+        
+        setSearchParams(
+          (prev) => {
+            prev.set("status", "Response");
+            prev.set("pageNo", "1");
+            prev.set("limit", "30");
+            return prev;
+          },
+          { replace: true }
+        );
+      } else {
+        throw new Error(response.data.message || "Failed to clear sorted data");
+      }
+    } catch (error) {
+      console.error("Clear sorted data error:", error);
+      setSnackbarMessage(
+        error?.response?.data?.message || "Failed to move candidates back to Response"
+      );
+      setSnackbarSeverity("error");
+      setSnackbarDuration(5000);
+      setSnackbarOpen(true);
+    } finally {
+      setIsClearingSorted(false);
+    }
+  };
 
   return (
     <>
@@ -651,7 +769,7 @@ export default function JobBoard() {
                 onClick={() =>
                   setSearchParams(
                     (prev) => {
-                      prev.set("status", "Uncategorized");
+                      prev.set("status", "Response");
                       prev.set("pageNo", "1");
                       prev.set("limit", "30");
                       return prev;
@@ -660,18 +778,47 @@ export default function JobBoard() {
                   )
                 }
                 className={`${
-                  params.status === "Uncategorized" ? "--selected" : ""
+                  params.status === "Response" ? "--selected" : ""
                 }`}
               >
-                <p className="body-sm-regular">Uncategorized</p>
-                {/* Data comes in the form of an array with the following structure:  [{count: 1, status: 'Processing'}, {count: 1, status: 'Shortlisted'}, {count: 1, status: 'Uncategorized'}, {count: 1, status: 'Rejected'}] */}
+                <p className="body-sm-regular">Response</p>
+                {/* Data comes in the form of an array with the following structure:  [{count: 1, status: 'Processing'}, {count: 1, status: 'Shortlisted'}, {count: 1, status: 'Response'}, {count: 1, status: 'Rejected'}] */}
                 {!!applicantsCountData?.data?.data?.data?.find(
-                  (item) => item.status === "Uncategorized"
+                  (item) => item.status === "Response"
                 )?.count && (
                   <span className="body-sm-regular">
                     {
                       applicantsCountData?.data?.data?.data?.find(
-                        (item) => item.status === "Uncategorized"
+                        (item) => item.status === "Response"
+                      )?.count
+                    }
+                  </span>
+                )}
+              </button>
+              <button
+                onClick={() =>
+                  setSearchParams(
+                    (prev) => {
+                      prev.set("status", "Sorted");
+                      prev.set("pageNo", "1");
+                      prev.set("limit", "30");
+                      return prev;
+                    },
+                    { replace: true }
+                  )
+                }
+                className={`${
+                  params.status === "Sorted" ? "--selected" : ""
+                }`}
+              >
+                <p className="body-sm-regular">Sorted</p>
+                {!!applicantsCountData?.data?.data?.data?.find(
+                  (item) => item.status === "Sorted"
+                )?.count && (
+                  <span className="body-sm-regular">
+                    {
+                      applicantsCountData?.data?.data?.data?.find(
+                        (item) => item.status === "Sorted"
                       )?.count
                     }
                   </span>
@@ -765,7 +912,11 @@ export default function JobBoard() {
                 )}
               </button>
               <button
-                onClick={() =>
+                onClick={() => {
+                  // Clear cache to ensure fresh data for Show All
+                  queryClient.removeQueries({ queryKey: ["Jobs", "board"] });
+                  queryClient.invalidateQueries({ queryKey: ["ApplicantsCount"] });
+                  
                   setSearchParams(
                     (prev) => {
                       prev.set("status", "");
@@ -774,8 +925,8 @@ export default function JobBoard() {
                       return prev;
                     },
                     { replace: true }
-                  )
-                }
+                  );
+                }}
                 className={`${params.status === "" ? "--selected" : ""}`}
               >
                 <p className="body-sm-regular">Show All</p>
@@ -804,6 +955,24 @@ export default function JobBoard() {
                     </button>
                   </>
                 )}
+              {params.status !== "Sorted" && (
+                <button
+                  onClick={handleAISort}
+                  disabled={isAISorting}
+                  className="sort-btn body-sm-semibold d-flex align-items-center gap-1"
+                >
+                  <BiSort /> {isAISorting ? "Sorting..." : "Sort"}
+                </button>
+              )}
+              {params.status === "Sorted" && (
+                <button
+                  onClick={handleClearSorted}
+                  disabled={isClearingSorted}
+                  className="move-back-btn body-sm-semibold d-flex align-items-center gap-1"
+                >
+                  <RiInboxArchiveLine /> {isClearingSorted ? "Moving..." : "Move to Response"}
+                </button>
+              )}
               <button
                 onClick={handleDownload}
                 disabled={isDownloading}
@@ -982,7 +1151,7 @@ export default function JobBoard() {
               pages={pageCount}
             />
           </div>
-          <div className="board-table">
+          <div className={`board-table ${params.status === 'Sorted' ? '--with-ai-scores' : ''}`}>
             <div className="table-item table-headers table-header-1 body-sm-regular"></div>
             <div className="table-item table-headers table-header-2 body-sm-regular">
               Name
@@ -1002,22 +1171,22 @@ export default function JobBoard() {
             <div className="table-item table-headers table-header-7 body-sm-regular">
               Resume
             </div>
+            {params.status === 'Sorted' && (
+              <div className="table-item table-headers table-header-sorted body-sm-regular">
+                Sorted
+              </div>
+            )}
+            {params.status === 'Sorted' && (
+              <div className="table-item table-headers table-header-summary body-sm-regular">
+                Summary
+              </div>
+            )}
             <div className="table-item table-headers table-header-8 body-sm-regular">
               Actions
             </div>
             {boardData.isLoading && (
               <>
-                <div
-                  style={{
-                    marginTop: "5dvh",
-                    marginBottom: "10dvh",
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    gridColumn: "1/9",
-                    gridRow: "7/7",
-                  }}
-                >
+                <div className="loading-state">
                   <Loading />
                 </div>
               </>
@@ -1025,40 +1194,51 @@ export default function JobBoard() {
             {!boardData.isLoading &&
               boardData.isFetching &&
               boardDataRows.length !== 0 && (
-                <div
-                  style={{
-                    marginTop: ".5rem",
-                    marginBottom: ".5rem",
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    gridColumn: "1/9",
-                    // gridRow: "1",
-                    color: "grey",
-                    fontSize: ".8rem",
-                  }}
-                >
+                <div className="refreshing-message">
                   Refreshing Data...
                 </div>
               )}
             {!boardData.isLoading &&
               boardData.isFetching &&
               boardDataRows.length === 0 && (
-                <div
-                  style={{
-                    marginTop: "5dvh",
-                    marginBottom: "10dvh",
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    gridColumn: "1/9",
-                    gridRow: "7/7",
-                  }}
-                >
+                <div className="loading-state">
                   <Loading />
                 </div>
               )}
             {boardData.isSuccess &&
+              boardDataRows.length === 0 &&
+              !boardData.isLoading &&
+              !boardData.isFetching && (
+                <div className="no-data-message">
+                  <div className="no-data-content">
+                    <div className="no-data-icon">
+                      <FiInbox />
+                    </div>
+                    <h4>No Data Available</h4>
+                    <p>
+                      {params.status === "Response" 
+                        ? "No response applications found for this job."
+                        : params.status === "Sorted" 
+                        ? "No sorted candidates available. Try sorting response candidates first."
+                        : params.status === "Shortlisted"
+                        ? "No shortlisted candidates yet."
+                        : params.status === "Rejected"
+                        ? "No rejected candidates yet."
+                        : params.status === "Processing"
+                        ? "No candidates in processing status."
+                        : "No candidates found for this job."
+                      }
+                    </p>
+                    {params.status === "Sorted" && (
+                      <small>
+                        Navigate to "Response" segment and click "Sort" to create sorted candidates.
+                      </small>
+                    )}
+                  </div>
+                </div>
+              )}
+            {boardData.isSuccess &&
+              boardDataRows.length > 0 &&
               boardDataRows.map((item) => (
                 <JobBoardRow
                   key={item?._id}
@@ -1068,6 +1248,7 @@ export default function JobBoard() {
                   isAnyRowUpdating={isAnyRowUpdating}
                   setIsAnyRowUpdating={setIsAnyRowUpdating}
                   isDataFetching={boardData.isFetching}
+                  showAIScore={params.status === 'Sorted'}
                   onSendMail={() => {
                     setSelectedRows([item]);
                     const modal = document.getElementById(`sendMailModal-${jobData?.data?.data?.data?._id}`);

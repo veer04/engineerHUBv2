@@ -21,6 +21,7 @@
 .crm-board .main-container {
   padding: 1rem;
   background-color: white;
+  min-height: 600px; /* Ensure minimum height for consistent layout */
 }
 .crm-board .main-container .status-toggle-container {
   display: flex;
@@ -110,6 +111,69 @@
   color: white;
   border: none;
 }
+
+.crm-board
+  .main-container
+  .categories-container
+  .download-container
+  .sort-btn {
+  border-radius: 0.3125rem;
+  background: #f0f9ff;
+  padding: 0.62rem;
+  color: #138382;
+  border: 1px solid #138382;
+  font-weight: 600;
+}
+
+.crm-board
+  .main-container
+  .categories-container
+  .download-container
+  .sort-btn:hover {
+  background: #138382;
+  color: white;
+}
+
+.crm-board
+  .main-container
+  .categories-container
+  .download-container
+  .sort-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.crm-board
+  .main-container
+  .categories-container
+  .download-container
+  .move-back-btn {
+  border-radius: 0.3125rem;
+  background: #fef3f2;
+  padding: 0.62rem;
+  color: #dc2626;
+  border: 1px solid #dc2626;
+  font-weight: 600;
+}
+
+.crm-board
+  .main-container
+  .categories-container
+  .download-container
+  .move-back-btn:hover {
+  background: #dc2626;
+  color: white;
+}
+
+.crm-board
+  .main-container
+  .categories-container
+  .download-container
+  .move-back-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
 .crm-board .main-container .action-container {
   display: flex;
   justify-content: space-between;
@@ -195,7 +259,126 @@
   grid-template-columns: 40px 11rem minmax(11rem, 1fr) minmax(11rem, 1fr) 7rem 8rem 7rem 10rem;
   justify-content: flex-start;
   overflow: auto;
+  min-height: 400px; /* Ensure minimum height to prevent shrinking */
+  grid-auto-rows: max-content; /* Prevent row stretching */
+  align-content: start; /* Align content to start instead of stretching */
 }
+
+/* Updated grid when AI scores are shown */
+.crm-board .main-container .board-table.--with-ai-scores {
+  grid-template-columns: 40px 8rem minmax(7rem, 1fr) minmax(7rem, 1fr) 5rem 5rem 5rem 6rem minmax(8rem, 1fr) 7rem;
+  min-height: 400px; /* Ensure minimum height to prevent shrinking */
+  grid-auto-rows: max-content; /* Prevent row stretching */
+  align-content: start; /* Align content to start instead of stretching */
+}
+
+/* No Data Message Styles */
+.crm-board .main-container .board-table .no-data-message {
+  grid-column: 1 / -1; /* Span across all columns */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 300px;
+  padding: 2rem;
+  background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);
+  border: 2px dashed #d1d5db;
+  border-radius: 0.75rem;
+  margin: 1rem 0;
+  transition: all 0.3s ease;
+}
+
+/* Specific grid column spanning for regular table (8 columns) */
+.crm-board .main-container .board-table:not(.--with-ai-scores) .no-data-message {
+  grid-column: 1 / 9;
+}
+
+/* Specific grid column spanning for AI-enabled table (10 columns) */
+.crm-board .main-container .board-table.--with-ai-scores .no-data-message {
+  grid-column: 1 / 11;
+}
+
+.crm-board .main-container .board-table .no-data-message:hover {
+  border-color: #9ca3af;
+  background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+}
+
+.crm-board .main-container .board-table .no-data-content {
+  text-align: center;
+  max-width: 450px;
+  padding: 1rem;
+}
+
+.crm-board .main-container .board-table .no-data-icon {
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.crm-board .main-container .board-table .no-data-icon svg {
+  width: 3rem;
+  height: 3rem;
+  color: #9ca3af;
+  stroke-width: 1.5;
+}
+
+.crm-board .main-container .board-table .no-data-content h4 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #374151;
+  margin: 0 0 1rem 0;
+  letter-spacing: -0.025em;
+}
+
+.crm-board .main-container .board-table .no-data-content p {
+  font-size: 1rem;
+  color: #6b7280;
+  line-height: 1.6;
+  margin: 0 0 0.75rem 0;
+  font-weight: 400;
+}
+
+.crm-board .main-container .board-table .no-data-content small {
+  font-size: 0.875rem;
+  color: #138382;
+  font-style: italic;
+  display: block;
+  margin-top: 0.75rem;
+  padding: 0.5rem;
+  background: rgba(19, 131, 130, 0.1);
+  border-radius: 0.375rem;
+  font-weight: 500;
+}
+
+/* Responsive adjustments for no data message */
+@media (max-width: 768px) {
+  .crm-board .main-container .board-table .no-data-message {
+    padding: 1rem;
+    min-height: 250px;
+  }
+  
+  .crm-board .main-container .board-table .no-data-content h4 {
+    font-size: 1.25rem;
+  }
+  
+  .crm-board .main-container .board-table .no-data-content p {
+    font-size: 0.875rem;
+  }
+}
+
+/* Updated border radius when AI scores are shown */
+.crm-board .main-container .board-table.--with-ai-scores .table-headers:nth-child(8) {
+  border-radius: 0;
+}
+
+.crm-board .main-container .board-table.--with-ai-scores .table-headers:nth-child(9) {
+  border-radius: 0;
+}
+
+.crm-board .main-container .board-table.--with-ai-scores .table-headers:nth-child(10) {
+  border-radius: 0 5px 5px 0;
+}
+
 .crm-board .main-container .board-table input[type="checkbox"] {
   width: 1.25rem;
   height: 1.25rem;
@@ -216,6 +399,20 @@
 .crm-board .main-container .board-table .table-headers:nth-child(8) {
   border-radius: 0 5px 5px 0;
 }
+
+/* Updated border radius when AI scores are shown */
+.crm-board .main-container .board-table.--with-ai-scores .table-headers:nth-child(8) {
+  border-radius: 0;
+}
+
+.crm-board .main-container .board-table.--with-ai-scores .table-headers:nth-child(9) {
+  border-radius: 0;
+}
+
+.crm-board .main-container .board-table.--with-ai-scores .table-headers:nth-child(10) {
+  border-radius: 0 5px 5px 0;
+}
+
 .crm-board .main-container .board-table .table-item {
   justify-content: center;
   display: flex;
@@ -305,4 +502,312 @@
 .crm-board .main-container .board-table .table-content-8 .hired-btn.--hired {
   color: #00643a;
   background-color: #00d58826;
+}
+
+/* AI Score Column Styles */
+.crm-board .main-container .board-table .table-content-sorted {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0.375rem;
+  gap: 0.25rem;
+  min-width: 6rem;
+  text-align: center;
+}
+
+.crm-board .main-container .board-table .ai-score-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  width: 100%;
+  max-width: 100%;
+}
+
+.crm-board .main-container .board-table .ai-score {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.125rem;
+  width: 100%;
+}
+
+.crm-board .main-container .board-table .score-value {
+  font-weight: 600;
+  font-size: 0.75rem;
+  color: #138382;
+  padding: 0.25rem 0.375rem;
+  background: rgba(19, 131, 130, 0.1);
+  border-radius: 0.25rem;
+  white-space: nowrap;
+  min-width: fit-content;
+}
+
+.crm-board .main-container .board-table .score-warning {
+  font-size: 0.625rem;
+  color: #f59e0b;
+  font-weight: 500;
+  margin-top: 0.125rem;
+}
+
+/* AI Summary Column Styles */
+.crm-board .main-container .board-table .table-content-summary {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
+  gap: 0.25rem;
+  min-width: 8rem;
+  text-align: center;
+}
+
+.crm-board .main-container .board-table .summary-content {
+  width: 100%;
+  max-width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.crm-board .main-container .board-table .view-summary-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.375rem 0.5rem;
+  background: #f0f9ff;
+  color: #138382;
+  border: 1px solid #138382;
+  border-radius: 0.25rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.crm-board .main-container .board-table .view-summary-btn:hover {
+  background: #138382;
+  color: white;
+}
+
+.crm-board .main-container .board-table .view-summary-btn:active {
+  transform: translateY(1px);
+}
+
+/* AI Summary Modal Styles */
+.ai-summary-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  backdrop-filter: blur(2px);
+}
+
+.ai-summary-modal {
+  background: white;
+  border-radius: 0.75rem;
+  width: 90%;
+  max-width: 600px;
+  max-height: 80vh;
+  overflow: hidden;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  animation: modalSlideIn 0.3s ease-out;
+}
+
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9) translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.ai-summary-modal .modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid #e5e7eb;
+  background: #f9fafb;
+}
+
+.ai-summary-modal .modal-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #111827;
+  margin: 0;
+}
+
+.ai-summary-modal .modal-close-btn {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: #6b7280;
+  cursor: pointer;
+  padding: 0.25rem;
+  border-radius: 0.25rem;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ai-summary-modal .modal-close-btn:hover {
+  background: #f3f4f6;
+  color: #374151;
+}
+
+.ai-summary-modal .modal-content {
+  padding: 1.5rem;
+  overflow-y: auto;
+  max-height: calc(80vh - 80px);
+}
+
+.ai-summary-modal .candidate-info {
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.ai-summary-modal .candidate-info h4 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #111827;
+  margin: 0 0 0.5rem 0;
+}
+
+.ai-summary-modal .ai-score-display {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0;
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+.ai-summary-modal .score-badge {
+  background: #138382;
+  color: white;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.375rem;
+  font-weight: 600;
+  font-size: 0.875rem;
+}
+
+.ai-summary-modal .fallback-warning {
+  background: #fef3c7;
+  color: #92400e;
+  padding: 0.125rem 0.375rem;
+  border-radius: 0.25rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.ai-summary-modal .reasoning-section,
+.ai-summary-modal .strengths-section,
+.ai-summary-modal .detailed-scores {
+  margin-bottom: 1.5rem;
+}
+
+.ai-summary-modal h5 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #374151;
+  margin: 0 0 0.75rem 0;
+}
+
+.ai-summary-modal .reasoning-section p {
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: #4b5563;
+  margin: 0;
+}
+
+.ai-summary-modal .strengths-section ul {
+  margin: 0;
+  padding-left: 1.25rem;
+  list-style-type: disc;
+}
+
+.ai-summary-modal .strengths-section li {
+  font-size: 0.875rem;
+  line-height: 1.4;
+  color: #0f766e;
+  margin-bottom: 0.25rem;
+  font-weight: 500;
+}
+
+.ai-summary-modal .score-breakdown {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.ai-summary-modal .score-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem;
+  background: #f9fafb;
+  border-radius: 0.5rem;
+  border: 1px solid #e5e7eb;
+}
+
+.ai-summary-modal .score-item span:first-child {
+  font-size: 0.875rem;
+  color: #374151;
+  font-weight: 500;
+}
+
+.ai-summary-modal .score-item span:last-child {
+  font-size: 0.875rem;
+  color: #138382;
+  font-weight: 600;
+  background: rgba(19, 131, 130, 0.1);
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+}
+
+/* Loading states - ensure consistent height */
+.crm-board .main-container .board-table .loading-state {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 300px;
+  padding: 2rem;
+}
+
+/* Specific grid column spanning for loading states */
+.crm-board .main-container .board-table:not(.--with-ai-scores) .loading-state {
+  grid-column: 1 / 9;
+}
+
+.crm-board .main-container .board-table.--with-ai-scores .loading-state {
+  grid-column: 1 / 11;
+}
+
+/* Refreshing data message styling */
+.crm-board .main-container .board-table .refreshing-message {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  color: #6b7280;
+  font-size: 0.875rem;
+  background: rgba(249, 250, 251, 0.8);
+  border-radius: 0.375rem;
+  margin: 0.5rem 0;
 }
