@@ -4,6 +4,28 @@ import verifiedIcon from "./svg/verified.svg";
 import options from "./svg/options.svg";
 import defaultPoster from "../../assets/defaultPoster";
 
+// Special users mapping - email to display role
+const SPECIAL_USERS = {
+  "rishabhs883@gmail.com": "Admin",
+  // Add more special users here as needed
+  // "another@example.com": "Moderator",
+};
+
+// Helper function to get display role for special users
+const getDisplayRole = (sender) => {
+  // Check if user is in special users list
+  if (sender?.email && SPECIAL_USERS[sender.email]) {
+    return SPECIAL_USERS[sender.email];
+  }
+  
+  // Default role display logic
+  if (sender?.role === "Admin") {
+    return "Admin";
+  }
+  
+  return sender?.role;
+};
+
 export default function Message({
   messages,
   index,
@@ -152,7 +174,7 @@ export default function Message({
                   // sender.role?.map((tag) => {
                   //   return (
                   <div key={sender?.role} className="tag">
-                    {sender?.role === "Admin" ? "Moderator" : sender?.role}
+                    {getDisplayRole(sender)}
                   </div>
                 )
               // );
