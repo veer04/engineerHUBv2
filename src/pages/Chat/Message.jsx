@@ -4,6 +4,28 @@ import verifiedIcon from "./svg/verified.svg";
 import options from "./svg/options.svg";
 import defaultPoster from "../../assets/defaultPoster";
 
+// Special users mapping - email to display role
+const SPECIAL_USERS = {
+  "rishabhs883@gmail.com": "Admin",
+  // Add more special users here as needed
+  // "another@example.com": "Moderator",
+};
+
+// Helper function to get display role for special users
+const getDisplayRole = (sender) => {
+  // Check if user is in special users list
+  if (sender?.email && SPECIAL_USERS[sender.email]) {
+    return SPECIAL_USERS[sender.email];
+  }
+  
+  // Default role display logic
+  if (sender?.role === "Admin") {
+    return "Admin";
+  }
+  
+  return sender?.role;
+};
+
 export default function Message({
   messages,
   index,
@@ -72,30 +94,6 @@ export default function Message({
   const renderMessageContent = (text) => {
     const urlRegex = /(https?:\/\/[^\s]+)/g;
     return text.split(urlRegex).map((part, index) => {
-      if (part.match(urlRegex)) {
-        return (
-          <a
-            style={{ color: "rgb(124, 170, 243)" }}
-            href={part}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            {part}
-          </a>
-        );
-      }
-      return (
-        <span key={index} className="text-content">
-          {part}
-        </span>
-      );
-    });
-  };
-
-  const checkForLink = (text) => {
-    const urlRegex = /(https?:\/\/[^\s]+)/g;
-    const parts = text.split(urlRegex);
-    return parts.map((part, index) => {
       if (part.match(urlRegex)) {
         return (
           <span key={index} className="link-margin mx-1">
@@ -175,7 +173,7 @@ export default function Message({
                   // sender.role?.map((tag) => {
                   //   return (
                   <div key={sender?.role} className="tag">
-                    {sender?.role === "Admin" ? "Moderator" : sender?.role}
+                    {getDisplayRole(sender)}
                   </div>
                 )
               // );
