@@ -35,7 +35,7 @@ import {
 } from "../../../features/User/UserDetails";
 import Loading from "../../../components/Loader/Loading";
 import { Link } from "react-router-dom";
-import JobHiringModal from "./JobHiringModal";
+import JobHiringModal, { modalState } from "./JobHiringModal";
 
 export default function IndividualInternship() {
   const { hiringId } = useParams();
@@ -245,6 +245,18 @@ export default function IndividualInternship() {
   useEffect(() => {
     getHiringDetails();
   }, [hiringId]);
+
+  const openModal = () => {
+    if (modalState.setOpen) {
+      modalState.setOpen(true);
+    }
+  };
+
+  const closeModal = () => {
+    if (modalState.setOpen) {
+      modalState.setOpen(false);
+    }
+  };
 
   return (
     <section id="individual-job-container">
@@ -593,8 +605,7 @@ export default function IndividualInternship() {
                       </button>
                     ) : (
                       <button
-                        data-bs-toggle="modal"
-                        data-bs-target="#jobHiringModal"
+                        onClick={openModal}
                         className="body-md-semibold hiring-apply-btn w-100"
                       >
                         Easy Apply

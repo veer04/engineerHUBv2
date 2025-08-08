@@ -4,6 +4,8 @@ import { FiDownload, FiUserPlus, FiUserX, FiInbox } from "react-icons/fi";
 import { MdDeleteOutline, MdMailOutline } from "react-icons/md";
 import { RiInboxArchiveLine } from "react-icons/ri";
 import { BiSort } from "react-icons/bi";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import { SiOpenai } from "react-icons/si";
 import Loading from "../../../components/Loader/Loading";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
@@ -18,6 +20,7 @@ import useGlobalSnackbar from "../../../hooks/useGlobalSnackbar";
 import FormInput from "../../../components/FormInputs/FormInput";
 import FormInputTextarea from "../../../components/FormInputs/FormInputTextarea";
 import { Editor } from "@tinymce/tinymce-react";
+import RateLimitIndicator from "../../../components/RateLimitIndicator/RateLimitIndicator";
 
 export default function JobBoard() {
   const navigate = useNavigate();
@@ -41,10 +44,14 @@ export default function JobBoard() {
   const [isSendingMail, setIsSendingMail] = useState(false);
   const [isAISorting, setIsAISorting] = useState(false);
   const [isClearingSorted, setIsClearingSorted] = useState(false);
-  const [isMigrating, setIsMigrating] = useState(false);
   const [subject, setSubject] = useState("");
   const [message, setMessage] = useState("");
   const [senderEmail, setSenderEmail] = useState("");
+  const [rateLimitInfo, setRateLimitInfo] = useState({
+    currentHourRequests: 0,
+    maxRequestsPerHour: 50,
+    maxResumesPerRequest: 10
+  });
   const [errors, setErrors] = useState({
     subject: "",
     message: "",
@@ -446,10 +453,21 @@ export default function JobBoard() {
   }
 
   const handleAISort = async () => {
-    if (boardDataRows.length === 0) {
-      setSnackbarMessage("No applicants to sort");
+    // Check if any applicants are selected
+    if (selectedRows.length === 0) {
+      setSnackbarMessage("Please select at least one applicant to sort");
       setSnackbarSeverity("error");
       setSnackbarDuration(3000);
+      setSnackbarOpen(true);
+      return;
+    }
+
+    // Check selection limit (max 10 resumes per request)
+    const MAX_RESUMES_PER_REQUEST = 10;
+    if (selectedRows.length > MAX_RESUMES_PER_REQUEST) {
+      setSnackbarMessage(`Maximum ${MAX_RESUMES_PER_REQUEST} resumes can be reviewed at once. Please select fewer resumes or process in batches.`);
+      setSnackbarSeverity("warning");
+      setSnackbarDuration(5000);
       setSnackbarOpen(true);
       return;
     }
@@ -460,15 +478,30 @@ export default function JobBoard() {
         `${API_URL}api/v1/hiringDashboard/sortApplicantsWithAI`,
         {
           hiringId: id,
+          selectedApplicants: selectedRows.map(applicant => applicant._id)
         },
         config
       );
 
       if (response.data.success) {
-        setSnackbarMessage("Response candidates moved to 'Sorted' segment successfully!");
+        // Show success message with rate limit info if available
+        let successMessage = `${selectedRows.length} selected candidate(s) moved to 'Sorted' segment successfully!`;
+        
+        // Debug: Log the response structure
+        console.log('Sort response:', response.data);
+        
+        if (response.data.data && response.data.data.rateLimitInfo) {
+          setRateLimitInfo(response.data.data.rateLimitInfo);
+          successMessage += ` (${response.data.data.rateLimitInfo.currentHourRequests}/${response.data.data.rateLimitInfo.maxRequestsPerHour} requests used this hour)`;
+        }
+        
+        setSnackbarMessage(successMessage);
         setSnackbarSeverity("success");
         setSnackbarDuration(5000);
         setSnackbarOpen(true);
+        
+        // Clear selection after successful sort
+        setSelectedRows([]);
         
         // Refresh data to show the new Sorted segment
         queryClient.invalidateQueries({ queryKey: ["ApplicantsCount"] });
@@ -491,8 +524,15 @@ export default function JobBoard() {
       console.error("AI sorting error:", error);
       let errorMessage = "Failed to move candidates to sorted segment";
       
-      if (error?.response?.data?.message?.includes("already exists")) {
-        errorMessage = "Sorted data already exists. Please clear existing sorted data first.";
+      // Handle specific rate limit errors
+      if (error?.response?.data?.error === 'RATE_LIMIT_EXCEEDED') {
+        if (error?.response?.data?.message?.includes("Maximum 10 resumes")) {
+          errorMessage = "Maximum 10 resumes can be reviewed at once. Please select fewer resumes.";
+        } else if (error?.response?.data?.message?.includes("Rate limit exceeded")) {
+          errorMessage = "Rate limit exceeded. Maximum 50 requests per hour. Please try again later.";
+        } else {
+          errorMessage = error.response.data.message;
+        }
       } else if (error?.response?.data?.message) {
         errorMessage = error.response.data.message;
       }
@@ -549,51 +589,6 @@ export default function JobBoard() {
       setSnackbarOpen(true);
     } finally {
       setIsClearingSorted(false);
-    }
-  };
-
-  const handleMigrateUncategorized = async () => {
-    setIsMigrating(true);
-    try {
-      const response = await axios.post(
-        `${API_URL}api/v1/hiringDashboard/migrateUncategorizedToResponse`,
-        {},
-        config
-      );
-
-      if (response.data.success) {
-        setSnackbarMessage(`Successfully migrated ${response.data.data.modifiedCount} applications from Uncategorized to Response`);
-        setSnackbarSeverity("success");
-        setSnackbarDuration(5000);
-        setSnackbarOpen(true);
-        
-        // Refresh data to show migrated applications in Response segment
-        queryClient.invalidateQueries({ queryKey: ["ApplicantsCount"] });
-        queryClient.invalidateQueries({ queryKey: ["Jobs", "board"] });
-        
-        // Navigate to Response segment to see the migrated data
-        setSearchParams(
-          (prev) => {
-            prev.set("status", "Response");
-            prev.set("pageNo", "1");
-            prev.set("limit", "30");
-            return prev;
-          },
-          { replace: true }
-        );
-      } else {
-        throw new Error(response.data.message || "Migration failed");
-      }
-    } catch (error) {
-      console.error("Migration error:", error);
-      setSnackbarMessage(
-        error?.response?.data?.message || "Failed to migrate uncategorized applications"
-      );
-      setSnackbarSeverity("error");
-      setSnackbarDuration(5000);
-      setSnackbarOpen(true);
-    } finally {
-      setIsMigrating(false);
     }
   };
 
@@ -782,32 +777,47 @@ export default function JobBoard() {
             Do not accept response on this job
           </label>
         </div> */}
-          <div className="heading heading-sm">
-            <p>
-              {jobData?.data?.data?.data?.opportunityName || <i>Job Name</i>}
-            </p>
-            <span>|</span>
-            <p>
-              {jobData?.data?.data?.data?._id ? (
-                `ID : ${jobData?.data?.data?.data?._id}`
-              ) : (
-                <i>ID : Not found</i>
-              )}
-            </p>
-            <span>|</span>
-            <p>{jobData?.data?.data?.data?.opportunityMode || <i>Type</i>}</p>
-            <span>|</span>
-            <p>{jobData?.data?.data?.data?.city || <i>Location</i>}</p>
-          </div>
-          <div className="posted-on body-md-semibold">
-            {jobData?.data?.data?.data?.createdAt ? (
-              // use moment to format the date
-              `Posted on : ${moment(
-                jobData?.data?.data?.data?.createdAt
-              ).format("DD/MM/YY/dddd/HH:mm A")}`
-            ) : (
-              <i>Posted on : Not found</i>
-            )}
+          <div className="job-details-container">
+            <div className="job-title-section">
+              <div className="job-header">
+                <h1 className="job-title">
+                  {jobData?.data?.data?.data?.opportunityName || <i>Job Name</i>}
+                </h1>
+                <div className="job-meta-info">
+                  <span className="job-id">
+                    ID: {jobData?.data?.data?.data?._id ? jobData?.data?.data?.data?._id : <i>Not found</i>}
+                  </span>
+                  <span className="job-type">
+                    {jobData?.data?.data?.data?.opportunityMode || <i>Type</i>}
+                  </span>
+                  <span className="job-location">
+                    {jobData?.data?.data?.data?.city || <i>Location</i>}
+                  </span>
+                </div>
+              </div>
+              <div className="job-dates">
+                <div className="job-posted-date">
+                  <span className="date-label">Posted:</span>
+                  <span className="date-value">
+                    {jobData?.data?.data?.data?.createdAt ? (
+                      moment(jobData?.data?.data?.data?.createdAt).format("DD/MM/YY")
+                    ) : (
+                      <i>Not found</i>
+                    )}
+                  </span>
+                </div>
+                <div className="job-expired-date">
+                  <span className="date-label">Expired:</span>
+                  <span className="date-value">
+                    {jobData?.data?.data?.data?.expiryDate ? (
+                      moment(jobData?.data?.data?.data?.expiryDate).format("DD/MM/YY")
+                    ) : (
+                      <i>Not set</i>
+                    )}
+                  </span>
+                </div>
+              </div>
+            </div>
           </div>
           <div className="categories-container">
             <div className="categories body-sm-regular">
@@ -823,7 +833,7 @@ export default function JobBoard() {
                     { replace: true }
                   )
                 }
-                className={`${
+                className={`status-btn response-btn ${
                   params.status === "Response" ? "--selected" : ""
                 }`}
               >
@@ -853,7 +863,7 @@ export default function JobBoard() {
                     { replace: true }
                   )
                 }
-                className={`${
+                className={`status-btn sorted-btn ${
                   params.status === "Sorted" ? "--selected" : ""
                 }`}
               >
@@ -882,7 +892,7 @@ export default function JobBoard() {
                     { replace: true }
                   )
                 }
-                className={`${
+                className={`status-btn shortlisted-btn ${
                   params.status === "Shortlisted" ? "--selected" : ""
                 }`}
               >
@@ -911,7 +921,7 @@ export default function JobBoard() {
                     { replace: true }
                   )
                 }
-                className={`${
+                className={`status-btn rejected-btn ${
                   params.status === "Rejected" ? "--selected" : ""
                 }`}
               >
@@ -940,7 +950,7 @@ export default function JobBoard() {
                     { replace: true }
                   )
                 }
-                className={`${
+                className={`status-btn processing-btn ${
                   params.status === "Processing" ? "--selected" : ""
                 }`}
               >
@@ -956,32 +966,6 @@ export default function JobBoard() {
                     }
                   </span>
                 )}
-              </button>
-              <button
-                onClick={() => {
-                  // Clear cache to ensure fresh data for Show All
-                  queryClient.removeQueries({ queryKey: ["Jobs", "board"] });
-                  queryClient.invalidateQueries({ queryKey: ["ApplicantsCount"] });
-                  
-                  setSearchParams(
-                    (prev) => {
-                      prev.set("status", "");
-                      prev.set("pageNo", "1");
-                      prev.set("limit", "30");
-                      return prev;
-                    },
-                    { replace: true }
-                  );
-                }}
-                className={`${params.status === "" ? "--selected" : ""}`}
-              >
-                <p className="body-sm-regular">Show All</p>
-                <span className="body-sm-regular">
-                  {applicantsCountData?.data?.data?.data?.reduce(
-                    (acc, item) => acc + item.count,
-                    0
-                  )}
-                </span>
               </button>
             </div>
             <div className="download-container">
@@ -1001,38 +985,29 @@ export default function JobBoard() {
                     </button>
                   </>
                 )}
-              {params.status === "Response" && boardDataRows.length === 0 && (
-                <button
-                  onClick={handleMigrateUncategorized}
-                  disabled={isMigrating}
-                  className="migrate-btn body-sm-semibold d-flex align-items-center gap-1"
-                  style={{
-                    backgroundColor: "#ffa500",
-                    color: "white",
-                    border: "none",
-                    borderRadius: "8px",
-                    padding: "8px 16px",
-                    fontSize: "14px",
-                    fontWeight: "600",
-                  }}
-                >
-                  <RiInboxArchiveLine /> {isMigrating ? "Migrating..." : "Migrate Old Data"}
-                </button>
-              )}
-              {params.status !== "Sorted" && (
-                <button
-                  onClick={handleAISort}
-                  disabled={isAISorting}
-                  className="sort-btn body-sm-semibold d-flex align-items-center gap-1"
-                >
-                  <BiSort /> {isAISorting ? "Sorting..." : "Sort"}
-                </button>
+              {params.status === "Response" && (
+                <div className="sort-container">
+                  <button
+                    onClick={handleAISort}
+                    disabled={isAISorting}
+                    className="sort-btn body-sm-semibold d-flex align-items-center gap-1"
+                    title="Use AI to automatically rank and sort resumes, helping you focus on the most suitable candidates first."
+                  >
+                    {isAISorting ? <AiOutlineLoading3Quarters /> : <SiOpenai />} {isAISorting ? "Sorting..." : "Sort with AI"}
+                  </button>
+                  <RateLimitIndicator 
+                    currentRequests={rateLimitInfo.currentHourRequests}
+                    maxRequests={rateLimitInfo.maxRequestsPerHour}
+                    maxResumesPerRequest={rateLimitInfo.maxResumesPerRequest}
+                  />
+                </div>
               )}
               {params.status === "Sorted" && (
                 <button
                   onClick={handleClearSorted}
                   disabled={isClearingSorted}
                   className="move-back-btn body-sm-semibold d-flex align-items-center gap-1"
+                  title="Move to Response Segment\n\n📋 Action: Transfer sorted candidates\n🔄 Status: Back to Response queue\n📝 Note: Candidates remain sorted\n✅ Available: Ready to process"
                 >
                   <RiInboxArchiveLine /> {isClearingSorted ? "Moving..." : "Move to Response"}
                 </button>
@@ -1041,6 +1016,7 @@ export default function JobBoard() {
                 onClick={handleDownload}
                 disabled={isDownloading}
                 className="download-btn body-sm-semibold d-flex align-items-center gap-1"
+                title="Export candidate data instantly for offline access."
               >
                 <FiDownload /> {isDownloading ? `${progress}%` : "Download"}
               </button>
@@ -1077,15 +1053,32 @@ export default function JobBoard() {
                     boardData?.data?.data?.data?.applicants?.length || 0
                   })`}
                 </label>
+                {params.status === "Response" && selectedRows.length > 10 && (
+                  <div className="selection-limit-warning">
+                    ⚠️ Maximum 10 resumes can be sorted at once ({selectedRows.length} selected)
+                  </div>
+                )}
               </div>
               <div className="action-buttons">
-                <button onClick={() => shortlistApplicants()}>
+                <button 
+                  onClick={() => shortlistApplicants()}
+                  className="action-btn shortlist-btn"
+                  title="Shortlist Selected"
+                >
                   <FiUserPlus />
                 </button>
-                <button onClick={() => rejectApplicants()}>
+                <button 
+                  onClick={() => rejectApplicants()}
+                  className="action-btn reject-btn"
+                  title="Reject Selected"
+                >
                   <FiUserX />
                 </button>
-                <button onClick={() => uncategorizeApplicants()}>
+                <button 
+                  onClick={() => uncategorizeApplicants()}
+                  className="action-btn response-btn"
+                  title="Move to Response"
+                >
                   <RiInboxArchiveLine />
                 </button>
                 {selectedRows.length > 0 && (
@@ -1097,90 +1090,54 @@ export default function JobBoard() {
                         bsModal.show();
                       }
                     }}
+                    className="action-btn mail-btn"
+                    title="Send Mail"
                   >
                     <MdMailOutline />
                   </button>
                 )}
               </div>
             </div>
-            <div className="search-container d-flex align-items-center gap-2">
-              <div>
-                <span>Minimum experience </span>
-                <select
-                  name="experience"
-                  id="experience"
-                  defaultValue={exp}
-                  onChange={(e) => {
-                    navigate(
-                      `/career/jobs/board/${id}?pageNo=1&limit=30${
-                        !!params.status ? `&status=${params.status}` : ""
-                      }${!!e.target.value ? `&exp=${e.target.value}` : ""}`
-                    );
+            <div className="experience-filter">
+              <span className="filter-label">Minimum Experience</span>
+              <select
+                name="experience"
+                id="experience"
+                defaultValue={exp}
+                onChange={(e) => {
+                  navigate(
+                    `/career/jobs/board/${id}?pageNo=1&limit=30${
+                      !!params.status ? `&status=${params.status}` : ""
+                    }${!!e.target.value ? `&exp=${e.target.value}` : ""}`
+                  );
+                }}
+                className="experience-select"
+              >
+                <option value="">No Experience</option>
+                <option value="1">1 year</option>
+                <option value="2">2 years</option>
+                <option value="3">3 years</option>
+                <option value="4">4 years</option>
+                <option value="5">5 years</option>
+                <option value="6">6 years</option>
+                <option value="7">7 years</option>
+                <option value="8">8 years</option>
+                <option value="9">9 years</option>
+                <option value="10">10 years</option>
+                <option
+                  style={{
+                    display: "none",
                   }}
+                  value={exp}
                 >
-                  <option value="">No Experience</option>
-                  <option value="1">1 year</option>
-                  <option value="2">2 years</option>
-                  <option value="3">3 years</option>
-                  <option value="4">4 years</option>
-                  <option value="5">5 years</option>
-                  <option value="6">6 years</option>
-                  <option value="7">7 years</option>
-                  <option value="8">8 years</option>
-                  <option value="9">9 years</option>
-                  <option value="10">10 years</option>
-                  <option
-                    style={{
-                      display: "none",
-                    }}
-                    value={exp}
-                  >
-                    {exp}
-                  </option>
-                </select>
-              </div>
-              {/* 
-            <input
-              aria-required="false"
-              autoCapitalize="none"
-              autoComplete="off"
-              autoCorrect="off"
-              // name={param}
-              tabIndex="0"
-              type="text"
-              spellCheck="false"
-              role="combobox"
-              aria-haspopup="false"
-              aria-autocomplete="list"
-              dir="ltr"
-              // id={id}
-              className={`body-sm-regular
-                
-                  `}
-              // placeholder={placeholder}
-              // aria-label={ariaLabel}
-              // aria-describedby={ariaDescribedby}
-              // value={value}
-              // onChange={(e) => setValue(e.target.value)}
-              // onKeyDown={(e) => {
-              //   if (e.key === "Enter") {
-              //     setSearchParams(
-              //       (prev) => {
-              //         prev.set(param, value);
-              //         return prev;
-              //       },
-              //       { replace: true }
-              //     );
-              //   }
-              // }}
-              // {...rest}
-            />
-            */}
+                  {exp}
+                </option>
+              </select>
             </div>
           </div>
           <div className="d-flex justify-content-between align-items-center w-100 mb-3">
-            <div>
-              <span>Showing </span>
+            <div className="results-filter">
+              <span className="results-label">Showing</span>
               <select
                 name="limit"
                 id="limit"
@@ -1192,6 +1149,7 @@ export default function JobBoard() {
                     }`
                   );
                 }}
+                className="results-select"
               >
                 <option value="10">10</option>
                 <option value="20">20</option>
@@ -1207,7 +1165,7 @@ export default function JobBoard() {
                   {limit}
                 </option>
               </select>
-              <span> results</span>
+              <span className="results-text">results</span>
             </div>
             <PaginationBarWithSearchParams
               className="m-0"
@@ -1281,7 +1239,7 @@ export default function JobBoard() {
                     <h4>No Data Available</h4>
                     <p>
                       {params.status === "Response" 
-                        ? "No response applications found for this job. If you had applications before, they might be marked as 'Uncategorized'. Click 'Migrate Old Data' to convert them to Response status."
+                        ? "No response applications found for this opening."
                         : params.status === "Sorted" 
                         ? "No sorted candidates available. Try sorting response candidates first."
                         : params.status === "Shortlisted"
@@ -1300,7 +1258,7 @@ export default function JobBoard() {
                     )}
                     {params.status === "Response" && (
                       <small>
-                        Check the "Show All" tab to see if there are applications that need to be migrated.
+                        No applications found for this job opening.
                       </small>
                     )}
                   </div>

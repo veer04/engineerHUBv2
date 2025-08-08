@@ -276,7 +276,7 @@ export default function JobBoardRow({
             target="_blank"
             rel="noopener noreferrer"
           >
-            Link to view
+            View
           </a>
         ) : (
           "-"
@@ -307,7 +307,7 @@ export default function JobBoardRow({
                 onClick={() => setShowSummaryModal(true)}
                 title="View AI Analysis Summary"
               >
-                <MdVisibility /> View Summary
+                <MdVisibility /> Summary
               </button>
             ) : (
               <small>No summary available</small>
@@ -326,12 +326,16 @@ export default function JobBoardRow({
                     <button
                       onClick={() => shortlistApplicant()}
                       disabled={isAnyRowUpdating || isDataFetching}
+                      className="action-btn shortlist-btn"
+                      title="Shortlist Candidate"
                     >
                       <FiUserPlus />
                     </button>
                     <button
                       onClick={() => rejectApplicant()}
                       disabled={isAnyRowUpdating || isDataFetching}
+                      className="action-btn reject-btn"
+                      title="Reject Candidate"
                     >
                       <FiUserX />
                     </button>
@@ -342,12 +346,16 @@ export default function JobBoardRow({
                     <button
                       onClick={() => rejectApplicant()}
                       disabled={isAnyRowUpdating || isDataFetching}
+                      className="action-btn reject-btn"
+                      title="Reject Candidate"
                     >
                       <FiUserX />
                     </button>
                     <button
                       onClick={() => uncategorizeApplicant()}
                       disabled={isAnyRowUpdating || isDataFetching}
+                      className="action-btn response-btn"
+                      title="Move to Response"
                     >
                       <RiInboxArchiveLine />
                     </button>
@@ -358,9 +366,112 @@ export default function JobBoardRow({
                     <button
                       onClick={() => uncategorizeApplicant()}
                       disabled={isAnyRowUpdating || isDataFetching}
+                      className="action-btn response-btn"
+                      title="Move to Response"
                     >
                       <RiInboxArchiveLine />
                     </button>
+                  </>
+                )}
+                {data?.status === "Sorted" && (
+                  <>
+                    <button
+                      onClick={() => shortlistApplicant()}
+                      disabled={isAnyRowUpdating || isDataFetching}
+                      className="action-btn shortlist-btn"
+                      title="Shortlist Candidate"
+                    >
+                      <FiUserPlus />
+                    </button>
+                    <button
+                      onClick={() => rejectApplicant()}
+                      disabled={isAnyRowUpdating || isDataFetching}
+                      className="action-btn reject-btn"
+                      title="Reject Candidate"
+                    >
+                      <FiUserX />
+                    </button>
+                    <button
+                      onClick={() => uncategorizeApplicant()}
+                      disabled={isAnyRowUpdating || isDataFetching}
+                      className="action-btn response-btn"
+                      title="Move to Response"
+                    >
+                      <RiInboxArchiveLine />
+                    </button>
+                  </>
+                )}
+                {data?.status === "Processing" && (
+                  <>
+                    <button
+                      onClick={() => shortlistApplicant()}
+                      disabled={isAnyRowUpdating || isDataFetching}
+                      className="action-btn shortlist-btn"
+                      title="Shortlist Candidate"
+                    >
+                      <FiUserPlus />
+                    </button>
+                    <button
+                      onClick={() => rejectApplicant()}
+                      disabled={isAnyRowUpdating || isDataFetching}
+                      className="action-btn reject-btn"
+                      title="Reject Candidate"
+                    >
+                      <FiUserX />
+                    </button>
+                    <button
+                      onClick={() => uncategorizeApplicant()}
+                      disabled={isAnyRowUpdating || isDataFetching}
+                      className="action-btn response-btn"
+                      title="Move to Response"
+                    >
+                      <RiInboxArchiveLine />
+                    </button>
+                    <div
+                      className={`hired-btn processing-btn d-flex align-items-center gap-2 ${
+                        isHired ? "--hired" : ""
+                      }`}
+                    >
+                      {!isHiringLoading && !isHired && (
+                        <>
+                          <input
+                            type="checkbox"
+                            name={`item-name-${data?._id}`}
+                            id={`item-id-hired-${data?._id}`}
+                            checked={isHired}
+                            onChange={handleIsHired}
+                          />
+                          <label
+                            htmlFor={`item-id-hired-${data?._id}`}
+                            className={`${isHired ? "--hired" : ""}`}
+                          >
+                            Mark as hired
+                          </label>
+                        </>
+                      )}
+                      {isHiringLoading && (
+                        <>
+                          <div className="loader-4"></div> Updating
+                        </>
+                      )}
+                      {!isHiringLoading && isHired && (
+                        <>
+                          <input
+                            type="checkbox"
+                            name={`item-name-${data?._id}`}
+                            id={`item-id-hired-${data?._id}`}
+                            checked={isHired}
+                            onChange={handleIsHired}
+                          />
+                          <label
+                            htmlFor={`item-id-hired-${data?._id}`}
+                            className={`${isHired ? "--hired" : ""}`}
+                          >
+                            Hired
+                          </label>
+                        </>
+                      )}
+                    </div>
                   </>
                 )}
               </>
@@ -370,12 +481,16 @@ export default function JobBoardRow({
                 <button
                   onClick={() => shortlistApplicant()}
                   disabled={isAnyRowUpdating || isDataFetching}
+                  className="action-btn shortlist-btn"
+                  title="Shortlist Candidate"
                 >
                   <FiUserPlus />
                 </button>
                 <button
                   onClick={() => rejectApplicant()}
                   disabled={isAnyRowUpdating || isDataFetching}
+                  className="action-btn reject-btn"
+                  title="Reject Candidate"
                 >
                   <FiUserX />
                 </button>
@@ -387,12 +502,16 @@ export default function JobBoardRow({
                 <button
                   onClick={() => rejectApplicant()}
                   disabled={isAnyRowUpdating || isDataFetching}
+                  className="action-btn reject-btn"
+                  title="Reject Candidate"
                 >
                   <FiUserX />
                 </button>
                 <button
                   onClick={() => uncategorizeApplicant()}
                   disabled={isAnyRowUpdating || isDataFetching}
+                  className="action-btn response-btn"
+                  title="Move to Response"
                 >
                   <RiInboxArchiveLine />
                 </button>
@@ -404,6 +523,37 @@ export default function JobBoardRow({
                 <button
                   onClick={() => uncategorizeApplicant()}
                   disabled={isAnyRowUpdating || isDataFetching}
+                  className="action-btn response-btn"
+                  title="Move to Response"
+                >
+                  <RiInboxArchiveLine />
+                </button>
+              </>
+            )}
+
+            {status === "Sorted" && (
+              <>
+                <button
+                  onClick={() => shortlistApplicant()}
+                  disabled={isAnyRowUpdating || isDataFetching}
+                  className="action-btn shortlist-btn"
+                  title="Shortlist Candidate"
+                >
+                  <FiUserPlus />
+                </button>
+                <button
+                  onClick={() => rejectApplicant()}
+                  disabled={isAnyRowUpdating || isDataFetching}
+                  className="action-btn reject-btn"
+                  title="Reject Candidate"
+                >
+                  <FiUserX />
+                </button>
+                <button
+                  onClick={() => uncategorizeApplicant()}
+                  disabled={isAnyRowUpdating || isDataFetching}
+                  className="action-btn response-btn"
+                  title="Move to Response"
                 >
                   <RiInboxArchiveLine />
                 </button>
@@ -412,7 +562,7 @@ export default function JobBoardRow({
 
             {status === "Processing" && (
               <div
-                className={`hired-btn d-flex align-items-center w-100 gap-2 ${
+                className={`hired-btn processing-btn d-flex align-items-center w-100 gap-2 ${
                   isHired ? "--hired" : ""
                 }`}
               >
@@ -457,7 +607,11 @@ export default function JobBoardRow({
                 )}
               </div>
             )}
-            <button onClick={onSendMail} title="Send Mail">
+            <button 
+              onClick={onSendMail} 
+              title="Send Mail"
+              className="action-btn mail-btn"
+            >
               <MdMailOutline />
             </button>
           </>

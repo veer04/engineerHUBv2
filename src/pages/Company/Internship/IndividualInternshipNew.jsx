@@ -29,7 +29,7 @@ import {
   isUserLoggedIn,
 } from "../../../features/User/UserDetails";
 import Loading from "../../../components/Loader/Loading";
-import JobHiringModal from "../Jobs/JobHiringModal";
+import JobHiringModal, { modalState } from "../Jobs/JobHiringModal";
 import { Link } from "react-router-dom";
 
 function seededRandom(seed) {
@@ -160,11 +160,15 @@ export default function IndividualInternshipNew() {
   }, [hiringId]);
 
   const openModal = () => {
-    setIsModalOpen(true);
+    if (modalState.setOpen) {
+      modalState.setOpen(true);
+    }
   };
 
   const closeModal = () => {
-    setIsModalOpen(false);
+    if (modalState.setOpen) {
+      modalState.setOpen(false);
+    }
   };
 
   const UserDataPost = () => {
@@ -485,8 +489,7 @@ export default function IndividualInternshipNew() {
                       </button>
                     ) : (
                       <button
-                        data-bs-toggle="modal"
-                        data-bs-target="#jobHiringModal"
+                        onClick={openModal}
                         className="body-md-semibold hiring-apply-btn w-100"
                       >
                         Easy Apply

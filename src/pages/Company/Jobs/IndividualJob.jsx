@@ -29,7 +29,7 @@ import {
   isUserLoggedIn,
 } from "../../../features/User/UserDetails";
 import Loading from "../../../components/Loader/Loading";
-import JobHiringModal from "./JobHiringModal";
+import JobHiringModal, { modalState } from "./JobHiringModal";
 import { Link } from "react-router-dom";
 import BannerSpaceComp from "../BannerSpaceComp/BannerSpaceComp";
 import EasyApplyModalNew from "./EasyApplyModalNew";
@@ -176,14 +176,16 @@ export default function IndividualJob() {
     getHiringDetails();
   }, [hiringId]);
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
   const openModal = () => {
-    setIsModalOpen(true);
+    if (modalState.setOpen) {
+      modalState.setOpen(true);
+    }
   };
 
   const closeModal = () => {
-    setIsModalOpen(false);
+    if (modalState.setOpen) {
+      modalState.setOpen(false);
+    }
   };
 
   return (
@@ -478,8 +480,8 @@ export default function IndividualJob() {
                       {hiring?.detailFound?.openings}
                     </span>
                     {numberOfOpeningsIcon}
-                  </div>
                 </div>
+              </div>
               )}
               {hiring?.detailFound?.eligibility && (
                 <div className="info-tiles">
@@ -539,9 +541,7 @@ export default function IndividualJob() {
                       </a>
                     ) : (
                       <button
-                        onClick={() => openModal()}
-                        data-bs-toggle="modal"
-                        data-bs-target="#jobHiringModal"
+                        onClick={openModal}
                         className="body-md-semibold hiring-apply-btn w-100"
                       >
                         Easy Apply
