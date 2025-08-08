@@ -7,8 +7,6 @@ import defaultPoster from "../../assets/defaultPoster";
 // Special users mapping - email to display role
 const SPECIAL_USERS = {
   "rishabhs883@gmail.com": "Admin",
-  // Add more special users here as needed
-  // "another@example.com": "Moderator",
 };
 
 // Helper function to get display role for special users

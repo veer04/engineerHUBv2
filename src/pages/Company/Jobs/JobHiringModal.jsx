@@ -15,12 +15,19 @@ import Loading from "../../../components/Loader/Loading";
 import FormInputDropdown from "../../../components/FormInputs/FormInputDropdown";
 import EasyApplyModalNew from "./EasyApplyModalNew";
 
+// Global state for modal
+let modalState = {
+  isOpen: false,
+  setOpen: null
+};
+
 export default function JobHiringModal({
   latestInfo = {},
   hiringId,
   setHiring,
 }) {
   const ref = useRef(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [skillsRequired, setSkillsRequired] = useState("");
   const [college, setCollege] = useState("");
   const [passOutYear, setPassOutYear] = useState("");
@@ -35,8 +42,6 @@ export default function JobHiringModal({
     experience: "",
     resume: "",
   });
-
- 
 
   const {
     setSnackbarOpen,
@@ -59,6 +64,60 @@ export default function JobHiringModal({
     { label: "9 years", value: 9 },
     { label: "10+ years", value: 10 },
   ];
+
+  // Set up global modal state
+  useEffect(() => {
+    modalState.setOpen = setIsModalOpen;
+    modalState.isOpen = isModalOpen;
+  }, [isModalOpen]);
+
+  // Listen for modal open events
+  useEffect(() => {
+    const handleModalOpen = () => {
+      setIsModalOpen(true);
+    };
+
+    // Listen for clicks on Easy Apply buttons
+    document.addEventListener('click', (e) => {
+      if (e.target && e.target.matches('[data-bs-target="#jobHiringModal"]')) {
+        e.preventDefault();
+        setIsModalOpen(true);
+      }
+    });
+
+    // Listen for custom Easy Apply button clicks
+    document.addEventListener('click', (e) => {
+      if (e.target && e.target.textContent === 'Easy Apply') {
+        e.preventDefault();
+        setIsModalOpen(true);
+      }
+    });
+
+    return () => {
+      document.removeEventListener('click', handleModalOpen);
+    };
+  }, []);
+
+  // Close modal when Escape key is pressed
+  useEffect(() => {
+    const handleEscape = (e) => {
+      if (e.key === 'Escape') {
+        setIsModalOpen(false);
+      }
+    };
+
+    if (isModalOpen) {
+      document.addEventListener('keydown', handleEscape);
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+
+    return () => {
+      document.removeEventListener('keydown', handleEscape);
+      document.body.style.overflow = 'unset';
+    };
+  }, [isModalOpen]);
 
   function addToErrorStack(elem) {
     errorStack.push(elem);
@@ -200,6 +259,7 @@ export default function JobHiringModal({
         setSnackbarSeverity("success");
         setSnackbarOpen(true);
         setIsLoading(false);
+        setIsModalOpen(false);
       })
       .catch((res) => {
         if (res.status === 409) {
@@ -239,7 +299,6 @@ export default function JobHiringModal({
           res.status === 204
         ) {
           console.log("User data saved ref");
-          ref.current.click();
         }
       })
       .catch((err) => {
@@ -276,149 +335,147 @@ export default function JobHiringModal({
     });
   }
 
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
+  if (!isModalOpen) return null;
+
   return (
-    <>
-      <div
-        className="modal fade"
-        id="jobHiringModal"
-        tabIndex="-1"
-        aria-labelledby="jobHiringModalLabel"
-        aria-hidden="true"
-      >
-        <div className="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h1 className="modal-title heading-sm" id="jobHiringModalLabel">
-                Apply for this job
-              </h1>
-              <button
-                type="button"
-                className="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-                ref={ref}
-              ></button>
-            </div>
-            <div className="modal-body">
-              <FormInput
-                label="Enter your skills"
-                id="skillsRequired"
-                name="skillsRequired"
-                required
-                placeholder="Enter your skills separated by commas"
-                value={skillsRequired}
-                setValue={setSkillsRequired}
-                helperText={errors.skillsRequired}
-                className="mb-4"
-              />
-              <FormInput
-                label="Enter your college/university"
-                id="collegeName"
-                name="collegeName"
-                required
-                placeholder="Enter your college/university"
-                value={college}
-                setValue={setCollege}
-                helperText={errors.college}
-                className="mb-4"
-              />
-              <FormInputNumber
-                label="Enter your graduation year"
-                id="passoutYear"
-                name="passoutYear"
-                required
-                placeholder="Enter your graduation year"
-                value={passOutYear}
-                setValue={setPassOutYear}
-                helperText={errors.passOutYear}
-                className="mb-4"
-              />
-              <FormInputDropdown
-                label="Experience"
-                id="experience"
-                name="experience"
-                required
-                placeholder="Select Experience"
-                value={experience}
-                setValue={setExperience}
-                options={experienceDropdown}
-                helperText={errors.experience}
-                className="mb-4"
-              />
-              {isResumePresent && (
-                <FormInputToggle
-                  label="Use previous resume"
-                  id="previousResume"
-                  name="previousResume"
-                  value={usePreviousResume}
-                  setValue={setUsePreviousResume}
-                  helperText={errors.usePreviousResume}
-                  className="mb-2"
-                />
-              )}
-              {usePreviousResume ? (
-                <>
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "flex-start",
-                      padding: "0 14px",
-                    }}
-                    className="mimic-file-upload"
-                  >
-                    <FaFilePdf
-                      style={{
-                        color: "#ff1b0e",
-                        fontSize: "1.5rem",
-                        marginRight: ".5rem",
-                      }}
-                    />
-                    <a
-                      href={latestInfo?.resume}
-                      rel="noopener noreferrer"
-                      target="_blank"
-                      className="body-sm-regular override-link"
-                    >
-                      Click here to view resume
-                    </a>
-                  </div>
-                </>
-              ) : (
-                <FormInputFileUpload
-                  label="Upload your resume"
-                  id="resume"
-                  name="resume"
-                  required
-                  placeholder="Upload your resume"
-                  constraint="less than 2 MB"
-                  fileType="application/pdf,application/vnd.ms-excel"
-                  value={resume}
-                  setValue={setResume}
-                  helperText={errors.resume}
-                  className="mb-4"
-                />
-              )}
-            </div>
-            <div className="modal-footer justify-content-between">
-              <button
-                onClick={handleClear}
-                className="clear-btn body-sm-semibold px-2 py-2"
+    <div className="custom-modal-overlay" onClick={closeModal}>
+      <div className="custom-modal-content" onClick={(e) => e.stopPropagation()}>
+        <div className="custom-modal-header">
+          <h1 className="custom-modal-title">Apply for this job</h1>
+          <button
+            type="button"
+            className="custom-modal-close"
+            onClick={closeModal}
+            aria-label="Close"
+          >
+            ×
+          </button>
+        </div>
+        <div className="custom-modal-body">
+          <FormInput
+            label="Enter your skills"
+            id="skillsRequired"
+            name="skillsRequired"
+            required
+            placeholder="Enter your skills separated by commas"
+            value={skillsRequired}
+            setValue={setSkillsRequired}
+            helperText={errors.skillsRequired}
+            className="mb-4"
+          />
+          <FormInput
+            label="Enter your college/university"
+            id="collegeName"
+            name="collegeName"
+            required
+            placeholder="Enter your college/university"
+            value={college}
+            setValue={setCollege}
+            helperText={errors.college}
+            className="mb-4"
+          />
+          <FormInputNumber
+            label="Enter your graduation year"
+            id="passoutYear"
+            name="passoutYear"
+            required
+            placeholder="Enter your graduation year"
+            value={passOutYear}
+            setValue={setPassOutYear}
+            helperText={errors.passOutYear}
+            className="mb-4"
+          />
+          <FormInputDropdown
+            label="Experience"
+            id="experience"
+            name="experience"
+            required
+            placeholder="Select Experience"
+            value={experience}
+            setValue={setExperience}
+            options={experienceDropdown}
+            helperText={errors.experience}
+            className="mb-4"
+          />
+          {isResumePresent && (
+            <FormInputToggle
+              label="Use previous resume"
+              id="previousResume"
+              name="previousResume"
+              value={usePreviousResume}
+              setValue={setUsePreviousResume}
+              helperText={errors.usePreviousResume}
+              className="mb-2"
+            />
+          )}
+          {usePreviousResume ? (
+            <>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "flex-start",
+                  padding: "0 14px",
+                }}
+                className="mimic-file-upload"
               >
-                Clear
-              </button>
-              <button
-                onClick={handleApply}
-                type="button"
-                className="apply-btn body-sm-semibold"
-                disabled={isLoading}
-              >
-                {isLoading ? <Loading /> : "Apply"}
-              </button>
-            </div>
-          </div>
+                <FaFilePdf
+                  style={{
+                    color: "#ff1b0e",
+                    fontSize: "1.5rem",
+                    marginRight: ".5rem",
+                  }}
+                />
+                <a
+                  href={latestInfo?.resume}
+                  rel="noopener noreferrer"
+                  target="_blank"
+                  className="body-sm-regular override-link"
+                >
+                  Click here to view resume
+                </a>
+              </div>
+            </>
+          ) : (
+            <FormInputFileUpload
+              label="Upload your resume"
+              id="resume"
+              name="resume"
+              required
+              placeholder="Upload your resume"
+              constraint="less than 2 MB"
+              fileType="application/pdf,application/vnd.ms-excel"
+              value={resume}
+              setValue={setResume}
+              helperText={errors.resume}
+              className="mb-4"
+            />
+          )}
+        </div>
+        <div className="custom-modal-footer">
+          <button
+            onClick={handleClear}
+            className="custom-modal-clear-btn"
+          >
+            Clear
+          </button>
+          <button
+            onClick={handleApply}
+            type="button"
+            className="custom-modal-apply-btn"
+            disabled={isLoading}
+          >
+            {isLoading ? <Loading /> : "Apply"}
+          </button>
         </div>
       </div>
-    </>
+    </div>
   );
 }
+
+// Export the global modal state for other components to use
+export { modalState };
