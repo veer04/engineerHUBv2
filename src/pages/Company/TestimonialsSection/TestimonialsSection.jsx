@@ -9,6 +9,7 @@ const TestimonialsSection = () => {
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0);
   const [scrollLeft, setScrollLeft] = useState(0);
+  const [showAll, setShowAll] = useState(false);
 
   const handleMouseDown = (e) => {
     setIsDragging(true);
@@ -39,20 +40,31 @@ const TestimonialsSection = () => {
 
   if (!testimonialsQuery.isSuccess) return null;
 
+  const testimonials = testimonialsQuery?.data?.data?.data?.testimonials || [];
+  const initialCards = testimonials.slice(0, 8);
+  const remainingCards = testimonials.slice(8);
+  const displayCards = showAll ? testimonials : initialCards;
+
+  // Debug logs
+  console.log('Total testimonials:', testimonials.length);
+  console.log('Initial cards:', initialCards.length);
+  console.log('Remaining cards:', remainingCards.length);
+  console.log('Show all:', showAll);
+
   return (
     <section className="testimonials">
       <h3 className="heading-md">
-        Our placed students and their reviews
+        Our placed students and their reviews ❤️
       </h3>
       <div 
-        className="testimonial-container"
+        className={`testimonial-container ${showAll ? 'expanded' : ''}`}
         ref={containerRef}
         onMouseDown={handleMouseDown}
         onMouseUp={handleMouseUp}
         onMouseLeave={handleMouseUp}
         onMouseMove={handleMouseMove}
       >
-        {testimonialsQuery?.data?.data?.data?.testimonials?.map(
+        {displayCards.map(
           (item, index) => (
             <div className="flip-card" key={index}>
               <div className="flip-card-inner">
@@ -99,6 +111,33 @@ const TestimonialsSection = () => {
           )
         )}
       </div>
+      {/* Always show button if there are more than 8 testimonials */}
+      {testimonials.length > 8 && (
+        <div className="see-more-container">
+          <button 
+            className="see-more-btn"
+            onClick={() => setShowAll(!showAll)}
+          >
+            {showAll ? 'See Less' : 'See All'}
+            <svg 
+              className={`arrow-icon ${showAll ? 'rotated' : ''}`}
+              width="16" 
+              height="16" 
+              viewBox="0 0 24 24" 
+              fill="none" 
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path 
+                d="M9 18L15 12L9 6" 
+                stroke="currentColor" 
+                strokeWidth="2" 
+                strokeLinecap="round" 
+                strokeLinejoin="round"
+              />
+            </svg>
+          </button>
+        </div>
+      )}
     </section>
   );
 };
