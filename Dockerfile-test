@@ -39,11 +39,9 @@ ARG TEST_SERVER_PASSWORD
 COPY --from=build /app/dist /app/dist
 COPY server_files/ /app/
 
-RUN apk add --no-cache npm nginx apache2-utils \
+RUN apk add --no-cache npm \
     && npm install -g serve \
     && mkdir /logs \
-    && cp -f default-test.conf /etc/nginx/http.d/default.conf \
-    # && htpasswd -bc /etc/nginx/.htpasswd $TEST_SERVER_USERNAME $TEST_SERVER_PASSWORD \
     && chmod +x script.sh \
     && rm -rf /root/.npm default* 
 
@@ -51,5 +49,5 @@ RUN apk add --no-cache npm nginx apache2-utils \
 EXPOSE 80
 
 # Command to run the application
-CMD ["./script.sh"]
+CMD ["serve", "-s", "/app/dist", "-l", "80"]
 
