@@ -959,6 +959,24 @@
   font-weight: 500;
 }
 
+.ai-summary-modal .concerns-section {
+  margin-bottom: 1.5rem;
+}
+
+.ai-summary-modal .concerns-section ul {
+  margin: 0;
+  padding-left: 1.25rem;
+  list-style-type: disc;
+}
+
+.ai-summary-modal .concerns-section li {
+  font-size: 0.875rem;
+  line-height: 1.4;
+  color: #dc2626;
+  margin-bottom: 0.25rem;
+  font-weight: 500;
+}
+
 .ai-summary-modal .score-breakdown {
   display: flex;
   flex-direction: column;
@@ -1632,5 +1650,5 @@
 }
 
 .crm-board .main-container .categories-container .download-container .move-back-btn[title]:hover::after {
-  content: "Move to Response Segment\n\n📋 Action: Transfer sorted candidates\n🔄 Status: Back to Response queue\n📝 Note: Candidates remain sorted\n✅ Available: Ready to process";
+  content: "Move sorted candidates back to response segment";
 }

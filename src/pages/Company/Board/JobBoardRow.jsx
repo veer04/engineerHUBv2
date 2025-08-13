@@ -666,6 +666,17 @@ export default function JobBoardRow({
                 </div>
               )}
               
+              {data?.aiScoreDetails?.areasOfConcern && data.aiScoreDetails.areasOfConcern.length > 0 && (
+                <div className="concerns-section">
+                  <h5>Areas of Concern:</h5>
+                  <ul>
+                    {data.aiScoreDetails.areasOfConcern.map((concern, index) => (
+                      <li key={index}>{concern}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+              
               {data?.aiScoreDetails?.skillMatch !== undefined && (
                 <div className="detailed-scores">
                   <h5>Detailed Breakdown:</h5>
@@ -682,10 +693,10 @@ export default function JobBoardRow({
                         <span>{data.aiScoreDetails.experienceRelevance}/100</span>
                       </div>
                     )}
-                    {data.aiScoreDetails.educationFit !== undefined && (
+                    {data.aiScoreDetails.educationalBackground !== undefined && (
                       <div className="score-item">
-                        <span>Education Fit:</span>
-                        <span>{data.aiScoreDetails.educationFit}/100</span>
+                        <span>Educational Background:</span>
+                        <span>{data.aiScoreDetails.educationalBackground}/100</span>
                       </div>
                     )}
                     {data.aiScoreDetails.overallFit !== undefined && (

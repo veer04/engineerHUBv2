@@ -991,7 +991,7 @@ export default function JobBoard() {
                     onClick={handleAISort}
                     disabled={isAISorting}
                     className="sort-btn body-sm-semibold d-flex align-items-center gap-1"
-                    title="Use AI to automatically rank and sort resumes, helping you focus on the most suitable candidates first."
+                    title=""
                   >
                     {isAISorting ? <AiOutlineLoading3Quarters /> : <SiOpenai />} {isAISorting ? "Sorting..." : "Sort with AI"}
                   </button>
@@ -1007,7 +1007,7 @@ export default function JobBoard() {
                   onClick={handleClearSorted}
                   disabled={isClearingSorted}
                   className="move-back-btn body-sm-semibold d-flex align-items-center gap-1"
-                  title="Move to Response Segment\n\n📋 Action: Transfer sorted candidates\n🔄 Status: Back to Response queue\n📝 Note: Candidates remain sorted\n✅ Available: Ready to process"
+                  title=""
                 >
                   <RiInboxArchiveLine /> {isClearingSorted ? "Moving..." : "Move to Response"}
                 </button>
@@ -1016,7 +1016,7 @@ export default function JobBoard() {
                 onClick={handleDownload}
                 disabled={isDownloading}
                 className="download-btn body-sm-semibold d-flex align-items-center gap-1"
-                title="Export candidate data instantly for offline access."
+                title=""
               >
                 <FiDownload /> {isDownloading ? `${progress}%` : "Download"}
               </button>
