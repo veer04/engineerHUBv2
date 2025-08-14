@@ -71,7 +71,7 @@ const NewHostHomePage = () => {
     <>
       <div className="mainContainer">
         <div className="container">
-          <div className="boxCommunity row" style={{ background: "#e9fcfc" }}>
+          <div className="boxCommunity row" >
             <div className="col-md-6">
               <div className="container">
                 <div className="textContainer">
@@ -84,19 +84,20 @@ const NewHostHomePage = () => {
                     className="textContent"
                   >
                     <span
-                      style={{
-                        backgroundColor: "#91F0EF",
-                      }}
+                     
                     >
                       Host
                     </span>{" "}
-                    events, jobs, webinars and projects{" "}
                     <span
-                      style={{
-                        backgroundColor: "#91F0EF",
-                      }}
+                     style={{
+                      backgroundColor: "#91F0EF",
+                    }}>
+                    Hackathons & Recruitment Drives{" "}
+                    </span>
+                    <span
+                     
                     >
-                      to engage & hire talents
+                      to engage & recruit the right talent.
                     </span>
                   </p>
                   <p
@@ -106,8 +107,7 @@ const NewHostHomePage = () => {
                     }}
                     className="textDesc"
                   >
-                    Host events to engage your target audience and create Jobs
-                    for the right talent.
+                      Post jobs, internships, and hackathons to hire the right candidates.
                   </p>
                   <div className="wrapButton">
                     <div

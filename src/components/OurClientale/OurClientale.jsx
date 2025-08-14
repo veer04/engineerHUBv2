@@ -26,14 +26,17 @@ const images = [
 ];
 
 const OurClientale = () => {
-  const firstRowImages = images.slice(0, 10);
-  const secondRowImages = images.slice(10, 20);
+  // Split images into 3 rows to cover all 20 logos
+  const firstRowImages = images.slice(0, 7);
+  const secondRowImages = images.slice(7, 14);
+  const thirdRowImages = images.slice(14, 20);
+  
   return (
     <div className="main-clientale-div">
       <div className="main-heading-div">
-        <h3 className="h3-clientale">Our Clientale</h3>
+        <h3 className="h3-clientale">Our clientele ❤️</h3>
         <p className="p-clientale">
-          Over 65 top companies have hired talent through engineerHUB
+          Over 75 top companies have hired talent through engineerHUB
         </p>
       </div>
 
@@ -59,7 +62,21 @@ const OurClientale = () => {
               <img
                 key={index}
                 src={img[key]}
-                alt={`Client ${index + 11}`}
+                alt={`Client ${index + 8}`}
+                className="logo-image"
+              />
+            );
+          })}
+        </div>
+
+        <div className="slider-row move-right-slow">
+          {[...thirdRowImages, ...thirdRowImages].map((img, index) => {
+            const key = Object.keys(img)[0];
+            return (
+              <img
+                key={index}
+                src={img[key]}
+                alt={`Client ${index + 15}`}
                 className="logo-image"
               />
             );

@@ -391,7 +391,7 @@ export const JobAThonDesktopView = () => {
                 </div>
               </div>
 
-              <div>
+              <div style={{ marginBottom: "180px" }}>
                 <OurClientale />
               </div>
 

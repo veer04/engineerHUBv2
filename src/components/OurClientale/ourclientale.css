@@ -1,63 +1,91 @@
 .main-clientale-div {
-  width: 1200px;
+  width: 100%;
+  max-width: 1200px;
+  background: #FFFFFF;
+  border-radius: 24px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border-radius: 13px;
-  padding: 0;
-  margin: 20px auto 40px;
-  /* border: 1px solid black; */
+  padding: 40px 20px;
+  margin: 40px auto;
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+}
+
+.main-heading-div {
+  text-align: center;
+  margin-bottom: 10px;
 }
 
 .main-clientale-div .h3-clientale {
   color: #002b36;
   text-align: center;
   font-family: "DM Sans", sans-serif;
-  font-size: 28px;
+  font-size: 32px;
   font-style: normal;
   font-weight: 700;
-  line-height: 32px;
-  letter-spacing: 0px;
+  line-height: 1.2;
+  letter-spacing: -0.5px;
+  margin-bottom: 16px;
 }
 
 .main-clientale-div .p-clientale {
-  color: #33555e;
+  color: #64748b;
   text-align: center;
   font-family: "Lato", sans-serif;
-  font-size: 20px;
+  font-size: 18px;
   font-style: normal;
   font-weight: 400;
-  line-height: 20px;
-  letter-spacing: 0px;
+  line-height: 1.6;
+  letter-spacing: 0.2px;
+  max-width: 600px;
+  margin: 0 auto;
 }
 
 .clientale-slider {
   width: 100%;
   overflow: hidden;
-  margin-top: 20px;
+  margin-top: 30px;
+  padding: 20px 0;
 }
 
 .slider-row {
   display: flex;
-  gap: 30px;
+  gap: 80px;
   width: fit-content;
   align-items: center;
+  margin-bottom: 25px;
+  padding: 20px 0;
 }
 
 .logo-image {
-  width: 100px;
-  height: auto;
+  width: 120px;
+  height: 80px;
   object-fit: contain;
-  /* box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.04); */
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+  border-radius: 12px;
+  padding: 16px;
+  background: white;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.logo-image:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.18);
 }
 
 .move-right {
   animation: moveRight 30s linear infinite;
 }
 
+.move-right-slow {
+  animation: moveRight 52s linear infinite;
+}
+
 .move-left {
-  animation: moveLeft 30s linear infinite;
+  animation: moveLeft 55s linear infinite;
 }
 
 @keyframes moveRight {
@@ -80,29 +108,54 @@
 
 @media screen and (max-width: 820px) {
   .main-clientale-div {
-    width: 400px;
+    width: 90%;
+    max-width: 400px;
     overflow: hidden;
+    padding: 30px 15px;
+  }
+
+  .main-heading-div {
+    margin-bottom: 10px;
   }
 
   .main-clientale-div .h3-clientale {
     color: #002b36;
     text-align: center;
     font-family: "DM Sans", sans-serif;
-    font-size: 27px;
+    font-size: 24px;
     font-style: normal;
     font-weight: 700;
-    line-height: 32px;
-    letter-spacing: 0px;
+    line-height: 1.2;
+    letter-spacing: -0.3px;
+    margin-bottom: 12px;
   }
 
   .main-clientale-div .p-clientale {
-    color: #33555e;
+    color: #64748b;
     text-align: center;
     font-family: "Lato", sans-serif;
     font-size: 16px;
     font-style: normal;
     font-weight: 400;
-    line-height: 20px;
-    letter-spacing: 0px;
+    line-height: 1.5;
+    letter-spacing: 0.1px;
+  }
+
+  .clientale-slider {
+    margin-top: 20px;
+    padding: 15px 0;
+  }
+
+  .slider-row {
+    gap: 50px;
+    margin-bottom: 20px;
+    padding: 15px 0;
+  }
+
+  .logo-image {
+    width: 90px;
+    height: 60px;
+    padding: 12px;
+    border-radius: 8px;
   }
 }
