@@ -43,13 +43,14 @@ const EasyWayToHire = () => {
             engineerHUB{" "}
           </h3>
         </div>
-
+        {/*
         <div className="arrow-easy">
           <div className="vertical-line" />
           <div className="horizontal-line" />
           <div className="branch-left" />
           <div className="branch-right" />
         </div>
+        */}
         <div className="main-grid-comp">
           {EasyStepsCardData.map((data, index) => (
             <div className="main-grid-card">
