@@ -1498,14 +1498,14 @@
 
 /* Response Button - Blue (Info) */
 .crm-board .main-container .board-table .table-content-8 .response-btn {
-  background: #2563eb1A;
-  color: #2563eb;
-  border-color: #2563eb;
+  background: #1383821A;
+  color: #138382;
+  border-color: #138382;
 }
 
 .crm-board .main-container .board-table .table-content-8 .response-btn:hover {
-  background: #2563eb26;
-  border-color: #2563eb;
+  background: #13838226;
+  border-color: #138382;
 }
 
 /* Mail Button - Blue (Info) */
@@ -1558,14 +1558,14 @@
 }
 
 .crm-board .main-container .action-container .select-container .action-buttons .response-btn {
-  background: #2563eb1A;
-  color: #2563eb;
-  border-color: #2563eb;
+  background: #1383821A;
+  color: #138382;
+  border-color: #138382;
 }
 
 .crm-board .main-container .action-container .select-container .action-buttons .response-btn:hover {
-  background: #2563eb26;
-  border-color: #2563eb;
+  background: #13838226;
+  border-color: #138382;
 }
 
 .crm-board .main-container .action-container .select-container .action-buttons .mail-btn {
