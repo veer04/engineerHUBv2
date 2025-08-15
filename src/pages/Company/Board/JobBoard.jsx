@@ -484,15 +484,15 @@ export default function JobBoard() {
       );
 
       if (response.data.success) {
-        // Show success message with rate limit info if available
-        let successMessage = `${selectedRows.length} selected candidate(s) moved to 'Sorted' segment successfully!`;
+        // Use the message from backend which includes total sorted count
+        let successMessage = response.data.message || `${selectedRows.length} selected candidate(s) moved to 'Sorted' segment successfully!`;
         
         // Debug: Log the response structure
         console.log('Sort response:', response.data);
         
         if (response.data.data && response.data.data.rateLimitInfo) {
           setRateLimitInfo(response.data.data.rateLimitInfo);
-          successMessage += ` (${response.data.data.rateLimitInfo.currentHourRequests}/${response.data.data.rateLimitInfo.maxRequestsPerHour} requests used this hour)`;
+          successMessage += ` (${response.data.data.rateLimitInfo.currentHourRequests}/${response.data.data.rateLimitInfo.maxRequestsPerHour} credits used this hour)`;
         }
         
         setSnackbarMessage(successMessage);
@@ -533,6 +533,9 @@ export default function JobBoard() {
         } else {
           errorMessage = error.response.data.message;
         }
+      } else if (error?.response?.data?.message?.includes("already sorted")) {
+        // Handle case where some applicants are already sorted
+        errorMessage = error.response.data.message;
       } else if (error?.response?.data?.message) {
         errorMessage = error.response.data.message;
       }
@@ -807,10 +810,23 @@ export default function JobBoard() {
                   </span>
                 </div>
                 <div className="job-expired-date">
-                  <span className="date-label">Expired:</span>
-                  <span className="date-value">
-                    {jobData?.data?.data?.data?.expiryDate ? (
-                      moment(jobData?.data?.data?.data?.expiryDate).format("DD/MM/YY")
+                  <span className="date-label">
+                    {jobData?.data?.data?.data?.applicationEndTime && 
+                     new Date(jobData?.data?.data?.data?.applicationEndTime) < new Date() 
+                      ? "Expired:" 
+                      : "Expiry Date:"}
+                  </span>
+                  <span 
+                    className="date-value"
+                    style={{
+                      color: jobData?.data?.data?.data?.applicationEndTime && 
+                              new Date(jobData?.data?.data?.data?.applicationEndTime) < new Date() 
+                               ? "#dc2626" 
+                               : "inherit"
+                    }}
+                  >
+                    {jobData?.data?.data?.data?.applicationEndTime ? (
+                      moment(jobData?.data?.data?.data?.applicationEndTime).format("DD/MM/YY")
                     ) : (
                       <i>Not set</i>
                     )}

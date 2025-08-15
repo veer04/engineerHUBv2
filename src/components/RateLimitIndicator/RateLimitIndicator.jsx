@@ -56,10 +56,10 @@ const RateLimitIndicator = ({ currentRequests = 0, maxRequests = 50, maxResumesP
           </div>
           <div className="tooltip-content">
             <div className="tooltip-item">
-              <strong>Current Usage:</strong> {currentRequests} requests
+              <strong>Current Usage:</strong> {currentRequests} credits
             </div>
             <div className="tooltip-item">
-              <strong>Hourly Limit:</strong> {maxRequests} requests
+              <strong>Hourly Limit:</strong> {maxRequests} credits
             </div>
             <div className="tooltip-item">
               <strong>Per Request Limit:</strong> {maxResumesPerRequest} resumes
