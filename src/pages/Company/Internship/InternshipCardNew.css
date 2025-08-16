@@ -74,6 +74,12 @@
   border-top: 1px solid #E0E0E0;
 }
 
+.status-section {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
 .status-tag {
   padding: 4px 12px;
   border-radius: 16px;
@@ -94,6 +100,47 @@
 .status-tag.expired {
   background: #FFEBEE;
   color: #D32F2F;
+}
+
+.views-capsule {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  background: #F8F9FA;
+  border-radius: 16px;
+  font-size: 11px;
+  color: #666;
+  border: 1px solid #E9ECEF;
+  transition: all 0.2s ease;
+}
+
+.views-capsule:hover {
+  background: #E9ECEF;
+  border-color: #DEE2E6;
+}
+
+.views-capsule .eye-icon {
+  font-size: 14px;
+  color: #495057;
+  animation: eyePulse 2s ease-in-out infinite;
+}
+
+@keyframes eyePulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.8;
+  }
+}
+
+.views-capsule .views-count {
+  font-weight: 500;
+  color: #666;
+  font-size: 12px;
 }
 
 .end-date {

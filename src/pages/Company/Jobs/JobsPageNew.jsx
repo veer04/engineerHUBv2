@@ -118,6 +118,8 @@ const JobsPageNew = () => {
       console.log('Jobs data array:', jobsData);
       console.log('Sample job fields:', jobsData[0] ? Object.keys(jobsData[0]) : 'No jobs found');
       console.log('First job details:', jobsData[0]);
+      
+      // Backend will handle sorting by latest posted jobs
       setJobs(jobsData);
       
       // Update page count calculation to handle both filtered and unfiltered data
