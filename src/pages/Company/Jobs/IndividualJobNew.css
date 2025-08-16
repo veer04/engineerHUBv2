@@ -74,6 +74,55 @@
   text-decoration: underline;
 }
 
+.views-section {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  margin-left: auto;
+  margin-top: 0.5rem;
+}
+
+.views-capsule {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 8px;
+  background: #F8F9FA;
+  border-radius: 16px;
+  font-size: 11px;
+  color: #666;
+  border: 1px solid #E9ECEF;
+  transition: all 0.2s ease;
+}
+
+.views-capsule:hover {
+  background: #E9ECEF;
+  border-color: #DEE2E6;
+}
+
+.views-capsule .eye-icon {
+  font-size: 14px;
+  color: #495057;
+  animation: eyePulse 2s ease-in-out infinite;
+}
+
+@keyframes eyePulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.8;
+  }
+}
+
+.views-capsule .views-count {
+  font-weight: 500;
+  color: #666;
+  font-size: 12px;
+}
+
 .hiring-apply-btn {
   display: flex;
   justify-content: center;
@@ -264,6 +313,13 @@
   .hiring-box .hiring-header .details .hiring-logo {
     width: 4.5rem;
     height: 4.5rem;
+  }
+
+  .views-section {
+    position: absolute;
+    top: 6rem;
+    left: 2rem;
+    margin: 0;
   }
 
   .hiring-apply-btn {

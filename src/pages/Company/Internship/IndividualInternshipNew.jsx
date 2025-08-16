@@ -2,6 +2,7 @@ import "./IndividualInternshipNew.css";
 import { useParams } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import { FaExternalLinkAlt } from "react-icons/fa";
+import { BsEyeFill } from "react-icons/bs";
 import { API_URL } from "../../../services/APIUtils";
 import axios from "axios";
 import AdsenseComp from "../../../components/AdsenseComp/AdsenseComp";
@@ -241,6 +242,12 @@ export default function IndividualInternshipNew() {
                     {hiring?.detailFound?.opportunityLocation}
                   </h3>
                 </div>
+              </div>
+              <div className="views-section">
+                <span className="views-capsule">
+                  <BsEyeFill className="eye-icon" />
+                  <span className="views-count">{hiring?.detailFound?.views || 0}</span>
+                </span>
               </div>
             </div>
             <div className="hiring-tags">
