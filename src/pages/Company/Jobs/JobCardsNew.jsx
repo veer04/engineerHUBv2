@@ -3,6 +3,7 @@ import "./JobCardsNew.css";
 import { MdLocationOn } from "react-icons/md";
 import { BsBriefcase } from "react-icons/bs";
 import { BiRupee } from "react-icons/bi";
+import { BsEyeFill } from "react-icons/bs";
 import { Link, useNavigate } from "react-router-dom";
 
 export default function JobCardsNew({ details }) {
@@ -123,9 +124,15 @@ export default function JobCardsNew({ details }) {
         </div>
 
         <div className="card-footer">
-          {getStatusTag()}
+          <div className="status-section">
+            {getStatusTag()}
+            <span className="views-capsule">
+              <BsEyeFill className="eye-icon" />
+              <span className="views-count">{details?.views || 0}</span>
+            </span>
+          </div>
           <span className="end-date">
-            End by: {new Date(details?.applicationEndTime).toLocaleDateString('en-IN', { day: 'numeric', month: 'short' })}
+            Ends : {new Date(details?.applicationEndTime).toLocaleDateString('en-IN', { day: 'numeric', month: 'short' })}
           </span>
         </div>
 
