@@ -5,7 +5,8 @@
   gap: 8px;
   font-size: 11px;
   color: #666;
-  height: 38px; /* Match the height of sort button */
+  height: 2.5rem;
+  min-height: 2.5rem;
 }
 
 .rate-limit-trigger {

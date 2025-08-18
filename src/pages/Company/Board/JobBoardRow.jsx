@@ -16,6 +16,7 @@ export default function JobBoardRow({
   setIsAnyRowUpdating,
   isDataFetching,
   showAIScore,
+  showProcessingView,
   onSendMail,
 }) {
   // get the hiring id from the url use useParams
@@ -241,33 +242,79 @@ export default function JobBoardRow({
           </span>
         )}
       </div>
-      <div className="table-item table-content text-crop-1 overflow-hidden table-content-3">
-        <p
-          title={data?.skills?.split(",")?.join(", ")}
-          className="body-sm-regular text-crop-2 "
-        >
-          {data?.skills?.split(",")?.join(", ")}
-        </p>
-      </div>
-      <div className="table-item table-content table-content-4">
-        <p title={data?.college} className="body-sm-regular text-crop-2">
-          {data?.college}
-        </p>
-      </div>
-      <div className="table-item table-content table-content-5">
-        <p title={data?.batch} className="body-sm-regular text-crop-2">
-          {data?.batch}
-        </p>
-      </div>
-      <div className="table-item table-content table-content-6">
-        <p title={data?.experience} className="body-sm-regular text-crop-2">
-          {data?.experience > 0
-            ? data?.experience === 1
-              ? `${data?.experience} year`
-              : `${data?.experience} years`
-            : ""}
-        </p>
-      </div>
+      {showProcessingView ? (
+        <>
+          <div className="table-item table-content table-content-email">
+            <p title={data?.email || data?.userId?.email || "Not available"} className="body-sm-regular text-crop-2">
+              {data?.email || data?.userId?.email || "Not available"}
+            </p>
+          </div>
+          <div className="table-item table-content table-content-phone">
+            <p title={data?.phone || data?.userId?.phone || "Not available"} className="body-sm-regular text-crop-2">
+              {data?.phone || data?.userId?.phone || "Not available"}
+            </p>
+          </div>
+          <div className="table-item table-content table-content-sorted">
+            <div className="ai-score-container">
+              <div className="ai-score">
+                <span className="score-value">
+                  {data?.aiScore !== undefined && data?.aiScore !== null 
+                    ? `${Math.round(data.aiScore)}/100` 
+                    : "N/A"}
+                </span>
+              </div>
+              {data?.aiScoringSuccess === false && (
+                <small className="score-warning">⚠️ Fallback</small>
+              )}
+            </div>
+          </div>
+          <div className="table-item table-content table-content-summary">
+            <div className="summary-content">
+              {data?.aiScoreDetails?.reasoning ? (
+                <button 
+                  className="view-summary-btn body-sm-regular"
+                  onClick={() => setShowSummaryModal(true)}
+                  title="View AI Analysis Summary"
+                >
+                  <MdVisibility /> Summary
+                </button>
+              ) : (
+                <small>No summary available</small>
+              )}
+            </div>
+          </div>
+        </>
+      ) : (
+        <>
+          <div className="table-item table-content text-crop-1 overflow-hidden table-content-3">
+            <p
+              title={data?.skills?.split(",")?.join(", ")}
+              className="body-sm-regular text-crop-2 "
+            >
+              {data?.skills?.split(",")?.join(", ")}
+            </p>
+          </div>
+          <div className="table-item table-content table-content-4">
+            <p title={data?.college} className="body-sm-regular text-crop-2">
+              {data?.college}
+            </p>
+          </div>
+          <div className="table-item table-content table-content-5">
+            <p title={data?.batch} className="body-sm-regular text-crop-2">
+              {data?.batch}
+            </p>
+          </div>
+          <div className="table-item table-content table-content-6">
+            <p title={data?.experience} className="body-sm-regular text-crop-2">
+              {data?.experience > 0
+                ? data?.experience === 1
+                  ? `${data?.experience} year`
+                  : `${data?.experience} years`
+                : ""}
+            </p>
+          </div>
+        </>
+      )}
       <div className="table-item table-content table-content-7">
         {data?.resumeUrl ? (
           <a
@@ -562,7 +609,7 @@ export default function JobBoardRow({
 
             {status === "Processing" && (
               <div
-                className={`hired-btn processing-btn d-flex align-items-center w-100 gap-2 ${
+                className={`hired-btn processing-btn d-flex align-items-center gap-2 ${
                   isHired ? "--hired" : ""
                 }`}
               >
@@ -609,7 +656,7 @@ export default function JobBoardRow({
             )}
             <button 
               onClick={onSendMail} 
-              title="Send Mail"
+              title="Send email to this candidate"
               className="action-btn mail-btn"
             >
               <MdMailOutline />

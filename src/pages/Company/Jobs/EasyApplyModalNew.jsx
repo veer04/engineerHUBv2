@@ -30,6 +30,7 @@ const EasyApplyModalNew = ({
   const [skillsRequired, setSkillsRequired] = useState("");
   const [college, setCollege] = useState("");
   const [passOutYear, setPassOutYear] = useState("");
+  const [phone, setPhone] = useState("");
   const [experience, setExperience] = useState(0);
   const [resume, setResume] = useState("");
   const [usePreviousResume, setUsePreviousResume] = useState(false);
@@ -40,6 +41,7 @@ const EasyApplyModalNew = ({
     skillsRequired: "",
     college: "",
     passOutYear: "",
+    phone: "",
     experience: "",
     resume: "",
   });
@@ -92,6 +94,7 @@ const EasyApplyModalNew = ({
       skillsRequired: "",
       college: "",
       passOutYear: "",
+      phone: "",
       experience: "",
       resume: "",
     };
@@ -110,6 +113,15 @@ const EasyApplyModalNew = ({
       errors.passOutYear = "Passout year is required";
       isValid = false;
       addToErrorStack("#passoutYear");
+    }
+    if (!phone) {
+      errors.phone = "Phone number is required";
+      isValid = false;
+      addToErrorStack("#phone");
+    } else if (!/^[0-9]{10}$/.test(phone.replace(/\s/g, ''))) {
+      errors.phone = "Please enter a valid 10-digit phone number";
+      isValid = false;
+      addToErrorStack("#phone");
     }
     if (!experience) {
       errors.experience = "Experience is required";
@@ -133,6 +145,7 @@ const EasyApplyModalNew = ({
       skillsRequired: "",
       college: "",
       passOutYear: "",
+      phone: "",
       experience: "",
       resume: "",
     };
@@ -151,6 +164,15 @@ const EasyApplyModalNew = ({
       errors.passOutYear = "Passout year is required";
       isValid = false;
       addToErrorStack("#passoutYear");
+    }
+    if (!phone) {
+      errors.phone = "Phone number is required";
+      isValid = false;
+      addToErrorStack("#phone");
+    } else if (!/^[0-9]{10}$/.test(phone.replace(/\s/g, ''))) {
+      errors.phone = "Please enter a valid 10-digit phone number";
+      isValid = false;
+      addToErrorStack("#phone");
     }
     if (!experience) {
       errors.experience = "Experience is required";
@@ -173,11 +195,35 @@ const EasyApplyModalNew = ({
       setSkillsRequired(latestInfo?.skills);
       setCollege(latestInfo?.college);
       setPassOutYear(latestInfo?.passoutYear);
+      setPhone(latestInfo?.phone || "");
       setExperience(latestInfo?.experience);
       setIsResumePresent(latestInfo?.resume ? true : false);
       setUsePreviousResume(latestInfo?.resume ? true : false);
     }
   }, [latestInfo]);
+
+  // Also check for user's mobile number from profile if available
+  useEffect(() => {
+    const fetchUserProfile = async () => {
+      try {
+        const response = await axios.get(`${API_URL}api/v1/getUserWithId`, {
+          headers: {
+            accessToken: getAccessToken(),
+          },
+        });
+        const userData = response.data?.data;
+        if (userData?.mobile && !phone) {
+          setPhone(userData.mobile.toString());
+        }
+      } catch (error) {
+        console.log("Could not fetch user profile for mobile number");
+      }
+    };
+    
+    if (!phone && Object.keys(latestInfo).length === 0) {
+      fetchUserProfile();
+    }
+  }, [phone, latestInfo]);
 
   const config = {
     headers: {
@@ -228,6 +274,7 @@ const EasyApplyModalNew = ({
       skills: skillsRequiredString,
       college,
       batch: passOutYear,
+      phone,
       experience: experience.value,
       resume: resumeLink,
     };
@@ -266,6 +313,7 @@ const EasyApplyModalNew = ({
     formData.append("skills", skillsRequiredString);
     formData.append("college", college);
     formData.append("passoutYear", passOutYear);
+    formData.append("phone", phone);
     formData.append("experience", experience);
     if (!usePreviousResume) {
       formData.append("resume", resume);
@@ -312,6 +360,7 @@ const EasyApplyModalNew = ({
     setSkillsRequired("");
     setCollege("");
     setPassOutYear("");
+    setPhone("");
     setExperience(0);
     setResume("");
     setUsePreviousResume(false);
@@ -319,6 +368,7 @@ const EasyApplyModalNew = ({
       skillsRequired: "",
       college: "",
       passOutYear: "",
+      phone: "",
       experience: "",
       resume: "",
     });
@@ -478,6 +528,17 @@ const EasyApplyModalNew = ({
                 value={passOutYear}
                 setValue={setPassOutYear}
                 helperText={errors.passOutYear}
+                className="mb-3"
+              />
+              <FormInput
+                label="Enter your phone number"
+                id="phone"
+                name="phone"
+                required
+                placeholder="Enter your phone number"
+                value={phone}
+                setValue={setPhone}
+                helperText={errors.phone}
                 className="mb-3"
               />
               <FormInputDropdown
