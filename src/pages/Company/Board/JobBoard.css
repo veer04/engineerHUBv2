@@ -50,12 +50,17 @@
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
+  margin-bottom: 1rem;
 }
+
 .crm-board .main-container .categories-container .categories {
   display: flex;
   gap: 0.25rem;
   color: var(--text-dark-green);
+  align-items: center;
+  flex-wrap: wrap;
 }
+
 .crm-board .main-container .categories-container .categories button {
   border-radius: 2rem;
   background-color: white;
@@ -71,6 +76,8 @@
   overflow: hidden;
   min-width: fit-content;
   height: 2rem;
+  margin: 0;
+  flex-shrink: 0;
 }
 
 .crm-board .main-container .categories-container .categories button::before {
@@ -207,6 +214,8 @@
   display: flex;
   gap: 1rem;
   align-items: center;
+  flex-shrink: 0;
+  flex-wrap: wrap;
 }
 .crm-board
   .main-container
@@ -214,15 +223,39 @@
   .download-container
   .send-mail-btn {
   border-radius: 0.3125rem;
-  background: #1383821a;
-  padding: 0.62rem;
-  color: #138382;
-  border: none;
+  background: #e0f2fe;
+  padding: 0.62rem 1rem;
+  color: #0369a1;
+  border: 1px solid #0ea5e9;
   font-weight: 600;
   display: flex;
   align-items: center;
   gap: 0.25rem;
   font-size: 12px;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  height: 2.5rem;
+  min-height: 2.5rem;
+}
+
+.crm-board
+  .main-container
+  .categories-container
+  .download-container
+  .send-mail-btn:hover {
+  background: #bae6fd;
+  border-color: #0284c7;
+  transform: translateY(-1px);
+}
+
+.crm-board
+  .main-container
+  .categories-container
+  .download-container
+  .send-mail-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
 }
 
 .crm-board
@@ -232,10 +265,16 @@
   .download-btn {
   border-radius: 0.3125rem;
   background: #138382;
-  padding: 0.62rem;
+  padding: 0.62rem 1rem;
   color: white;
   border: none;
   font-size: 12px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  height: 2.5rem;
+  min-height: 2.5rem;
 }
 
 .crm-board
@@ -246,6 +285,7 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  flex-shrink: 0;
 }
 
 .crm-board
@@ -255,7 +295,7 @@
   .sort-btn {
   border-radius: 0.3125rem;
   background: #1383821a;
-  padding: 0.62rem;
+  padding: 0.62rem 1rem;
   color: #138382;
   border: none;
   font-weight: 600;
@@ -265,6 +305,8 @@
   cursor: pointer;
   transition: all 0.2s ease;
   font-size: 12px;
+  height: 2.5rem;
+  min-height: 2.5rem;
 }
 
 .crm-board
@@ -318,11 +360,18 @@
   .move-back-btn {
   border-radius: 0.3125rem;
   background: #fef3f2;
-  padding: 0.62rem;
+  padding: 0.62rem 1rem;
   color: #dc2626;
   border: 1px solid #dc2626;
   font-weight: 600;
   font-size: 12px;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  height: 2.5rem;
+  min-height: 2.5rem;
+  transition: all 0.2s ease;
+  cursor: pointer;
 }
 
 .crm-board
@@ -349,6 +398,7 @@
   align-items: center;
   margin-bottom: 1rem;
   gap: 1rem;
+  flex-wrap: wrap;
 }
 
 .crm-board .main-container .action-container .select-container {
@@ -356,6 +406,8 @@
   gap: 1rem;
   align-items: center;
   flex: 1;
+  flex-wrap: wrap;
+  min-width: 0;
 }
 
 .crm-board .main-container .action-container .select-container .select-all {
@@ -363,6 +415,7 @@
   align-items: center;
   gap: 0.5rem;
   font-size: 12px;
+  flex-shrink: 0;
 }
 
 .crm-board .main-container .action-container .select-container .selection-limit-warning {
@@ -399,6 +452,8 @@
 .crm-board .main-container .action-container .select-container .action-buttons {
   display: flex;
   gap: 0.5rem;
+  align-items: center;
+  flex-shrink: 0;
 }
 
 .crm-board .main-container .action-container .select-container .action-buttons button {
@@ -462,6 +517,14 @@
   min-height: 400px; /* Ensure minimum height to prevent shrinking */
   grid-auto-rows: max-content; /* Prevent row stretching */
   align-content: start; /* Align content to start instead of stretching */
+}
+
+/* Processing segment view - Email, Phone, Sorted, Summary */
+.crm-board .main-container .board-table.--processing-view {
+  grid-template-columns: 40px 8rem minmax(3rem, 0.8fr) minmax(3rem, 0.6fr) 6rem 8rem 6rem 9rem;
+  min-height: 400px;
+  grid-auto-rows: max-content;
+  align-content: start;
 }
 
 /* No Data Message Styles */
@@ -703,13 +766,14 @@
   font-weight: 500;
 }
 
-.crm-board .main-container .board-table .table-content-8 .hired-btn {
+/* Legacy hired-btn styles - only apply when not combined with processing-btn */
+.crm-board .main-container .board-table .table-content-8 .hired-btn:not(.processing-btn) {
   border-radius: 5px;
   height: 100%;
   padding: 0.5rem;
 }
 
-.crm-board .main-container .board-table .table-content-8 .hired-btn.--hired {
+.crm-board .main-container .board-table .table-content-8 .hired-btn:not(.processing-btn).--hired {
   color: #00643a;
   background-color: #00d58826;
 }
@@ -779,6 +843,15 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+/* Style for "No summary available" text to make it more subtle */
+.crm-board .main-container .board-table .summary-content small {
+  color: #9ca3af; /* Light gray color for subtle appearance */
+  font-size: 0.75rem;
+  font-weight: 400;
+  opacity: 0.7; /* Reduce opacity for even more subtle appearance */
+  font-style: italic; /* Make it slightly italic for secondary content feel */
 }
 
 .crm-board .main-container .board-table .view-summary-btn {
@@ -1296,16 +1369,78 @@
   box-shadow: none;
 }
 
-/* Processing Button - Blue */
+/* Processing Button - Soothing Blue */
 .crm-board .main-container .board-table .table-content-8 .processing-btn {
-  background: #2563eb1A;
-  color: #2563eb;
-  border-color: #2563eb;
+  background: #e0f2fe;
+  color: #0369a1;
+  border-color: #0ea5e9;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.375rem 0.5rem;
+  border-radius: 0.25rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  border: 1px solid #0ea5e9;
+  min-width: fit-content;
+  max-width: 120px;
 }
 
 .crm-board .main-container .board-table .table-content-8 .processing-btn:hover {
-  background: #2563eb26;
-  border-color: #2563eb;
+  background: #bae6fd;
+  border-color: #0284c7;
+  transform: translateY(-1px);
+}
+
+.crm-board .main-container .board-table .table-content-8 .processing-btn input[type="checkbox"] {
+  width: 0.875rem;
+  height: 0.875rem;
+  margin: 0;
+  cursor: pointer;
+}
+
+.crm-board .main-container .board-table .table-content-8 .processing-btn label {
+  font-size: 0.75rem;
+  font-weight: 500;
+  margin: 0;
+  cursor: pointer;
+  color: #0369a1;
+}
+
+.crm-board .main-container .board-table .table-content-8 .processing-btn.--hired {
+  background: #dcfce7;
+  color: #166534;
+  border-color: #22c55e;
+}
+
+.crm-board .main-container .board-table .table-content-8 .processing-btn.--hired label {
+  color: #166534;
+}
+
+.crm-board .main-container .board-table .table-content-8 .processing-btn.--hired:hover {
+  background: #bbf7d0;
+  border-color: #16a34a;
+}
+
+/* Responsive improvements for Processing button */
+@media (max-width: 768px) {
+  .crm-board .main-container .board-table .table-content-8 .processing-btn {
+    padding: 0.25rem 0.375rem;
+    font-size: 0.7rem;
+    max-width: 100px;
+  }
+  
+  .crm-board .main-container .board-table .table-content-8 .processing-btn input[type="checkbox"] {
+    width: 0.75rem;
+    height: 0.75rem;
+  }
+  
+  .crm-board .main-container .board-table .table-content-8 .processing-btn label {
+    font-size: 0.7rem;
+  }
 }
 
 /* Select All Button - Boxy Design */
@@ -1651,4 +1786,264 @@
 
 .crm-board .main-container .categories-container .download-container .move-back-btn[title]:hover::after {
   content: "Move sorted candidates back to response segment";
+}
+
+/* Email Modal Styles */
+.email-modal .modal-content {
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.email-modal .modal-header {
+  background: linear-gradient(135deg, #0ea5e9 0%, #0369a1 100%);
+  border-radius: 12px 12px 0 0;
+  border-bottom: none;
+  padding: 1.5rem;
+}
+
+.email-modal .modal-title {
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.email-modal .modal-body {
+  padding: 2rem;
+}
+
+.email-modal .modal-footer {
+  border-top: 1px solid #e9ecef;
+  padding: 1.5rem;
+  background-color: #f8f9fa;
+  border-radius: 0 0 12px 12px;
+}
+
+.selected-candidates-preview {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.selected-candidates-preview .badge {
+  font-size: 0.8rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 20px;
+  background-color: #e0f2fe !important;
+  color: #0369a1 !important;
+  border: 1px solid #bae6fd;
+}
+
+.email-editor-container {
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.email-editor-container .tox-tinymce {
+  border: none !important;
+}
+
+.email-editor-container .tox-toolbar {
+  background-color: #f8f9fa !important;
+  border-bottom: 1px solid #dee2e6 !important;
+}
+
+.alert-info {
+  background-color: #e0f2fe;
+  border-color: #bae6fd;
+  color: #0369a1;
+  font-size: 0.875rem;
+}
+
+.alert-info strong {
+  color: #0ea5e9;
+  font-size: 0.9rem;
+}
+
+.alert-info ul {
+  margin-top: 0.5rem;
+  padding-left: 1.2rem;
+  font-size: 0.8rem;
+}
+
+.alert-info li {
+  margin-bottom: 0.25rem;
+  line-height: 1.4;
+}
+
+.alert-info code {
+  background-color: #fff3cd;
+  color: #856404;
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+  font-size: 0.75em;
+}
+
+/* Form improvements */
+.form-label {
+  font-weight: 600;
+  color: #495057;
+  margin-bottom: 0.5rem;
+}
+
+.form-control:focus {
+  border-color: #0ea5e9;
+  box-shadow: 0 0 0 0.2rem rgba(14, 165, 233, 0.25);
+}
+
+/* Button improvements */
+.btn-primary {
+  background: linear-gradient(135deg, #0ea5e9 0%, #0369a1 100%);
+  border: none;
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.modal-title.fs-5.heading-sm{
+  color: #fff;
+}
+.btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(14, 165, 233, 0.4);
+}
+
+.btn-primary:disabled {
+  background: #6c757d;
+  transform: none;
+  box-shadow: none;
+}
+
+.btn-outline-secondary {
+  border-color: #6c757d;
+  color: #6c757d;
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.btn-outline-secondary:hover {
+  background-color: #6c757d;
+  border-color: #6c757d;
+  transform: translateY(-1px);
+}
+
+/* Responsive improvements */
+@media (max-width: 768px) {
+  .email-modal .modal-dialog {
+    margin: 1rem;
+  }
+  
+  .email-modal .modal-body {
+    padding: 1rem;
+  }
+  
+  .email-modal .modal-footer {
+    padding: 1rem;
+  }
+  
+  .selected-candidates-preview {
+    gap: 0.25rem;
+  }
+  
+  .selected-candidates-preview .badge {
+    font-size: 0.7rem;
+    padding: 0.4rem 0.6rem;
+  }
+}
+
+/* Email limit warning */
+.email-limit-warning {
+  font-size: 0.75rem;
+  color: #dc3545;
+  margin-top: 0.25rem;
+  font-weight: 500;
+}
+
+.send-mail-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.send-mail-btn:disabled:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+/* Responsive improvements to prevent layout distortion */
+@media (max-width: 1024px) {
+  .crm-board .main-container .categories-container {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+  }
+  
+  .crm-board .main-container .categories-container .categories {
+    justify-content: center;
+  }
+  
+  .crm-board .main-container .categories-container .download-container {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .crm-board .main-container .categories-container .categories button {
+    font-size: 10px;
+    padding: 0.25rem 0.5rem;
+    height: 1.75rem;
+  }
+  
+  .crm-board .main-container .categories-container .download-container {
+    gap: 0.5rem;
+  }
+  
+  .crm-board .main-container .action-container {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
+  }
+  
+  .crm-board .main-container .action-container .select-container {
+    justify-content: center;
+  }
+}
+
+/* Processing View Column Styles */
+.crm-board .main-container .board-table .table-content-email {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 0.5rem;
+  gap: 0.25rem;
+  min-width: 3rem;
+  text-align: left;
+}
+
+.crm-board .main-container .board-table .table-content-phone {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 0.5rem;
+  gap: 0.25rem;
+  min-width: 3rem;
+  text-align: left;
+}
+
+/* Processing view specific grid column spanning */
+.crm-board .main-container .board-table.--processing-view .no-data-message {
+  grid-column: 1 / 9;
+}
+
+.crm-board .main-container .board-table.--processing-view .loading-state {
+  grid-column: 1 / 9;
+}
+
+.crm-board .main-container .board-table.--processing-view .refreshing-message {
+  grid-column: 1 / 9;
 }

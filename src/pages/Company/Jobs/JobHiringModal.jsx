@@ -31,6 +31,7 @@ export default function JobHiringModal({
   const [skillsRequired, setSkillsRequired] = useState("");
   const [college, setCollege] = useState("");
   const [passOutYear, setPassOutYear] = useState("");
+  const [phone, setPhone] = useState("");
   const [experience, setExperience] = useState(0);
   const [resume, setResume] = useState("");
   const [usePreviousResume, setUsePreviousResume] = useState(false);
@@ -39,6 +40,7 @@ export default function JobHiringModal({
     skillsRequired: "",
     college: "",
     passOutYear: "",
+    phone: "",
     experience: "",
     resume: "",
   });
@@ -108,14 +110,30 @@ export default function JobHiringModal({
 
     if (isModalOpen) {
       document.addEventListener('keydown', handleEscape);
+      // Prevent body scrolling when modal is open
       document.body.style.overflow = 'hidden';
+      document.body.style.position = 'fixed';
+      document.body.style.width = '100%';
+      document.body.style.top = `-${window.scrollY}px`;
     } else {
+      // Restore body scrolling when modal is closed
+      const scrollY = document.body.style.top;
       document.body.style.overflow = 'unset';
+      document.body.style.position = '';
+      document.body.style.width = '';
+      document.body.style.top = '';
+      if (scrollY) {
+        window.scrollTo(0, parseInt(scrollY || '0') * -1);
+      }
     }
 
     return () => {
       document.removeEventListener('keydown', handleEscape);
+      // Ensure body scrolling is restored on cleanup
       document.body.style.overflow = 'unset';
+      document.body.style.position = '';
+      document.body.style.width = '';
+      document.body.style.top = '';
     };
   }, [isModalOpen]);
 
@@ -145,6 +163,7 @@ export default function JobHiringModal({
       skillsRequired: "",
       college: "",
       passOutYear: "",
+      phone: "",
       experience: "",
       resume: "",
     };
@@ -163,6 +182,15 @@ export default function JobHiringModal({
       errors.passOutYear = "Passout year is required";
       isValid = false;
       addToErrorStack("#passoutYear");
+    }
+    if (!phone) {
+      errors.phone = "Phone number is required";
+      isValid = false;
+      addToErrorStack("#phone");
+    } else if (!/^[0-9]{10}$/.test(phone.replace(/\s/g, ''))) {
+      errors.phone = "Please enter a valid 10-digit phone number";
+      isValid = false;
+      addToErrorStack("#phone");
     }
     if (!experience) {
       errors.experience = "Experience is required";
@@ -185,11 +213,35 @@ export default function JobHiringModal({
       setSkillsRequired(latestInfo?.skills);
       setCollege(latestInfo?.college);
       setPassOutYear(latestInfo?.passoutYear);
+      setPhone(latestInfo?.phone || "");
       setExperience(latestInfo?.experience);
       setIsResumePresent(latestInfo?.resume ? true : false);
       setUsePreviousResume(latestInfo?.resume ? true : false);
     }
   }, [latestInfo]);
+
+  // Also check for user's mobile number from profile if available
+  useEffect(() => {
+    const fetchUserProfile = async () => {
+      try {
+        const response = await axios.get(`${API_URL}api/v1/getUserWithId`, {
+          headers: {
+            accessToken: getAccessToken(),
+          },
+        });
+        const userData = response.data?.data;
+        if (userData?.mobile && !phone) {
+          setPhone(userData.mobile.toString());
+        }
+      } catch (error) {
+        console.log("Could not fetch user profile for mobile number");
+      }
+    };
+    
+    if (!phone && Object.keys(latestInfo).length === 0) {
+      fetchUserProfile();
+    }
+  }, [phone, latestInfo]);
 
   const config = {
     headers: {
@@ -239,6 +291,7 @@ export default function JobHiringModal({
       skills: skillsRequiredString,
       college,
       batch: passOutYear,
+      phone,
       experience: experience.value,
       resume: resumeLink,
     };
@@ -278,6 +331,7 @@ export default function JobHiringModal({
     formData.append("skills", skillsRequiredString);
     formData.append("college", college);
     formData.append("passoutYear", passOutYear);
+    formData.append("phone", phone);
     formData.append("experience", experience);
     if (!usePreviousResume) {
       formData.append("resume", resume);
@@ -323,6 +377,7 @@ export default function JobHiringModal({
     setSkillsRequired("");
     setCollege("");
     setPassOutYear("");
+    setPhone("");
     setExperience(0);
     setResume("");
     setUsePreviousResume(false);
@@ -330,6 +385,7 @@ export default function JobHiringModal({
       skillsRequired: "",
       college: "",
       passOutYear: "",
+      phone: "",
       experience: "",
       resume: "",
     });
@@ -338,6 +394,31 @@ export default function JobHiringModal({
   const closeModal = () => {
     setIsModalOpen(false);
   };
+
+  // Function to ensure modal content is scrollable and accessible
+  const ensureModalAccessibility = () => {
+    // Small delay to ensure modal is rendered
+    setTimeout(() => {
+      const modalContent = document.querySelector('.custom-modal-content');
+      if (modalContent) {
+        // Scroll to top of modal content
+        modalContent.scrollTop = 0;
+        
+        // Ensure footer is visible on mobile
+        const modalFooter = document.querySelector('.custom-modal-footer');
+        if (modalFooter && window.innerWidth <= 768) {
+          modalFooter.scrollIntoView({ behavior: 'smooth', block: 'end' });
+        }
+      }
+    }, 100);
+  };
+
+  // Call accessibility function when modal opens
+  useEffect(() => {
+    if (isModalOpen) {
+      ensureModalAccessibility();
+    }
+  }, [isModalOpen]);
 
   if (!isModalOpen) return null;
 
@@ -387,6 +468,17 @@ export default function JobHiringModal({
             value={passOutYear}
             setValue={setPassOutYear}
             helperText={errors.passOutYear}
+            className="mb-4"
+          />
+          <FormInput
+            label="Enter your phone number"
+            id="phone"
+            name="phone"
+            required
+            placeholder="Enter your phone number"
+            value={phone}
+            setValue={setPhone}
+            helperText={errors.phone}
             className="mb-4"
           />
           <FormInputDropdown

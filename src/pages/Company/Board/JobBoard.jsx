@@ -57,6 +57,47 @@ export default function JobBoard() {
     message: "",
     senderEmail: "",
   });
+
+  // Default email template
+  const getDefaultEmailTemplate = () => {
+    const jobTitle = jobData?.data?.data?.data?.opportunityName || "this position";
+    const companyName = jobData?.data?.data?.data?.organizationName || "our company";
+    
+    return `<p>Dear Candidate,</p>
+
+<p>Thank you for your interest in the <strong>${jobTitle}</strong> position at <strong>${companyName}</strong>.</p>
+
+<p>We have reviewed your application and would like to move forward with the next steps in our hiring process.</p>
+
+<p>Please find the details below:</p>
+
+<p><strong>Next Steps:</strong></p>
+<ul>
+<li>We will contact you within the next few days to schedule an interview</li>
+<li>Please ensure your contact information is up to date</li>
+<li>Prepare for a technical discussion about your skills and experience</li>
+</ul>
+
+<p><strong>What to Expect:</strong></p>
+<ul>
+<li>Initial screening call (15-20 minutes)</li>
+<li>Technical assessment (if applicable)</li>
+<li>Final interview with the team</li>
+</ul>
+
+<p>If you have any questions or need to reschedule, please don't hesitate to reach out.</p>
+
+<p>We look forward to speaking with you soon!</p>
+
+<p>Best regards,<br>
+The Hiring Team<br>
+<strong>${companyName}</strong></p>`;
+  };
+
+  const getDefaultSubject = () => {
+    const jobTitle = jobData?.data?.data?.data?.opportunityName || "Position";
+    return `Application Update - ${jobTitle} Position`;
+  };
   const {
     setSnackbarOpen,
     setSnackbarMessage,
@@ -348,6 +389,15 @@ export default function JobBoard() {
       senderEmail: "",
     };
 
+    // Check email limit
+    if (selectedRows.length > 30) {
+      setSnackbarMessage("Maximum 30 candidates can be emailed at once. Please select fewer candidates.");
+      setSnackbarSeverity("error");
+      setSnackbarDuration(5000);
+      setSnackbarOpen(true);
+      return false;
+    }
+
     if (!subject) {
       errors.subject = "Subject is required";
       isValid = false;
@@ -372,12 +422,9 @@ export default function JobBoard() {
       addToErrorStack("#message");
     }
 
-    if (!senderEmail) {
-      errors.senderEmail = "Sender's email is required";
-      isValid = false;
-      addToErrorStack("#senderEmail");
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(senderEmail)) {
-      errors.senderEmail = "Please enter a valid email address";
+    // CC field is optional, but if provided, validate email format
+    if (senderEmail && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(senderEmail)) {
+      errors.senderEmail = "Please enter a valid email address for CC";
       isValid = false;
       addToErrorStack("#senderEmail");
     }
@@ -390,12 +437,7 @@ export default function JobBoard() {
   async function submitForm() {
     setIsSendingMail(true);
     setIsAnyRowUpdating(true);
-    const applicantsNextStatus =
-      params.status === "Shortlisted"
-        ? "Processing"
-        : params.status === "Rejected"
-        ? "Rejected"
-        : "Response";
+    
     await axios
       .post(
         `${API_URL}api/v1/hiringDashboard/sendCrmEmail`,
@@ -403,7 +445,6 @@ export default function JobBoard() {
           hiringId: id,
           subject,
           text: message,
-          status: applicantsNextStatus,
           registration_ids: selectedRows.map((job) => job?._id),
           senderEmail: senderEmail,
         },
@@ -413,10 +454,24 @@ export default function JobBoard() {
         console.log(res);
         ref.current.disabled = false;
         ref.current.click();
-        setSnackbarMessage("Emails sent successfully!");
+        
+        // Show success popup with candidate names
+        const responseData = res.data.data;
+        let successMessage = `Emails sent successfully to ${responseData.sentCount} candidate(s)!`;
+        
+        if (responseData.sentEmails && responseData.sentEmails.length > 0) {
+          successMessage += `\n\nSent to: ${responseData.sentEmails.join(', ')}`;
+        }
+        
+        if (responseData.failedEmails && responseData.failedEmails.length > 0) {
+          successMessage += `\n\nFailed to send to: ${responseData.failedEmails.map(f => f.name).join(', ')}`;
+        }
+        
+        setSnackbarMessage(successMessage);
         setSnackbarSeverity("success");
-        setSnackbarDuration(5000);
+        setSnackbarDuration(8000);
         setSnackbarOpen(true);
+        
         queryClient.invalidateQueries({
           queryKey: ["Jobs", "board"],
         });
@@ -446,11 +501,33 @@ export default function JobBoard() {
       });
   }
 
-  function handleSendMail() {
+  const handleSendMail = () => {
     if (validateForm()) {
       submitForm();
     }
-  }
+  };
+
+  // Function to populate default email content when modal opens
+  const populateDefaultEmail = () => {
+    setSubject(getDefaultSubject());
+    setMessage(getDefaultEmailTemplate());
+    setSenderEmail("");
+    setErrors({
+      subject: "",
+      message: "",
+      senderEmail: "",
+    });
+  };
+
+  // Function to open email modal with default content
+  const openEmailModal = () => {
+    populateDefaultEmail();
+    const modal = document.getElementById(`sendMailModal-${jobData?.data?.data?.data?._id}`);
+    if (modal) {
+      const bsModal = new window.bootstrap.Modal(modal);
+      bsModal.show();
+    }
+  };
 
   const handleAISort = async () => {
     // Check if any applicants are selected
@@ -598,7 +675,7 @@ export default function JobBoard() {
   return (
     <>
       <div
-        className="modal fade"
+        className="modal fade email-modal"
         id={`sendMailModal-${jobData?.data?.data?.data?._id}`}
         data-bs-backdrop="static"
         data-bs-keyboard="false"
@@ -606,144 +683,184 @@ export default function JobBoard() {
         aria-labelledby="sendMailModalLabel"
         aria-hidden="true"
       >
-        <div className="modal-dialog modal-dialog-centered">
+        <div className="modal-dialog modal-dialog-centered modal-lg">
           <div className="modal-content">
-            <div className="modal-header">
+            <div className="modal-header bg-primary text-white">
               <h1
                 className="modal-title fs-5 heading-sm"
                 id="sendMailModalLabel"
               >
-                Send mail to all selected candidates
+                <i className="fas fa-envelope me-2"></i>
+                Send Email to {selectedRows.length} Selected Candidate{selectedRows.length > 1 ? 's' : ''}
               </h1>
               <button
                 type="button"
-                className="btn-close"
+                className="btn-close btn-close-white"
                 data-bs-dismiss="modal"
                 aria-label="Close"
                 disabled={isSendingMail}
                 ref={ref}
               ></button>
             </div>
-            <div className="modal-body">
-              <FormInput
-                id="senderEmail"
-                name="senderEmail"
-                label="Sender's Email"
-                placeholder="Enter sender's email"
-                className="mb-2"
-                required
-                value={senderEmail}
-                setValue={setSenderEmail}
-                helperText={errors.senderEmail}
-              />
-              <FormInput
-                id="subject"
-                name="subject"
-                label="Subject"
-                placeholder="Enter the subject"
-                className="mb-2"
-                required
-                value={subject}
-                setValue={setSubject}
-                helperText={errors.subject}
-              />
-              <label
-                htmlFor={message}
-                style={{
-                  fontSize: "14px",
-                  fontWeight: "500",
-                  margin: "0",
-                  padding: "0",
-                }}
-              >
-                Message{" "}
-                <span style={{ color: "red", fontSize: "14px" }}>*</span>
-              </label>
-              {/* <FormInputTextarea
-                id="message"
-                name="message"
-                label="Message"
-                placeholder="Enter the message"
-                rows={5}
-                className="mb-2"
-                required
-                value={message}
-                setValue={setMessage}
-                helperText={errors.message}
-              /> */}
+            <div className="modal-body p-4">
+              {/* Email Limit Warning */}
+              {selectedRows.length > 30 && (
+                <div className="alert alert-warning d-flex align-items-center mb-3" role="alert">
+                  <i className="fas fa-exclamation-triangle me-2"></i>
+                  <div>
+                    <strong>Email Limit Exceeded:</strong> You can only send emails to a maximum of 30 candidates at once. 
+                    Please select fewer candidates or send emails in batches.
+                  </div>
+                </div>
+              )}
+              
+              {/* Selected Candidates Preview */}
               <div className="mb-4">
-                <Editor
-                  apiKey={EDITOR_API_KEY}
-                  value={message}
-                  onEditorChange={(content) => {
-                    setMessage(content);
-                  }}
-                  onInit={(_evt, editor) => (editorRef.current = editor)}
-                  initialValue=""
-                  init={{
-                    height: 500,
-                    menubar: "file",
-                    plugins: [
-                      "advlist",
-                      "autolink",
-                      "lists",
-                      "link",
-                      "image",
-                      "charmap",
-                      "preview",
-                      "anchor",
-                      "searchreplace",
-                      "visualblocks",
-                      "code",
-                      "fullscreen",
-                      "insertdatetime",
-                      "media",
-                      "table",
-                      "code",
-                      "help",
-                      "wordcount",
-                    ],
-                    toolbar:
-                      "undo redo" +
-                      "bold italic forecolor | alignleft aligncenter " +
-                      "alignright alignjustify | bullist numlist outdent indent | " +
-                      "removeformat",
-                    content_style:
-                      "body { font-family:Inter,Helvetica,Arial,sans-serif; font-size:14px }",
-                  }}
-                />
-                {/* <button onClick={log}>Log editor content</button> */}
+                <h6 className="text-muted mb-2">
+                  <i className="fas fa-users me-1"></i>
+                  Selected Candidates ({selectedRows.length})
+                </h6>
+                <div className="selected-candidates-preview">
+                  {selectedRows.slice(0, 5).map((candidate, index) => (
+                    <span key={index} className="badge bg-light text-dark me-2 mb-1">
+                      {candidate?.firstName} {candidate?.lastName}
+                    </span>
+                  ))}
+                  {selectedRows.length > 5 && (
+                    <span className="badge bg-secondary">
+                      +{selectedRows.length - 5} more
+                    </span>
+                  )}
+                </div>
+              </div>
+
+              <div className="row">
+                <div className="col-md-8">
+                  <FormInput
+                    id="subject"
+                    name="subject"
+                    label="Email Subject"
+                    placeholder="Enter email subject (e.g., Interview Invitation, Application Update)"
+                    className="mb-3"
+                    required
+                    value={subject}
+                    setValue={setSubject}
+                    helperText={errors.subject}
+                  />
+                </div>
+                <div className="col-md-4">
+                  <FormInput
+                    id="senderEmail"
+                    name="senderEmail"
+                    label="Additional CC"
+                    placeholder="Add email addresses to CC (optional)"
+                    className="mb-3"
+                    value={senderEmail}
+                    setValue={setSenderEmail}
+                    helperText={errors.senderEmail}
+                  />
+                </div>
+              </div>
+
+              <div className="mb-3">
+                <label
+                  htmlFor="message"
+                  className="form-label fw-semibold"
+                >
+                  <i className="fas fa-edit me-1"></i>
+                  Email Message <span className="text-danger">*</span>
+                </label>
+                <div className="email-editor-container">
+                  <Editor
+                    apiKey={EDITOR_API_KEY}
+                    value={message}
+                    onEditorChange={(content) => {
+                      setMessage(content);
+                    }}
+                    onInit={(_evt, editor) => (editorRef.current = editor)}
+                    initialValue={getDefaultEmailTemplate()}
+                    init={{
+                      height: 400,
+                      menubar: false,
+                      plugins: [
+                        "advlist",
+                        "autolink",
+                        "lists",
+                        "link",
+                        "image",
+                        "charmap",
+                        "preview",
+                        "anchor",
+                        "searchreplace",
+                        "visualblocks",
+                        "code",
+                        "fullscreen",
+                        "insertdatetime",
+                        "media",
+                        "table",
+                        "code",
+                        "help",
+                        "wordcount",
+                      ],
+                      toolbar:
+                        "undo redo | formatselect | bold italic forecolor | alignleft aligncenter " +
+                        "alignright alignjustify | bullist numlist outdent indent | " +
+                        "removeformat | link image | preview",
+                      content_style:
+                        "body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size:14px; line-height:1.6; }",
+                      branding: false,
+                      elementpath: false,
+                      resize: false,
+                    }}
+                  />
+                </div>
+                {errors.message && (
+                  <div className="text-danger small mt-1">{errors.message}</div>
+                )}
+              </div>
+
+              {/* Email Preview Info */}
+              <div className="alert alert-info d-flex align-items-start" role="alert">
+                <i className="fas fa-info-circle me-2 mt-1"></i>
+                <div>
+                  <strong>Email Details:</strong>
+                  <ul className="mb-0 mt-1">
+                    <li>From: <code>career@engineerhub.in</code> (engineerHUB)</li>
+                    <li>To: Selected candidate{selectedRows.length > 1 ? 's' : ''}</li>
+                    <li>CC: Your email + any additional emails you add above</li>
+                    <li>Reply-to: Your email (candidates can reply directly to you)</li>
+                    <li>Status Update: Candidates will be moved to "Processing" segment</li>
+                  </ul>
+                </div>
               </div>
             </div>
-            <div className="modal-footer">
+            <div className="modal-footer bg-light">
               <button
                 type="button"
-                className="btn btn-primary"
-                style={{
-                  backgroundColor: "#1383821A",
-                  color: "var(--primary-color-green)",
-                  borderRadius: "10px",
-                  border: "none",
-                  padding: "10px 24px",
-                }}
+                className="btn btn-outline-secondary"
                 data-bs-dismiss="modal"
                 disabled={isSendingMail}
               >
+                <i className="fas fa-times me-1"></i>
                 Cancel
               </button>
               <button
                 type="button"
-                className="btn btn-secondary"
-                style={{
-                  backgroundColor: "var(--primary-color-green)",
-                  borderRadius: "10px",
-                  border: "none",
-                  padding: "10px 40px",
-                }}
+                className="btn btn-primary"
                 onClick={() => handleSendMail()}
-                disabled={isSendingMail}
+                disabled={isSendingMail || selectedRows.length > 30}
               >
-                Send Mail
+                {isSendingMail ? (
+                  <>
+                    <i className="fas fa-spinner fa-spin me-1"></i>
+                    Sending...
+                  </>
+                ) : (
+                  <>
+                    <i className="fas fa-paper-plane me-1"></i>
+                    Send Email{selectedRows.length > 1 ? `s (${selectedRows.length})` : ''}
+                  </>
+                )}
               </button>
             </div>
           </div>
@@ -985,22 +1102,25 @@ export default function JobBoard() {
               </button>
             </div>
             <div className="download-container">
-              {boardDataRows.length > 0 &&
-                selectedRows.length > 0 &&
-                params.status === "Shortlisted" && (
-                  <>
-                    <button
-                      // onClick={handleSendMail}
-                      className="send-mail-btn"
-                      type="button"
-                      data-bs-toggle="modal"
-                      data-bs-target={`#sendMailModal-${jobData?.data?.data?.data?._id}`}
-                    >
-                      <MdMailOutline />
-                      Send Mail
-                    </button>
-                  </>
-                )}
+              {boardDataRows.length > 0 && selectedRows.length > 0 && (
+                <>
+                  <button
+                    className="send-mail-btn"
+                    type="button"
+                    onClick={openEmailModal}
+                    disabled={selectedRows.length > 30}
+                    title={selectedRows.length > 30 ? "Maximum 30 candidates can be emailed at once" : "Send email to selected candidates"}
+                  >
+                    <MdMailOutline />
+                    Send Email{selectedRows.length > 1 ? ` (${selectedRows.length})` : ''}
+                  </button>
+                  {selectedRows.length > 30 && (
+                    <div className="email-limit-warning">
+                      ⚠️ Max 30 emails at once
+                    </div>
+                  )}
+                </>
+              )}
               {params.status === "Response" && (
                 <div className="sort-container">
                   <button
@@ -1100,11 +1220,8 @@ export default function JobBoard() {
                 {selectedRows.length > 0 && (
                   <button
                     onClick={() => {
-                      const modal = document.getElementById(`sendMailModal-${jobData?.data?.data?.data?._id}`);
-                      if (modal) {
-                        const bsModal = new window.bootstrap.Modal(modal);
-                        bsModal.show();
-                      }
+                      setSelectedRows([item]);
+                      openEmailModal();
                     }}
                     className="action-btn mail-btn"
                     title="Send Mail"
@@ -1189,29 +1306,48 @@ export default function JobBoard() {
               pages={pageCount}
             />
           </div>
-          <div className={`board-table ${params.status === 'Sorted' ? '--with-ai-scores' : ''}`}>
+          <div className={`board-table ${params.status === 'Sorted' ? '--with-ai-scores' : ''} ${params.status === 'Processing' ? '--processing-view' : ''}`}>
             <div className="table-item table-headers table-header-1 body-sm-regular"></div>
             <div className="table-item table-headers table-header-2 body-sm-regular">
               Name
             </div>
-            <div className="table-item table-headers table-header-3 body-sm-regular">
-              Skills
-            </div>
-            <div className="table-item table-headers table-header-4 body-sm-regular">
-              College / University
-            </div>
-            <div className="table-item table-headers table-header-5 body-sm-regular">
-              Batch
-            </div>
-            <div className="table-item table-headers table-header-6 body-sm-regular">
-              Experience
-            </div>
+            {params.status === 'Processing' ? (
+              <>
+                <div className="table-item table-headers table-header-email body-sm-regular">
+                  Email
+                </div>
+                <div className="table-item table-headers table-header-phone body-sm-regular">
+                  Phone No
+                </div>
+                <div className="table-item table-headers table-header-sorted body-sm-regular">
+                  AI Score
+                </div>
+                <div className="table-item table-headers table-header-summary body-sm-regular">
+                  Summary
+                </div>
+              </>
+            ) : (
+              <>
+                <div className="table-item table-headers table-header-3 body-sm-regular">
+                  Skills
+                </div>
+                <div className="table-item table-headers table-header-4 body-sm-regular">
+                  College / University
+                </div>
+                <div className="table-item table-headers table-header-5 body-sm-regular">
+                  Batch
+                </div>
+                <div className="table-item table-headers table-header-6 body-sm-regular">
+                  Experience
+                </div>
+              </>
+            )}
             <div className="table-item table-headers table-header-7 body-sm-regular">
               Resume
             </div>
             {params.status === 'Sorted' && (
               <div className="table-item table-headers table-header-sorted body-sm-regular">
-                Sorted
+                AI Score
               </div>
             )}
             {params.status === 'Sorted' && (
@@ -1292,13 +1428,10 @@ export default function JobBoard() {
                   setIsAnyRowUpdating={setIsAnyRowUpdating}
                   isDataFetching={boardData.isFetching}
                   showAIScore={params.status === 'Sorted'}
+                  showProcessingView={params.status === 'Processing'}
                   onSendMail={() => {
                     setSelectedRows([item]);
-                    const modal = document.getElementById(`sendMailModal-${jobData?.data?.data?.data?._id}`);
-                    if (modal) {
-                      const bsModal = new window.bootstrap.Modal(modal);
-                      bsModal.show();
-                    }
+                    openEmailModal();
                   }}
                 />
               ))}
