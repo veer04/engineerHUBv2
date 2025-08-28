@@ -1,6 +1,6 @@
 import { Fragment, useEffect, useRef, useState } from "react";
 import "./JobBoard.css";
-import { FiDownload, FiUserPlus, FiUserX, FiInbox } from "react-icons/fi";
+import { FiDownload, FiUserPlus, FiUserX, FiInbox, FiArrowLeft } from "react-icons/fi";
 import { MdDeleteOutline, MdMailOutline } from "react-icons/md";
 import { RiInboxArchiveLine } from "react-icons/ri";
 import { BiSort } from "react-icons/bi";
@@ -13,7 +13,7 @@ import { API_URL, EDITOR_API_KEY } from "../../../services/APIUtils";
 import { Helmet } from "react-helmet";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import moment from "moment";
-import { getAccessToken } from "../../../features/User/UserDetails";
+import { getAccessToken, getUserFullName, getUserImage, getUserRole, getUserId } from "../../../features/User/UserDetails";
 import JobBoardRow from "./JobBoardRow";
 import PaginationBarWithSearchParams from "../../../components/PaginationBarWithSearchParams/PaginationBarWithSearchParams";
 import useGlobalSnackbar from "../../../hooks/useGlobalSnackbar";
@@ -26,12 +26,27 @@ export default function JobBoard() {
   const navigate = useNavigate();
   const { id } = useParams();
   const queryClient = useQueryClient();
+  // helper to compute logged-in user's profile path
+  const computeMyProfilePath = () => {
+    const roleRaw = getUserRole() || "";
+    const role = roleRaw.toLowerCase();
+    const uid = getUserId();
+    if (!uid) return "/profile/user"; // safe fallback
+    if (role.includes("org") || role.includes("company") || role.includes("employer")) {
+      return `/profile/organization/${uid}`;
+    }
+    if (role.includes("club")) {
+      return `/profile/club/${uid}`;
+    }
+    return `/profile/user/${uid}`;
+  };
   const [searchParams, setSearchParams] = useSearchParams({
     pageNo: "",
     limit: "",
     status: "",
     exp: "",
   });
+  const [mainSegment, setMainSegment] = useState("Response"); // "Response" or "Interview"
   const ref = useRef(null);
   const editorRef = useRef(null);
   const [boardDataRows, setBoardDataRows] = useState([]);
@@ -130,6 +145,16 @@ The Hiring Team<br>
       );
     }
   }, []);
+
+  // Set main segment based on current URL
+  useEffect(() => {
+    const pathname = window.location.pathname;
+    if (pathname.includes('/interview')) {
+      setMainSegment("Interview");
+    } else {
+      setMainSegment("Response");
+    }
+  }, [window.location.pathname]);
 
   const config = {
     headers: {
@@ -871,6 +896,7 @@ The Hiring Team<br>
           <meta name="robots" content="noindex, nofollow" />
           <title>Job Board{false ? ` | Job Name` : ""}</title>
         </Helmet>
+        
         <div
           style={{
             color:
@@ -890,7 +916,82 @@ The Hiring Team<br>
               : "This job is still accepting responses"}
           </p>
         </div>
-        <section className="main-container">
+
+        <div className="board-layout">
+          {/* Sidebar Navigation */}
+          <div className="board-sidebar">
+            <div className="sidebar-header">
+              <div className="sidebar-logo">
+                <div className="logo-icon">
+                  {getUserImage() ? (
+                    <img 
+                      src={getUserImage()} 
+                      alt="Profile" 
+                      className="user-profile-image"
+                      onError={(e) => {
+                        e.target.style.display = 'none';
+                        e.target.nextSibling.style.display = 'block';
+                      }}
+                    />
+                  ) : (
+                    <div className="default-avatar">👤</div>
+                  )}
+                  {!getUserImage() && <div className="default-avatar">👤</div>}
+                </div>
+                <div className="logo-text">
+                  <span className="company-name">{getUserFullName() || "User"}</span>
+                  <span className="company-type">{getUserRole() || "Member"}</span>
+                </div>
+              </div>
+            </div>
+            <div className="sidebar-navigation">
+              <button
+                onClick={() => {
+                  setMainSegment("Response");
+                  setSearchParams(
+                    (prev) => {
+                      prev.set("status", "Response");
+                      prev.set("pageNo", "1");
+                      prev.set("limit", "30");
+                      return prev;
+                    },
+                    { replace: true }
+                  );
+                }}
+                className={`sidebar-nav-btn response-nav-btn ${
+                  mainSegment === "Response" ? "--active" : ""
+                }`}
+                title="Response Management"
+              >
+                <span className="nav-text">Response</span>
+              </button>
+              <button
+                onClick={() => {
+                  setMainSegment("Interview");
+                  navigate(`/career/jobs/board/${id}/interview?pageNo=1&limit=30&interviewSegment=InterviewLobby`);
+                }}
+                className={`sidebar-nav-btn interview-nav-btn ${
+                  mainSegment === "Interview" ? "--active" : ""
+                }`}
+                title="Interview Management"
+              >
+                <span className="nav-text">Interview</span>
+              </button>
+              <button
+                onClick={() => {
+                  navigate(computeMyProfilePath());
+                }}
+                className="sidebar-nav-btn back-nav-btn"
+                title="Back to Profile"
+              >
+                <FiArrowLeft className="back-icon" />
+                <span className="nav-text">Back</span>
+              </button>
+            </div>
+          </div>
+
+          {/* Main Content */}
+          <section className="main-container">
           {/* <div className="status-toggle-container">
           <input type="checkbox" name="jobStatus" id="jobStatus" />
           <label htmlFor="jobStatus" className="body-sm-regular">
@@ -952,8 +1053,9 @@ The Hiring Team<br>
               </div>
             </div>
           </div>
-          <div className="categories-container">
-            <div className="categories body-sm-regular">
+          {mainSegment === "Response" && (
+            <div className="categories-container">
+              <div className="categories body-sm-regular">
               <button
                 onClick={() =>
                   setSearchParams(
@@ -1158,6 +1260,7 @@ The Hiring Team<br>
               </button>
             </div>
           </div>
+          )}
           <hr
             style={{
               margin: ".75rem 0",
@@ -1399,7 +1502,7 @@ The Hiring Team<br>
                         : params.status === "Rejected"
                         ? "No rejected candidates yet."
                         : params.status === "Processing"
-                        ? "No candidates in processing status."
+                        ? "No candidates in processing status. Once you send emails to any candidate, they will appear here."
                         : "No candidates found for this job."
                       }
                     </p>
@@ -1437,6 +1540,7 @@ The Hiring Team<br>
               ))}
           </div>
         </section>
+        </div>
       </main>
     </>
   );

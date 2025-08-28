@@ -1,5 +1,5 @@
 import React, { useState, useEffect, lazy, Suspense } from "react";
-import { Route, Routes, Navigate } from "react-router-dom";
+import { Route, Routes, Navigate, useLocation } from "react-router-dom";
 import "./App.css";
 import "./styles/DesignSystem.js";
 import OTP from "./pages/User/OtpVerification/Otpverification";
@@ -87,6 +87,9 @@ const ReferralAdminPage = lazy(() =>
   import("./pages/Admin/ReferralAdminPage.jsx")
 );
 const JobBoard = lazy(() => import("./pages/Company/Board/JobBoard.jsx"));
+const InterviewLobby = lazy(() => import("./pages/Company/Board/InterviewSegment/InterviewLobby.jsx"));
+const ScheduledInterviews = lazy(() => import("./pages/Company/Board/InterviewSegment/ScheduledInterviews.jsx"));
+const Report = lazy(() => import("./pages/Company/Board/InterviewSegment/Report.jsx"));
 const JobsPage = lazy(() => import("./pages/Company/Jobs/JobsPage.jsx"));
 const JobsPageNew = lazy(() => import("./pages/Company/Jobs/JobsPageNew.jsx"));
 const InternshipPageNew = lazy(() =>
@@ -161,15 +164,31 @@ const TermsAndConditions = lazy(() =>
 function App() {
   const [OtpRoute, setOtpRoute] = useState("loading");
   const role = getUserRole();
+  const location = useLocation();
+
+  const shouldHideNavbar = location.pathname.includes("/career/jobs/board") ||
+    location.pathname.includes("/company/jobs/board");
 
   useEffect(() => {
     setOtpRoute(Boolean(sessionStorage.getItem("OtpRoute")));
   });
 
+  useEffect(() => {
+    if (shouldHideNavbar) {
+      document.body.classList.add('crm-board-open');
+    } else {
+      document.body.classList.remove('crm-board-open');
+    }
+    
+    return () => {
+      document.body.classList.remove('crm-board-open');
+    };
+  }, [shouldHideNavbar]);
+
   return (
     <>
-      <NewNavbar />
-      <MobileNavbar />
+      {!shouldHideNavbar && <NewNavbar />}
+      {!shouldHideNavbar && <MobileNavbar />}
       <ToastContainer />
       <GlobalSnackbar />
       <ProfilePopUp />
@@ -319,6 +338,9 @@ function App() {
               </Route>
               <Route path="board">
                 <Route path=":id" element={<JobBoard />} />
+                <Route path=":id/interview" element={<InterviewLobby />} />
+                <Route path=":id/interview/scheduled" element={<ScheduledInterviews />} />
+                <Route path=":id/interview/report" element={<Report />} />
               </Route>
             </Route>
             <Route path="internships">
@@ -344,6 +366,9 @@ function App() {
               </Route>
               <Route path="board">
                 <Route path=":id" element={<JobBoard />} />
+                <Route path=":id/interview" element={<InterviewLobby />} />
+                <Route path=":id/interview/scheduled" element={<ScheduledInterviews />} />
+                <Route path=":id/interview/report" element={<Report />} />
               </Route>
             </Route>
             <Route path="internships">
