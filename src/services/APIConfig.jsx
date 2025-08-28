@@ -2101,7 +2101,7 @@ export const getRandomNotes = (setNotes) => {
   const controller = new AbortController();
 
   axios
-    .get(`http://localhost:3000/api/v1/randomNotes`, {
+    .get(`http://localhost:5000/api/v1/randomNotes`, {
       signal: controller.signal,
     })
     .then((res) => {

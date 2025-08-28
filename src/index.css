@@ -51,6 +51,14 @@ a {
   font-weight: 500;
   scroll-behavior: auto;
 }
+/* Remove navbar spacing only on CRM board pages */
+body.crm-board-open #root {
+  padding-top: 0 !important;
+}
+/* Also neutralize main min-height calculations tied to navbar on CRM */
+body.crm-board-open main {
+  min-height: 100vh !important;
+}
 label {
   font-family: "Inter", sans-serif;
 }

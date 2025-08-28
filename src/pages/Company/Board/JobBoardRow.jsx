@@ -7,6 +7,7 @@ import { useParams, useSearchParams } from "react-router-dom";
 import { API_URL } from "../../../services/APIUtils";
 import { getAccessToken } from "../../../features/User/UserDetails";
 import { useQueryClient } from "@tanstack/react-query";
+import useGlobalSnackbar from "../../../hooks/useGlobalSnackbar";
 
 export default function JobBoardRow({
   data,
@@ -26,20 +27,21 @@ export default function JobBoardRow({
   const [status, setStatus] = useState(searchParams.get("status"));
   const [pageNo, setPageNo] = useState(searchParams.get("pageNo"));
   const [limit, setLimit] = useState(searchParams.get("limit"));
-  const [isHired, setIsHired] = useState(data?.isHired);
+
   const [isSelected, setIsSelected] = useState(false);
   const [isHiringLoading, setIsHiringLoading] = useState(false);
   const [isUpdating, setIsUpdating] = useState(false);
   const [showSummaryModal, setShowSummaryModal] = useState(false);
+
+  const { setSnackbarMessage, setSnackbarSeverity, setSnackbarOpen } = useGlobalSnackbar();
 
   useEffect(() => {
     setStatus(searchParams.get("status"));
   }, [searchParams.get("status")]);
 
   useEffect(() => {
-    setIsHired(data?.isHired);
     setIsHiringLoading(false);
-  }, [data?.isHired]);
+  }, [data?.isMarkedForInterview]);
 
   const config = {
     headers: {
@@ -163,17 +165,16 @@ export default function JobBoardRow({
       });
   }
 
-  function handleIsHired() {
+  function handleMarkForInterview() {
     setIsHiringLoading(true);
     axios
       .patch(
-        `${API_URL}api/v1/hiringDashboard/updateHiringStatus`,
+        `${API_URL}api/v1/hiringDashboard/markForInterview`,
         {
           hiringId: id,
           data: [
             {
               registrationId: data?._id,
-              isHired: !isHired,
             },
           ],
         },
@@ -184,11 +185,20 @@ export default function JobBoardRow({
         queryClient.invalidateQueries({
           queryKey: ["Jobs", "board", pageNo, limit, id, status],
         });
-        // setIsHiringLoading(false);
+        // Show success message
+        if (res.data.success) {
+          setSnackbarMessage("Candidate marked for interview successfully!");
+          setSnackbarSeverity("success");
+          setSnackbarOpen(true);
+        }
+        setIsHiringLoading(false);
       })
       .catch((err) => {
         console.log(err);
-        // setIsHiringLoading(false);
+        setSnackbarMessage(err?.response?.data?.message || "Failed to mark candidate for interview");
+        setSnackbarSeverity("error");
+        setSnackbarOpen(true);
+        setIsHiringLoading(false);
       });
   }
 
@@ -476,23 +486,23 @@ export default function JobBoardRow({
                     </button>
                     <div
                       className={`hired-btn processing-btn d-flex align-items-center gap-2 ${
-                        isHired ? "--hired" : ""
+                        data?.isMarkedForInterview ? "--hired" : ""
                       }`}
                     >
-                      {!isHiringLoading && !isHired && (
+                      {!isHiringLoading && !data?.isMarkedForInterview && (
                         <>
                           <input
                             type="checkbox"
                             name={`item-name-${data?._id}`}
-                            id={`item-id-hired-${data?._id}`}
-                            checked={isHired}
-                            onChange={handleIsHired}
+                            id={`item-id-interview-${data?._id}`}
+                            checked={data?.isMarkedForInterview}
+                            onChange={handleMarkForInterview}
                           />
                           <label
-                            htmlFor={`item-id-hired-${data?._id}`}
-                            className={`${isHired ? "--hired" : ""}`}
+                            htmlFor={`item-id-interview-${data?._id}`}
+                            className={`${data?.isMarkedForInterview ? "--hired" : ""}`}
                           >
-                            Mark as hired
+                            Mark for Interview
                           </label>
                         </>
                       )}
@@ -501,20 +511,20 @@ export default function JobBoardRow({
                           <div className="loader-4"></div> Updating
                         </>
                       )}
-                      {!isHiringLoading && isHired && (
+                      {!isHiringLoading && data?.isMarkedForInterview && (
                         <>
                           <input
                             type="checkbox"
                             name={`item-name-${data?._id}`}
-                            id={`item-id-hired-${data?._id}`}
-                            checked={isHired}
-                            onChange={handleIsHired}
+                            id={`item-id-interview-${data?._id}`}
+                            checked={data?.isMarkedForInterview}
+                            onChange={handleMarkForInterview}
                           />
                           <label
-                            htmlFor={`item-id-hired-${data?._id}`}
-                            className={`${isHired ? "--hired" : ""}`}
+                            htmlFor={`item-id-interview-${data?._id}`}
+                            className={`${data?.isMarkedForInterview ? "--hired" : ""}`}
                           >
-                            Hired
+                            Marked for Interview
                           </label>
                         </>
                       )}
@@ -610,23 +620,23 @@ export default function JobBoardRow({
             {status === "Processing" && (
               <div
                 className={`hired-btn processing-btn d-flex align-items-center gap-2 ${
-                  isHired ? "--hired" : ""
+                  data?.isMarkedForInterview ? "--hired" : ""
                 }`}
               >
-                {!isHiringLoading && !isHired && (
+                {!isHiringLoading && !data?.isMarkedForInterview && (
                   <>
                     <input
                       type="checkbox"
                       name={`item-name-${data?._id}`}
-                      id={`item-id-hired-${data?._id}`}
-                      checked={isHired}
-                      onChange={handleIsHired}
+                      id={`item-id-interview-${data?._id}`}
+                      checked={data?.isMarkedForInterview}
+                      onChange={handleMarkForInterview}
                     />
                     <label
-                      htmlFor={`item-id-hired-${data?._id}`}
-                      className={`${isHired ? "--hired" : ""}`}
+                      htmlFor={`item-id-interview-${data?._id}`}
+                      className={`${data?.isMarkedForInterview ? "--hired" : ""}`}
                     >
-                      Mark as hired
+                      Mark for Interview
                     </label>
                   </>
                 )}
@@ -635,20 +645,20 @@ export default function JobBoardRow({
                     <div className="loader-4"></div> Updating
                   </>
                 )}
-                {!isHiringLoading && isHired && (
+                {!isHiringLoading && data?.isMarkedForInterview && (
                   <>
                     <input
                       type="checkbox"
                       name={`item-name-${data?._id}`}
-                      id={`item-id-hired-${data?._id}`}
-                      checked={isHired}
-                      onChange={handleIsHired}
+                      id={`item-id-interview-${data?._id}`}
+                      checked={data?.isMarkedForInterview}
+                      onChange={handleMarkForInterview}
                     />
                     <label
-                      htmlFor={`item-id-hired-${data?._id}`}
-                      className={`${isHired ? "--hired" : ""}`}
+                      htmlFor={`item-id-interview-${data?._id}`}
+                      className={`${data?.isMarkedForInterview ? "--hired" : ""}`}
                     >
-                      Hired
+                      Marked for Interview
                     </label>
                   </>
                 )}
