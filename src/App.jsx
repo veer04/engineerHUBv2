@@ -167,7 +167,8 @@ function App() {
   const location = useLocation();
 
   const shouldHideNavbar = location.pathname.includes("/career/jobs/board") ||
-    location.pathname.includes("/company/jobs/board");
+    location.pathname.includes("/company/jobs/board")||
+    location.pathname.includes("/chat/");
 
   useEffect(() => {
     setOtpRoute(Boolean(sessionStorage.getItem("OtpRoute")));
