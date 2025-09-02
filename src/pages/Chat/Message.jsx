@@ -3,6 +3,7 @@ import "./Message.css";
 import verifiedIcon from "./svg/verified.svg";
 import options from "./svg/options.svg";
 import defaultPoster from "../../assets/defaultPoster";
+import { useNavigate } from "react-router-dom";
 
 // Special users mapping - email to display role
 const SPECIAL_USERS = {
@@ -37,6 +38,7 @@ export default function Message({
   createdAt,
   position,
 }) {
+  const navigate = useNavigate();
   const date = new Date(createdAt);
   //function to convert date to a readable format in the concept of chats
   function convertDate(date) {
@@ -126,7 +128,12 @@ export default function Message({
       className={chatMessageClasses}
     >
       {!isMyMessage && (
-        <div className="avatar-container">
+        <div className="avatar-container"
+        onClick={() => {
+          navigate(`/profile/user/${sender?._id}`);
+        }}
+        >
+          
           {(!isSameSender || (content && !sender?.firstName)) && (
             <img
               className="avatar"
@@ -149,7 +156,11 @@ export default function Message({
               ""
             )
           ) : (
-            <div className="name">{`${sender?.firstName} ${
+            <div className="name" 
+            onClick={() => {
+              navigate(`/profile/user/${sender?._id}`);
+            }}
+            >{`${sender?.firstName} ${
               sender?.lastName ? sender?.lastName : ""
             }`}</div>
           )}
