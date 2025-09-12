@@ -2,13 +2,23 @@ import { IoIosArrowForward } from "react-icons/io";
 import defaultPoster from "../../assets/defaultPoster";
 import { useNavigate } from "react-router-dom";
 import useCommunityChat from "../../hooks/useCommunityChat";
+import useChatNotifications from "../../hooks/useChatNotifications";
 
 export default function CommunityChatGroupListGroup({ group }) {
   const navigate = useNavigate();
   const { setStep, setLastOpenChat } = useCommunityChat();
+  const { clearNotifications, clearNavbarBadge } = useChatNotifications();
+  
   const handleClick = () => {
     setStep(2);
     setLastOpenChat(group.chatName);
+    
+    // Clear notifications for this specific group only
+    // Do NOT clear navbar badge here - it should only be cleared when user leaves community chat
+    if (group._id) {
+      clearNotifications(group._id);
+    }
+    
     navigate(`/chat/${encodeURIComponent(group.chatName)}`);
   };
   return (

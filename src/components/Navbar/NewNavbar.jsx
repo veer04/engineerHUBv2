@@ -9,6 +9,8 @@ import {
 } from "../../features/User/UserDetails";
 import useNavbar from "../../hooks/use-navbar";
 import { useScrollDirection } from "../../features/scrollDirection";
+import NotificationBadge from "../NotificationBadge/NotificationBadge";
+import useChatNotifications from "../../hooks/useChatNotifications";
 
 export default function NewNavbar() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -17,6 +19,7 @@ export default function NewNavbar() {
   const [width, setWidth] = useState(window.innerWidth);
 
   const { selectedPageNavbar, setSelectedPageNavbar } = useNavbar();
+  const { notificationData, clearNavbarBadge } = useChatNotifications();
 
   const bucket = `${Bucket_URL}frontend/navbar/`;
 
@@ -32,6 +35,12 @@ export default function NewNavbar() {
   }, []);
 
   const handleResize = () => setWidth(window.innerWidth);
+
+  const handleCommunityChatClick = () => {
+    setSelectedPageNavbar("community chat");
+    // Don't clear navbar badge immediately - let user see which groups have notifications
+    // The badge will be cleared when they click on a specific group
+  };
 
   // this adjustment is done for screen sizes above 1920px (or root div's max-width) to make the navbar go full stretch on bigger screens. You can comment out the style attribute on nav tag to see how this works.
   const adjustmentPadding =
@@ -79,8 +88,9 @@ export default function NewNavbar() {
       </Link>
       <div className="pages">
         <Link
-          onClick={() => setSelectedPageNavbar("community chat")}
+          onClick={handleCommunityChatClick}
           to="/Chat"
+          style={{ position: 'relative', display: 'inline-block' }}
         >
           <button
             className={`${
@@ -89,6 +99,10 @@ export default function NewNavbar() {
           >
             Community Chat
           </button>
+          <NotificationBadge 
+            count={notificationData.count}
+            type={notificationData.type}
+          />
         </Link>
         {/*
         <Link onClick={() => setSelectedPageNavbar("campus")} to="/campus">

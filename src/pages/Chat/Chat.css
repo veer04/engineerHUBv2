@@ -89,7 +89,8 @@
   border-bottom: 1.6px solid #cccccc;
   position: relative;
   z-index: 1;
-  overflow: scroll;
+  overflow-y: auto;
+  overflow-x: hidden;
   max-height: calc(
     100vh - 16px - 65px - 16px - 58px - 58px - 32px
   );
@@ -138,17 +139,107 @@
   #chat .header-container .cross-option {
     display: flex;
   }
+  
+  /* Mobile reply preview adjustments */
+  .reply-preview {
+    padding: 6px 10px;
+  }
+  
+  .reply-to-text {
+    font-size: 11px;
+  }
+  
+  .reply-message {
+    font-size: 12px;
+    padding-left: 6px;
+    margin-left: 2px;
+  }
+  
+  .cancel-reply {
+    padding: 1px;
+  }
 }
 
 #chat .input-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 58px;
+  align-items: stretch;
+  background-color: #ffffff;
+  border-radius: 0 0 8px 8px;
+  z-index: 2;
+}
+
+/* Reply preview styles */
+.reply-preview {
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #e0e0e0;
+  padding: 8px 12px;
+  margin: 0;
+}
+
+.reply-content {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.reply-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.reply-to-text {
+  font-size: 12px;
+  font-weight: 600;
+  color: #138382;
+}
+
+.reply-to-text .thread-indicator {
+  font-weight: 400;
+  color: #666;
+  font-style: italic;
+}
+
+.cancel-reply {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 2px;
+  border-radius: 50%;
+  color: #666;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s ease;
+}
+
+.cancel-reply:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.reply-message {
+  font-size: 13px;
+  color: #666;
+  font-style: italic;
+  border-left: 3px solid #138382;
+  padding-left: 8px;
+  margin-left: 4px;
+}
+
+/* Adjust input container when reply is active */
+#chat .input-container:has(.reply-preview) {
+  min-height: auto;
+}
+
+/* Input row when reply is present */
+.input-row {
   display: flex;
   flex-direction: row;
   min-height: 58px;
   max-height: 58px;
   align-items: flex-end;
-  background-color: #ffffff;
-  border-radius: 0 0 8px 8px;
-  z-index: 2;
 }
 #chat .input-container .attachment-container {
   padding: 0 8px 9px 12px;

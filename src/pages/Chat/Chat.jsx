@@ -12,7 +12,9 @@ import Cookies from "js-cookie";
 import Message from "./Message";
 import useCommunityChat from "../../hooks/useCommunityChat";
 import { RxCross1 } from "react-icons/rx";
+import { IoClose } from "react-icons/io5";
 import MessageSending from "./MessageSending";
+import useChatNotifications from "../../hooks/useChatNotifications";
 const ENDPOINT = API_URL;
 var socket;
 
@@ -42,24 +44,40 @@ export default function Chat({ data, user, chatAccess, setChatAccess }) {
   };
   const { setIsChatOpen, navigateBackTo, setNavigateBackTo, step, setStep } =
     useCommunityChat();
+  const { clearNotifications } = useChatNotifications();
 
   const handleBackButton = () => {
+    // Mark user as inactive when leaving chat
+    if (data?._id) {
+      clearNotifications(data._id);
+    }
     setStep(1);
   };
 
   const handleCloseChat = () => {
+    // Mark user as inactive when closing chat
+    if (data?._id) {
+      clearNotifications(data._id);
+    }
     setIsChatOpen(false);
     navigate(navigateBackTo ? navigateBackTo : "/");
     setNavigateBackTo("");
   };
 
   useEffect(() => {
+    console.log('🔌 Setting up socket connection...');
     socket = io(ENDPOINT);
     socket.emit("setup", user);
-    socket.on("connected", () => setSocketConnected(true));
+    socket.on("connected", () => {
+      console.log('✅ Socket connected');
+      setSocketConnected(true);
+    });
     // socket.on("typing", () => setIsTyping(true));
     // socket.on("stop typing", () => setIsTyping(false));
   }, [chatAccess]);
+
+  // Note: Notifications are now cleared when clicking on individual groups,
+  // not when entering the chat to maintain separation between navbar and group notifications
 
   useEffect(() => {
     if (Object.keys(data).length === 0) {
@@ -73,6 +91,7 @@ export default function Chat({ data, user, chatAccess, setChatAccess }) {
           config
         )
         .then((res) => {
+          console.log('📨 Messages loaded:', res.data.data.messages.length, 'messages');
           setMessages(res.data.data.messages.reverse());
           setPage(2);
           // Scroll to bottom after initial load
@@ -165,6 +184,7 @@ export default function Chat({ data, user, chatAccess, setChatAccess }) {
 
   useEffect(() => {
     setMessages([]);
+    setReplyingTo(null); // Clear reply state when changing chats
   }, [chatId]);
 
   useEffect(() => {
@@ -203,6 +223,12 @@ export default function Chat({ data, user, chatAccess, setChatAccess }) {
   // }
 
   const handleKeyDown = (e) => {
+    // Handle Escape key to cancel reply
+    if (e.key === "Escape" && replyingTo) {
+      cancelReply();
+      return;
+    }
+
     //check if the shift enter was pressed then do not send the message
     if (
       e.key === "Enter" ||
@@ -230,13 +256,30 @@ export default function Chat({ data, user, chatAccess, setChatAccess }) {
   };
 
   const [isGuidelineAccepted, setIsGuidelineAccepted] = useState(false);
+  const [replyingTo, setReplyingTo] = useState(null);
+  
+  const handleReply = (messageData) => {
+    setReplyingTo(messageData);
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  };
+
+  const cancelReply = () => {
+    setReplyingTo(null);
+  };
 
   const sendMessage = async (event) => {
     if (input.trim()) {
       socket.emit("stop typing", encodeURIComponent(data._id));
       // event.preventDefault();
       const inputCopy = input;
+      const replyData = replyingTo;
+      
+      // Debug logging can be removed in production
+      
       setInput("");
+      setReplyingTo(null); // Clear reply after sending
       if (inputRef.current) {
         inputRef.current.style.height = "auto";
       }
@@ -247,13 +290,40 @@ export default function Chat({ data, user, chatAccess, setChatAccess }) {
           },
         };
         setIsSendingMessage(true);
+        
+        // Prepare message payload with reply data
+        const messagePayload = {
+          content: inputCopy,
+          chat_id: encodeURIComponent(data._id),
+        };
+        
+        // Add reply data if replying (backend now supports this structure)
+        if (replyData && replyData.messageId && replyData.content) {
+          try {
+            messagePayload.replyTo = {
+              messageId: replyData.messageId,
+              content: replyData.content.length > 100 
+                ? `${replyData.content.substring(0, 100)}...` 
+                : replyData.content,
+              sender: {
+                _id: replyData.sender?._id || '',
+                firstName: replyData.sender?.firstName || '',
+                lastName: replyData.sender?.lastName || '',
+                userModel: replyData.sender?.role === 'Alumni' ? 'User' : (replyData.sender?.role || 'User')
+              },
+              isReply: true // Flag to indicate this is an intentional reply
+            };
+          } catch (error) {
+            console.error('Error preparing reply data:', error);
+            // If there's an error with reply data, send as regular message
+            delete messagePayload.replyTo;
+          }
+        }
+        
         const newData = await axios
           .post(
             `${ENDPOINT}api/v1/chatMessage`,
-            {
-              content: inputCopy,
-              chat_id: encodeURIComponent(data._id),
-            },
+            messagePayload,
             config
           )
           .then((res) => {
@@ -268,7 +338,35 @@ export default function Chat({ data, user, chatAccess, setChatAccess }) {
             }
           })
           .catch((err) => {
-            console.log(err);
+            console.error('Message send error:', err);
+            
+            // If backend reply structure fails, fallback to embedded approach
+            if (replyData && err.response?.status >= 400) {
+              console.log('Falling back to embedded reply format');
+              const replyToName = replyData.sender?.firstName || 'User';
+              const replyContent = replyData.content.length > 50 
+                ? `${replyData.content.substring(0, 50)}...` 
+                : replyData.content;
+              const fallbackContent = `@${replyToName}: "${replyContent}"\n\n${inputCopy}`;
+              
+              // Retry with embedded format
+              const fallbackPayload = {
+                content: fallbackContent,
+                chat_id: encodeURIComponent(data._id),
+              };
+              
+              return axios.post(`${ENDPOINT}api/v1/chatMessage`, fallbackPayload, config)
+                .then((res) => {
+                  socket.emit("new message", res.data);
+                  setMessages((prev) => [...prev, res.data.data]);
+                  if (messagesContainerRef.current) {
+                    document
+                      .getElementsByClassName("messages-container")[0]
+                      .scrollTo(0, 999999999);
+                  }
+                });
+            }
+            throw err;
           })
           .finally(() => {
             setIsSendingMessage(false);
@@ -408,11 +506,25 @@ export default function Chat({ data, user, chatAccess, setChatAccess }) {
                     messages={messages}
                     {...message}
                     clientId={clientId}
+                    onReply={handleReply}
                   />
                 );
               })}
               {isSendingMessage && <MessageSending />}
             </>
+          ) : socketConnected && messages.length === 0 ? (
+            <div
+              style={{
+                minHeight: "50vh",
+              }}
+              className="w-100 h-100 d-flex justify-content-center align-items-center flex-column"
+            >
+              <div className="text-muted">
+                <i className="fas fa-comments" style={{ fontSize: "3rem", opacity: 0.3 }}></i>
+                <p className="mt-3">No messages yet</p>
+                <p className="small">Be the first to start the conversation!</p>
+              </div>
+            </div>
           ) : (
             <div
               style={{
@@ -500,42 +612,84 @@ export default function Chat({ data, user, chatAccess, setChatAccess }) {
         messages.length !== 0 &&
         socketConnected && (
           <div className="input-container">
-            {/* <div className="attachment-container">
-              <button className="attachment">
-                <FaPlus />
-              </button>
-            </div> */}
-            <textarea
-              className="text-input"
-              placeholder="Enter message"
-              ref={inputRef}
-              rows={1}
-              style={{
-                // marginLeft to be removed when attachment button is added
-                marginLeft: "12px",
-                overflowY: "auto",
-                resize: "none",
-                maxHeight: "120px", // Adjust this value based on your line-height to accommodate up to 5 rows
-              }}
-              value={input}
-              onInput={(e) => {
-                e.target.style.height = "auto";
-                const lineHeight = 24; // Replace with your actual line-height in pixels
-                const maxHeight = lineHeight * 5;
-                e.target.style.height = `${Math.min(
-                  e.target.scrollHeight,
-                  maxHeight
-                )}px`;
-              }}
-              onChange={(e) => {
-                setInput(e.target.value);
-              }}
-              // onKeyDown={handleKeyDown}
-            />
-            <div className="send-container">
-              <button onClick={sendMessage} className="send">
-                {SendIcon}
-              </button>
+            {replyingTo && (
+              <div className="reply-preview">
+                <div className="reply-content">
+                  <div className="reply-header">
+                    <span className="reply-to-text">
+                      Replying to {replyingTo.sender?.firstName || 'User'}
+                      {(() => {
+                        // Check if the original message was also a reply
+                        const replyRegex = /^@([^:]+):\s*"([^"]+)"\s*\n\n(.+)$/s;
+                        const isReplyToReply = replyingTo.content.match(replyRegex);
+                        return isReplyToReply ? ' (in thread)' : '';
+                      })()}
+                    </span>
+                    <button onClick={cancelReply} className="cancel-reply">
+                      <IoClose size={16} />
+                    </button>
+                  </div>
+                  <div className="reply-message">
+                    {(() => {
+                      // Extract actual content for preview (same logic as in Message component)
+                      let actualContent = replyingTo.content;
+                      
+                      // Check if this is an embedded reply format and extract actual content
+                      const replyRegex = /^@([^:]+):\s*"([^"]+)"\s*\n\n(.+)$/s;
+                      const replyMatch = replyingTo.content.match(replyRegex);
+                      
+                      if (replyMatch) {
+                        // This is an embedded reply, extract the actual message part
+                        const [, , , actualMessage] = replyMatch;
+                        actualContent = actualMessage;
+                      }
+                      
+                      return actualContent.length > 50 
+                        ? `${actualContent.substring(0, 50)}...` 
+                        : actualContent;
+                    })()}
+                  </div>
+                </div>
+              </div>
+            )}
+            <div className="input-row">
+              {/* <div className="attachment-container">
+                <button className="attachment">
+                  <FaPlus />
+                </button>
+              </div> */}
+              <textarea
+                className="text-input"
+                placeholder={replyingTo ? "Type your reply..." : "Enter message"}
+                ref={inputRef}
+                rows={1}
+                style={{
+                  // marginLeft to be removed when attachment button is added
+                  marginLeft: "12px",
+                  overflowY: "auto",
+                  resize: "none",
+                  maxHeight: "120px", // Adjust this value based on your line-height to accommodate up to 5 rows
+                }}
+                value={input}
+                onInput={(e) => {
+                  e.target.style.height = "auto";
+                  const lineHeight = 24; // Replace with your actual line-height in pixels
+                  const maxHeight = lineHeight * 5;
+                  e.target.style.height = `${Math.min(
+                    e.target.scrollHeight,
+                    maxHeight
+                  )}px`;
+                }}
+                onChange={(e) => {
+                  setInput(e.target.value);
+                }}
+                onKeyDown={handleKeyDown}
+              />
+              <div className="send-container">
+                <button onClick={sendMessage} className="send">
+                  {SendIcon}
+                </button>
+              </div>
             </div>
           </div>
         )}

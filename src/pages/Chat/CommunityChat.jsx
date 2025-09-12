@@ -13,6 +13,7 @@ import Chat from "./Chat";
 import getCookie, { getAccessToken } from "../../features/getCookieValues";
 import axios from "axios";
 import { API_URL } from "../../services/APIUtils";
+import useChatNotifications from "../../hooks/useChatNotifications";
 
 export default function CommunityChat() {
   if (!isUserLoggedIn()) {
@@ -38,13 +39,18 @@ export default function CommunityChat() {
   );
   const [width, setWidth] = useState(window.innerWidth);
   const { step, setStep } = useCommunityChat();
+  const { clearNavbarBadge } = useChatNotifications();
 
   useEffect(() => {
     document.title = `Chat | ${chatId} | engineerHUB`;
     const handleResize = () => setWidth(window.innerWidth);
     window.addEventListener("resize", handleResize);
+    
+    // Clear navbar badge when user enters community chat (acknowledges notifications)
+    clearNavbarBadge();
+    
     return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  }, [clearNavbarBadge]);
 
   useEffect(() => {
     axios
