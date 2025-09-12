@@ -1,9 +1,12 @@
-import React, { useEffect } from "react";
+import React, { useEffect,useState} from "react";
+import ReactDOM from "react-dom";
 import "./Message.css";
 import verifiedIcon from "./svg/verified.svg";
 import options from "./svg/options.svg";
 import defaultPoster from "../../assets/defaultPoster";
 import { useNavigate } from "react-router-dom";
+import {FiMoreVertical } from "react-icons/fi";
+
 
 // Special users mapping - email to display role
 const SPECIAL_USERS = {
@@ -37,8 +40,128 @@ export default function Message({
   clientId,
   createdAt,
   position,
+  replyTo, // Backend reply data
+  onReply, // Add onReply prop to handle reply functionality
 }) {
+  const [showMenu, setShowMenu] = useState(false);
+  const [dropdownPosition, setDropdownPosition] = useState({ top: 0, left: 0 });
   const navigate = useNavigate();
+
+  // Helper function to extract actual message content (without embedded reply format)
+  const getActualMessageContent = () => {
+    // If this message has valid backend reply data, the content is already clean
+    if (replyTo && replyTo.messageId && replyTo.isReply === true) {
+      return content;
+    } 
+    
+    // Check if this is an old embedded reply format and extract actual content
+    const replyRegex = /^@([^:]+):\s*"([^"]+)"\s*\n\n(.+)$/s;
+    const replyMatch = content.match(replyRegex);
+    
+    if (replyMatch) {
+      // This is an embedded reply, extract the actual message part
+      const [, , , actualMessage] = replyMatch;
+      return actualMessage;
+    }
+    
+    // Regular message, return as is
+    return content;
+  };
+
+  const handleMenuClick = (e) => {
+    e.stopPropagation();
+    
+    if (!showMenu) {
+      // Calculate position for portal dropdown
+      const buttonRect = e.currentTarget.getBoundingClientRect();
+      const dropdownWidth = 120;
+      const dropdownHeight = 80;
+      
+      let left = buttonRect.left;
+      let top = buttonRect.bottom + 5;
+      
+      // Adjust for my messages vs others
+      const isMyMessage = sender?._id === clientId;
+      if (isMyMessage) {
+        left = buttonRect.left - dropdownWidth + buttonRect.width;
+      }
+      
+      // Ensure dropdown doesn't go off-screen
+      if (left < 10) left = 10;
+      if (left + dropdownWidth > window.innerWidth - 10) {
+        left = window.innerWidth - dropdownWidth - 10;
+      }
+      if (top + dropdownHeight > window.innerHeight - 10) {
+        top = buttonRect.top - dropdownHeight - 5;
+      }
+      
+      setDropdownPosition({ top, left });
+    }
+    
+    setShowMenu(!showMenu);
+  };
+
+  const handleCopy = () => {
+    const actualContent = getActualMessageContent();
+    navigator.clipboard.writeText(actualContent);
+    setShowMenu(false);
+  };
+
+  const handleReply = () => {
+    if (onReply) {
+      const actualContent = getActualMessageContent();
+      
+      onReply({
+        messageId: messages[index]._id || index,
+        content: actualContent,
+        sender: sender,
+        createdAt: createdAt
+      });
+    }
+    setShowMenu(false);
+  };
+
+  // Close menu when clicking outside, pressing Escape, scrolling, or resizing
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (showMenu && !e.target.closest('.message-actions') && !e.target.closest('.message-dropdown-portal')) {
+        setShowMenu(false);
+      }
+    };
+
+    const handleEscapeKey = (e) => {
+      if (e.key === 'Escape' && showMenu) {
+        setShowMenu(false);
+      }
+    };
+
+    const handleScroll = () => {
+      if (showMenu) {
+        setShowMenu(false);
+      }
+    };
+
+    const handleResize = () => {
+      if (showMenu) {
+        setShowMenu(false);
+      }
+    };
+
+    if (showMenu) {
+      document.addEventListener('click', handleClickOutside);
+      document.addEventListener('keydown', handleEscapeKey);
+      window.addEventListener('scroll', handleScroll, true);
+      window.addEventListener('resize', handleResize);
+      
+      return () => {
+        document.removeEventListener('click', handleClickOutside);
+        document.removeEventListener('keydown', handleEscapeKey);
+        window.removeEventListener('scroll', handleScroll, true);
+        window.removeEventListener('resize', handleResize);
+      };
+    }
+  }, [showMenu]);
+
   const date = new Date(createdAt);
   //function to convert date to a readable format in the concept of chats
   function convertDate(date) {
@@ -93,7 +216,66 @@ export default function Message({
     isMyMessage ? "message-body--flipped" : ""
   }`;
 
-  const renderMessageContent = (text) => {
+  const handleReplyQuoteClick = (messageId) => {
+    // Try to find and scroll to the original message
+    const originalMessageElement = document.querySelector(`[data-message-id="${messageId}"]`);
+    if (originalMessageElement) {
+      originalMessageElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      // Add a temporary highlight effect
+      originalMessageElement.classList.add('highlighted-message');
+      setTimeout(() => {
+        originalMessageElement.classList.remove('highlighted-message');
+      }, 2000);
+    }
+  };
+
+  const renderMessageContent = (text, replyData) => {
+    // Only render as reply if we have valid reply data with messageId and isReply flag
+    if (replyData && replyData.messageId && replyData.isReply === true) {
+      const replyToUser = replyData.sender?.firstName 
+        ? `${replyData.sender.firstName}${replyData.sender.lastName ? ' ' + replyData.sender.lastName : ''}`
+        : 'User';
+      
+      return (
+        <div className="reply-message-container">
+          <div 
+            className="reply-quote clickable-reply" 
+            onClick={() => handleReplyQuoteClick(replyData.messageId)}
+            title="Click to jump to original message"
+          >
+            <div className="reply-to-user">@{replyToUser}</div>
+            <div className="quoted-text">"{replyData.content}"</div>
+          </div>
+          <div className="actual-message">
+            {renderTextWithLinks(text)}
+          </div>
+        </div>
+      );
+    }
+    
+    // Check if this is an old embedded reply message (backward compatibility)
+    const replyRegex = /^@([^:]+):\s*"([^"]+)"\s*\n\n(.+)$/s;
+    const replyMatch = text.match(replyRegex);
+    
+    if (replyMatch) {
+      const [, replyToUser, quotedText, actualMessage] = replyMatch;
+      return (
+        <div className="reply-message-container">
+          <div className="reply-quote">
+            <div className="reply-to-user">@{replyToUser}</div>
+            <div className="quoted-text">"{quotedText}"</div>
+          </div>
+          <div className="actual-message">
+            {renderTextWithLinks(actualMessage)}
+          </div>
+        </div>
+      );
+    }
+    
+    return renderTextWithLinks(text);
+  };
+
+  const renderTextWithLinks = (text) => {
     const urlRegex = /(https?:\/\/[^\s]+)/g;
     return text.split(urlRegex).map((part, index) => {
       if (part.match(urlRegex)) {
@@ -126,6 +308,7 @@ export default function Message({
         marginTop: isSameSender ? "0rem" : ".75rem",
       }}
       className={chatMessageClasses}
+      data-message-id={messages[index]._id}
     >
       {!isMyMessage && (
         <div className="avatar-container"
@@ -144,6 +327,8 @@ export default function Message({
         </div>
       )}
       <div className={messageContainerClasses}>
+      
+
         <div className={messageHeaderClasses}>
           {content && !sender?.firstName ? (
             <i className="name">Deleted User</i>
@@ -195,7 +380,37 @@ export default function Message({
         )}
         <div className={messageBodyClasses}>
           <div className="message-content text-break d-flex">
-            {renderMessageContent(content)}
+            <div className={`message-actions ${isMyMessage ? 'my-message': 'other-message'}`}>
+              <button
+                className={`three-dot-buttons ${isMyMessage ? 'my-message': 'other-message'}`}
+                onClick={handleMenuClick}
+              >
+                <FiMoreVertical size={16}/>
+              </button>
+              {/* Portal dropdown to ensure it appears above all other elements */}
+              {showMenu && ReactDOM.createPortal(
+                <div 
+                  className={`message-dropdown-portal ${isMyMessage ? 'my-message': 'other-message'}`}
+                  style={{
+                    position: 'fixed',
+                    top: `${dropdownPosition.top}px`,
+                    left: `${dropdownPosition.left}px`,
+                    zIndex: 999999999,
+                    background: 'white',
+                    border: '1px solid #e0e0e0',
+                    borderRadius: '8px',
+                    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
+                    minWidth: '120px',
+                    overflow: 'hidden'
+                  }}
+                >
+                  <button onClick={handleReply} className="dropdown-item">Reply</button>
+                  <button onClick={handleCopy} className="dropdown-item">Copy Text</button>
+                </div>,
+                document.body
+              )}
+            </div>
+            {renderMessageContent(content, replyTo)}
           </div>
           {/* <div
             style={{ lineBreak: "anywhere" }}
@@ -208,4 +423,4 @@ export default function Message({
       </div>
     </div>
   );
-}
+} 

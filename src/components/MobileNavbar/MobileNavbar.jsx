@@ -2,6 +2,8 @@ import "./MobileNavbar.css";
 import { Link, useLocation } from "react-router-dom";
 import useNavbar from "../../hooks/use-navbar";
 import { useEffect, useState } from "react";
+import NotificationBadge from "../NotificationBadge/NotificationBadge";
+import useChatNotifications from "../../hooks/useChatNotifications";
 
 export function CommunitySvg({ className }) {
   return (
@@ -154,6 +156,7 @@ export function HostSvg({ className }) {
 
 export default function MobileNavbar() {
   const { selectedPageNavbar, setSelectedPageNavbar } = useNavbar();
+  const { notificationData, clearNavbarBadge } = useChatNotifications();
   const [showNavbar, setShowNavbar] = useState(true);
 
   const location = useLocation();
@@ -171,15 +174,23 @@ export default function MobileNavbar() {
     <div className="mobile-navbar">
       <Link
         to="/chat"
-        onClick={() => {
-          setSelectedPageNavbar("chat");
-        }}
+                onClick={() => {
+                  setSelectedPageNavbar("chat");
+                  // Don't clear navbar badge immediately - let user see which groups have notifications
+                  // The badge will be cleared when they click on a specific group
+                }}
         className={`item-container ${
           selectedPageNavbar === "community" ? "--is-active" : ""
         }`}
+        style={{ position: 'relative' }}
       >
         <CommunitySvg className="svg" />
         <span> Chat</span>
+        <NotificationBadge 
+          count={notificationData.count}
+          type={notificationData.type}
+          className="mobile-badge"
+        />
       </Link>
       {/*<Link
         to="/campus"
