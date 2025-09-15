@@ -55,11 +55,16 @@
 
 .chat-input {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column;
   padding: 1rem 3.5rem;
   background-color: #343637;
   border-radius: 0 0 10px 10px;
+}
+
+.input-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .chat-input .input {
@@ -214,4 +219,105 @@
   .chat-header .heading {
     font-size: 1rem;
   }
+}
+
+/* Attachment styles */
+.attachments-preview {
+  margin-bottom: 1rem;
+  background-color: #494b4c;
+  border-radius: 8px;
+  padding: 0.75rem;
+}
+
+.attachments-header {
+  font-size: 0.875rem;
+  color: #ffd600;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.attachments-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.attachment-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #343637;
+  border-radius: 6px;
+  padding: 0.5rem;
+}
+
+.attachment-info {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.attachment-icon {
+  color: #dc3545;
+  font-size: 1.25rem;
+}
+
+.attachment-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.attachment-name {
+  color: white;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.attachment-size {
+  color: #adb5bd;
+  font-size: 0.75rem;
+}
+
+.remove-attachment {
+  background: none;
+  border: none;
+  color: #dc3545;
+  cursor: pointer;
+  padding: 0.25rem;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.remove-attachment:hover {
+  background-color: rgba(220, 53, 69, 0.1);
+}
+
+.attachment-container {
+  display: flex;
+  align-items: center;
+  margin-right: 0.75rem;
+}
+
+.attachment {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  background-color: #494b4c;
+  border-radius: 50%;
+  cursor: pointer;
+  color: #ffd600;
+  transition: background-color 0.2s;
+}
+
+.attachment:hover {
+  background-color: #5a5d5f;
+}
+
+.attachment .spinner-border-sm {
+  width: 1rem;
+  height: 1rem;
 }

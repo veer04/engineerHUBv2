@@ -34,6 +34,7 @@ export default function Message({
   clientId,
   createdAt,
   position,
+  attachments, // PDF attachments
 }) {
   const date = new Date(createdAt);
   //function to convert date to a readable format in the concept of chats
