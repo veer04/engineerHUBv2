@@ -36,6 +36,8 @@ export default function Chat({ data, user, chatAccess, setChatAccess }) {
   const [isLoadingMoreMessages, setIsLoadingMoreMessages] = useState(false);
   const [isSendingMessage, setIsSendingMessage] = useState(false);
   const [loader, setLoader] = useState(false);
+  const [attachments, setAttachments] = useState([]);
+  const [isUploadingPdf, setIsUploadingPdf] = useState(false);
   const clientId = getCookie("_id")[2];
   const config = {
     headers: {
@@ -251,7 +253,7 @@ export default function Chat({ data, user, chatAccess, setChatAccess }) {
       e.code === "Enter" ||
       e.code === "NumpadEnter"
     ) {
-      sendMessage();
+      sendMessageWithAttachments();
     }
   };
 
@@ -374,6 +376,176 @@ export default function Chat({ data, user, chatAccess, setChatAccess }) {
       } catch (error) {
         console.log(error);
       }
+    }
+  };
+
+  const handlePdfUpload = async (event) => {
+    console.log('PDF upload triggered');
+    const file = event.target.files[0];
+    console.log('Selected file:', file);
+    
+    if (!file) {
+      console.log('No file selected');
+      return;
+    }
+
+    // Validate file type
+    if (file.type !== "application/pdf") {
+      console.log('Invalid file type:', file.type);
+      alert("Please select a PDF file");
+      return;
+    }
+
+    // Validate file size (10MB max)
+    const maxSize = 10 * 1024 * 1024; // 10MB
+    if (file.size > maxSize) {
+      console.log('File too large:', file.size);
+      alert("File size must be less than 10MB");
+      return;
+    }
+
+    console.log('File validation passed, starting upload');
+    setIsUploadingPdf(true);
+
+    try {
+      const formData = new FormData();
+      formData.append("pdf", file);
+
+      const config = {
+        headers: {
+          accesstoken: getAccessToken(),
+          "Content-Type": "multipart/form-data",
+        },
+      };
+
+      console.log('Sending PDF to backend...');
+      const response = await axios.post(
+        `${ENDPOINT}api/v1/chatMessage/upload-pdf`,
+        formData,
+        config
+      );
+
+      console.log('PDF upload response:', response.data);
+
+      if (response.data.success) {
+        console.log('PDF uploaded successfully, adding to attachments');
+        setAttachments(prev => {
+          const newAttachments = [...prev, response.data.data];
+          console.log('Updated attachments:', newAttachments);
+          return newAttachments;
+        });
+      } else {
+        console.log('PDF upload failed:', response.data.message);
+        alert("Failed to upload PDF: " + response.data.message);
+      }
+    } catch (error) {
+      console.error("PDF upload error:", error);
+      alert("Failed to upload PDF. Please try again.");
+    } finally {
+      setIsUploadingPdf(false);
+      // Reset file input
+      event.target.value = "";
+    }
+  };
+
+  const removeAttachment = (index) => {
+    setAttachments(prev => prev.filter((_, i) => i !== index));
+  };
+
+  const sendMessageWithAttachments = async () => {
+    console.log('sendMessageWithAttachments called with:', { input: input.trim(), attachments: attachments.length });
+    
+    if (!input.trim() && attachments.length === 0) {
+      console.log('Early return: no input and no attachments');
+      return;
+    }
+
+    socket.emit("stop typing", encodeURIComponent(data._id));
+    const inputCopy = input;
+    const replyData = replyingTo;
+    const attachmentsCopy = [...attachments];
+    
+    console.log('Proceeding to send message with attachments:', attachmentsCopy);
+    
+    setInput("");
+    setAttachments([]);
+    setReplyingTo(null);
+    if (inputRef.current) {
+      inputRef.current.style.height = "auto";
+    }
+
+    try {
+      const config = {
+        headers: {
+          accesstoken: getAccessToken(),
+        },
+      };
+      setIsSendingMessage(true);
+      
+      // Prepare message payload
+      const messagePayload = {
+        chat_id: encodeURIComponent(data._id),
+      };
+
+      // Only add content if there's actual text
+      if (inputCopy.trim()) {
+        messagePayload.content = inputCopy.trim();
+      }
+
+      // Add attachments if present
+      if (attachmentsCopy.length > 0) {
+        messagePayload.attachments = attachmentsCopy;
+      }
+      
+      // Add reply data if replying
+      if (replyData && replyData.messageId && replyData.content) {
+        try {
+          messagePayload.replyTo = {
+            messageId: replyData.messageId,
+            content: replyData.content.length > 100 
+              ? `${replyData.content.substring(0, 100)}...` 
+              : replyData.content,
+            sender: {
+              _id: replyData.sender?._id || '',
+              firstName: replyData.sender?.firstName || '',
+              lastName: replyData.sender?.lastName || '',
+              userModel: replyData.sender?.role === 'Alumni' ? 'User' : (replyData.sender?.role || 'User')
+            },
+            isReply: true
+          };
+        } catch (error) {
+          console.error('Error preparing reply data:', error);
+          delete messagePayload.replyTo;
+        }
+      }
+      
+      const newData = await axios
+        .post(
+          `${ENDPOINT}api/v1/chatMessage`,
+          messagePayload,
+          config
+        )
+        .then((res) => {
+          console.log('Message sent response:', res.data);
+          console.log('Message data:', res.data.data);
+          console.log('Attachments in response:', res.data.data.attachments);
+          socket.emit("new message", res.data);
+          setMessages((prev) => [...prev, res.data.data]);
+          if (messagesContainerRef.current) {
+            document
+              .getElementsByClassName("messages-container")[0]
+              .scrollTo(0, 999999999);
+          }
+        })
+        .catch((err) => {
+          console.error('Message send error:', err);
+          throw err;
+        })
+        .finally(() => {
+          setIsSendingMessage(false);
+        });
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -652,19 +824,62 @@ export default function Chat({ data, user, chatAccess, setChatAccess }) {
                 </div>
               </div>
             )}
+            {attachments.length > 0 && (
+              <div className="attachments-preview">
+                <div className="attachments-header">
+                  <span>Attachments ({attachments.length})</span>
+                </div>
+                <div className="attachments-list">
+                  {attachments.map((attachment, index) => (
+                    <div key={index} className="attachment-item">
+                      <div className="attachment-info">
+                        <div className="attachment-icon">
+                          <i className="fas fa-file-pdf"></i>
+                        </div>
+                        <div className="attachment-details">
+                          <div className="attachment-name">{attachment.originalName}</div>
+                          <div className="attachment-size">
+                            {(attachment.size / 1024 / 1024).toFixed(2)} MB
+                          </div>
+                        </div>
+                      </div>
+                      <button
+                        className="remove-attachment"
+                        onClick={() => removeAttachment(index)}
+                      >
+                        <RxCross1 size={16} />
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
             <div className="input-row">
-              {/* <div className="attachment-container">
-                <button className="attachment">
-                  <FaPlus />
-                </button>
-              </div> */}
+              <div className="attachment-container">
+                <input
+                  type="file"
+                  accept=".pdf"
+                  onChange={handlePdfUpload}
+                  style={{ display: "none" }}
+                  id="pdf-upload"
+                  disabled={isUploadingPdf}
+                />
+                <label htmlFor="pdf-upload" className="attachment">
+                  {isUploadingPdf ? (
+                    <div className="spinner-border spinner-border-sm" role="status">
+                      <span className="sr-only">Uploading...</span>
+                    </div>
+                  ) : (
+                    <FaPlus />
+                  )}
+                </label>
+              </div>
               <textarea
                 className="text-input"
                 placeholder={replyingTo ? "Type your reply..." : "Enter message"}
                 ref={inputRef}
                 rows={1}
                 style={{
-                  // marginLeft to be removed when attachment button is added
                   marginLeft: "12px",
                   overflowY: "auto",
                   resize: "none",
@@ -686,7 +901,10 @@ export default function Chat({ data, user, chatAccess, setChatAccess }) {
                 onKeyDown={handleKeyDown}
               />
               <div className="send-container">
-                <button onClick={sendMessage} className="send">
+                <button onClick={() => {
+                  console.log('Send button clicked');
+                  sendMessageWithAttachments();
+                }} className="send">
                   {SendIcon}
                 </button>
               </div>

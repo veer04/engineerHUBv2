@@ -15,11 +15,11 @@
   top: 50%;
   transform: translateY(-50%);
   z-index: 10000000; /* Higher than any message content */
-  right: -30px; /* Position to the right of message bubble for other users */
+  right: -45px; /* Position to the right of message bubble for other users */
 }
 
 .message-actions.my-message {
-  left: -30px; /* Position to the left of message bubble for author */
+  left: -45px; /* Position to the left of message bubble for author */
   right: auto;
 }
 
@@ -42,6 +42,7 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+
 .three-dot-buttons:hover {
   background: rgba(255, 255, 255, 1);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
@@ -61,6 +62,24 @@
   opacity: 1;
   visibility: visible;
   transform: scale(1);
+}
+
+/* Show 3-dot button when message content is tapped on mobile */
+@media (hover: none) and (pointer: coarse) {
+  .message-content.mobile-active .three-dot-buttons {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1);
+  }
+}
+
+/* Alternative for broader mobile compatibility */
+@media screen and (max-width: 768px) {
+  .message-content.mobile-active .three-dot-buttons {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1);
+  }
 }
 
 /* Subtle hover effect on message content */
@@ -462,11 +481,11 @@
   
   /* Adjust three-dot menu for mobile */
   .message-actions {
-    right: -30px;
+    right: -40px;
   }
   
   .message-actions.my-message {
-    left: -30px;
+    left: -40px;
     right: auto;
   }
   
@@ -519,11 +538,11 @@
   
   /* Further adjust three-dot menu for very small screens */
   .message-actions {
-    right: -25px;
+    right: -35px;
   }
   
   .message-actions.my-message {
-    left: -25px;
+    left: -35px;
     right: auto;
   }
   

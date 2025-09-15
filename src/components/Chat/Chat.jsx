@@ -175,7 +175,7 @@ export default function Chat({
             `${ENDPOINT}api/v1/chatMessage`,
             {
               content: input,
-              chatId: encodeURIComponent(data._id),
+              chat_id: encodeURIComponent(data._id),
             },
             config
           )

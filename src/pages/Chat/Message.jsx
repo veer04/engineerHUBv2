@@ -42,10 +42,33 @@ export default function Message({
   position,
   replyTo, // Backend reply data
   onReply, // Add onReply prop to handle reply functionality
+  attachments, // PDF attachments
 }) {
   const [showMenu, setShowMenu] = useState(false);
   const [dropdownPosition, setDropdownPosition] = useState({ top: 0, left: 0 });
+  const [isMobileActive, setIsMobileActive] = useState(false);
   const navigate = useNavigate();
+
+  // Debug: Log the message props
+  console.log('Message component props:', { attachments, content, sender: sender?.firstName });
+
+  // Detect if device is mobile
+  const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || 
+                   (window.innerWidth <= 768 && 'ontouchstart' in window);
+
+  // Handle mobile tap on message content
+  const handleMessageContentTap = (e) => {
+    if (isMobile) {
+      e.preventDefault();
+      e.stopPropagation();
+      setIsMobileActive(!isMobileActive);
+      
+      // Auto-hide after 3 seconds
+      setTimeout(() => {
+        setIsMobileActive(false);
+      }, 3000);
+    }
+  };
 
   // Helper function to extract actual message content (without embedded reply format)
   const getActualMessageContent = () => {
@@ -69,6 +92,7 @@ export default function Message({
   };
 
   const handleMenuClick = (e) => {
+    e.preventDefault();
     e.stopPropagation();
     
     if (!showMenu) {
@@ -121,9 +145,23 @@ export default function Message({
     setShowMenu(false);
   };
 
+  const handleOpenDocument = () => {
+    if (attachments && attachments.length > 0) {
+      // Open the first attachment in a new tab
+      window.open(attachments[0].url, '_blank', 'noopener,noreferrer');
+    }
+    setShowMenu(false);
+  };
+
   // Close menu when clicking outside, pressing Escape, scrolling, or resizing
   useEffect(() => {
     const handleClickOutside = (e) => {
+      if (showMenu && !e.target.closest('.message-actions') && !e.target.closest('.message-dropdown-portal')) {
+        setShowMenu(false);
+      }
+    };
+
+    const handleTouchOutside = (e) => {
       if (showMenu && !e.target.closest('.message-actions') && !e.target.closest('.message-dropdown-portal')) {
         setShowMenu(false);
       }
@@ -148,13 +186,19 @@ export default function Message({
     };
 
     if (showMenu) {
-      document.addEventListener('click', handleClickOutside);
-      document.addEventListener('keydown', handleEscapeKey);
-      window.addEventListener('scroll', handleScroll, true);
-      window.addEventListener('resize', handleResize);
+      // Add a delay to prevent immediate closing on mobile
+      const timeoutId = setTimeout(() => {
+        document.addEventListener('click', handleClickOutside);
+        document.addEventListener('touchstart', handleTouchOutside);
+        document.addEventListener('keydown', handleEscapeKey);
+        window.addEventListener('scroll', handleScroll, true);
+        window.addEventListener('resize', handleResize);
+      }, 200); // Increased delay for better mobile stability
       
       return () => {
+        clearTimeout(timeoutId);
         document.removeEventListener('click', handleClickOutside);
+        document.removeEventListener('touchstart', handleTouchOutside);
         document.removeEventListener('keydown', handleEscapeKey);
         window.removeEventListener('scroll', handleScroll, true);
         window.removeEventListener('resize', handleResize);
@@ -379,39 +423,90 @@ export default function Message({
           </div>
         )}
         <div className={messageBodyClasses}>
-          <div className="message-content text-break d-flex">
-            <div className={`message-actions ${isMyMessage ? 'my-message': 'other-message'}`}>
-              <button
-                className={`three-dot-buttons ${isMyMessage ? 'my-message': 'other-message'}`}
-                onClick={handleMenuClick}
-              >
-                <FiMoreVertical size={16}/>
-              </button>
-              {/* Portal dropdown to ensure it appears above all other elements */}
-              {showMenu && ReactDOM.createPortal(
-                <div 
-                  className={`message-dropdown-portal ${isMyMessage ? 'my-message': 'other-message'}`}
-                  style={{
-                    position: 'fixed',
-                    top: `${dropdownPosition.top}px`,
-                    left: `${dropdownPosition.left}px`,
-                    zIndex: 999999999,
-                    background: 'white',
-                    border: '1px solid #e0e0e0',
-                    borderRadius: '8px',
-                    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
-                    minWidth: '120px',
-                    overflow: 'hidden'
+          {content && content.trim() && (
+            <div 
+              className={`message-content text-break d-flex ${isMobileActive ? 'mobile-active' : ''}`}
+              onTouchEnd={handleMessageContentTap}
+            >
+              <div className={`message-actions ${isMyMessage ? 'my-message': 'other-message'}`}>
+                <button
+                  className={`three-dot-buttons ${isMyMessage ? 'my-message': 'other-message'}`}
+                  onClick={handleMenuClick}
+                  onTouchStart={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
                   }}
+                  onTouchEnd={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    handleMenuClick(e);
+                  }}
+                  style={{ touchAction: 'manipulation' }}
                 >
-                  <button onClick={handleReply} className="dropdown-item">Reply</button>
-                  <button onClick={handleCopy} className="dropdown-item">Copy Text</button>
-                </div>,
-                document.body
-              )}
+                  <FiMoreVertical size={16}/>
+                </button>
+                {/* Portal dropdown to ensure it appears above all other elements */}
+                {showMenu && ReactDOM.createPortal(
+                  <div 
+                    className={`message-dropdown-portal ${isMyMessage ? 'my-message': 'other-message'}`}
+                    style={{
+                      position: 'fixed',
+                      top: `${dropdownPosition.top}px`,
+                      left: `${dropdownPosition.left}px`,
+                      zIndex: 999999999,
+                      background: 'white',
+                      border: '1px solid #e0e0e0',
+                      borderRadius: '8px',
+                      boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
+                      minWidth: '120px',
+                      overflow: 'hidden'
+                    }}
+                  >
+                    <button onClick={handleReply} className="dropdown-item">Reply</button>
+                    <button onClick={handleCopy} className="dropdown-item">Copy Text</button>
+                    {attachments && attachments.length > 0 && (
+                      <button onClick={handleOpenDocument} className="dropdown-item">Open Document</button>
+                    )}
+                  </div>,
+                  document.body
+                )}
+              </div>
+              {renderMessageContent(content, replyTo)}
             </div>
-            {renderMessageContent(content, replyTo)}
-          </div>
+          )}
+          {/* PDF Attachments */}
+          {attachments && attachments.length > 0 && (
+            <div className="message-attachments">
+              {attachments.map((attachment, index) => (
+                <div key={index} className="attachment-display">
+                  <div 
+                    className="attachment-preview clickable-document"
+                    onClick={() => window.open(attachment.url, '_blank', 'noopener,noreferrer')}
+                    style={{ cursor: 'pointer' }}
+                  >
+                    <div className="attachment-icon">
+                      <i className="fas fa-file-pdf"></i>
+                    </div>
+                    <div className="attachment-info">
+                      <div className="attachment-name">{attachment.originalName}</div>
+                      <div className="attachment-size">
+                        {(attachment.size / 1024 / 1024).toFixed(2)} MB
+                      </div>
+                    </div>
+                    <a
+                      href={attachment.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="attachment-download"
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      <i className="fas fa-download"></i>
+                    </a>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
           {/* <div
             style={{ lineBreak: "anywhere" }}
             className="message text-break d-flex"

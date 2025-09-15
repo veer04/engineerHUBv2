@@ -16,6 +16,8 @@ import {
   TbLayoutBottombarCollapseFilled,
   TbLayoutNavbarCollapseFilled,
 } from "react-icons/tb";
+import { FaPlus } from "react-icons/fa";
+import { RxCross1 } from "react-icons/rx";
 const ENDPOINT = API_URLT;
 var socket;
 
@@ -37,6 +39,8 @@ export default function NewChat({
   const [socketConnected, setSocketConnected] = useState(false);
   const [typing, setTyping] = useState(false);
   const [istyping, setIsTyping] = useState(false);
+  const [attachments, setAttachments] = useState([]);
+  const [isUploadingPdf, setIsUploadingPdf] = useState(false);
   const clientId = getCookie("_id")[2];
 
   useEffect(() => {
@@ -159,11 +163,145 @@ export default function NewChat({
       e.code === "Enter" ||
       e.code === "NumpadEnter"
     ) {
-      sendMessage();
+      sendMessageWithAttachments();
     }
   };
 
   const [isGuidelineAccepted, setIsGuidelineAccepted] = useState(false);
+
+  const handlePdfUpload = async (event) => {
+    console.log('PDF upload triggered');
+    const file = event.target.files[0];
+    console.log('Selected file:', file);
+    
+    if (!file) {
+      console.log('No file selected');
+      return;
+    }
+
+    // Validate file type
+    if (file.type !== "application/pdf") {
+      console.log('Invalid file type:', file.type);
+      alert("Please select a PDF file");
+      return;
+    }
+
+    // Validate file size (10MB max)
+    const maxSize = 10 * 1024 * 1024; // 10MB
+    if (file.size > maxSize) {
+      console.log('File too large:', file.size);
+      alert("File size must be less than 10MB");
+      return;
+    }
+
+    console.log('File validation passed, starting upload');
+    setIsUploadingPdf(true);
+
+    try {
+      const formData = new FormData();
+      formData.append("pdf", file);
+
+      const config = {
+        headers: {
+          accesstoken: getAccessToken(),
+          "Content-Type": "multipart/form-data",
+        },
+      };
+
+      console.log('Sending PDF to backend...');
+      const response = await axios.post(
+        `${ENDPOINT}api/v1/chatMessage/upload-pdf`,
+        formData,
+        config
+      );
+
+      console.log('PDF upload response:', response.data);
+
+      if (response.data.success) {
+        console.log('PDF uploaded successfully, adding to attachments');
+        setAttachments(prev => {
+          const newAttachments = [...prev, response.data.data];
+          console.log('Updated attachments:', newAttachments);
+          return newAttachments;
+        });
+      } else {
+        console.log('PDF upload failed:', response.data.message);
+        alert("Failed to upload PDF: " + response.data.message);
+      }
+    } catch (error) {
+      console.error("PDF upload error:", error);
+      alert("Failed to upload PDF. Please try again.");
+    } finally {
+      setIsUploadingPdf(false);
+      // Reset file input
+      event.target.value = "";
+    }
+  };
+
+  const removeAttachment = (index) => {
+    setAttachments(prev => prev.filter((_, i) => i !== index));
+  };
+
+  const sendMessageWithAttachments = async () => {
+    console.log('sendMessageWithAttachments called with:', { input: input.trim(), attachments: attachments.length });
+    
+    if (!input.trim() && attachments.length === 0) {
+      console.log('Early return: no input and no attachments');
+      return;
+    }
+
+    socket.emit("stop typing", encodeURIComponent(data._id));
+    const inputCopy = input;
+    const attachmentsCopy = [...attachments];
+    
+    console.log('Proceeding to send message with attachments:', attachmentsCopy);
+    
+    setInput("");
+    setAttachments([]);
+
+    try {
+      const config = {
+        headers: {
+          accesstoken: getAccessToken(),
+        },
+      };
+      
+      // Prepare message payload
+      const messagePayload = {
+        content: inputCopy || "",
+        chat_id: encodeURIComponent(data._id),
+      };
+
+      // Add attachments if present
+      if (attachmentsCopy.length > 0) {
+        messagePayload.attachments = attachmentsCopy;
+      }
+      
+      const newData = await axios
+        .post(
+          `${ENDPOINT}api/v1/chatMessage`,
+          messagePayload,
+          config
+        )
+        .then((res) => {
+          console.log('Message sent response:', res.data);
+          console.log('Message data:', res.data.data);
+          console.log('Attachments in response:', res.data.data.attachments);
+          socket.emit("new message", res.data);
+          setMessages((prev) => [...prev, res.data.data]);
+          // Scroll to bottom after sending a message
+          setTimeout(() => {
+            document.getElementsByClassName("chat-display")[0].scrollTo(0, 999999999);
+          }, 100);
+        })
+        .catch((err) => {
+          console.error('Message send error:', err);
+          throw err;
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const sendMessage = async (event) => {
     if (input.trim()) {
@@ -182,7 +320,7 @@ export default function NewChat({
             `${ENDPOINT}api/v1/chatMessage`,
             {
               content: input,
-              chatId: encodeURIComponent(data._id),
+              chat_id: encodeURIComponent(data._id),
             },
             config
           )
@@ -412,21 +550,72 @@ export default function NewChat({
         messages.length !== 0 &&
         socketConnected && (
           <div className="chat-input">
-            <textarea
-              id="chat-input"
-              className="input"
-              placeholder="New Message"
-              type="text"
-              value={input}
-              autoComplete="off"
-              onChange={(e) => {
-                setInput(e.target.value);
-              }}
-              onKeyUp={(e) => handleKeyDown(e)}
-            />
-            <div className="submit-button__container">
-              <div onClick={sendMessage} className="submit-button">
-                <img src={submit} alt="Submit" />
+            {attachments.length > 0 && (
+              <div className="attachments-preview">
+                <div className="attachments-header">
+                  <span>Attachments ({attachments.length})</span>
+                </div>
+                <div className="attachments-list">
+                  {attachments.map((attachment, index) => (
+                    <div key={index} className="attachment-item">
+                      <div className="attachment-info">
+                        <div className="attachment-icon">
+                          <i className="fas fa-file-pdf"></i>
+                        </div>
+                        <div className="attachment-details">
+                          <div className="attachment-name">{attachment.originalName}</div>
+                          <div className="attachment-size">
+                            {(attachment.size / 1024 / 1024).toFixed(2)} MB
+                          </div>
+                        </div>
+                      </div>
+                      <button
+                        className="remove-attachment"
+                        onClick={() => removeAttachment(index)}
+                      >
+                        <RxCross1 size={16} />
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+            <div className="input-row">
+              <div className="attachment-container">
+                <input
+                  type="file"
+                  accept=".pdf"
+                  onChange={handlePdfUpload}
+                  style={{ display: "none" }}
+                  id="pdf-upload"
+                  disabled={isUploadingPdf}
+                />
+                <label htmlFor="pdf-upload" className="attachment">
+                  {isUploadingPdf ? (
+                    <div className="spinner-border spinner-border-sm" role="status">
+                      <span className="sr-only">Uploading...</span>
+                    </div>
+                  ) : (
+                    <FaPlus />
+                  )}
+                </label>
+              </div>
+              <textarea
+                id="chat-input"
+                className="input"
+                placeholder="New Message"
+                type="text"
+                value={input}
+                autoComplete="off"
+                onChange={(e) => {
+                  setInput(e.target.value);
+                }}
+                onKeyUp={(e) => handleKeyDown(e)}
+              />
+              <div className="submit-button__container">
+                <div onClick={sendMessageWithAttachments} className="submit-button">
+                  <img src={submit} alt="Submit" />
+                </div>
               </div>
             </div>
           </div>
