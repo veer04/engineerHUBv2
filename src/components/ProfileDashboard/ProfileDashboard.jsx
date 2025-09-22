@@ -202,10 +202,11 @@ const ProfileDashboard = () => {
           src={`${Bucket_URL}13404898.png`}
           alt="We are live poster"
         />
-        {/*AD - 19}*/}
+        {/*AD - 19}
         <div className="d-flex justify-content-center mb-3">
           <AdsenseComp adSlot="1464856375" />
         </div>
+        */}
         
       </main>
     </>
