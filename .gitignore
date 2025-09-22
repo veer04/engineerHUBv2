@@ -28,4 +28,9 @@ ngrok.exe
 *.sln
 *.sw?
 .gitignore
+
+# Temporary test files (development only)
+test-*.js
+test-*.html
+test-*.css
 ```

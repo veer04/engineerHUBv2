@@ -4,14 +4,19 @@ import { GoStopwatch } from "react-icons/go";
 import ActivityCardsSaif from "./ActivityCardsSaif";
 import PostCardActivity from "./PostCardActivity/PostCardActivity";
 import RecommendationCard2Activity from "../RecommendedSection/RecommendationCard2Activity";
+import StreakCard from "./StreakCard/StreakCard";
+import Cookies from "js-cookie";
 
 const YourActivitySection = ({
   streakData,
   jobData,
   internshipData,
   postData,
+  isUserView = false, // true when viewing another user's profile
+  userId = null, // userId when viewing another user's profile
 }) => {
-  const [actionButton, setActionButton] = useState("Posts");
+  const userRole = Cookies.get("role");
+  const [actionButton, setActionButton] = useState("Streak");
   const [jobPage, setJobPage] = useState(1);
   const [internshipPage, setInternshipPage] = useState(1);
   const [postPage, setPostPage] = useState(1);
@@ -49,17 +54,20 @@ const YourActivitySection = ({
     internshipPage * itemsPerPage
   );
 
+  // Show Activities section for all users, but customize based on role
+
   return (
     <div className="your-activity-section-main">
       <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
         <GoStopwatch size={18} />
         <h3 style={{ fontSize: 16, fontWeight: 700, color: "#002B36" }}>
-          Activities
+          {isUserView ? "Activities" : "Your Activities"}
         </h3>
       </div>
 
       <div style={{ marginTop: 10, display: "flex", gap: 10 }}>
-        {["Jobs", "Internships"].map((buttonName) => (
+        {/* Streak button always first, then Jobs/Internships for Alumni */}
+        {["Streak", ...(userRole === "Alumni" ? ["Jobs", "Internships"] : [])].map((buttonName) => (
           <button
             key={buttonName}
             onClick={() => handleButtonClick(buttonName)}
@@ -78,6 +86,12 @@ const YourActivitySection = ({
           </button>
         ))}
       </div>
+
+      {actionButton === "Streak" && (
+        <div style={{ marginTop: 20, width: "100%" }}>
+          <StreakCard streakData={streakData} userId={userId} />
+        </div>
+      )}
 
       {actionButton === "Posts" && (
         <>

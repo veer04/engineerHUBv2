@@ -17,6 +17,11 @@ import WebinarCardSaif from "./WebinarCardSaif";
 const HostPageForProfileDashboard = () => {
   const userRole = Cookies.get("role");
 
+  // Only show the Host section if user is Alumni
+  if (userRole !== "Alumni") {
+    return null;
+  }
+
   return (
     <div className="host-page-main-profile-dashboard">
       <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
@@ -35,25 +40,14 @@ const HostPageForProfileDashboard = () => {
       </div>
 
       <div className="post-create-main-sub">
-        {userRole === "Alumni" ? (
-          <>
-            
-            <CreateJobCard />
-            {/*
-            <WebinarCardSaif />
-            <TechnicalEventComp />
-            <CulturalEventComp />
-            */}
-            <CreateInternshipCard />
-            <CreateEventHiring />
-          </>
-        ) : (
-          <>
-            <WebinarCardSaif />
-            {/*<TechnicalEventComp />
-            <CulturalEventComp /> */}
-          </>
-        )}
+        <CreateJobCard />
+        {/*
+        <WebinarCardSaif />
+        <TechnicalEventComp />
+        <CulturalEventComp />
+        */}
+        <CreateInternshipCard />
+        <CreateEventHiring />
       </div>
     </div>
   );

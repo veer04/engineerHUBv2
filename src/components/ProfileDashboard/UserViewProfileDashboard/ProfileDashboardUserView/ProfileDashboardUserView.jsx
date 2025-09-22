@@ -259,6 +259,8 @@ const ProfileDashboardUserView = () => {
                 jobData={jobData}
                 internshipData={internshipData}
                 postData={postData}
+                isUserView={true}
+                userId={userId}
               />
             </div>
             {DashboardAdminData &&
