@@ -348,6 +348,12 @@
     padding: 0 8px;
   }
   
+  /* Ensure smooth transitions for responsive sizing */
+  .contribution-day,
+  .legend-square {
+    transition: width 0.2s ease, height 0.2s ease;
+  }
+  
   .streak-header {
     flex-direction: column;
     align-items: flex-start;
@@ -392,10 +398,14 @@
   .month-label {
     font-size: 10px;
     padding: 1px 4px;
+    max-width: 30px;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   
   .month-labels {
     height: 18px;
+    overflow: visible;
   }
   
   .contribution-graph {
@@ -411,12 +421,12 @@
     font-size: 11px;
   }
   
-  /* Make refresh button more touch-friendly on mobile */
+  /* Make refresh button smaller on mobile */
   .year-selector button {
-    min-height: 36px;
-    min-width: 70px;
-    font-size: 13px;
-    padding: 8px 14px;
+    min-height: 28px;
+    min-width: 50px;
+    font-size: 11px;
+    padding: 4px 8px;
   }
   
   /* Mobile hover effects */
@@ -473,10 +483,14 @@
   .month-label {
     font-size: 8px;
     padding: 1px 2px;
+    max-width: 25px;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   
   .month-labels {
     height: 14px;
+    overflow: visible;
   }
   
   .contribution-graph {
@@ -494,10 +508,10 @@
   
   /* Smaller refresh button for very small screens */
   .year-selector button {
-    min-height: 32px;
-    min-width: 60px;
-    font-size: 11px;
-    padding: 6px 10px;
+    min-height: 24px;
+    min-width: 45px;
+    font-size: 10px;
+    padding: 3px 6px;
   }
   
   /* Smaller note styling for mobile */
@@ -548,10 +562,14 @@
   .month-label {
     font-size: 7px;
     padding: 1px;
+    max-width: 20px;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   
   .month-labels {
     height: 12px;
+    overflow: visible;
   }
   
   .legend-text {
@@ -564,10 +582,10 @@
   
   /* Extra small refresh button */
   .year-selector button {
-    min-height: 28px;
-    min-width: 50px;
-    font-size: 10px;
-    padding: 4px 8px;
+    min-height: 22px;
+    min-width: 40px;
+    font-size: 9px;
+    padding: 2px 5px;
   }
   
   /* Extra small note styling */

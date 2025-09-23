@@ -163,7 +163,7 @@ const ProfileDashboard = () => {
               onClick={handleRedirect}
               className="profile-dashboard-rectangle-img-1"
               style={{ marginTop: 20, borderRadius: 8, cursor: "pointer" }}
-              src={`${Bucket_URL}13404898.png`}
+              src={`${Bucket_URL}placed.jpeg`}
               alt="We are live poster"
             />
           </div>

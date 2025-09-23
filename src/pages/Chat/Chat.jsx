@@ -15,10 +15,19 @@ import { RxCross1 } from "react-icons/rx";
 import { IoClose } from "react-icons/io5";
 import MessageSending from "./MessageSending";
 import useChatNotifications from "../../hooks/useChatNotifications";
+import { getUserEmail } from "../../features/User/UserDetails";
 const ENDPOINT = API_URL;
 var socket;
 
 const bucket = `${Bucket_URL}frontend/navbar/`;
+
+// Admin emails for Announcements & Updates group
+const ANNOUNCEMENTS_ADMIN_EMAILS = [
+  "kunikakishore433@gmail.com",
+  "kunwar7376niwas@gmail.com", 
+  "rishabhs883@gmail.com",
+  "karan060801@gmail.com"
+];
 
 export default function Chat({ data, user, chatAccess, setChatAccess }) {
   const { chatId } = useParams();
@@ -47,6 +56,13 @@ export default function Chat({ data, user, chatAccess, setChatAccess }) {
   const { setIsChatOpen, navigateBackTo, setNavigateBackTo, step, setStep } =
     useCommunityChat();
   const { clearNotifications } = useChatNotifications();
+
+  // Check if current user is admin for Announcements & Updates group
+  const isAdminForAnnouncements = () => {
+    const currentUserEmail = getUserEmail();
+    return data?.chatName === "Announcements & Updates" && 
+           ANNOUNCEMENTS_ADMIN_EMAILS.includes(currentUserEmail);
+  };
 
   const handleBackButton = () => {
     // Mark user as inactive when leaving chat
@@ -783,133 +799,148 @@ export default function Chat({ data, user, chatAccess, setChatAccess }) {
       {chatAccess[chatId] !== "waiting" &&
         messages.length !== 0 &&
         socketConnected && (
-          <div className="input-container">
-            {replyingTo && (
-              <div className="reply-preview">
-                <div className="reply-content">
-                  <div className="reply-header">
-                    <span className="reply-to-text">
-                      Replying to {replyingTo.sender?.firstName || 'User'}
-                      {(() => {
-                        // Check if the original message was also a reply
-                        const replyRegex = /^@([^:]+):\s*"([^"]+)"\s*\n\n(.+)$/s;
-                        const isReplyToReply = replyingTo.content.match(replyRegex);
-                        return isReplyToReply ? ' (in thread)' : '';
-                      })()}
-                    </span>
-                    <button onClick={cancelReply} className="cancel-reply">
-                      <IoClose size={16} />
+          <>
+            {/* Show admin-only message for non-admin users in Announcements & Updates */}
+            {data?.chatName === "Announcements & Updates" && !isAdminForAnnouncements() && (
+              <div className="admin-only-message">
+                <p className="text-muted small">
+                  <i className="fas fa-lock me-2"></i>
+                  Only admins can post messages in this group
+                </p>
+              </div>
+            )}
+            
+            {/* Show input container only for admin users in Announcements & Updates or all users in other groups */}
+            {(data?.chatName !== "Announcements & Updates" || isAdminForAnnouncements()) && (
+              <div className="input-container">
+                {replyingTo && (
+                  <div className="reply-preview">
+                    <div className="reply-content">
+                      <div className="reply-header">
+                        <span className="reply-to-text">
+                          Replying to {replyingTo.sender?.firstName || 'User'}
+                          {(() => {
+                            // Check if the original message was also a reply
+                            const replyRegex = /^@([^:]+):\s*"([^"]+)"\s*\n\n(.+)$/s;
+                            const isReplyToReply = replyingTo.content.match(replyRegex);
+                            return isReplyToReply ? ' (in thread)' : '';
+                          })()}
+                        </span>
+                        <button onClick={cancelReply} className="cancel-reply">
+                          <IoClose size={16} />
+                        </button>
+                      </div>
+                      <div className="reply-message">
+                        {(() => {
+                          // Extract actual content for preview (same logic as in Message component)
+                          let actualContent = replyingTo.content;
+                          
+                          // Check if this is an embedded reply format and extract actual content
+                          const replyRegex = /^@([^:]+):\s*"([^"]+)"\s*\n\n(.+)$/s;
+                          const replyMatch = replyingTo.content.match(replyRegex);
+                          
+                          if (replyMatch) {
+                            // This is an embedded reply, extract the actual message part
+                            const [, , , actualMessage] = replyMatch;
+                            actualContent = actualMessage;
+                          }
+                          
+                          return actualContent.length > 50 
+                            ? `${actualContent.substring(0, 50)}...` 
+                            : actualContent;
+                        })()}
+                      </div>
+                    </div>
+                  </div>
+                )}
+                {attachments.length > 0 && (
+                  <div className="attachments-preview">
+                    <div className="attachments-header">
+                      <span>Attachments ({attachments.length})</span>
+                    </div>
+                    <div className="attachments-list">
+                      {attachments.map((attachment, index) => (
+                        <div key={index} className="attachment-item">
+                          <div className="attachment-info">
+                            <div className="attachment-icon">
+                              <i className="fas fa-file-pdf"></i>
+                            </div>
+                            <div className="attachment-details">
+                              <div className="attachment-name">{attachment.originalName}</div>
+                              <div className="attachment-size">
+                                {(attachment.size / 1024 / 1024).toFixed(2)} MB
+                              </div>
+                            </div>
+                          </div>
+                          <button
+                            className="remove-attachment"
+                            onClick={() => removeAttachment(index)}
+                          >
+                            <RxCross1 size={16} />
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+                <div className="input-row">
+                  <div className="attachment-container">
+                    <input
+                      type="file"
+                      accept=".pdf"
+                      onChange={handlePdfUpload}
+                      style={{ display: "none" }}
+                      id="pdf-upload"
+                      disabled={isUploadingPdf}
+                    />
+                    <label htmlFor="pdf-upload" className="attachment">
+                      {isUploadingPdf ? (
+                        <div className="spinner-border spinner-border-sm" role="status">
+                          <span className="sr-only">Uploading...</span>
+                        </div>
+                      ) : (
+                        <FaPlus />
+                      )}
+                    </label>
+                  </div>
+                  <textarea
+                    className="text-input"
+                    placeholder={replyingTo ? "Type your reply..." : "Enter message"}
+                    ref={inputRef}
+                    rows={1}
+                    style={{
+                      marginLeft: "12px",
+                      overflowY: "auto",
+                      resize: "none",
+                      maxHeight: "120px", // Adjust this value based on your line-height to accommodate up to 5 rows
+                    }}
+                    value={input}
+                    onInput={(e) => {
+                      e.target.style.height = "auto";
+                      const lineHeight = 24; // Replace with your actual line-height in pixels
+                      const maxHeight = lineHeight * 5;
+                      e.target.style.height = `${Math.min(
+                        e.target.scrollHeight,
+                        maxHeight
+                      )}px`;
+                    }}
+                    onChange={(e) => {
+                      setInput(e.target.value);
+                    }}
+                    onKeyDown={handleKeyDown}
+                  />
+                  <div className="send-container">
+                    <button onClick={() => {
+                      console.log('Send button clicked');
+                      sendMessageWithAttachments();
+                    }} className="send">
+                      {SendIcon}
                     </button>
                   </div>
-                  <div className="reply-message">
-                    {(() => {
-                      // Extract actual content for preview (same logic as in Message component)
-                      let actualContent = replyingTo.content;
-                      
-                      // Check if this is an embedded reply format and extract actual content
-                      const replyRegex = /^@([^:]+):\s*"([^"]+)"\s*\n\n(.+)$/s;
-                      const replyMatch = replyingTo.content.match(replyRegex);
-                      
-                      if (replyMatch) {
-                        // This is an embedded reply, extract the actual message part
-                        const [, , , actualMessage] = replyMatch;
-                        actualContent = actualMessage;
-                      }
-                      
-                      return actualContent.length > 50 
-                        ? `${actualContent.substring(0, 50)}...` 
-                        : actualContent;
-                    })()}
-                  </div>
                 </div>
               </div>
             )}
-            {attachments.length > 0 && (
-              <div className="attachments-preview">
-                <div className="attachments-header">
-                  <span>Attachments ({attachments.length})</span>
-                </div>
-                <div className="attachments-list">
-                  {attachments.map((attachment, index) => (
-                    <div key={index} className="attachment-item">
-                      <div className="attachment-info">
-                        <div className="attachment-icon">
-                          <i className="fas fa-file-pdf"></i>
-                        </div>
-                        <div className="attachment-details">
-                          <div className="attachment-name">{attachment.originalName}</div>
-                          <div className="attachment-size">
-                            {(attachment.size / 1024 / 1024).toFixed(2)} MB
-                          </div>
-                        </div>
-                      </div>
-                      <button
-                        className="remove-attachment"
-                        onClick={() => removeAttachment(index)}
-                      >
-                        <RxCross1 size={16} />
-                      </button>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-            <div className="input-row">
-              <div className="attachment-container">
-                <input
-                  type="file"
-                  accept=".pdf"
-                  onChange={handlePdfUpload}
-                  style={{ display: "none" }}
-                  id="pdf-upload"
-                  disabled={isUploadingPdf}
-                />
-                <label htmlFor="pdf-upload" className="attachment">
-                  {isUploadingPdf ? (
-                    <div className="spinner-border spinner-border-sm" role="status">
-                      <span className="sr-only">Uploading...</span>
-                    </div>
-                  ) : (
-                    <FaPlus />
-                  )}
-                </label>
-              </div>
-              <textarea
-                className="text-input"
-                placeholder={replyingTo ? "Type your reply..." : "Enter message"}
-                ref={inputRef}
-                rows={1}
-                style={{
-                  marginLeft: "12px",
-                  overflowY: "auto",
-                  resize: "none",
-                  maxHeight: "120px", // Adjust this value based on your line-height to accommodate up to 5 rows
-                }}
-                value={input}
-                onInput={(e) => {
-                  e.target.style.height = "auto";
-                  const lineHeight = 24; // Replace with your actual line-height in pixels
-                  const maxHeight = lineHeight * 5;
-                  e.target.style.height = `${Math.min(
-                    e.target.scrollHeight,
-                    maxHeight
-                  )}px`;
-                }}
-                onChange={(e) => {
-                  setInput(e.target.value);
-                }}
-                onKeyDown={handleKeyDown}
-              />
-              <div className="send-container">
-                <button onClick={() => {
-                  console.log('Send button clicked');
-                  sendMessageWithAttachments();
-                }} className="send">
-                  {SendIcon}
-                </button>
-              </div>
-            </div>
-          </div>
+          </>
         )}
     </div>
   );

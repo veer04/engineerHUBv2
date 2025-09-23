@@ -1,6 +1,6 @@
 import React from "react";
 
-const StreakDayBox = ({ dateObj }) => {
+const StreakDayBox = ({ dateObj, boxSize = 11 }) => {
   if (!dateObj) {
     // Empty cell for padding
     return <div className="contribution-day empty"></div>;
@@ -57,6 +57,10 @@ const StreakDayBox = ({ dateObj }) => {
       className={getClassName()}
       title={getTooltipText()}
       data-level={tokens}
+      style={{
+        width: `${boxSize}px`,
+        height: `${boxSize}px`
+      }}
     />
   );
 };
