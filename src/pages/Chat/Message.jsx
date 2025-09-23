@@ -59,6 +59,11 @@ export default function Message({
   // Handle mobile tap on message content
   const handleMessageContentTap = (e) => {
     if (isMobile) {
+      // Don't interfere if user clicked on a link
+      if (e.target.tagName === 'A' || e.target.closest('a')) {
+        return;
+      }
+      
       e.preventDefault();
       e.stopPropagation();
       setIsMobileActive(!isMobileActive);
@@ -331,6 +336,19 @@ export default function Message({
               href={part}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={(e) => {
+                // Ensure link opens properly on mobile
+                e.stopPropagation();
+                window.open(part, '_blank', 'noopener,noreferrer');
+              }}
+              onTouchStart={(e) => {
+                // Prevent event bubbling on touch start
+                e.stopPropagation();
+              }}
+              onTouchEnd={(e) => {
+                // Prevent event bubbling on touch end
+                e.stopPropagation();
+              }}
             >
               {part}
             </a>

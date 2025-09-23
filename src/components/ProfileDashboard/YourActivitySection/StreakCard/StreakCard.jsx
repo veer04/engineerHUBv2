@@ -18,6 +18,7 @@ const StreakCard = ({ streakData, userId = null }) => {
   const [refreshKey, setRefreshKey] = useState(0);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [hasLoggedOldFormatWarning, setHasLoggedOldFormatWarning] = useState(false);
+  const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 1024);
 
   // Fetch streak data from API
   useEffect(() => {
@@ -79,11 +80,35 @@ const StreakCard = ({ streakData, userId = null }) => {
     fetchStreakData();
   }, [userId, refreshKey]);
 
+  // Handle window resize for responsive sizing
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
 
-  // Visual constants (match your CSS)
-  const BOX_SIZE = 11; // px (the square itself)
-  const GAP = 2; // px between squares
-  const COL_WIDTH = BOX_SIZE + GAP; // overall column width
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+
+  // Visual constants (match your CSS) - responsive sizing
+  const getResponsiveSizing = (width = windowWidth) => {
+    if (width <= 360) {
+      // Extra small screens
+      return { BOX_SIZE: 7, GAP: 2, COL_WIDTH: 9 };
+    } else if (width <= 480) {
+      // Small screens
+      return { BOX_SIZE: 8, GAP: 2, COL_WIDTH: 10 };
+    } else if (width <= 768) {
+      // Medium screens (tablets)
+      return { BOX_SIZE: 10, GAP: 2, COL_WIDTH: 12 };
+    } else {
+      // Desktop screens
+      return { BOX_SIZE: 11, GAP: 2, COL_WIDTH: 13 };
+    }
+  };
+
+  const { BOX_SIZE, GAP, COL_WIDTH } = getResponsiveSizing();
 
   // Choose week start: 0 = Sunday, 1 = Monday
   const WEEK_START = 1;
@@ -238,11 +263,15 @@ const StreakCard = ({ streakData, userId = null }) => {
       <div className="streak-header">
         <div className="contribution-info">
           <span className="contribution-count">{totalContributions} actions in the last year</span>
-          {statistics.currentStreak && (
-            <div style={{ fontSize: '12px', color: '#666', marginTop: '4px' }}>
-              Current streak: {statistics.currentStreak} days | Longest streak: {statistics.longestStreak} days
-            </div>
-          )}
+          {statistics.currentStreak > 0 && (
+  <div style={{ fontSize: '12px', color: '#666', marginTop: '4px' }}>
+    Current streak: {statistics.currentStreak} days
+    {statistics.longestStreak > 0 && (
+      <> | Longest streak: {statistics.longestStreak} days</>
+    )}
+  </div>
+)}
+
         </div>
         <div className="year-selector" style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
           <button 
@@ -292,9 +321,15 @@ const StreakCard = ({ streakData, userId = null }) => {
       <div className="contribution-graph">
          <div className="month-labels" style={{ position: "relative", height: 24 }}>
            {monthLabels.map((lbl, i) => {
-             // Account for day labels offset: 24px (day-labels width) + 8px (margin-right) = 32px
-             // Shift one more grid column to the right
-             const left = (lbl.weekIndex * COL_WIDTH) + 32 + COL_WIDTH;
+             // Calculate responsive day labels offset based on screen size
+             const dayLabelsWidth = windowWidth <= 360 ? 16 : 
+                                   windowWidth <= 480 ? 18 : 
+                                   windowWidth <= 768 ? 22 : 24;
+             const dayLabelsMargin = 8; // margin-right
+             const totalOffset = dayLabelsWidth + dayLabelsMargin;
+             
+             // Position month label based on responsive column width
+             const left = (lbl.weekIndex * COL_WIDTH) + totalOffset + COL_WIDTH;
              return (
                <div
                  key={i}
@@ -328,7 +363,11 @@ const StreakCard = ({ streakData, userId = null }) => {
             {grid.map((weekRow, dayOfWeek) => (
               <div key={dayOfWeek} className="week-row">
                 {weekRow.map((dateObj, weekIndex) => (
-                  <StreakDayBox key={`${dayOfWeek}-${weekIndex}`} dateObj={dateObj} />
+                  <StreakDayBox 
+                    key={`${dayOfWeek}-${weekIndex}`} 
+                    dateObj={dateObj} 
+                    boxSize={BOX_SIZE}
+                  />
                 ))}
               </div>
             ))}
@@ -339,11 +378,41 @@ const StreakCard = ({ streakData, userId = null }) => {
       <div className="contribution-legend">
         <span className="legend-text">Less</span>
         <div className="legend-squares">
-          <div className="legend-square level-0"></div>
-          <div className="legend-square level-1"></div>
-          <div className="legend-square level-2"></div>
-          <div className="legend-square level-3"></div>
-          <div className="legend-square level-4"></div>
+          <div 
+            className="legend-square level-0"
+            style={{
+              width: `${BOX_SIZE}px`,
+              height: `${BOX_SIZE}px`
+            }}
+          ></div>
+          <div 
+            className="legend-square level-1"
+            style={{
+              width: `${BOX_SIZE}px`,
+              height: `${BOX_SIZE}px`
+            }}
+          ></div>
+          <div 
+            className="legend-square level-2"
+            style={{
+              width: `${BOX_SIZE}px`,
+              height: `${BOX_SIZE}px`
+            }}
+          ></div>
+          <div 
+            className="legend-square level-3"
+            style={{
+              width: `${BOX_SIZE}px`,
+              height: `${BOX_SIZE}px`
+            }}
+          ></div>
+          <div 
+            className="legend-square level-4"
+            style={{
+              width: `${BOX_SIZE}px`,
+              height: `${BOX_SIZE}px`
+            }}
+          ></div>
         </div>
         <span className="legend-text">More</span>
       </div>
