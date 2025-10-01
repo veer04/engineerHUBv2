@@ -19,10 +19,7 @@ const Enterprise = () => {
 
   return (
     <div>
-      {isMobile ? (
-        <JobAThonMobile />
-      ) : (
-        <>
+      
           <JobAThonDesktopView />
           {/*
   // Rendering Component1
@@ -43,9 +40,9 @@ const Enterprise = () => {
     <Component3 />
   </div>
 */}
-        </>
-      )}
     </div>
+    
+ 
   );
 };
 

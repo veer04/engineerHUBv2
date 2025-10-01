@@ -1,6 +1,7 @@
 import getCookie from "../getCookieValues";
 import { getUserProfileById } from "../../services/APIConfig";
 import { useState,useEffect } from "react";
+import Cookies from "js-cookie";
 export function isUserLoggedIn() {
   const token = getCookie("access_token");
   if (!!token) {
