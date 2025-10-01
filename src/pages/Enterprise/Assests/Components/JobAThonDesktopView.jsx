@@ -1,50 +1,90 @@
-import { FunctionComponent } from "react";
+import { FunctionComponent, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Bucket_URL } from "../../../../services/APIUtils";
 import styles from "./JobAThonDesktopView.module.css";
-import EasyWayToHire from "./EasyWayToHire/EasyWayToHire";
+// import EasyWayToHire from "./EasyWayToHire/EasyWayToHire"; // Removed to avoid CSS conflicts
 import OurClientale from "../../../../components/OurClientale/OurClientale";
+import { useTypewriter } from "../../../../hooks/useTypewriter";
+import { MdEmail, MdPhone } from "react-icons/md";
 
 export const JobAThonDesktopView = () => {
   const bucket = `${Bucket_URL}frontend/enterprise/desktopView/`;
   const Navigate = useNavigate();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  
+  // Typewriter animation for the main heading
+  const { displayText: typewriterText, isComplete } = useTypewriter(
+    "We streamline hiring so you can\nfocus on growing !",
+    80, // Speed in milliseconds
+    500  // Initial delay in milliseconds
+  );
+
+  // Modal functions
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
+
+  const handleEmailClick = () => {
+    window.open("mailto:info@engineerhub.in", "_blank");
+  };
+
+  const handleWhatsAppClick = () => {
+    const phoneNumber = "+918303156089";
+    window.open(`https://wa.me/${phoneNumber}`, "_blank");
+  };
+
   return (
     <div className={styles.jobAThonDesktopView}>
       <div className={styles.jobAThonDesktopViewChild} />
-      <div className={styles.frameParent}>
-        <div className={styles.frameGroup}>
-          <div className={styles.oneStopHiringSolutionForCWrapper}>
-            <div className={styles.oneStopHiring}>
-              One stop hiring solution for companies!
+      
+      {/* Landing Section with Flexbox Layout */}
+      <div className={styles.landingSection}>
+        <div className={styles.contentSection}>
+          <div className={styles.heroContent}>
+            <div className={styles.oneStopHiringSolutionForCWrapper}>
+              <div className={styles.oneStopHiring}>
+                One stop hiring solution for companies!
+              </div>
+            </div>
+            <div className={styles.sourceEngageHireWrapper}>
+              <b className={styles.sourceEngage}>Source . Engage . Hire</b>
+            </div>
+            <div className={styles.empoweringRecruitersToHireWrapper}>
+              <div className={styles.empoweringRecruitersToContainer}>
+                <p className={styles.empoweringRecruitersTo}>
+                  engineerHUB is an AI-powered end-to-end hiring platform that enables companies to discover high-potential candidates faster, and helps colleges modernize campus placements.
+                </p>
+              </div>
             </div>
           </div>
-          <div className={styles.sourceEngageHireWrapper}>
-            <b className={styles.sourceEngage}>Source . Engage . Hire</b>
-          </div>
-          <div className={styles.empoweringRecruitersToHireWrapper}>
-            <div className={styles.empoweringRecruitersToContainer}>
-              <p
-                className={styles.empoweringRecruitersTo}
-              >{`Empowering recruiters to hire smarter and helping `}</p>
-              <p className={styles.empoweringRecruitersTo}>
-                universities simplify campus placements.
-              </p>
+          <div className={styles.ctaSection}>
+            <div 
+              className={styles.frameWrapper}
+              onClick={() => {
+                const element = document.getElementById("book-slot-section");
+                if (element) {
+                  element.scrollIntoView({ 
+                    behavior: "smooth", 
+                    block: "center",
+                    inline: "center"
+                  });
+                }
+              }}
+            >
+              <div className={styles.frameContainer}>
+                <div className={styles.frameContainer}>
+                  <b className={styles.connectWithUs}>Connect with us</b>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-        <div className={styles.frameWrapper}>
-          <div className={styles.frameContainer}>
-            <div
-              className={styles.frameContainer}
-              onClick={() => {
-                document
-                  .getElementById("book-slot-section")
-                  ?.scrollIntoView({ behavior: "smooth" });
-              }}
-            >
-              <b className={styles.connectWithUs}>Connect with us</b>
-            </div>
-          </div>
+        
+        <div className={styles.imageSection}>
+          <img
+            className={styles.company41}
+            alt="Hiring Platform Illustration"
+            src={`${bucket}Company-(4)-1.png`}
+          />
         </div>
       </div>
       <div className={styles.jobAThonDesktopViewInner}>
@@ -52,57 +92,162 @@ export const JobAThonDesktopView = () => {
           <div className={styles.frameParent1}>
             <div className={styles.frameParent2}>
               <div className={styles.weStreamlineHiringParent}>
-                <div className={styles.weStreamlineHiring}>
-                  we streamline hiring
-                </div>
-                <div className={styles.heading2}>
-                  so you can focus on growing
+                <div className={styles.typewriterContainer}>
+                  <span className={styles.typewriterText}>
+                    {typewriterText.split('\n').map((line, index) => (
+                      <span key={index}>
+                        {line}
+                        {index < typewriterText.split('\n').length - 1 && <br />}
+                      </span>
+                    ))}
+                    {!isComplete && <span className={styles.cursor}>|</span>}
+                  </span>
                 </div>
               </div>
-              <div className={styles.paragraphbackgroundParent}>
-                <div className={styles.paragraphbackground}>
+              {/* Responsive Vertical Stack Layout */}
+              <div className={styles.streamlineCardsContainer}>
+                <div className={styles.streamlineCard}>
                   <div className={styles.heading3}>70%</div>
                   <b className={styles.lessTimeSpent}>
-                    less time spent screening
+                    less time screening
                   </b>
-                  <div
-                    className={styles.automatedShortlistingSaves}
-                  >{`Automated shortlisting saves time by filtering top candidates based on skills, experience, and recruiter preferences. `}</div>
-                </div>
-                <div className={styles.paragraphbackground1}>
-                  <div className={styles.heading3}>3x</div>
-                  <b className={styles.lessTimeSpent}>faster assesments</b>
                   <div className={styles.automatedShortlistingSaves}>
-                    <p
-                      className={styles.integratedThirdPartyAssessm}
-                    >{`Integrated third-party assessment tools streamline aptitude, coding, and case study evaluations, reducing the hiring timeline significantly.  `}</p>
+                    AI-driven shortlisting automatically filters top candidates by skills, experience, and JD preferences - cutting manual screening time by 70%.
                   </div>
                 </div>
-                <div className={styles.paragraphbackground}>
+                
+                <div className={styles.streamlineCard}>
                   <div className={styles.heading3}>4x</div>
                   <b className={styles.lessTimeSpent}>
-                    better interview scheduling
+                    smarter interview scheduling
                   </b>
-                  <div
-                    className={styles.smartToolsLike}
-                  >{`Smart tools like Calendly integration ensure seamless scheduling, rescheduling, and communication with candidates.  `}</div>
+                  <div className={styles.smartToolsLike}>
+                    Seamless integrations automate scheduling and communication, boosting recruiter productivity and candidate experience.
+                  </div>
                 </div>
-                <div className={styles.paragraphbackground}>
+                
+                <div className={styles.streamlineCard}>
                   <div className={styles.heading3}>2.5x</div>
                   <b className={styles.lessTimeSpent}>
-                    more insightful analytics
+                    deeper hiring insights
                   </b>
                   <div className={styles.automatedShortlistingSaves}>
-                    Basic analytics provide actionable data on hiring
-                    efficiency, candidate performance, and recruitment trends to
-                    make better decisions.
+                    Actionable analytics on hiring efficiency, candidate performance, and recruitment trends empower smarter, data-backed decisions.
                   </div>
                 </div>
               </div>
             </div>
 
-            <div>
-              <EasyWayToHire />
+            {/* Easy Way to Hire Section - Inline to avoid CSS conflicts */}
+            <div className={styles.easyWayToHireSection}>
+              <div className={styles.easyWayContainer}>
+                <div className={styles.easyWayTitle}>
+                  <h3 className={styles.easyWayHeading}>
+                    3 easy ways to{" "}
+                    <span className={styles.highlightText}>Hire</span> through
+                    engineerHUB
+                  </h3>
+                </div>
+                
+                <div className={styles.easyWayGrid}>
+                  {/* Card 1: Do-it-yourself hiring */}
+                  <div className={styles.easyWayCard} style={{ background: "linear-gradient(135deg, #fef3c7 0%, #fde68a 100%)" }}>
+                    <div className={styles.freeBand}>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="61"
+                        height="88"
+                        viewBox="0 0 61 88"
+                        fill="none"
+                      >
+                        <g filter="url(#filter0_d_3683_4429)">
+                          <path
+                            d="M29.9997 0.499959L57.0051 46L57.0051 80L4.4965 0.499925L29.9997 0.499959Z"
+                            fill="#FF0000"
+                          />
+                        </g>
+                        <defs>
+                          <filter
+                            id="filter0_d_3683_4429"
+                            x="0.496094"
+                            y="0.499878"
+                            width="60.5088"
+                            height="87.5001"
+                            filterUnits="userSpaceOnUse"
+                            colorInterpolationFilters="sRGB"
+                          >
+                            <feFlood floodOpacity="0" result="BackgroundImageFix" />
+                            <feColorMatrix
+                              in="SourceAlpha"
+                              type="matrix"
+                              values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+                              result="hardAlpha"
+                            />
+                            <feOffset dy="4" />
+                            <feGaussianBlur stdDeviation="2" />
+                            <feComposite in2="hardAlpha" operator="out" />
+                            <feColorMatrix
+                              type="matrix"
+                              values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"
+                            />
+                            <feBlend
+                              mode="normal"
+                              in2="BackgroundImageFix"
+                              result="effect1_dropShadow_3683_4429"
+                            />
+                            <feBlend
+                              mode="normal"
+                              in="SourceGraphic"
+                              in2="effect1_dropShadow_3683_4429"
+                              result="shape"
+                            />
+                          </filter>
+                        </defs>
+                      </svg>
+                      <h3 className={styles.freeText}>FREE</h3>
+                    </div>
+                    
+                    <div className={styles.cardInfo}>
+                      <h3 className={styles.cardTitle}>Do-it-yourself hiring</h3>
+                      <p className={styles.cardDescription}>
+                        Zero cost. Basic tools.<br />
+                        Instant access to job seekers.
+                      </p>
+                      <div className={styles.cardButton} onClick={() => window.open("/host/job", "_blank")}>
+                        <button>Host Now</button>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Card 2: Use our sourcing Expert */}
+                  <div className={styles.easyWayCard} style={{ background: "linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%)" }}>
+                    <div className={styles.cardInfo}>
+                      <h3 className={styles.cardTitle}>Use our sourcing Expert</h3>
+                      <p className={styles.cardDescription}>
+                        Our experts match you with fits.<br />
+                        Pay per role or ~ 3% on success.
+                      </p>
+                      <div className={styles.cardButton} onClick={openModal}>
+                        <button>Connect Now</button>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Card 3: Let us hire for you */}
+                  <div className={styles.easyWayCard} style={{ background: "linear-gradient(135deg, #fce7f3 0%, #fbcfe8 100%)" }}>
+                    <div className={styles.cardInfo}>
+                      <h3 className={styles.cardTitle}>Let us hire for you</h3>
+                      <p className={styles.cardDescription}>
+                        From start to hire, we manage it all.<br />
+                        Starts at ~5% of CTC.
+                      </p>
+                      <div className={styles.cardButton} onClick={openModal}>
+                        <button>Connect Now</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
 
             <div className={styles.frameParent3}>
@@ -114,21 +259,44 @@ export const JobAThonDesktopView = () => {
                         className={styles.simplifyingCampusRecruitmentWrapper}
                       >
                         <b className={styles.simplifyingCampusRecruitment}>
-                          Simplifying Campus Recruitment : Smarter, Faster,
-                          Better.
+                        AI-Powered Campus Hiring
                         </b>
                       </div>
                       <div className={styles.fromConnectingWith5LakhEWrapper}>
                         <div className={styles.fromConnectingWith}>
-                          From connecting with 2 lakh+ engineers to assessments,
-                          virtual interviews, advanced analytics, and
-                          ATS-powered shortlisting—our platform automates and
-                          streamlines every step of the recruitment journey.
+                        <ul>
+                        <li>
+                        Discover and hire top engineers from any tier of campus across India  instantly, With access to 2,25,000+ verified candidates.
+                        </li>
+                        <br />  
+                        <li>
+                        
+                        from AI-driven shortlisting and skill-based assessments to
+                        virtual interviews and advanced analytics.
+                        </li>
+                        <br />
+                          <li>
+                         Break free from geographic limits and connect with untapped, high-potential talent nationwide .
+                        </li>
+                        </ul>
+
                         </div>
                       </div>
                     </div>
                   </div>
-                  <div className={styles.forCompaniesWrapper}>
+                  <div 
+                    className={styles.forCompaniesWrapper}
+                    onClick={() => {
+                      const element = document.getElementById("book-slot-section");
+                      if (element) {
+                        element.scrollIntoView({ 
+                          behavior: "smooth", 
+                          block: "center",
+                          inline: "center"
+                        });
+                      }
+                    }}
+                  >
                     <b className={styles.forCompanies}>For Companies</b>
                   </div>
                 </div>
@@ -139,7 +307,7 @@ export const JobAThonDesktopView = () => {
                   <img
                     className={styles.icon}
                     alt=""
-                    src={`${bucket}230403050229390024-1.png`}
+                    src={`${bucket}campus_hiring.png`}
                   />
                 </div>
               </div>
@@ -156,15 +324,32 @@ export const JobAThonDesktopView = () => {
                       </div>
                       <div className={styles.fromConnectingWith5LakhEWrapper}>
                         <div className={styles.fromConnectingWith}>
-                          Accelerate your hiring process with our streamlined
-                          platform—connect, assess, and onboard top talent
-                          within 72 hours, ensuring efficiency and quality every
-                          step of the way.
+                          <ul>
+                          <li>
+                        Accelerate your hiring with our AI-powered platform - connect, evaluate, and onboard top talent from any campus within just 3 days.
+                        </li>
+                        <li>
+                        Save time, cut costs, and ensure quality every step of the way.
+                        </li>
+                        
+                        </ul>
                         </div>
                       </div>
                     </div>
                   </div>
-                  <div className={styles.forCompaniesWrapper}>
+                  <div 
+                    className={styles.forCompaniesWrapper}
+                    onClick={() => {
+                      const element = document.getElementById("book-slot-section");
+                      if (element) {
+                        element.scrollIntoView({ 
+                          behavior: "smooth", 
+                          block: "center",
+                          inline: "center"
+                        });
+                      }
+                    }}
+                  >
                     <b className={styles.forCompanies}>For HRs</b>
                   </div>
                 </div>
@@ -175,7 +360,7 @@ export const JobAThonDesktopView = () => {
                   <img
                     className={styles.importantRecruitingMetricsFIcon}
                     alt=""
-                    src={`${bucket}Important-recruiting-metrics-featured-1.png
+                    src={`${bucket}hr_hiring_latest.png
 `}
                   />
                 </div>
@@ -190,7 +375,7 @@ export const JobAThonDesktopView = () => {
                         <b className={styles.simplifyingCampusRecruitment}>
                           <p
                             className={styles.empoweringRecruitersTo}
-                          >{`Digitize & Automate Your `}</p>
+                          >{`Digitize Your `}</p>
                           <p className={styles.empoweringRecruitersTo}>
                             Campus Placements.
                           </p>
@@ -198,16 +383,28 @@ export const JobAThonDesktopView = () => {
                       </div>
                       <div className={styles.fromConnectingWith5LakhEWrapper}>
                         <div className={styles.fromConnectingWith}>
-                          Effortlessly enhance your campus placement process
-                          with advanced tools to access live job listings,
-                          manage student profiles, schedule interviews, and aim
-                          for 100% placement success—all on a single,
-                          streamlined platform.
+                        <ul>
+                        <li>Partner with engineerHUB to list your campus and give companies direct access to your students.
+                        </li>
+                        
+                        </ul>
                         </div>
                       </div>
                     </div>
                   </div>
-                  <div className={styles.forCompaniesWrapper}>
+                  <div 
+                    className={styles.forCompaniesWrapper}
+                    onClick={() => {
+                      const element = document.getElementById("book-slot-section");
+                      if (element) {
+                        element.scrollIntoView({ 
+                          behavior: "smooth", 
+                          block: "center",
+                          inline: "center"
+                        });
+                      }
+                    }}
+                  >
                     <b className={styles.forCompanies}>For Campuses</b>
                   </div>
                 </div>
@@ -229,9 +426,13 @@ export const JobAThonDesktopView = () => {
                   <img
                     className={styles.orangeWhiteGreenNeoBrutali}
                     alt=""
-                    src={`${bucket}Orange+White+Green+Neo+Brutalism+Business+Performance+Dashboard+Graph-1.png`}
+                    src={`${bucket}college_engineerhub.png`}
                   />
                 </div>
+              </div>
+
+              <div className={styles.ourClientaleWrapper}>
+                <OurClientale />
               </div>
               <div className={styles.frameParent14}>
                 <div className={styles.weStreamlineHiringParent}>
@@ -251,80 +452,155 @@ export const JobAThonDesktopView = () => {
                   </div>
                 </div>
                 <div className={styles.frameWrapper6}>
-                  <div className={styles.containerParent}>
-                    <div className={styles.container}>
-                      <img
-                        className={styles.bitsMinpngIcon}
-                        alt=""
-                        src={`${bucket}bits-min.png.png`}
-                      />
-                      <div className={styles.bitsPilani}>BITS Pilani</div>
-                    </div>
-                    <div className={styles.container}>
-                      <img
-                        className={styles.th1Icon}
-                        alt=""
-                        src={`${bucket}th-1.png`}
-                      />
-                      <div className={styles.bitsPilani}>IIT Bombay</div>
-                    </div>
-                    <div className={styles.container2}>
-                      <img
-                        className={styles.iimcalMinwebpIcon}
-                        alt=""
-                        src={`${bucket}iimcal-min.webp.png`}
-                      />
-                      <div className={styles.bitsPilani}>IIT Madras</div>
-                    </div>
-                    <div className={styles.container}>
-                      <img
-                        className={styles.vnitLogowebpIcon}
-                        alt=""
-                        src={`${bucket}vnit-logo.webp.png`}
-                      />
-                      <div className={styles.bitsPilani}>VNIT, Nagpur</div>
-                    </div>
-                    <div className={styles.container}>
-                      <img
-                        className={styles.bitsMinpngIcon}
-                        alt=""
-                        src={`${bucket}srm-logo.webp.png`}
-                      />
-                      <div className={styles.bitsPilani}>SRM University</div>
-                    </div>
-                    <div className={styles.container}>
-                      <img
-                        className={styles.bitsMinpngIcon}
-                        alt=""
-                        src={`${bucket}nmims-min.png.png`}
-                      />
-                      <div className={styles.bitsPilani}>NMIMS </div>
-                    </div>
-                    <div className={styles.container}>
-                      <div className={styles.spjainMinwebp}>
+                  <div className={styles.campusCarousel}>
+                    <div className={styles.campusCarouselTrack}>
+                      {/* First set of logos */}
+                      <div className={styles.container}>
                         <img
-                          className={styles.bharatiVidyapeethLogo1Icon}
-                          alt=""
-                          src={`${bucket}bharati_vidyapeeth_logo-1.png`}
+                          className={styles.bitsMinpngIcon}
+                          alt="BITS Pilani"
+                          src={`${bucket}bits-min.png.png`}
                         />
+                        <div className={styles.bitsPilani}>BITS Pilani</div>
                       </div>
-                      <div className={styles.bitsPilani}>
-                        Bharati Vidyapeeth
+                      <div className={styles.container}>
+                        <img
+                          className={styles.th1Icon}
+                          alt="IIT Bombay"
+                          src={`${bucket}th-1.png`}
+                        />
+                        <div className={styles.bitsPilani}>IIT Bombay</div>
                       </div>
-                    </div>
-                    <div className={styles.container}>
-                      <img
-                        className={styles.bitsMinpngIcon}
-                        alt=""
-                        src={`${bucket}bml-munjal-min.png.png`}
-                      />
-                      <div className={styles.bitsPilani}>BML</div>
+                      <div className={styles.container2}>
+                        <img
+                          className={styles.iimcalMinwebpIcon}
+                          alt="IIT Madras"
+                          src={`${bucket}iimcal-min.webp.png`}
+                        />
+                        <div className={styles.bitsPilani}>IIT Madras</div>
+                      </div>
+                      <div className={styles.container}>
+                        <img
+                          className={styles.vnitLogowebpIcon}
+                          alt="VNIT Nagpur"
+                          src={`${bucket}vnit-logo.webp.png`}
+                        />
+                        <div className={styles.bitsPilani}>VNIT, Nagpur</div>
+                      </div>
+                      <div className={styles.container}>
+                        <img
+                          className={styles.bitsMinpngIcon}
+                          alt="SRM University"
+                          src={`${bucket}srm-logo.webp.png`}
+                        />
+                        <div className={styles.bitsPilani}>SRM University</div>
+                      </div>
+                      <div className={styles.container}>
+                        <img
+                          className={styles.bitsMinpngIcon}
+                          alt="NMIMS"
+                          src={`${bucket}nmims-min.png.png`}
+                        />
+                        <div className={styles.bitsPilani}>NMIMS</div>
+                      </div>
+                      <div className={styles.container}>
+                        <div className={styles.spjainMinwebp}>
+                          <img
+                            className={styles.bharatiVidyapeethLogo1Icon}
+                            alt="Bharati Vidyapeeth"
+                            src={`${bucket}bharati_vidyapeeth_logo-1.png`}
+                          />
+                        </div>
+                        <div className={styles.bitsPilani}>
+                          Bharati Vidyapeeth
+                        </div>
+                      </div>
+                      <div className={styles.container}>
+                        <img
+                          className={styles.bitsMinpngIcon}
+                          alt="BML"
+                          src={`${bucket}bml-munjal-min.png.png`}
+                        />
+                        <div className={styles.bitsPilani}>BML</div>
+                      </div>
+                      
+                      {/* Duplicate set for seamless scrolling */}
+                      <div className={styles.container}>
+                        <img
+                          className={styles.bitsMinpngIcon}
+                          alt="BITS Pilani"
+                          src={`${bucket}bits-min.png.png`}
+                        />
+                        <div className={styles.bitsPilani}>BITS Pilani</div>
+                      </div>
+                      <div className={styles.container}>
+                        <img
+                          className={styles.th1Icon}
+                          alt="IIT Bombay"
+                          src={`${bucket}th-1.png`}
+                        />
+                        <div className={styles.bitsPilani}>IIT Bombay</div>
+                      </div>
+                      <div className={styles.container2}>
+                        <img
+                          className={styles.iimcalMinwebpIcon}
+                          alt="IIT Madras"
+                          src={`${bucket}iimcal-min.webp.png`}
+                        />
+                        <div className={styles.bitsPilani}>IIT Madras</div>
+                      </div>
+                      <div className={styles.container}>
+                        <img
+                          className={styles.vnitLogowebpIcon}
+                          alt="VNIT Nagpur"
+                          src={`${bucket}vnit-logo.webp.png`}
+                        />
+                        <div className={styles.bitsPilani}>VNIT, Nagpur</div>
+                      </div>
+                      <div className={styles.container}>
+                        <img
+                          className={styles.bitsMinpngIcon}
+                          alt="SRM University"
+                          src={`${bucket}srm-logo.webp.png`}
+                        />
+                        <div className={styles.bitsPilani}>SRM University</div>
+                      </div>
+                      <div className={styles.container}>
+                        <img
+                          className={styles.bitsMinpngIcon}
+                          alt="NMIMS"
+                          src={`${bucket}nmims-min.png.png`}
+                        />
+                        <div className={styles.bitsPilani}>NMIMS</div>
+                      </div>
+                      <div className={styles.container}>
+                        <div className={styles.spjainMinwebp}>
+                          <img
+                            className={styles.bharatiVidyapeethLogo1Icon}
+                            alt="Bharati Vidyapeeth"
+                            src={`${bucket}bharati_vidyapeeth_logo-1.png`}
+                          />
+                        </div>
+                        <div className={styles.bitsPilani}>
+                          Bharati Vidyapeeth
+                        </div>
+                      </div>
+                      <div className={styles.container}>
+                        <img
+                          className={styles.bitsMinpngIcon}
+                          alt="BML"
+                          src={`${bucket}bml-munjal-min.png.png`}
+                        />
+                        <div className={styles.bitsPilani}>BML</div>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
+              
+              
 
-              <div className={styles.frameWrapper7}>
+              <div className={styles.frameWrapper7} id="book-slot-section">
                 <div className={styles.frameParent16}>
                   <div className={styles.frameWrapper8}>
                     <div className={styles.frameParent17}>
@@ -353,7 +629,7 @@ export const JobAThonDesktopView = () => {
                         Navigate("/referrals/book-now/67a107c89d57a46e99582bd1")
                       }
                     >
-                      <b className={styles.forCompanies} id="book-slot-section">
+                      <b className={styles.forCompanies}>
                         Book a slot now
                       </b>
                     </div>
@@ -391,9 +667,9 @@ export const JobAThonDesktopView = () => {
                 </div>
               </div>
 
-              <div style={{ marginBottom: "180px" }}>
-                <OurClientale />
-              </div>
+             
+               
+             
 
               <div className={styles.frameParent20}>
                 <div className={styles.frameWrapper9}>
@@ -406,94 +682,197 @@ export const JobAThonDesktopView = () => {
                     />
                   </div>
                 </div>
-                <div className={styles.feedback}>
-                  <div className={styles.feedbackInner}>
-                    <div className={styles.frameParent21}>
-                      <div className={styles.oneStopHiringSolutionForCWrapper}>
-                        <div className={styles.weHaveEngineers}>
-                          EngineerHUB improved our hiring process by reducing
-                          time by 40%, using ATS scoring, bulk actions, and
-                          advanced filtering, saving countless hours and effort
-                          efficiently
+                <div className={styles.feedbackCarousel}>
+                  <div className={styles.feedbackCarouselTrack}>
+                    {/* First set of feedback cards */}
+                    <div className={styles.feedbackCard}>
+                      <div className={styles.frameParent21}>
+                        <div className={styles.oneStopHiringSolutionForCWrapper}>
+                          <div className={styles.weHaveEngineers}>
+                            EngineerHUB improved our hiring process by reducing
+                            time by 40%, using ATS scoring, bulk actions, and
+                            advanced filtering, saving countless hours and effort
+                            efficiently
+                          </div>
                         </div>
-                      </div>
-                      <div className={styles.frameParent22}>
-                        <div className={styles.frameContainer}>
-                          <b className={styles.connectWithUs}>Mr. RB Mouli</b>
-                        </div>
-                        <div className={styles.placementHeadBirlaCampusWrapper}>
-                          <div className={styles.placementHeadBirla}>
-                            Placement Head, Birla Campus
+                        <div className={styles.frameParent22}>
+                          <div className={styles.frameContainer}>
+                            <b className={styles.feedbackName}>Mr. RB Mouli</b>
+                          </div>
+                          <div className={styles.placementHeadBirlaCampusWrapper}>
+                            <div className={styles.feedbackPosition}>
+                              Placement Head, Birla Campus
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                  <div className={styles.feedbackChild}>
-                    <div className={styles.frameParent21}>
-                      <div className={styles.oneStopHiringSolutionForCWrapper}>
-                        <div className={styles.weHaveEngineers}>
-                          Assessments, interview scheduling, and automated
-                          notifications from EngineerHUB ensure a smooth
-                          recruitment process, simplifying coding rounds,
-                          aptitude tests, and enhancing team productivity
+                    
+                    <div className={styles.feedbackCard}>
+                      <div className={styles.frameParent21}>
+                        <div className={styles.oneStopHiringSolutionForCWrapper}>
+                          <div className={styles.weHaveEngineers}>
+                            Assessments, interview scheduling, and automated
+                            notifications from EngineerHUB ensure a smooth
+                            recruitment process, simplifying coding rounds,
+                            aptitude tests, and enhancing team productivity
+                          </div>
                         </div>
-                      </div>
-                      <div className={styles.frameParent22}>
-                        <div className={styles.frameContainer}>
-                          <b className={styles.connectWithUs}>
-                            Mr. Rakesh Singh
-                          </b>
-                        </div>
-                        <div className={styles.placementHeadBirlaCampusWrapper}>
-                          <div className={styles.placementHeadBirla}>
-                            Placement Cell, NIET{" "}
+                        <div className={styles.frameParent22}>
+                          <div className={styles.frameContainer}>
+                            <b className={styles.feedbackName}>
+                              Mr. Rakesh Singh
+                            </b>
+                          </div>
+                          <div className={styles.placementHeadBirlaCampusWrapper}>
+                            <div className={styles.feedbackPosition}>
+                              Placement Cell, NIET
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                  <div className={styles.feedbackInner1}>
-                    <div className={styles.frameParent21}>
-                      <div className={styles.oneStopHiringSolutionForCWrapper}>
-                        <div className={styles.weHaveEngineers}>
-                          Role-based access allows secure workflows, while
-                          analytics tools provide actionable insights, enabling
-                          our team to refine strategies and achieve recruitment
-                          goals faster than expected.
+                    
+                    <div className={styles.feedbackCard}>
+                      <div className={styles.frameParent21}>
+                        <div className={styles.oneStopHiringSolutionForCWrapper}>
+                          <div className={styles.weHaveEngineers}>
+                            Role-based access allows secure workflows, while
+                            analytics tools provide actionable insights, enabling
+                            our team to refine strategies and achieve recruitment
+                            goals faster than expected.
+                          </div>
                         </div>
-                      </div>
-                      <div className={styles.frameParent22}>
-                        <div className={styles.frameContainer}>
-                          <b className={styles.connectWithUs}>Mrs Sonal</b>
-                        </div>
-                        <div className={styles.placementHeadBirlaCampusWrapper}>
-                          <div className={styles.placementHeadBirla}>
-                            Human Resource, TCS
+                        <div className={styles.frameParent22}>
+                          <div className={styles.frameContainer}>
+                            <b className={styles.feedbackName}>Mrs Sonal</b>
+                          </div>
+                          <div className={styles.placementHeadBirlaCampusWrapper}>
+                            <div className={styles.feedbackPosition}>
+                              Human Resource, TCS
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                  <div className={styles.feedbackChild}>
-                    <div className={styles.frameParent21}>
-                      <div className={styles.oneStopHiringSolutionForCWrapper}>
-                        <div className={styles.weHaveEngineers}>
-                          EngineerHUB automated updates, interview rescheduling,
-                          and pre-placement talks improve candidate engagement,
-                          boosting feedback and employer branding, ensuring a
-                          better recruitment experience overall
+                    
+                    <div className={styles.feedbackCard}>
+                      <div className={styles.frameParent21}>
+                        <div className={styles.oneStopHiringSolutionForCWrapper}>
+                          <div className={styles.weHaveEngineers}>
+                            EngineerHUB automated updates, interview rescheduling,
+                            and pre-placement talks improve candidate engagement,
+                            boosting feedback and employer branding, ensuring a
+                            better recruitment experience overall
+                          </div>
+                        </div>
+                        <div className={styles.frameParent22}>
+                          <div className={styles.frameContainer}>
+                            <b className={styles.feedbackName}>
+                              Mrs. Rashmi sharma
+                            </b>
+                          </div>
+                          <div className={styles.placementHeadBirlaCampusWrapper}>
+                            <div className={styles.feedbackPosition}>
+                              Associate HR, Infosys
+                            </div>
+                          </div>
                         </div>
                       </div>
-                      <div className={styles.frameParent22}>
-                        <div className={styles.frameContainer}>
-                          <b className={styles.connectWithUs}>
-                            Mrs. Rashmi sharma
-                          </b>
+                    </div>
+                    
+                    {/* Duplicate set for seamless scrolling */}
+                    <div className={styles.feedbackCard}>
+                      <div className={styles.frameParent21}>
+                        <div className={styles.oneStopHiringSolutionForCWrapper}>
+                          <div className={styles.weHaveEngineers}>
+                            EngineerHUB improved our hiring process by reducing
+                            time by 40%, using ATS scoring, bulk actions, and
+                            advanced filtering, saving countless hours and effort
+                            efficiently
+                          </div>
                         </div>
-                        <div className={styles.placementHeadBirlaCampusWrapper}>
-                          <div className={styles.placementHeadBirla}>
-                            Associate HR, Infosys
+                        <div className={styles.frameParent22}>
+                          <div className={styles.frameContainer}>
+                            <b className={styles.feedbackName}>Mr. RB Mouli</b>
+                          </div>
+                          <div className={styles.placementHeadBirlaCampusWrapper}>
+                            <div className={styles.feedbackPosition}>
+                              Placement Head, Birla Campus
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div className={styles.feedbackCard}>
+                      <div className={styles.frameParent21}>
+                        <div className={styles.oneStopHiringSolutionForCWrapper}>
+                          <div className={styles.weHaveEngineers}>
+                            Assessments, interview scheduling, and automated
+                            notifications from EngineerHUB ensure a smooth
+                            recruitment process, simplifying coding rounds,
+                            aptitude tests, and enhancing team productivity
+                          </div>
+                        </div>
+                        <div className={styles.frameParent22}>
+                          <div className={styles.frameContainer}>
+                            <b className={styles.feedbackName}>
+                              Mr. Rakesh Singh
+                            </b>
+                          </div>
+                          <div className={styles.placementHeadBirlaCampusWrapper}>
+                            <div className={styles.feedbackPosition}>
+                              Placement Cell, NIET
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div className={styles.feedbackCard}>
+                      <div className={styles.frameParent21}>
+                        <div className={styles.oneStopHiringSolutionForCWrapper}>
+                          <div className={styles.weHaveEngineers}>
+                            Role-based access allows secure workflows, while
+                            analytics tools provide actionable insights, enabling
+                            our team to refine strategies and achieve recruitment
+                            goals faster than expected.
+                          </div>
+                        </div>
+                        <div className={styles.frameParent22}>
+                          <div className={styles.frameContainer}>
+                            <b className={styles.feedbackName}>Mrs Sonal</b>
+                          </div>
+                          <div className={styles.placementHeadBirlaCampusWrapper}>
+                            <div className={styles.feedbackPosition}>
+                              Human Resource, TCS
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div className={styles.feedbackCard}>
+                      <div className={styles.frameParent21}>
+                        <div className={styles.oneStopHiringSolutionForCWrapper}>
+                          <div className={styles.weHaveEngineers}>
+                            EngineerHUB automated updates, interview rescheduling,
+                            and pre-placement talks improve candidate engagement,
+                            boosting feedback and employer branding, ensuring a
+                            better recruitment experience overall
+                          </div>
+                        </div>
+                        <div className={styles.frameParent22}>
+                          <div className={styles.frameContainer}>
+                            <b className={styles.feedbackName}>
+                              Mrs. Rashmi sharma
+                            </b>
+                          </div>
+                          <div className={styles.placementHeadBirlaCampusWrapper}>
+                            <div className={styles.feedbackPosition}>
+                              Associate HR, Infosys
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -502,16 +881,10 @@ export const JobAThonDesktopView = () => {
                 </div>
               </div>
             </div>
-            <div className={styles.frameWrapper10}></div>
           </div>
         </div>
       </div>
 
-      <img
-        className={styles.company41}
-        alt=""
-        src={`${bucket}Company-(4)-1.png`}
-      />
       <div className={styles.dtNavBar}>
         <div className={styles.eHubLogoUpdated6Wrapper}>
           <img
@@ -563,6 +936,29 @@ export const JobAThonDesktopView = () => {
           </div>
         </div>
       </div>
+
+      {/* Easy Way Modal */}
+      {isModalOpen && (
+        <div className={styles.modalOverlay}>
+          <div className={styles.modalBox}>
+            <h3 className={styles.modalTitle}>Kindly drop a call or mail</h3>
+
+            <div className={styles.modalContact} onClick={handleEmailClick}>
+              <MdEmail className={styles.modalIcon} />
+              <span>info@engineerhub.in</span>
+            </div>
+
+            <div className={styles.modalContact} onClick={handleWhatsAppClick}>
+              <MdPhone className={styles.modalIcon} />
+              <span>+91 8303156089</span> 
+            </div>
+
+            <button className={styles.modalBackBtn} onClick={closeModal}>
+              Back
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
