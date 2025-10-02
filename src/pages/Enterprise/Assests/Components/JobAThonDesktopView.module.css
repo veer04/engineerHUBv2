@@ -10,6 +10,7 @@
   flex: 1;
   position: relative;
   line-height: 28px;
+  text-align: left;
 }
 .oneStopHiringSolutionForCWrapper {
   align-self: stretch;
@@ -22,6 +23,7 @@
   flex: 1;
   position: relative;
   line-height: 48px;
+  text-align: left;
 }
 .sourceEngageHireWrapper {
   align-self: stretch;
@@ -34,6 +36,7 @@
 }
 .empoweringRecruitersTo {
   margin: 0;
+  text-align: left;
 }
 .empoweringRecruitersToContainer {
   flex: 1;
@@ -168,6 +171,7 @@
   line-height: 48px;
   font-weight: 600;
   margin-top: -8%;
+  text-align: left;
 }
 .heading2 {
   align-self: stretch;
@@ -202,7 +206,8 @@
   white-space: normal;
   overflow: hidden;
   text-align: center;
-  max-width: 100%;
+  max-width: 800px;
+  width: 100%;
 }
 
 .cursor {
@@ -409,6 +414,7 @@
   position: relative;
   line-height: 32px;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  text-align: left;
 }
 
 .frameParent4:hover .simplifyingCampusRecruitment,
@@ -967,7 +973,7 @@
   .bitsPilani {
     font-size: 12px;
     line-height: 1.2;
-    text-align: center;
+    text-align: left;
   }
 }
 
@@ -1121,13 +1127,14 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   padding: 1px;
   font-size: 32px;
   color: #ffffff;
   font-family: "DM Sans";
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   font-weight: 700;
+  text-align: left;
 }
 
 .frameWrapper7:hover .letUsHelpYouToHireTheBeWrapper {
@@ -1302,7 +1309,6 @@
   justify-content: space-between;
 }
 .frameWrapper7 {
-  align-self: stretch;
   border-radius: 32px;
   background: linear-gradient(135deg, #002b36 0%, #168584 100%);
   overflow: hidden;
@@ -1321,6 +1327,8 @@
   animation: slideInUp 0.8s ease-out 0.8s both;
   margin-top: 60px;
   scroll-margin-top: 100px;
+ 
+  width: 100%;
 }
 
 /* Mobile Responsive Design for Connect Section */
@@ -1333,6 +1341,10 @@
   /* Add spacing for OurClientale component wrapper */
   .ourClientaleWrapper {
     margin-bottom: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
   }
   
   .frameWrapper7 {
@@ -1358,12 +1370,12 @@
   
   .frameWrapper8 {
     width: 100%;
-    text-align: center;
+    text-align: left;
   }
   
   .frameParent17 {
     align-items: center;
-    text-align: center;
+    text-align: left;
     gap: 12px;
   }
   
@@ -1405,7 +1417,7 @@
   
   .weHaveEngineers {
     font-size: 14px;
-    text-align: center;
+    text-align: left;
     line-height: 1.4;
   }
   
@@ -1420,6 +1432,10 @@
   /* Add spacing between sections for smaller mobile */
   .ourClientaleWrapper {
     margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
   }
   
   .frameParent14 {
@@ -1458,6 +1474,7 @@
   
   .simplifyingCampusRecruitment {
     font-size: 22px;
+    text-align: center;
   }
   
   .weHaveEngineers {
@@ -1466,12 +1483,22 @@
   
   .empoweringRecruitersToContainer {
     font-size: 13px;
+    text-align: center;
+  }
+
+  .empoweringRecruitersTo {
+    text-align: center;
   }
   
   .vectorIcon,
   .mailIcon {
     width: 18px;
     height: 18px;
+  }
+
+  .whyHrsSupport {
+    font-size: 18px;
+    line-height: 24px;
   }
 }
 
@@ -1480,6 +1507,10 @@
   /* Add spacing between sections for extra small screens */
   .ourClientaleWrapper {
     margin-bottom: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
   }
   
   .frameParent14 {
@@ -1519,6 +1550,7 @@
   
   .simplifyingCampusRecruitment {
     font-size: 20px;
+    text-align: center;
   }
   
   .weHaveEngineers {
@@ -2011,7 +2043,7 @@
   width: 1200px;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   justify-content: flex-start;
   gap: 80px;
   font-size: 28px;
@@ -2028,6 +2060,12 @@
     padding: 0 20px;
     margin: 0 auto;
     box-sizing: border-box;
+    align-items: center;
+  }
+  
+  .whyHrsSupport {
+    font-size: 22px;
+    line-height: 28px;
   }
   
   .frameParent4,
@@ -2108,7 +2146,7 @@
     position: relative;
     top: auto;
     left: auto;
-    text-align: center;
+    text-align: left;
     margin-bottom: 15px;
     font-size: 18px;
   }
@@ -2128,7 +2166,7 @@
   
   .forCompanies {
     font-size: 16px;
-    text-align: center;
+    text-align: left;
     margin-bottom: 15px;
   }
   
@@ -2149,7 +2187,7 @@
   .studentDataWrapper,
   .jobsWrapper {
     flex: 1;
-    text-align: center;
+    text-align: left;
   }
   
   .studentData {
@@ -2165,6 +2203,7 @@
   .frameParent3 {
     gap: 20px;
     padding: 0 15px;
+    align-items: center;
   }
   
   .frameParent4,
@@ -2202,6 +2241,7 @@
   .simplifyingCampusRecruitment {
     font-size: 18px;
     margin-bottom: 12px;
+    text-align: center;
   }
   
   .fromConnectingWith {
@@ -2243,6 +2283,12 @@
   .frameParent3 {
     gap: 15px;
     padding: 0 12px;
+    align-items: center;
+  }
+  
+  .whyHrsSupport {
+    font-size: 16px;
+    line-height: 22px;
   }
   
   .frameParent4,
@@ -2280,6 +2326,7 @@
   .simplifyingCampusRecruitment {
     font-size: 16px;
     margin-bottom: 10px;
+    text-align: center;
   }
   
   .fromConnectingWith {
@@ -3281,6 +3328,8 @@
     font-size: 14px;
     padding: 8px;
   }
+
+  
 }
 
 /* Mobile-First Responsive Design for Landing Section */
@@ -3303,7 +3352,7 @@
   
   .landingSection {
     flex-direction: column;
-    text-align: center;
+    text-align: left;
     padding: 20px 20px;
     gap: 30px;
     min-height: auto;
@@ -3346,12 +3395,14 @@
     line-height: 24px;
     color: lightseagreen;
     margin-bottom: 8px;
+    text-align: center;
   }
   
   .sourceEngageHireWrapper {
     font-size: 28px;
     line-height: 36px;
     margin-bottom: 16px;
+    text-align: center;
   }
   
   .empoweringRecruitersToContainer {
@@ -3360,6 +3411,7 @@
     color: #6b7280;
     max-width: 300px;
     margin: 0 auto;
+    text-align: center;
   }
   
   /* Button styling for mobile */
@@ -3381,10 +3433,12 @@
   
   /* Typewriter animation adjustments */
   .typewriterText {
-    font-size: 24px;
+    font-size: 18px;
     line-height: 32px;
     white-space: normal;
     text-align: center;
+    max-width: 100%;
+    width: 100%;
   }
   
   .cursor {
@@ -3400,7 +3454,7 @@
 @media (min-width: 768px) and (max-width: 991px) {
   .landingSection {
     flex-direction: column;
-    text-align: center;
+    text-align: left;
     padding: 40px 40px;
     gap: 40px;
     min-height: auto;
@@ -3423,14 +3477,17 @@
   
   .sourceEngageHireWrapper {
     font-size: 36px;
+    text-align: center;
   }
   
   .oneStopHiring {
     font-size: 20px;
+    text-align: center;
   }
   
   .empoweringRecruitersToContainer {
     font-size: 16px;
+    text-align: center;
   }
   
   .company41 {
@@ -3828,6 +3885,7 @@
   color: #002b36;
   margin: 0;
   line-height: 1.2;
+  text-align: left;
   word-wrap: break-word;
   overflow-wrap: break-word;
   hyphens: auto;
@@ -3844,6 +3902,7 @@
   color: #002b36;
   margin: 0;
   line-height: 1.3;
+  text-align: left;
   word-wrap: break-word;
   overflow-wrap: break-word;
   hyphens: auto;
@@ -3892,6 +3951,7 @@
     width: 100% !important;
     max-width: 100% !important;
     box-sizing: border-box !important;
+    align-items: center !important;
   }
   
   /* Move For Companies button to top in tablet view */
@@ -3908,6 +3968,14 @@
     order: 1; /* Move text content below button */
   }
   
+  .ourClientaleWrapper {
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+  
   .streamlineCardsContainer {
     display: flex !important;
     flex-direction: column;
@@ -3917,6 +3985,7 @@
     max-width: 100%;
     margin: 0 auto;
     box-sizing: border-box;
+    align-items: center;
   }
   
   .streamlineCard {
@@ -3933,6 +4002,7 @@
     font-size: 32px;
     line-height: 1.1;
     margin-bottom: 8px;
+    text-align: left;
     word-wrap: break-word;
     overflow-wrap: break-word;
     hyphens: auto;
@@ -3946,6 +4016,7 @@
     font-size: 15px;
     line-height: 1.2;
     margin-bottom: 12px;
+    text-align: left;
     word-wrap: break-word;
     overflow-wrap: break-word;
     hyphens: auto;
@@ -3977,6 +4048,7 @@
     width: 100% !important;
     max-width: 100% !important;
     box-sizing: border-box !important;
+    align-items: center !important;
   }
   
   .paragraphbackgroundParent {
@@ -4011,6 +4083,7 @@
     max-width: 100%;
     margin: 0 auto;
     box-sizing: border-box;
+    align-items: center;
   }
   
   .streamlineCard {
@@ -4028,6 +4101,7 @@
     font-size: 32px;
     line-height: 1.1;
     margin-bottom: 8px;
+    text-align: left;
     word-wrap: break-word;
     overflow-wrap: break-word;
     hyphens: auto;
@@ -4041,6 +4115,7 @@
     font-size: 15px;
     line-height: 1.2;
     margin-bottom: 12px;
+    text-align: left;
     word-wrap: break-word;
     overflow-wrap: break-word;
     hyphens: auto;
@@ -4072,6 +4147,7 @@
     width: 100% !important;
     max-width: 100% !important;
     box-sizing: border-box !important;
+    align-items: center !important;
   }
   
   /* Ensure For Companies button stays at top in smaller mobile screens */
@@ -4091,10 +4167,13 @@
   .streamlineCardsContainer {
     gap: 16px;
     padding: 0 15px;
-    width: auto;
+    width: 100%;
     max-width: 400px;
     margin: 10px auto;
     box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
   
   .streamlineCard {
@@ -4103,9 +4182,23 @@
     width: 100%;
     max-width: 100%;
     box-sizing: border-box;
-    margin: 0 auto;
+    margin: 0;
     border-radius: 10px;
     overflow: hidden;
+  }
+  .sourceEngageHireWrapper {
+   
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  
+
+  }
+  .sourceEngage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   
   .streamlineCard .heading3 {
