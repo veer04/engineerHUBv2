@@ -168,6 +168,9 @@ const ProfileDashboardUserView = () => {
       setLoading(false);
     }
   };
+  const handleRedirect = () => {
+    window.open(`https://www.cosdata.io/students`, "_blank");
+  };
 
   return (
     <>
@@ -212,9 +215,11 @@ const ProfileDashboardUserView = () => {
 
               <div style={{ marginTop: 10 }}>
                 <img
+                onClick={handleRedirect}
+                  alt="banner"
                   className="user-view-img"
-                  style={{ borderRadius: 8 }}
-                  src={`${Bucket_URL}UserViewDashboard/rectangle-img.png`}
+                  style={{ borderRadius: 8, cursor: "pointer" }}
+                  src={`${Bucket_URL}banner-cosdata-mobile.png`}
                 />
               </div>
             </>
