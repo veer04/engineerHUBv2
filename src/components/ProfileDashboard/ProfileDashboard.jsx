@@ -142,7 +142,7 @@ const ProfileDashboard = () => {
   }, [privateDashboardData]);
 
   const handleRedirect = () => {
-    window.open(`https://collegele.com/application`, "_blank");
+    window.open(`https://www.cosdata.io/students`, "_blank");
   };
 
   return (
@@ -163,8 +163,8 @@ const ProfileDashboard = () => {
               onClick={handleRedirect}
               className="profile-dashboard-rectangle-img-1"
               style={{ marginTop: 20, borderRadius: 8, cursor: "pointer" }}
-              src={`${Bucket_URL}placed.jpeg`}
-              alt="We are live poster"
+              src={`${Bucket_URL}banner-cosdata-mobile.png`}
+              alt="banner"
             />
           </div>
 
@@ -199,8 +199,8 @@ const ProfileDashboard = () => {
             cursor: "pointer",
           }}
           className="profile-dashboard-rectangle-img-2"
-          src={`${Bucket_URL}13404898.png`}
-          alt="We are live poster"
+          src={`${Bucket_URL}banner-cosdata-mobile.png`}
+          alt="banner"
         />
         {/*AD - 19}
         <div className="d-flex justify-content-center mb-3">
