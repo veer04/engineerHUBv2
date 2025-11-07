@@ -363,8 +363,8 @@ const Company = () => {
         ;
         <div className="banner-space-div-to-promote-companies">
           <BannerSpaceComp
-            image={`${Bucket_URL}banner1.png`}
-            mobileImage={`${Bucket_URL}13404898.png`}
+            image={`${Bucket_URL}banner-cosdata.png`}
+            mobileImage={`${Bucket_URL}banner-cosdata-mobile.jpg`}
           />
         </div>
         <div>

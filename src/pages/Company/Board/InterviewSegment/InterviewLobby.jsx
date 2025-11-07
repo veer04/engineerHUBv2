@@ -215,6 +215,7 @@ export default function InterviewLobby() {
                   try {
                     // Check if there's a token in localStorage set by callback
                     const storedToken = localStorage.getItem('googleAuthToken');
+                    {console.log(storedToken , googleAuthToken)}
                     if (storedToken && storedToken !== googleAuthToken) {
                       setGoogleAuthToken(storedToken);
                       setSnackbarMessage("Google connected successfully! You can now schedule interviews. Make sure you used the same Gmail account you're logged in with here.");
@@ -1086,6 +1087,7 @@ export default function InterviewLobby() {
               </div>
               
               <div className="download-btn-container">
+                {console.log(googleAuthToken , '1096')}
                 {googleAuthToken ? (
                   <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
                     <button
@@ -1094,6 +1096,8 @@ export default function InterviewLobby() {
                       title="Google Account Connected&#10;&#10;Your Gmail account is successfully connected.&#10;&#10;You can now schedule interviews and send calendar invites to candidates automatically."
                     >
                       ✓ Google Account Connected
+
+                      
                     </button>
                     <button
                       onClick={clearGoogleAuth}

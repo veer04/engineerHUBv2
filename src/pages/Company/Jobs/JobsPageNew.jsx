@@ -251,8 +251,8 @@ const JobsPageNew = () => {
 
       <div className="banner-space-div">
         <BannerSpaceComp
-          image={`${Bucket_URL}banner2.png`}
-          mobileImage={`${Bucket_URL}13404897.png`}
+          image={`${Bucket_URL}banner-cosdata.png`}
+          mobileImage={`${Bucket_URL}banner-cosdata-mobile.png`}
         />
       </div>
     </main>

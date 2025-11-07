@@ -7,7 +7,7 @@ const BannerSpaceComp = ({ image, mobileImage }) => {
   console.log(pathname, "pathname");
 
   const handleRedirect = () => {
-    window.open(`https://collegele.com/application`, "_blank");
+    window.open(`https://www.cosdata.io/students`, "_blank");
   };
 
   return (
