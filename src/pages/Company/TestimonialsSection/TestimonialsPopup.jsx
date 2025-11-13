@@ -18,7 +18,7 @@ const TestimonialsPopup = ({ show, onClose }) => {
 
   const testimonials = testimonialsQuery?.data?.data?.data?.testimonials || [];
   // Show latest 4-5 profiles
-  const displayCards = testimonials.slice(0, 5);
+  const displayCards = testimonials.slice(0, 4);
 
   return (
     <div className="testimonials-popup-overlay" onClick={onClose}>
