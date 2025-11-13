@@ -28,6 +28,7 @@ const CampusDetails = lazy(() => import("./pages/Campus/CampusDetails"));
 const TrendingEvents = lazy(() => import("./pages/Campus/TrendingEvents"));
 import ChangePassword from "./pages/User/ForgotPassword/ChangePassword";
 import ProfilePopUp from "./components/ProfileSection/ProfilePopUp/ProfilePopUp";
+import TestimonialsPopup from "./pages/Company/TestimonialsSection/TestimonialsPopup";
 import CompanyDashboard from "./pages/Profile/CompanyDashboard/CompanyDashboard";
 import CompanyEditProfile from "./pages/Profile/CompanyDashboard/CompanyEditProfile";
 import CoverImageModal from "./components/Dashboard/CoverImageModal";
@@ -163,6 +164,7 @@ const TermsAndConditions = lazy(() =>
 
 function App() {
   const [OtpRoute, setOtpRoute] = useState("loading");
+  const [showPopup, setShowPopup] = useState(false);
   const role = getUserRole();
   const location = useLocation();
 
@@ -186,6 +188,28 @@ function App() {
     };
   }, [shouldHideNavbar]);
 
+  useEffect(() => {
+    // Check if popup was already closed in this session
+    const popupClosed = sessionStorage.getItem("testimonialsPopupClosed");
+    
+    // Only show popup if it hasn't been closed in this session
+    if (!popupClosed) {
+      // Show popup after 10 seconds
+      const timer = setTimeout(() => {
+        setShowPopup(true);
+      }, 10000);
+
+      // Cleanup timer on unmount
+      return () => clearTimeout(timer);
+    }
+  }, []);
+
+  const handleClosePopup = () => {
+    setShowPopup(false);
+    // Store in sessionStorage that user closed the popup
+    sessionStorage.setItem("testimonialsPopupClosed", "true");
+  };
+
   return (
     <>
       {!shouldHideNavbar && <NewNavbar />}
@@ -193,6 +217,7 @@ function App() {
       <ToastContainer />
       <GlobalSnackbar />
       <ProfilePopUp />
+      <TestimonialsPopup show={showPopup} onClose={handleClosePopup} />
       {/* <FloatingChatButton /> */}
       <Suspense fallback={<LoadingPage />}>
         <Routes>
