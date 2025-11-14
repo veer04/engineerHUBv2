@@ -32,6 +32,8 @@ import {
 import Loading from "../../../components/Loader/Loading";
 import JobHiringModal, { modalState } from "../Jobs/JobHiringModal";
 import { Link } from "react-router-dom";
+import { generateMetaTitle } from "../../../utils/generateMetaTitle";
+import { generateMetaDescription } from "../../../utils/generateMetaDescription";
 
 function seededRandom(seed) {
   var x = Math.sin(seed) * 10000;
@@ -92,8 +94,40 @@ export default function IndividualInternshipNew() {
   }, [hiringId]);
 
   useEffect(() => {
-    if (Object.keys(hiring).length !== 0) {
-      document.title = `${hiring?.detailFound?.opportunityName} | ${hiring?.detailFound?.organisationName} | engineerHUB`;
+    if (Object.keys(hiring).length !== 0 && hiring?.detailFound) {
+      const metaTitle = generateMetaTitle({
+        jobTitle: hiring.detailFound.opportunityName,
+        companyName: hiring.detailFound.organisationName,
+        location: hiring.detailFound.opportunityLocation,
+        city: hiring.detailFound.city,
+      });
+      document.title = metaTitle;
+
+      // Update meta title tag
+      let metaTitleTag = document.querySelector('meta[name="title"]');
+      if (!metaTitleTag) {
+        metaTitleTag = document.createElement('meta');
+        metaTitleTag.setAttribute('name', 'title');
+        document.head.appendChild(metaTitleTag);
+      }
+      metaTitleTag.setAttribute('content', metaTitle);
+
+      const metaDescription = generateMetaDescription({
+        jobTitle: hiring.detailFound.opportunityName,
+        companyName: hiring.detailFound.organisationName,
+        location: hiring.detailFound.opportunityLocation,
+        city: hiring.detailFound.city,
+        shortDescription: hiring.detailFound.shortDescription,
+      });
+      
+      // Update meta description tag
+      let metaDescTag = document.querySelector('meta[name="description"]');
+      if (!metaDescTag) {
+        metaDescTag = document.createElement('meta');
+        metaDescTag.setAttribute('name', 'description');
+        document.head.appendChild(metaDescTag);
+      }
+      metaDescTag.setAttribute('content', metaDescription);
     }
   }, [hiring]);
 
