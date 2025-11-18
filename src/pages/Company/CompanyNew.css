@@ -198,3 +198,105 @@
     font-size: 18px;
   }
 }
+
+.career-seo-content {
+  width: 100%;
+  max-width: 1200px;
+  margin: 2.5rem auto 0;
+  padding: 2.5rem;
+  background: #ffffff;
+  border-radius: 32px;
+  box-shadow: 0 20px 60px rgba(10, 63, 81, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  color: #0a3f51;
+}
+
+.career-seo-content h1,
+.career-seo-content h2,
+.career-seo-content h3 {
+  font-family: "Inter", sans-serif;
+  margin-bottom: 0.75rem;
+  color: var(--primary-color-green);
+}
+
+.career-seo-content h1 {
+  font-size: 32px;
+  font-weight: 700;
+}
+
+.career-seo-content h2 {
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.career-seo-content h3 {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.career-seo-content p {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: #9ca3af;
+  margin: 0;
+}
+
+.career-seo-intro {
+  text-align: center;
+}
+
+.career-seo-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.career-seo-grid article {
+  padding: 1.5rem;
+  border: 1px solid rgba(10, 63, 81, 0.08);
+  border-radius: 20px;
+  background: linear-gradient(180deg, #f8ffff 0%, #ffffff 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+.career-seo-grid ul {
+  margin: 1rem 0 0;
+  padding-left: 1.2rem;
+  color: #9ca3af;
+  line-height: 1.6;
+}
+
+.career-seo-grid li {
+  margin-bottom: 0.4rem;
+}
+
+.career-seo-footer {
+  padding: 1.5rem;
+  border-radius: 20px;
+  background: #f0fbf7;
+  border: 1px solid rgba(18, 164, 135, 0.2);
+  text-align: center;
+}
+
+@media screen and (max-width: 992px) {
+  .career-seo-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .career-seo-content {
+    padding: 1.75rem;
+    border-radius: 24px;
+  }
+
+  .career-seo-content h1 {
+    font-size: 26px;
+  }
+
+  .career-seo-content h2 {
+    font-size: 20px;
+  }
+}
