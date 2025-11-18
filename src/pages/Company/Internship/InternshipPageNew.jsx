@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import "./InternshipPageNew.css";
 import { Outlet, useParams, useSearchParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import { Helmet } from "react-helmet";
 import { API_URL } from "../../../services/APIUtils";
 import { getAccessToken } from "../../../features/User/UserDetails";
 import Loading from "../../../components/Loader/Loading";
@@ -12,6 +13,8 @@ import PaginationBarWithSearchParams from "../../../components/PaginationBarWith
 import InternshipCardNew from "./InternshipCardNew";
 import FilterContainerInternship from "../../../components/Filter/Company/FilterContainerInternship";
 import AdsenseComp from "../../../components/AdsenseComp/AdsenseComp";
+import { generateListingMetaTitle } from "../../../utils/generateListingMetaTitle";
+import { generateListingMetaDescription } from "../../../utils/generateListingMetaDescription";
 
 export default function InternshipPageNew() {
   const { hiringId } = useParams();
@@ -119,14 +122,83 @@ export default function InternshipPageNew() {
     window.scrollTo(0, 0);
   }, [pageNo]);
 
-  // Set navbar and document title
+  // Generate dynamic meta tags based on search params and filters
+  const metaTitle = useMemo(() => {
+    return generateListingMetaTitle({
+      type: "Internship",
+      searchQuery: q || "",
+      location: location || "",
+      jobType: jobType || "",
+      jobMode: jobMode || "",
+      experience: "",
+      isFeatured: isFeatured === "1" || isFeatured === "true",
+      isForFreshers: false,
+      isRemote: false,
+      isMaang: false,
+      pageNo: pageNo ? parseInt(pageNo) : 1,
+    });
+  }, [q, location, jobType, jobMode, isFeatured, pageNo]);
+
+  const metaDescription = useMemo(() => {
+    const totalResults = internshipsQuery.isSuccess && internshipsQuery.data?.data?.pageSize 
+      ? internshipsQuery.data.data.pageSize 
+      : null;
+    
+    return generateListingMetaDescription({
+      type: "Internship",
+      searchQuery: q || "",
+      location: location || "",
+      jobType: jobType || "",
+      jobMode: jobMode || "",
+      experience: "",
+      isFeatured: isFeatured === "1" || isFeatured === "true",
+      isForFreshers: false,
+      isRemote: false,
+      isMaang: false,
+      totalResults,
+    });
+  }, [q, location, jobType, jobMode, isFeatured, internshipsQuery.data]);
+
+  // Set navbar
   useEffect(() => {
-    document.title = "Internships | Career | engineerHUB";
     setSelectedPageNavbar("company");
   }, [setSelectedPageNavbar]);
 
+  // Get current URL for canonical and Open Graph
+  const currentUrl = typeof window !== "undefined" 
+    ? `${window.location.origin}${window.location.pathname}` 
+    : "";
+
   return (
     <main className="internship-page">
+      <Helmet>
+        <title>{metaTitle}</title>
+        <meta name="description" content={metaDescription} />
+        <meta name="title" content={metaTitle} />
+        
+        {/* Open Graph / Facebook */}
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={currentUrl} />
+        <meta property="og:title" content={metaTitle} />
+        <meta property="og:description" content={metaDescription} />
+        <meta property="og:site_name" content="engineerHUB" />
+        
+        {/* Twitter */}
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:url" content={currentUrl} />
+        <meta property="twitter:title" content={metaTitle} />
+        <meta property="twitter:description" content={metaDescription} />
+        
+        {/* Canonical URL */}
+        <link rel="canonical" href={currentUrl} />
+        
+        {/* Keywords */}
+        <meta 
+          name="keywords" 
+          content={`internships, ${q ? q + ", " : ""}${location ? location + ", " : ""}${jobType ? jobType + ", " : ""}internship opportunities, career, engineerHUB, tech internships, software internships, engineering internships`} 
+        />
+      </Helmet>
+
       {/* {!hiringId && (
         <>
           <h1 className="page-title">Internship Opportunities</h1>

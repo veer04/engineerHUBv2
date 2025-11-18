@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Helmet } from 'react-helmet';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import './CompanyNew.css';
 import JobsSegment from './JobsSegment/JobsSegment';
@@ -63,9 +64,138 @@ const SearchSection = () => {
   );
 };
 
+const CareerSEOContent = () => (
+  <section className="career-seo-content">
+    <div className="career-seo-intro">
+      <h1>Career Opportunities with engineerHUB</h1>
+      <p>
+        Discover a single destination for every stage of your professional journey.
+        engineerHUB connects ambitious students, recent graduates, and experienced engineers
+        with curated job openings, paid internships, referral programs, placement stories,
+        and career services crafted by hiring experts.
+      </p>
+    </div>
+
+    <div className="career-seo-grid">
+      <article>
+        <h2>Jobs & Experienced Hiring</h2>
+        <p>
+          Explore full-time roles across product companies, startups, SaaS teams, and enterprises.
+          Filter opportunities by experience, tech stack, location, work mode, and compensation bands
+          to find roles that match your career goals.
+        </p>
+        <ul>
+          <li>Latest openings in product, software, data, DevOps, and design</li>
+          <li>Remote, hybrid, on-site, MAANG, and referral-based roles</li>
+          <li>Insights on hiring timelines, interview format, and salary benchmarks</li>
+        </ul>
+      </article>
+
+      <article>
+        <h2>Internships & Early Talent</h2>
+        <p>
+          Access verified internships for freshmen, pre-final, and final-year students with transparent
+          stipends, project scope, mentorship details, and conversion opportunities.
+        </p>
+        <ul>
+          <li>Paid internships in software engineering, analytics, and product</li>
+          <li>Virtual and on-site programs with rapid application links</li>
+          <li>Guidance on resumes, project portfolios, and interview readiness</li>
+        </ul>
+      </article>
+
+      <article>
+        <h2>Referral & Placement </h2>
+        <p>
+          Leverage alumni-backed referrals, mentorship circles, and success stories from placed students
+          to shortcut your application process and learn what top recruiters expect.
+        </p>
+        <ul>
+          <li>Referral drives and hiring events powered by community partners</li>
+          <li>Case studies on placed candidates and their preparation tactics</li>
+          <li>Career services: mock interviews, profile reviews, and salary insights</li>
+        </ul>
+      </article>
+    </div>
+
+    <div className="career-seo-footer">
+      <h3>Why engineerHUB ranks high for career growth?</h3>
+      <p>
+      We publish fresh opportunities every day, verify each listing with hiring teams, and provide helpful guidance for job seekers and recruiters alike. Bookmark this career page to stay updated with jobs, internships, events, and community-powered learning resources that help you stay ahead of the competition.
+      </p>
+    </div>
+  </section>
+);
+
 const CompanyNew = () => {
+  const metaTitle = "Career Opportunities | Jobs, Internships & Referral Programs | engineerHUB";
+  const metaDescription =
+    "Explore engineerHUB career page for curated jobs, internships, referral drives, placement stories, and career services that help students and experienced engineers land offers faster.";
+  const metaKeywords =
+    "engineerHUB career page, tech jobs, software internships, referral program, placed students stories, fresher jobs, remote jobs, product hiring, career services, career opportunities ,jobs, internships, referral programs, career services, placed students success stories, fresher jobs, remote jobs, product hiring, career opportunities, engineerHUB, software internships, placed students stories";
+  const currentUrl =
+    typeof window !== "undefined"
+      ? `${window.location.origin}${window.location.pathname}`
+      : "https://engineerhub.in/career";
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    name: metaTitle,
+    description: metaDescription,
+    url: currentUrl,
+    publisher: {
+      "@type": "Organization",
+      name: "engineerHUB",
+      url: "https://engineerhub.in",
+    },
+    about: [
+      "Jobs",
+      "Internships",
+      "Referral program",
+      "Career services",
+      "Placed students success stories",
+    ],
+    hasPart: [
+      {
+        "@type": "CollectionPage",
+        name: "Jobs Segment",
+        description: "Curated full-time opportunities for engineers and product teams.",
+      },
+      {
+        "@type": "CollectionPage",
+        name: "Internship Segment",
+        description: "Verified internships with stipends, tech stacks, and conversion details.",
+      },
+      {
+        "@type": "CollectionPage",
+        name: "Services Segment",
+        description: "Career services, mentorship, and referral support programs.",
+      },
+    ],
+  };
+
   return (
     <main className="company-new">
+      <Helmet>
+        <title>{metaTitle}</title>
+        <meta name="title" content={metaTitle} />
+        <meta name="description" content={metaDescription} />
+        <meta name="keywords" content={metaKeywords} />
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="engineerHUB" />
+        <meta property="og:title" content={metaTitle} />
+        <meta property="og:description" content={metaDescription} />
+        <meta property="og:url" content={currentUrl} />
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:title" content={metaTitle} />
+        <meta property="twitter:description" content={metaDescription} />
+        <meta property="twitter:url" content={currentUrl} />
+        <link rel="canonical" href={currentUrl} />
+        <script type="application/ld+json">
+          {JSON.stringify(structuredData)}
+        </script>
+      </Helmet>
+
       <SearchSection />
       
       <JobsSegment />
@@ -93,6 +223,7 @@ const CompanyNew = () => {
      
       
       <TestimonialsSection />
+      <CareerSEOContent />
       
     
     
