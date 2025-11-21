@@ -6,6 +6,7 @@ import styles from "./JobAThonDesktopView.module.css";
 import OurClientale from "../../../../components/OurClientale/OurClientale";
 import { useTypewriter } from "../../../../hooks/useTypewriter";
 import { MdEmail, MdPhone } from "react-icons/md";
+import { SEO } from "../../../../components/SEO/SEO.jsx";
 
 export const JobAThonDesktopView = () => {
   const bucket = `${Bucket_URL}frontend/enterprise/desktopView/`;
@@ -33,7 +34,26 @@ export const JobAThonDesktopView = () => {
   };
 
   return (
-    <div className={styles.jobAThonDesktopView}>
+    <SEO
+      title="Hiring Platform | engineerHUB"
+      description="engineerHUB helps HR teams source, engage, and hire faster with AI-powered screening, analytics, and campus connectivity."
+      keywords={[
+        "hiring platform",
+        "campus recruitment",
+        "Recruitment platform",
+        "ai hiring platform",
+        "engineerHUB employer",
+        "engineerHUB hiring platform",
+        "engineerHUB campus recruitment",
+        "engineerHUB ai hiring platform",
+        "engineerHUB employer",
+        "engineerHUB hiring platform",
+        "engineerHUB campus recruitment",
+        "engineerHUB ai hiring platform",
+      ]}
+      canonical="https://www.engineerhub.in/employer"
+    >
+      <div className={styles.jobAThonDesktopView}>
       <div className={styles.jobAThonDesktopViewChild} />
       
       {/* Landing Section with Flexbox Layout */}
@@ -959,7 +979,8 @@ export const JobAThonDesktopView = () => {
           </div>
         </div>
       )}
-    </div>
+      </div>
+    </SEO>
   );
 };
 

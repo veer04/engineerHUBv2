@@ -3,7 +3,6 @@ import "./InternshipPageNew.css";
 import { Outlet, useParams, useSearchParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { Helmet } from "react-helmet";
 import { API_URL } from "../../../services/APIUtils";
 import { getAccessToken } from "../../../features/User/UserDetails";
 import Loading from "../../../components/Loader/Loading";
@@ -15,6 +14,7 @@ import FilterContainerInternship from "../../../components/Filter/Company/Filter
 import AdsenseComp from "../../../components/AdsenseComp/AdsenseComp";
 import { generateListingMetaTitle } from "../../../utils/generateListingMetaTitle";
 import { generateListingMetaDescription } from "../../../utils/generateListingMetaDescription";
+import { SEO } from "../../../components/SEO/SEO.jsx";
 
 export default function InternshipPageNew() {
   const { hiringId } = useParams();
@@ -170,34 +170,34 @@ export default function InternshipPageNew() {
     : "";
 
   return (
-    <main className="internship-page">
-      <Helmet>
-        <title>{metaTitle}</title>
-        <meta name="description" content={metaDescription} />
-        <meta name="title" content={metaTitle} />
-        
-        {/* Open Graph / Facebook */}
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content={currentUrl} />
-        <meta property="og:title" content={metaTitle} />
-        <meta property="og:description" content={metaDescription} />
-        <meta property="og:site_name" content="engineerHUB" />
-        
-        {/* Twitter */}
-        <meta property="twitter:card" content="summary_large_image" />
-        <meta property="twitter:url" content={currentUrl} />
-        <meta property="twitter:title" content={metaTitle} />
-        <meta property="twitter:description" content={metaDescription} />
-        
-        {/* Canonical URL */}
-        <link rel="canonical" href={currentUrl} />
-        
-        {/* Keywords */}
-        <meta 
-          name="keywords" 
-          content={`internships, ${q ? q + ", " : ""}${location ? location + ", " : ""}${jobType ? jobType + ", " : ""}internship opportunities, career, engineerHUB, tech internships, software internships, engineering internships`} 
-        />
-      </Helmet>
+    <SEO
+      title={!hiringId ? metaTitle : undefined}
+      description={!hiringId ? metaDescription : undefined}
+      keywords={!hiringId ? `internships, ${q ? q + ", " : ""}${location ? location + ", " : ""}${jobType ? jobType + ", " : ""}internship opportunities, career, engineerHUB, tech internships, software internships, engineering internships` : undefined}
+      canonical={!hiringId ? currentUrl : undefined}
+      openGraph={
+        !hiringId && metaTitle && metaDescription
+          ? {
+              type: "website",
+              site_name: "engineerHUB",
+              url: currentUrl,
+              title: metaTitle,
+              description: metaDescription,
+            }
+          : undefined
+      }
+      twitter={
+        !hiringId && metaTitle && metaDescription
+          ? {
+              card: "summary_large_image",
+              title: metaTitle,
+              description: metaDescription,
+              url: currentUrl,
+            }
+          : undefined
+      }
+    >
+      <main className="internship-page">
 
       {/* {!hiringId && (
         <>
@@ -287,5 +287,6 @@ export default function InternshipPageNew() {
             <AdsenseComp adSlot="1464856375" />
           </div>
     </main>
+    </SEO>
   );
 } 

@@ -47,6 +47,7 @@ import ProjectWindow from "./pages/Community/Project/ProjectWindow.jsx";
 import EventWindow from "./pages/Community/Events/EventWindow.jsx";
 import BlogWindow from "./pages/Community/Blogs/BlogWindow.jsx";
 import NewFooter from "./components/Footer/NewFooter.jsx";
+import { SEOProvider } from "./components/SEO/SEO.jsx";
 const BookNow = lazy(() =>
   import("./pages/Company/Referrals/BookNow/BookNow.jsx")
 );
@@ -211,7 +212,7 @@ function App() {
   };
 
   return (
-    <>
+    <SEOProvider>
       {!shouldHideNavbar && <NewNavbar />}
       {!shouldHideNavbar && <MobileNavbar />}
       <ToastContainer />
@@ -482,7 +483,7 @@ function App() {
         </Routes>
       </Suspense>
       <NewFooter />
-    </>
+    </SEOProvider>
   );
 }
 export default App;

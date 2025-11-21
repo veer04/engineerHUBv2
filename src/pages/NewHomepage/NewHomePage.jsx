@@ -14,6 +14,7 @@ import EasyWayToHire from "../Enterprise/Assests/Components/EasyWayToHire/EasyWa
 import OurClientale from "../../components/OurClientale/OurClientale";
 import JobsForYouFilterComp from "../Company/JobsForYouFilterPage/JobsForYouFilterComp";
 import TestimonialsSection from "../Company/TestimonialsSection/TestimonialsSection";
+import { SEO } from "../../components/SEO/SEO.jsx";
 
 export default function NewHomePage() {
   const { setSelectedPageNavbar } = useNavbar();
@@ -21,32 +22,42 @@ export default function NewHomePage() {
   const [clubs, setClubs] = useState([]);
 
   useEffect(() => {
-    document.title = "engineerHUB";
     setSelectedPageNavbar("home");
     getTrendingAlumni2(setList);
     getTrendingClubs(setClubs);
-
     // window.scrollTo(0, 0);
-  }, []);
+  }, [setSelectedPageNavbar]);
 
   return (
-    <main className="homepage">
-      <MainLandingSection />
-      <StatsCarousel />
-     {/* <NewCommunitySection /> */}
-     {/* <NewCampusHomePage list={list} clubs={clubs} />*/}
-      
+    <SEO
+      title="engineerHUB | Jobs, Referrals & Mentorship"
+      description="Explore jobs, internships, referral programs, and mentorship trusted by Indian engineers on engineerHUB’s community-powered career platform."
+      keywords={[
+        "engineerhub jobs",
+        "tech internships",
+        "referral programs",
+        "career mentorship",
+        "campus placements",
+        "hiring community",
+      ]}
+    >
+      <main className="homepage">
+        <MainLandingSection />
+        <StatsCarousel />
+        {/* <NewCommunitySection /> */}
+        {/* <NewCampusHomePage list={list} clubs={clubs} />*/}
 
-      <NewCompanyHomePage />
-      <JobsForYouFilterComp/>
-      <NewHostHomePage />
+        <NewCompanyHomePage />
+        <JobsForYouFilterComp />
+        <NewHostHomePage />
 
-      <EasyWayToHire />
-      <OurClientale />
+        <EasyWayToHire />
+        <OurClientale />
 
-      {/* <NewSiliconValley /> */}
-      <TestimonialsSection />
-     {/* <NewReviewSection /> */}
-    </main>
+        {/* <NewSiliconValley /> */}
+        <TestimonialsSection />
+        {/* <NewReviewSection /> */}
+      </main>
+    </SEO>
   );
 }

@@ -1,6 +1,5 @@
 import React from "react";
 import "./Referrals.css";
-import img from "../../../../public/r-img.png";
 import SessionBox from "./SessionBox";
 import BannerCards from "./BannerCards";
 import vectorComp1 from "../../../../public/Vector.svg";
@@ -12,16 +11,53 @@ import ReferralRatings from "./ReferralRatings/ReferralRatings";
 import ReferralPageBanner from "./ReferralPageBanner.png";
 import { HashLink } from "react-router-hash-link";
 import { Bucket_URL } from "../../../services/APIUtils";
-import zIndex from "@mui/material/styles/zIndex";
 import { useLocation } from "react-router-dom";
 import OurMentors from "./OurMentors/OurMentors";
+import { SEO } from "../../../components/SEO/SEO.jsx";
 
 const bucket = `${Bucket_URL}frontend/company/referral/`;
 
 const Referrals = () => {
   const location = useLocation();
+  const metaTitle =
+    "Referrals, Career Mentorship & Interview Resources | engineerHUB";
+  const metaDescription =
+    "Discover referrals, mentorship programs, job & internship strategies, and interview resources trusted by 600+ partner companies.";
+  const metaKeywords = [
+    "job referrals",
+    "career mentorship",
+    "interview preparation",
+    "internship strategy",
+    "engineerhub digital products",
+  ];
+  const currentUrl =
+    typeof window !== "undefined"
+      ? `${window.location.origin}${window.location.pathname}${window.location.search}`
+      : "";
+
   return (
-    <>
+    <SEO
+      title={metaTitle}
+      description={metaDescription}
+      keywords={metaKeywords}
+      canonical={
+        currentUrl || "https://www.engineerhub.in/referrals"
+      }
+      openGraph={{
+        type: "website",
+        site_name: "engineerHUB",
+        url: currentUrl || "https://www.engineerhub.in/referrals",
+        title: metaTitle,
+        description: metaDescription,
+      }}
+      twitter={{
+        card: "summary_large_image",
+        url: currentUrl || "https://www.engineerhub.in/referrals",
+        title: metaTitle,
+        description: metaDescription,
+      }}
+    >
+      <>
       <div
         style={{
           backgroundImage: `url(${ReferralPageBanner})`,
@@ -33,7 +69,7 @@ const Referrals = () => {
       >
         <div className="b-left-side">
           <h3 style={{ color: "white", fontSize: 18, fontWeight: 400 }}>
-            Referrals, Digital Products &amp; Mentorship
+           Career Mentorship, Job Referrals &amp; Interview Resources 
           </h3>
           <h2 className="ref-txt">Unlock Opportunities</h2>
           <h5
@@ -185,7 +221,8 @@ const Referrals = () => {
       <DigitalProducts compName={"Digital Products"} />
       <OurMentors />
       <ReferralRatings />
-    </>
+      </>
+    </SEO>
   );
 };
 

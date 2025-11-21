@@ -15,6 +15,7 @@ import axios, { AxiosError } from "axios";
 import useNavbar from "../../../hooks/use-navbar";
 // import { set } from "react-hook-form";
 import { API_URL, API_URLT, FRONTEND_URL } from "../../../services/APIUtils";
+import { SEO } from "../../../components/SEO/SEO.jsx";
 
 const SignupUser = () => {
   const navigate = useNavigate();
@@ -42,10 +43,9 @@ const SignupUser = () => {
   const { setSelectedPageNavbar } = useNavbar();
 
   useEffect(() => {
-    document.title = "Sign Up | engineerHUB";
     setSelectedPageNavbar("login");
     window.scrollTo(0, 0);
-  }, []);
+  }, [setSelectedPageNavbar]);
 
   const signIn = useSignIn();
   const [password, setPassword] = useState("");
@@ -528,7 +528,19 @@ const SignupUser = () => {
   };
 
   return (
-    <main className="Login"
+    <SEO
+      title="Join engineerHUB | Student & Alumni Signup"
+      description="Create your engineerHUB account to unlock jobs, internships, mentorship, and referral programs tailored for Indian engineers."
+      keywords={[
+        "engineerhub signup",
+        "student registration",
+        "alumni platform",
+        "career community",
+        "tech opportunities",
+      ]}
+      canonical="https://www.engineerhub.in/signup"
+    >
+      <main className="Login"
     style={{
       borderRadius: "20px",
       background: "#fff",
@@ -736,7 +748,8 @@ const SignupUser = () => {
           </div>
         </div>
       </div>
-    </main>
+      </main>
+    </SEO>
   );
 };
 

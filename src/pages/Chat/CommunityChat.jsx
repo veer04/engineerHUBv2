@@ -1,5 +1,4 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { changeDocumentTitle } from "../../features/changeDocumentTitle";
 import { redirectToAuth } from "../../features/redirectToAuth";
 import { getUserRole, isUserLoggedIn } from "../../features/User/UserDetails";
 import Page404 from "../Maintenance/Page404";
@@ -14,6 +13,7 @@ import getCookie, { getAccessToken } from "../../features/getCookieValues";
 import axios from "axios";
 import { API_URL } from "../../services/APIUtils";
 import useChatNotifications from "../../hooks/useChatNotifications";
+import { SEO } from "../../components/SEO/SEO.jsx";
 
 export default function CommunityChat() {
   if (!isUserLoggedIn()) {
@@ -42,7 +42,6 @@ export default function CommunityChat() {
   const { clearNavbarBadge } = useChatNotifications();
 
   useEffect(() => {
-    document.title = `Chat | ${chatId} | engineerHUB`;
     const handleResize = () => setWidth(window.innerWidth);
     window.addEventListener("resize", handleResize);
     
@@ -78,17 +77,33 @@ export default function CommunityChat() {
     </section>
   );
 
+  const decodedChatId = chatId ? decodeURIComponent(chatId) : "Community";
+  const chatMetaTitle = `${decodedChatId} Chat | engineerHUB Community`;
+  const chatMetaDescription = `Join the ${decodedChatId} room on engineerHUB to discuss jobs, referrals, interviews, and industry news with peers and mentors.`;
+
   return (
-    <main id="chat-page">
-      {width > 820 && <CommunityChatHeader />}
-      <div className="chat-container">
-        {width > 820 ? (
-          <CommunityChatGroupList />
-        ) : (
-          step === 1 && <CommunityChatGroupList />
-        )}
-        {width > 820 ? chatScreen : step === 2 && chatScreen}
-      </div>
-    </main>
+    <SEO
+      title={chatMetaTitle}
+      description={chatMetaDescription}
+      keywords={[
+        "engineerhub chat",
+        "career community",
+        "referral support",
+        "tech discussions",
+        "interview help",
+      ]}
+    >
+      <main id="chat-page">
+        {width > 820 && <CommunityChatHeader />}
+        <div className="chat-container">
+          {width > 820 ? (
+            <CommunityChatGroupList />
+          ) : (
+            step === 1 && <CommunityChatGroupList />
+          )}
+          {width > 820 ? chatScreen : step === 2 && chatScreen}
+        </div>
+      </main>
+    </SEO>
   );
 }

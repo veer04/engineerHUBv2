@@ -34,6 +34,8 @@ import JobHiringModal, { modalState } from "../Jobs/JobHiringModal";
 import { Link } from "react-router-dom";
 import { generateMetaTitle } from "../../../utils/generateMetaTitle";
 import { generateMetaDescription } from "../../../utils/generateMetaDescription";
+import { SEO } from "../../../components/SEO/SEO.jsx";
+import { getAccessToken } from "../../../features/User/UserDetails";
 
 function seededRandom(seed) {
   var x = Math.sin(seed) * 10000;
@@ -93,43 +95,29 @@ export default function IndividualInternshipNew() {
     };
   }, [hiringId]);
 
-  useEffect(() => {
-    if (Object.keys(hiring).length !== 0 && hiring?.detailFound) {
-      const metaTitle = generateMetaTitle({
+  // Generate meta tags for SEO
+  const metaTitle = Object.keys(hiring).length !== 0 && hiring?.detailFound
+    ? generateMetaTitle({
         jobTitle: hiring.detailFound.opportunityName,
         companyName: hiring.detailFound.organisationName,
         location: hiring.detailFound.opportunityLocation,
         city: hiring.detailFound.city,
-      });
-      document.title = metaTitle;
+      })
+    : null;
 
-      // Update meta title tag
-      let metaTitleTag = document.querySelector('meta[name="title"]');
-      if (!metaTitleTag) {
-        metaTitleTag = document.createElement('meta');
-        metaTitleTag.setAttribute('name', 'title');
-        document.head.appendChild(metaTitleTag);
-      }
-      metaTitleTag.setAttribute('content', metaTitle);
-
-      const metaDescription = generateMetaDescription({
+  const metaDescription = Object.keys(hiring).length !== 0 && hiring?.detailFound
+    ? generateMetaDescription({
         jobTitle: hiring.detailFound.opportunityName,
         companyName: hiring.detailFound.organisationName,
         location: hiring.detailFound.opportunityLocation,
         city: hiring.detailFound.city,
         shortDescription: hiring.detailFound.shortDescription,
-      });
-      
-      // Update meta description tag
-      let metaDescTag = document.querySelector('meta[name="description"]');
-      if (!metaDescTag) {
-        metaDescTag = document.createElement('meta');
-        metaDescTag.setAttribute('name', 'description');
-        document.head.appendChild(metaDescTag);
-      }
-      metaDescTag.setAttribute('content', metaDescription);
-    }
-  }, [hiring]);
+      })
+    : null;
+
+  const currentUrl = typeof window !== "undefined" && hiring?.detailFound
+    ? `${window.location.origin}${window.location.pathname}`
+    : null;
 
   const formatter = new Intl.NumberFormat("en-IN", {
     style: "currency",
@@ -242,7 +230,33 @@ export default function IndividualInternshipNew() {
   };
 
   return (
-    <section id="individual-internship-container">
+    <SEO
+      title={metaTitle}
+      description={metaDescription}
+      canonical={currentUrl}
+      openGraph={
+        metaTitle && metaDescription
+          ? {
+              type: "website",
+              site_name: "engineerHUB",
+              url: currentUrl,
+              title: metaTitle,
+              description: metaDescription,
+            }
+          : undefined
+      }
+      twitter={
+        metaTitle && metaDescription
+          ? {
+              card: "summary_large_image",
+              title: metaTitle,
+              description: metaDescription,
+              url: currentUrl,
+            }
+          : undefined
+      }
+    >
+      <section id="individual-internship-container">
       <JobHiringModal
         latestInfo={userLatestInfo}
         hiringId={hiringId}
@@ -596,5 +610,6 @@ export default function IndividualInternshipNew() {
         </div>
       )}
     </section>
+    </SEO>
   );
 } 

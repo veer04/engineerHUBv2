@@ -2,7 +2,6 @@ import React, { useEffect, useState, useMemo } from "react";
 import { Outlet, useParams, useSearchParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { Helmet } from "react-helmet";
 import "./JobsPageNew.css";
 import { API_URL, Bucket_URL } from "../../../services/APIUtils";
 import { getAccessToken } from "../../../features/User/UserDetails";
@@ -16,6 +15,7 @@ import BannerSpaceComp from "../BannerSpaceComp/BannerSpaceComp";
 import AdsenseComp from "../../../components/AdsenseComp/AdsenseComp";
 import { generateListingMetaTitle } from "../../../utils/generateListingMetaTitle";
 import { generateListingMetaDescription } from "../../../utils/generateListingMetaDescription";
+import { SEO } from "../../../components/SEO/SEO.jsx";
 
 const JobsPageNew = () => {
   const { hiringId } = useParams();
@@ -203,34 +203,34 @@ const JobsPageNew = () => {
     : "";
 
   return (
-    <main className="jobs-new-container">
-      <Helmet>
-        <title>{metaTitle}</title>
-        <meta name="description" content={metaDescription} />
-        <meta name="title" content={metaTitle} />
-        
-        {/* Open Graph / Facebook */}
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content={currentUrl} />
-        <meta property="og:title" content={metaTitle} />
-        <meta property="og:description" content={metaDescription} />
-        <meta property="og:site_name" content="engineerHUB" />
-        
-        {/* Twitter */}
-        <meta property="twitter:card" content="summary_large_image" />
-        <meta property="twitter:url" content={currentUrl} />
-        <meta property="twitter:title" content={metaTitle} />
-        <meta property="twitter:description" content={metaDescription} />
-        
-        {/* Canonical URL */}
-        <link rel="canonical" href={currentUrl} />
-        
-        {/* Keywords */}
-        <meta 
-          name="keywords" 
-          content={`jobs, ${q ? q + ", " : ""}${location ? location + ", " : ""}${jobType ? jobType + ", " : ""}careers, employment, engineerHUB, tech jobs, software jobs, engineering jobs`} 
-        />
-      </Helmet>
+    <SEO
+      title={!hiringId ? metaTitle : undefined}
+      description={!hiringId ? metaDescription : undefined}
+      keywords={!hiringId ? `jobs, ${q ? q + ", " : ""}${location ? location + ", " : ""}${jobType ? jobType + ", " : ""}careers, employment, engineerHUB, tech jobs, software jobs, engineering jobs` : undefined}
+      canonical={!hiringId ? currentUrl : undefined}
+      openGraph={
+        !hiringId && metaTitle && metaDescription
+          ? {
+              type: "website",
+              site_name: "engineerHUB",
+              url: currentUrl,
+              title: metaTitle,
+              description: metaDescription,
+            }
+          : undefined
+      }
+      twitter={
+        !hiringId && metaTitle && metaDescription
+          ? {
+              card: "summary_large_image",
+              title: metaTitle,
+              description: metaDescription,
+              url: currentUrl,
+            }
+          : undefined
+      }
+    >
+      <main className="jobs-new-container">
 
       {!hiringId && (
         <>
@@ -328,6 +328,7 @@ const JobsPageNew = () => {
         />
       </div>
     </main>
+    </SEO>
   );
 };
 

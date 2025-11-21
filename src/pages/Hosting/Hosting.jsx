@@ -7,6 +7,7 @@ import jwt_decode from "jwt-decode";
 import useNavbar from "../../hooks/use-navbar";
 import { getUserRole, isUserLoggedIn } from "../../features/User/UserDetails";
 import { redirectToAuth } from "../../features/redirectToAuth";
+import { SEO } from "../../components/SEO/SEO.jsx";
 export default function Hosting() {
   const handleCardClick = (event) => {
     sessionStorage.setItem("event", event);
@@ -39,9 +40,8 @@ export default function Hosting() {
 
   const { setSelectedPageNavbar } = useNavbar();
   useEffect(() => {
-    document.title = "Host an Opportunity | engineerHUB";
     setSelectedPageNavbar("host");
-  }, []);
+  }, [setSelectedPageNavbar]);
   const navigate = useNavigate();
   const bucket = `${Bucket_URL}frontend/hosting/`;
 
@@ -155,7 +155,18 @@ export default function Hosting() {
   }
 
   return (
-    <div className="hosting-page">
+    <SEO
+      title="Host Jobs, Events & Challenges | engineerHUB"
+      description="Use engineerHUB to host jobs, internships, hackathons, and campus events with instant access to vetted candidates and community amplification."
+      keywords={[
+        "host jobs",
+        "campus hiring",
+        "hackathon hosting",
+        "employer branding",
+        "engineerhub events",
+      ]}
+    >
+      <div className="hosting-page">
       <h1 className="heading-3">Host an Opportunity</h1>
       <h2 className="subheading-1">
         Get one-click rated candidates and participants for the challenges.
@@ -296,6 +307,7 @@ export default function Hosting() {
           {/* </Link> */}
         </div>
       </div>
-    </div>
+      </div>
+    </SEO>
   );
 }
