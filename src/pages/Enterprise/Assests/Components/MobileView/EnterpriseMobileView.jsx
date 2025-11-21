@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import "./EnterpriseMobileView.css";
 import EasyWayToHire from "../EasyWayToHire/EasyWayToHire";
 import OurClientale from "../../../../../components/OurClientale/OurClientale";
+import { SEO } from "../../../../../components/SEO/SEO.jsx";
 export const JobAThonMobile = () => {
   const bucket = `${Bucket_URL}frontend/enterprise/mobileView/`;
   const bitsminpng = `${bucket}bits-min.png.png`;
@@ -16,7 +17,24 @@ export const JobAThonMobile = () => {
   const srmlogowebppng = `${bucket}srm-logo.webp.png`;
   const Navigate = useNavigate();
   return (
-    <div className="job-a-thon-mobile">
+    <SEO
+      title="Hire Faster|engineerHUB"
+      description="Hire Faster on engineerHUB to connect with engineers, host hiring events, and digitize campus placements through engineerHUB."
+      keywords={[
+        " hiring platform",
+        "campus placements",
+        "engineerhub employer",
+        "hire faster on engineerHUB",
+        "hire fast on engineerHUB",
+        "engineerHUB campus placements",
+        "engineerHUB employer",
+        "engineerHUB hiring events on engineerHUB",
+        "engineerHUB digitize campus placements on engineerHUB",
+        "engineerHUB hiring platform on engineerHUB",
+      ]}
+      canonical="https://www.engineerhub.in/employer"
+    >
+      <div className="job-a-thon-mobile">
       <div className="div">
         <div className="overlap-group">
           <div className="frameMobView">
@@ -397,6 +415,7 @@ export const JobAThonMobile = () => {
           </div>
         </div>
       </div>
-    </div>
+      </div>
+    </SEO>
   );
 };

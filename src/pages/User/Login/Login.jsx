@@ -16,6 +16,7 @@ import useNavbar from "../../../hooks/use-navbar";
 // import { set } from "react-hook-form";
 import { API_URL, API_URLT, FRONTEND_URL } from "../../../services/APIUtils";
 import FormInputDropdown from "../../../components/FormInputs/FormInputDropdown";
+import { SEO } from "../../../components/SEO/SEO.jsx";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -43,10 +44,9 @@ const Register = () => {
   const { setSelectedPageNavbar } = useNavbar();
 
   useEffect(() => {
-    document.title = "Login | engineerHUB";
     setSelectedPageNavbar("login");
     window.scrollTo(0, 0);
-  }, []);
+  }, [setSelectedPageNavbar]);
 
   const signIn = useSignIn();
   const [password, setPassword] = useState("");
@@ -464,7 +464,19 @@ const Register = () => {
   };
 
   return (
-    <main className="Login">
+    <SEO
+      title="Login to engineerHUB | Careers & Referrals"
+      description="Sign in to engineerHUB to track jobs, internships, referrals, and community conversations tailored to your engineering career."
+      keywords={[
+        "engineerhub login",
+        "career platform",
+        "referral dashboard",
+        "jobs and internships",
+        "engineering community",
+      ]}
+      canonical="https://www.engineerhub.in/login"
+    >
+      <main className="Login">
       {/* <div
             className="col-lg-6 login-left-container"
             style={{
@@ -708,7 +720,8 @@ const Register = () => {
           </li>
         </ol>
       </div>
-    </main>
+      </main>
+    </SEO>
   );
 };
 

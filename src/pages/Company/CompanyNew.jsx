@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Helmet } from 'react-helmet';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import './CompanyNew.css';
 import JobsSegment from './JobsSegment/JobsSegment';
@@ -9,6 +8,7 @@ import ServicesSegment from './ServicesSegment/ServicesSegment';
 import ExploreOtherPages from './ExploreOtherPages/ExploreOtherPages';
 import TestimonialsSection from './TestimonialsSection/TestimonialsSection';
 import AdsenseComp from "../../components/AdsenseComp/AdsenseComp";
+import { SEO } from "../../components/SEO/SEO.jsx";
 
 // Search Section Component
 const SearchSection = () => {
@@ -128,11 +128,17 @@ const CareerSEOContent = () => (
 );
 
 const CompanyNew = () => {
-  const metaTitle = "Career Opportunities | Jobs, Internships & Referral Programs | engineerHUB";
+  const metaTitle = "Career Opportunities | engineerHUB Jobs & Internships";
   const metaDescription =
-    "Explore engineerHUB career page for curated jobs, internships, referral drives, placement stories, and career services that help students and experienced engineers land offers faster.";
-  const metaKeywords =
-    "engineerHUB career page, tech jobs, software internships, referral program, placed students stories, fresher jobs, remote jobs, product hiring, career services, career opportunities ,jobs, internships, referral programs, career services, placed students success stories, fresher jobs, remote jobs, product hiring, career opportunities, engineerHUB, software internships, placed students stories";
+    "Browse curated jobs, internships, referral drives, and placement services on engineerHUB—built for students and experienced engineers across India.";
+  const metaKeywords = [
+    "tech jobs india",
+    "software internships",
+    "referral program",
+    "career services",
+    "placement stories",
+    "hiring platform","engineerHUB career page", "tech jobs", "software internships", "referral program", "placed students stories", "fresher jobs", "remote jobs", "product hiring", "career services", "career opportunities", "jobs", "internships", "referral programs", "career services", "placed students success stories", "fresher jobs", "remote jobs", "product hiring", "career opportunities", "engineerHUB", "software internships", "placed students stories"
+  ];
   const currentUrl =
     typeof window !== "undefined"
       ? `${window.location.origin}${window.location.pathname}`
@@ -175,64 +181,53 @@ const CompanyNew = () => {
   };
 
   return (
-    <main className="company-new">
-      <Helmet>
-        <title>{metaTitle}</title>
-        <meta name="title" content={metaTitle} />
-        <meta name="description" content={metaDescription} />
-        <meta name="keywords" content={metaKeywords} />
-        <meta property="og:type" content="website" />
-        <meta property="og:site_name" content="engineerHUB" />
-        <meta property="og:title" content={metaTitle} />
-        <meta property="og:description" content={metaDescription} />
-        <meta property="og:url" content={currentUrl} />
-        <meta property="twitter:card" content="summary_large_image" />
-        <meta property="twitter:title" content={metaTitle} />
-        <meta property="twitter:description" content={metaDescription} />
-        <meta property="twitter:url" content={currentUrl} />
-        <link rel="canonical" href={currentUrl} />
-        <script type="application/ld+json">
-          {JSON.stringify(structuredData)}
-        </script>
-      </Helmet>
+    <SEO
+      title={metaTitle}
+      description={metaDescription}
+      keywords={metaKeywords}
+      canonical={currentUrl}
+      openGraph={{
+        type: "website",
+        site_name: "engineerHUB",
+        url: currentUrl,
+        title: metaTitle,
+        description: metaDescription,
+      }}
+      twitter={{
+        card: "summary_large_image",
+        title: metaTitle,
+        description: metaDescription,
+        url: currentUrl,
+      }}
+      structuredData={structuredData}
+    >
+      <main className="company-new">
+        <SearchSection />
 
-      <SearchSection />
-      
-      <JobsSegment />
-      {/* AD-1 */}
-    
+        <JobsSegment />
+        {/* AD-1 */}
         <AdsenseComp adSlot="2075126233" />
-      
-    
-      <InternshipSegment />
-      {/* AD-2 */}
-      <AdsenseComp adSlot="4766701351" />
-     
-      
-      <JobsForYouFilterComp />
-      <ServicesSegment />
-      {/* AD-3 */}
-    
-        <AdsenseComp adSlot="9608720063" />
-     
-      
-      <ExploreOtherPages />
-      {/* AD-4 */}
-    
-        <AdsenseComp adSlot="3771351287" />
-     
-      
-      <TestimonialsSection />
-      <CareerSEOContent />
-      
-    
-    
-      {/* AD-7 display */}
-     
-        <AdsenseComp adSlot="2618267316" />
-     
 
-    </main>
+        <InternshipSegment />
+        {/* AD-2 */}
+        <AdsenseComp adSlot="4766701351" />
+
+        <JobsForYouFilterComp />
+        <ServicesSegment />
+        {/* AD-3 */}
+        <AdsenseComp adSlot="9608720063" />
+
+        <ExploreOtherPages />
+        {/* AD-4 */}
+        <AdsenseComp adSlot="3771351287" />
+
+        <TestimonialsSection />
+        <CareerSEOContent />
+
+        {/* AD-7 display */}
+        <AdsenseComp adSlot="2618267316" />
+      </main>
+    </SEO>
   );
 };
 
