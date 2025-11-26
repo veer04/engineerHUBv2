@@ -20,6 +20,8 @@ import TimelineEmployer from "../../../components/Timeline/TimelineEmployer";
 import { controller } from "../../../services/APIConfig";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import countryCodes from "../../../assets/countryCodes";
+import jwt_decode from "jwt-decode";
+import CustomSnackbar from "../Login/CustomSnackbar";
 
 const OrganizationSignup = () => {
   const navigate = useNavigate();
@@ -38,6 +40,11 @@ const OrganizationSignup = () => {
   const [validation, setValidation] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [snackbarValues, setSnackbarValues] = useState({
+    severity: "error",
+    message: "",
+  });
 
   const [formData, setFormData] = useState({
     name: "",
@@ -126,28 +133,28 @@ const OrganizationSignup = () => {
       valid = false;
     }
     if (!formData.email && !linkedIn) {
-      newErrors.email = "Either email or linkedIn is required";
-      newErrors.linkedIn = "Either email or linkedIn is required";
+      newErrors.email = "Either work email or LinkedIn profile is required";
+      newErrors.linkedIn = "Either work email or LinkedIn profile is required";
       valid = false;
     } else {
       if (formData.email && !/\S+@\S+\.\S+/.test(formData.email)) {
-        newErrors.email = "Invalid email format";
+        newErrors.email = "Please enter a valid email address";
         valid = false;
       }
       if (linkedIn && !/^https:\/\//.test(linkedIn)) {
-        newErrors.linkedIn = "URL must begin with https://";
+        newErrors.linkedIn = "LinkedIn URL must begin with https://";
         valid = false;
       }
     }
     if (!formData.mobile) {
-      newErrors.mobile = "Mobile number is required";
+      newErrors.mobile = "Contact number is required";
       valid = false;
     } else if (!/^[0-9]+$/.test(formData.mobile)) {
       newErrors.mobile =
-        "Mobile number should not contain any special characters or letter";
+        "Contact number should only contain digits (0-9)";
       valid = false;
     } else if (!/^\d{10}$/.test(formData.mobile)) {
-      newErrors.mobile = "Mobile number should be of 10 digits";
+      newErrors.mobile = "Contact number must be exactly 10 digits";
       valid = false;
     }
     setErrors(newErrors);
@@ -166,12 +173,15 @@ const OrganizationSignup = () => {
     if (!formData.organizationName) {
       newErrors.organizationName = "Company name is required";
       valid = false;
+    } else if (formData.organizationName.trim().length < 3) {
+      newErrors.organizationName = "Company name must be at least 3 characters";
+      valid = false;
     }
     if (!formData.webSiteURL) {
-      newErrors.webSiteURL = "Website URL is Required";
+      newErrors.webSiteURL = "Website URL is required";
       valid = false;
     } else if (!/^https:\/\//.test(formData.webSiteURL)) {
-      newErrors.webSiteURL = "URL must begin with https://";
+      newErrors.webSiteURL = "Website URL must begin with https://";
       valid = false;
     }
 
@@ -286,14 +296,14 @@ const OrganizationSignup = () => {
     e.preventDefault();
 
     const data = {
-      name: contactName,
+      name: formData.organizationName, // Backend expects 'name' for organization name
       email: formData.email,
       password: formData.password,
       confirmPassword: formData.confirmPassword,
-      organizationName: formData.organizationName,
       websiteUrl: formData.webSiteURL,
       linkedIn: linkedIn,
       mobile: formData.mobile,
+      mobileCountryCode: mobileCountryCode,
       contactName: contactName,
       hiringFor: hiringFor,
     };
@@ -304,9 +314,45 @@ const OrganizationSignup = () => {
 
       axios.post(`${API_URL}api/v1/organization/signup`, data).then(
         (response) => {
-          Cookies.set("email", response.data.email, { expires: 1 / 24 / 4 });
-
           console.log(response);
+          
+          // Check if account is already verified (auto-login case)
+          if (response.data.alreadyVerified && response.data.accessToken) {
+            // Account already exists and is verified - auto login
+            const token = response.data.accessToken;
+            const decoded = jwt_decode(token);
+            
+            // Set all cookies for logged-in user
+            Cookies.set("access_token", response.data.accessToken, { expires: 400 });
+            Cookies.set("refresh_token", response.data.refreshToken, { expires: 400 });
+            Cookies.set("email", response.data.email, { expires: 400 });
+            Cookies.set("role", decoded.role, { expires: 400 });
+            Cookies.set("name", response.data.name, { expires: 400 });
+            Cookies.set("userName", response.data.userName, { expires: 400 });
+            Cookies.set("isVerified", "true", { expires: 400 });
+            Cookies.set("verifiedByEhub", decoded.verifiedByEhub, { expires: 400 });
+            Cookies.set("mobile", decoded.mobile, { expires: 400 });
+            Cookies.set("_id", decoded._id, { expires: 400 });
+            Cookies.set("image", decoded.image, { expires: 400 });
+            Cookies.set("chatDomain", JSON.stringify(decoded.chatDomain || {}), { expires: 400 });
+            
+            setLoading(false);
+            setSnackbarValues({
+              severity: "success",
+              message: "Account already exists and is verified. You have been logged in successfully!",
+            });
+            setOpen(true);
+            setTimeout(() => {
+              navigate("/");
+              window.location.reload(true);
+            }, 1500);
+            return;
+          }
+          
+          // Normal signup flow - OTP verification needed
+          Cookies.set("email", response.data.email, { expires: 1 / 24 / 4 });
+          Cookies.set("role", "Organization", { expires: 1 / 24 / 4 });
+
           if (
             response.status === 200 ||
             response.status === 201 ||
@@ -322,8 +368,38 @@ const OrganizationSignup = () => {
         (error) => {
           setLoading(false);
           setValidation(false);
-          alert(error.response.data.message);
-          console.log(error);
+          
+          // Handle different error types with user-friendly messages
+          let errorMessage = "An error occurred during signup. Please try again.";
+          
+          if (error.response) {
+            // Server responded with error
+            const status = error.response.status;
+            const message = error.response.data?.message || error.response.data?.err;
+            
+            if (status === 409) {
+              // Conflict - account already exists
+              errorMessage = message || "An account with this email or mobile number already exists. Please login or use different credentials.";
+            } else if (status === 400) {
+              // Bad request - validation errors
+              errorMessage = message || "Please check your input and ensure all required fields are filled correctly.";
+            } else if (status === 500) {
+              // Server error
+              errorMessage = "Server error. Please try again later.";
+            } else {
+              errorMessage = message || errorMessage;
+            }
+          } else if (error.request) {
+            // Request made but no response
+            errorMessage = "Network error. Please check your internet connection and try again.";
+          }
+          
+          setSnackbarValues({
+            severity: "error",
+            message: errorMessage,
+          });
+          setOpen(true);
+          console.error("Signup error:", error);
         }
       );
     }
@@ -579,6 +655,13 @@ const OrganizationSignup = () => {
           </div>
         </section>
       </main>
+      <CustomSnackbar
+        setOpen={() => setOpen(false)}
+        open={open}
+        message={snackbarValues.message}
+        severity={snackbarValues.severity}
+        duration={4000}
+      />
     </>
   );
 };
