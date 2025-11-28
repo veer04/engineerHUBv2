@@ -190,6 +190,15 @@ function App() {
   }, [shouldHideNavbar]);
 
   useEffect(() => {
+    // Don't show popup on login/signup pages
+    const isAuthPage = location.pathname.includes("/login") || 
+                       location.pathname.includes("/signup") || 
+                       location.pathname.includes("/otp-verification");
+    
+    if (isAuthPage) {
+      return;
+    }
+    
     // Check if popup was already closed in this session
     const popupClosed = sessionStorage.getItem("testimonialsPopupClosed");
     
@@ -203,7 +212,7 @@ function App() {
       // Cleanup timer on unmount
       return () => clearTimeout(timer);
     }
-  }, []);
+  }, [location.pathname]);
 
   const handleClosePopup = () => {
     setShowPopup(false);

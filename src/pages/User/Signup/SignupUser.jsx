@@ -189,32 +189,41 @@ const SignupUser = () => {
           }
         })
         .catch((error) => {
+          setLoading(false);
+          setValidation(false);
+          
+          // Handle different error types with user-friendly messages
+          let errorMessage = "An error occurred during signup. Please try again.";
+          
+          if (error.response) {
+            // Server responded with error
+            const status = error.response.status;
+            const message = error.response.data?.message || error.response.data?.err;
+            
+            if (status === 409) {
+              // Conflict - account already exists
+              errorMessage = message || "An account with this email already exists. Please login or use different credentials.";
+            } else if (status === 400) {
+              // Bad request - validation errors
+              errorMessage = message || "Please check your input and ensure all required fields are filled correctly.";
+            } else if (status === 500) {
+              // Server error
+              errorMessage = "Server error. Please try again later.";
+            } else {
+              errorMessage = message || errorMessage;
+            }
+          } else if (error.request) {
+            // Request made but no response
+            errorMessage = "Network error. Please check your internet connection and try again.";
+          }
+          
           setSnackbarValues({
             severity: "error",
-            message: error?.response?.data?.message || "Something went wrong",
+            message: errorMessage,
           });
           setOpen(true);
-          console.error(error);
+          console.error("Signup error:", error);
         });
-      setValues({ ...values, password: "" });
-      // signIn({
-      //   token: response.data.accessToken,
-      //   expiresIn: 3600,
-      //   tokenType: "Bearer",
-      //   authState: { m:values.email },
-      // });
-      setValidation(true);
-      setOpen(true);
-      // setSnackbarValues({
-      //   severity: "success",
-      //   message: "Logged in Successfully!",
-      // });
-      setCookieValue(
-        Cookies.get("_auth_state").slice(
-          6,
-          Cookies.get("_auth_state").length - 12
-        )
-      );
     } catch (err) {
       setLoading(false);
       // setSnackbarValues({

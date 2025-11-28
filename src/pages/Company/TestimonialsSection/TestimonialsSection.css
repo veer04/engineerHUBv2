@@ -395,9 +395,20 @@
     line-height: 18px;
   }
 
+  .testimonial-card-front {
+    padding: 0.75rem 0.75rem 0.5rem 0.75rem; /* Further reduce bottom padding on mobile */
+  }
+  
   .testimonial-card-front .placed-at {
     font-size: 11px;
     line-height: 14px;
+    margin-bottom: 2px;
+  }
+  
+  .testimonial-card-front .company-logo-container {
+    margin-top: 0;
+    padding: 2px 4px 0 4px; /* Remove bottom padding */
+    margin-bottom: 0; /* Remove bottom margin */
   }
 
   .testimonial-card-back {

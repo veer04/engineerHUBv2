@@ -23,7 +23,7 @@ const YourCompanyActivitySection = ({
   projects,
   internships,
 }) => {
-  const [actionButton, setActionButton] = useState("Posts");
+  const [actionButton, setActionButton] = useState("Jobs");
   const scrollContainerRef = useRef(null);
   const scrollAmount = 300;
 

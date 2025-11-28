@@ -4,6 +4,7 @@ import useNavbar from "../../hooks/use-navbar";
 import { useEffect, useState } from "react";
 import NotificationBadge from "../NotificationBadge/NotificationBadge";
 import useChatNotifications from "../../hooks/useChatNotifications";
+import { getUserRole } from "../../features/User/UserDetails";
 
 export function CommunitySvg({ className }) {
   return (
@@ -158,10 +159,12 @@ export default function MobileNavbar() {
   const { selectedPageNavbar, setSelectedPageNavbar } = useNavbar();
   const { notificationData, clearNavbarBadge } = useChatNotifications();
   const [showNavbar, setShowNavbar] = useState(true);
+  const [userRole, setUserRole] = useState(null);
 
   const location = useLocation();
 
   useEffect(() => {
+    setUserRole(getUserRole());
     if (
       location.pathname.includes("host/") ||
       location.pathname.includes("/chat/")
@@ -172,26 +175,28 @@ export default function MobileNavbar() {
 
   return showNavbar ? (
     <div className="mobile-navbar">
-      <Link
-        to="/chat"
-                onClick={() => {
-                  setSelectedPageNavbar("chat");
-                  // Don't clear navbar badge immediately - let user see which groups have notifications
-                  // The badge will be cleared when they click on a specific group
-                }}
-        className={`item-container ${
-          selectedPageNavbar === "community" ? "--is-active" : ""
-        }`}
-        style={{ position: 'relative' }}
-      >
-        <CommunitySvg className="svg" />
-        <span> Chat</span>
-        <NotificationBadge 
-          count={notificationData.count}
-          type={notificationData.type}
-          className="mobile-badge"
-        />
-      </Link>
+      {userRole !== "Organization" && userRole !== "Club" && (
+        <Link
+          to="/chat"
+          onClick={() => {
+            setSelectedPageNavbar("chat");
+            // Don't clear navbar badge immediately - let user see which groups have notifications
+            // The badge will be cleared when they click on a specific group
+          }}
+          className={`item-container ${
+            selectedPageNavbar === "community" ? "--is-active" : ""
+          }`}
+          style={{ position: 'relative' }}
+        >
+          <CommunitySvg className="svg" />
+          <span> Chat</span>
+          <NotificationBadge 
+            count={notificationData.count}
+            type={notificationData.type}
+            className="mobile-badge"
+          />
+        </Link>
+      )}
       {/*<Link
         to="/campus"
         onClick={() => {
