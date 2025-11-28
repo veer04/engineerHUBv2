@@ -8,10 +8,17 @@ import useNavbar from "../../../hooks/use-navbar";
 import { API_URL } from "../../../services/APIUtils";
 import SimpleInputField from "../../../components/SimpleInputField/SimpleInputField";
 import jwt_decode from "jwt-decode";
+import CustomSnackbar from "../Login/CustomSnackbar";
+
 const OTP = () => {
   const { setSelectedPageNavbar } = useNavbar();
 
   const [loading, setLoading] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [snackbarValues, setSnackbarValues] = useState({
+    severity: "error",
+    message: "",
+  });
 
   useEffect(() => {
     document.title = "OTP Verification | engineerHUB";
@@ -78,8 +85,41 @@ const OTP = () => {
       })
       .catch((error) => {
         setLoading(false);
-        alert("Invalid OTP");
-        console.error(error);
+        
+        // Handle different error types with user-friendly messages
+        let errorMessage = "An error occurred during OTP verification. Please try again.";
+        
+        if (error.response) {
+          // Server responded with error
+          const status = error.response.status;
+          const message = error.response.data?.message;
+          
+          if (status === 401) {
+            // Unauthorized - OTP not matched
+            errorMessage = message || "Invalid OTP. Please check and try again.";
+          } else if (status === 404) {
+            // Not found - email has no account
+            errorMessage = message || "This email has no account. Please sign up first.";
+          } else if (status === 409) {
+            // Conflict - account already verified
+            errorMessage = message || "Account already verified. Please login.";
+          } else if (status === 500) {
+            // Server error
+            errorMessage = "Server error. Please try again later.";
+          } else {
+            errorMessage = message || errorMessage;
+          }
+        } else if (error.request) {
+          // Request made but no response
+          errorMessage = "Network error. Please check your internet connection and try again.";
+        }
+        
+        setSnackbarValues({
+          severity: "error",
+          message: errorMessage,
+        });
+        setOpen(true);
+        console.error("OTP verification error:", error);
       });
   };
   const changeRouteValue = () => {
@@ -214,6 +254,14 @@ const OTP = () => {
                       {loading ? "Loading..." : "Verify"}
                     </button>
                   </form>
+                  {snackbarValues.severity && (
+                    <CustomSnackbar
+                      setOpen={setOpen}
+                      open={open}
+                      message={snackbarValues.message}
+                      severity={snackbarValues.severity}
+                    />
+                  )}
                 </div>
               </div>
             </div>

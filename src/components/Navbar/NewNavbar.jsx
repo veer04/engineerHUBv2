@@ -5,6 +5,7 @@ import { Bucket_URL } from "../../services/APIUtils";
 import {
   getUserFullName,
   getUserImage,
+  getUserRole,
   isUserLoggedIn,
 } from "../../features/User/UserDetails";
 import useNavbar from "../../hooks/use-navbar";
@@ -17,6 +18,7 @@ export default function NewNavbar() {
   const [name, setName] = useState("");
   const [userImage, setUserImage] = useState("");
   const [width, setWidth] = useState(window.innerWidth);
+  const [userRole, setUserRole] = useState(null);
 
   const { selectedPageNavbar, setSelectedPageNavbar } = useNavbar();
   const { notificationData, clearNavbarBadge } = useChatNotifications();
@@ -27,6 +29,7 @@ export default function NewNavbar() {
     setUserImage(getUserImage());
     setIsLoggedIn(isUserLoggedIn());
     setName(getUserFullName());
+    setUserRole(getUserRole());
     window.addEventListener("resize", handleResize);
 
     return () => {
@@ -87,23 +90,25 @@ export default function NewNavbar() {
         <img src={`${bucket}logo.svg`} alt="engineerHUB logo" loading="lazy" />
       </Link>
       <div className="pages">
-        <Link
-          onClick={handleCommunityChatClick}
-          to="/Chat"
-          style={{ position: 'relative', display: 'inline-block' }}
-        >
-          <button
-            className={`${
-              selectedPageNavbar === "community" ? "--is-active" : ""
-            }`}
+        {userRole !== "Organization" && userRole !== "Club" && (
+          <Link
+            onClick={handleCommunityChatClick}
+            to="/Chat"
+            style={{ position: 'relative', display: 'inline-block' }}
           >
-            Community Chat
-          </button>
-          <NotificationBadge 
-            count={notificationData.count}
-            type={notificationData.type}
-          />
-        </Link>
+            <button
+              className={`${
+                selectedPageNavbar === "community" ? "--is-active" : ""
+              }`}
+            >
+              Community Chat
+            </button>
+            <NotificationBadge 
+              count={notificationData.count}
+              type={notificationData.type}
+            />
+          </Link>
+        )}
         {/*
         <Link onClick={() => setSelectedPageNavbar("campus")} to="/campus">
           <button

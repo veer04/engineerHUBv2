@@ -215,6 +215,24 @@
   padding: 4px;
 }
 
+/* Reduce gap between "Placed at" and logo on mobile */
+@media screen and (max-width: 768px) {
+  .testimonial-container-popup .testimonial-card-front {
+    gap: 4px;
+    padding: 0.75rem 0.75rem 0.5rem 0.75rem; /* Reduce bottom padding */
+  }
+  
+  .testimonial-container-popup .testimonial-card-front .placed-at {
+    margin-bottom: 2px;
+  }
+  
+  .testimonial-container-popup .testimonial-card-front .company-logo-container {
+    margin-top: 0;
+    padding: 2px 4px 0 4px; /* Remove bottom padding */
+    margin-bottom: 0;
+  }
+}
+
 .testimonial-container-popup .testimonial-card-front .company-logo-container img {
   max-width: 100%;
   max-height: 100%;
@@ -338,6 +356,15 @@
 
   .testimonial-container-popup .flip-card-inner {
     min-height: 280px;
+  }
+  
+  .testimonial-container-popup .testimonial-card-front {
+    padding: 0.75rem 0.75rem 0.2rem 0.75rem; /* Further reduce bottom padding on smaller screens */
+  }
+  
+  .testimonial-container-popup .testimonial-card-front .company-logo-container {
+    padding: 2px 4px 0 4px; /* Remove bottom padding */
+    margin-bottom: 0;
   }
 
   .testimonials-popup-close {
