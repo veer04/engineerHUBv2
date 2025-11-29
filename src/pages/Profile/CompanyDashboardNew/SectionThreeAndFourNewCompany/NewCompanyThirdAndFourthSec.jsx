@@ -9,11 +9,17 @@ const NewCompanyThirdAndFourthSec = ({
   btn,
   btnLink,
   rightImage,
+  adminView,
 }) => {
   const navigate = useNavigate();
   const handleButtonClick = () => {
     navigate(`${btnLink}`);
   };
+  
+  if (!adminView) {
+    return null;
+  }
+  
   return (
     <div className="main-div-campus-screening" style={{ background: bgColor }}>
       <div className="inner-sub-div">

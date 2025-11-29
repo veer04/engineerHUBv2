@@ -174,7 +174,7 @@ const CompanyDashboardNew = () => {
       </div>
 
       <div style={{ marginBottom: 20 }}>
-        <HostPageForComapnyDashboard />
+        <HostPageForComapnyDashboard adminView={isUserAdmin} />
       </div>
 
       <div style={{ marginBottom: 20 }}>
@@ -204,6 +204,7 @@ const CompanyDashboardNew = () => {
           btn={"For Companies"}
           btnLink={"/referrals/book-now/67a107c89d57a46e99582bd1"}
           rightImage={`${Bucket_URL}newcompanydashboard/right_frame1.png`}
+          adminView={isUserAdmin}
         />
       </div>
 
@@ -211,12 +212,13 @@ const CompanyDashboardNew = () => {
         <NewCompanyThirdAndFourthSec
           title={"70% less screening time"}
           desc={
-            "Accelerate your hiring process with our streamlined platform—connect, assess, and onboard top talent within 72 hours, ensuring efficiency and quality every step of the way."
+            "Accelerate your hiring process with our streamlined platform—connect, assess, and onboard top talent within 72 hours, ensuring efficiency and quality every step of the way."
           }
           bgColor={"#8FC8E826"}
           btn={"For HRs"}
           btnLink={"/referrals/book-now/67a107c89d57a46e99582bd1"}
           rightImage={`${Bucket_URL}newcompanydashboard/right_frame2.png`}
+          adminView={isUserAdmin}
         />
       </div>
       <Outlet />

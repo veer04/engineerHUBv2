@@ -69,7 +69,7 @@ const JobCardForCompany = ({ data, adminView }) => {
                   {job.organisationName}
                 </h4>
 
-                {
+                {adminView && (
                   <button
                     className="btn-h4-main"
                     onClick={(e) => {
@@ -79,7 +79,7 @@ const JobCardForCompany = ({ data, adminView }) => {
                   >
                     <h4 className="h4-view-candidates">View Candidates</h4>
                   </button>
-                }
+                )}
               </div>
 
               <h3
