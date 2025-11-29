@@ -9,7 +9,11 @@ import CulturalEventComp from "../../../../components/ProfileDashboard/HostpageF
 import CreateInternshipCard from "../../../../components/ProfileDashboard/HostpageForProfileDashboard/CreateInternshipCard";
 import CreateEventHiring from "../../../../components/ProfileDashboard/HostpageForProfileDashboard/CreateEventHiring";
 
-const HostPageForComapnyDashboard = () => {
+const HostPageForComapnyDashboard = ({ adminView }) => {
+  if (!adminView) {
+    return null;
+  }
+
   return (
     <div className="host-page-main-company-dashboard">
       <div style={{ display: "flex", gap: 10, alignItems: "center" }}>

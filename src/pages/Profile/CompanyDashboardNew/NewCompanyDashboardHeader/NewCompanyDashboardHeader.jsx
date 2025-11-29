@@ -211,43 +211,45 @@ const NewCompanyDashboardHeader = ({ isUserAdmin, organization }) => {
               )}
             </div>
 
-            <div className="main-edit-create-post-btn">
-              <div>
-                <button
-                  onClick={() => navigate("edit-profile")}
-                  className="edit-btn"
-                >
-                  Edit Profile
-                </button>
-              </div>
+            {isUserAdmin && (
+              <div className="main-edit-create-post-btn">
+                <div>
+                  <button
+                    onClick={() => navigate("edit-profile")}
+                    className="edit-btn"
+                  >
+                    Edit Profile
+                  </button>
+                </div>
 {/*
-              <div>
-                <button
-                  className="create-post"
-                  onClick={() => navigate("/host")}
-                >
-                  <span style={{ marginBottom: 2 }}>
-                    {" "}
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="12"
-                      height="12"
-                      viewBox="0 0 15 14"
-                      fill="none"
-                    >
-                      <path
-                        d="M7.5 1V13M13.5 7H1.5"
-                        stroke="#138382"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      />
-                    </svg>
-                  </span>
-                  Create Post
-                </button>
-              </div>*/}
-            </div>
+                <div>
+                  <button
+                    className="create-post"
+                    onClick={() => navigate("/host")}
+                  >
+                    <span style={{ marginBottom: 2 }}>
+                      {" "}
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="12"
+                        height="12"
+                        viewBox="0 0 15 14"
+                        fill="none"
+                      >
+                        <path
+                          d="M7.5 1V13M13.5 7H1.5"
+                          stroke="#138382"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
+                    </span>
+                    Create Post
+                  </button>
+                </div>*/}
+              </div>
+            )}
           </div>
           {organization?.aboutUs && (
             <p
