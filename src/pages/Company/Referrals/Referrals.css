@@ -1,20 +1,20 @@
 .referral-main-container {
   position: relative;
   max-width: 1161px;
-  height: 538px;
+  min-height: auto;
   border-radius: 20px;
   margin: 20px auto;
+  padding: 40px 35px;
   background-color: #138382;
   background-size: cover;
   background-position: center;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 .b-left-side {
-  margin-top: 80px;
   width: 429px;
-  margin-left: 35px;
 }
 
 .b-left-side .ref-txt {
@@ -63,7 +63,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 90px;
 }
 
 .banner-cards {
@@ -90,9 +89,10 @@
     display: flex;
     flex-direction: column;
     max-width: 100%;
-    height: 100%;
+    min-height: auto;
     border-radius: 0;
     margin: 0;
+    padding: 40px 16px;
     gap: 0;
   }
 
@@ -101,9 +101,7 @@
   }
 
   .b-left-side {
-    margin-top: 80px;
     width: 100%;
-    margin-left: 0px;
   }
 }
 
@@ -112,21 +110,21 @@
     display: flex;
     flex-direction: column;
     max-width: 100%;
-    height: 100%;
+    min-height: auto;
     border-radius: 0;
     margin: 0;
+    padding: 40px 16px;
     gap: 0;
   }
 
   .referral-main-container::before {
     max-width: 100%;
-    height: 100%;
+    min-height: auto;
     gap: 0;
   }
 
   .b-left-side {
     width: fit-content;
-    margin-left: 16px;
   }
 
   .b-left-side .ref-txt {
