@@ -14,6 +14,7 @@ import { Bucket_URL } from "../../../services/APIUtils";
 import { useLocation } from "react-router-dom";
 import OurMentors from "./OurMentors/OurMentors";
 import { SEO } from "../../../components/SEO/SEO.jsx";
+import CareerSupportIntroSection from "./CareerSupportIntroSection";
 
 const bucket = `${Bucket_URL}frontend/company/referral/`;
 
@@ -120,6 +121,7 @@ const Referrals = () => {
             playsInline
           ></video>
 
+{/*}
           <SessionBox
             className="first"
             name={"Rohit Das"}
@@ -136,9 +138,10 @@ const Referrals = () => {
             }
             // profile={"BVDU Student"}
           />
+          */}
         </div>
       </div>
-
+{/*
       <div className="banner-cards">
         <div className="banner-card">
           <BannerCards
@@ -159,9 +162,9 @@ const Referrals = () => {
           />
         </div>
       </div>
-
+*/}
       {/* //carousal */}
-
+{/*
       <div
         id="carouselExampleControls"
         className="carousel slide d-block d-sm-none"
@@ -214,9 +217,11 @@ const Referrals = () => {
           <span className="visually-hidden">Next</span>
         </button>
       </div>
+*/}
+      {/* Career Support Intro Section */}
+      <CareerSupportIntroSection />
 
       {/* //connect With Us Section */}
-
       <ConnectWithUs compName={"Connect With Us"} />
       <DigitalProducts compName={"Digital Products"} />
       <OurMentors />

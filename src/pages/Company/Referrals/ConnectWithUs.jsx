@@ -12,8 +12,8 @@ const ConnectWithUs = ({ compName }) => {
   const [activeFilter, setActiveFilter] = useState("All");
 
   const customOrder = [
-    "Resume Writing",
-    "Resume + Career Guidance | Referral (Exp: 0-2 years)",
+    "Professional Resume Writing",
+     "Resume + Career Guidance | Referral (Exp: 0-2 years)",
     "Referral for Abroad Careers",
     "Resume + Career Guidance | Referral (Exp: 2+ years)",
     "Personalized Projects for Your Target Role",
@@ -22,6 +22,9 @@ const ConnectWithUs = ({ compName }) => {
     "1:1 Consultation Calls for Freelancers",
     "Placement Preparation Roadmap for 2025",
     "Internship / Job Search & Strategy Guide",
+    "Career Support Program | 0-2 YOE",
+    "Career Support Program | 2-5 YOE",
+    "Career Support Program | 5+ YOE",
   ];
 
   const sortDataByCustomOrder = (data) => {
