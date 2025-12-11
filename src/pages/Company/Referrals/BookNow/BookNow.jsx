@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import "./booknow.css";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import FeedBackCarousalForBookNow from "../FeedbackCarousalForBookNow/FeedBackCarousalForBookNow";
+import FeedbackCarousel from "../../../../components/FeedbackCarousel/FeedbackCarousel";
 import DateBoxes from "../DateBoxesCard/DateBoxes";
 import TimeBox from "../TimeBox/TimeBox";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -686,50 +687,17 @@ const BookNow = () => {
               >
                 <h3 className="text-h3">Recent Feedbacks</h3>
               </div>
-          
-              {/* <div className="feedback-btn-main-div">
-                <div className="feedback-btn">
-                  <img src="/chevro-left.svg" alt="" />
-                  <Link className="feedback-button-link">Previous</Link>
-                </div>
-          
-                <div className="feedback-btn">
-                  <Link className="feedback-button-link">Next</Link>
-                  <img src="/chevro-right.svg" alt="" />
-                </div>
-              </div> */}
             </div>
           )}
           
 
           {referralId !== "67a107c89d57a46e99582bd1" && (
             <div className="feedback-carousal-div">
-              {isMobile ? (
-                <FeedBackCarousalForBookNow
-                  content={
-                    "I have successfully received a referral from Microsoft, thank you engineerhub."
-                  }
-                  name={"Satyam Singh"}
-                  // profile={"dd/mm/yy"}
-                />
-              ) : (
-                <>
-                  <FeedBackCarousalForBookNow
-                    content={
-                      "I got an idea about how companies approach, what they expect from us, and how to customize my resume."
-                    }
-                    name={"Mohammed Sulaiman"}
-                    // profile={"dd/mm/yy"}
-                  />
-                  <FeedBackCarousalForBookNow
-                    content={
-                      "I have successfully received a referral from Microsoft, thank you engineerhub."
-                    }
-                    name={"Satyam Singh"}
-                    // profile={"dd/mm/yy"}
-                  />
-                </>
-              )}
+              <FeedbackCarousel 
+                referralId={referralId}
+                autoPlayInterval={5000}
+                itemsPerView={isMobile ? 1 : 2}
+              />
             </div>
           )}
           
