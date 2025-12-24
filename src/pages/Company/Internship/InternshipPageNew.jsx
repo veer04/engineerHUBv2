@@ -217,11 +217,11 @@ export default function InternshipPageNew() {
               placeholder="Search for internships,companies etc"
             />
           </div>
-                 {/* AD-4 */}
+                 {/* AD-4 
                
             <AdsenseComp adSlot="5168117459" />
        
-
+              */}
           <FilterContainerInternship
             className="filter-section"
             style={{
@@ -283,10 +283,12 @@ export default function InternshipPageNew() {
         {/* Outlet for individual internship details */}
         <Outlet />
       </div>
+      {/*
       <div className="d-flex justify-content-center mb-3">
             <AdsenseComp adSlot="1464856375" />
           </div>
-    </main>
+      */}
+      </main>
     </SEO>
   );
 } 
