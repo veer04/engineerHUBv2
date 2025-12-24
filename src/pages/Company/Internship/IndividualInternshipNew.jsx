@@ -343,11 +343,11 @@ export default function IndividualInternshipNew() {
               </div>
             </div>
           </div>
-
+          {/*
           <div className="d-flex justify-content-center mb-3">
             <AdsenseComp adSlot="1960197314" />
           </div>
-          {/*<div className="d-flex justify-content-center mb-3">
+          <div className="d-flex justify-content-center mb-3">
             <AdsenseComp adSlot="6898770594" />
           </div>*/}
 
@@ -379,11 +379,11 @@ export default function IndividualInternshipNew() {
               className="hiring-styled-description"
             ></div>
           </div>
-
+          {/*
           <div className="d-flex justify-content-center mb-3">
             <AdsenseComp adSlot="1960197314" />
           </div>
-          {/*<div className="d-flex justify-content-center mb-3">
+          <div className="d-flex justify-content-center mb-3">
             <AdsenseComp adSlot="6898770594" />
           </div>*/}
 

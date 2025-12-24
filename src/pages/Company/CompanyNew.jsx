@@ -214,19 +214,22 @@ const CompanyNew = () => {
 
         <JobsForYouFilterComp />
         <ServicesSegment />
-        {/* AD-3 */}
+        
+        {/* AD-3 
         <AdsenseComp adSlot="9608720063" />
-
+*/}
         <ExploreOtherPages />
-        {/* AD-4 */}
+        {/* AD-4 
         <AdsenseComp adSlot="3771351287" />
-
+*/}
         <TestimonialsSection />
         <CareerSEOContent />
 
-        {/* AD-7 display */}
+        {/* AD-7 display 
         <AdsenseComp adSlot="2618267316" />
+        */}
       </main>
+
     </SEO>
   );
 };
