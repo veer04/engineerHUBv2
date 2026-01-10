@@ -558,11 +558,10 @@ export default function IndividualJobNew() {
                 )}
               </div>
             </div>
-            {/*
+            
             <div className="d-flex justify-content-center mb-3">
               <AdsenseComp adSlot="8096000870" />
             </div>
-            */}
           </>
         ) : (
           <div
