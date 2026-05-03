@@ -33,7 +33,11 @@ const DigitalCards = ({
   return (
     <>
       {/* <Link to={`/referrals/product-book-now/${id}`}> */}
-      <div className="digi-main-container">
+      <div
+        className="digi-main-container"
+        data-has-thumbnail={thumbnail ? "yes" : "no"}
+      >
+        {/* Temporarily hidden while S3 assets are being migrated and upper section is disabled.
         <div className="digi-img-container">
           <img src={thumbnail} alt="" width={324} height={183} />
           <div
@@ -53,6 +57,7 @@ const DigitalCards = ({
               Digital Product
             </h5>
           </div>
+          <p className="digi-banner-title">{type || "Career Resource"}</p>
           <div className="popular-star">
             <div
               style={{
@@ -90,6 +95,7 @@ const DigitalCards = ({
             )}
           </div>
         </div>
+        */}
 
         <div className="digi-content-container">
           <h2 className="digi-h2">{title}</h2>

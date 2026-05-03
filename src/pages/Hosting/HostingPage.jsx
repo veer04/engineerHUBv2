@@ -3,7 +3,7 @@ import "./HostingPage.css";
 import { useNavigate } from "react-router-dom";
 import { AiOutlinePlus } from "react-icons/ai";
 import { IoMdArrowForward } from "react-icons/io";
-import { Bucket_URL } from "../../services/APIUtils";
+// import { Bucket_URL } from "../../services/APIUtils";
 import useNavbar from "../../hooks/use-navbar";
 import { getUserRole, isUserLoggedIn } from "../../features/User/UserDetails";
 import { redirectToAuth } from "../../features/redirectToAuth";
@@ -34,7 +34,7 @@ export default function HostingPage() {
   }, []);
 
   const navigate = useNavigate();
-  const bucket = `${Bucket_URL}frontend/hosting/`;
+  // const bucket = `${Bucket_URL}frontend/hosting/`;
 
   function handleCreatePost() {
     if (!isUserLoggedIn()) {
@@ -215,7 +215,9 @@ export default function HostingPage() {
           <div className="tiles">
             {HOSTING_ITEMS_1.map((item) => (
               <article key={item.id} onClick={item.onClick} className="tile">
+                {/* Temporarily hidden while S3 assets are being migrated.
                 <img src={`${bucket}${item.image}`} alt="job-hosting-poster" />
+                */}
                 <span className="heading">{item.heading}</span>
                 <span className="sub-heading">
                   {item.subHeading}
@@ -246,7 +248,9 @@ export default function HostingPage() {
         </section>
         */}
 
+        {/* Temporarily hidden while S3 assets are being migrated.
         <OurClientale />
+        */}
       </main>
     </>
   );

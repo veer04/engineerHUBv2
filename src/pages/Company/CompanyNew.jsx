@@ -53,12 +53,14 @@ const SearchSection = () => {
         >
           Internships
         </Link>
+        {/*
         <Link 
           to="/career/events" 
           className={`quick-link-btn ${isActive('/career/events') ? 'active' : ''}`}
         >
           Event Hiring
         </Link>
+        */}
       </div>
     </div>
   );
@@ -205,24 +207,26 @@ const CompanyNew = () => {
         <SearchSection />
 
         <JobsSegment />
-        {/* AD-1 */}
+        {/* AD-1 
         <AdsenseComp adSlot="2075126233" />
+        */}
 
         <InternshipSegment />
-        {/* AD-2 */}
+        {/* AD-2 
         <AdsenseComp adSlot="4766701351" />
-
+         */}
         <JobsForYouFilterComp />
         <ServicesSegment />
         
         {/* AD-3 
         <AdsenseComp adSlot="9608720063" />
 */}
-        <ExploreOtherPages />
-        {/* AD-4 
+  {/*        <ExploreOtherPages />
+       AD-4 
         <AdsenseComp adSlot="3771351287" />
-*/}
+
         <TestimonialsSection />
+*/}
         <CareerSEOContent />
 
         {/* AD-7 display 

@@ -51,7 +51,7 @@ const BookNowSuccessProduct = () => {
 
   //   try {
   //     const checkResponse = await axios.get(
-  //       `${PAYMENT_API_URL}api/v1/razorpay/confirmCoursePayment/${confirmationData?.coursePurchaseRequestId}`,
+  //       `${PAYMENT_API_URL}payment/razorpay/confirmCoursePayment/${confirmationData?.coursePurchaseRequestId}`,
   //       {
   //         headers: {
   //           accessToken: getAccessToken(),
@@ -86,7 +86,7 @@ const BookNowSuccessProduct = () => {
   const paymentCheckingApi = async () => {
     try {
       const checkResponse = await axios.get(
-        `${PAYMENT_API_URL}api/v1/razorpay/confirmCoursePayment/${confirmationData?.coursePurchaseRequestId}`,
+        `${PAYMENT_API_URL}payment/razorpay/confirmCoursePayment/${confirmationData?.coursePurchaseRequestId}`,
         {
           headers: {
             accessToken: getAccessToken(),

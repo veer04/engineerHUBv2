@@ -10,12 +10,18 @@ import CommunityChatHeader from "./CommunityChatHeader";
 import CommunityChatGroupList from "./CommunityChatGroupList";
 import Chat from "./Chat";
 import getCookie, { getAccessToken } from "../../features/getCookieValues";
-import axios from "axios";
-import { API_URL } from "../../services/APIUtils";
+// import axios from "axios";
+// import { API_URL } from "../../services/APIUtils";
 import useChatNotifications from "../../hooks/useChatNotifications";
 import { SEO } from "../../components/SEO/SEO.jsx";
+import { ENABLE_COMMUNITY_CHAT } from "../../config/featureFlags";
 
 export default function CommunityChat() {
+  if (!ENABLE_COMMUNITY_CHAT) {
+    // COMMUNITY CHAT DISABLED TEMPORARILY
+    return null;
+  }
+
   if (!isUserLoggedIn()) {
     redirectToAuth("/login");
     return <LoadingPage />;
@@ -24,11 +30,11 @@ export default function CommunityChat() {
   if (role === "Club" || role === "Organization") {
     return <Page404 />;
   }
-  const config = {
-    headers: {
-      accesstoken: getAccessToken(),
-    },
-  };
+  // const config = {
+  //   headers: {
+  //     accesstoken: getAccessToken(),
+  //   },
+  // };
   const user = getAccessToken();
   const { chatId } = useParams();
   const [data, setData] = useState({});
@@ -51,19 +57,20 @@ export default function CommunityChat() {
     return () => window.removeEventListener("resize", handleResize);
   }, [clearNavbarBadge]);
 
-  useEffect(() => {
-    axios
-      .get(`${API_URL}api/v1/chat/${encodeURIComponent(chatId)}`, config)
-      .then((res) => {
-        setData(res.data.data);
-      })
-      .catch((err) => {
-        if (
-          err.response.data.message !== "Sorry, you are not in this chat room."
-        )
-          console.log(err);
-      });
-  }, [chatId]);
+  // COMMUNITY CHAT DISABLED TEMPORARILY
+  // useEffect(() => {
+  //   axios
+  //     .get(`${API_URL}api/v1/chat/${encodeURIComponent(chatId)}`, config)
+  //     .then((res) => {
+  //       setData(res.data.data);
+  //     })
+  //     .catch((err) => {
+  //       if (
+  //         err.response.data.message !== "Sorry, you are not in this chat room."
+  //       )
+  //         console.log(err);
+  //     });
+  // }, [chatId]);
 
   const chatScreen = (
     <section className="chat-window">

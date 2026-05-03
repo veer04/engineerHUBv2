@@ -167,7 +167,8 @@ const RecommendationCard1 = ({ data }) => {
                   </h3>
                 </div>
 
-                <div className="absolute-position-amazon">
+                {/* PROFILE RECOMMENDATION LOGO TEMPORARILY DISABLED (can be re-enabled later) */}
+                {/* <div className="absolute-position-amazon">
                   <img
                     style={{ borderRadius: "50%" }}
                     src={job.organisationLogo}
@@ -175,7 +176,7 @@ const RecommendationCard1 = ({ data }) => {
                     height={48}
                     alt=""
                   />
-                </div>
+                </div> */}
               </div>
 
               {/* //recommendation profile data end */}

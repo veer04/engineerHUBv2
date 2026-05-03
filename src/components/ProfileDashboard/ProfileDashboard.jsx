@@ -159,6 +159,7 @@ const ProfileDashboard = () => {
                 privateDashboardData={privateDashboardDataForComp}
               />
             </div>
+            {/*
             <img
               onClick={handleRedirect}
               className="profile-dashboard-rectangle-img-1"
@@ -166,6 +167,7 @@ const ProfileDashboard = () => {
               src={`${Bucket_URL}banner-cosdata-mobile.png`}
               alt="banner"
             />
+            */}
           </div>
 
           <div className="main-profile-dashboard-right">
@@ -189,6 +191,7 @@ const ProfileDashboard = () => {
           </div>
         </div>
 
+        {/*
         <img
           onClick={handleRedirect}
           style={{
@@ -202,6 +205,8 @@ const ProfileDashboard = () => {
           src={`${Bucket_URL}banner-cosdata-mobile.png`}
           alt="banner"
         />
+        */}
+
         {/*AD - 19}
         <div className="d-flex justify-content-center mb-3">
           <AdsenseComp adSlot="1464856375" />

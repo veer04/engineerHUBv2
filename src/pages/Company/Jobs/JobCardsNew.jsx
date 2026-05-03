@@ -136,6 +136,7 @@ export default function JobCardsNew({ details }) {
           </span>
         </div>
 
+        {/* Temporarily hidden while S3 assets are being migrated.
         <div className="company-logo">
           <img 
             src={details?.organisationLogo} 
@@ -146,6 +147,7 @@ export default function JobCardsNew({ details }) {
             }}
           />
         </div>
+        */}
       </div>
     </Link>
   );

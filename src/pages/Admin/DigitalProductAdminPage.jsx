@@ -53,7 +53,7 @@ export default function DigitalProductAdminPage() {
     queryFn: () =>
       axios
         .get(
-          `${PAYMENT_API_URL}api/v1/admin/course-payment-records?page=${params.pageNo}&limit=${params.limit}`,
+          `${PAYMENT_API_URL}payment/admin/course-payment-records?page=${params.pageNo}&limit=${params.limit}`,
           config
         )
         .then((res) => {

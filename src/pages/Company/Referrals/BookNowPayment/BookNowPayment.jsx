@@ -142,7 +142,7 @@ const BookNowPayment = () => {
 
   const getAllOpenMeet = async () => {
     try {
-      const response = await fetch(`${PAYMENT_API_URL}api/v1/meet/open`);
+      const response = await fetch(`${PAYMENT_API_URL}payment/meet/open`);
 
       if (response.ok) {
         const data = await response.json();
@@ -363,7 +363,7 @@ const handleMeetingSub =() => {
 
   axios
     .post(
-      `${PAYMENT_API_URL}api/v1/meet-event/register/${meetingData._id}`,
+      `${PAYMENT_API_URL}payment/meet-event/register/${meetingData._id}`,
       payload,
       {
         headers: {
@@ -381,7 +381,7 @@ const handleMeetingSub =() => {
         if (meetingData?.price === 0 || meetingData?.fees === 0) {
           axios
             .post(
-              `${PAYMENT_API_URL}api/v1/meet-event/book?meetRegistrationId=${
+              `${PAYMENT_API_URL}payment/meet-event/book?meetRegistrationId=${
                 res.data?.data?.meetRegistrationId
               }&ehub_referral=${
                 location?.search?.split("ref=")[1]?.split("&")[0] || ""
@@ -451,7 +451,7 @@ const handleMeetingSub =() => {
 
           axios
             .post(
-              `${PAYMENT_API_URL}api/v1/meet-event/register/${meetingData._id}`,
+              `${PAYMENT_API_URL}payment/meet-event/register/${meetingData._id}`,
               payload,
               {
                 headers: {
@@ -486,7 +486,7 @@ const handleMeetingSub =() => {
                 if (meetingData?.price === 0) {
                   await axios
                     .post(
-                      `${PAYMENT_API_URL}api/v1/meet-event/book?meetRegistrationId=${
+                      `${PAYMENT_API_URL}payment/meet-event/book?meetRegistrationId=${
                         data?.data?.meetRegistrationId
                       }&ehub_referral=${
                         location?.search?.split("ref=")[1]?.split("&")[0] || ""
@@ -570,7 +570,7 @@ const handleMeetingSub =() => {
       }
 
       const response = await axios.post(
-        `${PAYMENT_API_URL}api/v1/razorpay/createPaymentLink`,
+        `${PAYMENT_API_URL}payment/razorpay/createPaymentLink`,
 
         payload,
         {

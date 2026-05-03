@@ -1,22 +1,29 @@
 import React from "react";
 import { FaArrowRight } from "react-icons/fa";
-import { FaPlus } from "react-icons/fa6";
 import { Link } from "react-router-dom";
-import { Bucket_URL } from "../../../services/APIUtils";
 
 const CreateInternshipCard = () => {
+  const hostCardStyle = {
+    width: "224px",
+    height: "auto",
+    padding: "14px",
+    borderRadius: "10px",
+    background: "#f7fbfb",
+    border: "1px solid #d7e7e7",
+    boxShadow: "0 4px 14px rgba(16, 50, 58, 0.08)",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between",
+  };
+
   return (
     <>
-      <Link to={"/host/internship"}>
+      <Link to={"/host/internships"} style={{ textDecoration: "none" }}>
         <div
-          style={{
-            width: "224px",
-            padding: "12px",
-            borderRadius: "8px",
-            background: "#f3f9f9",
-          }}
+          style={hostCardStyle}
         >
-          <div
+          {/* HOST CARD IMAGE TEMPORARILY DISABLED (can be re-enabled later) */}
+          {/* <div
             style={{
               width: "200px",
               height: "100px",
@@ -34,9 +41,9 @@ const CreateInternshipCard = () => {
               width={"200px"}
               height={"100px"}
             />
-          </div>
+          </div> */}
 
-          <div style={{ marginTop: 8 }}>
+          <div>
             <h3
               style={{
                 fontSize: 16,

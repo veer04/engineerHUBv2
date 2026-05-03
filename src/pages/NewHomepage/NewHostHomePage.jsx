@@ -92,7 +92,7 @@ const NewHostHomePage = () => {
                      style={{
                       backgroundColor: "#91F0EF",
                     }}>
-                    Hackathons & Recruitment Drives{" "}
+                     Recruitment Drives{" "}
                     </span>
                     <span
                      
@@ -107,11 +107,11 @@ const NewHostHomePage = () => {
                     }}
                     className="textDesc"
                   >
-                      Post jobs, internships, and hackathons to hire the right candidates.
+                      Checkout our Employer page for more details.
                   </p>
                   <div className="wrapButton">
                     <div
-                      onClick={() => navigate("/host")}
+                      onClick={() => navigate("/employer")}
                       style={{
                         width: "220px",
                         borderRadius: "50px",
@@ -132,7 +132,7 @@ const NewHostHomePage = () => {
                           display: "flex",
                         }}
                       >
-                        Host
+                        Click
                       </p>
                     </div>
                   </div>

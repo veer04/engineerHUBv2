@@ -47,7 +47,8 @@ const HostPageForProfileDashboard = () => {
         <CulturalEventComp />
         */}
         <CreateInternshipCard />
-        <CreateEventHiring />
+        {/* HACKATHON HOST CARD TEMPORARILY DISABLED (can be re-enabled later) */}
+        {/* <CreateEventHiring /> */}
       </div>
     </div>
   );

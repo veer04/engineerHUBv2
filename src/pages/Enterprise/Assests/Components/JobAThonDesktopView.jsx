@@ -6,6 +6,8 @@ import styles from "./JobAThonDesktopView.module.css";
 import OurClientale from "../../../../components/OurClientale/OurClientale";
 import { useTypewriter } from "../../../../hooks/useTypewriter";
 import { MdEmail, MdPhone } from "react-icons/md";
+import { FaBriefcase } from "react-icons/fa";
+import { PiStudentFill } from "react-icons/pi";
 import { SEO } from "../../../../components/SEO/SEO.jsx";
 
 export const JobAThonDesktopView = () => {
@@ -31,6 +33,21 @@ export const JobAThonDesktopView = () => {
   const handleWhatsAppClick = () => {
     const phoneNumber = "+918303156089";
     window.open(`https://wa.me/${phoneNumber}`, "_blank");
+  };
+
+  const navigateToHostFlow = (path) => {
+    Navigate(path);
+  };
+
+  const scrollToBookSlotSection = () => {
+    const element = document.getElementById("book-slot-section");
+    if (element) {
+      element.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+        inline: "center",
+      });
+    }
   };
 
   return (
@@ -79,16 +96,7 @@ export const JobAThonDesktopView = () => {
           <div className={styles.ctaSection}>
             <div 
               className={styles.frameWrapper}
-              onClick={() => {
-                const element = document.getElementById("book-slot-section");
-                if (element) {
-                  element.scrollIntoView({ 
-                    behavior: "smooth", 
-                    block: "center",
-                    inline: "center"
-                  });
-                }
-              }}
+              onClick={scrollToBookSlotSection}
             >
               <div className={styles.frameContainer}>
                 <div className={styles.frameContainer}>
@@ -107,6 +115,56 @@ export const JobAThonDesktopView = () => {
           />
         </div>
       </div>
+
+      <section className={styles.enterpriseHireTalentSection}>
+        <div className={styles.enterpriseHireTalentWrap}>
+          <h3 className={styles.enterpriseHireTalentTitle}>Hire Talent</h3>
+          <div className={styles.enterpriseHireTalentGrid}>
+            <article
+              className={`${styles.enterpriseHireTalentCard} ${styles.enterpriseHireTalentCardJobs}`}
+              onClick={() => navigateToHostFlow("/host/job")}
+            >
+              <FaBriefcase className={styles.enterpriseHireTalentIcon} aria-hidden="true" />
+              <span className={styles.enterpriseHireTalentHeading}>Jobs</span>
+              <span className={styles.enterpriseHireTalentSubHeading}>
+                Create Jobs →
+              </span>
+              <p className={styles.enterpriseHireTalentDescription}>
+                Unlock career opportunities! Connect young talent with exciting professionals.
+              </p>
+            </article>
+
+            <article
+              className={`${styles.enterpriseHireTalentCard} ${styles.enterpriseHireTalentCardInternships}`}
+              onClick={() => navigateToHostFlow("/host/internship")}
+            >
+              <PiStudentFill className={styles.enterpriseHireTalentIcon} aria-hidden="true" />
+              <span className={styles.enterpriseHireTalentHeading}>Internships</span>
+              <span className={styles.enterpriseHireTalentSubHeading}>
+                Create Internships →
+              </span>
+              <p className={styles.enterpriseHireTalentDescription}>
+                Engage with aspiring talent. Showcase internship opportunities on our platform.
+              </p>
+            </article>
+
+            {/* Event hiring card temporarily hidden.
+            <article
+              className={styles.enterpriseHireTalentCard}
+              onClick={scrollToBookSlotSection}
+            >
+              <span className={styles.enterpriseHireTalentHeading}>Event Hiring</span>
+              <span className={styles.enterpriseHireTalentSubHeading}>
+                Hire Talent →
+              </span>
+              <p className={styles.enterpriseHireTalentDescription}>
+                Find the perfect talent for your events with our Event Hiring!.
+              </p>
+            </article>
+            */}
+          </div>
+        </div>
+      </section>
       <div className={styles.jobAThonDesktopViewInner}>
         <div className={styles.frameDiv}>
           <div className={styles.frameParent1}>
@@ -320,6 +378,7 @@ export const JobAThonDesktopView = () => {
                     <b className={styles.forCompanies}>For Companies</b>
                   </div>
                 </div>
+                {/* Image side temporarily hidden to remove S3/image dependency.
                 <div className={styles.hireFromAnyTierOfCampusParent}>
                   <b className={styles.hireFromAny}>
                     Hire from Any Tier of Campus
@@ -330,6 +389,7 @@ export const JobAThonDesktopView = () => {
                     src={`${bucket}campus_hiring.png`}
                   />
                 </div>
+                */}
               </div>
               <div className={styles.frameParent7}>
                 <div className={styles.frameParent5}>
@@ -373,6 +433,7 @@ export const JobAThonDesktopView = () => {
                     <b className={styles.forCompanies}>For HRs</b>
                   </div>
                 </div>
+                {/* Image side temporarily hidden to remove S3/image dependency.
                 <div className={styles.connectHireTopTalentParent}>
                   <b
                     className={styles.connectHire}
@@ -384,6 +445,7 @@ export const JobAThonDesktopView = () => {
 `}
                   />
                 </div>
+                */}
               </div>
               <div className={styles.frameParent10}>
                 <div className={styles.frameParent5}>
@@ -428,6 +490,7 @@ export const JobAThonDesktopView = () => {
                     <b className={styles.forCompanies}>For Campuses</b>
                   </div>
                 </div>
+                {/* Image side temporarily hidden to remove S3/image dependency.
                 <div className={styles.hireFromAnyTierOfCampusParent}>
                   <b className={styles.manageOnlinePlacements}>
                     Manage Online Placements
@@ -449,11 +512,14 @@ export const JobAThonDesktopView = () => {
                     src={`${bucket}college_engineerhub.png`}
                   />
                 </div>
+                */}
               </div>
-
+              {/*
               <div className={styles.ourClientaleWrapper}>
                 <OurClientale />
               </div>
+              */}
+              {/*
               <div className={styles.frameParent14}>
                 <div className={styles.weStreamlineHiringParent}>
                   <div className={styles.frameDiv}>
@@ -474,7 +540,7 @@ export const JobAThonDesktopView = () => {
                 <div className={styles.frameWrapper6}>
                   <div className={styles.campusCarousel}>
                     <div className={styles.campusCarouselTrack}>
-                      {/* First set of logos */}
+                    
                       <div className={styles.container}>
                         <img
                           className={styles.bitsMinpngIcon}
@@ -544,7 +610,7 @@ export const JobAThonDesktopView = () => {
                         <div className={styles.bitsPilani}>BML</div>
                       </div>
                       
-                      {/* Duplicate set for seamless scrolling */}
+                     
                       <div className={styles.container}>
                         <img
                           className={styles.bitsMinpngIcon}
@@ -617,7 +683,7 @@ export const JobAThonDesktopView = () => {
                   </div>
                 </div>
               </div>
-              
+              */}
               
 
               <div className={styles.frameWrapper7} id="book-slot-section">
@@ -656,11 +722,7 @@ export const JobAThonDesktopView = () => {
                     <div className={styles.frameParent19}>
                       <div className={styles.phoneParent}>
                         <div className={styles.phone}>
-                          <img
-                            className={styles.vectorIcon}
-                            alt=""
-                            src={`${bucket}Vector.svg`}
-                          />
+                          <MdPhone className={styles.vectorIcon} aria-hidden="true" />
                         </div>
                         <div className={styles.wrapper}>
                           <b className={styles.forCompanies}>
@@ -671,11 +733,7 @@ export const JobAThonDesktopView = () => {
                         </div>
                       </div>
                       <div className={styles.phoneParent}>
-                        <img
-                          className={styles.mailIcon}
-                          alt=""
-                          src={`${bucket}mail.svg`}
-                        />
+                        <MdEmail className={styles.mailIcon} aria-hidden="true" />
                         <div className={styles.wrapper}>
                           <b className={styles.forCompanies}>
                             info@engineerhub.in

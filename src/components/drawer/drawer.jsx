@@ -8,6 +8,7 @@ import ChatLoading from "../ChatLoading/chatLoading";
 import UserListItem from "../UserList/userlist";
 import axios from "axios";
 import { ChatState } from "../../contexts/chatProvider";
+import { API_URL } from "../../services/APIUtils";
 export default function Drawer({ user }) {
   const [search, setSearch] = React.useState("");
   const [searchResult, setSearchResult] = React.useState([]);
@@ -51,7 +52,7 @@ export default function Drawer({ user }) {
       // console.log("here2" + config.headers.Authorization);
       // console.log(search);
       const { data } = await axios.get(
-        `http://localhost:3000/api/user?search=${search.trim()}`,
+        `${API_URL}api/user?search=${search.trim()}`,
         config
       );
       // console.log("here3");
@@ -77,7 +78,7 @@ export default function Drawer({ user }) {
         },
       };
       const { data } = await axios.post(
-        `http://localhost:3000/api/chat`,
+        `${API_URL}api/chat`,
         { userId },
         config
       );

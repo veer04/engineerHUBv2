@@ -12,6 +12,7 @@ import useNavbar from "../../hooks/use-navbar";
 import { useScrollDirection } from "../../features/scrollDirection";
 import NotificationBadge from "../NotificationBadge/NotificationBadge";
 import useChatNotifications from "../../hooks/useChatNotifications";
+import { ENABLE_COMMUNITY_CHAT } from "../../config/featureFlags";
 
 export default function NewNavbar() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -21,7 +22,7 @@ export default function NewNavbar() {
   const [userRole, setUserRole] = useState(null);
 
   const { selectedPageNavbar, setSelectedPageNavbar } = useNavbar();
-  const { notificationData, clearNavbarBadge } = useChatNotifications();
+  const { notificationData } = useChatNotifications();
 
   const bucket = `${Bucket_URL}frontend/navbar/`;
 
@@ -51,29 +52,29 @@ export default function NewNavbar() {
       ? `${(width - 1920) / 2 + 166.56}px`
       : "var(--section-padding)";
 
-  const HostSvg = (
-    <svg
-      width="23"
-      height="22"
-      viewBox="0 0 23 22"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M21.7021 11C21.7021 5.47715 17.2249 1 11.7021 1C6.1793 1 1.70215 5.47715 1.70215 11C1.70215 16.5228 6.1793 21 11.7021 21C17.2249 21 21.7021 16.5228 21.7021 11Z"
-        fill="white"
-        stroke="#138382"
-        stroke-width="1.5"
-      />
-      <path
-        d="M11.7011 7V15M15.7011 11H7.70105"
-        stroke="#138382"
-        stroke-width="1.5"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      />
-    </svg>
-  );
+  // const HostSvg = (
+  //   <svg
+  //     width="23"
+  //     height="22"
+  //     viewBox="0 0 23 22"
+  //     fill="none"
+  //     xmlns="http://www.w3.org/2000/svg"
+  //   >
+  //     <path
+  //       d="M21.7021 11C21.7021 5.47715 17.2249 1 11.7021 1C6.1793 1 1.70215 5.47715 1.70215 11C1.70215 16.5228 6.1793 21 11.7021 21C17.2249 21 21.7021 16.5228 21.7021 11Z"
+  //       fill="white"
+  //       stroke="#138382"
+  //       stroke-width="1.5"
+  //     />
+  //     <path
+  //       d="M11.7011 7V15M15.7011 11H7.70105"
+  //       stroke="#138382"
+  //       stroke-width="1.5"
+  //       stroke-linecap="round"
+  //       stroke-linejoin="round"
+  //     />
+  //   </svg>
+  // );
 
   return (
     <nav
@@ -90,7 +91,9 @@ export default function NewNavbar() {
         <img src={`${bucket}logo.svg`} alt="engineerHUB logo" loading="lazy" />
       </Link>
       <div className="pages">
-        {userRole !== "Organization" && userRole !== "Club" && (
+        {ENABLE_COMMUNITY_CHAT &&
+          userRole !== "Organization" &&
+          userRole !== "Club" && (
           <Link
             onClick={handleCommunityChatClick}
             to="/Chat"
@@ -149,10 +152,11 @@ export default function NewNavbar() {
       </div>
       {!isLoggedIn && (
         <div className="login-options">
-          <Link to="/host" className="nav-link">
+          {/* Host CTA temporarily hidden. */}
+          {/* <Link to="/host" className="nav-link">
             <button className="host-btn">{HostSvg} Host</button>
           </Link>
-          <div className="divider"></div>
+          <div className="divider"></div> */}
           <Link to="/login" className="nav-link">
             <button className="login-btn">Login</button>
           </Link>
@@ -163,14 +167,15 @@ export default function NewNavbar() {
       )}
       {isLoggedIn && (
         <div className="d-flex align-items-center justify-content-center gap-2 flex-row">
-          <div className="login-options ">
+          {/* Host CTA temporarily hidden. */}
+          {/* <div className="login-options ">
             <Link to="/host" className="nav-link d-flex flex-row flex-nowrap">
               <button style={{ marginRight: "24px" }} className="host-btn">
                 {HostSvg} Host
               </button>
               <div style={{ marginRight: "18px" }} className="divider"></div>
             </Link>
-          </div>
+          </div> */}
           <div
             data-bs-toggle="offcanvas"
             data-bs-target="#offcanvasRight"

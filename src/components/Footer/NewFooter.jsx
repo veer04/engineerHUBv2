@@ -14,6 +14,7 @@ import {
 import { Bucket_URL } from "../../services/APIUtils";
 import { IoLocationOutline } from "react-icons/io5";
 import { HashLink } from "react-router-hash-link/dist/react-router-hash-link.cjs.production";
+import { ENABLE_COMMUNITY_CHAT } from "../../config/featureFlags";
 
 export default function NewFooter() {
   const [displayFooter, setDisplayFooter] = useState(true);
@@ -118,9 +119,11 @@ export default function NewFooter() {
           <div className="links-container">
             <div className="pages">
               <p className="title">Community</p>
-              <Link to="/chat" className="link">
-                Chat
-              </Link>
+              {ENABLE_COMMUNITY_CHAT && (
+                <Link to="/chat" className="link">
+                  Chat
+                </Link>
+              )}
               <Link
                 to="/community/projects/Data%20Structures%20%26%20Algorithms"
                 className="link"

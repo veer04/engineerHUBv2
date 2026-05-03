@@ -51,7 +51,7 @@ const CompanyWisePrep = () => {
       };
 
       const { data } = await axios.get(
-        `${PAYMENT_API_URL}api/v1/course?_id=${booknowId}&ehub_referral=${
+        `${PAYMENT_API_URL}payment/course?_id=${booknowId}&ehub_referral=${
           location?.search?.split("ref=")[1]?.split("&")[0] || ""
         }`,
         config

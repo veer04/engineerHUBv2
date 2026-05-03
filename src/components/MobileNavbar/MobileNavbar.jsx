@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import NotificationBadge from "../NotificationBadge/NotificationBadge";
 import useChatNotifications from "../../hooks/useChatNotifications";
 import { getUserRole } from "../../features/User/UserDetails";
+import { ENABLE_COMMUNITY_CHAT } from "../../config/featureFlags";
 
 export function CommunitySvg({ className }) {
   return (
@@ -157,7 +158,7 @@ export function HostSvg({ className }) {
 
 export default function MobileNavbar() {
   const { selectedPageNavbar, setSelectedPageNavbar } = useNavbar();
-  const { notificationData, clearNavbarBadge } = useChatNotifications();
+  const { notificationData } = useChatNotifications();
   const [showNavbar, setShowNavbar] = useState(true);
   const [userRole, setUserRole] = useState(null);
 
@@ -175,7 +176,9 @@ export default function MobileNavbar() {
 
   return showNavbar ? (
     <div className="mobile-navbar">
-      {userRole !== "Organization" && userRole !== "Club" && (
+      {ENABLE_COMMUNITY_CHAT &&
+        userRole !== "Organization" &&
+        userRole !== "Club" && (
         <Link
           to="/chat"
           onClick={() => {
@@ -234,7 +237,8 @@ export default function MobileNavbar() {
         <ServicesSvg className="svg" />
         <span>Referrals</span>
       </Link>
-      <Link
+      {/* Host tab temporarily hidden. */}
+      {/* <Link
         to="/host"
         onClick={() => {
           setSelectedPageNavbar("host");
@@ -245,7 +249,7 @@ export default function MobileNavbar() {
       >
         <HostSvg className="svg" />
         <span>Host</span>
-      </Link>
+      </Link> */}
     </div>
   ) : (
     <></>

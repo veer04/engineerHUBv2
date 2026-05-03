@@ -1,6 +1,15 @@
 import { useState, useEffect, useCallback } from 'react';
 import { API_URL } from '../services/APIUtils';
 import { getAccessToken } from '../features/getCookieValues';
+import { ENABLE_COMMUNITY_CHAT } from '../config/featureFlags';
+
+const CHAT_DISABLED_STATE = {
+  count: 0,
+  type: 'unread',
+  isLoggedIn: false,
+  loading: false,
+  error: null
+};
 
 const useChatNotifications = () => {
   const [notificationData, setNotificationData] = useState({
@@ -16,6 +25,12 @@ const useChatNotifications = () => {
   // react immediately.
 
   const fetchNotificationData = useCallback(async () => {
+    if (!ENABLE_COMMUNITY_CHAT) {
+      // COMMUNITY CHAT FEATURE DISABLED (can be re-enabled later)
+      setNotificationData(CHAT_DISABLED_STATE);
+      return;
+    }
+
     try {
       setNotificationData(prev => ({ ...prev, loading: true, error: null }));
 
@@ -63,11 +78,17 @@ const useChatNotifications = () => {
 
   // Fetch data on mount
   useEffect(() => {
+    if (!ENABLE_COMMUNITY_CHAT) {
+      setNotificationData(CHAT_DISABLED_STATE);
+      return;
+    }
     fetchNotificationData();
   }, [fetchNotificationData]);
 
   // Set up polling for real-time updates (every 30 seconds)
   useEffect(() => {
+    if (!ENABLE_COMMUNITY_CHAT) return;
+
     const interval = setInterval(fetchNotificationData, 30000);
     return () => clearInterval(interval);
   }, [fetchNotificationData]);
@@ -79,6 +100,7 @@ const useChatNotifications = () => {
 
   // Function to mark all chats as seen (reset notification count to 0)
   const markAllChatsAsSeen = useCallback(async () => {
+    if (!ENABLE_COMMUNITY_CHAT) return;
     if (!notificationData.isLoggedIn) return; // Only for logged-in users
 
     try {
@@ -103,6 +125,7 @@ const useChatNotifications = () => {
 
   // Function to clear navbar badge only (acknowledge without affecting individual groups)
   const clearNavbarBadge = useCallback(async () => {
+    if (!ENABLE_COMMUNITY_CHAT) return;
     if (!notificationData.isLoggedIn) return; // Only for logged-in users
 
     try {
@@ -127,6 +150,7 @@ const useChatNotifications = () => {
 
   // Function to clear notifications (when user enters chat)
   const clearNotifications = useCallback(async (chatId) => {
+    if (!ENABLE_COMMUNITY_CHAT) return;
     if (!notificationData.isLoggedIn) return; // Only for logged-in users
 
     try {

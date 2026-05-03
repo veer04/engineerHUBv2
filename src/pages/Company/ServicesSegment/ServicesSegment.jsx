@@ -44,7 +44,7 @@ const ServicesSegment = () => {
 
   const getAllOpenMeet = async () => {
     try {
-      const response = await fetch(`${PAYMENT_API_URL}api/v1/meet/open`);
+      const response = await fetch(`${PAYMENT_API_URL}payment/meet/open`);
       if (response.ok) {
         const data = await response.json();
         const filteredData = data?.data.filter((item) =>
@@ -59,7 +59,7 @@ const ServicesSegment = () => {
 
   const getallProductData = async () => {
     try {
-      const { data } = await axios.get(`${PAYMENT_API_URL}api/v1/course/open`);
+      const { data } = await axios.get(`${PAYMENT_API_URL}payment/course/open`);
       const filteredCourseData = data?.data.filter((item) =>
         mainTargetOrderForCarousal.includes(item.title)
       );

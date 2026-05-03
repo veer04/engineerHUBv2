@@ -1,15 +1,29 @@
 .digi-main-container {
   max-width: 324px;
-  /* height: 183px; */
   position: relative;
-  background-color: #f3f9f9;
+  background-color: #ffffff;
   border-radius: 10px;
+  border: 1px solid #e5ecef;
+  box-shadow: 0 6px 18px rgba(0, 43, 54, 0.08);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.digi-main-container:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(0, 43, 54, 0.16);
 }
 
 .digi-img-container {
   position: relative;
+  height: 183px;
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
+  padding: 12px 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: linear-gradient(180deg, #edf6f7 0%, #deedf0 100%);
+  border: 1px solid #d9e7ea;
 }
 
 .digi-img-container img {
@@ -21,18 +35,28 @@
 }
 
 .digi-img-container .digital-chip {
-  position: absolute;
-  top: 12px;
-  left: 16px;
+  position: static;
+  top: auto;
+  left: auto;
+}
+
+.digi-banner-title {
+  margin: 0;
+  color: #33555e;
+  font-size: 15px;
+  font-weight: 600;
+  text-transform: capitalize;
+  text-align: center;
+  letter-spacing: 0.2px;
 }
 
 .popular-star {
-  position: absolute;
+  position: static;
   display: flex;
   gap: 10px;
-  padding: 0 16px;
-  bottom: 17px;
-  left: 0;
+  padding: 0;
+  bottom: auto;
+  left: auto;
 }
 
 .popular-star > div {
@@ -48,9 +72,8 @@
 
 .digi-content-container {
   padding: 16px;
-  background-color: #f3f9f9;
-  border-bottom-left-radius: 10px;
-  border-bottom-right-radius: 10px;
+  background-color: #ffffff;
+  border-radius: 10px;
 }
 
 .digi-content-container .digi-h2 {
@@ -134,8 +157,8 @@
   .popular-star {
     display: flex;
     gap: 8px;
-    padding: 0 12px;
-    bottom: 12px;
+    padding: 0;
+    bottom: auto;
   }
 
   .popular-star > div {
@@ -154,8 +177,8 @@
   }
 
   .digi-img-container .digital-chip {
-    top: 8px;
-    left: 12px;
+    top: auto;
+    left: auto;
   }
 
   .digi-img-container .digital-chip h5 {
