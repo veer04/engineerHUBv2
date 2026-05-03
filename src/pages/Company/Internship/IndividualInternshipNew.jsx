@@ -267,12 +267,14 @@ export default function IndividualInternshipNew() {
           <div className="hiring-box">
             <div className="hiring-header">
               <div className="details">
+                {/* Temporarily hidden while S3 assets are being migrated.
                 <img
                   className="hiring-logo"
                   src={hiring?.detailFound?.organisationLogo}
                   alt={`${hiring?.detailFound?.opportunityName} logo`}
                   loading="lazy"
                 />
+                */}
                 <div className="info">
                   <h1 className="heading-sm">
                     {hiring?.detailFound?.opportunityName}{" "}
@@ -344,9 +346,11 @@ export default function IndividualInternshipNew() {
             </div>
           </div>
           
+          {/*
           <div className="d-flex justify-content-center mb-3">
             <AdsenseComp adSlot="1960197314" />
           </div>
+          */}
           {/*
           <div className="d-flex justify-content-center mb-3">
             <AdsenseComp adSlot="6898770594" />
@@ -381,9 +385,11 @@ export default function IndividualInternshipNew() {
             ></div>
           </div>
           
+          {/*
           <div className="d-flex justify-content-center mb-3">
             <AdsenseComp adSlot="1960197314" />
           </div>
+          */}
           {/*
           <div className="d-flex justify-content-center mb-3">
             <AdsenseComp adSlot="6898770594" />
@@ -594,9 +600,11 @@ export default function IndividualInternshipNew() {
             </div>
           </div>
 
+          {/*
           <div className="d-flex justify-content-center mb-3">
             <AdsenseComp adSlot="8096000870" />
           </div>
+          */}
         </>
       ) : (
         <div

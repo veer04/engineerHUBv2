@@ -46,7 +46,7 @@ const PromoteServices = ({ compName }) => {
 
   const getAllOpenMeet = async () => {
     try {
-      const response = await fetch(`${PAYMENT_API_URL}api/v1/meet/open`);
+      const response = await fetch(`${PAYMENT_API_URL}payment/meet/open`);
 
       if (response.ok) {
         const data = await response.json();
@@ -75,7 +75,7 @@ const PromoteServices = ({ compName }) => {
       };
 
       const { data } = await axios.get(
-        `${PAYMENT_API_URL}api/v1/course/open`,
+        `${PAYMENT_API_URL}payment/course/open`,
         config
       );
 

@@ -52,10 +52,14 @@ export default function NewHomePage() {
         <NewHostHomePage />
 
         <EasyWayToHire />
+        {/*
         <OurClientale />
+        */}
 
         {/* <NewSiliconValley /> */}
+        {/*
         <TestimonialsSection />
+        */}
         {/* <NewReviewSection /> */}
       </main>
     </SEO>

@@ -216,11 +216,12 @@ export default function InternshipPageNew() {
               param="q"
               placeholder="Search for internships,companies etc"
             />
+            
           </div>
                  
-               
+            {/*
             <AdsenseComp adSlot="5168117459" />
-       
+            */}
             
           <FilterContainerInternship
             className="filter-section"
@@ -284,10 +285,11 @@ export default function InternshipPageNew() {
         <Outlet />
       </div>
       
+      {/*
       <div className="d-flex justify-content-center mb-3">
             <AdsenseComp adSlot="1464856375" />
           </div>
-      
+      */}
       </main>
     </SEO>
   );

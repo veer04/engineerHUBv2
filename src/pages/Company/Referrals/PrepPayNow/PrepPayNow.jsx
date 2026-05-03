@@ -173,7 +173,7 @@ const PrepPayNow = () => {
 
     axios
       .post(
-        `${PAYMENT_API_URL}api/v1/course-purchase/request/${_id}`,
+        `${PAYMENT_API_URL}payment/course-purchase/request/${_id}`,
         payload,
         {
           headers: {
@@ -209,7 +209,7 @@ const PrepPayNow = () => {
           if (priceOfproduct === 0) {
             await axios
               .get(
-                `${PAYMENT_API_URL}api/v1/course-purchase/confirmation?coursePurchaseRequestId=${
+                `${PAYMENT_API_URL}payment/course-purchase/confirmation?coursePurchaseRequestId=${
                   data?.data?.coursePurchaseRequestId
                 }&ehub_referral=${
                   location?.search?.split("ref=")[1]?.split("&")[0] || ""
@@ -292,7 +292,7 @@ const PrepPayNow = () => {
     }
 
     const response = await axios.post(
-      `${PAYMENT_API_URL}api/v1/razorpay/createPaymentLink`,
+      `${PAYMENT_API_URL}payment/razorpay/createPaymentLink`,
       payload,
       {
         headers: {

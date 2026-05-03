@@ -224,7 +224,9 @@ const Referrals = () => {
       {/* //connect With Us Section */}
       <ConnectWithUs compName={"Connect With Us"} />
       <DigitalProducts compName={"Digital Products"} />
+      {/*
       <OurMentors />
+      */}
       <ReferralRatings />
       </>
     </SEO>

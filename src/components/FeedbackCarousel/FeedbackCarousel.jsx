@@ -22,8 +22,8 @@ const FeedbackCarousel = ({ referralId, autoPlayInterval = 5000, itemsPerView = 
     const fetchFeedbacks = async () => {
       try {
         const url = referralId
-          ? `${PAYMENT_API_URL}api/v1/feedback?referralId=${referralId}`
-          : `${PAYMENT_API_URL}api/v1/feedback`;
+          ? `${PAYMENT_API_URL}payment/feedback?referralId=${referralId}`
+          : `${PAYMENT_API_URL}payment/feedback`;
         
         const response = await fetch(url);
         

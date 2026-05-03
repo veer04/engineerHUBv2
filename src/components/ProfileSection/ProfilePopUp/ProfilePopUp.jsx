@@ -46,6 +46,7 @@ import ProfileCompletionScoreComp from "./ProfileCompletionScoreComp";
 import { API_URL } from "../../../services/APIUtils";
 import { getAccessToken } from "../../../features/getCookieValues";
 import axios from "axios";
+import { ENABLE_COMMUNITY_CHAT } from "../../../config/featureFlags";
 
 export default function ProfilePopUp() {
   if (!isUserLoggedIn()) {
@@ -132,17 +133,17 @@ export default function ProfilePopUp() {
       icon: <JobIcon />,
       link: "/career/jobs?pageNo=1&limit=24",
     },
-    {
-      label: "Blogs",
-      icon: <BlogIcon />,
-      link: "/community/blogs/Data%20Structures%20%26%20Algorithms",
-    },
-
-    {
-      label: "Notes",
-      icon: <NoteIcon />,
-      link: "/community/notes/Data%20Structures%20%26%20Algorithms",
-    },
+    // {
+    //   label: "Blogs",
+    //   icon: <BlogIcon />,
+    //   link: "/community/blogs/Data%20Structures%20%26%20Algorithms",
+    // },
+//
+    // {
+    //   label: "Notes",
+    //   icon: <NoteIcon />,
+    //   link: "/community/notes/Data%20Structures%20%26%20Algorithms",
+    // },
     // {
     //   label: "Projects",
     //   icon: <AiOutlineCalendar />,
@@ -154,11 +155,11 @@ export default function ProfilePopUp() {
       link: "/career/internships?pageNo=1&limit=24",
     },
 
-    {
-      label: "Hackathons",
-      icon: <HackathonIcon />,
-      link: "/career/events",
-    },
+    // {
+    //   label: "Hackathons",
+    //   icon: <HackathonIcon />,
+    //   link: "/career/events",
+    // },
 
     // {
     //   label: "Events",
@@ -174,22 +175,22 @@ export default function ProfilePopUp() {
 
   const alumniHostPagesMenus = [
     {
-      label: "Jobs",
+      label: "Host Job",
       icon: <JobIcon />,
       link: "/host/job",
     },
 
     {
-      label: "Internships",
+      label: "Host Internship",
       icon: <JobIcon />,
       link: "/host/internship",
     },
 
-    {
-      label: "Event Hiring",
-      icon: <HackathonIcon />,
-      link: "/host/event-hiring",
-    },
+    // {
+    //   label: "Event Hiring",
+    //   icon: <HackathonIcon />,
+    //   link: "/host/event-hiring",
+    // },
 /*
     {
       label: "Host Webinar",
@@ -651,8 +652,8 @@ export default function ProfilePopUp() {
       </div>
       {/* Promotional Content */}
       {/* {role === "Organization" && renderCompanyPromotionalContent} */}
-      {role === "User" && renderLetTheCommunityKnow}
-      {role === "Alumni" && renderLetTheCommunityKnow}
+      {ENABLE_COMMUNITY_CHAT && role === "User" && renderLetTheCommunityKnow}
+      {ENABLE_COMMUNITY_CHAT && role === "Alumni" && renderLetTheCommunityKnow}
       {role === "Organization" && renderConnectWithUsHiringProcess}
       {role === "Club" && renderClubPromotionalContent}
 

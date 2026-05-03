@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import "./booknow.css";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import FeedBackCarousalForBookNow from "../FeedbackCarousalForBookNow/FeedBackCarousalForBookNow";
-import FeedbackCarousel from "../../../../components/FeedbackCarousel/FeedbackCarousel";
+// import FeedbackCarousel from "../../../../components/FeedbackCarousel/FeedbackCarousel";
 import DateBoxes from "../DateBoxesCard/DateBoxes";
 import TimeBox from "../TimeBox/TimeBox";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -77,7 +77,7 @@ const BookNow = () => {
     const fetchMeetingData = async () => {
       try {
         const response = await fetch(
-          `${PAYMENT_API_URL}api/v1/meet?_id=${referralId}&ehub_referral=${
+          `${PAYMENT_API_URL}payment/meet?_id=${referralId}&ehub_referral=${
             location?.search?.split("ref=")[1]?.split("&")[0] || ""
           }`
         );
@@ -301,7 +301,7 @@ const BookNow = () => {
       };
 
       const { data } = await axios.get(
-        `${PAYMENT_API_URL}api/v1/calendar/getFreeBusyData/${referralId}`,
+        `${PAYMENT_API_URL}payment/calendar/getFreeBusyData/${referralId}`,
         config
       );
 
@@ -678,6 +678,7 @@ const BookNow = () => {
             ></span>
           </div>
 
+          {/* Temporarily hidden while S3 assets are being migrated.
           {referralId !== "67a107c89d57a46e99582bd1" && (
             <div className="feedback-section">
               <div
@@ -689,17 +690,17 @@ const BookNow = () => {
               </div>
             </div>
           )}
-          
 
           {referralId !== "67a107c89d57a46e99582bd1" && (
             <div className="feedback-carousal-div">
-              <FeedbackCarousel 
+              <FeedbackCarousel
                 referralId={referralId}
                 autoPlayInterval={5000}
                 itemsPerView={isMobile ? 1 : 2}
               />
             </div>
           )}
+          */}
           
         </div>
       </div>

@@ -28,7 +28,7 @@ const CampusDetails = lazy(() => import("./pages/Campus/CampusDetails"));
 const TrendingEvents = lazy(() => import("./pages/Campus/TrendingEvents"));
 import ChangePassword from "./pages/User/ForgotPassword/ChangePassword";
 import ProfilePopUp from "./components/ProfileSection/ProfilePopUp/ProfilePopUp";
-import TestimonialsPopup from "./pages/Company/TestimonialsSection/TestimonialsPopup";
+// import TestimonialsPopup from "./pages/Company/TestimonialsSection/TestimonialsPopup";
 import CompanyDashboard from "./pages/Profile/CompanyDashboard/CompanyDashboard";
 import CompanyEditProfile from "./pages/Profile/CompanyDashboard/CompanyEditProfile";
 import CoverImageModal from "./components/Dashboard/CoverImageModal";
@@ -48,6 +48,7 @@ import EventWindow from "./pages/Community/Events/EventWindow.jsx";
 import BlogWindow from "./pages/Community/Blogs/BlogWindow.jsx";
 import NewFooter from "./components/Footer/NewFooter.jsx";
 import { SEOProvider } from "./components/SEO/SEO.jsx";
+import { ENABLE_COMMUNITY_CHAT } from "./config/featureFlags";
 const BookNow = lazy(() =>
   import("./pages/Company/Referrals/BookNow/BookNow.jsx")
 );
@@ -81,7 +82,7 @@ import CommunityChat from "./pages/Chat/CommunityChat.jsx";
 import { ToastContainer } from "react-toastify";
 import Enterprise from "./pages/Enterprise/Assests/Components/Enterprise.jsx";
 import CompanyDashboardNew from "./pages/Profile/CompanyDashboardNew/CompanyDashboardNew.jsx";
-import { getUserRole } from "./features/User/UserDetails.jsx";
+// import { getUserRole } from "./features/User/UserDetails.jsx";
 const DigitalProductAdminPage = lazy(() =>
   import("./pages/Admin/DigitalProductAdminPage.jsx")
 );
@@ -100,7 +101,7 @@ const InternshipPageNew = lazy(() =>
 const IndividualJobNew = lazy(() =>
   import("./pages/Company/Jobs/IndividualJobNew.jsx")
 );
-const HostingNotes = lazy(() => import("./pages/Hosting/HostingNotes.jsx"));
+// const HostingNotes = lazy(() => import("./pages/Hosting/HostingNotes.jsx"));
 const GetFeaturedForm = lazy(() =>
   import("./pages/NewHomepage/GetFeaturedForm.jsx")
 );
@@ -111,36 +112,39 @@ const NotesPage = lazy(() => import("./pages/Community/Notes/NotesPage.jsx"));
 const PostModalAllRole = lazy(() =>
   import("./components/PostModal/PostModalAllRole.jsx")
 );
-const HostingEventHiring = lazy(() =>
-  import("./pages/Hosting/HostingEventHiring.jsx")
-);
-const HostingProject = lazy(() => import("./pages/Hosting/HostingProject.jsx"));
+// const HostingEventHiring = lazy(() =>
+//   import("./pages/Hosting/HostingEventHiring.jsx")
+// );
+// const HostingProject = lazy(() => import("./pages/Hosting/HostingProject.jsx"));
 const HackathonDetailsNew = lazy(() =>
   import("./pages/Company/Events/EventsChoices/HackathonDetailsNew.jsx")
 );
 const ProjectDetailNew = lazy(() =>
   import("./pages/Company/Projects/ProjectDetailNew.jsx")
 );
-const HostingPage = lazy(() => import("./pages/Hosting/HostingPage.jsx"));
+// const HostingPage = lazy(() => import("./pages/Hosting/HostingPage.jsx"));
 const HostingInternship = lazy(() =>
   import("./pages/Hosting/HostingInternship.jsx")
 );
 const HostingJob = lazy(() => import("./pages/Hosting/HostingJob.jsx"));
-const HostingCulturalEvent = lazy(() =>
-  import("./pages/Hosting/HostingCulturalEvent.jsx")
-);
-const HostingTechnicalEvent = lazy(() =>
-  import("./pages/Hosting/HostingTechnicalEvent.jsx")
-);
-const HostingHackathon = lazy(() =>
-  import("./pages/Hosting/HostingHackathon.jsx")
-);
-const HostingWebinar = lazy(() => import("./pages/Hosting/HostingWebinar.jsx"));
+// const HostingCulturalEvent = lazy(() =>
+//   import("./pages/Hosting/HostingCulturalEvent.jsx")
+// );
+// const HostingTechnicalEvent = lazy(() =>
+//   import("./pages/Hosting/HostingTechnicalEvent.jsx")
+// );
+// const HostingHackathon = lazy(() =>
+//   import("./pages/Hosting/HostingHackathon.jsx")
+// );
+// const HostingWebinar = lazy(() => import("./pages/Hosting/HostingWebinar.jsx"));
 const NewHomePage = lazy(() => import("./pages/NewHomepage/NewHomePage.jsx"));
+const CandidatesDataPage = lazy(() =>
+  import("./pages/CandidatesData/CandidatesDataPage.jsx")
+);
 const ProjectSubmission = lazy(() =>
   import("./pages/Community/Project/ProjectSubmission.jsx")
 );
-const BlogHosting = lazy(() => import("./pages/Hosting/BlogHosting.jsx"));
+// const BlogHosting = lazy(() => import("./pages/Hosting/BlogHosting.jsx"));
 const ClubDashboard = lazy(() =>
   import("./pages/Profile/ClubDashboard/ClubDashboard")
 );
@@ -165,8 +169,8 @@ const TermsAndConditions = lazy(() =>
 
 function App() {
   const [OtpRoute, setOtpRoute] = useState("loading");
-  const [showPopup, setShowPopup] = useState(false);
-  const role = getUserRole();
+  // const [showPopup, setShowPopup] = useState(false);
+  // const role = getUserRole();
   const location = useLocation();
 
   const shouldHideNavbar = location.pathname.includes("/career/jobs/board") ||
@@ -189,6 +193,7 @@ function App() {
     };
   }, [shouldHideNavbar]);
 
+  /*
   useEffect(() => {
     // Don't show popup on login/signup pages
     const isAuthPage = location.pathname.includes("/login") || 
@@ -219,6 +224,7 @@ function App() {
     // Store in sessionStorage that user closed the popup
     sessionStorage.setItem("testimonialsPopupClosed", "true");
   };
+  */
 
   return (
     <SEOProvider>
@@ -227,7 +233,7 @@ function App() {
       <ToastContainer />
       <GlobalSnackbar />
       <ProfilePopUp />
-      <TestimonialsPopup show={showPopup} onClose={handleClosePopup} />
+      {/* <TestimonialsPopup show={showPopup} onClose={handleClosePopup} /> */}
       {/* <FloatingChatButton /> */}
       <Suspense fallback={<LoadingPage />}>
         <Routes>
@@ -321,17 +327,22 @@ function App() {
               </Route>
             </Route>
           </Route>
-          <Route path="/chat">
-            <Route
-              index
-              element={
-                <Navigate
-                  to={`/chat/${encodeURIComponent("Announcements & Updates")}`}
-                />
-              }
-            />
-            <Route path=":chatId" element={<CommunityChat />} />
-          </Route>
+          {ENABLE_COMMUNITY_CHAT ? (
+            <Route path="/chat">
+              <Route
+                index
+                element={
+                  <Navigate
+                    to={`/chat/${encodeURIComponent("Announcements & Updates")}`}
+                  />
+                }
+              />
+              <Route path=":chatId" element={<CommunityChat />} />
+            </Route>
+          ) : (
+            // COMMUNITY CHAT FEATURE DISABLED (can be re-enabled later)
+            <Route path="/chat/*" element={<Navigate to="/" replace />} />
+          )}
           <Route path="/trending">
             <Route path="campuses/:collegeId">
               <Route index element={<TrendingColleges />} />
@@ -353,18 +364,11 @@ function App() {
           <Route path="/mentorship" element={<ComingSoon />} />
 
           <Route path="host">
-            <Route index element={<HostingPage />} />
-
-            {role !== "User" && <Route path="job" element={<HostingJob />} />}
+            <Route path="jobs" element={<HostingJob />} />
+            <Route path="internships" element={<HostingInternship />} />
+            <Route path="job" element={<HostingJob />} />
             <Route path="internship" element={<HostingInternship />} />
-            <Route path="project" element={<HostingProject />} />
-            <Route path="cultural-event" element={<HostingCulturalEvent />} />
-            <Route path="technical-event" element={<HostingTechnicalEvent />} />
-            <Route path="hackathon" element={<HostingHackathon />} />
-            <Route path="webinar" element={<HostingWebinar />} />
-            <Route path="event-hiring" element={<HostingEventHiring />} />
-            <Route path="blog" element={<BlogHosting />} />
-            <Route path="notes" element={<HostingNotes />} />
+            <Route path="*" element={<Navigate to="/employer" replace />} />
           </Route>
           <Route path="/career">
             <Route path="" element={<CompanyNew />} />
@@ -460,6 +464,8 @@ function App() {
             path="/terms-and-conditions"
             element={<TermsAndConditions />}
           />
+
+          <Route path="/candidatesdata" element={<CandidatesDataPage />} />
 
           <Route path="/admin">
             <Route index element={<Page404 />} />

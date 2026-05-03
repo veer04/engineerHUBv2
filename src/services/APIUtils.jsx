@@ -7,5 +7,6 @@ export const API_URLT = import.meta.env.VITE_API_URL;
 // export const API_URLT="https://betatestserverbackend.engineerhub.in/"
 export const EDITOR_API_KEY = import.meta.env.VITE_EDITOR_API_KEY;
 export const REFERRAL_REDIRECT_URL = import.meta.env.VITE_REFERRAL_REDIRECT_URL;
-export const PAYMENT_API_URL = import.meta.env.VITE_PAYMENT_API_URL;
+// Unified backend: payment module now lives under the same API host.
+export const PAYMENT_API_URL = import.meta.env.VITE_API_URL;
 export const ADMIN_REFERRAL_TOKEN = import.meta.env.VITE_ADMIN_REFERRAL_TOKEN;

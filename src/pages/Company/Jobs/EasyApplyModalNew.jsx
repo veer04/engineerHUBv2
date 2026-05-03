@@ -383,7 +383,7 @@ const EasyApplyModalNew = ({
       };
 
       const { data } = await axios.get(
-        `${PAYMENT_API_URL}api/v1/course/open`,
+        `${PAYMENT_API_URL}payment/course/open`,
         config
       );
 

@@ -135,6 +135,7 @@ const InternshipCardNew = ({ details }) => {
           </span>
         </div>
 
+        {/* Temporarily hidden while S3 assets are being migrated.
         <div className="company-logo">
           <img 
             src={details?.organisationLogo} 
@@ -145,6 +146,7 @@ const InternshipCardNew = ({ details }) => {
             }}
           />
         </div>
+        */}
       </div>
     </Link>
   );

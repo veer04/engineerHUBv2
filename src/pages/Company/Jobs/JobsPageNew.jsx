@@ -246,10 +246,11 @@ const JobsPageNew = () => {
               placeholder="Search for jobs, companies etc"
             />
           </div>
+          {/*
          
             <AdsenseComp adSlot="8908232121" />
          
-          
+          */}
           <FilterContainerJob
             className="filter-section"
             style={{
@@ -318,16 +319,19 @@ const JobsPageNew = () => {
         <Outlet />
       </div>
       
+      {/*
       <div className="d-flex justify-content-center mb-3">
             <AdsenseComp adSlot="1464856375" />
           </div>
-       
+        */}
+       {/*
       <div className="banner-space-div">
         <BannerSpaceComp
           image={`${Bucket_URL}banner-cosdata.png`}
           mobileImage={`${Bucket_URL}banner-cosdata-mobile.png`}
         />
       </div>
+      */}
     </main>
     </SEO>
   );

@@ -232,12 +232,14 @@ export default function IndividualJobNew() {
           <div className="hiring-box">
             <div className="hiring-header">
               <div className="details">
+                {/* Temporarily hidden while S3 assets are being migrated.
                 <img
                   className="hiring-logo"
                   src={hiring?.detailFound?.organisationLogo}
                   alt={`${hiring?.detailFound?.opportunityName} logo`}
                   loading="lazy"
                 />
+                */}
                 <div className="info">
                   <h1 className="heading-sm">
                     {hiring?.detailFound?.opportunityName}{" "}
@@ -309,14 +311,17 @@ export default function IndividualJobNew() {
               </div>
             </div>
             
+            {/*
             <div className="d-flex justify-content-center mb-3">
               <AdsenseComp adSlot="1960197314" />
             </div>
+            */}
 
             {/*
            <div className="d-flex justify-content-center mb-3">
               <AdsenseComp adSlot="6898770594" />
-            </div> */}
+            </div> 
+            */}
 
             <div className="hiring-box pt-4">
               <div className="info-tiles-container">
@@ -352,10 +357,12 @@ export default function IndividualJobNew() {
               <AdsenseComp adSlot="1960197314" />
             </div>
             */}
+
+            {/*
              <div className="d-flex justify-content-center mb-3">
               <AdsenseComp adSlot="6898770594" />
             </div> 
-
+            */}
             <div className="hiring-box">
               <h4 className="body-sm-semibold">More Information</h4>
               <div className="info-tiles-container">
@@ -559,9 +566,11 @@ export default function IndividualJobNew() {
               </div>
             </div>
             
+            {/*
             <div className="d-flex justify-content-center mb-3">
               <AdsenseComp adSlot="8096000870" />
             </div>
+            */}
           </>
         ) : (
           <div

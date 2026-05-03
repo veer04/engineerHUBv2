@@ -51,7 +51,7 @@ export default function ReferralAdminPage() {
     queryFn: () =>
       axios
         .get(
-          `${PAYMENT_API_URL}api/v1/admin/meet-payment-records?page=${params.pageNo}&limit=${params.limit}`,
+          `${PAYMENT_API_URL}payment/admin/meet-payment-records?page=${params.pageNo}&limit=${params.limit}`,
           config
         )
         .then((res) => {

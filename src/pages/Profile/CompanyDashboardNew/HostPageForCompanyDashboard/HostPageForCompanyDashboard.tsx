@@ -40,7 +40,8 @@ const HostPageForComapnyDashboard = ({ adminView }) => {
           <WebinarCardSaif />
           <CulturalEventComp /> */}
           <CreateInternshipCard />
-          <CreateEventHiring />
+          {/* HACKATHON HOST CARD TEMPORARILY DISABLED (can be re-enabled later) */}
+          {/* <CreateEventHiring /> */}
         </>
       </div>
     </div>
