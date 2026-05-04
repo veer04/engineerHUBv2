@@ -12,7 +12,7 @@ import TextField from '@mui/material/TextField';
 import axios from 'axios';
 import "../SingleChat/singleChatStyle.css"
 import ScrollableChat from '../ScrollableChat/scrollableChat';
-import Lottie from "react-lottie";
+import Lottie from "lottie-react";
 import animationData from "../../animation/typing.json";
 import { API_URL } from '../../services/APIUtils';
 import io from "socket.io-client";
@@ -30,16 +30,6 @@ const SingleChat = ({fetchAgain,setFetchAgain,user}) => {
         const [istyping, setIsTyping] = useState(false);
 
      const { selectedChat, setSelectedChat, notification, setNotification } = ChatState();
-
-    const defaultOptions = {
-        loop: true,
-        autoplay: true,
-        animationData: animationData,
-        rendererSettings: {
-        preserveAspectRatio: "xMidYMid slice",
-        },
-  };
-
 
     const sendMessage = async(event) =>{
         
@@ -239,10 +229,9 @@ const SingleChat = ({fetchAgain,setFetchAgain,user}) => {
                              {istyping ? (
                                 <div>
                                 <Lottie
-                                    options={defaultOptions}
-                                    // height={50}
-                                    width={70}
-                                    style={{ marginBottom: 15, marginLeft: 0 }}
+                                    animationData={animationData}
+                                    loop
+                                    style={{ width: 70, marginBottom: 15, marginLeft: 0 }}
                                 />
                                 </div>
                             ) : (
