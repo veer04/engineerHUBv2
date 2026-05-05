@@ -111,7 +111,7 @@ export const JobAThonDesktopView = () => {
           <img
             className={styles.company41}
             alt="Hiring Platform Illustration"
-            src={`${bucket}Company-(4)-1.png`}
+            src={`${Bucket_URL}ui/banners/company_emp.png`}
           />
         </div>
       </div>
