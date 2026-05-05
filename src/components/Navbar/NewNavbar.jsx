@@ -24,7 +24,7 @@ export default function NewNavbar() {
   const { selectedPageNavbar, setSelectedPageNavbar } = useNavbar();
   const { notificationData } = useChatNotifications();
 
-  const bucket = `${Bucket_URL}frontend/navbar/`;
+  //const bucket = `${Bucket_URL}frontend/navbar/`;
 
   useEffect(() => {
     setUserImage(getUserImage());
@@ -88,7 +88,7 @@ export default function NewNavbar() {
       }`}
     >
       <Link to="/" className="navbar-logo">
-        <img src={`${bucket}logo.svg`} alt="engineerHUB logo" loading="lazy" />
+        <img src={`${Bucket_URL}ui/icons/engineerhub_logo.svg`} alt="engineerHUB logo" loading="lazy" />
       </Link>
       <div className="pages">
         {ENABLE_COMMUNITY_CHAT &&
