@@ -14,7 +14,7 @@ const JobFilterCardSaif4 = ({ queryParam }) => {
       </div>
 
       <div className="main-4th-img">
-        <img src={`${Bucket_URL}last_image.png`} alt="" />
+        <img src={`${Bucket_URL}ui/banners/maang_banner.svg`} alt="maang" />
       </div>
     </div>
   );
