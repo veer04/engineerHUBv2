@@ -26,7 +26,7 @@ export default function Role() {
     sessionStorage.setItem("value", value);
   };
   const navigate = useNavigate();
-  const bucket = `${Bucket_URL}frontend/auth/roleselection/`;
+  const bucket = `${Bucket_URL}ui/banners/`;
   const studentNavigation = () => {
     handleCardClick("User");
     navigate("/signup");
