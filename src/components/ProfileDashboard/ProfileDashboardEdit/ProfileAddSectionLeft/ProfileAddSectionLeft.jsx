@@ -8,8 +8,11 @@ import "react-toastify/dist/ReactToastify.css";
 import { patchProfilePicture } from "../../../../services/APIConfig";
 import { getAccessToken } from "../../../../features/getCookieValues";
 import Cookies from "js-cookie";
+import { MdAddAPhoto } from "react-icons/md";
 
 const ProfileAddSectionLeft = ({ profileData, setProfileData }) => {
+  const DEFAULT_PROFILE_IMAGE =
+    "https://engineerhubs3.s3.ap-south-1.amazonaws.com/ui/banners/Student.png";
   const fileInputRef = useRef(null);
   const [profilePhoto, setProfilePhoto] = useState(profileData?.image || null);
   const [newImage, setNewImage] = useState(null);
@@ -54,6 +57,8 @@ const ProfileAddSectionLeft = ({ profileData, setProfileData }) => {
             const imageUrl =
               response.data.imageUrl || URL.createObjectURL(newImage);
             setProfilePhoto(imageUrl);
+            Cookies.set("image", imageUrl, { expires: 400 });
+            window.dispatchEvent(new Event("user-image-updated"));
 
             setProfileData((prevProfileData) => ({
               ...prevProfileData,
@@ -89,23 +94,43 @@ const ProfileAddSectionLeft = ({ profileData, setProfileData }) => {
       <div className="image-section">
         {!profileData || isImageLoading ? (
           <div className="loader-main-div">
-            <span class="loader-new"></span>
+            <span className="loader-new"></span>
           </div>
         ) : (
           <img
-            src={(profileData && profileData?.image) || "/g2.svg"}
+            src={
+              (profileData?.image &&
+                profileData.image !== "undefined" &&
+                profileData.image !== "null" &&
+                profileData.image.trim() !== "" &&
+                profileData.image) ||
+              profilePhoto ||
+              DEFAULT_PROFILE_IMAGE
+            }
             className="g2-img-left"
             alt="Profile"
             width={100}
             height={100}
+            onError={(e) => {
+              e.currentTarget.onerror = null;
+              e.currentTarget.src = DEFAULT_PROFILE_IMAGE;
+            }}
           />
         )}
-        <div onClick={handleUploadClick}>
-          <img
-            src={`${Bucket_URL}UserViewDashboard/add-circle.svg`}
-            className="add-circle"
-            alt="Upload Profile"
-          />
+        <div
+          onClick={handleUploadClick}
+          className="add-circle-btn"
+          role="button"
+          aria-label="Upload Profile"
+          tabIndex={0}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault();
+              handleUploadClick();
+            }
+          }}
+        >
+          <MdAddAPhoto className="add-circle-icon" />
           <input
             type="file"
             ref={fileInputRef}

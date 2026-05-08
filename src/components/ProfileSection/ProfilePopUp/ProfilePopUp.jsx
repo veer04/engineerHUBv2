@@ -49,6 +49,8 @@ import axios from "axios";
 import { ENABLE_COMMUNITY_CHAT } from "../../../config/featureFlags";
 
 export default function ProfilePopUp() {
+  const DEFAULT_PROFILE_IMAGE =
+    "https://engineerhubs3.s3.ap-south-1.amazonaws.com/ui/banners/Student.png";
   if (!isUserLoggedIn()) {
     return null;
   }
@@ -58,6 +60,13 @@ export default function ProfilePopUp() {
   // if (role === "Alumni") role = "User";
   const userFullName = getUserFullName();
   const userImage = getUserImage();
+  const resolvedUserImage =
+    userImage &&
+    userImage !== "undefined" &&
+    userImage !== "null" &&
+    userImage.trim() !== ""
+      ? userImage
+      : DEFAULT_PROFILE_IMAGE;
   const [profileProgress, setProfileProgress] = useState(75);
   const [privateDashboardDataForComp, setPrivateDashboardDataForComp] =
     useState(null);
@@ -545,7 +554,15 @@ export default function ProfilePopUp() {
                 justifyContent: "center",
               }}
             > */}
-          <img className="image" src={userImage} alt="Profile Picture" />
+          <img
+            className="image"
+            src={resolvedUserImage}
+            alt="Profile Picture"
+            onError={(e) => {
+              e.currentTarget.onerror = null;
+              e.currentTarget.src = DEFAULT_PROFILE_IMAGE;
+            }}
+          />
           {/* </Box>
           </Box>
           <div className="progress-counter">{`${progress}%`}</div> */}
