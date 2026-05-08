@@ -15,6 +15,7 @@ import useChatNotifications from "../../hooks/useChatNotifications";
 import { ENABLE_COMMUNITY_CHAT } from "../../config/featureFlags";
 
 export default function NewNavbar() {
+  const DEFAULT_PROFILE_IMAGE = `${Bucket_URL}ui/banners/Student.png`;
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [name, setName] = useState("");
   const [userImage, setUserImage] = useState("");
@@ -27,16 +28,30 @@ export default function NewNavbar() {
   //const bucket = `${Bucket_URL}frontend/navbar/`;
 
   useEffect(() => {
-    setUserImage(getUserImage());
+    const updateUserImage = () => {
+      const cookieImage = getUserImage();
+      setUserImage(
+        cookieImage &&
+          cookieImage !== "undefined" &&
+          cookieImage !== "null" &&
+          cookieImage.trim() !== ""
+          ? cookieImage
+          : DEFAULT_PROFILE_IMAGE
+      );
+    };
+
+    updateUserImage();
     setIsLoggedIn(isUserLoggedIn());
     setName(getUserFullName());
     setUserRole(getUserRole());
     window.addEventListener("resize", handleResize);
+    window.addEventListener("user-image-updated", updateUserImage);
 
     return () => {
       window.removeEventListener("resize", handleResize);
+      window.removeEventListener("user-image-updated", updateUserImage);
     };
-  }, []);
+  }, [DEFAULT_PROFILE_IMAGE]);
 
   const handleResize = () => setWidth(window.innerWidth);
 
@@ -187,6 +202,10 @@ export default function NewNavbar() {
                 src={userImage}
                 alt={`${name}'s profile picture`}
                 loading="lazy"
+                onError={(e) => {
+                  e.currentTarget.onerror = null;
+                  e.currentTarget.src = DEFAULT_PROFILE_IMAGE;
+                }}
               />
             </div>
             {/* <span className="user-full-name">{name}</span> */}

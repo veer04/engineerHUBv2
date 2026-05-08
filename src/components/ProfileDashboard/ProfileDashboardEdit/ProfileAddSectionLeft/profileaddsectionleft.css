@@ -22,11 +22,29 @@
   border-radius: 80px;
 }
 
-.profile-add-section-main .image-section .add-circle {
+.profile-add-section-main .image-section .add-circle-btn {
   position: absolute;
   bottom: 5px;
   left: 65px;
   cursor: pointer;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 1px solid #138382;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 6px rgba(0, 43, 54, 0.2);
+}
+
+.profile-add-section-main .image-section .add-circle-btn:hover {
+  background: #e9f8f8;
+}
+
+.profile-add-section-main .image-section .add-circle-icon {
+  color: #138382;
+  font-size: 16px;
 }
 
 .profile-add-section-main .loader-new {
