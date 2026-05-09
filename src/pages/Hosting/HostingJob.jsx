@@ -51,7 +51,7 @@ export default function HostingJob() {
     setSnackbarSeverity,
     setSnackbarDuration,
   } = useGlobalSnackbar();
-  const bucket = `${Bucket_URL}frontend/hosting/`;
+  const bucket = `${Bucket_URL}ui/banners/`;
   const totalPages = 3;
   const [currentPage, setCurrentPage] = useState(1);
   const [organisationName, setOrganisationName] = useState("");
@@ -685,7 +685,7 @@ export default function HostingJob() {
     <main className="hosting-container">
       <aside
         style={{
-          backgroundImage: `url(${bucket}job-poster-large.png)`,
+          backgroundImage: `url(${bucket}job_host_web_1.png)`,
         }}
         className="poster-container"
       >
@@ -703,7 +703,7 @@ export default function HostingJob() {
           </span>
           <div
             style={{
-              backgroundImage: `url(${bucket}job-poster-small.png)`,
+              backgroundImage: `url(${bucket}job_host_mob_1.png)`,
             }}
             className="poster-container-mobile"
           />

@@ -51,7 +51,7 @@ export default function HostingInternship() {
     setSnackbarSeverity,
     setSnackbarDuration,
   } = useGlobalSnackbar();
-  const bucket = `${Bucket_URL}frontend/hosting/`;
+  const bucket = `${Bucket_URL}ui/banners/`;
   const totalPages = 2;
   const [currentPage, setCurrentPage] = useState(1);
   const [organisationName, setOrganisationName] = useState("");
@@ -783,7 +783,7 @@ export default function HostingInternship() {
     <main className="hosting-container">
       <aside
         style={{
-          backgroundImage: `url(${bucket}internship-poster-large.png)`,
+          backgroundImage: `url(${bucket}internship_host_web_1.png)`,
         }}
         className="poster-container"
       >
@@ -802,7 +802,7 @@ export default function HostingInternship() {
           </span>
           <div
             style={{
-              backgroundImage: `url(${bucket}internship-poster-small.png)`,
+              backgroundImage: `url(${bucket}internship_host_mob_1.png)`,
             }}
             className="poster-container-mobile"
           />
