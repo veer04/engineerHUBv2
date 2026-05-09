@@ -55,6 +55,13 @@ export default function IndividualJobNew() {
   const handleResize = () => setWidth(window.innerWidth);
   const [userLatestInfo, setUserLatestInfo] = useState({});
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const logoUrl =
+    typeof hiring?.detailFound?.organisationLogo === "string"
+      ? hiring.detailFound.organisationLogo.trim()
+      : "";
+  const hasLogoUrl =
+    Boolean(logoUrl) && logoUrl !== "undefined" && logoUrl !== "null";
+  const [showLogo, setShowLogo] = useState(false);
 
   useEffect(() => {
     if (isUserLoggedIn()) {
@@ -182,6 +189,10 @@ export default function IndividualJobNew() {
     getHiringDetails();
   }, [hiringId]);
 
+  useEffect(() => {
+    setShowLogo(hasLogoUrl);
+  }, [hasLogoUrl, logoUrl]);
+
   const openModal = () => {
     if (modalState.setOpen) {
       modalState.setOpen(true);
@@ -232,14 +243,17 @@ export default function IndividualJobNew() {
           <div className="hiring-box">
             <div className="hiring-header">
               <div className="details">
-                {/* Temporarily hidden while S3 assets are being migrated.
-                <img
-                  className="hiring-logo"
-                  src={hiring?.detailFound?.organisationLogo}
-                  alt={`${hiring?.detailFound?.opportunityName} logo`}
-                  loading="lazy"
-                />
-                */}
+                {showLogo && (
+                  <img
+                    className="hiring-logo"
+                    src={logoUrl}
+                    alt={`${hiring?.detailFound?.opportunityName} logo`}
+                    loading="lazy"
+                    onError={() => {
+                      setShowLogo(false);
+                    }}
+                  />
+                )}
                 <div className="info">
                   <h1 className="heading-sm">
                     {hiring?.detailFound?.opportunityName}{" "}
@@ -311,11 +325,11 @@ export default function IndividualJobNew() {
               </div>
             </div>
             
-            {/*
+            
             <div className="d-flex justify-content-center mb-3">
               <AdsenseComp adSlot="1960197314" />
             </div>
-            */}
+            
 
             {/*
            <div className="d-flex justify-content-center mb-3">
@@ -352,11 +366,10 @@ export default function IndividualJobNew() {
               ></div>
             </div>
 
-            {/*
+            
             <div className="d-flex justify-content-center mb-3">
               <AdsenseComp adSlot="1960197314" />
             </div>
-            */}
 
             {/*
              <div className="d-flex justify-content-center mb-3">
@@ -566,11 +579,11 @@ export default function IndividualJobNew() {
               </div>
             </div>
             
-            {/*
+            
             <div className="d-flex justify-content-center mb-3">
               <AdsenseComp adSlot="8096000870" />
             </div>
-            */}
+            
           </>
         ) : (
           <div

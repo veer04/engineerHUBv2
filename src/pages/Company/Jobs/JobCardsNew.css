@@ -44,6 +44,9 @@
 
 .company-info {
   margin-bottom: 16px;
+}
+
+.company-info.has-logo {
   padding-right: 68px;
 }
 
