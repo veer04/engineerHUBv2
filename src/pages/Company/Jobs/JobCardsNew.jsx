@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./JobCardsNew.css";
 import { MdLocationOn } from "react-icons/md";
 import { BsBriefcase } from "react-icons/bs";
@@ -8,6 +8,17 @@ import { Link, useNavigate } from "react-router-dom";
 
 export default function JobCardsNew({ details }) {
   const navigate = useNavigate();
+  const logoUrl =
+    typeof details?.organisationLogo === "string"
+      ? details.organisationLogo.trim()
+      : "";
+  const hasLogoUrl =
+    Boolean(logoUrl) && logoUrl !== "undefined" && logoUrl !== "null";
+  const [showLogo, setShowLogo] = useState(hasLogoUrl);
+
+  useEffect(() => {
+    setShowLogo(hasLogoUrl);
+  }, [hasLogoUrl, logoUrl]);
 
   const handleClick = (e) => {
     // Prevent default only if the link isn't working
@@ -100,7 +111,7 @@ export default function JobCardsNew({ details }) {
       tabIndex={0}
     >
       <div className="job-card-new">
-        <div className="company-info">
+        <div className={`company-info ${showLogo ? "has-logo" : ""}`}>
           <h3 className="company-name">{details?.organisationName}</h3>
           <h2 className="job-title">{details?.opportunityName}</h2>
         </div>
@@ -136,18 +147,18 @@ export default function JobCardsNew({ details }) {
           </span>
         </div>
 
-        {/* Temporarily hidden while S3 assets are being migrated.
-        <div className="company-logo">
-          <img 
-            src={details?.organisationLogo} 
-            alt={`${details?.organisationName} logo`}
-            onError={(e) => {
-              e.target.onerror = null;
-              e.target.src = "https://frontendehubbucket.s3.ap-south-1.amazonaws.com/frontend/profile/dashboard/default_company_logo.png";
-            }}
-          />
-        </div>
-        */}
+        {showLogo && (
+          <div className="company-logo">
+            <img
+              src={logoUrl}
+              alt={`${details?.organisationName} logo`}
+              loading="lazy"
+              onError={() => {
+                setShowLogo(false);
+              }}
+            />
+          </div>
+        )}
       </div>
     </Link>
   );

@@ -205,8 +205,7 @@ export default function NewNavbar() {
                 onError={(e) => {
                   e.currentTarget.onerror = null;
                   e.currentTarget.src = DEFAULT_PROFILE_IMAGE;
-                }}
-              />
+                }}              />
             </div>
             {/* <span className="user-full-name">{name}</span> */}
           </div>
