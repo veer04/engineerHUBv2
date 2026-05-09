@@ -105,12 +105,14 @@ export default function StatsCarousel() {
             <span>Companies</span>
           </div>
         </div>
+        {/*
         <div className="hand-image">
           <img
             src={`${bucket}hand-image.png`}
             alt="three hand connecting in a triangle showing a bond between them"
           />
         </div>
+        */}
       </div>
     </section>
   );
