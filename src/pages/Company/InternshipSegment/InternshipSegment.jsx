@@ -6,6 +6,16 @@ import InternshipCardNew from '../../Company/Internship/InternshipCardNew';
 import Loading from '../../../components/Loader/Loading';
 import './InternshipSegment.css';
 import { ChevronRight } from 'react-feather';
+import ReferralPageBanner from '../Referrals/ReferralPageBanner.png';
+
+/** Same doodle/teal art as Referrals landing and JobsSegment (`ReferralPageBanner.png`). */
+const mainListingHeroStyle = {
+  backgroundColor: '#138382',
+  backgroundImage: `url(${ReferralPageBanner})`,
+  backgroundSize: 'cover',
+  backgroundRepeat: 'no-repeat',
+  backgroundPosition: 'center',
+};
 
 const InternshipSegment = () => {
   const [internships, setInternships] = useState([]);
@@ -49,7 +59,10 @@ const InternshipSegment = () => {
 
   if (isLoading) {
     return (
-      <div className="internships-segment-loading">
+      <div
+        className="internships-segment-loading internships-segment-loading--main-listing"
+        style={mainListingHeroStyle}
+      >
         <Loading />
       </div>
     );
@@ -57,14 +70,20 @@ const InternshipSegment = () => {
 
   if (error) {
     return (
-      <div className="internships-segment-error">
+      <div
+        className="internships-segment-error internships-segment-error--main-listing"
+        style={mainListingHeroStyle}
+      >
         <p>Failed to load internships. Please try again later.</p>
       </div>
     );
   }
 
   return (
-    <section className="internships-segment">
+    <section
+      className="internships-segment internships-segment--main-listing"
+      style={mainListingHeroStyle}
+    >
       <div className="internships-segment-header">
         <h2 className="segment-heading">Internships</h2>
         <span className="openings-count">{totalInternships}+ Openings</span>

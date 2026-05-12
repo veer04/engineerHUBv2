@@ -3,7 +3,7 @@
   max-width: 1200px;
   margin: 2rem auto;
   padding: 2rem;
-  background: #FFFFFF;
+  background: #ffffff;
   border-radius: 24px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
 }
@@ -19,62 +19,36 @@
 .services-segment-header h2 {
   font-size: 24px;
   font-weight: 600;
-  color: #1E1E1E;
+  color: #1e1e1e;
   margin: 0;
 }
 
-/* Services Carousel base styling */
-.services-embla {
-  overflow: hidden;
+/* Two rows: 3 meet (connect) cards, then 3 digital product cards */
+.services-grid {
   width: 100%;
   margin-bottom: 2rem;
-  cursor: grab;
 }
 
-.services-embla:active {
-  cursor: grabbing;
-}
-
-.services-embla__container {
-  display: flex;
-  flex-direction: row;
+.services-grid__row {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 24px;
-  padding: 0.5rem;
-  overflow-x: auto;
-  overflow-y: hidden;
-  scroll-snap-type: x proximity;
-  scroll-behavior: smooth;
-  -webkit-overflow-scrolling: touch;
-  will-change: transform;
-  transform: translate3d(0, 0, 0);
-  -webkit-transform: translate3d(0, 0, 0);
+  padding: 0 0.5rem;
 }
 
-/* Hide scrollbar for Chrome, Safari and Opera */
-.services-embla__container::-webkit-scrollbar {
-  display: none;
+.services-grid__row--digital {
+  margin-top: 1.75rem;
+  padding-top: 1.75rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
 }
 
-/* Hide scrollbar for IE, Edge and Firefox */
-.services-embla__container {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+.services-grid__cell {
+  min-width: 0;
 }
 
-.services-embla__slide {
-  min-width: calc(33.333% - 16px);
-  flex: 0 0 auto;
-  transition: transform 0.3s ease;
-  scroll-snap-align: center;
-  position: relative;
-}
-
-.services-embla__slide::after {
-  display: none;
-}
-
-.services-embla__slide:hover {
-  transform: translateY(-4px);
+.services-grid__cell:hover {
+  transform: translateY(-2px);
+  transition: transform 0.25s ease;
 }
 
 .services-segment-footer {
@@ -102,17 +76,18 @@
 }
 
 @media (max-width: 1200px) {
-  .services-embla__slide {
-    min-width: calc(50% - 12px);
-  }
-  
   .services-segment {
     margin: 1.5rem auto;
     padding: 1.5rem;
   }
-  
+
   .services-segment-header h2 {
     font-size: 22px;
+  }
+
+  .services-grid__row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
   }
 }
 
@@ -123,18 +98,20 @@
     border-radius: 20px;
   }
 
-  .services-embla__slide {
-    min-width: calc(100% - 8px);
-  }
-  
   .services-segment-header h2 {
     font-size: 20px;
   }
-  
-  .services-embla__container {
+
+  .services-grid__row {
+    grid-template-columns: 1fr;
     gap: 16px;
   }
-  
+
+  .services-grid__row--digital {
+    margin-top: 1.25rem;
+    padding-top: 1.25rem;
+  }
+
   .view-more-link {
     font-size: 13px;
     padding: 6px 20px;
@@ -151,44 +128,26 @@
   .services-segment-header {
     margin-bottom: 1rem;
   }
-  
+
   .services-segment-header h2 {
     font-size: 18px;
   }
-  
-  .services-embla__container {
-    gap: 12px;
-    padding: 0.25rem;
+
+  .services-grid {
+    margin-bottom: 1rem;
   }
-  
+
+  .services-grid__row {
+    gap: 14px;
+    padding: 0 0.25rem;
+  }
+
   .view-more-link {
     font-size: 12px;
     padding: 6px 16px;
   }
-  
+
   .services-segment-footer {
     margin-top: 1.5rem;
   }
-
-  .services-embla {
-    overflow: visible;
-    margin-bottom: 1rem;
-  }
-  
-  .services-embla__container {
-    flex-direction: column;
-    gap: 16px;
-    padding: 0.5rem;
-    overflow: visible;
-    transform: none !important;
-  }
-  
-  .services-embla__slide {
-    min-width: 100%;
-    transform: none !important;
-  }
-  
-  .services-embla__slide:hover {
-    transform: none !important;
-  }
-} 
+}

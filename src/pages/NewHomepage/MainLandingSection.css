@@ -25,6 +25,37 @@
   line-height: normal;
   letter-spacing: -0.04906rem;
 }
+
+.landing-section .content .splash-heading.splash-heading--typewriter {
+  min-height: 1.25em;
+}
+
+.splash-heading__accent {
+  color: var(--primary-color-green, #128381);
+  font-weight: 800;
+}
+
+.splash-heading__caret {
+  display: inline-block;
+  width: 2px;
+  height: 0.95em;
+  margin-left: 4px;
+  vertical-align: -0.08em;
+  background: var(--primary-color-green, #128381);
+  animation: landingSplashCaretBlink 0.85s step-end infinite;
+}
+
+@keyframes landingSplashCaretBlink {
+  50% {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .splash-heading__caret {
+    display: none;
+  }
+}
 .landing-section .content .splash-subheading {
   color: var(--Primary-500, #002b36);
   text-align: center;
@@ -387,11 +418,10 @@
 @media screen and (max-width: 820px) {
   .landing-section .content .splash-heading {
     font-size: 1.25rem;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
     max-width: 90vw;
     padding: 0 10px;
+    white-space: normal;
+    overflow: visible;
   }
   .landing-section .content .splash-subheading {
     font-size: 0.875rem;
@@ -454,11 +484,10 @@
 @media screen and (max-width: 480px) {
   .landing-section .content .splash-heading {
     font-size: 1.125rem;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
     max-width: 95vw;
     padding: 0 5px;
+    white-space: normal;
+    overflow: visible;
   }
 }
 

@@ -50,7 +50,7 @@ export default function NewFooter() {
           <div className="about-us-container">
             <p className="title">About Us</p>
             <p className="description">
-            engineerHUB is a platform to learn with like minded people & get hired by your dream companies.
+            engineerHUB is a platform to connect with like minded people & get hired by your dream companies.
             </p>
             <div
               style={{

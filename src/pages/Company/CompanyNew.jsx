@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import './CompanyNew.css';
 import JobsSegment from './JobsSegment/JobsSegment';
 import InternshipSegment from './InternshipSegment/InternshipSegment';
-import JobsForYouFilterComp from './JobsForYouFilterPage/JobsForYouFilterComp';
+import JobsForYouFilterSegments from './JobsSegment/JobsForYouFilterSegments';
 import ServicesSegment from './ServicesSegment/ServicesSegment';
 import ExploreOtherPages from './ExploreOtherPages/ExploreOtherPages';
 import TestimonialsSection from './TestimonialsSection/TestimonialsSection';
@@ -27,41 +27,141 @@ const SearchSection = () => {
 
   return (
     <div className="search-section">
-      <form onSubmit={handleSearch} className="search-container">
-        <button type="submit">
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M17.5 17.5L13.875 13.875M15.8333 9.16667C15.8333 12.8486 12.8486 15.8333 9.16667 15.8333C5.48477 15.8333 2.5 12.8486 2.5 9.16667C2.5 5.48477 5.48477 2.5 9.16667 2.5C12.8486 2.5 15.8333 5.48477 15.8333 9.16667Z" stroke="currentColor" strokeWidth="1.66667" strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
-        </button>
-        <input
-          type="text"
-          placeholder="Search for opportunities,company..etc"
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-        />
-      </form>
-      <div className="quick-links">
-        <Link 
-          to="/career/jobs" 
-          className={`quick-link-btn ${isActive('/career/jobs') ? 'active' : ''}`}
-        >
-          Jobs
-        </Link>
-        <Link 
-          to="/career/internships" 
-          className={`quick-link-btn ${isActive('/career/internships') ? 'active' : ''}`}
-        >
-          Internships
-        </Link>
-        {/*
-        <Link 
-          to="/career/events" 
-          className={`quick-link-btn ${isActive('/career/events') ? 'active' : ''}`}
-        >
-          Event Hiring
-        </Link>
-        */}
+      <div className="search-section__row">
+        <form onSubmit={handleSearch} className="search-container">
+          <button type="submit">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M17.5 17.5L13.875 13.875M15.8333 9.16667C15.8333 12.8486 12.8486 15.8333 9.16667 15.8333C5.48477 15.8333 2.5 12.8486 2.5 9.16667C2.5 5.48477 5.48477 2.5 9.16667 2.5C12.8486 2.5 15.8333 5.48477 15.8333 9.16667Z" stroke="currentColor" strokeWidth="1.66667" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </button>
+          <input
+            type="text"
+            placeholder="Search for opportunities,company..etc"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+        </form>
+        <nav className="quick-links" aria-label="Browse jobs or internships">
+          <Link 
+            to="/career/jobs" 
+            className={`quick-link-btn ${isActive('/career/jobs') ? 'active' : ''}`}
+          >
+            Jobs
+          </Link>
+          <Link 
+            to="/career/internships" 
+            className={`quick-link-btn ${isActive('/career/internships') ? 'active' : ''}`}
+          >
+            Internships
+          </Link>
+          {/*
+          <Link 
+            to="/career/events" 
+            className={`quick-link-btn ${isActive('/career/events') ? 'active' : ''}`}
+          >
+            Event Hiring
+          </Link>
+          */}
+        </nav>
       </div>
+    </div>
+  );
+};
+
+const JOBS_CURATED_HEADING_TEXT = 'Jobs curated for you';
+/** Same cadence as NewHomePage daily-opportunities typewriter */
+const JOBS_CURATED_TYPE_MS = 42;
+
+function renderJobsCuratedTyped(typed) {
+  const prefix = 'Jobs';
+  if (!typed.length) return null;
+  if (typed.length <= prefix.length && prefix.startsWith(typed)) {
+    return (
+      <span className="jobs-curated-for-you-accent">{typed}</span>
+    );
+  }
+  if (typed.startsWith(prefix)) {
+    return (
+      <>
+        <span className="jobs-curated-for-you-accent">{prefix}</span>
+        {typed.slice(prefix.length)}
+      </>
+    );
+  }
+  return typed;
+}
+
+const JobsCuratedForYouHeading = () => {
+  const wrapRef = useRef(null);
+  const [visible, setVisible] = useState(() => {
+    if (typeof window === 'undefined') return false;
+    return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  });
+  const [typed, setTyped] = useState('');
+  const [typingDone, setTypingDone] = useState(false);
+
+  useEffect(() => {
+    const el = wrapRef.current;
+    if (!el) return undefined;
+
+    const reduceMotion = window.matchMedia(
+      '(prefers-reduced-motion: reduce)'
+    ).matches;
+    if (reduceMotion) {
+      setVisible(true);
+      return undefined;
+    }
+
+    const obs = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true);
+          obs.disconnect();
+        }
+      },
+      { rootMargin: '0px 0px -8% 0px', threshold: 0.15 }
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!visible) return undefined;
+
+    const reduceMotion = window.matchMedia(
+      '(prefers-reduced-motion: reduce)'
+    ).matches;
+    if (reduceMotion) {
+      setTyped(JOBS_CURATED_HEADING_TEXT);
+      setTypingDone(true);
+      return undefined;
+    }
+
+    setTyped('');
+    setTypingDone(false);
+    let i = 0;
+    const id = setInterval(() => {
+      i += 1;
+      setTyped(JOBS_CURATED_HEADING_TEXT.slice(0, i));
+      if (i >= JOBS_CURATED_HEADING_TEXT.length) {
+        clearInterval(id);
+        setTypingDone(true);
+      }
+    }, JOBS_CURATED_TYPE_MS);
+    return () => clearInterval(id);
+  }, [visible]);
+
+  return (
+    <div ref={wrapRef} className="jobs-curated-for-you-wrap">
+      <h2
+        className="jobs-curated-for-you-typewriter"
+        aria-label={JOBS_CURATED_HEADING_TEXT}
+      >
+        {renderJobsCuratedTyped(typed)}
+        {!typingDone && visible ? (
+          <span className="jobs-curated-for-you-caret" aria-hidden="true" />
+        ) : null}
+      </h2>
     </div>
   );
 };
@@ -212,11 +312,13 @@ const CompanyNew = () => {
         */}
 
         <InternshipSegment />
-        {/* AD-2 
-        <AdsenseComp adSlot="4766701351" />
-         */}
-        <JobsForYouFilterComp />
         <ServicesSegment />
+        <JobsCuratedForYouHeading />
+        {/* AD-2  
+        <AdsenseComp adSlot="4766701351" />
+        */}
+        <JobsForYouFilterSegments />
+        
         
         {/* AD-3 
         <AdsenseComp adSlot="9608720063" />
@@ -224,9 +326,9 @@ const CompanyNew = () => {
   {/*        <ExploreOtherPages />
        AD-4 
         <AdsenseComp adSlot="3771351287" />
-
-        <TestimonialsSection />
 */}
+        <TestimonialsSection />
+
         <CareerSEOContent />
 
         {/* AD-7 display 

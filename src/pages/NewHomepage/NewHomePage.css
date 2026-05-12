@@ -3,3 +3,101 @@
   flex-direction: column;
   width: 100%;
 }
+
+/* Homepage typewriter leads (daily opps above Jobs; referrals above Services) */
+.homepage-daily-opps-banner,
+.homepage-referrals-hook-banner {
+  width: 100%;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 1.5rem;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.homepage-daily-opps-banner {
+  margin-top: 2.25rem;
+  margin-bottom: 0.35rem;
+}
+
+.homepage-referrals-hook-banner {
+  margin-top: 2rem;
+  margin-bottom: 0.35rem;
+}
+
+.homepage-daily-opps-banner__text,
+.homepage-referrals-hook-banner__text {
+  margin: 0;
+  text-align: center;
+  /* ~+30% vs previous clamp(1.4rem, 2.8vw, 2rem) */
+  font-size: clamp(1.82rem, 3.64vw, 2.6rem);
+  font-weight: 800;
+  line-height: 1.45;
+  letter-spacing: -0.02em;
+  color: var(--primary-color-dark-green, #014051);
+}
+
+.homepage-daily-opps-banner__typewriter,
+.homepage-referrals-hook-banner__typewriter {
+  min-height: 1.45em;
+}
+
+.homepage-daily-opps-typewriter-caret,
+.homepage-referrals-typewriter-caret {
+  display: inline-block;
+  width: 2px;
+  height: 0.95em;
+  margin-left: 4px;
+  vertical-align: -0.1em;
+  background: var(--primary-color-green, #128381);
+  animation: homepageDailyOppsCaretBlink 0.85s step-end infinite;
+}
+
+@keyframes homepageDailyOppsCaretBlink {
+  50% {
+    opacity: 0;
+  }
+}
+
+.homepage-daily-opps-banner__accent,
+.homepage-referrals-hook-banner__accent {
+  color: var(--primary-color-green, #128381);
+  font-weight: 800;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .homepage-daily-opps-typewriter-caret,
+  .homepage-referrals-typewriter-caret {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 520px) {
+  .homepage-daily-opps-banner,
+  .homepage-referrals-hook-banner {
+    margin-top: 1.75rem;
+    margin-bottom: 0.25rem;
+    padding: 0 1rem;
+  }
+
+  .homepage-referrals-hook-banner {
+    margin-top: 1.5rem;
+  }
+}
+
+/* Tighter coupling to Jobs block below (JobsSegment default margin-top is 2rem) */
+.homepage .homepage-daily-opps-banner + section.jobs-segment.jobs-segment--main-listing,
+.homepage
+  .homepage-daily-opps-banner
+  + div.jobs-segment-loading.jobs-segment-loading--main-listing,
+.homepage
+  .homepage-daily-opps-banner
+  + div.jobs-segment-error.jobs-segment-error--main-listing {
+  margin-top: 0.65rem;
+}
+
+/* Referrals hook sits outside Services card — pull Services up slightly */
+.homepage .homepage-referrals-hook-banner + section.services-segment {
+  margin-top: 0.65rem;
+}

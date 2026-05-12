@@ -51,13 +51,9 @@ const TestimonialsPopup = ({ show, onClose }) => {
                         {item?.name}
                       </p>
                       <p className="placed-at">Placed at</p>
-                      <div className="company-logo-container">
-                        <img
-                          title={item?.company}
-                          src={item?.companyLogo}
-                          alt={item?.company}
-                        />
-                      </div>
+                      <p className="placed-company-name" title={item?.company}>
+                        {item?.company ?? ''}
+                      </p>
                     </div>
                     <div className="flip-card-back testimonial-card-back">
                       <p title={item?.text} className="testimonial">

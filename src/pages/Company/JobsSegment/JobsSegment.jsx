@@ -6,6 +6,16 @@ import JobCardsNew from '../../Company/Jobs/JobCardsNew';
 import Loading from '../../../components/Loader/Loading';
 import './JobsSegment.css';
 import { ChevronRight } from 'react-feather';
+import ReferralPageBanner from '../Referrals/ReferralPageBanner.png';
+
+/** Same doodle/teal art as Referrals landing (`Referrals.jsx` hero). */
+const mainListingHeroStyle = {
+  backgroundColor: '#138382',
+  backgroundImage: `url(${ReferralPageBanner})`,
+  backgroundSize: 'cover',
+  backgroundRepeat: 'no-repeat',
+  backgroundPosition: 'center',
+};
 
 const JobsSegment = () => {
   const [jobs, setJobs] = useState([]);
@@ -49,7 +59,10 @@ const JobsSegment = () => {
 
   if (isLoading) {
     return (
-      <div className="jobs-segment-loading">
+      <div
+        className="jobs-segment-loading jobs-segment-loading--main-listing"
+        style={mainListingHeroStyle}
+      >
         <Loading />
       </div>
     );
@@ -57,14 +70,20 @@ const JobsSegment = () => {
 
   if (error) {
     return (
-      <div className="jobs-segment-error">
+      <div
+        className="jobs-segment-error jobs-segment-error--main-listing"
+        style={mainListingHeroStyle}
+      >
         <p>Failed to load jobs. Please try again later.</p>
       </div>
     );
   }
 
   return (
-    <section className="jobs-segment">
+    <section
+      className="jobs-segment jobs-segment--main-listing"
+      style={mainListingHeroStyle}
+    >
       <div className="jobs-segment-header">
         <h2 className="segment-heading">Jobs</h2>
         <span className="openings-count">{totalJobs}+ Openings</span>
