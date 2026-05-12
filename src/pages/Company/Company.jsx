@@ -505,12 +505,9 @@ const Company = () => {
                             {item?.name}
                           </p>
                           <p className="placed-at">Placed at</p>
-                          <img
-                            title={item?.company}
-                            className="company-logo"
-                            src={item?.companyLogo}
-                            alt={item?.company}
-                          />
+                          <p className="placed-company-name" title={item?.company}>
+                            {item?.company ?? ''}
+                          </p>
                         </div>
                         <div className="flip-card-back testimonial-card-back">
                           <p title={item?.text} className="testimonial">

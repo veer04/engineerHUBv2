@@ -487,12 +487,20 @@
   font-size: 14px;
   line-height: 20px;
 }
-.companyHome .testimonial-card-front .company-logo {
+.companyHome .testimonial-card-front .placed-company-name {
+  width: 100%;
   max-width: 145px;
-  width: 145px;
-  max-height: 28px;
-  height: 28px;
-  object-fit: contain;
+  margin: 0 auto;
+  margin-top: auto;
+  padding: 4px 2px;
+  text-align: center;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 22px;
+  color: #002b36;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .companyHome .testimonial-card-back {
   background-color: #ffffff;
