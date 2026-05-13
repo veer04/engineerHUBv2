@@ -1,21 +1,20 @@
-import React, { useState, useEffect } from "react";
-import { JobAThonMobile } from "./MobileView/EnterpriseMobileView";
+import React, { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import { JobAThonDesktopView } from "./JobAThonDesktopView";
 const Enterprise = () => {
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 600);
+  const location = useLocation();
 
   useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth < 600);
-    };
-
-    window.addEventListener("resize", handleResize);
-
-    // Initial check to update state on mount
-    handleResize();
-
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
+    if (location.hash === "#book-slot-section") {
+      const t = window.setTimeout(() => {
+        document
+          .getElementById("book-slot-section")
+          ?.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 100);
+      return () => window.clearTimeout(t);
+    }
+    return undefined;
+  }, [location.pathname, location.hash]);
 
   return (
     <div>
