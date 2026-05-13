@@ -1,6 +1,6 @@
 import "./NewNavbar.css";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Bucket_URL } from "../../services/APIUtils";
 import {
   getUserFullName,
@@ -13,6 +13,7 @@ import { useScrollDirection } from "../../features/scrollDirection";
 import NotificationBadge from "../NotificationBadge/NotificationBadge";
 import useChatNotifications from "../../hooks/useChatNotifications";
 import { ENABLE_COMMUNITY_CHAT } from "../../config/featureFlags";
+import { FaUserTie } from "react-icons/fa";
 
 export default function NewNavbar() {
   const DEFAULT_PROFILE_IMAGE = `${Bucket_URL}ui/banners/Student.png`;
@@ -24,11 +25,38 @@ export default function NewNavbar() {
 
   const { selectedPageNavbar, setSelectedPageNavbar } = useNavbar();
   const { notificationData } = useChatNotifications();
+  const location = useLocation();
+  const isEmployerRoute = location.pathname.startsWith("/employer");
+  const isLoginRoute = location.pathname.startsWith("/login");
+  const isSignupRoute =
+    location.pathname.startsWith("/signup") ||
+    location.pathname.startsWith("/select-role") ||
+    location.pathname.startsWith("/club-signup") ||
+    location.pathname.startsWith("/organization-signup");
+
+  const [profilePhotoBroken, setProfilePhotoBroken] = useState(false);
+
+  const handleResize = () => setWidth(window.innerWidth);
+
+  const profilePhotoAlt = name?.trim()
+    ? `${name} profile photo`
+    : "Your profile photo";
+
+  const profileInitials = (() => {
+    const t = name?.trim();
+    if (!t) return "?";
+    const parts = t.split(/\s+/).filter(Boolean);
+    if (parts.length >= 2) {
+      return `${parts[0][0]}${parts[1][0]}`.toUpperCase();
+    }
+    return t.slice(0, 2).toUpperCase();
+  })();
 
   //const bucket = `${Bucket_URL}frontend/navbar/`;
 
   useEffect(() => {
     const updateUserImage = () => {
+      setProfilePhotoBroken(false);
       const cookieImage = getUserImage();
       setUserImage(
         cookieImage &&
@@ -53,7 +81,25 @@ export default function NewNavbar() {
     };
   }, [DEFAULT_PROFILE_IMAGE]);
 
-  const handleResize = () => setWidth(window.innerWidth);
+  useEffect(() => {
+    const p = location.pathname;
+    if (p.startsWith("/employer")) {
+      setSelectedPageNavbar("enterprise");
+    } else if (p.startsWith("/login")) {
+      setSelectedPageNavbar("auth-login");
+    } else if (
+      p.startsWith("/signup") ||
+      p.startsWith("/select-role") ||
+      p.startsWith("/club-signup") ||
+      p.startsWith("/organization-signup")
+    ) {
+      setSelectedPageNavbar("auth-register");
+    }
+  }, [location.pathname, setSelectedPageNavbar]);
+
+  useEffect(() => {
+    setProfilePhotoBroken(false);
+  }, [isLoggedIn]);
 
   const handleCommunityChatClick = () => {
     setSelectedPageNavbar("community chat");
@@ -66,6 +112,9 @@ export default function NewNavbar() {
     width >= 1920
       ? `${(width - 1920) / 2 + 166.56}px`
       : "var(--section-padding)";
+
+  const adjustmentPaddingRight =
+    width <= 820 ? "max(0.5rem, env(safe-area-inset-right, 0px))" : adjustmentPadding;
 
   // const HostSvg = (
   //   <svg
@@ -95,7 +144,7 @@ export default function NewNavbar() {
     <nav
       style={{
         paddingLeft: adjustmentPadding,
-        paddingRight: adjustmentPadding,
+        paddingRight: adjustmentPaddingRight,
       }}
       id="navbar"
       className={`${
@@ -165,64 +214,93 @@ export default function NewNavbar() {
           </button>
         </Link>
       </div>
-      {!isLoggedIn && (
-        <div className="login-options">
-          {/* Host CTA temporarily hidden. */}
-          {/* <Link to="/host" className="nav-link">
-            <button className="host-btn">{HostSvg} Host</button>
-          </Link>
-          <div className="divider"></div> */}
-          <Link to="/login" className="nav-link">
-            <button className="login-btn">Login</button>
-          </Link>
-          {/* <Link to="/select-role" className="nav-link">
-            <button className="join-us-btn">Join Us</button>
-          </Link> */}
-        </div>
-      )}
-      {isLoggedIn && (
-        <div className="d-flex align-items-center justify-content-center gap-2 flex-row">
-          {/* Host CTA temporarily hidden. */}
-          {/* <div className="login-options ">
-            <Link to="/host" className="nav-link d-flex flex-row flex-nowrap">
-              <button style={{ marginRight: "24px" }} className="host-btn">
-                {HostSvg} Host
-              </button>
-              <div style={{ marginRight: "18px" }} className="divider"></div>
-            </Link>
-          </div> */}
-          <div
-            data-bs-toggle="offcanvas"
-            data-bs-target="#offcanvasRight"
-            aria-controls="offcanvasRight"
-            className="logged-in-container"
-          >
-            <div className="profile-picture-container">
-              <img
-                src={userImage}
-                alt={`${name}'s profile picture`}
-                loading="lazy"
-                onError={(e) => {
-                  e.currentTarget.onerror = null;
-                  e.currentTarget.src = DEFAULT_PROFILE_IMAGE;
-                }}              />
+      <div className="navbar-trailing">
+        <div className="navbar-trailing-auth navbar-trailing-auth--desktop">
+          {!isLoggedIn ? (
+            <>
+              <Link
+                to="/login"
+                className="navbar-auth-link"
+                onClick={() => setSelectedPageNavbar("auth-login")}
+              >
+                <button
+                  type="button"
+                  className={`navbar-auth-chip ${
+                    isLoginRoute ? "navbar-auth-chip--active" : ""
+                  }`}
+                >
+                  Login
+                </button>
+              </Link>
+              <Link
+                to="/select-role"
+                className="navbar-auth-link"
+                onClick={() => setSelectedPageNavbar("auth-register")}
+              >
+                <button
+                  type="button"
+                  className={`navbar-auth-chip ${
+                    isSignupRoute ? "navbar-auth-chip--active" : ""
+                  }`}
+                >
+                  Register
+                </button>
+              </Link>
+            </>
+          ) : (
+            <div
+              data-bs-toggle="offcanvas"
+              data-bs-target="#offcanvasRight"
+              aria-controls="offcanvasRight"
+              className="logged-in-container navbar-trailing-profile"
+            >
+              <div className="profile-picture-container">
+                {!profilePhotoBroken ? (
+                  <img
+                    src={userImage}
+                    alt={profilePhotoAlt}
+                    title={profilePhotoAlt}
+                    loading="lazy"
+                    onError={() => {
+                      setProfilePhotoBroken(true);
+                    }}
+                  />
+                ) : (
+                  <span
+                    className="navbar-profile-fallback"
+                    role="img"
+                    aria-label={profilePhotoAlt}
+                    title={profilePhotoAlt}
+                  >
+                    {profileInitials}
+                  </span>
+                )}
+              </div>
             </div>
-            {/* <span className="user-full-name">{name}</span> */}
-          </div>
+          )}
         </div>
-      )}
-      <div className="pages" style ={{ display :  "flex"}}>
-      <Link  className ="employerToLeft" onClick={() => setSelectedPageNavbar("enterprise")} to="/employer">
-      <button
-        className={`${
-          selectedPageNavbar === "enterprise" ? "--is-active" : ""
-        } --is-active`}
-      >
-        {width < 600 ? "Employer" : "For Employers"}
-      </button>
-    </Link>
-    
-    </div>
+        <div
+          className="navbar-trailing-divider navbar-trailing-divider--desktop"
+          aria-hidden
+        />
+        <div className="navbar-employer-wrap">
+          <Link
+            className="navbar-employer-link"
+            onClick={() => setSelectedPageNavbar("enterprise")}
+            to="/employer"
+          >
+            <button
+              type="button"
+              className={`navbar-employer-btn ${
+                isEmployerRoute ? "navbar-employer-btn--active" : ""
+              }`}
+            >
+              <FaUserTie className="navbar-employer-icon" aria-hidden />
+              <span>{width < 600 ? "Employer" : "For Employers"}</span>
+            </button>
+          </Link>
+        </div>
+      </div>
     </nav>
   );
 }

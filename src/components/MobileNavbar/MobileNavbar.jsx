@@ -1,11 +1,20 @@
 import "./MobileNavbar.css";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import useNavbar from "../../hooks/use-navbar";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import NotificationBadge from "../NotificationBadge/NotificationBadge";
 import useChatNotifications from "../../hooks/useChatNotifications";
-import { getUserRole } from "../../features/User/UserDetails";
+import {
+  getUserRole,
+  isUserLoggedIn,
+} from "../../features/User/UserDetails";
 import { ENABLE_COMMUNITY_CHAT } from "../../config/featureFlags";
+import { FaUserCircle } from "react-icons/fa";
+
+const EMPLOYER_CONNECT_PHONE_DISPLAY = "83031 56089 / 91298 83089";
+const EMPLOYER_CONNECT_EMAIL_DISPLAY = "info@engineerhub.in";
+const EMPLOYER_BOOK_SLOT_REFERRAL_PATH =
+  "/referrals/book-now/67a107c89d57a46e99582bd1";
 
 export function CommunitySvg({ className }) {
   return (
@@ -156,100 +165,299 @@ export function HostSvg({ className }) {
   );
 }
 
+const AUTH_PATH_PREFIXES = [
+  "/login",
+  "/signup",
+  "/select-role",
+  "/club-signup",
+  "/organization-signup",
+];
+
 export default function MobileNavbar() {
+  const navigate = useNavigate();
   const { selectedPageNavbar, setSelectedPageNavbar } = useNavbar();
   const { notificationData } = useChatNotifications();
   const [showNavbar, setShowNavbar] = useState(true);
   const [userRole, setUserRole] = useState(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(() =>
+    typeof window !== "undefined" ? isUserLoggedIn() : false
+  );
+  const [hostPickerOpen, setHostPickerOpen] = useState(false);
+  const [connectPickerOpen, setConnectPickerOpen] = useState(false);
+  const hostPickerRef = useRef(null);
+  const connectPickerRef = useRef(null);
 
   const location = useLocation();
 
   useEffect(() => {
     setUserRole(getUserRole());
-    if (
-      location.pathname.includes("host/") ||
-      location.pathname.includes("/chat/")
-    ) {
+    setIsLoggedIn(isUserLoggedIn());
+    if (location.pathname.includes("/chat/")) {
       setShowNavbar(false);
-    } else setShowNavbar(true);
+    } else {
+      setShowNavbar(true);
+    }
   }, [location]);
 
+  useEffect(() => {
+    const onAuth = AUTH_PATH_PREFIXES.some(
+      (p) =>
+        location.pathname === p || location.pathname.startsWith(`${p}/`)
+    );
+    if (onAuth) {
+      setSelectedPageNavbar("profile");
+    }
+  }, [location.pathname, setSelectedPageNavbar]);
+
+  const isEmployerMobileNav =
+    location.pathname.startsWith("/employer") ||
+    location.pathname.startsWith("/host");
+
+  useEffect(() => {
+    if (!isEmployerMobileNav) return;
+    if (location.pathname.startsWith("/host")) {
+      setSelectedPageNavbar("employer-host");
+    } else if (location.pathname.startsWith("/employer")) {
+      setSelectedPageNavbar("employer-connect");
+    }
+  }, [isEmployerMobileNav, location.pathname, setSelectedPageNavbar]);
+
+  useEffect(() => {
+    setHostPickerOpen(false);
+    setConnectPickerOpen(false);
+  }, [location.pathname]);
+
+  useEffect(() => {
+    if (!hostPickerOpen && !connectPickerOpen) return undefined;
+    const onPointerDown = (e) => {
+      if (
+        hostPickerOpen &&
+        hostPickerRef.current &&
+        !hostPickerRef.current.contains(e.target)
+      ) {
+        setHostPickerOpen(false);
+      }
+      if (
+        connectPickerOpen &&
+        connectPickerRef.current &&
+        !connectPickerRef.current.contains(e.target)
+      ) {
+        setConnectPickerOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", onPointerDown);
+    document.addEventListener("touchstart", onPointerDown, {
+      passive: true,
+    });
+    return () => {
+      document.removeEventListener("mousedown", onPointerDown);
+      document.removeEventListener("touchstart", onPointerDown);
+    };
+  }, [hostPickerOpen, connectPickerOpen]);
+
+  const goEmployerBookSlot = () => {
+    setConnectPickerOpen(false);
+    navigate(EMPLOYER_BOOK_SLOT_REFERRAL_PATH);
+  };
+
+  const profileTab = isLoggedIn ? (
+    <button
+      type="button"
+      className={`item-container ${
+        selectedPageNavbar === "profile" ? "--is-active" : ""
+      }`}
+      data-bs-toggle="offcanvas"
+      data-bs-target="#offcanvasRight"
+      aria-controls="offcanvasRight"
+      aria-label="Open account menu"
+      onClick={() => setSelectedPageNavbar("profile")}
+    >
+      <FaUserCircle className="svg mobile-navbar-profile-icon" aria-hidden />
+      <span>Profile</span>
+    </button>
+  ) : (
+    <Link
+      to="/login"
+      onClick={() => setSelectedPageNavbar("profile")}
+      className={`item-container ${
+        selectedPageNavbar === "profile" ? "--is-active" : ""
+      }`}
+    >
+      <FaUserCircle className="svg mobile-navbar-profile-icon" aria-hidden />
+      <span>Profile</span>
+    </Link>
+  );
+
   return showNavbar ? (
-    <div className="mobile-navbar">
-      {ENABLE_COMMUNITY_CHAT &&
-        userRole !== "Organization" &&
-        userRole !== "Club" && (
-        <Link
-          to="/chat"
-          onClick={() => {
-            setSelectedPageNavbar("chat");
-            // Don't clear navbar badge immediately - let user see which groups have notifications
-            // The badge will be cleared when they click on a specific group
-          }}
-          className={`item-container ${
-            selectedPageNavbar === "community" ? "--is-active" : ""
-          }`}
-          style={{ position: 'relative' }}
-        >
-          <CommunitySvg className="svg" />
-          <span> Chat</span>
-          <NotificationBadge 
-            count={notificationData.count}
-            type={notificationData.type}
-            className="mobile-badge"
-          />
-        </Link>
+    <div
+      className={
+        isEmployerMobileNav
+          ? "mobile-navbar mobile-navbar--employer"
+          : "mobile-navbar"
+      }
+    >
+      {isEmployerMobileNav ? (
+        <>
+          <div
+            className={`mobile-navbar-host-slot${
+              hostPickerOpen ? " mobile-navbar-host-slot--open" : ""
+            }`}
+            ref={hostPickerRef}
+          >
+            <button
+              type="button"
+              onClick={() => {
+                setConnectPickerOpen(false);
+                setHostPickerOpen((o) => !o);
+              }}
+              className={`item-container vibrate-1 ${
+                selectedPageNavbar === "employer-host" ? "--is-active" : ""
+              }`}
+              aria-expanded={hostPickerOpen}
+              aria-haspopup="dialog"
+              aria-controls="mobile-host-picker"
+            >
+              <HostSvg className="svg" />
+              <span>Host</span>
+            </button>
+            {hostPickerOpen ? (
+              <div
+                id="mobile-host-picker"
+                className="mobile-navbar-host-picker"
+                role="dialog"
+                aria-label="Choose what to host"
+              >
+                <p className="mobile-navbar-host-picker-label">Host</p>
+                <button
+                  type="button"
+                  className="mobile-navbar-host-picker-option"
+                  onClick={() => {
+                    setHostPickerOpen(false);
+                    setSelectedPageNavbar("employer-host");
+                    navigate("/host/jobs");
+                  }}
+                >
+                  Jobs
+                </button>
+                <button
+                  type="button"
+                  className="mobile-navbar-host-picker-option"
+                  onClick={() => {
+                    setHostPickerOpen(false);
+                    setSelectedPageNavbar("employer-host");
+                    navigate("/host/internships");
+                  }}
+                >
+                  Internships
+                </button>
+              </div>
+            ) : null}
+          </div>
+          <div
+            className={`mobile-navbar-connect-slot${
+              connectPickerOpen ? " mobile-navbar-connect-slot--open" : ""
+            }`}
+            ref={connectPickerRef}
+          >
+            <button
+              type="button"
+              onClick={() => {
+                setHostPickerOpen(false);
+                setConnectPickerOpen((o) => !o);
+              }}
+              className={`item-container vibrate-2 ${
+                selectedPageNavbar === "employer-connect" ? "--is-active" : ""
+              }`}
+              aria-expanded={connectPickerOpen}
+              aria-haspopup="dialog"
+              aria-controls="mobile-connect-picker"
+            >
+              <ServicesSvg className="svg" />
+              <span>Connect</span>
+            </button>
+            {connectPickerOpen ? (
+              <div
+                id="mobile-connect-picker"
+                className="mobile-navbar-host-picker mobile-navbar-connect-picker-as-host"
+                role="dialog"
+                aria-label="Connect"
+              >
+                <p className="mobile-navbar-host-picker-label">Connect</p>
+                <div
+                  className="mobile-navbar-host-picker-static-row"
+                  aria-label="Phone numbers"
+                >
+                  {EMPLOYER_CONNECT_PHONE_DISPLAY}
+                </div>
+                <div
+                  className="mobile-navbar-host-picker-static-row"
+                  aria-label="Email"
+                >
+                  {EMPLOYER_CONNECT_EMAIL_DISPLAY}
+                </div>
+                <button
+                  type="button"
+                  className="mobile-navbar-host-picker-option"
+                  onClick={goEmployerBookSlot}
+                >
+                  Book a slot
+                </button>
+              </div>
+            ) : null}
+          </div>
+          {profileTab}
+        </>
+      ) : (
+        <>
+          {ENABLE_COMMUNITY_CHAT &&
+            userRole !== "Organization" &&
+            userRole !== "Club" && (
+            <Link
+              to="/chat"
+              onClick={() => {
+                setSelectedPageNavbar("chat");
+              }}
+              className={`item-container ${
+                selectedPageNavbar === "community" ? "--is-active" : ""
+              }`}
+              style={{ position: "relative" }}
+            >
+              <CommunitySvg className="svg" />
+              <span> Chat</span>
+              <NotificationBadge
+                count={notificationData.count}
+                type={notificationData.type}
+                className="mobile-badge"
+              />
+            </Link>
+          )}
+          <Link
+            to="/career"
+            onClick={() => {
+              setSelectedPageNavbar("career");
+            }}
+            className={`item-container ${
+              selectedPageNavbar === "career" ? "--is-active" : ""
+            }`}
+          >
+            <CompanySvg className="svg" />
+            <span className="new-design-color">Career</span>
+          </Link>
+          <Link
+            to="/referrals"
+            onClick={() => {
+              setSelectedPageNavbar("services");
+            }}
+            className={`item-container ${
+              selectedPageNavbar === "services" ? "--is-active" : ""
+            }`}
+          >
+            <ServicesSvg className="svg" />
+            <span>Referrals</span>
+          </Link>
+          {profileTab}
+        </>
       )}
-      {/*<Link
-        to="/campus"
-        onClick={() => {
-          setSelectedPageNavbar("campus");
-        }}
-        className={`item-container ${
-          selectedPageNavbar === "campus" ? "--is-active" : ""
-        }`}
-      >
-        <CampusSvg className="svg" />
-        <span>Campus</span>
-      </Link>
-      */}
-      <Link
-        to="/career"
-        onClick={() => {
-          setSelectedPageNavbar("career");
-        }}
-        className={`item-container ${
-          selectedPageNavbar === "career" ? "--is-active" : ""
-        }`}
-      >
-        <CompanySvg className="svg" />
-        <span className="new-design-color">Career</span>
-      </Link>
-      <Link
-        to="/referrals"
-        onClick={() => {
-          setSelectedPageNavbar("services");
-        }}
-        className={`item-container ${
-          selectedPageNavbar === "services" ? "--is-active" : ""
-        }`}
-      >
-        <ServicesSvg className="svg" />
-        <span>Referrals</span>
-      </Link>
-      {/* Host tab temporarily hidden. */}
-      {/* <Link
-        to="/host"
-        onClick={() => {
-          setSelectedPageNavbar("host");
-        }}
-        className={`item-container ${
-          selectedPageNavbar === "host" ? "--is-active" : ""
-        }`}
-      >
-        <HostSvg className="svg" />
-        <span>Host</span>
-      </Link> */}
     </div>
   ) : (
     <></>
