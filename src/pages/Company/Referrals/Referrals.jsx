@@ -15,7 +15,7 @@ import { useLocation } from "react-router-dom";
 import OurMentors from "./OurMentors/OurMentors";
 import { SEO } from "../../../components/SEO/SEO.jsx";
 import CareerSupportIntroSection from "./CareerSupportIntroSection";
-
+import AdsenseComp from "../../../components/AdsenseComp/AdsenseComp";
 const bucket = `${Bucket_URL}frontend/company/referral/`;
 
 const Referrals = () => {
@@ -220,6 +220,8 @@ const Referrals = () => {
 */}
       {/* Career Support Intro Section */}
       <CareerSupportIntroSection />
+      {/* ad below career support intro section*/}
+      <AdsenseComp adSlot="8908232121" />
 
       {/* //connect With Us Section */}
       <ConnectWithUs compName={"Connect With Us"} />
@@ -227,6 +229,8 @@ const Referrals = () => {
       {/*
       <OurMentors />
       */}
+      {/* ad below referral ratings*/}
+      <AdsenseComp adSlot="5168117459" />
       <ReferralRatings />
       </>
     </SEO>
