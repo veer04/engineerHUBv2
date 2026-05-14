@@ -311,28 +311,32 @@ const CompanyNew = () => {
         <SearchSection />
 
         <JobsSegment />
-        {/* AD-1 
+        {/* AD-1 */}
         <AdsenseComp adSlot="2075126233" />
-        */}
+        
 
         <InternshipSegment />
         <ServicesSegment />
-        <JobsCuratedForYouHeading />
-        {/* AD-2  
+        {/* AD-2  */}
         <AdsenseComp adSlot="4766701351" />
-        */}
+        
+        <JobsCuratedForYouHeading />
+
         <JobsForYouFilterSegments />
         
         
-        {/* AD-3 
+        {/* AD-3 */}
         <AdsenseComp adSlot="9608720063" />
-*/}
-  {/*        <ExploreOtherPages />
-       AD-4 
-        <AdsenseComp adSlot="3771351287" />
-*/}
-        <TestimonialsSection />
 
+  {/*       
+   <ExploreOtherPages /> 
+   */}
+
+
+       {/* AD-4 */}
+        <AdsenseComp adSlot="3771351287" />
+
+        <TestimonialsSection />
         <CareerSEOContent />
 
         {/* AD-7 display 

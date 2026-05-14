@@ -18,6 +18,7 @@ import { SEO } from "../../components/SEO/SEO.jsx";
 import JobsSegment from "../Company/JobsSegment/JobsSegment";
 import InternshipSegment from "../Company/InternshipSegment/InternshipSegment";
 import ServicesSegment from "../Company/ServicesSegment/ServicesSegment";
+import AdsenseComp from "../../components/AdsenseComp/AdsenseComp";
 
 const DAILY_OPPS_TYPEWRITER_TEXT =
   "50+ opportunities are posted every day.";
@@ -231,6 +232,8 @@ export default function NewHomePage() {
         <NewCompanyHomePage />
         */}
         <JobsSegment />
+        {/* AD-1 */}
+        <AdsenseComp adSlot="2075126233" /> 
         <InternshipSegment />
         <div ref={referralsHookRef} className="homepage-referrals-hook-banner">
           <p

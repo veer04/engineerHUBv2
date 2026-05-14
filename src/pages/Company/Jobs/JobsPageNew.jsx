@@ -246,11 +246,11 @@ const JobsPageNew = () => {
               placeholder="Search for jobs, companies etc"
             />
           </div>
-          {/*
+          {/* ad below search bar*/}
          
             <AdsenseComp adSlot="8908232121" />
          
-          */}
+          
           <FilterContainerJob
             className="filter-section"
             style={{
@@ -319,11 +319,11 @@ const JobsPageNew = () => {
         <Outlet />
       </div>
       
-      {/*
+      {/* ad below pagination*/}
       <div className="d-flex justify-content-center mb-3">
             <AdsenseComp adSlot="1464856375" />
           </div>
-        */}
+       
        {/*
       <div className="banner-space-div">
         <BannerSpaceComp
