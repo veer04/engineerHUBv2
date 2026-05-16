@@ -1,5 +1,9 @@
 import { Fragment, useEffect, useState } from "react";
-import { getUserEmail, isUserLoggedIn } from "../../features/User/UserDetails";
+import {
+  getAccessToken,
+  getUserEmail,
+  isUserLoggedIn,
+} from "../../features/User/UserDetails";
 import Page404 from "../Maintenance/Page404";
 import "./ReferralAdminPage.css";
 import { Helmet } from "react-helmet";
@@ -7,7 +11,7 @@ import { IoIosInformationCircleOutline, IoMdCheckmark } from "react-icons/io";
 import { IoVideocam } from "react-icons/io5";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { ADMIN_REFERRAL_TOKEN, PAYMENT_API_URL } from "../../services/APIUtils";
+import { PAYMENT_API_URL } from "../../services/APIUtils";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import moment from "moment/moment";
 import PaginationBarWithSearchParams from "../../components/PaginationBarWithSearchParams/PaginationBarWithSearchParams";
@@ -18,7 +22,7 @@ import DownloadButton from "./DownloadButton";
 export default function DigitalProductAdminPage() {
   if (!isUserLoggedIn()) return <Page404 />;
   const allowedEmailIds = [
-    "raj.swapnil1708@gmail.com",
+    "rishabhs883@gmail.com",
     "career@engineerhub.in",
   ];
   if (!allowedEmailIds.includes(getUserEmail().toLowerCase()))
@@ -39,7 +43,7 @@ export default function DigitalProductAdminPage() {
 
   const config = {
     headers: {
-      accessToken: ADMIN_REFERRAL_TOKEN,
+      accessToken: getAccessToken(),
     },
   };
 
@@ -212,7 +216,7 @@ export default function DigitalProductAdminPage() {
                   <DownloadButton data={content} />
                 </div>
                 <div className="table-item table-content table-content-6">
-                  <div key={index}>
+                  <div>
                     <p className="label-sm">Purchased at</p>
                     <p className="body-sm-semibold">
                       {!!content?.paymentData[0]?.paymentDate ? (
@@ -228,7 +232,7 @@ export default function DigitalProductAdminPage() {
                       )}
                     </p>
                   </div>
-                  <div key={index}>
+                  <div>
                     <p className="label-sm">Total Amount</p>
                     <p className="body-sm-semibold">
                       {!!content?.paymentData[0]?.amount ? (
