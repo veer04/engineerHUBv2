@@ -514,11 +514,11 @@ export const JobAThonDesktopView = () => {
                 </div>
                 */}
               </div>
-              {/*
+              
               <div className={styles.ourClientaleWrapper}>
                 <OurClientale />
               </div>
-              */}
+              
               {/*
               <div className={styles.frameParent14}>
                 <div className={styles.weStreamlineHiringParent}>
