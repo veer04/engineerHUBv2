@@ -31,7 +31,7 @@ const STATS_SLIDES = [
   },
   {
     start: 0,
-    max: 75,
+    max: 350,
     label: "Companies",
     suffix: "+",
   },

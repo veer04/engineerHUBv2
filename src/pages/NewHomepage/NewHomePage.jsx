@@ -257,15 +257,16 @@ export default function NewHomePage() {
         <NewHostHomePage />
 
         <EasyWayToHire />
-        {/*
-        <OurClientale />
-        */}
+       
 
         {/* <NewSiliconValley /> */}
         
         {/* ad below testimonials section*/}
         <AdsenseComp adSlot="5168117459" />
         <TestimonialsSection />
+        
+        <OurClientale />
+        
         
         {/* <NewReviewSection /> */}
       </main>
