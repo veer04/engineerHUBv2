@@ -14,7 +14,7 @@ import {
 import { Bucket_URL } from "../../services/APIUtils";
 import { IoLocationOutline } from "react-icons/io5";
 import { HashLink } from "react-router-hash-link/dist/react-router-hash-link.cjs.production";
-import { ENABLE_COMMUNITY_CHAT } from "../../config/featureFlags";
+// import { ENABLE_COMMUNITY_CHAT } from "../../config/featureFlags";
 
 export default function NewFooter() {
   const [displayFooter, setDisplayFooter] = useState(true);
@@ -118,7 +118,8 @@ export default function NewFooter() {
           </div>
           <div className="links-container">
             <div className="pages">
-              <p className="title">Community</p>
+               <p className="title">Policies</p>
+               {/*
               {ENABLE_COMMUNITY_CHAT && (
                 <Link to="/chat" className="link">
                   Chat
@@ -141,7 +142,7 @@ export default function NewFooter() {
                 className="link"
               >
                 Blogs
-              </Link>
+              </Link> */}
               <HashLink to="/terms-and-conditions" className="link">
                 Terms And Conditions
               </HashLink>
@@ -204,9 +205,11 @@ export default function NewFooter() {
               <Link to="/career/jobs?pageNo=1&limit=24" className="link">
                 Jobs
               </Link>
+              {/*
               <Link to="/career/events" className="link">
                 Hackathons
               </Link>
+              */}
               
             </div>
             <div className="pages">
