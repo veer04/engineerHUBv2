@@ -129,6 +129,14 @@ export default function InterviewLobby() {
   // Enhanced function to handle Google OAuth with polling fallback
   const handleGoogleOAuth = async () => {
     try {
+      const allowedOrigins = new Set([window.location.origin]);
+      try {
+        const apiOrigin = new URL(API_URL, window.location.origin).origin;
+        allowedOrigins.add(apiOrigin);
+      } catch (originError) {
+        console.error("Failed to parse API URL origin for OAuth:", originError);
+      }
+
       // Get OAuth URL from backend
       const response = await axios.get(
         `${API_URL}api/v1/google/oauth/url`,
@@ -153,8 +161,11 @@ export default function InterviewLobby() {
         
         // Listen for messages from the popup window
         const handleMessage = (event) => {
-          // More flexible origin checking
-          if (!event.origin.includes('localhost') && !event.origin.includes('127.0.0.1')) {
+          if (event.source !== popup) {
+            return;
+          }
+
+          if (!allowedOrigins.has(event.origin)) {
             return;
           }
           
@@ -215,7 +226,6 @@ export default function InterviewLobby() {
                   try {
                     // Check if there's a token in localStorage set by callback
                     const storedToken = localStorage.getItem('googleAuthToken');
-                    {console.log(storedToken , googleAuthToken)}
                     if (storedToken && storedToken !== googleAuthToken) {
                       setGoogleAuthToken(storedToken);
                       setSnackbarMessage("Google connected successfully! You can now schedule interviews. Make sure you used the same Gmail account you're logged in with here.");
@@ -1087,7 +1097,6 @@ export default function InterviewLobby() {
               </div>
               
               <div className="download-btn-container">
-                {console.log(googleAuthToken , '1096')}
                 {googleAuthToken ? (
                   <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
                     <button
