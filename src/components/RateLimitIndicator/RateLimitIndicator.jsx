@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Info, AlertTriangle, CheckCircle } from 'react-feather';
 import './RateLimitIndicator.css';
 
@@ -56,13 +56,16 @@ const RateLimitIndicator = ({ currentRequests = 0, maxRequests = 50, maxResumesP
           </div>
           <div className="tooltip-content">
             <div className="tooltip-item">
-              <strong>Current Usage:</strong> {currentRequests} credits
+              <span className="tooltip-label">Current Usage</span>
+              <span className="tooltip-value">{currentRequests} credits</span>
             </div>
             <div className="tooltip-item">
-              <strong>Hourly Limit:</strong> {maxRequests} credits
+              <span className="tooltip-label">Hourly Limit</span>
+              <span className="tooltip-value">{maxRequests} credits</span>
             </div>
             <div className="tooltip-item">
-              <strong>Per Request Limit:</strong> {maxResumesPerRequest} resumes
+              <span className="tooltip-label">Per Request Limit</span>
+              <span className="tooltip-value">{maxResumesPerRequest} resumes</span>
             </div>
             <div className="tooltip-status">
               Status: {getStatusMessage()}
