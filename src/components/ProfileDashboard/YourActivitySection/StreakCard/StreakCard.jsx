@@ -420,11 +420,11 @@ const StreakCard = ({ streakData, userId = null }) => {
       <div className="streak-info-note">
         <div className="note-item">
           <span className="note-bullet">•</span>
-          <span className="note-text">Any interaction in the community chat or applying to jobs will be counted as an action.</span>
+          <span className="note-text">Login/signup, active cookie sessions, profile updates, opportunity applications, referral session selection, and digital product purchases are counted as actions.</span>
         </div>
         <div className="note-item">
           <span className="note-bullet">•</span>
-          <span className="note-text">Maintaining a streak of 30+ days will earn you a free referral to leading MNCs, top startups, or even MAANG companies.</span>
+          <span className="note-text">Maintaining a streak of 30+ days will earn you Resume guidance from our mentor, a free referral to leading MNCs, top startups, or even MAANG companies.</span>
         </div>
         <div className="note-item">
           <span className="note-bullet">•</span>

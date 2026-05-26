@@ -344,7 +344,7 @@ export const JobAThonDesktopView = () => {
                         <div className={styles.fromConnectingWith}>
                         <ul>
                         <li>
-                        Discover and hire top engineers from any tier of campus across India  instantly, With access to 2,25,000+ verified candidates.
+                        Discover and hire top engineers from any tier of campus across India  instantly, With access to 3,25,000+ verified candidates.
                         </li>
                         <br />  
                         <li>

@@ -332,8 +332,20 @@
   .main-container
   .categories-container
   .download-container
-  .sort-btn svg {
+  .sort-btn svg,
+  .sort-btn .sort-icon {
   transition: all 0.2s ease;
+  width: 0.95rem;
+  height: 0.95rem;
+}
+
+.crm-board
+  .main-container
+  .categories-container
+  .download-container
+  .sort-btn
+  .gemini-sort-icon {
+  object-fit: contain;
 }
 
 .crm-board

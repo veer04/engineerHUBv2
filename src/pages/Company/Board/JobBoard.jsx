@@ -5,7 +5,6 @@ import { MdDeleteOutline, MdMailOutline } from "react-icons/md";
 import { RiInboxArchiveLine } from "react-icons/ri";
 import { BiSort } from "react-icons/bi";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
-import { SiOpenai } from "react-icons/si";
 import Loading from "../../../components/Loader/Loading";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
@@ -21,6 +20,7 @@ import FormInput from "../../../components/FormInputs/FormInput";
 import FormInputTextarea from "../../../components/FormInputs/FormInputTextarea";
 import { Editor } from "@tinymce/tinymce-react";
 import RateLimitIndicator from "../../../components/RateLimitIndicator/RateLimitIndicator";
+import geminiIcon from "../../../assets/gemini-icon.svg";
 
 export default function JobBoard() {
   const navigate = useNavigate();
@@ -209,6 +209,16 @@ The Hiring Team<br>
     staleTime: 1000 * 60 * 1, // 1 minutes
   });
 
+  const aiRateLimitStatus = useQuery({
+    queryKey: ["AIRateLimitStatus", id],
+    queryFn: () =>
+      axios
+        .get(`${API_URL}api/v1/hiringDashboard/aiSortRateLimitStatus`, config)
+        .then((res) => res),
+    enabled: !!id,
+    staleTime: 1000 * 30,
+  });
+
   useEffect(() => {
     if (boardData.isSuccess) {
       console.log('BoardData loaded:', {
@@ -230,6 +240,12 @@ The Hiring Team<br>
       );
     }
   }, [boardData, params.status, params.pageNo, params.limit]);
+
+  useEffect(() => {
+    if (aiRateLimitStatus?.isSuccess && aiRateLimitStatus?.data?.data?.data) {
+      setRateLimitInfo(aiRateLimitStatus.data.data.data);
+    }
+  }, [aiRateLimitStatus?.isSuccess, aiRateLimitStatus?.data]);
 
   const handleDownload = async () => {
     if (selectedRows.length === 0) {
@@ -594,6 +610,7 @@ The Hiring Team<br>
         
         if (response.data.data && response.data.data.rateLimitInfo) {
           setRateLimitInfo(response.data.data.rateLimitInfo);
+          queryClient.invalidateQueries({ queryKey: ["AIRateLimitStatus", id] });
           successMessage += ` (${response.data.data.rateLimitInfo.currentHourRequests}/${response.data.data.rateLimitInfo.maxRequestsPerHour} credits used this hour)`;
         }
         
@@ -1231,7 +1248,12 @@ The Hiring Team<br>
                     className="sort-btn body-sm-semibold d-flex align-items-center gap-1"
                     title=""
                   >
-                    {isAISorting ? <AiOutlineLoading3Quarters /> : <SiOpenai />} {isAISorting ? "Sorting..." : "Sort with AI"}
+                    {isAISorting ? (
+                      <AiOutlineLoading3Quarters className="sort-icon" />
+                    ) : (
+                      <img src={geminiIcon} alt="Gemini" className="sort-icon gemini-sort-icon" />
+                    )}{" "}
+                    {isAISorting ? "Sorting..." : "Sort with AI"}
                   </button>
                   <RateLimitIndicator 
                     currentRequests={rateLimitInfo.currentHourRequests}

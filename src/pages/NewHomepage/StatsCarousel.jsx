@@ -14,24 +14,24 @@ const CAROUSEL_WRAP = true;
 
 /**
  * Desktop carousel slides: left copy is static; right number animates start → max.
- * Members start at 2,00,000 (Indian grouping); others start at 0.
+ * Members start at 3,00,000 (Indian grouping); others start at 0.
  */
 const STATS_SLIDES = [
   {
-    start: 200000,
-    max: 225000,
+    start: 300000,
+    max: 325000,
     label: "Members",
     suffix: "+",
   },
   {
     start: 0,
-    max: 800,
+    max: 1000,
     label: "Campuses",
     suffix: "+",
   },
   {
     start: 0,
-    max: 75,
+    max: 400,
     label: "Companies",
     suffix: "+",
   },
