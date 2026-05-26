@@ -49,6 +49,10 @@ export default function JobBoardRow({
     },
   };
 
+  const fallbackReason = data?.aiScoreDetails?.reasoning?.toLowerCase?.() || "";
+  const isFallbackScore =
+    data?.aiScoringSuccess === false || fallbackReason.includes("fallback scoring");
+
   function handleSelectApplicant() {
     if (selectedRows.some((job) => job?._id === data?._id)) {
       setSelectedRows(selectedRows.filter((job) => job?._id !== data?._id));
@@ -273,7 +277,7 @@ export default function JobBoardRow({
                     : "N/A"}
                 </span>
               </div>
-              {data?.aiScoringSuccess === false && (
+              {isFallbackScore && (
                 <small className="score-warning">⚠️ Fallback</small>
               )}
             </div>
@@ -349,7 +353,7 @@ export default function JobBoardRow({
                   : "N/A"}
               </span>
             </div>
-            {data?.aiScoringSuccess === false && (
+            {isFallbackScore && (
               <small className="score-warning">⚠️ Fallback</small>
             )}
           </div>
@@ -699,7 +703,7 @@ export default function JobBoardRow({
                       ? `${Math.round(data.aiScore)}/100` 
                       : "N/A"}
                   </span>
-                  {data?.aiScoringSuccess === false && (
+                  {isFallbackScore && (
                     <span className="fallback-warning">⚠️ Fallback Score</span>
                   )}
                 </p>

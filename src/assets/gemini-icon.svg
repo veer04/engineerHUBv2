@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
+  <defs>
+    <linearGradient id="geminiGradientMain" x1="3" y1="3" x2="21" y2="21" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#5B4BFF"/>
+      <stop offset="1" stop-color="#00B8FF"/>
+    </linearGradient>
+    <linearGradient id="geminiGradientSmall" x1="14" y1="13" x2="22" y2="21" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#7A5CFF"/>
+      <stop offset="1" stop-color="#36D1FF"/>
+    </linearGradient>
+  </defs>
+  <path d="M12 2L14.45 7.55L20 10L14.45 12.45L12 18L9.55 12.45L4 10L9.55 7.55L12 2Z" fill="url(#geminiGradientMain)"/>
+  <path d="M18.5 14.2L19.35 16.15L21.3 17L19.35 17.85L18.5 19.8L17.65 17.85L15.7 17L17.65 16.15L18.5 14.2Z" fill="url(#geminiGradientSmall)"/>
+  <path d="M5.8 14.6L6.4 16L7.8 16.6L6.4 17.2L5.8 18.6L5.2 17.2L3.8 16.6L5.2 16L5.8 14.6Z" fill="#5B4BFF"/>
+</svg>
