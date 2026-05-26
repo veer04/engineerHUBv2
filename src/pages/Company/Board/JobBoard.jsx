@@ -20,7 +20,7 @@ import FormInput from "../../../components/FormInputs/FormInput";
 import FormInputTextarea from "../../../components/FormInputs/FormInputTextarea";
 import { Editor } from "@tinymce/tinymce-react";
 import RateLimitIndicator from "../../../components/RateLimitIndicator/RateLimitIndicator";
-import geminiIcon from "../../../assets/gemini-icon.svg";
+import geminiIcon from "../../../assets/gemini-icon-white.svg";
 
 export default function JobBoard() {
   const navigate = useNavigate();
