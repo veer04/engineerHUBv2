@@ -46,7 +46,7 @@ export default function JobBoard() {
     status: "",
     exp: "",
   });
-  const [mainSegment, setMainSegment] = useState("Response"); // "Response" or "Interview"
+  const [mainSegment, setMainSegment] = useState("Response"); // "Response" | "Assessment" | "Interview"
   const ref = useRef(null);
   const editorRef = useRef(null);
   const [boardDataRows, setBoardDataRows] = useState([]);
@@ -149,7 +149,9 @@ The Hiring Team<br>
   // Set main segment based on current URL
   useEffect(() => {
     const pathname = window.location.pathname;
-    if (pathname.includes('/interview')) {
+    if (pathname.includes('/assessment')) {
+      setMainSegment("Assessment");
+    } else if (pathname.includes('/interview')) {
       setMainSegment("Interview");
     } else {
       setMainSegment("Response");
@@ -981,6 +983,20 @@ The Hiring Team<br>
                 title="Response Management"
               >
                 <span className="nav-text">Response</span>
+              </button>
+              <button
+                onClick={() => {
+                  setMainSegment("Assessment");
+                  navigate(
+                    `/career/jobs/board/${id}/assessment?assessmentSegment=ScheduleAssessment`
+                  );
+                }}
+                className={`sidebar-nav-btn assessment-nav-btn ${
+                  mainSegment === "Assessment" ? "--active" : ""
+                }`}
+                title="Assessment Management"
+              >
+                <span className="nav-text">Assessment</span>
               </button>
               <button
                 onClick={() => {

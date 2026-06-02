@@ -1402,10 +1402,45 @@
   max-width: 120px;
 }
 
+.crm-board .main-container .board-table .table-content-8 .processing-flags-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  align-items: flex-start;
+}
+
+.crm-board
+  .main-container
+  .board-table
+  .table-content-8
+  .processing-btn.processing-btn--assessment {
+  background: #f3e8ff;
+  color: #6b21a8;
+  border-color: #a855f7;
+}
+
+.crm-board
+  .main-container
+  .board-table
+  .table-content-8
+  .processing-btn.processing-btn--assessment
+  label {
+  color: #6b21a8;
+}
+
 .crm-board .main-container .board-table .table-content-8 .processing-btn:hover {
   background: #bae6fd;
   border-color: #0284c7;
   transform: translateY(-1px);
+}
+
+.crm-board
+  .main-container
+  .board-table
+  .table-content-8
+  .processing-btn.processing-btn--assessment:hover {
+  background: #e9d5ff;
+  border-color: #9333ea;
 }
 
 .crm-board .main-container .board-table .table-content-8 .processing-btn input[type="checkbox"] {

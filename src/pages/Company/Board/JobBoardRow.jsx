@@ -30,6 +30,7 @@ export default function JobBoardRow({
 
   const [isSelected, setIsSelected] = useState(false);
   const [isHiringLoading, setIsHiringLoading] = useState(false);
+  const [isAssessmentLoading, setIsAssessmentLoading] = useState(false);
   const [isUpdating, setIsUpdating] = useState(false);
   const [showSummaryModal, setShowSummaryModal] = useState(false);
 
@@ -41,7 +42,8 @@ export default function JobBoardRow({
 
   useEffect(() => {
     setIsHiringLoading(false);
-  }, [data?.isMarkedForInterview]);
+    setIsAssessmentLoading(false);
+  }, [data?.isMarkedForInterview, data?.isMarkedForAssessment]);
 
   const config = {
     headers: {
@@ -205,6 +207,110 @@ export default function JobBoardRow({
         setIsHiringLoading(false);
       });
   }
+
+  function handleMarkForAssessment() {
+    setIsAssessmentLoading(true);
+    axios
+      .patch(
+        `${API_URL}api/v1/hiringDashboard/markForAssessment`,
+        {
+          hiringId: id,
+          data: [
+            {
+              registrationId: data?._id,
+            },
+          ],
+        },
+        config
+      )
+      .then((res) => {
+        console.log(res);
+        queryClient.invalidateQueries({
+          queryKey: ["Jobs", "board", pageNo, limit, id, status],
+        });
+        if (res.data.success) {
+          setSnackbarMessage("Candidate is now allowed for assessment.");
+          setSnackbarSeverity("success");
+          setSnackbarOpen(true);
+        }
+        setIsAssessmentLoading(false);
+      })
+      .catch((err) => {
+        console.log(err);
+        setSnackbarMessage(
+          err?.response?.data?.message || "Failed to allow candidate for assessment"
+        );
+        setSnackbarSeverity("error");
+        setSnackbarOpen(true);
+        setIsAssessmentLoading(false);
+      });
+  }
+
+  const renderProcessingFlags = () => (
+    <div className="processing-flags-wrap">
+      <div
+        className={`hired-btn processing-btn d-flex align-items-center gap-2 ${
+          data?.isMarkedForInterview ? "--hired" : ""
+        }`}
+      >
+        {!isHiringLoading && (
+          <>
+            <input
+              type="checkbox"
+              name={`item-name-${data?._id}`}
+              id={`item-id-interview-${data?._id}`}
+              checked={Boolean(data?.isMarkedForInterview)}
+              onChange={handleMarkForInterview}
+              disabled={Boolean(data?.isMarkedForInterview)}
+            />
+            <label
+              htmlFor={`item-id-interview-${data?._id}`}
+              className={`${data?.isMarkedForInterview ? "--hired" : ""}`}
+            >
+              {data?.isMarkedForInterview ? "Marked for Interview" : "Mark for Interview"}
+            </label>
+          </>
+        )}
+        {isHiringLoading && (
+          <>
+            <div className="loader-4"></div> Updating
+          </>
+        )}
+      </div>
+
+      <div
+        className={`hired-btn processing-btn processing-btn--assessment d-flex align-items-center gap-2 ${
+          data?.isMarkedForAssessment ? "--hired" : ""
+        }`}
+      >
+        {!isAssessmentLoading && (
+          <>
+            <input
+              type="checkbox"
+              name={`item-name-${data?._id}`}
+              id={`item-id-assessment-${data?._id}`}
+              checked={Boolean(data?.isMarkedForAssessment)}
+              onChange={handleMarkForAssessment}
+              disabled={Boolean(data?.isMarkedForAssessment)}
+            />
+            <label
+              htmlFor={`item-id-assessment-${data?._id}`}
+              className={`${data?.isMarkedForAssessment ? "--hired" : ""}`}
+            >
+              {data?.isMarkedForAssessment
+                ? "Allowed for Assessment"
+                : "Allow for Assessment"}
+            </label>
+          </>
+        )}
+        {isAssessmentLoading && (
+          <>
+            <div className="loader-4"></div> Updating
+          </>
+        )}
+      </div>
+    </div>
+  );
 
   return (
     <Fragment key={data?._id}>
@@ -488,51 +594,7 @@ export default function JobBoardRow({
                     >
                       <RiInboxArchiveLine />
                     </button>
-                    <div
-                      className={`hired-btn processing-btn d-flex align-items-center gap-2 ${
-                        data?.isMarkedForInterview ? "--hired" : ""
-                      }`}
-                    >
-                      {!isHiringLoading && !data?.isMarkedForInterview && (
-                        <>
-                          <input
-                            type="checkbox"
-                            name={`item-name-${data?._id}`}
-                            id={`item-id-interview-${data?._id}`}
-                            checked={data?.isMarkedForInterview}
-                            onChange={handleMarkForInterview}
-                          />
-                          <label
-                            htmlFor={`item-id-interview-${data?._id}`}
-                            className={`${data?.isMarkedForInterview ? "--hired" : ""}`}
-                          >
-                            Mark for Interview
-                          </label>
-                        </>
-                      )}
-                      {isHiringLoading && (
-                        <>
-                          <div className="loader-4"></div> Updating
-                        </>
-                      )}
-                      {!isHiringLoading && data?.isMarkedForInterview && (
-                        <>
-                          <input
-                            type="checkbox"
-                            name={`item-name-${data?._id}`}
-                            id={`item-id-interview-${data?._id}`}
-                            checked={data?.isMarkedForInterview}
-                            onChange={handleMarkForInterview}
-                          />
-                          <label
-                            htmlFor={`item-id-interview-${data?._id}`}
-                            className={`${data?.isMarkedForInterview ? "--hired" : ""}`}
-                          >
-                            Marked for Interview
-                          </label>
-                        </>
-                      )}
-                    </div>
+                    {renderProcessingFlags()}
                   </>
                 )}
               </>
@@ -622,51 +684,7 @@ export default function JobBoardRow({
             )}
 
             {status === "Processing" && (
-              <div
-                className={`hired-btn processing-btn d-flex align-items-center gap-2 ${
-                  data?.isMarkedForInterview ? "--hired" : ""
-                }`}
-              >
-                {!isHiringLoading && !data?.isMarkedForInterview && (
-                  <>
-                    <input
-                      type="checkbox"
-                      name={`item-name-${data?._id}`}
-                      id={`item-id-interview-${data?._id}`}
-                      checked={data?.isMarkedForInterview}
-                      onChange={handleMarkForInterview}
-                    />
-                    <label
-                      htmlFor={`item-id-interview-${data?._id}`}
-                      className={`${data?.isMarkedForInterview ? "--hired" : ""}`}
-                    >
-                      Mark for Interview
-                    </label>
-                  </>
-                )}
-                {isHiringLoading && (
-                  <>
-                    <div className="loader-4"></div> Updating
-                  </>
-                )}
-                {!isHiringLoading && data?.isMarkedForInterview && (
-                  <>
-                    <input
-                      type="checkbox"
-                      name={`item-name-${data?._id}`}
-                      id={`item-id-interview-${data?._id}`}
-                      checked={data?.isMarkedForInterview}
-                      onChange={handleMarkForInterview}
-                    />
-                    <label
-                      htmlFor={`item-id-interview-${data?._id}`}
-                      className={`${data?.isMarkedForInterview ? "--hired" : ""}`}
-                    >
-                      Marked for Interview
-                    </label>
-                  </>
-                )}
-              </div>
+              <>{renderProcessingFlags()}</>
             )}
             <button 
               onClick={onSendMail} 

@@ -404,6 +404,17 @@ export default function Report() {
                 <span className="nav-text">Response</span>
               </button>
               <button
+                onClick={() => {
+                  navigate(
+                    `/career/jobs/board/${id}/assessment?assessmentSegment=ScheduleAssessment`
+                  );
+                }}
+                className="sidebar-nav-btn assessment-nav-btn"
+                title="Assessment Management"
+              >
+                <span className="nav-text">Assessment</span>
+              </button>
+              <button
                 className="sidebar-nav-btn interview-nav-btn --active"
                 title="Interview Management"
               >
