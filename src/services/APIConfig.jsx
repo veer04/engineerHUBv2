@@ -1337,9 +1337,15 @@ export const getJobsByOrganisationIdPrivateMode = (setJobs) => {
     })
     .catch((err) => {
       if (axios.isCancel(err)) {
-        console.log("req cancel");
+        console.log("getJobsByOrganisationIdPrivateMode: request cancelled");
       } else {
-        console.log("req performed");
+        console.error("getJobsByOrganisationIdPrivateMode: API error", {
+          message: err.message,
+          response: err.response?.data,
+          status: err.response?.status,
+          headers: config.headers
+        });
+        setJobs([]);
       }
     });
 };
@@ -1389,9 +1395,15 @@ export const getInternshipsByOrganisationIdPrivateMode = (setInternships) => {
     })
     .catch((err) => {
       if (axios.isCancel(err)) {
-        console.log("req cancel");
+        console.log("getInternshipsByOrganisationIdPrivateMode: request cancelled");
       } else {
-        console.log("req performed");
+        console.error("getInternshipsByOrganisationIdPrivateMode: API error", {
+          message: err.message,
+          response: err.response?.data,
+          status: err.response?.status,
+          headers: config.headers
+        });
+        setInternships([]);
       }
     });
 };
@@ -1435,9 +1447,15 @@ export const getEventsByOrganisationIdPrivateMode = (setEvents) => {
     })
     .catch((err) => {
       if (axios.isCancel(err)) {
-        console.log("req cancel");
+        console.log("getEventsByOrganisationIdPrivateMode: request cancelled");
       } else {
-        console.log("req performed");
+        console.error("getEventsByOrganisationIdPrivateMode: API error", {
+          message: err.message,
+          response: err.response?.data,
+          status: err.response?.status,
+          headers: config.headers
+        });
+        setEvents([]);
       }
     });
 };
@@ -1475,9 +1493,15 @@ export const getProjectsByOrganisationIdPrivateMode = (setProjects) => {
     })
     .catch((err) => {
       if (axios.isCancel(err)) {
-        console.log("req cancel");
+        console.log("getProjectsByOrganisationIdPrivateMode: request cancelled");
       } else {
-        console.log("req performed");
+        console.error("getProjectsByOrganisationIdPrivateMode: API error", {
+          message: err.message,
+          response: err.response?.data,
+          status: err.response?.status,
+          headers: config.headers
+        });
+        setProjects([]);
       }
     });
 };

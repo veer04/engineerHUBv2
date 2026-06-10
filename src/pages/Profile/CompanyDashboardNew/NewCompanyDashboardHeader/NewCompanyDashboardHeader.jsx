@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import "./newcompanydashboardheader.css";
 import { Bucket_URL } from "../../../../services/APIUtils";
 import { FiEdit } from "react-icons/fi";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import CoverImageModal from "../../../../components/Dashboard/CoverImageModal";
 const NewCompanyDashboardHeader = ({ isUserAdmin, organization }) => {
   const navigate = useNavigate();
+  const { organizationId } = useParams();
   const [showCoverImageModal, setShowCoverImageModal] = useState(false);
 
   return (
@@ -215,7 +216,7 @@ const NewCompanyDashboardHeader = ({ isUserAdmin, organization }) => {
               <div className="main-edit-create-post-btn">
                 <div>
                   <button
-                    onClick={() => navigate("edit-profile")}
+                    onClick={() => navigate(`/profile/organization/${organizationId}/edit-profile`)}
                     className="edit-btn"
                   >
                     Edit Profile
