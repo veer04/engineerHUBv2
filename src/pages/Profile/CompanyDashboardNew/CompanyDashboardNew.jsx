@@ -25,7 +25,7 @@ import {
 import { Outlet, useParams } from "react-router-dom";
 import { getUserId, isUserLoggedIn } from "../../../features/User/UserDetails";
 import HostPageForComapnyDashboard from "./HostPageForCompanyDashboard/HostPageForCompanyDashboard";
-
+import EmployerHiringSection from "./SectionThreeAndFourNewCompany/NewCompanyThirdAndFourthSec";
 const CompanyDashboardNew = () => {
   const [organization, setOrganization] = useState({});
   const [fetchResponse, setFetchResponse] = useState({});
@@ -193,12 +193,26 @@ const CompanyDashboardNew = () => {
           internships={internships}
         />
       </div>
+      <div>
+      <EmployerHiringSection
+  title="Hire Top Engineering Talent 70% Faster"
+  features={[
+    "Access 500,000+ engineers across India",
+    "Source talent from 1,000+ engineering colleges",
+    "AI-powered resume screening and candidate ranking",
+    "Assessments, interviews, and CRM in one platform"
+  ]}
+  btnText="Explore Employer Solutions"
+  btnLink="/referrals/book-now/67a107c89d57a46e99582bd1"
+  image={`${Bucket_URL}ui/banners/employer_banner_profile.png`}
+/>
+      </div>
 
-      <div style={{ marginBottom: 20 }}>
+      {/* <div style={{ marginBottom: 20 }}>
         <NewCompanyThirdAndFourthSec
-          title={"4x your campus placements"}
+          title={"Hire Top Engineering Talent 70% Faster"}
           desc={
-            "From connecting with 5 lakh+ engineers to assessments, virtual interviews, advanced analytics, and ATS-powered shortlisting—our platform automates and streamlines every step of the recruitment journey."
+            "Access a network of 500,000+ engineers from 1,000+ engineering colleges across India. Manage sourcing, AI-powered resume screening, assessments, interviews, and candidate tracking from a single recruitment platform—reducing hiring effort and accelerating campus recruitment at scale."
           }
           bgColor={"#E8BA9826"}
           btn={"For Companies"}
@@ -206,8 +220,8 @@ const CompanyDashboardNew = () => {
           rightImage={`${Bucket_URL}newcompanydashboard/right_frame1.png`}
           adminView={isUserAdmin}
         />
-      </div>
-
+      </div> */}
+{/*
       <div style={{ marginBottom: 40 }}>
         <NewCompanyThirdAndFourthSec
           title={"70% less screening time"}
@@ -220,7 +234,8 @@ const CompanyDashboardNew = () => {
           rightImage={`${Bucket_URL}newcompanydashboard/right_frame2.png`}
           adminView={isUserAdmin}
         />
-      </div>
+      </div>*/}
+
       <Outlet />
     </main>
   );
