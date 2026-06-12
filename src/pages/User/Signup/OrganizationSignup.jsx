@@ -132,19 +132,16 @@ const OrganizationSignup = () => {
       newErrors.contactName = "Name is required";
       valid = false;
     }
-    if (!formData.email && !linkedIn) {
-      newErrors.email = "Either work email or LinkedIn profile is required";
-      newErrors.linkedIn = "Either work email or LinkedIn profile is required";
+    if (!formData.email) {
+      newErrors.email = "Work email is required";
       valid = false;
-    } else {
-      if (formData.email && !/\S+@\S+\.\S+/.test(formData.email)) {
-        newErrors.email = "Please enter a valid email address";
-        valid = false;
-      }
-      if (linkedIn && !/^https:\/\//.test(linkedIn)) {
-        newErrors.linkedIn = "LinkedIn URL must begin with https://";
-        valid = false;
-      }
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      newErrors.email = "Please enter a valid email address";
+      valid = false;
+    }
+    if (linkedIn && !/^https:\/\//.test(linkedIn)) {
+      newErrors.linkedIn = "LinkedIn URL must begin with https://";
+      valid = false;
     }
     if (!formData.mobile) {
       newErrors.mobile = "Contact number is required";
@@ -376,10 +373,17 @@ const OrganizationSignup = () => {
             // Server responded with error
             const status = error.response.status;
             const message = error.response.data?.message || error.response.data?.err;
+            const conflictField = error.response.data?.conflictField;
             
             if (status === 409) {
               // Conflict - account already exists
-              errorMessage = message || "An account with this email or mobile number already exists. Please login or use different credentials.";
+              if (conflictField === "email") {
+                errorMessage = message || "An account with this email already exists. Please use a different email or login.";
+              } else if (conflictField === "mobile") {
+                errorMessage = message || "An account with this contact number already exists. Please use a different contact number.";
+              } else {
+                errorMessage = message || "An account with these credentials already exists. Please login or use different credentials.";
+              }
             } else if (status === 400) {
               // Bad request - validation errors
               errorMessage = message || "Please check your input and ensure all required fields are filled correctly.";
@@ -427,6 +431,7 @@ const OrganizationSignup = () => {
         variant="outlined"
         value={formData.email}
         onChange={handleChange}
+        required
         fullWidth
         margin="normal"
         error={!!errors.email}
