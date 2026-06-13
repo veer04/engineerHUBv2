@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Info, AlertTriangle, CheckCircle } from 'react-feather';
 import './RateLimitIndicator.css';
 
-const RateLimitIndicator = ({ currentRequests = 0, maxRequests = 50, maxResumesPerRequest = 10 }) => {
+const RateLimitIndicator = ({ currentRequests = 0, maxRequests = 500, maxResumesPerRequest = 30 }) => {
   const [isVisible, setIsVisible] = useState(false);
 
   const usagePercentage = (currentRequests / maxRequests) * 100;
