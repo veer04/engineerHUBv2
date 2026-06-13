@@ -64,8 +64,8 @@ export default function JobBoard() {
   const [senderEmail, setSenderEmail] = useState("");
   const [rateLimitInfo, setRateLimitInfo] = useState({
     currentHourRequests: 0,
-    maxRequestsPerHour: 50,
-    maxResumesPerRequest: 10
+    maxRequestsPerHour: 500,
+    maxResumesPerRequest: 30
   });
   const [errors, setErrors] = useState({
     subject: "",
@@ -582,8 +582,8 @@ The Hiring Team<br>
       return;
     }
 
-    // Check selection limit (max 10 resumes per request)
-    const MAX_RESUMES_PER_REQUEST = 10;
+    // Check selection limit (max 30 resumes per request)
+    const MAX_RESUMES_PER_REQUEST = 30;
     if (selectedRows.length > MAX_RESUMES_PER_REQUEST) {
       setSnackbarMessage(`Maximum ${MAX_RESUMES_PER_REQUEST} resumes can be reviewed at once. Please select fewer resumes or process in batches.`);
       setSnackbarSeverity("warning");
@@ -647,10 +647,10 @@ The Hiring Team<br>
       
       // Handle specific rate limit errors
       if (error?.response?.data?.error === 'RATE_LIMIT_EXCEEDED') {
-        if (error?.response?.data?.message?.includes("Maximum 10 resumes")) {
-          errorMessage = "Maximum 10 resumes can be reviewed at once. Please select fewer resumes.";
+        if (error?.response?.data?.message?.includes("Maximum 30 resumes") || error?.response?.data?.message?.includes("Maximum 10 resumes")) {
+          errorMessage = "Maximum 30 resumes can be reviewed at once. Please select fewer resumes.";
         } else if (error?.response?.data?.message?.includes("Rate limit exceeded")) {
-          errorMessage = "Rate limit exceeded. Maximum 50 requests per hour. Please try again later.";
+          errorMessage = "Rate limit exceeded. Maximum 500 requests per hour. Please try again later.";
         } else {
           errorMessage = error.response.data.message;
         }
@@ -1330,9 +1330,9 @@ The Hiring Team<br>
                     boardData?.data?.data?.data?.applicants?.length || 0
                   })`}
                 </label>
-                {params.status === "Response" && selectedRows.length > 10 && (
+                {params.status === "Response" && selectedRows.length > 30 && (
                   <div className="selection-limit-warning">
-                    ⚠️ Maximum 10 resumes can be sorted at once ({selectedRows.length} selected)
+                    ⚠️ Maximum 30 resumes can be sorted at once ({selectedRows.length} selected)
                   </div>
                 )}
               </div>
