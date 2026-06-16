@@ -13,11 +13,17 @@ const NewProfileConnectCard = ({ image, bgColor, title, btnName, btnLink }) => {
   const navigate = useNavigate();
 
   const handleSendToThatPage = () => {
-    navigate(btnLink);
-    setTimeout(() => {
-      const action = openPostModal();
-      dispatch(action);
-    }, 100);
+    const isExternal =
+      btnLink.startsWith("http://") || btnLink.startsWith("https://");
+    if (isExternal) {
+      window.open(btnLink, "_blank", "noopener,noreferrer");
+    } else {
+      navigate(btnLink);
+      setTimeout(() => {
+        const action = openPostModal();
+        dispatch(action);
+      }, 100);
+    }
   };
 
   return (

@@ -2,12 +2,15 @@ import React, { useRef, useState } from "react";
 import "./yourcompanyactivitysection.css";
 import { GoStopwatch } from "react-icons/go";
 import NewCompanyPostCard from "./NewCompanyPostCard";
-import { BsArrowRight, BsArrowUp } from "react-icons/bs";
-import RecommendationCard2Activity from "../../../../components/ProfileDashboard/RecommendedSection/RecommendationCard2Activity";
 import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 import ProjectCards from "../../../Company/Projects/ProjectCards";
 import JobCardForCompany from "../../../../components/ProfileDashboard/RecommendedSection/JobCardForCompany";
+import JobCardsNew from "../../../Company/Jobs/JobCardsNew";
+import InternshipCardNew from "../../../Company/Internship/InternshipCardNew";
 import NewEventCard from "../../../../components/NewEventCard/NewEventCard";
+import { useNavigate } from "react-router-dom";
+
+const CARDS_PER_ROW = 3; // max visible cards in a row before needing to scroll
 
 const YourCompanyActivitySection = ({
   posts,
@@ -25,23 +28,18 @@ const YourCompanyActivitySection = ({
 }) => {
   const [actionButton, setActionButton] = useState("Jobs");
   const scrollContainerRef = useRef(null);
-  const scrollAmount = 300;
+  const navigate = useNavigate();
+  const scrollAmount = 340;
 
   const scrollLeft = () => {
     if (scrollContainerRef.current) {
-      scrollContainerRef.current.scrollBy({
-        left: -scrollAmount,
-        behavior: "smooth",
-      });
+      scrollContainerRef.current.scrollBy({ left: -scrollAmount, behavior: "smooth" });
     }
   };
 
   const scrollRight = () => {
     if (scrollContainerRef.current) {
-      scrollContainerRef.current.scrollBy({
-        left: scrollAmount,
-        behavior: "smooth",
-      });
+      scrollContainerRef.current.scrollBy({ left: scrollAmount, behavior: "smooth" });
     }
   };
 
@@ -51,71 +49,77 @@ const YourCompanyActivitySection = ({
 
   const currentData = (() => {
     switch (actionButton) {
-      case "Posts":
-        return posts;
-      case "Jobs":
-        return jobs;
-      case "Internships":
-        return internships;
-      case "Hackathons":
-        return hackathons;
-      // case "Projects":
-      //   return projects;
-
-      default:
-        return [];
+      case "Posts":     return posts;
+      case "Jobs":      return jobs;
+      case "Internships": return internships;
+      case "Hackathons":  return hackathons;
+      default:          return [];
     }
   })();
 
+  // Show slider arrows only when there are more cards than fit in 2 rows
+  const showArrows = currentData && currentData.length > CARDS_PER_ROW * 2;
+
+  const emptyMessages = {
+    Jobs: "No jobs hosted yet. Host a job to see your activity here.",
+    Internships: "No internships hosted yet. Create an internship to get started.",
+    Posts: "No posts yet.",
+    Hackathons: "No hackathons yet.",
+  };
+
   return (
     <div className="your-company-activity-section">
+      {/* Header */}
       <div className="title-main-div">
         <GoStopwatch size={18} />
         <h3 className="h3-act">Activities</h3>
       </div>
 
+      {/* Tab buttons */}
       <div className="main-btn-divs">
         {["Jobs", "Internships"].map((buttonName) => (
           <button
             key={buttonName}
             onClick={() => handleButtonClick(buttonName)}
-            style={{
-              padding: "4px 16px",
-              borderRadius: "10px",
-              background: actionButton === buttonName ? "#138382" : "#f2f4f5",
-              fontSize: 14,
-              fontWeight: 400,
-              lineHeight: "20px",
-              color: actionButton === buttonName ? "white" : "black",
-              border: "none",
-              boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.03)",
-              cursor: "pointer",
-              transition: "background 0.3s ease",
-            }}
+            className={`act-tab-btn ${actionButton === buttonName ? "act-tab-btn--active" : ""}`}
           >
             {buttonName}
           </button>
         ))}
       </div>
 
+      {/* Content */}
       {currentData && currentData.length > 0 ? (
-        <div className="carousel-container">
-          <button className="carousel-btn left" onClick={scrollLeft}>
-            <AiOutlineLeft size={24} />
-          </button>
+        <div className="carousel-wrapper">
+          {/* Scroll Left */}
+          {showArrows && (
+            <button className="carousel-btn left" onClick={scrollLeft} aria-label="Scroll left">
+              <AiOutlineLeft size={20} />
+            </button>
+          )}
 
-          <div className="carousel" ref={scrollContainerRef}>
+          {/* Card grid — 2 rows max, then scrolls horizontally */}
+          <div className="carousel-grid" ref={scrollContainerRef}>
             {actionButton === "Posts" &&
               posts.map((jobDetail, index) => (
                 <NewCompanyPostCard key={index} {...jobDetail} />
               ))}
 
-            {actionButton === "Jobs" && (
-              <JobCardForCompany data={jobs} adminView={isUserAdmin} />
-            )}
-
-            {actionButton === "Internships" && (
-              <JobCardForCompany data={internships} adminView={isUserAdmin} />
+            {(actionButton === "Jobs" || actionButton === "Internships") && (
+              isUserAdmin ? (
+                <JobCardForCompany
+                  data={currentData}
+                  adminView={isUserAdmin}
+                />
+              ) : (
+                currentData.map((item, index) => (
+                  actionButton === "Jobs" ? (
+                    <JobCardsNew key={index} details={item} />
+                  ) : (
+                    <InternshipCardNew key={index} details={item} />
+                  )
+                ))
+              )
             )}
 
             {actionButton === "Hackathons" &&
@@ -137,13 +141,34 @@ const YourCompanyActivitySection = ({
               ))}
           </div>
 
-          <button className="carousel-btn right" onClick={scrollRight}>
-            <AiOutlineRight size={24} />
-          </button>
+          {/* Scroll Right */}
+          {showArrows && (
+            <button className="carousel-btn right" onClick={scrollRight} aria-label="Scroll right">
+              <AiOutlineRight size={20} />
+            </button>
+          )}
         </div>
       ) : (
-        <div style={{ display: "flex", justifyContent: "center" }}>
-          <p style={{ color: "grey" }}>{`No ${actionButton} to show`}</p>
+        /* Empty / Fallback state */
+        <div className="act-empty-state">
+          <div className="act-empty-icon">📋</div>
+          <p className="act-empty-msg">{emptyMessages[actionButton] || `No ${actionButton} to show`}</p>
+          {(actionButton === "Jobs") && isUserAdmin && (
+            <button
+              className="act-empty-cta"
+              onClick={() => navigate("/host/job")}
+            >
+              Host a Job →
+            </button>
+          )}
+          {(actionButton === "Internships") && isUserAdmin && (
+            <button
+              className="act-empty-cta"
+              onClick={() => navigate("/host/internship")}
+            >
+              Host an Internship →
+            </button>
+          )}
         </div>
       )}
     </div>

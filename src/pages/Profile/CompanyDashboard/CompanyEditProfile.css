@@ -1,106 +1,239 @@
-.edit-profile > div > div > .box > .md-alert-text {
-  color: #f55835;
-  font-size: 0.875rem;
-  font-weight: 500;
-  line-height: 140.523%;
-  display: none;
-}
-.edit-profile > div > div > .box > div {
+/* ============================================================
+   Company Edit Profile — Design Refresh
+   Color theme mirrors User/Alumni edit profile
+   ============================================================ */
+
+/* ──────────────────────────────
+   Avatar Block
+   ────────────────────────────── */
+.ep-avatar-block {
   display: flex;
   flex-direction: row;
-  gap: 4.63rem;
+  align-items: center;
+  gap: 2rem;
+  flex-wrap: wrap;
 }
-.edit-profile > div > div > .box > div > .logo {
-  min-width: 9.375rem;
-  aspect-ratio: 1/1;
-  background-color: transparent;
+
+/* Circular avatar container */
+.ep-avatar-wrap {
+  position: relative;
+  width: 8rem;
+  height: 8rem;
+  border-radius: 50%;
+  flex-shrink: 0;
+  cursor: pointer;
+  overflow: hidden;
+  border: 2px solid #e6e6e6;
+  box-shadow: 0 4px 16px rgba(0, 43, 54, 0.1);
+  transition: border-color 0.2s ease;
 }
-.edit-profile > div > div > .box > div > .logo > img {
+
+.ep-avatar-wrap:hover {
+  border-color: #138382;
+}
+
+.ep-avatar-wrap > img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   border-radius: 50%;
-  border: 1px solid var(--foundation-black-black-50, #e6e6e6);
+  display: block;
 }
+
+/* Hover overlay */
+.ep-avatar-overlay {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: rgba(0, 43, 54, 0.55);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+  opacity: 0;
+  transition: opacity 0.22s ease;
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.ep-avatar-wrap:hover .ep-avatar-overlay {
+  opacity: 1;
+}
+
+/* Right-side info area */
+.ep-avatar-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.ep-avatar-hint {
+  color: #8a8a8a;
+  font-size: 0.8125rem;
+  font-weight: 400;
+  line-height: 1.5;
+  margin: 0;
+  max-width: 22rem;
+}
+
+/* Remove button — text link style */
+.ep-remove-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  background: transparent;
+  border: 1px solid #ff4d4f;
+  color: #ff4d4f;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  padding: 0.4rem 0.9rem;
+  border-radius: 6px;
+  cursor: pointer;
+  width: fit-content;
+  transition: background 0.18s ease, color 0.18s ease;
+}
+
+.ep-remove-btn:hover:not(:disabled) {
+  background: #fff1f0;
+}
+
+.ep-remove-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ──────────────────────────────
+   Update Details button
+   ────────────────────────────── */
+.edit-profile .update-btn,
+.edit-profile > div > div > .box > .update-btn {
+  padding: 0.75rem 1.6rem;
+  width: fit-content;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #014051 0%, #138382 100%);
+  color: #fff;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  margin-top: 1rem;
+  float: right;
+  border: none;
+  box-shadow: 0 4px 14px rgba(1, 64, 81, 0.25);
+  transition: opacity 0.18s ease, box-shadow 0.18s ease, transform 0.14s ease;
+  cursor: pointer;
+}
+
+.edit-profile .update-btn:hover:not(:disabled),
+.edit-profile > div > div > .box > .update-btn:hover:not(:disabled) {
+  opacity: 0.9;
+  box-shadow: 0 6px 20px rgba(1, 64, 81, 0.35);
+  transform: translateY(-1px);
+}
+
+.edit-profile .update-btn:disabled,
+.edit-profile > div > div > .box > .update-btn:disabled {
+  background: #b0b0b0;
+  box-shadow: none;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ──────────────────────────────
+   Mobile field (phone + code)
+   ────────────────────────────── */
 .edit-profile > div > div > .box > .mobile-field {
   display: flex;
   gap: 0;
 }
+
 .edit-profile > div > div > .box > .mobile-field > .input-field:nth-child(1) {
   width: 7rem;
+  border-right: none;
+  border-radius: 0.3125rem 0 0 0.3125rem;
 }
 
-.edit-profile > div > div > .box > div > .buttons {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  width: 100%;
-}
-.edit-profile > div > div > .box > div > .buttons > button {
-  padding: 0.9rem;
-  width: 100%;
-  max-width: 11rem;
-  color: #002b36;
-  font-size: 0.875rem;
-  font-weight: 600;
-  line-height: normal;
-  border-radius: 0.3125rem;
-  border: 1px solid #014051;
-  background-color: transparent;
-}
-.edit-profile > div > div > .box > div > .buttons > button:nth-child(2) {
-  background-color: rgba(1, 64, 81, 0.06);
-}
-.edit-profile
-  > div
-  > div
-  > .box
-  > div
-  > .buttons
-  > button:nth-child(2):disabled {
-  cursor: default;
-}
-.edit-profile
-  > div
-  > div
-  > .box
-  > div
-  > .buttons
-  > button:nth-child(3):disabled {
-  background-color: rgba(70, 83, 86, 0.06);
-  color: #b0b0b0;
-  border-color: #b0b0b0;
-  cursor: default;
+.edit-profile > div > div > .box > .mobile-field > .input-field:nth-child(2) {
+  border-radius: 0 0.3125rem 0.3125rem 0;
 }
 
-.edit-profile > div > div > .box > div > .buttons > .alert-text {
-  color: #f55835;
-  font-size: 0.875rem;
-  font-weight: 600;
-  line-height: normal;
-}
-.edit-profile .update-btn,
-.edit-profile > div > div > .box > .update-btn {
-  padding: 0.94rem 1.2rem;
-  width: fit-content;
-  border-radius: 0.3125rem;
-  background: #014051;
-  color: white;
-  margin-top: 0.5rem;
-  float: right;
+/* ──────────────────────────────
+   Sidebar option hover & select
+   ────────────────────────────── */
+.edit-profile > div > aside > .options > .option {
+  transition: background 0.16s ease, color 0.16s ease;
 }
 
+.edit-profile > div > aside > .options > .--is-selected {
+  color: #014051;
+  font-weight: 700;
+  border-left: 4px solid #138382;
+  background: rgba(19, 131, 130, 0.06);
+}
+
+/* Back to Profile & Logout buttons */
+.edit-profile > div > aside > .back-btn {
+  border-color: #014051;
+  color: #014051;
+  font-weight: 500;
+  transition: background 0.16s ease;
+}
+
+.edit-profile > div > aside > .back-btn:hover {
+  background: rgba(1, 64, 81, 0.07);
+}
+
+.edit-profile > div > aside > .logout-button {
+  border-color: #ff4d4f;
+  color: #ff4d4f;
+  transition: background 0.16s ease;
+}
+
+.edit-profile > div > aside > .logout-button:hover {
+  background: #fff1f0;
+}
+
+/* ──────────────────────────────
+   Section heading accent
+   ────────────────────────────── */
+.edit-profile > div > div > .box > .heading {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #138382;
+  padding-bottom: 0.75rem;
+  margin-bottom: 1.2rem;
+  border-bottom: 1px solid #e6e6e6;
+}
+
+/* ──────────────────────────────
+   Input focus ring — teal
+   ────────────────────────────── */
+.edit-profile .input-field:focus {
+  outline: none;
+  border-color: #138382;
+  box-shadow: 0 0 0 3px rgba(19, 131, 130, 0.12);
+}
+
+/* ──────────────────────────────
+   Responsive — Mobile (≤ 768px)
+   ────────────────────────────── */
 @media screen and (max-width: 768px) {
-  .edit-profile > div > div > .box > div {
-    gap: 2.87rem;
+  .ep-avatar-block {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.25rem;
   }
-  .edit-profile > div > div > .box > div > .logo {
-    min-width: 7.5rem;
+
+  .ep-avatar-wrap {
+    width: 6.5rem;
+    height: 6.5rem;
   }
-  .edit-profile > div > div > .box > div > .buttons > .alert-text {
-    display: none;
-  }
-  .edit-profile > div > div > .box > .md-alert-text {
-    display: block;
+
+  .ep-avatar-hint {
+    max-width: 100%;
   }
 }

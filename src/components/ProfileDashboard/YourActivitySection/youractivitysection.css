@@ -57,3 +57,70 @@
     scroll-behavior: smooth; */
   }
 }
+
+.carousel-wrapper {
+  position: relative;
+}
+
+.carousel-grid {
+  display: grid;
+  grid-template-rows: repeat(2, auto);
+  grid-auto-flow: column;
+  grid-auto-columns: 310px;
+  gap: 12px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding-bottom: 6px;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.carousel-grid::-webkit-scrollbar {
+  display: none;
+}
+
+.your-activity-section-main .carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #014051;
+  border: 1.5px solid #014051;
+  color: white;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+  transition: background 0.15s ease;
+}
+
+.your-activity-section-main .carousel-btn:hover {
+  background: #025368;
+}
+
+.your-activity-section-main .carousel-btn.left {
+  left: -18px;
+}
+
+.your-activity-section-main .carousel-btn.right {
+  right: -18px;
+}
+
+@media screen and (max-width: 900px) {
+  .carousel-grid {
+    grid-template-rows: repeat(1, auto);
+    grid-auto-columns: 280px;
+  }
+
+  .your-activity-section-main .carousel-btn.left {
+    left: 0;
+  }
+
+  .your-activity-section-main .carousel-btn.right {
+    right: 0;
+  }
+}

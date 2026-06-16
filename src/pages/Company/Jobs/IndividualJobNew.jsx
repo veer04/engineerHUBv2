@@ -205,6 +205,13 @@ export default function IndividualJobNew() {
     }
   };
 
+  const handleIncrementClick = () => {
+    if (hiring?.detailFound?._id) {
+      axios.post(`${API_URL}api/v1/hiring/click/${hiring.detailFound._id}`)
+        .catch(err => console.error("Error tracking click", err));
+    }
+  };
+
   return (
     <SEO
       title={metaTitle}
@@ -536,6 +543,7 @@ export default function IndividualJobNew() {
                           target="_blank"
                           rel="noopener noreferrer"
                           className="w-100"
+                          onClick={handleIncrementClick}
                         >
                           <button 
                             className="body-md-semibold hiring-apply-btn w-100"
@@ -563,6 +571,9 @@ export default function IndividualJobNew() {
                 ) : (
                   <button
                     onClick={() => {
+                      if (!!hiring?.detailFound?.applyLink) {
+                        handleIncrementClick();
+                      }
                       redirectToAuth("/login");
                     }}
                     className="body-md-semibold hiring-apply-btn w-100"

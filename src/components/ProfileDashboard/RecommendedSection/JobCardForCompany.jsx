@@ -56,7 +56,7 @@ const JobCardForCompany = ({ data, adminView }) => {
             key={job._id}
           >
             <div>
-              <div style={{ display: "flex", justifyContent: "space-between" }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
                 <h4
                   style={{
                     fontSize: 12,
@@ -69,17 +69,20 @@ const JobCardForCompany = ({ data, adminView }) => {
                   {job.organisationName}
                 </h4>
 
-                {adminView && (
-                  <button
-                    className="btn-h4-main"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleNavigateJobBoard(job._id);
+                <div style={{ display: "flex", gap: 3, alignItems: "center" }}>
+                  <FaRegEye style={{ cursor: "pointer", color: "#7a8f94" }} />
+                  <h3
+                    style={{
+                      fontSize: 12,
+                      fontWeight: 500,
+                      lineHeight: "16px",
+                      color: "#7a8f94",
+                      marginBottom: 0,
                     }}
                   >
-                    <h4 className="h4-view-candidates">View Candidates</h4>
-                  </button>
-                )}
+                    {job.views}
+                  </h3>
+                </div>
               </div>
 
               <h3
@@ -195,13 +198,12 @@ const JobCardForCompany = ({ data, adminView }) => {
             <div
               style={{
                 height: 1,
-                background: "#B0B0B0",
+                background: "#E0E0E0",
                 alignSelf: "stretch",
-                marginTop: 10,
+                marginTop: "auto",
+                marginBottom: 10,
               }}
             ></div>
-
-            {/* //border end */}
 
             {/* //button div */}
             <div
@@ -209,38 +211,40 @@ const JobCardForCompany = ({ data, adminView }) => {
                 display: "flex",
                 justifyContent: "space-between",
                 alignItems: "center",
-                marginTop: 10,
               }}
             >
-              <button
+              {adminView ? (
+                !job.applyLink ? (
+                  <button
+                    className="btn-h4-main btn-view-candidates"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleNavigateJobBoard(job._id);
+                    }}
+                  >
+                    <h4 className="h4-view-candidates">View Candidates</h4>
+                  </button>
+                ) : (
+                  <button
+                    className="btn-h4-main btn-external-apply"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                    }}
+                    title="No response here as application is redirecting on another platform"
+                  >
+                    <h4 className="h4-view-candidates">Redirected </h4>
+                  </button>
+                )
+              ) : <div />}
+
+              <div
                 style={{
-                  background: "#eaf7e2",
-                  border: "1px solid #69d578",
                   fontSize: 12,
-                  fontWeight: 400,
-                  lineHeight: "16px",
-                  padding: "4px 4px",
-                  borderRadius: 5,
+                  fontWeight: 600,
+                  color: "#138382"
                 }}
               >
-                New Opening
-              </button>
-
-              {/* //eye div saif */}
-              <div style={{ display: "flex", gap: 3 }}>
-                <FaRegEye style={{ cursor: "pointer" }} />
-
-                <h3
-                  style={{
-                    fontSize: 12,
-                    fontWeight: 400,
-                    lineHeight: "16px",
-                    color: "#002B36",
-                    marginBottom: 0,
-                  }}
-                >
-                  {job.views}
-                </h3>
+                {!job.applyLink ? `${job.totalAppliedUsers || 0} Applications` : `${job.clicks || 0} Clicks`}
               </div>
             </div>
           </div>

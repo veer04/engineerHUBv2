@@ -268,15 +268,7 @@ const ProfileDashboardUserView = () => {
                 userId={userId}
               />
             </div>
-            {DashboardAdminData &&
-              DashboardAdminData.educationDetails.length > 0 && (
-                <MoreAboutYourCollegeSection
-                  aboutData={aboutData}
-                  clubData={clubData}
-                  almaData={fellowUsers}
-                  DashboardAdminData={DashboardAdminData}
-                />
-              )}
+
 
             {/* //in mobile yeh dikhega */}
             {isMobile ? (

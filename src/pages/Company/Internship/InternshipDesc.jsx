@@ -90,6 +90,10 @@ const InternshipDesc = () => {
 
   const UserDataPost = () => {
     if (!!hiring?.detailFound?.applyLink) {
+      if (hiring?.detailFound?._id) {
+        axios.post(`${API_URL}api/v1/hiring/click/${hiring.detailFound._id}`)
+          .catch(err => console.error("Error tracking click", err));
+      }
       window.open(hiring?.detailFound?.applyLink, "_blank");
       return;
     }

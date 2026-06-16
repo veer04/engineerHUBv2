@@ -1,85 +1,25 @@
 import React from "react";
 import { FaArrowRight } from "react-icons/fa";
+import { PiGraduationCapBold } from "react-icons/pi";
 import { Link } from "react-router-dom";
+import "./hostcard.css";
 
 const CreateInternshipCard = () => {
-  const hostCardStyle = {
-    width: "224px",
-    height: "auto",
-    padding: "14px",
-    borderRadius: "10px",
-    background: "#f7fbfb",
-    border: "1px solid #d7e7e7",
-    boxShadow: "0 4px 14px rgba(16, 50, 58, 0.08)",
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "space-between",
-  };
-
   return (
-    <>
-      <Link to={"/host/internships"} style={{ textDecoration: "none" }}>
-        <div
-          style={hostCardStyle}
-        >
-          {/* HOST CARD IMAGE TEMPORARILY DISABLED (can be re-enabled later) */}
-          {/* <div
-            style={{
-              width: "200px",
-              height: "100px",
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-              alignItems: "center",
-              borderRadius: 5,
-            }}
-          >
-            <img
-              style={{ borderRadius: 5 }}
-              src={`${Bucket_URL}frontend/hosting/internship-poster-small.png`}
-              alt=""
-              width={"200px"}
-              height={"100px"}
-            />
-          </div> */}
-
-          <div>
-            <h3
-              style={{
-                fontSize: 16,
-                fontWeight: 700,
-                lineHeight: "24px",
-                color: "#002B36",
-                marginBottom: 0,
-              }}
-            >
-              Internship
-            </h3>
-
-            <div
-              style={{
-                display: "flex",
-                gap: 5,
-              }}
-            >
-              <h3
-                style={{
-                  fontSize: 13,
-
-                  fontWeight: 400,
-                  lineHeight: "16px",
-                  color: "#33555E",
-                  marginBottom: 0,
-                }}
-              >
-                Create Internships
-              </h3>
-              <FaArrowRight size={14} />
-            </div>
-          </div>
-        </div>
-      </Link>
-    </>
+    <Link to={"/host/internship"} className="host-card host-card--internship" style={{ textDecoration: "none" }}>
+      <div className="host-card__icon-wrap">
+        <PiGraduationCapBold size={20} />
+      </div>
+      <div className="host-card__body">
+        <h3 className="host-card__title">Internships</h3>
+        <p className="host-card__link">
+          Create Internships <FaArrowRight size={11} />
+        </p>
+        <p className="host-card__desc">
+          Engage with aspiring talent. Showcase internship opportunities on our platform.
+        </p>
+      </div>
+    </Link>
   );
 };
 

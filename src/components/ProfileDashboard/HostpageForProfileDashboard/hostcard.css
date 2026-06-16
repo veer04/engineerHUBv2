@@ -1,0 +1,94 @@
+/* ============================================================
+   Host Cards (Jobs / Internships)
+   Used in: HostPageForProfileDashboard + HostPageForCompanyDashboard
+   ============================================================ */
+
+.host-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1 1 0;        /* each card takes equal share of row */
+  min-width: 0;       /* allow shrinking below content width */
+  padding: 18px 16px 16px;
+  border-radius: 14px;
+  text-decoration: none !important;
+  position: relative;
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+  cursor: pointer;
+}
+
+.host-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.1);
+}
+
+/* Jobs — warm yellow */
+.host-card--jobs {
+  background: #fdf3c8;
+  border: 1.5px solid #f5d97a;
+}
+
+/* Internships — soft pink/lavender */
+.host-card--internship {
+  background: #fce4ec;
+  border: 1.5px solid #f48fb1;
+}
+
+/* Icon circle */
+.host-card__icon-wrap {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.07);
+  color: #002b36;
+}
+
+/* Title */
+.host-card__title {
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1.3;
+  color: #002b36;
+  margin: 0;
+}
+
+/* "Create Jobs →" link line */
+.host-card__link {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #014051;
+  margin: 0;
+}
+
+/* Description */
+.host-card__desc {
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #33555e;
+  margin: 0;
+}
+
+/* Parent container — cards fill the row equally */
+.post-create-main-sub {
+  margin-top: 16px;
+  display: flex;
+  gap: 12px;
+  flex-wrap: nowrap;   /* keep both cards on one row */
+  align-items: stretch;
+}
+
+@media screen and (max-width: 600px) {
+  .post-create-main-sub {
+    flex-direction: column;   /* stack on mobile */
+  }
+}

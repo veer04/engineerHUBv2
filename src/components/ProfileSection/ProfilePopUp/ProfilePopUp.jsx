@@ -242,11 +242,12 @@ export default function ProfilePopUp() {
       icon: <JobIcon />,
       link: "/host/internship",
     },
+    /*
     {
       label: "Host Hackathons",
       icon: <JobIcon />,
       link: "/host/event-hiring",
-    },
+    },*/
     {
       label: "Manage Applications",
       icon: <ApplicationManageIcon />,
@@ -471,7 +472,7 @@ export default function ProfilePopUp() {
           )}`}
         />
       </div>
-
+    {/*
       <div style={{ marginBottom: 10 }}>
         <NewProfileConnectCard
           image={<Card2ImageSvgProfileSidebar />}
@@ -485,6 +486,8 @@ export default function ProfilePopUp() {
           btnLink={`/host`}
         />
       </div>
+      
+      */}
     </>
   );
 

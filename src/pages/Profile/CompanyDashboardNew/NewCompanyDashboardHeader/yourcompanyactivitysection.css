@@ -1,3 +1,7 @@
+/* ============================================================
+   Your Company Activity Section
+   ============================================================ */
+
 .your-company-activity-section {
   padding: 24px;
   border-radius: 16px;
@@ -6,115 +10,169 @@
   background: white;
 }
 
+/* Header row */
 .your-company-activity-section .title-main-div {
   display: flex;
   gap: 6px;
   align-items: center;
-  margin-bottom: 10px;
+  margin-bottom: 14px;
 }
 
 .your-company-activity-section .h3-act {
   font-size: 18px;
-  font-weight: 600;
+  font-weight: 700;
   line-height: 24px;
   color: #002b36;
   margin-bottom: 0;
 }
 
+/* ── Tab buttons ── */
 .your-company-activity-section .main-btn-divs {
   display: flex;
-  gap: 10px;
+  gap: 8px;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 18px;
+  flex-wrap: wrap;
 }
 
-.your-company-activity-section .carousel-container {
+.act-tab-btn {
+  padding: 6px 18px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  color: #555;
+  background: #f2f4f5;
+  border: 1.5px solid transparent;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.act-tab-btn--active {
+  background: #014051;
+  color: #fff;
+  border-color: #014051;
+  font-weight: 600;
+}
+
+.act-tab-btn:hover:not(.act-tab-btn--active) {
+  background: #e6edee;
+}
+
+/* ── Carousel wrapper ── */
+.carousel-wrapper {
   position: relative;
-  overflow: hidden;
 }
 
-.your-company-activity-section .carousel {
-  display: flex;
-  gap: 10px;
+/* ── 2-row grid with horizontal scroll ── */
+.carousel-grid {
+  display: grid;
+  /* 2 rows, then overflow → scroll horizontally */
+  grid-template-rows: repeat(2, auto);
+  grid-auto-flow: column;
+  grid-auto-columns: 310px;
+  gap: 12px;
   overflow-x: auto;
   scroll-behavior: smooth;
-  padding-bottom: 10px;
+  padding-bottom: 6px;
+  /* Hide scrollbar visually */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
-.your-company-activity-section .carousel::-webkit-scrollbar {
+.carousel-grid::-webkit-scrollbar {
   display: none;
 }
 
+/* ── Scroll arrows ── */
 .your-company-activity-section .carousel-btn {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background: rgba(0, 0, 0, 0.5);
-  border: none;
+  background: #014051;
+  border: 1.5px solid #014051;
   color: white;
-  padding: 8px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
-  cursor: pointer;
-  z-index: 10;
-}
-
-.your-company-activity-section .carousel-btn.left {
-  left: 0;
-}
-
-.your-company-activity-section .carousel-btn.right {
-  right: 0;
-}
-
-.your-company-activity-section .post-grid-main {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  margin-bottom: 20px;
-  gap: 10px;
-}
-
-.your-company-activity-section .projects-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  margin-bottom: 20px;
-  gap: 20px;
-  overflow: hidden;
-}
-.your-company-activity-section .btn-container-main {
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+  transition: background 0.15s ease;
 }
 
-.your-company-activity-section .btn-container-main button {
-  background-color: #002b36;
-  color: white;
+.your-company-activity-section .carousel-btn:hover {
+  background: #025368;
+}
+
+.your-company-activity-section .carousel-btn.left {
+  left: -18px;
+}
+
+.your-company-activity-section .carousel-btn.right {
+  right: -18px;
+}
+
+/* ── Empty / fallback state ── */
+.act-empty-state {
+  min-height: 160px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: #f9fafb;
+  border-radius: 12px;
+  border: 1.5px dashed #d1d8db;
+  padding: 28px 20px;
+}
+
+.act-empty-icon {
+  font-size: 2rem;
+}
+
+.act-empty-msg {
+  color: #7a8f94;
+  font-size: 14px;
+  font-weight: 400;
+  text-align: center;
+  margin: 0;
+  max-width: 340px;
+  line-height: 1.5;
+}
+
+.act-empty-cta {
+  margin-top: 4px;
+  padding: 8px 20px;
+  border-radius: 8px;
+  background: #014051;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
   border: none;
-  outline: none;
-  border-radius: 10px;
-  padding: 10px 30px;
+  cursor: pointer;
+  transition: opacity 0.18s ease;
 }
 
+.act-empty-cta:hover {
+  opacity: 0.87;
+}
+
+/* ── Mobile ── */
 @media screen and (max-width: 900px) {
-  .your-company-activity-section .post-grid-main {
-    display: grid;
-    grid-template-columns: repeat(1, 1fr);
-    gap: 10px;
+  .carousel-grid {
+    grid-template-rows: repeat(1, auto);
+    grid-auto-columns: 280px;
   }
 
-  .your-company-activity-section .main-btn-divs {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    align-items: center;
-    margin-bottom: 20px;
+  .your-company-activity-section .carousel-btn.left {
+    left: 0;
   }
 
-  .your-company-activity-section .carousel::-webkit-scrollbar {
-    display: none;
-  }
-
-  .your-company-activity-section .carousel > * {
-    flex: 0 0 100%;
+  .your-company-activity-section .carousel-btn.right {
+    right: 0;
   }
 }
