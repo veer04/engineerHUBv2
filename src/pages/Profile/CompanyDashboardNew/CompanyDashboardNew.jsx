@@ -193,20 +193,22 @@ const CompanyDashboardNew = () => {
           internships={internships}
         />
       </div>
-      <div>
-      <EmployerHiringSection
-  title="Hire Top Engineering Talent 70% Faster"
-  features={[
-    "Access 500,000+ engineers across India",
-    "Source talent from 1,000+ engineering colleges",
-    "AI-powered resume screening and candidate ranking",
-    "Assessments, interviews, and CRM in one platform"
-  ]}
-  btnText="Explore Employer Solutions"
-  btnLink="/referrals/book-now/67a107c89d57a46e99582bd1"
-  image={`${Bucket_URL}ui/banners/employer_banner_profile.png`}
-/>
-      </div>
+      {isUserAdmin && (
+        <div>
+          <EmployerHiringSection
+            title="Hire Top Engineering Talent 70% Faster"
+            features={[
+              "Access 500,000+ engineers across India",
+              "Source talent from 1,000+ engineering colleges",
+              "AI-powered resume screening and candidate ranking",
+              "Assessments, interviews, and CRM in one platform"
+            ]}
+            btnText="Explore Employer Solutions"
+            btnLink="/referrals/book-now/67a107c89d57a46e99582bd1"
+            image={`${Bucket_URL}ui/banners/employer_banner_profile.png`}
+          />
+        </div>
+      )}
 
       {/* <div style={{ marginBottom: 20 }}>
         <NewCompanyThirdAndFourthSec

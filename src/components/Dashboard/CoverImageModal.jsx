@@ -139,6 +139,7 @@ export default function CoverImageModal({}) {
               />
             )}
           </div>
+          {/* --- Default image selection (commented out) ---
           <div className="divider">
             <div className="line"></div>
             <span>or</span>
@@ -165,6 +166,7 @@ export default function CoverImageModal({}) {
               alt="logo"
             />
           </div>
+          --- End of default image selection --- */}
           <button
             disabled={loading || !!!newCoverPhoto}
             onClick={() => handleUpload()}

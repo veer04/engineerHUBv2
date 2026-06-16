@@ -237,12 +237,11 @@ export default function CompanyEditProfile() {
       newSubHeading: "",
       newOrganizationType: "",
       newAboutUs: "",
-      newHiringFor: "",
     };
     let isValid = true;
 
     if (!!!newName) {
-      errors.newName = "Please enter your Organization / Company Name";
+      errors.newName = "Please enter your Employer / Company Name";
       isValid = false;
     } else if (newName.length < 3) {
       errors.newName = "Company Name must be at least 3 characters long";
@@ -253,22 +252,19 @@ export default function CompanyEditProfile() {
     }
 
     if (!!!newSubHeading) {
-      errors.newSubHeading =
-        "Please enter your Organization / Company Sub-heading";
+      errors.newSubHeading = "Please enter your Employer / Company Bio";
       isValid = false;
     } else if (newSubHeading.length < 3) {
-      errors.newSubHeading =
-        "Company Sub-heading must be at least 3 characters long";
+      errors.newSubHeading = "Company Bio must be at least 3 characters long";
       isValid = false;
     } else if (newSubHeading.length > 250) {
       errors.newSubHeading =
-        "Company Sub-heading must be at most 250 characters long";
+        "Company Bio must be at most 250 characters long";
       isValid = false;
     }
 
     if (!!!newOrganizationType) {
-      errors.newOrganizationType =
-        "Please enter your Organization / Company Type";
+      errors.newOrganizationType = "Please enter your Company Type";
       isValid = false;
     } else if (newOrganizationType.length < 3) {
       errors.newOrganizationType =
@@ -281,23 +277,16 @@ export default function CompanyEditProfile() {
     }
 
     if (!!!newAboutUs) {
-      errors.newAboutUs =
-        "Please enter your Organization / Company Description";
+      errors.newAboutUs = "Please enter your About description";
       isValid = false;
     } else if (newAboutUs.length < 3) {
-      errors.newAboutUs =
-        "Company Description must be at least 3 characters long";
+      errors.newAboutUs = "About must be at least 3 characters long";
       isValid = false;
     } else if (newAboutUs.length > 1000) {
-      errors.newAboutUs =
-        "Company Description must be at most 1000 characters long";
+      errors.newAboutUs = "About must be at most 1000 characters long";
       isValid = false;
     }
 
-    if (!!!newHiringFor || newHiringFor === "Not Selected") {
-      errors.newHiringFor = "Please select your preference for hiring";
-      isValid = false;
-    }
     setErrors((prev) => ({ ...prev, ...errors }));
     return isValid;
   }
@@ -414,7 +403,6 @@ export default function CompanyEditProfile() {
         subHeading: newSubHeading,
         organisationType: newOrganizationType,
         aboutUs: newAboutUs,
-        hiringFor: newHiringFor,
       };
     } else if (index === 2) {
       data = {
@@ -444,56 +432,58 @@ export default function CompanyEditProfile() {
     <>
       <section className="box">
         <p className="heading">COMPANY PROFILE PICTURE</p>
-        {/* <p className="md-alert-text">
-          *Note Image size must be not more than 100kb
-        </p> */}
-        <div>
-          <div className="logo">
-            <img src={organization?.image} loading="lazy" alt="logo" />
-          </div>
-          <div className="buttons">
-            <input
-              ref={fileInput}
-              type="file"
-              style={{
-                display: "none",
-              }}
-              onChange={(e) => {
-                setNewImage(e.target.files[0]);
-              }}
-            />
-            <button
-              onClick={() => {
+        <div className="ep-avatar-block">
+          <input
+            ref={fileInput}
+            type="file"
+            style={{ display: "none" }}
+            onChange={(e) => {
+              setNewImage(e.target.files[0]);
+            }}
+          />
+          <div
+            className="ep-avatar-wrap"
+            onClick={() => {
+              if (!isImageDeleting && !isImageLoading) {
                 fileInput.current.value = null;
                 fileInput.current.click();
-              }}
-              disabled={isImageDeleting || isImageLoading}
-            >
+              }
+            }}
+          >
+            <img src={organization?.image} loading="lazy" alt="Company Logo" />
+            <div className="ep-avatar-overlay">
               {isImageLoading ? (
-                <div className="spinner-border text-dark" role="status">
-                  <span className="visually-hidden">Loading...</span>
+                <div className="spinner-border text-light" role="status">
+                  <span className="visually-hidden">Uploading...</span>
                 </div>
               ) : (
-                "Upload"
+                <>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+                    <circle cx="12" cy="13" r="4"></circle>
+                  </svg>
+                  <span>Change Photo</span>
+                </>
               )}
-            </button>
+            </div>
+          </div>
+          <div className="ep-avatar-actions">
+            <p className="ep-avatar-hint">
+              Click on the photo to upload a new one. Recommended: square image, max 2MB.
+            </p>
             <button
-              onClick={() => {
-                handleDelete();
-              }}
+              className="ep-remove-btn"
+              onClick={() => handleDelete()}
               disabled={isImageLoading || isImageDeleting}
             >
               {isImageDeleting ? (
-                <div className="spinner-border text-dark" role="status">
-                  <span className="visually-hidden">Loading...</span>
+                <div className="spinner-border spinner-border-sm text-danger" role="status">
+                  <span className="visually-hidden">Removing...</span>
                 </div>
               ) : (
-                "Delete"
+                "✕ Remove Photo"
               )}
             </button>
-            {/* <p className="alert-text">
-              *Note Image size must be not more than 100kb
-            </p> */}
           </div>
         </div>
       </section>
@@ -560,35 +550,35 @@ export default function CompanyEditProfile() {
           placeholder="Enter your Organization / Company Name"
         /> */}
         <label className="label">
-          Organization / Company Name<span className="required">*</span>
+          Employer / Company Name<span className="required">*</span>
         </label>
         <input
           type="text"
           className="input-field"
-          placeholder="Enter your Organization / Company Name"
+          placeholder="Enter your Employer / Company Name"
           value={newName}
           onChange={(e) => setNewName(e.target.value)}
         />
         <label className="error-message">{errors.newName}</label>
         <label className="label">
-          Organization / Company Sub-heading<span className="required">*</span>
+          Employer / Company Bio<span className="required">*</span>
         </label>
         <input
           type="text"
           className="input-field"
-          placeholder="Enter your Organization / Company Sub-heading"
+          placeholder="Enter a short bio for your company"
           value={newSubHeading}
           onChange={(e) => setNewSubHeading(e.target.value)}
         />
         <label className="error-message">{errors.newSubHeading}</label>
 
         <label className="label">
-          Organization / Company Type<span className="required">*</span>
+          Company Type<span className="required">*</span>
         </label>
         <input
           type="text"
           className="input-field"
-          placeholder="Enter your Organization / Company Type"
+          placeholder="e.g. EdTech, FinTech, Product, Service"
           value={newOrganizationType}
           onChange={(e) => setNewOrganizationType(e.target.value)}
         />
@@ -602,29 +592,11 @@ export default function CompanyEditProfile() {
           id="about"
           className="input-field"
           rows={5}
-          placeholder="Describe about your Organization / Company"
+          placeholder="Describe your company — what you do, your mission, and culture"
           value={newAboutUs}
           onChange={(e) => setNewAboutUs(e.target.value)}
         />
         <label className="error-message">{errors.newAboutUs}</label>
-        <label className="label">
-          Hiring for<span className="required">*</span>
-        </label>
-        <select
-          className="input-field"
-          value={newHiringFor}
-          onChange={(e) => setNewHiringFor(e.target.value)}
-        >
-          <option key="Not Selected" value="Not Selected" disabled>
-            Not Selected
-          </option>
-          {hiringForList.map((item) => (
-            <option key={item.value} value={item.value}>
-              {item.label}
-            </option>
-          ))}
-        </select>
-        <label className="error-message">{errors.newHiringFor}</label>
         <button
           disabled={loading}
           onClick={() => handleSubmit(1)}

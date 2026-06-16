@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import "./youractivitysection.css";
 import { GoStopwatch } from "react-icons/go";
 import ActivityCardsSaif from "./ActivityCardsSaif";
 import PostCardActivity from "./PostCardActivity/PostCardActivity";
-import RecommendationCard2Activity from "../RecommendedSection/RecommendationCard2Activity";
+import JobCardForCompany from "../RecommendedSection/JobCardForCompany";
+import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 import StreakCard from "./StreakCard/StreakCard";
 import Cookies from "js-cookie";
 
@@ -17,12 +18,25 @@ const YourActivitySection = ({
 }) => {
   const userRole = Cookies.get("role");
   const [actionButton, setActionButton] = useState("Streak");
-  const [jobPage, setJobPage] = useState(1);
-  const [internshipPage, setInternshipPage] = useState(1);
   const [postPage, setPostPage] = useState(1);
+  const scrollContainerRef = useRef(null);
 
   const itemsPerPage = 4;
   const maxItems = 100;
+  const scrollAmount = 340;
+  const CARDS_PER_ROW = 3;
+
+  const scrollLeft = () => {
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollBy({ left: -scrollAmount, behavior: "smooth" });
+    }
+  };
+
+  const scrollRight = () => {
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollBy({ left: scrollAmount, behavior: "smooth" });
+    }
+  };
 
   const limitedPostData = postData?.slice(0, maxItems) || [];
 
@@ -33,8 +47,6 @@ const YourActivitySection = ({
 
   const handleButtonClick = (buttonName) => {
     setActionButton(buttonName);
-    if (buttonName === "Jobs") setJobPage(1);
-    if (buttonName === "Internships") setInternshipPage(1);
   };
 
   console.log(postData, "postdata");
@@ -43,16 +55,8 @@ const YourActivitySection = ({
   const limitedJobData = jobData?.slice(0, maxItems) || [];
   const limitedInternshipData = internshipData?.slice(0, maxItems) || [];
 
-  // Get paginated data for jobs & internships
-  const paginatedJobs = limitedJobData.slice(
-    (jobPage - 1) * itemsPerPage,
-    jobPage * itemsPerPage
-  );
-
-  const paginatedInternships = limitedInternshipData.slice(
-    (internshipPage - 1) * itemsPerPage,
-    internshipPage * itemsPerPage
-  );
+  const showJobArrows = limitedJobData && limitedJobData.length > CARDS_PER_ROW * 2;
+  const showInternshipArrows = limitedInternshipData && limitedInternshipData.length > CARDS_PER_ROW * 2;
 
   // Show Activities section for all users, but customize based on role
 
@@ -175,68 +179,22 @@ const YourActivitySection = ({
 
       {actionButton === "Jobs" && (
         <>
-          {paginatedJobs.length > 0 ? (
-            <>
-              <div className="grid-job-card-activity">
-                <RecommendationCard2Activity data={paginatedJobs} />
-              </div>
-
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  gap: 10,
-                  marginTop: 10,
-                }}
-              >
-                <button
-                  onClick={() => setJobPage((prev) => Math.max(prev - 1, 1))}
-                  disabled={jobPage === 1}
-                  style={{
-                    padding: "8px 16px",
-                    borderRadius: "8px",
-                    background: jobPage === 1 ? "#f2f4f5" : "#138382",
-                    color: jobPage === 1 ? "#888" : "white",
-                    border: "none",
-                    cursor: jobPage === 1 ? "default" : "pointer",
-                    boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.03)",
-                  }}
-                >
-                  Previous
+          {limitedJobData.length > 0 ? (
+            <div className="carousel-wrapper" style={{ marginTop: 16 }}>
+              {showJobArrows && (
+                <button className="carousel-btn left" onClick={scrollLeft} aria-label="Scroll left">
+                  <AiOutlineLeft size={20} />
                 </button>
-
-                <button
-                  onClick={() =>
-                    setJobPage((prev) =>
-                      prev * itemsPerPage < limitedJobData.length
-                        ? prev + 1
-                        : prev
-                    )
-                  }
-                  disabled={jobPage * itemsPerPage >= limitedJobData.length}
-                  style={{
-                    padding: "8px 16px",
-                    borderRadius: "8px",
-                    background:
-                      jobPage * itemsPerPage >= limitedJobData.length
-                        ? "#f2f4f5"
-                        : "#138382",
-                    color:
-                      jobPage * itemsPerPage >= limitedJobData.length
-                        ? "#888"
-                        : "white",
-                    border: "none",
-                    cursor:
-                      jobPage * itemsPerPage >= limitedJobData.length
-                        ? "default"
-                        : "pointer",
-                    boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.03)",
-                  }}
-                >
-                  Next
-                </button>
+              )}
+              <div className="carousel-grid" ref={scrollContainerRef}>
+                <JobCardForCompany data={limitedJobData} adminView={!isUserView} />
               </div>
-            </>
+              {showJobArrows && (
+                <button className="carousel-btn right" onClick={scrollRight} aria-label="Scroll right">
+                  <AiOutlineRight size={20} />
+                </button>
+              )}
+            </div>
           ) : (
             <div
               style={{
@@ -254,76 +212,22 @@ const YourActivitySection = ({
 
       {actionButton === "Internships" && (
         <>
-          {paginatedInternships.length > 0 ? (
-            <>
-              <div className="grid-job-card-activity">
-                <RecommendationCard2Activity data={paginatedInternships} />
-              </div>
-
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  gap: 10,
-                  marginTop: 10,
-                }}
-              >
-                <button
-                  onClick={() =>
-                    setInternshipPage((prev) => Math.max(prev - 1, 1))
-                  }
-                  disabled={internshipPage === 1}
-                  style={{
-                    padding: "8px 16px",
-                    borderRadius: "8px",
-                    background: internshipPage === 1 ? "#f2f4f5" : "#138382",
-                    color: internshipPage === 1 ? "#888" : "white",
-                    border: "none",
-                    cursor: internshipPage === 1 ? "default" : "pointer",
-                    boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.03)",
-                  }}
-                >
-                  Previous
+          {limitedInternshipData.length > 0 ? (
+            <div className="carousel-wrapper" style={{ marginTop: 16 }}>
+              {showInternshipArrows && (
+                <button className="carousel-btn left" onClick={scrollLeft} aria-label="Scroll left">
+                  <AiOutlineLeft size={20} />
                 </button>
-
-                <button
-                  onClick={() =>
-                    setInternshipPage((prev) =>
-                      prev * itemsPerPage < limitedInternshipData.length
-                        ? prev + 1
-                        : prev
-                    )
-                  }
-                  disabled={
-                    internshipPage * itemsPerPage >=
-                    limitedInternshipData.length
-                  }
-                  style={{
-                    padding: "8px 16px",
-                    borderRadius: "8px",
-                    background:
-                      internshipPage * itemsPerPage >=
-                      limitedInternshipData.length
-                        ? "#f2f4f5"
-                        : "#138382",
-                    color:
-                      internshipPage * itemsPerPage >=
-                      limitedInternshipData.length
-                        ? "#888"
-                        : "white",
-                    border: "none",
-                    cursor:
-                      internshipPage * itemsPerPage >=
-                      limitedInternshipData.length
-                        ? "default"
-                        : "pointer",
-                    boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.03)",
-                  }}
-                >
-                  Next
-                </button>
+              )}
+              <div className="carousel-grid" ref={scrollContainerRef}>
+                <JobCardForCompany data={limitedInternshipData} adminView={!isUserView} />
               </div>
-            </>
+              {showInternshipArrows && (
+                <button className="carousel-btn right" onClick={scrollRight} aria-label="Scroll right">
+                  <AiOutlineRight size={20} />
+                </button>
+              )}
+            </div>
           ) : (
             <div
               style={{

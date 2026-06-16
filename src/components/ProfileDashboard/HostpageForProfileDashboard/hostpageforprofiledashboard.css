@@ -1,20 +1,12 @@
+/* Alumni Profile — Host Section wrapper */
 .host-page-main-profile-dashboard {
   width: 100%;
   height: auto;
-  padding: 16px;
-  border-radius: 10px;
+  padding: 20px;
+  border-radius: 12px;
   background-color: white;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.08);
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.08);
+  font-family: "Lato", sans-serif;
 }
 
-.host-page-main-profile-dashboard .post-create-main-sub {
-  margin-top: 16px;
-  display: flex;
-  gap: 10px;
-  overflow: auto;
-  scroll-behavior: smooth;
-}
-
-.host-page-main-profile-dashboard .post-create-main-sub::-webkit-scrollbar {
-  height: 2px;
-}
+/* Card row — handled by hostcard.css .post-create-main-sub */

@@ -1,3 +1,9 @@
+.edit-profile {
+  background: #f4f6f7;
+  min-height: 100vh;
+  padding-bottom: 3rem;
+}
+
 .edit-profile > div {
   display: flex;
   flex-direction: row;
@@ -71,9 +77,10 @@
 }
 .edit-profile > div > aside > .options > .--is-selected {
   color: #014051;
-  font-weight: 600;
-  border-left: 4px solid #014051;
+  font-weight: 700;
+  border-left: 4px solid #138382;
   padding-left: 1.45rem;
+  background: rgba(19, 131, 130, 0.06);
 }
 .edit-profile > div > aside > .options > :nth-child(1) {
   border-radius: 0.3125rem 0.3125rem 0 0;
@@ -112,6 +119,7 @@
 }
 .edit-profile > div > div > .box > .heading {
   margin-bottom: 1.13rem;
+  color: #138382;
 }
 .edit-profile .label {
   color: var(--foundation-black-black-800, #000);
