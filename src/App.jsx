@@ -96,6 +96,9 @@ const Report = lazy(() => import("./pages/Company/Board/InterviewSegment/Report.
 const ScheduleAssessment = lazy(() =>
   import("./pages/Company/Board/AssessmentSegment/ScheduleAssessment.jsx")
 );
+const AssessmentReview = lazy(() =>
+  import("./pages/Company/Board/AssessmentSegment/AssessmentReview.jsx")
+);
 const CandidateAssessmentEntry = lazy(() =>
   import("./pages/Candidate/Assessment/CandidateAssessmentEntry.jsx")
 );
@@ -393,7 +396,8 @@ function App() {
               </Route>
               <Route path="board">
                 <Route path=":id" element={<JobBoard />} />
-                <Route path=":id/assessment" element={<ScheduleAssessment />} />
+              <Route path=":id/assessment" element={<ScheduleAssessment />} />
+                <Route path=":id/assessment/review" element={<AssessmentReview />} />
                 <Route path=":id/interview" element={<InterviewLobby />} />
                 <Route path=":id/interview/scheduled" element={<ScheduledInterviews />} />
                 <Route path=":id/interview/report" element={<Report />} />
@@ -428,7 +432,8 @@ function App() {
               </Route>
               <Route path="board">
                 <Route path=":id" element={<JobBoard />} />
-                <Route path=":id/assessment" element={<ScheduleAssessment />} />
+              <Route path=":id/assessment" element={<ScheduleAssessment />} />
+                <Route path=":id/assessment/review" element={<AssessmentReview />} />
                 <Route path=":id/interview" element={<InterviewLobby />} />
                 <Route path=":id/interview/scheduled" element={<ScheduledInterviews />} />
                 <Route path=":id/interview/report" element={<Report />} />

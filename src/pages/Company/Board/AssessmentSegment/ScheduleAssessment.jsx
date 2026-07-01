@@ -970,12 +970,9 @@ export default function ScheduleAssessment() {
                               type="button"
                               onClick={(event) => {
                                 event.stopPropagation();
-                                setSnackbarMessage(
-                                  `Questions preview for "${assessment.name}" coming soon.`
+                                navigate(
+                                  `/career/jobs/board/${id}/assessment/review?templateId=${assessment.id}&assessmentSegment=ScheduleAssessment`
                                 );
-                                setSnackbarSeverity("info");
-                                setSnackbarDuration(2300);
-                                setSnackbarOpen(true);
                               }}
                             >
                               View questions

@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import "./newcompanydashboardheader.css";
 import { Bucket_URL } from "../../../../services/APIUtils";
 import { FiEdit } from "react-icons/fi";
+import { FaBuilding } from "react-icons/fa";
 import { useNavigate, useParams } from "react-router-dom";
-import CoverImageModal from "../../../../components/Dashboard/CoverImageModal";
 const NewCompanyDashboardHeader = ({ isUserAdmin, organization }) => {
   const navigate = useNavigate();
   const { organizationId } = useParams();
@@ -40,22 +40,23 @@ const NewCompanyDashboardHeader = ({ isUserAdmin, organization }) => {
 
       <div className="header-content-section">
         <div className="logo-and-social-section">
-          {organization?.image && (
+          {organization?.image ? (
             <img
-              src={
-                organization?.image ||
-                `${Bucket_URL}newcompanydashboard/image.png`
-              }
+              src={organization.image}
               className="logo-main-image"
-              alt="banner_img"
+              alt="organization_logo"
             />
-          )}
-
-          {!organization?.image && (
-            <img
-              src={`${Bucket_URL}newcompanydashboard/image.png`}
-              className=""
-              alt="banner_img"
+          ) : (
+            <FaBuilding
+              className="logo-main-image"
+              style={{
+                color: "#719ba5",
+                backgroundColor: "#f0f4f5",
+                padding: "10px",
+                width: "100%",
+                height: "100%",
+                boxSizing: "border-box"
+              }}
             />
           )}
 

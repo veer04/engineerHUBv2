@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./profilewithfollowandmail.css";
-import { FaRegThumbsUp } from "react-icons/fa";
+import { FaRegThumbsUp, FaUserCircle } from "react-icons/fa";
 import { FaGraduationCap } from "react-icons/fa6";
 import { HiOutlineBuildingOffice2 } from "react-icons/hi2";
 
@@ -156,11 +156,21 @@ const ProfileWithFollowAndMail = ({ DashboardAdminData }) => {
           <div className="loader-main-div">
             <span className="loader-new-saif1"></span>
           </div>
-        ) : (
+        ) : DashboardAdminData?.image ? (
           <img
-            src={(DashboardAdminData && DashboardAdminData.image) || "/g2.svg"}
+            src={DashboardAdminData.image}
             className="g2-img"
             alt="g2_img"
+          />
+        ) : (
+          <FaUserCircle
+            className="g2-img"
+            style={{
+              color: "#719ba5",
+              backgroundColor: "#f0f4f5",
+              padding: "5px",
+              boxSizing: "border-box"
+            }}
           />
         )}
 
