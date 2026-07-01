@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./profilewithposteditshare.css";
-import { FaRegThumbsUp } from "react-icons/fa";
-import { FaThumbsUp } from "react-icons/fa";
+import { FaRegThumbsUp, FaThumbsUp, FaUserCircle } from "react-icons/fa";
 import Cookies from "js-cookie";
 import jwt_decode from "jwt-decode";
 import { FaGraduationCap } from "react-icons/fa6";
@@ -241,11 +240,21 @@ const ProfileWithPostEditShare = ({
           <div className="loader-main-div">
             <span className="loader-new-saif"></span>{" "}
           </div>
-        ) : (
+        ) : privateDashboardData?.image ? (
           <img
-            src={privateDashboardData?.image || "/g2.svg"}
+            src={privateDashboardData.image}
             className="g2-img"
             alt="g2_img"
+          />
+        ) : (
+          <FaUserCircle
+            className="g2-img"
+            style={{
+              color: "#719ba5",
+              backgroundColor: "#f0f4f5",
+              padding: "5px",
+              boxSizing: "border-box"
+            }}
           />
         )}
       </div>
