@@ -19,6 +19,11 @@ function getAttemptStatusMeta(status) {
         className: "assessment-result-status --expired",
         label: "Expired",
       };
+    case "Upcoming":
+      return {
+        className: "assessment-result-status --upcoming",
+        label: "Upcoming",
+      };
     case "Attempting":
     default:
       return {
@@ -26,6 +31,31 @@ function getAttemptStatusMeta(status) {
         label: "Attempting",
       };
   }
+}
+
+function formatAssessmentTimeRange(scheduledAt, durationInMinutes) {
+  if (!scheduledAt) return "TBD";
+  const start = new Date(scheduledAt);
+  if (Number.isNaN(start.getTime())) return "TBD";
+  const end = new Date(start.getTime() + (durationInMinutes || 0) * 60 * 1000);
+
+  const startStr = start.toLocaleString("en-IN", {
+    timeZone: "Asia/Kolkata",
+    day: "2-digit",
+    month: "short",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: true,
+  });
+
+  const endStr = end.toLocaleString("en-IN", {
+    timeZone: "Asia/Kolkata",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: true,
+  });
+
+  return `${startStr} - ${endStr} IST`;
 }
 
 function LiveActivityCell({ liveActivityType, liveActivityText }) {
@@ -111,6 +141,9 @@ export default function AssessmentResultRow({
             ? row.skills.join(", ")
             : "No skills"}
         </p>
+        <p className="assessment-time-range-text" title="Scheduled assessment window (IST)">
+          📅 {formatAssessmentTimeRange(row.scheduledAt, row.durationInMinutes)}
+        </p>
       </td>
 
       <td className="assessment-result-cell">
@@ -137,6 +170,8 @@ export default function AssessmentResultRow({
           <button
             type="button"
             className="assessment-result-action-btn --monitor"
+            disabled={true}
+            title="Will be added in next iteration."
             onClick={() => onMonitor(row)}
           >
             Monitor

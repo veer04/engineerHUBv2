@@ -16,6 +16,7 @@ import {
 } from "react-icons/fi";
 import useGlobalSnackbar from "../../../hooks/useGlobalSnackbar";
 import { API_URL } from "../../../services/APIUtils";
+import { isUserLoggedIn, getUserEmail } from "../../../features/User/UserDetails";
 import "./CandidateAssessmentAttempt.css";
 
 function formatTimer(remainingSeconds) {
@@ -110,6 +111,21 @@ export default function CandidateAssessmentAttempt() {
       });
     }
   }, [attemptSessionQuery.data, navigate, submittedRoutePath]);
+
+  const loggedIn = isUserLoggedIn();
+  const loggedInEmail = loggedIn ? getUserEmail() : "";
+  const candidateEmail = attemptData?.candidateEmail || "";
+
+  useEffect(() => {
+    if (!loggedIn) {
+      navigate(`/assessment/${inviteToken}`, { replace: true });
+      return;
+    }
+    if (attemptData && candidateEmail && loggedInEmail && loggedInEmail.toLowerCase() !== candidateEmail.toLowerCase()) {
+      navigate(`/assessment/${inviteToken}`, { replace: true });
+      return;
+    }
+  }, [loggedIn, loggedInEmail, candidateEmail, attemptData, inviteToken, navigate]);
 
   useEffect(() => {
     if (!attemptData || isSessionHydrated) return;
@@ -582,30 +598,71 @@ export default function CandidateAssessmentAttempt() {
                   <span className="question-points-chip">{`${currentQuestion.points} Points`}</span>
                 </div>
 
-                <div className="candidate-attempt-options-wrap">
-                  {currentQuestion.options.map((option) => {
-                    const isSelected = option.id === selectedOptionId;
-                    return (
-                      <label
-                        key={option.id}
-                        className={
-                          isSelected
-                            ? "candidate-attempt-option is-selected"
-                            : "candidate-attempt-option"
-                        }
-                      >
-                        <input
-                          type="radio"
-                          name={currentQuestion.id}
-                          value={option.id}
-                          checked={isSelected}
-                          onChange={() => handleSelectAnswer(option.id)}
-                        />
-                        <span>{option.label}</span>
-                      </label>
-                    );
-                  })}
-                </div>
+                {currentQuestion.type === "MCQ" ? (
+                  <div className="candidate-attempt-options-wrap">
+                    {currentQuestion.options.map((option) => {
+                      const isSelected = option.id === selectedOptionId;
+                      return (
+                        <label
+                          key={option.id}
+                          className={
+                            isSelected
+                              ? "candidate-attempt-option is-selected"
+                              : "candidate-attempt-option"
+                          }
+                        >
+                          <input
+                            type="radio"
+                            name={currentQuestion.id}
+                            value={option.id}
+                            checked={isSelected}
+                            onChange={() => handleSelectAnswer(option.id)}
+                          />
+                          <span>{option.label}</span>
+                        </label>
+                      );
+                    })}
+                  </div>
+                ) : (
+                  <div className="candidate-attempt-theory-wrap" style={{ marginTop: "1.5rem" }}>
+                    <label 
+                      htmlFor="theory-response-input" 
+                      style={{ 
+                        display: "block", 
+                        fontSize: "0.875rem", 
+                        fontWeight: "600", 
+                        color: "#475569", 
+                        marginBottom: "0.5rem" 
+                      }}
+                    >
+                      Type your response below:
+                    </label>
+                    <textarea
+                      id="theory-response-input"
+                      rows={10}
+                      className="candidate-attempt-theory-textarea"
+                      placeholder="Write your explanation or code here..."
+                      value={responsesByQuestionId[currentQuestionId] || ""}
+                      onChange={(e) => handleSelectAnswer(e.target.value)}
+                      style={{
+                        width: "100%",
+                        padding: "1rem",
+                        fontSize: "0.95rem",
+                        border: "1px solid #cbd5e1",
+                        borderRadius: "8px",
+                        fontFamily: currentQuestion.type === "Coding" || currentQuestion.type === "Debug" ? "monospace" : "inherit",
+                        lineHeight: "1.6",
+                        resize: "vertical",
+                        boxShadow: "inset 0 1px 3px rgba(0,0,0,0.05)",
+                        outline: "none",
+                        transition: "border-color 0.2s, box-shadow 0.2s"
+                      }}
+                    />
+                    <div style={{ marginTop: "0.5rem", fontSize: "0.8rem", color: "#64748b", textAlign: "right" }}>
+                      Character count: {(responsesByQuestionId[currentQuestionId] || "").length}
+                    </div>
+                  </div>
+                )}
 
                 <div className="candidate-attempt-hint-box">
                   {currentQuestion.codeHintLines?.map((line) => (

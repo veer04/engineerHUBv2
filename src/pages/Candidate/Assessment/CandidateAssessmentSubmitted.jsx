@@ -21,6 +21,7 @@ function formatSubmissionTime(dateValue) {
   const parsed = new Date(dateValue);
   if (Number.isNaN(parsed.getTime())) return "TBD";
   return parsed.toLocaleTimeString("en-IN", {
+    timeZone: "Asia/Kolkata",
     hour: "2-digit",
     minute: "2-digit",
     hour12: true,
@@ -31,6 +32,7 @@ function formatSubmissionDate(dateValue) {
   const parsed = new Date(dateValue);
   if (Number.isNaN(parsed.getTime())) return "TBD";
   return parsed.toLocaleDateString("en-IN", {
+    timeZone: "Asia/Kolkata",
     day: "2-digit",
     month: "short",
     year: "numeric",

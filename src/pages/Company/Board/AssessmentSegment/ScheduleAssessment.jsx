@@ -118,6 +118,20 @@ function mapTemplateToGeneratedAssessment(template, index = 0) {
   };
 }
 
+function formatPreviewDateTime(dateStr) {
+  const parsed = new Date(dateStr);
+  if (Number.isNaN(parsed.getTime())) return "the scheduled day and time";
+  return parsed.toLocaleString("en-IN", {
+    timeZone: "Asia/Kolkata",
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: true,
+  });
+}
+
 export default function ScheduleAssessment() {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
@@ -137,6 +151,7 @@ export default function ScheduleAssessment() {
   const [experienceLevel, setExperienceLevel] = useState(EXPERIENCE_LEVELS[0]);
   const [difficulty, setDifficulty] = useState(2);
   const [selectedSkills, setSelectedSkills] = useState(["Java", "Python"]);
+  const [skillInput, setSkillInput] = useState("");
   const [selectedQuestionTypes, setSelectedQuestionTypes] = useState(["MCQ"]);
   const [advancedSettings, setAdvancedSettings] = useState({
     webcamProctoring: true,
@@ -152,14 +167,6 @@ export default function ScheduleAssessment() {
   const [activeProctoring, setActiveProctoring] = useState(true);
   const [isGeneratingAssessment, setIsGeneratingAssessment] = useState(false);
   const [isSchedulingAssessment, setIsSchedulingAssessment] = useState(false);
-
-  const {
-    setSnackbarOpen,
-    setSnackbarMessage,
-    setSnackbarSeverity,
-    setSnackbarDuration,
-  } = useGlobalSnackbar();
-
   const config = {
     headers: {
       accesstoken: getAccessToken(),
@@ -192,6 +199,79 @@ export default function ScheduleAssessment() {
     enabled: !!id,
     staleTime: 1000 * 60,
   });
+
+  const jobDetails = jobData?.data?.data?.data;
+
+  const [activeMailCandidate, setActiveMailCandidate] = useState(null);
+  const [activeMoveCandidate, setActiveMoveCandidate] = useState(null);
+
+  const [emailSubject, setEmailSubject] = useState("");
+  const [emailCc, setEmailCc] = useState("");
+  const [emailMessage, setEmailMessage] = useState("");
+  const [isSendingEmailStatus, setIsSendingEmailStatus] = useState(false);
+
+  const {
+    setSnackbarOpen,
+    setSnackbarMessage,
+    setSnackbarSeverity,
+    setSnackbarDuration,
+  } = useGlobalSnackbar();
+
+  useEffect(() => {
+    if (activeMailCandidate) {
+      const candidateName = activeMailCandidate.name || `${activeMailCandidate.firstName || ""} ${activeMailCandidate.lastName || ""}`.trim() || "Candidate";
+      const roleName = selectedRole || "the position";
+      const dateStr = launchDate && launchTime ? formatPreviewDateTime(`${launchDate}T${launchTime}`) : "the scheduled day and time";
+      
+      setEmailSubject(`Assessment Schedule Update - ${jobDetails?.opportunityName || roleName}`);
+      setEmailCc("");
+      setEmailMessage(`Dear ${candidateName},\n\nYour assessment for ${roleName} is supposed to happen on ${dateStr}. Stay ready. Soon you will receive the assessment details.\n\nBest regards,\nHiring Team`);
+    }
+  }, [activeMailCandidate, selectedRole, launchDate, launchTime, jobDetails]);
+
+  const handleSendCrmEmailForCandidate = async () => {
+    if (!activeMailCandidate) return;
+    try {
+      setIsSendingEmailStatus(true);
+      const candidateId = activeMailCandidate.registrationId || activeMailCandidate.id;
+      await axios.post(
+        `${API_URL}api/v1/hiringDashboard/sendCrmEmail`,
+        {
+          hiringId: id,
+          subject: emailSubject,
+          text: emailMessage,
+          registration_ids: [candidateId],
+          senderEmail: emailCc,
+        },
+        config
+      );
+      
+      setSnackbarMessage(`Email sent successfully to ${activeMailCandidate.name || "candidate"}!`);
+      setSnackbarSeverity("success");
+      setSnackbarDuration(2500);
+      setSnackbarOpen(true);
+      setActiveMailCandidate(null);
+    } catch (error) {
+      setSnackbarMessage(
+        error?.response?.data?.message || "Failed to send email."
+      );
+      setSnackbarSeverity("error");
+      setSnackbarDuration(3000);
+      setSnackbarOpen(true);
+    } finally {
+      setIsSendingEmailStatus(false);
+    }
+  };
+
+  // Set initial role & skills from Job/Hiring Details
+  useEffect(() => {
+    if (jobDetails?.opportunityName) {
+      setSelectedRole(jobDetails.opportunityName);
+    }
+    if (Array.isArray(jobDetails?.skillsRequired) && jobDetails.skillsRequired.length > 0) {
+      setSelectedSkills(jobDetails.skillsRequired);
+    }
+  }, [jobDetails?.opportunityName, jobDetails?.skillsRequired]);
 
   const assessmentCandidatesQuery = useQuery({
     queryKey: ["assessment-candidates", id],
@@ -350,6 +430,54 @@ export default function ScheduleAssessment() {
   const handleRemoveSkill = (skillToRemove) => {
     setSelectedSkills((prev) => prev.filter((skill) => skill !== skillToRemove));
   };
+
+  const handleSkillInputKeyDown = (event) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      const newSkill = skillInput.trim();
+      if (newSkill && !selectedSkills.includes(newSkill)) {
+        setSelectedSkills((prev) => [...prev, newSkill]);
+      }
+      setSkillInput("");
+    }
+  };
+
+  const handleAddSkillFromSuggestion = (skill) => {
+    if (skill && !selectedSkills.includes(skill)) {
+      setSelectedSkills((prev) => [...prev, skill]);
+    }
+  };
+
+  const suggestedSkills = useMemo(() => {
+    // 1. Start with skillsRequired from JD if available
+    let list = Array.isArray(jobDetails?.skillsRequired) ? [...jobDetails.skillsRequired] : [];
+
+    // 2. Add some fallback role-based skills if JD doesn't have many
+    const roleLower = String(selectedRole || "").toLowerCase();
+    if (roleLower.includes("backend")) {
+      list.push("Node.js", "Express", "MongoDB", "PostgreSQL", "Java", "Python", "Docker", "Redis");
+    } else if (roleLower.includes("frontend")) {
+      list.push("React", "TypeScript", "HTML5", "CSS3", "JavaScript", "Redux", "Tailwind");
+    } else if (roleLower.includes("fullstack") || roleLower.includes("full stack")) {
+      list.push("React", "Node.js", "TypeScript", "MongoDB", "PostgreSQL", "JavaScript", "Express");
+    } else if (roleLower.includes("data")) {
+      list.push("Python", "SQL", "Spark", "Hadoop", "Pandas", "ETL", "AWS");
+    } else {
+      // General fallbacks
+      list.push("Java", "Python", "React", "Node.js", "TypeScript", "SQL", "Git");
+    }
+
+    // 3. Clean up casing, deduplicate, and exclude currently selected skills
+    const cleaned = list
+      .map(s => String(s || "").trim())
+      .filter(Boolean);
+    const unique = [...new Set(cleaned)];
+    
+    // Filter out skills that are already selected
+    return unique.filter(
+      (skill) => !selectedSkills.some((sel) => sel.toLowerCase() === skill.toLowerCase())
+    );
+  }, [jobDetails?.skillsRequired, selectedRole, selectedSkills]);
 
   const handleQuestionTypeToggle = (questionType) => {
     setSelectedQuestionTypes((prev) => {
@@ -581,7 +709,6 @@ export default function ScheduleAssessment() {
     }
   };
 
-  const jobDetails = jobData?.data?.data?.data;
   const isServiceOff = jobDetails?.isServiceOff === true;
 
   return (
@@ -737,16 +864,12 @@ export default function ScheduleAssessment() {
                       </div>
                       <div className="assessment-form-group">
                         <label>Role</label>
-                        <select
+                        <input
+                          type="text"
                           value={selectedRole}
                           onChange={(event) => setSelectedRole(event.target.value)}
-                        >
-                          {ROLE_OPTIONS.map((role) => (
-                            <option key={role} value={role}>
-                              {role}
-                            </option>
-                          ))}
-                        </select>
+                          placeholder="e.g. Fullstack Developer"
+                        />
                       </div>
                     </div>
 
@@ -825,14 +948,35 @@ export default function ScheduleAssessment() {
                             <span aria-hidden="true">×</span>
                           </button>
                         ))}
-                        <button
-                          type="button"
-                          className="assessment-add-skill-btn"
-                          onClick={handleAddSkill}
-                        >
-                          + Add Skill
-                        </button>
+                        
+                        <input
+                          type="text"
+                          value={skillInput}
+                          onChange={(e) => setSkillInput(e.target.value)}
+                          onKeyDown={handleSkillInputKeyDown}
+                          placeholder="Type skill & press Enter..."
+                          className="assessment-skill-input-box"
+                        />
                       </div>
+
+                      {suggestedSkills.length > 0 && (
+                        <div className="assessment-skills-suggestions-container">
+                          <span className="assessment-suggestions-label">Suggestions based on Job & Role:</span>
+                          <div className="assessment-skills-suggestions-list">
+                            {suggestedSkills.slice(0, 10).map((skill) => (
+                              <button
+                                key={skill}
+                                type="button"
+                                className="assessment-skill-suggestion-tag"
+                                onClick={() => handleAddSkillFromSuggestion(skill)}
+                                title={`Add ${skill}`}
+                              >
+                                + {skill}
+                              </button>
+                            ))}
+                          </div>
+                        </div>
+                      )}
                     </div>
 
                     <div className="assessment-form-group">
@@ -954,14 +1098,11 @@ export default function ScheduleAssessment() {
                             <button
                               type="button"
                               className="edit-btn"
+                              disabled={true}
+                              title="Will be added in next iteration."
+                              style={{ opacity: 0.5, cursor: "not-allowed" }}
                               onClick={(event) => {
                                 event.stopPropagation();
-                                setSnackbarMessage(
-                                  `Edit flow for "${assessment.name}" will be wired with backend.`
-                                );
-                                setSnackbarSeverity("info");
-                                setSnackbarDuration(2200);
-                                setSnackbarOpen(true);
                               }}
                             >
                               Edit
@@ -1059,8 +1200,8 @@ export default function ScheduleAssessment() {
                             isSelected={selectedCandidateIds.includes(candidate.id)}
                             onToggleSelect={() => toggleCandidateSelection(candidate.id)}
                             onSendAssessment={() => handleSendAssessmentToCandidate(candidate)}
-                            onSendEmail={() => handleSendCandidateEmail(candidate)}
-                            onMoveToResponse={() => handleMoveCandidateToResponse(candidate)}
+                            onSendEmail={() => setActiveMailCandidate(candidate)}
+                            onMoveToResponse={() => setActiveMoveCandidate(candidate)}
                           />
                         ))}
                     </tbody>
@@ -1208,20 +1349,19 @@ export default function ScheduleAssessment() {
                             />
                           </div>
                         </div>
-                        <div className="assessment-switch-row">
+                        <div className="assessment-switch-row" title="Will be added in next iteration.">
                           <div>
                             <p>Active Proctoring</p>
                             <span>Record webcam and screen</span>
                           </div>
-                          <label className="assessment-switch">
+                          <label className="assessment-switch" style={{ opacity: 0.6, cursor: "not-allowed" }}>
                             <input
                               type="checkbox"
-                              checked={activeProctoring}
-                              onChange={(event) =>
-                                setActiveProctoring(event.target.checked)
-                              }
+                              checked={false}
+                              disabled={true}
+                              onChange={() => {}}
                             />
-                            <span className="slider" />
+                            <span className="slider round" />
                           </label>
                         </div>
                       </div>
@@ -1265,6 +1405,138 @@ export default function ScheduleAssessment() {
               </footer>
             </>
           )}
+      {/* Email Preview Modal */}
+      {activeMailCandidate && (
+        <div className="assessment-modal-overlay">
+          <div className="assessment-modal-card" style={{ maxWidth: "650px" }}>
+            <div className="assessment-modal-header">
+              <h3>Send Email to {activeMailCandidate.name || `${activeMailCandidate.firstName || ""} ${activeMailCandidate.lastName || ""}`.trim() || "Candidate"}</h3>
+              <button 
+                type="button" 
+                className="assessment-modal-close-btn"
+                onClick={() => setActiveMailCandidate(null)}
+              >
+                ✕
+              </button>
+            </div>
+            <div className="assessment-modal-body">
+              <div style={{ display: "flex", gap: "1rem", marginBottom: "1rem" }}>
+                <div style={{ flex: 2, display: "flex", flexDirection: "column", gap: "0.25rem" }}>
+                  <label style={{ fontSize: "0.75rem", fontWeight: "700", color: "#475569" }}>Email Subject</label>
+                  <input 
+                    type="text" 
+                    value={emailSubject}
+                    onChange={(e) => setEmailSubject(e.target.value)}
+                    placeholder="Enter email subject"
+                    style={{ 
+                      padding: "0.5rem", 
+                      fontSize: "0.875rem", 
+                      border: "1px solid #cbd5e1", 
+                      borderRadius: "0.375rem",
+                      width: "100%"
+                    }}
+                  />
+                </div>
+                <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: "0.25rem" }}>
+                  <label style={{ fontSize: "0.75rem", fontWeight: "700", color: "#475569" }}>Additional CC</label>
+                  <input 
+                    type="text" 
+                    value={emailCc}
+                    onChange={(e) => setEmailCc(e.target.value)}
+                    placeholder="e.g. hr@company.com"
+                    style={{ 
+                      padding: "0.5rem", 
+                      fontSize: "0.875rem", 
+                      border: "1px solid #cbd5e1", 
+                      borderRadius: "0.375rem",
+                      width: "100%"
+                    }}
+                  />
+                </div>
+              </div>
+              
+              <div style={{ display: "flex", flexDirection: "column", gap: "0.25rem" }}>
+                <label style={{ fontSize: "0.75rem", fontWeight: "700", color: "#475569" }}>Email Message</label>
+                <textarea 
+                  rows={8}
+                  value={emailMessage}
+                  onChange={(e) => setEmailMessage(e.target.value)}
+                  style={{ 
+                    padding: "0.75rem", 
+                    fontSize: "0.875rem", 
+                    border: "1px solid #cbd5e1", 
+                    borderRadius: "0.375rem",
+                    fontFamily: "inherit",
+                    lineHeight: "1.5",
+                    width: "100%",
+                    resize: "vertical"
+                  }}
+                />
+              </div>
+            </div>
+            <div className="assessment-modal-footer">
+              <button 
+                type="button" 
+                className="assessment-modal-btn --secondary"
+                onClick={() => setActiveMailCandidate(null)}
+              >
+                Cancel
+              </button>
+              <button 
+                type="button" 
+                className="assessment-modal-btn --primary"
+                disabled={isSendingEmailStatus}
+                onClick={handleSendCrmEmailForCandidate}
+              >
+                {isSendingEmailStatus ? "Sending..." : "Send Email"}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Move to Response Modal */}
+      {activeMoveCandidate && (
+        <div className="assessment-modal-overlay">
+          <div className="assessment-modal-card">
+            <div className="assessment-modal-header">
+              <h3>Move Candidate to Response</h3>
+              <button 
+                type="button" 
+                className="assessment-modal-close-btn"
+                onClick={() => setActiveMoveCandidate(null)}
+              >
+                ✕
+              </button>
+            </div>
+            <div className="assessment-modal-body">
+              <p>
+                Are you sure you want to move <strong>{activeMoveCandidate.name || `${activeMoveCandidate.firstName || ""} ${activeMoveCandidate.lastName || ""}`.trim() || "Candidate"}</strong> back to the <strong>Response</strong> segment?
+              </p>
+              <p>This will remove them from the assessment candidate pool.</p>
+            </div>
+            <div className="assessment-modal-footer">
+              <button 
+                type="button" 
+                className="assessment-modal-btn --secondary"
+                onClick={() => setActiveMoveCandidate(null)}
+              >
+                Cancel
+              </button>
+              <button 
+                type="button" 
+                className="assessment-modal-btn --primary"
+                onClick={() => {
+                  handleMoveCandidateToResponse(activeMoveCandidate);
+                  setActiveMoveCandidate(null);
+                }}
+              >
+                Confirm
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
         </section>
       </div>
     </main>

@@ -16,7 +16,7 @@ import { API_URL } from "../../../../services/APIUtils";
 import { getAccessToken } from "../../../../features/User/UserDetails";
 import AssessmentResultRow from "./AssessmentResultRow";
 
-const ATTEMPT_FILTER_OPTIONS = ["All", "Attempting", "Evaluated", "Expired"];
+const ATTEMPT_FILTER_OPTIONS = ["All", "Upcoming", "Attempting", "Evaluated", "Expired"];
 const SCORE_FILTER_OPTIONS = [
   { value: "all", label: "All Scores" },
   { value: "high", label: "High (80+)" },
@@ -24,6 +24,20 @@ const SCORE_FILTER_OPTIONS = [
   { value: "low", label: "Low (<60)" },
   { value: "pending", label: "Pending Score" },
 ];
+
+function formatPreviewDateTime(dateStr) {
+  const parsed = new Date(dateStr);
+  if (Number.isNaN(parsed.getTime())) return "the scheduled day and time";
+  return parsed.toLocaleString("en-IN", {
+    timeZone: "Asia/Kolkata",
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: true,
+  });
+}
 
 const PAGE_SIZE = 10;
 
@@ -41,6 +55,13 @@ export default function AssessmentResult() {
   const [attemptFilter, setAttemptFilter] = useState("All");
   const [scoreFilter, setScoreFilter] = useState("all");
   const [currentPage, setCurrentPage] = useState(1);
+  const [activeMailRow, setActiveMailRow] = useState(null);
+  const [activeBlockRow, setActiveBlockRow] = useState(null);
+
+  const [emailSubject, setEmailSubject] = useState("");
+  const [emailCc, setEmailCc] = useState("");
+  const [emailMessage, setEmailMessage] = useState("");
+  const [isSendingEmailStatus, setIsSendingEmailStatus] = useState(false);
 
   const {
     setSnackbarDuration,
@@ -48,6 +69,50 @@ export default function AssessmentResult() {
     setSnackbarOpen,
     setSnackbarSeverity,
   } = useGlobalSnackbar();
+
+  useEffect(() => {
+    if (activeMailRow) {
+      const candidateName = activeMailRow.candidateName || "Candidate";
+      const dateStr = activeMailRow.scheduledAt ? formatPreviewDateTime(activeMailRow.scheduledAt) : "the scheduled day and time";
+      
+      setEmailSubject(`Assessment Schedule Update - ${activeMailRow.assessmentName || "Assessment"}`);
+      setEmailCc("");
+      setEmailMessage(`Dear ${candidateName},\n\nYour assessment for ${activeMailRow.assessmentName || "the position"} is supposed to happen on ${dateStr}. Stay ready. Soon you will receive the assessment details.\n\nBest regards,\nHiring Team`);
+    }
+  }, [activeMailRow]);
+
+  const handleSendCrmEmailForResult = async () => {
+    if (!activeMailRow) return;
+    try {
+      setIsSendingEmailStatus(true);
+      await axios.post(
+        `${API_URL}api/v1/hiringDashboard/sendCrmEmail`,
+        {
+          hiringId: id,
+          subject: emailSubject,
+          text: emailMessage,
+          registration_ids: [activeMailRow.candidateRegistrationId],
+          senderEmail: emailCc,
+        },
+        config
+      );
+      
+      setSnackbarMessage(`Email sent successfully to ${activeMailRow.candidateName}!`);
+      setSnackbarSeverity("success");
+      setSnackbarDuration(2500);
+      setSnackbarOpen(true);
+      setActiveMailRow(null);
+    } catch (error) {
+      setSnackbarMessage(
+        error?.response?.data?.message || "Failed to send email."
+      );
+      setSnackbarSeverity("error");
+      setSnackbarDuration(3000);
+      setSnackbarOpen(true);
+    } finally {
+      setIsSendingEmailStatus(false);
+    }
+  };
 
   const config = useMemo(
     () => ({
@@ -391,9 +456,9 @@ export default function AssessmentResult() {
                     key={row.id}
                     row={row}
                     onMonitor={handleMonitor}
-                    onSendMail={handleSendMail}
+                    onSendMail={(r) => setActiveMailRow(r)}
                     onMarkInterview={handleMarkInterview}
-                    onBlockCandidate={handleBlockCandidate}
+                    onBlockCandidate={(r) => setActiveBlockRow(r)}
                   />
                 ))
               )}
@@ -436,6 +501,140 @@ export default function AssessmentResult() {
             </button>
           </div>
         </div>
+      {/* Email Preview Modal */}
+      {activeMailRow && (
+        <div className="assessment-modal-overlay">
+          <div className="assessment-modal-card" style={{ maxWidth: "650px" }}>
+            <div className="assessment-modal-header">
+              <h3>Send Email to {activeMailRow.candidateName || "Candidate"}</h3>
+              <button 
+                type="button" 
+                className="assessment-modal-close-btn"
+                onClick={() => setActiveMailRow(null)}
+              >
+                ✕
+              </button>
+            </div>
+            <div className="assessment-modal-body">
+              <div style={{ display: "flex", gap: "1rem", marginBottom: "1rem" }}>
+                <div style={{ flex: 2, display: "flex", flexDirection: "column", gap: "0.25rem" }}>
+                  <label style={{ fontSize: "0.75rem", fontWeight: "700", color: "#475569" }}>Email Subject</label>
+                  <input 
+                    type="text" 
+                    value={emailSubject}
+                    onChange={(e) => setEmailSubject(e.target.value)}
+                    placeholder="Enter email subject"
+                    style={{ 
+                      padding: "0.5rem", 
+                      fontSize: "0.875rem", 
+                      border: "1px solid #cbd5e1", 
+                      borderRadius: "0.375rem",
+                      width: "100%"
+                    }}
+                  />
+                </div>
+                <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: "0.25rem" }}>
+                  <label style={{ fontSize: "0.75rem", fontWeight: "700", color: "#475569" }}>Additional CC</label>
+                  <input 
+                    type="text" 
+                    value={emailCc}
+                    onChange={(e) => setEmailCc(e.target.value)}
+                    placeholder="e.g. hr@company.com"
+                    style={{ 
+                      padding: "0.5rem", 
+                      fontSize: "0.875rem", 
+                      border: "1px solid #cbd5e1", 
+                      borderRadius: "0.375rem",
+                      width: "100%"
+                    }}
+                  />
+                </div>
+              </div>
+              
+              <div style={{ display: "flex", flexDirection: "column", gap: "0.25rem" }}>
+                <label style={{ fontSize: "0.75rem", fontWeight: "700", color: "#475569" }}>Email Message</label>
+                <textarea 
+                  rows={8}
+                  value={emailMessage}
+                  onChange={(e) => setEmailMessage(e.target.value)}
+                  style={{ 
+                    padding: "0.75rem", 
+                    fontSize: "0.875rem", 
+                    border: "1px solid #cbd5e1", 
+                    borderRadius: "0.375rem",
+                    fontFamily: "inherit",
+                    lineHeight: "1.5",
+                    width: "100%",
+                    resize: "vertical"
+                  }}
+                />
+              </div>
+            </div>
+            <div className="assessment-modal-footer">
+              <button 
+                type="button" 
+                className="assessment-modal-btn --secondary"
+                onClick={() => setActiveMailRow(null)}
+              >
+                Cancel
+              </button>
+              <button 
+                type="button" 
+                className="assessment-modal-btn --primary"
+                disabled={isSendingEmailStatus}
+                onClick={handleSendCrmEmailForResult}
+              >
+                {isSendingEmailStatus ? "Sending..." : "Send Email"}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Block Candidate Confirmation Modal */}
+      {activeBlockRow && (
+        <div className="assessment-modal-overlay">
+          <div className="assessment-modal-card">
+            <div className="assessment-modal-header">
+              <h3>Block Candidate</h3>
+              <button 
+                type="button" 
+                className="assessment-modal-close-btn"
+                onClick={() => setActiveBlockRow(null)}
+              >
+                ✕
+              </button>
+            </div>
+            <div className="assessment-modal-body">
+              <p>
+                Are you sure you want to block <strong>{activeBlockRow.candidateName}</strong>?
+              </p>
+              <p>
+                This will reject the candidate, cancel any active invitations/attempts, and remove them from the pipeline.
+              </p>
+            </div>
+            <div className="assessment-modal-footer">
+              <button 
+                type="button" 
+                className="assessment-modal-btn --secondary"
+                onClick={() => setActiveBlockRow(null)}
+              >
+                Cancel
+              </button>
+              <button 
+                type="button" 
+                className="assessment-modal-btn --danger"
+                onClick={() => {
+                  handleBlockCandidate(activeBlockRow);
+                  setActiveBlockRow(null);
+                }}
+              >
+                Block Candidate
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
       </section>
     </section>
   );
