@@ -51,10 +51,22 @@ function buildFallbackOptions(question, topic) {
 function resolveOptions(q) {
   // If backend stored options array
   if (Array.isArray(q.options) && q.options.length > 0) {
-    return q.options.map((opt, i) => ({
-      label: typeof opt === "object" ? opt.text || opt.label || String(opt) : String(opt),
-      correct: typeof opt === "object" ? !!opt.correct || !!opt.isCorrect : i === (q.correctIndex ?? 1),
-    }));
+    return q.options.map((opt, i) => {
+      const isObject = typeof opt === "object" && opt !== null;
+      const label = isObject ? opt.text || opt.label || String(opt) : String(opt);
+      const id = isObject ? opt.id : String.fromCharCode(65 + i);
+
+      let correct = false;
+      if (q.correctOptionId) {
+        correct = q.correctOptionId === id || q.correctOptionId === label;
+      } else if (isObject) {
+        correct = !!opt.correct || !!opt.isCorrect;
+      } else {
+        correct = i === (q.correctIndex ?? 1);
+      }
+
+      return { label, correct };
+    });
   }
   // Fallback: generate illustrative options
   return buildFallbackOptions(q.question, q.topic || "General");
