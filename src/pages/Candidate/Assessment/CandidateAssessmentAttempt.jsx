@@ -79,7 +79,7 @@ export default function CandidateAssessmentAttempt() {
       : undefined,
     queryFn: async () => {
       const response = await axios.get(
-        `${API_URL}/api/v1/candidate-assessment/${inviteToken}/attempt`
+        `${API_URL}api/v1/candidate-assessment/${inviteToken}/attempt`
       );
       return response.data;
     },
@@ -169,7 +169,7 @@ export default function CandidateAssessmentAttempt() {
 
       try {
         const response = await axios.patch(
-          `${API_URL}/api/v1/candidate-assessment/${inviteToken}/attempt`,
+          `${API_URL}api/v1/candidate-assessment/${inviteToken}/attempt`,
           payload
         );
         const data = response?.data?.data;
@@ -221,7 +221,7 @@ export default function CandidateAssessmentAttempt() {
 
       try {
         const response = await axios.post(
-          `${API_URL}/api/v1/candidate-assessment/${inviteToken}/submit`,
+          `${API_URL}api/v1/candidate-assessment/${inviteToken}/submit`,
           {
             source,
             currentQuestionIndex,
