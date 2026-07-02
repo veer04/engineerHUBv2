@@ -68,7 +68,7 @@ export default function CandidateAssessmentSubmitted() {
     retry: 1,
     queryFn: async () => {
       const response = await axios.get(
-        `${API_URL}/api/v1/candidate-assessment/${inviteToken}/submission`
+        `${API_URL}api/v1/candidate-assessment/${inviteToken}/submission`
       );
       return response.data;
     },

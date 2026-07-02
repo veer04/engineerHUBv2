@@ -96,7 +96,7 @@ export default function CandidateAssessmentEntry() {
     retry: 1,
     queryFn: async () => {
       const response = await axios.get(
-        `${API_URL}/api/v1/candidate-assessment/${inviteToken}/entry`
+        `${API_URL}api/v1/candidate-assessment/${inviteToken}/entry`
       );
       return response.data;
     },
@@ -192,7 +192,7 @@ export default function CandidateAssessmentEntry() {
     setIsStartingAssessment(true);
 
     axios
-      .post(`${API_URL}/api/v1/candidate-assessment/${inviteData.inviteToken}/start`)
+      .post(`${API_URL}api/v1/candidate-assessment/${inviteData.inviteToken}/start`)
       .then(({ data }) => {
         if (data?.data?.alreadySubmitted) {
           const submittedPath = startAtOverride
