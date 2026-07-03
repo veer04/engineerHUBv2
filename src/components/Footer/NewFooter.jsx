@@ -19,7 +19,7 @@ import { HashLink } from "react-router-hash-link/dist/react-router-hash-link.cjs
 export default function NewFooter() {
   const [displayFooter, setDisplayFooter] = useState(true);
   const location = useLocation();
-  const bucket = `${Bucket_URL}frontend/footer/`;
+  const bucket = `${Bucket_URL}static/documents/`;
 
   useEffect(() => {
     if (
@@ -70,10 +70,10 @@ export default function NewFooter() {
                 (201014)
               </h3>
             </div>
-            <a href={`${bucket}certificate_of_recognition.pdf`} target="_blank">
+            <a href={`${bucket}startup_india_certificate.pdf`} target="_blank">
               <img
                 style={{ width: "100%", height: "auto", marginBottom: "20px" }}
-                src={`${bucket}certificate_of_recognition.png`}
+                src={`${bucket}startup_india_certificate_png.png`}
                 alt="Certificate of recognition from #startupindia"
               />
             </a>
