@@ -1882,3 +1882,80 @@
 .assessment-modal-btn.--danger:hover {
   background: #dc2626;
 }
+
+/* ── Proctoring column (AssessmentResultRow) ─────────────────────────────── */
+.proctor-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.proctor-cell--none {
+  color: #94a3b8;
+  font-size: 0.75rem;
+}
+
+.proctor-risk-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 0.2rem 0.5rem;
+  border-radius: 20px;
+  width: fit-content;
+}
+
+.proctor-risk-badge--low {
+  background: rgba(16, 185, 129, 0.1);
+  color: #10b981;
+  border: 1px solid rgba(16, 185, 129, 0.25);
+}
+
+.proctor-risk-badge--medium {
+  background: rgba(245, 158, 11, 0.1);
+  color: #d97706;
+  border: 1px solid rgba(245, 158, 11, 0.25);
+}
+
+.proctor-risk-badge--high {
+  background: rgba(239, 68, 68, 0.1);
+  color: #ef4444;
+  border: 1px solid rgba(239, 68, 68, 0.25);
+}
+
+.proctor-cell-hints {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.2rem;
+}
+
+.proctor-hint {
+  font-size: 0.65rem;
+  color: #64748b;
+  background: rgba(0, 0, 0, 0.04);
+  border: 1px solid #e2e8f0;
+  padding: 0.1rem 0.35rem;
+  border-radius: 4px;
+  font-variant-numeric: tabular-nums;
+}
+
+.assessment-result-action-btn.--monitor {
+  display: inline-flex;
+  align-items: center;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  color: #fff;
+  border: none;
+  padding: 0.35rem 0.75rem;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.15s, transform 0.15s;
+}
+
+.assessment-result-action-btn.--monitor:hover {
+  opacity: 0.88;
+  transform: translateY(-1px);
+}
+

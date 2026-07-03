@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Helmet } from "react-helmet";
 import { useLocation, useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
@@ -15,8 +15,10 @@ import {
   FiX,
 } from "react-icons/fi";
 import useGlobalSnackbar from "../../../hooks/useGlobalSnackbar";
+import useProctoringMonitor from "../../../hooks/useProctoringMonitor";
 import { API_URL } from "../../../services/APIUtils";
 import { isUserLoggedIn, getUserEmail } from "../../../features/User/UserDetails";
+import ProctoringFullscreenPrompt from "./ProctoringFullscreenPrompt";
 import "./CandidateAssessmentAttempt.css";
 
 function formatTimer(remainingSeconds) {
@@ -61,6 +63,11 @@ export default function CandidateAssessmentAttempt() {
   const [isSessionHydrated, setIsSessionHydrated] = useState(false);
   const [isSavingProgress, setIsSavingProgress] = useState(false);
   const [isSubmittingAssessment, setIsSubmittingAssessment] = useState(false);
+
+  // ── Proctoring state ────────────────────────────────────────────────────
+  const [showFullscreenPrompt, setShowFullscreenPrompt] = useState(false);
+  const [isExitWarning, setIsExitWarning] = useState(false);
+  const fullscreenShownOnce = useRef(false);
 
   const submittedRoutePath = useMemo(
     () =>
@@ -126,6 +133,49 @@ export default function CandidateAssessmentAttempt() {
       return;
     }
   }, [loggedIn, loggedInEmail, candidateEmail, attemptData, inviteToken, navigate]);
+
+  // ── Proctoring monitor hook ─────────────────────────────────────────────
+  const { isFullscreen, requestFullscreen } = useProctoringMonitor({
+    inviteToken,
+    isActive: isSessionHydrated,
+  });
+
+  // Show fullscreen prompt once after session hydrates
+  useEffect(() => {
+    if (!isSessionHydrated || fullscreenShownOnce.current) return;
+    fullscreenShownOnce.current = true;
+    setIsExitWarning(false);
+    setShowFullscreenPrompt(true);
+  }, [isSessionHydrated]);
+
+  // Re-show prompt if candidate exits fullscreen mid-assessment
+  useEffect(() => {
+    if (!isSessionHydrated) return undefined;
+
+    const handleFullscreenChange = () => {
+      const fsEl =
+        document.fullscreenElement ||
+        document.webkitFullscreenElement ||
+        document.mozFullScreenElement ||
+        document.msFullscreenElement;
+      if (!fsEl && fullscreenShownOnce.current) {
+        setIsExitWarning(true);
+        setShowFullscreenPrompt(true);
+      }
+    };
+
+    document.addEventListener("fullscreenchange", handleFullscreenChange);
+    document.addEventListener("webkitfullscreenchange", handleFullscreenChange);
+    document.addEventListener("mozfullscreenchange", handleFullscreenChange);
+    document.addEventListener("MSFullscreenChange", handleFullscreenChange);
+
+    return () => {
+      document.removeEventListener("fullscreenchange", handleFullscreenChange);
+      document.removeEventListener("webkitfullscreenchange", handleFullscreenChange);
+      document.removeEventListener("mozfullscreenchange", handleFullscreenChange);
+      document.removeEventListener("MSFullscreenChange", handleFullscreenChange);
+    };
+  }, [isSessionHydrated]);
 
   useEffect(() => {
     if (!attemptData || isSessionHydrated) return;
@@ -479,6 +529,16 @@ export default function CandidateAssessmentAttempt() {
 
   return (
     <div className="candidate-assessment-attempt-page">
+      {/* ── Proctoring fullscreen prompt overlay ─────────────────── */}
+      <ProctoringFullscreenPrompt
+        show={showFullscreenPrompt}
+        isExitWarning={isExitWarning}
+        onEnterFullscreen={async () => {
+          await requestFullscreen();
+          setShowFullscreenPrompt(false);
+        }}
+        /* onDismiss={() => setShowFullscreenPrompt(false)} */
+      />
       <Helmet>
         <meta name="robots" content="noindex, nofollow" />
         <title>{`engineerHUB | ${attemptData?.assessmentTitle || "Assessment Attempt"}`}</title>

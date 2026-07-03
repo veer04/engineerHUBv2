@@ -1,9 +1,11 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import {
   FiActivity,
   FiAlertTriangle,
   FiCheckCircle,
   FiMail,
+  FiShield,
   FiSlash,
 } from "react-icons/fi";
 
@@ -56,6 +58,59 @@ function formatAssessmentTimeRange(scheduledAt, durationInMinutes) {
   });
 
   return `${startStr} - ${endStr} IST`;
+}
+
+/* ── Risk band derived from event counts ───────────────────────────────── */
+function getRiskBandFromCounts(counts = {}) {
+  if (!counts) return null;
+  const pts =
+    (counts.TAB_SWITCH || 0) * 2 +
+    (counts.WINDOW_BLUR || 0) * 1 +
+    (counts.FULLSCREEN_EXIT || 0) * 3 +
+    (counts.COPY_ATTEMPT || 0) * 4 +
+    (counts.PASTE_ATTEMPT || 0) * 4 +
+    (counts.RIGHT_CLICK_ATTEMPT || 0) * 2;
+  if (pts >= 25) return "High";
+  if (pts >= 10) return "Medium";
+  return "Low";
+}
+
+function ProctoringCell({ proctoringCounts, onMonitor }) {
+  if (!proctoringCounts) {
+    return (
+      <div className="proctor-cell proctor-cell--none">
+        <span>No data</span>
+      </div>
+    );
+  }
+
+  const band = getRiskBandFromCounts(proctoringCounts);
+  const tabSwitches = proctoringCounts.TAB_SWITCH || 0;
+  const copies = (proctoringCounts.COPY_ATTEMPT || 0) + (proctoringCounts.PASTE_ATTEMPT || 0);
+  const fsExits = proctoringCounts.FULLSCREEN_EXIT || 0;
+
+  return (
+    <div className="proctor-cell">
+      <span
+        className={`proctor-risk-badge proctor-risk-badge--${
+          band === "High" ? "high" : band === "Medium" ? "medium" : "low"
+        }`}
+      >
+        {band === "High" ? "🔴" : band === "Medium" ? "🟡" : "🟢"} {band}
+      </span>
+      <div className="proctor-cell-hints">
+        {tabSwitches > 0 && (
+          <span className="proctor-hint">⇥ {tabSwitches} switch{tabSwitches !== 1 ? "es" : ""}</span>
+        )}
+        {copies > 0 && (
+          <span className="proctor-hint">⎘ {copies} copy/paste</span>
+        )}
+        {fsExits > 0 && (
+          <span className="proctor-hint">⛶ {fsExits} fullscreen</span>
+        )}
+      </div>
+    </div>
+  );
 }
 
 function LiveActivityCell({ liveActivityType, liveActivityText }) {
@@ -120,8 +175,22 @@ export default function AssessmentResultRow({
   onMarkInterview,
   onBlockCandidate,
 }) {
+  const navigate = useNavigate();
   const attemptMeta = getAttemptStatusMeta(row.attemptStatus);
   const isExpired = row.attemptStatus === "Expired";
+
+  const handleMonitor = () => {
+    // Navigate to the proctoring report page
+    // Determine base path from current URL prefix
+    const basePath = window.location.pathname.startsWith("/career")
+      ? `/career/jobs/board/${row.hiringId}/assessment`
+      : `/company/jobs/board/${row.hiringId}/assessment`;
+
+    navigate(
+      `/assessment-proctor/${row.hiringId}/${row.inviteId}/report?returnPath=${encodeURIComponent(basePath)}`
+    );
+    onMonitor(row);
+  };
 
   return (
     <tr className={`assessment-result-row ${isExpired ? "--expired" : ""}`}>
@@ -166,14 +235,21 @@ export default function AssessmentResultRow({
       </td>
 
       <td className="assessment-result-cell">
+        <ProctoringCell
+          proctoringCounts={row.proctoringCounts}
+          onMonitor={handleMonitor}
+        />
+      </td>
+
+      <td className="assessment-result-cell">
         <div className="assessment-result-actions assessment-result-actions--full">
           <button
             type="button"
             className="assessment-result-action-btn --monitor"
-            disabled={true}
-            title="Will be added in next iteration."
-            onClick={() => onMonitor(row)}
+            title="View proctoring report"
+            onClick={handleMonitor}
           >
+            <FiShield style={{ marginRight: "0.3rem" }} />
             Monitor
           </button>
           <button

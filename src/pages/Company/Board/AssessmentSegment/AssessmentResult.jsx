@@ -428,25 +428,26 @@ export default function AssessmentResult() {
                 <th>Live Activity</th>
                 <th>Phone Number</th>
                 <th>Score</th>
+                <th>Proctoring</th>
                 <th>Actions</th>
               </tr>
             </thead>
             <tbody>
               {resultRowsQuery.isLoading ? (
                 <tr>
-                  <td colSpan={7} className="assessment-result-empty-state">
+                  <td colSpan={8} className="assessment-result-empty-state">
                     Loading assessment results...
                   </td>
                 </tr>
               ) : resultRowsQuery.isError ? (
                 <tr>
-                  <td colSpan={7} className="assessment-result-empty-state">
+                  <td colSpan={8} className="assessment-result-empty-state">
                     Failed to fetch assessment results. Please refresh.
                   </td>
                 </tr>
               ) : rows.length === 0 ? (
                 <tr>
-                  <td colSpan={7} className="assessment-result-empty-state">
+                  <td colSpan={8} className="assessment-result-empty-state">
                     No assessment result data found for selected filters.
                   </td>
                 </tr>
