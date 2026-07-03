@@ -108,6 +108,9 @@ const CandidateAssessmentAttempt = lazy(() =>
 const CandidateAssessmentSubmitted = lazy(() =>
   import("./pages/Candidate/Assessment/CandidateAssessmentSubmitted.jsx")
 );
+const ProctoringReport = lazy(() =>
+  import("./pages/Company/Board/AssessmentSegment/ProctoringReport.jsx")
+);
 const JobsPage = lazy(() => import("./pages/Company/Jobs/JobsPage.jsx"));
 const JobsPageNew = lazy(() => import("./pages/Company/Jobs/JobsPageNew.jsx"));
 const InternshipPageNew = lazy(() =>
@@ -193,14 +196,15 @@ function App() {
     location.pathname.includes("/company/jobs/board") ||
     location.pathname.includes("/chat/");
   const isCandidateAssessmentRoute = location.pathname.startsWith("/assessment/");
-  const shouldHideNavbar = isBoardRoute || isCandidateAssessmentRoute;
+  const isProctoringReportRoute = location.pathname.startsWith("/assessment-proctor/");
+  const shouldHideNavbar = isBoardRoute || isCandidateAssessmentRoute || isProctoringReportRoute;
 
   useEffect(() => {
     setOtpRoute(Boolean(sessionStorage.getItem("OtpRoute")));
   });
 
   useEffect(() => {
-    if (isBoardRoute) {
+    if (shouldHideNavbar) {
       document.body.classList.add('crm-board-open');
     } else {
       document.body.classList.remove('crm-board-open');
@@ -209,7 +213,7 @@ function App() {
     return () => {
       document.body.classList.remove('crm-board-open');
     };
-  }, [isBoardRoute]);
+  }, [shouldHideNavbar]);
 
   /*
   useEffect(() => {
@@ -250,7 +254,7 @@ function App() {
       {!shouldHideNavbar && <MobileNavbar />}
       <ToastContainer />
       <GlobalSnackbar />
-      {!isCandidateAssessmentRoute && <ProfilePopUp />}
+      {!isCandidateAssessmentRoute && !isProctoringReportRoute && <ProfilePopUp />}
       {/* <TestimonialsPopup show={showPopup} onClose={handleClosePopup} /> */}
       {/* <FloatingChatButton /> */}
       <Suspense fallback={<LoadingPage />}>
@@ -424,6 +428,12 @@ function App() {
             <Route path=":inviteToken" element={<CandidateAssessmentEntry />} />
           </Route>
 
+          {/* Recruiter proctoring report */}
+          <Route
+            path="/assessment-proctor/:hiringId/:inviteId/report"
+            element={<ProctoringReport />}
+          />
+
           <Route path="/company">
             <Route path="" element={<CompanyNew />} />
             <Route path="jobs">
@@ -525,7 +535,7 @@ function App() {
           /> */}
         </Routes>
       </Suspense>
-      {!isCandidateAssessmentRoute && <NewFooter />}
+      {!isCandidateAssessmentRoute && !isProctoringReportRoute && <NewFooter />}
     </SEOProvider>
   );
 }
