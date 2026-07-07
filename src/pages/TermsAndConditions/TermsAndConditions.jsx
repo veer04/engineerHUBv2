@@ -174,6 +174,38 @@ const TermsAndConditions = () => {
               respect of the Website. The user further consents that the terms
               and contents of such Privacy Policy are acceptable to him.
             </p>
+            
+            <h5 className="use-h5" style={{ marginTop: "20px", marginBottom: "10px", fontSize: "1.1rem", fontWeight: "600", color: "#002b36", fontFamily: "Inter" }}>Google API User Data Policy Disclosure</h5>
+            <p className="use-p">
+              For our Interview Scheduling feature, engineerHUB allows administrators to connect their Google Calendar accounts. By connecting your Google account, you agree to the following practices regarding Google User Data:
+            </p>
+            <ul className="use-ul" style={{ listStyleType: "disc", paddingLeft: "20px", marginTop: "10px" }}>
+              <li className="use-p" style={{ marginBottom: "12px", listStylePosition: "outside" }}>
+                <strong>Data Accessed:</strong> We request and access only the specific scopes required to operate the interview scheduling feature:
+                <ul className="use-ul" style={{ listStyleType: "circle", paddingLeft: "20px", marginTop: "6px" }}>
+                  <li className="use-p"><code>https://www.googleapis.com/auth/userinfo.profile</code>: Used to identify and display your connected Google Account profile information.</li>
+                  <li className="use-p"><code>https://www.googleapis.com/auth/calendar</code>: Used to retrieve free/busy times and manage events on your Google Calendar.</li>
+                </ul>
+              </li>
+              <li className="use-p" style={{ marginBottom: "12px", listStylePosition: "outside" }}>
+                <strong>Data Usage:</strong> We use your Google user data solely to:
+                <ul className="use-ul" style={{ listStyleType: "circle", paddingLeft: "20px", marginTop: "6px" }}>
+                  <li className="use-p">Analyze your Google Calendar's free/busy availability slots to prevent interview scheduling conflicts.</li>
+                  <li className="use-p">Create, edit, and delete calendar events for scheduled interviews.</li>
+                  <li className="use-p">Generate unique Google Meet video conferencing links for interviews.</li>
+                  <li className="use-p">Automatically send calendar invitations and updates directly to selected interview candidates (attendees).</li>
+                </ul>
+              </li>
+              <li className="use-p" style={{ marginBottom: "12px", listStylePosition: "outside" }}>
+                <strong>Data Sharing:</strong> engineerHUB does not sell, trade, or share your Google user data with any third parties, advertisers, or external services. The only data sharing that occurs is the direct transmission of calendar event details (including the generated Google Meet link) to the interview candidates (attendees) whom you explicitly choose to invite to the scheduled interview.
+              </li>
+              <li className="use-p" style={{ marginBottom: "12px", listStylePosition: "outside" }}>
+                <strong>Data Storage & Protection:</strong> Your OAuth access and refresh tokens are stored securely in our database using robust encryption protocols and access controls. All communications between engineerHUB and Google API servers are encrypted using standard TLS/HTTPS protocols.
+              </li>
+              <li className="use-p" style={{ marginBottom: "12px", listStylePosition: "outside" }}>
+                <strong>Data Retention & Deletion:</strong> Your Google OAuth tokens and associated integration details are stored only for as long as your Google account remains connected to your engineerHUB account. You can revoke access and disconnect your Google account at any time through our integrations dashboard, which will instantly and permanently purge your stored Google credentials (access and refresh tokens) from our servers. Additionally, you may contact us at <a href="mailto:info@engineerhub.in" style={{ color: "#4A90E2", textDecoration: "underline" }}>info@engineerhub.in</a> to request the deletion of all data associated with your account.
+              </li>
+            </ul>
           </div>
 
           <div className="TnC-container advertising-material">
