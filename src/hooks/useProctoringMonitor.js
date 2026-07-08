@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef } from "react";
 import axios from "axios";
+import { FilesetResolver, FaceDetector } from "@mediapipe/tasks-vision";
 import { API_URL } from "../services/APIUtils";
 
 /**
@@ -42,7 +43,7 @@ function getFullscreenElement() {
   );
 }
 
-export default function useProctoringMonitor({ inviteToken, isActive }) {
+export default function useProctoringMonitor({ inviteToken, isActive, activeProctoring }) {
   // Stable refs — no re-renders needed for proctoring state
   const queueRef = useRef([]);
   const isFlushingRef = useRef(false);
@@ -50,6 +51,14 @@ export default function useProctoringMonitor({ inviteToken, isActive }) {
   const flushTimerRef = useRef(null);
   const tabSwitchCountRef = useRef(0);
   const hasStartedRef = useRef(false);
+
+  // Webcam proctoring refs
+  const streamRef = useRef(null);
+  const videoElementRef = useRef(null);
+  const detectorRef = useRef(null);
+  const webcamIntervalRef = useRef(null);
+  const consecutiveNoFaceRef = useRef(0);
+  const hasCapturedFirstRef = useRef(false);
 
   /* ── Build and enqueue an event ─────────────────────────────────────── */
   const enqueue = useCallback(
@@ -237,6 +246,214 @@ export default function useProctoringMonitor({ inviteToken, isActive }) {
       }
     };
   }, [inviteToken]);
+
+  /* ── Webcam Proctoring ──────────────────────────────────────────────── */
+  const captureSnapshot = useCallback(() => {
+    const video = videoElementRef.current;
+    if (!video || video.readyState < 2) return null;
+    try {
+      const canvas = document.createElement("canvas");
+      canvas.width = 320;
+      canvas.height = 240;
+      const ctx = canvas.getContext("2d");
+      // Optional: mirror the image
+      ctx.translate(canvas.width, 0);
+      ctx.scale(-1, 1);
+      ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+      return canvas.toDataURL("image/jpeg", 0.65);
+    } catch (err) {
+      console.error("[useProctoringMonitor] Snapshot capture failed:", err);
+      return null;
+    }
+  }, []);
+
+  const performWebcamCheck = useCallback(async () => {
+    const stream = streamRef.current;
+    const video = videoElementRef.current;
+    const detector = detectorRef.current;
+
+    if (!stream || !stream.active) {
+      enqueue("CAMERA_STREAM_LOST");
+      return;
+    }
+
+    const tracks = stream.getVideoTracks();
+    if (!tracks.length) {
+      enqueue("CAMERA_STREAM_LOST");
+      return;
+    }
+
+    const track = tracks[0];
+    if (track.readyState === "ended") {
+      enqueue("CAMERA_STREAM_LOST");
+      return;
+    }
+
+    if (!track.enabled) {
+      const snapshot = captureSnapshot();
+      enqueue("CAMERA_DISABLED", snapshot ? { snapshot } : {});
+      return;
+    }
+
+    if (!video || !detector || video.readyState < 2) {
+      return; // Video not playing or detector not loaded yet
+    }
+
+    try {
+      const detections = detector.detect(video);
+      const faceCount = detections.detections?.length || 0;
+      const snapshot = captureSnapshot();
+
+      if (faceCount === 0) {
+        consecutiveNoFaceRef.current += 1;
+        if (consecutiveNoFaceRef.current >= 3) {
+          enqueue("NO_FACE_DETECTED", {
+            failureCount: consecutiveNoFaceRef.current,
+            ...(snapshot ? { snapshot } : {}),
+          });
+        } else {
+          // Upload snapshot for intermediate checks when face is temporarily missing
+          enqueue("WEBCAM_CHECK", snapshot ? { snapshot } : {});
+        }
+      } else {
+        consecutiveNoFaceRef.current = 0;
+      }
+
+      if (faceCount > 1) {
+        enqueue("MULTIPLE_FACES_DETECTED", {
+          faceCount,
+          ...(snapshot ? { snapshot } : {}),
+        });
+      }
+
+      // Enforce snapshot capturing on every single normal check check (faceCount === 1)
+      if (faceCount === 1) {
+        hasCapturedFirstRef.current = true;
+        enqueue("WEBCAM_CHECK", snapshot ? { snapshot } : {});
+      }
+    } catch (err) {
+      console.error("[useProctoringMonitor] Face detection error:", err);
+    }
+  }, [enqueue, captureSnapshot]);
+  const startWebcamMonitoring = useCallback(async () => {
+    let stream = null;
+    let attempts = 0;
+    const maxAttempts = 3;
+
+    // 1. Acquire the camera stream (with retries for hardware releasing)
+    while (attempts < maxAttempts) {
+      try {
+        stream = await navigator.mediaDevices.getUserMedia({
+          video: {
+            width: { ideal: 640 },
+            height: { ideal: 480 },
+            facingMode: "user"
+          }
+        });
+        break; // Success!
+      } catch (err) {
+        attempts++;
+        console.warn(`[useProctoringMonitor] Webcam acquisition attempt ${attempts} failed:`, err);
+        if (attempts >= maxAttempts) {
+          console.error("[useProctoringMonitor] Webcam acquisition failed after maximum retries:", err);
+          enqueue("CAMERA_PERMISSION_DENIED", { error: err?.message || "Permission Denied" });
+          return;
+        }
+        await new Promise((resolve) => setTimeout(resolve, 800));
+      }
+    }
+
+    // 2. Initialize video element
+    try {
+      streamRef.current = stream;
+
+      const video = document.createElement("video");
+      video.width = 640;
+      video.height = 480;
+      video.autoplay = true;
+      video.playsInline = true;
+      video.muted = true;
+      video.srcObject = stream;
+      videoElementRef.current = video;
+
+      await new Promise((resolve) => {
+        video.onloadedmetadata = () => {
+          video.play().then(resolve).catch(resolve);
+        };
+      });
+    } catch (err) {
+      console.error("[useProctoringMonitor] Video element initialization failed:", err);
+      enqueue("CAMERA_STREAM_LOST", { error: err?.message || "Video setup failed" });
+      return;
+    }
+
+    // 3. Initialize Face Detector
+    try {
+      const vision = await FilesetResolver.forVisionTasks(
+        "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.35/wasm"
+      );
+      const detector = await FaceDetector.createFromOptions(vision, {
+        baseOptions: {
+          modelAssetPath: "https://storage.googleapis.com/mediapipe-models/face_detector/blaze_face_short_range/float16/1/blaze_face_short_range.tflite",
+          delegate: "GPU"
+        },
+        runningMode: "IMAGE"
+      });
+      detectorRef.current = detector;
+
+      // Attach ended listener
+      if (stream.getVideoTracks().length > 0) {
+        stream.getVideoTracks()[0].addEventListener("ended", () => {
+          enqueue("CAMERA_STREAM_LOST");
+        });
+      }
+
+      // Perform initial check once camera and model are fully loaded
+      await performWebcamCheck();
+
+      // Start loop
+      const runCheckingLoop = () => {
+        const nextInterval = Math.floor(Math.random() * (30000 - 15000 + 1)) + 15000;
+        webcamIntervalRef.current = setTimeout(async () => {
+          await performWebcamCheck();
+          runCheckingLoop();
+        }, nextInterval);
+      };
+      runCheckingLoop();
+    } catch (err) {
+      console.error("[useProctoringMonitor] Face detector model initialization failed:", err);
+      // If face detector fails (e.g. CDN down), we don't flag CAMERA_PERMISSION_DENIED.
+      // We can just log it or flag model loading failure, so browser events still run smoothly.
+    }
+  }, [enqueue, performWebcamCheck]);
+  const stopWebcamMonitoring = useCallback(() => {
+    if (webcamIntervalRef.current) {
+      clearTimeout(webcamIntervalRef.current);
+      webcamIntervalRef.current = null;
+    }
+    if (streamRef.current) {
+      streamRef.current.getTracks().forEach((track) => track.stop());
+      streamRef.current = null;
+    }
+    if (videoElementRef.current) {
+      videoElementRef.current.srcObject = null;
+      videoElementRef.current = null;
+    }
+    if (detectorRef.current) {
+      detectorRef.current.close();
+      detectorRef.current = null;
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!isActive || !inviteToken || !activeProctoring) return undefined;
+
+    startWebcamMonitoring();
+
+    return () => {
+      stopWebcamMonitoring();
+    };
+  }, [isActive, inviteToken, activeProctoring, startWebcamMonitoring, stopWebcamMonitoring]);
 
   /* ── Public API ─────────────────────────────────────────────────────── */
   const isFullscreen = useCallback(() => Boolean(getFullscreenElement()), []);
