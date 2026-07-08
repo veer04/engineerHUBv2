@@ -13,6 +13,10 @@ import {
   FiMousePointer,
   FiShield,
   FiWifi,
+  FiCamera,
+  FiCameraOff,
+  FiUserX,
+  FiUsers,
 } from "react-icons/fi";
 import { API_URL } from "../../../../services/APIUtils";
 import { getAccessToken } from "../../../../features/User/UserDetails";
@@ -27,6 +31,11 @@ const EVENT_RISK_POINTS = {
   COPY_ATTEMPT: 4,
   PASTE_ATTEMPT: 4,
   RIGHT_CLICK_ATTEMPT: 2,
+  NO_FACE_DETECTED: 5,
+  MULTIPLE_FACES_DETECTED: 10,
+  CAMERA_DISABLED: 15,
+  CAMERA_STREAM_LOST: 15,
+  CAMERA_PERMISSION_DENIED: 20,
 };
 
 const STAT_CARDS = [
@@ -72,6 +81,41 @@ const STAT_CARDS = [
     color: "--slate",
     description: "Right-click suppressed",
   },
+  {
+    key: "CAMERA_DISABLED",
+    label: "Camera Disabled",
+    icon: FiCameraOff,
+    color: "--red",
+    description: "Camera disabled during assessment",
+  },
+  {
+    key: "NO_FACE_DETECTED",
+    label: "No Face Detected",
+    icon: FiUserX,
+    color: "--amber",
+    description: "Face disappeared from webcam",
+  },
+  {
+    key: "MULTIPLE_FACES_DETECTED",
+    label: "Multiple Faces",
+    icon: FiUsers,
+    color: "--red",
+    description: "Multiple faces in webcam frame",
+  },
+  {
+    key: "CAMERA_STREAM_LOST",
+    label: "Camera Stream Lost",
+    icon: FiCameraOff,
+    color: "--red",
+    description: "Webcam stream disconnected",
+  },
+  {
+    key: "CAMERA_PERMISSION_DENIED",
+    label: "Permission Denied",
+    icon: FiCameraOff,
+    color: "--red",
+    description: "Permission was denied",
+  },
 ];
 
 const EVENT_ICON_MAP = {
@@ -86,6 +130,12 @@ const EVENT_ICON_MAP = {
   RIGHT_CLICK_ATTEMPT: "⊞",
   ASSESSMENT_START: "▶",
   ASSESSMENT_END: "■",
+  NO_FACE_DETECTED: "👤🗙",
+  MULTIPLE_FACES_DETECTED: "👤👤",
+  CAMERA_DISABLED: "📷🗙",
+  CAMERA_STREAM_LOST: "🔌",
+  CAMERA_PERMISSION_DENIED: "🚫",
+  WEBCAM_CHECK: "📸",
 };
 
 const EVENT_COLOR_MAP = {
@@ -100,6 +150,12 @@ const EVENT_COLOR_MAP = {
   RIGHT_CLICK_ATTEMPT: "--ev-warn",
   ASSESSMENT_START: "--ev-success",
   ASSESSMENT_END: "--ev-success",
+  NO_FACE_DETECTED: "--ev-warn",
+  MULTIPLE_FACES_DETECTED: "--ev-danger",
+  CAMERA_DISABLED: "--ev-danger",
+  CAMERA_STREAM_LOST: "--ev-danger",
+  CAMERA_PERMISSION_DENIED: "--ev-danger",
+  WEBCAM_CHECK: "--ev-info",
 };
 
 const EVENT_LABEL_MAP = {
@@ -114,6 +170,12 @@ const EVENT_LABEL_MAP = {
   RIGHT_CLICK_ATTEMPT: "Right Click",
   ASSESSMENT_START: "Assessment Started",
   ASSESSMENT_END: "Assessment Ended",
+  NO_FACE_DETECTED: "No Face Detected",
+  MULTIPLE_FACES_DETECTED: "Multiple Faces Detected",
+  CAMERA_DISABLED: "Camera Disabled",
+  CAMERA_STREAM_LOST: "Camera Stream Lost",
+  CAMERA_PERMISSION_DENIED: "Camera Permission Denied",
+  WEBCAM_CHECK: "Periodic Webcam Check",
 };
 
 /* ─── Helpers ───────────────────────────────────────────────────────────── */
@@ -199,6 +261,11 @@ function TimelineEvent({ event, index }) {
             — {formatISTTimestamp(event.clientTimestamp || event.createdAt)} IST
           </span>
         </div>
+        {event.metadata?.snapshot && (
+          <div style={{ marginTop: "0.5rem", maxWidth: "160px", borderRadius: "6px", overflow: "hidden", border: "1px solid #e2e8f0", boxShadow: "0 2px 4px rgba(0,0,0,0.05)" }}>
+            <img src={event.metadata.snapshot} alt="Webcam Snapshot" style={{ width: "100%", display: "block" }} />
+          </div>
+        )}
       </div>
     </div>
   );
@@ -244,6 +311,18 @@ export default function ProctoringReport() {
   });
 
   const report = reportQuery.data;
+
+  const snapshots = useMemo(() => {
+    if (!report?.timeline) return [];
+    return report.timeline
+      .filter((ev) => ev.metadata?.snapshot)
+      .map((ev) => ({
+        snapshot: ev.metadata.snapshot,
+        timestamp: ev.clientTimestamp || ev.createdAt,
+        type: ev.eventType,
+      }))
+      .reverse(); // latest snapshots first
+  }, [report?.timeline]);
 
   return (
     <div className="pr-page">
@@ -327,12 +406,17 @@ export default function ProctoringReport() {
                   </div>
                   <div className="pr-risk-legend-right">
                     <p className="pr-risk-legend-scoring-title">Points per violation:</p>
-                    <ul className="pr-risk-legend-scoring-list">
+                    <ul className="pr-risk-legend-scoring-list" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.25rem 2rem" }}>
                       <li>Tab Switch: 2 pts</li>
                       <li>Window Blur: 1 pt</li>
                       <li>Fullscreen Exit: 3 pts</li>
                       <li>Copy / Paste: 4 pts each</li>
                       <li>Right Click: 2 pts</li>
+                      <li>No Face Detected: 5 pts</li>
+                      <li>Multiple Faces: 10 pts</li>
+                      <li>Camera Disabled: 15 pts</li>
+                      <li>Camera Stream Lost: 15 pts</li>
+                      <li>Camera Permission Denied: 20 pts</li>
                     </ul>
                   </div>
                 </div>
@@ -351,6 +435,96 @@ export default function ProctoringReport() {
                   />
                 ))}
               </div>
+            </section>
+
+            {/* ── Live Snapshots Segment ───────────────────────────────── */}
+            <section className="pr-section pr-section--snapshots">
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1rem" }}>
+                <h2 className="pr-section-title" style={{ margin: 0 }}>
+                  Integrity Webcam Snapshots
+                  <span className="pr-timeline-count">
+                    {snapshots.length} snapshot{snapshots.length !== 1 ? "s" : ""}
+                  </span>
+                </h2>
+                {snapshots.length > 0 && (
+                  <div style={{ display: "flex", gap: "0.5rem" }}>
+                    <button
+                      type="button"
+                      className="pr-back-btn"
+                      onClick={() => {
+                        const el = document.getElementById("pr-snapshots-scroll-container");
+                        if (el) el.scrollLeft -= 220;
+                      }}
+                      style={{ padding: "0.25rem 0.5rem", minWidth: "32px", height: "32px", fontSize: "16px", display: "inline-flex", alignItems: "center", justifyContent: "center" }}
+                      aria-label="Scroll left"
+                    >
+                      ‹
+                    </button>
+                    <button
+                      type="button"
+                      className="pr-back-btn"
+                      onClick={() => {
+                        const el = document.getElementById("pr-snapshots-scroll-container");
+                        if (el) el.scrollLeft += 220;
+                      }}
+                      style={{ padding: "0.25rem 0.5rem", minWidth: "32px", height: "32px", fontSize: "16px", display: "inline-flex", alignItems: "center", justifyContent: "center" }}
+                      aria-label="Scroll right"
+                    >
+                      ›
+                    </button>
+                  </div>
+                )}
+              </div>
+
+              {snapshots.length === 0 ? (
+                <div className="pr-empty-snapshots" style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  padding: "2.5rem 1rem",
+                  background: "white",
+                  border: "1.5px dashed #cbd5e1",
+                  borderRadius: "12px",
+                  color: "#64748b",
+                  textAlign: "center"
+                }}>
+                  <FiCameraOff style={{ fontSize: "2rem", marginBottom: "0.5rem", color: "#94a3b8" }} />
+                  <p style={{ margin: 0, fontSize: "0.9rem", fontWeight: "600", color: "#475569" }}>No webcam snapshots captured yet.</p>
+                  <p style={{ margin: "0.25rem 0 0 0", fontSize: "0.8rem", color: "#94a3b8" }}>
+                    Snapshots are captured automatically during webcam status checks and flag indicators (e.g. face missing, multiple faces).
+                  </p>
+                </div>
+              ) : (
+                <div className="pr-snapshots-slider-container" style={{ background: "white", border: "1.5px solid #e2e8f0", borderRadius: "12px", padding: "1.25rem" }}>
+                  <div className="pr-snapshots-scroll-wrapper" style={{ display: "flex", gap: "1.25rem", overflowX: "auto", scrollBehavior: "smooth", paddingBottom: "0.5rem" }} id="pr-snapshots-scroll-container">
+                    {snapshots.map((item, idx) => (
+                      <div key={idx} className="pr-snapshot-card" style={{ flex: "0 0 200px", background: "#f8fafc", borderRadius: "8px", overflow: "hidden", border: "1px solid #e2e8f0", transition: "transform 0.15s ease" }}>
+                        <div style={{ width: "100%", aspectRatio: "4/3", background: "#0f172a", position: "relative" }}>
+                          <img src={item.snapshot} alt="Webcam frame" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                          <span style={{
+                            position: "absolute",
+                            bottom: "0.5rem",
+                            left: "0.5rem",
+                            background: "rgba(15, 23, 42, 0.75)",
+                            backdropFilter: "blur(4px)",
+                            color: "white",
+                            fontSize: "0.7rem",
+                            fontWeight: "600",
+                            padding: "0.2rem 0.5rem",
+                            borderRadius: "4px"
+                          }}>
+                            {EVENT_LABEL_MAP[item.type] || item.type}
+                          </span>
+                        </div>
+                        <div style={{ padding: "0.5rem 0.75rem", fontSize: "0.75rem", color: "#64748b", fontWeight: "600" }}>
+                          {formatISTTimestamp(item.timestamp)}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
             </section>
 
             {/* ── Timeline ────────────────────────────────────────────── */}

@@ -97,6 +97,61 @@ export default function CandidateAssessmentEntry() {
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showUserDropdown, setShowUserDropdown] = useState(false);
   const userMenuRef = useRef(null);
+  
+  // Webcam proctoring state
+  const [showWebcamModal, setShowWebcamModal] = useState(false);
+  const [webcamStep, setWebcamStep] = useState(1); // 1 = Consent, 2 = Permission Request/Retry, 3 = Connected Preview
+  const [webcamError, setWebcamError] = useState(null);
+  const [webcamStream, setWebcamStream] = useState(null);
+  const videoRef = useRef(null);
+
+  useEffect(() => {
+    if (webcamStream && videoRef.current) {
+      videoRef.current.srcObject = webcamStream;
+    }
+  }, [webcamStream, webcamStep]);
+
+  const stopWebcam = () => {
+    if (webcamStream) {
+      webcamStream.getTracks().forEach((track) => track.stop());
+      setWebcamStream(null);
+    }
+  };
+
+  useEffect(() => {
+    return () => {
+      if (webcamStream) {
+        webcamStream.getTracks().forEach((track) => track.stop());
+      }
+    };
+  }, [webcamStream]);
+
+  const requestCameraPermission = async () => {
+    setWebcamError(null);
+    setWebcamStep(2);
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({
+        video: {
+          width: { ideal: 640 },
+          height: { ideal: 480 },
+          facingMode: "user",
+        },
+      });
+      setWebcamStream(stream);
+      setWebcamStep(3);
+    } catch (err) {
+      console.error("Camera access error:", err);
+      setWebcamError(
+        "Webcam access denied or unavailable. Please ensure your camera is connected and grant camera access in your browser settings to continue."
+      );
+      setWebcamStep(2);
+    }
+  };
+
+  const closeWebcamModal = () => {
+    stopWebcam();
+    setShowWebcamModal(false);
+  };
 
   // Close user dropdown when clicking outside
   useEffect(() => {
@@ -274,6 +329,18 @@ export default function CandidateAssessmentEntry() {
       return;
     }
 
+    if (inviteData?.activeProctoring) {
+      setShowWebcamModal(true);
+      setWebcamStep(1);
+      setWebcamError(null);
+      return;
+    }
+
+    proceedToStartAssessment();
+  };
+
+  const proceedToStartAssessment = () => {
+    stopWebcam();
     setIsInitializing(true);
     setIsStartingAssessment(true);
 
@@ -669,6 +736,84 @@ export default function CandidateAssessmentEntry() {
           </div>
         </div>
       </footer>
+      {/* ── Webcam Consent & Setup Modal ─────────────────── */}
+      {showWebcamModal && (
+        <div className="webcam-modal-overlay">
+          <div className="webcam-modal-card">
+            <div className="webcam-modal-header">
+              <h3>Webcam Integrity Setup</h3>
+              <button type="button" className="webcam-modal-close" onClick={closeWebcamModal} aria-label="Close modal">
+                <FiX />
+              </button>
+            </div>
+
+            <div className="webcam-modal-body">
+              {webcamStep === 1 && (
+                <div className="webcam-step-content">
+                  <div className="webcam-alert-box">
+                    <FiAlertCircle className="webcam-alert-icon" />
+                    <h4>Webcam Required for Proctoring</h4>
+                  </div>
+                  <p className="webcam-instruction-text">
+                    This assessment uses automated webcam proctoring (Level 2 AI Proctoring) to monitor the attempt environment.
+                  </p>
+                  <ul className="webcam-rules-list">
+                    <li>Camera access is mandatory to start and complete the assessment.</li>
+                    <li>The camera will monitor for integrity indicators (e.g. no face, multiple faces).</li>
+                    <li><strong>Privacy Guard:</strong> No continuous video recording or raw webcam images/screenshots are stored or sent to our servers. Only numeric proctoring event logs are saved.</li>
+                  </ul>
+                  <div className="webcam-modal-actions">
+                    <button type="button" className="webcam-btn --primary" onClick={requestCameraPermission}>
+                      Allow Camera
+                    </button>
+                    <button type="button" className="webcam-btn --secondary" disabled>
+                      Continue Assessment
+                    </button>
+                  </div>
+                </div>
+              )}
+
+              {webcamStep === 2 && (
+                <div className="webcam-step-content">
+                  {webcamError ? (
+                    <div className="webcam-error-box">
+                      <FiAlertCircle className="webcam-error-icon" style={{ color: "#ef4448", fontSize: "2rem", marginBottom: "1rem" }} />
+                      <p className="webcam-error-text">{webcamError}</p>
+                      <button type="button" className="webcam-btn --primary" onClick={requestCameraPermission} style={{ marginTop: "1rem" }}>
+                        Retry Connection
+                      </button>
+                    </div>
+                  ) : (
+                    <div className="webcam-loading-box">
+                      <div className="webcam-spinner" />
+                      <p>Requesting camera permission... Please select 'Allow' in your browser pop-up.</p>
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {webcamStep === 3 && (
+                <div className="webcam-step-content">
+                  <div className="webcam-success-box" style={{ marginBottom: "1rem", textAlign: "center" }}>
+                    <span className="webcam-status-indicator --connected" style={{ color: "#10b981", fontWeight: "700", fontSize: "0.95rem" }}>● Camera Connected</span>
+                  </div>
+                  <div className="webcam-preview-container">
+                    <video ref={videoRef} className="webcam-preview-video" autoPlay playsInline muted />
+                  </div>
+                  <p className="webcam-success-text">
+                    Your camera is verified and active. Please keep the camera frame focused on your face throughout the entire assessment duration.
+                  </p>
+                  <div className="webcam-modal-actions">
+                    <button type="button" className="webcam-btn --primary" onClick={proceedToStartAssessment}>
+                      Continue Assessment
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

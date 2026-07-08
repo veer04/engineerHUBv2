@@ -69,7 +69,12 @@ function getRiskBandFromCounts(counts = {}) {
     (counts.FULLSCREEN_EXIT || 0) * 3 +
     (counts.COPY_ATTEMPT || 0) * 4 +
     (counts.PASTE_ATTEMPT || 0) * 4 +
-    (counts.RIGHT_CLICK_ATTEMPT || 0) * 2;
+    (counts.RIGHT_CLICK_ATTEMPT || 0) * 2 +
+    (counts.NO_FACE_DETECTED || 0) * 5 +
+    (counts.MULTIPLE_FACES_DETECTED || 0) * 10 +
+    (counts.CAMERA_DISABLED || 0) * 15 +
+    (counts.CAMERA_STREAM_LOST || 0) * 15 +
+    (counts.CAMERA_PERMISSION_DENIED || 0) * 20;
   if (pts >= 25) return "High";
   if (pts >= 10) return "Medium";
   return "Low";
@@ -88,6 +93,11 @@ function ProctoringCell({ proctoringCounts, onMonitor }) {
   const tabSwitches = proctoringCounts.TAB_SWITCH || 0;
   const copies = (proctoringCounts.COPY_ATTEMPT || 0) + (proctoringCounts.PASTE_ATTEMPT || 0);
   const fsExits = proctoringCounts.FULLSCREEN_EXIT || 0;
+  const camDisabled = proctoringCounts.CAMERA_DISABLED || 0;
+  const camLost = proctoringCounts.CAMERA_STREAM_LOST || 0;
+  const camDenied = proctoringCounts.CAMERA_PERMISSION_DENIED || 0;
+  const noFace = proctoringCounts.NO_FACE_DETECTED || 0;
+  const multiFace = proctoringCounts.MULTIPLE_FACES_DETECTED || 0;
 
   return (
     <div className="proctor-cell">
@@ -107,6 +117,21 @@ function ProctoringCell({ proctoringCounts, onMonitor }) {
         )}
         {fsExits > 0 && (
           <span className="proctor-hint">⛶ {fsExits} fullscreen</span>
+        )}
+        {camDisabled > 0 && (
+          <span className="proctor-hint">📷 Disabled ({camDisabled})</span>
+        )}
+        {camLost > 0 && (
+          <span className="proctor-hint">🔌 Stream Lost ({camLost})</span>
+        )}
+        {camDenied > 0 && (
+          <span className="proctor-hint">🚫 Denied ({camDenied})</span>
+        )}
+        {noFace > 0 && (
+          <span className="proctor-hint">👤 No Face ({noFace})</span>
+        )}
+        {multiFace > 0 && (
+          <span className="proctor-hint">👥 Multi Faces ({multiFace})</span>
         )}
       </div>
     </div>

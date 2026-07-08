@@ -138,6 +138,7 @@ export default function CandidateAssessmentAttempt() {
   const { isFullscreen, requestFullscreen } = useProctoringMonitor({
     inviteToken,
     isActive: isSessionHydrated,
+    activeProctoring: attemptData?.activeProctoring,
   });
 
   // Show fullscreen prompt once after session hydrates
