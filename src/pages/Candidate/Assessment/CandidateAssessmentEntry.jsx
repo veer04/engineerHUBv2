@@ -750,21 +750,38 @@ export default function CandidateAssessmentEntry() {
             <div className="webcam-modal-body">
               {webcamStep === 1 && (
                 <div className="webcam-step-content">
-                  <div className="webcam-alert-box">
-                    <FiAlertCircle className="webcam-alert-icon" />
-                    <h4>Webcam Required for Proctoring</h4>
+                  <div className="webcam-alert-box" style={{ display: "flex", alignItems: "center", gap: "0.75rem", background: "rgba(245, 158, 11, 0.08)", border: "1px solid rgba(245, 158, 11, 0.2)", borderRadius: "8px", padding: "0.75rem 1rem", marginBottom: "1rem" }}>
+                    <FiAlertCircle className="webcam-alert-icon" style={{ color: "#f59e0b", fontSize: "1.25rem" }} />
+                    <h4 style={{ margin: 0, color: "#d97706", fontWeight: "700", fontSize: "0.95rem" }}>AI Anti-Cheat Monitor Active</h4>
                   </div>
-                  <p className="webcam-instruction-text">
-                    This assessment uses automated webcam proctoring (Level 2 AI Proctoring) to monitor the attempt environment.
+                  <p className="webcam-instruction-text" style={{ fontSize: "0.9rem", color: "#374151", marginBottom: "1rem" }}>
+                    Please complete the camera check to begin. The following actions are monitored and reported directly to the recruiter:
                   </p>
-                  <ul className="webcam-rules-list">
-                    <li>Camera access is mandatory to start and complete the assessment.</li>
-                    <li>The camera will monitor for integrity indicators (e.g. no face, multiple faces).</li>
-                    <li><strong>Privacy Guard:</strong> No continuous video recording or raw webcam images/screenshots are stored or sent to our servers. Only numeric proctoring event logs are saved.</li>
+                  <ul className="webcam-rules-list" style={{ listStyle: "none", padding: 0, margin: "0 0 1.5rem 0", display: "flex", flexDirection: "column", gap: "0.6rem" }}>
+                    <li style={{ display: "flex", alignItems: "flex-start", gap: "0.5rem", fontSize: "0.85rem", color: "#4b5563" }}>
+                      <span style={{ color: "#f59e0b", fontWeight: "bold" }}>⚠</span>
+                      <span><strong>Continuous Camera Monitoring:</strong> Device camera must remain on at all times.</span>
+                    </li>
+                    <li style={{ display: "flex", alignItems: "flex-start", gap: "0.5rem", fontSize: "0.85rem", color: "#4b5563" }}>
+                      <span style={{ color: "#f59e0b", fontWeight: "bold" }}>⚠</span>
+                      <span><strong>No Face Detected:</strong> Leaving the frame or blocking the webcam will be flagged.</span>
+                    </li>
+                    <li style={{ display: "flex", alignItems: "flex-start", gap: "0.5rem", fontSize: "0.85rem", color: "#4b5563" }}>
+                      <span style={{ color: "#f59e0b", fontWeight: "bold" }}>⚠</span>
+                      <span><strong>Multiple Faces:</strong> Any additional people in the camera frame are detected.</span>
+                    </li>
+                    <li style={{ display: "flex", alignItems: "flex-start", gap: "0.5rem", fontSize: "0.85rem", color: "#4b5563" }}>
+                      <span style={{ color: "#f59e0b", fontWeight: "bold" }}>⚠</span>
+                      <span><strong>Device Usage:</strong> Using external devices or mobile phones will be logged.</span>
+                    </li>
+                    <li style={{ display: "flex", alignItems: "flex-start", gap: "0.5rem", fontSize: "0.85rem", color: "#10b981" }}>
+                      <span style={{ color: "#10b981", fontWeight: "bold" }}>ℹ</span>
+                      <span>All integrity indicators and webcam snapshots are shared in real-time with the hiring company.</span>
+                    </li>
                   </ul>
                   <div className="webcam-modal-actions">
                     <button type="button" className="webcam-btn --primary" onClick={requestCameraPermission}>
-                      Allow Camera
+                      Allow Camera &amp; Verify
                     </button>
                     <button type="button" className="webcam-btn --secondary" disabled>
                       Continue Assessment
