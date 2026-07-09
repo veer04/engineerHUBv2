@@ -324,6 +324,14 @@ export default function ProctoringReport() {
       .reverse(); // latest snapshots first
   }, [report?.timeline]);
 
+  const reversedTimeline = useMemo(() => {
+    if (!report?.timeline) return [];
+    return report.timeline
+      .map((event, idx) => ({ event, originalIndex: idx }))
+      .reverse();
+  }, [report?.timeline]);
+
+
   return (
     <div className="pr-page">
       <Helmet>
@@ -346,7 +354,7 @@ export default function ProctoringReport() {
           <FiShield className="pr-header-shield" />
           <div>
             <h1 className="pr-header-title">Proctoring Report</h1>
-            <p className="pr-header-sub">Level 1 Anti-Cheat Monitoring</p>
+            <p className="pr-header-sub">Level 2 Anti-Cheat Monitoring</p>
           </div>
         </div>
 
@@ -387,38 +395,39 @@ export default function ProctoringReport() {
             {/* ── Risk Score ──────────────────────────────────────────── */}
             <section className="pr-section pr-section--risk">
               <h2 className="pr-section-title">Risk Assessment</h2>
-              <div className="pr-risk-row">
-                <RiskBadge band={report.riskBand} score={report.riskScore} />
-                <div className="pr-risk-legend">
-                  <div className="pr-risk-legend-left">
-                    <div className="pr-risk-legend-item">
+              <div className="pr-risk-row" style={{ display: "flex", gap: "3rem", alignItems: "stretch", flexWrap: "wrap" }}>
+                <div style={{ display: "flex", flexDirection: "column", gap: "1rem", minWidth: "220px" }}>
+                  <RiskBadge band={report.riskBand} score={report.riskScore} />
+                  <div className="pr-risk-legend-left" style={{ display: "flex", flexDirection: "column", gap: "0.4rem", paddingLeft: "0.5rem" }}>
+                    <div className="pr-risk-legend-item" style={{ display: "flex", alignItems: "center", gap: "0.5rem", fontSize: "0.85rem", color: "#4b5563" }}>
                       <span className="pr-risk-legend-dot --low" />
                       <span>Low: 0–9 pts</span>
                     </div>
-                    <div className="pr-risk-legend-item">
+                    <div className="pr-risk-legend-item" style={{ display: "flex", alignItems: "center", gap: "0.5rem", fontSize: "0.85rem", color: "#4b5563" }}>
                       <span className="pr-risk-legend-dot --medium" />
                       <span>Medium: 10–24 pts</span>
                     </div>
-                    <div className="pr-risk-legend-item">
+                    <div className="pr-risk-legend-item" style={{ display: "flex", alignItems: "center", gap: "0.5rem", fontSize: "0.85rem", color: "#4b5563" }}>
                       <span className="pr-risk-legend-dot --high" />
                       <span>High: 25+ pts</span>
                     </div>
                   </div>
-                  <div className="pr-risk-legend-right">
-                    <p className="pr-risk-legend-scoring-title">Points per violation:</p>
-                    <ul className="pr-risk-legend-scoring-list" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.25rem 2rem" }}>
-                      <li>Tab Switch: 2 pts</li>
-                      <li>Window Blur: 1 pt</li>
-                      <li>Fullscreen Exit: 3 pts</li>
-                      <li>Copy / Paste: 4 pts each</li>
-                      <li>Right Click: 2 pts</li>
-                      <li>No Face Detected: 5 pts</li>
-                      <li>Multiple Faces: 10 pts</li>
-                      <li>Camera Disabled: 15 pts</li>
-                      <li>Camera Stream Lost: 15 pts</li>
-                      <li>Camera Permission Denied: 20 pts</li>
-                    </ul>
-                  </div>
+                </div>
+                
+                <div className="pr-risk-legend-right" style={{ flex: "1 1 450px", display: "flex", flexDirection: "column", paddingLeft: "3rem", borderLeft: "1px dashed rgba(19, 131, 130, 0.25)", justifyContent: "center" }}>
+                  <p className="pr-risk-legend-scoring-title" style={{ margin: "0 0 0.75rem 0", fontWeight: "700", color: "#1f2937", fontSize: "0.9rem" }}>Points per violation:</p>
+                  <ul className="pr-risk-legend-scoring-list" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.4rem 3rem", listStyle: "none", padding: 0, margin: 0, color: "#4b5563", fontSize: "0.85rem" }}>
+                    <li>Tab Switch: 2 pts</li>
+                    <li>Window Blur: 1 pt</li>
+                    <li>Fullscreen Exit: 3 pts</li>
+                    <li>Copy / Paste: 4 pts each</li>
+                    <li>Right Click: 2 pts</li>
+                    <li>No Face Detected: 5 pts</li>
+                    <li>Multiple Faces: 10 pts</li>
+                    <li>Camera Disabled: 15 pts</li>
+                    <li>Camera Stream Lost: 15 pts</li>
+                    <li>Camera Permission Denied: 20 pts</li>
+                  </ul>
                 </div>
               </div>
             </section>
@@ -543,11 +552,11 @@ export default function ProctoringReport() {
                 </div>
               ) : (
                 <div className="pr-timeline-wrap">
-                  {report.timeline.map((event, i) => (
+                  {reversedTimeline.map((item) => (
                     <TimelineEvent
-                      key={`${event.eventType}-${event.clientTimestamp}-${i}`}
-                      event={event}
-                      index={i}
+                      key={`${item.event.eventType}-${item.event.clientTimestamp || item.event.createdAt}-${item.originalIndex}`}
+                      event={item.event}
+                      index={item.originalIndex}
                     />
                   ))}
                 </div>

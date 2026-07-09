@@ -306,7 +306,7 @@ export default function useProctoringMonitor({ inviteToken, isActive, activeProc
 
       if (faceCount === 0) {
         consecutiveNoFaceRef.current += 1;
-        if (consecutiveNoFaceRef.current >= 3) {
+        if (consecutiveNoFaceRef.current >= 2) {
           enqueue("NO_FACE_DETECTED", {
             failureCount: consecutiveNoFaceRef.current,
             ...(snapshot ? { snapshot } : {}),
