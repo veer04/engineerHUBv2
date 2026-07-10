@@ -9,7 +9,7 @@
   justify-content: center;
   align-items: center;
   padding: 40px 20px;
-  margin: 40px auto;
+  margin: 24px auto;
   background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
 }
 
@@ -60,13 +60,13 @@
 }
 
 .logo-image {
-  width: 120px;
-  height: 80px;
+  width: 140px;
+  height: 90px;
   object-fit: contain;
   transition: all 0.3s ease;
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
   border-radius: 12px;
-  padding: 16px;
+  padding: 8px;
   background: white;
   border: 1px solid rgba(0, 0, 0, 0.05);
 }
@@ -112,6 +112,7 @@
     max-width: 400px;
     overflow: hidden;
     padding: 30px 15px;
+    margin: 10px auto;
   }
 
   .main-heading-div {
@@ -153,9 +154,9 @@
   }
 
   .logo-image {
-    width: 90px;
-    height: 60px;
-    padding: 12px;
+    width: 110px;
+    height: 70px;
+    padding: 6px;
     border-radius: 8px;
   }
 }

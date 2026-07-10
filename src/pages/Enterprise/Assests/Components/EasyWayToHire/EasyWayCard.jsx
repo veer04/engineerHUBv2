@@ -15,30 +15,14 @@ const EasyWayCard = ({ data }) => {
   const closeModal = () => setIsModalOpen(false);
 
   const handleNavigate = () => {
-    console.log("Navigating, btnUrl:", btnUrl);
-
-    if (btnUrl && btnUrl.trim() !== "") {
-      if (role === "User") {
-        toast("💀 You are not authorized to host a job.", {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "dark",
-          transition: Bounce,
-        });
-        return;
-      } else {
-        window.open(btnUrl, "_blank");
-        return;
-      }
-    } else {
-      console.log("Opening modal...");
-
-      openModal();
+    if (btnText === "Connect Now") {
+      document
+        .getElementById("book-slot-section")
+        ?.scrollIntoView({ behavior: "smooth" });
+    } else if (btnText === "Host Now") {
+      document
+        .getElementById("hire-talent-section")
+        ?.scrollIntoView({ behavior: "smooth" });
     }
   };
 

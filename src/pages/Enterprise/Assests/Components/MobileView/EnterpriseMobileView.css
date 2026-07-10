@@ -10,7 +10,10 @@
   background-color: #f9f9f9;
   height: 5766px;
   position: relative;
-  width: 390px;
+  width: 100%;
+  max-width: 390px;
+  margin: 0 auto;
+  box-sizing: border-box;
 }
 
 .job-a-thon-mobile .overlap-group {
@@ -18,7 +21,9 @@
   left: 0;
   position: absolute;
   top: 70px;
-  width: 390px;
+  width: 100%;
+  max-width: 390px;
+  box-sizing: border-box;
 }
 
 .job-a-thon-mobile .frameMobView {
@@ -31,7 +36,9 @@
   /* padding: 24px 16px; */
   position: absolute;
   top: 0;
-  width: 390px;
+  width: 100%;
+  max-width: 390px;
+  box-sizing: border-box;
 }
 
 .job-a-thon-mobile .frameMobView-wrapper {
@@ -129,7 +136,41 @@
   justify-content: center;
   padding: 8px 12px;
   position: relative;
-  width: 180px;
+  width: 155px;
+  box-sizing: border-box;
+  color: #ffffff;
+  font-family: var(--desktop-body-body-sm-sm-bold-font-family);
+  font-size: var(--desktop-body-body-sm-sm-bold-font-size);
+  font-weight: var(--desktop-body-body-sm-sm-bold-font-weight);
+  cursor: pointer;
+}
+
+.job-a-thon-mobile .mob-cta-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+}
+
+.job-a-thon-mobile .mob-host-opportunity-btn {
+  align-items: center;
+  background-color: transparent;
+  border: 2px solid #168584;
+  border-radius: 100px;
+  display: flex;
+  height: 48px;
+  justify-content: center;
+  padding: 8px 12px;
+  position: relative;
+  width: 155px;
+  box-sizing: border-box;
+  color: #168584;
+  font-family: var(--desktop-body-body-sm-sm-bold-font-family);
+  font-size: var(--desktop-body-body-sm-sm-bold-font-size);
+  font-weight: var(--desktop-body-body-sm-sm-bold-font-weight);
+  cursor: pointer;
 }
 
 .job-a-thon-mobile .frameMobView-5 {
@@ -170,7 +211,8 @@
   object-fit: cover;
   position: absolute;
   top: 248px;
-  width: 390px;
+  width: 100%;
+  max-width: 390px;
 }
 
 .job-a-thon-mobile .frameMobView-7 {
@@ -181,7 +223,8 @@
   left: 0;
   position: absolute;
   top: 647px;
-  width: 390px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .job-a-thon-mobile .frameMobView-8 {
@@ -193,7 +236,8 @@
   justify-content: center;
   padding: 0px 16px;
   position: relative;
-  width: 390px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .job-a-thon-mobile .frameMobView-9 {
@@ -255,11 +299,23 @@
   display: flex;
   flex-direction: column;
   gap: 8px;
-  height: 210px;
+  min-height: 210px;
+  height: auto;
   padding: 28px 40px;
   position: relative;
   width: 100%;
 }
+
+.job-a-thon-mobile .card-headline {
+  align-self: stretch;
+  color: #168584;
+  font-family: var(--desktop-body-body-sm-sm-bold-font-family);
+  font-size: 16px;
+  font-weight: 700;
+  position: relative;
+  text-align: left;
+}
+
 
 .job-a-thon-mobile .heading {
   align-self: stretch;
@@ -1714,3 +1770,99 @@
   --texttext-secondary: rgba(84, 113, 120, 1);
   --texttext-white: rgba(255, 255, 255, 1);
 }
+
+/* ================================================================
+   Mobile Feature Cards — Reference Design
+   ================================================================ */
+
+.job-a-thon-mobile .mob-feature-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  padding: 0 4px;
+  box-sizing: border-box;
+}
+
+.job-a-thon-mobile .mob-feature-card {
+  border: 1px solid;
+  border-radius: 20px;
+  padding: 20px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  box-sizing: border-box;
+  width: 100%;
+  text-align: left;
+  align-items: flex-start;
+}
+
+.job-a-thon-mobile .mob-feature-illustration {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.job-a-thon-mobile .mob-feature-circle {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.job-a-thon-mobile .mob-feature-icon {
+  font-size: 44px;
+  width: 44px;
+  height: 44px;
+  display: block;
+}
+
+.job-a-thon-mobile .mob-feature-content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  text-align: left;
+  align-items: flex-start;
+}
+
+.job-a-thon-mobile .mob-feature-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 9999px;
+  font-family: "Inter", sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  width: fit-content;
+}
+
+.job-a-thon-mobile .mob-feature-headline {
+  font-family: "DM Sans", "Hanken Grotesk", sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.3;
+  color: #0b1c30;
+  margin: 0;
+}
+
+.job-a-thon-mobile .mob-feature-desc {
+  font-family: "Inter", "Lato", sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.65;
+  color: #3e4949;
+  margin: 0;
+}
+
+.enterprise-mobile-clientele-wrapper {
+  width: 100%;
+  margin-top: -30px;
+  margin-bottom: -30px;
+}
+

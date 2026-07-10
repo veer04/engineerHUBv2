@@ -6,7 +6,7 @@ import styles from "./JobAThonDesktopView.module.css";
 import OurClientale from "../../../../components/OurClientale/OurClientale";
 import { useTypewriter } from "../../../../hooks/useTypewriter";
 import { MdEmail, MdPhone } from "react-icons/md";
-import { FaBriefcase } from "react-icons/fa";
+import { FaBriefcase, FaUserCheck, FaLaptopCode, FaVideo, FaRocket } from "react-icons/fa";
 import { PiStudentFill } from "react-icons/pi";
 import { SEO } from "../../../../components/SEO/SEO.jsx";
 
@@ -16,7 +16,7 @@ export const JobAThonDesktopView = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   
   // Typewriter animation for the main heading
-  const { displayText: typewriterText, isComplete } = useTypewriter(
+  const { displayText: typewriterText, isComplete, elementRef } = useTypewriter(
     "We streamline hiring so you can\nfocus on growing !",
     80, // Speed in milliseconds
     500  // Initial delay in milliseconds
@@ -41,6 +41,17 @@ export const JobAThonDesktopView = () => {
 
   const scrollToBookSlotSection = () => {
     const element = document.getElementById("book-slot-section");
+    if (element) {
+      element.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+        inline: "center",
+      });
+    }
+  };
+
+  const scrollToHireTalentSection = () => {
+    const element = document.getElementById("hire-talent-section");
     if (element) {
       element.scrollIntoView({
         behavior: "smooth",
@@ -104,6 +115,12 @@ export const JobAThonDesktopView = () => {
                 </div>
               </div>
             </div>
+            <div 
+              className={styles.hostOpportunityBtn}
+              onClick={scrollToHireTalentSection}
+            >
+              <b>Host Opportunity</b>
+            </div>
           </div>
         </div>
         
@@ -116,61 +133,12 @@ export const JobAThonDesktopView = () => {
         </div>
       </div>
 
-      <section className={styles.enterpriseHireTalentSection}>
-        <div className={styles.enterpriseHireTalentWrap}>
-          <h3 className={styles.enterpriseHireTalentTitle}>Hire Talent</h3>
-          <div className={styles.enterpriseHireTalentGrid}>
-            <article
-              className={`${styles.enterpriseHireTalentCard} ${styles.enterpriseHireTalentCardJobs}`}
-              onClick={() => navigateToHostFlow("/host/job")}
-            >
-              <FaBriefcase className={styles.enterpriseHireTalentIcon} aria-hidden="true" />
-              <span className={styles.enterpriseHireTalentHeading}>Jobs</span>
-              <span className={styles.enterpriseHireTalentSubHeading}>
-                Create Jobs →
-              </span>
-              <p className={styles.enterpriseHireTalentDescription}>
-                Unlock career opportunities! Connect young talent with exciting professionals.
-              </p>
-            </article>
-
-            <article
-              className={`${styles.enterpriseHireTalentCard} ${styles.enterpriseHireTalentCardInternships}`}
-              onClick={() => navigateToHostFlow("/host/internship")}
-            >
-              <PiStudentFill className={styles.enterpriseHireTalentIcon} aria-hidden="true" />
-              <span className={styles.enterpriseHireTalentHeading}>Internships</span>
-              <span className={styles.enterpriseHireTalentSubHeading}>
-                Create Internships →
-              </span>
-              <p className={styles.enterpriseHireTalentDescription}>
-                Engage with aspiring talent. Showcase internship opportunities on our platform.
-              </p>
-            </article>
-
-            {/* Event hiring card temporarily hidden.
-            <article
-              className={styles.enterpriseHireTalentCard}
-              onClick={scrollToBookSlotSection}
-            >
-              <span className={styles.enterpriseHireTalentHeading}>Event Hiring</span>
-              <span className={styles.enterpriseHireTalentSubHeading}>
-                Hire Talent →
-              </span>
-              <p className={styles.enterpriseHireTalentDescription}>
-                Find the perfect talent for your events with our Event Hiring!.
-              </p>
-            </article>
-            */}
-          </div>
-        </div>
-      </section>
       <div className={styles.jobAThonDesktopViewInner}>
         <div className={styles.frameDiv}>
           <div className={styles.frameParent1}>
             <div className={styles.frameParent2}>
               <div className={styles.weStreamlineHiringParent}>
-                <div className={styles.typewriterContainer}>
+                <div ref={elementRef} className={styles.typewriterContainer}>
                   <span className={styles.typewriterText}>
                     {typewriterText.split('\n').map((line, index) => (
                       <span key={index}>
@@ -178,41 +146,98 @@ export const JobAThonDesktopView = () => {
                         {index < typewriterText.split('\n').length - 1 && <br />}
                       </span>
                     ))}
-                    {!isComplete && <span className={styles.cursor}>|</span>}
+                    {typewriterText && !isComplete && <span className={styles.cursor}>|</span>}
                   </span>
                 </div>
               </div>
-              {/* Responsive Vertical Stack Layout */}
-              <div className={styles.streamlineCardsContainer}>
-                <div className={styles.streamlineCard}>
-                  <div className={styles.heading3}>70%</div>
-                  <b className={styles.lessTimeSpent}>
-                    less time screening
-                  </b>
-                  <div className={styles.automatedShortlistingSaves}>
-                    AI-driven shortlisting automatically filters top candidates by skills, experience, and JD preferences - cutting manual screening time by 70%.
+              {/* Feature Cards — redesigned to match reference */}
+              <div className={styles.featureCardsContainer}>
+
+                {/* Card 0: Fastest Sourcing — Green */}
+                <section className={styles.featureCard} style={{ background: "#f0fdf4", borderColor: "#bbf7d0" }}>
+                  <div className={styles.featureCardContent}>
+                    <span className={styles.featureBadge} style={{ background: "#dcfce7", color: "#15803d" }}>
+                      Fastest Sourcing
+                    </span>
+                    <h2 className={styles.featureCardHeadline}>
+                      Fastest Sourcing
+                    </h2>
+                    <p className={styles.featureCardDesc}>
+                      Get engineers from campuses across India instantly.
+                      <br></br>
+                      Trusted by 300,000+ engineering candidates visiting engineerHUB every month.
+                    </p>
                   </div>
-                </div>
-                
-                <div className={styles.streamlineCard}>
-                  <div className={styles.heading3}>4x</div>
-                  <b className={styles.lessTimeSpent}>
-                    smarter interview scheduling
-                  </b>
-                  <div className={styles.smartToolsLike}>
-                    Seamless integrations automate scheduling and communication, boosting recruiter productivity and candidate experience.
+                  <div className={styles.featureCardIllustration}>
+                    <div className={styles.featureCardCircle} style={{ background: "#dcfce7" }}>
+                      <FaRocket className={styles.featureCardIcon} style={{ color: "#15803d" }} />
+                    </div>
                   </div>
-                </div>
-                
-                <div className={styles.streamlineCard}>
-                  <div className={styles.heading3}>2.5x</div>
-                  <b className={styles.lessTimeSpent}>
-                    deeper hiring insights
-                  </b>
-                  <div className={styles.automatedShortlistingSaves}>
-                    Actionable analytics on hiring efficiency, candidate performance, and recruitment trends empower smarter, data-backed decisions.
+                </section>
+
+                {/* Card 1: AI Screening — Orange */}
+                <section className={styles.featureCard} style={{ background: "#fff9f0", borderColor: "#fed7aa" }}>
+                  <div className={styles.featureCardContent}>
+                    <span className={styles.featureBadge} style={{ background: "#ffedd5", color: "#c2410c" }}>
+                      AI Resume Screening
+                    </span>
+                    <h2 className={styles.featureCardHeadline}>
+                      Reduce Resume Screening Time by 80%
+                    </h2>
+                    <p className={styles.featureCardDesc}>
+                      AI-driven shortlisting automatically filters top candidates by skills,
+                       experience, and JD preferences, cutting manual screening time by 80%.
+                    </p>
                   </div>
-                </div>
+                  <div className={styles.featureCardIllustration}>
+                    <div className={styles.featureCardCircle} style={{ background: "#ffedd5" }}>
+                      <FaUserCheck className={styles.featureCardIcon} style={{ color: "#c2410c" }} />
+                    </div>
+                  </div>
+                </section>
+
+                {/* Card 2: AI Assessment — Blue */}
+                <section className={styles.featureCard} style={{ background: "#f0f7ff", borderColor: "#bfdbfe" }}>
+                  <div className={styles.featureCardContent}>
+                    <span className={styles.featureBadge} style={{ background: "#dbeafe", color: "#1d4ed8" }}>
+                      AI Assessment
+                    </span>
+                    <h2 className={styles.featureCardHeadline}>
+                      Generate Assessments in Seconds
+                    </h2>
+                    <p className={styles.featureCardDesc}>
+                      Prepare custom assessments in under 30 seconds with our AI.
+                       Seamlessly schedule, track, and prevent cheating with advanced AI proctoring.
+                    </p>
+                  </div>
+                  <div className={styles.featureCardIllustration}>
+                    <div className={styles.featureCardCircle} style={{ background: "#dbeafe" }}>
+                      <FaLaptopCode className={styles.featureCardIcon} style={{ color: "#1d4ed8" }} />
+                    </div>
+                  </div>
+                </section>
+
+                {/* Card 3: Smart Interview — Purple */}
+                <section className={styles.featureCard} style={{ background: "#faf5ff", borderColor: "#e9d5ff" }}>
+                  <div className={styles.featureCardContent}>
+                    <span className={styles.featureBadge} style={{ background: "#f3e8ff", color: "#7e22ce" }}>
+                      Smart Interview
+                    </span>
+                    <h2 className={styles.featureCardHeadline}>
+                      Conduct Interviews from One Workspace
+                    </h2>
+                    <p className={styles.featureCardDesc}>
+                      Seamless integrations, automated scheduling and communication,
+                       boosting recruiter productivity and candidate experience.
+                    </p>
+                  </div>
+                  <div className={styles.featureCardIllustration}>
+                    <div className={styles.featureCardCircle} style={{ background: "#f3e8ff" }}>
+                      <FaVideo className={styles.featureCardIcon} style={{ color: "#7e22ce" }} />
+                    </div>
+                  </div>
+                </section>
+
               </div>
             </div>
 
@@ -291,7 +316,7 @@ export const JobAThonDesktopView = () => {
                         Zero cost. Basic tools.<br />
                         Instant access to job seekers.
                       </p>
-                      <div className={styles.cardButton} onClick={() => window.open("/host/job", "_blank")}>
+                      <div className={styles.cardButton} onClick={scrollToHireTalentSection}>
                         <button>Host Now</button>
                       </div>
                     </div>
@@ -305,7 +330,7 @@ export const JobAThonDesktopView = () => {
                         Our experts match you with fits.<br />
                         Pay per role or ~ 3% on success.
                       </p>
-                      <div className={styles.cardButton} onClick={openModal}>
+                      <div className={styles.cardButton} onClick={scrollToBookSlotSection}>
                         <button>Connect Now</button>
                       </div>
                     </div>
@@ -319,7 +344,7 @@ export const JobAThonDesktopView = () => {
                         From start to hire, we manage it all.<br />
                         Starts at ~5% of CTC.
                       </p>
-                      <div className={styles.cardButton} onClick={openModal}>
+                      <div className={styles.cardButton} onClick={scrollToBookSlotSection}>
                         <button>Connect Now</button>
                       </div>
                     </div>
@@ -328,192 +353,122 @@ export const JobAThonDesktopView = () => {
               </div>
             </div>
 
-            <div className={styles.frameParent3}>
-              <div className={styles.frameParent4}>
-                <div className={styles.frameParent5}>
-                  <div className={styles.engineerhubIsOneStopSolutiWrapper}>
-                    <div className={styles.frameParent6}>
-                      <div
-                        className={styles.simplifyingCampusRecruitmentWrapper}
-                      >
-                        <b className={styles.simplifyingCampusRecruitment}>
-                        AI-Powered Campus Hiring
-                        </b>
-                      </div>
-                      <div className={styles.fromConnectingWith5LakhEWrapper}>
-                        <div className={styles.fromConnectingWith}>
-                        <ul>
-                        <li>
-                        Discover and hire top engineers from any tier of campus across India  instantly, With access to 3,25,000+ verified candidates.
-                        </li>
-                        <br />  
-                        <li>
-                        
-                        from AI-driven shortlisting and skill-based assessments to
-                        virtual interviews and advanced analytics.
-                        </li>
-                        <br />
-                          <li>
-                         Break free from geographic limits and connect with untapped, high-potential talent nationwide .
-                        </li>
-                        </ul>
+            <section className={styles.enterpriseHireTalentSection} id="hire-talent-section">
+              <div className={styles.enterpriseHireTalentWrap}>
+                <h3 className={styles.enterpriseHireTalentTitle}>Hire Talent</h3>
+                <div className={styles.enterpriseHireTalentGrid}>
+                  <article
+                    className={`${styles.enterpriseHireTalentCard} ${styles.enterpriseHireTalentCardJobs}`}
+                    onClick={() => navigateToHostFlow("/host/job")}
+                  >
+                    <FaBriefcase className={styles.enterpriseHireTalentIcon} aria-hidden="true" />
+                    <span className={styles.enterpriseHireTalentHeading}>Jobs</span>
+                    <span className={styles.enterpriseHireTalentSubHeading}>
+                      Create Jobs →
+                    </span>
+                    <p className={styles.enterpriseHireTalentDescription}>
+                      Post jobs, discover skilled engineers, and streamline your hiring process from one platform.
+                    </p>
+                  </article>
 
+                  <article
+                    className={`${styles.enterpriseHireTalentCard} ${styles.enterpriseHireTalentCardInternships}`}
+                    onClick={() => navigateToHostFlow("/host/internship")}
+                  >
+                    <PiStudentFill className={styles.enterpriseHireTalentIcon} aria-hidden="true" />
+                    <span className={styles.enterpriseHireTalentHeading}>Internships</span>
+                    <span className={styles.enterpriseHireTalentSubHeading}>
+                      Create Internships →
+                    </span>
+                    <p className={styles.enterpriseHireTalentDescription}>
+                      Hire talented interns from a nationwide network of engineering students.
+                    </p>
+                  </article>
+                </div>
+              </div>
+            </section>
+
+            {/* frameParent3 - Commented out: AI-Powered Campus Hiring, From Hi to Hired, Digitize Campus */}
+            {null && (
+              <div className={styles.frameParent3}>
+                <div className={styles.frameParent4}>
+                  <div className={styles.frameParent5}>
+                    <div className={styles.engineerhubIsOneStopSolutiWrapper}>
+                      <div className={styles.frameParent6}>
+                        <div className={styles.simplifyingCampusRecruitmentWrapper}>
+                          <b className={styles.simplifyingCampusRecruitment}>
+                            AI-Powered Campus Hiring
+                          </b>
+                        </div>
+                        <div className={styles.fromConnectingWith5LakhEWrapper}>
+                          <div className={styles.fromConnectingWith}>
+                            <ul>
+                              <li>Discover and hire top engineers from any tier of campus across India instantly, With access to 3,25,000+ verified candidates.</li>
+                              <br />
+                              <li>From AI-driven shortlisting and skill-based assessments to virtual interviews and advanced analytics.</li>
+                              <br />
+                              <li>Break free from geographic limits and connect with untapped, high-potential talent nationwide.</li>
+                            </ul>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                  <div 
-                    className={styles.forCompaniesWrapper}
-                    onClick={() => {
-                      const element = document.getElementById("book-slot-section");
-                      if (element) {
-                        element.scrollIntoView({ 
-                          behavior: "smooth", 
-                          block: "center",
-                          inline: "center"
-                        });
-                      }
-                    }}
-                  >
-                    <b className={styles.forCompanies}>For Companies</b>
+                    <div className={styles.forCompaniesWrapper}>
+                      <b className={styles.forCompanies}>For Companies</b>
+                    </div>
                   </div>
                 </div>
-                {/* Image side temporarily hidden to remove S3/image dependency.
-                <div className={styles.hireFromAnyTierOfCampusParent}>
-                  <b className={styles.hireFromAny}>
-                    Hire from Any Tier of Campus
-                  </b>
-                  <img
-                    className={styles.icon}
-                    alt=""
-                    src={`${bucket}campus_hiring.png`}
-                  />
-                </div>
-                */}
-              </div>
-              <div className={styles.frameParent7}>
-                <div className={styles.frameParent5}>
-                  <div className={styles.engineerhubIsOneStopSolutiWrapper}>
-                    <div className={styles.frameParent6}>
-                      <div
-                        className={styles.simplifyingCampusRecruitmentWrapper}
-                      >
-                        <b className={styles.simplifyingCampusRecruitment}>
-                          From Hi to Hired within 3 days
-                        </b>
-                      </div>
-                      <div className={styles.fromConnectingWith5LakhEWrapper}>
-                        <div className={styles.fromConnectingWith}>
-                          <ul>
-                          <li>
-                        Accelerate your hiring with our AI-powered platform - connect, evaluate, and onboard top talent from any campus within just 3 days.
-                        </li>
-                        <li>
-                        Save time, cut costs, and ensure quality every step of the way.
-                        </li>
-                        
-                        </ul>
+                <div className={styles.frameParent7}>
+                  <div className={styles.frameParent5}>
+                    <div className={styles.engineerhubIsOneStopSolutiWrapper}>
+                      <div className={styles.frameParent6}>
+                        <div className={styles.simplifyingCampusRecruitmentWrapper}>
+                          <b className={styles.simplifyingCampusRecruitment}>
+                            From Hi to Hired within 3 days
+                          </b>
+                        </div>
+                        <div className={styles.fromConnectingWith5LakhEWrapper}>
+                          <div className={styles.fromConnectingWith}>
+                            <ul>
+                              <li>Accelerate your hiring with our AI-powered platform - connect, evaluate, and onboard top talent from any campus within just 3 days.</li>
+                              <li>Save time, cut costs, and ensure quality every step of the way.</li>
+                            </ul>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                  <div 
-                    className={styles.forCompaniesWrapper}
-                    onClick={() => {
-                      const element = document.getElementById("book-slot-section");
-                      if (element) {
-                        element.scrollIntoView({ 
-                          behavior: "smooth", 
-                          block: "center",
-                          inline: "center"
-                        });
-                      }
-                    }}
-                  >
-                    <b className={styles.forCompanies}>For HRs</b>
+                    <div className={styles.forCompaniesWrapper}>
+                      <b className={styles.forCompanies}>For HRs</b>
+                    </div>
                   </div>
                 </div>
-                {/* Image side temporarily hidden to remove S3/image dependency.
-                <div className={styles.connectHireTopTalentParent}>
-                  <b
-                    className={styles.connectHire}
-                  >{`Connect & Hire Top Talent`}</b>
-                  <img
-                    className={styles.importantRecruitingMetricsFIcon}
-                    alt=""
-                    src={`${bucket}hr_hiring_latest.png
-`}
-                  />
-                </div>
-                */}
-              </div>
-              <div className={styles.frameParent10}>
-                <div className={styles.frameParent5}>
-                  <div className={styles.engineerhubIsOneStopSolutiWrapper}>
-                    <div className={styles.frameParent6}>
-                      <div
-                        className={styles.simplifyingCampusRecruitmentWrapper}
-                      >
-                        <b className={styles.simplifyingCampusRecruitment}>
-                          <p
-                            className={styles.empoweringRecruitersTo}
-                          >{`Digitize Your `}</p>
-                          <p className={styles.empoweringRecruitersTo}>
-                            Campus Placements.
-                          </p>
-                        </b>
-                      </div>
-                      <div className={styles.fromConnectingWith5LakhEWrapper}>
-                        <div className={styles.fromConnectingWith}>
-                        <ul>
-                        <li>Partner with engineerHUB to list your campus and give companies direct access to your students.
-                        </li>
-                        
-                        </ul>
+                <div className={styles.frameParent10}>
+                  <div className={styles.frameParent5}>
+                    <div className={styles.engineerhubIsOneStopSolutiWrapper}>
+                      <div className={styles.frameParent6}>
+                        <div className={styles.simplifyingCampusRecruitmentWrapper}>
+                          <b className={styles.simplifyingCampusRecruitment}>
+                            <p className={styles.empoweringRecruitersTo}>{`Digitize Your `}</p>
+                            <p className={styles.empoweringRecruitersTo}>Campus Placements.</p>
+                          </b>
+                        </div>
+                        <div className={styles.fromConnectingWith5LakhEWrapper}>
+                          <div className={styles.fromConnectingWith}>
+                            <ul>
+                              <li>Partner with engineerHUB to list your campus and give companies direct access to your students.</li>
+                            </ul>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                  <div 
-                    className={styles.forCompaniesWrapper}
-                    onClick={() => {
-                      const element = document.getElementById("book-slot-section");
-                      if (element) {
-                        element.scrollIntoView({ 
-                          behavior: "smooth", 
-                          block: "center",
-                          inline: "center"
-                        });
-                      }
-                    }}
-                  >
-                    <b className={styles.forCompanies}>For Campuses</b>
+                    <div className={styles.forCompaniesWrapper}>
+                      <b className={styles.forCompanies}>For Campuses</b>
+                    </div>
                   </div>
                 </div>
-                {/* Image side temporarily hidden to remove S3/image dependency.
-                <div className={styles.hireFromAnyTierOfCampusParent}>
-                  <b className={styles.manageOnlinePlacements}>
-                    Manage Online Placements
-                  </b>
-                  <div className={styles.frameParent13}>
-                    <div className={styles.studentDataWrapper}>
-                      <div className={styles.studentData}>Student Data</div>
-                    </div>
-                    <div className={styles.jobsWrapper}>
-                      <div className={styles.studentData}>Jobs</div>
-                    </div>
-                    <div className={styles.jobsWrapper}>
-                      <div className={styles.studentData}>Interviews</div>
-                    </div>
-                  </div>
-                  <img
-                    className={styles.orangeWhiteGreenNeoBrutali}
-                    alt=""
-                    src={`${bucket}college_engineerhub.png`}
-                  />
-                </div>
-                */}
               </div>
+            )}
+
               {/*
               <div className={styles.ourClientaleWrapper}>
                 <OurClientale />
@@ -745,19 +700,15 @@ export const JobAThonDesktopView = () => {
                 </div>
               </div>
 
-             
-               
-             
+              <div className={styles.ourClientaleWrapper}>
+                <OurClientale />
+              </div>
 
               <div className={styles.frameParent20}>
                 <div className={styles.frameWrapper9}>
                   <div className={styles.whyHrsSupportUsParent}>
-                    <b className={styles.whyHrsSupport}>Why HR’s support us</b>
-                    <img
-                      className={styles.vectorIcon1}
-                      alt=""
-                      src={`${bucket}Vector+(1).svg`}
-                    />
+                    <FaUserCheck className={styles.whyHrsSupportIcon} aria-hidden="true" />
+                    <b className={styles.whyHrsSupport}>Trusted by Hiring Teams</b>
                   </div>
                 </div>
                 <div className={styles.feedbackCarousel}>
@@ -767,7 +718,7 @@ export const JobAThonDesktopView = () => {
                       <div className={styles.frameParent21}>
                         <div className={styles.oneStopHiringSolutionForCWrapper}>
                           <div className={styles.weHaveEngineers}>
-                            EngineerHUB improved our hiring process by reducing
+                            engineerHUB improved our hiring process by reducing
                             time by 40%, using ATS scoring, bulk actions, and
                             advanced filtering, saving countless hours and effort
                             efficiently
@@ -864,7 +815,7 @@ export const JobAThonDesktopView = () => {
                       <div className={styles.frameParent21}>
                         <div className={styles.oneStopHiringSolutionForCWrapper}>
                           <div className={styles.weHaveEngineers}>
-                            EngineerHUB improved our hiring process by reducing
+                            Engineer HUB improved our hiring process by reducing
                             time by 40%, using ATS scoring, bulk actions, and
                             advanced filtering, saving countless hours and effort
                             efficiently
@@ -961,7 +912,6 @@ export const JobAThonDesktopView = () => {
             </div>
           </div>
         </div>
-      </div>
 
       <div className={styles.dtNavBar}>
         <div className={styles.eHubLogoUpdated6Wrapper}>
