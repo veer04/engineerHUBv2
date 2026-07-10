@@ -1,33 +1,68 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 export const useTypewriter = (text, speed = 100, delay = 1000) => {
   const [displayText, setDisplayText] = useState('');
-  const [currentIndex, setCurrentIndex] = useState(0);
   const [isComplete, setIsComplete] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
+  const elementRef = useRef(null);
 
+  // Intersection Observer to detect when the element is scrolled into view
   useEffect(() => {
-    if (currentIndex < text.length) {
-      const timeout = setTimeout(() => {
-        setDisplayText(prev => prev + text[currentIndex]);
-        setCurrentIndex(prev => prev + 1);
-      }, speed);
-
-      return () => clearTimeout(timeout);
-    } else {
-      setIsComplete(true);
+    // If IntersectionObserver is not available, default to visible immediately
+    if (typeof window === 'undefined' || !window.IntersectionObserver) {
+      setIsVisible(true);
+      return;
     }
-  }, [currentIndex, text, speed]);
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect(); // Trigger only once
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    const currentElement = elementRef.current;
+    if (currentElement) {
+      observer.observe(currentElement);
+    }
+
+    return () => {
+      if (currentElement) {
+        observer.unobserve(currentElement);
+      }
+    };
+  }, []);
 
   useEffect(() => {
-    // Initial delay before starting animation
-    const initialTimeout = setTimeout(() => {
-      setCurrentIndex(0);
-      setDisplayText('');
-      setIsComplete(false);
+    if (!isVisible) return;
+
+    let timeoutId;
+    let charIndex = 0;
+    
+    // Start typing after initial delay
+    const startTimeoutId = setTimeout(() => {
+      const type = () => {
+        if (charIndex <= text.length) {
+          setDisplayText(text.slice(0, charIndex));
+          charIndex++;
+          if (charIndex <= text.length) {
+            timeoutId = setTimeout(type, speed);
+          } else {
+            setIsComplete(true);
+          }
+        }
+      };
+      type();
     }, delay);
 
-    return () => clearTimeout(initialTimeout);
-  }, [delay]);
+    return () => {
+      clearTimeout(startTimeoutId);
+      clearTimeout(timeoutId);
+    };
+  }, [isVisible, text, speed, delay]);
 
-  return { displayText, isComplete };
+  return { displayText, isComplete, elementRef };
 };

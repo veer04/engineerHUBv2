@@ -27,6 +27,8 @@ export default function NewNavbar() {
   const { notificationData } = useChatNotifications();
   const location = useLocation();
   const isEmployerRoute = location.pathname.startsWith("/employer");
+  const isHostRoute = location.pathname.startsWith("/host");
+  const hideCareerAndReferrals = isEmployerRoute || isHostRoute;
   const isLoginRoute = location.pathname.startsWith("/login");
   const isSignupRoute =
     location.pathname.startsWith("/signup") ||
@@ -188,31 +190,35 @@ export default function NewNavbar() {
         </Link>
         */}
         
-        <Link onClick={() => setSelectedPageNavbar("career")} to="/career">
-          <button
-            className={`${
-              selectedPageNavbar === "career" ? "--is-active" : ""
-            }`}
-          >
-            Career
-          </button>
-        </Link>
-        <Link onClick={() => setSelectedPageNavbar("services")} to="/referrals">
-          <button
-            className={`${
-              selectedPageNavbar === "services" ? "--is-active" : ""
-            } services-btn`}
-          >
-            Referrals
-            {/* <span
+        {!hideCareerAndReferrals && (
+          <Link onClick={() => setSelectedPageNavbar("career")} to="/career">
+            <button
+              className={`${
+                selectedPageNavbar === "career" ? "--is-active" : ""
+              }`}
+            >
+              Career
+            </button>
+          </Link>
+        )}
+        {!hideCareerAndReferrals && (
+          <Link onClick={() => setSelectedPageNavbar("services")} to="/referrals">
+            <button
               className={`${
                 selectedPageNavbar === "services" ? "--is-active" : ""
-              } new-badge`}
+              } services-btn`}
             >
-              New
-            </span> */}
-          </button>
-        </Link>
+              Referrals
+              {/* <span
+                className={`${
+                  selectedPageNavbar === "services" ? "--is-active" : ""
+                } new-badge`}
+              >
+                New
+              </span> */}
+            </button>
+          </Link>
+        )}
       </div>
       <div className="navbar-trailing">
         <div className="navbar-trailing-auth navbar-trailing-auth--desktop">

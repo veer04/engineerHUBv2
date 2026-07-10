@@ -1,4 +1,5 @@
 import React from "react";
+import { FaUserCheck, FaLaptopCode, FaVideo, FaRocket } from "react-icons/fa";
 import { Bucket_URL } from "../../../../../services/APIUtils";
 import { useNavigate } from "react-router-dom";
 import "./EnterpriseMobileView.css";
@@ -59,20 +60,26 @@ export const JobAThonMobile = () => {
               </div>
             </div>
 
-            <div className="frameMobView-4">
-              <div className="frameMobView-5">
-                <div className="frameMobView-6">
-                  <div
-                    className="text-wrapper-3"
-                    onClick={() => {
-                      document
-                        .getElementById("book-slot-section")
-                        ?.scrollIntoView({ behavior: "smooth" });
-                    }}
-                  >
-                    Connect with us
-                  </div>
-                </div>
+            <div className="mob-cta-container">
+              <div 
+                className="frameMobView-4"
+                onClick={() => {
+                  document
+                    .getElementById("book-slot-section")
+                    ?.scrollIntoView({ behavior: "smooth" });
+                }}
+              >
+                Connect with us
+              </div>
+              <div 
+                className="mob-host-opportunity-btn"
+                onClick={() => {
+                  document
+                    .getElementById("hire-talent-section")
+                    ?.scrollIntoView({ behavior: "smooth" });
+                }}
+              >
+                Host Opportunity
               </div>
             </div>
           </div>
@@ -92,138 +99,138 @@ export const JobAThonMobile = () => {
               <p className="heading-you-focus">so you can focus on growing</p>
             </div>
 
-            <div className="frameMobView-10">
-              <div className="paragraph-background">
-                <div className="heading">70%</div>
-
-                <div className="text-wrapper-5">less time spent screening</div>
-
-                <p className="text-wrapper-6">
-                  Automated shortlisting saves time by filtering top candidates
-                  based on skills, experience, and recruiter preferences.
-                </p>
-              </div>
-
-              <div className="paragraph-background-2">
-                <div className="heading">3x</div>
-
-                <div className="text-wrapper-5">faster assesments</div>
-
-                <p className="text-wrapper-6">
-                  Integrated third-party assessment tools streamline aptitude,
-                  coding, and case study evaluations, reducing the hiring
-                  timeline significantly.
-                </p>
-              </div>
-
-              <div className="paragraph-background">
-                <div className="heading">4x</div>
-
-                <div className="text-wrapper-5">
-                  better interview scheduling
+            <div className="mob-feature-cards">
+              {/* Card 0: Fastest Sourcing — Green */}
+              <div className="mob-feature-card" style={{ background: "#f0fdf4", borderColor: "#bbf7d0" }}>
+                <div className="mob-feature-illustration">
+                  <div className="mob-feature-circle" style={{ background: "#dcfce7" }}>
+                    <FaRocket className="mob-feature-icon" style={{ color: "#15803d" }} />
+                  </div>
                 </div>
-
-                <p className="text-wrapper-6">
-                  Smart tools like Calendly integration ensure seamless
-                  scheduling, rescheduling, and communication with candidates.
-                </p>
+                <div className="mob-feature-content">
+                  <span className="mob-feature-badge" style={{ background: "#dcfce7", color: "#15803d" }}>Fastest Sourcing</span>
+                  <h2 className="mob-feature-headline">Fastest Sourcing</h2>
+                  <p className="mob-feature-desc">
+                    Get engineers from campuses across India instantly.
+                    <br></br>
+                    Trusted by 300,000+ engineering candidates visiting engineerHUB every month.
+                    
+                  </p>
+                </div>
               </div>
 
-              <div className="paragraph-background">
-                <div className="heading">2.5x</div>
+              {/* Card 1: AI Screening — Orange */}
+              <div className="mob-feature-card" style={{ background: "#fff9f0", borderColor: "#fed7aa" }}>
+                <div className="mob-feature-illustration">
+                  <div className="mob-feature-circle" style={{ background: "#ffedd5" }}>
+                    <FaUserCheck className="mob-feature-icon" style={{ color: "#c2410c" }} />
+                  </div>
+                </div>
+                <div className="mob-feature-content">
+                  <span className="mob-feature-badge" style={{ background: "#ffedd5", color: "#c2410c" }}>AI Resume Screening</span>
+                  <h2 className="mob-feature-headline">Reduce Resume Screening Time by 70%</h2>
+                  <p className="mob-feature-desc">
+                    Our intelligent parsing engine identifies top-tier talent automatically, surfacing the best candidates based on actual technical depth.
+                  </p>
+                </div>
+              </div>
 
-                <div className="text-wrapper-5">more insightful analytics</div>
+              {/* Card 2: AI Assessment — Blue */}
+              <div className="mob-feature-card" style={{ background: "#f0f7ff", borderColor: "#bfdbfe" }}>
+                <div className="mob-feature-illustration">
+                  <div className="mob-feature-circle" style={{ background: "#dbeafe" }}>
+                    <FaLaptopCode className="mob-feature-icon" style={{ color: "#1d4ed8" }} />
+                  </div>
+                </div>
+                <div className="mob-feature-content">
+                  <span className="mob-feature-badge" style={{ background: "#dbeafe", color: "#1d4ed8" }}>AI Assessment</span>
+                  <h2 className="mob-feature-headline">Generate Technical Assessments in Seconds</h2>
+                  <p className="mob-feature-desc">
+                    Instantly create coding challenges tailored to your tech stack. Schedule, track, and prevent cheating with AI proctoring.
+                  </p>
+                </div>
+              </div>
 
-                <p className="text-wrapper-6">
-                  Basic analytics provide actionable data on hiring efficiency,
-                  candidate performance, and recruitment trends to make
-                  better decisions.
-                </p>
+              {/* Card 3: Smart Interview — Purple */}
+              <div className="mob-feature-card" style={{ background: "#faf5ff", borderColor: "#e9d5ff" }}>
+                <div className="mob-feature-illustration">
+                  <div className="mob-feature-circle" style={{ background: "#f3e8ff" }}>
+                    <FaVideo className="mob-feature-icon" style={{ color: "#7e22ce" }} />
+                  </div>
+                </div>
+                <div className="mob-feature-content">
+                  <span className="mob-feature-badge" style={{ background: "#f3e8ff", color: "#7e22ce" }}>Smart Interview</span>
+                  <h2 className="mob-feature-headline">Conduct Interviews from One Workspace</h2>
+                  <p className="mob-feature-desc">
+                    Video, collaborative coding, and real-time notes in one seamless interface. Boost productivity 4x with smart scheduling.
+                  </p>
+                </div>
               </div>
             </div>
           </div>
 
-          <div>
+          <div id="hire-talent-section">
             <EasyWayToHire />
           </div>
 
-          <div className="frameMobView-11">
-            <div className="frameMobView-12">
-              <div className="frameMobView-13">
-                <div className="text-wrapper-7">For Companies</div>
-              </div>
-
-              <div className="frameMobView-2">
-                <div className="frameMobView-14">
-                  <p className="text-wrapper-8">
-                    Simplifying Campus Recruitment : Smarter, Faster, Better
-                  </p>
+          {/* frameMobView-11/15/17 - Commented out: For Companies/HR/Campus campus sections */}
+          {null && (
+            <>
+              <div className="frameMobView-11">
+                <div className="frameMobView-12">
+                  <div className="frameMobView-13">
+                    <div className="text-wrapper-7">For Companies</div>
+                  </div>
+                  <div className="frameMobView-2">
+                    <div className="frameMobView-14">
+                      <p className="text-wrapper-8">
+                        Simplifying Campus Recruitment : Smarter, Faster, Better
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div className="rectangle">
+                  <p className="text-wrapper-9">Hire from Any Tier of Campus</p>
                 </div>
               </div>
-            </div>
 
-            <div className="rectangle">
-              <p className="text-wrapper-9">Hire from Any Tier of Campus</p>
-
-              <img
-                className="element"
-                alt="Element"
-                src={`${bucket}230403050229390024-1.png`}
-              />
-            </div>
-          </div>
-
-          <div className="frameMobView-15">
-            <div className="frameMobView-12">
-              <div className="frameMobView-16">
-                <div className="text-wrapper-10">For HR</div>
-              </div>
-
-              <div className="frameMobView-2">
-                <div className="from-hi-to-hired-wrapper">
-                  <p className="text-wrapper-8">
-                    From Hi to Hired within <br />3 days
-                  </p>
+              <div className="frameMobView-15">
+                <div className="frameMobView-12">
+                  <div className="frameMobView-16">
+                    <div className="text-wrapper-10">For HR</div>
+                  </div>
+                  <div className="frameMobView-2">
+                    <div className="from-hi-to-hired-wrapper">
+                      <p className="text-wrapper-8">
+                        From Hi to Hired within <br />3 days
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div className="rectangle">
+                  <p className="connect-hire-top">Connect &amp; Hire Top Talent</p>
                 </div>
               </div>
-            </div>
 
-            <div className="rectangle">
-              <img
-                className="important-recruiting"
-                alt="Important recruiting"
-                src={`${bucket}important-recruiting-metrics-featured-1-1.png`}
-              />
-
-              <p className="connect-hire-top">Connect &amp; Hire Top Talent</p>
-            </div>
-          </div>
-
-          <div className="frameMobView-17">
-            <div className="frameMobView-12">
-              <div className="frameMobView-16">
-                <div className="text-wrapper-10">For Campus</div>
-              </div>
-
-              <div className="frameMobView-2">
-                <div className="frameMobView-18">
-                  <p className="text-wrapper-8">
-                    Digitize &amp; Automate Your Campus Placements
-                  </p>
+              <div className="frameMobView-17">
+                <div className="frameMobView-12">
+                  <div className="frameMobView-16">
+                    <div className="text-wrapper-10">For Campus</div>
+                  </div>
+                  <div className="frameMobView-2">
+                    <div className="frameMobView-18">
+                      <p className="text-wrapper-8">
+                        Digitize &amp; Automate Your Campus Placements
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div className="rectangle">
+                  <div className="text-wrapper-11">Manage Online Placements</div>
                 </div>
               </div>
-            </div>
-
-            <div className="rectangle">
-              <img
-                className="orange-white-green"
-                alt="Orange white green"
-                src={`${bucket}orange-white-green-neo-brutalism-business-performance-dashboard-graph-1.png`}
-              />
-
-              <div className="text-wrapper-11">Manage Online Placements</div>
-            </div>
-          </div>
+            </>
+          )}
 
           <div className="frameMobView-19">
             <div className="frameMobView-20">
@@ -371,7 +378,7 @@ export const JobAThonMobile = () => {
             </div>
           </div>
 
-          <div>
+          <div className="enterprise-mobile-clientele-wrapper">
             <OurClientale />
           </div>
 
