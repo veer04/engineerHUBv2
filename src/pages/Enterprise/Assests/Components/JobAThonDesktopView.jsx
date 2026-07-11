@@ -99,7 +99,8 @@ export const JobAThonDesktopView = () => {
             <div className={styles.empoweringRecruitersToHireWrapper}>
               <div className={styles.empoweringRecruitersToContainer}>
                 <p className={styles.empoweringRecruitersTo}>
-                  engineerHUB is an AI-powered end-to-end hiring platform that enables companies to discover high-potential candidates faster, and helps colleges modernize campus placements.
+                  engineerHUB is an AI-powered, end-to-end hiring platform that enables recruiters to source, assess, interview, 
+                  and hire candidates efficiently without relying on multiple recruitment tools.
                 </p>
               </div>
             </div>
