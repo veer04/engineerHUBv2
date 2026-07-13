@@ -605,11 +605,15 @@ const handleMeetingSub =() => {
           <div className="book-goback-btn">
             <img src="/chevro-left.svg" alt="" />
             <Link
-              to={`/referrals${
-                location.search.includes("ref")
-                  ? `?ref=${location?.search?.split("ref=")[1]?.split("&")[0]}`
-                  : ``
-              }`}
+              to={
+                meetingData?._id === "67a107c89d57a46e99582bd1"
+                  ? "/employer"
+                  : `/referrals${
+                      location.search.includes("ref")
+                        ? `?ref=${location?.search?.split("ref=")[1]?.split("&")[0]}`
+                        : ``
+                    }`
+              }
               className="goback-button-link"
             >
               Go Back
