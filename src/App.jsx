@@ -468,6 +468,11 @@ function App() {
 
           <Route path="/referrals" element={<Referrals />} />
           <Route path="/referrals/book-now/:referralId" element={<BookNow />} />
+          {/* Shareable employer booking link */}
+          <Route
+            path="/connect"
+            element={<Navigate to="/referrals/book-now/67a107c89d57a46e99582bd1" replace />}
+          />
           <Route
             path="/referrals/book-now/payment"
             element={<BookNowPayment />}
