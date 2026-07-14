@@ -16,7 +16,7 @@ import OurMentors from "./OurMentors/OurMentors";
 import { SEO } from "../../../components/SEO/SEO.jsx";
 import CareerSupportIntroSection from "./CareerSupportIntroSection";
 import AdsenseComp from "../../../components/AdsenseComp/AdsenseComp";
-const bucket = `${Bucket_URL}frontend/company/referral/`;
+const bucket = `${Bucket_URL}ui/videos/`;
 
 const Referrals = () => {
   const location = useLocation();
@@ -114,7 +114,7 @@ const Referrals = () => {
 
           <video
             className="video"
-            src={`${bucket}referral-page-video.mp4`}
+            src={`${bucket}referral_page_video.mp4`}
             autoPlay
             loop
             muted

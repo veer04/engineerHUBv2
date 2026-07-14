@@ -169,8 +169,7 @@ export default function StatsCarousel() {
           <div className="carousel-item active">
             <div className="stats-container">
               <p>
-                Student from across India, including those from IITs, NITs and
-                state colleges.
+              Trusted by 300,000+ engineering candidates visiting engineerHUB every month.
               </p>
               <div className="stat">
                 <CommunitySvg className="svg" />

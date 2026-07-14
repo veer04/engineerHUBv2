@@ -102,10 +102,10 @@
 }
 
 .purchase-btn button {
-  width: 140px;
+  width: 112px;
   height: 44px;
   background-color: white;
-  padding: 10px;
+  padding: 10px 4px;
   border: none;
   outline: none;
   border-radius: 10px;
@@ -145,13 +145,14 @@
   }
 
   .purchase-btn {
-    width: 100%;
+    width: 65%;
     display: flex;
     justify-content: center;
   }
 
   .purchase-btn button {
     width: 100%;
+    padding: 10px 4px;
   }
 
   .popular-star {

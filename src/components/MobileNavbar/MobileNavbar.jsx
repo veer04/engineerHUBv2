@@ -192,11 +192,14 @@ export default function MobileNavbar() {
   useEffect(() => {
     setUserRole(getUserRole());
     setIsLoggedIn(isUserLoggedIn());
-    if (location.pathname.includes("/chat/")) {
-      setShowNavbar(false);
-    } else {
-      setShowNavbar(true);
-    }
+    const path = location.pathname;
+    const isBookingRoute =
+      path === "/referrals/book-now/payment" ||
+      path === "/referrals/product-book-now/payment" ||
+      (path.startsWith("/referrals/book-now/") && !path.endsWith("/success")) ||
+      (path.startsWith("/referrals/product-book-now/") && !path.endsWith("/success")) ||
+      path.includes("/chat/");
+    setShowNavbar(!isBookingRoute);
   }, [location]);
 
   useEffect(() => {
