@@ -652,21 +652,25 @@ const BookNow = () => {
               </h5>
             </div>
 
-            <div className="stick"></div>
+            {referralId !== "67a107c89d57a46e99582bd1" && (
+              <>
+                <div className="stick"></div>
 
-            <div className="m-right-duration">
-              <h5 style={{ fontSize: "12px", color: "#547178" }}>Amount</h5>
-              <h5
-                className="m-right-h4"
-                style={{
-                  // fontSize: "20px",
-                  fontWeight: "600",
-                  marginTop: "-5px",
-                }}
-              >
-                &#8377;{meetingData.price === 0 ? "Free" : meetingData.price}
-              </h5>
-            </div>
+                <div className="m-right-duration">
+                  <h5 style={{ fontSize: "12px", color: "#547178" }}>Amount</h5>
+                  <h5
+                    className="m-right-h4"
+                    style={{
+                      // fontSize: "20px",
+                      fontWeight: "600",
+                      marginTop: "-5px",
+                    }}
+                  >
+                    &#8377;{meetingData.price === 0 ? "Free" : meetingData.price}
+                  </h5>
+                </div>
+              </>
+            )}
           </div>
 
           <div>{/* <h4 className="more-details">More details</h4> */}</div>

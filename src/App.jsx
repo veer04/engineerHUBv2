@@ -197,7 +197,44 @@ function App() {
     location.pathname.includes("/chat/");
   const isCandidateAssessmentRoute = location.pathname.startsWith("/assessment/");
   const isProctoringReportRoute = location.pathname.startsWith("/assessment-proctor/");
-  const shouldHideNavbar = isBoardRoute || isCandidateAssessmentRoute || isProctoringReportRoute;
+
+  // Employer product ID — booking page accessible from /connect or /employer
+  const EMPLOYER_MEET_ID = "67a107c89d57a46e99582bd1";
+
+  // Whether the current page is ANY booking page (session or digital product)
+  const isAnyBookingRoute =
+    // Session booking pages
+    location.pathname === "/referrals/book-now/payment" ||
+    (location.pathname.startsWith("/referrals/book-now/") &&
+      !location.pathname.endsWith("/success")) ||
+    // Digital product purchase pages
+    location.pathname === "/referrals/product-book-now/payment" ||
+    (location.pathname.startsWith("/referrals/product-book-now/") &&
+      !location.pathname.endsWith("/success"));
+
+  // Whether it's a non-employer referral booking (student sessions etc.)
+  const isNonEmployerBookingRoute = (() => {
+    if (location.pathname.startsWith("/referrals/book-now/")) {
+      const id = location.pathname.split("/referrals/book-now/")[1];
+      return id !== EMPLOYER_MEET_ID && id !== "payment" && id !== "success";
+    }
+    if (location.pathname === "/referrals/book-now/payment") {
+      try {
+        const meetingData = JSON.parse(localStorage.getItem("meetingData"));
+        return meetingData?._id !== EMPLOYER_MEET_ID;
+      } catch {
+        return true;
+      }
+    }
+    return false;
+  })();
+
+  // Top web navbar: hide for board/assessment routes + ALL booking pages
+  const shouldHideTopNavbar = isBoardRoute || isCandidateAssessmentRoute || isProctoringReportRoute || isAnyBookingRoute;
+  // Mobile sticky navbar: hide for board/assessment routes + ALL booking pages
+  const shouldHideMobileNavbar = isBoardRoute || isCandidateAssessmentRoute || isProctoringReportRoute || isAnyBookingRoute;
+  // Shared alias for body-class and ProfilePopUp gating (union of both)
+  const shouldHideNavbar = shouldHideTopNavbar || shouldHideMobileNavbar;
 
   useEffect(() => {
     setOtpRoute(Boolean(sessionStorage.getItem("OtpRoute")));
@@ -250,8 +287,8 @@ function App() {
 
   return (
     <SEOProvider>
-      {!shouldHideNavbar && <NewNavbar />}
-      {!shouldHideNavbar && <MobileNavbar />}
+      {!shouldHideTopNavbar && <NewNavbar />}
+      {!shouldHideMobileNavbar && <MobileNavbar />}
       <ToastContainer />
       <GlobalSnackbar />
       {!isCandidateAssessmentRoute && !isProctoringReportRoute && <ProfilePopUp />}
