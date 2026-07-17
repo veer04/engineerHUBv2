@@ -37,7 +37,7 @@ export default function DigitalProductAdminPage() {
   const limit = searchParams.get("limit");
 
   const params = {
-    pageNo: pageNo ? pageNo : 1,
+    pageNo: pageNo ? pageNo : 1,   
     limit: limit ? limit : 30,
   };
 
@@ -85,20 +85,51 @@ export default function DigitalProductAdminPage() {
   }, [query]);
 
   return (
-    <main className="referral-admin-page digital-product-admin-page">
+    <div className="referral-admin-layout">
       <Helmet>
         <meta name="robots" content="noindex, nofollow" />
         <title>Digital Products | Admin Panel</title>
       </Helmet>
+
+           {/* Sidebar Panel */}
+      <aside className="referral-admin-sidebar">
+        <div className="sidebar-brand">
+          <h2>Admin Panel</h2>
+        </div>
+        <nav className="sidebar-nav">
+          <button
+            className="referral-sidebar-btn"
+            onClick={() => navigate("/admin/referrals?pageNo=1&limit=30")}
+          >
+            <span>Bookings</span>
+          </button>
+          <button
+            className="referral-sidebar-btn active"
+            onClick={() => navigate("/admin/digital-products?pageNo=1&limit=30")}
+          >
+            <span>Digital Products</span>
+          </button>
+          <button
+            className="referral-sidebar-btn"
+            onClick={() => navigate("/admin/upload")}
+          >
+            <span>Upload</span>
+          </button>
+        </nav>
+      </aside>
+
+      {/*
       <p>
         This page is only accessible to authorized users. If you think this is a
         mistake, please contact the engineerHUB administration. Email us at{" "}
         <a href="mailto:info@engineerhub.in">info@engineerhub.in</a> or call us
         at <a href="tel:+918303156089">+91 83031 56089</a>
       </p>
+      */}
+      <main className="referral-admin-page digital-product-admin-page">
       <section>
         <div className="referral-table-title">
-          <h1 className="body-lg-semibold">Admin Panel for Service Page</h1>
+          <h1 className="body-lg-semibold">Check the latest purchases here</h1>
           <PaginationBarWithSearchParams
             className="m-0 referral-table-pagination-bar"
             param="pageNo"
@@ -131,7 +162,8 @@ export default function DigitalProductAdminPage() {
               {limit}
             </option>
           </select>
-          <p className="text">results for</p>
+          <p className="text">results </p>
+          {/*
           <div className="switch-options">
             <button
               onClick={() => navigate("/admin/referrals?pageNo=1&limit=30")}
@@ -148,6 +180,7 @@ export default function DigitalProductAdminPage() {
               Digital Products
             </button>
           </div>
+          */}
         </div>
         <div className="referral-table">
           <div className="table-item table-headers body-sm-regular">
@@ -265,5 +298,6 @@ export default function DigitalProductAdminPage() {
         </div>
       </section>
     </main>
+  </div>
   );
 }

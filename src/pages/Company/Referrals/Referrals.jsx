@@ -16,6 +16,7 @@ import OurMentors from "./OurMentors/OurMentors";
 import { SEO } from "../../../components/SEO/SEO.jsx";
 import CareerSupportIntroSection from "./CareerSupportIntroSection";
 import AdsenseComp from "../../../components/AdsenseComp/AdsenseComp";
+import ReferralCarousel from "./ReferralCarousel/ReferralCarousel";
 const bucket = `${Bucket_URL}ui/videos/`;
 
 const Referrals = () => {
@@ -222,6 +223,9 @@ const Referrals = () => {
       <CareerSupportIntroSection />
       {/* ad below career support intro section*/}
       <AdsenseComp adSlot="8908232121" />
+
+      {/* Referral Snapshots Carousel */}
+      <ReferralCarousel />
 
       {/* //connect With Us Section */}
       <ConnectWithUs compName={"Connect With Us"} />

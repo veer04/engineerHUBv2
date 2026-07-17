@@ -25,11 +25,11 @@ export default function ReferralAdminPage() {
   ];
   if (!allowedEmailIds.includes(getUserEmail().toLowerCase()))
     return <Page404 />;
+
   const navigate = useNavigate();
-  const [searchParams] = useSearchParams({
-    pageNo: "",
-    limit: "",
-  });
+  const [searchParams] = useSearchParams();
+
+  // Bookings state and query
   const [pageCount, setPageCount] = useState(1);
   const pageNo = searchParams.get("pageNo");
   const limit = searchParams.get("limit");
@@ -68,7 +68,7 @@ export default function ReferralAdminPage() {
     if (!pageNo || !limit) {
       navigate("/admin/referrals?pageNo=1&limit=30");
     }
-  }, []);
+  }, [pageNo, limit]);
 
   useEffect(() => {
     if (referralQuery.isSuccess) {
@@ -84,331 +84,365 @@ export default function ReferralAdminPage() {
   }, [referralQuery]);
 
   return (
-    <main className="referral-admin-page">
+    <div className="referral-admin-layout">
       <Helmet>
         <meta name="robots" content="noindex, nofollow" />
         <title>Referrals | Admin Panel</title>
       </Helmet>
-      <p>
-        This page is only accessible to authorized users. If you think this is a
-        mistake, please contact the engineerHUB administration. Email us at{" "}
-        <a href="mailto:info@engineerhub.in">info@engineerhub.in</a> or call us
-        at <a href="tel:+918303156089">+91 83031 56089</a>
-      </p>
-      <section>
-        <div className="referral-table-title">
-          <h1 className="body-lg-semibold">Admin Panel for Service Page</h1>
-          <PaginationBarWithSearchParams
-            className="m-0 referral-table-pagination-bar"
-            param="pageNo"
-            pages={pageCount}
-          />
+
+      {/* Sidebar Panel */}
+      <aside className="referral-admin-sidebar">
+        <div className="sidebar-brand">
+          <h2>Admin Panel</h2>
         </div>
-        <div className="limit-container">
-          <p className="text">Showing</p>
-          <select
-            name="limit"
-            id="limit"
-            defaultValue={limit}
-            onChange={(e) => {
-              navigate(`/admin/referrals?pageNo=1&limit=${e.target.value}`);
-            }}
+        <nav className="sidebar-nav">
+          <button
+            className="referral-sidebar-btn active"
+            onClick={() => navigate("/admin/referrals?pageNo=1&limit=30")}
           >
-            <option value="10">10</option>
-            <option value="20">20</option>
-            <option value="30">30</option>
-            <option value="40">40</option>
-            <option value="50">50</option>
-            <option
-              style={{
-                display: "none",
-              }}
-              value={limit}
-            >
-              {limit}
-            </option>
-          </select>
-          <p className="text">results for</p>
-          <div className="switch-options">
-            <button
-              onClick={() => navigate("/admin/referrals?pageNo=1&limit=30")}
-              className="option --selected"
-            >
-              Referrals
-            </button>
-            <button
-              onClick={() =>
-                navigate("/admin/digital-products?pageNo=1&limit=30")
-              }
-              className="option"
-            >
-              Digital Products
-            </button>
-          </div>
-        </div>
-        <div className="referral-table">
-          <div className="table-item table-headers body-sm-regular">
-            Service Name
-          </div>
-          <div className="table-item table-headers body-sm-regular">Name</div>
-          <div className="table-item table-headers body-sm-regular">
-            Phone Number
-          </div>
-          <div className="table-item table-headers body-sm-regular">
-            Date & Time Slot
-          </div>
-          <div className="table-item table-headers body-sm-regular">
-            Actions
-          </div>
-          <div className="table-item table-headers body-sm-regular">
-            Booking Details
-          </div>
-          <div className="table-item table-headers body-sm-regular">
-            Booking Status
-          </div>
-          {referralQuery.isPending && (
-            <>
-              <div
-                style={{
-                  marginTop: "5dvh",
-                  marginBottom: "10dvh",
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  gridColumn: "1/8",
-                  gridRow: "7/7",
+            <span>Bookings</span>
+          </button>
+          <button
+            className="referral-sidebar-btn"
+            onClick={() => navigate("/admin/digital-products?pageNo=1&limit=30")}
+          >
+            <span>Digital Products</span>
+          </button>
+          <button
+            className="referral-sidebar-btn"
+            onClick={() => navigate("/admin/upload")}
+          >
+            <span>Upload</span>
+          </button>
+        </nav>
+      </aside>
+
+      {/* Main Content Area */}
+      <main className="referral-admin-main">
+        <div className="referral-admin-page">
+          {/*
+          <p>
+            This page is only accessible to authorized users. If you think this is a
+            mistake, please contact the engineerHUB administration. Email us at{" "}
+            <a href="mailto:info@engineerhub.in">info@engineerhub.in</a> or call us
+            at <a href="tel:+918303156089">+91 83031 56089</a>
+          </p>
+          */}
+          <section>
+            <div className="referral-table-title">
+              <h1 className="body-lg-semibold">Check the latest bookings here</h1>
+              <PaginationBarWithSearchParams
+                className="m-0 referral-table-pagination-bar"
+                param="pageNo"
+                pages={pageCount}
+              />
+            </div>
+            <div className="limit-container">
+              <p className="text">Showing</p>
+              <select
+                name="limit"
+                id="limit"
+                defaultValue={limit}
+                onChange={(e) => {
+                  navigate(`/admin/referrals?pageNo=1&limit=${e.target.value}`);
                 }}
               >
-                <Loading />
+                <option value="10">10</option>
+                <option value="20">20</option>
+                <option value="30">30</option>
+                <option value="40">40</option>
+                <option value="50">50</option>
+                <option
+                  style={{
+                    display: "none",
+                  }}
+                  value={limit}
+                >
+                  {limit}
+                </option>
+              </select>
+              <p className="text">results </p>
+              {/*
+              <div className="switch-options">
+                <button
+                  onClick={() => navigate("/admin/referrals?pageNo=1&limit=30")}
+                  className="option --selected"
+                >
+                  Referrals
+                </button>
+                <button
+                  onClick={() =>
+                    navigate("/admin/digital-products?pageNo=1&limit=30")
+                  }
+                  className="option"
+                >
+                  Digital Products
+                </button>
               </div>
-            </>
-          )}
-          {referralQuery.isSuccess &&
-            referralQuery.data.data.data.records.map((content, index) => (
-              <Fragment key={index}>
-                <p className="table-item table-content body-md-semibold">
-                  {content?.meetData[0]?.title}
-                </p>
-                <div className="table-item table-content table-content-2">
-                  <p className="body-sm-semibold">
-                    {content?.name ? content?.name : <i>No name provided</i>}
-                  </p>
-                  <p className="label-sm">
-                    {content?.email ? content?.email : <i>No email provided</i>}
-                  </p>
-                  {content?.resume ? (
-                    <a
-                      href={
-                        // check if the resume link is ending with doc or docx then add to the starting this link "http://docs.google.com/gview?url=" else open the link
-                        content?.resume.endsWith("doc") ||
-                        content?.resume.endsWith("docx")
-                          ? `http://docs.google.com/gview?url=${content?.resume}`
-                          : content?.resume
-                      }
-                      target="_blank"
-                      rel="noreferrer noopener"
-                    >
-                      View Resume
-                    </a>
-                  ) : (
-                    <i className="not-present">No resume provided</i>
-                  )}
-                  {content?.resume ? (
-                    <>
-                      <button
-                        type="button"
-                        data-bs-toggle="modal"
-                        data-bs-target={`#responseModal-${index}`}
-                        className="question-response"
-                      >
-                        View Response
-                      </button>
-                      <div
-                        className="modal fade"
-                        id={`responseModal-${index}`}
-                        aria-labelledby="responseModalLabel"
-                        aria-hidden="true"
-                      >
-                        <div className="modal-dialog modal-dialog-centered">
-                          <div className="modal-content">
-                            <div className="modal-header">
-                              <h1
-                                className="modal-title heading-sm"
-                                id="responseModalLabel"
-                              >
-                                {content?.meetData[0]?.title}
-                              </h1>
-                              <button
-                                type="button"
-                                className="btn-close"
-                                data-bs-dismiss="modal"
-                                aria-label="Close"
-                              ></button>
-                            </div>
-                            <p className="px-3 py-1 body-sm-regular">
-                              Response by{" "}
-                              <span className="body-sm-semibold">
-                                {content?.name}
-                              </span>
-                            </p>
-                            <div
-                              className="modal-body"
-                              style={{ fontSize: "14px", fontWeight: "700" }}
-                            >
-                              {content?.query ? (
-                                content?.query
-                              ) : (
-                                <i style={{ fontWeight: "500" }}>
-                                  -No response provided-
-                                </i>
-                              )}
-                            </div>
-                            <div className="modal-footer">
-                              <a
-                                href={
-                                  content?.resume.endsWith("doc") ||
-                                  content?.resume.endsWith("docx")
-                                    ? `http://docs.google.com/gview?url=${content?.resume}`
-                                    : content?.resume
-                                }
-                                target="_blank"
-                                rel="noreferrer noopener"
-                              >
-                                <button
-                                  type="button"
-                                  className="btn btn-primary"
-                                  style={{
-                                    backgroundColor: "#1383821A",
-                                    color: "var(--primary-color-green)",
-                                    borderRadius: "10px",
-                                    border: "none",
-                                    padding: "10px 24px",
-                                  }}
+              */}
+            </div>
+            <div className="referral-table">
+              <div className="table-item table-headers body-sm-regular">
+                Service Name
+              </div>
+              <div className="table-item table-headers body-sm-regular">Name</div>
+              <div className="table-item table-headers body-sm-regular">
+                Phone Number
+              </div>
+              <div className="table-item table-headers body-sm-regular">
+                Date & Time Slot
+              </div>
+              <div className="table-item table-headers body-sm-regular">
+                Actions
+              </div>
+              <div className="table-item table-headers body-sm-regular">
+                Booking Details
+              </div>
+              <div className="table-item table-headers body-sm-regular">
+                Booking Status
+              </div>
+              {referralQuery.isPending && (
+                <div
+                  style={{
+                    marginTop: "5dvh",
+                    marginBottom: "10dvh",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    gridColumn: "1/8",
+                    gridRow: "7/7",
+                  }}
+                >
+                  <Loading />
+                </div>
+              )}
+              {referralQuery.isSuccess &&
+                referralQuery.data.data.data.records.map((content, index) => (
+                  <Fragment key={index}>
+                    <p className="table-item table-content body-md-semibold">
+                      {content?.meetData[0]?.title}
+                    </p>
+                    <div className="table-item table-content table-content-2">
+                      <p className="body-sm-semibold">
+                        {content?.name ? content?.name : <i>No name provided</i>}
+                      </p>
+                      <p className="label-sm">
+                        {content?.email ? content?.email : <i>No email provided</i>}
+                      </p>
+                      {content?.resume ? (
+                        <a
+                          href={
+                            content?.resume.endsWith("doc") ||
+                            content?.resume.endsWith("docx")
+                              ? `http://docs.google.com/gview?url=${content?.resume}`
+                              : content?.resume
+                          }
+                          target="_blank"
+                          rel="noreferrer noopener"
+                        >
+                          View Resume
+                        </a>
+                      ) : (
+                        <i className="not-present">No resume provided</i>
+                      )}
+                      {content?.resume ? (
+                        <>
+                          <button
+                            type="button"
+                            data-bs-toggle="modal"
+                            data-bs-target={`#responseModal-${index}`}
+                            className="question-response"
+                          >
+                            View Response
+                          </button>
+                          <div
+                            className="modal fade"
+                            id={`responseModal-${index}`}
+                            aria-labelledby="responseModalLabel"
+                            aria-hidden="true"
+                          >
+                            <div className="modal-dialog modal-dialog-centered">
+                              <div className="modal-content">
+                                <div className="modal-header">
+                                  <h1
+                                    className="modal-title heading-sm"
+                                    id="responseModalLabel"
+                                  >
+                                    {content?.meetData[0]?.title}
+                                  </h1>
+                                  <button
+                                    type="button"
+                                    className="btn-close"
+                                    data-bs-dismiss="modal"
+                                    aria-label="Close"
+                                  ></button>
+                                </div>
+                                <p className="px-3 py-1 body-sm-regular">
+                                  Response by{" "}
+                                  <span className="body-sm-semibold">
+                                    {content?.name}
+                                  </span>
+                                </p>
+                                <div
+                                  className="modal-body"
+                                  style={{ fontSize: "14px", fontWeight: "700" }}
                                 >
-                                  View Resume
-                                </button>
-                              </a>
-                              <button
-                                type="button"
-                                className="btn btn-secondary"
-                                style={{
-                                  backgroundColor: "var(--primary-color-green)",
-                                  borderRadius: "10px",
-                                  border: "none",
-                                  padding: "10px 40px",
-                                }}
-                                data-bs-dismiss="modal"
-                              >
-                                Ok
-                              </button>
+                                  {content?.query ? (
+                                    content?.query
+                                  ) : (
+                                    <i style={{ fontWeight: "500" }}>
+                                      -No response provided-
+                                    </i>
+                                  )}
+                                </div>
+                                <div className="modal-footer">
+                                  <a
+                                    href={
+                                      content?.resume.endsWith("doc") ||
+                                      content?.resume.endsWith("docx")
+                                        ? `http://docs.google.com/gview?url=${content?.resume}`
+                                        : content?.resume
+                                    }
+                                    target="_blank"
+                                    rel="noreferrer noopener"
+                                  >
+                                    <button
+                                      type="button"
+                                      className="btn btn-primary"
+                                      style={{
+                                        backgroundColor: "#1383821A",
+                                        color: "var(--primary-color-green)",
+                                        borderRadius: "10px",
+                                        border: "none",
+                                        padding: "10px 24px",
+                                      }}
+                                    >
+                                      View Resume
+                                    </button>
+                                  </a>
+                                  <button
+                                    type="button"
+                                    className="btn btn-secondary"
+                                    style={{
+                                      backgroundColor: "var(--primary-color-green)",
+                                      borderRadius: "10px",
+                                      border: "none",
+                                      padding: "10px 40px",
+                                    }}
+                                    data-bs-dismiss="modal"
+                                  >
+                                    Ok
+                                  </button>
+                                </div>
+                              </div>
                             </div>
                           </div>
-                        </div>
-                      </div>
-                    </>
-                  ) : (
-                    <i className="not-present">No response provided</i>
-                  )}
-                </div>
-                <div className="table-item table-content body-sm-semibold">
-                  {content?.mobile ? (
-                    content?.mobile
-                  ) : (
-                    <i>No phone number provided</i>
-                  )}
-                </div>
-                <div className="table-item table-content table-content-4">
-                  <p className="body-sm-regular">
-                    {moment(content?.startDateTime).format("D[/]M[/]YYYY")}
-                  </p>
-                  <p className="body-sm-regular">
-                    {moment(content?.startDateTime).format("h[:]mmA")} to{" "}
-                    {moment(content?.endDateTime).format("h[:]mmA")}
-                  </p>
-                </div>
-                <div className="table-item table-content table-content-5">
-                  <button
-                    disabled={!content?.eventData[0]?.meetLink}
-                    className="join-btn body-sm-semibold"
-                    onClick={() => window.open(content?.eventData[0]?.meetLink)}
-                  >
-                    Join
-                  </button>
-                </div>
-                <div className="table-item table-content table-content-6">
-                  <div>
-                    <p className="label-sm">Purchased at</p>
-                    <p className="body-sm-semibold">
-                      {!!content?.paymentData[0]?.paymentDate ? (
-                        moment(content?.paymentData[0]?.paymentDate).format(
-                          "D[/]M[/]YY [at] h[:]mmA"
-                        )
-                      ) : !!content?.updatedAt ? (
-                        moment(content?.updatedAt).format(
-                          "D[/]M[/]YY [at] h[:]mmA"
-                        )
+                        </>
                       ) : (
-                        <i>--N/A--</i>
+                        <i className="not-present">No response provided</i>
                       )}
-                    </p>
-                  </div>
-                  <div>
-                    <p className="label-sm">Total Amount</p>
-                    <p className="body-sm-semibold">
-                      {!!content?.paymentData[0]?.amount ? (
-                        new Intl.NumberFormat("en-in", {
-                          style: "currency",
-                          currency: "INR",
-                        }).format(content?.paymentData[0]?.amount / 100)
-                      ) : content?.isPaymentPaid ? (
-                        "Free"
-                      ) : (
-                        <i>Not Paid</i>
-                      )}
-                    </p>
-                  </div>
-                </div>
-                <div className="table-item table-content table-content-7">
-                  {new Date(content?.endDateTime).getTime() <
-                    new Date().getTime() && (
-                    <div
-                      className="status"
-                      style={{ backgroundColor: "#0FB800" }}
-                    >
-                      <IoMdCheckmark
-                        style={{ color: "white", fontSize: "1.5rem" }}
-                      />
                     </div>
-                  )}
-                  {new Date(content?.startDateTime).getTime() <
-                    new Date().getTime() &&
-                    new Date().getTime() <
-                      new Date(content?.endDateTime).getTime() && (
-                      <div
-                        className="status"
-                        style={{ backgroundColor: "blue" }}
+                    <div className="table-item table-content body-sm-semibold">
+                      {content?.mobile ? (
+                        content?.mobile
+                      ) : (
+                        <i>No phone number provided</i>
+                      )}
+                    </div>
+                    <div className="table-item table-content table-content-4">
+                      <p className="body-sm-regular">
+                        {moment(content?.startDateTime).format("D[/]M[/]YYYY")}
+                      </p>
+                      <p className="body-sm-regular">
+                        {moment(content?.startDateTime).format("h[:]mmA")} to{" "}
+                        {moment(content?.endDateTime).format("h[:]mmA")}
+                      </p>
+                    </div>
+                    <div className="table-item table-content table-content-5">
+                      <button
+                        disabled={!content?.eventData[0]?.meetLink}
+                        className="join-btn body-sm-semibold"
+                        onClick={() => window.open(content?.eventData[0]?.meetLink)}
                       >
-                        <IoVideocam
-                          style={{ color: "white", fontSize: "1.5rem" }}
-                        />
-                      </div>
-                    )}
-                  {new Date(content?.startDateTime).getTime() >
-                    new Date().getTime() && (
-                    <div
-                      className="status"
-                      style={{ backgroundColor: "#FFD600" }}
-                    >
-                      <IoIosInformationCircleOutline
-                        style={{ color: "black", fontSize: "1.5rem" }}
-                      />
+                        Join
+                      </button>
                     </div>
-                  )}
-                </div>
-              </Fragment>
-            ))}
+                    <div className="table-item table-content table-content-6">
+                      <div>
+                        <p className="label-sm">Purchased at</p>
+                        <p className="body-sm-semibold">
+                          {!!content?.paymentData[0]?.paymentDate ? (
+                            moment(content?.paymentData[0]?.paymentDate).format(
+                              "D[/]M[/]YY [at] h[:]mmA"
+                            )
+                          ) : !!content?.updatedAt ? (
+                            moment(content?.updatedAt).format(
+                              "D[/]M[/]YY [at] h[:]mmA"
+                            )
+                          ) : (
+                            <i>--N/A--</i>
+                          )}
+                        </p>
+                      </div>
+                      <div>
+                        <p className="label-sm">Total Amount</p>
+                        <p className="body-sm-semibold">
+                          {!!content?.paymentData[0]?.amount ? (
+                            new Intl.NumberFormat("en-in", {
+                              style: "currency",
+                              currency: "INR",
+                            }).format(content?.paymentData[0]?.amount / 100)
+                          ) : content?.isPaymentPaid ? (
+                            "Free"
+                          ) : (
+                            <i>Not Paid</i>
+                          )}
+                        </p>
+                      </div>
+                    </div>
+                    <div className="table-item table-content table-content-7">
+                      {new Date(content?.endDateTime).getTime() <
+                        new Date().getTime() && (
+                        <div
+                          className="status"
+                          style={{ backgroundColor: "#0FB800" }}
+                        >
+                          <IoMdCheckmark
+                            style={{ color: "white", fontSize: "1.5rem" }}
+                          />
+                        </div>
+                      )}
+                      {new Date(content?.startDateTime).getTime() <
+                        new Date().getTime() &&
+                        new Date().getTime() <
+                          new Date(content?.endDateTime).getTime() && (
+                          <div
+                            className="status"
+                            style={{ backgroundColor: "blue" }}
+                          >
+                            <IoVideocam
+                              style={{ color: "white", fontSize: "1.5rem" }}
+                            />
+                          </div>
+                        )}
+                      {new Date(content?.startDateTime).getTime() >
+                        new Date().getTime() && (
+                        <div
+                          className="status"
+                          style={{ backgroundColor: "#FFD600" }}
+                        >
+                          <IoIosInformationCircleOutline
+                            style={{ color: "black", fontSize: "1.5rem" }}
+                          />
+                        </div>
+                      )}
+                    </div>
+                  </Fragment>
+                ))}
+            </div>
+          </section>
         </div>
-      </section>
-    </main>
+      </main>
+    </div>
   );
 }
