@@ -89,6 +89,9 @@ const DigitalProductAdminPage = lazy(() =>
 const ReferralAdminPage = lazy(() =>
   import("./pages/Admin/ReferralAdminPage.jsx")
 );
+const ReferralUploadPage = lazy(() =>
+  import("./pages/Admin/ReferralUploadPage.jsx")
+);
 const JobBoard = lazy(() => import("./pages/Company/Board/JobBoard.jsx"));
 const InterviewLobby = lazy(() => import("./pages/Company/Board/InterviewSegment/InterviewLobby.jsx"));
 const ScheduledInterviews = lazy(() => import("./pages/Company/Board/InterviewSegment/ScheduledInterviews.jsx"));
@@ -548,10 +551,11 @@ function App() {
           <Route path="/candidatesdata" element={<CandidatesDataPage />} />
 
           <Route path="/admin">
-            <Route index element={<Page404 />} />
+            <Route index element={<Navigate to="/admin/referrals?pageNo=1&limit=30" replace />} />
             <Route path="referrals">
               <Route index element={<ReferralAdminPage />} />
             </Route>
+            <Route path="upload" element={<ReferralUploadPage />} />
             <Route path="digital-products">
               <Route index element={<DigitalProductAdminPage />} />
             </Route>
