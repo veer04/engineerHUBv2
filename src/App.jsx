@@ -114,6 +114,9 @@ const CandidateAssessmentSubmitted = lazy(() =>
 const ProctoringReport = lazy(() =>
   import("./pages/Company/Board/AssessmentSegment/ProctoringReport.jsx")
 );
+const AIInterviewProctoringReport = lazy(() =>
+  import("./pages/Company/Board/InterviewSegment/AIInterviewProctoringReport.jsx")
+);
 const JobsPage = lazy(() => import("./pages/Company/Jobs/JobsPage.jsx"));
 const JobsPageNew = lazy(() => import("./pages/Company/Jobs/JobsPageNew.jsx"));
 const InternshipPageNew = lazy(() =>
@@ -199,7 +202,7 @@ function App() {
     location.pathname.includes("/company/jobs/board") ||
     location.pathname.includes("/chat/");
   const isCandidateAssessmentRoute = location.pathname.startsWith("/assessment/");
-  const isProctoringReportRoute = location.pathname.startsWith("/assessment-proctor/");
+  const isProctoringReportRoute = location.pathname.startsWith("/assessment-proctor/") || location.pathname.startsWith("/ai-interview-proctor/");
 
   // Employer product ID — booking page accessible from /connect or /employer
   const EMPLOYER_MEET_ID = "67a107c89d57a46e99582bd1";
@@ -472,6 +475,12 @@ function App() {
           <Route
             path="/assessment-proctor/:hiringId/:inviteId/report"
             element={<ProctoringReport />}
+          />
+
+          {/* AI Interview proctoring report */}
+          <Route
+            path="/ai-interview-proctor/:hiringId/:inviteId/report"
+            element={<AIInterviewProctoringReport />}
           />
 
           <Route path="/company">
