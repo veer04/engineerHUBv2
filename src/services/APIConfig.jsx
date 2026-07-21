@@ -1322,18 +1322,24 @@ export const getJobsByOrganisationId = (organisationId, setJobs) => {
     });
 };
 
-export const getJobsByOrganisationIdPrivateMode = (setJobs) => {
-  const controller = new AbortController();
+export const getJobsByOrganisationIdPrivateMode = (setJobs, pageNo = 1, limit = 15, setPaginationInfo) => {
   const config = {
     headers: {
       accessToken: getAccessToken(),
     },
+    params: { pageNo, limit },
   };
   axios
     .get(`${API_URL}api/v1/getHiringByOpportunityTypePrivateMode/Job`, config)
     .then((res) => {
       const data = res.data.data;
       setJobs(data);
+      if (setPaginationInfo) {
+        setPaginationInfo({
+          pageSize: res.data.pageSize || 0,
+          hasMore: pageNo * limit < (res.data.pageSize || 0),
+        });
+      }
     })
     .catch((err) => {
       if (axios.isCancel(err)) {
@@ -1346,6 +1352,9 @@ export const getJobsByOrganisationIdPrivateMode = (setJobs) => {
           headers: config.headers
         });
         setJobs([]);
+        if (setPaginationInfo) {
+          setPaginationInfo({ pageSize: 0, hasMore: false });
+        }
       }
     });
 };
@@ -1377,12 +1386,12 @@ export const getInternshipsByOrganisationId = (
     });
 };
 
-export const getInternshipsByOrganisationIdPrivateMode = (setInternships) => {
-  const controller = new AbortController();
+export const getInternshipsByOrganisationIdPrivateMode = (setInternships, pageNo = 1, limit = 15, setPaginationInfo) => {
   const config = {
     headers: {
       accessToken: getAccessToken(),
     },
+    params: { pageNo, limit },
   };
   axios
     .get(
@@ -1392,6 +1401,12 @@ export const getInternshipsByOrganisationIdPrivateMode = (setInternships) => {
     .then((res) => {
       const data = res.data.data;
       setInternships(data);
+      if (setPaginationInfo) {
+        setPaginationInfo({
+          pageSize: res.data.pageSize || 0,
+          hasMore: pageNo * limit < (res.data.pageSize || 0),
+        });
+      }
     })
     .catch((err) => {
       if (axios.isCancel(err)) {
@@ -1404,6 +1419,9 @@ export const getInternshipsByOrganisationIdPrivateMode = (setInternships) => {
           headers: config.headers
         });
         setInternships([]);
+        if (setPaginationInfo) {
+          setPaginationInfo({ pageSize: 0, hasMore: false });
+        }
       }
     });
 };
@@ -1432,18 +1450,24 @@ export const getEventsByOrganisationId = (organisationId, setEvents) => {
     });
 };
 
-export const getEventsByOrganisationIdPrivateMode = (setEvents) => {
-  const controller = new AbortController();
+export const getEventsByOrganisationIdPrivateMode = (setEvents, pageNo = 1, limit = 15, setPaginationInfo) => {
   const config = {
     headers: {
       accessToken: getAccessToken(),
     },
+    params: { pageNo, limit },
   };
   axios
     .get(`${API_URL}api/v1/getHiringByOpportunityTypePrivateMode/Event`, config)
     .then((res) => {
       const data = res.data.data;
       setEvents(data);
+      if (setPaginationInfo) {
+        setPaginationInfo({
+          pageSize: res.data.pageSize || 0,
+          hasMore: pageNo * limit < (res.data.pageSize || 0),
+        });
+      }
     })
     .catch((err) => {
       if (axios.isCancel(err)) {
@@ -1456,6 +1480,9 @@ export const getEventsByOrganisationIdPrivateMode = (setEvents) => {
           headers: config.headers
         });
         setEvents([]);
+        if (setPaginationInfo) {
+          setPaginationInfo({ pageSize: 0, hasMore: false });
+        }
       }
     });
 };

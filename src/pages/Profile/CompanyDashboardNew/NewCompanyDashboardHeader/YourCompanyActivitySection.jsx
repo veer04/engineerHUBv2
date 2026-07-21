@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+  import React, { useEffect, useRef, useState } from "react";
 import "./yourcompanyactivitysection.css";
 import { GoStopwatch } from "react-icons/go";
 import NewCompanyPostCard from "./NewCompanyPostCard";
@@ -25,6 +25,10 @@ const YourCompanyActivitySection = ({
   organization,
   projects,
   internships,
+  onLoadMore,
+  loadingMore,
+  hasMoreJobs,
+  hasMoreInternships,
 }) => {
   const [actionButton, setActionButton] = useState("Jobs");
   const scrollContainerRef = useRef(null);
@@ -46,6 +50,26 @@ const YourCompanyActivitySection = ({
   const handleButtonClick = (buttonName) => {
     setActionButton((prev) => (prev === buttonName ? null : buttonName));
   };
+
+  // Determine if current tab has more data to load
+  const hasMore = actionButton === "Jobs" ? hasMoreJobs :
+                  actionButton === "Internships" ? hasMoreInternships : false;
+
+  // Infinite scroll: detect when user scrolls near the right edge
+  useEffect(() => {
+    const container = scrollContainerRef.current;
+    if (!container || !onLoadMore) return;
+
+    const handleScroll = () => {
+      const { scrollLeft, scrollWidth, clientWidth } = container;
+      if (scrollLeft + clientWidth >= scrollWidth - 200 && !loadingMore && hasMore) {
+        onLoadMore(actionButton);
+      }
+    };
+
+    container.addEventListener("scroll", handleScroll);
+    return () => container.removeEventListener("scroll", handleScroll);
+  }, [onLoadMore, loadingMore, hasMore, actionButton]);
 
   const currentData = (() => {
     switch (actionButton) {
@@ -139,6 +163,30 @@ const YourCompanyActivitySection = ({
                   filterName={organization?.name}
                 />
               ))}
+
+            {/* Loading spinner for infinite scroll */}
+            {loadingMore && (
+              <div style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+                minWidth: "200px",
+                padding: "20px",
+                gap: "8px",
+              }}>
+                <div style={{
+                  width: "32px",
+                  height: "32px",
+                  border: "3px solid #e0e0e0",
+                  borderTopColor: "#138382",
+                  borderRadius: "50%",
+                  animation: "spin 0.8s linear infinite",
+                }} />
+                <span style={{ fontSize: "13px", color: "#547178" }}>Loading more...</span>
+                <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
+              </div>
+            )}
           </div>
 
           {/* Scroll Right */}
