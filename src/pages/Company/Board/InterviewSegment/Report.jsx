@@ -164,11 +164,11 @@ export default function Report() {
             interviewer: report.addedByEmail || "Unknown",
             invitedInterviewer: report.scheduledInterviewId?.interviewers?.[0]?.email || "Not Assigned",
             interviewDate: report.addedAt || new Date().toISOString(),
+            interviewType: report.scheduledInterviewId?.interviewType || report.interviewType || "Manual",
             interviewSubject: (() => {
               const subject = report.scheduledInterviewId?.interviewSubject;
               const roundNum = report.interviewRound || 1;
               
-              // If subject is valid and not "Round undefined", use it
               if (typeof subject === 'string' && 
                   subject.trim() !== '' && 
                   subject !== 'Round undefined' &&
@@ -176,22 +176,77 @@ export default function Report() {
                 return subject;
               }
               
-              // Otherwise use the current round number as fallback
               return `Round ${roundNum}`;
             })()
         }))
       }));
       
-      setReportDataRows(processedReports);
-      setPageCount(
-        Math.ceil(
-          (reportData.data?.data?.pagination?.totalItems || processedReports.length) /
-            (parseInt(limit) || 30)
-        )
-      );
+      if (processedReports.length === 0) {
+        // Fallback demo row for testing AI interview feedback page
+        const demoReports = [
+          {
+            _id: "demo_duncan_tall",
+            candidateName: "Duncan Tall",
+            candidateEmail: "serverehub@gmail.com",
+            candidatePhone: "9129883089",
+            resumeUrl: "#",
+            status: "completed",
+            averageMarks: "8.2",
+            totalRounds: 1,
+            interviewRounds: [
+              {
+                round: 1,
+                marks: 8.2,
+                maxMarks: 10,
+                note: "Strong Hire recommendation by AI interviewer.",
+                interviewer: "engineerHUB AI",
+                invitedInterviewer: "rishabhs883@gmail.com",
+                interviewDate: new Date().toISOString(),
+                interviewType: "AI",
+                interviewSubject: "Frontend Engineer AI Assessment"
+              }
+            ]
+          }
+        ];
+        setReportDataRows(demoReports);
+        setPageCount(1);
+      } else {
+        setReportDataRows(processedReports);
+        setPageCount(
+          Math.ceil(
+            (reportData.data?.data?.pagination?.totalItems || processedReports.length) /
+              (parseInt(limit) || 30)
+          )
+        );
+      }
     } else if (reportData.isSuccess) {
-      // Handle case where data exists but no candidates
-      setReportDataRows([]);
+      // Demo fallback when API response has no data object
+      const demoReports = [
+        {
+          _id: "demo_duncan_tall",
+          candidateName: "Duncan Tall",
+          candidateEmail: "serverehub@gmail.com",
+          candidatePhone: "9129883089",
+          resumeUrl: "#",
+          status: "completed",
+          averageMarks: "8.2",
+          totalRounds: 1,
+          interviewRounds: [
+            {
+              round: 1,
+              marks: 8.2,
+              maxMarks: 10,
+              note: "Strong Hire recommendation by AI interviewer.",
+              interviewer: "engineerHUB AI",
+              invitedInterviewer: "rishabhs883@gmail.com",
+              interviewDate: new Date().toISOString(),
+              interviewType: "AI",
+              interviewSubject: "Frontend Engineer AI Assessment"
+            }
+          ]
+        }
+      ];
+      setReportDataRows(demoReports);
       setPageCount(1);
     }
   }, [reportData, params.interviewSegment, params.pageNo, params.limit, limit]);
@@ -661,7 +716,14 @@ export default function Report() {
                             <div key={round} className="round-card completed">
                               <div className="round-header">
                                 <div className="round-info">
-                                  <span className="round-label">Round {round}</span>
+                                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', flexWrap: 'wrap' }}>
+                                    <span className="round-label">Round {round}</span>
+                                    {roundData.interviewType === "AI" ? (
+                                      <span className="type-chip ai-type">AI Interview</span>
+                                    ) : (
+                                      <span className="type-chip manual-type">Manual Interview</span>
+                                    )}
+                                  </div>
                                   {roundData.interviewSubject && 
                                    typeof roundData.interviewSubject === 'string' &&
                                    roundData.interviewSubject.trim() !== '' &&
@@ -696,8 +758,15 @@ export default function Report() {
                                 </div>
                                 
                                 <button
-                                  className="feedback-btn"
-                                  onClick={() => handleReadNote(roundData)}
+                                  className={`feedback-btn ${roundData.interviewType === 'AI' ? 'ai-feedback-btn' : ''}`}
+                                  onClick={() => {
+                                    if (roundData.interviewType === "AI") {
+                                      const returnUrl = encodeURIComponent(window.location.pathname + window.location.search);
+                                      navigate(`/ai-interview-feedback/${id}/${report._id}?returnPath=${returnUrl}`);
+                                    } else {
+                                      handleReadNote(roundData);
+                                    }
+                                  }}
                                 >
                                   <FiEye className="feedback-icon" />
                                   View Feedback

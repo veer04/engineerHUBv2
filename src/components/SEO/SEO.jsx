@@ -113,22 +113,22 @@ export const SEO = ({
 
         {/* Open Graph */}
         {Object.entries(mergedMeta.openGraph || {}).map(([key, value]) =>
-          value ? (
+          typeof value === "string" || typeof value === "number" ? (
             <meta
               key={`og:${key}`}
               property={`og:${key}`}
-              content={value}
+              content={String(value)}
             />
           ) : null
         )}
 
         {/* Twitter */}
         {Object.entries(mergedMeta.twitter || {}).map(([key, value]) =>
-          value ? (
+          typeof value === "string" || typeof value === "number" ? (
             <meta
               key={`twitter:${key}`}
               property={`twitter:${key}`}
-              content={value}
+              content={String(value)}
             />
           ) : null
         )}

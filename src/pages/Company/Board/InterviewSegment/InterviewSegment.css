@@ -4336,3 +4336,14 @@
   display: inline-block;
 }
 
+.feedback-btn.ai-feedback-btn {
+  background: linear-gradient(135deg, #00865f, #138382) !important;
+  color: #ffffff !important;
+  border: none !important;
+}
+
+.feedback-btn.ai-feedback-btn:hover {
+  background: linear-gradient(135deg, #006867, #0f6e6d) !important;
+  box-shadow: 0 4px 12px rgba(19, 131, 130, 0.25);
+}
+

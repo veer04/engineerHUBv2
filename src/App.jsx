@@ -111,11 +111,23 @@ const CandidateAssessmentAttempt = lazy(() =>
 const CandidateAssessmentSubmitted = lazy(() =>
   import("./pages/Candidate/Assessment/CandidateAssessmentSubmitted.jsx")
 );
+const CandidateAIInterviewEntry = lazy(() =>
+  import("./pages/Candidate/AIInterview/CandidateAIInterviewEntry.jsx")
+);
+const CandidateAIInterviewRoom = lazy(() =>
+  import("./pages/Candidate/AIInterview/CandidateAIInterviewRoom.jsx")
+);
+const CandidateAIInterviewSubmitted = lazy(() =>
+  import("./pages/Candidate/AIInterview/CandidateAIInterviewSubmitted.jsx")
+);
 const ProctoringReport = lazy(() =>
   import("./pages/Company/Board/AssessmentSegment/ProctoringReport.jsx")
 );
 const AIInterviewProctoringReport = lazy(() =>
   import("./pages/Company/Board/InterviewSegment/AIInterviewProctoringReport.jsx")
+);
+const AIInterviewFeedback = lazy(() =>
+  import("./pages/Company/Board/InterviewSegment/AIInterviewFeedback.jsx")
 );
 const JobsPage = lazy(() => import("./pages/Company/Jobs/JobsPage.jsx"));
 const JobsPageNew = lazy(() => import("./pages/Company/Jobs/JobsPageNew.jsx"));
@@ -201,8 +213,13 @@ function App() {
     location.pathname.includes("/career/jobs/board") ||
     location.pathname.includes("/company/jobs/board") ||
     location.pathname.includes("/chat/");
-  const isCandidateAssessmentRoute = location.pathname.startsWith("/assessment/");
-  const isProctoringReportRoute = location.pathname.startsWith("/assessment-proctor/") || location.pathname.startsWith("/ai-interview-proctor/");
+  const isCandidateAssessmentRoute =
+    location.pathname.startsWith("/assessment/") ||
+    location.pathname.startsWith("/ai-interview/");
+  const isProctoringReportRoute =
+    location.pathname.startsWith("/assessment-proctor/") ||
+    location.pathname.startsWith("/ai-interview-proctor/") ||
+    location.pathname.startsWith("/ai-interview-feedback/");
 
   // Employer product ID — booking page accessible from /connect or /employer
   const EMPLOYER_MEET_ID = "67a107c89d57a46e99582bd1";
@@ -471,6 +488,12 @@ function App() {
             <Route path=":inviteToken" element={<CandidateAssessmentEntry />} />
           </Route>
 
+          <Route path="/ai-interview">
+            <Route path=":inviteToken/attempt" element={<CandidateAIInterviewRoom />} />
+            <Route path=":inviteToken/submitted" element={<CandidateAIInterviewSubmitted />} />
+            <Route path=":inviteToken" element={<CandidateAIInterviewEntry />} />
+          </Route>
+
           {/* Recruiter proctoring report */}
           <Route
             path="/assessment-proctor/:hiringId/:inviteId/report"
@@ -481,6 +504,12 @@ function App() {
           <Route
             path="/ai-interview-proctor/:hiringId/:inviteId/report"
             element={<AIInterviewProctoringReport />}
+          />
+
+          {/* AI Interview detailed feedback report */}
+          <Route
+            path="/ai-interview-feedback/:hiringId/:candidateId"
+            element={<AIInterviewFeedback />}
           />
 
           <Route path="/company">
