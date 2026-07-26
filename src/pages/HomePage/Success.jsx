@@ -61,7 +61,10 @@ const Success = () => {
         }
       } catch (error) {
         console.error("Error fetching user data:", error);
-        if (attempt < 3) {
+        const serverMsg = error.response?.data?.message;
+        if (serverMsg) {
+          setErrorMessage(serverMsg);
+        } else if (attempt < 3) {
           setTimeout(() => fetchData(attempt + 1), 5000);
         } else {
           setErrorMessage("OOPs! Login failed due to network error, try again.");

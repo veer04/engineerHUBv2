@@ -501,25 +501,39 @@ const SignupUser = () => {
       });
     setOpen(true);
   };
-  const validateFirstName=()=>{
-    const firstNameRegex=/^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,27}$/;
-    if(firstNameRegex.test(values.firstName)===false && values.firstName!=="")
-    {
+  const validateFirstName = () => {
+    if (values.firstName !== "" && values.firstName.trim().length < 2) {
       setSnackbarValues({
         severity: "error",
-        message: "Please enter a valid first Name!",
-      })
+        message: "First name must be at least 2 characters long.",
+      });
+      setOpen(true);
+      return;
+    }
+    const firstNameRegex = /^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{1,27}$/;
+    if (firstNameRegex.test(values.firstName) === false && values.firstName !== "") {
+      setSnackbarValues({
+        severity: "error",
+        message: "Please enter a valid first name!",
+      });
       setOpen(true);
     }
   };
-  const validateLastName=()=>{
-    const LastNameRegex=/^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,27}$/;
-    if(LastNameRegex.test(values.lastName)===false && values.lastName!=="")
-    {
+  const validateLastName = () => {
+    if (values.lastName !== "" && values.lastName.trim().length < 2) {
       setSnackbarValues({
         severity: "error",
-        message: "Please enter a valid Last Name!",
-      })
+        message: "Last name must be at least 2 characters long.",
+      });
+      setOpen(true);
+      return;
+    }
+    const LastNameRegex = /^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{1,27}$/;
+    if (LastNameRegex.test(values.lastName) === false && values.lastName !== "") {
+      setSnackbarValues({
+        severity: "error",
+        message: "Please enter a valid last name!",
+      });
       setOpen(true);
     }
   };
