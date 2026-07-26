@@ -620,9 +620,9 @@ export default function ProfilePopUp() {
               <path
                 d="M1.71094 13L7.71094 7L1.71094 1"
                 stroke="#128381"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
               />
             </svg>
           </div>

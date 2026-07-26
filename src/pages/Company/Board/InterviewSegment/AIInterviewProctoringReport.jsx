@@ -302,6 +302,41 @@ export default function AIInterviewProctoringReport() {
     enabled: Boolean(inviteId && hiringId),
     retry: 1,
     queryFn: async () => {
+      // 1. Try AI Interview proctoring API
+      try {
+        const aiRes = await axios.get(
+          `${API_URL}api/v1/ai-interview/proctoring/${inviteId}`
+        );
+        if (aiRes?.data?.success && aiRes?.data?.data) {
+          const session = aiRes.data.data.session;
+          const events = aiRes.data.data.events || [];
+          const eventCounts = {};
+          events.forEach((ev) => {
+            eventCounts[ev.eventType] = (eventCounts[ev.eventType] || 0) + 1;
+          });
+          const summary = session.proctoringSummary || {};
+          const integrityScore = summary.integrityScore ?? 100;
+          const riskScore = Math.max(0, 100 - integrityScore);
+          const riskBand = riskScore >= 25 ? "High" : riskScore >= 10 ? "Medium" : "Low";
+
+          return {
+            candidateName: session.candidateName,
+            candidateEmail: session.candidateEmail,
+            scheduledAt: session.startTime || new Date().toISOString(),
+            riskBand,
+            riskScore,
+            eventCounts: {
+              TAB_SWITCH: summary.tabSwitches || eventCounts.TAB_SWITCH || 0,
+              FULLSCREEN_EXIT: summary.fullscreenExits || eventCounts.FULLSCREEN_EXIT || 0,
+              ...eventCounts,
+            },
+            timeline: events,
+          };
+        }
+      } catch (err) {
+        console.warn("AI Interview proctoring API notice:", err.message);
+      }
+
       if (inviteId && inviteId.startsWith("mock_")) {
         return {
           candidateName: "Duncan Tall",
@@ -357,6 +392,7 @@ export default function AIInterviewProctoringReport() {
           ]
         };
       }
+
       const res = await axios.get(
         `${API_URL}api/v1/assessment-proctor/${inviteId}/report`,
         { ...config, params: { hiringId } }

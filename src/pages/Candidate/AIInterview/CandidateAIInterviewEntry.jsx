@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { Helmet } from "react-helmet";
+import { SEO } from "../../../components/SEO/SEO.jsx";
 import {
   FiAlertCircle,
   FiArrowRight,
@@ -22,6 +22,8 @@ import {
 import useGlobalSnackbar from "../../../hooks/useGlobalSnackbar";
 import "./CandidateAIInterviewEntry.css";
 
+import { fetchAIInterviewSessionApi } from "../../../services/aiInterviewApi";
+
 export default function CandidateAIInterviewEntry() {
   const navigate = useNavigate();
   const { inviteToken = "demo-ai-interview" } = useParams();
@@ -31,11 +33,44 @@ export default function CandidateAIInterviewEntry() {
   const [modalStep, setModalStep] = useState(1); // 1 = Consent, 2 = Permission Request, 3 = Connected Preview
   const [errorMsg, setErrorMsg] = useState(null);
   
+  // Live API Session state
+  const [sessionData, setSessionData] = useState(null);
+  const [loadingSession, setLoadingSession] = useState(true);
+  const [sessionError, setSessionError] = useState(null);
+
   // Media streams
   const [mediaStream, setMediaStream] = useState(null);
   const videoRef = useRef(null);
 
   const { setSnackbarOpen, setSnackbarMessage, setSnackbarSeverity } = useGlobalSnackbar();
+
+  useEffect(() => {
+    const loadSession = async () => {
+      if (!inviteToken || inviteToken === "demo-ai-interview") {
+        setLoadingSession(false);
+        return;
+      }
+      try {
+        setLoadingSession(true);
+        const res = await fetchAIInterviewSessionApi(inviteToken);
+        if (res?.success && res?.data) {
+          setSessionData(res.data);
+          if (res.data.status === "Completed") {
+            setSnackbarMessage("This AI Interview session has already been completed.");
+            setSnackbarSeverity("info");
+            setSnackbarOpen(true);
+          }
+        }
+      } catch (err) {
+        console.warn("Error fetching AI session metadata:", err);
+        setSessionError(err.response?.data?.message || "Failed to load session details.");
+      } finally {
+        setLoadingSession(false);
+      }
+    };
+
+    loadSession();
+  }, [inviteToken]);
 
   useEffect(() => {
     if (mediaStream && videoRef.current) {
@@ -99,11 +134,8 @@ export default function CandidateAIInterviewEntry() {
   };
 
   return (
-    <div className="candidate-ai-entry-page">
-      <Helmet>
-        <meta name="robots" content="noindex, nofollow" />
-        <title>AI Interview Lobby — engineerHUB</title>
-      </Helmet>
+    <SEO title="AI Interview Lobby - engineerHUB" noIndex={true}>
+      <div className="candidate-ai-entry-page">
 
       {/* Header */}
       <header className="ai-entry-header">
@@ -118,8 +150,10 @@ export default function CandidateAIInterviewEntry() {
               <span className="dot" /> Live Room Ready
             </span>
             <div className="ai-entry-user-chip">
-              <div className="ai-entry-user-avatar">AC</div>
-              <span>Alex Chen (Candidate)</span>
+              <div className="ai-entry-user-avatar">
+                {sessionData?.candidateName ? sessionData.candidateName.slice(0, 2).toUpperCase() : "AC"}
+              </div>
+              <span>{sessionData?.candidateName || "Candidate"}</span>
             </div>
           </div>
         </div>
@@ -132,7 +166,7 @@ export default function CandidateAIInterviewEntry() {
           {/* Hero */}
           <section className="ai-entry-hero">
             <div className="ai-entry-title-box">
-              <h1>Frontend Developer Round 2 - AI Interview</h1>
+              <h1>{sessionData?.aiConfig?.roleTitle || "Technical Developer"} - Round {sessionData?.aiConfig?.interviewRound || 1} AI Interview</h1>
               <p>Autonomous AI Technical Evaluation Session</p>
             </div>
           </section>
@@ -142,14 +176,14 @@ export default function CandidateAIInterviewEntry() {
             <div className="ai-entry-stat-item">
               <label>Duration</label>
               <div className="ai-entry-stat-val">
-                <FiClock /> 45 Minutes
+                <FiClock /> {sessionData?.durationMinutes || 45} Minutes
               </div>
             </div>
 
             <div className="ai-entry-stat-item">
               <label>Total Questions</label>
               <div className="ai-entry-stat-val">
-                <FiHelpCircle /> 10 Questions
+                <FiHelpCircle /> {sessionData?.totalQuestions || 10} Questions
               </div>
             </div>
 
@@ -163,7 +197,7 @@ export default function CandidateAIInterviewEntry() {
             <div className="ai-entry-stat-item">
               <label>Focus Areas</label>
               <div className="ai-entry-stat-val">
-                <FiCode /> React & System Design
+                <FiCode /> {sessionData?.aiConfig?.topics?.slice(0, 2).join(" & ") || "Technical Assessment"}
               </div>
             </div>
           </section>
@@ -401,5 +435,6 @@ export default function CandidateAIInterviewEntry() {
       )}
 
     </div>
+    </SEO>
   );
 }

@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { Helmet } from "react-helmet";
+import { SEO } from "../../../components/SEO/SEO.jsx";
 import { FiCheckCircle, FiHome } from "react-icons/fi";
 import "./CandidateAIInterviewSubmitted.css";
 
@@ -7,11 +7,8 @@ export default function CandidateAIInterviewSubmitted() {
   const navigate = useNavigate();
 
   return (
-    <div className="ai-submitted-page">
-      <Helmet>
-        <meta name="robots" content="noindex, nofollow" />
-        <title>AI Interview Submitted — engineerHUB</title>
-      </Helmet>
+    <SEO title="AI Interview Submitted - engineerHUB" noIndex={true}>
+      <div className="ai-submitted-page">
 
       <header className="ai-submitted-header">
         <span className="ai-submitted-brand">engineerHUB AI Interview</span>
@@ -57,5 +54,6 @@ export default function CandidateAIInterviewSubmitted() {
         </div>
       </main>
     </div>
+    </SEO>
   );
 }

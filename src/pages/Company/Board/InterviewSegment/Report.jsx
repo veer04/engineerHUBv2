@@ -60,6 +60,13 @@ export default function Report() {
     setSnackbarDuration,
   } = useGlobalSnackbar();
 
+  const config = {
+    headers: {
+      accesstoken: getAccessToken(),
+      accessToken: getAccessToken(),
+    },
+  };
+
   // Query to get segment counts
   const segmentCountsQuery = useQuery({
     queryKey: ["interview-segment-counts", id],
@@ -108,12 +115,6 @@ export default function Report() {
       );
     }
   }, [pageNo, limit, navigate, id]);
-
-  const config = {
-    headers: {
-      accesstoken: getAccessToken(),
-    },
-  };
 
   // Mock data for interview reports
   const reportData = useQuery({

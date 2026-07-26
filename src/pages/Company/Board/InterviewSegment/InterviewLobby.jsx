@@ -19,6 +19,7 @@ import Loading from "../../../../components/Loader/Loading";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { API_URL } from "../../../../services/APIUtils";
+import { scheduleAIInterviewApi } from "../../../../services/aiInterviewApi";
 import { Helmet } from "react-helmet";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import moment from "moment";
@@ -134,6 +135,13 @@ export default function InterviewLobby() {
     setSnackbarSeverity,
     setSnackbarDuration,
   } = useGlobalSnackbar();
+
+  const config = {
+    headers: {
+      accesstoken: getAccessToken(),
+      accessToken: getAccessToken(),
+    },
+  };
 
   // Query to get segment counts
   const segmentCountsQuery = useQuery({
@@ -338,13 +346,7 @@ export default function InterviewLobby() {
     }
   }, [pageNo, limit, navigate, id]);
 
-  const config = {
-    headers: {
-      accesstoken: getAccessToken(),
-    },
-  };
-
-  // Mock data for now - will be replaced with actual API calls
+  // API query to get interview lobby candidates
   const interviewData = useQuery({
     queryKey: [
       "Interview",
@@ -771,16 +773,34 @@ export default function InterviewLobby() {
     setIsSchedulingAI(true);
 
     try {
-      // Simulate frontend-only scheduling process
-      await new Promise((resolve) => setTimeout(resolve, 1500));
-
-      const mockResponseData = {
-        _id: "mock_ai_" + Math.random().toString(36).substr(2, 9),
+      const payload = {
         hiringId: id,
         candidateId: selectedCandidate.candidateId,
         candidateName: selectedCandidate.candidateName,
         candidateEmail: selectedCandidate.candidateEmail,
-        candidatePhone: selectedCandidate.candidatePhone,
+        candidatePhone: selectedCandidate.candidatePhone || "",
+        interviewRound: Number(interviewRound) || 1,
+        scheduledDate: aiSelectedDate,
+        startTime: aiStartTime,
+        endTime: aiEndTime,
+        duration: duration,
+        interviewSubject: aiInterviewSubject.trim(),
+        aiConfig: {
+          roleTitle: aiRole || "Software Engineer",
+          difficulty: aiDifficulty || "Medium",
+          language: aiLanguage || "English",
+          topics: aiInterviewTopics || [],
+          customInstructions: aiInstructions || "",
+        },
+      };
+
+      const resData = await scheduleAIInterviewApi(payload);
+      const scheduledResult = resData?.data?.scheduledInterview || {
+        _id: resData?.data?.session?.inviteToken || "ai_scheduled",
+        hiringId: id,
+        candidateId: selectedCandidate.candidateId,
+        candidateName: selectedCandidate.candidateName,
+        candidateEmail: selectedCandidate.candidateEmail,
         interviewRound: interviewRound,
         scheduledDate: aiSelectedDate,
         startTime: aiStartTime,
@@ -789,29 +809,9 @@ export default function InterviewLobby() {
         status: "Scheduled",
         interviewSubject: aiInterviewSubject.trim(),
         interviewType: "AI",
-        interviewTopics: aiInterviewTopics,
-        aiInstructions: aiInstructions,
-        aiRole: aiRole,
-        aiDifficulty: aiDifficulty,
-        aiLanguage: aiLanguage,
-        aiCodingRound: aiCodingRound,
-        aiSystemDesign: aiSystemDesign,
-        aiBehavioralRound: aiBehavioralRound,
-        aiPersonality: aiPersonality,
-        aiStrictness: aiStrictness,
-        aiEvaluationDepth: aiEvaluationDepth,
-        aiAutoRecording: aiAutoRecording,
-        aiAutoReport: aiAutoReport,
-        aiEmailCandidate: aiEmailCandidate,
-        meetingNotes: `AI Interview configured for ${selectedCandidate.candidateName} - Round ${interviewRound}. Role: ${aiRole}, Difficulty: ${aiDifficulty}.`,
-        interviewers: aiCCParticipants.map((email) => ({
-          name: "Participant",
-          email: email,
-          role: "CC",
-        })),
       };
 
-      setScheduledInterview(mockResponseData);
+      setScheduledInterview(scheduledResult);
       setShowWorkspaceModal(false);
       setShowConfirmationModal(true);
 

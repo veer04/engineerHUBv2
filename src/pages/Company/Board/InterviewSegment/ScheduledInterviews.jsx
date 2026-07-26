@@ -77,6 +77,13 @@ export default function ScheduledInterviews() {
     setSnackbarDuration,
   } = useGlobalSnackbar();
 
+  const config = {
+    headers: {
+      accesstoken: getAccessToken(),
+      accessToken: getAccessToken(),
+    },
+  };
+
   // Query to get segment counts
   const segmentCountsQuery = useQuery({
     queryKey: ["interview-segment-counts", id],
@@ -125,12 +132,6 @@ export default function ScheduledInterviews() {
       );
     }
   }, [pageNo, limit, navigate, id]);
-
-  const config = {
-    headers: {
-      accesstoken: getAccessToken(),
-    },
-  };
 
   // Scheduled interviews data
   const scheduledData = useQuery({
