@@ -4,10 +4,12 @@ import { Bucket_URL } from "../../../../services/APIUtils";
 import { FiEdit } from "react-icons/fi";
 import { FaBuilding } from "react-icons/fa";
 import { useNavigate, useParams } from "react-router-dom";
+import { getInitials, isCustomProfileImage } from "../../../../features/User/avatarUtils";
 const NewCompanyDashboardHeader = ({ isUserAdmin, organization }) => {
   const navigate = useNavigate();
   const { organizationId } = useParams();
   const [showCoverImageModal, setShowCoverImageModal] = useState(false);
+  const [imageBroken, setImageBroken] = useState(false);
 
   return (
     <div className="main-div-header-company-dashboard">
@@ -40,24 +42,21 @@ const NewCompanyDashboardHeader = ({ isUserAdmin, organization }) => {
 
       <div className="header-content-section">
         <div className="logo-and-social-section">
-          {organization?.image ? (
+          {isCustomProfileImage(organization?.image) && !imageBroken ? (
             <img
               src={organization.image}
               className="logo-main-image"
               alt="organization_logo"
+              onError={() => setImageBroken(true)}
             />
           ) : (
-            <FaBuilding
-              className="logo-main-image"
-              style={{
-                color: "#719ba5",
-                backgroundColor: "#f0f4f5",
-                padding: "10px",
-                width: "100%",
-                height: "100%",
-                boxSizing: "border-box"
-              }}
-            />
+            <div
+              className="logo-main-image-initials-fallback"
+              role="img"
+              aria-label="Organization Initials"
+            >
+              {getInitials(organization?.name)}
+            </div>
           )}
 
           <div className="social-icon-div">

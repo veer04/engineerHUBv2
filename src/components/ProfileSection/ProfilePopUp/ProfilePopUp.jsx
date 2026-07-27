@@ -19,6 +19,7 @@ import {
   getUserRole,
   isUserLoggedIn,
 } from "../../../features/User/UserDetails";
+import { getInitials, isCustomProfileImage } from "../../../features/User/avatarUtils";
 import { Link, useNavigate } from "react-router-dom";
 import { handleLogout } from "../../../features/logout";
 import { CgLogOut } from "react-icons/cg";
@@ -60,13 +61,8 @@ export default function ProfilePopUp() {
   // if (role === "Alumni") role = "User";
   const userFullName = getUserFullName();
   const userImage = getUserImage();
-  const resolvedUserImage =
-    userImage &&
-    userImage !== "undefined" &&
-    userImage !== "null" &&
-    userImage.trim() !== ""
-      ? userImage
-      : DEFAULT_PROFILE_IMAGE;
+  const [imageBroken, setImageBroken] = useState(false);
+  const profileInitials = getInitials(userFullName);
   const [profileProgress, setProfileProgress] = useState(75);
   const [privateDashboardDataForComp, setPrivateDashboardDataForComp] =
     useState(null);
@@ -557,15 +553,22 @@ export default function ProfilePopUp() {
                 justifyContent: "center",
               }}
             > */}
-          <img
-            className="image"
-            src={resolvedUserImage}
-            alt="Profile Picture"
-            onError={(e) => {
-              e.currentTarget.onerror = null;
-              e.currentTarget.src = DEFAULT_PROFILE_IMAGE;
-            }}
-          />
+          {isCustomProfileImage(userImage) && !imageBroken ? (
+            <img
+              className="image"
+              src={userImage}
+              alt="Profile Picture"
+              onError={() => setImageBroken(true)}
+            />
+          ) : (
+            <span
+              className="profile-picture-initials-fallback"
+              role="img"
+              aria-label="Profile Initials"
+            >
+              {profileInitials}
+            </span>
+          )}
           {/* </Box>
           </Box>
           <div className="progress-counter">{`${progress}%`}</div> */}

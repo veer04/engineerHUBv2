@@ -8,6 +8,7 @@ import {
   getUserRole,
   isUserLoggedIn,
 } from "../../features/User/UserDetails";
+import { getInitials, isCustomProfileImage } from "../../features/User/avatarUtils";
 import useNavbar from "../../hooks/use-navbar";
 import { useScrollDirection } from "../../features/scrollDirection";
 import NotificationBadge from "../NotificationBadge/NotificationBadge";
@@ -44,15 +45,7 @@ export default function NewNavbar() {
     ? `${name} profile photo`
     : "Your profile photo";
 
-  const profileInitials = (() => {
-    const t = name?.trim();
-    if (!t) return "?";
-    const parts = t.split(/\s+/).filter(Boolean);
-    if (parts.length >= 2) {
-      return `${parts[0][0]}${parts[1][0]}`.toUpperCase();
-    }
-    return t.slice(0, 2).toUpperCase();
-  })();
+  const profileInitials = getInitials(name);
 
   //const bucket = `${Bucket_URL}frontend/navbar/`;
 
@@ -60,14 +53,7 @@ export default function NewNavbar() {
     const updateUserImage = () => {
       setProfilePhotoBroken(false);
       const cookieImage = getUserImage();
-      setUserImage(
-        cookieImage &&
-          cookieImage !== "undefined" &&
-          cookieImage !== "null" &&
-          cookieImage.trim() !== ""
-          ? cookieImage
-          : DEFAULT_PROFILE_IMAGE
-      );
+      setUserImage(cookieImage || "");
     };
 
     updateUserImage();
@@ -261,7 +247,7 @@ export default function NewNavbar() {
               className="logged-in-container navbar-trailing-profile"
             >
               <div className="profile-picture-container">
-                {!profilePhotoBroken ? (
+                {isCustomProfileImage(userImage) && !profilePhotoBroken ? (
                   <img
                     src={userImage}
                     alt={profilePhotoAlt}

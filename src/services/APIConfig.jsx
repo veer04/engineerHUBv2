@@ -39,8 +39,7 @@ export const deleteProfilePicture = (setResponse) => {
     },
   };
   const data = {
-    image:
-      "https://engineerhubs3.s3.ap-south-1.amazonaws.com/ui/banners/Student.png",
+    image: "",
   };
   axios
     .patch(`${API_URL}api/v1/role/profilePictureDeleted`, data, config)
