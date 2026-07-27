@@ -14,7 +14,8 @@ import { Bounce, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { RWebShare } from "react-web-share";
 import { deleteResume } from "../../../services/APIConfig";
-import { getUserId } from "../../../features/User/UserDetails";
+import { getUserId, getUserFullName } from "../../../features/User/UserDetails";
+import { getInitials, isCustomProfileImage } from "../../../features/User/avatarUtils";
 import moment from "moment";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -27,6 +28,11 @@ const ProfileWithPostEditShare = ({
     !!privateDashboardData?.resume
   );
   const isChecked = useSelector((state) => state.resumeToggle.isVisible);
+  const [imageBroken, setImageBroken] = useState(false);
+  const fullName = privateDashboardData
+    ? `${privateDashboardData.firstName || ''} ${privateDashboardData.lastName || ''}`.trim()
+    : getUserFullName();
+  const profileInitials = getInitials(fullName);
   // console.log(isChecked, "ghgg");
 
   const userId = getUserId();
@@ -240,22 +246,21 @@ const ProfileWithPostEditShare = ({
           <div className="loader-main-div">
             <span className="loader-new-saif"></span>{" "}
           </div>
-        ) : privateDashboardData?.image ? (
+        ) : isCustomProfileImage(privateDashboardData?.image) && !imageBroken ? (
           <img
             src={privateDashboardData.image}
             className="g2-img"
-            alt="g2_img"
+            alt="Profile Picture"
+            onError={() => setImageBroken(true)}
           />
         ) : (
-          <FaUserCircle
-            className="g2-img"
-            style={{
-              color: "#719ba5",
-              backgroundColor: "#f0f4f5",
-              padding: "5px",
-              boxSizing: "border-box"
-            }}
-          />
+          <div
+            className="g2-img-initials-fallback"
+            role="img"
+            aria-label="Profile Initials"
+          >
+            {profileInitials}
+          </div>
         )}
       </div>
 

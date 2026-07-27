@@ -18,7 +18,9 @@ import {
 import countryCodes from "../../../assets/countryCodes";
 import { useRef } from "react";
 import { handleLogout } from "../../../features/logout";
-import { getUserId, isUserLoggedIn } from "../../../features/User/UserDetails";
+import Cookies from "js-cookie";
+import { getUserId, isUserLoggedIn, getUserFullName } from "../../../features/User/UserDetails";
+import { getInitials, isCustomProfileImage } from "../../../features/User/avatarUtils";
 import Page404 from "../../Maintenance/Page404";
 import useGlobalSnackbar from "../../../hooks/useGlobalSnackbar";
 import LoadingPage from "../../../components/Loader/LoadingPage";
@@ -61,6 +63,7 @@ export default function CompanyEditProfile() {
     useGlobalSnackbar();
   const [fetchResponse, setFetchResponse] = useState({});
   const [loading, setLoading] = useState(false);
+  const [imageBroken, setImageBroken] = useState(false);
 
   const [errors, setErrors] = useState({
     newName: "",
@@ -131,6 +134,11 @@ export default function CompanyEditProfile() {
         setSnackbarSeverity("success");
         setSnackbarMessage("Profile picture updated successfully");
         setSnackbarOpen(true);
+        const uploadedUrl = response?.data?.data?.imageUrl || response?.data?.data?.image || response?.data?.imageUrl || response?.data?.data;
+        if (uploadedUrl && typeof uploadedUrl === "string") {
+          Cookies.set("image", uploadedUrl, { expires: 400 });
+        }
+        window.dispatchEvent(new Event("user-image-updated"));
         getOrganizationProfileByIdPrivateMode(
           setOrganization,
           organizationId,
@@ -156,6 +164,8 @@ export default function CompanyEditProfile() {
         setSnackbarSeverity("success");
         setSnackbarMessage("Profile picture removed successfully");
         setSnackbarOpen(true);
+        Cookies.set("image", "", { expires: 400 });
+        window.dispatchEvent(new Event("user-image-updated"));
         getOrganizationProfileByIdPrivateMode(
           setOrganization,
           organizationId,
@@ -450,7 +460,18 @@ export default function CompanyEditProfile() {
               }
             }}
           >
-            <img src={organization?.image} loading="lazy" alt="Company Logo" />
+            {isCustomProfileImage(organization?.image) && !imageBroken ? (
+              <img
+                src={organization.image}
+                loading="lazy"
+                alt="Company Logo"
+                onError={() => setImageBroken(true)}
+              />
+            ) : (
+              <div className="ep-avatar-initials-fallback">
+                {getInitials(organization?.name || getUserFullName())}
+              </div>
+            )}
             <div className="ep-avatar-overlay">
               {isImageLoading ? (
                 <div className="spinner-border text-light" role="status">
