@@ -95,6 +95,15 @@
   background: #2563eb;
 }
 
+.candidate-entry-live-badge--expired {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.candidate-entry-live-badge--expired .dot {
+  background: #dc2626;
+}
+
 .candidate-entry-icon-btn {
   width: 2rem;
   height: 2rem;
