@@ -289,7 +289,7 @@ export default function CandidateAssessmentSubmitted() {
       <footer className="candidate-submitted-footer">
         <div className="candidate-submitted-footer-inner">
           <h4>engineerHUB</h4>
-          <p>© 2024 TechAssess Enterprise. All rights reserved.</p>
+          <p>© 2026 TechAssess Enterprise. All rights reserved.</p>
           <div className="candidate-submitted-footer-links">
             <Link to="/terms-and-conditions">Privacy Policy</Link>
             <Link to="/terms-and-conditions">Terms of Service</Link>
