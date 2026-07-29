@@ -319,7 +319,24 @@ export default function CandidateAIInterviewRoom() {
         // Synthesize AI spoken response via Web Speech API TTS
         if ("speechSynthesis" in window && !isMuted) {
           window.speechSynthesis.cancel();
+          window.speechSynthesis.resume();
           const utterance = new SpeechSynthesisUtterance(data.text);
+          utterance.rate = 0.95;
+          utterance.pitch = 1.0;
+
+          // 12-second safety watchdog to recover from Chrome TTS queue bugs
+          const speechTimeout = setTimeout(() => {
+            if (isAISpeakingRef.current) {
+              console.warn("SpeechSynthesis watchdog timeout — auto-recovering to Listening state");
+              isAISpeakingRef.current = false;
+              setActiveSpeaker("none");
+              setAiStatus("Listening...");
+              if (recognitionRef.current && isMicOn) {
+                try { recognitionRef.current.start(); } catch (_e) {}
+              }
+            }
+          }, 12000);
+
           utterance.onstart = () => {
             isAISpeakingRef.current = true;
             setActiveSpeaker("ai");
@@ -329,6 +346,7 @@ export default function CandidateAIInterviewRoom() {
             }
           };
           utterance.onend = () => {
+            clearTimeout(speechTimeout);
             isAISpeakingRef.current = false;
             setActiveSpeaker("none");
             setAiStatus("Listening...");
@@ -339,6 +357,7 @@ export default function CandidateAIInterviewRoom() {
             }, 300);
           };
           utterance.onerror = () => {
+            clearTimeout(speechTimeout);
             isAISpeakingRef.current = false;
             setActiveSpeaker("none");
             setAiStatus("Listening...");
@@ -595,6 +614,8 @@ export default function CandidateAIInterviewRoom() {
               <span className="sidebar-topic-val">
                 {Array.isArray(sessionInfo?.aiConfig?.topics) && sessionInfo.aiConfig.topics.length > 0
                   ? sessionInfo.aiConfig.topics.join(", ")
+                  : typeof sessionInfo?.aiConfig?.topics === "string" && sessionInfo.aiConfig.topics.trim()
+                  ? sessionInfo.aiConfig.topics
                   : "Technical Assessment"}
               </span>
             </div>
@@ -605,9 +626,9 @@ export default function CandidateAIInterviewRoom() {
               const percent = Math.min(100, Math.round((currentQ / totalQ) * 100));
               return (
                 <div className="sidebar-progress-box">
-                  <div className="ai-progress-meta">
-                    <span>Progress: {currentQ}/{totalQ}</span>
-                    <span>{percent}%</span>
+                  <div className="ai-progress-meta" style={{ display: "flex", justifyContent: "space-between", width: "100%", marginBottom: "6px" }}>
+                    <span>Question {currentQ} of {totalQ}</span>
+                    <span>{percent}% Complete</span>
                   </div>
                   <div className="ai-progress-bar-track">
                     <div className="ai-progress-bar-fill" style={{ width: `${percent}%` }} />
@@ -768,9 +789,8 @@ export default function CandidateAIInterviewRoom() {
             ))}
           </div>
         </section>
-
       </main>
     </div>
-    </SEO>
-  );
+  </SEO>
+);
 }

@@ -176,14 +176,14 @@ export default function CandidateAIInterviewEntry() {
             <div className="ai-entry-stat-item">
               <label>Duration</label>
               <div className="ai-entry-stat-val">
-                <FiClock /> {sessionData?.durationMinutes || 45} Minutes
+                <FiClock /> {sessionData?.aiConfig?.durationMinutes || sessionData?.durationMinutes || 45} Minutes
               </div>
             </div>
 
             <div className="ai-entry-stat-item">
               <label>Total Questions</label>
               <div className="ai-entry-stat-val">
-                <FiHelpCircle /> {sessionData?.totalQuestions || 10} Questions
+                <FiHelpCircle /> {sessionData?.aiConfig?.totalQuestions || sessionData?.totalQuestions || 10} Questions
               </div>
             </div>
 
@@ -197,7 +197,13 @@ export default function CandidateAIInterviewEntry() {
             <div className="ai-entry-stat-item">
               <label>Focus Areas</label>
               <div className="ai-entry-stat-val">
-                <FiCode /> {sessionData?.aiConfig?.topics?.slice(0, 2).join(" & ") || "Technical Assessment"}
+                <FiCode /> {
+                  Array.isArray(sessionData?.aiConfig?.topics) && sessionData.aiConfig.topics.length > 0
+                    ? sessionData.aiConfig.topics.join(", ")
+                    : typeof sessionData?.aiConfig?.topics === "string" && sessionData.aiConfig.topics.trim()
+                    ? sessionData.aiConfig.topics
+                    : "Technical Assessment"
+                }
               </div>
             </div>
           </section>
