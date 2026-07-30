@@ -70,7 +70,8 @@ export default function InterviewLobby() {
   const [selectedDate, setSelectedDate] = useState("");
   const [startTime, setStartTime] = useState("");
   const [endTime, setEndTime] = useState("");
-  const [inviteeEmail, setInviteeEmail] = useState("");
+  const [inviteeEmails, setInviteeEmails] = useState([]);
+  const [inviteeInput, setInviteeInput] = useState("");
   const [interviewSubject, setInterviewSubject] = useState("");
   const [dateScrollIndex, setDateScrollIndex] = useState(0);
 
@@ -439,9 +440,48 @@ export default function InterviewLobby() {
     setSelectedDate("");
     setStartTime("");
     setEndTime("");
-    setInviteeEmail("");
+    setInviteeEmails([]);
+    setInviteeInput("");
     setInterviewSubject("");
     setShowScheduleModal(true);
+  };
+
+  const handleAddInvitee = (emailToAdd) => {
+    const text = (emailToAdd !== undefined ? emailToAdd : inviteeInput).trim();
+    if (!text) return;
+
+    const emails = text.split(/[\s,]+/).map((e) => e.trim()).filter(Boolean);
+    const newEmails = [...inviteeEmails];
+    let addedAny = false;
+    let invalidEmailFound = false;
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    for (const email of emails) {
+      if (emailRegex.test(email)) {
+        if (!newEmails.includes(email)) {
+          newEmails.push(email);
+          addedAny = true;
+        }
+      } else {
+        invalidEmailFound = true;
+      }
+    }
+
+    if (addedAny) {
+      setInviteeEmails(newEmails);
+      setInviteeInput("");
+    }
+
+    if (invalidEmailFound && !addedAny) {
+      setSnackbarMessage("Please enter valid email address(es)");
+      setSnackbarSeverity("warning");
+      setSnackbarDuration(3000);
+      setSnackbarOpen(true);
+    }
+  };
+
+  const handleRemoveInvitee = (emailToRemove) => {
+    setInviteeEmails(inviteeEmails.filter((email) => email !== emailToRemove));
   };
 
   const handleDateScroll = (direction) => {
@@ -536,6 +576,19 @@ export default function InterviewLobby() {
         return;
       }
 
+      // Gather all interviewer emails including any pending valid email in input box
+      let finalInviteeEmails = [...inviteeEmails];
+      const pendingInput = inviteeInput.trim();
+      if (pendingInput) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const emails = pendingInput.split(/[\s,]+/).map((e) => e.trim()).filter(Boolean);
+        for (const email of emails) {
+          if (emailRegex.test(email) && !finalInviteeEmails.includes(email)) {
+            finalInviteeEmails.push(email);
+          }
+        }
+      }
+
       // Real API call to schedule interview
       const response = await axios.post(
         `${API_URL}api/v1/scheduled-interview`,
@@ -547,13 +600,11 @@ export default function InterviewLobby() {
           startTime: startTime,
           endTime: endTime,
           duration: duration,
-          interviewers: inviteeEmail ? [
-            {
-              name: "Interviewer",
-              email: inviteeEmail,
-              role: "Interviewer"
-            }
-          ] : [],
+          interviewers: finalInviteeEmails.map((email) => ({
+            name: "Interviewer",
+            email: email,
+            role: "Interviewer",
+          })),
           meetingNotes: `Interview for ${selectedCandidate.candidateName} - Round ${interviewRound}${interviewSubject ? ` (${interviewSubject})` : ''}`,
           interviewSubject: interviewSubject.trim() || `Round ${interviewRound || 1}`,
           googleAuthToken: googleAuthToken
@@ -750,17 +801,54 @@ export default function InterviewLobby() {
               </div>
 
               <div className="invitee-section">
-                <label>
-                  Enter the mail to who you want to invite as an interviewee
+                <label className="invitee-label">
+                  Enter the mail to who you want to invite as an interviewer
                   along with you
                 </label>
-                <FormInput
-                  id="inviteeEmail"
-                  name="inviteeEmail"
-                  placeholder="Enter Mail Here"
-                  value={inviteeEmail}
-                  setValue={setInviteeEmail}
-                />
+                <div className="invitee-input-container">
+                  <input
+                    type="text"
+                    className="subject-input invitee-input"
+                    placeholder="Enter Mail Here (Press Enter or Tab to add)"
+                    value={inviteeInput}
+                    onChange={(e) => setInviteeInput(e.target.value)}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" || e.key === "Tab" || e.key === ",") {
+                        if (inviteeInput.trim()) {
+                          e.preventDefault();
+                          handleAddInvitee();
+                        }
+                      }
+                    }}
+                    onBlur={() => {
+                      if (inviteeInput.trim()) {
+                        handleAddInvitee();
+                      }
+                    }}
+                  />
+                </div>
+                {inviteeEmails.length > 0 && (
+                  <div className="invitee-chips-container">
+                    <div className="chips-header">
+                      Invited Interviewers ({inviteeEmails.length})
+                    </div>
+                    <div className="invitee-chips-list">
+                      {inviteeEmails.map((email, idx) => (
+                        <span key={idx} className="invitee-chip">
+                          <span className="chip-email">{email}</span>
+                          <button
+                            type="button"
+                            className="chip-remove-btn"
+                            onClick={() => handleRemoveInvitee(email)}
+                            title="Remove interviewer"
+                          >
+                            ×
+                          </button>
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
 
               <div className="schedule-summary">
