@@ -56,8 +56,6 @@ const PromoteServices = ({ compName }) => {
         );
 
         setAllMeetData(filteredData);
-
-        console.log(filteredData, "filtered meet data");
       } else {
         throw new Error("error getting the data");
       }
@@ -79,7 +77,6 @@ const PromoteServices = ({ compName }) => {
         config
       );
 
-      console.log(data, "productData");
       const filteredCourseData = data?.data.filter((item) =>
         mainTargetOrderForCarousal.includes(item.title)
       );

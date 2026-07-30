@@ -39,11 +39,6 @@ const StreakCard = ({ streakData, userId = null }) => {
         });
 
         if (response.data.success) {
-          // Only log in development
-          if (process.env.NODE_ENV === 'development') {
-            console.log('API Response:', response.data.data);
-            console.log('Contribution Data Sample:', Object.keys(response.data.data.contributionData || {}).slice(0, 5).map(key => ({ [key]: response.data.data.contributionData[key] })));
-          }
           setContributionData(response.data.data.contributionData || {});
           setStatistics(response.data.data.statistics || {});
         } else {
@@ -161,11 +156,6 @@ const StreakCard = ({ streakData, userId = null }) => {
       const dayData = convertedData[i] || { tokens: 0, activityLevel: 0 };
       const tokens = dayData.tokens || 0;
       const activityLevel = dayData.activityLevel || 0;
-
-      // Debug: Log today's date and activity (only in development)
-      if (date.getTime() === today.getTime() && process.env.NODE_ENV === 'development') {
-        console.log(`Today's date (IST): ${date.toDateString()}, Tokens: ${tokens}, Activity level: ${activityLevel}, Index: ${i}`);
-      }
 
       dates.push({
         date: new Date(date),

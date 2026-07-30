@@ -101,11 +101,7 @@ const JobsPageNew = () => {
             accessToken: getAccessToken(),
           }
         }
-      ).then((res) => {
-        console.log('API Request Params:', params);
-        console.log('Jobs API Response:', res.data);
-        return res;
-      })
+      ).then((res) => res)
       .catch((error) => {
         console.error('API Error:', error);
         console.error('Error Response:', error.response?.data);
@@ -117,10 +113,6 @@ const JobsPageNew = () => {
   useEffect(() => {
     if (jobsQuery.isSuccess) {
       const jobsData = jobsQuery.data?.data?.data || [];
-      console.log('Jobs API Response:', jobsQuery.data);
-      console.log('Jobs data array:', jobsData);
-      console.log('Sample job fields:', jobsData[0] ? Object.keys(jobsData[0]) : 'No jobs found');
-      console.log('First job details:', jobsData[0]);
       
       // Backend will handle sorting by latest posted jobs
       setJobs(jobsData);

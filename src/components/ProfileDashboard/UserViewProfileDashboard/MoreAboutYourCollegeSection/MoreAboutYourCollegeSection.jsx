@@ -14,8 +14,6 @@ const MoreAboutYourCollegeSection = ({
     setActionButton(actionButton === buttonName ? null : buttonName);
   };
 
-  console.log(aboutData, "aboutData");
-
   return (
     <div className="more-about-college-main-div">
       <h3

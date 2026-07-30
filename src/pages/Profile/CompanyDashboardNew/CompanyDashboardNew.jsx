@@ -182,7 +182,8 @@ const CompanyDashboardNew = () => {
       const nextPage = jobsPage + 1;
       getJobsByOrganisationIdPrivateMode(
         (newData) => {
-          setJobs((prev) => [...prev, ...newData]);
+          const validData = Array.isArray(newData) ? newData : [];
+          setJobs((prev) => [...prev, ...validData]);
           setJobsPage(nextPage);
           setLoadingMore(false);
         },
@@ -195,7 +196,8 @@ const CompanyDashboardNew = () => {
       const nextPage = internshipsPage + 1;
       getInternshipsByOrganisationIdPrivateMode(
         (newData) => {
-          setInternships((prev) => [...prev, ...newData]);
+          const validData = Array.isArray(newData) ? newData : [];
+          setInternships((prev) => [...prev, ...validData]);
           setInternshipsPage(nextPage);
           setLoadingMore(false);
         },

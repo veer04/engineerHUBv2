@@ -82,7 +82,6 @@ const UploadResumeEdit = ({ profileData, setProfileData }) => {
             transition: Bounce,
           });
         }
-        console.log("Resume upload response:", response.data);
       } catch (error) {
         console.error(
           "Error uploading resume:",
@@ -184,7 +183,6 @@ const UploadResumeEdit = ({ profileData, setProfileData }) => {
           transition: Bounce,
         });
       }
-      console.log("Resume delete response:", response.data);
     } catch (error) {
       console.error(
         "Error deleting resume:",

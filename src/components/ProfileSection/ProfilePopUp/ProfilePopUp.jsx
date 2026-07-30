@@ -79,6 +79,7 @@ export default function ProfilePopUp() {
   }, []);
 
   const getPrivateDashboardData = async () => {
+    if (!isUserLoggedIn()) return;
     try {
       const config = {
         accessToken: getAccessToken(),
@@ -97,10 +98,12 @@ export default function ProfilePopUp() {
         console.error("Unexpected response status:", response.status);
       }
     } catch (error) {
-      console.error(
-        "Error fetching profile data:",
-        error.response || error.message
-      );
+      if (error.response?.status !== 404 && error.response?.status !== 401) {
+        console.error(
+          "Error fetching profile data:",
+          error.response || error.message
+        );
+      }
     }
   };
 
@@ -623,9 +626,9 @@ export default function ProfilePopUp() {
               <path
                 d="M1.71094 13L7.71094 7L1.71094 1"
                 stroke="#128381"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
               />
             </svg>
           </div>

@@ -19,7 +19,6 @@ const UserViewStudentFollow = ({ title, fellowUsers }) => {
     setSectionsToShow(sectionsToShow + 2);
   };
 
-  console.log("fellow Users data", fellowUsers?.students?.profile);
   const handleFollowClick = async (id) => {
     const userId = getUserId();
 
@@ -104,7 +103,6 @@ const UserViewStudentFollow = ({ title, fellowUsers }) => {
         }
       );
 
-      console.log("Follow request successful:", response.data);
       setUserFollowed(response.data); // Updated state name
     } catch (error) {
       console.error(
@@ -113,8 +111,6 @@ const UserViewStudentFollow = ({ title, fellowUsers }) => {
       );
     }
   };
-
-  console.log("fellow Users data in array format", fellowUsersId);
 
   return (
     <div className="user-view-student-follow-main-div">

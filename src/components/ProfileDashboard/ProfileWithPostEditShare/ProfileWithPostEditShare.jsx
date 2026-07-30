@@ -130,7 +130,6 @@ const ProfileWithPostEditShare = ({
             resume: resumeUrl,
           }));
         }
-        console.log("Resume upload response:", response.data);
       } catch (error) {
         console.error(
           "Error uploading resume:",
@@ -202,7 +201,6 @@ const ProfileWithPostEditShare = ({
 
   const handleDeleteResume = () => {
     deleteResume(userId, (res) => {
-      console.log(res, "res");
       setResponse(res);
       if (res.status === 200) {
         setIsResumeUploaded(false);
