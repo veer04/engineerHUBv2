@@ -7,7 +7,6 @@ const AddAboutEdit = ({ profileData, setProfileData }) => {
   const [selectedEducation, setSelectedEducation] = useState(null);
 
   const openModal = (education) => {
-    console.log(education, "SelectedEducation");
     setSelectedEducation({
       ...education,
       collegeName: education.collegeId?.collegeName || "",

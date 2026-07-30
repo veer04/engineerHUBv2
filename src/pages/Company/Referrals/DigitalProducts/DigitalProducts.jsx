@@ -57,10 +57,6 @@ const DigitalProducts = ({ compName }) => {
         config
       );
 
-      console.log(data, "productData");
-
-      // const shuffleData = shuffleArrayData(data.data);
-      // setCourseData(shuffleData);
       const sortedData = sortDataByCustomOrder(data.data);
       setCourseData(sortedData);
 

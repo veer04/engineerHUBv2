@@ -7,7 +7,6 @@ const AddExperienceEdit = ({ profileData, setProfileData }) => {
   const [selectedExperience, setSelectedExperience] = useState(null);
 
   const openModal = (experience) => {
-    console.log(experience, "SelectedExperience");
     setSelectedExperience({
       ...experience,
     });

@@ -1331,7 +1331,7 @@ export const getJobsByOrganisationIdPrivateMode = (setJobs, pageNo = 1, limit = 
   axios
     .get(`${API_URL}api/v1/getHiringByOpportunityTypePrivateMode/Job`, config)
     .then((res) => {
-      const data = res.data.data;
+      const data = res.data.data || [];
       setJobs(data);
       if (setPaginationInfo) {
         setPaginationInfo({
@@ -1398,7 +1398,7 @@ export const getInternshipsByOrganisationIdPrivateMode = (setInternships, pageNo
       config
     )
     .then((res) => {
-      const data = res.data.data;
+      const data = res.data.data || [];
       setInternships(data);
       if (setPaginationInfo) {
         setPaginationInfo({

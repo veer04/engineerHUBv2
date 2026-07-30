@@ -3,7 +3,6 @@ import "./addskill.css";
 import AddSkillModal from "./AddSkillModal";
 
 const AddSkill = ({ profileData, setProfileData }) => {
-  console.log(profileData, "profiledataskill");
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const openModal = () => {

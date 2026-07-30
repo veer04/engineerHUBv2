@@ -32,12 +32,9 @@ const PrepPayNow = () => {
   const location = useLocation();
   const { singleProductData, rating } = location.state || "";
 
-  console.log(singleProductData, "jhgf");
   localStorage.setItem("singleProductData", JSON.stringify(singleProductData));
 
   const { title, description, price, _id, subTitle } = singleProductData;
-
-  console.log(singleProductData, "kjhg");
 
   const priceOfproduct = price;
   const gst = 0.2;
@@ -143,11 +140,9 @@ const PrepPayNow = () => {
         config
       );
 
-      console.log(data, "stateData");
-
       setStateData(data.data);
     } catch (error) {
-      console.log("Error getting the state Data");
+      // ignore
     }
   };
 
@@ -190,7 +185,6 @@ const PrepPayNow = () => {
           res.status === 204
         ) {
           const data = res.data;
-          console.log(data, "productpaymentdata");
           setProductData(data?.data);
           localStorage.setItem(
             "productConfirmatonData",
@@ -233,7 +227,6 @@ const PrepPayNow = () => {
                     "ProductPaymentData",
                     JSON.stringify(data.data)
                   );
-                  console.log(data, "coursepurchasedata");
                   setSnackbarMessage(
                     "Your course has been purchased successfully!"
                   );
@@ -261,9 +254,6 @@ const PrepPayNow = () => {
         setSnackbarOpen(true);
         setIsLoading(false);
       });
-    console.log("Name:", name);
-    console.log("Phone Number:", phoneNumber);
-    console.log("Email:", email);
   };
 
   const handleProductPayment = async () => {
@@ -303,7 +293,6 @@ const PrepPayNow = () => {
 
     const data = response.data;
 
-    console.log("api response:", data);
     if (
       data.status === 201 ||
       data.status === 200 ||
@@ -315,8 +304,6 @@ const PrepPayNow = () => {
       setSnackbarOpen(true);
     }
 
-    console.log(data, "paymentData");
-    console.log(data?.data?.payment_link, "paymentlink");
     window.location.href = data?.data?.payment_link;
   };
 

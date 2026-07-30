@@ -6,7 +6,6 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 const ProfileCompletionEditSection = ({ privateDashboardData }) => {
   const [profileCompletion, setProfileCompletion] = useState(100);
 
-  console.log(privateDashboardData, "privateDashboardData");
   const navigate = useNavigate();
   const location = useLocation();
 

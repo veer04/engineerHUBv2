@@ -35,6 +35,18 @@ const YourCompanyActivitySection = ({
   const navigate = useNavigate();
   const scrollAmount = 340;
 
+  // Determine if current tab has more data to load
+  const hasMore = actionButton === "Jobs" ? hasMoreJobs :
+                  actionButton === "Internships" ? hasMoreInternships : false;
+
+  const checkAndTriggerLoadMore = () => {
+    if (!scrollContainerRef.current || !onLoadMore || loadingMore || !hasMore) return;
+    const { scrollLeft, scrollWidth, clientWidth } = scrollContainerRef.current;
+    if (scrollLeft + clientWidth >= scrollWidth - 300) {
+      onLoadMore(actionButton);
+    }
+  };
+
   const scrollLeft = () => {
     if (scrollContainerRef.current) {
       scrollContainerRef.current.scrollBy({ left: -scrollAmount, behavior: "smooth" });
@@ -44,16 +56,21 @@ const YourCompanyActivitySection = ({
   const scrollRight = () => {
     if (scrollContainerRef.current) {
       scrollContainerRef.current.scrollBy({ left: scrollAmount, behavior: "smooth" });
+      checkAndTriggerLoadMore();
+      setTimeout(checkAndTriggerLoadMore, 200);
+      setTimeout(checkAndTriggerLoadMore, 400);
     }
   };
 
   const handleButtonClick = (buttonName) => {
-    setActionButton((prev) => (prev === buttonName ? null : buttonName));
+    setActionButton((prev) => {
+      const next = prev === buttonName ? null : buttonName;
+      if (scrollContainerRef.current) {
+        scrollContainerRef.current.scrollLeft = 0;
+      }
+      return next;
+    });
   };
-
-  // Determine if current tab has more data to load
-  const hasMore = actionButton === "Jobs" ? hasMoreJobs :
-                  actionButton === "Internships" ? hasMoreInternships : false;
 
   // Infinite scroll: detect when user scrolls near the right edge
   useEffect(() => {
@@ -62,7 +79,7 @@ const YourCompanyActivitySection = ({
 
     const handleScroll = () => {
       const { scrollLeft, scrollWidth, clientWidth } = container;
-      if (scrollLeft + clientWidth >= scrollWidth - 200 && !loadingMore && hasMore) {
+      if (scrollLeft + clientWidth >= scrollWidth - 300 && !loadingMore && hasMore) {
         onLoadMore(actionButton);
       }
     };

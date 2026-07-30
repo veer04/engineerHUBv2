@@ -17,11 +17,7 @@ const AddSkillModal = ({ isOpen, onClose, setProfileData, profileData }) => {
   const [loading, setLoading] = useState(false);
   const [isSkillsAdded, setIsSkillsAdded] = useState(false);
 
-  console.log(skills, "skills");
-  console.log(formData, "formData");
-
   const handleClose = () => {
-    console.log("close");
     setErrors({});
     setFormData({
       skill: "",

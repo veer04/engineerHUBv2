@@ -31,7 +31,6 @@ const ProfileDashboardEdit = () => {
   const [isOkModalDeleteOpen, setIsOkModalDeleteOpen] = useState(false);
   const userId = getUserId();
   const openDeleteModal = () => {
-    console.log("click");
     setIsModalDeleteOpen(true);
   };
 
@@ -104,7 +103,6 @@ const ProfileDashboardEdit = () => {
 
   const getPrivateDashboardData = async () => {
     try {
-      console.log("Fetching Public data...");
       const config = {
         accessToken: getAccessToken(),
       };
@@ -117,8 +115,6 @@ const ProfileDashboardEdit = () => {
       );
 
       if (response.status === 200) {
-        console.log("Public data retrieved successfully:", response.data);
-
         const data = response.data;
         setPrivateDashboardData(data.data.profileStatus);
       } else {

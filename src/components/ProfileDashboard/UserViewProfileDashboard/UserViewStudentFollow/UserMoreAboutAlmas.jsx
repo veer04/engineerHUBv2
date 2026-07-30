@@ -29,7 +29,6 @@ const UserMoreAboutAlamas = ({ title, almaData }) => {
     const token = getAccessToken();
 
     if (!token) {
-      console.log("No access token found!");
       toast.error("🚨 Access token not found. Please log in again.", {
         position: "top-right",
         autoClose: 5000,

@@ -15,7 +15,6 @@ const PromoteConnectCard = ({
 }) => {
   const navigate = useNavigate();
   const location = useLocation();
-  console.log(location, "location");
 
   const handleBookNow = () => {
     navigate(`/referrals/book-now/${id}`, {

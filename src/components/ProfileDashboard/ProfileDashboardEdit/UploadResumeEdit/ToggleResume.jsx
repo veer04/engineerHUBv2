@@ -13,9 +13,7 @@ const ToggleSwitch = () => {
   //   console.log(isChecked, "kjhgf");
 
   const handleToggle = () => {
-    console.log("Before Dispatch:", isChecked);
     dispatch(toggleResume({ isVisible: !isChecked }));
-    console.log("After Dispatch:", !isChecked);
     toast(isChecked ? "😔 Resume Hidden!" : "🥳 Resume Visible To All!", {
       position: "top-right",
       autoClose: 5000,

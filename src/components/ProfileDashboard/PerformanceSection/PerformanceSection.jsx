@@ -59,7 +59,6 @@ const PerformanceSection = () => {
   }, []);
 
   const handleViewTable = () => {
-    console.log("click");
     setShowHeader(true);
     setBlurEnabled(false);
     setShowButton(false);

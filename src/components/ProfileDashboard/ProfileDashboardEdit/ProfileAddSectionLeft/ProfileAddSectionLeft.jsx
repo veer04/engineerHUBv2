@@ -34,8 +34,6 @@ const ProfileAddSectionLeft = ({ profileData, setProfileData }) => {
     }
   }, []);
 
-  console.log(userRole, "userRole");
-
   // console.log(profileData.image);
 
   useEffect(() => {

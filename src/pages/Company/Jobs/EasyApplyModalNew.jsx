@@ -387,14 +387,12 @@ const EasyApplyModalNew = ({
         config
       );
 
-      console.log(data, "productData");
-
       // const shuffleData = shuffleArrayData(data.data);
       // setCourseData(shuffleData);
       const sortedData = sortDataByCustomOrder(data.data);
       setCourseData(sortedData);
     } catch (error) {
-      console.log(error);
+      // ignore
     }
   };
 

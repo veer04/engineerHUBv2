@@ -16,8 +16,6 @@ const UserViewStudentFollowAlsoFollow = ({
   const [loadingState, setLoadingState] = useState({});
   const [sectionsToShow, setSectionsToShow] = useState(2);
 
-  console.log(followUsers, "followusers");
-
   const handleViewMoreClick = () => {
     setSectionsToShow(sectionsToShow + 2);
   };
