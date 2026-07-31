@@ -193,6 +193,13 @@ function ScoreCell({ score, isRealtime }) {
   );
 }
 
+function formatAssessmentName(name, maxWords = 4) {
+  if (!name) return "Assessment";
+  const words = name.trim().split(/\s+/);
+  if (words.length <= maxWords) return name;
+  return `${words.slice(0, maxWords).join(" ")}...`;
+}
+
 export default function AssessmentResultRow({
   row,
   onMonitor,
@@ -229,11 +236,8 @@ export default function AssessmentResultRow({
       </td>
 
       <td className="assessment-result-cell">
-        <p className="assessment-name">{row.assessmentName}</p>
-        <p className="assessment-skills-text">
-          {Array.isArray(row.skills) && row.skills.length > 0
-            ? row.skills.join(", ")
-            : "No skills"}
+        <p className="assessment-name" title={row.assessmentName || "Assessment"}>
+          {formatAssessmentName(row.assessmentName)}
         </p>
         <p className="assessment-time-range-text" title="Scheduled assessment window (IST)">
           📅 {formatAssessmentTimeRange(row.scheduledAt, row.durationInMinutes)}

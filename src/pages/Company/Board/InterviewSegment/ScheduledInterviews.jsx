@@ -375,8 +375,17 @@ export default function ScheduledInterviews() {
   };
 
   const submitRemark = async () => {
-    if (!remarkText.trim() || !marksValue.trim()) {
-      setSnackbarMessage("Please fill all required fields");
+    if (!marksValue.trim()) {
+      setSnackbarMessage("Please enter candidate marks");
+      setSnackbarSeverity("error");
+      setSnackbarDuration(3000);
+      setSnackbarOpen(true);
+      return;
+    }
+
+    const marksNum = parseFloat(marksValue);
+    if (isNaN(marksNum) || marksNum < 0 || marksNum > 100) {
+      setSnackbarMessage("Marks must be between 0 and 100");
       setSnackbarSeverity("error");
       setSnackbarDuration(3000);
       setSnackbarOpen(true);
@@ -392,7 +401,7 @@ export default function ScheduledInterviews() {
           candidateId: selectedInterviewForRemark.candidateId,
           interviewRound: selectedInterviewForRemark.interviewRound,
           scheduledInterviewId: selectedInterviewForRemark._id,
-          marks: parseFloat(marksValue),
+          marks: marksNum,
           remark: remarkText.trim(),
         },
         config
@@ -401,7 +410,7 @@ export default function ScheduledInterviews() {
       setShowRemarkModal(false);
       setRemarkText("");
       setMarksValue("");
-      setSnackbarMessage("Marks and remark added successfully!");
+      setSnackbarMessage("Marks and feedback added successfully!");
       setSnackbarSeverity("success");
       setSnackbarDuration(3000);
       setSnackbarOpen(true);
@@ -419,7 +428,7 @@ export default function ScheduledInterviews() {
 
     } catch (error) {
       console.error("Error adding remark:", error);
-      setSnackbarMessage(error.response?.data?.message || "Failed to add marks and remark. Please try again.");
+      setSnackbarMessage(error.response?.data?.message || "Failed to add marks and feedback. Please try again.");
       setSnackbarSeverity("error");
       setSnackbarDuration(5000);
       setSnackbarOpen(true);
@@ -537,11 +546,12 @@ export default function ScheduledInterviews() {
       )}
 
       {/* Remark Modal */}
+      {/* Remark / Feedback Evaluation Modal */}
       {showRemarkModal && (
         <div className="modal-overlay">
           <div className="remark-modal">
             <div className="modal-header">
-              <h3 style={{color: '#ffffff'}} >Add Marks & Note</h3>
+              <h3 style={{color: '#ffffff'}}>Add Marks & Feedback</h3>
               <button 
                 className="close-btn"
                 onClick={() => setShowRemarkModal(false)}
@@ -558,7 +568,7 @@ export default function ScheduledInterviews() {
 
               <div className="remark-form">
                 <label htmlFor="marksValue" className="remark-label">
-                  Marks:
+                  Marks (out of 100): <span className="required-mark" style={{ color: '#ef4444' }}>*</span>
                 </label>
                 <input
                   type="number"
@@ -566,28 +576,28 @@ export default function ScheduledInterviews() {
                   name="marksValue"
                   value={marksValue}
                   onChange={(e) => setMarksValue(e.target.value)}
-                  placeholder="Enter marks (e.g., 8.5)"
+                  placeholder="Enter marks out of 100 (e.g. 85)"
                   className="remark-input"
                   min="0"
-                  max="10"
-                  step="0.1"
+                  max="100"
+                  step="1"
                   required
                 />
-                <label htmlFor="remarkText" className="remark-label">
-                  Remark/Note:
+                
+                <label htmlFor="remarkText" className="remark-label" style={{ marginTop: '1rem' }}>
+                  Feedback / Detailed Notes: <span style={{ fontSize: '12px', color: '#6b7280', fontWeight: 'normal' }}>(Optional)</span>
                 </label>
                 <textarea
                   id="remarkText"
                   name="remarkText"
                   value={remarkText}
                   onChange={(e) => setRemarkText(e.target.value)}
-                  placeholder="Enter your remark or note about this candidate..."
+                  placeholder="Enter candidate evaluation feedback, technical notes, or general observations (optional)..."
                   className="remark-textarea"
                   rows={4}
-                  required
                 />
                 <p className="remark-hint">
-                  These marks and notes will appear in the Report section after the interview is completed.
+                  These marks and feedback will appear in the Report section after evaluation.
                 </p>
               </div>
             </div>
@@ -603,7 +613,7 @@ export default function ScheduledInterviews() {
                 className="btn-primary"
                 onClick={submitRemark}
               >
-                Add Marks & Note
+                Save Evaluation
               </button>
             </div>
           </div>

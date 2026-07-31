@@ -724,10 +724,22 @@
   font-size: 11px;
 }
 
+.assessment-college-text,
 .assessment-skills-text {
   color: #374151;
   font-size: 12px;
   font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 220px;
+  cursor: pointer;
+  transition: color 0.15s ease;
+}
+
+.assessment-college-text:hover,
+.assessment-skills-text:hover {
+  color: #138382;
 }
 
 .assessment-empty-text {
@@ -1343,9 +1355,19 @@
 
 .assessment-name {
   margin: 0;
-  color: #374151;
+  color: #1f2937;
   font-size: 12px;
-  font-weight: 500;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 220px;
+  cursor: pointer;
+  transition: color 0.15s ease;
+}
+
+.assessment-name:hover {
+  color: #138382;
 }
 
 .assessment-skills-text {
