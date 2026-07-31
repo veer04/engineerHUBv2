@@ -595,6 +595,7 @@ export default function InterviewLobby() {
         {
           hiringId: id,
           candidateId: selectedCandidate.candidateId,
+          candidateResumeUrl: selectedCandidate?.resumeUrl || "",
           interviewRound: interviewRound,
           scheduledDate: selectedDate,
           startTime: startTime,

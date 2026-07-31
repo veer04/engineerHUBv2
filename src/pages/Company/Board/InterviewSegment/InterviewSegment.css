@@ -2363,6 +2363,32 @@
   display: block;
 }
 
+.invited-chips-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-top: 0.25rem;
+}
+
+.invited-interviewer-chip {
+  display: inline-flex;
+  align-items: center;
+  background-color: #e6f3f3;
+  color: #138382;
+  border: 1px solid #b2dfdb;
+  padding: 0.2rem 0.5rem;
+  border-radius: 0.75rem;
+  font-size: 0.72rem;
+  font-weight: 500;
+  word-break: break-all;
+  line-height: 1.2;
+  transition: all 0.2s ease;
+}
+
+.invited-interviewer-chip:hover {
+  background-color: #d1eded;
+}
+
 .score-visual {
   display: flex;
   flex-direction: column;

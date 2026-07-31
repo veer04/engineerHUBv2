@@ -172,9 +172,17 @@ export default function AssessmentResult() {
     setCurrentPage(1);
   }, [searchTerm, attemptFilter, scoreFilter]);
 
-  const rows = Array.isArray(resultRowsQuery?.data?.rows)
-    ? resultRowsQuery.data.rows
-    : [];
+  const rows = useMemo(() => {
+    const rawRows = Array.isArray(resultRowsQuery?.data?.rows)
+      ? resultRowsQuery.data.rows
+      : [];
+    return [...rawRows].sort((a, b) => {
+      const timeA = new Date(a.createdAt || a.scheduledAt || 0).getTime();
+      const timeB = new Date(b.createdAt || b.scheduledAt || 0).getTime();
+      if (timeA !== timeB) return timeB - timeA;
+      return String(b.id || "").localeCompare(String(a.id || ""));
+    });
+  }, [resultRowsQuery?.data?.rows]);
   const pagination = resultRowsQuery?.data?.pagination || {
     currentPage,
     totalPages: 1,

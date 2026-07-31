@@ -3,6 +3,13 @@ import { FiSend } from "react-icons/fi";
 import { MdMailOutline } from "react-icons/md";
 import { RiInboxArchiveLine } from "react-icons/ri";
 
+function formatTruncatedText(text, maxWords = 4) {
+  if (!text) return "";
+  const words = String(text).trim().split(/\s+/);
+  if (words.length <= maxWords) return text;
+  return `${words.slice(0, maxWords).join(" ")}...`;
+}
+
 export default function AssessmentCandidateRow({
   candidate,
   isSelected,
@@ -18,6 +25,7 @@ export default function AssessmentCandidateRow({
   const candidateEmail = candidate?.email || "Not available";
   const candidateCollege = candidate?.college || "Not available";
   const skills = Array.isArray(candidate?.skills) ? candidate.skills : [];
+  const skillsText = skills.length > 0 ? skills.join(", ") : "No skills listed";
   const aiMatch =
     typeof candidate?.aiMatch === "number" ? Math.max(0, Math.min(100, candidate.aiMatch)) : 0;
 
@@ -37,11 +45,15 @@ export default function AssessmentCandidateRow({
           </div>
         </div>
       </td>
-      <td className="assessment-cell">{candidateCollege}</td>
       <td className="assessment-cell">
-        <div className="assessment-skills-text">
+        <div className="assessment-college-text" title={candidateCollege}>
+          {formatTruncatedText(candidateCollege, 4)}
+        </div>
+      </td>
+      <td className="assessment-cell">
+        <div className="assessment-skills-text" title={skillsText}>
           {skills.length > 0 ? (
-            skills.join(", ")
+            formatTruncatedText(skillsText, 4)
           ) : (
             <span className="assessment-empty-text">No skills listed</span>
           )}
