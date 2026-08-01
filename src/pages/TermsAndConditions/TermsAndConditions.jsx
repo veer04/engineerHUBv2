@@ -197,7 +197,13 @@ const TermsAndConditions = () => {
                 </ul>
               </li>
               <li className="use-p" style={{ marginBottom: "12px", listStylePosition: "outside" }}>
-                <strong>Data Sharing:</strong> engineerHUB does not sell, trade, or share your Google user data with any third parties, advertisers, or external services. The only data sharing that occurs is the direct transmission of calendar event details (including the generated Google Meet link) to the interview candidates (attendees) whom you explicitly choose to invite to the scheduled interview.
+                <strong>Data Sharing:</strong> engineerHUB does not sell, trade, or share your Google user data with any third parties,
+                 advertisers, or external services. The only data sharing that occurs is the direct transmission of calendar 
+                 event details (including the generated Google Meet link) to the interview candidates (attendees) whom you 
+                 explicitly choose to invite to the scheduled interview.
+                <br/>
+                The use of raw or derived user data received from 
+                Google Workspace APIs will adhere to the Google User Data Policy, including the Limited Use requirements.
               </li>
               <li className="use-p" style={{ marginBottom: "12px", listStylePosition: "outside" }}>
                 <strong>Data Storage & Protection:</strong> Your OAuth access and refresh tokens are stored securely in our database using robust encryption protocols and access controls. All communications between engineerHUB and Google API servers are encrypted using standard TLS/HTTPS protocols.

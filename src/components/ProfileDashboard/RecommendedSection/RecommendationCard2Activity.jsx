@@ -27,19 +27,10 @@ const RecommendationCard2Activity = ({ data }) => {
   };
 
   function isJobCreator() {
-    // console.log(userId)
-    // console.log(idparams.userId)
-    // console.log(isUserLoggedIn() && userId === idparams?.userId, "hgf");  // here useParams returns an object with key as userId that is why need to describe it out.
     return isUserLoggedIn() && userId === idparams?.userId;
   }
-  console.log(isJobCreator());
-
-  useEffect(() => {
-    isJobCreator();
-  }, []);
 
   const handleNavigateJobBoard = (id) => {
-    console.log("click");
     navigate(`/career/jobs/board/${id}${!!search ? search : ""}`, {
       replace: true,
     });

@@ -160,10 +160,19 @@ export default function Report() {
         interviewRounds: (candidate.reports || []).map(report => ({
             round: report.interviewRound || 1,
             marks: report.marks || 0,
-            maxMarks: 10,
-            note: report.remark || "No remarks",
+            maxMarks: 100,
+            note: report.remark && report.remark.trim() ? report.remark.trim() : "No detailed feedback provided",
             interviewer: report.addedByEmail || "Unknown",
-            invitedInterviewer: report.scheduledInterviewId?.interviewers?.[0]?.email || "Not Assigned",
+            invitedInterviewers: (() => {
+              const interviewers = report.scheduledInterviewId?.interviewers;
+              if (Array.isArray(interviewers) && interviewers.length > 0) {
+                const emails = interviewers
+                  .map(i => (typeof i === 'string' ? i : i?.email))
+                  .filter(Boolean);
+                if (emails.length > 0) return emails;
+              }
+              return [];
+            })(),
             interviewDate: report.addedAt || new Date().toISOString(),
             interviewType: report.scheduledInterviewId?.interviewType || report.interviewType || "Manual",
             interviewSubject: (() => {
@@ -271,7 +280,7 @@ export default function Report() {
       "Email": report.candidateEmail,
       "Phone": report.candidatePhone,
       "Total Rounds": report.totalRounds,
-      "Average Marks": `${report.averageMarks}/10`,
+      "Average Marks": `${report.averageMarks}/100`,
       "Interview Rounds Completed": report.interviewRounds?.length || 0,
       "Resume Link": report.resumeUrl,
       "Interview Details": report.interviewRounds?.map(round => 
@@ -391,11 +400,21 @@ export default function Report() {
                 <div className="note-meta">
                   <p><strong>Interviewer:</strong> {selectedNote.interviewer}</p>
                   <p><strong>Date:</strong> {moment(selectedNote.interviewDate).format("DD MMM YYYY")}</p>
-                  <p><strong>Marks:</strong> {selectedNote.marks}/{selectedNote.maxMarks}</p>
+                  <p><strong>Marks / Score:</strong> <span style={{ color: '#138382', fontStyle: 'normal', fontWeight: 'bold' }}>{selectedNote.marks}/{selectedNote.maxMarks}</span></p>
                 </div>
                 <div className="note-content">
                   <h4>Feedback:</h4>
-                  <p>{selectedNote.note}</p>
+                  <p style={{ 
+                    whiteSpace: 'pre-line', 
+                    background: '#f8fafc', 
+                    padding: '0.75rem 1rem', 
+                    borderRadius: '0.5rem', 
+                    border: '1px solid #e2e8f0', 
+                    color: selectedNote.note && selectedNote.note !== 'No detailed feedback provided' ? '#1f2937' : '#6b7280', 
+                    fontStyle: selectedNote.note && selectedNote.note !== 'No detailed feedback provided' ? 'normal' : 'italic' 
+                  }}>
+                    {selectedNote.note || "No detailed feedback provided"}
+                  </p>
                 </div>
               </div>
             </div>
@@ -700,7 +719,7 @@ export default function Report() {
                       <div className="section-title">
                         <span>Interview Performance</span>
                         <div className="performance-indicator">
-                          <span className="total-score">{report.totalRounds > 0 ? `Avg: ${report.averageMarks}/10` : 'Pending'}</span>
+                          <span className="total-score">{report.totalRounds > 0 ? `Avg: ${report.averageMarks}/100` : 'Pending'}</span>
                           <span className="rounds-badge">{report.totalRounds} Round{report.totalRounds !== 1 ? 's' : ''}</span>
                         </div>
                       </div>
@@ -746,8 +765,18 @@ export default function Report() {
                                     <div className="interviewer-email">{roundData.interviewer}</div>
                                     <div className="interviewer-role">Admin</div>
                                     <div className="invited-interviewer">
-                                      <span className="invited-label">Invited:</span>
-                                      <span className="invited-email">{roundData.invitedInterviewer}</span>
+                                      <span className="invited-label">INVITED:</span>
+                                      {roundData.invitedInterviewers && roundData.invitedInterviewers.length > 0 ? (
+                                        <div className="invited-chips-container">
+                                          {roundData.invitedInterviewers.map((email, idx) => (
+                                            <span key={idx} className="invited-interviewer-chip" title={email}>
+                                              {email}
+                                            </span>
+                                          ))}
+                                        </div>
+                                      ) : (
+                                        <span className="invited-email">Not Assigned</span>
+                                      )}
                                     </div>
                                   </div>
                                   <div className="score-visual">

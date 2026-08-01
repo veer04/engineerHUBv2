@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useState } from "react";
+import React, { useCallback, useEffect, useLayoutEffect, useState } from "react";
 
 import "./companydashboardnew.css";
 import NewCompanyDashboardHeader from "./NewCompanyDashboardHeader/NewCompanyDashboardHeader";
@@ -41,6 +41,14 @@ const CompanyDashboardNew = () => {
   const [scrollAmount, setScrollAmount] = useState(220);
   const [posts, setPosts] = useState([]);
   const [activityLength, setActivityLength] = useState(false);
+
+  // Pagination state
+  const PAGE_SIZE = 15;
+  const [jobsPage, setJobsPage] = useState(1);
+  const [internshipsPage, setInternshipsPage] = useState(1);
+  const [hasMoreJobs, setHasMoreJobs] = useState(true);
+  const [hasMoreInternships, setHasMoreInternships] = useState(true);
+  const [loadingMore, setLoadingMore] = useState(false);
 
   const { organizationId } = useParams();
   const [showAll, setShowAll] = useState(false);
@@ -139,8 +147,8 @@ const CompanyDashboardNew = () => {
 
     if (isUserLoggedIn() && organizationId === getUserId()) {
       setIsUserAdmin(true);
-      getJobsByOrganisationIdPrivateMode(setJobs);
-      getInternshipsByOrganisationIdPrivateMode(setInternships);
+      getJobsByOrganisationIdPrivateMode(setJobs, 1, PAGE_SIZE, (info) => setHasMoreJobs(info.hasMore));
+      getInternshipsByOrganisationIdPrivateMode(setInternships, 1, PAGE_SIZE, (info) => setHasMoreInternships(info.hasMore));
       getEventsByOrganisationIdPrivateMode(setHackathons);
       getProjectsByOrganisationIdPrivateMode(setProjects);
     } else {
@@ -154,11 +162,51 @@ const CompanyDashboardNew = () => {
     setShowAll(false);
     setActivityChoice("jobs");
     setFollowResponse({});
+    // Reset pagination
+    setJobsPage(1);
+    setInternshipsPage(1);
+    setHasMoreJobs(true);
+    setHasMoreInternships(true);
+    setLoadingMore(false);
   }, [organizationId]);
 
   useLayoutEffect(() => {
     fetchData();
   }, [window.location.pathname]);
+
+  const handleLoadMore = useCallback((tabName) => {
+    if (loadingMore || !isUserAdmin) return;
+
+    if (tabName === "Jobs" && hasMoreJobs) {
+      setLoadingMore(true);
+      const nextPage = jobsPage + 1;
+      getJobsByOrganisationIdPrivateMode(
+        (newData) => {
+          const validData = Array.isArray(newData) ? newData : [];
+          setJobs((prev) => [...prev, ...validData]);
+          setJobsPage(nextPage);
+          setLoadingMore(false);
+        },
+        nextPage,
+        PAGE_SIZE,
+        (info) => setHasMoreJobs(info.hasMore)
+      );
+    } else if (tabName === "Internships" && hasMoreInternships) {
+      setLoadingMore(true);
+      const nextPage = internshipsPage + 1;
+      getInternshipsByOrganisationIdPrivateMode(
+        (newData) => {
+          const validData = Array.isArray(newData) ? newData : [];
+          setInternships((prev) => [...prev, ...validData]);
+          setInternshipsPage(nextPage);
+          setLoadingMore(false);
+        },
+        nextPage,
+        PAGE_SIZE,
+        (info) => setHasMoreInternships(info.hasMore)
+      );
+    }
+  }, [loadingMore, isUserAdmin, hasMoreJobs, hasMoreInternships, jobsPage, internshipsPage]);
 
   return (
     <main className="main-company-new-dashbooard-div">
@@ -191,6 +239,10 @@ const CompanyDashboardNew = () => {
           organization={organization}
           projects={projects}
           internships={internships}
+          onLoadMore={isUserAdmin ? handleLoadMore : undefined}
+          loadingMore={loadingMore}
+          hasMoreJobs={hasMoreJobs}
+          hasMoreInternships={hasMoreInternships}
         />
       </div>
       {isUserAdmin && (

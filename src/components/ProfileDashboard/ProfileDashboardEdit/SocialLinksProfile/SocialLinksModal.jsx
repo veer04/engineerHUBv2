@@ -160,7 +160,6 @@ const SocialLinksModal = ({ isOpen, onClose, data, setProfileData }) => {
       });
 
       const data = await response.json();
-      console.log(data);
       if (data.success) {
         toast("🥳 Social Links has been Added Successfully!", {
           position: "top-right",

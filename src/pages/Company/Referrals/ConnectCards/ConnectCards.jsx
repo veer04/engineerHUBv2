@@ -15,7 +15,6 @@ const ConnectCards = ({
 }) => {
   const navigate = useNavigate();
   const location = useLocation();
-  console.log(location, "location");
 
   const handleBookNow = () => {
     navigate(

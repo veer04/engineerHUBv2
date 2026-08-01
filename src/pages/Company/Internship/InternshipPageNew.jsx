@@ -88,10 +88,7 @@ export default function InternshipPageNew() {
         `${API_URL}api/v1/getHiringByOpportunityType/`,
         { params },
         config
-      ).then((res) => {
-        console.log('Internships API Response:', res.data);
-        return res;
-      }),
+      ).then((res) => res),
     staleTime: 1000 * 60 * 5, // 5 minutes
   });
 
@@ -99,7 +96,6 @@ export default function InternshipPageNew() {
   useEffect(() => {
     if (internshipsQuery.isSuccess) {
       const internships = internshipsQuery.data?.data?.data || [];
-      console.log('Internships data:', internships);
       setInternships(internships);
       setPageCount(
         Math.ceil(

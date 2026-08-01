@@ -57,7 +57,6 @@ const CompanyWisePrep = () => {
         config
       );
 
-      console.log(data, "singleProductData");
       setSingleProductData(data?.data);
     } catch (error) {
       console.log(error);

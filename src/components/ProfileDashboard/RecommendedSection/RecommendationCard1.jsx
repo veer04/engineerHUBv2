@@ -21,7 +21,6 @@ const RecommendationCard1 = ({ data }) => {
   }
 
   const handleNavigateJobBoard = (id) => {
-    console.log("click");
     navigate(`/career/jobs/board/${id}${!!search ? search : ""}`, {
       replace: true,
     });

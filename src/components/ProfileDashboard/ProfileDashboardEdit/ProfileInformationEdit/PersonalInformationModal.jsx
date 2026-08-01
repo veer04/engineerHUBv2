@@ -63,8 +63,6 @@ const PersonalInformationModal = ({
 
   useEffect(() => {
     if (isOpen && data) {
-      console.log(data, "data");
-
       let dateOfBirth = "";
       if (data.dateOfBirth) {
         const [day, month, year] = data.dateOfBirth.split("/");

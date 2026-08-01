@@ -60,6 +60,22 @@
   object-fit: cover;
   z-index: -1;
 }
+
+.profile-menu > .user-details > .profile-picture .profile-picture-initials-fallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 4.6rem;
+  height: 4.6rem;
+  border-radius: 50%;
+  background: linear-gradient(145deg, #e8f4f3 0%, #d4ecea 100%);
+  color: var(--primary-color-green, #138382);
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  user-select: none;
+}
 .profile-menu > .user-details > .personal-details > .name {
   font-weight: 600;
   font-size: 18px;

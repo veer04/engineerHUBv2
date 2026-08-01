@@ -14,7 +14,6 @@ import { getAccessToken } from "../../../../features/getCookieValues";
 import { useSelector } from "react-redux";
 
 const ProfileWithFollowAndMail = ({ DashboardAdminData }) => {
-  console.log(DashboardAdminData, "dashboardadim");
   const [isLiked, setIsLiked] = useState(false);
   const [likeCount, setLikeCount] = useState(0);
   const [isFollowActive, setFollowActive] = useState(false);
@@ -27,7 +26,6 @@ const ProfileWithFollowAndMail = ({ DashboardAdminData }) => {
 
   const handleViewResume = () => {
     if (DashboardAdminData?.resume) {
-      console.log(DashboardAdminData.resume, "resume");
       window.open(DashboardAdminData.resume, "_blank");
     } else {
       toast.error("Resume not available yet!");
@@ -68,7 +66,6 @@ const ProfileWithFollowAndMail = ({ DashboardAdminData }) => {
     const token = getAccessToken();
 
     if (!token) {
-      console.log("No access token found!");
       toast.error("🚨 Access token not found. Please log in again.", {
         position: "top-right",
         autoClose: 5000,
@@ -92,8 +89,6 @@ const ProfileWithFollowAndMail = ({ DashboardAdminData }) => {
     setIsLoading(true);
 
     try {
-      console.log("Config", config);
-
       if (isFollowActive) {
         await axios.post(
           `${API_URL}api/v1/userDashboard/unfollow/${userId}`,

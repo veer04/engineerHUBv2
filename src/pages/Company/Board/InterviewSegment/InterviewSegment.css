@@ -986,6 +986,67 @@
   font-weight: 500;
 }
 
+.invitee-chips-container {
+  margin-top: 0.75rem;
+}
+
+.chips-header {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #4b5563;
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.invitee-chips-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.invitee-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  background-color: #e6f3f3;
+  color: #138382;
+  border: 1px solid #b2dfdb;
+  padding: 0.35rem 0.65rem;
+  border-radius: 1rem;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.invitee-chip:hover {
+  background-color: #d1eded;
+}
+
+.chip-email {
+  word-break: break-all;
+}
+
+.chip-remove-btn {
+  background: none;
+  border: none;
+  color: #138382;
+  font-size: 1.1rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0 0.15rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.chip-remove-btn:hover {
+  background-color: #138382;
+  color: white;
+}
+
 .schedule-summary {
   padding: 1rem;
   background-color: rgba(19, 131, 130, 0.1);
@@ -2300,6 +2361,32 @@
   max-width: 100%;
   width: 100%;
   display: block;
+}
+
+.invited-chips-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-top: 0.25rem;
+}
+
+.invited-interviewer-chip {
+  display: inline-flex;
+  align-items: center;
+  background-color: #e6f3f3;
+  color: #138382;
+  border: 1px solid #b2dfdb;
+  padding: 0.2rem 0.5rem;
+  border-radius: 0.75rem;
+  font-size: 0.72rem;
+  font-weight: 500;
+  word-break: break-all;
+  line-height: 1.2;
+  transition: all 0.2s ease;
+}
+
+.invited-interviewer-chip:hover {
+  background-color: #d1eded;
 }
 
 .score-visual {

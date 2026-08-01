@@ -623,26 +623,31 @@ export default function CandidateAssessmentAttempt() {
                 <p>Marked for Review</p>
               </div>
             </div>
-          </div>
 
-          <div className="candidate-attempt-sidebar-footer">
-            <button
-              type="button"
-              className="submit-btn"
-              onClick={handleSubmitAssessment}
-              disabled={isSubmittingAssessment}
-            >
-              {isSubmittingAssessment ? "Submitting..." : "Submit Final Assessment"}
-            </button>
-            <div className="candidate-attempt-sidebar-links">
-              <button type="button" onClick={handleHelpDesk}>
-                <FiLifeBuoy />
-                Help Desk
+            <div className="candidate-attempt-sidebar-footer">
+              <button
+                type="button"
+                className="submit-btn"
+                onClick={handleSubmitAssessment}
+                disabled={isSubmittingAssessment}
+              >
+                {isSubmittingAssessment ? "Submitting..." : "Submit Final Assessment"}
               </button>
-              <button type="button" onClick={handleExitAssessment}>
-                <FiLogOut />
-                Exit
-              </button>
+              <div className="candidate-attempt-sidebar-links">
+                <button type="button" onClick={handleHelpDesk}>
+                  <FiLifeBuoy />
+                  Help Desk
+                </button>
+
+                {/*
+                Temporarily disabled
+                <button type="button" onClick={handleExitAssessment}>
+                  <FiLogOut />
+                  Exit
+                </button>
+                */}
+                
+              </div>
             </div>
           </div>
         </aside>

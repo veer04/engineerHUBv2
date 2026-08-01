@@ -163,14 +163,10 @@ export default function IndividualJob() {
       } else {
         setError("Failed to fetch data.");
       }
-
-      const result = response.data;
-      console.log(result, "hiringDetails");
     } catch (error) {
       console.error("Error fetching hiring details:", error);
     }
   };
-  console.log(hiringName, "hiringName");
 
   useEffect(() => {
     getHiringDetails();

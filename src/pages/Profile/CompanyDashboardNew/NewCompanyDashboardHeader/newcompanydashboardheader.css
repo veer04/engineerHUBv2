@@ -59,6 +59,27 @@
   width: 120px;
   height: 120px;
   border-radius: 50%;
+  object-fit: cover;
+}
+
+.main-div-header-company-dashboard
+  .header-content-section
+  .logo-and-social-section
+  .logo-main-image-initials-fallback {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: linear-gradient(145deg, #e8f4f3 0%, #d4ecea 100%);
+  color: #138382;
+  border: 4px solid #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 38px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  user-select: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 .main-div-header-company-dashboard
   .header-content-section

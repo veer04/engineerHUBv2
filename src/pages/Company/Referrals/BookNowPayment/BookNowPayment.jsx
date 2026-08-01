@@ -62,8 +62,6 @@ const BookNowPayment = () => {
     );
   });
 
-  console.log(selectedDates, "selectedDates");
-
   const [selectedTime, setSelectedTime] = useState(() => {
     return (
       location.state?.selectedTime ||
@@ -99,12 +97,10 @@ const BookNowPayment = () => {
     endDateTimeISO,
   ]);
   const price = meetingData.price;
-  console.log(price, "price");
   const gst = 0.2;
   const gstAmount = price * gst;
 
   const totalPrice = price + gstAmount;
-  console.log(Math.ceil(totalPrice), "jhg");
   const billSummaryRef = useRef(null);
   useEffect(() => {
     if (clicked && billSummaryRef.current) {
@@ -124,7 +120,6 @@ const BookNowPayment = () => {
         `${API_URL}api/v1//getStates/IN`,
         config
       );
-      console.log(data, "stateData");
       setStateData(data.data);
     } catch (error) {
       console.log("Error getting the state Data");
@@ -147,8 +142,6 @@ const BookNowPayment = () => {
       if (response.ok) {
         const data = await response.json();
         setAllMeetData(data?.data);
-
-        console.log(data, "getallmeetdata");
       } else {
         throw new Error("error getting the data");
       }
@@ -560,7 +553,6 @@ const handleMeetingSub =() => {
         platform: "meet",
         meetRegistrationId: meetId?.meetRegistrationId,
       };
-      console.log(payload, "payload");
       const ehubReferral = location.search.includes("ref")
         ? location?.search?.split("ref=")[1]?.split("&")[0]
         : null;
@@ -591,8 +583,6 @@ const handleMeetingSub =() => {
         setSnackbarOpen(true);
         setPaymentData(data);
       }
-      console.log(data, "paymentData");
-      console.log(data.data.payment_link, "paymentlink");
       window.location.href = data?.data?.payment_link;
     } catch (error) {
       console.error("error getting the data");

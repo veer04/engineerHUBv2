@@ -206,10 +206,29 @@ export default function CandidateAssessmentEntry() {
     return Number.isNaN(parsed) ? Date.now() : parsed;
   }, [inviteData?.startsAt]);
 
+  const endAtMs = useMemo(() => {
+    if (inviteData?.endsAt) {
+      const parsedEnd = new Date(inviteData.endsAt).getTime();
+      if (!Number.isNaN(parsedEnd)) return parsedEnd;
+    }
+    const durationMs = (Number(inviteData?.durationMinutes) || 0) * 60 * 1000;
+    return startAtMs + durationMs;
+  }, [inviteData?.endsAt, inviteData?.durationMinutes, startAtMs]);
+
+  const isWindowOver = Boolean(
+    inviteData?.isExpired ||
+    inviteData?.inviteStatus === "Expired" ||
+    (endAtMs > 0 && currentTime > endAtMs)
+  );
+
   const millisecondsUntilStart = Math.max(0, startAtMs - currentTime);
   const isLive = millisecondsUntilStart === 0;
   const canStartAssessment = Boolean(
-    isLive && !inviteData?.isSubmitted && !inviteData?.isCancelled && !emailMismatch
+    isLive &&
+    !isWindowOver &&
+    !inviteData?.isSubmitted &&
+    !inviteData?.isCancelled &&
+    !emailMismatch
   );
 
   const statCards = useMemo(
@@ -307,6 +326,13 @@ export default function CandidateAssessmentEntry() {
       setShowLoginModal(true);
     }
   }, [loggedIn]);
+
+  const handleViewSubmission = () => {
+    const submittedPath = startAtOverride
+      ? `/assessment/${inviteData?.inviteToken}/submitted?startAt=${encodeURIComponent(startAtOverride)}`
+      : `/assessment/${inviteData?.inviteToken}/submitted`;
+    navigate(submittedPath);
+  };
 
   const handleStartAssessment = () => {
     if (!termsAccepted) {
@@ -498,13 +524,15 @@ export default function CandidateAssessmentEntry() {
           <div className="candidate-entry-header-actions">
             <span
               className={
-                isLive
+                isWindowOver
+                  ? "candidate-entry-live-badge candidate-entry-live-badge--expired"
+                  : isLive
                   ? "candidate-entry-live-badge candidate-entry-live-badge--live"
                   : "candidate-entry-live-badge candidate-entry-live-badge--scheduled"
               }
             >
               <span className="dot" />
-              {isLive ? "Live Now" : `Starts in ${formatCountdown(millisecondsUntilStart)}`}
+              {isWindowOver ? "Expired" : isLive ? "Live Now" : `Starts in ${formatCountdown(millisecondsUntilStart)}`}
             </span>
             <button type="button" className="candidate-entry-icon-btn" aria-label="View timer help">
               <FiClock />
@@ -694,6 +722,11 @@ export default function CandidateAssessmentEntry() {
                     "This assessment has already been submitted."
                   ) : inviteData?.isCancelled ? (
                     "This assessment invite is no longer active."
+                  ) : isWindowOver ? (
+                    <>
+                      <FiAlertCircle />
+                      Assessment time over, it's expired.
+                    </>
                   ) : emailMismatch ? (
                     "Access denied. Please log in with the correct email account."
                   ) : canStartAssessment ? (
@@ -706,19 +739,34 @@ export default function CandidateAssessmentEntry() {
                   )}
                 </p>
               </div>
-              <button
-                type="button"
-                onClick={handleStartAssessment}
-                disabled={
-                  !termsAccepted ||
-                  !canStartAssessment ||
-                  isInitializing ||
-                  isStartingAssessment
-                }
-              >
-                {isInitializing || isStartingAssessment ? "Initializing..." : "Start Assessment"}
-                <FiPlay />
-              </button>
+              {inviteData?.isSubmitted ? (
+                <button
+                  type="button"
+                  onClick={handleViewSubmission}
+                >
+                  View Submission
+                  <FiArrowRight />
+                </button>
+              ) : (
+                <button
+                  type="button"
+                  onClick={handleStartAssessment}
+                  disabled={
+                    !termsAccepted ||
+                    !canStartAssessment ||
+                    isWindowOver ||
+                    isInitializing ||
+                    isStartingAssessment
+                  }
+                >
+                  {isInitializing || isStartingAssessment
+                    ? "Initializing..."
+                    : isWindowOver
+                    ? "Assessment Expired"
+                    : "Start Assessment"}
+                  <FiPlay />
+                </button>
+              )}
             </footer>
           </article>
         </div>
@@ -727,7 +775,7 @@ export default function CandidateAssessmentEntry() {
       <footer className="candidate-entry-bottom-footer">
         <div className="candidate-entry-footer-inner">
           <span>engineerHUB Suite</span>
-          <p>© 2024 engineerHUB Technical Assessment Suite. Precision-engineered for excellence.</p>
+          <p>© 2026 engineerHUB Technical Assessment Suite. Precision-engineered for excellence.</p>
           <div className="candidate-entry-footer-links">
             <Link to="/terms-and-conditions">Privacy Policy</Link>
             <button type="button" onClick={handleSupportClick}>

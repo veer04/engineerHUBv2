@@ -1,7 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./profileaddsectionleft.css";
 import { API_URL, Bucket_URL } from "../../../../services/APIUtils";
-import { getUserId } from "../../../../features/User/UserDetails";
+import { getUserId, getUserFullName } from "../../../../features/User/UserDetails";
+import { getInitials, isCustomProfileImage } from "../../../../features/User/avatarUtils";
 import axios from "axios";
 import { Bounce, toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -17,6 +18,12 @@ const ProfileAddSectionLeft = ({ profileData, setProfileData }) => {
   const [profilePhoto, setProfilePhoto] = useState(profileData?.image || null);
   const [newImage, setNewImage] = useState(null);
   const [isImageLoading, setIsImageLoading] = useState(false);
+  const [imageBroken, setImageBroken] = useState(false);
+
+  const fullName = profileData
+    ? `${profileData.firstName || ''} ${profileData.lastName || ''}`.trim()
+    : getUserFullName();
+  const profileInitials = getInitials(fullName);
 
   const [userRole, setUserRole] = useState("");
 
@@ -26,8 +33,6 @@ const ProfileAddSectionLeft = ({ profileData, setProfileData }) => {
       setUserRole(role);
     }
   }, []);
-
-  console.log(userRole, "userRole");
 
   // console.log(profileData.image);
 
@@ -96,26 +101,23 @@ const ProfileAddSectionLeft = ({ profileData, setProfileData }) => {
           <div className="loader-main-div">
             <span className="loader-new"></span>
           </div>
-        ) : (
+        ) : isCustomProfileImage(profileData?.image || profilePhoto) && !imageBroken ? (
           <img
-            src={
-              (profileData?.image &&
-                profileData.image !== "undefined" &&
-                profileData.image !== "null" &&
-                profileData.image.trim() !== "" &&
-                profileData.image) ||
-              profilePhoto ||
-              DEFAULT_PROFILE_IMAGE
-            }
+            src={profileData?.image || profilePhoto}
             className="g2-img-left"
             alt="Profile"
             width={100}
             height={100}
-            onError={(e) => {
-              e.currentTarget.onerror = null;
-              e.currentTarget.src = DEFAULT_PROFILE_IMAGE;
-            }}
+            onError={() => setImageBroken(true)}
           />
+        ) : (
+          <div
+            className="g2-img-left-initials-fallback"
+            role="img"
+            aria-label="Profile Initials"
+          >
+            {profileInitials}
+          </div>
         )}
         <div
           onClick={handleUploadClick}

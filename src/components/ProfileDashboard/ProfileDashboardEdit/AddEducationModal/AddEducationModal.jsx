@@ -181,7 +181,6 @@ const AddEducationModal = ({ isOpen, onClose, data, setProfileData }) => {
 
     try {
       const dataRes = await addUserEducation(formData);
-      console.log(dataRes, "Datares");
 
       if (dataRes && dataRes._id) {
         toast(
@@ -259,7 +258,6 @@ const AddEducationModal = ({ isOpen, onClose, data, setProfileData }) => {
       setResponse
     );
     if (result.status === 200) {
-      console.log(result.data.data, "res");
       toast("👌 Education Updated Successfully!", {
         position: "top-right",
         autoClose: 5000,

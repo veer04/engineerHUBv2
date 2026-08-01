@@ -99,7 +99,6 @@ const AddAchievementModal = ({ isOpen, onClose, data, setProfileData }) => {
 
     try {
       const dataRes = await addUserAchievement(formData);
-      console.log(dataRes, "datares");
 
       if (dataRes && dataRes._id) {
         toast(
@@ -203,8 +202,6 @@ const AddAchievementModal = ({ isOpen, onClose, data, setProfileData }) => {
           },
         }
       );
-
-      console.log(response, "responseDelete");
 
       if (response.ok) {
         toast.success("Achievement deleted successfully!");

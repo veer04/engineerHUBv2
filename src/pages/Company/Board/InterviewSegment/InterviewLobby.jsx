@@ -71,7 +71,8 @@ export default function InterviewLobby() {
   const [selectedDate, setSelectedDate] = useState("");
   const [startTime, setStartTime] = useState("");
   const [endTime, setEndTime] = useState("");
-  const [inviteeEmail, setInviteeEmail] = useState("");
+  const [inviteeEmails, setInviteeEmails] = useState([]);
+  const [inviteeInput, setInviteeInput] = useState("");
   const [interviewSubject, setInterviewSubject] = useState("");
   const [dateScrollIndex, setDateScrollIndex] = useState(0);
 
@@ -471,7 +472,8 @@ export default function InterviewLobby() {
     setSelectedDate("");
     setStartTime("");
     setEndTime("");
-    setInviteeEmail("");
+    setInviteeEmails([]);
+    setInviteeInput("");
     setInterviewSubject("");
     
     // Reset AI form states
@@ -501,6 +503,44 @@ export default function InterviewLobby() {
 
     setInterviewType("Manual");
     setShowWorkspaceModal(true);
+  };
+
+  const handleAddInvitee = (emailToAdd) => {
+    const text = (emailToAdd !== undefined ? emailToAdd : inviteeInput).trim();
+    if (!text) return;
+
+    const emails = text.split(/[\s,]+/).map((e) => e.trim()).filter(Boolean);
+    const newEmails = [...inviteeEmails];
+    let addedAny = false;
+    let invalidEmailFound = false;
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    for (const email of emails) {
+      if (emailRegex.test(email)) {
+        if (!newEmails.includes(email)) {
+          newEmails.push(email);
+          addedAny = true;
+        }
+      } else {
+        invalidEmailFound = true;
+      }
+    }
+
+    if (addedAny) {
+      setInviteeEmails(newEmails);
+      setInviteeInput("");
+    }
+
+    if (invalidEmailFound && !addedAny) {
+      setSnackbarMessage("Please enter valid email address(es)");
+      setSnackbarSeverity("warning");
+      setSnackbarDuration(3000);
+      setSnackbarOpen(true);
+    }
+  };
+
+  const handleRemoveInvitee = (emailToRemove) => {
+    setInviteeEmails(inviteeEmails.filter((email) => email !== emailToRemove));
   };
 
   const handleDateScroll = (direction) => {
@@ -642,24 +682,36 @@ export default function InterviewLobby() {
         return;
       }
 
+      // Gather all interviewer emails including any pending valid email in input box
+      let finalInviteeEmails = [...inviteeEmails];
+      const pendingInput = inviteeInput.trim();
+      if (pendingInput) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const emails = pendingInput.split(/[\s,]+/).map((e) => e.trim()).filter(Boolean);
+        for (const email of emails) {
+          if (emailRegex.test(email) && !finalInviteeEmails.includes(email)) {
+            finalInviteeEmails.push(email);
+          }
+        }
+      }
+
       // Real API call to schedule interview
       const response = await axios.post(
         `${API_URL}api/v1/scheduled-interview`,
         {
           hiringId: id,
           candidateId: selectedCandidate.candidateId,
+          candidateResumeUrl: selectedCandidate?.resumeUrl || "",
           interviewRound: interviewRound,
           scheduledDate: selectedDate,
           startTime: startTime,
           endTime: endTime,
           duration: duration,
-          interviewers: inviteeEmail ? [
-            {
-              name: "Interviewer",
-              email: inviteeEmail,
-              role: "Interviewer"
-            }
-          ] : [],
+          interviewers: finalInviteeEmails.map((email) => ({
+            name: "Interviewer",
+            email: email,
+            role: "Interviewer",
+          })),
           meetingNotes: `Interview for ${selectedCandidate.candidateName} - Round ${interviewRound}${interviewSubject ? ` (${interviewSubject})` : ''}`,
           interviewSubject: interviewSubject.trim() || `Round ${interviewRound || 1}`,
           googleAuthToken: googleAuthToken
@@ -892,6 +944,165 @@ export default function InterviewLobby() {
                   <div className="workspace-card-details">
                     <h4>Manual Interview</h4>
                     <p>Schedule a traditional interview with Google Meet and invite participants.</p>
+            <div className="modal-body">
+              <div className="candidate-info">
+                <h4>
+                  Candidate: {selectedCandidate?.candidateName || 'Unknown'}
+                </h4>
+                <p>Email: {selectedCandidate?.candidateEmail || 'Not provided'}</p>
+                <p>Round: {interviewRound || 1}</p>
+              </div>
+
+              <div className="interview-subject-section">
+                <label className="subject-label">
+                  Interview Subject <span className="required">*</span>
+                </label>
+                <input
+                  type="text"
+                  className="subject-input"
+                  placeholder="e.g., Technical Round, HR Round, System Design, Coding Interview, Final Round"
+                  value={interviewSubject}
+                  onChange={(e) => setInterviewSubject(e.target.value)}
+                  required
+                />
+                <p className="subject-hint">This will be used in emails and calendar invites sent to participants</p>
+              </div>
+
+              <div className="date-selection">
+                <h5>Select Date</h5>
+                <div className="date-cards">
+                  <button
+                    className="date-nav prev"
+                    onClick={() => handleDateScroll("prev")}
+                    disabled={dateScrollIndex === 0}
+                  >
+                    ‹
+                  </button>
+                  {availableDates
+                    .slice(dateScrollIndex, dateScrollIndex + 4)
+                    .map((date, index) => {
+                      const formattedDate = formatDate(date);
+                      const isSelected =
+                        selectedDate === date.toISOString().split("T")[0];
+                      return (
+                        <div
+                          key={index}
+                          className={`date-card ${
+                            isSelected ? "selected" : ""
+                          }`}
+                          onClick={() => handleDateSelect(date)}
+                        >
+                          <span>{formattedDate.day}</span>
+                          <span>
+                            {formattedDate.date} {formattedDate.month}
+                          </span>
+                        </div>
+                      );
+                    })}
+                  <button
+                    className="date-nav next"
+                    onClick={() => handleDateScroll("next")}
+                    disabled={dateScrollIndex >= availableDates.length - 4}
+                  >
+                    ›
+                  </button>
+                </div>
+              </div>
+
+              <div className="time-selection">
+                <h5>Select time of the day</h5>
+                <div className="time-inputs">
+                  <FormInputTime
+                    id="startTime"
+                    name="startTime"
+                    label="Start Time"
+                    value={startTime}
+                    setValue={(value) => handleTimeChange("startTime", value)}
+                    required
+                  />
+                  <FormInputTime
+                    id="endTime"
+                    name="endTime"
+                    label="End Time"
+                    value={endTime}
+                    setValue={(value) => handleTimeChange("endTime", value)}
+                    required
+                  />
+                </div>
+              </div>
+
+              <div className="invitee-section">
+                <label className="invitee-label">
+                  Enter the mail to who you want to invite as an interviewer
+                  along with you
+                </label>
+                <div className="invitee-input-container">
+                  <input
+                    type="text"
+                    className="subject-input invitee-input"
+                    placeholder="Enter Mail Here (Press Enter or Tab to add)"
+                    value={inviteeInput}
+                    onChange={(e) => setInviteeInput(e.target.value)}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" || e.key === "Tab" || e.key === ",") {
+                        if (inviteeInput.trim()) {
+                          e.preventDefault();
+                          handleAddInvitee();
+                        }
+                      }
+                    }}
+                    onBlur={() => {
+                      if (inviteeInput.trim()) {
+                        handleAddInvitee();
+                      }
+                    }}
+                  />
+                </div>
+                {inviteeEmails.length > 0 && (
+                  <div className="invitee-chips-container">
+                    <div className="chips-header">
+                      Invited Interviewers ({inviteeEmails.length})
+                    </div>
+                    <div className="invitee-chips-list">
+                      {inviteeEmails.map((email, idx) => (
+                        <span key={idx} className="invitee-chip">
+                          <span className="chip-email">{email}</span>
+                          <button
+                            type="button"
+                            className="chip-remove-btn"
+                            onClick={() => handleRemoveInvitee(email)}
+                            title="Remove interviewer"
+                          >
+                            ×
+                          </button>
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              <div className="schedule-summary">
+                <div className="summary-item">
+                  <FiCalendar />
+                  <div>
+                    <span>
+                      {selectedDate
+                        ? `${formatDate(new Date(selectedDate)).month} ${
+                            formatDate(new Date(selectedDate)).date
+                          }`
+                        : "Select a date"}
+                    </span>
+                    &nbsp; :&nbsp;
+                    <span>
+                      {startTime && endTime
+                        ? `${startTime} - ${endTime}`
+                        : startTime 
+                        ? `${startTime} - Select end time`
+                        : endTime
+                        ? `Select start time - ${endTime}`
+                        : "Select start and end times"}
+                    </span>
                   </div>
                 </div>
 

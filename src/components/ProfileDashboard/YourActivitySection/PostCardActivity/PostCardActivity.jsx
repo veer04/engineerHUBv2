@@ -2,7 +2,6 @@ import React from "react";
 import "./postcardsaif.css";
 
 const PostCardActivity = ({ data }) => {
-  console.log(data, "postdata");
   const uniquePosts = data?.filter(
     (post, index, self) => index === self.findIndex((p) => p._id === post._id)
   );

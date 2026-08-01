@@ -49,8 +49,6 @@ const YourActivitySection = ({
     setActionButton(buttonName);
   };
 
-  console.log(postData, "postdata");
-
   // Limit job & internship data to 100 items
   const limitedJobData = jobData?.slice(0, maxItems) || [];
   const limitedInternshipData = internshipData?.slice(0, maxItems) || [];
