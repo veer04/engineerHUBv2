@@ -20,10 +20,15 @@ import {
   FiSmartphone,
   FiMaximize2,
   FiWifi,
+  FiShield,
 } from "react-icons/fi";
 import { SiOpenai } from "react-icons/si";
 import { useQuery } from "@tanstack/react-query";
-import { fetchAIInterviewReportApi, fetchAIInterviewConversationApi } from "../../../../services/aiInterviewApi";
+import {
+  fetchAIInterviewReportApi,
+  fetchAIInterviewConversationApi,
+  fetchAIInterviewProctoringApi,
+} from "../../../../services/aiInterviewApi";
 import useGlobalSnackbar from "../../../../hooks/useGlobalSnackbar";
 import "./AIInterviewFeedback.css";
 
@@ -32,7 +37,7 @@ export default function AIInterviewFeedback() {
   const { hiringId, candidateId } = useParams();
   const [searchParams] = useSearchParams();
   const inviteToken = searchParams.get("inviteToken") || candidateId;
-  const returnPath = searchParams.get("returnPath") || (hiringId ? `/company/jobs/board/${hiringId}/interview/report` : -1);
+  const returnPath = searchParams.get("returnPath") || (hiringId ? `/career/jobs/board/${hiringId}/interview/report` : -1);
 
   const { setSnackbarOpen, setSnackbarMessage, setSnackbarSeverity } = useGlobalSnackbar();
 
@@ -65,8 +70,22 @@ export default function AIInterviewFeedback() {
     },
   });
 
+  const proctoringQuery = useQuery({
+    queryKey: ["ai-interview-proctoring", inviteToken],
+    enabled: Boolean(inviteToken),
+    queryFn: async () => {
+      try {
+        const res = await fetchAIInterviewProctoringApi(inviteToken);
+        return res?.data;
+      } catch (err) {
+        return null;
+      }
+    },
+  });
+
   const liveReport = reportQuery.data;
   const liveConv = conversationQuery.data;
+  const proctorData = proctoringQuery.data;
 
   const toggleTimeline = (index) => {
     if (openTimelineItems.includes(index)) {
@@ -94,23 +113,65 @@ export default function AIInterviewFeedback() {
     setSnackbarOpen(true);
   };
 
+  const handleOpenProctoringReport = () => {
+    const targetHiringId = hiringId || liveReport?.hiringId || liveConv?.session?.hiringId || "hiring";
+    const targetInviteId =
+      liveReport?.scheduledInterviewId?._id ||
+      liveReport?.scheduledInterviewId ||
+      liveConv?.session?.scheduledInterviewId ||
+      inviteToken;
+    const currentPath = window.location.pathname + window.location.search;
+    navigate(`/ai-interview-proctor/${targetHiringId}/${targetInviteId}/report?returnPath=${encodeURIComponent(currentPath)}`);
+  };
+
+  // Real backend integrity metrics calculation
+  const summary = proctorData?.session?.proctoringSummary || liveConv?.session?.proctoringSummary || liveReport?.proctoringSummary || {};
+  const events = proctorData?.events || [];
+
+  const tabSwitches = summary.tabSwitches ?? events.filter((e) => e.eventType === "TAB_SWITCH" || e.eventType === "WINDOW_BLUR").length;
+  const multiFaceCount = events.filter((e) => e.eventType === "MULTIPLE_FACES_DETECTED").length;
+  const noFaceCount = events.filter((e) => e.eventType === "NO_FACE_DETECTED").length;
+  const phoneDetCount = events.filter((e) => e.eventType === "PHONE_DETECTED").length;
+
+  const integrityScore = typeof summary.integrityScore === "number"
+    ? summary.integrityScore
+    : (typeof liveReport?.proctoringScore === "number" ? liveReport.proctoringScore : 100);
+
+  const integrityStatus = integrityScore >= 90 ? "EXCELLENT" : integrityScore >= 75 ? "GOOD" : "WARNING";
+
   // Dynamic feedback data combining backend API with UI fallbacks
   const candidateData = {
     name: liveReport?.candidateName || liveConv?.session?.candidateName || "Technical Candidate",
-    role: liveReport?.roleTitle || liveConv?.session?.roleTitle || "Fullstack Developer",
-    date: liveReport?.createdAt ? new Date(liveReport.createdAt).toLocaleDateString() : "Today",
-    duration: "45 mins",
-    language: "English",
-    aiScore: liveReport?.overallScore ? Math.round(liveReport.overallScore * 10) : 82,
+    role: liveConv?.session?.aiConfig?.roleTitle || liveReport?.roleTitle || "Software Engineer",
+    date: liveReport?.createdAt
+      ? new Date(liveReport.createdAt).toLocaleDateString()
+      : liveConv?.session?.createdAt
+      ? new Date(liveConv.session.createdAt).toLocaleDateString()
+      : "Today",
+    duration: liveConv?.session?.aiConfig?.durationMinutes
+      ? `${liveConv.session.aiConfig.durationMinutes} mins`
+      : "30 mins",
+    language: liveConv?.session?.aiConfig?.language || "English",
+    aiScore: typeof liveReport?.overallScore === "number"
+      ? (liveReport.overallScore <= 10 ? Math.round(liveReport.overallScore * 10) : Math.round(liveReport.overallScore))
+      : 82,
     recommendation: liveReport?.recommendation || "Hire",
-    difficulty: "Medium",
+    difficulty: liveConv?.session?.aiConfig?.difficulty || "Medium",
     skills: liveReport?.categoryScores
-      ? Object.entries(liveReport.categoryScores).map(([key, val]) => ({
-          name: key.replace(/([A-Z])/g, " $1").trim(),
-          score: Math.round((val || 8) * 10),
-          max: 100,
-          comment: `Candidate scored ${(val || 8).toFixed(1)}/10 in ${key}.`,
-        }))
+      ? Object.entries(liveReport.categoryScores).map(([key, val]) => {
+          const numVal = typeof val === "number" ? val : 0;
+          const score100 = numVal <= 10 ? Math.round(numVal * 10) : Math.round(numVal);
+          const formattedName = key
+            .replace(/([A-Z])/g, " $1")
+            .replace(/^./, (str) => str.toUpperCase())
+            .trim();
+          return {
+            name: formattedName,
+            score: score100,
+            max: 100,
+            comment: `Candidate scored ${score100}/100 in ${formattedName.toLowerCase()}.`,
+          };
+        })
       : [
           {
             name: "React",
@@ -137,25 +198,35 @@ export default function AIInterviewFeedback() {
             comment: "Systematic approach to debugging and efficient algorithm selection.",
           },
         ],
-    strengths: liveReport?.strengths || [
-      "Modular component thinking",
-      "Clean code principles",
-      "High technical articulation",
-    ],
-    weaknesses: liveReport?.weaknesses || ["Brief on NoSQL schemas", "Communication pace"],
+    strengths:
+      liveReport?.strengths && liveReport.strengths.length > 0
+        ? liveReport.strengths
+        : [
+            "Modular component thinking",
+            "Clean code principles",
+            "High technical articulation",
+          ],
+    weaknesses:
+      liveReport?.weaknesses && liveReport.weaknesses.length > 0
+        ? liveReport.weaknesses
+        : ["Brief on NoSQL schemas", "Communication pace"],
     recommendationSummary:
+      liveReport?.summaryNotes ||
       liveReport?.recommendationSummary ||
       "Suitable for the deep technical round with a focus on full-stack architecture.",
     timeline: liveConv?.qaPairs?.length
       ? liveConv.qaPairs.map((pair, idx) => ({
           id: idx + 1,
-          title: `Technical Question ${idx + 1}`,
+          title: pair.topic ? `Topic: ${pair.topic}` : `Technical Question ${idx + 1}`,
           category: "Technical Proficiency",
           score: `${pair.confidence ? (pair.confidence * 10).toFixed(1) : 8.5}/10`,
-          scoreTag: "Evaluated",
+          scoreTag: pair.evaluationStatus || "Evaluated",
           question: pair.question,
           answer: pair.answer,
-          aiObservation: "Candidate response analyzed and scored by Vertex AI Gemini engine.",
+          aiObservation:
+            pair.aiObservation ||
+            pair.remark ||
+            "Candidate response analyzed and scored by Vertex AI Gemini engine.",
         }))
       : [
           {
@@ -186,12 +257,12 @@ export default function AIInterviewFeedback() {
           },
         ],
     integrity: {
-      score: 96,
-      status: "EXCELLENT",
-      faceVisible: "98%",
-      multiFace: "None",
-      phoneDet: "None",
-      tabSwitch: "0",
+      score: integrityScore,
+      status: integrityStatus,
+      faceVisible: noFaceCount > 0 ? `${Math.max(0, 100 - noFaceCount * 10)}%` : "100%",
+      multiFace: multiFaceCount > 0 ? `${multiFaceCount} Detected` : "None",
+      phoneDet: phoneDetCount > 0 ? `${phoneDetCount} Detected` : "None",
+      tabSwitch: String(tabSwitches),
       network: "Stable",
     },
   };
@@ -256,7 +327,12 @@ export default function AIInterviewFeedback() {
 
               <div className="candidate-scores-right">
                 <div className="score-circle-container">
-                  <div className="circular-score-badge">
+                  <div
+                    className="circular-score-badge"
+                    style={{
+                      background: `conic-gradient(#138382 0% ${candidateData.aiScore}%, #dce9ff ${candidateData.aiScore}% 100%)`,
+                    }}
+                  >
                     <div className="circular-score-inner">{candidateData.aiScore}</div>
                   </div>
                   <span className="score-label-caps">AI SCORE</span>
@@ -441,7 +517,8 @@ export default function AIInterviewFeedback() {
               </div>
             </section>
 
-            {/* Footer Actions Bar */}
+            {/* Footer Actions Bar (Commented out per request) */}
+            {/* 
             <div className="ai-feedback-footer-actions">
               <div className="footer-btn-group">
                 <button
@@ -477,6 +554,7 @@ export default function AIInterviewFeedback() {
                 </button>
               </div>
             </div>
+            */}
 
           </div>
 
@@ -514,19 +592,36 @@ export default function AIInterviewFeedback() {
                 </div>
               </div>
 
-              {/* Compare Applicants Card */}
+              {/* AI Proctoring Report Button Card */}
               <div className="feedback-card">
-                <h4 className="sidebar-title-caps">COMPARE CANDIDATES</h4>
-                <p className="compare-desc">
-                  {candidateData.name} is in the top 5% of all applicants for this role.
+                <h4 className="sidebar-title-caps">PROCTORING ANALYSIS</h4>
+                <p className="compare-desc" style={{ marginBottom: "1rem" }}>
+                  View live behavioral monitoring, tab switch logs, and candidate integrity metrics.
                 </p>
-                <div className="compare-progress-track">
-                  <div className="compare-progress-fill" style={{ width: "95%" }} />
-                </div>
-                <div className="compare-labels">
-                  <span>Average</span>
-                  <span>Top 5%</span>
-                </div>
+                <button
+                  type="button"
+                  className="btn-sidebar-proctoring"
+                  onClick={handleOpenProctoringReport}
+                  style={{
+                    width: "100%",
+                    backgroundColor: "#7c3aed",
+                    color: "#ffffff",
+                    border: "none",
+                    padding: "0.75rem 1rem",
+                    borderRadius: "0.5rem",
+                    fontWeight: "700",
+                    fontSize: "0.875rem",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    gap: "0.5rem",
+                    cursor: "pointer",
+                    boxShadow: "0 2px 4px rgba(124, 58, 237, 0.2)",
+                    transition: "all 0.2s ease",
+                  }}
+                >
+                  <FiShield /> AI Proctoring Report
+                </button>
               </div>
 
             </div>

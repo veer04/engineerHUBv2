@@ -9,6 +9,7 @@ import {
   FiMic,
   FiMinimize,
   FiPhoneOff,
+  FiSend,
   FiSliders,
   FiTrendingUp,
   FiVolume2,
@@ -17,15 +18,19 @@ import {
 import { io } from "socket.io-client";
 import { API_URL } from "../../../services/APIUtils";
 import { fetchAIInterviewSessionApi, fetchAIInterviewTranscriptApi, endAIInterviewSessionApi } from "../../../services/aiInterviewApi";
+import { sanitizeTranscriptText } from "./utils/turnManager";
 import useGlobalSnackbar from "../../../hooks/useGlobalSnackbar";
 import ProctoringFullscreenPrompt from "../Assessment/ProctoringFullscreenPrompt";
+import ClientVAD from "./utils/clientVAD.js";
+import TurnManager from "./utils/turnManager.js";
+import { TURN_STATES } from "./config/turnManagerConfig.js";
 import "./CandidateAIInterviewRoom.css";
 
 const DUMMY_TRANSCRIPT = [
   {
     id: "m1",
     sender: "ai",
-    senderLabel: "AI Interviewer",
+    senderLabel: "Sanya",
     time: "10:40 AM",
     text: "Hello Alex! Welcome to Round 2 of your Frontend Engineering Technical Assessment. Let's begin by discussing React's core rendering mechanism. Could you explain how the Virtual DOM works and how React updates the real DOM?",
   },
@@ -39,7 +44,7 @@ const DUMMY_TRANSCRIPT = [
   {
     id: "m3",
     sender: "ai",
-    senderLabel: "AI Interviewer",
+    senderLabel: "Sanya",
     time: "10:42 AM",
     text: "That's a solid explanation of the Virtual DOM. Moving on, could you explain the rules of Hooks and why we can't call them inside loops or conditional statements?",
   },
@@ -53,7 +58,7 @@ const DUMMY_TRANSCRIPT = [
   {
     id: "m5",
     sender: "ai",
-    senderLabel: "AI Interviewer",
+    senderLabel: "Sanya",
     time: "10:44 AM",
     text: "Correct. Now, focusing on performance, how does useMemo differ from useCallback in practical scenarios?",
   },
@@ -67,7 +72,7 @@ const DUMMY_TRANSCRIPT = [
   {
     id: "m7",
     sender: "ai",
-    senderLabel: "AI Interviewer",
+    senderLabel: "Sanya",
     time: "10:46 AM",
     text: "Great distinction. For large-scale web apps, how would you optimize Core Web Vitals, specifically LCP (Largest Contentful Paint) and CLS (Cumulative Layout Shift) in React?",
   },
@@ -94,7 +99,10 @@ export default function CandidateAIInterviewRoom() {
   const mediaStreamRef = useRef(null);
   const recognitionRef = useRef(null);
   const isAISpeakingRef = useRef(false);
+  const isRecognizingRef = useRef(false);
   const lastAIQuestionTextRef = useRef("");
+  const vadRef = useRef(null);
+  const turnManagerRef = useRef(null);
 
   // Timer state
   const [secondsRemaining, setSecondsRemaining] = useState(2700); // 45 mins default
@@ -105,9 +113,64 @@ export default function CandidateAIInterviewRoom() {
 
   const transcriptScrollRef = useRef(null);
 
-  // 1. Initialize Candidate Webcam & Microphone Stream
+  // 1. Initialize Candidate Webcam, Microphone Stream, VAD & Turn Manager
   useEffect(() => {
     let activeStream = null;
+
+    // Instantiate TurnManager
+    const turnManager = new TurnManager({
+      onStateChange: (newState) => {
+        if (newState === TURN_STATES.CANDIDATE_SPEAKING) {
+          setCandidateStatus("Speaking...");
+          setActiveSpeaker("candidate");
+        } else if (newState === TURN_STATES.POSSIBLE_END_OF_TURN) {
+          setCandidateStatus("Thinking...");
+        } else if (newState === TURN_STATES.LISTENING) {
+          setCandidateStatus("Listening...");
+        }
+      },
+      onSpeechStart: () => {
+        if (isAISpeakingRef.current) {
+          if ("speechSynthesis" in window) {
+            window.speechSynthesis.cancel();
+          }
+          isAISpeakingRef.current = false;
+          setActiveSpeaker("candidate");
+          setAiStatus("Listening...");
+        }
+        if (socketRef.current) {
+          socketRef.current.emit("ai_interview:speech_started", { inviteToken });
+          socketRef.current.emit("ai_interview:candidate_speaking", { inviteToken, speaking: true });
+        }
+      },
+      onSpeechStop: ({ silenceDuration }) => {
+        if (socketRef.current) {
+          socketRef.current.emit("ai_interview:speech_stopped", { inviteToken, silenceDuration });
+          socketRef.current.emit("ai_interview:candidate_speaking", { inviteToken, speaking: false });
+        }
+      },
+      onTurnComplete: ({ transcript }) => {
+        if (transcript && transcript.trim() && !isAISpeakingRef.current) {
+          submitCandidateSpeech(transcript);
+        }
+      },
+      onInactivity: () => {
+        setCandidateStatus("Listening...");
+      },
+    });
+    turnManagerRef.current = turnManager;
+
+    // Instantiate ClientVAD
+    const vad = new ClientVAD({
+      onSpeechStart: (data) => {
+        turnManagerRef.current?.handleSpeechStart(data);
+      },
+      onSpeechStop: (data) => {
+        turnManagerRef.current?.handleSpeechStop(data);
+      },
+    });
+    vadRef.current = vad;
+
     const startMedia = async () => {
       try {
         const stream = await navigator.mediaDevices.getUserMedia({
@@ -119,6 +182,9 @@ export default function CandidateAIInterviewRoom() {
         if (candidateVideoRef.current) {
           candidateVideoRef.current.srcObject = stream;
         }
+
+        // Start client-side Voice Activity Detection
+        vad.start(stream);
       } catch (err) {
         console.warn("Camera/Mic access error or denied:", err);
       }
@@ -130,6 +196,8 @@ export default function CandidateAIInterviewRoom() {
       if (activeStream) {
         activeStream.getTracks().forEach((t) => t.stop());
       }
+      vad.destroy();
+      turnManager.destroy();
     };
   }, []);
 
@@ -151,6 +219,63 @@ export default function CandidateAIInterviewRoom() {
     }
   }, [isMicOn]);
 
+  const [liveCandidateText, setLiveCandidateText] = useState("");
+  const [textInputValue, setTextInputValue] = useState("");
+
+  // Submit candidate answer (via Turn Manager turn completion or manual Send button)
+  const submitCandidateSpeech = (textToSend) => {
+    const rawText = (textToSend || textInputValue || liveCandidateText || "").trim();
+    const text = sanitizeTranscriptText(rawText);
+    if (!text || isAISpeakingRef.current) return;
+
+    // Suppress Echo if text repeats last AI question
+    const lastAIQ = (lastAIQuestionTextRef.current || "").toLowerCase();
+    const candT = text.toLowerCase();
+    const isEcho =
+      (lastAIQ.length > 10 && candT.includes(lastAIQ.slice(0, 25))) ||
+      (candT.length > 10 && lastAIQ.includes(candT.slice(0, 25)));
+
+    if (isEcho) {
+      console.warn("Ignored duplicate AI question echo in candidate transcript:", text);
+      setLiveCandidateText("");
+      setTextInputValue("");
+      turnManagerRef.current?.resetTurnBuffer();
+      return;
+    }
+
+    console.log("[TurnManager] Emitting candidate turn to socket:", text);
+
+    // Append candidate turn to UI transcript chat list (with deduplication)
+    setTranscripts((prev) => {
+      const trimmed = text.trim();
+      const exists = prev.some((t) => t.sender === "candidate" && t.text.trim() === trimmed);
+      if (exists) return prev;
+      return [
+        ...prev,
+        {
+          id: `turn_candidate_${Date.now()}`,
+          sender: "candidate",
+          senderLabel: sessionInfo?.candidateName || "Candidate",
+          time: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
+          text: text,
+        },
+      ];
+    });
+
+    setLiveCandidateText("");
+    setTextInputValue("");
+    setCandidateStatus("Listening...");
+    setActiveSpeaker("none");
+    turnManagerRef.current?.resetTurnBuffer();
+
+    if (socketRef.current) {
+      socketRef.current.emit("ai_interview:audio_chunk", {
+        inviteToken,
+        transcriptText: text,
+      });
+    }
+  };
+
   // 4. Initialize Web Speech Recognition for Candidate Spoken Answers
   useEffect(() => {
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -165,70 +290,72 @@ export default function CandidateAIInterviewRoom() {
     recognition.lang = "en-US";
     recognitionRef.current = recognition;
 
-    let finalTranscriptText = "";
-
     recognition.onstart = () => {
       setCandidateStatus("Listening...");
     };
 
     recognition.onspeechstart = () => {
       if (isAISpeakingRef.current) return;
-      setActiveSpeaker("candidate");
-      setCandidateStatus("Speaking...");
+      turnManagerRef.current?.handleSpeechStart();
     };
 
     recognition.onresult = (event) => {
       if (isAISpeakingRef.current) return;
-      let interim = "";
-      for (let i = event.resultIndex; i < event.results.length; ++i) {
+      let interimText = "";
+      let finalText = "";
+
+      for (let i = 0; i < event.results.length; ++i) {
+        const text = event.results[i][0].transcript;
         if (event.results[i].isFinal) {
-          finalTranscriptText += " " + event.results[i][0].transcript;
+          finalText += (finalText ? " " : "") + text;
         } else {
-          interim += event.results[i][0].transcript;
+          interimText += (interimText ? " " : "") + text;
         }
       }
-    };
 
-    recognition.onspeechend = () => {
-      if (isAISpeakingRef.current) return;
-      setActiveSpeaker("none");
-      setCandidateStatus("Listening...");
-      if (finalTranscriptText.trim() && socketRef.current) {
-        const textToSend = finalTranscriptText.trim();
-        finalTranscriptText = "";
+      turnManagerRef.current?.handleSTTResult({ interimText, finalText });
 
-        // Echo Suppression Check: Compare against last AI Question
-        const lastAIQ = (lastAIQuestionTextRef.current || "").toLowerCase();
-        const candT = textToSend.toLowerCase();
-        
-        const isEcho =
-          (lastAIQ.length > 10 && candT.includes(lastAIQ.slice(0, 25))) ||
-          (candT.length > 10 && lastAIQ.includes(candT.slice(0, 25)));
-
-        if (!isEcho) {
-          socketRef.current.emit("ai_interview:audio_chunk", {
-            inviteToken,
-            transcriptText: textToSend,
-          });
-        } else {
-          console.warn("🔇 Ignored duplicate AI question echo in candidate transcript:", textToSend);
-        }
+      const fullTurnText = turnManagerRef.current ? turnManagerRef.current.getFullTranscriptText() : (finalText || interimText);
+      if (fullTurnText) {
+        setLiveCandidateText(fullTurnText);
+        setTextInputValue(fullTurnText);
       }
     };
 
     recognition.onerror = (e) => {
-      if (e.error !== "no-speech") {
+      isRecognizingRef.current = false;
+      if (e.error !== "no-speech" && e.error !== "aborted") {
         console.warn("Speech recognition error:", e.error);
       }
+      setTimeout(() => {
+        if (isMicOn && !isAISpeakingRef.current && !isRecognizingRef.current && recognitionRef.current) {
+          try {
+            recognitionRef.current.start();
+          } catch (_e) {}
+        }
+      }, 300);
     };
 
-    if (isMicOn) {
+    recognition.onend = () => {
+      isRecognizingRef.current = false;
+      turnManagerRef.current?.savePriorSessionText();
+      setTimeout(() => {
+        if (isMicOn && !isAISpeakingRef.current && !isRecognizingRef.current && recognitionRef.current) {
+          try {
+            recognitionRef.current.start();
+          } catch (_e) {}
+        }
+      }, 250);
+    };
+
+    if (isMicOn && !isAISpeakingRef.current) {
       try {
         recognition.start();
       } catch (_e) {}
     }
 
     return () => {
+      isRecognizingRef.current = false;
       try {
         recognition.stop();
       } catch (_e) {}
@@ -257,7 +384,7 @@ export default function CandidateAIInterviewRoom() {
           const formatted = transcriptRes.data.transcripts.map((t) => ({
             id: t._id || `turn_${t.turnIndex}`,
             sender: t.speaker || "ai",
-            senderLabel: t.speakerLabel || (t.speaker === "ai" ? "AI Interviewer" : "Candidate"),
+            senderLabel: t.speakerLabel || (t.speaker === "ai" ? "Sanya" : "Candidate"),
             time: new Date(t.timestamp || Date.now()).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
             text: t.text,
           }));
@@ -288,6 +415,12 @@ export default function CandidateAIInterviewRoom() {
       setSnackbarOpen(true);
     });
 
+    socket.on("ai_interview:timer_update", (data) => {
+      if (data && typeof data.secondsRemaining === "number") {
+        setSecondsRemaining(data.secondsRemaining);
+      }
+    });
+
     socket.on("ai_interview:state_change", (data) => {
       const { currentState } = data || {};
       if (currentState === "PROCESSING_RESPONSE") {
@@ -299,10 +432,39 @@ export default function CandidateAIInterviewRoom() {
         setCandidateStatus("Listening...");
       } else if (currentState === "FOLLOW_UP" || currentState === "NEXT_QUESTION") {
         setAiStatus("Formulating Question...");
+      } else if (currentState === "EXIT_CONFIRMATION_PENDING") {
+        setAiStatus("Awaiting Exit Confirmation...");
+      } else if (currentState === "EXIT_PENDING" || currentState === "ENDING") {
+        setAiStatus("Concluding Interview...");
       }
     });
 
+    socket.on("ai_interview:exit_warning", (data) => {
+      if (data?.message) {
+        setSnackbarMessage(data.message);
+        setSnackbarSeverity("warning");
+        setSnackbarOpen(true);
+      }
+    });
+
+    socket.on("ai_interview:exit_confirmation", (data) => {
+      if (data?.message) {
+        setSnackbarMessage(data.message);
+        setSnackbarSeverity("info");
+        setSnackbarOpen(true);
+      }
+    });
+
+    socket.on("ai_interview:ending", (data) => {
+      setSnackbarMessage("Interview concluding... Thank you.");
+      setSnackbarSeverity("info");
+      setSnackbarOpen(true);
+    });
+
     socket.on("ai_interview:question", (data) => {
+      const isVertex = data?.questionSource?.includes("VERTEX") || data?.questionSource?.includes("DYNAMIC");
+      const sourceTag = isVertex ? "⚡ VERTEX_AI_AGENT_PLATFORM" : "📌 CONTEXT_SYNTHESIZER";
+      console.log(`🤖 [SOCKET RECV] Question Turn ${data?.turnIndex} [Source: ${sourceTag}] (${data?.questionSource || "Unknown"}) -> "${data?.text}"`);
       if (data?.text) {
         lastAIQuestionTextRef.current = data.text;
         setTranscripts((prev) => [
@@ -310,7 +472,7 @@ export default function CandidateAIInterviewRoom() {
           {
             id: `turn_${data.turnIndex || Date.now()}`,
             sender: "ai",
-            senderLabel: "AI Interviewer",
+            senderLabel: data.speakerLabel || "Sanya",
             time: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
             text: data.text,
           },
@@ -374,16 +536,26 @@ export default function CandidateAIInterviewRoom() {
 
     socket.on("ai_interview:transcript", (data) => {
       if (data?.text) {
-        setTranscripts((prev) => [
-          ...prev,
-          {
-            id: `turn_cand_${data.turnIndex || Date.now()}`,
-            sender: "candidate",
-            senderLabel: sessionInfo?.candidateName || "Candidate",
-            time: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
-            text: data.text,
-          },
-        ]);
+        setTranscripts((prev) => {
+          const trimmed = data.text.trim();
+          const exists = prev.some(
+            (t) =>
+              t.id === `turn_cand_${data.turnIndex}` ||
+              t.id === `turn_${data.turnIndex}` ||
+              (t.sender === "candidate" && t.text.trim() === trimmed)
+          );
+          if (exists) return prev;
+          return [
+            ...prev,
+            {
+              id: `turn_cand_${data.turnIndex || Date.now()}`,
+              sender: "candidate",
+              senderLabel: data.speakerLabel || sessionInfo?.candidateName || "Candidate",
+              time: new Date(data.timestamp || Date.now()).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
+              text: trimmed,
+            },
+          ];
+        });
       }
     });
 
@@ -410,6 +582,10 @@ export default function CandidateAIInterviewRoom() {
     });
 
     socket.on("ai_interview:warning", (data) => {
+      // Suppress generic 5s/12s/25s silence popups to prevent distracting the candidate
+      if (data?.promptType && data.promptType.startsWith("silence_")) {
+        return;
+      }
       if (data?.message) {
         setSnackbarMessage(data.message);
         setSnackbarSeverity("warning");
@@ -430,8 +606,12 @@ export default function CandidateAIInterviewRoom() {
   }, [inviteToken, isMuted]);
 
   // Fullscreen & Security Listener Effect
+  const [showEndConfirmationModal, setShowEndConfirmationModal] = useState(false);
+  const isEndingInterviewRef = useRef(false);
+
   useEffect(() => {
     const handleFullscreenChange = () => {
+      if (isEndingInterviewRef.current) return;
       const fsEl =
         document.fullscreenElement ||
         document.webkitFullscreenElement ||
@@ -498,17 +678,37 @@ export default function CandidateAIInterviewRoom() {
     setSnackbarOpen(true);
   };
 
+  const [showAudioSettingsModal, setShowAudioSettingsModal] = useState(false);
+
   const handleRaiseHand = () => {
-    setSnackbarMessage("Hand raised. Notification sent to interview observers.");
+    if (socketRef.current) {
+      socketRef.current.emit("ai_interview:raise_hand", {
+        inviteToken,
+        candidateName: sessionInfo?.candidateName || "Candidate",
+      });
+    }
+    setSnackbarMessage("Hand raised. Notification sent to live HR & AI observers.");
     setSnackbarSeverity("success");
     setSnackbarOpen(true);
   };
 
   const handleToggleMuteAI = () => {
-    setIsMuted(!isMuted);
-    setSnackbarMessage(isMuted ? "AI Audio unmuted" : "AI Audio muted");
-    setSnackbarSeverity("info");
-    setSnackbarOpen(true);
+    setIsMuted((prev) => {
+      const nextMute = !prev;
+      if (nextMute && "speechSynthesis" in window) {
+        try {
+          window.speechSynthesis.cancel();
+        } catch (_e) {}
+      }
+      setSnackbarMessage(nextMute ? "AI Speech Output Muted" : "AI Speech Output Unmuted");
+      setSnackbarSeverity("info");
+      setSnackbarOpen(true);
+      return nextMute;
+    });
+  };
+
+  const handleAudioSettings = () => {
+    setShowAudioSettingsModal(true);
   };
 
   const requestRoomFullscreen = async () => {
@@ -541,34 +741,217 @@ export default function CandidateAIInterviewRoom() {
         } else if (document.webkitExitFullscreen) {
           await document.webkitExitFullscreen();
         }
+        setSnackbarMessage("Exited Fullscreen mode.");
       } else {
-        setSnackbarMessage("You are not currently in fullscreen mode.");
-        setSnackbarSeverity("info");
-        setSnackbarOpen(true);
+        await requestRoomFullscreen();
+        setSnackbarMessage("Entered Fullscreen mode.");
       }
+      setSnackbarSeverity("info");
+      setSnackbarOpen(true);
     } catch (err) {
-      console.warn("Fullscreen exit error:", err);
+      console.warn("Fullscreen toggle error:", err);
     }
   };
 
-  const handleEndInterview = async () => {
-    if (document.fullscreenElement) {
-      document.exitFullscreen().catch(() => {});
+  const handleEndInterviewClick = () => {
+    setShowEndConfirmationModal(true);
+  };
+
+  const confirmForceExitInterview = async () => {
+    isEndingInterviewRef.current = true;
+    setShowEndConfirmationModal(false);
+    setShowFullscreenPrompt(false);
+    setIsSubmitting(true);
+
+    // 1. Immediately cancel all Web Speech Synthesis & Speech Recognition
+    if ("speechSynthesis" in window) {
+      try {
+        window.speechSynthesis.cancel();
+      } catch (_e) {}
     }
+    if (turnManagerRef.current) {
+      try {
+        turnManagerRef.current.stopListening();
+      } catch (_e) {}
+    }
+
+    // 2. Immediately stop all MediaStream tracks (Camera & Microphone)
+    if (candidateVideoRef.current?.srcObject) {
+      try {
+        const stream = candidateVideoRef.current.srcObject;
+        stream.getTracks().forEach((track) => track.stop());
+        candidateVideoRef.current.srcObject = null;
+      } catch (_e) {}
+    }
+
+    // 3. Immediately emit socket end session event and disconnect socket
     if (socketRef.current) {
-      socketRef.current.emit("ai_interview:end", { inviteToken });
+      try {
+        socketRef.current.emit("ai_interview:end", { inviteToken });
+        socketRef.current.disconnect();
+      } catch (_e) {}
     }
-    try {
-      await endAIInterviewSessionApi(inviteToken);
-    } catch (err) {
-      console.warn("End session API error:", err);
+
+    // 4. Instantly exit fullscreen if active
+    if (document.fullscreenElement) {
+      try {
+        await document.exitFullscreen();
+      } catch (_e) {}
     }
+
+    // 5. Trigger end session API asynchronously non-blocking
+    endAIInterviewSessionApi(inviteToken).catch((err) => {
+      console.warn("End session API non-blocking error:", err);
+    });
+
+    // 6. Instantly navigate to submitted page without delay!
+    setSnackbarMessage("AI Interview successfully ended & submitted.");
+    setSnackbarSeverity("success");
+    setSnackbarOpen(true);
     navigate(`/ai-interview/${inviteToken}/submitted`);
   };
 
   return (
     <SEO title="Live AI Interview Session - engineerHUB" noIndex={true}>
       <div className="ai-room-page">
+
+      {/* ── Professional End Interview Confirmation Modal ───────────────────── */}
+      {showEndConfirmationModal && (
+        <div className="ai-modal-overlay">
+          <div className="ai-modal-card confirm-end-modal-card">
+            <div className="confirm-end-icon-wrapper">
+              <FiPhoneOff />
+            </div>
+            <h3 className="confirm-end-title">End AI Interview Session?</h3>
+            <p className="confirm-end-desc">
+              Are you sure you want to conclude your technical interview now? Your recorded spoken answers and evaluation data will be submitted for recruiter report generation.
+            </p>
+            <div className="confirm-end-actions">
+              <button
+                type="button"
+                className="btn-modal-action --secondary"
+                onClick={() => setShowEndConfirmationModal(false)}
+              >
+                Continue Interview
+              </button>
+              <button
+                type="button"
+                className="btn-modal-action confirm-exit-btn"
+                onClick={confirmForceExitInterview}
+              >
+                Yes, End Interview
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ── Interactive Audio Settings Modal ─────────────────── */}
+      {showAudioSettingsModal && (
+        <div className="ai-modal-overlay">
+          <div className="ai-modal-card" style={{ maxWidth: "450px", padding: "1.5rem" }}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1rem" }}>
+              <h3 style={{ margin: 0, fontSize: "1.1rem", color: "#0f172a", display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                <FiSliders style={{ color: "#138382" }} /> Audio Input &amp; Output Settings
+              </h3>
+              <button
+                type="button"
+                className="ai-modal-close-btn"
+                onClick={() => setShowAudioSettingsModal(false)}
+                style={{ background: "none", border: "none", cursor: "pointer", fontSize: "1.2rem", color: "#64748b" }}
+              >
+                <FiX />
+              </button>
+            </div>
+
+            <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+              <div style={{ background: "#f8fafc", padding: "0.85rem", borderRadius: "0.5rem", border: "1px solid #e2e8f0" }}>
+                <label style={{ fontSize: "0.8rem", fontWeight: 600, color: "#475569", display: "block", marginBottom: "0.4rem" }}>
+                  Microphone Input Device
+                </label>
+                <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", color: "#0f172a", fontSize: "0.88rem" }}>
+                  <FiMic style={{ color: "#10b981" }} />
+                  <span>Default Microphone (Built-in Audio)</span>
+                </div>
+              </div>
+
+              <div style={{ background: "#f8fafc", padding: "0.85rem", borderRadius: "0.5rem", border: "1px solid #e2e8f0" }}>
+                <label style={{ fontSize: "0.8rem", fontWeight: 600, color: "#475569", display: "block", marginBottom: "0.4rem" }}>
+                  Speech Output Synthesis
+                </label>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                  <span style={{ fontSize: "0.88rem", color: "#0f172a" }}>
+                    AI Voice Output: <strong>{isMuted ? "Muted" : "Active (100%)"}</strong>
+                  </span>
+                  <button
+                    type="button"
+                    onClick={handleToggleMuteAI}
+                    style={{
+                      padding: "0.35rem 0.75rem",
+                      borderRadius: "0.375rem",
+                      border: "1px solid #cbd5e1",
+                      background: "#fff",
+                      cursor: "pointer",
+                      fontSize: "0.8rem",
+                      fontWeight: 600
+                    }}
+                  >
+                    {isMuted ? "Unmute AI" : "Mute AI"}
+                  </button>
+                </div>
+              </div>
+
+              <div style={{ background: "#f8fafc", padding: "0.85rem", borderRadius: "0.5rem", border: "1px solid #e2e8f0" }}>
+                <label style={{ fontSize: "0.8rem", fontWeight: 600, color: "#475569", display: "block", marginBottom: "0.4rem" }}>
+                  Audio Test Signal
+                </label>
+                <button
+                  type="button"
+                  onClick={() => {
+                    if ("speechSynthesis" in window) {
+                      window.speechSynthesis.cancel();
+                      const synth = new SpeechSynthesisUtterance("Audio output test successful.");
+                      synth.volume = 1;
+                      window.speechSynthesis.speak(synth);
+                    }
+                  }}
+                  style={{
+                    width: "100%",
+                    padding: "0.5rem",
+                    borderRadius: "0.375rem",
+                    border: "none",
+                    background: "#138382",
+                    color: "#fff",
+                    cursor: "pointer",
+                    fontWeight: 600,
+                    fontSize: "0.85rem"
+                  }}
+                >
+                  🔊 Test Audio Output
+                </button>
+              </div>
+            </div>
+
+            <button
+              type="button"
+              onClick={() => setShowAudioSettingsModal(false)}
+              style={{
+                width: "100%",
+                marginTop: "1.25rem",
+                padding: "0.6rem",
+                borderRadius: "0.375rem",
+                border: "1px solid #cbd5e1",
+                background: "#f1f5f9",
+                color: "#334155",
+                fontWeight: 600,
+                cursor: "pointer"
+              }}
+            >
+              Done
+            </button>
+          </div>
+        </div>
+      )}
 
       {/* ── Proctoring Fullscreen Enforcement Prompt Overlay ─────────────────── */}
       <ProctoringFullscreenPrompt
@@ -621,7 +1004,7 @@ export default function CandidateAIInterviewRoom() {
             </div>
 
             {(() => {
-              const totalQ = sessionInfo?.aiConfig?.totalQuestions || 10;
+              const totalQ = sessionInfo?.aiConfig?.totalQuestions || Math.max(4, Math.round(((sessionInfo?.aiConfig?.durationMinutes || 30) / 2.5)));
               const currentQ = transcripts.filter((t) => t.sender === "ai").length;
               const percent = Math.min(100, Math.round((currentQ / totalQ) * 100));
               return (
@@ -645,7 +1028,7 @@ export default function CandidateAIInterviewRoom() {
               {isMuted ? <FiVolumeX /> : <FiVolume2 />}
               <span>{isMuted ? "Unmute AI" : "Mute AI"}</span>
             </button>
-            <button type="button" className="sidebar-ctrl-btn" title="Audio Settings">
+            <button type="button" className="sidebar-ctrl-btn" onClick={handleAudioSettings} title="Audio Settings">
               <FiSliders />
               <span>Audio Settings</span>
             </button>
@@ -671,7 +1054,7 @@ export default function CandidateAIInterviewRoom() {
 
         {/* End Interview Action at Sidebar Bottom */}
         <div className="sidebar-bottom">
-          <button type="button" className="btn-end-interview-sidebar" onClick={handleEndInterview} title="End Call">
+          <button type="button" className="btn-end-interview-sidebar" onClick={handleEndInterviewClick} title="End Call">
             <FiPhoneOff />
             <span>End Interview</span>
           </button>
@@ -695,15 +1078,15 @@ export default function CandidateAIInterviewRoom() {
               )}
               <div className={`ai-avatar-frame ${activeSpeaker === "ai" ? "speaking-active" : ""}`}>
                 <img
-                  src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80"
-                  alt="AI Interviewer Avatar"
+                  src="https://engineerhubs3.s3.ap-south-1.amazonaws.com/ui/banners/sanya.png"
+                  alt="Sanya Avatar"
                 />
               </div>
             </div>
 
             <div className="ai-name-title">
-              <h2>AI Interviewer</h2>
-              <p>{sessionInfo?.aiConfig?.roleTitle ? `${sessionInfo.aiConfig.roleTitle} AI Evaluator` : "Senior AI Evaluator"}</p>
+              <h2>Sanya</h2>
+              <p>{sessionInfo?.aiConfig?.roleTitle ? `${sessionInfo.aiConfig.roleTitle} AI Evaluator` : "AI Technical Interviewer"}</p>
             </div>
 
             {/* AI Status Indicator Card (Replaced progress bar) */}
@@ -787,6 +1170,37 @@ export default function CandidateAIInterviewRoom() {
                 </div>
               </div>
             ))}
+          </div>
+
+          {/* Interactive Candidate Response Bar (Live Mic Preview & Text Fallback) */}
+          <div className="transcript-input-bar">
+            {liveCandidateText && (
+              <div className="live-speech-preview">
+                <FiMic className="live-mic-pulse" /> Live Speech: "{liveCandidateText}"
+              </div>
+            )}
+            <div className="input-action-row">
+              <input
+                type="text"
+                className="transcript-input-field"
+                placeholder={isMicOn ? "Speak into your mic or type your answer..." : "Mic is muted. Type your answer here..."}
+                value={textInputValue}
+                onChange={(e) => setTextInputValue(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" && textInputValue.trim()) {
+                    submitCandidateSpeech(textInputValue);
+                  }
+                }}
+              />
+              <button
+                type="button"
+                className="btn-send-answer"
+                onClick={() => submitCandidateSpeech(textInputValue || liveCandidateText)}
+                disabled={!textInputValue.trim() && !liveCandidateText.trim()}
+              >
+                <FiSend /> Send Answer
+              </button>
+            </div>
           </div>
         </section>
       </main>

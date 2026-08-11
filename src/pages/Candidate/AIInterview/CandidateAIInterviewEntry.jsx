@@ -23,6 +23,9 @@ import useGlobalSnackbar from "../../../hooks/useGlobalSnackbar";
 import "./CandidateAIInterviewEntry.css";
 
 import { fetchAIInterviewSessionApi } from "../../../services/aiInterviewApi";
+import { isUserLoggedIn, getUserEmail, getUserFullName, getUserImage } from "../../../features/User/UserDetails";
+import { handleLogout } from "../../../features/logout";
+import { FiChevronDown, FiLogOut, FiLogIn } from "react-icons/fi";
 
 export default function CandidateAIInterviewEntry() {
   const navigate = useNavigate();
@@ -32,6 +35,10 @@ export default function CandidateAIInterviewEntry() {
   const [showModal, setShowModal] = useState(false);
   const [modalStep, setModalStep] = useState(1); // 1 = Consent, 2 = Permission Request, 3 = Connected Preview
   const [errorMsg, setErrorMsg] = useState(null);
+  
+  // User Dropdown State & Ref
+  const [showUserDropdown, setShowUserDropdown] = useState(false);
+  const userMenuRef = useRef(null);
   
   // Live API Session state
   const [sessionData, setSessionData] = useState(null);
@@ -43,6 +50,48 @@ export default function CandidateAIInterviewEntry() {
   const videoRef = useRef(null);
 
   const { setSnackbarOpen, setSnackbarMessage, setSnackbarSeverity } = useGlobalSnackbar();
+
+  const loggedIn = isUserLoggedIn();
+  const loggedInEmail = getUserEmail();
+  const loggedInName = getUserFullName() || sessionData?.candidateName || "Candidate";
+  const loggedInImage = getUserImage();
+  const candidateEmail = sessionData?.candidateEmail || "";
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (userMenuRef.current && !userMenuRef.current.contains(event.target)) {
+        setShowUserDropdown(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  const emailMismatch = Boolean(
+    loggedIn &&
+    candidateEmail &&
+    loggedInEmail &&
+    loggedInEmail.toLowerCase().trim() !== candidateEmail.toLowerCase().trim()
+  );
+
+  const isSubmitted = Boolean(
+    sessionData?.status === "Completed" ||
+    sessionData?.status === "Submitted" ||
+    sessionData?.isSubmitted
+  );
+
+  const isExpired = Boolean(
+    sessionData?.status === "Expired" ||
+    sessionData?.isExpired
+  );
+
+  const canStartInterview = Boolean(
+    loggedIn &&
+    !emailMismatch &&
+    !isSubmitted &&
+    !isExpired &&
+    !loadingSession
+  );
 
   useEffect(() => {
     const loadSession = async () => {
@@ -117,6 +166,30 @@ export default function CandidateAIInterviewEntry() {
   };
 
   const handleStartInterviewClick = () => {
+    if (!loggedIn) {
+      setSnackbarMessage("You must be logged in to join this AI Interview. Please log in first.");
+      setSnackbarSeverity("warning");
+      setSnackbarOpen(true);
+      return;
+    }
+    if (emailMismatch) {
+      setSnackbarMessage(`Email Mismatch: You are logged in as ${loggedInEmail}, but this interview was scheduled for ${candidateEmail}.`);
+      setSnackbarSeverity("error");
+      setSnackbarOpen(true);
+      return;
+    }
+    if (isSubmitted) {
+      setSnackbarMessage("This AI interview has already been completed and submitted.");
+      setSnackbarSeverity("info");
+      setSnackbarOpen(true);
+      return;
+    }
+    if (isExpired) {
+      setSnackbarMessage("The scheduled time window for this AI interview has expired.");
+      setSnackbarSeverity("warning");
+      setSnackbarOpen(true);
+      return;
+    }
     if (!termsAccepted) {
       setSnackbarMessage("Please read and accept the protocol instructions before starting.");
       setSnackbarSeverity("warning");
@@ -149,12 +222,110 @@ export default function CandidateAIInterviewEntry() {
             <span className="ai-entry-live-badge --live">
               <span className="dot" /> Live Room Ready
             </span>
-            <div className="ai-entry-user-chip">
-              <div className="ai-entry-user-avatar">
-                {sessionData?.candidateName ? sessionData.candidateName.slice(0, 2).toUpperCase() : "AC"}
+
+            {/* Logged-in Candidate User Chip with Dropdown */}
+            {loggedIn ? (
+              <div className="assessment-user-chip-container" ref={userMenuRef} style={{ position: "relative" }}>
+                <button
+                  type="button"
+                  className="assessment-user-chip"
+                  title={loggedInEmail}
+                  onClick={() => setShowUserDropdown(!showUserDropdown)}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "0.5rem",
+                    padding: "0.35rem 0.75rem",
+                    borderRadius: "2rem",
+                    border: "1px solid #cbd5e1",
+                    background: "#ffffff",
+                    cursor: "pointer",
+                    fontWeight: 600,
+                    fontSize: "0.85rem",
+                    color: "#0f172a"
+                  }}
+                >
+                  <div className="ai-entry-user-avatar" style={{ width: "26px", height: "26px", borderRadius: "50%", background: "#138382", color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "0.75rem", fontWeight: 700 }}>
+                    {loggedInName ? loggedInName.slice(0, 2).toUpperCase() : "AC"}
+                  </div>
+                  <span>{loggedInName || loggedInEmail}</span>
+                  <FiChevronDown style={{ transform: showUserDropdown ? "rotate(180deg)" : "none", transition: "transform 0.2s ease" }} />
+                </button>
+
+                {showUserDropdown && (
+                  <div
+                    className="assessment-user-dropdown"
+                    style={{
+                      position: "absolute",
+                      right: 0,
+                      top: "calc(100% + 6px)",
+                      width: "240px",
+                      background: "#ffffff",
+                      borderRadius: "0.5rem",
+                      boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.15)",
+                      border: "1px solid #e2e8f0",
+                      zIndex: 100,
+                      padding: "0.75rem"
+                    }}
+                  >
+                    <div style={{ paddingBottom: "0.5rem", marginBottom: "0.5rem", borderBottom: "1px solid #f1f5f9" }}>
+                      <p style={{ margin: 0, fontWeight: 700, fontSize: "0.875rem", color: "#0f172a" }}>{loggedInName}</p>
+                      <p style={{ margin: 0, fontSize: "0.78rem", color: "#64748b" }}>{loggedInEmail}</p>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        handleLogout();
+                        window.location.reload();
+                      }}
+                      style={{
+                        width: "100%",
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "0.5rem",
+                        padding: "0.5rem 0.75rem",
+                        borderRadius: "0.375rem",
+                        border: "none",
+                        background: "#fef2f2",
+                        color: "#dc2626",
+                        fontWeight: 600,
+                        fontSize: "0.82rem",
+                        cursor: "pointer"
+                      }}
+                    >
+                      <FiLogOut />
+                      <span>Logout &amp; Switch Account</span>
+                    </button>
+                  </div>
+                )}
               </div>
-              <span>{sessionData?.candidateName || "Candidate"}</span>
-            </div>
+            ) : (
+              <button
+                type="button"
+                onClick={() => {
+                  const returnPath = `${window.location.pathname}${window.location.search}`;
+                  sessionStorage.setItem("redirectToAuth", "true");
+                  sessionStorage.setItem("redirectToAuthLink", returnPath);
+                  navigate("/login");
+                }}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "0.4rem",
+                  padding: "0.45rem 0.85rem",
+                  borderRadius: "2rem",
+                  border: "none",
+                  background: "#138382",
+                  color: "#ffffff",
+                  fontWeight: 600,
+                  fontSize: "0.85rem",
+                  cursor: "pointer"
+                }}
+              >
+                <FiLogIn />
+                <span>Log In</span>
+              </button>
+            )}
           </div>
         </div>
       </header>
@@ -183,7 +354,7 @@ export default function CandidateAIInterviewEntry() {
             <div className="ai-entry-stat-item">
               <label>Total Questions</label>
               <div className="ai-entry-stat-val">
-                <FiHelpCircle /> {sessionData?.aiConfig?.totalQuestions || sessionData?.totalQuestions || 10} Questions
+                <FiHelpCircle /> {sessionData?.aiConfig?.totalQuestions || sessionData?.totalQuestions || Math.max(4, Math.round(((sessionData?.aiConfig?.durationMinutes || sessionData?.durationMinutes || 30) / 2.5)))} Questions
               </div>
             </div>
 
@@ -292,6 +463,81 @@ export default function CandidateAIInterviewEntry() {
             </div>
           </section>
 
+          {/* Security & Access Status Alerts */}
+          {!loggedIn && (
+            <div style={{ background: "#fff7ed", border: "1px solid #fdba74", padding: "1rem", borderRadius: "0.5rem", margin: "1rem 1.5rem 0", display: "flex", alignItems: "center", gap: "0.75rem" }}>
+              <FiAlertCircle style={{ color: "#ea580c", fontSize: "1.35rem", flexShrink: 0 }} />
+              <div>
+                <strong style={{ color: "#9a3412", display: "block", fontSize: "0.95rem" }}>Authentication Required</strong>
+                <span style={{ color: "#c2410c", fontSize: "0.85rem" }}>
+                  You must be logged in to join this interview session. Please log in to your candidate account.
+                </span>
+              </div>
+            </div>
+          )}
+
+          {emailMismatch && (
+            <div style={{ background: "#fef2f2", border: "1px solid #fca5a5", padding: "1rem 1.25rem", borderRadius: "0.5rem", margin: "1rem 1.5rem 0", display: "flex", alignItems: "center", justifyContent: "space-between", gap: "1rem", flexWrap: "wrap" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
+                <FiAlertCircle style={{ color: "#dc2626", fontSize: "1.5rem", flexShrink: 0 }} />
+                <div>
+                  <strong style={{ color: "#991b1b", display: "block", fontSize: "0.95rem" }}>Email Account Mismatch</strong>
+                  <span style={{ color: "#b91c1c", fontSize: "0.85rem" }}>
+                    You are currently logged in as <strong>{loggedInEmail}</strong>, but this interview link was issued to <strong>{candidateEmail}</strong>.
+                  </span>
+                </div>
+              </div>
+              <button
+                type="button"
+                onClick={() => {
+                  handleLogout();
+                  window.location.reload();
+                }}
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "0.4rem",
+                  padding: "0.5rem 1rem",
+                  borderRadius: "0.375rem",
+                  border: "none",
+                  background: "#dc2626",
+                  color: "#ffffff",
+                  fontWeight: 600,
+                  fontSize: "0.85rem",
+                  cursor: "pointer",
+                  whiteSpace: "nowrap"
+                }}
+              >
+                <FiLogOut />
+                Switch Account
+              </button>
+            </div>
+          )}
+
+          {isSubmitted && (
+            <div style={{ background: "#eff6ff", border: "1px solid #93c5fd", padding: "1rem", borderRadius: "0.5rem", margin: "1rem 1.5rem 0", display: "flex", alignItems: "center", gap: "0.75rem" }}>
+              <FiCheckCircle style={{ color: "#2563eb", fontSize: "1.35rem", flexShrink: 0 }} />
+              <div>
+                <strong style={{ color: "#1e40af", display: "block", fontSize: "0.95rem" }}>Interview Completed &amp; Submitted</strong>
+                <span style={{ color: "#1d4ed8", fontSize: "0.85rem" }}>
+                  This AI interview session has already been completed and submitted. Re-joining is disabled.
+                </span>
+              </div>
+            </div>
+          )}
+
+          {isExpired && (
+            <div style={{ background: "#fffbe6", border: "1px solid #ffe58f", padding: "1rem", borderRadius: "0.5rem", margin: "1rem 1.5rem 0", display: "flex", alignItems: "center", gap: "0.75rem" }}>
+              <FiAlertTriangle style={{ color: "#d97706", fontSize: "1.35rem", flexShrink: 0 }} />
+              <div>
+                <strong style={{ color: "#b45309", display: "block", fontSize: "0.95rem" }}>Interview Link Expired</strong>
+                <span style={{ color: "#d97706", fontSize: "0.85rem" }}>
+                  The scheduled time window for this AI interview session has passed and expired.
+                </span>
+              </div>
+            </div>
+          )}
+
           {/* Footer CTA */}
           <footer className="ai-entry-cta">
             <label htmlFor="ai-terms-check" className="ai-entry-terms">
@@ -300,6 +546,7 @@ export default function CandidateAIInterviewEntry() {
                 type="checkbox"
                 checked={termsAccepted}
                 onChange={(e) => setTermsAccepted(e.target.checked)}
+                disabled={!canStartInterview}
               />
               <span>
                 I agree to the interview guidelines, camera/microphone proctoring rules, and am ready to join the AI interview room.
@@ -310,7 +557,11 @@ export default function CandidateAIInterviewEntry() {
               type="button"
               className="btn-start-ai-interview"
               onClick={handleStartInterviewClick}
-              disabled={!termsAccepted}
+              disabled={!termsAccepted || !canStartInterview}
+              style={{
+                opacity: !termsAccepted || !canStartInterview ? 0.6 : 1,
+                cursor: !termsAccepted || !canStartInterview ? "not-allowed" : "pointer"
+              }}
             >
               <span>Join AI Interview Room</span>
               <FiPlay />

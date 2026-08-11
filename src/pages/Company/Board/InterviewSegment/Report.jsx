@@ -148,18 +148,10 @@ export default function Report() {
     if (reportData.isSuccess && reportData.data?.data?.candidates) {
       
       // Convert to the format expected by the UI
-      const processedReports = reportData.data.data.candidates.map((candidate, index) => ({
-        _id: candidate.candidateId || `candidate-${index}`,
-        candidateName: candidate.candidateName || "Unknown Candidate",
-        candidateEmail: candidate.candidateEmail || "N/A",
-        candidatePhone: candidate.candidatePhone || "N/A",
-        resumeUrl: candidate.resumeUrl || "#",
-        status: "completed",
-        averageMarks: candidate.averageMarks || "0",
-        totalRounds: candidate.totalRounds || 0,
-        interviewRounds: (candidate.reports || []).map(report => ({
+      const processedReports = reportData.data.data.candidates.map((candidate, index) => {
+        const rounds = (candidate.reports || []).map(report => ({
             round: report.interviewRound || 1,
-            marks: report.marks || 0,
+            marks: typeof report.marks === "number" ? report.marks : 0,
             maxMarks: 100,
             note: report.remark && report.remark.trim() ? report.remark.trim() : "No detailed feedback provided",
             interviewer: report.addedByEmail || "Unknown",
@@ -175,6 +167,8 @@ export default function Report() {
             })(),
             interviewDate: report.addedAt || new Date().toISOString(),
             interviewType: report.scheduledInterviewId?.interviewType || report.interviewType || "Manual",
+            inviteToken: report.inviteToken || report.scheduledInterviewId?.inviteToken || report.scheduledInterviewId?._id || report._id || "",
+            scheduledInterviewId: report.scheduledInterviewId?._id || report.scheduledInterviewId || "",
             interviewSubject: (() => {
               const subject = report.scheduledInterviewId?.interviewSubject;
               const roundNum = report.interviewRound || 1;
@@ -188,8 +182,35 @@ export default function Report() {
               
               return `Round ${roundNum}`;
             })()
-        }))
-      }));
+        }));
+
+        // Sort rounds within each candidate so the latest interview round is shown first
+        rounds.sort((a, b) => new Date(b.interviewDate || 0) - new Date(a.interviewDate || 0) || (b.round - a.round));
+
+        const totalRoundsCount = rounds.length;
+        const sumMarks = rounds.reduce((acc, curr) => acc + (Number(curr.marks) || 0), 0);
+        const calculatedAvg = totalRoundsCount > 0 ? (sumMarks / totalRoundsCount).toFixed(2) : "0";
+
+        return {
+          _id: candidate.candidateId || `candidate-${index}`,
+          candidateName: candidate.candidateName || "Unknown Candidate",
+          candidateEmail: candidate.candidateEmail || "N/A",
+          candidatePhone: candidate.candidatePhone || "N/A",
+          resumeUrl: candidate.resumeUrl || "#",
+          status: "completed",
+          averageMarks: calculatedAvg,
+          totalRounds: totalRoundsCount,
+          interviewRounds: rounds,
+          latestInterviewDate: rounds[0]?.interviewDate || new Date().toISOString(),
+        };
+      });
+
+      // Sort candidate report rows so candidate with the latest interview appears at the top
+      processedReports.sort((a, b) => {
+        const timeA = new Date(a.latestInterviewDate || 0).getTime();
+        const timeB = new Date(b.latestInterviewDate || 0).getTime();
+        return timeB - timeA;
+      });
       
       if (processedReports.length === 0) {
         // Fallback demo row for testing AI interview feedback page
@@ -727,7 +748,7 @@ export default function Report() {
                       <div className="rounds-grid">
                         {(() => {
                           // Only show rounds that have actual data (completed interviews)
-                          const completedRounds = report.interviewRounds.map(r => r.round).sort((a, b) => a - b);
+                          const completedRounds = report.interviewRounds.map(r => r.round).sort((a, b) => b - a);
                           console.log(`Candidate ${report.candidateName}: totalRounds=${report.totalRounds}, completedRounds=${completedRounds}, showing ${completedRounds.length} rounds`);
                           return completedRounds;
                         })().map((round) => {
@@ -792,7 +813,8 @@ export default function Report() {
                                   onClick={() => {
                                     if (roundData.interviewType === "AI") {
                                       const returnUrl = encodeURIComponent(window.location.pathname + window.location.search);
-                                      navigate(`/ai-interview-feedback/${id}/${report._id}?returnPath=${returnUrl}`);
+                                      const token = roundData.inviteToken || roundData.scheduledInterviewId || "";
+                                      navigate(`/ai-interview-feedback/${id}/${report._id}?inviteToken=${token}&returnPath=${returnUrl}`);
                                     } else {
                                       handleReadNote(roundData);
                                     }

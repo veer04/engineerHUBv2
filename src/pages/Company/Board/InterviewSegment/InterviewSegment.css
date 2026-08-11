@@ -595,6 +595,7 @@
   border-radius: 0.5rem;
   overflow: hidden;
   width: 100%;
+  min-width: 900px;
 }
 
 .table-header {
@@ -886,6 +887,7 @@
 
 .date-selection {
   margin-bottom: 1.5rem;
+  width: 100%;
 }
 
 .date-selection h5 {
@@ -898,23 +900,27 @@
 .date-cards {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  overflow-x: auto;
-  padding: 0.5rem;
+  justify-content: space-between;
+  gap: 0.85rem;
+  width: 100%;
+  padding: 0.25rem 0;
+  box-sizing: border-box;
 }
 
 .date-card {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 1rem;
+  justify-content: center;
+  padding: 0.85rem 0.5rem;
   border: 2px solid #e5e7eb;
   border-radius: 0.75rem;
   cursor: pointer;
   transition: all 0.2s ease;
-  min-width: 80px;
-  min-width: 96px;
+  flex: 1;
+  min-width: 0;
   text-align: center;
+  box-sizing: border-box;
 }
 
 .date-card:hover {
@@ -2864,28 +2870,6 @@
     justify-content: center;
   }
 
-  .table-header,
-  .table-row {
-    grid-template-columns: 1fr;
-    gap: 0.5rem;
-  }
-
-  .table-cell {
-    padding: 0.5rem;
-    border-bottom: 1px solid #f3f4f6;
-  }
-
-  .table-cell:before {
-    content: attr(data-label);
-    font-weight: 600;
-    margin-right: 0.5rem;
-    color: #374151;
-  }
-
-  .checkbox-cell:before {
-    content: "";
-  }
-
   .schedule-modal {
     width: 95%;
     margin: 1rem;
@@ -3578,6 +3562,38 @@
   background-color: #8b5cf6 !important;
 }
 
+.ai-purple-theme.compact .date-cards {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.35rem;
+  width: 100%;
+  padding: 0;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.ai-purple-theme.compact .date-card {
+  flex: 1;
+  min-width: 0;
+  padding: 0.6rem 0.25rem;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.ai-purple-theme.compact .date-card span {
+  display: block;
+  white-space: nowrap;
+  font-size: 0.76rem;
+}
+
+.ai-purple-theme.compact .date-nav {
+  width: 1.85rem;
+  height: 1.85rem;
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
 .ai-purple-theme .custom-form-input:focus-within input {
   border-color: #8b5cf6 !important;
   box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.15) !important;
@@ -3599,13 +3615,52 @@
   margin-left: 0.5rem;
 }
 
-.ai-purple-btn {
+.ai-purple-btn,
+.btn-primary.ai-purple-schedule-btn {
+  background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%) !important;
   background-color: #8b5cf6 !important;
+  border-color: #8b5cf6 !important;
+  color: #ffffff !important;
 }
 
-.ai-purple-btn:hover:not(:disabled) {
+.ai-purple-btn:hover:not(:disabled),
+.btn-primary.ai-purple-schedule-btn:hover:not(:disabled) {
+  background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%) !important;
+  border-color: #7c3aed !important;
+  box-shadow: 0 4px 14px 0 rgba(139, 92, 246, 0.4) !important;
+}
+
+/* Confirmation Modal Full-Width Continue Buttons */
+.confirmation-content .btn-primary.confirm-continue-btn {
+  width: 100% !important;
+  display: block !important;
+  padding: 0.75rem 1.5rem !important;
+  border-radius: 0.5rem !important;
+  font-weight: 600 !important;
+  font-size: 1rem !important;
+  border: none !important;
+  cursor: pointer !important;
+  margin-top: 1.5rem !important;
+  transition: all 0.2s ease !important;
+  box-sizing: border-box !important;
+}
+
+.confirmation-content .btn-primary.confirm-continue-btn.manual-confirm-btn {
+  background-color: #138382 !important;
+  color: #ffffff !important;
+}
+
+.confirmation-content .btn-primary.confirm-continue-btn.manual-confirm-btn:hover {
+  background-color: #0e6665 !important;
+}
+
+.confirmation-content .btn-primary.confirm-continue-btn.ai-confirm-btn {
+  background-color: #8b5cf6 !important;
+  color: #ffffff !important;
+}
+
+.confirmation-content .btn-primary.confirm-continue-btn.ai-confirm-btn:hover {
   background-color: #7c3aed !important;
-  box-shadow: 0 4px 12px rgba(139, 92, 246, 0.2) !important;
 }
 
 /* AI Type Badge inside row */
@@ -3765,10 +3820,11 @@
 }
 
 .workspace-selector-section {
-  padding: 1.25rem 1.75rem;
+  padding: 1.25rem;
   background-color: #ffffff;
-  border-bottom: 1px solid #f1f5f9;
-  flex-shrink: 0;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.75rem;
+  margin-bottom: 1.5rem;
 }
 
 .workspace-selector-grid {
@@ -4235,6 +4291,18 @@
   width: 0;
   height: 0;
   position: absolute;
+}
+
+.toggle-switch-item input:checked + .toggle-slider {
+  background-color: #006867;
+}
+
+.workspace-modal-container.ai-mode-active .toggle-switch-item input:checked + .toggle-slider {
+  background-color: #8b5cf6;
+}
+
+.toggle-switch-item input:checked + .toggle-slider::before {
+  transform: translateX(20px);
 }
 
 .toggle-slider {

@@ -9,7 +9,9 @@ import {
   FiCalendar,
   FiClock,
   FiArrowLeft,
+  FiInfo,
 } from "react-icons/fi";
+import Tooltip from "@mui/material/Tooltip";
 import { MdDeleteOutline, MdMailOutline } from "react-icons/md";
 import { RiInboxArchiveLine } from "react-icons/ri";
 import { BiSort } from "react-icons/bi";
@@ -86,9 +88,12 @@ export default function InterviewLobby() {
   const [aiDifficulty, setAiDifficulty] = useState("Medium");
   const [aiLanguage, setAiLanguage] = useState("English");
   const [aiDuration, setAiDuration] = useState("30 minutes");
+  const [aiTechnicalKnowledge, setAiTechnicalKnowledge] = useState(true);
+  const [aiProblemSolving, setAiProblemSolving] = useState(true);
   const [aiCodingRound, setAiCodingRound] = useState(true);
   const [aiSystemDesign, setAiSystemDesign] = useState(false);
-  const [aiBehavioralRound, setAiBehavioralRound] = useState(true);
+  const [aiBehavioralRound, setAiBehavioralRound] = useState(false);
+  const [aiCommunication, setAiCommunication] = useState(false);
   const [aiPersonality, setAiPersonality] = useState("Conversational");
   const [aiStrictness, setAiStrictness] = useState("Medium");
   const [aiEvaluationDepth, setAiEvaluationDepth] = useState("Deep");
@@ -482,9 +487,12 @@ export default function InterviewLobby() {
     setAiDifficulty("Medium");
     setAiLanguage("English");
     setAiDuration("30 minutes");
+    setAiTechnicalKnowledge(true);
+    setAiProblemSolving(true);
     setAiCodingRound(true);
     setAiSystemDesign(false);
-    setAiBehavioralRound(true);
+    setAiBehavioralRound(false);
+    setAiCommunication(false);
     setAiPersonality("Conversational");
     setAiStrictness("Medium");
     setAiEvaluationDepth("Deep");
@@ -559,7 +567,7 @@ export default function InterviewLobby() {
       setAiDateScrollIndex(aiDateScrollIndex - 1);
     } else if (
       direction === "next" &&
-      aiDateScrollIndex < availableDates.length - 4
+      aiDateScrollIndex < availableDates.length - 3
     ) {
       setAiDateScrollIndex(aiDateScrollIndex + 1);
     }
@@ -724,9 +732,10 @@ export default function InterviewLobby() {
       setShowConfirmationModal(true);
 
       // Invalidate queries to refresh data
-      queryClient.invalidateQueries({
-        queryKey: ["Interview", "lobby", params.pageNo, params.limit, id, params.interviewSegment, exp],
-      });
+      queryClient.invalidateQueries({ queryKey: ["Interview", "lobby"] });
+      queryClient.invalidateQueries({ queryKey: ["Interview", "scheduled"] });
+      queryClient.invalidateQueries({ queryKey: ["Interview", "report"] });
+      queryClient.invalidateQueries({ queryKey: ["interview-segment-counts"] });
 
       setSnackbarMessage("Interview scheduled successfully!");
       setSnackbarSeverity("success");
@@ -842,6 +851,17 @@ export default function InterviewLobby() {
           difficulty: aiDifficulty || "Medium",
           language: aiLanguage || "English",
           topics: aiInterviewTopics || [],
+          focusAreas: {
+            technicalKnowledge: aiTechnicalKnowledge,
+            problemSolving: aiProblemSolving,
+            coding: aiCodingRound,
+            systemDesign: aiSystemDesign,
+            behavioral: aiBehavioralRound,
+            communication: aiCommunication,
+          },
+          personality: aiPersonality || "Conversational",
+          strictness: aiStrictness || "Medium",
+          evaluationDepth: aiEvaluationDepth || "Deep",
           customInstructions: aiInstructions || "",
         },
       };
@@ -868,9 +888,10 @@ export default function InterviewLobby() {
       setShowConfirmationModal(true);
 
       // Invalidate queries to refresh data
-      queryClient.invalidateQueries({
-        queryKey: ["Interview", "lobby", params.pageNo, params.limit, id, params.interviewSegment, exp],
-      });
+      queryClient.invalidateQueries({ queryKey: ["Interview", "lobby"] });
+      queryClient.invalidateQueries({ queryKey: ["Interview", "scheduled"] });
+      queryClient.invalidateQueries({ queryKey: ["Interview", "report"] });
+      queryClient.invalidateQueries({ queryKey: ["interview-segment-counts"] });
 
       setSnackbarMessage("AI Interview scheduled successfully!");
       setSnackbarSeverity("success");
@@ -931,40 +952,40 @@ export default function InterviewLobby() {
               </button>
             </div>
 
-            {/* Section 1: Selector Cards */}
-            <div className="workspace-selector-section">
-              <div className="workspace-selector-grid">
-                <div
-                  className={`workspace-selector-card manual-card ${interviewType === "Manual" ? "selected" : ""}`}
-                  onClick={() => setInterviewType("Manual")}
-                >
-                  <div className="workspace-card-icon-container">
-                    <FiCalendar />
-                  </div>
-                  <div className="workspace-card-details">
-                    <h4>Manual Interview</h4>
-                    <p>Schedule a traditional interview with Google Meet and invite participants.</p>
-                  </div>
-                </div>
-
-                <div
-                  className={`workspace-selector-card ai-card ${interviewType === "AI" ? "selected" : ""}`}
-                  onClick={() => setInterviewType("AI")}
-                >
-                  <div className="workspace-card-icon-container">
-                    <SiOpenai />
-                  </div>
-                  <div className="workspace-card-details">
-                    <h4>AI Interview</h4>
-                    <p>Let engineerHUB AI conduct the complete interview automatically using voice interaction with advance proctoring.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
             {/* Section 2: Dynamic Content Area */}
             <div className="workspace-body scroll-y">
               
+              {/* Section 1: Selector Cards */}
+              <div className="workspace-selector-section">
+                <div className="workspace-selector-grid">
+                  <div
+                    className={`workspace-selector-card manual-card ${interviewType === "Manual" ? "selected" : ""}`}
+                    onClick={() => setInterviewType("Manual")}
+                  >
+                    <div className="workspace-card-icon-container">
+                      <FiCalendar />
+                    </div>
+                    <div className="workspace-card-details">
+                      <h4>Manual Interview</h4>
+                      <p>Schedule a traditional interview with Google Meet and invite participants.</p>
+                    </div>
+                  </div>
+
+                  <div
+                    className={`workspace-selector-card ai-card ${interviewType === "AI" ? "selected" : ""}`}
+                    onClick={() => setInterviewType("AI")}
+                  >
+                    <div className="workspace-card-icon-container">
+                      <SiOpenai />
+                    </div>
+                    <div className="workspace-card-details">
+                      <h4>AI Interview</h4>
+                      <p>Let engineerHUB AI conduct the complete interview automatically using voice interaction with advance proctoring.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
               {interviewType === "Manual" ? (
                 /* --- MANUAL INTERVIEW FORM --- */
                 <div className="manual-form-layout animate-fade-in">
@@ -1271,11 +1292,30 @@ export default function InterviewLobby() {
                                 value={aiTopicInput}
                                 onChange={(e) => setAiTopicInput(e.target.value)}
                                 onKeyDown={(e) => {
-                                  if (e.key === "Enter") {
+                                  if (e.key === "Enter" || e.key === "," || e.key === "Tab") {
                                     e.preventDefault();
-                                    const val = aiTopicInput.trim();
-                                    if (val && !aiInterviewTopics.includes(val)) {
-                                      setAiInterviewTopics([...aiInterviewTopics, val]);
+                                    const raw = aiTopicInput.trim();
+                                    if (raw) {
+                                      const newTags = raw
+                                        .split(/[,;\n]+/)
+                                        .map((t) => t.trim())
+                                        .filter((t) => t.length > 0 && !aiInterviewTopics.includes(t));
+                                      if (newTags.length > 0) {
+                                        setAiInterviewTopics([...aiInterviewTopics, ...newTags]);
+                                        setAiTopicInput("");
+                                      }
+                                    }
+                                  }
+                                }}
+                                onBlur={() => {
+                                  const raw = aiTopicInput.trim();
+                                  if (raw) {
+                                    const newTags = raw
+                                      .split(/[,;\n]+/)
+                                      .map((t) => t.trim())
+                                      .filter((t) => t.length > 0 && !aiInterviewTopics.includes(t));
+                                    if (newTags.length > 0) {
+                                      setAiInterviewTopics([...aiInterviewTopics, ...newTags]);
                                       setAiTopicInput("");
                                     }
                                   }
@@ -1307,39 +1347,112 @@ export default function InterviewLobby() {
                           </div>
                         </div>
 
-                        {/* Round Types Toggle */}
+                        {/* Interview Focus Areas Toggles with Hover Descriptions */}
                         <div className="config-field">
-                          <label className="config-label">Assessment Rounds Include</label>
-                          <div className="assessment-toggles-container">
-                            <label className="toggle-switch-item">
-                              <input
-                                type="checkbox"
-                                checked={aiCodingRound}
-                                onChange={(e) => setAiCodingRound(e.target.checked)}
-                              />
-                              <span className="toggle-slider"></span>
-                              <span className="toggle-label">Coding Round</span>
-                            </label>
+                          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                            <label className="config-label">Interview Focus Areas</label>
+                            <span style={{ fontSize: "0.75rem", fontWeight: "600", color: "#006867" }}>
+                              {[aiTechnicalKnowledge, aiProblemSolving, aiCodingRound, aiSystemDesign, aiBehavioralRound, aiCommunication].filter(Boolean).length}/3 Selected
+                            </span>
+                          </div>
+                          <span style={{ fontSize: "0.76rem", color: "#64748b", display: "block", marginBottom: "0.5rem" }}>
+                            Select up to 3 focus areas. Vertex AI will cycle question formats matching your selected areas.
+                          </span>
+                          <div className="assessment-toggles-container" style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "0.75rem" }}>
+                            {[
+                              {
+                                key: "technicalKnowledge",
+                                label: "Technical Knowledge",
+                                checked: aiTechnicalKnowledge,
+                                setChecked: setAiTechnicalKnowledge,
+                                description: "Fundamentals, concepts, technologies, and role-specific knowledge",
+                              },
+                              {
+                                key: "problemSolving",
+                                label: "Problem Solving",
+                                checked: aiProblemSolving,
+                                setChecked: setAiProblemSolving,
+                                description: "Reasoning, debugging, analytical thinking, and approach to problems",
+                              },
+                              {
+                                key: "coding",
+                                label: "Coding & Programming",
+                                checked: aiCodingRound,
+                                setChecked: setAiCodingRound,
+                                description: "Coding concepts, implementation approach, algorithms, and code quality",
+                              },
+                              {
+                                key: "systemDesign",
+                                label: "System Design",
+                                checked: aiSystemDesign,
+                                setChecked: setAiSystemDesign,
+                                description: "Architecture, scalability, APIs, databases, and design decisions",
+                              },
+                              {
+                                key: "behavioral",
+                                label: "Behavioral",
+                                checked: aiBehavioralRound,
+                                setChecked: setAiBehavioralRound,
+                                description: "Past experiences, decision-making, ownership, adaptability, and teamwork",
+                              },
+                              {
+                                key: "communication",
+                                label: "Communication",
+                                checked: aiCommunication,
+                                setChecked: setAiCommunication,
+                                description: "Clarity, explanation, articulation, and ability to communicate technical ideas",
+                              },
+                            ].map((item) => (
+                              <div
+                                key={item.key}
+                                className="toggle-switch-item focus-area-toggle"
+                                style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}
+                              >
+                                <label style={{ display: "flex", alignItems: "center", gap: "0.5rem", cursor: "pointer", margin: 0 }}>
+                                  <input
+                                    type="checkbox"
+                                    checked={item.checked}
+                                    onChange={(e) => {
+                                      const isChecking = e.target.checked;
+                                      if (isChecking) {
+                                        const currentActive = [
+                                          aiTechnicalKnowledge,
+                                          aiProblemSolving,
+                                          aiCodingRound,
+                                          aiSystemDesign,
+                                          aiBehavioralRound,
+                                          aiCommunication,
+                                        ].filter(Boolean).length;
+                                        if (currentActive >= 3) {
+                                          setSnackbarMessage("Maximum 3 Interview Focus Areas can be selected.");
+                                          setSnackbarSeverity("warning");
+                                          setSnackbarOpen(true);
+                                          return;
+                                        }
+                                      }
+                                      item.setChecked(isChecking);
+                                    }}
+                                  />
+                                  <span className="toggle-slider"></span>
+                                  <span className="toggle-label">{item.label}</span>
+                                </label>
 
-                            <label className="toggle-switch-item">
-                              <input
-                                type="checkbox"
-                                checked={aiSystemDesign}
-                                onChange={(e) => setAiSystemDesign(e.target.checked)}
-                              />
-                              <span className="toggle-slider"></span>
-                              <span className="toggle-label">System Design Round</span>
-                            </label>
-
-                            <label className="toggle-switch-item">
-                              <input
-                                type="checkbox"
-                                checked={aiBehavioralRound}
-                                onChange={(e) => setAiBehavioralRound(e.target.checked)}
-                              />
-                              <span className="toggle-slider"></span>
-                              <span className="toggle-label">Behavioral Round</span>
-                            </label>
+                                <Tooltip
+                                  title={
+                                    <div style={{ padding: "4px 6px", fontSize: "0.8rem", lineHeight: "1.4" }}>
+                                      <strong style={{ display: "block", color: "#a78bfa", marginBottom: "3px" }}>What AI should assess:</strong>
+                                      <span>{item.description}</span>
+                                    </div>
+                                  }
+                                  arrow
+                                  placement="top"
+                                >
+                                  <span style={{ display: "inline-flex", alignItems: "center", cursor: "help", padding: "2px" }}>
+                                    <FiInfo style={{ color: "#006867", fontSize: "0.9rem", opacity: 0.8 }} />
+                                  </span>
+                                </Tooltip>
+                              </div>
+                            ))}
                           </div>
                         </div>
                       </div>
@@ -1417,8 +1530,8 @@ export default function InterviewLobby() {
                         <div className="toggles-list-card">
                           <label className="toggle-switch-item between">
                             <span className="toggle-label-group">
-                              <span className="title">Auto Proctoring Recording</span>
-                              <span className="desc">Record candidate voice & monitor tabs</span>
+                              <span className="title">Auto proctoring</span>
+                              <span className="desc">Monitor tab switches & candidate activity</span>
                             </span>
                             <div className="slider-wrapper">
                               <input
@@ -1444,21 +1557,6 @@ export default function InterviewLobby() {
                               <span className="toggle-slider"></span>
                             </div>
                           </label>
-
-                          <label className="toggle-switch-item between">
-                            <span className="toggle-label-group">
-                              <span className="title">Email Instructions</span>
-                              <span className="desc">Send voice setup rules to candidate</span>
-                            </span>
-                            <div className="slider-wrapper">
-                              <input
-                                type="checkbox"
-                                checked={aiEmailCandidate}
-                                onChange={(e) => setAiEmailCandidate(e.target.checked)}
-                              />
-                              <span className="toggle-slider"></span>
-                            </div>
-                          </label>
                         </div>
                       </div>
 
@@ -1477,7 +1575,7 @@ export default function InterviewLobby() {
                               ‹
                             </button>
                             {availableDates
-                              .slice(aiDateScrollIndex, aiDateScrollIndex + 4)
+                              .slice(aiDateScrollIndex, aiDateScrollIndex + 3)
                               .map((date, index) => {
                                 const formattedDate = formatDate(date);
                                 const isSelected =
@@ -1501,7 +1599,7 @@ export default function InterviewLobby() {
                               className="date-nav next"
                               type="button"
                               onClick={() => handleAIDateScroll("next")}
-                              disabled={aiDateScrollIndex >= availableDates.length - 4}
+                              disabled={aiDateScrollIndex >= availableDates.length - 3}
                             >
                               ›
                             </button>
@@ -1643,7 +1741,7 @@ export default function InterviewLobby() {
                 </button>
               ) : (
                 <button
-                  className="btn-primary ai-purple-btn glow-btn"
+                  className="btn-primary ai-purple-schedule-btn glow-btn"
                   onClick={handleAIScheduleSubmit}
                   disabled={isSchedulingAI || !aiSelectedDate || !aiStartTime || !aiEndTime || !aiInterviewSubject.trim()}
                 >
@@ -1673,7 +1771,7 @@ export default function InterviewLobby() {
             <div className="confirmation-content">
               <h2> Scheduled !</h2>
               <div className="success-icon">
-                <div className="checkmark">✓</div>
+                <div className="checkmark" style={{ backgroundColor: scheduledInterview.interviewType === "AI" ? "#8b5cf6" : "#138382" }}>✓</div>
               </div>
               <p className="interview-details">
                 Round {scheduledInterview.interviewRound} Interview scheduled
@@ -1704,7 +1802,12 @@ export default function InterviewLobby() {
               <p className="next-steps">
                 Check the Scheduled Lobby for further process.
               </p>
-              <button className="btn-primary" onClick={closeConfirmationModal} >
+              <button
+                className={`btn-primary confirm-continue-btn ${
+                  scheduledInterview.interviewType === "AI" ? "ai-confirm-btn" : "manual-confirm-btn"
+                }`}
+                onClick={closeConfirmationModal}
+              >
                 Continue
               </button>
             </div>

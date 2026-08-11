@@ -2,42 +2,42 @@ import React from "react";
 import { FiExternalLink, FiPlus, FiCalendar, FiClock, FiShield } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 import moment from "moment";
-function ProctoringCell({ proctoringCounts }) {
-  if (!proctoringCounts) {
-    return (
-      <div className="proctor-cell proctor-cell--none">
-        <span>No data</span>
-      </div>
-    );
-  }
+function ProctoringCell({ proctoringCounts, proctoringSummary }) {
+  const counts = proctoringCounts || {
+    TAB_SWITCH: proctoringSummary?.tabSwitches || 0,
+    FULLSCREEN_EXIT: proctoringSummary?.fullscreenExits || 0,
+    WINDOW_BLUR: proctoringSummary?.warningCount || 0,
+  };
 
-  const getRiskBandFromCounts = (counts = {}) => {
+  const getRiskBandFromCounts = (c = {}) => {
     const pts =
-      (counts.TAB_SWITCH || 0) * 2 +
-      (counts.WINDOW_BLUR || 0) * 1 +
-      (counts.FULLSCREEN_EXIT || 0) * 3 +
-      (counts.COPY_ATTEMPT || 0) * 4 +
-      (counts.PASTE_ATTEMPT || 0) * 4 +
-      (counts.RIGHT_CLICK_ATTEMPT || 0) * 2 +
-      (counts.NO_FACE_DETECTED || 0) * 5 +
-      (counts.MULTIPLE_FACES_DETECTED || 0) * 10 +
-      (counts.CAMERA_DISABLED || 0) * 15 +
-      (counts.CAMERA_STREAM_LOST || 0) * 15 +
-      (counts.CAMERA_PERMISSION_DENIED || 0) * 20;
+      (c.TAB_SWITCH || 0) * 2 +
+      (c.WINDOW_BLUR || 0) * 1 +
+      (c.FULLSCREEN_EXIT || 0) * 3 +
+      (c.COPY_ATTEMPT || 0) * 4 +
+      (c.PASTE_ATTEMPT || 0) * 4 +
+      (c.RIGHT_CLICK_ATTEMPT || 0) * 2 +
+      (c.NO_FACE_DETECTED || 0) * 5 +
+      (c.MULTIPLE_FACES_DETECTED || 0) * 10 +
+      (c.CAMERA_DISABLED || 0) * 15 +
+      (c.CAMERA_STREAM_LOST || 0) * 15 +
+      (c.CAMERA_PERMISSION_DENIED || 0) * 20;
     if (pts >= 25) return "High";
     if (pts >= 10) return "Medium";
     return "Low";
   };
 
-  const band = getRiskBandFromCounts(proctoringCounts);
-  const tabSwitches = proctoringCounts.TAB_SWITCH || 0;
-  const copies = (proctoringCounts.COPY_ATTEMPT || 0) + (proctoringCounts.PASTE_ATTEMPT || 0);
-  const fsExits = proctoringCounts.FULLSCREEN_EXIT || 0;
-  const camDisabled = proctoringCounts.CAMERA_DISABLED || 0;
-  const camLost = proctoringCounts.CAMERA_STREAM_LOST || 0;
-  const camDenied = proctoringCounts.CAMERA_PERMISSION_DENIED || 0;
-  const noFace = proctoringCounts.NO_FACE_DETECTED || 0;
-  const multiFace = proctoringCounts.MULTIPLE_FACES_DETECTED || 0;
+  const band = getRiskBandFromCounts(counts);
+  const tabSwitches = counts.TAB_SWITCH || 0;
+  const copies = (counts.COPY_ATTEMPT || 0) + (counts.PASTE_ATTEMPT || 0);
+  const fsExits = counts.FULLSCREEN_EXIT || 0;
+  const camDisabled = counts.CAMERA_DISABLED || 0;
+  const camLost = counts.CAMERA_STREAM_LOST || 0;
+  const camDenied = counts.CAMERA_PERMISSION_DENIED || 0;
+  const noFace = counts.NO_FACE_DETECTED || 0;
+  const multiFace = counts.MULTIPLE_FACES_DETECTED || 0;
+
+  const hasAnyHint = tabSwitches > 0 || copies > 0 || fsExits > 0 || camDisabled > 0 || camLost > 0 || camDenied > 0 || noFace > 0 || multiFace > 0;
 
   return (
     <div className="proctor-cell">
@@ -72,6 +72,9 @@ function ProctoringCell({ proctoringCounts }) {
         )}
         {multiFace > 0 && (
           <span className="proctor-hint">👥 Multi ({multiFace})</span>
+        )}
+        {!hasAnyHint && (
+          <span className="proctor-hint" style={{ opacity: 0.6 }}>Clean</span>
         )}
       </div>
     </div>
@@ -258,19 +261,19 @@ export default function ScheduledInterviewRow({
             <button
               className="join-meeting-btn ongoing"
               onClick={onJoinMeeting}
-              title="Interview is ongoing - Join now!"
+              title="Interview is ongoing - Join now"
             >
               <FiExternalLink />
-              Join Now
+              Join
             </button>
           ) : timeStatus === "approaching" ? (
             <button
               className="join-meeting-btn approaching"
               onClick={onJoinMeeting}
-              title="Interview starting soon - Join early"
+              title="Interview starting soon - Join"
             >
               <FiExternalLink />
-              Join Early
+              Join
             </button>
           ) : (
             <button
@@ -288,13 +291,8 @@ export default function ScheduledInterviewRow({
       <div className="table-cell remark-cell">
         {data.interviewType === "AI" ? (
           <ProctoringCell
-            proctoringCounts={data.proctoringCounts || {
-              TAB_SWITCH: 2,
-              WINDOW_BLUR: 4,
-              COPY_ATTEMPT: 0,
-              PASTE_ATTEMPT: 0,
-              FULLSCREEN_EXIT: 0,
-            }}
+            proctoringCounts={data.proctoringCounts}
+            proctoringSummary={data.proctoringSummary}
           />
         ) : (
           <button

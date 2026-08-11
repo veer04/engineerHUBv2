@@ -837,7 +837,7 @@ export default function ScheduledInterviews() {
                 <div className="table-cell datetime-cell">Date & Time</div>
                 <div className="table-cell round-cell">Round</div>
                 <div className="table-cell actions-cell">Actions</div>
-                <div className="table-cell remark-cell">Add Remark</div>
+                <div className="table-cell remark-cell">Remark</div>
               </div>
 
               {scheduledData.isLoading && (
