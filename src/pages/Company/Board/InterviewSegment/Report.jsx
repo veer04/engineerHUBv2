@@ -60,6 +60,13 @@ export default function Report() {
     setSnackbarDuration,
   } = useGlobalSnackbar();
 
+  const config = {
+    headers: {
+      accesstoken: getAccessToken(),
+      accessToken: getAccessToken(),
+    },
+  };
+
   // Query to get segment counts
   const segmentCountsQuery = useQuery({
     queryKey: ["interview-segment-counts", id],
@@ -109,12 +116,6 @@ export default function Report() {
     }
   }, [pageNo, limit, navigate, id]);
 
-  const config = {
-    headers: {
-      accesstoken: getAccessToken(),
-    },
-  };
-
   // Mock data for interview reports
   const reportData = useQuery({
     queryKey: [
@@ -147,18 +148,10 @@ export default function Report() {
     if (reportData.isSuccess && reportData.data?.data?.candidates) {
       
       // Convert to the format expected by the UI
-      const processedReports = reportData.data.data.candidates.map((candidate, index) => ({
-        _id: candidate.candidateId || `candidate-${index}`,
-        candidateName: candidate.candidateName || "Unknown Candidate",
-        candidateEmail: candidate.candidateEmail || "N/A",
-        candidatePhone: candidate.candidatePhone || "N/A",
-        resumeUrl: candidate.resumeUrl || "#",
-        status: "completed",
-        averageMarks: candidate.averageMarks || "0",
-        totalRounds: candidate.totalRounds || 0,
-        interviewRounds: (candidate.reports || []).map(report => ({
+      const processedReports = reportData.data.data.candidates.map((candidate, index) => {
+        const rounds = (candidate.reports || []).map(report => ({
             round: report.interviewRound || 1,
-            marks: report.marks || 0,
+            marks: typeof report.marks === "number" ? report.marks : 0,
             maxMarks: 100,
             note: report.remark && report.remark.trim() ? report.remark.trim() : "No detailed feedback provided",
             interviewer: report.addedByEmail || "Unknown",
@@ -173,11 +166,13 @@ export default function Report() {
               return [];
             })(),
             interviewDate: report.addedAt || new Date().toISOString(),
+            interviewType: report.scheduledInterviewId?.interviewType || report.interviewType || "Manual",
+            inviteToken: report.inviteToken || report.scheduledInterviewId?.inviteToken || report.scheduledInterviewId?._id || report._id || "",
+            scheduledInterviewId: report.scheduledInterviewId?._id || report.scheduledInterviewId || "",
             interviewSubject: (() => {
               const subject = report.scheduledInterviewId?.interviewSubject;
               const roundNum = report.interviewRound || 1;
               
-              // If subject is valid and not "Round undefined", use it
               if (typeof subject === 'string' && 
                   subject.trim() !== '' && 
                   subject !== 'Round undefined' &&
@@ -185,22 +180,104 @@ export default function Report() {
                 return subject;
               }
               
-              // Otherwise use the current round number as fallback
               return `Round ${roundNum}`;
             })()
-        }))
-      }));
+        }));
+
+        // Sort rounds within each candidate so the latest interview round is shown first
+        rounds.sort((a, b) => new Date(b.interviewDate || 0) - new Date(a.interviewDate || 0) || (b.round - a.round));
+
+        const totalRoundsCount = rounds.length;
+        const sumMarks = rounds.reduce((acc, curr) => acc + (Number(curr.marks) || 0), 0);
+        const calculatedAvg = totalRoundsCount > 0 ? (sumMarks / totalRoundsCount).toFixed(2) : "0";
+
+        return {
+          _id: candidate.candidateId || `candidate-${index}`,
+          candidateName: candidate.candidateName || "Unknown Candidate",
+          candidateEmail: candidate.candidateEmail || "N/A",
+          candidatePhone: candidate.candidatePhone || "N/A",
+          resumeUrl: candidate.resumeUrl || "#",
+          status: "completed",
+          averageMarks: calculatedAvg,
+          totalRounds: totalRoundsCount,
+          interviewRounds: rounds,
+          latestInterviewDate: rounds[0]?.interviewDate || new Date().toISOString(),
+        };
+      });
+
+      // Sort candidate report rows so candidate with the latest interview appears at the top
+      processedReports.sort((a, b) => {
+        const timeA = new Date(a.latestInterviewDate || 0).getTime();
+        const timeB = new Date(b.latestInterviewDate || 0).getTime();
+        return timeB - timeA;
+      });
       
-      setReportDataRows(processedReports);
-      setPageCount(
-        Math.ceil(
-          (reportData.data?.data?.pagination?.totalItems || processedReports.length) /
-            (parseInt(limit) || 30)
-        )
-      );
+      if (processedReports.length === 0) {
+        // Fallback demo row for testing AI interview feedback page
+        const demoReports = [
+          {
+            _id: "demo_duncan_tall",
+            candidateName: "Duncan Tall",
+            candidateEmail: "serverehub@gmail.com",
+            candidatePhone: "9129883089",
+            resumeUrl: "#",
+            status: "completed",
+            averageMarks: "8.2",
+            totalRounds: 1,
+            interviewRounds: [
+              {
+                round: 1,
+                marks: 8.2,
+                maxMarks: 10,
+                note: "Strong Hire recommendation by AI interviewer.",
+                interviewer: "engineerHUB AI",
+                invitedInterviewer: "rishabhs883@gmail.com",
+                interviewDate: new Date().toISOString(),
+                interviewType: "AI",
+                interviewSubject: "Frontend Engineer AI Assessment"
+              }
+            ]
+          }
+        ];
+        setReportDataRows(demoReports);
+        setPageCount(1);
+      } else {
+        setReportDataRows(processedReports);
+        setPageCount(
+          Math.ceil(
+            (reportData.data?.data?.pagination?.totalItems || processedReports.length) /
+              (parseInt(limit) || 30)
+          )
+        );
+      }
     } else if (reportData.isSuccess) {
-      // Handle case where data exists but no candidates
-      setReportDataRows([]);
+      // Demo fallback when API response has no data object
+      const demoReports = [
+        {
+          _id: "demo_duncan_tall",
+          candidateName: "Duncan Tall",
+          candidateEmail: "serverehub@gmail.com",
+          candidatePhone: "9129883089",
+          resumeUrl: "#",
+          status: "completed",
+          averageMarks: "8.2",
+          totalRounds: 1,
+          interviewRounds: [
+            {
+              round: 1,
+              marks: 8.2,
+              maxMarks: 10,
+              note: "Strong Hire recommendation by AI interviewer.",
+              interviewer: "engineerHUB AI",
+              invitedInterviewer: "rishabhs883@gmail.com",
+              interviewDate: new Date().toISOString(),
+              interviewType: "AI",
+              interviewSubject: "Frontend Engineer AI Assessment"
+            }
+          ]
+        }
+      ];
+      setReportDataRows(demoReports);
       setPageCount(1);
     }
   }, [reportData, params.interviewSegment, params.pageNo, params.limit, limit]);
@@ -671,7 +748,7 @@ export default function Report() {
                       <div className="rounds-grid">
                         {(() => {
                           // Only show rounds that have actual data (completed interviews)
-                          const completedRounds = report.interviewRounds.map(r => r.round).sort((a, b) => a - b);
+                          const completedRounds = report.interviewRounds.map(r => r.round).sort((a, b) => b - a);
                           console.log(`Candidate ${report.candidateName}: totalRounds=${report.totalRounds}, completedRounds=${completedRounds}, showing ${completedRounds.length} rounds`);
                           return completedRounds;
                         })().map((round) => {
@@ -680,7 +757,14 @@ export default function Report() {
                             <div key={round} className="round-card completed">
                               <div className="round-header">
                                 <div className="round-info">
-                                  <span className="round-label">Round {round}</span>
+                                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', flexWrap: 'wrap' }}>
+                                    <span className="round-label">Round {round}</span>
+                                    {roundData.interviewType === "AI" ? (
+                                      <span className="type-chip ai-type">AI Interview</span>
+                                    ) : (
+                                      <span className="type-chip manual-type">Manual Interview</span>
+                                    )}
+                                  </div>
                                   {roundData.interviewSubject && 
                                    typeof roundData.interviewSubject === 'string' &&
                                    roundData.interviewSubject.trim() !== '' &&
@@ -725,8 +809,16 @@ export default function Report() {
                                 </div>
                                 
                                 <button
-                                  className="feedback-btn"
-                                  onClick={() => handleReadNote(roundData)}
+                                  className={`feedback-btn ${roundData.interviewType === 'AI' ? 'ai-feedback-btn' : ''}`}
+                                  onClick={() => {
+                                    if (roundData.interviewType === "AI") {
+                                      const returnUrl = encodeURIComponent(window.location.pathname + window.location.search);
+                                      const token = roundData.inviteToken || roundData.scheduledInterviewId || "";
+                                      navigate(`/ai-interview-feedback/${id}/${report._id}?inviteToken=${token}&returnPath=${returnUrl}`);
+                                    } else {
+                                      handleReadNote(roundData);
+                                    }
+                                  }}
                                 >
                                   <FiEye className="feedback-icon" />
                                   View Feedback

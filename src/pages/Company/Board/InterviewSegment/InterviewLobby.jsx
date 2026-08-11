@@ -9,7 +9,9 @@ import {
   FiCalendar,
   FiClock,
   FiArrowLeft,
+  FiInfo,
 } from "react-icons/fi";
+import Tooltip from "@mui/material/Tooltip";
 import { MdDeleteOutline, MdMailOutline } from "react-icons/md";
 import { RiInboxArchiveLine } from "react-icons/ri";
 import { BiSort } from "react-icons/bi";
@@ -19,6 +21,7 @@ import Loading from "../../../../components/Loader/Loading";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { API_URL } from "../../../../services/APIUtils";
+import { scheduleAIInterviewApi } from "../../../../services/aiInterviewApi";
 import { Helmet } from "react-helmet";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import moment from "moment";
@@ -75,6 +78,39 @@ export default function InterviewLobby() {
   const [interviewSubject, setInterviewSubject] = useState("");
   const [dateScrollIndex, setDateScrollIndex] = useState(0);
 
+  // Workspace Modal States
+  const [showWorkspaceModal, setShowWorkspaceModal] = useState(false);
+  const [interviewType, setInterviewType] = useState("Manual"); // "Manual" or "AI"
+
+  // AI Agent Configuration States
+  const [aiInterviewSubject, setAiInterviewSubject] = useState("");
+  const [aiRole, setAiRole] = useState("Frontend Engineer");
+  const [aiDifficulty, setAiDifficulty] = useState("Medium");
+  const [aiLanguage, setAiLanguage] = useState("English");
+  const [aiDuration, setAiDuration] = useState("30 minutes");
+  const [aiTechnicalKnowledge, setAiTechnicalKnowledge] = useState(true);
+  const [aiProblemSolving, setAiProblemSolving] = useState(true);
+  const [aiCodingRound, setAiCodingRound] = useState(true);
+  const [aiSystemDesign, setAiSystemDesign] = useState(false);
+  const [aiBehavioralRound, setAiBehavioralRound] = useState(false);
+  const [aiCommunication, setAiCommunication] = useState(false);
+  const [aiPersonality, setAiPersonality] = useState("Conversational");
+  const [aiStrictness, setAiStrictness] = useState("Medium");
+  const [aiEvaluationDepth, setAiEvaluationDepth] = useState("Deep");
+  const [aiAutoRecording, setAiAutoRecording] = useState(true);
+  const [aiAutoReport, setAiAutoReport] = useState(true);
+  const [aiEmailCandidate, setAiEmailCandidate] = useState(true);
+  const [aiInterviewTopics, setAiInterviewTopics] = useState([]);
+  const [aiTopicInput, setAiTopicInput] = useState("");
+  const [aiInstructions, setAiInstructions] = useState("");
+  const [aiSelectedDate, setAiSelectedDate] = useState("");
+  const [aiStartTime, setAiStartTime] = useState("");
+  const [aiEndTime, setAiEndTime] = useState("");
+  const [aiCCParticipants, setAiCCParticipants] = useState([]);
+  const [aiCCEmailInput, setAiCCEmailInput] = useState("");
+  const [aiDateScrollIndex, setAiDateScrollIndex] = useState(0);
+  const [isSchedulingAI, setIsSchedulingAI] = useState(false);
+
   // Generate dates for the next 30 days
   const generateDates = () => {
     const dates = [];
@@ -105,6 +141,13 @@ export default function InterviewLobby() {
     setSnackbarSeverity,
     setSnackbarDuration,
   } = useGlobalSnackbar();
+
+  const config = {
+    headers: {
+      accesstoken: getAccessToken(),
+      accessToken: getAccessToken(),
+    },
+  };
 
   // Query to get segment counts
   const segmentCountsQuery = useQuery({
@@ -309,13 +352,7 @@ export default function InterviewLobby() {
     }
   }, [pageNo, limit, navigate, id]);
 
-  const config = {
-    headers: {
-      accesstoken: getAccessToken(),
-    },
-  };
-
-  // Mock data for now - will be replaced with actual API calls
+  // API query to get interview lobby candidates
   const interviewData = useQuery({
     queryKey: [
       "Interview",
@@ -443,7 +480,37 @@ export default function InterviewLobby() {
     setInviteeEmails([]);
     setInviteeInput("");
     setInterviewSubject("");
-    setShowScheduleModal(true);
+    
+    // Reset AI form states
+    setAiInterviewSubject("");
+    setAiRole("Frontend Engineer");
+    setAiDifficulty("Medium");
+    setAiLanguage("English");
+    setAiDuration("30 minutes");
+    setAiTechnicalKnowledge(true);
+    setAiProblemSolving(true);
+    setAiCodingRound(true);
+    setAiSystemDesign(false);
+    setAiBehavioralRound(false);
+    setAiCommunication(false);
+    setAiPersonality("Conversational");
+    setAiStrictness("Medium");
+    setAiEvaluationDepth("Deep");
+    setAiAutoRecording(true);
+    setAiAutoReport(true);
+    setAiEmailCandidate(true);
+    setAiInterviewTopics([]);
+    setAiTopicInput("");
+    setAiInstructions("");
+    setAiSelectedDate("");
+    setAiStartTime("");
+    setAiEndTime("");
+    setAiCCParticipants([]);
+    setAiCCEmailInput("");
+    setAiDateScrollIndex(0);
+
+    setInterviewType("Manual");
+    setShowWorkspaceModal(true);
   };
 
   const handleAddInvitee = (emailToAdd) => {
@@ -492,6 +559,53 @@ export default function InterviewLobby() {
       dateScrollIndex < availableDates.length - 4
     ) {
       setDateScrollIndex(dateScrollIndex + 1);
+    }
+  };
+
+  const handleAIDateScroll = (direction) => {
+    if (direction === "prev" && aiDateScrollIndex > 0) {
+      setAiDateScrollIndex(aiDateScrollIndex - 1);
+    } else if (
+      direction === "next" &&
+      aiDateScrollIndex < availableDates.length - 3
+    ) {
+      setAiDateScrollIndex(aiDateScrollIndex + 1);
+    }
+  };
+
+  const handleAIDateSelect = (date) => {
+    setAiSelectedDate(date.toISOString().split("T")[0]);
+  };
+
+  const handleAITimeChange = (field, value) => {
+    if (field === "aiStartTime") {
+      setAiStartTime(value);
+      if (value && aiDuration) {
+        const minutes = parseInt(aiDuration);
+        if (!isNaN(minutes)) {
+          const start = new Date(`2000-01-01T${value}`);
+          const end = new Date(start.getTime() + minutes * 60000);
+          const hh = String(end.getHours()).padStart(2, '0');
+          const mm = String(end.getMinutes()).padStart(2, '0');
+          setAiEndTime(`${hh}:${mm}`);
+        }
+      }
+    } else if (field === "aiEndTime") {
+      setAiEndTime(value);
+    }
+  };
+
+  const handleAIDurationChange = (value) => {
+    setAiDuration(value);
+    if (aiStartTime && value) {
+      const minutes = parseInt(value);
+      if (!isNaN(minutes)) {
+        const start = new Date(`2000-01-01T${aiStartTime}`);
+        const end = new Date(start.getTime() + minutes * 60000);
+        const hh = String(end.getHours()).padStart(2, '0');
+        const mm = String(end.getMinutes()).padStart(2, '0');
+        setAiEndTime(`${hh}:${mm}`);
+      }
     }
   };
 
@@ -614,13 +728,14 @@ export default function InterviewLobby() {
       );
 
       setScheduledInterview(response.data.data);
-      setShowScheduleModal(false);
+      setShowWorkspaceModal(false);
       setShowConfirmationModal(true);
 
       // Invalidate queries to refresh data
-      queryClient.invalidateQueries({
-        queryKey: ["Interview", "lobby", params.pageNo, params.limit, id, params.interviewSegment, exp],
-      });
+      queryClient.invalidateQueries({ queryKey: ["Interview", "lobby"] });
+      queryClient.invalidateQueries({ queryKey: ["Interview", "scheduled"] });
+      queryClient.invalidateQueries({ queryKey: ["Interview", "report"] });
+      queryClient.invalidateQueries({ queryKey: ["interview-segment-counts"] });
 
       setSnackbarMessage("Interview scheduled successfully!");
       setSnackbarSeverity("success");
@@ -683,6 +798,116 @@ export default function InterviewLobby() {
     }
   };
 
+  const handleAIScheduleSubmit = async () => {
+    if (!aiSelectedDate || !aiStartTime || !aiEndTime) {
+      setSnackbarMessage("Please fill all required fields");
+      setSnackbarSeverity("error");
+      setSnackbarDuration(3000);
+      setSnackbarOpen(true);
+      return;
+    }
+
+    if (!aiInterviewSubject.trim()) {
+      setSnackbarMessage("Please enter an interview subject");
+      setSnackbarSeverity("error");
+      setSnackbarDuration(3000);
+      setSnackbarOpen(true);
+      return;
+    }
+
+    // Calculate duration in minutes
+    const start = new Date(`2000-01-01T${aiStartTime}`);
+    const end = new Date(`2000-01-01T${aiEndTime}`);
+    let duration = Math.round((end - start) / (1000 * 60));
+    if (duration < 0) {
+      duration += 24 * 60; // handle cross day boundary
+    }
+
+    if (duration < 15) {
+      setSnackbarMessage("Meeting duration must be at least 15 minutes. Please select a longer time slot.");
+      setSnackbarSeverity("error");
+      setSnackbarDuration(5000);
+      setSnackbarOpen(true);
+      return;
+    }
+
+    setIsSchedulingAI(true);
+
+    try {
+      const payload = {
+        hiringId: id,
+        candidateId: selectedCandidate.candidateId,
+        candidateName: selectedCandidate.candidateName,
+        candidateEmail: selectedCandidate.candidateEmail,
+        candidatePhone: selectedCandidate.candidatePhone || "",
+        interviewRound: Number(interviewRound) || 1,
+        scheduledDate: aiSelectedDate,
+        startTime: aiStartTime,
+        endTime: aiEndTime,
+        duration: duration,
+        interviewSubject: aiInterviewSubject.trim(),
+        aiConfig: {
+          roleTitle: aiRole || "Software Engineer",
+          difficulty: aiDifficulty || "Medium",
+          language: aiLanguage || "English",
+          topics: aiInterviewTopics || [],
+          focusAreas: {
+            technicalKnowledge: aiTechnicalKnowledge,
+            problemSolving: aiProblemSolving,
+            coding: aiCodingRound,
+            systemDesign: aiSystemDesign,
+            behavioral: aiBehavioralRound,
+            communication: aiCommunication,
+          },
+          personality: aiPersonality || "Conversational",
+          strictness: aiStrictness || "Medium",
+          evaluationDepth: aiEvaluationDepth || "Deep",
+          customInstructions: aiInstructions || "",
+        },
+      };
+
+      const resData = await scheduleAIInterviewApi(payload);
+      const scheduledResult = resData?.data?.scheduledInterview || {
+        _id: resData?.data?.session?.inviteToken || "ai_scheduled",
+        hiringId: id,
+        candidateId: selectedCandidate.candidateId,
+        candidateName: selectedCandidate.candidateName,
+        candidateEmail: selectedCandidate.candidateEmail,
+        interviewRound: interviewRound,
+        scheduledDate: aiSelectedDate,
+        startTime: aiStartTime,
+        endTime: aiEndTime,
+        duration: duration,
+        status: "Scheduled",
+        interviewSubject: aiInterviewSubject.trim(),
+        interviewType: "AI",
+      };
+
+      setScheduledInterview(scheduledResult);
+      setShowWorkspaceModal(false);
+      setShowConfirmationModal(true);
+
+      // Invalidate queries to refresh data
+      queryClient.invalidateQueries({ queryKey: ["Interview", "lobby"] });
+      queryClient.invalidateQueries({ queryKey: ["Interview", "scheduled"] });
+      queryClient.invalidateQueries({ queryKey: ["Interview", "report"] });
+      queryClient.invalidateQueries({ queryKey: ["interview-segment-counts"] });
+
+      setSnackbarMessage("AI Interview scheduled successfully!");
+      setSnackbarSeverity("success");
+      setSnackbarDuration(3000);
+      setSnackbarOpen(true);
+    } catch (error) {
+      console.error("Error scheduling AI interview:", error);
+      setSnackbarMessage("Failed to schedule AI interview. Please try again.");
+      setSnackbarSeverity("error");
+      setSnackbarDuration(5000);
+      setSnackbarOpen(true);
+    } finally {
+      setIsSchedulingAI(false);
+    }
+  };
+
   const closeConfirmationModal = () => {
     setShowConfirmationModal(false);
     setScheduledInterview(null);
@@ -691,253 +916,850 @@ export default function InterviewLobby() {
 
   return (
     <>
-      {/* Schedule Interview Modal */}
-      {showScheduleModal && (
-        <div className="modal-overlay">
-          <div className="schedule-modal">
-            <div className="modal-header professional-header">
-              <div className="header-content">
-                <div className="header-icon">
-                  <FiCalendar />
+      {/* Redesigned Premium Recruiter Scheduling Workspace Modal */}
+      {showWorkspaceModal && (
+        <div className="workspace-modal-overlay">
+          <div className={`workspace-modal-container ${interviewType === "AI" ? "ai-mode-active" : "manual-mode-active"}`}>
+            
+            {/* Header Area */}
+            <div className="workspace-header">
+              <div className="header-info-row">
+                <div className="header-badge-section">
+                  <span className="round-badge-pill">Round {interviewRound || 1}</span>
+                  {interviewType === "AI" ? (
+                    <span className="ai-workspace-badge">AI Agent Workspace</span>
+                  ) : (
+                    <span className="manual-workspace-badge">Manual Interview Workspace</span>
+                  )}
                 </div>
-                <div className="header-text">
-                  <h3>Schedule Interview</h3>
-                  <p className="header-subtitle">Set up interview details and send calendar invites</p>
+                <div className="candidate-meta-bar">
+                  <span className="meta-item">
+                    <span className="meta-label">Candidate:</span>
+                    <span className="meta-value highlight">{selectedCandidate?.candidateName || "Unknown"}</span>
+                  </span>
+                  <span className="meta-item">
+                    <span className="meta-label">Email:</span>
+                    <span className="meta-value">{selectedCandidate?.candidateEmail || "Not provided"}</span>
+                  </span>
                 </div>
               </div>
               <button
-                className="close-btn"
-                onClick={() => setShowScheduleModal(false)}
-                disabled={isSchedulingInterview}
+                className="workspace-close-btn"
+                onClick={() => setShowWorkspaceModal(false)}
+                disabled={isSchedulingInterview || isSchedulingAI}
               >
                 ×
               </button>
             </div>
 
-            <div className="modal-body">
-              <div className="candidate-info">
-                <h4>
-                  Candidate: {selectedCandidate?.candidateName || 'Unknown'}
-                </h4>
-                <p>Email: {selectedCandidate?.candidateEmail || 'Not provided'}</p>
-                <p>Round: {interviewRound || 1}</p>
-              </div>
-
-              <div className="interview-subject-section">
-                <label className="subject-label">
-                  Interview Subject <span className="required">*</span>
-                </label>
-                <input
-                  type="text"
-                  className="subject-input"
-                  placeholder="e.g., Technical Round, HR Round, System Design, Coding Interview, Final Round"
-                  value={interviewSubject}
-                  onChange={(e) => setInterviewSubject(e.target.value)}
-                  required
-                />
-                <p className="subject-hint">This will be used in emails and calendar invites sent to participants</p>
-              </div>
-
-              <div className="date-selection">
-                <h5>Select Date</h5>
-                <div className="date-cards">
-                  <button
-                    className="date-nav prev"
-                    onClick={() => handleDateScroll("prev")}
-                    disabled={dateScrollIndex === 0}
+            {/* Section 2: Dynamic Content Area */}
+            <div className="workspace-body scroll-y">
+              
+              {/* Section 1: Selector Cards */}
+              <div className="workspace-selector-section">
+                <div className="workspace-selector-grid">
+                  <div
+                    className={`workspace-selector-card manual-card ${interviewType === "Manual" ? "selected" : ""}`}
+                    onClick={() => setInterviewType("Manual")}
                   >
-                    ‹
-                  </button>
-                  {availableDates
-                    .slice(dateScrollIndex, dateScrollIndex + 4)
-                    .map((date, index) => {
-                      const formattedDate = formatDate(date);
-                      const isSelected =
-                        selectedDate === date.toISOString().split("T")[0];
-                      return (
-                        <div
-                          key={index}
-                          className={`date-card ${
-                            isSelected ? "selected" : ""
-                          }`}
-                          onClick={() => handleDateSelect(date)}
-                        >
-                          <span>{formattedDate.day}</span>
-                          <span>
-                            {formattedDate.date} {formattedDate.month}
-                          </span>
-                        </div>
-                      );
-                    })}
-                  <button
-                    className="date-nav next"
-                    onClick={() => handleDateScroll("next")}
-                    disabled={dateScrollIndex >= availableDates.length - 4}
-                  >
-                    ›
-                  </button>
-                </div>
-              </div>
-
-              <div className="time-selection">
-                <h5>Select time of the day</h5>
-                <div className="time-inputs">
-                  <FormInputTime
-                    id="startTime"
-                    name="startTime"
-                    label="Start Time"
-                    value={startTime}
-                    setValue={(value) => handleTimeChange("startTime", value)}
-                    required
-                  />
-                  <FormInputTime
-                    id="endTime"
-                    name="endTime"
-                    label="End Time"
-                    value={endTime}
-                    setValue={(value) => handleTimeChange("endTime", value)}
-                    required
-                  />
-                </div>
-              </div>
-
-              <div className="invitee-section">
-                <label className="invitee-label">
-                  Enter the mail to who you want to invite as an interviewer
-                  along with you
-                </label>
-                <div className="invitee-input-container">
-                  <input
-                    type="text"
-                    className="subject-input invitee-input"
-                    placeholder="Enter Mail Here (Press Enter or Tab to add)"
-                    value={inviteeInput}
-                    onChange={(e) => setInviteeInput(e.target.value)}
-                    onKeyDown={(e) => {
-                      if (e.key === "Enter" || e.key === "Tab" || e.key === ",") {
-                        if (inviteeInput.trim()) {
-                          e.preventDefault();
-                          handleAddInvitee();
-                        }
-                      }
-                    }}
-                    onBlur={() => {
-                      if (inviteeInput.trim()) {
-                        handleAddInvitee();
-                      }
-                    }}
-                  />
-                </div>
-                {inviteeEmails.length > 0 && (
-                  <div className="invitee-chips-container">
-                    <div className="chips-header">
-                      Invited Interviewers ({inviteeEmails.length})
+                    <div className="workspace-card-icon-container">
+                      <FiCalendar />
                     </div>
-                    <div className="invitee-chips-list">
-                      {inviteeEmails.map((email, idx) => (
-                        <span key={idx} className="invitee-chip">
-                          <span className="chip-email">{email}</span>
+                    <div className="workspace-card-details">
+                      <h4>Manual Interview</h4>
+                      <p>Schedule a traditional interview with Google Meet and invite participants.</p>
+                    </div>
+                  </div>
+
+                  <div
+                    className={`workspace-selector-card ai-card ${interviewType === "AI" ? "selected" : ""}`}
+                    onClick={() => setInterviewType("AI")}
+                  >
+                    <div className="workspace-card-icon-container">
+                      <SiOpenai />
+                    </div>
+                    <div className="workspace-card-details">
+                      <h4>AI Interview</h4>
+                      <p>Let engineerHUB AI conduct the complete interview automatically using voice interaction with advance proctoring.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {interviewType === "Manual" ? (
+                /* --- MANUAL INTERVIEW FORM --- */
+                <div className="manual-form-layout animate-fade-in">
+                  <div className="form-grid-two-cols">
+                    
+                    <div className="interview-subject-section wide-col">
+                      <label className="subject-label">
+                        Interview Subject <span className="required">*</span>
+                      </label>
+                      <input
+                        type="text"
+                        className="subject-input"
+                        placeholder="e.g., Technical Round, HR Round, System Design, Coding Interview, Final Round"
+                        value={interviewSubject}
+                        onChange={(e) => setInterviewSubject(e.target.value)}
+                        required
+                      />
+                      <p className="subject-hint">This will be used in emails and calendar invites sent to participants</p>
+                    </div>
+
+                    <div className="wide-col">
+                      <div className="date-selection">
+                        <h5>Select Date</h5>
+                        <div className="date-cards">
                           <button
-                            type="button"
-                            className="chip-remove-btn"
-                            onClick={() => handleRemoveInvitee(email)}
-                            title="Remove interviewer"
+                            className="date-nav prev"
+                            onClick={() => handleDateScroll("prev")}
+                            disabled={dateScrollIndex === 0}
                           >
-                            ×
+                            ‹
                           </button>
-                        </span>
-                      ))}
+                          {availableDates
+                            .slice(dateScrollIndex, dateScrollIndex + 4)
+                            .map((date, index) => {
+                              const formattedDate = formatDate(date);
+                              const isSelected =
+                                selectedDate === date.toISOString().split("T")[0];
+                              return (
+                                <div
+                                  key={index}
+                                  className={`date-card ${
+                                    isSelected ? "selected" : ""
+                                  }`}
+                                  onClick={() => handleDateSelect(date)}
+                                >
+                                  <span>{formattedDate.day}</span>
+                                  <span>
+                                    {formattedDate.date} {formattedDate.month}
+                                  </span>
+                                </div>
+                              );
+                            })}
+                          <button
+                            className="date-nav next"
+                            onClick={() => handleDateScroll("next")}
+                            disabled={dateScrollIndex >= availableDates.length - 4}
+                          >
+                            ›
+                          </button>
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                )}
-              </div>
 
-              <div className="schedule-summary">
-                <div className="summary-item">
-                  <FiCalendar />
-                  <div>
-                    <span>
-                      {selectedDate
-                        ? `${formatDate(new Date(selectedDate)).month} ${
-                            formatDate(new Date(selectedDate)).date
-                          }`
-                        : "Select a date"}
-                    </span>
-                    &nbsp; :&nbsp;
-                    <span>
-                      {startTime && endTime
-                        ? `${startTime} - ${endTime}`
-                        : startTime 
-                        ? `${startTime} - Select end time`
-                        : endTime
-                        ? `Select start time - ${endTime}`
-                        : "Select start and end times"}
-                    </span>
+                    <div className="time-selection wide-col">
+                      <h5>Select time of the day</h5>
+                      <div className="time-inputs">
+                        <FormInputTime
+                          id="startTime"
+                          name="startTime"
+                          label="Start Time"
+                          value={startTime}
+                          setValue={(value) => handleTimeChange("startTime", value)}
+                          required
+                        />
+                        <FormInputTime
+                          id="endTime"
+                          name="endTime"
+                          label="End Time"
+                          value={endTime}
+                          setValue={(value) => handleTimeChange("endTime", value)}
+                          required
+                        />
+                      </div>
+                    </div>
+
+                    <div className="invitee-section wide-col">
+                      <label className="invitee-label">
+                        Enter the mail to who you want to invite as an interviewer
+                        along with you
+                      </label>
+                      <div className="invitee-input-container">
+                        <input
+                          type="text"
+                          className="subject-input invitee-input"
+                          placeholder="Enter Mail Here (Press Enter or Tab to add)"
+                          value={inviteeInput}
+                          onChange={(e) => setInviteeInput(e.target.value)}
+                          onKeyDown={(e) => {
+                            if (e.key === "Enter" || e.key === "Tab" || e.key === ",") {
+                              if (inviteeInput.trim()) {
+                                e.preventDefault();
+                                handleAddInvitee();
+                              }
+                            }
+                          }}
+                          onBlur={() => {
+                            if (inviteeInput.trim()) {
+                              handleAddInvitee();
+                            }
+                          }}
+                        />
+                      </div>
+                      {inviteeEmails.length > 0 && (
+                        <div className="invitee-chips-container">
+                          <div className="chips-header">
+                            Invited Interviewers ({inviteeEmails.length})
+                          </div>
+                          <div className="invitee-chips-list">
+                            {inviteeEmails.map((email, idx) => (
+                              <span key={idx} className="invitee-chip">
+                                <span className="chip-email">{email}</span>
+                                <button
+                                  type="button"
+                                  className="chip-remove-btn"
+                                  onClick={() => handleRemoveInvitee(email)}
+                                  title="Remove interviewer"
+                                >
+                                  ×
+                                </button>
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+                    </div>
+
                   </div>
-                </div>
-                
-                {/* Duration indicator */}
-                {startTime && endTime && (
-                  <div className={`duration-indicator ${(() => {
-                    const start = new Date(`2000-01-01T${startTime}`);
-                    const end = new Date(`2000-01-01T${endTime}`);
-                    const duration = Math.round((end - start) / (1000 * 60));
-                    return duration < 15 ? 'duration-warning' : 'duration-ok';
-                  })()}`}>
-                    <FiClock />
-                    <span>
-                      Duration: {(() => {
+
+                  <div className="schedule-summary">
+                    <div className="summary-item">
+                      <FiCalendar />
+                      <div>
+                        <span>
+                          {selectedDate
+                            ? `${formatDate(new Date(selectedDate)).month} ${
+                                formatDate(new Date(selectedDate)).date
+                              }`
+                            : "Select a date"}
+                        </span>
+                        &nbsp; :&nbsp;
+                        <span>
+                          {startTime && endTime
+                            ? `${startTime} - ${endTime}`
+                            : startTime 
+                            ? `${startTime} - Select end time`
+                            : endTime
+                            ? `Select start time - ${endTime}`
+                            : "Select start and end times"}
+                        </span>
+                      </div>
+                    </div>
+                    
+                    {startTime && endTime && (
+                      <div className={`duration-indicator ${(() => {
                         const start = new Date(`2000-01-01T${startTime}`);
                         const end = new Date(`2000-01-01T${endTime}`);
                         const duration = Math.round((end - start) / (1000 * 60));
-                        return `${duration} minutes`;
-                      })()}
-                    </span>
-                    {(() => {
-                      const start = new Date(`2000-01-01T${startTime}`);
-                      const end = new Date(`2000-01-01T${endTime}`);
-                      const duration = Math.round((end - start) / (1000 * 60));
-                      return duration < 15 && (
-                        <span className="warning-text">(Minimum 15 minutes required)</span>
-                      );
-                    })()}
+                        return duration < 15 ? 'duration-warning' : 'duration-ok';
+                      })()}`}>
+                        <FiClock />
+                        <span>
+                          Duration: {(() => {
+                            const start = new Date(`2000-01-01T${startTime}`);
+                            const end = new Date(`2000-01-01T${endTime}`);
+                            const duration = Math.round((end - start) / (1000 * 60));
+                            return `${duration} minutes`;
+                          })()}
+                        </span>
+                        {(() => {
+                          const start = new Date(`2000-01-01T${startTime}`);
+                          const end = new Date(`2000-01-01T${endTime}`);
+                          const duration = Math.round((end - start) / (1000 * 60));
+                          return duration < 15 && (
+                            <span className="warning-text">(Minimum 15 minutes required)</span>
+                          );
+                        })()}
+                      </div>
+                    )}
                   </div>
-                )}
-              </div>
+                </div>
+              ) : (
+                /* --- AI AGENT CONFIGURATOR FORM --- */
+                <div className="ai-agent-configurator-layout animate-fade-in">
+                  
+                  <div className="config-grid-layout">
+                    
+                    {/* Left Column: Config Panel */}
+                    <div className="config-panel-column">
+                      
+                      {/* Section: General */}
+                      <div className="config-card-group">
+                        <h5 className="group-title">General Config</h5>
+                        
+                        <div className="config-field">
+                          <label className="config-label">Interview Name *</label>
+                          <input
+                            type="text"
+                            className="workspace-text-input"
+                            placeholder="e.g. Frontend Developer Round 2"
+                            value={aiInterviewSubject}
+                            onChange={(e) => setAiInterviewSubject(e.target.value)}
+                            required
+                          />
+                        </div>
+
+                        <div className="config-two-cols-row">
+                          <div className="config-field">
+                            <label className="config-label">Interview Role</label>
+                            <input
+                              type="text"
+                              className="workspace-text-input"
+                              placeholder="e.g., React Specialist"
+                              value={aiRole}
+                              onChange={(e) => setAiRole(e.target.value)}
+                            />
+                          </div>
+
+                          <div className="config-field">
+                            <label className="config-label">Duration</label>
+                            <select
+                              className="workspace-select-input"
+                              value={aiDuration}
+                              onChange={(e) => handleAIDurationChange(e.target.value)}
+                            >
+                              <option value="15 minutes">15 mins</option>
+                              <option value="30 minutes">30 mins</option>
+                              <option value="45 minutes">45 mins</option>
+                              <option value="60 minutes">60 mins</option>
+                              <option value="90 minutes">90 mins</option>
+                              <option value="120 minutes">120 mins</option>
+                            </select>
+                          </div>
+                        </div>
+
+                        <div className="config-two-cols-row">
+                          <div className="config-field">
+                            <label className="config-label">Interview Language</label>
+                            <select
+                              className="workspace-select-input"
+                              value={aiLanguage}
+                              onChange={(e) => setAiLanguage(e.target.value)}
+                            >
+                              <option value="English">English</option>
+                              <option value="Hindi">Hindi</option>
+                              <option value="Spanish">Spanish</option>
+                              <option value="French">French</option>
+                              <option value="German">German</option>
+                              <option value="Japanese">Japanese</option>
+                            </select>
+                          </div>
+
+                          <div className="config-field">
+                            <label className="config-label">Difficulty</label>
+                            <div className="difficulty-pill-selector">
+                              {["Easy", "Medium", "Hard", "Expert"].map((level) => (
+                                <button
+                                  type="button"
+                                  key={level}
+                                  className={`diff-pill-btn ${aiDifficulty === level ? "selected" : ""}`}
+                                  onClick={() => setAiDifficulty(level)}
+                                >
+                                  {level}
+                                </button>
+                              ))}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Section: Topics & Skills Focus */}
+                      <div className="config-card-group">
+                        <h5 className="group-title">Skills & Evaluation Focus</h5>
+                        
+                        <div className="config-field">
+                          <label className="config-label">Question Focus Topics</label>
+                          <div className="workspace-chips-input-container">
+                            <div className="workspace-chips-wrap">
+                              {aiInterviewTopics.map((topic, idx) => (
+                                <span key={idx} className="workspace-ai-chip">
+                                  {topic}
+                                  <button
+                                    type="button"
+                                    className="workspace-ai-chip-remove"
+                                    onClick={() => setAiInterviewTopics(aiInterviewTopics.filter((_, i) => i !== idx))}
+                                  >
+                                    ×
+                                  </button>
+                                </span>
+                              ))}
+                              <input
+                                type="text"
+                                className="workspace-chips-input-field"
+                                placeholder="Type custom topic & press Enter..."
+                                value={aiTopicInput}
+                                onChange={(e) => setAiTopicInput(e.target.value)}
+                                onKeyDown={(e) => {
+                                  if (e.key === "Enter" || e.key === "," || e.key === "Tab") {
+                                    e.preventDefault();
+                                    const raw = aiTopicInput.trim();
+                                    if (raw) {
+                                      const newTags = raw
+                                        .split(/[,;\n]+/)
+                                        .map((t) => t.trim())
+                                        .filter((t) => t.length > 0 && !aiInterviewTopics.includes(t));
+                                      if (newTags.length > 0) {
+                                        setAiInterviewTopics([...aiInterviewTopics, ...newTags]);
+                                        setAiTopicInput("");
+                                      }
+                                    }
+                                  }
+                                }}
+                                onBlur={() => {
+                                  const raw = aiTopicInput.trim();
+                                  if (raw) {
+                                    const newTags = raw
+                                      .split(/[,;\n]+/)
+                                      .map((t) => t.trim())
+                                      .filter((t) => t.length > 0 && !aiInterviewTopics.includes(t));
+                                    if (newTags.length > 0) {
+                                      setAiInterviewTopics([...aiInterviewTopics, ...newTags]);
+                                      setAiTopicInput("");
+                                    }
+                                  }
+                                }}
+                              />
+                            </div>
+                          </div>
+                          <div className="workspace-recommended-topics">
+                            <span className="workspace-rec-label">Quick Add:</span>
+                            {["React", "JavaScript", "Node.js", "MongoDB", "REST APIs", "System Design", "DSA", "Behavioral", "Communication"].map((rec) => {
+                              const isSelected = aiInterviewTopics.includes(rec);
+                              return (
+                                <button
+                                  key={rec}
+                                  type="button"
+                                  className={`workspace-rec-tag-btn ${isSelected ? "selected" : ""}`}
+                                  onClick={() => {
+                                    if (isSelected) {
+                                      setAiInterviewTopics(aiInterviewTopics.filter(t => t !== rec));
+                                    } else {
+                                      setAiInterviewTopics([...aiInterviewTopics, rec]);
+                                    }
+                                  }}
+                                >
+                                  {rec}
+                                </button>
+                              );
+                            })}
+                          </div>
+                        </div>
+
+                        {/* Interview Focus Areas Toggles with Hover Descriptions */}
+                        <div className="config-field">
+                          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                            <label className="config-label">Interview Focus Areas</label>
+                            <span style={{ fontSize: "0.75rem", fontWeight: "600", color: "#006867" }}>
+                              {[aiTechnicalKnowledge, aiProblemSolving, aiCodingRound, aiSystemDesign, aiBehavioralRound, aiCommunication].filter(Boolean).length}/3 Selected
+                            </span>
+                          </div>
+                          <span style={{ fontSize: "0.76rem", color: "#64748b", display: "block", marginBottom: "0.5rem" }}>
+                            Select up to 3 focus areas. Vertex AI will cycle question formats matching your selected areas.
+                          </span>
+                          <div className="assessment-toggles-container" style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "0.75rem" }}>
+                            {[
+                              {
+                                key: "technicalKnowledge",
+                                label: "Technical Knowledge",
+                                checked: aiTechnicalKnowledge,
+                                setChecked: setAiTechnicalKnowledge,
+                                description: "Fundamentals, concepts, technologies, and role-specific knowledge",
+                              },
+                              {
+                                key: "problemSolving",
+                                label: "Problem Solving",
+                                checked: aiProblemSolving,
+                                setChecked: setAiProblemSolving,
+                                description: "Reasoning, debugging, analytical thinking, and approach to problems",
+                              },
+                              {
+                                key: "coding",
+                                label: "Coding & Programming",
+                                checked: aiCodingRound,
+                                setChecked: setAiCodingRound,
+                                description: "Coding concepts, implementation approach, algorithms, and code quality",
+                              },
+                              {
+                                key: "systemDesign",
+                                label: "System Design",
+                                checked: aiSystemDesign,
+                                setChecked: setAiSystemDesign,
+                                description: "Architecture, scalability, APIs, databases, and design decisions",
+                              },
+                              {
+                                key: "behavioral",
+                                label: "Behavioral",
+                                checked: aiBehavioralRound,
+                                setChecked: setAiBehavioralRound,
+                                description: "Past experiences, decision-making, ownership, adaptability, and teamwork",
+                              },
+                              {
+                                key: "communication",
+                                label: "Communication",
+                                checked: aiCommunication,
+                                setChecked: setAiCommunication,
+                                description: "Clarity, explanation, articulation, and ability to communicate technical ideas",
+                              },
+                            ].map((item) => (
+                              <div
+                                key={item.key}
+                                className="toggle-switch-item focus-area-toggle"
+                                style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}
+                              >
+                                <label style={{ display: "flex", alignItems: "center", gap: "0.5rem", cursor: "pointer", margin: 0 }}>
+                                  <input
+                                    type="checkbox"
+                                    checked={item.checked}
+                                    onChange={(e) => {
+                                      const isChecking = e.target.checked;
+                                      if (isChecking) {
+                                        const currentActive = [
+                                          aiTechnicalKnowledge,
+                                          aiProblemSolving,
+                                          aiCodingRound,
+                                          aiSystemDesign,
+                                          aiBehavioralRound,
+                                          aiCommunication,
+                                        ].filter(Boolean).length;
+                                        if (currentActive >= 3) {
+                                          setSnackbarMessage("Maximum 3 Interview Focus Areas can be selected.");
+                                          setSnackbarSeverity("warning");
+                                          setSnackbarOpen(true);
+                                          return;
+                                        }
+                                      }
+                                      item.setChecked(isChecking);
+                                    }}
+                                  />
+                                  <span className="toggle-slider"></span>
+                                  <span className="toggle-label">{item.label}</span>
+                                </label>
+
+                                <Tooltip
+                                  title={
+                                    <div style={{ padding: "4px 6px", fontSize: "0.8rem", lineHeight: "1.4" }}>
+                                      <strong style={{ display: "block", color: "#a78bfa", marginBottom: "3px" }}>What AI should assess:</strong>
+                                      <span>{item.description}</span>
+                                    </div>
+                                  }
+                                  arrow
+                                  placement="top"
+                                >
+                                  <span style={{ display: "inline-flex", alignItems: "center", cursor: "help", padding: "2px" }}>
+                                    <FiInfo style={{ color: "#006867", fontSize: "0.9rem", opacity: 0.8 }} />
+                                  </span>
+                                </Tooltip>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Section: AI Personality & Rigor */}
+                      <div className="config-card-group">
+                        <h5 className="group-title">AI Agent Rigor & Behavior</h5>
+                        
+                        <div className="config-two-cols-row">
+                          <div className="config-field">
+                            <label className="config-label">AI Personality</label>
+                            <select
+                              className="workspace-select-input"
+                              value={aiPersonality}
+                              onChange={(e) => setAiPersonality(e.target.value)}
+                            >
+                              <option value="Conversational">Conversational</option>
+                              <option value="Professional">Professional</option>
+                              <option value="Friendly">Friendly</option>
+                              <option value="Strict">Strict & Rigorous</option>
+                            </select>
+                          </div>
+
+                          <div className="config-field">
+                            <label className="config-label">Strictness Rigor</label>
+                            <div className="difficulty-pill-selector purple-acc">
+                              {["Low", "Medium", "High"].map((level) => (
+                                <button
+                                  type="button"
+                                  key={level}
+                                  className={`diff-pill-btn purple-pill ${aiStrictness === level ? "selected" : ""}`}
+                                  onClick={() => setAiStrictness(level)}
+                                >
+                                  {level}
+                                </button>
+                              ))}
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="config-field" style={{ marginTop: '0.75rem' }}>
+                          <label className="config-label">Evaluation Depth</label>
+                          <select
+                            className="workspace-select-input"
+                            value={aiEvaluationDepth}
+                            onChange={(e) => setAiEvaluationDepth(e.target.value)}
+                          >
+                            <option value="Standard">Standard Assessment (General Report)</option>
+                            <option value="Deep">Deep Evaluation (Rigor Analysis)</option>
+                            <option value="Comprehensive">Comprehensive Profile (Full Scoring & Recording)</option>
+                          </select>
+                        </div>
+
+                        <div className="config-field" style={{ marginTop: '0.75rem' }}>
+                          <label className="config-label">AI Agent Instructions</label>
+                          <textarea
+                            className="workspace-ai-textarea"
+                            rows={3}
+                            placeholder="Instruct the AI interviewer (e.g., Focus on coding standard, ask deep questions...)"
+                            value={aiInstructions}
+                            onChange={(e) => setAiInstructions(e.target.value)}
+                          />
+                        </div>
+                      </div>
+
+                    </div>
+
+                    {/* Right Column: Automations & Schedule */}
+                    <div className="config-sidebar-column">
+                      
+                      {/* Section: Autopilot & Reporting */}
+                      <div className="config-card-group">
+                        <h5 className="group-title">Autopilot Automations</h5>
+                        
+                        <div className="toggles-list-card">
+                          <label className="toggle-switch-item between">
+                            <span className="toggle-label-group">
+                              <span className="title">Auto proctoring</span>
+                              <span className="desc">Monitor tab switches & candidate activity</span>
+                            </span>
+                            <div className="slider-wrapper">
+                              <input
+                                type="checkbox"
+                                checked={aiAutoRecording}
+                                onChange={(e) => setAiAutoRecording(e.target.checked)}
+                              />
+                              <span className="toggle-slider"></span>
+                            </div>
+                          </label>
+
+                          <label className="toggle-switch-item between">
+                            <span className="toggle-label-group">
+                              <span className="title">Auto report generation</span>
+                              <span className="desc">Generate assessment scores automatically</span>
+                            </span>
+                            <div className="slider-wrapper">
+                              <input
+                                type="checkbox"
+                                checked={aiAutoReport}
+                                onChange={(e) => setAiAutoReport(e.target.checked)}
+                              />
+                              <span className="toggle-slider"></span>
+                            </div>
+                          </label>
+                        </div>
+                      </div>
+
+                      {/* Section: Date & Time */}
+                      <div className="config-card-group">
+                        <h5 className="group-title">Schedule Availability</h5>
+                        
+                        <div className="date-selection ai-purple-theme compact">
+                          <div className="date-cards">
+                            <button
+                              className="date-nav prev"
+                              type="button"
+                              onClick={() => handleAIDateScroll("prev")}
+                              disabled={aiDateScrollIndex === 0}
+                            >
+                              ‹
+                            </button>
+                            {availableDates
+                              .slice(aiDateScrollIndex, aiDateScrollIndex + 3)
+                              .map((date, index) => {
+                                const formattedDate = formatDate(date);
+                                const isSelected =
+                                  aiSelectedDate === date.toISOString().split("T")[0];
+                                return (
+                                  <div
+                                    key={index}
+                                    className={`date-card ai-date-card ${
+                                      isSelected ? "selected" : ""
+                                    }`}
+                                    onClick={() => handleAIDateSelect(date)}
+                                  >
+                                    <span>{formattedDate.day}</span>
+                                    <span>
+                                      {formattedDate.date} {formattedDate.month}
+                                    </span>
+                                  </div>
+                                );
+                              })}
+                            <button
+                              className="date-nav next"
+                              type="button"
+                              onClick={() => handleAIDateScroll("next")}
+                              disabled={aiDateScrollIndex >= availableDates.length - 3}
+                            >
+                              ›
+                            </button>
+                          </div>
+                        </div>
+
+                        <div className="time-selection compact" style={{ marginTop: '0.75rem' }}>
+                          <div className="time-inputs compact-inputs">
+                            <FormInputTime
+                              id="aiStartTime"
+                              name="aiStartTime"
+                              label="Start Time"
+                              value={aiStartTime}
+                              setValue={(value) => handleAITimeChange("aiStartTime", value)}
+                              required
+                            />
+                            <FormInputTime
+                              id="aiEndTime"
+                              name="aiEndTime"
+                              label="End Time"
+                              value={aiEndTime}
+                              setValue={(value) => handleAITimeChange("aiEndTime", value)}
+                              required
+                            />
+                          </div>
+                        </div>
+
+                        <div className="config-field" style={{ marginTop: '0.75rem' }}>
+                          <label className="config-label">CC Participants Notifications</label>
+                          <div className="workspace-chips-input-container">
+                            <div className="workspace-chips-wrap">
+                              {aiCCParticipants.map((email, idx) => (
+                                <span key={idx} className="workspace-ai-chip email-chip">
+                                  {email}
+                                  <button
+                                    type="button"
+                                    className="workspace-ai-chip-remove"
+                                    onClick={() => setAiCCParticipants(aiCCParticipants.filter((_, i) => i !== idx))}
+                                  >
+                                    ×
+                                  </button>
+                                </span>
+                              ))}
+                              <input
+                                type="email"
+                                className="workspace-chips-input-field"
+                                placeholder="Enter CC emails..."
+                                value={aiCCEmailInput}
+                                onChange={(e) => setAiCCEmailInput(e.target.value)}
+                                onKeyDown={(e) => {
+                                  if (e.key === "Enter" || e.key === ",") {
+                                    e.preventDefault();
+                                    const val = aiCCEmailInput.replace(",", "").trim().toLowerCase();
+                                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                                    if (val) {
+                                      if (!emailRegex.test(val)) {
+                                        setSnackbarMessage("Please enter a valid email address");
+                                        setSnackbarSeverity("error");
+                                        setSnackbarOpen(true);
+                                      } else if (!aiCCParticipants.includes(val)) {
+                                        setAiCCParticipants([...aiCCParticipants, val]);
+                                        setAiCCEmailInput("");
+                                      }
+                                    }
+                                  }
+                                }}
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* AI Live summary */}
+                      <div className="schedule-summary ai-purple-summary mini">
+                        <div className="summary-item ai-purple-summary-item">
+                          <FiCalendar />
+                          <div>
+                            <span>
+                              {aiSelectedDate
+                                ? `${formatDate(new Date(aiSelectedDate)).month} ${
+                                    formatDate(new Date(aiSelectedDate)).date
+                                  }`
+                                : "Select date"}
+                            </span>
+                            &nbsp;:&nbsp;
+                            <span>
+                              {aiStartTime && aiEndTime
+                                ? `${aiStartTime} - ${aiEndTime}`
+                                : "Select times"}
+                            </span>
+                            {aiStartTime && aiEndTime && (
+                              <span className="summary-duration-tag">
+                                ({aiDuration})
+                              </span>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
 
-            <div className="modal-footer">
+            {/* Sticky Footer */}
+            <div className="workspace-footer">
               <button
                 className="btn-secondary"
-                onClick={() => setShowScheduleModal(false)}
-                disabled={isSchedulingInterview}
+                onClick={() => setShowWorkspaceModal(false)}
+                disabled={isSchedulingInterview || isSchedulingAI}
               >
                 Cancel
               </button>
-              <button
-                className="btn-primary"
-                onClick={handleScheduleSubmit}
-                disabled={isSchedulingInterview || !selectedDate || !startTime || !endTime || !interviewSubject.trim() || (() => {
-                  if (!startTime || !endTime) return true;
-                  const start = new Date(`2000-01-01T${startTime}`);
-                  const end = new Date(`2000-01-01T${endTime}`);
-                  const duration = Math.round((end - start) / (1000 * 60));
-                  return duration < 15;
-                })()}
-              >
-                {isSchedulingInterview ? (
-                  <>
-                    <div className="loading-spinner"></div>
-                    Scheduling...
-                  </>
-                ) : (
-                  <>
-                    <FiCalendar />
-                    Schedule Interview
-                  </>
-                )}
-              </button>
+              
+              {interviewType === "Manual" ? (
+                <button
+                  className="btn-primary"
+                  onClick={handleScheduleSubmit}
+                  disabled={isSchedulingInterview || !selectedDate || !startTime || !endTime || !interviewSubject.trim() || (() => {
+                    if (!startTime || !endTime) return true;
+                    const start = new Date(`2000-01-01T${startTime}`);
+                    const end = new Date(`2000-01-01T${endTime}`);
+                    const duration = Math.round((end - start) / (1000 * 60));
+                    return duration < 15;
+                  })()}
+                >
+                  {isSchedulingInterview ? (
+                    <>
+                      <div className="loading-spinner"></div>
+                      Scheduling...
+                    </>
+                  ) : (
+                    <>
+                      <FiCalendar />
+                      Schedule Interview
+                    </>
+                  )}
+                </button>
+              ) : (
+                <button
+                  className="btn-primary ai-purple-schedule-btn glow-btn"
+                  onClick={handleAIScheduleSubmit}
+                  disabled={isSchedulingAI || !aiSelectedDate || !aiStartTime || !aiEndTime || !aiInterviewSubject.trim()}
+                >
+                  {isSchedulingAI ? (
+                    <>
+                      <div className="loading-spinner"></div>
+                      Deploying Agent...
+                    </>
+                  ) : (
+                    <>
+                      <SiOpenai />
+                      Schedule AI Interview
+                    </>
+                  )}
+                </button>
+              )}
             </div>
+
           </div>
         </div>
       )}
@@ -949,7 +1771,7 @@ export default function InterviewLobby() {
             <div className="confirmation-content">
               <h2> Scheduled !</h2>
               <div className="success-icon">
-                <div className="checkmark">✓</div>
+                <div className="checkmark" style={{ backgroundColor: scheduledInterview.interviewType === "AI" ? "#8b5cf6" : "#138382" }}>✓</div>
               </div>
               <p className="interview-details">
                 Round {scheduledInterview.interviewRound} Interview scheduled
@@ -972,13 +1794,20 @@ export default function InterviewLobby() {
                 </div>
               </div>
               <p className="meeting-link-info">
-                Meeting link has been shared to candidate & your mail as well.
-                Check now.
+                {scheduledInterview.interviewType === "AI"
+                  ? "engineerHUB AI interview link has been shared to the candidate & your mail as well."
+                  : "Meeting link has been shared to candidate & your mail as well."}
+                &nbsp;Check now.
               </p>
               <p className="next-steps">
                 Check the Scheduled Lobby for further process.
               </p>
-              <button className="btn-primary" onClick={closeConfirmationModal} >
+              <button
+                className={`btn-primary confirm-continue-btn ${
+                  scheduledInterview.interviewType === "AI" ? "ai-confirm-btn" : "manual-confirm-btn"
+                }`}
+                onClick={closeConfirmationModal}
+              >
                 Continue
               </button>
             </div>
