@@ -305,24 +305,20 @@ export default function ScheduledInterviews() {
     }
 
     try {
-      // Mock API call - replace with actual reschedule API
-      await new Promise(resolve => setTimeout(resolve, 1500));
-
-      // Update the interview in the list
-      setScheduledDataRows(prev => 
-        prev.map(interview => 
-          interview._id === selectedInterview._id 
-            ? { 
-                ...interview, 
-                scheduledDate: newDate,
-                startTime: newStartTime,
-                endTime: newEndTime,
-                status: "rescheduled",
-                updatedAt: new Date().toISOString()
-              }
-            : interview
-        )
+      const googleAuthToken = localStorage.getItem('googleAuthToken');
+      const response = await axios.patch(
+        `${API_URL}api/v1/scheduled-interview/${selectedInterview._id}/reschedule`,
+        {
+          scheduledDate: newDate,
+          startTime: newStartTime,
+          endTime: newEndTime,
+          googleAuthToken: googleAuthToken || null,
+        },
+        config
       );
+
+      // Invalidate queries to refresh data
+      queryClient.invalidateQueries({ queryKey: ["scheduledInterviews"] });
 
       setShowRescheduleModal(false);
       setSnackbarMessage("Interview rescheduled successfully!");
@@ -332,7 +328,8 @@ export default function ScheduledInterviews() {
 
     } catch (error) {
       console.error("Error rescheduling interview:", error);
-      setSnackbarMessage("Failed to reschedule interview. Please try again.");
+      const errorMessage = error.response?.data?.message || "Failed to reschedule interview. Please try again.";
+      setSnackbarMessage(errorMessage);
       setSnackbarSeverity("error");
       setSnackbarDuration(5000);
       setSnackbarOpen(true);
