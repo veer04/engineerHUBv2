@@ -99,8 +99,8 @@ export default function ScheduledInterviewRow({
     
     // Fallback local calculation
     const now = moment();
-    const interviewStartTime = moment(`${moment(data.scheduledDate).format('YYYY-MM-DD')} ${data.startTime}`, "YYYY-MM-DD HH:mm");
-    const interviewEndTime = moment(`${moment(data.scheduledDate).format('YYYY-MM-DD')} ${data.endTime}`, "YYYY-MM-DD HH:mm");
+    const interviewStartTime = moment(`${moment.utc(data.scheduledDate).format('YYYY-MM-DD')} ${data.startTime}`, "YYYY-MM-DD HH:mm");
+    const interviewEndTime = moment(`${moment.utc(data.scheduledDate).format('YYYY-MM-DD')} ${data.endTime}`, "YYYY-MM-DD HH:mm");
     
     if (now.isAfter(interviewEndTime)) {
       return "expired";
@@ -178,7 +178,7 @@ export default function ScheduledInterviewRow({
         <div className="datetime-info">
           <div className="date-section">
             <FiCalendar className="date-icon" />
-            <span className="date">{moment(data.scheduledDate).format("DD MMM YYYY")}</span>
+            <span className="date">{moment.utc(data.scheduledDate).format("DD MMM YYYY")}</span>
           </div>
           <div className="time-section">
             <FiClock className="time-icon" />

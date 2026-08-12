@@ -761,12 +761,16 @@ export default function CandidateAIInterviewRoom() {
     isEndingInterviewRef.current = true;
     setShowEndConfirmationModal(false);
     setShowFullscreenPrompt(false);
-    setIsSubmitting(true);
 
     // 1. Immediately cancel all Web Speech Synthesis & Speech Recognition
     if ("speechSynthesis" in window) {
       try {
         window.speechSynthesis.cancel();
+      } catch (_e) {}
+    }
+    if (recognitionRef.current) {
+      try {
+        recognitionRef.current.abort();
       } catch (_e) {}
     }
     if (turnManagerRef.current) {
@@ -776,6 +780,12 @@ export default function CandidateAIInterviewRoom() {
     }
 
     // 2. Immediately stop all MediaStream tracks (Camera & Microphone)
+    if (mediaStreamRef.current) {
+      try {
+        mediaStreamRef.current.getTracks().forEach((track) => track.stop());
+        mediaStreamRef.current = null;
+      } catch (_e) {}
+    }
     if (candidateVideoRef.current?.srcObject) {
       try {
         const stream = candidateVideoRef.current.srcObject;
@@ -792,10 +802,10 @@ export default function CandidateAIInterviewRoom() {
       } catch (_e) {}
     }
 
-    // 4. Instantly exit fullscreen if active
+    // 4. Instantly exit fullscreen if active (non-blocking)
     if (document.fullscreenElement) {
       try {
-        await document.exitFullscreen();
+        document.exitFullscreen().catch(() => {});
       } catch (_e) {}
     }
 
@@ -1028,10 +1038,10 @@ export default function CandidateAIInterviewRoom() {
               {isMuted ? <FiVolumeX /> : <FiVolume2 />}
               <span>{isMuted ? "Unmute AI" : "Mute AI"}</span>
             </button>
-            <button type="button" className="sidebar-ctrl-btn" onClick={handleAudioSettings} title="Audio Settings">
+            {/* <button type="button" className="sidebar-ctrl-btn" onClick={handleAudioSettings} title="Audio Settings">
               <FiSliders />
               <span>Audio Settings</span>
-            </button>
+            </button> */}
             <button type="button" className="sidebar-ctrl-btn" onClick={handleRaiseHand} title="Raise Hand">
               <FiMic />
               <span>Raise Hand</span>

@@ -126,9 +126,23 @@ export default function InterviewLobby() {
   const availableDates = generateDates();
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
   const [scheduledInterview, setScheduledInterview] = useState(null);
-  const [googleAuthToken, setGoogleAuthToken] = useState(
-    localStorage.getItem('googleAuthToken') || null
-  );
+  const getInitialGoogleAuthToken = () => {
+    const token = localStorage.getItem('googleAuthToken');
+    const timestampStr = localStorage.getItem('googleAuthTokenTimestamp');
+    if (!token) return null;
+    if (timestampStr) {
+      const elapsed = Date.now() - parseInt(timestampStr, 10);
+      // 50 minutes threshold (50 * 60 * 1000 = 3000000ms)
+      if (elapsed > 3000000) {
+        localStorage.removeItem('googleAuthToken');
+        localStorage.removeItem('googleAuthTokenTimestamp');
+        return null;
+      }
+    }
+    return token;
+  };
+
+  const [googleAuthToken, setGoogleAuthToken] = useState(getInitialGoogleAuthToken);
   const [segmentCounts, setSegmentCounts] = useState({
     interviewLobby: 0,
     scheduledInterviews: 0,
@@ -215,8 +229,10 @@ export default function InterviewLobby() {
           
           if (event.data && event.data.type === 'GOOGLE_OAUTH_SUCCESS') {
             // Store the access token in state and localStorage
+            const nowTs = String(Date.now());
             setGoogleAuthToken(event.data.accessToken);
             localStorage.setItem('googleAuthToken', event.data.accessToken);
+            localStorage.setItem('googleAuthTokenTimestamp', nowTs);
             
             // Update UI to show connected state
             setSnackbarMessage(`Google connected successfully! You can now schedule interviews. Make sure you used the same Gmail account you're logged in with here.`);
@@ -272,6 +288,9 @@ export default function InterviewLobby() {
                     const storedToken = localStorage.getItem('googleAuthToken');
                     if (storedToken && storedToken !== googleAuthToken) {
                       setGoogleAuthToken(storedToken);
+                      if (!localStorage.getItem('googleAuthTokenTimestamp')) {
+                        localStorage.setItem('googleAuthTokenTimestamp', String(Date.now()));
+                      }
                       setSnackbarMessage("Google connected successfully! You can now schedule interviews. Make sure you used the same Gmail account you're logged in with here.");
                       setSnackbarSeverity("success");
                       setSnackbarDuration(5000);
@@ -318,6 +337,7 @@ export default function InterviewLobby() {
   const clearGoogleAuth = () => {
     setGoogleAuthToken(null);
     localStorage.removeItem('googleAuthToken');
+    localStorage.removeItem('googleAuthTokenTimestamp');
     setSnackbarMessage("Google authentication cleared");
     setSnackbarSeverity("info");
     setSnackbarDuration(3000);
@@ -573,8 +593,17 @@ export default function InterviewLobby() {
     }
   };
 
+  const getLocalDateString = (date) => {
+    if (!date) return "";
+    const d = new Date(date);
+    const year = d.getFullYear();
+    const month = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  };
+
   const handleAIDateSelect = (date) => {
-    setAiSelectedDate(date.toISOString().split("T")[0]);
+    setAiSelectedDate(getLocalDateString(date));
   };
 
   const handleAITimeChange = (field, value) => {
@@ -610,7 +639,7 @@ export default function InterviewLobby() {
   };
 
   const handleDateSelect = (date) => {
-    setSelectedDate(date.toISOString().split("T")[0]);
+    setSelectedDate(getLocalDateString(date));
   };
 
   const handleTimeChange = (field, value) => {
@@ -623,6 +652,14 @@ export default function InterviewLobby() {
   };
 
   const formatDate = (date) => {
+    if (!date) return { day: "", date: "", month: "" };
+    let d;
+    if (typeof date === "string" && /^\d{4}-\d{2}-\d{2}$/.test(date)) {
+      const [year, month, day] = date.split("-").map(Number);
+      d = new Date(year, month - 1, day);
+    } else {
+      d = new Date(date);
+    }
     const dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
     const monthNames = [
       "Jan",
@@ -640,9 +677,9 @@ export default function InterviewLobby() {
     ];
 
     return {
-      day: dayNames[date.getDay()],
-      date: date.getDate(),
-      month: monthNames[date.getMonth()],
+      day: dayNames[d.getDay()],
+      date: d.getDate(),
+      month: monthNames[d.getMonth()],
     };
   };
 
@@ -680,6 +717,17 @@ export default function InterviewLobby() {
     setIsSchedulingInterview(true);
 
     try {
+
+      // Check if Google OAuth token is expired locally
+      const storedTs = localStorage.getItem('googleAuthTokenTimestamp');
+      if (storedTs && (Date.now() - parseInt(storedTs, 10) > 3000000)) {
+        clearGoogleAuth();
+        setSnackbarMessage("Google authentication expired. Please click 'Connect Google Account' and try again.");
+        setSnackbarSeverity("warning");
+        setSnackbarDuration(5000);
+        setSnackbarOpen(true);
+        return;
+      }
 
       // Check if we have Google OAuth token
       if (!googleAuthToken) {
@@ -749,9 +797,13 @@ export default function InterviewLobby() {
       
       if (error.response?.status === 401 || 
           errorMessage.includes('invalid') ||
-          errorMessage.includes('expired')) {
+          errorMessage.includes('expired') ||
+          errorMessage.includes('reconnect') ||
+          errorMessage.includes('token') ||
+          errorMessage.includes('unauthorized') ||
+          errorMessage.includes('Credentials')) {
         clearGoogleAuth();
-        setSnackbarMessage("Google authentication expired. Please reconnect and try again.");
+        setSnackbarMessage("Google authentication expired or invalid. Please click 'Connect Google Account' and try again.");
         setSnackbarSeverity("warning");
         setSnackbarDuration(5000);
         setSnackbarOpen(true);
@@ -1022,7 +1074,7 @@ export default function InterviewLobby() {
                             .map((date, index) => {
                               const formattedDate = formatDate(date);
                               const isSelected =
-                                selectedDate === date.toISOString().split("T")[0];
+                                selectedDate === getLocalDateString(date);
                               return (
                                 <div
                                   key={index}
@@ -1130,8 +1182,8 @@ export default function InterviewLobby() {
                       <div>
                         <span>
                           {selectedDate
-                            ? `${formatDate(new Date(selectedDate)).month} ${
-                                formatDate(new Date(selectedDate)).date
+                            ? `${formatDate(selectedDate).month} ${
+                                formatDate(selectedDate).date
                               }`
                             : "Select a date"}
                         </span>
@@ -1579,7 +1631,7 @@ export default function InterviewLobby() {
                               .map((date, index) => {
                                 const formattedDate = formatDate(date);
                                 const isSelected =
-                                  aiSelectedDate === date.toISOString().split("T")[0];
+                                  aiSelectedDate === getLocalDateString(date);
                                 return (
                                   <div
                                     key={index}
@@ -1788,7 +1840,7 @@ export default function InterviewLobby() {
                 <div className="meeting-time">
                   <FiCalendar />
                   <div>
-                    <span>{moment(scheduledInterview.scheduledDate).format("DD MMM YYYY")}</span> &nbsp; : &nbsp;
+                    <span>{moment.utc(scheduledInterview.scheduledDate).format("DD MMM YYYY")}</span> &nbsp; : &nbsp;
                     <span>{scheduledInterview.startTime} - {scheduledInterview.endTime}</span>
                   </div>
                 </div>
