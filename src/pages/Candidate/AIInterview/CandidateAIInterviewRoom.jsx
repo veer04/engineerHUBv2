@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { SEO } from "../../../components/SEO/SEO.jsx";
 import {
@@ -482,7 +482,13 @@ export default function CandidateAIInterviewRoom() {
         if ("speechSynthesis" in window && !isMuted) {
           window.speechSynthesis.cancel();
           window.speechSynthesis.resume();
-          const utterance = new SpeechSynthesisUtterance(data.text);
+          const cleanSpokenText = (data.text || "")
+            .replace(/```[a-z]*\n?/gi, "")
+            .replace(/```/g, "")
+            .replace(/`/g, "")
+            .replace(/\*/g, "")
+            .trim();
+          const utterance = new SpeechSynthesisUtterance(cleanSpokenText);
           utterance.rate = 0.95;
           utterance.pitch = 1.0;
 
@@ -1080,9 +1086,13 @@ export default function CandidateAIInterviewRoom() {
               const percent = Math.min(100, Math.round((currentQ / totalQ) * 100));
               return (
                 <div className="sidebar-progress-box">
-                  <div className="ai-progress-meta" style={{ display: "flex", justifyContent: "space-between", width: "100%", marginBottom: "6px" }}>
-                    <span>Question {currentQ} of {totalQ}</span>
-                    <span>{percent}% Complete</span>
+                  <div className="ai-progress-meta" style={{ display: "flex", flexDirection: "column", gap: "0.2rem", width: "100%", marginBottom: "6px" }}>
+                    <div style={{ fontSize: "0.85rem", fontWeight: "700", color: "#1e293b" }}>
+                      Question {currentQ} of {totalQ}
+                    </div>
+                    <div style={{ fontSize: "0.78rem", fontWeight: "600", color: "#64748b" }}>
+                      {percent}% Complete
+                    </div>
                   </div>
                   <div className="ai-progress-bar-track">
                     <div className="ai-progress-bar-fill" style={{ width: `${percent}%` }} />
