@@ -165,11 +165,17 @@ export default function AIInterviewFeedback() {
             .replace(/([A-Z])/g, " $1")
             .replace(/^./, (str) => str.toUpperCase())
             .trim();
+          let commentText = `Candidate scored ${score100}/100 in ${formattedName.toLowerCase()}.`;
+          if (score100 >= 80) commentText = `Strong proficiency demonstrated in ${formattedName.toLowerCase()}.`;
+          else if (score100 >= 60) commentText = `Good foundational knowledge in ${formattedName.toLowerCase()}.`;
+          else if (score100 >= 40) commentText = `Moderate understanding in ${formattedName.toLowerCase()}; room for deeper depth.`;
+          else commentText = `Gaps identified in ${formattedName.toLowerCase()}; requires further review.`;
+
           return {
             name: formattedName,
             score: score100,
             max: 100,
-            comment: `Candidate scored ${score100}/100 in ${formattedName.toLowerCase()}.`,
+            comment: commentText,
           };
         })
       : [
@@ -215,19 +221,23 @@ export default function AIInterviewFeedback() {
       liveReport?.recommendationSummary ||
       "Suitable for the deep technical round with a focus on full-stack architecture.",
     timeline: liveConv?.qaPairs?.length
-      ? liveConv.qaPairs.map((pair, idx) => ({
-          id: idx + 1,
-          title: pair.topic ? `Topic: ${pair.topic}` : `Technical Question ${idx + 1}`,
-          category: "Technical Proficiency",
-          score: `${pair.confidence ? (pair.confidence * 10).toFixed(1) : 8.5}/10`,
-          scoreTag: pair.evaluationStatus || "Evaluated",
-          question: pair.question,
-          answer: pair.answer,
-          aiObservation:
-            pair.aiObservation ||
-            pair.remark ||
-            "Candidate response analyzed and scored by Vertex AI Gemini engine.",
-        }))
+      ? liveConv.qaPairs.map((pair, idx) => {
+          const isUnanswered = pair.answer === "No answer recorded." || pair.evaluationStatus === "Unanswered" || pair.isSkipped;
+          const rawScore = isUnanswered ? 0 : (typeof pair.score === "number" ? pair.score : (typeof pair.qualityScore === "number" ? pair.qualityScore : 7.0));
+          return {
+            id: idx + 1,
+            title: pair.topic && pair.topic !== "Technical Topic" ? `Topic: ${pair.topic}` : `Technical Question ${idx + 1}`,
+            category: "Technical Proficiency",
+            score: `${rawScore.toFixed(1)}/10`,
+            scoreTag: isUnanswered ? "Unanswered" : (pair.evaluationStatus || "Evaluated"),
+            question: pair.question,
+            answer: pair.answer,
+            aiObservation:
+              pair.aiObservation ||
+              pair.remark ||
+              (isUnanswered ? "No answer recorded for this question." : "Candidate response analyzed and evaluated by AI engine."),
+          };
+        })
       : [
           {
             id: 1,

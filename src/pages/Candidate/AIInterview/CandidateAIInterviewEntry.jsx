@@ -354,7 +354,7 @@ export default function CandidateAIInterviewEntry() {
             <div className="ai-entry-stat-item">
               <label>Total Questions</label>
               <div className="ai-entry-stat-val">
-                <FiHelpCircle /> {sessionData?.aiConfig?.totalQuestions || sessionData?.totalQuestions || Math.max(4, Math.round(((sessionData?.aiConfig?.durationMinutes || sessionData?.durationMinutes || 30) / 2.5)))} Questions
+                <FiHelpCircle /> {sessionData?.aiConfig?.totalQuestions || sessionData?.totalQuestions || Math.max(4, Math.round(((sessionData?.aiConfig?.durationMinutes || sessionData?.durationMinutes || 15) / 1.6667)))} Questions
               </div>
             </div>
 

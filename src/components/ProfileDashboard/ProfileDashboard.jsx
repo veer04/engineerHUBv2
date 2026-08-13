@@ -125,7 +125,7 @@ const ProfileDashboard = () => {
         }
       }
     } catch (error) {
-      console.error("Error getting the data:", error);
+      console.log("Error getting the data:", error);
       setError("Error fetching Activity data.");
     } finally {
       setLoading(false);
