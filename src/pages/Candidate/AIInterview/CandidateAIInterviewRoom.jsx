@@ -609,6 +609,24 @@ export default function CandidateAIInterviewRoom() {
   const [showEndConfirmationModal, setShowEndConfirmationModal] = useState(false);
   const isEndingInterviewRef = useRef(false);
 
+  const captureSnapshot = useCallback(() => {
+    const video = candidateVideoRef.current;
+    if (!video || video.readyState < 2) return null;
+    try {
+      const canvas = document.createElement("canvas");
+      canvas.width = 320;
+      canvas.height = 240;
+      const ctx = canvas.getContext("2d");
+      ctx.translate(canvas.width, 0);
+      ctx.scale(-1, 1);
+      ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+      return canvas.toDataURL("image/jpeg", 0.65);
+    } catch (err) {
+      console.error("Webcam snapshot capture error:", err);
+      return null;
+    }
+  }, []);
+
   useEffect(() => {
     const handleFullscreenChange = () => {
       if (isEndingInterviewRef.current) return;
@@ -617,6 +635,7 @@ export default function CandidateAIInterviewRoom() {
         document.webkitFullscreenElement ||
         document.mozFullScreenElement ||
         document.msFullscreenElement;
+      const snapshot = captureSnapshot();
       if (!fsEl) {
         setIsExitWarning(true);
         setShowFullscreenPrompt(true);
@@ -625,6 +644,7 @@ export default function CandidateAIInterviewRoom() {
             inviteToken,
             eventType: "FULLSCREEN_EXIT",
             clientTimestamp: new Date(),
+            metadata: snapshot ? { snapshot } : {},
           });
         }
       } else {
@@ -633,11 +653,14 @@ export default function CandidateAIInterviewRoom() {
     };
 
     const handleBlur = () => {
+      if (isEndingInterviewRef.current) return;
+      const snapshot = captureSnapshot();
       if (socketRef.current) {
         socketRef.current.emit("ai_interview:proctor_event", {
           inviteToken,
           eventType: "WINDOW_BLUR",
           clientTimestamp: new Date(),
+          metadata: snapshot ? { snapshot } : {},
         });
       }
     };
@@ -649,7 +672,45 @@ export default function CandidateAIInterviewRoom() {
       document.removeEventListener("fullscreenchange", handleFullscreenChange);
       window.removeEventListener("blur", handleBlur);
     };
-  }, [inviteToken]);
+  }, [inviteToken, captureSnapshot]);
+
+  // Continuous Webcam Proctoring Snapshot Interval
+  useEffect(() => {
+    if (!inviteToken) return;
+
+    // 1. Initial snapshot 3 seconds after room loads
+    const initTimer = setTimeout(() => {
+      if (isEndingInterviewRef.current) return;
+      const snapshot = captureSnapshot();
+      if (snapshot && socketRef.current) {
+        socketRef.current.emit("ai_interview:proctor_event", {
+          inviteToken,
+          eventType: "WEBCAM_CHECK",
+          clientTimestamp: new Date(),
+          metadata: { snapshot },
+        });
+      }
+    }, 3000);
+
+    // 2. Periodic snapshot every 25 seconds
+    const interval = setInterval(() => {
+      if (isEndingInterviewRef.current) return;
+      const snapshot = captureSnapshot();
+      if (snapshot && socketRef.current) {
+        socketRef.current.emit("ai_interview:proctor_event", {
+          inviteToken,
+          eventType: "WEBCAM_CHECK",
+          clientTimestamp: new Date(),
+          metadata: { snapshot },
+        });
+      }
+    }, 25000);
+
+    return () => {
+      clearTimeout(initTimer);
+      clearInterval(interval);
+    };
+  }, [inviteToken, captureSnapshot]);
 
   // Timer Countdown Effect
   useEffect(() => {
@@ -1014,7 +1075,7 @@ export default function CandidateAIInterviewRoom() {
             </div>
 
             {(() => {
-              const totalQ = sessionInfo?.aiConfig?.totalQuestions || Math.max(4, Math.round(((sessionInfo?.aiConfig?.durationMinutes || 30) / 2.5)));
+              const totalQ = sessionInfo?.aiConfig?.totalQuestions || Math.max(4, Math.round(((sessionInfo?.aiConfig?.durationMinutes || 15) / 1.6667)));
               const currentQ = transcripts.filter((t) => t.sender === "ai").length;
               const percent = Math.min(100, Math.round((currentQ / totalQ) * 100));
               return (
