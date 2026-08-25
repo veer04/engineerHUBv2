@@ -225,11 +225,11 @@ export const JobAThonDesktopView = () => {
                       Smart Interview
                     </span>
                     <h2 className={styles.featureCardHeadline}>
-                      Conduct Interviews from One Workspace
+                      Conduct Manual & AI Interviews from One Workspace
                     </h2>
                     <p className={styles.featureCardDesc}>
-                      Seamless integrations, automated scheduling and communication,
-                       boosting recruiter productivity and candidate experience.
+                     Schedule live interviews seamlessly from your workspace, or let our autonomous AI agent conduct &
+                      proctor interviews on your behalf with real-time integrity tracking to fast-forward your hiring.
                     </p>
                   </div>
                   <div className={styles.featureCardIllustration}>
