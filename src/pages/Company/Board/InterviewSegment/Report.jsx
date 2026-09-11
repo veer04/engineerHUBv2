@@ -13,6 +13,8 @@ import moment from "moment";
 import { getAccessToken, getUserFullName, getUserImage, getUserRole, getUserId } from "../../../../features/User/UserDetails";
 import PaginationBarWithSearchParams from "../../../../components/PaginationBarWithSearchParams/PaginationBarWithSearchParams";
 import useGlobalSnackbar from "../../../../hooks/useGlobalSnackbar";
+import RateLimitIndicator from "../../../../components/RateLimitIndicator/RateLimitIndicator";
+
 
 export default function Report() {
   const navigate = useNavigate();
@@ -530,10 +532,18 @@ export default function Report() {
 
           {/* Main Content */}
           <section className="main-container">
-            <div className="interview-header">
-              <h1 className="page-title">Interview Report</h1>
-
+            <div className="interview-header" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '1rem', marginBottom: '1.25rem' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', flexWrap: 'wrap' }}>
+                <h1 className="page-title" style={{ margin: 0 }}>Interview Report</h1>
+                <RateLimitIndicator
+                  featureName="AI Sanya Interview"
+                  currentRequests={14}
+                  maxRequests={500}
+                  creditLabel="AI Credits"
+                />
+              </div>
             </div>
+
 
             <div className="action-container interview-action-container" style={{ display: 'grid', gridTemplateColumns: 'auto auto 1fr', gap: '1rem', justifyContent: 'flex-start' }}>
               <div className="select-container">

@@ -22,19 +22,57 @@ import {
   getProjectsByOrganisationIdPrivateMode,
   unFollowOrganization,
 } from "../../../services/APIConfig";
-import { Outlet, useParams } from "react-router-dom";
+import { Outlet, useParams, useNavigate } from "react-router-dom";
+import axios from "axios";
+import { API_URL } from "../../../services/APIUtils";
 import { getUserId, isUserLoggedIn } from "../../../features/User/UserDetails";
 import HostPageForComapnyDashboard from "./HostPageForCompanyDashboard/HostPageForCompanyDashboard";
-import EmployerHiringSection from "./SectionThreeAndFourNewCompany/NewCompanyThirdAndFourthSec";
+import ChooseHiringMode from "../../Company/Pricing/Components/ChooseHiringMode";
+import CurrentPlanCard from "../../Company/Pricing/Components/CurrentPlanCard";
+
 const CompanyDashboardNew = () => {
+  const navigate = useNavigate();
   const [organization, setOrganization] = useState({});
   const [fetchResponse, setFetchResponse] = useState({});
   const [isUserAdmin, setIsUserAdmin] = useState(false);
+  const [subscription, setSubscription] = useState(null);
   const [jobs, setJobs] = useState([]);
   const [internships, setInternships] = useState([]);
   const [viewMore, setViewMore] = useState(false);
   const [activityChoice, setActivityChoice] = useState("jobs");
   const [hackathons, setHackathons] = useState([]);
+
+  useEffect(() => {
+    const fetchSub = async () => {
+      try {
+        const baseUrl = API_URL.endsWith("/") ? API_URL : `${API_URL}/`;
+        const token = getAccessToken();
+        const res = await axios.get(`${baseUrl}api/v1/plans/my-subscription`, {
+          withCredentials: true,
+          headers: {
+            accesstoken: token,
+            Authorization: token ? `Bearer ${token}` : "",
+          },
+        });
+        if (res.data?.success && res.data?.data) {
+          const w = res.data.data.wallet || {};
+          const sub = res.data.data.activeSubscription;
+          setSubscription({
+            planId: w.plan || "free",
+            planName: w.plan === "starter" ? "Starter" : w.plan === "professional" ? "Professional" : "Free",
+            status: w.subscriptionStatus || "active",
+            creditsTotal: w.totalPurchased || (w.plan === "starter" ? 2000 : w.plan === "professional" ? 5000 : 500),
+            creditsUsed: w.totalConsumed || 0,
+            creditsRemaining: w.availableCredits !== undefined ? w.availableCredits : 500,
+            renewsInDays: sub?.expiresAt ? Math.max(0, Math.ceil((new Date(sub.expiresAt) - new Date()) / (1000 * 60 * 60 * 24))) : 30,
+          });
+        }
+      } catch (err) {
+        console.log("Dashboard subscription fetch error:", err.message);
+      }
+    };
+    fetchSub();
+  }, []);
   const [projects, setProjects] = useState([]);
   const [followResponse, setFollowResponse] = useState({});
   const [isActivityPresent, setIsActivityPresent] = useState(true);
@@ -221,6 +259,15 @@ const CompanyDashboardNew = () => {
         <AboutCompNewCompany />
       </div>
 
+      {isUserAdmin && (
+        <div style={{ marginBottom: 25 }}>
+          <CurrentPlanCard
+            subscription={subscription}
+            onManagePlan={() => navigate("/pricing")}
+          />
+        </div>
+      )}
+
       <div style={{ marginBottom: 20 }}>
         <HostPageForComapnyDashboard adminView={isUserAdmin} />
       </div>
@@ -246,19 +293,8 @@ const CompanyDashboardNew = () => {
         />
       </div>
       {isUserAdmin && (
-        <div>
-          <EmployerHiringSection
-            title="Hire Top Engineering Talent 70% Faster"
-            features={[
-              "Access 500,000+ engineers across India",
-              "Source talent from 1,000+ engineering colleges",
-              "AI-powered resume screening and candidate ranking",
-              "Assessments, interviews, and CRM in one platform"
-            ]}
-            btnText="Explore Employer Solutions"
-            btnLink="/referrals/book-now/67a107c89d57a46e99582bd1"
-            image={`${Bucket_URL}ui/banners/employer_banner_profile.png`}
-          />
+        <div style={{ marginBottom: 40, marginTop: 20 }}>
+          <ChooseHiringMode />
         </div>
       )}
 

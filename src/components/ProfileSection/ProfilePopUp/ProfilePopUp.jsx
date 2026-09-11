@@ -252,6 +252,11 @@ export default function ProfilePopUp() {
       icon: <ApplicationManageIcon />,
       link: `/profile/organization/${getUserId()}`,
     },
+    {
+      label: "Pricing & AI Credits",
+      icon: <HiOutlineLightningBolt />,
+      link: "/pricing",
+    },
     // {
     //   label: "Create Projects",
     //   icon: <AiOutlineCalendar />,

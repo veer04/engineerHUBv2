@@ -31,6 +31,8 @@ import {
 import useGlobalSnackbar from "../../../../hooks/useGlobalSnackbar";
 import AssessmentCandidateRow from "./AssessmentCandidateRow";
 import AssessmentResult from "./AssessmentResult";
+import RateLimitIndicator from "../../../../components/RateLimitIndicator/RateLimitIndicator";
+
 
 const ROLE_OPTIONS = [
   "Fullstack Developer",
@@ -801,11 +803,18 @@ export default function ScheduleAssessment() {
 
         <section className="main-container assessment-main-container">
           <div className="assessment-page-header">
-            <div>
+            <div style={{ display: "flex", alignItems: "center", gap: "1rem", flexWrap: "wrap" }}>
               <h1 className="assessment-page-title">
                 {isResultSegment ? "Assessment Results" : "Schedule Assessment"}
               </h1>
+              <RateLimitIndicator
+                featureName="AI Skill Assessment"
+                currentRequests={14}
+                maxRequests={500}
+                creditLabel="AI Credits"
+              />
             </div>
+
             <div className="assessment-subsegment-tabs">
               <button
                 type="button"

@@ -30,7 +30,7 @@ return (
 <b className={styles.b}>
 <span>{`83031 56089 `}</span>
 <span className={styles.span}>/</span>
-<span> 91298 83089</span>
+<span> 8303564068</span>
 </b>
 </div>
 </div>
