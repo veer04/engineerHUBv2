@@ -613,7 +613,7 @@ The Hiring Team<br>
         if (response.data.data && response.data.data.rateLimitInfo) {
           setRateLimitInfo(response.data.data.rateLimitInfo);
           queryClient.invalidateQueries({ queryKey: ["AIRateLimitStatus", id] });
-          successMessage += ` (${response.data.data.rateLimitInfo.currentHourRequests}/${response.data.data.rateLimitInfo.maxRequestsPerHour} credits used this hour)`;
+          successMessage += ` (${response.data.data.rateLimitInfo.currentHourRequests}/${response.data.data.rateLimitInfo.maxRequestsPerHour} AI credits used)`;
         }
         
         setSnackbarMessage(successMessage);

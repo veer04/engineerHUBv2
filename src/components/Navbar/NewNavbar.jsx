@@ -205,6 +205,15 @@ export default function NewNavbar() {
             </button>
           </Link>
         )}
+        {/* <Link onClick={() => setSelectedPageNavbar("pricing")} to="/pricing">
+          <button
+            className={`${
+              selectedPageNavbar === "pricing" ? "--is-active" : ""
+            }`}
+          >
+            Pricing
+          </button>
+        </Link> */}
       </div>
       <div className="navbar-trailing">
         <div className="navbar-trailing-auth navbar-trailing-auth--desktop">

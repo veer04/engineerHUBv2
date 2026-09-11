@@ -1,18 +1,63 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Info, AlertTriangle, CheckCircle } from 'react-feather';
+import { Link } from 'react-router-dom';
+import axios from 'axios';
+import { API_URL } from '../../services/APIUtils';
+import { getAccessToken } from '../../features/getCookieValues';
 import './RateLimitIndicator.css';
 
-const RateLimitIndicator = ({ currentRequests = 0, maxRequests = 500, maxResumesPerRequest = 30 }) => {
+const RateLimitIndicator = ({ 
+  currentRequests: propCurrent, 
+  maxRequests: propMax, 
+  maxResumesPerRequest = 30,
+  featureName = "Unified AI Credit System",
+  creditLabel = "AI Credits"
+}) => {
   const [isVisible, setIsVisible] = useState(false);
+  const [liveWallet, setLiveWallet] = useState(null);
 
-  const usagePercentage = (currentRequests / maxRequests) * 100;
-  const isNearLimit = usagePercentage >= 80;
-  const isAtLimit = usagePercentage >= 100;
+  useEffect(() => {
+    // If props are default or not explicitly provided, fetch live backend subscription wallet
+    if (propCurrent === undefined || propCurrent === 14) {
+      const fetchWallet = async () => {
+        try {
+          const baseUrl = API_URL.endsWith('/') ? API_URL : `${API_URL}/`;
+          const token = getAccessToken();
+          const res = await axios.get(`${baseUrl}api/v1/plans/my-subscription`, {
+            withCredentials: true,
+            headers: {
+              accesstoken: token,
+              Authorization: token ? `Bearer ${token}` : "",
+            },
+          });
+          if (res.data?.success && res.data?.data?.wallet) {
+            const w = res.data.data.wallet;
+            setLiveWallet({
+              used: w.totalConsumed || 0,
+              available: w.availableCredits !== undefined ? w.availableCredits : 500,
+              total: w.totalPurchased || (w.plan === 'starter' ? 2000 : w.plan === 'professional' ? 5000 : 500),
+            });
+          }
+        } catch (err) {
+          console.log("RateLimitIndicator live fetch error:", err.message);
+        }
+      };
+      fetchWallet();
+    }
+  }, [propCurrent]);
+
+  const currentRequests = liveWallet ? liveWallet.used : (propCurrent !== undefined ? propCurrent : 0);
+  const availableBalance = liveWallet ? liveWallet.available : (propMax !== undefined ? propMax : 500);
+  const totalCapacity = liveWallet ? liveWallet.total : (propMax !== undefined ? propMax : 500);
+
+  const usagePercentage = totalCapacity > 0 ? (currentRequests / totalCapacity) * 100 : 0;
+  const isNearLimit = availableBalance < 50;
+  const isAtLimit = availableBalance <= 0;
 
   const getStatusColor = () => {
     if (isAtLimit) return '#ff4444';
     if (isNearLimit) return '#ff8800';
-    return '#00aa00';
+    return '#128381';
   };
 
   const getStatusIcon = () => {
@@ -22,9 +67,9 @@ const RateLimitIndicator = ({ currentRequests = 0, maxRequests = 500, maxResumes
   };
 
   const getStatusMessage = () => {
-    if (isAtLimit) return 'Rate limit reached';
-    if (isNearLimit) return 'Approaching limit';
-    return 'Normal usage';
+    if (isAtLimit) return 'AI Credits Exhausted';
+    if (isNearLimit) return 'AI Credits Low';
+    return 'Normal AI Credit Usage';
   };
 
   return (
@@ -38,13 +83,13 @@ const RateLimitIndicator = ({ currentRequests = 0, maxRequests = 500, maxResumes
           <div 
             className="rate-limit-progress" 
             style={{ 
-              width: `${Math.min(usagePercentage, 100)}%`,
+              width: `${Math.min(Math.max((availableBalance / totalCapacity) * 100, 5), 100)}%`,
               backgroundColor: getStatusColor()
             }}
           />
         </div>
         <span className="rate-limit-text">
-          {currentRequests}/{maxRequests}
+          {availableBalance} {creditLabel} Remaining
         </span>
       </div>
       
@@ -52,34 +97,39 @@ const RateLimitIndicator = ({ currentRequests = 0, maxRequests = 500, maxResumes
         <div className="rate-limit-tooltip">
           <div className="tooltip-header">
             {getStatusIcon()}
-            <span className="tooltip-title">AI Sorting Rate Limit</span>
+            <span className="tooltip-title">{featureName}</span>
           </div>
           <div className="tooltip-content">
             <div className="tooltip-item">
-              <span className="tooltip-label">Current Usage</span>
+              <span className="tooltip-label">Credits Used</span>
               <span className="tooltip-value">{currentRequests} credits</span>
             </div>
             <div className="tooltip-item">
-              <span className="tooltip-label">Hourly Limit</span>
-              <span className="tooltip-value">{maxRequests} credits</span>
+              <span className="tooltip-label">Available Balance</span>
+              <span className="tooltip-value" style={{ fontWeight: 700, color: '#128381' }}>{availableBalance} AI credits</span>
             </div>
             <div className="tooltip-item">
-              <span className="tooltip-label">Per Request Limit</span>
-              <span className="tooltip-value">{maxResumesPerRequest} resumes</span>
+              <span className="tooltip-label">Batch Processing</span>
+              <span className="tooltip-value">Max {maxResumesPerRequest} items/batch</span>
             </div>
             <div className="tooltip-status">
               Status: {getStatusMessage()}
             </div>
-            {isNearLimit && (
+            {isNearLimit && !isAtLimit && (
               <div className="tooltip-warning">
-                ⚠️ You're approaching the hourly limit. Consider waiting before making more requests.
+                ⚠️ You're low on AI Credits. Consider upgrading your plan.
               </div>
             )}
             {isAtLimit && (
               <div className="tooltip-error">
-                🚫 Rate limit reached. Please wait before making more requests.
+                🚫 AI Credits exhausted. Upgrade your subscription to continue.
               </div>
             )}
+            <div style={{ marginTop: '0.75rem', textAlign: 'center' }}>
+              <Link to="/pricing" style={{ color: '#7c3aed', fontWeight: 600, fontSize: '0.8125rem', textDecoration: 'underline' }}>
+                View Pricing & Upgrade Credits →
+              </Link>
+            </div>
           </div>
         </div>
       )}
@@ -87,4 +137,4 @@ const RateLimitIndicator = ({ currentRequests = 0, maxRequests = 500, maxResumes
   );
 };
 
-export default RateLimitIndicator; 
+export default RateLimitIndicator;

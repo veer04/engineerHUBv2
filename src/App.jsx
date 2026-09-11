@@ -92,6 +92,7 @@ const ReferralAdminPage = lazy(() =>
 const ReferralUploadPage = lazy(() =>
   import("./pages/Admin/ReferralUploadPage.jsx")
 );
+const PricingPage = lazy(() => import("./pages/Company/Pricing/PricingPage.jsx"));
 const JobBoard = lazy(() => import("./pages/Company/Board/JobBoard.jsx"));
 const InterviewLobby = lazy(() => import("./pages/Company/Board/InterviewSegment/InterviewLobby.jsx"));
 const ScheduledInterviews = lazy(() => import("./pages/Company/Board/InterviewSegment/ScheduledInterviews.jsx"));
@@ -454,6 +455,8 @@ function App() {
           </Route>
           <Route path="/career">
             <Route path="" element={<CompanyNew />} />
+            <Route path="pricing" element={<PricingPage />} />
+            <Route path="plans" element={<PricingPage />} />
             <Route path="jobs">
               <Route path="" element={<JobsPageNew />}>
                 <Route path=":hiringId" element={<IndividualJobNew />} />
@@ -512,8 +515,13 @@ function App() {
             element={<AIInterviewFeedback />}
           />
 
+          <Route path="/pricing" element={<PricingPage />} />
+          <Route path="/plans" element={<PricingPage />} />
+
           <Route path="/company">
             <Route path="" element={<CompanyNew />} />
+            <Route path="pricing" element={<PricingPage />} />
+            <Route path="plans" element={<PricingPage />} />
             <Route path="jobs">
               <Route path="" element={<JobsPageNew />}>
                 <Route path=":hiringId" element={<IndividualJobNew />} />

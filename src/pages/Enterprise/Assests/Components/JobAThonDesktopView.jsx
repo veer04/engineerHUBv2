@@ -2,6 +2,7 @@ import { FunctionComponent, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Bucket_URL } from "../../../../services/APIUtils";
 import styles from "./JobAThonDesktopView.module.css";
+import ChooseHiringMode from "../../../Company/Pricing/Components/ChooseHiringMode";
 // import EasyWayToHire from "./EasyWayToHire/EasyWayToHire"; // Removed to avoid CSS conflicts
 import OurClientale from "../../../../components/OurClientale/OurClientale";
 import { useTypewriter } from "../../../../hooks/useTypewriter";
@@ -242,116 +243,9 @@ export const JobAThonDesktopView = () => {
               </div>
             </div>
 
-            {/* Easy Way to Hire Section - Inline to avoid CSS conflicts */}
-            <div className={styles.easyWayToHireSection}>
-              <div className={styles.easyWayContainer}>
-                <div className={styles.easyWayTitle}>
-                  <h3 className={styles.easyWayHeading}>
-                    3 easy ways to{" "}
-                    <span className={styles.highlightText}>Hire</span> through
-                    engineerHUB
-                  </h3>
-                </div>
-                
-                <div className={styles.easyWayGrid}>
-                  {/* Card 1: Do-it-yourself hiring */}
-                  <div className={styles.easyWayCard} style={{ background: "linear-gradient(135deg, #fef3c7 0%, #fde68a 100%)" }}>
-                    <div className={styles.freeBand}>
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="61"
-                        height="88"
-                        viewBox="0 0 61 88"
-                        fill="none"
-                      >
-                        <g filter="url(#filter0_d_3683_4429)">
-                          <path
-                            d="M29.9997 0.499959L57.0051 46L57.0051 80L4.4965 0.499925L29.9997 0.499959Z"
-                            fill="#FF0000"
-                          />
-                        </g>
-                        <defs>
-                          <filter
-                            id="filter0_d_3683_4429"
-                            x="0.496094"
-                            y="0.499878"
-                            width="60.5088"
-                            height="87.5001"
-                            filterUnits="userSpaceOnUse"
-                            colorInterpolationFilters="sRGB"
-                          >
-                            <feFlood floodOpacity="0" result="BackgroundImageFix" />
-                            <feColorMatrix
-                              in="SourceAlpha"
-                              type="matrix"
-                              values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
-                              result="hardAlpha"
-                            />
-                            <feOffset dy="4" />
-                            <feGaussianBlur stdDeviation="2" />
-                            <feComposite in2="hardAlpha" operator="out" />
-                            <feColorMatrix
-                              type="matrix"
-                              values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"
-                            />
-                            <feBlend
-                              mode="normal"
-                              in2="BackgroundImageFix"
-                              result="effect1_dropShadow_3683_4429"
-                            />
-                            <feBlend
-                              mode="normal"
-                              in="SourceGraphic"
-                              in2="effect1_dropShadow_3683_4429"
-                              result="shape"
-                            />
-                          </filter>
-                        </defs>
-                      </svg>
-                      <h3 className={styles.freeText}>FREE</h3>
-                    </div>
-                    
-                    <div className={styles.cardInfo}>
-                      <h3 className={styles.cardTitle}>Do-it-yourself hiring</h3>
-                      <p className={styles.cardDescription}>
-                        Zero cost. Basic tools.<br />
-                        Instant access to job seekers.
-                      </p>
-                      <div className={styles.cardButton} onClick={scrollToHireTalentSection}>
-                        <button>Host Now</button>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Card 2: Use our sourcing Expert */}
-                  <div className={styles.easyWayCard} style={{ background: "linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%)" }}>
-                    <div className={styles.cardInfo}>
-                      <h3 className={styles.cardTitle}>Use our sourcing Expert</h3>
-                      <p className={styles.cardDescription}>
-                        Our experts match you with fits.<br />
-                        Pay per role or ~ 3% on success.
-                      </p>
-                      <div className={styles.cardButton} onClick={scrollToBookSlotSection}>
-                        <button>Connect Now</button>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Card 3: Let us hire for you */}
-                  <div className={styles.easyWayCard} style={{ background: "linear-gradient(135deg, #fce7f3 0%, #fbcfe8 100%)" }}>
-                    <div className={styles.cardInfo}>
-                      <h3 className={styles.cardTitle}>Let us hire for you</h3>
-                      <p className={styles.cardDescription}>
-                        From start to hire, we manage it all.<br />
-                        Starts at ~5% of CTC.
-                      </p>
-                      <div className={styles.cardButton} onClick={scrollToBookSlotSection}>
-                        <button>Connect Now</button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+            {/* Commercial Options - Choose How You Hire Component */}
+            <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 1.5rem", width: "100%" }}>
+              <ChooseHiringMode />
             </div>
 
             <section className={styles.enterpriseHireTalentSection} id="hire-talent-section">
@@ -684,7 +578,7 @@ export const JobAThonDesktopView = () => {
                           <b className={styles.forCompanies}>
                             <span>{`83031 56089 `}</span>
                             <span className={styles.span}>/</span>
-                            <span> 91298 83089</span>
+                            <span> 8303564068 </span>
                           </b>
                         </div>
                       </div>

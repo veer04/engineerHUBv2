@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { IoIosArrowBack } from "react-icons/io";
 import {
   getAccessToken,
@@ -44,6 +44,15 @@ export default function HostingInternship() {
   }
   changeDocumentTitle("Host a Internship | engineerHUB");
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const handleBack = () => {
+    if (location.state?.from) {
+      navigate(location.state.from);
+    } else {
+      navigate("/pricing#ready-to-hire-banner");
+    }
+  };
   const { setSelectedPageNavbar } = useNavbar();
   const {
     setSnackbarOpen,
@@ -797,7 +806,7 @@ export default function HostingInternship() {
       </aside>
       <section className="main">
         <div className="header">
-          <span onClick={() => navigate(`/host`)} className="navigate-back">
+          <span onClick={handleBack} className="navigate-back">
             <IoIosArrowBack /> Back
           </span>
           <div
