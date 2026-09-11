@@ -25,7 +25,7 @@ import {
 import { Outlet, useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { API_URL } from "../../../services/APIUtils";
-import { getUserId, isUserLoggedIn } from "../../../features/User/UserDetails";
+import { getAccessToken, getUserId, isUserLoggedIn } from "../../../features/User/UserDetails";
 import HostPageForComapnyDashboard from "./HostPageForCompanyDashboard/HostPageForCompanyDashboard";
 import ChooseHiringMode from "../../Company/Pricing/Components/ChooseHiringMode";
 import CurrentPlanCard from "../../Company/Pricing/Components/CurrentPlanCard";
@@ -57,11 +57,13 @@ const CompanyDashboardNew = () => {
         if (res.data?.success && res.data?.data) {
           const w = res.data.data.wallet || {};
           const sub = res.data.data.activeSubscription;
+          const normP = (w.plan || "").toLowerCase();
+          const pName = normP === "starter" ? "Starter" : (normP === "professional" || normP === "pro") ? "Professional" : "Free";
           setSubscription({
             planId: w.plan || "free",
-            planName: w.plan === "starter" ? "Starter" : w.plan === "professional" ? "Professional" : "Free",
+            planName: pName,
             status: w.subscriptionStatus || "active",
-            creditsTotal: w.totalPurchased || (w.plan === "starter" ? 2000 : w.plan === "professional" ? 5000 : 500),
+            creditsTotal: w.totalPurchased || (normP === "starter" ? 2000 : (normP === "professional" || normP === "pro") ? 5000 : 500),
             creditsUsed: w.totalConsumed || 0,
             creditsRemaining: w.availableCredits !== undefined ? w.availableCredits : 500,
             renewsInDays: sub?.expiresAt ? Math.max(0, Math.ceil((new Date(sub.expiresAt) - new Date()) / (1000 * 60 * 60 * 24))) : 30,

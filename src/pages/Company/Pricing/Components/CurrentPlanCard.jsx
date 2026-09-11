@@ -24,9 +24,9 @@ export default function CurrentPlanCard({ subscription, onManagePlan }) {
 
   // Available plans for the top plan selection chip bar
   const planTiers = [
-    { id: "free", name: "Free", price: "$0", label: "Basic Tools" },
-    { id: "starter", name: "Starter", price: "$19/mo", label: "Popular" },
-    { id: "pro", name: "Professional", price: "$49/mo", label: "Recommended" },
+    { id: "free", name: "Free", price: "₹0", label: "Basic Tools" },
+    { id: "starter", name: "Starter", price: "₹99/mo", label: "Popular" },
+    { id: "pro", name: "Professional", price: "₹999/mo", label: "Recommended" },
   ];
 
   // Helper to check normalized current plan match

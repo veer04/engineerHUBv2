@@ -45,12 +45,13 @@ export default function PlatformFeatures({ onExploreTalent }) {
                 Access a growing network of 1M+ engineering users and discover
                 relevant profiles for your open roles.
               </p>
-              <button
+
+              {/* <button
                 className="btn-feature-link"
                 onClick={onExploreTalent}
               >
                 Explore Talent <ArrowRight size={14} />
-              </button>
+              </button> */}
             </div>
 
             <div className="feature-item-card">

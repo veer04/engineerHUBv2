@@ -111,8 +111,8 @@ export default function NewFooter() {
               <Link to="mailto:career@engineerhub.in" className="link">
                 career@engineerhub.in
               </Link>
-              <Link to="tel:+919129883089" className="link">
-                +91 91298 83089
+              <Link to="tel:+918303564068" className="link">
+                +91 8303564068
               </Link>
             </div>
           </div>

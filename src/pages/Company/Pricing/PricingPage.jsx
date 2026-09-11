@@ -6,6 +6,7 @@ import { Zap, ShieldCheck, CheckCircle, X, Sparkles, ArrowRight, Lock, Phone, Ma
 import axios from "axios";
 import { API_URL } from "../../../services/APIUtils";
 import { getAccessToken } from "../../../features/getCookieValues";
+import { getUserRole } from "../../../features/User/UserDetails";
 import "./PricingPage.css";
 
 import {
@@ -188,24 +189,23 @@ export default function PricingPage() {
     navigate("/candidatesdata");
   };
 
+  const getPlanLevel = (id) => {
+    const norm = (id || "").toLowerCase();
+    if (norm === "professional" || norm === "pro") return 2;
+    if (norm === "starter") return 1;
+    if (norm === "enterprise") return 3;
+    return 0; // free
+  };
+
   // Subscription Plan Selection Handler -> Opens Payment Preview Modal with User Form
   const handleSelectPlan = (plan, billingCycle = "monthly") => {
-    const normCurrent = currentPlanId.toLowerCase();
-    const normPlan = plan.id.toLowerCase();
+    const currentLevel = getPlanLevel(currentPlanId);
+    const targetLevel = getPlanLevel(plan.id);
 
-    if (
-      normCurrent === normPlan ||
-      (normPlan === "pro" && normCurrent === "professional") ||
-      (normPlan === "professional" && normCurrent === "pro")
-    ) {
-      toast.info(`You are currently on the ${plan.name} Plan.`, {
-        position: "top-right",
-      });
-      return;
-    }
+    const currentPlanName = currentLevel === 2 ? "Professional" : currentLevel === 1 ? "Starter" : "Free";
 
-    if (plan.id === "free") {
-      toast.info("You are currently using the Free plan with 500 initial AI Credits.", {
+    if (currentLevel >= targetLevel && targetLevel < 3) {
+      toast.info(`You are already on the ${currentPlanName} Plan.`, {
         position: "top-right",
       });
       return;
@@ -228,8 +228,21 @@ export default function PricingPage() {
       return;
     }
 
+    const role = getUserRole();
+    const allowedRoles = ["Employer", "Organization", "Alumni"];
+
+    if (!allowedRoles.includes(role)) {
+      toast.warning(
+        "Subscription plans are available exclusively for Employer and Alumni profiles.",
+        {
+          position: "top-right",
+        }
+      );
+      return;
+    }
+
     const planIdKey = plan.id === "pro" ? "professional" : plan.id;
-    const priceAmount = billingCycle === "annual" ? (plan.annualPrice || (planIdKey === "professional" ? 2 : 1)) : (plan.monthlyPrice || (planIdKey === "professional" ? 2 : 1));
+    const priceAmount = billingCycle === "annual" ? (plan.annualPrice || (planIdKey === "professional" ? 9588 : 948)) : (plan.monthlyPrice || (planIdKey === "professional" ? 999 : 99));
     const creditsAllocated = planIdKey === "professional" ? 5000 : 2000;
 
     setBillingForm({
@@ -592,50 +605,47 @@ export default function PricingPage() {
             </button>
 
             <div className="payment-order-modal-scroll-body" style={{ textAlign: "center" }}>
-              <div className="modal-header-tag" style={{ background: "#e6f4f1", color: "#128381", margin: "0 auto 1rem auto" }}>
-                <Sparkles size={16} /> TALK TO OUR HIRING TEAM
+              <div className="contact-modal-badge">
+                <Sparkles size={14} /> TALK TO OUR HIRING TEAM
               </div>
 
-              <h3 className="modal-plan-title" style={{ fontSize: "1.5rem", marginBottom: "0.4rem" }}>
+              <h3 className="contact-modal-title">
                 Contact engineerHUB
               </h3>
               
-              <p className="modal-plan-sub" style={{ fontSize: "0.9375rem", color: "#475569", marginBottom: "1.5rem" }}>
-                Have a custom hiring requirement or need assistance? Reach out to our team directly via phone or email.
+              <p className="contact-modal-sub">
+                Have a custom hiring requirement or need assistance? Reach out directly to our team.
               </p>
 
               {/* Phone Numbers Card */}
-              <div style={{ background: "#f8fafc", border: "1.5px solid #cbd5e1", borderRadius: "1rem", padding: "1.25rem", marginBottom: "1rem", textAlign: "left" }}>
-                <div style={{ display: "flex", alignItems: "center", gap: "0.6rem", color: "#128381", fontWeight: "700", marginBottom: "0.5rem" }}>
+              <div className="contact-item-card">
+                <div className="contact-icon-wrapper phone-icon-bg">
                   <Phone size={20} />
-                  <span>Call / Phone Support:</span>
                 </div>
-                <div style={{ fontSize: "1.1rem", fontWeight: "800", color: "#014051", display: "flex", flexWrap: "wrap", gap: "0.75rem", alignItems: "center" }}>
-                  <a href="tel:+918303156089" style={{ color: "#014051", textDecoration: "none" }}>
+                <div className="contact-item-values contact-phone-numbers">
+                  <a href="tel:+918303156089" className="contact-link-text">
                     +91 83031 56089
                   </a>
-                  <span style={{ color: "#cbd5e1" }}>/</span>
-                  <a href="tel:+918303564068" style={{ color: "#014051", textDecoration: "none" }}>
-                    8303564068
+                  <a href="tel:+918303564068" className="contact-link-text">
+                    +91 83035 64068
                   </a>
                 </div>
               </div>
 
               {/* Email Address Card */}
-              <div style={{ background: "#f8fafc", border: "1.5px solid #cbd5e1", borderRadius: "1rem", padding: "1.25rem", marginBottom: "1.5rem", textAlign: "left" }}>
-                <div style={{ display: "flex", alignItems: "center", gap: "0.6rem", color: "#7c3aed", fontWeight: "700", marginBottom: "0.5rem" }}>
+              <div className="contact-item-card">
+                <div className="contact-icon-wrapper email-icon-bg">
                   <Mail size={20} />
-                  <span>Email Support:</span>
                 </div>
-                <div style={{ fontSize: "1.1rem", fontWeight: "800" }}>
-                  <a href="mailto:info@engineerhub.in" style={{ color: "#7c3aed", textDecoration: "none" }}>
+                <div className="contact-item-values">
+                  <a href="mailto:info@engineerhub.in" className="contact-link-text">
                     info@engineerhub.in
                   </a>
                 </div>
               </div>
 
               <button
-                className="btn-proceed-pay"
+                className="contact-close-btn"
                 onClick={() => setShowContactModal(false)}
               >
                 Close Window
