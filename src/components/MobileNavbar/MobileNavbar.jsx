@@ -11,7 +11,7 @@ import {
 import { ENABLE_COMMUNITY_CHAT } from "../../config/featureFlags";
 import { FaUserCircle } from "react-icons/fa";
 
-const EMPLOYER_CONNECT_PHONE_DISPLAY = "83031 56089 / 91298 83089";
+const EMPLOYER_CONNECT_PHONE_DISPLAY = "83031 56089 / 8303564068";
 const EMPLOYER_CONNECT_EMAIL_DISPLAY = "info@engineerhub.in";
 const EMPLOYER_BOOK_SLOT_REFERRAL_PATH =
   "/referrals/book-now/67a107c89d57a46e99582bd1";
@@ -214,7 +214,8 @@ export default function MobileNavbar() {
 
   const isEmployerMobileNav =
     location.pathname.startsWith("/employer") ||
-    location.pathname.startsWith("/host");
+    location.pathname.startsWith("/host") ||
+    location.pathname.includes("pricing");
 
   useEffect(() => {
     if (!isEmployerMobileNav) return;
@@ -222,6 +223,8 @@ export default function MobileNavbar() {
       setSelectedPageNavbar("employer-host");
     } else if (location.pathname.startsWith("/employer")) {
       setSelectedPageNavbar("employer-connect");
+    } else if (location.pathname.includes("pricing")) {
+      setSelectedPageNavbar("pricing");
     }
   }, [isEmployerMobileNav, location.pathname, setSelectedPageNavbar]);
 
@@ -356,57 +359,21 @@ export default function MobileNavbar() {
               </div>
             ) : null}
           </div>
-          <div
-            className={`mobile-navbar-connect-slot${
-              connectPickerOpen ? " mobile-navbar-connect-slot--open" : ""
-            }`}
-            ref={connectPickerRef}
-          >
+          <div className="mobile-navbar-pricing-slot">
             <button
               type="button"
               onClick={() => {
                 setHostPickerOpen(false);
-                setConnectPickerOpen((o) => !o);
+                setSelectedPageNavbar("pricing");
+                navigate("/pricing");
               }}
               className={`item-container vibrate-2 ${
-                selectedPageNavbar === "employer-connect" ? "--is-active" : ""
+                selectedPageNavbar === "pricing" || location.pathname.includes("pricing") ? "--is-active" : ""
               }`}
-              aria-expanded={connectPickerOpen}
-              aria-haspopup="dialog"
-              aria-controls="mobile-connect-picker"
             >
               <ServicesSvg className="svg" />
-              <span>Connect</span>
+              <span>Pricing</span>
             </button>
-            {connectPickerOpen ? (
-              <div
-                id="mobile-connect-picker"
-                className="mobile-navbar-host-picker mobile-navbar-connect-picker-as-host"
-                role="dialog"
-                aria-label="Connect"
-              >
-                <p className="mobile-navbar-host-picker-label">Connect</p>
-                <div
-                  className="mobile-navbar-host-picker-static-row"
-                  aria-label="Phone numbers"
-                >
-                  {EMPLOYER_CONNECT_PHONE_DISPLAY}
-                </div>
-                <div
-                  className="mobile-navbar-host-picker-static-row"
-                  aria-label="Email"
-                >
-                  {EMPLOYER_CONNECT_EMAIL_DISPLAY}
-                </div>
-                <button
-                  type="button"
-                  className="mobile-navbar-host-picker-option"
-                  onClick={goEmployerBookSlot}
-                >
-                  Book a slot
-                </button>
-              </div>
-            ) : null}
           </div>
           {profileTab}
         </>

@@ -17,11 +17,11 @@ export default function PlanComparison({ matrix }) {
           <thead>
             <tr>
               <th style={{ width: "40%", textAlign: "left" }}>Feature / Capability</th>
-              <th style={{ textAlign: "center", width: "20%" }}>Free ($0)</th>
+              <th style={{ textAlign: "center", width: "20%" }}>Free (₹0)</th>
               <th style={{ textAlign: "center", width: "20%" }} className="th-highlight-starter">
-                Starter ($19/mo) <span className="th-rec-badge">RECOMMENDED</span>
+                Starter (₹99/mo) <span className="th-rec-badge">RECOMMENDED</span>
               </th>
-              <th style={{ textAlign: "center", width: "20%" }}>Professional ($49/mo)</th>
+              <th style={{ textAlign: "center", width: "20%" }}>Professional (₹999/mo)</th>
             </tr>
           </thead>
           <tbody>

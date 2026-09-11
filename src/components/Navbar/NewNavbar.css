@@ -285,6 +285,42 @@
   font-weight: 600;
 }
 
+#navbar .navbar-pricing-capsule-link {
+  text-decoration: none;
+  margin-right: 0.5rem;
+}
+
+#navbar .navbar-pricing-capsule-btn {
+  border-radius: 9999px;
+  border: 1.5px solid var(--primary-color-green, #138382);
+  color: var(--primary-color-green, #138382);
+  font-size: 1.05rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  background-color: transparent;
+  padding: 0.45rem 1.1rem;
+  text-align: center;
+  cursor: pointer;
+  box-sizing: border-box;
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+#navbar .navbar-pricing-capsule-btn:hover {
+  background-color: rgba(19, 131, 130, 0.12);
+}
+
+#navbar .navbar-pricing-capsule-btn.navbar-pricing-capsule-btn--active {
+  background-color: var(--primary-color-green, #138382);
+  color: #ffffff;
+  border-color: var(--primary-color-green, #138382);
+  box-shadow: 0 2px 8px rgba(19, 131, 130, 0.25);
+}
+
 #navbar .navbar-trailing-divider--desktop {
   width: 1px;
   height: 1.75rem;

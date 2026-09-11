@@ -29,7 +29,11 @@ export default function NewNavbar() {
   const location = useLocation();
   const isEmployerRoute = location.pathname.startsWith("/employer");
   const isHostRoute = location.pathname.startsWith("/host");
-  const hideCareerAndReferrals = isEmployerRoute || isHostRoute;
+  const isPricingRoute = location.pathname.includes("pricing");
+  const isEmployerOrPricingRoute =
+    isEmployerRoute || isHostRoute || isPricingRoute;
+  const hideCareerAndReferrals = isEmployerOrPricingRoute;
+
   const isLoginRoute = location.pathname.startsWith("/login");
   const isSignupRoute =
     location.pathname.startsWith("/signup") ||
@@ -205,18 +209,27 @@ export default function NewNavbar() {
             </button>
           </Link>
         )}
-        {/* <Link onClick={() => setSelectedPageNavbar("pricing")} to="/pricing">
-          <button
-            className={`${
-              selectedPageNavbar === "pricing" ? "--is-active" : ""
-            }`}
-          >
-            Pricing
-          </button>
-        </Link> */}
       </div>
       <div className="navbar-trailing">
         <div className="navbar-trailing-auth navbar-trailing-auth--desktop">
+          {isEmployerOrPricingRoute && (
+            <Link
+              to="/pricing"
+              className="navbar-pricing-capsule-link"
+              onClick={() => setSelectedPageNavbar("pricing")}
+            >
+              <button
+                type="button"
+                className={`navbar-pricing-capsule-btn ${
+                  selectedPageNavbar === "pricing" || isPricingRoute
+                    ? "navbar-pricing-capsule-btn--active"
+                    : ""
+                }`}
+              >
+                Pricing
+              </button>
+            </Link>
+          )}
           {!isLoggedIn ? (
             <>
               <Link
