@@ -20,6 +20,8 @@ import {
   isUserLoggedIn,
 } from "../../../features/User/UserDetails";
 import { getInitials, isCustomProfileImage } from "../../../features/User/avatarUtils";
+import { Lock } from "lucide-react";
+import { hasActivePaidPlan, checkJobPostingAccess } from "../../../utils/checkJobPostingAccess";
 import { Link, useNavigate } from "react-router-dom";
 import { handleLogout } from "../../../features/logout";
 import { CgLogOut } from "react-icons/cg";
@@ -66,6 +68,16 @@ export default function ProfilePopUp() {
   const [profileProgress, setProfileProgress] = useState(75);
   const [privateDashboardDataForComp, setPrivateDashboardDataForComp] =
     useState(null);
+
+  const [isPaidUser, setIsPaidUser] = useState(false);
+
+  useEffect(() => {
+    const checkSub = async () => {
+      const active = await hasActivePaidPlan();
+      setIsPaidUser(active);
+    };
+    checkSub();
+  }, [role]);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -347,6 +359,7 @@ export default function ProfilePopUp() {
   });
 
   const renderHostPages = alumniHostPagesMenus.map((item, index) => {
+    const isHostItem = item.link === "/host/job" || item.link === "/host/internship";
     return (
       <button
         key={index}
@@ -354,11 +367,18 @@ export default function ProfilePopUp() {
         aria-label="Close"
         className="item"
         onClick={() => {
-          navigate(item.link);
+          if (isHostItem && !isPaidUser) {
+            checkJobPostingAccess(navigate);
+          } else {
+            navigate(item.link);
+          }
         }}
       >
         <div className="icon">{item.icon}</div>
         <div className="label">{item.label}</div>
+        {isHostItem && !isPaidUser && (
+          <Lock size={15} style={{ marginLeft: "auto", color: "#f59e0b" }} />
+        )}
       </button>
     );
   });
@@ -397,20 +417,30 @@ export default function ProfilePopUp() {
     </button>
   ));
 
-  const renderCompanyMenuItems = companyMenuItems.map((item, index) => (
-    <button
-      key={index}
-      data-bs-dismiss="offcanvas"
-      aria-label="Close"
-      className="item"
-      onClick={() => {
-        navigate(item.link);
-      }}
-    >
-      <div className="icon">{item.icon}</div>
-      <div className="label">{item.label}</div>
-    </button>
-  ));
+  const renderCompanyMenuItems = companyMenuItems.map((item, index) => {
+    const isHostItem = item.link === "/host/job" || item.link === "/host/internship";
+    return (
+      <button
+        key={index}
+        data-bs-dismiss="offcanvas"
+        aria-label="Close"
+        className="item"
+        onClick={() => {
+          if (isHostItem && !isPaidUser) {
+            checkJobPostingAccess(navigate);
+          } else {
+            navigate(item.link);
+          }
+        }}
+      >
+        <div className="icon">{item.icon}</div>
+        <div className="label">{item.label}</div>
+        {isHostItem && !isPaidUser && (
+          <Lock size={15} style={{ marginLeft: "auto", color: "#f59e0b" }} />
+        )}
+      </button>
+    );
+  });
 
   const renderClubPromotionalContent = (
     <div className="promotion">

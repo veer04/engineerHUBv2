@@ -17,11 +17,11 @@ export default function PlanComparison({ matrix }) {
           <thead>
             <tr>
               <th style={{ width: "40%", textAlign: "left" }}>Feature / Capability</th>
-              <th style={{ textAlign: "center", width: "20%" }}>Free (₹0)</th>
+              <th style={{ textAlign: "center", width: "20%" }}>Starter (₹99/mo)</th>
               <th style={{ textAlign: "center", width: "20%" }} className="th-highlight-starter">
-                Starter (₹99/mo) <span className="th-rec-badge">RECOMMENDED</span>
+                Ultra (₹999/mo) <span className="th-rec-badge">RECOMMENDED</span>
               </th>
-              <th style={{ textAlign: "center", width: "20%" }}>Professional (₹999/mo)</th>
+              <th style={{ textAlign: "center", width: "20%" }}>Professional (₹4,999/mo)</th>
             </tr>
           </thead>
           <tbody>
@@ -33,8 +33,8 @@ export default function PlanComparison({ matrix }) {
                 {cat.rows.map((r, rIdx) => (
                   <tr key={rIdx} className="comparison-body-row">
                     <td className="feature-cell">{r.feature}</td>
-                    <td className="val-cell">{r.free}</td>
-                    <td className="val-cell val-cell-starter">{r.starter}</td>
+                    <td className="val-cell">{r.starter}</td>
+                    <td className="val-cell val-cell-starter">{r.ultra}</td>
                     <td className="val-cell val-cell-pro">{r.pro}</td>
                   </tr>
                 ))}

@@ -17,6 +17,7 @@ import JobCard from "../../../components/JobCard/JobCard";
 import { Outlet, useNavigate, useParams } from "react-router-dom";
 import defaultPoster from "../../../assets/defaultPoster";
 import { getUserId, isUserLoggedIn } from "../../../features/User/UserDetails";
+import { checkJobPostingAccess } from "../../../utils/checkJobPostingAccess";
 import JobCards from "../../Company/Jobs/JobCards";
 import colorWheel from "../../../assets/colorWheel";
 import EventCard from "../../../components/EventCard/EventCard";
@@ -562,7 +563,10 @@ export default function CompanyDashboard() {
             <p className="heading">RECRUIT THE BEST FOR YOU</p>
             <div className="cards">
               <div
-                onClick={() => navigate("/host/job")}
+                onClick={async () => {
+                  const allowed = await checkJobPostingAccess(navigate);
+                  if (allowed) navigate("/host/job");
+                }}
                 style={{
                   backgroundImage: `url(${bucket}jobs.png)`,
                 }}
@@ -574,7 +578,10 @@ export default function CompanyDashboard() {
                 </div>
               </div>
               <div
-                onClick={() => navigate("/host/internship")}
+                onClick={async () => {
+                  const allowed = await checkJobPostingAccess(navigate);
+                  if (allowed) navigate("/host/internship");
+                }}
                 style={{
                   backgroundImage: `url(${bucket}internships.png)`,
                 }}
@@ -582,7 +589,7 @@ export default function CompanyDashboard() {
               >
                 <div className="heading">Internships</div>
                 <div className="subheading">
-                  Create Jobs <BsArrowRight />
+                  Create Internships <BsArrowRight />
                 </div>
               </div>
               <div

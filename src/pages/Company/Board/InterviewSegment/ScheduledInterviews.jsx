@@ -22,9 +22,15 @@ import FormInput from "../../../../components/FormInputs/FormInput";
 import RateLimitIndicator from "../../../../components/RateLimitIndicator/RateLimitIndicator";
 
 
+import { checkJobPostingAccess } from "../../../../utils/checkJobPostingAccess";
+
 export default function ScheduledInterviews() {
   const navigate = useNavigate();
   const { id } = useParams();
+
+  useEffect(() => {
+    checkJobPostingAccess(navigate, { featureName: "AI Interview" });
+  }, [navigate]);
   const queryClient = useQueryClient();
   // helper to compute logged-in user's profile path
   const computeMyProfilePath = () => {

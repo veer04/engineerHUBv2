@@ -1,6 +1,8 @@
 import { Fragment, useEffect, useRef, useState } from "react";
 import "./JobBoard.css";
 import { FiDownload, FiUserPlus, FiUserX, FiInbox, FiArrowLeft } from "react-icons/fi";
+import { FaLock } from "react-icons/fa";
+import { hasActivePaidPlan, checkJobPostingAccess } from "../../../utils/checkJobPostingAccess";
 import { MdDeleteOutline, MdMailOutline } from "react-icons/md";
 import { RiInboxArchiveLine } from "react-icons/ri";
 import { BiSort } from "react-icons/bi";
@@ -40,6 +42,16 @@ export default function JobBoard() {
     }
     return `/profile/user/${uid}`;
   };
+  const [isPaidUser, setIsPaidUser] = useState(true);
+
+  useEffect(() => {
+    const checkSub = async () => {
+      const active = await hasActivePaidPlan();
+      setIsPaidUser(active);
+    };
+    checkSub();
+  }, []);
+
   const [searchParams, setSearchParams] = useSearchParams({
     pageNo: "",
     limit: "",
@@ -573,6 +585,11 @@ The Hiring Team<br>
   };
 
   const handleAISort = async () => {
+    if (!isPaidUser) {
+      checkJobPostingAccess(navigate, { featureName: "AI Resume Sorting" });
+      return;
+    }
+
     // Check if any applicants are selected
     if (selectedRows.length === 0) {
       setSnackbarMessage("Please select at least one applicant to sort");
@@ -986,29 +1003,41 @@ The Hiring Team<br>
               </button>
               <button
                 onClick={() => {
-                  setMainSegment("Assessment");
-                  navigate(
-                    `/career/jobs/board/${id}/assessment?assessmentSegment=ScheduleAssessment`
-                  );
+                  if (!isPaidUser) {
+                    checkJobPostingAccess(navigate, { featureName: "AI Skill Assessment" });
+                  } else {
+                    setMainSegment("Assessment");
+                    navigate(
+                      `/career/jobs/board/${id}/assessment?assessmentSegment=ScheduleAssessment`
+                    );
+                  }
                 }}
                 className={`sidebar-nav-btn assessment-nav-btn ${
                   mainSegment === "Assessment" ? "--active" : ""
                 }`}
                 title="Assessment Management"
               >
-                <span className="nav-text">Assessment</span>
+                <span className="nav-text">
+                  Assessment {!isPaidUser && <FaLock style={{ color: "#f59e0b", fontSize: "11px", marginLeft: "4px" }} />}
+                </span>
               </button>
               <button
                 onClick={() => {
-                  setMainSegment("Interview");
-                  navigate(`/career/jobs/board/${id}/interview?pageNo=1&limit=30&interviewSegment=InterviewLobby`);
+                  if (!isPaidUser) {
+                    checkJobPostingAccess(navigate, { featureName: "AI Interview" });
+                  } else {
+                    setMainSegment("Interview");
+                    navigate(`/career/jobs/board/${id}/interview?pageNo=1&limit=30&interviewSegment=InterviewLobby`);
+                  }
                 }}
                 className={`sidebar-nav-btn interview-nav-btn ${
                   mainSegment === "Interview" ? "--active" : ""
                 }`}
                 title="Interview Management"
               >
-                <span className="nav-text">Interview</span>
+                <span className="nav-text">
+                  Interview {!isPaidUser && <FaLock style={{ color: "#f59e0b", fontSize: "11px", marginLeft: "4px" }} />}
+                </span>
               </button>
               <button
                 onClick={() => {
@@ -1259,7 +1288,13 @@ The Hiring Team<br>
               {params.status === "Response" && (
                 <div className="sort-container">
                   <button
-                    onClick={handleAISort}
+                    onClick={() => {
+                      if (!isPaidUser) {
+                        checkJobPostingAccess(navigate, { featureName: "AI Resume Sorting" });
+                      } else {
+                        handleAISort();
+                      }
+                    }}
                     disabled={isAISorting}
                     className="sort-btn body-sm-semibold d-flex align-items-center gap-1"
                     title=""
@@ -1270,11 +1305,13 @@ The Hiring Team<br>
                       <img src={geminiIcon} alt="Gemini" className="sort-icon gemini-sort-icon" />
                     )}{" "}
                     {isAISorting ? "Sorting..." : "Sort with AI"}
+                    {!isPaidUser && <FaLock style={{ color: "#f59e0b", fontSize: "12px", marginLeft: "4px" }} />}
                   </button>
                   <RateLimitIndicator 
                     currentRequests={rateLimitInfo.currentHourRequests}
                     maxRequests={rateLimitInfo.maxRequestsPerHour}
                     maxResumesPerRequest={rateLimitInfo.maxResumesPerRequest}
+                    availableCredits={rateLimitInfo.availableCredits}
                   />
                 </div>
               )}
