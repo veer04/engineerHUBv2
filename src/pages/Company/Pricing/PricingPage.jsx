@@ -191,9 +191,10 @@ export default function PricingPage() {
 
   const getPlanLevel = (id) => {
     const norm = (id || "").toLowerCase();
-    if (norm === "professional" || norm === "pro") return 2;
+    if (norm === "professional" || norm === "pro") return 3;
+    if (norm === "ultra") return 2;
     if (norm === "starter") return 1;
-    if (norm === "enterprise") return 3;
+    if (norm === "enterprise") return 4;
     return 0; // free
   };
 
@@ -202,9 +203,9 @@ export default function PricingPage() {
     const currentLevel = getPlanLevel(currentPlanId);
     const targetLevel = getPlanLevel(plan.id);
 
-    const currentPlanName = currentLevel === 2 ? "Professional" : currentLevel === 1 ? "Starter" : "Free";
+    const currentPlanName = currentLevel === 3 ? "Professional" : currentLevel === 2 ? "Ultra" : currentLevel === 1 ? "Starter" : "Free";
 
-    if (currentLevel >= targetLevel && targetLevel < 3) {
+    if (currentLevel >= targetLevel && targetLevel < 4) {
       toast.info(`You are already on the ${currentPlanName} Plan.`, {
         position: "top-right",
       });
@@ -242,8 +243,8 @@ export default function PricingPage() {
     }
 
     const planIdKey = plan.id === "pro" ? "professional" : plan.id;
-    const priceAmount = billingCycle === "annual" ? (plan.annualPrice || (planIdKey === "professional" ? 9588 : 948)) : (plan.monthlyPrice || (planIdKey === "professional" ? 999 : 99));
-    const creditsAllocated = planIdKey === "professional" ? 5000 : 2000;
+    const priceAmount = billingCycle === "annual" ? (plan.annualPrice || 0) : (plan.monthlyPrice || 0);
+    const creditsAllocated = plan.credits || 500;
 
     setBillingForm({
       name: userData.name || "",
@@ -363,7 +364,7 @@ export default function PricingPage() {
               setSelectedOrder(null);
               setPaymentSuccessData({
                 planName: plan.name,
-                credits: newCredits || (planIdKey === "professional" ? 5000 : 2000),
+                credits: newCredits || plan.credits || 500,
               });
             } else {
               toast.error(verifyRes.data?.message || "Payment verification failed", {

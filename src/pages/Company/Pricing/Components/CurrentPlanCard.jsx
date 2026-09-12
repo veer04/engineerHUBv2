@@ -24,17 +24,17 @@ export default function CurrentPlanCard({ subscription, onManagePlan }) {
 
   // Available plans for the top plan selection chip bar
   const planTiers = [
-    { id: "free", name: "Free", price: "₹0", label: "Basic Tools" },
     { id: "starter", name: "Starter", price: "₹99/mo", label: "Popular" },
-    { id: "pro", name: "Professional", price: "₹999/mo", label: "Recommended" },
+    { id: "ultra", name: "Ultra", price: "₹999/mo", label: "Recommended" },
+    { id: "pro", name: "Professional", price: "₹4,999/mo", label: "Enterprise" },
   ];
 
   // Helper to check normalized current plan match
   const isCurrentPlan = (id) => {
     if (!planId) return false;
     const norm = planId.toLowerCase();
-    if (id === "free" && (norm.includes("free") || norm === "free")) return true;
     if (id === "starter" && (norm.includes("start") || norm === "starter")) return true;
+    if (id === "ultra" && (norm.includes("ultra") || norm === "ultra")) return true;
     if (id === "pro" && (norm.includes("pro") || norm.includes("professional"))) return true;
     return false;
   };

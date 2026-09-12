@@ -34,9 +34,15 @@ import useGlobalSnackbar from "../../../../hooks/useGlobalSnackbar";
 import FormInput from "../../../../components/FormInputs/FormInput";
 import FormInputTime from "../../../../components/FormInputs/FormInputTime";
 
+import { checkJobPostingAccess } from "../../../../utils/checkJobPostingAccess";
+
 export default function InterviewLobby() {
   const navigate = useNavigate();
   const { id } = useParams();
+
+  useEffect(() => {
+    checkJobPostingAccess(navigate, { featureName: "AI Interview" });
+  }, [navigate]);
   const queryClient = useQueryClient();
   // helper to compute logged-in user's profile path
   const computeMyProfilePath = () => {

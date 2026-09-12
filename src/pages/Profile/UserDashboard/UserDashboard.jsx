@@ -45,6 +45,7 @@ import {
   getUserRole,
   isUserLoggedIn,
 } from "../../../features/User/UserDetails";
+import { checkJobPostingAccess } from "../../../utils/checkJobPostingAccess";
 import LoadingPage from "../../../components/Loader/LoadingPage";
 import Page404 from "../../Maintenance/Page404";
 import colorWheel from "../../../assets/colorWheel";
@@ -1088,7 +1089,10 @@ export default function UserDashboard() {
               </div>
             </div>
             <div
-              onClick={() => navigate("/host/job")}
+              onClick={async () => {
+                const allowed = await checkJobPostingAccess(navigate);
+                if (allowed) navigate("/host/job");
+              }}
               style={{
                 backgroundImage: `url(${bucket}jobs.png)`,
               }}
@@ -1102,7 +1106,10 @@ export default function UserDashboard() {
             {/* </Link>
           <Link to="/host/event"> */}
             <div
-              onClick={() => navigate("/host/internship")}
+              onClick={async () => {
+                const allowed = await checkJobPostingAccess(navigate);
+                if (allowed) navigate("/host/internship");
+              }}
               style={{
                 backgroundImage: `url(${bucket}internships.png)`,
               }}

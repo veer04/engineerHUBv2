@@ -134,10 +134,17 @@ function formatPreviewDateTime(dateStr) {
   });
 }
 
+import { checkJobPostingAccess } from "../../../../utils/checkJobPostingAccess";
+
 export default function ScheduleAssessment() {
   const navigate = useNavigate();
-  const queryClient = useQueryClient();
   const { id } = useParams();
+
+  useEffect(() => {
+    checkJobPostingAccess(navigate, { featureName: "AI Skill Assessment" });
+  }, [navigate]);
+
+  const queryClient = useQueryClient();
   const [searchParams, setSearchParams] = useSearchParams({
     assessmentSegment: "ScheduleAssessment",
   });

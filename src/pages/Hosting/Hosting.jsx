@@ -8,6 +8,8 @@ import useNavbar from "../../hooks/use-navbar";
 import { getUserRole, isUserLoggedIn } from "../../features/User/UserDetails";
 import { redirectToAuth } from "../../features/redirectToAuth";
 import { SEO } from "../../components/SEO/SEO.jsx";
+import { checkJobPostingAccess } from "../../utils/checkJobPostingAccess";
+
 export default function Hosting() {
   const handleCardClick = (event) => {
     sessionStorage.setItem("event", event);
@@ -113,7 +115,7 @@ export default function Hosting() {
   //   }
   // };
 
-  function handleClick(hosting) {
+  async function handleClick(hosting) {
     //check if user is logged in
     if (!isUserLoggedIn()) {
       redirectToAuth("/login");
@@ -128,22 +130,16 @@ export default function Hosting() {
       navigate("/host/event");
     }
     if (hosting === "job") {
-      if (getUserRole() === "User" || getUserRole() === "Club") {
-        window.alert(
-          "You are not authorized to host job/internship opportunities"
-        );
-        return;
+      const allowed = await checkJobPostingAccess(navigate);
+      if (allowed) {
+        navigate("/host/job");
       }
-      navigate("/host/job");
     }
     if (hosting === "internship") {
-      if (getUserRole() === "User" || getUserRole() === "Club") {
-        window.alert(
-          "You are not authorized to host job/internship opportunities"
-        );
-        return;
+      const allowed = await checkJobPostingAccess(navigate);
+      if (allowed) {
+        navigate("/host/internship");
       }
-      navigate("/host/internship");
     }
     if (hosting === "project") {
       if (getUserRole() === "User" || getUserRole() === "Club") {

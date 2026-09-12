@@ -38,6 +38,8 @@ import {
   mobileNumberExpression,
 } from "../../features/regex";
 
+import { checkJobPostingAccess } from "../../utils/checkJobPostingAccess";
+
 export default function HostingJob() {
   if (!isUserLoggedIn()) {
     redirectToAuth("/login");
@@ -45,6 +47,10 @@ export default function HostingJob() {
   changeDocumentTitle("Host a Job | engineerHUB");
   const navigate = useNavigate();
   const location = useLocation();
+
+  useEffect(() => {
+    checkJobPostingAccess(navigate);
+  }, [navigate]);
 
   const handleBack = () => {
     if (location.state?.from) {

@@ -9,6 +9,7 @@ import './RateLimitIndicator.css';
 const RateLimitIndicator = ({ 
   currentRequests: propCurrent, 
   maxRequests: propMax, 
+  availableCredits: propAvailable,
   maxResumesPerRequest = 30,
   featureName = "Unified AI Credit System",
   creditLabel = "AI Credits"
@@ -32,10 +33,12 @@ const RateLimitIndicator = ({
           });
           if (res.data?.success && res.data?.data?.wallet) {
             const w = res.data.data.wallet;
+            const isFree = (w.plan || "free").toLowerCase() === "free";
             setLiveWallet({
               used: w.totalConsumed || 0,
-              available: w.availableCredits !== undefined ? w.availableCredits : 500,
-              total: w.totalPurchased || (w.plan === 'starter' ? 2000 : w.plan === 'professional' ? 5000 : 500),
+              available: isFree ? 0 : (w.availableCredits !== undefined ? w.availableCredits : 0),
+              total: isFree ? 0 : (w.totalPurchased || (w.plan === 'starter' ? 500 : w.plan === 'ultra' ? 1500 : 10000)),
+              isFree,
             });
           }
         } catch (err) {
@@ -47,8 +50,12 @@ const RateLimitIndicator = ({
   }, [propCurrent]);
 
   const currentRequests = liveWallet ? liveWallet.used : (propCurrent !== undefined ? propCurrent : 0);
-  const availableBalance = liveWallet ? liveWallet.available : (propMax !== undefined ? propMax : 500);
-  const totalCapacity = liveWallet ? liveWallet.total : (propMax !== undefined ? propMax : 500);
+  const totalCapacity = liveWallet ? liveWallet.total : (propMax !== undefined ? propMax : 0);
+  const availableBalance = liveWallet
+    ? liveWallet.available
+    : (propAvailable !== undefined
+        ? propAvailable
+        : (propMax !== undefined ? Math.max(totalCapacity - currentRequests, 0) : 0));
 
   const usagePercentage = totalCapacity > 0 ? (currentRequests / totalCapacity) * 100 : 0;
   const isNearLimit = availableBalance < 50;

@@ -9,6 +9,7 @@ import JobCardsNew from "../../../Company/Jobs/JobCardsNew";
 import InternshipCardNew from "../../../Company/Internship/InternshipCardNew";
 import NewEventCard from "../../../../components/NewEventCard/NewEventCard";
 import { useNavigate } from "react-router-dom";
+import { checkJobPostingAccess } from "../../../../utils/checkJobPostingAccess";
 
 const CARDS_PER_ROW = 3; // max visible cards in a row before needing to scroll
 
@@ -221,7 +222,10 @@ const YourCompanyActivitySection = ({
           {(actionButton === "Jobs") && isUserAdmin && (
             <button
               className="act-empty-cta"
-              onClick={() => navigate("/host/job")}
+              onClick={async () => {
+                const allowed = await checkJobPostingAccess(navigate);
+                if (allowed) navigate("/host/job");
+              }}
             >
               Host a Job →
             </button>
@@ -229,7 +233,10 @@ const YourCompanyActivitySection = ({
           {(actionButton === "Internships") && isUserAdmin && (
             <button
               className="act-empty-cta"
-              onClick={() => navigate("/host/internship")}
+              onClick={async () => {
+                const allowed = await checkJobPostingAccess(navigate);
+                if (allowed) navigate("/host/internship");
+              }}
             >
               Host an Internship →
             </button>

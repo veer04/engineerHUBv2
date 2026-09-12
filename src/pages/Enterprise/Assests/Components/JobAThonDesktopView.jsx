@@ -7,14 +7,24 @@ import ChooseHiringMode from "../../../Company/Pricing/Components/ChooseHiringMo
 import OurClientale from "../../../../components/OurClientale/OurClientale";
 import { useTypewriter } from "../../../../hooks/useTypewriter";
 import { MdEmail, MdPhone } from "react-icons/md";
-import { FaBriefcase, FaUserCheck, FaLaptopCode, FaVideo, FaRocket } from "react-icons/fa";
+import { FaBriefcase, FaUserCheck, FaLaptopCode, FaVideo, FaRocket, FaLock } from "react-icons/fa";
 import { PiStudentFill } from "react-icons/pi";
 import { SEO } from "../../../../components/SEO/SEO.jsx";
+import { hasActivePaidPlan, checkJobPostingAccess } from "../../../../utils/checkJobPostingAccess";
 
 export const JobAThonDesktopView = () => {
   const bucket = `${Bucket_URL}frontend/enterprise/desktopView/`;
   const Navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isPaid, setIsPaid] = useState(false);
+
+  useEffect(() => {
+    const checkSub = async () => {
+      const active = await hasActivePaidPlan();
+      setIsPaid(active);
+    };
+    checkSub();
+  }, []);
   
   // Typewriter animation for the main heading
   const { displayText: typewriterText, isComplete, elementRef } = useTypewriter(
@@ -255,9 +265,12 @@ export const JobAThonDesktopView = () => {
                   <article
                     className={`${styles.enterpriseHireTalentCard} ${styles.enterpriseHireTalentCardJobs}`}
                     onClick={() => navigateToHostFlow("/host/job")}
+                    style={{ position: "relative" }}
                   >
                     <FaBriefcase className={styles.enterpriseHireTalentIcon} aria-hidden="true" />
-                    <span className={styles.enterpriseHireTalentHeading}>Jobs</span>
+                    <span className={styles.enterpriseHireTalentHeading}>
+                      Jobs {!isPaid && <FaLock style={{ fontSize: "14px", color: "#f59e0b", marginLeft: "6px" }} />}
+                    </span>
                     <span className={styles.enterpriseHireTalentSubHeading}>
                       Create Jobs →
                     </span>
@@ -269,9 +282,12 @@ export const JobAThonDesktopView = () => {
                   <article
                     className={`${styles.enterpriseHireTalentCard} ${styles.enterpriseHireTalentCardInternships}`}
                     onClick={() => navigateToHostFlow("/host/internship")}
+                    style={{ position: "relative" }}
                   >
                     <PiStudentFill className={styles.enterpriseHireTalentIcon} aria-hidden="true" />
-                    <span className={styles.enterpriseHireTalentHeading}>Internships</span>
+                    <span className={styles.enterpriseHireTalentHeading}>
+                      Internships {!isPaid && <FaLock style={{ fontSize: "14px", color: "#f59e0b", marginLeft: "6px" }} />}
+                    </span>
                     <span className={styles.enterpriseHireTalentSubHeading}>
                       Create Internships →
                     </span>
