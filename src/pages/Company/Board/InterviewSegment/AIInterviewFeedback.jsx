@@ -17,6 +17,7 @@ import {
   FiCheckCircle,
   FiSmile,
   FiUsers,
+  FiUserX,
   FiSmartphone,
   FiMaximize2,
   FiWifi,
@@ -95,10 +96,25 @@ export default function AIInterviewFeedback() {
     }
   };
 
+  const getRecommendationColorClass = (rec) => {
+    const r = (rec || "").toLowerCase().trim();
+    if (r.includes("strong")) return "is-strong-hire";
+    if (r.includes("no") || r.includes("reject")) return "is-no-hire";
+    if (r.includes("hire") || r.includes("weak")) return "is-hire";
+    return "is-hire";
+  };
+
   const handleDownloadReport = () => {
-    setSnackbarMessage("Downloading AI Interview Performance Report (PDF)...");
-    setSnackbarSeverity("success");
+    setSnackbarMessage("Preparing AI Interview Performance Report for PDF export...");
+    setSnackbarSeverity("info");
     setSnackbarOpen(true);
+    setTimeout(() => {
+      const origTitle = document.title;
+      const candidateName = liveReport?.candidateName || liveConv?.session?.candidateName || "Candidate";
+      document.title = `${candidateName.replace(/\s+/g, "_")}_AI_Interview_Report`;
+      window.print();
+      document.title = origTitle;
+    }, 400);
   };
 
   const handleProceedNextRound = () => {
@@ -139,6 +155,76 @@ export default function AIInterviewFeedback() {
 
   const integrityStatus = integrityScore >= 90 ? "EXCELLENT" : integrityScore >= 75 ? "GOOD" : "WARNING";
 
+  const skillsList = liveReport?.categoryScores
+    ? Object.entries(liveReport.categoryScores).map(([key, val]) => {
+        const numVal = typeof val === "number" ? val : 0;
+        const isTech = key === "technicalKnowledge" || key.toLowerCase().includes("technical");
+        const maxMarks = isTech ? 200 : 100;
+        let scoreVal = 0;
+        if (isTech) {
+          // If numVal is 0-20 scale (from LLM output), convert to 0-200. Otherwise if 0-200, keep as is.
+          scoreVal = numVal <= 20 ? Math.round(numVal * 10) : Math.round(numVal);
+        } else {
+          scoreVal = numVal <= 10 ? Math.round(numVal * 10) : Math.round(numVal);
+        }
+        scoreVal = Math.min(maxMarks, Math.max(0, scoreVal));
+
+        const formattedName = isTech
+          ? "Technical Knowledge"
+          : key
+              .replace(/([A-Z])/g, " $1")
+              .replace(/^./, (str) => str.toUpperCase())
+              .trim();
+
+        let commentText = `Candidate scored ${scoreVal}/${maxMarks} in ${formattedName.toLowerCase()}.`;
+        const percentage = Math.round((scoreVal / maxMarks) * 100);
+        if (percentage >= 80) commentText = `Strong proficiency demonstrated in ${formattedName.toLowerCase()}.`;
+        else if (percentage >= 60) commentText = `Good foundational knowledge in ${formattedName.toLowerCase()}.`;
+        else if (percentage >= 40) commentText = `Moderate understanding in ${formattedName.toLowerCase()}; room for deeper depth.`;
+        else commentText = `Gaps identified in ${formattedName.toLowerCase()}; requires further review.`;
+
+        return {
+          name: formattedName,
+          score: scoreVal,
+          max: maxMarks,
+          comment: commentText,
+        };
+      })
+    : [
+        {
+          name: "Technical Knowledge",
+          score: 168,
+          max: 200,
+          comment: "Demonstrated strong understanding across answered technical questions.",
+        },
+        {
+          name: "Problem Solving",
+          score: 84,
+          max: 100,
+          comment: "Systematic approach to debugging and efficient algorithm selection.",
+        },
+        {
+          name: "Communication",
+          score: 88,
+          max: 100,
+          comment: "Deep understanding of event loops and clear articulation.",
+        },
+        {
+          name: "Confidence",
+          score: 75,
+          max: 100,
+          comment: "Solid presentation, calm demeanor, and clear response delivery.",
+        },
+      ];
+
+  const totalEarnedMarks = skillsList.reduce((acc, s) => acc + s.score, 0);
+  const totalMaxMarks = skillsList.reduce((acc, s) => acc + (s.max || 100), 0);
+  const calculatedAiScore = totalMaxMarks > 0
+    ? Math.round((totalEarnedMarks / totalMaxMarks) * 100)
+    : (typeof liveReport?.overallScore === "number"
+        ? (liveReport.overallScore <= 10 ? Math.round(liveReport.overallScore * 10) : Math.round(liveReport.overallScore))
+        : 82);
+
   // Dynamic feedback data combining backend API with UI fallbacks
   const candidateData = {
     name: liveReport?.candidateName || liveConv?.session?.candidateName || "Technical Candidate",
@@ -152,58 +238,10 @@ export default function AIInterviewFeedback() {
       ? `${liveConv.session.aiConfig.durationMinutes} mins`
       : "30 mins",
     language: liveConv?.session?.aiConfig?.language || "English",
-    aiScore: typeof liveReport?.overallScore === "number"
-      ? (liveReport.overallScore <= 10 ? Math.round(liveReport.overallScore * 10) : Math.round(liveReport.overallScore))
-      : 82,
+    aiScore: calculatedAiScore,
     recommendation: liveReport?.recommendation || "Hire",
     difficulty: liveConv?.session?.aiConfig?.difficulty || "Medium",
-    skills: liveReport?.categoryScores
-      ? Object.entries(liveReport.categoryScores).map(([key, val]) => {
-          const numVal = typeof val === "number" ? val : 0;
-          const score100 = numVal <= 10 ? Math.round(numVal * 10) : Math.round(numVal);
-          const formattedName = key
-            .replace(/([A-Z])/g, " $1")
-            .replace(/^./, (str) => str.toUpperCase())
-            .trim();
-          let commentText = `Candidate scored ${score100}/100 in ${formattedName.toLowerCase()}.`;
-          if (score100 >= 80) commentText = `Strong proficiency demonstrated in ${formattedName.toLowerCase()}.`;
-          else if (score100 >= 60) commentText = `Good foundational knowledge in ${formattedName.toLowerCase()}.`;
-          else if (score100 >= 40) commentText = `Moderate understanding in ${formattedName.toLowerCase()}; room for deeper depth.`;
-          else commentText = `Gaps identified in ${formattedName.toLowerCase()}; requires further review.`;
-
-          return {
-            name: formattedName,
-            score: score100,
-            max: 100,
-            comment: commentText,
-          };
-        })
-      : [
-          {
-            name: "React",
-            score: 92,
-            max: 100,
-            comment: "Excellent mastery of hooks and performance optimization strategies.",
-          },
-          {
-            name: "JavaScript",
-            score: 88,
-            max: 100,
-            comment: "Deep understanding of event loops and asynchronous patterns.",
-          },
-          {
-            name: "System Design",
-            score: 75,
-            max: 100,
-            comment: "Solid architectural choices, though could improve on scalability edge cases.",
-          },
-          {
-            name: "Problem Solving",
-            score: 84,
-            max: 100,
-            comment: "Systematic approach to debugging and efficient algorithm selection.",
-          },
-        ],
+    skills: skillsList,
     strengths:
       liveReport?.strengths && liveReport.strengths.length > 0
         ? liveReport.strengths
@@ -271,7 +309,7 @@ export default function AIInterviewFeedback() {
       status: integrityStatus,
       faceVisible: noFaceCount > 0 ? `${Math.max(0, 100 - noFaceCount * 10)}%` : "100%",
       multiFace: multiFaceCount > 0 ? `${multiFaceCount} Detected` : "None",
-      phoneDet: phoneDetCount > 0 ? `${phoneDetCount} Detected` : "None",
+      noFace: noFaceCount > 0 ? `${noFaceCount} Detected` : "None",
       tabSwitch: String(tabSwitches),
       network: "Stable",
     },
@@ -349,7 +387,7 @@ export default function AIInterviewFeedback() {
                 </div>
 
                 <div className="recommendation-pill-box">
-                  <span className="hire-recommendation-badge">
+                  <span className={`hire-recommendation-badge ${getRecommendationColorClass(candidateData.recommendation)}`}>
                     <FiCheckCircle /> {candidateData.recommendation}
                   </span>
                   <span className="difficulty-tag">Difficulty: {candidateData.difficulty}</span>
@@ -508,9 +546,9 @@ export default function AIInterviewFeedback() {
                 </div>
 
                 <div className="metric-box">
-                  <FiSmartphone className="metric-icon" />
-                  <span className="metric-label">Phone Det.</span>
-                  <span className="metric-val">{candidateData.integrity.phoneDet}</span>
+                  <FiUserX className="metric-icon" />
+                  <span className="metric-label">No Face</span>
+                  <span className="metric-val">{candidateData.integrity.noFace}</span>
                 </div>
 
                 <div className="metric-box">
@@ -588,7 +626,9 @@ export default function AIInterviewFeedback() {
 
                 <div style={{ paddingTop: "1rem", marginTop: "1rem", borderTop: "1px solid #bdc9c8" }}>
                   <span className="sidebar-title-caps">FINAL RECOMMENDATION</span>
-                  <div className="final-rec-box">{candidateData.recommendation}</div>
+                  <div className={`final-rec-box ${getRecommendationColorClass(candidateData.recommendation)}`}>
+                    {candidateData.recommendation}
+                  </div>
                 </div>
 
                 <div style={{ marginTop: "1rem" }}>

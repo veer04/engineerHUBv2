@@ -306,15 +306,11 @@ export default function useProctoringMonitor({ inviteToken, isActive, activeProc
 
       if (faceCount === 0) {
         consecutiveNoFaceRef.current += 1;
-        if (consecutiveNoFaceRef.current >= 2) {
-          enqueue("NO_FACE_DETECTED", {
-            failureCount: consecutiveNoFaceRef.current,
-            ...(snapshot ? { snapshot } : {}),
-          });
-        } else {
-          // Upload snapshot for intermediate checks when face is temporarily missing
-          enqueue("WEBCAM_CHECK", snapshot ? { snapshot } : {});
-        }
+        enqueue("NO_FACE_DETECTED", {
+          failureCount: consecutiveNoFaceRef.current,
+          faceCount: 0,
+          ...(snapshot ? { snapshot } : {}),
+        });
       } else {
         consecutiveNoFaceRef.current = 0;
       }
@@ -326,15 +322,18 @@ export default function useProctoringMonitor({ inviteToken, isActive, activeProc
         });
       }
 
-      // Enforce snapshot capturing on every single normal check check (faceCount === 1)
       if (faceCount === 1) {
         hasCapturedFirstRef.current = true;
-        enqueue("WEBCAM_CHECK", snapshot ? { snapshot } : {});
+        enqueue("WEBCAM_CHECK", {
+          faceCount: 1,
+          ...(snapshot ? { snapshot } : {}),
+        });
       }
     } catch (err) {
       console.error("[useProctoringMonitor] Face detection error:", err);
     }
   }, [enqueue, captureSnapshot]);
+
   const startWebcamMonitoring = useCallback(async () => {
     let stream = null;
     let attempts = 0;
@@ -387,18 +386,30 @@ export default function useProctoringMonitor({ inviteToken, isActive, activeProc
       return;
     }
 
-    // 3. Initialize Face Detector
+    // 3. Initialize Face Detector (with GPU -> CPU fallback)
     try {
       const vision = await FilesetResolver.forVisionTasks(
         "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.35/wasm"
       );
-      const detector = await FaceDetector.createFromOptions(vision, {
-        baseOptions: {
-          modelAssetPath: "https://storage.googleapis.com/mediapipe-models/face_detector/blaze_face_short_range/float16/1/blaze_face_short_range.tflite",
-          delegate: "GPU"
-        },
-        runningMode: "IMAGE"
-      });
+      let detector = null;
+      try {
+        detector = await FaceDetector.createFromOptions(vision, {
+          baseOptions: {
+            modelAssetPath: "https://storage.googleapis.com/mediapipe-models/face_detector/blaze_face_short_range/float16/1/blaze_face_short_range.tflite",
+            delegate: "GPU"
+          },
+          runningMode: "IMAGE"
+        });
+      } catch (gpuErr) {
+        console.warn("[useProctoringMonitor] GPU delegate failed, falling back to CPU:", gpuErr);
+        detector = await FaceDetector.createFromOptions(vision, {
+          baseOptions: {
+            modelAssetPath: "https://storage.googleapis.com/mediapipe-models/face_detector/blaze_face_short_range/float16/1/blaze_face_short_range.tflite",
+            delegate: "CPU"
+          },
+          runningMode: "IMAGE"
+        });
+      }
       detectorRef.current = detector;
 
       // Attach ended listener
