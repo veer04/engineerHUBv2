@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { FilesetResolver, FaceDetector } from "@mediapipe/tasks-vision";
 import { SEO } from "../../../components/SEO/SEO.jsx";
 import {
   FiClock,
@@ -615,6 +616,67 @@ export default function CandidateAIInterviewRoom() {
   const [showEndConfirmationModal, setShowEndConfirmationModal] = useState(false);
   const isEndingInterviewRef = useRef(false);
 
+  // MediaPipe Face Detector refs
+  const detectorRef = useRef(null);
+  const isMediaPipeLoadingRef = useRef(false);
+
+  // Initialize MediaPipe FaceDetector (with GPU -> CPU fallback)
+  useEffect(() => {
+    let isMounted = true;
+    const initFaceDetector = async () => {
+      if (detectorRef.current || isMediaPipeLoadingRef.current) return;
+      isMediaPipeLoadingRef.current = true;
+      try {
+        const vision = await FilesetResolver.forVisionTasks(
+          "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.35/wasm"
+        );
+        let detector = null;
+        try {
+          detector = await FaceDetector.createFromOptions(vision, {
+            baseOptions: {
+              modelAssetPath:
+                "https://storage.googleapis.com/mediapipe-models/face_detector/blaze_face_short_range/float16/1/blaze_face_short_range.tflite",
+              delegate: "GPU",
+            },
+            runningMode: "IMAGE",
+          });
+        } catch (gpuErr) {
+          console.warn("[CandidateAIInterviewRoom] MediaPipe GPU delegate failed, falling back to CPU:", gpuErr);
+          detector = await FaceDetector.createFromOptions(vision, {
+            baseOptions: {
+              modelAssetPath:
+                "https://storage.googleapis.com/mediapipe-models/face_detector/blaze_face_short_range/float16/1/blaze_face_short_range.tflite",
+              delegate: "CPU",
+            },
+            runningMode: "IMAGE",
+          });
+        }
+        if (isMounted) {
+          detectorRef.current = detector;
+          console.log("🟢 MediaPipe FaceDetector initialized successfully in AI Interview room.");
+        } else if (detector) {
+          detector.close();
+        }
+      } catch (err) {
+        console.error("[CandidateAIInterviewRoom] MediaPipe FaceDetector init error:", err);
+      } finally {
+        isMediaPipeLoadingRef.current = false;
+      }
+    };
+
+    initFaceDetector();
+
+    return () => {
+      isMounted = false;
+      if (detectorRef.current) {
+        try {
+          detectorRef.current.close();
+        } catch (_e) {}
+        detectorRef.current = null;
+      }
+    };
+  }, []);
+
   const captureSnapshot = useCallback(() => {
     const video = candidateVideoRef.current;
     if (!video || video.readyState < 2) return null;
@@ -633,7 +695,209 @@ export default function CandidateAIInterviewRoom() {
     }
   }, []);
 
+  // Perform MediaPipe Face Detection + Stream status check
+  const performWebcamProctorCheck = useCallback(async () => {
+    if (isEndingInterviewRef.current || !inviteToken) return;
+
+    const stream = mediaStreamRef.current;
+    const video = candidateVideoRef.current;
+    const detector = detectorRef.current;
+
+    if (!stream || !stream.active) {
+      if (socketRef.current) {
+        socketRef.current.emit("ai_interview:proctor_event", {
+          inviteToken,
+          eventType: "CAMERA_STREAM_LOST",
+          clientTimestamp: new Date(),
+          metadata: {},
+        });
+      }
+      return;
+    }
+
+    const tracks = stream.getVideoTracks();
+    if (!tracks.length || tracks[0].readyState === "ended") {
+      if (socketRef.current) {
+        socketRef.current.emit("ai_interview:proctor_event", {
+          inviteToken,
+          eventType: "CAMERA_STREAM_LOST",
+          clientTimestamp: new Date(),
+          metadata: {},
+        });
+      }
+      return;
+    }
+
+    const track = tracks[0];
+    if (!track.enabled || !isCameraOn) {
+      const snapshot = captureSnapshot();
+      if (socketRef.current) {
+        socketRef.current.emit("ai_interview:proctor_event", {
+          inviteToken,
+          eventType: "CAMERA_DISABLED",
+          clientTimestamp: new Date(),
+          metadata: snapshot ? { snapshot } : {},
+        });
+      }
+      return;
+    }
+
+    const snapshot = captureSnapshot();
+
+    // If detector is ready and video is playing, perform face detection via MediaPipe
+    if (detector && video && video.readyState >= 2) {
+      try {
+        const detections = detector.detect(video);
+        const faceCount = detections?.detections?.length || 0;
+
+        let eventType = "WEBCAM_CHECK";
+        if (faceCount === 0) {
+          eventType = "NO_FACE_DETECTED";
+        } else if (faceCount > 1) {
+          eventType = "MULTIPLE_FACES_DETECTED";
+        }
+
+        if (socketRef.current) {
+          socketRef.current.emit("ai_interview:proctor_event", {
+            inviteToken,
+            eventType,
+            clientTimestamp: new Date(),
+            metadata: {
+              faceCount,
+              ...(snapshot ? { snapshot } : {}),
+            },
+          });
+        }
+        return;
+      } catch (err) {
+        console.error("[CandidateAIInterviewRoom] Face detection error:", err);
+      }
+    }
+
+    // Fallback snapshot check if MediaPipe detector is loading
+    if (snapshot && socketRef.current) {
+      socketRef.current.emit("ai_interview:proctor_event", {
+        inviteToken,
+        eventType: "WEBCAM_CHECK",
+        clientTimestamp: new Date(),
+        metadata: { snapshot },
+      });
+    }
+  }, [inviteToken, isCameraOn, captureSnapshot]);
+
+  // Periodic Webcam Proctoring & Face Detection Check (Every 15s)
   useEffect(() => {
+    if (!inviteToken) return;
+
+    // Initial check after 3 seconds
+    const initTimer = setTimeout(() => {
+      performWebcamProctorCheck();
+    }, 3000);
+
+    // Periodic check every 15 seconds
+    const interval = setInterval(() => {
+      performWebcamProctorCheck();
+    }, 15000);
+
+    return () => {
+      clearTimeout(initTimer);
+      clearInterval(interval);
+    };
+  }, [inviteToken, performWebcamProctorCheck]);
+
+  // Browser Anti-Cheat Security Event Listeners (Copy, Paste, Right Click, Tab Switch, Blur, Focus, Fullscreen)
+  useEffect(() => {
+    if (!inviteToken) return undefined;
+
+    const handleCopy = () => {
+      if (isEndingInterviewRef.current) return;
+      const snapshot = captureSnapshot();
+      if (socketRef.current) {
+        socketRef.current.emit("ai_interview:proctor_event", {
+          inviteToken,
+          eventType: "COPY_ATTEMPT",
+          clientTimestamp: new Date(),
+          metadata: snapshot ? { snapshot } : {},
+        });
+      }
+    };
+
+    const handlePaste = () => {
+      if (isEndingInterviewRef.current) return;
+      const snapshot = captureSnapshot();
+      if (socketRef.current) {
+        socketRef.current.emit("ai_interview:proctor_event", {
+          inviteToken,
+          eventType: "PASTE_ATTEMPT",
+          clientTimestamp: new Date(),
+          metadata: snapshot ? { snapshot } : {},
+        });
+      }
+    };
+
+    const handleContextMenu = (e) => {
+      if (isEndingInterviewRef.current) return;
+      e.preventDefault();
+      const snapshot = captureSnapshot();
+      if (socketRef.current) {
+        socketRef.current.emit("ai_interview:proctor_event", {
+          inviteToken,
+          eventType: "RIGHT_CLICK_ATTEMPT",
+          clientTimestamp: new Date(),
+          metadata: snapshot ? { snapshot } : {},
+        });
+      }
+    };
+
+    const handleVisibilityChange = () => {
+      if (isEndingInterviewRef.current) return;
+      const snapshot = captureSnapshot();
+      if (document.hidden) {
+        if (socketRef.current) {
+          socketRef.current.emit("ai_interview:proctor_event", {
+            inviteToken,
+            eventType: "TAB_SWITCH",
+            clientTimestamp: new Date(),
+            metadata: snapshot ? { snapshot } : {},
+          });
+        }
+      } else {
+        if (socketRef.current) {
+          socketRef.current.emit("ai_interview:proctor_event", {
+            inviteToken,
+            eventType: "TAB_RETURN",
+            clientTimestamp: new Date(),
+            metadata: snapshot ? { snapshot } : {},
+          });
+        }
+      }
+    };
+
+    const handleBlur = () => {
+      if (isEndingInterviewRef.current) return;
+      const snapshot = captureSnapshot();
+      if (socketRef.current) {
+        socketRef.current.emit("ai_interview:proctor_event", {
+          inviteToken,
+          eventType: "WINDOW_BLUR",
+          clientTimestamp: new Date(),
+          metadata: snapshot ? { snapshot } : {},
+        });
+      }
+    };
+
+    const handleFocus = () => {
+      if (isEndingInterviewRef.current) return;
+      if (socketRef.current) {
+        socketRef.current.emit("ai_interview:proctor_event", {
+          inviteToken,
+          eventType: "WINDOW_FOCUS",
+          clientTimestamp: new Date(),
+          metadata: {},
+        });
+      }
+    };
+
     const handleFullscreenChange = () => {
       if (isEndingInterviewRef.current) return;
       const fsEl =
@@ -655,66 +919,33 @@ export default function CandidateAIInterviewRoom() {
         }
       } else {
         setShowFullscreenPrompt(false);
+        if (socketRef.current) {
+          socketRef.current.emit("ai_interview:proctor_event", {
+            inviteToken,
+            eventType: "FULLSCREEN_ENTER",
+            clientTimestamp: new Date(),
+            metadata: {},
+          });
+        }
       }
     };
 
-    const handleBlur = () => {
-      if (isEndingInterviewRef.current) return;
-      const snapshot = captureSnapshot();
-      if (socketRef.current) {
-        socketRef.current.emit("ai_interview:proctor_event", {
-          inviteToken,
-          eventType: "WINDOW_BLUR",
-          clientTimestamp: new Date(),
-          metadata: snapshot ? { snapshot } : {},
-        });
-      }
-    };
-
+    document.addEventListener("copy", handleCopy);
+    document.addEventListener("paste", handlePaste);
+    document.addEventListener("contextmenu", handleContextMenu);
+    document.addEventListener("visibilitychange", handleVisibilityChange);
     document.addEventListener("fullscreenchange", handleFullscreenChange);
     window.addEventListener("blur", handleBlur);
+    window.addEventListener("focus", handleFocus);
 
     return () => {
+      document.removeEventListener("copy", handleCopy);
+      document.removeEventListener("paste", handlePaste);
+      document.removeEventListener("contextmenu", handleContextMenu);
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
       document.removeEventListener("fullscreenchange", handleFullscreenChange);
       window.removeEventListener("blur", handleBlur);
-    };
-  }, [inviteToken, captureSnapshot]);
-
-  // Continuous Webcam Proctoring Snapshot Interval
-  useEffect(() => {
-    if (!inviteToken) return;
-
-    // 1. Initial snapshot 3 seconds after room loads
-    const initTimer = setTimeout(() => {
-      if (isEndingInterviewRef.current) return;
-      const snapshot = captureSnapshot();
-      if (snapshot && socketRef.current) {
-        socketRef.current.emit("ai_interview:proctor_event", {
-          inviteToken,
-          eventType: "WEBCAM_CHECK",
-          clientTimestamp: new Date(),
-          metadata: { snapshot },
-        });
-      }
-    }, 3000);
-
-    // 2. Periodic snapshot every 25 seconds
-    const interval = setInterval(() => {
-      if (isEndingInterviewRef.current) return;
-      const snapshot = captureSnapshot();
-      if (snapshot && socketRef.current) {
-        socketRef.current.emit("ai_interview:proctor_event", {
-          inviteToken,
-          eventType: "WEBCAM_CHECK",
-          clientTimestamp: new Date(),
-          metadata: { snapshot },
-        });
-      }
-    }, 25000);
-
-    return () => {
-      clearTimeout(initTimer);
-      clearInterval(interval);
+      window.removeEventListener("focus", handleFocus);
     };
   }, [inviteToken, captureSnapshot]);
 

@@ -314,9 +314,12 @@ export default function AIInterviewProctoringReport() {
           events.forEach((ev) => {
             eventCounts[ev.eventType] = (eventCounts[ev.eventType] || 0) + 1;
           });
-          const summary = session.proctoringSummary || {};
-          const integrityScore = summary.integrityScore ?? 100;
-          const riskScore = Math.max(0, 100 - integrityScore);
+          let riskScore = 0;
+          Object.entries(eventCounts).forEach(([type, count]) => {
+            if (EVENT_RISK_POINTS[type]) {
+              riskScore += count * EVENT_RISK_POINTS[type];
+            }
+          });
           const riskBand = riskScore >= 25 ? "High" : riskScore >= 10 ? "Medium" : "Low";
 
           return {
