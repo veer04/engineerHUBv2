@@ -23,7 +23,7 @@ import {
   FiWifi,
   FiShield,
 } from "react-icons/fi";
-import { SiOpenai } from "react-icons/si";
+import geminiIcon from "../../../../assets/gemini-icon.svg";
 import { useQuery } from "@tanstack/react-query";
 import {
   fetchAIInterviewReportApi,
@@ -333,7 +333,7 @@ export default function AIInterviewFeedback() {
         </button>
 
         <div className="ai-feedback-header-title">
-          <SiOpenai style={{ color: "#7c3aed", fontSize: "1.2rem" }} />
+          <img src={geminiIcon} alt="Gemini" style={{ width: "1.2rem", height: "1.2rem" }} />
           <h1>AI Interview Feedback Report</h1>
           <span className="ai-header-badge">
             <FiCpu /> Autonomous Evaluator
@@ -491,7 +491,7 @@ export default function AIInterviewFeedback() {
                           {/* Question Prompt */}
                           <div className="dialog-row">
                             <div className="dialog-avatar bot">
-                              <SiOpenai />
+                              <img src={geminiIcon} alt="Gemini" style={{ width: "1rem", height: "1rem" }} />
                             </div>
                             <div className="dialog-bubble bot-bubble">"{item.question}"</div>
                           </div>

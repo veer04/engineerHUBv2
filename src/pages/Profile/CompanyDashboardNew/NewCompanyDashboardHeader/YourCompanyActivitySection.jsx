@@ -3,6 +3,7 @@ import "./yourcompanyactivitysection.css";
 import { GoStopwatch } from "react-icons/go";
 import NewCompanyPostCard from "./NewCompanyPostCard";
 import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
+import { FiBriefcase, FiAward, FiFileText, FiCalendar } from "react-icons/fi";
 import ProjectCards from "../../../Company/Projects/ProjectCards";
 import JobCardForCompany from "../../../../components/ProfileDashboard/RecommendedSection/JobCardForCompany";
 import JobCardsNew from "../../../Company/Jobs/JobCardsNew";
@@ -12,6 +13,51 @@ import { useNavigate } from "react-router-dom";
 import { checkJobPostingAccess } from "../../../../utils/checkJobPostingAccess";
 
 const CARDS_PER_ROW = 3; // max visible cards in a row before needing to scroll
+
+const getEmptyIcon = (type) => {
+  switch (type) {
+    case "Jobs":
+      return <FiBriefcase />;
+    case "Internships":
+      return <FiAward />;
+    case "Posts":
+      return <FiFileText />;
+    case "Hackathons":
+      return <FiCalendar />;
+    default:
+      return <FiBriefcase />;
+  }
+};
+
+const getEmptyMessage = (type, isAdmin) => {
+  if (isAdmin) {
+    switch (type) {
+      case "Jobs":
+        return "No jobs posted yet. Host a job to see your activity here.";
+      case "Internships":
+        return "No internships posted yet. Create an internship to get started.";
+      case "Posts":
+        return "No posts created yet.";
+      case "Hackathons":
+        return "No hackathons hosted yet.";
+      default:
+        return `No ${type} to show`;
+    }
+  } else {
+    switch (type) {
+      case "Jobs":
+        return "No open job positions right now. Check back later for new opportunities!";
+      case "Internships":
+        return "No open internship positions right now. Check back later for new opportunities!";
+      case "Posts":
+        return "No posts published yet.";
+      case "Hackathons":
+        return "No active hackathons at the moment.";
+      default:
+        return `No ${type} available right now.`;
+    }
+  }
+};
 
 const YourCompanyActivitySection = ({
   posts,
@@ -101,13 +147,6 @@ const YourCompanyActivitySection = ({
 
   // Show slider arrows only when there are more cards than fit in 2 rows
   const showArrows = currentData && currentData.length > CARDS_PER_ROW * 2;
-
-  const emptyMessages = {
-    Jobs: "No jobs hosted yet. Host a job to see your activity here.",
-    Internships: "No internships hosted yet. Create an internship to get started.",
-    Posts: "No posts yet.",
-    Hackathons: "No hackathons yet.",
-  };
 
   return (
     <div className="your-company-activity-section">
@@ -217,8 +256,12 @@ const YourCompanyActivitySection = ({
       ) : (
         /* Empty / Fallback state */
         <div className="act-empty-state">
-          <div className="act-empty-icon">📋</div>
-          <p className="act-empty-msg">{emptyMessages[actionButton] || `No ${actionButton} to show`}</p>
+          <div className="act-empty-icon">
+            {getEmptyIcon(actionButton)}
+          </div>
+          <p className="act-empty-msg">
+            {getEmptyMessage(actionButton, isUserAdmin)}
+          </p>
           {(actionButton === "Jobs") && isUserAdmin && (
             <button
               className="act-empty-cta"

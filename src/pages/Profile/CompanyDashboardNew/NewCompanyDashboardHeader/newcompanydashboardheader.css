@@ -209,3 +209,104 @@
     display: none;
   }
 }
+
+/* ─── Banner fallbacks ─────────────────────────────────────── */
+.banner-fallback-admin,
+.banner-fallback-viewer {
+  width: 100%;
+  height: 200px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+/* Admin: dashed upload prompt */
+.banner-fallback-admin {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: #f0f6f7;
+  border: 2px dashed #9cb4ba;
+  cursor: pointer;
+  gap: 4px;
+  transition: background 0.2s;
+}
+.banner-fallback-admin:hover {
+  background: #e4f0f1;
+}
+
+/* Viewer: plain gradient */
+.banner-fallback-viewer {
+  background: linear-gradient(135deg, #e8f4f3 0%, #c8e6e5 50%, #a8d8d7 100%);
+}
+
+/* ─── Social icon links ─────────────────────────────────────── */
+.social-icon-link {
+  display: inline-flex;
+  align-items: center;
+  opacity: 0.85;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+  text-decoration: none;
+}
+.social-icon-link:hover {
+  opacity: 1;
+  transform: translateY(-1px);
+}
+
+/* ─── Logo Right Action Section (Edit Profile Chip + Social) ─── */
+.main-div-header-company-dashboard
+  .header-content-section
+  .logo-and-social-section
+  .logo-right-action-section {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.edit-profile-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 20px;
+  background-color: #f0f7f7;
+  border: 1px solid #138382;
+  color: #138382;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: "DM Sans", "Lato", sans-serif;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.edit-profile-chip:hover {
+  background-color: #138382;
+  color: #ffffff;
+  box-shadow: 0 2px 6px rgba(19, 131, 130, 0.2);
+}
+
+.edit-profile-chip .edit-chip-icon {
+  font-size: 14px;
+}
+
+@media screen and (max-width: 820px) {
+  .main-div-header-company-dashboard
+    .header-content-section
+    .logo-and-social-section
+    .logo-right-action-section {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .edit-profile-chip {
+    padding: 5px 12px;
+    font-size: 12px;
+  }
+
+  .edit-profile-chip .edit-chip-icon {
+    font-size: 13px;
+  }
+}
+

@@ -321,6 +321,7 @@ export default function AIInterviewProctoringReport() {
             }
           });
           const riskBand = riskScore >= 25 ? "High" : riskScore >= 10 ? "Medium" : "Low";
+          const summary = session.proctoringSummary || {};
 
           return {
             candidateName: session.candidateName || "Candidate",

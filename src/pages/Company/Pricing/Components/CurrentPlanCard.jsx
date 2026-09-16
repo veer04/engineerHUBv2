@@ -7,41 +7,37 @@ export default function CurrentPlanCard({ subscription, onManagePlan }) {
     planId = "free",
     planName = "Free",
     status = "active",
-    creditsTotal = 500,
+    creditsTotal = 0,
     creditsUsed = 0,
-    creditsRemaining = 500,
+    creditsRemaining = 0,
     renewsInDays = 30,
   } = subscription || {};
+
+  const isFreePlan = planId.toLowerCase() === "free" || creditsTotal === 0;
 
   const usagePercent = creditsTotal > 0
     ? Math.min(Math.round((creditsUsed / creditsTotal) * 100), 100)
     : 0;
 
-  // Dynamically calculate what can be done with remaining credits
+  // Dynamic capability estimates based on remaining credits
   const sortingCount = Math.max(Math.floor(creditsRemaining / 1), 0);
   const assessmentCount = Math.max(Math.floor(creditsRemaining / 3), 0);
   const interviewCount = Math.max(Math.floor(creditsRemaining / 5), 0);
 
-  // Available plans for the top plan selection chip bar
   const planTiers = [
-    { id: "starter", name: "Starter", price: "₹99/mo", label: "Popular" },
-    { id: "ultra", name: "Ultra", price: "₹999/mo", label: "Recommended" },
-    { id: "pro", name: "Professional", price: "₹4,999/mo", label: "Enterprise" },
+    { id: "starter", name: "Starter", price: "₹99/mo" },
+    { id: "ultra", name: "Ultra", price: "₹999/mo" },
+    { id: "pro", name: "Professional", price: "₹4,999/mo" },
   ];
 
-  // Helper to check normalized current plan match
   const isCurrentPlan = (id) => {
-    if (!planId) return false;
-    const norm = planId.toLowerCase();
-    if (id === "starter" && (norm.includes("start") || norm === "starter")) return true;
-    if (id === "ultra" && (norm.includes("ultra") || norm === "ultra")) return true;
-    if (id === "pro" && (norm.includes("pro") || norm.includes("professional"))) return true;
-    return false;
+    const norm = (planId || "").toLowerCase();
+    return norm.includes(id);
   };
 
   return (
     <div className="current-plan-section">
-      {/* 1. Plan Chips Bar with Active Highlight */}
+      {/* 1. Plan Chips Header Bar */}
       <div className="plan-chips-header-bar">
         <div className="plan-chips-intro">
           <span className="plan-chips-label">SUBSCRIPTION PLAN TIERS</span>
@@ -76,8 +72,8 @@ export default function CurrentPlanCard({ subscription, onManagePlan }) {
         </div>
       </div>
 
-      {/* 2. Main Active Subscription Card */}
-      <div className="current-plan-card">
+      {/* 2. Main Subscription Card */}
+      <div className={`current-plan-card ${isFreePlan ? "free-plan-card" : ""}`}>
         <div className="current-plan-info">
           <div className="current-plan-header-row">
             <span className="current-plan-badge-tag">YOUR ACTIVE SUBSCRIPTION</span>
@@ -85,25 +81,34 @@ export default function CurrentPlanCard({ subscription, onManagePlan }) {
           </div>
 
           <h2 className="current-plan-header-title">{planName} Plan</h2>
-          <p className="current-plan-subtext">
-            {creditsRemaining.toLocaleString()} AI Credits Remaining of {creditsTotal.toLocaleString()} total credits
-          </p>
+          
+          {isFreePlan ? (
+            <p className="current-plan-subtext free-plan-subtext">
+              No AI credits included in Free Plan
+            </p>
+          ) : (
+            <p className="current-plan-subtext">
+              {creditsRemaining.toLocaleString()} AI Credits Remaining of {creditsTotal.toLocaleString()} total credits
+            </p>
+          )}
 
-          {/* Progress Bar */}
-          <div className="credit-progress-wrap">
-            <div className="credit-progress-header">
-              <span className="credit-progress-title">
-                {creditsUsed.toLocaleString()} used of {creditsTotal.toLocaleString()} credits
-              </span>
-              <span className="credit-progress-val">{usagePercent}% Used</span>
+          {/* Usage Section */}
+          {!isFreePlan && creditsTotal > 0 && (
+            <div className="credit-progress-wrap">
+              <div className="credit-progress-header">
+                <span className="credit-progress-title">
+                  {creditsUsed.toLocaleString()} used of {creditsTotal.toLocaleString()} credits
+                </span>
+                <span className="credit-progress-val">{usagePercent}% Used</span>
+              </div>
+              <div className="credit-progress-track">
+                <div
+                  className="credit-progress-fill"
+                  style={{ width: `${usagePercent}%` }}
+                />
+              </div>
             </div>
-            <div className="credit-progress-track">
-              <div
-                className="credit-progress-fill"
-                style={{ width: `${usagePercent}%` }}
-              />
-            </div>
-          </div>
+          )}
         </div>
 
         <div className="current-plan-actions">
@@ -116,19 +121,42 @@ export default function CurrentPlanCard({ subscription, onManagePlan }) {
             </span>
           </div>
 
-          <button className="btn-manage-plan" onClick={onManagePlan}>
-            Manage Plan <ArrowRight size={16} />
+          <button
+            className={`btn-manage-plan ${isFreePlan ? "btn-upgrade-highlight" : ""}`}
+            onClick={onManagePlan}
+          >
+            {isFreePlan ? "Upgrade Plan" : "Manage Plan"} <ArrowRight size={16} />
           </button>
         </div>
       </div>
 
-      {/* 3. Capability Calculations Breakdown with Animations */}
+      {/* 3. Capability Calculations Breakdown */}
       <div className="credits-capability-breakdown">
         <div className="capability-header">
           <div className="capability-title">
-            <Sparkles size={16} className="sparkle-icon-animated" /> What you can do with your remaining <strong>{creditsRemaining.toLocaleString()} AI credits</strong>:
+            <Sparkles size={16} className="sparkle-icon-animated" />{" "}
+            {isFreePlan ? (
+              <span>Upgrade your plan to unlock AI features:</span>
+            ) : (
+              <span>What you can do with your remaining <strong>{creditsRemaining.toLocaleString()} AI credits</strong>:</span>
+            )}
           </div>
         </div>
+
+        {isFreePlan && (
+          <div className="zero-credits-alert-banner">
+            <span>
+              You are currently on the <strong>Free Plan</strong> with 0 AI credits. Upgrade to Starter, Ultra, or Professional to enable AI candidate ranking, proctored assessments, and automated interviews.
+            </span>
+            <button
+              type="button"
+              className="zero-credits-upgrade-btn"
+              onClick={onManagePlan}
+            >
+              Upgrade Now <ArrowRight size={13} />
+            </button>
+          </div>
+        )}
 
         <div className="capability-cards-grid">
           {/* Capability 1: AI Resume Sorting */}

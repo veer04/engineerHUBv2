@@ -212,9 +212,14 @@ export default function MobileNavbar() {
     }
   }, [location.pathname, setSelectedPageNavbar]);
 
+  const isEmployerRole =
+    userRole === "Organization" || userRole === "Employer";
+
   const isEmployerMobileNav =
+    isEmployerRole ||
     location.pathname.startsWith("/employer") ||
     location.pathname.startsWith("/host") ||
+    location.pathname.startsWith("/organization") ||
     location.pathname.includes("pricing");
 
   useEffect(() => {
@@ -225,6 +230,11 @@ export default function MobileNavbar() {
       setSelectedPageNavbar("employer-connect");
     } else if (location.pathname.includes("pricing")) {
       setSelectedPageNavbar("pricing");
+    } else if (
+      location.pathname.startsWith("/organization") ||
+      location.pathname.includes("profile")
+    ) {
+      setSelectedPageNavbar("profile");
     }
   }, [isEmployerMobileNav, location.pathname, setSelectedPageNavbar]);
 

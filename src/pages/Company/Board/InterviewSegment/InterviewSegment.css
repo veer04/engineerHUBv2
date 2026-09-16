@@ -1358,6 +1358,8 @@
   color: #374151;
   font-size: 0.875rem;
   padding: 0.75rem 0;
+  border-top-left-radius: 0.75rem;
+  border-top-right-radius: 0.75rem;
 }
 
 .scheduled-table .table-row {
@@ -1367,10 +1369,12 @@
   transition: background-color 0.15s ease;
   align-items: center;
   padding: 0.75rem 0;
+  position: relative;
 }
 
 .scheduled-table .table-row:hover {
   background-color: #f9fafb;
+  z-index: 50;
 }
 
 .scheduled-table .table-cell {
@@ -4489,6 +4493,76 @@
   border-radius: 4px;
   font-variant-numeric: tabular-nums;
   display: inline-block;
+}
+
+/* Proctoring Tooltip on Risk Chip Hover */
+.proctor-cell-tooltip-wrapper {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.proctor-cell-tooltip {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 6px);
+  bottom: auto;
+  width: max-content;
+  min-width: 190px;
+  max-width: 280px;
+  background: #0f172a;
+  color: #f8fafc;
+  padding: 0.6rem 0.85rem;
+  border-radius: 8px;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.35), 0 8px 10px -6px rgba(0, 0, 0, 0.25);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease, visibility 0.2s ease, transform 0.2s ease;
+  transform: translateY(-4px);
+  z-index: 9999;
+  text-align: left;
+  pointer-events: none;
+}
+
+/* Flip upward when near the bottom of the viewport */
+.proctor-cell-tooltip--flip-up {
+  top: auto;
+  bottom: calc(100% + 6px);
+  transform: translateY(4px);
+}
+
+.proctor-cell-tooltip-wrapper:hover .proctor-cell-tooltip {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.proctor-tooltip-title {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 1px solid #334155;
+  padding-bottom: 0.25rem;
+  margin-bottom: 0.4rem;
+}
+
+.proctor-tooltip-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.proctor-tooltip-list li {
+  font-size: 0.78rem;
+  color: #e2e8f0;
+  line-height: 1.35;
+  white-space: normal;
+  word-break: break-word;
 }
 
 .feedback-btn.ai-feedback-btn {
