@@ -250,37 +250,46 @@
 .current-plan-actions {
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
-  gap: 1rem;
+  align-items: stretch;
+  gap: 0.75rem;
   flex-shrink: 0;
+  min-width: 175px;
 }
 
 .renew-status-chip {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 0.5rem;
   background: rgba(0, 0, 0, 0.2);
-  padding: 0.45rem 0.9rem;
+  padding: 0.55rem 1rem;
   border-radius: 0.75rem;
   font-size: 0.825rem;
   font-weight: 600;
   color: rgba(255, 255, 255, 0.9);
+  width: 100%;
+  box-sizing: border-box;
+  white-space: nowrap;
 }
 
 .btn-manage-plan {
   background: #ffffff;
   color: #014051;
   border: none;
-  padding: 0.75rem 1.4rem;
+  padding: 0.55rem 1rem;
   border-radius: 0.75rem;
-  font-size: 0.925rem;
+  font-size: 0.875rem;
   font-weight: 700;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 0.5rem;
   transition: all 0.25s ease;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  box-sizing: border-box;
+  white-space: nowrap;
 }
 
 .btn-manage-plan:hover {
@@ -429,30 +438,36 @@
   }
 }
 
+@media (max-width: 768px) {
+  .plan-chips-header-bar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
+  }
+
+  .plan-chips-grid {
+    flex-direction: column;
+    width: 100%;
+    align-items: stretch;
+    gap: 0.6rem;
+  }
+
+  .plan-tier-chip {
+    width: 100%;
+    flex: none;
+    min-width: 0;
+    justify-content: space-between;
+    padding: 0.6rem 0.9rem;
+    font-size: 0.85rem;
+    box-sizing: border-box;
+  }
+}
+
 @media (max-width: 640px) {
   .current-plan-section {
     padding: 1rem;
     border-radius: 1.2rem;
     gap: 1rem;
-  }
-
-  .plan-chips-header-bar {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.75rem;
-  }
-
-  .plan-chips-grid {
-    width: 100%;
-    gap: 0.5rem;
-  }
-
-  .plan-tier-chip {
-    flex: 1;
-    min-width: 130px;
-    justify-content: space-between;
-    padding: 0.45rem 0.75rem;
-    font-size: 0.8rem;
   }
 
   .current-plan-card {
@@ -496,10 +511,71 @@
   }
 }
 
-@media (max-width: 400px) {
-  .plan-tier-chip {
+/* Upgrade Highlight Button for Free / 0 Credits Plan */
+.btn-manage-plan.btn-upgrade-highlight {
+  background: linear-gradient(135deg, #128381 0%, #0d6867 100%);
+  color: #ffffff;
+  box-shadow: 0 4px 14px rgba(18, 131, 129, 0.3);
+}
+
+.btn-manage-plan.btn-upgrade-highlight:hover {
+  background: linear-gradient(135deg, #0f7270 0%, #0a5453 100%);
+}
+
+.current-plan-subtext.free-plan-subtext {
+  margin-bottom: 0;
+}
+
+.current-plan-card.free-plan-card {
+  padding: 1.35rem 2rem;
+}
+
+/* Zero credits alert banner */
+.zero-credits-alert-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #fff7ed;
+  border: 1px solid #ffedd5;
+  border-radius: 0.75rem;
+  padding: 0.75rem 1.25rem;
+  margin-top: 0.5rem;
+  gap: 1rem;
+  color: #9a3412;
+  font-size: 0.85rem;
+  font-family: "Lato", sans-serif;
+}
+
+.zero-credits-upgrade-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: #128381;
+  color: #ffffff;
+  border: none;
+  padding: 0.45rem 1rem;
+  border-radius: 0.5rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.2s ease, transform 0.15s ease;
+}
+
+.zero-credits-upgrade-btn:hover {
+  background: #0f7270;
+  transform: translateY(-1px);
+}
+
+@media (max-width: 600px) {
+  .zero-credits-alert-banner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+  .zero-credits-upgrade-btn {
     width: 100%;
-    flex: none;
+    justify-content: center;
   }
 }
 

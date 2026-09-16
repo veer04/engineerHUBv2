@@ -55,18 +55,23 @@ const CompanyDashboardNew = () => {
           },
         });
         if (res.data?.success && res.data?.data) {
-          const w = res.data.data.wallet || {};
-          const sub = res.data.data.activeSubscription;
-          const normP = (w.plan || "").toLowerCase();
-          const pName = normP === "starter" ? "Starter" : (normP === "professional" || normP === "pro") ? "Professional" : "Free";
+          const { wallet = {}, activeSubscription } = res.data.data;
+          const plan = (wallet.plan || "free").toLowerCase();
+          const expiresAt = activeSubscription?.expiresAt;
+
+          let planName = "Free";
+          if (plan === "starter") planName = "Starter";
+          else if (plan === "ultra") planName = "Ultra";
+          else if (plan.includes("pro")) planName = "Professional";
+
           setSubscription({
-            planId: w.plan || "free",
-            planName: pName,
-            status: w.subscriptionStatus || "active",
-            creditsTotal: w.totalPurchased || (normP === "starter" ? 2000 : (normP === "professional" || normP === "pro") ? 5000 : 500),
-            creditsUsed: w.totalConsumed || 0,
-            creditsRemaining: w.availableCredits !== undefined ? w.availableCredits : 500,
-            renewsInDays: sub?.expiresAt ? Math.max(0, Math.ceil((new Date(sub.expiresAt) - new Date()) / (1000 * 60 * 60 * 24))) : 30,
+            planId: plan,
+            planName,
+            status: wallet.subscriptionStatus || "active",
+            creditsTotal: Number(wallet.totalPurchased) || 0,
+            creditsUsed: Number(wallet.totalConsumed) || 0,
+            creditsRemaining: Number(wallet.availableCredits) || 0,
+            renewsInDays: expiresAt ? Math.max(0, Math.ceil((new Date(expiresAt) - new Date()) / (1000 * 60 * 60 * 24))) : 30,
           });
         }
       } catch (err) {
@@ -258,7 +263,7 @@ const CompanyDashboardNew = () => {
       </div>
 
       <div className="about-comp-main" style={{ marginBottom: 20 }}>
-        <AboutCompNewCompany />
+        <AboutCompNewCompany organization={organization} />
       </div>
 
       {isUserAdmin && (

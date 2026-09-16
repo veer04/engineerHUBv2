@@ -131,7 +131,15 @@
 }
 
 .act-empty-icon {
-  font-size: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #eef6f6;
+  color: #138382;
+  font-size: 22px;
 }
 
 .act-empty-msg {

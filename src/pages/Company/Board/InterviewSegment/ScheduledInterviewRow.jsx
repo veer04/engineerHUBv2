@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import { FiExternalLink, FiPlus, FiCalendar, FiClock, FiShield } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 import moment from "moment";
@@ -28,19 +28,42 @@ function ProctoringCell({ proctoringCounts, proctoringSummary }) {
   };
 
   const band = getRiskBandFromCounts(counts);
-  const tabSwitches = counts.TAB_SWITCH || 0;
-  const copies = (counts.COPY_ATTEMPT || 0) + (counts.PASTE_ATTEMPT || 0);
-  const fsExits = counts.FULLSCREEN_EXIT || 0;
-  const camDisabled = counts.CAMERA_DISABLED || 0;
-  const camLost = counts.CAMERA_STREAM_LOST || 0;
-  const camDenied = counts.CAMERA_PERMISSION_DENIED || 0;
-  const noFace = counts.NO_FACE_DETECTED || 0;
-  const multiFace = counts.MULTIPLE_FACES_DETECTED || 0;
 
-  const hasAnyHint = tabSwitches > 0 || copies > 0 || fsExits > 0 || camDisabled > 0 || camLost > 0 || camDenied > 0 || noFace > 0 || multiFace > 0;
+  // Build pointer-wise text list for hover tooltip
+  const pointers = [];
+  if (counts.TAB_SWITCH > 0) pointers.push(`• Tab Switches: ${counts.TAB_SWITCH}`);
+  if (counts.WINDOW_BLUR > 0) pointers.push(`• Window Blurs: ${counts.WINDOW_BLUR}`);
+  if (counts.FULLSCREEN_EXIT > 0) pointers.push(`• Fullscreen Exits: ${counts.FULLSCREEN_EXIT}`);
+  const copies = (counts.COPY_ATTEMPT || 0) + (counts.PASTE_ATTEMPT || 0);
+  if (copies > 0) pointers.push(`• Copy/Paste Attempts: ${copies}`);
+  if (counts.RIGHT_CLICK_ATTEMPT > 0) pointers.push(`• Right Clicks: ${counts.RIGHT_CLICK_ATTEMPT}`);
+  if (counts.NO_FACE_DETECTED > 0) pointers.push(`• No Face Detected: ${counts.NO_FACE_DETECTED}`);
+  if (counts.MULTIPLE_FACES_DETECTED > 0) pointers.push(`• Multiple Faces: ${counts.MULTIPLE_FACES_DETECTED}`);
+  if (counts.CAMERA_DISABLED > 0) pointers.push(`• Camera Disabled: ${counts.CAMERA_DISABLED}`);
+  if (counts.CAMERA_STREAM_LOST > 0) pointers.push(`• Camera Stream Lost: ${counts.CAMERA_STREAM_LOST}`);
+  if (counts.CAMERA_PERMISSION_DENIED > 0) pointers.push(`• Camera Permission Denied: ${counts.CAMERA_PERMISSION_DENIED}`);
+
+  if (pointers.length === 0) {
+    pointers.push("• Clean Session (No violations detected)");
+  }
+
+  const wrapperRef = useRef(null);
+  const [flipUp, setFlipUp] = useState(false);
+
+  const handleMouseEnter = () => {
+    if (wrapperRef.current) {
+      const rect = wrapperRef.current.getBoundingClientRect();
+      // Flip upward if there's less than 200px of space below the chip
+      setFlipUp(window.innerHeight - rect.bottom < 200);
+    }
+  };
 
   return (
-    <div className="proctor-cell">
+    <div
+      className="proctor-cell-tooltip-wrapper"
+      ref={wrapperRef}
+      onMouseEnter={handleMouseEnter}
+    >
       <span
         className={`proctor-risk-badge proctor-risk-badge--${
           band === "High" ? "high" : band === "Medium" ? "medium" : "low"
@@ -48,38 +71,19 @@ function ProctoringCell({ proctoringCounts, proctoringSummary }) {
       >
         {band === "High" ? "🔴" : band === "Medium" ? "🟡" : "🟢"} {band}
       </span>
-      <div className="proctor-cell-hints">
-        {tabSwitches > 0 && (
-          <span className="proctor-hint">⇥ {tabSwitches} switch{tabSwitches !== 1 ? "es" : ""}</span>
-        )}
-        {copies > 0 && (
-          <span className="proctor-hint">⎘ {copies} copy/paste</span>
-        )}
-        {fsExits > 0 && (
-          <span className="proctor-hint">⛶ {fsExits} fullscreen</span>
-        )}
-        {camDisabled > 0 && (
-          <span className="proctor-hint">📷 Disabled ({camDisabled})</span>
-        )}
-        {camLost > 0 && (
-          <span className="proctor-hint">🔌 Stream ({camLost})</span>
-        )}
-        {camDenied > 0 && (
-          <span className="proctor-hint">🚫 Denied ({camDenied})</span>
-        )}
-        {noFace > 0 && (
-          <span className="proctor-hint">👤 No Face ({noFace})</span>
-        )}
-        {multiFace > 0 && (
-          <span className="proctor-hint">👥 Multi ({multiFace})</span>
-        )}
-        {!hasAnyHint && (
-          <span className="proctor-hint" style={{ opacity: 0.6 }}>Clean</span>
-        )}
+
+      <div className={`proctor-cell-tooltip${flipUp ? " proctor-cell-tooltip--flip-up" : ""}`}>
+        <div className="proctor-tooltip-title">{band} Risk Proctoring Summary</div>
+        <ul className="proctor-tooltip-list">
+          {pointers.map((pt, idx) => (
+            <li key={idx}>{pt}</li>
+          ))}
+        </ul>
       </div>
     </div>
   );
 }
+
 
 export default function ScheduledInterviewRow({
   data,
@@ -130,13 +134,18 @@ export default function ScheduledInterviewRow({
   };
 
   const handleResumeClick = () => {
-    if (data.resumeUrl) {
-      // Check if the resume link is ending with doc or docx then add to the starting this link "http://docs.google.com/gview?url=" else open the link
-      const resumeUrl = data.resumeUrl.endsWith("doc") || data.resumeUrl.endsWith("docx")
-        ? `http://docs.google.com/gview?url=${data.resumeUrl}`
-        : data.resumeUrl;
-      
-      window.open(resumeUrl, "_blank", "noopener,noreferrer");
+    // Backend normalizes resume as `resumeUrl` (sourced from candidateResumeUrl or HiringRegistration).
+    // candidateResumeUrl is kept as a secondary fallback for safety.
+    const rawUrl = data.resumeUrl || data.candidateResumeUrl;
+    if (rawUrl) {
+      // Only apply Google Docs viewer for Word files (.doc / .docx).
+      // PDFs (especially S3 links) must open directly — Google Docs can't render
+      // private S3 URLs due to CORS/auth restrictions.
+      const lower = rawUrl.toLowerCase();
+      const openUrl = (lower.endsWith(".doc") || lower.endsWith(".docx"))
+        ? `https://docs.google.com/gview?url=${encodeURIComponent(rawUrl)}&embedded=true`
+        : rawUrl;
+      window.open(openUrl, "_blank", "noopener,noreferrer");
     } else {
       console.log("No resume URL available for:", data.candidateName);
     }
