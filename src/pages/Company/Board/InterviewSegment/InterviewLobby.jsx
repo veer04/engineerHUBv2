@@ -959,10 +959,27 @@ export default function InterviewLobby() {
       setSnackbarOpen(true);
     } catch (error) {
       console.error("Error scheduling AI interview:", error);
-      setSnackbarMessage("Failed to schedule AI interview. Please try again.");
-      setSnackbarSeverity("error");
-      setSnackbarDuration(5000);
-      setSnackbarOpen(true);
+
+      // ── Time Clash: show a specific, informative warning toast ──
+      const errorCode = error?.response?.data?.code || error?.code;
+      const errorMsg  = error?.response?.data?.message || error?.message || "";
+
+      if (errorCode === "INTERVIEW_TIME_CLASH" || error?.response?.status === 409) {
+        // Extract clash details from the backend response if available
+        const clashDetails = error?.response?.data?.details?.clashDetails || null;
+        const clashMsg = clashDetails
+          ? `⚠️ Interview time is blocked! ${selectedCandidate?.candidateName || "This candidate"} already has an active AI interview from ${clashDetails.existingStartTime} to ${clashDetails.existingEndTime} on ${clashDetails.existingDate}. The slot opens once that interview is completed or cancelled.`
+          : errorMsg || "⚠️ Interview time is blocked. This candidate already has an active interview scheduled at the selected time.";
+        setSnackbarMessage(clashMsg);
+        setSnackbarSeverity("warning");
+        setSnackbarDuration(8000);  // Keep it visible longer so recruiter can read it
+        setSnackbarOpen(true);
+      } else {
+        setSnackbarMessage("Failed to schedule AI interview. Please try again.");
+        setSnackbarSeverity("error");
+        setSnackbarDuration(5000);
+        setSnackbarOpen(true);
+      }
     } finally {
       setIsSchedulingAI(false);
     }

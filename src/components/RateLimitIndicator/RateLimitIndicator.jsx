@@ -37,7 +37,7 @@ const RateLimitIndicator = ({
             setLiveWallet({
               used: w.totalConsumed || 0,
               available: isFree ? 0 : (w.availableCredits !== undefined ? w.availableCredits : 0),
-              total: isFree ? 0 : (w.totalPurchased || (w.plan === 'starter' ? 500 : w.plan === 'ultra' ? 1500 : 10000)),
+              total: isFree ? 0 : (w.totalPurchased || (w.plan === 'starter' ? 200 : w.plan === 'ultra' ? 1500 : 10000)),
               isFree,
             });
           }

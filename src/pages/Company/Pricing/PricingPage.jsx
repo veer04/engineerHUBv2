@@ -244,7 +244,7 @@ export default function PricingPage() {
 
     const planIdKey = plan.id === "pro" ? "professional" : plan.id;
     const priceAmount = billingCycle === "annual" ? (plan.annualPrice || 0) : (plan.monthlyPrice || 0);
-    const creditsAllocated = plan.credits || 500;
+    const creditsAllocated = plan.credits || 200;
 
     setBillingForm({
       name: userData.name || "",
@@ -364,7 +364,7 @@ export default function PricingPage() {
               setSelectedOrder(null);
               setPaymentSuccessData({
                 planName: plan.name,
-                credits: newCredits || plan.credits || 500,
+                credits: newCredits || plan.credits || 200,
               });
             } else {
               toast.error(verifyRes.data?.message || "Payment verification failed", {

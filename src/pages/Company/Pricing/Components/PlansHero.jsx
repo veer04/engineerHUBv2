@@ -95,12 +95,12 @@ export default function PlansHero({ onPostJob, onPostInternship, onTalkToTeam })
       <h1 className="plans-hero-headline">
         One-stop hiring solution for{" "}
         <span className="typewriter-word">{displayedText}</span>
-        <span className="typewriter-cursor">|</span>.
+        <span className="typewriter-cursor">|</span>
       </h1>
 
-      <p className="plans-hero-tagline">
+      {/* <p className="plans-hero-tagline">
         Source, engage, assess, interview and hire - all from one platform.
-      </p>
+      </p> */}
 
       <p className="plans-hero-description">
         engineerHUB combines a powerful hiring platform with AI-powered recruitment
@@ -124,7 +124,6 @@ export default function PlansHero({ onPostJob, onPostInternship, onTalkToTeam })
           {journeySteps.map((step, idx) => (
             <React.Fragment key={step.id}>
               <div className={`journey-step-card step-color-${step.badgeColor}`}>
-                <div className="step-number-badge">0{idx + 1}</div>
                 <div className="step-icon-wrap">{step.icon}</div>
                 <h4 className="step-title">{step.title}</h4>
                 <p className="step-subtitle">{step.subtitle}</p>
