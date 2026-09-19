@@ -104,6 +104,18 @@ export default function CandidateAIInterviewRoom() {
   const lastAIQuestionTextRef = useRef("");
   const vadRef = useRef(null);
   const turnManagerRef = useRef(null);
+  // Chirp 3 HD audio refs — track active HTML5 Audio element & whether server audio is active
+  const chirpAudioElementRef = useRef(null);  // Current playing HTML5 Audio object
+  const chirpAudioActiveRef = useRef(false);  // True when Chirp audio arrived & is playing/pending
+  const fallbackTTSTimerRef = useRef(null);   // Holds the browser TTS fallback timeout ID so ai_audio can cancel it
+
+  // Question counter: only counts real technical turns (not opening/closing/exit_confirmation)
+  const [currentTechQuestionCount, setCurrentTechQuestionCount] = useState(0);
+
+  // Typewriter effect state: tracks which transcript entry is being typed out
+  // Format: { id: string, fullText: string, displayedText: string }
+  const [typewriterState, setTypewriterState] = useState(null);
+  const typewriterTimerRef = useRef(null);
 
   // Timer state
   const [secondsRemaining, setSecondsRemaining] = useState(2700); // 45 mins default
@@ -132,6 +144,16 @@ export default function CandidateAIInterviewRoom() {
       },
       onSpeechStart: () => {
         if (isAISpeakingRef.current) {
+          // Interrupt Chirp HTML5 audio if playing
+          if (chirpAudioElementRef.current) {
+            try {
+              chirpAudioElementRef.current.pause();
+              chirpAudioElementRef.current.currentTime = 0;
+            } catch (_e) {}
+            chirpAudioElementRef.current = null;
+          }
+          chirpAudioActiveRef.current = false;
+          // Interrupt browser fallback TTS if active
           if ("speechSynthesis" in window) {
             window.speechSynthesis.cancel();
           }
@@ -361,24 +383,41 @@ export default function CandidateAIInterviewRoom() {
         recognition.stop();
       } catch (_e) {}
     };
-  }, [inviteToken, isMicOn]);
+  // NOTE: Intentionally omitting isMicOn from deps — recognition initializes once per session.
+  // isMicOn toggling is handled via mediaStreamRef track.enabled (see Effect 3) so recognition
+  // never re-initializes mid-interview which caused STT restart gaps.
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [inviteToken]);
 
   // 5. Socket.IO Integration Effect
   useEffect(() => {
     if (!inviteToken) return;
 
     // Fetch initial session metadata and transcript history
+    // If session is already COMPLETED, redirect immediately — prevent re-entry
     Promise.all([
       fetchAIInterviewSessionApi(inviteToken),
       fetchAIInterviewTranscriptApi(inviteToken).catch(() => null),
     ])
       .then(([sessionRes, transcriptRes]) => {
         if (sessionRes?.success && sessionRes?.data) {
-          setSessionInfo(sessionRes.data);
-          if (sessionRes.data.secondsRemaining) {
-            setSecondsRemaining(sessionRes.data.secondsRemaining);
-          } else if (sessionRes.data.aiConfig?.durationMinutes) {
-            setSecondsRemaining(sessionRes.data.aiConfig.durationMinutes * 60);
+          const sessionData = sessionRes.data;
+          setSessionInfo(sessionData);
+
+          // ── Block re-entry into completed/ended interviews ──
+          if (
+            sessionData.status === "COMPLETED" ||
+            sessionData.status === "CANCELLED" ||
+            !sessionData.isActive
+          ) {
+            navigate(`/ai-interview/${inviteToken}/submitted`);
+            return;
+          }
+
+          if (sessionData.secondsRemaining) {
+            setSecondsRemaining(sessionData.secondsRemaining);
+          } else if (sessionData.aiConfig?.durationMinutes) {
+            setSecondsRemaining(sessionData.aiConfig.durationMinutes * 60);
           }
         }
         if (transcriptRes?.data?.transcripts && Array.isArray(transcriptRes.data.transcripts)) {
@@ -388,8 +427,17 @@ export default function CandidateAIInterviewRoom() {
             senderLabel: t.speakerLabel || (t.speaker === "ai" ? "Sanya" : "Candidate"),
             time: new Date(t.timestamp || Date.now()).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
             text: t.text,
+            questionType: t.questionType,
           }));
           setTranscripts(formatted);
+          // Restore tech question count from loaded transcript
+          const techCount = formatted.filter(
+            (t) => t.sender === "ai" &&
+              t.questionType !== "opening" &&
+              t.questionType !== "closing" &&
+              t.questionType !== "exit_confirmation"
+          ).length;
+          setCurrentTechQuestionCount(techCount);
         }
       })
       .catch((err) => console.warn("Session fetch error:", err));
@@ -408,6 +456,15 @@ export default function CandidateAIInterviewRoom() {
       console.log("🟢 Connected to AI Interview Socket:", socket.id);
       socket.emit("ai_interview:join", { inviteToken, role: "candidate" });
       socket.emit("ai_interview:start", { inviteToken });
+    });
+
+    // Handle server-sent errors — specifically block re-entry into completed sessions
+    socket.on("error", (err) => {
+      if (err?.code === "SESSION_COMPLETED") {
+        console.warn("[Interview] Session already completed — redirecting to submitted page.");
+        socket.disconnect();
+        navigate(`/ai-interview/${inviteToken}/submitted`);
+      }
     });
 
     socket.on("ai_interview:started", (data) => {
@@ -467,77 +524,218 @@ export default function CandidateAIInterviewRoom() {
       const sourceTag = isVertex ? "⚡ VERTEX_AI_AGENT_PLATFORM" : "📌 CONTEXT_SYNTHESIZER";
       console.log(`🤖 [SOCKET RECV] Question Turn ${data?.turnIndex} [Source: ${sourceTag}] (${data?.questionSource || "Unknown"}) -> "${data?.text}"`);
       if (data?.text) {
+        const turnId = `turn_${data.turnIndex || Date.now()}`;
+        const questionType = data.questionType || "technical_core";
         lastAIQuestionTextRef.current = data.text;
+
+        // Increment technical question counter — skip opening, closing, exit_confirmation
+        const isTechnicalTurn =
+          questionType !== "opening" &&
+          questionType !== "closing" &&
+          questionType !== "exit_confirmation";
+        if (isTechnicalTurn) {
+          setCurrentTechQuestionCount((prev) => prev + 1);
+        }
+
+        // Add to transcript with empty text initially — typewriter will fill it in
         setTranscripts((prev) => [
           ...prev,
           {
-            id: `turn_${data.turnIndex || Date.now()}`,
+            id: turnId,
             sender: "ai",
             senderLabel: data.speakerLabel || "Sanya",
             time: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
-            text: data.text,
+            text: "",           // Start empty — typewriter will fill this in
+            questionType,
           },
         ]);
 
-        // Synthesize AI spoken response via Web Speech API TTS
-        if ("speechSynthesis" in window && !isMuted) {
-          window.speechSynthesis.cancel();
-          window.speechSynthesis.resume();
-          const cleanSpokenText = (data.text || "")
-            .replace(/```[a-z]*\n?/gi, "")
-            .replace(/```/g, "")
-            .replace(/`/g, "")
-            .replace(/\*/g, "")
-            .trim();
-          const utterance = new SpeechSynthesisUtterance(cleanSpokenText);
-          utterance.rate = 0.95;
-          utterance.pitch = 1.0;
+        // Start typewriter animation for this turn
+        if (typewriterTimerRef.current) clearInterval(typewriterTimerRef.current);
+        const fullText = data.text;
+        const charDelayMs = Math.max(18, Math.min(38, Math.round(60000 / (fullText.length * 4 || 1))));
+        let charIndex = 0;
+        typewriterTimerRef.current = setInterval(() => {
+          charIndex++;
+          const partial = fullText.slice(0, charIndex);
+          setTranscripts((prev) =>
+            prev.map((t) => (t.id === turnId ? { ...t, text: partial } : t))
+          );
+          if (charIndex >= fullText.length) {
+            clearInterval(typewriterTimerRef.current);
+            typewriterTimerRef.current = null;
+          }
+        }, charDelayMs);
 
-          // 12-second safety watchdog to recover from Chrome TTS queue bugs
-          const speechTimeout = setTimeout(() => {
-            if (isAISpeakingRef.current) {
-              console.warn("SpeechSynthesis watchdog timeout — auto-recovering to Listening state");
-              isAISpeakingRef.current = false;
-              setActiveSpeaker("none");
-              setAiStatus("Listening...");
-              if (recognitionRef.current && isMicOn) {
-                try { recognitionRef.current.start(); } catch (_e) {}
-              }
-            }
-          }, 12000);
+        // Reset Chirp audio flag — backend will send ai_interview:ai_audio shortly
+        chirpAudioActiveRef.current = false;
 
-          utterance.onstart = () => {
-            isAISpeakingRef.current = true;
-            setActiveSpeaker("ai");
-            setAiStatus("Speaking...");
-            if (recognitionRef.current) {
-              try { recognitionRef.current.abort(); } catch (_e) {}
-            }
-          };
-          utterance.onend = () => {
-            clearTimeout(speechTimeout);
-            isAISpeakingRef.current = false;
-            setActiveSpeaker("none");
-            setAiStatus("Listening...");
-            setTimeout(() => {
-              if (recognitionRef.current && isMicOn) {
-                try { recognitionRef.current.start(); } catch (_e) {}
-              }
-            }, 300);
-          };
-          utterance.onerror = () => {
-            clearTimeout(speechTimeout);
-            isAISpeakingRef.current = false;
-            setActiveSpeaker("none");
-            setAiStatus("Listening...");
-            setTimeout(() => {
-              if (recognitionRef.current && isMicOn) {
-                try { recognitionRef.current.start(); } catch (_e) {}
-              }
-            }, 300);
-          };
-          window.speechSynthesis.speak(utterance);
+        // ── Browser TTS Fallback DISABLED ──────────────────────────────────────
+        // Chirp 3 HD (server-side) is now the sole TTS provider.
+        // The fallback block below is intentionally commented out to prevent the
+        // 1-2s browser voice overlap that occurred while Chirp was synthesizing.
+        //
+        // Re-enable ONLY if Chirp is completely unavailable (e.g. no GCP credentials):
+        //
+        // if (!isMuted) {
+        //   fallbackTTSTimerRef.current = setTimeout(() => {
+        //     if (chirpAudioActiveRef.current) return; // Chirp took over — abort
+        //     if (!("speechSynthesis" in window)) return;
+        //     console.warn("[Chirp TTS] No server audio received within 1.5s — activating browser TTS fallback");
+        //     window.speechSynthesis.cancel();
+        //     window.speechSynthesis.resume();
+        //     const cleanSpokenText = (data.text || "")
+        //       .replace(/```[a-z]*\n?/gi, "")
+        //       .replace(/```/g, "")
+        //       .replace(/`/g, "")
+        //       .replace(/\*/g, "")
+        //       .trim();
+        //     const utterance = new SpeechSynthesisUtterance(cleanSpokenText);
+        //     utterance.rate = 0.95;
+        //     utterance.pitch = 1.0;
+        //     const speechTimeout = setTimeout(() => {
+        //       if (isAISpeakingRef.current) {
+        //         isAISpeakingRef.current = false;
+        //         setActiveSpeaker("none");
+        //         setAiStatus("Listening...");
+        //         if (recognitionRef.current && isMicOn) { try { recognitionRef.current.start(); } catch (_e) {} }
+        //       }
+        //     }, 12000);
+        //     utterance.onstart = () => { isAISpeakingRef.current = true; setActiveSpeaker("ai"); setAiStatus("Speaking..."); if (recognitionRef.current) { try { recognitionRef.current.abort(); } catch (_e) {} } };
+        //     utterance.onend = () => { clearTimeout(speechTimeout); isAISpeakingRef.current = false; setActiveSpeaker("none"); setAiStatus("Listening..."); setTimeout(() => { if (recognitionRef.current && isMicOn) { try { recognitionRef.current.start(); } catch (_e) {} } }, 300); };
+        //     utterance.onerror = () => { clearTimeout(speechTimeout); isAISpeakingRef.current = false; setActiveSpeaker("none"); setAiStatus("Listening..."); setTimeout(() => { if (recognitionRef.current && isMicOn) { try { recognitionRef.current.start(); } catch (_e) {} } }, 300); };
+        //     window.speechSynthesis.speak(utterance);
+        //   }, 1500);
+        // }
+        // ── End of Browser TTS Fallback ──────────────────────────────────────
+      }
+    });
+
+    // ── Google Chirp 3 HD Audio Player ──────────────────────────────────────────
+    // Receives Base64-encoded MP3 from the backend Chirp TTS service.
+    // Plays via HTML5 Audio API → works identically on Chrome, Safari, Firefox,
+    // macOS, Ubuntu, iOS, and Android with the same Indian female voice.
+    socket.on("ai_interview:ai_audio", (data) => {
+      if (!data?.audioBase64 || isMuted) return;
+
+      // Cancel any pending browser TTS fallback timer — Chirp audio has arrived
+      if (fallbackTTSTimerRef.current) {
+        clearTimeout(fallbackTTSTimerRef.current);
+        fallbackTTSTimerRef.current = null;
+      }
+      // Cancel any lingering browser TTS that might have slipped through
+      if ("speechSynthesis" in window) {
+        window.speechSynthesis.cancel();
+      }
+
+      // Mark Chirp audio as active — suppresses browser TTS fallback
+      chirpAudioActiveRef.current = true;
+
+      try {
+        // Stop any previous Chirp audio that is still playing
+        if (chirpAudioElementRef.current) {
+          try {
+            chirpAudioElementRef.current.pause();
+            chirpAudioElementRef.current.currentTime = 0;
+          } catch (_e) {}
+          chirpAudioElementRef.current = null;
         }
+        // Also cancel any lingering browser TTS
+        if ("speechSynthesis" in window) {
+          window.speechSynthesis.cancel();
+        }
+
+        // Decode Base64 MP3 → Blob URL → HTML5 Audio
+        const byteCharacters = atob(data.audioBase64);
+        const byteArray = new Uint8Array(byteCharacters.length);
+        for (let i = 0; i < byteCharacters.length; i++) {
+          byteArray[i] = byteCharacters.charCodeAt(i);
+        }
+        const audioBlob = new Blob([byteArray], { type: data.mimeType || "audio/mpeg" });
+        const audioBlobUrl = URL.createObjectURL(audioBlob);
+
+        const audioEl = new Audio(audioBlobUrl);
+        chirpAudioElementRef.current = audioEl;
+
+        audioEl.onplay = () => {
+          isAISpeakingRef.current = true;
+          setActiveSpeaker("ai");
+          setAiStatus("Speaking...");
+          // Stop candidate speech recognition while Sanya is speaking
+          if (recognitionRef.current) {
+            try { recognitionRef.current.abort(); } catch (_e) {}
+          }
+          console.log("🔊 [Chirp 3 HD] Sanya audio playback started");
+        };
+
+        audioEl.onended = () => {
+          isAISpeakingRef.current = false;
+          chirpAudioActiveRef.current = false;
+          chirpAudioElementRef.current = null;
+          setActiveSpeaker("none");
+          setAiStatus("Listening...");
+          URL.revokeObjectURL(audioBlobUrl); // Free Blob URL memory
+          // Restart speech recognition for candidate
+          setTimeout(() => {
+            if (recognitionRef.current && isMicOn) {
+              try { recognitionRef.current.start(); } catch (_e) {}
+            }
+          }, 300);
+          console.log("🔇 [Chirp 3 HD] Sanya audio playback ended — resuming candidate mic");
+        };
+
+        audioEl.onerror = (e) => {
+          console.warn("[Chirp 3 HD] Audio playback error:", e);
+          isAISpeakingRef.current = false;
+          chirpAudioActiveRef.current = false;
+          chirpAudioElementRef.current = null;
+          setActiveSpeaker("none");
+          setAiStatus("Listening...");
+          URL.revokeObjectURL(audioBlobUrl);
+          setTimeout(() => {
+            if (recognitionRef.current && isMicOn) {
+              try { recognitionRef.current.start(); } catch (_e) {}
+            }
+          }, 300);
+        };
+
+        // .play() should always succeed since the interview was started by user gesture.
+        // On any failure, log a warning and recover state — no browser TTS degradation
+        // (keeping voice consistent across all devices is the primary goal).
+        audioEl.play().catch((err) => {
+          console.warn("[Chirp 3 HD] Audio play() blocked:", err.message);
+          // ── Safari/browser TTS degradation DISABLED ──────────────────────────
+          // Keeping this commented so we don't regress to OS-level voice inconsistency.
+          // Re-enable only if confirmed Chirp is completely broken in production.
+          //
+          // chirpAudioActiveRef.current = false;
+          // if ("speechSynthesis" in window && data.text) {
+          //   const utterance = new SpeechSynthesisUtterance(
+          //     (data.text || "").replace(/```[\s\S]*?```/g, "").replace(/[`*#]/g, "").trim()
+          //   );
+          //   utterance.rate = 0.95;
+          //   utterance.onstart = () => { isAISpeakingRef.current = true; setActiveSpeaker("ai"); setAiStatus("Speaking..."); };
+          //   utterance.onend = () => { isAISpeakingRef.current = false; setActiveSpeaker("none"); setAiStatus("Listening..."); setTimeout(() => { if (recognitionRef.current && isMicOn) { try { recognitionRef.current.start(); } catch (_e) {} } }, 300); };
+          //   window.speechSynthesis.speak(utterance);
+          // }
+          // ── End browser TTS degradation ──────────────────────────────────────
+
+          // Recover state so interview doesn't get stuck
+          isAISpeakingRef.current = false;
+          chirpAudioActiveRef.current = false;
+          chirpAudioElementRef.current = null;
+          setActiveSpeaker("none");
+          setAiStatus("Listening...");
+          URL.revokeObjectURL(audioBlobUrl);
+          setTimeout(() => {
+            if (recognitionRef.current && isMicOn) {
+              try { recognitionRef.current.start(); } catch (_e) {}
+            }
+          }, 300);
+        });
+      } catch (err) {
+        console.warn("[Chirp 3 HD] Failed to decode/play audio:", err.message);
+        chirpAudioActiveRef.current = false;
       }
     });
 
@@ -609,6 +807,12 @@ export default function CandidateAIInterviewRoom() {
 
     return () => {
       socket.disconnect();
+      // Clear typewriter timer if still running (e.g. navigating away mid-animation)
+      if (typewriterTimerRef.current) {
+        clearInterval(typewriterTimerRef.current);
+        typewriterTimerRef.current = null;
+      }
+
     };
   }, [inviteToken, isMuted]);
 
@@ -1312,17 +1516,23 @@ export default function CandidateAIInterviewRoom() {
             </div>
 
             {(() => {
-              const totalQ = sessionInfo?.aiConfig?.totalQuestions || Math.max(4, Math.round(((sessionInfo?.aiConfig?.durationMinutes || 15) / 1.6667)));
-              const currentQ = transcripts.filter((t) => t.sender === "ai").length;
-              const percent = Math.min(100, Math.round((currentQ / totalQ) * 100));
+              const totalQ = sessionInfo?.aiConfig?.totalQuestions ||
+                Math.max(4, Math.round(((sessionInfo?.aiConfig?.durationMinutes || 15) / 1.6667)));
+              // Use the live technical question counter (excludes opening/closing/exit turns)
+              // Both currentQ and displayTotal grow dynamically if AI asks more questions than configured
+              const currentQ = currentTechQuestionCount;
+              const displayTotal = currentTechQuestionCount > totalQ ? currentTechQuestionCount : totalQ;
+              const percent = Math.min(100, Math.round((currentTechQuestionCount / displayTotal) * 100));
               return (
                 <div className="sidebar-progress-box">
                   <div className="ai-progress-meta" style={{ display: "flex", flexDirection: "column", gap: "0.2rem", width: "100%", marginBottom: "6px" }}>
                     <div style={{ fontSize: "0.85rem", fontWeight: "700", color: "#1e293b" }}>
-                      Question {currentQ} of {totalQ}
+                      {currentTechQuestionCount === 0
+                        ? "Welcome"
+                        : `Question ${currentQ} of ${displayTotal}`}
                     </div>
                     <div style={{ fontSize: "0.78rem", fontWeight: "600", color: "#64748b" }}>
-                      {percent}% Complete
+                      {currentTechQuestionCount === 0 ? "Introduction" : `${percent}% Complete`}
                     </div>
                   </div>
                   <div className="ai-progress-bar-track">

@@ -21,8 +21,8 @@ export default function CurrentPlanCard({ subscription, onManagePlan }) {
 
   // Dynamic capability estimates based on remaining credits
   const sortingCount = Math.max(Math.floor(creditsRemaining / 1), 0);
-  const assessmentCount = Math.max(Math.floor(creditsRemaining / 3), 0);
-  const interviewCount = Math.max(Math.floor(creditsRemaining / 5), 0);
+  const assessmentCount = Math.max(Math.floor(creditsRemaining / 5), 0);
+  const interviewCount = Math.max(Math.floor(creditsRemaining / 10), 0);
 
   const planTiers = [
     { id: "starter", name: "Starter", price: "₹99/mo" },
@@ -182,7 +182,7 @@ export default function CurrentPlanCard({ subscription, onManagePlan }) {
               <span className="capability-label">AI Assessments</span>
               <p className="capability-desc">Automated skill tests with AI proctoring & detailed reports</p>
             </div>
-            <span className="capability-pill pill-assessment">3 Credits / Assessment</span>
+            <span className="capability-pill pill-assessment">5 Credits / Assessment</span>
           </div>
 
           {/* Capability 3: AI Voice & Video Interviews */}
@@ -195,7 +195,7 @@ export default function CurrentPlanCard({ subscription, onManagePlan }) {
               <span className="capability-label">AI Interviews</span>
               <p className="capability-desc">Autonomous recruiter Sanya conducting 1-on-1 interviews</p>
             </div>
-            <span className="capability-pill pill-interview">5 Credits / Interview</span>
+            <span className="capability-pill pill-interview">10 Credits / Interview</span>
           </div>
         </div>
       </div>

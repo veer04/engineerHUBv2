@@ -64,7 +64,7 @@ export const creditRates = [
     title: "AI ASSESSMENT",
     subtitle: "Smart Skill Testing",
     iconType: "assessment",
-    rate: "~ 3 credits / assessment",
+    rate: "~ 5 credits / candidate",
     description:
       "Generate role-tailored technical & behavioral tests, complete with MediaPipe proctoring and automated scoring.",
     badge: "Proctored",
@@ -75,7 +75,7 @@ export const creditRates = [
     title: "AI INTERVIEW",
     subtitle: "Sanya Conversational AI",
     iconType: "interview",
-    rate: "~ 5 credits / interview",
+    rate: "~ 10 credits / interview",
     description:
       "Conduct dynamic, real-time voice interviews with AI Recruiter Sanya. Includes technical rigor & soft-skills evaluation.",
     badge: "AI Sanya",
@@ -88,16 +88,16 @@ export const creditUsageExamples = [
     credits: 1000,
     options: [
       { label: "Candidate Resume Sorts", count: "1,000" },
-      { label: "Candidate Assessments", count: "330" },
-      { label: "Sanya AI Voice Interviews", count: "200" },
+      { label: "Candidate Assessments", count: "200" },
+      { label: "Sanya AI Voice Interviews", count: "100" },
     ],
   },
   {
     credits: 5000,
     options: [
       { label: "Candidate Resume Sorts", count: "5,000" },
-      { label: "Candidate Assessments", count: "1,666" },
-      { label: "Sanya AI Voice Interviews", count: "1,000" },
+      { label: "Candidate Assessments", count: "1,000" },
+      { label: "Sanya AI Voice Interviews", count: "500" },
     ],
   },
 ];
@@ -111,8 +111,8 @@ export const subscriptionPlans = [
     priceDisplayMonthly: "₹99",
     priceDisplayAnnual: "₹79",
     billingCycleText: "per recruiter / month",
-    credits: 500,
-    creditsDisplay: "500 AI Credits / month",
+    credits: 200,
+    creditsDisplay: "200 AI Credits / month",
     description: "For recruiters getting started with key recruitment workflows.",
     badge: null,
     isRecommended: false,
@@ -121,7 +121,7 @@ export const subscriptionPlans = [
     features: [
       { text: "Job & Internship Posting", included: true },
       { text: "Candidate Management & CRM", included: true },
-      { text: "500 AI Credits per month", included: true },
+      { text: "200 AI Credits per month", included: true },
       { text: "AI Resume Sorting", badge: "Limited", included: true },
       { text: "AI Skill Assessments", badge: "Limited", included: true },
       { text: "Manual & AI Interviews", badge: "Limited", included: true },
@@ -188,12 +188,12 @@ export const comparisonMatrix = {
     {
       name: "AI & Recruitment Workflows",
       rows: [
-        { feature: "AI Credits / Month", starter: "500", ultra: "1,500", pro: "10,000" },
+        { feature: "AI Credits / Month", starter: "200", ultra: "1,500", pro: "10,000" },
         { feature: "AI Resume Sorting", starter: "✓ Standard", ultra: "⚡ High Speed", pro: "⚡ Max Speed" },
         { feature: "AI Skill Assessments", starter: "✓ Included", ultra: "∞ Unlimited", pro: "∞ Unlimited" },
         { feature: "Interviews Execution", starter: "Manual & AI", ultra: "Manual & AI", pro: "∞ Unlimited Manual & AI" },
         { feature: "Job & Internship Boosting", starter: "—", ultra: "Limited", pro: "Ultra (Web & Social)" },
-        { feature: "Email Outreach", starter: "Automated", ultra: "Automated", pro: "Automated + Templates" },
+        { feature: "Email Outreach", starter: "Manual", ultra: "Automated", pro: "Automated + Templates" },
       ],
     },
     {
@@ -208,8 +208,8 @@ export const comparisonMatrix = {
       name: "Team & Account Support",
       rows: [
         { feature: "Dedicated Hiring Assistant", starter: "—", ultra: "—", pro: "✓ Included" },
-        { feature: "Recruiter Seats", starter: "Up to 2", ultra: "Up to 5", pro: "Up to 15" },
-        { feature: "Customer Support", starter: "Email Support", ultra: "Priority Email", pro: "Priority Email & Chat" },
+        { feature: "Recruiter Seats", starter: "Up to 1", ultra: "Up to 3", pro: "Up to 5" },
+        { feature: "Customer Support", starter: "Email Support", ultra: "Priority Mail & Chat", pro: "Chat & Call Support" },
       ],
     },
   ],
