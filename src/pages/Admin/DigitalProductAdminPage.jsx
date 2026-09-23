@@ -104,10 +104,28 @@ export default function DigitalProductAdminPage() {
             <span>Bookings</span>
           </button>
           <button
+            className="referral-sidebar-btn"
+            onClick={() => navigate("/admin/meetings?pageNo=1&limit=30")}
+          >
+            <span>Meetings</span>
+          </button>
+          <button
+            className="referral-sidebar-btn"
+            onClick={() => navigate("/admin/hirings?pageNo=1&limit=30")}
+          >
+            <span>Hirings</span>
+          </button>
+          <button
             className="referral-sidebar-btn active"
             onClick={() => navigate("/admin/digital-products?pageNo=1&limit=30")}
           >
             <span>Digital Products</span>
+          </button>
+          <button
+            className="referral-sidebar-btn"
+            onClick={() => navigate("/admin/subscriptions?pageNo=1&limit=30")}
+          >
+            <span>Subscriptions</span>
           </button>
           <button
             className="referral-sidebar-btn"

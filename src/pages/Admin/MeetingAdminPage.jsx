@@ -17,7 +17,7 @@ import moment from "moment/moment";
 import PaginationBarWithSearchParams from "../../components/PaginationBarWithSearchParams/PaginationBarWithSearchParams";
 import Loading from "../../components/Loader/Loading";
 
-export default function ReferralAdminPage() {
+export default function MeetingAdminPage() {
   if (!isUserLoggedIn()) return <Page404 />;
   const allowedEmailIds = [
     "rishabhs883@gmail.com",
@@ -29,7 +29,6 @@ export default function ReferralAdminPage() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
 
-  // Bookings state and query
   const [pageCount, setPageCount] = useState(1);
   const pageNo = searchParams.get("pageNo");
   const limit = searchParams.get("limit");
@@ -45,49 +44,43 @@ export default function ReferralAdminPage() {
     },
   };
 
-  const referralQuery = useQuery({
+  const meetingQuery = useQuery({
     queryKey: [
       "admin",
-      "referral",
+      "employerMeetings",
       !!params.pageNo ? params.pageNo : 1,
-      !!params.limit ? params.limit : 10,
+      !!params.limit ? params.limit : 30,
     ],
     queryFn: () =>
       axios
         .get(
-          `${PAYMENT_API_URL}payment/admin/meet-payment-records?page=${params.pageNo}&limit=${params.limit}`,
+          `${PAYMENT_API_URL}payment/admin/employer-meet-records?page=${params.pageNo}&limit=${params.limit}`,
           config
         )
-        .then((res) => {
-          return res;
-        }),
+        .then((res) => res),
     staleTime: 1000 * 60 * 5, // 5 minutes
   });
 
   useEffect(() => {
     if (!pageNo || !limit) {
-      navigate("/admin/referrals?pageNo=1&limit=30");
+      navigate("/admin/meetings?pageNo=1&limit=30");
     }
-  }, [pageNo, limit]);
+  }, [pageNo, limit, navigate]);
 
   useEffect(() => {
-    if (referralQuery.isSuccess) {
-      setPageCount(
-        Math.ceil(
-          (!!referralQuery.data?.data?.data?.totalRecords
-            ? referralQuery.data?.data?.data?.totalRecords
-            : 1) /
-            (!!limit ? limit : referralQuery.data?.data?.data?.records?.length)
-        )
-      );
+    if (meetingQuery.isSuccess) {
+      const totalRecords = meetingQuery.data?.data?.data?.totalRecords || 1;
+      const recordsLength = meetingQuery.data?.data?.data?.records?.length || 1;
+      const currentLimit = limit ? Number(limit) : recordsLength;
+      setPageCount(Math.ceil(totalRecords / currentLimit) || 1);
     }
-  }, [referralQuery]);
+  }, [meetingQuery, limit]);
 
   return (
     <div className="referral-admin-layout">
       <Helmet>
         <meta name="robots" content="noindex, nofollow" />
-        <title>Referrals | Admin Panel</title>
+        <title>Meetings | Admin Panel</title>
       </Helmet>
 
       {/* Sidebar Panel */}
@@ -97,13 +90,13 @@ export default function ReferralAdminPage() {
         </div>
         <nav className="sidebar-nav">
           <button
-            className="referral-sidebar-btn active"
+            className="referral-sidebar-btn"
             onClick={() => navigate("/admin/referrals?pageNo=1&limit=30")}
           >
             <span>Bookings</span>
           </button>
           <button
-            className="referral-sidebar-btn"
+            className="referral-sidebar-btn active"
             onClick={() => navigate("/admin/meetings?pageNo=1&limit=30")}
           >
             <span>Meetings</span>
@@ -138,31 +131,24 @@ export default function ReferralAdminPage() {
       {/* Main Content Area */}
       <main className="referral-admin-main">
         <div className="referral-admin-page">
-          {/*
-          <p>
-            This page is only accessible to authorized users. If you think this is a
-            mistake, please contact the engineerHUB administration. Email us at{" "}
-            <a href="mailto:info@engineerhub.in">info@engineerhub.in</a> or call us
-            at <a href="tel:+918303156089">+91 83031 56089</a>
-          </p>
-          */}
           <section>
             <div className="referral-table-title">
-              <h1 className="body-lg-semibold">Check the latest bookings here</h1>
+              <h1 className="body-lg-semibold">Check the latest employer meetings here</h1>
               <PaginationBarWithSearchParams
                 className="m-0 referral-table-pagination-bar"
                 param="pageNo"
                 pages={pageCount}
               />
             </div>
+
             <div className="limit-container">
               <p className="text">Showing</p>
               <select
                 name="limit"
                 id="limit"
-                defaultValue={limit}
+                value={limit || "30"}
                 onChange={(e) => {
-                  navigate(`/admin/referrals?pageNo=1&limit=${e.target.value}`);
+                  navigate(`/admin/meetings?pageNo=1&limit=${e.target.value}`);
                 }}
               >
                 <option value="10">10</option>
@@ -170,56 +156,20 @@ export default function ReferralAdminPage() {
                 <option value="30">30</option>
                 <option value="40">40</option>
                 <option value="50">50</option>
-                <option
-                  style={{
-                    display: "none",
-                  }}
-                  value={limit}
-                >
-                  {limit}
-                </option>
               </select>
-              <p className="text">results </p>
-              {/*
-              <div className="switch-options">
-                <button
-                  onClick={() => navigate("/admin/referrals?pageNo=1&limit=30")}
-                  className="option --selected"
-                >
-                  Referrals
-                </button>
-                <button
-                  onClick={() =>
-                    navigate("/admin/digital-products?pageNo=1&limit=30")
-                  }
-                  className="option"
-                >
-                  Digital Products
-                </button>
-              </div>
-              */}
+              <p className="text">results</p>
             </div>
+
             <div className="referral-table">
-              <div className="table-item table-headers body-sm-regular">
-                Service Name
-              </div>
-              <div className="table-item table-headers body-sm-regular">Name</div>
-              <div className="table-item table-headers body-sm-regular">
-                Phone Number
-              </div>
-              <div className="table-item table-headers body-sm-regular">
-                Date & Time Slot
-              </div>
-              <div className="table-item table-headers body-sm-regular">
-                Actions
-              </div>
-              <div className="table-item table-headers body-sm-regular">
-                Booking Details
-              </div>
-              <div className="table-item table-headers body-sm-regular">
-                Booking Status
-              </div>
-              {referralQuery.isPending && (
+              <div className="table-item table-headers body-sm-regular">Recruiter & Company</div>
+              <div className="table-item table-headers body-sm-regular">Phone Number</div>
+              <div className="table-item table-headers body-sm-regular">Requirement / Message</div>
+              <div className="table-item table-headers body-sm-regular">Date & Time Slot</div>
+              <div className="table-item table-headers body-sm-regular">Actions</div>
+              <div className="table-item table-headers body-sm-regular">Booking Details</div>
+              <div className="table-item table-headers body-sm-regular">Booking Status</div>
+
+              {meetingQuery.isPending && (
                 <div
                   style={{
                     marginTop: "5dvh",
@@ -228,23 +178,36 @@ export default function ReferralAdminPage() {
                     justifyContent: "center",
                     alignItems: "center",
                     gridColumn: "1/8",
-                    gridRow: "7/7",
                   }}
                 >
                   <Loading />
                 </div>
               )}
-              {referralQuery.isSuccess &&
-                referralQuery.data.data.data.records.map((content, index) => (
-                  <Fragment key={index}>
-                    <p className="table-item table-content body-md-semibold">
-                      {content?.meetData[0]?.title}
-                    </p>
+
+              {meetingQuery.isSuccess &&
+                meetingQuery.data?.data?.data?.records?.length === 0 && (
+                  <div
+                    style={{
+                      padding: "3rem",
+                      textAlign: "center",
+                      gridColumn: "1/8",
+                      color: "#64748b",
+                      fontWeight: "600",
+                    }}
+                  >
+                    No employer meeting bookings recorded yet.
+                  </div>
+                )}
+
+              {meetingQuery.isSuccess &&
+                meetingQuery.data?.data?.data?.records?.map((content, index) => (
+                  <Fragment key={content._id || index}>
+                    {/* Column 1: Recruiter Name, Email, Role Tag (User/Alumni/Employer) */}
                     <div className="table-item table-content table-content-2">
                       <p className="body-sm-semibold">
                         {content?.name ? content?.name : <i>No name provided</i>}
                       </p>
-                      <p className="label-sm">
+                      <p className="label-sm" style={{ marginBottom: "4px" }}>
                         {content?.email ? content?.email : <i>No email provided</i>}
                       </p>
                       <span
@@ -259,43 +222,58 @@ export default function ReferralAdminPage() {
                           fontWeight: "700",
                           display: "inline-block",
                           marginTop: "2px",
-                          marginBottom: "4px",
                         }}
                       >
-                        {content?.role === "Organization" || content?.role === "Employer"
+                        {content?.role === "Organization" || content?.role === "Employer" || (content?.companyName && content?.companyName !== "NA")
                           ? "Employer"
-                          : content?.role || "User"}
+                          : content?.role || "Employer"}
                       </span>
-                      {content?.resume ? (
-                        <a
-                          href={
-                            content?.resume.endsWith("doc") ||
-                            content?.resume.endsWith("docx")
-                              ? `http://docs.google.com/gview?url=${content?.resume}`
-                              : content?.resume
-                          }
-                          target="_blank"
-                          rel="noreferrer noopener"
-                        >
-                          View Resume
-                        </a>
-                      ) : (
-                        <i className="not-present">No resume provided</i>
+                      {content?.companyName && content?.companyName !== "NA" && (
+                        <p className="label-sm" style={{ fontSize: "11px", color: "#475569", fontWeight: "600", marginTop: "4px" }}>
+                          {content?.companyName} {content?.designation && content?.designation !== "NA" ? `(${content?.designation})` : ""}
+                        </p>
                       )}
-                      {content?.resume ? (
+                    </div>
+
+                    {/* Column 2: Phone Number */}
+                    <div className="table-item table-content body-sm-semibold">
+                      {content?.mobile ? (
+                        content?.mobile
+                      ) : (
+                        <i style={{ color: "#94a3b8" }}>No phone number provided</i>
+                      )}
+                    </div>
+
+                    {/* Column 3: Requirement / Message */}
+                    <div className="table-item table-content table-content-2">
+                      {content?.query ? (
                         <>
+                          <p
+                            className="body-sm-regular"
+                            style={{
+                              fontSize: "13px",
+                              color: "#334155",
+                              display: "-webkit-box",
+                              WebkitLineClamp: 2,
+                              WebkitBoxOrient: "vertical",
+                              overflow: "hidden",
+                              marginBottom: "4px",
+                            }}
+                          >
+                            {content?.query}
+                          </p>
                           <button
                             type="button"
                             data-bs-toggle="modal"
-                            data-bs-target={`#responseModal-${index}`}
+                            data-bs-target={`#reqModal-${index}`}
                             className="question-response"
                           >
-                            View Response
+                            View Requirement
                           </button>
                           <div
                             className="modal fade"
-                            id={`responseModal-${index}`}
-                            aria-labelledby="responseModalLabel"
+                            id={`reqModal-${index}`}
+                            aria-labelledby={`reqModalLabel-${index}`}
                             aria-hidden="true"
                           >
                             <div className="modal-dialog modal-dialog-centered">
@@ -303,9 +281,9 @@ export default function ReferralAdminPage() {
                                 <div className="modal-header">
                                   <h1
                                     className="modal-title heading-sm"
-                                    id="responseModalLabel"
+                                    id={`reqModalLabel-${index}`}
                                   >
-                                    {content?.meetData[0]?.title}
+                                    Recruiter Hiring Requirement
                                   </h1>
                                   <button
                                     type="button"
@@ -314,49 +292,21 @@ export default function ReferralAdminPage() {
                                     aria-label="Close"
                                   ></button>
                                 </div>
-                                <p className="px-3 py-1 body-sm-regular">
-                                  Response by{" "}
-                                  <span className="body-sm-semibold">
-                                    {content?.name}
-                                  </span>
-                                </p>
+                                <div className="px-3 py-2 border-bottom">
+                                  <p className="m-0 body-sm-semibold">
+                                    {content?.name} {content?.companyName ? `(${content?.companyName})` : ""}
+                                  </p>
+                                  <p className="m-0 label-sm" style={{ color: "#64748b" }}>
+                                    {content?.email} &middot; {content?.mobile}
+                                  </p>
+                                </div>
                                 <div
                                   className="modal-body"
-                                  style={{ fontSize: "14px", fontWeight: "700" }}
+                                  style={{ fontSize: "14px", fontWeight: "600", color: "#1e293b", whiteSpace: "pre-wrap" }}
                                 >
-                                  {content?.query ? (
-                                    content?.query
-                                  ) : (
-                                    <i style={{ fontWeight: "500" }}>
-                                      -No response provided-
-                                    </i>
-                                  )}
+                                  {content?.query}
                                 </div>
                                 <div className="modal-footer">
-                                  <a
-                                    href={
-                                      content?.resume.endsWith("doc") ||
-                                      content?.resume.endsWith("docx")
-                                        ? `http://docs.google.com/gview?url=${content?.resume}`
-                                        : content?.resume
-                                    }
-                                    target="_blank"
-                                    rel="noreferrer noopener"
-                                  >
-                                    <button
-                                      type="button"
-                                      className="btn btn-primary"
-                                      style={{
-                                        backgroundColor: "#1383821A",
-                                        color: "var(--primary-color-green)",
-                                        borderRadius: "10px",
-                                        border: "none",
-                                        padding: "10px 24px",
-                                      }}
-                                    >
-                                      View Resume
-                                    </button>
-                                  </a>
                                   <button
                                     type="button"
                                     className="btn btn-secondary"
@@ -368,7 +318,7 @@ export default function ReferralAdminPage() {
                                     }}
                                     data-bs-dismiss="modal"
                                   >
-                                    Ok
+                                    Close
                                   </button>
                                 </div>
                               </div>
@@ -376,16 +326,13 @@ export default function ReferralAdminPage() {
                           </div>
                         </>
                       ) : (
-                        <i className="not-present">No response provided</i>
+                        <i className="not-present" style={{ color: "#94a3b8" }}>
+                          No specific message provided
+                        </i>
                       )}
                     </div>
-                    <div className="table-item table-content body-sm-semibold">
-                      {content?.mobile ? (
-                        content?.mobile
-                      ) : (
-                        <i>No phone number provided</i>
-                      )}
-                    </div>
+
+                    {/* Column 4: Date & Time Slot */}
                     <div className="table-item table-content table-content-4">
                       <p className="body-sm-regular">
                         {moment(content?.startDateTime).format("D[/]M[/]YYYY")}
@@ -395,6 +342,8 @@ export default function ReferralAdminPage() {
                         {moment(content?.endDateTime).format("h[:]mmA")}
                       </p>
                     </div>
+
+                    {/* Column 5: Actions (Join Button) */}
                     <div className="table-item table-content table-content-5">
                       <button
                         disabled={!content?.eventData[0]?.meetLink}
@@ -404,6 +353,8 @@ export default function ReferralAdminPage() {
                         Join
                       </button>
                     </div>
+
+                    {/* Column 6: Booking Details */}
                     <div className="table-item table-content table-content-6">
                       <div>
                         <p className="label-sm">Purchased at</p>
@@ -437,6 +388,8 @@ export default function ReferralAdminPage() {
                         </p>
                       </div>
                     </div>
+
+                    {/* Column 7: Booking Status */}
                     <div className="table-item table-content table-content-7">
                       {new Date(content?.endDateTime).getTime() <
                         new Date().getTime() && (
