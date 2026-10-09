@@ -144,9 +144,9 @@ export default function AIInterviewFeedback() {
   const summary = proctorData?.session?.proctoringSummary || liveConv?.session?.proctoringSummary || liveReport?.proctoringSummary || {};
   const events = proctorData?.events || [];
 
-  const tabSwitches = summary.tabSwitches ?? events.filter((e) => e.eventType === "TAB_SWITCH" || e.eventType === "WINDOW_BLUR").length;
-  const multiFaceCount = events.filter((e) => e.eventType === "MULTIPLE_FACES_DETECTED").length;
-  const noFaceCount = events.filter((e) => e.eventType === "NO_FACE_DETECTED").length;
+  const tabSwitches = (summary.tabSwitches ?? 0) || events.filter((e) => e.eventType === "TAB_SWITCH" || e.eventType === "WINDOW_BLUR").length;
+  const multiFaceCount = (summary.multipleFaces ?? 0) || events.filter((e) => e.eventType === "MULTIPLE_FACES_DETECTED").length;
+  const noFaceCount = (summary.noFaceDetected ?? 0) || events.filter((e) => e.eventType === "NO_FACE_DETECTED").length;
   const phoneDetCount = events.filter((e) => e.eventType === "PHONE_DETECTED").length;
 
   const integrityScore = typeof summary.integrityScore === "number"
@@ -539,16 +539,16 @@ export default function AIInterviewFeedback() {
                   <span className="metric-val">{candidateData.integrity.faceVisible}</span>
                 </div>
 
-                <div className="metric-box">
-                  <FiUsers className="metric-icon" />
-                  <span className="metric-label">Multi-Face</span>
-                  <span className="metric-val">{candidateData.integrity.multiFace}</span>
+                <div className="metric-box" style={multiFaceCount > 0 ? { border: "1.5px solid #ef4444", background: "#fef2f2" } : {}}>
+                  <FiUsers className="metric-icon" style={multiFaceCount > 0 ? { color: "#dc2626" } : {}} />
+                  <span className="metric-label" style={multiFaceCount > 0 ? { color: "#991b1b" } : {}}>Multi-Face</span>
+                  <span className="metric-val" style={multiFaceCount > 0 ? { color: "#dc2626", fontWeight: "700" } : {}}>{candidateData.integrity.multiFace}</span>
                 </div>
 
-                <div className="metric-box">
-                  <FiUserX className="metric-icon" />
-                  <span className="metric-label">No Face</span>
-                  <span className="metric-val">{candidateData.integrity.noFace}</span>
+                <div className="metric-box" style={noFaceCount > 0 ? { border: "1.5px solid #f59e0b", background: "#fffbeb" } : {}}>
+                  <FiUserX className="metric-icon" style={noFaceCount > 0 ? { color: "#d97706" } : {}} />
+                  <span className="metric-label" style={noFaceCount > 0 ? { color: "#92400e" } : {}}>No Face</span>
+                  <span className="metric-val" style={noFaceCount > 0 ? { color: "#d97706", fontWeight: "700" } : {}}>{candidateData.integrity.noFace}</span>
                 </div>
 
                 <div className="metric-box">

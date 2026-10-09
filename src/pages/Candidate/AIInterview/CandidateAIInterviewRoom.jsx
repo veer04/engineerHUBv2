@@ -1,6 +1,8 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { FilesetResolver, FaceDetector } from "@mediapipe/tasks-vision";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { SEO } from "../../../components/SEO/SEO.jsx";
 import {
   FiClock,
@@ -15,6 +17,7 @@ import {
   FiTrendingUp,
   FiVolume2,
   FiVolumeX,
+  FiAlertTriangle,
 } from "react-icons/fi";
 import { io } from "socket.io-client";
 import { API_URL } from "../../../services/APIUtils";
@@ -79,6 +82,62 @@ const DUMMY_TRANSCRIPT = [
   },
 ];
 
+/**
+ * Selects the optimal female voice for Sanya across browsers (Chrome, Safari, Firefox, Edge).
+ * Safari defaults to male voices (Alex/Daniel) unless an explicit female voice is specified.
+ */
+const getBestFemaleVoice = () => {
+  if (typeof window === "undefined" || !("speechSynthesis" in window)) return null;
+  const voices = window.speechSynthesis.getVoices() || [];
+  if (!voices.length) return null;
+
+  // 1. Indian English Female voice (preferred for Sanya persona)
+  const indianFemale = voices.find(
+    (v) =>
+      (v.lang === "en-IN" || v.lang === "en_IN" || v.lang?.toLowerCase().startsWith("en-in")) &&
+      (/female|woman|sangeeta|veena|neerja|heera|aditi|priya|kajal/i.test(v.name) ||
+        !/male|rishi|man/i.test(v.name))
+  );
+  if (indianFemale) return indianFemale;
+
+  // 2. Any Indian English voice that is not explicitly male
+  const anyIndian = voices.find(
+    (v) =>
+      (v.lang === "en-IN" || v.lang === "en_IN" || v.lang?.toLowerCase().startsWith("en-in")) &&
+      !/male|rishi|man/i.test(v.name)
+  );
+  if (anyIndian) return anyIndian;
+
+  // 3. Female English voice across Safari / Chrome / Edge
+  // Safari (macOS / iOS): Samantha, Victoria, Karen, Moira, Tessa, Fiona, Serena
+  // Chrome / Edge: Google UK English Female, Google US English, Microsoft Zira, Jenny, Ava, Aria
+  const englishFemale = voices.find(
+    (v) =>
+      v.lang.toLowerCase().startsWith("en") &&
+      (/female|woman|samantha|victoria|karen|moira|tessa|zira|jenny|ava|allison|fiona|serena|aria|susan|catherine/i.test(
+        v.name
+      ) ||
+        (v.name.includes("Google") && !/male/i.test(v.name)))
+  );
+  if (englishFemale) return englishFemale;
+
+  // 4. Any English voice that is not explicitly male (Safari defaults to Daniel or Alex if voice not selected)
+  const nonMaleEnglish = voices.find(
+    (v) =>
+      v.lang.toLowerCase().startsWith("en") &&
+      !/male|daniel|alex|fred|oliver|george|rishi|thomas|arthur|david|mark/i.test(v.name)
+  );
+  if (nonMaleEnglish) return nonMaleEnglish;
+
+  // 5. Fallback: Any English voice or default voice
+  return (
+    voices.find((v) => v.lang.toLowerCase().startsWith("en")) ||
+    voices.find((v) => v.default) ||
+    voices[0] ||
+    null
+  );
+};
+
 export default function CandidateAIInterviewRoom() {
   const navigate = useNavigate();
   const { inviteToken = "demo-ai-interview" } = useParams();
@@ -97,25 +156,69 @@ export default function CandidateAIInterviewRoom() {
   const [isCameraOn, setIsCameraOn] = useState(true);
   const [isMicOn, setIsMicOn] = useState(true);
   const candidateVideoRef = useRef(null);
+  const proctorVideoRef = useRef(null);
   const mediaStreamRef = useRef(null);
+  const performWebcamProctorCheckRef = useRef(null);
   const recognitionRef = useRef(null);
   const isAISpeakingRef = useRef(false);
   const isRecognizingRef = useRef(false);
   const lastAIQuestionTextRef = useRef("");
   const vadRef = useRef(null);
   const turnManagerRef = useRef(null);
-  // Chirp 3 HD audio refs — track active HTML5 Audio element & whether server audio is active
-  const chirpAudioElementRef = useRef(null);  // Current playing HTML5 Audio object
-  const chirpAudioActiveRef = useRef(false);  // True when Chirp audio arrived & is playing/pending
-  const fallbackTTSTimerRef = useRef(null);   // Holds the browser TTS fallback timeout ID so ai_audio can cancel it
+  const audioRecorderRef = useRef(null);
+  const audioChunksRef = useRef([]);
+  const googleAudioRef = useRef(null);
+  const isEndingInterviewRef = useRef(false);
+  const isInterviewActiveRef = useRef(false);
+  const showEndConfirmationModalRef = useRef(false);
+  const consecutiveMultiFaceRef = useRef(0);
+  const consecutiveNoFaceRef = useRef(0);
+
+  // End Interview Confirmation Modal state
+  const [showEndConfirmationModal, setShowEndConfirmationModal] = useState(false);
+
+  useEffect(() => {
+    showEndConfirmationModalRef.current = showEndConfirmationModal;
+  }, [showEndConfirmationModal]);
+
+  // Proctor alert chip state for candidate visual feedback (Clean top square box)
+  const [proctorToastChip, setProctorToastChip] = useState(null);
+  const proctorToastTimeoutRef = useRef(null);
+
+  const showProctorAlert = useCallback((type, message, duration = 4500) => {
+    if (proctorToastTimeoutRef.current) {
+      clearTimeout(proctorToastTimeoutRef.current);
+    }
+    setProctorToastChip({ type, message });
+    if (duration > 0) {
+      proctorToastTimeoutRef.current = setTimeout(() => {
+        setProctorToastChip(null);
+      }, duration);
+    }
+  }, []);
+
+  // Unified proctoring warning: redirects exclusively to the top square alert box
+  // Eliminates duplicate lower popup/toasts entirely
+  const showProctorWarningToast = useCallback((eventType, message, type = "warning") => {
+    if (!message || isEndingInterviewRef.current || !isInterviewActiveRef.current || showEndConfirmationModalRef.current) return;
+    const alertType = type === "error" || type === "danger" ? "danger" : "warning";
+    showProctorAlert(alertType, message);
+  }, [showProctorAlert]);
 
   // Question counter: only counts real technical turns (not opening/closing/exit_confirmation)
   const [currentTechQuestionCount, setCurrentTechQuestionCount] = useState(0);
 
-  // Typewriter effect state: tracks which transcript entry is being typed out
-  // Format: { id: string, fullText: string, displayedText: string }
-  const [typewriterState, setTypewriterState] = useState(null);
-  const typewriterTimerRef = useRef(null);
+  // Pre-load synthesis voices for zero-latency speech synthesis
+  useEffect(() => {
+    if (typeof window !== "undefined" && "speechSynthesis" in window) {
+      window.speechSynthesis.getVoices();
+      if (window.speechSynthesis.onvoiceschanged !== undefined) {
+        window.speechSynthesis.onvoiceschanged = () => {
+          window.speechSynthesis.getVoices();
+        };
+      }
+    }
+  }, []);
 
   // Timer state
   const [secondsRemaining, setSecondsRemaining] = useState(2700); // 45 mins default
@@ -133,6 +236,7 @@ export default function CandidateAIInterviewRoom() {
     // Instantiate TurnManager
     const turnManager = new TurnManager({
       onStateChange: (newState) => {
+        if (isAISpeakingRef.current) return;
         if (newState === TURN_STATES.CANDIDATE_SPEAKING) {
           setCandidateStatus("Speaking...");
           setActiveSpeaker("candidate");
@@ -144,22 +248,8 @@ export default function CandidateAIInterviewRoom() {
       },
       onSpeechStart: () => {
         if (isAISpeakingRef.current) {
-          // Interrupt Chirp HTML5 audio if playing
-          if (chirpAudioElementRef.current) {
-            try {
-              chirpAudioElementRef.current.pause();
-              chirpAudioElementRef.current.currentTime = 0;
-            } catch (_e) {}
-            chirpAudioElementRef.current = null;
-          }
-          chirpAudioActiveRef.current = false;
-          // Interrupt browser fallback TTS if active
-          if ("speechSynthesis" in window) {
-            window.speechSynthesis.cancel();
-          }
-          isAISpeakingRef.current = false;
-          setActiveSpeaker("candidate");
-          setAiStatus("Listening...");
+          // Sanya is speaking — candidate is listening. DO NOT cancel Sanya's speech!
+          return;
         }
         if (socketRef.current) {
           socketRef.current.emit("ai_interview:speech_started", { inviteToken });
@@ -167,6 +257,7 @@ export default function CandidateAIInterviewRoom() {
         }
       },
       onSpeechStop: ({ silenceDuration }) => {
+        if (isAISpeakingRef.current) return;
         if (socketRef.current) {
           socketRef.current.emit("ai_interview:speech_stopped", { inviteToken, silenceDuration });
           socketRef.current.emit("ai_interview:candidate_speaking", { inviteToken, speaking: false });
@@ -178,6 +269,7 @@ export default function CandidateAIInterviewRoom() {
         }
       },
       onInactivity: () => {
+        if (isAISpeakingRef.current) return;
         setCandidateStatus("Listening...");
       },
     });
@@ -186,9 +278,11 @@ export default function CandidateAIInterviewRoom() {
     // Instantiate ClientVAD
     const vad = new ClientVAD({
       onSpeechStart: (data) => {
+        if (isAISpeakingRef.current) return;
         turnManagerRef.current?.handleSpeechStart(data);
       },
       onSpeechStop: (data) => {
+        if (isAISpeakingRef.current) return;
         turnManagerRef.current?.handleSpeechStop(data);
       },
     });
@@ -197,17 +291,42 @@ export default function CandidateAIInterviewRoom() {
     const startMedia = async () => {
       try {
         const stream = await navigator.mediaDevices.getUserMedia({
-          video: true,
+          video: {
+            width: { ideal: 640 },
+            height: { ideal: 480 },
+            facingMode: "user",
+          },
           audio: true,
         });
         activeStream = stream;
         mediaStreamRef.current = stream;
+
+        // Dedicated proctoring video element (mirrors useProctoringMonitor in AI assessment)
+        try {
+          const proctorVideo = document.createElement("video");
+          proctorVideo.width = 640;
+          proctorVideo.height = 480;
+          proctorVideo.autoplay = true;
+          proctorVideo.playsInline = true;
+          proctorVideo.muted = true;
+          proctorVideo.srcObject = stream;
+          proctorVideoRef.current = proctorVideo;
+          proctorVideo.onloadedmetadata = () => {
+            proctorVideo.play().catch(() => {});
+          };
+          if (proctorVideo.readyState >= 2) {
+            proctorVideo.play().catch(() => {});
+          }
+        } catch (_vErr) {}
+
         if (candidateVideoRef.current) {
           candidateVideoRef.current.srcObject = stream;
+          candidateVideoRef.current.play?.().catch(() => {});
         }
 
         // Start client-side Voice Activity Detection
         vad.start(stream);
+        startCandidateAudioRecording();
       } catch (err) {
         console.warn("Camera/Mic access error or denied:", err);
       }
@@ -218,6 +337,17 @@ export default function CandidateAIInterviewRoom() {
     return () => {
       if (activeStream) {
         activeStream.getTracks().forEach((t) => t.stop());
+      }
+      if (proctorVideoRef.current) {
+        proctorVideoRef.current.srcObject = null;
+        proctorVideoRef.current = null;
+      }
+      if (audioRecorderRef.current && audioRecorderRef.current.state !== "inactive") {
+        try { audioRecorderRef.current.stop(); } catch (_) {}
+      }
+      if (googleAudioRef.current) {
+        try { googleAudioRef.current.pause(); } catch (_) {}
+        googleAudioRef.current = null;
       }
       vad.destroy();
       turnManager.destroy();
@@ -230,6 +360,12 @@ export default function CandidateAIInterviewRoom() {
       mediaStreamRef.current.getVideoTracks().forEach((track) => {
         track.enabled = isCameraOn;
       });
+      if (candidateVideoRef.current && isCameraOn) {
+        if (!candidateVideoRef.current.srcObject) {
+          candidateVideoRef.current.srcObject = mediaStreamRef.current;
+        }
+        candidateVideoRef.current.play?.().catch(() => {});
+      }
     }
   }, [isCameraOn]);
 
@@ -245,8 +381,61 @@ export default function CandidateAIInterviewRoom() {
   const [liveCandidateText, setLiveCandidateText] = useState("");
   const [textInputValue, setTextInputValue] = useState("");
 
+  const startCandidateAudioRecording = () => {
+    if (!mediaStreamRef.current) return;
+    try {
+      if (audioRecorderRef.current && audioRecorderRef.current.state !== "inactive") {
+        audioRecorderRef.current.stop();
+      }
+      audioChunksRef.current = [];
+      const mimeType =
+        typeof MediaRecorder !== "undefined" && MediaRecorder.isTypeSupported("audio/webm;codecs=opus")
+          ? "audio/webm;codecs=opus"
+          : "audio/webm";
+      const recorder = new MediaRecorder(mediaStreamRef.current, { mimeType });
+      recorder.ondataavailable = (e) => {
+        if (e.data && e.data.size > 0) {
+          audioChunksRef.current.push(e.data);
+        }
+      };
+      recorder.start(100);
+      audioRecorderRef.current = recorder;
+    } catch (err) {
+      console.warn("MediaRecorder start error (falling back to browser STT):", err);
+    }
+  };
+
+  const stopCandidateAudioRecording = () => {
+    return new Promise((resolve) => {
+      const recorder = audioRecorderRef.current;
+      if (!recorder || recorder.state === "inactive") {
+        resolve(null);
+        return;
+      }
+      recorder.onstop = () => {
+        try {
+          const mimeType = recorder.mimeType || "audio/webm";
+          const blob = new Blob(audioChunksRef.current, { type: mimeType });
+          const reader = new FileReader();
+          reader.onloadend = () => {
+            const base64 = reader.result?.split(",")?.[1] || null;
+            resolve({ audioBlobBase64: base64, mimeType });
+          };
+          reader.readAsDataURL(blob);
+        } catch (_e) {
+          resolve(null);
+        }
+      };
+      try {
+        recorder.stop();
+      } catch (_) {
+        resolve(null);
+      }
+    });
+  };
+
   // Submit candidate answer (via Turn Manager turn completion or manual Send button)
-  const submitCandidateSpeech = (textToSend) => {
+  const submitCandidateSpeech = async (textToSend) => {
     const rawText = (textToSend || textInputValue || liveCandidateText || "").trim();
     const text = sanitizeTranscriptText(rawText);
     if (!text || isAISpeakingRef.current) return;
@@ -267,6 +456,9 @@ export default function CandidateAIInterviewRoom() {
     }
 
     console.log("[TurnManager] Emitting candidate turn to socket:", text);
+
+    // Stop recording candidate audio for Google Cloud STT
+    const recordedAudio = await stopCandidateAudioRecording();
 
     // Append candidate turn to UI transcript chat list (with deduplication)
     setTranscripts((prev) => {
@@ -294,7 +486,9 @@ export default function CandidateAIInterviewRoom() {
     if (socketRef.current) {
       socketRef.current.emit("ai_interview:audio_chunk", {
         inviteToken,
-        transcriptText: text,
+        transcriptText: text, // Browser STT (fallback)
+        audioBlobBase64: recordedAudio?.audioBlobBase64 || null, // Google STT (primary)
+        mimeType: recordedAudio?.mimeType || "audio/webm",
       });
     }
   };
@@ -486,8 +680,10 @@ export default function CandidateAIInterviewRoom() {
       } else if (currentState === "AI_SPEAKING") {
         setAiStatus("Speaking...");
       } else if (currentState === "LISTENING") {
-        setAiStatus("Listening...");
-        setCandidateStatus("Listening...");
+        if (!isAISpeakingRef.current) {
+          setAiStatus("Listening...");
+          setCandidateStatus("Listening...");
+        }
       } else if (currentState === "FOLLOW_UP" || currentState === "NEXT_QUESTION") {
         setAiStatus("Formulating Question...");
       } else if (currentState === "EXIT_CONFIRMATION_PENDING") {
@@ -528,6 +724,23 @@ export default function CandidateAIInterviewRoom() {
         const questionType = data.questionType || "technical_core";
         lastAIQuestionTextRef.current = data.text;
 
+        // Candidate Speech Lock Guard:
+        // Only hold Sanya if candidate has actually spoken real words in the current turn
+        // (Never suppress opening question turn 1, closing turn, or empty ambient mic noise)
+        const currentSpokenText = (turnManagerRef.current?.getFullTranscriptText() || liveCandidateText || "").trim();
+        const isOpeningOrClosing = (data.turnIndex === 1) || (questionType === "opening") || Boolean(data.isClosing);
+        const hasActualWords = currentSpokenText.length > 0;
+        const isCandidateActivelySpeaking = !isOpeningOrClosing && hasActualWords && Boolean(
+          turnManagerRef.current?.candidateSpeaking ||
+          vadRef.current?.isSpeaking() ||
+          isRecognizingRef.current
+        );
+
+        if (isCandidateActivelySpeaking) {
+          console.warn(`🛑 [Candidate Speech Guard] Sanya question suppressed: Candidate is actively speaking ("${currentSpokenText}"). Holding AI response.`);
+          return;
+        }
+
         // Increment technical question counter — skip opening, closing, exit_confirmation
         const isTechnicalTurn =
           questionType !== "opening" &&
@@ -537,7 +750,6 @@ export default function CandidateAIInterviewRoom() {
           setCurrentTechQuestionCount((prev) => prev + 1);
         }
 
-        // Add to transcript with empty text initially — typewriter will fill it in
         setTranscripts((prev) => [
           ...prev,
           {
@@ -545,197 +757,166 @@ export default function CandidateAIInterviewRoom() {
             sender: "ai",
             senderLabel: data.speakerLabel || "Sanya",
             time: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
-            text: "",           // Start empty — typewriter will fill this in
+            text: data.text,
             questionType,
           },
         ]);
 
-        // Start typewriter animation for this turn
-        if (typewriterTimerRef.current) clearInterval(typewriterTimerRef.current);
-        const fullText = data.text;
-        const charDelayMs = Math.max(18, Math.min(38, Math.round(60000 / (fullText.length * 4 || 1))));
-        let charIndex = 0;
-        typewriterTimerRef.current = setInterval(() => {
-          charIndex++;
-          const partial = fullText.slice(0, charIndex);
-          setTranscripts((prev) =>
-            prev.map((t) => (t.id === turnId ? { ...t, text: partial } : t))
-          );
-          if (charIndex >= fullText.length) {
-            clearInterval(typewriterTimerRef.current);
-            typewriterTimerRef.current = null;
+        // Speak AI response: Google Cloud TTS (Neural2 en-IN-Neural2-A) as primary, with browser Web Speech API fallback
+        const fallbackBrowserSpeech = (cleanSpokenText, onComplete) => {
+          if ("speechSynthesis" in window && !isMuted) {
+            window.speechSynthesis.cancel();
+            window.speechSynthesis.resume();
+            const utterance = new SpeechSynthesisUtterance(cleanSpokenText);
+            const femaleVoice = getBestFemaleVoice();
+            if (femaleVoice) {
+              utterance.voice = femaleVoice;
+              utterance.lang = femaleVoice.lang || "en-US";
+            } else {
+              utterance.lang = "en-US";
+            }
+            utterance.rate = 1.1;
+            utterance.pitch = 1.0;
+
+            const watchdogMs = Math.max(12000, cleanSpokenText.split(" ").length * 450 + 4000);
+            const speechTimeout = setTimeout(() => {
+              if (isAISpeakingRef.current) {
+                console.warn("Browser SpeechSynthesis watchdog timeout — auto-recovering to candidate turn");
+                onComplete();
+              }
+            }, watchdogMs);
+
+            utterance.onstart = () => {
+              isAISpeakingRef.current = true;
+              turnManagerRef.current?.setAISpeaking(true);
+              setActiveSpeaker("ai");
+              setAiStatus("Speaking...");
+              setCandidateStatus("Listening...");
+              if (recognitionRef.current) {
+                try { recognitionRef.current.abort(); } catch (_e) {}
+              }
+            };
+            utterance.onend = () => {
+              clearTimeout(speechTimeout);
+              onComplete();
+            };
+            utterance.onerror = () => {
+              clearTimeout(speechTimeout);
+              onComplete();
+            };
+            window.speechSynthesis.speak(utterance);
+          } else {
+            onComplete();
           }
-        }, charDelayMs);
+        };
 
-        // Reset Chirp audio flag — backend will send ai_interview:ai_audio shortly
-        chirpAudioActiveRef.current = false;
+        const speakAIQuestion = (text, audioData) => {
+          const cleanSpokenText = (text || "")
+            .replace(/```[a-z]*\n?/gi, "")
+            .replace(/```/g, "")
+            .replace(/`/g, "")
+            .replace(/\*/g, "")
+            .replace(/#+ /g, "")
+            .trim();
 
-        // ── Browser TTS Fallback DISABLED ──────────────────────────────────────
-        // Chirp 3 HD (server-side) is now the sole TTS provider.
-        // The fallback block below is intentionally commented out to prevent the
-        // 1-2s browser voice overlap that occurred while Chirp was synthesizing.
-        //
-        // Re-enable ONLY if Chirp is completely unavailable (e.g. no GCP credentials):
-        //
-        // if (!isMuted) {
-        //   fallbackTTSTimerRef.current = setTimeout(() => {
-        //     if (chirpAudioActiveRef.current) return; // Chirp took over — abort
-        //     if (!("speechSynthesis" in window)) return;
-        //     console.warn("[Chirp TTS] No server audio received within 1.5s — activating browser TTS fallback");
-        //     window.speechSynthesis.cancel();
-        //     window.speechSynthesis.resume();
-        //     const cleanSpokenText = (data.text || "")
-        //       .replace(/```[a-z]*\n?/gi, "")
-        //       .replace(/```/g, "")
-        //       .replace(/`/g, "")
-        //       .replace(/\*/g, "")
-        //       .trim();
-        //     const utterance = new SpeechSynthesisUtterance(cleanSpokenText);
-        //     utterance.rate = 0.95;
-        //     utterance.pitch = 1.0;
-        //     const speechTimeout = setTimeout(() => {
-        //       if (isAISpeakingRef.current) {
-        //         isAISpeakingRef.current = false;
-        //         setActiveSpeaker("none");
-        //         setAiStatus("Listening...");
-        //         if (recognitionRef.current && isMicOn) { try { recognitionRef.current.start(); } catch (_e) {} }
-        //       }
-        //     }, 12000);
-        //     utterance.onstart = () => { isAISpeakingRef.current = true; setActiveSpeaker("ai"); setAiStatus("Speaking..."); if (recognitionRef.current) { try { recognitionRef.current.abort(); } catch (_e) {} } };
-        //     utterance.onend = () => { clearTimeout(speechTimeout); isAISpeakingRef.current = false; setActiveSpeaker("none"); setAiStatus("Listening..."); setTimeout(() => { if (recognitionRef.current && isMicOn) { try { recognitionRef.current.start(); } catch (_e) {} } }, 300); };
-        //     utterance.onerror = () => { clearTimeout(speechTimeout); isAISpeakingRef.current = false; setActiveSpeaker("none"); setAiStatus("Listening..."); setTimeout(() => { if (recognitionRef.current && isMicOn) { try { recognitionRef.current.start(); } catch (_e) {} } }, 300); };
-        //     window.speechSynthesis.speak(utterance);
-        //   }, 1500);
-        // }
-        // ── End of Browser TTS Fallback ──────────────────────────────────────
-      }
-    });
-
-    // ── Google Chirp 3 HD Audio Player ──────────────────────────────────────────
-    // Receives Base64-encoded MP3 from the backend Chirp TTS service.
-    // Plays via HTML5 Audio API → works identically on Chrome, Safari, Firefox,
-    // macOS, Ubuntu, iOS, and Android with the same Indian female voice.
-    socket.on("ai_interview:ai_audio", (data) => {
-      if (!data?.audioBase64 || isMuted) return;
-
-      // Cancel any pending browser TTS fallback timer — Chirp audio has arrived
-      if (fallbackTTSTimerRef.current) {
-        clearTimeout(fallbackTTSTimerRef.current);
-        fallbackTTSTimerRef.current = null;
-      }
-      // Cancel any lingering browser TTS that might have slipped through
-      if ("speechSynthesis" in window) {
-        window.speechSynthesis.cancel();
-      }
-
-      // Mark Chirp audio as active — suppresses browser TTS fallback
-      chirpAudioActiveRef.current = true;
-
-      try {
-        // Stop any previous Chirp audio that is still playing
-        if (chirpAudioElementRef.current) {
-          try {
-            chirpAudioElementRef.current.pause();
-            chirpAudioElementRef.current.currentTime = 0;
-          } catch (_e) {}
-          chirpAudioElementRef.current = null;
-        }
-        // Also cancel any lingering browser TTS
-        if ("speechSynthesis" in window) {
-          window.speechSynthesis.cancel();
-        }
-
-        // Decode Base64 MP3 → Blob URL → HTML5 Audio
-        const byteCharacters = atob(data.audioBase64);
-        const byteArray = new Uint8Array(byteCharacters.length);
-        for (let i = 0; i < byteCharacters.length; i++) {
-          byteArray[i] = byteCharacters.charCodeAt(i);
-        }
-        const audioBlob = new Blob([byteArray], { type: data.mimeType || "audio/mpeg" });
-        const audioBlobUrl = URL.createObjectURL(audioBlob);
-
-        const audioEl = new Audio(audioBlobUrl);
-        chirpAudioElementRef.current = audioEl;
-
-        audioEl.onplay = () => {
+          // Lock AI speaking state immediately so candidate speech cannot cut off Sanya
           isAISpeakingRef.current = true;
+          turnManagerRef.current?.setAISpeaking(true);
           setActiveSpeaker("ai");
           setAiStatus("Speaking...");
-          // Stop candidate speech recognition while Sanya is speaking
+          setCandidateStatus("Listening...");
           if (recognitionRef.current) {
             try { recognitionRef.current.abort(); } catch (_e) {}
           }
-          console.log("🔊 [Chirp 3 HD] Sanya audio playback started");
+
+          const onTurnFinished = () => {
+            isAISpeakingRef.current = false;
+            turnManagerRef.current?.setAISpeaking(false);
+            turnManagerRef.current?.resetTurnBuffer();
+            setActiveSpeaker("none");
+            setAiStatus("Listening...");
+            setCandidateStatus("Listening...");
+            setLiveCandidateText("");
+
+            if (socketRef.current) {
+              socketRef.current.emit("ai_interview:ai_speaking", { inviteToken, speaking: false });
+            }
+
+            // Start candidate audio recording for Google Cloud STT
+            startCandidateAudioRecording();
+
+            // Trigger turn manager & speech recognition for candidate turn
+            setTimeout(() => {
+              if (recognitionRef.current && isMicOn && !isAISpeakingRef.current) {
+                try { recognitionRef.current.start(); } catch (_e) {}
+              }
+            }, 250);
+          };
+
+          if (isMuted) {
+            onTurnFinished();
+            return;
+          }
+
+          // FIRST CHOICE: Google Cloud Text-to-Speech (Neural2 natural voice)
+          if (audioData) {
+            if (googleAudioRef.current) {
+              try {
+                googleAudioRef.current.pause();
+                googleAudioRef.current = null;
+              } catch (_) {}
+            }
+
+            const audio = new Audio(audioData);
+            googleAudioRef.current = audio;
+
+            const watchdogMs = Math.max(12000, cleanSpokenText.split(" ").length * 450 + 4000);
+            const watchdogTimer = setTimeout(() => {
+              if (isAISpeakingRef.current) {
+                console.warn("Google TTS audio watchdog timeout — auto-recovering to candidate turn");
+                googleAudioRef.current = null;
+                onTurnFinished();
+              }
+            }, watchdogMs);
+
+            audio.onplay = () => {
+              isAISpeakingRef.current = true;
+              turnManagerRef.current?.setAISpeaking(true);
+              setActiveSpeaker("ai");
+              setAiStatus("Speaking...");
+              setCandidateStatus("Listening...");
+              if (recognitionRef.current) {
+                try { recognitionRef.current.abort(); } catch (_e) {}
+              }
+            };
+
+            audio.onended = () => {
+              clearTimeout(watchdogTimer);
+              googleAudioRef.current = null;
+              onTurnFinished();
+            };
+
+            audio.onerror = (err) => {
+              clearTimeout(watchdogTimer);
+              googleAudioRef.current = null;
+              console.warn("Google Cloud TTS audio playback failed, falling back to browser voice:", err);
+              fallbackBrowserSpeech(cleanSpokenText, onTurnFinished);
+            };
+
+            audio.play().catch((err) => {
+              clearTimeout(watchdogTimer);
+              googleAudioRef.current = null;
+              console.warn("Google Cloud TTS audio play rejected, falling back to browser voice:", err);
+              fallbackBrowserSpeech(cleanSpokenText, onTurnFinished);
+            });
+            return;
+          }
+
+          // FALLBACK: Browser Web Speech API
+          fallbackBrowserSpeech(cleanSpokenText, onTurnFinished);
         };
 
-        audioEl.onended = () => {
-          isAISpeakingRef.current = false;
-          chirpAudioActiveRef.current = false;
-          chirpAudioElementRef.current = null;
-          setActiveSpeaker("none");
-          setAiStatus("Listening...");
-          URL.revokeObjectURL(audioBlobUrl); // Free Blob URL memory
-          // Restart speech recognition for candidate
-          setTimeout(() => {
-            if (recognitionRef.current && isMicOn) {
-              try { recognitionRef.current.start(); } catch (_e) {}
-            }
-          }, 300);
-          console.log("🔇 [Chirp 3 HD] Sanya audio playback ended — resuming candidate mic");
-        };
-
-        audioEl.onerror = (e) => {
-          console.warn("[Chirp 3 HD] Audio playback error:", e);
-          isAISpeakingRef.current = false;
-          chirpAudioActiveRef.current = false;
-          chirpAudioElementRef.current = null;
-          setActiveSpeaker("none");
-          setAiStatus("Listening...");
-          URL.revokeObjectURL(audioBlobUrl);
-          setTimeout(() => {
-            if (recognitionRef.current && isMicOn) {
-              try { recognitionRef.current.start(); } catch (_e) {}
-            }
-          }, 300);
-        };
-
-        // .play() should always succeed since the interview was started by user gesture.
-        // On any failure, log a warning and recover state — no browser TTS degradation
-        // (keeping voice consistent across all devices is the primary goal).
-        audioEl.play().catch((err) => {
-          console.warn("[Chirp 3 HD] Audio play() blocked:", err.message);
-          // ── Safari/browser TTS degradation DISABLED ──────────────────────────
-          // Keeping this commented so we don't regress to OS-level voice inconsistency.
-          // Re-enable only if confirmed Chirp is completely broken in production.
-          //
-          // chirpAudioActiveRef.current = false;
-          // if ("speechSynthesis" in window && data.text) {
-          //   const utterance = new SpeechSynthesisUtterance(
-          //     (data.text || "").replace(/```[\s\S]*?```/g, "").replace(/[`*#]/g, "").trim()
-          //   );
-          //   utterance.rate = 0.95;
-          //   utterance.onstart = () => { isAISpeakingRef.current = true; setActiveSpeaker("ai"); setAiStatus("Speaking..."); };
-          //   utterance.onend = () => { isAISpeakingRef.current = false; setActiveSpeaker("none"); setAiStatus("Listening..."); setTimeout(() => { if (recognitionRef.current && isMicOn) { try { recognitionRef.current.start(); } catch (_e) {} } }, 300); };
-          //   window.speechSynthesis.speak(utterance);
-          // }
-          // ── End browser TTS degradation ──────────────────────────────────────
-
-          // Recover state so interview doesn't get stuck
-          isAISpeakingRef.current = false;
-          chirpAudioActiveRef.current = false;
-          chirpAudioElementRef.current = null;
-          setActiveSpeaker("none");
-          setAiStatus("Listening...");
-          URL.revokeObjectURL(audioBlobUrl);
-          setTimeout(() => {
-            if (recognitionRef.current && isMicOn) {
-              try { recognitionRef.current.start(); } catch (_e) {}
-            }
-          }, 300);
-        });
-      } catch (err) {
-        console.warn("[Chirp 3 HD] Failed to decode/play audio:", err.message);
-        chirpAudioActiveRef.current = false;
+        speakAIQuestion(data.text, data.audioData);
       }
     });
 
@@ -743,6 +924,30 @@ export default function CandidateAIInterviewRoom() {
       if (data?.text) {
         setTranscripts((prev) => {
           const trimmed = data.text.trim();
+
+          // If turn was merged on backend, update existing candidate bubble in UI
+          if (data.isUpdated) {
+            const index = prev.findIndex(
+              (t) =>
+                t._id === data._id ||
+                t.id === `turn_cand_${data.turnIndex}` ||
+                t.id === `turn_${data.turnIndex}` ||
+                (t.sender === "candidate" && t.turnIndex === data.turnIndex)
+            );
+            if (index !== -1) {
+              const updated = [...prev];
+              updated[index] = { ...updated[index], text: trimmed };
+              return updated;
+            }
+            for (let i = prev.length - 1; i >= 0; i--) {
+              if (prev[i].sender === "candidate") {
+                const updated = [...prev];
+                updated[i] = { ...updated[i], text: trimmed };
+                return updated;
+              }
+            }
+          }
+
           const exists = prev.some(
             (t) =>
               t.id === `turn_cand_${data.turnIndex}` ||
@@ -770,8 +975,10 @@ export default function CandidateAIInterviewRoom() {
         setAiStatus("Speaking...");
         setCandidateStatus("Listening...");
       } else {
-        if (activeSpeaker === "ai") setActiveSpeaker("none");
-        setAiStatus("Listening...");
+        if (!isAISpeakingRef.current) {
+          if (activeSpeaker === "ai") setActiveSpeaker("none");
+          setAiStatus("Listening...");
+        }
       }
     });
 
@@ -791,14 +998,20 @@ export default function CandidateAIInterviewRoom() {
       if (data?.promptType && data.promptType.startsWith("silence_")) {
         return;
       }
+      if (!isInterviewActiveRef.current || isEndingInterviewRef.current || showEndConfirmationModalRef.current) {
+        return;
+      }
       if (data?.message) {
-        setSnackbarMessage(data.message);
-        setSnackbarSeverity("warning");
-        setSnackbarOpen(true);
+        showProctorAlert("warning", data.message);
       }
     });
 
     socket.on("ai_interview:completed", () => {
+      isEndingInterviewRef.current = true;
+      isInterviewActiveRef.current = false;
+      showEndConfirmationModalRef.current = false;
+      setShowEndConfirmationModal(false);
+      setShowFullscreenPrompt(false);
       setSnackbarMessage("AI Interview Session Completed.");
       setSnackbarSeverity("success");
       setSnackbarOpen(true);
@@ -806,72 +1019,174 @@ export default function CandidateAIInterviewRoom() {
     });
 
     return () => {
-      socket.disconnect();
-      // Clear typewriter timer if still running (e.g. navigating away mid-animation)
-      if (typewriterTimerRef.current) {
-        clearInterval(typewriterTimerRef.current);
-        typewriterTimerRef.current = null;
+      if ("speechSynthesis" in window) {
+        try {
+          window.speechSynthesis.cancel();
+        } catch (_e) {}
       }
-
+      socket.disconnect();
     };
-  }, [inviteToken, isMuted]);
+  }, [inviteToken, isMuted, showProctorAlert]);
 
-  // Fullscreen & Security Listener Effect
-  const [showEndConfirmationModal, setShowEndConfirmationModal] = useState(false);
-  const isEndingInterviewRef = useRef(false);
-
-  // MediaPipe Face Detector refs
+  // MediaPipe Face Detector refs & distinct face counter
   const detectorRef = useRef(null);
   const isMediaPipeLoadingRef = useRef(false);
 
-  // Initialize MediaPipe FaceDetector (with GPU -> CPU fallback)
-  useEffect(() => {
-    let isMounted = true;
-    const initFaceDetector = async () => {
-      if (detectorRef.current || isMediaPipeLoadingRef.current) return;
-      isMediaPipeLoadingRef.current = true;
-      try {
-        const vision = await FilesetResolver.forVisionTasks(
-          "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.35/wasm"
-        );
-        let detector = null;
-        try {
-          detector = await FaceDetector.createFromOptions(vision, {
-            baseOptions: {
-              modelAssetPath:
-                "https://storage.googleapis.com/mediapipe-models/face_detector/blaze_face_short_range/float16/1/blaze_face_short_range.tflite",
-              delegate: "GPU",
-            },
-            runningMode: "IMAGE",
-          });
-        } catch (gpuErr) {
-          console.warn("[CandidateAIInterviewRoom] MediaPipe GPU delegate failed, falling back to CPU:", gpuErr);
-          detector = await FaceDetector.createFromOptions(vision, {
-            baseOptions: {
-              modelAssetPath:
-                "https://storage.googleapis.com/mediapipe-models/face_detector/blaze_face_short_range/float16/1/blaze_face_short_range.tflite",
-              delegate: "CPU",
-            },
-            runningMode: "IMAGE",
-          });
-        }
-        if (isMounted) {
-          detectorRef.current = detector;
-          console.log("🟢 MediaPipe FaceDetector initialized successfully in AI Interview room.");
-        } else if (detector) {
-          detector.close();
-        }
-      } catch (err) {
-        console.error("[CandidateAIInterviewRoom] MediaPipe FaceDetector init error:", err);
-      } finally {
-        isMediaPipeLoadingRef.current = false;
-      }
-    };
+  /**
+   * Accurately count distinct human faces from MediaPipe detections.
+   * Filters out low-confidence noise, tiny background artifacts,
+   * and merges multiple overlapping bounding boxes corresponding to the same person
+   * (e.g., when candidate touches cheek or chin with hand).
+   */
+  const countDistinctFaces = useCallback((detections) => {
+    if (!detections || !detections.detections || detections.detections.length === 0) {
+      return 0;
+    }
 
-    initFaceDetector();
+    // 1. Filter out low-confidence and implausibly small proposals
+    const validDetections = detections.detections.filter((d) => {
+      const score = d.categories?.[0]?.score ?? 0;
+      const box = d.boundingBox;
+      if (!box) return false;
+      const width = box.width || 0;
+      const height = box.height || 0;
+      return score >= 0.36 && width >= 35 && height >= 35;
+    });
+
+    if (validDetections.length <= 1) {
+      return validDetections.length;
+    }
+
+    // Sort by confidence score descending so the main face is processed first
+    validDetections.sort((a, b) => (b.categories?.[0]?.score ?? 0) - (a.categories?.[0]?.score ?? 0));
+
+    // 2. Suppress overlapping bounding boxes (IoU or spatial containment)
+    const distinctFaces = [];
+
+    for (const det of validDetections) {
+      const box = det.boundingBox;
+      const score = det.categories?.[0]?.score ?? 0;
+      const x1 = box.originX;
+      const y1 = box.originY;
+      const x2 = box.originX + box.width;
+      const y2 = box.originY + box.height;
+      const area = box.width * box.height;
+      const centerX = box.originX + box.width / 2;
+      const centerY = box.originY + box.height / 2;
+
+      let isDuplicateOfExisting = false;
+
+      for (const existing of distinctFaces) {
+        const eBox = existing.boundingBox;
+        const ex1 = eBox.originX;
+        const ey1 = eBox.originY;
+        const ex2 = eBox.originX + eBox.width;
+        const ey2 = eBox.originY + eBox.height;
+        const eArea = eBox.width * eBox.height;
+        const eCenterX = eBox.originX + eBox.width / 2;
+        const eCenterY = eBox.originY + eBox.height / 2;
+
+        // Compute Intersection over Union (IoU)
+        const interX1 = Math.max(x1, ex1);
+        const interY1 = Math.max(y1, ey1);
+        const interX2 = Math.min(x2, ex2);
+        const interY2 = Math.min(y2, ey2);
+
+        const interW = Math.max(0, interX2 - interX1);
+        const interH = Math.max(0, interY2 - interY1);
+        const interArea = interW * interH;
+        const unionArea = area + eArea - interArea;
+        const iou = unionArea > 0 ? interArea / unionArea : 0;
+
+        // Center-to-center distance normalized by average dimensions
+        const dx = centerX - eCenterX;
+        const dy = centerY - eCenterY;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        const avgSize = (Math.max(box.width, box.height) + Math.max(eBox.width, eBox.height)) / 2;
+
+        // Overlap ratio relative to the smaller bounding box
+        const minArea = Math.min(area, eArea);
+        const overlapRatio = minArea > 0 ? interArea / minArea : 0;
+
+        // If bounding boxes overlap significantly (IoU > 0.18)
+        // OR if center distance is within 60% of average face size
+        // OR if one box is substantially inside the other (> 30% of smaller box area)
+        if (iou > 0.18 || overlapRatio > 0.30 || dist < avgSize * 0.6) {
+          isDuplicateOfExisting = true;
+          break;
+        }
+      }
+
+      if (!isDuplicateOfExisting) {
+        // For any candidate face beyond the primary face, enforce higher confidence threshold
+        // to avoid weak peripheral shadows or background reflections being counted
+        if (distinctFaces.length >= 1 && score < 0.42) {
+          continue;
+        }
+        distinctFaces.push(det);
+      }
+    }
+
+    return distinctFaces.length;
+  }, []);
+
+  // Initialize MediaPipe FaceDetector (with GPU -> CPU fallback, calibrated for proctoring accuracy)
+  const initFaceDetector = useCallback(async () => {
+    if (detectorRef.current) return detectorRef.current;
+    if (isMediaPipeLoadingRef.current) return null;
+    isMediaPipeLoadingRef.current = true;
+    try {
+      const vision = await FilesetResolver.forVisionTasks(
+        "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.35/wasm"
+      );
+      let detector = null;
+      try {
+        detector = await FaceDetector.createFromOptions(vision, {
+          baseOptions: {
+            modelAssetPath:
+              "https://storage.googleapis.com/mediapipe-models/face_detector/blaze_face_short_range/float16/1/blaze_face_short_range.tflite",
+            delegate: "GPU",
+          },
+          runningMode: "IMAGE",
+          minDetectionConfidence: 0.38,
+          minSuppressionThreshold: 0.45,
+        });
+      } catch (gpuErr) {
+        console.warn("[CandidateAIInterviewRoom] MediaPipe GPU delegate failed, falling back to CPU:", gpuErr);
+        detector = await FaceDetector.createFromOptions(vision, {
+          baseOptions: {
+            modelAssetPath:
+              "https://storage.googleapis.com/mediapipe-models/face_detector/blaze_face_short_range/float16/1/blaze_face_short_range.tflite",
+            delegate: "CPU",
+          },
+          runningMode: "IMAGE",
+          minDetectionConfidence: 0.38,
+          minSuppressionThreshold: 0.45,
+        });
+      }
+      if (detector) {
+        detectorRef.current = detector;
+        console.log("🟢 MediaPipe FaceDetector initialized successfully in AI Interview room (confidence: 0.38).");
+      }
+      return detector;
+    } catch (err) {
+      console.error("[CandidateAIInterviewRoom] MediaPipe FaceDetector init error:", err);
+      return null;
+    } finally {
+      isMediaPipeLoadingRef.current = false;
+    }
+  }, []);
+
+  useEffect(() => {
+    initFaceDetector().then(() => {
+      // Only perform check if candidate has already entered fullscreen & interview is active
+      if (isInterviewActiveRef.current && !isEndingInterviewRef.current && !showEndConfirmationModalRef.current) {
+        performWebcamProctorCheckRef.current?.();
+      }
+    });
 
     return () => {
-      isMounted = false;
+      // Clean up detector only when truly unmounting the entire room
       if (detectorRef.current) {
         try {
           detectorRef.current.close();
@@ -879,11 +1194,16 @@ export default function CandidateAIInterviewRoom() {
         detectorRef.current = null;
       }
     };
-  }, []);
+  }, [initFaceDetector]);
 
   const captureSnapshot = useCallback(() => {
-    const video = candidateVideoRef.current;
-    if (!video || video.readyState < 2) return null;
+    const video =
+      (proctorVideoRef.current && proctorVideoRef.current.readyState >= 2)
+        ? proctorVideoRef.current
+        : (candidateVideoRef.current && candidateVideoRef.current.readyState >= 2)
+        ? candidateVideoRef.current
+        : null;
+    if (!video) return null;
     try {
       const canvas = document.createElement("canvas");
       canvas.width = 320;
@@ -901,13 +1221,19 @@ export default function CandidateAIInterviewRoom() {
 
   // Perform MediaPipe Face Detection + Stream status check
   const performWebcamProctorCheck = useCallback(async () => {
-    if (isEndingInterviewRef.current || !inviteToken) return;
+    if (
+      !isInterviewActiveRef.current ||
+      isEndingInterviewRef.current ||
+      showEndConfirmationModalRef.current ||
+      !inviteToken
+    ) {
+      return;
+    }
 
     const stream = mediaStreamRef.current;
-    const video = candidateVideoRef.current;
-    const detector = detectorRef.current;
 
     if (!stream || !stream.active) {
+      showProctorAlert("warning", "Warning: Camera feed lost. Re-connect camera stream immediately.");
       if (socketRef.current) {
         socketRef.current.emit("ai_interview:proctor_event", {
           inviteToken,
@@ -921,6 +1247,7 @@ export default function CandidateAIInterviewRoom() {
 
     const tracks = stream.getVideoTracks();
     if (!tracks.length || tracks[0].readyState === "ended") {
+      showProctorAlert("warning", "Warning: Camera feed lost. Re-connect camera stream immediately.");
       if (socketRef.current) {
         socketRef.current.emit("ai_interview:proctor_event", {
           inviteToken,
@@ -935,6 +1262,7 @@ export default function CandidateAIInterviewRoom() {
     const track = tracks[0];
     if (!track.enabled || !isCameraOn) {
       const snapshot = captureSnapshot();
+      showProctorAlert("warning", "Warning: Camera disabled during interview. Please turn on your camera.");
       if (socketRef.current) {
         socketRef.current.emit("ai_interview:proctor_event", {
           inviteToken,
@@ -946,19 +1274,84 @@ export default function CandidateAIInterviewRoom() {
       return;
     }
 
+    // Ensure dedicated unconstrained proctor video element is initialized & running
+    if (stream && (!proctorVideoRef.current || !proctorVideoRef.current.srcObject)) {
+      try {
+        const pVideo = document.createElement("video");
+        pVideo.width = 640;
+        pVideo.height = 480;
+        pVideo.autoplay = true;
+        pVideo.playsInline = true;
+        pVideo.muted = true;
+        pVideo.srcObject = stream;
+        pVideo.play().catch(() => {});
+        proctorVideoRef.current = pVideo;
+      } catch (_e) {}
+    }
+
+    const video =
+      (proctorVideoRef.current && proctorVideoRef.current.readyState >= 2)
+        ? proctorVideoRef.current
+        : (candidateVideoRef.current && candidateVideoRef.current.readyState >= 2)
+        ? candidateVideoRef.current
+        : (proctorVideoRef.current || candidateVideoRef.current);
+
     const snapshot = captureSnapshot();
 
-    // If detector is ready and video is playing, perform face detection via MediaPipe
+    // Ensure FaceDetector is initialized
+    let detector = detectorRef.current;
+    if (!detector && !isMediaPipeLoadingRef.current) {
+      detector = await initFaceDetector();
+    }
+
+    // If detector is ready and video is playing, perform face detection via MediaPipe directly on video (mirrors useProctoringMonitor)
     if (detector && video && video.readyState >= 2) {
       try {
-        const detections = detector.detect(video);
-        const faceCount = detections?.detections?.length || 0;
+        let detections = null;
+        try {
+          // Direct video frame detection preserves native aspect ratio and prevents facial squashing
+          detections = detector.detect(video);
+        } catch (_videoErr) {
+          console.warn("[CandidateAIInterviewRoom] Video element direct detection fallback:", _videoErr);
+          if (candidateVideoRef.current && candidateVideoRef.current !== video && candidateVideoRef.current.readyState >= 2) {
+            detections = detector.detect(candidateVideoRef.current);
+          } else {
+            throw _videoErr;
+          }
+        }
+
+        const faceCount = countDistinctFaces(detections);
+        console.log(`👁️ [MediaPipe Proctor Check] Detected ${faceCount} distinct face(s) in video stream.`);
 
         let eventType = "WEBCAM_CHECK";
         if (faceCount === 0) {
+          consecutiveNoFaceRef.current += 1;
+          consecutiveMultiFaceRef.current = 0;
           eventType = "NO_FACE_DETECTED";
+          showProctorAlert("warning", "Warning: No face detected. Please ensure your face is clearly visible.");
         } else if (faceCount > 1) {
-          eventType = "MULTIPLE_FACES_DETECTED";
+          consecutiveNoFaceRef.current = 0;
+          consecutiveMultiFaceRef.current += 1;
+          // Temporal verification: require 2 consecutive checks to filter out single-frame gestures or hand-to-face transitions
+          if (consecutiveMultiFaceRef.current >= 2) {
+            eventType = "MULTIPLE_FACES_DETECTED";
+            showProctorAlert("danger", `Security Alert: Multiple faces detected (${faceCount} people). Only the candidate is allowed.`);
+          } else {
+            // Schedule an immediate verification check in 1500ms
+            setTimeout(() => {
+              if (isInterviewActiveRef.current && !isEndingInterviewRef.current && !showEndConfirmationModalRef.current) {
+                performWebcamProctorCheckRef.current?.();
+              }
+            }, 1500);
+            return;
+          }
+        } else {
+          // Exactly 1 face detected — reset counters & clear active proctor warning
+          consecutiveNoFaceRef.current = 0;
+          consecutiveMultiFaceRef.current = 0;
+          if (proctorToastChip?.type === "warning" || proctorToastChip?.type === "danger") {
+            setProctorToastChip(null);
+          }
         }
 
         if (socketRef.current) {
@@ -968,6 +1361,7 @@ export default function CandidateAIInterviewRoom() {
             clientTimestamp: new Date(),
             metadata: {
               faceCount,
+              consecutiveNoFace: consecutiveNoFaceRef.current,
               ...(snapshot ? { snapshot } : {}),
             },
           });
@@ -987,34 +1381,33 @@ export default function CandidateAIInterviewRoom() {
         metadata: { snapshot },
       });
     }
-  }, [inviteToken, isCameraOn, captureSnapshot]);
+  }, [inviteToken, isCameraOn, captureSnapshot, initFaceDetector, showProctorAlert, countDistinctFaces, proctorToastChip]);
+
+  performWebcamProctorCheckRef.current = performWebcamProctorCheck;
 
   // Periodic Webcam Proctoring & Face Detection Check (Every 15s)
   useEffect(() => {
     if (!inviteToken) return;
 
-    // Initial check after 3 seconds
-    const initTimer = setTimeout(() => {
-      performWebcamProctorCheck();
-    }, 3000);
-
-    // Periodic check every 15 seconds
+    // Periodic check every 15 seconds (initial check runs gracefully 2.5s after entering fullscreen)
     const interval = setInterval(() => {
-      performWebcamProctorCheck();
+      if (isInterviewActiveRef.current && !isEndingInterviewRef.current && !showEndConfirmationModalRef.current) {
+        performWebcamProctorCheckRef.current?.();
+      }
     }, 15000);
 
     return () => {
-      clearTimeout(initTimer);
       clearInterval(interval);
     };
-  }, [inviteToken, performWebcamProctorCheck]);
+  }, [inviteToken]);
 
   // Browser Anti-Cheat Security Event Listeners (Copy, Paste, Right Click, Tab Switch, Blur, Focus, Fullscreen)
   useEffect(() => {
     if (!inviteToken) return undefined;
 
     const handleCopy = () => {
-      if (isEndingInterviewRef.current) return;
+      if (!isInterviewActiveRef.current || isEndingInterviewRef.current || showEndConfirmationModalRef.current) return;
+      showProctorAlert("warning", "Warning: Copy attempt detected. Copying content is not allowed.");
       const snapshot = captureSnapshot();
       if (socketRef.current) {
         socketRef.current.emit("ai_interview:proctor_event", {
@@ -1027,7 +1420,8 @@ export default function CandidateAIInterviewRoom() {
     };
 
     const handlePaste = () => {
-      if (isEndingInterviewRef.current) return;
+      if (!isInterviewActiveRef.current || isEndingInterviewRef.current || showEndConfirmationModalRef.current) return;
+      showProctorAlert("warning", "Warning: Paste attempt detected. Pasting content is not allowed.");
       const snapshot = captureSnapshot();
       if (socketRef.current) {
         socketRef.current.emit("ai_interview:proctor_event", {
@@ -1040,8 +1434,9 @@ export default function CandidateAIInterviewRoom() {
     };
 
     const handleContextMenu = (e) => {
-      if (isEndingInterviewRef.current) return;
+      if (!isInterviewActiveRef.current || isEndingInterviewRef.current || showEndConfirmationModalRef.current) return;
       e.preventDefault();
+      showProctorAlert("warning", "Warning: Right click suppressed.");
       const snapshot = captureSnapshot();
       if (socketRef.current) {
         socketRef.current.emit("ai_interview:proctor_event", {
@@ -1054,9 +1449,10 @@ export default function CandidateAIInterviewRoom() {
     };
 
     const handleVisibilityChange = () => {
-      if (isEndingInterviewRef.current) return;
+      if (!isInterviewActiveRef.current || isEndingInterviewRef.current || showEndConfirmationModalRef.current) return;
       const snapshot = captureSnapshot();
       if (document.hidden) {
+        showProctorAlert("warning", "Warning: Tab switching detected. Please remain on the interview screen.");
         if (socketRef.current) {
           socketRef.current.emit("ai_interview:proctor_event", {
             inviteToken,
@@ -1078,7 +1474,8 @@ export default function CandidateAIInterviewRoom() {
     };
 
     const handleBlur = () => {
-      if (isEndingInterviewRef.current) return;
+      if (!isInterviewActiveRef.current || isEndingInterviewRef.current || showEndConfirmationModalRef.current) return;
+      showProctorAlert("warning", "Warning: Browser focus lost. Please maintain focus on the interview.");
       const snapshot = captureSnapshot();
       if (socketRef.current) {
         socketRef.current.emit("ai_interview:proctor_event", {
@@ -1091,7 +1488,7 @@ export default function CandidateAIInterviewRoom() {
     };
 
     const handleFocus = () => {
-      if (isEndingInterviewRef.current) return;
+      if (!isInterviewActiveRef.current || isEndingInterviewRef.current || showEndConfirmationModalRef.current) return;
       if (socketRef.current) {
         socketRef.current.emit("ai_interview:proctor_event", {
           inviteToken,
@@ -1103,7 +1500,7 @@ export default function CandidateAIInterviewRoom() {
     };
 
     const handleFullscreenChange = () => {
-      if (isEndingInterviewRef.current) return;
+      if (!isInterviewActiveRef.current || isEndingInterviewRef.current || showEndConfirmationModalRef.current) return;
       const fsEl =
         document.fullscreenElement ||
         document.webkitFullscreenElement ||
@@ -1113,6 +1510,7 @@ export default function CandidateAIInterviewRoom() {
       if (!fsEl) {
         setIsExitWarning(true);
         setShowFullscreenPrompt(true);
+        showProctorAlert("warning", "Warning: Fullscreen mode exited. Re-enable fullscreen to continue.");
         if (socketRef.current) {
           socketRef.current.emit("ai_interview:proctor_event", {
             inviteToken,
@@ -1123,6 +1521,7 @@ export default function CandidateAIInterviewRoom() {
         }
       } else {
         setShowFullscreenPrompt(false);
+        setIsExitWarning(false);
         if (socketRef.current) {
           socketRef.current.emit("ai_interview:proctor_event", {
             inviteToken,
@@ -1151,7 +1550,7 @@ export default function CandidateAIInterviewRoom() {
       window.removeEventListener("blur", handleBlur);
       window.removeEventListener("focus", handleFocus);
     };
-  }, [inviteToken, captureSnapshot]);
+  }, [inviteToken, captureSnapshot, showProctorAlert]);
 
   // Timer Countdown Effect
   useEffect(() => {
@@ -1197,10 +1596,18 @@ export default function CandidateAIInterviewRoom() {
   const handleToggleMuteAI = () => {
     setIsMuted((prev) => {
       const nextMute = !prev;
-      if (nextMute && "speechSynthesis" in window) {
-        try {
-          window.speechSynthesis.cancel();
-        } catch (_e) {}
+      if (nextMute) {
+        if (googleAudioRef.current) {
+          try {
+            googleAudioRef.current.pause();
+            googleAudioRef.current = null;
+          } catch (_) {}
+        }
+        if ("speechSynthesis" in window) {
+          try {
+            window.speechSynthesis.cancel();
+          } catch (_e) {}
+        }
       }
       setSnackbarMessage(nextMute ? "AI Speech Output Muted" : "AI Speech Output Unmuted");
       setSnackbarSeverity("info");
@@ -1256,15 +1663,24 @@ export default function CandidateAIInterviewRoom() {
   };
 
   const handleEndInterviewClick = () => {
+    showEndConfirmationModalRef.current = true;
     setShowEndConfirmationModal(true);
   };
 
   const confirmForceExitInterview = async () => {
     isEndingInterviewRef.current = true;
+    isInterviewActiveRef.current = false;
+    showEndConfirmationModalRef.current = false;
     setShowEndConfirmationModal(false);
     setShowFullscreenPrompt(false);
 
-    // 1. Immediately cancel all Web Speech Synthesis & Speech Recognition
+    // 1. Immediately cancel all Audio, Web Speech Synthesis & Speech Recognition
+    if (googleAudioRef.current) {
+      try {
+        googleAudioRef.current.pause();
+        googleAudioRef.current = null;
+      } catch (_) {}
+    }
     if ("speechSynthesis" in window) {
       try {
         window.speechSynthesis.cancel();
@@ -1342,7 +1758,10 @@ export default function CandidateAIInterviewRoom() {
               <button
                 type="button"
                 className="btn-modal-action --secondary"
-                onClick={() => setShowEndConfirmationModal(false)}
+                onClick={() => {
+                  showEndConfirmationModalRef.current = false;
+                  setShowEndConfirmationModal(false);
+                }}
               >
                 Continue Interview
               </button>
@@ -1422,7 +1841,12 @@ export default function CandidateAIInterviewRoom() {
                   onClick={() => {
                     if ("speechSynthesis" in window) {
                       window.speechSynthesis.cancel();
-                      const synth = new SpeechSynthesisUtterance("Audio output test successful.");
+                      const synth = new SpeechSynthesisUtterance("Audio output test successful. Sanya's voice is ready.");
+                      const voice = getBestFemaleVoice();
+                      if (voice) {
+                        synth.voice = voice;
+                        synth.lang = voice.lang || "en-US";
+                      }
                       synth.volume = 1;
                       window.speechSynthesis.speak(synth);
                     }
@@ -1472,8 +1896,27 @@ export default function CandidateAIInterviewRoom() {
         onEnterFullscreen={async () => {
           await requestRoomFullscreen();
           setShowFullscreenPrompt(false);
+          setIsExitWarning(false);
+          // Activate proctoring checks now that candidate has read instructions and entered fullscreen
+          isInterviewActiveRef.current = true;
+          // Grace period for camera tracks & fullscreen layout to settle before initial proctor check
+          setTimeout(() => {
+            if (isInterviewActiveRef.current && !isEndingInterviewRef.current && !showEndConfirmationModalRef.current) {
+              performWebcamProctorCheckRef.current?.();
+            }
+          }, 2500);
         }}
       />
+
+      {/* ── Realtime Proctoring Floating Alert Chip ─────────────────── */}
+      {proctorToastChip && (
+        <div className={`proctor-alert-chip proctor-alert-chip--${proctorToastChip.type}`}>
+          <span className="proctor-chip-icon">
+            {proctorToastChip.type === "danger" ? "🚨" : "⚠️"}
+          </span>
+          <span className="proctor-chip-message">{proctorToastChip.message}</span>
+        </div>
+      )}
 
       {/* ── Fixed Left Sidebar (~290px) ──────────────────────────────────── */}
       <aside className="ai-room-sidebar">
@@ -1631,20 +2074,30 @@ export default function CandidateAIInterviewRoom() {
                 </>
               )}
               <div className={`candidate-avatar-frame ${activeSpeaker === "candidate" ? "speaking-active" : ""}`}>
-                {isCameraOn ? (
-                  <video
-                    ref={candidateVideoRef}
-                    autoPlay
-                    playsInline
-                    muted
-                    style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: "50%" }}
-                  />
-                ) : (
-                  <img
-                    src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80"
-                    alt="Candidate Avatar"
-                  />
-                )}
+                <video
+                  ref={candidateVideoRef}
+                  autoPlay
+                  playsInline
+                  muted
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover",
+                    borderRadius: "50%",
+                    display: isCameraOn ? "block" : "none",
+                  }}
+                />
+                <img
+                  src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80"
+                  alt="Candidate Avatar"
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover",
+                    borderRadius: "50%",
+                    display: isCameraOn ? "none" : "block",
+                  }}
+                />
               </div>
             </div>
 
@@ -1705,11 +2158,17 @@ export default function CandidateAIInterviewRoom() {
               <input
                 type="text"
                 className="transcript-input-field"
-                placeholder={isMicOn ? "Speak into your mic or type your answer..." : "Mic is muted. Type your answer here..."}
+                placeholder={
+                  activeSpeaker === "ai"
+                    ? "Sanya is speaking, please listen..."
+                    : isMicOn
+                    ? "Speak into your mic or type your answer..."
+                    : "Mic is muted. Type your answer here..."
+                }
                 value={textInputValue}
                 onChange={(e) => setTextInputValue(e.target.value)}
                 onKeyDown={(e) => {
-                  if (e.key === "Enter" && textInputValue.trim()) {
+                  if (e.key === "Enter" && textInputValue.trim() && activeSpeaker !== "ai") {
                     submitCandidateSpeech(textInputValue);
                   }
                 }}
@@ -1718,7 +2177,7 @@ export default function CandidateAIInterviewRoom() {
                 type="button"
                 className="btn-send-answer"
                 onClick={() => submitCandidateSpeech(textInputValue || liveCandidateText)}
-                disabled={!textInputValue.trim() && !liveCandidateText.trim()}
+                disabled={(!textInputValue.trim() && !liveCandidateText.trim()) || activeSpeaker === "ai"}
               >
                 <FiSend /> Send Answer
               </button>

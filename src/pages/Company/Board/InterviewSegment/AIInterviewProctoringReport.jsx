@@ -336,9 +336,9 @@ export default function AIInterviewProctoringReport() {
               COPY_ATTEMPT: eventCounts.COPY_ATTEMPT || 0,
               PASTE_ATTEMPT: eventCounts.PASTE_ATTEMPT || 0,
               RIGHT_CLICK_ATTEMPT: eventCounts.RIGHT_CLICK_ATTEMPT || 0,
-              CAMERA_DISABLED: eventCounts.CAMERA_DISABLED || 0,
-              NO_FACE_DETECTED: eventCounts.NO_FACE_DETECTED || 0,
-              MULTIPLE_FACES_DETECTED: eventCounts.MULTIPLE_FACES_DETECTED || 0,
+              CAMERA_DISABLED: eventCounts.CAMERA_DISABLED || summary.cameraDisabled || 0,
+              NO_FACE_DETECTED: eventCounts.NO_FACE_DETECTED || summary.noFaceDetected || 0,
+              MULTIPLE_FACES_DETECTED: eventCounts.MULTIPLE_FACES_DETECTED || summary.multipleFaces || 0,
               CAMERA_STREAM_LOST: eventCounts.CAMERA_STREAM_LOST || 0,
               CAMERA_PERMISSION_DENIED: eventCounts.CAMERA_PERMISSION_DENIED || 0,
               ...eventCounts,
@@ -462,6 +462,7 @@ export default function AIInterviewProctoringReport() {
         snapshot: ev.metadata.snapshot,
         timestamp: ev.clientTimestamp || ev.createdAt,
         type: ev.eventType,
+        faceCount: ev.metadata?.faceCount,
       }))
       .reverse(); // latest snapshots first
   }, [report?.timeline]);
@@ -656,15 +657,30 @@ export default function AIInterviewProctoringReport() {
                             position: "absolute",
                             bottom: "0.5rem",
                             left: "0.5rem",
-                            background: "rgba(15, 23, 42, 0.75)",
+                            background:
+                              item.type === "MULTIPLE_FACES_DETECTED"
+                                ? "rgba(220, 38, 38, 0.92)"
+                                : item.type === "NO_FACE_DETECTED"
+                                ? "rgba(217, 119, 6, 0.92)"
+                                : item.type === "CAMERA_DISABLED"
+                                ? "rgba(220, 38, 38, 0.92)"
+                                : "rgba(15, 23, 42, 0.78)",
                             backdropFilter: "blur(4px)",
                             color: "white",
                             fontSize: "0.7rem",
-                            fontWeight: "600",
-                            padding: "0.2rem 0.5rem",
-                            borderRadius: "4px"
+                            fontWeight: "700",
+                            padding: "0.25rem 0.55rem",
+                            borderRadius: "4px",
+                            display: "inline-flex",
+                            alignItems: "center",
+                            gap: "0.25rem",
+                            boxShadow: "0 2px 4px rgba(0,0,0,0.2)"
                           }}>
-                            {EVENT_LABEL_MAP[item.type] || item.type}
+                            {item.type === "MULTIPLE_FACES_DETECTED"
+                              ? `🚨 Multiple Faces (${item.faceCount || 2})`
+                              : item.type === "NO_FACE_DETECTED"
+                              ? "👤 No Face Detected"
+                              : EVENT_LABEL_MAP[item.type] || item.type}
                           </span>
                         </div>
                         <div style={{ padding: "0.5rem 0.75rem", fontSize: "0.75rem", color: "#64748b", fontWeight: "600" }}>
