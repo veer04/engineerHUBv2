@@ -59,6 +59,26 @@ export class TurnManager {
     this.silenceTimer = null;
     this.inactivityTimer = null;
     this.isTurnProcessing = false;
+    this.isAISpeaking = false;
+  }
+
+  /**
+   * Set whether AI is currently speaking.
+   * When true, candidate speech input is locked out so AI completes its text without interruption.
+   */
+  setAISpeaking(speaking) {
+    this.isAISpeaking = Boolean(speaking);
+    if (this.isAISpeaking) {
+      if (this.silenceTimer) {
+        clearTimeout(this.silenceTimer);
+        this.silenceTimer = null;
+      }
+      this.candidateSpeaking = false;
+      this.completedChunks = [];
+      this.activeSessionFinal = "";
+      this.activeSessionInterim = "";
+      this.currentTranscript = "";
+    }
   }
 
   /**
@@ -102,9 +122,49 @@ export class TurnManager {
   }
 
   /**
+   * Dynamically calculates silence duration based on:
+   * 1. Utterance length (word count)
+   * 2. Incompleteness heuristic (trailing conjunctions/prepositions)
+   * 3. Hard bounds (max silence cap)
+   */
+  calculateAdaptiveSilenceDuration(text) {
+    const cleanText = (text || "").trim();
+    const words = cleanText ? cleanText.split(/\s+/).filter(Boolean).length : 0;
+
+    let silenceWaitMs = this.config.END_OF_TURN_SILENCE_MS || 3200;
+
+    const shortLimit = this.config.ADAPTIVE_SHORT_WORD_LIMIT || 8;
+    const longLimit = this.config.ADAPTIVE_LONG_WORD_LIMIT || 25;
+
+    if (words > longLimit) {
+      silenceWaitMs = this.config.LONG_RESPONSE_SILENCE_MS || 4200;
+    } else if (words >= shortLimit) {
+      silenceWaitMs = this.config.MEDIUM_RESPONSE_SILENCE_MS || 3500;
+    } else if (words > 0) {
+      silenceWaitMs = this.config.SHORT_RESPONSE_SILENCE_MS || 2800;
+    }
+
+    const completeness = this.checkTranscriptCompleteness(cleanText);
+    if (completeness.isLikelyIncomplete) {
+      silenceWaitMs += (this.config.INCOMPLETE_HEURISTIC_EXTRA_MS || 1500);
+      console.log(
+        `[TurnManager] Adaptive Silence (Incomplete thought "${completeness.trailingWord}") - words: ${words}, wait: ${silenceWaitMs}ms`
+      );
+    } else {
+      console.log(
+        `[TurnManager] Adaptive Silence - words: ${words}, wait: ${silenceWaitMs}ms`
+      );
+    }
+
+    const maxLimit = this.config.MAX_SILENCE_BEFORE_FORCE_COMPLETE_MS || 6500;
+    return Math.min(silenceWaitMs, maxLimit);
+  }
+
+  /**
    * Handle VAD Speech Start event
    */
   handleSpeechStart(eventData = {}) {
+    if (this.isAISpeaking) return;
     const now = eventData.timestamp || Date.now();
     this.lastVoiceActivityAt = now;
 
@@ -152,6 +212,7 @@ export class TurnManager {
    * Handle VAD Speech Stop event
    */
   handleSpeechStop(eventData = {}) {
+    if (this.isAISpeaking) return;
     const now = eventData.timestamp || Date.now();
     this.speechStoppedAt = now;
     this.candidateSpeaking = false;
@@ -167,17 +228,7 @@ export class TurnManager {
     }
 
     const fullText = this.getFullTranscriptText();
-    const completeness = this.checkTranscriptCompleteness(fullText);
-
-    let silenceWaitMs = this.config.END_OF_TURN_SILENCE_MS;
-    if (completeness.isLikelyIncomplete) {
-      silenceWaitMs += this.config.INCOMPLETE_HEURISTIC_EXTRA_MS;
-      console.log(
-        `[TurnManager] Transcript appears incomplete (ends with "${completeness.trailingWord}") - waiting ${silenceWaitMs}ms`
-      );
-    } else {
-      console.log(`[TurnManager] Silence check - scheduling turn completion in ${silenceWaitMs}ms`);
-    }
+    const silenceWaitMs = this.calculateAdaptiveSilenceDuration(fullText);
 
     this.silenceTimer = setTimeout(() => {
       this._attemptTurnCompletion();
@@ -188,6 +239,7 @@ export class TurnManager {
    * Process updated transcript results (interim or final) from STT engine
    */
   handleSTTResult({ interimText = "", finalText = "" }) {
+    if (this.isAISpeaking) return;
     const now = Date.now();
     this.lastVoiceActivityAt = now;
 
@@ -201,15 +253,13 @@ export class TurnManager {
     this.currentTranscript = this.getFullTranscriptText();
 
     if (this.turnState === TURN_STATES.POSSIBLE_END_OF_TURN && (interimText || finalText)) {
-      const completeness = this.checkTranscriptCompleteness(this.currentTranscript);
-      if (completeness.isLikelyIncomplete && this.silenceTimer) {
-        console.log(`[TurnManager] STT updated incomplete thought ("${completeness.trailingWord}") - resetting timer`);
+      const silenceWaitMs = this.calculateAdaptiveSilenceDuration(this.currentTranscript);
+      if (this.silenceTimer) {
         clearTimeout(this.silenceTimer);
-        const extendedWait = this.config.END_OF_TURN_SILENCE_MS + this.config.INCOMPLETE_HEURISTIC_EXTRA_MS;
-        this.silenceTimer = setTimeout(() => {
-          this._attemptTurnCompletion();
-        }, extendedWait);
       }
+      this.silenceTimer = setTimeout(() => {
+        this._attemptTurnCompletion();
+      }, silenceWaitMs);
     }
   }
 
@@ -218,6 +268,11 @@ export class TurnManager {
    */
   _attemptTurnCompletion() {
     this.silenceTimer = null;
+
+    if (this.isAISpeaking) {
+      console.log("[TurnManager] AI is speaking - skipping turn completion.");
+      return;
+    }
 
     if (this.candidateSpeaking) {
       console.log("[TurnManager] Candidate is still speaking - postponing turn completion.");
@@ -313,6 +368,8 @@ export class TurnManager {
    * Force manual turn submit (e.g. candidate clicked Send button or pressed Enter)
    */
   forceSubmitTurn(manualText = "") {
+    if (this.isAISpeaking) return;
+
     if (this.silenceTimer) {
       clearTimeout(this.silenceTimer);
       this.silenceTimer = null;

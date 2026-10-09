@@ -5,13 +5,22 @@ export const TURN_MANAGER_CONFIG = {
   // Pause duration thresholds (in ms)
   SHORT_PAUSE_MS: 1000,
   MEDIUM_PAUSE_MS: 2500,
-  END_OF_TURN_SILENCE_MS: 2500,
+  END_OF_TURN_SILENCE_MS: 3200,
+
+  // Adaptive silence thresholds based on candidate utterance length (word count)
+  SHORT_RESPONSE_SILENCE_MS: 2800,  // < 8 words (quick replies / short confirmations)
+  MEDIUM_RESPONSE_SILENCE_MS: 3500, // 8 - 25 words (standard 1-2 sentence answers)
+  LONG_RESPONSE_SILENCE_MS: 4200,   // > 25 words (in-depth technical explanations)
+
+  // Word limits for adaptive silence tiers
+  ADAPTIVE_SHORT_WORD_LIMIT: 8,
+  ADAPTIVE_LONG_WORD_LIMIT: 25,
 
   // Extra grace period added to silence timeout when a transcript ends with an incomplete word/phrase
   INCOMPLETE_HEURISTIC_EXTRA_MS: 1500,
 
   // Maximum allowed silence before forced turn completion (hard upper limit)
-  MAX_SILENCE_BEFORE_FORCE_COMPLETE_MS: 5000,
+  MAX_SILENCE_BEFORE_FORCE_COMPLETE_MS: 6500,
 
   // Voice Activity Detection (VAD) audio parameters
   VAD_NOISE_FLOOR_RMS: 0.015,
@@ -39,6 +48,14 @@ export const TURN_MANAGER_CONFIG = {
     "since",
     "although",
     "where",
+    "also",
+    "meaning",
+    "basically",
+    "specifically",
+    "namely",
+    "furthermore",
+    "moreover",
+    "in terms of",
   ],
 };
 

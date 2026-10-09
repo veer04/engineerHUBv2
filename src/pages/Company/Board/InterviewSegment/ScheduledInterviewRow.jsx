@@ -3,10 +3,14 @@ import { FiExternalLink, FiPlus, FiCalendar, FiClock, FiShield } from "react-ico
 import { useNavigate } from "react-router-dom";
 import moment from "moment";
 function ProctoringCell({ proctoringCounts, proctoringSummary }) {
-  const counts = proctoringCounts || {
-    TAB_SWITCH: proctoringSummary?.tabSwitches || 0,
-    FULLSCREEN_EXIT: proctoringSummary?.fullscreenExits || 0,
-    WINDOW_BLUR: proctoringSummary?.warningCount || 0,
+  const counts = {
+    TAB_SWITCH: proctoringCounts?.TAB_SWITCH ?? proctoringSummary?.tabSwitches ?? 0,
+    FULLSCREEN_EXIT: proctoringCounts?.FULLSCREEN_EXIT ?? proctoringSummary?.fullscreenExits ?? 0,
+    WINDOW_BLUR: proctoringCounts?.WINDOW_BLUR ?? 0,
+    NO_FACE_DETECTED: proctoringCounts?.NO_FACE_DETECTED ?? proctoringSummary?.noFaceDetected ?? 0,
+    MULTIPLE_FACES_DETECTED: proctoringCounts?.MULTIPLE_FACES_DETECTED ?? proctoringSummary?.multipleFaces ?? 0,
+    CAMERA_DISABLED: proctoringCounts?.CAMERA_DISABLED ?? proctoringSummary?.cameraDisabled ?? 0,
+    ...(proctoringCounts || {}),
   };
 
   const getRiskBandFromCounts = (c = {}) => {
