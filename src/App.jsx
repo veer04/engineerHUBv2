@@ -86,6 +86,9 @@ import CompanyDashboardNew from "./pages/Profile/CompanyDashboardNew/CompanyDash
 const DigitalProductAdminPage = lazy(() =>
   import("./pages/Admin/DigitalProductAdminPage.jsx")
 );
+const EmployerLatest = lazy(() =>
+  import("./pages/Enterprise/EmployerLatest.jsx")
+);
 const ReferralAdminPage = lazy(() =>
   import("./pages/Admin/ReferralAdminPage.jsx")
 );
@@ -638,6 +641,7 @@ function App() {
           <Route path="*" element={<Page404 />} />
 
           <Route path="/employer" element={<Enterprise />} />
+          <Route path="/employer-latest" element={<EmployerLatest />} />
 
           {/* <Route
             path="/companydashboardnew"

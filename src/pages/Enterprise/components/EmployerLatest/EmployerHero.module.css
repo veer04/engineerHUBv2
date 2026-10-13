@@ -1,0 +1,406 @@
+.heroSection {
+  position: relative;
+  width: 100%;
+  background-color: #fafafa;
+  overflow: hidden;
+  border-bottom: 1px solid #e4e4e7;
+  padding: 80px 24px 60px;
+}
+
+/* Side Gutters with blueprint hatch pattern */
+.leftGutter,
+.rightGutter {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 70px;
+  background-color: #fafafa;
+  background-image: repeating-linear-gradient(45deg,
+      #e4e4e7,
+      #e4e4e7 1px,
+      transparent 1px,
+      transparent 8px);
+  background-size: 8px 8px;
+  opacity: 0.65;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.leftGutter {
+  left: 0;
+  border-right: 1px solid #e4e4e7;
+}
+
+.rightGutter {
+  right: 0;
+  border-left: 1px solid #e4e4e7;
+}
+
+.heroContainer {
+  position: relative;
+  max-width: 960px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  z-index: 1;
+}
+
+/* Pill Badge */
+.pillBadgeWrapper {
+  margin-bottom: 24px;
+}
+
+.pillBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #f0f6f8;
+  border: 1px solid #bcd3dc;
+  padding: 6px 16px;
+  border-radius: 9999px;
+  transition: all 0.2s ease;
+}
+
+.pillBadge:hover {
+  border-color: #093341;
+  background-color: #e6f1f4;
+}
+
+.pillPulseDot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: #093341;
+  box-shadow: 0 0 0 3px rgba(9, 51, 65, 0.18);
+  animation: pulseDot 2s infinite ease-in-out;
+}
+
+@keyframes pulseDot {
+
+  0%,
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 3px rgba(9, 51, 65, 0.18);
+  }
+
+  50% {
+    transform: scale(1.15);
+    box-shadow: 0 0 0 6px rgba(9, 51, 65, 0.08);
+  }
+}
+
+.pillText {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #093341;
+  text-transform: uppercase;
+}
+
+/* Editorial Headline */
+.mainHeadline {
+  font-size: clamp(1.8rem, 4.5vw, 3.8rem);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.035em;
+  color: #092b35;
+  margin: 0 0 20px;
+}
+
+.sayGoodbyeText {
+  color: #092b35;
+  display: inline-block;
+  font-size: 0.7em;
+  /* Decreased font size by 30% as requested */
+}
+
+.highlightWord {
+  color: #092b35;
+  position: relative;
+  display: inline-flex;
+  align-items: baseline;
+  justify-content: center;
+  flex-wrap: nowrap;
+}
+
+.blinkWord {
+  display: inline-block;
+  color: #092b35;
+  animation: sourceEngageHireBlink 3.9s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  animation-delay: var(--blink-delay, 0s);
+  transition: transform 0.2s ease, color 0.2s ease, text-shadow 0.2s ease;
+  will-change: color, text-shadow, transform;
+}
+
+.blinkDot {
+  display: inline-block;
+  color: #94a3b8;
+  opacity: 0.55;
+  font-weight: 700;
+  margin: 0 10px;
+  user-select: none;
+}
+
+@keyframes sourceEngageHireBlink {
+
+  0%,
+  100% {
+    color: #092b35;
+    transform: translateY(0) scale(1);
+    text-shadow: none;
+  }
+
+  14%,
+  26% {
+    color: #128381;
+    /* Secondary brand teal highlight */
+    transform: translateY(-2px) scale(1.03);
+    text-shadow: 0 4px 18px rgba(18, 131, 129, 0.38);
+  }
+
+  38% {
+    color: #092b35;
+    transform: translateY(0) scale(1);
+    text-shadow: none;
+  }
+}
+
+.subHeadline {
+  font-size: clamp(1rem, 1.8vw, 1.18rem);
+  font-weight: 450;
+  line-height: 1.6;
+  color: #52525b;
+  max-width: 760px;
+  margin: 0 auto 18px;
+}
+
+.affirmationBanner {
+  font-size: 14px;
+  color: #093341;
+  background: #f0f6f8;
+  border: 1px dashed #bcd3dc;
+  padding: 6px 18px;
+  border-radius: 9999px;
+  margin-bottom: 32px;
+}
+
+.affirmationBanner strong {
+  color: #051d25;
+}
+
+/* CTA Group */
+.ctaButtonGroup {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin-bottom: 48px;
+  flex-wrap: wrap;
+}
+
+.primaryBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background-color: #093341;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 12px 24px;
+  border-radius: 9999px;
+  border: 1px solid #093341;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(9, 51, 65, 0.25);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.primaryBtn:hover {
+  background-color: #0e4557;
+  border-color: #0e4557;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(9, 51, 65, 0.35);
+}
+
+.btnIcon {
+  transition: transform 0.2s ease;
+}
+
+.primaryBtn:hover .btnIcon {
+  transform: translateX(3px);
+}
+
+.secondaryBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background-color: #ffffff;
+  color: #093341;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 12px 22px;
+  border-radius: 9999px;
+  border: 1px solid #bcd3dc;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  transition: all 0.2s ease;
+}
+
+.secondaryBtn:hover {
+  background-color: #f0f6f8;
+  border-color: #093341;
+  transform: translateY(-2px);
+}
+
+.sparkleIcon {
+  color: #093341;
+}
+
+/* Metrics Strip */
+.metricsStrip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  padding: 16px 24px;
+  background-color: #ffffff;
+  border: 1px solid #e4e4e7;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+  max-width: 880px;
+  width: 100%;
+}
+
+.metricItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: #71717a;
+}
+
+.metricItem strong {
+  color: #093341;
+  font-weight: 700;
+}
+
+.metricIcon {
+  color: #093341;
+  flex-shrink: 0;
+}
+
+.metricDivider {
+  width: 1px;
+  height: 20px;
+  background-color: #e4e4e7;
+}
+
+@media (max-width: 900px) {
+  .leftGutter,
+  .rightGutter {
+    display: none;
+  }
+
+  .heroSection {
+    padding: 60px 16px 40px;
+  }
+
+  .mainHeadline {
+    font-size: clamp(1.65rem, 5.2vw, 2.8rem);
+    line-height: 1.18;
+  }
+
+  .metricsStrip {
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  .metricDivider {
+    display: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .heroSection {
+    padding: 44px 16px 36px;
+  }
+
+  .pillBadgeWrapper {
+    margin-bottom: 16px;
+  }
+
+  .pillBadge {
+    padding: 5px 14px;
+  }
+
+  .pillText {
+    font-size: 10px;
+    letter-spacing: 0.06em;
+  }
+
+  .mainHeadline {
+    font-size: clamp(1.38rem, 6.2vw, 1.95rem);
+    line-height: 1.22;
+    margin: 0 0 16px;
+  }
+
+  .sayGoodbyeText {
+    font-size: 0.72em;
+    margin-bottom: 2px;
+  }
+
+  .highlightWord {
+    flex-wrap: nowrap;
+    white-space: nowrap;
+  }
+
+  .blinkDot {
+    margin: 0 5px;
+  }
+
+  .subHeadline {
+    font-size: 13.5px;
+    line-height: 1.55;
+    margin: 0 auto 16px;
+    max-width: 100%;
+  }
+
+  .affirmationBanner {
+    font-size: 12px;
+    padding: 6px 14px;
+    margin-bottom: 26px;
+    line-height: 1.45;
+  }
+
+  .ctaButtonGroup {
+    gap: 10px;
+    margin-bottom: 36px;
+    width: 100%;
+  }
+
+  .primaryBtn,
+  .secondaryBtn {
+    width: 100%;
+    max-width: 290px;
+    padding: 11px 20px;
+    font-size: 13.5px;
+  }
+}
+
+@media (max-width: 380px) {
+  .mainHeadline {
+    font-size: 1.32rem;
+  }
+
+  .blinkDot {
+    margin: 0 3px;
+  }
+
+  .sayGoodbyeText {
+    font-size: 0.74em;
+  }
+}
