@@ -640,8 +640,9 @@ function App() {
           /> */}
           <Route path="*" element={<Page404 />} />
 
-          <Route path="/employer" element={<Enterprise />} />
+          <Route path="/employer" element={<EmployerLatest />} />
           <Route path="/employer-latest" element={<EmployerLatest />} />
+          <Route path="/employer-legacy" element={<Enterprise />} />
 
           {/* <Route
             path="/companydashboardnew"

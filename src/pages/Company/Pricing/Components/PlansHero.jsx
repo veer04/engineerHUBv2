@@ -102,11 +102,11 @@ export default function PlansHero({ onPostJob, onPostInternship, onTalkToTeam })
         Source, engage, assess, interview and hire - all from one platform.
       </p> */}
 
-      <p className="plans-hero-description">
+      {/* <p className="plans-hero-description">
         engineerHUB combines a powerful hiring platform with AI-powered recruitment
         tools and an expert hiring team, helping companies manage the entire hiring
         journey without relying on multiple recruitment tools.
-      </p>
+      </p> */}
 
       {/* <div className="plans-hero-actions">
         <button className="btn-hero-primary" onClick={onStartHiring}>

@@ -171,7 +171,10 @@ export default function ClientProofCarousel() {
         {/* Continuous Client Logo Strip */}
         <div className={styles.clienteleMarqueeWrapper}>
           <div className={styles.marqueeHeader}>
-            <span>TRUSTED BY 800+ HIRING TEAMS NATIONWIDE</span>
+            <span className={styles.marqueePill}>
+              TRUSTED BY 800+ HIRING TEAMS
+              <span className={styles.nationwideSuffix}> NATIONWIDE</span>
+            </span>
           </div>
           <div className={styles.marqueeTrack}>
             {[...ALL_CLIENT_LOGOS, ...ALL_CLIENT_LOGOS].map((logoUrl, i) => (
