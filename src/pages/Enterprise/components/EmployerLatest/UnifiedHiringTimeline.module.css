@@ -1,0 +1,240 @@
+.timelineSection {
+  width: 100%;
+  background-color: #fafafa;
+  border-bottom: 1px solid #e4e4e7;
+  padding: 100px 24px;
+  position: relative;
+}
+
+.timelineContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Header */
+.sectionHeader {
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto 80px;
+}
+
+.headerPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background-color: #f0f6f8;
+  color: #093341;
+  border: 1px solid #bcd3dc;
+  padding: 4px 14px;
+  border-radius: 9999px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  margin-bottom: 16px;
+}
+
+.pillSparkle {
+  color: #093341;
+}
+
+.sectionTitle {
+  font-size: clamp(2.2rem, 4vw, 3.2rem);
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  color: #0f6b6a;
+  margin: 0 0 16px;
+  line-height: 1.15;
+}
+
+.sectionSubtitle {
+  font-size: 15px;
+  color: #52525b;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Track & Spine */
+.timelineTrack {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 90px;
+}
+
+.spineLine {
+  position: absolute;
+  top: 20px;
+  bottom: 20px;
+  left: 50%;
+  width: 2px;
+  background: #e4e4e7;
+  transform: translateX(-50%);
+  z-index: 1;
+}
+
+/* Row Layout */
+.timelineRow {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  z-index: 2;
+}
+
+.centerNodeWrap {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+}
+
+.centerNode {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: #ffffff;
+  border: 2px solid #093341;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease;
+}
+
+.timelineRow:hover .centerNode {
+  transform: scale(1.1);
+}
+
+.sideBlock {
+  width: calc(50% - 46px);
+}
+
+.leftSideBlock {
+  padding-right: 20px;
+}
+
+.rightSideBlock {
+  padding-left: 20px;
+}
+
+/* Text Content Block */
+.textContent {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  background: linear-gradient(180deg, var(--segment-tint-bg, #ffffff) 0%, #ffffff 40%);
+  border: 1px solid var(--segment-tint-border, #e4e4e7);
+  border-radius: 16px;
+  padding: 32px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+}
+
+.textContent:hover {
+  border-color: var(--segment-theme-color, #128381);
+  box-shadow: 0 12px 28px -6px var(--segment-theme-shadow, rgba(18, 131, 129, 0.15));
+}
+
+.stepBadge {
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  padding: 3px 10px;
+  border-radius: 9999px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.stepHeadline {
+  font-size: 1.4rem;
+  font-weight: 750;
+  line-height: 1.28;
+  color: #092b35;
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+.stepDesc {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #52525b;
+  margin: 0;
+}
+
+.highlightList {
+  list-style: none;
+  padding: 0;
+  margin: 6px 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.highlightList li {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 13px;
+  color: #3f3f46;
+  line-height: 1.45;
+}
+
+/* Responsive Behavior */
+@media (max-width: 900px) {
+  .spineLine {
+    left: 24px;
+  }
+
+  .timelineRow {
+    flex-direction: column;
+    gap: 20px;
+    padding-left: 56px;
+  }
+
+  .centerNodeWrap {
+    left: 24px;
+    top: 36px;
+    transform: translate(-50%, 0);
+  }
+
+  .sideBlock {
+    width: 100%;
+    padding: 0;
+  }
+
+  .textContent {
+    padding: 24px;
+  }
+}
+
+@media (max-width: 640px) {
+  .timelineSection {
+    padding: 50px 16px;
+  }
+
+  .timelineRow {
+    padding-left: 46px;
+    gap: 16px;
+  }
+
+  .sectionTitle {
+    font-size: 1.8rem;
+  }
+
+  .stepHeadline {
+    font-size: 1.22rem;
+    line-height: 1.3;
+  }
+
+  .textContent {
+    padding: 20px 16px;
+    gap: 12px;
+  }
+
+  .stepDesc {
+    font-size: 13px;
+  }
+}

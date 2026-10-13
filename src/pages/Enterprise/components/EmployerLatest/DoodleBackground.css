@@ -1,0 +1,87 @@
+/* DoodleBackground.css - Interactive domain doodle icon background layer */
+
+.doodleBackgroundRoot {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+  user-select: none;
+}
+
+/* Hidden SVG definition container for hand-drawn turbulence displacement filter */
+.doodleFilterDefs {
+  position: absolute;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+  opacity: 0;
+  overflow: hidden;
+}
+
+/* Individual doodle icon element */
+.doodleIconItem {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  transform-origin: center center;
+
+  /* Hand-drawn sketch distortion filter */
+  filter: url(#doodle-wobble);
+
+  /* Fallback stroke/color */
+  color: var(--icon-color, #cbd5d1);
+  stroke: var(--icon-color, #cbd5d1);
+
+  /* Modern color-mix transition from default grey to brand teal */
+  color: color-mix(
+    in srgb,
+    var(--hover-color, #128381) calc(var(--p, 0) * 100%),
+    var(--icon-color, #cbd5d1)
+  );
+  stroke: color-mix(
+    in srgb,
+    var(--hover-color, #128381) calc(var(--p, 0) * 100%),
+    var(--icon-color, #cbd5d1)
+  );
+
+  /* Dynamic transform and opacity driven exclusively by CSS custom properties */
+  transform: rotate(var(--rot, 0deg)) scale(calc(1 + var(--p, 0) * 0.6));
+  opacity: calc(var(--base-opacity, 0.40) + var(--p, 0) * 0.20);
+
+  /* Easing transitions for smooth release back to baseline */
+  transition: transform 300ms ease-out, opacity 300ms ease-out, color 300ms ease-out, stroke 300ms ease-out;
+  will-change: transform, opacity;
+}
+
+/* Internal SVG vector styling: outline-only, round caps, 1.65px stroke width */
+.doodleSvg {
+  width: 100%;
+  height: 100%;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.65;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  display: block;
+}
+
+/* Touch and non-hover devices: disable dynamic scaling and stay static */
+@media (hover: none) {
+  .doodleIconItem {
+    transform: rotate(var(--rot, 0deg)) scale(1) !important;
+    transition: none !important;
+  }
+}
+
+/* Accessibility: respect user preference for reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .doodleIconItem {
+    transform: rotate(var(--rot, 0deg)) scale(1) !important;
+    transition: none !important;
+  }
+}

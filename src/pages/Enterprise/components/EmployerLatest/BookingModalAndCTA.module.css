@@ -1,0 +1,320 @@
+.ctaSection {
+  width: 100%;
+  background-color: #ffffff;
+  padding: 90px 24px 100px;
+}
+
+.ctaContainer {
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+.ctaCard {
+  position: relative;
+  background-color: #093341;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px -10px rgba(9, 51, 65, 0.35);
+  border: 1px solid #14556a;
+}
+
+/* Diagonal hatched background accent */
+.cardHatchOverlay {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 45%;
+  background-image: repeating-linear-gradient(45deg,
+      rgba(255, 255, 255, 0.04),
+      rgba(255, 255, 255, 0.04) 1px,
+      transparent 1px,
+      transparent 10px);
+  background-size: 10px 10px;
+  pointer-events: none;
+}
+
+.cardContent {
+  position: relative;
+  z-index: 2;
+  padding: 64px 48px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  max-width: 820px;
+  margin: 0 auto;
+}
+
+.pillBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background-color: rgba(255, 255, 255, 0.12);
+  color: #dcfce7;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 4px 14px;
+  border-radius: 9999px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  margin-bottom: 20px;
+}
+
+.sparkleIcon {
+  color: #38bdf8;
+}
+
+.ctaTitle {
+  font-size: clamp(2.2rem, 4.2vw, 3.2rem);
+  font-weight: 850;
+  color: whitesmoke;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+}
+
+.ctaSubtitle {
+  font-size: 16px;
+  color: #bcd3dc;
+  line-height: 1.6;
+  max-width: 660px;
+  margin: 0 0 36px;
+}
+
+.actionsBar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 44px;
+  flex-wrap: wrap;
+}
+
+.btnBookSlot {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #ffffff;
+  color: #093341;
+  border: 1px solid #ffffff;
+  font-size: 15px;
+  font-weight: 750;
+  padding: 14px 28px;
+  border-radius: 9999px;
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btnBookSlot:hover {
+  background-color: #f0f6f8;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.3);
+}
+
+.btnQuickConnect {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background-color: transparent;
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  font-size: 14px;
+  font-weight: 600;
+  padding: 14px 24px;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btnQuickConnect:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: #ffffff;
+}
+
+.contactsStrip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+
+.contactItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  padding: 8px 16px;
+  border-radius: 9999px;
+  color: #e6f1f4;
+  font-size: 13px;
+  font-weight: 550;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.contactItem:hover {
+  background: rgba(255, 255, 255, 0.16);
+  border-color: rgba(255, 255, 255, 0.3);
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+
+.contactIconWrap {
+  color: #7dd3fc;
+  display: flex;
+  align-items: center;
+}
+
+/* Modal */
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(5, 29, 37, 0.65);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  z-index: 9999;
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.modalBox {
+  position: relative;
+  background: #ffffff;
+  border-radius: 18px;
+  max-width: 480px;
+  width: 100%;
+  padding: 32px;
+  box-shadow: 0 20px 40px rgba(9, 51, 65, 0.25);
+  border: 1px solid #bcd3dc;
+  display: flex;
+  flex-direction: column;
+}
+
+.modalCloseBtn {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid #e4e4e7;
+  background: #fafafa;
+  color: #71717a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.modalCloseBtn:hover {
+  background: #f4f4f5;
+  color: #092b35;
+}
+
+.modalTitle {
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: #093341;
+  margin: 0 0 6px;
+}
+
+.modalDesc {
+  font-size: 13px;
+  color: #52525b;
+  margin: 0 0 24px;
+}
+
+.modalOptionList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.modalOption {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 16px;
+  background: #f0f6f8;
+  border: 1px solid #bcd3dc;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.modalOption:hover {
+  background: #e6f1f4;
+  border-color: #093341;
+  transform: translateY(-1px);
+}
+
+.modalOptionIcon {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #093341;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.modalOptionText {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.modalOptionText strong {
+  font-size: 13px;
+  color: #092b35;
+}
+
+.modalOptionText span {
+  font-size: 11.5px;
+  color: #52525b;
+}
+
+.modalSlotBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: #093341;
+  color: #ffffff;
+  border: 1px solid #093341;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 12px 18px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.modalSlotBtn:hover {
+  background: #0e4557;
+}
+
+@media (max-width: 768px) {
+  .cardContent {
+    padding: 40px 20px;
+  }
+}
