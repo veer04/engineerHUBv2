@@ -159,14 +159,31 @@
   font-weight: 500;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 900px) {
+  .mediaSlotWrapper {
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .hatchFrame {
+    padding: 12px;
+    border-radius: 16px;
+  }
+}
+
+@media (max-width: 640px) {
+  .mediaSlotWrapper {
+    max-width: 100%;
+    width: 100%;
+  }
+
   .hatchFrame {
     padding: 10px;
     border-radius: 14px;
   }
   
   .mediaContainer {
-    min-height: 240px;
+    min-height: 220px;
   }
   
   .windowBrand {

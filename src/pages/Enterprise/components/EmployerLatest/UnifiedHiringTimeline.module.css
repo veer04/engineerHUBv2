@@ -58,7 +58,7 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: 90px;
+  gap: 120px;
 }
 
 .spineLine {
@@ -139,13 +139,25 @@
 .stepBadge {
   display: inline-flex;
   align-items: center;
+  gap: 6px;
   align-self: flex-start;
-  padding: 3px 10px;
+  padding: 4px 12px;
   border-radius: 9999px;
   font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.04em;
   text-transform: uppercase;
+}
+
+.badgeIcon {
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+.textSide,
+.mediaSide {
+  display: flex;
+  flex-direction: column;
 }
 
 .stepHeadline {
@@ -185,39 +197,63 @@
 /* Responsive Behavior */
 @media (max-width: 900px) {
   .spineLine {
-    left: 24px;
+    display: none;
+  }
+
+  .centerNodeWrap {
+    display: none;
+  }
+
+  .timelineTrack {
+    gap: 84px;
   }
 
   .timelineRow {
     flex-direction: column;
-    gap: 20px;
-    padding-left: 56px;
-  }
-
-  .centerNodeWrap {
-    left: 24px;
-    top: 36px;
-    transform: translate(-50%, 0);
+    gap: 16px;
+    padding-left: 0;
+    width: 100%;
   }
 
   .sideBlock {
     width: 100%;
+    max-width: 100%;
     padding: 0;
   }
 
+  .leftSideBlock,
+  .rightSideBlock {
+    padding: 0;
+  }
+
+  .textSide {
+    order: 1;
+    width: 100%;
+  }
+
+  .mediaSide {
+    order: 2;
+    width: 100%;
+  }
+
   .textContent {
+    width: 100%;
     padding: 24px;
   }
 }
 
 @media (max-width: 640px) {
   .timelineSection {
-    padding: 50px 16px;
+    padding: 44px 16px;
+  }
+
+  .timelineTrack {
+    gap: 72px;
   }
 
   .timelineRow {
-    padding-left: 46px;
-    gap: 16px;
+    padding-left: 0;
+    gap: 14px;
   }
 
   .sectionTitle {
@@ -232,6 +268,7 @@
   .textContent {
     padding: 20px 16px;
     gap: 12px;
+    border-radius: 14px;
   }
 
   .stepDesc {

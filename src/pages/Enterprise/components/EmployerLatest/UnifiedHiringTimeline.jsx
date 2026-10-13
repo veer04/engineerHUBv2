@@ -170,7 +170,11 @@ export default function UnifiedHiringTimeline() {
                 </div>
 
                 {/* Left Block */}
-                <div className={`${styles.sideBlock} ${styles.leftSideBlock}`}>
+                <div
+                  className={`${styles.sideBlock} ${styles.leftSideBlock} ${
+                    isMediaRight ? styles.textSide : styles.mediaSide
+                  }`}
+                >
                   {isMediaRight ? (
                     /* Text Content */
                     <div
@@ -190,7 +194,8 @@ export default function UnifiedHiringTimeline() {
                           color: step.badgeTextColor,
                         }}
                       >
-                        {step.badgeText}
+                        <Icon size={14} className={styles.badgeIcon} />
+                        <span>{step.badgeText}</span>
                       </span>
                       <h3 className={styles.stepHeadline}>{step.headline}</h3>
                       <p className={styles.stepDesc}>{step.description}</p>
@@ -226,7 +231,11 @@ export default function UnifiedHiringTimeline() {
                 </div>
 
                 {/* Right Block */}
-                <div className={`${styles.sideBlock} ${styles.rightSideBlock}`}>
+                <div
+                  className={`${styles.sideBlock} ${styles.rightSideBlock} ${
+                    isMediaRight ? styles.mediaSide : styles.textSide
+                  }`}
+                >
                   {isMediaRight ? (
                     /* Media Slot */
                     <StepMediaSlot
@@ -262,7 +271,8 @@ export default function UnifiedHiringTimeline() {
                           color: step.badgeTextColor,
                         }}
                       >
-                        {step.badgeText}
+                        <Icon size={14} className={styles.badgeIcon} />
+                        <span>{step.badgeText}</span>
                       </span>
                       <h3 className={styles.stepHeadline}>{step.headline}</h3>
                       <p className={styles.stepDesc}>{step.description}</p>
