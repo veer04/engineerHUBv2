@@ -59,9 +59,9 @@ export default function OpportunityLaunchpad({ isPaid = true }) {
               from one unified recruiter workspace.
             </p>
 
-            <div className={styles.cardFooterTag}>
+            {/* <div className={styles.cardFooterTag}>
               <span>Full-time Engineers · Graduating Batches 2024–2026</span>
-            </div>
+            </div> */}
           </article>
 
           {/* Internships Card */}
@@ -95,9 +95,9 @@ export default function OpportunityLaunchpad({ isPaid = true }) {
               Hire talented interns from a nationwide network of engineering students across 800+ colleges.
             </p>
 
-            <div className={styles.cardFooterTag}>
+            {/* <div className={styles.cardFooterTag}>
               <span>Summer & Winter Internships · Pre-Placement Offers (PPOs)</span>
-            </div>
+            </div> */}
           </article>
         </div>
       </div>
