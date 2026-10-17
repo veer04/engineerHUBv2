@@ -35,8 +35,9 @@ import AlumniList from "../TrendingList/AlumniList";
 import Page404 from "../../pages/Maintenance/Page404";
 import LoadingPage from "../Loader/LoadingPage";
 import default_profile_icon from "../../pages/Profile/ClubDashboard/default_profile_icon.png";
-import { isUserLoggedIn, getUserId } from "../../features/User/UserDetails";
+import { isUserLoggedIn, getUserId, getUserRole } from "../../features/User/UserDetails";
 import TrendingListAlumni from "../TrendingList/TrendingListAlumni";
+import SubscriptionInfoModal from "../SubscriptionModal/SubscriptionInfoModal";
 const TrendingAlumni = () => {
   const { almaId } = useParams();
   const { userId } = useParams();
@@ -48,7 +49,7 @@ const TrendingAlumni = () => {
   const [alumniData, setAlumniData] = useState({});
   const [alumni, setAlumni] = useState({});
   const [allAlumni, setAllAlumni] = useState([]);
-  const [isUserAdmin, setIsUserAdmin] = useState(true);
+  const [isUserAdmin, setIsUserAdmin] = useState(false);
   const [viewMore1, setViewMore1] = useState(false);
   const [showAll1, setShowAll1] = useState(false);
   const [viewMore2, setViewMore2] = useState(false);
@@ -743,6 +744,9 @@ const TrendingAlumni = () => {
             </section>
           </div>
         </div>
+        {isUserAdmin && (alumniData?.role === "Alumni" || getUserRole() === "Alumni") && (
+          <SubscriptionInfoModal />
+        )}
       </main>
     </>
   );

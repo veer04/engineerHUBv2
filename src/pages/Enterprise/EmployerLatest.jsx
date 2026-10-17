@@ -33,6 +33,15 @@ export default function EmployerLatest() {
       }
     };
     checkSub();
+
+    const handleSubUpdated = () => {
+      checkSub();
+    };
+
+    window.addEventListener("subscription-updated", handleSubUpdated);
+    return () => {
+      window.removeEventListener("subscription-updated", handleSubUpdated);
+    };
   }, []);
 
   // Handle URL hash navigation (e.g. #book-slot-section or #hire-talent-section)

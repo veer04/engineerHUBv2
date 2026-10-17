@@ -8,13 +8,14 @@ import HostPageForProfileDashboard from "./HostpageForProfileDashboard/HostPageF
 import YourActivitySection from "./YourActivitySection/YourActivitySection";
 import ProfileWithFollowAndMail from "./UserViewProfileDashboard/ProfileWithFollowAndMail/ProfileWithFollowAndMail";
 import UserStatsSection from "./UserViewProfileDashboard/UserStatsSection/UserStatsSection";
-import { getUserId } from "../../features/User/UserDetails";
+import { getUserId, getUserRole, isUserLoggedIn } from "../../features/User/UserDetails";
 import { API_URL, Bucket_URL } from "../../services/APIUtils";
 import axios from "axios";
 import { getAccessToken } from "../../features/getCookieValues";
 import { useParams } from "react-router-dom";
 import ProfileDashboardUserView from "./UserViewProfileDashboard/ProfileDashboardUserView/ProfileDashboardUserView";
 import AdsenseComp from "../AdsenseComp/AdsenseComp";
+import SubscriptionInfoModal from "../SubscriptionModal/SubscriptionInfoModal";
 
 const ProfileDashboard = () => {
   const [privateDashboardData, setPrivateDashboardData] = useState(null);
@@ -213,6 +214,9 @@ const ProfileDashboard = () => {
         </div>
         */}
         
+        {isUserLoggedIn() && getUserRole() === "Alumni" && (!userId || userId === getUserId()) && (
+          <SubscriptionInfoModal />
+        )}
       </main>
     </>
   );

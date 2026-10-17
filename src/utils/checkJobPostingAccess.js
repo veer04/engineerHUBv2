@@ -23,9 +23,16 @@ export const hasActivePaidPlan = async () => {
     });
 
     if (res.data?.success && res.data?.data) {
-      const wallet = res.data.data.wallet || {};
-      const sub = res.data.data.activeSubscription;
-      const plan = (wallet.plan || sub?.planId || "free").toLowerCase();
+      const { wallet = {}, activeSubscription, subscriptionState } = res.data.data;
+      if (subscriptionState === "expired" || wallet.subscriptionStatus === "expired") {
+        return false;
+      }
+
+      if (activeSubscription?.expiresAt && new Date(activeSubscription.expiresAt) <= new Date()) {
+        return false;
+      }
+
+      const plan = (wallet.plan || activeSubscription?.planId || "free").toLowerCase();
 
       if (plan === "starter" || plan === "ultra" || plan === "professional" || plan === "pro") {
         return true;

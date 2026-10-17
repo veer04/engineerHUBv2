@@ -1,12 +1,15 @@
 import React from "react";
-import { CheckCircle2, Clock, Sparkles, Filter, FileCheck, Mic, ArrowRight } from "lucide-react";
+import { CheckCircle2, Clock, Sparkles, Filter, FileCheck, Mic, ArrowRight, Info } from "lucide-react";
 import "./CurrentPlanCard.css";
 
-export default function CurrentPlanCard({ subscription, onManagePlan }) {
+export default function CurrentPlanCard({ subscription, onManagePlan, onOpenRenewalModal }) {
   const {
     planId = "free",
     planName = "Free",
     status = "active",
+    effectiveStatus,
+    subscriptionState,
+    cancelAtPeriodEnd = false,
     creditsTotal = 0,
     creditsUsed = 0,
     creditsRemaining = 0,
@@ -14,6 +17,14 @@ export default function CurrentPlanCard({ subscription, onManagePlan }) {
   } = subscription || {};
 
   const isFreePlan = planId.toLowerCase() === "free" || creditsTotal === 0;
+  const isCancelled =
+    Boolean(cancelAtPeriodEnd) ||
+    subscriptionState === "cancellation_scheduled" ||
+    effectiveStatus === "cancels_at_period_end";
+  const isPlanExpired =
+    status === "expired" ||
+    subscriptionState === "expired" ||
+    effectiveStatus === "expired";
 
   const usagePercent = creditsTotal > 0
     ? Math.min(Math.round((creditsUsed / creditsTotal) * 100), 100)
@@ -77,10 +88,22 @@ export default function CurrentPlanCard({ subscription, onManagePlan }) {
         <div className="current-plan-info">
           <div className="current-plan-header-row">
             <span className="current-plan-badge-tag">YOUR ACTIVE SUBSCRIPTION</span>
-            <span className="active-status-dot"><span className="dot-pulse" /> Active</span>
+            {isPlanExpired ? (
+              <span className="active-status-dot dot-expired">
+                <span className="dot-pulse dot-rose-pulse" /> Expired
+              </span>
+            ) : isCancelled ? (
+              <span className="active-status-dot dot-cancellation">
+                <span className="dot-pulse dot-amber-pulse" /> Cancels at Period End
+              </span>
+            ) : (
+              <span className="active-status-dot">
+                <span className="dot-pulse" /> Active
+              </span>
+            )}
           </div>
 
-          <h2 className="current-plan-header-title">{planName} Plan</h2>
+          <h2 className="current-plan-header-title">{(planName || "Free").replace(/\s*Plan$/i, "")} Plan</h2>
           
           {isFreePlan ? (
             <p className="current-plan-subtext free-plan-subtext">
@@ -112,22 +135,47 @@ export default function CurrentPlanCard({ subscription, onManagePlan }) {
         </div>
 
         <div className="current-plan-actions">
-          <div className="renew-status-chip">
+          <div
+            className={`renew-status-chip ${isCancelled ? "chip-cancellation" : ""} ${isPlanExpired ? "chip-expired" : ""}`}
+            style={{ cursor: "pointer" }}
+            onClick={() => {
+              if (onOpenRenewalModal) {
+                onOpenRenewalModal();
+              } else {
+                window.dispatchEvent(new CustomEvent("open-subscription-info-modal"));
+              }
+            }}
+            title="Click to view subscription & renewal details"
+          >
             <Clock size={14} />
             <span>
-              {status === "active"
+              {isPlanExpired
+                ? "Subscription Expired"
+                : isCancelled
+                ? `Expires in ${renewsInDays} days`
+                : status === "active"
                 ? `Renews in ${renewsInDays} days`
                 : "Plan Active"}
             </span>
           </div>
-
-          <button
-            className={`btn-manage-plan ${isFreePlan ? "btn-upgrade-highlight" : ""}`}
-            onClick={onManagePlan}
-          >
-            {isFreePlan ? "Upgrade Plan" : "Manage Plan"} <ArrowRight size={16} />
-          </button>
         </div>
+
+        {/* Fixed (i) Info Button in the bottom-right corner of the subscription banner */}
+        <button
+          type="button"
+          className="btn-plan-info-corner"
+          onClick={() => {
+            if (onOpenRenewalModal) {
+              onOpenRenewalModal();
+            } else {
+              window.dispatchEvent(new CustomEvent("open-subscription-info-modal"));
+            }
+          }}
+          title="Subscription & Renewal Details"
+          aria-label="View Subscription & Renewal Details"
+        >
+          <Info size={14} strokeWidth={2.4} />
+        </button>
       </div>
 
       {/* 3. Capability Calculations Breakdown */}
