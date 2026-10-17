@@ -10,13 +10,37 @@ export default function CurrentPlanCard({ subscription, onManagePlan, onOpenRene
     effectiveStatus,
     subscriptionState,
     cancelAtPeriodEnd = false,
-    creditsTotal = 0,
-    creditsUsed = 0,
-    creditsRemaining = 0,
+    creditsTotal: propCreditsTotal = 0,
+    creditsUsed: propCreditsUsed = 0,
+    creditsRemaining: propCreditsRemaining = 0,
     renewsInDays = 30,
   } = subscription || {};
 
-  const isFreePlan = planId.toLowerCase() === "free" || creditsTotal === 0;
+  const normPlan = (planId || "free").toLowerCase();
+  const isFreePlan = normPlan === "free";
+
+  let defaultPlanCredits = 0;
+  if (normPlan.includes("starter")) defaultPlanCredits = 200;
+  else if (normPlan.includes("ultra")) defaultPlanCredits = 1500;
+  else if (normPlan.includes("pro")) defaultPlanCredits = 5000;
+
+  // Use the active plan quota rather than cumulative lifetime purchases
+  const creditsTotal = isFreePlan
+    ? 0
+    : (propCreditsTotal > 0 && propCreditsTotal <= (defaultPlanCredits || 200) * 1.5
+        ? propCreditsTotal
+        : (defaultPlanCredits || propCreditsTotal || 200));
+
+  const creditsRemaining = isFreePlan
+    ? 0
+    : Math.min(Number(propCreditsRemaining) || 0, creditsTotal || 200);
+
+  const creditsUsed = isFreePlan
+    ? 0
+    : (propCreditsUsed > 0 && propCreditsUsed <= creditsTotal
+        ? propCreditsUsed
+        : Math.max(0, creditsTotal - creditsRemaining));
+
   const isCancelled =
     Boolean(cancelAtPeriodEnd) ||
     subscriptionState === "cancellation_scheduled" ||

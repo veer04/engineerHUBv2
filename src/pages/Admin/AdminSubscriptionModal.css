@@ -184,41 +184,91 @@
 
 /* Account Preview Card */
 .admin-sub-account-preview {
-  background: #f0fdf4;
-  border: 1px solid #bbf7d0;
-  border-radius: 10px;
-  padding: 0.9rem 1rem;
+  background: #ffffff;
+  border: 1px solid #d1fae5;
+  border-radius: 12px;
+  padding: 0.95rem 1rem;
   display: flex;
   flex-direction: column;
-  gap: 0.35rem;
+  gap: 0.75rem;
+  box-shadow: 0 4px 14px rgba(16, 185, 129, 0.05);
 }
 
 .admin-sub-account-preview.not-found {
   background: #fffbeb;
   border-color: #fef08a;
+  box-shadow: 0 4px 14px rgba(245, 158, 11, 0.05);
 }
 
 .admin-sub-preview-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.admin-sub-preview-user-info {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  flex-wrap: wrap;
 }
 
 .admin-sub-preview-name {
   font-weight: 700;
-  color: #065f46;
-  font-size: 0.92rem;
+  color: #0f172a;
+  font-size: 0.95rem;
+}
+
+.admin-sub-preview-type-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #0e7490;
+  background: #ecfeff;
+  border: 1px solid #a5f3fc;
+  border-radius: 999px;
+  padding: 0.12rem 0.5rem;
 }
 
 .admin-sub-preview-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
   font-size: 0.72rem;
   font-weight: 700;
   text-transform: uppercase;
-  padding: 0.15rem 0.5rem;
+  letter-spacing: 0.02em;
+  padding: 0.2rem 0.6rem;
   border-radius: 999px;
   background: #dcfce7;
   color: #15803d;
   border: 1px solid #86efac;
+}
+
+.admin-sub-preview-status-badge.active {
+  background: #dcfce7;
+  color: #15803d;
+  border-color: #86efac;
+}
+
+.admin-sub-preview-status-badge.expiring,
+.admin-sub-preview-status-badge.expiring_soon {
+  background: #fef3c7;
+  color: #b45309;
+  border-color: #fde68a;
+}
+
+.admin-sub-preview-status-badge.cancelling,
+.admin-sub-preview-status-badge.cancellation_scheduled {
+  background: #fff7ed;
+  color: #c2410c;
+  border-color: #fed7aa;
 }
 
 .admin-sub-preview-status-badge.expired {
@@ -233,18 +283,96 @@
   border-color: #cbd5e1;
 }
 
-.admin-sub-preview-details {
-  font-size: 0.8rem;
-  color: #1e3a2f;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
+/* 3-Box Stats Grid */
+.admin-sub-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.55rem;
 }
 
-.admin-sub-preview-details span {
+@media (max-width: 540px) {
+  .admin-sub-stats-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.admin-sub-stat-card {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 0.55rem 0.65rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.admin-sub-stat-card.highlight {
+  background: #f0fdf4;
+  border-color: #bbf7d0;
+}
+
+.admin-sub-stat-label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
   display: flex;
   align-items: center;
   gap: 0.3rem;
+}
+
+.admin-sub-stat-val {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.admin-sub-stat-val.green {
+  color: #047857;
+}
+
+.admin-sub-stat-val.amber {
+  color: #b45309;
+}
+
+.admin-sub-stat-val.red {
+  color: #dc2626;
+}
+
+.admin-sub-stat-sub {
+  font-size: 0.7rem;
+  color: #64748b;
+  line-height: 1.3;
+}
+
+/* Stat Notice Banners */
+.admin-sub-stat-notice {
+  font-size: 0.78rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  line-height: 1.4;
+}
+
+.admin-sub-stat-notice.warning {
+  background: #fffbeb;
+  color: #92400e;
+  border: 1px solid #fde68a;
+}
+
+.admin-sub-stat-notice.danger {
+  background: #fef2f2;
+  color: #991b1b;
+  border: 1px solid #fecaca;
+}
+
+.admin-sub-stat-notice.info {
+  background: #f0f9ff;
+  color: #0369a1;
+  border: 1px solid #bae6fd;
 }
 
 /* Info Alert Callout */
@@ -345,3 +473,145 @@
   width: 16px;
   height: 16px;
 }
+
+/* Warning callout inside verified preview */
+.admin-sub-warning-banner {
+  background: #fffbeb;
+  border: 1px solid #fde68a;
+  border-radius: 6px;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.78rem;
+  color: #92400e;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.45rem;
+  line-height: 1.4;
+  margin-top: 0.4rem;
+}
+
+/* One-click quick switch button */
+.admin-sub-switch-btn {
+  background: #093341;
+  color: #ffffff;
+  border: none;
+  padding: 0.45rem 0.85rem;
+  border-radius: 6px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+  align-self: flex-start;
+  transition: all 0.15s ease;
+  margin-top: 0.25rem;
+}
+
+.admin-sub-switch-btn:hover {
+  background: #0d4659;
+  transform: translateY(-1px);
+}
+
+/* Delete Subscription Record Button on Admin Subscriptions Table */
+.btn-delete-sub-record {
+  background: transparent;
+  border: 1px solid #fecdd3;
+  color: #e11d48;
+  border-radius: 6px;
+  width: 26px;
+  height: 26px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  padding: 0;
+  flex-shrink: 0;
+  margin-left: 6px;
+}
+
+.btn-delete-sub-record:hover:not(:disabled) {
+  background: #ffe4e6;
+  border-color: #f43f5e;
+  transform: scale(1.1);
+}
+
+.btn-delete-sub-record:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Auto-Renew Pill Badge inside Verified Account Preview */
+.admin-sub-autorenew-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  transition: all 0.2s ease;
+}
+
+.admin-sub-autorenew-pill.autorenew-on {
+  background: #ecfdf5;
+  color: #047857;
+  border: 1px solid #a7f3d0;
+}
+
+.admin-sub-autorenew-pill.autorenew-off {
+  background: #fff7ed;
+  color: #c2410c;
+  border: 1px solid #fed7aa;
+}
+
+/* Contextual Notice for Cancel Auto-Renew */
+.admin-sub-action-notice {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.55rem;
+  padding: 0.75rem 0.85rem;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  line-height: 1.45;
+}
+
+.admin-sub-action-notice.cancel-renewal-notice {
+  background: #fff7ed;
+  border: 1px solid #fed7aa;
+  color: #9a3412;
+}
+
+/* Dynamic Submit Button Colors */
+.admin-sub-submit-btn.cancel-renewal {
+  background: linear-gradient(135deg, #c2410c 0%, #ea580c 100%);
+  box-shadow: 0 4px 12px rgba(194, 65, 12, 0.25);
+}
+
+.admin-sub-submit-btn.cancel-renewal:hover:not(:disabled) {
+  background: linear-gradient(135deg, #9a3412 0%, #c2410c 100%);
+  box-shadow: 0 6px 16px rgba(194, 65, 12, 0.35);
+}
+
+.admin-sub-submit-btn.expire {
+  background: linear-gradient(135deg, #b91c1c 0%, #dc2626 100%);
+  box-shadow: 0 4px 12px rgba(185, 28, 28, 0.25);
+}
+
+.admin-sub-submit-btn.expire:hover:not(:disabled) {
+  background: linear-gradient(135deg, #991b1b 0%, #b91c1c 100%);
+  box-shadow: 0 6px 16px rgba(185, 28, 28, 0.35);
+}
+
+@keyframes spinSlow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.spin-slow {
+  animation: spinSlow 3s linear infinite;
+}
+

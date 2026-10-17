@@ -33,11 +33,16 @@ const RateLimitIndicator = ({
           });
           if (res.data?.success && res.data?.data?.wallet) {
             const w = res.data.data.wallet;
+            const sub = res.data.data.activeSubscription;
             const isFree = (w.plan || "free").toLowerCase() === "free";
+            const planQuota = sub?.creditsAllocated || w.planCredits || (w.plan === 'starter' ? 200 : w.plan === 'ultra' ? 1500 : 5000);
+            const total = isFree ? 0 : planQuota;
+            const available = isFree ? 0 : Math.min(Number(w.availableCredits) || 0, total);
+            const used = isFree ? 0 : Math.max(0, total - available);
             setLiveWallet({
-              used: w.totalConsumed || 0,
-              available: isFree ? 0 : (w.availableCredits !== undefined ? w.availableCredits : 0),
-              total: isFree ? 0 : (w.totalPurchased || (w.plan === 'starter' ? 200 : w.plan === 'ultra' ? 1500 : 10000)),
+              used,
+              available,
+              total,
               isFree,
             });
           }
