@@ -58,6 +58,7 @@ import ProjectCards from "../../Company/Projects/ProjectCards";
 import { MdAdd } from "react-icons/md";
 import ClubPostCard from "../../../components/ClubPostCard/ClubPostCard";
 import PostCard from "../../../components/ClubPostCard/PostCard";
+import SubscriptionInfoModal from "../../../components/SubscriptionModal/SubscriptionInfoModal";
 
 export default function UserDashboard() {
   const navigate = useNavigate();
@@ -1124,6 +1125,7 @@ export default function UserDashboard() {
         </section>
       )}
       <Outlet />
+      {isUserAdmin && user?.role === "Alumni" && <SubscriptionInfoModal />}
     </main>
   );
 

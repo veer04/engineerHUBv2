@@ -29,6 +29,7 @@ import { getAccessToken, getUserId, isUserLoggedIn } from "../../../features/Use
 import HostPageForComapnyDashboard from "./HostPageForCompanyDashboard/HostPageForCompanyDashboard";
 import ChooseHiringMode from "../../Company/Pricing/Components/ChooseHiringMode";
 import CurrentPlanCard from "../../Company/Pricing/Components/CurrentPlanCard";
+import SubscriptionInfoModal from "../../../components/SubscriptionModal/SubscriptionInfoModal";
 
 const CompanyDashboardNew = () => {
   const navigate = useNavigate();
@@ -47,6 +48,8 @@ const CompanyDashboardNew = () => {
       try {
         const baseUrl = API_URL.endsWith("/") ? API_URL : `${API_URL}/`;
         const token = getAccessToken();
+        if (!token) return;
+
         const res = await axios.get(`${baseUrl}api/v1/plans/my-subscription`, {
           withCredentials: true,
           headers: {
@@ -55,30 +58,62 @@ const CompanyDashboardNew = () => {
           },
         });
         if (res.data?.success && res.data?.data) {
-          const { wallet = {}, activeSubscription } = res.data.data;
-          const plan = (wallet.plan || "free").toLowerCase();
-          const expiresAt = activeSubscription?.expiresAt;
+          const {
+            wallet = {},
+            activeSubscription,
+            latestSubscription,
+            subscriptionState = "none",
+            effectiveStatus,
+          } = res.data.data;
+
+          const sub = activeSubscription || latestSubscription;
+          const plan = (wallet.plan || sub?.planId || "free").toLowerCase();
+          const expiresAt = activeSubscription?.expiresAt || latestSubscription?.expiresAt;
+          const startDate = activeSubscription?.startDate || latestSubscription?.startDate;
 
           let planName = "Free";
           if (plan === "starter") planName = "Starter";
           else if (plan === "ultra") planName = "Ultra";
           else if (plan.includes("pro")) planName = "Professional";
 
+          const cancelAtPeriodEnd = Boolean(
+            activeSubscription?.cancelAtPeriodEnd || wallet.cancelAtPeriodEnd
+          );
+          const autoRenew = activeSubscription ? Boolean(activeSubscription.autoRenew) : false;
+
           setSubscription({
             planId: plan,
             planName,
             status: wallet.subscriptionStatus || "active",
+            effectiveStatus: effectiveStatus || (cancelAtPeriodEnd ? "cancels_at_period_end" : "active"),
+            subscriptionState,
+            cancelAtPeriodEnd,
+            autoRenew,
+            startDate,
+            expiresAt,
             creditsTotal: Number(wallet.totalPurchased) || 0,
             creditsUsed: Number(wallet.totalConsumed) || 0,
             creditsRemaining: Number(wallet.availableCredits) || 0,
-            renewsInDays: expiresAt ? Math.max(0, Math.ceil((new Date(expiresAt) - new Date()) / (1000 * 60 * 60 * 24))) : 30,
+            renewsInDays: expiresAt
+              ? Math.max(0, Math.ceil((new Date(expiresAt) - new Date()) / (1000 * 60 * 60 * 24)))
+              : 30,
           });
         }
       } catch (err) {
         console.log("Dashboard subscription fetch error:", err.message);
       }
     };
+
     fetchSub();
+
+    const handleSubUpdated = () => {
+      fetchSub();
+    };
+
+    window.addEventListener("subscription-updated", handleSubUpdated);
+    return () => {
+      window.removeEventListener("subscription-updated", handleSubUpdated);
+    };
   }, []);
   const [projects, setProjects] = useState([]);
   const [followResponse, setFollowResponse] = useState({});
@@ -273,6 +308,14 @@ const CompanyDashboardNew = () => {
             onManagePlan={() => navigate("/pricing")}
           />
         </div>
+      )}
+
+      {isUserAdmin && (
+        <SubscriptionInfoModal
+          organizationId={organizationId}
+          onStatusChange={(newSub) => setSubscription(newSub)}
+          hideFloatingTrigger={true}
+        />
       )}
 
       <div style={{ marginBottom: 20 }}>

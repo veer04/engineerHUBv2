@@ -1,14 +1,17 @@
-import { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import {
   getAccessToken,
   getUserEmail,
+  getUserRole,
   isUserLoggedIn,
 } from "../../features/User/UserDetails";
 import Page404 from "../Maintenance/Page404";
 import "./ReferralAdminPage.css";
+import "./AdminSubscriptionModal.css";
 import { Helmet } from "react-helmet";
 import { IoIosInformationCircleOutline, IoMdCheckmark } from "react-icons/io";
 import { IoCloseCircleOutline } from "react-icons/io5";
+import { ShieldCheck } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { PAYMENT_API_URL } from "../../services/APIUtils";
@@ -16,6 +19,7 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import moment from "moment/moment";
 import PaginationBarWithSearchParams from "../../components/PaginationBarWithSearchParams/PaginationBarWithSearchParams";
 import Loading from "../../components/Loader/Loading";
+import AdminSubscriptionModal from "./AdminSubscriptionModal";
 
 export default function SubscriptionAdminPage() {
   if (!isUserLoggedIn()) return <Page404 />;
@@ -23,11 +27,14 @@ export default function SubscriptionAdminPage() {
     "rishabhs883@gmail.com",
     "career@engineerhub.in",
   ];
-  if (!allowedEmailIds.includes(getUserEmail().toLowerCase()))
-    return <Page404 />;
+  const userEmail = (getUserEmail() || "").toLowerCase();
+  const userRole = getUserRole() || "";
+  const isAllowed = allowedEmailIds.includes(userEmail) || userRole === "Admin";
+  if (!isAllowed) return <Page404 />;
 
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
+  const [isAdminModalOpen, setIsAdminModalOpen] = useState(false);
 
   const [pageCount, setPageCount] = useState(1);
   const pageNo = searchParams.get("pageNo");
@@ -134,11 +141,21 @@ export default function SubscriptionAdminPage() {
           <section>
             <div className="referral-table-title">
               <h1 className="body-lg-semibold">Check the latest subscriptions here</h1>
-              <PaginationBarWithSearchParams
-                className="m-0 referral-table-pagination-bar"
-                param="pageNo"
-                pages={pageCount}
-              />
+              <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
+                <button
+                  type="button"
+                  className="admin-subscription-trigger-btn"
+                  onClick={() => setIsAdminModalOpen(true)}
+                >
+                  <ShieldCheck size={16} />
+                  Admin Subscription
+                </button>
+                <PaginationBarWithSearchParams
+                  className="m-0 referral-table-pagination-bar"
+                  param="pageNo"
+                  pages={pageCount}
+                />
+              </div>
             </div>
 
             <div className="limit-container">
@@ -388,6 +405,15 @@ export default function SubscriptionAdminPage() {
           </section>
         </div>
       </main>
+
+      {/* Admin Subscription Override Modal */}
+      <AdminSubscriptionModal
+        isOpen={isAdminModalOpen}
+        onClose={() => setIsAdminModalOpen(false)}
+        onSuccess={() => {
+          subscriptionQuery.refetch();
+        }}
+      />
     </div>
   );
 }
