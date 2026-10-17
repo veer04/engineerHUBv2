@@ -11,7 +11,8 @@ import "./AdminSubscriptionModal.css";
 import { Helmet } from "react-helmet";
 import { IoIosInformationCircleOutline, IoMdCheckmark } from "react-icons/io";
 import { IoCloseCircleOutline } from "react-icons/io5";
-import { ShieldCheck } from "lucide-react";
+import { ShieldCheck, Trash2 } from "lucide-react";
+import { toast } from "react-toastify";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { PAYMENT_API_URL } from "../../services/APIUtils";
@@ -28,8 +29,7 @@ export default function SubscriptionAdminPage() {
     "career@engineerhub.in",
   ];
   const userEmail = (getUserEmail() || "").toLowerCase();
-  const userRole = getUserRole() || "";
-  const isAllowed = allowedEmailIds.includes(userEmail) || userRole === "Admin";
+  const isAllowed = allowedEmailIds.includes(userEmail);
   if (!isAllowed) return <Page404 />;
 
   const navigate = useNavigate();
@@ -49,6 +49,40 @@ export default function SubscriptionAdminPage() {
     headers: {
       accessToken: getAccessToken(),
     },
+  };
+
+  const [isDeletingId, setIsDeletingId] = useState(null);
+
+  const handleDeleteSubscription = async (id, name, email) => {
+    const confirmed = window.confirm(
+      `Are you sure you want to permanently delete this subscription record for "${name || email}"? This will clean up the record and reset any active plan credits to Free.`
+    );
+    if (!confirmed) return;
+
+    try {
+      setIsDeletingId(id);
+      const res = await axios.delete(
+        `${PAYMENT_API_URL}payment/admin/subscription/${id}`,
+        config
+      );
+      if (res.data?.success) {
+        toast.success(res.data.message || "Subscription record deleted successfully.", {
+          position: "top-right",
+        });
+        subscriptionQuery.refetch();
+      } else {
+        toast.error(res.data?.message || "Failed to delete subscription.", {
+          position: "top-right",
+        });
+      }
+    } catch (err) {
+      console.error("Delete subscription error:", err);
+      toast.error(err.response?.data?.message || "Failed to delete subscription record.", {
+        position: "top-right",
+      });
+    } finally {
+      setIsDeletingId(null);
+    }
   };
 
   const subscriptionQuery = useQuery({
@@ -397,6 +431,17 @@ export default function SubscriptionAdminPage() {
                         >
                           {content?.status || "Unknown"}
                         </span>
+
+                        {/* Admin Delete Action for cleaning up fake / invalid entries */}
+                        <button
+                          type="button"
+                          className="btn-delete-sub-record"
+                          title="Delete / Revoke invalid subscription record"
+                          onClick={() => handleDeleteSubscription(content._id, content.name, content.email)}
+                          disabled={isDeletingId === content._id}
+                        >
+                          <Trash2 size={13} />
+                        </button>
                       </div>
                     </div>
                   </Fragment>

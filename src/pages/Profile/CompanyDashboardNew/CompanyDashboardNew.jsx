@@ -81,6 +81,25 @@ const CompanyDashboardNew = () => {
           );
           const autoRenew = activeSubscription ? Boolean(activeSubscription.autoRenew) : false;
 
+          // Fresh plan tier credits allocation (Starter: 200, Ultra: 1500, Pro: 5000)
+          let planTierCredits = 0;
+          if (plan === "starter") planTierCredits = 200;
+          else if (plan === "ultra") planTierCredits = 1500;
+          else if (plan.includes("pro")) planTierCredits = 5000;
+
+          const isFree = plan === "free";
+          const planQuota = activeSubscription?.creditsAllocated || wallet.planCredits || planTierCredits || 0;
+          const creditsTotal = isFree ? 0 : planQuota;
+
+          // Latest refreshed available credits (capped at plan quota so unreset stale balances don't display as 400)
+          const rawAvailable = Number(wallet.availableCredits) || 0;
+          const creditsRemaining = isFree
+            ? 0
+            : (creditsTotal > 0 ? Math.min(rawAvailable, creditsTotal) : rawAvailable);
+
+          // Calculate credits used for this active cycle
+          const creditsUsed = isFree ? 0 : Math.max(0, creditsTotal - creditsRemaining);
+
           setSubscription({
             planId: plan,
             planName,
@@ -91,9 +110,9 @@ const CompanyDashboardNew = () => {
             autoRenew,
             startDate,
             expiresAt,
-            creditsTotal: Number(wallet.totalPurchased) || 0,
-            creditsUsed: Number(wallet.totalConsumed) || 0,
-            creditsRemaining: Number(wallet.availableCredits) || 0,
+            creditsTotal,
+            creditsUsed,
+            creditsRemaining,
             renewsInDays: expiresAt
               ? Math.max(0, Math.ceil((new Date(expiresAt) - new Date()) / (1000 * 60 * 60 * 24)))
               : 30,
@@ -313,7 +332,7 @@ const CompanyDashboardNew = () => {
       {isUserAdmin && (
         <SubscriptionInfoModal
           organizationId={organizationId}
-          onStatusChange={(newSub) => setSubscription(newSub)}
+          onStatusChange={setSubscription}
           hideFloatingTrigger={true}
         />
       )}

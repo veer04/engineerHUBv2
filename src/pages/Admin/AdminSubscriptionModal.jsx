@@ -6,6 +6,7 @@ import {
   X,
   Search,
   CheckCircle,
+  CheckCircle2,
   AlertTriangle,
   Sparkles,
   Calendar,
@@ -13,8 +14,11 @@ import {
   User,
   Building,
   RefreshCw,
+  Zap,
+  Clock,
+  Info,
 } from "lucide-react";
-import { API_URL, PAYMENT_API_URL } from "../../services/APIUtils";
+import { API_URL } from "../../services/APIUtils";
 import { getAccessToken } from "../../features/User/UserDetails";
 import "./AdminSubscriptionModal.css";
 
@@ -33,22 +37,25 @@ export default function AdminSubscriptionModal({ isOpen, onClose, onSuccess }) {
   const [isLookingUp, setIsLookingUp] = useState(false);
   const [accountInfo, setAccountInfo] = useState(null);
   const [lookupError, setLookupError] = useState("");
+  const [suggestedType, setSuggestedType] = useState(null);
 
   if (!isOpen) return null;
 
   const baseUrl = API_URL.endsWith("/") ? API_URL : `${API_URL}/`;
 
   // Quick lookup helper to verify account details
-  const handleLookup = async (emailToLookup) => {
+  const handleLookup = async (emailToLookup, typeToUse) => {
     const targetEmail = (emailToLookup || email).trim();
+    const type = typeToUse || accountType;
     if (!targetEmail) return;
 
     try {
       setIsLookingUp(true);
       setLookupError("");
+      setSuggestedType(null);
       const token = getAccessToken();
       const res = await axios.get(
-        `${baseUrl}api/v1/plans/admin/lookup-account?accountType=${accountType}&email=${encodeURIComponent(
+        `${baseUrl}api/v1/plans/admin/lookup-account?accountType=${type}&email=${encodeURIComponent(
           targetEmail
         )}`,
         {
@@ -61,16 +68,33 @@ export default function AdminSubscriptionModal({ isOpen, onClose, onSuccess }) {
 
       if (res.data?.success && res.data?.data) {
         if (res.data.data.exists) {
-          setAccountInfo(res.data.data.account);
+          const acc = res.data.data.account;
+          setAccountInfo({
+            ...acc,
+            warning: res.data.data.warning || null,
+          });
           setLookupError("");
+          setSuggestedType(null);
+
+          // If the account has an active or previous subscription plan, default the plan selection
+          if (
+            acc.currentPlan &&
+            acc.currentPlan !== "free" &&
+            ["starter", "ultra", "professional"].includes(acc.currentPlan.toLowerCase())
+          ) {
+            setPlanId(acc.currentPlan.toLowerCase());
+          }
         } else {
           setAccountInfo(null);
-          setLookupError(`No ${accountType} found with email "${targetEmail}".`);
+          setLookupError(res.data.data.warning || `No ${type} found with email "${targetEmail}".`);
+          setSuggestedType(res.data.data.suggestedAccountType || null);
         }
       }
     } catch (err) {
       console.error("Account lookup error:", err);
-      setLookupError("Failed to verify account. Please check email and try again.");
+      const msg = err.response?.data?.message || "Failed to verify account. Please check email and try again.";
+      setAccountInfo(null);
+      setLookupError(msg);
     } finally {
       setIsLookingUp(false);
     }
@@ -82,6 +106,39 @@ export default function AdminSubscriptionModal({ isOpen, onClose, onSuccess }) {
     if (!cleanEmail) {
       toast.error("Please enter a valid account email.", { position: "top-right" });
       return;
+    }
+
+    if (!accountInfo) {
+      toast.warning("Please click 'Verify' to validate this account before proceeding.", {
+        position: "top-right",
+      });
+      return;
+    }
+
+    if (lookupError) {
+      toast.error(lookupError, { position: "top-right" });
+      return;
+    }
+
+    if (status === "cancel_renewal") {
+      if (
+        accountInfo.isExpired ||
+        accountInfo.currentPlan === "free" ||
+        accountInfo.subscriptionState === "none"
+      ) {
+        toast.warning(
+          "This account does not currently have an active subscription to cancel auto-renewal.",
+          { position: "top-right" }
+        );
+        return;
+      }
+      if (accountInfo.autoRenew === false || accountInfo.cancelAtPeriodEnd) {
+        toast.info(
+          `Auto-renewal is already OFF for this account. Plan remains active until ${accountInfo.formattedExpiresAt}.`,
+          { position: "top-right" }
+        );
+        return;
+      }
     }
 
     try {
@@ -178,9 +235,14 @@ export default function AdminSubscriptionModal({ isOpen, onClose, onSuccess }) {
               className="admin-sub-select"
               value={accountType}
               onChange={(e) => {
-                setAccountType(e.target.value);
+                const newType = e.target.value;
+                setAccountType(newType);
                 setAccountInfo(null);
                 setLookupError("");
+                setSuggestedType(null);
+                if (email.trim()) {
+                  handleLookup(email, newType);
+                }
               }}
             >
               <option value="Alumni">Alumni Account</option>
@@ -195,12 +257,13 @@ export default function AdminSubscriptionModal({ isOpen, onClose, onSuccess }) {
               <input
                 type="email"
                 className="admin-sub-input"
-                placeholder={`Enter registered ${accountType.toLowerCase()} email`}
+                placeholder={`Enter registered ${accountType === "Alumni" ? "alumni" : "employer / organization"} email`}
                 value={email}
                 onChange={(e) => {
                   setEmail(e.target.value);
                   setAccountInfo(null);
                   setLookupError("");
+                  setSuggestedType(null);
                 }}
                 onBlur={() => {
                   if (email.trim() && !accountInfo) {
@@ -224,46 +287,254 @@ export default function AdminSubscriptionModal({ isOpen, onClose, onSuccess }) {
           {/* Account Lookup Preview Card */}
           {accountInfo && (
             <div className="admin-sub-account-preview">
+              {/* Header: Name, Account Type Pill, Dynamic Status Badge */}
               <div className="admin-sub-preview-header">
-                <span className="admin-sub-preview-name">{accountInfo.name}</span>
-                <span
-                  className={`admin-sub-preview-status-badge ${
-                    accountInfo.subscriptionState === "active"
-                      ? "active"
-                      : accountInfo.subscriptionState === "expired"
-                      ? "expired"
-                      : "none"
-                  }`}
-                >
-                  {accountInfo.subscriptionState === "active"
-                    ? "Active Plan"
-                    : accountInfo.subscriptionState === "expired"
-                    ? "Expired"
-                    : "No Active Plan"}
-                </span>
-              </div>
-              <div className="admin-sub-preview-details">
-                <span>
-                  <strong>Current:</strong> {accountInfo.currentPlan.toUpperCase()}
-                </span>
-                <span>
-                  <strong>Credits:</strong> {accountInfo.credits}
-                </span>
-                {accountInfo.expiresAt && (
-                  <span>
-                    <strong>Expires:</strong>{" "}
-                    {new Date(accountInfo.expiresAt).toLocaleDateString("en-IN")}
+                <div className="admin-sub-preview-user-info">
+                  <span className="admin-sub-preview-name">{accountInfo.name}</span>
+                  <span className="admin-sub-preview-type-pill">
+                    {accountInfo.accountType === "Organization" ? (
+                      <Building size={12} />
+                    ) : (
+                      <User size={12} />
+                    )}
+                    {accountInfo.accountType} Profile
                   </span>
-                )}
+                </div>
+
+                <div style={{ display: "flex", alignItems: "center", gap: "0.45rem", flexWrap: "wrap" }}>
+                  <div
+                    className={`admin-sub-preview-status-badge ${
+                      accountInfo.statusBadgeType ||
+                      (accountInfo.subscriptionState === "active"
+                        ? "active"
+                        : accountInfo.subscriptionState === "expiring_soon"
+                        ? "expiring"
+                        : accountInfo.subscriptionState === "cancellation_scheduled"
+                        ? "cancelling"
+                        : accountInfo.subscriptionState === "expired"
+                        ? "expired"
+                        : "none")
+                    }`}
+                  >
+                    {accountInfo.statusBadgeType === "active" && <CheckCircle2 size={12} />}
+                    {(accountInfo.statusBadgeType === "expiring_soon" ||
+                      accountInfo.subscriptionState === "expiring_soon") && <Clock size={12} />}
+                    {(accountInfo.statusBadgeType === "cancelling" ||
+                      accountInfo.subscriptionState === "cancellation_scheduled") && (
+                      <AlertTriangle size={12} />
+                    )}
+                    {accountInfo.statusBadgeType === "expired" && <AlertTriangle size={12} />}
+                    <span>
+                      {accountInfo.statusBadgeText ||
+                        (accountInfo.subscriptionState === "active"
+                          ? "Active Plan"
+                          : accountInfo.subscriptionState === "expired"
+                          ? "Expired"
+                          : "Free Tier")}
+                    </span>
+                  </div>
+
+                  {/* Auto-Renew ON/OFF Indicator Badge */}
+                  {accountInfo.currentPlan !== "free" && !accountInfo.isExpired && (
+                    <div
+                      className={`admin-sub-autorenew-pill ${
+                        accountInfo.autoRenew ? "autorenew-on" : "autorenew-off"
+                      }`}
+                      title={
+                        accountInfo.autoRenew
+                          ? "Auto-renewal is active. Plan will renew automatically."
+                          : "Auto-renewal is cancelled (OFF). Plan will expire on expiry date."
+                      }
+                    >
+                      {accountInfo.autoRenew ? (
+                        <>
+                          <RefreshCw size={11} className="spin-slow" />
+                          <span>Auto-Renew: ON</span>
+                        </>
+                      ) : (
+                        <>
+                          <X size={11} />
+                          <span>Auto-Renew: OFF</span>
+                        </>
+                      )}
+                    </div>
+                  )}
+                </div>
               </div>
+
+              {/* 3 Metric Stats Grid */}
+              <div className="admin-sub-stats-grid">
+                {/* 1. Current Plan */}
+                <div className="admin-sub-stat-card highlight">
+                  <span className="admin-sub-stat-label">
+                    <Sparkles size={13} color="#0e7490" /> Current Plan
+                  </span>
+                  <span className="admin-sub-stat-val">
+                    {accountInfo.planName || accountInfo.currentPlan?.toUpperCase() || "FREE"}
+                  </span>
+                  <span className="admin-sub-stat-sub">
+                    {accountInfo.currentPlan !== "free" &&
+                    accountInfo.subscriptionState !== "expired"
+                      ? accountInfo.billingCycle === "annual"
+                        ? "Billed Annually"
+                        : "Monthly Billing"
+                      : accountInfo.previousPlan
+                      ? `Previously: ${accountInfo.previousPlan.toUpperCase()}`
+                      : "Default Free Tier"}
+                  </span>
+                </div>
+
+                {/* 2. Credits Left */}
+                <div className="admin-sub-stat-card">
+                  <span className="admin-sub-stat-label">
+                    <Zap size={13} color="#059669" /> Credit Left
+                  </span>
+                  <span
+                    className={`admin-sub-stat-val ${
+                      accountInfo.isExpired ||
+                      (accountInfo.availableCredits ?? accountInfo.credits ?? 0) === 0
+                        ? ""
+                        : "green"
+                    }`}
+                  >
+                    {(
+                      accountInfo.availableCredits ??
+                      accountInfo.credits ??
+                      0
+                    ).toLocaleString()}{" "}
+                    AI
+                  </span>
+                  <span className="admin-sub-stat-sub">
+                    {accountInfo.isExpired
+                      ? "Reset on expiration"
+                      : `${(accountInfo.creditsUsed ?? 0).toLocaleString()} used / ${(
+                          accountInfo.planCredits ??
+                          accountInfo.totalPurchasedCredits ??
+                          accountInfo.credits ??
+                          0
+                        ).toLocaleString()} total`}
+                  </span>
+                </div>
+
+                {/* 3. Expiry / Renewal Date */}
+                <div className="admin-sub-stat-card">
+                  <span className="admin-sub-stat-label">
+                    <Calendar size={13} color="#d97706" /> Renewal / Expiry
+                  </span>
+                  <span
+                    className={`admin-sub-stat-val ${
+                      accountInfo.isExpired
+                        ? "red"
+                        : accountInfo.isExpiringSoon
+                        ? "amber"
+                        : ""
+                    }`}
+                  >
+                    {accountInfo.formattedExpiresAt ||
+                      (accountInfo.expiresAt
+                        ? new Date(accountInfo.expiresAt).toLocaleDateString("en-IN")
+                        : "No Expiry")}
+                  </span>
+                  <span className="admin-sub-stat-sub">
+                    {accountInfo.isExpired ? (
+                      "Subscription Ended"
+                    ) : accountInfo.daysRemaining !== null &&
+                      accountInfo.daysRemaining !== undefined ? (
+                      <span>
+                        {accountInfo.daysRemaining === 0
+                          ? "Expires today"
+                          : `${accountInfo.daysRemaining}d left`}
+                        {" • Auto-Renew: "}
+                        <strong
+                          style={{
+                            color: accountInfo.autoRenew ? "#047857" : "#c2410c",
+                            fontWeight: 700,
+                          }}
+                        >
+                          {accountInfo.autoRenew ? "ON" : "OFF"}
+                        </strong>
+                      </span>
+                    ) : (
+                      "Free plan"
+                    )}
+                  </span>
+                </div>
+              </div>
+
+              {/* Status Alert Notices */}
+              {accountInfo.isExpiringSoon && !accountInfo.isExpired && (
+                <div className="admin-sub-stat-notice warning">
+                  <Clock size={15} style={{ flexShrink: 0 }} />
+                  <span>
+                    <strong>Expiring Soon:</strong> This client's plan will expire in{" "}
+                    <strong>{accountInfo.daysRemaining} days</strong> (
+                    {accountInfo.formattedExpiresAt}). Renew or change plan below.
+                  </span>
+                </div>
+              )}
+
+              {accountInfo.isExpired && (
+                <div className="admin-sub-stat-notice danger">
+                  <AlertTriangle size={15} style={{ flexShrink: 0 }} />
+                  <span>
+                    <strong>Expired:</strong> Subscription expired on{" "}
+                    <strong>{accountInfo.formattedExpiresAt}</strong>. Account is now on Free
+                    tier.
+                  </span>
+                </div>
+              )}
+
+              {accountInfo.subscriptionState === "cancellation_scheduled" &&
+                !accountInfo.isExpired && (
+                  <div className="admin-sub-stat-notice info">
+                    <Info size={15} style={{ flexShrink: 0 }} />
+                    <span>
+                      <strong>Cancellation Scheduled:</strong> Auto-renewal is cancelled. Plan
+                      remains active until <strong>{accountInfo.formattedExpiresAt}</strong>.
+                    </span>
+                  </div>
+                )}
+
+              {accountInfo.warning && (
+                <div className="admin-sub-warning-banner">
+                  <AlertTriangle size={15} style={{ flexShrink: 0, marginTop: "1px" }} />
+                  <span>{accountInfo.warning}</span>
+                </div>
+              )}
             </div>
           )}
 
           {lookupError && (
             <div className="admin-sub-account-preview not-found">
-              <span style={{ color: "#b45309", fontSize: "0.82rem", fontWeight: 600 }}>
-                {lookupError}
-              </span>
+              <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+                <div style={{ display: "flex", alignItems: "flex-start", gap: "8px" }}>
+                  <AlertTriangle size={17} color="#b45309" style={{ flexShrink: 0, marginTop: "2px" }} />
+                  <span style={{ color: "#92400e", fontSize: "0.825rem", fontWeight: 600, lineHeight: 1.4 }}>
+                    {lookupError}
+                  </span>
+                </div>
+                {suggestedType && (
+                  <button
+                    type="button"
+                    className="admin-sub-switch-btn"
+                    onClick={() => {
+                      const nextType = suggestedType;
+                      setAccountType(nextType);
+                      setLookupError("");
+                      setSuggestedType(null);
+                      handleLookup(email, nextType);
+                    }}
+                  >
+                    Switch to {suggestedType} Account & Verify
+                  </button>
+                )}
+              </div>
+            </div>
+          )}
+
+          {!accountInfo && !lookupError && email.trim() && (
+            <div style={{ fontSize: "0.8rem", color: "#64748b", fontStyle: "italic" }}>
+              Click <strong>Verify</strong> to check account profile type before updating subscription.
             </div>
           )}
 
@@ -277,15 +548,20 @@ export default function AdminSubscriptionModal({ isOpen, onClose, onSuccess }) {
               className="admin-sub-select"
               value={planId}
               onChange={(e) => setPlanId(e.target.value)}
-              disabled={status === "expired"}
+              disabled={status === "expired" || status === "cancel_renewal"}
             >
               <option value="starter">Starter Plan (200 AI Credits • ₹99)</option>
               <option value="ultra">Ultra Plan (1,500 AI Credits • ₹999)</option>
               <option value="professional">Professional Plan (10,000 AI Credits • ₹4,999)</option>
             </select>
+            {status === "cancel_renewal" && (
+              <span style={{ fontSize: "0.75rem", color: "#64748b", marginTop: "4px" }}>
+                Cancelling auto-renewal applies to the current active plan ({accountInfo?.planName || planId.toUpperCase()}).
+              </span>
+            )}
           </div>
 
-          {/* 4. Plan Action / Status Dropdown (Active, Expired) */}
+          {/* 4. Plan Action / Status Dropdown (Active, Cancel Auto-Renew, Expired) */}
           <div className="admin-sub-form-group">
             <label className="admin-sub-label">
               <CreditCard size={15} />
@@ -297,6 +573,7 @@ export default function AdminSubscriptionModal({ isOpen, onClose, onSuccess }) {
               onChange={(e) => setStatus(e.target.value)}
             >
               <option value="active">Active (Assign / Renew Plan)</option>
+              <option value="cancel_renewal">Cancel the auto renew (Stays valid until expiry, no renewal)</option>
               <option value="expired">Expired (Make Current Plan Expire)</option>
             </select>
           </div>
@@ -316,6 +593,17 @@ export default function AdminSubscriptionModal({ isOpen, onClose, onSuccess }) {
                 <option value="monthly">Monthly Cycle (30 Days)</option>
                 <option value="annual">Annual Cycle (365 Days)</option>
               </select>
+            </div>
+          )}
+
+          {/* Contextual Notice for Cancel Auto-Renew */}
+          {status === "cancel_renewal" && (
+            <div className="admin-sub-action-notice cancel-renewal-notice">
+              <Clock size={16} style={{ flexShrink: 0, marginTop: "2px" }} />
+              <span>
+                <strong>Cancel Auto-Renewal:</strong> Current plan and remaining AI credits will stay active until{" "}
+                <strong>{accountInfo?.formattedExpiresAt || "the expiration date"}</strong>, but the plan will NOT renew automatically.
+              </span>
             </div>
           )}
 
@@ -341,8 +629,19 @@ export default function AdminSubscriptionModal({ isOpen, onClose, onSuccess }) {
             </button>
             <button
               type="submit"
-              className="admin-sub-submit-btn"
-              disabled={isSubmitting || !email.trim()}
+              className={`admin-sub-submit-btn ${
+                status === "expired"
+                  ? "expire"
+                  : status === "cancel_renewal"
+                  ? "cancel-renewal"
+                  : "active"
+              }`}
+              disabled={isSubmitting || isLookingUp || !accountInfo || Boolean(lookupError)}
+              title={
+                !accountInfo || lookupError
+                  ? "Verify a valid matching account to enable"
+                  : undefined
+              }
             >
               {isSubmitting ? (
                 <>
@@ -351,6 +650,8 @@ export default function AdminSubscriptionModal({ isOpen, onClose, onSuccess }) {
                 </>
               ) : status === "expired" ? (
                 "Expire Plan Now"
+              ) : status === "cancel_renewal" ? (
+                "Cancel Auto-Renewal Now"
               ) : (
                 "Activate / Renew Plan"
               )}

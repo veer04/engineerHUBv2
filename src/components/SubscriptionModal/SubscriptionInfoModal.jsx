@@ -1,11 +1,10 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
 import {
   Info,
   Calendar,
-  ShieldCheck,
   AlertCircle,
   CheckCircle2,
   Clock,
@@ -49,14 +48,19 @@ export default function SubscriptionInfoModal({
   const [isCancelling, setIsCancelling] = useState(false);
   const [subscription, setSubscription] = useState(null);
 
+  const onStatusChangeRef = useRef(onStatusChange);
+  useEffect(() => {
+    onStatusChangeRef.current = onStatusChange;
+  }, [onStatusChange]);
+
   // Security & Permissions Check:
-  // Must be logged in, must be Organization or Alumni, and if organizationId is passed, must match current user.
+  // Must be logged in, must be Organization/Employer or Alumni, and if organizationId is passed, must match current user.
   const loggedIn = isUserLoggedIn();
   const currentUserId = loggedIn ? getUserId() : null;
   const role = loggedIn ? getUserRole() : null;
   const isAuthorizedAdmin =
     loggedIn &&
-    (role === "Organization" || role === "Alumni") &&
+    (role === "Organization" || role === "Alumni" || role === "Employer" || role === "Company") &&
     (!organizationId || organizationId === currentUserId);
 
   const baseUrl = API_URL.endsWith("/") ? API_URL : `${API_URL}/`;
@@ -123,6 +127,25 @@ export default function SubscriptionInfoModal({
           ? Boolean(activeSubscription.autoRenew)
           : false;
 
+        // Fresh plan tier credits allocation (Starter: 200, Ultra: 1500, Pro: 5000)
+        let planTierCredits = 0;
+        if (plan === "starter") planTierCredits = 200;
+        else if (plan === "ultra") planTierCredits = 1500;
+        else if (plan.includes("pro")) planTierCredits = 5000;
+
+        const isFree = plan === "free";
+        const planQuota = activeSubscription?.creditsAllocated || wallet.planCredits || planTierCredits || 0;
+        const creditsTotal = isFree ? 0 : planQuota;
+
+        // Latest refreshed available credits (capped at plan quota so unreset stale balances don't display as 400)
+        const rawAvailable = Number(wallet.availableCredits) || 0;
+        const creditsRemaining = isFree
+          ? 0
+          : (creditsTotal > 0 ? Math.min(rawAvailable, creditsTotal) : rawAvailable);
+
+        // Calculate credits used for this active cycle
+        const creditsUsed = isFree ? 0 : Math.max(0, creditsTotal - creditsRemaining);
+
         const dataObj = {
           planId: plan,
           planName,
@@ -136,15 +159,15 @@ export default function SubscriptionInfoModal({
           formattedStartDate,
           formattedExpiryDate,
           renewsInDays,
-          creditsTotal: Number(wallet.totalPurchased) || 0,
-          creditsUsed: Number(wallet.totalConsumed) || 0,
-          creditsRemaining: Number(wallet.availableCredits) || 0,
+          creditsTotal,
+          creditsUsed,
+          creditsRemaining,
           rawSub: sub,
         };
 
         setSubscription(dataObj);
-        if (onStatusChange) {
-          onStatusChange(dataObj);
+        if (onStatusChangeRef.current) {
+          onStatusChangeRef.current(dataObj);
         }
       }
     } catch (err) {
@@ -152,7 +175,7 @@ export default function SubscriptionInfoModal({
     } finally {
       setIsLoading(false);
     }
-  }, [baseUrl, onStatusChange]);
+  }, [baseUrl, isAuthorizedAdmin]);
 
   useEffect(() => {
     fetchSubscription();
@@ -545,7 +568,6 @@ export default function SubscriptionInfoModal({
                       type="button"
                       className="btn-cancel-renewal-trigger"
                       onClick={() => setShowConfirm(true)}
-                      disabled={isLoading}
                     >
                       Cancel Auto-Renewal
                     </button>
